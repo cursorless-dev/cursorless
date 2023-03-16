@@ -6,29 +6,45 @@ command:
     - type: range
       anchor:
         type: primitive
-        mark: {type: cursor}
+        mark: { type: cursor }
       active:
         type: primitive
         modifiers:
-          - {type: position, position: start}
+          - { type: position, position: start }
           - type: containingScope
-            scopeType: {type: token}
+            scopeType: { type: token }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: hello there
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   marks: {}
 finalState:
   documentContents: "hello "
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: []}, active: {type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}], positionModifier: {type: position, position: start}}}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor: { type: primitive, mark: { type: cursor }, modifiers: [] },
+      active:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          modifiers: [{ type: containingScope, scopeType: { type: token } }],
+          positionModifier: { type: position, position: start },
+        },
+    },
+  ]
 ide:
   messages:
-    - {type: warning, id: deprecatedPositionInference}
+    - { type: warning, id: deprecatedPositionInference }

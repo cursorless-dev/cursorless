@@ -5,18 +5,33 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+      modifier: { type: surroundingPair, delimiter: any }
+      mark: { type: decoratedSymbol, symbolColor: default, character: ( }
 initialState:
   documentContents: |
     [(hello)  (whatever)]
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
 finalState:
   documentContents: |
     [  (whatever)]
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: (}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: null, delimiterInclusion: includeDelimiters}}]
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: ( },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: null,
+          delimiterInclusion: includeDelimiters,
+        },
+    },
+  ]

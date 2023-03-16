@@ -6,32 +6,39 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: unit}
+          scopeType: { type: unit }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     div {
         padding: 25px 50px 75px 100px;
     }
-      
+
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
     div {
         padding: 25 50 75 100;
     }
-      
+
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
-    - anchor: {line: 1, character: 18}
-      active: {line: 1, character: 18}
-    - anchor: {line: 1, character: 21}
-      active: {line: 1, character: 21}
-    - anchor: {line: 1, character: 25}
-      active: {line: 1, character: 25}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: unit}}]}]
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 15 }
+    - anchor: { line: 1, character: 18 }
+      active: { line: 1, character: 18 }
+    - anchor: { line: 1, character: 21 }
+      active: { line: 1, character: 21 }
+    - anchor: { line: 1, character: 25 }
+      active: { line: 1, character: 25 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: unit } }],
+    },
+  ]

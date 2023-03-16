@@ -5,20 +5,33 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      modifier:
+        { type: containingScope, scopeType: list, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: "1" }
 initialState:
   documentContents: let x = [1, 2, 3];
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: { line: 0, character: 18 }
+      active: { line: 0, character: 18 }
   marks:
     default.1:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 10}
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 10 }
 finalState:
   documentContents: let x =;
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '1'}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: list, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: "1" },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: list, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

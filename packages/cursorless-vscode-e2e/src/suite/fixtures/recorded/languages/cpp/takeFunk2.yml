@@ -5,16 +5,26 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction}
+      modifier: { type: containingScope, scopeType: namedFunction }
 initialState:
   documentContents: int f(int a, int b);
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }
   marks: {}
 finalState:
   documentContents: int f(int a, int b);
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 20}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: namedFunction}, insideOutsideType: inside}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 20 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: namedFunction },
+      insideOutsideType: inside,
+    },
+  ]

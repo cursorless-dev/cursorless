@@ -6,32 +6,57 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalRange
-          scopeType: {type: character}
+          scopeType: { type: character }
           anchor: 0
           active: 0
           excludeAnchor: false
           excludeActive: false
         - type: ordinalRange
-          scopeType: {type: word}
+          scopeType: { type: word }
           anchor: 1
           active: 1
           excludeAnchor: false
           excludeActive: false
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: helloWorld
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
   marks:
     default.h:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 10}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 10 }
 finalState:
   documentContents: helloorld
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: ordinalRange, scopeType: {type: character}, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}, {type: ordinalRange, scopeType: {type: word}, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}]}]
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      modifiers:
+        [
+          {
+            type: ordinalRange,
+            scopeType: { type: character },
+            anchor: 0,
+            active: 0,
+            excludeAnchor: false,
+            excludeActive: false,
+          },
+          {
+            type: ordinalRange,
+            scopeType: { type: word },
+            anchor: 1,
+            active: 1,
+            excludeAnchor: false,
+            excludeActive: false,
+          },
+        ],
+    },
+  ]

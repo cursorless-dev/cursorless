@@ -4,22 +4,22 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: that}
+      mark: { type: that }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+  action: { name: editNewLineAfter }
 initialState:
   documentContents: |+
     hello world
 
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 6}
-        end: {line: 0, character: 6}
+        start: { line: 0, character: 6 }
+        end: { line: 0, character: 6 }
       isReversed: false
       hasExplicitRange: false
 finalState:
@@ -28,6 +28,6 @@ finalState:
 
 
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: []}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets: [{ type: primitive, mark: { type: that }, modifiers: [] }]

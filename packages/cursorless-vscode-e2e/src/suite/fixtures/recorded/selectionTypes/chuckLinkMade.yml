@@ -6,22 +6,33 @@ command:
   targets:
     - type: primitive
       selectionType: url
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
 initialState:
   documentContents: >
     https://www.atomiccommits.io/consistent-hashing
     https://www.atomiccommits.io/consistent-hashing#code
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     default.m:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 25}
+      start: { line: 0, character: 12 }
+      end: { line: 0, character: 25 }
 finalState:
   documentContents: |
     https://www.atomiccommits.io/consistent-hashing#code
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: url, position: contents, insideOutsideType: outside, modifier: {type: identity}, isImplicit: false}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      selectionType: url,
+      position: contents,
+      insideOutsideType: outside,
+      modifier: { type: identity },
+      isImplicit: false,
+    },
+  ]

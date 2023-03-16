@@ -5,16 +5,27 @@ command:
   action: remove
   targets:
     - type: primitive
-      mark: {type: nothing}
+      mark: { type: nothing }
 initialState:
   documentContents: hello world
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
   marks: {}
 finalState:
   documentContents: hello world
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: nothing}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: identity}, isImplicit: false}]
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: nothing },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier: { type: identity },
+      isImplicit: false,
+    },
+  ]

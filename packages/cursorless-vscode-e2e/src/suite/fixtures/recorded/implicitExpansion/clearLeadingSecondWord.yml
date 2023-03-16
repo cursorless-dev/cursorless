@@ -5,20 +5,38 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: leading}
+        - { type: leading }
         - type: ordinalRange
-          scopeType: {type: word}
+          scopeType: { type: word }
           anchor: 1
           active: 1
           excludeAnchor: false
           excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: helloWorld
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: leading}, {type: ordinalRange, scopeType: {type: word}, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}]}]
-thrownError: {name: NoDelimiterError}
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          { type: leading },
+          {
+            type: ordinalRange,
+            scopeType: { type: word },
+            anchor: 1,
+            active: 1,
+            excludeAnchor: false,
+            excludeActive: false,
+          },
+        ],
+    },
+  ]
+thrownError: { name: NoDelimiterError }

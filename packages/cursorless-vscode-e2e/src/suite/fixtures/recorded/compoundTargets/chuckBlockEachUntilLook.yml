@@ -6,17 +6,17 @@ command:
     - type: range
       anchor:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+        mark: { type: decoratedSymbol, symbolColor: default, character: e }
         modifiers:
           - type: containingScope
-            scopeType: {type: paragraph}
+            scopeType: { type: paragraph }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: l}
+        mark: { type: decoratedSymbol, symbolColor: default, character: l }
       excludeAnchor: false
       excludeActive: true
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |-
     hello there
@@ -25,23 +25,44 @@ initialState:
 
         hello there
         hello there
-            hello 
+            hello
   selections:
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
+    - anchor: { line: 4, character: 9 }
+      active: { line: 4, character: 9 }
   marks:
     default.e:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+      start: { line: 1, character: 6 }
+      end: { line: 1, character: 11 }
     default.l:
-      start: {line: 4, character: 4}
-      end: {line: 4, character: 9}
+      start: { line: 4, character: 4 }
+      end: { line: 4, character: 9 }
 finalState:
   documentContents: |2-
         hello there
         hello there
-            hello 
+            hello
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: paragraph}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: *ref_0}}]
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: true,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: e },
+          modifiers:
+            &ref_0 [{ type: containingScope, scopeType: { type: paragraph } }],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: l },
+          modifiers: *ref_0,
+        },
+    },
+  ]

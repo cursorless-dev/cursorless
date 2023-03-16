@@ -5,15 +5,20 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: anonymousFunction,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     <?php
 
     $myFunc = fn() => 'Hello world';
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: { line: 2, character: 25 }
+      active: { line: 2, character: 25 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +26,22 @@ finalState:
 
     $myFunc = ;
   selections:
-    - anchor: {line: 2, character: 10}
-      active: {line: 2, character: 10}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 2, character: 10 }
+      active: { line: 2, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: anonymousFunction,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

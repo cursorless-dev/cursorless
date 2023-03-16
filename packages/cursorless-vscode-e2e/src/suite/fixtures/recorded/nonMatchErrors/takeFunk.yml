@@ -5,13 +5,34 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |2
-      [1, 2, 3, [4, 5, 6]] 
+      [1, 2, 3, [4, 5, 6]]
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
-thrownError: {name: NoContainingScopeError}
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]
+thrownError: { name: NoContainingScopeError }

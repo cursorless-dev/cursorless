@@ -5,11 +5,11 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
+        - { type: interiorOnly }
         - type: containingScope
-          scopeType: {type: xmlElement}
+          scopeType: { type: xmlElement }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     <div>
@@ -17,15 +17,26 @@ initialState:
         <span>bbb</span>
     </div>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
     <div>
-        
+
     </div>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: interiorOnly}, {type: containingScope, scopeType: {type: xmlElement}}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          { type: interiorOnly },
+          { type: containingScope, scopeType: { type: xmlElement } },
+        ],
+    },
+  ]

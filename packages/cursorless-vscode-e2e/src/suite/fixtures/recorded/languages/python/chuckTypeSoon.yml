@@ -5,24 +5,36 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: s }
 initialState:
   documentContents: |-
     def my_funk(value: str) -> str:
         pass
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 8 }
   marks:
     default.s:
-      start: {line: 0, character: 19}
-      end: {line: 0, character: 22}
+      start: { line: 0, character: 19 }
+      end: { line: 0, character: 22 }
 finalState:
   documentContents: |-
     def my_funk(value) -> str:
         pass
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: s },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+    },
+  ]

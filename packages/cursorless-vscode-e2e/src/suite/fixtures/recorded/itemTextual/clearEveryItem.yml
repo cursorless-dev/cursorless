@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     [
@@ -17,8 +17,8 @@ initialState:
         222,
     ]
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
@@ -28,10 +28,17 @@ finalState:
         ,
     ]
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+    - anchor: { line: 3, character: 4 }
+      active: { line: 3, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: everyScope, scopeType: { type: collectionItem } }],
+    },
+  ]

@@ -5,20 +5,30 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type}
+      modifier: { type: containingScope, scopeType: type }
 initialState:
   documentContents: |
 
     String value = "hello world";
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 15 }
   marks: {}
 finalState:
   documentContents: |
 
     String value = "hello world";
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: type}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: type },
+      insideOutsideType: inside,
+    },
+  ]

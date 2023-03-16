@@ -8,32 +8,62 @@ command:
         type: primitive
         modifiers:
           - type: ordinalRange
-            scopeType: {type: word}
+            scopeType: { type: word }
             anchor: 0
             active: 0
             excludeAnchor: false
             excludeActive: false
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+        mark: { type: decoratedSymbol, symbolColor: default, character: t }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     helloWorld
     testingThere
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }
   marks:
     default.t:
-      start: {line: 1, character: 0}
-      end: {line: 1, character: 12}
+      start: { line: 1, character: 0 }
+      end: { line: 1, character: 12 }
 finalState:
   documentContents: There
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: [&ref_0 {type: ordinalRange, scopeType: {type: word}, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [*ref_0]}}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          modifiers:
+            [
+              &ref_0 {
+                type: ordinalRange,
+                scopeType: { type: word },
+                anchor: 0,
+                active: 0,
+                excludeAnchor: false,
+                excludeActive: false,
+              },
+            ],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: t },
+          modifiers: [*ref_0],
+        },
+    },
+  ]

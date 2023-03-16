@@ -6,16 +6,16 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+  action: { name: editNewLineAfter }
 initialState:
   documentContents: |-
     - Testing
     - Another test
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
   marks: {}
 finalState:
   documentContents: |-
@@ -23,6 +23,14 @@ finalState:
 
     - Another test
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

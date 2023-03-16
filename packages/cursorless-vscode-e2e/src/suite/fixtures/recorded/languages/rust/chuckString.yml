@@ -5,15 +5,15 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: string}
+      modifier: { type: surroundingPair, delimiter: string }
 initialState:
   documentContents: |-
     fn main() {
         println!("Hello, world!");
     }
   selections:
-    - anchor: {line: 1, character: 25}
-      active: {line: 1, character: 25}
+    - anchor: { line: 1, character: 25 }
+      active: { line: 1, character: 25 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +21,17 @@ finalState:
         println!();
     }
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: surroundingPair, delimiter: string}, isImplicit: false}]
+    - anchor: { line: 1, character: 13 }
+      active: { line: 1, character: 13 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier: { type: surroundingPair, delimiter: string },
+      isImplicit: false,
+    },
+  ]

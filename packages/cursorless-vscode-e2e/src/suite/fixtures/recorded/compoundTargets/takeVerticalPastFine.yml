@@ -5,10 +5,10 @@ command:
   action: setSelection
   targets:
     - type: range
-      start: {type: primitive}
+      start: { type: primitive }
       end:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        mark: { type: decoratedSymbol, symbolColor: default, character: f }
       excludeStart: false
       excludeEnd: false
       rangeType: vertical
@@ -20,12 +20,12 @@ initialState:
     d   e
     f   g
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 1 }
+      active: { line: 2, character: 0 }
   marks:
     default.f:
-      start: {line: 4, character: 0}
-      end: {line: 4, character: 1}
+      start: { line: 4, character: 0 }
+      end: { line: 4, character: 1 }
 finalState:
   documentContents: |
     a
@@ -34,10 +34,36 @@ finalState:
     d   e
     f   g
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 0}
-    - anchor: {line: 3, character: 1}
-      active: {line: 3, character: 0}
-    - anchor: {line: 4, character: 1}
-      active: {line: 4, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: vertical, anchor: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]
+    - anchor: { line: 2, character: 1 }
+      active: { line: 2, character: 0 }
+    - anchor: { line: 3, character: 1 }
+      active: { line: 3, character: 0 }
+    - anchor: { line: 4, character: 1 }
+      active: { line: 4, character: 0 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: vertical,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: f },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+    },
+  ]

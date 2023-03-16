@@ -5,18 +5,19 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: trailing}
+        - { type: trailing }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: aaa bbb ccc
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks: {}
 finalState:
   documentContents: aaa bbbccc
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: trailing}]}]
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }
+fullTargets:
+  [{ type: primitive, mark: { type: cursor }, modifiers: [{ type: trailing }] }]

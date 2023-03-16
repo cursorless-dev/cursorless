@@ -8,38 +8,95 @@ command:
       start:
         type: primitive
         selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 3, active: 3, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        modifier:
+          {
+            type: subpiece,
+            pieceType: character,
+            anchor: 3,
+            active: 3,
+            excludeAnchor: false,
+            excludeActive: false,
+          }
+        mark: { type: decoratedSymbol, symbolColor: default, character: w }
       end:
         type: primitive
         selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        modifier:
+          {
+            type: subpiece,
+            pieceType: character,
+            anchor: 2,
+            active: 2,
+            excludeAnchor: false,
+            excludeActive: false,
+          }
+        mark: { type: decoratedSymbol, symbolColor: default, character: a }
       excludeStart: false
       excludeEnd: false
 marksToCheck: [default.w]
 initialState:
   documentContents: hello world whatever
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: { line: 0, character: 20 }
+      active: { line: 0, character: 20 }
   marks:
     default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 11 }
     default.a:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 20}
+      start: { line: 0, character: 12 }
+      end: { line: 0, character: 20 }
 finalState:
   documentContents: hello wortever
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: { line: 0, character: 14 }
+      active: { line: 0, character: 14 }
   marks:
     default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 9}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 9 }
     default.a:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 14}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 3, active: 3, excludeAnchor: false, excludeActive: false}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}}]
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 14 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: w },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: outside,
+          modifier:
+            {
+              type: subpiece,
+              pieceType: character,
+              anchor: 3,
+              active: 3,
+              excludeAnchor: false,
+              excludeActive: false,
+            },
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: a },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: outside,
+          modifier:
+            {
+              type: subpiece,
+              pieceType: character,
+              anchor: 2,
+              active: 2,
+              excludeAnchor: false,
+              excludeActive: false,
+            },
+        },
+    },
+  ]

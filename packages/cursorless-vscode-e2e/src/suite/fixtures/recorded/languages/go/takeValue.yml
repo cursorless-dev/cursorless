@@ -5,16 +5,28 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
-  documentContents: " x := map[string]string{\"a\": \"b\", \"c\": \"d\"}"
+  documentContents: ' x := map[string]string{"a": "b", "c": "d"}'
   selections:
-    - anchor: {line: 0, character: 26}
-      active: {line: 0, character: 26}
+    - anchor: { line: 0, character: 26 }
+      active: { line: 0, character: 26 }
   marks: {}
 finalState:
-  documentContents: " x := map[string]string{\"a\": \"b\", \"c\": \"d\"}"
+  documentContents: ' x := map[string]string{"a": "b", "c": "d"}'
   selections:
-    - anchor: {line: 0, character: 29}
-      active: {line: 0, character: 32}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}}]
+    - anchor: { line: 0, character: 29 }
+      active: { line: 0, character: 32 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+    },
+  ]

@@ -4,9 +4,9 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: that}
+      mark: { type: that }
       modifiers:
-        - {type: position, position: after}
+        - { type: position, position: after }
   usePrePhraseSnapshot: true
   action:
     name: insertSnippet
@@ -17,14 +17,14 @@ initialState:
         const hello = "world";
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 10}
-        end: {line: 1, character: 15}
+        start: { line: 1, character: 10 }
+        end: { line: 1, character: 15 }
       isReversed: false
       hasExplicitRange: true
 finalState:
@@ -34,9 +34,17 @@ finalState:
     }
 
     function () {
-        
+
     }
   selections:
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [], positionModifier: {type: position, position: after}}]
+    - anchor: { line: 4, character: 9 }
+      active: { line: 4, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: that },
+      modifiers: [],
+      positionModifier: { type: position, position: after },
+    },
+  ]

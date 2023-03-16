@@ -2,18 +2,25 @@ languageId: typescript
 command:
   version: 3
   spokenForm: clear branch
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: false
 initialState:
   documentContents: "const aaa = bbb ? ccc : ddd;"
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: { line: 0, character: 12 }
+      active: { line: 0, character: 12 }
   marks: {}
-thrownError: {name: NoContainingScopeError}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
+thrownError: { name: NoContainingScopeError }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: branch } }],
+    },
+  ]

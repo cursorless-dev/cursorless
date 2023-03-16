@@ -4,27 +4,34 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: { type: decoratedSymbol, symbolColor: default, character: d }
       modifiers:
         - type: containingScope
-          scopeType: {type: attribute}
+          scopeType: { type: attribute }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     #[derive(Debug)]
     struct S {}
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 11 }
   marks:
     default.d:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 8}
+      start: { line: 0, character: 2 }
+      end: { line: 0, character: 8 }
 finalState:
   documentContents: |
     struct S {}
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [{type: containingScope, scopeType: {type: attribute}}]}]
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: d },
+      modifiers: [{ type: containingScope, scopeType: { type: attribute } }],
+    },
+  ]

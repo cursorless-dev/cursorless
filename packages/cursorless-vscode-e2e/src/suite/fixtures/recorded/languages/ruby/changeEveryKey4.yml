@@ -5,18 +5,39 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: true,
+        }
 initialState:
-  documentContents: "h = { one: \"one\", two: \"two\" }"
+  documentContents: 'h = { one: "one", two: "two" }'
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
+    - anchor: { line: 0, character: 21 }
+      active: { line: 0, character: 21 }
   marks: {}
 finalState:
-  documentContents: "h = { : \"one\", : \"two\" }"
+  documentContents: 'h = { : "one", : "two" }'
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}, isImplicit: false}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+    - anchor: { line: 0, character: 15 }
+      active: { line: 0, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: true,
+        },
+      isImplicit: false,
+    },
+  ]

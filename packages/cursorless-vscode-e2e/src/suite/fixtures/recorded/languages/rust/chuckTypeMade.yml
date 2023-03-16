@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
       modifiers:
         - type: containingScope
-          scopeType: {type: type}
+          scopeType: { type: type }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     trait T {
@@ -22,12 +22,12 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 8, character: 0}
-      active: {line: 8, character: 0}
+    - anchor: { line: 8, character: 0 }
+      active: { line: 8, character: 0 }
   marks:
     default.m:
-      start: {line: 4, character: 0}
-      end: {line: 4, character: 4}
+      start: { line: 4, character: 0 }
+      end: { line: 4, character: 4 }
 finalState:
   documentContents: |+
     trait T {
@@ -36,6 +36,13 @@ finalState:
 
 
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: [{type: containingScope, scopeType: {type: type}}]}]
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      modifiers: [{ type: containingScope, scopeType: { type: type } }],
+    },
+  ]

@@ -4,32 +4,32 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   usePrePhraseSnapshot: true
-  action: {name: insertEmptyLineAfter}
+  action: { name: insertEmptyLineAfter }
 initialState:
   documentContents: |2
-        
+
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
   marks: {}
 finalState:
   documentContents: |2+
-        
+
 
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 4}
-        end: {line: 0, character: 4}
+        start: { line: 0, character: 4 }
+        end: { line: 0, character: 4 }
       isReversed: false
       hasExplicitRange: false
 ide:
   flashes:
-    - range: {type: line, start: 1, end: 1}
+    - range: { type: line, start: 1, end: 1 }
       style: justAdded
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+fullTargets: [{ type: primitive, mark: { type: cursor }, modifiers: [] }]

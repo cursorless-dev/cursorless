@@ -2,12 +2,12 @@ languageId: rust
 command:
   version: 3
   spokenForm: clear condition
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: { type: condition }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -15,8 +15,8 @@ initialState:
       println!("Matched {:?}!", i);
     }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: { line: 1, character: 2 }
+      active: { line: 1, character: 2 }
   marks: {}
 finalState:
   documentContents: |-
@@ -24,6 +24,13 @@ finalState:
       println!("Matched {:?}!", i);
     }
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: condition}}]}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: condition } }],
+    },
+  ]

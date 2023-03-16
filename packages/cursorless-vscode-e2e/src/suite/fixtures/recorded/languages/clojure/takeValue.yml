@@ -5,16 +5,28 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
-  documentContents: "{:bar {:foo \"bar\"}}"
+  documentContents: '{:bar {:foo "bar"}}'
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks: {}
 finalState:
-  documentContents: "{:bar {:foo \"bar\"}}"
+  documentContents: '{:bar {:foo "bar"}}'
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 18}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 18 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+    },
+  ]

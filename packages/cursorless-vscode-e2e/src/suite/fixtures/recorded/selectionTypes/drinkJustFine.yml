@@ -2,25 +2,32 @@ languageId: plaintext
 command:
   spokenForm: drink just fine
   version: 2
-  action: {name: editNewLineBefore}
+  action: { name: editNewLineBefore }
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: { type: decoratedSymbol, symbolColor: default, character: f }
       modifiers:
-        - {type: toRawSelection}
+        - { type: toRawSelection }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   marks:
     default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 3 }
 finalState:
   documentContents: foo
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: toRawSelection}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: f },
+      modifiers: [{ type: toRawSelection }],
+    },
+  ]

@@ -6,14 +6,14 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: section}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+          scopeType: { type: section }
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
       modifiers:
-        - {type: position, position: after}
+        - { type: position, position: after }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |-
     # Some section
@@ -24,12 +24,12 @@ initialState:
 
     Another text
   selections:
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
+    - anchor: { line: 4, character: 9 }
+      active: { line: 4, character: 9 }
   marks:
     default.m:
-      start: {line: 2, character: 0}
-      end: {line: 2, character: 4}
+      start: { line: 2, character: 0 }
+      end: { line: 2, character: 4 }
 finalState:
   documentContents: |-
     # Some section
@@ -44,6 +44,20 @@ finalState:
 
     Some text
   selections:
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: section}}]}, {type: primitive, mark: {type: cursor}, modifiers: [*ref_0], positionModifier: {type: position, position: after}}]
+    - anchor: { line: 4, character: 9 }
+      active: { line: 4, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      modifiers:
+        [&ref_0 { type: containingScope, scopeType: { type: section } }],
+    },
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [*ref_0],
+      positionModifier: { type: position, position: after },
+    },
+  ]

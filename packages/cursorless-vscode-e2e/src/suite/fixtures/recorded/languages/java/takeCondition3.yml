@@ -5,7 +5,8 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: condition, includeSiblings: false }
 initialState:
   documentContents: |-
     public class MyClass {
@@ -22,8 +23,8 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 9, character: 0}
-      active: {line: 9, character: 0}
+    - anchor: { line: 9, character: 0 }
+      active: { line: 9, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
@@ -41,6 +42,17 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 8, character: 24}
-      active: {line: 8, character: 29}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: condition, includeSiblings: false}}]
+    - anchor: { line: 8, character: 24 }
+      active: { line: 8, character: 29 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: condition, includeSiblings: false },
+    },
+  ]

@@ -6,17 +6,33 @@ command:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: token}
+          scopeType: { type: token }
           offset: 0
           length: 2
           direction: backward
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: aaa bbb  ccc
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 2, direction: backward}]}]
-thrownError: {name: NoContainingScopeError}
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: relativeScope,
+            scopeType: { type: token },
+            offset: 0,
+            length: 2,
+            direction: backward,
+          },
+        ],
+    },
+  ]
+thrownError: { name: NoContainingScopeError }

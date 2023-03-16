@@ -5,20 +5,31 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
+        - { type: interiorOnly }
         - type: containingScope
-          scopeType: {type: document}
+          scopeType: { type: document }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: "\r\n abc \r\n"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: "\r\n  \r\n"
   selections:
-    - anchor: {line: 1, character: 1}
-      active: {line: 1, character: 1}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: interiorOnly}, {type: containingScope, scopeType: {type: document}}]}]
+    - anchor: { line: 1, character: 1 }
+      active: { line: 1, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          { type: interiorOnly },
+          { type: containingScope, scopeType: { type: document } },
+        ],
+    },
+  ]

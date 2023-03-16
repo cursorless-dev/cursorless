@@ -6,24 +6,31 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: paragraph}
+          scopeType: { type: paragraph }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
+  action: { name: editNewLineBefore }
 initialState:
   documentContents: |2
         hello there
         hello there
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 9}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 9 }
   marks: {}
 finalState:
   documentContents: |2
-        
+
 
         hello there
         hello there
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: paragraph } }],
+    },
+  ]

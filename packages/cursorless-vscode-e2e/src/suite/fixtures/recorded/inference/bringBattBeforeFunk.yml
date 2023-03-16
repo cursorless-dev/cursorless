@@ -4,14 +4,14 @@ command:
   version: 3
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
     - type: primitive
       modifiers:
-        - {type: position, position: before}
+        - { type: position, position: before }
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: { type: namedFunction }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |-
     function foo() {
@@ -22,12 +22,12 @@ initialState:
         return "";
     }
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 12 }
   marks:
     default.b:
-      start: {line: 4, character: 9}
-      end: {line: 4, character: 12}
+      start: { line: 4, character: 9 }
+      end: { line: 4, character: 12 }
 finalState:
   documentContents: |-
     bar
@@ -40,6 +40,20 @@ finalState:
         return "";
     }
   selections:
-    - anchor: {line: 3, character: 12}
-      active: {line: 3, character: 12}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: []}, {type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}], positionModifier: {type: position, position: before}}]
+    - anchor: { line: 3, character: 12 }
+      active: { line: 3, character: 12 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      modifiers: [],
+    },
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: namedFunction } }],
+      positionModifier: { type: position, position: before },
+    },
+  ]

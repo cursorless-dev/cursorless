@@ -4,23 +4,30 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: �}
+      mark: { type: decoratedSymbol, symbolColor: blue, character: � }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     😄🙃🙁
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     blue.�:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 4}
+      start: { line: 0, character: 2 }
+      end: { line: 0, character: 4 }
 finalState:
   documentContents: |
     😄🙁
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: �}, modifiers: []}]
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: blue, character: � },
+      modifiers: [],
+    },
+  ]

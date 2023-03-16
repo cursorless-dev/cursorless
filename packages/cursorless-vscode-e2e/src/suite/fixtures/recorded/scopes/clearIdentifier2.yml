@@ -6,14 +6,21 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: identifier}
+          scopeType: { type: identifier }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: .
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: identifier}}]}]
-thrownError: {name: NoContainingScopeError}
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: identifier } }],
+    },
+  ]
+thrownError: { name: NoContainingScopeError }

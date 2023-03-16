@@ -5,7 +5,7 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: tail}
+      modifier: { type: tail }
 initialState:
   documentContents: |
 
@@ -13,8 +13,8 @@ initialState:
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: { line: 1, character: 6 }
+      active: { line: 1, character: 6 }
   marks: {}
 finalState:
   documentContents: |
@@ -23,6 +23,16 @@ finalState:
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 28}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: tail}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 6 }
+      active: { line: 1, character: 28 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: tail },
+      insideOutsideType: inside,
+    },
+  ]

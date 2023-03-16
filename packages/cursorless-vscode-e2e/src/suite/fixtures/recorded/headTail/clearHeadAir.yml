@@ -4,23 +4,30 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
       modifiers:
-        - {type: extendThroughStartOf}
+        - { type: extendThroughStartOf }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: "    hello world whatever"
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
   marks:
     default.a:
-      start: {line: 0, character: 16}
-      end: {line: 0, character: 24}
+      start: { line: 0, character: 16 }
+      end: { line: 0, character: 24 }
 finalState:
   documentContents: "    "
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: extendThroughStartOf}]}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      modifiers: [{ type: extendThroughStartOf }],
+    },
+  ]

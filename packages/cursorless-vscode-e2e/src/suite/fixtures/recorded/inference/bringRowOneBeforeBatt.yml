@@ -2,14 +2,14 @@ languageId: plaintext
 command:
   version: 4
   spokenForm: bring row one before batt
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
   targets:
     - type: primitive
-      mark: {type: lineNumber, lineNumberType: modulo100, lineNumber: 0}
+      mark: { type: lineNumber, lineNumberType: modulo100, lineNumber: 0 }
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
       modifiers:
-        - {type: position, position: before}
+        - { type: position, position: before }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -18,12 +18,12 @@ initialState:
 
     b
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.b:
-      start: {line: 3, character: 0}
-      end: {line: 3, character: 1}
+      start: { line: 3, character: 0 }
+      end: { line: 3, character: 1 }
 finalState:
   documentContents: |-
     aaa
@@ -32,6 +32,19 @@ finalState:
     aaa
     b
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: lineNumber, lineNumberType: modulo100, lineNumber: 0}, modifiers: [{type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: containingScope, scopeType: {type: line}}], positionModifier: {type: position, position: before}}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: lineNumber, lineNumberType: modulo100, lineNumber: 0 },
+      modifiers: [{ type: containingScope, scopeType: { type: line } }],
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      modifiers: [{ type: containingScope, scopeType: { type: line } }],
+      positionModifier: { type: position, position: before },
+    },
+  ]

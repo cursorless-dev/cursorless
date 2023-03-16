@@ -5,24 +5,34 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      modifier: { type: containingScope, scopeType: collectionItem }
+      mark: { type: decoratedSymbol, symbolColor: default, character: "1" }
 initialState:
   documentContents: |
 
     const value = [1, 2, 3]
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.1:
-      start: {line: 1, character: 15}
-      end: {line: 1, character: 16}
+      start: { line: 1, character: 15 }
+      end: { line: 1, character: 16 }
 finalState:
   documentContents: |
 
     const value = [1, 2, 3]
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 16}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '1'}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionItem}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 16 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: "1" },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: collectionItem },
+      insideOutsideType: inside,
+    },
+  ]

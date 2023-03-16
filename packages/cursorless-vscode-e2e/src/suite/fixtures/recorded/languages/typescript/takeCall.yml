@@ -5,20 +5,30 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall}
+      modifier: { type: containingScope, scopeType: functionCall }
 initialState:
   documentContents: |
 
     myFunk()
   selections:
-    - anchor: {line: 1, character: 1}
-      active: {line: 1, character: 1}
+    - anchor: { line: 1, character: 1 }
+      active: { line: 1, character: 1 }
   marks: {}
 finalState:
   documentContents: |
 
     myFunk()
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: functionCall}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: functionCall },
+      insideOutsideType: inside,
+    },
+  ]

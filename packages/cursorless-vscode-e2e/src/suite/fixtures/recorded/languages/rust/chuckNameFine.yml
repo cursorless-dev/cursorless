@@ -4,30 +4,37 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: { type: decoratedSymbol, symbolColor: default, character: f }
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: { type: name }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     match user {
         User { first_name: "John", last_name: last_name } => {}
     }
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
   marks:
     default.f:
-      start: {line: 1, character: 11}
-      end: {line: 1, character: 21}
+      start: { line: 1, character: 11 }
+      end: { line: 1, character: 21 }
 finalState:
   documentContents: |
     match user {
         User { "John", last_name: last_name } => {}
     }
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: f },
+      modifiers: [{ type: containingScope, scopeType: { type: name } }],
+    },
+  ]

@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: subSubSection, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: subSubSection,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     \subsubsection{1}
@@ -13,14 +18,30 @@ initialState:
     some text
     \subsubsection{2}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
 
     \subsubsection{2}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: subSubSection, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: subSubSection,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

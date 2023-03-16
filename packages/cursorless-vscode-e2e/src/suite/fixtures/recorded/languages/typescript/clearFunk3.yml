@@ -6,24 +6,32 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: { type: namedFunction }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     abstract class Foo {
         protected abstract bar(): void;
     }
   selections:
-    - anchor: {line: 1, character: 26}
-      active: {line: 1, character: 26}
+    - anchor: { line: 1, character: 26 }
+      active: { line: 1, character: 26 }
   marks: {}
 finalState:
   documentContents: |-
     abstract class Foo {
-        
+
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: namedFunction } }],
+    },
+  ]

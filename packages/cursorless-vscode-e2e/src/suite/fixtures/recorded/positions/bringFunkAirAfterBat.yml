@@ -4,16 +4,16 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: { type: namedFunction }
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
       modifiers:
-        - {type: position, position: after}
+        - { type: position, position: after }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |2
         def aaa():
@@ -24,15 +24,15 @@ initialState:
 
             pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.a:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 8 }
+      end: { line: 0, character: 11 }
     default.b:
-      start: {line: 4, character: 8}
-      end: {line: 4, character: 11}
+      start: { line: 4, character: 8 }
+      end: { line: 4, character: 11 }
 finalState:
   documentContents: |2
         def aaa():
@@ -47,6 +47,20 @@ finalState:
 
             pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: namedFunction}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [*ref_0], positionModifier: {type: position, position: after}}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      modifiers:
+        [&ref_0 { type: containingScope, scopeType: { type: namedFunction } }],
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      modifiers: [*ref_0],
+      positionModifier: { type: position, position: after },
+    },
+  ]

@@ -6,16 +6,42 @@ command:
   targets:
     - type: primitive
       selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 3, active: 4, excludeAnchor: false, excludeActive: false}
+      modifier:
+        {
+          type: subpiece,
+          pieceType: character,
+          anchor: 3,
+          active: 4,
+          excludeAnchor: false,
+          excludeActive: false,
+        }
 initialState:
   documentContents: foo world whatever
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 9 }
   marks: {}
 finalState:
   documentContents: foo wor whatever
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 3, active: 4, excludeAnchor: false, excludeActive: false}}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 7 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursorToken },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: subpiece,
+          pieceType: character,
+          anchor: 3,
+          active: 4,
+          excludeAnchor: false,
+          excludeActive: false,
+        },
+    },
+  ]

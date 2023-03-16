@@ -5,22 +5,35 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: string, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: string, includeSiblings: false }
 initialState:
   documentContents: |
     class ExampleClass() {
       val string = "example string"
     }
   selections:
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
+    - anchor: { line: 1, character: 24 }
+      active: { line: 1, character: 24 }
   marks: {}
 finalState:
   documentContents: |
     class ExampleClass() {
-      val string = 
+      val string =
     }
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: string, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: string, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

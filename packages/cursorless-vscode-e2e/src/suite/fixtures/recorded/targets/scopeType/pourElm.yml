@@ -6,24 +6,31 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: xmlElement}
+          scopeType: { type: xmlElement }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+  action: { name: editNewLineAfter }
 initialState:
   documentContents: |-
     <html>
-        
+
     </html>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: |
     <html>
-        
+
     </html>
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: xmlElement}}]}]
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: xmlElement } }],
+    },
+  ]

@@ -4,27 +4,41 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+      mark: { type: decoratedSymbol, symbolColor: default, character: ( }
       modifiers:
         - type: everyScope
-          scopeType: {type: boundedNonWhitespaceSequence}
-        - {type: interiorOnly}
+          scopeType: { type: boundedNonWhitespaceSequence }
+        - { type: interiorOnly }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: foo(aa|aa-().c_d bb|bb-().'')
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
   marks:
     default.(:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 4}
+      start: { line: 0, character: 3 }
+      end: { line: 0, character: 4 }
 finalState:
   documentContents: foo( )
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: (}, modifiers: [{type: everyScope, scopeType: {type: boundedNonWhitespaceSequence}}, {type: interiorOnly}]}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: ( },
+      modifiers:
+        [
+          {
+            type: everyScope,
+            scopeType: { type: boundedNonWhitespaceSequence },
+          },
+          { type: interiorOnly },
+        ],
+    },
+  ]

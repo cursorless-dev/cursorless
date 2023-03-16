@@ -6,24 +6,31 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     def aaa():
         global bbb, ccc
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 14 }
   marks: {}
 finalState:
   documentContents: |-
     def aaa():
-        global , 
+        global ,
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 11 }
+    - anchor: { line: 1, character: 13 }
+      active: { line: 1, character: 13 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: everyScope, scopeType: { type: collectionItem } }],
+    },
+  ]

@@ -4,7 +4,7 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   usePrePhraseSnapshot: true
   action:
     name: wrapWithSnippet
@@ -12,8 +12,8 @@ command:
 initialState:
   documentContents: const whatever = "hello";
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +21,6 @@ finalState:
         const whatever = "hello";
     }
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
+fullTargets: [{ type: primitive, mark: { type: cursor }, modifiers: [] }]

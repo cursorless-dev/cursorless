@@ -6,31 +6,38 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: line}
-      mark: {type: that}
+          scopeType: { type: line }
+      mark: { type: that }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     hello
     whatever
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 8 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 5}
-        end: {line: 0, character: 5}
+        start: { line: 0, character: 5 }
+        end: { line: 0, character: 5 }
       isReversed: false
       hasExplicitRange: false
 finalState:
   documentContents: |+
 
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: everyScope, scopeType: {type: line}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: that },
+      modifiers: [{ type: everyScope, scopeType: { type: line } }],
+    },
+  ]

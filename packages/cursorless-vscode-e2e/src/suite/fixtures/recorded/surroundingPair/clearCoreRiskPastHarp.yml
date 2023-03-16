@@ -7,32 +7,52 @@ command:
       anchor:
         type: primitive
         modifiers:
-          - {type: interiorOnly}
-        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+          - { type: interiorOnly }
+        mark: { type: decoratedSymbol, symbolColor: default, character: r }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+        mark: { type: decoratedSymbol, symbolColor: default, character: h }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     ( hello world )
     [ hello world ]
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 15 }
   marks:
     default.r:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 13}
+      start: { line: 0, character: 8 }
+      end: { line: 0, character: 13 }
     default.h:
-      start: {line: 1, character: 2}
-      end: {line: 1, character: 7}
+      start: { line: 1, character: 2 }
+      end: { line: 1, character: 7 }
 finalState:
   documentContents: (  ]
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: [{type: interiorOnly}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: interiorOnly}]}}]
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: r },
+          modifiers: [{ type: interiorOnly }],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: h },
+          modifiers: [{ type: interiorOnly }],
+        },
+    },
+  ]

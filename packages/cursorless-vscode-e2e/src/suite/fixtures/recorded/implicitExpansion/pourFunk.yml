@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: { type: namedFunction }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+  action: { name: editNewLineAfter }
 initialState:
   documentContents: |-
     function myFunk() {
       // aaa
     }
   selections:
-    - anchor: {line: 1, character: 5}
-      active: {line: 1, character: 5}
+    - anchor: { line: 1, character: 5 }
+      active: { line: 1, character: 5 }
   marks: {}
 finalState:
   documentContents: |+
@@ -25,6 +25,14 @@ finalState:
     }
 
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: namedFunction } }],
+    },
+  ]

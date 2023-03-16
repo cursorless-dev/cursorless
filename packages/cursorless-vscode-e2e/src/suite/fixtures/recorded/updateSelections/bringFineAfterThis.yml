@@ -5,22 +5,40 @@ command:
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: { type: decoratedSymbol, symbolColor: default, character: f }
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
       position: after
 initialState:
   documentContents: foo world
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
   marks:
     default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 3 }
 finalState:
   documentContents: foo  fooworld
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: cursor}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: identity}}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: f },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: after,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+  ]

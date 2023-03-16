@@ -5,11 +5,11 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
+        - { type: interiorOnly }
         - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: any}
+          scopeType: { type: surroundingPair, delimiter: any }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: |
     async (editor, targets) => {
@@ -18,8 +18,8 @@ initialState:
         )
     }
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: { line: 2, character: 8 }
+      active: { line: 2, character: 8 }
   marks: {}
 finalState:
   documentContents: |
@@ -29,6 +29,20 @@ finalState:
         )
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 30}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: surroundingPair, delimiter: any}}, {type: interiorOnly}]}]
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 30 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: containingScope,
+            scopeType: { type: surroundingPair, delimiter: any },
+          },
+          { type: interiorOnly },
+        ],
+    },
+  ]

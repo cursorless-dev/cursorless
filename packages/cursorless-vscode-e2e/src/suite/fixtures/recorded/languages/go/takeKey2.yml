@@ -5,16 +5,36 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        }
 initialState:
-  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  documentContents: 'map[string]string{"air": "bat", "cap": "drum"}'
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: { line: 0, character: 20 }
+      active: { line: 0, character: 20 }
   marks: {}
 finalState:
-  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  documentContents: 'map[string]string{"air": "bat", "cap": "drum"}'
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 23}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}}]
+    - anchor: { line: 0, character: 18 }
+      active: { line: 0, character: 23 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        },
+    },
+  ]

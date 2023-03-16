@@ -5,24 +5,35 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: subpiece, pieceType: character, anchor: -1, active: -1}
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      modifier: { type: subpiece, pieceType: character, anchor: -1, active: -1 }
+      mark: { type: decoratedSymbol, symbolColor: default, character: v }
 initialState:
   documentContents: |
 
     const value_hello_str = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 21}
+      start: { line: 1, character: 6 }
+      end: { line: 1, character: 21 }
 finalState:
   documentContents: |
 
     const value_hello_st = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: character, anchor: -1, active: -1}, insideOutsideType: outside}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: v },
+      selectionType: token,
+      position: contents,
+      modifier:
+        { type: subpiece, pieceType: character, anchor: -1, active: -1 },
+      insideOutsideType: outside,
+    },
+  ]

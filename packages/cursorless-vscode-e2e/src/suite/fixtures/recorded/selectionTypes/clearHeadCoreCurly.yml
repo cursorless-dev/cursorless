@@ -7,19 +7,19 @@ command:
       modifiers:
         - type: extendThroughStartOf
           modifiers:
-            - {type: interiorOnly}
+            - { type: interiorOnly }
             - type: containingScope
-              scopeType: {type: surroundingPair, delimiter: curlyBrackets}
+              scopeType: { type: surroundingPair, delimiter: curlyBrackets }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     {
         foo(bar baz)
     }
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 14 }
   marks: {}
 finalState:
   documentContents: |-
@@ -27,6 +27,27 @@ finalState:
         z)
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: extendThroughStartOf, modifiers: [{type: interiorOnly}, {type: containingScope, scopeType: {type: surroundingPair, delimiter: curlyBrackets}}]}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: extendThroughStartOf,
+            modifiers:
+              [
+                { type: interiorOnly },
+                {
+                  type: containingScope,
+                  scopeType:
+                    { type: surroundingPair, delimiter: curlyBrackets },
+                },
+              ],
+          },
+        ],
+    },
+  ]

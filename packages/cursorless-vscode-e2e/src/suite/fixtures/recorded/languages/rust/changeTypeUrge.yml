@@ -4,26 +4,33 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+      mark: { type: decoratedSymbol, symbolColor: default, character: u }
       modifiers:
         - type: containingScope
-          scopeType: {type: type}
+          scopeType: { type: type }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     const X: [u8; 2] = [0, 0];
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     default.u:
-      start: {line: 0, character: 10}
-      end: {line: 0, character: 12}
+      start: { line: 0, character: 10 }
+      end: { line: 0, character: 12 }
 finalState:
   documentContents: |
     const X: [; 2] = [0, 0];
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: u}, modifiers: [{type: containingScope, scopeType: {type: type}}]}]
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: u },
+      modifiers: [{ type: containingScope, scopeType: { type: type } }],
+    },
+  ]

@@ -7,14 +7,19 @@ command:
     - type: list
       elements:
         - type: primitive
-          modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
-          mark: {type: decoratedSymbol, symbolColor: default, character: o}
+          modifier:
+            {
+              type: containingScope,
+              scopeType: argumentOrParameter,
+              includeSiblings: false,
+            }
+          mark: { type: decoratedSymbol, symbolColor: default, character: o }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: z}
+          mark: { type: decoratedSymbol, symbolColor: default, character: z }
     - type: primitive
       position: after
-      modifier: {type: toRawSelection}
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+      modifier: { type: toRawSelection }
+      mark: { type: decoratedSymbol, symbolColor: default, character: ( }
 initialState:
   documentContents: |-
     function helloWorld(foo: string, bar: number, baz: string) {
@@ -22,21 +27,21 @@ initialState:
     }
 
     function bongo() {
-        
+
     }
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
   marks:
     default.o:
-      start: {line: 0, character: 20}
-      end: {line: 0, character: 23}
+      start: { line: 0, character: 20 }
+      end: { line: 0, character: 23 }
     default.z:
-      start: {line: 0, character: 46}
-      end: {line: 0, character: 49}
+      start: { line: 0, character: 46 }
+      end: { line: 0, character: 49 }
     default.(:
-      start: {line: 4, character: 14}
-      end: {line: 4, character: 15}
+      start: { line: 4, character: 14 }
+      end: { line: 4, character: 15 }
 finalState:
   documentContents: |-
     function helloWorld(foo: string, bar: number, baz: string) {
@@ -44,29 +49,74 @@ finalState:
     }
 
     function bongo(foo: string, baz: string) {
-        
+
     }
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 4, character: 15}
-        end: {line: 4, character: 39}
+        start: { line: 4, character: 15 }
+        end: { line: 4, character: 39 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 20}
-        end: {line: 0, character: 31}
+        start: { line: 0, character: 20 }
+        end: { line: 0, character: 31 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 46}
-        end: {line: 0, character: 57}
+        start: { line: 0, character: 46 }
+        end: { line: 0, character: 57 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: (}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: toRawSelection}, isImplicit: false}]
+fullTargets:
+  [
+    {
+      type: list,
+      elements:
+        [
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: o },
+            selectionType: token,
+            position: contents,
+            insideOutsideType: null,
+            modifier:
+              {
+                type: containingScope,
+                scopeType: argumentOrParameter,
+                includeSiblings: false,
+              },
+            isImplicit: false,
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: z },
+            selectionType: token,
+            position: contents,
+            insideOutsideType: null,
+            modifier:
+              {
+                type: containingScope,
+                scopeType: argumentOrParameter,
+                includeSiblings: false,
+              },
+            isImplicit: false,
+          },
+        ],
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: ( },
+      selectionType: token,
+      position: after,
+      insideOutsideType: null,
+      modifier: { type: toRawSelection },
+      isImplicit: false,
+    },
+  ]

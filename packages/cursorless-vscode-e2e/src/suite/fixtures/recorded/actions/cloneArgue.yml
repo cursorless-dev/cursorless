@@ -6,49 +6,57 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
+  action: { name: insertCopyAfter }
 initialState:
   documentContents: |-
     function foo(bar: number) {
-        
+
     }
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: { line: 0, character: 15 }
+      active: { line: 0, character: 15 }
+    - anchor: { line: 0, character: 20 }
+      active: { line: 0, character: 20 }
   marks: {}
 finalState:
   documentContents: |-
     function foo(bar: number, bar: number) {
-        
+
     }
   selections:
-    - anchor: {line: 0, character: 28}
-      active: {line: 0, character: 28}
-    - anchor: {line: 0, character: 33}
-      active: {line: 0, character: 33}
+    - anchor: { line: 0, character: 28 }
+      active: { line: 0, character: 28 }
+    - anchor: { line: 0, character: 33 }
+      active: { line: 0, character: 33 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 26}
-        end: {line: 0, character: 37}
+        start: { line: 0, character: 26 }
+        end: { line: 0, character: 37 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 13}
-        end: {line: 0, character: 24}
+        start: { line: 0, character: 13 }
+        end: { line: 0, character: 24 }
       isReversed: false
       hasExplicitRange: true
 ide:
   flashes:
     - range:
         type: character
-        start: {line: 0, character: 26}
-        end: {line: 0, character: 37}
+        start: { line: 0, character: 26 }
+        end: { line: 0, character: 37 }
       style: justAdded
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: argumentOrParameter } }],
+    },
+  ]

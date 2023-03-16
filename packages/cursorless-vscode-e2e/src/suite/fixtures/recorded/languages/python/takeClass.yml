@@ -5,15 +5,15 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: class}
+      modifier: { type: containingScope, scopeType: class }
 initialState:
   documentContents: |-
 
     class MyClass:
         """"""
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +21,16 @@ finalState:
     class MyClass:
         """"""
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 2, character: 10}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: class}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 2, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: class },
+      insideOutsideType: inside,
+    },
+  ]

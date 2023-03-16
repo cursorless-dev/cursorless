@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: paragraph}
+          scopeType: { type: paragraph }
         - type: containingScope
-          scopeType: {type: namedFunction}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          scopeType: { type: namedFunction }
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: |-
     function whatever() {
@@ -24,12 +24,12 @@ initialState:
         const testing = "hello";
     }
   selections:
-    - anchor: {line: 6, character: 16}
-      active: {line: 6, character: 16}
+    - anchor: { line: 6, character: 16 }
+      active: { line: 6, character: 16 }
   marks:
     default.w:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 17}
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 17 }
 finalState:
   documentContents: |-
     function whatever() {
@@ -42,8 +42,19 @@ finalState:
         const testing = "hello";
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 1, character: 28}
-    - anchor: {line: 3, character: 4}
-      active: {line: 4, character: 1}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: everyScope, scopeType: {type: paragraph}}, {type: containingScope, scopeType: {type: namedFunction}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 1, character: 28 }
+    - anchor: { line: 3, character: 4 }
+      active: { line: 4, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      modifiers:
+        [
+          { type: everyScope, scopeType: { type: paragraph } },
+          { type: containingScope, scopeType: { type: namedFunction } },
+        ],
+    },
+  ]

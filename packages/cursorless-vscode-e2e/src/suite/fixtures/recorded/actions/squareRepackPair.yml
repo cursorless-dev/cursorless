@@ -5,33 +5,43 @@ command:
   action: rewrapWithPairedDelimiter
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-  extraArgs: ['[', ']']
+      modifier: { type: surroundingPair, delimiter: any }
+  extraArgs: ["[", "]"]
 initialState:
   documentContents: |
     (hello)
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
   marks: {}
 finalState:
   documentContents: |
     [hello]
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 7}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 7 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 7}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 7 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: surroundingPair, delimiter: any },
+    },
+  ]

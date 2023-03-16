@@ -4,26 +4,36 @@ command:
   spokenForm: snip spaghetti grace hopper
   action: insertSnippet
   targets:
-    - {type: primitive, isImplicit: true}
+    - { type: primitive, isImplicit: true }
   extraArgs:
     - spaghetti
-    - {foo: grace hopper}
+    - { foo: grace hopper }
 initialState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: My friend grace_hopper likes to eat spaghetti!
   selections:
-    - anchor: {line: 0, character: 46}
-      active: {line: 0, character: 46}
+    - anchor: { line: 0, character: 46 }
+      active: { line: 0, character: 46 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 46}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 46 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

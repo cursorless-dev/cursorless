@@ -5,20 +5,30 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment}
+      modifier: { type: containingScope, scopeType: comment }
 initialState:
   documentContents: |
 
     // const value: string = "Hello world";
   selections:
-    - anchor: {line: 1, character: 32}
-      active: {line: 1, character: 32}
+    - anchor: { line: 1, character: 32 }
+      active: { line: 1, character: 32 }
   marks: {}
 finalState:
   documentContents: |
 
     // const value: string = "Hello world";
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 39}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: comment}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 39 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: comment },
+      insideOutsideType: inside,
+    },
+  ]

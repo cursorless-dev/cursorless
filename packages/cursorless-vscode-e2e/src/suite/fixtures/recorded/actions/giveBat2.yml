@@ -5,28 +5,38 @@ command:
   action: deselect
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
 initialState:
   documentContents: a b.
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   marks:
     default.b:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 3}
+      start: { line: 0, character: 2 }
+      end: { line: 0, character: 3 }
 finalState:
   documentContents: a b.
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 2}
-        end: {line: 0, character: 3}
+        start: { line: 0, character: 2 }
+        end: { line: 0, character: 3 }
       isReversed: false
       hasExplicitRange: false
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

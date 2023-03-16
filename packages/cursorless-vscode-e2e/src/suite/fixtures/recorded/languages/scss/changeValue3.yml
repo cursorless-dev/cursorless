@@ -5,7 +5,8 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
   documentContents: |-
     @function pow($base, $exponent) {
@@ -16,8 +17,8 @@ initialState:
       @return $result;
     }
   selections:
-    - anchor: {line: 5, character: 11}
-      active: {line: 5, character: 11}
+    - anchor: { line: 5, character: 11 }
+      active: { line: 5, character: 11 }
   marks: {}
 finalState:
   documentContents: |-
@@ -29,6 +30,18 @@ finalState:
       @return ;
     }
   selections:
-    - anchor: {line: 5, character: 10}
-      active: {line: 5, character: 10}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 5, character: 10 }
+      active: { line: 5, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

@@ -5,26 +5,44 @@ command:
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
     - type: primitive
       position: after
       insideOutsideType: inside
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
 initialState:
   documentContents: foo world whatever
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 9 }
   marks:
     default.h:
-      start: {line: 0, character: 10}
-      end: {line: 0, character: 18}
+      start: { line: 0, character: 10 }
+      end: { line: 0, character: 18 }
     default.w:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 9}
+      start: { line: 0, character: 4 }
+      end: { line: 0, character: 9 }
 finalState:
   documentContents: foo worldwhatever whatever
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      selectionType: token,
+      position: after,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

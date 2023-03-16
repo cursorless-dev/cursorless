@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: switchStatementSubject}
+          scopeType: { type: switchStatementSubject }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     def matchTest(x: Int): String = x match {
       case 0 => "zero"
     }
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 15 }
   marks: {}
 finalState:
   documentContents: |
@@ -24,6 +24,19 @@ finalState:
       case 0 => "zero"
     }
   selections:
-    - anchor: {line: 0, character: 32}
-      active: {line: 0, character: 32}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]
+    - anchor: { line: 0, character: 32 }
+      active: { line: 0, character: 32 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: containingScope,
+            scopeType: { type: switchStatementSubject },
+          },
+        ],
+    },
+  ]

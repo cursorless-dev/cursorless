@@ -4,29 +4,29 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: that}
+      mark: { type: that }
   usePrePhraseSnapshot: true
   action:
     name: rewrapWithPairedDelimiter
-    args: ['[', ']']
+    args: ["[", "]"]
 initialState:
   documentContents: |
     (hello world)
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 7}
-        end: {line: 0, character: 12}
+        start: { line: 0, character: 7 }
+        end: { line: 0, character: 12 }
       isReversed: false
       hasExplicitRange: true
 finalState:
   documentContents: |
     [hello world]
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: []}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets: [{ type: primitive, mark: { type: that }, modifiers: [] }]

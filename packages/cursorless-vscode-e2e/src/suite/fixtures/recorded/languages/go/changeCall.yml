@@ -5,16 +5,37 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCall,
+          includeSiblings: false,
+        }
 initialState:
-  documentContents: "b := Student{ Name: \"Bob\", }"
+  documentContents: 'b := Student{ Name: "Bob", }'
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
+    - anchor: { line: 0, character: 19 }
+      active: { line: 0, character: 19 }
   marks: {}
 finalState:
   documentContents: "b := "
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCall,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

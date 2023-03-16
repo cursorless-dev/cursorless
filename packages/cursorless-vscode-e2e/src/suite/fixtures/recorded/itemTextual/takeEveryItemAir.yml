@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: |-
     [
@@ -21,12 +21,12 @@ initialState:
         u v, "foo(bar)baz",
     ]
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.a:
-      start: {line: 1, character: 4}
-      end: {line: 1, character: 5}
+      start: { line: 1, character: 4 }
+      end: { line: 1, character: 5 }
 finalState:
   documentContents: |-
     [
@@ -38,28 +38,35 @@ finalState:
         u v, "foo(bar)baz",
     ]
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 7}
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 15}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 7}
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 15}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 7}
-    - anchor: {line: 3, character: 9}
-      active: {line: 3, character: 15}
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 7}
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 15}
-    - anchor: {line: 5, character: 4}
-      active: {line: 5, character: 7}
-    - anchor: {line: 5, character: 9}
-      active: {line: 5, character: 15}
-    - anchor: {line: 6, character: 4}
-      active: {line: 6, character: 7}
-    - anchor: {line: 6, character: 9}
-      active: {line: 6, character: 22}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 7 }
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 15 }
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 7 }
+    - anchor: { line: 2, character: 9 }
+      active: { line: 2, character: 15 }
+    - anchor: { line: 3, character: 4 }
+      active: { line: 3, character: 7 }
+    - anchor: { line: 3, character: 9 }
+      active: { line: 3, character: 15 }
+    - anchor: { line: 4, character: 4 }
+      active: { line: 4, character: 7 }
+    - anchor: { line: 4, character: 9 }
+      active: { line: 4, character: 15 }
+    - anchor: { line: 5, character: 4 }
+      active: { line: 5, character: 7 }
+    - anchor: { line: 5, character: 9 }
+      active: { line: 5, character: 15 }
+    - anchor: { line: 6, character: 4 }
+      active: { line: 6, character: 7 }
+    - anchor: { line: 6, character: 9 }
+      active: { line: 6, character: 22 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      modifiers: [{ type: everyScope, scopeType: { type: collectionItem } }],
+    },
+  ]

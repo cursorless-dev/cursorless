@@ -4,40 +4,51 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: z}
+      mark: { type: decoratedSymbol, symbolColor: default, character: z }
       modifiers:
-        - {type: position, position: before}
+        - { type: position, position: before }
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: pasteFromClipboard}
+  action: { name: pasteFromClipboard }
 initialState:
   documentContents: foo(bar, baz, bongo)
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
+    - anchor: { line: 0, character: 19 }
+      active: { line: 0, character: 19 }
   marks:
     default.z:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 12}
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 12 }
   clipboard: baz
 finalState:
   documentContents: foo(bar, baz, baz, bongo)
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 9}
-        end: {line: 0, character: 12}
+        start: { line: 0, character: 9 }
+        end: { line: 0, character: 12 }
       isReversed: false
       hasExplicitRange: true
 ide:
   flashes:
     - range:
         type: character
-        start: {line: 0, character: 9}
-        end: {line: 0, character: 12}
+        start: { line: 0, character: 9 }
+        end: { line: 0, character: 12 }
       style: justAdded
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, modifiers: [{type: position, position: before}, {type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: z },
+      modifiers:
+        [
+          { type: position, position: before },
+          { type: containingScope, scopeType: { type: argumentOrParameter } },
+        ],
+    },
+  ]

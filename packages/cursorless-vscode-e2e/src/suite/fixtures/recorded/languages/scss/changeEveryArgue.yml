@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
 
@@ -13,8 +18,8 @@ initialState:
       transform: translate(-50%, -50%);
     }
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: { line: 2, character: 25 }
+      active: { line: 2, character: 25 }
   marks: {}
 finalState:
   documentContents: |-
@@ -23,8 +28,24 @@ finalState:
       transform: translate(, );
     }
   selections:
-    - anchor: {line: 2, character: 23}
-      active: {line: 2, character: 23}
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
+    - anchor: { line: 2, character: 23 }
+      active: { line: 2, character: 23 }
+    - anchor: { line: 2, character: 25 }
+      active: { line: 2, character: 25 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      isImplicit: false,
+    },
+  ]

@@ -5,7 +5,7 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name}
+      modifier: { type: containingScope, scopeType: name }
 initialState:
   documentContents: |
 
@@ -13,8 +13,8 @@ initialState:
 
     }
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
+    - anchor: { line: 1, character: 22 }
+      active: { line: 1, character: 22 }
   marks: {}
 finalState:
   documentContents: |
@@ -23,6 +23,16 @@ finalState:
 
     }
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 21}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: name}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 17 }
+      active: { line: 1, character: 21 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: name },
+      insideOutsideType: inside,
+    },
+  ]

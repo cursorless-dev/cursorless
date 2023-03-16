@@ -5,15 +5,15 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction}
+      modifier: { type: containingScope, scopeType: anonymousFunction }
 initialState:
   documentContents: |
     void f() {
         [](){}();
     }
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: { line: 1, character: 7 }
+      active: { line: 1, character: 7 }
   marks: {}
 finalState:
   documentContents: |
@@ -21,6 +21,16 @@ finalState:
         [](){}();
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 10}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: anonymousFunction}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: anonymousFunction },
+      insideOutsideType: inside,
+    },
+  ]

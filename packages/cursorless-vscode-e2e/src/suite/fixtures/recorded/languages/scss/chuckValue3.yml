@@ -5,22 +5,35 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
   documentContents: |
-    a { 
-      margin-top: 150px !important; 
+    a {
+      margin-top: 150px !important;
     }
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: { line: 1, character: 7 }
+      active: { line: 1, character: 7 }
   marks: {}
 finalState:
   documentContents: |
-    a { 
-      margin-top:; 
+    a {
+      margin-top:;
     }
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 7 }
+      active: { line: 1, character: 7 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

@@ -5,20 +5,46 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: f }
 initialState:
-  documentContents: "{:foo \"bar\" :baz \"whatever\"}"
+  documentContents: '{:foo "bar" :baz "whatever"}'
   selections:
-    - anchor: {line: 0, character: 28}
-      active: {line: 0, character: 28}
+    - anchor: { line: 0, character: 28 }
+      active: { line: 0, character: 28 }
   marks:
     default.f:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 5}
+      start: { line: 0, character: 2 }
+      end: { line: 0, character: 5 }
 finalState:
-  documentContents: "{ :baz \"whatever\"}"
+  documentContents: '{ :baz "whatever"}'
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f, usePrePhraseSnapshot: true}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}}]
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark:
+        {
+          type: decoratedSymbol,
+          symbolColor: default,
+          character: f,
+          usePrePhraseSnapshot: true,
+        },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        },
+    },
+  ]

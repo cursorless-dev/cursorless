@@ -6,26 +6,41 @@ command:
     - type: range
       anchor:
         type: primitive
-        mark: {type: cursor}
+        mark: { type: cursor }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+        mark: { type: decoratedSymbol, symbolColor: default, character: t }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: hello there
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   marks:
     default.t:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 11 }
 finalState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: []}}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor: { type: primitive, mark: { type: cursor }, modifiers: [] },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: t },
+          modifiers: [],
+        },
+    },
+  ]

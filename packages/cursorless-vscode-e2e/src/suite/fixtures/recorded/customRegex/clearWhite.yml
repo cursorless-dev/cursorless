@@ -6,18 +6,31 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: customRegex, regex: '\p{Zs}+'}
+          scopeType: { type: customRegex, regex: '\p{Zs}+' }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
-  documentContents: "\"  \""
+  documentContents: '"  "'
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
   marks: {}
 finalState:
-  documentContents: "\"\""
+  documentContents: '""'
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: customRegex, regex: '\p{Zs}+'}}]}]
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: containingScope,
+            scopeType: { type: customRegex, regex: '\p{Zs}+' },
+          },
+        ],
+    },
+  ]

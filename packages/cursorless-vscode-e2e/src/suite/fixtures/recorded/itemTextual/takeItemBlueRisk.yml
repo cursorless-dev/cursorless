@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: r}
+      mark: { type: decoratedSymbol, symbolColor: blue, character: r }
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: |-
     [
@@ -21,12 +21,12 @@ initialState:
         u v, "foo(bar)baz",
     ]
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     blue.r:
-      start: {line: 6, character: 14}
-      end: {line: 6, character: 17}
+      start: { line: 6, character: 14 }
+      end: { line: 6, character: 17 }
 finalState:
   documentContents: |-
     [
@@ -38,6 +38,14 @@ finalState:
         u v, "foo(bar)baz",
     ]
   selections:
-    - anchor: {line: 6, character: 14}
-      active: {line: 6, character: 17}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: r}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 6, character: 14 }
+      active: { line: 6, character: 17 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: blue, character: r },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

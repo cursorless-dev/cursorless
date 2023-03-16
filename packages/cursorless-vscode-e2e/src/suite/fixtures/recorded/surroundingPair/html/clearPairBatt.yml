@@ -5,8 +5,8 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifier: { type: surroundingPair, delimiter: any }
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
 initialState:
   documentContents: |-
     <html>
@@ -15,20 +15,30 @@ initialState:
         </body>
     </html>
   selections:
-    - anchor: {line: 4, character: 7}
-      active: {line: 4, character: 7}
+    - anchor: { line: 4, character: 7 }
+      active: { line: 4, character: 7 }
   marks:
     default.b:
-      start: {line: 3, character: 6}
-      end: {line: 3, character: 10}
+      start: { line: 3, character: 6 }
+      end: { line: 3, character: 10 }
 finalState:
   documentContents: |-
     <html>
         <body>
             <hr/>
-        
+
     </html>
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]
+    - anchor: { line: 3, character: 4 }
+      active: { line: 3, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: surroundingPair, delimiter: any },
+    },
+  ]

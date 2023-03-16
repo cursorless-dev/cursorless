@@ -6,21 +6,32 @@ command:
   targets:
     - type: primitive
       selectionType: nonWhitespaceSequence
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
 initialState:
   documentContents: |
     const r = /a[b]*(c)/;
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     default.b:
-      start: {line: 0, character: 13}
-      end: {line: 0, character: 14}
+      start: { line: 0, character: 13 }
+      end: { line: 0, character: 14 }
 finalState:
   documentContents: |
     const r =
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: nonWhitespaceSequence, position: contents, insideOutsideType: outside, modifier: {type: identity}, isImplicit: false}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      selectionType: nonWhitespaceSequence,
+      position: contents,
+      insideOutsideType: outside,
+      modifier: { type: identity },
+      isImplicit: false,
+    },
+  ]

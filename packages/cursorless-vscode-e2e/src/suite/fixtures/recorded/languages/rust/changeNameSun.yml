@@ -4,24 +4,31 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      mark: { type: decoratedSymbol, symbolColor: default, character: s }
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: { type: name }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: enum Some {}
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: { line: 0, character: 12 }
+      active: { line: 0, character: 12 }
   marks:
     default.s:
-      start: {line: 0, character: 5}
-      end: {line: 0, character: 9}
+      start: { line: 0, character: 5 }
+      end: { line: 0, character: 9 }
 finalState:
   documentContents: enum  {}
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: s },
+      modifiers: [{ type: containingScope, scopeType: { type: name } }],
+    },
+  ]

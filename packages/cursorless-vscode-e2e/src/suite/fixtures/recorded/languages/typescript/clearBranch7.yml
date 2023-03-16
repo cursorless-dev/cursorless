@@ -2,12 +2,12 @@ languageId: typescript
 command:
   version: 3
   spokenForm: clear branch
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -19,8 +19,8 @@ initialState:
       const aaa = "bbb";
     }
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 3, character: 2}
+    - anchor: { line: 3, character: 2 }
+      active: { line: 3, character: 2 }
   marks: {}
 finalState:
   documentContents: |-
@@ -30,6 +30,13 @@ finalState:
       const aaa = "bbb";
     }
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
+    - anchor: { line: 2, character: 2 }
+      active: { line: 2, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: branch } }],
+    },
+  ]

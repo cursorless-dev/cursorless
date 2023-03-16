@@ -5,26 +5,39 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: unit, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: g}
+      modifier:
+        { type: containingScope, scopeType: unit, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: g }
 initialState:
   documentContents: |2-
      .child-selector {
       height: 10rem;
     }
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
+    - anchor: { line: 2, character: 1 }
+      active: { line: 2, character: 1 }
   marks:
     default.g:
-      start: {line: 1, character: 2}
-      end: {line: 1, character: 8}
+      start: { line: 1, character: 2 }
+      end: { line: 1, character: 8 }
 finalState:
   documentContents: |2-
      .child-selector {
       height: 10;
     }
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: g}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: unit, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 12 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: g },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: unit, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

@@ -5,33 +5,51 @@ command:
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
       position: after
 marksToCheck: [default.w]
 initialState:
   documentContents: hello world
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
   marks:
     default.h:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 5}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 5 }
     default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 11 }
 finalState:
   documentContents: hello world hello
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
   marks:
     default.h:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 5}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 5 }
     default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: identity}}]
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      selectionType: token,
+      position: after,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+  ]

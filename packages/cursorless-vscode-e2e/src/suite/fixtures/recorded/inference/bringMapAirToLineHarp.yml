@@ -5,30 +5,50 @@ command:
   action: replaceWithTarget
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: map, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifier:
+        { type: containingScope, scopeType: map, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
     - type: primitive
       selectionType: line
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
 initialState:
   documentContents: |2-
         hello world
         value = {a:2}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.a:
-      start: {line: 1, character: 13}
-      end: {line: 1, character: 14}
+      start: { line: 1, character: 13 }
+      end: { line: 1, character: 14 }
     default.h:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 9}
+      start: { line: 0, character: 4 }
+      end: { line: 0, character: 9 }
 finalState:
   documentContents: |2-
         {a:2}
         value = {a:2}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: map, includeSiblings: false}, insideOutsideType: null}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: line, position: contents, modifier: {type: identity}, insideOutsideType: null}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      selectionType: token,
+      position: contents,
+      modifier:
+        { type: containingScope, scopeType: map, includeSiblings: false },
+      insideOutsideType: null,
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: line,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: null,
+    },
+  ]

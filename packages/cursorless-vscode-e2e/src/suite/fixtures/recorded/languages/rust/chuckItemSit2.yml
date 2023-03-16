@@ -6,24 +6,32 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+          scopeType: { type: collectionItem }
+      mark: { type: decoratedSymbol, symbolColor: default, character: i }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     type T = (&'static str, &'static str);
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.i:
-      start: {line: 0, character: 26}
-      end: {line: 0, character: 32}
+      start: { line: 0, character: 26 }
+      end: { line: 0, character: 32 }
 finalState:
   documentContents: |
     type T = (&'static str);
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: i },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

@@ -5,8 +5,9 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: g}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: g }
 initialState:
   documentContents: |-
     public class MyClass {
@@ -16,12 +17,12 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 3, character: 32}
-      active: {line: 3, character: 49}
+    - anchor: { line: 3, character: 32 }
+      active: { line: 3, character: 49 }
   marks:
     default.g:
-      start: {line: 3, character: 42}
-      end: {line: 3, character: 48}
+      start: { line: 3, character: 42 }
+      end: { line: 3, character: 48 }
 finalState:
   documentContents: |-
     public class MyClass {
@@ -31,6 +32,17 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 3, character: 32}
-      active: {line: 3, character: 49}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: g}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]
+    - anchor: { line: 3, character: 32 }
+      active: { line: 3, character: 49 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: g },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+    },
+  ]

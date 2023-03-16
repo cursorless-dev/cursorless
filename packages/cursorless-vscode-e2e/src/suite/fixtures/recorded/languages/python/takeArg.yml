@@ -5,15 +5,15 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter}
+      modifier: { type: containingScope, scopeType: argumentOrParameter }
 initialState:
   documentContents: |
 
     def my_funk(name: str, value) -> str:
         return
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 12 }
   marks: {}
 finalState:
   documentContents: |
@@ -21,6 +21,16 @@ finalState:
     def my_funk(name: str, value) -> str:
         return
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 21}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: argumentOrParameter}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 21 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: argumentOrParameter },
+      insideOutsideType: inside,
+    },
+  ]

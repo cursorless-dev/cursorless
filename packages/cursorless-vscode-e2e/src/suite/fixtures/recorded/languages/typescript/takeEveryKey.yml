@@ -5,7 +5,12 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
     const value = {
@@ -13,8 +18,8 @@ initialState:
         key2: "there",
     };
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: { line: 1, character: 10 }
+      active: { line: 1, character: 10 }
   marks: {}
 finalState:
   documentContents: |-
@@ -23,8 +28,23 @@ finalState:
         key2: "there",
     };
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 8}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 8 }
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: true,
+        },
+      insideOutsideType: inside,
+    },
+  ]

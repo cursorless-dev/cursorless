@@ -4,16 +4,16 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      mark: { type: decoratedSymbol, symbolColor: default, character: l }
       modifiers:
-        - {type: position, position: before}
+        - { type: position, position: before }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |-
     function myFunk(
@@ -22,15 +22,15 @@ initialState:
         whatever: boolean
     ) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.w:
-      start: {line: 3, character: 4}
-      end: {line: 3, character: 12}
+      start: { line: 3, character: 4 }
+      end: { line: 3, character: 12 }
     default.l:
-      start: {line: 2, character: 4}
-      end: {line: 2, character: 9}
+      start: { line: 2, character: 4 }
+      end: { line: 2, character: 9 }
 finalState:
   documentContents: |-
     function myFunk(
@@ -40,20 +40,38 @@ finalState:
         whatever: boolean
     ) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 2, character: 4}
-        end: {line: 2, character: 21}
+        start: { line: 2, character: 4 }
+        end: { line: 2, character: 21 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 4, character: 4}
-        end: {line: 4, character: 21}
+        start: { line: 4, character: 4 }
+        end: { line: 4, character: 21 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: argumentOrParameter}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: [{type: position, position: before}, *ref_0]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      modifiers:
+        [
+          &ref_0 {
+            type: containingScope,
+            scopeType: { type: argumentOrParameter },
+          },
+        ],
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: l },
+      modifiers: [{ type: position, position: before }, *ref_0],
+    },
+  ]

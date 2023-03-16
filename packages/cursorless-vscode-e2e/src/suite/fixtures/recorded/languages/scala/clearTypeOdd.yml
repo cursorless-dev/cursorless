@@ -5,26 +5,39 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: o }
 initialState:
   documentContents: |-
     class Example(foo: String) {
       def str(bar: String): String = foo + bar
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.o:
-      start: {line: 0, character: 14}
-      end: {line: 0, character: 17}
+      start: { line: 0, character: 14 }
+      end: { line: 0, character: 17 }
 finalState:
   documentContents: |-
     class Example(foo: ) {
       def str(bar: String): String = foo + bar
     }
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 19 }
+      active: { line: 0, character: 19 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: o },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

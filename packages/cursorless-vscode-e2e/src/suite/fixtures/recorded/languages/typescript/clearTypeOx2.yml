@@ -5,20 +5,38 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: o }
 initialState:
   documentContents: "const foo: string = bar<number>(foo);"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.o:
-      start: {line: 0, character: 32}
-      end: {line: 0, character: 35}
+      start: { line: 0, character: 32 }
+      end: { line: 0, character: 35 }
 finalState:
   documentContents: "const foo:  = bar<number>(foo);"
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o, usePrePhraseSnapshot: true}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark:
+        {
+          type: decoratedSymbol,
+          symbolColor: default,
+          character: o,
+          usePrePhraseSnapshot: true,
+        },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+    },
+  ]

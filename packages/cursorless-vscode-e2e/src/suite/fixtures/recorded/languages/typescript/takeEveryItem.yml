@@ -5,26 +5,46 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |
 
     const value = { a: 1, b: 2, c: 3, foo };
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 17}
+    - anchor: { line: 1, character: 17 }
+      active: { line: 1, character: 17 }
   marks: {}
 finalState:
   documentContents: |
 
     const value = { a: 1, b: 2, c: 3, foo };
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 20}
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 26}
-    - anchor: {line: 1, character: 28}
-      active: {line: 1, character: 32}
-    - anchor: {line: 1, character: 34}
-      active: {line: 1, character: 37}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 16 }
+      active: { line: 1, character: 20 }
+    - anchor: { line: 1, character: 22 }
+      active: { line: 1, character: 26 }
+    - anchor: { line: 1, character: 28 }
+      active: { line: 1, character: 32 }
+    - anchor: { line: 1, character: 34 }
+      active: { line: 1, character: 37 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        },
+      insideOutsideType: inside,
+    },
+  ]

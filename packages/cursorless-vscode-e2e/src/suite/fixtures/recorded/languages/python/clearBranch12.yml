@@ -2,22 +2,29 @@ languageId: python
 command:
   version: 3
   spokenForm: clear branch
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: false
 initialState:
   documentContents: aaa = bbb if ccc else ddd
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: { line: 0, character: 22 }
+      active: { line: 0, character: 22 }
   marks: {}
 finalState:
   documentContents: "aaa = bbb if ccc else "
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
+    - anchor: { line: 0, character: 22 }
+      active: { line: 0, character: 22 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: branch } }],
+    },
+  ]

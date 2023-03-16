@@ -6,15 +6,15 @@ command:
   targets:
     - type: primitive
       selectionType: token
-      modifier: {type: subpiece, pieceType: word, anchor: 0, active: 0}
+      modifier: { type: subpiece, pieceType: word, anchor: 0, active: 0 }
 initialState:
   documentContents: |+
 
     const value = "HelloWorld";
 
   selections:
-    - anchor: {line: 1, character: 18}
-      active: {line: 1, character: 18}
+    - anchor: { line: 1, character: 18 }
+      active: { line: 1, character: 18 }
   marks: {}
 finalState:
   documentContents: |+
@@ -22,6 +22,16 @@ finalState:
     const value = "HelloWorld";
 
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 20}
-fullTargets: [{type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: word, anchor: 0, active: 0}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 20 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursorToken },
+      selectionType: token,
+      position: contents,
+      modifier: { type: subpiece, pieceType: word, anchor: 0, active: 0 },
+      insideOutsideType: inside,
+    },
+  ]

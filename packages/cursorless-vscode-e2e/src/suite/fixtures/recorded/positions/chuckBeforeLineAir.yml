@@ -7,7 +7,7 @@ command:
     - type: primitive
       position: before
       selectionType: line
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
 initialState:
   documentContents: |-
 
@@ -15,18 +15,28 @@ initialState:
 
         const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.a:
-      start: {line: 3, character: 10}
-      end: {line: 3, character: 15}
+      start: { line: 3, character: 10 }
+      end: { line: 3, character: 15 }
 finalState:
   documentContents: |-
 
     const value = "Hello world";
         const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: line, position: before, modifier: {type: identity}, insideOutsideType: outside}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      selectionType: line,
+      position: before,
+      modifier: { type: identity },
+      insideOutsideType: outside,
+    },
+  ]

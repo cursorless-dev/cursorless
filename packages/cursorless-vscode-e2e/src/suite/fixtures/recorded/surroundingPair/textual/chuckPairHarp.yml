@@ -5,22 +5,32 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      modifier: { type: surroundingPair, delimiter: any }
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
 initialState:
   documentContents: |
     (hello) (there)
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: { line: 0, character: 13 }
+      active: { line: 0, character: 13 }
   marks:
     default.h:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 6}
+      start: { line: 0, character: 1 }
+      end: { line: 0, character: 6 }
 finalState:
   documentContents: |
     (there)
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: surroundingPair, delimiter: any}}]
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier: { type: surroundingPair, delimiter: any },
+    },
+  ]

@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+  action: { name: editNewLineAfter }
 initialState:
   documentContents: |-
     class Aaa {
@@ -21,8 +21,8 @@ initialState:
       }
     }
   selections:
-    - anchor: {line: 4, character: 21}
-      active: {line: 4, character: 21}
+    - anchor: { line: 4, character: 21 }
+      active: { line: 4, character: 21 }
   marks: {}
 finalState:
   documentContents: |-
@@ -31,12 +31,19 @@ finalState:
         var s =
           switch ("0") {
             case "0" -> "zero";
-            
+
             case "1" -> "one";
           };
       }
     }
   selections:
-    - anchor: {line: 5, character: 8}
-      active: {line: 5, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
+    - anchor: { line: 5, character: 8 }
+      active: { line: 5, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: branch } }],
+    },
+  ]

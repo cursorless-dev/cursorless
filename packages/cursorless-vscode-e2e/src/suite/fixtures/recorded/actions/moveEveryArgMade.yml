@@ -5,38 +5,68 @@ command:
   action: moveToTarget
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
-    - {type: primitive, isImplicit: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
+    - { type: primitive, isImplicit: true }
 initialState:
   documentContents: |
     function myFunk(value: string, name: string, age: number) { };
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     default.m:
-      start: {line: 0, character: 31}
-      end: {line: 0, character: 35}
+      start: { line: 0, character: 31 }
+      end: { line: 0, character: 35 }
 finalState:
   documentContents: |-
     function myFunk() { };
     value: string, name: string, age: number
   selections:
-    - anchor: {line: 1, character: 40}
-      active: {line: 1, character: 40}
+    - anchor: { line: 1, character: 40 }
+      active: { line: 1, character: 40 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 0}
-        end: {line: 1, character: 40}
+        start: { line: 1, character: 0 }
+        end: { line: 1, character: 40 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 16}
-        end: {line: 0, character: 16}
+        start: { line: 0, character: 16 }
+        end: { line: 0, character: 16 }
       isReversed: false
       hasExplicitRange: false
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}, {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}, isImplicit: true}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      isImplicit: false,
+    },
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+      isImplicit: true,
+    },
+  ]

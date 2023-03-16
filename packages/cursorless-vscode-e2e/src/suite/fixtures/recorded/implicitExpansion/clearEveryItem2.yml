@@ -6,20 +6,27 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: a, b, c, d
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 7 }
   marks: {}
 finalState:
   documentContents: a, , , d
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: everyScope, scopeType: { type: collectionItem } }],
+    },
+  ]

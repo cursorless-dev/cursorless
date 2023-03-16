@@ -4,16 +4,16 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      mark: { type: decoratedSymbol, symbolColor: default, character: v }
       modifiers:
-        - {type: position, position: after}
+        - { type: position, position: after }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |-
     function myFunk(
@@ -21,15 +21,15 @@ initialState:
         value: number
     ) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.m:
-      start: {line: 1, character: 4}
-      end: {line: 1, character: 8}
+      start: { line: 1, character: 4 }
+      end: { line: 1, character: 8 }
     default.v:
-      start: {line: 2, character: 4}
-      end: {line: 2, character: 9}
+      start: { line: 2, character: 4 }
+      end: { line: 2, character: 9 }
 finalState:
   documentContents: |-
     function myFunk(
@@ -38,20 +38,38 @@ finalState:
         name: string
     ) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 3, character: 4}
-        end: {line: 3, character: 16}
+        start: { line: 3, character: 4 }
+        end: { line: 3, character: 16 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 4}
-        end: {line: 1, character: 16}
+        start: { line: 1, character: 4 }
+        end: { line: 1, character: 16 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: argumentOrParameter}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, modifiers: [{type: position, position: after}, *ref_0]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      modifiers:
+        [
+          &ref_0 {
+            type: containingScope,
+            scopeType: { type: argumentOrParameter },
+          },
+        ],
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: v },
+      modifiers: [{ type: position, position: after }, *ref_0],
+    },
+  ]

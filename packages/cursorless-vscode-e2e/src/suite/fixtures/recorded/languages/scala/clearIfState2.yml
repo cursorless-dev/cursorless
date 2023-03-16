@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: ifStatement,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     val test = if (true) {
@@ -14,12 +19,28 @@ initialState:
       false
     }
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: { line: 0, character: 12 }
+      active: { line: 0, character: 12 }
   marks: {}
 finalState:
   documentContents: "val test = "
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: ifStatement,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

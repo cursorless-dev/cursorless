@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: value}
+          scopeType: { type: value }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     fn foo() -> i32 {
@@ -19,8 +19,8 @@ initialState:
         "whatever"
     }
   selections:
-    - anchor: {line: 2, character: 18}
-      active: {line: 2, character: 18}
+    - anchor: { line: 2, character: 18 }
+      active: { line: 2, character: 18 }
   marks: {}
 finalState:
   documentContents: |-
@@ -32,6 +32,13 @@ finalState:
         "whatever"
     }
   selections:
-    - anchor: {line: 3, character: 15}
-      active: {line: 3, character: 15}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]
+    - anchor: { line: 3, character: 15 }
+      active: { line: 3, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: value } }],
+    },
+  ]

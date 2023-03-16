@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      mark: { type: decoratedSymbol, symbolColor: default, character: v }
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     enum IpAddr {
@@ -17,18 +17,26 @@ initialState:
         V6(String),
     }
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
   marks:
     default.v:
-      start: {line: 1, character: 4}
-      end: {line: 1, character: 6}
+      start: { line: 1, character: 4 }
+      end: { line: 1, character: 6 }
 finalState:
   documentContents: |
     enum IpAddr {
         V6(String),
     }
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: v },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

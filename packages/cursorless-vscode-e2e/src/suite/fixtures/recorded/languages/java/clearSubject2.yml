@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: switchStatementSubject}
+          scopeType: { type: switchStatementSubject }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     class Aaa {
@@ -21,8 +21,8 @@ initialState:
       }
     }
   selections:
-    - anchor: {line: 5, character: 22}
-      active: {line: 5, character: 22}
+    - anchor: { line: 5, character: 22 }
+      active: { line: 5, character: 22 }
   marks: {}
 finalState:
   documentContents: |
@@ -36,6 +36,19 @@ finalState:
       }
     }
   selections:
-    - anchor: {line: 4, character: 14}
-      active: {line: 4, character: 14}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]
+    - anchor: { line: 4, character: 14 }
+      active: { line: 4, character: 14 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: containingScope,
+            scopeType: { type: switchStatementSubject },
+          },
+        ],
+    },
+  ]

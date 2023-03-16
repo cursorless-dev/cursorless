@@ -6,44 +6,65 @@ command:
     - type: range
       anchor:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        mark: { type: decoratedSymbol, symbolColor: default, character: f }
         modifiers:
           - type: containingScope
-            scopeType: {type: line}
+            scopeType: { type: line }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+        mark: { type: decoratedSymbol, symbolColor: default, character: r }
       excludeAnchor: true
       excludeActive: true
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |2
 
-        foo ooo    
+        foo ooo
     aa
     bb
-        bar    
+        bar
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.f:
-      start: {line: 1, character: 4}
-      end: {line: 1, character: 7}
+      start: { line: 1, character: 4 }
+      end: { line: 1, character: 7 }
     default.r:
-      start: {line: 4, character: 4}
-      end: {line: 4, character: 7}
+      start: { line: 4, character: 4 }
+      end: { line: 4, character: 7 }
 finalState:
   documentContents: |2
 
-        foo ooo    
-        bar    
+        foo ooo
+        bar
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
 ide:
   flashes:
-    - range: {type: line, start: 2, end: 3}
+    - range: { type: line, start: 2, end: 3 }
       style: pendingDelete
-fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: *ref_0}}]
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: true,
+      excludeActive: true,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: f },
+          modifiers:
+            &ref_0 [{ type: containingScope, scopeType: { type: line } }],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: r },
+          modifiers: *ref_0,
+        },
+    },
+  ]

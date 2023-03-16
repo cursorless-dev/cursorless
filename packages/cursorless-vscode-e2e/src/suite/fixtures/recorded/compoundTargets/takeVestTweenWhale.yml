@@ -7,10 +7,10 @@ command:
     - type: range
       start:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: v}
+        mark: { type: decoratedSymbol, symbolColor: default, character: v }
       end:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        mark: { type: decoratedSymbol, symbolColor: default, character: w }
       excludeStart: true
       excludeEnd: true
 initialState:
@@ -18,20 +18,45 @@ initialState:
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 26}
-      active: {line: 1, character: 11}
+    - anchor: { line: 1, character: 26 }
+      active: { line: 1, character: 11 }
   marks:
     default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+      start: { line: 1, character: 6 }
+      end: { line: 1, character: 11 }
     default.w:
-      start: {line: 1, character: 21}
-      end: {line: 1, character: 26}
+      start: { line: 1, character: 21 }
+      end: { line: 1, character: 26 }
 finalState:
   documentContents: |
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 21}
-fullTargets: [{type: range, excludeStart: true, excludeEnd: true, start: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}}]
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 21 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeStart: true,
+      excludeEnd: true,
+      start:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: v },
+          selectionType: token,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+      end:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: w },
+          selectionType: token,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+    },
+  ]

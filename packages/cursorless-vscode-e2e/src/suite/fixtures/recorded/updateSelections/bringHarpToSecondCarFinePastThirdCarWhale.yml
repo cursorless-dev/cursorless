@@ -5,38 +5,103 @@ command:
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
     - type: range
       start:
         type: primitive
         selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        modifier:
+          {
+            type: subpiece,
+            pieceType: character,
+            anchor: 1,
+            active: 1,
+            excludeAnchor: false,
+            excludeActive: false,
+          }
+        mark: { type: decoratedSymbol, symbolColor: default, character: f }
       end:
         type: primitive
         selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        modifier:
+          {
+            type: subpiece,
+            pieceType: character,
+            anchor: 2,
+            active: 2,
+            excludeAnchor: false,
+            excludeActive: false,
+          }
+        mark: { type: decoratedSymbol, symbolColor: default, character: w }
       excludeStart: false
       excludeEnd: false
 initialState:
   documentContents: foo world whatever
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 9 }
   marks:
     default.h:
-      start: {line: 0, character: 10}
-      end: {line: 0, character: 18}
+      start: { line: 0, character: 10 }
+      end: { line: 0, character: 18 }
     default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 3 }
     default.w:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 9}
+      start: { line: 0, character: 4 }
+      end: { line: 0, character: 9 }
 finalState:
   documentContents: fwhateverld whatever
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: f },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: null,
+          modifier:
+            {
+              type: subpiece,
+              pieceType: character,
+              anchor: 1,
+              active: 1,
+              excludeAnchor: false,
+              excludeActive: false,
+            },
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: w },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: null,
+          modifier:
+            {
+              type: subpiece,
+              pieceType: character,
+              anchor: 2,
+              active: 2,
+              excludeAnchor: false,
+              excludeActive: false,
+            },
+        },
+    },
+  ]

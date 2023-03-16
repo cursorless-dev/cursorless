@@ -5,16 +5,16 @@ command:
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
     - type: range
       start:
         type: primitive
         position: after
         insideOutsideType: inside
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        mark: { type: decoratedSymbol, symbolColor: default, character: b }
       end:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        mark: { type: decoratedSymbol, symbolColor: default, character: f }
       excludeStart: false
       excludeEnd: false
       rangeType: vertical
@@ -26,18 +26,18 @@ initialState:
     d   e
     f   g
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
   marks:
     default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 1}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 1 }
     default.b:
-      start: {line: 2, character: 0}
-      end: {line: 2, character: 1}
+      start: { line: 2, character: 0 }
+      end: { line: 2, character: 1 }
     default.f:
-      start: {line: 4, character: 0}
-      end: {line: 4, character: 1}
+      start: { line: 4, character: 0 }
+      end: { line: 4, character: 1 }
 finalState:
   documentContents: |
     a
@@ -46,6 +46,40 @@ finalState:
     da   e
     fa   g
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: range, excludeAnchor: false, excludeActive: false, rangeType: vertical, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}}]
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: vertical,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: b },
+          selectionType: token,
+          position: after,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: f },
+          selectionType: token,
+          position: after,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+    },
+  ]

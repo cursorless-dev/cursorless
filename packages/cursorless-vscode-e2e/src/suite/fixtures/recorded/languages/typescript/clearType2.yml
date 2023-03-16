@@ -5,16 +5,28 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
 initialState:
   documentContents: "const foo: string = new Bar()"
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
   marks: {}
 finalState:
   documentContents: "const foo: string = new ()"
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+    },
+  ]

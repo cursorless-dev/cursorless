@@ -5,15 +5,20 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: any,
+          delimiterInclusion: interiorOnly,
+        }
 initialState:
   documentContents: |-
     <?php
 
     "hello world";
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 7 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +26,22 @@ finalState:
 
     "";
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}, isImplicit: false}]
+    - anchor: { line: 2, character: 1 }
+      active: { line: 2, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: any,
+          delimiterInclusion: interiorOnly,
+        },
+      isImplicit: false,
+    },
+  ]

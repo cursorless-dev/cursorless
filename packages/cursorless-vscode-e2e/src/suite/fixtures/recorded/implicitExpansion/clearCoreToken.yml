@@ -5,16 +5,27 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
+        - { type: interiorOnly }
         - type: containingScope
-          scopeType: {type: token}
+          scopeType: { type: token }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: (aaa)
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: interiorOnly}, {type: containingScope, scopeType: {type: token}}]}]
-thrownError: {name: NoContainingScopeError}
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          { type: interiorOnly },
+          { type: containingScope, scopeType: { type: token } },
+        ],
+    },
+  ]
+thrownError: { name: NoContainingScopeError }

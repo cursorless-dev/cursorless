@@ -6,13 +6,13 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: token}
+          scopeType: { type: token }
           start: 0
           length: 1
         - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: parentheses}
+          scopeType: { type: surroundingPair, delimiter: parentheses }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     hello (
@@ -20,16 +20,35 @@ initialState:
         now
     ) testing
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
-    hello 
+    hello
         there
         now
     ) testing
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: token}, start: 0, length: 1}, {type: containingScope, scopeType: {type: surroundingPair, delimiter: parentheses}}]}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: ordinalScope,
+            scopeType: { type: token },
+            start: 0,
+            length: 1,
+          },
+          {
+            type: containingScope,
+            scopeType: { type: surroundingPair, delimiter: parentheses },
+          },
+        ],
+    },
+  ]

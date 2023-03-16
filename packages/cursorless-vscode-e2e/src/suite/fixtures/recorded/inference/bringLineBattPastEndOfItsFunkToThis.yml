@@ -8,21 +8,21 @@ command:
         type: primitive
         modifiers:
           - type: containingScope
-            scopeType: {type: line}
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+            scopeType: { type: line }
+        mark: { type: decoratedSymbol, symbolColor: default, character: b }
       active:
         type: primitive
         modifiers:
-          - {type: position, position: end}
-          - {type: inferPreviousMark}
+          - { type: position, position: end }
+          - { type: inferPreviousMark }
           - type: containingScope
-            scopeType: {type: namedFunction}
+            scopeType: { type: namedFunction }
       excludeAnchor: false
       excludeActive: false
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |-
     function foo() {
@@ -33,12 +33,12 @@ initialState:
 
     const bongo = "bazman";
   selections:
-    - anchor: {line: 6, character: 0}
-      active: {line: 6, character: 0}
+    - anchor: { line: 6, character: 0 }
+      active: { line: 6, character: 0 }
   marks:
     default.b:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 13}
+      start: { line: 1, character: 10 }
+      end: { line: 1, character: 13 }
 finalState:
   documentContents: |-
     function foo() {
@@ -52,6 +52,30 @@ finalState:
         const baz = "hi";
     }
   selections:
-    - anchor: {line: 6, character: 0}
-      active: {line: 6, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}], positionModifier: {type: position, position: end}}}, {type: primitive, mark: {type: cursor}, modifiers: [*ref_0]}]
+    - anchor: { line: 6, character: 0 }
+      active: { line: 6, character: 0 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: b },
+          modifiers:
+            [&ref_0 { type: containingScope, scopeType: { type: line } }],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: b },
+          modifiers:
+            [{ type: containingScope, scopeType: { type: namedFunction } }],
+          positionModifier: { type: position, position: end },
+        },
+    },
+    { type: primitive, mark: { type: cursor }, modifiers: [*ref_0] },
+  ]

@@ -5,7 +5,8 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}
+      modifier:
+        { type: containingScope, scopeType: attribute, includeSiblings: true }
 initialState:
   documentContents: |
 
@@ -13,8 +14,8 @@ initialState:
       <div id="bar" name="foo">bar</div>
     );
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 15}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 15 }
   marks: {}
 finalState:
   documentContents: |
@@ -23,8 +24,19 @@ finalState:
       <div id="bar" name="foo">bar</div>
     );
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 15}
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 26}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}, insideOutsideType: inside}]
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 15 }
+    - anchor: { line: 2, character: 16 }
+      active: { line: 2, character: 26 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        { type: containingScope, scopeType: attribute, includeSiblings: true },
+      insideOutsideType: inside,
+    },
+  ]

@@ -5,28 +5,29 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: trailing}
-      mark: {type: that}
+        - { type: trailing }
+      mark: { type: that }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     helloWorld now
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 10}
-        end: {line: 0, character: 10}
+        start: { line: 0, character: 10 }
+        end: { line: 0, character: 10 }
       isReversed: false
       hasExplicitRange: false
 finalState:
   documentContents: |
     helloWorldnow
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: trailing}]}]
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
+fullTargets:
+  [{ type: primitive, mark: { type: that }, modifiers: [{ type: trailing }] }]

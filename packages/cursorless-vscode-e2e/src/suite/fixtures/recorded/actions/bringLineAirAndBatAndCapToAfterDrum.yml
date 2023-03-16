@@ -8,14 +8,14 @@ command:
       elements:
         - type: primitive
           selectionType: line
-          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+          mark: { type: decoratedSymbol, symbolColor: default, character: a }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          mark: { type: decoratedSymbol, symbolColor: default, character: b }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+          mark: { type: decoratedSymbol, symbolColor: default, character: c }
     - type: primitive
       position: after
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: { type: decoratedSymbol, symbolColor: default, character: d }
 initialState:
   documentContents: |
     a
@@ -24,21 +24,21 @@ initialState:
 
     d
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
   marks:
     default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 1}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 1 }
     default.b:
-      start: {line: 1, character: 0}
-      end: {line: 1, character: 1}
+      start: { line: 1, character: 0 }
+      end: { line: 1, character: 1 }
     default.c:
-      start: {line: 2, character: 0}
-      end: {line: 2, character: 1}
+      start: { line: 2, character: 0 }
+      end: { line: 2, character: 1 }
     default.d:
-      start: {line: 4, character: 0}
-      end: {line: 4, character: 1}
+      start: { line: 4, character: 0 }
+      end: { line: 4, character: 1 }
 finalState:
   documentContents: |
     a
@@ -50,32 +50,72 @@ finalState:
     b
     c
   selections:
-    - anchor: {line: 8, character: 0}
-      active: {line: 8, character: 0}
+    - anchor: { line: 8, character: 0 }
+      active: { line: 8, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 5, character: 0}
-        end: {line: 7, character: 1}
+        start: { line: 5, character: 0 }
+        end: { line: 7, character: 1 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 1}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 1 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 0}
-        end: {line: 1, character: 1}
+        start: { line: 1, character: 0 }
+        end: { line: 1, character: 1 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 2, character: 0}
-        end: {line: 2, character: 1}
+        start: { line: 2, character: 0 }
+        end: { line: 2, character: 1 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, selectionType: line, position: after, insideOutsideType: null, modifier: {type: identity}}]
+fullTargets:
+  [
+    {
+      type: list,
+      elements:
+        [
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: a },
+            selectionType: line,
+            position: contents,
+            insideOutsideType: null,
+            modifier: { type: identity },
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: b },
+            selectionType: line,
+            position: contents,
+            insideOutsideType: null,
+            modifier: { type: identity },
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: c },
+            selectionType: line,
+            position: contents,
+            insideOutsideType: null,
+            modifier: { type: identity },
+          },
+        ],
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: d },
+      selectionType: line,
+      position: after,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+  ]

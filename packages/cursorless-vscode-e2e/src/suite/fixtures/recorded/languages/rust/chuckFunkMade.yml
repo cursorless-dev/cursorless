@@ -5,24 +5,45 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
 initialState:
   documentContents: |
     fn main() {
         println!("Hello, world!");
     }
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
   marks:
     default.m:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 7}
+      start: { line: 0, character: 3 }
+      end: { line: 0, character: 7 }
 finalState:
   documentContents: |+
 
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

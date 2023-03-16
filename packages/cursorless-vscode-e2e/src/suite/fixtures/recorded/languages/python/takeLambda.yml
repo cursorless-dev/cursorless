@@ -5,20 +5,30 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction}
+      modifier: { type: containingScope, scopeType: anonymousFunction }
 initialState:
   documentContents: |
 
     value = lambda x: x
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 14 }
   marks: {}
 finalState:
   documentContents: |
 
     value = lambda x: x
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 19}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: anonymousFunction}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 19 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: anonymousFunction },
+      insideOutsideType: inside,
+    },
+  ]

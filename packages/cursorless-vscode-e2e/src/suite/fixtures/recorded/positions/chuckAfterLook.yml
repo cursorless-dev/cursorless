@@ -6,7 +6,7 @@ command:
   targets:
     - type: primitive
       position: after
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      mark: { type: decoratedSymbol, symbolColor: default, character: l }
 initialState:
   documentContents: |
     "hello "
@@ -14,12 +14,12 @@ initialState:
     " hello "
     return a.b
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
   marks:
     default.l:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 6}
+      start: { line: 0, character: 1 }
+      end: { line: 0, character: 6 }
 finalState:
   documentContents: |
     "hello"
@@ -27,6 +27,16 @@ finalState:
     " hello "
     return a.b
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, selectionType: token, position: after, insideOutsideType: outside, modifier: {type: identity}}]
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: l },
+      selectionType: token,
+      position: after,
+      insideOutsideType: outside,
+      modifier: { type: identity },
+    },
+  ]

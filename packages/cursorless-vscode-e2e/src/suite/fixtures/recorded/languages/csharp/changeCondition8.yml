@@ -5,16 +5,29 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: condition, includeSiblings: false }
 initialState:
   documentContents: for (int i = 0; i < 5; i++) { while(false == true) {} }
   selections:
-    - anchor: {line: 0, character: 43}
-      active: {line: 0, character: 43}
+    - anchor: { line: 0, character: 43 }
+      active: { line: 0, character: 43 }
   marks: {}
 finalState:
   documentContents: for (int i = 0; i < 5; i++) { while() {} }
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: condition, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 36 }
+      active: { line: 0, character: 36 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: condition, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

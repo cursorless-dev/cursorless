@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: { type: namedFunction }
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
+  action: { name: insertCopyAfter }
 initialState:
   documentContents: |-
     function myFunk() {
       // aaa
     }
   selections:
-    - anchor: {line: 1, character: 5}
-      active: {line: 1, character: 5}
+    - anchor: { line: 1, character: 5 }
+      active: { line: 1, character: 5 }
   marks: {}
 finalState:
   documentContents: |-
@@ -28,6 +28,14 @@ finalState:
       // aaa
     }
   selections:
-    - anchor: {line: 5, character: 5}
-      active: {line: 5, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
+    - anchor: { line: 5, character: 5 }
+      active: { line: 5, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: namedFunction } }],
+    },
+  ]

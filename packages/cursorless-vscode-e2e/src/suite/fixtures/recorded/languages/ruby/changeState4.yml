@@ -5,22 +5,35 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false }
 initialState:
   documentContents: |-
     class << self
       a = 10
     end
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: { line: 1, character: 7 }
+      active: { line: 1, character: 7 }
   marks: {}
 finalState:
   documentContents: |-
     class << self
-      
+
     end
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 2 }
+      active: { line: 1, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

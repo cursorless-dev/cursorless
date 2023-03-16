@@ -5,18 +5,38 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        }
 initialState:
-  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  documentContents: 'map[string]string{"air": "bat", "cap": "drum"}'
   selections:
-    - anchor: {line: 0, character: 42}
-      active: {line: 0, character: 42}
+    - anchor: { line: 0, character: 42 }
+      active: { line: 0, character: 42 }
   marks: {}
 finalState:
-  documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  documentContents: 'map[string]string{"air": "bat", "cap": "drum"}'
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 30}
-    - anchor: {line: 0, character: 32}
-      active: {line: 0, character: 45}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}}]
+    - anchor: { line: 0, character: 18 }
+      active: { line: 0, character: 30 }
+    - anchor: { line: 0, character: 32 }
+      active: { line: 0, character: 45 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        },
+    },
+  ]

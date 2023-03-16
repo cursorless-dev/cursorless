@@ -4,24 +4,31 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: x}
+      mark: { type: decoratedSymbol, symbolColor: default, character: x }
       modifiers:
         - type: containingScope
-          scopeType: {type: type}
+          scopeType: { type: type }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: "let x: u32 = 1;"
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: { line: 0, character: 15 }
+      active: { line: 0, character: 15 }
   marks:
     default.x:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 5}
+      start: { line: 0, character: 4 }
+      end: { line: 0, character: 5 }
 finalState:
   documentContents: let x = 1;
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: x}, modifiers: [{type: containingScope, scopeType: {type: type}}]}]
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: x },
+      modifiers: [{ type: containingScope, scopeType: { type: type } }],
+    },
+  ]

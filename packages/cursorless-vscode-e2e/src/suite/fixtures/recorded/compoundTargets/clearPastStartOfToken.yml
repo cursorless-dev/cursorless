@@ -5,22 +5,53 @@ command:
   action: clearAndSetSelection
   targets:
     - type: range
-      start: {type: primitive, isImplicit: true}
-      end: {type: primitive, position: before, insideOutsideType: inside, selectionType: token}
+      start: { type: primitive, isImplicit: true }
+      end:
+        {
+          type: primitive,
+          position: before,
+          insideOutsideType: inside,
+          selectionType: token,
+        }
       excludeStart: false
       excludeEnd: false
 initialState:
   documentContents: hello there
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   marks: {}
 finalState:
   documentContents: hello ere
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: cursorToken}, selectionType: token, position: before, modifier: {type: identity}, insideOutsideType: inside}}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeStart: false,
+      excludeEnd: false,
+      start:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          selectionType: token,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+      end:
+        {
+          type: primitive,
+          mark: { type: cursorToken },
+          selectionType: token,
+          position: before,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+    },
+  ]
 ide:
   messages:
-    - {type: warning, id: deprecatedPositionInference}
+    - { type: warning, id: deprecatedPositionInference }

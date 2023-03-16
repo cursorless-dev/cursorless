@@ -6,32 +6,42 @@ command:
   targets:
     - type: primitive
       position: after
-      mark: {type: decoratedSymbol, symbolColor: default, character: .}
+      mark: { type: decoratedSymbol, symbolColor: default, character: . }
 initialState:
   documentContents: a b.c
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
   marks:
     default..:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 4}
+      start: { line: 0, character: 3 }
+      end: { line: 0, character: 4 }
 finalState:
   documentContents: a b.c
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   thatMark:
     - type: PositionTarget
       contentRange:
-        start: {line: 0, character: 4}
-        end: {line: 0, character: 4}
+        start: { line: 0, character: 4 }
+        end: { line: 0, character: 4 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: . },
+      selectionType: token,
+      position: after,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

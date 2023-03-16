@@ -6,28 +6,43 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: word}
+          scopeType: { type: word }
           start: 0
           length: 1
-      mark: {type: that}
+      mark: { type: that }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: aaaBbbCcc ddd
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: { line: 0, character: 13 }
+      active: { line: 0, character: 13 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 3}
-        end: {line: 0, character: 9}
+        start: { line: 0, character: 3 }
+        end: { line: 0, character: 9 }
       isReversed: false
       hasExplicitRange: true
 finalState:
   documentContents: aaaCcc ddd
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: ordinalScope, scopeType: {type: word}, start: 0, length: 1}]}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: that },
+      modifiers:
+        [
+          {
+            type: ordinalScope,
+            scopeType: { type: word },
+            start: 0,
+            length: 1,
+          },
+        ],
+    },
+  ]

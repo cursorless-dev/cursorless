@@ -5,24 +5,44 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: anonymousFunction,
+          includeSiblings: false,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
 initialState:
   documentContents: |-
 
     lambda a: print("hello")
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.m:
-      start: {line: 1, character: 0}
-      end: {line: 1, character: 6}
+      start: { line: 1, character: 0 }
+      end: { line: 1, character: 6 }
 finalState:
   documentContents: |-
 
     lambda a: print("hello")
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 24}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 24 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: anonymousFunction,
+          includeSiblings: false,
+        },
+    },
+  ]

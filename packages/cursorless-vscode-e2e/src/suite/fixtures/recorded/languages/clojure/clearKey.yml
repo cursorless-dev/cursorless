@@ -5,16 +5,36 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        }
 initialState:
-  documentContents: "{:baz {:foo \"bar\"}}"
+  documentContents: '{:baz {:foo "bar"}}'
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks: {}
 finalState:
-  documentContents: "{ {:foo \"bar\"}}"
+  documentContents: '{ {:foo "bar"}}'
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}}]
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        },
+    },
+  ]

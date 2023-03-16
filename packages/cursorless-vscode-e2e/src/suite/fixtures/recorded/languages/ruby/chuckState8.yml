@@ -5,7 +5,8 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false }
 initialState:
   documentContents: |-
     case abc
@@ -15,8 +16,8 @@ initialState:
       a = 10
     end
   selections:
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 4}
+    - anchor: { line: 4, character: 4 }
+      active: { line: 4, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
@@ -27,6 +28,18 @@ finalState:
 
     end
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

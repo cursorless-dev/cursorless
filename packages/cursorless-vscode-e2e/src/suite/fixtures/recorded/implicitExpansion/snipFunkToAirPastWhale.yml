@@ -6,10 +6,10 @@ command:
     - type: range
       anchor:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        mark: { type: decoratedSymbol, symbolColor: default, character: a }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        mark: { type: decoratedSymbol, symbolColor: default, character: w }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
@@ -27,22 +27,42 @@ initialState:
     }
 
   selections:
-    - anchor: {line: 8, character: 0}
-      active: {line: 8, character: 0}
+    - anchor: { line: 8, character: 0 }
+      active: { line: 8, character: 0 }
   marks:
     default.a:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 18}
+      start: { line: 1, character: 10 }
+      end: { line: 1, character: 18 }
     default.w:
-      start: {line: 5, character: 10}
-      end: {line: 5, character: 18}
+      start: { line: 5, character: 10 }
+      end: { line: 5, character: 18 }
 finalState:
   documentContents: |+
     function () {
-        
+
     }
 
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: []}}]
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: a },
+          modifiers: [],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: w },
+          modifiers: [],
+        },
+    },
+  ]

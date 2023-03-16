@@ -4,37 +4,37 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
     - type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: o}
+          mark: { type: decoratedSymbol, symbolColor: default, character: o }
           modifiers:
-            - {type: position, position: after}
+            - { type: position, position: after }
             - type: containingScope
-              scopeType: {type: line}
+              scopeType: { type: line }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+          mark: { type: decoratedSymbol, symbolColor: default, character: w }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |-
     const whatever = "hello";
 
     const whatever = "hello";
   selections:
-    - anchor: {line: 2, character: 24}
-      active: {line: 2, character: 24}
+    - anchor: { line: 2, character: 24 }
+      active: { line: 2, character: 24 }
   marks:
     default.h:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 14}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 14 }
     default.o:
-      start: {line: 0, character: 18}
-      end: {line: 0, character: 23}
+      start: { line: 0, character: 18 }
+      end: { line: 0, character: 23 }
     default.w:
-      start: {line: 2, character: 6}
-      end: {line: 2, character: 14}
+      start: { line: 2, character: 6 }
+      end: { line: 2, character: 14 }
 finalState:
   documentContents: |-
     const whatever = "hello";
@@ -43,6 +43,33 @@ finalState:
     const whatever = "hello";
     whatever
   selections:
-    - anchor: {line: 3, character: 24}
-      active: {line: 3, character: 24}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: []}, {type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, modifiers: &ref_0 [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: *ref_0}]}]
+    - anchor: { line: 3, character: 24 }
+      active: { line: 3, character: 24 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      modifiers: [],
+    },
+    {
+      type: list,
+      elements:
+        [
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: o },
+            modifiers:
+              &ref_0 [
+                { type: position, position: after },
+                { type: containingScope, scopeType: { type: line } },
+              ],
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: w },
+            modifiers: *ref_0,
+          },
+        ],
+    },
+  ]

@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      mark: { type: decoratedSymbol, symbolColor: default, character: t }
       modifiers:
         - type: containingScope
-          scopeType: {type: type}
+          scopeType: { type: type }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: >
     fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32
@@ -17,17 +17,24 @@ initialState:
 
     }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks:
     default.t:
-      start: {line: 0, character: 17}
-      end: {line: 0, character: 18}
+      start: { line: 0, character: 17 }
+      end: { line: 0, character: 18 }
 finalState:
   documentContents: |
     fn some_function<T: , U: Clone + Debug>(t: &T, u: &U) -> i32 {
     }
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [{type: containingScope, scopeType: {type: type}}]}]
+    - anchor: { line: 0, character: 20 }
+      active: { line: 0, character: 20 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: t },
+      modifiers: [{ type: containingScope, scopeType: { type: type } }],
+    },
+  ]

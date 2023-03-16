@@ -5,19 +5,19 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      mark: {type: that}
+      mark: { type: that }
 initialState:
   documentContents: |
     value
     const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 5}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 5 }
       isReversed: false
       hasExplicitRange: true
   marks: {}
@@ -26,6 +26,16 @@ finalState:
     value
     const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: that}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: that },
+      selectionType: token,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: inside,
+    },
+  ]

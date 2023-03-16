@@ -2,22 +2,30 @@ languageId: rust
 command:
   version: 3
   spokenForm: clear argue
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "fn do_something(foo: (u8, u16)) {}"
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: { line: 0, character: 22 }
+      active: { line: 0, character: 22 }
   marks: {}
 finalState:
   documentContents: fn do_something() {}
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: argumentOrParameter } }],
+    },
+  ]

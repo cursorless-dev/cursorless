@@ -7,15 +7,20 @@ command:
     - type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: a}
+          mark: { type: decoratedSymbol, symbolColor: default, character: a }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          mark: { type: decoratedSymbol, symbolColor: default, character: b }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+          mark: { type: decoratedSymbol, symbolColor: default, character: c }
     - type: primitive
       position: after
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: e }
 initialState:
   documentContents: |
     a
@@ -24,21 +29,21 @@ initialState:
 
     const values = [e]
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
   marks:
     default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 1}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 1 }
     default.b:
-      start: {line: 1, character: 0}
-      end: {line: 1, character: 1}
+      start: { line: 1, character: 0 }
+      end: { line: 1, character: 1 }
     default.c:
-      start: {line: 2, character: 0}
-      end: {line: 2, character: 1}
+      start: { line: 2, character: 0 }
+      end: { line: 2, character: 1 }
     default.e:
-      start: {line: 4, character: 16}
-      end: {line: 4, character: 17}
+      start: { line: 4, character: 16 }
+      end: { line: 4, character: 17 }
 finalState:
   documentContents: |
     a
@@ -47,32 +52,77 @@ finalState:
 
     const values = [e, a, b, c]
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 4, character: 19}
-        end: {line: 4, character: 26}
+        start: { line: 4, character: 19 }
+        end: { line: 4, character: 26 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 1}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 1 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 0}
-        end: {line: 1, character: 1}
+        start: { line: 1, character: 0 }
+        end: { line: 1, character: 1 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 2, character: 0}
-        end: {line: 2, character: 1}
+        start: { line: 2, character: 0 }
+        end: { line: 2, character: 1 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}}]
+fullTargets:
+  [
+    {
+      type: list,
+      elements:
+        [
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: a },
+            selectionType: token,
+            position: contents,
+            insideOutsideType: null,
+            modifier: { type: identity },
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: b },
+            selectionType: token,
+            position: contents,
+            insideOutsideType: null,
+            modifier: { type: identity },
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: c },
+            selectionType: token,
+            position: contents,
+            insideOutsideType: null,
+            modifier: { type: identity },
+          },
+        ],
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: e },
+      selectionType: token,
+      position: after,
+      insideOutsideType: null,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        },
+    },
+  ]

@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCall,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     class Point {
@@ -20,8 +25,8 @@ initialState:
       }
     }
   selections:
-    - anchor: {line: 8, character: 12}
-      active: {line: 8, character: 12}
+    - anchor: { line: 8, character: 12 }
+      active: { line: 8, character: 12 }
   marks: {}
 finalState:
   documentContents: |-
@@ -33,10 +38,26 @@ finalState:
       }
 
       Point() {
-        
+
       }
     }
   selections:
-    - anchor: {line: 8, character: 4}
-      active: {line: 8, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 8, character: 4 }
+      active: { line: 8, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCall,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]
