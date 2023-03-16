@@ -6,7 +6,7 @@ import {
   TITLE,
   VIDEO_SHARE_THUMBNAIL_WIDTH,
   VIDEO_SHARE_THUMBNAIL_HEIGHT,
-} from './constants';
+} from "./constants";
 
 export default function Social() {
   return (

@@ -1,7 +1,7 @@
 // apps/app1/tailwind.config.js
-const { createGlobPatternsForDependencies } = require('@nrwl/react/tailwind');
-const defaultTheme = require('tailwindcss/defaultTheme');
-const { join } = require('path');
+const { createGlobPatternsForDependencies } = require("@nrwl/react/tailwind");
+const defaultTheme = require("tailwindcss/defaultTheme");
+const { join } = require("path");
 
 const CONTENT_RATIO = 1000 / 814;
 
@@ -49,17 +49,17 @@ module.exports = {
   content: [
     join(
       __dirname,
-      '{src,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,html}'
+      "{src,pages,components}/**/*!(*.stories|*.spec).{ts,tsx,html}",
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
     extend: {
       screens: {
-        stretched: { raw: '(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)' },
+        stretched: { raw: "(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)" },
       },
       fontFamily: {
-        mono: ['Inconsolata-SemiExpanded', ...defaultTheme.fontFamily.mono],
+        mono: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
       },
       width: {
         smBase: smallWidth,
@@ -72,17 +72,17 @@ module.exports = {
       fontSize: {
         smBase: smallFontSize,
         stretchedBase: stretchedFontSize,
-        xs: '1.2em',
-        lg: '1.8em',
-        '2xl': '2.4em',
+        xs: "1.2em",
+        lg: "1.8em",
+        "2xl": "2.4em",
       },
       colors: {
         salmon: {
-          100: '#FFFAF8',
-          300: '#F8C9BA',
-          400: '#FF9273',
-          800: '#161110',
-          900: '#0A0707',
+          100: "#FFFAF8",
+          300: "#F8C9BA",
+          400: "#FF9273",
+          800: "#161110",
+          900: "#0A0707",
         },
       },
     },

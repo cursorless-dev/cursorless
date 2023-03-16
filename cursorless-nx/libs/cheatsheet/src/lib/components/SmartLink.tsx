@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 type SmartLinkProps = {
   /**
@@ -21,12 +21,12 @@ const SmartLink: React.FC<SmartLinkProps> = ({
   noFormatting = false,
 }) => {
   const className = noFormatting
-    ? ''
-    : 'text-blue-500 hover:text-violet-700 dark:text-cyan-400 hover:dark:text-violet-200';
+    ? ""
+    : "text-blue-500 hover:text-violet-700 dark:text-cyan-400 hover:dark:text-violet-200";
 
   return (
     <span className={className}>
-      {to.startsWith('https://') ? (
+      {to.startsWith("https://") ? (
         <a href={to} target="_blank" rel="noopener noreferrer">
           {children}
         </a>

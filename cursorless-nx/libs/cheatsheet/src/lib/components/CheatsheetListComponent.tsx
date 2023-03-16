@@ -1,6 +1,6 @@
-import { CheatsheetSection, Variation } from '../CheatsheetInfo';
-import useIsHighlighted from '../hooks/useIsHighlighted';
-import { formatCaptures } from './formatCaptures';
+import { CheatsheetSection, Variation } from "../CheatsheetInfo";
+import useIsHighlighted from "../hooks/useIsHighlighted";
+import { formatCaptures } from "./formatCaptures";
 
 type Props = {
   section: CheatsheetSection;
@@ -14,12 +14,12 @@ export default function CheatsheetListComponent({
   const variations = section.items.flatMap((item) => item.variations);
 
   variations.sort((form1, form2) =>
-    form1.spokenForm.localeCompare(form2.spokenForm)
+    form1.spokenForm.localeCompare(form2.spokenForm),
   );
 
   const borderClassName = isHighlighted
-    ? 'border-violet-500 dark:border-violet-400'
-    : 'border-stone-300 dark:border-stone-500';
+    ? "border-violet-500 dark:border-violet-400"
+    : "border-stone-300 dark:border-stone-500";
 
   return (
     <div

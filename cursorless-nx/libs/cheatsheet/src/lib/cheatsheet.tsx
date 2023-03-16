@@ -1,13 +1,13 @@
-import * as React from 'react';
-import CheatsheetListComponent from './components/CheatsheetListComponent';
-import CheatsheetLegendComponent from './components/CheatsheetLegendComponent';
-import cheatsheetLegend from './cheatsheetLegend';
-import Helmet from 'react-helmet';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
-import CheatsheetNotesComponent from './components/CheatsheetNotesComponent';
-import SmartLink from './components/SmartLink';
-import { CheatsheetInfo } from './CheatsheetInfo';
+import * as React from "react";
+import CheatsheetListComponent from "./components/CheatsheetListComponent";
+import CheatsheetLegendComponent from "./components/CheatsheetLegendComponent";
+import cheatsheetLegend from "./cheatsheetLegend";
+import Helmet from "react-helmet";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
+import SmartLink from "./components/SmartLink";
+import { CheatsheetInfo } from "./CheatsheetInfo";
 
 type CheatsheetPageProps = {
   cheatsheetInfo: CheatsheetInfo;
@@ -21,21 +21,21 @@ export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
     <main className="dark:text-stone-100">
       <Helmet
         bodyAttributes={{
-          class: 'bg-stone-50 dark:bg-stone-800',
+          class: "bg-stone-50 dark:bg-stone-800",
         }}
       />
       <h1 className="text-2xl md:text-3xl text-center mt-2 mb-1 xl:mt-4">
-        Cursorless Cheatsheet{' '}
+        Cursorless Cheatsheet{" "}
         <span className="text-sm inline-block align-middle">
           <SmartLink to="#legend">
             <FontAwesomeIcon icon={faCircleQuestion} />
           </SmartLink>
         </span>
         <small className="text-sm block">
-          See the{' '}
-          <SmartLink to={'https://www.cursorless.org/docs/'}>
+          See the{" "}
+          <SmartLink to={"https://www.cursorless.org/docs/"}>
             full documentation
-          </SmartLink>{' '}
+          </SmartLink>{" "}
           to learn more.
         </small>
       </h1>
