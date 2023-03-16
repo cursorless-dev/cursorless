@@ -1,41 +1,42 @@
 // Original swizzled version: https://github.com/cursorless-dev/cursorless/blob/01028c948387ad98e3c6099c3eda9e8a96753c19/website/src/theme/SearchBar/index.js
 
-import React, {useState, useRef, useCallback, useMemo} from 'react';
-import {createPortal} from 'react-dom';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import {useHistory} from '@docusaurus/router';
-import {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
-import Link from '@docusaurus/Link';
-import Head from '@docusaurus/Head';
-import {isRegexpStringMatch} from '@docusaurus/theme-common';
-import {useSearchPage} from '@docusaurus/theme-common/internal';
-import {DocSearchButton, useDocSearchKeyboardEvents} from '@docsearch/react';
-import {useAlgoliaContextualFacetFilters} from '@docusaurus/theme-search-algolia/client';
-import useIsBrowser from '@docusaurus/useIsBrowser';
-import Translate from '@docusaurus/Translate';
-import translations from '@theme/SearchTranslations';
+import React, { useState, useRef, useCallback, useMemo } from "react";
+import { createPortal } from "react-dom";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useHistory } from "@docusaurus/router";
+import { useBaseUrlUtils } from "@docusaurus/useBaseUrl";
+import Link from "@docusaurus/Link";
+import Head from "@docusaurus/Head";
+import { isRegexpStringMatch } from "@docusaurus/theme-common";
+import { useSearchPage } from "@docusaurus/theme-common/internal";
+import { DocSearchButton, useDocSearchKeyboardEvents } from "@docsearch/react";
+import { useAlgoliaContextualFacetFilters } from "@docusaurus/theme-search-algolia/client";
+import useIsBrowser from "@docusaurus/useIsBrowser";
+import Translate from "@docusaurus/Translate";
+import translations from "@theme/SearchTranslations";
 let DocSearchModal = null;
-function Hit({hit, children}) {
+function Hit({ hit, children }) {
   return <Link to={hit.url}>{children}</Link>;
 }
-function ResultsFooter({state, onClose}) {
-  const {generateSearchPageLink} = useSearchPage();
+function ResultsFooter({ state, onClose }) {
+  const { generateSearchPageLink } = useSearchPage();
   return (
     <Link to={generateSearchPageLink(state.query)} onClick={onClose}>
       <Translate
         id="theme.SearchBar.seeAll"
-        values={{count: state.context.nbHits}}>
-        {'See all {count} results'}
+        values={{ count: state.context.nbHits }}
+      >
+        {"See all {count} results"}
       </Translate>
     </Link>
   );
 }
 function mergeFacetFilters(f1, f2) {
-  const normalize = (f) => (typeof f === 'string' ? [f] : f);
+  const normalize = (f) => (typeof f === "string" ? [f] : f);
   return [...normalize(f1), ...normalize(f2)];
 }
-function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
-  const {siteMetadata} = useDocusaurusContext();
+function DocSearch({ contextualSearch, externalUrlRegex, ...props }) {
+  const { siteMetadata } = useDocusaurusContext();
   const contextualSearchFacetFilters = useAlgoliaContextualFacetFilters();
   const configFacetFilters = props.searchParameters?.facetFilters ?? [];
   const facetFilters = contextualSearch
@@ -44,7 +45,7 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
     : // ... or use config facetFilters
       configFacetFilters;
 
-  const isBrowser = useIsBrowser()
+  const isBrowser = useIsBrowser();
 
   // Tweak search so that we prefer:
   // - the same lvl0 as the current doc (eg "For users"),
@@ -61,12 +62,9 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
   const searchParameters = {
     ...props.searchParameters,
     facetFilters,
-    optionalFilters: [
-      `hierarchy.lvl0: ${lvl0}`,
-      "is_api: no"
-    ],
+    optionalFilters: [`hierarchy.lvl0: ${lvl0}`, "is_api: no"],
   };
-  const {withBaseUrl} = useBaseUrlUtils();
+  const { withBaseUrl } = useBaseUrlUtils();
   const history = useHistory();
   const searchContainer = useRef(null);
   const searchButtonRef = useRef(null);
@@ -77,16 +75,16 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
       return Promise.resolve();
     }
     return Promise.all([
-      import('@docsearch/react/modal'),
-      import('@docsearch/react/style'),
-      import('./styles.css'),
-    ]).then(([{DocSearchModal: Modal}]) => {
+      import("@docsearch/react/modal"),
+      import("@docsearch/react/style"),
+      import("./styles.css"),
+    ]).then(([{ DocSearchModal: Modal }]) => {
       DocSearchModal = Modal;
     });
   }, []);
   const onOpen = useCallback(() => {
     importDocSearchModalIfNeeded().then(() => {
-      searchContainer.current = document.createElement('div');
+      searchContainer.current = document.createElement("div");
       document.body.insertBefore(
         searchContainer.current,
         document.body.firstChild,
@@ -108,7 +106,7 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
     [importDocSearchModalIfNeeded, setIsOpen, setInitialQuery],
   );
   const navigator = useRef({
-    navigate({itemUrl}) {
+    navigate({ itemUrl }) {
       // Algolia results could contain URL's from other domains which cannot
       // be served through history and should navigate with window.location
       if (isRegexpStringMatch(externalUrlRegex, itemUrl)) {
@@ -143,7 +141,7 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
   const transformSearchClient = useCallback(
     (searchClient) => {
       searchClient.addAlgoliaAgent(
-        'docusaurus',
+        "docusaurus",
         siteMetadata.docusaurusVersion,
       );
       return searchClient;
@@ -205,6 +203,6 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
   );
 }
 export default function SearchBar() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return <DocSearch {...siteConfig.themeConfig.algolia} />;
 }
