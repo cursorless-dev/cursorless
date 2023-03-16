@@ -4,15 +4,15 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   usePrePhraseSnapshot: false
-  action: {name: insertEmptyLinesAround}
+  action: { name: insertEmptyLinesAround }
 initialState:
   documentContents: |2
         there
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: |2+
@@ -20,19 +20,19 @@ finalState:
         there
 
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 0}
-        end: {line: 1, character: 0}
+        start: { line: 1, character: 0 }
+        end: { line: 1, character: 0 }
       isReversed: false
       hasExplicitRange: false
 ide:
   flashes:
-    - range: {type: line, start: 0, end: 0}
+    - range: { type: line, start: 0, end: 0 }
       style: justAdded
-    - range: {type: line, start: 2, end: 2}
+    - range: { type: line, start: 2, end: 2 }
       style: justAdded
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+fullTargets: [{ type: primitive, mark: { type: cursor }, modifiers: [] }]

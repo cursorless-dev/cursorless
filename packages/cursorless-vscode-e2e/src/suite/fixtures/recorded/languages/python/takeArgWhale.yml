@@ -5,20 +5,41 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
 initialState:
-  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
+  documentContents: '" ".join((word for word in word_list), (word for word in word_list))'
   selections:
-    - anchor: {line: 0, character: 68}
-      active: {line: 0, character: 68}
+    - anchor: { line: 0, character: 68 }
+      active: { line: 0, character: 68 }
   marks:
     default.w:
-      start: {line: 0, character: 49}
-      end: {line: 0, character: 53}
+      start: { line: 0, character: 49 }
+      end: { line: 0, character: 53 }
 finalState:
-  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
+  documentContents: '" ".join((word for word in word_list), (word for word in word_list))'
   selections:
-    - anchor: {line: 0, character: 39}
-      active: {line: 0, character: 67}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 39 }
+      active: { line: 0, character: 67 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

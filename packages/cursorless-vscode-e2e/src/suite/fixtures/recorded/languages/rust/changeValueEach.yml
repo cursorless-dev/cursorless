@@ -4,28 +4,35 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      mark: { type: decoratedSymbol, symbolColor: default, character: e }
       modifiers:
         - type: containingScope
-          scopeType: {type: value}
+          scopeType: { type: value }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     #[cfg_attr(feature = "serde")]
     struct Test
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks:
     default.e:
-      start: {line: 0, character: 22}
-      end: {line: 0, character: 27}
+      start: { line: 0, character: 22 }
+      end: { line: 0, character: 27 }
 finalState:
   documentContents: |
     #[cfg_attr(feature = )]
     struct Test
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]
+    - anchor: { line: 0, character: 21 }
+      active: { line: 0, character: 21 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: e },
+      modifiers: [{ type: containingScope, scopeType: { type: value } }],
+    },
+  ]

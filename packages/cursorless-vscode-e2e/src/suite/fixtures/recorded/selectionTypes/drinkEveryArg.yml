@@ -6,28 +6,36 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
+  action: { name: editNewLineBefore }
 initialState:
   documentContents: |-
     function whatever(a: number, b: number, c: number) {
-        
+
     }
   selections:
-    - anchor: {line: 0, character: 29}
-      active: {line: 0, character: 29}
+    - anchor: { line: 0, character: 29 }
+      active: { line: 0, character: 29 }
   marks: {}
 finalState:
   documentContents: |-
     function whatever(, a: number, , b: number, , c: number) {
-        
+
     }
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
-    - anchor: {line: 0, character: 31}
-      active: {line: 0, character: 31}
-    - anchor: {line: 0, character: 44}
-      active: {line: 0, character: 44}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: argumentOrParameter}}]}]
+    - anchor: { line: 0, character: 18 }
+      active: { line: 0, character: 18 }
+    - anchor: { line: 0, character: 31 }
+      active: { line: 0, character: 31 }
+    - anchor: { line: 0, character: 44 }
+      active: { line: 0, character: 44 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: everyScope, scopeType: { type: argumentOrParameter } }],
+    },
+  ]

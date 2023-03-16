@@ -5,7 +5,12 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     {
@@ -13,8 +18,8 @@ initialState:
         "baz": "bongo",
     }
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 12 }
   marks: {}
 finalState:
   documentContents: |-
@@ -23,6 +28,21 @@ finalState:
         "baz": "bongo",
     }
   selections:
-    - anchor: {line: 1, character: 5}
-      active: {line: 1, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}}]
+    - anchor: { line: 1, character: 5 }
+      active: { line: 1, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        },
+    },
+  ]

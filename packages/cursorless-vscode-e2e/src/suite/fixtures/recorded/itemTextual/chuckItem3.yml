@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |-
     [
@@ -16,8 +16,8 @@ initialState:
         bar,
     ]
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
@@ -25,6 +25,14 @@ finalState:
         foo,
     ]
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 1, character: 7 }
+      active: { line: 1, character: 7 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

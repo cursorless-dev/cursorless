@@ -5,22 +5,33 @@ command:
   action: wrapWithSnippet
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   extraArgs: [ifElseStatement.consequence]
 initialState:
   documentContents: int foo = 0;
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks: {}
 finalState:
   documentContents: |-
     if () {
         int foo = 0;
     } else {
-        
+
     }
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+    },
+  ]

@@ -4,18 +4,28 @@ command:
   spokenForm: chuck file
   action: remove
   targets:
-    - {type: primitive, selectionType: document}
+    - { type: primitive, selectionType: document }
 initialState:
   documentContents: |
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: document, position: contents, modifier: {type: identity}, insideOutsideType: outside}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: document,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: outside,
+    },
+  ]

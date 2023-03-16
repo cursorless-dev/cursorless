@@ -5,30 +5,37 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: excludeInterior}
-      mark: {type: that}
+        - { type: excludeInterior }
+      mark: { type: that }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     (hello now)
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 1}
-        end: {line: 0, character: 6}
+        start: { line: 0, character: 1 }
+        end: { line: 0, character: 6 }
       isReversed: false
       hasExplicitRange: true
 finalState:
   documentContents: |
     hello now
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: excludeInterior}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: that },
+      modifiers: [{ type: excludeInterior }],
+    },
+  ]

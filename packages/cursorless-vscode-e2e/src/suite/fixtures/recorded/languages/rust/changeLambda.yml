@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: anonymousFunction,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     let expensive_closure = |num| {
@@ -14,12 +19,28 @@ initialState:
         num
     };
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 7 }
   marks: {}
 finalState:
   documentContents: let expensive_closure = ;
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: anonymousFunction,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

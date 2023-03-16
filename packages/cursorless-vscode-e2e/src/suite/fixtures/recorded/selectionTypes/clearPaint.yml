@@ -4,20 +4,31 @@ command:
   spokenForm: clear paint
   action: clearAndSetSelection
   targets:
-    - {type: primitive, selectionType: nonWhitespaceSequence}
+    - { type: primitive, selectionType: nonWhitespaceSequence }
 initialState:
   documentContents: |
     const r = /a[b]*(c)/;
 
     // a/b/c /d
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 0, character: 13}
+    - anchor: { line: 2, character: 6 }
+      active: { line: 0, character: 13 }
   marks: {}
 finalState:
   documentContents: |
     const r =  /d
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: nonWhitespaceSequence, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}]
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: nonWhitespaceSequence,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+      isImplicit: false,
+    },
+  ]

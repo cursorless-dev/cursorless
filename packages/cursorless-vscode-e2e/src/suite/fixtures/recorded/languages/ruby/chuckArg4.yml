@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |-
     def self.hello(name)
 
     end
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: { line: 0, character: 15 }
+      active: { line: 0, character: 15 }
   marks: {}
 finalState:
   documentContents: |-
@@ -24,6 +24,14 @@ finalState:
 
     end
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+    - anchor: { line: 0, character: 15 }
+      active: { line: 0, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: argumentOrParameter } }],
+    },
+  ]

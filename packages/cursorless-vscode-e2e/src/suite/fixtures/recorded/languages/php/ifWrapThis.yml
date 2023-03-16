@@ -5,7 +5,7 @@ command:
   action: wrapWithSnippet
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   extraArgs: [ifStatement.consequence]
 initialState:
   documentContents: |-
@@ -13,8 +13,8 @@ initialState:
 
     $foo = "Hello world";
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 7 }
   marks: {}
 finalState:
   documentContents: |-
@@ -24,6 +24,18 @@ finalState:
         $foo = "Hello world";
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

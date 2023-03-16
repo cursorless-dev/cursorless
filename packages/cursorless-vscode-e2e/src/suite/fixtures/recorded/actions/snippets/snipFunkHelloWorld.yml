@@ -4,28 +4,38 @@ command:
   spokenForm: snip funk hello world
   action: insertSnippet
   targets:
-    - {type: primitive, isImplicit: true}
+    - { type: primitive, isImplicit: true }
   extraArgs:
     - functionDeclaration
-    - {name: hello world}
+    - { name: hello world }
 initialState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
 finalState:
   documentContents: |-
     function helloWorld() {
-        
+
     }
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: { line: 0, character: 20 }
+      active: { line: 0, character: 20 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 2, character: 1}
+        start: { line: 0, character: 0 }
+        end: { line: 2, character: 1 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

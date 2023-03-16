@@ -5,16 +5,36 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: x := []string{"a", "b"}
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
   marks: {}
 finalState:
   documentContents: x := []string{"a", "b"}
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 17}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}}]
+    - anchor: { line: 0, character: 14 }
+      active: { line: 0, character: 17 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        },
+    },
+  ]

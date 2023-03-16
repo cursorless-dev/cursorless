@@ -6,24 +6,39 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: line}
+          scopeType: { type: line }
           start: 1
           length: 1
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     aaa bbb ccc
     ddd eee fff
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 7 }
   marks: {}
 finalState:
   documentContents: |+
     aaa bbb ccc
 
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: line}, start: 1, length: 1}]}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: ordinalScope,
+            scopeType: { type: line },
+            start: 1,
+            length: 1,
+          },
+        ],
+    },
+  ]

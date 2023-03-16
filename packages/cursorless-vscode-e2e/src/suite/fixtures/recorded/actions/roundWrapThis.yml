@@ -5,35 +5,45 @@ command:
   action: wrapWithPairedDelimiter
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   extraArgs: [(, )]
 initialState:
   documentContents: |
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: |
     ()
     const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 1 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 2}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 2 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 1}
-        end: {line: 0, character: 1}
+        start: { line: 0, character: 1 }
+        end: { line: 0, character: 1 }
       isReversed: false
       hasExplicitRange: false
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: inside,
+    },
+  ]

@@ -5,20 +5,31 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifier: { type: surroundingPair, delimiter: any }
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
 initialState:
   documentContents: const r = /a[b]*/;
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.b:
-      start: {line: 0, character: 13}
-      end: {line: 0, character: 14}
+      start: { line: 0, character: 13 }
+      end: { line: 0, character: 14 }
 finalState:
   documentContents: const r = /a[b]*/;
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 15}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}, isImplicit: false}]
+    - anchor: { line: 0, character: 12 }
+      active: { line: 0, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: surroundingPair, delimiter: any },
+      isImplicit: false,
+    },
+  ]

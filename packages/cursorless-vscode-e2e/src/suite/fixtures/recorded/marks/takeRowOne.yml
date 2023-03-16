@@ -8,8 +8,8 @@ command:
       selectionType: line
       mark:
         type: lineNumber
-        anchor: {lineNumber: 0, type: modulo100}
-        active: {lineNumber: 0, type: modulo100}
+        anchor: { lineNumber: 0, type: modulo100 }
+        active: { lineNumber: 0, type: modulo100 }
 initialState:
   documentContents: |+
 
@@ -17,8 +17,8 @@ initialState:
 
 
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
   marks: {}
 finalState:
   documentContents: |+
@@ -27,6 +27,21 @@ finalState:
 
 
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: lineNumber, anchor: {lineNumber: 0, type: modulo100}, active: {lineNumber: 0, type: modulo100}}, selectionType: line, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark:
+        {
+          type: lineNumber,
+          anchor: { lineNumber: 0, type: modulo100 },
+          active: { lineNumber: 0, type: modulo100 },
+        },
+      selectionType: line,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

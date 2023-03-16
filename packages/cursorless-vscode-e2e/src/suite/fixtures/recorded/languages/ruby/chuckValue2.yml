@@ -5,16 +5,29 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
-  documentContents: "{ hi => \"world\" }"
+  documentContents: '{ hi => "world" }'
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
   marks: {}
 finalState:
   documentContents: "{ hi }"
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

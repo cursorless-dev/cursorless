@@ -4,26 +4,33 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+      mark: { type: decoratedSymbol, symbolColor: default, character: "n" }
       modifiers:
         - type: containingScope
-          scopeType: {type: value}
+          scopeType: { type: value }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     let x = [None, Some(1)];
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
   marks:
     default.n:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 13}
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 13 }
 finalState:
   documentContents: |
     let x;
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: "n" },
+      modifiers: [{ type: containingScope, scopeType: { type: value } }],
+    },
+  ]

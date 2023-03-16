@@ -4,28 +4,36 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: { type: decoratedSymbol, symbolColor: default, character: d }
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     #[derive(Debug)]
     sturct S {}
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks:
     default.d:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 14}
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 14 }
 finalState:
   documentContents: |
     #[derive()]
     sturct S {}
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: d },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: argumentOrParameter } }],
+    },
+  ]

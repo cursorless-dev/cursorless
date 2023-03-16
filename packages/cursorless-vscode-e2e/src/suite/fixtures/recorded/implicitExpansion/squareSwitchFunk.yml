@@ -6,11 +6,11 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: { type: namedFunction }
   usePrePhraseSnapshot: true
   action:
     name: rewrapWithPairedDelimiter
-    args: ['[', ']']
+    args: ["[", "]"]
 initialState:
   documentContents: |-
     {
@@ -19,8 +19,16 @@ initialState:
       }
     }
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 7 }
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
-thrownError: {name: NoContainingScopeError}
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: namedFunction } }],
+    },
+  ]
+thrownError: { name: NoContainingScopeError }

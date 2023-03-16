@@ -5,20 +5,41 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
-      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: r }
 initialState:
-  documentContents: "\" \".join(word for word in word_list)"
+  documentContents: '" ".join(word for word in word_list)'
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
+    - anchor: { line: 0, character: 36 }
+      active: { line: 0, character: 36 }
   marks:
     default.r:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 13}
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 13 }
 finalState:
-  documentContents: "\" \".join()"
+  documentContents: '" ".join()'
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: r },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      isImplicit: false,
+    },
+  ]

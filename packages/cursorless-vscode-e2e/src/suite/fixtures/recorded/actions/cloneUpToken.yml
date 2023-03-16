@@ -6,39 +6,46 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: token}
+          scopeType: { type: token }
   usePrePhraseSnapshot: true
-  action: {name: insertCopyBefore}
+  action: { name: insertCopyBefore }
 initialState:
   documentContents: hello world
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   marks: {}
 finalState:
   documentContents: hello world world
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 6}
-        end: {line: 0, character: 11}
+        start: { line: 0, character: 6 }
+        end: { line: 0, character: 11 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 12}
-        end: {line: 0, character: 17}
+        start: { line: 0, character: 12 }
+        end: { line: 0, character: 17 }
       isReversed: false
       hasExplicitRange: true
 ide:
   flashes:
     - range:
         type: character
-        start: {line: 0, character: 6}
-        end: {line: 0, character: 11}
+        start: { line: 0, character: 6 }
+        end: { line: 0, character: 11 }
       style: justAdded
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: token } }],
+    },
+  ]

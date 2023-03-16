@@ -5,26 +5,38 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: s }
 initialState:
   documentContents: |-
     void myFunk(string value) {
-        
+
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks:
     default.s:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 18}
+      start: { line: 0, character: 12 }
+      end: { line: 0, character: 18 }
 finalState:
   documentContents: |-
     void myFunk(value) {
-        
+
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: s },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+    },
+  ]

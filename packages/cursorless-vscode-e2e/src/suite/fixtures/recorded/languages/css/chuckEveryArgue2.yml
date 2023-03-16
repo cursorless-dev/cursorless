@@ -5,15 +5,20 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
     a {
       clip-path: ellipse(115px 55px at 50% 40%);
     }
   selections:
-    - anchor: {line: 1, character: 36}
-      active: {line: 1, character: 36}
+    - anchor: { line: 1, character: 36 }
+      active: { line: 1, character: 36 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +26,22 @@ finalState:
       clip-path: ellipse();
     }
   selections:
-    - anchor: {line: 1, character: 21}
-      active: {line: 1, character: 21}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
+    - anchor: { line: 1, character: 21 }
+      active: { line: 1, character: 21 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      isImplicit: false,
+    },
+  ]

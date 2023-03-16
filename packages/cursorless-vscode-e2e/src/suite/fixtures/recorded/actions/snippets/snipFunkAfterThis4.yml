@@ -6,27 +6,38 @@ command:
   targets:
     - type: primitive
       position: after
-      mark: {type: cursor}
+      mark: { type: cursor }
   extraArgs: [functionDeclaration]
 initialState:
   documentContents: const foo = "bar";
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: { line: 0, character: 12 }
+      active: { line: 0, character: 12 }
 finalState:
   documentContents: |-
     const foo = "bar";
     function () {
-        
+
     }
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 9 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 0}
-        end: {line: 3, character: 1}
+        start: { line: 1, character: 0 }
+        end: { line: 3, character: 1 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: after, insideOutsideType: outside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: after,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+    },
+  ]

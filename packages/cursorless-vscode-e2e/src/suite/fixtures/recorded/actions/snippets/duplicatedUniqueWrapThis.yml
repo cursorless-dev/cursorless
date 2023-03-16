@@ -4,7 +4,7 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   usePrePhraseSnapshot: true
   action:
     name: wrapWithSnippet
@@ -12,21 +12,21 @@ command:
 initialState:
   documentContents: Hello world
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: "This variable: '' is duplicated here: '', but 'Hello world' is unique!"
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-    - anchor: {line: 0, character: 39}
-      active: {line: 0, character: 39}
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
+    - anchor: { line: 0, character: 39 }
+      active: { line: 0, character: 39 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 70}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 70 }
       isReversed: true
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+fullTargets: [{ type: primitive, mark: { type: cursor }, modifiers: [] }]

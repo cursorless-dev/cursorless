@@ -5,26 +5,39 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: i }
 initialState:
   documentContents: |
     class TypesAhoy() {
       def example(foo: List[String]): List[String] = foo
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.i:
-      start: {line: 1, character: 34}
-      end: {line: 1, character: 38}
+      start: { line: 1, character: 34 }
+      end: { line: 1, character: 38 }
 finalState:
   documentContents: |
     class TypesAhoy() {
       def example(foo: List[String]) = foo
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: i },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

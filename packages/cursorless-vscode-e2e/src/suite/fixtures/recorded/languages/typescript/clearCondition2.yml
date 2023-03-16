@@ -6,22 +6,29 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: { type: condition }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     do {
     } while (true);
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
     do {
     } while ();
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: condition}}]}]
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: condition } }],
+    },
+  ]

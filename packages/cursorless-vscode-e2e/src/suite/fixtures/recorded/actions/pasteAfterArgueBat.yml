@@ -4,40 +4,51 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
       modifiers:
-        - {type: position, position: after}
+        - { type: position, position: after }
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: pasteFromClipboard}
+  action: { name: pasteFromClipboard }
 initialState:
   documentContents: foo(bar, baz, bongo)
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks:
     default.b:
-      start: {line: 0, character: 14}
-      end: {line: 0, character: 19}
+      start: { line: 0, character: 14 }
+      end: { line: 0, character: 19 }
   clipboard: baz
 finalState:
   documentContents: foo(bar, baz, bongo, baz)
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 21}
-        end: {line: 0, character: 24}
+        start: { line: 0, character: 21 }
+        end: { line: 0, character: 24 }
       isReversed: false
       hasExplicitRange: true
 ide:
   flashes:
     - range:
         type: character
-        start: {line: 0, character: 21}
-        end: {line: 0, character: 24}
+        start: { line: 0, character: 21 }
+        end: { line: 0, character: 24 }
       style: justAdded
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      modifiers:
+        [
+          { type: position, position: after },
+          { type: containingScope, scopeType: { type: argumentOrParameter } },
+        ],
+    },
+  ]

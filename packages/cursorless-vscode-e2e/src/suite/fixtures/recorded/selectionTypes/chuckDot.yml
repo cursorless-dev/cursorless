@@ -4,21 +4,28 @@ command:
   version: 3
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: .}
+      mark: { type: decoratedSymbol, symbolColor: default, character: . }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: "  .a"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default..:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 3}
+      start: { line: 0, character: 2 }
+      end: { line: 0, character: 3 }
 finalState:
   documentContents: "  a"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, modifiers: []}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: . },
+      modifiers: [],
+    },
+  ]

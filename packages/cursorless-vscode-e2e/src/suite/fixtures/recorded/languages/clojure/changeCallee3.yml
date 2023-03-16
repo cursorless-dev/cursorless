@@ -5,16 +5,37 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCallee,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: (  (fn [message] (println message))  "Hello world!" )
   selections:
-    - anchor: {line: 0, character: 45}
-      active: {line: 0, character: 45}
+    - anchor: { line: 0, character: 45 }
+      active: { line: 0, character: 45 }
   marks: {}
 finalState:
   documentContents: (    "Hello world!" )
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCallee,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

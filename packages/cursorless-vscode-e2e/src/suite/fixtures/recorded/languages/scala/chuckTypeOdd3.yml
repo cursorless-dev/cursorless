@@ -5,8 +5,9 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: o }
 initialState:
   documentContents: |
     class TypesAhoy() {
@@ -15,12 +16,12 @@ initialState:
       }
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.o:
-      start: {line: 2, character: 9}
-      end: {line: 2, character: 12}
+      start: { line: 2, character: 9 }
+      end: { line: 2, character: 12 }
 finalState:
   documentContents: |
     class TypesAhoy() {
@@ -29,6 +30,18 @@ finalState:
       }
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: o },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

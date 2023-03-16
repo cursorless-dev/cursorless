@@ -6,20 +6,35 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: word}
+          scopeType: { type: word }
           start: -1
           length: 1
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: "margin-top: 0;"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: "margin: 0;"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: word}, start: -1, length: 1}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: ordinalScope,
+            scopeType: { type: word },
+            start: -1,
+            length: 1,
+          },
+        ],
+    },
+  ]

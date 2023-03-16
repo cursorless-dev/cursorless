@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: { type: condition }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     match user {
@@ -16,8 +16,8 @@ initialState:
         User { first_name } if first_name.starts_with("P") => {}
     }
   selections:
-    - anchor: {line: 2, character: 27}
-      active: {line: 2, character: 54}
+    - anchor: { line: 2, character: 27 }
+      active: { line: 2, character: 54 }
   marks: {}
 finalState:
   documentContents: |
@@ -26,6 +26,13 @@ finalState:
         User { first_name } => {}
     }
   selections:
-    - anchor: {line: 2, character: 23}
-      active: {line: 2, character: 23}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: ifStatement}}]}]
+    - anchor: { line: 2, character: 23 }
+      active: { line: 2, character: 23 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: ifStatement } }],
+    },
+  ]

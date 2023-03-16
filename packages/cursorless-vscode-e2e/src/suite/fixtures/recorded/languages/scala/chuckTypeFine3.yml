@@ -5,22 +5,35 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: f }
 initialState:
   documentContents: |
     class TypesAhoy(foo: String) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.f:
-      start: {line: 0, character: 16}
-      end: {line: 0, character: 19}
+      start: { line: 0, character: 16 }
+      end: { line: 0, character: 19 }
 finalState:
   documentContents: |
     class TypesAhoy(foo) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: f },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

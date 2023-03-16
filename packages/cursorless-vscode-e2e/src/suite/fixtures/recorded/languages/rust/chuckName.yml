@@ -5,16 +5,29 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false }
 initialState:
   documentContents: "let mut array: [i32; 3] = [0; 3];"
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
   marks: {}
 finalState:
   documentContents: "let mut: [i32; 3] = [0; 3];"
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

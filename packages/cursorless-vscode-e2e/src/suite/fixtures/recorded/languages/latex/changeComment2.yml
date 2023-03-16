@@ -5,18 +5,31 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: comment, includeSiblings: false }
 initialState:
   documentContents: |
     \LaTeX % some comment
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   marks: {}
 finalState:
   documentContents: |
-    \LaTeX 
+    \LaTeX
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: comment, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: comment, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

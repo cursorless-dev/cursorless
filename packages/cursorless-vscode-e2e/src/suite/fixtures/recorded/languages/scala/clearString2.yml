@@ -5,7 +5,8 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: string, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: string, includeSiblings: false }
 initialState:
   documentContents: |
     val string = """
@@ -14,13 +15,25 @@ initialState:
     string
     """
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
   marks: {}
 finalState:
   documentContents: |
-    val string = 
+    val string =
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: string, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 13 }
+      active: { line: 0, character: 13 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: string, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

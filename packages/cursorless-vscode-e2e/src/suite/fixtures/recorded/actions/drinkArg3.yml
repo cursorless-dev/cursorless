@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
+  action: { name: editNewLineBefore }
 initialState:
   documentContents: |-
     function myFunk(
@@ -16,8 +16,8 @@ initialState:
         value: number
     ) {}
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: { line: 2, character: 9 }
+      active: { line: 2, character: 9 }
   marks: {}
 finalState:
   documentContents: |-
@@ -27,13 +27,21 @@ finalState:
         value: number
     ) {}
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 3, character: 4}
-        end: {line: 3, character: 17}
+        start: { line: 3, character: 4 }
+        end: { line: 3, character: 17 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: argumentOrParameter } }],
+    },
+  ]

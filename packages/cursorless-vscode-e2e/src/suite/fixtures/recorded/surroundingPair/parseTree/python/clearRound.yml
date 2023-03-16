@@ -5,20 +5,40 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: interiorOnly}
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: parentheses,
+          delimiterInclusion: interiorOnly,
+        }
 initialState:
   documentContents: |
     class a(object):
         pass
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
   marks: {}
 finalState:
   documentContents: |
     class a():
         pass
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: parentheses, delimitersOnly: false}, insideOutsideType: inside}]
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: parentheses,
+          delimitersOnly: false,
+        },
+      insideOutsideType: inside,
+    },
+  ]

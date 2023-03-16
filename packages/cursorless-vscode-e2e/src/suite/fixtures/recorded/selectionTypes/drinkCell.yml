@@ -5,14 +5,14 @@ command:
   spokenForm: drink cell
   action: editNewLineBefore
   targets:
-    - {type: primitive, selectionType: notebookCell}
+    - { type: primitive, selectionType: notebookCell }
 initialState:
   documentContents: |-
     # %%
     print("hello")
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 12 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +21,16 @@ finalState:
     # %%
     print("hello")
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: notebookCell, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: notebookCell,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

@@ -5,34 +5,44 @@ command:
   action: deselect
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
 initialState:
   documentContents: |
     "hello"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 1 }
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 6 }
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 7 }
   marks:
     default.h:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 6}
+      start: { line: 0, character: 1 }
+      end: { line: 0, character: 6 }
 finalState:
   documentContents: |
     "hello"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 1 }
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 7 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 1}
-        end: {line: 0, character: 6}
+        start: { line: 0, character: 1 }
+        end: { line: 0, character: 6 }
       isReversed: false
       hasExplicitRange: false
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

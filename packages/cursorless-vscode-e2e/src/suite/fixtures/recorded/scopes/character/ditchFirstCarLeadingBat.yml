@@ -6,27 +6,43 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: character}
+          scopeType: { type: character }
           start: 0
           length: 1
-        - {type: leading}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        - { type: leading }
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     aaa  bbb
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     default.b:
-      start: {line: 0, character: 5}
-      end: {line: 0, character: 8}
+      start: { line: 0, character: 5 }
+      end: { line: 0, character: 8 }
 finalState:
   documentContents: |
     aaa bbb
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: ordinalScope, scopeType: {type: character}, start: 0, length: 1}, {type: leading}]}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      modifiers:
+        [
+          {
+            type: ordinalScope,
+            scopeType: { type: character },
+            start: 0,
+            length: 1,
+          },
+          { type: leading },
+        ],
+    },
+  ]

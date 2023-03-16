@@ -7,46 +7,71 @@ command:
     - type: range
       start:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: '='}
+        mark: { type: decoratedSymbol, symbolColor: default, character: "=" }
       end:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: ':'}
+        mark: { type: decoratedSymbol, symbolColor: default, character: ":" }
       excludeStart: false
       excludeEnd: false
 initialState:
   documentContents: |
     const values: string = "hello"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 5}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 12}
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 20}
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 29}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 5 }
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 12 }
+    - anchor: { line: 0, character: 14 }
+      active: { line: 0, character: 20 }
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 29 }
   marks:
     default.=:
-      start: {line: 0, character: 21}
-      end: {line: 0, character: 22}
+      start: { line: 0, character: 21 }
+      end: { line: 0, character: 22 }
     "default.:":
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 13}
+      start: { line: 0, character: 12 }
+      end: { line: 0, character: 13 }
 finalState:
   documentContents: |
     const values: string = "hello"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 5}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 12}
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 29}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 5 }
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 12 }
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 29 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 12}
-        end: {line: 0, character: 22}
+        start: { line: 0, character: 12 }
+        end: { line: 0, character: 22 }
       isReversed: true
       hasExplicitRange: true
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '='}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: ':'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: "=" },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: ":" },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+    },
+  ]

@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: { type: statement }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |-
     interface Foo {
@@ -16,8 +16,8 @@ initialState:
       baz: Baz;
     }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: { line: 1, character: 2 }
+      active: { line: 1, character: 2 }
   marks: {}
 finalState:
   documentContents: |-
@@ -26,6 +26,13 @@ finalState:
       baz: Baz;
     }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: statement}}]}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: statement } }],
+    },
+  ]

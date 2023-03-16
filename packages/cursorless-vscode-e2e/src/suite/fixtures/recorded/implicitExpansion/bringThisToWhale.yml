@@ -2,25 +2,33 @@ languageId: plaintext
 command:
   version: 4
   spokenForm: bring this to whale
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
   marks:
     default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 11 }
 finalState:
   documentContents: hello hello
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: []}]
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
+fullTargets:
+  [
+    { type: primitive, mark: { type: cursor }, modifiers: [] },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      modifiers: [],
+    },
+  ]

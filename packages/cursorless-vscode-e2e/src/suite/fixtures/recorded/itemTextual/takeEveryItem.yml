@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: |-
     [
@@ -18,14 +18,14 @@ initialState:
         m n, <o, p>,
     ]
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
-    - anchor: {line: 2, character: 10}
-      active: {line: 2, character: 10}
-    - anchor: {line: 3, character: 10}
-      active: {line: 3, character: 10}
-    - anchor: {line: 4, character: 10}
-      active: {line: 4, character: 10}
+    - anchor: { line: 1, character: 10 }
+      active: { line: 1, character: 10 }
+    - anchor: { line: 2, character: 10 }
+      active: { line: 2, character: 10 }
+    - anchor: { line: 3, character: 10 }
+      active: { line: 3, character: 10 }
+    - anchor: { line: 4, character: 10 }
+      active: { line: 4, character: 10 }
   marks: {}
 finalState:
   documentContents: |-
@@ -36,20 +36,27 @@ finalState:
         m n, <o, p>,
     ]
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 11}
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 14}
-    - anchor: {line: 2, character: 10}
-      active: {line: 2, character: 11}
-    - anchor: {line: 2, character: 13}
-      active: {line: 2, character: 14}
-    - anchor: {line: 3, character: 10}
-      active: {line: 3, character: 11}
-    - anchor: {line: 3, character: 13}
-      active: {line: 3, character: 14}
-    - anchor: {line: 4, character: 10}
-      active: {line: 4, character: 11}
-    - anchor: {line: 4, character: 13}
-      active: {line: 4, character: 14}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 1, character: 10 }
+      active: { line: 1, character: 11 }
+    - anchor: { line: 1, character: 13 }
+      active: { line: 1, character: 14 }
+    - anchor: { line: 2, character: 10 }
+      active: { line: 2, character: 11 }
+    - anchor: { line: 2, character: 13 }
+      active: { line: 2, character: 14 }
+    - anchor: { line: 3, character: 10 }
+      active: { line: 3, character: 11 }
+    - anchor: { line: 3, character: 13 }
+      active: { line: 3, character: 14 }
+    - anchor: { line: 4, character: 10 }
+      active: { line: 4, character: 11 }
+    - anchor: { line: 4, character: 13 }
+      active: { line: 4, character: 14 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: everyScope, scopeType: { type: collectionItem } }],
+    },
+  ]

@@ -5,15 +5,20 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     div {
       background: repeating-linear-gradient(red, orange 50px);
     }
   selections:
-    - anchor: {line: 1, character: 47}
-      active: {line: 1, character: 47}
+    - anchor: { line: 1, character: 47 }
+      active: { line: 1, character: 47 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +26,22 @@ finalState:
       background: repeating-linear-gradient(red, );
     }
   selections:
-    - anchor: {line: 1, character: 45}
-      active: {line: 1, character: 45}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 45 }
+      active: { line: 1, character: 45 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

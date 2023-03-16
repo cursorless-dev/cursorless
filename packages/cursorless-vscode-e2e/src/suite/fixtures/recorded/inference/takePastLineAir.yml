@@ -5,11 +5,11 @@ command:
   action: setSelection
   targets:
     - type: range
-      start: {type: primitive}
+      start: { type: primitive }
       end:
         type: primitive
         selectionType: line
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        mark: { type: decoratedSymbol, symbolColor: default, character: a }
       excludeStart: false
       excludeEnd: false
 initialState:
@@ -19,12 +19,12 @@ initialState:
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: { line: 1, character: 6 }
+      active: { line: 1, character: 6 }
   marks:
     default.a:
-      start: {line: 3, character: 6}
-      end: {line: 3, character: 11}
+      start: { line: 3, character: 6 }
+      end: { line: 3, character: 11 }
 finalState:
   documentContents: |
 
@@ -32,6 +32,31 @@ finalState:
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 3, character: 28}
-fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: line, position: contents, modifier: {type: identity}, insideOutsideType: inside}}]
+    - anchor: { line: 1, character: 6 }
+      active: { line: 3, character: 28 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeStart: false,
+      excludeEnd: false,
+      start:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          selectionType: token,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+      end:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: a },
+          selectionType: line,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+    },
+  ]

@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      mark: { type: decoratedSymbol, symbolColor: default, character: s }
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |
     def matchTest(x: Int): String = x match {
@@ -19,12 +19,12 @@ initialState:
       case _ => "other"
     }
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 4, character: 2}
+    - anchor: { line: 3, character: 2 }
+      active: { line: 4, character: 2 }
   marks:
     default.s:
-      start: {line: 2, character: 2}
-      end: {line: 2, character: 6}
+      start: { line: 2, character: 2 }
+      end: { line: 2, character: 6 }
 finalState:
   documentContents: |
     def matchTest(x: Int): String = x match {
@@ -34,6 +34,13 @@ finalState:
       case _ => "other"
     }
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 4, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
+    - anchor: { line: 3, character: 2 }
+      active: { line: 4, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: s },
+      modifiers: [{ type: containingScope, scopeType: { type: branch } }],
+    },
+  ]

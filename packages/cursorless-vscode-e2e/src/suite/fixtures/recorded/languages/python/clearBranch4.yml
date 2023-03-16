@@ -2,12 +2,12 @@ languageId: python
 command:
   version: 3
   spokenForm: clear branch
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
@@ -18,8 +18,8 @@ initialState:
     else:
         pass
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
@@ -29,6 +29,13 @@ finalState:
     else:
         pass
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: branch } }],
+    },
+  ]

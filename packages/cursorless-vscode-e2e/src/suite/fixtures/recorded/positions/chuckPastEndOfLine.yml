@@ -5,22 +5,53 @@ command:
   action: remove
   targets:
     - type: range
-      start: {type: primitive, isImplicit: true}
-      end: {type: primitive, position: after, insideOutsideType: inside, selectionType: line}
+      start: { type: primitive, isImplicit: true }
+      end:
+        {
+          type: primitive,
+          position: after,
+          insideOutsideType: inside,
+          selectionType: line,
+        }
       excludeStart: false
       excludeEnd: false
 initialState:
   documentContents: hello there
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
   marks: {}
 finalState:
   documentContents: he
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
-fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: outside}, end: {type: primitive, mark: {type: cursor}, selectionType: line, position: after, modifier: {type: identity}, insideOutsideType: inside}}]
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeStart: false,
+      excludeEnd: false,
+      start:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          selectionType: token,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: outside,
+        },
+      end:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          selectionType: line,
+          position: after,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+    },
+  ]
 ide:
   messages:
-    - {type: warning, id: deprecatedPositionInference}
+    - { type: warning, id: deprecatedPositionInference }

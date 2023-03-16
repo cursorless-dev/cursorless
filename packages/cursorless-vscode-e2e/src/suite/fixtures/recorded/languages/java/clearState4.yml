@@ -6,24 +6,31 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: { type: statement }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     public class MyClass {
         private String value = "hello";
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: |
     public class MyClass {
-        
+
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: statement}}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: statement } }],
+    },
+  ]

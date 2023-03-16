@@ -8,11 +8,11 @@ command:
       start:
         type: primitive
         selectionType: url
-        mark: {type: decoratedSymbol, symbolColor: default, character: m}
+        mark: { type: decoratedSymbol, symbolColor: default, character: m }
       end:
         type: primitive
         selectionType: url
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        mark: { type: decoratedSymbol, symbolColor: default, character: a }
       excludeStart: false
       excludeEnd: false
 initialState:
@@ -20,19 +20,47 @@ initialState:
     https://www.atomiccommits.io/consistent-hashing
     https://www.atomiccommits.io/consistent-hashing#code
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     default.m:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 25}
+      start: { line: 0, character: 12 }
+      end: { line: 0, character: 25 }
     default.a:
-      start: {line: 0, character: 60}
-      end: {line: 0, character: 73}
+      start: { line: 0, character: 60 }
+      end: { line: 0, character: 73 }
 finalState:
   documentContents: |+
 
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: url, position: contents, insideOutsideType: outside, modifier: {type: identity}, isImplicit: false}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: url, position: contents, insideOutsideType: outside, modifier: {type: identity}, isImplicit: false}}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: m },
+          selectionType: url,
+          position: contents,
+          insideOutsideType: outside,
+          modifier: { type: identity },
+          isImplicit: false,
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: a },
+          selectionType: url,
+          position: contents,
+          insideOutsideType: outside,
+          modifier: { type: identity },
+          isImplicit: false,
+        },
+    },
+  ]

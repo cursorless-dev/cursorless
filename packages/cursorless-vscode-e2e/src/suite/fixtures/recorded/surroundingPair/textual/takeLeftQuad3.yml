@@ -5,20 +5,36 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: left}
+      modifier:
+        { type: surroundingPair, delimiter: doubleQuotes, forceDirection: left }
 initialState:
   documentContents: |-
     hello world whatever "testing testing testing
     this is another" test "whatever" whatever
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: { line: 1, character: 16 }
+      active: { line: 1, character: 16 }
   marks: {}
 finalState:
   documentContents: |-
     hello world whatever "testing testing testing
     this is another" test "whatever" whatever
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 1, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: left}}]
+    - anchor: { line: 0, character: 21 }
+      active: { line: 1, character: 16 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: doubleQuotes,
+          forceDirection: left,
+        },
+    },
+  ]

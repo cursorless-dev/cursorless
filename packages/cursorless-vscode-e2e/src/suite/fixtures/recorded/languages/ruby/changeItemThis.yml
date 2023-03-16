@@ -5,17 +5,38 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
-      mark: {type: cursor}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        }
+      mark: { type: cursor }
 initialState:
   documentContents: "[1, 2, 3]"
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
   marks: {}
 finalState:
   documentContents: "[1, , 3]"
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

@@ -5,19 +5,30 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: string}
+      modifier: { type: surroundingPair, delimiter: string }
 initialState:
   documentContents: |-
     a = %Q(Multi
     Line
     String)
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: "a = "
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: string}, isImplicit: false}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: surroundingPair, delimiter: string },
+      isImplicit: false,
+    },
+  ]

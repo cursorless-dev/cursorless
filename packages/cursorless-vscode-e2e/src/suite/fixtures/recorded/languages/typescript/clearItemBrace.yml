@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '{'}
+      mark: { type: decoratedSymbol, symbolColor: default, character: "{" }
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     [
@@ -18,18 +18,26 @@ initialState:
       },
     ]
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.{:
-      start: {line: 1, character: 2}
-      end: {line: 1, character: 3}
+      start: { line: 1, character: 2 }
+      end: { line: 1, character: 3 }
 finalState:
   documentContents: |-
     [
       ,
     ]
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '{'}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 1, character: 2 }
+      active: { line: 1, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: "{" },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

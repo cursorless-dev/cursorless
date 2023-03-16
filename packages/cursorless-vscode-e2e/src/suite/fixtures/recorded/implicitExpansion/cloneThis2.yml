@@ -4,20 +4,20 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   usePrePhraseSnapshot: true
-  action: {name: insertCopyAfter}
+  action: { name: insertCopyAfter }
 initialState:
   documentContents: aaa bbb
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 3 }
   marks: {}
 finalState:
   documentContents: |-
     aaa bbb
     aaa bbb
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 3 }
+fullTargets: [{ type: primitive, mark: { type: cursor }, modifiers: [] }]

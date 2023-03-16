@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
 
@@ -15,8 +20,8 @@ initialState:
         :baz "whatever",
     }
   selections:
-    - anchor: {line: 4, character: 13}
-      active: {line: 4, character: 13}
+    - anchor: { line: 4, character: 13 }
+      active: { line: 4, character: 13 }
   marks: {}
 finalState:
   documentContents: |-
@@ -27,8 +32,23 @@ finalState:
          "whatever",
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}}]
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+    - anchor: { line: 4, character: 4 }
+      active: { line: 4, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: true,
+        },
+    },
+  ]

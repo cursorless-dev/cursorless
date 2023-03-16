@@ -5,8 +5,13 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: any,
+          delimiterInclusion: excludeInterior,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: o }
 initialState:
   documentContents: |-
     <html>
@@ -15,12 +20,12 @@ initialState:
         </body>
     </html>
   selections:
-    - anchor: {line: 4, character: 7}
-      active: {line: 4, character: 7}
+    - anchor: { line: 4, character: 7 }
+      active: { line: 4, character: 7 }
   marks:
     default.o:
-      start: {line: 1, character: 5}
-      end: {line: 1, character: 9}
+      start: { line: 1, character: 5 }
+      end: { line: 1, character: 9 }
 finalState:
   documentContents: |-
     <html>
@@ -29,8 +34,23 @@ finalState:
         </body>
     </html>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: o },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: any,
+          delimiterInclusion: excludeInterior,
+        },
+    },
+  ]

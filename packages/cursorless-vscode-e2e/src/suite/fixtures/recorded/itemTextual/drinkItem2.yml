@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
+  action: { name: editNewLineBefore }
 initialState:
   documentContents: |-
     [
@@ -17,8 +17,8 @@ initialState:
         ccc,
     ]
   selections:
-    - anchor: {line: 3, character: 7}
-      active: {line: 3, character: 7}
+    - anchor: { line: 3, character: 7 }
+      active: { line: 3, character: 7 }
   marks: {}
 finalState:
   documentContents: |-
@@ -29,6 +29,14 @@ finalState:
         ccc,
     ]
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 3, character: 4 }
+      active: { line: 3, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

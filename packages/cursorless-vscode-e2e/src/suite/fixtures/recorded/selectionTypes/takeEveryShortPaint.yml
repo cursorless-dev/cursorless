@@ -6,22 +6,35 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: boundedNonWhitespaceSequence}
+          scopeType: { type: boundedNonWhitespaceSequence }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: foo[0](bar.test, baz-other-test) something[]
   selections:
-    - anchor: {line: 0, character: 33}
-      active: {line: 0, character: 33}
+    - anchor: { line: 0, character: 33 }
+      active: { line: 0, character: 33 }
   marks: {}
 finalState:
   documentContents: foo[0](bar.test, baz-other-test) something[]
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 16}
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 32}
-    - anchor: {line: 0, character: 33}
-      active: {line: 0, character: 44}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: boundedNonWhitespaceSequence}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 16 }
+    - anchor: { line: 0, character: 17 }
+      active: { line: 0, character: 32 }
+    - anchor: { line: 0, character: 33 }
+      active: { line: 0, character: 44 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: everyScope,
+            scopeType: { type: boundedNonWhitespaceSequence },
+          },
+        ],
+    },
+  ]

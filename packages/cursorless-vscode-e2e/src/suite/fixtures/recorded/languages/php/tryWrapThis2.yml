@@ -5,7 +5,7 @@ command:
   action: wrapWithSnippet
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   extraArgs: [tryCatchStatement.body]
 initialState:
   documentContents: |-
@@ -17,10 +17,10 @@ initialState:
 
     $bar = 42;
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-    - anchor: {line: 6, character: 0}
-      active: {line: 6, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
+    - anchor: { line: 6, character: 0 }
+      active: { line: 6, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
@@ -31,17 +31,29 @@ finalState:
             $foo = "Hello world";
         }
     } catch () {
-        
+
     }
 
     try {
         $bar = 42;
     } catch () {
-        
+
     }
   selections:
-    - anchor: {line: 6, character: 9}
-      active: {line: 6, character: 9}
-    - anchor: {line: 12, character: 9}
-      active: {line: 12, character: 9}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 6, character: 9 }
+      active: { line: 6, character: 9 }
+    - anchor: { line: 12, character: 9 }
+      active: { line: 12, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

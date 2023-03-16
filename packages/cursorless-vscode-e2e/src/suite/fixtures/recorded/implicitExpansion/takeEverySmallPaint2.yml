@@ -6,20 +6,33 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: boundedNonWhitespaceSequence}
+          scopeType: { type: boundedNonWhitespaceSequence }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: (hello world-whatever testing) testing now
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 10}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 10 }
   marks: {}
 finalState:
   documentContents: (hello world-whatever testing) testing now
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 21}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: boundedNonWhitespaceSequence}}]}]
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 6 }
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 21 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: everyScope,
+            scopeType: { type: boundedNonWhitespaceSequence },
+          },
+        ],
+    },
+  ]

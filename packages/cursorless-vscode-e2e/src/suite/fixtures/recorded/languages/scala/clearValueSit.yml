@@ -5,26 +5,39 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: i }
 initialState:
   documentContents: |
     class Example() {
       val bling = "blang"
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.i:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+      start: { line: 1, character: 6 }
+      end: { line: 1, character: 11 }
 finalState:
   documentContents: |
     class Example() {
-      val bling = 
+      val bling =
     }
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 14 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: i },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

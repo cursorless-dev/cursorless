@@ -5,16 +5,37 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: <note bar="back">foo</note>
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: { line: 0, character: 14 }
+      active: { line: 0, character: 14 }
   marks: {}
 finalState:
   documentContents: <note ="back">foo</note>
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionKey,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

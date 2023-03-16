@@ -5,32 +5,57 @@ command:
   action: wrapWithSnippet
   targets:
     - type: range
-      start: {type: primitive}
+      start: { type: primitive }
       end:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: g}
+        mark: { type: decoratedSymbol, symbolColor: default, character: g }
       excludeStart: false
       excludeEnd: false
   extraArgs: [spaghetti.foo]
 initialState:
   documentContents: grace hopper
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: { line: 0, character: 12 }
+      active: { line: 0, character: 12 }
   marks:
     default.g:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 5}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 5 }
 finalState:
   documentContents: My friend grace hopper likes to eat spaghetti!
   selections:
-    - anchor: {line: 0, character: 46}
-      active: {line: 0, character: 46}
+    - anchor: { line: 0, character: 46 }
+      active: { line: 0, character: 46 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 46}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 46 }
       isReversed: true
       hasExplicitRange: true
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: g}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: g },
+          selectionType: token,
+          position: contents,
+          insideOutsideType: inside,
+          modifier: { type: identity },
+        },
+    },
+  ]

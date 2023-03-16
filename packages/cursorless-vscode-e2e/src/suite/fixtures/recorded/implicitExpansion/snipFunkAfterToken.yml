@@ -5,9 +5,9 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: position, position: after}
+        - { type: position, position: after }
         - type: containingScope
-          scopeType: {type: token}
+          scopeType: { type: token }
   usePrePhraseSnapshot: true
   action:
     name: insertSnippet
@@ -19,18 +19,26 @@ initialState:
     }
 
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 18}
+    - anchor: { line: 1, character: 10 }
+      active: { line: 1, character: 18 }
   marks: {}
 finalState:
   documentContents: |+
     function myFunction() {
         const whatever function () {
-            
+
         } = "hello";
     }
 
   selections:
-    - anchor: {line: 1, character: 28}
-      active: {line: 1, character: 28}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}], positionModifier: {type: position, position: after}}]
+    - anchor: { line: 1, character: 28 }
+      active: { line: 1, character: 28 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: token } }],
+      positionModifier: { type: position, position: after },
+    },
+  ]

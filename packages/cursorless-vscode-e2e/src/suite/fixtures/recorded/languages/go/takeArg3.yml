@@ -5,16 +5,36 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: "func add(x int, y int) int {\n\treturn add(x, y)\n}"
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: { line: 1, character: 13 }
+      active: { line: 1, character: 13 }
   marks: {}
 finalState:
   documentContents: "func add(x int, y int) int {\n\treturn add(x, y)\n}"
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 13}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}}]
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 13 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+    },
+  ]

@@ -5,18 +5,39 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCall,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |
     Box<Integer> integerBox = new Box<>();
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
+    - anchor: { line: 0, character: 36 }
+      active: { line: 0, character: 36 }
   marks: {}
 finalState:
   documentContents: |
     Box<Integer> integerBox = ;
   selections:
-    - anchor: {line: 0, character: 26}
-      active: {line: 0, character: 26}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 26 }
+      active: { line: 0, character: 26 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCall,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

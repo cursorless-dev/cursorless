@@ -4,34 +4,51 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      mark: { type: decoratedSymbol, symbolColor: default, character: c }
       modifiers:
         - type: ordinalRange
-          scopeType: {type: word}
+          scopeType: { type: word }
           anchor: 0
           active: 0
           excludeAnchor: false
           excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |2-
      .child-selector {
        height: 10px;
      }
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
+    - anchor: { line: 2, character: 2 }
+      active: { line: 2, character: 2 }
   marks:
     default.c:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 16}
+      start: { line: 0, character: 2 }
+      end: { line: 0, character: 16 }
 finalState:
   documentContents: |2-
      .selector {
        height: 10px;
      }
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, modifiers: [{type: ordinalRange, scopeType: {type: word}, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}]}]
+    - anchor: { line: 2, character: 2 }
+      active: { line: 2, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: c },
+      modifiers:
+        [
+          {
+            type: ordinalRange,
+            scopeType: { type: word },
+            anchor: 0,
+            active: 0,
+            excludeAnchor: false,
+            excludeActive: false,
+          },
+        ],
+    },
+  ]

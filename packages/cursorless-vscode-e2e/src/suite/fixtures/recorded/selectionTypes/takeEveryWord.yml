@@ -6,22 +6,29 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: word}
+          scopeType: { type: word }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: aaaBbbCcc
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: aaaBbbCcc
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 3}
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: word}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 3 }
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 6 }
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: everyScope, scopeType: { type: word } }],
+    },
+  ]

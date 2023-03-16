@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: { type: statement }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     abstract class Foo {
@@ -17,25 +17,32 @@ initialState:
         baz() { }
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+    - anchor: { line: 3, character: 4 }
+      active: { line: 3, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
     abstract class Foo {
-        
-        
-        
+
+
+
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: statement}}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+    - anchor: { line: 3, character: 4 }
+      active: { line: 3, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: statement } }],
+    },
+  ]

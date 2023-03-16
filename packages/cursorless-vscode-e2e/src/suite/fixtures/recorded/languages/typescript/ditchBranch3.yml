@@ -2,12 +2,12 @@ languageId: typescript
 command:
   version: 3
   spokenForm: ditch branch
-  action: {name: remove}
+  action: { name: remove }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -19,8 +19,8 @@ initialState:
       const whatever = "hello";
     }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: { line: 1, character: 2 }
+      active: { line: 1, character: 2 }
   marks: {}
 finalState:
   documentContents: |-
@@ -30,6 +30,13 @@ finalState:
       const whatever = "hello";
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: branch } }],
+    },
+  ]

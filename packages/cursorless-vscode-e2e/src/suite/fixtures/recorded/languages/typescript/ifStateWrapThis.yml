@@ -5,13 +5,13 @@ command:
   action: wrapWithSnippet
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
   extraArgs: [ifStatement.consequence]
 initialState:
   documentContents: const foo = "hello";
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks: {}
 finalState:
   documentContents: |-
@@ -19,6 +19,17 @@ finalState:
         const foo = "hello";
     }
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+    },
+  ]

@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedParagraph, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedParagraph,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |
     \paragraph{1}
@@ -13,14 +18,26 @@ initialState:
     some text
     \paragraph{2}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: |
 
     \paragraph{2}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: paragraph, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: paragraph, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

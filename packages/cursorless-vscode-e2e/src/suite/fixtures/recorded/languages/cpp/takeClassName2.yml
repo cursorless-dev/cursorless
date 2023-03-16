@@ -5,16 +5,26 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: className}
+      modifier: { type: containingScope, scopeType: className }
 initialState:
   documentContents: enum class A { B };
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
   marks: {}
 finalState:
   documentContents: enum class A { B };
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 12}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: className}, insideOutsideType: inside}]
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 12 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier: { type: containingScope, scopeType: className },
+      insideOutsideType: inside,
+    },
+  ]

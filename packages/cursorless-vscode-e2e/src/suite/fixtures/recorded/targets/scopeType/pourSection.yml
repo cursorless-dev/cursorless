@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: section}
+          scopeType: { type: section }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+  action: { name: editNewLineAfter }
 initialState:
   documentContents: |-
     # Some section
 
     Some text
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: { line: 2, character: 8 }
+      active: { line: 2, character: 8 }
   marks: {}
 finalState:
   documentContents: |+
@@ -25,6 +25,13 @@ finalState:
     Some text
 
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: section}}]}]
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: section } }],
+    },
+  ]

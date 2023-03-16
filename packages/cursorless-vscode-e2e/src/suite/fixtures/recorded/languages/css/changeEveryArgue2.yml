@@ -5,7 +5,12 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
     div {
@@ -13,8 +18,8 @@ initialState:
       clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
   selections:
-    - anchor: {line: 1, character: 50}
-      active: {line: 1, character: 50}
+    - anchor: { line: 1, character: 50 }
+      active: { line: 1, character: 50 }
   marks: {}
 finalState:
   documentContents: |-
@@ -23,8 +28,24 @@ finalState:
       clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
   selections:
-    - anchor: {line: 1, character: 40}
-      active: {line: 1, character: 40}
-    - anchor: {line: 1, character: 42}
-      active: {line: 1, character: 42}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
+    - anchor: { line: 1, character: 40 }
+      active: { line: 1, character: 40 }
+    - anchor: { line: 1, character: 42 }
+      active: { line: 1, character: 42 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      isImplicit: false,
+    },
+  ]

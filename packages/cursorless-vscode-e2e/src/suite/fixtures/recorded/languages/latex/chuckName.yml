@@ -5,16 +5,29 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false }
 initialState:
   documentContents: \section{some section}
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: { line: 0, character: 13 }
+      active: { line: 0, character: 13 }
   marks: {}
 finalState:
   documentContents: \section
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

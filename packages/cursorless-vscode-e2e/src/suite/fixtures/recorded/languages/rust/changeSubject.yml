@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: switchStatementSubject}
+          scopeType: { type: switchStatementSubject }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     match user {
@@ -16,8 +16,8 @@ initialState:
         User { first_name } if first_name.starts_with("P") => {}
     }
   selections:
-    - anchor: {line: 2, character: 27}
-      active: {line: 2, character: 54}
+    - anchor: { line: 2, character: 27 }
+      active: { line: 2, character: 54 }
   marks: {}
 finalState:
   documentContents: |
@@ -26,6 +26,19 @@ finalState:
         User { first_name } if first_name.starts_with("P") => {}
     }
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: containingScope,
+            scopeType: { type: switchStatementSubject },
+          },
+        ],
+    },
+  ]

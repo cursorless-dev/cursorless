@@ -6,18 +6,25 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: { type: condition }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: aaa if bbb else ccc
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
   marks: {}
 finalState:
   documentContents: aaa if  else ccc
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: condition}}]}]
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: condition } }],
+    },
+  ]

@@ -6,22 +6,39 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalRange
-          scopeType: {type: character}
+          scopeType: { type: character }
           anchor: -1
           active: -1
           excludeAnchor: false
           excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: aña
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
   marks: {}
 finalState:
   documentContents: añ
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalRange, scopeType: {type: character}, anchor: -1, active: -1, excludeAnchor: false, excludeActive: false}]}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: ordinalRange,
+            scopeType: { type: character },
+            anchor: -1,
+            active: -1,
+            excludeAnchor: false,
+            excludeActive: false,
+          },
+        ],
+    },
+  ]

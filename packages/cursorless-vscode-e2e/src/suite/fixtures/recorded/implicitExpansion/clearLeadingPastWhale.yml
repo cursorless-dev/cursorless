@@ -7,28 +7,48 @@ command:
       anchor:
         type: primitive
         modifiers:
-          - {type: leading}
+          - { type: leading }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        mark: { type: decoratedSymbol, symbolColor: default, character: w }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |2-
      hello
      world
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   marks:
     default.w:
-      start: {line: 1, character: 1}
-      end: {line: 1, character: 6}
+      start: { line: 1, character: 1 }
+      end: { line: 1, character: 6 }
 finalState:
   documentContents: world
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: [{type: leading}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: leading}]}}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          modifiers: [{ type: leading }],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: w },
+          modifiers: [{ type: leading }],
+        },
+    },
+  ]

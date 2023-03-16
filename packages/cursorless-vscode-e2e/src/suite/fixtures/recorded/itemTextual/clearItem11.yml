@@ -6,18 +6,26 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: false
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: foo(hello, world)
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 13}
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 13 }
   marks: {}
 finalState:
   documentContents: foo()
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

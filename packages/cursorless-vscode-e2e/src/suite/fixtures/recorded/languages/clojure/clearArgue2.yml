@@ -5,16 +5,36 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: (hello (foo :bar))
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
   marks: {}
 finalState:
   documentContents: (hello )
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}}]
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+    },
+  ]

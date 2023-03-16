@@ -4,9 +4,9 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
       modifiers:
-        - {type: position, position: after}
+        - { type: position, position: after }
   usePrePhraseSnapshot: true
   action:
     name: insertSnippet
@@ -18,12 +18,12 @@ initialState:
     }
 
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
   marks:
     default.w:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 18}
+      start: { line: 1, character: 10 }
+      end: { line: 1, character: 18 }
 finalState:
   documentContents: |+
     function myFunction() {
@@ -31,10 +31,18 @@ finalState:
     }
 
     function () {
-        
+
     }
 
   selections:
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [], positionModifier: {type: position, position: after}}]
+    - anchor: { line: 4, character: 9 }
+      active: { line: 4, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      modifiers: [],
+      positionModifier: { type: position, position: after },
+    },
+  ]

@@ -5,24 +5,44 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |
 
     value = [1, 2, 3]
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 9 }
   marks: {}
 finalState:
   documentContents: |
 
     value = [1, 2, 3]
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 10}
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 13}
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 10 }
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 13 }
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 16 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        },
+      insideOutsideType: inside,
+    },
+  ]

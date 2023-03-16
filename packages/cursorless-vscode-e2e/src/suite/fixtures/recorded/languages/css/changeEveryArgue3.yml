@@ -5,17 +5,22 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
     a {
       width: calc(100% - 80px);
       clip-path: ellipse(115px 55px at 50% 40%);
     }
-     
+
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: { line: 2, character: 25 }
+      active: { line: 2, character: 25 }
   marks: {}
 finalState:
   documentContents: |-
@@ -23,10 +28,26 @@ finalState:
       width: calc(100% - 80px);
       clip-path: ellipse( at );
     }
-     
+
   selections:
-    - anchor: {line: 2, character: 21}
-      active: {line: 2, character: 21}
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, isImplicit: false}]
+    - anchor: { line: 2, character: 21 }
+      active: { line: 2, character: 21 }
+    - anchor: { line: 2, character: 25 }
+      active: { line: 2, character: 25 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      isImplicit: false,
+    },
+  ]

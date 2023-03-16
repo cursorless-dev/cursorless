@@ -5,8 +5,9 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
 initialState:
   documentContents: |-
     a .child-selector {
@@ -14,15 +15,27 @@ initialState:
       color: red;
     }
   selections:
-    - anchor: {line: 2, character: 13}
-      active: {line: 2, character: 13}
+    - anchor: { line: 2, character: 13 }
+      active: { line: 2, character: 13 }
   marks:
     default.h:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 17}
+      start: { line: 0, character: 3 }
+      end: { line: 0, character: 17 }
 finalState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: statement, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

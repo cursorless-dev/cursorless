@@ -6,31 +6,31 @@ command:
     - type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+          mark: { type: decoratedSymbol, symbolColor: default, character: d }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: s}
+          mark: { type: decoratedSymbol, symbolColor: default, character: s }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: t}
+          mark: { type: decoratedSymbol, symbolColor: default, character: t }
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
+  action: { name: editNewLineBefore }
 initialState:
   documentContents: |
     hello world there now
 
     testing
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 7 }
   marks:
     default.d:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 11 }
     default.s:
-      start: {line: 2, character: 0}
-      end: {line: 2, character: 7}
+      start: { line: 2, character: 0 }
+      end: { line: 2, character: 7 }
     default.t:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 17}
+      start: { line: 0, character: 12 }
+      end: { line: 0, character: 17 }
 finalState:
   documentContents: |
 
@@ -39,21 +39,44 @@ finalState:
 
     testing
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 6}
-        end: {line: 1, character: 11}
+        start: { line: 1, character: 6 }
+        end: { line: 1, character: 11 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 4, character: 0}
-        end: {line: 4, character: 7}
+        start: { line: 4, character: 0 }
+        end: { line: 4, character: 7 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: []}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: []}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: []}]}]
+fullTargets:
+  [
+    {
+      type: list,
+      elements:
+        [
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: d },
+            modifiers: [],
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: s },
+            modifiers: [],
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: t },
+            modifiers: [],
+          },
+        ],
+    },
+  ]

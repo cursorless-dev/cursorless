@@ -5,16 +5,36 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionName,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: "func add(x, y int, z int) int {\n\treturn x + y\n}"
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 9 }
   marks: {}
 finalState:
   documentContents: "func add(x, y int, z int) int {\n\treturn x + y\n}"
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}}]
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionName,
+          includeSiblings: false,
+        },
+    },
+  ]

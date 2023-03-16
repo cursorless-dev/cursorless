@@ -5,15 +5,20 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     <?php
 
     myFunc($value, ...$nums);
   selections:
-    - anchor: {line: 2, character: 19}
-      active: {line: 2, character: 19}
+    - anchor: { line: 2, character: 19 }
+      active: { line: 2, character: 19 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +26,22 @@ finalState:
 
     myFunc($value);
   selections:
-    - anchor: {line: 2, character: 13}
-      active: {line: 2, character: 13}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 2, character: 13 }
+      active: { line: 2, character: 13 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

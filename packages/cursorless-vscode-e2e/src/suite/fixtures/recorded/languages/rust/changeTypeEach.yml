@@ -4,26 +4,33 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      mark: { type: decoratedSymbol, symbolColor: default, character: e }
       modifiers:
         - type: containingScope
-          scopeType: {type: type}
+          scopeType: { type: type }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     struct User {}
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: { line: 0, character: 14 }
+      active: { line: 0, character: 14 }
   marks:
     default.e:
-      start: {line: 0, character: 7}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 7 }
+      end: { line: 0, character: 11 }
 finalState:
   documentContents: |+
 
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: [{type: containingScope, scopeType: {type: type}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: e },
+      modifiers: [{ type: containingScope, scopeType: { type: type } }],
+    },
+  ]

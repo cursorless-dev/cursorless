@@ -5,7 +5,12 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |-
     <?php
@@ -14,14 +19,30 @@ initialState:
 
     };
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
   marks: {}
 finalState:
   documentContents: |+
     <?php
 
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

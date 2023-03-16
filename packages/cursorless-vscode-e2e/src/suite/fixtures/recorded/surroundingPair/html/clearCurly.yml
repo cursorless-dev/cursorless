@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: curlyBrackets}
+      modifier: { type: surroundingPair, delimiter: curlyBrackets }
 initialState:
   documentContents: |
     <html>
@@ -16,19 +16,30 @@ initialState:
       </head>
     </html>
   selections:
-    - anchor: {line: 3, character: 16}
-      active: {line: 3, character: 16}
+    - anchor: { line: 3, character: 16 }
+      active: { line: 3, character: 16 }
   marks: {}
 finalState:
   documentContents: |
     <html>
       <head>
         <style>
-          body 
+          body
         </style>
       </head>
     </html>
   selections:
-    - anchor: {line: 3, character: 11}
-      active: {line: 3, character: 11}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: curlyBrackets}, isImplicit: false}]
+    - anchor: { line: 3, character: 11 }
+      active: { line: 3, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: surroundingPair, delimiter: curlyBrackets },
+      isImplicit: false,
+    },
+  ]

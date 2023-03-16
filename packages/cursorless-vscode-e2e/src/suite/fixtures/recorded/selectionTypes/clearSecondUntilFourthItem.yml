@@ -8,27 +8,55 @@ command:
         - type: range
           anchor:
             type: ordinalScope
-            scopeType: {type: collectionItem}
+            scopeType: { type: collectionItem }
             start: 1
             length: 1
           active:
             type: ordinalScope
-            scopeType: {type: collectionItem}
+            scopeType: { type: collectionItem }
             start: 3
             length: 1
           excludeAnchor: false
           excludeActive: true
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: a, b, c, d
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: a, d
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: range, anchor: {type: ordinalScope, scopeType: {type: collectionItem}, start: 1, length: 1}, active: {type: ordinalScope, scopeType: {type: collectionItem}, start: 3, length: 1}, excludeAnchor: false, excludeActive: true}]}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: range,
+            anchor:
+              {
+                type: ordinalScope,
+                scopeType: { type: collectionItem },
+                start: 1,
+                length: 1,
+              },
+            active:
+              {
+                type: ordinalScope,
+                scopeType: { type: collectionItem },
+                start: 3,
+                length: 1,
+              },
+            excludeAnchor: false,
+            excludeActive: true,
+          },
+        ],
+    },
+  ]

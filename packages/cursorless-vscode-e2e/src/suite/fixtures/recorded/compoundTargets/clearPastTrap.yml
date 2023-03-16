@@ -5,24 +5,49 @@ command:
   action: clearAndSetSelection
   targets:
     - type: range
-      start: {type: primitive, isImplicit: true}
+      start: { type: primitive, isImplicit: true }
       end:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: t}
+        mark: { type: decoratedSymbol, symbolColor: default, character: t }
       excludeStart: false
       excludeEnd: false
 initialState:
   documentContents: hello there
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   marks:
     default.t:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 11 }
 finalState:
   documentContents: hel
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeStart: false,
+      excludeEnd: false,
+      start:
+        {
+          type: primitive,
+          mark: { type: cursor },
+          selectionType: token,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+      end:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: t },
+          selectionType: token,
+          position: contents,
+          modifier: { type: identity },
+          insideOutsideType: inside,
+        },
+    },
+  ]

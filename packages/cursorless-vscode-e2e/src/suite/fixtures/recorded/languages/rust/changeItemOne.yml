@@ -4,26 +4,34 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      mark: { type: decoratedSymbol, symbolColor: default, character: "1" }
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     let x = [None, Some(1)];
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
   marks:
     default.1:
-      start: {line: 0, character: 20}
-      end: {line: 0, character: 21}
+      start: { line: 0, character: 20 }
+      end: { line: 0, character: 21 }
 finalState:
   documentContents: |
     let x = [None, ];
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '1'}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]
+    - anchor: { line: 0, character: 15 }
+      active: { line: 0, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: "1" },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionItem } }],
+    },
+  ]

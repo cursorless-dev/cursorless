@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: { type: decoratedSymbol, symbolColor: default, character: b }
       modifiers:
         - type: containingScope
-          scopeType: {type: paragraph}
+          scopeType: { type: paragraph }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |-
 
@@ -17,19 +17,26 @@ initialState:
     d   e
     f   g
   selections:
-    - anchor: {line: 3, character: 5}
-      active: {line: 3, character: 5}
+    - anchor: { line: 3, character: 5 }
+      active: { line: 3, character: 5 }
   marks:
     default.b:
-      start: {line: 1, character: 0}
-      end: {line: 1, character: 1}
+      start: { line: 1, character: 0 }
+      end: { line: 1, character: 1 }
 finalState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
 ide:
   flashes:
-    - range: {type: line, start: 0, end: 3}
+    - range: { type: line, start: 0, end: 3 }
       style: pendingDelete
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: b },
+      modifiers: [{ type: containingScope, scopeType: { type: paragraph } }],
+    },
+  ]

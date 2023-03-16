@@ -4,37 +4,55 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      mark: { type: decoratedSymbol, symbolColor: default, character: l }
       modifiers:
-        - {type: leading}
+        - { type: leading }
         - type: ordinalRange
-          scopeType: {type: word}
+          scopeType: { type: word }
           anchor: -1
           active: -1
           excludeAnchor: false
           excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |2-
      .long-bem-class-name {
        height: 10px;
      }
-     
+
   selections:
-    - anchor: {line: 3, character: 1}
-      active: {line: 3, character: 1}
+    - anchor: { line: 3, character: 1 }
+      active: { line: 3, character: 1 }
   marks:
     default.l:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 21}
+      start: { line: 0, character: 2 }
+      end: { line: 0, character: 21 }
 finalState:
   documentContents: |2-
      .long-bem-classname {
        height: 10px;
      }
-     
+
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: [{type: leading}, {type: ordinalRange, scopeType: {type: word}, anchor: -1, active: -1, excludeAnchor: false, excludeActive: false}]}]
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: l },
+      modifiers:
+        [
+          { type: leading },
+          {
+            type: ordinalRange,
+            scopeType: { type: word },
+            anchor: -1,
+            active: -1,
+            excludeAnchor: false,
+            excludeActive: false,
+          },
+        ],
+    },
+  ]

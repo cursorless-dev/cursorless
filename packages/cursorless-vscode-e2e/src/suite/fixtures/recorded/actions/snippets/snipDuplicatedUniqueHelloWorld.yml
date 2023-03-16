@@ -3,31 +3,38 @@ command:
   spokenForm: snip duplicated unique hello world
   version: 2
   targets:
-    - {type: primitive, isImplicit: true}
+    - { type: primitive, isImplicit: true }
   usePrePhraseSnapshot: true
   action:
     name: insertSnippet
     args:
       - duplicatedVariableTest
-      - {unique: hello world}
+      - { unique: hello world }
 initialState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: "This variable: '' is duplicated here: '', but 'helloWorld' is unique!"
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-    - anchor: {line: 0, character: 39}
-      active: {line: 0, character: 39}
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
+    - anchor: { line: 0, character: 39 }
+      active: { line: 0, character: 39 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 69}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 69 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: toRawSelection }],
+    },
+  ]

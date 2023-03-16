@@ -5,24 +5,45 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
 initialState:
   documentContents: |
     const myFunk = () => {
     };
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks:
     default.m:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 12}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 12 }
 finalState:
   documentContents: |
     const myFunk = () => {
     };
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 1, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 1, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: namedFunction,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

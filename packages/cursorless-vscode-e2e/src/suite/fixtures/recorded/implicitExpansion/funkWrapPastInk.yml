@@ -4,10 +4,10 @@ command:
   version: 2
   targets:
     - type: range
-      anchor: {type: primitive}
+      anchor: { type: primitive }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: i}
+        mark: { type: decoratedSymbol, symbolColor: default, character: i }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
@@ -19,12 +19,12 @@ initialState:
     const whatever = "hello";
     const testing = "hello";
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks:
     default.i:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 13}
+      start: { line: 1, character: 6 }
+      end: { line: 1, character: 13 }
 finalState:
   documentContents: |-
     function () {
@@ -32,6 +32,21 @@ finalState:
         const testing = "hello";
     }
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, modifiers: []}}]
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor: { type: primitive, mark: { type: cursor }, modifiers: [] },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: i },
+          modifiers: [],
+        },
+    },
+  ]

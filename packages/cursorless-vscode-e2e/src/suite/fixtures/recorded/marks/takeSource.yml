@@ -5,19 +5,19 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      mark: {type: source}
+      mark: { type: source }
 initialState:
   documentContents: |
     value
     const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 6}
-        end: {line: 1, character: 11}
+        start: { line: 1, character: 6 }
+        end: { line: 1, character: 11 }
       isReversed: false
       hasExplicitRange: true
   marks: {}
@@ -26,6 +26,16 @@ finalState:
     value
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 11}
-fullTargets: [{type: primitive, mark: {type: source}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 6 }
+      active: { line: 1, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: source },
+      selectionType: token,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: inside,
+    },
+  ]

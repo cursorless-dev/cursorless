@@ -6,32 +6,52 @@ command:
     - type: range
       anchor:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+        mark: { type: decoratedSymbol, symbolColor: default, character: f }
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: .}
+        mark: { type: decoratedSymbol, symbolColor: default, character: . }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |2
        foo
-       bar.   
+       bar.
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks:
     default.f:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 6}
+      start: { line: 0, character: 3 }
+      end: { line: 0, character: 6 }
     default..:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 7}
+      start: { line: 1, character: 6 }
+      end: { line: 1, character: 7 }
 finalState:
   documentContents: |+
 
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, modifiers: []}}]
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: f },
+          modifiers: [],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: . },
+          modifiers: [],
+        },
+    },
+  ]

@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      mark: { type: decoratedSymbol, symbolColor: default, character: m }
       modifiers:
         - type: containingScope
-          scopeType: {type: attribute}
+          scopeType: { type: attribute }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |-
     fn f() {
@@ -17,12 +17,12 @@ initialState:
         let y = &mut x;
     }
   selections:
-    - anchor: {line: 2, character: 19}
-      active: {line: 2, character: 19}
+    - anchor: { line: 2, character: 19 }
+      active: { line: 2, character: 19 }
   marks:
     default.m:
-      start: {line: 2, character: 13}
-      end: {line: 2, character: 16}
+      start: { line: 2, character: 13 }
+      end: { line: 2, character: 16 }
 finalState:
   documentContents: |-
     fn f() {
@@ -30,6 +30,13 @@ finalState:
         let y = &x;
     }
   selections:
-    - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 15}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: [{type: containingScope, scopeType: {type: attribute}}]}]
+    - anchor: { line: 2, character: 15 }
+      active: { line: 2, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: m },
+      modifiers: [{ type: containingScope, scopeType: { type: attribute } }],
+    },
+  ]

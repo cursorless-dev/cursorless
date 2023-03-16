@@ -5,17 +5,30 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
-      mark: {type: cursor}
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false }
+      mark: { type: cursor }
 initialState:
   documentContents: a += 1
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: { line: 0, character: 5 }
+      active: { line: 0, character: 5 }
   marks: {}
 finalState:
   documentContents: += 1
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

@@ -6,49 +6,56 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionItem}
+          scopeType: { type: collectionItem }
   usePrePhraseSnapshot: true
-  action: {name: sortTargets}
+  action: { name: sortTargets }
 initialState:
   documentContents: z, a, b, e, E
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: a, b, E, e, z
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 1}
+        start: { line: 0, character: 0 }
+        end: { line: 0, character: 1 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 3}
-        end: {line: 0, character: 4}
+        start: { line: 0, character: 3 }
+        end: { line: 0, character: 4 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 6}
-        end: {line: 0, character: 7}
+        start: { line: 0, character: 6 }
+        end: { line: 0, character: 7 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 9}
-        end: {line: 0, character: 10}
+        start: { line: 0, character: 9 }
+        end: { line: 0, character: 10 }
       isReversed: false
       hasExplicitRange: true
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 12}
-        end: {line: 0, character: 13}
+        start: { line: 0, character: 12 }
+        end: { line: 0, character: 13 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: everyScope, scopeType: { type: collectionItem } }],
+    },
+  ]

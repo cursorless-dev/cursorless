@@ -6,20 +6,35 @@ command:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: customRegex, regex: '[^\s"''`]+'}
+          scopeType: { type: customRegex, regex: '[^\s"''`]+' }
           start: -1
           length: 1
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: aaa-bbb ccc-ddd eee-fff ggg-hhh
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 20}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 20 }
   marks: {}
 finalState:
   documentContents: aaa-bbb ccc-ddd  ggg-hhh
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: customRegex, regex: '[^\s"''`]+'}, start: -1, length: 1}]}]
+    - anchor: { line: 0, character: 16 }
+      active: { line: 0, character: 16 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: ordinalScope,
+            scopeType: { type: customRegex, regex: '[^\s"''`]+' },
+            start: -1,
+            length: 1,
+          },
+        ],
+    },
+  ]

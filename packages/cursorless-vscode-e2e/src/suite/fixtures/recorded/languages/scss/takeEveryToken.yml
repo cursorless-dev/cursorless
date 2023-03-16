@@ -6,24 +6,31 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: token}
+          scopeType: { type: token }
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: .long-bem-class-name {}
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
   marks: {}
 finalState:
   documentContents: .long-bem-class-name {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 20}
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 22}
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 23}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: token}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 1 }
+    - anchor: { line: 0, character: 1 }
+      active: { line: 0, character: 20 }
+    - anchor: { line: 0, character: 21 }
+      active: { line: 0, character: 22 }
+    - anchor: { line: 0, character: 22 }
+      active: { line: 0, character: 23 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: everyScope, scopeType: { type: token } }],
+    },
+  ]

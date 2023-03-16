@@ -5,22 +5,35 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: s }
 initialState:
   documentContents: |
     class TypesAhoy(foo: String) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.s:
-      start: {line: 0, character: 21}
-      end: {line: 0, character: 27}
+      start: { line: 0, character: 21 }
+      end: { line: 0, character: 27 }
 finalState:
   documentContents: |
     class TypesAhoy(foo: ) {}
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 21 }
+      active: { line: 0, character: 21 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: s },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

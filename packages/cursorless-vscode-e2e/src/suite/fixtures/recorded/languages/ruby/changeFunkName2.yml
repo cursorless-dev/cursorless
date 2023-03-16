@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: { type: functionName }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     def Thing.hello_world
       puts "hi"
     end
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: { line: 1, character: 2 }
+      active: { line: 1, character: 2 }
   marks: {}
 finalState:
   documentContents: |-
@@ -24,6 +24,13 @@ finalState:
       puts "hi"
     end
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: functionName}}]}]
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: functionName } }],
+    },
+  ]

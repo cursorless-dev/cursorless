@@ -7,36 +7,56 @@ command:
       anchor:
         type: primitive
         modifiers:
-          - {type: interiorOnly}
-        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+          - { type: interiorOnly }
+        mark: { type: decoratedSymbol, symbolColor: default, character: r }
       active:
         type: primitive
         modifiers:
-          - {type: toRawSelection}
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+          - { type: toRawSelection }
+        mark: { type: decoratedSymbol, symbolColor: default, character: h }
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: { name: setSelection }
 initialState:
   documentContents: |-
     ( hello world )
     (hello world)
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: { line: 1, character: 13 }
+      active: { line: 1, character: 13 }
   marks:
     default.r:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 13}
+      start: { line: 0, character: 8 }
+      end: { line: 0, character: 13 }
     default.h:
-      start: {line: 1, character: 1}
-      end: {line: 1, character: 6}
+      start: { line: 1, character: 1 }
+      end: { line: 1, character: 6 }
 finalState:
   documentContents: |-
     ( hello world )
     (hello world)
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 1, character: 6}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: [{type: interiorOnly}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: toRawSelection}]}}]
+    - anchor: { line: 0, character: 2 }
+      active: { line: 1, character: 6 }
+fullTargets:
+  [
+    {
+      type: range,
+      excludeAnchor: false,
+      excludeActive: false,
+      rangeType: continuous,
+      anchor:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: r },
+          modifiers: [{ type: interiorOnly }],
+        },
+      active:
+        {
+          type: primitive,
+          mark: { type: decoratedSymbol, symbolColor: default, character: h },
+          modifiers: [{ type: toRawSelection }],
+        },
+    },
+  ]

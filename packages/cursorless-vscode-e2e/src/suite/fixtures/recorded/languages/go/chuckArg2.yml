@@ -5,16 +5,36 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: "func add(x, y int) int {\n\t return add(add(1, 2))\n}"
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: { line: 1, character: 13 }
+      active: { line: 1, character: 13 }
   marks: {}
 finalState:
   documentContents: "func add(x, y int) int {\n\t return add()\n}"
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}}]
+    - anchor: { line: 1, character: 13 }
+      active: { line: 1, character: 13 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+    },
+  ]

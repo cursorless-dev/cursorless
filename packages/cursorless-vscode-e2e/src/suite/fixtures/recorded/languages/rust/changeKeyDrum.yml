@@ -4,28 +4,36 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: { type: decoratedSymbol, symbolColor: default, character: d }
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionKey}
+          scopeType: { type: collectionKey }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     if let User { first_name: "John", last_name: "Doe" } = user {
     }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks:
     default.d:
-      start: {line: 0, character: 46}
-      end: {line: 0, character: 49}
+      start: { line: 0, character: 46 }
+      end: { line: 0, character: 49 }
 finalState:
   documentContents: |
     if let User { first_name: "John", : "Doe" } = user {
     }
   selections:
-    - anchor: {line: 0, character: 34}
-      active: {line: 0, character: 34}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [{type: containingScope, scopeType: {type: collectionKey}}]}]
+    - anchor: { line: 0, character: 34 }
+      active: { line: 0, character: 34 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: d },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: collectionKey } }],
+    },
+  ]

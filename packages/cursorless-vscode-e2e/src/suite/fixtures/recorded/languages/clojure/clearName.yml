@@ -5,22 +5,34 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false }
 initialState:
   documentContents: |-
     (defn say-hello
       [name]
       (println (str "Hello, " name)))
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
   marks: {}
 finalState:
   documentContents: |-
-    (defn 
+    (defn
       [name]
       (println (str "Hello, " name)))
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false },
+    },
+  ]

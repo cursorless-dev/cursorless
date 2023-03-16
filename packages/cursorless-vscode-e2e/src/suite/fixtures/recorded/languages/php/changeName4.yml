@@ -5,7 +5,8 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false }
 initialState:
   documentContents: |-
     <?php
@@ -20,14 +21,14 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
+    - anchor: { line: 5, character: 0 }
+      active: { line: 5, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    class 
+    class
     {
         public $value = 'default';
 
@@ -37,6 +38,18 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: name, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 2, character: 6 }
+      active: { line: 2, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: name, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

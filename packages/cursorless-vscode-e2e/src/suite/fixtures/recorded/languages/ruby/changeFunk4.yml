@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: { type: namedFunction }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     class Test
@@ -19,17 +19,25 @@ initialState:
       end
     end
   selections:
-    - anchor: {line: 3, character: 6}
-      active: {line: 3, character: 6}
+    - anchor: { line: 3, character: 6 }
+      active: { line: 3, character: 6 }
   marks: {}
 finalState:
   documentContents: |-
     class Test
       class << self
-        
+
       end
     end
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: namedFunction } }],
+    },
+  ]

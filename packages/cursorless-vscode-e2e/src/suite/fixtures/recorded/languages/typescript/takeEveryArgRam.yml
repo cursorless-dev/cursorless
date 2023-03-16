@@ -5,22 +5,42 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
-      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: r }
 initialState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.r:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
+      start: { line: 0, character: 4 }
+      end: { line: 0, character: 7 }
 finalState:
   documentContents: foo(bar(baz, bongo), bazman)
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 19}
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 27}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, insideOutsideType: inside}]
+    - anchor: { line: 0, character: 4 }
+      active: { line: 0, character: 19 }
+    - anchor: { line: 0, character: 21 }
+      active: { line: 0, character: 27 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: r },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      insideOutsideType: inside,
+    },
+  ]

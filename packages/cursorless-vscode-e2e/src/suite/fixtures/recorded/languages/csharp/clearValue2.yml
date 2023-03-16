@@ -5,16 +5,29 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
   documentContents: String a = "hello";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: String a = ;
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

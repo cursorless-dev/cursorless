@@ -6,21 +6,37 @@ command:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: token}
+          scopeType: { type: token }
           offset: 0
           length: 2
           direction: forward
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: aaa bbb ccc ddd eee fff
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 13}
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 13 }
   marks: {}
 finalState:
   documentContents: aaa bbb  eee fff
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 2, direction: forward}]}]
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: relativeScope,
+            scopeType: { type: token },
+            offset: 0,
+            length: 2,
+            direction: forward,
+          },
+        ],
+    },
+  ]

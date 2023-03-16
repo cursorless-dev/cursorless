@@ -5,38 +5,48 @@ command:
   action: wrapWithPairedDelimiter
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      mark: { type: decoratedSymbol, symbolColor: default, character: v }
   extraArgs: [(, )]
 initialState:
   documentContents: |
 
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 11 }
   marks:
     default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+      start: { line: 1, character: 6 }
+      end: { line: 1, character: 11 }
 finalState:
   documentContents: |
 
     const (value) = "Hello world";
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 12 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 6}
-        end: {line: 1, character: 13}
+        start: { line: 1, character: 6 }
+        end: { line: 1, character: 13 }
       isReversed: false
       hasExplicitRange: true
   sourceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 7}
-        end: {line: 1, character: 12}
+        start: { line: 1, character: 7 }
+        end: { line: 1, character: 12 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: v },
+      selectionType: token,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: inside,
+    },
+  ]

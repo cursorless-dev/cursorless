@@ -5,33 +5,43 @@ command:
   action: getText
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
   extraArgs:
-    - {showDecorations: false, ensureSingleTarget: null}
+    - { showDecorations: false, ensureSingleTarget: null }
 initialState:
   documentContents: |
 
     const value = "helloWorld";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.h:
-      start: {line: 1, character: 15}
-      end: {line: 1, character: 25}
+      start: { line: 1, character: 15 }
+      end: { line: 1, character: 25 }
 finalState:
   documentContents: |
 
     const value = "helloWorld";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 15}
-        end: {line: 1, character: 25}
+        start: { line: 1, character: 15 }
+        end: { line: 1, character: 25 }
       isReversed: false
       hasExplicitRange: false
 returnValue: [helloWorld]
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      modifier: { type: identity },
+      insideOutsideType: inside,
+    },
+  ]

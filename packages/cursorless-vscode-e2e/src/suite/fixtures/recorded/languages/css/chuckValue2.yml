@@ -5,16 +5,29 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
   documentContents: "@namespace url(http://www.w3.org/1999/xhtml);"
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
   marks: {}
 finalState:
   documentContents: "@namespace;"
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 6 }
+      active: { line: 0, character: 6 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

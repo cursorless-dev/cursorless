@@ -4,26 +4,34 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
+      mark: { type: decoratedSymbol, symbolColor: blue, character: a }
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     struct S<'a, 'b: 'a, T>;
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks:
     blue.a:
-      start: {line: 0, character: 18}
-      end: {line: 0, character: 19}
+      start: { line: 0, character: 18 }
+      end: { line: 0, character: 19 }
 finalState:
   documentContents: |
     struct S<'a, , T>;
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: a}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]
+    - anchor: { line: 0, character: 13 }
+      active: { line: 0, character: 13 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: blue, character: a },
+      modifiers:
+        [{ type: containingScope, scopeType: { type: argumentOrParameter } }],
+    },
+  ]

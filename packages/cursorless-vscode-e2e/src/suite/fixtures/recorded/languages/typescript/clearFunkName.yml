@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: { type: functionName }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |-
     abstract class Foo {
         protected abstract bar(): void;
       }
   selections:
-    - anchor: {line: 1, character: 30}
-      active: {line: 1, character: 30}
+    - anchor: { line: 1, character: 30 }
+      active: { line: 1, character: 30 }
   marks: {}
 finalState:
   documentContents: |-
@@ -24,6 +24,13 @@ finalState:
         protected abstract (): void;
       }
   selections:
-    - anchor: {line: 1, character: 23}
-      active: {line: 1, character: 23}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: functionName}}]}]
+    - anchor: { line: 1, character: 23 }
+      active: { line: 1, character: 23 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: functionName } }],
+    },
+  ]

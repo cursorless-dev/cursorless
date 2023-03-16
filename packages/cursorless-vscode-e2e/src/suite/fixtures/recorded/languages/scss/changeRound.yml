@@ -5,15 +5,15 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: { type: surroundingPair, delimiter: parentheses }
 initialState:
   documentContents: |-
     a {
       font-family: "hello (world)";
     }
   selections:
-    - anchor: {line: 1, character: 25}
-      active: {line: 1, character: 25}
+    - anchor: { line: 1, character: 25 }
+      active: { line: 1, character: 25 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,6 +21,17 @@ finalState:
       font-family: "hello ";
     }
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses}, isImplicit: false}]
+    - anchor: { line: 1, character: 22 }
+      active: { line: 1, character: 22 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: surroundingPair, delimiter: parentheses },
+      isImplicit: false,
+    },
+  ]

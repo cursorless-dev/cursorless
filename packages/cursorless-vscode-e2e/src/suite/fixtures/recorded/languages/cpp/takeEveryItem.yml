@@ -5,15 +5,20 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
     int f(int a, int b) {
         std::vector<int> v { a, b };
     }
   selections:
-    - anchor: {line: 1, character: 29}
-      active: {line: 1, character: 29}
+    - anchor: { line: 1, character: 29 }
+      active: { line: 1, character: 29 }
   marks: {}
 finalState:
   documentContents: |-
@@ -21,8 +26,23 @@ finalState:
         std::vector<int> v { a, b };
     }
   selections:
-    - anchor: {line: 1, character: 25}
-      active: {line: 1, character: 26}
-    - anchor: {line: 1, character: 28}
-      active: {line: 1, character: 29}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 25 }
+      active: { line: 1, character: 26 }
+    - anchor: { line: 1, character: 28 }
+      active: { line: 1, character: 29 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: collectionItem,
+          includeSiblings: true,
+        },
+      insideOutsideType: inside,
+    },
+  ]

@@ -5,24 +5,44 @@ command:
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        }
 initialState:
   documentContents: |-
 
     my_funk(1, 2, 3)
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 8 }
   marks: {}
 finalState:
   documentContents: |-
 
     my_funk(1, 2, 3)
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 9}
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 12}
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 15}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}, insideOutsideType: inside}]
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 9 }
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 12 }
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 15 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: true,
+        },
+      insideOutsideType: inside,
+    },
+  ]

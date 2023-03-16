@@ -5,16 +5,37 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCallee,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: moto.StartEngine();
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: { line: 0, character: 17 }
+      active: { line: 0, character: 17 }
   marks: {}
 finalState:
   documentContents: ();
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: functionCallee,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

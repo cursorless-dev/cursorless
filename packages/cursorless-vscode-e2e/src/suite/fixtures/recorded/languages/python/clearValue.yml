@@ -5,20 +5,32 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
 initialState:
   documentContents: |-
     def foo():
         return "hello"
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: { line: 1, character: 14 }
+      active: { line: 1, character: 14 }
   marks: {}
 finalState:
   documentContents: |-
     def foo():
-        return 
+        return
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}}]
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+    },
+  ]

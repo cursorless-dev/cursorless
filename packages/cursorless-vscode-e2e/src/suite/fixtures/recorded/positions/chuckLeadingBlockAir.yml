@@ -4,13 +4,13 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
       modifiers:
-        - {type: leading}
+        - { type: leading }
         - type: containingScope
-          scopeType: {type: paragraph}
+          scopeType: { type: paragraph }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: |-
 
@@ -18,18 +18,29 @@ initialState:
 
         const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.a:
-      start: {line: 3, character: 10}
-      end: {line: 3, character: 15}
+      start: { line: 3, character: 10 }
+      end: { line: 3, character: 15 }
 finalState:
   documentContents: |-
 
     const value = "Hello world";
         const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: position, position: before}, {type: containingScope, scopeType: {type: paragraph}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      modifiers:
+        [
+          { type: position, position: before },
+          { type: containingScope, scopeType: { type: paragraph } },
+        ],
+    },
+  ]

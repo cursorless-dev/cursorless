@@ -6,9 +6,9 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: { type: name }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     struct S {
@@ -19,8 +19,8 @@ initialState:
         let S { v } = S { v: 32 };
     }
   selections:
-    - anchor: {line: 5, character: 18}
-      active: {line: 5, character: 18}
+    - anchor: { line: 5, character: 18 }
+      active: { line: 5, character: 18 }
   marks: {}
 finalState:
   documentContents: |
@@ -32,6 +32,13 @@ finalState:
         let  = S { v: 32 };
     }
   selections:
-    - anchor: {line: 5, character: 8}
-      active: {line: 5, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]
+    - anchor: { line: 5, character: 8 }
+      active: { line: 5, character: 8 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: name } }],
+    },
+  ]

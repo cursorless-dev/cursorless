@@ -5,16 +5,37 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: \usepackage[utf8]{inputenc}
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: { line: 0, character: 14 }
+      active: { line: 0, character: 14 }
   marks: {}
 finalState:
   documentContents: \usepackage[]{inputenc}
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 12 }
+      active: { line: 0, character: 12 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

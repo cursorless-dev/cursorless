@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: { type: decoratedSymbol, symbolColor: default, character: d }
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: { type: name }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     let user = User {
@@ -17,12 +17,12 @@ initialState:
         last_name: "Doe",
     };
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 3, character: 2}
+    - anchor: { line: 3, character: 2 }
+      active: { line: 3, character: 2 }
   marks:
     default.d:
-      start: {line: 2, character: 16}
-      end: {line: 2, character: 19}
+      start: { line: 2, character: 16 }
+      end: { line: 2, character: 19 }
 finalState:
   documentContents: |
     let user = User {
@@ -30,6 +30,13 @@ finalState:
         : "Doe",
     };
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: d },
+      modifiers: [{ type: containingScope, scopeType: { type: name } }],
+    },
+  ]

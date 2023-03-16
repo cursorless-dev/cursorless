@@ -5,15 +5,20 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
 initialState:
   documentContents: |
     @function invert($amount: 100%, $color) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
+    - anchor: { line: 0, character: 36 }
+      active: { line: 0, character: 36 }
   marks: {}
 finalState:
   documentContents: |
@@ -21,6 +26,22 @@ finalState:
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 30 }
+      active: { line: 0, character: 30 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

@@ -5,20 +5,41 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        }
+      mark: { type: decoratedSymbol, symbolColor: default, character: w }
 initialState:
   documentContents: a(hello, world)
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: { line: 0, character: 11 }
+      active: { line: 0, character: 11 }
   marks:
     default.w:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 14}
+      start: { line: 0, character: 9 }
+      end: { line: 0, character: 14 }
 finalState:
   documentContents: a(hello, )
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: w },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: containingScope,
+          scopeType: argumentOrParameter,
+          includeSiblings: false,
+        },
+      isImplicit: false,
+    },
+  ]

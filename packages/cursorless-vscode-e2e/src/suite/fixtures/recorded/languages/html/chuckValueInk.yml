@@ -5,26 +5,38 @@ command:
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: i }
 initialState:
   documentContents: |-
     <html id="value">
-        
+
     </html>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks:
     default.i:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 8}
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 8 }
 finalState:
   documentContents: |-
     <html id>
-        
+
     </html>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: i}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: value, includeSiblings: false}}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: i },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: outside,
+      modifier:
+        { type: containingScope, scopeType: value, includeSiblings: false },
+    },
+  ]

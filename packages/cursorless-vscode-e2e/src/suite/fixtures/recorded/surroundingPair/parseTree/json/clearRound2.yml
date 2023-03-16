@@ -5,16 +5,26 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: { type: surroundingPair, delimiter: parentheses }
 initialState:
   documentContents: // (hello)
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }
   marks: {}
 finalState:
   documentContents: "// "
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses}}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier: { type: surroundingPair, delimiter: parentheses },
+    },
+  ]

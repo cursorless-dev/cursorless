@@ -5,26 +5,33 @@ command:
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
-      mark: {type: that}
+        - { type: interiorOnly }
+      mark: { type: that }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: (hello )
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
   marks: {}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 7}
-        end: {line: 0, character: 7}
+        start: { line: 0, character: 7 }
+        end: { line: 0, character: 7 }
       isReversed: false
       hasExplicitRange: false
 finalState:
   documentContents: ()
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: interiorOnly}]}]
+    - anchor: { line: 0, character: 2 }
+      active: { line: 0, character: 2 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: that },
+      modifiers: [{ type: interiorOnly }],
+    },
+  ]

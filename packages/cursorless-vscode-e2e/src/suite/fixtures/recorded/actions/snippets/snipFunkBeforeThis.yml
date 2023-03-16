@@ -4,9 +4,9 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: cursor}
+      mark: { type: cursor }
       modifiers:
-        - {type: position, position: before}
+        - { type: position, position: before }
   usePrePhraseSnapshot: true
   action:
     name: insertSnippet
@@ -14,23 +14,30 @@ command:
 initialState:
   documentContents: const foo = "bar";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
     function () {
-        
+
     }
     const foo = "bar";
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: { line: 0, character: 9 }
+      active: { line: 0, character: 9 }
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 2, character: 1}
+        start: { line: 0, character: 0 }
+        end: { line: 2, character: 1 }
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: position, position: before}]}]
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: position, position: before }],
+    },
+  ]

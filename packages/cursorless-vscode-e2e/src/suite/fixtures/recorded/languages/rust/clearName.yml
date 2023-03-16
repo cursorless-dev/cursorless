@@ -6,17 +6,17 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: { type: name }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     enum Foo {
         Baz { a: int, b: String }
     }
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 8 }
   marks: {}
 finalState:
   documentContents: |
@@ -24,6 +24,13 @@ finalState:
          { a: int, b: String }
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: name } }],
+    },
+  ]

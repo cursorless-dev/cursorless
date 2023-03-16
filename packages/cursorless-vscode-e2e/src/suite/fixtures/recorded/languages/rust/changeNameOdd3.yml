@@ -4,12 +4,12 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      mark: { type: decoratedSymbol, symbolColor: default, character: o }
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: { type: name }
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
     enum Maybe<T> {
@@ -17,12 +17,12 @@ initialState:
         Nothing,
     }
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: { line: 4, character: 0 }
+      active: { line: 4, character: 0 }
   marks:
     default.o:
-      start: {line: 2, character: 4}
-      end: {line: 2, character: 11}
+      start: { line: 2, character: 4 }
+      end: { line: 2, character: 11 }
 finalState:
   documentContents: |
     enum Maybe<T> {
@@ -30,6 +30,13 @@ finalState:
         ,
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, modifiers: [{type: containingScope, scopeType: {type: name}}]}]
+    - anchor: { line: 2, character: 4 }
+      active: { line: 2, character: 4 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: o },
+      modifiers: [{ type: containingScope, scopeType: { type: name } }],
+    },
+  ]

@@ -4,26 +4,26 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: { type: decoratedSymbol, symbolColor: default, character: a }
       modifiers:
         - type: containingScope
-          scopeType: {type: paragraph}
+          scopeType: { type: paragraph }
     - type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          mark: { type: decoratedSymbol, symbolColor: default, character: b }
           modifiers:
-            - {type: position, position: before}
+            - { type: position, position: before }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+          mark: { type: decoratedSymbol, symbolColor: default, character: d }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          mark: { type: decoratedSymbol, symbolColor: default, character: b }
           modifiers:
-            - {type: position, position: after}
+            - { type: position, position: after }
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+          mark: { type: decoratedSymbol, symbolColor: default, character: d }
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
+  action: { name: replaceWithTarget }
 initialState:
   documentContents: |-
     aaa
@@ -34,18 +34,18 @@ initialState:
             ddd
         eee
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+      start: { line: 0, character: 0 }
+      end: { line: 0, character: 3 }
     default.b:
-      start: {line: 2, character: 4}
-      end: {line: 2, character: 7}
+      start: { line: 2, character: 4 }
+      end: { line: 2, character: 7 }
     default.d:
-      start: {line: 5, character: 8}
-      end: {line: 5, character: 11}
+      start: { line: 5, character: 8 }
+      end: { line: 5, character: 11 }
 finalState:
   documentContents: |-
     aaa
@@ -64,6 +64,44 @@ finalState:
 
         aaa
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: paragraph}}]}, {type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [*ref_0], positionModifier: {type: position, position: before}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [*ref_0], positionModifier: {type: position, position: before}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [*ref_0], positionModifier: {type: position, position: after}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, modifiers: [*ref_0], positionModifier: {type: position, position: after}}]}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: a },
+      modifiers:
+        [&ref_0 { type: containingScope, scopeType: { type: paragraph } }],
+    },
+    {
+      type: list,
+      elements:
+        [
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: b },
+            modifiers: [*ref_0],
+            positionModifier: { type: position, position: before },
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: d },
+            modifiers: [*ref_0],
+            positionModifier: { type: position, position: before },
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: b },
+            modifiers: [*ref_0],
+            positionModifier: { type: position, position: after },
+          },
+          {
+            type: primitive,
+            mark: { type: decoratedSymbol, symbolColor: default, character: d },
+            modifiers: [*ref_0],
+            positionModifier: { type: position, position: after },
+          },
+        ],
+    },
+  ]

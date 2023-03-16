@@ -6,7 +6,7 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: token}
+          scopeType: { type: token }
   usePrePhraseSnapshot: true
   action:
     name: wrapWithSnippet
@@ -14,8 +14,8 @@ command:
 initialState:
   documentContents: const whatever = "hello";
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: { line: 0, character: 18 }
+      active: { line: 0, character: 18 }
   marks: {}
 finalState:
   documentContents: |-
@@ -23,6 +23,13 @@ finalState:
         hello
     }";
   selections:
-    - anchor: {line: 0, character: 27}
-      active: {line: 0, character: 27}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]
+    - anchor: { line: 0, character: 27 }
+      active: { line: 0, character: 27 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers: [{ type: containingScope, scopeType: { type: token } }],
+    },
+  ]

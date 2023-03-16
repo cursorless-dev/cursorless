@@ -6,12 +6,12 @@ command:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: paragraph}
+          scopeType: { type: paragraph }
           offset: 1
           length: 1
           direction: forward
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
 initialState:
   documentContents: |
 
@@ -19,8 +19,8 @@ initialState:
 
     bbb
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks: {}
 finalState:
   documentContents: |+
@@ -29,6 +29,22 @@ finalState:
 
 
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: paragraph}, offset: 1, length: 1, direction: forward}]}]
+    - anchor: { line: 3, character: 0 }
+      active: { line: 3, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      modifiers:
+        [
+          {
+            type: relativeScope,
+            scopeType: { type: paragraph },
+            offset: 1,
+            length: 1,
+            direction: forward,
+          },
+        ],
+    },
+  ]

@@ -5,34 +5,52 @@ command:
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: { type: decoratedSymbol, symbolColor: default, character: h }
     - type: primitive
       position: before
       insideOutsideType: inside
-      mark: {type: decoratedSymbol, symbolColor: default, character: .}
+      mark: { type: decoratedSymbol, symbolColor: default, character: . }
 marksToCheck: [default..]
 initialState:
   documentContents: " . , hello"
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: { line: 0, character: 10 }
+      active: { line: 0, character: 10 }
   marks:
     default.h:
-      start: {line: 0, character: 5}
-      end: {line: 0, character: 10}
+      start: { line: 0, character: 5 }
+      end: { line: 0, character: 10 }
     default..:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 2}
+      start: { line: 0, character: 1 }
+      end: { line: 0, character: 2 }
 finalState:
   documentContents: " hello. , hello"
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: { line: 0, character: 15 }
+      active: { line: 0, character: 15 }
   marks:
     default.h:
-      start: {line: 0, character: 10}
-      end: {line: 0, character: 15}
+      start: { line: 0, character: 10 }
+      end: { line: 0, character: 15 }
     default..:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: identity}}]
+      start: { line: 0, character: 6 }
+      end: { line: 0, character: 7 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: h },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: null,
+      modifier: { type: identity },
+    },
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: . },
+      selectionType: token,
+      position: before,
+      insideOutsideType: inside,
+      modifier: { type: identity },
+    },
+  ]

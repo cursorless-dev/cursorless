@@ -4,24 +4,37 @@ command:
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '0'}
+      mark: { type: decoratedSymbol, symbolColor: default, character: "0" }
       modifiers:
         - type: containingScope
-          scopeType: {type: boundedNonWhitespaceSequence}
+          scopeType: { type: boundedNonWhitespaceSequence }
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: { name: remove }
 initialState:
   documentContents: "[foo[0], bar]"
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   marks:
     default.0:
-      start: {line: 0, character: 5}
-      end: {line: 0, character: 6}
+      start: { line: 0, character: 5 }
+      end: { line: 0, character: 6 }
 finalState:
   documentContents: "[foo[], bar]"
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '0'}, modifiers: [{type: containingScope, scopeType: {type: boundedNonWhitespaceSequence}}]}]
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: "0" },
+      modifiers:
+        [
+          {
+            type: containingScope,
+            scopeType: { type: boundedNonWhitespaceSequence },
+          },
+        ],
+    },
+  ]

@@ -5,26 +5,39 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false }
+      mark: { type: decoratedSymbol, symbolColor: default, character: l }
 initialState:
   documentContents: |
     class TypesAhoy() {
       val foo: List[String] = List("foo")
     }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
   marks:
     default.l:
-      start: {line: 1, character: 11}
-      end: {line: 1, character: 15}
+      start: { line: 1, character: 11 }
+      end: { line: 1, character: 15 }
 finalState:
   documentContents: |
     class TypesAhoy() {
       val foo:  = List("foo")
     }
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 11 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: decoratedSymbol, symbolColor: default, character: l },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        { type: containingScope, scopeType: type, includeSiblings: false },
+      isImplicit: false,
+    },
+  ]

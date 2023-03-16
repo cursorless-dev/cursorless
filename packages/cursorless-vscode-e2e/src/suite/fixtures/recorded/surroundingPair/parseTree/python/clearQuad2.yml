@@ -5,7 +5,7 @@ command:
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes}
+      modifier: { type: surroundingPair, delimiter: doubleQuotes }
 initialState:
   documentContents: |-
     """
@@ -14,12 +14,27 @@ initialState:
     }
     """
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 7 }
   marks: {}
 finalState:
   documentContents: ""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: doubleQuotes, delimiterInclusion: includeDelimiters}}]
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }
+fullTargets:
+  [
+    {
+      type: primitive,
+      mark: { type: cursor },
+      selectionType: token,
+      position: contents,
+      insideOutsideType: inside,
+      modifier:
+        {
+          type: surroundingPair,
+          delimiter: doubleQuotes,
+          delimiterInclusion: includeDelimiters,
+        },
+    },
+  ]
