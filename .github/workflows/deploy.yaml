@@ -15,24 +15,24 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: yarn run compile
-      - run: yarn run prepare-for-extension-publish
-      - name: Initialize cursorless-nx subdir
-        run: npm ci
-        working-directory: cursorless-nx
-      - name: Build cheatsheet html
-        run: npx nx build cheatsheet-local
-        working-directory: cursorless-nx
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm compile
+      - run: pnpm build
+        env:
+          CURSORLESS_DEPLOY: true
       - name: Publish to Open VSX Registry
-        uses: HaaLeo/publish-vscode-extension@v1
         id: publishToOpenVSX
+        uses: HaaLeo/publish-vscode-extension@v1
         with:
           pat: ${{ secrets.OPEN_VSX_TOKEN }}
+          packagePath: packages/cursorless-vscode/dist
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:

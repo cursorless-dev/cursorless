@@ -1,0 +1,32 @@
+{
+  "name": "@cursorless/test-harness",
+  "version": "0.1.0",
+  "description": "Contains scripts and runners for testing Cursorless",
+  "private": true,
+  "main": "./out/index.js",
+  "scripts": {
+    "test": "env CURSORLESS_TEST=true tsx --conditions=cursorless:bundler src/scripts/runTestsCI.ts",
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "glob": "^7.1.7"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@vscode/test-electron": "^2.1.3",
+    "mocha": "^8.1.3"
+  },
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  }
+}
