@@ -176,10 +176,8 @@ async function runTest(file: string, spyIde: SpyIDE) {
     spyIde.activeTextEditor!,
     spyIde,
     marks,
-    undefined,
-    undefined,
     // FIXME: Stop overriding the clipboard once we have #559
-    vscode.env.clipboard,
+    true,
   );
 
   const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);

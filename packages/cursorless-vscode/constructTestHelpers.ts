@@ -1,7 +1,6 @@
 import {
   CommandServerApi,
   ExcludableSnapshotField,
-  ExtraContext,
   ExtraSnapshotField,
   IDE,
   NormalizedIDE,
@@ -43,10 +42,8 @@ export function constructTestHelpers(
       extraFields: ExtraSnapshotField[],
       editor: TextEditor,
       ide: IDE,
-      marks?: SerializedMarks,
-      extraContext?: ExtraContext,
-      metadata?: unknown,
-      clipboard?: vscode.Clipboard,
+      marks: SerializedMarks | undefined,
+      forceRealClipboard: boolean,
     ): Promise<TestCaseSnapshot> {
       return takeSnapshot(
         thatMark,
@@ -56,9 +53,9 @@ export function constructTestHelpers(
         editor,
         ide,
         marks,
-        extraContext,
-        metadata,
-        clipboard,
+        undefined,
+        undefined,
+        forceRealClipboard ? vscodeIDE.clipboard : undefined,
       );
     },
 
