@@ -120,6 +120,9 @@ const assets: Asset[] = [
           await runCommand("git rev-list --count HEAD")
         ).trim();
         json.version = `${major}.${minor}.${commitCount}`;
+      } else {
+        const gitSha = (await runCommand("git rev-parse --short HEAD")).trim();
+        json.version = `${json.version}-${gitSha}`;
       }
 
       return json;

@@ -7,7 +7,6 @@ type ObjectKeys<T> = T extends object
   ? string[]
   : never;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface ObjectConstructor {
   keys<T>(o: T): ObjectKeys<T>;
 }

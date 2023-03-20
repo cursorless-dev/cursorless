@@ -44,7 +44,7 @@ gh run download $check_number --repo "$repo" --name vsix --dir "$tmpdir"
 code --uninstall-extension pokey.cursorless || echo "Cursorless not currently installed"
 
 # 5. Install downloaded extension
-code --install-extension "$tmpdir/cursorless-development.vsix"
+code --install-extension "$tmpdir/cursorless-development.vsix" --force
 
 echo -e "\e[1;32mPlease restart VSCode\e[0m"
 echo "To uninstall and revert to production Cursorless, run the adjacent uninstall-local.sh"

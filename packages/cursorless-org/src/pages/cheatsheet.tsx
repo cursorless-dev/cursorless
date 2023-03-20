@@ -3,6 +3,7 @@ import {
   CheatsheetPage,
   defaultCheatsheetInfo,
 } from "@cursorless/cheatsheet";
+import Head from "next/head";
 
 // See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
 export async function getStaticProps() {
@@ -10,7 +11,14 @@ export async function getStaticProps() {
 }
 
 export function App() {
-  return <CheatsheetPage cheatsheetInfo={defaultCheatsheetInfo} />;
+  return (
+    <>
+      <Head>
+        <title>Cursorless cheatsheet</title>
+      </Head>
+      <CheatsheetPage cheatsheetInfo={defaultCheatsheetInfo} />
+    </>
+  );
 }
 
 export default App;

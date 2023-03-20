@@ -1,4 +1,4 @@
-# Cheatsheet Local
+# Local cheatsheet
 
 This app just bundles up the cheatsheet into a single file to be used when the user says `"cursorless cheatsheet"`. The file inlines all css and js so that it can be opened as a single file by the end user. During actual production use, Talon will send the user's custom spoken forms to the Cursorless engine, which will [inject them](../cursorless-engine/src/core/Cheatsheet.ts) into the cheatsheet using a global variable.
 

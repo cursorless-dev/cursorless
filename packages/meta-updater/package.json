@@ -3,8 +3,8 @@
   "description": "Cursorless configuration for meta-updater",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
+    "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node",
     "compile": "tsc --build",
     "watch": "tsc --build --watch"
   },
@@ -25,5 +25,8 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.11"
   }
 }

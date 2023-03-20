@@ -6,6 +6,7 @@
     "jsx": "react-jsx",
     "lib": ["es5", "es6", "dom"],
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "module": "es6",
     "target": "es5",

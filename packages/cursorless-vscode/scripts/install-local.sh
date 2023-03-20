@@ -16,7 +16,7 @@ vsce package --allow-star-activation -o ../bundle.vsix
 code --uninstall-extension pokey.cursorless || echo "Cursorless not currently installed"
 
 # 4. Install local Cursorless
-code --install-extension ../bundle.vsix
+code --install-extension ../bundle.vsix --force
 
 echo -e "\e[1;32mPlease restart VSCode\e[0m"
 echo "To uninstall and revert to production Cursorless, run the adjacent uninstall-local.sh"

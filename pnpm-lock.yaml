@@ -103,7 +103,6 @@ importers:
       webpack-dev-server: 4.11.1
     dependencies:
       '@cursorless/cheatsheet': link:../cheatsheet
-      '@types/react-dom': 18.0.11
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
@@ -112,6 +111,7 @@ importers:
       '@types/jest': 29.4.0
       '@types/node': 16.18.13
       '@types/react': 18.0.28
+      '@types/react-dom': 18.0.11
       '@types/webpack': 5.28.0_webpack-cli@5.0.1
       '@webpack-cli/generators': 3.0.1_rjsyjcrmk25kqsjzwkvj3a2evq
       autoprefixer: 10.4.13_postcss@8.4.21
@@ -370,6 +370,7 @@ importers:
       '@pnpm/logger': ^5.0.0
       '@pnpm/types': 8.9.0
       '@types/normalize-path': ^3.0.0
+      esbuild: ^0.17.11
       normalize-path: ^3.0.0
       path-exists: ^4.0.0
       type-fest: 3.6.1
@@ -381,6 +382,8 @@ importers:
       normalize-path: 3.0.0
       path-exists: 4.0.0
       type-fest: 3.6.1
+    devDependencies:
+      esbuild: 0.17.11
 
   packages/test-harness:
     specifiers:
@@ -5646,6 +5649,7 @@ packages:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
       '@types/react': 18.0.28
+    dev: true
 
   /@types/react-helmet/6.1.6:
     resolution: {integrity: sha512-ZKcoOdW/Tg+kiUbkFCBtvDw0k3nD4HJ/h/B9yWxN4uDO8OkRksWTO+EL+z/Qu3aHTeTll3Ro0Cc/8UhwBCMG5A==}

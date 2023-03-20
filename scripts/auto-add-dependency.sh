@@ -1,13 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# First get all arguments that start with a dash
-# and remove them from the positional parameters
-# so that we can pass the rest to the command.
-# We support arbitrary options, and just forward them to the command.
-# This is useful for passing options to pnpm.
-# For example, to run the command in a dry-run mode, you can do:
-# ./scripts/auto-add-dependency.sh -r --dry-run
+if [[ "$1" == "--help" ]]; then
+  cat <<EOF
+Usage: ./scripts/auto-add-dependency.sh [options] <package-name> [import-name]
+
+This script searches for references to <package-name> in all our monorepo packages,
+and runs pnpm install for each package that references <package-name>.
+
+You can pass in <import-name> if you want to use a different name for the import.
+Additionally, any options you pass in that start with - will be passed to
+pnpm install.
+
+For example:
+
+    ./scripts/auto-add-dependency.sh lodash
+    ./scripts/auto-add-dependency.sh lodash -D @types/lodash
+EOF
+  exit 0
+fi
+
+# Check that `rg` is installed
+if ! command -v rg &>/dev/null; then
+  echo "The 'rg' command is required to run this script. Please install it and try again."
+  exit 1
+fi
+
 dash_args=()
 positional_args=()
 while [[ $# -gt 0 ]]; do

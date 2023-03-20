@@ -2,7 +2,6 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 /*eslint-env node*/
 
-// apps/app1/tailwind.config.js
 const { join } = require("path");
 const { readFileSync } = require("fs");
 
