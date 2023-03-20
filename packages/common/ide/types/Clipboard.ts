@@ -5,13 +5,13 @@
 export interface Clipboard {
   /**
    * Read the current clipboard contents as text.
-   * @returns A thenable that resolves to a string.
+   * @returns A promise that resolves to a string.
    */
-  readText(): Thenable<string>;
+  readText(): Promise<string>;
 
   /**
    * Writes text into the clipboard.
-   * @returns A thenable that resolves when writing happened.
+   * @returns A promise that resolves when writing happened.
    */
-  writeText(value: string): Thenable<void>;
+  writeText(value: string): Promise<void>;
 }
