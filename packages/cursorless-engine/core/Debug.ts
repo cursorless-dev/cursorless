@@ -1,5 +1,5 @@
 import { Disposable, TextEditorSelectionChangeEvent } from "@cursorless/common";
-import { SyntaxNode, TreeCursor } from "web-tree-sitter";
+import type { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { ide } from "../singletons/ide.singleton";
 import { Graph } from "../typings/Graph";
 
