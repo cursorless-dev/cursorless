@@ -1,0 +1,17 @@
+{
+  "name": "@cursorless/generate-examples",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "ts-node-esm src/lib/buildDictionary",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "fs-extra": "11.1.0",
+    "prettier": "2.8.4",
+    "shiki": "0.14.1",
+    "ts-node": "10.9.1",
+    "yaml": "2.2.1"
+  }
+}

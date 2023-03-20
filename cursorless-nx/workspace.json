@@ -6,7 +6,8 @@
     "cheatsheet-local-e2e": "apps/cheatsheet-local-e2e",
     "cursorless-org": "apps/cursorless-org",
     "cursorless-org-e2e": "apps/cursorless-org-e2e",
-    "embedded-video": "libs/react/embedded-video"
+    "embedded-video": "libs/react/embedded-video",
+    "generate-examples": "libs/generate-examples"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
