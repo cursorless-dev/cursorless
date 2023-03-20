@@ -1,5 +1,5 @@
 import { TextEditor } from "@cursorless/common";
-import { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "@cursorless/common";
 import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";

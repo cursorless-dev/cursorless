@@ -1,4 +1,4 @@
-import { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { NodeMatcher } from "../typings/Types";
 import { matcher } from "../util/nodeMatchers";
 
