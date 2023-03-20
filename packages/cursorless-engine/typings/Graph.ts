@@ -1,5 +1,5 @@
 import { CommandServerApi, Range, TextDocument } from "@cursorless/common";
-import { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
 import { ActionRecord } from "../actions/actions.types";
 import Debug from "../core/Debug";
 import HatTokenMapImpl from "../core/HatTokenMapImpl";

@@ -1,5 +1,5 @@
 import { Position, Selection } from "@cursorless/common";
-import { Point, SyntaxNode } from "web-tree-sitter";
+import type { Point, SyntaxNode } from "web-tree-sitter";
 import { NodeFinder } from "../typings/Types";
 
 export const nodeFinder = (
