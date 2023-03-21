@@ -14,7 +14,7 @@
         "--profile=cursorlessDevelopment"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "Build extension only",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
