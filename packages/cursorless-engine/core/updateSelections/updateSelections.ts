@@ -146,7 +146,7 @@ function selectionInfosToSelections(
  */
 export async function callFunctionAndUpdateSelections(
   rangeUpdater: RangeUpdater,
-  func: () => Thenable<void>,
+  func: () => Promise<void>,
   document: TextDocument,
   selectionMatrix: (readonly Selection[])[],
 ): Promise<Selection[][]> {
@@ -165,7 +165,7 @@ export async function callFunctionAndUpdateSelections(
 
 export async function callFunctionAndUpdateRanges(
   rangeUpdater: RangeUpdater,
-  func: () => Thenable<void>,
+  func: () => Promise<void>,
   document: TextDocument,
   rangeMatrix: (readonly Range[])[],
 ): Promise<Range[][]> {
@@ -190,7 +190,7 @@ export async function callFunctionAndUpdateRanges(
  */
 export async function callFunctionAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
-  func: () => Thenable<void>,
+  func: () => Promise<void>,
   document: TextDocument,
   selectionInfoMatrix: FullSelectionInfo[][],
 ) {
@@ -217,7 +217,7 @@ export async function callFunctionAndUpdateSelectionInfos(
  */
 export function callFunctionAndUpdateSelectionsWithBehavior(
   rangeUpdater: RangeUpdater,
-  func: () => Thenable<void>,
+  func: () => Promise<void>,
   document: TextDocument,
   originalSelections: SelectionsWithBehavior[],
 ) {
