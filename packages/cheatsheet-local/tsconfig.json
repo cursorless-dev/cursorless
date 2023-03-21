@@ -1,0 +1,31 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "out",
+    "jsx": "react-jsx",
+    "lib": ["es5", "es6", "dom"],
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "references": [
+    {
+      "path": "../cheatsheet"
+    }
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "src/**/*.tsx",
+    "../../typings/**/*.d.ts"
+  ]
+}
