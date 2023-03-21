@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
     # only run job if workflow initiated by a pull request event
-    # see 
+    # see https://github.com/cursorless-dev/cursorless/issues/1338
     permissions:
       actions: read
       contents: read
