@@ -78,3 +78,23 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           category: "/language:${{matrix.language}}"
+
+  analyze_merge_group:
+    name: Analyze
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'merge_group' }}
+    # If we're on a merge queue, we just force a pass, as it already ran on the PR
+    # see https://github.com/cursorless-dev/cursorless/issues/1338
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript", "python"]
+        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        # Use only 'java' to analyze code written in Java, Kotlin or both
+        # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
+        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
