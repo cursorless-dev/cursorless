@@ -1,26 +1,42 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "outDir": "out",
-    "lib": ["es2020"],
-    "sourceMap": true,
-    "rootDir": "src",
-    "strict": true /* enable all strict type-checking options */,
-    /* Additional Checks */
-    // "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
-    // "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
-    // "noUnusedParameters": true,  /* Report errors on unused parameters. */
-    "paths": {
-      "@cursorless/common": ["./src/libs/common/index.ts"],
-      "@cursorless/vscode-common": ["./src/libs/vscode-common/index.ts"]
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./packages/cheatsheet"
+    },
+    {
+      "path": "./packages/cheatsheet-local"
+    },
+    {
+      "path": "./packages/common"
+    },
+    {
+      "path": "./packages/cursorless-engine"
+    },
+    {
+      "path": "./packages/cursorless-org"
+    },
+    {
+      "path": "./packages/cursorless-org-docs"
+    },
+    {
+      "path": "./packages/cursorless-vscode"
+    },
+    {
+      "path": "./packages/cursorless-vscode-core"
+    },
+    {
+      "path": "./packages/cursorless-vscode-e2e"
+    },
+    {
+      "path": "./packages/meta-updater"
+    },
+    {
+      "path": "./packages/test-harness"
+    },
+    {
+      "path": "./packages/vscode-common"
     }
-  },
-  "exclude": [
-    "cursorless-nx",
-    "node_modules",
-    "src/vendor",
-    ".vscode-test",
-    "data"
   ]
 }

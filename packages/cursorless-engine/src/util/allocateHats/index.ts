@@ -1,0 +1,1 @@
+export { allocateHats } from "./allocateHats";

@@ -1,0 +1,42 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: puff vest
+  action: insertEmptyLinesAround
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+initialState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+finalState:
+  documentContents: |+
+
+
+    const value = "Hello world";
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 6}
+        end: {line: 2, character: 11}
+      isReversed: false
+      hasExplicitRange: true
+ide:
+  flashes:
+    - range: {type: line, start: 1, end: 1}
+      style: justAdded
+    - range: {type: line, start: 3, end: 3}
+      style: justAdded
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

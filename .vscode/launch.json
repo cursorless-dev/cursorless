@@ -10,11 +10,11 @@
       "type": "extensionHost",
       "request": "launch",
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--profile=cursorlessDevelopment"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "Build extension only",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
@@ -29,10 +29,10 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -43,11 +43,11 @@
       "type": "node",
       "request": "launch",
       "name": "Unit tests only",
-      "program": "${workspaceFolder}/out/test/scripts/runUnitTestsOnly",
+      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
       "env": {
         "CURSORLESS_TEST": "true"
       },
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -64,10 +64,10 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -84,10 +84,10 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -105,10 +105,10 @@
       },
       "args": [
         "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/runners/all"
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -119,9 +119,21 @@
       "name": "Docusaurus Start (Debug)",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/docs-site",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
+      "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["start"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "name": "Docusaurus Build (Debug)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["build"],
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
@@ -131,13 +143,8 @@
       "name": "cursorless.org client-side",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}/cursorless-nx",
-      "sourceMapPathOverrides": {
-        "webpack://_N_E/*": "${webRoot}/apps/cursorless-org/*",
-        "webpack://_N_E/libs/*": "${webRoot}/libs/*",
-        "webpack://_N_E/node_modules/*": "${webRoot}/node_modules/*"
-      }
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/packages/cursorless-org"
     }
   ]
 }

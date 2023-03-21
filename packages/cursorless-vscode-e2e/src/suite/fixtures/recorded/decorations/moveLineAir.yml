@@ -1,0 +1,48 @@
+languageId: plaintext
+command:
+  spokenForm: move line air
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+    - {type: primitive, isImplicit: true}
+  usePrePhraseSnapshot: true
+  action: {name: moveToTarget}
+initialState:
+  documentContents: |
+    a a a
+    b b b
+    c c c
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+finalState:
+  documentContents: |-
+    b b b
+    c c c
+    a a a
+  selections:
+    - anchor: {line: 2, character: 5}
+      active: {line: 2, character: 5}
+ide:
+  flashes:
+    - range: {type: line, start: 0, end: 0}
+      style: pendingDelete
+    - range:
+        type: character
+        start: {line: 3, character: 0}
+        end: {line: 3, character: 0}
+      style: pendingModification0
+    - range:
+        type: character
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 5}
+      style: pendingModification0
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}]

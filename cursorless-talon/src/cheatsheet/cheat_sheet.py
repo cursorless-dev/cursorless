@@ -43,11 +43,16 @@ class Actions:
 class Actions:
     def cursorless_cheat_sheet_show_html():
         """Show cursorless html cheat sheet"""
-        # NB: We use the user's home directory instead of temp to make sure that
-        # Linux snaps work
-        cheatsheet_out_dir = Path.home() / ".cursorless" / "cheatsheet"
+        # On Linux browsers installed using snap can't open files in a hidden directory
+        if app.platform == "linux":
+            cheatsheet_out_dir = cheatsheet_dir_linux()
+            cheatsheet_filename = "cursorless-cheatsheet.html"
+        else:
+            cheatsheet_out_dir = Path.home() / ".cursorless"
+            cheatsheet_filename = "cheatsheet.html"
+
         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
-        cheatsheet_out_path = cheatsheet_out_dir / "index.html"
+        cheatsheet_out_path = cheatsheet_out_dir / cheatsheet_filename
         run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
@@ -64,6 +69,23 @@ class Actions:
             "cursorless.internal.updateCheatsheetDefaults",
             cursorless_cheat_sheet_get_json(),
         )
+
+
+def cheatsheet_dir_linux() -> Path:
+    """Get cheatsheet directory for Linux"""
+    try:
+        # 1. Get users actual document directory
+        import platformdirs
+
+        return Path(platformdirs.user_documents_dir())
+    except:
+        # 2. Look for a documents directory in user home
+        user_documents_dir = Path.home() / "Documents"
+        if user_documents_dir.is_dir():
+            return user_documents_dir
+
+        # 3. Fall back to user home
+        return Path.home()
 
 
 def cursorless_cheat_sheet_get_json():

@@ -5,17 +5,23 @@
   "tasks": [
     {
       "label": "Build",
-      "dependsOn": ["ESBuild", "TSBuild"],
+      "dependsOn": ["Populate dist", "ESBuild", "TSBuild"],
       "group": {
         "kind": "build",
         "isDefault": true
       }
     },
     {
+      "label": "Build extension only",
+      "dependsOn": ["Populate dist", "ESBuild"],
+      "group": "build"
+    },
+    {
       "label": "ESBuild",
       "type": "npm",
       "script": "esbuild",
-      "isBackground": true,
+      "path": "packages/cursorless-vscode",
+      "problemMatcher": "$esbuild",
       "presentation": {
         "reveal": "never"
       },
@@ -25,8 +31,17 @@
       "label": "TSBuild",
       "type": "npm",
       "script": "compile",
-      "problemMatcher": "$tsc-watch",
-      "isBackground": true,
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Populate dist",
+      "type": "npm",
+      "script": "populate-dist",
+      "path": "packages/cursorless-vscode",
       "presentation": {
         "reveal": "never"
       },

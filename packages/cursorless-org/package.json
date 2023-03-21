@@ -1,0 +1,43 @@
+{
+  "name": "@cursorless/cursorless-org",
+  "version": "0.1.0",
+  "description": "The cursorless.org website",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "http-server out -a 127.0.0.1 -p 8080",
+    "lint": "next lint",
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
+  },
+  "dependencies": {
+    "@cursorless/cheatsheet": "workspace:*",
+    "eslint": "^8.13.0",
+    "eslint-config-next": "13.2.3",
+    "next": "13.2.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-player": "2.12.0",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "6.5.1",
+    "@types/node": "^16.11.3",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "autoprefixer": "10.4.13",
+    "http-server": "14.1.1",
+    "postcss": "8.4.21",
+    "tailwindcss": "3.2.7"
+  },
+  "license": "MIT",
+  "main": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  }
+}

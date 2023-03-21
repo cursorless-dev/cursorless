@@ -1,5 +1,4 @@
 tag: user.cursorless
-tag: user.cursorless_experimental_snippets
 -
 
 {user.cursorless_insert_snippet_action} <user.cursorless_insertion_snippet>:

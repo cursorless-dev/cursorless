@@ -1,0 +1,26 @@
+{
+  "name": "@cursorless/vscode-common",
+  "version": "0.1.0",
+  "description": "Common utility functions usable anywhere that VSCode api is available",
+  "main": "./out/index.js",
+  "scripts": {
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@cursorless/common": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "~1.61.0"
+  },
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  }
+}

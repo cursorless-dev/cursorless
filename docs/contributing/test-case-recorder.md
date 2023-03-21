@@ -6,17 +6,17 @@ like `hello world`), positioning your cursor where you want, tell cursorless to
 start recording, and then issue one or more cursorless commands. It works by
 recording the initial state of the file including cursor position(s), the
 command run, and the final state, all in the form of a yaml document. See
-[existing test cases](../../src/test/suite/fixtures/recorded) for example outputs.
+[existing test cases](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded) for example outputs.
 
 ## Recording new tests
 
 1. Start debugging (F5)
 1. Create a minimal file to use for recording tests. And position your cursor
    where you'd like. Check out the `initialState.documentContents` field of
-   [existing test cases](../../src/test/suite/fixtures/recorded) for examples.
+   [existing test cases](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded) for examples.
 1. Issue the `"cursorless record"` command. Alternately, issue one of the special recording commands listed in
    - List of target directories is shown. All test cases will be put into the
-     given subdirectory of `src/test/suite/fixtures/recorded`
+     given subdirectory of `packages/cursorless-vscode-e2e/src/suite/fixtures/recorded`
 1. Select existing directory or create new one
    - Select `Create new folder`
    - If the new directory name contains any `/`, it will create nested
@@ -35,7 +35,7 @@ command run, and the final state, all in the form of a yaml document. See
 
 ## Test case recorder options
 
-The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
+The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [the api docs](../api/interfaces/cursorless_engine_src_testCaseRecorder_TestCaseRecorder.internal.RecordTestCaseCommandArg/).
 
 ### The options
 
@@ -55,7 +55,7 @@ By default, we don't capture the `that` mark returned by a command, unless the t
 
 #### Testing the hat map
 
-We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/core_updateSelections_updateSelections).
+We have a way to test that the hats in the hat map update correctly during the course of a single phrase. These tests are also how we usually test our [range updating code](../api/modules/cursorless_engine_src_core_updateSelections_updateSelections).
 
 Any tests recorded in the `hatTokenMap` directory will automatically be treated as hat token map tests. To initiate a series of hat token map tests in another directory, say `"cursorless record navigation"`.
 
@@ -63,7 +63,7 @@ Then each time you record a test, you need to issue two commands. The second com
 
 ### Default config per test case directory
 
-Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../src/test/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/testutil_testcaserecorder.internal.recordtestcasecommandarg/).
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [the api docs](../api/interfaces/cursorless_engine_src_testCaseRecorder_TestCaseRecorder.internal.RecordTestCaseCommandArg/).
 
 ### Navigation map tests
 
@@ -71,26 +71,25 @@ If you want to check how the navigation map gets updated in response to changes,
 
 ## Run recorded tests
 
-Recorded tests will automatically be picked up and run with the normal tests,
-and can be run in vscode or via yarn in terminal.
+Recorded tests will automatically be picked up and run with the normal tests.
 
 ## Changing recorded test cases in bulk
 
 ### Autoformatting
 
-To clean up the formatting of all of the yaml test cases, run `yarn compile && yarn transform-recorded-tests`
+To clean up the formatting of all of the yaml test cases, run `pnpm transform-recorded-tests`
 
 ### Upgrading fixtures
 
-To upgrade all the test fixtures to the latest command version, run the command `yarn compile && yarn transform-recorded-tests upgrade`. This command should be idempotent.
+To upgrade all the test fixtures to the latest command version, run the command `pnpm transform-recorded-tests upgrade`. This command should be idempotent.
 
 ### Custom transformation
 
-1. Add a new transformation to the `src/scripts/transformRecordedTests/transformations` directory. Look at the existing transformations in that directory for inspiration.
+1. Add a new transformation to the [`transformRecordedTests` directory](../../packages/cursorless-engine/src/scripts/transformRecordedTests). Look at the existing transformations in that directory for inspiration.
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
-   [`transformRecordedTests/index.ts`](../../src/scripts/transformRecordedTests/index.ts) to
+   [`transformRecordedTests/index.ts`](../../packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
-1. Run `yarn compile && yarn transform-recorded-tests custom`
+1. Run `pnpm transform-recorded-tests custom`
 
 Example of a custom transformation
 

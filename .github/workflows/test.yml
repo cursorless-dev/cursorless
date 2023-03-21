@@ -27,17 +27,40 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
+          cache: pnpm
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
-      - run: yarn install --frozen-lockfile
-      - run: xvfb-run -a yarn test
+      - run: pnpm --color install
+      - run: pnpm --color compile
+      - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+      - run: xvfb-run -a pnpm --color test
         if: runner.os == 'Linux'
-      - run: yarn test
+      - run: pnpm --color test
         if: runner.os != 'Linux'
+      - name: Create vscode dist that can be installed locally
+        run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
+        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+      - name: Test create vsix
+        id: createVsix
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: none
+          packagePath: packages/cursorless-vscode/dist
+          dryRun: true
+      - run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
+        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+      - name: Upload vsix
+        uses: actions/upload-artifact@v3
+        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+        with:
+          name: vsix
+          path: cursorless-development.vsix
       - name: Archive logs
         uses: actions/upload-artifact@v3
         with:

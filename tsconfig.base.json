@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "nodenext",
+    "moduleDetection": "force",
+    "target": "es6",
+    "lib": ["es2020"],
+    "sourceMap": true,
+    "declarationMap": true,
+    "resolveJsonModule": true,
+    "composite": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  }
+}

@@ -143,7 +143,7 @@ Note that if the mark is `"this"`, and you have multiple cursors, the modifiers 
 
 ##### Syntactic scopes
 
-For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../src/libs/cursorless-engine/languages/constants.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say "cursorless help") will have the most up-to-date list.
+For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../packages/cursorless-engine/src/languages/constants.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say "cursorless help") will have the most up-to-date list.
 
 | Term           | Syntactic element                                   |
 | -------------- | --------------------------------------------------- |
@@ -311,15 +311,17 @@ Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### Surrounding pair
 
-Cursorless has support for expanding the selection to the nearest containing paired delimiter, eg the surrounding parentheses.
+Cursorless has support for expanding the selection to the nearest containing paired delimiter, eg the surrounding parentheses, curly brackets, etc.
 
 - `"take round"` expands selection to include containing parentheses `(` and `)`
-- `"take inside round"` does the same, but excludes the parentheses themselves
+- `"take curly"` expands selection to include containing braces `{` and `}`
+- `"take box"` expands selection to include containing brackets `[` and `]`. See [paired delimiters](#paired-delimiters) for other possible surrounding pairs.
+- `"take inside round"` is the same as `"take round"`, but excludes the parentheses themselves
 - `"take bound round"` selects only the parentheses
 - `"take pair"` expands to include the nearest containing pair of any kind
 - `"take bound"` selects the nearest containing paired delimiters themselves of any kind
 - `"take inside"` selects until the nearest containing paired delimiters of any kind, but doesn't include the delimiters themselves
-- `"take box air"` selects the square brackets containing the token with a hat over the `a`.
+- `"take round air"` selects the parentheses containing the token with a hat over the `a`.
 
 See [paired delimiters](#paired-delimiters) for a list of possible surrounding pairs.
 
@@ -442,6 +444,19 @@ This command will delete a target and leave the cursor where the target used to 
   eg:
   `change blue air`
   Deletes the token containing letter 'a' with a blue hat then places your cursor where the token had been.
+
+### `"clone"` / `"clone up"`
+
+These commands insert a copy of the target either before or after the target itself, leaving your cursor(s) in the newly created clone.
+
+- `"clone <TARGET>"`
+- `"clone up <TARGET>"`
+
+For example:
+
+- `"clone funk"` inserts a copy of the function containing your cursor just below the function
+- `"clone up funk"` inserts a copy of the function containing your cursor just above the function
+- `"clone state air"` inserts a copy of the statement containing `a` with a gray hat below the given statement itself
 
 ### Cut / copy
 

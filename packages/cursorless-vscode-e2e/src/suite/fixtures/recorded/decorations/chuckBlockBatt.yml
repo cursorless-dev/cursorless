@@ -1,0 +1,43 @@
+languageId: plaintext
+command:
+  spokenForm: chuck block batt
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: paragraph}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |
+
+    a
+    a
+
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 5, character: 0}
+      end: {line: 5, character: 1}
+finalState:
+  documentContents: |+
+
+    a
+    a
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+ide:
+  flashes:
+    - range: {type: line, start: 5, end: 8}
+      style: pendingDelete
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]
