@@ -26,7 +26,7 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name != 'merge_group' }}
     # only run job if workflow initiated by a pull request event
     # see https://github.com/cursorless-dev/cursorless/issues/1338
     permissions:
