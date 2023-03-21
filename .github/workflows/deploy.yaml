@@ -22,9 +22,9 @@ jobs:
         with:
           node-version: 16
           cache: pnpm
-      - run: pnpm install
-      - run: pnpm compile
-      - run: pnpm build
+      - run: pnpm --color install
+      - run: pnpm --color compile
+      - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
         env:
           CURSORLESS_DEPLOY: true
       - name: Publish to Open VSX Registry
