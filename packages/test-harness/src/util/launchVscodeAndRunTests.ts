@@ -44,6 +44,8 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       cli,
       [
         ...args,
+        "--disable-gpu",
+        "--disable-software-rasterizer",
         ...extensionDependencies.flatMap((dependency) => [
           "--install-extension",
           dependency,
