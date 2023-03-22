@@ -12,6 +12,13 @@ repos:
         entry: Forbid symlinks
         language: fail
         types: [symlink]
+  - repo: local
+    hooks:
+      - id: check-gitattributes
+        name: check if covered by .gitattributes
+        language: system
+        entry: bash ./scripts/check-gitattributes.sh
+        types: [file]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
