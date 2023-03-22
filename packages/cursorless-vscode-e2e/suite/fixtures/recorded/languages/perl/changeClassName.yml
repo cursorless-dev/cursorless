@@ -2,21 +2,21 @@ languageId: perl
 command:
   version: 4
   spokenForm: change class name
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: className}
+          scopeType: { type: className }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: $var = Some::Package::func()
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: { line: 0, character: 17 }
+      active: { line: 0, character: 17 }
   marks: {}
 finalState:
   documentContents: $var = ::func()
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: { line: 0, character: 7 }
+      active: { line: 0, character: 7 }

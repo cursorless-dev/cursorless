@@ -2,12 +2,12 @@ languageId: perl
 command:
   version: 4
   spokenForm: change call
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionCall}
+          scopeType: { type: functionCall }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -15,8 +15,8 @@ initialState:
     $var = Other::Package::func();
     $var = 2;
   selections:
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
+    - anchor: { line: 1, character: 24 }
+      active: { line: 1, character: 24 }
   marks: {}
 finalState:
   documentContents: |-
@@ -24,5 +24,5 @@ finalState:
     $var = ;
     $var = 2;
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: { line: 1, character: 7 }
+      active: { line: 1, character: 7 }

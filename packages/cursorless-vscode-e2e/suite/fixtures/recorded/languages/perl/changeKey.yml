@@ -2,12 +2,12 @@ languageId: perl
 command:
   version: 4
   spokenForm: change key
-  action: {name: clearAndSetSelection}
+  action: { name: clearAndSetSelection }
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionKey}
+          scopeType: { type: collectionKey }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -16,8 +16,8 @@ initialState:
         two => 2,
     );
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }
   marks: {}
 finalState:
   documentContents: |-
@@ -26,5 +26,5 @@ finalState:
         two => 2,
     );
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
