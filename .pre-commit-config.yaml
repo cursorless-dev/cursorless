@@ -19,6 +19,13 @@ repos:
         language: system
         entry: bash ./scripts/check-gitattributes.sh
         types: [file]
+  - repo: local
+    hooks:
+      - id: check-line-endings
+        name: check if line endings match .gitattributes
+        language: system
+        entry: bash ./scripts/check-line-endings.sh
+        types: [file]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
