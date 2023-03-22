@@ -1,0 +1,58 @@
+# Note that we have the line below just so that files whose extensions aren't
+# listed explicitly will be flagged by `check-gitattributes` as needing to be
+# added to this file
+* text=auto
+
+# Text files go here
+*.browserslistrc text eol=lf
+*.cpp text eol=lf
+*.cs text eol=lf
+*.css text eol=lf
+*.csv text eol=lf
+*.cursorless-snippets text eol=lf
+*.editorconfig text eol=lf
+*.git-blame-ignore-revs text eol=lf
+*.gitattributes text eol=lf
+*.gitignore text eol=lf
+*.gitkeep text eol=lf
+*.html text eol=lf
+*.java text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.mjs text eol=lf
+*.npmrc text eol=lf
+*.prettierignore text eol=lf
+*.prettierrc text eol=lf
+*.py text eol=lf
+*.scala text eol=lf
+*.scss text eol=lf
+*.sh text eol=lf
+*.talon text eol=lf
+*.toml text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.txt text eol=lf
+*.vscodeignore text eol=lf
+*.webmanifest text eol=lf
+*.xml text eol=lf
+*.yaml text eol=lf
+*.yarnrc text eol=lf
+*.yml text eol=lf
+CODEOWNERS text eol=lf
+LICENSE text eol=lf
+packages/cursorless-org/scripts/mac-serve-bind-external text eol=lf
+
+# Binary files go here
+*.gif binary
+*.ico binary
+*.jpeg binary
+*.jpg binary
+*.png binary
+*.ttf binary
+*.woff binary
+
+# Files that should not undergo line ending normalisation but should still be
+# diffed as text go here
+*.patch -text
+*.svg -text
