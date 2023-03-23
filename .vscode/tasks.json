@@ -21,7 +21,6 @@
       "type": "npm",
       "script": "esbuild",
       "path": "packages/cursorless-vscode",
-      "problemMatcher": "$esbuild",
       "presentation": {
         "reveal": "never"
       },
