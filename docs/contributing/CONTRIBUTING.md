@@ -21,7 +21,7 @@ extension](#running--testing-extension-locally), you may want to check out the
 3. Run the following in the terminal:
 
    ```bash
-   pnpm
+   pnpm install
    pnpm compile
    ```
 
