@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Checks that files passed in match their setting for the eol attribute in
-# .gitattributes.  Note that binary files will not have an eol attribute, so
-# we don't need to worry about them.
+# Checks that files that are not tagged as binary in .gitattributes do not
+# contain CRLF line endings.
 
-check_attr_output=$(git check-attr eol $*)
-lines=$(echo "$check_attr_output" | grep "eol: lf" || true)
+check_attr_output=$(git check-attr binary $*)
+lines=$(echo "$check_attr_output" | grep -v "binary: set" || true)
 files=$(echo "$lines" | cut -d: -f1)
 
 bad=$(fgrep -l $'\r' $files || true)

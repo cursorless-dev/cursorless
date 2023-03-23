@@ -14,15 +14,8 @@ repos:
         types: [symlink]
   - repo: local
     hooks:
-      - id: check-gitattributes
-        name: check if covered by .gitattributes
-        language: system
-        entry: bash ./scripts/check-gitattributes.sh
-        types: [file]
-  - repo: local
-    hooks:
       - id: check-line-endings
-        name: check if line endings match .gitattributes
+        name: check for CRLF line endings
         language: system
         entry: bash ./scripts/check-line-endings.sh
         types: [file]
