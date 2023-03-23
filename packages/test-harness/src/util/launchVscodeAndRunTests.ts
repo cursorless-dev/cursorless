@@ -44,8 +44,6 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       cli,
       [
         ...args,
-        "--disable-gpu",
-        "--disable-software-rasterizer",
         ...extensionDependencies.flatMap((dependency) => [
           "--install-extension",
           dependency,
@@ -65,7 +63,12 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       // Note: Crash dump causes legacy VSCode to hang, so we just don't bother
       launchArgs: useLegacyVscode
         ? undefined
-        : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
+        : [
+            `--crash-reporter-directory=${crashDir}`,
+            `--logsPath=${logsDir}`,
+            "--disable-gpu",
+            "--disable-software-rasterizer",
+          ],
     });
   } catch (err) {
     console.error("Test run threw exception:");
