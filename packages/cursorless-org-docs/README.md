@@ -1,6 +1,6 @@
 # cursorless.org docs site
 
-This is the source code for the [cursorless.org/docs](https://cursorless.org/docs) portion of the Cursorless website. Note that it is built independently from the rest of the site (which uses Next.js, and can be found in the [`cursorless-org`](../packages/cursorless-org) directory).
+This is the source code for the [cursorless.org/docs](https://cursorless.org/docs) portion of the Cursorless website. Note that it is built independently from the rest of the site (which uses Next.js, and can be found in the [`cursorless-org`](../cursorless-org) directory).
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
