@@ -7,6 +7,7 @@ import FakeIDE from "../fake/FakeIDE";
 import PassthroughIDEBase from "../PassthroughIDEBase";
 import { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";
+import { QuickPickOptions } from "../types/QuickPickOptions";
 
 export class NormalizedIDE extends PassthroughIDEBase {
   configuration: FakeConfiguration;
@@ -15,7 +16,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
 
   constructor(
     original: IDE,
-    private fakeIde: FakeIDE,
+    public fakeIde: FakeIDE,
     private isSilent: boolean,
   ) {
     super(original);
@@ -60,5 +61,14 @@ export class NormalizedIDE extends PassthroughIDEBase {
     return this.isSilent
       ? this.fakeIde.setHighlightRanges(highlightId, editor, ranges)
       : super.setHighlightRanges(highlightId, editor, ranges);
+  }
+
+  public async showQuickPick(
+    _items: readonly string[],
+    _options?: QuickPickOptions,
+  ): Promise<string | undefined> {
+    return this.isSilent
+      ? this.fakeIde.showQuickPick(_items, _options)
+      : super.showQuickPick(_items, _options);
   }
 }

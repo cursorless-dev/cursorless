@@ -15,9 +15,10 @@ import {
   toLineRange,
   walkDirsSync,
   TestCaseCommand,
+  showError,
 } from "@cursorless/common";
 import * as fs from "fs";
-import { readFile } from "fs/promises";
+import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
@@ -79,8 +80,6 @@ const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
 
 export class TestCaseRecorder {
   private active: boolean = false;
-  private workspacePath: string | null;
-  private workspaceName: string | null;
   private fixtureRoot: string | null;
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
@@ -100,18 +99,14 @@ export class TestCaseRecorder {
   constructor(private graph: Graph) {
     const { runMode, assetsRoot, workspaceFolders } = ide();
 
-    this.workspacePath =
-      runMode === "development"
-        ? assetsRoot
+    const workspacePath =
+      runMode === "development" || runMode === "test"
+        ? path.join(assetsRoot, "../../..")
         : workspaceFolders?.[0].uri.path ?? null;
 
-    this.workspaceName = this.workspacePath
-      ? path.basename(this.workspacePath)
-      : null;
-
-    this.fixtureRoot = this.workspacePath
+    this.fixtureRoot = workspacePath
       ? path.join(
-          this.workspacePath,
+          workspacePath,
           "packages/cursorless-vscode-e2e/src/suite/fixtures/recorded",
         )
       : null;
@@ -377,14 +372,16 @@ export class TestCaseRecorder {
   }
 
   private async promptSubdirectory(): Promise<string | undefined> {
-    if (
-      this.workspaceName == null ||
-      this.fixtureRoot == null ||
-      !["cursorless-vscode", "cursorless"].includes(this.workspaceName)
-    ) {
-      throw new Error(
-        '"Cursorless record" must be run from within cursorless directory',
-      );
+    try {
+      if (this.fixtureRoot == null) {
+        throw Error();
+      }
+      await access(this.fixtureRoot);
+    } catch (err) {
+      const errorMessage =
+        '"Cursorless record" must be run from within cursorless directory';
+      showError(ide().messages, "promptSubdirectoryError", errorMessage);
+      throw new Error(errorMessage);
     }
 
     const subdirectorySelection = await ide().showQuickPick(

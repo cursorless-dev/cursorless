@@ -35,6 +35,7 @@ export default class FakeIDE implements IDE {
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
+  private quickPickReturnValue: string | undefined = undefined;
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
     // empty
@@ -93,11 +94,15 @@ export default class FakeIDE implements IDE {
     throw Error("Not implemented");
   }
 
-  public showQuickPick(
+  public setQuickPickReturnValue(value: string | undefined) {
+    this.quickPickReturnValue = value;
+  }
+
+  public async showQuickPick(
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    throw new Error("Method not implemented.");
+    return this.quickPickReturnValue;
   }
 
   public showInputBox(_options?: any): Promise<string | undefined> {

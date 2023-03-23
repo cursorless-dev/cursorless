@@ -17,8 +17,12 @@ export function getFixturePath(fixturePath: string) {
   return path.join(getFixturesPath(), fixturePath);
 }
 
+export function getRecordedTestsDirPath() {
+  return path.join(getFixturesPath(), "recorded");
+}
+
 export function getRecordedTestPaths() {
-  const directory = path.join(getFixturesPath(), "recorded");
+  const directory = getRecordedTestsDirPath();
 
   return walkFilesSync(directory).filter(
     (path) => path.endsWith(".yml") || path.endsWith(".yaml"),
