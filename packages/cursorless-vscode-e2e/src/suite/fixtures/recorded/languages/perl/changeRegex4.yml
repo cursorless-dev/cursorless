@@ -1,0 +1,66 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change regex
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: regularExpression}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    $ccc =~ s{cccc}{dddd};
+    $aaa =~ s/aaaa/bbbb/ms;
+    $ddd =~ qr/foooooooo/x;
+    $ddd =~ qr/foooooool/;
+    $eee =~ /foobarbeast/;
+    $fff =~ m/fuballbob/i;
+    $ggg =~ /foobarbeast/msx;
+    $hhh =~ m!/some/path/!;
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+    - anchor: {line: 1, character: 18}
+      active: {line: 1, character: 18}
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}
+    - anchor: {line: 3, character: 18}
+      active: {line: 3, character: 18}
+    - anchor: {line: 4, character: 17}
+      active: {line: 4, character: 17}
+    - anchor: {line: 5, character: 18}
+      active: {line: 5, character: 18}
+    - anchor: {line: 6, character: 17}
+      active: {line: 6, character: 17}
+    - anchor: {line: 7, character: 17}
+      active: {line: 7, character: 17}
+  marks: {}
+finalState:
+  documentContents: |-
+    $ccc =~ ;
+    $aaa =~ ;
+    $ddd =~ ;
+    $ddd =~ ;
+    $eee =~ ;
+    $fff =~ ;
+    $ggg =~ ;
+    $hhh =~ ;
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
+    - anchor: {line: 4, character: 8}
+      active: {line: 4, character: 8}
+    - anchor: {line: 5, character: 8}
+      active: {line: 5, character: 8}
+    - anchor: {line: 6, character: 8}
+      active: {line: 6, character: 8}
+    - anchor: {line: 7, character: 8}
+      active: {line: 7, character: 8}

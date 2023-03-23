@@ -32,7 +32,12 @@ const nodeMatchers: Partial<
   comment: "comments",
   namedFunction: ["function_definition"],
   anonymousFunction: "anonymous_function",
-  regularExpression: ["regex_pattern", "regex_pattern_qr"],
+  regularExpression: [
+    "patter_matcher_m", // Mistype (?) but that is the name in tree-sitter-perl; it must come before pattern_matcher
+    "pattern_matcher",
+    "regex_pattern_qr",
+    "substitution_pattern_s",
+  ],
   collectionKey: "*[key]", // TODO: child of "value: hash?"
   collectionItem: "hash[variable]",
   argumentOrParameter: [
