@@ -1,4 +1,5 @@
 import {
+  ActionType,
   getFixturePath,
   getRecordedTestsDirPath,
   HatTokenMap,
@@ -23,6 +24,7 @@ suite("testCaseRecorder", async function () {
 
   test("no args", testCaseRecorderNoArgs);
   test("path arg", testCaseRecorderPathArg);
+  test("graceful error", testCaseRecorderGracefulError);
 });
 
 async function testCaseRecorderNoArgs() {
@@ -56,22 +58,76 @@ async function testCaseRecorderPathArg() {
   }
 }
 
+async function testCaseRecorderGracefulError() {
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+  const tmpdir = path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"));
+  await mkdir(tmpdir, { recursive: true });
+
+  try {
+    await startRecording({
+      directory: tmpdir,
+    });
+
+    try {
+      await runCursorlessCommand({
+        version: 4,
+        action: { name: "badActionName" as ActionType },
+        targets: [
+          {
+            type: "primitive",
+            mark: {
+              type: "cursor",
+            },
+          },
+        ],
+        usePrePhraseSnapshot: false,
+        spokenForm: "bad command",
+      });
+    } catch (err) {
+      // Ignore error
+    }
+
+    await initalizeEditor(hatTokenMap);
+    await takeHarp();
+    await stopRecording();
+    await checkRecordedTest(tmpdir);
+  } finally {
+    await rm(tmpdir, { recursive: true, force: true });
+  }
+}
+
 async function runAndCheckTestCaseRecorder(
   hatTokenMap: HatTokenMap,
   tmpdir: string,
   ...extraArgs: unknown[]
 ) {
+  await initalizeEditor(hatTokenMap);
+  await startRecording(...extraArgs);
+  await takeHarp();
+  await stopRecording();
+  await checkRecordedTest(tmpdir);
+}
+
+async function initalizeEditor(hatTokenMap: HatTokenMap) {
   const editor = await openNewEditor("hello world");
 
   editor.selections = [new vscode.Selection(0, 11, 0, 11)];
 
   await hatTokenMap.allocateHats();
+}
 
+async function startRecording(...extraArgs: unknown[]) {
   await vscode.commands.executeCommand(
     "cursorless.recordTestCase",
     ...extraArgs,
   );
+}
 
+async function stopRecording() {
+  await vscode.commands.executeCommand("cursorless.recordTestCase");
+}
+
+async function takeHarp() {
   await runCursorlessCommand({
     version: 4,
     action: { name: "setSelection" },
@@ -88,9 +144,9 @@ async function runAndCheckTestCaseRecorder(
     usePrePhraseSnapshot: false,
     spokenForm: "take harp",
   });
+}
 
-  await vscode.commands.executeCommand("cursorless.recordTestCase");
-
+async function checkRecordedTest(tmpdir: string) {
   const paths = await readdir(tmpdir);
   assert.lengthOf(paths, 1);
 
