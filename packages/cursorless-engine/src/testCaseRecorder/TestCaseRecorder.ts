@@ -432,7 +432,9 @@ export class TestCaseRecorder {
   }
 
   finallyHook() {
-    injectIde(this.originalIde!);
+    if (this.originalIde != null) {
+      injectIde(this.originalIde);
+    }
     this.spyIde = undefined;
     this.originalIde = undefined;
 
