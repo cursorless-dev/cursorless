@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: custom insert
+  action:
+    name: insertSnippet
+    args:
+      - {type: custom, body: 'dummy snippet hole1: ($hole1), hole2: ($hole2)'}
+  targets:
+    - {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "dummy snippet hole1: (), hole2: ()"
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 34}
+      isReversed: false
+      hasExplicitRange: true

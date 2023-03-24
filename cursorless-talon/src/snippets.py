@@ -1,3 +1,5 @@
+from typing import Any, Optional
+
 from talon import Module, actions, app
 
 from .csv_overrides import init_csv_and_watch_changes
@@ -27,13 +29,13 @@ mod.list("cursorless_phrase_terminator", "Contains term used to terminate a phra
 @mod.capture(
     rule="{user.cursorless_insertion_snippet_no_phrase} | {user.cursorless_insertion_snippet_single_phrase}"
 )
-def cursorless_insertion_snippet(m) -> str:
+def cursorless_insertion_snippet(m) -> dict:
     try:
-        return m.cursorless_insertion_snippet_no_phrase
+        name = m.cursorless_insertion_snippet_no_phrase
     except AttributeError:
-        pass
+        name = m.cursorless_insertion_snippet_single_phrase.split(".")[0]
 
-    return m.cursorless_insertion_snippet_single_phrase.split(".")[0]
+    return {"type": "named", "name": name}
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
@@ -65,13 +67,74 @@ insertion_snippets_single_phrase = {
 
 @mod.action_class
 class Actions:
-    def cursorless_insert_snippet_with_phrase(
+    def private_cursorless_insert_snippet_with_phrase(
         action: str, snippet_description: str, text: str
     ):
         """Perform cursorless wrap action"""
         snippet_name, snippet_variable = snippet_description.split(".")
         actions.user.cursorless_implicit_target_command(
-            action, snippet_name, {snippet_variable: text}
+            action,
+            {
+                "type": "named",
+                "name": snippet_name,
+                "substitutions": {snippet_variable: text},
+            },
+        )
+
+    def cursorless_insert_named_snippet(name: str):
+        """Inserts a named snippet"""
+        actions.user.cursorless_implicit_target_command(
+            "insertSnippet",
+            {
+                "type": "named",
+                "name": name,
+            },
+        )
+
+    def cursorless_insert_custom_snippet(body: str):
+        """Inserts a custom snippet"""
+        actions.user.cursorless_implicit_target_command(
+            "insertSnippet",
+            {
+                "type": "custom",
+                "body": body,
+            },
+        )
+
+    def cursorless_wrap_with_named_snippet(name: str, variable_name: str, target: dict):
+        """Wrap target with a named snippet"""
+        actions.user.cursorless_single_target_command_with_arg_list(
+            "wrapWithSnippet",
+            target,
+            [
+                {
+                    "type": "named",
+                    "name": name,
+                    "variableName": variable_name,
+                }
+            ],
+        )
+
+    def cursorless_wrap_with_custom_snippet(
+        body: str,
+        target: dict,
+        variable_name: Optional[str] = None,
+        scope: Optional[str] = None,
+    ):
+        """Wrap target with a custom snippet"""
+        snippet_arg: dict[str, Any] = {
+            "type": "custom",
+            "body": body,
+        }
+        if scope is not None:
+            snippet_arg["scopeType"] = {"type": scope}
+        if variable_name is not None:
+            snippet_arg["variableName"] = variable_name
+
+        actions.user.cursorless_single_target_command_with_arg_list(
+            "wrapWithSnippet",
+            target,
+            [snippet_arg],
         )
 
 

@@ -1,29 +1,26 @@
 import {
+  ActionType,
+  Command,
+  CommandComplete,
+  CommandLatest,
   EnforceUndefined,
+  LATEST_VERSION,
+  Modifier,
   OutdatedExtensionError,
+  PartialTargetDescriptor,
   showWarning,
+  SimpleScopeTypeType,
 } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 import { Graph } from "../../typings/Graph";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import { ActionType } from "@cursorless/common";
-import {
-  Command,
-  CommandComplete,
-  CommandLatest,
-  LATEST_VERSION,
-} from "@cursorless/common";
-import {
-  Modifier,
-  PartialTargetDescriptor,
-  SimpleScopeTypeType,
-} from "@cursorless/common";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
+import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -78,6 +75,9 @@ function upgradeCommand(command: Command): CommandLatest {
         break;
       case 3:
         command = upgradeV3ToV4(command);
+        break;
+      case 4:
+        command = upgradeV4ToV5(command);
         break;
       default:
         throw new Error(

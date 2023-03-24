@@ -119,6 +119,15 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
   Performs a built-in IDE command on the given target
   eg: `user.cursorless_ide_command("editor.action.addCommentLine", cursorless_target)`
 
+#### Snippet actions
+
+See [snippets](./experimental/snippets.md) for more information about Cursorless snippets.
+
+- `user.cursorless_insert_named_snippet(name: str)`: Insert a snippet with the given name, eg `functionDeclaration`
+- `user.cursorless_insert_custom_snippet(body: str)`: Insert a snippet with the given body defined using our snippet body syntax (see the [snippet format docs](./experimental/snippet-format.md)). The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation.
+- `user.cursorless_wrap_with_named_snippet(name: str, variable_name: str, target: dict)`: Wrap the given target with a snippet with the given name, eg `functionDeclaration`. Note that `variable_name` should be one of the variables defined in the named snippet. Eg, if the named snippet has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet.
+- `user.cursorless_wrap_with_custom_snippet(body, target, variable_name, scope)`: Wrap the given target with a snippet with the given body defined using our snippet body syntax (see the [snippet format docs](./experimental/snippet-format.md)). The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Note that `variable_name` should be one of the variables defined in `body`. Eg, if `body` has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet. The `scope` variable can be used to automatically expand the target to the given scope type, eg `"line"`.
+
 ### Example of combining capture and action
 
 ```talon
