@@ -29,7 +29,7 @@ finalState:
               ]
             },
             "body": [
-              "\\textbf{\\$$variable1\\}"
+              "\\textbf{\\$$variable1}"
             ]
           }
         ],

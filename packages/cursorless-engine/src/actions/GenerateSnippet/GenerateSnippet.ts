@@ -123,7 +123,7 @@ export default class GenerateSnippet implements Action {
      * both meta snippet and user snippet.
      */
     const snippetBodyText = editText(originalText, [
-      ...matchAll(originalText, /\$|}|\\/g, (match) => ({
+      ...matchAll(originalText, /\$|\\/g, (match) => ({
         offsets: {
           start: match.index!,
           end: match.index! + match[0].length,
