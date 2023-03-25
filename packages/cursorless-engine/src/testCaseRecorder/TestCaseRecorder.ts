@@ -4,18 +4,19 @@ import {
   extractTargetedMarks,
   ExtraSnapshotField,
   getKey,
+  getRecordedTestsDirPath,
   IDE,
   marksToPlainObject,
   serialize,
   SerializedMarks,
+  showError,
   showInfo,
   sleep,
   SpyIDE,
+  TestCaseCommand,
   TextEditorOptions,
   toLineRange,
   walkDirsSync,
-  TestCaseCommand,
-  showError,
 } from "@cursorless/common";
 import * as fs from "fs";
 import { access, readFile } from "fs/promises";
@@ -97,19 +98,12 @@ export class TestCaseRecorder {
   private originalIde: IDE | undefined;
 
   constructor(private graph: Graph) {
-    const { runMode, assetsRoot, workspaceFolders } = ide();
+    const { runMode } = ide();
 
-    const workspacePath =
+    this.fixtureRoot =
       runMode === "development" || runMode === "test"
-        ? path.join(assetsRoot, "../../..")
-        : workspaceFolders?.[0].uri.path ?? null;
-
-    this.fixtureRoot = workspacePath
-      ? path.join(
-          workspacePath,
-          "packages/cursorless-vscode-e2e/src/suite/fixtures/recorded",
-        )
-      : null;
+        ? getRecordedTestsDirPath()
+        : null;
 
     this.toggle = this.toggle.bind(this);
     this.pause = this.pause.bind(this);
