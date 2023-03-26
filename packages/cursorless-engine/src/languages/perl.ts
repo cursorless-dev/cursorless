@@ -1,7 +1,4 @@
-import {
-  createPatternMatchers,
-  matcher,
-} from "../util/nodeMatchers";
+import { createPatternMatchers, matcher } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
 import { SimpleScopeTypeType } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
@@ -40,11 +37,7 @@ const nodeMatchers: Partial<
   ],
   collectionKey: "*[key]",
   collectionItem: "hash[variable]",
-  argumentOrParameter: [
-    "empty_parenthesized_argument",
-    "parenthesized_argument",
-    "argument",
-  ],
+  argumentOrParameter: ["argument", "parenthesized_argument.arguments!"],
   className: "package_statement.package_name!",
 };
 

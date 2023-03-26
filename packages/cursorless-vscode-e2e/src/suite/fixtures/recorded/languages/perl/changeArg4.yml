@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change arg
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: some_funky_func( "and", "three", "args" )
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+  marks: {}
+finalState:
+  documentContents: some_funky_func(  )
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
