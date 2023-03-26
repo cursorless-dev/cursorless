@@ -38,7 +38,7 @@ const nodeMatchers: Partial<
     "regex_pattern_qr",
     "substitution_pattern_s",
   ],
-  collectionKey: "*[key]", // TODO: child of "value: hash?"
+  collectionKey: "*[key]",
   collectionItem: "hash[variable]",
   argumentOrParameter: [
     "empty_parenthesized_argument",
