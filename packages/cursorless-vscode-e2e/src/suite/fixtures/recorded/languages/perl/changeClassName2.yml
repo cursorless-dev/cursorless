@@ -1,0 +1,46 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change class name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: className}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    package Foo::Bar::Banana;
+
+    # A sort of
+    # comment
+
+    package Hello::World {
+        1;
+    }
+
+    1;
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+    - anchor: {line: 5, character: 19}
+      active: {line: 5, character: 19}
+  marks: {}
+finalState:
+  documentContents: |-
+    package ;
+
+    # A sort of
+    # comment
+
+    package  {
+        1;
+    }
+
+    1;
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 5, character: 8}
+      active: {line: 5, character: 8}

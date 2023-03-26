@@ -45,7 +45,7 @@ const nodeMatchers: Partial<
     "parenthesized_argument",
     "argument",
   ],
-  className: "package_name",
+  className: "package_statement.package_name!",
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
