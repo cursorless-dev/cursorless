@@ -1,3 +1,4 @@
+import { getFixturePath } from "../../index";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextEditor } from "../../types/TextEditor";
 import FakeClipboard from "../fake/FakeClipboard";
@@ -45,6 +46,12 @@ export class NormalizedIDE extends PassthroughIDEBase {
       { wordSeparators: ["_", "-"] },
       true,
     );
+    this.configuration.mockConfiguration("experimental", {
+      hatStability: this.configuration.getOwnConfiguration(
+        "experimental.hatStability",
+      ),
+      snippetsDir: getFixturePath("cursorless-snippets"),
+    });
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
