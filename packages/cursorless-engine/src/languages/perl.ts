@@ -1,7 +1,4 @@
-import {
-  createPatternMatchers,
-  matcher,
-} from "../util/nodeMatchers";
+import { createPatternMatchers, matcher } from "../util/nodeMatchers";
 import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
 import { SimpleScopeTypeType } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
