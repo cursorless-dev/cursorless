@@ -1,0 +1,29 @@
+languageId: latex
+command:
+  version: 4
+  spokenForm: pour chapter
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: chapter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    \chapter{Section}
+
+    Hello World!
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    \chapter{Section}
+
+    Hello World!
+
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
