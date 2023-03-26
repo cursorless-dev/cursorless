@@ -1,8 +1,7 @@
 import { createPatternMatchers, matcher } from "../util/nodeMatchers";
-import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
+import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "@cursorless/common";
-import { SyntaxNode } from "web-tree-sitter";
-import { getNodeRange, unwrapSelectionExtractor } from "../util/nodeSelectors";
+import { unwrapSelectionExtractor } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
 
 const nodeMatchers: Partial<
@@ -42,16 +41,3 @@ const nodeMatchers: Partial<
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
-
-export function stringTextFragmentExtractor(
-  node: SyntaxNode,
-  _selection: SelectionWithEditor,
-) {
-  // heredoc_content does not seem to supported by tree-sitter-perl,
-  // leaving it anyway since it won't hurt
-  if (node.type === "string_content" || node.type === "heredoc_content") {
-    return getNodeRange(node);
-  }
-
-  return null;
-}

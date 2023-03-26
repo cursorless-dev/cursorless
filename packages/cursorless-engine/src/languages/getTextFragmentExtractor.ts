@@ -7,7 +7,6 @@ import { SupportedLanguageId } from "./constants";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
-import { stringTextFragmentExtractor as perlStringTextFragmentExtractor } from "./perl";
 import { stringTextFragmentExtractor as phpStringTextFragmentExtractor } from "./php";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
@@ -163,10 +162,7 @@ const textFragmentExtractors: Record<
   ),
   latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
-  perl: constructDefaultTextFragmentExtractor(
-    "perl",
-    perlStringTextFragmentExtractor,
-  ),
+  perl: constructDefaultTextFragmentExtractor("perl"),
   php: constructDefaultTextFragmentExtractor(
     "php",
     phpStringTextFragmentExtractor,
