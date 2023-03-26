@@ -35,7 +35,7 @@ const nodeMatchers: Partial<
     "regex_pattern_qr",
     "substitution_pattern_s",
   ],
-  collectionKey: "*[key]",
+  collectionKey: "key_value_pair[key]",
   collectionItem: "hash[variable]",
   argumentOrParameter: ["argument", "parenthesized_argument.arguments!"],
   className: "package_statement.package_name!",
