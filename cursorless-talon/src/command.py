@@ -12,7 +12,7 @@ from .primitive_target import IMPLICIT_TARGET
 mod = Module()
 
 CURSORLESS_COMMAND_ID = "cursorless.command"
-CURSORLESS_COMMAND_VERSION = 4
+CURSORLESS_COMMAND_VERSION = 5
 last_phrase = None
 
 
