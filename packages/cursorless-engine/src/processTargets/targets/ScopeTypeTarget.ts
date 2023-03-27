@@ -161,6 +161,12 @@ function getDelimiter(scopeType: SimpleScopeTypeType): string {
     case "sectionLevelFour":
     case "sectionLevelFive":
     case "sectionLevelSix":
+    case "part":
+    case "chapter":
+    case "subSection":
+    case "subSubSection":
+    case "namedParagraph":
+    case "subParagraph":
       return "\n\n";
 
     case "anonymousFunction":
@@ -170,6 +176,7 @@ function getDelimiter(scopeType: SimpleScopeTypeType): string {
     case "xmlElement":
     case "collectionItem":
     case "branch":
+    case "environment":
       return "\n";
 
     default:

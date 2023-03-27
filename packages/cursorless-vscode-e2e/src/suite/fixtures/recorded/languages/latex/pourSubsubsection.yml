@@ -1,0 +1,29 @@
+languageId: latex
+command:
+  version: 4
+  spokenForm: pour subsubsection
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: subSubSection}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    \subsubsection{Section}
+
+    Hello World!
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    \subsubsection{Section}
+
+    Hello World!
+
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
