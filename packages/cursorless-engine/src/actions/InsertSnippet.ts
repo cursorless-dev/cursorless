@@ -1,5 +1,6 @@
 import {
   RangeExpansionBehavior,
+  ScopeType,
   Snippet,
   SnippetDefinition,
   textFormatters,
@@ -20,57 +21,113 @@ import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
+interface NamedSnippetArg {
+  type: "named";
+  name: string;
+  substitutions?: Record<string, string>;
+}
+interface CustomSnippetArg {
+  type: "custom";
+  body: string;
+  scopeType?: ScopeType;
+  substitutions?: Record<string, string>;
+}
+type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
+
 export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
-
-  getPrePositionStages(snippetName: string) {
-    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
-
-    const defaultScopeTypes = snippet.insertionScopeTypes;
-
-    if (defaultScopeTypes == null) {
-      return [];
-    }
-
-    return [
-      new ModifyIfUntypedExplicitStage({
-        type: "cascading",
-        modifiers: defaultScopeTypes.map((scopeType) => ({
-          type: "containingScope",
-          scopeType: {
-            type: scopeType,
-          },
-        })),
-      }),
-    ];
-  }
 
   constructor(private graph: Graph) {
     this.run = this.run.bind(this);
   }
 
+  getPrePositionStages(snippetDescription: InsertSnippetArg) {
+    const defaultScopeTypes = this.getScopeTypes(snippetDescription);
+
+    return defaultScopeTypes.length === 0
+      ? []
+      : [
+          new ModifyIfUntypedExplicitStage({
+            type: "cascading",
+            modifiers: defaultScopeTypes.map((scopeType) => ({
+              type: "containingScope",
+              scopeType,
+            })),
+          }),
+        ];
+  }
+
+  private getScopeTypes(snippetDescription: InsertSnippetArg): ScopeType[] {
+    if (snippetDescription.type === "named") {
+      const { name } = snippetDescription;
+
+      const snippet = this.graph.snippets.getSnippetStrict(name);
+
+      const scopeTypeTypes = snippet.insertionScopeTypes;
+      return scopeTypeTypes == null
+        ? []
+        : scopeTypeTypes.map((scopeTypeType) => ({
+            type: scopeTypeType,
+          }));
+    } else {
+      return snippetDescription.scopeType == null
+        ? []
+        : [snippetDescription.scopeType];
+    }
+  }
+
+  private getSnippetInfo(
+    snippetDescription: InsertSnippetArg,
+    targets: Target[],
+  ) {
+    if (snippetDescription.type === "named") {
+      const { name } = snippetDescription;
+
+      const snippet = this.graph.snippets.getSnippetStrict(name);
+
+      const definition = findMatchingSnippetDefinitionStrict(
+        targets,
+        snippet.definitions,
+      );
+
+      return {
+        body: definition.body.join("\n"),
+
+        formatSubstitutions(substitutions: Record<string, string> | undefined) {
+          return substitutions == null
+            ? undefined
+            : formatSubstitutions(snippet, definition, substitutions);
+        },
+      };
+    } else {
+      return {
+        body: snippetDescription.body,
+
+        formatSubstitutions(substitutions: Record<string, string> | undefined) {
+          return substitutions;
+        },
+      };
+    }
+  }
+
   async run(
     [targets]: [Target[]],
-    snippetName: string,
-    substitutions: Record<string, string>,
+    snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
-    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
-
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
-    const definition = findMatchingSnippetDefinitionStrict(
+    const { body, formatSubstitutions } = this.getSnippetInfo(
+      snippetDescription,
       targets,
-      snippet.definitions,
     );
 
-    const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
+    const parsedSnippet = this.snippetParser.parse(body);
 
-    const formattedSubstitutions =
-      substitutions == null
-        ? undefined
-        : formatSubstitutions(snippet, definition, substitutions);
-
-    transformSnippetVariables(parsedSnippet, null, formattedSubstitutions);
+    transformSnippetVariables(
+      parsedSnippet,
+      null,
+      formatSubstitutions(snippetDescription.substitutions),
+    );
 
     const snippetString = parsedSnippet.toTextmateString();
 

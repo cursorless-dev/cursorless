@@ -1,14 +1,12 @@
-import { CommandV4 } from "@cursorless/common";
-import { CommandV3 } from "@cursorless/common";
 import {
-  PartialPrimitiveTargetDescriptorV3,
-  PartialTargetDescriptorV3,
-} from "@cursorless/common";
-import {
+  CommandV3,
+  CommandV4,
   ImplicitTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
+  PartialPrimitiveTargetDescriptorV3,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
+  PartialTargetDescriptorV3,
 } from "@cursorless/common";
 
 export function upgradeV3ToV4(command: CommandV3): CommandV4 {

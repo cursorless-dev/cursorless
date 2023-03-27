@@ -1,0 +1,38 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: custom wrap harp
+  action:
+    name: wrapWithSnippet
+    args:
+      - type: custom
+        body: "dummy snippet hole1: ($hole1), hole2: ($hole2)"
+        scopeType: {type: line}
+        variableName: hole1
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    hello world
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: |
+    dummy snippet hole1: (hello world), hole2: ()
+  selections:
+    - anchor: {line: 0, character: 44}
+      active: {line: 0, character: 44}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 45}
+      isReversed: false
+      hasExplicitRange: true

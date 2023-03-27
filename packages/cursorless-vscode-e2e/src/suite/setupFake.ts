@@ -1,12 +1,8 @@
-import {
-  getFixturePath,
-  HatStability,
-  NormalizedIDE,
-} from "@cursorless/common";
+import { HatStability, NormalizedIDE } from "@cursorless/common";
 
 export function setupFake(ide: NormalizedIDE, hatStability: HatStability) {
   ide.configuration.mockConfiguration("experimental", {
-    snippetsDir: getFixturePath("cursorless-snippets"),
+    ...ide.configuration.getOwnConfiguration("experimental"),
     hatStability,
   });
 }
