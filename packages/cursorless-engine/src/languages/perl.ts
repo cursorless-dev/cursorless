@@ -1,7 +1,15 @@
-import { createPatternMatchers, matcher } from "../util/nodeMatchers";
+import {
+  cascadingMatcher,
+  createPatternMatchers,
+  matcher,
+  patternMatcher,
+} from "../util/nodeMatchers";
 import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "@cursorless/common";
-import { unwrapSelectionExtractor } from "../util/nodeSelectors";
+import {
+  childRangeSelector,
+  unwrapSelectionExtractor,
+} from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
 
 const nodeMatchers: Partial<
@@ -25,6 +33,16 @@ const nodeMatchers: Partial<
     "call_expression_with_just_name",
     "method_invocation",
   ],
+  functionCallee: cascadingMatcher(
+    patternMatcher("call_expression_with_just_name"),
+    matcher(
+      patternFinder("call_expression", "method_invocation"),
+      childRangeSelector(
+        ["arguments", "argument", "empty_parenthesized_argument"],
+        [],
+      ),
+    ),
+  ),
   comment: "comments",
   namedFunction: ["function_definition"],
   anonymousFunction: "anonymous_function",
