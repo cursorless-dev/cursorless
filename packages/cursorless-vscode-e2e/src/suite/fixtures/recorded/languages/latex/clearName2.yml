@@ -1,0 +1,28 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: clear name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    \begin{quote}
+        Hello
+    \end{quote}
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    \begin{quote}
+        Hello
+    \end{}
+  selections:
+    - anchor: {line: 2, character: 5}
+      active: {line: 2, character: 5}
