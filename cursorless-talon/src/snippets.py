@@ -81,7 +81,7 @@ class Actions:
             },
         )
 
-    def cursorless_insert_named_snippet(name: str):
+    def cursorless_insert_snippet_by_name(name: str):
         """Inserts a named snippet"""
         actions.user.cursorless_implicit_target_command(
             "insertSnippet",
@@ -91,7 +91,7 @@ class Actions:
             },
         )
 
-    def cursorless_insert_custom_snippet(body: str):
+    def cursorless_insert_snippet(body: str):
         """Inserts a custom snippet"""
         actions.user.cursorless_implicit_target_command(
             "insertSnippet",
@@ -101,7 +101,9 @@ class Actions:
             },
         )
 
-    def cursorless_wrap_with_named_snippet(name: str, variable_name: str, target: dict):
+    def cursorless_wrap_with_snippet_by_name(
+        name: str, variable_name: str, target: dict
+    ):
         """Wrap target with a named snippet"""
         actions.user.cursorless_single_target_command_with_arg_list(
             "wrapWithSnippet",
@@ -115,7 +117,7 @@ class Actions:
             ],
         )
 
-    def cursorless_wrap_with_custom_snippet(
+    def cursorless_wrap_with_snippet(
         body: str,
         target: dict,
         variable_name: Optional[str] = None,
