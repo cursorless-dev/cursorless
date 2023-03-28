@@ -35,11 +35,11 @@ repos:
         # packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/ruby/changeCondition.yml
         exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v2.7.1"
+    rev: "v3.0.0-alpha.6"
     hooks:
       - id: prettier
   - repo: https://github.com/ikamensh/flynt/
-    rev: "0.77"
+    rev: "0.78"
     hooks:
       - id: flynt
   - repo: https://github.com/Zac-HD/shed
@@ -50,7 +50,7 @@ repos:
         args: [--refactor, --py39-plus]
         types_or: [python, markdown, rst]
   - repo: https://github.com/wenkokke/talonfmt
-    rev: 1.9.0
+    rev: 1.9.5
     hooks:
       - id: talonfmt
         args: ["--in-place"]
