@@ -2,6 +2,7 @@ import {
   CommandServerApi,
   ExcludableSnapshotField,
   ExtraSnapshotField,
+  HatTokenMap,
   IDE,
   NormalizedIDE,
   SerializedMarks,
@@ -27,6 +28,7 @@ export function constructTestHelpers(
   sourceMark: ThatMark,
   vscodeIDE: VscodeIDE,
   graph: Graph,
+  hatTokenMap: HatTokenMap,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
@@ -80,6 +82,6 @@ export function constructTestHelpers(
       );
     },
 
-    hatTokenMap: graph.hatTokenMap,
+    hatTokenMap,
   };
 }

@@ -1,14 +1,14 @@
 import { Disposable, TextEditorSelectionChangeEvent } from "@cursorless/common";
 import type { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { ide } from "../singletons/ide.singleton";
-import { Graph } from "../typings/Graph";
+import { TreeSitter } from "../typings/TreeSitter";
 
-export default class Debug {
+export class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
   active: boolean;
 
-  constructor(private graph: Graph) {
+  constructor(private treeSitter: TreeSitter) {
     ide().disposeOnExit(this);
 
     this.evaluateSetting = this.evaluateSetting.bind(this);
@@ -31,10 +31,6 @@ export default class Debug {
           ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
         break;
     }
-  }
-
-  init() {
-    // do nothing
   }
 
   log(...args: any[]) {
@@ -79,7 +75,7 @@ export default class Debug {
   private logBranchTypes(event: TextEditorSelectionChangeEvent) {
     let node: SyntaxNode;
     try {
-      node = this.graph.getNodeAtLocation(
+      node = this.treeSitter.getNodeAtLocation(
         ide().activeTextEditor!.document,
         event.selections[0],
       );

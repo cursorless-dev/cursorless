@@ -5,6 +5,7 @@ import {
   ExtraSnapshotField,
   getKey,
   getRecordedTestsDirPath,
+  HatTokenMap,
   IDE,
   marksToPlainObject,
   serialize,
@@ -25,7 +26,6 @@ import { merge } from "lodash";
 import * as path from "path";
 import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { Graph } from "../typings/Graph";
 import { TestCase, TestCaseContext } from "./TestCase";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
@@ -97,7 +97,7 @@ export class TestCaseRecorder {
   private spyIde: SpyIDE | undefined;
   private originalIde: IDE | undefined;
 
-  constructor(private graph: Graph) {
+  constructor(private hatTokenMap: HatTokenMap) {
     const { runMode } = ide();
 
     this.fixtureRoot =
@@ -146,7 +146,7 @@ export class TestCaseRecorder {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
       );
-      const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
+      const readableHatMap = await this.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot,
       );
       marks = marksToPlainObject(extractTargetedMarks(keys, readableHatMap));

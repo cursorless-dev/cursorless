@@ -3,6 +3,7 @@ import { hrtime } from "process";
 import { ide } from "../singletons/ide.singleton";
 import { Graph } from "../typings/Graph";
 import { abs } from "../util/bigint";
+import { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
 
@@ -14,7 +15,7 @@ const PRE_PHRASE_SNAPSHOT_MAX_AGE_NS = BigInt(6e10); // 60 seconds
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
-export default class HatTokenMapImpl implements HatTokenMap {
+export class HatTokenMapImpl implements HatTokenMap {
   /**
    * This is the active map the changes every time we reallocate hats. It is
    * liable to change in the middle of a phrase.
@@ -32,7 +33,7 @@ export default class HatTokenMapImpl implements HatTokenMap {
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
-  constructor(private graph: Graph) {
+  constructor(private graph: Graph, private debug: Debug) {
     ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(graph);
 
@@ -42,10 +43,6 @@ export default class HatTokenMapImpl implements HatTokenMap {
     this.hatAllocator = new HatAllocator(graph, {
       getActiveMap: this.getActiveMap,
     });
-  }
-
-  init() {
-    return this.hatAllocator.allocateHats();
   }
 
   /**
@@ -128,7 +125,7 @@ export default class HatTokenMapImpl implements HatTokenMap {
       const newSignalVersion = await phraseStartSignal.getVersion();
 
       if (newSignalVersion !== this.lastSignalVersion) {
-        this.graph.debug.log("taking snapshot");
+        this.debug.log("taking snapshot");
         this.lastSignalVersion = newSignalVersion;
 
         if (newSignalVersion != null) {
