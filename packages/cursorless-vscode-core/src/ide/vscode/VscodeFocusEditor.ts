@@ -59,11 +59,8 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
     return undefined;
   }
   const uri = editor.document.uri.toString();
-  const tabGroup = (window as any)?.tabGroups?.all?.find(
-    (tabGroup: any) =>
-      tabGroup?.tabs.find(
-        (tab: any) => tab?.input?.modified?.toString() === uri,
-      ),
+  const tabGroup = (window as any)?.tabGroups?.all?.find((tabGroup: any) =>
+    tabGroup?.tabs.find((tab: any) => tab?.input?.modified?.toString() === uri),
   );
   return tabGroup?.viewColumn;
 }

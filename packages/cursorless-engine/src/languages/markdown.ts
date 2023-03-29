@@ -51,7 +51,7 @@ const HEADING_MARKER_TYPES = [
   "atx_h5_marker",
   "atx_h6_marker",
 ] as const;
-type HeadingMarkerType = (typeof HEADING_MARKER_TYPES)[number];
+type HeadingMarkerType = typeof HEADING_MARKER_TYPES[number];
 
 /**
  * Returns a node finder that will only accept nodes of heading level at least
