@@ -7,6 +7,7 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
+  Actions,
   CommandRunner,
   Debug,
   FactoryMap,
@@ -85,6 +86,8 @@ export async function activate(
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
+  const actions = new Actions(graph);
+
   const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
 
@@ -97,6 +100,7 @@ export async function activate(
     debug,
     hatTokenMap,
     testCaseRecorder,
+    actions,
     thatMark,
     sourceMark,
   );

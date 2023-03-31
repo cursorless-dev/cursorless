@@ -1,15 +1,16 @@
-import { ide } from "../../singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { Target } from "../../typings/target.types";
+import { ide } from "../../singletons/ide.singleton";
 import { Graph } from "../../typings/Graph";
+import { Target } from "../../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
+import { Actions } from "../Actions";
 import { Action, ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
-import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
 import { runEditTargets } from "./runEditTargets";
+import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
 import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
@@ -17,7 +18,7 @@ export class EditNew implements Action {
     return [containingLineIfUntypedStage];
   }
 
-  constructor(private graph: Graph) {
+  constructor(private graph: Graph, private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
@@ -26,7 +27,7 @@ export class EditNew implements Action {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have
       // cursors in multiple editors.
-      return runEditNewNotebookCellTargets(this.graph, targets);
+      return runEditNewNotebookCellTargets(this.actions, targets);
     }
 
     const editableEditor = ide().getEditableTextEditor(

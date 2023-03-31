@@ -1,13 +1,13 @@
 import { Selection } from "@cursorless/common";
-import { ide } from "../../singletons/ide.singleton";
 import { NotebookCellPositionTarget } from "../../processTargets/targets";
+import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
-import { Graph } from "../../typings/Graph";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
+import { Actions } from "../Actions";
 import { ActionReturnValue } from "../actions.types";
 
 export async function runEditNewNotebookCellTargets(
-  graph: Graph,
+  actions: Actions,
   targets: Target[],
 ): Promise<ActionReturnValue> {
   // Can only run on one target because otherwise we'd end up with cursors in
@@ -16,7 +16,7 @@ export async function runEditNewNotebookCellTargets(
   const editor = ide().getEditableTextEditor(target.editor);
   const isAbove = target.position === "before";
 
-  await graph.actions.setSelection.run([targets]);
+  await actions.setSelection.run([targets]);
 
   let modifyThatMark = (selection: Selection) => selection;
   if (isAbove) {

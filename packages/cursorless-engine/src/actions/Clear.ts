@@ -1,13 +1,13 @@
-import { ide } from "../singletons/ide.singleton";
 import { PlainTarget } from "../processTargets/targets";
+import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
+import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Clear implements Action {
-  constructor(private graph: Graph) {
+  constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
@@ -24,7 +24,7 @@ export default class Clear implements Action {
         }),
     );
 
-    const { thatTargets } = await this.graph.actions.remove.run([plainTargets]);
+    const { thatTargets } = await this.actions.remove.run([plainTargets]);
 
     if (thatTargets != null) {
       await setSelectionsAndFocusEditor(

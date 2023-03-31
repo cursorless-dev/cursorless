@@ -8,14 +8,15 @@ import {
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Graph";
+import { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
+import { Actions } from "./Actions";
 import { ActionReturnValue } from "./actions.types";
 
 export class PasteFromClipboard {
-  constructor(private graph: Graph) {}
+  constructor(private graph: Graph, private actions: Actions) {}
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
@@ -27,7 +28,7 @@ export class PasteFromClipboard {
     const [originalCursorSelections] = await callFunctionAndUpdateSelections(
       this.graph.rangeUpdater,
       async () => {
-        await this.graph.actions.editNew.run([targets]);
+        await this.actions.editNew.run([targets]);
       },
       editor.document,
       [editor.selections],
