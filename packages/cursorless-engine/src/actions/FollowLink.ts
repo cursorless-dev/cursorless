@@ -1,16 +1,16 @@
 import { FlashStyle } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import {
   createThatMark,
   ensureSingleTarget,
   flashTargets,
 } from "../util/targetUtils";
+import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class FollowLink implements Action {
-  constructor(private graph: Graph) {
+  constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
@@ -24,7 +24,7 @@ export default class FollowLink implements Action {
       .openLink(target.contentRange);
 
     if (!openedLink) {
-      await this.graph.actions.executeCommand.run(
+      await this.actions.executeCommand.run(
         [targets],
         "editor.action.revealDefinition",
         { restoreSelection: false },

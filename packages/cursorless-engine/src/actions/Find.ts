@@ -1,19 +1,19 @@
 import { showWarning } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { ensureSingleTarget } from "../util/targetUtils";
+import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export class FindInWorkspace implements Action {
-  constructor(private graph: Graph) {
+  constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
-    const { returnValue, thatTargets } = await this.graph.actions.getText.run([
+    const { returnValue, thatTargets } = await this.actions.getText.run([
       targets,
     ]);
     const [text] = returnValue as [string];

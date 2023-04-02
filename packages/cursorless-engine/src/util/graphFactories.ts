@@ -1,4 +1,3 @@
-import Actions from "../actions";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { Graph } from "../typings/Graph";
@@ -9,7 +8,6 @@ type ConstructorMap<T> = {
 };
 
 const graphConstructors: Partial<ConstructorMap<Graph>> = {
-  actions: Actions,
   snippets: Snippets,
   rangeUpdater: RangeUpdater,
 };

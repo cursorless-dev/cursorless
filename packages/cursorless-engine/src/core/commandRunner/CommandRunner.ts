@@ -4,6 +4,9 @@ import {
   HatTokenMap,
   PartialTargetV0V1,
 } from "@cursorless/common";
+import { ActionRecord } from "../../actions/actions.types";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+import { Actions } from "../../actions/Actions";
 import { TestCaseRecorder } from "../../index";
 import processTargets from "../../processTargets";
 import { ide } from "../../singletons/ide.singleton";
@@ -32,6 +35,7 @@ export class CommandRunner {
     private debug: Debug,
     private hatTokenMap: HatTokenMap,
     private testCaseRecorder: TestCaseRecorder,
+    private actions: ActionRecord,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
   ) {
@@ -81,7 +85,7 @@ export class CommandRunner {
         usePrePhraseSnapshot,
       );
 
-      const action = this.graph.actions[actionName];
+      const action = this.actions[actionName];
 
       if (action == null) {
         throw new Error(`Unknown action ${actionName}`);

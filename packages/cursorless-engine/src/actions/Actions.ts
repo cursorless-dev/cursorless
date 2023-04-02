@@ -53,22 +53,22 @@ import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
 
-class Actions implements ActionRecord {
+export class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 
-  callAsFunction = new Call(this.graph);
-  clearAndSetSelection = new Clear(this.graph);
+  callAsFunction = new Call(this);
+  clearAndSetSelection = new Clear(this);
   copyToClipboard = new CopyToClipboard(this.graph);
-  cutToClipboard = new CutToClipboard(this.graph);
+  cutToClipboard = new CutToClipboard(this);
   deselect = new Deselect(this.graph);
-  editNew = new EditNew(this.graph);
-  editNewLineAfter = new EditNewAfter(this.graph);
-  editNewLineBefore = new EditNewBefore(this.graph);
+  editNew = new EditNew(this.graph, this);
+  editNewLineAfter = new EditNewAfter(this.graph, this);
+  editNewLineBefore = new EditNewBefore(this.graph, this);
   executeCommand = new ExecuteCommand(this.graph);
   extractVariable = new ExtractVariable(this.graph);
-  findInWorkspace = new FindInWorkspace(this.graph);
+  findInWorkspace = new FindInWorkspace(this);
   foldRegion = new Fold(this.graph);
-  followLink = new FollowLink(this.graph);
+  followLink = new FollowLink(this);
   generateSnippet = new GenerateSnippet(this.graph);
   getText = new GetText(this.graph);
   highlight = new Highlight(this.graph);
@@ -78,18 +78,18 @@ class Actions implements ActionRecord {
   insertEmptyLineAfter = new InsertEmptyLineAfter(this.graph);
   insertEmptyLineBefore = new InsertEmptyLineBefore(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
-  insertSnippet = new InsertSnippet(this.graph);
+  insertSnippet = new InsertSnippet(this.graph, this);
   moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLine(this.graph);
-  pasteFromClipboard = new PasteFromClipboard(this.graph);
-  randomizeTargets = new Random(this.graph);
+  pasteFromClipboard = new PasteFromClipboard(this.graph, this);
+  randomizeTargets = new Random(this);
   remove = new Remove(this.graph);
   rename = new Rename(this.graph);
   replace = new Replace(this.graph);
   replaceWithTarget = new Bring(this.graph);
   revealDefinition = new RevealDefinition(this.graph);
   revealTypeDefinition = new RevealTypeDefinition(this.graph);
-  reverseTargets = new Reverse(this.graph);
+  reverseTargets = new Reverse(this);
   rewrapWithPairedDelimiter = new Rewrap(this.graph);
   scrollToBottom = new ScrollToBottom(this.graph);
   scrollToCenter = new ScrollToCenter(this.graph);
@@ -101,7 +101,7 @@ class Actions implements ActionRecord {
   showHover = new ShowHover(this.graph);
   showQuickFix = new ShowQuickFix(this.graph);
   showReferences = new ShowReferences(this.graph);
-  sortTargets = new Sort(this.graph);
+  sortTargets = new Sort(this);
   swapTargets = new Swap(this.graph);
   toggleLineBreakpoint = new ToggleBreakpoint(this.graph);
   toggleLineComment = new ToggleLineComment(this.graph);
@@ -109,5 +109,3 @@ class Actions implements ActionRecord {
   wrapWithPairedDelimiter = new Wrap(this.graph);
   wrapWithSnippet = new WrapWithSnippet(this.graph);
 }
-
-export default Actions;
