@@ -182,9 +182,11 @@ For example, `"take funk blue air"` selects the function containing the token wi
 
 We support several modifiers that allow you to refer to scopes relative to the input target, or relative to the canonical iteration scope of the scope type. For example, the iteration scope of functions is a class, of tokens is a line, of characters is a token, etc.
 
-Here is a diagram of the possible relative / ordinal modifiers:
+Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-![Relative ordinal diagram](images/relative-ordinal.jpeg)
+![Relative ordinal diagram](images/relative_ordinal.png)
+
+([Image source](https://github.com/cursorless-dev/cursorless/blob/main/docs/user/images/relative_ordinal.tex))
 
 And here is a table of the spoken forms:
 
