@@ -19,6 +19,7 @@ import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Graph } from "../typings/Graph";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
+import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
 
 interface NamedSnippetArg {
@@ -37,7 +38,7 @@ type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  constructor(private graph: Graph) {
+  constructor(private graph: Graph, private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
@@ -131,7 +132,7 @@ export default class InsertSnippet implements Action {
 
     const snippetString = parsedSnippet.toTextmateString();
 
-    await this.graph.actions.editNew.run([targets]);
+    await this.actions.editNew.run([targets]);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
       getSelectionInfo(

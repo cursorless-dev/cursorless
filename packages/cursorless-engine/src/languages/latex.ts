@@ -1,13 +1,22 @@
-import { Range, Selection, TextEditor } from "@cursorless/common";
+import {
+  Range,
+  Selection,
+  SimpleScopeTypeType,
+  TextEditor,
+} from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
+import {
+  NodeMatcherAlternative,
+  SelectionWithContext,
+  SelectionWithEditor,
+} from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,
   cascadingMatcher,
   createPatternMatchers,
   matcher,
+  patternMatcher,
 } from "../util/nodeMatchers";
 
 const COMMANDS = [
@@ -155,6 +164,15 @@ function extractItemContent(
   };
 }
 
+const getStartTag = patternMatcher(`*.begin!`);
+const getEndTag = patternMatcher(`*.end!`);
+
+const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
+  const startTag = getStartTag(selection, node);
+  const endTag = getEndTag(selection, node);
+  return startTag != null && endTag != null ? startTag.concat(endTag) : null;
+};
+
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -175,7 +193,10 @@ const nodeMatchers: Partial<
     matcher(patternFinder(...sectioningCommand), extendToNamedSiblingIfExists),
   ),
 
-  name: matcher(patternFinder(...sectioningText), unwrapGroupParens),
+  name: cascadingMatcher(
+    matcher(patternFinder(...sectioningText), unwrapGroupParens),
+    patternMatcher("begin[name][text]", "end[name][text]"),
+  ),
   functionCallee: "command_name",
 
   collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
@@ -191,6 +212,10 @@ const nodeMatchers: Partial<
   subParagraph: "subparagraph",
 
   environment: ENVIRONMENTS,
+  xmlElement: ENVIRONMENTS,
+  xmlBothTags: getTags,
+  xmlStartTag: getStartTag,
+  xmlEndTag: getEndTag,
 };
 
 export default createPatternMatchers(nodeMatchers);

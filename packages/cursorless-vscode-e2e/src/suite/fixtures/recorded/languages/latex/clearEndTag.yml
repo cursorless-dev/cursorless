@@ -1,0 +1,27 @@
+languageId: latex
+command:
+  version: 5
+  spokenForm: clear end tag
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlEndTag}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    \begin{quote}
+        Hello
+    \end{quote}
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    \begin{quote}
+        Hello
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

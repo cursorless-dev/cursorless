@@ -1,27 +1,41 @@
-import { ActionType } from "@cursorless/common";
-import { ide } from "../../singletons/ide.singleton";
+import {
+  ActionType,
+  Command,
+  HatTokenMap,
+  PartialTargetV0V1,
+} from "@cursorless/common";
+import { ActionRecord } from "../../actions/actions.types";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
+import { Actions } from "../../actions/Actions";
+import { TestCaseRecorder } from "../../index";
 import processTargets from "../../processTargets";
+import { ide } from "../../singletons/ide.singleton";
+import { Graph } from "../../typings/Graph";
 import { Target } from "../../typings/target.types";
+import { TreeSitter } from "../../typings/TreeSitter";
 import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
-import { Graph } from "../../typings/Graph";
 import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { PartialTargetV0V1 } from "@cursorless/common";
+import { Debug } from "../Debug";
 import inferFullTargets from "../inferFullTargets";
 import { ThatMark } from "../ThatMark";
-import { Command } from "@cursorless/common";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export class CommandRunner {
   constructor(
     private graph: Graph,
+    private treeSitter: TreeSitter,
+    private debug: Debug,
+    private hatTokenMap: HatTokenMap,
+    private testCaseRecorder: TestCaseRecorder,
+    private actions: ActionRecord,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
   ) {
@@ -54,9 +68,9 @@ export class CommandRunner {
    */
   async runCommand(command: Command) {
     try {
-      if (this.graph.debug.active) {
-        this.graph.debug.log(`command:`);
-        this.graph.debug.log(JSON.stringify(command, null, 3));
+      if (this.debug.active) {
+        this.debug.log(`command:`);
+        this.debug.log(JSON.stringify(command, null, 3));
       }
 
       const commandComplete = canonicalizeAndValidateCommand(command);
@@ -67,11 +81,11 @@ export class CommandRunner {
         usePrePhraseSnapshot,
       } = commandComplete;
 
-      const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
+      const readableHatMap = await this.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot,
       );
 
-      const action = this.graph.actions[actionName];
+      const action = this.actions[actionName];
 
       if (action == null) {
         throw new Error(`Unknown action ${actionName}`);
@@ -79,9 +93,9 @@ export class CommandRunner {
 
       const targetDescriptors = inferFullTargets(partialTargetDescriptors);
 
-      if (this.graph.debug.active) {
-        this.graph.debug.log("Full targets:");
-        this.graph.debug.log(JSON.stringify(targetDescriptors, null, 3));
+      if (this.debug.active) {
+        this.debug.log("Full targets:");
+        this.debug.log(JSON.stringify(targetDescriptors, null, 3));
       }
 
       const actionPrePositionStages =
@@ -106,10 +120,10 @@ export class CommandRunner {
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
-        getNodeAtLocation: this.graph.getNodeAtLocation,
+        getNodeAtLocation: this.treeSitter.getNodeAtLocation,
       };
 
-      if (this.graph.testCaseRecorder.isActive()) {
+      if (this.testCaseRecorder.isActive()) {
         const context = {
           targets: targetDescriptors,
           thatMark: this.thatMark,
@@ -117,10 +131,7 @@ export class CommandRunner {
           hatTokenMap: readableHatMap,
           spokenForm,
         };
-        await this.graph.testCaseRecorder.preCommandHook(
-          commandComplete,
-          context,
-        );
+        await this.testCaseRecorder.preCommandHook(commandComplete, context);
       }
 
       // NB: We do this once test recording has started so that we can capture
@@ -145,19 +156,19 @@ export class CommandRunner {
         constructThatTarget(newSourceTargets, newSourceSelections),
       );
 
-      if (this.graph.testCaseRecorder.isActive()) {
-        await this.graph.testCaseRecorder.postCommandHook(returnValue);
+      if (this.testCaseRecorder.isActive()) {
+        await this.testCaseRecorder.postCommandHook(returnValue);
       }
 
       return returnValue;
     } catch (e) {
       const err = e as Error;
       console.error(err.stack);
-      await this.graph.testCaseRecorder.commandErrorHook(err);
+      await this.testCaseRecorder.commandErrorHook(err);
       throw e;
     } finally {
-      if (this.graph.testCaseRecorder.isActive()) {
-        this.graph.testCaseRecorder.finallyHook();
+      if (this.testCaseRecorder.isActive()) {
+        this.testCaseRecorder.finallyHook();
       }
     }
   }

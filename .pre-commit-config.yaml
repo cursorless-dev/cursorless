@@ -39,7 +39,7 @@ repos:
     hooks:
       - id: prettier
   - repo: https://github.com/ikamensh/flynt/
-    rev: "0.77"
+    rev: "0.78"
     hooks:
       - id: flynt
   - repo: https://github.com/Zac-HD/shed
@@ -50,7 +50,7 @@ repos:
         args: [--refactor, --py39-plus]
         types_or: [python, markdown, rst]
   - repo: https://github.com/wenkokke/talonfmt
-    rev: 1.9.0
+    rev: 1.9.5
     hooks:
       - id: talonfmt
         args: ["--in-place"]

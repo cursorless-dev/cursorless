@@ -7,13 +7,18 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
+  Actions,
   CommandRunner,
+  Debug,
   FactoryMap,
   Graph,
   graphFactories,
+  HatTokenMapImpl,
   injectIde,
   makeGraph,
+  TestCaseRecorder,
   ThatMark,
+  TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
   commandIds,
@@ -66,15 +71,22 @@ export async function activate(
     );
   };
 
+  const treeSitter: TreeSitter = { getNodeAtLocation };
+  const debug = new Debug(treeSitter);
+
   const graph = makeGraph({
     ...graphFactories,
     extensionContext: () => context,
     commandServerApi: () => commandServerApi,
-    getNodeAtLocation: () => getNodeAtLocation,
   } as FactoryMap<Graph>);
-  graph.debug.init();
   graph.snippets.init();
-  graph.hatTokenMap.init();
+
+  const hatTokenMap = new HatTokenMapImpl(graph, debug);
+  await hatTokenMap.allocateHats();
+
+  const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
+
+  const actions = new Actions(graph);
 
   const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
@@ -82,14 +94,22 @@ export async function activate(
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
 
-  // TODO: Do this using the graph once we migrate its dependencies onto the graph
-  const commandRunner = new CommandRunner(graph, thatMark, sourceMark);
+  const commandRunner = new CommandRunner(
+    graph,
+    treeSitter,
+    debug,
+    hatTokenMap,
+    testCaseRecorder,
+    actions,
+    thatMark,
+    sourceMark,
+  );
 
   registerCommands(
     context,
     vscodeIDE,
     commandRunner,
-    graph.testCaseRecorder,
+    testCaseRecorder,
     keyboardCommands,
   );
 
@@ -101,6 +121,7 @@ export async function activate(
           sourceMark,
           vscodeIDE,
           graph,
+          hatTokenMap,
         )
       : undefined,
 
