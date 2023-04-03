@@ -1,3 +1,8 @@
+import {
+  VisibleCommandDescription,
+  cursorlessCommandDescriptions,
+  cursorlessCommandIds,
+} from "@cursorless/common";
 import * as semver from "semver";
 import { Context } from "./context";
 import { runCommand } from "./runCommand";
@@ -17,6 +22,20 @@ export async function transformPackageJson(
   json.devDependencies = {
     ["@types/vscode"]: json.devDependencies["@types/vscode"],
   };
+
+  json.contributes.commands = Object.entries(cursorlessCommandDescriptions)
+    .filter(
+      (pair): pair is [string, VisibleCommandDescription] => pair[1].isVisible,
+    )
+    .map(([id, command]) => ({
+      command: id,
+      title: command.title,
+    }));
+
+  json.activationEvents = [
+    "onLanguage",
+    ...cursorlessCommandIds.map((id) => `onCommand:${id}`),
+  ];
 
   delete json.private;
 

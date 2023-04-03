@@ -44,9 +44,6 @@
   "extensionDependencies": [
     "pokey.parse-tree"
   ],
-  "activationEvents": [
-    "*"
-  ],
   "main": "./extension.js",
   "capabilities": {
     "untrustedWorkspaces": {
@@ -54,36 +51,6 @@
     }
   },
   "contributes": {
-    "commands": [
-      {
-        "command": "cursorless.command",
-        "title": "Cursorless: Perform command"
-      },
-      {
-        "command": "cursorless.toggleDecorations",
-        "title": "Cursorless: Toggle decorations"
-      },
-      {
-        "command": "cursorless.recomputeDecorationStyles",
-        "title": "Cursorless: Recompute decoration styles"
-      },
-      {
-        "command": "cursorless.recordTestCase",
-        "title": "Cursorless: Record test case"
-      },
-      {
-        "command": "cursorless.pauseRecording",
-        "title": "Cursorless: Pause test case recording"
-      },
-      {
-        "command": "cursorless.resumeRecording",
-        "title": "Cursorless: Resume test case recording"
-      },
-      {
-        "command": "cursorless.showDocumentation",
-        "title": "Cursorless: Show documentation"
-      }
-    ],
     "colors": [
       {
         "id": "cursorless.pendingDeleteBackground",
