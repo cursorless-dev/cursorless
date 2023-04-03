@@ -55,6 +55,12 @@ const nodeMatchers: Partial<
   collectionKey: "key_value_pair[key]",
   collectionItem: "hash[variable]",
   argumentOrParameter: ["argument", "parenthesized_argument.arguments!"],
+  class: [
+    "package_statement!.block[body]",
+    "source_file!.package_statement",
+    "package_statement",
+    "source_file",
+  ],
   className: "package_statement.package_name!",
 };
 

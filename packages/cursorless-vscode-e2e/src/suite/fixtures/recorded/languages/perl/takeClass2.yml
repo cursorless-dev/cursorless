@@ -1,0 +1,44 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: take class
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: class}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    package Foo::Bar::Banana;
+
+    # A sort of
+    # comment
+    $foo = 1;
+
+    package Hello::World {
+        1;
+    }
+
+    1;
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks: {}
+finalState:
+  documentContents: |-
+    package Foo::Bar::Banana;
+
+    # A sort of
+    # comment
+    $foo = 1;
+
+    package Hello::World {
+        1;
+    }
+
+    1;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 10, character: 2}
