@@ -56,14 +56,6 @@ export default class VscodeHatRenderer {
     this.recomputeDecorations = this.recomputeDecorations.bind(this);
 
     this.disposables.push(
-      vscode.commands.registerCommand(
-        "cursorless.recomputeDecorationStyles",
-        async () => {
-          this.fontMeasurements.clearCache();
-          await this.recomputeDecorations();
-        },
-      ),
-
       vscode.workspace.onDidChangeConfiguration(
         async ({ affectsConfiguration }) => {
           if (
@@ -74,6 +66,11 @@ export default class VscodeHatRenderer {
         },
       ),
     );
+  }
+
+  public async forceRecomputeDecorationStyles() {
+    this.fontMeasurements.clearCache();
+    await this.recomputeDecorations();
   }
 
   async handleNewStylesIfNecessary() {

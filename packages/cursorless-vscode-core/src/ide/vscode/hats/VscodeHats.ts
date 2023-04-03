@@ -45,22 +45,19 @@ export class VscodeHats implements Hats {
     this.isEnabled = vscode.workspace
       .getConfiguration("cursorless")
       .get<boolean>("showOnStart")!;
-
-    extensionContext.subscriptions.push(
-      vscode.commands.registerCommand(
-        "cursorless.toggleDecorations",
-        this.toggle,
-      ),
-    );
   }
 
   async init() {
     await this.hatRenderer.init();
   }
 
-  private toggle() {
+  toggle() {
     this.isEnabled = !this.isEnabled;
     this.isEnabledNotifier.notifyListeners(this.isEnabled);
+  }
+
+  recomputeDecorationStyles() {
+    return this.hatRenderer.forceRecomputeDecorationStyles();
   }
 
   private handleHatDecorationMapUpdated() {

@@ -5,7 +5,3 @@ export const showDocumentation = () =>
 
 export const showQuickPick = () =>
   vscode.commands.executeCommand("workbench.action.quickOpen", ">Cursorless");
-
-export const commandIds = {
-  showQuickPick: "cursorless.showQuickPick",
-};
