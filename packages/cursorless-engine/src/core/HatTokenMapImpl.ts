@@ -1,4 +1,9 @@
-import { HatTokenMap, ReadOnlyHatMap, TokenHat } from "@cursorless/common";
+import {
+  HatTokenMap,
+  Hats,
+  ReadOnlyHatMap,
+  TokenHat,
+} from "@cursorless/common";
 import { hrtime } from "process";
 import { ide } from "../singletons/ide.singleton";
 import { Graph } from "../typings/Graph";
@@ -33,14 +38,14 @@ export class HatTokenMapImpl implements HatTokenMap {
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
-  constructor(private graph: Graph, private debug: Debug) {
+  constructor(private graph: Graph, private debug: Debug, private hats: Hats) {
     ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(graph);
 
     this.getActiveMap = this.getActiveMap.bind(this);
     this.allocateHats = this.allocateHats.bind(this);
 
-    this.hatAllocator = new HatAllocator(graph, {
+    this.hatAllocator = new HatAllocator(hats, {
       getActiveMap: this.getActiveMap,
     });
   }

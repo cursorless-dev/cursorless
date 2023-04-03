@@ -1,7 +1,6 @@
-import type { Disposable, TokenHat } from "@cursorless/common";
+import type { Disposable, Hats, TokenHat } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
-import { Graph } from "../typings/Graph";
 import { allocateHats } from "../util/allocateHats";
 import { IndividualHatMap } from "./IndividualHatMap";
 
@@ -13,14 +12,14 @@ export class HatAllocator {
   private timeoutHandle: NodeJS.Timeout | null = null;
   private disposables: Disposable[] = [];
 
-  constructor(private graph: Graph, private context: Context) {
+  constructor(private hats: Hats, private context: Context) {
     ide().disposeOnExit(this);
 
     this.allocateHatsDebounced = this.allocateHatsDebounced.bind(this);
 
     this.disposables.push(
-      ide().hats.onDidChangeEnabledHatStyles(this.allocateHatsDebounced),
-      ide().hats.onDidChangeIsEnabled(this.allocateHatsDebounced),
+      this.hats.onDidChangeEnabledHatStyles(this.allocateHatsDebounced),
+      this.hats.onDidChangeIsEnabled(this.allocateHatsDebounced),
 
       // An event that fires when a text document opens
       ide().onDidOpenTextDocument(this.allocateHatsDebounced),
@@ -54,10 +53,10 @@ export class HatAllocator {
   async allocateHats(oldTokenHats?: TokenHat[]) {
     const activeMap = await this.context.getActiveMap();
 
-    const tokenHats = ide().hats.isEnabled
+    const tokenHats = this.hats.isEnabled
       ? allocateHats(
           tokenGraphemeSplitter(),
-          ide().hats.enabledHatStyles,
+          this.hats.enabledHatStyles,
           oldTokenHats ?? activeMap.tokenHats,
           ide().configuration.getOwnConfiguration("experimental.hatStability"),
           ide().activeTextEditor,
@@ -67,7 +66,7 @@ export class HatAllocator {
 
     activeMap.setTokenHats(tokenHats);
 
-    await ide().hats.setHatRanges(
+    await this.hats.setHatRanges(
       tokenHats.map(({ hatStyle, hatRange, token: { editor } }) => ({
         editor,
         range: hatRange,
