@@ -23,15 +23,20 @@ export async function transformPackageJson(
   };
 
   json.contributes.commands = Object.entries(cursorlessCommandDescriptions).map(
-    ([id, command]) => ({
+    ([id, { title, isVisible }]) => ({
       command: id,
-      title: command.title,
-      enablement: command.isVisible ? "true" : "false",
+      title,
+      enablement: isVisible ? "true" : "false",
     }),
   );
 
   json.activationEvents = [
+    // Causes extension to activate whenever any text editor is opened
     "onLanguage",
+
+    // Causes extension to activate when any Cursorless command is run.
+    // Technically we don't need to do this since VSCode 1.74.0, but we support
+    // older versions
     ...cursorlessCommandIds.map((id) => `onCommand:${id}`),
   ];
 
