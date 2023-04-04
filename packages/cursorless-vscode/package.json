@@ -753,7 +753,7 @@
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify --keep-names",
-    "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist.ts",
+    "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch"
   },
