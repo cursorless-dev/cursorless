@@ -1,5 +1,4 @@
 import {
-  VisibleCommandDescription,
   cursorlessCommandDescriptions,
   cursorlessCommandIds,
 } from "@cursorless/common";
@@ -23,14 +22,13 @@ export async function transformPackageJson(
     ["@types/vscode"]: json.devDependencies["@types/vscode"],
   };
 
-  json.contributes.commands = Object.entries(cursorlessCommandDescriptions)
-    .filter(
-      (pair): pair is [string, VisibleCommandDescription] => pair[1].isVisible,
-    )
-    .map(([id, command]) => ({
+  json.contributes.commands = Object.entries(cursorlessCommandDescriptions).map(
+    ([id, command]) => ({
       command: id,
       title: command.title,
-    }));
+      enablement: command.isVisible ? "true" : "false",
+    }),
+  );
 
   json.activationEvents = [
     "onLanguage",
