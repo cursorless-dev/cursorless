@@ -20,7 +20,6 @@ import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
-import { FakeHats } from "./FakeHats";
 import FakeMessages from "./FakeMessages";
 
 export default class FakeIDE implements IDE {
@@ -29,7 +28,6 @@ export default class FakeIDE implements IDE {
   globalState: FakeGlobalState = new FakeGlobalState();
   clipboard: FakeClipboard = new FakeClipboard();
   capabilities: FakeCapabilities = new FakeCapabilities();
-  hats: FakeHats = new FakeHats();
 
   runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;

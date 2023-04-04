@@ -24,6 +24,7 @@ import {
   commandIds,
   KeyboardCommands,
   StatusBarItem,
+  VscodeHats,
   VscodeIDE,
 } from "@cursorless/cursorless-vscode-core";
 import {
@@ -50,7 +51,6 @@ export async function activate(
   const parseTreeApi = await getParseTreeApi();
 
   const vscodeIDE = new VscodeIDE(context);
-  await vscodeIDE.init();
 
   if (vscodeIDE.runMode !== "production") {
     injectIde(
@@ -81,7 +81,10 @@ export async function activate(
   } as FactoryMap<Graph>);
   graph.snippets.init();
 
-  const hatTokenMap = new HatTokenMapImpl(graph, debug);
+  const hats = new VscodeHats(vscodeIDE, context);
+  await hats.init();
+
+  const hatTokenMap = new HatTokenMapImpl(graph, debug, hats);
   await hatTokenMap.allocateHats();
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
