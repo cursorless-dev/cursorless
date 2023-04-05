@@ -82,7 +82,7 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"<scope>",
+                    "spokenForm": "<scope>",
                     "description": "Containing instance of <scope>",
                 },
             ],
@@ -130,7 +130,7 @@ def get_modifiers():
                     "description": "<number> instances of <scope> including target, going backwards",
                 },
                 {
-                    "spokenForm": f"<number> <scope>s",
+                    "spokenForm": "<number> <scope>s",
                     "description": "<number> instances of <scope> including target, going forwards",
                 },
                 {
@@ -144,7 +144,7 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"<ordinal> <scope>",
+                    "spokenForm": "<ordinal> <scope>",
                     "description": "<ordinal> instance of <scope> in iteration scope",
                 },
                 {

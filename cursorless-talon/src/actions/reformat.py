@@ -12,7 +12,5 @@ class Actions:
     def cursorless_reformat(targets: dict, formatters: str):
         """Reformat targets with formatter"""
         texts = get_text(targets, show_decorations=False)
-        updated_texts = list(
-            map(lambda text: actions.user.reformat_text(text, formatters), texts)
-        )
+        updated_texts = [actions.user.reformat_text(text, formatters) for text in texts]
         actions.user.cursorless_replace(targets, updated_texts)

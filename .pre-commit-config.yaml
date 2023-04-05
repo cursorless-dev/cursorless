@@ -44,13 +44,15 @@ repos:
     rev: "0.78"
     hooks:
       - id: flynt
-  - repo: https://github.com/Zac-HD/shed
-    rev: 2023.3.1
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.0.260"
     hooks:
-      - id: shed
-        # TODO: bump to --py310-plus when Talon moves to Python 3.10.
-        args: [--refactor, --py39-plus]
-        types_or: [python, markdown, rst]
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
   - repo: https://github.com/wenkokke/talonfmt
     rev: 1.9.5
     hooks:
