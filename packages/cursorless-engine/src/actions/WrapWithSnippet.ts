@@ -11,6 +11,7 @@ import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
+import { Snippets } from "../core/Snippets";
 
 interface NamedSnippetArg {
   type: "named";
@@ -28,7 +29,7 @@ type WrapWithSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export default class WrapWithSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  constructor(private graph: Graph) {
+  constructor(private graph: Graph, private snippets: Snippets) {
     this.run = this.run.bind(this);
   }
 
@@ -56,7 +57,7 @@ export default class WrapWithSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name, variableName } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const variables = snippet.variables ?? {};
       const scopeTypeType = variables[variableName]?.wrapperScopeType;
@@ -77,7 +78,7 @@ export default class WrapWithSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const definition = findMatchingSnippetDefinitionStrict(
         targets,

@@ -21,6 +21,7 @@ import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
+import { Snippets } from "../core/Snippets";
 
 interface NamedSnippetArg {
   type: "named";
@@ -38,7 +39,11 @@ type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  constructor(private graph: Graph, private actions: Actions) {
+  constructor(
+    private graph: Graph,
+    private snippets: Snippets,
+    private actions: Actions,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -62,7 +67,7 @@ export default class InsertSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const scopeTypeTypes = snippet.insertionScopeTypes;
       return scopeTypeTypes == null
@@ -84,7 +89,7 @@ export default class InsertSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const definition = findMatchingSnippetDefinitionStrict(
         targets,
