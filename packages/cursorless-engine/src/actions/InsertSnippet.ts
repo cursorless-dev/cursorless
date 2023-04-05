@@ -5,6 +5,8 @@ import {
   SnippetDefinition,
   textFormatters,
 } from "@cursorless/common";
+import { Snippets } from "../core/Snippets";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
@@ -16,12 +18,10 @@ import {
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Graph } from "../typings/Graph";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
-import { Snippets } from "../core/Snippets";
 
 interface NamedSnippetArg {
   type: "named";
@@ -40,7 +40,7 @@ export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
 
   constructor(
-    private graph: Graph,
+    private rangeUpdater: RangeUpdater,
     private snippets: Snippets,
     private actions: Actions,
   ) {
@@ -150,7 +150,7 @@ export default class InsertSnippet implements Action {
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelectionInfos(
-      this.graph.rangeUpdater,
+      this.rangeUpdater,
       () => editor.insertSnippet(snippetString),
       editor.document,
       [targetSelectionInfos],

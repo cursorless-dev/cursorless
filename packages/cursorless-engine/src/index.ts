@@ -1,8 +1,5 @@
 export * from "./testUtil/plainObjectToTarget";
 export * from "./core/commandRunner/CommandRunner";
-export * from "./util/makeGraph";
-export * from "./typings/Graph";
-export * from "./util/graphFactories";
 export * from "./singletons/ide.singleton";
 export * from "./core/Cheatsheet";
 export * from "./testUtil/takeSnapshot";
@@ -13,3 +10,4 @@ export * from "./core/Debug";
 export * from "./core/HatTokenMapImpl";
 export * from "./actions/Actions";
 export * from "./core/Snippets";
+export * from "./core/updateSelections/RangeUpdater";

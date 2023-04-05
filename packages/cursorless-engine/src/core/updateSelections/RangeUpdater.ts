@@ -14,6 +14,10 @@ import {
 import { getDefault } from "../../util/map";
 import { updateRangeInfos } from "./updateRangeInfos";
 
+/**
+ * This component can be used to register a list of ranges to keep up to date
+ * as the document changes
+ */
 export class RangeUpdater {
   private rangeInfoLists: Map<string, FullRangeInfo[][]> = new Map();
   private replaceEditLists: Map<string, Edit[][]> = new Map();

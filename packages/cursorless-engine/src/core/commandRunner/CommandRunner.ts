@@ -10,7 +10,6 @@ import { Actions } from "../../actions/Actions";
 import { TestCaseRecorder } from "../../index";
 import processTargets from "../../processTargets";
 import { ide } from "../../singletons/ide.singleton";
-import { Graph } from "../../typings/Graph";
 import { Target } from "../../typings/target.types";
 import { TreeSitter } from "../../typings/TreeSitter";
 import {
@@ -30,7 +29,6 @@ import { selectionToThatTarget } from "./selectionToThatTarget";
 // TODO: Do this using the graph once we migrate its dependencies onto the graph
 export class CommandRunner {
   constructor(
-    private graph: Graph,
     private treeSitter: TreeSitter,
     private debug: Debug,
     private hatTokenMap: HatTokenMap,
@@ -136,7 +134,7 @@ export class CommandRunner {
 
       // NB: We do this once test recording has started so that we can capture
       // warning.
-      checkForOldInference(this.graph, partialTargetDescriptors);
+      checkForOldInference(partialTargetDescriptors);
 
       const targets = processTargets(
         processedTargetsContext,
