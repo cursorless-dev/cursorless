@@ -1,4 +1,5 @@
 import {
+  CommandServerApi,
   HatTokenMap,
   Hats,
   ReadOnlyHatMap,
@@ -38,7 +39,12 @@ export class HatTokenMapImpl implements HatTokenMap {
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
-  constructor(private graph: Graph, private debug: Debug, hats: Hats) {
+  constructor(
+    graph: Graph,
+    private debug: Debug,
+    hats: Hats,
+    private commandServerApi: CommandServerApi | null,
+  ) {
     ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(graph);
 
@@ -124,7 +130,7 @@ export class HatTokenMapImpl implements HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    const phraseStartSignal = this.graph.commandServerApi?.signals?.prePhrase;
+    const phraseStartSignal = this.commandServerApi?.signals?.prePhrase;
 
     if (phraseStartSignal != null) {
       const newSignalVersion = await phraseStartSignal.getVersion();
