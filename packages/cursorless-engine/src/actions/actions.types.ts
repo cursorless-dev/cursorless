@@ -56,4 +56,7 @@ export interface Action {
   getFinalStages?(...args: any[]): ModifierStage[];
 }
 
+/**
+ * Keeps a map from action names to objects that implement the given action
+ */
 export type ActionRecord = Record<ActionType, Action>;

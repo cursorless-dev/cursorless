@@ -53,6 +53,9 @@ import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
 
+/**
+ * Keeps a map from action names to objects that implement the given action
+ */
 export class Actions implements ActionRecord {
   constructor(private graph: Graph) {}
 

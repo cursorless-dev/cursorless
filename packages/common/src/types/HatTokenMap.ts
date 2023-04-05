@@ -2,6 +2,9 @@ import { HatStyleName } from "../ide/types/hatStyles.types";
 import { Range } from "./Range";
 import { Token } from "./Token";
 
+/**
+ * Maps from (hatStyle, character) pairs to tokens
+ */
 export interface HatTokenMap {
   allocateHats(oldTokenHats?: TokenHat[]): Promise<void>;
   getReadableMap(usePrePhraseSnapshot: boolean): Promise<ReadOnlyHatMap>;

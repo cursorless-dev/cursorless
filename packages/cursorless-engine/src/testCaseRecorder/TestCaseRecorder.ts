@@ -79,6 +79,9 @@ interface RecordTestCaseCommandArg {
 
 const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
 
+/**
+ * Used for recording test cases
+ */
 export class TestCaseRecorder {
   private active: boolean = false;
   private fixtureRoot: string | null;
