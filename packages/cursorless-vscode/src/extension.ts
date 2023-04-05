@@ -85,7 +85,7 @@ export async function activate(
   await hats.init();
 
   const hatTokenMap = new HatTokenMapImpl(graph, debug, hats);
-  await hatTokenMap.allocateHats();
+  hatTokenMap.allocateHats();
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
