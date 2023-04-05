@@ -12,3 +12,4 @@ export * from "./typings/TreeSitter";
 export * from "./core/Debug";
 export * from "./core/HatTokenMapImpl";
 export * from "./actions/Actions";
+export * from "./core/Snippets";
