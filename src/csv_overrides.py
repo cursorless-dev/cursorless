@@ -231,7 +231,7 @@ def update_file(
                 "See release notes for more info: "
                 "https://github.com/cursorless-dev/cursorless/blob/main/CHANGELOG.md"
             )
-            app.notify(f"🎉🎉 New cursorless features; see log")
+            app.notify("🎉🎉 New cursorless features; see log")
 
     return current_values
 

@@ -40,7 +40,7 @@ class Actions:
 
 
 @ctx.action_class("user")
-class Actions:
+class CursorlessActions:
     def cursorless_cheat_sheet_show_html():
         """Show cursorless html cheat sheet"""
         # On Linux browsers installed using snap can't open files in a hidden directory
@@ -78,7 +78,7 @@ def cheatsheet_dir_linux() -> Path:
         import platformdirs
 
         return Path(platformdirs.user_documents_dir())
-    except:
+    except Exception:
         # 2. Look for a documents directory in user home
         user_documents_dir = Path.home() / "Documents"
         if user_documents_dir.is_dir():
