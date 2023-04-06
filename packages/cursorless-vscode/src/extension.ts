@@ -126,6 +126,10 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
         new vscode.Location(document.uri, toVscodeRange(range)),
       );
     },
+
+    getTree(document: TextDocument) {
+      return parseTreeApi.getTreeForUri(document.uri);
+    },
   };
 }
 

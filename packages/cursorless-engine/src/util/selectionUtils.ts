@@ -8,7 +8,7 @@ export function selectionWithEditorFromRange(
   return selectionWithEditorFromPositions(selection, range.start, range.end);
 }
 
-function selectionWithEditorFromPositions(
+export function selectionWithEditorFromPositions(
   selection: SelectionWithEditor,
   start: Position,
   end: Position,

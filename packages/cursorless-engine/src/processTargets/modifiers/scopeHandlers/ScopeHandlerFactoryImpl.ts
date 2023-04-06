@@ -1,14 +1,15 @@
+import type { ScopeType } from "@cursorless/common";
 import {
   CharacterScopeHandler,
   DocumentScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
-  TokenScopeHandler,
-  WordScopeHandler,
   OneOfScopeHandler,
   ParagraphScopeHandler,
+  TokenScopeHandler,
+  WordScopeHandler,
 } from ".";
-import type { ScopeType } from "@cursorless/common";
+import { maybeGetTreeSitterScopeHandler } from "./TreeSitterScopeHandler";
 import type { ScopeHandler } from "./scopeHandler.types";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
@@ -53,7 +54,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "paragraph":
         return new ParagraphScopeHandler(scopeType, languageId);
       default:
-        return undefined;
+        return maybeGetTreeSitterScopeHandler(scopeType, languageId);
     }
   }
 }

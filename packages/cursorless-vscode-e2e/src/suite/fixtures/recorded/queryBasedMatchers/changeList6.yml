@@ -1,0 +1,23 @@
+languageId: ruby
+command:
+  version: 1
+  spokenForm: change list
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+initialState:
+  documentContents: "[\"hello\"] "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: " "
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: list, includeSiblings: false}, isImplicit: false}]

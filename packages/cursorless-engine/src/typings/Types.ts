@@ -5,7 +5,7 @@ import type {
   TextDocument,
   TextEditor,
 } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
+import type { SyntaxNode, Tree } from "web-tree-sitter";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
 import { Target } from "./target.types";
 
@@ -26,6 +26,7 @@ export interface ProcessedTargetsContext {
   thatMark: Target[];
   sourceMark: Target[];
   getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
+  getTree: (document: TextDocument) => Tree;
 }
 
 export interface SelectionWithEditor {

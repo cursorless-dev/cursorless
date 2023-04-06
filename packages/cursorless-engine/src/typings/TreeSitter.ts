@@ -1,5 +1,5 @@
 import { Range, TextDocument } from "@cursorless/common";
-import { SyntaxNode } from "web-tree-sitter";
+import { SyntaxNode, Tree } from "web-tree-sitter";
 
 export interface TreeSitter {
   /**
@@ -9,4 +9,9 @@ export interface TreeSitter {
     document: TextDocument,
     range: Range,
   ) => SyntaxNode;
+
+  /**
+   * Function to access the tree sitter tree.
+   */
+  readonly getTree: (document: TextDocument) => Tree;
 }

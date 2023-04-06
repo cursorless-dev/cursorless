@@ -159,7 +159,7 @@ declare module "web-tree-sitter" {
       query(source: string): Query;
     }
 
-    interface QueryCapture {
+    export interface QueryCapture {
       name: string;
       node: SyntaxNode;
     }
@@ -189,6 +189,7 @@ declare module "web-tree-sitter" {
         endPosition?: Point,
       ): QueryCapture[];
       predicatesForPattern(patternIndex: number): PredicateResult[];
+      predicates: PredicateResult;
     }
   }
 

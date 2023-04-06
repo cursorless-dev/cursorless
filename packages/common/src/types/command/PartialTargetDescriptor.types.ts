@@ -72,64 +72,67 @@ export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type SimpleScopeTypeType =
-  | "argumentOrParameter"
-  | "anonymousFunction"
-  | "attribute"
-  | "branch"
-  | "class"
-  | "className"
-  | "collectionItem"
-  | "collectionKey"
-  | "comment"
-  | "functionCall"
-  | "functionCallee"
-  | "functionName"
-  | "ifStatement"
-  | "list"
-  | "map"
-  | "name"
-  | "namedFunction"
-  | "regularExpression"
-  | "statement"
-  | "string"
-  | "type"
-  | "value"
-  | "condition"
-  | "section"
-  | "sectionLevelOne"
-  | "sectionLevelTwo"
-  | "sectionLevelThree"
-  | "sectionLevelFour"
-  | "sectionLevelFive"
-  | "sectionLevelSix"
-  | "selector"
-  | "switchStatementSubject"
-  | "unit"
-  | "xmlBothTags"
-  | "xmlElement"
-  | "xmlEndTag"
-  | "xmlStartTag"
+export const simpleScopeTypeTypes = [
+  "argumentOrParameter",
+  "anonymousFunction",
+  "attribute",
+  "branch",
+  "class",
+  "className",
+  "collectionItem",
+  "collectionKey",
+  "comment",
+  "functionCall",
+  "functionCallee",
+  "functionName",
+  "ifStatement",
+  "list",
+  "map",
+  "name",
+  "namedFunction",
+  "regularExpression",
+  "statement",
+  "string",
+  "type",
+  "value",
+  "condition",
+  "section",
+  "sectionLevelOne",
+  "sectionLevelTwo",
+  "sectionLevelThree",
+  "sectionLevelFour",
+  "sectionLevelFive",
+  "sectionLevelSix",
+  "selector",
+  "switchStatementSubject",
+  "unit",
+  "xmlBothTags",
+  "xmlElement",
+  "xmlEndTag",
+  "xmlStartTag",
   // Latex scope types
-  | "part"
-  | "chapter"
-  | "subSection"
-  | "subSubSection"
-  | "namedParagraph"
-  | "subParagraph"
-  | "environment"
+  "part",
+  "chapter",
+  "subSection",
+  "subSubSection",
+  "namedParagraph",
+  "subParagraph",
+  "environment",
   // Text based scopes
-  | "token"
-  | "line"
-  | "notebookCell"
-  | "paragraph"
-  | "document"
-  | "character"
-  | "word"
-  | "identifier"
-  | "nonWhitespaceSequence"
-  | "boundedNonWhitespaceSequence"
-  | "url";
+  "token",
+  "line",
+  "notebookCell",
+  "paragraph",
+  "document",
+  "character",
+  "word",
+  "identifier",
+  "nonWhitespaceSequence",
+  "boundedNonWhitespaceSequence",
+  "url",
+] as const;
+
+export type SimpleScopeTypeType = typeof simpleScopeTypeTypes[number];
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
