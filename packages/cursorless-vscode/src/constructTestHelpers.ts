@@ -11,8 +11,6 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
-  ide,
-  injectIde,
   plainObjectToTarget,
   takeSnapshot,
   ThatMark,
@@ -25,12 +23,14 @@ export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
   thatMark: ThatMark,
   sourceMark: ThatMark,
-  vscodeIDE: VscodeIDE,
   hatTokenMap: HatTokenMap,
+  vscodeIDE: VscodeIDE,
+  normalizedIde: NormalizedIDE,
+  injectIde: (ide: IDE) => void,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
-    ide: ide() as NormalizedIDE,
+    ide: normalizedIde,
     injectIde,
 
     toVscodeEditor,

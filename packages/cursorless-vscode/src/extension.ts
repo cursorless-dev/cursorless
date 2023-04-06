@@ -7,15 +7,7 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
-  Actions,
-  CommandRunner,
-  Debug,
-  HatTokenMapImpl,
-  injectIde,
-  RangeUpdater,
-  Snippets,
-  TestCaseRecorder,
-  ThatMark,
+  createCursorlessEngine,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -51,13 +43,13 @@ export async function activate(
 
   const vscodeIDE = new VscodeIDE(context);
 
-  if (vscodeIDE.runMode !== "production") {
-    injectIde(
-      new NormalizedIDE(vscodeIDE, new FakeIDE(), vscodeIDE.runMode === "test"),
-    );
-  } else {
-    injectIde(vscodeIDE);
-  }
+  const hats = new VscodeHats(
+    vscodeIDE,
+    context,
+    vscodeIDE.runMode === "test"
+      ? new FakeFontMeasurements()
+      : new FontMeasurementsImpl(context),
+  );
 
   const commandServerApi =
     vscodeIDE.runMode === "test"
@@ -71,50 +63,33 @@ export async function activate(
   };
 
   const treeSitter: TreeSitter = { getNodeAtLocation };
-  const debug = new Debug(treeSitter);
 
-  const rangeUpdater = new RangeUpdater();
-  context.subscriptions.push(rangeUpdater);
+  const normalizedIde =
+    vscodeIDE.runMode === "production"
+      ? undefined
+      : new NormalizedIDE(
+          vscodeIDE,
+          new FakeIDE(),
+          vscodeIDE.runMode === "test",
+        );
 
-  const snippets = new Snippets();
-  snippets.init();
-
-  const hats = new VscodeHats(
-    vscodeIDE,
-    context,
-    vscodeIDE.runMode === "test"
-      ? new FakeFontMeasurements()
-      : new FontMeasurementsImpl(context),
-  );
-  await hats.init();
-
-  const hatTokenMap = new HatTokenMapImpl(
-    rangeUpdater,
-    debug,
+  const {
+    commandRunner,
+    testCaseRecorder,
+    thatMark,
+    sourceMark,
+    hatTokenMap,
+    snippets,
+    injectIde,
+  } = createCursorlessEngine(
+    treeSitter,
+    normalizedIde ?? vscodeIDE,
     hats,
     commandServerApi,
   );
-  hatTokenMap.allocateHats();
-
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
-
-  const actions = new Actions(snippets, rangeUpdater);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
-
-  const thatMark = new ThatMark();
-  const sourceMark = new ThatMark();
-
-  const commandRunner = new CommandRunner(
-    treeSitter,
-    debug,
-    hatTokenMap,
-    testCaseRecorder,
-    actions,
-    thatMark,
-    sourceMark,
-  );
 
   registerCommands(
     context,
@@ -131,8 +106,10 @@ export async function activate(
           commandServerApi,
           thatMark,
           sourceMark,
-          vscodeIDE,
           hatTokenMap,
+          vscodeIDE,
+          normalizedIde!,
+          injectIde,
         )
       : undefined,
 
