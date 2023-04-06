@@ -20,6 +20,7 @@ import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
+import { VscodeHats } from "./hats/VscodeHats";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
@@ -39,6 +40,7 @@ export class VscodeIDE implements IDE {
   readonly messages: VscodeMessages;
   readonly clipboard: VscodeClipboard;
   readonly capabilities: VscodeCapabilities;
+  readonly hats: VscodeHats;
   private flashHandler: VscodeFlashHandler;
   private highlights: VscodeHighlights;
   private editorMap;
@@ -51,6 +53,7 @@ export class VscodeIDE implements IDE {
     this.highlights = new VscodeHighlights(extensionContext);
     this.flashHandler = new VscodeFlashHandler(this, this.highlights);
     this.capabilities = new VscodeCapabilities();
+    this.hats = new VscodeHats(this, extensionContext);
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
   }
 
@@ -59,6 +62,10 @@ export class VscodeIDE implements IDE {
     options?: QuickPickOptions,
   ): Promise<string | undefined> {
     return await vscodeShowQuickPick(items, options);
+  }
+
+  async init() {
+    await this.hats.init();
   }
 
   setHighlightRanges(

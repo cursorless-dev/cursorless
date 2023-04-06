@@ -16,6 +16,7 @@ import {
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
 import { FlashDescriptor } from "./FlashDescriptor";
+import { Hats } from "./Hats";
 import { Messages } from "./Messages";
 import { QuickPickOptions } from "./QuickPickOptions";
 import { State } from "./State";
@@ -28,6 +29,7 @@ export interface IDE {
   readonly messages: Messages;
   readonly globalState: State;
   readonly clipboard: Clipboard;
+  readonly hats: Hats;
 
   /**
    * Register disposables to be disposed of on IDE exit.
