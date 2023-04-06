@@ -11,17 +11,15 @@ import {
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
-  FakeFontMeasurements,
-  FontMeasurementsImpl,
+  createVscodeIde,
   KeyboardCommands,
   StatusBarItem,
-  VscodeHats,
-  VscodeIDE,
 } from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
+  ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
@@ -41,28 +39,14 @@ export async function activate(
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
-  const vscodeIDE = new VscodeIDE(context);
-
-  const hats = new VscodeHats(
-    vscodeIDE,
-    context,
-    vscodeIDE.runMode === "test"
-      ? new FakeFontMeasurements()
-      : new FontMeasurementsImpl(context),
-  );
+  const { vscodeIDE, hats } = await createVscodeIde(context);
 
   const commandServerApi =
     vscodeIDE.runMode === "test"
       ? getFakeCommandServerApi()
       : await getCommandServerApi();
 
-  const getNodeAtLocation = (document: TextDocument, range: Range) => {
-    return parseTreeApi.getNodeAtLocation(
-      new vscode.Location(document.uri, toVscodeRange(range)),
-    );
-  };
-
-  const treeSitter: TreeSitter = { getNodeAtLocation };
+  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
@@ -115,6 +99,16 @@ export async function activate(
 
     experimental: {
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
+    },
+  };
+}
+
+function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
+  return {
+    getNodeAtLocation(document: TextDocument, range: Range) {
+      return parseTreeApi.getNodeAtLocation(
+        new vscode.Location(document.uri, toVscodeRange(range)),
+      );
     },
   };
 }
