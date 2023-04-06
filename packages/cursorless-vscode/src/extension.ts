@@ -16,6 +16,7 @@ import {
   HatTokenMapImpl,
   injectIde,
   makeGraph,
+  Snippets,
   TestCaseRecorder,
   ThatMark,
   TreeSitter,
@@ -78,7 +79,9 @@ export async function activate(
     ...graphFactories,
     commandServerApi: () => commandServerApi,
   } as FactoryMap<Graph>);
-  graph.snippets.init();
+
+  const snippets = new Snippets();
+  snippets.init();
 
   const hats = new VscodeHats(vscodeIDE, context);
   await hats.init();
@@ -88,7 +91,7 @@ export async function activate(
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
-  const actions = new Actions(graph);
+  const actions = new Actions(graph, snippets);
 
   const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
@@ -128,7 +131,7 @@ export async function activate(
       : undefined,
 
     experimental: {
-      registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
+      registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
   };
 }

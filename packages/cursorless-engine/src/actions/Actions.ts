@@ -52,12 +52,13 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
+import { Snippets } from "../core/Snippets";
 
 /**
  * Keeps a map from action names to objects that implement the given action
  */
 export class Actions implements ActionRecord {
-  constructor(private graph: Graph) {}
+  constructor(private graph: Graph, private snippets: Snippets) {}
 
   callAsFunction = new Call(this);
   clearAndSetSelection = new Clear(this);
@@ -81,7 +82,7 @@ export class Actions implements ActionRecord {
   insertEmptyLineAfter = new InsertEmptyLineAfter(this.graph);
   insertEmptyLineBefore = new InsertEmptyLineBefore(this.graph);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.graph);
-  insertSnippet = new InsertSnippet(this.graph, this);
+  insertSnippet = new InsertSnippet(this.graph, this.snippets, this);
   moveToTarget = new Move(this.graph);
   outdentLine = new OutdentLine(this.graph);
   pasteFromClipboard = new PasteFromClipboard(this.graph, this);
@@ -110,5 +111,5 @@ export class Actions implements ActionRecord {
   toggleLineComment = new ToggleLineComment(this.graph);
   unfoldRegion = new Unfold(this.graph);
   wrapWithPairedDelimiter = new Wrap(this.graph);
-  wrapWithSnippet = new WrapWithSnippet(this.graph);
+  wrapWithSnippet = new WrapWithSnippet(this.graph, this.snippets);
 }

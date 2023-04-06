@@ -3,7 +3,6 @@ import { readFile, stat } from "fs/promises";
 import { cloneDeep, max, merge } from "lodash";
 import { join } from "path";
 import { ide } from "../singletons/ide.singleton";
-import { Graph } from "../typings/Graph";
 import { mergeStrict } from "../util/object";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
@@ -48,7 +47,7 @@ export class Snippets {
   private directoryErrorMessage: DirectoryErrorMessage | null | undefined =
     null;
 
-  constructor(private graph: Graph) {
+  constructor() {
     this.updateUserSnippetsPath();
 
     this.updateUserSnippets = this.updateUserSnippets.bind(this);
