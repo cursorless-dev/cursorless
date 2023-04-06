@@ -6,11 +6,11 @@ import {
 } from "@cursorless/common";
 import { hrtime } from "process";
 import { ide } from "../singletons/ide.singleton";
-import { Graph } from "../typings/Graph";
 import { abs } from "../util/bigint";
 import { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
+import { Graph } from "..";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -38,7 +38,7 @@ export class HatTokenMapImpl implements HatTokenMap {
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
-  constructor(private graph: Graph, private debug: Debug, private hats: Hats) {
+  constructor(private graph: Graph, private debug: Debug, hats: Hats) {
     ide().disposeOnExit(this);
     this.activeMap = new IndividualHatMap(graph);
 

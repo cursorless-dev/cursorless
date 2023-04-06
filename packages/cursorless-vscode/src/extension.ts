@@ -76,7 +76,6 @@ export async function activate(
 
   const graph = makeGraph({
     ...graphFactories,
-    extensionContext: () => context,
     commandServerApi: () => commandServerApi,
   } as FactoryMap<Graph>);
   graph.snippets.init();

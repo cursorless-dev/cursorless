@@ -3,6 +3,9 @@ import type { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
 
+/**
+ * Debug logger
+ */
 export class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
