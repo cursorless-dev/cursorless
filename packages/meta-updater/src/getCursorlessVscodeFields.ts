@@ -12,7 +12,7 @@ export function getCursorlessVscodeFields(input: PackageJson) {
         ([id, { title, isVisible }]) => ({
           command: id,
           title,
-          enablement: isVisible ? undefined : "false",
+          ...(isVisible ? {} : { enablement: "false" }),
         }),
       ),
     },
