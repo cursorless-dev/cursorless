@@ -1,4 +1,3 @@
-import { CommandServerApi } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 
 export interface Graph {
@@ -7,9 +6,4 @@ export interface Graph {
    * as the document changes
    */
   readonly rangeUpdater: RangeUpdater;
-
-  /**
-   * API object for interacting with the command server, if it exists
-   */
-  readonly commandServerApi: CommandServerApi | null;
 }
