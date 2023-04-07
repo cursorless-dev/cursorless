@@ -1,4 +1,4 @@
-import { RangeUpdater } from "../..";
+import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
