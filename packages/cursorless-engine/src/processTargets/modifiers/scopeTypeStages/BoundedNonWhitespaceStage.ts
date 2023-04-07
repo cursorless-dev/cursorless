@@ -1,11 +1,11 @@
-import { NoContainingScopeError } from "@cursorless/common";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  NoContainingScopeError,
 } from "@cursorless/common";
-import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
-import getModifierStage from "../../getModifierStage";
+import { Target } from "../../../typings/target.types";
+import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
 import { processSurroundingPair } from "../surroundingPair";
@@ -18,10 +18,13 @@ import { processSurroundingPair } from "../surroundingPair";
 export default class BoundedNonWhitespaceSequenceStage
   implements ModifierStage
 {
-  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private modifier: ContainingScopeModifier | EveryScopeModifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const paintStage = getModifierStage({
+    const paintStage = this.modifierStageFactory.create({
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });

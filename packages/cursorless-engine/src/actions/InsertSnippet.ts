@@ -11,6 +11,7 @@ import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import {
@@ -43,6 +44,7 @@ export default class InsertSnippet implements Action {
     private rangeUpdater: RangeUpdater,
     private snippets: Snippets,
     private actions: Actions,
+    private modifierStageFactory: ModifierStageFactory,
   ) {
     this.run = this.run.bind(this);
   }
@@ -53,7 +55,7 @@ export default class InsertSnippet implements Action {
     return defaultScopeTypes.length === 0
       ? []
       : [
-          new ModifyIfUntypedExplicitStage({
+          new ModifyIfUntypedExplicitStage(this.modifierStageFactory, {
             type: "cascading",
             modifiers: defaultScopeTypes.map((scopeType) => ({
               type: "containingScope",

@@ -1,9 +1,13 @@
-import { getScopeHandler } from ".";
-import { TextEditor, Position } from "@cursorless/common";
-import { Direction, OneOfScopeType } from "@cursorless/common";
+import {
+  Direction,
+  OneOfScopeType,
+  Position,
+  TextEditor,
+} from "@cursorless/common";
 import BaseScopeHandler from "./BaseScopeHandler";
+import { advanceIteratorsUntil, getInitialIteratorInfos } from "./IteratorInfo";
+import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { compareTargetScopes } from "./compareTargetScopes";
-import { getInitialIteratorInfos, advanceIteratorsUntil } from "./IteratorInfo";
 import type { TargetScope } from "./scope.types";
 import { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 
@@ -12,7 +16,10 @@ export default class OneOfScopeHandler extends BaseScopeHandler {
 
   private scopeHandlers: ScopeHandler[] = this.scopeType.scopeTypes.map(
     (scopeType) => {
-      const handler = getScopeHandler(scopeType, this.languageId);
+      const handler = this.scopeHandlerFactory.create(
+        scopeType,
+        this.languageId,
+      );
       if (handler == null) {
         throw new Error(`No available scope handler for '${scopeType.type}'`);
       }
@@ -28,6 +35,7 @@ export default class OneOfScopeHandler extends BaseScopeHandler {
   };
 
   constructor(
+    private scopeHandlerFactory: ScopeHandlerFactory,
     public readonly scopeType: OneOfScopeType,
     private languageId: string,
   ) {

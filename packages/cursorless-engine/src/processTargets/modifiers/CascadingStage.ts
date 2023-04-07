@@ -1,7 +1,7 @@
-import { Target } from "../../typings/target.types";
 import { CascadingModifier } from "@cursorless/common";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import getModifierStage from "../getModifierStage";
+import { Target } from "../../typings/target.types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
 
 /**
@@ -11,11 +11,16 @@ import { ModifierStage } from "../PipelineStages.types";
 export default class CascadingStage implements ModifierStage {
   private nestedStages_?: ModifierStage[];
 
-  constructor(private modifier: CascadingModifier) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private modifier: CascadingModifier,
+  ) {}
 
   private get nestedStages() {
     if (this.nestedStages_ == null) {
-      this.nestedStages_ = this.modifier.modifiers.map(getModifierStage);
+      this.nestedStages_ = this.modifier.modifiers.map(
+        this.modifierStageFactory.create,
+      );
     }
 
     return this.nestedStages_;

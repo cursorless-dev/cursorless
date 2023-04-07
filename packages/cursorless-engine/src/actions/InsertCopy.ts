@@ -8,7 +8,8 @@ import {
 import { flatten, zip } from "lodash";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
@@ -16,9 +17,15 @@ import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertCopy implements Action {
-  getFinalStages = () => [containingLineIfUntypedStage];
+  getFinalStages = () => [
+    this.modifierStageFactory.create(containingLineIfUntypedModifier),
+  ];
 
-  constructor(private rangeUpdater: RangeUpdater, private isBefore: boolean) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private modifierStageFactory: ModifierStageFactory,
+    private isBefore: boolean,
+  ) {
     this.run = this.run.bind(this);
     this.runForEditor = this.runForEditor.bind(this);
   }
@@ -90,13 +97,19 @@ class InsertCopy implements Action {
 }
 
 export class CopyContentBefore extends InsertCopy {
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, true);
+  constructor(
+    rangeUpdater: RangeUpdater,
+    modifierStageFactory: ModifierStageFactory,
+  ) {
+    super(rangeUpdater, modifierStageFactory, true);
   }
 }
 
 export class CopyContentAfter extends InsertCopy {
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, false);
+  constructor(
+    rangeUpdater: RangeUpdater,
+    modifierStageFactory: ModifierStageFactory,
+  ) {
+    super(rangeUpdater, modifierStageFactory, false);
   }
 }

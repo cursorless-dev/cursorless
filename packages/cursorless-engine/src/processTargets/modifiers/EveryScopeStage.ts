@@ -1,11 +1,10 @@
-import { NoContainingScopeError, Range } from "@cursorless/common";
 import type { EveryScopeModifier } from "@cursorless/common";
-import type { Target } from "../../typings/target.types";
+import { NoContainingScopeError, Range } from "@cursorless/common";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import getModifierStage from "../getModifierStage";
+import type { Target } from "../../typings/target.types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import getLegacyScopeStage from "./getLegacyScopeStage";
-import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
@@ -31,16 +30,25 @@ import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
  *    to the expanded target's {@link Target.contentRange}.
  */
 export class EveryScopeStage implements ModifierStage {
-  constructor(private modifier: EveryScopeModifier) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private scopeHandlerFactory: ScopeHandlerFactory,
+    private modifier: EveryScopeModifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
-    const scopeHandler = getScopeHandler(scopeType, editor.document.languageId);
+    const scopeHandler = this.scopeHandlerFactory.create(
+      scopeType,
+      editor.document.languageId,
+    );
 
     if (scopeHandler == null) {
-      return getLegacyScopeStage(this.modifier).run(context, target);
+      return this.modifierStageFactory
+        .getLegacyScopeStage(this.modifier)
+        .run(context, target);
     }
 
     let scopes: TargetScope[] | undefined;
@@ -85,7 +93,7 @@ export class EveryScopeStage implements ModifierStage {
     scopeHandler: ScopeHandler,
     target: Target,
   ): Range {
-    const containingIterationScopeModifier = getModifierStage({
+    const containingIterationScopeModifier = this.modifierStageFactory.create({
       type: "containingScope",
       scopeType: scopeHandler.iterationScopeType,
     });

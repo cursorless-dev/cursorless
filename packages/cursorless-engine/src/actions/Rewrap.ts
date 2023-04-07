@@ -1,7 +1,8 @@
 import { FlashStyle } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
-import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { containingSurroundingPairIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import {
@@ -12,9 +13,16 @@ import {
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Rewrap implements Action {
-  getFinalStages = () => [containingSurroundingPairIfUntypedStage];
+  getFinalStages = () => [
+    this.modifierStageFactory.create(
+      containingSurroundingPairIfUntypedModifier,
+    ),
+  ];
 
-  constructor(private rangeUpdater: RangeUpdater) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
     this.run = this.run.bind(this);
   }
 

@@ -1,14 +1,17 @@
+import { BreakpointDescriptor, FlashStyle } from "@cursorless/common";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
-import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { BreakpointDescriptor, FlashStyle } from "@cursorless/common";
 
 export default class ToggleBreakpoint implements Action {
-  getFinalStages = () => [containingLineIfUntypedStage];
+  getFinalStages = () => [
+    this.modifierStageFactory.create(containingLineIfUntypedModifier),
+  ];
 
-  constructor() {
+  constructor(private modifierStageFactory: ModifierStageFactory) {
     this.run = this.run.bind(this);
   }
 

@@ -9,25 +9,26 @@ import { ActionRecord } from "../../actions/actions.types";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Actions } from "../../actions/Actions";
 import { TestCaseRecorder } from "../../index";
-import processTargets from "../../processTargets";
+import { TargetPipeline } from "../../processTargets";
+import { MarkStageFactory } from "../../processTargets/MarkStageFactory";
+import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import { ide } from "../../singletons/ide.singleton";
-import { Target } from "../../typings/target.types";
 import { TreeSitter } from "../../typings/TreeSitter";
 import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
+import { Target } from "../../typings/target.types";
 import { isString } from "../../util/type";
+import { Debug } from "../Debug";
+import { ThatMark } from "../ThatMark";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { Debug } from "../Debug";
 import inferFullTargets from "../inferFullTargets";
-import { ThatMark } from "../ThatMark";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
-// TODO: Do this using the graph once we migrate its dependencies onto the graph
 export class CommandRunner {
   constructor(
     private treeSitter: TreeSitter,
@@ -37,6 +38,8 @@ export class CommandRunner {
     private actions: ActionRecord,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
+    private modifierStageFactory: ModifierStageFactory,
+    private markStageFactory: MarkStageFactory,
   ) {
     this.runCommandBackwardCompatible =
       this.runCommandBackwardCompatible.bind(this);
@@ -137,10 +140,16 @@ export class CommandRunner {
       // warning.
       checkForOldInference(partialTargetDescriptors);
 
-      const targets = processTargets(
+      // FIXME: Construct this on a per-request basis in the composition root.
+      // Then we don't need `CommandRunner` to depend on these factories and be
+      // tightly coupled to `TargetPipeline`.
+      const pipeline = new TargetPipeline(
+        this.modifierStageFactory,
+        this.markStageFactory,
         processedTargetsContext,
-        targetDescriptors,
       );
+
+      const targets = pipeline.processTargets(targetDescriptors);
 
       const {
         returnValue,

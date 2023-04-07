@@ -1,5 +1,6 @@
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
@@ -58,16 +59,28 @@ import { ActionRecord } from "./actions.types";
  * Keeps a map from action names to objects that implement the given action
  */
 export class Actions implements ActionRecord {
-  constructor(private snippets: Snippets, private rangeUpdater: RangeUpdater) {}
+  constructor(
+    private snippets: Snippets,
+    private rangeUpdater: RangeUpdater,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {}
 
   callAsFunction = new Call(this);
   clearAndSetSelection = new Clear(this);
   copyToClipboard = new CopyToClipboard(this.rangeUpdater);
   cutToClipboard = new CutToClipboard(this);
   deselect = new Deselect();
-  editNew = new EditNew(this.rangeUpdater, this);
-  editNewLineAfter = new EditNewAfter(this.rangeUpdater, this);
-  editNewLineBefore = new EditNewBefore(this.rangeUpdater, this);
+  editNew = new EditNew(this.rangeUpdater, this, this.modifierStageFactory);
+  editNewLineAfter = new EditNewAfter(
+    this.rangeUpdater,
+    this,
+    this.modifierStageFactory,
+  );
+  editNewLineBefore = new EditNewBefore(
+    this.rangeUpdater,
+    this,
+    this.modifierStageFactory,
+  );
   executeCommand = new ExecuteCommand(this.rangeUpdater);
   extractVariable = new ExtractVariable(this.rangeUpdater);
   findInWorkspace = new FindInWorkspace(this);
@@ -77,12 +90,23 @@ export class Actions implements ActionRecord {
   getText = new GetText();
   highlight = new Highlight();
   indentLine = new IndentLine(this.rangeUpdater);
-  insertCopyAfter = new InsertCopyAfter(this.rangeUpdater);
-  insertCopyBefore = new InsertCopyBefore(this.rangeUpdater);
+  insertCopyAfter = new InsertCopyAfter(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
+  insertCopyBefore = new InsertCopyBefore(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
   insertEmptyLineAfter = new InsertEmptyLineAfter(this.rangeUpdater);
   insertEmptyLineBefore = new InsertEmptyLineBefore(this.rangeUpdater);
   insertEmptyLinesAround = new InsertEmptyLinesAround(this.rangeUpdater);
-  insertSnippet = new InsertSnippet(this.rangeUpdater, this.snippets, this);
+  insertSnippet = new InsertSnippet(
+    this.rangeUpdater,
+    this.snippets,
+    this,
+    this.modifierStageFactory,
+  );
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);
   pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);
@@ -94,7 +118,10 @@ export class Actions implements ActionRecord {
   revealDefinition = new RevealDefinition(this.rangeUpdater);
   revealTypeDefinition = new RevealTypeDefinition(this.rangeUpdater);
   reverseTargets = new Reverse(this);
-  rewrapWithPairedDelimiter = new Rewrap(this.rangeUpdater);
+  rewrapWithPairedDelimiter = new Rewrap(
+    this.rangeUpdater,
+    this.modifierStageFactory,
+  );
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
@@ -107,9 +134,13 @@ export class Actions implements ActionRecord {
   showReferences = new ShowReferences(this.rangeUpdater);
   sortTargets = new Sort(this);
   swapTargets = new Swap(this.rangeUpdater);
-  toggleLineBreakpoint = new ToggleBreakpoint();
+  toggleLineBreakpoint = new ToggleBreakpoint(this.modifierStageFactory);
   toggleLineComment = new ToggleLineComment(this.rangeUpdater);
   unfoldRegion = new Unfold(this.rangeUpdater);
   wrapWithPairedDelimiter = new Wrap(this.rangeUpdater);
-  wrapWithSnippet = new WrapWithSnippet(this.rangeUpdater, this.snippets);
+  wrapWithSnippet = new WrapWithSnippet(
+    this.rangeUpdater,
+    this.snippets,
+    this.modifierStageFactory,
+  );
 }

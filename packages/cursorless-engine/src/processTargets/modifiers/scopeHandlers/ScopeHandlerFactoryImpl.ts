@@ -10,6 +10,7 @@ import {
 } from ".";
 import type { ScopeType } from "@cursorless/common";
 import type { ScopeHandler } from "./scopeHandler.types";
+import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
@@ -28,28 +29,31 @@ import type { ScopeHandler } from "./scopeHandler.types";
  * undefined if the given scope type / language id combination is still using
  * legacy pathways
  */
-export default function getScopeHandler(
-  scopeType: ScopeType,
-  languageId: string,
-): ScopeHandler | undefined {
-  switch (scopeType.type) {
-    case "character":
-      return new CharacterScopeHandler(scopeType, languageId);
-    case "word":
-      return new WordScopeHandler(scopeType, languageId);
-    case "token":
-      return new TokenScopeHandler(scopeType, languageId);
-    case "identifier":
-      return new IdentifierScopeHandler(scopeType, languageId);
-    case "line":
-      return new LineScopeHandler(scopeType, languageId);
-    case "document":
-      return new DocumentScopeHandler(scopeType, languageId);
-    case "oneOf":
-      return new OneOfScopeHandler(scopeType, languageId);
-    case "paragraph":
-      return new ParagraphScopeHandler(scopeType, languageId);
-    default:
-      return undefined;
+export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
+  constructor() {
+    this.create = this.create.bind(this);
+  }
+
+  create(scopeType: ScopeType, languageId: string): ScopeHandler | undefined {
+    switch (scopeType.type) {
+      case "character":
+        return new CharacterScopeHandler(this, scopeType, languageId);
+      case "word":
+        return new WordScopeHandler(this, scopeType, languageId);
+      case "token":
+        return new TokenScopeHandler(this, scopeType, languageId);
+      case "identifier":
+        return new IdentifierScopeHandler(this, scopeType, languageId);
+      case "line":
+        return new LineScopeHandler(scopeType, languageId);
+      case "document":
+        return new DocumentScopeHandler(scopeType, languageId);
+      case "oneOf":
+        return new OneOfScopeHandler(this, scopeType, languageId);
+      case "paragraph":
+        return new ParagraphScopeHandler(scopeType, languageId);
+      default:
+        return undefined;
+    }
   }
 }

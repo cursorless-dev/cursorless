@@ -2,6 +2,7 @@ import { FlashStyle, ScopeType } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import {
@@ -29,7 +30,11 @@ type WrapWithSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export default class WrapWithSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  constructor(private rangeUpdater: RangeUpdater, private snippets: Snippets) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private snippets: Snippets,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -41,7 +46,7 @@ export default class WrapWithSnippet implements Action {
     }
 
     return [
-      new ModifyIfUntypedStage({
+      new ModifyIfUntypedStage(this.modifierStageFactory, {
         type: "modifyIfUntyped",
         modifier: {
           type: "containingScope",
