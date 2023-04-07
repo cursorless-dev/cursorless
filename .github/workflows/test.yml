@@ -27,6 +27,9 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
     steps:
       - uses: actions/checkout@v3
+      - uses: pre-commit/action@v3.0.0
+        with:
+          extra_args: check-line-endings --all-files
       - run: find . -name "*.yml" | xargs bash ./scripts/check-line-endings.sh
         shell: bash
       - uses: pnpm/action-setup@v2
