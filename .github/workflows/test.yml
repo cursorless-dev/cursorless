@@ -27,6 +27,8 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
     steps:
       - uses: actions/checkout@v3
+      - run: bash ./scripts/check-line-endings.sh packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/*/*.yml
+        shell: bash
       - uses: pnpm/action-setup@v2
         with:
           version: 7
