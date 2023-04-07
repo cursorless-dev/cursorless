@@ -9,6 +9,7 @@
     "watch": "tsc --build --watch"
   },
   "dependencies": {
+    "@cursorless/common": "workspace:*",
     "@pnpm/lockfile-file": "7.0.5",
     "@pnpm/logger": "^5.0.0",
     "@pnpm/types": "8.9.0",
