@@ -1,6 +1,7 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { PackageJson } from "type-fest";
 import { Context } from "./Context";
+import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 
 /**
  * Given a package.json, update it to match our conventions.  This function is
@@ -55,6 +56,11 @@ export async function updatePackageJson(
           },
         };
 
+  const extraFields =
+    input.name === "@cursorless/cursorless-vscode"
+      ? getCursorlessVscodeFields(input)
+      : {};
+
   return {
     ...input,
     name,
@@ -65,5 +71,6 @@ export async function updatePackageJson(
       watch: "tsc --build --watch",
     },
     ...exportFields,
+    ...extraFields,
   } as PackageJson;
 }
