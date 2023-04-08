@@ -1,0 +1,24 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: chuck first item
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: collectionItem}
+          start: 0
+          length: 1
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "@array = ( \"one\", 2, \"_tres\" )"
+  selections:
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
+  marks: {}
+finalState:
+  documentContents: "@array = ( 2, \"_tres\" )"
+  selections:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}
