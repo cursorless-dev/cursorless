@@ -26,6 +26,8 @@ const nodeMatchers: Partial<
       "for_statement_2.array_variable!",
       "for_simple_statement.binary_expression!",
       "for_simple_statement.array_variable!",
+      "if_statement[condition]",
+      "unless_statement[condition]",
     ),
     unwrapSelectionExtractor,
   ),
