@@ -1,7 +1,9 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import { Document, ParsedNode } from "yaml";
 import { Context } from "./Context";
-import { getPackageDeps } from "./getPackageDeps";
+import { Lockfile } from "@pnpm/lockfile-file";
+import { pickBy } from "lodash";
+import { mergeStrict } from "./mergeStrict";
 
 /**
  * Subset of the .pre-commit-config.yaml schema that we care about.
@@ -46,11 +48,9 @@ export async function updatePreCommit(
     throw new Error("updatePreCommit should only be called on root");
   }
 
-  const deps = getPackageDeps(workspaceDir, packageDir, pnpmLockfile);
-
-  updateHook(deps, rawInput, "prettier", (name) => name === "prettier");
+  updateHook(pnpmLockfile, rawInput, "prettier", (name) => name === "prettier");
   updateHook(
-    deps,
+    pnpmLockfile,
     rawInput,
     "eslint",
     (name) => name.includes("eslint") || name === "typescript",
@@ -62,8 +62,8 @@ export async function updatePreCommit(
 /**
  * Updates the additional_dependencies of a hook in a .pre-commit-config.yaml to
  * match the versions from the lockfile.
- * @param deps Dependencies of the package whose .pre-commit-config.yaml we are
- * updating
+ * @param pnpmLockfile The pnpm lockfile, which contains the versions of all
+ * packages in the workspace
  * @param rawInput The input .pre-commit-config.yaml that should be checked /
  * updated
  * @param hookId The id of the hook to update
@@ -71,13 +71,22 @@ export async function updatePreCommit(
  * should be added to the hook's additional_dependencies
  */
 function updateHook(
-  deps: { [x: string]: string },
+  pnpmLockfile: Lockfile,
   rawInput: Document<ParsedNode>,
   hookId: string,
   packageMatcher: (name: string) => boolean,
 ) {
-  const packages = Object.entries(deps).filter(([name]) =>
-    packageMatcher(name),
+  // Find all packages that match the given packageMatcher in the dependencies
+  // of any package in the workspace
+  const packages = Object.entries(
+    mergeStrict(
+      ...Object.values(pnpmLockfile.importers)
+        .flatMap((packageInfo) => [
+          packageInfo.dependencies ?? {},
+          packageInfo.devDependencies ?? {},
+        ])
+        .map((deps) => pickBy(deps, (_, key) => packageMatcher(key))),
+    ),
   );
 
   // Find the hook in the .pre-commit-config.yaml.  Easier to grab the indices
