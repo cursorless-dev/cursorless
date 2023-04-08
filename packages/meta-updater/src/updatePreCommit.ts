@@ -49,6 +49,12 @@ export async function updatePreCommit(
   const deps = getPackageDeps(workspaceDir, packageDir, pnpmLockfile);
 
   updateHook(deps, rawInput, "prettier", (name) => name === "prettier");
+  updateHook(
+    deps,
+    rawInput,
+    "eslint",
+    (name) => name.includes("eslint") || name === "typescript",
+  );
 
   return rawInput;
 }

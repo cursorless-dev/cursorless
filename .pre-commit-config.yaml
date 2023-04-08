@@ -46,6 +46,23 @@ repos:
         additional_dependencies:
           - prettier@2.7.1
         args: []
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        files: \.(ts|tsx)$
+        language: node
+        entry: eslint --fix
+        additional_dependencies:
+          - "@typescript-eslint/eslint-plugin@5.57.0"
+          - "@typescript-eslint/parser@5.57.0"
+          - eslint-config-prettier@8.6.0
+          - eslint-import-resolver-typescript@3.5.4
+          - eslint-plugin-import@2.27.5
+          - eslint-plugin-unused-imports@2.0.0
+          - eslint@8.35.0
+          - typescript@5.0.3
+        args: []
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:
