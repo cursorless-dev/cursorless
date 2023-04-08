@@ -1,6 +1,6 @@
 languageId: perl
 command:
-  version: 4
+  version: 5
   spokenForm: change arg
   action: {name: clearAndSetSelection}
   targets:
@@ -15,8 +15,4 @@ initialState:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
   marks: {}
-finalState:
-  documentContents: some_funky_func(  )
-  selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+thrownError: {name: NoContainingScopeError}

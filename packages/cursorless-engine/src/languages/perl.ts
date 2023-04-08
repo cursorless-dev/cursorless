@@ -1,4 +1,5 @@
 import {
+  argumentMatcher,
   cascadingMatcher,
   createPatternMatchers,
   matcher,
@@ -54,7 +55,7 @@ const nodeMatchers: Partial<
   ],
   collectionKey: "key_value_pair[key]",
   collectionItem: "hash[variable]",
-  argumentOrParameter: ["argument", "parenthesized_argument.arguments!"],
+  argumentOrParameter: argumentMatcher("arguments"),
   class: [
     "package_statement!.block[body]",
     "source_file!.package_statement",
