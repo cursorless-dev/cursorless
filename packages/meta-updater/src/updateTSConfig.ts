@@ -5,6 +5,7 @@ import exists from "path-exists";
 import { TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
 import { Context } from "./Context";
+import { getPackageDeps } from "./getPackageDeps";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -41,24 +42,11 @@ export async function updateTSConfig(
     };
   }
 
-  const pathFromRootToPackage = normalizePath(
-    path.relative(workspaceDir, packageDir),
-  );
   const pathFromPackageToRoot = normalizePath(
     path.relative(packageDir, workspaceDir),
   );
 
-  /** Info about package dependencies gleaned from lock file. */
-  const lockFilePackageInfo = pnpmLockfile.importers[pathFromRootToPackage];
-  if (!lockFilePackageInfo) {
-    // Raise an error here because there should always be an entry in the lockfile.
-    throw new Error(`No importer found for ${pathFromRootToPackage}`);
-  }
-
-  const deps = {
-    ...lockFilePackageInfo.dependencies,
-    ...lockFilePackageInfo.devDependencies,
-  };
+  const deps = getPackageDeps(workspaceDir, packageDir, pnpmLockfile);
 
   /** Computed tsconfig.json references based on dependencies. */
   const references = [] as Array<{ path: string }>;

@@ -7,6 +7,8 @@ import { createUpdateOptions } from "@pnpm/meta-updater";
 import { Context } from "./Context";
 import { updatePackageJson } from "./updatePackageJson";
 import { updateTSConfig } from "./updateTSConfig";
+import { updatePreCommit } from "./updatePreCommit";
+import { formats } from "./formats";
 
 export const updater = async (workspaceDir: string) => {
   const pnpmLockfile = await readWantedLockfile(workspaceDir, {
@@ -23,7 +25,11 @@ export const updater = async (workspaceDir: string) => {
   };
 
   return createUpdateOptions({
-    ["package.json"]: updatePackageJson.bind(null, context),
-    ["tsconfig.json"]: updateTSConfig.bind(null, context),
+    files: {
+      ["package.json"]: updatePackageJson.bind(null, context),
+      ["tsconfig.json"]: updateTSConfig.bind(null, context),
+      [".pre-commit-config.yaml"]: updatePreCommit.bind(null, context),
+    },
+    formats,
   });
 };

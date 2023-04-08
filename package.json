@@ -11,7 +11,7 @@
     "watch": "tsc --build --watch",
     "init-vscode-sandbox": "pnpm --filter=@cursorless/cursorless-vscode-core init-launch-sandbox",
     "meta-updater:base": "pnpm --filter=@cursorless/meta-updater build && meta-updater",
-    "meta-updater": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
+    "meta-updater": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json && pnpm -w exec prettier --write .pre-commit-config.yaml",
     "lint:meta": "pnpm run meta-updater:base --test",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
     "lint:ts": "eslint packages --ext ts",
@@ -40,7 +40,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@docusaurus/theme-search-algolia@2.3.1": "patches/@docusaurus__theme-search-algolia@2.3.1.patch"
+      "@docusaurus/theme-search-algolia@2.3.1": "patches/@docusaurus__theme-search-algolia@2.3.1.patch",
+      "@pnpm/meta-updater@0.2.2": "patches/@pnpm__meta-updater@0.2.2.patch"
     },
     "peerDependencyRules": {
       "ignoreMissing": [

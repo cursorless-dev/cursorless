@@ -15,7 +15,9 @@
     "@types/normalize-path": "^3.0.0",
     "normalize-path": "^3.0.0",
     "path-exists": "^4.0.0",
-    "type-fest": "3.6.1"
+    "ramda": "0.29.0",
+    "type-fest": "3.6.1",
+    "yaml": "2.2.1"
   },
   "main": "./out/index.js",
   "types": "./out/index.d.ts",
@@ -27,6 +29,7 @@
     }
   },
   "devDependencies": {
+    "@types/ramda": "0.28.23",
     "esbuild": "^0.17.11"
   }
 }

@@ -1,0 +1,27 @@
+diff --git a/lib/index.js b/lib/index.js
+index d24112f5fedba5a9d7c5bd85221652a8f0bf09e1..2af95628f80926b8c4c9c774d9135a95b465959c 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -48,7 +48,8 @@ export async function performUpdates(workspaceDir, updateParam, opts) {
+                 _writeProjectManifest: writeProjectManifest,
+             };
+             const actual = (await fileExists(resolvedPath)) ? await formatPlugin.read(formatHandlerOptions) : null;
+-            const expected = await formatPlugin.update(clone(actual), updateFile, formatHandlerOptions);
++            const customClone = formatPlugin.clone == null ? clone : formatPlugin.clone;
++            const expected = await formatPlugin.update(customClone(actual), updateFile, formatHandlerOptions);
+             const equal = (actual == null && expected == null) ||
+                 (actual != null && expected != null && (await formatPlugin.equal(expected, actual, formatHandlerOptions)));
+             if (equal) {
+diff --git a/lib/updater/formatPlugin.d.ts b/lib/updater/formatPlugin.d.ts
+index 887845721b09e17b95dd0789a5db8de72c04a654..2e47ba30b25661cec37d3ab1dcca1d8908a1eb21 100644
+--- a/lib/updater/formatPlugin.d.ts
++++ b/lib/updater/formatPlugin.d.ts
+@@ -12,6 +12,8 @@ export interface FormatPlugin<Content> {
+     equal(expected: Content, actual: Content, options: FormatPluginFnOptions): PromiseOrValue<boolean>;
+     /** Called only if write is required (`--test` isn't specified, `expected != null` and `expected` is not equal to `actual`) */
+     write(expected: Content, options: FormatPluginFnOptions): PromiseOrValue<void>;
++    /** Can be used to override the built-in clone functionality */
++    clone?(content: Content): PromiseOrValue<Content>;
+ }
+ export interface FormatPluginFnOptions {
+     file: string;
