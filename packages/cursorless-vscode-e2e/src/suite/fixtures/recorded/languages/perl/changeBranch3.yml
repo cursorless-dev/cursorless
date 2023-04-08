@@ -1,0 +1,34 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: change branch
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    if ( 1 ) {
+        2;
+    } elsif ( 3 ) {
+        4;
+    } else {
+        5;
+    }
+  selections:
+    - anchor: {line: 4, character: 2}
+      active: {line: 4, character: 2}
+  marks: {}
+finalState:
+  documentContents: |
+    if ( 1 ) {
+        2;
+    } elsif ( 3 ) {
+        4;
+    } 
+  selections:
+    - anchor: {line: 4, character: 2}
+      active: {line: 4, character: 2}

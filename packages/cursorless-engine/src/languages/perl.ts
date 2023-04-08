@@ -12,6 +12,7 @@ import {
   unwrapSelectionExtractor,
 } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";
+import { branchMatcher } from "./branchMatcher";
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
@@ -74,6 +75,9 @@ const nodeMatchers: Partial<
   className: "package_statement.package_name!",
   name: ["function_definition[name]", "*[key]"],
   value: ["*[value]"],
+  branch: cascadingMatcher(
+    branchMatcher("if_statement", ["else_clause", "elsif_clause"]),
+  ),
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
