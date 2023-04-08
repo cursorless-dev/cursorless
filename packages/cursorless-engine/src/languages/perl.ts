@@ -19,7 +19,14 @@ const nodeMatchers: Partial<
   map: "hash",
   list: "array",
   condition: matcher(
-    patternFinder("while_statement[condition]"),
+    patternFinder(
+      "while_statement[condition]",
+      "for_statement_1.binary_expression!",
+      "for_statement_2.binary_expression!",
+      "for_statement_2.array_variable!",
+      "for_simple_statement.binary_expression!",
+      "for_simple_statement.array_variable!",
+    ),
     unwrapSelectionExtractor,
   ),
   string: [
