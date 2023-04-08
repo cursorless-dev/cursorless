@@ -3,6 +3,9 @@ import { Document, ParsedNode } from "yaml";
 import { Context } from "./Context";
 import { getPackageDeps } from "./getPackageDeps";
 
+/**
+ * Subset of the .pre-commit-config.yaml schema that we care about.
+ */
 interface PreCommitConfig {
   repos: {
     hooks: {
@@ -14,15 +17,19 @@ interface PreCommitConfig {
 }
 
 /**
- * Given a tsconfig.json, update it to match our conventions.  This function is
- * called by the pnpm `meta-updater` plugin either to check if the tsconfig.json
- * is up to date or to update it, depending on flags.
+ * Given a .pre-commit-config.yaml, update it to ensure that the versions of our
+ * hooks match the corresponding package versions in package.json.  This
+ * function is called by the pnpm `meta-updater` plugin either to check if the
+ * .pre-commit-config.yaml is up to date or to update it, depending on flags.
  * @param context Contains context such as workspace dir and parsed pnpm
  * lockfile
- * @param rawInput The input tsconfig.json that should be checked / updated
+ * @param rawInput The input .pre-commit-config.yaml that should be checked /
+ * updated. This is a parsed yaml document in the `yaml` library's document
+ * representation; not a plain js object like you'd get from a json parser.  We
+ * need it like this so that we can preserve comments.
  * @param options Extra information provided by pnpm; mostly just the directory
- * of the package whose tsconfig.json we are updating
- * @returns The updated tsconfig.json
+ * of the package whose .pre-commit-config.yaml we are updating
+ * @returns The updated .pre-commit-config.yaml
  */
 export async function updatePreCommit(
   { workspaceDir, pnpmLockfile }: Context,
@@ -32,7 +39,7 @@ export async function updatePreCommit(
   if (rawInput == null) {
     return null;
   }
-  /** Directory of the package whose tsconfig.json we are updating */
+  /** Directory of the package whose .pre-commit-config.yaml we are updating */
   const packageDir = options.dir;
 
   if (packageDir !== workspaceDir) {
@@ -40,28 +47,65 @@ export async function updatePreCommit(
   }
 
   const deps = getPackageDeps(workspaceDir, packageDir, pnpmLockfile);
-  const prettierVersion = deps["prettier"];
 
-  const prettierHookIndex = (rawInput.toJS() as PreCommitConfig).repos
+  updateHook(deps, rawInput, "prettier", (name) => name === "prettier");
+
+  return rawInput;
+}
+
+/**
+ * Updates the additional_dependencies of a hook in a .pre-commit-config.yaml to
+ * match the versions from the lockfile.
+ * @param deps Dependencies of the package whose .pre-commit-config.yaml we are
+ * updating
+ * @param rawInput The input .pre-commit-config.yaml that should be checked /
+ * updated
+ * @param hookId The id of the hook to update
+ * @param packageMatcher A function that returns true if the given package name
+ * should be added to the hook's additional_dependencies
+ */
+function updateHook(
+  deps: { [x: string]: string },
+  rawInput: Document<ParsedNode>,
+  hookId: string,
+  packageMatcher: (name: string) => boolean,
+) {
+  const packages = Object.entries(deps).filter(([name]) =>
+    packageMatcher(name),
+  );
+
+  // Find the hook in the .pre-commit-config.yaml.  Easier to grab the indices
+  // from the raw js representation so that we can just use `setIn` to update
+  // the hook
+  const desiredHooks = (rawInput.toJS() as PreCommitConfig).repos
     .flatMap(({ hooks }, repoIndex) =>
       hooks.map((hook, hookIndex) => ({ hook, repoIndex, hookIndex })),
     )
-    .filter(({ hook }) => hook.id === "prettier");
+    .filter(({ hook }) => hook.id === hookId);
 
-  if (prettierHookIndex.length === 0) {
-    throw new Error("No prettier hook found");
+  if (desiredHooks.length === 0) {
+    throw new Error(`No ${hookId} hook found`);
   }
 
-  if (prettierHookIndex.length > 1) {
-    throw new Error("Multiple prettier hooks found");
+  if (desiredHooks.length > 1) {
+    throw new Error(`Multiple ${hookId} hooks found`);
   }
 
-  const { repoIndex, hookIndex } = prettierHookIndex[0];
+  const { repoIndex, hookIndex } = desiredHooks[0];
 
   rawInput.setIn(
     ["repos", repoIndex, "hooks", hookIndex, "additional_dependencies"],
-    rawInput.createNode([`prettier@${prettierVersion}`]),
+    rawInput.createNode(
+      packages
+        .map(([name, version]) => {
+          if (version.includes("(")) {
+            // pnpm includes the integrity hash in the version, which we don't
+            // need here
+            version = version.slice(0, version.indexOf("("));
+          }
+          return `${name}@${version}`;
+        })
+        .sort(),
+    ),
   );
-
-  return rawInput;
 }

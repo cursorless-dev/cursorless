@@ -2,6 +2,15 @@ import normalizePath from "normalize-path";
 import path from "path";
 import { Lockfile } from "@pnpm/lockfile-file";
 
+/**
+ * Get the dependencies of the given package from the pnpm lockfile.
+ * @param workspaceDir The root of the workspace
+ * @param packageDir The directory of the package whose dependencies we are
+ * retrieving
+ * @param pnpmLockfile The parsed pnpm lockfile
+ * @returns A map of package names to package specs for the dependencies of the
+ * given package
+ */
 export function getPackageDeps(
   workspaceDir: string,
   packageDir: string,

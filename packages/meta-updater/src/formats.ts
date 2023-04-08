@@ -4,6 +4,11 @@ import { equals } from "ramda";
 import yaml from "yaml";
 
 export const formats = {
+  /**
+   * A format that today we just use for .pre-commit-config.yaml files.  This is a yaml file, but we
+   * need to preserve comments, so we use the `yaml` library's document representation instead of
+   * parsing it into a plain js object.
+   */
   [".yaml"]: createFormat({
     async read({ resolvedPath }) {
       return yaml.parseDocument(await readFile(resolvedPath, "utf-8")).clone();
