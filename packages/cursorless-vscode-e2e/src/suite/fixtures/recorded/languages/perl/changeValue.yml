@@ -1,0 +1,24 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: change value
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    %foo = ( bar => "baz" );
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 21}
+  marks: {}
+finalState:
+  documentContents: |
+    %foo = ( bar =>  );
+  selections:
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
