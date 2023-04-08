@@ -21,7 +21,7 @@ const nodeMatchers: Partial<
   condition: matcher(
     patternFinder(
       "while_statement[condition]",
-      "for_statement_1.binary_expression!",
+      "for_statement_1[condition]",
       "for_statement_2.binary_expression!",
       "for_statement_2.array_variable!",
       "for_simple_statement.binary_expression!",
