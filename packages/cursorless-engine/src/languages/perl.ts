@@ -72,6 +72,7 @@ const nodeMatchers: Partial<
     "source_file",
   ],
   className: "package_statement.package_name!",
+  name: ["function_definition[name]", "*[key]"],
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
