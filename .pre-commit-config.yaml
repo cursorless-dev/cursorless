@@ -42,7 +42,7 @@ repos:
         name: eslint
         files: \.(ts|tsx)$
         language: system
-        entry: pnpm pre-commit:eslint
+        entry: pnpm
         args: [exec, eslint, --fix]
   - repo: local
     hooks:
