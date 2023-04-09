@@ -43,6 +43,7 @@ repos:
         files: \.(ts|tsx)$
         language: system
         entry: pnpm pre-commit:eslint
+        args: [exec, eslint, --fix]
   - repo: local
     hooks:
       - id: prettier
@@ -50,7 +51,7 @@ repos:
         types: [text]
         language: system
         entry: pnpm
-        args: [prettier, --write, --list-different, --ignore-unknown]
+        args: [exec, prettier, --write, --list-different, --ignore-unknown]
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:
