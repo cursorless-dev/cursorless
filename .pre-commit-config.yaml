@@ -42,16 +42,16 @@ repos:
         name: eslint
         files: \.(ts|tsx)$
         language: system
-        entry: pnpm
-        args: [exec, eslint, --fix]
+        entry: pnpm exec eslint
+        args: [--fix]
   - repo: local
     hooks:
       - id: prettier
         name: prettier
         types: [text]
         language: system
-        entry: pnpm
-        args: [exec, prettier, --write, --list-different, --ignore-unknown]
+        entry: pnpm exec prettier
+        args: [--write, --list-different, --ignore-unknown]
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:
