@@ -38,16 +38,6 @@ repos:
         exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
   - repo: local
     hooks:
-      - id: prettier
-        name: prettier
-        types: [text]
-        language: node
-        entry: prettier --write --list-different --ignore-unknown
-        additional_dependencies:
-          - prettier@2.7.1
-        args: []
-  - repo: local
-    hooks:
       - id: eslint
         name: eslint
         files: \.(ts|tsx)$
@@ -63,6 +53,16 @@ repos:
           - eslint-plugin-unused-imports@2.0.0
           - eslint@8.35.0
           - typescript@5.0.3
+        args: []
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        types: [text]
+        language: node
+        entry: prettier --write --list-different --ignore-unknown
+        additional_dependencies:
+          - prettier@2.7.1
         args: []
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
