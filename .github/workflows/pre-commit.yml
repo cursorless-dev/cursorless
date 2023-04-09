@@ -27,5 +27,5 @@ jobs:
           cache: pnpm
       - run: pnpm --color install
       - uses: pre-commit/action@v3.0.0
-      - uses: pre-commit-ci/lite-action@v1.0.1
+      - uses: stefanzweifel/git-auto-commit-action@v4
         if: always()
