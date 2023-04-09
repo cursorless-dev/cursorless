@@ -3,7 +3,6 @@ from talon import Module, actions, app
 from ..csv_overrides import init_csv_and_watch_changes
 from ..primitive_target import IMPLICIT_TARGET
 from .actions_callback import callback_action_defaults, callback_action_map
-from .actions_custom import custom_action_defaults
 from .actions_simple import (
     no_wait_actions,
     no_wait_actions_post_sleep,
@@ -83,7 +82,6 @@ default_values = {
     "simple_action": simple_action_defaults,
     "positional_action": positional_action_defaults,
     "callback_action": callback_action_defaults,
-    "custom_action": custom_action_defaults,
     "swap_action": {"swap": "swapTargets"},
     "move_bring_action": {"bring": "replaceWithTarget", "move": "moveToTarget"},
     "wrap_action": {"wrap": "wrapWithPairedDelimiter", "repack": "rewrap"},
@@ -95,7 +93,7 @@ default_values = {
 ACTION_LIST_NAMES = default_values.keys()
 
 
-def on_ready():
+def on_ready() -> None:
     init_csv_and_watch_changes("actions", default_values)
 
 
