@@ -49,7 +49,8 @@ repos:
         name: prettier
         types: [text]
         language: system
-        entry: pnpm pre-commit:prettier
+        entry: pnpm
+        args: [prettier, --write, --list-different, --ignore-unknown]
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:
