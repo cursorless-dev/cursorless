@@ -17,6 +17,7 @@ export default class PositionTarget extends BaseTarget {
   private isLineDelimiter: boolean;
   private isBefore: boolean;
   private indentationString: string;
+  private editNewActionType: EditNewActionType;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
@@ -33,6 +34,12 @@ export default class PositionTarget extends BaseTarget {
           parameters.thatTarget!.contentRange,
         )
       : "";
+    this.editNewActionType =
+      this.insertionDelimiter === "\n" &&
+      this.position === "after" &&
+      parameters.thatTarget!.contentRange.isSingleLine
+        ? "insertLineAfter"
+        : "edit";
   }
 
   getLeadingDelimiterTarget = () => undefined;
@@ -41,11 +48,7 @@ export default class PositionTarget extends BaseTarget {
   getRemovalRange = () => removalUnsupportedForPosition(this.position);
 
   getEditNewActionType(): EditNewActionType {
-    if (this.insertionDelimiter === "\n" && this.position === "after") {
-      return "insertLineAfter";
-    }
-
-    return "edit";
+    return this.editNewActionType;
   }
 
   constructChangeEdit(text: string): EditWithRangeUpdater {

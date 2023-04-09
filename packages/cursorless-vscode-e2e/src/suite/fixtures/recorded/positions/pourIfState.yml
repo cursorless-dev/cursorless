@@ -1,0 +1,26 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: pour if state
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: ifStatement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    if True:
+        foo = "bar"
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    if True:
+        foo = "bar"
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
