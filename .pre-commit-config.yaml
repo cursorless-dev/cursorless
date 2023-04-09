@@ -12,13 +12,10 @@ repos:
         entry: Forbid symlinks
         language: fail
         types: [symlink]
-  - repo: local
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.1
     hooks:
-      - id: check-line-endings
-        name: check for CRLF line endings
-        language: system
-        entry: bash ./scripts/check-line-endings.sh
-        types: [file]
+      - id: forbid-crlf
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
