@@ -24,21 +24,15 @@ export class VscodeHats implements Hats {
   private isEnabledNotifier: Notifier<[boolean]> = new Notifier();
   private hatRanges: HatRange[] = [];
 
-  constructor(
-    private ide: VscodeIDE,
-    extensionContext: vscode.ExtensionContext,
-  ) {
-    this.enabledHatStyleManager = new VscodeEnabledHatStyleManager(
-      extensionContext,
-    );
+  constructor(private ide: VscodeIDE, extensionContext: vscode.ExtensionContext) {
+    this.enabledHatStyleManager = new VscodeEnabledHatStyleManager(extensionContext);
     this.hatRenderer = new VscodeHatRenderer(
       extensionContext,
       this.enabledHatStyleManager,
     );
 
     this.toggle = this.toggle.bind(this);
-    this.handleHatDecorationMapUpdated =
-      this.handleHatDecorationMapUpdated.bind(this);
+    this.handleHatDecorationMapUpdated = this.handleHatDecorationMapUpdated.bind(this);
 
     this.hatRenderer.registerListener(this.handleHatDecorationMapUpdated);
 
@@ -47,10 +41,7 @@ export class VscodeHats implements Hats {
       .get<boolean>("showOnStart")!;
 
     extensionContext.subscriptions.push(
-      vscode.commands.registerCommand(
-        "cursorless.toggleDecorations",
-        this.toggle,
-      ),
+      vscode.commands.registerCommand("cursorless.toggleDecorations", this.toggle),
     );
   }
 
@@ -64,11 +55,7 @@ export class VscodeHats implements Hats {
   }
 
   private handleHatDecorationMapUpdated() {
-    if (
-      this.hatRanges.some(
-        ({ styleName }) => !(styleName in this.enabledHatStyles),
-      )
-    ) {
+    if (this.hatRanges.some(({ styleName }) => !(styleName in this.enabledHatStyles))) {
       // This happens if the user updated multiple settings simultaneously: one
       // that affects hat rendering and one that alters the set of available
       // hats. If the render setting notification fires first, then applying the
@@ -109,9 +96,7 @@ export class VscodeHats implements Hats {
     decorationRanges.forEach((ranges, editor) => {
       hatStyleNames.forEach((hatStyleName) => {
         (editor as VscodeTextEditorImpl).vscodeEditor.setDecorations(
-          this.hatRenderer.getDecorationType(
-            hatStyleName as VscodeHatStyleName,
-          )!,
+          this.hatRenderer.getDecorationType(hatStyleName as VscodeHatStyleName)!,
           ranges[hatStyleName]?.map((range) => toVscodeRange(range)) ?? [],
         );
       });

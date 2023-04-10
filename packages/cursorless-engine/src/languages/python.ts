@@ -13,10 +13,7 @@ import {
   patternMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
-import {
-  argumentSelectionExtractor,
-  childRangeSelector,
-} from "../util/nodeSelectors";
+import { argumentSelectionExtractor, childRangeSelector } from "../util/nodeSelectors";
 import { branchMatcher } from "./branchMatcher";
 import { ternaryBranchMatcher } from "./ternaryBranchMatcher";
 
@@ -65,8 +62,7 @@ function itemNodeFinder(
     const childNode = finder(node, selection);
     if (
       childNode?.type === childType &&
-      (!excludeFirstChild ||
-        childNode.id !== childNode.parent?.firstNamedChild?.id)
+      (!excludeFirstChild || childNode.id !== childNode.parent?.firstNamedChild?.id)
     ) {
       return childNode;
     }
@@ -74,9 +70,7 @@ function itemNodeFinder(
   };
 }
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   map: dictionaryTypes,
   list: listTypes,
   statement: STATEMENT_TYPES,
@@ -110,10 +104,7 @@ const nodeMatchers: Partial<
     // Ternaries
     patternMatcher("conditional_expression[1]"),
   ),
-  type: leadingMatcher(
-    ["function_definition[return_type]", "*[type]"],
-    [":", "->"],
-  ),
+  type: leadingMatcher(["function_definition[return_type]", "*[type]"], [":", "->"]),
   name: [
     "assignment[left]",
     "augmented_assignment[left]",

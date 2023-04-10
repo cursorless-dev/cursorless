@@ -43,11 +43,7 @@ import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
-import {
-  SetSelection,
-  SetSelectionAfter,
-  SetSelectionBefore,
-} from "./SetSelection";
+import { SetSelection, SetSelectionAfter, SetSelectionBefore } from "./SetSelection";
 import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";

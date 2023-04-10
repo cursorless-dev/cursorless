@@ -28,10 +28,7 @@ export default function getOffsetsForDeleteOrReplace(
   rangeInfo: FullRangeInfo,
 ): RangeOffsets {
   const {
-    originalOffsets: {
-      start: changeOriginalStartOffset,
-      end: changeOriginalEndOffset,
-    },
+    originalOffsets: { start: changeOriginalStartOffset, end: changeOriginalEndOffset },
     finalOffsets: { end: changeFinalEndOffset },
     displacement,
   } = changeEventInfo;
@@ -44,8 +41,7 @@ export default function getOffsetsForDeleteOrReplace(
     () => "Change range expected to be nonempty",
   );
   invariant(
-    changeOriginalEndOffset >= rangeStart &&
-      changeOriginalStartOffset <= rangeEnd,
+    changeOriginalEndOffset >= rangeStart && changeOriginalStartOffset <= rangeEnd,
     () => "Change range expected to intersect with selection range",
   );
 

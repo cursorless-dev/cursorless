@@ -40,8 +40,7 @@ export function createContinuousLineRange(
 
   const end = includeEnd
     ? endTarget.contentRange.end
-    : endTarget.editor.document.lineAt(endTarget.contentRange.start.line - 1)
-        .range.end;
+    : endTarget.editor.document.lineAt(endTarget.contentRange.start.line - 1).range.end;
 
   return new Range(start, end);
 }
@@ -53,9 +52,7 @@ export function createSimpleContinuousRangeTarget(
   includeStart: boolean = true,
   includeEnd: boolean = true,
 ) {
-  const isForward = target1.contentRange.start.isBefore(
-    target2.contentRange.start,
-  );
+  const isForward = target1.contentRange.start.isBefore(target2.contentRange.start);
   const anchorTarget = isForward ? target1 : target2;
   const activeTarget = isForward ? target2 : target1;
 

@@ -22,10 +22,7 @@ export const negativePenalty: HatMetric = ({ penalty }) => -penalty;
  * that we'd steal the hat from
  */
 export function hatOldTokenRank(
-  hatOldTokenRanks: CompositeKeyMap<
-    { grapheme: string; hatStyle: string },
-    number
-  >,
+  hatOldTokenRanks: CompositeKeyMap<{ grapheme: string; hatStyle: string }, number>,
 ): HatMetric {
   return ({ grapheme: { text: grapheme }, style }) => {
     const hatOldTokenRank = hatOldTokenRanks.get({
@@ -61,8 +58,7 @@ export function minimumTokenRankContainingGrapheme(
  */
 export function isOldTokenHat(oldTokenHat: TokenHat | undefined): HatMetric {
   return (hat) =>
-    hat.grapheme.text === oldTokenHat?.grapheme &&
-    hat.style === oldTokenHat?.hatStyle
+    hat.grapheme.text === oldTokenHat?.grapheme && hat.style === oldTokenHat?.hatStyle
       ? 1
       : 0;
 }

@@ -1,16 +1,9 @@
 import { Position, Range, Selection, TextEditor } from "@cursorless/common";
 import { identity, maxBy } from "lodash";
 import type { Point, SyntaxNode } from "web-tree-sitter";
-import {
-  NodeFinder,
-  SelectionExtractor,
-  SelectionWithContext,
-} from "../typings/Types";
+import { NodeFinder, SelectionExtractor, SelectionWithContext } from "../typings/Types";
 
-export function makeRangeFromPositions(
-  startPosition: Point,
-  endPosition: Point,
-) {
+export function makeRangeFromPositions(startPosition: Point, endPosition: Point) {
   return new Range(
     startPosition.row,
     startPosition.column,
@@ -361,10 +354,7 @@ export function delimitedSelector(
       startNode,
       isDelimiterNode,
     );
-    const nextNonDelimiterNode = getNextNonDelimiterNode(
-      endNode,
-      isDelimiterNode,
-    );
+    const nextNonDelimiterNode = getNextNonDelimiterNode(endNode, isDelimiterNode);
 
     if (previousNonDelimiterNode != null) {
       leadingDelimiterRange = makeRangeFromPositions(
@@ -389,10 +379,7 @@ export function delimitedSelector(
 
     return {
       selection: new Selection(
-        new Position(
-          startNode.startPosition.row,
-          startNode.startPosition.column,
-        ),
+        new Position(startNode.startPosition.row, startNode.startPosition.column),
         new Position(endNode.endPosition.row, endNode.endPosition.column),
       ),
       context: {

@@ -148,9 +148,7 @@ function blockFinder(node: SyntaxNode) {
   return block;
 }
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   map: mapTypes,
   list: listTypes,
   statement: cascadingMatcher(

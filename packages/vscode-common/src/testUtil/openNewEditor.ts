@@ -26,9 +26,7 @@ export async function openNewEditor(
     openBeside ? vscode.ViewColumn.Beside : undefined,
   );
 
-  const eol = content.includes("\r\n")
-    ? vscode.EndOfLine.CRLF
-    : vscode.EndOfLine.LF;
+  const eol = content.includes("\r\n") ? vscode.EndOfLine.CRLF : vscode.EndOfLine.LF;
   if (eol !== editor.document.eol) {
     await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
   }
@@ -55,9 +53,7 @@ export async function reuseEditor(
       content,
     );
 
-    const eol = content.includes("\r\n")
-      ? vscode.EndOfLine.CRLF
-      : vscode.EndOfLine.LF;
+    const eol = content.includes("\r\n") ? vscode.EndOfLine.CRLF : vscode.EndOfLine.LF;
     if (eol !== editor.document.eol) {
       editBuilder.setEndOfLine(eol);
     }
@@ -82,11 +78,7 @@ export async function openNewNotebookEditor(
     new vscode.NotebookData(
       cellContents.map(
         (contents) =>
-          new vscode.NotebookCellData(
-            vscode.NotebookCellKind.Code,
-            contents,
-            language,
-          ),
+          new vscode.NotebookCellData(vscode.NotebookCellKind.Code, contents, language),
       ),
     ),
   );

@@ -12,8 +12,7 @@ suite("Group by document", async function () {
 });
 
 async function runTest() {
-  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi())
-    .testHelpers!;
+  const { hatTokenMap, toVscodeEditor } = (await getCursorlessApi()).testHelpers!;
 
   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
 
@@ -34,14 +33,12 @@ async function runTest() {
   const hat1 = hatMap
     .getEntries()
     .find(
-      ([, token]) =>
-        toVscodeEditor(token.editor) === editor1 && token.text === "hello",
+      ([, token]) => toVscodeEditor(token.editor) === editor1 && token.text === "hello",
     );
   const hat2 = hatMap
     .getEntries()
     .find(
-      ([, token]) =>
-        toVscodeEditor(token.editor) === editor2 && token.text === "world",
+      ([, token]) => toVscodeEditor(token.editor) === editor2 && token.text === "world",
     );
 
   const { hatStyle: hatStyle1, character: char1 } = splitKey(hat1![0]);

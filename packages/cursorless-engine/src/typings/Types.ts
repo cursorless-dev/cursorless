@@ -88,10 +88,7 @@ export type NodeMatcher = (
  * Returns the desired relative of the provided node.
  * Returns null if matching node not found.
  **/
-export type NodeFinder = (
-  node: SyntaxNode,
-  selection?: Selection,
-) => SyntaxNode | null;
+export type NodeFinder = (node: SyntaxNode, selection?: Selection) => SyntaxNode | null;
 
 /** Returns one or more selections for a given SyntaxNode */
 export type SelectionExtractor = (

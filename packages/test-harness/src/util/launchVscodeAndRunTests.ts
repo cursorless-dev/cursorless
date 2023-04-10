@@ -5,10 +5,7 @@ import {
   resolveCliArgsFromVSCodeExecutablePath,
   runTests,
 } from "@vscode/test-electron";
-import {
-  extensionDependencies,
-  getCursorlessRepoRoot,
-} from "@cursorless/common";
+import { extensionDependencies, getCursorlessRepoRoot } from "@cursorless/common";
 import { getEnvironmentVariableStrict } from "@cursorless/common";
 
 /**
@@ -28,16 +25,14 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
 
     const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
     const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
-    const useLegacyVscode =
-      getEnvironmentVariableStrict("VSCODE_VERSION") === "legacy";
+    const useLegacyVscode = getEnvironmentVariableStrict("VSCODE_VERSION") === "legacy";
 
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
     const vscodeVersion = useLegacyVscode ? "1.66.0" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
-    const [cli, ...args] =
-      resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
+    const [cli, ...args] = resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
 
     // Install extension dependencies
     cp.spawnSync(

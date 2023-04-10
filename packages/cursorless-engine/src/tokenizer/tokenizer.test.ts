@@ -110,9 +110,7 @@ const shellScriptDialectTokenizerTests: LanguageTokenizerTests = {
   exclusionPredicate: (input: string) => !!input.match("-"),
 };
 
-const languageTokenizerTests: Partial<
-  Record<LanguageId, LanguageTokenizerTests>
-> = {
+const languageTokenizerTests: Partial<Record<LanguageId, LanguageTokenizerTests>> = {
   css: cssDialectTokenizerTests,
   scss: cssDialectTokenizerTests,
   shellscript: shellScriptDialectTokenizerTests,
@@ -144,16 +142,11 @@ suite("tokenizer", () => {
   Object.entries(languageTokenizerTests).forEach(
     ([
       language,
-      {
-        additionalTests: languageSpecificTests,
-        exclusionPredicate = () => false,
-      },
+      { additionalTests: languageSpecificTests, exclusionPredicate = () => false },
     ]) => {
       const tests = [
         ...languageSpecificTests,
-        ...globalTests.filter(
-          ([input, _expectedOutput]) => !exclusionPredicate(input),
-        ),
+        ...globalTests.filter(([input, _expectedOutput]) => !exclusionPredicate(input)),
       ];
 
       tests.forEach(([input, expectedOutput]) => {

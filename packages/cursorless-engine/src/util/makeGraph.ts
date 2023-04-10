@@ -16,9 +16,7 @@ function makeGetter<GraphType, K extends keyof GraphType>(
 
     if (components[key] == null) {
       if (lockedKeys.includes(key)) {
-        const cycle = [...lockedKeys.slice(lockedKeys.indexOf(key)), key].join(
-          " -> ",
-        );
+        const cycle = [...lockedKeys.slice(lockedKeys.indexOf(key)), key].join(" -> ");
         throw new Error(`Dependency injection graph cycle detected: ${cycle}`);
       }
       const factory = factoryMap[key] as (graph: GraphType) => GraphType[K];
@@ -36,9 +34,7 @@ function makeGetter<GraphType, K extends keyof GraphType>(
   };
 }
 
-export function makeGraph<GraphType extends object>(
-  factoryMap: FactoryMap<GraphType>,
-) {
+export function makeGraph<GraphType extends object>(factoryMap: FactoryMap<GraphType>) {
   const components: Partial<GraphType> = {};
   const graph: Partial<GraphType> = {};
   const lockedKeys: (keyof GraphType)[] = [];

@@ -31,9 +31,7 @@ async function runTest() {
       targets: [
         {
           type: "primitive",
-          modifiers: [
-            { type: "containingScope", scopeType: { type: "token" } },
-          ],
+          modifiers: [{ type: "containingScope", scopeType: { type: "token" } }],
           mark: { type: "cursor" },
         },
       ],

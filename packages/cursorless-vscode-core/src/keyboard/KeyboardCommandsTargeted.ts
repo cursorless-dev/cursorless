@@ -179,10 +179,7 @@ export default class KeyboardCommandsTargeted {
    * @returns A promise that resolves to the result of the cursorless command
    */
   performActionOnTarget = async (action: ActionType) => {
-    const targets: (
-      | PartialPrimitiveTargetDescriptor
-      | ImplicitTargetDescriptor
-    )[] = [
+    const targets: (PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor)[] = [
       {
         type: "primitive",
         mark: {

@@ -136,14 +136,9 @@ function returnValueFinder(node: SyntaxNode) {
   return lastNamedChild;
 }
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   statement: ancestorChainNodeMatcher(
-    [
-      patternFinder(...STATEMENT_PARENT_TYPES),
-      patternFinder(...STATEMENT_TYPES),
-    ],
+    [patternFinder(...STATEMENT_PARENT_TYPES), patternFinder(...STATEMENT_TYPES)],
     1,
   ),
   string: ["raw_string_literal", "string_literal"],
@@ -162,11 +157,7 @@ const nodeMatchers: Partial<
   functionCallee: "call_expression[function]",
   comment: ["line_comment", "block_comment"],
   list: ["array_expression", "tuple_expression"],
-  collectionItem: argumentMatcher(
-    "array_expression",
-    "tuple_expression",
-    "tuple_type",
-  ),
+  collectionItem: argumentMatcher("array_expression", "tuple_expression", "tuple_type"),
   namedFunction: "function_item",
   type: cascadingMatcher(
     leadingMatcher(
@@ -179,20 +170,12 @@ const nodeMatchers: Partial<
       [":"],
     ),
     matcher(
-      patternFinder(
-        "constrained_type_parameter[bounds]",
-        "where_predicate[bounds]",
-      ),
+      patternFinder("constrained_type_parameter[bounds]", "where_predicate[bounds]"),
       traitBoundExtractor,
     ),
     leadingMatcher(["function_item[return_type]"], ["->"]),
     matcher(implItemTypeFinder),
-    patternMatcher(
-      "struct_item",
-      "trait_item",
-      "impl_item",
-      "array_type[element]",
-    ),
+    patternMatcher("struct_item", "trait_item", "impl_item", "array_type[element]"),
   ),
   functionName: ["function_item[name]"],
   anonymousFunction: "closure_expression",
@@ -228,10 +211,7 @@ const nodeMatchers: Partial<
   className: ["struct_item[name]", "enum_item[name]", "trait_item[name]"],
   value: cascadingMatcher(
     leadingMatcher(["let_declaration[value]"], ["="]),
-    leadingMatcher(
-      ["field_initializer[value]", "field_pattern[pattern]"],
-      [":"],
-    ),
+    leadingMatcher(["field_initializer[value]", "field_pattern[pattern]"], [":"]),
     patternMatcher("meta_item[value]", "const_item[value]"),
     matcher(returnValueFinder),
   ),

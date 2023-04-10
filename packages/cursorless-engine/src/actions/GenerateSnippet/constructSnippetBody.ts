@@ -29,10 +29,7 @@ interface Line {
  * @returns The body of a snippet represented as a list of lines as expected for
  * textmate snippets
  */
-export function constructSnippetBody(
-  text: string,
-  linePrefix: string,
-): string[] {
+export function constructSnippetBody(text: string, linePrefix: string): string[] {
   const outputLines: string[] = [];
   let currentTabCount = 0;
   let currentIndentationString: string | null = null;
@@ -53,19 +50,14 @@ export function constructSnippetBody(
     if (currentIndentationString != null) {
       if (newIndentationString.length > currentIndentationString.length) {
         currentTabCount++;
-      } else if (
-        newIndentationString.length < currentIndentationString.length
-      ) {
+      } else if (newIndentationString.length < currentIndentationString.length) {
         currentTabCount--;
       }
     }
 
     currentIndentationString = newIndentationString;
 
-    const lineContentStart = Math.max(
-      firstNonWhitespaceCharacterIndex,
-      startIndex,
-    );
+    const lineContentStart = Math.max(firstNonWhitespaceCharacterIndex, startIndex);
     const snippetIndentationString = repeat("\t", currentTabCount);
     const lineContent = text.slice(lineContentStart);
 

@@ -51,10 +51,7 @@ export default class GenerateSnippet implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run(
-    [targets]: [Target[]],
-    snippetName?: string,
-  ): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]], snippetName?: string): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
     const editor = target.editor;
 
@@ -204,9 +201,7 @@ export default class GenerateSnippet implements Action {
         variables:
           variables.length === 0
             ? undefined
-            : Object.fromEntries(
-                variables.map(constructVariableDescriptionEntry),
-              ),
+            : Object.fromEntries(variables.map(constructVariableDescriptionEntry)),
       },
     };
 
@@ -215,9 +210,7 @@ export default class GenerateSnippet implements Action {
      * insert into the new document where the user will fill out their snippet
      * definition
      */
-    const snippetText = substituter.makeSubstitutions(
-      JSON.stringify(snippet, null, 2),
-    );
+    const snippetText = substituter.makeSubstitutions(JSON.stringify(snippet, null, 2));
 
     const editableEditor = ide().getEditableTextEditor(editor);
 

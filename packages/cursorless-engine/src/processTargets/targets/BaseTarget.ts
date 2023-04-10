@@ -54,9 +54,7 @@ export default abstract class BaseTarget implements Target {
   }
 
   get thatTarget(): Target {
-    return this.state.thatTarget != null
-      ? this.state.thatTarget.thatTarget
-      : this;
+    return this.state.thatTarget != null ? this.state.thatTarget.thatTarget : this;
   }
 
   get contentText(): string {
@@ -133,12 +131,7 @@ export default abstract class BaseTarget implements Target {
       return new constructor({
         ...this.getCloneParameters(),
         isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
+        contentRange: createContinuousRange(this, endTarget, includeStart, includeEnd),
       });
     }
 
@@ -169,8 +162,9 @@ export default abstract class BaseTarget implements Target {
    * @returns The object to be used for determining equality
    */
   protected getEqualityParameters(): object {
-    const { thatTarget, ...otherCloneParameters } =
-      this.getCloneParameters() as { thatTarget?: Target };
+    const { thatTarget, ...otherCloneParameters } = this.getCloneParameters() as {
+      thatTarget?: Target;
+    };
 
     return {
       ...otherCloneParameters,

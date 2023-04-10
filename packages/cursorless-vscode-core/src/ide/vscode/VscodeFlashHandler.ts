@@ -24,9 +24,7 @@ export default class VscodeFlashHandler {
     await sleep(getPendingEditDecorationTime());
 
     await Promise.all(
-      Array.from(flashMap.keys()).map((style) =>
-        this.setDecorationRanges(style, []),
-      ),
+      Array.from(flashMap.keys()).map((style) => this.setDecorationRanges(style, [])),
     );
   }
 
@@ -37,15 +35,11 @@ export default class VscodeFlashHandler {
     const editorRangeMap = groupBy(ranges, ({ editor }) => editor.id);
 
     this.ide.visibleTextEditors.forEach((editor) => {
-      const ranges = (editorRangeMap.get(editor.id) ?? []).map(
-        ({ range }) => range,
-      );
+      const ranges = (editorRangeMap.get(editor.id) ?? []).map(({ range }) => range);
       this.highlights.setHighlightRanges(style, editor, ranges);
     });
   }
 }
 
 const getPendingEditDecorationTime = () =>
-  workspace
-    .getConfiguration("cursorless")
-    .get<number>("pendingEditDecorationTime")!;
+  workspace.getConfiguration("cursorless").get<number>("pendingEditDecorationTime")!;

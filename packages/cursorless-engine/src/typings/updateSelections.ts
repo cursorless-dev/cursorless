@@ -5,9 +5,7 @@ import type {
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
 
-type SingleEdgeExpansionBehavior =
-  | SimpleExpansionBehavior
-  | RegexExpansionBehavior;
+type SingleEdgeExpansionBehavior = SimpleExpansionBehavior | RegexExpansionBehavior;
 
 interface SimpleExpansionBehavior {
   type: "open" | "closed";
@@ -41,8 +39,7 @@ export interface ExtendedTextDocumentContentChangeEvent
   isReplace?: boolean;
 }
 
-export interface ExtendedTextDocumentChangeEvent
-  extends TextDocumentChangeEvent {
+export interface ExtendedTextDocumentChangeEvent extends TextDocumentChangeEvent {
   readonly contentChanges: ReadonlyArray<ExtendedTextDocumentContentChangeEvent>;
 }
 

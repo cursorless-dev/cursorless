@@ -24,9 +24,7 @@ function selectionFromPositions(
   start: Position,
   end: Position,
 ): Selection {
-  return !selection.isReversed
-    ? new Selection(start, end)
-    : new Selection(end, start);
+  return !selection.isReversed ? new Selection(start, end) : new Selection(end, start);
 }
 
 /**

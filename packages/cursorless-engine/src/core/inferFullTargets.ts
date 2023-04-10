@@ -26,9 +26,7 @@ import {
 export default function inferFullTargets(
   targets: PartialTargetDescriptor[],
 ): TargetDescriptor[] {
-  return targets.map((target, index) =>
-    inferTarget(target, targets.slice(0, index)),
-  );
+  return targets.map((target, index) => inferTarget(target, targets.slice(0, index)));
 }
 
 function inferTarget(
@@ -83,10 +81,7 @@ function inferRangeTarget(
     excludeActive: target.excludeActive ?? false,
     rangeType: target.rangeType ?? "continuous",
     anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
-    active: inferPrimitiveTarget(
-      target.active,
-      previousTargets.concat(target.anchor),
-    ),
+    active: inferPrimitiveTarget(target.active, previousTargets.concat(target.anchor)),
   };
 }
 
@@ -109,9 +104,7 @@ function inferPrimitiveTarget(
   const ownModifiers = getPreservedModifiers(target);
 
   const mark = target.mark ??
-    (shouldInferPreviousMark(target)
-      ? getPreviousMark(previousTargets)
-      : null) ?? {
+    (shouldInferPreviousMark(target) ? getPreviousMark(previousTargets) : null) ?? {
       type: "cursor",
     };
 
@@ -149,9 +142,7 @@ function getPositionModifier(
     : (target.modifiers[positionModifierIndex] as PositionModifier);
 }
 
-function shouldInferPreviousMark(
-  target: PartialPrimitiveTargetDescriptor,
-): boolean {
+function shouldInferPreviousMark(target: PartialPrimitiveTargetDescriptor): boolean {
   return target.modifiers?.some((m) => m.type === "inferPreviousMark") ?? false;
 }
 
@@ -207,9 +198,7 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
   return false;
 }
 
-function getPreviousMark(
-  previousTargets: PartialTargetDescriptor[],
-): Mark | undefined {
+function getPreviousMark(previousTargets: PartialTargetDescriptor[]): Mark | undefined {
   return getPreviousTargetAttribute(
     previousTargets,
     (target: PartialPrimitiveTargetDescriptor) => target.mark,

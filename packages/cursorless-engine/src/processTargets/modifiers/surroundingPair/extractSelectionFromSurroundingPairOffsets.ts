@@ -23,37 +23,23 @@ export function extractSelectionFromSurroundingPairOffsets(
 ): SurroundingPairInfo {
   const interior = new Range(
     document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end),
-    document.positionAt(
-      baseOffset + surroundingPairOffsets.rightDelimiter.start,
-    ),
+    document.positionAt(baseOffset + surroundingPairOffsets.rightDelimiter.start),
   );
   const boundary: [Range, Range] = [
     new Range(
-      document.positionAt(
-        baseOffset + surroundingPairOffsets.leftDelimiter.start,
-      ),
-      document.positionAt(
-        baseOffset + surroundingPairOffsets.leftDelimiter.end,
-      ),
+      document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.start),
+      document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.end),
     ),
     new Range(
-      document.positionAt(
-        baseOffset + surroundingPairOffsets.rightDelimiter.start,
-      ),
-      document.positionAt(
-        baseOffset + surroundingPairOffsets.rightDelimiter.end,
-      ),
+      document.positionAt(baseOffset + surroundingPairOffsets.rightDelimiter.start),
+      document.positionAt(baseOffset + surroundingPairOffsets.rightDelimiter.end),
     ),
   ];
 
   return {
     contentRange: new Selection(
-      document.positionAt(
-        baseOffset + surroundingPairOffsets.leftDelimiter.start,
-      ),
-      document.positionAt(
-        baseOffset + surroundingPairOffsets.rightDelimiter.end,
-      ),
+      document.positionAt(baseOffset + surroundingPairOffsets.leftDelimiter.start),
+      document.positionAt(baseOffset + surroundingPairOffsets.rightDelimiter.end),
     ),
     boundary,
     interiorRange: interior,

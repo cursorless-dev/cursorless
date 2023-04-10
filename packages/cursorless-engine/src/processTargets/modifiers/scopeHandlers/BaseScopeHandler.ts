@@ -2,10 +2,7 @@
 import { Position, Range, TextEditor } from "@cursorless/common";
 import type { Direction, ScopeType } from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
-import type {
-  ScopeHandler,
-  ScopeIteratorRequirements,
-} from "./scopeHandler.types";
+import type { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 import { shouldYieldScope } from "./shouldYieldScope";
 
 const DEFAULT_REQUIREMENTS: ScopeIteratorRequirements = {

@@ -16,9 +16,7 @@ export function upgradeV4ToV5(command: CommandV4): CommandV5 {
 function upgradeAction(action: ActionCommandV4): ActionCommand {
   switch (action.name) {
     case "wrapWithSnippet": {
-      const [name, variableName] = parseSnippetLocation(
-        action.args![0] as string,
-      );
+      const [name, variableName] = parseSnippetLocation(action.args![0] as string);
       return {
         name: "wrapWithSnippet",
         args: [

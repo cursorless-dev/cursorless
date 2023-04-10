@@ -12,9 +12,10 @@ async function main() {
   try {
     const args = [
       "--profile=cursorlessDevelopment",
-      ...[...extensionDependencies, ...extraExtensions].flatMap(
-        (dependency) => ["--install-extension", dependency],
-      ),
+      ...[...extensionDependencies, ...extraExtensions].flatMap((dependency) => [
+        "--install-extension",
+        dependency,
+      ]),
     ];
 
     // Install extension dependencies

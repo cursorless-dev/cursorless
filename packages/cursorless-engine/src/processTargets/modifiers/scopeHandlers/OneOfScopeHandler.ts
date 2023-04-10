@@ -10,27 +10,20 @@ import { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 export default class OneOfScopeHandler extends BaseScopeHandler {
   protected isHierarchical = true;
 
-  private scopeHandlers: ScopeHandler[] = this.scopeType.scopeTypes.map(
-    (scopeType) => {
-      const handler = getScopeHandler(scopeType, this.languageId);
-      if (handler == null) {
-        throw new Error(`No available scope handler for '${scopeType.type}'`);
-      }
-      return handler;
-    },
-  );
+  private scopeHandlers: ScopeHandler[] = this.scopeType.scopeTypes.map((scopeType) => {
+    const handler = getScopeHandler(scopeType, this.languageId);
+    if (handler == null) {
+      throw new Error(`No available scope handler for '${scopeType.type}'`);
+    }
+    return handler;
+  });
 
   public iterationScopeType: OneOfScopeType = {
     type: "oneOf",
-    scopeTypes: this.scopeHandlers.map(
-      ({ iterationScopeType }) => iterationScopeType,
-    ),
+    scopeTypes: this.scopeHandlers.map(({ iterationScopeType }) => iterationScopeType),
   };
 
-  constructor(
-    public readonly scopeType: OneOfScopeType,
-    private languageId: string,
-  ) {
+  constructor(public readonly scopeType: OneOfScopeType, private languageId: string) {
     super();
   }
 
@@ -61,8 +54,7 @@ export default class OneOfScopeHandler extends BaseScopeHandler {
       // Advance all iterators past the scope that was yielded
       iteratorInfos = advanceIteratorsUntil(
         iteratorInfos,
-        (scope) =>
-          compareTargetScopes(direction, position, currentScope, scope) < 0,
+        (scope) => compareTargetScopes(direction, position, currentScope, scope) < 0,
       );
     }
   }

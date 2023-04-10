@@ -33,9 +33,7 @@ export default function LandingPage() {
         >
           <div className="flex-1 flex flex-col">
             <header className="flex flex-row items-center ">
-              <div className="align-middle mr-auto text-2xl uppercase">
-                Cursorless
-              </div>
+              <div className="align-middle mr-auto text-2xl uppercase">Cursorless</div>
               <Logo
                 title="Logo"
                 className="align-middle w-[30px] h-[30px] sm:w-[4em] sm:h-[4em]"
@@ -75,9 +73,7 @@ function Slogan() {
 function NetlifyFooter() {
   return (
     <footer className="text-center text-xs tracking-widest font-light">
-      <span className="uppercase dark:opacity-50">
-        This site is powered by{" "}
-      </span>
+      <span className="uppercase dark:opacity-50">This site is powered by </span>
       <a
         href="https://www.netlify.com/"
         target="_blank"

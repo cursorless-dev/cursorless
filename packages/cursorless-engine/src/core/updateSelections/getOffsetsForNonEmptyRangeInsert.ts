@@ -42,10 +42,7 @@ export default function getOffsetsForNonEmptyRangeInsert(
     text: originalRangeText,
   } = rangeInfo;
 
-  invariant(
-    rangeEnd > rangeStart,
-    () => "Selection range expected to be nonempty",
-  );
+  invariant(rangeEnd > rangeStart, () => "Selection range expected to be nonempty");
   invariant(
     insertOffset >= rangeStart && insertOffset <= rangeEnd,
     () => "Insertion offset expected to intersect with selection range",

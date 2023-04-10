@@ -17,9 +17,7 @@ export function upgradeV3ToV4(command: CommandV3): CommandV4 {
   };
 }
 
-function upgradeTarget(
-  target: PartialTargetDescriptorV3,
-): PartialTargetDescriptor {
+function upgradeTarget(target: PartialTargetDescriptorV3): PartialTargetDescriptor {
   switch (target.type) {
     case "primitive":
       return upgradePrimitiveTarget(target);

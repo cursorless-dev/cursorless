@@ -25,14 +25,9 @@ import { shrinkRangeToFitContent } from "../util/selectionUtils";
  * @param node The node to extract from; will be the content of the heading without the leading marker
  * @returns The selection with context
  */
-function nameExtractor(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
+function nameExtractor(editor: TextEditor, node: SyntaxNode): SelectionWithContext {
   const range = getNodeRange(node);
-  const contentRange = range.isEmpty
-    ? range
-    : range.with(range.start.translate(0, 1));
+  const contentRange = range.isEmpty ? range : range.with(range.start.translate(0, 1));
   const removalRange = getNodeRange(node.parent!);
 
   return {
@@ -60,15 +55,12 @@ type HeadingMarkerType = typeof HEADING_MARKER_TYPES[number];
  * @returns A node finder that will return the next node that is of the same
  * marker level or higher than the original type
  */
-function makeMinimumHeadingLevelFinder(
-  headingType: HeadingMarkerType,
-): NodeFinder {
+function makeMinimumHeadingLevelFinder(headingType: HeadingMarkerType): NodeFinder {
   const markerIndex = HEADING_MARKER_TYPES.indexOf(headingType);
   return (node: SyntaxNode) => {
     return node.type === "atx_heading" &&
-      HEADING_MARKER_TYPES.indexOf(
-        node.firstNamedChild?.type as HeadingMarkerType,
-      ) <= markerIndex
+      HEADING_MARKER_TYPES.indexOf(node.firstNamedChild?.type as HeadingMarkerType) <=
+        markerIndex
       ? node
       : null;
   };
@@ -127,9 +119,7 @@ function itemExtractor(editor: TextEditor, node: SyntaxNode) {
   };
 }
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   list: ["list"],
   comment: "html_block",
   name: matcher(

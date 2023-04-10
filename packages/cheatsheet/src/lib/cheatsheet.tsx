@@ -12,9 +12,7 @@ type CheatsheetPageProps = {
   cheatsheetInfo: CheatsheetInfo;
 };
 
-export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
-  cheatsheetInfo,
-}) => {
+export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({ cheatsheetInfo }) => {
   return (
     <main className="dark:text-stone-100">
       <h1 className="text-2xl md:text-3xl text-center mt-2 mb-1 xl:mt-4">

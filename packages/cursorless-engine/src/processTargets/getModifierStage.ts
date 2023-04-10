@@ -2,15 +2,9 @@ import { Modifier } from "@cursorless/common";
 import CascadingStage from "./modifiers/CascadingStage";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
-import {
-  KeepContentFilterStage,
-  KeepEmptyFilterStage,
-} from "./modifiers/FilterStages";
+import { KeepContentFilterStage, KeepEmptyFilterStage } from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
-import {
-  ExcludeInteriorStage,
-  InteriorOnlyStage,
-} from "./modifiers/InteriorStage";
+import { ExcludeInteriorStage, InteriorOnlyStage } from "./modifiers/InteriorStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";

@@ -29,9 +29,7 @@ function getPartialPrimitiveTargetsHelper(
     case "list":
       return target.elements.flatMap(getPartialPrimitiveTargetsHelper);
     case "range":
-      return [target.anchor, target.active].flatMap(
-        getPartialPrimitiveTargetsHelper,
-      );
+      return [target.anchor, target.active].flatMap(getPartialPrimitiveTargetsHelper);
     case "implicit":
       return [];
   }
@@ -71,20 +69,14 @@ function getPrimitiveTargetsHelper(
  */
 export function transformPartialPrimitiveTargets(
   targets: PartialTargetDescriptor[],
-  func: (
-    target: PartialPrimitiveTargetDescriptor,
-  ) => PartialPrimitiveTargetDescriptor,
+  func: (target: PartialPrimitiveTargetDescriptor) => PartialPrimitiveTargetDescriptor,
 ) {
-  return targets.map((target) =>
-    transformPartialPrimitiveTargetsHelper(target, func),
-  );
+  return targets.map((target) => transformPartialPrimitiveTargetsHelper(target, func));
 }
 
 function transformPartialPrimitiveTargetsHelper(
   target: PartialTargetDescriptor,
-  func: (
-    target: PartialPrimitiveTargetDescriptor,
-  ) => PartialPrimitiveTargetDescriptor,
+  func: (target: PartialPrimitiveTargetDescriptor) => PartialPrimitiveTargetDescriptor,
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "primitive":

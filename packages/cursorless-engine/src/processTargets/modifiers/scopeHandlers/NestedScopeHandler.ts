@@ -4,10 +4,7 @@ import { getScopeHandler } from ".";
 import type { Direction, ScopeType } from "@cursorless/common";
 import BaseScopeHandler from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
-import type {
-  ScopeHandler,
-  ScopeIteratorRequirements,
-} from "./scopeHandler.types";
+import type { ScopeHandler, ScopeIteratorRequirements } from "./scopeHandler.types";
 
 /**
  * This class can be used to define scope types that are most easily defined by
@@ -50,10 +47,7 @@ export default abstract class NestedScopeHandler extends BaseScopeHandler {
 
   private _searchScopeHandler: ScopeHandler | undefined;
 
-  constructor(
-    public readonly scopeType: ScopeType,
-    protected languageId: string,
-  ) {
+  constructor(public readonly scopeType: ScopeType, protected languageId: string) {
     super();
   }
 

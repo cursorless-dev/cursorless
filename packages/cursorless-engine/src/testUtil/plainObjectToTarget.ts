@@ -1,8 +1,4 @@
-import {
-  plainObjectToRange,
-  TargetPlainObject,
-  TextEditor,
-} from "@cursorless/common";
+import { plainObjectToRange, TargetPlainObject, TextEditor } from "@cursorless/common";
 import { UntypedTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 

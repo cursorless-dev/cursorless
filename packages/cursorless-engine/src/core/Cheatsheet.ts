@@ -43,9 +43,7 @@ export async function showCheatsheet({
 
   root.getElementById(
     "cheatsheet-data",
-  ).textContent = `document.cheatsheetInfo = ${JSON.stringify(
-    spokenFormInfo,
-  )};`;
+  ).textContent = `document.cheatsheetInfo = ${JSON.stringify(spokenFormInfo)};`;
 
   await writeFile(outputPath, root.toString());
 }
@@ -59,9 +57,7 @@ export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
   const { runMode, assetsRoot, workspaceFolders } = ide();
 
   const workspacePath =
-    runMode === "development"
-      ? assetsRoot
-      : workspaceFolders?.[0].uri.path ?? null;
+    runMode === "development" ? assetsRoot : workspaceFolders?.[0].uri.path ?? null;
 
   if (workspacePath == null) {
     throw new Error(

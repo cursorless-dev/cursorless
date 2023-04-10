@@ -60,8 +60,7 @@ export function findDelimiterPairAdjacentToSelection(
 
           if (
             !scopeType.requireStrongContainment ||
-            (surroundingPairOffsets.leftDelimiter.start <
-              selectionOffsets.start &&
+            (surroundingPairOffsets.leftDelimiter.start < selectionOffsets.start &&
               surroundingPairOffsets.rightDelimiter.end > selectionOffsets.end)
           ) {
             return surroundingPairOffsets;

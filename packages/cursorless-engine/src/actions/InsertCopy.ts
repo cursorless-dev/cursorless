@@ -56,9 +56,7 @@ class InsertCopy implements Action {
       selections: targets.map(({ contentSelection }) => contentSelection),
     };
     const editSelections = {
-      selections: edits.map(
-        ({ range }) => new Selection(range.start, range.end),
-      ),
+      selections: edits.map(({ range }) => new Selection(range.start, range.end)),
       rangeBehavior: RangeExpansionBehavior.openOpen,
     };
 
@@ -75,8 +73,8 @@ class InsertCopy implements Action {
       [cursorSelections, contentSelections, editSelections],
     );
 
-    const insertionRanges = zip(edits, updatedEditSelections).map(
-      ([edit, selection]) => edit!.updateRange(selection!),
+    const insertionRanges = zip(edits, updatedEditSelections).map(([edit, selection]) =>
+      edit!.updateRange(selection!),
     );
 
     setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);

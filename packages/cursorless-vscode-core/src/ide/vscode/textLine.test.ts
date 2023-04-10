@@ -17,11 +17,7 @@ suite("TextLine", function () {
   this.timeout("100s");
   this.retries(5);
   whiteSpaceTests.forEach(
-    ([
-      text,
-      firstNonWhitespaceCharacterIndex,
-      lastNonWhitespaceCharacterIndex,
-    ]) => {
+    ([text, firstNonWhitespaceCharacterIndex, lastNonWhitespaceCharacterIndex]) => {
       test(`whitespace '${text}'`, async () => {
         const editor = await openNewEditor(text);
         const line = new VscodeTextLineImpl(editor.document.lineAt(0));

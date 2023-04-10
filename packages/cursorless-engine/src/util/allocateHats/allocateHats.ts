@@ -74,8 +74,8 @@ export function allocateHats(
    * used for that grapheme.  As we assign hats to tokens, we remove them from
    * these lists so that they don't get used again in this pass.
    */
-  const graphemeRemainingHatCandidates = new DefaultMap<string, HatStyleMap>(
-    () => clone(enabledHatStyles),
+  const graphemeRemainingHatCandidates = new DefaultMap<string, HatStyleMap>(() =>
+    clone(enabledHatStyles),
   );
 
   // Iterate through tokens in order of decreasing rank, assigning each one a
@@ -122,9 +122,11 @@ export function allocateHats(
  * @returns A mapping from tokens to their preexisting hat
  */
 function getTokenOldHatMap(oldTokenHats: readonly TokenHat[]) {
-  const tokenOldHatMap = new CompositeKeyMap<Token, TokenHat>(
-    ({ editor, offsets }) => [editor.id, offsets.start, offsets.end],
-  );
+  const tokenOldHatMap = new CompositeKeyMap<Token, TokenHat>(({ editor, offsets }) => [
+    editor.id,
+    offsets.start,
+    offsets.end,
+  ]);
 
   oldTokenHats.forEach((descriptor) =>
     tokenOldHatMap.set(descriptor.token, descriptor),
@@ -137,17 +139,15 @@ function getTokenRemainingHatCandidates(
   token: Token,
   availableGraphemeStyles: DefaultMap<string, HatStyleMap>,
 ): HatCandidate[] {
-  return tokenGraphemeSplitter
-    .getTokenGraphemes(token.text)
-    .flatMap((grapheme) =>
-      Object.entries(availableGraphemeStyles.get(grapheme.text)).map(
-        ([style, { penalty }]) => ({
-          grapheme,
-          style,
-          penalty,
-        }),
-      ),
-    );
+  return tokenGraphemeSplitter.getTokenGraphemes(token.text).flatMap((grapheme) =>
+    Object.entries(availableGraphemeStyles.get(grapheme.text)).map(
+      ([style, { penalty }]) => ({
+        grapheme,
+        style,
+        penalty,
+      }),
+    ),
+  );
 }
 
 /**
@@ -156,19 +156,13 @@ function getTokenRemainingHatCandidates(
  * @returns An object indicating the hat assigned to the token, along with the
  * range of the grapheme upon which it sits
  */
-function constructHatRangeDescriptor(
-  token: Token,
-  chosenHat: HatCandidate,
-): TokenHat {
+function constructHatRangeDescriptor(token: Token, chosenHat: HatCandidate): TokenHat {
   return {
     hatStyle: chosenHat.style,
     grapheme: chosenHat.grapheme.text,
     token,
     hatRange: new Range(
-      token.range.start.translate(
-        undefined,
-        chosenHat.grapheme.tokenStartOffset,
-      ),
+      token.range.start.translate(undefined, chosenHat.grapheme.tokenStartOffset),
       token.range.start.translate(undefined, chosenHat.grapheme.tokenEndOffset),
     ),
   };

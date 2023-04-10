@@ -1,9 +1,5 @@
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
-import {
-  SurroundingPairOffsets,
-  PossibleDelimiterOccurrence,
-  Offsets,
-} from "./types";
+import { SurroundingPairOffsets, PossibleDelimiterOccurrence, Offsets } from "./types";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
 import { SimpleSurroundingPairName } from "@cursorless/common";
 
@@ -74,9 +70,7 @@ export function findDelimiterPairContainingSelection(
 
     // Then scan left until we find an unmatched delimiter matching the
     // delimiter we found in our rightward pass.
-    acceptableLeftDelimiters = [
-      rightDelimiterOccurrence.delimiterInfo.delimiter,
-    ];
+    acceptableLeftDelimiters = [rightDelimiterOccurrence.delimiterInfo.delimiter];
     const leftNext = leftDelimiterGenerator.next();
     if (leftNext.done) {
       return null;

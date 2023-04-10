@@ -95,11 +95,7 @@ export class CallbackAction implements Action {
 
     // For this callback/command to the work we have to have the correct editor focused
     if (options.setSelection) {
-      await setSelectionsAndFocusEditor(
-        editableEditor,
-        targetSelections,
-        false,
-      );
+      await setSelectionsAndFocusEditor(editableEditor, targetSelections, false);
     }
 
     const [updatedOriginalSelections, updatedTargetSelections] =
@@ -116,10 +112,7 @@ export class CallbackAction implements Action {
       // very end. This code can run on multiple editors in the course of
       // one command, so we want to avoid focusing the editor multiple
       // times.
-      setSelectionsWithoutFocusingEditor(
-        editableEditor,
-        updatedOriginalSelections,
-      );
+      setSelectionsWithoutFocusingEditor(editableEditor, updatedOriginalSelections);
     }
 
     // If the document hasn't changed then we just return the original targets

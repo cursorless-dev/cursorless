@@ -73,10 +73,7 @@ export function registerCommands(
       "cursorless.keyboard.targeted.targetSelection",
       keyboardCommands.targeted.targetSelection,
     ],
-    [
-      "cursorless.keyboard.targeted.clearTarget",
-      keyboardCommands.targeted.clearTarget,
-    ],
+    ["cursorless.keyboard.targeted.clearTarget", keyboardCommands.targeted.clearTarget],
     [
       "cursorless.keyboard.targeted.runActionOnTarget",
       keyboardCommands.targeted.performActionOnTarget,

@@ -54,12 +54,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
 
     // FIXME: Figure out how to just continue iteration rather than starting
     // over after getting offset 0 scopes
-    const offset0Scopes = getOffset0Scopes(
-      scopeHandler,
-      direction,
-      editor,
-      inputRange,
-    );
+    const offset0Scopes = getOffset0Scopes(scopeHandler, direction, editor, inputRange);
 
     const offset0ScopeCount = offset0Scopes.length;
 
@@ -68,11 +63,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     }
 
     if (offset0ScopeCount > desiredScopeCount) {
-      throw new TooFewScopesError(
-        desiredScopeCount,
-        offset0ScopeCount,
-        scopeType.type,
-      );
+      throw new TooFewScopesError(desiredScopeCount, offset0ScopeCount, scopeType.type);
     }
 
     const proximalScope =

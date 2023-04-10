@@ -18,8 +18,7 @@ suite("Edit new cell", async function () {
 
   test("drink cell", () =>
     runTest("drink cell", "editNewLineBefore", 0, ["", "hello"]));
-  test("pour cell", () =>
-    runTest("pour cell", "editNewLineAfter", 1, ["hello", ""]));
+  test("pour cell", () => runTest("pour cell", "editNewLineAfter", 1, ["hello", ""]));
 });
 
 async function runTest(
@@ -65,8 +64,5 @@ async function runTest(
 
   assert.equal(activeCelIndex, expectedActiveCellIndex);
 
-  assert.deepStrictEqual(
-    getPlainNotebookContents(notebook),
-    expectedNotebookContents,
-  );
+  assert.deepStrictEqual(getPlainNotebookContents(notebook), expectedNotebookContents);
 }

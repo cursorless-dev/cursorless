@@ -13,8 +13,7 @@ new Crawler({
       recordExtractor: ({ $, helpers }) => {
         // priority order: deepest active sub list header -> navbar active item -> 'Documentation'
         const lvl0 =
-          $(".navbar__item.navbar__link--active").last().text() ||
-          "Documentation";
+          $(".navbar__item.navbar__link--active").last().text() || "Documentation";
         const isApi = $(".menu__link.menu__link--active")
           .toArray()
           .some((element) => $(element).text() === "API")

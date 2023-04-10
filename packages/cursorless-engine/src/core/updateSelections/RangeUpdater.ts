@@ -68,10 +68,7 @@ export class RangeUpdater {
    * @param replaceEditList A list of edits to treat as replace edits; it is ok to add to this list after the fact
    * @returns A function that can be used to deregister the list
    */
-  registerReplaceEditList(
-    document: TextDocument,
-    replaceEditList: Edit[],
-  ): () => void {
+  registerReplaceEditList(document: TextDocument, replaceEditList: Edit[]): () => void {
     const documentReplaceEditLists = this.getDocumentReplaceEditLists(document);
 
     documentReplaceEditLists.push(replaceEditList);

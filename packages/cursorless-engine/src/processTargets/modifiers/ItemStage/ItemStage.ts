@@ -48,9 +48,7 @@ export default class ItemStage implements ModifierStage {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    return filteredItemInfos.map((itemInfo) =>
-      this.itemInfoToTarget(target, itemInfo),
-    );
+    return filteredItemInfos.map((itemInfo) => this.itemInfoToTarget(target, itemInfo));
   }
 
   private getSingleTarget(context: ProcessedTargetsContext, target: Target) {
@@ -85,11 +83,7 @@ export default class ItemStage implements ModifierStage {
     return this.itemInfoToTarget(target, itemInfo, removalRange);
   }
 
-  private itemInfoToTarget(
-    target: Target,
-    itemInfo: ItemInfo,
-    removalRange?: Range,
-  ) {
+  private itemInfoToTarget(target: Target, itemInfo: ItemInfo, removalRange?: Range) {
     const delimiter = getInsertionDelimiter(
       target.editor,
       itemInfo.leadingDelimiterRange,

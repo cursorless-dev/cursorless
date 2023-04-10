@@ -30,9 +30,8 @@ export function getNotebookFromCellDocument(document: TextDocument) {
           cell,
         })),
       )
-      .find(
-        ({ cell }) => cell.document.uri.toString() === document.uri.toString(),
-      ) ?? {};
+      .find(({ cell }) => cell.document.uri.toString() === document.uri.toString()) ??
+    {};
 
   return notebookEditor;
 }

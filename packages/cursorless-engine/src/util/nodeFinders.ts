@@ -2,9 +2,7 @@ import { Position, Selection } from "@cursorless/common";
 import type { Point, SyntaxNode } from "web-tree-sitter";
 import { NodeFinder } from "../typings/Types";
 
-export const nodeFinder = (
-  isTargetNode: (node: SyntaxNode) => boolean,
-): NodeFinder => {
+export const nodeFinder = (isTargetNode: (node: SyntaxNode) => boolean): NodeFinder => {
   return (node: SyntaxNode) => {
     return isTargetNode(node) ? node : null;
   };
@@ -113,8 +111,7 @@ export const argumentNodeFinder = (...parentTypes: string[]): NodeFinder => {
   const delimiters = left.concat(right);
   const isType = (node: SyntaxNode | null, typeNames: string[]) =>
     node != null && typeNames.includes(node.type);
-  const isOk = (node: SyntaxNode | null) =>
-    node != null && !isType(node, delimiters);
+  const isOk = (node: SyntaxNode | null) => node != null && !isType(node, delimiters);
   return (node: SyntaxNode, selection?: Selection) => {
     let resultNode: SyntaxNode | null;
     const { start, end } = selection!;
@@ -213,10 +210,7 @@ function parsePatternStrings(patternStrings: string[]) {
   );
 }
 
-function tryPatternMatch(
-  node: SyntaxNode,
-  patterns: Pattern[],
-): SyntaxNode | null {
+function tryPatternMatch(node: SyntaxNode, patterns: Pattern[]): SyntaxNode | null {
   let result = searchNodeAscending(node, patterns);
 
   if (!result && patterns.length > 1) {
@@ -231,11 +225,7 @@ function tryPatternMatch(
   }
 
   // Use field name child if field name is given
-  if (
-    resultNode != null &&
-    resultPattern != null &&
-    resultPattern.fields != null
-  ) {
+  if (resultNode != null && resultPattern != null && resultPattern.fields != null) {
     resultPattern.fields.forEach((field) => {
       resultNode =
         (field.isIndex
@@ -249,10 +239,7 @@ function tryPatternMatch(
 
 type NodePattern = [SyntaxNode, Pattern] | null;
 
-function searchNodeAscending(
-  node: SyntaxNode,
-  patterns: Pattern[],
-): NodePattern {
+function searchNodeAscending(node: SyntaxNode, patterns: Pattern[]): NodePattern {
   let result: NodePattern = null;
   let currentNode: SyntaxNode | null = node;
 
@@ -277,10 +264,7 @@ function searchNodeAscending(
   return result;
 }
 
-function searchNodeDescending(
-  node: SyntaxNode,
-  patterns: Pattern[],
-): NodePattern {
+function searchNodeDescending(node: SyntaxNode, patterns: Pattern[]): NodePattern {
   let result: NodePattern = null;
   let currentNode: SyntaxNode | null = node;
 

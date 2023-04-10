@@ -1,8 +1,4 @@
-import {
-  NoContainingScopeError,
-  Position,
-  TextEditor,
-} from "@cursorless/common";
+import { NoContainingScopeError, Position, TextEditor } from "@cursorless/common";
 import type { ContainingScopeModifier, Direction } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
@@ -43,10 +39,7 @@ export class ContainingScopeStage implements ModifierStage {
     } = target;
     const { scopeType, ancestorIndex = 0 } = this.modifier;
 
-    const scopeHandler = getScopeHandler(
-      scopeType,
-      target.editor.document.languageId,
-    );
+    const scopeHandler = getScopeHandler(scopeType, target.editor.document.languageId);
 
     if (scopeHandler == null) {
       return getLegacyScopeStage(this.modifier).run(context, target);
@@ -54,11 +47,7 @@ export class ContainingScopeStage implements ModifierStage {
 
     if (end.isEqual(start)) {
       // Input target is empty; return the preferred scope touching target
-      let scope = getPreferredScopeTouchingPosition(
-        scopeHandler,
-        editor,
-        start,
-      );
+      let scope = getPreferredScopeTouchingPosition(scopeHandler, editor, start);
 
       if (scope == null) {
         throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -142,12 +131,7 @@ function getPreferredScopeTouchingPosition(
   editor: TextEditor,
   position: Position,
 ): TargetScope | undefined {
-  const forwardScope = getContainingScope(
-    scopeHandler,
-    editor,
-    position,
-    "forward",
-  );
+  const forwardScope = getContainingScope(scopeHandler, editor, position, "forward");
 
   if (forwardScope == null) {
     return getContainingScope(scopeHandler, editor, position, "backward");
@@ -160,19 +144,11 @@ function getPreferredScopeTouchingPosition(
     return forwardScope;
   }
 
-  const backwardScope = getContainingScope(
-    scopeHandler,
-    editor,
-    position,
-    "backward",
-  );
+  const backwardScope = getContainingScope(scopeHandler, editor, position, "backward");
 
   // If there is no backward scope, or if the backward scope is an ancestor of
   // forward scope, return forward scope
-  if (
-    backwardScope == null ||
-    backwardScope.domain.contains(forwardScope.domain)
-  ) {
+  if (backwardScope == null || backwardScope.domain.contains(forwardScope.domain)) {
     return forwardScope;
   }
 

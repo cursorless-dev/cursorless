@@ -4,9 +4,7 @@ import type { Target } from "../../../typings/target.types";
 import { expandToFullLine } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
 
-export function getTokenLeadingDelimiterTarget(
-  target: Target,
-): Target | undefined {
+export function getTokenLeadingDelimiterTarget(target: Target): Target | undefined {
   const { editor } = target;
   const { start } = target.contentRange;
 
@@ -28,9 +26,7 @@ export function getTokenLeadingDelimiterTarget(
       });
 }
 
-export function getTokenTrailingDelimiterTarget(
-  target: Target,
-): Target | undefined {
+export function getTokenTrailingDelimiterTarget(target: Target): Target | undefined {
   const { editor } = target;
   const { end } = target.contentRange;
 
@@ -73,9 +69,7 @@ export function getTokenRemovalRange(target: Target): Range {
   const fullLineRange = expandToFullLine(editor, contentRange);
 
   if (
-    leadingWhitespaceRange
-      .union(trailingWhitespaceRange)
-      .isRangeEqual(fullLineRange)
+    leadingWhitespaceRange.union(trailingWhitespaceRange).isRangeEqual(fullLineRange)
   ) {
     // If we would just be leaving a line with whitespace on it, we delete the
     // whitespace
@@ -92,10 +86,7 @@ export function getTokenRemovalRange(target: Target): Range {
     }
   }
 
-  if (
-    !leadingWhitespaceRange.isEmpty &&
-    leadingWhitespaceRange.start.character !== 0
-  ) {
+  if (!leadingWhitespaceRange.isEmpty && leadingWhitespaceRange.start.character !== 0) {
     const candidateRemovalRange = leadingWhitespaceRange.union(contentRange);
 
     if (!mergesTokens(editor, contentRange, candidateRemovalRange)) {
@@ -110,11 +101,7 @@ export function getTokenRemovalRange(target: Target): Range {
 }
 
 /** Returns true if removal range causes tokens to merge */
-function mergesTokens(
-  editor: TextEditor,
-  contentRange: Range,
-  removalRange: Range,
-) {
+function mergesTokens(editor: TextEditor, contentRange: Range, removalRange: Range) {
   const { document } = editor;
   const fullRange = expandToFullLine(editor, contentRange);
   const fullText = document.getText(fullRange);

@@ -1,7 +1,6 @@
 import type { SyntaxNode } from "web-tree-sitter";
 
-export const getValueNode = (node: SyntaxNode) =>
-  node.childForFieldName("value");
+export const getValueNode = (node: SyntaxNode) => node.childForFieldName("value");
 
 export const getLeftNode = (node: SyntaxNode) => node.childForFieldName("left");
 

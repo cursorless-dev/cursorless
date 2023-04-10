@@ -41,12 +41,8 @@ export async function updateTSConfig(
     };
   }
 
-  const pathFromRootToPackage = normalizePath(
-    path.relative(workspaceDir, packageDir),
-  );
-  const pathFromPackageToRoot = normalizePath(
-    path.relative(packageDir, workspaceDir),
-  );
+  const pathFromRootToPackage = normalizePath(path.relative(workspaceDir, packageDir));
+  const pathFromPackageToRoot = normalizePath(path.relative(packageDir, workspaceDir));
 
   /** Info about package dependencies gleaned from lock file. */
   const lockFilePackageInfo = pnpmLockfile.importers[pathFromRootToPackage];
@@ -76,9 +72,7 @@ export async function updateTSConfig(
 
   return {
     ...input,
-    extends: toPosixPath(
-      path.join(pathFromPackageToRoot, "tsconfig.base.json"),
-    ),
+    extends: toPosixPath(path.join(pathFromPackageToRoot, "tsconfig.base.json")),
     compilerOptions: {
       ...(input.compilerOptions ?? {}),
       rootDir: "src",

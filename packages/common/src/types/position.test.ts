@@ -52,20 +52,12 @@ suite("Position", () => {
   });
 
   test("with", () => {
-    assert.ok(
-      new Position(1, 1).with(5, undefined).isEqual(new Position(5, 1)),
-    );
-    assert.ok(
-      new Position(1, 1).with(undefined, 5).isEqual(new Position(1, 5)),
-    );
+    assert.ok(new Position(1, 1).with(5, undefined).isEqual(new Position(5, 1)));
+    assert.ok(new Position(1, 1).with(undefined, 5).isEqual(new Position(1, 5)));
   });
 
   test("translate", () => {
-    assert.ok(
-      new Position(1, 1).translate(5, undefined).isEqual(new Position(6, 1)),
-    );
-    assert.ok(
-      new Position(1, 1).translate(undefined, 5).isEqual(new Position(1, 6)),
-    );
+    assert.ok(new Position(1, 1).translate(5, undefined).isEqual(new Position(6, 1)));
+    assert.ok(new Position(1, 1).translate(undefined, 5).isEqual(new Position(1, 6)));
   });
 });

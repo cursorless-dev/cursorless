@@ -37,9 +37,7 @@ const STATEMENT_TYPES = [
   "var_declaration",
 ];
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   map: "composite_literal",
   list: ["composite_literal", "slice_type", "array_type"],
   statement: STATEMENT_TYPES,

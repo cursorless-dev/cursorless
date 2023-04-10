@@ -52,9 +52,7 @@ const STATEMENT_TYPES = [
   "field_declaration",
 ];
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   statement: STATEMENT_TYPES,
   class: "class_declaration",
   className: "class_declaration[name]",

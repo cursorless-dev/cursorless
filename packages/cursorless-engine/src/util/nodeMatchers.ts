@@ -91,10 +91,7 @@ export function ancestorChainNodeMatcher(
   nodeToReturn: number = 0,
   selector: SelectionExtractor = simpleSelectionExtractor,
 ) {
-  return matcher(
-    ancestorChainNodeFinder(nodeToReturn, ...nodeFinders),
-    selector,
-  );
+  return matcher(ancestorChainNodeFinder(nodeToReturn, ...nodeFinders), selector);
 }
 
 export function typeMatcher(...typeNames: string[]) {
@@ -106,10 +103,7 @@ export function patternMatcher(...patterns: string[]): NodeMatcher {
 }
 
 export function argumentMatcher(...parentTypes: string[]): NodeMatcher {
-  return matcher(
-    argumentNodeFinder(...parentTypes),
-    argumentSelectionExtractor(),
-  );
+  return matcher(argumentNodeFinder(...parentTypes), argumentSelectionExtractor());
 }
 
 export function conditionMatcher(...patterns: string[]): NodeMatcher {
@@ -126,10 +120,7 @@ export function leadingMatcher(
   patterns: string[],
   delimiters: string[] = [],
 ): NodeMatcher {
-  return matcher(
-    patternFinder(...patterns),
-    selectWithLeadingDelimiter(...delimiters),
-  );
+  return matcher(patternFinder(...patterns), selectWithLeadingDelimiter(...delimiters));
 }
 
 /**

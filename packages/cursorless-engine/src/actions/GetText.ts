@@ -12,10 +12,7 @@ export default class GetText implements Action {
 
   async run(
     [targets]: [Target[]],
-    {
-      showDecorations = true,
-      ensureSingleTarget: doEnsureSingleTarget = false,
-    } = {},
+    { showDecorations = true, ensureSingleTarget: doEnsureSingleTarget = false } = {},
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
       await flashTargets(ide(), targets, FlashStyle.referenced);

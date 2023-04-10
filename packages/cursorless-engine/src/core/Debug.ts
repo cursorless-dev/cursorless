@@ -30,8 +30,9 @@ export class Debug {
       // Production mode. Enable based on user setting.
       case "production":
         this.evaluateSetting();
-        this.disposableConfiguration =
-          ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
+        this.disposableConfiguration = ide().configuration.onDidChangeConfiguration(
+          this.evaluateSetting,
+        );
         break;
     }
   }

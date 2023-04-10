@@ -1,10 +1,7 @@
 export * from "./commandIds";
 export * from "./testUtil/extractTargetedMarks";
 export { default as FakeIDE } from "./ide/fake/FakeIDE";
-export {
-  runTestSubset,
-  TEST_SUBSET_GREP_STRING,
-} from "./testUtil/runTestSubset";
+export { runTestSubset, TEST_SUBSET_GREP_STRING } from "./testUtil/runTestSubset";
 export { Message } from "./ide/spy/SpyMessages";
 export { SpyIDERecordedValues } from "./ide/spy/SpyIDE";
 export { default as SpyIDE } from "./ide/spy/SpyIDE";

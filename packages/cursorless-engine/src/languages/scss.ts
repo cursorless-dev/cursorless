@@ -72,9 +72,7 @@ function isAtDelimiter(node: SyntaxNode) {
  * @param siblingFunc returns the previous or next sibling of the current node if present.
  * @returns A non-delimiter node
  */
-function findAdjacentArgValues(
-  siblingFunc: (node: SyntaxNode) => SyntaxNode | null,
-) {
+function findAdjacentArgValues(siblingFunc: (node: SyntaxNode) => SyntaxNode | null) {
   return (node: SyntaxNode) => {
     // Handle the case where we are the cursor is placed before a delimiter, e.g. "|at"
     // and we erroneously expand in both directions.
@@ -106,9 +104,7 @@ function unitMatcher(
   }));
 }
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   ifStatement: "if_statement",
   condition: conditionMatcher("condition"),
   statement: cascadingMatcher(

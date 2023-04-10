@@ -1,10 +1,7 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 /*eslint-env node*/
 
-import {
-  cheatsheetBodyClasses,
-  fakeCheatsheetInfo,
-} from "@cursorless/cheatsheet";
+import { cheatsheetBodyClasses, fakeCheatsheetInfo } from "@cursorless/cheatsheet";
 import HtmlWebpackInlineSourcePlugin from "@effortlessmotion/html-webpack-inline-source-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import type { Configuration } from "webpack";

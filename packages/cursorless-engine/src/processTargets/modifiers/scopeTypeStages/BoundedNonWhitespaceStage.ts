@@ -1,8 +1,5 @@
 import { NoContainingScopeError } from "@cursorless/common";
-import {
-  ContainingScopeModifier,
-  EveryScopeModifier,
-} from "@cursorless/common";
+import { ContainingScopeModifier, EveryScopeModifier } from "@cursorless/common";
 import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import getModifierStage from "../../getModifierStage";
@@ -15,9 +12,7 @@ import { processSurroundingPair } from "../surroundingPair";
  * Expand the target until reaching a white space or surrounding pair.
  * If there is no surrounding pair defaults to the non white space sequence
  */
-export default class BoundedNonWhitespaceSequenceStage
-  implements ModifierStage
-{
+export default class BoundedNonWhitespaceSequenceStage implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {

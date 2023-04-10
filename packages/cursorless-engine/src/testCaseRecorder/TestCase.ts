@@ -86,9 +86,7 @@ export class TestCase {
     if (target.type === "primitive" && target.mark.type === type) {
       return true;
     } else if (target.type === "list") {
-      return target.elements.some((target) =>
-        this.includesThatMark(target, type),
-      );
+      return target.elements.some((target) => this.includesThatMark(target, type));
     } else if (target.type === "range") {
       return [target.anchor, target.active].some((target) =>
         this.includesThatMark(target, type),
@@ -115,21 +113,15 @@ export class TestCase {
       thatMark:
         (!isInitialSnapshot && !this.captureFinalThatMark) ||
         (isInitialSnapshot &&
-          !this.fullTargets.some((target) =>
-            this.includesThatMark(target, "that"),
-          )),
+          !this.fullTargets.some((target) => this.includesThatMark(target, "that"))),
       sourceMark:
         (!isInitialSnapshot && !this.captureFinalThatMark) ||
         (isInitialSnapshot &&
-          !this.fullTargets.some((target) =>
-            this.includesThatMark(target, "source"),
-          )),
+          !this.fullTargets.some((target) => this.includesThatMark(target, "source"))),
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
-    return Object.keys(excludableFields).filter(
-      (field) => excludableFields[field],
-    );
+    return Object.keys(excludableFields).filter((field) => excludableFields[field]);
   }
 
   toYaml() {
@@ -192,15 +184,9 @@ export class TestCase {
     const marksToCheck = context.targets.map(extractTargetKeys).flat();
     const keys = this.targetKeys.concat(marksToCheck);
 
-    this.initialState!.marks = pick(
-      this.initialState!.marks,
-      keys,
-    ) as SerializedMarks;
+    this.initialState!.marks = pick(this.initialState!.marks, keys) as SerializedMarks;
 
-    this.finalState!.marks = pick(
-      this.finalState!.marks,
-      keys,
-    ) as SerializedMarks;
+    this.finalState!.marks = pick(this.finalState!.marks, keys) as SerializedMarks;
 
     this.marksToCheck = marksToCheck;
 

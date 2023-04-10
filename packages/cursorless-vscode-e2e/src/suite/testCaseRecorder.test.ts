@@ -117,10 +117,7 @@ async function initalizeEditor(hatTokenMap: HatTokenMap) {
 }
 
 async function startRecording(...extraArgs: unknown[]) {
-  await vscode.commands.executeCommand(
-    "cursorless.recordTestCase",
-    ...extraArgs,
-  );
+  await vscode.commands.executeCommand("cursorless.recordTestCase", ...extraArgs);
 }
 
 async function stopRecording() {
@@ -154,10 +151,7 @@ async function checkRecordedTest(tmpdir: string) {
   assert.equal(basename(actualRecordedTestPath), "takeHarp.yml");
 
   const expected = (
-    await readFile(
-      getFixturePath("recorded/testCaseRecorder/takeHarp.yml"),
-      "utf8",
-    )
+    await readFile(getFixturePath("recorded/testCaseRecorder/takeHarp.yml"), "utf8")
   )
     // We use this to ensure that the test works on Windows. Depending on user
     // / CI git config, the file might be checked out with CRLF line endings

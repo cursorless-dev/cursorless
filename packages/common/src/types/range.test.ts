@@ -69,13 +69,8 @@ suite("Range", () => {
         .intersection(new Range(1, 7, 5, 2))
         ?.isRangeEqual(new Range(1, 7, 3, 4)),
     );
-    assert.ok(
-      new Range(1, 2, 1, 6).intersection(new Range(1, 6, 5, 2))?.isEmpty,
-    );
-    assert.equal(
-      new Range(1, 2, 1, 5).intersection(new Range(1, 6, 1, 9)),
-      undefined,
-    );
+    assert.ok(new Range(1, 2, 1, 6).intersection(new Range(1, 6, 5, 2))?.isEmpty);
+    assert.equal(new Range(1, 2, 1, 5).intersection(new Range(1, 6, 1, 9)), undefined);
   });
 
   test("with", () => {

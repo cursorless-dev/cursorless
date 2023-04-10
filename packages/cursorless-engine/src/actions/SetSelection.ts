@@ -19,10 +19,7 @@ export class SetSelection implements Action {
     const editor = ensureSingleEditor(targets);
 
     const selections = targets.map(this.getSelection);
-    await setSelectionsAndFocusEditor(
-      ide().getEditableTextEditor(editor),
-      selections,
-    );
+    await setSelectionsAndFocusEditor(ide().getEditableTextEditor(editor), selections);
 
     return {
       thatTargets: targets,

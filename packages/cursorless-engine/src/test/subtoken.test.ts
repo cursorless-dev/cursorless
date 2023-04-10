@@ -9,9 +9,7 @@ suite("subtoken regex matcher", () => {
   subtokenFixture.forEach(({ input, expectedOutput }) => {
     test(input, () => {
       assert.deepStrictEqual(
-        new WordTokenizer("anyLang")
-          .splitIdentifier(input)
-          .map(({ text }) => text),
+        new WordTokenizer("anyLang").splitIdentifier(input).map(({ text }) => text),
         expectedOutput,
       );
     });

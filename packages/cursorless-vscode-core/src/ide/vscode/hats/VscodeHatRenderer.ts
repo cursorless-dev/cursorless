@@ -64,22 +64,16 @@ export default class VscodeHatRenderer {
         },
       ),
 
-      vscode.workspace.onDidChangeConfiguration(
-        async ({ affectsConfiguration }) => {
-          if (
-            hatConfigSections.some((section) => affectsConfiguration(section))
-          ) {
-            await this.recomputeDecorations();
-          }
-        },
-      ),
+      vscode.workspace.onDidChangeConfiguration(async ({ affectsConfiguration }) => {
+        if (hatConfigSections.some((section) => affectsConfiguration(section))) {
+          await this.recomputeDecorations();
+        }
+      }),
     );
   }
 
   async handleNewStylesIfNecessary() {
-    if (
-      isEqual(this.lastSeenEnabledHatStyles, this.enabledHatStyles.hatStyleMap)
-    ) {
+    if (isEqual(this.lastSeenEnabledHatStyles, this.enabledHatStyles.hatStyleMap)) {
       return;
     }
 
@@ -142,12 +136,10 @@ export default class VscodeHatRenderer {
 
         const scaleFactor =
           1 +
-          (sizeAdjustment + userSizeAdjustment + userIndividualSizeAdjustment) /
-            100;
+          (sizeAdjustment + userSizeAdjustment + userIndividualSizeAdjustment) / 100;
 
         const finalVerticalOffsetEm =
-          (verticalOffset + userVerticalOffset + userIndividualVerticalOffset) /
-          100;
+          (verticalOffset + userVerticalOffset + userIndividualVerticalOffset) / 100;
 
         return [
           shape,
@@ -193,9 +185,7 @@ export default class VscodeHatRenderer {
       ),
     );
 
-    this.lastSeenEnabledHatStyles = cloneDeep(
-      this.enabledHatStyles.hatStyleMap,
-    );
+    this.lastSeenEnabledHatStyles = cloneDeep(this.enabledHatStyles.hatStyleMap);
   }
 
   private constructColoredSvgDataUri(originalSvg: string, color: string) {
@@ -252,8 +242,7 @@ export default class VscodeHatRenderer {
     const hatWidthPx = defaultHatWidthPx * scaleFactor;
 
     const hatVerticalOffsetPx =
-      (DEFAULT_VERTICAL_OFFSET_EM + hatVerticalOffsetEm) * fontSize -
-      hatHeightPx / 2;
+      (DEFAULT_VERTICAL_OFFSET_EM + hatVerticalOffsetEm) * fontSize - hatHeightPx / 2;
 
     const svgWidthPx = Math.ceil(characterWidth);
     const svgHeightPx = characterHeight + hatHeightPx + hatVerticalOffsetPx;

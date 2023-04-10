@@ -11,17 +11,12 @@ export default class WordScopeHandler extends NestedScopeHandler {
 
   private wordTokenizer = new WordTokenizer(this.languageId);
 
-  private getScopesInSearchScope({
-    editor,
-    domain,
-  }: TargetScope): TargetScope[] {
+  private getScopesInSearchScope({ editor, domain }: TargetScope): TargetScope[] {
     const { document } = editor;
     // FIXME: Switch to using getMatchesInRange once we are able to properly
     // mock away vscode for the unit tests in subtoken.test.ts
     const offset = document.offsetAt(domain.start);
-    const matches = this.wordTokenizer.splitIdentifier(
-      document.getText(domain),
-    );
+    const matches = this.wordTokenizer.splitIdentifier(document.getText(domain));
     const contentRanges = matches.map(
       (match) =>
         new Range(
@@ -71,8 +66,7 @@ function constructTarget(
   nextContentRange: Range | null,
 ) {
   const leadingDelimiterRange =
-    previousContentRange != null &&
-    contentRange.start.isAfter(previousContentRange.end)
+    previousContentRange != null && contentRange.start.isAfter(previousContentRange.end)
       ? new Range(previousContentRange.end, contentRange.start)
       : undefined;
 
@@ -84,9 +78,7 @@ function constructTarget(
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
   const insertionDelimiter = isInDelimitedList
-    ? editor.document.getText(
-        (leadingDelimiterRange ?? trailingDelimiterRange)!,
-      )
+    ? editor.document.getText((leadingDelimiterRange ?? trailingDelimiterRange)!)
     : "";
 
   return new SubTokenWordTarget({

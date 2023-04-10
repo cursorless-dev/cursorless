@@ -30,9 +30,7 @@ export class EditNew implements Action {
       return runEditNewNotebookCellTargets(this.actions, targets);
     }
 
-    const editableEditor = ide().getEditableTextEditor(
-      ensureSingleEditor(targets),
-    );
+    const editableEditor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
     /**
      * Keeps track of the desired cursor positions and "that" marks as we

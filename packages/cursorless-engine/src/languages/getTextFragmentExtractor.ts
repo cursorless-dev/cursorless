@@ -78,9 +78,7 @@ function constructDefaultStringTextFragmentExtractor(
  * @param selection The selection from which to expand
  * @returns The range of the string text or null if the node is not a string
  */
-function constructHackedStringTextFragmentExtractor(
-  languageId: SupportedLanguageId,
-) {
+function constructHackedStringTextFragmentExtractor(languageId: SupportedLanguageId) {
   const stringNodeMatcher = getNodeMatcher(languageId, "string", false);
 
   return (node: SyntaxNode, selection: SelectionWithEditor) => {
@@ -131,15 +129,9 @@ const textFragmentExtractors: Record<
   ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
-  css: constructDefaultTextFragmentExtractor(
-    "css",
-    scssStringTextFragmentExtractor,
-  ),
+  css: constructDefaultTextFragmentExtractor("css", scssStringTextFragmentExtractor),
   go: constructDefaultTextFragmentExtractor("go"),
-  html: constructDefaultTextFragmentExtractor(
-    "html",
-    htmlStringTextFragmentExtractor,
-  ),
+  html: constructDefaultTextFragmentExtractor("html", htmlStringTextFragmentExtractor),
   java: constructDefaultTextFragmentExtractor(
     "java",
     constructHackedStringTextFragmentExtractor("java"),
@@ -156,29 +148,17 @@ const textFragmentExtractors: Record<
     "jsonc",
     jsonStringTextFragmentExtractor,
   ),
-  json: constructDefaultTextFragmentExtractor(
-    "json",
-    jsonStringTextFragmentExtractor,
-  ),
+  json: constructDefaultTextFragmentExtractor("json", jsonStringTextFragmentExtractor),
   latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
-  php: constructDefaultTextFragmentExtractor(
-    "php",
-    phpStringTextFragmentExtractor,
-  ),
+  php: constructDefaultTextFragmentExtractor("php", phpStringTextFragmentExtractor),
   python: constructDefaultTextFragmentExtractor("python"),
-  ruby: constructDefaultTextFragmentExtractor(
-    "ruby",
-    rubyStringTextFragmentExtractor,
-  ),
+  ruby: constructDefaultTextFragmentExtractor("ruby", rubyStringTextFragmentExtractor),
   scala: constructDefaultTextFragmentExtractor(
     "scala",
     constructHackedStringTextFragmentExtractor("scala"),
   ),
-  scss: constructDefaultTextFragmentExtractor(
-    "scss",
-    scssStringTextFragmentExtractor,
-  ),
+  scss: constructDefaultTextFragmentExtractor("scss", scssStringTextFragmentExtractor),
   rust: constructDefaultTextFragmentExtractor("rust"),
   typescript: constructDefaultTextFragmentExtractor(
     "typescript",
@@ -188,8 +168,5 @@ const textFragmentExtractors: Record<
     "typescriptreact",
     typescriptStringTextFragmentExtractor,
   ),
-  xml: constructDefaultTextFragmentExtractor(
-    "xml",
-    htmlStringTextFragmentExtractor,
-  ),
+  xml: constructDefaultTextFragmentExtractor("xml", htmlStringTextFragmentExtractor),
 };

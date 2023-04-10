@@ -37,13 +37,12 @@ export async function runInsertLineAfterTargets(
 
   const contentRanges = targets.map(({ target }) => target.contentRange);
 
-  const [updatedTargetRanges, updatedThatRanges] =
-    await callFunctionAndUpdateRanges(
-      graph.rangeUpdater,
-      () => editor.insertLineAfter(contentRanges),
-      editor.document,
-      [state.targets.map(({ contentRange }) => contentRange), state.thatRanges],
-    );
+  const [updatedTargetRanges, updatedThatRanges] = await callFunctionAndUpdateRanges(
+    graph.rangeUpdater,
+    () => editor.insertLineAfter(contentRanges),
+    editor.document,
+    [state.targets.map(({ contentRange }) => contentRange), state.thatRanges],
+  );
 
   // For each of the given command targets, the cursor will go where it ended
   // up after running the command.  We add it to the state so that any

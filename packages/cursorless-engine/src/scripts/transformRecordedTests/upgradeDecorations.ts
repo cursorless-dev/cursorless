@@ -33,8 +33,7 @@ export const upgradeDecorations: FixtureTransformation = (
   const { decorations } = fixture;
   const [highlights, flashes] = partition(
     decorations,
-    ({ name }) =>
-      name === "highlight0Background" || name === "highlight1Background",
+    ({ name }) => name === "highlight0Background" || name === "highlight1Background",
   );
 
   fixture.decorations = undefined;
@@ -48,12 +47,10 @@ export const upgradeDecorations: FixtureTransformation = (
     highlights:
       highlights.length === 0
         ? undefined
-        : Object.entries(groupBy(highlights, "name")).map(
-            ([name, highlights]) => ({
-              highlightId: extractHighlightName(name),
-              ranges: highlights.map(extractHighlightRange),
-            }),
-          ),
+        : Object.entries(groupBy(highlights, "name")).map(([name, highlights]) => ({
+            highlightId: extractHighlightName(name),
+            ranges: highlights.map(extractHighlightRange),
+          })),
     flashes:
       flashes.length === 0
         ? undefined

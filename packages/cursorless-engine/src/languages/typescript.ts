@@ -87,12 +87,8 @@ function typeMatcher(): NodeMatcher {
       node.type !== "new" &&
       node.type !== "arguments"
     ) {
-      const identifierNode = node.parent.children.find(
-        (n) => n.type === "identifier",
-      );
-      const argsNode = node.parent.children.find(
-        (n) => n.type === "type_arguments",
-      );
+      const identifierNode = node.parent.children.find((n) => n.type === "identifier");
+      const argsNode = node.parent.children.find((n) => n.type === "type_arguments");
       if (identifierNode && argsNode) {
         return [
           {
@@ -108,10 +104,7 @@ function typeMatcher(): NodeMatcher {
         return [
           {
             node: identifierNode,
-            selection: simpleSelectionExtractor(
-              selection.editor,
-              identifierNode,
-            ),
+            selection: simpleSelectionExtractor(selection.editor, identifierNode),
           },
         ];
       }
@@ -165,9 +158,7 @@ function valueMatcher() {
 const mapTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],
@@ -199,10 +190,7 @@ const nodeMatchers: Partial<
   functionCall: ["call_expression", "new_expression"],
   functionCallee: cascadingMatcher(
     patternMatcher("call_expression[function]"),
-    matcher(
-      patternFinder("new_expression"),
-      childRangeSelector(["arguments"], []),
-    ),
+    matcher(patternFinder("new_expression"), childRangeSelector(["arguments"], [])),
   ),
   statement: cascadingMatcher(
     matcher(
@@ -291,10 +279,7 @@ const nodeMatchers: Partial<
       "generator_function_declaration",
     ),
     // abstract class method
-    matcher(
-      patternFinder("abstract_method_signature"),
-      extendForwardPastOptional(";"),
-    ),
+    matcher(patternFinder("abstract_method_signature"), extendForwardPastOptional(";")),
   ),
   type: cascadingMatcher(
     // Typed parameters, properties, and functions

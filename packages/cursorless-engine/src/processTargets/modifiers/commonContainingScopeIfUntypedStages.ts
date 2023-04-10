@@ -12,15 +12,13 @@ import type { Target } from "../../typings/target.types";
  * target has no explicit scope type, ie if {@link Target.hasExplicitScopeType}
  * is `false`.
  */
-export const containingSurroundingPairIfUntypedStage = new ModifyIfUntypedStage(
-  {
-    type: "modifyIfUntyped",
-    modifier: {
-      type: "containingScope",
-      scopeType: { type: "surroundingPair", delimiter: "any" },
-    },
+export const containingSurroundingPairIfUntypedStage = new ModifyIfUntypedStage({
+  type: "modifyIfUntyped",
+  modifier: {
+    type: "containingScope",
+    scopeType: { type: "surroundingPair", delimiter: "any" },
   },
-);
+});
 
 /**
  * Expands the given target to the nearest containing line if the target has no

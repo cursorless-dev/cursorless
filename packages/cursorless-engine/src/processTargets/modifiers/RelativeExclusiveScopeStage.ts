@@ -31,8 +31,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
     const { isReversed, editor, contentRange: inputRange } = target;
     const { length: desiredScopeCount, direction, offset } = this.modifier;
 
-    const initialPosition =
-      direction === "forward" ? inputRange.end : inputRange.start;
+    const initialPosition = direction === "forward" ? inputRange.end : inputRange.start;
 
     // If inputRange is empty, then we skip past any scopes that start at
     // inputRange.  Otherwise just disallow any scopes that start strictly

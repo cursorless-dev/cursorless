@@ -20,9 +20,7 @@ export function getIndividualDelimiters(
 
     // Allow for the fact that a delimiter might have multiple ways to indicate
     // its opening / closing
-    const leftDelimiters = isString(leftDelimiter)
-      ? [leftDelimiter]
-      : leftDelimiter;
+    const leftDelimiters = isString(leftDelimiter) ? [leftDelimiter] : leftDelimiter;
     const rightDelimiters = isString(rightDelimiter)
       ? [rightDelimiter]
       : rightDelimiter;
@@ -37,12 +35,7 @@ export function getIndividualDelimiters(
         text,
         // If delimiter text is the same for left and right, we say it's side
         // is "unknown", so must be determined from context.
-        side:
-          isLeft && !isRight
-            ? "left"
-            : isRight && !isLeft
-            ? "right"
-            : "unknown",
+        side: isLeft && !isRight ? "left" : isRight && !isLeft ? "right" : "unknown",
         delimiter,
       };
     });

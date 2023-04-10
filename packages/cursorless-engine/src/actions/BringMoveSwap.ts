@@ -14,11 +14,7 @@ import { Target } from "../typings/target.types";
 import { EditWithRangeUpdater } from "../typings/Types";
 import { Graph } from "../typings/Graph";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
-import {
-  flashTargets,
-  getContentRange,
-  runForEachEditor,
-} from "../util/targetUtils";
+import { flashTargets, getContentRange, runForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { Action, ActionReturnValue } from "./actions.types";
 
@@ -167,17 +163,14 @@ class BringMoveSwap implements Action {
         async (editor, edits) => {
           // For bring we don't want to update the sources
           const filteredEdits =
-            this.type !== "bring"
-              ? edits
-              : edits.filter(({ isSource }) => !isSource);
+            this.type !== "bring" ? edits : edits.filter(({ isSource }) => !isSource);
 
-          const editSelectionInfos = edits.map(
-            ({ edit: { range }, originalTarget }) =>
-              getSelectionInfo(
-                editor.document,
-                range.toSelection(originalTarget.isReversed),
-                RangeExpansionBehavior.openOpen,
-              ),
+          const editSelectionInfos = edits.map(({ edit: { range }, originalTarget }) =>
+            getSelectionInfo(
+              editor.document,
+              range.toSelection(originalTarget.isReversed),
+              RangeExpansionBehavior.openOpen,
+            ),
           );
 
           const cursorSelectionInfos = editor.selections.map((selection) =>
@@ -232,9 +225,7 @@ class BringMoveSwap implements Action {
       ),
       flashTargets(
         ide(),
-        thatMark
-          .filter(({ isSource }) => !isSource)
-          .map(({ target }) => target),
+        thatMark.filter(({ isSource }) => !isSource).map(({ target }) => target),
         decorationContext.destinationStyle,
         getRange,
       ),
@@ -250,17 +241,12 @@ class BringMoveSwap implements Action {
 
     // Only swap doesn't have a source mark
     const sourceMark =
-      this.type === "swap"
-        ? []
-        : markEntries.filter(({ isSource }) => isSource);
+      this.type === "swap" ? [] : markEntries.filter(({ isSource }) => isSource);
 
     return { thatMark, sourceMark };
   }
 
-  async run([sources, destinations]: [
-    Target[],
-    Target[],
-  ]): Promise<ActionReturnValue> {
+  async run([sources, destinations]: [Target[], Target[]]): Promise<ActionReturnValue> {
     sources = this.broadcastSource(sources, destinations);
 
     await this.decorateTargets(sources, destinations);

@@ -45,8 +45,7 @@ async function runTest(
   multiplePhrases: boolean,
   expectedSelections: vscode.Selection[],
 ) {
-  const { hatTokenMap, commandServerApi } = (await getCursorlessApi())
-    .testHelpers!;
+  const { hatTokenMap, commandServerApi } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor("a\n");
 

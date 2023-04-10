@@ -32,10 +32,7 @@ export default class TokenScopeHandler extends NestedScopeHandler {
     );
   }
 
-  isPreferredOver(
-    scopeA: TargetScope,
-    scopeB: TargetScope,
-  ): boolean | undefined {
+  isPreferredOver(scopeA: TargetScope, scopeB: TargetScope): boolean | undefined {
     const {
       editor: { document },
     } = scopeA;

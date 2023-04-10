@@ -121,14 +121,8 @@ export function findSurroundingPairTextBased(
      * restrict it based on the current scan length
      */
     const currentRangeOffsets = {
-      start: Math.max(
-        fullRangeOffsets.start,
-        selectionOffsets.end - scanLength / 2,
-      ),
-      end: Math.min(
-        fullRangeOffsets.end,
-        selectionOffsets.end + scanLength / 2,
-      ),
+      start: Math.max(fullRangeOffsets.start, selectionOffsets.end - scanLength / 2),
+      end: Math.min(fullRangeOffsets.end, selectionOffsets.end + scanLength / 2),
     };
 
     const currentRange = new Range(
@@ -181,9 +175,7 @@ export function findSurroundingPairTextBased(
 function getDelimiterRegex(individualDelimiters: IndividualDelimiter[]) {
   // Create a regex which is a disjunction of all possible left / right
   // delimiter texts
-  const individualDelimiterDisjunct = uniq(
-    individualDelimiters.map(({ text }) => text),
-  )
+  const individualDelimiterDisjunct = uniq(individualDelimiters.map(({ text }) => text))
     .map(escapeRegExp)
     .join("|");
 
@@ -227,12 +219,8 @@ function getDelimiterPairOffsets(
   isAtStartOfFullRange: boolean,
   isAtEndOfFullRange: boolean,
 ): SurroundingPairOffsets | null {
-  const {
-    scopeType,
-    delimiterTextToDelimiterInfoMap,
-    delimiterRegex,
-    delimiters,
-  } = context;
+  const { scopeType, delimiterTextToDelimiterInfoMap, delimiterRegex, delimiters } =
+    context;
   const { forceDirection } = scopeType;
 
   // XXX: The below is a bit wasteful when there are multiple targets, because
@@ -305,8 +293,7 @@ function getDelimiterPairOffsets(
   if (
     surroundingPair == null ||
     (!isAtStartOfFullRange && surroundingPair.leftDelimiter.start === 0) ||
-    (!isAtEndOfFullRange &&
-      surroundingPair.rightDelimiter.end === text.length - 1)
+    (!isAtEndOfFullRange && surroundingPair.rightDelimiter.end === text.length - 1)
   ) {
     return null;
   }

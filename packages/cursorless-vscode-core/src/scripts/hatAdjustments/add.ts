@@ -34,9 +34,7 @@ function processProperty(
 function main() {
   const finalMap = Object.fromEntries(
     HAT_SHAPES.map((shape) => {
-      const adjustmentsList = adjustments.map(
-        (adjustment) => adjustment[shape] ?? {},
-      );
+      const adjustmentsList = adjustments.map((adjustment) => adjustment[shape] ?? {});
 
       return [
         shape,

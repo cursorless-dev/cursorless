@@ -32,10 +32,7 @@ export default class Wrap implements Action {
       async (editor, targets) => {
         const { document } = editor;
         const boundaries = targets.map((target) => ({
-          start: new Selection(
-            target.contentRange.start,
-            target.contentRange.start,
-          ),
+          start: new Selection(target.contentRange.start, target.contentRange.start),
           end: new Selection(target.contentRange.end, target.contentRange.end),
         }));
 
@@ -54,26 +51,14 @@ export default class Wrap implements Action {
         const delimiterSelectionInfos: FullSelectionInfo[] = boundaries.flatMap(
           ({ start, end }) => {
             return [
-              getSelectionInfo(
-                document,
-                start,
-                RangeExpansionBehavior.openClosed,
-              ),
-              getSelectionInfo(
-                document,
-                end,
-                RangeExpansionBehavior.closedOpen,
-              ),
+              getSelectionInfo(document, start, RangeExpansionBehavior.openClosed),
+              getSelectionInfo(document, end, RangeExpansionBehavior.closedOpen),
             ];
           },
         );
 
         const cursorSelectionInfos = editor.selections.map((selection) =>
-          getSelectionInfo(
-            document,
-            selection,
-            RangeExpansionBehavior.closedClosed,
-          ),
+          getSelectionInfo(document, selection, RangeExpansionBehavior.closedClosed),
         );
 
         const sourceMarkSelectionInfos = targets.map((target) =>

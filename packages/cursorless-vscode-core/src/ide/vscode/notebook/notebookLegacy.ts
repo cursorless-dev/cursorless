@@ -23,12 +23,8 @@ export async function focusNotebookCellLegacy(
 
   const vscodeActiveEditor = toVscodeEditor(activeTextEditor);
 
-  const editorNotebook = getNotebookFromCellDocument(
-    editor.vscodeEditor.document,
-  );
-  const activeEditorNotebook = getNotebookFromCellDocument(
-    vscodeActiveEditor.document,
-  );
+  const editorNotebook = getNotebookFromCellDocument(editor.vscodeEditor.document);
+  const activeEditorNotebook = getNotebookFromCellDocument(vscodeActiveEditor.document);
 
   if (
     editorNotebook == null ||
@@ -38,14 +34,8 @@ export async function focusNotebookCellLegacy(
     return;
   }
 
-  const editorIndex = getCellIndex(
-    editorNotebook,
-    editor.vscodeEditor.document,
-  );
-  const activeEditorIndex = getCellIndex(
-    editorNotebook,
-    vscodeActiveEditor.document,
-  );
+  const editorIndex = getCellIndex(editorNotebook, editor.vscodeEditor.document);
+  const activeEditorIndex = getCellIndex(editorNotebook, vscodeActiveEditor.document);
 
   if (editorIndex === -1 || activeEditorIndex === -1) {
     throw new Error(
@@ -56,9 +46,7 @@ export async function focusNotebookCellLegacy(
   const cellOffset = editorIndex - activeEditorIndex;
 
   const command =
-    cellOffset < 0
-      ? "notebook.focusPreviousEditor"
-      : "notebook.focusNextEditor";
+    cellOffset < 0 ? "notebook.focusPreviousEditor" : "notebook.focusNextEditor";
 
   // This is a hack. We just repeatedly issued the command to move upwards or
   // downwards a cell to get to the right cell

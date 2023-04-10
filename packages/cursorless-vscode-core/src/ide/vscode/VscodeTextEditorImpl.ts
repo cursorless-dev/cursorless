@@ -95,9 +95,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeFocusEditor(this.ide, this);
   }
 
-  public editNewNotebookCellAbove(): Promise<
-    (selection: Selection) => Selection
-  > {
+  public editNewNotebookCellAbove(): Promise<(selection: Selection) => Selection> {
     return vscodeEditNewNotebookCellAbove(this);
   }
 

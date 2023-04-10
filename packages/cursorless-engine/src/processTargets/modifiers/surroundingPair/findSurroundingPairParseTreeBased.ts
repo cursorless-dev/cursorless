@@ -9,11 +9,7 @@ import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
-import {
-  IndividualDelimiter,
-  Offsets,
-  PossibleDelimiterOccurrence,
-} from "./types";
+import { IndividualDelimiter, Offsets, PossibleDelimiterOccurrence } from "./types";
 
 /**
  * Implements the version of the surrounding pair finding algorithm that
@@ -105,18 +101,11 @@ export function findSurroundingPairParseTreeBased(
     }
 
     // Here we apply the core algorithm
-    const pairOffsets = findSurroundingPairContainedInNode(
-      context,
-      currentNode,
-    );
+    const pairOffsets = findSurroundingPairContainedInNode(context, currentNode);
 
     // And then perform postprocessing
     if (pairOffsets != null) {
-      return extractSelectionFromSurroundingPairOffsets(
-        document,
-        0,
-        pairOffsets,
-      );
+      return extractSelectionFromSurroundingPairOffsets(document, 0, pairOffsets);
     }
   }
 
@@ -161,10 +150,7 @@ interface Context {
  * @param node The current node to consider
  * @returns The offsets of the matching surrounding pair, or `null` if none is found
  */
-function findSurroundingPairContainedInNode(
-  context: Context,
-  node: SyntaxNode,
-) {
+function findSurroundingPairContainedInNode(context: Context, node: SyntaxNode) {
   const {
     delimiterTextToDelimiterInfoMap,
     individualDelimiters,
@@ -193,8 +179,7 @@ function findSurroundingPairContainedInNode(
           end: delimiterNode.endIndex,
         },
         get delimiterInfo() {
-          const delimiterInfo =
-            delimiterTextToDelimiterInfoMap[delimiterNode.type];
+          const delimiterInfo = delimiterTextToDelimiterInfoMap[delimiterNode.type];
 
           // Distinguish between a greater-than sign and an angle bracket by
           // looking at its position within its parent node.

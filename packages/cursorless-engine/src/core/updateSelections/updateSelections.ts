@@ -7,10 +7,7 @@ import {
 } from "@cursorless/common";
 import { flatten } from "lodash";
 import { Edit } from "../../typings/Types";
-import {
-  FullSelectionInfo,
-  SelectionInfo,
-} from "../../typings/updateSelections";
+import { FullSelectionInfo, SelectionInfo } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
 import { RangeUpdater } from "./RangeUpdater";
 
@@ -88,9 +85,7 @@ function selectionsToSelectionInfos(
   rangeBehavior: RangeExpansionBehavior = RangeExpansionBehavior.closedClosed,
 ): FullSelectionInfo[][] {
   return selectionMatrix.map((selections) =>
-    selections.map((selection) =>
-      getSelectionInfo(document, selection, rangeBehavior),
-    ),
+    selections.map((selection) => getSelectionInfo(document, selection, rangeBehavior)),
   );
 }
 
@@ -150,10 +145,7 @@ export async function callFunctionAndUpdateSelections(
   document: TextDocument,
   selectionMatrix: (readonly Selection[])[],
 ): Promise<Selection[][]> {
-  const selectionInfoMatrix = selectionsToSelectionInfos(
-    document,
-    selectionMatrix,
-  );
+  const selectionInfoMatrix = selectionsToSelectionInfos(document, selectionMatrix);
 
   return await callFunctionAndUpdateSelectionInfos(
     rangeUpdater,
@@ -230,8 +222,7 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           document,
           selection,
-          selectionsWithBehavior.rangeBehavior ??
-            RangeExpansionBehavior.closedClosed,
+          selectionsWithBehavior.rangeBehavior ?? RangeExpansionBehavior.closedClosed,
         ),
       ),
     ),
@@ -254,10 +245,7 @@ export async function performEditsAndUpdateSelections(
   originalSelections: (readonly Selection[])[],
 ) {
   const document = editor.document;
-  const selectionInfoMatrix = selectionsToSelectionInfos(
-    document,
-    originalSelections,
-  );
+  const selectionInfoMatrix = selectionsToSelectionInfos(document, originalSelections);
   return performEditsAndUpdateInternal(
     rangeUpdater,
     editor,
@@ -291,8 +279,7 @@ export function performEditsAndUpdateSelectionsWithBehavior(
         getSelectionInfo(
           editor.document,
           selection,
-          selectionsWithBehavior.rangeBehavior ??
-            RangeExpansionBehavior.closedClosed,
+          selectionsWithBehavior.rangeBehavior ?? RangeExpansionBehavior.closedClosed,
         ),
       ),
     ),
@@ -386,11 +373,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
   //   field.
 
   const func = async () => {
-    const wereEditsApplied = await performDocumentEdits(
-      rangeUpdater,
-      editor,
-      edits,
-    );
+    const wereEditsApplied = await performDocumentEdits(rangeUpdater, editor, edits);
 
     if (!wereEditsApplied) {
       throw new Error("Could not apply edits");

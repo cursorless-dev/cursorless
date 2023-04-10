@@ -14,9 +14,7 @@ export default function getHatThemeColors(colorName: HatColor) {
 
   const dark =
     oldStyleColorSetting?.dark ??
-    vscode.workspace
-      .getConfiguration("cursorless.colors.dark")
-      .get<string>(colorName)!;
+    vscode.workspace.getConfiguration("cursorless.colors.dark").get<string>(colorName)!;
 
   const light =
     oldStyleColorSetting?.light ??

@@ -83,9 +83,7 @@ type SimpleSurroundingPairName =
   | "singleQuotes"
   | "squareBrackets";
 type ComplexSurroundingPairName = "string" | "any" | "collectionBoundary";
-type SurroundingPairName =
-  | SimpleSurroundingPairName
-  | ComplexSurroundingPairName;
+type SurroundingPairName = SimpleSurroundingPairName | ComplexSurroundingPairName;
 
 export type SimpleScopeTypeTypeV2 =
   | "argumentOrParameter"
@@ -284,10 +282,7 @@ export interface PartialRangeTargetDescriptorV2 {
 
 export interface PartialListTargetDescriptorV2 {
   type: "list";
-  elements: (
-    | PartialPrimitiveTargetDescriptorV2
-    | PartialRangeTargetDescriptorV2
-  )[];
+  elements: (PartialPrimitiveTargetDescriptorV2 | PartialRangeTargetDescriptorV2)[];
 }
 
 export type PartialTargetDescriptorV2 =

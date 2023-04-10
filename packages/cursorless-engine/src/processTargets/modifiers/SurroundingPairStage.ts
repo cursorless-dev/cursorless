@@ -24,10 +24,7 @@ import { processSurroundingPair } from "./surroundingPair";
 export default class SurroundingPairStage implements ModifierStage {
   constructor(private modifier: SurroundingPairModifier) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    target: Target,
-  ): SurroundingPairTarget[] {
+  run(context: ProcessedTargetsContext, target: Target): SurroundingPairTarget[] {
     if (this.modifier.type === "everyScope") {
       throw Error(`Unsupported every scope ${this.modifier.scopeType.type}`);
     }

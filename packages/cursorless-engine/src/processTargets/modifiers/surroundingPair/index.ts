@@ -49,13 +49,7 @@ export function processSurroundingPair(
     if ((err as Error).name === "UnsupportedLanguageError") {
       // If we're in a language where we don't have a parse tree we use the text
       // based algorithm
-      return findSurroundingPairTextBased(
-        editor,
-        range,
-        null,
-        delimiters,
-        scopeType,
-      );
+      return findSurroundingPairTextBased(editor, range, null, delimiters, scopeType);
     } else {
       throw err;
     }
@@ -85,11 +79,5 @@ export function processSurroundingPair(
   // If we have a parse tree and either we are not in a string or comment or we
   // couldn't find a surrounding pair within a string or comment, we use the
   // parse tree-based algorithm
-  return findSurroundingPairParseTreeBased(
-    editor,
-    range,
-    node,
-    delimiters,
-    scopeType,
-  );
+  return findSurroundingPairParseTreeBased(editor, range, node, delimiters, scopeType);
 }

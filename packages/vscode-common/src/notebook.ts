@@ -14,7 +14,5 @@ export function getCellIndex(
 ) {
   return notebookDocument
     .getCells()
-    .findIndex(
-      (cell) => cell.document.uri.toString() === document.uri.toString(),
-    );
+    .findIndex((cell) => cell.document.uri.toString() === document.uri.toString());
 }

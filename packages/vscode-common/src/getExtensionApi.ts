@@ -49,10 +49,7 @@ export interface CursorlessApi {
   testHelpers: TestHelpers | undefined;
 
   experimental: {
-    registerThirdPartySnippets: (
-      extensionId: string,
-      snippets: SnippetMap,
-    ) => void;
+    registerThirdPartySnippets: (extensionId: string, snippets: SnippetMap) => void;
   };
 }
 

@@ -139,12 +139,7 @@ is an example:
     "definitions": [
       {
         "scope": {
-          "langIds": [
-            "typescript",
-            "typescriptreact",
-            "javascript",
-            "javascriptreact"
-          ]
+          "langIds": ["typescript", "typescriptreact", "javascript", "javascriptreact"]
         },
         "body": ["try {", "\t$body", "} catch (err) {", "\t$exceptBody", "}"]
       }

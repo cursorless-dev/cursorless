@@ -1,7 +1,4 @@
-import {
-  getCursorlessApi,
-  openNewNotebookEditor,
-} from "@cursorless/vscode-common";
+import { getCursorlessApi, openNewNotebookEditor } from "@cursorless/vscode-common";
 import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";

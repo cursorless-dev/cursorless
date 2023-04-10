@@ -85,8 +85,7 @@ function itemFinder() {
  * @param node The node whose children to get
  * @returns A list of the value node children of the given node
  */
-const getValueNodes = (node: SyntaxNode) =>
-  getChildNodesForFieldName(node, "value");
+const getValueNodes = (node: SyntaxNode) => getChildNodesForFieldName(node, "value");
 
 // A function call is a list literal which is not quoted
 const functionCallPattern = "~quoting_lit.list_lit!";
@@ -121,18 +120,11 @@ const functionNameMatcher = chainedMatcher([
   (functionNode) => getValueNodes(functionNode)[1],
 ]);
 
-const ifStatementFinder = functionNameBasedFinder(
-  "if",
-  "if-let",
-  "when",
-  "when-let",
-);
+const ifStatementFinder = functionNameBasedFinder("if", "if-let", "when", "when-let");
 
 const ifStatementMatcher = matcher(ifStatementFinder);
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   comment: "comment",
   map: "map_lit",
 
@@ -186,10 +178,7 @@ const nodeMatchers: Partial<
 
   ifStatement: ifStatementMatcher,
 
-  condition: chainedMatcher([
-    ifStatementFinder,
-    (node) => getValueNodes(node)[1],
-  ]),
+  condition: chainedMatcher([ifStatementFinder, (node) => getValueNodes(node)[1]]),
 };
 
 export default createPatternMatchers(nodeMatchers);

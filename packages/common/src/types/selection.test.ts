@@ -40,9 +40,7 @@ suite("Selection", () => {
   });
 
   test("isRangeEqual", () => {
-    assert.ok(
-      new Selection(0, 0, 0, 1).isRangeEqual(new Selection(0, 1, 0, 0)),
-    );
+    assert.ok(new Selection(0, 0, 0, 1).isRangeEqual(new Selection(0, 1, 0, 0)));
   });
 
   test("toSelection", () => {

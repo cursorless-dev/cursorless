@@ -30,10 +30,7 @@ export default class LineScopeHandler extends BaseScopeHandler {
   }
 }
 
-function lineNumberToScope(
-  editor: TextEditor,
-  lineNumber: number,
-): TargetScope {
+function lineNumberToScope(editor: TextEditor, lineNumber: number): TargetScope {
   const { range } = editor.document.lineAt(lineNumber);
 
   return {

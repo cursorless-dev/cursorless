@@ -15,11 +15,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
   globalState: FakeGlobalState;
   clipboard: FakeClipboard;
 
-  constructor(
-    original: IDE,
-    public fakeIde: FakeIDE,
-    private isSilent: boolean,
-  ) {
+  constructor(original: IDE, public fakeIde: FakeIDE, private isSilent: boolean) {
     super(original);
 
     this.messages = isSilent ? fakeIde.messages : original.messages;
@@ -47,9 +43,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
       true,
     );
     this.configuration.mockConfiguration("experimental", {
-      hatStability: this.configuration.getOwnConfiguration(
-        "experimental.hatStability",
-      ),
+      hatStability: this.configuration.getOwnConfiguration("experimental.hatStability"),
       snippetsDir: getFixturePath("cursorless-snippets"),
     });
   }

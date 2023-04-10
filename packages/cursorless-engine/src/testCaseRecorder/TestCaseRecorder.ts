@@ -231,9 +231,7 @@ export class TestCaseRecorder {
 
     this.active = true;
 
-    const startTimestampISO = await this.recordStartTime(
-      showCalibrationDisplay,
-    );
+    const startTimestampISO = await this.recordStartTime(showCalibrationDisplay);
     this.isHatTokenMapTest = isHatTokenMapTest;
     this.captureFinalThatMark = captureFinalThatMark;
     this.isDecorationsTest = isDecorationsTest;
@@ -436,8 +434,7 @@ export class TestCaseRecorder {
     this.originalIde = undefined;
 
     const editor = ide().activeTextEditor!;
-    ide().getEditableTextEditor(editor).options =
-      this.originalTextEditorOptions;
+    ide().getEditableTextEditor(editor).options = this.originalTextEditorOptions;
   }
 }
 
@@ -452,9 +449,7 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-async function readJsonIfExists(
-  path: string,
-): Promise<RecordTestCaseCommandArg> {
+async function readJsonIfExists(path: string): Promise<RecordTestCaseCommandArg> {
   let rawText: string;
 
   try {

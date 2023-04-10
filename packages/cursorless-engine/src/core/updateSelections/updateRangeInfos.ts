@@ -35,8 +35,7 @@ export function updateRangeInfos(
   const changeEventInfos: ChangeEventInfo[] = contentChanges.map((change) => {
     const changeDisplacement = change.text.length - change.rangeLength;
     const changeOriginalStartOffset = change.rangeOffset;
-    const changeOriginalEndOffset =
-      changeOriginalStartOffset + change.rangeLength;
+    const changeOriginalEndOffset = changeOriginalStartOffset + change.rangeLength;
     const changeFinalStartOffset = changeOriginalStartOffset;
     const changeFinalEndOffset = changeOriginalEndOffset + changeDisplacement;
 
@@ -89,15 +88,9 @@ export function updateRangeInfos(
       // Handle the hard cases
       if (changeEventInfo.event.rangeLength === 0) {
         if (rangeInfo.range.isEmpty) {
-          newOffsets = getOffsetsForEmptyRangeInsert(
-            changeEventInfo,
-            rangeInfo,
-          );
+          newOffsets = getOffsetsForEmptyRangeInsert(changeEventInfo, rangeInfo);
         } else {
-          newOffsets = getOffsetsForNonEmptyRangeInsert(
-            changeEventInfo,
-            rangeInfo,
-          );
+          newOffsets = getOffsetsForNonEmptyRangeInsert(changeEventInfo, rangeInfo);
         }
       } else {
         newOffsets = getOffsetsForDeleteOrReplace(changeEventInfo, rangeInfo);

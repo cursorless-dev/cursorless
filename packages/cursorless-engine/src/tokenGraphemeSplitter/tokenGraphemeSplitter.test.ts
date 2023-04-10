@@ -302,9 +302,7 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
       const displayOutput = expectedOutput.map(({ text }) => text).join(", ");
 
       test(`${input} -> ${displayOutput}`, () => {
-        const actualOutput = new TokenGraphemeSplitter().getTokenGraphemes(
-          input,
-        );
+        const actualOutput = new TokenGraphemeSplitter().getTokenGraphemes(input);
         assert.deepStrictEqual(actualOutput, expectedOutput);
       });
     });

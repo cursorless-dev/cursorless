@@ -5,11 +5,7 @@ import {
 } from "@cursorless/common";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
-import {
-  SurroundingPairOffsets,
-  Offsets,
-  PossibleDelimiterOccurrence,
-} from "./types";
+import { SurroundingPairOffsets, Offsets, PossibleDelimiterOccurrence } from "./types";
 
 /**
  * This function implements the core high-level surrounding pair algorithm

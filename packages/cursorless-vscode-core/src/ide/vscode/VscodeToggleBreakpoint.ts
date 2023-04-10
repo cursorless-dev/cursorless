@@ -8,9 +8,7 @@ export async function vscodeToggleBreakpoint(
   descriptors: BreakpointDescriptor[] | undefined,
 ): Promise<void> {
   if (descriptors == null) {
-    return await vscode.commands.executeCommand(
-      "editor.debug.action.toggleBreakpoint",
-    );
+    return await vscode.commands.executeCommand("editor.debug.action.toggleBreakpoint");
   }
 
   const uri = editor.document.uri;
@@ -47,8 +45,7 @@ function getBreakpoints(uri: vscode.Uri, descriptor: BreakpointDescriptor) {
       descriptor.startLine <= end.line && descriptor.endLine >= start.line;
   } else {
     const descriptorRange = toVscodeRange(descriptor.range);
-    rangeInterceptsDescriptor = (range) =>
-      range.intersection(descriptorRange) != null;
+    rangeInterceptsDescriptor = (range) => range.intersection(descriptorRange) != null;
   }
 
   return vscode.debug.breakpoints.filter(

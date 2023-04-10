@@ -1,11 +1,7 @@
 import { UnsupportedLanguageError } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "@cursorless/common";
-import {
-  NodeMatcher,
-  NodeMatcherValue,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcher, NodeMatcherValue, SelectionWithEditor } from "../typings/Types";
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";

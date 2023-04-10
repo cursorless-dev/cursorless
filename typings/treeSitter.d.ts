@@ -98,15 +98,9 @@ declare module "web-tree-sitter" {
       namedDescendantForIndex(index: number): SyntaxNode;
       namedDescendantForIndex(startIndex: number, endIndex: number): SyntaxNode;
       descendantForPosition(position: Point): SyntaxNode;
-      descendantForPosition(
-        startPosition: Point,
-        endPosition: Point,
-      ): SyntaxNode;
+      descendantForPosition(startPosition: Point, endPosition: Point): SyntaxNode;
       namedDescendantForPosition(position: Point): SyntaxNode;
-      namedDescendantForPosition(
-        startPosition: Point,
-        endPosition: Point,
-      ): SyntaxNode;
+      namedDescendantForPosition(startPosition: Point, endPosition: Point): SyntaxNode;
 
       walk(): TreeCursor;
     }

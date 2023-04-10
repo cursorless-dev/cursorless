@@ -76,16 +76,11 @@ export default class InsertSnippet implements Action {
             type: scopeTypeType,
           }));
     } else {
-      return snippetDescription.scopeType == null
-        ? []
-        : [snippetDescription.scopeType];
+      return snippetDescription.scopeType == null ? [] : [snippetDescription.scopeType];
     }
   }
 
-  private getSnippetInfo(
-    snippetDescription: InsertSnippetArg,
-    targets: Target[],
-  ) {
+  private getSnippetInfo(snippetDescription: InsertSnippetArg, targets: Target[]) {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 
@@ -140,11 +135,7 @@ export default class InsertSnippet implements Action {
     await this.actions.editNew.run([targets]);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
-      getSelectionInfo(
-        editor.document,
-        selection,
-        RangeExpansionBehavior.openOpen,
-      ),
+      getSelectionInfo(editor.document, selection, RangeExpansionBehavior.openOpen),
     );
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet

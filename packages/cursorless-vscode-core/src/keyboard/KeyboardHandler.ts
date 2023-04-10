@@ -110,10 +110,7 @@ export default class KeyboardHandler {
           .getConfiguration("cursorless.keyboard")
           .get<boolean>(`relinquishCursorControlOnDeactivate`)!;
 
-        if (
-          !relinquishCursorControlOnDeactivate ||
-          this.activeListener != null
-        ) {
+        if (!relinquishCursorControlOnDeactivate || this.activeListener != null) {
           this.ensureCursorStyle();
         }
       }),
@@ -183,9 +180,7 @@ export default class KeyboardHandler {
    * if they have `cursorless.keyboard.escape` bound to `escape` and they press
    * `escape`)
    */
-  awaitSingleKeypress(
-    displayOptions: DisplayOptions,
-  ): Promise<string | undefined> {
+  awaitSingleKeypress(displayOptions: DisplayOptions): Promise<string | undefined> {
     return new Promise<string | undefined>((resolve) => {
       const disposable = this.pushListener({
         displayOptions,
@@ -286,8 +281,7 @@ export default class KeyboardHandler {
       this.activeListener?.listener.displayOptions.cursorStyle ??
       vscode.TextEditorCursorStyle.Line;
 
-    const currentCursorStyle =
-      vscode.window.activeTextEditor.options.cursorStyle;
+    const currentCursorStyle = vscode.window.activeTextEditor.options.cursorStyle;
 
     if (currentCursorStyle !== cursorStyle) {
       vscode.window.activeTextEditor.options = {
@@ -301,8 +295,7 @@ export default class KeyboardHandler {
       return;
     }
 
-    const statusBarText =
-      this.activeListener?.listener.displayOptions.statusBarText;
+    const statusBarText = this.activeListener?.listener.displayOptions.statusBarText;
 
     if (statusBarText == null) {
       this.statusBarItem.unsetText();

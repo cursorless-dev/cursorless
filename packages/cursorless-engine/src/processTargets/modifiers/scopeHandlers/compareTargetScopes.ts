@@ -23,11 +23,7 @@ export function compareTargetScopes(
     : compareTargetScopesBackward(position, a, b);
 }
 
-function compareTargetScopesForward(
-  position: Position,
-  a: Range,
-  b: Range,
-): number {
+function compareTargetScopesForward(position: Position, a: Range, b: Range): number {
   // First determine whether the start occurs before position.  If so, we will
   // only get to see the end when iterating forward.
   const aIsStartVisible = a.start.isAfterOrEqual(position);
@@ -69,11 +65,7 @@ function compareTargetScopesForward(
 
 // FIXME: Unify this function with compareTargetScopesForward by constructing
 // distal / proximal versions of these ranges
-function compareTargetScopesBackward(
-  position: Position,
-  a: Range,
-  b: Range,
-): number {
+function compareTargetScopesBackward(position: Position, a: Range, b: Range): number {
   // First determine whether the end occurs after position.  If so, we will
   // only get to see the start when iterating backward.
   const aIsEndVisible = a.end.isBeforeOrEqual(position);

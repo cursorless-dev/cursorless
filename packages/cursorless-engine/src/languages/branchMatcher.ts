@@ -1,10 +1,6 @@
 import { NodeMatcher } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
-import {
-  cascadingMatcher,
-  matcher,
-  patternMatcher,
-} from "../util/nodeMatchers";
+import { cascadingMatcher, matcher, patternMatcher } from "../util/nodeMatchers";
 import { childRangeSelector } from "../util/nodeSelectors";
 
 /**

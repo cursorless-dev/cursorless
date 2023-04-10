@@ -28,10 +28,7 @@ export default class PositionTarget extends BaseTarget {
     this.isLineDelimiter = /^(\n)+$/.test(parameters.insertionDelimiter);
     // This calculation must be done here since that that target is not updated by our range updater
     this.indentationString = this.isLineDelimiter
-      ? getIndentationString(
-          parameters.editor,
-          parameters.thatTarget!.contentRange,
-        )
+      ? getIndentationString(parameters.editor, parameters.thatTarget!.contentRange)
       : "";
   }
 
@@ -141,10 +138,7 @@ function getIndentationString(editor: TextEditor, range: Range) {
   let indentationString = "";
   for (let i = range.start.line; i <= range.end.line; ++i) {
     const line = editor.document.lineAt(i);
-    if (
-      !line.isEmptyOrWhitespace &&
-      line.firstNonWhitespaceCharacterIndex < length
-    ) {
+    if (!line.isEmptyOrWhitespace && line.firstNonWhitespaceCharacterIndex < length) {
       length = line.firstNonWhitespaceCharacterIndex;
       indentationString = line.text.slice(0, length);
     }

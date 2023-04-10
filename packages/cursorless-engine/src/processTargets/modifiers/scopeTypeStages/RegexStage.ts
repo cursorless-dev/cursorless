@@ -4,10 +4,7 @@ import {
   Range,
   TextEditor,
 } from "@cursorless/common";
-import {
-  ContainingScopeModifier,
-  EveryScopeModifier,
-} from "@cursorless/common";
+import { ContainingScopeModifier, EveryScopeModifier } from "@cursorless/common";
 import { Target } from "../../../typings/target.types";
 import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
@@ -62,13 +59,10 @@ class RegexStageBase implements ModifierStage {
     );
   }
 
-  private getMatchContainingPosition(
-    editor: TextEditor,
-    position: Position,
-  ): Range {
+  private getMatchContainingPosition(editor: TextEditor, position: Position): Range {
     const textRange = this.expandRangeForSearch(editor, position);
-    const match = this.getMatchesInRange(editor, textRange).find(
-      (contentRange) => contentRange.contains(position),
+    const match = this.getMatchesInRange(editor, textRange).find((contentRange) =>
+      contentRange.contains(position),
     );
     if (match == null) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
@@ -85,10 +79,7 @@ class RegexStageBase implements ModifierStage {
    * @param position The position from which to expand for searching
    * @returns A range within which to search for instances of {@link regex}
    */
-  protected expandRangeForSearch(
-    editor: TextEditor,
-    position: Position,
-  ): Range {
+  protected expandRangeForSearch(editor: TextEditor, position: Position): Range {
     return editor.document.lineAt(position.line).range;
   }
 
@@ -137,10 +128,7 @@ export class UrlStage extends RegexStageBase {
   }
 }
 
-export type CustomRegexModifier = (
-  | ContainingScopeModifier
-  | EveryScopeModifier
-) & {
+export type CustomRegexModifier = (ContainingScopeModifier | EveryScopeModifier) & {
   scopeType: { type: "customRegex" };
 };
 

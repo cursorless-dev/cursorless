@@ -2,10 +2,7 @@ import { HighlightId } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Graph } from "../typings/Graph";
-import {
-  runOnTargetsForEachEditor,
-  toGeneralizedRange,
-} from "../util/targetUtils";
+import { runOnTargetsForEachEditor, toGeneralizedRange } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Highlight implements Action {
@@ -31,11 +28,7 @@ export default class Highlight implements Action {
       );
     } else {
       await runOnTargetsForEachEditor(targets, (editor, targets) =>
-        ide().setHighlightRanges(
-          highlightId,
-          editor,
-          targets.map(toGeneralizedRange),
-        ),
+        ide().setHighlightRanges(highlightId, editor, targets.map(toGeneralizedRange)),
       );
     }
 

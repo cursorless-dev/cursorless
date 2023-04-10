@@ -44,20 +44,15 @@ export class Snippets {
    * later, and so that we don't show them the same error message every time
    * we try to poll the directory.
    */
-  private directoryErrorMessage: DirectoryErrorMessage | null | undefined =
-    null;
+  private directoryErrorMessage: DirectoryErrorMessage | null | undefined = null;
 
   constructor() {
     this.updateUserSnippetsPath();
 
     this.updateUserSnippets = this.updateUserSnippets.bind(this);
-    this.registerThirdPartySnippets =
-      this.registerThirdPartySnippets.bind(this);
+    this.registerThirdPartySnippets = this.registerThirdPartySnippets.bind(this);
 
-    const timer = setInterval(
-      this.updateUserSnippets,
-      SNIPPET_DIR_REFRESH_INTERVAL_MS,
-    );
+    const timer = setInterval(this.updateUserSnippets, SNIPPET_DIR_REFRESH_INTERVAL_MS);
 
     ide().disposeOnExit(
       ide().configuration.onDidChangeConfiguration(() => {
@@ -79,9 +74,7 @@ export class Snippets {
     const snippetFiles = await getSnippetPaths(snippetsDir);
     this.coreSnippets = mergeStrict(
       ...(await Promise.all(
-        snippetFiles.map(async (path) =>
-          JSON.parse(await readFile(path, "utf8")),
-        ),
+        snippetFiles.map(async (path) => JSON.parse(await readFile(path, "utf8"))),
       )),
     );
     await this.updateUserSnippets();
@@ -225,9 +218,7 @@ export class Snippets {
 
         // NB: We make sure that the new definitions appear before the previous
         // ones so that they take precedence
-        mergedSnippet.definitions = definitions.concat(
-          ...mergedSnippet.definitions,
-        );
+        mergedSnippet.definitions = definitions.concat(...mergedSnippet.definitions);
 
         merge(mergedSnippet, rest);
       } else {

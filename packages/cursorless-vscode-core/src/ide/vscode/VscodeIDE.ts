@@ -12,10 +12,7 @@ import {
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/common";
-import {
-  fromVscodeRange,
-  fromVscodeSelection,
-} from "@cursorless/vscode-common";
+import { fromVscodeRange, fromVscodeSelection } from "@cursorless/vscode-common";
 import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
@@ -126,9 +123,7 @@ export class VscodeIDE implements IDE {
     return this.fromVscodeEditor(await window.showTextDocument(textDocument));
   }
 
-  public async showInputBox(
-    options?: InputBoxOptions,
-  ): Promise<string | undefined> {
+  public async showInputBox(options?: InputBoxOptions): Promise<string | undefined> {
     return await vscode.window.showInputBox(options);
   }
 
@@ -178,10 +173,7 @@ export class VscodeIDE implements IDE {
 
   public fromVscodeEditor(editor: vscode.TextEditor): VscodeTextEditorImpl {
     if (!this.editorMap.has(editor)) {
-      this.editorMap.set(
-        editor,
-        new VscodeTextEditorImpl(uuid(), this, editor),
-      );
+      this.editorMap.set(editor, new VscodeTextEditorImpl(uuid(), this, editor));
     }
     return this.editorMap.get(editor)!;
   }
@@ -195,18 +187,13 @@ export class VscodeIDE implements IDE {
   }
 
   private async showUpdateExtensionErrorMessage(err: OutdatedExtensionError) {
-    const item = await vscode.window.showErrorMessage(
-      err.message,
-      "Check for updates",
-    );
+    const item = await vscode.window.showErrorMessage(err.message, "Check for updates");
 
     if (item == null) {
       return;
     }
 
-    await vscode.commands.executeCommand(
-      "workbench.extensions.action.checkForUpdates",
-    );
+    await vscode.commands.executeCommand("workbench.extensions.action.checkForUpdates");
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

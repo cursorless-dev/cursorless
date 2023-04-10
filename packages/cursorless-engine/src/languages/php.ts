@@ -80,10 +80,7 @@ const assignmentOperators = [
  * @param node The node to extract from; will be the content of the type cast without the surrounding parens
  * @returns The selection with context
  */
-function castTypeExtractor(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
+function castTypeExtractor(editor: TextEditor, node: SyntaxNode): SelectionWithContext {
   const range = getNodeRange(node);
   const contentRange = range;
   const leftParenRange = getNodeRange(node.previousSibling!);
@@ -98,9 +95,7 @@ function castTypeExtractor(
   };
 }
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   statement: STATEMENT_TYPES,
   ifStatement: "if_statement",
   class: "class_declaration",
@@ -126,10 +121,7 @@ const nodeMatchers: Partial<
     ],
     [";"],
   ),
-  anonymousFunction: [
-    "anonymous_function_creation_expression",
-    "arrow_function",
-  ],
+  anonymousFunction: ["anonymous_function_creation_expression", "arrow_function"],
   functionCall: ["function_call_expression", "object_creation_expression"],
   functionName: ["function_definition[name]", "method_declaration[name]"],
 

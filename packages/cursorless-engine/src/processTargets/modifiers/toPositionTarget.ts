@@ -3,10 +3,7 @@ import { Target } from "../../typings/target.types";
 import { TargetPosition } from "@cursorless/common";
 import { PositionTarget } from "../targets";
 
-export function toPositionTarget(
-  target: Target,
-  position: TargetPosition,
-): Target {
+export function toPositionTarget(target: Target, position: TargetPosition): Target {
   const { start, end } = target.contentRange;
   let contentRange: Range;
   let insertionDelimiter: string;

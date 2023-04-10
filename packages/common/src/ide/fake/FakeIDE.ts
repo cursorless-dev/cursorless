@@ -9,12 +9,7 @@ import {
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
 import { FlashDescriptor } from "../types/FlashDescriptor";
-import type {
-  Disposable,
-  IDE,
-  RunMode,
-  WorkspaceFolder,
-} from "../types/ide.types";
+import type { Disposable, IDE, RunMode, WorkspaceFolder } from "../types/ide.types";
 import { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
@@ -51,8 +46,7 @@ export default class FakeIDE implements IDE {
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
   onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;
   onDidChangeVisibleTextEditors: Event<TextEditor[]> = dummyEvent;
-  onDidChangeTextEditorSelection: Event<TextEditorSelectionChangeEvent> =
-    dummyEvent;
+  onDidChangeTextEditorSelection: Event<TextEditorSelectionChangeEvent> = dummyEvent;
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
 

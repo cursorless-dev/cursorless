@@ -54,33 +54,21 @@ export default class PassthroughIDEBase implements IDE {
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.original.onDidCloseTextDocument(
-      listener,
-      thisArgs,
-      disposables,
-    );
+    return this.original.onDidCloseTextDocument(listener, thisArgs, disposables);
   }
   onDidChangeActiveTextEditor(
     listener: (e: TextEditor | undefined) => any,
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.original.onDidChangeActiveTextEditor(
-      listener,
-      thisArgs,
-      disposables,
-    );
+    return this.original.onDidChangeActiveTextEditor(listener, thisArgs, disposables);
   }
   onDidChangeVisibleTextEditors(
     listener: (e: TextEditor[]) => any,
     thisArgs?: any,
     disposables?: Disposable[],
   ): Disposable {
-    return this.original.onDidChangeVisibleTextEditors(
-      listener,
-      thisArgs,
-      disposables,
-    );
+    return this.original.onDidChangeVisibleTextEditors(listener, thisArgs, disposables);
   }
   onDidChangeTextEditorSelection(
     listener: (e: TextEditorSelectionChangeEvent) => any,

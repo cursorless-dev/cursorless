@@ -22,10 +22,5 @@
       "path": "../cheatsheet"
     }
   ],
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json",
-    "src/**/*.tsx",
-    "../../typings/**/*.d.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.json", "src/**/*.tsx", "../../typings/**/*.d.ts"]
 }

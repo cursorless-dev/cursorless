@@ -29,10 +29,5 @@ export function constructScopeRangeTarget(
     ? [target1, target2]
     : [target2, target1];
 
-  return startTarget.createContinuousRangeTarget(
-    isReversed,
-    endTarget,
-    true,
-    true,
-  );
+  return startTarget.createContinuousRangeTarget(isReversed, endTarget, true, true);
 }

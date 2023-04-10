@@ -177,9 +177,7 @@ type SimpleSurroundingPairName =
 
 type ComplexSurroundingPairName = "string" | "any";
 
-type SurroundingPairName =
-  | SimpleSurroundingPairName
-  | ComplexSurroundingPairName;
+type SurroundingPairName = SimpleSurroundingPairName | ComplexSurroundingPairName;
 
 type ScopeType = string;
 

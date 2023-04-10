@@ -8,9 +8,7 @@ import {
 } from "../util/nodeMatchers";
 import { getNodeRange } from "../util/nodeSelectors";
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   map: "object",
   list: "array",
   string: "string",

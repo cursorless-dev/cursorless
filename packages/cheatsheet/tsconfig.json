@@ -9,10 +9,5 @@
     "lib": ["es5", "es6", "dom"]
   },
   "references": [],
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json",
-    "src/**/*.tsx",
-    "../../typings/**/*.d.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.json", "src/**/*.tsx", "../../typings/**/*.d.ts"]
 }

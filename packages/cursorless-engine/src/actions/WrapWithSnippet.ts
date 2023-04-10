@@ -51,9 +51,7 @@ export default class WrapWithSnippet implements Action {
     ];
   }
 
-  private getScopeType(
-    snippetDescription: WrapWithSnippetArg,
-  ): ScopeType | undefined {
+  private getScopeType(snippetDescription: WrapWithSnippetArg): ScopeType | undefined {
     if (snippetDescription.type === "named") {
       const { name, variableName } = snippetDescription;
 
@@ -71,10 +69,7 @@ export default class WrapWithSnippet implements Action {
     }
   }
 
-  private getBody(
-    snippetDescription: WrapWithSnippetArg,
-    targets: Target[],
-  ): string {
+  private getBody(snippetDescription: WrapWithSnippetArg, targets: Target[]): string {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 

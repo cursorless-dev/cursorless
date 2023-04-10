@@ -9,10 +9,7 @@ export class KeyboardCommands {
   modal: KeyboardCommandsModal;
   keyboardHandler: KeyboardHandler;
 
-  private constructor(
-    private context: ExtensionContext,
-    statusBarItem: StatusBarItem,
-  ) {
+  private constructor(private context: ExtensionContext, statusBarItem: StatusBarItem) {
     this.keyboardHandler = new KeyboardHandler(context, statusBarItem);
     this.targeted = new KeyboardCommandsTargeted(this.keyboardHandler);
     this.modal = new KeyboardCommandsModal(

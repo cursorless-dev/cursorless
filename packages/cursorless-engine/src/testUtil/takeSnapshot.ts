@@ -47,11 +47,7 @@ export async function takeSnapshot(
     snapshot.visibleRanges = editor.visibleRanges.map(rangeToPlainObject);
   }
 
-  if (
-    thatMark != null &&
-    thatMark.exists() &&
-    !excludeFields.includes("thatMark")
-  ) {
+  if (thatMark != null && thatMark.exists() && !excludeFields.includes("thatMark")) {
     snapshot.thatMark = thatMark.get().map(targetToPlainObject);
   }
 
@@ -67,9 +63,7 @@ export async function takeSnapshot(
     const startTimestamp = extraContext?.startTimestamp;
 
     if (startTimestamp == null) {
-      throw new Error(
-        "No start timestamp provided but time offset was requested",
-      );
+      throw new Error("No start timestamp provided but time offset was requested");
     }
 
     const offsetNanoseconds = process.hrtime.bigint() - startTimestamp;

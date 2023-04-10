@@ -4,10 +4,7 @@ export interface Capabilities {
   readonly commands: CommandCapabilityMap;
 }
 
-export type CommandCapabilityMap = Record<
-  CommandId,
-  CommandCapabilities | undefined
->;
+export type CommandCapabilityMap = Record<CommandId, CommandCapabilities | undefined>;
 
 export interface CommandCapabilities {
   acceptsLocation: boolean;

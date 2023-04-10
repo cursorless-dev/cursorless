@@ -1,9 +1,4 @@
-import {
-  Range,
-  Selection,
-  SimpleScopeTypeType,
-  TextEditor,
-} from "@cursorless/common";
+import { Range, Selection, SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import {
   NodeMatcherAlternative,
@@ -95,10 +90,7 @@ const ENVIRONMENTS = [
 const sectioningText = SECTIONING.map((s) => `${s}[text]`);
 const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
 
-function unwrapGroupParens(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
+function unwrapGroupParens(editor: TextEditor, node: SyntaxNode): SelectionWithContext {
   return {
     selection: new Selection(
       editor.document.positionAt(node.startIndex + 1),
@@ -173,9 +165,7 @@ const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
   return startTag != null && endTag != null ? startTag.concat(endTag) : null;
 };
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   argumentOrParameter: cascadingMatcher(
     ancestorChainNodeMatcher(
       [patternFinder(...COMMANDS), patternFinder(...GROUPS)],

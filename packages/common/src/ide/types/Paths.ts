@@ -4,10 +4,9 @@ type Primitive = string | number | symbol;
 
 type GenericObject = Record<Primitive, unknown>;
 
-type Join<
-  L extends Primitive | undefined,
-  R extends Primitive | undefined,
-> = L extends string | number
+type Join<L extends Primitive | undefined, R extends Primitive | undefined> = L extends
+  | string
+  | number
   ? R extends string | number
     ? `${L}.${R}`
     : L

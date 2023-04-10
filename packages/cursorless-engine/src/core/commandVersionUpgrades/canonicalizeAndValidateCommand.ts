@@ -80,9 +80,7 @@ function upgradeCommand(command: Command): CommandLatest {
         command = upgradeV4ToV5(command);
         break;
       default:
-        throw new Error(
-          `Can't upgrade from unknown version ${command.version}`,
-        );
+        throw new Error(`Can't upgrade from unknown version ${command.version}`);
     }
   }
 

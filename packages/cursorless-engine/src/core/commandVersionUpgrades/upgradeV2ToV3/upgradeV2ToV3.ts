@@ -31,9 +31,7 @@ export function upgradeV2ToV3(command: CommandV2): CommandV3 {
   };
 }
 
-function upgradeTarget(
-  target: PartialTargetDescriptorV2,
-): PartialTargetDescriptorV3 {
+function upgradeTarget(target: PartialTargetDescriptorV2): PartialTargetDescriptorV3 {
   switch (target.type) {
     case "list":
       return {
@@ -65,9 +63,7 @@ function upgradePrimitiveTarget(
     ...target,
     mark: target.mark != null ? updateMark(target.mark) : undefined,
     modifiers:
-      target.modifiers != null
-        ? target.modifiers.map(updateModifier)
-        : undefined,
+      target.modifiers != null ? target.modifiers.map(updateModifier) : undefined,
   };
 }
 
@@ -89,9 +85,7 @@ function updateModifier(modifier: ModifierV2): ModifierV3 {
   }
 }
 
-function createLineNumberMark(
-  mark: LineNumberMarkV2,
-): LineNumberMarkV3 | RangeMarkV3 {
+function createLineNumberMark(mark: LineNumberMarkV2): LineNumberMarkV3 | RangeMarkV3 {
   if (isEqual(mark.anchor, mark.active)) {
     return createLineNumberMarkFromPos(mark.anchor);
   }
@@ -119,9 +113,7 @@ function createOrdinalModifier(
   };
 }
 
-function createLineNumberMarkFromPos(
-  position: LineNumberPositionV2,
-): LineNumberMarkV3 {
+function createLineNumberMarkFromPos(position: LineNumberPositionV2): LineNumberMarkV3 {
   return {
     type: "lineNumber",
     lineNumberType: position.type,

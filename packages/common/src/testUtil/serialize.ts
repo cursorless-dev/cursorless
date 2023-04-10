@@ -11,10 +11,7 @@ class CustomDump {
   ) {}
 
   represent() {
-    let result = yaml.dump(
-      this.data,
-      Object.assign({ replacer, schema }, this.opts),
-    );
+    let result = yaml.dump(this.data, Object.assign({ replacer, schema }, this.opts));
     result = result.trim();
     if (result.includes("\n")) {
       result = "\n" + result;
@@ -59,5 +56,4 @@ function replacer(key: string, value: unknown) {
 }
 
 export const serialize = (obj: unknown) =>
-  new CustomDump(obj, { noRefs: true, quotingType: '"' }).represent().trim() +
-  "\n";
+  new CustomDump(obj, { noRefs: true, quotingType: '"' }).represent().trim() + "\n";

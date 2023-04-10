@@ -89,16 +89,13 @@ const OBJECT_TYPES_WITH_INITIALIZERS_AS_CHILDREN = [
 // There appears to be no distinction between dictionaries and arrays as far as the syntax tree goes.
 // that means some of the commands for maps may work on arrays, and some of the commands for arrays may work on maps.
 const getChildInitializerNode = (node: SyntaxNode) =>
-  node.children.find((child) => child.type === "initializer_expression") ??
-  null;
+  node.children.find((child) => child.type === "initializer_expression") ?? null;
 
-const getInitializerNode = (node: SyntaxNode) =>
-  node.childForFieldName("initializer");
+const getInitializerNode = (node: SyntaxNode) => node.childForFieldName("initializer");
 
 const makeDelimitedSelector = (leftType: string, rightType: string) =>
   delimitedSelector(
-    (node) =>
-      node.type === "," || node.type === leftType || node.type === rightType,
+    (node) => node.type === "," || node.type === leftType || node.type === rightType,
     ", ",
   );
 
@@ -108,10 +105,7 @@ const getMapMatchers = {
       typedNodeFinder(...OBJECT_TYPES_WITH_INITIALIZERS_AS_CHILDREN),
       getChildInitializerNode,
     ]),
-    chainedMatcher([
-      typedNodeFinder("object_creation_expression"),
-      getInitializerNode,
-    ]),
+    chainedMatcher([typedNodeFinder("object_creation_expression"), getInitializerNode]),
   ),
   collectionKey: chainedMatcher([
     typedNodeFinder("assignment_expression"),
@@ -137,9 +131,7 @@ const getMapMatchers = {
   string: typeMatcher("string_literal"),
 };
 
-const nodeMatchers: Partial<
-  Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
+const nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>> = {
   ...getMapMatchers,
   ifStatement: "if_statement",
   class: "class_declaration",
@@ -164,8 +156,7 @@ const nodeMatchers: Partial<
   ),
   argumentOrParameter: matcher(
     nodeFinder(
-      (node) =>
-        node.parent?.type === "argument_list" || node.type === "parameter",
+      (node) => node.parent?.type === "argument_list" || node.type === "parameter",
     ),
     makeDelimitedSelector("(", ")"),
   ),

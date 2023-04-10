@@ -5,8 +5,5 @@ export interface TreeSitter {
   /**
    * Function to access nodes in the tree sitter.
    */
-  readonly getNodeAtLocation: (
-    document: TextDocument,
-    range: Range,
-  ) => SyntaxNode;
+  readonly getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
 }

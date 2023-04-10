@@ -53,9 +53,7 @@ interface Matcher {
   wordMatcher: RegExp;
 }
 
-function generateMatcher(
-  languageComponents: LanguageTokenizerComponents,
-): Matcher {
+function generateMatcher(languageComponents: LanguageTokenizerComponents): Matcher {
   const {
     fixedTokens,
     repeatableSymbols,
@@ -99,12 +97,9 @@ const matchers = new Map<string, Matcher>();
 export function getMatcher(languageId: string): Matcher {
   // FIXME: The reason this code will auto-reload on settings change is that we don't use fine-grained settings listener in `Decorations`:
   // https://github.com/cursorless-dev/cursorless/blob/c914d477c9624c498a47c964088b34e484eac494/src/core/Decorations.ts#L58
-  const wordSeparators = ide().configuration.getOwnConfiguration(
-    "wordSeparators",
-    {
-      languageId,
-    },
-  );
+  const wordSeparators = ide().configuration.getOwnConfiguration("wordSeparators", {
+    languageId,
+  });
 
   const key = wordSeparators.join("\u0000");
 

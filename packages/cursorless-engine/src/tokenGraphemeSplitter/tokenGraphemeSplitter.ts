@@ -1,10 +1,6 @@
 import { deburr, escapeRegExp } from "lodash";
 import { ide } from "../singletons/ide.singleton";
-import {
-  TokenHatSplittingMode,
-  Disposable,
-  Notifier,
-} from "@cursorless/common";
+import { TokenHatSplittingMode, Disposable, Notifier } from "@cursorless/common";
 import { matchAll } from "../util/regex";
 
 /**
@@ -47,19 +43,14 @@ const KNOWN_SYMBOLS = [
 ];
 const KNOWN_SYMBOL_REGEXP_STR = KNOWN_SYMBOLS.map(escapeRegExp).join("|");
 
-const KNOWN_GRAPHEME_REGEXP_STR = ["[a-zA-Z0-9]", KNOWN_SYMBOL_REGEXP_STR].join(
-  "|",
-);
+const KNOWN_GRAPHEME_REGEXP_STR = ["[a-zA-Z0-9]", KNOWN_SYMBOL_REGEXP_STR].join("|");
 
 /**
  * Any token *not* matched by this regex will be mapped to {@link UNKNOWN}, so
  * that they will count as the same grapheme from the perspective of hat
  * allocation, and can be referred to using "special", "red special", etc.
  */
-const KNOWN_GRAPHEME_MATCHER = new RegExp(
-  `^(${KNOWN_GRAPHEME_REGEXP_STR})$`,
-  "u",
-);
+const KNOWN_GRAPHEME_MATCHER = new RegExp(`^(${KNOWN_GRAPHEME_REGEXP_STR})$`, "u");
 
 /**
  * All unknown graphemes will be mapped to this value, so that they will count
@@ -81,8 +72,7 @@ export class TokenGraphemeSplitter {
   constructor() {
     ide().disposeOnExit(this);
 
-    this.updateTokenHatSplittingMode =
-      this.updateTokenHatSplittingMode.bind(this);
+    this.updateTokenHatSplittingMode = this.updateTokenHatSplittingMode.bind(this);
     this.getTokenGraphemes = this.getTokenGraphemes.bind(this);
 
     this.updateTokenHatSplittingMode();
@@ -90,9 +80,7 @@ export class TokenGraphemeSplitter {
     this.disposables.push(
       // Notify listeners in case the user changed their token hat splitting
       // setting.
-      ide().configuration.onDidChangeConfiguration(
-        this.updateTokenHatSplittingMode,
-      ),
+      ide().configuration.onDidChangeConfiguration(this.updateTokenHatSplittingMode),
     );
   }
 
@@ -104,9 +92,7 @@ export class TokenGraphemeSplitter {
       lettersToPreserve: lettersToPreserve.map((grapheme) =>
         grapheme.toLowerCase().normalize("NFC"),
       ),
-      symbolsToPreserve: symbolsToPreserve.map((grapheme) =>
-        grapheme.normalize("NFC"),
-      ),
+      symbolsToPreserve: symbolsToPreserve.map((grapheme) => grapheme.normalize("NFC")),
       ...rest,
     };
 
@@ -184,8 +170,7 @@ export class TokenGraphemeSplitter {
    * @param listener A function to be called when graphing splitting algorithm changes
    * @returns A function that can be called to unsubscribe from notifications
    */
-  registerAlgorithmChangeListener =
-    this.algorithmChangeNotifier.registerListener;
+  registerAlgorithmChangeListener = this.algorithmChangeNotifier.registerListener;
 
   dispose() {
     this.disposables.forEach(({ dispose }) => dispose());

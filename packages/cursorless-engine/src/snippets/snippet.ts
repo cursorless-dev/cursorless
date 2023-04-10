@@ -37,9 +37,7 @@ export function transformSnippetVariables(
         substitutions != null &&
         Object.prototype.hasOwnProperty.call(substitutions, candidate.name)
       ) {
-        candidate.parent.replace(candidate, [
-          new Text(substitutions[candidate.name]),
-        ]);
+        candidate.parent.replace(candidate, [new Text(substitutions[candidate.name])]);
       } else if (!KnownSnippetVariableNames[candidate.name]) {
         let placeholderIndex: number;
         if (candidate.name in placeholderIndexMap) {

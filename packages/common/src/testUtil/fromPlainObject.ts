@@ -22,8 +22,5 @@ export function plainObjectToSelection({
   anchor,
   active,
 }: SelectionPlainObject): Selection {
-  return new Selection(
-    plainObjectToPosition(anchor),
-    plainObjectToPosition(active),
-  );
+  return new Selection(plainObjectToPosition(anchor), plainObjectToPosition(active));
 }

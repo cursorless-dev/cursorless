@@ -42,9 +42,7 @@ function processTarget(
 ): Target[] {
   switch (target.type) {
     case "list":
-      return target.elements.flatMap((element) =>
-        processTarget(context, element),
-      );
+      return target.elements.flatMap((element) => processTarget(context, element));
     case "range":
       return processRangeTarget(context, target);
     case "primitive":
@@ -60,32 +58,30 @@ function processRangeTarget(
   const anchorTargets = processPrimitiveTarget(context, targetDesc.anchor);
   const activeTargets = processPrimitiveTarget(context, targetDesc.active);
 
-  return zip(anchorTargets, activeTargets).flatMap(
-    ([anchorTarget, activeTarget]) => {
-      if (anchorTarget == null || activeTarget == null) {
-        throw new Error("AnchorTargets and activeTargets lengths don't match");
-      }
+  return zip(anchorTargets, activeTargets).flatMap(([anchorTarget, activeTarget]) => {
+    if (anchorTarget == null || activeTarget == null) {
+      throw new Error("AnchorTargets and activeTargets lengths don't match");
+    }
 
-      switch (targetDesc.rangeType) {
-        case "continuous":
-          return [
-            targetsToContinuousTarget(
-              anchorTarget,
-              activeTarget,
-              targetDesc.excludeAnchor,
-              targetDesc.excludeActive,
-            ),
-          ];
-        case "vertical":
-          return targetsToVerticalTarget(
+    switch (targetDesc.rangeType) {
+      case "continuous":
+        return [
+          targetsToContinuousTarget(
             anchorTarget,
             activeTarget,
             targetDesc.excludeAnchor,
             targetDesc.excludeActive,
-          );
-      }
-    },
-  );
+          ),
+        ];
+      case "vertical":
+        return targetsToVerticalTarget(
+          anchorTarget,
+          activeTarget,
+          targetDesc.excludeAnchor,
+          targetDesc.excludeActive,
+        );
+    }
+  });
 }
 
 export function targetsToContinuousTarget(
@@ -223,9 +219,7 @@ function processPrimitiveTarget(
 }
 
 /** Convert a list of target modifiers to modifier stages */
-export function getModifierStagesFromTargetModifiers(
-  targetModifiers: Modifier[],
-) {
+export function getModifierStagesFromTargetModifiers(targetModifiers: Modifier[]) {
   // Reverse target modifiers because they are returned in reverse order from
   // the api, to match the order in which they are spoken.
   return targetModifiers.map(getModifierStage).reverse();

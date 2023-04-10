@@ -8,12 +8,11 @@ import {
   SimpleScopeTypeType,
 } from "@cursorless/common";
 
-const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> =
-  {
-    arrowFunction: "anonymousFunction",
-    dictionary: "map",
-    regex: "regularExpression",
-  };
+const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> = {
+  arrowFunction: "anonymousFunction",
+  dictionary: "map",
+  regex: "regularExpression",
+};
 
 const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
   purple: "pink",
@@ -25,8 +24,7 @@ const canonicalizeScopeTypes = (
   target.modifiers?.forEach((mod) => {
     if (mod.type === "containingScope" || mod.type === "everyScope") {
       mod.scopeType.type =
-        SCOPE_TYPE_CANONICALIZATION_MAPPING[mod.scopeType.type] ??
-        mod.scopeType.type;
+        SCOPE_TYPE_CANONICALIZATION_MAPPING[mod.scopeType.type] ?? mod.scopeType.type;
     }
   });
   return target;
@@ -44,9 +42,7 @@ const canonicalizeColors = (
       })
     : target;
 
-export default function canonicalizeTargets(
-  partialTargets: PartialTargetDescriptor[],
-) {
+export default function canonicalizeTargets(partialTargets: PartialTargetDescriptor[]) {
   return transformPartialPrimitiveTargets(
     partialTargets,
     flow(canonicalizeScopeTypes, canonicalizeColors),

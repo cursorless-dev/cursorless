@@ -73,8 +73,7 @@ async function focusNotebookCell(editor: VscodeTextEditorImpl) {
     throw new Error("Couldn't find notebook editor for given document");
   }
 
-  const desiredNotebookDocument: NotebookDocument =
-    desiredNotebookEditor.notebook;
+  const desiredNotebookDocument: NotebookDocument = desiredNotebookEditor.notebook;
 
   await commands.executeCommand(
     columnFocusCommands[

@@ -35,9 +35,7 @@ export class VscodeTextDocumentImpl implements TextDocument {
   public lineAt(lineOrPosition: number | Position): TextLine {
     return new VscodeTextLineImpl(
       this.document.lineAt(
-        typeof lineOrPosition === "number"
-          ? lineOrPosition
-          : lineOrPosition.line,
+        typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line,
       ),
     );
   }
@@ -51,8 +49,6 @@ export class VscodeTextDocumentImpl implements TextDocument {
   }
 
   public getText(range?: Range): string {
-    return this.document.getText(
-      range != null ? toVscodeRange(range) : undefined,
-    );
+    return this.document.getText(range != null ? toVscodeRange(range) : undefined);
   }
 }

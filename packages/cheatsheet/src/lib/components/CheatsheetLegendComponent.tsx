@@ -8,9 +8,7 @@ type Props = {
   data: CheatsheetLegend;
 };
 
-export default function CheatsheetLegendComponent({
-  data,
-}: Props): JSX.Element {
+export default function CheatsheetLegendComponent({ data }: Props): JSX.Element {
   const isHighlighted = useIsHighlighted("legend");
 
   const borderClassName = isHighlighted
@@ -29,9 +27,7 @@ export default function CheatsheetLegendComponent({
         <thead>
           <tr className="text bg-violet-300 dark:bg-violet-500">
             <th className="px-1 font-normal w-1/2">Term</th>
-            <th className="px-1 border-l border-violet-400 font-normal">
-              Definition
-            </th>
+            <th className="px-1 border-l border-violet-400 font-normal">Definition</th>
           </tr>
         </thead>
         <tbody>

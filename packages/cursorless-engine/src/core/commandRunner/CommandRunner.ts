@@ -13,10 +13,7 @@ import { ide } from "../../singletons/ide.singleton";
 import { Graph } from "../../typings/Graph";
 import { Target } from "../../typings/target.types";
 import { TreeSitter } from "../../typings/TreeSitter";
-import {
-  ProcessedTargetsContext,
-  SelectionWithEditor,
-} from "../../typings/Types";
+import { ProcessedTargetsContext, SelectionWithEditor } from "../../typings/Types";
 import { isString } from "../../util/type";
 import {
   canonicalizeAndValidateCommand,
@@ -39,8 +36,7 @@ export class CommandRunner {
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
   ) {
-    this.runCommandBackwardCompatible =
-      this.runCommandBackwardCompatible.bind(this);
+    this.runCommandBackwardCompatible = this.runCommandBackwardCompatible.bind(this);
   }
 
   /**
@@ -104,9 +100,7 @@ export class CommandRunner {
           : [];
 
       const actionFinalStages =
-        action.getFinalStages != null
-          ? action.getFinalStages(...actionArgs)
-          : [];
+        action.getFinalStages != null ? action.getFinalStages(...actionArgs) : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
         actionPrePositionStages,
@@ -138,10 +132,7 @@ export class CommandRunner {
       // warning.
       checkForOldInference(this.graph, partialTargetDescriptors);
 
-      const targets = processTargets(
-        processedTargetsContext,
-        targetDescriptors,
-      );
+      const targets = processTargets(processedTargetsContext, targetDescriptors);
 
       const {
         returnValue,
@@ -152,9 +143,7 @@ export class CommandRunner {
       } = await action.run(targets, ...actionArgs);
 
       this.thatMark.set(constructThatTarget(newThatTargets, newThatSelections));
-      this.sourceMark.set(
-        constructThatTarget(newSourceTargets, newSourceSelections),
-      );
+      this.sourceMark.set(constructThatTarget(newSourceTargets, newSourceSelections));
 
       if (this.testCaseRecorder.isActive()) {
         await this.testCaseRecorder.postCommandHook(returnValue);
@@ -208,9 +197,7 @@ function constructThatTarget(
   selections: SelectionWithEditor[] | undefined,
 ) {
   if (targets != null && selections != null) {
-    throw Error(
-      "Actions may only return full targets or selections for that mark",
-    );
+    throw Error("Actions may only return full targets or selections for that mark");
   }
 
   if (selections != null) {

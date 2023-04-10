@@ -1,11 +1,7 @@
 import { FlashStyle } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import {
-  createThatMark,
-  ensureSingleTarget,
-  flashTargets,
-} from "../util/targetUtils";
+import { createThatMark, ensureSingleTarget, flashTargets } from "../util/targetUtils";
 import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
 

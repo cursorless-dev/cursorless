@@ -6,9 +6,7 @@ export default async function vscodeOpenLink(
 ): Promise<boolean> {
   const links = await getLinksForEditor(editor);
   const actualLocation = location ?? getSelection(editor);
-  const filteredLinks = links.filter((link) =>
-    link.range.contains(actualLocation),
-  );
+  const filteredLinks = links.filter((link) => link.range.contains(actualLocation));
 
   if (filteredLinks.length > 1) {
     throw Error("Multiple links found at location");

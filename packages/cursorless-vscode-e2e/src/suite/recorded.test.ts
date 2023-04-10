@@ -184,10 +184,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const actualSpyIdeValues =
     rawSpyIdeValues == null
       ? undefined
-      : omitByDeep(
-          spyIDERecordedValuesToPlainObject(rawSpyIdeValues),
-          isUndefined,
-        );
+      : omitByDeep(spyIDERecordedValuesToPlainObject(rawSpyIdeValues), isUndefined);
 
   if (shouldUpdateFixtures()) {
     const outputFixture = {
@@ -201,22 +198,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
     await fsp.writeFile(file, serialize(outputFixture));
   } else {
     if (fixture.thrownError != null) {
-      throw Error(
-        `Expected error ${fixture.thrownError.name} but none was thrown`,
-      );
+      throw Error(`Expected error ${fixture.thrownError.name} but none was thrown`);
     }
 
-    assert.deepStrictEqual(
-      resultState,
-      fixture.finalState,
-      "Unexpected final state",
-    );
+    assert.deepStrictEqual(resultState, fixture.finalState, "Unexpected final state");
 
-    assert.deepStrictEqual(
-      returnValue,
-      fixture.returnValue,
-      "Unexpected return value",
-    );
+    assert.deepStrictEqual(returnValue, fixture.returnValue, "Unexpected return value");
 
     assert.deepStrictEqual(
       actualSpyIdeValues,
@@ -226,10 +213,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   }
 }
 
-function checkMarks(
-  marks: SerializedMarks | undefined,
-  hatTokenMap: ReadOnlyHatMap,
-) {
+function checkMarks(marks: SerializedMarks | undefined, hatTokenMap: ReadOnlyHatMap) {
   if (marks == null) {
     return;
   }

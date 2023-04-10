@@ -49,8 +49,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         return;
       }
 
-      const repoLink =
-        "https://github.com/cursorless-dev/cursorless/tree/main/";
+      const repoLink = "https://github.com/cursorless-dev/cursorless/tree/main/";
       const linkToRepositoryArtifact = repoLink.concat(artifactRelative);
 
       node.url = linkToRepositoryArtifact;
@@ -94,12 +93,9 @@ const config = {
           // to serve a markdown document on homepage
           routeBasePath: "/",
           // Note that we add dummy/dummy so that the `../..` above has something to strip
-          editUrl:
-            "https://github.com/cursorless-dev/cursorless/edit/main/dummy/dummy",
+          editUrl: "https://github.com/cursorless-dev/cursorless/edit/main/dummy/dummy",
           sidebarPath: require.resolve("./sidebar.js"),
-          beforeDefaultRemarkPlugins: [
-            remarkPluginFixLinksToRepositoryArtifacts,
-          ],
+          beforeDefaultRemarkPlugins: [remarkPluginFixLinksToRepositoryArtifacts],
         },
         theme: {
           customCss: [require.resolve("./src/css/custom.css")],

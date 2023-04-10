@@ -16,11 +16,7 @@ export function getIterationScope(
   context: ProcessedTargetsContext,
   target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
-  let pairInfo = getSurroundingPair(
-    context,
-    target.editor,
-    target.contentRange,
-  );
+  let pairInfo = getSurroundingPair(context, target.editor, target.contentRange);
 
   // Iteration is necessary in case of nested strings
   while (pairInfo != null) {

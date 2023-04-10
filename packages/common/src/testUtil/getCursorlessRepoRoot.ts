@@ -7,7 +7,6 @@ import * as path from "path";
  */
 export function getCursorlessRepoRoot() {
   return (
-    process.env["CURSORLESS_REPO_ROOT"] ??
-    path.join(__dirname, "..", "..", "..", "..")
+    process.env["CURSORLESS_REPO_ROOT"] ?? path.join(__dirname, "..", "..", "..", "..")
   );
 }

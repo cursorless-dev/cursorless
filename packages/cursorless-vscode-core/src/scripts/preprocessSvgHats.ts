@@ -19,10 +19,7 @@ async function main() {
     svgJson.svg["@_width"] = "1em";
     svgJson.svg["@_height"] = "1em";
 
-    if (
-      rawSvg.match(/fill="[^"]+"/) == null &&
-      rawSvg.match(/fill:[^;]+;/) == null
-    ) {
+    if (rawSvg.match(/fill="[^"]+"/) == null && rawSvg.match(/fill:[^;]+;/) == null) {
       svgJson.svg["@_fill"] = "#123456";
     }
 

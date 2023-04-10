@@ -38,12 +38,7 @@ export function runLegacy(
 
   const containingIndices = getContainingIndices(target.contentRange, targets);
 
-  return calculateIndicesAndCreateTarget(
-    modifier,
-    target,
-    targets,
-    containingIndices,
-  );
+  return calculateIndicesAndCreateTarget(modifier, target, targets, containingIndices);
 }
 
 function calculateIndicesAndCreateTarget(
@@ -72,12 +67,7 @@ function calculateIndicesAndCreateTarget(
   const endIndex = Math.max(proximalIndex, distalIndex);
 
   return [
-    createRangeTargetFromIndices(
-      target.isReversed,
-      targets,
-      startIndex,
-      endIndex,
-    ),
+    createRangeTargetFromIndices(target.isReversed, targets, startIndex, endIndex),
   ];
 }
 
@@ -101,9 +91,7 @@ function computeProximalIndex(
 
   if (containingIndices == null) {
     const adjacentTargetIndex = isForward
-      ? targets.findIndex((t) =>
-          t.contentRange.start.isAfter(inputTargetRange.start),
-        )
+      ? targets.findIndex((t) => t.contentRange.start.isAfter(inputTargetRange.start))
       : findLastIndex(targets, (t) =>
           t.contentRange.start.isBefore(inputTargetRange.start),
         );
@@ -135,8 +123,7 @@ function computeProximalIndex(
     // desired length; throw error.  This occurs if user says "two funks", and
     // they have 3 functions selected.  Not clear what to do in that case so
     // we throw error.
-    const intersectingLength =
-      intersectingEndIndex - intersectingStartIndex + 1;
+    const intersectingLength = intersectingEndIndex - intersectingStartIndex + 1;
     if (intersectingLength > modifier.length) {
       throw new TooFewScopesError(
         modifier.length,

@@ -36,8 +36,7 @@ const getLineNumber = (
     case "modulo100": {
       const stepSize = 100;
       const startLine = editor.visibleRanges[0].start.line;
-      const endLine =
-        editor.visibleRanges[editor.visibleRanges.length - 1].end.line;
+      const endLine = editor.visibleRanges[editor.visibleRanges.length - 1].end.line;
       const base = Math.floor(startLine / stepSize) * stepSize;
       const visibleLines = [];
       const invisibleLines = [];
@@ -45,9 +44,7 @@ const getLineNumber = (
       while (currentLineNumber <= endLine) {
         if (currentLineNumber >= startLine) {
           const visible = editor.visibleRanges.find(
-            (r) =>
-              currentLineNumber >= r.start.line &&
-              currentLineNumber <= r.end.line,
+            (r) => currentLineNumber >= r.start.line && currentLineNumber <= r.end.line,
           );
           if (visible) {
             visibleLines.push(currentLineNumber);

@@ -12,8 +12,7 @@ suite("Basic keyboard test", async function () {
 
   test("Don't take keyboard control on startup", () => checkKeyboardStartup());
   test("Basic keyboard test", () => basic());
-  test("Check that entering and leaving mode is no-op", () =>
-    enterAndLeaveIsNoOp());
+  test("Check that entering and leaving mode is no-op", () => enterAndLeaveIsNoOp());
 });
 
 async function checkKeyboardStartup() {

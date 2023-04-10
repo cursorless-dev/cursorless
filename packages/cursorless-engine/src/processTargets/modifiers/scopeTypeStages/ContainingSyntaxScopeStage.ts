@@ -44,10 +44,7 @@ export default class implements ModifierStage {
 
     const scopeNodes = findNearestContainingAncestorNode(node, nodeMatcher, {
       editor: target.editor,
-      selection: new Selection(
-        target.contentRange.start,
-        target.contentRange.end,
-      ),
+      selection: new Selection(target.contentRange.start, target.contentRange.end),
     });
 
     if (scopeNodes == null) {

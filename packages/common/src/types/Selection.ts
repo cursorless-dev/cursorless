@@ -68,8 +68,6 @@ export class Selection extends Range {
    * anchor and active of this range.
    */
   public isEqual(other: Selection): boolean {
-    return (
-      this.anchor.isEqual(other.anchor) && this.active.isEqual(other.active)
-    );
+    return this.anchor.isEqual(other.anchor) && this.active.isEqual(other.active);
   }
 }

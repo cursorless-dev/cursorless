@@ -64,10 +64,7 @@ export type SimpleSurroundingPairName =
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets";
-export type ComplexSurroundingPairName =
-  | "string"
-  | "any"
-  | "collectionBoundary";
+export type ComplexSurroundingPairName = "string" | "any" | "collectionBoundary";
 export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
@@ -164,8 +161,7 @@ export type ScopeType =
   | CustomRegexScopeType
   | OneOfScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
+export interface ContainingSurroundingPairModifier extends ContainingScopeModifier {
   scopeType: SurroundingPairScopeType;
 }
 

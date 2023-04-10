@@ -31,22 +31,14 @@ const allStyles = Object.values<VscodeStyle>(FlashStyle).concat(
  * class doesn't handle the timing of the flashes.
  */
 export default class VscodeHighlights {
-  private highlightDecorations: Record<
-    VscodeStyle,
-    VscodeHighlightDecorationTypes
-  >;
+  private highlightDecorations: Record<VscodeStyle, VscodeHighlightDecorationTypes>;
 
   constructor(extensionContext: ExtensionContext) {
     this.highlightDecorations = Object.fromEntries(
-      allStyles.map((style) => [
-        style,
-        new VscodeHighlightDecorationTypes(style),
-      ]),
+      allStyles.map((style) => [style, new VscodeHighlightDecorationTypes(style)]),
     ) as Record<VscodeStyle, VscodeHighlightDecorationTypes>;
 
-    extensionContext.subscriptions.push(
-      ...Object.values(this.highlightDecorations),
-    );
+    extensionContext.subscriptions.push(...Object.values(this.highlightDecorations));
   }
 
   async setHighlightRanges(
@@ -66,12 +58,7 @@ export default class VscodeHighlights {
       tokenDecorationType,
       tokenRanges.map(
         ({ start, end }) =>
-          new vscode.Range(
-            start.line,
-            start.character,
-            end.line,
-            end.character,
-          ),
+          new vscode.Range(start.line, start.character, end.line, end.character),
       ),
     );
 

@@ -92,9 +92,7 @@ export function rangeToPlainObject(range: Range): RangePlainObject {
   };
 }
 
-export function selectionToPlainObject(
-  selection: Selection,
-): SelectionPlainObject {
+export function selectionToPlainObject(selection: Selection): SelectionPlainObject {
   return {
     anchor: positionToPlainObject(selection.anchor),
     active: positionToPlainObject(selection.active),
@@ -108,9 +106,7 @@ export function positionToPlainObject({
   return { line, character };
 }
 
-export function marksToPlainObject(marks: {
-  [decoratedCharacter: string]: Token;
-}) {
+export function marksToPlainObject(marks: { [decoratedCharacter: string]: Token }) {
   const serializedMarks: SerializedMarks = {};
   Object.entries(marks).forEach(
     ([key, value]: [string, Token]) =>
@@ -146,9 +142,7 @@ export function spyIDERecordedValuesToPlainObject(
     })),
     highlights: input.highlights?.map((highlight) => ({
       highlightId: highlight.highlightId,
-      ranges: highlight.ranges.map((range) =>
-        generalizedRangeToPlainObject(range),
-      ),
+      ranges: highlight.ranges.map((range) => generalizedRangeToPlainObject(range)),
     })),
   };
 }

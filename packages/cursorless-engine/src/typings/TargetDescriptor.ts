@@ -7,8 +7,7 @@ import {
   ImplicitTargetDescriptor,
 } from "@cursorless/common";
 
-export interface PrimitiveTargetDescriptor
-  extends PartialPrimitiveTargetDescriptor {
+export interface PrimitiveTargetDescriptor extends PartialPrimitiveTargetDescriptor {
   /**
    * The mark, eg "air", "this", "that", etc
    */

@@ -61,10 +61,7 @@ class InsertEmptyLines implements Action {
             ],
           );
 
-        setSelectionsWithoutFocusingEditor(
-          editableEditor,
-          updatedCursorSelections,
-        );
+        setSelectionsWithoutFocusingEditor(editableEditor, updatedCursorSelections);
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({

@@ -61,9 +61,7 @@ type SimpleSurroundingPairName =
   | "singleQuotes"
   | "squareBrackets";
 type ComplexSurroundingPairName = "string" | "any" | "collectionBoundary";
-type SurroundingPairName =
-  | SimpleSurroundingPairName
-  | ComplexSurroundingPairName;
+type SurroundingPairName = SimpleSurroundingPairName | ComplexSurroundingPairName;
 
 type SimpleScopeTypeType =
   | "argumentOrParameter"

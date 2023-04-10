@@ -19,25 +19,21 @@ export default class ToggleBreakpoint implements Action {
     await flashTargets(ide(), thatTargets, FlashStyle.referenced);
 
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-      const breakpointDescriptors: BreakpointDescriptor[] = targets.map(
-        (target) => {
-          const range = target.contentRange;
-          return target.isLine
-            ? {
-                type: "line",
-                startLine: range.start.line,
-                endLine: range.end.line,
-              }
-            : {
-                type: "inline",
-                range,
-              };
-        },
-      );
+      const breakpointDescriptors: BreakpointDescriptor[] = targets.map((target) => {
+        const range = target.contentRange;
+        return target.isLine
+          ? {
+              type: "line",
+              startLine: range.start.line,
+              endLine: range.end.line,
+            }
+          : {
+              type: "inline",
+              range,
+            };
+      });
 
-      await ide()
-        .getEditableTextEditor(editor)
-        .toggleBreakpoint(breakpointDescriptors);
+      await ide().getEditableTextEditor(editor).toggleBreakpoint(breakpointDescriptors);
     });
 
     return {

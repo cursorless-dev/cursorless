@@ -91,8 +91,7 @@ export function* generateUnmatchedDelimiters(
    * right delimiters of the given type we've seen. If this number drops to
    * -1 for any delimiter, we yield it.
    */
-  const delimiterBalances: Partial<Record<SimpleSurroundingPairName, number>> =
-    {};
+  const delimiterBalances: Partial<Record<SimpleSurroundingPairName, number>> = {};
 
   /**
    * The current list of acceptable delimiters in the ongoing scan segment. Each
@@ -110,16 +109,12 @@ export function* generateUnmatchedDelimiters(
     const { delimiterInfo } = delimiterOccurrence;
     const delimiterName = delimiterInfo?.delimiter;
 
-    if (
-      delimiterName == null ||
-      !currentAcceptableDelimiters.includes(delimiterName)
-    ) {
+    if (delimiterName == null || !currentAcceptableDelimiters.includes(delimiterName)) {
       continue;
     }
 
     const increment = delimiterIncrements[delimiterInfo!.side];
-    const newDelimiterBalance =
-      (delimiterBalances[delimiterName] ?? 0) + increment;
+    const newDelimiterBalance = (delimiterBalances[delimiterName] ?? 0) + increment;
 
     if (newDelimiterBalance === -1) {
       yield delimiterOccurrence as DelimiterOccurrence;

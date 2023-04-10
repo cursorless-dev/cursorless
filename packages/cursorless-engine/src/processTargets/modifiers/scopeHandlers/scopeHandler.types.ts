@@ -65,16 +65,10 @@ export interface ScopeHandler {
    * @returns A boolean indicating if {@link scopeA} is preferred over
    * {@link scopeB}.  A value of `undefined` indicates no preference.
    */
-  isPreferredOver?(
-    scopeA: TargetScope,
-    scopeB: TargetScope,
-  ): boolean | undefined;
+  isPreferredOver?(scopeA: TargetScope, scopeB: TargetScope): boolean | undefined;
 }
 
-export type ContainmentPolicy =
-  | "required"
-  | "disallowed"
-  | "disallowedIfStrict";
+export type ContainmentPolicy = "required" | "disallowed" | "disallowedIfStrict";
 
 export interface ScopeIteratorRequirements {
   /**
