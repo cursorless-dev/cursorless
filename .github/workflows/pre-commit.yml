@@ -32,7 +32,5 @@ jobs:
           cache: pnpm
       - run: pnpm --color install
       - uses: pre-commit/action@v3.0.0
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        if: failure() && github.event_name == 'pull_request'
-        with:
-          commit_message: "[pre-commit] auto fixes"
+      - uses: pre-commit-ci/lite-action@v1.0.1
+        if: always()
