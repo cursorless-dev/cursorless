@@ -13,15 +13,8 @@ jobs:
   pre-commit:
     name: Pre-commit
     runs-on: ubuntu-latest
-    permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
-      contents: write
     steps:
       - uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
