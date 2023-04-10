@@ -29,10 +29,6 @@ And I heard you like GIFs?
 
 ## Installation
 
-
-
-
-
 Currently depends on [Talon](https://talonvoice.com/), though a keyboard
 version is planned.
 
