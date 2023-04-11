@@ -8,8 +8,8 @@ import {
 } from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { getMatcher } from "../tokenizer";
-import { Graph } from "../typings/Graph";
 import { FullRangeInfo } from "../typings/updateSelections";
+import { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * A token with information that the rangeUpdater can use to keep its
@@ -32,7 +32,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
     return this._tokenHats;
   }
 
-  constructor(private graph: Graph) {}
+  constructor(private rangeUpdater: RangeUpdater) {}
 
   private getDocumentTokenList(document: TextDocument) {
     const key = document.uri.toString();
@@ -42,7 +42,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
       currentValue = [];
       this.documentTokenLists.set(key, currentValue);
       this.deregisterFunctions.push(
-        this.graph.rangeUpdater.registerRangeInfoList(document, currentValue),
+        this.rangeUpdater.registerRangeInfoList(document, currentValue),
       );
     }
 
@@ -50,7 +50,7 @@ export class IndividualHatMap implements ReadOnlyHatMap {
   }
 
   clone() {
-    const ret = new IndividualHatMap(this.graph);
+    const ret = new IndividualHatMap(this.rangeUpdater);
 
     ret.setTokenHats(this._tokenHats);
 

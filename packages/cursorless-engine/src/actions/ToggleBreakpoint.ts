@@ -1,7 +1,6 @@
 import { ide } from "../singletons/ide.singleton";
 import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 import { BreakpointDescriptor, FlashStyle } from "@cursorless/common";
@@ -9,7 +8,7 @@ import { BreakpointDescriptor, FlashStyle } from "@cursorless/common";
 export default class ToggleBreakpoint implements Action {
   getFinalStages = () => [containingLineIfUntypedStage];
 
-  constructor(private graph: Graph) {
+  constructor() {
     this.run = this.run.bind(this);
   }
 

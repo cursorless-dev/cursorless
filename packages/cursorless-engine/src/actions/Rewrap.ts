@@ -1,9 +1,9 @@
 import { FlashStyle } from "@cursorless/common";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { containingSurroundingPairIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import {
   createThatMark,
   flashTargets,
@@ -14,7 +14,7 @@ import { Action, ActionReturnValue } from "./actions.types";
 export default class Rewrap implements Action {
   getFinalStages = () => [containingSurroundingPairIfUntypedStage];
 
-  constructor(private graph: Graph) {
+  constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
@@ -46,7 +46,7 @@ export default class Rewrap implements Action {
 
         const [updatedSourceRanges, updatedThatRanges] =
           await performEditsAndUpdateRanges(
-            this.graph.rangeUpdater,
+            this.rangeUpdater,
             ide().getEditableTextEditor(editor),
             edits,
             [

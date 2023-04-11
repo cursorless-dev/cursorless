@@ -4,21 +4,21 @@ import {
   Selection,
   toCharacterRange,
 } from "@cursorless/common";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
 import { Edit } from "../typings/Types";
-import { Graph } from "../typings/Graph";
+import { Target } from "../typings/target.types";
 import { FullSelectionInfo } from "../typings/updateSelections";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Wrap implements Action {
-  constructor(private graph: Graph) {
+  constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
@@ -100,7 +100,7 @@ export default class Wrap implements Action {
           sourceMarkSelections,
           thatMarkSelections,
         ] = await performEditsAndUpdateFullSelectionInfos(
-          this.graph.rangeUpdater,
+          this.rangeUpdater,
           editableEditor,
           edits,
           [
