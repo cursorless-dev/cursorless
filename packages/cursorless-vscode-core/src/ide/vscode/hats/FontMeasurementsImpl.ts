@@ -107,12 +107,6 @@ function getWebviewContent() {
   // baseline adjustment based on https://stackoverflow.com/a/27295528
   return `<!DOCTYPE html>
   <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="Content-Security-Policy" content="default-src 'none';">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Cursorless</title>
-  </head>
   <body>
       <h1>Loading Cursorless...</h1>
       <div id="container">
