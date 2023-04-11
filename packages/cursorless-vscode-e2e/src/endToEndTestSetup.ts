@@ -29,7 +29,9 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
+    console.log("About to get cursorless API for test", title);
     ({ ide, injectIde } = (await getCursorlessApi()).testHelpers!);
+    console.log("Got cursorless API for test", title);
     spy = new SpyIDE(ide!);
     injectIde!(spy);
   });
