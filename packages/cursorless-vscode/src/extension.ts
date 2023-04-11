@@ -87,8 +87,8 @@ export async function activate(
     vscodeIDE,
     context,
     vscodeIDE.runMode === "test"
-      ? new FontMeasurementsImpl(context)
-      : new FakeFontMeasurements(),
+      ? new FakeFontMeasurements()
+      : new FontMeasurementsImpl(context),
   );
   console.log("Before hats.init()");
   await hats.init();
