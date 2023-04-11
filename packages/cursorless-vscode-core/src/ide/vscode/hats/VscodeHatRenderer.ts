@@ -10,7 +10,7 @@ import {
   IndividualHatAdjustmentMap,
 } from "./shapeAdjustments";
 import { Listener, Notifier } from "@cursorless/common";
-import FontMeasurements from "./FontMeasurements";
+import { FontMeasurements } from "./FontMeasurements";
 import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
@@ -42,16 +42,15 @@ const hatConfigSections = [
 export default class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
-  private fontMeasurements: FontMeasurements;
   private notifier: Notifier<[]> = new Notifier();
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
     private enabledHatStyles: VscodeEnabledHatStyleManager,
+    private fontMeasurements: FontMeasurements,
   ) {
     extensionContext.subscriptions.push(this);
-    this.fontMeasurements = new FontMeasurements(extensionContext);
 
     this.recomputeDecorations = this.recomputeDecorations.bind(this);
 

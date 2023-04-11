@@ -16,6 +16,7 @@ import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
 import type { VscodeIDE } from "../VscodeIDE";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import VscodeHatRenderer from "./VscodeHatRenderer";
+import { FontMeasurements } from "./FontMeasurements";
 
 export class VscodeHats implements Hats {
   private enabledHatStyleManager: VscodeEnabledHatStyleManager;
@@ -27,6 +28,7 @@ export class VscodeHats implements Hats {
   constructor(
     private ide: VscodeIDE,
     extensionContext: vscode.ExtensionContext,
+    fontMeasurements: FontMeasurements,
   ) {
     this.enabledHatStyleManager = new VscodeEnabledHatStyleManager(
       extensionContext,
@@ -34,6 +36,7 @@ export class VscodeHats implements Hats {
     this.hatRenderer = new VscodeHatRenderer(
       extensionContext,
       this.enabledHatStyleManager,
+      fontMeasurements,
     );
 
     this.toggle = this.toggle.bind(this);

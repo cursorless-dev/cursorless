@@ -19,6 +19,8 @@ import {
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
+  FakeFontMeasurements,
+  FontMeasurementsImpl,
   KeyboardCommands,
   StatusBarItem,
   VscodeHats,
@@ -81,7 +83,13 @@ export async function activate(
   const snippets = new Snippets();
   snippets.init();
 
-  const hats = new VscodeHats(vscodeIDE, context);
+  const hats = new VscodeHats(
+    vscodeIDE,
+    context,
+    vscodeIDE.runMode === "test"
+      ? new FontMeasurementsImpl(context)
+      : new FakeFontMeasurements(),
+  );
   console.log("Before hats.init()");
   await hats.init();
   console.log("After hats.init()");
