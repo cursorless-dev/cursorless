@@ -1,5 +1,5 @@
 import { IDE, sleep, SpyIDE } from "@cursorless/common";
-import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
+import { getCursorlessApi } from "@cursorless/vscode-common";
 import { Context } from "mocha";
 import * as sinon from "sinon";
 import shouldUpdateFixtures from "./shouldUpdateFixtures";
@@ -24,9 +24,6 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   let ide: IDE | undefined;
   let injectIde: ((ide: IDE) => void) | undefined;
   let spy: SpyIDE | undefined;
-
-  // Hack to get Cursorless to activate
-  suiteSetup(() => openNewEditor(""));
 
   setup(async function (this: Context) {
     const title = this.test!.fullTitle();
