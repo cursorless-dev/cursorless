@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
-    "eslint": "^8.13.0",
+    "eslint": "^8.38.0",
     "eslint-config-next": "13.2.3",
     "next": "13.2.3",
     "react": "^18.2.0",

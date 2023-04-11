@@ -10,12 +10,10 @@ import {
   Actions,
   CommandRunner,
   Debug,
-  FactoryMap,
-  Graph,
-  graphFactories,
   HatTokenMapImpl,
   injectIde,
-  makeGraph,
+  RangeUpdater,
+  Snippets,
   TestCaseRecorder,
   ThatMark,
   TreeSitter,
@@ -73,21 +71,26 @@ export async function activate(
   const treeSitter: TreeSitter = { getNodeAtLocation };
   const debug = new Debug(treeSitter);
 
-  const graph = makeGraph({
-    ...graphFactories,
-    commandServerApi: () => commandServerApi,
-  } as FactoryMap<Graph>);
-  graph.snippets.init();
+  const rangeUpdater = new RangeUpdater();
+  context.subscriptions.push(rangeUpdater);
+
+  const snippets = new Snippets();
+  snippets.init();
 
   const hats = new VscodeHats(vscodeIDE, context);
   await hats.init();
 
-  const hatTokenMap = new HatTokenMapImpl(graph, debug, hats);
+  const hatTokenMap = new HatTokenMapImpl(
+    rangeUpdater,
+    debug,
+    hats,
+    commandServerApi,
+  );
   hatTokenMap.allocateHats();
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
-  const actions = new Actions(graph);
+  const actions = new Actions(snippets, rangeUpdater);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
@@ -96,7 +99,6 @@ export async function activate(
   const sourceMark = new ThatMark();
 
   const commandRunner = new CommandRunner(
-    graph,
     treeSitter,
     debug,
     hatTokenMap,
@@ -122,13 +124,12 @@ export async function activate(
           thatMark,
           sourceMark,
           vscodeIDE,
-          graph,
           hatTokenMap,
         )
       : undefined,
 
     experimental: {
-      registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
+      registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
   };
 }

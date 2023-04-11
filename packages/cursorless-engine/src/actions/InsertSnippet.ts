@@ -5,6 +5,8 @@ import {
   SnippetDefinition,
   textFormatters,
 } from "@cursorless/common";
+import { Snippets } from "../core/Snippets";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
@@ -16,7 +18,6 @@ import {
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Graph } from "../typings/Graph";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
@@ -38,7 +39,11 @@ type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  constructor(private graph: Graph, private actions: Actions) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private snippets: Snippets,
+    private actions: Actions,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -62,7 +67,7 @@ export default class InsertSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const scopeTypeTypes = snippet.insertionScopeTypes;
       return scopeTypeTypes == null
@@ -84,7 +89,7 @@ export default class InsertSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const definition = findMatchingSnippetDefinitionStrict(
         targets,
@@ -145,7 +150,7 @@ export default class InsertSnippet implements Action {
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelectionInfos(
-      this.graph.rangeUpdater,
+      this.rangeUpdater,
       () => editor.insertSnippet(snippetString),
       editor.document,
       [targetSelectionInfos],

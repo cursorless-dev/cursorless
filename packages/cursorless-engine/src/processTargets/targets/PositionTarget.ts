@@ -41,7 +41,11 @@ export default class PositionTarget extends BaseTarget {
   getRemovalRange = () => removalUnsupportedForPosition(this.position);
 
   getEditNewActionType(): EditNewActionType {
-    if (this.insertionDelimiter === "\n" && this.position === "after") {
+    if (
+      this.insertionDelimiter === "\n" &&
+      this.position === "after" &&
+      this.thatTarget.contentRange.isSingleLine
+    ) {
       return "insertLineAfter";
     }
 

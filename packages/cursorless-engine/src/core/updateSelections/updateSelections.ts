@@ -378,7 +378,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
   // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L598-L604
   // See also
   // https://github.com/microsoft/vscode/blob/174db5eb992d880adcc42c41d83a0e6cb6b92474/src/vs/editor/common/model/pieceTreeTextBuffer/pieceTreeTextBuffer.ts#L464
-  // - We have a component on the graph called graph.rangeUpdater
+  // - We have a component called rangeUpdater
   // - It supports registering a list of selections to keep up-to-date, and
   //   it returns a dispose function.
   // - It also has a function that allows callers to register isReplace edits,

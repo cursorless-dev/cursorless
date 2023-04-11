@@ -1,7 +1,6 @@
 import { FlashStyle, isTesting, Range } from "@cursorless/common";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
-import { Graph } from "../../typings/Graph";
 import { Target } from "../../typings/target.types";
 import { matchAll } from "../../util/regex";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
@@ -47,7 +46,7 @@ import Substituter from "./Substituter";
  * confusing escaping.
  */
 export default class GenerateSnippet implements Action {
-  constructor(private graph: Graph) {
+  constructor() {
     this.run = this.run.bind(this);
   }
 

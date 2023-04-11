@@ -1,16 +1,16 @@
 import { FlashStyle } from "@cursorless/common";
 import { flatten, zip } from "lodash";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 type RangeGenerator = { start: number };
 
 export default class Replace implements Action {
-  constructor(private graph: Graph) {
+  constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
@@ -55,7 +55,7 @@ export default class Replace implements Action {
         (edit) => edit.editor,
         async (editor, edits) => {
           const [updatedSelections] = await performEditsAndUpdateSelections(
-            this.graph.rangeUpdater,
+            this.rangeUpdater,
             ide().getEditableTextEditor(editor),
             edits.map(({ edit }) => edit),
             [targets.map((target) => target.contentSelection)],

@@ -11,7 +11,6 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
-  Graph,
   ide,
   injectIde,
   plainObjectToTarget,
@@ -27,7 +26,6 @@ export function constructTestHelpers(
   thatMark: ThatMark,
   sourceMark: ThatMark,
   vscodeIDE: VscodeIDE,
-  graph: Graph,
   hatTokenMap: HatTokenMap,
 ): TestHelpers | undefined {
   return {

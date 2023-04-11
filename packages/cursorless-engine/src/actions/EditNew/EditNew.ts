@@ -1,8 +1,8 @@
+import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { ide } from "../../singletons/ide.singleton";
-import { Graph } from "../../typings/Graph";
 import { Target } from "../../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
@@ -18,7 +18,7 @@ export class EditNew implements Action {
     return [containingLineIfUntypedStage];
   }
 
-  constructor(private graph: Graph, private actions: Actions) {
+  constructor(private rangeUpdater: RangeUpdater, private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
@@ -44,8 +44,12 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runInsertLineAfterTargets(this.graph, editableEditor, state);
-    state = await runEditTargets(this.graph, editableEditor, state);
+    state = await runInsertLineAfterTargets(
+      this.rangeUpdater,
+      editableEditor,
+      state,
+    );
+    state = await runEditTargets(this.rangeUpdater, editableEditor, state);
 
     const newSelections = state.targets.map((target, index) =>
       state.cursorRanges[index]!.toSelection(target.isReversed),

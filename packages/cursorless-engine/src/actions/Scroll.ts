@@ -6,11 +6,10 @@ import {
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class Scroll implements Action {
-  constructor(private graph: Graph, private at: RevealLineAt) {
+  constructor(private at: RevealLineAt) {
     this.run = this.run.bind(this);
   }
 
@@ -62,20 +61,20 @@ class Scroll implements Action {
 }
 
 export class ScrollToTop extends Scroll {
-  constructor(graph: Graph) {
-    super(graph, RevealLineAt.top);
+  constructor() {
+    super(RevealLineAt.top);
   }
 }
 
 export class ScrollToCenter extends Scroll {
-  constructor(graph: Graph) {
-    super(graph, RevealLineAt.center);
+  constructor() {
+    super(RevealLineAt.center);
   }
 }
 
 export class ScrollToBottom extends Scroll {
-  constructor(graph: Graph) {
-    super(graph, RevealLineAt.bottom);
+  constructor() {
+    super(RevealLineAt.bottom);
   }
 }
 

@@ -1,4 +1,5 @@
 import {
+  CommandServerApi,
   HatTokenMap,
   Hats,
   ReadOnlyHatMap,
@@ -10,7 +11,7 @@ import { abs } from "../util/bigint";
 import { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
-import { Graph } from "..";
+import { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -38,9 +39,14 @@ export class HatTokenMapImpl implements HatTokenMap {
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
-  constructor(private graph: Graph, private debug: Debug, hats: Hats) {
+  constructor(
+    rangeUpdater: RangeUpdater,
+    private debug: Debug,
+    hats: Hats,
+    private commandServerApi: CommandServerApi | null,
+  ) {
     ide().disposeOnExit(this);
-    this.activeMap = new IndividualHatMap(graph);
+    this.activeMap = new IndividualHatMap(rangeUpdater);
 
     this.getActiveMap = this.getActiveMap.bind(this);
     this.allocateHats = this.allocateHats.bind(this);
@@ -124,7 +130,7 @@ export class HatTokenMapImpl implements HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    const phraseStartSignal = this.graph.commandServerApi?.signals?.prePhrase;
+    const phraseStartSignal = this.commandServerApi?.signals?.prePhrase;
 
     if (phraseStartSignal != null) {
       const newSignalVersion = await phraseStartSignal.getVersion();

@@ -1,6 +1,7 @@
 import { FlashStyle, ScopeType } from "@cursorless/common";
+import { Snippets } from "../core/Snippets";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { Graph } from "../index";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import {
@@ -28,7 +29,7 @@ type WrapWithSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export default class WrapWithSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  constructor(private graph: Graph) {
+  constructor(private rangeUpdater: RangeUpdater, private snippets: Snippets) {
     this.run = this.run.bind(this);
   }
 
@@ -56,7 +57,7 @@ export default class WrapWithSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name, variableName } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const variables = snippet.variables ?? {};
       const scopeTypeType = variables[variableName]?.wrapperScopeType;
@@ -77,7 +78,7 @@ export default class WrapWithSnippet implements Action {
     if (snippetDescription.type === "named") {
       const { name } = snippetDescription;
 
-      const snippet = this.graph.snippets.getSnippetStrict(name);
+      const snippet = this.snippets.getSnippetStrict(name);
 
       const definition = findMatchingSnippetDefinitionStrict(
         targets,
@@ -111,7 +112,7 @@ export default class WrapWithSnippet implements Action {
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
-      this.graph.rangeUpdater,
+      this.rangeUpdater,
       () => editor.insertSnippet(snippetString, targetSelections),
       editor.document,
       [targetSelections],
