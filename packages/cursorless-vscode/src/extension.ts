@@ -83,7 +83,7 @@ export async function activate(
 
   const hats = new VscodeHats(vscodeIDE, context);
   console.log("Before hats.init()");
-  await hats.init();
+  hats.init();
   console.log("After hats.init()");
 
   const hatTokenMap = new HatTokenMapImpl(
