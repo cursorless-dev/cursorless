@@ -502,11 +502,12 @@ Insert empty line below the token containing letter 'a' with a blue hat.
 
 ### Homophones
 
-The `"phones"` command can be used to cycle through homophones for a given target.  For example, if there were a hat on the `h` in `where`, you could say `"phones harp"` to change it to `wear`.
+The `"phones"` command can be used to cycle through homophones for a given target. For example, if there were a hat on the `h` in `where`, you could say `"phones harp"` to change it to `wear`.
 
 - `"phones <TARGET>"`
 
 eg:
+
 - `"phones air"`
 - `"phones first word air"`
 
