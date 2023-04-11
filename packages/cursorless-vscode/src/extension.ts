@@ -45,7 +45,9 @@ import { registerCommands } from "./registerCommands";
 export async function activate(
   context: vscode.ExtensionContext,
 ): Promise<CursorlessApi> {
+  console.log("Activating Cursorless");
   const parseTreeApi = await getParseTreeApi();
+  console.log("After getParseTreeApi");
 
   const vscodeIDE = new VscodeIDE(context);
 
@@ -57,10 +59,12 @@ export async function activate(
     injectIde(vscodeIDE);
   }
 
+  console.log("Before getCommandServerApi");
   const commandServerApi =
     vscodeIDE.runMode === "test"
       ? getFakeCommandServerApi()
       : await getCommandServerApi();
+  console.log("After getCommandServerApi");
 
   const getNodeAtLocation = (document: TextDocument, range: Range) => {
     return parseTreeApi.getNodeAtLocation(
@@ -78,7 +82,9 @@ export async function activate(
   snippets.init();
 
   const hats = new VscodeHats(vscodeIDE, context);
+  console.log("Before hats.init()");
   await hats.init();
+  console.log("After hats.init()");
 
   const hatTokenMap = new HatTokenMapImpl(
     rangeUpdater,
