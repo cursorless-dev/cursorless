@@ -19,7 +19,6 @@ import {
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
-  commandIds,
   KeyboardCommands,
   StatusBarItem,
   VscodeHats,
@@ -93,7 +92,7 @@ export async function activate(
 
   const actions = new Actions(snippets, rangeUpdater);
 
-  const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
+  const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
 
   const thatMark = new ThatMark();
@@ -115,6 +114,7 @@ export async function activate(
     commandRunner,
     testCaseRecorder,
     keyboardCommands,
+    hats,
   );
 
   return {
