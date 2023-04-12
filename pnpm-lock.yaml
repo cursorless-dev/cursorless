@@ -510,6 +510,9 @@ importers:
 
   packages/meta-updater:
     dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       '@pnpm/lockfile-file':
         specifier: 7.0.5
         version: 7.0.5(@pnpm/logger@5.0.0)

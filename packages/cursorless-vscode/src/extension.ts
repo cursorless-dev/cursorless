@@ -19,7 +19,8 @@ import {
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
-  commandIds,
+  FakeFontMeasurements,
+  FontMeasurementsImpl,
   KeyboardCommands,
   StatusBarItem,
   VscodeHats,
@@ -78,7 +79,13 @@ export async function activate(
   const snippets = new Snippets();
   snippets.init();
 
-  const hats = new VscodeHats(vscodeIDE, context);
+  const hats = new VscodeHats(
+    vscodeIDE,
+    context,
+    vscodeIDE.runMode === "test"
+      ? new FakeFontMeasurements()
+      : new FontMeasurementsImpl(context),
+  );
   await hats.init();
 
   const hatTokenMap = new HatTokenMapImpl(
@@ -93,7 +100,7 @@ export async function activate(
 
   const actions = new Actions(snippets, rangeUpdater);
 
-  const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
+  const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
 
   const thatMark = new ThatMark();
@@ -115,6 +122,7 @@ export async function activate(
     commandRunner,
     testCaseRecorder,
     keyboardCommands,
+    hats,
   );
 
   return {
