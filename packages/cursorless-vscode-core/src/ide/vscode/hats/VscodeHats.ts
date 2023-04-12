@@ -42,6 +42,7 @@ export class VscodeHats implements Hats {
     this.toggle = this.toggle.bind(this);
     this.handleHatDecorationMapUpdated =
       this.handleHatDecorationMapUpdated.bind(this);
+    this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
 
     this.hatRenderer.registerListener(this.handleHatDecorationMapUpdated);
 
