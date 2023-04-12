@@ -9,22 +9,23 @@ const packages = JSON.parse(
 
 /** @type {import('typedoc').TypeDocOptions} */
 module.exports = {
-  tsconfig: "../../tsconfig.json",
+  // tsconfig: "../../tsconfig.json",
   entryPoints: packages,
-  entryPointStrategy: "expand",
+  entryPointStrategy: "packages",
 
   readme: "../../docs/contributing/_api-index.md",
 
   exclude: ["**/node_modules/**", "**/out/**"],
+  logLevel: "Verbose",
 
   // typedoc-plugin-missing-exports option
   // Workaround for https://github.com/Gerrit0/typedoc-plugin-missing-exports/issues/13
-  internalModule: "internal",
+  // internalModule: "internal",
 
   plugin: [
     "typedoc-plugin-rename-defaults",
     "typedoc-plugin-mdn-links",
-    "typedoc-plugin-missing-exports",
-    "typedoc-plugin-resolve-crossmodule-references",
+    // "typedoc-plugin-missing-exports",
+    // "typedoc-plugin-resolve-crossmodule-references",
   ],
 };

@@ -75,7 +75,7 @@ const config = {
       "docusaurus-plugin-typedoc",
       // TypeDoc options merged with docusaurus specific options
       {
-        ...require("./typedoc.js"),
+        ...require("../typedoc.js"),
         docsRoot: "../../docs",
         // Out path is relative to docsRoot
         out: "contributing/api",
