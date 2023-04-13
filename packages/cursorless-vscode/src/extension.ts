@@ -44,13 +44,6 @@ export async function activate(
 
   const { vscodeIDE, hats } = await createVscodeIde(context);
 
-  const commandServerApi =
-    vscodeIDE.runMode === "test"
-      ? getFakeCommandServerApi()
-      : await getCommandServerApi();
-
-  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
-
   const normalizedIde =
     vscodeIDE.runMode === "production"
       ? undefined
@@ -59,6 +52,13 @@ export async function activate(
           new FakeIDE(),
           vscodeIDE.runMode === "test",
         );
+
+  const commandServerApi =
+    vscodeIDE.runMode === "test"
+      ? getFakeCommandServerApi()
+      : await getCommandServerApi();
+
+  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
   const {
     commandRunner,
