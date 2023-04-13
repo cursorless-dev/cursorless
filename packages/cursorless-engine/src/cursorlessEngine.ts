@@ -1,11 +1,11 @@
 import { CommandServerApi, Hats, IDE } from "@cursorless/common";
-import { CommandRunner, TestCaseRecorder, ThatMark, TreeSitter } from "..";
-import { Actions } from "../actions/Actions";
-import { Debug } from "../core/Debug";
-import { HatTokenMapImpl } from "../core/HatTokenMapImpl";
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { injectIde } from "../singletons/ide.singleton";
+import { CommandRunner, TestCaseRecorder, ThatMark, TreeSitter } from ".";
+import { Actions } from "./actions/Actions";
+import { Debug } from "./core/Debug";
+import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
+import { Snippets } from "./core/Snippets";
+import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { injectIde } from "./singletons/ide.singleton";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
