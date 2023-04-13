@@ -2,6 +2,7 @@ import {
   ActionType,
   Command,
   HatTokenMap,
+  isTesting,
   PartialTargetV0V1,
 } from "@cursorless/common";
 import { ActionRecord } from "../../actions/actions.types";
@@ -161,7 +162,9 @@ export class CommandRunner {
       return returnValue;
     } catch (e) {
       const err = e as Error;
-      console.error(err.stack);
+      if (!isTesting()) {
+        console.error(err.stack);
+      }
       await this.testCaseRecorder.commandErrorHook(err);
       throw e;
     } finally {
