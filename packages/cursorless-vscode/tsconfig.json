@@ -13,9 +13,6 @@
       "path": "../cursorless-engine"
     },
     {
-      "path": "../cursorless-vscode-core"
-    },
-    {
       "path": "../vscode-common"
     }
   ]

@@ -127,7 +127,7 @@ pnpm -F cursorless-vscode uninstall-local
 You'll probably want to run the following to make sure the SVGs have everything they need:
 
 ```sh
-pnpm -F @cursorless/cursorless-vscode-core preprocess-svg-hats
+pnpm -F @cursorless/cursorless-vscode preprocess-svg-hats
 ```
 
 This script will add dummy width, height and fill attributes as necessary to appease the regex in `Decorations.ts`
@@ -137,15 +137,15 @@ This script will add dummy width, height and fill attributes as necessary to app
 While tweaking, the easiest approach is probably to use the
 `cursorless.individualHatAdjustments` setting in your settings.json to change
 size / alignment so you don't need to refresh every time. Once you're done, you
-can paste the settings into `packages/cursorless-vscode-core/scripts/hatAdjustments/add.ts` and run the following to get
+can paste the settings into `packages/cursorless-vscode/src/scripts/hatAdjustments/add.ts` and run the following to get
 your updates:
 
 ```sh
-pnpm -F @cursorless/cursorless-vscode-core hat-adjustments-add
+pnpm -F @cursorless/cursorless-vscode hat-adjustments-add
 ```
 
-If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `packages/cursorless-vscode-core/src/scripts/hatAdjustments/average.ts` and run:
+If instead, you want to average your adjustments with those in main and see the differences to get to yours and main, you can paste the settings into `packages/cursorless-vscode/src/scripts/hatAdjustments/average.ts` and run:
 
 ```sh
-pnpm -F @cursorless/cursorless-vscode-core hat-adjustments-average
+pnpm -F @cursorless/cursorless-vscode hat-adjustments-average
 ```

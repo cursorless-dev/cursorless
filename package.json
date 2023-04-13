@@ -9,7 +9,7 @@
     "fix:eslint": "pnpm lint:ts --fix",
     "fix:meta": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "fix:syncpack": "pnpm syncpack fix-mismatches",
-    "init-vscode-sandbox": "pnpm --filter=@cursorless/cursorless-vscode-core init-launch-sandbox",
+    "init-vscode-sandbox": "pnpm --filter=@cursorless/cursorless-vscode init-launch-sandbox",
     "lint:meta": "pnpm run meta-updater:base --test",
     "lint:ts": "eslint packages --ext ts,tsx",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
