@@ -11,9 +11,12 @@ import {
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
-  createVscodeIde,
+  FakeFontMeasurements,
+  FontMeasurementsImpl,
   KeyboardCommands,
   StatusBarItem,
+  VscodeHats,
+  VscodeIDE,
 } from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
@@ -101,6 +104,21 @@ export async function activate(
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
   };
+}
+
+async function createVscodeIde(context: vscode.ExtensionContext) {
+  const vscodeIDE = new VscodeIDE(context);
+
+  const hats = new VscodeHats(
+    vscodeIDE,
+    context,
+    vscodeIDE.runMode === "test"
+      ? new FakeFontMeasurements()
+      : new FontMeasurementsImpl(context),
+  );
+  await hats.init();
+
+  return { vscodeIDE, hats };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
