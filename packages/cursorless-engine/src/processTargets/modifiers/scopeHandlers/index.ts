@@ -13,7 +13,6 @@ export { default as TokenScopeHandler } from "./TokenScopeHandler";
 export * from "./DocumentScopeHandler";
 export { default as DocumentScopeHandler } from "./DocumentScopeHandler";
 export * from "./TreeSitterScopeHandler";
-export { TreeSitterScopeHandler } from "./TreeSitterScopeHandler";
 export * from "./OneOfScopeHandler";
 export { default as OneOfScopeHandler } from "./OneOfScopeHandler";
 export * from "./ParagraphScopeHandler";
