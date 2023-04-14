@@ -1,0 +1,22 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: clear class name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: className}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: class Aaa; end
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: class ; end
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
