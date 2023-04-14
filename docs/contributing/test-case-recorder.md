@@ -81,7 +81,7 @@ To clean up the formatting of all of the yaml test cases, run `pnpm transform-re
 
 ### Upgrading fixtures
 
-To upgrade all the test fixtures to the latest command version, run the command `pnpm transform-recorded-tests upgrade`. This command should be idempotent.
+To upgrade all the test fixtures to the latest command version, run the command `pnpm transform-recorded-tests --upgrade`. This command should be idempotent.
 
 ### Custom transformation
 
@@ -89,7 +89,7 @@ To upgrade all the test fixtures to the latest command version, run the command 
 1. Change the value at the `custom` key in `AVAILABLE_TRANSFORMATIONS` at the top of
    [`transformRecordedTests/index.ts`](../../packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts) to
    point to your new transformation
-1. Run `pnpm transform-recorded-tests custom`
+1. Run `pnpm transform-recorded-tests --custom`
 
 Example of a custom transformation
 

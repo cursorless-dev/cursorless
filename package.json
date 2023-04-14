@@ -17,7 +17,7 @@
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
-    "transform-recorded-tests": "pnpm -F @cursorless/cursorless-engine transform-recorded-tests",
+    "transform-recorded-tests": "tsx --conditions=cursorless:bundler packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "tsc --build --watch"
   },
   "keywords": [],

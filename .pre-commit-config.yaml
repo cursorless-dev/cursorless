@@ -52,6 +52,13 @@ repos:
         language: system
         entry: pnpm exec prettier
         args: [--write, --list-different, --ignore-unknown]
+  - repo: local
+    hooks:
+      - id: format-recorded-tests
+        name: format-recorded-tests
+        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        language: system
+        entry: pnpm transform-recorded-tests
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:

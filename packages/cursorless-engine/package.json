@@ -5,7 +5,6 @@
   "main": "./out/index.js",
   "scripts": {
     "compile": "tsc --build",
-    "transform-recorded-tests": "tsx --conditions=cursorless:bundler src/scripts/transformRecordedTests/index.ts",
     "watch": "tsc --build --watch"
   },
   "keywords": [],
