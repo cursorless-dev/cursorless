@@ -1,7 +1,7 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: clear call
+  spokenForm: clear next call
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -15,8 +15,8 @@ command:
 initialState:
   documentContents: aaa(bbb(), ccc()) + ddd()
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   marks: {}
 finalState:
   documentContents: "aaa(bbb(), ccc()) + "
