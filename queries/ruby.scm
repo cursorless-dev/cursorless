@@ -13,3 +13,4 @@
 (regex) @regularExpression
 
 (class) @class
+(class name: (_) @className) @domain

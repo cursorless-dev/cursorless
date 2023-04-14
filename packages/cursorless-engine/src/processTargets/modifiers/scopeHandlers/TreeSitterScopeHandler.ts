@@ -59,24 +59,45 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
   }
 
   private matchToScope(editor: TextEditor, match: QueryMatch): TargetScope {
+    const scopeTypeType = this.scopeType.type;
+
     const contentRange = getNodeRange(
-      match.captures.find((capture) => capture.name === this.scopeType.type)!
-        .node,
+      match.captures.find((capture) => capture.name === scopeTypeType)!.node,
     );
+
+    const domain =
+      getRelatedRange(match, scopeTypeType, "domain") ?? contentRange;
+
+    const removalRange = getRelatedRange(match, scopeTypeType, "removal");
+
+    const leadingDelimiterRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "leading",
+    );
+
+    const trailingDelimiterRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "trailing",
+    );
+
+    const interiorRange = getRelatedRange(match, scopeTypeType, "interior");
 
     return {
       editor,
-      // FIXME: Actually get domain
-      domain: contentRange,
+      domain,
       getTarget: (isReversed) =>
         new ScopeTypeTarget({
-          scopeTypeType: this.scopeType.type,
+          scopeTypeType,
           editor,
           isReversed,
           contentRange,
-          // FIXME: Actually get removalRange
-          removalRange: contentRange,
-          // FIXME: Other fields here
+          removalRange,
+          leadingDelimiterRange,
+          trailingDelimiterRange,
+          interiorRange,
+          // FIXME: Add delimiter text
         }),
     };
   }
@@ -134,6 +155,29 @@ function getQueryRange(
             : document.positionAt(distalOffset - 1),
         end: document.positionAt(offset - proximalShift),
       };
+}
+
+/**
+ * Gets the range of a node that is related to the scope.  For example, if the
+ * scope is "class name", the `domain` node would be the containing class.
+ *
+ * @param match The match to get the range from
+ * @param scopeTypeType The type of the scope
+ * @param relationship The relationship to get the range for, eg "domain", or "removal"
+ * @returns A range or undefined if no range was found
+ */
+function getRelatedRange(
+  match: QueryMatch,
+  scopeTypeType: string,
+  relationship: string,
+) {
+  const relatedNode = match.captures.find(
+    (capture) =>
+      capture.name === `${scopeTypeType}.${relationship}` ||
+      capture.name === relationship,
+  )?.node;
+
+  return relatedNode == null ? undefined : getNodeRange(relatedNode);
 }
 
 function positionToPoint(start: Position): Point | undefined {

@@ -175,7 +175,6 @@ const nodeMatchers: Partial<
     "argument_list",
   ),
   collectionKey: trailingMatcher(["pair[key]"], [":"]),
-  className: "class[name]",
   name: [
     "assignment[left]",
     "operator_assignment[left]",
