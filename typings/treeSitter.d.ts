@@ -140,7 +140,7 @@ declare module "web-tree-sitter" {
       walk(): TreeCursor;
       getChangedRanges(other: Tree): Range[];
       getEditedRange(other: Tree): Range;
-      getLanguage(): any;
+      getLanguage(): Language;
     }
 
     class Language {

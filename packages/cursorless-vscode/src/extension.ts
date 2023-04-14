@@ -130,6 +130,8 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
     getTree(document: TextDocument) {
       return parseTreeApi.getTreeForUri(document.uri);
     },
+
+    getLanguage: parseTreeApi.getLanguage,
   };
 }
 

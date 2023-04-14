@@ -12,7 +12,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import * as vscode from "vscode";
-import type { SyntaxNode, Tree } from "web-tree-sitter";
+import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
 
 export interface TestHelpers {
   ide: NormalizedIDE;
@@ -60,6 +60,7 @@ export interface ParseTreeApi {
   getNodeAtLocation(location: vscode.Location): SyntaxNode;
   getTreeForUri(uri: vscode.Uri): Tree;
   loadLanguage: (languageId: string) => Promise<boolean>;
+  getLanguage(languageId: string): Language | undefined;
 }
 
 export async function getExtensionApi<T>(extensionId: string) {

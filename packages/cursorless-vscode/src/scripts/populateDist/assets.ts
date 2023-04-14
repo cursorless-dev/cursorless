@@ -31,6 +31,10 @@ export const assets: Asset[] = [
     destination: "third-party-licenses.csv",
   },
   {
+    source: "../../queries",
+    destination: "queries",
+  },
+  {
     generateContent: generateBuildInfo,
     destination: "build-info.json",
   },
