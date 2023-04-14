@@ -7,12 +7,13 @@ import {
   TextEditor,
 } from "@cursorless/common";
 
+import { Point, Query, QueryMatch } from "web-tree-sitter";
 import { TreeSitter } from "../../..";
+import { getNodeRange } from "../../../util/nodeSelectors";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import BaseScopeHandler from "./BaseScopeHandler";
+import { compareTargetScopes } from "./compareTargetScopes";
 import { TargetScope } from "./scope.types";
-import { Point, Query, QueryMatch } from "web-tree-sitter";
-import { getNodeRange } from "../../../util/nodeSelectors";
 import { ScopeIteratorRequirements } from "./scopeHandler.types";
 
 /**
@@ -48,7 +49,7 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
       hints,
     );
 
-    const matches = this.query
+    yield* this.query
       .matches(
         this.treeSitter.getTree(document).rootNode,
         positionToPoint(start),
@@ -56,13 +57,9 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
       )
       .filter(({ captures }) =>
         captures.some((capture) => capture.name === this.scopeType.type),
-      );
-
-    // FIXME: Sort?
-
-    for (const match of matches) {
-      yield this.matchToScope(editor, match);
-    }
+      )
+      .map((match) => this.matchToScope(editor, match))
+      .sort((a, b) => compareTargetScopes(direction, position, a, b));
   }
 
   private getQueryRange(

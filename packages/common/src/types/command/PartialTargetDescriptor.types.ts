@@ -132,7 +132,7 @@ export const simpleScopeTypeTypes = [
   "url",
 ] as const;
 
-export type SimpleScopeTypeType = typeof simpleScopeTypeTypes[number];
+export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;

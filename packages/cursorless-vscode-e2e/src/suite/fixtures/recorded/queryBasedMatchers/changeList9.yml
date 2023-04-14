@@ -1,11 +1,14 @@
 languageId: ruby
 command:
-  version: 1
+  version: 5
   spokenForm: change list
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "[1, 2, 3, [4, 5, 6, [7, 8, 9]]]"
   selections:
@@ -17,7 +20,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
-  thatMark:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: list, includeSiblings: false}, isImplicit: false}]
