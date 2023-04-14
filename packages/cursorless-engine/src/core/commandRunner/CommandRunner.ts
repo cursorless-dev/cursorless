@@ -123,7 +123,6 @@ export class CommandRunner {
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
         getNodeAtLocation: this.treeSitter.getNodeAtLocation,
-        getTree: this.treeSitter.getTree,
       };
 
       if (this.testCaseRecorder.isActive()) {
