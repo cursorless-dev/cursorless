@@ -26,4 +26,12 @@ export class LanguageDefinitionsImpl implements LanguageDefinitions {
   }
 }
 
+/**
+ * A list of languages which have query definitions.  Note that it's possible
+ * for a language to have some of its scope types defined via queries and the
+ * rest via legacy `nodeMatcher` definitions.  The
+ * {@link LanguageDefinitionImpl} will return `undefined` for any scope types
+ * which are not defined via queries, which will cause the modifier stage to
+ * fall back to the legacy `nodeMatcher` definitions.
+ */
 const languages: LanguageId[] = ["ruby"];
