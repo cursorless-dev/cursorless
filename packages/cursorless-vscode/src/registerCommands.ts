@@ -1,23 +1,20 @@
 import {
+  CURSORLESS_COMMAND_ID,
   Command,
   CursorlessCommandId,
-  CURSORLESS_COMMAND_ID,
   isTesting,
 } from "@cursorless/common";
 import {
   CommandRunner,
-  showCheatsheet,
   TestCaseRecorder,
+  showCheatsheet,
   updateDefaults,
 } from "@cursorless/cursorless-engine";
-import {
-  KeyboardCommands,
-  showDocumentation,
-  showQuickPick,
-  VscodeHats,
-  VscodeIDE,
-} from "@cursorless/cursorless-vscode-core";
 import * as vscode from "vscode";
+import { showDocumentation, showQuickPick } from "./commands";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,

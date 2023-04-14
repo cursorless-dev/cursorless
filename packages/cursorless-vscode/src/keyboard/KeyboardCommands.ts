@@ -1,8 +1,8 @@
 import { ExtensionContext } from "vscode";
-import { StatusBarItem } from "../StatusBarItem";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
+import { StatusBarItem } from "../StatusBarItem";
 
 export class KeyboardCommands {
   targeted: KeyboardCommandsTargeted;

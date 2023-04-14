@@ -11,14 +11,6 @@ import {
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
-  FakeFontMeasurements,
-  FontMeasurementsImpl,
-  KeyboardCommands,
-  StatusBarItem,
-  VscodeHats,
-  VscodeIDE,
-} from "@cursorless/cursorless-vscode-core";
-import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
@@ -27,7 +19,13 @@ import {
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
+import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
+import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
+import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
+import { StatusBarItem } from "./StatusBarItem";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.

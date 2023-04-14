@@ -375,12 +375,18 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
-      '@cursorless/cursorless-vscode-core':
-        specifier: workspace:*
-        version: link:../cursorless-vscode-core
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      uuid:
+        specifier: ^9.0.0
+        version: 9.0.0
+      vscode-uri:
+        specifier: ^3.0.6
+        version: 3.0.7
     devDependencies:
       '@types/chai':
         specifier: ^4.3.3
@@ -394,6 +400,9 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.2
         version: 4.0.5
+      '@types/lodash':
+        specifier: 4.14.181
+        version: 4.14.181
       '@types/mocha':
         specifier: ^8.0.4
         version: 8.2.3
@@ -406,6 +415,9 @@ importers:
       '@types/sinon':
         specifier: ^10.0.2
         version: 10.0.13
+      '@types/uuid':
+        specifier: ^8.3.4
+        version: 8.3.4
       '@types/vscode':
         specifier: ~1.61.0
         version: 1.61.0
@@ -415,52 +427,15 @@ importers:
       esbuild:
         specifier: ^0.17.11
         version: 0.17.11
+      fast-xml-parser:
+        specifier: ^3.20.0
+        version: 3.20.0
       fs-extra:
         specifier: 11.1.0
         version: 11.1.0
       glob:
         specifier: ^7.1.7
         version: 7.2.3
-
-  packages/cursorless-vscode-core:
-    dependencies:
-      '@cursorless/common':
-        specifier: workspace:*
-        version: link:../common
-      '@cursorless/vscode-common':
-        specifier: workspace:*
-        version: link:../vscode-common
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      semver:
-        specifier: ^7.3.7
-        version: 7.3.8
-      uuid:
-        specifier: ^9.0.0
-        version: 9.0.0
-      vscode-uri:
-        specifier: ^3.0.6
-        version: 3.0.7
-    devDependencies:
-      '@types/lodash':
-        specifier: 4.14.181
-        version: 4.14.181
-      '@types/mocha':
-        specifier: ^8.0.4
-        version: 8.2.3
-      '@types/semver':
-        specifier: ^7.3.9
-        version: 7.3.13
-      '@types/uuid':
-        specifier: ^8.3.4
-        version: 8.3.4
-      '@types/vscode':
-        specifier: ~1.61.0
-        version: 1.61.0
-      fast-xml-parser:
-        specifier: ^3.20.0
-        version: 3.21.1
       mocha:
         specifier: ^8.1.3
         version: 8.4.0
@@ -9195,8 +9170,8 @@ packages:
       punycode: 1.4.1
     dev: false
 
-  /fast-xml-parser@3.21.1:
-    resolution: {integrity: sha512-FTFVjYoBOZTJekiUsawGsSYV9QL0A+zDYCRj7y34IO6Jg+2IMYEtQa+bbictpdpV8dHxXywqU7C0gRDEOFtBFg==}
+  /fast-xml-parser@3.20.0:
+    resolution: {integrity: sha512-cMQwDJYVDjMPU56DviszewgMKuNzuf4NQSBuDf9RgZ6FKm5QEMxW05Za8lvnuL6moxoeZVUWBlL733WmovvV6g==}
     hasBin: true
     dependencies:
       strnum: 1.0.5
@@ -11813,7 +11788,7 @@ packages:
       globby: 11.1.0
       isbinaryfile: 5.0.0
       mem-fs: 2.3.0
-      minimatch: 7.4.2
+      minimatch: 7.4.4
       multimatch: 5.0.0
       normalize-path: 3.0.0
       textextensions: 5.15.0
@@ -11977,18 +11952,11 @@ packages:
       brace-expansion: 2.0.1
     dev: true
 
-  /minimatch@7.4.2:
-    resolution: {integrity: sha512-xy4q7wou3vUoC9k1xGTXc+awNdGaGVHtFUaey8tiX4H1QRc04DZ/rmDFwNm2EBsuYEhAZ6SgMmYf3InGY6OauA==}
-    engines: {node: '>=10'}
-    dependencies:
-      brace-expansion: 2.0.1
-
   /minimatch@7.4.4:
     resolution: {integrity: sha512-T+8B3kNrLP7jDb5eaC4rUIp6DKoeTSb6f9SwF2phcY2gxJUA0GEf1i29/FHxBMEfx0ppWlr434/D0P+6jb8bOQ==}
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
-    dev: true
 
   /minimist-options@4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
