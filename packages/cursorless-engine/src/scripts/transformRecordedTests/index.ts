@@ -7,11 +7,15 @@ import { upgradeDecorations } from "./upgradeDecorations";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
-  autoFormat: identity,
+  format: identity,
   custom: upgradeDecorations,
 };
 
-async function main(transformationName: string | undefined) {
+async function main(args: string[]) {
+  const [transformationName, paths] = args?.[0]?.startsWith("--")
+    ? [args[0].slice(2), args.slice(1)]
+    : [null, args];
+
   const transformation =
     transformationName == null
       ? identity
@@ -21,7 +25,9 @@ async function main(transformationName: string | undefined) {
     throw new Error(`Unknown transformation ${transformationName}`);
   }
 
-  getRecordedTestPaths().forEach((path) => transformFile(transformation, path));
+  const testPaths = paths.length > 0 ? paths : getRecordedTestPaths();
+
+  testPaths.forEach((path) => transformFile(transformation, path));
 }
 
-main(process.argv[2]);
+main(process.argv.slice(2));
