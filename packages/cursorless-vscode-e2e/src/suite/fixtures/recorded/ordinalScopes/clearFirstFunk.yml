@@ -1,7 +1,8 @@
-languageId: typescript
+languageId: ruby
 command:
+  version: 5
   spokenForm: clear first funk
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
@@ -10,24 +11,22 @@ command:
           start: 0
           length: 1
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    function aaa() {}
-    function bbb() {}
-    function ccc() {}
-    function ddd() {}
+    def aaa; end
+    def bbb; end
+    def ccc; end
+    def ddd; end
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 2, character: 10}
+    - anchor: {line: 1, character: 7}
+      active: {line: 2, character: 7}
   marks: {}
 finalState:
   documentContents: |-
-    function aaa() {}
+    def aaa; end
 
-    function ccc() {}
-    function ddd() {}
+    def ccc; end
+    def ddd; end
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: namedFunction}, start: 0, length: 1}]}]
