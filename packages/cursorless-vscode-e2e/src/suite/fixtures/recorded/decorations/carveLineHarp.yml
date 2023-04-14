@@ -25,7 +25,7 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  clipboard: "hello world"
+  clipboard: hello world
 ide:
   flashes:
     - style: referenced
