@@ -15,7 +15,7 @@ export class LanguageDefinitionImpl implements LanguageDefinition {
 
   init() {
     const rawLanguageQueryString = readFileSync(
-      join(ide().assetsRoot, "queries", this.languageId, "scopeTypes.scm"),
+      join(ide().assetsRoot, "queries", `${this.languageId}.scm`),
       "utf8",
     );
 
