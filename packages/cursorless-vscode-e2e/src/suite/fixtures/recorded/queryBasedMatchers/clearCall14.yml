@@ -1,16 +1,16 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: change list
+  spokenForm: clear call
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: list}
-  usePrePhraseSnapshot: false
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: "[1, 2, 3, [4, 5, 6, [7, 8, 9]]]"
+  documentContents: aaa()
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}

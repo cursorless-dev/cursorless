@@ -1,22 +1,18 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: change list
+  spokenForm: clear call
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: list}
-  usePrePhraseSnapshot: false
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: "[\"hello\"]"
-  selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-  marks: {}
-finalState:
-  documentContents: ""
+  documentContents: " aaa()"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks: {}
+thrownError: {name: NoContainingScopeError}
