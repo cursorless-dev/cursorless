@@ -10,6 +10,7 @@ import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryI
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { injectIde } from "./singletons/ide.singleton";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { runIntegrationTests } from "./runIntegrationTests";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -68,5 +69,7 @@ export function createCursorlessEngine(
     hatTokenMap,
     snippets,
     injectIde,
+    runIntegrationTests: () =>
+      runIntegrationTests(treeSitter, languageDefinitions),
   };
 }

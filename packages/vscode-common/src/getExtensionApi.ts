@@ -43,6 +43,8 @@ export interface TestHelpers {
     marks: SerializedMarks | undefined,
     forceRealClipboard: boolean,
   ): Promise<TestCaseSnapshot>;
+
+  runIntegrationTests(): Promise<void>;
 }
 
 export interface CursorlessApi {

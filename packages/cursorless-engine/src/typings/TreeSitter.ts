@@ -15,8 +15,16 @@ export interface TreeSitter {
   /**
    * Gets a language if it is loaded
    *
-   * @param languageId The language id of the language to load
+   * @param languageId The language id of the language to get
    * @returns The language if it is already loaded
    */
   getLanguage(languageId: string): Language | undefined;
+
+  /**
+   * Loads a language, returning true if it was successfully loaded
+   *
+   * @param languageId The language id of the language to load
+   * @returns `true` if the language was successfully loaded
+   */
+  loadLanguage(languageId: string): Promise<boolean>;
 }

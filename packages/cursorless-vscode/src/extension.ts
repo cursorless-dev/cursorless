@@ -66,6 +66,7 @@ export async function activate(
     hatTokenMap,
     snippets,
     injectIde,
+    runIntegrationTests,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde ?? vscodeIDE,
@@ -95,6 +96,7 @@ export async function activate(
           vscodeIDE,
           normalizedIde!,
           injectIde,
+          runIntegrationTests,
         )
       : undefined,
 
@@ -131,6 +133,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
       return parseTreeApi.getTreeForUri(document.uri);
     },
 
+    loadLanguage: parseTreeApi.loadLanguage,
     getLanguage: parseTreeApi.getLanguage,
   };
 }
