@@ -1,16 +1,16 @@
+import type { ContainingScopeModifier, Direction } from "@cursorless/common";
 import {
   NoContainingScopeError,
   Position,
   TextEditor,
 } from "@cursorless/common";
-import type { ContainingScopeModifier, Direction } from "@cursorless/common";
-import type { Target } from "../../typings/target.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
+import type { Target } from "../../typings/target.types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getContainingScope } from "./getContainingScope";
-import getLegacyScopeStage from "./getLegacyScopeStage";
-import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
@@ -33,7 +33,11 @@ import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
  *    input target content range.
  */
 export class ContainingScopeStage implements ModifierStage {
-  constructor(private modifier: ContainingScopeModifier) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private scopeHandlerFactory: ScopeHandlerFactory,
+    private modifier: ContainingScopeModifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const {
@@ -43,13 +47,15 @@ export class ContainingScopeStage implements ModifierStage {
     } = target;
     const { scopeType, ancestorIndex = 0 } = this.modifier;
 
-    const scopeHandler = getScopeHandler(
+    const scopeHandler = this.scopeHandlerFactory.create(
       scopeType,
       target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
-      return getLegacyScopeStage(this.modifier).run(context, target);
+      return this.modifierStageFactory
+        .getLegacyScopeStage(this.modifier)
+        .run(context, target);
     }
 
     if (end.isEqual(start)) {

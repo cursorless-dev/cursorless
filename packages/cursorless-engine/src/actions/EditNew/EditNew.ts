@@ -1,6 +1,7 @@
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
-import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
+import { containingLineIfUntypedModifier } from "../../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
+import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
@@ -15,10 +16,14 @@ import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
-    return [containingLineIfUntypedStage];
+    return [this.modifierStageFactory.create(containingLineIfUntypedModifier)];
   }
 
-  constructor(private rangeUpdater: RangeUpdater, private actions: Actions) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private actions: Actions,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
     this.run = this.run.bind(this);
   }
 

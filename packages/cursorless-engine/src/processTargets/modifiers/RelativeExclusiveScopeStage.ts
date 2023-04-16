@@ -1,10 +1,11 @@
-import type { Target } from "../../typings/target.types";
 import type { RelativeScopeModifier } from "@cursorless/common";
 import type { ProcessedTargetsContext } from "../../typings/Types";
+import type { Target } from "../../typings/target.types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { runLegacy } from "./relativeScopeLegacy";
-import getScopeHandler from "./scopeHandlers/getScopeHandler";
+import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import type { ContainmentPolicy } from "./scopeHandlers/scopeHandler.types";
 import { OutOfRangeError } from "./targetSequenceUtils";
@@ -16,16 +17,25 @@ import { OutOfRangeError } from "./targetSequenceUtils";
  * first scope if input range is empty and is at start of that scope.
  */
 export default class RelativeExclusiveScopeStage implements ModifierStage {
-  constructor(private modifier: RelativeScopeModifier) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private scopeHandlerFactory: ScopeHandlerFactory,
+    private modifier: RelativeScopeModifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const scopeHandler = getScopeHandler(
+    const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
-      return runLegacy(this.modifier, context, target);
+      return runLegacy(
+        this.modifierStageFactory,
+        this.modifier,
+        context,
+        target,
+      );
     }
 
     const { isReversed, editor, contentRange: inputRange } = target;

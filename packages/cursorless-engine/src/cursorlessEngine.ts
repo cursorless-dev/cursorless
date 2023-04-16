@@ -5,6 +5,9 @@ import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
+import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
+import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { injectIde } from "./singletons/ide.singleton";
 
 export function createCursorlessEngine(
@@ -33,7 +36,12 @@ export function createCursorlessEngine(
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
-  const actions = new Actions(snippets, rangeUpdater);
+  const scopeHandlerFactory = new ScopeHandlerFactoryImpl();
+  const markStageFactory = new MarkStageFactoryImpl();
+  const modifierStageFactory = new ModifierStageFactoryImpl(
+    scopeHandlerFactory,
+  );
+  const actions = new Actions(snippets, rangeUpdater, modifierStageFactory);
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
@@ -46,6 +54,8 @@ export function createCursorlessEngine(
     actions,
     thatMark,
     sourceMark,
+    modifierStageFactory,
+    markStageFactory,
   );
 
   return {
