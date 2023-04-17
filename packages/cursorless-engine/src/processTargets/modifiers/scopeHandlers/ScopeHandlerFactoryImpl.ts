@@ -56,7 +56,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       default:
         return this.languageDefinitions
           .get(languageId)
-          ?.maybeGetLanguageScopeHandler(scopeType);
+          ?.getScopeHandler(scopeType);
     }
   }
 }

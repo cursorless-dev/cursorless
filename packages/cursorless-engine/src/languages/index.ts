@@ -3,5 +3,5 @@ import { SupportedLanguageId, supportedLanguageIds } from "./constants";
 export function isLanguageSupported(
   languageId: string,
 ): languageId is SupportedLanguageId {
-  return languageId in supportedLanguageIds;
+  return supportedLanguageIds.includes(languageId as SupportedLanguageId);
 }
