@@ -1,5 +1,4 @@
-import { Position } from "@cursorless/common";
-import { Point, QueryMatch } from "web-tree-sitter";
+import { QueryMatch } from "web-tree-sitter";
 import { getNodeRange } from "../../../../util/nodeSelectors";
 
 /**
@@ -38,8 +37,4 @@ export function getCaptureRangeByName(match: QueryMatch, ...names: string[]) {
   )?.node;
 
   return relatedNode == null ? undefined : getNodeRange(relatedNode);
-}
-
-export function positionToPoint(start: Position): Point | undefined {
-  return { row: start.line, column: start.character };
 }

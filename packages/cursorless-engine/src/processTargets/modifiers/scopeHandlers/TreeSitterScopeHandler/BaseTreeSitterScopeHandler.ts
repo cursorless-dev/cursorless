@@ -4,17 +4,16 @@ import {
   TextDocument,
   TextEditor,
 } from "@cursorless/common";
-import { Query, QueryMatch } from "web-tree-sitter";
-import { TreeSitter } from "../../../..";
+import { QueryMatch } from "web-tree-sitter";
+import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import BaseScopeHandler from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import { TargetScope } from "../scope.types";
 import { ScopeIteratorRequirements } from "../scopeHandler.types";
-import { positionToPoint } from "./captureUtils";
 
 /** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
 export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
-  constructor(protected treeSitter: TreeSitter, protected query: Query) {
+  constructor(protected query: TreeSitterQuery) {
     super();
   }
 
@@ -35,11 +34,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
     );
 
     yield* this.query
-      .matches(
-        this.treeSitter.getTree(document).rootNode,
-        positionToPoint(start),
-        positionToPoint(end),
-      )
+      .matches(document, start, end)
       .map((match) => this.matchToScope(editor, match))
       .filter((scope): scope is TargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));

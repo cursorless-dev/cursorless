@@ -1,26 +1,31 @@
 import { ScopeType, SimpleScopeType } from "@cursorless/common";
-import { Query } from "web-tree-sitter";
-import { ide } from "../singletons/ide.singleton";
-import { join } from "path";
-import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
-import { TreeSitter } from "../typings/TreeSitter";
 import { existsSync, readFileSync } from "fs";
+import { join } from "path";
+import { Query } from "web-tree-sitter";
+import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
+import { ide } from "../singletons/ide.singleton";
+import { TreeSitter } from "../typings/TreeSitter";
 import { LanguageId } from "./constants";
+import { TreeSitterQuery } from "./TreeSitterQuery";
 
 /**
  * Represents a language definition for a single language, including the
  * tree-sitter query used to extract scopes for the given language
  */
 export class LanguageDefinition {
+  private query: TreeSitterQuery;
+
   private constructor(
-    private treeSitter: TreeSitter,
+    treeSitter: TreeSitter,
     /**
      * The tree-sitter query used to extract scopes for the given language.
      * Note that this query contains patterns for all scope types that the
      * language supports using new-style tree-sitter queries
      */
-    private query: Query,
-  ) {}
+    query: Query,
+  ) {
+    this.query = new TreeSitterQuery(treeSitter, query);
+  }
 
   /**
    * Construct a language definition for the given language id, if the language
@@ -60,10 +65,6 @@ export class LanguageDefinition {
       return undefined;
     }
 
-    return new TreeSitterScopeHandler(
-      this.treeSitter,
-      this.query,
-      scopeType as SimpleScopeType,
-    );
+    return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
   }
 }
