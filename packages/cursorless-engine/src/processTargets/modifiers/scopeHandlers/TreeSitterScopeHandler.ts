@@ -3,35 +3,28 @@ import {
   Position,
   ScopeType,
   SimpleScopeType,
-  TextDocument,
   TextEditor,
 } from "@cursorless/common";
 
 import { Point, Query, QueryMatch } from "web-tree-sitter";
 import { TreeSitter } from "../../..";
 import { getNodeRange } from "../../../util/nodeSelectors";
+import { PlainTarget } from "../../targets";
 import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { compareTargetScopes } from "./compareTargetScopes";
 import { TargetScope } from "./scope.types";
-import { ScopeIteratorRequirements } from "./scopeHandler.types";
+import {
+  CustomScopeType,
+  ScopeIteratorRequirements,
+} from "./scopeHandler.types";
+import { getQueryRange } from "./getQueryRange";
 
-/**
- * Handles scopes that are implemented using tree-sitter.
- */
-export class TreeSitterScopeHandler extends BaseScopeHandler {
+abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
   protected isHierarchical: boolean = true;
 
-  constructor(
-    private treeSitter: TreeSitter,
-    private query: Query,
-    public scopeType: SimpleScopeType,
-  ) {
+  constructor(protected treeSitter: TreeSitter, protected query: Query) {
     super();
-  }
-
-  public get iterationScopeType(): ScopeType {
-    throw Error("Not implemented");
   }
 
   *generateScopeCandidates(
@@ -51,14 +44,46 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
         positionToPoint(start),
         positionToPoint(end),
       )
-      .filter(({ captures }) =>
-        captures.some((capture) => capture.name === this.scopeType.type),
-      )
+      .filter((match) => this.includeMatch(match))
       .map((match) => this.matchToScope(editor, match))
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
   }
 
-  private matchToScope(editor: TextEditor, match: QueryMatch): TargetScope {
+  protected abstract includeMatch(match: QueryMatch): boolean;
+
+  protected abstract matchToScope(
+    editor: TextEditor,
+    match: QueryMatch,
+  ): TargetScope;
+}
+
+/**
+ * Handles scopes that are implemented using tree-sitter.
+ */
+export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
+  public get iterationScopeType(): CustomScopeType {
+    return {
+      type: "custom",
+      scopeHandler: new TreeSitterIterationScopeHandler(
+        this.treeSitter,
+        this.query,
+        this.scopeType,
+      ),
+    };
+  }
+  constructor(
+    treeSitter: TreeSitter,
+    query: Query,
+    public scopeType: SimpleScopeType,
+  ) {
+    super(treeSitter, query);
+  }
+
+  protected includeMatch({ captures }: QueryMatch): boolean {
+    return captures.some((capture) => capture.name === this.scopeType.type);
+  }
+
+  protected matchToScope(editor: TextEditor, match: QueryMatch): TargetScope {
     const scopeTypeType = this.scopeType.type;
 
     const contentRange = getNodeRange(
@@ -103,58 +128,55 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
   }
 }
 
-/**
- * Constructs a range to pass to {@link Query.matches} to find scopes. Note
- * that {@link Query.matches} will only return scopes that have non-empty
- * intersection with this range.  Also note that the base
- * {@link BaseScopeHandler.generateScopes} will filter out any extra scopes
- * that we yield, so we don't need to be totally precise.
- *
- * @returns Range to pass to {@link Query.matches}
- */
-function getQueryRange(
-  document: TextDocument,
-  position: Position,
-  direction: Direction,
-  { containment, distalPosition }: ScopeIteratorRequirements,
-) {
-  const offset = document.offsetAt(position);
-  const distalOffset =
-    distalPosition == null ? null : document.offsetAt(distalPosition);
-
-  if (containment === "required") {
-    // If containment is required, we smear the position left and right by one
-    // character so that we have a non-empty intersection with any scope that
-    // touches position
-    return {
-      start: document.positionAt(offset - 1),
-      end: document.positionAt(offset + 1),
-    };
+export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler {
+  public get iterationScopeType(): ScopeType {
+    throw Error("Not implemented");
   }
 
-  // If containment is disallowed, we can shift the position forward by a character to avoid
-  // matching scopes that touch position.  Otherwise, we shift the position backward by a
-  // character to ensure we get scopes that touch position.
-  const proximalShift = containment === "disallowed" ? 1 : -1;
+  public scopeType = undefined;
 
-  // FIXME: Don't go all the way to end of document when there is no distalPosition?
-  // Seems wasteful to query all the way to end of document for something like "next funk"
-  // Might be better to start smaller and exponentially grow
-  return direction === "forward"
-    ? {
-        start: document.positionAt(offset + proximalShift),
-        end:
-          distalOffset == null
-            ? document.range.end
-            : document.positionAt(distalOffset + 1),
-      }
-    : {
-        start:
-          distalOffset == null
-            ? document.range.start
-            : document.positionAt(distalOffset - 1),
-        end: document.positionAt(offset - proximalShift),
-      };
+  constructor(
+    treeSitter: TreeSitter,
+    query: Query,
+    private iterateeScopeType: SimpleScopeType,
+  ) {
+    super(treeSitter, query);
+  }
+
+  protected includeMatch({ captures }: QueryMatch): boolean {
+    return (
+      captures.some(
+        (capture) =>
+          capture.name === `${this.iterateeScopeType.type}.iteration`,
+      ) ||
+      (captures.some(
+        (capture) => capture.name === this.iterateeScopeType.type,
+      ) &&
+        captures.some((capture) => capture.name === "iteration"))
+    );
+  }
+
+  protected matchToScope(editor: TextEditor, match: QueryMatch): TargetScope {
+    const scopeTypeType = this.iterateeScopeType.type;
+
+    const contentRange = getRelatedRange(match, scopeTypeType, "iteration")!;
+    const domain =
+      getCaptureRange(match, [
+        `iteration.domain`,
+        `${scopeTypeType}.iteration.domain`,
+      ]) ?? contentRange;
+
+    return {
+      editor,
+      domain,
+      getTarget: (isReversed) =>
+        new PlainTarget({
+          editor,
+          isReversed,
+          contentRange,
+        }),
+    };
+  }
 }
 
 /**
@@ -171,10 +193,15 @@ function getRelatedRange(
   scopeTypeType: string,
   relationship: string,
 ) {
-  const relatedNode = match.captures.find(
-    (capture) =>
-      capture.name === `${scopeTypeType}.${relationship}` ||
-      capture.name === relationship,
+  return getCaptureRange(match, [
+    relationship,
+    `${scopeTypeType}.${relationship}`,
+  ]);
+}
+
+function getCaptureRange(match: QueryMatch, names: string[]) {
+  const relatedNode = match.captures.find((capture) =>
+    names.some((name) => capture.name === name),
   )?.node;
 
   return relatedNode == null ? undefined : getNodeRange(relatedNode);

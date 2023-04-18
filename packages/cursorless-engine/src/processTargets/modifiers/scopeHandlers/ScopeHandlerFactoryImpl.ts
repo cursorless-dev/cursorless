@@ -11,7 +11,7 @@ import {
 } from ".";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
-import type { ScopeHandler } from "./scopeHandler.types";
+import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
@@ -35,7 +35,10 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
     this.create = this.create.bind(this);
   }
 
-  create(scopeType: ScopeType, languageId: string): ScopeHandler | undefined {
+  create(
+    scopeType: ScopeType | CustomScopeType,
+    languageId: string,
+  ): ScopeHandler | undefined {
     switch (scopeType.type) {
       case "character":
         return new CharacterScopeHandler(this, scopeType, languageId);
@@ -50,9 +53,11 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "document":
         return new DocumentScopeHandler(scopeType, languageId);
       case "oneOf":
-        return new OneOfScopeHandler(this, scopeType, languageId);
+        return OneOfScopeHandler.create(this, scopeType, languageId);
       case "paragraph":
         return new ParagraphScopeHandler(scopeType, languageId);
+      case "custom":
+        return scopeType.scopeHandler;
       default:
         return this.languageDefinitions
           .get(languageId)

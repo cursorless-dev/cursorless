@@ -4,6 +4,7 @@ import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
+import { getContainingScopeTarget } from "./getContainingScopeTarget";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
 import { TargetScope } from "./scopeHandlers/scope.types";
@@ -77,7 +78,11 @@ export class EveryScopeStage implements ModifierStage {
       scopes = getScopesOverlappingRange(
         scopeHandler,
         editor,
-        this.getDefaultIterationRange(context, scopeHandler, target),
+        this.getDefaultIterationRange(
+          scopeHandler,
+          this.scopeHandlerFactory,
+          target,
+        ),
       );
     }
 
@@ -89,16 +94,23 @@ export class EveryScopeStage implements ModifierStage {
   }
 
   getDefaultIterationRange(
-    context: ProcessedTargetsContext,
     scopeHandler: ScopeHandler,
+    scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
   ): Range {
-    const containingIterationScopeModifier = this.modifierStageFactory.create({
-      type: "containingScope",
-      scopeType: scopeHandler.iterationScopeType,
-    });
+    const iterationScopeHandler = scopeHandlerFactory.create(
+      scopeHandler.iterationScopeType,
+      target.editor.document.languageId,
+    );
 
-    return containingIterationScopeModifier.run(context, target)[0]
-      .contentRange;
+    if (iterationScopeHandler == null) {
+      throw Error("Could not find iteration scope handler");
+    }
+
+    return getContainingScopeTarget(
+      target,
+      iterationScopeHandler,
+      `iteration scope for ${scopeHandler.scopeType?.type ?? "unknown"}`,
+    )[0].contentRange;
   }
 }

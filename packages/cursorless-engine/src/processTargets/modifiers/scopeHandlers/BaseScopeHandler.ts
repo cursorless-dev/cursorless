@@ -1,8 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-import { Position, Range, TextEditor } from "@cursorless/common";
 import type { Direction, ScopeType } from "@cursorless/common";
+import { Position, TextEditor } from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 import type {
+  CustomScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
@@ -17,8 +18,8 @@ const DEFAULT_REQUIREMENTS: ScopeIteratorRequirements = {
  * All scope handlers should derive from this base class
  */
 export default abstract class BaseScopeHandler implements ScopeHandler {
-  public abstract readonly scopeType: ScopeType;
-  public abstract readonly iterationScopeType: ScopeType;
+  public abstract readonly scopeType: ScopeType | undefined;
+  public abstract readonly iterationScopeType: ScopeType | CustomScopeType;
 
   /**
    * Indicates whether scopes are allowed to contain one another.  If `false`, we

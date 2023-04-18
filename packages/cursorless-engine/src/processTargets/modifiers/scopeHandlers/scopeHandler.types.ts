@@ -2,6 +2,11 @@ import type { Position, TextEditor } from "@cursorless/common";
 import type { Direction, ScopeType } from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 
+export interface CustomScopeType {
+  type: "custom";
+  scopeHandler: ScopeHandler;
+}
+
 /**
  * Represents a scope type.  The functions in this interface allow us to find
  * specific instances of the given scope type in a document. These functions are
@@ -26,14 +31,14 @@ export interface ScopeHandler {
   /**
    * The scope type handled by this scope handler
    */
-  readonly scopeType: ScopeType;
+  readonly scopeType: ScopeType | undefined;
 
   /**
    * The scope type of the default iteration scope of this scope type.  This
    * scope type will be used when the input target has no explicit range (ie
    * {@link Target.hasExplicitRange} is `false`).
    */
-  readonly iterationScopeType: ScopeType;
+  readonly iterationScopeType: ScopeType | CustomScopeType;
 
   /**
    * Returns an iterable of scopes meeting the requirements in

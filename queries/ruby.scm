@@ -1,7 +1,7 @@
 (comment) @comment
 (if) @ifStatement
 (call) @functionCall
-[(method) (singleton_method)] @namedFunction
+(class [(method) (singleton_method)] @namedFunction) @namedFunction.iteration
 (hash) @map
 
 [
