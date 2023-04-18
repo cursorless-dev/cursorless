@@ -1,8 +1,5 @@
-import {
-  Direction,
-  Position, TextDocument
-} from "@cursorless/common";
-import { ScopeIteratorRequirements } from "./scopeHandler.types";
+import { Direction, Position, TextDocument } from "@cursorless/common";
+import { ScopeIteratorRequirements } from "../scopeHandler.types";
 
 /**
  * Constructs a range to pass to {@link Query.matches} to find scopes. Note
@@ -17,9 +14,11 @@ export function getQueryRange(
   document: TextDocument,
   position: Position,
   direction: Direction,
-  { containment, distalPosition }: ScopeIteratorRequirements) {
+  { containment, distalPosition }: ScopeIteratorRequirements,
+) {
   const offset = document.offsetAt(position);
-  const distalOffset = distalPosition == null ? null : document.offsetAt(distalPosition);
+  const distalOffset =
+    distalPosition == null ? null : document.offsetAt(distalPosition);
 
   if (containment === "required") {
     // If containment is required, we smear the position left and right by one
@@ -41,15 +40,17 @@ export function getQueryRange(
   // Might be better to start smaller and exponentially grow
   return direction === "forward"
     ? {
-      start: document.positionAt(offset + proximalShift),
-      end: distalOffset == null
-        ? document.range.end
-        : document.positionAt(distalOffset + 1),
-    }
+        start: document.positionAt(offset + proximalShift),
+        end:
+          distalOffset == null
+            ? document.range.end
+            : document.positionAt(distalOffset + 1),
+      }
     : {
-      start: distalOffset == null
-        ? document.range.start
-        : document.positionAt(distalOffset - 1),
-      end: document.positionAt(offset - proximalShift),
-    };
+        start:
+          distalOffset == null
+            ? document.range.start
+            : document.positionAt(distalOffset - 1),
+        end: document.positionAt(offset - proximalShift),
+      };
 }
