@@ -1,7 +1,7 @@
 (comment) @comment
 (if) @ifStatement
 (call) @functionCall
-(class [(method) (singleton_method)] @namedFunction) @namedFunction.iteration
+(class [(method) (singleton_method)] @namedFunction) @_.iteration
 (hash) @map
 
 [
@@ -13,4 +13,4 @@
 (regex) @regularExpression
 
 (class) @class
-(class name: (_) @className) @domain
+(class name: (_) @className) @_.domain

@@ -162,8 +162,8 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
     const contentRange = getRelatedRange(match, scopeTypeType, "iteration")!;
     const domain =
       getCaptureRange(match, [
-        `iteration.domain`,
         `${scopeTypeType}.iteration.domain`,
+        `_.iteration.domain`,
       ]) ?? contentRange;
 
     return {
@@ -194,8 +194,8 @@ function getRelatedRange(
   relationship: string,
 ) {
   return getCaptureRange(match, [
-    relationship,
     `${scopeTypeType}.${relationship}`,
+    `_.${relationship}`,
   ]);
 }
 
