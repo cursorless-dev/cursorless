@@ -30,9 +30,13 @@
 ) @_.iteration
 
 (
-  (function_definition) @namedFunction
+  (function_definition
+    body: (_) @_.interior
+  ) @namedFunction
   (#set! onlyIfNotDescendantOfType decorated_definition)
 )
 (decorated_definition
-  (function_definition)
+  (function_definition
+    body: (_) @_.interior
+  )
 ) @namedFunction
