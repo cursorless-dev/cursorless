@@ -15,17 +15,26 @@ import { getNodeRange } from "../../../../util/nodeSelectors";
 export function getRelatedRange(
   match: QueryMatch,
   scopeTypeType: string,
-  relationship: string
+  relationship: string,
 ) {
   return getCaptureRangeByName(
     match,
     `${scopeTypeType}.${relationship}`,
-    `_.${relationship}`
+    `_.${relationship}`,
   );
 }
 
+/**
+ * Looks in the captures of a match for a capture with one of the given names, and
+ * returns the range of that capture, or undefined if no matching capture was found
+ *
+ * @param match The match to get the range from
+ * @param names The possible names of the capture to get the range for
+ * @returns A range or undefined if no matching capture was found
+ */
 export function getCaptureRangeByName(match: QueryMatch, ...names: string[]) {
-  const relatedNode = match.captures.find((capture) => names.some((name) => capture.name === name)
+  const relatedNode = match.captures.find((capture) =>
+    names.some((name) => capture.name === name),
   )?.node;
 
   return relatedNode == null ? undefined : getNodeRange(relatedNode);

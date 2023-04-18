@@ -1,21 +1,23 @@
-import {
-  Direction,
-  NoContainingScopeError,
-  Position,
-  TextEditor,
-} from "@cursorless/common";
+import { Direction, Position, TextEditor } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getContainingScope } from "./getContainingScope";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
+/**
+ * Finds the containing scope of the target for the given scope handler
+ *
+ * @param target The target to find the containing scope of
+ * @param scopeHandler The scope handler for the scope type to find containing scope of
+ * @param ancestorIndex How many ancestors to go up. 0 means the immediate containing scope
+ * @returns A target representing the containing scope, or undefined if no containing scope found
+ */
 export function getContainingScopeTarget(
   target: Target,
   scopeHandler: ScopeHandler,
-  errorName: string,
   ancestorIndex: number = 0,
-) {
+): Target | undefined {
   const {
     isReversed,
     editor,
@@ -27,7 +29,7 @@ export function getContainingScopeTarget(
     let scope = getPreferredScopeTouchingPosition(scopeHandler, editor, start);
 
     if (scope == null) {
-      throw new NoContainingScopeError(errorName);
+      return undefined;
     }
 
     if (ancestorIndex > 0) {
@@ -41,10 +43,10 @@ export function getContainingScopeTarget(
     }
 
     if (scope == null) {
-      throw new NoContainingScopeError(errorName);
+      return undefined;
     }
 
-    return [scope.getTarget(isReversed)];
+    return scope.getTarget(isReversed);
   }
 
   const startScope = expandFromPosition(
@@ -56,11 +58,11 @@ export function getContainingScopeTarget(
   );
 
   if (startScope == null) {
-    throw new NoContainingScopeError(errorName);
+    return undefined;
   }
 
   if (startScope.domain.contains(end)) {
-    return [startScope.getTarget(isReversed)];
+    return startScope.getTarget(isReversed);
   }
 
   const endScope = expandFromPosition(
@@ -72,11 +74,12 @@ export function getContainingScopeTarget(
   );
 
   if (endScope == null) {
-    throw new NoContainingScopeError(errorName);
+    return undefined;
   }
 
-  return [constructScopeRangeTarget(isReversed, startScope, endScope)];
+  return constructScopeRangeTarget(isReversed, startScope, endScope);
 }
+
 function expandFromPosition(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
@@ -100,6 +103,7 @@ function expandFromPosition(
 
   return undefined;
 }
+
 function getPreferredScopeTouchingPosition(
   scopeHandler: ScopeHandler,
   editor: TextEditor,

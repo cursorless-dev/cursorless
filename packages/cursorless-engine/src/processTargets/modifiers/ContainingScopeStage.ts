@@ -1,4 +1,7 @@
-import { ContainingScopeModifier } from "@cursorless/common";
+import {
+  ContainingScopeModifier,
+  NoContainingScopeError,
+} from "@cursorless/common";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
@@ -44,13 +47,17 @@ export class ContainingScopeStage implements ModifierStage {
         .getLegacyScopeStage(this.modifier)
         .run(context, target);
     }
-    const errorName = this.modifier.scopeType.type;
 
-    return getContainingScopeTarget(
+    const containingScope = getContainingScopeTarget(
       target,
       scopeHandler,
-      errorName,
       ancestorIndex,
     );
+
+    if (containingScope == null) {
+      throw new NoContainingScopeError(this.modifier.scopeType.type);
+    }
+
+    return [containingScope];
   }
 }

@@ -7,10 +7,7 @@ import { TargetScope } from "../scope.types";
 import { CustomScopeType } from "../scopeHandler.types";
 import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
 import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
-import {
-  getCaptureRangeByName,
-  getRelatedRange,
-} from "./getCaptureRangeByName";
+import { getCaptureRangeByName, getRelatedRange } from "./captureUtils";
 
 /**
  * Handles scopes that are implemented using tree-sitter.
@@ -26,6 +23,8 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
     super(treeSitter, query);
   }
 
+  // We just create a custom scope handler that doesn't necessarily correspond
+  // to any well-defined scope type
   public get iterationScopeType(): CustomScopeType {
     return {
       type: "custom",
@@ -46,6 +45,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
     const contentRange = getCaptureRangeByName(match, scopeTypeType);
 
     if (contentRange == null) {
+      // This capture was for some unrelated scope type
       return undefined;
     }
 

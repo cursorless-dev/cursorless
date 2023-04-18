@@ -107,10 +107,17 @@ export class EveryScopeStage implements ModifierStage {
       throw Error("Could not find iteration scope handler");
     }
 
-    return getContainingScopeTarget(
+    const iterationScopeTarget = getContainingScopeTarget(
       target,
       iterationScopeHandler,
-      `iteration scope for ${scopeHandler.scopeType?.type ?? "unknown"}`,
-    )[0].contentRange;
+    );
+
+    if (iterationScopeTarget == null) {
+      throw new NoContainingScopeError(
+        `iteration scope for ${scopeHandler.scopeType!.type}`,
+      );
+    }
+
+    return iterationScopeTarget.contentRange;
   }
 }

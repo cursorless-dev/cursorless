@@ -2,6 +2,11 @@ import type { Position, TextEditor } from "@cursorless/common";
 import type { Direction, ScopeType } from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 
+/**
+ * Used to handle a scope internally that doesn't have a well-defined scope
+ * type. Primarily used for iteration scopes, where the iteration scope doesn't
+ * correspond to a scope type that can be used directly by the user as a scope.
+ */
 export interface CustomScopeType {
   type: "custom";
   scopeHandler: ScopeHandler;
@@ -29,7 +34,8 @@ export interface CustomScopeType {
  */
 export interface ScopeHandler {
   /**
-   * The scope type handled by this scope handler
+   * The scope type handled by this scope handler, or `undefined` if this scope
+   * handler doesn't have a well-defined scope type.
    */
   readonly scopeType: ScopeType | undefined;
 
