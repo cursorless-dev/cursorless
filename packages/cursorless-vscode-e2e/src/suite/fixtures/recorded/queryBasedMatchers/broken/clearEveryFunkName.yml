@@ -1,0 +1,64 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear every funk name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: functionName}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    class Aaa:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
+
+        def eee():
+            ddd = "eee"
+            def fff():
+                pass
+
+    class Bbb:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
+  selections:
+    - anchor: {line: 8, character: 19}
+      active: {line: 8, character: 19}
+  marks: {}
+finalState:
+  documentContents: |
+    class Aaa:
+        @bbb
+        def ():
+            ddd = "eee"
+            def ():
+                pass
+
+        def ():
+            ddd = "eee"
+            def ():
+                pass
+
+    class Bbb:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+    - anchor: {line: 4, character: 12}
+      active: {line: 4, character: 12}
+    - anchor: {line: 7, character: 8}
+      active: {line: 7, character: 8}
+    - anchor: {line: 9, character: 12}
+      active: {line: 9, character: 12}

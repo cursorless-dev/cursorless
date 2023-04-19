@@ -1,0 +1,35 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear every state
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    def aaa():
+        bbb = "ccc"
+        ddd = "eee"
+
+    def fff():
+        pass
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |2-
+
+        
+
+    def fff():
+        pass
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
