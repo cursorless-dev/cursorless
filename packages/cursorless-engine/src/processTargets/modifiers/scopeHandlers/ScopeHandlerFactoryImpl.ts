@@ -1,16 +1,17 @@
+import type { ScopeType } from "@cursorless/common";
 import {
   CharacterScopeHandler,
   DocumentScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
-  TokenScopeHandler,
-  WordScopeHandler,
   OneOfScopeHandler,
   ParagraphScopeHandler,
+  TokenScopeHandler,
+  WordScopeHandler,
 } from ".";
-import type { ScopeType } from "@cursorless/common";
-import type { ScopeHandler } from "./scopeHandler.types";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import type { ScopeHandler } from "./scopeHandler.types";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
@@ -30,7 +31,7 @@ import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
  * legacy pathways
  */
 export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
-  constructor() {
+  constructor(private languageDefinitions: LanguageDefinitions) {
     this.create = this.create.bind(this);
   }
 
@@ -53,7 +54,9 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "paragraph":
         return new ParagraphScopeHandler(scopeType, languageId);
       default:
-        return undefined;
+        return this.languageDefinitions
+          .get(languageId)
+          ?.getScopeHandler(scopeType);
     }
   }
 }

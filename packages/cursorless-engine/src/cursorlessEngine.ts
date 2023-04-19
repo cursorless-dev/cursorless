@@ -9,6 +9,7 @@ import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { injectIde } from "./singletons/ide.singleton";
+import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -36,7 +37,8 @@ export function createCursorlessEngine(
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
-  const scopeHandlerFactory = new ScopeHandlerFactoryImpl();
+  const languageDefinitions = new LanguageDefinitions(treeSitter);
+  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
   const markStageFactory = new MarkStageFactoryImpl();
   const modifierStageFactory = new ModifierStageFactoryImpl(
     scopeHandlerFactory,
