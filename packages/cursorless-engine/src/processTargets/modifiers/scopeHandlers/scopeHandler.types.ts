@@ -3,6 +3,16 @@ import type { Direction, ScopeType } from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 
 /**
+ * Used to handle a scope internally that doesn't have a well-defined scope
+ * type. Primarily used for iteration scopes, where the iteration scope doesn't
+ * correspond to a scope type that can be used directly by the user as a scope.
+ */
+export interface CustomScopeType {
+  type: "custom";
+  scopeHandler: ScopeHandler;
+}
+
+/**
  * Represents a scope type.  The functions in this interface allow us to find
  * specific instances of the given scope type in a document. These functions are
  * used by the various modifier stages to implement modifiers that involve the
@@ -24,16 +34,17 @@ import type { TargetScope } from "./scope.types";
  */
 export interface ScopeHandler {
   /**
-   * The scope type handled by this scope handler
+   * The scope type handled by this scope handler, or `undefined` if this scope
+   * handler doesn't have a well-defined scope type.
    */
-  readonly scopeType: ScopeType;
+  readonly scopeType: ScopeType | undefined;
 
   /**
    * The scope type of the default iteration scope of this scope type.  This
    * scope type will be used when the input target has no explicit range (ie
    * {@link Target.hasExplicitRange} is `false`).
    */
-  readonly iterationScopeType: ScopeType;
+  readonly iterationScopeType: ScopeType | CustomScopeType;
 
   /**
    * Returns an iterable of scopes meeting the requirements in

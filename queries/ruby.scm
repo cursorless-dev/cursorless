@@ -1,8 +1,7 @@
 (comment) @comment
-(if) @ifStatement
-(call) @functionCall
-[(method) (singleton_method)] @namedFunction
 (hash) @map
+(regex) @regularExpression
+(call) @functionCall
 
 [
   (array)
@@ -10,6 +9,21 @@
   (symbol_array)
 ] @list
 
-(regex) @regularExpression
+(_
+  (if) @ifStatement
+) @_.iteration
 
-(class) @class
+
+(_
+  [(method) (singleton_method)] @namedFunction
+) @_.iteration
+
+(_
+  (class) @class
+) @_.iteration
+
+(_
+  (class
+    name: (_) @className
+  ) @_.domain
+) @_.iteration

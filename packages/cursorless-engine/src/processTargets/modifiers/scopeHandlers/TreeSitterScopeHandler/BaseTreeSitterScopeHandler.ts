@@ -1,37 +1,21 @@
 import {
   Direction,
   Position,
-  ScopeType,
-  SimpleScopeType,
   TextDocument,
   TextEditor,
 } from "@cursorless/common";
+import { Query, QueryMatch } from "web-tree-sitter";
+import { TreeSitter } from "../../../..";
+import BaseScopeHandler from "../BaseScopeHandler";
+import { compareTargetScopes } from "../compareTargetScopes";
+import { TargetScope } from "../scope.types";
+import { ScopeIteratorRequirements } from "../scopeHandler.types";
+import { positionToPoint } from "./captureUtils";
 
-import { Point, Query, QueryMatch } from "web-tree-sitter";
-import { TreeSitter } from "../../..";
-import { getNodeRange } from "../../../util/nodeSelectors";
-import ScopeTypeTarget from "../../targets/ScopeTypeTarget";
-import BaseScopeHandler from "./BaseScopeHandler";
-import { compareTargetScopes } from "./compareTargetScopes";
-import { TargetScope } from "./scope.types";
-import { ScopeIteratorRequirements } from "./scopeHandler.types";
-
-/**
- * Handles scopes that are implemented using tree-sitter.
- */
-export class TreeSitterScopeHandler extends BaseScopeHandler {
-  protected isHierarchical: boolean = true;
-
-  constructor(
-    private treeSitter: TreeSitter,
-    private query: Query,
-    public scopeType: SimpleScopeType,
-  ) {
+/** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
+export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
+  constructor(protected treeSitter: TreeSitter, protected query: Query) {
     super();
-  }
-
-  public get iterationScopeType(): ScopeType {
-    throw Error("Not implemented");
   }
 
   *generateScopeCandidates(
@@ -43,7 +27,12 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
     const { document } = editor;
 
     /** Narrow the range within which tree-sitter searches, for performance */
-    const { start, end } = getQueryRange(document, position, direction, hints);
+    const { start, end } = getQuerySearchRange(
+      document,
+      position,
+      direction,
+      hints,
+    );
 
     yield* this.query
       .matches(
@@ -51,35 +40,23 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
         positionToPoint(start),
         positionToPoint(end),
       )
-      .filter(({ captures }) =>
-        captures.some((capture) => capture.name === this.scopeType.type),
-      )
       .map((match) => this.matchToScope(editor, match))
+      .filter((scope): scope is TargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
   }
 
-  private matchToScope(editor: TextEditor, match: QueryMatch): TargetScope {
-    const contentRange = getNodeRange(
-      match.captures.find((capture) => capture.name === this.scopeType.type)!
-        .node,
-    );
-
-    return {
-      editor,
-      // FIXME: Actually get domain
-      domain: contentRange,
-      getTarget: (isReversed) =>
-        new ScopeTypeTarget({
-          scopeTypeType: this.scopeType.type,
-          editor,
-          isReversed,
-          contentRange,
-          // FIXME: Actually get removalRange
-          removalRange: contentRange,
-          // FIXME: Other fields here
-        }),
-    };
-  }
+  /**
+   * Convert a tree-sitter match to a scope, or undefined if the match is not
+   * relevant to this scope handler
+   * @param editor The editor in which the match was found
+   * @param match The match to convert to a scope
+   * @returns The scope, or undefined if the match is not relevant to this scope
+   * handler
+   */
+  protected abstract matchToScope(
+    editor: TextEditor,
+    match: QueryMatch,
+  ): TargetScope | undefined;
 }
 
 /**
@@ -91,7 +68,7 @@ export class TreeSitterScopeHandler extends BaseScopeHandler {
  *
  * @returns Range to pass to {@link Query.matches}
  */
-function getQueryRange(
+function getQuerySearchRange(
   document: TextDocument,
   position: Position,
   direction: Direction,
@@ -134,8 +111,4 @@ function getQueryRange(
             : document.positionAt(distalOffset - 1),
         end: document.positionAt(offset - proximalShift),
       };
-}
-
-function positionToPoint(start: Position): Point | undefined {
-  return { row: start.line, column: start.character };
 }
