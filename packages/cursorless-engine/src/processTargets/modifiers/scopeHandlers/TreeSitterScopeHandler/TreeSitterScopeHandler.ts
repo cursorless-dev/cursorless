@@ -1,7 +1,7 @@
 import { SimpleScopeType, TextEditor } from "@cursorless/common";
 
-import { Query, QueryMatch } from "web-tree-sitter";
-import { TreeSitter } from "../../../..";
+import { QueryMatch } from "web-tree-sitter";
+import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import ScopeTypeTarget from "../../../targets/ScopeTypeTarget";
 import { TargetScope } from "../scope.types";
 import { CustomScopeType } from "../scopeHandler.types";
@@ -15,12 +15,8 @@ import { getCaptureRangeByName, getRelatedRange } from "./captureUtils";
 export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   protected isHierarchical = true;
 
-  constructor(
-    treeSitter: TreeSitter,
-    query: Query,
-    public scopeType: SimpleScopeType,
-  ) {
-    super(treeSitter, query);
+  constructor(query: TreeSitterQuery, public scopeType: SimpleScopeType) {
+    super(query);
   }
 
   // We just create a custom scope handler that doesn't necessarily correspond
@@ -29,7 +25,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
     return {
       type: "custom",
       scopeHandler: new TreeSitterIterationScopeHandler(
-        this.treeSitter,
         this.query,
         this.scopeType,
       ),

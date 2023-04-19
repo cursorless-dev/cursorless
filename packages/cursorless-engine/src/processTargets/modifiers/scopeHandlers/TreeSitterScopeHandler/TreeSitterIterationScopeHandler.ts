@@ -1,10 +1,10 @@
 import { ScopeType, SimpleScopeType, TextEditor } from "@cursorless/common";
-import { Query, QueryMatch } from "web-tree-sitter";
-import { TreeSitter } from "../../../..";
+import { QueryMatch } from "web-tree-sitter";
+import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { PlainTarget } from "../../../targets";
 import { TargetScope } from "../scope.types";
 import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
-import { getRelatedRange, getCaptureRangeByName } from "./captureUtils";
+import { getCaptureRangeByName, getRelatedRange } from "./captureUtils";
 
 /** Scope handler to be used for iteration scopes of tree-sitter scope types */
 export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler {
@@ -20,12 +20,11 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
   }
 
   constructor(
-    treeSitter: TreeSitter,
-    query: Query,
+    query: TreeSitterQuery,
     /** The scope type for which we are the iteration scope */
     private iterateeScopeType: SimpleScopeType,
   ) {
-    super(treeSitter, query);
+    super(query);
   }
 
   protected matchToScope(

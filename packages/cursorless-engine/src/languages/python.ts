@@ -97,10 +97,6 @@ const nodeMatchers: Partial<
   functionCall: "call",
   functionCallee: "call[function]",
   comment: "comment",
-  class: "decorated_definition?.class_definition",
-  className: "class_definition[name]",
-  namedFunction: "decorated_definition?.function_definition",
-  functionName: "function_definition[name]",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
 
