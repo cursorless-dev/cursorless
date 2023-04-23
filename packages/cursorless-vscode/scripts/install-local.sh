@@ -10,7 +10,7 @@ pnpm populate-dist --local-install
 
 # 2. Bundle the extension
 cd dist
-vsce package --allow-star-activation -o ../bundle.vsix
+vsce package -o ../bundle.vsix
 
 # 3. Uninstall production cursorless
 code --uninstall-extension pokey.cursorless || echo "Cursorless not currently installed"
