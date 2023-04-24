@@ -87,10 +87,16 @@ class LinuxUserActions:
         xdg_config_home = Path(
             os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")
         )
+        flatpak_apps = Path.home() / ".var/app"
         return pick_path(
             [
                 xdg_config_home / "Code/User/settings.json",
                 xdg_config_home / "VSCodium/User/settings.json",
+                xdg_config_home / "Code - OSS/User/settings.json",
+                flatpak_apps / "com.visualstudio.code/config/Code/User/settings.json",
+                flatpak_apps / "com.vscodium.codium/config/VSCodium/User/settings.json",
+                flatpak_apps
+                / "com.visualstudio.code-oss/config/Code - OSS/User/settings.json",
             ]
         )
 
