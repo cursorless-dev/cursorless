@@ -24,10 +24,9 @@ export class TreeSitterQuery {
       }
 
       if (
-        "onlyIfNotDescendantOfType" in setProperties &&
+        "ifNotParentHasType" in setProperties &&
         captures.some(
-          ({ node }) =>
-            node.parent?.type === setProperties.onlyIfNotDescendantOfType,
+          ({ node }) => node.parent?.type === setProperties.ifNotParentHasType,
         )
       ) {
         return false;
