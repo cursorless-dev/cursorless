@@ -107,7 +107,6 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public openLink(location?: Position | Range): Promise<boolean> {
     return vscodeOpenLink(
-      this.ide,
       this,
       location != null ? toVscodePositionOrRange(location) : undefined,
     );
