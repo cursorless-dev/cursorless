@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import vscodeFocusEditor from "./VscodeFocusEditor";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import { VscodeIDE } from "./VscodeIDE";
 
 export default async function vscodeOpenLink(
   ide: VscodeIDE,
@@ -29,7 +30,7 @@ export default async function vscodeOpenLink(
 
     // Capture the current selection and editor
     const oldSelections = rawEditor.selections;
-    const oldEditor = ide.getActiveEditor();
+    const oldEditor = ide.activeTextEditor;
 
     // Set the selection to the link
     rawEditor.selections = [
@@ -44,7 +45,9 @@ export default async function vscodeOpenLink(
 
     // Restore the old selection and editor
     rawEditor.selections = oldSelections;
-    await vscodeFocusEditor(ide, oldEditor);
+    if (oldEditor != null) {
+      await vscodeFocusEditor(ide, oldEditor);
+    }
   }
 
   return true;
