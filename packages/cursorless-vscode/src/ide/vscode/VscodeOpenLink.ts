@@ -18,7 +18,18 @@ export default async function vscodeOpenLink(
     return false;
   }
 
-  await openLink(filteredLinks[0]);
+  try {
+    await openLink(filteredLinks[0]);
+  } catch (err) {
+    const oldSelections = editor.selections;
+    editor.selections = [
+      "start" in actualLocation
+        ? new vscode.Selection(actualLocation.start, actualLocation.end)
+        : new vscode.Selection(actualLocation, actualLocation),
+    ];
+    await vscode.commands.executeCommand("editor.action.openLink");
+    editor.selections = oldSelections;
+  }
 
   return true;
 }
