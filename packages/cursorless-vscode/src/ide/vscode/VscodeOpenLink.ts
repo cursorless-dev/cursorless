@@ -1,11 +1,15 @@
 import * as vscode from "vscode";
+import vscodeFocusEditor from "./VscodeFocusEditor";
+import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export default async function vscodeOpenLink(
-  editor: vscode.TextEditor,
+  ide: VscodeIDE,
+  editor: VscodeTextEditorImpl,
   location: vscode.Position | vscode.Range | undefined,
 ): Promise<boolean> {
-  const links = await getLinksForEditor(editor);
-  const actualLocation = location ?? getSelection(editor);
+  const rawEditor = editor.vscodeEditor;
+  const links = await getLinksForEditor(rawEditor);
+  const actualLocation = location ?? getSelection(rawEditor);
   const filteredLinks = links.filter((link) =>
     link.range.contains(actualLocation),
   );
@@ -21,14 +25,26 @@ export default async function vscodeOpenLink(
   try {
     await openLink(filteredLinks[0]);
   } catch (err) {
-    const oldSelections = editor.selections;
-    editor.selections = [
+    // Fallback to moving cursor and running open link command
+
+    // Capture the current selection and editor
+    const oldSelections = rawEditor.selections;
+    const oldEditor = ide.getActiveEditor();
+
+    // Set the selection to the link
+    rawEditor.selections = [
       "start" in actualLocation
         ? new vscode.Selection(actualLocation.start, actualLocation.end)
         : new vscode.Selection(actualLocation, actualLocation),
     ];
+    await vscodeFocusEditor(ide, editor);
+
+    // Run the open link command
     await vscode.commands.executeCommand("editor.action.openLink");
-    editor.selections = oldSelections;
+
+    // Restore the old selection and editor
+    rawEditor.selections = oldSelections;
+    await vscodeFocusEditor(ide, oldEditor);
   }
 
   return true;
