@@ -3,7 +3,7 @@
     name: (_) @functionName
     body: (_) @namedFunction.interior
   ) @namedFunction @functionName.domain
-  (#set! onlyIfNotDescendantOfType decorated_definition)
+  (#not-parent-type? @namedFunction decorated_definition)
 )
 (decorated_definition
   (function_definition
@@ -17,7 +17,7 @@
     name: (_) @className
     body: (_) @class.interior
   ) @class @className.domain
-  (#set! onlyIfNotDescendantOfType decorated_definition)
+  (#not-parent-type? @class decorated_definition)
 )
 (decorated_definition
   (class_definition
