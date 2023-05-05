@@ -9,6 +9,7 @@ import {
   OutdatedExtensionError,
   QuickPickOptions,
   RunMode,
+  SilentError,
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/common";
@@ -189,6 +190,8 @@ export class VscodeIDE implements IDE {
   handleCommandError(err: Error) {
     if (err instanceof OutdatedExtensionError) {
       this.showUpdateExtensionErrorMessage(err);
+    } else if (err instanceof SilentError) {
+      // do nothing
     } else {
       vscode.window.showErrorMessage(err.message);
     }

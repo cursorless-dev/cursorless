@@ -172,8 +172,20 @@ declare module "web-tree-sitter" {
 
     interface PredicateResult {
       operator: string;
-      operands: { name: string; type: string }[];
+      operands: PredicateOperand[];
     }
+
+    interface PredicateCaptureOperand {
+      type: "capture";
+      name: string;
+    }
+
+    interface PredicateStringOperand {
+      type: "string";
+      value: string;
+    }
+
+    type PredicateOperand = PredicateCaptureOperand | PredicateStringOperand;
 
     class Query {
       captureNames: string[];
@@ -190,7 +202,7 @@ declare module "web-tree-sitter" {
         endPosition?: Point,
       ): QueryCapture[];
       predicatesForPattern(patternIndex: number): PredicateResult[];
-      predicates: PredicateResult;
+      predicates: PredicateResult[][];
     }
   }
 

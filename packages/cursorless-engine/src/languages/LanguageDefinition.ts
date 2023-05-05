@@ -1,7 +1,6 @@
 import { ScopeType, SimpleScopeType } from "@cursorless/common";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
-import { Query } from "web-tree-sitter";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
@@ -13,19 +12,14 @@ import { TreeSitterQuery } from "./TreeSitterQuery";
  * tree-sitter query used to extract scopes for the given language
  */
 export class LanguageDefinition {
-  private query: TreeSitterQuery;
-
   private constructor(
-    treeSitter: TreeSitter,
     /**
      * The tree-sitter query used to extract scopes for the given language.
      * Note that this query contains patterns for all scope types that the
      * language supports using new-style tree-sitter queries
      */
-    query: Query,
-  ) {
-    this.query = new TreeSitterQuery(treeSitter, query);
-  }
+    private query: TreeSitterQuery,
+  ) {}
 
   /**
    * Construct a language definition for the given language id, if the language
@@ -48,10 +42,12 @@ export class LanguageDefinition {
 
     const rawLanguageQueryString = readFileSync(queryPath, "utf8");
 
-    return new LanguageDefinition(
-      treeSitter,
-      treeSitter.getLanguage(languageId)!.query(rawLanguageQueryString),
-    );
+    const rawQuery = treeSitter
+      .getLanguage(languageId)!
+      .query(rawLanguageQueryString);
+    const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
+
+    return new LanguageDefinition(query);
   }
 
   /**
