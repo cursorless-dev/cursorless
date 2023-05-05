@@ -6,8 +6,9 @@ import { HasSchema } from "./PredicateOperatorSchemaTypes";
 
 /**
  * A predicate operator that returns true if the node is not of the given type.
- * For example, `(not-type? string)` will match any node that is not a string.
- * It is acceptable to pass in multiple types, e.g. `(not-type? string comment)`.
+ * For example, `(not-type? @foo string)` will reject the match if the `@foo`
+ * capture is a `string` node. It is acceptable to pass in multiple types, e.g.
+ * `(not-type? @foo string comment)`.
  */
 class NotType extends QueryPredicateOperator<NotType> {
   name = "not-type?" as const;
@@ -19,9 +20,9 @@ class NotType extends QueryPredicateOperator<NotType> {
 
 /**
  * A predicate operator that returns true if the node's parent is not of the
- * given type. For example, `(not-parent-type? string)` will match any node that
- * is not a child of a string. It is acceptable to pass in multiple types, e.g.
- * `(not-parent-type? string comment)`.
+ * given type. For example, `(not-parent-type? @foo string)` will reject the
+ * match if the `@foo` capture is a child of a `string` node. It is acceptable
+ * to pass in multiple types, e.g. `(not-parent-type? @foo string comment)`.
  */
 class NotParentType extends QueryPredicateOperator<NotParentType> {
   name = "not-parent-type?" as const;
@@ -33,8 +34,8 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 
 /**
  * A predicate operator that returns true if the node is the nth child of its
- * parent.  For example, `(is-nth-child? 0)` will match the first child of any
- * node.
+ * parent.  For example, `(is-nth-child? @foo 0)` will reject the match if the
+ * `@foo` capture is not the first child of its parent.
  */
 class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   name = "is-nth-child?" as const;

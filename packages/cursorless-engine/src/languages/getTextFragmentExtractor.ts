@@ -3,7 +3,7 @@ import type { SyntaxNode } from "web-tree-sitter";
 import { SelectionWithEditor } from "../typings/Types";
 import { notSupported } from "../util/nodeMatchers";
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
-import { SupportedLanguageId } from "./constants";
+import { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
@@ -18,7 +18,7 @@ export type TextFragmentExtractor = (
 ) => Range | null;
 
 function constructDefaultTextFragmentExtractor(
-  languageId: SupportedLanguageId,
+  languageId: LegacyLanguageId,
   stringTextFragmentExtractor?: TextFragmentExtractor,
 ): TextFragmentExtractor {
   const commentNodeMatcher = getNodeMatcher(languageId, "comment", false);
@@ -51,7 +51,7 @@ function constructDefaultTextFragmentExtractor(
 }
 
 function constructDefaultStringTextFragmentExtractor(
-  languageId: SupportedLanguageId,
+  languageId: LegacyLanguageId,
 ): TextFragmentExtractor {
   const stringNodeMatcher = getNodeMatcher(languageId, "string", false);
 
@@ -79,7 +79,7 @@ function constructDefaultStringTextFragmentExtractor(
  * @returns The range of the string text or null if the node is not a string
  */
 function constructHackedStringTextFragmentExtractor(
-  languageId: SupportedLanguageId,
+  languageId: LegacyLanguageId,
 ) {
   const stringNodeMatcher = getNodeMatcher(languageId, "string", false);
 
@@ -105,7 +105,7 @@ function constructHackedStringTextFragmentExtractor(
 export default function getTextFragmentExtractor(
   languageId: string,
 ): TextFragmentExtractor {
-  const extractor = textFragmentExtractors[languageId as SupportedLanguageId];
+  const extractor = textFragmentExtractors[languageId as LegacyLanguageId];
 
   if (extractor == null) {
     throw new UnsupportedLanguageError(languageId);
@@ -121,7 +121,7 @@ type FullDocumentTextFragmentExtractor = null;
 const fullDocumentTextFragmentExtractor = null;
 
 const textFragmentExtractors: Record<
-  SupportedLanguageId,
+  LegacyLanguageId,
   TextFragmentExtractor | FullDocumentTextFragmentExtractor
 > = {
   c: constructDefaultTextFragmentExtractor("c"),

@@ -1,6 +1,5 @@
 import { TreeSitter } from "..";
 import { LanguageDefinition } from "./LanguageDefinition";
-import { LanguageId } from "./constants";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -43,7 +42,7 @@ export class LanguageDefinitions {
 
     if (definition == null) {
       definition =
-        LanguageDefinition.create(this.treeSitter, languageId as LanguageId) ??
+        LanguageDefinition.create(this.treeSitter, languageId) ??
         LANGUAGE_UNDEFINED;
 
       this.languageDefinitions.set(languageId, definition);
