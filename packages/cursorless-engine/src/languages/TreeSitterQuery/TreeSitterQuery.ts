@@ -1,9 +1,4 @@
-import {
-  Position,
-  SilentError,
-  TextDocument,
-  showError,
-} from "@cursorless/common";
+import { Position, TextDocument, showError } from "@cursorless/common";
 import { Point, Query, QueryMatch } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { TreeSitter } from "../../typings/TreeSitter";
@@ -51,9 +46,11 @@ export class TreeSitterQuery {
         );
       }
 
-      // We manually show error messages above, so we don't want the Cursorless
-      // default error message to show
-      throw new SilentError("Invalid predicates");
+      // We show errors to the user, but we don't want to crash the extension
+      // unless we're in test mode
+      if (ide().runMode === "test") {
+        throw new Error("Invalid predicates");
+      }
     }
 
     return new TreeSitterQuery(treeSitter, query, predicates);

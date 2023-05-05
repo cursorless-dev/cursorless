@@ -14,18 +14,6 @@ export class UnsupportedError extends Error {
   }
 }
 
-/**
- * Errors that should not result in showing a message to the user, eg if you
- * want to directly show an error message to the user yourself, but still throw
- * an exception to stop execution.
- */
-export class SilentError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "SilentError";
-  }
-}
-
 export class OutdatedExtensionError extends Error {
   constructor() {
     super(
