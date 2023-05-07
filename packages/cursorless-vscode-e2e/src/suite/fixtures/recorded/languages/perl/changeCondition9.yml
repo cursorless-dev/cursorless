@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: change condition
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: unless ( $the_sky_is_falling ) {}
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: unless () {}
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

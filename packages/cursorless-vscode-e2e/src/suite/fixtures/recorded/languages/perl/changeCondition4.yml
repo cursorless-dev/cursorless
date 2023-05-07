@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: change condition
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: count( $_ ) for ( @each );
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks: {}
+finalState:
+  documentContents: count( $_ ) for (  );
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}

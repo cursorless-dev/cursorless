@@ -1,0 +1,28 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change string
+  action: { name: clearAndSetSelection }
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: { type: surroundingPair, delimiter: string }
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    @strings = (
+        "double $some_var",
+    );
+  selections:
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
+  marks: {}
+finalState:
+  documentContents: |-
+    @strings = (
+        ,
+    );
+  selections:
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }

@@ -162,6 +162,7 @@ const textFragmentExtractors: Record<
   ),
   latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
+  perl: constructDefaultTextFragmentExtractor("perl"),
   php: constructDefaultTextFragmentExtractor(
     "php",
     phpStringTextFragmentExtractor,

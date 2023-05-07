@@ -1,0 +1,30 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change key
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    %hash = (
+        one => 1,
+        two => 2,
+    );
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    %hash = (
+        one => 1,
+         => 2,
+    );
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

@@ -14,6 +14,7 @@ export const supportedLanguageIds = [
   "jsonc",
   "latex",
   "markdown",
+  "perl",
   "php",
   "python",
   "ruby",

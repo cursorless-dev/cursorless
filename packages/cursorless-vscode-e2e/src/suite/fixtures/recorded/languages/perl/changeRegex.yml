@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change regex
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: regularExpression}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: $str =~ /bananabeast/
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks: {}
+finalState:
+  documentContents: "$str =~ "
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

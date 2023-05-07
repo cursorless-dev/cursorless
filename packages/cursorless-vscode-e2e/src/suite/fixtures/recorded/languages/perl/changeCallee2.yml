@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: change callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: $thing->method( $arg );
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: ( $arg );
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 5
+  spokenForm: chuck arg
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: some_funky_func( "three", "args" )
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks: {}
+finalState:
+  documentContents: some_funky_func( "args" )
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

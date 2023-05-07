@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change if state
+  action: { name: clearAndSetSelection }
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: { type: ifStatement }
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: if ( $this_is_a_test ) { }
+  selections:
+    - anchor: { line: 0, character: 24 }
+      active: { line: 0, character: 24 }
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }

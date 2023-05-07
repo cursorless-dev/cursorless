@@ -18,6 +18,7 @@ import java from "./java";
 import { patternMatchers as json } from "./json";
 import latex from "./latex";
 import markdown from "./markdown";
+import { patternMatchers as perl } from "./perl";
 import php from "./php";
 import python from "./python";
 import { patternMatchers as ruby } from "./ruby";
@@ -68,6 +69,7 @@ const languageMatchers: Record<
   jsonc: json,
   latex,
   markdown,
+  perl,
   php,
   python,
   ruby,

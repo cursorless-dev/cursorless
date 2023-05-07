@@ -1,0 +1,22 @@
+languageId: perl
+command:
+  version: 4
+  spokenForm: change lambda
+  action: { name: clearAndSetSelection }
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: { type: anonymousFunction }
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: $func = sub { 1 };
+  selections:
+    - anchor: { line: 0, character: 14 }
+      active: { line: 0, character: 14 }
+  marks: {}
+finalState:
+  documentContents: $func = ;
+  selections:
+    - anchor: { line: 0, character: 8 }
+      active: { line: 0, character: 8 }
