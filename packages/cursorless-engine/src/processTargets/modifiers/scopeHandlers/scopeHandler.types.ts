@@ -110,4 +110,12 @@ export interface ScopeIteratorRequirements {
    * position for `"backward"`.
    */
   distalPosition: Position | null;
+
+  /**
+   * Indicates that the {@link TargetScope.domain|domain} of the scopes is
+   * allowed to have empty overlap with the range (position, distalPosition).
+   * If `false`, the domain must have nonempty overlap with (position,
+   * distalPosition), unless the domain is empty.
+   */
+  allowAdjacentScopes: boolean;
 }

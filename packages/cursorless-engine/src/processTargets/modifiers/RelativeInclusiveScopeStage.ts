@@ -6,7 +6,7 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { TooFewScopesError } from "./TooFewScopesError";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { getContainingScope } from "./getContainingScope";
+import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import getScopeRelativeToPosition from "./scopeHandlers/getScopeRelativeToPosition";
@@ -130,14 +130,12 @@ function getOffset0Scopes(
 ): TargetScope[] {
   if (range.isEmpty) {
     // First try scope in correct direction, falling back to opposite direction
-    const containingScope =
-      getContainingScope(scopeHandler, editor, range.start, direction) ??
-      getContainingScope(
-        scopeHandler,
-        editor,
-        range.start,
-        direction === "forward" ? "backward" : "forward",
-      );
+    const containingScope = getPreferredScopeTouchingPosition(
+      scopeHandler,
+      editor,
+      range.start,
+      direction,
+    );
 
     return containingScope == null ? [] : [containingScope];
   }

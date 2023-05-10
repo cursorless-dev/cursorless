@@ -12,6 +12,7 @@ import { shouldYieldScope } from "./shouldYieldScope";
 const DEFAULT_REQUIREMENTS: ScopeIteratorRequirements = {
   containment: null,
   distalPosition: null,
+  allowAdjacentScopes: false,
 };
 
 /**
