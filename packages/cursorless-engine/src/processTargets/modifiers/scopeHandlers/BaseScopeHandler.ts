@@ -107,15 +107,26 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
       ...requirements,
     };
 
+    let currentPosition = position;
     for (const scope of this.generateScopeCandidates(
       editor,
       position,
       direction,
       hints,
     )) {
-      if (shouldYieldScope(position, direction, hints, previousScope, scope)) {
+      if (
+        shouldYieldScope(
+          currentPosition,
+          direction,
+          hints,
+          previousScope,
+          scope,
+        )
+      ) {
         yield scope;
         previousScope = scope;
+        currentPosition =
+          direction === "forward" ? scope.domain.end : scope.domain.start;
       }
 
       if (this.canStopEarly(position, direction, hints, scope)) {
