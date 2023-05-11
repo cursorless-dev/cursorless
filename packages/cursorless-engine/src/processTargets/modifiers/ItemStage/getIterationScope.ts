@@ -18,37 +18,42 @@ export function getIterationScope(
   context: ProcessedTargetsContext,
   target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
-  let pairInfo = getSurroundingPair(languageDefinition, context, target);
+  let surroundingTarget = getSurroundingPair(
+    languageDefinition,
+    context,
+    target,
+  );
 
   // Iteration is necessary in case of nested strings
-  while (pairInfo != null) {
-    const stringPairInfo = getStringSurroundingPair(
+  while (surroundingTarget != null) {
+    const surroundingStringTarget = getStringSurroundingPair(
       languageDefinition,
       context,
-      pairInfo,
+      surroundingTarget,
     );
 
     // We don't look for items inside strings.
     if (
       // Not in a string
-      stringPairInfo == null ||
+      surroundingStringTarget == null ||
       // In a non-string surrounding pair that is inside a surrounding string. This is fine.
-      stringPairInfo.contentRange.start.isBefore(pairInfo.contentRange.start)
+      surroundingStringTarget.contentRange.start.isBefore(
+        surroundingTarget.contentRange.start,
+      )
     ) {
       return {
-        range: pairInfo.getInteriorStrict()[0].contentRange,
-        boundary: pairInfo.getBoundaryStrict().map((t) => t.contentRange) as [
-          Range,
-          Range,
-        ],
+        range: surroundingTarget.getInteriorStrict()[0].contentRange,
+        boundary: surroundingTarget
+          .getBoundaryStrict()
+          .map((t) => t.contentRange) as [Range, Range],
       };
     }
 
-    pairInfo = getParentSurroundingPair(
+    surroundingTarget = getParentSurroundingPair(
       languageDefinition,
       context,
       target.editor,
-      pairInfo,
+      surroundingTarget,
     );
   }
 

@@ -37,7 +37,7 @@ export function processSurroundingPair(
   target: Target,
   scopeType: SurroundingPairScopeType,
 ): SurroundingPairTarget | null {
-  const pairInfo = getSurroundingPairInfo(
+  const pairInfo = processSurroundingPairCore(
     languageDefinition,
     context,
     target,
@@ -55,7 +55,12 @@ export function processSurroundingPair(
   });
 }
 
-function getSurroundingPairInfo(
+/**
+ * Helper function that does the real work; caller just calls this function and
+ * converts output from a {@link SurroundingPairInfo} to a
+ * {@link SurroundingPairTarget}.
+ */
+function processSurroundingPairCore(
   languageDefinition: LanguageDefinition | undefined,
   context: ProcessedTargetsContext,
   target: Target,
