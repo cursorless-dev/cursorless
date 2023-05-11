@@ -41,6 +41,7 @@ export function createCursorlessEngine(
   const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
   const markStageFactory = new MarkStageFactoryImpl();
   const modifierStageFactory = new ModifierStageFactoryImpl(
+    languageDefinitions,
     scopeHandlerFactory,
   );
   const actions = new Actions(snippets, rangeUpdater, modifierStageFactory);

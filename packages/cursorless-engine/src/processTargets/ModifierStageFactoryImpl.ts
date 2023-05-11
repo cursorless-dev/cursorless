@@ -4,6 +4,7 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
+import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";
 import CascadingStage from "./modifiers/CascadingStage";
@@ -42,7 +43,10 @@ import {
 } from "./modifiers/scopeTypeStages/RegexStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
-  constructor(private scopeHandlerFactory: ScopeHandlerFactory) {
+  constructor(
+    private languageDefinitions: LanguageDefinitions,
+    private scopeHandlerFactory: ScopeHandlerFactory,
+  ) {
     this.create = this.create.bind(this);
   }
 
@@ -115,15 +119,22 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "nonWhitespaceSequence":
         return new NonWhitespaceSequenceStage(modifier);
       case "boundedNonWhitespaceSequence":
-        return new BoundedNonWhitespaceSequenceStage(this, modifier);
+        return new BoundedNonWhitespaceSequenceStage(
+          this.languageDefinitions,
+          this,
+          modifier,
+        );
       case "url":
         return new UrlStage(modifier);
       case "collectionItem":
-        return new ItemStage(modifier);
+        return new ItemStage(this.languageDefinitions, modifier);
       case "customRegex":
         return new CustomRegexStage(modifier as CustomRegexModifier);
       case "surroundingPair":
-        return new SurroundingPairStage(modifier as SurroundingPairModifier);
+        return new SurroundingPairStage(
+          this.languageDefinitions,
+          modifier as SurroundingPairModifier,
+        );
       default:
         // Default to containing syntax scope using tree sitter
         return new ContainingSyntaxScopeStage(

@@ -1,11 +1,15 @@
-import { NoContainingScopeError, Range, TextEditor } from "@cursorless/common";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  NoContainingScopeError,
+  Range,
   SimpleScopeTypeType,
+  TextEditor,
 } from "@cursorless/common";
-import { Target } from "../../../typings/target.types";
+import { LanguageDefinition } from "../../../languages/LanguageDefinition";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { ProcessedTargetsContext } from "../../../typings/Types";
+import { Target } from "../../../typings/target.types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
@@ -17,7 +21,10 @@ import { getIterationScope } from "./getIterationScope";
 import { tokenizeRange } from "./tokenizeRange";
 
 export default class ItemStage implements ModifierStage {
-  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
+  constructor(
+    private languageDefinitions: LanguageDefinitions,
+    private modifier: ContainingScopeModifier | EveryScopeModifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     // First try the language specific implementation of item
@@ -29,15 +36,27 @@ export default class ItemStage implements ModifierStage {
       // do nothing
     }
 
+    const languageDefinition = this.languageDefinitions.get(
+      target.editor.document.languageId,
+    );
+
     // Then try the textual implementation
     if (this.modifier.type === "everyScope") {
-      return this.getEveryTarget(context, target);
+      return this.getEveryTarget(languageDefinition, context, target);
     }
-    return [this.getSingleTarget(context, target)];
+    return [this.getSingleTarget(languageDefinition, context, target)];
   }
 
-  private getEveryTarget(context: ProcessedTargetsContext, target: Target) {
-    const itemInfos = getItemInfosForIterationScope(context, target);
+  private getEveryTarget(
+    languageDefinition: LanguageDefinition | undefined,
+    context: ProcessedTargetsContext,
+    target: Target,
+  ) {
+    const itemInfos = getItemInfosForIterationScope(
+      languageDefinition,
+      context,
+      target,
+    );
 
     // If target has explicit range filter to items in that range. Otherwise expand to all items in iteration scope.
     const filteredItemInfos = target.hasExplicitRange
@@ -53,8 +72,16 @@ export default class ItemStage implements ModifierStage {
     );
   }
 
-  private getSingleTarget(context: ProcessedTargetsContext, target: Target) {
-    const itemInfos = getItemInfosForIterationScope(context, target);
+  private getSingleTarget(
+    languageDefinition: LanguageDefinition | undefined,
+    context: ProcessedTargetsContext,
+    target: Target,
+  ) {
+    const itemInfos = getItemInfosForIterationScope(
+      languageDefinition,
+      context,
+      target,
+    );
 
     const filteredItemInfos = filterItemInfos(target, itemInfos);
 
@@ -117,10 +144,15 @@ function filterItemInfos(target: Target, itemInfos: ItemInfo[]): ItemInfo[] {
 }
 
 function getItemInfosForIterationScope(
+  languageDefinition: LanguageDefinition | undefined,
   context: ProcessedTargetsContext,
   target: Target,
 ) {
-  const { range, boundary } = getIterationScope(context, target);
+  const { range, boundary } = getIterationScope(
+    languageDefinition,
+    context,
+    target,
+  );
   return getItemsInRange(target.editor, range, boundary);
 }
 

@@ -2,10 +2,13 @@ import { ScopeType, SimpleScopeType } from "@cursorless/common";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
+import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
+import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
-import { LanguageId } from "./constants";
 import { TreeSitterQuery } from "./TreeSitterQuery";
+import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
+import { LanguageId } from "./constants";
 
 /**
  * Represents a language definition for a single language, including the
@@ -62,5 +65,13 @@ export class LanguageDefinition {
     }
 
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
+  }
+
+  getTextFragmentScopeHandler(): ScopeHandler | undefined {
+    if (!this.query.captureNames.includes(TEXT_FRAGMENT_CAPTURE_NAME)) {
+      return undefined;
+    }
+
+    return new TreeSitterTextFragmentScopeHandler(this.query);
   }
 }
