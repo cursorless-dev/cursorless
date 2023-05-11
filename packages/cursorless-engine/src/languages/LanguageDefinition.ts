@@ -8,7 +8,6 @@ import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
-import { LanguageId } from "./constants";
 
 /**
  * Represents a language definition for a single language, including the
@@ -35,7 +34,7 @@ export class LanguageDefinition {
    */
   static create(
     treeSitter: TreeSitter,
-    languageId: LanguageId,
+    languageId: string,
   ): LanguageDefinition | undefined {
     const queryPath = join(ide().assetsRoot, "queries", `${languageId}.scm`);
 
