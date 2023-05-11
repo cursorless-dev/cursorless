@@ -36,7 +36,22 @@ export function getPreferredScopeTouchingPosition(
     allowAdjacentScopes: true,
   });
 
+  /**
+   * We're looking for the minimal scopes that contain position.  We'll get:
+   *
+   * - 0 scopes if position is not touching any scopes
+   * - 1 scope if position is touching exactly one scope or is strictly contained
+   *  by one scope
+   * - 2 scopes if position is between two adjacent scopes
+   */
   const candidates: TargetScope[] = [];
+
+  // FIXME: This will be a bit inefficient for paired delimiter scope handler,
+  // because we could end up walking all the way to the end of the file even if
+  // we're directly adjacent to a delimiter.  We could fix this by adding a
+  // `maxAncestorIndex` option to `ScopeIteratorRequirements` and using that in
+  // `ScopeHandler.generateScopes` for surrounding pair scope handler to stop
+  // early.
   for (const scope of iterable) {
     if (
       !candidates.some((candidate) => scope.domain.contains(candidate.domain))
@@ -59,15 +74,23 @@ export function getPreferredScopeTouchingPosition(
       return candidates[0];
     case 2: {
       const [backwardScope, forwardScope] = candidates;
-      return forceDirection === "forward"
-        ? forwardScope
-        : forceDirection === "backward"
-        ? backwardScope
-        : scopeHandler.isPreferredOver == null
-        ? forwardScope
-        : scopeHandler.isPreferredOver(backwardScope, forwardScope) ?? false
-        ? backwardScope
-        : forwardScope;
+
+      if (forceDirection === "forward") {
+        return forwardScope;
+      }
+
+      if (forceDirection === "backward") {
+        return backwardScope;
+      }
+
+      if (
+        scopeHandler.isPreferredOver?.(backwardScope, forwardScope) ??
+        false
+      ) {
+        return backwardScope;
+      }
+
+      return forwardScope;
     }
     default:
       // This should never happen
