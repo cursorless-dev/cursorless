@@ -1,9 +1,9 @@
 import { Direction, Position, TextEditor } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { getContainingScope } from "./getContainingScope";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 
 /**
  * Finds the containing scope of the target for the given scope handler
@@ -102,48 +102,4 @@ function expandFromPosition(
   }
 
   return undefined;
-}
-
-function getPreferredScopeTouchingPosition(
-  scopeHandler: ScopeHandler,
-  editor: TextEditor,
-  position: Position,
-): TargetScope | undefined {
-  const forwardScope = getContainingScope(
-    scopeHandler,
-    editor,
-    position,
-    "forward",
-  );
-
-  if (forwardScope == null) {
-    return getContainingScope(scopeHandler, editor, position, "backward");
-  }
-
-  if (
-    scopeHandler.isPreferredOver == null ||
-    forwardScope.domain.start.isBefore(position)
-  ) {
-    return forwardScope;
-  }
-
-  const backwardScope = getContainingScope(
-    scopeHandler,
-    editor,
-    position,
-    "backward",
-  );
-
-  // If there is no backward scope, or if the backward scope is an ancestor of
-  // forward scope, return forward scope
-  if (
-    backwardScope == null ||
-    backwardScope.domain.contains(forwardScope.domain)
-  ) {
-    return forwardScope;
-  }
-
-  return scopeHandler.isPreferredOver(backwardScope, forwardScope) ?? false
-    ? backwardScope
-    : forwardScope;
 }

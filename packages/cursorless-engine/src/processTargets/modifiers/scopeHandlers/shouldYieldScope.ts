@@ -24,7 +24,7 @@ export function shouldYieldScope(
   previousScope: TargetScope | undefined,
   scope: TargetScope,
 ): boolean {
-  const { containment, distalPosition } = hints;
+  const { containment, distalPosition, allowAdjacentScopes } = hints;
   const { domain } = scope;
 
   if (
@@ -67,6 +67,7 @@ export function shouldYieldScope(
   // Don't return non-empty scopes that end where the iteration is supposed to
   // start
   if (
+    !allowAdjacentScopes &&
     !domain.isEmpty &&
     (direction === "forward"
       ? domain.end.isEqual(position)
@@ -87,6 +88,7 @@ export function shouldYieldScope(
     }
 
     if (
+      !allowAdjacentScopes &&
       !domain.isEmpty &&
       (direction === "forward"
         ? domain.start.isEqual(distalPosition)
