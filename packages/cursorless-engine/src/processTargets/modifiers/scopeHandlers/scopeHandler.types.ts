@@ -101,14 +101,20 @@ export interface ScopeIteratorRequirements {
    * - `"disallowedIfStrict"` means that the scope's
    *   {@link TargetScope.domain|domain} may not strictly contain position.  If
    *   position is directly adjacent to the domain, that *is* allowed.
+   * - `null` means that we don't care whether {@link TargetScope.domain|domain}
+   *   contains position or not
+   *
+   * @default null
    */
   containment: ContainmentPolicy | null;
 
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
    * start at or before this position for `"forward"`, or at or after this
-   * position for `"backward"`.  If omitted, defaults to the end of the document
-   * for `"forward"`, or the start of the document for `"backward"`.
+   * position for `"backward"`.
+   *
+   * Defaults to the end of the document for `"forward"`, or the start of the
+   * document for `"backward"`.
    */
   distalPosition: Position;
 
@@ -117,6 +123,8 @@ export interface ScopeIteratorRequirements {
    * allowed to have empty overlap with the range (position, distalPosition).
    * If `false`, the domain must have nonempty overlap with (position,
    * distalPosition), unless the domain is empty.
+   *
+   * @default false
    */
   allowAdjacentScopes: boolean;
 
@@ -132,7 +140,7 @@ export interface ScopeIteratorRequirements {
    * - If `maxAncestorIndex` is `Infinity`, we will yield scopes regardless of
    *   whether they are ancestors of the most recently yielded scope
    *
-   * @default `Infinity`
+   * @default Infinity
    */
   maxAncestorIndex: number;
 }

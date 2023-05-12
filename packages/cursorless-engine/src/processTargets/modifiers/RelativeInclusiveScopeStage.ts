@@ -18,8 +18,10 @@ import { OutOfRangeError } from "./targetSequenceUtils";
  *
  * 1. Constructs the initial range to use as the starting point for the relative
  *    scope search.  If the input range is empty, then we use the preferred
- *    scope touching the input position.  Otherwise, we use the input range
- *    itself.
+ *    scope touching the input position, breaking ties in direction
+ *    {@link direction} rather than the tie-breaking heuristics we use for
+ *    containing scope, to make this modifier easier to reason about when
+ *    between scopes.  Otherwise, we use the input range itself.
  * 2. Calls {@link ScopeHandler.generateScopes} to get as many scopes as
  *    desired, starting from the proximal end of the initial range (ie the start
  *    if direction is "forward", the end if direction is "backward").
@@ -49,7 +51,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     const { isReversed, editor, contentRange } = target;
     const { length: desiredScopeCount, direction } = this.modifier;
 
-    const initialRange = target.contentRange.isEmpty
+    const initialRange = contentRange.isEmpty
       ? getPreferredScopeTouchingPosition(
           scopeHandler,
           editor,
