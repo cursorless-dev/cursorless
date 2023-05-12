@@ -60,82 +60,88 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     }
 
     return target.contentRange.isEmpty
-      ? handleEmptyInput(scopeHandler, target, this.modifier)
-      : handleNonemptyInput(scopeHandler, target, this.modifier);
-  }
-}
-
-function handleEmptyInput(
-  scopeHandler: ScopeHandler,
-  target: Target,
-  modifier: RelativeScopeModifier,
-) {
-  const { isReversed, editor, contentRange: inputRange } = target;
-  const { scopeType, length: desiredScopeCount, direction } = modifier;
-
-  // FIXME: Figure out how to just continue iteration rather than starting
-  // over after getting offset 0 scopes
-  const offset0Scope = getPreferredScopeTouchingPosition(
-    scopeHandler,
-    editor,
-    inputRange.start,
-    direction,
-  );
-
-  if (offset0Scope == null) {
-    throw new NoContainingScopeError(scopeType.type);
+      ? this.handleEmptyInput(scopeHandler, target)
+      : this.handleNonemptyInput(scopeHandler, target);
   }
 
-  if (desiredScopeCount === 1) {
-    return [offset0Scope.getTarget(isReversed)];
+  /**
+   * Handles empty input target.  We proceed as follows:
+   *
+   * 1. Get the scope touching the input, preferring the one in the direction of
+   *    {@link RelativeScopeModifier} if the input is adjacent to two.
+   * 2. Iterate from the distal position of the first scope (ie `end` if
+   *    forward, `start` if backward) until we get the desired number of scopes,
+   *    including the first scope.
+   */
+  private handleEmptyInput(scopeHandler: ScopeHandler, target: Target) {
+    const { isReversed, editor, contentRange: inputRange } = target;
+    const { scopeType, length: desiredScopeCount, direction } = this.modifier;
+
+    // FIXME: Figure out how to just continue iteration rather than starting
+    // over after getting offset 0 scope
+    const offset0Scope = getPreferredScopeTouchingPosition(
+      scopeHandler,
+      editor,
+      inputRange.start,
+      direction,
+    );
+
+    if (offset0Scope == null) {
+      throw new NoContainingScopeError(scopeType.type);
+    }
+
+    if (desiredScopeCount === 1) {
+      return [offset0Scope.getTarget(isReversed)];
+    }
+
+    const distalScope = getScopeRelativeToPosition(
+      scopeHandler,
+      editor,
+      direction === "forward"
+        ? offset0Scope.domain.end
+        : offset0Scope.domain.start,
+      desiredScopeCount - 1,
+      direction,
+    );
+
+    return [constructScopeRangeTarget(isReversed, offset0Scope, distalScope)];
   }
 
-  const distalScope = getScopeRelativeToPosition(
-    scopeHandler,
-    editor,
-    direction === "forward"
-      ? offset0Scope.domain.end
-      : offset0Scope.domain.start,
-    desiredScopeCount - 1,
-    direction,
-  );
+  /**
+   * Handles non-empty input target.  We just start iterating from the proximal
+   * position (ie `start` if forward, `end` if backward), and go until we get
+   * the desired number of scopes.
+   */
+  private handleNonemptyInput(scopeHandler: ScopeHandler, target: Target) {
+    const { isReversed, editor, contentRange: inputRange } = target;
+    const { length: desiredScopeCount, direction } = this.modifier;
 
-  return [constructScopeRangeTarget(isReversed, offset0Scope, distalScope)];
-}
-
-function handleNonemptyInput(
-  scopeHandler: ScopeHandler,
-  target: Target,
-  modifier: RelativeScopeModifier,
-) {
-  const { isReversed, editor, contentRange: inputRange } = target;
-  const { length: desiredScopeCount, direction } = modifier;
-
-  const scopes = Array.from(
-    itake(
-      desiredScopeCount,
-      scopeHandler.generateScopes(
-        editor,
-        direction === "forward" ? inputRange.start : inputRange.end,
-        direction,
-        {
-          excludeNestedScopes: true,
-        },
-      ),
-    ),
-  );
-
-  if (scopes.length < desiredScopeCount) {
-    throw new OutOfRangeError();
-  }
-
-  return scopes.length === 1
-    ? [scopes[0].getTarget(isReversed)]
-    : [
-        constructScopeRangeTarget(
-          isReversed,
-          scopes[0],
-          scopes[scopes.length - 1],
+    const scopes = Array.from(
+      itake(
+        desiredScopeCount,
+        scopeHandler.generateScopes(
+          editor,
+          direction === "forward" ? inputRange.start : inputRange.end,
+          direction,
+          {
+            maxAncestorIndex: 0,
+          },
         ),
-      ];
+      ),
+    );
+
+    if (scopes.length < desiredScopeCount) {
+      throw new OutOfRangeError();
+    }
+
+    return scopes.length === 1
+      ? [scopes[0].getTarget(isReversed)]
+      : [
+          constructScopeRangeTarget(
+            isReversed,
+            scopes[0],
+            scopes[scopes.length - 1],
+          ),
+        ];
+  }
 }

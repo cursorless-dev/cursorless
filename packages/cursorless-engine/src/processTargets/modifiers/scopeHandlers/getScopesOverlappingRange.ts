@@ -17,7 +17,7 @@ export function getScopesOverlappingRange(
   return Array.from(
     scopeHandler.generateScopes(editor, start, "forward", {
       distalPosition: end,
-      excludeNestedScopes: true,
+      maxAncestorIndex: 0,
     }),
   );
 }

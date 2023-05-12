@@ -1,7 +1,6 @@
 import { Direction, Position, TextEditor } from "@cursorless/common";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
-import { strictlyContains } from "../../util/rangeUtils";
 
 /**
  * Returns the preferred scope touching the input position, or undefined if no
@@ -31,11 +30,6 @@ export function getPreferredScopeTouchingPosition(
   position: Position,
   forceDirection?: Direction,
 ): TargetScope | undefined {
-  const iterable = scopeHandler.generateScopes(editor, position, "forward", {
-    containment: "required",
-    allowAdjacentScopes: true,
-  });
-
   /**
    * We're looking for the minimal scopes that contain position.  We'll get:
    *
@@ -44,28 +38,13 @@ export function getPreferredScopeTouchingPosition(
    *  by one scope
    * - 2 scopes if position is between two adjacent scopes
    */
-  const candidates: TargetScope[] = [];
-
-  // FIXME: This will be a bit inefficient for paired delimiter scope handler,
-  // because we could end up walking all the way to the end of the file even if
-  // we're directly adjacent to a delimiter.  We could fix this by adding a
-  // `maxAncestorIndex` option to `ScopeIteratorRequirements` and using that in
-  // `ScopeHandler.generateScopes` for surrounding pair scope handler to stop
-  // early.
-  for (const scope of iterable) {
-    if (
-      !candidates.some((candidate) => scope.domain.contains(candidate.domain))
-    ) {
-      // We're only looking for minimal scopes
-      candidates.push(scope);
-    }
-
-    if (strictlyContains(scope.domain, position)) {
-      // If we've found a scope that strictly contains position,
-      // then we're not going to find any more minimal scopes
-      break;
-    }
-  }
+  const candidates: TargetScope[] = Array.from(
+    scopeHandler.generateScopes(editor, position, "forward", {
+      containment: "required",
+      allowAdjacentScopes: true,
+      maxAncestorIndex: 0,
+    }),
+  );
 
   switch (candidates.length) {
     case 0:

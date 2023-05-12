@@ -121,10 +121,18 @@ export interface ScopeIteratorRequirements {
   allowAdjacentScopes: boolean;
 
   /**
-   * Indicates that we should not yield a scope if we've already yielded a
-   * scope that it contains.
+   * Indicates that we should not yield any scopes that are
+   * `maxAncestorIndex`-level ancestors of the most recently yielded scope.  For
+   * example:
    *
-   * @default false
+   * - If `maxAncestorIndex` is `0`, we will not yield any scopes that contain
+   *   the most recently yielded scope
+   * - If `maxAncestorIndex` is `1`, we will not yield any scopes that are
+   *   grandparents of the most recently yielded scope
+   * - If `maxAncestorIndex` is `Infinity`, we will yield scopes regardless of
+   *   whether they are ancestors of the most recently yielded scope
+   *
+   * @default `Infinity`
    */
-  excludeNestedScopes: boolean;
+  maxAncestorIndex: number;
 }
