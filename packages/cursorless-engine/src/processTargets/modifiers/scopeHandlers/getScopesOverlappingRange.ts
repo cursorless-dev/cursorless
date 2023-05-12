@@ -9,7 +9,7 @@ import { ScopeHandler } from "./scopeHandler.types";
  * @param param2
  * @returns
  */
-export default function getScopesOverlappingRange(
+export function getScopesOverlappingRange(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
   { start, end }: Range,
@@ -17,6 +17,7 @@ export default function getScopesOverlappingRange(
   return Array.from(
     scopeHandler.generateScopes(editor, start, "forward", {
       distalPosition: end,
+      excludeNestedScopes: true,
     }),
   );
 }

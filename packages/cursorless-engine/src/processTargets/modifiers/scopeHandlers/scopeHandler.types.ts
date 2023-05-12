@@ -107,9 +107,10 @@ export interface ScopeIteratorRequirements {
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
    * start at or before this position for `"forward"`, or at or after this
-   * position for `"backward"`.
+   * position for `"backward"`.  If omitted, defaults to the end of the document
+   * for `"forward"`, or the start of the document for `"backward"`.
    */
-  distalPosition: Position | null;
+  distalPosition: Position;
 
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes is
@@ -118,4 +119,12 @@ export interface ScopeIteratorRequirements {
    * distalPosition), unless the domain is empty.
    */
   allowAdjacentScopes: boolean;
+
+  /**
+   * Indicates that we should not yield a scope if we've already yielded a
+   * scope that it contains.
+   *
+   * @default false
+   */
+  excludeNestedScopes: boolean;
 }

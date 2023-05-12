@@ -9,11 +9,12 @@ import type {
 } from "./scopeHandler.types";
 import { shouldYieldScope } from "./shouldYieldScope";
 
-const DEFAULT_REQUIREMENTS: ScopeIteratorRequirements = {
-  containment: null,
-  distalPosition: null,
-  allowAdjacentScopes: false,
-};
+const DEFAULT_REQUIREMENTS: Omit<ScopeIteratorRequirements, "distalPosition"> =
+  {
+    containment: null,
+    allowAdjacentScopes: false,
+    excludeNestedScopes: false,
+  };
 
 /**
  * All scope handlers should derive from this base class
@@ -104,18 +105,34 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     let previousScope: TargetScope | undefined = undefined;
     const hints: ScopeIteratorRequirements = {
       ...DEFAULT_REQUIREMENTS,
+      distalPosition:
+        requirements.distalPosition ?? direction === "forward"
+          ? editor.document.range.end
+          : editor.document.range.start,
       ...requirements,
     };
 
+    let currentPosition = position;
     for (const scope of this.generateScopeCandidates(
       editor,
       position,
       direction,
       hints,
     )) {
-      if (shouldYieldScope(position, direction, hints, previousScope, scope)) {
+      if (
+        shouldYieldScope(
+          position,
+          currentPosition,
+          direction,
+          hints,
+          previousScope,
+          scope,
+        )
+      ) {
         yield scope;
         previousScope = scope;
+        currentPosition =
+          direction === "forward" ? scope.domain.end : scope.domain.start;
       }
 
       if (this.canStopEarly(position, direction, hints, scope)) {
@@ -150,10 +167,9 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     }
 
     if (
-      distalPosition != null &&
-      (direction === "forward"
+      direction === "forward"
         ? domain.end.isAfterOrEqual(distalPosition)
-        : domain.start.isBeforeOrEqual(distalPosition))
+        : domain.start.isBeforeOrEqual(distalPosition)
     ) {
       // If we have a distal position, and we have yielded something that ends
       // at or after distal position, we won't be able to yield anything else

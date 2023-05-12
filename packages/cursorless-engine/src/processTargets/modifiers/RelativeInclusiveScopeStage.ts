@@ -1,19 +1,19 @@
-import type { Direction, RelativeScopeModifier } from "@cursorless/common";
-import { NoContainingScopeError, Range, TextEditor } from "@cursorless/common";
+import {
+  NoContainingScopeError,
+  RelativeScopeModifier,
+} from "@cursorless/common";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { TooFewScopesError } from "./TooFewScopesError";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import getScopeRelativeToPosition from "./scopeHandlers/getScopeRelativeToPosition";
-import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
-import type { TargetScope } from "./scopeHandlers/scope.types";
-import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
-
+import { itake } from "itertools";
+import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import { OutOfRangeError } from "./targetSequenceUtils";
 /**
  * Handles relative modifiers that include targets intersecting with the input,
  * eg `"two funks"`, `"token backward"`, etc.  Proceeds as follows:
@@ -59,86 +59,83 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
       );
     }
 
-    const { isReversed, editor, contentRange: inputRange } = target;
-    const { scopeType, length: desiredScopeCount, direction } = this.modifier;
-
-    // FIXME: Figure out how to just continue iteration rather than starting
-    // over after getting offset 0 scopes
-    const offset0Scopes = getOffset0Scopes(
-      scopeHandler,
-      direction,
-      editor,
-      inputRange,
-    );
-
-    const offset0ScopeCount = offset0Scopes.length;
-
-    if (offset0ScopeCount === 0) {
-      throw new NoContainingScopeError(scopeType.type);
-    }
-
-    if (offset0ScopeCount > desiredScopeCount) {
-      throw new TooFewScopesError(
-        desiredScopeCount,
-        offset0ScopeCount,
-        scopeType.type,
-      );
-    }
-
-    const proximalScope =
-      direction === "forward" ? offset0Scopes[0] : offset0Scopes.at(-1)!;
-
-    const initialPosition =
-      direction === "forward"
-        ? offset0Scopes.at(-1)!.domain.end
-        : offset0Scopes[0].domain.start;
-
-    const distalScope =
-      desiredScopeCount > offset0ScopeCount
-        ? getScopeRelativeToPosition(
-            scopeHandler,
-            editor,
-            initialPosition,
-            desiredScopeCount - offset0ScopeCount,
-            direction,
-          )
-        : direction === "forward"
-        ? offset0Scopes.at(-1)!
-        : offset0Scopes[0];
-
-    return [constructScopeRangeTarget(isReversed, proximalScope, distalScope)];
+    return target.contentRange.isEmpty
+      ? handleEmptyInput(scopeHandler, target, this.modifier)
+      : handleNonemptyInput(scopeHandler, target, this.modifier);
   }
 }
 
-/**
- * Returns a list of scopes that are considered to be at relative scope offset
- * 0, ie "containing" / "intersecting" with the input target.  If the input
- * target is zero length, we return at most one scope, breaking ties by moving
- * in {@link direction} if the input position is adjacent to two scopes.
- * @param scopeHandler The scope handler for the given scope type
- * @param direction The direction defined by the modifier
- * @param editor The editor containing {@link range}
- * @param range The input target range
- * @returns The scopes that are considered to be at offset 0, ie "containing" /
- * "intersecting" with the input target
- */
-function getOffset0Scopes(
+function handleEmptyInput(
   scopeHandler: ScopeHandler,
-  direction: Direction,
-  editor: TextEditor,
-  range: Range,
-): TargetScope[] {
-  if (range.isEmpty) {
-    // First try scope in correct direction, falling back to opposite direction
-    const containingScope = getPreferredScopeTouchingPosition(
-      scopeHandler,
-      editor,
-      range.start,
-      direction,
-    );
+  target: Target,
+  modifier: RelativeScopeModifier,
+) {
+  const { isReversed, editor, contentRange: inputRange } = target;
+  const { scopeType, length: desiredScopeCount, direction } = modifier;
 
-    return containingScope == null ? [] : [containingScope];
+  // FIXME: Figure out how to just continue iteration rather than starting
+  // over after getting offset 0 scopes
+  const offset0Scope = getPreferredScopeTouchingPosition(
+    scopeHandler,
+    editor,
+    inputRange.start,
+    direction,
+  );
+
+  if (offset0Scope == null) {
+    throw new NoContainingScopeError(scopeType.type);
   }
 
-  return getScopesOverlappingRange(scopeHandler, editor, range);
+  if (desiredScopeCount === 1) {
+    return [offset0Scope.getTarget(isReversed)];
+  }
+
+  const distalScope = getScopeRelativeToPosition(
+    scopeHandler,
+    editor,
+    direction === "forward"
+      ? offset0Scope.domain.end
+      : offset0Scope.domain.start,
+    desiredScopeCount - 1,
+    direction,
+  );
+
+  return [constructScopeRangeTarget(isReversed, offset0Scope, distalScope)];
+}
+
+function handleNonemptyInput(
+  scopeHandler: ScopeHandler,
+  target: Target,
+  modifier: RelativeScopeModifier,
+) {
+  const { isReversed, editor, contentRange: inputRange } = target;
+  const { length: desiredScopeCount, direction } = modifier;
+
+  const scopes = Array.from(
+    itake(
+      desiredScopeCount,
+      scopeHandler.generateScopes(
+        editor,
+        direction === "forward" ? inputRange.start : inputRange.end,
+        direction,
+        {
+          excludeNestedScopes: true,
+        },
+      ),
+    ),
+  );
+
+  if (scopes.length < desiredScopeCount) {
+    throw new OutOfRangeError();
+  }
+
+  return scopes.length === 1
+    ? [scopes[0].getTarget(isReversed)]
+    : [
+        constructScopeRangeTarget(
+          isReversed,
+          scopes[0],
+          scopes[scopes.length - 1],
+        ),
+      ];
 }
