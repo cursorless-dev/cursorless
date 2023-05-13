@@ -9,7 +9,10 @@ import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import BaseScopeHandler from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import { TargetScope } from "../scope.types";
-import { ScopeIteratorRequirements } from "../scopeHandler.types";
+import {
+  ContainmentPolicy,
+  ScopeIteratorRequirements,
+} from "../scopeHandler.types";
 
 /** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
 export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
@@ -67,36 +70,73 @@ function getQuerySearchRange(
   document: TextDocument,
   position: Position,
   direction: Direction,
-  { containment, distalPosition }: ScopeIteratorRequirements,
+  {
+    containment,
+    distalPosition,
+    allowAdjacentScopes,
+  }: ScopeIteratorRequirements,
 ) {
-  const offset = document.offsetAt(position);
-  const distalOffset = document.offsetAt(distalPosition);
+  const { start, end } = getQuerySearchRangeCore(
+    document.offsetAt(position),
+    document.offsetAt(distalPosition),
+    direction,
+    containment,
+    allowAdjacentScopes,
+  );
+
+  return {
+    start: document.positionAt(start),
+    end: document.positionAt(end),
+  };
+}
+
+/** Helper function for {@link getQuerySearchRange} */
+function getQuerySearchRangeCore(
+  offset: number,
+  distalOffset: number,
+  direction: Direction,
+  containment: ContainmentPolicy | null,
+  allowAdjacentScopes: boolean,
+) {
+  /**
+   * If we allow adjacent scopes, we need to shift some of our offsets by one
+   * character
+   */
+  const adjacentShift = allowAdjacentScopes ? 1 : 0;
 
   if (containment === "required") {
     // If containment is required, we smear the position left and right by one
     // character so that we have a non-empty intersection with any scope that
-    // touches position
-    return {
-      start: document.positionAt(offset - 1),
-      end: document.positionAt(offset + 1),
-    };
+    // touches position.  Note that we can skip shifting the initial position
+    // if we disallow adjacent scopes.
+    return direction === "forward"
+      ? {
+          start: offset - adjacentShift,
+          end: offset + 1,
+        }
+      : {
+          start: offset - 1,
+          end: offset + adjacentShift,
+        };
   }
 
-  // If containment is disallowed, we can shift the position forward by a character to avoid
-  // matching scopes that touch position.  Otherwise, we shift the position backward by a
-  // character to ensure we get scopes that touch position.
-  const proximalShift = containment === "disallowed" ? 1 : -1;
+  // If containment is disallowed, we can shift the position forward by a
+  // character to avoid matching scopes that touch position.  Otherwise, we
+  // shift the position backward by a character to ensure we get scopes that
+  // touch position, if we allow adjacent scopes.
+  const proximalShift = containment === "disallowed" ? 1 : -adjacentShift;
 
-  // FIXME: Don't go all the way to end of document when there is no distalPosition?
-  // Seems wasteful to query all the way to end of document for something like "next funk"
-  // Might be better to start smaller and exponentially grow
+  // FIXME: Don't go all the way to end of document when there is no
+  // distalPosition? Seems wasteful to query all the way to end of document for
+  // something like "next funk" Might be better to start smaller and
+  // exponentially grow
   return direction === "forward"
     ? {
-        start: document.positionAt(offset + proximalShift),
-        end: document.positionAt(distalOffset + 1),
+        start: offset + proximalShift,
+        end: distalOffset + adjacentShift,
       }
     : {
-        start: document.positionAt(distalOffset - 1),
-        end: document.positionAt(offset - proximalShift),
+        start: distalOffset - adjacentShift,
+        end: offset - proximalShift,
       };
 }
