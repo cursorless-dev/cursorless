@@ -18,6 +18,10 @@ export function constructScopeRangeTarget(
   scope1: TargetScope,
   scope2: TargetScope,
 ): Target {
+  if (scope1 === scope2) {
+    return scope1.getTarget(isReversed);
+  }
+
   const target1 = scope1.getTarget(isReversed);
   const target2 = scope2.getTarget(isReversed);
 

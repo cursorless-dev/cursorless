@@ -6,7 +6,7 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
+import { getScopesOverlappingRange } from "./scopeHandlers/getScopesOverlappingRange";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
