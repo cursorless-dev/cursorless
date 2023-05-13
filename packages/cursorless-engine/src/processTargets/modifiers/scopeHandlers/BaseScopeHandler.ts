@@ -13,7 +13,7 @@ const DEFAULT_REQUIREMENTS: Omit<ScopeIteratorRequirements, "distalPosition"> =
   {
     containment: null,
     allowAdjacentScopes: false,
-    maxAncestorIndex: Infinity,
+    skipAncestorScopes: false,
   };
 
 /**
@@ -112,10 +112,7 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
       ...requirements,
     };
 
-    const { maxAncestorIndex } = hints;
-
     let currentPosition = position;
-    let ancestorIndex = 0;
     for (const scope of this.generateScopeCandidates(
       editor,
       position,
@@ -132,28 +129,14 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
           scope,
         )
       ) {
-        if (
-          previousScope != null &&
-          scope.domain.contains(previousScope.domain)
-        ) {
-          ancestorIndex++;
-        } else {
-          ancestorIndex = 0;
-        }
+        yield scope;
 
-        if (ancestorIndex <= maxAncestorIndex) {
-          // The reason we don't check ancestor index in `shouldYieldScope` is
-          // that we need to increment the ancestor index above even if we don't
-          // yield the scope due to ancestor index
-          yield scope;
-
-          previousScope = scope;
-          currentPosition =
-            direction === "forward" ? scope.domain.end : scope.domain.start;
-        }
+        previousScope = scope;
+        currentPosition =
+          direction === "forward" ? scope.domain.end : scope.domain.start;
       }
 
-      if (this.canStopEarly(position, direction, hints, ancestorIndex, scope)) {
+      if (this.canStopEarly(position, direction, hints, scope)) {
         return;
       }
     }
@@ -163,24 +146,22 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     position: Position,
     direction: Direction,
     requirements: ScopeIteratorRequirements,
-    ancestorIndex: number,
-    { domain }: TargetScope,
+    scope: TargetScope,
   ) {
-    const { containment, distalPosition, maxAncestorIndex } = requirements;
+    const { containment, distalPosition, skipAncestorScopes } = requirements;
 
-    if (this.isHierarchical) {
-      // Don't try anything fancy if scope is hierarchical, but do stop if we
-      // have reached the maximum ancestor index and containment is required,
-      // because if containment is required then every new scope we yield will
-      // have a higher ancestor index than the previous scope.
-      return containment === "required" && ancestorIndex > maxAncestorIndex;
-    }
+    /**
+     * `true` if the scope is not hierarchical.  If we're skipping ancestor
+     * scopes, then the scope behaves as if it's not hierarchical.
+     */
+    const isFlat = !this.isHierarchical || skipAncestorScopes;
 
     if (
+      isFlat &&
       containment === "required" &&
       (direction === "forward"
-        ? domain.end.isAfter(position)
-        : domain.start.isBefore(position))
+        ? scope.domain.end.isAfter(position)
+        : scope.domain.start.isBefore(position))
     ) {
       // If we require containment, then if we have already yielded something
       // ending strictly after position, we won't yield anything else containing
@@ -189,9 +170,10 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     }
 
     if (
-      direction === "forward"
-        ? domain.end.isAfterOrEqual(distalPosition)
-        : domain.start.isBeforeOrEqual(distalPosition)
+      isFlat &&
+      (direction === "forward"
+        ? scope.domain.end.isAfterOrEqual(distalPosition)
+        : scope.domain.start.isBeforeOrEqual(distalPosition))
     ) {
       // If we have a distal position, and we have yielded something that ends
       // at or after distal position, we won't be able to yield anything else
