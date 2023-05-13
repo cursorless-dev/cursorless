@@ -28,7 +28,7 @@ export function shouldYieldScope(
   scope: TargetScope,
 ): boolean {
   return (
-    checkRequirements(initialPosition, requirements, scope) &&
+    checkRequirements(initialPosition, requirements, previousScope, scope) &&
     // Note that we're using `currentPosition` instead of `initialPosition`
     // below, because we want to filter out scopes that are strictly contained
     // by previous scopes.
@@ -40,9 +40,15 @@ export function shouldYieldScope(
 function checkRequirements(
   position: Position,
   requirements: ScopeIteratorRequirements,
+  previousScope: TargetScope | undefined,
   scope: TargetScope,
 ): boolean {
-  const { containment, distalPosition, allowAdjacentScopes } = requirements;
+  const {
+    containment,
+    distalPosition,
+    allowAdjacentScopes,
+    skipAncestorScopes,
+  } = requirements;
   const { domain } = scope;
 
   // Simple containment checks
@@ -62,6 +68,14 @@ function checkRequirements(
         return false;
       }
       break;
+  }
+
+  if (
+    skipAncestorScopes &&
+    previousScope != null &&
+    domain.contains(previousScope.domain)
+  ) {
+    return false;
   }
 
   return partiallyContains(

@@ -1,4 +1,4 @@
-import type { EveryScopeModifier } from "@cursorless/common";
+import type { EveryScopeModifier, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError, Range } from "@cursorless/common";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
@@ -6,7 +6,6 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import { getScopesOverlappingRange } from "./scopeHandlers/getScopesOverlappingRange";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
@@ -120,4 +119,20 @@ export class EveryScopeStage implements ModifierStage {
 
     return iterationScopeTarget.contentRange;
   }
+}
+
+/**
+ * Returns a list of all scopes that have nonempty overlap with {@link range}.
+ */
+function getScopesOverlappingRange(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  { start, end }: Range,
+): TargetScope[] {
+  return Array.from(
+    scopeHandler.generateScopes(editor, start, "forward", {
+      distalPosition: end,
+      skipAncestorScopes: true,
+    }),
+  );
 }

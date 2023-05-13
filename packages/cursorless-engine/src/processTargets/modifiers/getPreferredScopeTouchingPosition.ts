@@ -42,7 +42,7 @@ export function getPreferredScopeTouchingPosition(
     scopeHandler.generateScopes(editor, position, "forward", {
       containment: "required",
       allowAdjacentScopes: true,
-      maxAncestorIndex: 0,
+      skipAncestorScopes: true,
     }),
   );
 

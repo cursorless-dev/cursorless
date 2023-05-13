@@ -57,7 +57,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
       editor,
       initialPosition,
       direction,
-      { containment },
+      { containment, skipAncestorScopes: true },
     )) {
       scopeCount += 1;
 

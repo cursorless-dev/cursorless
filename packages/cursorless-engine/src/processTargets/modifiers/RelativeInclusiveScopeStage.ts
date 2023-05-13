@@ -72,7 +72,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
           direction === "forward" ? initialRange.start : initialRange.end,
           direction,
           {
-            maxAncestorIndex: 0,
+            skipAncestorScopes: true,
           },
         ),
       ),
