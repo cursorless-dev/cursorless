@@ -102,16 +102,17 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     direction: Direction,
     requirements: Partial<ScopeIteratorRequirements> = {},
   ): Iterable<TargetScope> {
-    let previousScope: TargetScope | undefined = undefined;
     const hints: ScopeIteratorRequirements = {
       ...DEFAULT_REQUIREMENTS,
-      distalPosition:
-        requirements.distalPosition ?? direction === "forward"
-          ? editor.document.range.end
-          : editor.document.range.start,
       ...requirements,
+      distalPosition:
+        requirements.distalPosition ??
+        (direction === "forward"
+          ? editor.document.range.end
+          : editor.document.range.start),
     };
 
+    let previousScope: TargetScope | undefined = undefined;
     let currentPosition = position;
     for (const scope of this.generateScopeCandidates(
       editor,
@@ -136,7 +137,7 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
           direction === "forward" ? scope.domain.end : scope.domain.start;
       }
 
-      if (this.canStopEarly(position, direction, hints, scope)) {
+      if (this.canStopEarly(position, direction, hints, previousScope, scope)) {
         return;
       }
     }
@@ -146,22 +147,35 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     position: Position,
     direction: Direction,
     requirements: ScopeIteratorRequirements,
+    previousScope: TargetScope | undefined,
     scope: TargetScope,
   ) {
     const { containment, distalPosition, skipAncestorScopes } = requirements;
 
+    if (this.isHierarchical && !skipAncestorScopes) {
+      // If there may be ancestor scopes, we can't stop early
+      return false;
+    }
+
     /**
-     * `true` if the scope is not hierarchical.  If we're skipping ancestor
-     * scopes, then the scope behaves as if it's not hierarchical.
+     * The scope to check.  If we're hierarchical and skipping ancestor scopes,
+     * then we want to check the most recently yielded scope, because that is
+     * the scope whose ancestors we won't yield.
      */
-    const isFlat = !this.isHierarchical || skipAncestorScopes;
+    const scopeToCheck =
+      this.isHierarchical && skipAncestorScopes ? previousScope : scope;
+
+    if (scopeToCheck == null) {
+      // If we're using the previous scope, and there is no previous scope, then
+      // we can't stop early, because it means we're not yet skipping ancestors
+      return false;
+    }
 
     if (
-      isFlat &&
       containment === "required" &&
       (direction === "forward"
-        ? scope.domain.end.isAfter(position)
-        : scope.domain.start.isBefore(position))
+        ? scopeToCheck.domain.end.isAfter(position)
+        : scopeToCheck.domain.start.isBefore(position))
     ) {
       // If we require containment, then if we have already yielded something
       // ending strictly after position, we won't yield anything else containing
@@ -170,10 +184,9 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     }
 
     if (
-      isFlat &&
-      (direction === "forward"
-        ? scope.domain.end.isAfterOrEqual(distalPosition)
-        : scope.domain.start.isBeforeOrEqual(distalPosition))
+      direction === "forward"
+        ? scopeToCheck.domain.end.isAfterOrEqual(distalPosition)
+        : scopeToCheck.domain.start.isBeforeOrEqual(distalPosition)
     ) {
       // If we have a distal position, and we have yielded something that ends
       // at or after distal position, we won't be able to yield anything else
