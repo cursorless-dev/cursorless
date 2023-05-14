@@ -9,10 +9,12 @@ import {
   PositionModifier,
 } from "@cursorless/common";
 import {
+  EveryRangeTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
+import produce from "immer";
 
 /**
  * Performs inference on the partial targets provided by the user, using
@@ -64,7 +66,10 @@ function inferListTarget(
 function inferNonListTarget(
   target: PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor | RangeTargetDescriptor {
+):
+  | PrimitiveTargetDescriptor
+  | RangeTargetDescriptor
+  | EveryRangeTargetDescriptor {
   switch (target.type) {
     case "primitive":
       return inferPrimitiveTarget(target, previousTargets);
@@ -76,18 +81,51 @@ function inferNonListTarget(
 function inferRangeTarget(
   target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): RangeTargetDescriptor {
+): RangeTargetDescriptor | EveryRangeTargetDescriptor {
+  const { anchor, extraFields } = getRangeTargetFields(target);
+
   return {
-    type: "range",
+    ...extraFields,
     excludeAnchor: target.excludeAnchor ?? false,
     excludeActive: target.excludeActive ?? false,
-    rangeType: target.rangeType ?? "continuous",
-    anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
-    active: inferPrimitiveTarget(
-      target.active,
-      previousTargets.concat(target.anchor),
-    ),
+    anchor: inferPossiblyImplicitTarget(anchor, previousTargets),
+    active: inferPrimitiveTarget(target.active, previousTargets.concat(anchor)),
   };
+}
+
+/**
+ * This function exists to enable constructs like "every line air past bat".
+ * We detect targets of the form `"every <scope> <target> past <target>"` and
+ * construct a special type of target with type `everyRange` that
+ * we handle specially in {@link TargetPipeline.processEveryRangeTarget}.
+ *
+ * When we detect this construct, we convert the "every <scope>" modifier to a
+ * simple "containing <scope>" modifier, and then let `processEveryRangeTarget`
+ * perform an "every" action on the resulting target.
+ */
+function getRangeTargetFields(target: PartialRangeTargetDescriptor) {
+  if (
+    target.anchor.type === "primitive" &&
+    target.anchor.modifiers?.[0]?.type === "everyScope"
+  ) {
+    return {
+      anchor: produce(target.anchor, (anchor) => {
+        anchor.modifiers![0].type = "containingScope";
+      }),
+      extraFields: {
+        type: "everyRange",
+        scopeType: target.anchor.modifiers[0].scopeType,
+      } as const,
+    };
+  } else {
+    return {
+      anchor: target.anchor,
+      extraFields: {
+        type: "range",
+        rangeType: target.rangeType ?? "continuous",
+      } as const,
+    };
+  }
 }
 
 function inferPossiblyImplicitTarget(

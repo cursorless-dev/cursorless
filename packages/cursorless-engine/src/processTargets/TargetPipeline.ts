@@ -1,6 +1,7 @@
 import { ImplicitTargetDescriptor, Modifier, Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
 import {
+  EveryRangeTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -47,6 +48,8 @@ export class TargetPipeline {
         );
       case "range":
         return this.processRangeTarget(target);
+      case "everyRange":
+        return this.processEveryRangeTarget(target);
       case "primitive":
       case "implicit":
         return this.processPrimitiveTarget(target);
@@ -85,6 +88,27 @@ export class TargetPipeline {
         }
       },
     );
+  }
+
+  processEveryRangeTarget(targetDesc: EveryRangeTargetDescriptor): Target[] {
+    const { scopeType, anchor, active, excludeAnchor, excludeActive } =
+      targetDesc;
+
+    const [rangeTarget] = this.processRangeTarget({
+      type: "range",
+      anchor,
+      active,
+      excludeAnchor,
+      excludeActive,
+      rangeType: "continuous",
+    });
+
+    return this.modifierStageFactory
+      .create({
+        type: "everyScope",
+        scopeType,
+      })
+      .run(this.context, rangeTarget);
   }
 
   /**

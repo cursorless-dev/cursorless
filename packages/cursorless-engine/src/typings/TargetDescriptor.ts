@@ -5,6 +5,7 @@ import {
   PositionModifier,
   RangeType,
   ImplicitTargetDescriptor,
+  ScopeType,
 } from "@cursorless/common";
 
 export interface PrimitiveTargetDescriptor
@@ -41,13 +42,27 @@ export interface RangeTargetDescriptor {
   rangeType: RangeType;
 }
 
+export interface EveryRangeTargetDescriptor {
+  type: "everyRange";
+  scopeType: ScopeType;
+  anchor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor;
+  active: PrimitiveTargetDescriptor;
+  excludeAnchor: boolean;
+  excludeActive: boolean;
+}
+
 export interface ListTargetDescriptor {
   type: "list";
-  elements: (PrimitiveTargetDescriptor | RangeTargetDescriptor)[];
+  elements: (
+    | PrimitiveTargetDescriptor
+    | RangeTargetDescriptor
+    | EveryRangeTargetDescriptor
+  )[];
 }
 
 export type TargetDescriptor =
   | PrimitiveTargetDescriptor
   | RangeTargetDescriptor
+  | EveryRangeTargetDescriptor
   | ListTargetDescriptor
   | ImplicitTargetDescriptor;

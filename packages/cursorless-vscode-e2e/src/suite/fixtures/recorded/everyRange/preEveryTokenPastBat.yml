@@ -1,0 +1,35 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: pre every token past bat
+  action: {name: setSelectionBefore}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: token}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa. bbb
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: |
+    aaa. bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
