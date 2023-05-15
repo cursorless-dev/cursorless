@@ -109,37 +109,45 @@ export class TargetPipeline {
   ): Target[] {
     const isReversed = calcIsReversed(anchorTarget, activeTarget);
 
-    if (excludeAnchor && !anchorTarget.hasExplicitScopeType) {
-      excludeAnchor = false;
-      anchorTarget = this.modifierStageFactory
-        .create({
-          type: "relativeScope",
-          scopeType,
-          direction: isReversed ? "backward" : "forward",
-          length: 1,
-          offset: 1,
-        })
-        .run(this.context, anchorTarget)[0];
-    }
-
-    if (excludeActive && !activeTarget.hasExplicitScopeType) {
-      excludeActive = false;
-      activeTarget = this.modifierStageFactory
-        .create({
-          type: "relativeScope",
-          scopeType,
-          direction: isReversed ? "forward" : "backward",
-          length: 1,
-          offset: 1,
-        })
-        .run(this.context, activeTarget)[0];
-    }
-
+    // For "every" range targets, we need to be smart about how we handle
+    // exclusion.  If the user says "every funk name air until bat", then the
+    // implication is that they want to exclude "funk name bat".  We
+    // unfortunately can't just run "funk name" on "bat" and then use regular
+    // range exclusion, because we actually need exclude the entire *domain* of
+    // "funk name" rather than just the content range, which is what traditional
+    // range exclusion gives us.  If we were to exclude just the content range,
+    // then when we subsequently run "every" on the resulting range, our
+    // endpoint is still in the domain, so we just get "funk name bat" back
+    // again. So instead, we use the equivalent of "previous funk name" to find
+    // our endpoint and then just use an inclusive range ending with that target.
     const rangeTarget = targetsToContinuousTarget(
-      anchorTarget,
-      activeTarget,
-      excludeAnchor,
-      excludeActive,
+      excludeAnchor
+        ? this.modifierStageFactory
+            .create({
+              type: "relativeScope",
+              scopeType,
+              direction: isReversed ? "backward" : "forward",
+              length: 1,
+              offset: 1,
+            })
+            // NB: The following line assumes that content range is always
+            // contained by domain, so that "every" will properly reconstruct
+            // the target from the content range.
+            .run(this.context, anchorTarget)[0]
+        : anchorTarget,
+      excludeActive
+        ? this.modifierStageFactory
+            .create({
+              type: "relativeScope",
+              scopeType,
+              direction: isReversed ? "forward" : "backward",
+              length: 1,
+              offset: 1,
+            })
+            .run(this.context, activeTarget)[0]
+        : activeTarget,
+      false,
+      false,
     );
 
     return this.modifierStageFactory
