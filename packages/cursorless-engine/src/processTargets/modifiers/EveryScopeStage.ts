@@ -133,6 +133,7 @@ function getScopesOverlappingRange(
     scopeHandler.generateScopes(editor, start, "forward", {
       distalPosition: end,
       skipAncestorScopes: true,
+      allowAdjacentScopes: scopeHandler.includeAdjacentInEvery,
     }),
   );
 }

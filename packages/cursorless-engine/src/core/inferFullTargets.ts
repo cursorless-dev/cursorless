@@ -77,17 +77,49 @@ function inferRangeTarget(
   target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): RangeTargetDescriptor {
+  const { anchor, ...extraFields } = getRangeTargetFields(target);
+
   return {
     type: "range",
+    ...extraFields,
     excludeAnchor: target.excludeAnchor ?? false,
     excludeActive: target.excludeActive ?? false,
-    rangeType: target.rangeType ?? "continuous",
-    anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
-    active: inferPrimitiveTarget(
-      target.active,
-      previousTargets.concat(target.anchor),
-    ),
+    anchor: inferPossiblyImplicitTarget(anchor, previousTargets),
+    active: inferPrimitiveTarget(target.active, previousTargets.concat(anchor)),
   };
+}
+
+/**
+ * This function exists to enable constructs like "every line air past bat".
+ * When we detect a range target of the form `"every <scope> <target> past
+ * <target>"`, we remove the `everyScope` modifier from the anchor and construct
+ * a special "every" range target that we handle specially in
+ * {@link TargetPipeline.processEveryRangeTarget}.
+ */
+function getRangeTargetFields({
+  anchor,
+  rangeType,
+}: PartialRangeTargetDescriptor) {
+  if (
+    anchor.type === "primitive" &&
+    anchor.modifiers?.[0]?.type === "everyScope" &&
+    (rangeType == null || rangeType === "continuous")
+  ) {
+    const modifiers = anchor.modifiers.slice(1);
+    return {
+      rangeType: "every",
+      scopeType: anchor.modifiers[0].scopeType,
+      anchor:
+        modifiers.length === 0 && anchor.mark == null
+          ? ({ type: "implicit" } as const)
+          : ({ ...anchor, modifiers } as const),
+    } as const;
+  } else {
+    return {
+      rangeType: rangeType ?? "continuous",
+      anchor,
+    } as const;
+  }
 }
 
 function inferPossiblyImplicitTarget(

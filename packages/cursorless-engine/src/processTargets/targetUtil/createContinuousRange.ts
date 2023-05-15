@@ -46,27 +46,6 @@ export function createContinuousLineRange(
   return new Range(start, end);
 }
 
-export function createSimpleContinuousRangeTarget(
-  target1: Target,
-  target2: Target,
-  isReversed: boolean,
-  includeStart: boolean = true,
-  includeEnd: boolean = true,
-) {
-  const isForward = target1.contentRange.start.isBefore(
-    target2.contentRange.start,
-  );
-  const anchorTarget = isForward ? target1 : target2;
-  const activeTarget = isForward ? target2 : target1;
-
-  return anchorTarget.createContinuousRangeTarget(
-    isReversed,
-    activeTarget,
-    includeStart,
-    includeEnd,
-  );
-}
-
 export function createContinuousRangeUntypedTarget(
   isReversed: boolean,
   startTarget: Target,

@@ -3,8 +3,9 @@ import {
   Mark,
   Modifier,
   PositionModifier,
-  RangeType,
+  PartialRangeType,
   ImplicitTargetDescriptor,
+  ScopeType,
 } from "@cursorless/common";
 
 export interface PrimitiveTargetDescriptor
@@ -32,14 +33,27 @@ export interface PrimitiveTargetDescriptor
   positionModifier?: PositionModifier;
 }
 
-export interface RangeTargetDescriptor {
+interface BaseRangeTargetDescriptor {
   type: "range";
   anchor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor;
   active: PrimitiveTargetDescriptor;
   excludeAnchor: boolean;
   excludeActive: boolean;
-  rangeType: RangeType;
+  rangeType: PartialRangeType | "every";
 }
+
+interface SimpleRangeTargetDescriptor extends BaseRangeTargetDescriptor {
+  rangeType: PartialRangeType;
+}
+
+export interface EveryRangeTargetDescriptor extends BaseRangeTargetDescriptor {
+  rangeType: "every";
+  scopeType: ScopeType;
+}
+
+export type RangeTargetDescriptor =
+  | SimpleRangeTargetDescriptor
+  | EveryRangeTargetDescriptor;
 
 export interface ListTargetDescriptor {
   type: "list";

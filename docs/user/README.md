@@ -397,6 +397,12 @@ For example:
 - `"pre air slice bat"`: Places cursors at the same position on every line (inclusive) between token with hat over the `a` and token with the hat over the `b`. The position will be the start of the token with a hat over the `a`
 - `"chuck tail air slice end of block"`: Delete the end of every line from air through the end of its non-empty line block.
 
+##### `"every"` ranges
+
+If the range target begins with `"every <scope>"`, eg `"take every line air past bat"`, then you will end up with one target for each instance of `<scope>` in the range. For example, `"post every line air past bat"` will put a cursor at the end of every line from the line containing the token with a hat over the letter `a` to the line containing the token with a hat over the letter `b`.
+
+These `"every"` ranges also play nicely with exclusive ranges, eg `"take every funk air until bat"` will select every function starting from the function containing the token with a hat over the letter `a` up until, but not including, the function containing the token with a hat over the letter `b`.
+
 #### List targets
 
 In addition to range targets, cursorless supports list targets, which allow you to refer to multiple targets at the same time. When combined with the `"take"` action, this will result in multiple cursors, for other actions, such as `"chuck"` the action will be applied to all the different targets at once.

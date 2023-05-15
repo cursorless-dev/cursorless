@@ -1,0 +1,44 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear every line past each
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: line}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa bbb
+    ccc ddd
+    eee fff
+    ggg hhh
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks:
+    default.e:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 3}
+finalState:
+  documentContents: |-
+
+
+
+    ggg hhh
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

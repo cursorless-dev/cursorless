@@ -1,0 +1,41 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: pre every token until funk name
+  action: {name: setSelectionBefore}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: token}
+      active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: functionName}
+      excludeAnchor: false
+      excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    def aaa():
+        pass
+  selections:
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    def aaa():
+        pass
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

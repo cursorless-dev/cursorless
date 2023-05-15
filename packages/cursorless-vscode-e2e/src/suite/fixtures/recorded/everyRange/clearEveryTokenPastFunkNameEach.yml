@@ -1,0 +1,49 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear every token past funk name each
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: token}
+      active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: functionName}
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    def aaa():
+        pass
+
+    def bbb():
+        pass
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    default.e:
+      start: {line: 3, character: 0}
+      end: {line: 3, character: 3}
+finalState:
+  documentContents: |-
+    def aaa():
+        
+
+     ():
+        pass
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}

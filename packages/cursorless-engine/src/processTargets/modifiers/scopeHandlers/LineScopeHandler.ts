@@ -8,6 +8,7 @@ export default class LineScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "line" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
   protected readonly isHierarchical = false;
+  public readonly includeAdjacentInEvery: boolean = true;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
     super();

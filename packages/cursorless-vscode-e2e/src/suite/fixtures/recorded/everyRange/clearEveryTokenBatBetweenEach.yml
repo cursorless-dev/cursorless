@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear every token bat between each
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: token}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      excludeAnchor: true
+      excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb ccc ddd eee fff
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    aaa bbb   eee fff
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
