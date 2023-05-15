@@ -1,8 +1,8 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: pre every token past bat
-  action: {name: setSelectionBefore}
+  spokenForm: clear every token past down two
+  action: {name: clearAndSetSelection}
   targets:
     - type: range
       anchor:
@@ -12,22 +12,24 @@ command:
             scopeType: {type: token}
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        mark: {type: lineNumber, lineNumberType: relative, lineNumber: 2}
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    aaa. bbb
+  documentContents: |+
+    aaa  bbb ccc
+
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: |
-    aaa. bbb
+  documentContents: |+
+    aaa   
+
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

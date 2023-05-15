@@ -1,7 +1,11 @@
-import { ImplicitTargetDescriptor, Modifier, Range } from "@cursorless/common";
+import {
+  ImplicitTargetDescriptor,
+  Modifier,
+  Range,
+  ScopeType,
+} from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
 import {
-  EveryRangeTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -48,8 +52,6 @@ export class TargetPipeline {
         );
       case "range":
         return this.processRangeTarget(target);
-      case "everyRange":
-        return this.processEveryRangeTarget(target);
       case "primitive":
       case "implicit":
         return this.processPrimitiveTarget(target);
@@ -85,23 +87,60 @@ export class TargetPipeline {
               targetDesc.excludeAnchor,
               targetDesc.excludeActive,
             );
+          case "every":
+            return this.processEveryRangeTarget(
+              anchorTarget,
+              activeTarget,
+              targetDesc.excludeAnchor,
+              targetDesc.excludeActive,
+              targetDesc.scopeType,
+            );
         }
       },
     );
   }
 
-  processEveryRangeTarget(targetDesc: EveryRangeTargetDescriptor): Target[] {
-    const { scopeType, anchor, active, excludeAnchor, excludeActive } =
-      targetDesc;
+  processEveryRangeTarget(
+    anchorTarget: Target,
+    activeTarget: Target,
+    excludeAnchor: boolean,
+    excludeActive: boolean,
+    scopeType: ScopeType,
+  ): Target[] {
+    const isReversed = calcIsReversed(anchorTarget, activeTarget);
 
-    const [rangeTarget] = this.processRangeTarget({
-      type: "range",
-      anchor,
-      active,
+    if (excludeAnchor && !anchorTarget.hasExplicitScopeType) {
+      excludeAnchor = false;
+      anchorTarget = this.modifierStageFactory
+        .create({
+          type: "relativeScope",
+          scopeType,
+          direction: isReversed ? "backward" : "forward",
+          length: 1,
+          offset: 1,
+        })
+        .run(this.context, anchorTarget)[0];
+    }
+
+    if (excludeActive && !activeTarget.hasExplicitScopeType) {
+      excludeActive = false;
+      activeTarget = this.modifierStageFactory
+        .create({
+          type: "relativeScope",
+          scopeType,
+          direction: isReversed ? "forward" : "backward",
+          length: 1,
+          offset: 1,
+        })
+        .run(this.context, activeTarget)[0];
+    }
+
+    const rangeTarget = targetsToContinuousTarget(
+      anchorTarget,
+      activeTarget,
       excludeAnchor,
       excludeActive,
-      rangeType: "continuous",
-    });
+    );
 
     return this.modifierStageFactory
       .create({

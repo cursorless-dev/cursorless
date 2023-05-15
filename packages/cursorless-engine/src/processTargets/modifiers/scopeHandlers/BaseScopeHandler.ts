@@ -23,6 +23,8 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
   public abstract readonly scopeType: ScopeType | undefined;
   public abstract readonly iterationScopeType: ScopeType | CustomScopeType;
 
+  public readonly includeAdjacentInEvery: boolean = false;
+
   /**
    * Indicates whether scopes are allowed to contain one another.  If `false`, we
    * can optimise the algorithm by making certain assumptions.

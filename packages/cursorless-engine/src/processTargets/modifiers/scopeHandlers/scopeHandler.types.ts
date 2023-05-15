@@ -80,6 +80,13 @@ export interface ScopeHandler {
     scopeA: TargetScope,
     scopeB: TargetScope,
   ): boolean | undefined;
+
+  /**
+   * Whether to include adjacent scopes when used in an "every" modifier.  This
+   * was added so that "every line" will include the line you're on even if your
+   * range is at the beginning or end of the line.
+   */
+  readonly includeAdjacentInEvery: boolean;
 }
 
 export type ContainmentPolicy =
@@ -111,7 +118,9 @@ export interface ScopeIteratorRequirements {
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
    * start at or before this position for `"forward"`, or at or after this
-   * position for `"backward"`.
+   * position for `"backward"`.  If {@link allowAdjacentScopes} is `false`, then
+   * the domain must start strictly before this position (after for
+   * `"backward").
    *
    * Defaults to the end of the document for `"forward"`, or the start of the
    * document for `"backward"`.
@@ -120,9 +129,9 @@ export interface ScopeIteratorRequirements {
 
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes is
-   * allowed to have empty overlap with the range (position, distalPosition).
-   * If `false`, the domain must have nonempty overlap with (position,
-   * distalPosition), unless the domain is empty.
+   * allowed to have empty overlap with the range `(position, distalPosition)`.
+   * If `false`, the domain must have nonempty overlap with `(position,
+   * distalPosition)`, unless the domain is empty.
    *
    * @default false
    */

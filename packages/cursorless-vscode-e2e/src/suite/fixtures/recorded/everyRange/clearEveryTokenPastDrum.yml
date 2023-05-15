@@ -23,11 +23,9 @@ initialState:
       active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: aaa    eee
+  documentContents: aaa bbb   eee
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

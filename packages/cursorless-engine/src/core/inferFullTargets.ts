@@ -9,12 +9,10 @@ import {
   PositionModifier,
 } from "@cursorless/common";
 import {
-  EveryRangeTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import produce from "immer";
 
 /**
  * Performs inference on the partial targets provided by the user, using
@@ -66,10 +64,7 @@ function inferListTarget(
 function inferNonListTarget(
   target: PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-):
-  | PrimitiveTargetDescriptor
-  | RangeTargetDescriptor
-  | EveryRangeTargetDescriptor {
+): PrimitiveTargetDescriptor | RangeTargetDescriptor {
   switch (target.type) {
     case "primitive":
       return inferPrimitiveTarget(target, previousTargets);
@@ -81,10 +76,11 @@ function inferNonListTarget(
 function inferRangeTarget(
   target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): RangeTargetDescriptor | EveryRangeTargetDescriptor {
-  const { anchor, extraFields } = getRangeTargetFields(target);
+): RangeTargetDescriptor {
+  const { anchor, ...extraFields } = getRangeTargetFields(target);
 
   return {
+    type: "range",
     ...extraFields,
     excludeAnchor: target.excludeAnchor ?? false,
     excludeActive: target.excludeActive ?? false,
@@ -95,36 +91,34 @@ function inferRangeTarget(
 
 /**
  * This function exists to enable constructs like "every line air past bat".
- * We detect targets of the form `"every <scope> <target> past <target>"` and
- * construct a special type of target with type `everyRange` that
- * we handle specially in {@link TargetPipeline.processEveryRangeTarget}.
- *
- * When we detect this construct, we convert the "every <scope>" modifier to a
- * simple "containing <scope>" modifier, and then let `processEveryRangeTarget`
- * perform an "every" action on the resulting target.
+ * When we detect a range target of the form `"every <scope> <target> past
+ * <target>"`, we remove the `everyScope` modifier from the anchor and construct
+ * a special "every" range target that we handle specially in
+ * {@link TargetPipeline.processEveryRangeTarget}.
  */
-function getRangeTargetFields(target: PartialRangeTargetDescriptor) {
+function getRangeTargetFields({
+  anchor,
+  rangeType,
+}: PartialRangeTargetDescriptor) {
   if (
-    target.anchor.type === "primitive" &&
-    target.anchor.modifiers?.[0]?.type === "everyScope"
+    anchor.type === "primitive" &&
+    anchor.modifiers?.[0]?.type === "everyScope" &&
+    (rangeType == null || rangeType === "continuous")
   ) {
+    const modifiers = anchor.modifiers.slice(1);
     return {
-      anchor: produce(target.anchor, (anchor) => {
-        anchor.modifiers![0].type = "containingScope";
-      }),
-      extraFields: {
-        type: "everyRange",
-        scopeType: target.anchor.modifiers[0].scopeType,
-      } as const,
-    };
+      rangeType: "every",
+      scopeType: anchor.modifiers[0].scopeType,
+      anchor:
+        modifiers.length === 0 && anchor.mark == null
+          ? ({ type: "implicit" } as const)
+          : ({ ...anchor, modifiers } as const),
+    } as const;
   } else {
     return {
-      anchor: target.anchor,
-      extraFields: {
-        type: "range",
-        rangeType: target.rangeType ?? "continuous",
-      } as const,
-    };
+      rangeType: rangeType ?? "continuous",
+      anchor,
+    } as const;
   }
 }
 
