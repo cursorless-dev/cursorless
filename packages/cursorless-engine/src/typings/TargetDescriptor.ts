@@ -46,9 +46,21 @@ interface SimpleRangeTargetDescriptor extends BaseRangeTargetDescriptor {
   rangeType: PartialRangeType;
 }
 
+/** Represents targets such as "every line air past bat" */
 export interface EveryRangeTargetDescriptor extends BaseRangeTargetDescriptor {
   rangeType: "every";
   scopeType: ScopeType;
+
+  /** Modifiers to be applied after constructing the "every" range */
+  modifiers: Modifier[];
+
+  /**
+   * Position modifiers to be applied after constructing the "every" range. We
+   * separate the positional modifier from the other modifiers because it
+   * behaves differently and and makes the target behave like a destination for
+   * example for bring.  This change is the first step toward #803
+   */
+  positionModifier?: PositionModifier;
 }
 
 export type RangeTargetDescriptor =

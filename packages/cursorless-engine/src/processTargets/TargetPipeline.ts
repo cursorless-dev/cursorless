@@ -1,11 +1,12 @@
 import {
   ImplicitTargetDescriptor,
   Modifier,
+  PositionModifier,
   Range,
-  ScopeType,
 } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
 import {
+  EveryRangeTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -91,9 +92,7 @@ export class TargetPipeline {
             return this.processEveryRangeTarget(
               anchorTarget,
               activeTarget,
-              targetDesc.excludeAnchor,
-              targetDesc.excludeActive,
-              targetDesc.scopeType,
+              targetDesc,
             );
         }
       },
@@ -103,9 +102,13 @@ export class TargetPipeline {
   processEveryRangeTarget(
     anchorTarget: Target,
     activeTarget: Target,
-    excludeAnchor: boolean,
-    excludeActive: boolean,
-    scopeType: ScopeType,
+    {
+      excludeAnchor,
+      excludeActive,
+      scopeType,
+      modifiers,
+      positionModifier,
+    }: EveryRangeTargetDescriptor,
   ): Target[] {
     const isReversed = calcIsReversed(anchorTarget, activeTarget);
 
@@ -150,12 +153,22 @@ export class TargetPipeline {
       false,
     );
 
-    return this.modifierStageFactory
+    const everyTargets = this.modifierStageFactory
       .create({
         type: "everyScope",
         scopeType,
       })
       .run(this.context, rangeTarget);
+
+    // Run the final modifier pipeline on the output from the "every" modifier
+    return this.processPrimitiveTarget({
+      type: "customPrimitiveTarget",
+      modifiers,
+      positionModifier,
+      markStage: {
+        run: () => everyTargets,
+      },
+    });
   }
 
   /**
@@ -178,7 +191,10 @@ export class TargetPipeline {
    * @returns The output of running the modifier pipeline on the output from the mark
    */
   processPrimitiveTarget(
-    targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
+    targetDescriptor:
+      | PrimitiveTargetDescriptor
+      | ImplicitTargetDescriptor
+      | CustomPrimitiveTargetDescriptor,
   ): Target[] {
     let markStage: MarkStage;
     let nonPositionModifierStages: ModifierStage[];
@@ -189,7 +205,10 @@ export class TargetPipeline {
       nonPositionModifierStages = [];
       positionModifierStages = [];
     } else {
-      markStage = this.markStageFactory.create(targetDescriptor.mark);
+      markStage =
+        targetDescriptor.type === "customPrimitiveTarget"
+          ? targetDescriptor.markStage
+          : this.markStageFactory.create(targetDescriptor.mark);
       positionModifierStages =
         targetDescriptor.positionModifier == null
           ? []
@@ -238,6 +257,15 @@ export function getModifierStagesFromTargetModifiers(
   // Reverse target modifiers because they are returned in reverse order from
   // the api, to match the order in which they are spoken.
   return targetModifiers.map(modifierStageFactory.create).reverse();
+}
+
+/** Can use this type when you are using some custom mark stage but want the
+ * output to pass through a set of modifiers */
+interface CustomPrimitiveTargetDescriptor {
+  type: "customPrimitiveTarget";
+  modifiers: Modifier[];
+  positionModifier?: PositionModifier;
+  markStage: MarkStage;
 }
 
 /** Run all targets through the modifier stages */

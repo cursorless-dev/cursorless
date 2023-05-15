@@ -1,0 +1,50 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear second token every line cap past blue fine
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: ordinalScope
+            scopeType: {type: token}
+            start: 1
+            length: 1
+          - type: everyScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: blue, character: f}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb
+    ccc ddddd eee
+    fff ggg hhh
+    iii jjj
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.c:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 3}
+    blue.f:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 3}
+finalState:
+  documentContents: |
+    aaa bbb
+    ccc  eee
+    fff  hhh
+    iii jjj
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
