@@ -1,5 +1,5 @@
+import { Selection, SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import {
   NodeMatcher,
   NodeMatcherAlternative,
@@ -20,6 +20,7 @@ import {
   extendForwardPastOptional,
   getNodeInternalRange,
   getNodeRange,
+  jsxFragmentExtractor,
   pairSelectionExtractor,
   selectWithLeadingDelimiter,
   simpleSelectionExtractor,
@@ -70,8 +71,35 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
-const getStartTag = patternMatcher("jsx_element.jsx_opening_element!");
-const getEndTag = patternMatcher("jsx_element.jsx_closing_element!");
+/** Handles jsx fragment start or end tag, eg the `<>` in `<>foo</>` **/
+function getJsxFragmentTag(isStartTag: boolean): NodeMatcher {
+  return matcher(
+    typedNodeFinder("jsx_fragment"),
+    (editor: TextEditor, node: SyntaxNode) => {
+      const [start, end] = isStartTag
+        ? [node.children[0], node.children[1]]
+        : [node.children.at(-3)!, node.children.at(-1)!];
+      return {
+        selection: new Selection(
+          start.startPosition.row,
+          start.startPosition.column,
+          end.endPosition.row,
+          end.endPosition.column,
+        ),
+        context: {},
+      };
+    },
+  );
+}
+
+const getStartTag = cascadingMatcher(
+  patternMatcher("jsx_element.jsx_opening_element!"),
+  getJsxFragmentTag(true),
+);
+const getEndTag = cascadingMatcher(
+  patternMatcher("jsx_element.jsx_closing_element!"),
+  getJsxFragmentTag(false),
+);
 
 const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
   const startTag = getStartTag(selection, node);
@@ -309,9 +337,12 @@ const nodeMatchers: Partial<
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
   attribute: ["jsx_attribute"],
-  xmlElement: matcher(
-    typedNodeFinder("jsx_element", "jsx_self_closing_element"),
-    xmlElementExtractor,
+  xmlElement: cascadingMatcher(
+    matcher(
+      typedNodeFinder("jsx_element", "jsx_self_closing_element"),
+      xmlElementExtractor,
+    ),
+    matcher(typedNodeFinder("jsx_fragment"), jsxFragmentExtractor),
   ),
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
