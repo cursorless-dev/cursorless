@@ -427,6 +427,28 @@ export function xmlElementExtractor(
   return selection;
 }
 
+export function jsxFragmentExtractor(
+  editor: TextEditor,
+  node: SyntaxNode,
+): SelectionWithContext {
+  const selection = simpleSelectionExtractor(editor, node);
+
+  // Interior range for an element is found by excluding the start and end nodes.
+  if (node.namedChildCount > 0) {
+    const { firstNamedChild, lastNamedChild } = node;
+    if (firstNamedChild != null && lastNamedChild != null) {
+      selection.context.interiorRange = new Range(
+        firstNamedChild.endPosition.row,
+        firstNamedChild.endPosition.column,
+        lastNamedChild.startPosition.row,
+        lastNamedChild.startPosition.column,
+      );
+    }
+  }
+
+  return selection;
+}
+
 export function getInsertionDelimiter(
   editor: TextEditor,
   leadingDelimiterRange: Range | undefined,

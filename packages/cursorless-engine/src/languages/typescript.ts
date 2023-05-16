@@ -20,6 +20,7 @@ import {
   extendForwardPastOptional,
   getNodeInternalRange,
   getNodeRange,
+  jsxFragmentExtractor,
   pairSelectionExtractor,
   selectWithLeadingDelimiter,
   simpleSelectionExtractor,
@@ -335,9 +336,12 @@ const nodeMatchers: Partial<
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
   attribute: ["jsx_attribute"],
-  xmlElement: matcher(
-    typedNodeFinder("jsx_element", "jsx_self_closing_element", "jsx_fragment"),
-    xmlElementExtractor,
+  xmlElement: cascadingMatcher(
+    matcher(
+      typedNodeFinder("jsx_element", "jsx_self_closing_element"),
+      xmlElementExtractor,
+    ),
+    matcher(typedNodeFinder("jsx_fragment"), jsxFragmentExtractor),
   ),
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
