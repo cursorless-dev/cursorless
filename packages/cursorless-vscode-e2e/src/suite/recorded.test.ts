@@ -16,6 +16,7 @@ import {
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
 } from "@cursorless/common";
@@ -29,7 +30,6 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import * as vscode from "vscode";
-import { TestCaseFixture } from "@cursorless/common";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
@@ -65,7 +65,7 @@ suite("recorded test cases", async function () {
 
 async function runTest(file: string, spyIde: SpyIDE) {
   const buffer = await fsp.readFile(file);
-  const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
+  const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
   // TODO The snapshot gets messed up with timing issues when running the recorded tests

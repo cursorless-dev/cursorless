@@ -1,4 +1,5 @@
 import {
+  CommandLatest,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
@@ -14,7 +15,6 @@ import {
   showInfo,
   sleep,
   SpyIDE,
-  TestCaseCommand,
   TextEditorOptions,
   toLineRange,
   walkDirsSync,
@@ -285,7 +285,7 @@ export class TestCaseRecorder {
     this.paused = false;
   }
 
-  async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
+  async preCommandHook(command: CommandLatest, context: TestCaseContext) {
     if (this.testCase != null) {
       // If testCase is not null and we are just before a command, this means
       // that this command is the follow up command indicating which marks we
