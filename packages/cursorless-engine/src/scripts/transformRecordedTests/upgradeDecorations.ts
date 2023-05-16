@@ -2,9 +2,10 @@ import {
   FlashStyle,
   GeneralizedRangePlainObject,
   PositionPlainObject,
+  TestCaseFixture,
+  TestCaseFixtureLegacy,
 } from "@cursorless/common";
 import { groupBy, partition } from "lodash";
-import { TestCaseFixture } from "@cursorless/common";
 import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";
 
@@ -15,7 +16,7 @@ interface PlainTestDecoration {
   end: PositionPlainObject;
 }
 
-interface LegacyTestFixture extends TestCaseFixture {
+interface LegacyTestFixture extends TestCaseFixtureLegacy {
   /**
    * Expected decorations in the test case, for example highlighting deletions in red.
    */
@@ -63,7 +64,7 @@ export const upgradeDecorations: FixtureTransformation = (
           })),
   };
 
-  return reorderFields(fixture);
+  return reorderFields(fixture as TestCaseFixture);
 };
 
 function extractHighlightName(name: string): string {

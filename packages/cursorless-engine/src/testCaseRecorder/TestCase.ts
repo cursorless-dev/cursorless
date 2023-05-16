@@ -1,5 +1,6 @@
 import {
   ActionType,
+  CommandLatest,
   extractTargetedMarks,
   ExtraSnapshotField,
   marksToPlainObject,
@@ -9,7 +10,6 @@ import {
   SerializedMarks,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
-  TestCaseCommand,
   TestCaseFixture,
   TestCaseSnapshot,
   ThrownError,
@@ -40,11 +40,11 @@ export class TestCase {
   private targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   private marksToCheck?: string[];
-  command: TestCaseCommand;
+  command: CommandLatest;
   private spyIdeValues?: PlainSpyIDERecordedValues;
 
   constructor(
-    command: TestCaseCommand,
+    command: CommandLatest,
     private context: TestCaseContext,
     private spyIde: SpyIDE,
     private isHatTokenMapTest: boolean = false,
@@ -188,7 +188,7 @@ export class TestCase {
       raw == null ? undefined : spyIDERecordedValuesToPlainObject(raw);
   }
 
-  filterMarks(command: TestCaseCommand, context: TestCaseContext) {
+  filterMarks(command: CommandLatest, context: TestCaseContext) {
     const marksToCheck = context.targets.map(extractTargetKeys).flat();
     const keys = this.targetKeys.concat(marksToCheck);
 
