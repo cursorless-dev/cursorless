@@ -434,17 +434,14 @@ export function jsxFragmentExtractor(
   const selection = simpleSelectionExtractor(editor, node);
 
   // Interior range for an element is found by excluding the start and end nodes.
-  if (node.namedChildCount > 0) {
-    const { firstNamedChild, lastNamedChild } = node;
-    if (firstNamedChild != null && lastNamedChild != null) {
-      selection.context.interiorRange = new Range(
-        firstNamedChild.endPosition.row,
-        firstNamedChild.endPosition.column,
-        lastNamedChild.startPosition.row,
-        lastNamedChild.startPosition.column,
-      );
-    }
-  }
+  const startPosition = node.children[1].endPosition;
+  const endPosition = node.children.at(-3)!.startPosition;
+  selection.context.interiorRange = new Range(
+    startPosition.row,
+    startPosition.column,
+    endPosition.row,
+    endPosition.column,
+  );
 
   return selection;
 }
