@@ -71,7 +71,7 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
-function jsxTag(isStartTag: boolean): NodeMatcher {
+function getJsxFragmentTag(isStartTag: boolean): NodeMatcher {
   return matcher(
     typedNodeFinder("jsx_fragment"),
     (editor: TextEditor, node: SyntaxNode) => {
@@ -93,11 +93,11 @@ function jsxTag(isStartTag: boolean): NodeMatcher {
 
 const getStartTag = cascadingMatcher(
   patternMatcher("jsx_element.jsx_opening_element!"),
-  jsxTag(true),
+  getJsxFragmentTag(true),
 );
 const getEndTag = cascadingMatcher(
   patternMatcher("jsx_element.jsx_closing_element!"),
-  jsxTag(false),
+  getJsxFragmentTag(false),
 );
 
 const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
