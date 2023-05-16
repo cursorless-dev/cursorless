@@ -1,5 +1,5 @@
+import { Selection, SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import {
   NodeMatcher,
   NodeMatcherAlternative,
@@ -70,8 +70,34 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
-const getStartTag = patternMatcher("jsx_element.jsx_opening_element!");
-const getEndTag = patternMatcher("jsx_element.jsx_closing_element!");
+function jsxTags(isStart: boolean): NodeMatcher {
+  return matcher(
+    patternFinder("jsx_fragment"),
+    (editor: TextEditor, node: SyntaxNode) => {
+      const [start, end] = isStart
+        ? [node.children[0], node.children[1]]
+        : [node.children.at(-3)!, node.children.at(-1)!];
+      return {
+        selection: new Selection(
+          start.startPosition.row,
+          start.startPosition.column,
+          end.endPosition.row,
+          end.endPosition.column,
+        ),
+        context: {},
+      };
+    },
+  );
+}
+
+const getStartTag = cascadingMatcher(
+  patternMatcher("jsx_element.jsx_opening_element!"),
+  jsxTags(true),
+);
+const getEndTag = cascadingMatcher(
+  patternMatcher("jsx_element.jsx_closing_element!"),
+  jsxTags(false),
+);
 
 const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
   const startTag = getStartTag(selection, node);
@@ -310,7 +336,7 @@ const nodeMatchers: Partial<
   // XML, JSX
   attribute: ["jsx_attribute"],
   xmlElement: matcher(
-    typedNodeFinder("jsx_element", "jsx_self_closing_element"),
+    typedNodeFinder("jsx_element", "jsx_self_closing_element", "jsx_fragment"),
     xmlElementExtractor,
   ),
   xmlBothTags: getTags,
