@@ -70,11 +70,11 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
-function jsxTags(isStart: boolean): NodeMatcher {
+function jsxTag(isStartTag: boolean): NodeMatcher {
   return matcher(
-    patternFinder("jsx_fragment"),
+    typedNodeFinder("jsx_fragment"),
     (editor: TextEditor, node: SyntaxNode) => {
-      const [start, end] = isStart
+      const [start, end] = isStartTag
         ? [node.children[0], node.children[1]]
         : [node.children.at(-3)!, node.children.at(-1)!];
       return {
@@ -92,11 +92,11 @@ function jsxTags(isStart: boolean): NodeMatcher {
 
 const getStartTag = cascadingMatcher(
   patternMatcher("jsx_element.jsx_opening_element!"),
-  jsxTags(true),
+  jsxTag(true),
 );
 const getEndTag = cascadingMatcher(
   patternMatcher("jsx_element.jsx_closing_element!"),
-  jsxTags(false),
+  jsxTag(false),
 );
 
 const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
