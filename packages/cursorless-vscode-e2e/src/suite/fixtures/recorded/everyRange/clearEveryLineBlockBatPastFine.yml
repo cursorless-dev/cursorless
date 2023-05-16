@@ -32,7 +32,13 @@ initialState:
   selections:
     - anchor: {line: 8, character: 0}
       active: {line: 8, character: 0}
-  marks: {}
+  marks:
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+    default.f:
+      start: {line: 3, character: 4}
+      end: {line: 3, character: 7}
 finalState:
   documentContents: |
 

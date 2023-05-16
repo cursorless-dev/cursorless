@@ -14,8 +14,8 @@ initialState:
       active: {line: 0, character: 1}
   marks:
     default.":
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 1}
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 2}
 finalState:
   documentContents: ""
   selections:

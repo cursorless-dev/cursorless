@@ -1,4 +1,4 @@
-languageId: typescript
+languageId: plaintext
 command:
   version: 1
   spokenForm: clear outside rack
@@ -13,6 +13,10 @@ initialState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+  marks:
+    default.]:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 21}
 finalState:
   documentContents: |+
 

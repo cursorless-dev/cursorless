@@ -13,6 +13,10 @@ initialState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+  marks:
+    default.(:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 2}
 finalState:
   documentContents: |
     [  (whatever)]
