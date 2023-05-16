@@ -21,7 +21,10 @@ initialState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
-  marks: {}
+  marks:
+    default.d:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 15}
 finalState:
   documentContents: aaa bbb   eee
   selections:
