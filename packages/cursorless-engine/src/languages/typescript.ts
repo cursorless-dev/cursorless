@@ -71,6 +71,7 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
+/** Handles jsx fragment start or end tag, eg the `<>` in `<>foo</>` **/
 function getJsxFragmentTag(isStartTag: boolean): NodeMatcher {
   return matcher(
     typedNodeFinder("jsx_fragment"),
