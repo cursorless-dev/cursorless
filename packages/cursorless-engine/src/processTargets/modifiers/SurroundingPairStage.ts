@@ -2,7 +2,6 @@ import type {
   ContainingSurroundingPairModifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
-import { LanguageDefinition } from "../../languages/LanguageDefinition";
 import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
 import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
@@ -38,23 +37,20 @@ export default class SurroundingPairStage implements ModifierStage {
     }
 
     return processedSurroundingPairTarget(
-      this.languageDefinitions.get(target.editor.document.languageId),
+      this.languageDefinitions,
       this.modifier,
-      context,
       target,
     );
   }
 }
 
 function processedSurroundingPairTarget(
-  languageDefinition: LanguageDefinition | undefined,
+  languageDefinitions: LanguageDefinitions,
   modifier: ContainingSurroundingPairModifier,
-  context: ProcessedTargetsContext,
   target: Target,
 ): SurroundingPairTarget[] {
   const outputTarget = processSurroundingPair(
-    languageDefinition,
-    context,
+    languageDefinitions,
     target,
     modifier.scopeType,
   );

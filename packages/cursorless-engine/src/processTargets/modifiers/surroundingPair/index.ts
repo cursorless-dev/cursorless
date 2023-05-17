@@ -4,18 +4,17 @@ import {
   SurroundingPairScopeType,
 } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { LanguageDefinition } from "../../../languages/LanguageDefinition";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import getTextFragmentExtractor, {
   TextFragmentExtractor,
 } from "../../../languages/getTextFragmentExtractor";
-import { ProcessedTargetsContext } from "../../../typings/Types";
 import { Target } from "../../../typings/target.types";
+import { SurroundingPairTarget } from "../../targets";
 import { getContainingScopeTarget } from "../getContainingScopeTarget";
 import { complexDelimiterMap } from "./delimiterMaps";
 import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
-import { SurroundingPairTarget } from "../../targets";
 
 /**
  * Applies the surrounding pair modifier to the given selection. First looks to
@@ -32,14 +31,12 @@ import { SurroundingPairTarget } from "../../targets";
  * `null` if none was found
  */
 export function processSurroundingPair(
-  languageDefinition: LanguageDefinition | undefined,
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   target: Target,
   scopeType: SurroundingPairScopeType,
 ): SurroundingPairTarget | null {
   const pairInfo = processSurroundingPairCore(
-    languageDefinition,
-    context,
+    languageDefinitions,
     target,
     scopeType,
   );
@@ -61,12 +58,14 @@ export function processSurroundingPair(
  * {@link SurroundingPairTarget}.
  */
 function processSurroundingPairCore(
-  languageDefinition: LanguageDefinition | undefined,
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   target: Target,
   scopeType: SurroundingPairScopeType,
 ): SurroundingPairInfo | null {
   const { editor, contentRange: range } = target;
+  const languageDefinition = languageDefinitions.get(
+    target.editor.document.languageId,
+  );
 
   const document = editor.document;
   const delimiters = complexDelimiterMap[
@@ -98,7 +97,7 @@ function processSurroundingPairCore(
   }
 
   try {
-    node = context.getNodeAtLocation(document, range);
+    node = languageDefinitions.getNodeAtLocation(document, range);
 
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {

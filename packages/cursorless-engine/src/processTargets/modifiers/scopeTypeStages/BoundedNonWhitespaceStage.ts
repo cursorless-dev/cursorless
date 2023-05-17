@@ -33,16 +33,11 @@ export default class BoundedNonWhitespaceSequenceStage
 
     const paintTargets = paintStage.run(context, target);
 
-    const pairInfo = processSurroundingPair(
-      this.languageDefinitions.get(target.editor.document.languageId),
-      context,
-      target,
-      {
-        type: "surroundingPair",
-        delimiter: "any",
-        requireStrongContainment: true,
-      },
-    );
+    const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
+      type: "surroundingPair",
+      delimiter: "any",
+      requireStrongContainment: true,
+    });
 
     if (pairInfo == null) {
       return paintTargets;

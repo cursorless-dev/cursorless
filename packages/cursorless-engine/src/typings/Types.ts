@@ -1,14 +1,8 @@
-import type {
-  Range,
-  Selection,
-  TextDocument,
-  TextEditor,
-} from "@cursorless/common";
+import type { Range, Selection, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 
-export interface ProcessedTargetsContext {
-  getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ProcessedTargetsContext {}
 
 export interface SelectionWithEditor {
   selection: Selection;
