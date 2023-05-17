@@ -1,12 +1,11 @@
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Deselect implements Action {
-  constructor(private graph: Graph) {
+  constructor() {
     this.run = this.run.bind(this);
   }
 

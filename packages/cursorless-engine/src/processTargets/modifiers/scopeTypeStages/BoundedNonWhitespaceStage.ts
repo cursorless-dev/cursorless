@@ -1,11 +1,12 @@
-import { NoContainingScopeError } from "@cursorless/common";
 import {
   ContainingScopeModifier,
   EveryScopeModifier,
+  NoContainingScopeError,
 } from "@cursorless/common";
-import { Target } from "../../../typings/target.types";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { ProcessedTargetsContext } from "../../../typings/Types";
-import getModifierStage from "../../getModifierStage";
+import { Target } from "../../../typings/target.types";
+import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
 import { processSurroundingPair } from "../surroundingPair";
@@ -18,10 +19,14 @@ import { processSurroundingPair } from "../surroundingPair";
 export default class BoundedNonWhitespaceSequenceStage
   implements ModifierStage
 {
-  constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
+  constructor(
+    private languageDefinitions: LanguageDefinitions,
+    private modifierStageFactory: ModifierStageFactory,
+    private modifier: ContainingScopeModifier | EveryScopeModifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
-    const paintStage = getModifierStage({
+    const paintStage = this.modifierStageFactory.create({
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
@@ -29,9 +34,9 @@ export default class BoundedNonWhitespaceSequenceStage
     const paintTargets = paintStage.run(context, target);
 
     const pairInfo = processSurroundingPair(
+      this.languageDefinitions.get(target.editor.document.languageId),
       context,
-      target.editor,
-      target.contentRange,
+      target,
       {
         type: "surroundingPair",
         delimiter: "any",
@@ -45,7 +50,7 @@ export default class BoundedNonWhitespaceSequenceStage
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.interiorRange,
+        pairInfo.getInteriorStrict()[0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {

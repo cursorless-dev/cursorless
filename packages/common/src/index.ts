@@ -1,4 +1,4 @@
-export * from "./commandIds";
+export * from "./cursorlessCommandIds";
 export * from "./testUtil/extractTargetedMarks";
 export { default as FakeIDE } from "./ide/fake/FakeIDE";
 export {

@@ -10,5 +10,9 @@
     "esModuleInterop": true
   },
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
-  "references": []
+  "references": [
+    {
+      "path": "../common"
+    }
+  ]
 }

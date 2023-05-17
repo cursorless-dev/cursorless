@@ -11,28 +11,27 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
-  Graph,
-  ide,
-  injectIde,
+  ThatMark,
   plainObjectToTarget,
   takeSnapshot,
-  ThatMark,
 } from "@cursorless/cursorless-engine";
-import { toVscodeEditor, VscodeIDE } from "@cursorless/cursorless-vscode-core";
 import { TestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 
 export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
   thatMark: ThatMark,
   sourceMark: ThatMark,
-  vscodeIDE: VscodeIDE,
-  graph: Graph,
   hatTokenMap: HatTokenMap,
+  vscodeIDE: VscodeIDE,
+  normalizedIde: NormalizedIDE,
+  injectIde: (ide: IDE) => void,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
-    ide: ide() as NormalizedIDE,
+    ide: normalizedIde,
     injectIde,
 
     toVscodeEditor,

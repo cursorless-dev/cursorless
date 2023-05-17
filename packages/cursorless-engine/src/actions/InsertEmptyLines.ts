@@ -1,16 +1,16 @@
 import { FlashStyle, Range, Selection, toLineRange } from "@cursorless/common";
 import { flatten } from "lodash";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertEmptyLines implements Action {
   constructor(
-    private graph: Graph,
+    private rangeUpdater: RangeUpdater,
     private insertAbove: boolean,
     private insertBelow: boolean,
   ) {
@@ -51,7 +51,7 @@ class InsertEmptyLines implements Action {
 
         const [updatedThatSelections, lineSelections, updatedCursorSelections] =
           await performEditsAndUpdateSelections(
-            this.graph.rangeUpdater,
+            this.rangeUpdater,
             editableEditor,
             edits,
             [
@@ -102,19 +102,19 @@ class InsertEmptyLines implements Action {
 }
 
 export class InsertEmptyLinesAround extends InsertEmptyLines {
-  constructor(graph: Graph) {
-    super(graph, true, true);
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, true, true);
   }
 }
 
 export class InsertEmptyLineAbove extends InsertEmptyLines {
-  constructor(graph: Graph) {
-    super(graph, true, false);
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, true, false);
   }
 }
 
 export class InsertEmptyLineBelow extends InsertEmptyLines {
-  constructor(graph: Graph) {
-    super(graph, false, true);
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, false, true);
   }
 }

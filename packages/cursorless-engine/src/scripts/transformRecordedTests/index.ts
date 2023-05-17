@@ -4,14 +4,20 @@ import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";
 import { FixtureTransformation } from "./types";
 import { upgradeDecorations } from "./upgradeDecorations";
+import { checkMarks } from "./checkMarks";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
-  autoFormat: identity,
+  format: identity,
+  ["check-marks"]: checkMarks,
   custom: upgradeDecorations,
 };
 
-async function main(transformationName: string | undefined) {
+async function main(args: string[]) {
+  const [transformationName, paths] = args?.[0]?.startsWith("--")
+    ? [args[0].slice(2), args.slice(1)]
+    : [null, args];
+
   const transformation =
     transformationName == null
       ? identity
@@ -21,7 +27,23 @@ async function main(transformationName: string | undefined) {
     throw new Error(`Unknown transformation ${transformationName}`);
   }
 
-  getRecordedTestPaths().forEach((path) => transformFile(transformation, path));
+  const testPaths = paths.length > 0 ? paths : getRecordedTestPaths();
+
+  let failureCount = 0;
+
+  for (const path of testPaths) {
+    try {
+      await transformFile(transformation, path);
+    } catch (err) {
+      failureCount++;
+      console.log(`Error with file ${path}`);
+      console.log((err as Error).message);
+    }
+  }
+
+  if (failureCount > 0) {
+    throw Error(`${failureCount} failed files`);
+  }
 }
 
-main(process.argv[2]);
+main(process.argv.slice(2));

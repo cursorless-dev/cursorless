@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import { flatten, range } from "lodash";
 import { tokenize } from ".";
-import { LanguageId } from "../languages/constants";
 import { unitTestSetup } from "../test/unitTestSetup";
 
 type TestCase = [string, string[]];
@@ -110,9 +109,7 @@ const shellScriptDialectTokenizerTests: LanguageTokenizerTests = {
   exclusionPredicate: (input: string) => !!input.match("-"),
 };
 
-const languageTokenizerTests: Partial<
-  Record<LanguageId, LanguageTokenizerTests>
-> = {
+const languageTokenizerTests: Record<string, LanguageTokenizerTests> = {
   css: cssDialectTokenizerTests,
   scss: cssDialectTokenizerTests,
   shellscript: shellScriptDialectTokenizerTests,

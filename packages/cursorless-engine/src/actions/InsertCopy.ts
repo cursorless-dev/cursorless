@@ -6,19 +6,26 @@ import {
   toCharacterRange,
 } from "@cursorless/common";
 import { flatten, zip } from "lodash";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { containingLineIfUntypedStage } from "../processTargets/modifiers/commonContainingScopeIfUntypedStages";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 class InsertCopy implements Action {
-  getFinalStages = () => [containingLineIfUntypedStage];
+  getFinalStages = () => [
+    this.modifierStageFactory.create(containingLineIfUntypedModifier),
+  ];
 
-  constructor(private graph: Graph, private isBefore: boolean) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private modifierStageFactory: ModifierStageFactory,
+    private isBefore: boolean,
+  ) {
     this.run = this.run.bind(this);
     this.runForEditor = this.runForEditor.bind(this);
   }
@@ -69,7 +76,7 @@ class InsertCopy implements Action {
       updatedContentSelections,
       updatedEditSelections,
     ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
-      this.graph.rangeUpdater,
+      this.rangeUpdater,
       editableEditor,
       edits,
       [cursorSelections, contentSelections, editSelections],
@@ -90,13 +97,19 @@ class InsertCopy implements Action {
 }
 
 export class CopyContentBefore extends InsertCopy {
-  constructor(graph: Graph) {
-    super(graph, true);
+  constructor(
+    rangeUpdater: RangeUpdater,
+    modifierStageFactory: ModifierStageFactory,
+  ) {
+    super(rangeUpdater, modifierStageFactory, true);
   }
 }
 
 export class CopyContentAfter extends InsertCopy {
-  constructor(graph: Graph) {
-    super(graph, false);
+  constructor(
+    rangeUpdater: RangeUpdater,
+    modifierStageFactory: ModifierStageFactory,
+  ) {
+    super(rangeUpdater, modifierStageFactory, false);
   }
 }

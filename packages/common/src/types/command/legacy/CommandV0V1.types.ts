@@ -136,8 +136,8 @@ const HAT_NON_DEFAULT_SHAPES = [
   "crosshairs",
 ] as const;
 
-type HatColor = typeof HAT_COLORS[number];
-type HatNonDefaultShape = typeof HAT_NON_DEFAULT_SHAPES[number];
+type HatColor = (typeof HAT_COLORS)[number];
+type HatNonDefaultShape = (typeof HAT_NON_DEFAULT_SHAPES)[number];
 type HatStyleName = HatColor | `${HatColor}-${HatNonDefaultShape}`;
 
 type LineNumberType = "absolute" | "relative" | "modulo100";

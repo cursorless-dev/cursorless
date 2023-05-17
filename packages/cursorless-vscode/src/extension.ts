@@ -7,36 +7,25 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
-  Actions,
-  CommandRunner,
-  Debug,
-  FactoryMap,
-  Graph,
-  graphFactories,
-  HatTokenMapImpl,
-  injectIde,
-  makeGraph,
-  Snippets,
-  TestCaseRecorder,
-  ThatMark,
+  createCursorlessEngine,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
-import {
-  commandIds,
-  KeyboardCommands,
-  StatusBarItem,
-  VscodeHats,
-  VscodeIDE,
-} from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
+  ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
+import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
+import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
+import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
+import { StatusBarItem } from "./StatusBarItem";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -51,63 +40,41 @@ export async function activate(
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
-  const vscodeIDE = new VscodeIDE(context);
+  const { vscodeIDE, hats } = await createVscodeIde(context);
 
-  if (vscodeIDE.runMode !== "production") {
-    injectIde(
-      new NormalizedIDE(vscodeIDE, new FakeIDE(), vscodeIDE.runMode === "test"),
-    );
-  } else {
-    injectIde(vscodeIDE);
-  }
+  const normalizedIde =
+    vscodeIDE.runMode === "production"
+      ? undefined
+      : new NormalizedIDE(
+          vscodeIDE,
+          new FakeIDE(),
+          vscodeIDE.runMode === "test",
+        );
 
   const commandServerApi =
     vscodeIDE.runMode === "test"
       ? getFakeCommandServerApi()
       : await getCommandServerApi();
 
-  const getNodeAtLocation = (document: TextDocument, range: Range) => {
-    return parseTreeApi.getNodeAtLocation(
-      new vscode.Location(document.uri, toVscodeRange(range)),
-    );
-  };
+  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
-  const treeSitter: TreeSitter = { getNodeAtLocation };
-  const debug = new Debug(treeSitter);
-
-  const graph = makeGraph({
-    ...graphFactories,
-  } as FactoryMap<Graph>);
-
-  const snippets = new Snippets();
-  snippets.init();
-
-  const hats = new VscodeHats(vscodeIDE, context);
-  await hats.init();
-
-  const hatTokenMap = new HatTokenMapImpl(graph, debug, hats, commandServerApi);
-  hatTokenMap.allocateHats();
-
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
-
-  const actions = new Actions(graph, snippets);
-
-  const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
-  const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
-
-  const thatMark = new ThatMark();
-  const sourceMark = new ThatMark();
-
-  const commandRunner = new CommandRunner(
-    graph,
-    treeSitter,
-    debug,
-    hatTokenMap,
+  const {
+    commandRunner,
     testCaseRecorder,
-    actions,
     thatMark,
     sourceMark,
+    hatTokenMap,
+    snippets,
+    injectIde,
+  } = createCursorlessEngine(
+    treeSitter,
+    normalizedIde ?? vscodeIDE,
+    hats,
+    commandServerApi,
   );
+
+  const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
+  const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
 
   registerCommands(
     context,
@@ -115,6 +82,7 @@ export async function activate(
     commandRunner,
     testCaseRecorder,
     keyboardCommands,
+    hats,
   );
 
   return {
@@ -123,15 +91,47 @@ export async function activate(
           commandServerApi,
           thatMark,
           sourceMark,
-          vscodeIDE,
-          graph,
           hatTokenMap,
+          vscodeIDE,
+          normalizedIde!,
+          injectIde,
         )
       : undefined,
 
     experimental: {
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
+  };
+}
+
+async function createVscodeIde(context: vscode.ExtensionContext) {
+  const vscodeIDE = new VscodeIDE(context);
+
+  const hats = new VscodeHats(
+    vscodeIDE,
+    context,
+    vscodeIDE.runMode === "test"
+      ? new FakeFontMeasurements()
+      : new FontMeasurementsImpl(context),
+  );
+  await hats.init();
+
+  return { vscodeIDE, hats };
+}
+
+function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
+  return {
+    getNodeAtLocation(document: TextDocument, range: Range) {
+      return parseTreeApi.getNodeAtLocation(
+        new vscode.Location(document.uri, toVscodeRange(range)),
+      );
+    },
+
+    getTree(document: TextDocument) {
+      return parseTreeApi.getTreeForUri(document.uri);
+    },
+
+    getLanguage: parseTreeApi.getLanguage,
   };
 }
 

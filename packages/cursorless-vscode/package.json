@@ -45,7 +45,27 @@
     "pokey.parse-tree"
   ],
   "activationEvents": [
-    "*"
+    "onLanguage",
+    "onCommand:cursorless.command",
+    "onCommand:cursorless.internal.updateCheatsheetDefaults",
+    "onCommand:cursorless.keyboard.escape",
+    "onCommand:cursorless.keyboard.modal.modeOff",
+    "onCommand:cursorless.keyboard.modal.modeOn",
+    "onCommand:cursorless.keyboard.modal.modeToggle",
+    "onCommand:cursorless.keyboard.targeted.clearTarget",
+    "onCommand:cursorless.keyboard.targeted.runActionOnTarget",
+    "onCommand:cursorless.keyboard.targeted.targetHat",
+    "onCommand:cursorless.keyboard.targeted.targetScope",
+    "onCommand:cursorless.keyboard.targeted.targetSelection",
+    "onCommand:cursorless.pauseRecording",
+    "onCommand:cursorless.recomputeDecorationStyles",
+    "onCommand:cursorless.recordTestCase",
+    "onCommand:cursorless.resumeRecording",
+    "onCommand:cursorless.showCheatsheet",
+    "onCommand:cursorless.showDocumentation",
+    "onCommand:cursorless.showQuickPick",
+    "onCommand:cursorless.takeSnapshot",
+    "onCommand:cursorless.toggleDecorations"
   ],
   "main": "./extension.js",
   "capabilities": {
@@ -55,10 +75,6 @@
   },
   "contributes": {
     "commands": [
-      {
-        "command": "cursorless.command",
-        "title": "Cursorless: Perform command"
-      },
       {
         "command": "cursorless.toggleDecorations",
         "title": "Cursorless: Toggle decorations"
@@ -82,6 +98,76 @@
       {
         "command": "cursorless.showDocumentation",
         "title": "Cursorless: Show documentation"
+      },
+      {
+        "command": "cursorless.command",
+        "title": "Cursorless: The core cursorless command",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.showQuickPick",
+        "title": "Cursorless: Pop up a quick pick of all cursorless commands",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.showCheatsheet",
+        "title": "Cursorless: Display the cursorless cheatsheet",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.internal.updateCheatsheetDefaults",
+        "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock knausj and cursorless.",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.takeSnapshot",
+        "title": "Cursorless: Take a snapshot of the current editor state",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.escape",
+        "title": "Cursorless: Should be mapped to the escape key when using cursorless keyboard. By default, exits modal keyboard mode, but changes behaviour when Cursorless is expecting a continuation keystroke.  For example, when you type a color and Cursorless is waiting for a character, it cancels the color and switches back to modal mode.",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.targeted.targetHat",
+        "title": "Cursorless: Sets the keyboard target to the given hat",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.targeted.targetScope",
+        "title": "Cursorless: Sets the keyboard target to the scope containing the current target",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.targeted.targetSelection",
+        "title": "Cursorless: Sets the keyboard target to the current selection",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.targeted.clearTarget",
+        "title": "Cursorless: Clears the current keyboard target",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.targeted.runActionOnTarget",
+        "title": "Cursorless: Run the given action on the current keyboard target",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.modal.modeOn",
+        "title": "Cursorless: Turn on the cursorless modal mode",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.modal.modeOff",
+        "title": "Cursorless: Turn off the cursorless modal mode",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.modal.modeToggle",
+        "title": "Cursorless: Toggle the cursorless modal mode",
+        "enablement": "false"
       }
     ],
     "colors": [
@@ -754,6 +840,10 @@
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify --keep-names",
     "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
+    "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
+    "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",
+    "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
+    "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch"
   },
@@ -762,20 +852,27 @@
     "@types/fs-extra": "11.0.1",
     "@types/glob": "^7.1.3",
     "@types/js-yaml": "^4.0.2",
+    "@types/lodash": "4.14.181",
     "@types/mocha": "^8.0.4",
     "@types/node": "^16.11.3",
     "@types/semver": "^7.3.9",
     "@types/sinon": "^10.0.2",
+    "@types/uuid": "^8.3.4",
     "@types/vscode": "~1.61.0",
     "chai": "^4.3.6",
     "esbuild": "^0.17.11",
+    "fast-xml-parser": "^3.20.0",
     "fs-extra": "11.1.0",
-    "glob": "^7.1.7"
+    "glob": "^7.1.7",
+    "mocha": "^8.1.3"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
-    "@cursorless/cursorless-vscode-core": "workspace:*",
-    "@cursorless/vscode-common": "workspace:*"
+    "@cursorless/vscode-common": "workspace:*",
+    "lodash": "^4.17.21",
+    "semver": "^7.3.9",
+    "uuid": "^9.0.0",
+    "vscode-uri": "^3.0.6"
   }
 }

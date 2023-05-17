@@ -1,12 +1,11 @@
+import type { EveryScopeModifier, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError, Range } from "@cursorless/common";
-import type { EveryScopeModifier } from "@cursorless/common";
-import type { Target } from "../../typings/target.types";
 import type { ProcessedTargetsContext } from "../../typings/Types";
-import getModifierStage from "../getModifierStage";
+import type { Target } from "../../typings/target.types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import getLegacyScopeStage from "./getLegacyScopeStage";
-import getScopeHandler from "./scopeHandlers/getScopeHandler";
-import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
+import { getContainingScopeTarget } from "./getContainingScopeTarget";
+import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
@@ -31,16 +30,25 @@ import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
  *    to the expanded target's {@link Target.contentRange}.
  */
 export class EveryScopeStage implements ModifierStage {
-  constructor(private modifier: EveryScopeModifier) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private scopeHandlerFactory: ScopeHandlerFactory,
+    private modifier: EveryScopeModifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
-    const scopeHandler = getScopeHandler(scopeType, editor.document.languageId);
+    const scopeHandler = this.scopeHandlerFactory.create(
+      scopeType,
+      editor.document.languageId,
+    );
 
     if (scopeHandler == null) {
-      return getLegacyScopeStage(this.modifier).run(context, target);
+      return this.modifierStageFactory
+        .getLegacyScopeStage(this.modifier)
+        .run(context, target);
     }
 
     let scopes: TargetScope[] | undefined;
@@ -69,7 +77,11 @@ export class EveryScopeStage implements ModifierStage {
       scopes = getScopesOverlappingRange(
         scopeHandler,
         editor,
-        this.getDefaultIterationRange(context, scopeHandler, target),
+        this.getDefaultIterationRange(
+          scopeHandler,
+          this.scopeHandlerFactory,
+          target,
+        ),
       );
     }
 
@@ -81,16 +93,47 @@ export class EveryScopeStage implements ModifierStage {
   }
 
   getDefaultIterationRange(
-    context: ProcessedTargetsContext,
     scopeHandler: ScopeHandler,
+    scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
   ): Range {
-    const containingIterationScopeModifier = getModifierStage({
-      type: "containingScope",
-      scopeType: scopeHandler.iterationScopeType,
-    });
+    const iterationScopeHandler = scopeHandlerFactory.create(
+      scopeHandler.iterationScopeType,
+      target.editor.document.languageId,
+    );
 
-    return containingIterationScopeModifier.run(context, target)[0]
-      .contentRange;
+    if (iterationScopeHandler == null) {
+      throw Error("Could not find iteration scope handler");
+    }
+
+    const iterationScopeTarget = getContainingScopeTarget(
+      target,
+      iterationScopeHandler,
+    );
+
+    if (iterationScopeTarget == null) {
+      throw new NoContainingScopeError(
+        `iteration scope for ${scopeHandler.scopeType!.type}`,
+      );
+    }
+
+    return iterationScopeTarget.contentRange;
   }
+}
+
+/**
+ * Returns a list of all scopes that have nonempty overlap with {@link range}.
+ */
+function getScopesOverlappingRange(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  { start, end }: Range,
+): TargetScope[] {
+  return Array.from(
+    scopeHandler.generateScopes(editor, start, "forward", {
+      distalPosition: end,
+      skipAncestorScopes: true,
+      allowAdjacentScopes: scopeHandler.includeAdjacentInEvery,
+    }),
+  );
 }

@@ -3,6 +3,16 @@ import type { Direction, ScopeType } from "@cursorless/common";
 import type { TargetScope } from "./scope.types";
 
 /**
+ * Used to handle a scope internally that doesn't have a well-defined scope
+ * type. Primarily used for iteration scopes, where the iteration scope doesn't
+ * correspond to a scope type that can be used directly by the user as a scope.
+ */
+export interface CustomScopeType {
+  type: "custom";
+  scopeHandler: ScopeHandler;
+}
+
+/**
  * Represents a scope type.  The functions in this interface allow us to find
  * specific instances of the given scope type in a document. These functions are
  * used by the various modifier stages to implement modifiers that involve the
@@ -24,16 +34,17 @@ import type { TargetScope } from "./scope.types";
  */
 export interface ScopeHandler {
   /**
-   * The scope type handled by this scope handler
+   * The scope type handled by this scope handler, or `undefined` if this scope
+   * handler doesn't have a well-defined scope type.
    */
-  readonly scopeType: ScopeType;
+  readonly scopeType: ScopeType | undefined;
 
   /**
    * The scope type of the default iteration scope of this scope type.  This
    * scope type will be used when the input target has no explicit range (ie
    * {@link Target.hasExplicitRange} is `false`).
    */
-  readonly iterationScopeType: ScopeType;
+  readonly iterationScopeType: ScopeType | CustomScopeType;
 
   /**
    * Returns an iterable of scopes meeting the requirements in
@@ -69,6 +80,13 @@ export interface ScopeHandler {
     scopeA: TargetScope,
     scopeB: TargetScope,
   ): boolean | undefined;
+
+  /**
+   * Whether to include adjacent scopes when used in an "every" modifier.  This
+   * was added so that "every line" will include the line you're on even if your
+   * range is at the beginning or end of the line.
+   */
+  readonly includeAdjacentInEvery: boolean;
 }
 
 export type ContainmentPolicy =
@@ -90,13 +108,45 @@ export interface ScopeIteratorRequirements {
    * - `"disallowedIfStrict"` means that the scope's
    *   {@link TargetScope.domain|domain} may not strictly contain position.  If
    *   position is directly adjacent to the domain, that *is* allowed.
+   * - `null` means that we don't care whether {@link TargetScope.domain|domain}
+   *   contains position or not
+   *
+   * @default null
    */
   containment: ContainmentPolicy | null;
 
   /**
    * Indicates that the {@link TargetScope.domain|domain} of the scopes must
    * start at or before this position for `"forward"`, or at or after this
-   * position for `"backward"`.
+   * position for `"backward"`.  If {@link allowAdjacentScopes} is `false`, then
+   * the domain must start strictly before this position (after for
+   * `"backward").
+   *
+   * Defaults to the end of the document for `"forward"`, or the start of the
+   * document for `"backward"`.
    */
-  distalPosition: Position | null;
+  distalPosition: Position;
+
+  /**
+   * Indicates that the {@link TargetScope.domain|domain} of the scopes is
+   * allowed to have empty overlap with the range `(position, distalPosition)`.
+   * If `false`, the domain must have nonempty overlap with `(position,
+   * distalPosition)`, unless the domain is empty.
+   *
+   * @default false
+   */
+  allowAdjacentScopes: boolean;
+
+  /**
+   * Indicates whether the ScopeHandler should skip yielding a scope if it is an
+   * ancestor of any scope that has been previously yielded.
+   *
+   * - `true` means that ancestor scopes of any previously yielded scope will
+   *   not be yielded.
+   * - `false` means that all ancestor scopes of any previously yielded scope
+   *   will be yielded.
+   *
+   * @default false
+   */
+  skipAncestorScopes: boolean;
 }

@@ -1,0 +1,28 @@
+languageId: javascriptreact
+command:
+  version: 5
+  spokenForm: clear start tag
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: xmlStartTag}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function Comp() {
+        return <>text</>;
+    }
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks: {}
+finalState:
+  documentContents: |-
+    function Comp() {
+        return text</>;
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}

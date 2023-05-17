@@ -24,9 +24,6 @@
       "path": "./packages/cursorless-vscode"
     },
     {
-      "path": "./packages/cursorless-vscode-core"
-    },
-    {
       "path": "./packages/cursorless-vscode-e2e"
     },
     {

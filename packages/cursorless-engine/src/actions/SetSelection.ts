@@ -1,13 +1,12 @@
 import { Selection } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export class SetSelection implements Action {
-  constructor(private graph: Graph) {
+  constructor() {
     this.run = this.run.bind(this);
   }
 

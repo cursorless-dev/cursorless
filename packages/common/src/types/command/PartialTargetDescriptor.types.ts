@@ -344,7 +344,7 @@ export type Modifier =
 
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
-export type RangeType = "continuous" | "vertical";
+export type PartialRangeType = "continuous" | "vertical";
 
 export interface PartialRangeTargetDescriptor {
   type: "range";
@@ -352,7 +352,7 @@ export interface PartialRangeTargetDescriptor {
   active: PartialPrimitiveTargetDescriptor;
   excludeAnchor: boolean;
   excludeActive: boolean;
-  rangeType?: RangeType;
+  rangeType?: PartialRangeType;
 }
 
 export interface PartialListTargetDescriptor {

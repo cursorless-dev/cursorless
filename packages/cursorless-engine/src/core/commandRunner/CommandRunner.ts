@@ -2,35 +2,35 @@ import {
   ActionType,
   Command,
   HatTokenMap,
+  isTesting,
   PartialTargetV0V1,
 } from "@cursorless/common";
 import { ActionRecord } from "../../actions/actions.types";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Actions } from "../../actions/Actions";
 import { TestCaseRecorder } from "../../index";
-import processTargets from "../../processTargets";
+import { TargetPipeline } from "../../processTargets";
+import { MarkStageFactory } from "../../processTargets/MarkStageFactory";
+import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import { ide } from "../../singletons/ide.singleton";
-import { Graph } from "../../typings/Graph";
-import { Target } from "../../typings/target.types";
 import { TreeSitter } from "../../typings/TreeSitter";
 import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
+import { Target } from "../../typings/target.types";
 import { isString } from "../../util/type";
+import { Debug } from "../Debug";
+import { ThatMark } from "../ThatMark";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { Debug } from "../Debug";
 import inferFullTargets from "../inferFullTargets";
-import { ThatMark } from "../ThatMark";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
-// TODO: Do this using the graph once we migrate its dependencies onto the graph
 export class CommandRunner {
   constructor(
-    private graph: Graph,
     private treeSitter: TreeSitter,
     private debug: Debug,
     private hatTokenMap: HatTokenMap,
@@ -38,6 +38,8 @@ export class CommandRunner {
     private actions: ActionRecord,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
+    private modifierStageFactory: ModifierStageFactory,
+    private markStageFactory: MarkStageFactory,
   ) {
     this.runCommandBackwardCompatible =
       this.runCommandBackwardCompatible.bind(this);
@@ -136,12 +138,18 @@ export class CommandRunner {
 
       // NB: We do this once test recording has started so that we can capture
       // warning.
-      checkForOldInference(this.graph, partialTargetDescriptors);
+      checkForOldInference(partialTargetDescriptors);
 
-      const targets = processTargets(
+      // FIXME: Construct this on a per-request basis in the composition root.
+      // Then we don't need `CommandRunner` to depend on these factories and be
+      // tightly coupled to `TargetPipeline`.
+      const pipeline = new TargetPipeline(
+        this.modifierStageFactory,
+        this.markStageFactory,
         processedTargetsContext,
-        targetDescriptors,
       );
+
+      const targets = pipeline.processTargets(targetDescriptors);
 
       const {
         returnValue,
@@ -163,7 +171,9 @@ export class CommandRunner {
       return returnValue;
     } catch (e) {
       const err = e as Error;
-      console.error(err.stack);
+      if (!isTesting()) {
+        console.error(err.stack);
+      }
       await this.testCaseRecorder.commandErrorHook(err);
       throw e;
     } finally {

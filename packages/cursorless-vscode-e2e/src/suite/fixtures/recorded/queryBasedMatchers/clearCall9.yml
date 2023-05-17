@@ -1,0 +1,18 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: clear call
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "  aaa()"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+  marks: {}
+thrownError: {name: NoContainingScopeError}

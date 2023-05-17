@@ -1,6 +1,8 @@
 import { FlashStyle, ScopeType } from "@cursorless/common";
+import { Snippets } from "../core/Snippets";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { Graph } from "../index";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import {
@@ -11,7 +13,6 @@ import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
 import { Action, ActionReturnValue } from "./actions.types";
-import { Snippets } from "../core/Snippets";
 
 interface NamedSnippetArg {
   type: "named";
@@ -29,7 +30,11 @@ type WrapWithSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export default class WrapWithSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  constructor(private graph: Graph, private snippets: Snippets) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private snippets: Snippets,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -41,7 +46,7 @@ export default class WrapWithSnippet implements Action {
     }
 
     return [
-      new ModifyIfUntypedStage({
+      new ModifyIfUntypedStage(this.modifierStageFactory, {
         type: "modifyIfUntyped",
         modifier: {
           type: "containingScope",
@@ -112,7 +117,7 @@ export default class WrapWithSnippet implements Action {
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelections(
-      this.graph.rangeUpdater,
+      this.rangeUpdater,
       () => editor.insertSnippet(snippetString, targetSelections),
       editor.document,
       [targetSelections],

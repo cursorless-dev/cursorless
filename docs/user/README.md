@@ -143,7 +143,7 @@ Note that if the mark is `"this"`, and you have multiple cursors, the modifiers 
 
 ##### Syntactic scopes
 
-For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../packages/cursorless-engine/src/languages/constants.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say "cursorless help") will have the most up-to-date list.
+For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../queries) for a list of supported languages. Some languages are still supported using our legacy implementation; those will be listed in [here](../../packages/cursorless-engine/src/languages/LegacyLanguageId.ts). Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say `"cursorless cheatsheet"` with VSCode focused) will have the most up-to-date list.
 
 | Term           | Syntactic element                                   |
 | -------------- | --------------------------------------------------- |
@@ -397,6 +397,12 @@ For example:
 - `"pre air slice bat"`: Places cursors at the same position on every line (inclusive) between token with hat over the `a` and token with the hat over the `b`. The position will be the start of the token with a hat over the `a`
 - `"chuck tail air slice end of block"`: Delete the end of every line from air through the end of its non-empty line block.
 
+##### `"every"` ranges
+
+If the range target begins with `"every <scope>"`, eg `"take every line air past bat"`, then you will end up with one target for each instance of `<scope>` in the range. For example, `"post every line air past bat"` will put a cursor at the end of every line from the line containing the token with a hat over the letter `a` to the line containing the token with a hat over the letter `b`.
+
+These `"every"` ranges also play nicely with exclusive ranges, eg `"take every funk air until bat"` will select every function starting from the function containing the token with a hat over the letter `a` up until, but not including, the function containing the token with a hat over the letter `b`.
+
 #### List targets
 
 In addition to range targets, cursorless supports list targets, which allow you to refer to multiple targets at the same time. When combined with the `"take"` action, this will result in multiple cursors, for other actions, such as `"chuck"` the action will be applied to all the different targets at once.
@@ -499,6 +505,17 @@ For example:
 eg:
 `pour blue air`
 Insert empty line below the token containing letter 'a' with a blue hat.
+
+### Homophones
+
+The `"phones"` command can be used to cycle through homophones for a given target. For example, if there were a hat on the `h` in `where`, you could say `"phones harp"` to change it to `wear`.
+
+- `"phones <TARGET>"`
+
+eg:
+
+- `"phones air"`
+- `"phones first word air"`
 
 ### Rename
 

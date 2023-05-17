@@ -12,7 +12,6 @@ import {
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
-import { Graph } from "../../typings/Graph";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
@@ -121,7 +120,6 @@ function usesScopeType(
 }
 
 export async function checkForOldInference(
-  graph: Graph,
   partialTargets: PartialTargetDescriptor[],
 ) {
   const hasOldInference = partialTargets.some((target) => {

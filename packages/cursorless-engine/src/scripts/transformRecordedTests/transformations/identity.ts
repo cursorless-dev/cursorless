@@ -1,5 +1,5 @@
-import { TestCaseFixture } from "@cursorless/common";
+import { TestCaseFixtureLegacy } from "@cursorless/common";
 
-export function identity(fixture: TestCaseFixture) {
+export function identity(fixture: TestCaseFixtureLegacy) {
   return fixture;
 }

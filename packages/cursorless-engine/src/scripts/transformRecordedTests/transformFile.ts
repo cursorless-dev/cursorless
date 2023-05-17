@@ -11,5 +11,7 @@ export async function transformFile(
   const buffer = await fsp.readFile(file);
   const inputFixture = yaml.load(buffer.toString()) as TestCaseFixture;
   const outputFixture = transformation(inputFixture);
-  await fsp.writeFile(file, serialize(outputFixture));
+  if (outputFixture != null) {
+    await fsp.writeFile(file, serialize(outputFixture));
+  }
 }

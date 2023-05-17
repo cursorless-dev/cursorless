@@ -5,14 +5,14 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import { flatten } from "lodash";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
 import { EditWithRangeUpdater } from "../typings/Types";
-import { Graph } from "../typings/Graph";
+import { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import {
   flashTargets,
@@ -39,7 +39,7 @@ interface MarkEntry {
 }
 
 class BringMoveSwap implements Action {
-  constructor(private graph: Graph, private type: ActionType) {
+  constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {
     this.run = this.run.bind(this);
   }
 
@@ -192,7 +192,7 @@ class BringMoveSwap implements Action {
 
           const [updatedEditSelections, cursorSelections]: Selection[][] =
             await performEditsAndUpdateFullSelectionInfos(
-              this.graph.rangeUpdater,
+              this.rangeUpdater,
               editableEditor,
               filteredEdits.map(({ edit }) => edit),
               [editSelectionInfos, cursorSelectionInfos],
@@ -278,20 +278,20 @@ class BringMoveSwap implements Action {
 }
 
 export class Bring extends BringMoveSwap {
-  constructor(graph: Graph) {
-    super(graph, "bring");
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, "bring");
   }
 }
 
 export class Move extends BringMoveSwap {
-  constructor(graph: Graph) {
-    super(graph, "move");
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, "move");
   }
 }
 
 export class Swap extends BringMoveSwap {
-  constructor(graph: Graph) {
-    super(graph, "swap");
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, "swap");
   }
 }
 

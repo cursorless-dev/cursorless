@@ -1,7 +1,6 @@
 import { HighlightId } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import {
   runOnTargetsForEachEditor,
   toGeneralizedRange,
@@ -9,7 +8,7 @@ import {
 import { Action, ActionReturnValue } from "./actions.types";
 
 export default class Highlight implements Action {
-  constructor(private graph: Graph) {
+  constructor() {
     this.run = this.run.bind(this);
   }
 

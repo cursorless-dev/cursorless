@@ -1,0 +1,48 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear core every class
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: everyScope
+          scopeType: {type: class}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    class Aaa:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
+
+        def eee():
+            ddd = "eee"
+            def fff():
+                pass
+
+    class Bbb:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
+  selections:
+    - anchor: {line: 8, character: 19}
+      active: {line: 8, character: 19}
+  marks: {}
+finalState:
+  documentContents: |
+    class Aaa:
+        
+
+    class Bbb:
+        
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

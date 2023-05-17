@@ -11,7 +11,7 @@ import { abs } from "../util/bigint";
 import { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
-import { Graph } from "..";
+import { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -40,13 +40,13 @@ export class HatTokenMapImpl implements HatTokenMap {
   private hatAllocator: HatAllocator;
 
   constructor(
-    graph: Graph,
+    rangeUpdater: RangeUpdater,
     private debug: Debug,
     hats: Hats,
     private commandServerApi: CommandServerApi | null,
   ) {
     ide().disposeOnExit(this);
-    this.activeMap = new IndividualHatMap(graph);
+    this.activeMap = new IndividualHatMap(rangeUpdater);
 
     this.getActiveMap = this.getActiveMap.bind(this);
     this.allocateHats = this.allocateHats.bind(this);

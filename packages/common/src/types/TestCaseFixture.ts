@@ -1,18 +1,15 @@
+import { Command, CommandLatest } from "..";
 import { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
 import { PlainSpyIDERecordedValues } from "../testUtil/toPlainObject";
-import { CommandLatest } from "./command/command.types";
-
-export type TestCaseCommand = CommandLatest;
 
 export type ThrownError = {
   name: string;
 };
 
-export type TestCaseFixture = {
+interface TestCaseFixtureBase {
   languageId: string;
   postEditorOpenSleepTimeMs?: number;
   postCommandSleepTimeMs?: number;
-  command: TestCaseCommand;
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined
@@ -32,4 +29,12 @@ export type TestCaseFixture = {
    * error test case.
    */
   returnValue?: unknown;
-};
+}
+
+export interface TestCaseFixture extends TestCaseFixtureBase {
+  command: CommandLatest;
+}
+
+export interface TestCaseFixtureLegacy extends TestCaseFixtureBase {
+  command: Command;
+}

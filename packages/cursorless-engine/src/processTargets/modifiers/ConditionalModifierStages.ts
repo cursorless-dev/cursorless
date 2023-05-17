@@ -1,14 +1,17 @@
 import { Modifier, ModifyIfUntypedModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
 import { ProcessedTargetsContext } from "../../typings/Types";
-import getModifierStage from "../getModifierStage";
+import { Target } from "../../typings/target.types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
 
 abstract class ConditionalModifierBaseStage implements ModifierStage {
   private nestedStage_?: ModifierStage;
   protected suppressErrors = false;
 
-  constructor(private nestedModifier: Modifier) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private nestedModifier: Modifier,
+  ) {}
 
   run(context: ProcessedTargetsContext, target: Target): Target[] {
     if (this.shouldModify(target)) {
@@ -31,7 +34,7 @@ abstract class ConditionalModifierBaseStage implements ModifierStage {
 
   private get nestedStage() {
     if (this.nestedStage_ == null) {
-      this.nestedStage_ = getModifierStage(this.nestedModifier);
+      this.nestedStage_ = this.modifierStageFactory.create(this.nestedModifier);
     }
 
     return this.nestedStage_;
@@ -45,8 +48,11 @@ abstract class ConditionalModifierBaseStage implements ModifierStage {
  * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
  */
 export class ModifyIfUntypedStage extends ConditionalModifierBaseStage {
-  constructor(modifier: ModifyIfUntypedModifier) {
-    super(modifier.modifier);
+  constructor(
+    modifierStageFactory: ModifierStageFactory,
+    modifier: ModifyIfUntypedModifier,
+  ) {
+    super(modifierStageFactory, modifier.modifier);
   }
 
   protected shouldModify(target: Target): boolean {
@@ -77,8 +83,11 @@ export class ModifyIfUntypedExplicitStage extends ConditionalModifierBaseStage {
 export class ContainingTokenIfUntypedEmptyStage extends ConditionalModifierBaseStage {
   suppressErrors = true;
 
-  constructor() {
-    super({ type: "containingScope", scopeType: { type: "token" } });
+  constructor(modifierStageFactory: ModifierStageFactory) {
+    super(modifierStageFactory, {
+      type: "containingScope",
+      scopeType: { type: "token" },
+    });
   }
 
   protected shouldModify(target: Target): boolean {

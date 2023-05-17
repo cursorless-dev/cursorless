@@ -1,8 +1,9 @@
-import { containingLineIfUntypedStage } from "../../processTargets/modifiers/commonContainingScopeIfUntypedStages";
+import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
+import { containingLineIfUntypedModifier } from "../../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import PositionStage from "../../processTargets/modifiers/PositionStage";
+import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { ide } from "../../singletons/ide.singleton";
-import { Graph } from "../../typings/Graph";
 import { Target } from "../../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
@@ -15,10 +16,14 @@ import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
 export class EditNew implements Action {
   getFinalStages(): ModifierStage[] {
-    return [containingLineIfUntypedStage];
+    return [this.modifierStageFactory.create(containingLineIfUntypedModifier)];
   }
 
-  constructor(private graph: Graph, private actions: Actions) {
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private actions: Actions,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
     this.run = this.run.bind(this);
   }
 
@@ -44,8 +49,12 @@ export class EditNew implements Action {
       cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
     };
 
-    state = await runInsertLineAfterTargets(this.graph, editableEditor, state);
-    state = await runEditTargets(this.graph, editableEditor, state);
+    state = await runInsertLineAfterTargets(
+      this.rangeUpdater,
+      editableEditor,
+      state,
+    );
+    state = await runEditTargets(this.rangeUpdater, editableEditor, state);
 
     const newSelections = state.targets.map((target, index) =>
       state.cursorRanges[index]!.toSelection(target.isReversed),
