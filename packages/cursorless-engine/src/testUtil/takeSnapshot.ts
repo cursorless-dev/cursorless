@@ -11,12 +11,12 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import type { ThatMark } from "../core/ThatMark";
+import type { StoredTargets } from "../core/StoredTargets";
 import { targetToPlainObject } from "./targetToPlainObject";
 
 export async function takeSnapshot(
-  thatMark: ThatMark | undefined,
-  sourceMark: ThatMark | undefined,
+  thatMark: StoredTargets | undefined,
+  sourceMark: StoredTargets | undefined,
   excludeFields: ExcludableSnapshotField[] = [],
   extraFields: ExtraSnapshotField[] = [],
   editor: TextEditor,
@@ -47,20 +47,14 @@ export async function takeSnapshot(
     snapshot.visibleRanges = editor.visibleRanges.map(rangeToPlainObject);
   }
 
-  if (
-    thatMark != null &&
-    thatMark.exists() &&
-    !excludeFields.includes("thatMark")
-  ) {
-    snapshot.thatMark = thatMark.get().map(targetToPlainObject);
+  const thatMarkTargets = thatMark?.get();
+  if (thatMarkTargets != null && !excludeFields.includes("thatMark")) {
+    snapshot.thatMark = thatMarkTargets.map(targetToPlainObject);
   }
 
-  if (
-    sourceMark != null &&
-    sourceMark.exists() &&
-    !excludeFields.includes("sourceMark")
-  ) {
-    snapshot.sourceMark = sourceMark.get().map(targetToPlainObject);
+  const sourceMarkTargets = sourceMark?.get();
+  if (sourceMarkTargets != null && !excludeFields.includes("sourceMark")) {
+    snapshot.sourceMark = sourceMarkTargets.map(targetToPlainObject);
   }
 
   if (extraFields.includes("timeOffsetSeconds")) {

@@ -11,7 +11,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
-  ThatMark,
+  StoredTargets,
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
@@ -22,8 +22,8 @@ import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 
 export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
-  thatMark: ThatMark,
-  sourceMark: ThatMark,
+  thatMark: StoredTargets,
+  sourceMark: StoredTargets,
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
