@@ -20,7 +20,7 @@ import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget, PositionTarget } from "./targets";
 
-export class TargetPipeline {
+export class TargetPipelineRunner {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,

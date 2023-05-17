@@ -1,4 +1,4 @@
-import { targetsToContinuousTarget } from "../processTargets/TargetPipeline";
+import { targetsToContinuousTarget } from "../processTargets/TargetPipelineRunner";
 import { Target } from "../typings/target.types";
 import { groupTargetsForEachEditor } from "./targetUtils";
 

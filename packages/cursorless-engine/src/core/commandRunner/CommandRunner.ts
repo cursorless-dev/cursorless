@@ -9,7 +9,7 @@ import { ActionRecord } from "../../actions/actions.types";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Actions } from "../../actions/Actions";
 import { TestCaseRecorder } from "../../index";
-import { TargetPipeline } from "../../processTargets";
+import { TargetPipelineRunner } from "../../processTargets";
 import { MarkStageFactory } from "../../processTargets/MarkStageFactory";
 import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import { ide } from "../../singletons/ide.singleton";
@@ -143,7 +143,7 @@ export class CommandRunner {
       // FIXME: Construct this on a per-request basis in the composition root.
       // Then we don't need `CommandRunner` to depend on these factories and be
       // tightly coupled to `TargetPipeline`.
-      const pipeline = new TargetPipeline(
+      const pipeline = new TargetPipelineRunner(
         this.modifierStageFactory,
         this.markStageFactory,
         processedTargetsContext,
