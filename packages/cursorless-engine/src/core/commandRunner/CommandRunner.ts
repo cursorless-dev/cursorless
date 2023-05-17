@@ -111,8 +111,6 @@ export class CommandRunner {
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        actionPrePositionStages,
-        actionFinalStages,
         currentSelections:
           ide().activeTextEditor?.selections.map((selection) => ({
             selection,
@@ -149,7 +147,11 @@ export class CommandRunner {
         processedTargetsContext,
       );
 
-      const targets = pipeline.processTargets(targetDescriptors);
+      const targets = pipeline.run(
+        targetDescriptors,
+        actionPrePositionStages,
+        actionFinalStages,
+      );
 
       const {
         returnValue,
