@@ -1,11 +1,12 @@
+import { ide } from "../../singletons/ide.singleton";
 import type { Target } from "../../typings/target.types";
-import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { MarkStage } from "../PipelineStages.types";
 import { ImplicitTarget } from "../targets";
+import { getActiveSelections } from "./getActiveSelections";
 
 export default class ImplicitStage implements MarkStage {
-  run(context: ProcessedTargetsContext): Target[] {
-    return context.currentSelections.map(
+  run(): Target[] {
+    return getActiveSelections(ide()).map(
       (selection) =>
         new ImplicitTarget({
           editor: selection.editor,

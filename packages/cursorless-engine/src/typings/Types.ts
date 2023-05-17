@@ -9,8 +9,6 @@ import type { SyntaxNode } from "web-tree-sitter";
 import { Target } from "./target.types";
 
 export interface ProcessedTargetsContext {
-  currentSelections: SelectionWithEditor[];
-  currentEditor: TextEditor | undefined;
   hatTokenMap: ReadOnlyHatMap;
   thatMark: Target[];
   sourceMark: Target[];

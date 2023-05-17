@@ -1,14 +1,15 @@
-import type { Target } from "../../typings/target.types";
 import type { CursorMark } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
+import { ide } from "../../singletons/ide.singleton";
+import type { Target } from "../../typings/target.types";
 import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
+import { getActiveSelections } from "./getActiveSelections";
 
 export default class CursorStage implements MarkStage {
   constructor(private mark: CursorMark) {}
 
-  run(context: ProcessedTargetsContext): Target[] {
-    return context.currentSelections.map(
+  run(): Target[] {
+    return getActiveSelections(ide()).map(
       (selection) =>
         new UntypedTarget({
           editor: selection.editor,

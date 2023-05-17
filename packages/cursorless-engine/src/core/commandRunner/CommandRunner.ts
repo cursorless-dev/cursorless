@@ -12,7 +12,6 @@ import { TestCaseRecorder } from "../../index";
 import { TargetPipelineRunner } from "../../processTargets";
 import { MarkStageFactory } from "../../processTargets/MarkStageFactory";
 import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
-import { ide } from "../../singletons/ide.singleton";
 import { TreeSitter } from "../../typings/TreeSitter";
 import {
   ProcessedTargetsContext,
@@ -111,12 +110,6 @@ export class CommandRunner {
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        currentSelections:
-          ide().activeTextEditor?.selections.map((selection) => ({
-            selection,
-            editor: ide().activeTextEditor!,
-          })) ?? [],
-        currentEditor: ide().activeTextEditor,
         hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
