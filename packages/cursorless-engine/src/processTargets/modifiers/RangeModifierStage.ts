@@ -1,5 +1,4 @@
 import { RangeModifier } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
@@ -11,11 +10,11 @@ export default class RangeModifierStage implements ModifierStage {
     private modifier: RangeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const anchorStage = this.modifierStageFactory.create(this.modifier.anchor);
     const activeStage = this.modifierStageFactory.create(this.modifier.active);
-    const anchorTargets = anchorStage.run(context, target);
-    const activeTargets = activeStage.run(context, target);
+    const anchorTargets = anchorStage.run(target);
+    const activeTargets = activeStage.run(target);
 
     if (anchorTargets.length !== 1 || activeTargets.length !== 1) {
       throw new Error("Expected single anchor and active target");

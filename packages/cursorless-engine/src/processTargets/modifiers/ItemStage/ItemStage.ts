@@ -7,7 +7,6 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { ProcessedTargetsContext } from "../../../typings/Types";
 import { Target } from "../../../typings/target.types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
@@ -25,13 +24,13 @@ export default class ItemStage implements ModifierStage {
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     // First try the language specific implementation of item
     try {
       return new ContainingSyntaxScopeStage(
         this.languageDefinitions,
         this.modifier as SimpleContainingScopeModifier,
-      ).run(context, target);
+      ).run(target);
     } catch (_error) {
       // do nothing
     }

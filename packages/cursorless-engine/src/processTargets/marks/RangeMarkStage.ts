@@ -1,5 +1,4 @@
 import { RangeMark } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { MarkStageFactory } from "../MarkStageFactory";
 import { MarkStage } from "../PipelineStages.types";
@@ -11,11 +10,11 @@ export default class RangeMarkStage implements MarkStage {
     private mark: RangeMark,
   ) {}
 
-  run(context: ProcessedTargetsContext): Target[] {
+  run(): Target[] {
     const anchorStage = this.markStageFactory.create(this.mark.anchor);
     const activeStage = this.markStageFactory.create(this.mark.active);
-    const anchorTargets = anchorStage.run(context);
-    const activeTargets = activeStage.run(context);
+    const anchorTargets = anchorStage.run();
+    const activeTargets = activeStage.run();
 
     if (anchorTargets.length !== 1 || activeTargets.length !== 1) {
       throw new Error("Expected single anchor and active target");

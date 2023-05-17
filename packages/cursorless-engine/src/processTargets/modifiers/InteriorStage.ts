@@ -2,7 +2,6 @@ import {
   ExcludeInteriorModifier,
   InteriorOnlyModifier,
 } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
@@ -14,10 +13,10 @@ export class InteriorOnlyStage implements ModifierStage {
     private modifier: InteriorOnlyModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     return this.modifierStageFactory
       .create(containingSurroundingPairIfUntypedModifier)
-      .run(context, target)
+      .run(target)
       .flatMap((target) => target.getInteriorStrict());
   }
 }
@@ -28,10 +27,10 @@ export class ExcludeInteriorStage implements ModifierStage {
     private modifier: ExcludeInteriorModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     return this.modifierStageFactory
       .create(containingSurroundingPairIfUntypedModifier)
-      .run(context, target)
+      .run(target)
       .flatMap((target) => target.getBoundaryStrict());
   }
 }

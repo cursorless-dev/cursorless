@@ -1,5 +1,4 @@
 import { HeadTailModifier, Modifier, Range } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
@@ -16,7 +15,7 @@ abstract class HeadTailStage implements ModifierStage {
     private modifiers?: Modifier[],
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const modifiers = this.modifiers ?? [
       {
         type: "containingScope",
@@ -28,9 +27,7 @@ abstract class HeadTailStage implements ModifierStage {
       this.modifierStageFactory,
       modifiers,
     );
-    const modifiedTargets = processModifierStages(context, modifierStages, [
-      target,
-    ]);
+    const modifiedTargets = processModifierStages(modifierStages, [target]);
 
     return modifiedTargets.map((modifiedTarget) => {
       const contentRange = this.constructContentRange(
