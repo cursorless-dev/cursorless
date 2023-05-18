@@ -6,7 +6,7 @@ import { ModifierStage } from "../PipelineStages.types";
 import {
   getModifierStagesFromTargetModifiers,
   processModifierStages,
-} from "../TargetPipeline";
+} from "../TargetPipelineRunner";
 import { TokenTarget } from "../targets";
 
 abstract class HeadTailStage implements ModifierStage {

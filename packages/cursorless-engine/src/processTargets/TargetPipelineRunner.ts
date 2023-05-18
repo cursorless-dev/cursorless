@@ -20,11 +20,56 @@ import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget, PositionTarget } from "./targets";
 
-export class TargetPipeline {
+export class TargetPipelineRunner {
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private markStageFactory: MarkStageFactory,
+    /**
+     * Captures the environment needed to convert the abstract target
+     * description given by the user to a concrete representation usable by
+     * actions
+     */
+    private context: ProcessedTargetsContext,
+  ) {}
+
+  /**
+   * Converts the abstract target descriptions provided by the user to a
+   * concrete representation usable by actions. Conceptually, the input will be
+   * something like "the function call argument containing the cursor" and the
+   * output will be something like "line 3, characters 5 through 10".
+   * @param targets The abstract target representations provided by the user
+   * @param actionPrePositionStages Modifier stages contributed by the action
+   * @param actionFinalStages Modifier stages contributed by the action that
+   * should run at the end of the modifier pipeline
+   * @returns A list of lists of typed selections, one list per input target.
+   * Each typed selection includes the selection, as well the uri of the
+   * document containing it, and potentially rich context information such as
+   * how to remove the target
+   */
+  run(
+    targets: TargetDescriptor[],
+    actionPrePositionStages?: ModifierStage[],
+    actionFinalStages?: ModifierStage[],
+  ): Target[][] {
+    return new TargetPipeline(
+      this.modifierStageFactory,
+      this.markStageFactory,
+      this.context,
+      targets,
+      actionPrePositionStages ?? [],
+      actionFinalStages ?? [],
+    ).run();
+  }
+}
+
+class TargetPipeline {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
     private context: ProcessedTargetsContext,
+    private targets: TargetDescriptor[],
+    private actionPrePositionStages: ModifierStage[],
+    private actionFinalStages: ModifierStage[],
   ) {}
 
   /**
@@ -41,8 +86,10 @@ export class TargetPipeline {
    * containing it, and potentially rich context information such as how to remove
    * the target
    */
-  processTargets(targets: TargetDescriptor[]): Target[][] {
-    return targets.map((target) => uniqTargets(this.processTarget(target)));
+  run(): Target[][] {
+    return this.targets.map((target) =>
+      uniqTargets(this.processTarget(target)),
+    );
   }
 
   processTarget(target: TargetDescriptor): Target[] {
@@ -231,9 +278,9 @@ export class TargetPipeline {
      */
     const modifierStages = [
       ...nonPositionModifierStages,
-      ...this.context.actionPrePositionStages,
+      ...this.actionPrePositionStages,
       ...positionModifierStages,
-      ...this.context.actionFinalStages,
+      ...this.actionFinalStages,
 
       // This performs auto-expansion to token when you say eg "take this" with an
       // empty selection

@@ -3,7 +3,7 @@ import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { MarkStageFactory } from "../MarkStageFactory";
 import { MarkStage } from "../PipelineStages.types";
-import { targetsToContinuousTarget } from "../TargetPipeline";
+import { targetsToContinuousTarget } from "../TargetPipelineRunner";
 
 export default class RangeMarkStage implements MarkStage {
   constructor(
