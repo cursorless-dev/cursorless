@@ -43,7 +43,6 @@ export function createCursorlessEngine(
   const languageDefinitions = new LanguageDefinitions(treeSitter);
 
   const commandRunner = new CommandRunner(
-    treeSitter,
     debug,
     hatTokenMap,
     testCaseRecorder,

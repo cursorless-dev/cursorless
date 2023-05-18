@@ -3,11 +3,13 @@ import {
   Command,
   HatTokenMap,
   isTesting,
+  PartialTargetDescriptor,
   PartialTargetV0V1,
+  ReadOnlyHatMap,
 } from "@cursorless/common";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Actions } from "../../actions/Actions";
-import { ActionRecord } from "../../actions/actions.types";
+import { Action, ActionRecord } from "../../actions/actions.types";
 import { StoredTargetMap, TestCaseRecorder } from "../../index";
 import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "../../processTargets";
@@ -15,7 +17,6 @@ import { MarkStageFactoryImpl } from "../../processTargets/MarkStageFactoryImpl"
 import { ScopeHandlerFactoryImpl } from "../../processTargets/modifiers/scopeHandlers";
 import { ModifierStageFactoryImpl } from "../../processTargets/ModifierStageFactoryImpl";
 import { Target } from "../../typings/target.types";
-import { TreeSitter } from "../../typings/TreeSitter";
 import { SelectionWithEditor } from "../../typings/Types";
 import { isString } from "../../util/type";
 import {
@@ -30,7 +31,6 @@ import { selectionToThatTarget } from "./selectionToThatTarget";
 
 export class CommandRunner {
   constructor(
-    private treeSitter: TreeSitter,
     private debug: Debug,
     private hatTokenMap: HatTokenMap,
     private testCaseRecorder: TestCaseRecorder,
@@ -81,49 +81,14 @@ export class CommandRunner {
         usePrePhraseSnapshot,
       );
 
-      const scopeHandlerFactory = new ScopeHandlerFactoryImpl(
-        this.languageDefinitions,
-      );
-      const markStageFactory = new MarkStageFactoryImpl(
+      const { action, pipelineRunner } = this.constructComponents(
         readableHatMap,
-        this.storedTargets,
+        actionName,
       );
-      const modifierStageFactory = new ModifierStageFactoryImpl(
-        this.languageDefinitions,
-        scopeHandlerFactory,
-      );
-      const actions: ActionRecord = new Actions(
-        this.snippets,
-        this.rangeUpdater,
-        modifierStageFactory,
-      );
-      const pipelineRunner = new TargetPipelineRunner(
-        modifierStageFactory,
-        markStageFactory,
-      );
-
-      const action = actions[actionName];
 
       if (action == null) {
         throw new Error(`Unknown action ${actionName}`);
       }
-
-      const targetDescriptors = inferFullTargets(partialTargetDescriptors);
-
-      if (this.debug.active) {
-        this.debug.log("Full targets:");
-        this.debug.log(JSON.stringify(targetDescriptors, null, 3));
-      }
-
-      const actionPrePositionStages =
-        action.getPrePositionStages != null
-          ? action.getPrePositionStages(...actionArgs)
-          : [];
-
-      const actionFinalStages =
-        action.getFinalStages != null
-          ? action.getFinalStages(...actionArgs)
-          : [];
 
       if (this.testCaseRecorder.isActive()) {
         await this.testCaseRecorder.preCommandHook(
@@ -132,31 +97,11 @@ export class CommandRunner {
         );
       }
 
-      // NB: We do this once test recording has started so that we can capture
-      // warning.
-      checkForOldInference(partialTargetDescriptors);
-
-      const targets = pipelineRunner.run(
-        targetDescriptors,
-        actionPrePositionStages,
-        actionFinalStages,
-      );
-
-      const {
-        returnValue,
-        thatSelections: newThatSelections,
-        thatTargets: newThatTargets,
-        sourceSelections: newSourceSelections,
-        sourceTargets: newSourceTargets,
-      } = await action.run(targets, ...actionArgs);
-
-      this.storedTargets.set(
-        "that",
-        constructThatTarget(newThatTargets, newThatSelections),
-      );
-      this.storedTargets.set(
-        "source",
-        constructThatTarget(newSourceTargets, newSourceSelections),
+      const returnValue = await this.run(
+        action,
+        actionArgs,
+        partialTargetDescriptors,
+        pipelineRunner,
       );
 
       if (this.testCaseRecorder.isActive()) {
@@ -176,6 +121,88 @@ export class CommandRunner {
         this.testCaseRecorder.finallyHook();
       }
     }
+  }
+
+  private async run(
+    action: Action,
+    actionArgs: unknown[],
+    partialTargetDescriptors: PartialTargetDescriptor[],
+    pipelineRunner: TargetPipelineRunner,
+  ) {
+    // NB: We do this once test recording has started so that we can capture
+    // warning.
+    checkForOldInference(partialTargetDescriptors);
+
+    const targetDescriptors = inferFullTargets(partialTargetDescriptors);
+
+    if (this.debug.active) {
+      this.debug.log("Full targets:");
+      this.debug.log(JSON.stringify(targetDescriptors, null, 3));
+    }
+
+    const actionPrePositionStages =
+      action.getPrePositionStages != null
+        ? action.getPrePositionStages(...actionArgs)
+        : [];
+
+    const actionFinalStages =
+      action.getFinalStages != null ? action.getFinalStages(...actionArgs) : [];
+
+    const targets = pipelineRunner.run(
+      targetDescriptors,
+      actionPrePositionStages,
+      actionFinalStages,
+    );
+
+    const {
+      returnValue,
+      thatSelections: newThatSelections,
+      thatTargets: newThatTargets,
+      sourceSelections: newSourceSelections,
+      sourceTargets: newSourceTargets,
+    } = await action.run(targets, ...actionArgs);
+
+    this.storedTargets.set(
+      "that",
+      constructThatTarget(newThatTargets, newThatSelections),
+    );
+    this.storedTargets.set(
+      "source",
+      constructThatTarget(newSourceTargets, newSourceSelections),
+    );
+
+    return returnValue;
+  }
+
+  private constructComponents(
+    readableHatMap: ReadOnlyHatMap,
+    actionName: ActionType,
+  ): { action: Action | undefined; pipelineRunner: TargetPipelineRunner } {
+    const scopeHandlerFactory = new ScopeHandlerFactoryImpl(
+      this.languageDefinitions,
+    );
+    const markStageFactory = new MarkStageFactoryImpl(
+      readableHatMap,
+      this.storedTargets,
+    );
+    const modifierStageFactory = new ModifierStageFactoryImpl(
+      this.languageDefinitions,
+      scopeHandlerFactory,
+    );
+    const actions: ActionRecord = new Actions(
+      this.snippets,
+      this.rangeUpdater,
+      modifierStageFactory,
+    );
+
+    const action = actions[actionName];
+
+    const pipelineRunner = new TargetPipelineRunner(
+      modifierStageFactory,
+      markStageFactory,
+    );
+
+    return { action, pipelineRunner };
   }
 
   runCommandBackwardCompatible(
