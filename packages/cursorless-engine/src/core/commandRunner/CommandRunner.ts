@@ -5,28 +5,32 @@ import {
   isTesting,
   PartialTargetV0V1,
 } from "@cursorless/common";
-import { ActionRecord } from "../../actions/actions.types";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Actions } from "../../actions/Actions";
 import { TestCaseRecorder } from "../../index";
+import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "../../processTargets";
-import { MarkStageFactory } from "../../processTargets/MarkStageFactory";
-import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
+import { MarkStageFactoryImpl } from "../../processTargets/MarkStageFactoryImpl";
+import { ScopeHandlerFactoryImpl } from "../../processTargets/modifiers/scopeHandlers";
+import { ModifierStageFactoryImpl } from "../../processTargets/ModifierStageFactoryImpl";
+import { Target } from "../../typings/target.types";
 import { TreeSitter } from "../../typings/TreeSitter";
 import {
   ProcessedTargetsContext,
   SelectionWithEditor,
 } from "../../typings/Types";
-import { Target } from "../../typings/target.types";
 import { isString } from "../../util/type";
-import { Debug } from "../Debug";
-import { ThatMark } from "../ThatMark";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
 } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { Debug } from "../Debug";
 import inferFullTargets from "../inferFullTargets";
+import { Snippets } from "../Snippets";
+import { ThatMark } from "../ThatMark";
+import { RangeUpdater } from "../updateSelections/RangeUpdater";
 import { selectionToThatTarget } from "./selectionToThatTarget";
+import { ActionRecord } from "../../actions/actions.types";
 
 export class CommandRunner {
   constructor(
@@ -34,11 +38,11 @@ export class CommandRunner {
     private debug: Debug,
     private hatTokenMap: HatTokenMap,
     private testCaseRecorder: TestCaseRecorder,
-    private actions: ActionRecord,
+    private snippets: Snippets,
     private thatMark: ThatMark,
     private sourceMark: ThatMark,
-    private modifierStageFactory: ModifierStageFactory,
-    private markStageFactory: MarkStageFactory,
+    private languageDefinitions: LanguageDefinitions,
+    private rangeUpdater: RangeUpdater,
   ) {
     this.runCommandBackwardCompatible =
       this.runCommandBackwardCompatible.bind(this);
@@ -86,7 +90,21 @@ export class CommandRunner {
         usePrePhraseSnapshot,
       );
 
-      const action = this.actions[actionName];
+      const scopeHandlerFactory = new ScopeHandlerFactoryImpl(
+        this.languageDefinitions,
+      );
+      const markStageFactory = new MarkStageFactoryImpl(readableHatMap);
+      const modifierStageFactory = new ModifierStageFactoryImpl(
+        this.languageDefinitions,
+        scopeHandlerFactory,
+      );
+      const actions: ActionRecord = new Actions(
+        this.snippets,
+        this.rangeUpdater,
+        modifierStageFactory,
+      );
+
+      const action = actions[actionName];
 
       if (action == null) {
         throw new Error(`Unknown action ${actionName}`);
@@ -110,7 +128,6 @@ export class CommandRunner {
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        hatTokenMap: readableHatMap,
         thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
         sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
         getNodeAtLocation: this.treeSitter.getNodeAtLocation,
@@ -135,8 +152,8 @@ export class CommandRunner {
       // Then we don't need `CommandRunner` to depend on these factories and be
       // tightly coupled to `TargetPipeline`.
       const pipeline = new TargetPipelineRunner(
-        this.modifierStageFactory,
-        this.markStageFactory,
+        modifierStageFactory,
+        markStageFactory,
         processedTargetsContext,
       );
 

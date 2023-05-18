@@ -1,13 +1,9 @@
 import { CommandServerApi, Hats, IDE } from "@cursorless/common";
 import { CommandRunner, TestCaseRecorder, ThatMark, TreeSitter } from ".";
-import { Actions } from "./actions/Actions";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
-import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
-import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { injectIde } from "./singletons/ide.singleton";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 
@@ -38,13 +34,6 @@ export function createCursorlessEngine(
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
   const languageDefinitions = new LanguageDefinitions(treeSitter);
-  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
-  const markStageFactory = new MarkStageFactoryImpl();
-  const modifierStageFactory = new ModifierStageFactoryImpl(
-    languageDefinitions,
-    scopeHandlerFactory,
-  );
-  const actions = new Actions(snippets, rangeUpdater, modifierStageFactory);
 
   const thatMark = new ThatMark();
   const sourceMark = new ThatMark();
@@ -54,11 +43,11 @@ export function createCursorlessEngine(
     debug,
     hatTokenMap,
     testCaseRecorder,
-    actions,
+    snippets,
     thatMark,
     sourceMark,
-    modifierStageFactory,
-    markStageFactory,
+    languageDefinitions,
+    rangeUpdater,
   );
 
   return {

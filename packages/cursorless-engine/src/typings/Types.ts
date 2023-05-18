@@ -1,6 +1,5 @@
 import type {
   Range,
-  ReadOnlyHatMap,
   Selection,
   TextDocument,
   TextEditor,
@@ -9,7 +8,6 @@ import type { SyntaxNode } from "web-tree-sitter";
 import { Target } from "./target.types";
 
 export interface ProcessedTargetsContext {
-  hatTokenMap: ReadOnlyHatMap;
   thatMark: Target[];
   sourceMark: Target[];
   getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
