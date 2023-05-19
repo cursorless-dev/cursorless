@@ -9,6 +9,7 @@ import {
   HatTokenMap,
   IDE,
   marksToPlainObject,
+  ReadOnlyHatMap,
   serialize,
   SerializedMarks,
   showError,
@@ -26,7 +27,8 @@ import { merge } from "lodash";
 import * as path from "path";
 import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { TestCase, TestCaseContext } from "./TestCase";
+import { TestCase } from "./TestCase";
+import { StoredTargetMap } from "../core/StoredTargets";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -100,7 +102,10 @@ export class TestCaseRecorder {
   private spyIde: SpyIDE | undefined;
   private originalIde: IDE | undefined;
 
-  constructor(private hatTokenMap: HatTokenMap) {
+  constructor(
+    private hatTokenMap: HatTokenMap,
+    private storedTargets: StoredTargetMap,
+  ) {
     const { runMode } = ide();
 
     this.fixtureRoot =
@@ -284,7 +289,7 @@ export class TestCaseRecorder {
     this.paused = false;
   }
 
-  async preCommandHook(command: CommandLatest, context: TestCaseContext) {
+  async preCommandHook(hatTokenMap: ReadOnlyHatMap, command: CommandLatest) {
     if (this.testCase != null) {
       // If testCase is not null and we are just before a command, this means
       // that this command is the follow up command indicating which marks we
@@ -293,7 +298,7 @@ export class TestCaseRecorder {
         this.testCase.awaitingFinalMarkInfo,
         () => "expected to be awaiting final mark info",
       );
-      this.testCase.filterMarks(command, context);
+      this.testCase.filterMarks();
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
@@ -303,7 +308,8 @@ export class TestCaseRecorder {
 
       this.testCase = new TestCase(
         command,
-        context,
+        hatTokenMap,
+        this.storedTargets,
         this.spyIde,
         this.isHatTokenMapTest,
         this.isDecorationsTest,

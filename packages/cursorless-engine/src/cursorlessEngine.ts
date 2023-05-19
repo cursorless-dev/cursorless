@@ -38,7 +38,7 @@ export function createCursorlessEngine(
 
   const storedTargets = new StoredTargetMap();
 
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
+  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
 
   const languageDefinitions = new LanguageDefinitions(treeSitter);
 

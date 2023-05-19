@@ -3,14 +3,9 @@ import {
   PartialTargetDescriptor,
   getKey,
 } from "@cursorless/common";
-import {
-  PrimitiveTargetDescriptor,
-  TargetDescriptor,
-} from "../typings/TargetDescriptor";
+import { PrimitiveTargetDescriptor } from "../typings/TargetDescriptor";
 
-export function extractTargetKeys(
-  target: TargetDescriptor | PartialTargetDescriptor,
-): string[] {
+export function extractTargetKeys(target: PartialTargetDescriptor): string[] {
   switch (target.type) {
     case "primitive":
       return extractPrimitiveTargetKeys(target);
