@@ -5,7 +5,7 @@ import {
   isTesting,
 } from "@cursorless/common";
 import {
-  CommandRunner,
+  CommandApi,
   TestCaseRecorder,
   showCheatsheet,
   updateDefaults,
@@ -19,7 +19,7 @@ import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
-  commandRunner: CommandRunner,
+  commandApi: CommandApi,
   testCaseRecorder: TestCaseRecorder,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
@@ -31,13 +31,12 @@ export function registerCommands(
       ...rest: unknown[]
     ) => {
       try {
-        return await commandRunner.runCommandBackwardCompatible(
-          spokenFormOrCommand,
-          ...rest,
-        );
+        return await commandApi.runCommandAncient(spokenFormOrCommand, ...rest);
       } catch (e) {
         if (!isTesting()) {
-          vscodeIde.handleCommandError(e as Error);
+          const err = e as Error;
+          console.error(err.stack);
+          vscodeIde.handleCommandError(err);
         }
         throw e;
       }
