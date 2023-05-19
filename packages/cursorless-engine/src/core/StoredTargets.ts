@@ -1,32 +1,19 @@
-import { DefaultMap } from "@cursorless/common";
 import { Target } from "../typings/target.types";
+
+export type StoredTargetKey = "that" | "source";
 
 /**
  * Used to store targets between commands.  This is used by marks like `that`
  * and `source`.
  */
 export class StoredTargetMap {
-  private targetMap: DefaultMap<string, StoredTargets> = new DefaultMap(
-    () => new StoredTargets(),
-  );
+  private targetMap: Map<StoredTargetKey, Target[] | undefined> = new Map();
 
-  set(key: string, targets: Target[] | undefined) {
-    this.targetMap.get(key).set(targets);
+  set(key: StoredTargetKey, targets: Target[] | undefined) {
+    this.targetMap.set(key, targets);
   }
 
-  get(key: string) {
-    return this.targetMap.get(key).get();
-  }
-}
-
-class StoredTargets {
-  private targets?: Target[];
-
-  set(targets: Target[] | undefined) {
-    this.targets = targets;
-  }
-
-  get() {
-    return this.targets;
+  get(key: StoredTargetKey) {
+    return this.targetMap.get(key);
   }
 }

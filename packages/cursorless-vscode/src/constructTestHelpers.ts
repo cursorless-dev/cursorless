@@ -11,6 +11,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
+  StoredTargetKey,
   StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
@@ -60,7 +61,7 @@ export function constructTestHelpers(
 
     setStoredTarget(
       editor: vscode.TextEditor,
-      key: string,
+      key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
       storedTargets.set(
