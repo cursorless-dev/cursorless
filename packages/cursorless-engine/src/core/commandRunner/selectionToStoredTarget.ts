@@ -9,7 +9,7 @@ import { SelectionWithEditor } from "../../typings/Types";
  * @param selection The selection with editor to be converted
  * @returns A target that can be used for a `that` mark
  */
-export const selectionToThatTarget = (selection: SelectionWithEditor) =>
+export const selectionToStoredTarget = (selection: SelectionWithEditor) =>
   new UntypedTarget({
     editor: selection.editor,
     isReversed: selection.selection.isReversed,

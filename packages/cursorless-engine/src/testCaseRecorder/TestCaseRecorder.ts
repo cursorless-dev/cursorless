@@ -1,4 +1,5 @@
 import {
+  CommandComplete,
   CommandLatest,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
@@ -29,6 +30,7 @@ import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TestCase } from "./TestCase";
 import { StoredTargetMap } from "../core/StoredTargets";
+import { CommandRunner } from "../CommandRunner";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -443,6 +445,30 @@ export class TestCaseRecorder {
     const editor = ide().activeTextEditor!;
     ide().getEditableTextEditor(editor).options =
       this.originalTextEditorOptions;
+  }
+
+  wrapCommandRunner(
+    readableHatMap: ReadOnlyHatMap,
+    runner: CommandRunner,
+  ): CommandRunner {
+    return {
+      run: async (commandComplete: CommandComplete) => {
+        try {
+          await this.preCommandHook(readableHatMap, commandComplete);
+
+          const returnValue = await runner.run(commandComplete);
+
+          await this.postCommandHook(returnValue);
+
+          return returnValue;
+        } catch (e) {
+          await this.commandErrorHook(e as Error);
+          throw e;
+        } finally {
+          this.finallyHook();
+        }
+      },
+    };
   }
 }
 
