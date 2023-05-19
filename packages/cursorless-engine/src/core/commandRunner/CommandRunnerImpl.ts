@@ -1,25 +1,25 @@
-import { PartialTargetDescriptor } from "@cursorless/common";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
-import { Actions } from "../../actions/Actions";
-import { Action } from "../../actions/actions.types";
+import { CommandComplete } from "@cursorless/common";
+import { CommandRunner } from "../../CommandRunner";
+import { ActionRecord } from "../../actions/actions.types";
 import { StoredTargetMap } from "../../index";
 import { TargetPipelineRunner } from "../../processTargets";
-import { Target } from "../../typings/target.types";
 import { SelectionWithEditor } from "../../typings/Types";
-import { checkForOldInference } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
+import { checkForOldInference } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import inferFullTargets from "../inferFullTargets";
 import { selectionToThatTarget } from "./selectionToThatTarget";
 
-export class CommandRunner {
+export class CommandRunnerImpl implements CommandRunner {
   constructor(
     private debug: Debug,
     private storedTargets: StoredTargetMap,
     private pipelineRunner: TargetPipelineRunner,
+    private actions: ActionRecord,
   ) {}
 
   /**
-   * Entry point for Cursorless commands. We proceed as follows:
+   * Runs a Cursorless command. We proceed as follows:
    *
    * 1. Perform inference on targets to fill in details left out using things
    *    like previous targets. For example we would automatically infer that
@@ -35,15 +35,11 @@ export class CommandRunner {
    *    action, and returns the desired return value indicated by the action, if
    *    it has one.
    */
-  async run(
-    action: Action,
-    actionArgs: unknown[],
-    partialTargetDescriptors: PartialTargetDescriptor[],
-  ) {
-    // NB: We do this once test recording has started so that we can capture
-    // warning.
+  async run({
+    action: { name: actionName, args: actionArgs },
+    targets: partialTargetDescriptors,
+  }: CommandComplete): Promise<unknown> {
     checkForOldInference(partialTargetDescriptors);
-
     const targetDescriptors = inferFullTargets(partialTargetDescriptors);
 
     if (this.debug.active) {
@@ -51,18 +47,12 @@ export class CommandRunner {
       this.debug.log(JSON.stringify(targetDescriptors, null, 3));
     }
 
-    const actionPrePositionStages =
-      action.getPrePositionStages != null
-        ? action.getPrePositionStages(...actionArgs)
-        : [];
-
-    const actionFinalStages =
-      action.getFinalStages != null ? action.getFinalStages(...actionArgs) : [];
+    const action = this.actions[actionName];
 
     const targets = this.pipelineRunner.run(
       targetDescriptors,
-      actionPrePositionStages,
-      actionFinalStages,
+      action.getPrePositionStages?.(...actionArgs) ?? [],
+      action.getFinalStages?.(...actionArgs) ?? [],
     );
 
     const {

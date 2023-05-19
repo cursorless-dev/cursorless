@@ -1,6 +1,5 @@
 import {
   CURSORLESS_COMMAND_ID,
-  Command,
   CursorlessCommandId,
   isTesting,
 } from "@cursorless/common";
@@ -26,12 +25,9 @@ export function registerCommands(
 ): void {
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
-    [CURSORLESS_COMMAND_ID]: async (
-      spokenFormOrCommand: string | Command,
-      ...rest: unknown[]
-    ) => {
+    [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       try {
-        return await commandApi.runCommandAncient(spokenFormOrCommand, ...rest);
+        return await commandApi.runCommandSafe(...args);
       } catch (e) {
         if (!isTesting()) {
           const err = e as Error;

@@ -6,7 +6,7 @@ import { Snippets } from "./core/Snippets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { injectIde } from "./singletons/ide.singleton";
-import { upgradeAncientCommand } from "./core/commandVersionUpgrades/upgradeAncientCommand";
+import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { runCommand } from "./runCommand";
 
 export function createCursorlessEngine(
@@ -54,10 +54,7 @@ export function createCursorlessEngine(
         );
       },
 
-      runCommandAncient(
-        spokenFormOrCommand: string | Command,
-        ...rest: unknown[]
-      ) {
+      runCommandSafe(...args: unknown[]) {
         return runCommand(
           debug,
           hatTokenMap,
@@ -66,7 +63,7 @@ export function createCursorlessEngine(
           storedTargets,
           languageDefinitions,
           rangeUpdater,
-          upgradeAncientCommand(spokenFormOrCommand, rest),
+          ensureCommandShape(args),
         );
       },
     },
@@ -79,16 +76,17 @@ export function createCursorlessEngine(
 }
 
 export interface CommandApi {
+  /**
+   * Runs a command.  This is the core of the Cursorless engine.
+   * @param command The command to run
+   */
   runCommand(command: Command): Promise<unknown>;
 
   /**
-   * Runs a command, supporting the form used by very old versions of cursorless-talon
-   * @deprecated Use runCommand instead for new clients of the cursorless engine API
+   * Designed to run commands that come directly from the user.  Ensures that
+   * the command args are of the correct shape.
    */
-  runCommandAncient(
-    spokenFormOrCommand: string | Command,
-    ...rest: unknown[]
-  ): Promise<unknown>;
+  runCommandSafe(...args: unknown[]): Promise<unknown>;
 }
 
 export interface CursorlessEngine {
