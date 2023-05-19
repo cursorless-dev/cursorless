@@ -1,5 +1,5 @@
 import { Mark, ReadOnlyHatMap } from "@cursorless/common";
-import { StoredTargets } from "../core/StoredTargets";
+import { StoredTargetMap } from "..";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { MarkStage } from "./PipelineStages.types";
 import CursorStage from "./marks/CursorStage";
@@ -12,8 +12,7 @@ import { StoredTargetStage } from "./marks/StoredTargetStage";
 export class MarkStageFactoryImpl implements MarkStageFactory {
   constructor(
     private readableHatMap: ReadOnlyHatMap,
-    private thatMark: StoredTargets,
-    private sourceMark: StoredTargets,
+    private storedTargets: StoredTargetMap,
   ) {
     this.create = this.create.bind(this);
   }
@@ -23,9 +22,8 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
       case "cursor":
         return new CursorStage(mark);
       case "that":
-        return new StoredTargetStage(this.thatMark, mark);
       case "source":
-        return new StoredTargetStage(this.sourceMark, mark);
+        return new StoredTargetStage(this.storedTargets, mark.type);
       case "decoratedSymbol":
         return new DecoratedSymbolStage(this.readableHatMap, mark);
       case "lineNumber":

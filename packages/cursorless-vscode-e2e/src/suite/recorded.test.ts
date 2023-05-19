@@ -73,7 +73,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { hatTokenMap, takeSnapshot, setThatMark, setSourceMark } =
+  const { hatTokenMap, takeSnapshot, setStoredTarget } =
     cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
@@ -90,11 +90,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
   editor.selections = fixture.initialState.selections.map(createSelection);
 
   if (fixture.initialState.thatMark) {
-    setThatMark(editor, fixture.initialState.thatMark);
+    setStoredTarget(editor, "that", fixture.initialState.thatMark);
   }
 
   if (fixture.initialState.sourceMark) {
-    setSourceMark(editor, fixture.initialState.sourceMark);
+    setStoredTarget(editor, "source", fixture.initialState.sourceMark);
   }
 
   if (fixture.initialState.clipboard) {

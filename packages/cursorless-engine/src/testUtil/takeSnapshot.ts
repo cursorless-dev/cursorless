@@ -11,12 +11,11 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import type { StoredTargets } from "../core/StoredTargets";
+import type { StoredTargetMap } from "../core/StoredTargets";
 import { targetToPlainObject } from "./targetToPlainObject";
 
 export async function takeSnapshot(
-  thatMark: StoredTargets | undefined,
-  sourceMark: StoredTargets | undefined,
+  storedTargets: StoredTargetMap | undefined,
   excludeFields: ExcludableSnapshotField[] = [],
   extraFields: ExtraSnapshotField[] = [],
   editor: TextEditor,
@@ -47,12 +46,12 @@ export async function takeSnapshot(
     snapshot.visibleRanges = editor.visibleRanges.map(rangeToPlainObject);
   }
 
-  const thatMarkTargets = thatMark?.get();
+  const thatMarkTargets = storedTargets?.get("that");
   if (thatMarkTargets != null && !excludeFields.includes("thatMark")) {
     snapshot.thatMark = thatMarkTargets.map(targetToPlainObject);
   }
 
-  const sourceMarkTargets = sourceMark?.get();
+  const sourceMarkTargets = storedTargets?.get("source");
   if (sourceMarkTargets != null && !excludeFields.includes("sourceMark")) {
     snapshot.sourceMark = sourceMarkTargets.map(targetToPlainObject);
   }

@@ -1,6 +1,10 @@
 import { CommandServerApi, Hats, IDE } from "@cursorless/common";
-import { CommandRunner, TestCaseRecorder, TreeSitter } from ".";
-import { StoredTargets } from "./core/StoredTargets";
+import {
+  CommandRunner,
+  StoredTargetMap,
+  TestCaseRecorder,
+  TreeSitter,
+} from ".";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
@@ -32,12 +36,11 @@ export function createCursorlessEngine(
   );
   hatTokenMap.allocateHats();
 
+  const storedTargets = new StoredTargetMap();
+
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap);
 
   const languageDefinitions = new LanguageDefinitions(treeSitter);
-
-  const thatMark = new StoredTargets();
-  const sourceMark = new StoredTargets();
 
   const commandRunner = new CommandRunner(
     treeSitter,
@@ -45,8 +48,7 @@ export function createCursorlessEngine(
     hatTokenMap,
     testCaseRecorder,
     snippets,
-    thatMark,
-    sourceMark,
+    storedTargets,
     languageDefinitions,
     rangeUpdater,
   );
@@ -54,8 +56,7 @@ export function createCursorlessEngine(
   return {
     commandRunner,
     testCaseRecorder,
-    thatMark,
-    sourceMark,
+    storedTargets,
     hatTokenMap,
     snippets,
     injectIde,

@@ -16,7 +16,7 @@ import {
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
-import { StoredTargets } from "../core/StoredTargets";
+import { StoredTargetMap } from "..";
 import { ide } from "../singletons/ide.singleton";
 import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
@@ -24,8 +24,7 @@ import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 
 export type TestCaseContext = {
-  thatMark: StoredTargets;
-  sourceMark: StoredTargets;
+  storedTargets: StoredTargetMap;
   targets: TargetDescriptor[];
   hatTokenMap: ReadOnlyHatMap;
 };
@@ -155,8 +154,7 @@ export class TestCase {
   async recordInitialState() {
     const excludeFields = this.getExcludedFields(true);
     this.initialState = await takeSnapshot(
-      this.context.thatMark,
-      this.context.sourceMark,
+      this.context.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
       ide().activeTextEditor!,
@@ -170,8 +168,7 @@ export class TestCase {
     const excludeFields = this.getExcludedFields(false);
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(
-      this.context.thatMark,
-      this.context.sourceMark,
+      this.context.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
       ide().activeTextEditor!,
