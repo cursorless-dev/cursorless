@@ -1,5 +1,4 @@
 import type { RelativeScopeModifier } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
@@ -23,19 +22,14 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
     private modifier: RelativeScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
-      return runLegacy(
-        this.modifierStageFactory,
-        this.modifier,
-        context,
-        target,
-      );
+      return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
     const { isReversed, editor, contentRange: inputRange } = target;

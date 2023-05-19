@@ -9,7 +9,6 @@ import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import type {
   NodeMatcher,
-  ProcessedTargetsContext,
   SelectionWithEditor,
   SelectionWithEditorWithContext,
 } from "../../../typings/Types";
@@ -32,7 +31,7 @@ export default class implements ModifierStage {
     private modifier: SimpleContainingScopeModifier | SimpleEveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(target: Target): ScopeTypeTarget[] {
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
       this.modifier.scopeType.type,

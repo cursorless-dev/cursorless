@@ -1,6 +1,5 @@
 import type { EveryScopeModifier, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError, Range } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
@@ -36,7 +35,7 @@ export class EveryScopeStage implements ModifierStage {
     private modifier: EveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
@@ -48,7 +47,7 @@ export class EveryScopeStage implements ModifierStage {
     if (scopeHandler == null) {
       return this.modifierStageFactory
         .getLegacyScopeStage(this.modifier)
-        .run(context, target);
+        .run(target);
     }
 
     let scopes: TargetScope[] | undefined;

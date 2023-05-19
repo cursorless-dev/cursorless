@@ -1,9 +1,6 @@
 import type { Range, Selection, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ProcessedTargetsContext {}
-
 export interface SelectionWithEditor {
   selection: Selection;
   editor: TextEditor;

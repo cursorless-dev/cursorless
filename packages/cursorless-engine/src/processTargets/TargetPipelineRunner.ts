@@ -11,7 +11,6 @@ import {
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { ProcessedTargetsContext } from "../typings/Types";
 import { Target } from "../typings/target.types";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { ModifierStageFactory } from "./ModifierStageFactory";
@@ -24,12 +23,6 @@ export class TargetPipelineRunner {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
-    /**
-     * Captures the environment needed to convert the abstract target
-     * description given by the user to a concrete representation usable by
-     * actions
-     */
-    private context: ProcessedTargetsContext,
   ) {}
 
   /**
@@ -54,7 +47,6 @@ export class TargetPipelineRunner {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
-      this.context,
       targets,
       actionPrePositionStages ?? [],
       actionFinalStages ?? [],
@@ -66,7 +58,6 @@ class TargetPipeline {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
-    private context: ProcessedTargetsContext,
     private targets: TargetDescriptor[],
     private actionPrePositionStages: ModifierStage[],
     private actionFinalStages: ModifierStage[],
@@ -183,7 +174,7 @@ class TargetPipeline {
             // NB: The following line assumes that content range is always
             // contained by domain, so that "every" will properly reconstruct
             // the target from the content range.
-            .run(this.context, anchorTarget)[0]
+            .run(anchorTarget)[0]
         : anchorTarget,
       excludeActive
         ? this.modifierStageFactory
@@ -194,7 +185,7 @@ class TargetPipeline {
               length: 1,
               offset: 1,
             })
-            .run(this.context, activeTarget)[0]
+            .run(activeTarget)[0]
         : activeTarget,
       false,
       false,
@@ -205,7 +196,7 @@ class TargetPipeline {
         type: "everyScope",
         scopeType,
       })
-      .run(this.context, rangeTarget);
+      .run(rangeTarget);
 
     // Run the final modifier pipeline on the output from the "every" modifier
     return this.processPrimitiveTarget({
@@ -271,7 +262,7 @@ class TargetPipeline {
     }
 
     // First, get the targets output by the mark
-    const markOutputTargets = markStage.run(this.context);
+    const markOutputTargets = markStage.run();
 
     /**
      * The modifier pipeline that will be applied to construct our final targets
@@ -288,11 +279,7 @@ class TargetPipeline {
     ];
 
     // Run all targets through the modifier stages
-    return processModifierStages(
-      this.context,
-      modifierStages,
-      markOutputTargets,
-    );
+    return processModifierStages(modifierStages, markOutputTargets);
   }
 }
 
@@ -317,7 +304,6 @@ interface CustomPrimitiveTargetDescriptor {
 
 /** Run all targets through the modifier stages */
 export function processModifierStages(
-  context: ProcessedTargetsContext,
   modifierStages: ModifierStage[],
   targets: Target[],
 ) {
@@ -325,7 +311,7 @@ export function processModifierStages(
   // one-by-one and concatenating the results before passing them on to the
   // next stage.
   modifierStages.forEach((stage) => {
-    targets = targets.flatMap((target) => stage.run(context, target));
+    targets = targets.flatMap((target) => stage.run(target));
   });
 
   // Then return the output from the final stage
