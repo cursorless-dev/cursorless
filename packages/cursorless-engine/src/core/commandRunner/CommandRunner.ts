@@ -72,7 +72,6 @@ export class CommandRunner {
 
       const commandComplete = canonicalizeAndValidateCommand(command);
       const {
-        spokenForm,
         action: { name: actionName, args: actionArgs },
         targets: partialTargetDescriptors,
         usePrePhraseSnapshot,
@@ -127,13 +126,10 @@ export class CommandRunner {
           : [];
 
       if (this.testCaseRecorder.isActive()) {
-        const context = {
-          targets: targetDescriptors,
-          storedTargets: this.storedTargets,
-          hatTokenMap: readableHatMap,
-          spokenForm,
-        };
-        await this.testCaseRecorder.preCommandHook(commandComplete, context);
+        await this.testCaseRecorder.preCommandHook(
+          readableHatMap,
+          commandComplete,
+        );
       }
 
       // NB: We do this once test recording has started so that we can capture
