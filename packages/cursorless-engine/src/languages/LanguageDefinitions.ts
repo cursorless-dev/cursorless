@@ -1,3 +1,5 @@
+import { Range, TextDocument } from "@cursorless/common";
+import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "..";
 import { LanguageDefinition } from "./LanguageDefinition";
 
@@ -49,5 +51,12 @@ export class LanguageDefinitions {
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
+  }
+
+  /**
+   * @deprecated Only for use in legacy containing scope stage
+   */
+  public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
+    return this.treeSitter.getNodeAtLocation(document, range);
   }
 }

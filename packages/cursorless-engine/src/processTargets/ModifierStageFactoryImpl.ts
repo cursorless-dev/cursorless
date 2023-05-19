@@ -138,6 +138,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       default:
         // Default to containing syntax scope using tree sitter
         return new ContainingSyntaxScopeStage(
+          this.languageDefinitions,
           modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
         );
     }

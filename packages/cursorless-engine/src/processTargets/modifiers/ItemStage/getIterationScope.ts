@@ -1,6 +1,5 @@
 import { Range, TextEditor } from "@cursorless/common";
-import { LanguageDefinition } from "../../../languages/LanguageDefinition";
-import { ProcessedTargetsContext } from "../../../typings/Types";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
 import { PlainTarget, SurroundingPairTarget } from "../../targets";
 import { fitRangeToLineContent } from "../scopeHandlers";
@@ -14,21 +13,15 @@ import { processSurroundingPair } from "../surroundingPair";
  * @returns The stage iteration scope and optional surrounding pair boundaries
  */
 export function getIterationScope(
-  languageDefinition: LanguageDefinition | undefined,
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
-  let surroundingTarget = getSurroundingPair(
-    languageDefinition,
-    context,
-    target,
-  );
+  let surroundingTarget = getSurroundingPair(languageDefinitions, target);
 
   // Iteration is necessary in case of nested strings
   while (surroundingTarget != null) {
     const surroundingStringTarget = getStringSurroundingPair(
-      languageDefinition,
-      context,
+      languageDefinitions,
       surroundingTarget,
     );
 
@@ -50,8 +43,7 @@ export function getIterationScope(
     }
 
     surroundingTarget = getParentSurroundingPair(
-      languageDefinition,
-      context,
+      languageDefinitions,
       target.editor,
       surroundingTarget,
     );
@@ -64,8 +56,7 @@ export function getIterationScope(
 }
 
 function getParentSurroundingPair(
-  languageDefinition: LanguageDefinition | undefined,
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   editor: TextEditor,
   target: SurroundingPairTarget,
 ) {
@@ -77,8 +68,7 @@ function getParentSurroundingPair(
   // Step out of this pair and see if we have a parent
   const position = editor.document.positionAt(startOffset - 1);
   return getSurroundingPair(
-    languageDefinition,
-    context,
+    languageDefinitions,
     new PlainTarget({
       editor,
       contentRange: new Range(position, position),
@@ -88,11 +78,10 @@ function getParentSurroundingPair(
 }
 
 function getSurroundingPair(
-  languageDefinition: LanguageDefinition | undefined,
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   target: Target,
 ) {
-  return processSurroundingPair(languageDefinition, context, target, {
+  return processSurroundingPair(languageDefinitions, target, {
     type: "surroundingPair",
     delimiter: "collectionBoundary",
     requireStrongContainment: true,
@@ -100,11 +89,10 @@ function getSurroundingPair(
 }
 
 function getStringSurroundingPair(
-  languageDefinition: LanguageDefinition | undefined,
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   target: Target,
 ) {
-  return processSurroundingPair(languageDefinition, context, target, {
+  return processSurroundingPair(languageDefinitions, target, {
     type: "surroundingPair",
     delimiter: "string",
     requireStrongContainment: true,

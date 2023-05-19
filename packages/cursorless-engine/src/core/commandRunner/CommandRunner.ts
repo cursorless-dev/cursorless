@@ -131,9 +131,7 @@ export class CommandRunner {
           ? action.getFinalStages(...actionArgs)
           : [];
 
-      const processedTargetsContext: ProcessedTargetsContext = {
-        getNodeAtLocation: this.treeSitter.getNodeAtLocation,
-      };
+      const processedTargetsContext: ProcessedTargetsContext = {};
 
       if (this.testCaseRecorder.isActive()) {
         const context = {
