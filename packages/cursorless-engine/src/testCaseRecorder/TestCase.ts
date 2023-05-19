@@ -16,7 +16,7 @@ import {
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
-import { ThatMark } from "../core/ThatMark";
+import { StoredTargets } from "../core/StoredTargets";
 import { ide } from "../singletons/ide.singleton";
 import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
@@ -24,8 +24,8 @@ import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TargetDescriptor } from "../typings/TargetDescriptor";
 
 export type TestCaseContext = {
-  thatMark: ThatMark;
-  sourceMark: ThatMark;
+  thatMark: StoredTargets;
+  sourceMark: StoredTargets;
   targets: TargetDescriptor[];
   hatTokenMap: ReadOnlyHatMap;
 };

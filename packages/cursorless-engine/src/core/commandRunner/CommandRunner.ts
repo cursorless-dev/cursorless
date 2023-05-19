@@ -7,6 +7,7 @@ import {
 } from "@cursorless/common";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Actions } from "../../actions/Actions";
+import { ActionRecord } from "../../actions/actions.types";
 import { TestCaseRecorder } from "../../index";
 import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "../../processTargets";
@@ -20,6 +21,7 @@ import {
   SelectionWithEditor,
 } from "../../typings/Types";
 import { isString } from "../../util/type";
+import { StoredTargets } from "../StoredTargets";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
@@ -27,10 +29,8 @@ import {
 import { Debug } from "../Debug";
 import inferFullTargets from "../inferFullTargets";
 import { Snippets } from "../Snippets";
-import { ThatMark } from "../ThatMark";
 import { RangeUpdater } from "../updateSelections/RangeUpdater";
 import { selectionToThatTarget } from "./selectionToThatTarget";
-import { ActionRecord } from "../../actions/actions.types";
 
 export class CommandRunner {
   constructor(
@@ -39,8 +39,8 @@ export class CommandRunner {
     private hatTokenMap: HatTokenMap,
     private testCaseRecorder: TestCaseRecorder,
     private snippets: Snippets,
-    private thatMark: ThatMark,
-    private sourceMark: ThatMark,
+    private thatMark: StoredTargets,
+    private sourceMark: StoredTargets,
     private languageDefinitions: LanguageDefinitions,
     private rangeUpdater: RangeUpdater,
   ) {
@@ -93,7 +93,11 @@ export class CommandRunner {
       const scopeHandlerFactory = new ScopeHandlerFactoryImpl(
         this.languageDefinitions,
       );
-      const markStageFactory = new MarkStageFactoryImpl(readableHatMap);
+      const markStageFactory = new MarkStageFactoryImpl(
+        readableHatMap,
+        this.thatMark,
+        this.sourceMark,
+      );
       const modifierStageFactory = new ModifierStageFactoryImpl(
         this.languageDefinitions,
         scopeHandlerFactory,
@@ -128,8 +132,6 @@ export class CommandRunner {
           : [];
 
       const processedTargetsContext: ProcessedTargetsContext = {
-        thatMark: this.thatMark.exists() ? this.thatMark.get() : [],
-        sourceMark: this.sourceMark.exists() ? this.sourceMark.get() : [],
         getNodeAtLocation: this.treeSitter.getNodeAtLocation,
       };
 

@@ -5,11 +5,8 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { Target } from "./target.types";
 
 export interface ProcessedTargetsContext {
-  thatMark: Target[];
-  sourceMark: Target[];
   getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
 }
 

@@ -1,11 +1,12 @@
 import { CommandServerApi, Hats, IDE } from "@cursorless/common";
-import { CommandRunner, TestCaseRecorder, ThatMark, TreeSitter } from ".";
+import { CommandRunner, TestCaseRecorder, TreeSitter } from ".";
+import { StoredTargets } from "./core/StoredTargets";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { injectIde } from "./singletons/ide.singleton";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { injectIde } from "./singletons/ide.singleton";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -35,8 +36,8 @@ export function createCursorlessEngine(
 
   const languageDefinitions = new LanguageDefinitions(treeSitter);
 
-  const thatMark = new ThatMark();
-  const sourceMark = new ThatMark();
+  const thatMark = new StoredTargets();
+  const sourceMark = new StoredTargets();
 
   const commandRunner = new CommandRunner(
     treeSitter,
