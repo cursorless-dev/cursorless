@@ -8,10 +8,37 @@
             "typescriptreact",
             "javascript",
             "javascriptreact"
+          ],
+          "scopeTypes": [
+            "namedFunction",
+            "document"
           ]
         },
         "body": [
           "function $name($parameterList) {",
+          "\t$body",
+          "}"
+        ],
+        "variables": {
+          "name": {
+            "formatter": "camelCase"
+          }
+        }
+      },
+      {
+        "scope": {
+          "langIds": [
+            "typescript",
+            "typescriptreact",
+            "javascript",
+            "javascriptreact"
+          ],
+          "scopeTypes": [
+            "class"
+          ]
+        },
+        "body": [
+          "$name($parameterList) {",
           "\t$body",
           "}"
         ],

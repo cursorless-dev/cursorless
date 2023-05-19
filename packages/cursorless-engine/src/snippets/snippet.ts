@@ -7,6 +7,8 @@ import {
   Variable,
 } from "./vendor/vscodeSnippet/snippetParser";
 import { KnownSnippetVariableNames } from "./vendor/vscodeSnippet/snippetVariables";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { strictlyContains } from "../util/rangeUtils";
 
 /**
  * Replaces the snippet variable with name `placeholderName` with
@@ -84,11 +86,16 @@ function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet): number {
  * @returns The snippet definition that matches the given context
  */
 export function findMatchingSnippetDefinitionStrict(
+  modifierStageFactory: ModifierStageFactory,
   targets: Target[],
   definitions: SnippetDefinition[],
 ): SnippetDefinition {
   const definitionIndices = targets.map((target) =>
-    findMatchingSnippetDefinitionForSingleTarget(target, definitions),
+    findMatchingSnippetDefinitionForSingleTarget(
+      modifierStageFactory,
+      target,
+      definitions,
+    ),
   );
 
   const definitionIndex = definitionIndices[0];
@@ -104,28 +111,120 @@ export function findMatchingSnippetDefinitionStrict(
   return definitions[definitionIndex];
 }
 
+/**
+ * [matches, index, target]
+ */
+type MatchResult = [boolean, number, Target[] | null];
+
+/**
+ * Based on the context determined by {@link target} (eg the file's language id
+ * and containing scope), finds the best snippet definition that matches the
+ * given context. Returns -1 if no matching snippet definition could be found.
+ *
+ * Prefers snippet definitions that specify a scope type.  If multiple snippet
+ * definitions specify a scope type, then we prefer the one whose matched scope
+ * has the smallest range in the document.
+ *
+ * If no snippet definitions specify a scope type, then we break ties based on
+ * which specify language id.  If that doesn't break the tie, then we prefer
+ * user defined snippets over built-in snippets.
+ *
+ * Although we directly check matched scope range, we don't check other
+ * precedences (eg lang id or user vs core), because the definitions are
+ * guaranteed to come sorted in precedence order.
+ *
+ * @param modifierStageFactory For creating containing scope modifiers
+ * @param target The target to find a matching snippet definition for
+ * @param definitions The list of snippet definitions to search
+ * @returns The index of the best snippet definition that matches the given
+ * target, or -1 if no matching snippet definition could be found
+ */
 function findMatchingSnippetDefinitionForSingleTarget(
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
   definitions: SnippetDefinition[],
 ): number {
   const languageId = target.editor.document.languageId;
 
-  return definitions.findIndex(({ scope }) => {
-    if (scope == null) {
-      return true;
-    }
+  const matchingDefinitions = definitions
+    .map(({ scope }, index): MatchResult => {
+      if (scope == null) {
+        return [true, index, null];
+      }
 
-    const { langIds, scopeTypes } = scope;
+      const { langIds, scopeTypes } = scope;
 
-    if (langIds != null && !langIds.includes(languageId)) {
-      return false;
-    }
+      if (langIds != null && !langIds.includes(languageId)) {
+        return [false, index, null];
+      }
 
-    if (scopeTypes != null) {
-      // TODO: Implement this; see #802
-      throw new Error("Scope types not yet implemented");
-    }
+      if (scopeTypes != null) {
+        const matchingScopeTypes = [];
+        for (const scopeTypeType of scopeTypes) {
+          try {
+            const containingTarget = modifierStageFactory
+              .create({
+                type: "containingScope",
+                scopeType: { type: scopeTypeType },
+              })
+              .run(target);
 
-    return true;
-  });
+            matchingScopeTypes.push(containingTarget);
+          } catch (e) {
+            continue;
+          }
+        }
+
+        if (matchingScopeTypes.length === 0) {
+          return [false, index, null];
+        }
+
+        return [true, index, matchingScopeTypes.sort(compareTargetLists)[0]];
+      }
+
+      return [true, index, null];
+    })
+    .filter(([matches]) => matches)
+    .sort(compareMatches);
+
+  return matchingDefinitions.length === 0 ? -1 : matchingDefinitions[0][1];
+}
+
+function compareMatches(
+  [_, indexA, targetA]: MatchResult,
+  [__, indexB, targetB]: MatchResult,
+): number {
+  if (targetA == null && targetB == null) {
+    return indexA - indexB;
+  }
+
+  if (targetA == null) {
+    return 1;
+  }
+
+  if (targetB == null) {
+    return -1;
+  }
+
+  return compareTargetLists(targetA, targetB);
+}
+
+function compareTargetLists([a]: Target[], [b]: Target[]): number {
+  if (strictlyContains(a.contentRange, b.contentRange)) {
+    return 1;
+  }
+
+  if (strictlyContains(b.contentRange, a.contentRange)) {
+    return -1;
+  }
+
+  if (a.isDocument && !b.isDocument) {
+    return 1;
+  }
+
+  if (b.isDocument && !a.isDocument) {
+    return -1;
+  }
+
+  return 0;
 }

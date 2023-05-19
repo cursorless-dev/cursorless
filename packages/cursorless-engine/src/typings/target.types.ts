@@ -45,6 +45,13 @@ export interface Target {
   readonly isLine: boolean;
 
   /**
+   * If true this target refers to the document. Note that this doesn't just mean
+   * that the content range is the entire document, but also that the target
+   * is the document itself (ie is "file" scope type)
+   */
+  readonly isDocument: boolean;
+
+  /**
    * If `true`, then this target has an explicit scope type, and so should never
    * be automatically expanded to a containing scope.
    *
