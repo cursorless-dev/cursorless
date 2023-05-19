@@ -8,7 +8,7 @@ import { Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
 import { checkForOldInference } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
 import inferFullTargets from "../inferFullTargets";
-import { selectionToThatTarget } from "./selectionToThatTarget";
+import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
 export class CommandRunnerImpl implements CommandRunner {
   constructor(
@@ -65,18 +65,18 @@ export class CommandRunnerImpl implements CommandRunner {
 
     this.storedTargets.set(
       "that",
-      constructThatTarget(newThatTargets, newThatSelections),
+      constructStoredTarget(newThatTargets, newThatSelections),
     );
     this.storedTargets.set(
       "source",
-      constructThatTarget(newSourceTargets, newSourceSelections),
+      constructStoredTarget(newSourceTargets, newSourceSelections),
     );
 
     return returnValue;
   }
 }
 
-function constructThatTarget(
+function constructStoredTarget(
   targets: Target[] | undefined,
   selections: SelectionWithEditor[] | undefined,
 ) {
@@ -87,7 +87,7 @@ function constructThatTarget(
   }
 
   if (selections != null) {
-    return selections.map(selectionToThatTarget);
+    return selections.map(selectionToStoredTarget);
   } else {
     return targets;
   }
