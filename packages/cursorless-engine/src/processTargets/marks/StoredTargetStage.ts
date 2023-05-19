@@ -1,19 +1,15 @@
+import { StoredTargetMap } from "../../core/StoredTargets";
 import { Target } from "../../typings/target.types";
-import { SourceMark, ThatMark } from "@cursorless/common";
 import { MarkStage } from "../PipelineStages.types";
-import { StoredTargets } from "../..";
 
 export class StoredTargetStage implements MarkStage {
-  constructor(
-    private storedTargets: StoredTargets,
-    private mark: ThatMark | SourceMark,
-  ) {}
+  constructor(private storedTargets: StoredTargetMap, private key: string) {}
 
   run(): Target[] {
-    const targets = this.storedTargets.get();
+    const targets = this.storedTargets.get(this.key);
 
     if (targets == null || targets.length === 0) {
-      throw Error(`No available ${this.mark.type} marks`);
+      throw Error(`No available ${this.key} marks`);
     }
 
     return targets;

@@ -8,7 +8,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import { Actions } from "../../actions/Actions";
 import { ActionRecord } from "../../actions/actions.types";
-import { TestCaseRecorder } from "../../index";
+import { StoredTargetMap, TestCaseRecorder } from "../../index";
 import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "../../processTargets";
 import { MarkStageFactoryImpl } from "../../processTargets/MarkStageFactoryImpl";
@@ -18,7 +18,6 @@ import { Target } from "../../typings/target.types";
 import { TreeSitter } from "../../typings/TreeSitter";
 import { SelectionWithEditor } from "../../typings/Types";
 import { isString } from "../../util/type";
-import { StoredTargets } from "../StoredTargets";
 import {
   canonicalizeAndValidateCommand,
   checkForOldInference,
@@ -36,8 +35,7 @@ export class CommandRunner {
     private hatTokenMap: HatTokenMap,
     private testCaseRecorder: TestCaseRecorder,
     private snippets: Snippets,
-    private thatMark: StoredTargets,
-    private sourceMark: StoredTargets,
+    private storedTargets: StoredTargetMap,
     private languageDefinitions: LanguageDefinitions,
     private rangeUpdater: RangeUpdater,
   ) {
@@ -89,8 +87,7 @@ export class CommandRunner {
       );
       const markStageFactory = new MarkStageFactoryImpl(
         readableHatMap,
-        this.thatMark,
-        this.sourceMark,
+        this.storedTargets,
       );
       const modifierStageFactory = new ModifierStageFactoryImpl(
         this.languageDefinitions,
@@ -132,8 +129,7 @@ export class CommandRunner {
       if (this.testCaseRecorder.isActive()) {
         const context = {
           targets: targetDescriptors,
-          thatMark: this.thatMark,
-          sourceMark: this.sourceMark,
+          storedTargets: this.storedTargets,
           hatTokenMap: readableHatMap,
           spokenForm,
         };
@@ -158,8 +154,12 @@ export class CommandRunner {
         sourceTargets: newSourceTargets,
       } = await action.run(targets, ...actionArgs);
 
-      this.thatMark.set(constructThatTarget(newThatTargets, newThatSelections));
-      this.sourceMark.set(
+      this.storedTargets.set(
+        "that",
+        constructThatTarget(newThatTargets, newThatSelections),
+      );
+      this.storedTargets.set(
+        "source",
         constructThatTarget(newSourceTargets, newSourceSelections),
       );
 

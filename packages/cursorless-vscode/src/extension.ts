@@ -61,8 +61,7 @@ export async function activate(
   const {
     commandRunner,
     testCaseRecorder,
-    thatMark,
-    sourceMark,
+    storedTargets,
     hatTokenMap,
     snippets,
     injectIde,
@@ -89,8 +88,7 @@ export async function activate(
     testHelpers: isTesting()
       ? constructTestHelpers(
           commandServerApi,
-          thatMark,
-          sourceMark,
+          storedTargets,
           hatTokenMap,
           vscodeIDE,
           normalizedIde!,
