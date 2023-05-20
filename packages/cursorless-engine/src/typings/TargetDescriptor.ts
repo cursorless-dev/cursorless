@@ -13,7 +13,7 @@ export interface PrimitiveTargetDescriptor
   /**
    * The mark, eg "air", "this", "that", etc
    */
-  mark: Mark;
+  mark: Mark | undefined;
 
   /**
    * Zero or more modifiers that will be applied in sequence to the output from

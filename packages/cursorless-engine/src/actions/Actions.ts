@@ -28,6 +28,7 @@ import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
+import { SetImplicit } from "./SetImplicit";
 import {
   SetSelection,
   SetSelectionAfter,
@@ -125,6 +126,7 @@ export class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
+  setImplicit = new SetImplicit();
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();

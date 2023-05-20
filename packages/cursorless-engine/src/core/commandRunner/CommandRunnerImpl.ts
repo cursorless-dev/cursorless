@@ -53,6 +53,7 @@ export class CommandRunnerImpl implements CommandRunner {
       targetDescriptors,
       action.getPrePositionStages?.(...actionArgs) ?? [],
       action.getFinalStages?.(...actionArgs) ?? [],
+      this.storedTargets.get("implicit"),
     );
 
     const {
@@ -61,6 +62,7 @@ export class CommandRunnerImpl implements CommandRunner {
       thatTargets: newThatTargets,
       sourceSelections: newSourceSelections,
       sourceTargets: newSourceTargets,
+      implicitTargets: newImplicitTargets,
     } = await action.run(targets, ...actionArgs);
 
     this.storedTargets.set(
@@ -71,6 +73,7 @@ export class CommandRunnerImpl implements CommandRunner {
       "source",
       constructStoredTarget(newSourceTargets, newSourceSelections),
     );
+    this.storedTargets.set("implicit", newImplicitTargets);
 
     return returnValue;
   }

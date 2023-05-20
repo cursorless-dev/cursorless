@@ -210,12 +210,12 @@ function inferPrimitiveTarget(
   const ownPositionModifier = getPositionModifier(target);
   const ownModifiers = getPreservedModifiers(target);
 
-  const mark = target.mark ??
+  const mark =
+    target.mark ??
     (shouldInferPreviousMark(target)
       ? getPreviousMark(previousTargets)
-      : null) ?? {
-      type: "cursor",
-    };
+      : null) ??
+    undefined;
 
   const modifiers =
     ownModifiers ?? getPreviousPreservedModifiers(previousTargets) ?? [];

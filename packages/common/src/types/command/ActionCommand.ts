@@ -34,6 +34,7 @@ export const actionNames = [
   "revealTypeDefinition",
   "reverseTargets",
   "rewrapWithPairedDelimiter",
+  "setImplicit",
   "scrollToBottom",
   "scrollToCenter",
   "scrollToTop",

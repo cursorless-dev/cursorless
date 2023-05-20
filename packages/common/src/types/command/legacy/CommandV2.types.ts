@@ -1,6 +1,6 @@
 import type { PartialTargetDescriptorV2 } from "./targetDescriptorV2.types";
 
-type ActionType =
+export type ActionTypeV2 =
   | "callAsFunction"
   | "clearAndSetSelection"
   | "copyToClipboard"
@@ -58,7 +58,7 @@ interface ActionCommand {
   /**
    * The action to run
    */
-  name: ActionType;
+  name: ActionTypeV2;
 
   /**
    * A list of arguments expected by the given action.

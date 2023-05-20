@@ -38,6 +38,12 @@ export interface ActionReturnValue {
    * Mutually exclusive with {@link sourceSelections}
    */
   sourceTargets?: Target[];
+
+  /**
+   * A list of targets that will become the start of the pipeline for the next
+   * command.
+   */
+  implicitTargets?: Target[];
 }
 
 export interface Action {

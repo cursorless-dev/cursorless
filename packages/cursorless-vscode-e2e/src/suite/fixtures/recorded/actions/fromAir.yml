@@ -1,0 +1,41 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: from air
+  action: {name: setImplicit}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa bbb
+    ccc ddd
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |-
+    aaa bbb
+    ccc ddd
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: false
+  implicitMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: false

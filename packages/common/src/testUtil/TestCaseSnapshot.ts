@@ -15,6 +15,7 @@ export type TestCaseSnapshot = {
   marks?: SerializedMarks;
   thatMark?: TargetPlainObject[];
   sourceMark?: TargetPlainObject[];
+  implicitMark?: TargetPlainObject[];
   timeOffsetSeconds?: number;
 
   /**

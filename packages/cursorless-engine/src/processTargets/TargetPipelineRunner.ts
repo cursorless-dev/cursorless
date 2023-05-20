@@ -43,6 +43,7 @@ export class TargetPipelineRunner {
     targets: TargetDescriptor[],
     actionPrePositionStages?: ModifierStage[],
     actionFinalStages?: ModifierStage[],
+    implicitTargets?: Target[],
   ): Target[][] {
     return new TargetPipeline(
       this.modifierStageFactory,
@@ -50,6 +51,7 @@ export class TargetPipelineRunner {
       targets,
       actionPrePositionStages ?? [],
       actionFinalStages ?? [],
+      implicitTargets,
     ).run();
   }
 }
@@ -61,6 +63,7 @@ class TargetPipeline {
     private targets: TargetDescriptor[],
     private actionPrePositionStages: ModifierStage[],
     private actionFinalStages: ModifierStage[],
+    private implicitTargets: Target[] | undefined,
   ) {}
 
   /**
@@ -78,9 +81,14 @@ class TargetPipeline {
    * the target
    */
   run(): Target[][] {
-    return this.targets.map((target) =>
-      uniqTargets(this.processTarget(target)),
-    );
+    return this.targets.map((target) => {
+      const returnValue = uniqTargets(this.processTarget(target));
+
+      // Only use implicit targets for the first target
+      this.implicitTargets = undefined;
+
+      return returnValue;
+    });
   }
 
   processTarget(target: TargetDescriptor): Target[] {
@@ -239,14 +247,27 @@ class TargetPipeline {
     let positionModifierStages: ModifierStage[];
 
     if (targetDescriptor.type === "implicit") {
-      markStage = new ImplicitStage();
+      markStage =
+        this.implicitTargets == null
+          ? new ImplicitStage()
+          : {
+              run: () => this.implicitTargets!,
+            };
       nonPositionModifierStages = [];
       positionModifierStages = [];
     } else {
-      markStage =
-        targetDescriptor.type === "customPrimitiveTarget"
-          ? targetDescriptor.markStage
-          : this.markStageFactory.create(targetDescriptor.mark);
+      if (targetDescriptor.type === "customPrimitiveTarget") {
+        markStage = targetDescriptor.markStage;
+      } else if (targetDescriptor.mark == null) {
+        markStage =
+          this.implicitTargets == null
+            ? this.markStageFactory.create({ type: "cursor" })
+            : {
+                run: () => this.implicitTargets!,
+              };
+      } else {
+        markStage = this.markStageFactory.create(targetDescriptor.mark);
+      }
       positionModifierStages =
         targetDescriptor.positionModifier == null
           ? []

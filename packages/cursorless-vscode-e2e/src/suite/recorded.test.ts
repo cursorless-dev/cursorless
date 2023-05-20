@@ -97,6 +97,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
     setStoredTarget(editor, "source", fixture.initialState.sourceMark);
   }
 
+  if (fixture.initialState.implicitMark) {
+    setStoredTarget(editor, "implicit", fixture.initialState.implicitMark);
+  }
+
   if (fixture.initialState.clipboard) {
     vscode.env.clipboard.writeText(fixture.initialState.clipboard);
     // FIXME https://github.com/cursorless-dev/cursorless/issues/559
@@ -166,6 +170,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   if (fixture.finalState?.sourceMark == null) {
     excludeFields.push("sourceMark");
+  }
+
+  if (fixture.finalState?.implicitMark == null) {
+    excludeFields.push("implicitMark");
   }
 
   // TODO Visible ranges are not asserted, see:

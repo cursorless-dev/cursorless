@@ -56,6 +56,11 @@ export async function takeSnapshot(
     snapshot.sourceMark = sourceMarkTargets.map(targetToPlainObject);
   }
 
+  const implicitMarkTargets = storedTargets?.get("implicit");
+  if (implicitMarkTargets != null && !excludeFields.includes("implicitMark")) {
+    snapshot.implicitMark = implicitMarkTargets.map(targetToPlainObject);
+  }
+
   if (extraFields.includes("timeOffsetSeconds")) {
     const startTimestamp = extraContext?.startTimestamp;
 
