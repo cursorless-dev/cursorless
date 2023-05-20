@@ -8,10 +8,6 @@
             "typescriptreact",
             "javascript",
             "javascriptreact"
-          ],
-          "scopeTypes": [
-            "namedFunction",
-            "document"
           ]
         },
         "body": [
@@ -35,6 +31,9 @@
           ],
           "scopeTypes": [
             "class"
+          ],
+          "excludeDescendantScopeTypes": [
+            "namedFunction"
           ]
         },
         "body": [

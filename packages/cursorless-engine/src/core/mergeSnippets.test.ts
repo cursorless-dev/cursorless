@@ -247,23 +247,43 @@ const testCases: TestCase[] = [
   },
 
   {
-    name: "should prefer snippets with more specific languages",
+    name: "should prefer snippets based on specificity",
     coreSnippets: {
       aaa: {
         definitions: [
           {
-            body: ["has no langIds"],
+            body: [""],
           },
           {
-            body: ["has two langIds"],
+            body: [""],
+            scope: {
+              langIds: ["typescript"],
+            },
+          },
+          {
+            body: [""],
             scope: {
               langIds: ["typescript", "javascript"],
             },
           },
           {
-            body: ["has one langId"],
+            body: [""],
+            scope: {
+              scopeTypes: ["anonymousFunction"],
+            },
+          },
+          {
+            body: [""],
             scope: {
               langIds: ["typescript"],
+              scopeTypes: ["anonymousFunction"],
+            },
+          },
+          {
+            body: [""],
+            scope: {
+              langIds: ["typescript", "javascript"],
+              scopeTypes: ["anonymousFunction"],
             },
           },
         ],
@@ -273,101 +293,39 @@ const testCases: TestCase[] = [
       aaa: {
         definitions: [
           {
-            body: ["has one langId"],
+            body: [""],
+            scope: {
+              langIds: ["typescript"],
+              scopeTypes: ["anonymousFunction"],
+            },
+          },
+          {
+            body: [""],
+            scope: {
+              langIds: ["typescript", "javascript"],
+              scopeTypes: ["anonymousFunction"],
+            },
+          },
+          {
+            body: [""],
+            scope: {
+              scopeTypes: ["anonymousFunction"],
+            },
+          },
+          {
+            body: [""],
             scope: {
               langIds: ["typescript"],
             },
           },
           {
-            body: ["has two langIds"],
+            body: [""],
             scope: {
               langIds: ["typescript", "javascript"],
             },
           },
           {
-            body: ["has no langIds"],
-          },
-        ],
-      },
-    },
-  },
-
-  {
-    name: "should prefer snippets with more specific languages, regardless of scopeType",
-    coreSnippets: {
-      aaa: {
-        definitions: [
-          {
-            body: ["has scope but no langIds"],
-            scope: {
-              scopeTypes: ["anonymousFunction"],
-            },
-          },
-          {
-            body: ["has langIds"],
-            scope: {
-              langIds: ["typescript"],
-            },
-          },
-        ],
-      },
-    },
-    expected: {
-      aaa: {
-        definitions: [
-          {
-            body: ["has langIds"],
-            scope: {
-              langIds: ["typescript"],
-            },
-          },
-          {
-            body: ["has scope but no langIds"],
-            scope: {
-              scopeTypes: ["anonymousFunction"],
-            },
-          },
-        ],
-      },
-    },
-  },
-
-  {
-    name: "should prefer snippets with more specific scope types",
-    coreSnippets: {
-      aaa: {
-        definitions: [
-          {
-            body: ["has no scopeType"],
-            scope: {
-              langIds: ["typescript"],
-            },
-          },
-          {
-            body: ["has scopeType"],
-            scope: {
-              langIds: ["typescript"],
-              scopeTypes: ["anonymousFunction"],
-            },
-          },
-        ],
-      },
-    },
-    expected: {
-      aaa: {
-        definitions: [
-          {
-            body: ["has scopeType"],
-            scope: {
-              langIds: ["typescript"],
-              scopeTypes: ["anonymousFunction"],
-            },
-          },
-          {
-            body: ["has no scopeType"],
-            scope: {
-              langIds: ["typescript"],
-            },
+            body: [""],
           },
         ],
       },

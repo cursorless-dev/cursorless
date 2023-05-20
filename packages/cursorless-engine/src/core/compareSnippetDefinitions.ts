@@ -44,13 +44,13 @@ function compareSnippetScopes(
     return 1;
   }
 
-  const langIdsComparision = compareLangIds(a.langIds, b.langIds);
+  const scopeTypesComparision = compareScopeTypes(a.scopeTypes, b.scopeTypes);
 
-  if (langIdsComparision !== 0) {
-    return langIdsComparision;
+  if (scopeTypesComparision !== 0) {
+    return scopeTypesComparision;
   }
 
-  return compareScopeTypes(a.scopeTypes, b.scopeTypes);
+  return compareLangIds(a.langIds, b.langIds);
 }
 
 function compareLangIds(

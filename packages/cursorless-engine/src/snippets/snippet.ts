@@ -1,4 +1,4 @@
-import { SnippetDefinition } from "@cursorless/common";
+import { SimpleScopeTypeType, SnippetDefinition } from "@cursorless/common";
 import { Target } from "../typings/target.types";
 import {
   Placeholder,
@@ -8,7 +8,6 @@ import {
 } from "./vendor/vscodeSnippet/snippetParser";
 import { KnownSnippetVariableNames } from "./vendor/vscodeSnippet/snippetVariables";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { strictlyContains } from "../util/rangeUtils";
 
 /**
  * Replaces the snippet variable with name `placeholderName` with
@@ -146,85 +145,50 @@ function findMatchingSnippetDefinitionForSingleTarget(
 ): number {
   const languageId = target.editor.document.languageId;
 
-  const matchingDefinitions = definitions
-    .map(({ scope }, index): MatchResult => {
-      if (scope == null) {
-        return [true, index, null];
-      }
+  return definitions.findIndex(({ scope }) => {
+    if (scope == null) {
+      return true;
+    }
 
-      const { langIds, scopeTypes } = scope;
+    const { langIds, scopeTypes, excludeDescendantScopeTypes } = scope;
 
-      if (langIds != null && !langIds.includes(languageId)) {
-        return [false, index, null];
-      }
+    if (langIds != null && !langIds.includes(languageId)) {
+      return false;
+    }
 
-      if (scopeTypes != null) {
-        const matchingScopeTypes = [];
-        for (const scopeTypeType of scopeTypes) {
-          try {
-            const containingTarget = modifierStageFactory
-              .create({
-                type: "containingScope",
-                scopeType: { type: scopeTypeType },
-              })
-              .run(target);
+    if (scopeTypes != null) {
+      const allScopeTypes = scopeTypes.concat(
+        excludeDescendantScopeTypes ?? [],
+      );
+      let matchingTarget: Target | undefined = undefined;
+      let matchingScopeType: SimpleScopeTypeType | undefined = undefined;
+      for (const scopeTypeType of allScopeTypes) {
+        try {
+          const containingTarget = modifierStageFactory
+            .create({
+              type: "containingScope",
+              scopeType: { type: scopeTypeType },
+            })
+            .run(target)[0];
 
-            matchingScopeTypes.push(containingTarget);
-          } catch (e) {
-            continue;
+          if (
+            matchingTarget == null ||
+            matchingTarget.contentRange.contains(containingTarget.contentRange)
+          ) {
+            matchingTarget = containingTarget;
+            matchingScopeType = scopeTypeType;
           }
+        } catch (e) {
+          continue;
         }
-
-        if (matchingScopeTypes.length === 0) {
-          return [false, index, null];
-        }
-
-        return [true, index, matchingScopeTypes.sort(compareTargetLists)[0]];
       }
 
-      return [true, index, null];
-    })
-    .filter(([matches]) => matches)
-    .sort(compareMatches);
+      return (
+        matchingTarget != null &&
+        !(excludeDescendantScopeTypes ?? []).includes(matchingScopeType!)
+      );
+    }
 
-  return matchingDefinitions.length === 0 ? -1 : matchingDefinitions[0][1];
-}
-
-function compareMatches(
-  [_, indexA, targetA]: MatchResult,
-  [__, indexB, targetB]: MatchResult,
-): number {
-  if (targetA == null && targetB == null) {
-    return indexA - indexB;
-  }
-
-  if (targetA == null) {
-    return 1;
-  }
-
-  if (targetB == null) {
-    return -1;
-  }
-
-  return compareTargetLists(targetA, targetB);
-}
-
-function compareTargetLists([a]: Target[], [b]: Target[]): number {
-  if (strictlyContains(a.contentRange, b.contentRange)) {
-    return 1;
-  }
-
-  if (strictlyContains(b.contentRange, a.contentRange)) {
-    return -1;
-  }
-
-  if (a.isDocument && !b.isDocument) {
-    return 1;
-  }
-
-  if (b.isDocument && !a.isDocument) {
-    return -1;
-  }
-
-  return 0;
+    return true;
+  });
 }

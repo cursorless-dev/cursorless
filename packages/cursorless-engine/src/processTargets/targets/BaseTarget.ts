@@ -30,7 +30,6 @@ export interface CloneWithParameters {
 
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
-  isDocument = false;
   isLine = false;
   hasExplicitScopeType = true;
   hasExplicitRange = true;

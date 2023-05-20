@@ -6,7 +6,6 @@ import PlainTarget from "./PlainTarget";
 export default class DocumentTarget extends BaseTarget {
   insertionDelimiter = "\n";
   isLine = true;
-  isDocument = true;
 
   constructor(parameters: CommonTargetParameters) {
     super(parameters);
