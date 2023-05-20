@@ -111,26 +111,12 @@ export function findMatchingSnippetDefinitionStrict(
 }
 
 /**
- * [matches, index, target]
- */
-type MatchResult = [boolean, number, Target[] | null];
-
-/**
  * Based on the context determined by {@link target} (eg the file's language id
  * and containing scope), finds the best snippet definition that matches the
  * given context. Returns -1 if no matching snippet definition could be found.
  *
- * Prefers snippet definitions that specify a scope type.  If multiple snippet
- * definitions specify a scope type, then we prefer the one whose matched scope
- * has the smallest range in the document.
- *
- * If no snippet definitions specify a scope type, then we break ties based on
- * which specify language id.  If that doesn't break the tie, then we prefer
- * user defined snippets over built-in snippets.
- *
- * Although we directly check matched scope range, we don't check other
- * precedences (eg lang id or user vs core), because the definitions are
- * guaranteed to come sorted in precedence order.
+ * We assume that the definitions are sorted in precedence order, so we just
+ * return the first match we find.
  *
  * @param modifierStageFactory For creating containing scope modifiers
  * @param target The target to find a matching snippet definition for
@@ -145,6 +131,9 @@ function findMatchingSnippetDefinitionForSingleTarget(
 ): number {
   const languageId = target.editor.document.languageId;
 
+  // We want to find the first definition that matches the given context.
+  // Note that we just use the first match we find because the definitions are
+  // guaranteed to come sorted in precedence order.
   return definitions.findIndex(({ scope }) => {
     if (scope == null) {
       return true;
@@ -164,12 +153,25 @@ function findMatchingSnippetDefinitionForSingleTarget(
       let matchingScopeType: SimpleScopeTypeType | undefined = undefined;
       for (const scopeTypeType of allScopeTypes) {
         try {
-          const containingTarget = modifierStageFactory
+          let containingTarget = modifierStageFactory
             .create({
               type: "containingScope",
               scopeType: { type: scopeTypeType },
             })
             .run(target)[0];
+
+          if (target.contentRange.isRangeEqual(containingTarget.contentRange)) {
+            // Skip this scope if the target is exactly the same as the
+            // containing scope, otherwise wrapping won't work, because we're
+            // really outside the containing scope when we're wrapping
+            containingTarget = modifierStageFactory
+              .create({
+                type: "containingScope",
+                scopeType: { type: scopeTypeType },
+                ancestorIndex: 1,
+              })
+              .run(target)[0];
+          }
 
           if (
             matchingTarget == null ||
