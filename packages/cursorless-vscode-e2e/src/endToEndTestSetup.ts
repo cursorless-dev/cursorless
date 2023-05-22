@@ -21,7 +21,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   suite.timeout("100s");
   suite.retries(5);
 
-  let ide: IDE;
+  let ide: IDE | undefined;
   let injectIde: ((ide: IDE) => void);
   let spy: SpyIDE | undefined;
 
@@ -36,7 +36,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
 
   teardown(() => {
     sinon.restore();
-    injectIde(ide);
+    injectIde(ide!);
   });
 
   return {
