@@ -120,9 +120,7 @@ export class TestCase {
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
-    return Object.keys(excludedFields).filter(
-      (field) => excludedFields[field],
-    );
+    return Object.keys(excludedFields).filter((field) => excludedFields[field]);
   }
 
   toYaml() {
