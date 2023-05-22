@@ -21,8 +21,8 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   suite.timeout("100s");
   suite.retries(5);
 
-  let ide: IDE | undefined;
-  let injectIde: ((ide: IDE) => void) | undefined;
+  let ide: IDE;
+  let injectIde: ((ide: IDE) => void);
   let spy: SpyIDE | undefined;
 
   setup(async function (this: Context) {
@@ -30,13 +30,13 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
     ({ ide, injectIde } = (await getCursorlessApi()).testHelpers!);
-    spy = new SpyIDE(ide!);
-    injectIde!(spy);
+    spy = new SpyIDE(ide);
+    injectIde(spy);
   });
 
   teardown(() => {
     sinon.restore();
-    injectIde!(ide!);
+    injectIde(ide);
   });
 
   return {
