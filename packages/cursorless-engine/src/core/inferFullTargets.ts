@@ -9,14 +9,13 @@ import {
   PartialTargetDescriptor,
   PositionModifier,
 } from "@cursorless/common";
+import { findLastIndex } from "lodash";
 import {
   EveryRangeTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { findLastIndex } from "lodash";
-import produce from "immer";
 
 /**
  * Performs inference on the partial targets provided by the user, using
@@ -90,13 +89,11 @@ function inferRangeTarget(
     active: inferPrimitiveTarget(
       target.active,
       previousTargets.concat(target.anchor),
+      true,
     ),
   };
 
-  const isAnchorMarkImplicit =
-    target.anchor.type === "implicit" || target.anchor.mark == null;
-
-  return handleEveryRangeTarget(fullTarget, isAnchorMarkImplicit) ?? fullTarget;
+  return handleEveryRangeTarget(fullTarget) ?? fullTarget;
 }
 
 /**
@@ -127,12 +124,9 @@ function inferRangeTarget(
  * resulting range.
  *
  * @param fullTarget The full range target, post-inference
- * @param isAnchorMarkImplicit `true` if the anchor mark was implicit on the
- * original partial target
  */
 function handleEveryRangeTarget(
   fullTarget: RangeTargetDescriptor,
-  isAnchorMarkImplicit: boolean,
 ): EveryRangeTargetDescriptor | null {
   const { anchor, rangeType, active, excludeAnchor, excludeActive } =
     fullTarget;
@@ -154,6 +148,10 @@ function handleEveryRangeTarget(
     anchor.modifiers[everyScopeModifierIndex] as EveryScopeModifier
   ).scopeType;
 
+  if (scopeType.type === "instance") {
+    return null;
+  }
+
   const [beforeEveryModifiers, afterEveryModifiers] = [
     anchor.modifiers.slice(0, everyScopeModifierIndex),
     anchor.modifiers.slice(everyScopeModifierIndex + 1),
@@ -167,7 +165,7 @@ function handleEveryRangeTarget(
       // If they say "every line past bat", the anchor is implicit, even though
       // it comes across the wire as a primitive target due to the "every line",
       // which we've now removed
-      afterEveryModifiers.length === 0 && isAnchorMarkImplicit
+      afterEveryModifiers.length === 0 && anchor.mark == null
         ? { type: "implicit" }
         : {
             type: "primitive",
@@ -175,16 +173,7 @@ function handleEveryRangeTarget(
             positionModifier: undefined,
             modifiers: afterEveryModifiers,
           },
-    // Remove the "every" (and everything before it) from the active if it
-    // ended up there from inference
-    active: produce(active, (draft) => {
-      draft.modifiers = draft.modifiers.slice(
-        findLastIndex(
-          draft.modifiers,
-          (modifier) => modifier.type === "everyScope",
-        ) + 1,
-      );
-    }),
+    active,
     modifiers: beforeEveryModifiers,
     positionModifier: anchor.positionModifier,
     excludeAnchor,
@@ -206,6 +195,7 @@ function inferPossiblyImplicitTarget(
 function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
+  isActive: boolean = false,
 ): PrimitiveTargetDescriptor {
   const ownPositionModifier = getPositionModifier(target);
   const ownModifiers = getPreservedModifiers(target);
@@ -217,8 +207,24 @@ function inferPrimitiveTarget(
       : null) ??
     undefined;
 
-  const modifiers =
+  let modifiers =
     ownModifiers ?? getPreviousPreservedModifiers(previousTargets) ?? [];
+
+  if (isActive) {
+    // If we're inferring the active end of a range target, we don't want any
+    // every or instance modifiers, because those will be handled by rewrites,
+    // because "past" binds more tightly than "every" or "instance"
+    modifiers = modifiers.slice(
+      findLastIndex(
+        modifiers,
+        (modifier) =>
+          modifier.type === "everyScope" ||
+          ((modifier.type === "relativeScope" ||
+            modifier.type === "ordinalScope") &&
+            modifier.scopeType.type === "instance"),
+      ) + 1,
+    );
+  }
 
   const positionModifier =
     ownPositionModifier ?? getPreviousPositionModifier(previousTargets);

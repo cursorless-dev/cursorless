@@ -129,6 +129,7 @@ export type SimpleScopeTypeType =
   | "identifier"
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
+  | "instance"
   | "url";
 
 export interface SimpleScopeType {
