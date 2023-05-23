@@ -309,12 +309,6 @@ const testCases: TestCase[] = [
           {
             body: [""],
             scope: {
-              scopeTypes: ["anonymousFunction"],
-            },
-          },
-          {
-            body: [""],
-            scope: {
               langIds: ["typescript"],
             },
           },
@@ -322,6 +316,12 @@ const testCases: TestCase[] = [
             body: [""],
             scope: {
               langIds: ["typescript", "javascript"],
+            },
+          },
+          {
+            body: [""],
+            scope: {
+              scopeTypes: ["anonymousFunction"],
             },
           },
           {
