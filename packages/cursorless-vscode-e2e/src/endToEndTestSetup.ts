@@ -22,7 +22,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   suite.retries(5);
 
   let ide: IDE;
-  let injectIde: ((ide: IDE) => void);
+  let injectIde: (ide: IDE) => void;
   let spy: SpyIDE | undefined;
 
   setup(async function (this: Context) {
