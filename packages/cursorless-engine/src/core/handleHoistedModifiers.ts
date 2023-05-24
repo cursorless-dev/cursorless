@@ -146,7 +146,8 @@ const hoistedModifierTypes: HoistedModifierType[] = [
   // "every" ranges, eg "every line air past bat"
   {
     accept(modifier: Modifier) {
-      return modifier.type === "everyScope"
+      return modifier.type === "everyScope" &&
+        modifier.scopeType.type !== "instance"
         ? {
             accepted: true,
             transformTarget(target: RangeTargetDescriptor) {
@@ -157,6 +158,21 @@ const hoistedModifierTypes: HoistedModifierType[] = [
             },
           }
         : { accepted: false };
+    },
+  },
+
+  // "instance" modifiers treat the range as the instance to search for, eg
+  // "every instance air past bat" searches for instances of the text of the
+  // range "air past bat".
+  {
+    accept(modifier: Modifier) {
+      return {
+        accepted:
+          (modifier.type === "everyScope" ||
+            modifier.type === "relativeScope" ||
+            modifier.type === "ordinalScope") &&
+          modifier.scopeType.type === "instance",
+      };
     },
   },
 ];

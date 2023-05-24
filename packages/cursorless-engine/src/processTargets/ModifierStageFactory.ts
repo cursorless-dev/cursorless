@@ -10,4 +10,5 @@ export interface ModifierStageFactory {
   getLegacyScopeStage(
     modifier: ContainingScopeModifier | EveryScopeModifier,
   ): ModifierStage;
+  getPseudoScopeStage(modifier: Modifier): ModifierStage;
 }

@@ -58,10 +58,27 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new ParagraphScopeHandler(scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
+      case "instance":
+        // Handle instance pseudoscope with its own special modifier
+        return getPseudoScope(scopeType);
       default:
         return this.languageDefinitions
           .get(languageId)
           ?.getScopeHandler(scopeType);
     }
   }
+}
+
+function getPseudoScope(scopeType: ScopeType): ScopeHandler {
+  return {
+    scopeType,
+    generateScopes(_editor, _position, _direction, _requirements) {
+      throw new Error("Not implemented");
+    },
+    get iterationScopeType(): ScopeType {
+      throw new Error("Not implemented");
+    },
+    includeAdjacentInEvery: false,
+    isPseudoScope: true,
+  };
 }

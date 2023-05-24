@@ -32,6 +32,12 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
       return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
+    if (scopeHandler.isPseudoScope) {
+      return this.modifierStageFactory
+        .getPseudoScopeStage(this.modifier)
+        .run(target);
+    }
+
     const { isReversed, editor, contentRange: inputRange } = target;
     const { length: desiredScopeCount, direction, offset } = this.modifier;
 

@@ -47,6 +47,12 @@ export class ContainingScopeStage implements ModifierStage {
         .run(target);
     }
 
+    if (scopeHandler.isPseudoScope) {
+      return this.modifierStageFactory
+        .getPseudoScopeStage(this.modifier)
+        .run(target);
+    }
+
     const containingScope = getContainingScopeTarget(
       target,
       scopeHandler,

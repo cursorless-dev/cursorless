@@ -1,0 +1,37 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck two instances line air
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: instance}
+          offset: 0
+          length: 2
+          direction: forward
+        - type: containingScope
+          scopeType: {type: line}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb
+    aaa bbb ccc
+    aaa bbb
+    ddd
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |
+    aaa bbb ccc
+    ddd
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

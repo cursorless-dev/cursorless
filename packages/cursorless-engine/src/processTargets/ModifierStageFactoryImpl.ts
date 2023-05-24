@@ -16,6 +16,7 @@ import {
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
+import InstanceStage from "./modifiers/InstanceStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
@@ -142,5 +143,24 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
         );
     }
+  }
+
+  getPseudoScopeStage(modifier: Modifier): ModifierStage {
+    if (
+      modifier.type === "containingScope" ||
+      modifier.type === "everyScope" ||
+      modifier.type === "relativeScope"
+    ) {
+      switch (modifier.scopeType.type) {
+        case "instance":
+          return new InstanceStage(this, modifier);
+        default:
+          throw Error(
+            "Unsupported pseudo scope type '${modifier.scopeType.type}'",
+          );
+      }
+    }
+
+    throw Error("Unsupported pseudo scope modifier '${modifier.type}'");
   }
 }

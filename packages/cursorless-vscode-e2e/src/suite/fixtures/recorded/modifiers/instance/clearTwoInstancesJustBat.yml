@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear two instances just bat
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: instance}
+          offset: 0
+          length: 2
+          direction: forward
+        - {type: toRawSelection}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb ccc aaa bbbb aaa bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: |
+    aaa  ccc aaa b aaa bbb
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

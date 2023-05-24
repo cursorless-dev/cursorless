@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear every instance past bat
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: instance}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb ccc aaa bbb
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks:
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: aa ccc aa
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

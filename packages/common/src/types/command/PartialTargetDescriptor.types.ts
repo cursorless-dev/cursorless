@@ -86,6 +86,7 @@ export type SimpleScopeTypeType =
   | "functionCallee"
   | "functionName"
   | "ifStatement"
+  | "instance"
   | "list"
   | "map"
   | "name"
