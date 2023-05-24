@@ -70,7 +70,7 @@ async function testCaseRecorderGracefulError() {
 
     try {
       await runCursorlessCommand({
-        version: 4,
+        version: 5,
         action: { name: "badActionName" as ActionType },
         targets: [
           {
