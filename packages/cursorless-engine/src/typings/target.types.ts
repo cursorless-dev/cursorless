@@ -44,6 +44,9 @@ export interface Target {
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 
+  /** If true this target should be treated as a token */
+  readonly isToken: boolean;
+
   /**
    * If `true`, then this target has an explicit scope type, and so should never
    * be automatically expanded to a containing scope.

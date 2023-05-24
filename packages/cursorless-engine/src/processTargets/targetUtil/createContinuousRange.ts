@@ -63,5 +63,6 @@ export function createContinuousRangeUntypedTarget(
       includeStart,
       includeEnd,
     ),
+    isToken: startTarget.isToken && endTarget.isToken,
   });
 }

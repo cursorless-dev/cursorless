@@ -8,6 +8,7 @@ import BaseTarget from "./BaseTarget";
 export default class RawSelectionTarget extends BaseTarget {
   insertionDelimiter = "";
   isRaw = true;
+  isToken = false;
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
