@@ -60,25 +60,11 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return scopeType.scopeHandler;
       case "instance":
         // Handle instance pseudoscope with its own special modifier
-        return getPseudoScope(scopeType);
+        throw Error("Unexpected scope type 'instance'");
       default:
         return this.languageDefinitions
           .get(languageId)
           ?.getScopeHandler(scopeType);
     }
   }
-}
-
-function getPseudoScope(scopeType: ScopeType): ScopeHandler {
-  return {
-    scopeType,
-    generateScopes(_editor, _position, _direction, _requirements) {
-      throw new Error("Not implemented");
-    },
-    get iterationScopeType(): ScopeType {
-      throw new Error("Not implemented");
-    },
-    includeAdjacentInEvery: false,
-    isPseudoScope: true,
-  };
 }

@@ -76,10 +76,18 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "everyScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, modifier);
+        }
+
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, modifier);
+        }
+
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
@@ -143,24 +151,5 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
         );
     }
-  }
-
-  getPseudoScopeStage(modifier: Modifier): ModifierStage {
-    if (
-      modifier.type === "containingScope" ||
-      modifier.type === "everyScope" ||
-      modifier.type === "relativeScope"
-    ) {
-      switch (modifier.scopeType.type) {
-        case "instance":
-          return new InstanceStage(this, modifier);
-        default:
-          throw Error(
-            "Unsupported pseudo scope type '${modifier.scopeType.type}'",
-          );
-      }
-    }
-
-    throw Error("Unsupported pseudo scope modifier '${modifier.type}'");
   }
 }

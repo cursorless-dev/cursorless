@@ -50,12 +50,6 @@ export class EveryScopeStage implements ModifierStage {
         .run(target);
     }
 
-    if (scopeHandler.isPseudoScope) {
-      return this.modifierStageFactory
-        .getPseudoScopeStage(this.modifier)
-        .run(target);
-    }
-
     let scopes: TargetScope[] | undefined;
 
     if (target.hasExplicitRange) {

@@ -87,12 +87,6 @@ export interface ScopeHandler {
    * range is at the beginning or end of the line.
    */
   readonly includeAdjacentInEvery: boolean;
-
-  /**
-   * Used for pseudoscopes like "instance", that don't correspond to a real
-   * scope type, but are used to represent modifiers like "next instance".
-   */
-  readonly isPseudoScope: boolean;
 }
 
 export type ContainmentPolicy =
