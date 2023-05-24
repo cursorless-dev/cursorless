@@ -86,6 +86,7 @@ export default class WrapWithSnippet implements Action {
       const snippet = this.snippets.getSnippetStrict(name);
 
       const definition = findMatchingSnippetDefinitionStrict(
+        this.modifierStageFactory,
         targets,
         snippet.definitions,
       );

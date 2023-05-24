@@ -1,0 +1,41 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: snip funk
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: functionDeclaration}
+  targets:
+    - {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Aaa {
+        bbb() {
+            
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Aaa {
+        bbb() {
+            function () {
+                
+            }
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 17}
+      active: {line: 2, character: 17}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 2, character: 8}
+        end: {line: 4, character: 9}
+      isReversed: false
+      hasExplicitRange: true

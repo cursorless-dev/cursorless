@@ -23,6 +23,7 @@ import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
+import { UntypedTarget } from "../processTargets/targets";
 
 interface NamedSnippetArg {
   type: "named";
@@ -94,6 +95,7 @@ export default class InsertSnippet implements Action {
       const snippet = this.snippets.getSnippetStrict(name);
 
       const definition = findMatchingSnippetDefinitionStrict(
+        this.modifierStageFactory,
         targets,
         snippet.definitions,
       );
@@ -124,9 +126,28 @@ export default class InsertSnippet implements Action {
   ): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
+    await this.actions.editNew.run([targets]);
+
+    const targetSelectionInfos = editor.selections.map((selection) =>
+      getSelectionInfo(
+        editor.document,
+        selection,
+        RangeExpansionBehavior.openOpen,
+      ),
+    );
     const { body, formatSubstitutions } = this.getSnippetInfo(
       snippetDescription,
-      targets,
+      // Use new selection locations instead of original targets because
+      // that's where we'll be doing the snippet insertion
+      editor.selections.map(
+        (selection) =>
+          new UntypedTarget({
+            editor,
+            contentRange: selection,
+            isReversed: false,
+            hasExplicitRange: true,
+          }),
+      ),
     );
 
     const parsedSnippet = this.snippetParser.parse(body);
@@ -138,16 +159,6 @@ export default class InsertSnippet implements Action {
     );
 
     const snippetString = parsedSnippet.toTextmateString();
-
-    await this.actions.editNew.run([targets]);
-
-    const targetSelectionInfos = editor.selections.map((selection) =>
-      getSelectionInfo(
-        editor.document,
-        selection,
-        RangeExpansionBehavior.openOpen,
-      ),
-    );
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD

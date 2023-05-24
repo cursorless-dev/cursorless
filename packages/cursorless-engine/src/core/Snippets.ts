@@ -1,9 +1,10 @@
 import { showError, Snippet, SnippetMap, walkFiles } from "@cursorless/common";
 import { readFile, stat } from "fs/promises";
-import { cloneDeep, max, merge } from "lodash";
+import { max } from "lodash";
 import { join } from "path";
 import { ide } from "../singletons/ide.singleton";
 import { mergeStrict } from "../util/object";
+import { mergeSnippets } from "./mergeSnippets";
 
 const CURSORLESS_SNIPPETS_SUFFIX = ".cursorless-snippets";
 const SNIPPET_DIR_REFRESH_INTERVAL_MS = 1000;
@@ -21,7 +22,7 @@ interface DirectoryErrorMessage {
 export class Snippets {
   private coreSnippets!: SnippetMap;
   private thirdPartySnippets: Record<string, SnippetMap> = {};
-  private userSnippets!: SnippetMap;
+  private userSnippets!: SnippetMap[];
 
   private mergedSnippets!: SnippetMap;
 
@@ -133,7 +134,7 @@ export class Snippets {
         };
       }
 
-      this.userSnippets = {};
+      this.userSnippets = [];
       this.mergeSnippets();
 
       return;
@@ -154,34 +155,32 @@ export class Snippets {
 
     this.maxSnippetMtimeMs = maxSnippetMtime;
 
-    this.userSnippets = mergeStrict(
-      ...(await Promise.all(
-        snippetFiles.map(async (path) => {
-          try {
-            const content = await readFile(path, "utf8");
+    this.userSnippets = await Promise.all(
+      snippetFiles.map(async (path) => {
+        try {
+          const content = await readFile(path, "utf8");
 
-            if (content.length === 0) {
-              // Gracefully handle an empty file
-              return {};
-            }
-
-            return JSON.parse(content);
-          } catch (err) {
-            showError(
-              ide().messages,
-              "snippetsFileError",
-              `Error with cursorless snippets file "${path}": ${
-                (err as Error).message
-              }`,
-            );
-
-            // We don't want snippets from all files to stop working if there is
-            // a parse error in one file, so we just effectively ignore this file
-            // once we've shown an error message
+          if (content.length === 0) {
+            // Gracefully handle an empty file
             return {};
           }
-        }),
-      )),
+
+          return JSON.parse(content);
+        } catch (err) {
+          showError(
+            ide().messages,
+            "snippetsFileError",
+            `Error with cursorless snippets file "${path}": ${
+              (err as Error).message
+            }`,
+          );
+
+          // We don't want snippets from all files to stop working if there is
+          // a parse error in one file, so we just effectively ignore this file
+          // once we've shown an error message
+          return {};
+        }
+      }),
     );
 
     this.mergeSnippets();
@@ -206,34 +205,11 @@ export class Snippets {
    * party > core.
    */
   private mergeSnippets() {
-    this.mergedSnippets = {};
-
-    // We make a list of all entries from all sources, in order of increasing
-    // precedence: user > third party > core.
-    const entries = [
-      ...Object.entries(cloneDeep(this.coreSnippets)),
-      ...Object.values(this.thirdPartySnippets).flatMap((snippets) =>
-        Object.entries(cloneDeep(snippets)),
-      ),
-      ...Object.entries(cloneDeep(this.userSnippets)),
-    ];
-
-    entries.forEach(([key, value]) => {
-      if (Object.prototype.hasOwnProperty.call(this.mergedSnippets, key)) {
-        const { definitions, ...rest } = value;
-        const mergedSnippet = this.mergedSnippets[key];
-
-        // NB: We make sure that the new definitions appear before the previous
-        // ones so that they take precedence
-        mergedSnippet.definitions = definitions.concat(
-          ...mergedSnippet.definitions,
-        );
-
-        merge(mergedSnippet, rest);
-      } else {
-        this.mergedSnippets[key] = value;
-      }
-    });
+    this.mergedSnippets = mergeSnippets(
+      this.coreSnippets,
+      this.thirdPartySnippets,
+      this.userSnippets,
+    );
   }
 
   /**
