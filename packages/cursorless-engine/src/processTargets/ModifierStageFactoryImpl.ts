@@ -82,6 +82,10 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
 
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, modifier);
+        }
+
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
         if (modifier.scopeType.type === "instance") {

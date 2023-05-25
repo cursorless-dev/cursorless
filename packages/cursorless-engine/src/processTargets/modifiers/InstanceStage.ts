@@ -1,6 +1,7 @@
 import {
   Direction,
   Modifier,
+  OrdinalScopeModifier,
   Range,
   RelativeScopeModifier,
   ScopeType,
@@ -13,8 +14,8 @@ import { generateMatchesInRange } from "../../util/getMatchesInRange";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
-import { OutOfRangeError } from "./targetSequenceUtils";
 import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages";
+import { OutOfRangeError } from "./targetSequenceUtils";
 
 export default class InstanceStage implements ModifierStage {
   constructor(
@@ -23,15 +24,20 @@ export default class InstanceStage implements ModifierStage {
   ) {}
 
   run(inputTarget: Target): Target[] {
+    // If the target is untyped and empty, we want to target the containing
+    // token. This handles the case where they just say "instance" with an empty
+    // selection, eg "take every instance".
     const target = new ContainingTokenIfUntypedEmptyStage(
       this.modifierStageFactory,
     ).run(inputTarget)[0];
 
     switch (this.modifier.type) {
-      case "relativeScope":
-        return this.handleRelativeScope(target, this.modifier);
       case "everyScope":
         return this.handleEveryScope(target);
+      case "ordinalScope":
+        return this.handleOrdinalScope(target, this.modifier);
+      case "relativeScope":
+        return this.handleRelativeScope(target, this.modifier);
       default:
         throw Error(`${this.modifier.type} instance scope not supported`);
     }
@@ -41,7 +47,30 @@ export default class InstanceStage implements ModifierStage {
     const { editor } = target;
 
     return Array.from(
-      this.getTargetIterable(target, editor, editor.document.range, "forward"),
+      this.getTargetIterable(
+        target,
+        editor,
+        this.getEveryRange(editor),
+        "forward",
+      ),
+    );
+  }
+
+  private handleOrdinalScope(
+    target: Target,
+    { start, length }: OrdinalScopeModifier,
+  ): Target[] {
+    const { editor } = target;
+
+    return takeFromOffset(
+      this.getTargetIterable(
+        target,
+        editor,
+        this.getEveryRange(editor),
+        start >= 0 ? "forward" : "backward",
+      ),
+      start >= 0 ? start : -(length + start),
+      length,
     );
   }
 
@@ -51,26 +80,20 @@ export default class InstanceStage implements ModifierStage {
   ): Target[] {
     const { editor } = target;
 
-    const iterable = this.getTargetIterable(
-      target,
-      editor,
+    const iterationRange =
       direction === "forward"
         ? new Range(target.contentRange.start, editor.document.range.end)
-        : new Range(editor.document.range.start, target.contentRange.end),
-      direction,
+        : new Range(editor.document.range.start, target.contentRange.end);
+
+    return takeFromOffset(
+      this.getTargetIterable(target, editor, iterationRange, direction),
+      offset,
+      length,
     );
+  }
 
-    // Skip the first `offset` targets
-    Array.from(itake(offset, iterable));
-
-    // Take the next `length` targets
-    const targets = Array.from(itake(length, iterable));
-
-    if (targets.length < length) {
-      throw new OutOfRangeError();
-    }
-
-    return targets;
+  private getEveryRange(editor: TextEditor): Range {
+    return editor.document.range;
   }
 
   private getTargetIterable(
@@ -138,4 +161,32 @@ function getFilterScopeType(target: Target): ScopeType | null {
   }
 
   return null;
+}
+
+/**
+ * Take `length` items from `iterable` starting at `offset`, throwing an error
+ * if there are not enough items.
+ *
+ * @param iterable The iterable to take from
+ * @param offset How many items to skip
+ * @param count How many items to take
+ * @returns An array of length `length` containing the items from `iterable`
+ * starting at `offset`
+ */
+function takeFromOffset<T>(
+  iterable: Iterable<T>,
+  offset: number,
+  count: number,
+): T[] {
+  // Skip the first `offset` targets
+  Array.from(itake(offset, iterable));
+
+  // Take the next `length` targets
+  const items = Array.from(itake(count, iterable));
+
+  if (items.length < count) {
+    throw new OutOfRangeError();
+  }
+
+  return items;
 }
