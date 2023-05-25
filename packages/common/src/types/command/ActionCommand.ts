@@ -34,7 +34,7 @@ export const actionNames = [
   "revealTypeDefinition",
   "reverseTargets",
   "rewrapWithPairedDelimiter",
-  "setInstanceReference",
+  "experimentalSetInstanceReference",
   "scrollToBottom",
   "scrollToCenter",
   "scrollToTop",

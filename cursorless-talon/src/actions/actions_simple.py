@@ -22,7 +22,7 @@ simple_action_defaults = {
     "float": "insertEmptyLineAfter",
     "fold": "foldRegion",
     "follow": "followLink",
-    "from": "setInstanceReference",
+    "-from": "experimentalSetInstanceReference",
     "give": "deselect",
     "highlight": "highlight",
     "hover": "showHover",

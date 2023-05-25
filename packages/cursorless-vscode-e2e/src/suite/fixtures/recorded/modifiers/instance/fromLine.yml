@@ -2,7 +2,7 @@ languageId: plaintext
 command:
   version: 5
   spokenForm: from line
-  action: {name: setInstanceReference}
+  action: {name: experimentalSetInstanceReference}
   targets:
     - type: primitive
       modifiers:
