@@ -311,6 +311,26 @@ foo.bar baz|bongo
 
 Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
+##### `"instance"`
+
+The `"instance"` modifier searches for occurrences of the text of the target. For example:
+
+- `"take every instance air"`: selects all instances of the token with a hat over the letter `a` in the whole document
+- `"take two instances air"`: selects the first two instances of the token with a hat over the letter `a`, starting from that token itself
+- `"take next instance air"`: selects the next instance of the token with a hat over the letter `a`, starting from that token itself
+- `"chuck every instance two tokens air"`: deletes all occurrences of the two tokens beginning from the token with a hat over the letter `a`. For example if there were a hat over the `a` in `aaa.bbb`, it would delete every occurrence of `aaa.` in the file.
+- `"take every instance air past bat"`: if there were hats over the `a` and `b` in `aaa ccc bbb ddd`, it would selects all occurrences of `aaa ccc bbb` (which is the text corresponding to the range `"air past bat"`)
+
+Note in the final example how the `"instance"` modifier constructs the instance based on the range `"air past bat"`, rather than the individual tokens `"air"` and `"bat"`, as you might expect given the way other modifiers behave. Effectively `"instance"` applies to everything after the `"instance"` modifier, rather than just the next modifier.
+
+Note also that `"instance"` considers the type of target used to construct the instance. So for example, `"take every instance air"` will only select tokens that
+are identical to the token with a hat over the letter `a`, skipping over bigger tokens that contain the token with a hat over the letter `a` as a substring. For example, if there were a hat over the `a` in `aaa`, it would select every occurrence of `aaa` in the file, but not `aaaaa`. If you want to avoid this behaviour, you can
+use the `"just"` modifier, eg `"take every instance just air"`.
+
+If your cursor is touching a token, you can say `"take every instance air"` to select all instances of the given token.
+
+Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
+
 ##### Surrounding pair
 
 Cursorless has support for expanding the selection to the nearest containing paired delimiter, eg the surrounding parentheses, curly brackets, etc.
@@ -351,7 +371,7 @@ For example:
 
 If your cursor / mark is between two delimiters (not adjacent to one), then saying either "left" or "right" will cause cursorless to just expand to the nearest delimiters on either side, without trying to determine whether they are opening or closing delimiters.
 
-#### `"its"`
+##### `"its"`
 
 The the modifier `"its"` is intended to be used as part of a compound target, and will tell Cursorless to use the previously mentioned mark in the compound target.
 

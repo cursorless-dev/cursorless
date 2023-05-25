@@ -121,6 +121,12 @@ export default class InstanceStage implements ModifierStage {
     const filterScopeType = getFilterScopeType(target);
 
     if (filterScopeType != null) {
+      // If the target is a line, token or word, we want to filter out any
+      // instances of the text that are not also a line, token or word.  For
+      // those that are, we want to return the target as a line, token or word
+      // target.  For example, if the user says "take every instance air", we
+      // won't return matches where we find the text of the "air" token as part
+      // of a larger token.
       const containingScopeModifier = this.modifierStageFactory.create({
         type: "containingScope",
         scopeType: filterScopeType,
@@ -129,6 +135,9 @@ export default class InstanceStage implements ModifierStage {
       return ifilter(
         imap(iterable, (target) => {
           try {
+            // Just try to expand to the containing scope. If it fails or is not
+            // equal to the target, we know the match is not a line, token or
+            // word.
             const containingScope = containingScopeModifier.run(target);
 
             if (
@@ -158,6 +167,10 @@ function getFilterScopeType(target: Target): ScopeType | null {
 
   if (target.isToken) {
     return { type: "token" };
+  }
+
+  if (target.isWord) {
+    return { type: "word" };
   }
 
   return null;

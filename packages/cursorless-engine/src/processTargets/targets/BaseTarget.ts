@@ -37,6 +37,7 @@ export default abstract class BaseTarget implements Target {
   isRaw = false;
   isImplicit = false;
   isNotebookCell = false;
+  isWord = false;
 
   constructor(parameters: CommonTargetParameters) {
     this.state = {
