@@ -78,13 +78,19 @@ function createCommandRunner(
     new ScopeHandlerFactoryImpl(languageDefinitions),
   );
 
+  const markStageFactory = new MarkStageFactoryImpl(
+    readableHatMap,
+    storedTargets,
+  );
+  const targetPipelineRunner = new TargetPipelineRunner(
+    modifierStageFactory,
+    markStageFactory,
+  );
+  markStageFactory.setPipelineRunner(targetPipelineRunner);
   return new CommandRunnerImpl(
     debug,
     storedTargets,
-    new TargetPipelineRunner(
-      modifierStageFactory,
-      new MarkStageFactoryImpl(readableHatMap, storedTargets),
-    ),
+    targetPipelineRunner,
     new Actions(snippets, rangeUpdater, modifierStageFactory),
   );
 }

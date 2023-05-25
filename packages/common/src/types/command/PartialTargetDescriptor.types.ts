@@ -37,13 +37,13 @@ export interface LineNumberMark {
  */
 export interface RangeMark {
   type: "range";
-  anchor: Mark;
-  active: Mark;
+  anchor: PartialMark;
+  active: PartialMark;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-export type Mark =
+export type PartialMark =
   | CursorMark
   | ThatMark
   | SourceMark
@@ -275,7 +275,7 @@ export interface PositionModifier {
 
 export interface PartialPrimitiveTargetDescriptor {
   type: "primitive";
-  mark?: Mark;
+  mark?: PartialMark;
   modifiers?: Modifier[];
 }
 

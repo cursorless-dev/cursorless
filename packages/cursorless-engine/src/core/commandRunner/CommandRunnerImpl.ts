@@ -49,10 +49,12 @@ export class CommandRunnerImpl implements CommandRunner {
 
     const action = this.actions[actionName];
 
-    const targets = this.pipelineRunner.run(
-      targetDescriptors,
-      action.getPrePositionStages?.(...actionArgs) ?? [],
-      action.getFinalStages?.(...actionArgs) ?? [],
+    const prePositionStages =
+      action.getPrePositionStages?.(...actionArgs) ?? [];
+    const finalStages = action.getFinalStages?.(...actionArgs) ?? [];
+
+    const targets = targetDescriptors.map((targetDescriptor) =>
+      this.pipelineRunner.run(targetDescriptor, prePositionStages, finalStages),
     );
 
     const {
