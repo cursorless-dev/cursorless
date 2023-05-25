@@ -1,6 +1,6 @@
 import { Target } from "../typings/target.types";
 
-export type StoredTargetKey = "that" | "source";
+export type StoredTargetKey = "that" | "source" | "instanceReference";
 
 /**
  * Used to store targets between commands.  This is used by marks like `that`

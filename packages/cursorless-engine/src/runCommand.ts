@@ -75,6 +75,7 @@ function createCommandRunner(
 ): CommandRunner {
   const modifierStageFactory = new ModifierStageFactoryImpl(
     languageDefinitions,
+    storedTargets,
     new ScopeHandlerFactoryImpl(languageDefinitions),
   );
 

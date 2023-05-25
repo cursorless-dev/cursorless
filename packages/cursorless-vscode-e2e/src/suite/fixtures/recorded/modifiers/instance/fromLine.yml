@@ -1,0 +1,33 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: from line
+  action: {name: setInstanceReference}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa bbb ccc aaa bbb
+    aaa ddd eee aaa fff
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    aaa bbb ccc aaa bbb
+    aaa ddd eee aaa fff
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  instanceReferenceMark:
+    - type: LineTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 19}
+      isReversed: false
+      hasExplicitRange: true
