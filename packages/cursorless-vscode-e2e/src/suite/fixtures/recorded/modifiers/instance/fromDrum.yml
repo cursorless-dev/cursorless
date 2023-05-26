@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: from drum
+  action: {name: experimental.setInstanceReference}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb ccc aaa ddd aaa
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.d:
+      start: {line: 0, character: 16}
+      end: {line: 0, character: 19}
+finalState:
+  documentContents: |
+    aaa bbb ccc aaa ddd aaa
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  instanceReferenceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 19}
+      isReversed: false
+      hasExplicitRange: false

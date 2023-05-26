@@ -103,7 +103,7 @@ export class TestCase {
       "scrollToTop",
     ];
 
-    const excludableFields = {
+    const excludedFields = {
       clipboard: !clipboardActions.includes(this.command.action.name),
       thatMark:
         (!isInitialSnapshot && !this.captureFinalThatMark) ||
@@ -120,9 +120,7 @@ export class TestCase {
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
-    return Object.keys(excludableFields).filter(
-      (field) => excludableFields[field],
-    );
+    return Object.keys(excludedFields).filter((field) => excludedFields[field]);
   }
 
   toYaml() {

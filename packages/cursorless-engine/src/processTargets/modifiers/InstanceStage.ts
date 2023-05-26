@@ -7,7 +7,7 @@ import {
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
-import { ifilter, imap, itake } from "itertools";
+import { flatmap, ifilter, imap, itake } from "itertools";
 import { escapeRegExp } from "lodash";
 import type { Target } from "../../typings/target.types";
 import { generateMatchesInRange } from "../../util/getMatchesInRange";
@@ -16,10 +16,12 @@ import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
 import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages";
 import { OutOfRangeError } from "./targetSequenceUtils";
+import { StoredTargetMap } from "../..";
 
 export default class InstanceStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
+    private storedTargets: StoredTargetMap,
     private modifier: Modifier,
   ) {}
 
@@ -47,11 +49,8 @@ export default class InstanceStage implements ModifierStage {
     const { editor } = target;
 
     return Array.from(
-      this.getTargetIterable(
-        target,
-        editor,
-        this.getEveryRange(editor),
-        "forward",
+      flatmap(this.getEveryRanges(editor), (searchRange) =>
+        this.getTargetIterable(target, editor, searchRange, "forward"),
       ),
     );
   }
@@ -62,15 +61,17 @@ export default class InstanceStage implements ModifierStage {
   ): Target[] {
     const { editor } = target;
 
-    return takeFromOffset(
-      this.getTargetIterable(
-        target,
-        editor,
-        this.getEveryRange(editor),
-        start >= 0 ? "forward" : "backward",
+    return this.getEveryRanges(editor).flatMap((searchRange) =>
+      takeFromOffset(
+        this.getTargetIterable(
+          target,
+          editor,
+          searchRange,
+          start >= 0 ? "forward" : "backward",
+        ),
+        start >= 0 ? start : -(length + start),
+        length,
       ),
-      start >= 0 ? start : -(length + start),
-      length,
     );
   }
 
@@ -80,20 +81,40 @@ export default class InstanceStage implements ModifierStage {
   ): Target[] {
     const { editor } = target;
 
-    const iterationRange =
-      direction === "forward"
-        ? new Range(target.contentRange.start, editor.document.range.end)
-        : new Range(editor.document.range.start, target.contentRange.end);
+    const referenceTargets = this.storedTargets.get("instanceReference") ?? [
+      target,
+    ];
 
-    return takeFromOffset(
-      this.getTargetIterable(target, editor, iterationRange, direction),
-      offset,
-      length,
-    );
+    return referenceTargets.flatMap((referenceTarget) => {
+      const iterationRange =
+        direction === "forward"
+          ? new Range(
+              offset === 0
+                ? referenceTarget.contentRange.start
+                : referenceTarget.contentRange.end,
+              editor.document.range.end,
+            )
+          : new Range(
+              editor.document.range.start,
+              offset === 0
+                ? referenceTarget.contentRange.end
+                : referenceTarget.contentRange.start,
+            );
+
+      return takeFromOffset(
+        this.getTargetIterable(target, editor, iterationRange, direction),
+        offset === 0 ? 0 : offset - 1,
+        length,
+      );
+    });
   }
 
-  private getEveryRange(editor: TextEditor): Range {
-    return editor.document.range;
+  private getEveryRanges(editor: TextEditor): Range[] {
+    return (
+      this.storedTargets
+        .get("instanceReference")
+        ?.map(({ contentRange }) => contentRange) ?? [editor.document.range]
+    );
   }
 
   private getTargetIterable(

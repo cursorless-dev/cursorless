@@ -56,6 +56,15 @@ export async function takeSnapshot(
     snapshot.sourceMark = sourceMarkTargets.map(targetToPlainObject);
   }
 
+  const instanceReferenceMarkTargets = storedTargets?.get("instanceReference");
+  if (
+    instanceReferenceMarkTargets != null &&
+    !excludeFields.includes("instanceReferenceMark")
+  ) {
+    snapshot.instanceReferenceMark =
+      instanceReferenceMarkTargets.map(targetToPlainObject);
+  }
+
   if (extraFields.includes("timeOffsetSeconds")) {
     const startTimestamp = extraContext?.startTimestamp;
 

@@ -63,6 +63,7 @@ export class CommandRunnerImpl implements CommandRunner {
       thatTargets: newThatTargets,
       sourceSelections: newSourceSelections,
       sourceTargets: newSourceTargets,
+      instanceReferenceTargets: newInstanceReferenceTargets,
     } = await action.run(targets, ...actionArgs);
 
     this.storedTargets.set(
@@ -73,6 +74,7 @@ export class CommandRunnerImpl implements CommandRunner {
       "source",
       constructStoredTarget(newSourceTargets, newSourceSelections),
     );
+    this.storedTargets.set("instanceReference", newInstanceReferenceTargets);
 
     return returnValue;
   }

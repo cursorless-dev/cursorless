@@ -3,7 +3,7 @@ import {
   TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
-import { UntypedTarget } from "../processTargets/targets";
+import { LineTarget, UntypedTarget } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 
 /**
@@ -30,6 +30,12 @@ export function plainObjectToTarget(
         isReversed: plainObject.isReversed,
         contentRange: plainObjectToRange(plainObject.contentRange),
         hasExplicitRange: plainObject.hasExplicitRange,
+      });
+    case "LineTarget":
+      return new LineTarget({
+        editor,
+        isReversed: plainObject.isReversed,
+        contentRange: plainObjectToRange(plainObject.contentRange),
       });
     default:
       throw Error(`Unsupported target type ${plainObject.type}`);

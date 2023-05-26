@@ -1,0 +1,53 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear every instance air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: instance}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    hhh bbb aaa ccc aaa
+    eee bbb aaa ccc aaa
+    fff bbb aaa ccc aaa
+    ggg bbb aaa ccc aaa
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.a:
+      start: {line: 3, character: 8}
+      end: {line: 3, character: 11}
+  instanceReferenceMark:
+    - type: LineTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 19}
+      isReversed: false
+      hasExplicitRange: true
+    - type: LineTarget
+      contentRange:
+        start: {line: 2, character: 0}
+        end: {line: 2, character: 19}
+      isReversed: false
+      hasExplicitRange: true
+finalState:
+  documentContents: |
+    hhh bbb  ccc 
+    eee bbb aaa ccc aaa
+    fff bbb  ccc 
+    ggg bbb aaa ccc aaa
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 13}
