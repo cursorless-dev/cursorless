@@ -13,9 +13,13 @@ from .actions_simple import (
 mod = Module()
 
 
+mod.list("cursorless_experimental_action", "Experimental actions")
+
+
 @mod.capture(
     rule=(
         "{user.cursorless_simple_action} |"
+        "{user.cursorless_experimental_action} |"
         "{user.cursorless_callback_action} |"
         "{user.cursorless_custom_action}"
     )
@@ -90,11 +94,19 @@ default_values = {
 }
 
 
-ACTION_LIST_NAMES = default_values.keys()
+ACTION_LIST_NAMES = list(default_values.keys()) + ["experimental_action"]
 
 
 def on_ready() -> None:
     init_csv_and_watch_changes("actions", default_values)
+    init_csv_and_watch_changes(
+        "experimental/experimental_actions",
+        {
+            "experimental_action": {
+                "-from": "experimental.setInstanceReference",
+            }
+        },
+    )
 
 
 app.register("ready", on_ready)
