@@ -1,12 +1,6 @@
-import {
-  ImplicitTargetDescriptor,
-  Modifier,
-  PositionModifier,
-  Range,
-} from "@cursorless/common";
+import { ImplicitTargetDescriptor, Modifier, Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
 import {
-  EveryRangeTargetDescriptor,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
@@ -40,14 +34,14 @@ export class TargetPipelineRunner {
    * how to remove the target
    */
   run(
-    targets: TargetDescriptor[],
+    target: TargetDescriptor,
     actionPrePositionStages?: ModifierStage[],
     actionFinalStages?: ModifierStage[],
-  ): Target[][] {
+  ): Target[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
-      targets,
+      target,
       actionPrePositionStages ?? [],
       actionFinalStages ?? [],
     ).run();
@@ -58,7 +52,7 @@ class TargetPipeline {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
-    private targets: TargetDescriptor[],
+    private target: TargetDescriptor,
     private actionPrePositionStages: ModifierStage[],
     private actionFinalStages: ModifierStage[],
   ) {}
@@ -77,10 +71,8 @@ class TargetPipeline {
    * containing it, and potentially rich context information such as how to remove
    * the target
    */
-  run(): Target[][] {
-    return this.targets.map((target) =>
-      uniqTargets(this.processTarget(target)),
-    );
+  run(): Target[] {
+    return uniqTargets(this.processTarget(this.target));
   }
 
   processTarget(target: TargetDescriptor): Target[] {
@@ -111,14 +103,11 @@ class TargetPipeline {
 
         switch (targetDesc.rangeType) {
           case "continuous":
-            return [
-              targetsToContinuousTarget(
-                anchorTarget,
-                activeTarget,
-                targetDesc.excludeAnchor,
-                targetDesc.excludeActive,
-              ),
-            ];
+            return this.processContinuousRangeTarget(
+              anchorTarget,
+              activeTarget,
+              targetDesc,
+            );
           case "vertical":
             return targetsToVerticalTarget(
               anchorTarget,
@@ -126,28 +115,27 @@ class TargetPipeline {
               targetDesc.excludeAnchor,
               targetDesc.excludeActive,
             );
-          case "every":
-            return this.processEveryRangeTarget(
-              anchorTarget,
-              activeTarget,
-              targetDesc,
-            );
         }
       },
     );
   }
 
-  processEveryRangeTarget(
+  processContinuousRangeTarget(
     anchorTarget: Target,
     activeTarget: Target,
-    {
-      excludeAnchor,
-      excludeActive,
-      scopeType,
-      modifiers,
-      positionModifier,
-    }: EveryRangeTargetDescriptor,
+    { excludeAnchor, excludeActive, exclusionScopeType }: RangeTargetDescriptor,
   ): Target[] {
+    if (exclusionScopeType == null) {
+      return [
+        targetsToContinuousTarget(
+          anchorTarget,
+          activeTarget,
+          excludeAnchor,
+          excludeActive,
+        ),
+      ];
+    }
+
     const isReversed = calcIsReversed(anchorTarget, activeTarget);
 
     // For "every" range targets, we need to be smart about how we handle
@@ -161,52 +149,37 @@ class TargetPipeline {
     // endpoint is still in the domain, so we just get "funk name bat" back
     // again. So instead, we use the equivalent of "previous funk name" to find
     // our endpoint and then just use an inclusive range ending with that target.
-    const rangeTarget = targetsToContinuousTarget(
-      excludeAnchor
-        ? this.modifierStageFactory
-            .create({
-              type: "relativeScope",
-              scopeType,
-              direction: isReversed ? "backward" : "forward",
-              length: 1,
-              offset: 1,
-            })
-            // NB: The following line assumes that content range is always
-            // contained by domain, so that "every" will properly reconstruct
-            // the target from the content range.
-            .run(anchorTarget)[0]
-        : anchorTarget,
-      excludeActive
-        ? this.modifierStageFactory
-            .create({
-              type: "relativeScope",
-              scopeType,
-              direction: isReversed ? "forward" : "backward",
-              length: 1,
-              offset: 1,
-            })
-            .run(activeTarget)[0]
-        : activeTarget,
-      false,
-      false,
-    );
-
-    const everyTargets = this.modifierStageFactory
-      .create({
-        type: "everyScope",
-        scopeType,
-      })
-      .run(rangeTarget);
-
-    // Run the final modifier pipeline on the output from the "every" modifier
-    return this.processPrimitiveTarget({
-      type: "customPrimitiveTarget",
-      modifiers,
-      positionModifier,
-      markStage: {
-        run: () => everyTargets,
-      },
-    });
+    return [
+      targetsToContinuousTarget(
+        excludeAnchor
+          ? this.modifierStageFactory
+              .create({
+                type: "relativeScope",
+                scopeType: exclusionScopeType,
+                direction: isReversed ? "backward" : "forward",
+                length: 1,
+                offset: 1,
+              })
+              // NB: The following line assumes that content range is always
+              // contained by domain, so that "every" will properly reconstruct
+              // the target from the content range.
+              .run(anchorTarget)[0]
+          : anchorTarget,
+        excludeActive
+          ? this.modifierStageFactory
+              .create({
+                type: "relativeScope",
+                scopeType: exclusionScopeType,
+                direction: isReversed ? "forward" : "backward",
+                length: 1,
+                offset: 1,
+              })
+              .run(activeTarget)[0]
+          : activeTarget,
+        false,
+        false,
+      ),
+    ];
   }
 
   /**
@@ -229,10 +202,7 @@ class TargetPipeline {
    * @returns The output of running the modifier pipeline on the output from the mark
    */
   processPrimitiveTarget(
-    targetDescriptor:
-      | PrimitiveTargetDescriptor
-      | ImplicitTargetDescriptor
-      | CustomPrimitiveTargetDescriptor,
+    targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
   ): Target[] {
     let markStage: MarkStage;
     let nonPositionModifierStages: ModifierStage[];
@@ -243,10 +213,7 @@ class TargetPipeline {
       nonPositionModifierStages = [];
       positionModifierStages = [];
     } else {
-      markStage =
-        targetDescriptor.type === "customPrimitiveTarget"
-          ? targetDescriptor.markStage
-          : this.markStageFactory.create(targetDescriptor.mark);
+      markStage = this.markStageFactory.create(targetDescriptor.mark);
       positionModifierStages =
         targetDescriptor.positionModifier == null
           ? []
@@ -291,15 +258,6 @@ export function getModifierStagesFromTargetModifiers(
   // Reverse target modifiers because they are returned in reverse order from
   // the api, to match the order in which they are spoken.
   return targetModifiers.map(modifierStageFactory.create).reverse();
-}
-
-/** Can use this type when you are using some custom mark stage but want the
- * output to pass through a set of modifiers */
-interface CustomPrimitiveTargetDescriptor {
-  type: "customPrimitiveTarget";
-  modifiers: Modifier[];
-  positionModifier?: PositionModifier;
-  markStage: MarkStage;
 }
 
 /** Run all targets through the modifier stages */

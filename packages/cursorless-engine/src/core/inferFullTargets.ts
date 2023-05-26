@@ -1,7 +1,5 @@
 import {
-  EveryScopeModifier,
   ImplicitTargetDescriptor,
-  Mark,
   Modifier,
   PartialListTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
@@ -10,13 +8,12 @@ import {
   PositionModifier,
 } from "@cursorless/common";
 import {
-  EveryRangeTargetDescriptor,
+  Mark,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { findLastIndex } from "lodash";
-import produce from "immer";
+import { handleHoistedModifiers } from "./handleHoistedModifiers";
 
 /**
  * Performs inference on the partial targets provided by the user, using
@@ -80,7 +77,7 @@ function inferNonListTarget(
 function inferRangeTarget(
   target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): RangeTargetDescriptor {
+): PrimitiveTargetDescriptor | RangeTargetDescriptor {
   const fullTarget: RangeTargetDescriptor = {
     type: "range",
     rangeType: target.rangeType ?? "continuous",
@@ -96,100 +93,7 @@ function inferRangeTarget(
   const isAnchorMarkImplicit =
     target.anchor.type === "implicit" || target.anchor.mark == null;
 
-  return handleEveryRangeTarget(fullTarget, isAnchorMarkImplicit) ?? fullTarget;
-}
-
-/**
- * This function exists to enable constructs like "every line air past bat".
- * When we detect a range target which has an `everyScope` modifier on its
- * anchor, we do the following:
- *
- * 1. Split the anchor's modifier chain, so that everything after the
- *    `everyScope` modifier remains on the anchor, and we reserve everything
- *    that comes before the `everyScope` modifier.
- * 2. We construct a special "every" range target that we handle specially in
- *    {@link TargetPipeline.processEveryRangeTarget}.
- * 3. We put the reserved modifiers on the "every" range target to be applied
- *    after we've handled the "every" range target.
- * 4. We remove everything before and including the `everyScope` modifier from
- *    the active target.
- *
- * We effectively break the chain into two parts, one that is applied before
- * handling the "every" range target, and one that is applied after.  For
- * example:
- *
- * ```
- * "first token every line funk air past bat"
- * ```
- *
- * In this case, we create an "every" range target with anchor `"funk air"` and
- * active `"funk bat"`.  We then apply the modifier `"first token"` to the
- * resulting range.
- *
- * @param fullTarget The full range target, post-inference
- * @param isAnchorMarkImplicit `true` if the anchor mark was implicit on the
- * original partial target
- */
-function handleEveryRangeTarget(
-  fullTarget: RangeTargetDescriptor,
-  isAnchorMarkImplicit: boolean,
-): EveryRangeTargetDescriptor | null {
-  const { anchor, rangeType, active, excludeAnchor, excludeActive } =
-    fullTarget;
-
-  if (anchor.type !== "primitive" || rangeType !== "continuous") {
-    return null;
-  }
-
-  const everyScopeModifierIndex = findLastIndex(
-    anchor.modifiers,
-    ({ type }) => type === "everyScope",
-  );
-
-  if (everyScopeModifierIndex === -1) {
-    return null;
-  }
-
-  const scopeType = (
-    anchor.modifiers[everyScopeModifierIndex] as EveryScopeModifier
-  ).scopeType;
-
-  const [beforeEveryModifiers, afterEveryModifiers] = [
-    anchor.modifiers.slice(0, everyScopeModifierIndex),
-    anchor.modifiers.slice(everyScopeModifierIndex + 1),
-  ];
-
-  return {
-    type: "range",
-    rangeType: "every",
-    scopeType,
-    anchor:
-      // If they say "every line past bat", the anchor is implicit, even though
-      // it comes across the wire as a primitive target due to the "every line",
-      // which we've now removed
-      afterEveryModifiers.length === 0 && isAnchorMarkImplicit
-        ? { type: "implicit" }
-        : {
-            type: "primitive",
-            mark: anchor.mark,
-            positionModifier: undefined,
-            modifiers: afterEveryModifiers,
-          },
-    // Remove the "every" (and everything before it) from the active if it
-    // ended up there from inference
-    active: produce(active, (draft) => {
-      draft.modifiers = draft.modifiers.slice(
-        findLastIndex(
-          draft.modifiers,
-          (modifier) => modifier.type === "everyScope",
-        ) + 1,
-      );
-    }),
-    modifiers: beforeEveryModifiers,
-    positionModifier: anchor.positionModifier,
-    excludeAnchor,
-    excludeActive,
-  };
+  return handleHoistedModifiers(fullTarget, isAnchorMarkImplicit);
 }
 
 function inferPossiblyImplicitTarget(
