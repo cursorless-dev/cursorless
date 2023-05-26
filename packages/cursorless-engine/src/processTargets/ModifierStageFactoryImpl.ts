@@ -16,6 +16,7 @@ import {
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
+import InstanceStage from "./modifiers/InstanceStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
@@ -75,10 +76,22 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "everyScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, modifier);
+        }
+
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, modifier);
+        }
+
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, modifier);
+        }
+
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);

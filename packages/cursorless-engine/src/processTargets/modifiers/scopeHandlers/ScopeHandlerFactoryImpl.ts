@@ -58,6 +58,9 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new ParagraphScopeHandler(scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
+      case "instance":
+        // Handle instance pseudoscope with its own special modifier
+        throw Error("Unexpected scope type 'instance'");
       default:
         return this.languageDefinitions
           .get(languageId)
