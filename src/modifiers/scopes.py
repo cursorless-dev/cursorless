@@ -29,6 +29,7 @@ scope_types = {
     "funk name": "functionName",
     "funk": "namedFunction",
     "if state": "ifStatement",
+    "instance": "instance",
     "item": "collectionItem",
     "key": "collectionKey",
     "lambda": "anonymousFunction",
