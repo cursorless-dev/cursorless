@@ -80,10 +80,66 @@ class EndPosition extends QueryPredicateOperator<EndPosition> {
   }
 }
 
+class ChildRange extends QueryPredicateOperator<ChildRange> {
+  name = "child-range!" as const;
+  schema = z.union([
+    z.tuple([q.node, q.integer]),
+    z.tuple([q.node, q.integer, q.integer]),
+    z.tuple([q.node, q.integer, q.integer, q.boolean]),
+    z.tuple([q.node, q.integer, q.integer, q.boolean, q.boolean]),
+  ]);
+
+  run(nodeInfo: MutableQueryCapture, startIndex: number): boolean;
+  run(
+    nodeInfo: MutableQueryCapture,
+    startIndex: number,
+    endIndex: number,
+  ): boolean;
+  run(
+    nodeInfo: MutableQueryCapture,
+    startIndex: number,
+    endIndex: number,
+    excludeStart: boolean,
+  ): boolean;
+  run(
+    nodeInfo: MutableQueryCapture,
+    startIndex: number,
+    endIndex: number,
+    excludeStart: boolean,
+    excludeEnd: boolean,
+  ): boolean;
+  run(
+    nodeInfo: MutableQueryCapture,
+    startIndex: number,
+    endIndex?: number,
+    excludeStart?: boolean,
+    excludeEnd?: boolean,
+  ) {
+    const {
+      node: { children },
+    } = nodeInfo;
+
+    startIndex = startIndex < 0 ? children.length + startIndex : startIndex;
+    endIndex = endIndex == null ? -1 : endIndex;
+    endIndex = endIndex < 0 ? children.length + endIndex : endIndex;
+
+    const start = children[startIndex];
+    const end = children[endIndex];
+
+    nodeInfo.range = makeRangeFromPositions(
+      excludeStart ? start.endPosition : start.startPosition,
+      excludeEnd ? end.startPosition : end.endPosition,
+    );
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators: QueryPredicateOperator<HasSchema>[] = [
   new NotType(),
   new NotParentType(),
   new IsNthChild(),
   new StartPosition(),
   new EndPosition(),
+  new ChildRange(),
 ];
