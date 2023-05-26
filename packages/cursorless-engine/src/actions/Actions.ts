@@ -126,7 +126,7 @@ export class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
-  experimentalSetInstanceReference = new SetInstanceReference();
+  ["experimental.setInstanceReference"] = new SetInstanceReference();
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();

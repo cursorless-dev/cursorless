@@ -338,7 +338,7 @@ We have experimental support for prefixing a command with `"from <target>"` to n
 - `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
 - `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
 
-Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your actions [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
 
 ##### Surrounding pair
 

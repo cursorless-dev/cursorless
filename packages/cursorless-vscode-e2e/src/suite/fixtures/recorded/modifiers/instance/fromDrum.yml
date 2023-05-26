@@ -2,7 +2,7 @@ languageId: plaintext
 command:
   version: 5
   spokenForm: from drum
-  action: {name: experimentalSetInstanceReference}
+  action: {name: experimental.setInstanceReference}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
