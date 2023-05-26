@@ -38,6 +38,7 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
             editor,
             contentRange: range,
             isReversed,
+            isToken: false,
           }),
       }),
     );

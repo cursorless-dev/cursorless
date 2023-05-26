@@ -16,6 +16,7 @@ export default class CursorStage implements MarkStage {
           isReversed: selection.selection.isReversed,
           contentRange: selection.selection,
           hasExplicitRange: !selection.selection.isEmpty,
+          isToken: false,
         }),
     );
   }
