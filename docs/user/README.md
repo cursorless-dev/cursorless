@@ -327,7 +327,7 @@ Note also that `"instance"` considers the type of target used to construct the i
 are identical to the token with a hat over the letter `a`, skipping over bigger tokens that contain the token with a hat over the letter `a` as a substring. For example, if there were a hat over the `a` in `aaa`, it would select every occurrence of `aaa` in the file, but not `aaaaa`. If you want to avoid this behaviour, you can
 use the `"just"` modifier, eg `"take every instance just air"`.
 
-If your cursor is touching a token, you can say `"take every instance air"` to select all instances of the given token.
+If your cursor is touching a token, you can say `"take every instance"` to select all instances of the given token.
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
