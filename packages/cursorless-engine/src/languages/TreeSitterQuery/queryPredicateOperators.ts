@@ -1,6 +1,6 @@
 import { Range } from "@cursorless/common";
 import z from "zod";
-import { HasSchema } from "./PredicateOperatorSchemaTypes";
+import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
 import { q } from "./operatorArgumentSchemaTypes";
@@ -89,25 +89,6 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
     z.tuple([q.node, q.integer, q.integer, q.boolean, q.boolean]),
   ]);
 
-  run(nodeInfo: MutableQueryCapture, startIndex: number): boolean;
-  run(
-    nodeInfo: MutableQueryCapture,
-    startIndex: number,
-    endIndex: number,
-  ): boolean;
-  run(
-    nodeInfo: MutableQueryCapture,
-    startIndex: number,
-    endIndex: number,
-    excludeStart: boolean,
-  ): boolean;
-  run(
-    nodeInfo: MutableQueryCapture,
-    startIndex: number,
-    endIndex: number,
-    excludeStart: boolean,
-    excludeEnd: boolean,
-  ): boolean;
   run(
     nodeInfo: MutableQueryCapture,
     startIndex: number,
@@ -135,7 +116,7 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
-export const queryPredicateOperators: QueryPredicateOperator<HasSchema>[] = [
+export const queryPredicateOperators = [
   new NotType(),
   new NotParentType(),
   new IsNthChild(),
