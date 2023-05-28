@@ -1,8 +1,8 @@
-import { SyntaxNode } from "web-tree-sitter";
 import z from "zod";
+import { HasSchema } from "./PredicateOperatorSchemaTypes";
+import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
 import { q } from "./operatorArgumentSchemaTypes";
-import { HasSchema } from "./PredicateOperatorSchemaTypes";
 
 /**
  * A predicate operator that returns true if the node is not of the given type.
@@ -13,7 +13,7 @@ import { HasSchema } from "./PredicateOperatorSchemaTypes";
 class NotType extends QueryPredicateOperator<NotType> {
   name = "not-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  accept(node: SyntaxNode, ...types: string[]) {
+  run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
   }
 }
@@ -27,7 +27,7 @@ class NotType extends QueryPredicateOperator<NotType> {
 class NotParentType extends QueryPredicateOperator<NotParentType> {
   name = "not-parent-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  accept(node: SyntaxNode, ...types: string[]) {
+  run({ node }: MutableQueryCapture, ...types: string[]) {
     return node.parent == null || !types.includes(node.parent.type);
   }
 }
@@ -40,7 +40,7 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   name = "is-nth-child?" as const;
   schema = z.tuple([q.node, q.integer]);
-  accept(node: SyntaxNode, n: number) {
+  run({ node }: MutableQueryCapture, n: number) {
     return node.parent?.children.indexOf(node) === n;
   }
 }

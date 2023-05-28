@@ -1,9 +1,11 @@
 import { Position, TextDocument, showError } from "@cursorless/common";
-import { Point, Query, QueryMatch } from "web-tree-sitter";
+import { Point, Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { TreeSitter } from "../../typings/TreeSitter";
+import { getNodeRange } from "../../util/nodeSelectors";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
+import { MutableQueryMatch, QueryMatch } from "./QueryCapture";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -23,7 +25,7 @@ export class TreeSitterQuery {
      * array corresponds to a pattern, and each element of the inner array
      * corresponds to a predicate for that pattern.
      */
-    private patternPredicates: ((match: QueryMatch) => boolean)[][],
+    private patternPredicates: ((match: MutableQueryMatch) => boolean)[][],
   ) {}
 
   static create(languageId: string, treeSitter: TreeSitter, query: Query) {
@@ -56,16 +58,30 @@ export class TreeSitterQuery {
     return new TreeSitterQuery(treeSitter, query, predicates);
   }
 
-  matches(document: TextDocument, start: Position, end: Position) {
+  matches(
+    document: TextDocument,
+    start: Position,
+    end: Position,
+  ): QueryMatch[] {
     return this.query
       .matches(
         this.treeSitter.getTree(document).rootNode,
         positionToPoint(start),
         positionToPoint(end),
       )
-      .filter((rawMatch) =>
-        this.patternPredicates[rawMatch.pattern].every((predicate) =>
-          predicate(rawMatch),
+      .map(
+        ({ pattern, captures }): MutableQueryMatch => ({
+          patternIdx: pattern,
+          captures: captures.map(({ name, node }) => ({
+            name,
+            node,
+            range: getNodeRange(node),
+          })),
+        }),
+      )
+      .filter((match) =>
+        this.patternPredicates[match.patternIdx].every((predicate) =>
+          predicate(match),
         ),
       );
   }

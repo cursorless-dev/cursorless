@@ -1,10 +1,11 @@
-import { PredicateOperand, QueryMatch } from "web-tree-sitter";
+import { PredicateOperand } from "web-tree-sitter";
 import z from "zod";
 import {
   AcceptFunctionArgs,
   HasSchema,
   InferSchemaType,
 } from "./PredicateOperatorSchemaTypes";
+import { MutableQueryMatch } from "./QueryCapture";
 import { constructZodErrorMessages } from "./constructZodErrorMessages";
 
 /**
@@ -24,7 +25,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
   /**
    * The name of the operator, e.g. `not-type?`
    */
-  abstract readonly name: `${string}?`;
+  abstract readonly name: `${string}${"?" | "!"}`;
 
   /**
    * The schema used to validate the operands to the operator.  This should be a
@@ -42,7 +43,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
    * in the schema.  For example, if the schema is `z.tuple([q.node, q.string])`,
    * then `args` will be `SyntaxNode, string`.
    */
-  protected abstract accept(
+  protected abstract run(
     ...args: AcceptFunctionArgs<z.infer<InferSchemaType<T>>>
   ): boolean;
 
@@ -61,8 +62,8 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
     return result.success
       ? {
           success: true,
-          predicate: (match: QueryMatch) =>
-            this.accept(...this.constructAcceptArgs(result.data, match)),
+          predicate: (match: MutableQueryMatch) =>
+            this.run(...this.constructAcceptArgs(result.data, match)),
         }
       : {
           success: false,
@@ -79,17 +80,17 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
    */
   private constructAcceptArgs(
     rawOutput: z.output<InferSchemaType<T>>,
-    match: QueryMatch,
+    match: MutableQueryMatch,
   ): AcceptFunctionArgs<z.infer<InferSchemaType<T>>> {
     return rawOutput.map((operand) => {
       if (operand.type === "capture") {
-        const node = match.captures.find(
+        const capture = match.captures.find(
           (capture) => capture.name === operand.name,
-        )?.node;
+        );
 
-        if (node == null) {
+        if (capture == null) {
           // FIXME: We could allow some predicates to be forgiving,
-          // because it's possible to have a capture on an optional node.
+          // because it's possible to have a capture on an optional nodeInfo.
           // In that case we'd prob just return `true` if any capture was
           // `null`, but we should check that the given capture name
           // appears statically in the given pattern.  But we don't yet
@@ -97,7 +98,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
           throw new Error(`Could not find capture ${operand.name}`);
         }
 
-        return node;
+        return capture;
       } else {
         return operand.value;
       }
@@ -107,7 +108,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
 
 interface SuccessfulPredicateResult {
   success: true;
-  predicate: (match: QueryMatch) => boolean;
+  predicate: (match: MutableQueryMatch) => boolean;
 }
 
 interface FailedPredicateResult {

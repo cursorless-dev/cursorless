@@ -1,6 +1,6 @@
 import { ScopeType, TextEditor } from "@cursorless/common";
-import { QueryMatch } from "web-tree-sitter";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "../../../../languages/captureNames";
 import { PlainTarget } from "../../../targets";
 import { TargetScope } from "../scope.types";

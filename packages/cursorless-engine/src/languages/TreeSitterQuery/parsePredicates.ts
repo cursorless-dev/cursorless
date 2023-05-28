@@ -1,4 +1,5 @@
-import { PredicateResult, QueryMatch } from "web-tree-sitter";
+import { PredicateResult } from "web-tree-sitter";
+import { MutableQueryMatch } from "./QueryCapture";
 import { queryPredicateOperators } from "./queryPredicateOperators";
 
 /**
@@ -15,11 +16,11 @@ import { queryPredicateOperators } from "./queryPredicateOperators";
  */
 export function parsePredicates(predicateDescriptors: PredicateResult[][]) {
   const errors: PredicateError[] = [];
-  const predicates: ((match: QueryMatch) => boolean)[][] = [];
+  const predicates: ((match: MutableQueryMatch) => boolean)[][] = [];
 
   predicateDescriptors.forEach((patternPredicateDescriptors, patternIdx) => {
     /** The predicates for a given pattern */
-    const patternPredicates: ((match: QueryMatch) => boolean)[] = [];
+    const patternPredicates: ((match: MutableQueryMatch) => boolean)[] = [];
 
     patternPredicateDescriptors.forEach((predicateDescriptor, predicateIdx) => {
       const operator = queryPredicateOperators.find(
