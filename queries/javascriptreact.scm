@@ -1,7 +1,29 @@
 (
-  (jsx_fragment) @xmlElement @_.interior @_.iterationScope
+  (jsx_element) @xmlElement @_.interior @_.iteration
+  (#child-range! @_.interior 1 -1 true true)
+  (#child-range! @_.iteration 1 -1 true true)
+)
+
+(
+  (jsx_element) @xmlStartTag.iteration @xmlEndTag.iteration @xmlBothTags.iteration
+  (#child-range! @xmlStartTag.iteration 1 -1 true true)
+  (#child-range! @xmlEndTag.iteration 1 -1 true true)
+  (#child-range! @xmlBothTags.iteration 1 -1 true true)
+)
+
+(jsx_self_closing_element) @xmlElement
+
+(
+  (jsx_fragment) @xmlElement @_.interior @_.iteration
   (#child-range! @_.interior 1 -3 true true)
-  (#child-range! @_.iterationScope 1 -3 true true)
+  (#child-range! @_.iteration 1 -3 true true)
+)
+
+(
+  (jsx_fragment) @xmlStartTag.iteration @xmlEndTag.iteration @xmlBothTags.iteration
+  (#child-range! @xmlStartTag.iteration 1 -3 true true)
+  (#child-range! @xmlEndTag.iteration 1 -3 true true)
+  (#child-range! @xmlBothTags.iteration 1 -3 true true)
 )
 
 (

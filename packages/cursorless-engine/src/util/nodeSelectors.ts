@@ -427,25 +427,6 @@ export function xmlElementExtractor(
   return selection;
 }
 
-export function jsxFragmentExtractor(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
-  const selection = simpleSelectionExtractor(editor, node);
-
-  // Interior range for an element is found by excluding the start and end nodes.
-  const startPosition = node.children[1].endPosition;
-  const endPosition = node.children.at(-3)!.startPosition;
-  selection.context.interiorRange = new Range(
-    startPosition.row,
-    startPosition.column,
-    endPosition.row,
-    endPosition.column,
-  );
-
-  return selection;
-}
-
 export function getInsertionDelimiter(
   editor: TextEditor,
   leadingDelimiterRange: Range | undefined,
