@@ -1,3 +1,5 @@
+;; import javascript.scm
+
 (
   (jsx_element) @xmlElement @_.interior @_.iteration
   (#child-range! @_.interior 1 -1 true true)
@@ -10,6 +12,16 @@
   (#child-range! @xmlEndTag.iteration 1 -1 true true)
   (#child-range! @xmlBothTags.iteration 1 -1 true true)
 )
+
+(jsx_element
+  (jsx_opening_element) @xmlStartTag @xmlBothTags
+  (#allow-multiple! @xmlBothTags)
+) @_.domain
+
+(jsx_element
+  (jsx_closing_element) @xmlEndTag @xmlBothTags
+  (#allow-multiple! @xmlBothTags)
+) @_.domain
 
 (jsx_self_closing_element) @xmlElement
 
