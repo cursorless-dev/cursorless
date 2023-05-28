@@ -9,4 +9,3 @@
 (assignment_expression
     left: (_) @name
 ) @_.domain
-
