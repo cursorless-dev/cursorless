@@ -3,9 +3,10 @@ import { Point, Query } from "web-tree-sitter";
 import { ide } from "../../singletons/ide.singleton";
 import { TreeSitter } from "../../typings/TreeSitter";
 import { getNodeRange } from "../../util/nodeSelectors";
+import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
-import { MutableQueryMatch, QueryMatch } from "./QueryCapture";
+import { groupBy, uniq } from "lodash";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -83,11 +84,31 @@ export class TreeSitterQuery {
         this.patternPredicates[match.patternIdx].every((predicate) =>
           predicate(match),
         ),
-      );
+      )
+      .map((match): QueryMatch => {
+        // Merge the ranges of all captures with the same name into a single
+        // range and return one capture with that name.  We consider captures
+        // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
+        // name, for which we'd return a capture with name `foo`.
+        const captures: QueryCapture[] = Object.entries(
+          groupBy(match.captures, ({ name }) =>
+            name.replace(/\.(start|end)$/, ""),
+          ),
+        ).map(([name, captures]) => ({
+          name,
+          range: captures
+            .map(({ range }) => range)
+            .reduce((accumulator, range) => range.union(accumulator)),
+        }));
+
+        return { ...match, captures };
+      });
   }
 
   get captureNames() {
-    return this.query.captureNames;
+    return uniq(
+      this.query.captureNames.map((name) => name.replace(/\.(start|end)$/, "")),
+    );
   }
 }
 
