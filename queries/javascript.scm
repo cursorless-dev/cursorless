@@ -1,11 +1,5 @@
-(_
-    name: (_) @name
-) @_.domain
+;; We include javascript.jsx.scm because jsx scopes technically work in
+;; javascript files even if they're not technically javascriptreact file type.
 
-(augmented_assignment_expression
-    left: (_) @name
-) @_.domain
-
-(assignment_expression
-    left: (_) @name
-) @_.domain
+;; import javascript.jsx.scm
+;; import javascript.core.scm

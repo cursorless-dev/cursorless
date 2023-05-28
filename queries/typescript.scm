@@ -1,4 +1,4 @@
-;; import javascript.scm
+;; import javascript.core.scm
 
 (optional_parameter
     (identifier) @name
