@@ -128,7 +128,7 @@ suite("BaseScopeHandler", () => {
       const inputScopes = testCase.scopes.map((scope) => ({
         editor,
         domain: toRange(scope.start, scope.end),
-        getTarget: () => undefined as any,
+        getTargets: () => undefined as any,
       }));
 
       assert.deepStrictEqual(

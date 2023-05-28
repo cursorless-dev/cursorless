@@ -42,12 +42,13 @@ export class TreeSitterTextFragmentScopeHandler extends BaseTreeSitterScopeHandl
     return {
       editor,
       domain: contentRange,
-      getTarget: (isReversed) =>
+      getTargets: (isReversed) => [
         new PlainTarget({
           editor,
           isReversed,
           contentRange,
         }),
+      ],
     };
   }
 }

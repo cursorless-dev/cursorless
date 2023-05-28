@@ -40,7 +40,7 @@ function lineNumberToScope(
   return {
     editor,
     domain: range,
-    getTarget: (isReversed) => createLineTarget(editor, isReversed, range),
+    getTargets: (isReversed) => [createLineTarget(editor, isReversed, range)],
   };
 }
 

@@ -50,12 +50,13 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
     return {
       editor,
       domain,
-      getTarget: (isReversed) =>
+      getTargets: (isReversed) => [
         new PlainTarget({
           editor,
           isReversed,
           contentRange,
         }),
+      ],
     };
   }
 }

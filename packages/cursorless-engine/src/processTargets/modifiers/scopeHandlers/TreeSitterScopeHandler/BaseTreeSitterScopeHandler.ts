@@ -4,6 +4,7 @@ import {
   TextDocument,
   TextEditor,
 } from "@cursorless/common";
+import { uniqWith } from "lodash";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import BaseScopeHandler from "../BaseScopeHandler";
@@ -13,6 +14,7 @@ import {
   ContainmentPolicy,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
+import { mergeAdjacentBy } from "./mergeAdjacentBy";
 
 /** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
 export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
@@ -36,11 +38,33 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
       hints,
     );
 
-    yield* this.query
+    const scopes = this.query
       .matches(document, start, end)
       .map((match) => this.matchToScope(editor, match))
       .filter((scope): scope is TargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
+
+    // Merge scopes that have the same domain into a single scope with multiple
+    // targets
+    yield* mergeAdjacentBy(
+      scopes,
+      (a, b) => a.domain.isRangeEqual(b.domain),
+      (equivalentScopes) => {
+        if (equivalentScopes.length === 1) {
+          return equivalentScopes[0];
+        }
+
+        return {
+          ...equivalentScopes[0],
+          getTargets(isReversed: boolean) {
+            return uniqWith(
+              equivalentScopes.flatMap((scope) => scope.getTargets(isReversed)),
+              (a, b) => a.isEqual(b),
+            );
+          },
+        };
+      },
+    );
   }
 
   /**

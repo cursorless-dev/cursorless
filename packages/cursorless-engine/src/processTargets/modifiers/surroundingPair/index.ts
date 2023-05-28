@@ -89,7 +89,7 @@ function processSurroundingPairCore(
       return findSurroundingPairTextBased(
         editor,
         range,
-        containingScope.contentRange,
+        containingScope[0].contentRange,
         delimiters,
         scopeType,
       );
