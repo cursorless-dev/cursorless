@@ -2,11 +2,13 @@ import { SimpleScopeType, TextEditor } from "@cursorless/common";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import ScopeTypeTarget from "../../../targets/ScopeTypeTarget";
-import { TargetScope } from "../scope.types";
 import { CustomScopeType } from "../scopeHandler.types";
-import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
+import {
+  BaseTreeSitterScopeHandler,
+  ExtendedTargetScope,
+} from "./BaseTreeSitterScopeHandler";
 import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
-import { getCaptureRangeByName, getRelatedRange } from "./captureUtils";
+import { findCaptureByName, getRelatedRange } from "./captureUtils";
 
 /**
  * Handles scopes that are implemented using tree-sitter.
@@ -33,38 +35,48 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   protected matchToScope(
     editor: TextEditor,
     match: QueryMatch,
-  ): TargetScope | undefined {
+  ): ExtendedTargetScope | undefined {
     const scopeTypeType = this.scopeType.type;
 
-    const contentRange = getCaptureRangeByName(match, scopeTypeType);
+    const capture = findCaptureByName(match, scopeTypeType);
 
-    if (contentRange == null) {
+    if (capture == null) {
       // This capture was for some unrelated scope type
       return undefined;
     }
 
-    const domain =
-      getRelatedRange(match, scopeTypeType, "domain") ?? contentRange;
+    const { range: contentRange, allowMultiple } = capture;
 
-    const removalRange = getRelatedRange(match, scopeTypeType, "removal");
+    const domain =
+      getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
+
+    const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
     const leadingDelimiterRange = getRelatedRange(
       match,
       scopeTypeType,
       "leading",
+      true,
     );
 
     const trailingDelimiterRange = getRelatedRange(
       match,
       scopeTypeType,
       "trailing",
+      true,
     );
 
-    const interiorRange = getRelatedRange(match, scopeTypeType, "interior");
+    const interiorRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "interior",
+      true,
+    );
 
     return {
       editor,
       domain,
+      allowMultiple,
       getTargets: (isReversed) => [
         new ScopeTypeTarget({
           scopeTypeType,

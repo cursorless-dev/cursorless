@@ -116,6 +116,17 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
+  name = "allow-multiple!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    nodeInfo.allowMultiple = true;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new NotType(),
   new NotParentType(),
@@ -123,4 +134,5 @@ export const queryPredicateOperators = [
   new StartPosition(),
   new EndPosition(),
   new ChildRange(),
+  new AllowMultiple(),
 ];
