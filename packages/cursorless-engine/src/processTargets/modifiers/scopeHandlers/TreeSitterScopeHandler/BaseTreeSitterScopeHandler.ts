@@ -4,8 +4,8 @@ import {
   TextDocument,
   TextEditor,
 } from "@cursorless/common";
-import { QueryMatch } from "web-tree-sitter";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import BaseScopeHandler from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import { TargetScope } from "../scope.types";

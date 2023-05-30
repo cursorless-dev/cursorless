@@ -1,5 +1,4 @@
-import { QueryMatch } from "web-tree-sitter";
-import { getNodeRange } from "../../../../util/nodeSelectors";
+import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 
 /**
  * Gets the range of a node that is related to the scope.  For example, if the
@@ -32,9 +31,7 @@ export function getRelatedRange(
  * @returns A range or undefined if no matching capture was found
  */
 export function getCaptureRangeByName(match: QueryMatch, ...names: string[]) {
-  const relatedNode = match.captures.find((capture) =>
+  return match.captures.find((capture) =>
     names.some((name) => capture.name === name),
-  )?.node;
-
-  return relatedNode == null ? undefined : getNodeRange(relatedNode);
+  )?.range;
 }

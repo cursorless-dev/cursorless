@@ -1,7 +1,6 @@
 import { SimpleScopeType, TextEditor } from "@cursorless/common";
-
-import { QueryMatch } from "web-tree-sitter";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import ScopeTypeTarget from "../../../targets/ScopeTypeTarget";
 import { TargetScope } from "../scope.types";
 import { CustomScopeType } from "../scopeHandler.types";
