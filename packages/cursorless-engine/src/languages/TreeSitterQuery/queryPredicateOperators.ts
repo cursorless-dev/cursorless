@@ -48,12 +48,12 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
 
 /**
  * A predicate operator that modifies the range of the match to be a zero-width
- * range at the start of the node.  For example, `(#start! @foo)` will modify
- * the range of the `@foo` capture to be a zero-width range at the start of the
- * `@foo` node.
+ * range at the start of the node.  For example, `(#start-position! @foo)` will
+ * modify the range of the `@foo` capture to be a zero-width range at the start
+ * of the `@foo` node.
  */
-class Start extends QueryPredicateOperator<Start> {
-  name = "start!" as const;
+class StartPosition extends QueryPredicateOperator<StartPosition> {
+  name = "start-position!" as const;
   schema = z.tuple([q.node]);
 
   run(nodeInfo: MutableQueryCapture) {
@@ -65,12 +65,12 @@ class Start extends QueryPredicateOperator<Start> {
 
 /**
  * A predicate operator that modifies the range of the match to be a zero-width
- * range at the end of the node.  For example, `(#end! @foo)` will modify
- * the range of the `@foo` capture to be a zero-width range at the end of the
- * `@foo` node.
+ * range at the end of the node.  For example, `(#end-position! @foo)` will
+ * modify the range of the `@foo` capture to be a zero-width range at the end of
+ * the `@foo` node.
  */
-class End extends QueryPredicateOperator<End> {
-  name = "end!" as const;
+class EndPosition extends QueryPredicateOperator<EndPosition> {
+  name = "end-position!" as const;
   schema = z.tuple([q.node]);
 
   run(nodeInfo: MutableQueryCapture) {
@@ -84,6 +84,6 @@ export const queryPredicateOperators: QueryPredicateOperator<HasSchema>[] = [
   new NotType(),
   new NotParentType(),
   new IsNthChild(),
-  new Start(),
-  new End(),
+  new StartPosition(),
+  new EndPosition(),
 ];
