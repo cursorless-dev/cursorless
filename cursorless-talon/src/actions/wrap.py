@@ -65,11 +65,11 @@ action_map: dict[tuple[str, Literal["pairedDelimiter", "snippet"]], str] = {
 
 @mod.action_class
 class Actions:
-    def cursorless_wrap(action_type: str, targets: dict, cursorless_wrapper: Wrapper):
+    def cursorless_wrap(action_type: str, target: dict, cursorless_wrapper: Wrapper):
         """Perform cursorless wrap action"""
         wrapper_type = cursorless_wrapper.type
         action = action_map[(action_type, wrapper_type)]
 
         actions.user.cursorless_single_target_command_with_arg_list(
-            action, targets, cursorless_wrapper.extra_args
+            action, target, cursorless_wrapper.extra_args
         )
