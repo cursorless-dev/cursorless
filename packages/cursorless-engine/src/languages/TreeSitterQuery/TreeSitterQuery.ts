@@ -7,6 +7,7 @@ import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
 import { groupBy, uniq } from "lodash";
+import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -91,25 +92,36 @@ export class TreeSitterQuery {
         // with names `@foo`, `@foo.start`, and `@foo.end` to have the same
         // name, for which we'd return a capture with name `foo`.
         const captures: QueryCapture[] = Object.entries(
-          groupBy(match.captures, ({ name }) =>
-            name.replace(/\.(start|end)$/, ""),
-          ),
-        ).map(([name, captures]) => ({
-          name,
-          range: captures
-            .map(({ range }) => range)
-            .reduce((accumulator, range) => range.union(accumulator)),
-        }));
+          groupBy(match.captures, ({ name }) => normalizeCaptureName(name)),
+        ).map(([name, captures]) => {
+          const capturesAreValid = checkCaptureStartEnd(
+            captures,
+            ide().messages,
+          );
+
+          if (!capturesAreValid && ide().runMode === "test") {
+            throw new Error("Invalid captures");
+          }
+
+          return {
+            name,
+            range: captures
+              .map(({ range }) => range)
+              .reduce((accumulator, range) => range.union(accumulator)),
+          };
+        });
 
         return { ...match, captures };
       });
   }
 
   get captureNames() {
-    return uniq(
-      this.query.captureNames.map((name) => name.replace(/\.(start|end)$/, "")),
-    );
+    return uniq(this.query.captureNames.map(normalizeCaptureName));
   }
+}
+
+function normalizeCaptureName(name: string): string {
+  return name.replace(/\.(start|end)$/, "");
 }
 
 function positionToPoint(start: Position): Point {
