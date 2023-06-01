@@ -109,9 +109,7 @@ export class TreeSitterQuery {
             range: captures
               .map(({ range }) => range)
               .reduce((accumulator, range) => range.union(accumulator)),
-            allowMultiple: captures
-              .map((capture) => capture.allowMultiple)
-              .some(Boolean),
+            allowMultiple: captures.some((capture) => capture.allowMultiple),
           };
         });
 
