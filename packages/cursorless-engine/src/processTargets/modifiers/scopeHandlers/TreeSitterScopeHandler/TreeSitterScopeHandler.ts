@@ -65,7 +65,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
     return {
       editor,
       domain,
-      getTarget: (isReversed) =>
+      getTargets: (isReversed) => [
         new ScopeTypeTarget({
           scopeTypeType,
           editor,
@@ -77,6 +77,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           interiorRange,
           // FIXME: Add delimiter text
         }),
+      ],
     };
   }
 }

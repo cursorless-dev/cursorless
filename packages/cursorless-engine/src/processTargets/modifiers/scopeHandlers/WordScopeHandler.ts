@@ -33,18 +33,20 @@ export default class WordScopeHandler extends NestedScopeHandler {
     return contentRanges.map((range, i) => ({
       editor,
       domain: range,
-      getTarget: (isReversed) => {
+      getTargets: (isReversed) => {
         const previousContentRange = i > 0 ? contentRanges[i - 1] : null;
         const nextContentRange =
           i + 1 < contentRanges.length ? contentRanges[i + 1] : null;
 
-        return constructTarget(
-          isReversed,
-          editor,
-          previousContentRange,
-          range,
-          nextContentRange,
-        );
+        return [
+          constructTarget(
+            isReversed,
+            editor,
+            previousContentRange,
+            range,
+            nextContentRange,
+          ),
+        ];
       },
     }));
   }

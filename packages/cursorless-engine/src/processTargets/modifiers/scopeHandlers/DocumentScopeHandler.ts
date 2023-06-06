@@ -23,12 +23,13 @@ export default class DocumentScopeHandler extends BaseScopeHandler {
     yield {
       editor,
       domain: contentRange,
-      getTarget: (isReversed) =>
+      getTargets: (isReversed) => [
         new DocumentTarget({
           editor,
           isReversed,
           contentRange,
         }),
+      ],
     };
   }
 }

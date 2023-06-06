@@ -64,7 +64,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
         // When we hit offset, that becomes proximal scope
         if (desiredScopeCount === 1) {
           // Just yield it if we only want 1 scope
-          return [scope.getTarget(isReversed)];
+          return scope.getTargets(isReversed);
         }
 
         proximalScope = scope;
@@ -73,7 +73,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
 
       if (scopeCount === offset + desiredScopeCount - 1) {
         // Then make a range when we get the desired number of scopes
-        return [constructScopeRangeTarget(isReversed, proximalScope!, scope)];
+        return constructScopeRangeTarget(isReversed, proximalScope!, scope);
       }
     }
 
