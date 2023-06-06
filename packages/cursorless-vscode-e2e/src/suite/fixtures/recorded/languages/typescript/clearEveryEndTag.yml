@@ -1,0 +1,32 @@
+languageId: typescriptreact
+command:
+  version: 5
+  spokenForm: clear every end tag
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: xmlEndTag}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    <>
+        <>ccc</>
+        <>ddd</>
+    </>
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    <>
+        <>ccc
+        <>ddd
+    </>
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}

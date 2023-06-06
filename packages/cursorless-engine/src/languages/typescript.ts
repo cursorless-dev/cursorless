@@ -1,11 +1,11 @@
-import { Selection, SimpleScopeTypeType, TextEditor } from "@cursorless/common";
+import { SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import {
   NodeMatcher,
   NodeMatcherAlternative,
   SelectionWithEditor,
 } from "../typings/Types";
-import { patternFinder, typedNodeFinder } from "../util/nodeFinders";
+import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
   cascadingMatcher,
@@ -20,12 +20,10 @@ import {
   extendForwardPastOptional,
   getNodeInternalRange,
   getNodeRange,
-  jsxFragmentExtractor,
   pairSelectionExtractor,
   selectWithLeadingDelimiter,
   simpleSelectionExtractor,
   unwrapSelectionExtractor,
-  xmlElementExtractor,
 } from "../util/nodeSelectors";
 import { branchMatcher } from "./branchMatcher";
 import { elseExtractor, elseIfExtractor } from "./elseIfExtractor";
@@ -70,42 +68,6 @@ const STATEMENT_TYPES = [
   "while_statement",
   "with_statement",
 ];
-
-/** Handles jsx fragment start or end tag, eg the `<>` in `<>foo</>` **/
-function getJsxFragmentTag(isStartTag: boolean): NodeMatcher {
-  return matcher(
-    typedNodeFinder("jsx_fragment"),
-    (editor: TextEditor, node: SyntaxNode) => {
-      const [start, end] = isStartTag
-        ? [node.children[0], node.children[1]]
-        : [node.children.at(-3)!, node.children.at(-1)!];
-      return {
-        selection: new Selection(
-          start.startPosition.row,
-          start.startPosition.column,
-          end.endPosition.row,
-          end.endPosition.column,
-        ),
-        context: {},
-      };
-    },
-  );
-}
-
-const getStartTag = cascadingMatcher(
-  patternMatcher("jsx_element.jsx_opening_element!"),
-  getJsxFragmentTag(true),
-);
-const getEndTag = cascadingMatcher(
-  patternMatcher("jsx_element.jsx_closing_element!"),
-  getJsxFragmentTag(false),
-);
-
-const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
-  const startTag = getStartTag(selection, node);
-  const endTag = getEndTag(selection, node);
-  return startTag != null && endTag != null ? startTag.concat(endTag) : null;
-};
 
 function typeMatcher(): NodeMatcher {
   const delimiterSelector = selectWithLeadingDelimiter(":");
@@ -214,13 +176,6 @@ const nodeMatchers: Partial<
   ),
   ifStatement: "if_statement",
   anonymousFunction: ["arrow_function", "function"],
-  name: [
-    "*[name]",
-    "optional_parameter.identifier!",
-    "required_parameter.identifier!",
-    "augmented_assignment_expression[left]",
-    "assignment_expression[left]",
-  ],
   comment: "comment",
   regularExpression: "regex",
   className: ["class_declaration[name]", "class[name]"],
@@ -337,16 +292,6 @@ const nodeMatchers: Partial<
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
   attribute: ["jsx_attribute"],
-  xmlElement: cascadingMatcher(
-    matcher(
-      typedNodeFinder("jsx_element", "jsx_self_closing_element"),
-      xmlElementExtractor,
-    ),
-    matcher(typedNodeFinder("jsx_fragment"), jsxFragmentExtractor),
-  ),
-  xmlBothTags: getTags,
-  xmlStartTag: getStartTag,
-  xmlEndTag: getEndTag,
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
