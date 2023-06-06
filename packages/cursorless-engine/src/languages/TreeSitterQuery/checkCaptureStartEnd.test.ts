@@ -5,7 +5,7 @@ import assert = require("assert");
 
 interface TestCase {
   name: string;
-  captures: QueryCapture[];
+  captures: Omit<QueryCapture, "allowMultiple">[];
   isValid: boolean;
   expectedErrorMessageIds: string[];
 }
@@ -188,7 +188,13 @@ suite("checkCaptureStartEnd", () => {
         },
       };
 
-      const result = checkCaptureStartEnd(testCase.captures, messages);
+      const result = checkCaptureStartEnd(
+        testCase.captures.map((capture) => ({
+          ...capture,
+          allowMultiple: false,
+        })),
+        messages,
+      );
       assert(result === testCase.isValid);
       assert.deepStrictEqual(actualErrorIds, testCase.expectedErrorMessageIds);
     });

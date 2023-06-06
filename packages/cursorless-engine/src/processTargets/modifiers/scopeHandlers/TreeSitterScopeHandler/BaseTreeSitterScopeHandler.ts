@@ -41,7 +41,7 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
     const scopes = this.query
       .matches(document, start, end)
       .map((match) => this.matchToScope(editor, match))
-      .filter((scope): scope is TargetScope => scope != null)
+      .filter((scope): scope is ExtendedTargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
 
     // Merge scopes that have the same domain into a single scope with multiple
@@ -56,11 +56,23 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
 
         return {
           ...equivalentScopes[0],
+
           getTargets(isReversed: boolean) {
-            return uniqWith(
+            const targets = uniqWith(
               equivalentScopes.flatMap((scope) => scope.getTargets(isReversed)),
               (a, b) => a.isEqual(b),
             );
+
+            if (
+              targets.length > 1 &&
+              !equivalentScopes.every((scope) => scope.allowMultiple)
+            ) {
+              throw Error(
+                "Please use #allow-multiple! predicate in your query to allow multiple matches for this scope type",
+              );
+            }
+
+            return targets;
           },
         };
       },
@@ -78,7 +90,11 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
   protected abstract matchToScope(
     editor: TextEditor,
     match: QueryMatch,
-  ): TargetScope | undefined;
+  ): ExtendedTargetScope | undefined;
+}
+
+export interface ExtendedTargetScope extends TargetScope {
+  allowMultiple: boolean;
 }
 
 /**

@@ -15,6 +15,12 @@ export interface QueryCapture {
 
   /** The range of the capture. */
   readonly range: Range;
+
+  /** Whether it is ok for the same capture to appear multiple times with the
+   * same domain. If set to `true`, then the scope handler should merge all
+   * captures with the same name and domain into a single scope with multiple
+   * content ranges. */
+  readonly allowMultiple: boolean;
 }
 
 /**
@@ -40,6 +46,7 @@ export interface MutableQueryCapture extends QueryCapture {
   readonly node: SyntaxNode;
 
   range: Range;
+  allowMultiple: boolean;
 }
 
 /**
