@@ -1,11 +1,11 @@
 import type { PartialTargetDescriptor } from "./PartialTargetDescriptor.types";
 import type { ActionCommand } from "./ActionCommand";
 
-export interface CommandV5 {
+export interface CommandV6 {
   /**
    * The version number of the command API
    */
-  version: 5;
+  version: 6;
 
   /**
    * The spoken form of the command if issued from a voice command system
