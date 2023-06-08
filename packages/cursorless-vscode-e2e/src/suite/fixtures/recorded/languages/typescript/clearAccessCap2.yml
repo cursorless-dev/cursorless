@@ -1,0 +1,28 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clear access cap
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: fieldAccess}
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa().bbb.ccc(eee.fff).ddd
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.c:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 13}
+finalState:
+  documentContents: |
+    aaa().bbb.ddd
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

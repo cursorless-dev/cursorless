@@ -105,6 +105,7 @@ export type SimpleScopeTypeType =
   | "collectionItem"
   | "collectionKey"
   | "comment"
+  | "fieldAccess"
   | "functionCall"
   | "functionCallee"
   | "functionName"

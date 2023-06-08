@@ -1,0 +1,30 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: take every access bat
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: fieldAccess}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    a.b`c d`
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |
+    a.b`c d`
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 8}
