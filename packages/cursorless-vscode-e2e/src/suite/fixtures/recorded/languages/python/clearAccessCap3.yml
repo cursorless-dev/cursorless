@@ -1,0 +1,28 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear access cap
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: fieldAccess}
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    a[0].b[c.d()]
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.c:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 8}
+finalState:
+  documentContents: |
+    a[0].b[.d()]
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

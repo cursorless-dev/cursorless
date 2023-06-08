@@ -1,0 +1,28 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear access fine
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: fieldAccess}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa().bbb.ccc(eee.fff).ddd
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 21}
+finalState:
+  documentContents: |
+    aaa().bbb.ccc(eee).ddd
+  selections:
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

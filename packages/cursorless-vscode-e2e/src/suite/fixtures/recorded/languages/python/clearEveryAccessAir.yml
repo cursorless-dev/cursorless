@@ -1,0 +1,40 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear every access air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: fieldAccess}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    (
+        aaa
+        .bbb
+        .ccc
+    )
+  selections:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+  marks:
+    default.a:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 7}
+finalState:
+  documentContents: |
+    (
+        
+        
+        
+    )
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
