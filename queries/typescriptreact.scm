@@ -1,2 +1,2 @@
-;; import javascriptreact.scm
+;; import javascript.jsx.scm
 ;; import typescript.scm

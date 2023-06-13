@@ -175,7 +175,6 @@ const nodeMatchers: Partial<
     patternMatcher("yield_expression.~yield!"),
   ),
   ifStatement: "if_statement",
-  anonymousFunction: ["arrow_function", "function"],
   comment: "comment",
   regularExpression: "regex",
   className: ["class_declaration[name]", "class[name]"],
@@ -226,59 +225,6 @@ const nodeMatchers: Partial<
     "export_statement?.abstract_class_declaration", // export abstract class | abstract class
     "export_statement.class", // export default class
   ],
-  functionName: [
-    // function
-    "function_declaration[name]",
-    // generator function
-    "generator_function_declaration[name]",
-    // export default function
-    "function[name]",
-    // class method
-    "method_definition[name]",
-    // abstract class method
-    "abstract_method_signature[name]",
-    // class arrow method
-    "public_field_definition[name].arrow_function",
-    // const foo = function() { }
-    "variable_declarator[name].function",
-    // const foo = () => { }
-    "variable_declarator[name].arrow_function",
-    // foo = function() { }
-    "assignment_expression[left].function",
-    // foo = () => { }
-    "assignment_expression[left].arrow_function",
-  ],
-  namedFunction: cascadingMatcher(
-    patternMatcher(
-      // [export] function
-      "export_statement?.function_declaration",
-      // export default function
-      // NB: We require export statement because otherwise it is an anonymous
-      // function
-      "export_statement.function",
-      // export default arrow
-      "export_statement.arrow_function",
-      // class method
-      "method_definition",
-      // class arrow method
-      "public_field_definition.arrow_function",
-      // [export] const foo = function() { }
-      "export_statement?.lexical_declaration.variable_declarator.function",
-      // [export] const foo = () => { }
-      "export_statement?.lexical_declaration.variable_declarator.arrow_function",
-      // foo = function() { }
-      "assignment_expression.function",
-      // foo = () => { }
-      "assignment_expression.arrow_function",
-      // foo = function*() { }
-      "generator_function_declaration",
-    ),
-    // abstract class method
-    matcher(
-      patternFinder("abstract_method_signature"),
-      extendForwardPastOptional(";"),
-    ),
-  ),
   type: cascadingMatcher(
     // Typed parameters, properties, and functions
     typeMatcher(),
