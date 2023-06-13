@@ -1,6 +1,7 @@
 import {
   FlashStyle,
   RangeExpansionBehavior,
+  sleep,
   toCharacterRange,
 } from "@cursorless/common";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
@@ -34,12 +35,17 @@ export class PasteFromClipboard {
       [editor.selections],
     );
 
+    await sleep(100);
+
     // Then use VSCode paste command, using open ranges at the place where we
     // paste in order to capture the pasted text for highlights and `that` mark
     const [updatedCursorSelections, updatedTargetSelections] =
       await callFunctionAndUpdateSelectionsWithBehavior(
         this.rangeUpdater,
-        () => editor.clipboardPaste(),
+        async () => {
+          await editor.clipboardPaste();
+          await sleep(100);
+        },
         editor.document,
         [
           {
