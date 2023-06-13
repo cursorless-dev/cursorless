@@ -20,5 +20,10 @@ export default class PlainTarget extends BaseTarget {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  protected getCloneParameters = () => this.state;
+  protected getCloneParameters() {
+    return {
+      ...this.state,
+      isToken: this.isToken,
+    };
+  }
 }
