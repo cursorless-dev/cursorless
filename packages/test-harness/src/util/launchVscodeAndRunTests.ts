@@ -1,5 +1,6 @@
 import * as cp from "child_process";
 import * as path from "path";
+import * as os from "os";
 import {
   downloadAndUnzipVSCode,
   resolveCliArgsFromVSCodeExecutablePath,
@@ -62,6 +63,14 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       vscodeExecutablePath,
       extensionDevelopmentPath,
       extensionTestsPath,
+      // Note: Crash dump causes legacy VSCode and Windows to hang, so we just
+      // don't bother.  Can be re-enabled if we ever need it; on windows it only
+      // hangs some of the time, so might be enough to get a crash dump when you
+      // need it.
+      launchArgs:
+        useLegacyVscode || os.platform() === "win32"
+          ? undefined
+          : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     });
 
     console.log(`Returned from "runTests" with value: ${code}`);
