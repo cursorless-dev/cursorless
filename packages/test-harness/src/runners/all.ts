@@ -9,7 +9,5 @@ import { runAllTestsInDir } from "../util/runAllTestsInDir";
  * @returns A promise that resolves when tests have finished running
  */
 export function run(): Promise<void> {
-  return runAllTestsInDir(
-    path.join(getCursorlessRepoRoot(), "packages", "cursorless-engine"),
-  );
+  return runAllTestsInDir(path.join(getCursorlessRepoRoot(), "packages"));
 }

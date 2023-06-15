@@ -6,7 +6,7 @@ interface Fixture {
 export const subtokenFixture: Fixture[] = [
   {
     input: "QuickBrownFox",
-    expectedOutput: ["Quick", "Brown", ""],
+    expectedOutput: ["Quick", "Brown", "Fox"],
   },
   {
     input: "quickBrownFox",
