@@ -3,8 +3,7 @@ import { SelectionWithEditor } from "../../typings/Types";
 
 /**
  * Given a selection with an editor, constructs an appropriate `Target` to use
- * for a `that` mark.  It uses an `UntypedTarget`, and if the selection is
- * empty, it sets `hasExplicitRange` to `false`.
+ * for a `that` mark. It uses an `UntypedTarget` and sets `hasExplicitRange` to `true`.
  *
  * @param selection The selection with editor to be converted
  * @returns A target that can be used for a `that` mark
