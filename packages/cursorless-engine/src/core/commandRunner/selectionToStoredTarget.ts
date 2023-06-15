@@ -14,5 +14,5 @@ export const selectionToStoredTarget = (selection: SelectionWithEditor) =>
     editor: selection.editor,
     isReversed: selection.selection.isReversed,
     contentRange: selection.selection,
-    hasExplicitRange: !selection.selection.isEmpty,
+    hasExplicitRange: true,
   });
