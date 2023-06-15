@@ -3,7 +3,7 @@ import { TargetPosition } from "@cursorless/common";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { removalUnsupportedForPosition } from "./PositionTarget";
 
-export default class NotebookCellTarget extends BaseTarget {
+export default class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
   insertionDelimiter = "\n";
   isNotebookCell = true;
 
@@ -32,7 +32,7 @@ interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
   readonly position: TargetPosition;
 }
 
-export class NotebookCellPositionTarget extends BaseTarget {
+export class NotebookCellPositionTarget extends BaseTarget<NotebookCellPositionTargetParameters> {
   insertionDelimiter = "\n";
   isNotebookCell = true;
   public position: TargetPosition;

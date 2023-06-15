@@ -1,3 +1,4 @@
+import type { CommonTargetParameters } from "./BaseTarget";
 import BaseTarget from "./BaseTarget";
 
 /**
@@ -5,7 +6,7 @@ import BaseTarget from "./BaseTarget";
  * just consists of the content itself. Its insertion delimiter will be
  * inherited from the source in the case of a bring after a bring before
  */
-export default class RawSelectionTarget extends BaseTarget {
+export default class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
   insertionDelimiter = "";
   isRaw = true;
   isToken = false;
