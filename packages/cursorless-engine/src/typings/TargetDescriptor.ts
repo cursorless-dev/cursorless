@@ -1,14 +1,17 @@
 import {
-  PartialPrimitiveTargetDescriptor,
-  Mark,
-  Modifier,
-  PositionModifier,
-  RangeType,
   ImplicitTargetDescriptor,
+  Modifier,
+  PartialMark,
+  PartialRangeType,
+  PositionModifier,
+  ScopeType,
 } from "@cursorless/common";
 
-export interface PrimitiveTargetDescriptor
-  extends PartialPrimitiveTargetDescriptor {
+export type Mark = PartialMark | TargetMark;
+
+export interface PrimitiveTargetDescriptor {
+  type: "primitive";
+
   /**
    * The mark, eg "air", "this", "that", etc
    */
@@ -32,13 +35,37 @@ export interface PrimitiveTargetDescriptor
   positionModifier?: PositionModifier;
 }
 
+/**
+ * Can be used when constructing a primitive target that applies modifiers to
+ * the output of some other complex target descriptor.  For example, we use this
+ * to apply the hoisted modifiers to the output of a range target when we hoist
+ * the "every funk" modifier on a command like "take every funk air until bat".
+ */
+export interface TargetMark {
+  type: "target";
+
+  /**
+   * The target descriptor that will be used to generate the targets output by
+   * this mark.
+   */
+  target: TargetDescriptor;
+}
+
 export interface RangeTargetDescriptor {
   type: "range";
   anchor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor;
   active: PrimitiveTargetDescriptor;
   excludeAnchor: boolean;
   excludeActive: boolean;
-  rangeType: RangeType;
+  rangeType: PartialRangeType;
+
+  /**
+   * Indicates that endpoints should be excluded by going to the next or
+   * previous instance of the given scope type, rather than the default behavior
+   * of moving to the start or end of the given endpoint target. This field is primarily
+   * used by "every" ranges, eg "every funk air until bat"
+   */
+  exclusionScopeType?: ScopeType;
 }
 
 export interface ListTargetDescriptor {

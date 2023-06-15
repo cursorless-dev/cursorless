@@ -1,9 +1,9 @@
-import type { Target } from "../../typings/target.types";
 import type {
   ContainingSurroundingPairModifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
+import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
+import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { SurroundingPairTarget } from "../targets";
 import { processSurroundingPair } from "./surroundingPair";
@@ -22,41 +22,38 @@ import { processSurroundingPair } from "./surroundingPair";
  * `null` if none was found
  */
 export default class SurroundingPairStage implements ModifierStage {
-  constructor(private modifier: SurroundingPairModifier) {}
+  constructor(
+    private languageDefinitions: LanguageDefinitions,
+    private modifier: SurroundingPairModifier,
+  ) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    target: Target,
-  ): SurroundingPairTarget[] {
+  run(target: Target): SurroundingPairTarget[] {
     if (this.modifier.type === "everyScope") {
       throw Error(`Unsupported every scope ${this.modifier.scopeType.type}`);
     }
 
-    return processedSurroundingPairTarget(this.modifier, context, target);
+    return processedSurroundingPairTarget(
+      this.languageDefinitions,
+      this.modifier,
+      target,
+    );
   }
 }
 
 function processedSurroundingPairTarget(
+  languageDefinitions: LanguageDefinitions,
   modifier: ContainingSurroundingPairModifier,
-  context: ProcessedTargetsContext,
   target: Target,
 ): SurroundingPairTarget[] {
-  const pairInfo = processSurroundingPair(
-    context,
-    target.editor,
-    target.contentRange,
+  const outputTarget = processSurroundingPair(
+    languageDefinitions,
+    target,
     modifier.scopeType,
   );
 
-  if (pairInfo == null) {
+  if (outputTarget == null) {
     throw new Error("Couldn't find containing pair");
   }
 
-  return [
-    new SurroundingPairTarget({
-      ...pairInfo,
-      editor: target.editor,
-      isReversed: target.isReversed,
-    }),
-  ];
+  return [outputTarget];
 }

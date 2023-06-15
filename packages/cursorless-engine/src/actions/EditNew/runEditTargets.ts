@@ -1,11 +1,11 @@
 import {
-  RangeExpansionBehavior,
   EditableTextEditor,
+  RangeExpansionBehavior,
   Selection,
 } from "@cursorless/common";
 import { zip } from "lodash";
+import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
-import { Graph } from "../../typings/Graph";
 import { EditTarget, State } from "./EditNew.types";
 
 /**
@@ -22,7 +22,7 @@ import { EditTarget, State } from "./EditNew.types";
  * @returns An updated `state` object
  */
 export async function runEditTargets(
-  graph: Graph,
+  rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
@@ -72,7 +72,7 @@ export async function runEditTargets(
     updatedCursorSelections,
     updatedEditSelections,
   ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
-    graph.rangeUpdater,
+    rangeUpdater,
     editor,
     edits,
     [thatSelections, cursorSelections, editSelections],

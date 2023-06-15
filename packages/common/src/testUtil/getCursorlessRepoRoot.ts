@@ -1,4 +1,4 @@
-import path = require("path");
+import * as path from "path";
 
 /**
  * Gets the path to the root of the cursorless repo; used for scripts and tests,
@@ -6,5 +6,8 @@ import path = require("path");
  * @returns The path to the root of the cursorless repo
  */
 export function getCursorlessRepoRoot() {
-  return path.join(__dirname, "..", "..", "..", "..");
+  return (
+    process.env["CURSORLESS_REPO_ROOT"] ??
+    path.join(__dirname, "..", "..", "..", "..")
+  );
 }

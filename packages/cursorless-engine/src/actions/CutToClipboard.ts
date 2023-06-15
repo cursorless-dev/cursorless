@@ -7,11 +7,11 @@ import {
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
+import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
 
 export class CutToClipboard implements Action {
-  constructor(private graph: Graph) {
+  constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
@@ -55,12 +55,9 @@ export class CutToClipboard implements Action {
 
     const options = { showDecorations: false };
 
-    await this.graph.actions.copyToClipboard.run([targets], options);
+    await this.actions.copyToClipboard.run([targets], options);
 
-    const { thatTargets } = await this.graph.actions.remove.run(
-      [targets],
-      options,
-    );
+    const { thatTargets } = await this.actions.remove.run([targets], options);
 
     return { thatTargets };
   }

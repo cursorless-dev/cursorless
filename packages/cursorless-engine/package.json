@@ -5,7 +5,6 @@
   "main": "./out/index.js",
   "scripts": {
     "compile": "tsc --build",
-    "transform-recorded-tests": "tsx --conditions=cursorless:bundler src/scripts/transformRecordedTests/index.ts",
     "watch": "tsc --build --watch"
   },
   "keywords": [],
@@ -17,7 +16,8 @@
     "immutability-helper": "^3.1.1",
     "itertools": "^1.7.1",
     "lodash": "^4.17.21",
-    "node-html-parser": "^5.3.3"
+    "node-html-parser": "^5.3.3",
+    "zod": "3.21.4"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.2",

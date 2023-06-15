@@ -1,5 +1,5 @@
-import { TestCaseFixture } from "@cursorless/common";
+import { TestCaseFixtureLegacy } from "@cursorless/common";
 
 export type FixtureTransformation = (
-  originalFixture: TestCaseFixture,
-) => TestCaseFixture;
+  originalFixture: TestCaseFixtureLegacy,
+) => TestCaseFixtureLegacy | undefined;

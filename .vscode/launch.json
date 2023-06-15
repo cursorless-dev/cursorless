@@ -9,6 +9,9 @@
       "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
+      "env": {
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--profile=cursorlessDevelopment"
@@ -25,7 +28,8 @@
       "type": "extensionHost",
       "request": "launch",
       "env": {
-        "CURSORLESS_TEST": "true"
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
@@ -45,7 +49,8 @@
       "name": "Unit tests only",
       "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
       "env": {
-        "CURSORLESS_TEST": "true"
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -60,7 +65,8 @@
       "request": "launch",
       "env": {
         "CURSORLESS_TEST": "true",
-        "CURSORLESS_RUN_TEST_SUBSET": "true"
+        "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
@@ -80,7 +86,8 @@
       "request": "launch",
       "env": {
         "CURSORLESS_TEST": "true",
-        "CURSORLESS_TEST_UPDATE_FIXTURES": "true"
+        "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
@@ -101,7 +108,8 @@
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
-        "CURSORLESS_RUN_TEST_SUBSET": "true"
+        "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "args": [
         "--profile=cursorlessDevelopment",
@@ -119,6 +127,9 @@
       "name": "Docusaurus Start (Debug)",
       "type": "node",
       "request": "launch",
+      "env": {
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
       "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["start"],
@@ -131,6 +142,9 @@
       "name": "Docusaurus Build (Debug)",
       "type": "node",
       "request": "launch",
+      "env": {
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
       "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["build"],

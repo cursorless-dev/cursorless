@@ -1,38 +1,31 @@
 import {
   ActionType,
+  CommandLatest,
   extractTargetedMarks,
   ExtraSnapshotField,
   marksToPlainObject,
+  PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
   ReadOnlyHatMap,
   serialize,
   SerializedMarks,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
-  TestCaseCommand,
   TestCaseFixture,
   TestCaseSnapshot,
   ThrownError,
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
-import { ThatMark } from "../core/ThatMark";
 import { ide } from "../singletons/ide.singleton";
 import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { TargetDescriptor } from "../typings/TargetDescriptor";
-
-export type TestCaseContext = {
-  thatMark: ThatMark;
-  sourceMark: ThatMark;
-  targets: TargetDescriptor[];
-  hatTokenMap: ReadOnlyHatMap;
-};
+import { StoredTargetMap } from "..";
 
 export class TestCase {
   private languageId: string;
-  private fullTargets: TargetDescriptor[];
+  private partialTargetDescriptors: PartialTargetDescriptor[];
   private initialState: TestCaseSnapshot | null = null;
   private finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
@@ -40,12 +33,13 @@ export class TestCase {
   private targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   private marksToCheck?: string[];
-  command: TestCaseCommand;
+  command: CommandLatest;
   private spyIdeValues?: PlainSpyIDERecordedValues;
 
   constructor(
-    command: TestCaseCommand,
-    private context: TestCaseContext,
+    command: CommandLatest,
+    private hatTokenMap: ReadOnlyHatMap,
+    private storedTargets: StoredTargetMap,
     private spyIde: SpyIDE,
     private isHatTokenMapTest: boolean = false,
     private isDecorationsTest: boolean = false,
@@ -56,34 +50,33 @@ export class TestCase {
     const activeEditor = ide().activeTextEditor!;
     this.command = cleanUpTestCaseCommand(command);
 
-    const { targets } = context;
-
-    this.targetKeys = targets.map(extractTargetKeys).flat();
+    this.targetKeys = command.targets.map(extractTargetKeys).flat();
 
     this.languageId = activeEditor.document.languageId;
-    this.fullTargets = targets;
+    this.partialTargetDescriptors = command.targets;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
   }
 
   private getMarks() {
     let marks: Record<string, Token>;
 
-    const { hatTokenMap } = this.context;
-
     if (this.isHatTokenMapTest) {
       // If we're doing a navigation map test, then we grab the entire
       // navigation map because we'll filter it later based on the marks
       // referenced in the expected follow up command
-      marks = Object.fromEntries(hatTokenMap.getEntries());
+      marks = Object.fromEntries(this.hatTokenMap.getEntries());
     } else {
-      marks = extractTargetedMarks(this.targetKeys, hatTokenMap);
+      marks = extractTargetedMarks(this.targetKeys, this.hatTokenMap);
     }
 
     return marksToPlainObject(marks);
   }
 
-  private includesThatMark(target: TargetDescriptor, type: string): boolean {
-    if (target.type === "primitive" && target.mark.type === type) {
+  private includesThatMark(
+    target: PartialTargetDescriptor,
+    type: string,
+  ): boolean {
+    if (target.type === "primitive" && target.mark?.type === type) {
       return true;
     } else if (target.type === "list") {
       return target.elements.some((target) =>
@@ -110,26 +103,24 @@ export class TestCase {
       "scrollToTop",
     ];
 
-    const excludableFields = {
+    const excludedFields = {
       clipboard: !clipboardActions.includes(this.command.action.name),
       thatMark:
         (!isInitialSnapshot && !this.captureFinalThatMark) ||
         (isInitialSnapshot &&
-          !this.fullTargets.some((target) =>
+          !this.partialTargetDescriptors.some((target) =>
             this.includesThatMark(target, "that"),
           )),
       sourceMark:
         (!isInitialSnapshot && !this.captureFinalThatMark) ||
         (isInitialSnapshot &&
-          !this.fullTargets.some((target) =>
+          !this.partialTargetDescriptors.some((target) =>
             this.includesThatMark(target, "source"),
           )),
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
-    return Object.keys(excludableFields).filter(
-      (field) => excludableFields[field],
-    );
+    return Object.keys(excludedFields).filter((field) => excludedFields[field]);
   }
 
   toYaml() {
@@ -155,8 +146,7 @@ export class TestCase {
   async recordInitialState() {
     const excludeFields = this.getExcludedFields(true);
     this.initialState = await takeSnapshot(
-      this.context.thatMark,
-      this.context.sourceMark,
+      this.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
       ide().activeTextEditor!,
@@ -170,8 +160,7 @@ export class TestCase {
     const excludeFields = this.getExcludedFields(false);
     this.returnValue = returnValue;
     this.finalState = await takeSnapshot(
-      this.context.thatMark,
-      this.context.sourceMark,
+      this.storedTargets,
       excludeFields,
       this.extraSnapshotFields,
       ide().activeTextEditor!,
@@ -188,8 +177,10 @@ export class TestCase {
       raw == null ? undefined : spyIDERecordedValuesToPlainObject(raw);
   }
 
-  filterMarks(command: TestCaseCommand, context: TestCaseContext) {
-    const marksToCheck = context.targets.map(extractTargetKeys).flat();
+  filterMarks() {
+    const marksToCheck = this.partialTargetDescriptors
+      .map(extractTargetKeys)
+      .flat();
     const keys = this.targetKeys.concat(marksToCheck);
 
     this.initialState!.marks = pick(

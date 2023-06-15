@@ -1,10 +1,17 @@
-import { HatTokenMap, ReadOnlyHatMap, TokenHat } from "@cursorless/common";
+import {
+  CommandServerApi,
+  HatTokenMap,
+  Hats,
+  ReadOnlyHatMap,
+  TokenHat,
+} from "@cursorless/common";
 import { hrtime } from "process";
 import { ide } from "../singletons/ide.singleton";
-import { Graph } from "../typings/Graph";
 import { abs } from "../util/bigint";
+import { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
+import { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale
@@ -14,7 +21,7 @@ const PRE_PHRASE_SNAPSHOT_MAX_AGE_NS = BigInt(6e10); // 60 seconds
 /**
  * Maps from (hatStyle, character) pairs to tokens
  */
-export default class HatTokenMapImpl implements HatTokenMap {
+export class HatTokenMapImpl implements HatTokenMap {
   /**
    * This is the active map the changes every time we reallocate hats. It is
    * liable to change in the middle of a phrase.
@@ -32,20 +39,21 @@ export default class HatTokenMapImpl implements HatTokenMap {
   private lastSignalVersion: string | null = null;
   private hatAllocator: HatAllocator;
 
-  constructor(private graph: Graph) {
+  constructor(
+    rangeUpdater: RangeUpdater,
+    private debug: Debug,
+    hats: Hats,
+    private commandServerApi: CommandServerApi | null,
+  ) {
     ide().disposeOnExit(this);
-    this.activeMap = new IndividualHatMap(graph);
+    this.activeMap = new IndividualHatMap(rangeUpdater);
 
     this.getActiveMap = this.getActiveMap.bind(this);
     this.allocateHats = this.allocateHats.bind(this);
 
-    this.hatAllocator = new HatAllocator(graph, {
+    this.hatAllocator = new HatAllocator(hats, {
       getActiveMap: this.getActiveMap,
     });
-  }
-
-  init() {
-    return this.hatAllocator.allocateHats();
   }
 
   /**
@@ -122,13 +130,13 @@ export default class HatTokenMapImpl implements HatTokenMap {
   }
 
   private async maybeTakePrePhraseSnapshot() {
-    const phraseStartSignal = this.graph.commandServerApi?.signals?.prePhrase;
+    const phraseStartSignal = this.commandServerApi?.signals?.prePhrase;
 
     if (phraseStartSignal != null) {
       const newSignalVersion = await phraseStartSignal.getVersion();
 
       if (newSignalVersion !== this.lastSignalVersion) {
-        this.graph.debug.log("taking snapshot");
+        this.debug.log("taking snapshot");
         this.lastSignalVersion = newSignalVersion;
 
         if (newSignalVersion != null) {

@@ -1,7 +1,6 @@
-import { Target } from "../../typings/target.types";
 import { ScopeType } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
-import getModifierStage from "../getModifierStage";
+import { Target } from "../../typings/target.types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 
 export class OutOfRangeError extends Error {
   constructor() {
@@ -42,13 +41,13 @@ export function createRangeTargetFromIndices(
 }
 
 export function getEveryScopeTargets(
-  context: ProcessedTargetsContext,
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
   scopeType: ScopeType,
 ): Target[] {
-  const containingStage = getModifierStage({
+  const containingStage = modifierStageFactory.create({
     type: "everyScope",
     scopeType,
   });
-  return containingStage.run(context, target);
+  return containingStage.run(target);
 }

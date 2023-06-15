@@ -1,3 +1,6 @@
+/**
+ * API object for interacting with the command server
+ */
 export interface CommandServerApi {
   signals: {
     prePhrase: InboundSignal;

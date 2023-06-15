@@ -2,7 +2,7 @@ from talon import Module, app
 
 from ..csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
 
-custom_action_defaults = {}
+custom_action_defaults: dict[str, str] = {}
 
 
 mod = Module()
@@ -12,10 +12,10 @@ mod.list(
 )
 
 
-def on_ready():
+def on_ready() -> None:
     init_csv_and_watch_changes(
         "experimental/actions_custom",
-        custom_action_defaults,
+        {"custom_action": custom_action_defaults},
         headers=[SPOKEN_FORM_HEADER, "VSCode command"],
         allow_unknown_values=True,
         default_list_name="custom_action",

@@ -1,10 +1,10 @@
 import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
-import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
+import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
 import {
   setSelectionsAndFocusEditor,
   setSelectionsWithoutFocusingEditor,
@@ -33,7 +33,7 @@ interface CallbackOptions {
  * each editor, receiving all the targets that are in the given editor.
  */
 export class CallbackAction implements Action {
-  constructor(private graph: Graph) {
+  constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
@@ -104,7 +104,7 @@ export class CallbackAction implements Action {
 
     const [updatedOriginalSelections, updatedTargetSelections] =
       await callFunctionAndUpdateSelections(
-        this.graph.rangeUpdater,
+        this.rangeUpdater,
         () => options.callback(editableEditor, targets),
         editor.document,
         [originalSelections, targetSelections],
@@ -128,7 +128,7 @@ export class CallbackAction implements Action {
     return editor.document.version === originalEditorVersion
       ? targets
       : updatedTargetSelections.map((selection) =>
-          selectionToThatTarget({
+          selectionToStoredTarget({
             editor,
             selection,
           }),

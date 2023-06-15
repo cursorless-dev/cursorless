@@ -1,18 +1,21 @@
-import { Range } from "@cursorless/common";
+import { HeadTailModifier, Modifier, Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import { HeadTailModifier, Modifier } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
+import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
 import {
   getModifierStagesFromTargetModifiers,
   processModifierStages,
-} from "../processTargets";
+} from "../TargetPipelineRunner";
 import { TokenTarget } from "../targets";
 
 abstract class HeadTailStage implements ModifierStage {
-  constructor(private isReversed: boolean, private modifiers?: Modifier[]) {}
+  constructor(
+    private modifierStageFactory: ModifierStageFactory,
+    private isReversed: boolean,
+    private modifiers?: Modifier[],
+  ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const modifiers = this.modifiers ?? [
       {
         type: "containingScope",
@@ -20,10 +23,11 @@ abstract class HeadTailStage implements ModifierStage {
       },
     ];
 
-    const modifierStages = getModifierStagesFromTargetModifiers(modifiers);
-    const modifiedTargets = processModifierStages(context, modifierStages, [
-      target,
-    ]);
+    const modifierStages = getModifierStagesFromTargetModifiers(
+      this.modifierStageFactory,
+      modifiers,
+    );
+    const modifiedTargets = processModifierStages(modifierStages, [target]);
 
     return modifiedTargets.map((modifiedTarget) => {
       const contentRange = this.constructContentRange(
@@ -46,8 +50,11 @@ abstract class HeadTailStage implements ModifierStage {
 }
 
 export class HeadStage extends HeadTailStage {
-  constructor(modifier: HeadTailModifier) {
-    super(true, modifier.modifiers);
+  constructor(
+    modifierStageFactory: ModifierStageFactory,
+    modifier: HeadTailModifier,
+  ) {
+    super(modifierStageFactory, true, modifier.modifiers);
   }
 
   protected constructContentRange(originalRange: Range, modifiedRange: Range) {
@@ -56,8 +63,11 @@ export class HeadStage extends HeadTailStage {
 }
 
 export class TailStage extends HeadTailStage {
-  constructor(modifier: HeadTailModifier) {
-    super(false, modifier.modifiers);
+  constructor(
+    modifierStageFactory: ModifierStageFactory,
+    modifier: HeadTailModifier,
+  ) {
+    super(modifierStageFactory, false, modifier.modifiers);
   }
 
   protected constructContentRange(originalRange: Range, modifiedRange: Range) {

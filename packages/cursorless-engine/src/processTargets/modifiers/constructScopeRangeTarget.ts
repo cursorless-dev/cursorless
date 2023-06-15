@@ -17,9 +17,20 @@ export function constructScopeRangeTarget(
   isReversed: boolean,
   scope1: TargetScope,
   scope2: TargetScope,
-): Target {
-  const target1 = scope1.getTarget(isReversed);
-  const target2 = scope2.getTarget(isReversed);
+): Target[] {
+  if (scope1 === scope2) {
+    return scope1.getTargets(isReversed);
+  }
+
+  const targets1 = scope1.getTargets(isReversed);
+  const targets2 = scope2.getTargets(isReversed);
+
+  if (targets1.length !== 1 || targets2.length !== 1) {
+    throw Error("Scope range targets must be single-target");
+  }
+
+  const [target1] = targets1;
+  const [target2] = targets2;
 
   const isScope2After = target2.contentRange.start.isAfterOrEqual(
     target1.contentRange.start,
@@ -29,10 +40,7 @@ export function constructScopeRangeTarget(
     ? [target1, target2]
     : [target2, target1];
 
-  return startTarget.createContinuousRangeTarget(
-    isReversed,
-    endTarget,
-    true,
-    true,
-  );
+  return [
+    startTarget.createContinuousRangeTarget(isReversed, endTarget, true, true),
+  ];
 }

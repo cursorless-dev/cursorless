@@ -26,6 +26,7 @@ def get_modifiers():
         "previous",
         "next",
         "backward",
+        "forward",
     ]
     simple_modifiers = {
         key: value
@@ -82,7 +83,7 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"<scope>",
+                    "spokenForm": "<scope>",
                     "description": "Containing instance of <scope>",
                 },
             ],
@@ -126,11 +127,15 @@ def get_modifiers():
                     "description": "single instance of <scope> including target, going backwards",
                 },
                 {
+                    "spokenForm": f"<scope> {complex_modifiers['forward']}",
+                    "description": "single instance of <scope> including target, going forwards",
+                },
+                {
                     "spokenForm": f"<number> <scope>s {complex_modifiers['backward']}",
                     "description": "<number> instances of <scope> including target, going backwards",
                 },
                 {
-                    "spokenForm": f"<number> <scope>s",
+                    "spokenForm": "<number> <scope>s",
                     "description": "<number> instances of <scope> including target, going forwards",
                 },
                 {
@@ -144,7 +149,7 @@ def get_modifiers():
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"<ordinal> <scope>",
+                    "spokenForm": "<ordinal> <scope>",
                     "description": "<ordinal> instance of <scope> in iteration scope",
                 },
                 {

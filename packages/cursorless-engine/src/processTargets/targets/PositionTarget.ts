@@ -41,7 +41,18 @@ export default class PositionTarget extends BaseTarget {
   getRemovalRange = () => removalUnsupportedForPosition(this.position);
 
   getEditNewActionType(): EditNewActionType {
-    if (this.insertionDelimiter === "\n" && this.position === "after") {
+    if (
+      this.insertionDelimiter === "\n" &&
+      this.position === "after" &&
+      this.state.thatTarget!.contentRange.isSingleLine
+    ) {
+      // If the target that we're wrapping is not a single line, then we
+      // want to compute indentation based on the entire target.  Otherwise,
+      // we allow the editor to determine how to perform indentation.
+      // Note that we use `this.state.thatTarget` rather than `this.thatTarget`
+      // because we don't really want the transitive `thatTarget` behaviour, as
+      // it's not really the "that" target that we're after; it's the target that
+      // we're wrapping.  Should rework this stuff as part of #803.
       return "insertLineAfter";
     }
 

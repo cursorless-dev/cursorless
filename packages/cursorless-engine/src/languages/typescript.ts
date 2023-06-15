@@ -1,11 +1,11 @@
-import type { SyntaxNode } from "web-tree-sitter";
 import { SimpleScopeTypeType } from "@cursorless/common";
+import type { SyntaxNode } from "web-tree-sitter";
 import {
   NodeMatcher,
   NodeMatcherAlternative,
   SelectionWithEditor,
 } from "../typings/Types";
-import { patternFinder, typedNodeFinder } from "../util/nodeFinders";
+import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
   cascadingMatcher,
@@ -24,7 +24,6 @@ import {
   selectWithLeadingDelimiter,
   simpleSelectionExtractor,
   unwrapSelectionExtractor,
-  xmlElementExtractor,
 } from "../util/nodeSelectors";
 import { branchMatcher } from "./branchMatcher";
 import { elseExtractor, elseIfExtractor } from "./elseIfExtractor";
@@ -69,15 +68,6 @@ const STATEMENT_TYPES = [
   "while_statement",
   "with_statement",
 ];
-
-const getStartTag = patternMatcher("jsx_element.jsx_opening_element!");
-const getEndTag = patternMatcher("jsx_element.jsx_closing_element!");
-
-const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
-  const startTag = getStartTag(selection, node);
-  const endTag = getEndTag(selection, node);
-  return startTag != null && endTag != null ? startTag.concat(endTag) : null;
-};
 
 function typeMatcher(): NodeMatcher {
   const delimiterSelector = selectWithLeadingDelimiter(":");
@@ -186,13 +176,6 @@ const nodeMatchers: Partial<
   ),
   ifStatement: "if_statement",
   anonymousFunction: ["arrow_function", "function"],
-  name: [
-    "*[name]",
-    "optional_parameter.identifier!",
-    "required_parameter.identifier!",
-    "augmented_assignment_expression[left]",
-    "assignment_expression[left]",
-  ],
   comment: "comment",
   regularExpression: "regex",
   className: ["class_declaration[name]", "class[name]"],
@@ -309,13 +292,6 @@ const nodeMatchers: Partial<
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
   attribute: ["jsx_attribute"],
-  xmlElement: matcher(
-    typedNodeFinder("jsx_element", "jsx_self_closing_element"),
-    xmlElementExtractor,
-  ),
-  xmlBothTags: getTags,
-  xmlStartTag: getStartTag,
-  xmlEndTag: getEndTag,
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);

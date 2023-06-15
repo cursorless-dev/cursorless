@@ -7,29 +7,25 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
-  CommandRunner,
-  FactoryMap,
-  Graph,
-  graphFactories,
-  injectIde,
-  makeGraph,
-  ThatMark,
+  createCursorlessEngine,
+  TreeSitter,
 } from "@cursorless/cursorless-engine";
-import {
-  commandIds,
-  KeyboardCommands,
-  StatusBarItem,
-  VscodeIDE,
-} from "@cursorless/cursorless-vscode-core";
 import {
   CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
+  ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
+import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
+import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
+import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
+import { StatusBarItem } from "./StatusBarItem";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -44,69 +40,96 @@ export async function activate(
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
-  const vscodeIDE = new VscodeIDE(context);
-  await vscodeIDE.init();
+  const { vscodeIDE, hats } = await createVscodeIde(context);
 
-  if (vscodeIDE.runMode !== "production") {
-    injectIde(
-      new NormalizedIDE(vscodeIDE, new FakeIDE(), vscodeIDE.runMode === "test"),
-    );
-  } else {
-    injectIde(vscodeIDE);
-  }
+  const normalizedIde =
+    vscodeIDE.runMode === "production"
+      ? undefined
+      : new NormalizedIDE(
+          vscodeIDE,
+          new FakeIDE(),
+          vscodeIDE.runMode === "test",
+        );
 
   const commandServerApi =
     vscodeIDE.runMode === "test"
       ? getFakeCommandServerApi()
       : await getCommandServerApi();
 
-  const getNodeAtLocation = (document: TextDocument, range: Range) => {
-    return parseTreeApi.getNodeAtLocation(
-      new vscode.Location(document.uri, toVscodeRange(range)),
-    );
-  };
+  const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
-  const graph = makeGraph({
-    ...graphFactories,
-    extensionContext: () => context,
-    commandServerApi: () => commandServerApi,
-    getNodeAtLocation: () => getNodeAtLocation,
-  } as FactoryMap<Graph>);
-  graph.debug.init();
-  graph.snippets.init();
-  graph.hatTokenMap.init();
+  const {
+    commandApi,
+    testCaseRecorder,
+    storedTargets,
+    hatTokenMap,
+    snippets,
+    injectIde,
+  } = createCursorlessEngine(
+    treeSitter,
+    normalizedIde ?? vscodeIDE,
+    hats,
+    commandServerApi,
+  );
 
-  const statusBarItem = StatusBarItem.create(commandIds.showQuickPick);
+  const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
-
-  const thatMark = new ThatMark();
-  const sourceMark = new ThatMark();
-
-  // TODO: Do this using the graph once we migrate its dependencies onto the graph
-  const commandRunner = new CommandRunner(graph, thatMark, sourceMark);
 
   registerCommands(
     context,
     vscodeIDE,
-    commandRunner,
-    graph.testCaseRecorder,
+    commandApi,
+    testCaseRecorder,
     keyboardCommands,
+    hats,
   );
 
   return {
     testHelpers: isTesting()
       ? constructTestHelpers(
           commandServerApi,
-          thatMark,
-          sourceMark,
+          storedTargets,
+          hatTokenMap,
           vscodeIDE,
-          graph,
+          normalizedIde!,
+          injectIde,
         )
       : undefined,
 
     experimental: {
-      registerThirdPartySnippets: graph.snippets.registerThirdPartySnippets,
+      registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
+  };
+}
+
+async function createVscodeIde(context: vscode.ExtensionContext) {
+  const vscodeIDE = new VscodeIDE(context);
+
+  const hats = new VscodeHats(
+    vscodeIDE,
+    context,
+    vscodeIDE.runMode === "test"
+      ? new FakeFontMeasurements()
+      : new FontMeasurementsImpl(context),
+  );
+  await hats.init();
+
+  return { vscodeIDE, hats };
+}
+
+function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
+  return {
+    getNodeAtLocation(document: TextDocument, range: Range) {
+      return parseTreeApi.getNodeAtLocation(
+        new vscode.Location(document.uri, toVscodeRange(range)),
+      );
+    },
+
+    getTree(document: TextDocument) {
+      return parseTreeApi.getTreeForUri(document.uri);
+    },
+
+    getLanguage: parseTreeApi.getLanguage,
   };
 }
 

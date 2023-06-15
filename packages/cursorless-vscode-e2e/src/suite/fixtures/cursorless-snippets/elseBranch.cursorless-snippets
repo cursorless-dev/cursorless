@@ -1,0 +1,22 @@
+{
+  "elseStatement": {
+    "definitions": [
+      {
+        "scope": {
+          "langIds": [
+            "python"
+          ]
+        },
+        "body": [
+          "else:",
+          "\t$body"
+        ]
+      }
+    ],
+    "description": "Else branch",
+    "variables": {
+      "body": {}
+    },
+    "insertionScopeTypes": ["branch"]
+  }
+}

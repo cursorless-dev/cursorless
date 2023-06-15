@@ -1,14 +1,12 @@
-import { CommandV4 } from "@cursorless/common";
-import { CommandV3 } from "@cursorless/common";
 import {
-  PartialPrimitiveTargetDescriptorV3,
-  PartialTargetDescriptorV3,
-} from "@cursorless/common";
-import {
+  CommandV3,
+  CommandV4,
   ImplicitTargetDescriptor,
-  PartialPrimitiveTargetDescriptor,
-  PartialRangeTargetDescriptor,
-  PartialTargetDescriptor,
+  PartialPrimitiveTargetDescriptorV3,
+  PartialPrimitiveTargetDescriptorV4,
+  PartialRangeTargetDescriptorV4,
+  PartialTargetDescriptorV3,
+  PartialTargetDescriptorV4,
 } from "@cursorless/common";
 
 export function upgradeV3ToV4(command: CommandV3): CommandV4 {
@@ -21,7 +19,7 @@ export function upgradeV3ToV4(command: CommandV3): CommandV4 {
 
 function upgradeTarget(
   target: PartialTargetDescriptorV3,
-): PartialTargetDescriptor {
+): PartialTargetDescriptorV4 {
   switch (target.type) {
     case "primitive":
       return upgradePrimitiveTarget(target);
@@ -38,8 +36,8 @@ function upgradeTarget(
       return {
         ...rest,
         elements: elements.map(upgradeTarget) as (
-          | PartialPrimitiveTargetDescriptor
-          | PartialRangeTargetDescriptor
+          | PartialPrimitiveTargetDescriptorV4
+          | PartialRangeTargetDescriptorV4
         )[],
       };
     }
@@ -48,7 +46,7 @@ function upgradeTarget(
 
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetDescriptorV3,
-): PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor {
+): PartialPrimitiveTargetDescriptorV4 | ImplicitTargetDescriptor {
   if ((target.mark == null && target.modifiers == null) || target.isImplicit) {
     return { type: "implicit" };
   }

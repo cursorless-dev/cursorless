@@ -1,21 +1,25 @@
 import {
+  CommandComplete,
+  CommandLatest,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
   ExtraSnapshotField,
   getKey,
+  getRecordedTestsDirPath,
+  HatTokenMap,
   IDE,
   marksToPlainObject,
+  ReadOnlyHatMap,
   serialize,
   SerializedMarks,
+  showError,
   showInfo,
   sleep,
   SpyIDE,
   TextEditorOptions,
   toLineRange,
   walkDirsSync,
-  TestCaseCommand,
-  showError,
 } from "@cursorless/common";
 import * as fs from "fs";
 import { access, readFile } from "fs/promises";
@@ -24,8 +28,9 @@ import { merge } from "lodash";
 import * as path from "path";
 import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { Graph } from "../typings/Graph";
-import { TestCase, TestCaseContext } from "./TestCase";
+import { TestCase } from "./TestCase";
+import { StoredTargetMap } from "../core/StoredTargets";
+import { CommandRunner } from "../CommandRunner";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -78,6 +83,9 @@ interface RecordTestCaseCommandArg {
 
 const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
 
+/**
+ * Used for recording test cases
+ */
 export class TestCaseRecorder {
   private active: boolean = false;
   private fixtureRoot: string | null;
@@ -96,20 +104,16 @@ export class TestCaseRecorder {
   private spyIde: SpyIDE | undefined;
   private originalIde: IDE | undefined;
 
-  constructor(private graph: Graph) {
-    const { runMode, assetsRoot, workspaceFolders } = ide();
+  constructor(
+    private hatTokenMap: HatTokenMap,
+    private storedTargets: StoredTargetMap,
+  ) {
+    const { runMode } = ide();
 
-    const workspacePath =
+    this.fixtureRoot =
       runMode === "development" || runMode === "test"
-        ? path.join(assetsRoot, "../../..")
-        : workspaceFolders?.[0].uri.path ?? null;
-
-    this.fixtureRoot = workspacePath
-      ? path.join(
-          workspacePath,
-          "packages/cursorless-vscode-e2e/src/suite/fixtures/recorded",
-        )
-      : null;
+        ? getRecordedTestsDirPath()
+        : null;
 
     this.toggle = this.toggle.bind(this);
     this.pause = this.pause.bind(this);
@@ -152,7 +156,7 @@ export class TestCaseRecorder {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
       );
-      const readableHatMap = await this.graph.hatTokenMap.getReadableMap(
+      const readableHatMap = await this.hatTokenMap.getReadableMap(
         usePrePhraseSnapshot,
       );
       marks = marksToPlainObject(extractTargetedMarks(keys, readableHatMap));
@@ -161,7 +165,6 @@ export class TestCaseRecorder {
     }
 
     const snapshot = await takeSnapshot(
-      undefined,
       undefined,
       ["clipboard"],
       this.active ? this.extraSnapshotFields : undefined,
@@ -288,7 +291,7 @@ export class TestCaseRecorder {
     this.paused = false;
   }
 
-  async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
+  async preCommandHook(hatTokenMap: ReadOnlyHatMap, command: CommandLatest) {
     if (this.testCase != null) {
       // If testCase is not null and we are just before a command, this means
       // that this command is the follow up command indicating which marks we
@@ -297,7 +300,7 @@ export class TestCaseRecorder {
         this.testCase.awaitingFinalMarkInfo,
         () => "expected to be awaiting final mark info",
       );
-      this.testCase.filterMarks(command, context);
+      this.testCase.filterMarks();
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
@@ -307,7 +310,8 @@ export class TestCaseRecorder {
 
       this.testCase = new TestCase(
         command,
-        context,
+        hatTokenMap,
+        this.storedTargets,
         this.spyIde,
         this.isHatTokenMapTest,
         this.isDecorationsTest,
@@ -439,13 +443,39 @@ export class TestCaseRecorder {
   }
 
   finallyHook() {
-    injectIde(this.originalIde!);
+    if (this.originalIde != null) {
+      injectIde(this.originalIde);
+    }
     this.spyIde = undefined;
     this.originalIde = undefined;
 
     const editor = ide().activeTextEditor!;
     ide().getEditableTextEditor(editor).options =
       this.originalTextEditorOptions;
+  }
+
+  wrapCommandRunner(
+    readableHatMap: ReadOnlyHatMap,
+    runner: CommandRunner,
+  ): CommandRunner {
+    return {
+      run: async (commandComplete: CommandComplete) => {
+        try {
+          await this.preCommandHook(readableHatMap, commandComplete);
+
+          const returnValue = await runner.run(commandComplete);
+
+          await this.postCommandHook(returnValue);
+
+          return returnValue;
+        } catch (e) {
+          await this.commandErrorHook(e as Error);
+          throw e;
+        } finally {
+          this.finallyHook();
+        }
+      },
+    };
   }
 }
 

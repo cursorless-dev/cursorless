@@ -16,6 +16,7 @@ import {
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
 } from "@cursorless/common";
@@ -29,7 +30,6 @@ import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import * as vscode from "vscode";
-import { TestCaseFixture } from "@cursorless/common";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import shouldUpdateFixtures from "../shouldUpdateFixtures";
@@ -65,7 +65,7 @@ suite("recorded test cases", async function () {
 
 async function runTest(file: string, spyIde: SpyIDE) {
   const buffer = await fsp.readFile(file);
-  const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
+  const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
   // TODO The snapshot gets messed up with timing issues when running the recorded tests
@@ -73,7 +73,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { hatTokenMap, takeSnapshot, setThatMark, setSourceMark } =
+  const { hatTokenMap, takeSnapshot, setStoredTarget } =
     cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
@@ -90,11 +90,19 @@ async function runTest(file: string, spyIde: SpyIDE) {
   editor.selections = fixture.initialState.selections.map(createSelection);
 
   if (fixture.initialState.thatMark) {
-    setThatMark(editor, fixture.initialState.thatMark);
+    setStoredTarget(editor, "that", fixture.initialState.thatMark);
   }
 
   if (fixture.initialState.sourceMark) {
-    setSourceMark(editor, fixture.initialState.sourceMark);
+    setStoredTarget(editor, "source", fixture.initialState.sourceMark);
+  }
+
+  if (fixture.initialState.instanceReferenceMark) {
+    setStoredTarget(
+      editor,
+      "instanceReference",
+      fixture.initialState.instanceReferenceMark,
+    );
   }
 
   if (fixture.initialState.clipboard) {
@@ -166,6 +174,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   if (fixture.finalState?.sourceMark == null) {
     excludeFields.push("sourceMark");
+  }
+
+  if (fixture.finalState?.instanceReferenceMark == null) {
+    excludeFields.push("instanceReferenceMark");
   }
 
   // TODO Visible ranges are not asserted, see:

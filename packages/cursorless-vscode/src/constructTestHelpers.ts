@@ -2,6 +2,7 @@ import {
   CommandServerApi,
   ExcludableSnapshotField,
   ExtraSnapshotField,
+  HatTokenMap,
   IDE,
   NormalizedIDE,
   SerializedMarks,
@@ -10,27 +11,27 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
-  Graph,
-  ide,
-  injectIde,
+  StoredTargetKey,
+  StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
-  ThatMark,
 } from "@cursorless/cursorless-engine";
-import { toVscodeEditor, VscodeIDE } from "@cursorless/cursorless-vscode-core";
 import { TestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 
 export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
-  thatMark: ThatMark,
-  sourceMark: ThatMark,
+  storedTargets: StoredTargetMap,
+  hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
-  graph: Graph,
+  normalizedIde: NormalizedIDE,
+  injectIde: (ide: IDE) => void,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
-    ide: ide() as NormalizedIDE,
+    ide: normalizedIde,
     injectIde,
 
     toVscodeEditor,
@@ -46,8 +47,7 @@ export function constructTestHelpers(
       forceRealClipboard: boolean,
     ): Promise<TestCaseSnapshot> {
       return takeSnapshot(
-        thatMark,
-        sourceMark,
+        storedTargets,
         excludeFields,
         extraFields,
         editor,
@@ -59,27 +59,18 @@ export function constructTestHelpers(
       );
     },
 
-    setThatMark(
+    setStoredTarget(
       editor: vscode.TextEditor,
+      key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
-      thatMark.set(
+      storedTargets.set(
+        key,
         targets?.map((target) =>
           plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
         ),
       );
     },
-    setSourceMark(
-      editor: vscode.TextEditor,
-      targets: TargetPlainObject[] | undefined,
-    ): void {
-      sourceMark.set(
-        targets?.map((target) =>
-          plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
-        ),
-      );
-    },
-
-    hatTokenMap: graph.hatTokenMap,
+    hatTokenMap,
   };
 }

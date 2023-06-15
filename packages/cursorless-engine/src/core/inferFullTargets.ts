@@ -1,6 +1,5 @@
 import {
   ImplicitTargetDescriptor,
-  Mark,
   Modifier,
   PartialListTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
@@ -9,10 +8,12 @@ import {
   PositionModifier,
 } from "@cursorless/common";
 import {
+  Mark,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
+import { handleHoistedModifiers } from "./handleHoistedModifiers";
 
 /**
  * Performs inference on the partial targets provided by the user, using
@@ -76,18 +77,23 @@ function inferNonListTarget(
 function inferRangeTarget(
   target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): RangeTargetDescriptor {
-  return {
+): PrimitiveTargetDescriptor | RangeTargetDescriptor {
+  const fullTarget: RangeTargetDescriptor = {
     type: "range",
+    rangeType: target.rangeType ?? "continuous",
     excludeAnchor: target.excludeAnchor ?? false,
     excludeActive: target.excludeActive ?? false,
-    rangeType: target.rangeType ?? "continuous",
     anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
     active: inferPrimitiveTarget(
       target.active,
       previousTargets.concat(target.anchor),
     ),
   };
+
+  const isAnchorMarkImplicit =
+    target.anchor.type === "implicit" || target.anchor.mark == null;
+
+  return handleHoistedModifiers(fullTarget, isAnchorMarkImplicit);
 }
 
 function inferPossiblyImplicitTarget(

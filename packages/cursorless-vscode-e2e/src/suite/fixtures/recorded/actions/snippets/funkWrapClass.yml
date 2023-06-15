@@ -1,0 +1,39 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: funk wrap class
+  action:
+    name: wrapWithSnippet
+    args:
+      - {type: named, name: functionDeclaration, variableName: body}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: class}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Aaa:
+        def bbb():
+            pass
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    def ():
+        class Aaa:
+            def bbb():
+                pass
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 3, character: 16}
+      isReversed: false
+      hasExplicitRange: true

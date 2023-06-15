@@ -13,6 +13,8 @@ export default class SubTokenWordTarget extends BaseTarget {
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   insertionDelimiter: string;
+  isToken = false;
+  isWord = true;
 
   constructor(parameters: SubTokenTargetParameters) {
     super(parameters);

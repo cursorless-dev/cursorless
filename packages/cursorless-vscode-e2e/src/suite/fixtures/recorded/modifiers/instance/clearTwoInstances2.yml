@@ -1,0 +1,27 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear two instances
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: instance}
+          offset: 0
+          length: 2
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb aaaa bbb aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: " bbb a bbb aaa"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

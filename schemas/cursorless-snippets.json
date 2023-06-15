@@ -28,6 +28,13 @@
                     "$ref": "#/$defs/scopeType"
                   },
                   "description": "Cursorless scopes in which this snippet is active.  Allows, for example, to have different snippets to define a function if you're in a class or at global scope."
+                },
+                "excludeDescendantScopeTypes": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/scopeType"
+                  },
+                  "description": "Exclude regions of scopeTypes that are descendants of these scope types.  For example, if you have a snippet that should be active in a class but not in a function within the class, you can specify `scopeTypes: [\"class\"], excludeDescendantScopeTypes: [\"namedFunction\"]`"
                 }
               },
               "additionalProperties": false

@@ -1,13 +1,17 @@
 import {
   RangeExpansionBehavior,
+  ScopeType,
   Snippet,
   SnippetDefinition,
   textFormatters,
 } from "@cursorless/common";
+import { Snippets } from "../core/Snippets";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import {
@@ -15,66 +19,114 @@ import {
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Graph } from "../typings/Graph";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
+import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
+import { UntypedTarget } from "../processTargets/targets";
+
+interface NamedSnippetArg {
+  type: "named";
+  name: string;
+  substitutions?: Record<string, string>;
+}
+interface CustomSnippetArg {
+  type: "custom";
+  body: string;
+  scopeType?: ScopeType;
+  substitutions?: Record<string, string>;
+}
+type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
 
 export default class InsertSnippet implements Action {
   private snippetParser = new SnippetParser();
 
-  getPrePositionStages(snippetName: string) {
-    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
-
-    const defaultScopeTypes = snippet.insertionScopeTypes;
-
-    if (defaultScopeTypes == null) {
-      return [];
-    }
-
-    return [
-      new ModifyIfUntypedExplicitStage({
-        type: "cascading",
-        modifiers: defaultScopeTypes.map((scopeType) => ({
-          type: "containingScope",
-          scopeType: {
-            type: scopeType,
-          },
-        })),
-      }),
-    ];
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private snippets: Snippets,
+    private actions: Actions,
+    private modifierStageFactory: ModifierStageFactory,
+  ) {
+    this.run = this.run.bind(this);
   }
 
-  constructor(private graph: Graph) {
-    this.run = this.run.bind(this);
+  getPrePositionStages(snippetDescription: InsertSnippetArg) {
+    const defaultScopeTypes = this.getScopeTypes(snippetDescription);
+
+    return defaultScopeTypes.length === 0
+      ? []
+      : [
+          new ModifyIfUntypedExplicitStage(this.modifierStageFactory, {
+            type: "cascading",
+            modifiers: defaultScopeTypes.map((scopeType) => ({
+              type: "containingScope",
+              scopeType,
+            })),
+          }),
+        ];
+  }
+
+  private getScopeTypes(snippetDescription: InsertSnippetArg): ScopeType[] {
+    if (snippetDescription.type === "named") {
+      const { name } = snippetDescription;
+
+      const snippet = this.snippets.getSnippetStrict(name);
+
+      const scopeTypeTypes = snippet.insertionScopeTypes;
+      return scopeTypeTypes == null
+        ? []
+        : scopeTypeTypes.map((scopeTypeType) => ({
+            type: scopeTypeType,
+          }));
+    } else {
+      return snippetDescription.scopeType == null
+        ? []
+        : [snippetDescription.scopeType];
+    }
+  }
+
+  private getSnippetInfo(
+    snippetDescription: InsertSnippetArg,
+    targets: Target[],
+  ) {
+    if (snippetDescription.type === "named") {
+      const { name } = snippetDescription;
+
+      const snippet = this.snippets.getSnippetStrict(name);
+
+      const definition = findMatchingSnippetDefinitionStrict(
+        this.modifierStageFactory,
+        targets,
+        snippet.definitions,
+      );
+
+      return {
+        body: definition.body.join("\n"),
+
+        formatSubstitutions(substitutions: Record<string, string> | undefined) {
+          return substitutions == null
+            ? undefined
+            : formatSubstitutions(snippet, definition, substitutions);
+        },
+      };
+    } else {
+      return {
+        body: snippetDescription.body,
+
+        formatSubstitutions(substitutions: Record<string, string> | undefined) {
+          return substitutions;
+        },
+      };
+    }
   }
 
   async run(
     [targets]: [Target[]],
-    snippetName: string,
-    substitutions: Record<string, string>,
+    snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
-    const snippet = this.graph.snippets.getSnippetStrict(snippetName);
-
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
-    const definition = findMatchingSnippetDefinitionStrict(
-      targets,
-      snippet.definitions,
-    );
-
-    const parsedSnippet = this.snippetParser.parse(definition.body.join("\n"));
-
-    const formattedSubstitutions =
-      substitutions == null
-        ? undefined
-        : formatSubstitutions(snippet, definition, substitutions);
-
-    transformSnippetVariables(parsedSnippet, null, formattedSubstitutions);
-
-    const snippetString = parsedSnippet.toTextmateString();
-
-    await this.graph.actions.editNew.run([targets]);
+    await this.actions.editNew.run([targets]);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
       getSelectionInfo(
@@ -83,11 +135,35 @@ export default class InsertSnippet implements Action {
         RangeExpansionBehavior.openOpen,
       ),
     );
+    const { body, formatSubstitutions } = this.getSnippetInfo(
+      snippetDescription,
+      // Use new selection locations instead of original targets because
+      // that's where we'll be doing the snippet insertion
+      editor.selections.map(
+        (selection) =>
+          new UntypedTarget({
+            editor,
+            contentRange: selection,
+            isReversed: false,
+            hasExplicitRange: true,
+          }),
+      ),
+    );
+
+    const parsedSnippet = this.snippetParser.parse(body);
+
+    transformSnippetVariables(
+      parsedSnippet,
+      null,
+      formatSubstitutions(snippetDescription.substitutions),
+    );
+
+    const snippetString = parsedSnippet.toTextmateString();
 
     // NB: We used the command "editor.action.insertSnippet" instead of calling editor.insertSnippet
     // because the latter doesn't support special variables like CLIPBOARD
     const [updatedTargetSelections] = await callFunctionAndUpdateSelectionInfos(
-      this.graph.rangeUpdater,
+      this.rangeUpdater,
       () => editor.insertSnippet(snippetString),
       editor.document,
       [targetSelectionInfos],

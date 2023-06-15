@@ -85,11 +85,12 @@ function createScope(editor: TextEditor, domain: Range): TargetScope {
   return {
     editor,
     domain,
-    getTarget: (isReversed) =>
+    getTargets: (isReversed) => [
       new ParagraphTarget({
         editor,
         isReversed,
         contentRange: fitRangeToLineContent(editor, domain),
       }),
+    ],
   };
 }

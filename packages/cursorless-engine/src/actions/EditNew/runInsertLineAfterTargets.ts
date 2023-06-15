@@ -1,6 +1,6 @@
 import { EditableTextEditor } from "@cursorless/common";
+import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateRanges } from "../../core/updateSelections/updateSelections";
-import { Graph } from "../../typings/Graph";
 import { EditTarget, State } from "./EditNew.types";
 
 /**
@@ -15,7 +15,7 @@ import { EditTarget, State } from "./EditNew.types";
  * @returns An updated `state` object
  */
 export async function runInsertLineAfterTargets(
-  graph: Graph,
+  rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
@@ -39,7 +39,7 @@ export async function runInsertLineAfterTargets(
 
   const [updatedTargetRanges, updatedThatRanges] =
     await callFunctionAndUpdateRanges(
-      graph.rangeUpdater,
+      rangeUpdater,
       () => editor.insertLineAfter(contentRanges),
       editor.document,
       [state.targets.map(({ contentRange }) => contentRange), state.thatRanges],

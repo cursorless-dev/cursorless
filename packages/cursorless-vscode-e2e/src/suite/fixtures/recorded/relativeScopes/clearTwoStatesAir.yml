@@ -1,0 +1,35 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear two states air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: statement}
+          offset: 0
+          length: 2
+          direction: forward
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    if aaa:
+        bbb = "ccc"
+        ddd = "eee"
+
+    fff = "ggg"
+  selections:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 6}
+finalState:
+  documentContents: |+
+
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

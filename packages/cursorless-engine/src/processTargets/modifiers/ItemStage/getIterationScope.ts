@@ -1,9 +1,9 @@
 import { Range, TextEditor } from "@cursorless/common";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
+import { PlainTarget, SurroundingPairTarget } from "../../targets";
 import { fitRangeToLineContent } from "../scopeHandlers";
 import { processSurroundingPair } from "../surroundingPair";
-import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurroundingPairOffsets";
 
 /**
  * Get the iteration scope range for item scope.
@@ -13,37 +13,40 @@ import { SurroundingPairInfo } from "../surroundingPair/extractSelectionFromSurr
  * @returns The stage iteration scope and optional surrounding pair boundaries
  */
 export function getIterationScope(
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   target: Target,
 ): { range: Range; boundary?: [Range, Range] } {
-  let pairInfo = getSurroundingPair(
-    context,
-    target.editor,
-    target.contentRange,
-  );
+  let surroundingTarget = getSurroundingPair(languageDefinitions, target);
 
   // Iteration is necessary in case of nested strings
-  while (pairInfo != null) {
-    const stringPairInfo = getStringSurroundingPair(
-      context,
-      target.editor,
-      pairInfo.contentRange,
+  while (surroundingTarget != null) {
+    const surroundingStringTarget = getStringSurroundingPair(
+      languageDefinitions,
+      surroundingTarget,
     );
 
     // We don't look for items inside strings.
     if (
       // Not in a string
-      stringPairInfo == null ||
+      surroundingStringTarget == null ||
       // In a non-string surrounding pair that is inside a surrounding string. This is fine.
-      stringPairInfo.contentRange.start.isBefore(pairInfo.contentRange.start)
+      surroundingStringTarget.contentRange.start.isBefore(
+        surroundingTarget.contentRange.start,
+      )
     ) {
       return {
-        range: pairInfo.interiorRange,
-        boundary: pairInfo.boundary,
+        range: surroundingTarget.getInteriorStrict()[0].contentRange,
+        boundary: surroundingTarget
+          .getBoundaryStrict()
+          .map((t) => t.contentRange) as [Range, Range],
       };
     }
 
-    pairInfo = getParentSurroundingPair(context, target.editor, pairInfo);
+    surroundingTarget = getParentSurroundingPair(
+      languageDefinitions,
+      target.editor,
+      surroundingTarget,
+    );
   }
 
   // We have not found a surrounding pair. Use the line.
@@ -53,26 +56,32 @@ export function getIterationScope(
 }
 
 function getParentSurroundingPair(
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   editor: TextEditor,
-  pairInfo: SurroundingPairInfo,
+  target: SurroundingPairTarget,
 ) {
-  const startOffset = editor.document.offsetAt(pairInfo.contentRange.start);
+  const startOffset = editor.document.offsetAt(target.contentRange.start);
   // Can't have a parent; already at start of document
   if (startOffset === 0) {
     return null;
   }
   // Step out of this pair and see if we have a parent
   const position = editor.document.positionAt(startOffset - 1);
-  return getSurroundingPair(context, editor, new Range(position, position));
+  return getSurroundingPair(
+    languageDefinitions,
+    new PlainTarget({
+      editor,
+      contentRange: new Range(position, position),
+      isReversed: false,
+    }),
+  );
 }
 
 function getSurroundingPair(
-  context: ProcessedTargetsContext,
-  editor: TextEditor,
-  contentRange: Range,
+  languageDefinitions: LanguageDefinitions,
+  target: Target,
 ) {
-  return processSurroundingPair(context, editor, contentRange, {
+  return processSurroundingPair(languageDefinitions, target, {
     type: "surroundingPair",
     delimiter: "collectionBoundary",
     requireStrongContainment: true,
@@ -80,11 +89,10 @@ function getSurroundingPair(
 }
 
 function getStringSurroundingPair(
-  context: ProcessedTargetsContext,
-  editor: TextEditor,
-  contentRange: Range,
+  languageDefinitions: LanguageDefinitions,
+  target: Target,
 ) {
-  return processSurroundingPair(context, editor, contentRange, {
+  return processSurroundingPair(languageDefinitions, target, {
     type: "surroundingPair",
     delimiter: "string",
     requireStrongContainment: true,

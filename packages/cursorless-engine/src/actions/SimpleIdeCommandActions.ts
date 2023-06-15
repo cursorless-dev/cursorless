@@ -1,9 +1,9 @@
 import { CommandId, EditableTextEditor, Range } from "@cursorless/common";
+import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
-import { ActionReturnValue } from "./actions.types";
 import { CallbackAction } from "./CallbackAction";
+import { ActionReturnValue } from "./actions.types";
 
 interface Options {
   showDecorations?: boolean;
@@ -25,8 +25,8 @@ abstract class SimpleIdeCommandAction {
   restoreSelection: boolean = true;
   showDecorations: boolean = true;
 
-  constructor(graph: Graph) {
-    this.callbackAction = new CallbackAction(graph);
+  constructor(rangeUpdater: RangeUpdater) {
+    this.callbackAction = new CallbackAction(rangeUpdater);
     this.run = this.run.bind(this);
   }
 

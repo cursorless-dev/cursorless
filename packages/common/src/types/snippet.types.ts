@@ -13,6 +13,14 @@ export interface SnippetScope {
    * global scope.
    */
   scopeTypes?: SimpleScopeTypeType[];
+
+  /**
+   * Exclude regions of {@link scopeTypes} that are descendants of these scope
+   * types. For example, if you have a snippet that should be active in a class
+   * but not in a function within the class, you can specify
+   * `scopeTypes: ["class"], excludeDescendantScopeTypes: ["namedFunction"]`.
+   */
+  excludeDescendantScopeTypes?: SimpleScopeTypeType[];
 }
 
 export type SnippetBody = string[];

@@ -12,6 +12,10 @@ initialState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+  marks:
+    default.):
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 7}
 finalState:
   documentContents: ""
   selections:

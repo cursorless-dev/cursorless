@@ -16,20 +16,15 @@ First a few notes / tips:
 - We suggest opening a draft PR as soon as possible to get early feedback. Please use the new language PR template either by adding `?template=new_programming_language` to the end of the URL you used to open the PR, or just by copying and pasting from the [template](https://github.com/cursorless-dev/cursorless/blob/main/.github/PULL_REQUEST_TEMPLATE/new_programming_language.md?plain=1) to your PR body, if that's easier.
 - We suggest adding tests as early as possible, after each language feature you add. Recording tests is quick and painless using the test case recorder described below. We promise 😇
 
-Minimum changes that each language needs:
-
-- new file in `packages/cursorless-engine/src/languages/yourCoolNewLanguage.ts`. Take a look at [existing languages](../../packages/cursorless-engine/src/languages) as a base. At its core you're implementing your language's version of the `nodeMatchers` const, mapping scope types found in [`SimpleScopeTypeType`](../api/modules/common_src_types_command_partialtargetdescriptor_types/#simplescopetypetype) with matching expressions that align with the parse tree output.
-- new entry in [`getNodeMatcher.ts:languageMatchers`](../../packages/cursorless-engine/src/languages/getNodeMatcher.ts), importing your new file above
-- new entry in [`constants.ts`](../../packages/cursorless-engine/src/languages/constants.ts)
-- new text fragment extractor (default is likely fine) in [`getTextFragmentExtractor.ts:textFragmentExtractors`](../../packages/cursorless-engine/src/languages/getTextFragmentExtractor.ts)
+To add a new language, you just need to add a `.scm` file to the [`queries` directory](../../queries). The `.scm` query format is documented [here](https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax).
 
 The parse trees exposed by tree-sitter are often pretty close to what we're
 looking for, but we often need to look for specific patterns within the parse
-tree to get the scopes that the user expects. Fortunately, we have a
-domain-specific language that makes these definitions fairly compact.
+tree to get the scopes that the user expects. Fortunately, the tree-sitter query language makes these definitions fairly compact.
 
-- Check out the [docs](parse-tree-patterns.md) for the syntax tree pattern
-  matcher
+- Check out the [docs](https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax) for the query language.
+- Have a look at our custom query predicate operators in [`queryPredicateOperators.ts`](../../packages/cursorless-engine/src/languages/TreeSitterQuery/queryPredicateOperators.ts)
+- Look at the existing language definitions in the [`queries` directory](../../queries) for examples.
 - If you look in the debug console, you'll see debug output every time you move
   your cursor, which might be helpful.
 - You will likely want to look at `node-types.json` for your language, (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/src/node-types.json)). This file is generated from `grammar.js`, which might also be helpful to look at (eg [java](https://github.com/tree-sitter/tree-sitter-java/blob/master/grammar.js)).

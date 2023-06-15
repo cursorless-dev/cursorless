@@ -2,7 +2,7 @@ import { FlashStyle, isTesting, Range } from "@cursorless/common";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
-import { Graph } from "../../typings/Graph";
+import { matchAll } from "../../util/regex";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
 import { Action, ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
@@ -46,7 +46,7 @@ import Substituter from "./Substituter";
  * confusing escaping.
  */
 export default class GenerateSnippet implements Action {
-  constructor(private graph: Graph) {
+  constructor() {
     this.run = this.run.bind(this);
   }
 
@@ -114,10 +114,22 @@ export default class GenerateSnippet implements Action {
       ),
     );
 
-    /** The text of the snippet, with placeholders inserted for variables */
-    const snippetBodyText = editText(
-      editor.document.getText(target.contentRange),
-      variables.map(({ offsets, defaultName, placeholderIndex }) => ({
+    const originalText = editor.document.getText(target.contentRange);
+
+    /**
+     * The text of the snippet, with placeholders inserted for variables and
+     * special characters `$`, `\`, and `}` escaped twice to make it through
+     * both meta snippet and user snippet.
+     */
+    const snippetBodyText = editText(originalText, [
+      ...matchAll(originalText, /\$|\\/g, (match) => ({
+        offsets: {
+          start: match.index!,
+          end: match.index! + match[0].length,
+        },
+        text: match[0] === "\\" ? `\\${match[0]}` : `\\\\${match[0]}`,
+      })),
+      ...variables.map(({ offsets, defaultName, placeholderIndex }) => ({
         offsets,
         // Note that the reason we use the substituter here is primarily so
         // that the `\` below doesn't get escaped upon conversion to json.
@@ -140,7 +152,7 @@ export default class GenerateSnippet implements Action {
           ].join(""),
         ),
       })),
-    );
+    ]);
 
     const snippetLines = constructSnippetBody(snippetBodyText, linePrefix);
 

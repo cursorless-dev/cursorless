@@ -31,11 +31,13 @@ export interface CloneWithParameters {
 export default abstract class BaseTarget implements Target {
   protected readonly state: CommonTargetParameters;
   isLine = false;
+  isToken = true;
   hasExplicitScopeType = true;
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
   isNotebookCell = false;
+  isWord = false;
 
   constructor(parameters: CommonTargetParameters) {
     this.state = {

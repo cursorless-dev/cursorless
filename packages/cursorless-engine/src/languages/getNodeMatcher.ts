@@ -9,7 +9,7 @@ import {
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
-import { SupportedLanguageId } from "./constants";
+import { LegacyLanguageId } from "./LegacyLanguageId";
 import cpp from "./cpp";
 import csharp from "./csharp";
 import go from "./go";
@@ -31,7 +31,7 @@ export function getNodeMatcher(
   scopeTypeType: SimpleScopeTypeType,
   includeSiblings: boolean,
 ): NodeMatcher {
-  const matchers = languageMatchers[languageId as SupportedLanguageId];
+  const matchers = languageMatchers[languageId as LegacyLanguageId];
 
   if (matchers == null) {
     throw new UnsupportedLanguageError(languageId);
@@ -51,7 +51,7 @@ export function getNodeMatcher(
 }
 
 const languageMatchers: Record<
-  SupportedLanguageId,
+  LegacyLanguageId,
   Record<SimpleScopeTypeType, NodeMatcher>
 > = {
   c: cpp,

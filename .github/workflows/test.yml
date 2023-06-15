@@ -25,11 +25,10 @@ jobs:
       VSCODE_VERSION: ${{ matrix.vscode_version }}
       VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
+      CURSORLESS_REPO_ROOT: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
-        with:
-          version: 7
       - uses: actions/setup-node@v3
         with:
           node-version: 16

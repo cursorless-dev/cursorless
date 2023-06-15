@@ -1,25 +1,23 @@
 import { shuffle } from "lodash";
 import { Target } from "../typings/target.types";
-import { Graph } from "../typings/Graph";
+import { Actions } from "./Actions";
 import { Action, ActionReturnValue } from "./actions.types";
 
 abstract class SortBase implements Action {
-  constructor(private graph: Graph) {
+  constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
   protected abstract sortTexts(texts: string[]): string[];
 
-  async run(targets: Target[][]): Promise<ActionReturnValue> {
+  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     // First sort target by document order
-    const sortedTargets = targets.map((t) =>
-      t
-        .slice()
-        .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start)),
-    );
+    const sortedTargets = targets
+      .slice()
+      .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start));
 
-    const { returnValue: unsortedTexts } = await this.graph.actions.getText.run(
-      sortedTargets,
+    const { returnValue: unsortedTexts } = await this.actions.getText.run(
+      [sortedTargets],
       {
         showDecorations: false,
       },
@@ -27,7 +25,7 @@ abstract class SortBase implements Action {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.graph.actions.replace.run(sortedTargets, sortedTexts);
+    return this.actions.replace.run([sortedTargets], sortedTexts);
   }
 }
 

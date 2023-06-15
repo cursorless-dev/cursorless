@@ -151,8 +151,6 @@ function blockFinder(node: SyntaxNode) {
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  map: mapTypes,
-  list: listTypes,
   statement: cascadingMatcher(
     patternMatcher(...STATEMENT_TYPES),
     ancestorChainNodeMatcher(
@@ -164,16 +162,11 @@ const nodeMatchers: Partial<
     ),
   ),
   string: "string",
-  ifStatement: "if",
-  functionCall: "call",
-  comment: "comment",
-  namedFunction: ["method", "singleton_method"],
   functionName: ["method[name]", "singleton_method[name]"],
   anonymousFunction: cascadingMatcher(
     patternMatcher("lambda", "do_block"),
     matcher(blockFinder),
   ),
-  regularExpression: "regex",
   condition: conditionMatcher("*[condition]"),
   argumentOrParameter: argumentMatcher(
     "lambda_parameters",
@@ -181,8 +174,6 @@ const nodeMatchers: Partial<
     "block_parameters",
     "argument_list",
   ),
-  class: "class",
-  className: "class[name]",
   collectionKey: trailingMatcher(["pair[key]"], [":"]),
   name: [
     "assignment[left]",
