@@ -55,8 +55,10 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       },
     );
 
+    console.log("finished installing dependency extensions");
+
     // Run the integration test
-    await runTests({
+    const code = await runTests({
       vscodeExecutablePath,
       extensionDevelopmentPath,
       extensionTestsPath,
@@ -70,6 +72,8 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
             "--disable-software-rasterizer",
           ],
     });
+
+    console.log(`Returned from "runTests" with value: ${code}`);
   } catch (err) {
     console.error("Test run threw exception:");
     console.error(err);
