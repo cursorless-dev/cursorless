@@ -29,5 +29,5 @@ finalState:
         start: {line: 0, character: 2}
         end: {line: 0, character: 2}
       isReversed: false
-      hasExplicitRange: false
+      hasExplicitRange: true
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

@@ -42,7 +42,7 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   name = "is-nth-child?" as const;
   schema = z.tuple([q.node, q.integer]);
   run({ node }: MutableQueryCapture, n: number) {
-    return node.parent?.children.indexOf(node) === n;
+    return node.parent?.children.findIndex((n) => n.id === node.id) === n;
   }
 }
 

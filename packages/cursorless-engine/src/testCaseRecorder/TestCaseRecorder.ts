@@ -323,6 +323,13 @@ export class TestCaseRecorder {
       await this.testCase.recordInitialState();
 
       const editor = ide().activeTextEditor!;
+
+      if (editor.document.getText().includes("\r\n")) {
+        throw Error(
+          "Refusing to record a test when the document contains CRLF line endings.  Please convert line endings to LF.",
+        );
+      }
+
       // NB: We need to copy the editor options rather than storing a reference
       // because its properties are lazy
       this.originalTextEditorOptions = { ...editor.options };

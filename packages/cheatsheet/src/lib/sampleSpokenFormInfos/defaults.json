@@ -709,6 +709,16 @@
           ]
         },
         {
+          "id": "inferPreviousMark",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "its",
+              "description": "Infer previous mark"
+            }
+          ]
+        },
+        {
           "id": "interiorOnly",
           "type": "modifier",
           "variations": [
@@ -793,6 +803,14 @@
             {
               "spokenForm": "previous <number> <scope>s",
               "description": "previous <number> instances of <scope>"
+            },
+            {
+              "spokenForm": "<scope> backward",
+              "description": "single instance of <scope> including target, going backwards"
+            },
+            {
+              "spokenForm": "<scope> forward",
+              "description": "single instance of <scope> including target, going forwards"
             },
             {
               "spokenForm": "<number> <scope>s backward",
@@ -1057,6 +1075,16 @@
           ]
         },
         {
+          "id": "branch",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "branch",
+              "description": "Branch"
+            }
+          ]
+        },
+        {
           "id": "chapter",
           "type": "scopeType",
           "variations": [
@@ -1187,12 +1215,32 @@
           ]
         },
         {
+          "id": "identifier",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "identifier",
+              "description": "Identifier"
+            }
+          ]
+        },
+        {
           "id": "ifStatement",
           "type": "scopeType",
           "variations": [
             {
               "spokenForm": "if state",
               "description": "If statement"
+            }
+          ]
+        },
+        {
+          "id": "instance",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "instance",
+              "description": "Instance"
             }
           ]
         },
@@ -1383,6 +1431,16 @@
             {
               "spokenForm": "type",
               "description": "Type"
+            }
+          ]
+        },
+        {
+          "id": "unit",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "unit",
+              "description": "Unit"
             }
           ]
         },
