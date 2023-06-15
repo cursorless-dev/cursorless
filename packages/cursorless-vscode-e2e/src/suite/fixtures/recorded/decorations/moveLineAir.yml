@@ -33,16 +33,16 @@ finalState:
       active: {line: 2, character: 5}
 ide:
   flashes:
-    - range: {type: line, start: 0, end: 0}
-      style: pendingDelete
-    - range:
+    - style: pendingDelete
+      range: {type: line, start: 0, end: 0}
+    - style: pendingModification0
+      range:
         type: character
         start: {line: 3, character: 0}
         end: {line: 3, character: 0}
-      style: pendingModification0
-    - range:
+    - style: pendingModification0
+      range:
         type: character
         start: {line: 2, character: 0}
         end: {line: 2, character: 5}
-      style: pendingModification0
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: [{type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}]
