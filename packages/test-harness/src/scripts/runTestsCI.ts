@@ -6,7 +6,7 @@ import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
 import { launchVscodeAndRunTests } from "../util/launchVscodeAndRunTests";
 
-async function main() {
+(async function main() {
   // Note that we run all tests, including unit tests, in VSCode, even though
   // unit tests could be run separately.  If we wanted to run unit tests
   // separately, we could instead use `../runners/endToEndOnly` instead of
@@ -18,6 +18,4 @@ async function main() {
   );
 
   await launchVscodeAndRunTests(extensionTestsPath);
-}
-
-main();
+})();
