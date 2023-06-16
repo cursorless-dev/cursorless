@@ -1,0 +1,18 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clear lambda
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: (function bar() {})
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+thrownError: {name: NoContainingScopeError}

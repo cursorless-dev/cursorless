@@ -3,3 +3,35 @@
 
 ;; import javascript.jsx.scm
 ;; import javascript.core.scm
+
+;; Define this here because the `field_definition` node type doesn't exist
+;; in typescript.
+(
+  ;; foo = () => {};
+  ;; foo = function() {};
+  ;; foo = function *() {};
+  ;; (inside class bodies)
+  (field_definition
+    property: (_) @functionName
+    value: [
+      (function
+        !name
+      )
+      (generator_function
+        !name
+      )
+      (arrow_function)
+    ]
+  ) @namedFunction.start @functionName.domain.start
+  .
+  ";"? @namedFunction.end @functionName.domain.end
+)
+
+(
+  ;; foo = ...;
+  (field_definition
+    property: (_) @name
+  ) @name.domain.start
+  .
+  ";"? @name.domain.end
+)

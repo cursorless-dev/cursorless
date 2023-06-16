@@ -1,0 +1,22 @@
+languageId: javascript
+command:
+  version: 5
+  spokenForm: clear name
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: const aaa = "bbb";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: const  = "bbb";
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
