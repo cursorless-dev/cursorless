@@ -7,10 +7,14 @@
 ;; Define this here because the `field_definition` node type doesn't exist
 ;; in typescript.
 (
-  ;; foo = () => {};
-  ;; foo = function() {};
-  ;; foo = function *() {};
-  ;; (inside class bodies)
+  ;;!! class Foo {
+  ;;!!   foo = () => {};
+  ;;!    ^^^^^^^^^^^^^^^
+  ;;!!   foo = function() {};
+  ;;!    ^^^^^^^^^^^^^^^^^^^^
+  ;;!!   foo = function *() {};
+  ;;!    ^^^^^^^^^^^^^^^^^^^^^^
+  ;;!! }
   (field_definition
     property: (_) @functionName
     value: [
@@ -28,7 +32,8 @@
 )
 
 (
-  ;; foo = ...;
+  ;;!! foo = ...;
+  ;;!  ^^^-------
   (field_definition
     property: (_) @name
   ) @name.domain.start
