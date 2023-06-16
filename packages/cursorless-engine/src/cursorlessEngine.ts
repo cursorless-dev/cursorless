@@ -99,4 +99,5 @@ export interface CursorlessEngine {
   hatTokenMap: HatTokenMapImpl;
   snippets: Snippets;
   injectIde: (ide: IDE | undefined) => void;
+  runIntegrationTests: () => Promise<void>;
 }

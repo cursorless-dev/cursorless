@@ -1,8 +1,8 @@
 import assert = require("assert");
-import { LanguageDefinitionsImpl } from "./languages/LanguageDefinitionsImpl";
-import { supportedLanguageIds } from "./languages/constants";
 import { languageMatchers } from "./languages/getNodeMatcher";
 import { TreeSitter } from "./typings/TreeSitter";
+import { legacyLanguageIds } from "./languages/LegacyLanguageId";
+import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 
 /**
  * Run tests that require multiple components to be instantiated, as well as a
@@ -14,21 +14,21 @@ import { TreeSitter } from "./typings/TreeSitter";
  */
 export async function runIntegrationTests(
   treeSitter: TreeSitter,
-  languageDefinitions: LanguageDefinitionsImpl,
+  languageDefinitions: LanguageDefinitions,
 ) {
   await assertNoScopesBothLegacyAndNew(treeSitter, languageDefinitions);
 }
 
 async function assertNoScopesBothLegacyAndNew(
   treeSitter: TreeSitter,
-  languageDefinitions: LanguageDefinitionsImpl,
+  languageDefinitions: LanguageDefinitions,
 ) {
-  for (const languageId of supportedLanguageIds) {
+  for (const languageId of legacyLanguageIds) {
     await treeSitter.loadLanguage(languageId);
 
     Object.keys(languageMatchers[languageId]).map((scopeTypeType) => {
       assert(
-        languageDefinitions.get(languageId)?.maybeGetLanguageScopeHandler({
+        languageDefinitions.get(languageId)?.getScopeHandler({
           type: scopeTypeType,
         }) == null,
         `Scope '${scopeTypeType}' defined as both legacy and new for language ${languageId}`,
