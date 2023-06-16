@@ -1,31 +1,28 @@
-import { ScopeType, SimpleScopeType } from "@cursorless/common";
+import { ScopeType, SimpleScopeType, showError } from "@cursorless/common";
 import { existsSync, readFileSync } from "fs";
-import { join } from "path";
-import { Query } from "web-tree-sitter";
+import { dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
+import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
+import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
-import { LanguageId } from "./constants";
+import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
+import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
 
 /**
  * Represents a language definition for a single language, including the
  * tree-sitter query used to extract scopes for the given language
  */
 export class LanguageDefinition {
-  private query: TreeSitterQuery;
-
   private constructor(
-    treeSitter: TreeSitter,
     /**
      * The tree-sitter query used to extract scopes for the given language.
      * Note that this query contains patterns for all scope types that the
      * language supports using new-style tree-sitter queries
      */
-    query: Query,
-  ) {
-    this.query = new TreeSitterQuery(treeSitter, query);
-  }
+    private query: TreeSitterQuery,
+  ) {}
 
   /**
    * Construct a language definition for the given language id, if the language
@@ -38,20 +35,26 @@ export class LanguageDefinition {
    */
   static create(
     treeSitter: TreeSitter,
-    languageId: LanguageId,
+    languageId: string,
   ): LanguageDefinition | undefined {
-    const queryPath = join(ide().assetsRoot, "queries", `${languageId}.scm`);
+    const languageQueryPath = join(
+      ide().assetsRoot,
+      "queries",
+      `${languageId}.scm`,
+    );
 
-    if (!existsSync(queryPath)) {
+    if (!existsSync(languageQueryPath)) {
       return undefined;
     }
 
-    const rawLanguageQueryString = readFileSync(queryPath, "utf8");
+    const rawLanguageQueryString = readQueryFileAndImports(languageQueryPath);
 
-    return new LanguageDefinition(
-      treeSitter,
-      treeSitter.getLanguage(languageId)!.query(rawLanguageQueryString),
-    );
+    const rawQuery = treeSitter
+      .getLanguage(languageId)!
+      .query(rawLanguageQueryString);
+    const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
+
+    return new LanguageDefinition(query);
   }
 
   /**
@@ -67,4 +70,77 @@ export class LanguageDefinition {
 
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
   }
+
+  getTextFragmentScopeHandler(): ScopeHandler | undefined {
+    if (!this.query.captureNames.includes(TEXT_FRAGMENT_CAPTURE_NAME)) {
+      return undefined;
+    }
+
+    return new TreeSitterTextFragmentScopeHandler(this.query);
+  }
+}
+
+/**
+ * Reads a query file and all its imports, and returns the text of the query
+ * file with all imports inlined. This is necessary because tree-sitter doesn't
+ * support imports in query files, so we need to manually inline all the
+ * imports.
+ *
+ * Note that we handle diamond imports correctly, so that if a query file
+ * imports two files that both import the same file, we only read the file once.
+ * @param languageQueryPath The path to the query file to read
+ * @returns The text of the query file, with all imports inlined
+ */
+function readQueryFileAndImports(languageQueryPath: string) {
+  // Seed the map with the query file itself
+  const rawQueryStrings: Record<string, string | null> = {
+    [languageQueryPath]: null,
+  };
+
+  // Keep reading imports until we've read all the imports. Every time we
+  // encounter an import in a query file, we add it to the map with a value
+  // of null, so that it will be read on the next iteration
+  while (Object.values(rawQueryStrings).some((v) => v == null)) {
+    for (const [queryPath, rawQueryString] of Object.entries(rawQueryStrings)) {
+      if (rawQueryString != null) {
+        continue;
+      }
+
+      const rawQuery = readFileSync(queryPath, "utf8");
+      rawQueryStrings[queryPath] = rawQuery;
+      matchAll(
+        rawQuery,
+        // Matches lines like:
+        //
+        // ;; import path/to/query.scm
+        //
+        // but is very lenient about whitespace and quotes, and also allows
+        // include instead of import, so that we can throw a nice error message
+        // if the developer uses the wrong syntax
+        /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/.]+)['"]?[^\S\r\n]*$/gm,
+        (match) => {
+          const relativeImportPath = match[1];
+          const canonicalSyntax = `;; import ${relativeImportPath}`;
+
+          if (match[0] !== canonicalSyntax) {
+            showError(
+              ide().messages,
+              "LanguageDefinition.readQueryFileAndImports.malformedImport",
+              `Malformed import statement in ${queryPath}: "${match[0]}". Import statements must be of the form "${canonicalSyntax}"`,
+            );
+
+            if (ide().runMode === "test") {
+              throw new Error("Invalid import statement");
+            }
+          }
+
+          const importQueryPath = join(dirname(queryPath), relativeImportPath);
+          rawQueryStrings[importQueryPath] =
+            rawQueryStrings[importQueryPath] ?? null;
+        },
+      );
+    }
+  }
+
+  return Object.values(rawQueryStrings).join("\n");
 }

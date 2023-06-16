@@ -9,10 +9,12 @@ import type {
 } from "./scopeHandler.types";
 import { shouldYieldScope } from "./shouldYieldScope";
 
-const DEFAULT_REQUIREMENTS: ScopeIteratorRequirements = {
-  containment: null,
-  distalPosition: null,
-};
+const DEFAULT_REQUIREMENTS: Omit<ScopeIteratorRequirements, "distalPosition"> =
+  {
+    containment: null,
+    allowAdjacentScopes: false,
+    skipAncestorScopes: false,
+  };
 
 /**
  * All scope handlers should derive from this base class
@@ -20,6 +22,8 @@ const DEFAULT_REQUIREMENTS: ScopeIteratorRequirements = {
 export default abstract class BaseScopeHandler implements ScopeHandler {
   public abstract readonly scopeType: ScopeType | undefined;
   public abstract readonly iterationScopeType: ScopeType | CustomScopeType;
+
+  public readonly includeAdjacentInEvery: boolean = false;
 
   /**
    * Indicates whether scopes are allowed to contain one another.  If `false`, we
@@ -100,24 +104,42 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     direction: Direction,
     requirements: Partial<ScopeIteratorRequirements> = {},
   ): Iterable<TargetScope> {
-    let previousScope: TargetScope | undefined = undefined;
     const hints: ScopeIteratorRequirements = {
       ...DEFAULT_REQUIREMENTS,
       ...requirements,
+      distalPosition:
+        requirements.distalPosition ??
+        (direction === "forward"
+          ? editor.document.range.end
+          : editor.document.range.start),
     };
 
+    let previousScope: TargetScope | undefined = undefined;
+    let currentPosition = position;
     for (const scope of this.generateScopeCandidates(
       editor,
       position,
       direction,
       hints,
     )) {
-      if (shouldYieldScope(position, direction, hints, previousScope, scope)) {
+      if (
+        shouldYieldScope(
+          position,
+          currentPosition,
+          direction,
+          hints,
+          previousScope,
+          scope,
+        )
+      ) {
         yield scope;
+
         previousScope = scope;
+        currentPosition =
+          direction === "forward" ? scope.domain.end : scope.domain.start;
       }
 
-      if (this.canStopEarly(position, direction, hints, scope)) {
+      if (this.canStopEarly(position, direction, hints, previousScope, scope)) {
         return;
       }
     }
@@ -127,20 +149,35 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     position: Position,
     direction: Direction,
     requirements: ScopeIteratorRequirements,
-    { domain }: TargetScope,
+    previousScope: TargetScope | undefined,
+    scope: TargetScope,
   ) {
-    const { containment, distalPosition } = requirements;
+    const { containment, distalPosition, skipAncestorScopes } = requirements;
 
-    if (this.isHierarchical) {
-      // Don't try anything fancy if scope is hierarchical
+    if (this.isHierarchical && !skipAncestorScopes) {
+      // If there may be ancestor scopes, we can't stop early
+      return false;
+    }
+
+    /**
+     * The scope to check.  If we're hierarchical and skipping ancestor scopes,
+     * then we want to check the most recently yielded scope, because that is
+     * the scope whose ancestors we won't yield.
+     */
+    const scopeToCheck =
+      this.isHierarchical && skipAncestorScopes ? previousScope : scope;
+
+    if (scopeToCheck == null) {
+      // If we're using the previous scope, and there is no previous scope, then
+      // we can't stop early, because it means we're not yet skipping ancestors
       return false;
     }
 
     if (
       containment === "required" &&
       (direction === "forward"
-        ? domain.end.isAfter(position)
-        : domain.start.isBefore(position))
+        ? scopeToCheck.domain.end.isAfter(position)
+        : scopeToCheck.domain.start.isBefore(position))
     ) {
       // If we require containment, then if we have already yielded something
       // ending strictly after position, we won't yield anything else containing
@@ -149,10 +186,9 @@ export default abstract class BaseScopeHandler implements ScopeHandler {
     }
 
     if (
-      distalPosition != null &&
-      (direction === "forward"
-        ? domain.end.isAfterOrEqual(distalPosition)
-        : domain.start.isBeforeOrEqual(distalPosition))
+      direction === "forward"
+        ? scopeToCheck.domain.end.isAfterOrEqual(distalPosition)
+        : scopeToCheck.domain.start.isBeforeOrEqual(distalPosition)
     ) {
       // If we have a distal position, and we have yielded something that ends
       // at or after distal position, we won't be able to yield anything else

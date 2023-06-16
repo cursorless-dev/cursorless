@@ -1,5 +1,4 @@
 import type { RelativeScopeModifier } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
@@ -23,19 +22,14 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
     private modifier: RelativeScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,
     );
 
     if (scopeHandler == null) {
-      return runLegacy(
-        this.modifierStageFactory,
-        this.modifier,
-        context,
-        target,
-      );
+      return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
     const { isReversed, editor, contentRange: inputRange } = target;
@@ -57,7 +51,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
       editor,
       initialPosition,
       direction,
-      { containment },
+      { containment, skipAncestorScopes: true },
     )) {
       scopeCount += 1;
 
@@ -70,7 +64,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
         // When we hit offset, that becomes proximal scope
         if (desiredScopeCount === 1) {
           // Just yield it if we only want 1 scope
-          return [scope.getTarget(isReversed)];
+          return scope.getTargets(isReversed);
         }
 
         proximalScope = scope;
@@ -79,7 +73,7 @@ export default class RelativeExclusiveScopeStage implements ModifierStage {
 
       if (scopeCount === offset + desiredScopeCount - 1) {
         // Then make a range when we get the desired number of scopes
-        return [constructScopeRangeTarget(isReversed, proximalScope!, scope)];
+        return constructScopeRangeTarget(isReversed, proximalScope!, scope);
       }
     }
 

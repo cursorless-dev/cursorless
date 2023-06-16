@@ -9,7 +9,6 @@ import {
   EveryScopeModifier,
 } from "@cursorless/common";
 import { Target } from "../../../typings/target.types";
-import { ProcessedTargetsContext } from "../../../typings/Types";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
 
@@ -19,7 +18,7 @@ class RegexStageBase implements ModifierStage {
     protected regex: RegExp,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(target);
     }
@@ -149,9 +148,9 @@ export class CustomRegexStage extends RegexStageBase {
     super(modifier, new RegExp(modifier.scopeType.regex, "gu"));
   }
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     try {
-      return super.run(context, target);
+      return super.run(target);
     } catch (error) {
       if (error instanceof NoContainingScopeError) {
         throw Error(`Couldn't find custom regex: ${this.regex}`);

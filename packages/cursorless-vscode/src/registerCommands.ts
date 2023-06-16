@@ -1,11 +1,10 @@
 import {
   CURSORLESS_COMMAND_ID,
-  Command,
   CursorlessCommandId,
   isTesting,
 } from "@cursorless/common";
 import {
-  CommandRunner,
+  CommandApi,
   TestCaseRecorder,
   showCheatsheet,
   updateDefaults,
@@ -19,25 +18,21 @@ import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
-  commandRunner: CommandRunner,
+  commandApi: CommandApi,
   testCaseRecorder: TestCaseRecorder,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
-    [CURSORLESS_COMMAND_ID]: async (
-      spokenFormOrCommand: string | Command,
-      ...rest: unknown[]
-    ) => {
+    [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       try {
-        return await commandRunner.runCommandBackwardCompatible(
-          spokenFormOrCommand,
-          ...rest,
-        );
+        return await commandApi.runCommandSafe(...args);
       } catch (e) {
         if (!isTesting()) {
-          vscodeIde.handleCommandError(e as Error);
+          const err = e as Error;
+          console.error(err.stack);
+          vscodeIde.handleCommandError(err);
         }
         throw e;
       }

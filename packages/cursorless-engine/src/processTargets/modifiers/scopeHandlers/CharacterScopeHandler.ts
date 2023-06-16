@@ -33,12 +33,14 @@ export default class CharacterScopeHandler extends NestedScopeHandler {
       (range) => ({
         editor,
         domain: range,
-        getTarget: (isReversed) =>
+        getTargets: (isReversed) => [
           new PlainTarget({
             editor,
             contentRange: range,
             isReversed,
+            isToken: false,
           }),
+        ],
       }),
     );
   }

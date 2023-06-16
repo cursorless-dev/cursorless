@@ -27,9 +27,9 @@ finalState:
         start: {line: 2, character: 0}
         end: {line: 2, character: 0}
       isReversed: false
-      hasExplicitRange: false
+      hasExplicitRange: true
 ide:
   flashes:
-    - range: {type: line, start: 2, end: 2}
-      style: justAdded
+    - style: justAdded
+      range: {type: line, start: 2, end: 2}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

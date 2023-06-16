@@ -1,4 +1,6 @@
 import {
+  CommandComplete,
+  CommandLatest,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
@@ -8,13 +10,13 @@ import {
   HatTokenMap,
   IDE,
   marksToPlainObject,
+  ReadOnlyHatMap,
   serialize,
   SerializedMarks,
   showError,
   showInfo,
   sleep,
   SpyIDE,
-  TestCaseCommand,
   TextEditorOptions,
   toLineRange,
   walkDirsSync,
@@ -26,7 +28,9 @@ import { merge } from "lodash";
 import * as path from "path";
 import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { TestCase, TestCaseContext } from "./TestCase";
+import { TestCase } from "./TestCase";
+import { StoredTargetMap } from "../core/StoredTargets";
+import { CommandRunner } from "../CommandRunner";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -100,7 +104,10 @@ export class TestCaseRecorder {
   private spyIde: SpyIDE | undefined;
   private originalIde: IDE | undefined;
 
-  constructor(private hatTokenMap: HatTokenMap) {
+  constructor(
+    private hatTokenMap: HatTokenMap,
+    private storedTargets: StoredTargetMap,
+  ) {
     const { runMode } = ide();
 
     this.fixtureRoot =
@@ -158,7 +165,6 @@ export class TestCaseRecorder {
     }
 
     const snapshot = await takeSnapshot(
-      undefined,
       undefined,
       ["clipboard"],
       this.active ? this.extraSnapshotFields : undefined,
@@ -285,7 +291,7 @@ export class TestCaseRecorder {
     this.paused = false;
   }
 
-  async preCommandHook(command: TestCaseCommand, context: TestCaseContext) {
+  async preCommandHook(hatTokenMap: ReadOnlyHatMap, command: CommandLatest) {
     if (this.testCase != null) {
       // If testCase is not null and we are just before a command, this means
       // that this command is the follow up command indicating which marks we
@@ -294,7 +300,7 @@ export class TestCaseRecorder {
         this.testCase.awaitingFinalMarkInfo,
         () => "expected to be awaiting final mark info",
       );
-      this.testCase.filterMarks(command, context);
+      this.testCase.filterMarks();
       await this.finishTestCase();
     } else {
       // Otherwise, we are starting a new test case
@@ -304,7 +310,8 @@ export class TestCaseRecorder {
 
       this.testCase = new TestCase(
         command,
-        context,
+        hatTokenMap,
+        this.storedTargets,
         this.spyIde,
         this.isHatTokenMapTest,
         this.isDecorationsTest,
@@ -316,6 +323,13 @@ export class TestCaseRecorder {
       await this.testCase.recordInitialState();
 
       const editor = ide().activeTextEditor!;
+
+      if (editor.document.getText().includes("\r\n")) {
+        throw Error(
+          "Refusing to record a test when the document contains CRLF line endings.  Please convert line endings to LF.",
+        );
+      }
+
       // NB: We need to copy the editor options rather than storing a reference
       // because its properties are lazy
       this.originalTextEditorOptions = { ...editor.options };
@@ -438,6 +452,30 @@ export class TestCaseRecorder {
     const editor = ide().activeTextEditor!;
     ide().getEditableTextEditor(editor).options =
       this.originalTextEditorOptions;
+  }
+
+  wrapCommandRunner(
+    readableHatMap: ReadOnlyHatMap,
+    runner: CommandRunner,
+  ): CommandRunner {
+    return {
+      run: async (commandComplete: CommandComplete) => {
+        try {
+          await this.preCommandHook(readableHatMap, commandComplete);
+
+          const returnValue = await runner.run(commandComplete);
+
+          await this.postCommandHook(returnValue);
+
+          return returnValue;
+        } catch (e) {
+          await this.commandErrorHook(e as Error);
+          throw e;
+        } finally {
+          this.finallyHook();
+        }
+      },
+    };
   }
 }
 

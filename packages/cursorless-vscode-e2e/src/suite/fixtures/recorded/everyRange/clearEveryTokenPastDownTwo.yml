@@ -1,0 +1,35 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear every token past down two
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: token}
+      active:
+        type: primitive
+        mark: {type: lineNumber, lineNumberType: relative, lineNumber: 2}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    aaa  bbb ccc
+
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: |+
+    aaa   
+
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

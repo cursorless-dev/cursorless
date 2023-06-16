@@ -1,14 +1,16 @@
+import { DecoratedSymbolMark, ReadOnlyHatMap } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import { DecoratedSymbolMark } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 
 export default class implements MarkStage {
-  constructor(private mark: DecoratedSymbolMark) {}
+  constructor(
+    private readableHatMap: ReadOnlyHatMap,
+    private mark: DecoratedSymbolMark,
+  ) {}
 
-  run(context: ProcessedTargetsContext): Target[] {
-    const token = context.hatTokenMap.getToken(
+  run(): Target[] {
+    const token = this.readableHatMap.getToken(
       this.mark.symbolColor,
       this.mark.character,
     );

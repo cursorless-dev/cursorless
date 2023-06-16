@@ -1,11 +1,13 @@
 import * as vscode from "vscode";
+import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export default async function vscodeOpenLink(
-  editor: vscode.TextEditor,
+  editor: VscodeTextEditorImpl,
   location: vscode.Position | vscode.Range | undefined,
 ): Promise<boolean> {
-  const links = await getLinksForEditor(editor);
-  const actualLocation = location ?? getSelection(editor);
+  const rawEditor = editor.vscodeEditor;
+  const links = await getLinksForEditor(rawEditor);
+  const actualLocation = location ?? getSelection(rawEditor);
   const filteredLinks = links.filter((link) =>
     link.range.contains(actualLocation),
   );
@@ -18,7 +20,22 @@ export default async function vscodeOpenLink(
     return false;
   }
 
-  await openLink(filteredLinks[0]);
+  try {
+    await openLink(filteredLinks[0]);
+  } catch (err) {
+    // Fallback to moving cursor and running open link command
+
+    // Set the selection to the link
+    rawEditor.selections = [
+      "start" in actualLocation
+        ? new vscode.Selection(actualLocation.start, actualLocation.end)
+        : new vscode.Selection(actualLocation, actualLocation),
+    ];
+    await editor.focus();
+
+    // Run the open link command
+    await vscode.commands.executeCommand("editor.action.openLink");
+  }
 
   return true;
 }

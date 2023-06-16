@@ -22,12 +22,13 @@ export default class TokenScopeHandler extends NestedScopeHandler {
       (range) => ({
         editor,
         domain: range,
-        getTarget: (isReversed) =>
+        getTargets: (isReversed) => [
           new TokenTarget({
             editor,
             contentRange: range,
             isReversed,
           }),
+        ],
       }),
     );
   }

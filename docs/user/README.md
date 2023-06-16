@@ -143,7 +143,7 @@ Note that if the mark is `"this"`, and you have multiple cursors, the modifiers 
 
 ##### Syntactic scopes
 
-For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../packages/cursorless-engine/src/languages/constants.ts) for a list of supported languages. Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say `"cursorless cheatsheet"` with VSCode focused) will have the most up-to-date list.
+For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../queries) for a list of supported languages. Some languages are still supported using our legacy implementation; those will be listed in [here](../../packages/cursorless-engine/src/languages/LegacyLanguageId.ts). Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say `"cursorless cheatsheet"` with VSCode focused) will have the most up-to-date list.
 
 | Term           | Syntactic element                                   |
 | -------------- | --------------------------------------------------- |
@@ -311,6 +311,35 @@ foo.bar baz|bongo
 
 Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
+##### `"instance"`
+
+The `"instance"` modifier searches for occurrences of the text of the target. For example:
+
+- `"take every instance air"`: selects all instances of the token with a hat over the letter `a` in the whole document
+- `"take two instances air"`: selects the first two instances of the token with a hat over the letter `a`, starting from that token itself
+- `"take next instance air"`: selects the next instance of the token with a hat over the letter `a`, starting from that token itself
+- `"chuck every instance two tokens air"`: deletes all occurrences of the two tokens beginning from the token with a hat over the letter `a`. For example if there were a hat over the `a` in `aaa.bbb`, it would delete every occurrence of `aaa.` in the file.
+- `"take every instance air past bat"`: if there were hats over the `a` and `b` in `aaa ccc bbb ddd`, it would selects all occurrences of `aaa ccc bbb` (which is the text corresponding to the range `"air past bat"`)
+
+Note in the final example how the `"instance"` modifier constructs the instance based on the range `"air past bat"`, rather than the individual tokens `"air"` and `"bat"`, as you might expect given the way other modifiers behave. Effectively `"instance"` applies to everything after the `"instance"` modifier, rather than just the next modifier.
+
+Note also that `"instance"` considers the type of target used to construct the instance. So for example, `"take every instance air"` will only select tokens that
+are identical to the token with a hat over the letter `a`, skipping over bigger tokens that contain the token with a hat over the letter `a` as a substring. For example, if there were a hat over the `a` in `aaa`, it would select every occurrence of `aaa` in the file, but not `aaaaa`. If you want to avoid this behaviour, you can
+use the `"just"` modifier, eg `"take every instance just air"`.
+
+If your cursor is touching a token, you can say `"take every instance"` to select all instances of the given token, (or `"chuck two instances"` to delete the token and its next occurrence, `"pre next instance"` to place your cursor before the next occurrence, etc).
+
+Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
+
+###### Experimental: `"from"`
+
+We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
+
+- `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
+- `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
+
+Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+
 ##### Surrounding pair
 
 Cursorless has support for expanding the selection to the nearest containing paired delimiter, eg the surrounding parentheses, curly brackets, etc.
@@ -351,7 +380,7 @@ For example:
 
 If your cursor / mark is between two delimiters (not adjacent to one), then saying either "left" or "right" will cause cursorless to just expand to the nearest delimiters on either side, without trying to determine whether they are opening or closing delimiters.
 
-#### `"its"`
+##### `"its"`
 
 The the modifier `"its"` is intended to be used as part of a compound target, and will tell Cursorless to use the previously mentioned mark in the compound target.
 
@@ -396,6 +425,12 @@ For example:
 
 - `"pre air slice bat"`: Places cursors at the same position on every line (inclusive) between token with hat over the `a` and token with the hat over the `b`. The position will be the start of the token with a hat over the `a`
 - `"chuck tail air slice end of block"`: Delete the end of every line from air through the end of its non-empty line block.
+
+##### `"every"` ranges
+
+If the range target begins with `"every <scope>"`, eg `"take every line air past bat"`, then you will end up with one target for each instance of `<scope>` in the range. For example, `"post every line air past bat"` will put a cursor at the end of every line from the line containing the token with a hat over the letter `a` to the line containing the token with a hat over the letter `b`.
+
+These `"every"` ranges also play nicely with exclusive ranges, eg `"take every funk air until bat"` will select every function starting from the function containing the token with a hat over the letter `a` up until, but not including, the function containing the token with a hat over the letter `b`.
 
 #### List targets
 

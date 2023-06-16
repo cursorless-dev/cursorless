@@ -14,6 +14,10 @@ repos:
         entry: Forbid symlinks
         language: fail
         types: [symlink]
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.1
+    hooks:
+      - id: forbid-crlf
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -59,6 +63,13 @@ repos:
         files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm transform-recorded-tests
+  - repo: local
+    hooks:
+      - id: format-recorded-tests
+        name: format-recorded-tests
+        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        language: system
+        entry: pnpm transform-recorded-tests --check-marks
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:

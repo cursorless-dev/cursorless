@@ -1,0 +1,29 @@
+languageId: javascriptreact
+command:
+  version: 5
+  spokenForm: take core element
+  action: {name: setSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function Comp() {
+        return <div></div>;
+    }
+  selections:
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+  marks: {}
+finalState:
+  documentContents: |-
+    function Comp() {
+        return <div></div>;
+    }
+  selections:
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}

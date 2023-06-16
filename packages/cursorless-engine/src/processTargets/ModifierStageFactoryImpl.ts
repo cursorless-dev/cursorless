@@ -4,6 +4,7 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
+import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";
 import CascadingStage from "./modifiers/CascadingStage";
@@ -15,6 +16,7 @@ import {
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
+import InstanceStage from "./modifiers/InstanceStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
@@ -40,9 +42,14 @@ import {
   NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
+import { StoredTargetMap } from "..";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
-  constructor(private scopeHandlerFactory: ScopeHandlerFactory) {
+  constructor(
+    private languageDefinitions: LanguageDefinitions,
+    private storedTargets: StoredTargetMap,
+    private scopeHandlerFactory: ScopeHandlerFactory,
+  ) {
     this.create = this.create.bind(this);
   }
 
@@ -71,10 +78,22 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "everyScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
@@ -115,18 +134,26 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "nonWhitespaceSequence":
         return new NonWhitespaceSequenceStage(modifier);
       case "boundedNonWhitespaceSequence":
-        return new BoundedNonWhitespaceSequenceStage(this, modifier);
+        return new BoundedNonWhitespaceSequenceStage(
+          this.languageDefinitions,
+          this,
+          modifier,
+        );
       case "url":
         return new UrlStage(modifier);
       case "collectionItem":
-        return new ItemStage(modifier);
+        return new ItemStage(this.languageDefinitions, modifier);
       case "customRegex":
         return new CustomRegexStage(modifier as CustomRegexModifier);
       case "surroundingPair":
-        return new SurroundingPairStage(modifier as SurroundingPairModifier);
+        return new SurroundingPairStage(
+          this.languageDefinitions,
+          modifier as SurroundingPairModifier,
+        );
       default:
         // Default to containing syntax scope using tree sitter
         return new ContainingSyntaxScopeStage(
+          this.languageDefinitions,
           modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
         );
     }

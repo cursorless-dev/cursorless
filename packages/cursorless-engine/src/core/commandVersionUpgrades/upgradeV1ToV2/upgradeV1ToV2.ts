@@ -1,4 +1,4 @@
-import { ActionType } from "@cursorless/common";
+import { ActionType, ActionTypeV2 } from "@cursorless/common";
 import { CommandV2 } from "@cursorless/common";
 import {
   ModifierV2,
@@ -16,7 +16,7 @@ import {
 import { upgradeStrictHere } from "./upgradeStrictHere";
 
 export function upgradeV1ToV2(command: CommandV1): CommandV2 {
-  const actionName = command.action as ActionType;
+  const actionName = command.action as ActionTypeV2;
   return {
     spokenForm: command.spokenForm,
     action: {

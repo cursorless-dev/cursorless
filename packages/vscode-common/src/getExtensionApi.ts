@@ -24,12 +24,9 @@ export interface TestHelpers {
 
   toVscodeEditor(editor: TextEditor): vscode.TextEditor;
 
-  setThatMark(
+  setStoredTarget(
     editor: vscode.TextEditor,
-    targets: TargetPlainObject[] | undefined,
-  ): void;
-  setSourceMark(
-    editor: vscode.TextEditor,
+    key: string,
     targets: TargetPlainObject[] | undefined,
   ): void;
 

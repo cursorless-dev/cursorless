@@ -73,6 +73,7 @@ export * from "./types/command/legacy/CommandV4.types";
 export * from "./types/command/legacy/targetDescriptorV2.types";
 export * from "./types/command/CommandV5.types";
 export * from "./types/command/legacy/PartialTargetDescriptorV3.types";
+export * from "./types/command/legacy/PartialTargetDescriptorV4.types";
 export * from "./types/CommandServerApi";
 export * from "./util/itertools";
 export * from "./extensionDependencies";

@@ -1,7 +1,6 @@
 import { Range, RelativeScopeModifier } from "@cursorless/common";
 import { findLastIndex } from "lodash";
 import { Target } from "../../typings/target.types";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { UntypedTarget } from "../targets";
 import {
@@ -19,7 +18,6 @@ interface ContainingIndices {
 export function runLegacy(
   modifierStageFactory: ModifierStageFactory,
   modifier: RelativeScopeModifier,
-  context: ProcessedTargetsContext,
   target: Target,
 ): Target[] {
   /**
@@ -33,7 +31,6 @@ export function runLegacy(
    */
   const targets = getEveryScopeTargets(
     modifierStageFactory,
-    context,
     createTargetWithoutExplicitRange(target),
     modifier.scopeType,
   );

@@ -8,6 +8,7 @@ export default class LineScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "line" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
   protected readonly isHierarchical = false;
+  public readonly includeAdjacentInEvery: boolean = true;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
     super();
@@ -39,7 +40,7 @@ function lineNumberToScope(
   return {
     editor,
     domain: range,
-    getTarget: (isReversed) => createLineTarget(editor, isReversed, range),
+    getTargets: (isReversed) => [createLineTarget(editor, isReversed, range)],
   };
 }
 

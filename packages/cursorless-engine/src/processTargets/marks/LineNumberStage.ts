@@ -1,18 +1,18 @@
-import { TextEditor } from "@cursorless/common";
 import type { LineNumberMark, LineNumberType } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
-import { createLineTarget } from "../modifiers/scopeHandlers";
+import { TextEditor } from "@cursorless/common";
+import { ide } from "../../singletons/ide.singleton";
 import type { MarkStage } from "../PipelineStages.types";
+import { createLineTarget } from "../modifiers/scopeHandlers";
 import { LineTarget } from "../targets";
 
 export default class implements MarkStage {
   constructor(private mark: LineNumberMark) {}
 
-  run(context: ProcessedTargetsContext): LineTarget[] {
-    if (context.currentEditor == null) {
+  run(): LineTarget[] {
+    const editor = ide().activeTextEditor;
+    if (editor == null) {
       return [];
     }
-    const editor = context.currentEditor;
     const lineNumber = getLineNumber(
       editor,
       this.mark.lineNumberType,

@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear every token past drum
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: token}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb ccc ddd eee
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks:
+    default.d:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 15}
+finalState:
+  documentContents: aaa bbb   eee
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

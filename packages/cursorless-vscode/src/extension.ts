@@ -59,10 +59,9 @@ export async function activate(
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
   const {
-    commandRunner,
+    commandApi,
     testCaseRecorder,
-    thatMark,
-    sourceMark,
+    storedTargets,
     hatTokenMap,
     snippets,
     injectIde,
@@ -80,7 +79,7 @@ export async function activate(
   registerCommands(
     context,
     vscodeIDE,
-    commandRunner,
+    commandApi,
     testCaseRecorder,
     keyboardCommands,
     hats,
@@ -90,8 +89,7 @@ export async function activate(
     testHelpers: isTesting()
       ? constructTestHelpers(
           commandServerApi,
-          thatMark,
-          sourceMark,
+          storedTargets,
           hatTokenMap,
           vscodeIDE,
           normalizedIde!,

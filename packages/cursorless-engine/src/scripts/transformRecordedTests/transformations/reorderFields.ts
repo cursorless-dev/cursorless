@@ -1,9 +1,15 @@
-import { EnforceUndefined } from "@cursorless/common";
-import { TestCaseFixture } from "@cursorless/common";
+import {
+  EnforceUndefined,
+  TestCaseFixture,
+  TestCaseFixtureLegacy,
+} from "@cursorless/common";
 
 export function reorderFields(
   fixture: TestCaseFixture,
-): EnforceUndefined<TestCaseFixture> {
+): EnforceUndefined<TestCaseFixture>;
+export function reorderFields(
+  fixture: TestCaseFixtureLegacy,
+): EnforceUndefined<TestCaseFixtureLegacy> {
   return {
     languageId: fixture.languageId,
     command: fixture.command,

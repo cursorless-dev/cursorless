@@ -1,13 +1,16 @@
-import { Range, Selection, TextEditor } from "@cursorless/common";
+import {
+  ComplexSurroundingPairName,
+  Selection,
+  SurroundingPairScopeType,
+} from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import getTextFragmentExtractor, {
   TextFragmentExtractor,
 } from "../../../languages/getTextFragmentExtractor";
-import {
-  ComplexSurroundingPairName,
-  SurroundingPairScopeType,
-} from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../../typings/Types";
+import { Target } from "../../../typings/target.types";
+import { SurroundingPairTarget } from "../../targets";
+import { getContainingScopeTarget } from "../getContainingScopeTarget";
 import { complexDelimiterMap } from "./delimiterMaps";
 import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
@@ -28,11 +31,42 @@ import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
  * `null` if none was found
  */
 export function processSurroundingPair(
-  context: ProcessedTargetsContext,
-  editor: TextEditor,
-  range: Range,
+  languageDefinitions: LanguageDefinitions,
+  target: Target,
+  scopeType: SurroundingPairScopeType,
+): SurroundingPairTarget | null {
+  const pairInfo = processSurroundingPairCore(
+    languageDefinitions,
+    target,
+    scopeType,
+  );
+
+  if (pairInfo == null) {
+    return null;
+  }
+
+  return new SurroundingPairTarget({
+    ...pairInfo,
+    editor: target.editor,
+    isReversed: target.isReversed,
+  });
+}
+
+/**
+ * Helper function that does the real work; caller just calls this function and
+ * converts output from a {@link SurroundingPairInfo} to a
+ * {@link SurroundingPairTarget}.
+ */
+function processSurroundingPairCore(
+  languageDefinitions: LanguageDefinitions,
+  target: Target,
   scopeType: SurroundingPairScopeType,
 ): SurroundingPairInfo | null {
+  const { editor, contentRange: range } = target;
+  const languageDefinition = languageDefinitions.get(
+    target.editor.document.languageId,
+  );
+
   const document = editor.document;
   const delimiters = complexDelimiterMap[
     scopeType.delimiter as ComplexSurroundingPairName
@@ -41,8 +75,29 @@ export function processSurroundingPair(
   let node: SyntaxNode | null;
   let textFragmentExtractor: TextFragmentExtractor;
 
+  const textFragmentScopeHandler =
+    languageDefinition?.getTextFragmentScopeHandler();
+
+  if (textFragmentScopeHandler != null) {
+    const containingScope = getContainingScopeTarget(
+      target,
+      textFragmentScopeHandler,
+      0,
+    );
+
+    if (containingScope != null) {
+      return findSurroundingPairTextBased(
+        editor,
+        range,
+        containingScope[0].contentRange,
+        delimiters,
+        scopeType,
+      );
+    }
+  }
+
   try {
-    node = context.getNodeAtLocation(document, range);
+    node = languageDefinitions.getNodeAtLocation(document, range);
 
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {

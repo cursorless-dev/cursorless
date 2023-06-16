@@ -1,0 +1,25 @@
+languageId: ruby
+command:
+  version: 5
+  spokenForm: clear second next call
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: functionCall}
+          offset: 2
+          length: 1
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: " aaa(bbb()) + ccc()"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: " aaa(bbb()) + "
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

@@ -93,11 +93,11 @@ export class VscodeIDE implements IDE {
     return workspace.workspaceFolders;
   }
 
-  get activeTextEditor(): TextEditor | undefined {
+  get activeTextEditor(): VscodeTextEditorImpl | undefined {
     return this.getActiveTextEditor();
   }
 
-  get activeEditableTextEditor(): EditableTextEditor | undefined {
+  get activeEditableTextEditor(): VscodeTextEditorImpl | undefined {
     return this.getActiveTextEditor();
   }
 

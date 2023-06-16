@@ -3,7 +3,7 @@ import {
   EveryScopeModifier,
   NoContainingScopeError,
 } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../../typings/Types";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
 import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
@@ -19,28 +19,24 @@ export default class BoundedNonWhitespaceSequenceStage
   implements ModifierStage
 {
   constructor(
+    private languageDefinitions: LanguageDefinitions,
     private modifierStageFactory: ModifierStageFactory,
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const paintStage = this.modifierStageFactory.create({
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
 
-    const paintTargets = paintStage.run(context, target);
+    const paintTargets = paintStage.run(target);
 
-    const pairInfo = processSurroundingPair(
-      context,
-      target.editor,
-      target.contentRange,
-      {
-        type: "surroundingPair",
-        delimiter: "any",
-        requireStrongContainment: true,
-      },
-    );
+    const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
+      type: "surroundingPair",
+      delimiter: "any",
+      requireStrongContainment: true,
+    });
 
     if (pairInfo == null) {
       return paintTargets;
@@ -48,7 +44,7 @@ export default class BoundedNonWhitespaceSequenceStage
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.interiorRange,
+        pairInfo.getInteriorStrict()[0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {

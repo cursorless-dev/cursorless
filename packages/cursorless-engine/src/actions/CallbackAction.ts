@@ -1,6 +1,6 @@
 import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
-import { selectionToThatTarget } from "../core/commandRunner/selectionToThatTarget";
+import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
@@ -128,7 +128,7 @@ export class CallbackAction implements Action {
     return editor.document.version === originalEditorVersion
       ? targets
       : updatedTargetSelections.map((selection) =>
-          selectionToThatTarget({
+          selectionToStoredTarget({
             editor,
             selection,
           }),

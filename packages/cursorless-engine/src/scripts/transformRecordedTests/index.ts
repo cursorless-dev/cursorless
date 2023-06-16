@@ -4,10 +4,12 @@ import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";
 import { FixtureTransformation } from "./types";
 import { upgradeDecorations } from "./upgradeDecorations";
+import { checkMarks } from "./checkMarks";
 
 const AVAILABLE_TRANSFORMATIONS: Record<string, FixtureTransformation> = {
   upgrade,
   format: identity,
+  ["check-marks"]: checkMarks,
   custom: upgradeDecorations,
 };
 
@@ -27,7 +29,21 @@ async function main(args: string[]) {
 
   const testPaths = paths.length > 0 ? paths : getRecordedTestPaths();
 
-  testPaths.forEach((path) => transformFile(transformation, path));
+  let failureCount = 0;
+
+  for (const path of testPaths) {
+    try {
+      await transformFile(transformation, path);
+    } catch (err) {
+      failureCount++;
+      console.log(`Error with file ${path}`);
+      console.log((err as Error).message);
+    }
+  }
+
+  if (failureCount > 0) {
+    throw Error(`${failureCount} failed files`);
+  }
 }
 
 main(process.argv.slice(2));

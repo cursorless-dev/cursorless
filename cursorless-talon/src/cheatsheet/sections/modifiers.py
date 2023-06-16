@@ -26,6 +26,7 @@ def get_modifiers():
         "previous",
         "next",
         "backward",
+        "forward",
     ]
     simple_modifiers = {
         key: value
@@ -124,6 +125,10 @@ def get_modifiers():
                 {
                     "spokenForm": f"<scope> {complex_modifiers['backward']}",
                     "description": "single instance of <scope> including target, going backwards",
+                },
+                {
+                    "spokenForm": f"<scope> {complex_modifiers['forward']}",
+                    "description": "single instance of <scope> including target, going forwards",
                 },
                 {
                     "spokenForm": f"<number> <scope>s {complex_modifiers['backward']}",

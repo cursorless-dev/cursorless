@@ -1,0 +1,46 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear every line air between harp
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: line}
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      excludeAnchor: true
+      excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb
+    ccc ddd
+    eee fff
+    ggg hhh
+  selections:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+    default.h:
+      start: {line: 3, character: 4}
+      end: {line: 3, character: 7}
+finalState:
+  documentContents: |
+    aaa bbb
+
+
+    ggg hhh
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

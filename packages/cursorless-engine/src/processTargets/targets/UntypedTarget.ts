@@ -10,6 +10,7 @@ import {
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
+  readonly isToken?: boolean;
 }
 
 /**
@@ -24,6 +25,7 @@ export default class UntypedTarget extends BaseTarget {
   constructor(parameters: UntypedTargetParameters) {
     super(parameters);
     this.hasExplicitRange = parameters.hasExplicitRange;
+    this.isToken = parameters.isToken ?? true;
   }
 
   getLeadingDelimiterTarget(): Target | undefined {

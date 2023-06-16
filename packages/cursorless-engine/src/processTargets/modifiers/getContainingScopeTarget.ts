@@ -1,9 +1,9 @@
 import { Direction, Position, TextEditor } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
-import { getContainingScope } from "./getContainingScope";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 
 /**
  * Finds the containing scope of the target for the given scope handler
@@ -17,7 +17,7 @@ export function getContainingScopeTarget(
   target: Target,
   scopeHandler: ScopeHandler,
   ancestorIndex: number = 0,
-): Target | undefined {
+): Target[] | undefined {
   const {
     isReversed,
     editor,
@@ -46,7 +46,7 @@ export function getContainingScopeTarget(
       return undefined;
     }
 
-    return scope.getTarget(isReversed);
+    return scope.getTargets(isReversed);
   }
 
   const startScope = expandFromPosition(
@@ -62,7 +62,7 @@ export function getContainingScopeTarget(
   }
 
   if (startScope.domain.contains(end)) {
-    return startScope.getTarget(isReversed);
+    return startScope.getTargets(isReversed);
   }
 
   const endScope = expandFromPosition(
@@ -102,48 +102,4 @@ function expandFromPosition(
   }
 
   return undefined;
-}
-
-function getPreferredScopeTouchingPosition(
-  scopeHandler: ScopeHandler,
-  editor: TextEditor,
-  position: Position,
-): TargetScope | undefined {
-  const forwardScope = getContainingScope(
-    scopeHandler,
-    editor,
-    position,
-    "forward",
-  );
-
-  if (forwardScope == null) {
-    return getContainingScope(scopeHandler, editor, position, "backward");
-  }
-
-  if (
-    scopeHandler.isPreferredOver == null ||
-    forwardScope.domain.start.isBefore(position)
-  ) {
-    return forwardScope;
-  }
-
-  const backwardScope = getContainingScope(
-    scopeHandler,
-    editor,
-    position,
-    "backward",
-  );
-
-  // If there is no backward scope, or if the backward scope is an ancestor of
-  // forward scope, return forward scope
-  if (
-    backwardScope == null ||
-    backwardScope.domain.contains(forwardScope.domain)
-  ) {
-    return forwardScope;
-  }
-
-  return scopeHandler.isPreferredOver(backwardScope, forwardScope) ?? false
-    ? backwardScope
-    : forwardScope;
 }

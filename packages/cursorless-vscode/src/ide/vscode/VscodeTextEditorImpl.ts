@@ -107,7 +107,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public openLink(location?: Position | Range): Promise<boolean> {
     return vscodeOpenLink(
-      this.editor,
+      this,
       location != null ? toVscodePositionOrRange(location) : undefined,
     );
   }
@@ -133,7 +133,10 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   public async clipboardPaste(_ranges?: Range[]): Promise<void> {
+    // We add these sleeps here to workaround a bug in VSCode. See #1521
+    await sleep(100);
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+    await sleep(100);
   }
 
   public async indentLine(_ranges?: Range[]): Promise<void> {

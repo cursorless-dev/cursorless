@@ -32,11 +32,11 @@ finalState:
         start: {line: 2, character: 7}
         end: {line: 2, character: 7}
       isReversed: false
-      hasExplicitRange: false
+      hasExplicitRange: true
 ide:
   flashes:
-    - range: {type: line, start: 1, end: 1}
-      style: justAdded
-    - range: {type: line, start: 3, end: 3}
-      style: justAdded
+    - style: justAdded
+      range: {type: line, start: 1, end: 1}
+    - style: justAdded
+      range: {type: line, start: 3, end: 3}
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

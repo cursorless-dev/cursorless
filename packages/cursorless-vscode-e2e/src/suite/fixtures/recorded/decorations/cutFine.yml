@@ -27,14 +27,14 @@ finalState:
       active: {line: 0, character: 0}
 ide:
   flashes:
-    - range:
+    - style: referenced
+      range:
         type: character
         start: {line: 1, character: 4}
         end: {line: 1, character: 7}
-      style: referenced
-    - range:
+    - style: pendingDelete
+      range:
         type: character
         start: {line: 1, character: 7}
         end: {line: 1, character: 8}
-      style: pendingDelete
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: []}]

@@ -1,0 +1,44 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear every state past fine
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: statement}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    if True:
+        aaa = "bbb"
+
+        ccc = "ddd"
+        eee = "fff"
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+  marks:
+    default.f:
+      start: {line: 4, character: 11}
+      end: {line: 4, character: 14}
+finalState:
+  documentContents: |-
+    if True:
+        aaa = "bbb"
+
+        
+        
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

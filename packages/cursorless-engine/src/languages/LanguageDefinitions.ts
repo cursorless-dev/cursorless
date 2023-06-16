@@ -1,6 +1,7 @@
+import { Range, TextDocument } from "@cursorless/common";
+import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "..";
 import { LanguageDefinition } from "./LanguageDefinition";
-import { LanguageId } from "./constants";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -43,12 +44,19 @@ export class LanguageDefinitions {
 
     if (definition == null) {
       definition =
-        LanguageDefinition.create(this.treeSitter, languageId as LanguageId) ??
+        LanguageDefinition.create(this.treeSitter, languageId) ??
         LANGUAGE_UNDEFINED;
 
       this.languageDefinitions.set(languageId, definition);
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;
+  }
+
+  /**
+   * @deprecated Only for use in legacy containing scope stage
+   */
+  public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
+    return this.treeSitter.getNodeAtLocation(document, range);
   }
 }

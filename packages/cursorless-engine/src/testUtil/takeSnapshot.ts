@@ -11,12 +11,11 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import type { ThatMark } from "../core/ThatMark";
+import type { StoredTargetMap } from "../core/StoredTargets";
 import { targetToPlainObject } from "./targetToPlainObject";
 
 export async function takeSnapshot(
-  thatMark: ThatMark | undefined,
-  sourceMark: ThatMark | undefined,
+  storedTargets: StoredTargetMap | undefined,
   excludeFields: ExcludableSnapshotField[] = [],
   extraFields: ExtraSnapshotField[] = [],
   editor: TextEditor,
@@ -47,20 +46,23 @@ export async function takeSnapshot(
     snapshot.visibleRanges = editor.visibleRanges.map(rangeToPlainObject);
   }
 
-  if (
-    thatMark != null &&
-    thatMark.exists() &&
-    !excludeFields.includes("thatMark")
-  ) {
-    snapshot.thatMark = thatMark.get().map(targetToPlainObject);
+  const thatMarkTargets = storedTargets?.get("that");
+  if (thatMarkTargets != null && !excludeFields.includes("thatMark")) {
+    snapshot.thatMark = thatMarkTargets.map(targetToPlainObject);
   }
 
+  const sourceMarkTargets = storedTargets?.get("source");
+  if (sourceMarkTargets != null && !excludeFields.includes("sourceMark")) {
+    snapshot.sourceMark = sourceMarkTargets.map(targetToPlainObject);
+  }
+
+  const instanceReferenceMarkTargets = storedTargets?.get("instanceReference");
   if (
-    sourceMark != null &&
-    sourceMark.exists() &&
-    !excludeFields.includes("sourceMark")
+    instanceReferenceMarkTargets != null &&
+    !excludeFields.includes("instanceReferenceMark")
   ) {
-    snapshot.sourceMark = sourceMark.get().map(targetToPlainObject);
+    snapshot.instanceReferenceMark =
+      instanceReferenceMarkTargets.map(targetToPlainObject);
   }
 
   if (extraFields.includes("timeOffsetSeconds")) {

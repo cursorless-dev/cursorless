@@ -38,6 +38,12 @@ export interface ActionReturnValue {
    * Mutually exclusive with {@link sourceSelections}
    */
   sourceTargets?: Target[];
+
+  /**
+   * A list of targets that will be used by the "instance" modifier in the next command
+   * to determine either the range for "every", or the start point for "next"
+   */
+  instanceReferenceTargets?: Target[];
 }
 
 export interface Action {
