@@ -23,16 +23,22 @@ async function assertNoScopesBothLegacyAndNew(
   treeSitter: TreeSitter,
   languageDefinitions: LanguageDefinitions,
 ) {
+  const errors: string[] = [];
   for (const languageId of legacyLanguageIds) {
     await treeSitter.loadLanguage(languageId);
 
     Object.keys(languageMatchers[languageId]).map((scopeTypeType) => {
-      assert(
+      if (
         languageDefinitions.get(languageId)?.getScopeHandler({
           type: scopeTypeType,
-        }) == null,
-        `Scope '${scopeTypeType}' defined as both legacy and new for language ${languageId}`,
-      );
+        }) != null
+      ) {
+        errors.push(
+          `Scope '${scopeTypeType}' defined as both legacy and new for language ${languageId}`,
+        );
+      }
     });
   }
+
+  assert.deepStrictEqual(errors, []);
 }
