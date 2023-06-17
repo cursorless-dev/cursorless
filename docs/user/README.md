@@ -286,7 +286,7 @@ The `"token"` modifier expands its input to the nearest containing token. This m
 - `"take token"`
 - `"chuck token"`
 
-##### `"identifier`
+##### `"identifier"`
 
 The `"identifier"` modifier behaves like `"token"`, but only considers tokens that are viable identifiers. For example `"identifier"` could be used to select `foo`, `fooBar`, or `foo_bar`, but not `.`, `=`, `+=`, etc. For example:
 
@@ -438,7 +438,7 @@ In addition to range targets, cursorless supports list targets, which allow you 
 
 - `"take [blue] air and [green] bat"`
 - `"take funk [blue] air and [green] bat"` (note second target inherits `"funk"`)
-- `"take funk [blue] air and token [green] bat"` [blue] air and [green] bat
+- `"take funk [blue] air and token [green] bat"`
 - `"take air and bat past cap"`
 
 eg:
