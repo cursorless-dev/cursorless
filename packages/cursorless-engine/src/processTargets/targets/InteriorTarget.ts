@@ -6,14 +6,14 @@ import {
   createContinuousRangeFromRanges,
   createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
+import type { MinimumTargetParameters } from "./BaseTarget";
+import BaseTarget from "./BaseTarget";
 
-export interface InteriorTargetParameters
-  extends Omit<CommonTargetParameters, "contentRange"> {
+export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
 }
 
-export default class InteriorTarget extends BaseTarget {
+export default class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
   insertionDelimiter = " ";
   private readonly fullInteriorRange: Range;
 

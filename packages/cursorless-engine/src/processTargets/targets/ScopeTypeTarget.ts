@@ -25,7 +25,7 @@ export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly trailingDelimiterRange?: Range;
 }
 
-export default class ScopeTypeTarget extends BaseTarget {
+export default class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   private scopeTypeType_: SimpleScopeTypeType;
   private removalRange_?: Range;
   private interiorRange_?: Range;

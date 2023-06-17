@@ -3,9 +3,10 @@ import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import type { CommonTargetParameters } from "./BaseTarget";
 import BaseTarget from "./BaseTarget";
 
-export default class LineTarget extends BaseTarget {
+export default class LineTarget extends BaseTarget<CommonTargetParameters> {
   insertionDelimiter = "\n";
   isLine = true;
 

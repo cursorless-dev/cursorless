@@ -10,7 +10,7 @@ interface PositionTargetParameters extends CommonTargetParameters {
   readonly isRaw: boolean;
 }
 
-export default class PositionTarget extends BaseTarget {
+export default class PositionTarget extends BaseTarget<PositionTargetParameters> {
   insertionDelimiter: string;
   isRaw: boolean;
   private position: TargetPosition;
