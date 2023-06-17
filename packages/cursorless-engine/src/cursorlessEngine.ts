@@ -5,6 +5,7 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { runCommand } from "./runCommand";
@@ -72,6 +73,8 @@ export function createCursorlessEngine(
     hatTokenMap,
     snippets,
     injectIde,
+    runIntegrationTests: () =>
+      runIntegrationTests(treeSitter, languageDefinitions),
   };
 }
 
@@ -96,4 +99,5 @@ export interface CursorlessEngine {
   hatTokenMap: HatTokenMapImpl;
   snippets: Snippets;
   injectIde: (ide: IDE | undefined) => void;
+  runIntegrationTests: () => Promise<void>;
 }

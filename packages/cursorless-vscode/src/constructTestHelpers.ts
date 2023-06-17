@@ -28,6 +28,7 @@ export function constructTestHelpers(
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
   injectIde: (ide: IDE) => void,
+  runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
@@ -72,5 +73,6 @@ export function constructTestHelpers(
       );
     },
     hatTokenMap,
+    runIntegrationTests,
   };
 }
