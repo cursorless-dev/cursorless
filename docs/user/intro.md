@@ -21,7 +21,7 @@ The separator may seem trivial now, but it is easier to forget it when you start
 A target starts as a mark (`"this"`, `"row ten"`, `"green curve air"`, etc) and target modifiers can be applied to suit your needs.
 A big part of feeling comfortable and productive with Cursorless is getting familiar with the most useful mark types and target modifiers.
 All of the [mark types](README.md#Marks) are worth knowing.
-There are a lot of target modifiers, in this document will try to help you learn the most important ones through examples.
+While there are many target modifiers, this document will help you get started fast by focusing on the most important modifiers to learn first.
 
 The big difference between a simple command `"bring air to bat"` and the intimidating `"bring next three tokens air to after just line bat"` is the addition of target modifiers.
 Target modifiers are often chained. `"after just line"` is a chain of three modifiers and they are applied in reverse order (`"line"`, then `"just"`, then `"after"`).
