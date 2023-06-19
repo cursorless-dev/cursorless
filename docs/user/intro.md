@@ -50,7 +50,7 @@ Whether a command operates on delimiters can be changed by a target modifier.
 `"take just just just bat"` does the same as `"take bat"`.
 
 Special positional target modifiers `"before"` and `"after"` try to work with delimiters.
-`"bring line to after row ten"` will bring a copy of the current line content _with line delimiter_ to after line 10, meaning there will be an additional line (a new line 11).
+`"bring line after row ten"` will bring a copy of the current line content _with line delimiter_ after line 10, meaning there will be an additional line (a new line 11).
 
 Special positional target modifiers `"start of"` and `"end of"` do not use delimiters.
 `"bring line to end of row ten"` will bring a copy of the current line content _without line delimiter_ to the end of line 10, meaning line 10 will get content added to it.
