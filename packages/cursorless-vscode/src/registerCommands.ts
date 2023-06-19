@@ -5,6 +5,7 @@ import {
 } from "@cursorless/common";
 import {
   CommandApi,
+  ScopeVisualizer,
   TestCaseRecorder,
   showCheatsheet,
   updateDefaults,
@@ -20,6 +21,7 @@ export function registerCommands(
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
   testCaseRecorder: TestCaseRecorder,
+  scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {
@@ -55,6 +57,10 @@ export function registerCommands(
     // Hats
     ["cursorless.toggleDecorations"]: hats.toggle,
     ["cursorless.recomputeDecorationStyles"]: hats.recomputeDecorationStyles,
+
+    // Scope visualizer
+    ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
+    ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:

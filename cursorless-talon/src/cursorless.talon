@@ -20,3 +20,10 @@ tag: user.cursorless
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
 {user.cursorless_homophone} settings: user.cursorless_show_settings_in_ide()
+
+visualize <user.cursorless_scope_type>:
+    user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "content")
+visualize <user.cursorless_scope_type> removal:
+    user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "removal")
+visualize nothing:
+    user.private_cursorless_run_rpc_command_and_wait("cursorless.hideScopeVisualizer")

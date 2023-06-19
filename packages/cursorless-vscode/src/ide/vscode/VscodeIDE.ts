@@ -1,6 +1,7 @@
 import {
   Disposable,
   EditableTextEditor,
+  EditorScopeRanges,
   FlashDescriptor,
   GeneralizedRange,
   HighlightId,
@@ -19,7 +20,7 @@ import {
 import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
-import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
+import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
@@ -29,9 +30,10 @@ import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
-import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
+import { VscodeScopeVisualizer } from "./VSCodeScopeVisualizer";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 
 export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;
@@ -42,6 +44,7 @@ export class VscodeIDE implements IDE {
   private flashHandler: VscodeFlashHandler;
   private highlights: VscodeHighlights;
   private editorMap;
+  private scopeVisualizer: VscodeScopeVisualizer;
 
   constructor(private extensionContext: ExtensionContext) {
     this.configuration = new VscodeConfiguration(this);
@@ -50,6 +53,7 @@ export class VscodeIDE implements IDE {
     this.clipboard = new VscodeClipboard();
     this.highlights = new VscodeHighlights(extensionContext);
     this.flashHandler = new VscodeFlashHandler(this, this.highlights);
+    this.scopeVisualizer = new VscodeScopeVisualizer(extensionContext);
     this.capabilities = new VscodeCapabilities();
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
   }
@@ -74,6 +78,15 @@ export class VscodeIDE implements IDE {
       vscodeHighlightId,
       editor as VscodeTextEditorImpl,
       ranges,
+    );
+  }
+
+  setScopeVisualizationRanges(scopeRanges: EditorScopeRanges[]): Promise<void> {
+    return this.scopeVisualizer.setScopeVisualizationRanges(
+      scopeRanges.map(({ editor, scopeRanges }) => ({
+        editor: editor as VscodeTextEditorImpl,
+        scopeRanges,
+      })),
     );
   }
 

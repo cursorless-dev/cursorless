@@ -149,4 +149,6 @@ export interface ScopeIteratorRequirements {
    * @default false
    */
   skipAncestorScopes: boolean;
+
+  includeDescendantScopes: boolean;
 }

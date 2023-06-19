@@ -63,6 +63,7 @@ export async function activate(
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
+    scopeVisualizer,
     snippets,
     injectIde,
     runIntegrationTests,
@@ -81,6 +82,7 @@ export async function activate(
     vscodeIDE,
     commandApi,
     testCaseRecorder,
+    scopeVisualizer,
     keyboardCommands,
     hats,
   );

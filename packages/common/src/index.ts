@@ -80,3 +80,4 @@ export * from "./extensionDependencies";
 export * from "./getFakeCommandServerApi";
 export * from "./types/TestCaseFixture";
 export * from "./util/getEnvironmentVariableStrict";
+export * from "./util/CompositeKeyDefaultMap";

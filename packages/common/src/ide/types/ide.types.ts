@@ -1,6 +1,7 @@
 import type {
   EditableTextEditor,
   InputBoxOptions,
+  ScopeType,
   TextDocument,
   TextEditor,
 } from "../..";
@@ -213,6 +214,20 @@ export interface IDE {
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void>;
+
+  setScopeVisualizationRanges(scopeRanges: EditorScopeRanges[]): Promise<void>;
+}
+
+export interface EditorScopeRanges {
+  editor: TextEditor;
+  scopeRanges: ScopeRanges[];
+}
+
+export interface ScopeRanges {
+  scopeType: ScopeType;
+  domain: GeneralizedRange;
+  contentRanges?: GeneralizedRange[];
+  removalRanges?: GeneralizedRange[];
 }
 
 export interface WorkspaceFolder {

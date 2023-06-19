@@ -1,21 +1,22 @@
-import type { EditableTextEditor, TextEditor } from "../..";
 import { pull } from "lodash";
+import type { EditableTextEditor, TextEditor } from "../..";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
+import { FlashDescriptor } from "../types/FlashDescriptor";
+import { QuickPickOptions } from "../types/QuickPickOptions";
 import {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
-import { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   Disposable,
+  EditorScopeRanges,
   IDE,
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
@@ -43,6 +44,11 @@ export default class FakeIDE implements IDE {
     _highlightId: string | undefined,
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
+  ): Promise<void> {
+    // empty
+  }
+  async setScopeVisualizationRanges(
+    _scopeRanges: EditorScopeRanges[],
   ): Promise<void> {
     // empty
   }

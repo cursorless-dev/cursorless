@@ -127,6 +127,15 @@ class Actions:
             ),
         )
 
+    def private_cursorless_run_rpc_command_and_wait(
+        command_id: str, arg1: Any = NotSet, arg2: Any = NotSet, arg3: Any = NotSet
+    ):
+        """Execute command via rpc and wait for command to finish."""
+        run_rpc_command_and_wait(
+            command_id,
+            *[x for x in [arg1, arg2, arg3] if x is not NotSet],
+        )
+
 
 def construct_cursorless_command_argument(
     action: str, targets: list[dict], args: list[Any]

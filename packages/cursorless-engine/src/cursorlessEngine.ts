@@ -1,14 +1,23 @@
-import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
+import {
+  Command,
+  CommandServerApi,
+  Hats,
+  IDE,
+  ScopeType,
+} from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
+import { ScopeVisualizer as ScopeVisualizerImpl } from "./ScopeVisualizer";
+import { VisualizationType } from "./VisualizationType";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
+import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
-import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
-import { runCommand } from "./runCommand";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -40,6 +49,10 @@ export function createCursorlessEngine(
 
   const languageDefinitions = new LanguageDefinitions(treeSitter);
 
+  const scopeVisualizer = new ScopeVisualizerImpl(
+    new ScopeHandlerFactoryImpl(languageDefinitions),
+  );
+
   return {
     commandApi: {
       runCommand(command: Command) {
@@ -68,6 +81,17 @@ export function createCursorlessEngine(
         );
       },
     },
+    scopeVisualizer: {
+      start(scopeType: ScopeType, visualizationType: string) {
+        scopeVisualizer.setScopeType({
+          scopeType,
+          visualizationType: visualizationType as VisualizationType,
+        });
+      },
+      stop() {
+        scopeVisualizer.setScopeType(undefined);
+      },
+    },
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
@@ -92,8 +116,14 @@ export interface CommandApi {
   runCommandSafe(...args: unknown[]): Promise<unknown>;
 }
 
+export interface ScopeVisualizer {
+  start(scopeType: ScopeType, visualizationType: string): void;
+  stop(): void;
+}
+
 export interface CursorlessEngine {
   commandApi: CommandApi;
+  scopeVisualizer: ScopeVisualizer;
   testCaseRecorder: TestCaseRecorder;
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMapImpl;
