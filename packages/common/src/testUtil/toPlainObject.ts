@@ -3,6 +3,7 @@ import type {
   GeneralizedRange,
   LineRange,
   Message,
+  ScopeType,
   SpyIDERecordedValues,
 } from "..";
 import { FlashStyle, isLineRange } from "..";
@@ -39,10 +40,22 @@ interface PlainHighlight {
   ranges: GeneralizedRangePlainObject[];
 }
 
+interface PlainScopeRanges {
+  scopeType: ScopeType;
+  domain: GeneralizedRangePlainObject;
+  contentRanges?: GeneralizedRangePlainObject[];
+  removalRanges?: GeneralizedRangePlainObject[];
+}
+
+export interface PlainScopeVisualization {
+  scopeRanges: PlainScopeRanges[];
+}
+
 export interface PlainSpyIDERecordedValues {
   messages: Message[] | undefined;
   flashes: PlainFlashDescriptor[] | undefined;
   highlights: PlainHighlight[] | undefined;
+  scopeVisualizations: PlainScopeVisualization[] | undefined;
 }
 
 export type SelectionPlainObject = {
@@ -149,6 +162,18 @@ export function spyIDERecordedValuesToPlainObject(
       ranges: highlight.ranges.map((range) =>
         generalizedRangeToPlainObject(range),
       ),
+    })),
+    scopeVisualizations: input.scopeVisualizations?.map(({ scopeRanges }) => ({
+      scopeRanges: scopeRanges.map((scopeRange) => ({
+        scopeType: scopeRange.scopeType,
+        domain: generalizedRangeToPlainObject(scopeRange.domain),
+        contentRanges: scopeRange.contentRanges?.map((range) =>
+          generalizedRangeToPlainObject(range),
+        ),
+        removalRanges: scopeRange.removalRanges?.map((range) =>
+          generalizedRangeToPlainObject(range),
+        ),
+      })),
     })),
   };
 }

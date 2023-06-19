@@ -31,7 +31,7 @@ export class ScopeVisualizer implements Disposable {
     // be better to have this happen in VSCode-specific impl, but that's tricky
     // because the VSCode impl doesn't know about the visualization type.
     await this.clearHighlights();
-    this.debouncer.run();
+    await this.highlightScopes();
   }
 
   private disposables: Disposable[] = [];

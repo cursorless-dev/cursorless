@@ -47,6 +47,7 @@ export default class FakeIDE implements IDE {
   ): Promise<void> {
     // empty
   }
+
   async setScopeVisualizationRanges(
     _scopeRanges: EditorScopeRanges[],
   ): Promise<void> {

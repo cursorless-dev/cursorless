@@ -4,7 +4,7 @@
  * configuration.
  * See https://mochajs.org/#-grep-regexp-g-regexp for supported syntax
  */
-export const TEST_SUBSET_GREP_STRING = "snippets";
+export const TEST_SUBSET_GREP_STRING = "visualizer";
 
 /**
  * Determine whether we should run just the subset of the tests specified by

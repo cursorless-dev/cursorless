@@ -6,7 +6,6 @@ import {
   ScopeType,
 } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
-import { ScopeVisualizer as ScopeVisualizerImpl } from "./ScopeVisualizer";
 import { VisualizationType } from "./VisualizationType";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
@@ -18,6 +17,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
+import { ScopeVisualizer as ScopeVisualizerImpl } from "./ScopeVisualizer";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -83,13 +83,13 @@ export function createCursorlessEngine(
     },
     scopeVisualizer: {
       start(scopeType: ScopeType, visualizationType: string) {
-        scopeVisualizer.setScopeType({
+        return scopeVisualizer.setScopeType({
           scopeType,
           visualizationType: visualizationType as VisualizationType,
         });
       },
       stop() {
-        scopeVisualizer.setScopeType(undefined);
+        return scopeVisualizer.setScopeType(undefined);
       },
     },
     testCaseRecorder,
@@ -117,8 +117,8 @@ export interface CommandApi {
 }
 
 export interface ScopeVisualizer {
-  start(scopeType: ScopeType, visualizationType: string): void;
-  stop(): void;
+  start(scopeType: ScopeType, visualizationType: string): Promise<void>;
+  stop(): Promise<void>;
 }
 
 export interface CursorlessEngine {
