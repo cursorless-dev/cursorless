@@ -76,6 +76,8 @@ Run the `workbench.action.debug.selectandstart` command and then select
 
 See [test-case-recorder.md](./test-case-recorder.md).
 
+It is also possible to write manual tests. When doing so, we have a convention that any test that must be run within a VSCode context (eg because it imports `"vscode"`), should be placed in a file with the suffix `.vscode.test.ts`. All other tests should end with just `.test.ts`. This allows us to run non-VSCode tests locally outside of VSCode using the `Run unit tests` launch config. These tests run much faster than the full VSCode test suite.
+
 ## Parse tree support
 
 ### Adding a new programming language

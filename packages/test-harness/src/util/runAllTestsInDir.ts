@@ -6,11 +6,17 @@ import { promisify } from "util";
 
 const glob = promisify(globRaw);
 
-export function runAllTestsInDir(testRoot: string) {
-  return runAllTestsInDirs([testRoot]);
+export function runAllTestsInDir(
+  testRoot: string,
+  includeVscodeTests: boolean,
+) {
+  return runAllTestsInDirs([testRoot], includeVscodeTests);
 }
 
-export async function runAllTestsInDirs(testRoots: string[]): Promise<void> {
+export async function runAllTestsInDirs(
+  testRoots: string[],
+  includeVscodeTests: boolean,
+): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
     ui: "tdd",
@@ -19,7 +25,11 @@ export async function runAllTestsInDirs(testRoots: string[]): Promise<void> {
   });
 
   for (const testRoot of testRoots) {
-    const files = await glob("**/**.test.js", { cwd: testRoot });
+    let files = await glob("**/**.test.js", { cwd: testRoot });
+
+    if (!includeVscodeTests) {
+      files = files.filter((f) => !f.endsWith("vscode.test.js"));
+    }
 
     // Add files to the test suite
     files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
