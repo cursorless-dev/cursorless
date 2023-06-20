@@ -157,3 +157,11 @@
     ]
   )
 ] @namedFunction @functionName.domain
+
+[
+  (program)
+  (class_declaration)
+  (object
+    (method_definition)
+  )
+] @namedFunction.iteration @functionName.iteration
