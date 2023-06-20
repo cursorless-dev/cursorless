@@ -67,3 +67,8 @@
   .
   ";"? @name.domain.end
 )
+
+[
+  (interface_declaration)
+  (object_type)
+] @namedFunction.iteration @functionName.iteration
