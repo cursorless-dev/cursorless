@@ -1,47 +1,15 @@
-import { GeneralizedRange, ScopeRanges } from "@cursorless/common";
+import {
+  GeneralizedRange,
+  IterationScopeRanges,
+  ScopeRanges,
+} from "@cursorless/common";
 import * as vscode from "vscode";
-import { VscodeScopeVisualizerRenderer } from "./VscodeScopeVisualizerRenderer";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import tinycolor = require("tinycolor2");
-
-interface ThemeColors {
-  light: string;
-  dark: string;
-}
-
-export interface RangeTypeColors {
-  background: ThemeColors;
-  borderSolid: ThemeColors;
-  borderPorous: ThemeColors;
-}
-
-interface ScopeVisualizerThemeColorConfig {
-  domain: {
-    background: string;
-    borderSolid: string;
-    borderPorous: string;
-  };
-  content: {
-    background: string;
-    borderSolid: string;
-    borderPorous: string;
-  };
-  removal: {
-    background: string;
-    borderSolid: string;
-    borderPorous: string;
-  };
-}
-
-interface ScopeVisualizerColorConfig {
-  light: ScopeVisualizerThemeColorConfig;
-  dark: ScopeVisualizerThemeColorConfig;
-}
-
-interface VscodeTextEditorScopeRanges {
-  editor: VscodeTextEditorImpl;
-  scopeRanges: ScopeRanges[];
-}
+import { VscodeScopeVisualizerRenderer } from "./VscodeScopeVisualizerRenderer";
+import { isGeneralizedRangeEqual } from "./isGeneralizedRangeEqual";
+import { blendRangeTypeColors } from "./blendRangeTypeColors";
+import { getColorsFromConfig } from "./getColorsFromConfig";
+import { ScopeVisualizerColorConfig } from "./ScopeVisualizerColorConfig";
 
 export class VscodeScopeVisualizer {
   private domainRenderer!: VscodeScopeVisualizerRenderer;
@@ -93,7 +61,9 @@ export class VscodeScopeVisualizer {
   private editorScopeRanges: VscodeTextEditorScopeRanges[] = [];
 
   async setScopeVisualizationRanges(
-    editorScopeRanges: VscodeTextEditorScopeRanges[],
+    editor: VscodeTextEditorImpl,
+    scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
   ) {
     this.editorScopeRanges = editorScopeRanges;
     this.drawScopes();
@@ -151,94 +121,4 @@ export class VscodeScopeVisualizer {
       domainEqualsRemovalRanges,
     );
   }
-}
-
-function getColorsFromConfig(
-  config: ScopeVisualizerColorConfig,
-  rangeType: "domain" | "content" | "removal",
-): RangeTypeColors {
-  return {
-    background: {
-      light: config.light[rangeType].background,
-      dark: config.dark[rangeType].background,
-    },
-    borderSolid: {
-      light: config.light[rangeType].borderSolid,
-      dark: config.dark[rangeType].borderSolid,
-    },
-    borderPorous: {
-      light: config.light[rangeType].borderPorous,
-      dark: config.dark[rangeType].borderPorous,
-    },
-  };
-}
-
-function isGeneralizedRangeEqual(
-  a: GeneralizedRange,
-  b: GeneralizedRange,
-): boolean {
-  if (a.type === "character" && b.type === "character") {
-    return a.start.isEqual(b.start) && a.end.isEqual(b.end);
-  }
-
-  if (a.type === "line" && b.type === "line") {
-    return a.start === b.start && a.end === b.end;
-  }
-
-  return false;
-}
-
-function blendRangeTypeColors(
-  baseColors: RangeTypeColors,
-  topColors: RangeTypeColors,
-): RangeTypeColors {
-  return {
-    background: {
-      light: blendColors(
-        baseColors.background.light,
-        topColors.background.light,
-      ),
-      dark: blendColors(baseColors.background.dark, topColors.background.dark),
-    },
-    borderSolid: {
-      light: blendColors(
-        baseColors.borderSolid.light,
-        topColors.borderSolid.light,
-      ),
-      dark: blendColors(
-        baseColors.borderSolid.dark,
-        topColors.borderSolid.dark,
-      ),
-    },
-    borderPorous: {
-      light: blendColors(
-        baseColors.borderPorous.light,
-        topColors.borderPorous.light,
-      ),
-      dark: blendColors(
-        baseColors.borderPorous.dark,
-        topColors.borderPorous.dark,
-      ),
-    },
-  };
-}
-
-function blendColors(base: string, top: string): string {
-  const baseRgba = tinycolor(base).toRgb();
-  const topRgba = tinycolor(top).toRgb();
-  const blendedAlpha = 1 - (1 - topRgba.a) * (1 - baseRgba.a);
-
-  function interpolateChannel(channel: "r" | "g" | "b"): number {
-    return Math.round(
-      (topRgba[channel] * topRgba.a) / blendedAlpha +
-        (baseRgba[channel] * baseRgba.a * (1 - topRgba.a)) / blendedAlpha,
-    );
-  }
-
-  return tinycolor({
-    r: interpolateChannel("r"),
-    g: interpolateChannel("g"),
-    b: interpolateChannel("b"),
-    a: blendedAlpha,
-  }).toHex8String();
 }

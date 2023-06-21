@@ -1,15 +1,16 @@
 import {
   Disposable,
   EditableTextEditor,
-  EditorScopeRanges,
   FlashDescriptor,
   GeneralizedRange,
   HighlightId,
   IDE,
   InputBoxOptions,
+  IterationScopeRanges,
   OutdatedExtensionError,
   QuickPickOptions,
   RunMode,
+  ScopeRanges,
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/common";
@@ -21,6 +22,7 @@ import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";
+import { VscodeScopeVisualizer } from "./VSCodeScopeVisualizer";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
@@ -30,7 +32,6 @@ import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
-import { VscodeScopeVisualizer } from "./VSCodeScopeVisualizer";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
@@ -81,12 +82,15 @@ export class VscodeIDE implements IDE {
     );
   }
 
-  setScopeVisualizationRanges(scopeRanges: EditorScopeRanges[]): Promise<void> {
+  setScopeVisualizationRanges(
+    editor: TextEditor,
+    scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ): Promise<void> {
     return this.scopeVisualizer.setScopeVisualizationRanges(
-      scopeRanges.map(({ editor, scopeRanges }) => ({
-        editor: editor as VscodeTextEditorImpl,
-        scopeRanges,
-      })),
+      editor as VscodeTextEditorImpl,
+      scopeRanges,
+      iterationScopeRanges,
     );
   }
 

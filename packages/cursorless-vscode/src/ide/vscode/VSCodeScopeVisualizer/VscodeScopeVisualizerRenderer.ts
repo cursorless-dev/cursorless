@@ -16,7 +16,7 @@ import {
   TextEditorDecorationType,
   window,
 } from "vscode";
-import { RangeTypeColors } from "./VscodeScopeVisualizer";
+import { RangeTypeColors } from "./RangeTypeColors";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { generateDecorationsForCharacterRange } from "./getDecorationRanges/generateDecorationsForCharacterRange";
 import { generateDecorationsForLineRange } from "./getDecorationRanges/generateDecorationsForLineRange";

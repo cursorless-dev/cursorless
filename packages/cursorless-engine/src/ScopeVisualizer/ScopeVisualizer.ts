@@ -1,5 +1,5 @@
 import { showError } from "@cursorless/common";
-import { ScopeVisualizerConfig } from "../CursorlessEngine.1";
+import { ScopeVisualizerConfig } from "../CursorlessEngineApi";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { ide } from "../singletons/ide.singleton";

@@ -12,7 +12,7 @@ import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
 import { ScopeVisualizer } from "./ScopeVisualizer";
-import { CursorlessEngine } from "./CursorlessEngine.1";
+import { CursorlessEngine } from "./CursorlessEngineApi";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
