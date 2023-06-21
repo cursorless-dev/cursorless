@@ -3,26 +3,28 @@ import {
   CommandServerApi,
   Hats,
   IDE,
-  ScopeType,
+  IdeScopeVisualizer,
 } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
-import { VisualizationType } from "./VisualizationType";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
-import { ScopeVisualizer as ScopeVisualizerImpl } from "./ScopeVisualizer";
+import { ScopeVisualizer } from "./ScopeVisualizer";
+import { CursorlessEngine } from "./CursorlessEngine.1";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
   ide: IDE,
   hats: Hats,
+  ideScopeVisualizer: IdeScopeVisualizer,
   commandServerApi: CommandServerApi | null,
 ): CursorlessEngine {
   injectIde(ide);
@@ -49,9 +51,7 @@ export function createCursorlessEngine(
 
   const languageDefinitions = new LanguageDefinitions(treeSitter);
 
-  const scopeVisualizer = new ScopeVisualizerImpl(
-    new ScopeHandlerFactoryImpl(languageDefinitions),
-  );
+  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
 
   return {
     commandApi: {
@@ -81,17 +81,15 @@ export function createCursorlessEngine(
         );
       },
     },
-    scopeVisualizer: {
-      start(scopeType: ScopeType, visualizationType: string) {
-        return scopeVisualizer.setScopeType({
-          scopeType,
-          visualizationType: visualizationType as VisualizationType,
-        });
-      },
-      stop() {
-        return scopeVisualizer.setScopeType(undefined);
-      },
-    },
+    scopeVisualizer: new ScopeVisualizer(
+      scopeHandlerFactory,
+      new ModifierStageFactoryImpl(
+        languageDefinitions,
+        storedTargets,
+        scopeHandlerFactory,
+      ),
+      ideScopeVisualizer,
+    ),
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
@@ -100,34 +98,4 @@ export function createCursorlessEngine(
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),
   };
-}
-
-export interface CommandApi {
-  /**
-   * Runs a command.  This is the core of the Cursorless engine.
-   * @param command The command to run
-   */
-  runCommand(command: Command): Promise<unknown>;
-
-  /**
-   * Designed to run commands that come directly from the user.  Ensures that
-   * the command args are of the correct shape.
-   */
-  runCommandSafe(...args: unknown[]): Promise<unknown>;
-}
-
-export interface ScopeVisualizer {
-  start(scopeType: ScopeType, visualizationType: string): Promise<void>;
-  stop(): Promise<void>;
-}
-
-export interface CursorlessEngine {
-  commandApi: CommandApi;
-  scopeVisualizer: ScopeVisualizer;
-  testCaseRecorder: TestCaseRecorder;
-  storedTargets: StoredTargetMap;
-  hatTokenMap: HatTokenMapImpl;
-  snippets: Snippets;
-  injectIde: (ide: IDE | undefined) => void;
-  runIntegrationTests: () => Promise<void>;
 }

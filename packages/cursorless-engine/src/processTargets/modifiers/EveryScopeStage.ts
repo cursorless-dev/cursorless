@@ -121,7 +121,7 @@ export class EveryScopeStage implements ModifierStage {
 /**
  * Returns a list of all scopes that have nonempty overlap with {@link range}.
  */
-function getScopesOverlappingRange(
+export function getScopesOverlappingRange(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
   { start, end }: Range,
