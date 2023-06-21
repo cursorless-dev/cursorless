@@ -861,7 +861,7 @@
     "@types/vscode": "~1.61.0",
     "chai": "^4.3.6",
     "esbuild": "^0.17.11",
-    "fast-xml-parser": "^3.20.0",
+    "fast-xml-parser": "^4.2.4",
     "fs-extra": "11.1.0",
     "glob": "^7.1.7",
     "mocha": "^8.1.3"

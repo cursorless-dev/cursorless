@@ -6,15 +6,17 @@ import * as path from "path";
 async function main() {
   const directory = path.join(getCursorlessRepoRoot(), "images/hats");
 
-  const dumper = new parser.j2xParser({
+  const dumper = new parser.XMLBuilder({
     ignoreAttributes: false,
-    supressEmptyNode: true,
+    suppressEmptyNode: true,
   });
 
   readdirSync(directory, { withFileTypes: true }).forEach(async (dirent) => {
     const filePath = path.join(directory, dirent.name);
     const rawSvg = await fsp.readFile(filePath, { encoding: "utf8" });
-    const svgJson = parser.parse(rawSvg, { ignoreAttributes: false });
+    const svgJson = new parser.XMLParser({ ignoreAttributes: false }).parse(
+      rawSvg,
+    );
 
     svgJson.svg["@_width"] = "1em";
     svgJson.svg["@_height"] = "1em";
@@ -27,7 +29,7 @@ async function main() {
     }
 
     const outputSvg = dumper
-      .parse(svgJson)
+      .build(svgJson)
       .replace(/fill="[^"]+"/, `fill="#666666"`)
       .replace(/fill:[^;]+;/, `fill:#666666;`);
 
