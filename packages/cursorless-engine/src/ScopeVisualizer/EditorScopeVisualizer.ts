@@ -1,6 +1,5 @@
 import {
   Disposable,
-  IdeScopeVisualizer,
   IterationScopeRanges,
   Range,
   TextEditor,
@@ -24,7 +23,6 @@ export class EditorScopeVisualizer implements Disposable {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     private modifierStageFactory: ModifierStageFactory,
-    private ideVisualizer: IdeScopeVisualizer,
     private editor: TextEditor,
     private config: ScopeVisualizerConfig,
   ) {
@@ -52,7 +50,7 @@ export class EditorScopeVisualizer implements Disposable {
 
     const iterationRange = getIterationRange(this.editor, scopeHandler);
 
-    this.ideVisualizer.setScopes(
+    ide().setScopeVisualizationRanges(
       this.editor,
       this.config.includeScopes
         ? getScopes(this.editor, scopeHandler, iterationRange)

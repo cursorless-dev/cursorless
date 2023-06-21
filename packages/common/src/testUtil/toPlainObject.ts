@@ -3,8 +3,8 @@ import type {
   GeneralizedRange,
   LineRange,
   Message,
-  ScopeType,
   SpyIDERecordedValues,
+  TargetRanges,
 } from "..";
 import { FlashStyle, isLineRange } from "..";
 import { Token } from "../types/Token";
@@ -41,14 +41,26 @@ interface PlainHighlight {
 }
 
 interface PlainScopeRanges {
-  scopeType: ScopeType;
   domain: GeneralizedRangePlainObject;
-  contentRanges?: GeneralizedRangePlainObject[];
-  removalRanges?: GeneralizedRangePlainObject[];
+  targets: PlainTargetRanges[];
+}
+
+interface PlainIterationScopeRanges {
+  domain: GeneralizedRangePlainObject;
+  ranges: {
+    range: GeneralizedRangePlainObject;
+    targets: PlainTargetRanges[] | undefined;
+  }[];
+}
+
+interface PlainTargetRanges {
+  contentRange: GeneralizedRangePlainObject;
+  removalRange: GeneralizedRangePlainObject;
 }
 
 export interface PlainScopeVisualization {
-  scopeRanges: PlainScopeRanges[];
+  scopeRanges: PlainScopeRanges[] | undefined;
+  iterationScopeRanges: PlainIterationScopeRanges[] | undefined;
 }
 
 export interface PlainSpyIDERecordedValues {
@@ -163,17 +175,27 @@ export function spyIDERecordedValuesToPlainObject(
         generalizedRangeToPlainObject(range),
       ),
     })),
-    scopeVisualizations: input.scopeVisualizations?.map(({ scopeRanges }) => ({
-      scopeRanges: scopeRanges.map((scopeRange) => ({
-        scopeType: scopeRange.scopeType,
-        domain: generalizedRangeToPlainObject(scopeRange.domain),
-        contentRanges: scopeRange.contentRanges?.map((range) =>
-          generalizedRangeToPlainObject(range),
-        ),
-        removalRanges: scopeRange.removalRanges?.map((range) =>
-          generalizedRangeToPlainObject(range),
-        ),
-      })),
-    })),
+    scopeVisualizations: input.scopeVisualizations?.map(
+      ({ scopeRanges, iterationScopeRanges }) => ({
+        scopeRanges: scopeRanges?.map((scopeRange) => ({
+          domain: generalizedRangeToPlainObject(scopeRange.domain),
+          targets: scopeRange.targets?.map(targetRangesToPlainObject),
+        })),
+        iterationScopeRanges: iterationScopeRanges?.map((scopeRange) => ({
+          domain: generalizedRangeToPlainObject(scopeRange.domain),
+          ranges: scopeRange.ranges.map(({ range, targets }) => ({
+            range: generalizedRangeToPlainObject(range),
+            targets: targets?.map(targetRangesToPlainObject),
+          })),
+        })),
+      }),
+    ),
+  };
+}
+
+export function targetRangesToPlainObject(target: TargetRanges) {
+  return {
+    contentRange: generalizedRangeToPlainObject(target.contentRange),
+    removalRange: generalizedRangeToPlainObject(target.removalRange),
   };
 }

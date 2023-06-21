@@ -6,7 +6,7 @@ import { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   HighlightId,
   IDE,
-  EditorScopeRanges,
+  IterationScopeRanges,
   ScopeRanges,
 } from "../types/ide.types";
 import SpyMessages, { Message } from "./SpyMessages";
@@ -17,7 +17,8 @@ interface Highlight {
 }
 
 interface ScopeVisualization {
-  scopeRanges: ScopeRanges[];
+  scopeRanges: ScopeRanges[] | undefined;
+  iterationScopeRanges: IterationScopeRanges[] | undefined;
 }
 
 export interface SpyIDERecordedValues {
@@ -72,12 +73,10 @@ export default class SpyIDE extends PassthroughIDEBase {
   }
 
   async setScopeVisualizationRanges(
-    scopeRanges: EditorScopeRanges[],
+    editor: TextEditor,
+    scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
   ): Promise<void> {
-    this.scopeVisualizations.push(
-      ...scopeRanges.map(({ scopeRanges }) => ({
-        scopeRanges,
-      })),
-    );
+    this.scopeVisualizations.push({ scopeRanges, iterationScopeRanges });
   }
 }

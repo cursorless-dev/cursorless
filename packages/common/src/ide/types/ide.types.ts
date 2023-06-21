@@ -214,7 +214,11 @@ export interface IDE {
     ranges: GeneralizedRange[],
   ): Promise<void>;
 
-  setScopeVisualizationRanges(scopeRanges: EditorScopeRanges[]): Promise<void>;
+  setScopeVisualizationRanges(
+    editor: TextEditor,
+    scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ): Promise<void>;
 }
 
 export interface EditorScopeRanges {
@@ -238,14 +242,6 @@ export interface IterationScopeRanges {
     range: GeneralizedRange;
     targets?: TargetRanges[];
   }[];
-}
-
-export interface IdeScopeVisualizer {
-  setScopes(
-    editor: TextEditor,
-    scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ): Promise<void>;
 }
 
 export interface WorkspaceFolder {

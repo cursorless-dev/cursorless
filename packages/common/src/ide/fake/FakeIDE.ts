@@ -12,9 +12,10 @@ import {
 } from "../types/events.types";
 import type {
   Disposable,
-  EditorScopeRanges,
   IDE,
+  IterationScopeRanges,
   RunMode,
+  ScopeRanges,
   WorkspaceFolder,
 } from "../types/ide.types";
 import { FakeCapabilities } from "./FakeCapabilities";
@@ -49,7 +50,9 @@ export default class FakeIDE implements IDE {
   }
 
   async setScopeVisualizationRanges(
-    _scopeRanges: EditorScopeRanges[],
+    _editor: TextEditor,
+    _scopeRanges: ScopeRanges[] | undefined,
+    _iterationScopeRanges: IterationScopeRanges[] | undefined,
   ): Promise<void> {
     // empty
   }

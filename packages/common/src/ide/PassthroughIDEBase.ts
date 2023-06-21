@@ -12,9 +12,10 @@ import {
 import { FlashDescriptor } from "./types/FlashDescriptor";
 import {
   Disposable,
-  EditorScopeRanges,
   IDE,
+  IterationScopeRanges,
   RunMode,
+  ScopeRanges,
   WorkspaceFolder,
 } from "./types/ide.types";
 import { Messages } from "./types/Messages";
@@ -36,8 +37,16 @@ export default class PassthroughIDEBase implements IDE {
     this.capabilities = original.capabilities;
   }
 
-  setScopeVisualizationRanges(scopeRanges: EditorScopeRanges[]): Promise<void> {
-    return this.original.setScopeVisualizationRanges(scopeRanges);
+  setScopeVisualizationRanges(
+    editor: TextEditor,
+    scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ): Promise<void> {
+    return this.original.setScopeVisualizationRanges(
+      editor,
+      scopeRanges,
+      iterationScopeRanges,
+    );
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {

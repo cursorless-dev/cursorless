@@ -1,10 +1,4 @@
-import {
-  Command,
-  CommandServerApi,
-  Hats,
-  IDE,
-  IdeScopeVisualizer,
-} from "@cursorless/common";
+import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
@@ -24,7 +18,6 @@ export function createCursorlessEngine(
   treeSitter: TreeSitter,
   ide: IDE,
   hats: Hats,
-  ideScopeVisualizer: IdeScopeVisualizer,
   commandServerApi: CommandServerApi | null,
 ): CursorlessEngine {
   injectIde(ide);
@@ -88,7 +81,6 @@ export function createCursorlessEngine(
         storedTargets,
         scopeHandlerFactory,
       ),
-      ideScopeVisualizer,
     ),
     testCaseRecorder,
     storedTargets,

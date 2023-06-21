@@ -1,4 +1,4 @@
-import { IdeScopeVisualizer, showError } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { ScopeVisualizerConfig } from "../CursorlessEngine.1";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
@@ -12,7 +12,6 @@ export class ScopeVisualizer {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     private modifierStageFactory: ModifierStageFactory,
-    private ideVisualizer: IdeScopeVisualizer,
   ) {}
 
   start(config: ScopeVisualizerConfig) {
@@ -21,7 +20,6 @@ export class ScopeVisualizer {
       const visualizer = new EditorScopeVisualizer(
         this.scopeHandlerFactory,
         this.modifierStageFactory,
-        this.ideVisualizer,
         editor,
         config,
       );
