@@ -6,11 +6,9 @@ import {
   HighlightId,
   IDE,
   InputBoxOptions,
-  IterationScopeRanges,
   OutdatedExtensionError,
   QuickPickOptions,
   RunMode,
-  ScopeRanges,
   TextDocumentChangeEvent,
   TextEditor,
 } from "@cursorless/common";
@@ -22,7 +20,6 @@ import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
 import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";
-import { VscodeScopeVisualizer } from "./VSCodeScopeVisualizer";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
@@ -45,7 +42,6 @@ export class VscodeIDE implements IDE {
   private flashHandler: VscodeFlashHandler;
   private highlights: VscodeHighlights;
   private editorMap;
-  private scopeVisualizer: VscodeScopeVisualizer;
 
   constructor(private extensionContext: ExtensionContext) {
     this.configuration = new VscodeConfiguration(this);
@@ -54,7 +50,6 @@ export class VscodeIDE implements IDE {
     this.clipboard = new VscodeClipboard();
     this.highlights = new VscodeHighlights(extensionContext);
     this.flashHandler = new VscodeFlashHandler(this, this.highlights);
-    this.scopeVisualizer = new VscodeScopeVisualizer(extensionContext);
     this.capabilities = new VscodeCapabilities();
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
   }
@@ -79,18 +74,6 @@ export class VscodeIDE implements IDE {
       vscodeHighlightId,
       editor as VscodeTextEditorImpl,
       ranges,
-    );
-  }
-
-  setScopeVisualizationRanges(
-    editor: TextEditor,
-    scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ): Promise<void> {
-    return this.scopeVisualizer.setScopeVisualizationRanges(
-      editor as VscodeTextEditorImpl,
-      scopeRanges,
-      iterationScopeRanges,
     );
   }
 

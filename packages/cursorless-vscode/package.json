@@ -453,6 +453,23 @@
                   "format": "color"
                 }
               }
+            },
+            "iteration": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
             }
           },
           "default": {
@@ -468,6 +485,11 @@
             },
             "removal": {
               "background": "#ff00002d",
+              "borderSolid": "rgba(255, 0, 0, 0.47)",
+              "borderPorous": "rgba(255, 0, 0, 0.29)"
+            },
+            "iteration": {
+              "background": "#00ff002d",
               "borderSolid": "rgba(255, 0, 0, 0.47)",
               "borderPorous": "rgba(255, 0, 0, 0.29)"
             }
@@ -527,6 +549,23 @@
                   "format": "color"
                 }
               }
+            },
+            "iteration": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
             }
           },
           "default": {
@@ -542,6 +581,11 @@
             },
             "removal": {
               "background": "#ff00002d",
+              "borderSolid": "rgba(255, 0, 0, 0.47)",
+              "borderPorous": "rgba(255, 0, 0, 0.29)"
+            },
+            "iteration": {
+              "background": "#00ff002d",
               "borderSolid": "rgba(255, 0, 0, 0.47)",
               "borderPorous": "rgba(255, 0, 0, 0.29)"
             }

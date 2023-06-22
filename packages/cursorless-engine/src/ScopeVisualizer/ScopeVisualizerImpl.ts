@@ -1,20 +1,21 @@
-import { IdeScopeVisualizer, showError } from "@cursorless/common";
+import { ScopeRenderer, showError } from "@cursorless/common";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { ide } from "../singletons/ide.singleton";
 import { PerEditor } from "../util/PerEditor";
 import { EditorScopeVisualizer } from "./EditorScopeVisualizer";
+import { ScopeVisualizer } from "..";
 
-export class ScopeVisualizer {
-  private scopeVisualizers: PerEditor | undefined;
+export class ScopeVisualizerImpl implements ScopeVisualizer {
+  private scopeVisualizers: PerEditor<EditorScopeVisualizer> | undefined;
 
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     private modifierStageFactory: ModifierStageFactory,
   ) {}
 
-  start(ideScopeVisualizer: IdeScopeVisualizer) {
-    this.scopeVisualizers?.dispose();
+  start(ideScopeVisualizer: ScopeRenderer) {
+    this.stop();
     this.scopeVisualizers = new PerEditor((editor) => {
       const visualizer = new EditorScopeVisualizer(
         this.scopeHandlerFactory,
@@ -42,7 +43,14 @@ export class ScopeVisualizer {
     });
   }
 
+  refresh() {
+    for (const visualizer of this.scopeVisualizers?.values() || []) {
+      visualizer.highlightScopes();
+    }
+  }
+
   stop() {
     this.scopeVisualizers?.dispose();
+    this.scopeVisualizers = undefined;
   }
 }

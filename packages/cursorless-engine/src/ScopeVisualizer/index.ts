@@ -1,1 +1,1 @@
-export * from "./ScopeVisualizer";
+export * from "./ScopeVisualizerImpl";

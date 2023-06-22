@@ -10,14 +10,7 @@ import {
   TextEditorVisibleRangesChangeEvent,
 } from "./types/events.types";
 import { FlashDescriptor } from "./types/FlashDescriptor";
-import {
-  Disposable,
-  IDE,
-  IterationScopeRanges,
-  RunMode,
-  ScopeRanges,
-  WorkspaceFolder,
-} from "./types/ide.types";
+import { Disposable, IDE, RunMode, WorkspaceFolder } from "./types/ide.types";
 import { Messages } from "./types/Messages";
 import { QuickPickOptions } from "./types/QuickPickOptions";
 import { State } from "./types/State";
@@ -35,18 +28,6 @@ export default class PassthroughIDEBase implements IDE {
     this.clipboard = original.clipboard;
     this.messages = original.messages;
     this.capabilities = original.capabilities;
-  }
-
-  setScopeVisualizationRanges(
-    editor: TextEditor,
-    scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ): Promise<void> {
-    return this.original.setScopeVisualizationRanges(
-      editor,
-      scopeRanges,
-      iterationScopeRanges,
-    );
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {

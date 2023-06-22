@@ -2,8 +2,7 @@ import {
   Command,
   HatTokenMap,
   IDE,
-  IdeScopeVisualizer,
-  ScopeType,
+  ScopeRenderer,
 } from "@cursorless/common";
 import { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
@@ -35,13 +34,7 @@ export interface CommandApi {
 }
 
 export interface ScopeVisualizer {
-  start(ideScopeVisualizer: IdeScopeVisualizer): void;
+  start(ideScopeVisualizer: ScopeRenderer): void;
   stop(): void;
-}
-
-export interface ScopeVisualizerConfig {
-  scopeType: ScopeType;
-  includeScopes: boolean;
-  includeIterationScopes: boolean;
-  includeIterationNestedTargets: boolean;
+  refresh(): void;
 }

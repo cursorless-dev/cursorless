@@ -6,9 +6,11 @@ import { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   HighlightId,
   IDE,
-  IterationScopeRanges,
-  ScopeRanges,
 } from "../types/ide.types";
+import type {
+  IterationScopeRanges,
+  ScopeRanges
+} from "../types/IdeScopeVisualizer";
 import SpyMessages, { Message } from "./SpyMessages";
 
 interface Highlight {

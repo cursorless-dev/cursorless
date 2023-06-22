@@ -1,11 +1,11 @@
 import { Disposable, TextEditor } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 
-export class PerEditor {
+export class PerEditor<T extends Disposable> {
   private disposables: Disposable[] = [];
-  private editorHandlers: Map<string, Disposable> = new Map();
+  private editorHandlers: Map<string, T> = new Map();
 
-  constructor(private makeEditorHandler: (editor: TextEditor) => Disposable) {
+  constructor(private makeEditorHandler: (editor: TextEditor) => T) {
     this.disposables.push(
       // An event that fires when a text document opens
       ide().onDidOpenTextDocument(this.handleChange),
@@ -34,6 +34,10 @@ export class PerEditor {
         this.editorHandlers.set(editor.id, this.makeEditorHandler(editor));
       }
     }
+  }
+
+  values() {
+    return this.editorHandlers.values();
   }
 
   dispose() {

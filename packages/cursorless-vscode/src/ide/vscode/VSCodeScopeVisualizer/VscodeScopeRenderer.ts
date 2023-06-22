@@ -5,7 +5,7 @@ import { VscodeFancyRangeHighlighter } from "./VscodeFancyRangeHighlighter";
 import { blendRangeTypeColors } from "./blendRangeTypeColors";
 import { isGeneralizedRangeEqual } from "./isGeneralizedRangeEqual";
 
-interface RendererScope {
+export interface RendererScope {
   domain: GeneralizedRange;
   nestedRanges: GeneralizedRange[];
 }
@@ -30,7 +30,7 @@ export class VscodeScopeRenderer implements Disposable {
 
   setScopes(editor: VscodeTextEditorImpl, scopes: RendererScope[]) {
     const domainRanges: GeneralizedRange[] = [];
-    const nestedRanges: GeneralizedRange[] = [];
+    const allNestedRanges: GeneralizedRange[] = [];
     const domainEqualsNestedRanges: GeneralizedRange[] = [];
 
     for (const { domain, nestedRanges } of scopes) {
@@ -43,11 +43,11 @@ export class VscodeScopeRenderer implements Disposable {
       }
 
       domainRanges.push(domain);
-      nestedRanges.push(...nestedRanges);
+      allNestedRanges.push(...nestedRanges);
     }
 
     this.domainHighlighter.setRanges(editor, domainRanges);
-    this.nestedRangeHighlighter.setRanges(editor, nestedRanges);
+    this.nestedRangeHighlighter.setRanges(editor, allNestedRanges);
     this.domainEqualsNestedHighlighter.setRanges(
       editor,
       domainEqualsNestedRanges,

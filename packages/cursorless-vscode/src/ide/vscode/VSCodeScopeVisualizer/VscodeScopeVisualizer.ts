@@ -1,124 +1,158 @@
 import {
-  GeneralizedRange,
+  Disposable,
+  ScopeRenderer,
   IterationScopeRanges,
   ScopeRanges,
+  ScopeType,
+  ScopeVisualizerConfig,
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { VscodeFancyRangeHighlighter } from "./VscodeFancyRangeHighlighter";
-import { isGeneralizedRangeEqual } from "./isGeneralizedRangeEqual";
-import { blendRangeTypeColors } from "./blendRangeTypeColors";
-import { getColorsFromConfig } from "./getColorsFromConfig";
+import {
+  ColorConfigKey,
+  getColorsFromConfig,
+} from "./ScopeVisualizerColorConfig";
 import { ScopeVisualizerColorConfig } from "./ScopeVisualizerColorConfig";
+import { RendererScope, VscodeScopeRenderer } from "./VscodeScopeRenderer";
+import {
+  VisualizationType,
+  getVisualizerConfig,
+} from "../../../getVisualizerConfig";
 
-export class VscodeScopeVisualizer {
-  private domainRenderer!: VscodeFancyRangeHighlighter;
-  private contentRenderer!: VscodeFancyRangeHighlighter;
-  private removalRenderer!: VscodeFancyRangeHighlighter;
-  private domainContentOverlappingRenderer!: VscodeFancyRangeHighlighter;
-  private domainRemovalOverlappingRenderer!: VscodeFancyRangeHighlighter;
+export abstract class VscodeScopeVisualizer implements ScopeRenderer {
+  private renderer!: VscodeScopeRenderer;
+  private disposables: Disposable[] = [];
+  visualizerConfig: ScopeVisualizerConfig;
 
-  constructor(extensionContext: vscode.ExtensionContext) {
-    this.computeColors();
+  protected abstract getRendererScopes(
+    scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ): RendererScope[];
 
-    extensionContext.subscriptions.push(
+  constructor(
+    scopeType: ScopeType,
+    private visualizationType: VisualizationType,
+    private colorConfigKey: ColorConfigKey,
+  ) {
+    this.visualizerConfig = getVisualizerConfig(visualizationType, scopeType);
+
+    this.disposables.push(
       vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
         if (affectsConfiguration("cursorless.scopeVisualizer.colors")) {
           this.computeColors();
         }
       }),
     );
+
+    this.computeColors();
   }
 
   private computeColors() {
-    const config = vscode.workspace
+    const colorConfig = vscode.workspace
       .getConfiguration("cursorless.scopeVisualizer")
       .get<ScopeVisualizerColorConfig>("colors")!;
 
-    const domainColors = getColorsFromConfig(config, "domain");
-    const contentColors = getColorsFromConfig(config, "content");
-    const removalColors = getColorsFromConfig(config, "removal");
-
-    this.domainRenderer?.dispose();
-    this.domainRenderer = new VscodeFancyRangeHighlighter(domainColors);
-    this.contentRenderer?.dispose();
-    this.contentRenderer = new VscodeFancyRangeHighlighter(contentColors);
-    this.removalRenderer?.dispose();
-    this.removalRenderer = new VscodeFancyRangeHighlighter(removalColors);
-
-    this.domainContentOverlappingRenderer?.dispose();
-    this.domainContentOverlappingRenderer = new VscodeFancyRangeHighlighter(
-      blendRangeTypeColors(domainColors, contentColors),
+    this.renderer = new VscodeScopeRenderer(
+      getColorsFromConfig(colorConfig, "domain"),
+      getColorsFromConfig(colorConfig, this.colorConfigKey),
     );
-    this.domainRemovalOverlappingRenderer?.dispose();
-    this.domainRemovalOverlappingRenderer = new VscodeFancyRangeHighlighter(
-      blendRangeTypeColors(domainColors, removalColors),
-    );
-
-    this.drawScopes();
   }
 
-  private editorScopeRanges: VscodeTextEditorScopeRanges[] = [];
-
-  async setScopeVisualizationRanges(
+  async setScopes(
     editor: VscodeTextEditorImpl,
     scopeRanges: ScopeRanges[] | undefined,
     iterationScopeRanges: IterationScopeRanges[] | undefined,
   ) {
-    this.editorScopeRanges = editorScopeRanges;
-    this.drawScopes();
+    this.renderer.setScopes(
+      editor,
+      this.getRendererScopes(scopeRanges, iterationScopeRanges),
+    );
   }
 
-  private drawScopes() {
-    this.editorScopeRanges.forEach(({ editor, scopeRanges }) => {
-      this.setScopeVisualizationRangesForEditor(editor, scopeRanges);
-    });
+  dispose() {
+    this.disposables.forEach((disposable) => disposable.dispose());
+    this.renderer.dispose();
+  }
+}
+
+class VscodeScopeContentVisualizer extends VscodeScopeVisualizer {
+  constructor(scopeType: ScopeType, visualizationType: VisualizationType) {
+    super(scopeType, visualizationType, "content" as const);
   }
 
-  async setScopeVisualizationRangesForEditor(
-    editor: VscodeTextEditorImpl,
-    scopeRanges: ScopeRanges[],
-  ): Promise<void> {
-    const domainRanges: GeneralizedRange[] = [];
-    const contentRanges: GeneralizedRange[] = [];
-    const removalRanges: GeneralizedRange[] = [];
-    const domainEqualsContentRanges: GeneralizedRange[] = [];
-    const domainEqualsRemovalRanges: GeneralizedRange[] = [];
+  protected getRendererScopes(
+    scopeRanges: ScopeRanges[] | undefined,
+    _iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ) {
+    return scopeRanges!.map(({ domain, targets }) => ({
+      domain,
+      nestedRanges: targets.map(({ contentRange }) => contentRange),
+    }));
+  }
+}
 
-    for (const scopeRange of scopeRanges) {
-      if (
-        scopeRange.contentRanges?.length === 1 &&
-        (scopeRange.removalRanges?.length ?? 0) === 0 &&
-        isGeneralizedRangeEqual(scopeRange.contentRanges[0], scopeRange.domain)
-      ) {
-        domainEqualsContentRanges.push(scopeRange.domain);
-        continue;
-      }
+class VscodeScopeRemovalVisualizer extends VscodeScopeVisualizer {
+  constructor(scopeType: ScopeType, visualizationType: VisualizationType) {
+    super(scopeType, visualizationType, "removal" as const);
+  }
 
-      if (
-        (scopeRange.contentRanges?.length ?? 0) === 0 &&
-        scopeRange.removalRanges?.length === 1 &&
-        isGeneralizedRangeEqual(scopeRange.removalRanges[0], scopeRange.domain)
-      ) {
-        domainEqualsRemovalRanges.push(scopeRange.domain);
-        continue;
-      }
+  protected getRendererScopes(
+    scopeRanges: ScopeRanges[] | undefined,
+    _iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ) {
+    return scopeRanges!.map(({ domain, targets }) => ({
+      domain,
+      nestedRanges: targets.map(({ removalRange }) => removalRange),
+    }));
+  }
+}
 
-      domainRanges.push(scopeRange.domain);
-      scopeRange.contentRanges?.forEach((range) => contentRanges.push(range));
-      scopeRange.removalRanges?.forEach((range) => removalRanges.push(range));
-    }
+class VscodeScopeIterationVisualizer extends VscodeScopeVisualizer {
+  constructor(scopeType: ScopeType, visualizationType: VisualizationType) {
+    super(scopeType, visualizationType, "iteration" as const);
+  }
 
-    this.domainRenderer.setRanges(editor, domainRanges);
-    this.contentRenderer.setRanges(editor, contentRanges);
-    this.removalRenderer.setRanges(editor, removalRanges);
-    this.domainContentOverlappingRenderer.setRanges(
-      editor,
-      domainEqualsContentRanges,
-    );
-    this.domainRemovalOverlappingRenderer.setRanges(
-      editor,
-      domainEqualsRemovalRanges,
-    );
+  protected getRendererScopes(
+    _scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ) {
+    return iterationScopeRanges!.map(({ domain, ranges }) => ({
+      domain,
+      nestedRanges: ranges.map(({ range }) => range),
+    }));
+  }
+}
+
+class VscodeScopeEveryVisualizer extends VscodeScopeVisualizer {
+  constructor(scopeType: ScopeType, visualizationType: VisualizationType) {
+    super(scopeType, visualizationType, "content" as const);
+  }
+
+  protected getRendererScopes(
+    _scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ) {
+    return iterationScopeRanges!.map(({ domain, ranges }) => ({
+      domain,
+      nestedRanges: ranges.flatMap(({ targets }) =>
+        targets!.map(({ contentRange }) => contentRange),
+      ),
+    }));
+  }
+}
+
+export function createVscodeScopeVisualizer(
+  scopeType: ScopeType,
+  visualizationType: VisualizationType,
+) {
+  switch (visualizationType) {
+    case "content":
+      return new VscodeScopeContentVisualizer(scopeType, visualizationType);
+    case "removal":
+      return new VscodeScopeRemovalVisualizer(scopeType, visualizationType);
+    case "iteration":
+      return new VscodeScopeIterationVisualizer(scopeType, visualizationType);
+    case "every":
+      return new VscodeScopeEveryVisualizer(scopeType, visualizationType);
   }
 }

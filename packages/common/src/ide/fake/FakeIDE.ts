@@ -13,11 +13,13 @@ import {
 import type {
   Disposable,
   IDE,
-  IterationScopeRanges,
   RunMode,
-  ScopeRanges,
   WorkspaceFolder,
 } from "../types/ide.types";
+import type {
+  IterationScopeRanges,
+  ScopeRanges,
+} from "../types/IdeScopeVisualizer";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";

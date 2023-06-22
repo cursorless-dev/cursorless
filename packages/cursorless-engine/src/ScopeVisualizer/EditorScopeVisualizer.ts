@@ -1,6 +1,6 @@
 import {
   Disposable,
-  IdeScopeVisualizer,
+  ScopeRenderer,
   IterationScopeRanges,
   Range,
   TextEditor,
@@ -23,7 +23,7 @@ export class EditorScopeVisualizer implements Disposable {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     private modifierStageFactory: ModifierStageFactory,
-    private ideVisualizer: IdeScopeVisualizer,
+    private renderer: ScopeRenderer,
     private editor: TextEditor,
   ) {
     this.disposables.push(
@@ -44,18 +44,21 @@ export class EditorScopeVisualizer implements Disposable {
     } = this.editor;
 
     const scopeHandler = checkNonNull(
-      this.scopeHandlerFactory.create(this.config.scopeType, languageId),
+      this.scopeHandlerFactory.create(
+        this.renderer.visualizerConfig.scopeType,
+        languageId,
+      ),
       () => new UnsupportedScopeTypeVisualizationError(languageId),
     );
 
     const iterationRange = getIterationRange(this.editor, scopeHandler);
 
-    this.ideVisualizer.setScopes(
+    this.renderer.setScopes(
       this.editor,
-      this.ideVisualizer.config.includeScopes
+      this.renderer.visualizerConfig.includeScopes
         ? getScopes(this.editor, scopeHandler, iterationRange)
         : undefined,
-      this.ideVisualizer.config.includeIterationScopes
+      this.renderer.visualizerConfig.includeIterationScopes
         ? this.getIterationScopes(scopeHandler, iterationRange)
         : undefined,
     );
@@ -69,7 +72,8 @@ export class EditorScopeVisualizer implements Disposable {
     const {
       document: { languageId },
     } = editor;
-    const { scopeType, includeIterationNestedTargets } = this.config;
+    const { scopeType, includeIterationNestedTargets } =
+      this.renderer.visualizerConfig;
 
     const iterationScopeHandler = checkNonNull(
       this.scopeHandlerFactory.create(

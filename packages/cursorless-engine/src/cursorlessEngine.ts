@@ -16,7 +16,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
-import { ScopeVisualizer } from "./ScopeVisualizer";
+import { ScopeVisualizerImpl } from "./ScopeVisualizer";
 import { CursorlessEngine } from "./CursorlessEngineApi";
 
 export function createCursorlessEngine(
@@ -79,7 +79,7 @@ export function createCursorlessEngine(
         );
       },
     },
-    scopeVisualizer: new ScopeVisualizer(
+    scopeVisualizer: new ScopeVisualizerImpl(
       scopeHandlerFactory,
       new ModifierStageFactoryImpl(
         languageDefinitions,
