@@ -20,25 +20,16 @@ export function getIterationScope(
 
   // Iteration is necessary in case of nested strings
   while (surroundingTarget != null) {
-    const surroundingStringTarget = getStringSurroundingPair(
-      languageDefinitions,
-      surroundingTarget,
-    );
-
-    // We don't look for items inside strings.
     if (
-      // Not in a string
-      surroundingStringTarget == null ||
-      // In a non-string surrounding pair that is inside a surrounding string. This is fine.
-      surroundingStringTarget.contentRange.start.isBefore(
-        surroundingTarget.contentRange.start,
+      useInteriorOfSurroundingTarget(
+        languageDefinitions,
+        target,
+        surroundingTarget,
       )
     ) {
       return {
         range: surroundingTarget.getInteriorStrict()[0].contentRange,
-        boundary: surroundingTarget
-          .getBoundaryStrict()
-          .map((t) => t.contentRange) as [Range, Range],
+        boundary: getBoundary(surroundingTarget),
       };
     }
 
@@ -53,6 +44,55 @@ export function getIterationScope(
   return {
     range: fitRangeToLineContent(target.editor, target.contentRange),
   };
+}
+
+function useInteriorOfSurroundingTarget(
+  languageDefinitions: LanguageDefinitions,
+  target: Target,
+  surroundingTarget: SurroundingPairTarget,
+): boolean {
+  const { contentRange } = target;
+
+  if (contentRange.isEmpty) {
+    // const [left, right] = getBoundary(surroundingTarget);
+    // const line = target.editor.document.lineAt(contentRange.start);
+    // TODO: if content range is adjacent to boundary and nothing else. Return false
+  } else {
+    // Content range is equal to surrounding range
+    if (contentRange.isRangeEqual(surroundingTarget.contentRange)) {
+      return false;
+    }
+
+    // Content range is equal to one of the boundaries of the surrounding range
+    const [left, right] = getBoundary(surroundingTarget);
+    if (contentRange.isRangeEqual(left) || contentRange.isRangeEqual(right)) {
+      return false;
+    }
+  }
+
+  // We don't look for items inside strings.
+  // A non-string surrounding pair that is inside a surrounding string is fine.
+  const surroundingStringTarget = getStringSurroundingPair(
+    languageDefinitions,
+    surroundingTarget,
+  );
+  if (
+    surroundingStringTarget != null &&
+    surroundingTarget.contentRange.start.isBeforeOrEqual(
+      surroundingStringTarget.contentRange.start,
+    )
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function getBoundary(surroundingTarget: SurroundingPairTarget): [Range, Range] {
+  return surroundingTarget.getBoundaryStrict().map((t) => t.contentRange) as [
+    Range,
+    Range,
+  ];
 }
 
 function getParentSurroundingPair(
