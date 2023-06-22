@@ -5,7 +5,6 @@ import {
 } from "@cursorless/common";
 import {
   CommandApi,
-  ScopeVisualizer,
   TestCaseRecorder,
   showCheatsheet,
   updateDefaults,
@@ -21,7 +20,7 @@ export function registerCommands(
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
   testCaseRecorder: TestCaseRecorder,
-  scopeVisualizer: ScopeVisualizer,
+  scopeVisualizer: VscodeScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {

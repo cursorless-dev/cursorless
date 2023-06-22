@@ -1,4 +1,10 @@
-import { Command, HatTokenMap, IDE, ScopeType } from "@cursorless/common";
+import {
+  Command,
+  HatTokenMap,
+  IDE,
+  IdeScopeVisualizer,
+  ScopeType,
+} from "@cursorless/common";
 import { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { TestCaseRecorder } from "./testCaseRecorder/TestCaseRecorder";
@@ -29,7 +35,7 @@ export interface CommandApi {
 }
 
 export interface ScopeVisualizer {
-  start(config: ScopeVisualizerConfig): void;
+  start(ideScopeVisualizer: IdeScopeVisualizer): void;
   stop(): void;
 }
 

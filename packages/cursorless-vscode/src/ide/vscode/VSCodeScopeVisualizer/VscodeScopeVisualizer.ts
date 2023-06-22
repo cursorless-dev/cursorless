@@ -5,18 +5,18 @@ import {
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { VscodeScopeVisualizerRenderer } from "./VscodeScopeVisualizerRenderer";
+import { VscodeFancyRangeHighlighter } from "./VscodeFancyRangeHighlighter";
 import { isGeneralizedRangeEqual } from "./isGeneralizedRangeEqual";
 import { blendRangeTypeColors } from "./blendRangeTypeColors";
 import { getColorsFromConfig } from "./getColorsFromConfig";
 import { ScopeVisualizerColorConfig } from "./ScopeVisualizerColorConfig";
 
 export class VscodeScopeVisualizer {
-  private domainRenderer!: VscodeScopeVisualizerRenderer;
-  private contentRenderer!: VscodeScopeVisualizerRenderer;
-  private removalRenderer!: VscodeScopeVisualizerRenderer;
-  private domainContentOverlappingRenderer!: VscodeScopeVisualizerRenderer;
-  private domainRemovalOverlappingRenderer!: VscodeScopeVisualizerRenderer;
+  private domainRenderer!: VscodeFancyRangeHighlighter;
+  private contentRenderer!: VscodeFancyRangeHighlighter;
+  private removalRenderer!: VscodeFancyRangeHighlighter;
+  private domainContentOverlappingRenderer!: VscodeFancyRangeHighlighter;
+  private domainRemovalOverlappingRenderer!: VscodeFancyRangeHighlighter;
 
   constructor(extensionContext: vscode.ExtensionContext) {
     this.computeColors();
@@ -40,18 +40,18 @@ export class VscodeScopeVisualizer {
     const removalColors = getColorsFromConfig(config, "removal");
 
     this.domainRenderer?.dispose();
-    this.domainRenderer = new VscodeScopeVisualizerRenderer(domainColors);
+    this.domainRenderer = new VscodeFancyRangeHighlighter(domainColors);
     this.contentRenderer?.dispose();
-    this.contentRenderer = new VscodeScopeVisualizerRenderer(contentColors);
+    this.contentRenderer = new VscodeFancyRangeHighlighter(contentColors);
     this.removalRenderer?.dispose();
-    this.removalRenderer = new VscodeScopeVisualizerRenderer(removalColors);
+    this.removalRenderer = new VscodeFancyRangeHighlighter(removalColors);
 
     this.domainContentOverlappingRenderer?.dispose();
-    this.domainContentOverlappingRenderer = new VscodeScopeVisualizerRenderer(
+    this.domainContentOverlappingRenderer = new VscodeFancyRangeHighlighter(
       blendRangeTypeColors(domainColors, contentColors),
     );
     this.domainRemovalOverlappingRenderer?.dispose();
-    this.domainRemovalOverlappingRenderer = new VscodeScopeVisualizerRenderer(
+    this.domainRemovalOverlappingRenderer = new VscodeFancyRangeHighlighter(
       blendRangeTypeColors(domainColors, removalColors),
     );
 

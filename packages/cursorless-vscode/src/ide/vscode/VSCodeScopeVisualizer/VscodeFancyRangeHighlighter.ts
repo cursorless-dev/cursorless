@@ -31,7 +31,7 @@ import { getDifferentiatedRanges } from "./getDecorationRanges/getDifferentiated
 /**
  * Manages VSCode decoration types for a highlight or flash style.
  */
-export class VscodeScopeVisualizerRenderer {
+export class VscodeFancyRangeHighlighter {
   private decorator: Decorator;
 
   constructor(colors: RangeTypeColors) {

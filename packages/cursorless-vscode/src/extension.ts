@@ -4,10 +4,13 @@ import {
   isTesting,
   NormalizedIDE,
   Range,
+  ScopeType,
   TextDocument,
 } from "@cursorless/common";
 import {
   createCursorlessEngine,
+  ScopeVisualizer,
+  ScopeVisualizerConfig,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -26,6 +29,7 @@ import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { StatusBarItem } from "./StatusBarItem";
+import { VscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -40,7 +44,8 @@ export async function activate(
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
-  const { vscodeIDE, hats } = await createVscodeIde(context);
+  const { vscodeIDE, hats, vscodeScopeVisualizerFactory } =
+    await createVscodeIde(context);
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
@@ -63,7 +68,7 @@ export async function activate(
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
-    scopeVisualizer,
+    scopeVisualizer: engineScopeVisualizer,
     snippets,
     injectIde,
     runIntegrationTests,
@@ -72,6 +77,11 @@ export async function activate(
     normalizedIde ?? vscodeIDE,
     hats,
     commandServerApi,
+  );
+
+  const scopeVisualizer = new ScopeVisualizerImpl(
+    vscodeScopeVisualizerFactory,
+    engineScopeVisualizer,
   );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
@@ -106,6 +116,59 @@ export async function activate(
   };
 }
 
+type VisualizationType = "content" | "removal" | "iteration" | "every";
+
+type VscodeScopeVisualizerFactory = (
+  scopeType: ScopeType,
+  visualizationType: VisualizationType,
+) => VscodeScopeVisualizer;
+
+class ScopeVisualizerImpl {
+  private scopeVisualizer: VscodeScopeVisualizer | undefined;
+
+  constructor(
+    private readonly vscodeScopeVisualizerFactory: VscodeScopeVisualizerFactory,
+    private engineScopeVisualizer: ScopeVisualizer,
+  ) {}
+
+  start(scopeType: ScopeType, visualizationType: VisualizationType) {
+    this.stop();
+    this.scopeVisualizer = this.vscodeScopeVisualizerFactory(
+      scopeType,
+      visualizationType,
+    );
+    let config: ScopeVisualizerConfig;
+    switch (visualizationType) {
+      case "content":
+      case "removal":
+        config = {
+          scopeType,
+          includeScopes: true,
+          includeIterationScopes: false,
+          includeIterationNestedTargets: false,
+        };
+        break;
+
+      case "iteration":
+      case "every":
+        config = {
+          scopeType,
+          includeScopes: false,
+          includeIterationScopes: true,
+          includeIterationNestedTargets: visualizationType === "every",
+        };
+    }
+
+    this.engineScopeVisualizer.start(this.scopeVisualizer);
+  }
+
+  stop() {
+    this.engineScopeVisualizer.stop();
+    this.scopeVisualizer?.dispose();
+    this.scopeVisualizer = undefined;
+  }
+}
+
 async function createVscodeIde(context: vscode.ExtensionContext) {
   const vscodeIDE = new VscodeIDE(context);
 
@@ -118,7 +181,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats };
+  return { vscodeIDE, hats, vscodeScopeVisualizerFactory };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

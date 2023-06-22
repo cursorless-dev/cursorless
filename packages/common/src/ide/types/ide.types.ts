@@ -244,6 +244,14 @@ export interface IterationScopeRanges {
   }[];
 }
 
+export interface IdeScopeVisualizer {
+  setScopes(
+    editor: TextEditor,
+    scopeRanges: ScopeRanges[] | undefined,
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
+  ): Promise<void>;
+}
+
 export interface WorkspaceFolder {
   uri: URI;
   name: string;

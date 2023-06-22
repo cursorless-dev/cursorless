@@ -1,10 +1,10 @@
 import {
   Disposable,
+  IdeScopeVisualizer,
   IterationScopeRanges,
   Range,
   TextEditor,
 } from "@cursorless/common";
-import { ScopeVisualizerConfig } from "../CursorlessEngineApi";
 import { Debouncer } from "../core/Debouncer";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
@@ -23,8 +23,8 @@ export class EditorScopeVisualizer implements Disposable {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
     private modifierStageFactory: ModifierStageFactory,
+    private ideVisualizer: IdeScopeVisualizer,
     private editor: TextEditor,
-    private config: ScopeVisualizerConfig,
   ) {
     this.disposables.push(
       // An event that is emitted when a text document is changed. This usually
@@ -50,12 +50,12 @@ export class EditorScopeVisualizer implements Disposable {
 
     const iterationRange = getIterationRange(this.editor, scopeHandler);
 
-    ide().setScopeVisualizationRanges(
+    this.ideVisualizer.setScopes(
       this.editor,
-      this.config.includeScopes
+      this.ideVisualizer.config.includeScopes
         ? getScopes(this.editor, scopeHandler, iterationRange)
         : undefined,
-      this.config.includeIterationScopes
+      this.ideVisualizer.config.includeIterationScopes
         ? this.getIterationScopes(scopeHandler, iterationRange)
         : undefined,
     );
