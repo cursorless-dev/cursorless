@@ -1,9 +1,4 @@
-import {
-  Command,
-  HatTokenMap,
-  IDE,
-  ScopeRenderer,
-} from "@cursorless/common";
+import { Command, HatTokenMap, IDE, ScopeRenderer } from "@cursorless/common";
 import { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { TestCaseRecorder } from "./testCaseRecorder/TestCaseRecorder";

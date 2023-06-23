@@ -1,6 +1,5 @@
 import { ScopeType } from "@cursorless/common";
 
-
 export interface ScopeVisualizerCommandApi {
   start(scopeType: ScopeType, visualizationType: VisualizationType): void;
   stop(): void;

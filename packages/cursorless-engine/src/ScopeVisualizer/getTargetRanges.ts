@@ -1,7 +1,4 @@
-import {
-  toCharacterRange,
-  toLineRange
-} from "@cursorless/common";
+import { toCharacterRange, toLineRange } from "@cursorless/common";
 import { Target } from "../typings/target.types";
 
 export function getTargetRanges(target: Target) {

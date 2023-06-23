@@ -1,7 +1,4 @@
-import {
-  IterationScopeRanges,
-  ScopeRanges
-} from "@cursorless/common";
+import { IterationScopeRanges, ScopeRanges } from "@cursorless/common";
 import { getColorsFromConfig } from "./ScopeVisualizerColorConfig";
 import { ScopeVisualizerColorConfig } from "./ScopeVisualizerColorConfig";
 import { weakenRangeTypeColors } from "./weakenRangeTypeColors";
@@ -21,11 +18,12 @@ export class VscodeScopeEveryVisualizer extends VscodeScopeVisualizer {
 
   protected getRendererScopes(
     _scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined
+    iterationScopeRanges: IterationScopeRanges[] | undefined,
   ) {
     return iterationScopeRanges!.map(({ domain, ranges }) => ({
       domain,
-      nestedRanges: ranges.flatMap(({ targets }) => targets!.map(({ contentRange }) => contentRange)
+      nestedRanges: ranges.flatMap(({ targets }) =>
+        targets!.map(({ contentRange }) => contentRange),
       ),
     }));
   }

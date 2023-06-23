@@ -3,13 +3,10 @@ import { GeneralizedRange } from "../../types/GeneralizedRange";
 import { TextEditor } from "../../types/TextEditor";
 import PassthroughIDEBase from "../PassthroughIDEBase";
 import { FlashDescriptor } from "../types/FlashDescriptor";
-import type {
-  HighlightId,
-  IDE,
-} from "../types/ide.types";
+import type { HighlightId, IDE } from "../types/ide.types";
 import type {
   IterationScopeRanges,
-  ScopeRanges
+  ScopeRanges,
 } from "../types/IdeScopeVisualizer";
 import SpyMessages, { Message } from "./SpyMessages";
 

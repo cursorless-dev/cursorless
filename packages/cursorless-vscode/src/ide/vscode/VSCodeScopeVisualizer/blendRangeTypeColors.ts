@@ -3,33 +3,34 @@ import { RangeTypeColors } from "./RangeTypeColors";
 
 export function blendRangeTypeColors(
   baseColors: RangeTypeColors,
-  topColors: RangeTypeColors): RangeTypeColors {
+  topColors: RangeTypeColors,
+): RangeTypeColors {
   return {
     background: {
       light: blendColors(
         baseColors.background.light,
-        topColors.background.light
+        topColors.background.light,
       ),
       dark: blendColors(baseColors.background.dark, topColors.background.dark),
     },
     borderSolid: {
       light: blendColors(
         baseColors.borderSolid.light,
-        topColors.borderSolid.light
+        topColors.borderSolid.light,
       ),
       dark: blendColors(
         baseColors.borderSolid.dark,
-        topColors.borderSolid.dark
+        topColors.borderSolid.dark,
       ),
     },
     borderPorous: {
       light: blendColors(
         baseColors.borderPorous.light,
-        topColors.borderPorous.light
+        topColors.borderPorous.light,
       ),
       dark: blendColors(
         baseColors.borderPorous.dark,
-        topColors.borderPorous.dark
+        topColors.borderPorous.dark,
       ),
     },
   };
@@ -42,7 +43,7 @@ function blendColors(base: string, top: string): string {
   function interpolateChannel(channel: "r" | "g" | "b"): number {
     return Math.round(
       (topRgba[channel] * topRgba.a) / blendedAlpha +
-      (baseRgba[channel] * baseRgba.a * (1 - topRgba.a)) / blendedAlpha
+        (baseRgba[channel] * baseRgba.a * (1 - topRgba.a)) / blendedAlpha,
     );
   }
 

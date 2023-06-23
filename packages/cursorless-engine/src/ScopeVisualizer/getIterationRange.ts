@@ -13,15 +13,17 @@ import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHan
  */
 export function getIterationRange(
   editor: TextEditor,
-  scopeHandler: ScopeHandler): Range {
-  let visibleRange = editor.visibleRanges.reduce((acc, range) => acc.union(range)
+  scopeHandler: ScopeHandler,
+): Range {
+  let visibleRange = editor.visibleRanges.reduce((acc, range) =>
+    acc.union(range),
   );
 
   visibleRange = editor.document.range.intersection(
     visibleRange.with(
       visibleRange.start.translate(-10),
-      visibleRange.end.translate(10)
-    )
+      visibleRange.end.translate(10),
+    ),
   )!;
 
   // Expand to largest ancestor of start of visible range FIXME: It's
@@ -29,22 +31,24 @@ export function getIterationRange(
   // in which case we'll miss a scope if its removal range is visible but
   // its domain range is not.  I don't think we care that much; they can
   // scroll, and we have the extra 10 lines on either side which might help.
-  const expandedStart = last(
-    Array.from(
-      scopeHandler.generateScopes(editor, visibleRange.start, "forward", {
-        containment: "required",
-      })
-    )
-  )?.domain ?? visibleRange;
+  const expandedStart =
+    last(
+      Array.from(
+        scopeHandler.generateScopes(editor, visibleRange.start, "forward", {
+          containment: "required",
+        }),
+      ),
+    )?.domain ?? visibleRange;
 
   // Expand to largest ancestor of end of visible range
-  const expandedEnd = last(
-    Array.from(
-      scopeHandler.generateScopes(editor, visibleRange.end, "forward", {
-        containment: "required",
-      })
-    )
-  )?.domain ?? visibleRange;
+  const expandedEnd =
+    last(
+      Array.from(
+        scopeHandler.generateScopes(editor, visibleRange.end, "forward", {
+          containment: "required",
+        }),
+      ),
+    )?.domain ?? visibleRange;
 
   return expandedStart.union(expandedEnd);
 }

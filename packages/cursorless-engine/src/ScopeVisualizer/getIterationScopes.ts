@@ -2,7 +2,7 @@ import {
   IterationScopeRanges,
   Range,
   TextEditor,
-  toCharacterRange
+  toCharacterRange,
 } from "@cursorless/common";
 import { map } from "itertools";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
@@ -14,7 +14,8 @@ export function getIterationScopes(
   iterationScopeHandler: ScopeHandler,
   everyStage: ModifierStage,
   iterationRange: Range,
-  includeIterationNestedTargets: boolean): IterationScopeRanges[] {
+  includeIterationNestedTargets: boolean,
+): IterationScopeRanges[] {
   return map(
     iterationScopeHandler.generateScopes(
       editor,
@@ -23,7 +24,7 @@ export function getIterationScopes(
       {
         includeDescendantScopes: true,
         distalPosition: iterationRange.end,
-      }
+      },
     ),
     (scope) => {
       return {
@@ -35,6 +36,6 @@ export function getIterationScopes(
             : undefined,
         })),
       };
-    }
+    },
   );
 }

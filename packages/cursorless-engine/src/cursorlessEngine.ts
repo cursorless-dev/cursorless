@@ -1,9 +1,4 @@
-import {
-  Command,
-  CommandServerApi,
-  Hats,
-  IDE,
-} from "@cursorless/common";
+import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
