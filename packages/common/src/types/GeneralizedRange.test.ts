@@ -1,4 +1,3 @@
-import { Position, Range, TextEditor } from "./types";
 import {
   CharacterRange,
   GeneralizedRange,
@@ -9,23 +8,10 @@ import {
   toCharacterRange,
   toLineRange,
 } from "./GeneralizedRange";
+import { Position } from "./Position";
+import { Range } from "./Range";
 
 describe("GeneralizedRange", () => {
-  const editor: TextEditor = {
-    document: {
-      uri: "",
-      fileName: "",
-      isUntitled: false,
-      getText: () => "",
-      lineCount: 0,
-      offsetAt: (pos: Position) => 0,
-      positionAt: (offset: number) => new Position(0, 0),
-      save: () => Promise.resolve(true),
-      eol: 0,
-    },
-    selection: new Range(new Position(0, 0), new Position(0, 0)),
-  };
-
   describe("toLineRange", () => {
     it("converts a range to a line range", () => {
       const range = new Range(new Position(1, 0), new Position(3, 5));
