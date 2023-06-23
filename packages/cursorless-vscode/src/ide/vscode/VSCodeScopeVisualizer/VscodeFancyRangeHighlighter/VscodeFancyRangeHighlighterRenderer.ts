@@ -11,13 +11,13 @@ import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
 import {
   BorderStyle,
   DecorationStyle,
-  StyleParameters,
-  StyleParametersRanges,
+  DifferentiatedStyle,
+  DifferentiatedStyledRangeList,
 } from "./getDecorationRanges.types";
 
 export class VscodeFancyRangeHighlighterRenderer {
   private decorationTypes: CompositeKeyDefaultMap<
-    StyleParameters<DecorationStyle>,
+    DifferentiatedStyle<DecorationStyle>,
     TextEditorDecorationType
   >;
 
@@ -40,17 +40,17 @@ export class VscodeFancyRangeHighlighterRenderer {
 
   setRanges(
     editor: VscodeTextEditorImpl,
-    decoratedRanges: StyleParametersRanges<DecorationStyle>[],
+    decoratedRanges: DifferentiatedStyledRangeList<DecorationStyle>[],
   ) {
     const untouchedDecorationTypes = new Set(this.decorationTypes.values());
 
     decoratedRanges.sort(
       (a, b) =>
-        a.styleParameters.differentiationIndex -
-        b.styleParameters.differentiationIndex,
+        a.differentiatedStyles.differentiationIndex -
+        b.differentiatedStyles.differentiationIndex,
     );
 
-    decoratedRanges.forEach(({ styleParameters, ranges }) => {
+    decoratedRanges.forEach(({ differentiatedStyles: styleParameters, ranges }) => {
       const decorationType = this.decorationTypes.get(styleParameters);
 
       editor.vscodeEditor.setDecorations(

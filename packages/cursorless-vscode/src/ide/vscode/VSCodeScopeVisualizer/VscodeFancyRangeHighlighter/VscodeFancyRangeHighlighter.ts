@@ -6,7 +6,10 @@ import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlight
 import { generateDecorationsForCharacterRange } from "./generateDecorationsForCharacterRange";
 import { generateDecorationsForLineRange } from "./generateDecorationsForLineRange";
 import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
-import { DecorationStyle } from "./getDecorationRanges.types";
+import {
+  DecorationStyle,
+  DifferentiatedStyledRange,
+} from "./getDecorationRanges.types";
 import { groupDifferentiatedRanges } from "./groupDifferentiatedRanges";
 
 /**
@@ -20,7 +23,9 @@ export class VscodeFancyRangeHighlighter {
   }
 
   setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {
-    const decoratedRanges = flatmap(
+    const decoratedRanges: Iterable<
+      DifferentiatedStyledRange<DecorationStyle>
+    > = flatmap(
       generateDifferentiatedRanges(ranges),
 
       function* ({ range, differentiationIndex }) {
@@ -35,8 +40,7 @@ export class VscodeFancyRangeHighlighter {
         for (const { range, style } of iterable) {
           yield {
             range,
-            style,
-            differentiationIndex,
+            differentiatedStyle: { style, differentiationIndex },
           };
         }
       },

@@ -1,32 +1,27 @@
 import { CompositeKeyDefaultMap } from "@cursorless/common";
 import {
-  StyleParametersRanges,
-  StyleParameters,
+  DifferentiatedStyledRangeList,
+  DifferentiatedStyle,
   DifferentiatedStyledRange,
 } from "./getDecorationRanges.types";
 
 export function groupDifferentiatedRanges<T>(
   decoratedRanges: Iterable<DifferentiatedStyledRange<T>>,
   getKeyList: (style: T) => unknown[],
-): StyleParametersRanges<T>[] {
+): DifferentiatedStyledRangeList<T>[] {
   const decorations: CompositeKeyDefaultMap<
-    StyleParameters<T>,
-    StyleParametersRanges<T>
+    DifferentiatedStyle<T>,
+    DifferentiatedStyledRangeList<T>
   > = new CompositeKeyDefaultMap(
-    (styleParameters) => ({ styleParameters, ranges: [] }),
+    (differentiatedStyles) => ({ differentiatedStyles, ranges: [] }),
     ({ style, differentiationIndex }) => [
       ...getKeyList(style),
       differentiationIndex,
     ],
   );
 
-  for (const { range, style, differentiationIndex } of decoratedRanges) {
-    decorations
-      .get({
-        style,
-        differentiationIndex,
-      })
-      .ranges.push(range);
+  for (const { range, differentiatedStyle } of decoratedRanges) {
+    decorations.get(differentiatedStyle).ranges.push(range);
   }
 
   return Array.from(decorations.values());

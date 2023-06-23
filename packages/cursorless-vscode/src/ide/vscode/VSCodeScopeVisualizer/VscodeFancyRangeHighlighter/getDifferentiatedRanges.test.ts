@@ -1,12 +1,12 @@
 import assert = require("assert");
-import { StyleParameters } from "./getDecorationRanges.types";
+import { DifferentiatedStyle } from "./getDecorationRanges.types";
 import { Position, Range } from "@cursorless/common";
 import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
 
 type Offsets = [number, number];
 
 interface ExpectedResult {
-  styleParameters: StyleParameters<number>;
+  styleParameters: DifferentiatedStyle<number>;
   ranges: Offsets[];
 }
 

@@ -20,26 +20,25 @@ export interface DecorationStyle {
 }
 
 export interface StyledRange<T> {
-  range: Range;
   style: T;
+  range: Range;
 }
 
 export type DecoratedRange = StyledRange<DecorationStyle>;
 
-export interface StyleParameters<T> {
+export interface DifferentiatedStyle<T> {
   style: T;
   differentiationIndex: number;
-}
-
-export interface StyleParametersRanges<T> {
-  styleParameters: StyleParameters<T>;
-  ranges: Range[];
 }
 
 export interface DifferentiatedStyledRange<T> {
+  differentiatedStyle: DifferentiatedStyle<T>;
   range: Range;
-  style: T;
-  differentiationIndex: number;
+}
+
+export interface DifferentiatedStyledRangeList<T> {
+  differentiatedStyles: DifferentiatedStyle<T>;
+  ranges: Range[];
 }
 
 export interface DifferentiatedRange {
