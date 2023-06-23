@@ -86,7 +86,55 @@ Targets are represented by `T` with a possible digit.
 
 ## Examples with walkthroughs
 
-TODO
+### TO BE CATEGORIZED
+
+### Simple line operations
+
+Cursorless might feel token oriented at the beginning, but line operations and feel very natural, especially with use of `"before"` and `"after"`.
+
+#### Bringing a copy of a line to another line
+
+Here is a detailed example:
+
+- `"bring row 7 after line"` to bring a copy of [row](README.md#row-number) 7 to after the current line (or after the last selected line if you have a selection).
+  - The following will assume that before the command, nothing was selected and there was only one cursor.
+  - The command is using a [`"row"` mark](README.md#row-number) as a source.
+    `"row"` marks are especially useful for lines far away from your cursor.
+  - The destination has the mark `"line"`, which is more explicitly `"line this"`.
+    The [`"this"` mark](README.md#this) starts the target as the cursor (remember that we are assuming no selections).
+    The [`"line"` modifier](README.md#line) expands the target to the line containing the cursor.
+    The `"after"` converts the line-based target to a line-based destination that is after the target.
+  - Because the destination was an `"after"`, the `"bring"` command also inserts a delimiter that is appropriate for the destination when bringing a copy of the source to the destination.
+
+And some more examples:
+
+- `"bring row 7 to line"`, unlike the previous command, uses `"to"` instead of `"after"` for the destination converter.
+  The command will replace the current line (or line-expanded selection if you had a selection) with the contents of row 7.
+- `"bring line air to line"` will replace the current line with the contents of the line that contains the `"air"` token.
+- `"bring row 7"`.
+  If you have a selection, the selection is replaced with the contents of row 7.
+  If you don't have a selection, the contents of row 7 are inserted at your cursor.
+- `"bring up 2"` is similar to the previous command, but uses the `"down <number>"` and `"up <number>"` [mark type](README.md#up-number--down-number).
+
+Copying a line to an adjacent line has some specialized command support:
+
+- `"clone row 7"` will put a copy of row 7 after the original row 7.
+- `"clone line"` is very common and will move your cursor to the new line.
+- `"clone up line"` puts the copy before the original.
+  - The useful difference from `"clone line"` is that your cursor moves up to the new line so that you are editing the "top" line rather than the "bottom" line.
+  - `"clone up row 7"` only differs from `"clone row 7"` if your cursor is on row 7.
+
+#### Operating on multiple lines
+
+You can operate on multiple lines at a time:
+
+- `"chuck 3 lines row 7"` will delete three lines starting at row 7.
+  - The command uses a [relative scope modifier](README.md#previous--next--ordinal--number) (`"3 lines"`) to expand the target to be three lines (proceeding forward).
+- `"bring 3 lines row 7 to 2 lines row 12"` replaces the two lines starting at row 12 with the three lines starting at row 7.
+  Both destinations and sources can be multiple lines.
+- `"chuck 3 lines air"` will delete three full lines starting at the line that contains the `"air"` token.
+  - This command shows that you should not think of these commands as having a length and a start point; think of them as a mark and zero or more modifiers that expand or shift the target.
+- TODO MAYBE: <number> lines backwards & next & previous & next <number> lines
 
 ## Some reminders for the author about advanced level content
 
