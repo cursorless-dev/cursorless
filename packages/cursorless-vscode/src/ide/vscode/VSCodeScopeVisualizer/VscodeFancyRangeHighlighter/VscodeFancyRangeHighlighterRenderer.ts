@@ -17,7 +17,7 @@ import {
 
 export class VscodeFancyRangeHighlighterRenderer {
   private decorationTypes: CompositeKeyDefaultMap<
-    DifferentiatedStyle<DecorationStyle>,
+    DifferentiatedStyle,
     TextEditorDecorationType
   >;
 
@@ -40,7 +40,7 @@ export class VscodeFancyRangeHighlighterRenderer {
 
   setRanges(
     editor: VscodeTextEditorImpl,
-    decoratedRanges: DifferentiatedStyledRangeList<DecorationStyle>[],
+    decoratedRanges: DifferentiatedStyledRangeList[],
   ) {
     const untouchedDecorationTypes = new Set(this.decorationTypes.values());
 
@@ -50,16 +50,18 @@ export class VscodeFancyRangeHighlighterRenderer {
         b.differentiatedStyles.differentiationIndex,
     );
 
-    decoratedRanges.forEach(({ differentiatedStyles: styleParameters, ranges }) => {
-      const decorationType = this.decorationTypes.get(styleParameters);
+    decoratedRanges.forEach(
+      ({ differentiatedStyles: styleParameters, ranges }) => {
+        const decorationType = this.decorationTypes.get(styleParameters);
 
-      editor.vscodeEditor.setDecorations(
-        decorationType,
-        ranges.map(toVscodeRange),
-      );
+        editor.vscodeEditor.setDecorations(
+          decorationType,
+          ranges.map(toVscodeRange),
+        );
 
-      untouchedDecorationTypes.delete(decorationType);
-    });
+        untouchedDecorationTypes.delete(decorationType);
+      },
+    );
 
     untouchedDecorationTypes.forEach((decorationType) => {
       editor.vscodeEditor.setDecorations(decorationType, []);

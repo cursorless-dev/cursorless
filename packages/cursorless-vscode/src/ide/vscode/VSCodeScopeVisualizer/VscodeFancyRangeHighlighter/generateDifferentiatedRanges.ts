@@ -5,14 +5,14 @@ import {
 } from "@cursorless/common";
 
 import { max } from "lodash";
-import { DifferentiatedRange } from "./getDecorationRanges.types";
+import { DifferentiatedGeneralizedRange } from "./getDecorationRanges.types";
 
 export function* generateDifferentiatedRanges(
   ranges: GeneralizedRange[],
-): Iterable<DifferentiatedRange> {
+): Iterable<DifferentiatedGeneralizedRange> {
   ranges.sort(compareGeneralizedRangesByStart);
 
-  let currentRanges: DifferentiatedRange[] = [];
+  let currentRanges: DifferentiatedGeneralizedRange[] = [];
 
   for (const range of ranges) {
     currentRanges = [
@@ -25,7 +25,7 @@ export function* generateDifferentiatedRanges(
     const differentiatedRange = {
       range,
       differentiationIndex: getDifferentiationIndex(currentRanges, range),
-    } as DifferentiatedRange;
+    } as DifferentiatedGeneralizedRange;
 
     yield differentiatedRange;
 
@@ -34,7 +34,7 @@ export function* generateDifferentiatedRanges(
 }
 
 function getDifferentiationIndex(
-  currentRanges: DifferentiatedRange[],
+  currentRanges: DifferentiatedGeneralizedRange[],
   range: GeneralizedRange,
 ): number {
   const maxContainingDifferentiationIndex = max(

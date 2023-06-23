@@ -6,11 +6,8 @@ import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlight
 import { generateDecorationsForCharacterRange } from "./generateDecorationsForCharacterRange";
 import { generateDecorationsForLineRange } from "./generateDecorationsForLineRange";
 import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
-import {
-  DecorationStyle,
-  DifferentiatedStyledRange,
-} from "./getDecorationRanges.types";
-import { groupDifferentiatedRanges } from "./groupDifferentiatedRanges";
+import { DifferentiatedStyledRange } from "./getDecorationRanges.types";
+import { groupDifferentiatedStyledRanges } from "./groupDifferentiatedStyledRanges";
 
 /**
  * Manages VSCode decoration types for a highlight or flash style.
@@ -23,9 +20,7 @@ export class VscodeFancyRangeHighlighter {
   }
 
   setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {
-    const decoratedRanges: Iterable<
-      DifferentiatedStyledRange<DecorationStyle>
-    > = flatmap(
+    const decoratedRanges: Iterable<DifferentiatedStyledRange> = flatmap(
       generateDifferentiatedRanges(ranges),
 
       function* ({ range, differentiationIndex }) {
@@ -46,23 +41,10 @@ export class VscodeFancyRangeHighlighter {
       },
     );
 
-    this.renderer.setRanges(
-      editor,
-      groupDifferentiatedRanges(decoratedRanges, getStyleKey),
-    );
+    this.renderer.setRanges(editor, groupDifferentiatedStyledRanges(decoratedRanges));
   }
 
   dispose() {
     this.renderer.dispose();
   }
-}
-
-function getStyleKey({
-  top,
-  right,
-  left,
-  bottom,
-  isWholeLine,
-}: DecorationStyle) {
-  return [top, right, left, bottom, isWholeLine ?? false];
 }

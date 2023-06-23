@@ -2,13 +2,13 @@ import { Range } from "@cursorless/common";
 import {
   BorderStyle,
   DecorationStyle,
-  DecoratedRange,
+  StyledRange,
 } from "./getDecorationRanges.types";
 import { flatmap } from "itertools";
 
 export function* handleMultipleLines(
   lineRanges: Range[],
-): Iterable<DecoratedRange> {
+): Iterable<StyledRange> {
   yield* flatmap(generateLineGroupings(lineRanges), handleLine);
 }
 
@@ -71,7 +71,7 @@ function* handleLine({
   previousLine,
   currentLine,
   nextLine,
-}: LineGrouping): Iterable<DecoratedRange> {
+}: LineGrouping): Iterable<StyledRange> {
   const events: Event[] = [
     ...(previousLine == null
       ? []

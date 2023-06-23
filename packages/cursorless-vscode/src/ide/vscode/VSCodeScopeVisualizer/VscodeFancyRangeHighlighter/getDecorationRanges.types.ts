@@ -19,37 +19,37 @@ export interface DecorationStyle {
   isWholeLine?: boolean;
 }
 
-export interface StyledRange<T> {
-  style: T;
-  range: Range;
-}
-
-export type DecoratedRange = StyledRange<DecorationStyle>;
-
-export interface DifferentiatedStyle<T> {
-  style: T;
+export interface DifferentiatedStyle {
+  style: DecorationStyle;
   differentiationIndex: number;
 }
 
-export interface DifferentiatedStyledRange<T> {
-  differentiatedStyle: DifferentiatedStyle<T>;
+export interface StyledRange {
+  style: DecorationStyle;
   range: Range;
 }
 
-export interface DifferentiatedStyledRangeList<T> {
-  differentiatedStyles: DifferentiatedStyle<T>;
+export interface DifferentiatedStyledRange {
+  differentiatedStyle: DifferentiatedStyle;
+  range: Range;
+}
+
+export interface DifferentiatedStyledRangeList {
+  differentiatedStyles: DifferentiatedStyle;
   ranges: Range[];
 }
 
-export interface DifferentiatedRange {
+export interface DifferentiatedGeneralizedRange {
   range: GeneralizedRange;
   differentiationIndex: number;
 }
 
-export interface DifferentiatedCharacterRange extends DifferentiatedRange {
+export interface DifferentiatedCharacterRange
+  extends DifferentiatedGeneralizedRange {
   range: CharacterRange;
 }
 
-export interface DifferentiatedLineRange extends DifferentiatedRange {
+export interface DifferentiatedLineRange
+  extends DifferentiatedGeneralizedRange {
   range: LineRange;
 }

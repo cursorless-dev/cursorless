@@ -1,10 +1,10 @@
 import { Range } from "@cursorless/common";
-import { BorderStyle, DecoratedRange } from "./getDecorationRanges.types";
+import { BorderStyle, StyledRange } from "./getDecorationRanges.types";
 
 export function* generateDecorationsForLineRange(
   startLine: number,
   endLine: number,
-): Iterable<DecoratedRange> {
+): Iterable<StyledRange> {
   const lineCount = endLine - startLine + 1;
 
   if (lineCount === 1) {

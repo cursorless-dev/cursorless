@@ -5,19 +5,15 @@ import {
   DifferentiatedStyledRange,
 } from "./getDecorationRanges.types";
 
-export function groupDifferentiatedRanges<T>(
-  decoratedRanges: Iterable<DifferentiatedStyledRange<T>>,
-  getKeyList: (style: T) => unknown[],
-): DifferentiatedStyledRangeList<T>[] {
+export function groupDifferentiatedStyledRanges(
+  decoratedRanges: Iterable<DifferentiatedStyledRange>,
+): DifferentiatedStyledRangeList[] {
   const decorations: CompositeKeyDefaultMap<
-    DifferentiatedStyle<T>,
-    DifferentiatedStyledRangeList<T>
+    DifferentiatedStyle,
+    DifferentiatedStyledRangeList
   > = new CompositeKeyDefaultMap(
     (differentiatedStyles) => ({ differentiatedStyles, ranges: [] }),
-    ({ style, differentiationIndex }) => [
-      ...getKeyList(style),
-      differentiationIndex,
-    ],
+    getStyleKey,
   );
 
   for (const { range, differentiatedStyle } of decoratedRanges) {
@@ -25,4 +21,11 @@ export function groupDifferentiatedRanges<T>(
   }
 
   return Array.from(decorations.values());
+}
+
+function getStyleKey({
+  style: { top, right, left, bottom, isWholeLine },
+  differentiationIndex,
+}: DifferentiatedStyle) {
+  return [top, right, left, bottom, isWholeLine ?? false, differentiationIndex];
 }

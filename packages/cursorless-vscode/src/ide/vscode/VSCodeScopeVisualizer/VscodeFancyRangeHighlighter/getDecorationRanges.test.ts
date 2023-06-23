@@ -1,6 +1,9 @@
 import assert = require("assert");
 import { getDecorationRanges } from "./getDecorationRanges";
-import { DecorationStyle, DifferentiatedStyle } from "./getDecorationRanges.types";
+import {
+  DecorationStyle,
+  DifferentiatedStyle,
+} from "./getDecorationRanges.types";
 import {
   Range,
   RangePlainObject,

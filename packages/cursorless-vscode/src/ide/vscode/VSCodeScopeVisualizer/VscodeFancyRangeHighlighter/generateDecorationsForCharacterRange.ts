@@ -1,12 +1,12 @@
 import { Range, TextEditor } from "@cursorless/common";
 import { range } from "lodash";
-import { BorderStyle, DecoratedRange } from "./getDecorationRanges.types";
+import { BorderStyle, StyledRange } from "./getDecorationRanges.types";
 import { handleMultipleLines } from "./handleMultipleLines";
 
 export function* generateDecorationsForCharacterRange(
   editor: TextEditor,
   characterRange: Range,
-): Iterable<DecoratedRange> {
+): Iterable<StyledRange> {
   if (characterRange.isSingleLine) {
     yield {
       range: characterRange,
