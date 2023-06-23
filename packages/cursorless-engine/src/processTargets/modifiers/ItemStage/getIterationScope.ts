@@ -18,7 +18,7 @@ export function getIterationScope(
 ): { range: Range; boundary?: [Range, Range] } {
   let surroundingTarget = getSurroundingPair(languageDefinitions, target);
 
-  // Iteration is necessary in case of nested strings
+  // Iteration is necessary in case of in valid surrounding targets (nested strings, content range adjacent to delimiter)
   while (surroundingTarget != null) {
     if (
       useInteriorOfSurroundingTarget(
