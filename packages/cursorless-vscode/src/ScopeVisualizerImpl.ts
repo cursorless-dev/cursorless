@@ -1,15 +1,13 @@
 import { ScopeType } from "@cursorless/common";
 import { ScopeVisualizer } from "@cursorless/cursorless-engine";
 import {
-  createVscodeScopeVisualizer,
   VscodeScopeVisualizer,
+  createVscodeScopeVisualizer,
 } from "./ide/vscode/VSCodeScopeVisualizer";
-import { VisualizationType } from "./getVisualizerConfig";
-
-export interface ScopeVisualizerCommandApi {
-  start(scopeType: ScopeType, visualizationType: VisualizationType): void;
-  stop(): void;
-}
+import {
+  ScopeVisualizerCommandApi,
+  VisualizationType,
+} from "./ScopeVisualizerCommandApi";
 
 export class ScopeVisualizerImpl implements ScopeVisualizerCommandApi {
   private scopeVisualizer: VscodeScopeVisualizer | undefined;
@@ -24,6 +22,9 @@ export class ScopeVisualizerImpl implements ScopeVisualizerCommandApi {
     this.scopeVisualizer = createVscodeScopeVisualizer(
       scopeType,
       visualizationType,
+    );
+    this.scopeVisualizer.onColorConfigChange(() =>
+      this.engineScopeVisualizer.refresh(),
     );
 
     this.engineScopeVisualizer.start(this.scopeVisualizer);

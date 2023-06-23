@@ -14,7 +14,7 @@ import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { ScopeVisualizerCommandApi } from "./ScopeVisualizerImpl";
+import { ScopeVisualizerCommandApi } from "./ScopeVisualizerCommandApi";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
