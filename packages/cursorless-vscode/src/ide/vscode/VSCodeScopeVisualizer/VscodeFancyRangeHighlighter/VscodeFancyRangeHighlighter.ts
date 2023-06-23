@@ -13,15 +13,16 @@ import { groupDifferentiatedRanges } from "./groupDifferentiatedRanges";
  * Manages VSCode decoration types for a highlight or flash style.
  */
 export class VscodeFancyRangeHighlighter {
-  private decorator: VscodeFancyRangeHighlighterRenderer;
+  private renderer: VscodeFancyRangeHighlighterRenderer;
 
   constructor(colors: RangeTypeColors) {
-    this.decorator = new VscodeFancyRangeHighlighterRenderer(colors);
+    this.renderer = new VscodeFancyRangeHighlighterRenderer(colors);
   }
 
   setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {
     const decoratedRanges = flatmap(
       generateDifferentiatedRanges(ranges),
+
       function* ({ range, differentiationIndex }) {
         const iterable =
           range.type === "line"
@@ -41,18 +42,18 @@ export class VscodeFancyRangeHighlighter {
       },
     );
 
-    this.decorator.setDecorations(
+    this.renderer.setRanges(
       editor,
-      groupDifferentiatedRanges(decoratedRanges, getBorderKey),
+      groupDifferentiatedRanges(decoratedRanges, getStyleKey),
     );
   }
 
   dispose() {
-    this.decorator.dispose();
+    this.renderer.dispose();
   }
 }
 
-function getBorderKey({
+function getStyleKey({
   top,
   right,
   left,

@@ -1,4 +1,9 @@
-import { CharacterRange, LineRange, Range } from "@cursorless/common";
+import {
+  CharacterRange,
+  GeneralizedRange,
+  LineRange,
+  Range,
+} from "@cursorless/common";
 
 export enum BorderStyle {
   porous = "dashed",
@@ -37,18 +42,15 @@ export interface DifferentiatedStyledRange<T> {
   differentiationIndex: number;
 }
 
-export interface DifferentiatedRangeBase {
+export interface DifferentiatedRange {
+  range: GeneralizedRange;
   differentiationIndex: number;
 }
 
-export interface DifferentiatedCharacterRange extends DifferentiatedRangeBase {
+export interface DifferentiatedCharacterRange extends DifferentiatedRange {
   range: CharacterRange;
 }
 
-export interface DifferentiatedLineRange extends DifferentiatedRangeBase {
+export interface DifferentiatedLineRange extends DifferentiatedRange {
   range: LineRange;
 }
-
-export type DifferentiatedRange =
-  | DifferentiatedCharacterRange
-  | DifferentiatedLineRange;

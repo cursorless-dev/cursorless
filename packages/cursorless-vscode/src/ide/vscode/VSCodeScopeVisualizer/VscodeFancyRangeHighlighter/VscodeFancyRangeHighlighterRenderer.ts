@@ -38,7 +38,7 @@ export class VscodeFancyRangeHighlighterRenderer {
     );
   }
 
-  setDecorations(
+  setRanges(
     editor: VscodeTextEditorImpl,
     decoratedRanges: StyleParametersRanges<DecorationStyle>[],
   ) {
