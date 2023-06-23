@@ -476,17 +476,17 @@
             "domain": {
               "background": "#00e1ff18",
               "borderSolid": "#ebdeec84",
-              "borderPorous": "rgba(235, 222, 236, 0.23)"
+              "borderPorous": "#ebdeec3b"
             },
             "content": {
               "background": "#ad00bc5b",
-              "borderSolid": "rgba(238, 0, 255, 0.47)",
-              "borderPorous": "rgba(235, 222, 236, 0.23)"
+              "borderSolid": "#ee00ff78",
+              "borderPorous": "#ebdeec3b"
             },
             "removal": {
               "background": "#ff00002d",
-              "borderSolid": "rgba(255, 0, 0, 0.47)",
-              "borderPorous": "rgba(255, 0, 0, 0.29)"
+              "borderSolid": "#ff000078",
+              "borderPorous": "#ff00004a"
             },
             "iteration": {
               "background": "#00725f6c",
@@ -572,17 +572,17 @@
             "domain": {
               "background": "#00e1ff18",
               "borderSolid": "#ebdeec84",
-              "borderPorous": "rgba(235, 222, 236, 0.23)"
+              "borderPorous": "#ebdeec3b"
             },
             "content": {
               "background": "#ad00bc5b",
-              "borderSolid": "rgba(238, 0, 255, 0.47)",
-              "borderPorous": "rgba(235, 222, 236, 0.23)"
+              "borderSolid": "#ee00ff78",
+              "borderPorous": "#ebdeec3b"
             },
             "removal": {
               "background": "#ff00002d",
-              "borderSolid": "rgba(255, 0, 0, 0.47)",
-              "borderPorous": "rgba(255, 0, 0, 0.29)"
+              "borderSolid": "#ff000078",
+              "borderPorous": "#ff00004a"
             },
             "iteration": {
               "background": "#00725f6c",
