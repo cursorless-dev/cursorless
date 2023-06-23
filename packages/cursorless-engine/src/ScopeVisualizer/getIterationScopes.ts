@@ -8,6 +8,7 @@ import { map } from "itertools";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { getTargetRanges } from "./getTargetRanges";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
+import { Target } from "../typings/target.types";
 
 export function getIterationScopes(
   editor: TextEditor,
@@ -32,10 +33,22 @@ export function getIterationScopes(
         ranges: scope.getTargets(false).map((target) => ({
           range: toCharacterRange(target.contentRange),
           targets: includeIterationNestedTargets
-            ? everyStage.run(target).map(getTargetRanges)
+            ? getEveryScopeLenient(everyStage, target).map(getTargetRanges)
             : undefined,
         })),
       };
     },
   );
+}
+
+function getEveryScopeLenient(everyStage: ModifierStage, target: Target) {
+  try {
+    return everyStage.run(target);
+  } catch (err) {
+    if ((err as Error).name !== "NoContainingScopeError") {
+      throw err;
+    }
+
+    return [];
+  }
 }

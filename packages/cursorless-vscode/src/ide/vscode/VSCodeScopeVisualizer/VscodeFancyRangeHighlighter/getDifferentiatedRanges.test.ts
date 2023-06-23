@@ -1,7 +1,7 @@
 import assert = require("assert");
 import { StyleParameters } from "./getDecorationRanges.types";
 import { Position, Range } from "@cursorless/common";
-import { getDifferentiatedRanges } from "./getDifferentiatedRanges";
+import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
 
 type Offsets = [number, number];
 
@@ -119,7 +119,7 @@ const testCases: TestCase[] = [
 suite("getDecorationRanges", function () {
   for (const testCase of testCases) {
     test(testCase.name, function () {
-      const actualDecorations = getDifferentiatedRanges(
+      const actualDecorations = generateDifferentiatedRanges(
         testCase.ranges.map(({ range, style }) => ({
           range: toRange(range),
           style,

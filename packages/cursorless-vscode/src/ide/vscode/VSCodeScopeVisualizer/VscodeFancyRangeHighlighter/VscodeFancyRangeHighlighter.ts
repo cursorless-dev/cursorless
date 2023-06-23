@@ -1,19 +1,13 @@
-import {
-  CharacterRange,
-  GeneralizedRange,
-  LineRange,
-  Range,
-  isLineRange,
-  partition,
-} from "@cursorless/common";
-import { chain, flatmap } from "itertools";
-import { RangeTypeColors } from "../RangeTypeColors";
+import { GeneralizedRange, Range } from "@cursorless/common";
+import { flatmap } from "itertools";
 import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
+import { RangeTypeColors } from "../RangeTypeColors";
+import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
 import { generateDecorationsForCharacterRange } from "./generateDecorationsForCharacterRange";
 import { generateDecorationsForLineRange } from "./generateDecorationsForLineRange";
+import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
 import { DecorationStyle } from "./getDecorationRanges.types";
-import { getDifferentiatedRanges } from "./getDifferentiatedRanges";
-import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
+import { groupDifferentiatedRanges } from "./groupDifferentiatedRanges";
 
 /**
  * Manages VSCode decoration types for a highlight or flash style.
@@ -26,25 +20,30 @@ export class VscodeFancyRangeHighlighter {
   }
 
   setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {
-    const [lineRanges, characterRanges] = partition<LineRange, CharacterRange>(
-      ranges,
-      isLineRange,
-    );
+    const decoratedRanges = flatmap(
+      generateDifferentiatedRanges(ranges),
+      function* ({ range, differentiationIndex }) {
+        const iterable =
+          range.type === "line"
+            ? generateDecorationsForLineRange(range.start, range.end)
+            : generateDecorationsForCharacterRange(
+                editor,
+                new Range(range.start, range.end),
+              );
 
-    const decoratedRanges = Array.from(
-      chain(
-        flatmap(characterRanges, ({ start, end }) =>
-          generateDecorationsForCharacterRange(editor, new Range(start, end)),
-        ),
-        flatmap(lineRanges, ({ start, end }) =>
-          generateDecorationsForLineRange(start, end),
-        ),
-      ),
+        for (const { range, style } of iterable) {
+          yield {
+            range,
+            style,
+            differentiationIndex,
+          };
+        }
+      },
     );
 
     this.decorator.setDecorations(
       editor,
-      getDifferentiatedRanges(decoratedRanges, getBorderKey),
+      groupDifferentiatedRanges(decoratedRanges, getBorderKey),
     );
   }
 

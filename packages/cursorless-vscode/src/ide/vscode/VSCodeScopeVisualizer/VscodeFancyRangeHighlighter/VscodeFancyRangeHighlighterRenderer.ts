@@ -44,6 +44,12 @@ export class VscodeFancyRangeHighlighterRenderer {
   ) {
     const untouchedDecorationTypes = new Set(this.decorationTypes.values());
 
+    decoratedRanges.sort(
+      (a, b) =>
+        a.styleParameters.differentiationIndex -
+        b.styleParameters.differentiationIndex,
+    );
+
     decoratedRanges.forEach(({ styleParameters, ranges }) => {
       const decorationType = this.decorationTypes.get(styleParameters);
 
