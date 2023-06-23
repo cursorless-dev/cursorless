@@ -41,7 +41,10 @@ export class VscodeFancyRangeHighlighter {
       },
     );
 
-    this.renderer.setRanges(editor, groupDifferentiatedStyledRanges(decoratedRanges));
+    this.renderer.setRanges(
+      editor,
+      groupDifferentiatedStyledRanges(decoratedRanges),
+    );
   }
 
   dispose() {
