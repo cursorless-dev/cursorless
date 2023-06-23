@@ -45,10 +45,10 @@ function getEveryScopeLenient(everyStage: ModifierStage, target: Target) {
   try {
     return everyStage.run(target);
   } catch (err) {
-    if ((err as Error).name !== "NoContainingScopeError") {
-      throw err;
+    if ((err as Error).name === "NoContainingScopeError") {
+      return [];
     }
 
-    return [];
+    throw err;
   }
 }
