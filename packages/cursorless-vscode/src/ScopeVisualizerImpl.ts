@@ -23,11 +23,12 @@ export class ScopeVisualizerImpl implements ScopeVisualizerCommandApi {
       scopeType,
       visualizationType,
     );
+
+    this.engineScopeVisualizer.start(this.scopeVisualizer);
+
     this.scopeVisualizer.onColorConfigChange(() =>
       this.engineScopeVisualizer.refresh(),
     );
-
-    this.engineScopeVisualizer.start(this.scopeVisualizer);
   }
 
   stop() {
