@@ -6,16 +6,16 @@ import {
   TextEditorDecorationType,
   window,
 } from "vscode";
-import { RangeTypeColors } from "./RangeTypeColors";
-import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import { RangeTypeColors } from "../RangeTypeColors";
+import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
 import {
   BorderStyle,
   DecorationStyle,
   StyleParameters,
   StyleParametersRanges,
-} from "./getDecorationRanges/getDecorationRanges.types";
+} from "./getDecorationRanges.types";
 
-export class Decorator {
+export class VscodeFancyRangeHighlighterRenderer {
   private decorationTypes: CompositeKeyDefaultMap<
     StyleParameters<DecorationStyle>,
     TextEditorDecorationType

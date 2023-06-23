@@ -7,22 +7,22 @@ import {
   partition,
 } from "@cursorless/common";
 import { chain, flatmap } from "itertools";
-import { RangeTypeColors } from "./RangeTypeColors";
-import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { generateDecorationsForCharacterRange } from "./getDecorationRanges/generateDecorationsForCharacterRange";
-import { generateDecorationsForLineRange } from "./getDecorationRanges/generateDecorationsForLineRange";
-import { DecorationStyle } from "./getDecorationRanges/getDecorationRanges.types";
-import { getDifferentiatedRanges } from "./getDecorationRanges/getDifferentiatedRanges";
-import { Decorator } from "./Decorator";
+import { RangeTypeColors } from "../RangeTypeColors";
+import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
+import { generateDecorationsForCharacterRange } from "./generateDecorationsForCharacterRange";
+import { generateDecorationsForLineRange } from "./generateDecorationsForLineRange";
+import { DecorationStyle } from "./getDecorationRanges.types";
+import { getDifferentiatedRanges } from "./getDifferentiatedRanges";
+import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
 
 /**
  * Manages VSCode decoration types for a highlight or flash style.
  */
 export class VscodeFancyRangeHighlighter {
-  private decorator: Decorator;
+  private decorator: VscodeFancyRangeHighlighterRenderer;
 
   constructor(colors: RangeTypeColors) {
-    this.decorator = new Decorator(colors);
+    this.decorator = new VscodeFancyRangeHighlighterRenderer(colors);
   }
 
   setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {
