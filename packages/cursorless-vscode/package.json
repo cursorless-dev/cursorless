@@ -489,9 +489,9 @@
               "borderPorous": "rgba(255, 0, 0, 0.29)"
             },
             "iteration": {
-              "background": "#00ff002d",
-              "borderSolid": "rgba(255, 0, 0, 0.47)",
-              "borderPorous": "rgba(255, 0, 0, 0.29)"
+              "background": "#00725f6c",
+              "borderSolid": "#00ffd577",
+              "borderPorous": "#00ffd525"
             }
           }
         },
@@ -585,9 +585,9 @@
               "borderPorous": "rgba(255, 0, 0, 0.29)"
             },
             "iteration": {
-              "background": "#00ff002d",
-              "borderSolid": "rgba(255, 0, 0, 0.47)",
-              "borderPorous": "rgba(255, 0, 0, 0.29)"
+              "background": "#00725f6c",
+              "borderSolid": "#00ffd577",
+              "borderPorous": "#00ffd525"
             }
           }
         },
