@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "@cursorless/common";
+import { Range, TextEditor, TextLine } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
 import { PlainTarget, SurroundingPairTarget } from "../../targets";
@@ -54,9 +54,27 @@ function useInteriorOfSurroundingTarget(
   const { contentRange } = target;
 
   if (contentRange.isEmpty) {
-    // const [left, right] = getBoundary(surroundingTarget);
-    // const line = target.editor.document.lineAt(contentRange.start);
-    // TODO: if content range is adjacent to boundary and nothing else. Return false
+    const [left, right] = getBoundary(surroundingTarget);
+    const pos = contentRange.start;
+    // Content range is outside adjacent to pair
+    if (pos.isEqual(left.start) || pos.isEqual(right.end)) {
+      return false;
+    }
+    const line = target.editor.document.lineAt(pos);
+    // Content range is just inside of opening/left delimiter
+    if (
+      pos.isEqual(left.end) &&
+      characterIsWhitespaceOrMissing(line, pos.character)
+    ) {
+      return false;
+    }
+    // Content range is just inside of closing/right delimiter
+    if (
+      pos.isEqual(right.start) &&
+      characterIsWhitespaceOrMissing(line, pos.character - 1)
+    ) {
+      return false;
+    }
   } else {
     // Content range is equal to surrounding range
     if (contentRange.isRangeEqual(surroundingTarget.contentRange)) {
@@ -93,6 +111,17 @@ function getBoundary(surroundingTarget: SurroundingPairTarget): [Range, Range] {
     Range,
     Range,
   ];
+}
+
+function characterIsWhitespaceOrMissing(
+  line: TextLine,
+  index: number,
+): boolean {
+  return (
+    index < line.range.start.character ||
+    index >= line.range.end.character ||
+    line.text[index].trim() === ""
+  );
 }
 
 function getParentSurroundingPair(
