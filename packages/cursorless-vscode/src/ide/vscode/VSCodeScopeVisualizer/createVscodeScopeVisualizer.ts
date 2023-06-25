@@ -11,12 +11,12 @@ export function createVscodeScopeVisualizer(
 ) {
   switch (visualizationType) {
     case "content":
-      return new VscodeScopeContentVisualizer(scopeType, visualizationType);
+      return new VscodeScopeContentVisualizer(scopeType);
     case "removal":
-      return new VscodeScopeRemovalVisualizer(scopeType, visualizationType);
+      return new VscodeScopeRemovalVisualizer(scopeType);
     case "iteration":
-      return new VscodeScopeIterationVisualizer(scopeType, visualizationType);
+      return new VscodeScopeIterationVisualizer(scopeType);
     case "every":
-      return new VscodeScopeEveryVisualizer(scopeType, visualizationType);
+      return new VscodeScopeEveryVisualizer(scopeType);
   }
 }

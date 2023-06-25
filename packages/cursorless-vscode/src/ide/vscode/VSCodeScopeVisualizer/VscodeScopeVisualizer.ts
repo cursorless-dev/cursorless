@@ -14,7 +14,6 @@ import { getColorsFromConfig } from "./ScopeVisualizerColorConfig";
 import { ScopeVisualizerColorConfig } from "./ScopeVisualizerColorConfig";
 import { RendererScope, VscodeScopeRenderer } from "./VscodeScopeRenderer";
 import { RangeTypeColors } from "./RangeTypeColors";
-import { VisualizationType } from "../../../ScopeVisualizerCommandApi";
 
 export abstract class VscodeScopeVisualizer implements ScopeRenderer {
   private renderer!: VscodeScopeRenderer;
@@ -31,10 +30,7 @@ export abstract class VscodeScopeVisualizer implements ScopeRenderer {
     colorConfig: ScopeVisualizerColorConfig,
   ): RangeTypeColors;
 
-  constructor(
-    protected scopeType: ScopeType,
-    private visualizationType: VisualizationType,
-  ) {
+  constructor(protected scopeType: ScopeType) {
     this.disposables.push(
       vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
         if (affectsConfiguration("cursorless.scopeVisualizer.colors")) {
