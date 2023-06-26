@@ -6,11 +6,9 @@ export class PerEditor<T extends Disposable> {
   private editorHandlers: Map<string, T> = new Map();
 
   constructor(private makeEditorHandler: (editor: TextEditor) => T) {
+    this.handleChange = this.handleChange.bind(this);
+
     this.disposables.push(
-      // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(this.handleChange),
-      // An Event that fires when a text document closes
-      ide().onDidCloseTextDocument(this.handleChange),
       // An Event which fires when the array of visible editors has changed.
       ide().onDidChangeVisibleTextEditors(this.handleChange),
     );

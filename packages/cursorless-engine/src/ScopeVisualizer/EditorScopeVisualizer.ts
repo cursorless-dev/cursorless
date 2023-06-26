@@ -27,6 +27,10 @@ export class EditorScopeVisualizer implements Disposable {
     private editor: TextEditor,
   ) {
     this.disposables.push(
+      // An event that fires when a text document opens
+      ide().onDidOpenTextDocument(this.debouncer.run),
+      // An Event that fires when a text document closes
+      ide().onDidCloseTextDocument(this.debouncer.run),
       // An event that is emitted when a text document is changed. This usually
       // happens when the contents changes but also when other things like the
       // dirty-state changes.
