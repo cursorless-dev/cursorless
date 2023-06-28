@@ -1,16 +1,6 @@
 import type { ScopeType, TextEditor } from "../..";
 import { GeneralizedRange } from "../../types/GeneralizedRange";
 
-export interface ScopeRenderer {
-  setScopes(
-    editor: TextEditor,
-    scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ): Promise<void>;
-
-  visualizerConfig: ScopeVisualizerConfig;
-}
-
 interface ScopeRangeConfigBase {
   visibleOnly: boolean;
   scopeType: ScopeType;
@@ -48,11 +38,4 @@ export interface IterationScopeRanges {
     range: GeneralizedRange;
     targets?: TargetRanges[];
   }[];
-}
-
-export interface ScopeVisualizerConfig {
-  scopeType: ScopeType;
-  includeScopes: boolean;
-  includeIterationScopes: boolean;
-  includeIterationNestedTargets: boolean;
 }
