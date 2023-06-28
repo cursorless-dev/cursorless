@@ -217,8 +217,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       itertools:
-        specifier: ^1.7.1
-        version: 1.7.1
+        specifier: ^2.1.1
+        version: 2.1.1
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -385,8 +385,8 @@ importers:
         specifier: 1.4.3
         version: 1.4.3
       itertools:
-        specifier: ^1.7.1
-        version: 1.7.1
+        specifier: ^2.1.1
+        version: 2.1.1
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -10828,10 +10828,8 @@ packages:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.0
 
-  /itertools@1.7.1:
-    resolution: {integrity: sha512-0sC8t0HYOH0wb/mU5eLmp2g19yfhqho12Q6kCX6MGkNEEJQz97LIXzZ2bbIDyzBnQGcMixmcAtByzKjiaFkw8Q==}
-    dependencies:
-      '@babel/runtime': 7.21.0
+  /itertools@2.1.1:
+    resolution: {integrity: sha512-T0icRZBQfWSwhdeBvJT3Sg1m3lBOv1RCD2m+vnY7F12sIInidVDLIn5Fbu1/1gAMN8XIjzkDP48ukF7mTRn/fw==}
     dev: false
 
   /jake@10.8.5:

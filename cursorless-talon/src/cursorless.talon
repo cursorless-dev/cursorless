@@ -27,7 +27,5 @@ visualize <user.cursorless_scope_type> removal:
     user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "removal")
 visualize <user.cursorless_scope_type> iteration:
     user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "iteration")
-visualize every <user.cursorless_scope_type>:
-    user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "every")
 visualize nothing:
     user.private_cursorless_run_rpc_command_and_wait("cursorless.hideScopeVisualizer")

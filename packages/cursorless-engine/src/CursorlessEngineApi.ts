@@ -1,11 +1,24 @@
-import { Command, HatTokenMap, IDE, ScopeRenderer } from "@cursorless/common";
+import {
+  Command,
+  Disposable,
+  HatTokenMap,
+  IDE,
+  IterationScopeChangeEventCallback,
+  IterationScopeRangeConfig,
+  IterationScopeRanges,
+  ScopeChangeEventCallback,
+  ScopeRangeConfig,
+  ScopeRanges,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/common";
 import { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { TestCaseRecorder } from "./testCaseRecorder/TestCaseRecorder";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
-  scopeVisualizer: ScopeVisualizer;
+  scopeProvider: ScopeProvider;
   testCaseRecorder: TestCaseRecorder;
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
@@ -28,8 +41,42 @@ export interface CommandApi {
   runCommandSafe(...args: unknown[]): Promise<unknown>;
 }
 
-export interface ScopeVisualizer {
-  start(ideScopeVisualizer: ScopeRenderer): void;
-  stop(): void;
-  refresh(): void;
+export interface ScopeProvider {
+  provideScopeRanges: (
+    editor: TextEditor,
+    { scopeType, visibleOnly }: ScopeRangeConfig,
+  ) => ScopeRanges[];
+
+  provideIterationScopeRanges: (
+    editor: TextEditor,
+    {
+      scopeType,
+      visibleOnly,
+      includeIterationNestedTargets,
+    }: IterationScopeRangeConfig,
+  ) => IterationScopeRanges[];
+
+  onDidChangeScopeRanges: (
+    callback: ScopeChangeEventCallback,
+    config: ScopeRangeConfig,
+  ) => Disposable;
+
+  onDidChangeIterationScopeRanges: (
+    callback: IterationScopeChangeEventCallback,
+    config: IterationScopeRangeConfig,
+  ) => Disposable;
+
+  getScopeSupport: (editor: TextEditor, scopeType: ScopeType) => ScopeSupport;
+
+  getIterationScopeSupport: (
+    editor: TextEditor,
+    scopeType: ScopeType,
+  ) => ScopeSupport;
+}
+
+export enum ScopeSupport {
+  supportedAndPresentInEditor,
+  supportedButNotPresentInEditor,
+  supportedLegacy,
+  unsupported,
 }

@@ -1,22 +1,24 @@
-import { ScopeType } from "@cursorless/common";
+import { IDE, ScopeType } from "@cursorless/common";
+import { ScopeProvider } from "@cursorless/cursorless-engine";
 import { VisualizationType } from "../../../ScopeVisualizerCommandApi";
-import { VscodeScopeContentVisualizer } from "./VscodeScopeContentVisualizer";
-import { VscodeScopeRemovalVisualizer } from "./VscodeScopeRemovalVisualizer";
 import { VscodeScopeIterationVisualizer } from "./VscodeScopeIterationVisualizer";
-import { VscodeScopeEveryVisualizer } from "./VscodeScopeEveryVisualizer";
+import {
+  VscodeScopeContentVisualizer,
+  VscodeScopeRemovalVisualizer,
+} from "./VscodeScopeTargetVisualizer";
 
 export function createVscodeScopeVisualizer(
+  ide: IDE,
+  scopeProvider: ScopeProvider,
   scopeType: ScopeType,
   visualizationType: VisualizationType,
 ) {
   switch (visualizationType) {
     case "content":
-      return new VscodeScopeContentVisualizer(scopeType);
+      return new VscodeScopeContentVisualizer(ide, scopeProvider, scopeType);
     case "removal":
-      return new VscodeScopeRemovalVisualizer(scopeType);
+      return new VscodeScopeRemovalVisualizer(ide, scopeProvider, scopeType);
     case "iteration":
-      return new VscodeScopeIterationVisualizer(scopeType);
-    case "every":
-      return new VscodeScopeEveryVisualizer(scopeType);
+      return new VscodeScopeIterationVisualizer(ide, scopeProvider, scopeType);
   }
 }

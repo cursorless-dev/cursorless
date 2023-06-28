@@ -14,7 +14,12 @@ import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHan
 export function getIterationRange(
   editor: TextEditor,
   scopeHandler: ScopeHandler,
+  visibleOnly: boolean,
 ): Range {
+  if (!visibleOnly) {
+    return editor.document.range;
+  }
+
   let visibleRange = editor.visibleRanges.reduce((acc, range) =>
     acc.union(range),
   );

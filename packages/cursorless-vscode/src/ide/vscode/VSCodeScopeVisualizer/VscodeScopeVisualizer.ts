@@ -1,49 +1,69 @@
 import {
   Disposable,
-  ScopeRenderer,
-  IterationScopeRanges,
-  ScopeRanges,
+  IDE,
   ScopeType,
-  ScopeVisualizerConfig,
-  Notifier,
-  Listener,
+  TextEditor,
+  showError,
 } from "@cursorless/common";
+import { ScopeProvider, ScopeSupport } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
-import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { getColorsFromConfig } from "./ScopeVisualizerColorConfig";
-import { ScopeVisualizerColorConfig } from "./ScopeVisualizerColorConfig";
-import { RendererScope, VscodeScopeRenderer } from "./VscodeScopeRenderer";
-import { RangeTypeColors } from "./RangeTypeColors";
+import {
+  ColorConfigKey,
+  ScopeVisualizerColorConfig,
+  getColorsFromConfig,
+} from "./ScopeVisualizerColorConfig";
+import { VscodeScopeRenderer } from "./VscodeScopeRenderer";
 
-export abstract class VscodeScopeVisualizer implements ScopeRenderer {
-  private renderer!: VscodeScopeRenderer;
+export abstract class VscodeScopeVisualizer {
+  protected renderer!: VscodeScopeRenderer;
+  private scopeListenerDisposable!: Disposable;
   private disposables: Disposable[] = [];
-  abstract readonly visualizerConfig: ScopeVisualizerConfig;
-  private notifier: Notifier = new Notifier();
 
-  protected abstract getRendererScopes(
-    scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ): RendererScope[];
+  protected abstract registerListener(): Disposable;
+  protected abstract getNestedColorConfigKey(): ColorConfigKey;
+  protected abstract getScopeSupport(editor: TextEditor): ScopeSupport;
 
-  protected abstract getNestedScopeColorConfig(
-    colorConfig: ScopeVisualizerColorConfig,
-  ): RangeTypeColors;
-
-  constructor(protected scopeType: ScopeType) {
+  constructor(
+    private ide: IDE,
+    protected scopeProvider: ScopeProvider,
+    protected scopeType: ScopeType,
+  ) {
     this.disposables.push(
       vscode.workspace.onDidChangeConfiguration(({ affectsConfiguration }) => {
         if (affectsConfiguration("cursorless.scopeVisualizer.colors")) {
-          this.computeColors();
-          this.notifier.notifyListeners();
+          this.initialize();
         }
       }),
     );
-
-    this.computeColors();
   }
 
-  private computeColors() {
+  start() {
+    this.initialize();
+    this.checkScopeSupport();
+  }
+
+  private checkScopeSupport() {
+    const editor = this.ide.activeTextEditor;
+
+    if (editor == null) {
+      return;
+    }
+
+    switch (this.getScopeSupport(editor)) {
+      case ScopeSupport.supportedAndPresentInEditor:
+      case ScopeSupport.supportedButNotPresentInEditor:
+        return;
+      case ScopeSupport.supportedLegacy:
+      case ScopeSupport.unsupported:
+        showError(
+          this.ide.messages,
+          "ScopeVisualizer.scopeTypeNotSupported",
+          `Scope type not supported for ${editor.document.languageId}, or only defined using legacy API which doesn't support visualization.  See https://www.cursorless.org/docs/contributing/adding-a-new-language/ for more about how to upgrade your language.`,
+        );
+    }
+  }
+
+  private initialize() {
     const colorConfig = vscode.workspace
       .getConfiguration("cursorless.scopeVisualizer")
       .get<ScopeVisualizerColorConfig>("colors")!;
@@ -51,27 +71,17 @@ export abstract class VscodeScopeVisualizer implements ScopeRenderer {
     this.renderer?.dispose();
     this.renderer = new VscodeScopeRenderer(
       getColorsFromConfig(colorConfig, "domain"),
-      this.getNestedScopeColorConfig(colorConfig),
+      getColorsFromConfig(colorConfig, this.getNestedColorConfigKey()),
     );
-  }
 
-  onColorConfigChange(listener: Listener) {
-    return this.notifier.registerListener(listener);
-  }
-
-  async setScopes(
-    editor: VscodeTextEditorImpl,
-    scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ) {
-    this.renderer.setScopes(
-      editor,
-      this.getRendererScopes(scopeRanges, iterationScopeRanges),
-    );
+    // Reregister to cause the renderer to be updated with the new colors
+    this.scopeListenerDisposable?.dispose();
+    this.scopeListenerDisposable = this.registerListener();
   }
 
   dispose() {
     this.disposables.forEach((disposable) => disposable.dispose());
-    this.renderer.dispose();
+    this.renderer?.dispose();
+    this.scopeListenerDisposable?.dispose();
   }
 }

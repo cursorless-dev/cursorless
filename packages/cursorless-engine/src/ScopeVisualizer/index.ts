@@ -1,1 +1,1 @@
-export * from "./ScopeVisualizerImpl";
+export * from "./ScopeRangeWatcher";

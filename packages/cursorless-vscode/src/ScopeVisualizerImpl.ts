@@ -1,5 +1,4 @@
-import { ScopeType } from "@cursorless/common";
-import { ScopeVisualizer } from "@cursorless/cursorless-engine";
+import { IDE, ScopeType } from "@cursorless/common";
 import {
   VscodeScopeVisualizer,
   createVscodeScopeVisualizer,
@@ -8,11 +7,12 @@ import {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
+import { ScopeProvider } from "@cursorless/cursorless-engine";
 
 export class ScopeVisualizerImpl implements ScopeVisualizerCommandApi {
   private scopeVisualizer: VscodeScopeVisualizer | undefined;
 
-  constructor(private engineScopeVisualizer: ScopeVisualizer) {
+  constructor(private ide: IDE, private scopeProvider: ScopeProvider) {
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
   }
@@ -20,19 +20,15 @@ export class ScopeVisualizerImpl implements ScopeVisualizerCommandApi {
   start(scopeType: ScopeType, visualizationType: VisualizationType) {
     this.stop();
     this.scopeVisualizer = createVscodeScopeVisualizer(
+      this.ide,
+      this.scopeProvider,
       scopeType,
       visualizationType,
     );
-
-    this.engineScopeVisualizer.start(this.scopeVisualizer);
-
-    this.scopeVisualizer.onColorConfigChange(() =>
-      this.engineScopeVisualizer.refresh(),
-    );
+    this.scopeVisualizer.start();
   }
 
   stop() {
-    this.engineScopeVisualizer.stop();
     this.scopeVisualizer?.dispose();
     this.scopeVisualizer = undefined;
   }

@@ -5,4 +5,4 @@ export interface ScopeVisualizerCommandApi {
   stop(): void;
 }
 
-export type VisualizationType = "content" | "removal" | "iteration" | "every";
+export type VisualizationType = "content" | "removal" | "iteration";

@@ -1,27 +1,33 @@
-import { IterationScopeRanges, ScopeRanges } from "@cursorless/common";
-import { getColorsFromConfig } from "./ScopeVisualizerColorConfig";
-import { ScopeVisualizerColorConfig } from "./ScopeVisualizerColorConfig";
+import { Disposable, TextEditor } from "@cursorless/common";
+import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
+import { ScopeSupport } from "@cursorless/cursorless-engine";
 
 export class VscodeScopeIterationVisualizer extends VscodeScopeVisualizer {
-  readonly visualizerConfig = {
-    scopeType: this.scopeType,
-    includeScopes: false,
-    includeIterationScopes: true,
-    includeIterationNestedTargets: false,
-  };
-
-  protected getNestedScopeColorConfig(colorConfig: ScopeVisualizerColorConfig) {
-    return getColorsFromConfig(colorConfig, "iteration");
+  protected getScopeSupport(editor: TextEditor): ScopeSupport {
+    return this.scopeProvider.getIterationScopeSupport(editor, this.scopeType);
   }
 
-  protected getRendererScopes(
-    _scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ) {
-    return iterationScopeRanges!.map(({ domain, ranges }) => ({
-      domain,
-      nestedRanges: ranges.map(({ range }) => range),
-    }));
+  protected registerListener(): Disposable {
+    return this.scopeProvider.onDidChangeIterationScopeRanges(
+      (editor, iterationScopeRanges) => {
+        this.renderer.setScopes(
+          editor as VscodeTextEditorImpl,
+          iterationScopeRanges!.map(({ domain, ranges }) => ({
+            domain,
+            nestedRanges: ranges.map(({ range }) => range),
+          })),
+        );
+      },
+      {
+        scopeType: this.scopeType,
+        visibleOnly: true,
+        includeIterationNestedTargets: false,
+      },
+    );
+  }
+
+  protected getNestedColorConfigKey() {
+    return "iteration" as const;
   }
 }

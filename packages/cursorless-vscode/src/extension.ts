@@ -64,7 +64,7 @@ export async function activate(
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
-    scopeVisualizer: engineScopeVisualizer,
+    scopeProvider,
     snippets,
     injectIde,
     runIntegrationTests,
@@ -75,7 +75,10 @@ export async function activate(
     commandServerApi,
   );
 
-  const scopeVisualizer = new ScopeVisualizerImpl(engineScopeVisualizer);
+  const scopeVisualizer = new ScopeVisualizerImpl(
+    normalizedIde ?? vscodeIDE,
+    scopeProvider,
+  );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
