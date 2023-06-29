@@ -1,3 +1,10 @@
+(_
+  [
+    (expression_statement)
+    (assignment_statement)
+  ] @statement
+) @_.iteration
+
 ;;!! not mode: command
 ;;!  ----^^^^---------
 ;;!! slap: key("end enter")
