@@ -17,7 +17,7 @@ export function getContainingScopeTarget(
   target: Target,
   scopeHandler: ScopeHandler,
   ancestorIndex: number = 0,
-): Target | undefined {
+): Target[] | undefined {
   const {
     isReversed,
     editor,
@@ -46,7 +46,7 @@ export function getContainingScopeTarget(
       return undefined;
     }
 
-    return scope.getTarget(isReversed);
+    return scope.getTargets(isReversed);
   }
 
   const startScope = expandFromPosition(
@@ -62,7 +62,7 @@ export function getContainingScopeTarget(
   }
 
   if (startScope.domain.contains(end)) {
-    return startScope.getTarget(isReversed);
+    return startScope.getTargets(isReversed);
   }
 
   const endScope = expandFromPosition(

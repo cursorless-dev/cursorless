@@ -1,32 +1,5 @@
-import type {
-  Range,
-  ReadOnlyHatMap,
-  Selection,
-  TextDocument,
-  TextEditor,
-} from "@cursorless/common";
+import type { Range, Selection, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { ModifierStage } from "../processTargets/PipelineStages.types";
-import { Target } from "./target.types";
-
-export interface ProcessedTargetsContext {
-  /**
-   * Modifier stages contributed by the action that should run before the final
-   * positional stage, if there is one
-   */
-  actionPrePositionStages: ModifierStage[];
-  /**
-   * Modifier stages contributed by the action that should run at the end of the
-   * modifier pipeline
-   */
-  actionFinalStages: ModifierStage[];
-  currentSelections: SelectionWithEditor[];
-  currentEditor: TextEditor | undefined;
-  hatTokenMap: ReadOnlyHatMap;
-  thatMark: Target[];
-  sourceMark: Target[];
-  getNodeAtLocation: (document: TextDocument, range: Range) => SyntaxNode;
-}
 
 export interface SelectionWithEditor {
   selection: Selection;

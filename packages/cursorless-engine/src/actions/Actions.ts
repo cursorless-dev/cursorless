@@ -28,6 +28,7 @@ import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
+import { SetInstanceReference } from "./SetInstanceReference";
 import {
   SetSelection,
   SetSelectionAfter,
@@ -125,6 +126,7 @@ export class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
+  ["experimental.setInstanceReference"] = new SetInstanceReference();
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();

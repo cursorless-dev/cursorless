@@ -1,8 +1,9 @@
-import { SyntaxNode } from "web-tree-sitter";
+import { Range } from "@cursorless/common";
 import z from "zod";
+import { makeRangeFromPositions } from "../../util/nodeSelectors";
+import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
 import { q } from "./operatorArgumentSchemaTypes";
-import { HasSchema } from "./PredicateOperatorSchemaTypes";
 
 /**
  * A predicate operator that returns true if the node is not of the given type.
@@ -13,7 +14,7 @@ import { HasSchema } from "./PredicateOperatorSchemaTypes";
 class NotType extends QueryPredicateOperator<NotType> {
   name = "not-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  accept(node: SyntaxNode, ...types: string[]) {
+  run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
   }
 }
@@ -27,7 +28,7 @@ class NotType extends QueryPredicateOperator<NotType> {
 class NotParentType extends QueryPredicateOperator<NotParentType> {
   name = "not-parent-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  accept(node: SyntaxNode, ...types: string[]) {
+  run({ node }: MutableQueryCapture, ...types: string[]) {
     return node.parent == null || !types.includes(node.parent.type);
   }
 }
@@ -40,13 +41,98 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   name = "is-nth-child?" as const;
   schema = z.tuple([q.node, q.integer]);
-  accept(node: SyntaxNode, n: number) {
-    return node.parent?.children.indexOf(node) === n;
+  run({ node }: MutableQueryCapture, n: number) {
+    return node.parent?.children.findIndex((n) => n.id === node.id) === n;
   }
 }
 
-export const queryPredicateOperators: QueryPredicateOperator<HasSchema>[] = [
+/**
+ * A predicate operator that modifies the range of the match to be a zero-width
+ * range at the start of the node.  For example, `(#start-position! @foo)` will
+ * modify the range of the `@foo` capture to be a zero-width range at the start
+ * of the `@foo` node.
+ */
+class StartPosition extends QueryPredicateOperator<StartPosition> {
+  name = "start-position!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    nodeInfo.range = new Range(nodeInfo.range.start, nodeInfo.range.start);
+
+    return true;
+  }
+}
+
+/**
+ * A predicate operator that modifies the range of the match to be a zero-width
+ * range at the end of the node.  For example, `(#end-position! @foo)` will
+ * modify the range of the `@foo` capture to be a zero-width range at the end of
+ * the `@foo` node.
+ */
+class EndPosition extends QueryPredicateOperator<EndPosition> {
+  name = "end-position!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    nodeInfo.range = new Range(nodeInfo.range.end, nodeInfo.range.end);
+
+    return true;
+  }
+}
+
+class ChildRange extends QueryPredicateOperator<ChildRange> {
+  name = "child-range!" as const;
+  schema = z.union([
+    z.tuple([q.node, q.integer]),
+    z.tuple([q.node, q.integer, q.integer]),
+    z.tuple([q.node, q.integer, q.integer, q.boolean]),
+    z.tuple([q.node, q.integer, q.integer, q.boolean, q.boolean]),
+  ]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    startIndex: number,
+    endIndex?: number,
+    excludeStart?: boolean,
+    excludeEnd?: boolean,
+  ) {
+    const {
+      node: { children },
+    } = nodeInfo;
+
+    startIndex = startIndex < 0 ? children.length + startIndex : startIndex;
+    endIndex = endIndex == null ? -1 : endIndex;
+    endIndex = endIndex < 0 ? children.length + endIndex : endIndex;
+
+    const start = children[startIndex];
+    const end = children[endIndex];
+
+    nodeInfo.range = makeRangeFromPositions(
+      excludeStart ? start.endPosition : start.startPosition,
+      excludeEnd ? end.startPosition : end.endPosition,
+    );
+
+    return true;
+  }
+}
+
+class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
+  name = "allow-multiple!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    nodeInfo.allowMultiple = true;
+
+    return true;
+  }
+}
+
+export const queryPredicateOperators = [
   new NotType(),
   new NotParentType(),
   new IsNthChild(),
+  new StartPosition(),
+  new EndPosition(),
+  new ChildRange(),
+  new AllowMultiple(),
 ];

@@ -31,5 +31,5 @@ finalState:
         start: {line: 0, character: 4}
         end: {line: 0, character: 4}
       isReversed: false
-      hasExplicitRange: false
+      hasExplicitRange: true
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]

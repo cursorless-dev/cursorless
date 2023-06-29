@@ -1,0 +1,56 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear every line past next funk
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: line}
+      active:
+        type: primitive
+        modifiers:
+          - type: relativeScope
+            scopeType: {type: namedFunction}
+            offset: 1
+            length: 1
+            direction: forward
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa = "bbb"
+    ccc = "ddd"
+
+    def eee():
+        pass
+
+    fff = "ggg"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |2-
+
+
+
+
+        
+
+    fff = "ggg"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

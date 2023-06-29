@@ -50,7 +50,7 @@ export function getNodeMatcher(
   return matcher;
 }
 
-const languageMatchers: Record<
+export const languageMatchers: Record<
   LegacyLanguageId,
   Record<SimpleScopeTypeType, NodeMatcher>
 > = {

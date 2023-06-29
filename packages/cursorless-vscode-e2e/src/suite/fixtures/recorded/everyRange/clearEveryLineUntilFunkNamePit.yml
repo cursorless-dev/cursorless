@@ -1,0 +1,53 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear every line until funk name pit
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: line}
+      active:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: functionName}
+        mark: {type: decoratedSymbol, symbolColor: default, character: p}
+      excludeAnchor: false
+      excludeActive: true
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa = "bbb"
+    ccc = "ddd"
+
+    def eee():
+        pass
+
+    fff = "ggg"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.p:
+      start: {line: 4, character: 4}
+      end: {line: 4, character: 8}
+finalState:
+  documentContents: |-
+
+
+
+    def eee():
+        pass
+
+    fff = "ggg"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

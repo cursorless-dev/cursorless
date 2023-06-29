@@ -4,7 +4,6 @@ import {
   NoContainingScopeError,
 } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { ProcessedTargetsContext } from "../../../typings/Types";
 import { Target } from "../../../typings/target.types";
 import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
@@ -25,24 +24,19 @@ export default class BoundedNonWhitespaceSequenceStage
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const paintStage = this.modifierStageFactory.create({
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
 
-    const paintTargets = paintStage.run(context, target);
+    const paintTargets = paintStage.run(target);
 
-    const pairInfo = processSurroundingPair(
-      this.languageDefinitions.get(target.editor.document.languageId),
-      context,
-      target,
-      {
-        type: "surroundingPair",
-        delimiter: "any",
-        requireStrongContainment: true,
-      },
-    );
+    const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
+      type: "surroundingPair",
+      delimiter: "any",
+      requireStrongContainment: true,
+    });
 
     if (pairInfo == null) {
       return paintTargets;

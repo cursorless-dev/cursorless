@@ -1,4 +1,4 @@
-import { SnippetDefinition } from "@cursorless/common";
+import { SimpleScopeTypeType, SnippetDefinition } from "@cursorless/common";
 import { Target } from "../typings/target.types";
 import {
   Placeholder,
@@ -7,6 +7,7 @@ import {
   Variable,
 } from "./vendor/vscodeSnippet/snippetParser";
 import { KnownSnippetVariableNames } from "./vendor/vscodeSnippet/snippetVariables";
+import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 
 /**
  * Replaces the snippet variable with name `placeholderName` with
@@ -84,11 +85,16 @@ function getMaxPlaceholderIndex(parsedSnippet: TextmateSnippet): number {
  * @returns The snippet definition that matches the given context
  */
 export function findMatchingSnippetDefinitionStrict(
+  modifierStageFactory: ModifierStageFactory,
   targets: Target[],
   definitions: SnippetDefinition[],
 ): SnippetDefinition {
   const definitionIndices = targets.map((target) =>
-    findMatchingSnippetDefinitionForSingleTarget(target, definitions),
+    findMatchingSnippetDefinitionForSingleTarget(
+      modifierStageFactory,
+      target,
+      definitions,
+    ),
   );
 
   const definitionIndex = definitionIndices[0];
@@ -104,26 +110,85 @@ export function findMatchingSnippetDefinitionStrict(
   return definitions[definitionIndex];
 }
 
+/**
+ * Based on the context determined by {@link target} (eg the file's language id
+ * and containing scope), finds the best snippet definition that matches the
+ * given context. Returns -1 if no matching snippet definition could be found.
+ *
+ * We assume that the definitions are sorted in precedence order, so we just
+ * return the first match we find.
+ *
+ * @param modifierStageFactory For creating containing scope modifiers
+ * @param target The target to find a matching snippet definition for
+ * @param definitions The list of snippet definitions to search
+ * @returns The index of the best snippet definition that matches the given
+ * target, or -1 if no matching snippet definition could be found
+ */
 function findMatchingSnippetDefinitionForSingleTarget(
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
   definitions: SnippetDefinition[],
 ): number {
   const languageId = target.editor.document.languageId;
 
+  // We want to find the first definition that matches the given context.
+  // Note that we just use the first match we find because the definitions are
+  // guaranteed to come sorted in precedence order.
   return definitions.findIndex(({ scope }) => {
     if (scope == null) {
       return true;
     }
 
-    const { langIds, scopeTypes } = scope;
+    const { langIds, scopeTypes, excludeDescendantScopeTypes } = scope;
 
     if (langIds != null && !langIds.includes(languageId)) {
       return false;
     }
 
     if (scopeTypes != null) {
-      // TODO: Implement this; see #802
-      throw new Error("Scope types not yet implemented");
+      const allScopeTypes = scopeTypes.concat(
+        excludeDescendantScopeTypes ?? [],
+      );
+      let matchingTarget: Target | undefined = undefined;
+      let matchingScopeType: SimpleScopeTypeType | undefined = undefined;
+      for (const scopeTypeType of allScopeTypes) {
+        try {
+          let containingTarget = modifierStageFactory
+            .create({
+              type: "containingScope",
+              scopeType: { type: scopeTypeType },
+            })
+            .run(target)[0];
+
+          if (target.contentRange.isRangeEqual(containingTarget.contentRange)) {
+            // Skip this scope if the target is exactly the same as the
+            // containing scope, otherwise wrapping won't work, because we're
+            // really outside the containing scope when we're wrapping
+            containingTarget = modifierStageFactory
+              .create({
+                type: "containingScope",
+                scopeType: { type: scopeTypeType },
+                ancestorIndex: 1,
+              })
+              .run(target)[0];
+          }
+
+          if (
+            matchingTarget == null ||
+            matchingTarget.contentRange.contains(containingTarget.contentRange)
+          ) {
+            matchingTarget = containingTarget;
+            matchingScopeType = scopeTypeType;
+          }
+        } catch (e) {
+          continue;
+        }
+      }
+
+      return (
+        matchingTarget != null &&
+        !(excludeDescendantScopeTypes ?? []).includes(matchingScopeType!)
+      );
     }
 
     return true;

@@ -4,10 +4,6 @@ import {
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
-import {
-  PrimitiveTargetDescriptor,
-  TargetDescriptor,
-} from "../typings/TargetDescriptor";
 
 /**
  * Given a list of targets, recursively descends all targets and returns every
@@ -32,31 +28,6 @@ function getPartialPrimitiveTargetsHelper(
       return [target.anchor, target.active].flatMap(
         getPartialPrimitiveTargetsHelper,
       );
-    case "implicit":
-      return [];
-  }
-}
-/**
- * Given a list of targets, recursively descends all targets and returns every
- * contained primitive target.
- *
- * @param targets The targets to extract from
- * @returns A list of primitive targets
- */
-export function getPrimitiveTargets(targets: TargetDescriptor[]) {
-  return targets.flatMap(getPrimitiveTargetsHelper);
-}
-
-function getPrimitiveTargetsHelper(
-  target: TargetDescriptor,
-): PrimitiveTargetDescriptor[] {
-  switch (target.type) {
-    case "primitive":
-      return [target];
-    case "list":
-      return target.elements.flatMap(getPrimitiveTargetsHelper);
-    case "range":
-      return [...getPrimitiveTargetsHelper(target.anchor), target.active];
     case "implicit":
       return [];
   }

@@ -1,0 +1,36 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clear every funk
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    type Aaa = {
+        bbb(): void;
+        ccc(): void;
+    }
+
+    function ddd() {}
+  selections:
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}
+  marks: {}
+finalState:
+  documentContents: |-
+    type Aaa = {
+        
+        
+    }
+
+    function ddd() {}
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

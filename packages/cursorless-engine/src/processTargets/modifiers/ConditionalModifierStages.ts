@@ -1,5 +1,4 @@
 import { Modifier, ModifyIfUntypedModifier } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
@@ -13,12 +12,12 @@ abstract class ConditionalModifierBaseStage implements ModifierStage {
     private nestedModifier: Modifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     if (this.shouldModify(target)) {
       // Modify this target
       try {
         return this.nestedStage
-          .run(context, target)
+          .run(target)
           .map((newTarget) => newTarget.withThatTarget(target));
       } catch (ex) {
         // suppressErrors === true => Allow this target to be returned unmodified

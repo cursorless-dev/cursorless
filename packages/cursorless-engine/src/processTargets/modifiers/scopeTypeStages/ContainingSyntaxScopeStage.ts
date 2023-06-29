@@ -1,18 +1,18 @@
-import { NoContainingScopeError, Selection } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
 import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   SimpleScopeType,
 } from "@cursorless/common";
+import { NoContainingScopeError, Selection } from "@cursorless/common";
+import type { SyntaxNode } from "web-tree-sitter";
+import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
-import type { Target } from "../../../typings/target.types";
 import type {
   NodeMatcher,
-  ProcessedTargetsContext,
   SelectionWithEditor,
   SelectionWithEditorWithContext,
 } from "../../../typings/Types";
+import type { Target } from "../../../typings/target.types";
 import { selectionWithEditorFromRange } from "../../../util/selectionUtils";
 import type { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
@@ -27,17 +27,18 @@ export interface SimpleEveryScopeModifier extends EveryScopeModifier {
 
 export default class implements ModifierStage {
   constructor(
+    private languageDefinitions: LanguageDefinitions,
     private modifier: SimpleContainingScopeModifier | SimpleEveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): ScopeTypeTarget[] {
+  run(target: Target): ScopeTypeTarget[] {
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
       this.modifier.scopeType.type,
       this.modifier.type === "everyScope",
     );
 
-    const node: SyntaxNode | null = context.getNodeAtLocation(
+    const node: SyntaxNode | null = this.languageDefinitions.getNodeAtLocation(
       target.editor.document,
       target.contentRange,
     );

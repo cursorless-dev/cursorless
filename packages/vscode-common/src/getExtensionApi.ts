@@ -24,12 +24,9 @@ export interface TestHelpers {
 
   toVscodeEditor(editor: TextEditor): vscode.TextEditor;
 
-  setThatMark(
+  setStoredTarget(
     editor: vscode.TextEditor,
-    targets: TargetPlainObject[] | undefined,
-  ): void;
-  setSourceMark(
-    editor: vscode.TextEditor,
+    key: string,
     targets: TargetPlainObject[] | undefined,
   ): void;
 
@@ -43,6 +40,8 @@ export interface TestHelpers {
     marks: SerializedMarks | undefined,
     forceRealClipboard: boolean,
   ): Promise<TestCaseSnapshot>;
+
+  runIntegrationTests(): Promise<void>;
 }
 
 export interface CursorlessApi {

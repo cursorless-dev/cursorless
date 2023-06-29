@@ -15,12 +15,16 @@ import {
   createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
 
-/** Parameters supported by most target classes */
-export interface CommonTargetParameters {
+/** Parameters supported by all target classes */
+export interface MinimumTargetParameters {
   readonly editor: TextEditor;
   readonly isReversed: boolean;
-  readonly contentRange: Range;
   readonly thatTarget?: Target;
+}
+
+/** Parameters supported by most target classes */
+export interface CommonTargetParameters extends MinimumTargetParameters {
+  readonly contentRange: Range;
 }
 
 export interface CloneWithParameters {
@@ -28,16 +32,26 @@ export interface CloneWithParameters {
   readonly contentRange?: Range;
 }
 
-export default abstract class BaseTarget implements Target {
+/**
+ * An abstract target. All targets subclass this.
+ *
+ * @template TParameters The constructor parameters.
+ */
+export default abstract class BaseTarget<
+  in out TParameters extends MinimumTargetParameters,
+> implements Target
+{
   protected readonly state: CommonTargetParameters;
   isLine = false;
+  isToken = true;
   hasExplicitScopeType = true;
   hasExplicitRange = true;
   isRaw = false;
   isImplicit = false;
   isNotebookCell = false;
+  isWord = false;
 
-  constructor(parameters: CommonTargetParameters) {
+  constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {
       editor: parameters.editor,
       isReversed: parameters.isReversed,
@@ -110,16 +124,16 @@ export default abstract class BaseTarget implements Target {
     throw new NoContainingScopeError("boundary");
   }
 
-  readonly cloneWith = (parameters: CloneWithParameters) => {
+  private cloneWith(parameters: CloneWithParameters) {
     const constructor = Object.getPrototypeOf(this).constructor;
 
     return new constructor({
       ...this.getCloneParameters(),
       ...parameters,
     });
-  };
+  }
 
-  protected abstract getCloneParameters(): object;
+  protected abstract getCloneParameters(): TParameters;
 
   createContinuousRangeTarget(
     isReversed: boolean,
@@ -168,9 +182,8 @@ export default abstract class BaseTarget implements Target {
    *
    * @returns The object to be used for determining equality
    */
-  protected getEqualityParameters(): object {
-    const { thatTarget, ...otherCloneParameters } =
-      this.getCloneParameters() as { thatTarget?: Target };
+  protected getEqualityParameters(): Omit<TParameters, "thatTarget"> {
+    const { thatTarget, ...otherCloneParameters } = this.getCloneParameters();
 
     return {
       ...otherCloneParameters,

@@ -58,7 +58,7 @@ no_wait_actions = [
 
 # These are actions that we don't wait for, but still want to have a post action sleep
 no_wait_actions_post_sleep = {
-    "rename": 0.2,
+    "rename": 0.3,
 }
 
 mod = Module()

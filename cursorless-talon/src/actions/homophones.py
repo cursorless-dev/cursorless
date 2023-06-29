@@ -3,15 +3,15 @@ from talon import actions, app
 from .get_text import get_text
 
 
-def run_homophones_action(targets: dict):
+def run_homophones_action(target: dict):
     """Replaced target with next homophone"""
-    texts = get_text(targets, show_decorations=False)
+    texts = get_text(target, show_decorations=False)
     try:
         updated_texts = list(map(get_next_homophone, texts))
     except LookupError as e:
         app.notify(str(e))
         return
-    actions.user.cursorless_replace(targets, updated_texts)
+    actions.user.cursorless_replace(target, updated_texts)
 
 
 def get_next_homophone(word: str):

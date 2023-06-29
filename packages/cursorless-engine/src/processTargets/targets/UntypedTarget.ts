@@ -10,6 +10,7 @@ import {
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
+  readonly isToken?: boolean;
 }
 
 /**
@@ -17,13 +18,14 @@ interface UntypedTargetParameters extends CommonTargetParameters {
  * - Use token delimiters (space) for removal and insertion
  * - Expand to nearest containing pair when asked for boundary or interior
  */
-export default class UntypedTarget extends BaseTarget {
+export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   insertionDelimiter = " ";
   hasExplicitScopeType = false;
 
   constructor(parameters: UntypedTargetParameters) {
     super(parameters);
     this.hasExplicitRange = parameters.hasExplicitRange;
+    this.isToken = parameters.isToken ?? true;
   }
 
   getLeadingDelimiterTarget(): Target | undefined {

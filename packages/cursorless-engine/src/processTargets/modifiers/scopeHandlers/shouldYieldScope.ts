@@ -1,4 +1,4 @@
-import { Position } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
 import { Direction } from "@cursorless/common";
 import { strictlyContains } from "../../../util/rangeUtils";
 import { compareTargetScopes } from "./compareTargetScopes";
@@ -6,35 +6,50 @@ import { TargetScope } from "./scope.types";
 import { ScopeIteratorRequirements } from "./scopeHandler.types";
 
 /**
- * This function is used to filter out scopes that don't meet the required
- * criteria.
+ * Returns `true` if the scope should be yielded.  Checks that the scope meets
+ * {@link requirements} and that it is not considered prior to the previously
+ * yielded scope as determined by {@link compareTargetScopes} if we were to
+ * start at {@link currentPosition} and iterate in {@link direction}.
  *
- * @param position
- * @param direction
- * @param hints
- * @param previousScope
- * @param scope
- * @returns `true` if {@link scope} meets the criteria laid out in
- * {@link hints}, as well as the default semantics.
+ * @param initialPosition The position at which the scope iteration started
+ * @param currentPosition The distal position of the most recently yielded scope
+ * @param direction The direction of iteration
+ * @param requirements The requirements for yielding a scope
+ * @param previousScope The most recently yielded scope
+ * @param scope The scope to check
+ * @returns `true` if the scope should be yielded
  */
 export function shouldYieldScope(
-  position: Position,
+  initialPosition: Position,
+  currentPosition: Position,
   direction: Direction,
-  hints: ScopeIteratorRequirements,
+  requirements: ScopeIteratorRequirements,
   previousScope: TargetScope | undefined,
   scope: TargetScope,
 ): boolean {
-  const { containment, distalPosition, allowAdjacentScopes } = hints;
-  const { domain } = scope;
+  return (
+    checkRequirements(initialPosition, requirements, previousScope, scope) &&
+    // Note that we're using `currentPosition` instead of `initialPosition`
+    // below, because we want to filter out scopes that are strictly contained
+    // by previous scopes.
+    (previousScope == null ||
+      compareTargetScopes(direction, currentPosition, previousScope, scope) < 0)
+  );
+}
 
-  if (
-    previousScope != null &&
-    compareTargetScopes(direction, position, previousScope, scope) >= 0
-  ) {
-    // Don't yield any scopes that are considered prior to a scope that has
-    // already been yielded
-    return false;
-  }
+function checkRequirements(
+  position: Position,
+  requirements: ScopeIteratorRequirements,
+  previousScope: TargetScope | undefined,
+  scope: TargetScope,
+): boolean {
+  const {
+    containment,
+    distalPosition,
+    allowAdjacentScopes,
+    skipAncestorScopes,
+  } = requirements;
+  const { domain } = scope;
 
   // Simple containment checks
   switch (containment) {
@@ -55,50 +70,42 @@ export function shouldYieldScope(
       break;
   }
 
-  // Don't yield scopes that end before the iteration is supposed to start
   if (
-    direction === "forward"
-      ? domain.end.isBefore(position)
-      : domain.start.isAfter(position)
+    skipAncestorScopes &&
+    previousScope != null &&
+    domain.contains(previousScope.domain)
   ) {
     return false;
   }
 
-  // Don't return non-empty scopes that end where the iteration is supposed to
-  // start
-  if (
-    !allowAdjacentScopes &&
-    !domain.isEmpty &&
-    (direction === "forward"
-      ? domain.end.isEqual(position)
-      : domain.start.isEqual(position))
-  ) {
+  return partiallyContains(
+    new Range(position, distalPosition),
+    domain,
+    allowAdjacentScopes,
+  );
+}
+
+/**
+ * Returns `true` if {@link range1} at least partially contains {@link range2}.
+ * If {@link allowAdjacent} is `false`, then the intersection must be nonempty
+ * unless {@link range2} is empty.
+ *
+ * @param range1 A range
+ * @param range2 Another range
+ * @param allowAdjacent If `true`, then empty intersections are allowed.  If
+ * `false`, then empty intersections are only allowed if {@link range2} is empty
+ * @returns `true` if {@link range1} at least partially contains {@link range2}.
+ */
+function partiallyContains(
+  range1: Range,
+  range2: Range,
+  allowAdjacent: boolean,
+): boolean {
+  const intersection = range1.intersection(range2);
+
+  if (intersection == null) {
     return false;
   }
 
-  if (distalPosition != null) {
-    if (
-      direction === "forward"
-        ? domain.start.isAfter(distalPosition)
-        : domain.end.isBefore(distalPosition)
-    ) {
-      // If a distalPosition was given, don't yield scopes that start after the
-      // distalPosition
-      return false;
-    }
-
-    if (
-      !allowAdjacentScopes &&
-      !domain.isEmpty &&
-      (direction === "forward"
-        ? domain.start.isEqual(distalPosition)
-        : domain.end.isEqual(distalPosition))
-    ) {
-      // If a distalPosition was given, don't yield non-empty scopes that start
-      // at distalPosition
-      return false;
-    }
-  }
-
-  return true;
+  return !intersection.isEmpty || allowAdjacent || range2.isEmpty;
 }

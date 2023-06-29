@@ -6,9 +6,7 @@ import {
   SimpleScopeTypeType,
   TextEditor,
 } from "@cursorless/common";
-import { LanguageDefinition } from "../../../languages/LanguageDefinition";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { ProcessedTargetsContext } from "../../../typings/Types";
 import { Target } from "../../../typings/target.types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
@@ -26,35 +24,30 @@ export default class ItemStage implements ModifierStage {
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     // First try the language specific implementation of item
     try {
       return new ContainingSyntaxScopeStage(
+        this.languageDefinitions,
         this.modifier as SimpleContainingScopeModifier,
-      ).run(context, target);
+      ).run(target);
     } catch (_error) {
       // do nothing
     }
 
-    const languageDefinition = this.languageDefinitions.get(
-      target.editor.document.languageId,
-    );
-
     // Then try the textual implementation
     if (this.modifier.type === "everyScope") {
-      return this.getEveryTarget(languageDefinition, context, target);
+      return this.getEveryTarget(this.languageDefinitions, target);
     }
-    return [this.getSingleTarget(languageDefinition, context, target)];
+    return [this.getSingleTarget(this.languageDefinitions, target)];
   }
 
   private getEveryTarget(
-    languageDefinition: LanguageDefinition | undefined,
-    context: ProcessedTargetsContext,
+    languageDefinitions: LanguageDefinitions,
     target: Target,
   ) {
     const itemInfos = getItemInfosForIterationScope(
-      languageDefinition,
-      context,
+      languageDefinitions,
       target,
     );
 
@@ -73,13 +66,11 @@ export default class ItemStage implements ModifierStage {
   }
 
   private getSingleTarget(
-    languageDefinition: LanguageDefinition | undefined,
-    context: ProcessedTargetsContext,
+    languageDefinitions: LanguageDefinitions,
     target: Target,
   ) {
     const itemInfos = getItemInfosForIterationScope(
-      languageDefinition,
-      context,
+      languageDefinitions,
       target,
     );
 
@@ -144,15 +135,10 @@ function filterItemInfos(target: Target, itemInfos: ItemInfo[]): ItemInfo[] {
 }
 
 function getItemInfosForIterationScope(
-  languageDefinition: LanguageDefinition | undefined,
-  context: ProcessedTargetsContext,
+  languageDefinitions: LanguageDefinitions,
   target: Target,
 ) {
-  const { range, boundary } = getIterationScope(
-    languageDefinition,
-    context,
-    target,
-  );
+  const { range, boundary } = getIterationScope(languageDefinitions, target);
   return getItemsInRange(target.editor, range, boundary);
 }
 

@@ -59,13 +59,13 @@ export async function activate(
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
   const {
-    commandRunner,
+    commandApi,
     testCaseRecorder,
-    thatMark,
-    sourceMark,
+    storedTargets,
     hatTokenMap,
     snippets,
     injectIde,
+    runIntegrationTests,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde ?? vscodeIDE,
@@ -79,7 +79,7 @@ export async function activate(
   registerCommands(
     context,
     vscodeIDE,
-    commandRunner,
+    commandApi,
     testCaseRecorder,
     keyboardCommands,
     hats,
@@ -89,12 +89,12 @@ export async function activate(
     testHelpers: isTesting()
       ? constructTestHelpers(
           commandServerApi,
-          thatMark,
-          sourceMark,
+          storedTargets,
           hatTokenMap,
           vscodeIDE,
           normalizedIde!,
           injectIde,
+          runIntegrationTests,
         )
       : undefined,
 
@@ -131,6 +131,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
       return parseTreeApi.getTreeForUri(document.uri);
     },
 
+    loadLanguage: parseTreeApi.loadLanguage,
     getLanguage: parseTreeApi.getLanguage,
   };
 }

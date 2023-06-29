@@ -1,0 +1,39 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: snip funk cello world
+  action:
+    name: insertSnippet
+    args:
+      - type: named
+        name: functionDeclaration
+        substitutions: {name: cello world}
+  targets:
+    - {type: implicit}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Aaa {
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Aaa {
+        celloWorld() {
+            
+        }
+    }
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 4}
+        end: {line: 3, character: 5}
+      isReversed: false
+      hasExplicitRange: true

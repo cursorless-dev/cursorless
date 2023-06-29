@@ -253,7 +253,7 @@ interface PositionModifier {
   position: TargetPosition;
 }
 
-interface PartialPrimitiveTargetDescriptor {
+export interface PartialPrimitiveTargetDescriptorV4 {
   type: "primitive";
   mark?: Mark;
   modifiers?: Modifier[];
@@ -326,10 +326,10 @@ type Modifier =
 // vertical puts a selection on each line vertically between the two targets
 type RangeType = "continuous" | "vertical";
 
-interface PartialRangeTargetDescriptor {
+export interface PartialRangeTargetDescriptorV4 {
   type: "range";
-  anchor: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor;
-  active: PartialPrimitiveTargetDescriptor;
+  anchor: PartialPrimitiveTargetDescriptorV4 | ImplicitTargetDescriptor;
+  active: PartialPrimitiveTargetDescriptorV4;
   excludeAnchor: boolean;
   excludeActive: boolean;
   rangeType?: RangeType;
@@ -337,7 +337,10 @@ interface PartialRangeTargetDescriptor {
 
 interface PartialListTargetDescriptor {
   type: "list";
-  elements: (PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor)[];
+  elements: (
+    | PartialPrimitiveTargetDescriptorV4
+    | PartialRangeTargetDescriptorV4
+  )[];
 }
 
 interface ImplicitTargetDescriptor {
@@ -345,7 +348,7 @@ interface ImplicitTargetDescriptor {
 }
 
 export type PartialTargetDescriptorV4 =
-  | PartialPrimitiveTargetDescriptor
-  | PartialRangeTargetDescriptor
+  | PartialPrimitiveTargetDescriptorV4
+  | PartialRangeTargetDescriptorV4
   | PartialListTargetDescriptor
   | ImplicitTargetDescriptor;

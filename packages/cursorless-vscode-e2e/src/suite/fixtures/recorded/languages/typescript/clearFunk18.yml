@@ -1,0 +1,42 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clear funk
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class MyClass {
+        constructor(value: string);
+        constructor(value: number);
+
+        constructor(value: string | number) {}
+    }
+  selections:
+    - anchor: {line: 1, character: 31}
+      active: {line: 1, character: 31}
+    - anchor: {line: 2, character: 31}
+      active: {line: 2, character: 31}
+    - anchor: {line: 4, character: 42}
+      active: {line: 4, character: 42}
+  marks: {}
+finalState:
+  documentContents: |-
+    class MyClass {
+        
+        
+
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

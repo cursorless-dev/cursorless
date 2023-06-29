@@ -1,9 +1,9 @@
-import { SyntaxNode } from "web-tree-sitter";
 import z from "zod";
 import {
   SchemaInputType,
   SchemaOutputType,
 } from "./operatorArgumentSchemaTypes";
+import { MutableQueryCapture } from "./QueryCapture";
 
 /**
  * A schema used to validate a list of operands for a given predicate operator.
@@ -38,7 +38,7 @@ export type InferSchemaType<T extends HasSchema> = T["schema"];
 type PredicateParameterType<T extends SchemaOutputType> = T extends {
   type: "capture";
 }
-  ? SyntaxNode
+  ? MutableQueryCapture
   : T extends { value: infer V }
   ? V
   : never;

@@ -1,5 +1,4 @@
 import { CascadingModifier } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
@@ -26,10 +25,10 @@ export default class CascadingStage implements ModifierStage {
     return this.nestedStages_;
   }
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     for (const nestedStage of this.nestedStages) {
       try {
-        return nestedStage.run(context, target);
+        return nestedStage.run(target);
       } catch (error) {
         continue;
       }

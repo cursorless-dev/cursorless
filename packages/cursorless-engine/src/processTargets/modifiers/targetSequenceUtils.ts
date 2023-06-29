@@ -1,5 +1,4 @@
 import { ScopeType } from "@cursorless/common";
-import { ProcessedTargetsContext } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 
@@ -43,7 +42,6 @@ export function createRangeTargetFromIndices(
 
 export function getEveryScopeTargets(
   modifierStageFactory: ModifierStageFactory,
-  context: ProcessedTargetsContext,
   target: Target,
   scopeType: ScopeType,
 ): Target[] {
@@ -51,5 +49,5 @@ export function getEveryScopeTargets(
     type: "everyScope",
     scopeType,
   });
-  return containingStage.run(context, target);
+  return containingStage.run(target);
 }

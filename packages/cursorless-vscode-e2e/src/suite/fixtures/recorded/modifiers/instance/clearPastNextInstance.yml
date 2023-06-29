@@ -1,0 +1,38 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear past next instance
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: range
+      anchor: {type: implicit}
+      active:
+        type: primitive
+        modifiers:
+          - type: relativeScope
+            scopeType: {type: instance}
+            offset: 1
+            length: 1
+            direction: forward
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    aaa bbb aaa fff
+    ddd eee ddd ggg
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |2
+     fff
+     ggg
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

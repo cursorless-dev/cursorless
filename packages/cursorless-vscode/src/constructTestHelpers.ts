@@ -11,7 +11,8 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
-  ThatMark,
+  StoredTargetKey,
+  StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
@@ -22,12 +23,12 @@ import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 
 export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
-  thatMark: ThatMark,
-  sourceMark: ThatMark,
+  storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
   injectIde: (ide: IDE) => void,
+  runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
@@ -47,8 +48,7 @@ export function constructTestHelpers(
       forceRealClipboard: boolean,
     ): Promise<TestCaseSnapshot> {
       return takeSnapshot(
-        thatMark,
-        sourceMark,
+        storedTargets,
         excludeFields,
         extraFields,
         editor,
@@ -60,27 +60,19 @@ export function constructTestHelpers(
       );
     },
 
-    setThatMark(
+    setStoredTarget(
       editor: vscode.TextEditor,
+      key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
-      thatMark.set(
+      storedTargets.set(
+        key,
         targets?.map((target) =>
           plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
         ),
       );
     },
-    setSourceMark(
-      editor: vscode.TextEditor,
-      targets: TargetPlainObject[] | undefined,
-    ): void {
-      sourceMark.set(
-        targets?.map((target) =>
-          plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
-        ),
-      );
-    },
-
     hatTokenMap,
+    runIntegrationTests,
   };
 }

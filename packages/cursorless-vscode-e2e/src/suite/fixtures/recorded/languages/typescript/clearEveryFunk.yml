@@ -1,0 +1,38 @@
+languageId: typescript
+command:
+  version: 5
+  spokenForm: clear every funk
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    class Foo {
+        bar() {
+            
+        }
+
+        baz() {
+
+        }
+    }
+  selections:
+    - anchor: {line: 8, character: 1}
+      active: {line: 8, character: 1}
+  marks: {}
+finalState:
+  documentContents: |-
+    class Foo {
+        
+
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

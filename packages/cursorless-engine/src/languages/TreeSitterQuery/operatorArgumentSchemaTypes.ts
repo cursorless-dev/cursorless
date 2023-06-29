@@ -35,6 +35,27 @@ export const q = {
     }
     return { type: "integer", value: parsedValue } as const;
   }),
+
+  /** Expect a boolean */
+  boolean: string.transform((val, ctx) => {
+    if (val.value === "true") {
+      return { type: "boolean" as const, value: true };
+    }
+
+    if (val.value === "false") {
+      return { type: "boolean" as const, value: false };
+    }
+
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Expected true or false",
+    });
+
+    // This is a special symbol you can use to return early from the transform
+    // function. It has type `never` so it does not affect the inferred return
+    // type.
+    return z.NEVER;
+  }),
 } as const;
 
 export type SchemaTypes = (typeof q)[keyof typeof q];

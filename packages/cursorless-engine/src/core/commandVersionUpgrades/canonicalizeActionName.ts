@@ -1,4 +1,4 @@
-import { ActionType } from "@cursorless/common";
+import { ActionType, actionNames } from "@cursorless/common";
 
 const actionAliasToCanonicalName: Record<string, ActionType> = {
   bring: "replaceWithTarget",
@@ -30,5 +30,11 @@ const actionAliasToCanonicalName: Record<string, ActionType> = {
 };
 
 export default function canonicalizeActionName(actionName: string) {
-  return actionAliasToCanonicalName[actionName] ?? actionName;
+  const canonicalName = actionAliasToCanonicalName[actionName] ?? actionName;
+
+  if (!actionNames.includes(canonicalName)) {
+    throw new Error(`Unknown action name: ${canonicalName}`);
+  }
+
+  return canonicalName;
 }

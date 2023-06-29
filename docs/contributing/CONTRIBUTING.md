@@ -25,7 +25,13 @@ extension](#running--testing-extension-locally), you may want to check out the
    pnpm compile
    ```
 
-4. Run `code --profile=cursorlessDevelopment`, and then close the window that opens (eg say `"window close"`). This step is necessary to create the [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/172046 is resolved, we will be able to remove this step, as the profile can then automatically be created.
+4. Run
+
+   ```bash
+   code --profile=cursorlessDevelopment
+   ```
+
+   and then close the window that opens (eg say `"window close"`). This step is necessary to create the [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. Once https://github.com/microsoft/vscode/issues/172046 is resolved, we will be able to remove this step, as the profile can then automatically be created.
 
 5. Run the following in the terminal:
 
@@ -69,6 +75,8 @@ Run the `workbench.action.debug.selectandstart` command and then select
 ## Adding tests
 
 See [test-case-recorder.md](./test-case-recorder.md).
+
+It is also possible to write manual tests. When doing so, we have a convention that any test that must be run within a VSCode context (eg because it imports `"vscode"`), should be placed in a file with the suffix `.vscode.test.ts`. All other tests should end with just `.test.ts`. This allows us to run non-VSCode tests locally outside of VSCode using the `Run unit tests` launch config. These tests run much faster than the full VSCode test suite.
 
 ## Parse tree support
 

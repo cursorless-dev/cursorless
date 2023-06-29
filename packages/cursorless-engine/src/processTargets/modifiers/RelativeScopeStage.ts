@@ -1,5 +1,4 @@
 import type { RelativeScopeModifier } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
@@ -35,7 +34,7 @@ export default class RelativeScopeStage implements ModifierStage {
           );
   }
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
-    return this.modiferStage.run(context, target);
+  run(target: Target): Target[] {
+    return this.modiferStage.run(target);
   }
 }

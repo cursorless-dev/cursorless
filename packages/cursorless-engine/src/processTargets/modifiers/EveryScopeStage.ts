@@ -1,12 +1,10 @@
-import type { EveryScopeModifier } from "@cursorless/common";
+import type { EveryScopeModifier, TextEditor } from "@cursorless/common";
 import { NoContainingScopeError, Range } from "@cursorless/common";
-import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import getScopesOverlappingRange from "./scopeHandlers/getScopesOverlappingRange";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
@@ -37,7 +35,7 @@ export class EveryScopeStage implements ModifierStage {
     private modifier: EveryScopeModifier,
   ) {}
 
-  run(context: ProcessedTargetsContext, target: Target): Target[] {
+  run(target: Target): Target[] {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 
@@ -49,7 +47,7 @@ export class EveryScopeStage implements ModifierStage {
     if (scopeHandler == null) {
       return this.modifierStageFactory
         .getLegacyScopeStage(this.modifier)
-        .run(context, target);
+        .run(target);
     }
 
     let scopes: TargetScope[] | undefined;
@@ -75,14 +73,12 @@ export class EveryScopeStage implements ModifierStage {
     if (scopes == null) {
       // If target had no explicit range, or was contained by a single target
       // instance, expand to iteration scope before overlapping
-      scopes = getScopesOverlappingRange(
+      scopes = this.getDefaultIterationRange(
         scopeHandler,
-        editor,
-        this.getDefaultIterationRange(
-          scopeHandler,
-          this.scopeHandlerFactory,
-          target,
-        ),
+        this.scopeHandlerFactory,
+        target,
+      ).flatMap((iterationRange) =>
+        getScopesOverlappingRange(scopeHandler, editor, iterationRange),
       );
     }
 
@@ -90,14 +86,14 @@ export class EveryScopeStage implements ModifierStage {
       throw new NoContainingScopeError(scopeType.type);
     }
 
-    return scopes.map((scope) => scope.getTarget(isReversed));
+    return scopes.flatMap((scope) => scope.getTargets(isReversed));
   }
 
   getDefaultIterationRange(
     scopeHandler: ScopeHandler,
     scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
-  ): Range {
+  ): Range[] {
     const iterationScopeHandler = scopeHandlerFactory.create(
       scopeHandler.iterationScopeType,
       target.editor.document.languageId,
@@ -118,6 +114,23 @@ export class EveryScopeStage implements ModifierStage {
       );
     }
 
-    return iterationScopeTarget.contentRange;
+    return iterationScopeTarget.map((target) => target.contentRange);
   }
+}
+
+/**
+ * Returns a list of all scopes that have nonempty overlap with {@link range}.
+ */
+function getScopesOverlappingRange(
+  scopeHandler: ScopeHandler,
+  editor: TextEditor,
+  { start, end }: Range,
+): TargetScope[] {
+  return Array.from(
+    scopeHandler.generateScopes(editor, start, "forward", {
+      distalPosition: end,
+      skipAncestorScopes: true,
+      allowAdjacentScopes: scopeHandler.includeAdjacentInEvery,
+    }),
+  );
 }

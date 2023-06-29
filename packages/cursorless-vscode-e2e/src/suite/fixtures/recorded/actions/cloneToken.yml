@@ -36,9 +36,9 @@ finalState:
       hasExplicitRange: true
 ide:
   flashes:
-    - range:
+    - style: justAdded
+      range:
         type: character
         start: {line: 0, character: 12}
         end: {line: 0, character: 17}
-      style: justAdded
 fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]

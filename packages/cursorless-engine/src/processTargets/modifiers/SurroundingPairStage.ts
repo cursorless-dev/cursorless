@@ -2,9 +2,7 @@ import type {
   ContainingSurroundingPairModifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
-import { LanguageDefinition } from "../../languages/LanguageDefinition";
 import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
-import type { ProcessedTargetsContext } from "../../typings/Types";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
 import { SurroundingPairTarget } from "../targets";
@@ -29,32 +27,26 @@ export default class SurroundingPairStage implements ModifierStage {
     private modifier: SurroundingPairModifier,
   ) {}
 
-  run(
-    context: ProcessedTargetsContext,
-    target: Target,
-  ): SurroundingPairTarget[] {
+  run(target: Target): SurroundingPairTarget[] {
     if (this.modifier.type === "everyScope") {
       throw Error(`Unsupported every scope ${this.modifier.scopeType.type}`);
     }
 
     return processedSurroundingPairTarget(
-      this.languageDefinitions.get(target.editor.document.languageId),
+      this.languageDefinitions,
       this.modifier,
-      context,
       target,
     );
   }
 }
 
 function processedSurroundingPairTarget(
-  languageDefinition: LanguageDefinition | undefined,
+  languageDefinitions: LanguageDefinitions,
   modifier: ContainingSurroundingPairModifier,
-  context: ProcessedTargetsContext,
   target: Target,
 ): SurroundingPairTarget[] {
   const outputTarget = processSurroundingPair(
-    languageDefinition,
-    context,
+    languageDefinitions,
     target,
     modifier.scopeType,
   );

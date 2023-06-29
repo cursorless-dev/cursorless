@@ -16,6 +16,7 @@ import {
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
+import InstanceStage from "./modifiers/InstanceStage";
 import {
   ExcludeInteriorStage,
   InteriorOnlyStage,
@@ -41,10 +42,12 @@ import {
   NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
+import { StoredTargetMap } from "..";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
     private languageDefinitions: LanguageDefinitions,
+    private storedTargets: StoredTargetMap,
     private scopeHandlerFactory: ScopeHandlerFactory,
   ) {
     this.create = this.create.bind(this);
@@ -75,10 +78,22 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
           modifier,
         );
       case "everyScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+
         return new EveryScopeStage(this, this.scopeHandlerFactory, modifier);
       case "ordinalScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+
         return new OrdinalScopeStage(this, modifier);
       case "relativeScope":
+        if (modifier.scopeType.type === "instance") {
+          return new InstanceStage(this, this.storedTargets, modifier);
+        }
+
         return new RelativeScopeStage(this, this.scopeHandlerFactory, modifier);
       case "keepContentFilter":
         return new KeepContentFilterStage(modifier);
@@ -138,6 +153,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       default:
         // Default to containing syntax scope using tree sitter
         return new ContainingSyntaxScopeStage(
+          this.languageDefinitions,
           modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
         );
     }

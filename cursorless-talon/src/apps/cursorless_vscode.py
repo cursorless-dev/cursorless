@@ -14,9 +14,9 @@ ctx.tags = ["user.cursorless"]
 
 @ctx.action_class("user")
 class Actions:
-    def cursorless_private_run_find_action(targets: dict):
-        """Find text of targets in editor"""
-        texts = get_text(targets, ensure_single_target=True)
+    def cursorless_private_run_find_action(target: dict):
+        """Find text of target in editor"""
+        texts = get_text(target, ensure_single_target=True)
         search_text = texts[0]
         if len(search_text) > 200:
             search_text = search_text[:200]

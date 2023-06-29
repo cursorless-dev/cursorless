@@ -4,7 +4,7 @@ import type { Target } from "../../../typings/target.types";
 /**
  * Represents a scope, which is a specific instantiation of a scope type,
  * eg a specific function, or a specific line or range of lines.  Contains
- * {@link getTarget}, which represents the actual scope, as well as
+ * {@link getTargets}, which represents the actual scope, as well as
  * {@link domain}, which represents the range within which the given scope is
  * canonical.  For example, a scope representing the type of a parameter will
  * have the entire parameter as its domain, so that one can say "take type"
@@ -33,7 +33,9 @@ export interface TargetScope {
   readonly domain: Range;
 
   /**
-   * The target corresponding to this scope.
+   * The targets corresponding to this scope.  Note that there will almost
+   * always be exactly one target, but there are some exceptions, eg "tags" in
+   * HTML / jsx
    */
-  getTarget(isReversed: boolean): Target;
+  getTargets(isReversed: boolean): Target[];
 }
