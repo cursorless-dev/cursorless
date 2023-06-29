@@ -9,9 +9,11 @@
 ;;!  ----^^^^---------
 ;;!! slap: key("end enter")
 ;;!  ^^^^------------------
+;;!! tag(): user.cursorless
+;;!  ^^^^^-----------------
 (_
   (_
-    left: (_) @name
+    left: _ @name
   ) @_.domain
 ) @_.iteration
 
@@ -19,10 +21,12 @@
 ;;!  ^^^^^^^^---------
 ;;!! slap: key("end enter")
 ;;!  ^^^^------------------
+;;!! tag(): user.cursorless
+;;!  ^^^^^-----------------
 (_
   (_
     modifiers: (_)? @collectionKey.start
-    left: (_) @collectionKey.end
+    left: _ @collectionKey.end
   ) @_.domain
 ) @_.iteration
 

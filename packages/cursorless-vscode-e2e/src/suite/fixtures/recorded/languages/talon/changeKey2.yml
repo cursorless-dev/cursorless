@@ -1,0 +1,26 @@
+languageId: talon
+command:
+  version: 5
+  spokenForm: change key
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    settings():
+        speech.debug = 1
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+    :
+        speech.debug = 1
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
