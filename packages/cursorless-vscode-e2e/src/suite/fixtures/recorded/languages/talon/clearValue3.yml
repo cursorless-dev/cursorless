@@ -22,9 +22,9 @@ initialState:
 finalState:
   documentContents: |-
     tag: user.aaa
-    and not tag:
+    and not tag: 
     -
     aaa: bbb
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}

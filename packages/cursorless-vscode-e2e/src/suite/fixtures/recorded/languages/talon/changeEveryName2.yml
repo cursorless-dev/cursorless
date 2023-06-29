@@ -1,30 +1,28 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: clear key
+  spokenForm: change every name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - type: containingScope
-          scopeType: {type: collectionKey}
+        - type: everyScope
+          scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    tag: user.aaa
-    and not tag: user.bbb
-    -
     aaa: bbb
+    ccc: ddd
   selections:
-    - anchor: {line: 1, character: 21}
-      active: {line: 1, character: 21}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: |-
-    tag: user.aaa
-    : user.bbb
-    -
-    aaa: bbb
+    : bbb
+    : ddd
   selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

@@ -1,13 +1,13 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: clear key
+  spokenForm: change name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionKey}
+          scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -16,15 +16,15 @@ initialState:
     -
     aaa: bbb
   selections:
-    - anchor: {line: 1, character: 21}
-      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
   documentContents: |-
     tag: user.aaa
-    : user.bbb
+    and not : user.bbb
     -
     aaa: bbb
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
