@@ -93,7 +93,7 @@
   )
 ) @_.iteration
 
-;;!!o mode: command
+;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
 (_
   (match) @condition
