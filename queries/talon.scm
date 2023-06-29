@@ -31,13 +31,19 @@
 ) @_.iteration
 
 ;;!! not mode: command
-;;!  ---------x^^^^^^^
+;;!  ----------^^^^^^^
 ;;!! slap: key("end enter")
-;;!  -----x^^^^^^^^^^^^^^^^
+;;!  ------^^^^^^^^^^^^^^^^
 (_
   (_
     right: (_) @value
   ) @_.domain
+) @_.iteration
+
+;;!! mode: command
+;;!  ^^^^^^^^^^^^^
+(_
+  (match) @condition
 ) @_.iteration
 
 ;;!! slap: key("end enter")
@@ -59,10 +65,6 @@
   ) @statement
 ) @_.iteration
 
-;; functionCall
-;; functionCallee
-;;action_name
-
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
 ;;!! edit.left()
@@ -73,6 +75,18 @@
       (key_action)
       (action)
     ] @functionCall
+  )
+) @_.iteration
+
+;;!! key(enter)
+;;!  ^^^-------
+;;!! edit.left()
+;;!  ^^^^^^^^^--
+(block
+  (_
+    (action
+      action_name: (_) @name @functionCallee
+    ) @_.domain
   )
 ) @_.iteration
 
@@ -89,21 +103,3 @@
     (_) @argumentOrParameter
   ) @_.iteration
 )
-
-;;!! key(enter)
-;;!  ^^^-------
-;;!! edit.left()
-;;!  ^^^^^^^^^--
-(block
-  (_
-    (action
-      action_name: (_) @name @functionCallee
-    ) @_.domain
-  )
-) @_.iteration
-
-;;!! mode: command
-;;!  ^^^^^^^^^^^^^
-(_
-  (match) @condition
-) @_.iteration
