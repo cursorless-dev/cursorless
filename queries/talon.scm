@@ -38,6 +38,7 @@
 
 ;;!! slap: key("end enter")
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^
+;;!        ################
 (_
   (command_declaration
     right: (_) @_.interior
@@ -47,6 +48,7 @@
 ;;!! settings()
 ;;!!     speech.debug = 1
 ;;!  ^^^^^^^^^^^^^^^^^^^^
+;;!      ################
 (_
   (settings_declaration
     right: (_) @_.interior
