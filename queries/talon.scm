@@ -39,16 +39,19 @@
 ;;!! slap: key("end enter")
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^
 (_
-  (command_declaration) @statement
+  (command_declaration
+    right: (_) @_.interior
+  ) @statement
 ) @_.iteration
 
 ;;!! settings()
 ;;!!     speech.debug = 1
 ;;!  ^^^^^^^^^^^^^^^^^^^^
 (_
-  (settings_declaration) @statement
+  (settings_declaration
+    right: (_) @_.interior
+  ) @statement
 ) @_.iteration
-
 
 ;; functionCall
 ;; functionCallee
