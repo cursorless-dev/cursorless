@@ -38,7 +38,7 @@ export class Debug {
 
   log(...args: any[]) {
     if (this.active) {
-      console.debug(...args);
+      console.log(...args);
     }
   }
 
@@ -108,12 +108,12 @@ export class Debug {
     const leafText = ancestors[ancestors.length - 1].text
       .replace(/\s+/g, " ")
       .substring(0, 100);
-    console.debug(">".repeat(ancestors.length), `"${leafText}"`);
+    console.log(">".repeat(ancestors.length), `"${leafText}"`);
   }
 
   private printCursorLocationInfo(cursor: TreeCursor, depth: number) {
     const field = cursor.currentFieldName();
     const fieldText = field != null ? `${field}: ` : "";
-    console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
+    console.log(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
   }
 }
