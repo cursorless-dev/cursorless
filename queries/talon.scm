@@ -48,3 +48,39 @@
 (_
   (settings_declaration) @statement
 ) @_.iteration
+
+
+;; functionCall
+;; functionCallee
+;;action_name
+
+;;!! key(enter)
+;;!  ^^^^^^^^^^
+;;!! edit.left()
+;;!  ^^^^^^^^^^^
+(block
+  (_
+    [
+      (key_action)
+      (action)
+    ] @functionCall
+  )
+) @_.iteration
+
+;;!! key(enter)
+;;!  ^^^-------
+;;!! edit.left()
+;;!  ^^^^^^^^^--
+(block
+  (_
+    (action
+      action_name: (_) @name @functionCallee
+    ) @_.domain
+  )
+) @_.iteration
+
+;;!! mode: command
+;;!  ^^^^^^^^^^^^^
+(_
+  (match) @condition
+) @_.iteration
