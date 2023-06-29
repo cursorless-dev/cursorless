@@ -68,6 +68,20 @@
 ) @_.iteration
 
 ;;!! key(enter)
+;;!      ^^^^^
+(key_action
+  arguments: (_) @argumentOrParameter @_.iteration
+)
+
+;;!! print("hello", "world")
+;;!        ^^^^^^^  ^^^^^^^
+(action
+  arguments: (_
+    (_) @argumentOrParameter
+  ) @_.iteration
+)
+
+;;!! key(enter)
 ;;!  ^^^-------
 ;;!! edit.left()
 ;;!  ^^^^^^^^^--
@@ -79,7 +93,7 @@
   )
 ) @_.iteration
 
-;;!! mode: command
+;;!!o mode: command
 ;;!  ^^^^^^^^^^^^^
 (_
   (match) @condition
