@@ -4,7 +4,7 @@
 ;;!  ^^^^------------------
 (_
   (_
-    left: (_) @name.end
+    left: (_) @name
   ) @_.domain
 ) @_.iteration
 
@@ -27,4 +27,17 @@
   (_
     right: (_) @value
   ) @_.domain
+) @_.iteration
+
+;;!! slap: key("end enter")
+;;!  ^^^^^^^^^^^^^^^^^^^^^^
+(_
+  (command_declaration) @statement
+) @_.iteration
+
+;;!! settings()
+;;!!     speech.debug = 1
+;;!  ^^^^^^^^^^^^^^^^^^^^
+(_
+  (settings_declaration) @statement
 ) @_.iteration
