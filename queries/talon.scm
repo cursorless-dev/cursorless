@@ -1,7 +1,13 @@
+;;!! settings()
+;;!!     speech.debug = 1
+;;!  ^^^^^^^^^^^^^^^^^^^^
 (_
   [
     (expression_statement)
     (assignment_statement)
+    (settings_declaration)
+    (tag_import_declaration)
+    (key_binding_declaration)
   ] @statement
 ) @_.iteration
 
@@ -53,14 +59,6 @@
   (command_declaration
     right: (_) @command.interior
   ) @command @statement
-) @_.iteration
-
-;;!! settings()
-;;!!     speech.debug = 1
-;;!  ^^^^^^^^^^^^^^^^^^^^
-;;!      ################
-(_
-  (settings_declaration) @statement
 ) @_.iteration
 
 ;;!! key(enter)
