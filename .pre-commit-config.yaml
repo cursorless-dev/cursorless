@@ -62,14 +62,14 @@ repos:
         name: format-recorded-tests
         files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
         language: system
-        entry: tsx --conditions=cursorless:bundler packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts
+        entry: pnpm transform-recorded-tests
   - repo: local
     hooks:
       - id: format-recorded-tests
         name: format-recorded-tests
         files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
         language: system
-        entry: tsx --conditions=cursorless:bundler packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts
+        entry: pnpm transform-recorded-tests --check-mark
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:
