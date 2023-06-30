@@ -23,11 +23,11 @@ initialState:
   marks: {}
 finalState:
   documentContents: |
-    mode: 
-    os: 
-    and tag: 
-    not tag: 
-    and not app: 
+    mode:
+    os:
+    and tag:
+    not tag:
+    and not app:
     -
   selections:
     - anchor: {line: 0, character: 5}

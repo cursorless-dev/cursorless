@@ -19,7 +19,7 @@ initialState:
   marks: {}
 finalState:
   documentContents: |
-    and not mode: 
+    and not mode:
     -
   selections:
     - anchor: {line: 0, character: 13}

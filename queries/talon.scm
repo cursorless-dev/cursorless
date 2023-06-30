@@ -83,15 +83,25 @@
   )
 ) @_.iteration
 
-;;!! key(enter)
-;;!  ^^^-------
 ;;!! edit.left()
 ;;!  ^^^^^^^^^--
 (block
   (_
     (action
-      action_name: (_) @name @functionCallee
+      action_name: (_) @functionCallee
     ) @_.domain
+  )
+) @_.iteration
+
+;;!! key(enter)
+;;!  ^^^-------
+(block
+  (_
+    [
+      (key_action)
+      (sleep_action)
+    ] @functionCallee @_.domain
+    (#child-range! @functionCallee 0 0)
   )
 ) @_.iteration
 
