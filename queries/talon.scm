@@ -56,14 +56,14 @@
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
-(_
+(matches
   (match) @condition
 ) @_.iteration
 
 ;;!! slap: key("end enter")
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^
 ;;!        ################
-(_
+(declarations
   (command_declaration
     right: (_) @command.interior
   ) @command @statement
