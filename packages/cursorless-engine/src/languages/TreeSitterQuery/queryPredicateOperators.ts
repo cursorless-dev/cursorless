@@ -116,6 +116,35 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+class Pattern extends QueryPredicateOperator<Pattern> {
+  name = "pattern!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, pattern: string) {
+    const {
+      range,
+      node: { text },
+    } = nodeInfo;
+
+    if (!range.isSingleLine) {
+      return false;
+    }
+
+    const match = text.match(new RegExp(pattern));
+
+    if (match?.index == null) {
+      return false;
+    }
+
+    nodeInfo.range = new Range(
+      range.start.translate(undefined, match.index),
+      range.start.translate(undefined, match.index + match[0].length),
+    );
+
+    return true;
+  }
+}
+
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
@@ -134,5 +163,6 @@ export const queryPredicateOperators = [
   new StartPosition(),
   new EndPosition(),
   new ChildRange(),
+  new Pattern(),
   new AllowMultiple(),
 ];

@@ -24,9 +24,9 @@ finalState:
   documentContents: |-
     some command:
         ()
-        enter)
-        enter)
-        200ms)
+        (enter)
+        (enter)
+        (200ms)
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

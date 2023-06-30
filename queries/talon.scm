@@ -101,7 +101,7 @@
       (key_action)
       (sleep_action)
     ] @functionCallee @_.domain
-    (#child-range! @functionCallee 0 0)
+    (#pattern! @functionCallee "\\w+")
   )
 ) @_.iteration
 
