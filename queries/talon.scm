@@ -1,6 +1,14 @@
+;;!! edit.left()
+;;!  ^^^^^^^^^^^
+;;!! value = 5
+;;!  ^^^^^^^^^
 ;;!! settings()
 ;;!!     speech.debug = 1
 ;;!  ^^^^^^^^^^^^^^^^^^^^
+;;!! tag(): user.some_tag
+;;!  ^^^^^^^^^^^^^^^^^^^^
+;;!! key(enter): "enter"
+;;!  ^^^^^^^^^^^^^^^^^^^
 (_
   [
     (expression_statement)
