@@ -103,10 +103,10 @@ export class Debug {
   ) {
     const field = cursor.currentFieldName();
     const fieldText = field != null ? `${field}: ` : "";
-    const ident = " ".repeat(index);
+    const indent = " ".repeat(index);
     const nodeIsLast = index === nodes.length - 1;
     const { nodeIsNamed } = cursor;
-    let text = `${ident}${fieldText}`;
+    let text = `${indent}${fieldText}`;
 
     if (nodeIsNamed) {
       text += `(${cursor.nodeType}`;
@@ -115,10 +115,6 @@ export class Debug {
       }
     } else {
       text += `"${cursor.nodeType}"`;
-    }
-
-    if (nodeIsLast) {
-      text += " @cursor";
     }
 
     console.log(text);
@@ -131,7 +127,7 @@ export class Debug {
     }
 
     if (nodeIsNamed && !nodeIsLast) {
-      console.log(`${ident})`);
+      console.log(`${indent})`);
     }
   }
 
