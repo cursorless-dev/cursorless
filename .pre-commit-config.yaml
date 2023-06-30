@@ -62,7 +62,7 @@ repos:
         name: format-recorded-tests
         files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
         language: system
-        entry: pnpm transform-recorded-tests
+        entry: pnpm run transform-recorded-tests
   - repo: local
     hooks:
       - id: format-recorded-tests
