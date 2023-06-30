@@ -51,8 +51,8 @@
 ;;!        ################
 (_
   (command_declaration
-    right: (_) @_.interior
-  ) @statement
+    right: (_) @command.interior
+  ) @command @statement
 ) @_.iteration
 
 ;;!! settings()
@@ -60,9 +60,7 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^
 ;;!      ################
 (_
-  (settings_declaration
-    right: (_) @_.interior
-  ) @statement
+  (settings_declaration) @statement
 ) @_.iteration
 
 ;;!! key(enter)
@@ -73,6 +71,7 @@
   (_
     [
       (key_action)
+      (sleep_action)
       (action)
     ] @functionCall
   )
@@ -93,6 +92,9 @@
 ;;!! key(enter)
 ;;!      ^^^^^
 (key_action
+  arguments: (_) @argumentOrParameter @_.iteration
+)
+(sleep_action
   arguments: (_) @argumentOrParameter @_.iteration
 )
 

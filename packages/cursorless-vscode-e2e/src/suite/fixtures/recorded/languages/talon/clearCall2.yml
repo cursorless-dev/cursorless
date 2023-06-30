@@ -1,0 +1,28 @@
+languageId: talon
+command:
+  version: 5
+  spokenForm: clear call
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCall}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    sleep: sleep(200ms)
+        
+        
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    sleep: 
+        
+        
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

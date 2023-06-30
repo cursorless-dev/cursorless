@@ -130,7 +130,9 @@ export type SimpleScopeTypeType =
   | "identifier"
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
-  | "url";
+  | "url"
+  // Talon
+  | "command";
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;

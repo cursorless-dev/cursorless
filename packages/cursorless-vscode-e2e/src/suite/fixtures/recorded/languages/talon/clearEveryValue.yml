@@ -1,0 +1,42 @@
+languageId: talon
+command:
+  version: 5
+  spokenForm: clear every value
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    mode: command
+    os: linux
+    and tag: user.some_tag
+    not tag: user.some_other_tag
+    and not app: some_application
+    -
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    mode: 
+    os: 
+    and tag: 
+    not tag: 
+    and not app: 
+    -
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
+    - anchor: {line: 4, character: 12}
+      active: {line: 4, character: 12}

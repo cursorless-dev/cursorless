@@ -77,6 +77,8 @@ scope_types = {
     "paragraph": "namedParagraph",
     "subparagraph": "subParagraph",
     "environment": "environment",
+    # Talon
+    "command": "command",
 }
 
 
