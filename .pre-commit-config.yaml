@@ -69,7 +69,7 @@ repos:
         name: format-recorded-tests
         files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
         language: system
-        entry: pnpm transform-recorded-tests --check-marks
+        entry: pnpm run transform-recorded-tests --check-marks
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.78"
     hooks:
