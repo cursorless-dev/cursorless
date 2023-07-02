@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck token
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: a b
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: b
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

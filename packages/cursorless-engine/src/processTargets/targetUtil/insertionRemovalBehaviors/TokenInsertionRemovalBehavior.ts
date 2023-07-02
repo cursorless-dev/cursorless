@@ -1,8 +1,10 @@
-import { Range, TextDocument, TextEditor } from "@cursorless/common";
-import { tokenize } from "../../../tokenizer";
+import { Range, TextEditor } from "@cursorless/common";
 import type { Target } from "../../../typings/target.types";
 import { expandToFullLine } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
+
+const leftDelimiters = ['"', "'", "(", "[", "{", "<"];
+const rightDelimiters = ['"', "'", ")", "]", "}", ">", ",", ";", ":"];
 
 export function getTokenLeadingDelimiterTarget(
   target: Target,
@@ -83,25 +85,21 @@ export function getTokenRemovalRange(target: Target): Range {
   }
 
   if (!trailingWhitespaceRange.isEmpty) {
-    const candidateRemovalRange = contentRange.union(trailingWhitespaceRange);
-
-    if (!mergesTokens(editor, contentRange, candidateRemovalRange)) {
-      // If there is trailing whitespace and it doesn't result in tokens getting
-      // merged, then we remove it
-      return candidateRemovalRange;
+    if (
+      !leadingWhitespaceRange.isEmpty ||
+      contentRange.start.character === 0 ||
+      leftDelimiters.includes(getLeadingCharacter(editor, contentRange))
+    ) {
+      return contentRange.union(trailingWhitespaceRange);
     }
   }
 
-  if (
-    !leadingWhitespaceRange.isEmpty &&
-    leadingWhitespaceRange.start.character !== 0
-  ) {
-    const candidateRemovalRange = leadingWhitespaceRange.union(contentRange);
-
-    if (!mergesTokens(editor, contentRange, candidateRemovalRange)) {
-      // If there is leading whitespace that is not indentation and it doesn't
-      // result in tokens getting merged, then we remove it
-      return candidateRemovalRange;
+  if (!leadingWhitespaceRange.isEmpty) {
+    if (
+      contentRange.end.isEqual(fullLineRange.end) ||
+      rightDelimiters.includes(getTrailingCharacter(editor, contentRange))
+    ) {
+      return contentRange.union(leadingWhitespaceRange);
     }
   }
 
@@ -109,43 +107,18 @@ export function getTokenRemovalRange(target: Target): Range {
   return contentRange;
 }
 
-/** Returns true if removal range causes tokens to merge */
-function mergesTokens(
-  editor: TextEditor,
-  contentRange: Range,
-  removalRange: Range,
-) {
-  const { document } = editor;
-  const fullRange = expandToFullLine(editor, contentRange);
-  const fullText = document.getText(fullRange);
-  const fullTextOffset = document.offsetAt(fullRange.start);
-
-  const numTokensContentRangeRemoved = calculateNumberOfTokensAfterRemoval(
-    document,
-    fullText,
-    fullTextOffset,
-    contentRange,
-  );
-
-  const numTokensRemovalRangeRemoved = calculateNumberOfTokensAfterRemoval(
-    document,
-    fullText,
-    fullTextOffset,
-    removalRange,
-  );
-
-  return numTokensContentRangeRemoved !== numTokensRemovalRangeRemoved;
+function getLeadingCharacter(editor: TextEditor, contentRange: Range): string {
+  const { start } = contentRange;
+  const line = editor.document.lineAt(start);
+  return start.isAfter(line.range.start)
+    ? editor.document.getText(new Range(start.translate(undefined, -1), start))
+    : "";
 }
 
-function calculateNumberOfTokensAfterRemoval(
-  document: TextDocument,
-  fullText: string,
-  fullTextOffset: number,
-  removalRange: Range,
-): number {
-  const startIndex = document.offsetAt(removalRange.start) - fullTextOffset;
-  const endIndex = document.offsetAt(removalRange.end) - fullTextOffset;
-  const modifiedText = fullText.slice(0, startIndex) + fullText.slice(endIndex);
-  const tokens = tokenize(modifiedText, document.languageId, (m) => m);
-  return tokens.length;
+function getTrailingCharacter(editor: TextEditor, contentRange: Range): string {
+  const { end } = contentRange;
+  const line = editor.document.lineAt(end);
+  return end.isBefore(line.range.end)
+    ? editor.document.getText(new Range(end.translate(undefined, 1), end))
+    : "";
 }
