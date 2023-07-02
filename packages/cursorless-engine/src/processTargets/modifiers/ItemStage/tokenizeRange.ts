@@ -128,7 +128,11 @@ export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
     }
 
     // Starting delimiter found
-    else if (leftToRightMap[lexeme] != null) {
+    // Make sure that there is a matching closing delimiter
+    else if (
+      leftToRightMap[lexeme] != null &&
+      lexemes.indexOf(leftToRightMap[lexeme], index + 1) > -1
+    ) {
       openingDelimiter = lexeme;
       closingDelimiter = leftToRightMap[lexeme];
       delimiterBalance = 1;
