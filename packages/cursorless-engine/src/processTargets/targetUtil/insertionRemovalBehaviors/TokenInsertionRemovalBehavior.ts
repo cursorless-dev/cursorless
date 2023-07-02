@@ -3,8 +3,8 @@ import type { Target } from "../../../typings/target.types";
 import { expandToFullLine } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";
 
-const leftDelimiters = ['"', "'", "(", "[", "{", "<"];
-const rightDelimiters = ['"', "'", ")", "]", "}", ">", ",", ";", ":"];
+const leadingDelimiters = ['"', "'", "(", "[", "{", "<"];
+const trailingDelimiters = ['"', "'", ")", "]", "}", ">", ",", ";", ":"];
 
 export function getTokenLeadingDelimiterTarget(
   target: Target,
@@ -83,20 +83,24 @@ export function getTokenRemovalRange(target: Target): Range {
     return fullLineRange;
   }
 
+  // Use trailing range if: There is a leading range OR there is no leading
+  // content OR there is an approved leading delimiter character
   if (!trailingWhitespaceRange.isEmpty) {
     if (
       !leadingWhitespaceRange.isEmpty ||
-      contentRange.start.character === 0 ||
-      leftDelimiters.includes(getLeadingCharacter(editor, contentRange))
+      contentRange.start.isEqual(fullLineRange.start) ||
+      leadingDelimiters.includes(getLeadingCharacter(editor, contentRange))
     ) {
       return contentRange.union(trailingWhitespaceRange);
     }
   }
 
+  // Use leading range if: There is no trailing content OR there is an approved
+  // trailing delimiter character
   if (!leadingWhitespaceRange.isEmpty) {
     if (
       contentRange.end.isEqual(fullLineRange.end) ||
-      rightDelimiters.includes(getTrailingCharacter(editor, contentRange))
+      trailingDelimiters.includes(getTrailingCharacter(editor, contentRange))
     ) {
       return contentRange.union(leadingWhitespaceRange);
     }
