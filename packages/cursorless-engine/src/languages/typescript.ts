@@ -16,6 +16,7 @@ import {
   trailingMatcher,
 } from "../util/nodeMatchers";
 import {
+  argumentSelectionExtractor,
   childRangeSelector,
   extendForwardPastOptional,
   getNodeInternalRange,
@@ -161,6 +162,16 @@ const nodeMatchers: Partial<
   map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],
+  collectionItem: cascadingMatcher(
+    matcher(
+      patternFinder("lexical_declaration.variable_declarator!"),
+      argumentSelectionExtractor(),
+    ),
+    matcher(
+      patternFinder("variable_declaration.variable_declarator!"),
+      argumentSelectionExtractor(),
+    ),
+  ),
   collectionKey: trailingMatcher(
     [
       "pair[key]",
