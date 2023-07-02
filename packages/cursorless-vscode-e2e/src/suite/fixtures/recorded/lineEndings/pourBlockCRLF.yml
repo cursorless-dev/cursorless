@@ -1,4 +1,4 @@
-languageId: python
+languageId: plaintext
 command:
   version: 5
   spokenForm: pour block
@@ -10,13 +10,13 @@ command:
           scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "    # foo"
+  documentContents: "    \r\n    foo"
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: "    # foo\r\n\r\n    "
+  documentContents: "    \r\n    foo\r\n\r\n    "
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
