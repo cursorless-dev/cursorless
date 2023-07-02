@@ -125,7 +125,7 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
     const startIndex = this.isBefore
       ? baseStartOffset + this.indentationString.length
       : baseStartOffset +
-        this.insertionDelimiter.length +
+        this.getLengthOfInsertionDelimiter() +
         this.indentationString.length;
 
     const endIndex = startIndex + text.length;
@@ -134,6 +134,15 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
       this.editor.document.positionAt(startIndex),
       this.editor.document.positionAt(endIndex),
     );
+  }
+
+  private getLengthOfInsertionDelimiter(): number {
+    // Went inserting a new line with eol `CRLF` each `\n` will be converted to
+    // `\r\n` and therefore the length is doubled.
+    if (this.isLineDelimiter && this.editor.document.eol === "CRLF") {
+      return this.insertionDelimiter.length * 2;
+    }
+    return this.insertionDelimiter.length;
   }
 }
 
