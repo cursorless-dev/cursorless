@@ -139,8 +139,12 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
   private getLengthOfInsertionDelimiter(): number {
     // Went inserting a new line with eol `CRLF` each `\n` will be converted to
     // `\r\n` and therefore the length is doubled.
-    if (this.isLineDelimiter && this.editor.document.eol === "CRLF") {
-      return this.insertionDelimiter.length * 2;
+    if (this.editor.document.eol === "CRLF") {
+      // This function is only called when inserting after a range. Therefore we
+      // only care about leading new lines in the insertion delimiter.
+      const match = this.insertionDelimiter.match(/^\n+/);
+      const nlCount = match?.[0].length ?? 0;
+      return this.insertionDelimiter.length + nlCount;
     }
     return this.insertionDelimiter.length;
   }
