@@ -55,10 +55,9 @@ export function getTokenTrailingDelimiterTarget(
 }
 
 /**
- * Constructs a removal range for the given target that will clean up a json
- * whitespace on one side unless it will cause two tokens to be merged. This
- * removal range is designed to be used with things that should clean themselves
- * up as if they're a range of tokens.
+ * Constructs a removal range for the given target that will clean up a
+ * whitespace on one side. This removal range is designed to be used with things
+ * that should clean themselves up as if they're a range of tokens.
  * @param target The target to get the token removal range for
  * @returns The removal range for the given target
  */
