@@ -41,8 +41,8 @@ export function tokenizeRange(
   const lexemes = text
     // NB: Both the delimiters and the text between them are included because we
     // use a capture group in this split regex
-    .split(/([,(){}<>[\]"'`]|\\"|\\'|\\`)/g)
-    .filter((lexeme) => lexeme.length > 0);
+    .split(/([,(){}<>[\]"'`])|(?<!\\)(\\"|\\'|\\`)/g)
+    .filter(Boolean);
   const joinedLexemes = joinLexemesBySkippingMatchingPairs(lexemes);
   const tokens: Token[] = [];
   let offset = document.offsetAt(interior.start);
