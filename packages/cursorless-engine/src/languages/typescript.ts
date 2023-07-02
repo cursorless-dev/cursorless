@@ -164,11 +164,11 @@ const nodeMatchers: Partial<
   string: ["string", "template_string"],
   collectionItem: cascadingMatcher(
     matcher(
-      patternFinder("lexical_declaration.variable_declarator!"),
+      patternFinder("lexical_declaration.variable_declarator!.identifier"),
       argumentSelectionExtractor(),
     ),
     matcher(
-      patternFinder("variable_declaration.variable_declarator!"),
+      patternFinder("variable_declaration.variable_declarator!.identifier"),
       argumentSelectionExtractor(),
     ),
   ),
