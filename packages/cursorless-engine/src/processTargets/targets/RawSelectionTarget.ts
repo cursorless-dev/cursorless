@@ -1,5 +1,4 @@
-import type { CommonTargetParameters } from "./BaseTarget";
-import BaseTarget from "./BaseTarget";
+import { BaseTarget, CommonTargetParameters } from ".";
 
 /**
  * A target that has no leading or trailing delimiters so it's removal range

@@ -1,7 +1,7 @@
 import { Range } from "@cursorless/common";
+import { BaseTarget, CommonTargetParameters } from ".";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export interface SubTokenTargetParameters extends CommonTargetParameters {
   readonly insertionDelimiter: string;
