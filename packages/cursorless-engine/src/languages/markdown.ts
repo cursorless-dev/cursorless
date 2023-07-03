@@ -107,7 +107,7 @@ const itemLeadingDelimiterExtractor = selectWithLeadingDelimiter(
 );
 
 function excludeTrailingNewline(editor: TextEditor, range: Range) {
-  const matches = getMatchesInRange(/\r?\n?$/g, editor, range);
+  const matches = getMatchesInRange(/\r?\n\s*$/g, editor, range);
 
   if (matches.length > 0) {
     return new Range(range.start, matches[0].start);
@@ -116,11 +116,22 @@ function excludeTrailingNewline(editor: TextEditor, range: Range) {
   return range;
 }
 
-function itemExtractor(editor: TextEditor, node: SyntaxNode) {
+function itemExtractor(
+  editor: TextEditor,
+  node: SyntaxNode,
+): SelectionWithContext {
   const { context, selection } = itemLeadingDelimiterExtractor(editor, node);
+  const line = editor.document.lineAt(selection.start);
+  const indent = editor.document.getText(
+    new Range(line.range.start, selection.start),
+  );
 
   return {
-    context,
+    context: {
+      ...context,
+      containingListDelimiter: `\n${indent}`,
+      removalRange: line.rangeIncludingLineBreak,
+    },
     selection: excludeTrailingNewline(editor, selection).toSelection(
       selection.isReversed,
     ),
