@@ -17,4 +17,5 @@ export * from "./OneOfScopeHandler";
 export { default as OneOfScopeHandler } from "./OneOfScopeHandler";
 export * from "./ParagraphScopeHandler";
 export { default as ParagraphScopeHandler } from "./ParagraphScopeHandler";
+export { default as NotebookCellScopeHandler } from "./NotebookCellScopeHandler";
 export * from "./ScopeHandlerFactoryImpl";

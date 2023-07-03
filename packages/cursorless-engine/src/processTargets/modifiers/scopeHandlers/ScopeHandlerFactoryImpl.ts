@@ -4,6 +4,7 @@ import {
   DocumentScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
+  NotebookCellScopeHandler,
   OneOfScopeHandler,
   ParagraphScopeHandler,
   TokenScopeHandler,
@@ -56,6 +57,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return OneOfScopeHandler.create(this, scopeType, languageId);
       case "paragraph":
         return new ParagraphScopeHandler(scopeType, languageId);
+      case "notebookCell":
+        return new NotebookCellScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":

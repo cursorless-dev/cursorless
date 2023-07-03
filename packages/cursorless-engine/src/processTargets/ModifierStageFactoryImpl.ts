@@ -4,6 +4,7 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
+import { StoredTargetMap } from "..";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";
@@ -35,14 +36,12 @@ import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
-import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 import {
   CustomRegexModifier,
   CustomRegexStage,
   NonWhitespaceSequenceStage,
   UrlStage,
 } from "./modifiers/scopeTypeStages/RegexStage";
-import { StoredTargetMap } from "..";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
@@ -129,8 +128,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     modifier: ContainingScopeModifier | EveryScopeModifier,
   ): ModifierStage {
     switch (modifier.scopeType.type) {
-      case "notebookCell":
-        return new NotebookCellStage(modifier);
       case "nonWhitespaceSequence":
         return new NonWhitespaceSequenceStage(modifier);
       case "boundedNonWhitespaceSequence":
