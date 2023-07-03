@@ -120,17 +120,15 @@ function itemExtractor(
   editor: TextEditor,
   node: SyntaxNode,
 ): SelectionWithContext {
-  const { context, selection } = itemLeadingDelimiterExtractor(editor, node);
+  const { selection } = itemLeadingDelimiterExtractor(editor, node);
   const line = editor.document.lineAt(selection.start);
-  const indent = editor.document.getText(
-    new Range(line.range.start, selection.start),
-  );
+  const leadingRange = new Range(line.range.start, selection.start);
+  const indent = editor.document.getText(leadingRange);
 
   return {
     context: {
-      ...context,
       containingListDelimiter: `\n${indent}`,
-      removalRange: line.rangeIncludingLineBreak,
+      leadingDelimiterRange: leadingRange,
     },
     selection: excludeTrailingNewline(editor, selection).toSelection(
       selection.isReversed,
