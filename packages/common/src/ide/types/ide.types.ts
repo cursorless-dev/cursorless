@@ -213,6 +213,12 @@ export interface IDE {
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void>;
+
+  /**
+   * Write message to the Cursorless log
+   * @param message The message to log
+   */
+  log(message: string): Promise<void>;
 }
 
 export interface WorkspaceFolder {

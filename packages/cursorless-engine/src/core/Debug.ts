@@ -38,7 +38,7 @@ export class Debug {
 
   log(...args: any[]) {
     if (this.active) {
-      console.log(...args);
+      ide().log(`${args}`);
     }
   }
 
@@ -117,7 +117,7 @@ export class Debug {
       text += `"${cursor.nodeType}"`;
     }
 
-    console.log(text);
+    ide().log(text);
 
     if (
       !nodeIsLast &&
@@ -127,7 +127,7 @@ export class Debug {
     }
 
     if (nodeIsNamed && !nodeIsLast) {
-      console.log(`${indent})`);
+      ide().log(`${indent})`);
     }
   }
 

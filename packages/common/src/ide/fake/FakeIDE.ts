@@ -47,6 +47,10 @@ export default class FakeIDE implements IDE {
     // empty
   }
 
+  log(_umessage: string): Promise<void> {
+    throw Error("Not implemented");
+  }
+
   onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
   onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;

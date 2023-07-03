@@ -42,6 +42,10 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.setHighlightRanges(highlightId, editor, ranges);
   }
 
+  log(message: string): Promise<void> {
+    return this.original.log(message);
+  }
+
   onDidOpenTextDocument(
     listener: (e: TextDocument) => any,
     thisArgs?: any,
