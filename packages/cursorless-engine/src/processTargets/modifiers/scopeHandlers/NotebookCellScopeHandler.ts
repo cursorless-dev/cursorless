@@ -4,7 +4,7 @@ import { NotebookCellTarget } from "../../targets";
 import { TargetScope } from "./scope.types";
 
 export default class NotebookCellScopeHandler extends NestedScopeHandler {
-  public readonly iterationScopeType = { type: "document" } as const;
+  public readonly iterationScopeType = { type: "token" } as const;
 
   protected *generateScopesInSearchScope(
     direction: Direction,
