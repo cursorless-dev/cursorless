@@ -1,11 +1,14 @@
+import {
+  SimpleSurroundingPairName,
+  SurroundingPairScopeType,
+} from "@cursorless/common";
+import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
 import {
-  SurroundingPairOffsets,
-  PossibleDelimiterOccurrence,
   Offsets,
+  PossibleDelimiterOccurrence,
+  SurroundingPairOffsets,
 } from "./types";
-import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
-import { SimpleSurroundingPairName } from "@cursorless/common";
 
 /**
  * Looks for a surrounding pair that contains the selection, returning null if none is found.
@@ -40,6 +43,7 @@ export function findDelimiterPairContainingSelection(
   delimiterOccurrences: PossibleDelimiterOccurrence[],
   acceptableDelimiters: SimpleSurroundingPairName[],
   selectionOffsets: Offsets,
+  scopeType: SurroundingPairScopeType,
 ): SurroundingPairOffsets | null {
   // Accept any delimiter when scanning right
   const acceptableRightDelimiters = acceptableDelimiters;
@@ -86,6 +90,15 @@ export function findDelimiterPairContainingSelection(
     // If left delimiter is left of our selection, we return it.  Otherwise
     // loop back and continue scanning outwards.
     if (leftDelimiterOccurrence.offsets.start <= selectionOffsets.start) {
+      // Skip this occurrence if not strongly contained.
+      if (
+        scopeType.requireStrongContainment &&
+        (leftDelimiterOccurrence.offsets.end > selectionOffsets.start ||
+          rightDelimiterOccurrence.offsets.start < selectionOffsets.end)
+      ) {
+        continue;
+      }
+
       return getSurroundingPairOffsets(
         leftDelimiterOccurrence,
         rightDelimiterOccurrence,
