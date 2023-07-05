@@ -43,6 +43,22 @@ export interface RangeMark {
   excludeActive?: boolean;
 }
 
+interface PartialPosition {
+  readonly line: number;
+  readonly character: number;
+}
+
+interface PartialRange {
+  readonly start: PartialPosition;
+  readonly end: PartialPosition;
+}
+
+export interface ExplicitMark {
+  type: "explicit";
+  editorId: string;
+  range: PartialRange;
+}
+
 export type PartialMark =
   | CursorMark
   | ThatMark
@@ -50,7 +66,8 @@ export type PartialMark =
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
-  | RangeMark;
+  | RangeMark
+  | ExplicitMark;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"
