@@ -5,7 +5,12 @@
     "outDir": "out",
     "rootDir": "src"
   },
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "../../typings/**/*.d.ts",
+    "../vscode-common/src/vscode.ts"
+  ],
   "references": [
     {
       "path": "../common"

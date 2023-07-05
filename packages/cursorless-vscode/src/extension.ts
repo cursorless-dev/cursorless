@@ -20,7 +20,6 @@ import {
   ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
@@ -37,6 +36,9 @@ import {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
+import { createVscodeApi } from "./createVscodeApi";
+import { Vscode } from "@cursorless/vscode-common";
+import { ExtensionContext, Location } from "vscode";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -47,7 +49,7 @@ import {
  * - Creates an entrypoint for running commands {@link CommandRunner}.
  */
 export async function activate(
-  context: vscode.ExtensionContext,
+  context: ExtensionContext,
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
@@ -87,13 +89,18 @@ export async function activate(
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
+  const vscode = createVscodeApi();
 
   registerCommands(
     context,
     vscodeIDE,
     commandApi,
     testCaseRecorder,
-    createScopeVisualizerCommandApi(normalizedIde ?? vscodeIDE, scopeProvider),
+    createScopeVisualizerCommandApi(
+      vscode,
+      normalizedIde ?? vscodeIDE,
+      scopeProvider,
+    ),
     keyboardCommands,
     hats,
   );
@@ -108,6 +115,7 @@ export async function activate(
           normalizedIde!,
           injectIde,
           runIntegrationTests,
+          vscode,
         )
       : undefined,
 
@@ -117,7 +125,7 @@ export async function activate(
   };
 }
 
-async function createVscodeIde(context: vscode.ExtensionContext) {
+async function createVscodeIde(context: ExtensionContext) {
   const vscodeIDE = new VscodeIDE(context);
 
   const hats = new VscodeHats(
@@ -136,7 +144,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
   return {
     getNodeAtLocation(document: TextDocument, range: Range) {
       return parseTreeApi.getNodeAtLocation(
-        new vscode.Location(document.uri, toVscodeRange(range)),
+        new Location(document.uri, toVscodeRange(range)),
       );
     },
 
@@ -150,6 +158,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
 }
 
 function createScopeVisualizerCommandApi(
+  vscode: Vscode,
   ide: IDE,
   scopeProvider: ScopeProvider,
 ): ScopeVisualizerCommandApi {
@@ -159,6 +168,7 @@ function createScopeVisualizerCommandApi(
     start(scopeType: ScopeType, visualizationType: VisualizationType) {
       scopeVisualizer?.dispose();
       scopeVisualizer = createVscodeScopeVisualizer(
+        vscode,
         ide,
         scopeProvider,
         scopeType,

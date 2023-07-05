@@ -16,10 +16,10 @@ import {
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
-import { TestHelpers } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
+import { TestHelpers, Vscode } from "@cursorless/vscode-common";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
+import type { TextEditor as VscodeTextEditor } from "vscode";
 
 export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
@@ -29,6 +29,7 @@ export function constructTestHelpers(
   normalizedIde: NormalizedIDE,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
+  vscode: Vscode,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
@@ -61,7 +62,7 @@ export function constructTestHelpers(
     },
 
     setStoredTarget(
-      editor: vscode.TextEditor,
+      editor: VscodeTextEditor,
       key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
@@ -74,5 +75,6 @@ export function constructTestHelpers(
     },
     hatTokenMap,
     runIntegrationTests,
+    vscode,
   };
 }
