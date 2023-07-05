@@ -26,7 +26,7 @@ import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { StatusBarItem } from "./StatusBarItem";
-import { getScopeVisualizerCommandApi } from "./getScopeVisualizerCommandApi";
+import { createVscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -75,11 +75,6 @@ export async function activate(
     commandServerApi,
   );
 
-  const scopeVisualizerCommandApi = getScopeVisualizerCommandApi(
-    normalizedIde ?? vscodeIDE,
-    scopeProvider,
-  );
-
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
 
@@ -88,7 +83,7 @@ export async function activate(
     vscodeIDE,
     commandApi,
     testCaseRecorder,
-    scopeVisualizerCommandApi,
+    createScopeVisualizerCommandApi(normalizedIde ?? vscodeIDE, scopeProvider),
     keyboardCommands,
     hats,
   );
@@ -141,6 +136,31 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
 
     loadLanguage: parseTreeApi.loadLanguage,
     getLanguage: parseTreeApi.getLanguage,
+  };
+}
+
+function createScopeVisualizerCommandApi(
+  ide: IDE,
+  scopeProvider: ScopeProvider,
+): ScopeVisualizerCommandApi {
+  let scopeVisualizer: VscodeScopeVisualizer | undefined;
+
+  return {
+    start(scopeType: ScopeType, visualizationType: VisualizationType) {
+      scopeVisualizer?.dispose();
+      scopeVisualizer = createVscodeScopeVisualizer(
+        ide,
+        scopeProvider,
+        scopeType,
+        visualizationType,
+      );
+      scopeVisualizer.start();
+    },
+
+    stop() {
+      scopeVisualizer?.dispose();
+      scopeVisualizer = undefined;
+    },
   };
 }
 
