@@ -45,7 +45,7 @@ export class ScopeRangeProvider {
     {
       scopeType,
       visibleOnly,
-      includeIterationNestedTargets,
+      includeNestedTargets: includeIterationNestedTargets,
     }: IterationScopeRangeConfig,
   ): IterationScopeRanges[] {
     const { languageId } = editor.document;

@@ -9,7 +9,7 @@ interface ScopeRangeConfigBase {
 export type ScopeRangeConfig = ScopeRangeConfigBase;
 
 export interface IterationScopeRangeConfig extends ScopeRangeConfigBase {
-  includeIterationNestedTargets: boolean;
+  includeNestedTargets: boolean;
 }
 
 export type ScopeChangeEventCallback = (

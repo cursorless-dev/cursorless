@@ -52,7 +52,7 @@ export interface ScopeProvider {
     {
       scopeType,
       visibleOnly,
-      includeIterationNestedTargets,
+      includeNestedTargets: includeIterationNestedTargets,
     }: IterationScopeRangeConfig,
   ) => IterationScopeRanges[];
 

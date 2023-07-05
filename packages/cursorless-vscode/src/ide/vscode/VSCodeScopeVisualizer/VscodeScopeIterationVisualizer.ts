@@ -22,7 +22,7 @@ export class VscodeScopeIterationVisualizer extends VscodeScopeVisualizer {
       {
         scopeType: this.scopeType,
         visibleOnly: true,
-        includeIterationNestedTargets: false,
+        includeNestedTargets: false,
       },
     );
   }

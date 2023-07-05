@@ -26,7 +26,7 @@ import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { StatusBarItem } from "./StatusBarItem";
-import { ScopeVisualizerImpl } from "./ScopeVisualizerImpl";
+import { getScopeVisualizerCommandApi } from "./getScopeVisualizerCommandApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -75,7 +75,7 @@ export async function activate(
     commandServerApi,
   );
 
-  const scopeVisualizer = new ScopeVisualizerImpl(
+  const scopeVisualizerCommandApi = getScopeVisualizerCommandApi(
     normalizedIde ?? vscodeIDE,
     scopeProvider,
   );
@@ -88,7 +88,7 @@ export async function activate(
     vscodeIDE,
     commandApi,
     testCaseRecorder,
-    scopeVisualizer,
+    scopeVisualizerCommandApi,
     keyboardCommands,
     hats,
   );
