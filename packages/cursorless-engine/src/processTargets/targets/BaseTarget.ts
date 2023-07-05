@@ -204,7 +204,7 @@ export default abstract class BaseTarget<
     };
   }
 
-  abstract get type(): string;
+  protected abstract get type(): string;
   abstract get insertionDelimiter(): string;
   abstract getLeadingDelimiterTarget(): Target | undefined;
   abstract getTrailingDelimiterTarget(): Target | undefined;
