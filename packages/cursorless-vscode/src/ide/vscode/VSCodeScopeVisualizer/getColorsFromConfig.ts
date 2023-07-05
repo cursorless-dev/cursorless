@@ -1,10 +1,12 @@
 import { RangeTypeColors } from "./RangeTypeColors";
-import { ScopeVisualizerColorConfig, ScopeRangeType } from "../../../../../vscode-common/src/ScopeVisualizerColorConfig";
-
+import {
+  ScopeVisualizerColorConfig,
+  ScopeRangeType,
+} from "@cursorless/vscode-common/src/ScopeVisualizerColorConfig";
 
 export function getColorsFromConfig(
   config: ScopeVisualizerColorConfig,
-  rangeType: ScopeRangeType
+  rangeType: ScopeRangeType,
 ): RangeTypeColors {
   return {
     background: {
