@@ -15,6 +15,9 @@ import {
   DifferentiatedStyledRangeList,
 } from "./getDecorationRanges.types";
 
+const BORDER_WIDTH = "1px";
+const BORDER_RADIUS = "2px";
+
 export class VscodeFancyRangeHighlighterRenderer {
   private decorationTypes: CompositeKeyDefaultMap<
     DifferentiatedStyle,
@@ -97,7 +100,7 @@ function getDecorationStyle(
       ),
     },
     borderStyle: getBorderStyle(borders),
-    borderWidth: "1px",
+    borderWidth: BORDER_WIDTH,
     borderRadius: getBorderRadius(borders),
     rangeBehavior: DecorationRangeBehavior.ClosedClosed,
     isWholeLine: borders.isWholeLine,
@@ -123,16 +126,17 @@ function getBorderColor(
   ].join(" ");
 }
 
-function getBorderRadius({
-  top,
-  right,
-  bottom,
-  left,
-}: DecorationStyle): string {
+function getBorderRadius(borders: DecorationStyle): string {
   return [
-    top === BorderStyle.solid && left === BorderStyle.solid ? "2px" : "0px",
-    top === BorderStyle.solid && right === BorderStyle.solid ? "2px" : "0px",
-    bottom === BorderStyle.solid && right === BorderStyle.solid ? "2px" : "0px",
-    bottom === BorderStyle.solid && left === BorderStyle.solid ? "2px" : "0px",
+    getSingleCornerBorderRadius(borders.top, borders.left),
+    getSingleCornerBorderRadius(borders.top, borders.right),
+    getSingleCornerBorderRadius(borders.bottom, borders.right),
+    getSingleCornerBorderRadius(borders.bottom, borders.left),
   ].join(" ");
+}
+
+function getSingleCornerBorderRadius(side1: BorderStyle, side2: BorderStyle) {
+  return side1 === BorderStyle.solid && side2 === BorderStyle.solid
+    ? BORDER_RADIUS
+    : "0px";
 }

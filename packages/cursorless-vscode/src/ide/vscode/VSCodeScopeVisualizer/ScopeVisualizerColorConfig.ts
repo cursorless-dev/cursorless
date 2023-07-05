@@ -2,7 +2,7 @@ import { RangeTypeColors } from "./RangeTypeColors";
 
 export function getColorsFromConfig(
   config: ScopeVisualizerColorConfig,
-  rangeType: ColorConfigKey,
+  rangeType: ScopeRangeType,
 ): RangeTypeColors {
   return {
     background: {
@@ -20,32 +20,20 @@ export function getColorsFromConfig(
   };
 }
 
-export type ColorConfigKey = keyof ScopeVisualizerThemeColorConfig;
+export type ScopeRangeType = "domain" | "content" | "removal" | "iteration";
 
 export interface ScopeVisualizerColorConfig {
   light: ScopeVisualizerThemeColorConfig;
   dark: ScopeVisualizerThemeColorConfig;
 }
 
-interface ScopeVisualizerThemeColorConfig {
-  domain: {
-    background: string;
-    borderSolid: string;
-    borderPorous: string;
-  };
-  content: {
-    background: string;
-    borderSolid: string;
-    borderPorous: string;
-  };
-  removal: {
-    background: string;
-    borderSolid: string;
-    borderPorous: string;
-  };
-  iteration: {
-    background: string;
-    borderSolid: string;
-    borderPorous: string;
-  };
+type ScopeVisualizerThemeColorConfig = Record<
+  ScopeRangeType,
+  RangeTypeColorConfig
+>;
+
+interface RangeTypeColorConfig {
+  background: string;
+  borderSolid: string;
+  borderPorous: string;
 }

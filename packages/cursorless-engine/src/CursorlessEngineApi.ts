@@ -44,16 +44,12 @@ export interface CommandApi {
 export interface ScopeProvider {
   provideScopeRanges: (
     editor: TextEditor,
-    { scopeType, visibleOnly }: ScopeRangeConfig,
+    config: ScopeRangeConfig,
   ) => ScopeRanges[];
 
   provideIterationScopeRanges: (
     editor: TextEditor,
-    {
-      scopeType,
-      visibleOnly,
-      includeNestedTargets: includeIterationNestedTargets,
-    }: IterationScopeRangeConfig,
+    config: IterationScopeRangeConfig,
   ) => IterationScopeRanges[];
 
   onDidChangeScopeRanges: (

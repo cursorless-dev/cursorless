@@ -8,7 +8,7 @@ import {
 import { ScopeProvider, ScopeSupport } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
 import {
-  ColorConfigKey,
+  ScopeRangeType,
   ScopeVisualizerColorConfig,
   getColorsFromConfig,
 } from "./ScopeVisualizerColorConfig";
@@ -20,7 +20,7 @@ export abstract class VscodeScopeVisualizer {
   private disposables: Disposable[] = [];
 
   protected abstract registerListener(): Disposable;
-  protected abstract getNestedColorConfigKey(): ColorConfigKey;
+  protected abstract getNestedScopeRangeType(): ScopeRangeType;
   protected abstract getScopeSupport(editor: TextEditor): ScopeSupport;
 
   constructor(
@@ -71,7 +71,7 @@ export abstract class VscodeScopeVisualizer {
     this.renderer?.dispose();
     this.renderer = new VscodeScopeRenderer(
       getColorsFromConfig(colorConfig, "domain"),
-      getColorsFromConfig(colorConfig, this.getNestedColorConfigKey()),
+      getColorsFromConfig(colorConfig, this.getNestedScopeRangeType()),
     );
 
     // Reregister to cause the renderer to be updated with the new colors

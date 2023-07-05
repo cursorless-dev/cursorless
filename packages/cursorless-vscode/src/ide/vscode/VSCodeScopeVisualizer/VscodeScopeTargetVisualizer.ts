@@ -38,7 +38,7 @@ export class VscodeScopeContentVisualizer extends VscodeScopeTargetVisualizer {
     return contentRange;
   }
 
-  protected getNestedColorConfigKey() {
+  protected getNestedScopeRangeType() {
     return "content" as const;
   }
 }
@@ -48,7 +48,7 @@ export class VscodeScopeRemovalVisualizer extends VscodeScopeTargetVisualizer {
     return removalRange;
   }
 
-  protected getNestedColorConfigKey() {
+  protected getNestedScopeRangeType() {
     return "removal" as const;
   }
 }

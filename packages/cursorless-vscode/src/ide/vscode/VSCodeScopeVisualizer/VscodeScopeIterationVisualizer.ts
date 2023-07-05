@@ -27,7 +27,7 @@ export class VscodeScopeIterationVisualizer extends VscodeScopeVisualizer {
     );
   }
 
-  protected getNestedColorConfigKey() {
+  protected getNestedScopeRangeType() {
     return "iteration" as const;
   }
 }

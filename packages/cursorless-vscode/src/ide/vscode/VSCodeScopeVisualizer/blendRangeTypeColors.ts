@@ -35,6 +35,7 @@ export function blendRangeTypeColors(
     },
   };
 }
+
 function blendColors(base: string, top: string): string {
   const baseRgba = tinycolor(base).toRgb();
   const topRgba = tinycolor(top).toRgb();

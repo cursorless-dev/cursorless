@@ -1,13 +1,16 @@
 import {
   FakeIDE,
   getFakeCommandServerApi,
+  IDE,
   isTesting,
   NormalizedIDE,
   Range,
+  ScopeType,
   TextDocument,
 } from "@cursorless/common";
 import {
   createCursorlessEngine,
+  ScopeProvider,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -26,7 +29,14 @@ import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { StatusBarItem } from "./StatusBarItem";
-import { createVscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
+import {
+  createVscodeScopeVisualizer,
+  VscodeScopeVisualizer,
+} from "./ide/vscode/VSCodeScopeVisualizer";
+import {
+  ScopeVisualizerCommandApi,
+  VisualizationType,
+} from "./ScopeVisualizerCommandApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
