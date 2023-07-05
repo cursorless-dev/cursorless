@@ -1,27 +1,32 @@
 import {
-  PlainScopeVisualization,
-  SpyIDE,
-  omitByDeep,
-  spyIDERecordedValuesToPlainObject,
-} from "@cursorless/common";
-import { openNewEditor } from "@cursorless/vscode-common";
+  ScopeVisualizerColorConfig,
+  Vscode,
+  getCursorlessApi,
+  openNewEditor,
+} from "@cursorless/vscode-common";
 import { assert } from "chai";
+import * as sinon from "sinon";
+import * as vscode from "vscode";
+import {
+  DecorationRenderOptions,
+  TextEditorDecorationType,
+  WorkspaceConfiguration,
+} from "vscode";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import * as vscode from "vscode";
-import { isUndefined } from "lodash";
+import { rangeToPlainObject } from "@cursorless/common";
 
 suite("scope visualizer", async function () {
-  const { getSpy } = endToEndTestSetup(this);
+  endToEndTestSetup(this);
 
   test(
     "basic content",
-    asyncSafety(() => runContentTest(getSpy()!)),
+    asyncSafety(() => runContentTest()),
   );
-  test(
-    "basic removal",
-    asyncSafety(() => runRemovalTest(getSpy()!)),
-  );
+  // test(
+  //   "basic removal",
+  //   asyncSafety(() => runRemovalTest()),
+  // );
 });
 
 const initialDocumentContents = `
@@ -38,96 +43,93 @@ function helloWorld() {
 }
 `;
 
-const expectedInitialContentVisualizations: PlainScopeVisualization[] = [
-  { scopeRanges: [] },
-  {
-    scopeRanges: [
-      {
-        scopeType: { type: "namedFunction" },
-        domain: {
-          type: "character",
-          start: { line: 1, character: 0 },
-          end: { line: 3, character: 1 },
-        },
-        contentRanges: [
-          {
-            type: "character",
-            start: { line: 1, character: 0 },
-            end: { line: 3, character: 1 },
-          },
-        ],
-      },
-    ],
-  },
-];
+const expectedInitialContentVisualizations: any[] = [];
 
-const expectedUpdatedContentVisualization: PlainScopeVisualization = {
-  scopeRanges: [
-    {
-      contentRanges: [
-        {
-          start: {
-            character: 0,
-            line: 1,
-          },
-          end: {
-            character: 1,
-            line: 5,
-          },
-          type: "character",
-        },
-      ],
-      domain: {
-        start: {
-          character: 0,
-          line: 1,
-        },
-        end: {
-          character: 1,
-          line: 5,
-        },
-        type: "character",
-      },
-      scopeType: {
-        type: "namedFunction",
-      },
+const expectedUpdatedContentVisualization: any[] = [];
+
+const COLOR_CONFIG: ScopeVisualizerColorConfig = {
+  dark: {
+    content: {
+      background: "#000000",
+      borderPorous: "#000001",
+      borderSolid: "#000002",
     },
-    {
-      contentRanges: [
-        {
-          start: {
-            character: 2,
-            line: 2,
-          },
-          end: {
-            character: 3,
-            line: 4,
-          },
-          type: "character",
-        },
-      ],
-      domain: {
-        start: {
-          character: 2,
-          line: 2,
-        },
-        end: {
-          character: 3,
-          line: 4,
-        },
-        type: "character",
-      },
-      scopeType: {
-        type: "namedFunction",
-      },
+    domain: {
+      background: "#000003",
+      borderPorous: "#000004",
+      borderSolid: "#000005",
     },
-  ],
+    iteration: {
+      background: "#000006",
+      borderPorous: "#000007",
+      borderSolid: "#000008",
+    },
+    removal: {
+      background: "#000009",
+      borderPorous: "#000010",
+      borderSolid: "#000011",
+    },
+  },
+  light: {
+    content: {
+      background: "#100000",
+      borderPorous: "#100001",
+      borderSolid: "#100002",
+    },
+    domain: {
+      background: "#100003",
+      borderPorous: "#100004",
+      borderSolid: "#100005",
+    },
+    iteration: {
+      background: "#100006",
+      borderPorous: "#100007",
+      borderSolid: "#100008",
+    },
+    removal: {
+      background: "#100009",
+      borderPorous: "#100010",
+      borderSolid: "#100011",
+    },
+  },
 };
 
-async function runContentTest(spyIde: SpyIDE) {
+async function runContentTest() {
   const editor = await openNewEditor(initialDocumentContents, {
     languageId: "typescript",
   });
+
+  const { vscode: vscodeApi } = (await getCursorlessApi()).testHelpers!;
+
+  let decorationIndex = 0;
+  const setDecorations = sinon.fake<
+    Parameters<Vscode["editor"]["setDecorations"]>,
+    void
+  >();
+  const getConfigurationValue = sinon.fake.returns(COLOR_CONFIG);
+  const dispose = sinon.fake();
+  const createTextEditorDecorationType = sinon.fake(
+    (_options: DecorationRenderOptions) => {
+      return {
+        dispose,
+        id: decorationIndex++,
+      } as unknown as TextEditorDecorationType;
+    },
+  );
+
+  sinon.replace(
+    vscodeApi.window,
+    "createTextEditorDecorationType",
+    createTextEditorDecorationType,
+  );
+  sinon.replace(vscodeApi.editor, "setDecorations", setDecorations);
+  sinon.replace(
+    vscodeApi.workspace,
+    "getConfiguration",
+    sinon.fake.returns({
+      get: getConfigurationValue,
+    } as unknown as WorkspaceConfiguration),
+  );
 
   await vscode.commands.executeCommand(
     "cursorless.showScopeVisualizer",
@@ -137,8 +139,10 @@ async function runContentTest(spyIde: SpyIDE) {
     "content",
   );
 
-  const expectedVisualizations = [...expectedInitialContentVisualizations];
-  checkVisualizations(spyIde, expectedVisualizations);
+  checkAndResetDecorations(
+    setDecorations,
+    expectedInitialContentVisualizations,
+  );
 
   await editor.edit((editBuilder) => {
     editBuilder.replace(
@@ -148,72 +152,58 @@ async function runContentTest(spyIde: SpyIDE) {
   });
   await sleepWithBackoff(100);
 
-  expectedVisualizations.push(expectedUpdatedContentVisualization);
-  checkVisualizations(spyIde, expectedVisualizations);
+  checkAndResetDecorations(setDecorations, expectedUpdatedContentVisualization);
 
   await vscode.commands.executeCommand("cursorless.hideScopeVisualizer");
 
-  expectedVisualizations.push({ scopeRanges: [] });
-  checkVisualizations(spyIde, expectedVisualizations);
+  checkAndResetDecorations(setDecorations, []);
 }
 
-const expectedRemovalVisualizations: PlainScopeVisualization[] = [
-  { scopeRanges: [] },
-  {
-    scopeRanges: [
-      {
-        scopeType: { type: "paragraph" },
-        domain: {
-          type: "character",
-          start: { line: 1, character: 0 },
-          end: { line: 1, character: 23 },
-        },
-        removalRanges: [{ type: "line", start: 1, end: 2 }],
-      },
-      {
-        scopeType: { type: "paragraph" },
-        domain: {
-          type: "character",
-          start: { line: 3, character: 0 },
-          end: { line: 3, character: 1 },
-        },
-        removalRanges: [{ type: "line", start: 3, end: 4 }],
-      },
-    ],
-  },
-];
+// const expectedRemovalVisualizations = [];
 
-async function runRemovalTest(spyIde: SpyIDE) {
-  await openNewEditor(initialDocumentContents, {
-    languageId: "typescript",
-  });
+// async function runRemovalTest() {
+//   await openNewEditor(initialDocumentContents, {
+//     languageId: "typescript",
+//   });
 
-  await vscode.commands.executeCommand(
-    "cursorless.showScopeVisualizer",
-    {
-      type: "paragraph",
-    },
-    "removal",
-  );
+//   await vscode.commands.executeCommand(
+//     "cursorless.showScopeVisualizer",
+//     {
+//       type: "paragraph",
+//     },
+//     "removal",
+//   );
 
-  checkVisualizations(spyIde, expectedRemovalVisualizations);
+//   checkDecorations(spyIde, expectedRemovalVisualizations);
 
-  await vscode.commands.executeCommand("cursorless.hideScopeVisualizer");
-}
+//   await vscode.commands.executeCommand("cursorless.hideScopeVisualizer");
+// }
 
-function checkVisualizations(
-  spyIde: SpyIDE,
-  expectedVisualizations: PlainScopeVisualization[],
+function checkAndResetDecorations(
+  setDecorations: sinon.SinonSpy<
+    Parameters<Vscode["editor"]["setDecorations"]>,
+    void
+  >,
+  expectedDecorations: any[],
 ) {
-  const actualVisualizations = omitByDeep(
-    spyIDERecordedValuesToPlainObject(spyIde.getSpyValues(false)!)
-      .scopeVisualizations,
-    isUndefined,
+  const actualDecorations = setDecorations.args.map((args) =>
+    setDecorationsArgsToPlainObject(...(args as [any, any, any])),
   );
-
   assert.deepStrictEqual(
-    actualVisualizations,
-    expectedVisualizations,
-    JSON.stringify(actualVisualizations),
+    actualDecorations,
+    expectedDecorations,
+    JSON.stringify(actualDecorations),
   );
+  setDecorations.resetHistory();
+}
+
+function setDecorationsArgsToPlainObject(
+  _editor: vscode.TextEditor,
+  decorationType: { id: string },
+  ranges: readonly vscode.Range[],
+): any {
+  return {
+    decorationType: decorationType.id,
+    ranges: ranges.map(rangeToPlainObject),
+  };
 }

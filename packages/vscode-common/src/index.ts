@@ -4,3 +4,4 @@ export * from "./testUtil/openNewEditor";
 export * from "./vscodeUtil";
 export * from "./runCommand";
 export * from "./vscode";
+export * from "./ScopeVisualizerColorConfig";

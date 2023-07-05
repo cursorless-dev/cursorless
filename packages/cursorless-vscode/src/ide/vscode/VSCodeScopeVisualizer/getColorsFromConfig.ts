@@ -1,8 +1,10 @@
 import { RangeTypeColors } from "./RangeTypeColors";
+import { ScopeVisualizerColorConfig, ScopeRangeType } from "../../../../../vscode-common/src/ScopeVisualizerColorConfig";
+
 
 export function getColorsFromConfig(
   config: ScopeVisualizerColorConfig,
-  rangeType: ScopeRangeType,
+  rangeType: ScopeRangeType
 ): RangeTypeColors {
   return {
     background: {
@@ -18,22 +20,4 @@ export function getColorsFromConfig(
       dark: config.dark[rangeType].borderPorous,
     },
   };
-}
-
-export type ScopeRangeType = "domain" | "content" | "removal" | "iteration";
-
-export interface ScopeVisualizerColorConfig {
-  light: ScopeVisualizerThemeColorConfig;
-  dark: ScopeVisualizerThemeColorConfig;
-}
-
-type ScopeVisualizerThemeColorConfig = Record<
-  ScopeRangeType,
-  RangeTypeColorConfig
->;
-
-interface RangeTypeColorConfig {
-  background: string;
-  borderSolid: string;
-  borderPorous: string;
 }

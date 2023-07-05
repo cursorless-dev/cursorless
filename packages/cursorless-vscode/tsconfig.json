@@ -9,7 +9,8 @@
     "src/**/*.ts",
     "src/**/*.json",
     "../../typings/**/*.d.ts",
-    "../vscode-common/src/vscode.ts"
+    "../vscode-common/src/vscode.ts",
+    "../vscode-common/src/ScopeVisualizerColorConfig.ts"
   ],
   "references": [
     {

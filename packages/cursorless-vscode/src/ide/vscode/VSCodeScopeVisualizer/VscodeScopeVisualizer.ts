@@ -9,8 +9,8 @@ import { ScopeProvider, ScopeSupport } from "@cursorless/cursorless-engine";
 import {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
-  getColorsFromConfig,
-} from "./ScopeVisualizerColorConfig";
+} from "@cursorless/vscode-common";
+import { getColorsFromConfig } from "./getColorsFromConfig";
 import { VscodeScopeRenderer } from "./VscodeScopeRenderer";
 import { Vscode } from "@cursorless/vscode-common";
 
