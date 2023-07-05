@@ -7,6 +7,7 @@ import type { CommonTargetParameters } from "./BaseTarget";
 import BaseTarget from "./BaseTarget";
 
 export default class LineTarget extends BaseTarget<CommonTargetParameters> {
+  type = "LineTarget";
   insertionDelimiter = "\n";
   isLine = true;
 

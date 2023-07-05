@@ -4,6 +4,7 @@ import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import { removalUnsupportedForPosition } from "./PositionTarget";
 
 export default class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
+  type = "NotebookCellTarget";
   insertionDelimiter = "\n";
   isNotebookCell = true;
 
@@ -33,6 +34,7 @@ interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
 }
 
 export class NotebookCellPositionTarget extends BaseTarget<NotebookCellPositionTargetParameters> {
+  type = "NotebookCellPositionTarget";
   insertionDelimiter = "\n";
   isNotebookCell = true;
   public position: TargetPosition;

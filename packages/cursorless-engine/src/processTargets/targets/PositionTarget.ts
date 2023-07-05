@@ -11,6 +11,7 @@ interface PositionTargetParameters extends CommonTargetParameters {
 }
 
 export default class PositionTarget extends BaseTarget<PositionTargetParameters> {
+  type = "PositionTarget";
   insertionDelimiter: string;
   isRaw: boolean;
   private position: TargetPosition;

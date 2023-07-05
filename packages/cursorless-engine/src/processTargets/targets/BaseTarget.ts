@@ -1,13 +1,14 @@
+import type { TargetPlainObject, TargetPosition } from "@cursorless/common";
 import {
   NoContainingScopeError,
   Range,
   Selection,
   TextEditor,
+  rangeToPlainObject,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
-import type { TargetPosition } from "@cursorless/common";
-import type { EditNewActionType, Target } from "../../typings/target.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
+import type { EditNewActionType, Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
@@ -194,6 +195,16 @@ export default abstract class BaseTarget<
     return toPositionTarget(this, position);
   }
 
+  toPlainObject(): TargetPlainObject {
+    return {
+      type: this.type,
+      contentRange: rangeToPlainObject(this.contentRange),
+      isReversed: this.isReversed,
+      hasExplicitRange: this.hasExplicitRange,
+    };
+  }
+
+  abstract get type(): string;
   abstract get insertionDelimiter(): string;
   abstract getLeadingDelimiterTarget(): Target | undefined;
   abstract getTrailingDelimiterTarget(): Target | undefined;

@@ -9,11 +9,13 @@ import type { ModifyIfUntypedStage } from "../processTargets/modifiers/Condition
 import type {
   Range,
   Selection,
-  TextEditor,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   Snippet,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   SnippetVariable,
+  TargetPlainObject,
+  TargetPosition,
+  TextEditor,
 } from "@cursorless/common";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
@@ -23,7 +25,6 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   UntypedTarget,
 } from "../processTargets/targets";
-import type { TargetPosition } from "@cursorless/common";
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
@@ -155,4 +156,14 @@ export interface Target {
    * @param position The position to use, eg `start`, `end`, `before`, `after`
    */
   toPositionTarget(position: TargetPosition): Target;
+  /**
+   * Ceonstructs an object suitable for serialization by json. Note
+   * that this implementation is quite incomplete, but is suitable for
+   * round-tripping {@link UntypedTarget} objects and capturing the fact that an
+   * object is not an un typed target if it is not, via the {@link type}
+   * attribute.
+   *
+   * @returns A plain object that can be json serialized
+   */
+  toPlainObject(): TargetPlainObject;
 }

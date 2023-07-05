@@ -9,6 +9,7 @@ interface PlainTargetParameters extends CommonTargetParameters {
  * just consists of the content itself. Its insertion delimiter is empty string.
  */
 export default class PlainTarget extends BaseTarget<PlainTargetParameters> {
+  type = "PlainTarget";
   insertionDelimiter = "";
 
   constructor(parameters: PlainTargetParameters) {

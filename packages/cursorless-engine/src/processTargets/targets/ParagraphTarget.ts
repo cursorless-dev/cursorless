@@ -15,6 +15,7 @@ import BaseTarget from "./BaseTarget";
 import LineTarget from "./LineTarget";
 
 export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
+  type = "ParagraphTarget";
   insertionDelimiter = "\n\n";
   isLine = true;
 

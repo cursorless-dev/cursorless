@@ -4,6 +4,7 @@ import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 import PlainTarget from "./PlainTarget";
 
 export default class DocumentTarget extends BaseTarget<CommonTargetParameters> {
+  type = "DocumentTarget";
   insertionDelimiter = "\n";
   isLine = true;
 

@@ -9,6 +9,7 @@ import {
 import type { CommonTargetParameters } from "./BaseTarget";
 
 export default class TokenTarget extends BaseTarget<CommonTargetParameters> {
+  type = "TokenTarget";
   insertionDelimiter = " ";
 
   getLeadingDelimiterTarget(): Target | undefined {
