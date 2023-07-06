@@ -4,14 +4,8 @@ import { workspace, window, TextEditor } from "vscode";
  * Subset of VSCode api that we need to be able to mock for testing
  */
 export interface Vscode {
-  workspace: {
-    onDidChangeConfiguration: typeof workspace.onDidChangeConfiguration;
-    getConfiguration: typeof workspace.getConfiguration;
-  };
-
-  window: {
-    createTextEditorDecorationType: typeof window.createTextEditorDecorationType;
-  };
+  workspace: typeof workspace;
+  window: typeof window;
 
   /**
    * Wrapper around editor api for easy mocking.  Provides various
