@@ -18,11 +18,11 @@ export class NormalizedIDE extends PassthroughIDEBase {
   constructor(
     original: IDE,
     public fakeIde: FakeIDE,
-    private isSilent: boolean,
+    private isTesting: boolean,
   ) {
     super(original);
 
-    this.messages = isSilent ? fakeIde.messages : original.messages;
+    this.messages = isTesting ? fakeIde.messages : original.messages;
     this.configuration = fakeIde.configuration;
     this.globalState = fakeIde.globalState;
     this.clipboard = fakeIde.clipboard;
@@ -55,7 +55,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
-    return this.isSilent
+    return this.isTesting
       ? this.fakeIde.flashRanges(flashDescriptors)
       : super.flashRanges(flashDescriptors);
   }
@@ -65,7 +65,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void> {
-    return this.isSilent
+    return this.isTesting
       ? this.fakeIde.setHighlightRanges(highlightId, editor, ranges)
       : super.setHighlightRanges(highlightId, editor, ranges);
   }
@@ -74,7 +74,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    return this.isSilent
+    return this.isTesting
       ? this.fakeIde.showQuickPick(_items, _options)
       : super.showQuickPick(_items, _options);
   }

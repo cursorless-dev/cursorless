@@ -9,6 +9,7 @@ import { TreeSitter } from "../typings/TreeSitter";
 export class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
+  private isProduction: boolean = false;
   active: boolean;
 
   constructor(private treeSitter: TreeSitter) {
@@ -29,6 +30,7 @@ export class Debug {
         break;
       // Production mode. Enable based on user setting.
       case "production":
+        this.isProduction = true;
         this.evaluateSetting();
         this.disposableConfiguration =
           ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
@@ -36,9 +38,13 @@ export class Debug {
     }
   }
 
-  log(...args: any[]) {
+  log(message: string) {
     if (this.active) {
-      ide().log(`${args}`);
+      if (this.isProduction) {
+        ide().log(message);
+      } else {
+        console.log(message);
+      }
     }
   }
 
@@ -117,7 +123,7 @@ export class Debug {
       text += `"${cursor.nodeType}"`;
     }
 
-    ide().log(text);
+    this.log(text);
 
     if (
       !nodeIsLast &&
@@ -127,7 +133,7 @@ export class Debug {
     }
 
     if (nodeIsNamed && !nodeIsLast) {
-      ide().log(`${indent})`);
+      this.log(`${indent})`);
     }
   }
 

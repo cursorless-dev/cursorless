@@ -41,7 +41,7 @@ export class VscodeIDE implements IDE {
   readonly capabilities: VscodeCapabilities;
   private flashHandler: VscodeFlashHandler;
   private highlights: VscodeHighlights;
-  private outputChannel: vscode.OutputChannel;
+  private outputChannel: vscode.OutputChannel | undefined;
   private editorMap;
 
   constructor(private extensionContext: ExtensionContext) {
@@ -53,7 +53,9 @@ export class VscodeIDE implements IDE {
     this.flashHandler = new VscodeFlashHandler(this, this.highlights);
     this.capabilities = new VscodeCapabilities();
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
-    this.outputChannel = window.createOutputChannel("Cursorless");
+    if (this.runMode === "production") {
+      this.outputChannel = window.createOutputChannel("Cursorless");
+    }
   }
 
   async showQuickPick(
@@ -84,6 +86,9 @@ export class VscodeIDE implements IDE {
   }
 
   log(message: string): Promise<void> {
+    if (this.outputChannel == null) {
+      return Promise.reject("Output channel is null");
+    }
     this.outputChannel.appendLine(message);
     return Promise.resolve();
   }
