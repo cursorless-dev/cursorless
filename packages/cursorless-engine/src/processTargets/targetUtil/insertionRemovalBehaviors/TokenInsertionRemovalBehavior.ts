@@ -55,9 +55,27 @@ export function getTokenTrailingDelimiterTarget(
 }
 
 /**
- * Constructs a removal range for the given target that will clean up a
- * whitespace on one side. This removal range is designed to be used with things
- * that should clean themselves up as if they're a range of tokens.
+ * Constructs a removal range for the given target that may remove whitespace on
+ * one side. This removal range is designed to be used with things that should
+ * clean themselves up as if they're a range of tokens.
+ *
+ * We determine whether to include adjacent whitespace based on the following
+ * rules:
+ *
+ * - If we would just be leaving a line with whitespace on it, we delete the
+ *   whitespace
+ * - Otherwise, if there is trailing whitespace, we include it if any of the
+ *   following is true:
+ *   - there is leading whitespace, OR
+ *   - we are at start of line, OR
+ *   - there is an approved leading delimiter character (eg `(`, `[`, etc).
+ * - Otherwise, if there is leading whitespace, we include it if any of the
+ *   following is true:
+ *   - we are at end of line, OR
+ *   - there is an approved trailing delimiter character (eg `)`, `]`, `:`, `;`,
+ *     etc).
+ * - Otherwise, we don't include any adjacent whitespace
+ *
  * @param target The target to get the token removal range for
  * @returns The removal range for the given target
  */
