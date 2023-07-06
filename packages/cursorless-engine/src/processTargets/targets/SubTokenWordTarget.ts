@@ -1,5 +1,8 @@
 import { Range } from "@cursorless/common";
+import { Target } from "../../typings/target.types";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
+import { isSameType } from "../../util/typeUtils";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
@@ -41,6 +44,34 @@ export default class SubTokenWordTarget extends BaseTarget<SubTokenTargetParamet
 
   getRemovalRange(): Range {
     return getDelimitedSequenceRemovalRange(this);
+  }
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean,
+  ): Target {
+    if (isSameType(this, endTarget)) {
+      return new SubTokenWordTarget({
+        ...this.getCloneParameters(),
+        isReversed,
+        contentRange: createContinuousRange(
+          this,
+          endTarget,
+          includeStart,
+          includeEnd,
+        ),
+        trailingDelimiterRange: endTarget.trailingDelimiterRange_,
+      });
+    }
+
+    return super.createContinuousRangeTarget(
+      isReversed,
+      endTarget,
+      includeStart,
+      includeEnd,
+    );
   }
 
   protected getCloneParameters(): SubTokenTargetParameters {
