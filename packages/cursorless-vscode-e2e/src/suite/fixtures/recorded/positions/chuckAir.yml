@@ -24,7 +24,7 @@ finalState:
     "hello "
     " hello"
     " hello "
-    return.b
+    return .b
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

@@ -21,7 +21,7 @@ initialState:
       end: {line: 0, character: 2}
 finalState:
   documentContents: |-
-    fn() {
+    fn () {
         println!("Hello, world!");
     }
   selections:
