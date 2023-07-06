@@ -1,34 +1,39 @@
 import { assert } from "chai";
 import * as sinon from "sinon";
 import {
-  decorationRenderOptionsToPlainObject,
-  setDecorationsArgsToPlainObject,
+  createDecorationTypeCallToPlainObject,
+  setDecorationsCallToPlainObject,
 } from "./toPlainObject";
 import { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
 
-export function checkAndResetFakes(
-  { createTextEditorDecorationType, setDecorations, dispose }: Fakes,
-  expected: ExpectedArgs,
-) {
-  const actual = {
+export function checkAndResetFakes(fakes: Fakes, expected: ExpectedArgs) {
+  const actual = getAndResetFakes(fakes);
+  assert.deepStrictEqual(actual, expected, JSON.stringify(actual));
+}
+
+export function getAndResetFakes({
+  createTextEditorDecorationType,
+  setDecorations,
+  dispose,
+}: Fakes) {
+  return {
     decorationRenderOptions: getAndResetFake(
       createTextEditorDecorationType,
-      decorationRenderOptionsToPlainObject,
+      createDecorationTypeCallToPlainObject,
     ),
     decorationRanges: getAndResetFake(
       setDecorations,
-      setDecorationsArgsToPlainObject,
+      setDecorationsCallToPlainObject,
     ),
-    disposedDecorationIds: getAndResetFake(dispose, (id) => id),
+    disposedDecorationIds: getAndResetFake(dispose, ({ args: [id] }) => id),
   };
-  assert.deepStrictEqual(actual, expected, JSON.stringify(actual));
 }
 
 function getAndResetFake<ArgList extends any[], Return, Expected>(
   spy: sinon.SinonSpy<ArgList, Return>,
-  transform: (...arg: ArgList) => Expected,
+  transform: (call: sinon.SinonSpyCall<ArgList, Return>) => Expected,
 ) {
-  const actual = spy.args.map((args) => transform(...args));
+  const actual = spy.getCalls().map(transform);
   spy.resetHistory();
   return actual;
 }

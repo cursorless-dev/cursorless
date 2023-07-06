@@ -38,40 +38,43 @@ const expectedInitialArgs: ExpectedArgs = {
     {
       backgroundColor: "#000001c0",
       borderColor: "#010002c0 #010001c0 #010001c0 #010002c0",
-      borderRadius: "2px 0px 0px 0px",
       borderStyle: "solid dashed dashed solid",
+      borderRadius: "2px 0px 0px 0px",
       isWholeLine: false,
+      id: 0,
     },
     {
       backgroundColor: "#000001c0",
       borderColor: "#010001c0 #010001c0 #010001c0 #010001c0",
-      borderRadius: "0px 0px 0px 0px",
       borderStyle: "none dashed none dashed",
+      borderRadius: "0px 0px 0px 0px",
       isWholeLine: false,
+      id: 1,
     },
     {
       backgroundColor: "#000001c0",
       borderColor: "#010001c0 #010002c0 #010002c0 #010001c0",
-      borderRadius: "0px 0px 2px 0px",
       borderStyle: "dashed solid solid dashed",
+      borderRadius: "0px 0px 2px 0px",
       isWholeLine: false,
+      id: 2,
     },
   ],
   decorationRanges: [
     {
-      decorationType: 0,
+      decorationId: 0,
       ranges: [
         { start: { line: 1, character: 0 }, end: { line: 1, character: 23 } },
       ],
     },
     {
-      decorationType: 1,
+      decorationId: 1,
       ranges: [
         { start: { line: 2, character: 0 }, end: { line: 2, character: 0 } },
       ],
     },
     {
-      decorationType: 2,
+      decorationId: 2,
       ranges: [
         { start: { line: 3, character: 0 }, end: { line: 3, character: 1 } },
       ],
@@ -79,6 +82,7 @@ const expectedInitialArgs: ExpectedArgs = {
   ],
   disposedDecorationIds: [],
 };
+
 const expectedUpdatedArgs: ExpectedArgs = {
   decorationRenderOptions: [
     {
@@ -87,6 +91,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "solid dashed none solid",
       borderRadius: "2px 0px 0px 0px",
       isWholeLine: false,
+      id: 3,
     },
     {
       backgroundColor: "#000001c0",
@@ -94,6 +99,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "none none dashed dashed",
       borderRadius: "0px 0px 0px 0px",
       isWholeLine: false,
+      id: 4,
     },
     {
       backgroundColor: "#000001c0",
@@ -101,6 +107,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "dashed dashed dashed none",
       borderRadius: "0px 0px 0px 0px",
       isWholeLine: false,
+      id: 5,
     },
     {
       backgroundColor: "#000001c0",
@@ -108,6 +115,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "dashed none none dashed",
       borderRadius: "0px 0px 0px 0px",
       isWholeLine: false,
+      id: 6,
     },
     {
       backgroundColor: "#000001c0",
@@ -115,6 +123,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "dashed dashed solid none",
       borderRadius: "0px 0px 0px 0px",
       isWholeLine: false,
+      id: 7,
     },
     {
       backgroundColor: "#000001c0",
@@ -122,6 +131,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "none solid solid dashed",
       borderRadius: "0px 0px 2px 0px",
       isWholeLine: false,
+      id: 8,
     },
     {
       backgroundColor: "#000001c0",
@@ -129,6 +139,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "solid dashed dashed solid",
       borderRadius: "2px 0px 0px 0px",
       isWholeLine: false,
+      id: 9,
     },
     {
       backgroundColor: "#000001c0",
@@ -136,6 +147,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "solid dashed none dashed",
       borderRadius: "0px 0px 0px 0px",
       isWholeLine: false,
+      id: 10,
     },
     {
       backgroundColor: "#000001c0",
@@ -143,65 +155,66 @@ const expectedUpdatedArgs: ExpectedArgs = {
       borderStyle: "dashed solid solid dashed",
       borderRadius: "0px 0px 2px 0px",
       isWholeLine: false,
+      id: 11,
     },
   ],
   decorationRanges: [
     {
-      decorationType: 3,
+      decorationId: 3,
       ranges: [
         { start: { line: 1, character: 0 }, end: { line: 1, character: 23 } },
       ],
     },
     {
-      decorationType: 4,
+      decorationId: 4,
       ranges: [
         { start: { line: 2, character: 0 }, end: { line: 2, character: 23 } },
       ],
     },
     {
-      decorationType: 5,
+      decorationId: 5,
       ranges: [
         { start: { line: 2, character: 23 }, end: { line: 2, character: 29 } },
       ],
     },
     {
-      decorationType: 1,
+      decorationId: 1,
       ranges: [
         { start: { line: 3, character: 0 }, end: { line: 3, character: 0 } },
       ],
     },
     {
-      decorationType: 6,
+      decorationId: 6,
       ranges: [
         { start: { line: 4, character: 0 }, end: { line: 4, character: 1 } },
       ],
     },
     {
-      decorationType: 7,
+      decorationId: 7,
       ranges: [
         { start: { line: 4, character: 1 }, end: { line: 4, character: 3 } },
       ],
     },
     {
-      decorationType: 8,
+      decorationId: 8,
       ranges: [
         { start: { line: 5, character: 0 }, end: { line: 5, character: 1 } },
       ],
     },
     {
-      decorationType: 9,
+      decorationId: 9,
       ranges: [
         { start: { line: 2, character: 2 }, end: { line: 2, character: 29 } },
       ],
     },
     {
-      decorationType: 10,
+      decorationId: 10,
       ranges: [
         { start: { line: 3, character: 0 }, end: { line: 3, character: 0 } },
       ],
     },
     {
-      decorationType: 11,
+      decorationId: 11,
       ranges: [
         { start: { line: 4, character: 0 }, end: { line: 4, character: 3 } },
       ],
@@ -209,6 +222,7 @@ const expectedUpdatedArgs: ExpectedArgs = {
   ],
   disposedDecorationIds: [],
 };
+
 const expectedFinalArgs: ExpectedArgs = {
   decorationRenderOptions: [],
   decorationRanges: [],

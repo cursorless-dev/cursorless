@@ -1,24 +1,20 @@
 import { Vscode } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
+import { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";
 import {
-  DecorationRenderOptions,
-  TextEditorDecorationType,
-  WorkspaceConfiguration,
-} from "vscode";
-import { SetDecorationsParameters } from "./scopeVisualizerTest.types";
+  Fakes,
+  MockDecorationType,
+  SetDecorationsParameters,
+} from "./scopeVisualizerTest.types";
 import { COLOR_CONFIG } from "./colorConfig";
 
-export function injectFakes(vscodeApi: Vscode) {
-  let decorationIndex = 0;
-  const setDecorations = sinon.fake<
-    SetDecorationsParameters,
-    ReturnType<Vscode["editor"]["setDecorations"]>
-  >();
-  const getConfigurationValue = sinon.fake.returns(COLOR_CONFIG);
+export function injectFakes(vscodeApi: Vscode): Fakes {
   const dispose = sinon.fake<[number], void>();
+
+  let decorationIndex = 0;
   const createTextEditorDecorationType = sinon.fake<
     Parameters<Vscode["window"]["createTextEditorDecorationType"]>,
-    ReturnType<Vscode["window"]["createTextEditorDecorationType"]>
+    MockDecorationType
   >((_options: DecorationRenderOptions) => {
     const id = decorationIndex++;
     return {
@@ -26,13 +22,20 @@ export function injectFakes(vscodeApi: Vscode) {
         dispose(id);
       },
       id,
-    } as unknown as TextEditorDecorationType;
+    };
   });
+
+  const setDecorations = sinon.fake<
+    SetDecorationsParameters,
+    ReturnType<Vscode["editor"]["setDecorations"]>
+  >();
+
+  const getConfigurationValue = sinon.fake.returns(COLOR_CONFIG);
 
   sinon.replace(
     vscodeApi.window,
     "createTextEditorDecorationType",
-    createTextEditorDecorationType,
+    createTextEditorDecorationType as any,
   );
   sinon.replace(vscodeApi.editor, "setDecorations", setDecorations as any);
   sinon.replace(
@@ -42,5 +45,6 @@ export function injectFakes(vscodeApi: Vscode) {
       get: getConfigurationValue,
     } as unknown as WorkspaceConfiguration),
   );
+
   return { setDecorations, createTextEditorDecorationType, dispose };
 }

@@ -3,9 +3,14 @@ import { Vscode } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
+export interface MockDecorationType {
+  dispose(): void;
+  id: number;
+}
+
 export type SetDecorationsParameters = [
   editor: vscode.TextEditor,
-  decorationType: { id: number },
+  decorationType: MockDecorationType,
   ranges: readonly vscode.Range[],
 ];
 
@@ -16,7 +21,7 @@ export interface Fakes {
   >;
   createTextEditorDecorationType: sinon.SinonSpy<
     Parameters<Vscode["window"]["createTextEditorDecorationType"]>,
-    ReturnType<Vscode["window"]["createTextEditorDecorationType"]>
+    MockDecorationType
   >;
   dispose: sinon.SinonSpy<[number], void>;
 }
@@ -28,7 +33,7 @@ export interface ExpectedArgs {
 }
 
 export interface DecorationRangesPlainObject {
-  decorationType: number;
+  decorationId: number;
   ranges: RangePlainObject[];
 }
 
@@ -38,4 +43,5 @@ export interface DecorationRenderOptionsPlainObject {
   borderStyle: string | undefined;
   borderRadius: string | undefined;
   isWholeLine: boolean;
+  id: number;
 }
