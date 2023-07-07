@@ -13,7 +13,9 @@ export default class SentenceScopeHandler extends NestedScopeHandler {
     direction: Direction,
     { editor, domain }: TargetScope,
   ): Iterable<TargetScope> {
-    const segmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+    const segmenter = new Intl.Segmenter(undefined, {
+      granularity: "sentence",
+    });
     const offset = editor.document.offsetAt(domain.start);
     const text = editor.document.getText(domain);
 
