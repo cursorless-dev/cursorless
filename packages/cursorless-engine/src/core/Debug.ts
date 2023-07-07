@@ -9,7 +9,6 @@ import { TreeSitter } from "../typings/TreeSitter";
 export class Debug {
   private disposableConfiguration?: Disposable;
   private disposableSelection?: Disposable;
-  private isProduction: boolean = false;
   active: boolean;
 
   constructor(private treeSitter: TreeSitter) {
@@ -30,7 +29,6 @@ export class Debug {
         break;
       // Production mode. Enable based on user setting.
       case "production":
-        this.isProduction = true;
         this.evaluateSetting();
         this.disposableConfiguration =
           ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
@@ -40,11 +38,7 @@ export class Debug {
 
   log(message: string) {
     if (this.active) {
-      if (this.isProduction) {
-        ide().log(message);
-      } else {
-        console.log(message);
-      }
+      ide().log(message);
     }
   }
 

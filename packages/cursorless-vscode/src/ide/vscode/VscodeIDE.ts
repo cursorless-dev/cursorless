@@ -86,10 +86,11 @@ export class VscodeIDE implements IDE {
   }
 
   log(message: string): Promise<void> {
-    if (this.outputChannel == null) {
-      return Promise.reject("Output channel is null");
+    if (this.outputChannel != null) {
+      this.outputChannel.appendLine(message);
+    } else {
+      console.log(message);
     }
-    this.outputChannel.appendLine(message);
     return Promise.resolve();
   }
 
