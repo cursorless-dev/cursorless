@@ -8,9 +8,12 @@ import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { getPlainNotebookContents } from "../notebook";
+import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
 suite("Edit new cell", async function () {
+  // Skipped for now; see #1260
+  skipIfWindowsCi();
   endToEndTestSetup(this);
 
   test("drink cell", () =>
