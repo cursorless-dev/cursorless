@@ -53,3 +53,30 @@ export function strictlyContains(
       : [rangeOrPosition.start, rangeOrPosition.end];
   return range1.start.isBefore(start) && range1.end.isAfter(end);
 }
+
+/**
+ * Trim the given range of whitespaces
+ * @param editor The editor to get the text from
+ * @param range The range to trim
+ */
+export function trimRange(editor: TextEditor, range: Range): Range {
+  const text = editor.document.getText(range);
+  const leadingWhitespace = text.match(/^\s+/) ?? "";
+  const trailingWhitespace = text.match(/\s+$/) ?? "";
+
+  if (leadingWhitespace === "" && trailingWhitespace === "") {
+    return range;
+  }
+
+  const startOffset =
+    editor.document.offsetAt(range.start) + leadingWhitespace.length;
+  return new Range(
+    editor.document.positionAt(startOffset),
+    editor.document.positionAt(
+      startOffset +
+        text.length -
+        leadingWhitespace.length -
+        trailingWhitespace.length,
+    ),
+  );
+}

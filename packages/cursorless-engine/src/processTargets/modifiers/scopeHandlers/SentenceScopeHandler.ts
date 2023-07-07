@@ -1,8 +1,9 @@
 import { Direction, Range } from "@cursorless/common";
 import { imap } from "itertools";
 import { NestedScopeHandler } from ".";
-import type { TargetScope } from "./scope.types";
+import { trimRange } from "../../../util/rangeUtils";
 import { TokenTarget } from "../../targets";
+import type { TargetScope } from "./scope.types";
 
 export default class SentenceScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "sentence" } as const;
@@ -17,18 +18,14 @@ export default class SentenceScopeHandler extends NestedScopeHandler {
     const text = editor.document.getText(domain);
 
     const segmentToRange = (segment: Intl.SegmentData) => {
-      const leadingWhitespace = segment.segment.match(/^\s+/) ?? "";
-      const trailingWhitespace = segment.segment.match(/\s+$/) ?? "";
-      const start = offset + segment.index + leadingWhitespace.length;
-      return new Range(
-        editor.document.positionAt(start),
+      const range = new Range(
+        editor.document.positionAt(offset + segment.index),
         editor.document.positionAt(
-          start +
-            segment.segment.length -
-            leadingWhitespace.length -
-            trailingWhitespace.length,
+          offset + segment.index + segment.segment.length,
         ),
       );
+
+      return trimRange(editor, range);
     };
 
     return imap(segmenter.segment(text), (segment) => {
