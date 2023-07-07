@@ -17,6 +17,8 @@ export * from "./OneOfScopeHandler";
 export { default as OneOfScopeHandler } from "./OneOfScopeHandler";
 export * from "./ParagraphScopeHandler";
 export { default as ParagraphScopeHandler } from "./ParagraphScopeHandler";
+export * from "./SentenceScopeHandler";
+export { default as SentenceScopeHandler } from "./SentenceScopeHandler";
 export * from "./RegexScopeHandler";
 export * from "./ScopeHandlerFactory";
 export * from "./ScopeHandlerFactoryImpl";
