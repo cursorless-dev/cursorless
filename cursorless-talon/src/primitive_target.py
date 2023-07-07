@@ -6,11 +6,11 @@ from talon import Module
 mod = Module()
 
 
-def create_base_target() -> dict[str, str]:
+def create_base_target() -> dict[str, Any]:
     return {"type": "primitive"}
 
 
-def create_implicit_target() -> dict[str, str]:
+def create_implicit_target() -> dict[str, Any]:
     return {"type": "implicit"}
 
 
