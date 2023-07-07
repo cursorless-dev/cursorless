@@ -1,0 +1,31 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: clear item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    values = [
+        111, // don't ...
+        222,
+        333
+    ]
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    values = [
+        111, ,
+        333
+    ]
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
