@@ -5,14 +5,12 @@ import {
   TextEditor,
   TextLine,
 } from "@cursorless/common";
+import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
-import type { CommonTargetParameters } from "./BaseTarget";
-import BaseTarget from "./BaseTarget";
-import LineTarget from "./LineTarget";
 
 export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   insertionDelimiter = "\n\n";
