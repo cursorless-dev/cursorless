@@ -11,6 +11,7 @@ import {
 } from ".";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import SentenceScopeHandler from "./SentenceScopeHandler";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 
 /**
@@ -50,12 +51,14 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new IdentifierScopeHandler(this, scopeType, languageId);
       case "line":
         return new LineScopeHandler(scopeType, languageId);
+      case "sentence":
+        return new SentenceScopeHandler(this, scopeType, languageId);
+      case "paragraph":
+        return new ParagraphScopeHandler(scopeType, languageId);
       case "document":
         return new DocumentScopeHandler(scopeType, languageId);
       case "oneOf":
         return OneOfScopeHandler.create(this, scopeType, languageId);
-      case "paragraph":
-        return new ParagraphScopeHandler(scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":
