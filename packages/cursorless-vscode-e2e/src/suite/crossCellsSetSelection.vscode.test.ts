@@ -6,9 +6,12 @@ import {
 import * as assert from "assert";
 import { window } from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
+import { skipIfWindowsCi } from "./skipIfWindowsCi";
 
 // Check that setSelection is able to focus the correct cell
 suite("Cross-cell set selection", async function () {
+  // Skipped for now; see #1260
+  skipIfWindowsCi();
   endToEndTestSetup(this);
 
   test("Cross-cell set selection", runTest);
