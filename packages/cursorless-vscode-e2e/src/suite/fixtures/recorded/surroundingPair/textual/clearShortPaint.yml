@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear paint
+  spokenForm: clear short paint
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

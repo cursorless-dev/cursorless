@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear paint
+  spokenForm: clear short paint
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -12,11 +12,11 @@ command:
 initialState:
   documentContents: (hello)
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: ()
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
