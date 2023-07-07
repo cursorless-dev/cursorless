@@ -36,12 +36,6 @@ import ContainingSyntaxScopeStage, {
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
-import {
-  CustomRegexModifier,
-  CustomRegexStage,
-  NonWhitespaceSequenceStage,
-  UrlStage,
-} from "./modifiers/scopeTypeStages/RegexStage";
 import { StoredTargetMap } from "..";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
@@ -131,20 +125,14 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     switch (modifier.scopeType.type) {
       case "notebookCell":
         return new NotebookCellStage(modifier);
-      case "nonWhitespaceSequence":
-        return new NonWhitespaceSequenceStage(modifier);
       case "boundedNonWhitespaceSequence":
         return new BoundedNonWhitespaceSequenceStage(
           this.languageDefinitions,
           this,
           modifier,
         );
-      case "url":
-        return new UrlStage(modifier);
       case "collectionItem":
         return new ItemStage(this.languageDefinitions, modifier);
-      case "customRegex":
-        return new CustomRegexStage(modifier as CustomRegexModifier);
       case "surroundingPair":
         return new SurroundingPairStage(
           this.languageDefinitions,

@@ -1,5 +1,5 @@
-import type { Position, Range, TextLine } from "..";
 import type { URI } from "vscode-uri";
+import type { EndOfLine, Position, Range, TextLine } from "..";
 
 export interface TextDocument {
   /**
@@ -30,6 +30,12 @@ export interface TextDocument {
    * The range of the text document.
    */
   readonly range: Range;
+
+  /**
+   * The {@link EndOfLine end of line} sequence that is predominately
+   * used in this document.
+   */
+  readonly eol: EndOfLine;
 
   /**
    * Returns a text line denoted by the line number. Note

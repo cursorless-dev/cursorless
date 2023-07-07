@@ -24,6 +24,18 @@
       {
         "scope": {
           "langIds": [
+            "go"
+          ]
+        },
+        "body": [
+          "if $condition {",
+          "\t$consequence",
+          "}"
+        ]
+      },
+      {
+        "scope": {
+          "langIds": [
             "python"
           ]
         },

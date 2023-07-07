@@ -74,5 +74,6 @@ export function findSurroundingPairCore(
     delimiterOccurrences,
     acceptableDelimiters,
     selectionOffsets,
+    scopeType,
   );
 }

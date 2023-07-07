@@ -41,8 +41,8 @@ export function tokenizeRange(
   const lexemes = text
     // NB: Both the delimiters and the text between them are included because we
     // use a capture group in this split regex
-    .split(/([,(){}<>[\]"'`]|\\"|\\'|\\`)/g)
-    .filter((lexeme) => lexeme.length > 0);
+    .split(/([,(){}<>[\]"'`])|(?<!\\)(\\"|\\'|\\`)/g)
+    .filter((lexeme) => lexeme != null && lexeme.length > 0);
   const joinedLexemes = joinLexemesBySkippingMatchingPairs(lexemes);
   const tokens: Token[] = [];
   let offset = document.offsetAt(interior.start);
@@ -128,7 +128,11 @@ export function joinLexemesBySkippingMatchingPairs(lexemes: string[]) {
     }
 
     // Starting delimiter found
-    else if (leftToRightMap[lexeme] != null) {
+    // Make sure that there is a matching closing delimiter
+    else if (
+      leftToRightMap[lexeme] != null &&
+      lexemes.indexOf(leftToRightMap[lexeme], index + 1) > -1
+    ) {
       openingDelimiter = lexeme;
       closingDelimiter = leftToRightMap[lexeme];
       delimiterBalance = 1;
