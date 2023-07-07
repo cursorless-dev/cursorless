@@ -4,3 +4,5 @@
 /packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/**/*.yml
 
 pnpm-lock.yaml
+
+.github/PULL_REQUEST_TEMPLATE.md
