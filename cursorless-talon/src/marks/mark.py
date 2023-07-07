@@ -64,7 +64,7 @@ def cursorless_decorated_symbol(m) -> dict[str, Any]:
     """A decorated symbol"""
     if m[0] == "gray":
         actions.app.notify(
-            "The color 'gray' is the default and don't need to be spoken out loud. Just say 'take air' instead of 'take gray air'"
+            "The color 'gray' is the default and doesn't need to be spoken out loud. Just say eg 'take air' instead of 'take gray air'"
         )
     hat_color = getattr(m, "cursorless_hat_color", "default")
     try:
