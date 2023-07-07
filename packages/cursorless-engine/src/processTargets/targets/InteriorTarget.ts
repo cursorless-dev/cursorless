@@ -1,4 +1,5 @@
 import { Range } from "@cursorless/common";
+import { BaseTarget, MinimumTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
@@ -6,8 +7,6 @@ import {
   createContinuousRangeFromRanges,
   createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
-import type { MinimumTargetParameters } from "./BaseTarget";
-import BaseTarget from "./BaseTarget";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
