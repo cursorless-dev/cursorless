@@ -90,12 +90,15 @@ export function findDelimiterPairContainingSelection(
     // If left delimiter is left of our selection, we return it.  Otherwise
     // loop back and continue scanning outwards.
     if (leftDelimiterOccurrence.offsets.start <= selectionOffsets.start) {
-      // Skip this occurrence if not strongly contained.
       if (
         scopeType.requireStrongContainment &&
-        (leftDelimiterOccurrence.offsets.end > selectionOffsets.start ||
-          rightDelimiterOccurrence.offsets.start < selectionOffsets.end)
+        !(
+          leftDelimiterOccurrence.offsets.end <= selectionOffsets.start &&
+          rightDelimiterOccurrence.offsets.start >= selectionOffsets.end
+        )
       ) {
+        // If we require strong containment, continue searching for something
+        // bigger if the selection overlaps either delimiter
         continue;
       }
 
