@@ -5,8 +5,13 @@ from talon import Module
 
 mod = Module()
 
-BASE_TARGET: dict[str, Any] = {"type": "primitive"}
-IMPLICIT_TARGET = {"type": "implicit"}
+
+def create_base_target() -> dict[str, str]:
+    return {"type": "primitive"}
+
+
+def create_implicit_target() -> dict[str, str]:
+    return {"type": "implicit"}
 
 
 @mod.capture(
@@ -17,7 +22,7 @@ IMPLICIT_TARGET = {"type": "implicit"}
 )
 def cursorless_primitive_target(m) -> dict[str, Any]:
     """Supported extents for cursorless navigation"""
-    result = BASE_TARGET.copy()
+    result = create_base_target()
 
     modifiers = [
         *getattr(m, "cursorless_position_list", []),
