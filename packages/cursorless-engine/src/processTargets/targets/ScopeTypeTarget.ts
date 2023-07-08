@@ -1,6 +1,11 @@
-import { Range } from "@cursorless/common";
+import { Range, SimpleScopeTypeType } from "@cursorless/common";
+import {
+  BaseTarget,
+  CommonTargetParameters,
+  InteriorTarget,
+  PlainTarget,
+} from ".";
 import { Target } from "../../typings/target.types";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
@@ -12,9 +17,6 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
-import InteriorTarget from "./InteriorTarget";
-import PlainTarget from "./PlainTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
