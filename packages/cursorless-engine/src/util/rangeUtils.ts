@@ -1,4 +1,5 @@
 import { Position, Range, TextEditor } from "@cursorless/common";
+import { getLeadingWhitespace, getTrailingWhitespace } from "./regex";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);
@@ -61,8 +62,8 @@ export function strictlyContains(
  */
 export function trimRange(editor: TextEditor, range: Range): Range {
   const text = editor.document.getText(range);
-  const leadingWhitespace = text.match(/^\s+/) ?? "";
-  const trailingWhitespace = text.match(/\s+$/) ?? "";
+  const leadingWhitespace = getLeadingWhitespace(text);
+  const trailingWhitespace = getTrailingWhitespace(text);
 
   if (leadingWhitespace === "" && trailingWhitespace === "") {
     return range;
