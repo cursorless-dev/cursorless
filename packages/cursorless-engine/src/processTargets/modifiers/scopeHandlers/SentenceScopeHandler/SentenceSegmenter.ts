@@ -4,13 +4,14 @@ import {
 } from "../../../../util/regex";
 
 const delimiters = [".", "?", "!"];
-const abbreviations = ["Mr.", "Mrs.", "Ms.", "Dr.", "Vs.", "St."];
+const abbreviations = ["Mr.", "Mrs.", "Ms.", "Dr.", "Vs.", ""];
 
 // Don't match delimiters followed by non-whitespace. eg: example.com
 const delimitersPattern = `[${delimiters.join("")}](?!\\S)`;
 const abbreviationsPattern = abbreviations.join("|");
 const pattern = `${delimitersPattern}|${abbreviationsPattern}`;
 const regex = new RegExp(pattern, "g");
+const abbreviationsSet = new Set(abbreviations);
 
 export default class SentenceSegmenter {
   *segment(text: string): Iterable<Intl.SegmentData> {
@@ -46,7 +47,7 @@ export default class SentenceSegmenter {
 
     for (const m of matchAll(text, regex)) {
       const matchText = m[0];
-      if (abbreviations.includes(matchText)) {
+      if (abbreviationsSet.has(matchText)) {
         continue;
       }
       yield createsSegment(matchText, m.index! + matchText.length)!;
