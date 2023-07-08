@@ -14,7 +14,7 @@ const invalidLinePattern = "\\n[^\\p{L}]*\\n";
 const pattern = `${delimitersPattern}|${abbreviationsPattern}|${invalidLinePattern}`;
 const regex = new RegExp(pattern, "gu");
 // A sentence starts with a letter
-const leadingOffsetPattern = /\p{L}/u;
+const leadingOffsetRegex = /\p{L}/u;
 
 export default class SentenceSegmenter {
   *segment(text: string): Iterable<Intl.SegmentData> {
@@ -55,7 +55,7 @@ const createsSegment = (
 ): Intl.SegmentData | undefined => {
   let segment = text.slice(startIndex, endIndex);
   const leadingOffset =
-    segment.match(leadingOffsetPattern)?.index ?? segment.length;
+    segment.match(leadingOffsetRegex)?.index ?? segment.length;
 
   if (segment.length === leadingOffset) {
     return undefined;
