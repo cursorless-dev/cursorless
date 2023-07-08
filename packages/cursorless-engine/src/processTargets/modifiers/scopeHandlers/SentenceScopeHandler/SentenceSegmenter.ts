@@ -12,7 +12,7 @@ const abbreviationsPattern = abbreviations
 const invalidLinePattern = "\\n\\W*\\n";
 const pattern = `${delimitersPattern}|${abbreviationsPattern}|${invalidLinePattern}`;
 const regex = new RegExp(pattern, "g");
-const leadingOffsetPattern = /\w/;
+const leadingOffsetPattern = /[a-zA-Z]/;
 
 export default class SentenceSegmenter {
   *segment(text: string): Iterable<Intl.SegmentData> {
