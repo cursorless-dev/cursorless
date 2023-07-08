@@ -27,7 +27,7 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
     this.insertionMode = parameters.insertionMode;
     this.insertionDelimiter = parameters.insertionDelimiter;
     this.isRaw = parameters.isRaw;
-    this.isBefore = parameters.insertionDelimiter === "before";
+    this.isBefore = parameters.insertionMode === "before";
     // It's only considered a line if the delimiter is only new line symbols
     this.isLineDelimiter = /^(\n)+$/.test(parameters.insertionDelimiter);
     // This calculation must be done here since that that target is not updated by our range updater

@@ -1,7 +1,11 @@
 import { PositionModifier, Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStage } from "../PipelineStages.types";
-import { PlainTarget } from "../targets";
+import {
+  CommonTargetParameters,
+  PlainTarget,
+  RawSelectionTarget,
+} from "../targets";
 
 export default class PositionStage implements ModifierStage {
   constructor(private modifier: PositionModifier) {}
@@ -12,12 +16,16 @@ export default class PositionStage implements ModifierStage {
         ? target.contentRange.start
         : target.contentRange.end;
 
+    const parameters: CommonTargetParameters = {
+      editor: target.editor,
+      isReversed: target.isReversed,
+      contentRange: new Range(position, position),
+    };
+
     return [
-      new PlainTarget({
-        editor: target.editor,
-        isReversed: target.isReversed,
-        contentRange: new Range(position, position),
-      }),
+      target.isRaw
+        ? new RawSelectionTarget(parameters)
+        : new PlainTarget(parameters),
     ];
   }
 }
