@@ -9,12 +9,12 @@ const delimitersPattern = `[${delimiters.join("")}](?!\\S)`;
 const abbreviationsPattern = abbreviations
   .map((a) => a.replace(".", "\\."))
   .join("|");
-// A line with no alpha characters is invalid
-const invalidLinePattern = "\\n[^a-zA-Z]*\\n";
+// A line with no letters is invalid
+const invalidLinePattern = "\\n[^\\p{L}]*\\n";
 const pattern = `${delimitersPattern}|${abbreviationsPattern}|${invalidLinePattern}`;
-const regex = new RegExp(pattern, "g");
-// A sentence starts with an alpha character
-const leadingOffsetPattern = /[a-zA-Z]/;
+const regex = new RegExp(pattern, "gu");
+// A sentence starts with a letter
+const leadingOffsetPattern = /\p{L}/u;
 
 export default class SentenceSegmenter {
   *segment(text: string): Iterable<Intl.SegmentData> {
