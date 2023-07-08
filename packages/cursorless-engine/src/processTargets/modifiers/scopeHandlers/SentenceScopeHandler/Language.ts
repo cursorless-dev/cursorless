@@ -10,7 +10,7 @@ const abbreviationMonths = [
   "Feb.",
   "Mar.",
   "Apr.",
-  //   "May"
+  // "May"
   "Jun.",
   "Jul.",
   "Aug.",
@@ -31,6 +31,7 @@ const abbreviationsHonorificsAndTitles = [
   "Mrs.",
   "Ms.",
   "Prof.",
+  "Sen.",
   "St.",
 ];
 
