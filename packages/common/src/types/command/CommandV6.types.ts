@@ -1,5 +1,5 @@
 import type { ActionCommand } from "./ActionCommand";
-import type { PartialTargetOrDestinationDescriptor } from "./PartialTargetDescriptor.types";
+import type { PartialTargetDescriptor } from "./PartialTargetDescriptor.types";
 
 export interface CommandV6 {
   /**
@@ -26,5 +26,5 @@ export interface CommandV6 {
    * A list of targets expected by the action. Inference will be run on the
    * targets
    */
-  targets: PartialTargetOrDestinationDescriptor[];
+  targets: PartialTargetDescriptor[];
 }
