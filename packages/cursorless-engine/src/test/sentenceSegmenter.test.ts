@@ -10,7 +10,7 @@ suite("Sentence segmenter", () => {
     test(input, () => {
       assert.deepStrictEqual(
         Array.from(new SentenceSegmenter().segment(input)).map(
-          ({ segment }) => segment,
+          ({ text }) => text,
         ),
         expectedOutput,
       );

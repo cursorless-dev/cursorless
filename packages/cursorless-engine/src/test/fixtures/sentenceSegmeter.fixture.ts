@@ -5,8 +5,8 @@ interface Fixture {
 
 export const sentenceSegmenterFixture: Fixture[] = [
   {
-    input: "Foo. Bar? Baz! bongo",
-    expectedOutput: ["Foo.", "Bar?", "Baz!", "bongo"],
+    input: "Foo foo. Bar? Baz! bongo",
+    expectedOutput: ["Foo foo.", "Bar?", "Baz!", "bongo"],
   },
   {
     input: "Hello, Mr. Anderson.",

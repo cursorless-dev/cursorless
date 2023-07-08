@@ -4,6 +4,7 @@ import { NestedScopeHandler } from "..";
 import { TokenTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
 import SentenceSegmenter from "./SentenceSegmenter";
+import { MatchedText } from "../../../../util/regex";
 
 export default class SentenceScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "sentence" } as const;
@@ -17,11 +18,11 @@ export default class SentenceScopeHandler extends NestedScopeHandler {
     const offset = editor.document.offsetAt(domain.start);
     const text = editor.document.getText(domain);
 
-    const segmentToScope = (segment: Intl.SegmentData): TargetScope => {
+    const scentenceToScope = (sentence: MatchedText): TargetScope => {
       const contentRange = new Range(
-        editor.document.positionAt(offset + segment.index),
+        editor.document.positionAt(offset + sentence.index),
         editor.document.positionAt(
-          offset + segment.index + segment.segment.length,
+          offset + sentence.index + sentence.text.length,
         ),
       );
       return {
@@ -37,10 +38,10 @@ export default class SentenceScopeHandler extends NestedScopeHandler {
       };
     };
 
-    const segments = this.segmenter.segment(text);
+    const sentences = this.segmenter.segment(text);
 
     return direction === "forward"
-      ? imap(segments, segmentToScope)
-      : Array.from(segments, segmentToScope).reverse();
+      ? imap(sentences, scentenceToScope)
+      : Array.from(sentences, scentenceToScope).reverse();
   }
 }
