@@ -61,6 +61,12 @@ export async function updatePackageJson(
       ? getCursorlessVscodeFields(input)
       : {};
 
+  const extraScripts = isRoot
+    ? {}
+    : {
+        clean: "rm -rf ./out",
+      };
+
   return {
     ...input,
     name,
@@ -69,6 +75,7 @@ export async function updatePackageJson(
       ...(input.scripts ?? {}),
       compile: "tsc --build",
       watch: "tsc --build --watch",
+      ...extraScripts,
     },
     ...exportFields,
     ...extraFields,

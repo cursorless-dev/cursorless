@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "compile": "tsc --build",
-    "watch": "tsc --build --watch"
+    "watch": "tsc --build --watch",
+    "clean": "rm -rf ./out"
   },
   "keywords": [],
   "author": "",

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "pnpm -r build",
+    "clean": "pnpm -r clean",
     "compile": "tsc --build",
-    "compile-clean": "tsc --build --clean",
     "fix:eslint": "pnpm lint:ts --fix",
     "fix:meta": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "fix:syncpack": "pnpm syncpack fix-mismatches",
