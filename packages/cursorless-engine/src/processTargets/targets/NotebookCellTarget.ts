@@ -1,7 +1,10 @@
-import { Target } from "../../typings/target.types";
 import { TargetPosition } from "@cursorless/common";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
-import { removalUnsupportedForPosition } from "./PositionTarget";
+import {
+  BaseTarget,
+  CommonTargetParameters,
+  removalUnsupportedForPosition,
+} from ".";
+import { Target } from "../../typings/target.types";
 
 export default class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
   insertionDelimiter = "\n";

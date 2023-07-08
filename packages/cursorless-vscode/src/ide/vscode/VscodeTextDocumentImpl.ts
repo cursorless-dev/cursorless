@@ -1,5 +1,12 @@
-import { Position, Range, TextDocument, TextLine } from "@cursorless/common";
 import {
+  EndOfLine,
+  Position,
+  Range,
+  TextDocument,
+  TextLine,
+} from "@cursorless/common";
+import {
+  fromVscodeEndOfLine,
   fromVscodePosition,
   toVscodePosition,
   toVscodeRange,
@@ -28,6 +35,10 @@ export class VscodeTextDocumentImpl implements TextDocument {
   get range(): Range {
     const { end } = this.document.lineAt(this.document.lineCount - 1).range;
     return new Range(0, 0, end.line, end.character);
+  }
+
+  get eol(): EndOfLine {
+    return fromVscodeEndOfLine(this.document.eol);
   }
 
   constructor(private document: vscode.TextDocument) {}

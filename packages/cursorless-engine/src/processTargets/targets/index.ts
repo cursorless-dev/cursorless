@@ -26,3 +26,5 @@ export * from "./UntypedTarget";
 export { default as UntypedTarget } from "./UntypedTarget";
 export * from "./ImplicitTarget";
 export { default as ImplicitTarget } from "./ImplicitTarget";
+export * from "./InteriorTarget";
+export { default as InteriorTarget } from "./InteriorTarget";

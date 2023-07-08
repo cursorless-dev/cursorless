@@ -20,7 +20,7 @@ initialState:
   marks: {}
 finalState:
   documentContents: |
-    fn() -> Result<(), Error> {
+    fn () -> Result<(), Error> {
         
     }
   selections:

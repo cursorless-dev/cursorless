@@ -5,14 +5,6 @@
 
 Cursorless has its own experimental snippet engine that allows you to both insert snippets and wrap targets with snippets. Cursorless ships with a few built-in snippets, but users can also use their own snippets.
 
-## Enabling snippets
-
-Add the following line to the end of your `settings.talon` (or any other `.talon` file that will be active when vscode is focused):
-
-```
-tag(): user.cursorless_experimental_snippets
-```
-
 ## Using snippets
 
 ### Wrapping a target with snippets
