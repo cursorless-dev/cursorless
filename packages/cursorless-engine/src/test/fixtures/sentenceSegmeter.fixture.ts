@@ -29,11 +29,15 @@ export const sentenceSegmenterFixture: Fixture[] = [
     expectedOutput: ["Foo \n\tbar"],
   },
   {
-    input: " Foo \nbar. *",
+    input: "* Foo \nbar. *",
     expectedOutput: ["Foo \nbar."],
   },
   {
-    input: "* Foo bar\n*\n",
-    expectedOutput: ["Foo bar"],
+    input: "Foo \n*\nbar",
+    expectedOutput: ["Foo", "bar"],
+  },
+  {
+    input: "Foo\n\nbar",
+    expectedOutput: ["Foo", "bar"],
   },
 ];
