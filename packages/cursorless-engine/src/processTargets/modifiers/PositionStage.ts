@@ -25,7 +25,7 @@ export default class PositionStage implements ModifierStage {
     return [
       target.isRaw
         ? new RawSelectionTarget(parameters)
-        : new PlainTarget(parameters),
+        : new PlainTarget({ ...parameters, isToken: false }),
     ];
   }
 }
