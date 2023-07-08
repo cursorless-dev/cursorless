@@ -28,8 +28,8 @@ export default class SentenceSegmenter {
       }
 
       const segment = isInvalidLine(matchText)
-        ? createsSegment(text, matchText, index, m.index!)
-        : createsSegment(text, matchText, index, m.index! + matchText.length);
+        ? createsSegment(text, index, m.index!)
+        : createsSegment(text, index, m.index! + matchText.length);
 
       if (segment != null) {
         yield segment;
@@ -39,7 +39,7 @@ export default class SentenceSegmenter {
     }
 
     if (index < text.length) {
-      const segment = createsSegment(text, "", index, text.length);
+      const segment = createsSegment(text, index, text.length);
 
       if (segment != null) {
         yield segment;
@@ -50,27 +50,28 @@ export default class SentenceSegmenter {
 
 const createsSegment = (
   text: string,
-  delimiter: string,
-  index: number,
+  startIndex: number,
   endIndex: number,
 ): Intl.SegmentData | undefined => {
-  let segment = text.slice(index, endIndex);
+  let segment = text.slice(startIndex, endIndex);
   const leadingOffset =
     segment.match(leadingOffsetPattern)?.index ?? segment.length;
+
+  if (segment.length === leadingOffset) {
+    return undefined;
+  }
+
   const trailingWhitespace = getTrailingWhitespace(segment);
 
   if (leadingOffset !== 0 || trailingWhitespace !== "") {
-    if (segment.length === leadingOffset) {
-      return undefined;
-    }
-    index += leadingOffset;
-    segment = text.slice(index, endIndex - trailingWhitespace.length);
+    startIndex += leadingOffset;
+    segment = text.slice(startIndex, endIndex - trailingWhitespace.length);
   }
 
   return {
     input: text,
+    index: startIndex,
     segment,
-    index,
   };
 };
 
