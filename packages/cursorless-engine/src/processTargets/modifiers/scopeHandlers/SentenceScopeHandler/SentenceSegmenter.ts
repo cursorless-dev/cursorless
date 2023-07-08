@@ -1,7 +1,5 @@
 import { getTrailingWhitespace } from "../../../../util/regex";
-
-const delimiters = [".", "?", "!"];
-const abbreviations = ["Mr.", "Mrs.", "Ms.", "Dr.", "Vs."];
+import { abbreviations, delimiters } from "./Language";
 
 const abbreviationsSet = new Set(abbreviations);
 // Don't match delimiters followed by non-whitespace. eg: example.com
