@@ -1,32 +1,32 @@
-export interface CursorMark {
+interface CursorMark {
   type: "cursor";
 }
 
-export interface ThatMark {
+interface ThatMark {
   type: "that";
 }
 
-export interface SourceMark {
+interface SourceMark {
   type: "source";
 }
 
-export interface NothingMark {
+interface NothingMark {
   type: "nothing";
 }
 
-export interface LastCursorPositionMark {
+interface LastCursorPositionMark {
   type: "lastCursorPosition";
 }
 
-export interface DecoratedSymbolMark {
+interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: string;
   character: string;
 }
 
-export type LineNumberType = "absolute" | "relative" | "modulo100";
+type LineNumberType = "absolute" | "relative" | "modulo100";
 
-export interface LineNumberMark {
+interface LineNumberMark {
   type: "lineNumber";
   lineNumberType: LineNumberType;
   lineNumber: number;
@@ -35,7 +35,7 @@ export interface LineNumberMark {
 /**
  * Constructs a range between {@link anchor} and {@link active}
  */
-export interface RangeMark {
+interface RangeMark {
   type: "range";
   anchor: PartialMark;
   active: PartialMark;
@@ -43,7 +43,7 @@ export interface RangeMark {
   excludeActive?: boolean;
 }
 
-export type PartialMark =
+type PartialMark =
   | CursorMark
   | ThatMark
   | SourceMark
@@ -52,7 +52,7 @@ export type PartialMark =
   | LineNumberMark
   | RangeMark;
 
-export type SimpleSurroundingPairName =
+type SimpleSurroundingPairName =
   | "angleBrackets"
   | "backtickQuotes"
   | "curlyBrackets"
@@ -64,15 +64,12 @@ export type SimpleSurroundingPairName =
   | "parentheses"
   | "singleQuotes"
   | "squareBrackets";
-export type ComplexSurroundingPairName =
-  | "string"
-  | "any"
-  | "collectionBoundary";
-export type SurroundingPairName =
+type ComplexSurroundingPairName = "string" | "any" | "collectionBoundary";
+type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type SimpleScopeTypeType =
+type SimpleScopeTypeType =
   | "argumentOrParameter"
   | "anonymousFunction"
   | "attribute"
@@ -132,17 +129,17 @@ export type SimpleScopeTypeType =
   | "boundedNonWhitespaceSequence"
   | "url";
 
-export interface SimpleScopeType {
+interface SimpleScopeType {
   type: SimpleScopeTypeType;
 }
 
-export interface CustomRegexScopeType {
+interface CustomRegexScopeType {
   type: "customRegex";
   regex: string;
 }
 
-export type SurroundingPairDirection = "left" | "right";
-export interface SurroundingPairScopeType {
+type SurroundingPairDirection = "left" | "right";
+interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
   forceDirection?: SurroundingPairDirection;
@@ -154,45 +151,44 @@ export interface SurroundingPairScopeType {
   requireStrongContainment?: boolean;
 }
 
-export interface OneOfScopeType {
+interface OneOfScopeType {
   type: "oneOf";
   scopeTypes: ScopeType[];
 }
 
-export type ScopeType =
+type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
   | OneOfScopeType;
 
-export interface ContainingSurroundingPairModifier
-  extends ContainingScopeModifier {
+interface ContainingSurroundingPairModifier extends ContainingScopeModifier {
   scopeType: SurroundingPairScopeType;
 }
 
-export interface EverySurroundingPairModifier extends EveryScopeModifier {
+interface EverySurroundingPairModifier extends EveryScopeModifier {
   scopeType: SurroundingPairScopeType;
 }
 
-export type SurroundingPairModifier =
+type SurroundingPairModifier =
   | ContainingSurroundingPairModifier
   | EverySurroundingPairModifier;
 
-export interface InteriorOnlyModifier {
+interface InteriorOnlyModifier {
   type: "interiorOnly";
 }
 
-export interface ExcludeInteriorModifier {
+interface ExcludeInteriorModifier {
   type: "excludeInterior";
 }
 
-export interface ContainingScopeModifier {
+interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   ancestorIndex?: number;
 }
 
-export interface EveryScopeModifier {
+interface EveryScopeModifier {
   type: "everyScope";
   scopeType: ScopeType;
 }
@@ -201,7 +197,7 @@ export interface EveryScopeModifier {
  * Refer to scopes by absolute index relative to iteration scope, eg "first
  * funk" to refer to the first function in a class.
  */
-export interface OrdinalScopeModifier {
+interface OrdinalScopeModifier {
   type: "ordinalScope";
 
   scopeType: ScopeType;
@@ -213,13 +209,13 @@ export interface OrdinalScopeModifier {
   length: number;
 }
 
-export type Direction = "forward" | "backward";
+type Direction = "forward" | "backward";
 
 /**
  * Refer to scopes by offset relative to input target, eg "next
  * funk" to refer to the first function after the function containing the target input.
  */
-export interface RelativeScopeModifier {
+interface RelativeScopeModifier {
   type: "relativeScope";
 
   scopeType: ScopeType;
@@ -243,61 +239,59 @@ export interface RelativeScopeModifier {
  * example if it is the destination of a bring or move it should inherit the
  * type information such as delimiters from its source.
  */
-export interface RawSelectionModifier {
+interface RawSelectionModifier {
   type: "toRawSelection";
 }
 
-export interface LeadingModifier {
+interface LeadingModifier {
   type: "leading";
 }
 
-export interface TrailingModifier {
+interface TrailingModifier {
   type: "trailing";
 }
 
-export interface KeepContentFilterModifier {
+interface KeepContentFilterModifier {
   type: "keepContentFilter";
 }
 
-export interface KeepEmptyFilterModifier {
+interface KeepEmptyFilterModifier {
   type: "keepEmptyFilter";
 }
 
-export interface InferPreviousMarkModifier {
+interface InferPreviousMarkModifier {
   type: "inferPreviousMark";
 }
 
-export type TargetPosition = "start" | "end";
-export type InsertionMode = "before" | "after" | "to";
+type TargetPosition = "before" | "after" | "start" | "end";
 
-export interface PositionModifier {
+export interface PositionModifierV5 {
   type: "position";
   position: TargetPosition;
 }
 
-export interface PartialPrimitiveTargetDescriptor {
+export interface PartialPrimitiveTargetDescriptorV5 {
   type: "primitive";
   mark?: PartialMark;
-  destination?: InsertionMode;
-  modifiers?: Modifier[];
+  modifiers?: ModifierV5[];
 }
 
-export interface HeadTailModifier {
+interface HeadTailModifier {
   type: "extendThroughStartOf" | "extendThroughEndOf";
-  modifiers?: Modifier[];
+  modifiers?: ModifierV5[];
 }
 
 /**
  * Runs {@link modifier} if the target has no explicit scope type, ie if
  * {@link Target.hasExplicitScopeType} is `false`.
  */
-export interface ModifyIfUntypedModifier {
+interface ModifyIfUntypedModifier {
   type: "modifyIfUntyped";
 
   /**
    * The modifier to apply if the target is untyped
    */
-  modifier: Modifier;
+  modifier: ModifierV5;
 }
 
 /**
@@ -305,29 +299,29 @@ export interface ModifyIfUntypedModifier {
  * doesn't throw an error, returning the output from the first modifier not
  * throwing an error.
  */
-export interface CascadingModifier {
+interface CascadingModifier {
   type: "cascading";
 
   /**
    * The modifiers to try in turn
    */
-  modifiers: Modifier[];
+  modifiers: ModifierV5[];
 }
 
 /**
  * First applies {@link anchor} to input, then independently applies
  * {@link active}, and forms a range between the two resulting targets
  */
-export interface RangeModifier {
+interface RangeModifier {
   type: "range";
-  anchor: Modifier;
-  active: Modifier;
+  anchor: ModifierV5;
+  active: ModifierV5;
   excludeAnchor?: boolean;
   excludeActive?: boolean;
 }
 
-export type Modifier =
-  | PositionModifier
+export type ModifierV5 =
+  | PositionModifierV5
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
@@ -347,28 +341,31 @@ export type Modifier =
 
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
-export type PartialRangeType = "continuous" | "vertical";
+type PartialRangeType = "continuous" | "vertical";
 
-export interface PartialRangeTargetDescriptor {
+export interface PartialRangeTargetDescriptorV5 {
   type: "range";
-  anchor: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor;
-  active: PartialPrimitiveTargetDescriptor;
+  anchor: PartialPrimitiveTargetDescriptorV5 | ImplicitTargetDescriptorV5;
+  active: PartialPrimitiveTargetDescriptorV5;
   excludeAnchor: boolean;
   excludeActive: boolean;
   rangeType?: PartialRangeType;
 }
 
-export interface PartialListTargetDescriptor {
+export interface PartialListTargetDescriptorV5 {
   type: "list";
-  elements: (PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor)[];
+  elements: (
+    | PartialPrimitiveTargetDescriptorV5
+    | PartialRangeTargetDescriptorV5
+  )[];
 }
 
-export interface ImplicitTargetDescriptor {
+export interface ImplicitTargetDescriptorV5 {
   type: "implicit";
 }
 
-export type PartialTargetDescriptor =
-  | PartialPrimitiveTargetDescriptor
-  | PartialRangeTargetDescriptor
-  | PartialListTargetDescriptor
-  | ImplicitTargetDescriptor;
+export type PartialTargetDescriptorV5 =
+  | PartialPrimitiveTargetDescriptorV5
+  | PartialRangeTargetDescriptorV5
+  | PartialListTargetDescriptorV5
+  | ImplicitTargetDescriptorV5;

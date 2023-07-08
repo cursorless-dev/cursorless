@@ -1,7 +1,7 @@
 import {
   ImplicitTargetDescriptor,
   Modifier,
-  PartialListTargetDescriptor,
+  PartialListTargetDescriptorV5,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
@@ -48,7 +48,7 @@ function inferTarget(
 }
 
 function inferListTarget(
-  target: PartialListTargetDescriptor,
+  target: PartialListTargetDescriptorV5,
   previousTargets: PartialTargetDescriptor[],
 ): TargetDescriptor {
   return {

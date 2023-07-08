@@ -20,6 +20,7 @@ import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
 import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
+import { upgradeV5ToV6 } from "./upgradeV5ToV6";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -77,6 +78,9 @@ function upgradeCommand(command: Command): CommandLatest {
         break;
       case 4:
         command = upgradeV4ToV5(command);
+        break;
+      case 5:
+        command = upgradeV5ToV6(command);
         break;
       default:
         throw new Error(
