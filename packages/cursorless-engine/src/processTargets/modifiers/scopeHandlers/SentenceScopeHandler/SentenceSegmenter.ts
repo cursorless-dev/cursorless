@@ -9,65 +9,70 @@ const delimitersPattern = `[${delimiters.join("")}](?!\\S)`;
 const abbreviationsPattern = abbreviations
   .map((a) => a.replace(".", "\\."))
   .join("|");
-const invalidLinePattern = "\\n\\W*\\n";
+// A line with no alpha characters is invalid
+const invalidLinePattern = "\\n[^a-zA-Z]*\\n";
 const pattern = `${delimitersPattern}|${abbreviationsPattern}|${invalidLinePattern}`;
 const regex = new RegExp(pattern, "g");
+// A sentence starts with an alpha character
 const leadingOffsetPattern = /[a-zA-Z]/;
 
 export default class SentenceSegmenter {
   *segment(text: string): Iterable<Intl.SegmentData> {
     let index = 0;
 
-    const createsSegment = (
-      delimiter: string,
-      endIndex: number,
-    ): Intl.SegmentData | undefined => {
-      let segment = text.slice(index, endIndex);
-      const leadingOffset =
-        segment.match(leadingOffsetPattern)?.index ?? segment.length;
-      const trailingWhitespace = getTrailingWhitespace(segment);
-
-      if (leadingOffset !== 0 || trailingWhitespace !== "") {
-        if (segment.length === leadingOffset) {
-          return undefined;
-        }
-        index += leadingOffset;
-        endIndex -= trailingWhitespace.length;
-        segment = text.slice(index, endIndex);
-      }
-
-      const result = {
-        input: text,
-        segment,
-        index,
-      };
-
-      index = endIndex;
-
-      return result;
-    };
-
     for (const m of matchAll(text, regex)) {
       const matchText = m[0];
+
       if (isAbbreviation(matchText)) {
         continue;
       }
+
       const segment = isInvalidLine(matchText)
-        ? createsSegment(matchText, m.index!)
-        : createsSegment(matchText, m.index! + matchText.length);
+        ? createsSegment(text, matchText, index, m.index!)
+        : createsSegment(text, matchText, index, m.index! + matchText.length);
+
       if (segment != null) {
         yield segment;
       }
+
+      index = m.index! + matchText.length;
     }
 
     if (index < text.length) {
-      const segment = createsSegment("", text.length);
+      const segment = createsSegment(text, "", index, text.length);
+
       if (segment != null) {
         yield segment;
       }
     }
   }
 }
+
+const createsSegment = (
+  text: string,
+  delimiter: string,
+  index: number,
+  endIndex: number,
+): Intl.SegmentData | undefined => {
+  let segment = text.slice(index, endIndex);
+  const leadingOffset =
+    segment.match(leadingOffsetPattern)?.index ?? segment.length;
+  const trailingWhitespace = getTrailingWhitespace(segment);
+
+  if (leadingOffset !== 0 || trailingWhitespace !== "") {
+    if (segment.length === leadingOffset) {
+      return undefined;
+    }
+    index += leadingOffset;
+    segment = text.slice(index, endIndex - trailingWhitespace.length);
+  }
+
+  return {
+    input: text,
+    segment,
+    index,
+  };
+};
 
 function isInvalidLine(text: string): boolean {
   return text[0] === "\n";
