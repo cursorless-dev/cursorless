@@ -1,4 +1,4 @@
-import { TargetPosition } from "@cursorless/common";
+import { InsertionMode, TargetPosition } from "@cursorless/common";
 import {
   BaseTarget,
   CommonTargetParameters,
@@ -22,37 +22,37 @@ export default class NotebookCellTarget extends BaseTarget<CommonTargetParameter
     return this.state;
   }
 
-  toPositionTarget(position: TargetPosition): Target {
+  toPositionTarget(insertionMode: InsertionMode): Target {
     return new NotebookCellPositionTarget({
       ...this.state,
       thatTarget: this,
-      position,
+      insertionMode,
     });
   }
 }
 
 interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
-  readonly position: TargetPosition;
+  readonly insertionMode: InsertionMode;
 }
 
 export class NotebookCellPositionTarget extends BaseTarget<NotebookCellPositionTargetParameters> {
   insertionDelimiter = "\n";
   isNotebookCell = true;
-  public position: TargetPosition;
+  public insertionMode: InsertionMode;
 
   constructor(parameters: NotebookCellPositionTargetParameters) {
     super(parameters);
-    this.position = parameters.position;
+    this.insertionMode = parameters.insertionMode;
   }
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
-  getRemovalRange = () => removalUnsupportedForPosition(this.position);
+  getRemovalRange = () => removalUnsupportedForPosition(this.insertionMode);
 
   protected getCloneParameters(): NotebookCellPositionTargetParameters {
     return {
       ...this.state,
-      position: this.position,
+      insertionMode: this.insertionMode,
     };
   }
 }

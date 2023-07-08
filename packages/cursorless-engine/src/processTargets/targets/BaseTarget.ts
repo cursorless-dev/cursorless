@@ -1,3 +1,4 @@
+import type { InsertionMode } from "@cursorless/common";
 import {
   NoContainingScopeError,
   Range,
@@ -5,9 +6,8 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
-import type { TargetPosition } from "@cursorless/common";
-import type { EditNewActionType, Target } from "../../typings/target.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
+import type { EditNewActionType, Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
@@ -190,8 +190,8 @@ export default abstract class BaseTarget<
     };
   }
 
-  toPositionTarget(position: TargetPosition): Target {
-    return toPositionTarget(this, position);
+  toPositionTarget(insertionMode: InsertionMode): Target {
+    return toPositionTarget(this, insertionMode);
   }
 
   abstract get insertionDelimiter(): string;

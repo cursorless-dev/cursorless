@@ -7,13 +7,14 @@
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type {
+  InsertionMode,
   Range,
   Selection,
-  TextEditor,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   Snippet,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   SnippetVariable,
+  TextEditor,
 } from "@cursorless/common";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
@@ -23,7 +24,6 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   UntypedTarget,
 } from "../processTargets/targets";
-import type { TargetPosition } from "@cursorless/common";
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
@@ -154,5 +154,5 @@ export interface Target {
    * Construct a position target with the given position.
    * @param position The position to use, eg `start`, `end`, `before`, `after`
    */
-  toPositionTarget(position: TargetPosition): Target;
+  toPositionTarget(insertionMode: InsertionMode): Target;
 }

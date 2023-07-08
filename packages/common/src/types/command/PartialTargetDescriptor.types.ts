@@ -275,6 +275,11 @@ export interface PositionModifier {
   position: TargetPosition;
 }
 
+export interface DestinationModifier {
+  type: "destination";
+  insertionMode: InsertionMode;
+}
+
 export interface PartialPrimitiveTargetDescriptor {
   type: "primitive";
   mark?: PartialMark;
@@ -328,6 +333,7 @@ export interface RangeModifier {
 
 export type Modifier =
   | PositionModifier
+  | DestinationModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier

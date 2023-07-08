@@ -215,13 +215,9 @@ class TargetPipeline {
     } else {
       markStage = this.markStageFactory.create(targetDescriptor.mark);
       positionModifierStages =
-        targetDescriptor.positionModifier == null
+        targetDescriptor.destination == null
           ? []
-          : [
-              this.modifierStageFactory.create(
-                targetDescriptor.positionModifier,
-              ),
-            ];
+          : [this.modifierStageFactory.create(targetDescriptor.destination)];
       nonPositionModifierStages = getModifierStagesFromTargetModifiers(
         this.modifierStageFactory,
         targetDescriptor.modifiers,

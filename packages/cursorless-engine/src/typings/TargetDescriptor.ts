@@ -1,9 +1,9 @@
 import {
+  DestinationModifier,
   ImplicitTargetDescriptor,
   Modifier,
   PartialMark,
   PartialRangeType,
-  PositionModifier,
   ScopeType,
 } from "@cursorless/common";
 
@@ -28,11 +28,9 @@ export interface PrimitiveTargetDescriptor {
   modifiers: Modifier[];
 
   /**
-   * We separate the positional modifier from the other modifiers because it
-   * behaves differently and and makes the target behave like a destination for
-   * example for bring.  This change is the first step toward #803
+   * Different nodes of insertion: eg "before", "after", "to"
    */
-  positionModifier?: PositionModifier;
+  destination?: DestinationModifier;
 }
 
 /**

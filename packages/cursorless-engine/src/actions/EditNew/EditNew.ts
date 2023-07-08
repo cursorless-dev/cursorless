@@ -1,6 +1,6 @@
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { containingLineIfUntypedModifier } from "../../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
-import PositionStage from "../../processTargets/modifiers/PositionStage";
+import DestinationStage from "../../processTargets/modifiers/DestinationStage";
 import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { ide } from "../../singletons/ide.singleton";
@@ -71,9 +71,9 @@ export class EditNewBefore extends EditNew {
   getFinalStages() {
     return [
       ...super.getFinalStages(),
-      new PositionStage({
-        type: "position",
-        position: "before",
+      new DestinationStage({
+        type: "destination",
+        insertionMode: "before",
       }),
     ];
   }
@@ -83,9 +83,9 @@ export class EditNewAfter extends EditNew {
   getFinalStages() {
     return [
       ...super.getFinalStages(),
-      new PositionStage({
-        type: "position",
-        position: "after",
+      new DestinationStage({
+        type: "destination",
+        insertionMode: "after",
       }),
     ];
   }

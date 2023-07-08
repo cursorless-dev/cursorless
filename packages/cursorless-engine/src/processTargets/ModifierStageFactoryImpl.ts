@@ -4,12 +4,14 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
+import { StoredTargetMap } from "..";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";
 import CascadingStage from "./modifiers/CascadingStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
+import DestinationStage from "./modifiers/DestinationStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
 import {
   KeepContentFilterStage,
@@ -36,7 +38,6 @@ import ContainingSyntaxScopeStage, {
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
-import { StoredTargetMap } from "..";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
@@ -51,6 +52,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     switch (modifier.type) {
       case "position":
         return new PositionStage(modifier);
+      case "destination":
+        return new DestinationStage(modifier);
       case "extendThroughStartOf":
         return new HeadStage(this, modifier);
       case "extendThroughEndOf":

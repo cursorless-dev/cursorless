@@ -1,11 +1,11 @@
 import {
   ImplicitTargetDescriptor,
+  InsertionMode,
   Modifier,
   PartialListTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-  PositionModifier,
 } from "@cursorless/common";
 import {
   Mark,
@@ -111,9 +111,6 @@ function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): PrimitiveTargetDescriptor {
-  const ownPositionModifier = getPositionModifier(target);
-  const ownModifiers = getPreservedModifiers(target);
-
   const mark = target.mark ??
     (shouldInferPreviousMark(target)
       ? getPreviousMark(previousTargets)
@@ -122,37 +119,21 @@ function inferPrimitiveTarget(
     };
 
   const modifiers =
-    ownModifiers ?? getPreviousPreservedModifiers(previousTargets) ?? [];
+    getPreservedModifiers(target) ??
+    getPreviousPreservedModifiers(previousTargets) ??
+    [];
 
-  const positionModifier =
-    ownPositionModifier ?? getPreviousPositionModifier(previousTargets);
+  const destination =
+    target.destination ?? getPreviousDestination(previousTargets);
 
   return {
     type: target.type,
     mark,
     modifiers,
-    positionModifier,
+    destination: destination
+      ? { type: "destination", insertionMode: destination }
+      : undefined,
   };
-}
-
-function getPositionModifier(
-  target: PartialPrimitiveTargetDescriptor,
-): PositionModifier | undefined {
-  if (target.modifiers == null) {
-    return undefined;
-  }
-
-  const positionModifierIndex = target.modifiers.findIndex(
-    (modifier) => modifier.type === "position",
-  );
-
-  if (positionModifierIndex > 0) {
-    throw Error("Position modifiers must be at the start of a modifier chain");
-  }
-
-  return positionModifierIndex === -1
-    ? undefined
-    : (target.modifiers[positionModifierIndex] as PositionModifier);
 }
 
 function shouldInferPreviousMark(
@@ -178,7 +159,7 @@ function getPreservedModifiers(
 ): Modifier[] | undefined {
   const preservedModifiers =
     target.modifiers?.filter(
-      (modifier) => !["position", "inferPreviousMark"].includes(modifier.type),
+      (modifier) => !["inferPreviousMark"].includes(modifier.type),
     ) ?? [];
   if (preservedModifiers.length !== 0) {
     return preservedModifiers;
@@ -228,10 +209,13 @@ function getPreviousPreservedModifiers(
   return getPreviousTargetAttribute(previousTargets, getPreservedModifiers);
 }
 
-function getPreviousPositionModifier(
+function getPreviousDestination(
   previousTargets: PartialTargetDescriptor[],
-): PositionModifier | undefined {
-  return getPreviousTargetAttribute(previousTargets, getPositionModifier);
+): InsertionMode | undefined {
+  return getPreviousTargetAttribute(
+    previousTargets,
+    (target) => target.destination,
+  );
 }
 
 /**

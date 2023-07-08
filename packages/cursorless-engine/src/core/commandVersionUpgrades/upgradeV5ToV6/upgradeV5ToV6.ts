@@ -74,10 +74,10 @@ function getDestination(modifiers?: ModifierV5[]): InsertionMode | undefined {
 
 function getModifiers(modifiers?: ModifierV5[]): Modifier[] | undefined {
   return modifiers
-    ? modifiers.filter(
-        (m): m is Modifier =>
+    ? (modifiers.filter(
+        (m) =>
           m.type !== "position" ||
           (m.position !== "before" && m.position !== "after"),
-      )
+      ) as Modifier[])
     : undefined;
 }

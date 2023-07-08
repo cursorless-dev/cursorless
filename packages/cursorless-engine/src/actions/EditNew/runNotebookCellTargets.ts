@@ -14,7 +14,7 @@ export async function runEditNewNotebookCellTargets(
   // multiple cells, which is unsupported in VSCode
   const target = ensureSingleTarget(targets) as NotebookCellPositionTarget;
   const editor = ide().getEditableTextEditor(target.editor);
-  const isAbove = target.position === "before";
+  const isAbove = target.insertionMode === "before";
 
   await actions.setSelection.run([targets]);
 

@@ -1,11 +1,15 @@
-import { Range, TextEditor, UnsupportedError } from "@cursorless/common";
+import {
+  InsertionMode,
+  Range,
+  TextEditor,
+  UnsupportedError,
+} from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
-import { TargetPosition } from "@cursorless/common";
-import { EditNewActionType } from "../../typings/target.types";
 import { EditWithRangeUpdater } from "../../typings/Types";
+import { EditNewActionType } from "../../typings/target.types";
 
 interface PositionTargetParameters extends CommonTargetParameters {
-  readonly position: TargetPosition;
+  readonly insertionMode: InsertionMode;
   readonly insertionDelimiter: string;
   readonly isRaw: boolean;
 }
@@ -13,17 +17,17 @@ interface PositionTargetParameters extends CommonTargetParameters {
 export default class PositionTarget extends BaseTarget<PositionTargetParameters> {
   insertionDelimiter: string;
   isRaw: boolean;
-  private position: TargetPosition;
+  private insertionMode: InsertionMode;
   private isLineDelimiter: boolean;
   private isBefore: boolean;
   private indentationString: string;
 
   constructor(parameters: PositionTargetParameters) {
     super(parameters);
-    this.position = parameters.position;
+    this.insertionMode = parameters.insertionMode;
     this.insertionDelimiter = parameters.insertionDelimiter;
     this.isRaw = parameters.isRaw;
-    this.isBefore = parameters.position === "before";
+    this.isBefore = parameters.insertionDelimiter === "before";
     // It's only considered a line if the delimiter is only new line symbols
     this.isLineDelimiter = /^(\n)+$/.test(parameters.insertionDelimiter);
     // This calculation must be done here since that that target is not updated by our range updater
@@ -38,12 +42,12 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
 
-  getRemovalRange = () => removalUnsupportedForPosition(this.position);
+  getRemovalRange = () => removalUnsupportedForPosition(this.insertionMode);
 
   getEditNewActionType(): EditNewActionType {
     if (
       this.insertionDelimiter === "\n" &&
-      this.position === "after" &&
+      this.insertionMode === "after" &&
       this.state.thatTarget!.contentRange.isSingleLine
     ) {
       // If the target that we're wrapping is not a single line, then we
@@ -60,7 +64,7 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
   }
 
   constructChangeEdit(text: string): EditWithRangeUpdater {
-    return this.position === "before" || this.position === "after"
+    return this.insertionMode === "before" || this.insertionMode === "after"
       ? this.constructEditWithDelimiters(text)
       : this.constructEditWithoutDelimiters(text);
   }
@@ -68,7 +72,7 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
   protected getCloneParameters(): PositionTargetParameters {
     return {
       ...this.state,
-      position: this.position,
+      insertionMode: this.insertionMode,
       insertionDelimiter: this.insertionDelimiter,
       isRaw: this.isRaw,
     };
@@ -85,7 +89,7 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
     return {
       range,
       text: editText,
-      isReplace: this.position === "after",
+      isReplace: this.insertionMode === "after",
       updateRange,
     };
   }
@@ -150,12 +154,19 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
   }
 }
 
-export function removalUnsupportedForPosition(position: string): Range {
-  const preferredModifier =
-    position === "after" || position === "end" ? "trailing" : "leading";
+export function removalUnsupportedForPosition(
+  insertionMode: InsertionMode,
+): Range {
+  if (insertionMode === "to") {
+    throw new UnsupportedError(
+      `Removal is not supported for "${insertionMode}"`,
+    );
+  }
+
+  const preferredModifier = insertionMode === "after" ? "trailing" : "leading";
 
   throw new UnsupportedError(
-    `Please use "${preferredModifier}" modifier; removal is not supported for "${position}"`,
+    `Please use "${preferredModifier}" modifier; removal is not supported for "${insertionMode}"`,
   );
 }
 

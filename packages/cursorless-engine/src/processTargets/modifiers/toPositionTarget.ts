@@ -1,45 +1,29 @@
-import { Range } from "@cursorless/common";
+import { InsertionMode, Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import { TargetPosition } from "@cursorless/common";
 import { PositionTarget } from "../targets";
 
 export function toPositionTarget(
   target: Target,
-  position: TargetPosition,
+  insertionMode: InsertionMode,
 ): Target {
-  const { start, end } = target.contentRange;
-  let contentRange: Range;
-  let insertionDelimiter: string;
-
-  switch (position) {
-    case "before":
-      contentRange = new Range(start, start);
-      insertionDelimiter = target.insertionDelimiter;
-      break;
-
-    case "after":
-      contentRange = new Range(end, end);
-      insertionDelimiter = target.insertionDelimiter;
-      break;
-
-    case "start":
-      contentRange = new Range(start, start);
-      insertionDelimiter = "";
-      break;
-
-    case "end":
-      contentRange = new Range(end, end);
-      insertionDelimiter = "";
-      break;
-  }
+  const contentRange = (() => {
+    switch (insertionMode) {
+      case "before":
+        return new Range(target.contentRange.start, target.contentRange.start);
+      case "after":
+        return new Range(target.contentRange.end, target.contentRange.end);
+      case "to":
+        return target.contentRange;
+    }
+  })();
 
   return new PositionTarget({
     editor: target.editor,
     isReversed: target.isReversed,
     contentRange,
     thatTarget: target,
-    position,
-    insertionDelimiter,
+    insertionMode,
+    insertionDelimiter: target.insertionDelimiter,
     isRaw: target.isRaw,
   });
 }
