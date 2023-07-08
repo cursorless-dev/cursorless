@@ -28,4 +28,12 @@ export const sentenceSegmenterFixture: Fixture[] = [
     input: " Foo \n\tbar ",
     expectedOutput: ["Foo \n\tbar"],
   },
+  {
+    input: " Foo \nbar. *",
+    expectedOutput: ["Foo \nbar."],
+  },
+  {
+    input: "* Foo bar\n*\n",
+    expectedOutput: ["Foo bar"],
+  },
 ];
