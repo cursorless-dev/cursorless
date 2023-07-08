@@ -49,6 +49,10 @@ export const sentenceSegmenterFixture: Fixture[] = [
     expectedOutput: ["Foo", "bar"],
   },
   {
+    input: "Foo bar...",
+    expectedOutput: ["Foo bar..."],
+  },
+  {
     input: "Å\nä\nö",
     expectedOutput: ["Å\nä\nö"],
   },
