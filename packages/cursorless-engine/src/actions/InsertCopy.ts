@@ -55,7 +55,7 @@ class InsertCopy implements Action {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
-      target.toPositionTarget(position).constructChangeEdit(target.contentText),
+      target.toDestination(position).constructChangeEdit(target.contentText),
     );
 
     const cursorSelections = { selections: editor.selections };

@@ -151,8 +151,16 @@ export interface Target {
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;
   /**
-   * Construct a position target with the given position.
-   * @param position The position to use, eg `start`, `end`, `before`, `after`
+   * Construct a destination  with the given insertion mode.
+   * @param position The insertion modes to use, eg `before`, `after`, `to`
    */
-  toPositionTarget(insertionMode: InsertionMode): Target;
+  toDestination(insertionMode: InsertionMode): Destination;
+}
+
+export interface Destination {
+  insertionMode: InsertionMode;
+  target: Target;
+  constructChangeEdit(text: string): EditWithRangeUpdater;
+  withTarget(target: Target): Destination;
+  isEqual(destination: Destination): boolean;
 }

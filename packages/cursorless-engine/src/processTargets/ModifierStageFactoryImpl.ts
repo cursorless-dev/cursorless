@@ -11,7 +11,6 @@ import { ModifierStage } from "./PipelineStages.types";
 import CascadingStage from "./modifiers/CascadingStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
-import DestinationStage from "./modifiers/DestinationStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
 import {
   KeepContentFilterStage,
@@ -50,8 +49,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
 
   create(modifier: Modifier): ModifierStage {
     switch (modifier.type) {
-      case "destination":
-        return new DestinationStage(modifier);
       case "startOf":
         return new StartOfStage(modifier);
       case "endOf":

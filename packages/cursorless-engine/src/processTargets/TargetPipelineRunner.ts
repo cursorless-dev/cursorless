@@ -1,17 +1,24 @@
-import { ImplicitTargetDescriptor, Modifier, Range } from "@cursorless/common";
+import {
+  Direction,
+  ImplicitTargetDescriptor,
+  InsertionMode,
+  Modifier,
+  Range,
+  ScopeType,
+} from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { Target } from "../typings/target.types";
+import { Destination, Target } from "../typings/target.types";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { MarkStage, ModifierStage } from "./PipelineStages.types";
 import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
-import { PlainTarget, PositionTarget } from "./targets";
+import { DestinationImpl, PlainTarget } from "./targets";
 
 export class TargetPipelineRunner {
   constructor(
@@ -37,7 +44,7 @@ export class TargetPipelineRunner {
     target: TargetDescriptor,
     actionPrePositionStages?: ModifierStage[],
     actionFinalStages?: ModifierStage[],
-  ): Target[] {
+  ): (Target | Destination)[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
@@ -71,11 +78,11 @@ class TargetPipeline {
    * containing it, and potentially rich context information such as how to remove
    * the target
    */
-  run(): Target[] {
+  run(): (Target | Destination)[] {
     return uniqTargets(this.processTarget(this.target));
   }
 
-  processTarget(target: TargetDescriptor): Target[] {
+  processTarget(target: TargetDescriptor): (Target | Destination)[] {
     switch (target.type) {
       case "list":
         return target.elements.flatMap((element) =>
@@ -89,7 +96,9 @@ class TargetPipeline {
     }
   }
 
-  processRangeTarget(targetDesc: RangeTargetDescriptor): Target[] {
+  processRangeTarget(
+    targetDesc: RangeTargetDescriptor,
+  ): (Target | Destination)[] {
     const anchorTargets = this.processPrimitiveTarget(targetDesc.anchor);
     const activeTargets = this.processPrimitiveTarget(targetDesc.active);
 
@@ -121,21 +130,27 @@ class TargetPipeline {
   }
 
   processContinuousRangeTarget(
-    anchorTarget: Target,
-    activeTarget: Target,
+    anchorTargetOrDestination: Target | Destination,
+    activeTargetOrDestination: Target | Destination,
     { excludeAnchor, excludeActive, exclusionScopeType }: RangeTargetDescriptor,
-  ): Target[] {
+  ): (Target | Destination)[] {
     if (exclusionScopeType == null) {
       return [
-        targetsToContinuousTarget(
-          anchorTarget,
-          activeTarget,
+        targetsOrDestinationsToContinuousTarget(
+          anchorTargetOrDestination,
+          activeTargetOrDestination,
           excludeAnchor,
           excludeActive,
         ),
       ];
     }
 
+    const { target: anchorTarget } = separateDestinationAndTarget(
+      anchorTargetOrDestination,
+    );
+    const { target: activeTarget } = separateDestinationAndTarget(
+      activeTargetOrDestination,
+    );
     const isReversed = calcIsReversed(anchorTarget, activeTarget);
 
     // For "every" range targets, we need to be smart about how we handle
@@ -150,32 +165,23 @@ class TargetPipeline {
     // again. So instead, we use the equivalent of "previous funk name" to find
     // our endpoint and then just use an inclusive range ending with that target.
     return [
-      targetsToContinuousTarget(
+      targetsOrDestinationsToContinuousTarget(
         excludeAnchor
-          ? this.modifierStageFactory
-              .create({
-                type: "relativeScope",
-                scopeType: exclusionScopeType,
-                direction: isReversed ? "backward" : "forward",
-                length: 1,
-                offset: 1,
-              })
-              // NB: The following line assumes that content range is always
-              // contained by domain, so that "every" will properly reconstruct
-              // the target from the content range.
-              .run(anchorTarget)[0]
-          : anchorTarget,
+          ? excludeScope(
+              this.modifierStageFactory,
+              anchorTargetOrDestination,
+              exclusionScopeType,
+              isReversed ? "backward" : "forward",
+            )
+          : anchorTargetOrDestination,
         excludeActive
-          ? this.modifierStageFactory
-              .create({
-                type: "relativeScope",
-                scopeType: exclusionScopeType,
-                direction: isReversed ? "forward" : "backward",
-                length: 1,
-                offset: 1,
-              })
-              .run(activeTarget)[0]
-          : activeTarget,
+          ? excludeScope(
+              this.modifierStageFactory,
+              activeTargetOrDestination,
+              exclusionScopeType,
+              isReversed ? "forward" : "backward",
+            )
+          : activeTargetOrDestination,
         false,
         false,
       ),
@@ -203,30 +209,22 @@ class TargetPipeline {
    */
   processPrimitiveTarget(
     targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
-  ): Target[] {
+  ): (Target | Destination)[] {
     let markStage: MarkStage;
-    let nonDestinationModifierStages: ModifierStage[];
-    let destinationModifierStages: ModifierStage[];
+    let nonModifierStages: ModifierStage[];
+    let destination: InsertionMode | undefined;
 
     if (targetDescriptor.type === "implicit") {
       markStage = new ImplicitStage();
-      nonDestinationModifierStages = [];
-      destinationModifierStages = [];
+      nonModifierStages = [];
+      destination = undefined;
     } else {
       markStage = this.markStageFactory.create(targetDescriptor.mark);
-      destinationModifierStages =
-        targetDescriptor.destination == null
-          ? []
-          : [
-              this.modifierStageFactory.create({
-                type: "destination",
-                insertionMode: targetDescriptor.destination,
-              }),
-            ];
-      nonDestinationModifierStages = getModifierStagesFromTargetModifiers(
+      nonModifierStages = getModifierStagesFromTargetModifiers(
         this.modifierStageFactory,
         targetDescriptor.modifiers,
       );
+      destination = targetDescriptor.destination;
     }
 
     // First, get the targets output by the mark
@@ -236,19 +234,21 @@ class TargetPipeline {
      * The modifier pipeline that will be applied to construct our final targets
      */
     const modifierStages = [
-      ...nonDestinationModifierStages,
+      ...nonModifierStages,
       ...this.actionPrePositionStages,
       ...this.actionFinalStages,
 
       // This performs auto-expansion to token when you say eg "take this" with an
       // empty selection
       new ContainingTokenIfUntypedEmptyStage(this.modifierStageFactory),
-
-      ...destinationModifierStages,
     ];
 
     // Run all targets through the modifier stages
-    return processModifierStages(modifierStages, markOutputTargets);
+    const targets = processModifierStages(modifierStages, markOutputTargets);
+
+    return destination != null
+      ? targets.map((target) => target.toDestination(destination!))
+      : targets;
   }
 }
 
@@ -278,6 +278,54 @@ export function processModifierStages(
   return targets;
 }
 
+function excludeScope(
+  modifierStageFactory: ModifierStageFactory,
+  targetOrDestination: Target | Destination,
+  exclusionScopeType: ScopeType,
+  direction: Direction,
+): Target | Destination {
+  const { target, destination } =
+    separateDestinationAndTarget(targetOrDestination);
+
+  const resultTarget = modifierStageFactory
+    .create({
+      type: "relativeScope",
+      scopeType: exclusionScopeType,
+      direction,
+      length: 1,
+      offset: 1,
+    })
+    // NB: The following line assumes that content range is always
+    // contained by domain, so that "every" will properly reconstruct
+    // the target from the content range.
+    .run(target)[0];
+
+  return destination != null
+    ? destination.withTarget(resultTarget)
+    : resultTarget;
+}
+
+function separateDestinationAndTarget(
+  targetOrDestination: Target | Destination,
+): { target: Target; destination?: Destination } {
+  if (isDestination(targetOrDestination)) {
+    return {
+      target: targetOrDestination.target,
+      destination: targetOrDestination,
+    };
+  }
+  return {
+    target: targetOrDestination as Target,
+    destination: undefined,
+  };
+}
+
+export function isDestination(
+  targetOrDestination: Target | Destination,
+): targetOrDestination is Destination {
+  return targetOrDestination instanceof DestinationImpl;
+}
+
 function calcIsReversed(anchor: Target, active: Target) {
   if (anchor.contentRange.start.isAfter(active.contentRange.start)) {
     return true;
@@ -288,14 +336,51 @@ function calcIsReversed(anchor: Target, active: Target) {
   return anchor.contentRange.end.isAfter(active.contentRange.end);
 }
 
-function uniqTargets(array: Target[]): Target[] {
-  return uniqWith(array, (a, b) => a.isEqual(b));
+function uniqTargets(
+  array: (Target | Destination)[],
+): (Target | Destination)[] {
+  return uniqWith(array, (a, b) => isEqual(a, b));
+}
+
+function isEqual(a: Target | Destination, b: Target | Destination): boolean {
+  if (isDestination(a) || isDestination(b)) {
+    if (!isDestination(a) || !isDestination(b)) {
+      return false;
+    }
+    return a.isEqual(b);
+  }
+  return a.isEqual(b);
 }
 
 function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
   if (anchorTarget.editor !== activeTarget.editor) {
     throw new Error("Cannot form range between targets in different editors");
   }
+}
+
+function targetsOrDestinationsToContinuousTarget(
+  anchorTargetOrDestination: Target | Destination,
+  activeTargetOrDestination: Target | Destination,
+  excludeAnchor: boolean = false,
+  excludeActive: boolean = false,
+): Target | Destination {
+  const { target: anchorTarget, destination } = separateDestinationAndTarget(
+    anchorTargetOrDestination,
+  );
+  const { target: activeTarget } = separateDestinationAndTarget(
+    activeTargetOrDestination,
+  );
+
+  const continuesRangeTarget = targetsToContinuousTarget(
+    anchorTarget,
+    activeTarget,
+    excludeAnchor,
+    excludeActive,
+  );
+
+  return destination != null
+    ? continuesRangeTarget.toDestination(destination.insertionMode)
+    : continuesRangeTarget;
 }
 
 export function targetsToContinuousTarget(
@@ -321,11 +406,18 @@ export function targetsToContinuousTarget(
 }
 
 function targetsToVerticalTarget(
-  anchorTarget: Target,
-  activeTarget: Target,
+  anchorTargetOrDestination: Target | Destination,
+  activeTargetOrDestination: Target | Destination,
   excludeAnchor: boolean,
   excludeActive: boolean,
-): Target[] {
+): (Target | Destination)[] {
+  const { target: anchorTarget, destination } = separateDestinationAndTarget(
+    anchorTargetOrDestination,
+  );
+  const { target: activeTarget } = separateDestinationAndTarget(
+    activeTargetOrDestination,
+  );
+
   ensureSingleEditor(anchorTarget, activeTarget);
 
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
@@ -340,7 +432,7 @@ function targetsToVerticalTarget(
     : activeTarget.contentRange.end;
   const activeLine = activePosition.line - (excludeActive ? delta : 0);
 
-  const results: Target[] = [];
+  const results: (Target | Destination)[] = [];
   for (let i = anchorLine; true; i += delta) {
     const contentRange = new Range(
       i,
@@ -349,17 +441,15 @@ function targetsToVerticalTarget(
       anchorTarget.contentRange.end.character,
     );
 
-    if (anchorTarget instanceof PositionTarget) {
-      results.push(anchorTarget.withContentRange(contentRange));
-    } else {
-      results.push(
-        new PlainTarget({
-          editor: anchorTarget.editor,
-          isReversed: anchorTarget.isReversed,
-          contentRange,
-        }),
-      );
-    }
+    const newTarget = new PlainTarget({
+      editor: anchorTarget.editor,
+      isReversed: anchorTarget.isReversed,
+      contentRange,
+    });
+
+    results.push(
+      destination != null ? destination.withTarget(newTarget) : newTarget,
+    );
 
     if (i === activeLine) {
       return results;

@@ -267,13 +267,6 @@ export interface InferPreviousMarkModifier {
   type: "inferPreviousMark";
 }
 
-export type InsertionMode = "before" | "after" | "to";
-
-export interface DestinationModifier {
-  type: "destination";
-  insertionMode: InsertionMode;
-}
-
 export interface StartOfModifier {
   type: "startOf";
 }
@@ -332,7 +325,6 @@ export interface RangeModifier {
 }
 
 export type Modifier =
-  | DestinationModifier
   | StartOfModifier
   | EndOfModifier
   | InteriorOnlyModifier
@@ -356,6 +348,8 @@ export type Modifier =
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
 export type PartialRangeType = "continuous" | "vertical";
+
+export type InsertionMode = "before" | "after" | "to";
 
 export interface PartialPrimitiveTargetDescriptor {
   type: "primitive";

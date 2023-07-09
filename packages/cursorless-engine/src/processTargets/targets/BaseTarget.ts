@@ -7,13 +7,17 @@ import {
 } from "@cursorless/common";
 import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import type { EditNewActionType, Target } from "../../typings/target.types";
+import type {
+  Destination,
+  EditNewActionType,
+  Target,
+} from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
-import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
   createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import DestinationImpl from "./DestinationImpl";
 
 /** Parameters supported by all target classes */
 export interface MinimumTargetParameters {
@@ -190,8 +194,8 @@ export default abstract class BaseTarget<
     };
   }
 
-  toPositionTarget(insertionMode: InsertionMode): Target {
-    return toPositionTarget(this, insertionMode);
+  toDestination(insertionMode: InsertionMode): Destination {
+    return new DestinationImpl(this, insertionMode);
   }
 
   abstract get insertionDelimiter(): string;

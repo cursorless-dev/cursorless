@@ -1,10 +1,9 @@
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { containingLineIfUntypedModifier } from "../../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
-import DestinationStage from "../../processTargets/modifiers/DestinationStage";
 import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { ide } from "../../singletons/ide.singleton";
-import { Target } from "../../typings/target.types";
+import { Destination, Target } from "../../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Actions } from "../Actions";
@@ -65,28 +64,20 @@ export class EditNew implements Action {
       thatSelections: createThatMark(state.targets, state.thatRanges),
     };
   }
+
+  protected getDestination(target: Target): Destination {
+    return target.toDestination("to");
+  }
 }
 
 export class EditNewBefore extends EditNew {
-  getFinalStages() {
-    return [
-      ...super.getFinalStages(),
-      new DestinationStage({
-        type: "destination",
-        insertionMode: "before",
-      }),
-    ];
+  protected getDestination(target: Target): Destination {
+    return target.toDestination("before");
   }
 }
 
 export class EditNewAfter extends EditNew {
-  getFinalStages() {
-    return [
-      ...super.getFinalStages(),
-      new DestinationStage({
-        type: "destination",
-        insertionMode: "after",
-      }),
-    ];
+  protected getDestination(target: Target): Destination {
+    return target.toDestination("after");
   }
 }

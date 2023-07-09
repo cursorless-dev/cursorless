@@ -4,51 +4,45 @@ import {
   TextEditor,
   UnsupportedError,
 } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
 import { EditWithRangeUpdater } from "../../typings/Types";
-import { EditNewActionType } from "../../typings/target.types";
+import {
+  Destination,
+  EditNewActionType,
+  Target,
+} from "../../typings/target.types";
 
-interface PositionTargetParameters extends CommonTargetParameters {
-  readonly insertionMode: InsertionMode;
-  readonly insertionDelimiter: string;
-  readonly isRaw: boolean;
-}
+export default class DestinationImpl implements Destination {
+  private readonly contentRange: Range;
+  private readonly isLineDelimiter: boolean;
+  private readonly isBefore: boolean;
+  private readonly indentationString: string;
 
-export default class PositionTarget extends BaseTarget<PositionTargetParameters> {
-  insertionDelimiter: string;
-  isRaw: boolean;
-  private insertionMode: InsertionMode;
-  private isLineDelimiter: boolean;
-  private isBefore: boolean;
-  private indentationString: string;
-
-  constructor(parameters: PositionTargetParameters) {
-    super(parameters);
-    this.insertionMode = parameters.insertionMode;
-    this.insertionDelimiter = parameters.insertionDelimiter;
-    this.isRaw = parameters.isRaw;
-    this.isBefore = parameters.insertionMode === "before";
+  constructor(public target: Target, public insertionMode: InsertionMode) {
+    this.contentRange = getContentRange(target.contentRange, insertionMode);
+    this.isBefore = insertionMode === "before";
     // It's only considered a line if the delimiter is only new line symbols
-    this.isLineDelimiter = /^(\n)+$/.test(parameters.insertionDelimiter);
-    // This calculation must be done here since that that target is not updated by our range updater
+    this.isLineDelimiter = /^(\n)+$/.test(target.insertionDelimiter);
     this.indentationString = this.isLineDelimiter
-      ? getIndentationString(
-          parameters.editor,
-          parameters.thatTarget!.contentRange,
-        )
+      ? getIndentationString(target.editor, target.contentRange)
       : "";
   }
 
-  getLeadingDelimiterTarget = () => undefined;
-  getTrailingDelimiterTarget = () => undefined;
+  isEqual(destination: Destination): boolean {
+    return (
+      this.insertionMode === destination.insertionMode &&
+      this.target.isEqual(destination.target)
+    );
+  }
 
-  getRemovalRange = () => removalUnsupportedForPosition(this.insertionMode);
+  withTarget(target: Target): Destination {
+    return new DestinationImpl(target, this.insertionMode);
+  }
 
   getEditNewActionType(): EditNewActionType {
     if (
       this.insertionDelimiter === "\n" &&
       this.insertionMode === "after" &&
-      this.state.thatTarget!.contentRange.isSingleLine
+      this.target.contentRange.isSingleLine
     ) {
       // If the target that we're wrapping is not a single line, then we
       // want to compute indentation based on the entire target.  Otherwise,
@@ -69,13 +63,12 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
       : this.constructEditWithoutDelimiters(text);
   }
 
-  protected getCloneParameters(): PositionTargetParameters {
-    return {
-      ...this.state,
-      insertionMode: this.insertionMode,
-      insertionDelimiter: this.insertionDelimiter,
-      isRaw: this.isRaw,
-    };
+  private get editor(): TextEditor {
+    return this.target.editor;
+  }
+
+  private get insertionDelimiter(): string {
+    return this.target.insertionDelimiter;
   }
 
   private constructEditWithDelimiters(text: string): EditWithRangeUpdater {
@@ -185,4 +178,18 @@ function getIndentationString(editor: TextEditor, range: Range) {
     }
   }
   return indentationString;
+}
+
+function getContentRange(
+  contentRange: Range,
+  insertionMode: InsertionMode,
+): Range {
+  switch (insertionMode) {
+    case "before":
+      return contentRange.start.toEmptyRange();
+    case "after":
+      return contentRange.end.toEmptyRange();
+    case "to":
+      return contentRange;
+  }
 }
