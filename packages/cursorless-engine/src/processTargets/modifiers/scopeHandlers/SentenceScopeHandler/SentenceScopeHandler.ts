@@ -18,7 +18,7 @@ export default class SentenceScopeHandler extends NestedScopeHandler {
     const offset = editor.document.offsetAt(domain.start);
     const text = editor.document.getText(domain);
 
-    const scentenceToScope = (sentence: MatchedText): TargetScope => {
+    const sentenceToScope = (sentence: MatchedText): TargetScope => {
       const contentRange = new Range(
         editor.document.positionAt(offset + sentence.index),
         editor.document.positionAt(
@@ -41,7 +41,7 @@ export default class SentenceScopeHandler extends NestedScopeHandler {
     const sentences = this.segmenter.segment(text);
 
     return direction === "forward"
-      ? imap(sentences, scentenceToScope)
-      : Array.from(sentences, scentenceToScope).reverse();
+      ? imap(sentences, sentenceToScope)
+      : Array.from(sentences, sentenceToScope).reverse();
   }
 }
