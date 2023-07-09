@@ -180,6 +180,8 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
+          // Sources should be closedClosed, because they should be logically
+          // the same as the original source.
           const sourceEditSelectionInfos = sourceEdits.map(
             ({ edit: { range }, originalTarget }) =>
               getSelectionInfo(
@@ -189,6 +191,8 @@ class BringMoveSwap implements Action {
               ),
           );
 
+          // Destinations should be openOpen, because they should grow to contain
+          // the new text.
           const destinationEditSelectionInfos = destinationEdits.map(
             ({ edit: { range }, originalTarget }) =>
               getSelectionInfo(
