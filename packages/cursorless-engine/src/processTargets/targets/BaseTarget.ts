@@ -42,6 +42,7 @@ export default abstract class BaseTarget<
   in out TParameters extends MinimumTargetParameters,
 > implements Target
 {
+  protected abstract readonly type: string;
   protected readonly state: CommonTargetParameters;
   isLine = false;
   isToken = true;
@@ -214,7 +215,6 @@ export default abstract class BaseTarget<
     };
   }
 
-  protected abstract get type(): string;
   abstract get insertionDelimiter(): string;
   abstract getLeadingDelimiterTarget(): Target | undefined;
   abstract getTrailingDelimiterTarget(): Target | undefined;
