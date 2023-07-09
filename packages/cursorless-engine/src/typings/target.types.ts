@@ -157,11 +157,8 @@ export interface Target {
    */
   toPositionTarget(position: TargetPosition): Target;
   /**
-   * Constructs an object suitable for serialization by json. Note
-   * that this implementation is quite incomplete, but is suitable for
-   * round-tripping {@link UntypedTarget} objects and capturing the fact that an
-   * object is not an un typed target if it is not, via the {@link type}
-   * attribute.
+   * Constructs an object suitable for serialization by json. This is used to
+   * capture targets for testing and recording test cases.
    *
    * @returns A plain object that can be json serialized
    */

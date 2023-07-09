@@ -195,6 +195,16 @@ export default abstract class BaseTarget<
     return toPositionTarget(this, position);
   }
 
+  /**
+   * Converts the target to a plain object representation.
+   *
+   * Note that this implementation is quite incomplete, but is suitable for
+   * round-tripping {@link UntypedTarget} objects and capturing the fact that an
+   * object is not an un typed target if it is not, via the {@link type}
+   * attribute.  In the future, we should override this method in subclasses to
+   * provide a more complete representation.
+   * @returns A plain object representation of the target
+   */
   toPlainObject(): TargetPlainObject {
     return {
       type: this.type,
