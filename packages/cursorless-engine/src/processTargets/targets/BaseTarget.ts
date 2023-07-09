@@ -1,13 +1,14 @@
+import type { TargetPlainObject, TargetPosition } from "@cursorless/common";
 import {
   NoContainingScopeError,
   Range,
   Selection,
   TextEditor,
+  rangeToPlainObject,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
-import type { TargetPosition } from "@cursorless/common";
-import type { EditNewActionType, Target } from "../../typings/target.types";
 import type { EditWithRangeUpdater } from "../../typings/Types";
+import type { EditNewActionType, Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
@@ -41,6 +42,7 @@ export default abstract class BaseTarget<
   in out TParameters extends MinimumTargetParameters,
 > implements Target
 {
+  protected abstract readonly type: string;
   protected readonly state: CommonTargetParameters;
   isLine = false;
   isToken = true;
@@ -192,6 +194,25 @@ export default abstract class BaseTarget<
 
   toPositionTarget(position: TargetPosition): Target {
     return toPositionTarget(this, position);
+  }
+
+  /**
+   * Converts the target to a plain object representation.
+   *
+   * Note that this implementation is quite incomplete, but is suitable for
+   * round-tripping {@link UntypedTarget} objects and capturing the fact that an
+   * object is not an un typed target if it is not, via the {@link type}
+   * attribute.  In the future, we should override this method in subclasses to
+   * provide a more complete representation.
+   * @returns A plain object representation of the target
+   */
+  toPlainObject(): TargetPlainObject {
+    return {
+      type: this.type,
+      contentRange: rangeToPlainObject(this.contentRange),
+      isReversed: this.isReversed,
+      hasExplicitRange: this.hasExplicitRange,
+    };
   }
 
   abstract get insertionDelimiter(): string;

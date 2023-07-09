@@ -3,6 +3,7 @@ import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { BaseTarget, CommonTargetParameters, PlainTarget } from "./";
 
 export default class DocumentTarget extends BaseTarget<CommonTargetParameters> {
+  type = "DocumentTarget";
   insertionDelimiter = "\n";
   isLine = true;
 
