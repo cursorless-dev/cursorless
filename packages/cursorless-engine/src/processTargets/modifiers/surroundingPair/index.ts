@@ -86,10 +86,22 @@ function processSurroundingPairCore(
     );
 
     if (containingScope != null) {
-      return findSurroundingPairTextBased(
+      const surroundingRange = findSurroundingPairTextBased(
         editor,
         range,
         containingScope[0].contentRange,
+        delimiters,
+        scopeType,
+      );
+      if (surroundingRange != null) {
+        // Found the pair within this text fragment or comment, e.g. "(abc)"
+        return surroundingRange;
+      }
+      // Search in the rest of the file, to find e.g. ("abc")
+      return findSurroundingPairTextBased(
+        editor,
+        range,
+        null,
         delimiters,
         scopeType,
       );
