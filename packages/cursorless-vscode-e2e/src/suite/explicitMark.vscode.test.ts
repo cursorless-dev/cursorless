@@ -26,7 +26,7 @@ async function explicitMark() {
       {
         type: "primitive",
         mark: {
-          type: "explicit",
+          type: "explicitRange",
           editorId,
           range: {
             start: { line: 0, character: 4 },
