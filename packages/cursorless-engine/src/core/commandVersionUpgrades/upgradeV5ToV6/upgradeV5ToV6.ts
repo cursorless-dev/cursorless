@@ -1,4 +1,5 @@
 import {
+  ActionTypeV5,
   CommandV5,
   CommandV6,
   ImplicitTargetDescriptor,
@@ -17,20 +18,39 @@ export function upgradeV5ToV6(command: CommandV5): CommandV6 {
   return {
     ...command,
     version: 6,
-    targets: command.targets.map(updateTarget),
+    targets: upgradeTargets(command.targets, command.action.name),
   };
 }
 
-function updateTarget(
+function upgradeTargets(
+  targets: PartialTargetDescriptorV5[],
+  action: ActionTypeV5,
+): PartialTargetDescriptor[] {
+  switch (action) {
+    case "pasteFromClipboard":
+      return [upgradeTarget(targets[0], true)];
+    case "replaceWithTarget":
+    case "moveToTarget":
+      return [
+        upgradeTarget(targets[0], false),
+        upgradeTarget(targets[1], true),
+      ];
+  }
+
+  return targets.map((t) => upgradeTarget(t, false));
+}
+
+function upgradeTarget(
   target: PartialTargetDescriptorV5,
+  isDestination: boolean,
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "list":
       return {
         ...target,
         elements: target.elements.map(
-          (target) =>
-            updateTarget(target) as
+          (target, i) =>
+            upgradeTarget(target, isDestination && i === 0) as
               | PartialPrimitiveTargetDescriptor
               | PartialRangeTargetDescriptor,
         ),
@@ -39,14 +59,17 @@ function updateTarget(
       const { anchor, active, ...rest } = target;
       return {
         ...rest,
-        anchor: updateTarget(anchor) as
+        anchor: upgradeTarget(anchor, isDestination) as
           | PartialPrimitiveTargetDescriptor
           | ImplicitTargetDescriptor,
-        active: updateTarget(active) as PartialPrimitiveTargetDescriptor,
+        active: upgradeTarget(
+          active,
+          false,
+        ) as PartialPrimitiveTargetDescriptor,
       };
     }
     case "primitive":
-      return upgradePrimitiveTarget(target);
+      return upgradePrimitiveTarget(target, isDestination);
     case "implicit":
       return target;
   }
@@ -54,22 +77,34 @@ function updateTarget(
 
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetDescriptorV5,
+  isDestination: boolean,
 ): PartialPrimitiveTargetDescriptor {
   return {
     ...target,
-    destination: getDestination(target.modifiers),
+    destination: getDestination(target.modifiers, isDestination),
     modifiers: getModifiers(target.modifiers),
   };
 }
 
-function getDestination(modifiers?: ModifierV5[]): InsertionMode | undefined {
+function getDestination(
+  modifiers: ModifierV5[] | undefined,
+  isDestination: boolean,
+): InsertionMode | undefined {
   const positionModifier = modifiers?.find(
     (m): m is PositionModifierV5 => m.type === "position",
   );
-  return positionModifier?.position === "before" ||
-    positionModifier?.position === "after"
-    ? positionModifier.position
-    : undefined;
+  if (positionModifier != null) {
+    if (modifiers!.indexOf(positionModifier) !== 0) {
+      throw Error("Position modifier has to be at first index");
+    }
+    if (
+      positionModifier?.position === "before" ||
+      positionModifier?.position === "after"
+    ) {
+      return positionModifier.position;
+    }
+  }
+  return isDestination ? "to" : undefined;
 }
 
 function getModifiers(modifiers?: ModifierV5[]): Modifier[] | undefined {

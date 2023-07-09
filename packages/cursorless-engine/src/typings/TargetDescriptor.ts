@@ -1,6 +1,6 @@
 import {
-  DestinationModifier,
   ImplicitTargetDescriptor,
+  InsertionMode,
   Modifier,
   PartialMark,
   PartialRangeType,
@@ -11,6 +11,11 @@ export type Mark = PartialMark | TargetMark;
 
 export interface PrimitiveTargetDescriptor {
   type: "primitive";
+
+  /**
+   * Different nodes of insertion: eg "before", "after", "to"
+   */
+  destination?: InsertionMode;
 
   /**
    * The mark, eg "air", "this", "that", etc
@@ -26,11 +31,6 @@ export interface PrimitiveTargetDescriptor {
    * character of the name.
    */
   modifiers: Modifier[];
-
-  /**
-   * Different nodes of insertion: eg "before", "after", "to"
-   */
-  destination?: DestinationModifier;
 }
 
 /**

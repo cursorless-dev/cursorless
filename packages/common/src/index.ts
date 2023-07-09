@@ -71,6 +71,7 @@ export * from "./types/command/legacy/CommandV2.types";
 export * from "./types/command/legacy/CommandV3.types";
 export * from "./types/command/legacy/CommandV4.types";
 export * from "./types/command/legacy/targetDescriptorV2.types";
+export * from "./types/command/legacy/ActionCommandV5";
 export * from "./types/command/legacy/CommandV5.types";
 export * from "./types/command/legacy/PartialTargetDescriptorV5.types";
 export * from "./types/command/CommandV6.types";

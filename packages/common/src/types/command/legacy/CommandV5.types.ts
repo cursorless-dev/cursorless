@@ -1,5 +1,5 @@
 import type { PartialTargetDescriptorV5 } from "./PartialTargetDescriptorV5.types";
-import type { ActionCommand } from "./ActionCommandV5";
+import type { ActionCommandV5 } from "./ActionCommandV5";
 
 export interface CommandV5 {
   /**
@@ -20,7 +20,7 @@ export interface CommandV5 {
    */
   usePrePhraseSnapshot: boolean;
 
-  action: ActionCommand;
+  action: ActionCommandV5;
 
   /**
    * A list of targets expected by the action. Inference will be run on the

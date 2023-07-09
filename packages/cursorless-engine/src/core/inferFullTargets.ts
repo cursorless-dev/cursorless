@@ -128,11 +128,9 @@ function inferPrimitiveTarget(
 
   return {
     type: target.type,
+    destination,
     mark,
     modifiers,
-    destination: destination
-      ? { type: "destination", insertionMode: destination }
-      : undefined,
   };
 }
 

@@ -19,7 +19,7 @@ initialState:
       start: {line: 0, character: 4}
       end: {line: 0, character: 9}
 finalState:
-  documentContents: fooworld  world
+  documentContents: world foo world
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
