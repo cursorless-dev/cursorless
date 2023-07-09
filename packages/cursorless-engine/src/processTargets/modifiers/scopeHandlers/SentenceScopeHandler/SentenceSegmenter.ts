@@ -1,5 +1,5 @@
 import * as sbd from "sbd";
-import { MatchedText } from "../../../../util/regex";
+import { MatchedText, matchRegex, testRegex } from "../../../../util/regex";
 
 // A sentence starts with a letter
 const leadingOffsetRegex = /\p{L}/u;
@@ -38,7 +38,7 @@ function createSegment(
   index: number,
 ): MatchedText | undefined {
   const leadingOffset =
-    sentence.match(leadingOffsetRegex)?.index ?? sentence.length;
+    matchRegex(leadingOffsetRegex, sentence)?.index ?? sentence.length;
 
   if (sentence.length === leadingOffset) {
     return undefined;
@@ -56,5 +56,5 @@ function createSegment(
 }
 
 function isInvalidLine(text: string): boolean {
-  return invalidLineRegex.test(text);
+  return testRegex(invalidLineRegex, text);
 }

@@ -50,6 +50,17 @@ export function testRegex(regex: RegExp, text: string): boolean {
   return regex.test(text);
 }
 
+export function matchRegex(
+  regex: RegExp,
+  text: string,
+): RegExpMatchArray | null {
+  // Reset the regex to start at the beginning of string, in case the regex has
+  // been used before.
+  // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
+  regex.lastIndex = 0;
+  return text.match(regex);
+}
+
 export interface MatchedText {
   index: number;
   text: string;
