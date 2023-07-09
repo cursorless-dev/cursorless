@@ -37,12 +37,13 @@ function createSegment(
   sentence: string,
   index: number,
 ): MatchedText | undefined {
-  const leadingOffset =
-    matchRegex(leadingOffsetRegex, sentence)?.index ?? sentence.length;
+  const leadingOffsetMatch = matchRegex(leadingOffsetRegex, sentence);
 
-  if (sentence.length === leadingOffset) {
+  if (leadingOffsetMatch == null) {
     return undefined;
   }
+
+  const leadingOffset = leadingOffsetMatch.index!;
 
   if (leadingOffset !== 0) {
     index += leadingOffset;
