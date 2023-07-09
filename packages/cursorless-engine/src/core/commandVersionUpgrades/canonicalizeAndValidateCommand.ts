@@ -130,7 +130,9 @@ export function checkForOldInference(
     return (
       target.type === "range" &&
       target.active.mark == null &&
-      target.active.modifiers?.some((m) => m.type === "position") &&
+      target.active.modifiers?.some(
+        (m) => m.type === "startOf" || m.type === "endOf",
+      ) &&
       !target.active.modifiers?.some((m) => m.type === "inferPreviousMark")
     );
   });

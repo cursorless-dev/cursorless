@@ -26,7 +26,7 @@ import {
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
-import PositionStage from "./modifiers/PositionStage";
+import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
 import RangeModifierStage from "./modifiers/RangeModifierStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
 import RelativeScopeStage from "./modifiers/RelativeScopeStage";
@@ -50,10 +50,12 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
 
   create(modifier: Modifier): ModifierStage {
     switch (modifier.type) {
-      case "position":
-        return new PositionStage(modifier);
       case "destination":
         return new DestinationStage(modifier);
+      case "startOf":
+        return new StartOfStage(modifier);
+      case "endOf":
+        return new EndOfStage(modifier);
       case "extendThroughStartOf":
         return new HeadStage(this, modifier);
       case "extendThroughEndOf":

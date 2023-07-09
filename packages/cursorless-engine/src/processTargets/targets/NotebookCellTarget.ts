@@ -1,4 +1,4 @@
-import { InsertionMode, TargetPosition } from "@cursorless/common";
+import { InsertionMode } from "@cursorless/common";
 import {
   BaseTarget,
   CommonTargetParameters,

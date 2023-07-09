@@ -108,11 +108,21 @@ function getDestination(
 }
 
 function getModifiers(modifiers?: ModifierV5[]): Modifier[] | undefined {
-  return modifiers
-    ? (modifiers.filter(
-        (m) =>
-          m.type !== "position" ||
-          (m.position !== "before" && m.position !== "after"),
-      ) as Modifier[])
-    : undefined;
+  const result: Modifier[] = [];
+
+  if (modifiers != null) {
+    for (const modifier of modifiers) {
+      if (modifier.type === "position") {
+        if (modifier.position === "start") {
+          result.push({ type: "startOf" });
+        } else if (modifier.position === "end") {
+          result.push({ type: "endOf" });
+        }
+      } else {
+        result.push(modifier as Modifier);
+      }
+    }
+  }
+
+  return result.length > 0 ? result : undefined;
 }
