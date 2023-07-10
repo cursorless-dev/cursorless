@@ -1,14 +1,16 @@
-import { Vscode } from "@cursorless/vscode-common";
+import { Vscode, getCursorlessApi } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";
+import { COLOR_CONFIG } from "./colorConfig";
 import {
   Fakes,
   MockDecorationType,
   SetDecorationsParameters,
 } from "./scopeVisualizerTest.types";
-import { COLOR_CONFIG } from "./colorConfig";
 
-export function injectFakes(vscodeApi: Vscode): Fakes {
+export async function injectFakes(): Promise<Fakes> {
+  const { vscode: vscodeApi } = (await getCursorlessApi()).testHelpers!;
+
   const dispose = sinon.fake<[number], void>();
 
   let decorationIndex = 0;
