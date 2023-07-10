@@ -12,7 +12,7 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { EditWithRangeUpdater } from "../typings/Types";
-import { Target } from "../typings/target.types";
+import { Destination, Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import {
   flashTargets,
@@ -20,7 +20,7 @@ import {
   runForEachEditor,
 } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 
@@ -38,13 +38,13 @@ interface MarkEntry {
   target: Target;
 }
 
-class BringMoveSwap implements Action {
+class BringMoveSwap {
   constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {
-    this.run = this.run.bind(this);
+    // this.run = this.run.bind(this);
   }
 
-  private broadcastSource(sources: Target[], destinations: Target[]) {
-    if (sources.length === 1 && this.type !== "swap") {
+  protected broadcastSource(sources: Target[], destinations: Destination[]) {
+    if (sources.length === 1) {
       // If there is only one source target, expand it to same length as
       // destination target
       return Array(destinations.length).fill(sources[0]);
@@ -74,7 +74,7 @@ class BringMoveSwap implements Action {
     };
   }
 
-  private async decorateTargets(sources: Target[], destinations: Target[]) {
+  protected async decorateTargets(sources: Target[], destinations: Target[]) {
     const decorationContext = this.getDecorationContext();
     await Promise.all([
       flashTargets(
@@ -87,13 +87,14 @@ class BringMoveSwap implements Action {
     ]);
   }
 
-  private getEdits(sources: Target[], destinations: Target[]): ExtendedEdit[] {
+  protected getEditsBringMove(
+    sources: Target[],
+    destinations: Destination[],
+  ): ExtendedEdit[] {
     const usedSources: Target[] = [];
     const results: ExtendedEdit[] = [];
     const zipSources =
-      sources.length !== destinations.length &&
-      destinations.length === 1 &&
-      this.type !== "swap";
+      sources.length !== destinations.length && destinations.length === 1;
 
     sources.forEach((source, i) => {
       let destination = destinations[i];
@@ -120,7 +121,7 @@ class BringMoveSwap implements Action {
         results.push({
           edit: destination.constructChangeEdit(text),
           editor: destination.editor,
-          originalTarget: destination,
+          originalTarget: destination.target,
           isSource: false,
         });
       } else {
@@ -133,7 +134,7 @@ class BringMoveSwap implements Action {
         usedSources.push(source);
         if (this.type !== "move") {
           results.push({
-            edit: source.constructChangeEdit(destination.contentText),
+            edit: source.constructChangeEdit(destination.target.contentText),
             editor: source.editor,
             originalTarget: source,
             isSource: true,
@@ -157,7 +158,7 @@ class BringMoveSwap implements Action {
     return results;
   }
 
-  private async performEditsAndComputeThatMark(
+  protected async performEditsAndComputeThatMark(
     edits: ExtendedEdit[],
   ): Promise<MarkEntry[]> {
     return flatten(
@@ -270,7 +271,7 @@ class BringMoveSwap implements Action {
     });
   }
 
-  private async decorateThatMark(thatMark: MarkEntry[]) {
+  protected async decorateThatMark(thatMark: MarkEntry[]) {
     const decorationContext = this.getDecorationContext();
     const getRange = (target: Target) =>
       thatMark.find((t) => t.target === target)!.selection;
@@ -292,7 +293,7 @@ class BringMoveSwap implements Action {
     ]);
   }
 
-  private calculateMarks(markEntries: MarkEntry[]) {
+  protected calculateMarks(markEntries: MarkEntry[]) {
     // Only swap has sources as a "that" mark
     const thatMark =
       this.type === "swap"
@@ -307,16 +308,25 @@ class BringMoveSwap implements Action {
 
     return { thatMark, sourceMark };
   }
+}
 
-  async run([sources, destinations]: [
-    Target[],
-    Target[],
-  ]): Promise<ActionReturnValue> {
+export class Bring extends BringMoveSwap {
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, "bring");
+  }
+
+  async run(
+    sources: Target[],
+    destinations: Destination[],
+  ): Promise<ActionReturnValue> {
     sources = this.broadcastSource(sources, destinations);
 
-    await this.decorateTargets(sources, destinations);
+    await this.decorateTargets(
+      sources,
+      destinations.map((d) => d.target),
+    );
 
-    const edits = this.getEdits(sources, destinations);
+    const edits = this.getEditsBringMove(sources, destinations);
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
@@ -328,21 +338,83 @@ class BringMoveSwap implements Action {
   }
 }
 
-export class Bring extends BringMoveSwap {
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, "bring");
-  }
-}
-
 export class Move extends BringMoveSwap {
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "move");
+  }
+
+  async run(
+    sources: Target[],
+    destinations: Destination[],
+  ): Promise<ActionReturnValue> {
+    sources = this.broadcastSource(sources, destinations);
+
+    await this.decorateTargets(
+      sources,
+      destinations.map((d) => d.target),
+    );
+
+    const edits = this.getEditsBringMove(sources, destinations);
+
+    const markEntries = await this.performEditsAndComputeThatMark(edits);
+
+    const { thatMark, sourceMark } = this.calculateMarks(markEntries);
+
+    await this.decorateThatMark(thatMark);
+
+    return { thatSelections: thatMark, sourceSelections: sourceMark };
   }
 }
 
 export class Swap extends BringMoveSwap {
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "swap");
+  }
+
+  async run(
+    targets1: Target[],
+    targets2: Target[],
+  ): Promise<ActionReturnValue> {
+    await this.decorateTargets(targets1, targets2);
+
+    const edits = this.getEditsSwap(targets1, targets2);
+
+    const markEntries = await this.performEditsAndComputeThatMark(edits);
+
+    const { thatMark, sourceMark } = this.calculateMarks(markEntries);
+
+    await this.decorateThatMark(thatMark);
+
+    return { thatSelections: thatMark, sourceSelections: sourceMark };
+  }
+
+  private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
+    const results: ExtendedEdit[] = [];
+
+    targets1.forEach((source, i) => {
+      const destination = targets2[i];
+      if (source == null || destination == null) {
+        throw new Error("Targets must have same number of args");
+      }
+
+      // Add destination edit
+      results.push({
+        edit: destination.constructChangeEdit(source.contentText),
+        editor: destination.editor,
+        originalTarget: destination,
+        isSource: false,
+      });
+
+      // Add source edit
+      results.push({
+        edit: source.constructChangeEdit(destination.contentText),
+        editor: source.editor,
+        originalTarget: source,
+        isSource: true,
+      });
+    });
+
+    return results;
   }
 }
 

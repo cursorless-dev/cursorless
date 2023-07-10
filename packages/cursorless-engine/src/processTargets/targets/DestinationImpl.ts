@@ -59,12 +59,16 @@ export default class DestinationImpl implements Destination {
       : this.constructEditWithoutDelimiters(text);
   }
 
-  private get editor(): TextEditor {
+  get editor(): TextEditor {
     return this.target.editor;
   }
 
-  private get insertionDelimiter(): string {
+  get insertionDelimiter(): string {
     return this.target.insertionDelimiter;
+  }
+
+  get isRaw(): boolean {
+    return this.target.isRaw;
   }
 
   private constructEditWithDelimiters(text: string): EditWithRangeUpdater {

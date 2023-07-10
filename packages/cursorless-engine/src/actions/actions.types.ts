@@ -1,7 +1,7 @@
+import type { SimpleActionName } from "@cursorless/common";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
-import type { Target } from "../typings/target.types";
 import type { SelectionWithEditor } from "../typings/Types";
-import type { ActionType } from "@cursorless/common";
+import type { Destination, Target } from "../typings/target.types";
 
 /**
  * To be returned by {@link Action.run}
@@ -65,4 +65,20 @@ export interface Action {
 /**
  * Keeps a map from action names to objects that implement the given action
  */
-export type ActionRecord = Record<ActionType, Action>;
+export interface ActionRecord extends Record<SimpleActionName, Action> {
+  replaceWithTarget: {
+    run(
+      sources: Target[],
+      destinations: Destination[],
+    ): Promise<ActionReturnValue>;
+  };
+  moveToTarget: {
+    run(
+      sources: Target[],
+      destinations: Destination[],
+    ): Promise<ActionReturnValue>;
+  };
+  swapTargets: {
+    run(target1: Target[], target2: Target[]): Promise<ActionReturnValue>;
+  };
+}

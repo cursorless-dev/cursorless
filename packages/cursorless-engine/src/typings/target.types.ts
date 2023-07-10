@@ -166,8 +166,11 @@ export interface Target {
 }
 
 export interface Destination {
-  insertionMode: InsertionMode;
-  target: Target;
+  readonly insertionMode: InsertionMode;
+  readonly editor: TextEditor;
+  readonly target: Target;
+  readonly isRaw: boolean;
+  readonly insertionDelimiter: string;
   constructChangeEdit(text: string): EditWithRangeUpdater;
   isEqual(destination: Destination): boolean;
 }
