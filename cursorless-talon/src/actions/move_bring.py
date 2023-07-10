@@ -1,6 +1,6 @@
 from talon import Module
 
-from ..primitive_target import IMPLICIT_TARGET
+from ..primitive_target import create_implicit_target
 
 mod = Module()
 
@@ -15,6 +15,6 @@ def cursorless_move_bring_targets(m) -> list[dict]:
     try:
         target_list += [m.cursorless_positional_target]
     except AttributeError:
-        target_list += [IMPLICIT_TARGET.copy()]
+        target_list += [create_implicit_target()]
 
     return target_list

@@ -7,6 +7,7 @@ import {
 import { Target } from "../../typings/target.types";
 
 export default class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
+  type = "NotebookCellTarget";
   insertionDelimiter = "\n";
   isNotebookCell = true;
 
@@ -36,6 +37,7 @@ interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
 }
 
 export class NotebookCellPositionTarget extends BaseTarget<NotebookCellPositionTargetParameters> {
+  type = "NotebookCellPositionTarget";
   insertionDelimiter = "\n";
   isNotebookCell = true;
   public insertionMode: InsertionMode;

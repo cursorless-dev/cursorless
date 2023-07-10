@@ -8,6 +8,7 @@ import {
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 export default class TokenTarget extends BaseTarget<CommonTargetParameters> {
+  type = "TokenTarget";
   insertionDelimiter = " ";
 
   getLeadingDelimiterTarget(): Target | undefined {

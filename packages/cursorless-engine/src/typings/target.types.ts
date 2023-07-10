@@ -14,6 +14,7 @@ import type {
   Snippet,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   SnippetVariable,
+  TargetPlainObject,
   TextEditor,
 } from "@cursorless/common";
 import type {
@@ -155,6 +156,13 @@ export interface Target {
    * @param position The insertion modes to use, eg `before`, `after`, `to`
    */
   toDestination(insertionMode: InsertionMode): Destination;
+  /**
+   * Constructs an object suitable for serialization by json. This is used to
+   * capture targets for testing and recording test cases.
+   *
+   * @returns A plain object that can be json serialized
+   */
+  toPlainObject(): TargetPlainObject;
 }
 
 export interface Destination {

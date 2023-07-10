@@ -838,7 +838,7 @@
     "uninstall-local": "bash ./scripts/uninstall-local.sh",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
-    "esbuild:prod": "pnpm run esbuild:base --minify --keep-names",
+    "esbuild:prod": "pnpm run esbuild:base --minify",
     "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
     "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
     "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",

@@ -1,7 +1,7 @@
 from talon import Module, actions, app
 
 from ..csv_overrides import init_csv_and_watch_changes
-from ..primitive_target import IMPLICIT_TARGET
+from ..primitive_target import create_implicit_target
 from .actions_callback import callback_action_defaults, callback_action_map
 from .actions_simple import (
     no_wait_actions,
@@ -49,7 +49,7 @@ class Actions:
                 actions.sleep(no_wait_actions_post_sleep[action_id])
         elif action_id in ["replaceWithTarget", "moveToTarget"]:
             actions.user.cursorless_multiple_target_command(
-                action_id, [target, IMPLICIT_TARGET.copy()]
+                action_id, [target, create_implicit_target()]
             )
         else:
             return actions.user.cursorless_single_target_command(action_id, target)
