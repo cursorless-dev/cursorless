@@ -13,6 +13,7 @@ export interface SubTokenTargetParameters extends CommonTargetParameters {
 }
 
 export default class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
+  type = "SubTokenWordTarget";
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   insertionDelimiter: string;

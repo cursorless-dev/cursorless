@@ -12,7 +12,6 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import type { StoredTargetMap } from "../core/StoredTargets";
-import { targetToPlainObject } from "./targetToPlainObject";
 
 export async function takeSnapshot(
   storedTargets: StoredTargetMap | undefined,
@@ -48,12 +47,14 @@ export async function takeSnapshot(
 
   const thatMarkTargets = storedTargets?.get("that");
   if (thatMarkTargets != null && !excludeFields.includes("thatMark")) {
-    snapshot.thatMark = thatMarkTargets.map(targetToPlainObject);
+    snapshot.thatMark = thatMarkTargets.map((target) => target.toPlainObject());
   }
 
   const sourceMarkTargets = storedTargets?.get("source");
   if (sourceMarkTargets != null && !excludeFields.includes("sourceMark")) {
-    snapshot.sourceMark = sourceMarkTargets.map(targetToPlainObject);
+    snapshot.sourceMark = sourceMarkTargets.map((target) =>
+      target.toPlainObject(),
+    );
   }
 
   const instanceReferenceMarkTargets = storedTargets?.get("instanceReference");
@@ -61,8 +62,9 @@ export async function takeSnapshot(
     instanceReferenceMarkTargets != null &&
     !excludeFields.includes("instanceReferenceMark")
   ) {
-    snapshot.instanceReferenceMark =
-      instanceReferenceMarkTargets.map(targetToPlainObject);
+    snapshot.instanceReferenceMark = instanceReferenceMarkTargets.map(
+      (target) => target.toPlainObject(),
+    );
   }
 
   if (extraFields.includes("timeOffsetSeconds")) {

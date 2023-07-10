@@ -99,6 +99,18 @@ function processSurroundingPairCore(
   try {
     node = languageDefinitions.getNodeAtLocation(document, range);
 
+    // Error nodes are unreliable and should be ignored. Fall back to text based
+    // algorithm.
+    if (nodeHasError(node)) {
+      return findSurroundingPairTextBased(
+        editor,
+        range,
+        null,
+        delimiters,
+        scopeType,
+      );
+    }
+
     textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {
     if ((err as Error).name === "UnsupportedLanguageError") {
@@ -147,4 +159,23 @@ function processSurroundingPairCore(
     delimiters,
     scopeType,
   );
+}
+
+function nodeHasError(node: SyntaxNode, includeChildren = false): boolean {
+  if (nodeIsError(node)) {
+    return true;
+  }
+  if (includeChildren) {
+    if (node.children.some(nodeIsError)) {
+      return true;
+    }
+  }
+  if (node.parent != null) {
+    return nodeHasError(node.parent, true);
+  }
+  return false;
+}
+
+function nodeIsError(node: SyntaxNode): boolean {
+  return node.type === "ERROR";
 }

@@ -171,7 +171,29 @@ class BringMoveSwap implements Action {
               ? edits
               : edits.filter(({ isSource }) => !isSource);
 
-          const editSelectionInfos = edits.map(
+          const sourceEdits =
+            this.type === "swap"
+              ? []
+              : edits.filter(({ isSource }) => isSource);
+          const destinationEdits =
+            this.type === "swap"
+              ? edits
+              : edits.filter(({ isSource }) => !isSource);
+
+          // Sources should be closedClosed, because they should be logically
+          // the same as the original source.
+          const sourceEditSelectionInfos = sourceEdits.map(
+            ({ edit: { range }, originalTarget }) =>
+              getSelectionInfo(
+                editor.document,
+                range.toSelection(originalTarget.isReversed),
+                RangeExpansionBehavior.closedClosed,
+              ),
+          );
+
+          // Destinations should be openOpen, because they should grow to contain
+          // the new text.
+          const destinationEditSelectionInfos = destinationEdits.map(
             ({ edit: { range }, originalTarget }) =>
               getSelectionInfo(
                 editor.document,
@@ -190,33 +212,62 @@ class BringMoveSwap implements Action {
 
           const editableEditor = ide().getEditableTextEditor(editor);
 
-          const [updatedEditSelections, cursorSelections]: Selection[][] =
-            await performEditsAndUpdateFullSelectionInfos(
-              this.rangeUpdater,
-              editableEditor,
-              filteredEdits.map(({ edit }) => edit),
-              [editSelectionInfos, cursorSelectionInfos],
-            );
+          const [
+            updatedSourceEditSelections,
+            updatedDestinationEditSelections,
+            cursorSelections,
+          ]: Selection[][] = await performEditsAndUpdateFullSelectionInfos(
+            this.rangeUpdater,
+            editableEditor,
+            filteredEdits.map(({ edit }) => edit),
+            [
+              sourceEditSelectionInfos,
+              destinationEditSelectionInfos,
+              cursorSelectionInfos,
+            ],
+          );
 
           // NB: We set the selections here because we don't trust vscode to
           // properly move the cursor on a bring. Sometimes it will smear an
           // empty selection
           setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
 
-          return edits.map((edit, index): MarkEntry => {
-            const selection = updatedEditSelections[index];
-            const range = edit.edit.updateRange(selection);
-            const target = edit.originalTarget;
-            return {
-              editor,
-              selection: range.toSelection(target.isReversed),
-              isSource: edit.isSource,
-              target,
-            };
-          });
+          const marks = [
+            ...this.getMarks(sourceEdits, updatedSourceEditSelections),
+            ...this.getMarks(
+              destinationEdits,
+              updatedDestinationEditSelections,
+            ),
+          ];
+
+          // Restore original order before split into source and destination
+          marks.sort(
+            (a, b) =>
+              edits.findIndex((e) => e.originalTarget === a.target) -
+              edits.findIndex((e) => e.originalTarget === b.target),
+          );
+
+          return marks;
         },
       ),
     );
+  }
+
+  private getMarks(
+    edits: ExtendedEdit[],
+    selections: Selection[],
+  ): MarkEntry[] {
+    return edits.map((edit, index): MarkEntry => {
+      const selection = selections[index];
+      const range = edit.edit.updateRange(selection);
+      const target = edit.originalTarget;
+      return {
+        editor: edit.editor,
+        selection: range.toSelection(target.isReversed),
+        isSource: edit.isSource,
+        target,
+      };
+    });
   }
 
   private async decorateThatMark(thatMark: MarkEntry[]) {

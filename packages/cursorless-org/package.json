@@ -9,7 +9,8 @@
     "start": "http-server out -a 127.0.0.1 -p 8080",
     "lint": "next lint",
     "compile": "tsc --build",
-    "watch": "tsc --build --watch"
+    "watch": "tsc --build --watch",
+    "clean": "rm -rf ./out"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
