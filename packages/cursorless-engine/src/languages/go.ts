@@ -14,7 +14,6 @@ const nodeMatchers: Partial<
   ifStatement: "if_statement",
   functionCall: ["call_expression", "composite_literal"],
   functionCallee: ["call_expression[function]", "composite_literal[type]"],
-  comment: "comment",
   namedFunction: ["function_declaration", "method_declaration"],
   type: [
     "pointer_type",
