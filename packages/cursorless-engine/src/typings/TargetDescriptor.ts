@@ -13,11 +13,6 @@ export interface PrimitiveTargetDescriptor {
   type: "primitive";
 
   /**
-   * Different nodes of insertion: eg "before", "after", "to"
-   */
-  destination?: InsertionMode;
-
-  /**
    * The mark, eg "air", "this", "that", etc
    */
   mark: Mark;
@@ -76,3 +71,18 @@ export type TargetDescriptor =
   | RangeTargetDescriptor
   | ListTargetDescriptor
   | ImplicitTargetDescriptor;
+
+export interface PrimitiveDestinationDescriptor {
+  type: "destination";
+  insertionMode: InsertionMode;
+  target: TargetDescriptor;
+}
+
+export interface ListDestinationDescriptor {
+  type: "destinationList";
+  destinations: PrimitiveDestinationDescriptor[];
+}
+
+export type DestinationDescriptor =
+  | PrimitiveDestinationDescriptor
+  | ListDestinationDescriptor;

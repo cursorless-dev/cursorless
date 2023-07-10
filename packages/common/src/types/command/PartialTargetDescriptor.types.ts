@@ -354,7 +354,6 @@ export type InsertionMode = "before" | "after" | "to";
 export interface PartialPrimitiveTargetDescriptor {
   type: "primitive";
   mark?: PartialMark;
-  destination?: InsertionMode;
   modifiers?: Modifier[];
 }
 
@@ -381,3 +380,18 @@ export type PartialTargetDescriptor =
   | PartialRangeTargetDescriptor
   | PartialListTargetDescriptor
   | ImplicitTargetDescriptor;
+
+export interface PartialPrimitiveDestinationDescriptor {
+  type: "destination";
+  insertionMode: InsertionMode;
+  target: PartialTargetDescriptor;
+}
+
+export interface PartialListDestinationDescriptor {
+  type: "destinationList";
+  destinations: PartialPrimitiveDestinationDescriptor[];
+}
+
+export type PartialDestinationDescriptor =
+  | PartialPrimitiveDestinationDescriptor
+  | PartialListDestinationDescriptor;

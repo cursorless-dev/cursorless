@@ -1,14 +1,20 @@
 import {
-  ActionTypeV5,
+  ActionCommandV5,
   CommandV5,
   CommandV6,
   ImplicitTargetDescriptor,
   InsertionMode,
   Modifier,
   ModifierV5,
+  PartialActionDescriptor,
+  PartialDestinationDescriptor,
+  PartialListTargetDescriptor,
+  PartialListTargetDescriptorV5,
+  PartialPrimitiveDestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialPrimitiveTargetDescriptorV5,
   PartialRangeTargetDescriptor,
+  PartialRangeTargetDescriptorV5,
   PartialTargetDescriptor,
   PartialTargetDescriptorV5,
   PositionModifierV5,
@@ -16,85 +22,195 @@ import {
 
 export function upgradeV5ToV6(command: CommandV5): CommandV6 {
   return {
-    ...command,
     version: 6,
-    targets: upgradeTargets(command.targets, command.action.name),
+    spokenForm: command.spokenForm,
+    usePrePhraseSnapshot: command.usePrePhraseSnapshot,
+    action: upgradeAction(command.action, command.targets),
   };
 }
 
-function upgradeTargets(
+function upgradeAction(
+  action: ActionCommandV5,
   targets: PartialTargetDescriptorV5[],
-  action: ActionTypeV5,
-): PartialTargetDescriptor[] {
-  switch (action) {
-    case "pasteFromClipboard":
-      return [upgradeTarget(targets[0], true)];
+): PartialActionDescriptor {
+  switch (action.name) {
     case "replaceWithTarget":
     case "moveToTarget":
-      return [
-        upgradeTarget(targets[0], false),
-        upgradeTarget(targets[1], true),
-      ];
+      return {
+        name: action.name,
+        source: upgradeTarget(targets[0]),
+        destination: targetToDestination(targets[1]),
+      };
+    case "swapTargets":
+      return {
+        name: action.name,
+        target1: upgradeTarget(targets[0]),
+        target2: upgradeTarget(targets[1]),
+      };
+    case "pasteFromClipboard":
+      return {
+        name: action.name,
+        destination: targetToDestination(targets[0]),
+      };
+    case "wrapWithPairedDelimiter":
+      return {
+        name: action.name,
+        left: action.args![0] as string,
+        right: action.args![1] as string,
+        target: upgradeTarget(targets[0]),
+      };
+    default:
+      return {
+        name: action.name,
+        target: upgradeTarget(targets[0]),
+      };
   }
-
-  return targets.map((t) => upgradeTarget(t, false));
 }
 
 function upgradeTarget(
   target: PartialTargetDescriptorV5,
-  isDestination: boolean,
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "list":
-      return {
-        ...target,
-        elements: target.elements.map(
-          (target, i) =>
-            upgradeTarget(target, isDestination && i === 0) as
-              | PartialPrimitiveTargetDescriptor
-              | PartialRangeTargetDescriptor,
-        ),
-      };
-    case "range": {
-      const { anchor, active, ...rest } = target;
-      return {
-        ...rest,
-        anchor: upgradeTarget(anchor, isDestination) as
-          | PartialPrimitiveTargetDescriptor
-          | ImplicitTargetDescriptor,
-        active: upgradeTarget(
-          active,
-          false,
-        ) as PartialPrimitiveTargetDescriptor,
-      };
-    }
+      return upgradeListTarget(target);
+    case "range":
+      return upgradeRangeTarget(target);
     case "primitive":
-      return upgradePrimitiveTarget(target, isDestination);
+      return upgradePrimitiveTarget(target);
     case "implicit":
       return target;
   }
 }
 
+function upgradeListTarget(
+  target: PartialListTargetDescriptorV5,
+): PartialListTargetDescriptor {
+  return {
+    ...target,
+    elements: target.elements.map((element) => {
+      switch (element.type) {
+        case "range":
+          return upgradeRangeTarget(element);
+        case "primitive":
+          return upgradePrimitiveTarget(element);
+      }
+    }),
+  };
+}
+
+function upgradeRangeTarget(
+  target: PartialRangeTargetDescriptorV5,
+): PartialRangeTargetDescriptor {
+  const { anchor, active } = target;
+  return {
+    ...target,
+    anchor:
+      anchor.type === "implicit" ? anchor : upgradePrimitiveTarget(anchor),
+    active: upgradePrimitiveTarget(active),
+  };
+}
+
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetDescriptorV5,
-  isDestination: boolean,
 ): PartialPrimitiveTargetDescriptor {
   return {
     ...target,
-    destination: getDestination(target.modifiers, isDestination),
     modifiers: getModifiers(target.modifiers),
   };
 }
 
-function getDestination(
-  modifiers: ModifierV5[] | undefined,
-  isDestination: boolean,
+function targetToDestination(
+  target: PartialTargetDescriptorV5,
+): PartialDestinationDescriptor {
+  switch (target.type) {
+    case "list":
+      return listTargetToDestination(target);
+    case "range":
+      return rangeTargetToDestination(target);
+    case "primitive":
+      return primitiveTargetToDestination(target);
+    case "implicit":
+      return implicitTargetToDestination(target);
+  }
+}
+
+function listTargetToDestination(
+  target: PartialListTargetDescriptorV5,
+): PartialDestinationDescriptor {
+  const destinations: PartialPrimitiveDestinationDescriptor[] = [];
+  target.elements.forEach((element) => {
+    const insertionMode = getInsertionMode(element);
+    if (insertionMode != null || destinations.length === 0) {
+      destinations.push({
+        type: "destination",
+        insertionMode: insertionMode ?? "to",
+        target: upgradeTarget(element),
+      });
+    }
+  });
+  if (destinations.length > 1) {
+    return {
+      type: "destinationList",
+      destinations,
+    };
+  }
+  return destinations[0];
+}
+
+function rangeTargetToDestination(
+  target: PartialRangeTargetDescriptorV5,
+): PartialPrimitiveDestinationDescriptor {
+  return {
+    type: "destination",
+    insertionMode: getInsertionMode(target.anchor) ?? "to",
+    target: upgradeRangeTarget(target),
+  };
+}
+
+function primitiveTargetToDestination(
+  target: PartialPrimitiveTargetDescriptorV5,
+): PartialPrimitiveDestinationDescriptor {
+  return {
+    type: "destination",
+    insertionMode: getInsertionMode(target) ?? "to",
+    target: upgradePrimitiveTarget(target),
+  };
+}
+
+function implicitTargetToDestination(
+  target: ImplicitTargetDescriptor,
+): PartialPrimitiveDestinationDescriptor {
+  return {
+    type: "destination",
+    insertionMode: "to",
+    target,
+  };
+}
+
+function getInsertionMode(
+  target:
+    | PartialPrimitiveTargetDescriptorV5
+    | PartialRangeTargetDescriptorV5
+    | ImplicitTargetDescriptor,
 ): InsertionMode | undefined {
-  const positionModifier = modifiers?.find(
+  switch (target.type) {
+    case "implicit":
+      return "to";
+    case "primitive":
+      return getInsertionModeFromPrimitive(target);
+    case "range":
+      return getInsertionMode(target.anchor);
+  }
+}
+
+function getInsertionModeFromPrimitive(
+  target: PartialPrimitiveTargetDescriptorV5,
+): InsertionMode | undefined {
+  const positionModifier = target.modifiers?.find(
     (m): m is PositionModifierV5 => m.type === "position",
   );
   if (positionModifier != null) {
-    if (modifiers!.indexOf(positionModifier) !== 0) {
+    if (target.modifiers!.indexOf(positionModifier) !== 0) {
       throw Error("Position modifier has to be at first index");
     }
     if (
@@ -104,7 +220,7 @@ function getDestination(
       return positionModifier.position;
     }
   }
-  return isDestination ? "to" : undefined;
+  return undefined;
 }
 
 function getModifiers(modifiers?: ModifierV5[]): Modifier[] | undefined {

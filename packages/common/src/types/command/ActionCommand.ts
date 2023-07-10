@@ -1,4 +1,9 @@
-export const actionNames = [
+import {
+  PartialDestinationDescriptor,
+  PartialTargetDescriptor,
+} from "./PartialTargetDescriptor.types";
+
+const simpleActionNames = [
   "callAsFunction",
   "clearAndSetSelection",
   "copyToClipboard",
@@ -22,14 +27,11 @@ export const actionNames = [
   "insertEmptyLineBefore",
   "insertEmptyLinesAround",
   "insertSnippet",
-  "moveToTarget",
   "outdentLine",
-  "pasteFromClipboard",
   "randomizeTargets",
   "remove",
   "rename",
   "replace",
-  "replaceWithTarget",
   "revealDefinition",
   "revealTypeDefinition",
   "reverseTargets",
@@ -46,24 +48,57 @@ export const actionNames = [
   "showQuickFix",
   "showReferences",
   "sortTargets",
-  "swapTargets",
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
-  "wrapWithPairedDelimiter",
   "wrapWithSnippet",
 ] as const;
 
+const complexActionNames = [
+  "replaceWithTarget",
+  "moveToTarget",
+  "swapTargets",
+  "pasteFromClipboard",
+  "wrapWithPairedDelimiter",
+] as const;
+
+const actionNames = [...simpleActionNames, ...complexActionNames] as const;
+
+export type SimpleActionName = (typeof simpleActionNames)[number];
 export type ActionType = (typeof actionNames)[number];
 
-export interface ActionCommand {
-  /**
-   * The action to run
-   */
-  name: ActionType;
-
-  /**
-   * A list of arguments expected by the given action.
-   */
-  args?: unknown[];
+export interface PartialSimpleActionDescriptor {
+  name: SimpleActionName;
+  target: PartialTargetDescriptor;
 }
+
+export interface PartialBringMoveActionDescriptor {
+  name: "replaceWithTarget" | "moveToTarget";
+  source: PartialTargetDescriptor;
+  destination: PartialDestinationDescriptor;
+}
+
+export interface PartialSwapActionDescriptor {
+  name: "swapTargets";
+  target1: PartialTargetDescriptor;
+  target2: PartialTargetDescriptor;
+}
+
+export interface PartialPasteActionDescriptor {
+  name: "pasteFromClipboard";
+  destination: PartialDestinationDescriptor;
+}
+
+export interface PartialWrapWithPairedDelimiterActionDescriptor {
+  name: "wrapWithPairedDelimiter";
+  left: string;
+  right: string;
+  target: PartialTargetDescriptor;
+}
+
+export type PartialActionDescriptor =
+  | PartialSimpleActionDescriptor
+  | PartialBringMoveActionDescriptor
+  | PartialSwapActionDescriptor
+  | PartialPasteActionDescriptor
+  | PartialWrapWithPairedDelimiterActionDescriptor;

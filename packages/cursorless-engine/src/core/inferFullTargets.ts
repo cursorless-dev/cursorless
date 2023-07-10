@@ -1,15 +1,19 @@
 import {
-  ImplicitTargetDescriptor,
   InsertionMode,
   Modifier,
   PartialListTargetDescriptor,
+  PartialPrimitiveDestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
+  PartialRangeDestinationDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import {
+  ListTargetDescriptor,
   Mark,
+  PrimitiveDestinationDescriptor,
   PrimitiveTargetDescriptor,
+  RangeDestinationDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
@@ -40,8 +44,11 @@ function inferTarget(
     case "list":
       return inferListTarget(target, previousTargets);
     case "range":
+    case "rangeDestination":
+      return inferRangeTargetOrDestinationWithHoist(target, previousTargets);
     case "primitive":
-      return inferNonListTarget(target, previousTargets);
+    case "primitiveDestination":
+      return inferPrimitiveTargetOrDestination(target, previousTargets);
     case "implicit":
       return target;
   }
@@ -50,61 +57,126 @@ function inferTarget(
 function inferListTarget(
   target: PartialListTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): TargetDescriptor {
+): ListTargetDescriptor {
   return {
     ...target,
-    elements: target.elements.map((element, index) =>
-      inferNonListTarget(
-        element,
-        previousTargets.concat(target.elements.slice(0, index)),
-      ),
-    ),
+    elements: target.elements.map((element, index) => {
+      const elementPreviousTargets = previousTargets.concat(
+        target.elements.slice(0, index),
+      );
+      switch (element.type) {
+        case "range":
+        case "rangeDestination":
+          return inferRangeTargetOrDestinationWithHoist(
+            element,
+            elementPreviousTargets,
+          );
+        case "primitive":
+        case "primitiveDestination":
+          return inferPrimitiveTargetOrDestination(
+            element,
+            elementPreviousTargets,
+          );
+      }
+    }),
   };
 }
 
-function inferNonListTarget(
-  target: PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
+function inferRangeTargetOrDestinationWithHoist(
+  targetOrDestination:
+    | PartialRangeTargetDescriptor
+    | PartialRangeDestinationDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor | RangeTargetDescriptor {
-  switch (target.type) {
-    case "primitive":
-      return inferPrimitiveTarget(target, previousTargets);
-    case "range":
-      return inferRangeTarget(target, previousTargets);
+):
+  | RangeTargetDescriptor
+  | RangeDestinationDescriptor
+  | PrimitiveTargetDescriptor
+  | PrimitiveDestinationDescriptor {
+  const [target, insertionMode] = ((): [
+    PartialRangeTargetDescriptor,
+    InsertionMode | undefined,
+  ] => {
+    if (targetOrDestination.type === "rangeDestination") {
+      return [targetOrDestination.target, targetOrDestination.insertionMode];
+    }
+    return [targetOrDestination, getPreviousInsertionMode(previousTargets)];
+  })();
+
+  const fullTarget = inferRangeTarget(target, previousTargets);
+
+  const isAnchorMarkImplicit =
+    target.anchor.type === "implicit" || target.anchor.mark == null;
+
+  const hoistedTarget = handleHoistedModifiers(
+    fullTarget,
+    isAnchorMarkImplicit,
+  );
+
+  if (insertionMode != null) {
+    if (hoistedTarget.type === "range") {
+      return {
+        type: "rangeDestination",
+        insertionMode,
+        target: hoistedTarget,
+      };
+    }
+    return {
+      type: "primitiveDestination",
+      insertionMode,
+      target: hoistedTarget,
+    };
   }
+
+  return hoistedTarget;
 }
 
 function inferRangeTarget(
   target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor | RangeTargetDescriptor {
-  const fullTarget: RangeTargetDescriptor = {
+): RangeTargetDescriptor {
+  return {
     type: "range",
     rangeType: target.rangeType ?? "continuous",
     excludeAnchor: target.excludeAnchor ?? false,
     excludeActive: target.excludeActive ?? false,
-    anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
+    anchor:
+      target.anchor.type === "implicit"
+        ? target.anchor
+        : inferPrimitiveTarget(target.anchor, previousTargets),
     active: inferPrimitiveTarget(
       target.active,
       previousTargets.concat(target.anchor),
     ),
   };
-
-  const isAnchorMarkImplicit =
-    target.anchor.type === "implicit" || target.anchor.mark == null;
-
-  return handleHoistedModifiers(fullTarget, isAnchorMarkImplicit);
 }
 
-function inferPossiblyImplicitTarget(
-  target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
+function inferPrimitiveTargetOrDestination(
+  targetOrDestination:
+    | PartialPrimitiveTargetDescriptor
+    | PartialPrimitiveDestinationDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor | ImplicitTargetDescriptor {
-  if (target.type === "implicit") {
-    return target;
+): PrimitiveTargetDescriptor | PrimitiveDestinationDescriptor {
+  const [target, insertionMode] = ((): [
+    PartialPrimitiveTargetDescriptor,
+    InsertionMode | undefined,
+  ] => {
+    if (targetOrDestination.type === "primitiveDestination") {
+      return [targetOrDestination.target, targetOrDestination.insertionMode];
+    }
+    return [targetOrDestination, getPreviousInsertionMode(previousTargets)];
+  })();
+
+  const fullTarget = inferPrimitiveTarget(target, previousTargets);
+
+  if (insertionMode != null) {
+    return {
+      type: "primitiveDestination",
+      insertionMode,
+      target: fullTarget,
+    };
   }
 
-  return inferPrimitiveTarget(target, previousTargets);
+  return fullTarget;
 }
 
 function inferPrimitiveTarget(
@@ -123,12 +195,8 @@ function inferPrimitiveTarget(
     getPreviousPreservedModifiers(previousTargets) ??
     [];
 
-  const destination =
-    target.destination ?? getPreviousDestination(previousTargets);
-
   return {
     type: target.type,
-    destination,
     mark,
     modifiers,
   };
@@ -195,25 +263,25 @@ function isLineNumberMark(target: PartialPrimitiveTargetDescriptor): boolean {
 function getPreviousMark(
   previousTargets: PartialTargetDescriptor[],
 ): Mark | undefined {
-  return getPreviousTargetAttribute(
-    previousTargets,
-    (target: PartialPrimitiveTargetDescriptor) => target.mark,
-  );
+  return getPreviousTargetAttribute(previousTargets, {
+    target: (target: PartialPrimitiveTargetDescriptor) => target.mark,
+  });
 }
 
 function getPreviousPreservedModifiers(
   previousTargets: PartialTargetDescriptor[],
 ): Modifier[] | undefined {
-  return getPreviousTargetAttribute(previousTargets, getPreservedModifiers);
+  return getPreviousTargetAttribute(previousTargets, {
+    target: getPreservedModifiers,
+  });
 }
 
-function getPreviousDestination(
+function getPreviousInsertionMode(
   previousTargets: PartialTargetDescriptor[],
 ): InsertionMode | undefined {
-  return getPreviousTargetAttribute(
-    previousTargets,
-    (target) => target.destination,
-  );
+  return getPreviousTargetAttribute(previousTargets, {
+    destination: (insertionMode: InsertionMode) => insertionMode,
+  });
 }
 
 /**
@@ -228,22 +296,58 @@ function getPreviousDestination(
  */
 function getPreviousTargetAttribute<T>(
   previousTargets: PartialTargetDescriptor[],
-  getAttribute: (target: PartialPrimitiveTargetDescriptor) => T | undefined,
+  getAttribute: {
+    target?: (target: PartialPrimitiveTargetDescriptor) => T | undefined;
+    destination?: (insertionMode: InsertionMode) => T | undefined;
+  },
 ): T | undefined {
   // Search from back(last) to front(first)
   for (let i = previousTargets.length - 1; i > -1; --i) {
     const target = previousTargets[i];
     switch (target.type) {
       case "primitive": {
-        const attributeValue = getAttribute(target);
-        if (attributeValue != null) {
-          return attributeValue;
+        if (getAttribute.target != null) {
+          const attributeValue = getAttribute.target(target);
+          if (attributeValue != null) {
+            return attributeValue;
+          }
+        }
+        break;
+      }
+      case "primitiveDestination": {
+        if (getAttribute.destination != null) {
+          const attributeValue = getAttribute.destination(target.insertionMode);
+          if (attributeValue != null) {
+            return attributeValue;
+          }
+        }
+        if (getAttribute.target != null) {
+          const attributeValue = getAttribute.target(target.target);
+          if (attributeValue != null) {
+            return attributeValue;
+          }
         }
         break;
       }
       case "range": {
         const attributeValue = getPreviousTargetAttribute(
           [target.anchor],
+          getAttribute,
+        );
+        if (attributeValue != null) {
+          return attributeValue;
+        }
+        break;
+      }
+      case "rangeDestination": {
+        if (getAttribute.destination != null) {
+          const attributeValue = getAttribute.destination(target.insertionMode);
+          if (attributeValue != null) {
+            return attributeValue;
+          }
+        }
+        const attributeValue = getPreviousTargetAttribute(
+          [target.target.anchor],
           getAttribute,
         );
         if (attributeValue != null) {
