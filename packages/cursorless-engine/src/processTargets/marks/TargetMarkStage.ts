@@ -1,4 +1,4 @@
-import { TargetPipelineRunner, isDestination } from "..";
+import { TargetPipelineRunner } from "..";
 import { TargetMark } from "../../typings/TargetDescriptor";
 import { Target } from "../../typings/target.types";
 import { MarkStage } from "../PipelineStages.types";
@@ -10,10 +10,6 @@ export class TargetMarkStage implements MarkStage {
   ) {}
 
   run(): Target[] {
-    const targets = this.targetPipelineRunner.run(this.mark.target);
-    if (targets.some(isDestination)) {
-      throw Error("Target mark stage doesn't support destinations");
-    }
-    return targets as Target[];
+    return this.targetPipelineRunner.run(this.mark.target);
   }
 }

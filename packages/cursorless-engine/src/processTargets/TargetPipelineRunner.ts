@@ -11,13 +11,13 @@ import {
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { Destination, Target } from "../typings/target.types";
+import { Target } from "../typings/target.types";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { MarkStage, ModifierStage } from "./PipelineStages.types";
 import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
-import { DestinationImpl, PlainTarget } from "./targets";
+import { PlainTarget } from "./targets";
 
 export class TargetPipelineRunner {
   constructor(
@@ -43,7 +43,7 @@ export class TargetPipelineRunner {
     target: TargetDescriptor,
     actionPrePositionStages?: ModifierStage[],
     actionFinalStages?: ModifierStage[],
-  ): (Target | Destination)[] {
+  ): Target[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
@@ -77,11 +77,11 @@ class TargetPipeline {
    * containing it, and potentially rich context information such as how to remove
    * the target
    */
-  run(): (Target | Destination)[] {
+  run(): Target[] {
     return uniqTargets(this.processTarget(this.target));
   }
 
-  processTarget(target: TargetDescriptor): (Target | Destination)[] {
+  processTarget(target: TargetDescriptor): Target[] {
     switch (target.type) {
       case "list":
         return target.elements.flatMap((element) =>
@@ -95,9 +95,7 @@ class TargetPipeline {
     }
   }
 
-  processRangeTarget(
-    targetDesc: RangeTargetDescriptor,
-  ): (Target | Destination)[] {
+  processRangeTarget(targetDesc: RangeTargetDescriptor): Target[] {
     const anchorTargets = this.processPrimitiveTarget(targetDesc.anchor);
     const activeTargets = this.processPrimitiveTarget(targetDesc.active);
 
@@ -129,27 +127,21 @@ class TargetPipeline {
   }
 
   processContinuousRangeTarget(
-    anchorTargetOrDestination: Target | Destination,
-    activeTargetOrDestination: Target | Destination,
+    anchorTarget: Target,
+    activeTarget: Target,
     { excludeAnchor, excludeActive, exclusionScopeType }: RangeTargetDescriptor,
-  ): (Target | Destination)[] {
+  ): Target[] {
     if (exclusionScopeType == null) {
       return [
-        targetsOrDestinationsToContinuousTarget(
-          anchorTargetOrDestination,
-          activeTargetOrDestination,
+        targetsToContinuousTarget(
+          anchorTarget,
+          activeTarget,
           excludeAnchor,
           excludeActive,
         ),
       ];
     }
 
-    const { target: anchorTarget } = separateDestinationAndTarget(
-      anchorTargetOrDestination,
-    );
-    const { target: activeTarget } = separateDestinationAndTarget(
-      activeTargetOrDestination,
-    );
     const isReversed = calcIsReversed(anchorTarget, activeTarget);
 
     // For "every" range targets, we need to be smart about how we handle
@@ -164,23 +156,23 @@ class TargetPipeline {
     // again. So instead, we use the equivalent of "previous funk name" to find
     // our endpoint and then just use an inclusive range ending with that target.
     return [
-      targetsOrDestinationsToContinuousTarget(
+      targetsToContinuousTarget(
         excludeAnchor
           ? excludeScope(
               this.modifierStageFactory,
-              anchorTargetOrDestination,
+              anchorTarget,
               exclusionScopeType,
               isReversed ? "backward" : "forward",
             )
-          : anchorTargetOrDestination,
+          : anchorTarget,
         excludeActive
           ? excludeScope(
               this.modifierStageFactory,
-              activeTargetOrDestination,
+              activeTarget,
               exclusionScopeType,
               isReversed ? "forward" : "backward",
             )
-          : activeTargetOrDestination,
+          : activeTarget,
         false,
         false,
       ),
@@ -208,7 +200,7 @@ class TargetPipeline {
    */
   processPrimitiveTarget(
     targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
-  ): (Target | Destination)[] {
+  ): Target[] {
     let markStage: MarkStage;
     let nonModifierStages: ModifierStage[];
 
@@ -272,50 +264,24 @@ export function processModifierStages(
 
 function excludeScope(
   modifierStageFactory: ModifierStageFactory,
-  targetOrDestination: Target | Destination,
+  target: Target,
   exclusionScopeType: ScopeType,
   direction: Direction,
-): Target | Destination {
-  const { target, destination } =
-    separateDestinationAndTarget(targetOrDestination);
-
-  const resultTarget = modifierStageFactory
-    .create({
-      type: "relativeScope",
-      scopeType: exclusionScopeType,
-      direction,
-      length: 1,
-      offset: 1,
-    })
-    // NB: The following line assumes that content range is always
-    // contained by domain, so that "every" will properly reconstruct
-    // the target from the content range.
-    .run(target)[0];
-
-  return destination != null
-    ? destination.withTarget(resultTarget)
-    : resultTarget;
-}
-
-function separateDestinationAndTarget(
-  targetOrDestination: Target | Destination,
-): { target: Target; destination?: Destination } {
-  if (isDestination(targetOrDestination)) {
-    return {
-      target: targetOrDestination.target,
-      destination: targetOrDestination,
-    };
-  }
-  return {
-    target: targetOrDestination as Target,
-    destination: undefined,
-  };
-}
-
-export function isDestination(
-  targetOrDestination: Target | Destination,
-): targetOrDestination is Destination {
-  return targetOrDestination instanceof DestinationImpl;
+): Target {
+  return (
+    modifierStageFactory
+      .create({
+        type: "relativeScope",
+        scopeType: exclusionScopeType,
+        direction,
+        length: 1,
+        offset: 1,
+      })
+      // NB: The following line assumes that content range is always
+      // contained by domain, so that "every" will properly reconstruct
+      // the target from the content range.
+      .run(target)[0]
+  );
 }
 
 function calcIsReversed(anchor: Target, active: Target) {
@@ -328,51 +294,14 @@ function calcIsReversed(anchor: Target, active: Target) {
   return anchor.contentRange.end.isAfter(active.contentRange.end);
 }
 
-function uniqTargets(
-  array: (Target | Destination)[],
-): (Target | Destination)[] {
-  return uniqWith(array, (a, b) => isEqual(a, b));
-}
-
-function isEqual(a: Target | Destination, b: Target | Destination): boolean {
-  if (isDestination(a) || isDestination(b)) {
-    if (!isDestination(a) || !isDestination(b)) {
-      return false;
-    }
-    return a.isEqual(b);
-  }
-  return a.isEqual(b);
+function uniqTargets(array: Target[]): Target[] {
+  return uniqWith(array, (a, b) => a.isEqual(b));
 }
 
 function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
   if (anchorTarget.editor !== activeTarget.editor) {
     throw new Error("Cannot form range between targets in different editors");
   }
-}
-
-function targetsOrDestinationsToContinuousTarget(
-  anchorTargetOrDestination: Target | Destination,
-  activeTargetOrDestination: Target | Destination,
-  excludeAnchor: boolean = false,
-  excludeActive: boolean = false,
-): Target | Destination {
-  const { target: anchorTarget, destination } = separateDestinationAndTarget(
-    anchorTargetOrDestination,
-  );
-  const { target: activeTarget } = separateDestinationAndTarget(
-    activeTargetOrDestination,
-  );
-
-  const continuesRangeTarget = targetsToContinuousTarget(
-    anchorTarget,
-    activeTarget,
-    excludeAnchor,
-    excludeActive,
-  );
-
-  return destination != null
-    ? continuesRangeTarget.toDestination(destination.insertionMode)
-    : continuesRangeTarget;
 }
 
 export function targetsToContinuousTarget(
@@ -398,18 +327,11 @@ export function targetsToContinuousTarget(
 }
 
 function targetsToVerticalTarget(
-  anchorTargetOrDestination: Target | Destination,
-  activeTargetOrDestination: Target | Destination,
+  anchorTarget: Target,
+  activeTarget: Target,
   excludeAnchor: boolean,
   excludeActive: boolean,
-): (Target | Destination)[] {
-  const { target: anchorTarget, destination } = separateDestinationAndTarget(
-    anchorTargetOrDestination,
-  );
-  const { target: activeTarget } = separateDestinationAndTarget(
-    activeTargetOrDestination,
-  );
-
+): Target[] {
   ensureSingleEditor(anchorTarget, activeTarget);
 
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
@@ -424,7 +346,7 @@ function targetsToVerticalTarget(
     : activeTarget.contentRange.end;
   const activeLine = activePosition.line - (excludeActive ? delta : 0);
 
-  const results: (Target | Destination)[] = [];
+  const results: Target[] = [];
   for (let i = anchorLine; true; i += delta) {
     const contentRange = new Range(
       i,
@@ -433,14 +355,12 @@ function targetsToVerticalTarget(
       anchorTarget.contentRange.end.character,
     );
 
-    const newTarget = new PlainTarget({
-      editor: anchorTarget.editor,
-      isReversed: anchorTarget.isReversed,
-      contentRange,
-    });
-
     results.push(
-      destination != null ? destination.withTarget(newTarget) : newTarget,
+      new PlainTarget({
+        editor: anchorTarget.editor,
+        isReversed: anchorTarget.isReversed,
+        contentRange,
+      }),
     );
 
     if (i === activeLine) {

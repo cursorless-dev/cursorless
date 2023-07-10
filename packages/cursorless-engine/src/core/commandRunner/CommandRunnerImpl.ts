@@ -91,21 +91,24 @@ export class CommandRunnerImpl implements CommandRunner {
       case "replaceWithTarget":
       case "moveToTarget":
         {
-          const [sourceDescriptor, destinationDescriptor] =
+          const [sourceDescriptor, destinationTargetDescriptor] =
             this.inferFullTargetDescriptors([
               partialActionDescriptor.source,
               getPartialTargetDescriptorFromDestination(
                 partialActionDescriptor.destination,
               ),
             ]);
-          throw Error("stuff");
-          // Note: we don't need to worry about final stages here because bring and move don't use them!
-          // const source = this.pipelineRunner.run(sourceDescriptor);
-          // const destination = pipelineRunner
-          // .run(destinationTargetDescriptor)
-          // .getDestination(partialActionDescriptor.destination.insertionMode);
 
-          // return action.run(source, destina41tion);
+          // Note: we don't need to worry about final stages here because bring and move don't use them!
+          const source = this.pipelineRunner.run(sourceDescriptor);
+          const destination = this.pipelineRunner.run(
+            destinationTargetDescriptor,
+          );
+          // map((target, index) => target.toDestination)
+          // .getDestination(partialActionDescriptor.destination.insertionMode);
+          throw Error("stuff");
+
+          // return action.run(source, destination);
         }
         break;
       default:
