@@ -48,7 +48,7 @@ export class TestCase {
     private extraSnapshotFields?: ExtraSnapshotField[],
   ) {
     const activeEditor = ide().activeTextEditor!;
-    this.command = cleanUpTestCaseCommand(command);
+    this.command = command;
 
     this.targetKeys = command.targets.map(extractTargetKeys).flat();
 

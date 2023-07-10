@@ -146,6 +146,12 @@ function listTargetToDestination(
         insertionMode: insertionMode ?? "to",
         target: upgradeTarget(element),
       });
+    } else {
+      destinations.push({
+        type: "destination",
+        insertionMode: destinations[destinations.length - 1].insertionMode,
+        target: upgradeTarget(element),
+      });
     }
   });
   if (destinations.length > 1) {

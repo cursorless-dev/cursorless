@@ -1,7 +1,6 @@
 import {
   Direction,
   ImplicitTargetDescriptor,
-  InsertionMode,
   Modifier,
   Range,
   ScopeType,
@@ -212,19 +211,16 @@ class TargetPipeline {
   ): (Target | Destination)[] {
     let markStage: MarkStage;
     let nonModifierStages: ModifierStage[];
-    let destination: InsertionMode | undefined;
 
     if (targetDescriptor.type === "implicit") {
       markStage = new ImplicitStage();
       nonModifierStages = [];
-      destination = undefined;
     } else {
       markStage = this.markStageFactory.create(targetDescriptor.mark);
       nonModifierStages = getModifierStagesFromTargetModifiers(
         this.modifierStageFactory,
         targetDescriptor.modifiers,
       );
-      destination = targetDescriptor.destination;
     }
 
     // First, get the targets output by the mark
@@ -244,11 +240,7 @@ class TargetPipeline {
     ];
 
     // Run all targets through the modifier stages
-    const targets = processModifierStages(modifierStages, markOutputTargets);
-
-    return destination != null
-      ? targets.map((target) => target.toDestination(destination!))
-      : targets;
+    return processModifierStages(modifierStages, markOutputTargets);
   }
 }
 
