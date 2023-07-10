@@ -71,18 +71,3 @@ export type TargetDescriptor =
   | RangeTargetDescriptor
   | ListTargetDescriptor
   | ImplicitTargetDescriptor;
-
-export interface PrimitiveDestinationDescriptor {
-  type: "destination";
-  insertionMode: InsertionMode;
-  target: TargetDescriptor;
-}
-
-export interface ListDestinationDescriptor {
-  type: "destinationList";
-  destinations: PrimitiveDestinationDescriptor[];
-}
-
-export type DestinationDescriptor =
-  | PrimitiveDestinationDescriptor
-  | ListDestinationDescriptor;

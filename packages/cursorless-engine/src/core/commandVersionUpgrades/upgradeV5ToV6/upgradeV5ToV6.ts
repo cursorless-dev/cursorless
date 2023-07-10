@@ -8,6 +8,7 @@ import {
   ModifierV5,
   PartialActionDescriptor,
   PartialDestinationDescriptor,
+  PartialListDestinationDescriptor,
   PartialListTargetDescriptor,
   PartialListTargetDescriptorV5,
   PartialPrimitiveDestinationDescriptor,
@@ -158,7 +159,7 @@ function listTargetToDestination(
     return {
       type: "destinationList",
       destinations,
-    };
+    } as PartialListDestinationDescriptor;
   }
   return destinations[0];
 }
