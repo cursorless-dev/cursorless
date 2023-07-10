@@ -1,4 +1,4 @@
-import type { PartialActionDescriptor } from "./ActionCommand";
+import type { PartialActionDescriptor } from "./ActionDescriptor";
 
 export interface CommandV6 {
   /**

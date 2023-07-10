@@ -62,7 +62,10 @@ const complexActionNames = [
   "wrapWithPairedDelimiter",
 ] as const;
 
-const actionNames = [...simpleActionNames, ...complexActionNames] as const;
+export const actionNames = [
+  ...simpleActionNames,
+  ...complexActionNames,
+] as const;
 
 export type SimpleActionName = (typeof simpleActionNames)[number];
 export type ActionType = (typeof actionNames)[number];

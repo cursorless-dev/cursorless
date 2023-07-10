@@ -3,15 +3,16 @@ import {
   Command,
   CommandComplete,
   CommandLatest,
-  EnforceUndefined,
   LATEST_VERSION,
   Modifier,
   OutdatedExtensionError,
+  PartialActionDescriptor,
   PartialTargetDescriptor,
   showWarning,
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
+import { getPartialTargets } from "../../util/getPartialTargetDescriptors.1";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
@@ -31,28 +32,24 @@ import { upgradeV5ToV6 } from "./upgradeV5ToV6";
  */
 export function canonicalizeAndValidateCommand(
   command: Command,
-): EnforceUndefined<CommandComplete> {
+  // ): EnforceUndefined<CommandComplete> {
+): CommandComplete {
   const commandUpgraded = upgradeCommand(command);
-  const {
-    action,
-    targets: inputPartialTargets,
-    usePrePhraseSnapshot = false,
-    spokenForm,
-  } = commandUpgraded;
+  const { action, usePrePhraseSnapshot = false, spokenForm } = commandUpgraded;
 
   const actionName = canonicalizeActionName(action.name);
-  const partialTargets = canonicalizeTargets(inputPartialTargets);
+  const partialTargets = getPartialTargets(commandUpgraded);
 
+  canonicalizeTargets(partialTargets);
   validateCommand(actionName, partialTargets);
 
   return {
     version: LATEST_VERSION,
     spokenForm,
     action: {
+      ...action,
       name: actionName,
-      args: action.args ?? [],
-    },
-    targets: partialTargets,
+    } as PartialActionDescriptor,
     usePrePhraseSnapshot,
   };
 }
@@ -99,7 +96,7 @@ function upgradeCommand(command: Command): CommandLatest {
 function validateCommand(
   actionName: ActionType,
   partialTargets: PartialTargetDescriptor[],
-) {
+): void {
   if (
     usesScopeType("notebookCell", partialTargets) &&
     !["editNewLineBefore", "editNewLineAfter"].includes(actionName)

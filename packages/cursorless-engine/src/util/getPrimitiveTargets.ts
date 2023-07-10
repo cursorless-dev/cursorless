@@ -22,7 +22,6 @@ function getPartialPrimitiveTargetsHelper(
   switch (target.type) {
     case "primitive":
       return [target];
-
     case "list":
       return target.elements.flatMap(getPartialPrimitiveTargetsHelper);
     case "range":
