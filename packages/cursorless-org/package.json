@@ -10,7 +10,7 @@
     "lint": "next lint",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",

@@ -64,7 +64,7 @@ export async function updatePackageJson(
   const extraScripts = isRoot
     ? {}
     : {
-        clean: "rm -rf ./out",
+        clean: "rm -rf ./out tsconfig.tsbuildinfo",
       };
 
   return {

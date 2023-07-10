@@ -846,7 +846,7 @@
     "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
