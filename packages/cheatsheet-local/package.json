@@ -11,7 +11,7 @@
     "build": "pnpm build:prod",
     "build:dev": "pnpm webpack --mode=development",
     "build:prod": "pnpm webpack --mode=production --node-env=production",
-    "clean": "rm -rf ./out"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
   },
   "keywords": [],
   "author": "",
