@@ -1,6 +1,7 @@
 import {
   CommandComplete,
   PartialActionDescriptor,
+  PartialPrimitiveDestinationDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
@@ -10,9 +11,8 @@ import { TargetPipelineRunner } from "../../processTargets";
 import { TargetDescriptor } from "../../typings/TargetDescriptor";
 import { SelectionWithEditor } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
-import { getPartialTargetDescriptorFromDestination } from "../../util/getPartialTargetDescriptors.1";
 import { Debug } from "../Debug";
-import { default as inferFullTargetDescriptors } from "../inferFullTargets";
+import { inferFullTargetDescriptor } from "../inferFullTargets";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
 export class CommandRunnerImpl implements CommandRunner {
@@ -86,26 +86,32 @@ export class CommandRunnerImpl implements CommandRunner {
     partialActionDescriptor: PartialActionDescriptor,
   ): Promise<ActionReturnValue> {
     const action = this.actions[partialActionDescriptor.name];
+    const inferenceContext = new InferenceContext();
 
     switch (partialActionDescriptor.name) {
       case "replaceWithTarget":
       case "moveToTarget":
         {
-          const [sourceDescriptor, destinationTargetDescriptor] =
-            this.inferFullTargetDescriptors([
-              partialActionDescriptor.source,
-              getPartialTargetDescriptorFromDestination(
-                partialActionDescriptor.destination,
-              ),
-            ]);
+          const sourceTargetDescriptor = inferenceContext.run(
+            partialActionDescriptor.source,
+          );
+          const source = this.pipelineRunner.run(sourceTargetDescriptor);
+          let destination: Destination[];
+          if (partialActionDescriptor.destination.type === "destination") {
+            destination = this.getDestinationTargets(
+              inferenceContext,
+              partialActionDescriptor.destination,
+            );
+          } else {
+            destination =
+              partialActionDescriptor.destination.destinations.flatMap(
+                (destination) =>
+                  this.getDestinationTargets(inferenceContext, destination),
+              );
+          }
 
           // Note: we don't need to worry about final stages here because bring and move don't use them!
-          const source = this.pipelineRunner.run(sourceDescriptor);
-          const destination = this.pipelineRunner.run(
-            destinationTargetDescriptor,
-          );
-          // map((target, index) => target.toDestination)
-          // .getDestination(partialActionDescriptor.destination.insertionMode);
+
           throw Error("stuff");
 
           // return action.run(source, destination);
@@ -140,6 +146,21 @@ export class CommandRunnerImpl implements CommandRunner {
     }
   }
 
+  private getDestinationTargets(
+    inferenceContext: InferenceContext,
+    partialDestinationDescriptor: PartialPrimitiveDestinationDescriptor,
+  ) {
+    const destinationTargetDescriptor = inferenceContext.run(
+      partialDestinationDescriptor.target,
+    );
+
+    return this.pipelineRunner
+      .run(destinationTargetDescriptor)
+      .map((target) =>
+        target.toDestination(partialDestinationDescriptor.insertionMode),
+      );
+  }
+
   private inferFullTargetDescriptors(
     targets: PartialTargetDescriptor[],
   ): TargetDescriptor[] {
@@ -151,6 +172,16 @@ export class CommandRunnerImpl implements CommandRunner {
     }
 
     return targetDescriptors;
+  }
+}
+
+class InferenceContext {
+  private previousTargets: PartialTargetDescriptor[] = [];
+
+  run(target: PartialTargetDescriptor) {
+    const ret = inferFullTargetDescriptor(target, this.previousTargets);
+    this.previousTargets.push(target);
+    return ret;
   }
 }
 

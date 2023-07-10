@@ -27,11 +27,11 @@ export default function inferFullTargetDescriptors(
   targets: PartialTargetDescriptor[],
 ): TargetDescriptor[] {
   return targets.map((target, index) =>
-    inferTarget(target, targets.slice(0, index)),
+    inferFullTargetDescriptor(target, targets.slice(0, index)),
   );
 }
 
-function inferTarget(
+export function inferFullTargetDescriptor(
   target: PartialTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): TargetDescriptor {
