@@ -6,7 +6,7 @@ import {
   PartialTargetDescriptor,
 } from "@cursorless/common";
 
-export function getPartialTargets(
+export function getPartialTargetDescriptors(
   command: CommandLatest,
 ): PartialTargetDescriptor[] {
   switch (command.action.name) {
@@ -14,18 +14,20 @@ export function getPartialTargets(
     case "moveToTarget":
       return [
         command.action.source,
-        getTargetsFromDestination(command.action.destination),
+        getPartialTargetDescriptorFromDestination(command.action.destination),
       ];
     case "swapTargets":
       return [command.action.target1, command.action.target2];
     case "pasteFromClipboard":
-      return [getTargetsFromDestination(command.action.destination)];
+      return [
+        getPartialTargetDescriptorFromDestination(command.action.destination),
+      ];
     default:
       return [command.action.target];
   }
 }
 
-function getTargetsFromDestination(
+export function getPartialTargetDescriptorFromDestination(
   destination: PartialDestinationDescriptor,
 ): PartialTargetDescriptor {
   if (destination.type === "destinationList") {

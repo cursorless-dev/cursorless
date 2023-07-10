@@ -3,14 +3,15 @@ import {
   CommandLatest,
   ImplicitTargetDescriptor,
   LATEST_VERSION,
+  PartialDestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
 
@@ -122,8 +123,8 @@ export default class KeyboardCommandsTargeted {
     return await executeCursorlessCommand({
       action: {
         name: "highlight",
+        target,
       },
-      targets: [target],
     });
   };
 
@@ -139,9 +140,7 @@ export default class KeyboardCommandsTargeted {
     await executeCursorlessCommand({
       action: {
         name: "highlight",
-      },
-      targets: [
-        {
+        target: {
           type: "primitive",
           modifiers: [
             {
@@ -155,22 +154,20 @@ export default class KeyboardCommandsTargeted {
             type: "that",
           },
         },
-      ],
+      },
     });
 
   private highlightTarget = () =>
     executeCursorlessCommand({
       action: {
         name: "highlight",
-      },
-      targets: [
-        {
+        target: {
           type: "primitive",
           mark: {
             type: "that",
           },
         },
-      ],
+      },
     });
 
   /**
@@ -179,31 +176,53 @@ export default class KeyboardCommandsTargeted {
    * @returns A promise that resolves to the result of the cursorless command
    */
   performActionOnTarget = async (action: ActionType) => {
-    const targets: (
-      | PartialPrimitiveTargetDescriptor
-      | ImplicitTargetDescriptor
-    )[] = [
-      {
-        type: "primitive",
-        mark: {
-          type: "that",
-        },
+    const target: PartialPrimitiveTargetDescriptor = {
+      type: "primitive",
+      mark: {
+        type: "that",
       },
-    ];
+    };
 
-    if (MULTIPLE_TARGET_ACTIONS.includes(action)) {
-      // For multi-target actiosn (eg "bring"), we just use implicit destination
-      targets.push({
-        type: "implicit",
-      });
+    let returnValue: unknown;
+
+    switch (action) {
+      case "wrapWithPairedDelimiter":
+        throw Error(`Unsupported keyboard action: ${action}`);
+      case "replaceWithTarget":
+      case "moveToTarget":
+        returnValue = await executeCursorlessCommand({
+          action: {
+            name: action,
+            source: target,
+            destination: toDestination({ type: "implicit" }),
+          },
+        });
+        break;
+      case "swapTargets":
+        returnValue = await executeCursorlessCommand({
+          action: {
+            name: action,
+            target1: target,
+            target2: { type: "implicit" },
+          },
+        });
+        break;
+      case "pasteFromClipboard":
+        returnValue = await executeCursorlessCommand({
+          action: {
+            name: action,
+            destination: toDestination(target),
+          },
+        });
+        break;
+      default:
+        returnValue = await executeCursorlessCommand({
+          action: {
+            name: action,
+            target,
+          },
+        });
     }
-
-    const returnValue = await executeCursorlessCommand({
-      action: {
-        name: action,
-      },
-      targets,
-    });
 
     await this.highlightTarget();
 
@@ -224,16 +243,14 @@ export default class KeyboardCommandsTargeted {
     executeCursorlessCommand({
       action: {
         name: "highlight",
-      },
-      targets: [
-        {
+        target: {
           type: "primitive",
           mark: {
             type: "cursor",
           },
           modifiers: [{ type: "toRawSelection" }],
         },
-      ],
+      },
     });
 
   /**
@@ -244,15 +261,13 @@ export default class KeyboardCommandsTargeted {
     executeCursorlessCommand({
       action: {
         name: "highlight",
-      },
-      targets: [
-        {
+        target: {
           type: "primitive",
           mark: {
             type: "nothing",
           },
         },
-      ],
+      },
     });
 }
 
@@ -266,11 +281,15 @@ function executeCursorlessCommand(
   });
 }
 
-const MULTIPLE_TARGET_ACTIONS: ActionType[] = [
-  "replaceWithTarget",
-  "moveToTarget",
-  "swapTargets",
-];
+function toDestination(
+  target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
+): PartialDestinationDescriptor {
+  return {
+    type: "destination",
+    insertionMode: "to",
+    target,
+  };
+}
 
 const EXIT_CURSORLESS_MODE_ACTIONS: ActionType[] = [
   "setSelectionBefore",

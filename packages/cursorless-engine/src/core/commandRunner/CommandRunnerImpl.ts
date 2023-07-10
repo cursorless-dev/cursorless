@@ -1,13 +1,18 @@
-import { CommandComplete } from "@cursorless/common";
+import {
+  CommandComplete,
+  PartialActionDescriptor,
+  PartialTargetDescriptor,
+} from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
-import { ActionRecord } from "../../actions/actions.types";
+import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
 import { StoredTargetMap } from "../../index";
 import { TargetPipelineRunner } from "../../processTargets";
+import { TargetDescriptor } from "../../typings/TargetDescriptor";
 import { SelectionWithEditor } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
+import { getPartialTargetDescriptorFromDestination } from "../../util/getPartialTargetDescriptors.1";
 import { Debug } from "../Debug";
-import { checkForOldInference } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import inferFullTargetDescriptors from "../inferFullTargets";
+import { default as inferFullTargetDescriptors } from "../inferFullTargets";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
 export class CommandRunnerImpl implements CommandRunner {
@@ -35,30 +40,25 @@ export class CommandRunnerImpl implements CommandRunner {
    *    action, and returns the desired return value indicated by the action, if
    *    it has one.
    */
-  async run({
-    action: { name: actionName, args: actionArgs },
-    targets: partialTargetDescriptors,
-  }: CommandComplete): Promise<unknown> {
-    checkForOldInference(partialTargetDescriptors);
+  async run({ action }: CommandComplete): Promise<unknown> {
+    // const targetDescriptors = inferFullTargetDescriptors(
+    //   partialTargetDescriptors,
+    // );
 
-    const targetDescriptors = inferFullTargetDescriptors(
-      partialTargetDescriptors,
-    );
+    // if (this.debug.active) {
+    //   this.debug.log("Full targets:");
+    //   this.debug.log(JSON.stringify(targetDescriptors, null, 2));
+    // }
 
-    if (this.debug.active) {
-      this.debug.log("Full targets:");
-      this.debug.log(JSON.stringify(targetDescriptors, null, 2));
-    }
+    // const action = this.actions[actionName];
 
-    const action = this.actions[actionName];
+    // const prePositionStages =
+    //   action.getPrePositionStages?.(...actionArgs) ?? [];
+    // const finalStages = action.getFinalStages?.(...actionArgs) ?? [];
 
-    const prePositionStages =
-      action.getPrePositionStages?.(...actionArgs) ?? [];
-    const finalStages = action.getFinalStages?.(...actionArgs) ?? [];
-
-    const targets = targetDescriptors.map((targetDescriptor) =>
-      this.pipelineRunner.run(targetDescriptor, prePositionStages, finalStages),
-    );
+    // const targets = targetDescriptors.map((targetDescriptor) =>
+    //   this.pipelineRunner.run(targetDescriptor, prePositionStages, finalStages),
+    // );
 
     const {
       returnValue,
@@ -67,7 +67,7 @@ export class CommandRunnerImpl implements CommandRunner {
       sourceSelections: newSourceSelections,
       sourceTargets: newSourceTargets,
       instanceReferenceTargets: newInstanceReferenceTargets,
-    } = await action.run(targets, ...actionArgs);
+    } = await this.runAction(action);
 
     this.storedTargets.set(
       "that",
@@ -80,6 +80,74 @@ export class CommandRunnerImpl implements CommandRunner {
     this.storedTargets.set("instanceReference", newInstanceReferenceTargets);
 
     return returnValue;
+  }
+
+  private runAction(
+    partialActionDescriptor: PartialActionDescriptor,
+  ): Promise<ActionReturnValue> {
+    const action = this.actions[partialActionDescriptor.name];
+
+    switch (partialActionDescriptor.name) {
+      case "replaceWithTarget":
+      case "moveToTarget":
+        {
+          const [sourceDescriptor, destinationDescriptor] =
+            this.inferFullTargetDescriptors([
+              partialActionDescriptor.source,
+              getPartialTargetDescriptorFromDestination(
+                partialActionDescriptor.destination,
+              ),
+            ]);
+          throw Error("stuff");
+          // Note: we don't need to worry about final stages here because bring and move don't use them!
+          // const source = this.pipelineRunner.run(sourceDescriptor);
+          // const destination = pipelineRunner
+          // .run(destinationTargetDescriptor)
+          // .getDestination(partialActionDescriptor.destination.insertionMode);
+
+          // return action.run(source, destina41tion);
+        }
+        break;
+      default:
+        throw Error("stuff");
+      // case "wrapWithPairedDelimiter":
+      //   // Some duplication with default case, but not tooo bad
+      //   const [targetDescriptor] = inferFullTargets([
+      //     partialActionDescriptor.target,
+      //   ]);
+      //   const target = pipelineRunner.run(targetDescriptor);
+
+      //   return action.run(
+      //     target,
+      //     partialActionDescriptor.left,
+      //     partialActionDescriptor.right,
+      //   );
+      // default:
+      //   // TODO: Could prob expose `inferFullTarget` (singular) that takes single descriptor with no previousTargets
+      //   // eg const targetDescriptor = inferFullTarget(partialActionDescriptor.target)
+      //   const [targetDescriptor] = inferFullTargets([
+      //     partialActionDescriptor.target,
+      //   ]);
+
+      //   // TODO: Do we want to handle final stages in the generic case?  Most
+      //   // actions don't have them anyway so we might want special cases for them
+      //   const target = pipelineRunner.run(targetDescriptor);
+
+      //   return action.run(target);
+    }
+  }
+
+  private inferFullTargetDescriptors(
+    targets: PartialTargetDescriptor[],
+  ): TargetDescriptor[] {
+    const targetDescriptors = inferFullTargetDescriptors(targets);
+
+    if (this.debug.active) {
+      this.debug.log("Full targets:");
+      this.debug.log(JSON.stringify(targetDescriptors, null, 2));
+    }
+
+    return targetDescriptors;
   }
 }
 

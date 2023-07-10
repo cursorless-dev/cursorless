@@ -12,7 +12,7 @@ import {
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
-import { getPartialTargets } from "../../util/getPartialTargetDescriptors.1";
+import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors.1";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
@@ -38,7 +38,7 @@ export function canonicalizeAndValidateCommand(
   const { action, usePrePhraseSnapshot = false, spokenForm } = commandUpgraded;
 
   const actionName = canonicalizeActionName(action.name);
-  const partialTargets = getPartialTargets(commandUpgraded);
+  const partialTargets = getPartialTargetDescriptors(commandUpgraded);
 
   canonicalizeTargets(partialTargets);
   validateCommand(actionName, partialTargets);
@@ -118,37 +118,4 @@ function usesScopeType(
         mod.scopeType.type === scopeTypeType,
     ),
   );
-}
-
-export function checkForOldInference(
-  partialTargets: PartialTargetDescriptor[],
-) {
-  const hasOldInference = partialTargets.some((target) => {
-    return (
-      target.type === "range" &&
-      target.active.mark == null &&
-      target.active.modifiers?.some(
-        (m) => m.type === "startOf" || m.type === "endOf",
-      ) &&
-      !target.active.modifiers?.some((m) => m.type === "inferPreviousMark")
-    );
-  });
-
-  if (hasOldInference) {
-    const { globalState, messages } = ide();
-    const hideInferenceWarning = globalState.get("hideInferenceWarning");
-
-    if (!hideInferenceWarning) {
-      showWarning(
-        messages,
-        "deprecatedPositionInference",
-        'The "past start of" / "past end of" form has changed behavior.  For the old behavior, update cursorless-talon (https://www.cursorless.org/docs/user/updating/), and then you can now say "past start of its" / "past end of its". For example, "take air past end of its line".  You may also consider using "head" / "tail" instead; see https://www.cursorless.org/docs/#head-and-tail',
-        "Don't show again",
-      ).then((pressed) => {
-        if (pressed) {
-          globalState.set("hideInferenceWarning", true);
-        }
-      });
-    }
-  }
 }

@@ -3,7 +3,7 @@ import { uniq } from "lodash";
 import { injectIde } from "../../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.singleton";
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
-import { getPartialTargets } from "../../util/getPartialTargetDescriptors.1";
+import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors.1";
 import { upgrade } from "./transformations/upgrade";
 import assert = require("assert");
 
@@ -13,7 +13,7 @@ export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
   injectIde(new FakeIDE());
   const graphemeSplitter = tokenGraphemeSplitter();
 
-  const targetedMarks = getPartialTargets(command)
+  const targetedMarks = getPartialTargetDescriptors(command)
     .map(extractTargetKeys)
     .flat();
   const normalizeGraphemes = (key: string): string =>

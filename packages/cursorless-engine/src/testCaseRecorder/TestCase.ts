@@ -21,7 +21,7 @@ import { StoredTargetMap } from "..";
 import { ide } from "../singletons/ide.singleton";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { getPartialTargets as getPartialTargetDescriptors } from "../util/getPartialTargetDescriptors.1";
+import { getPartialTargetDescriptors as getPartialTargetDescriptors } from "../util/getPartialTargetDescriptors.1";
 
 export class TestCase {
   private languageId: string;
