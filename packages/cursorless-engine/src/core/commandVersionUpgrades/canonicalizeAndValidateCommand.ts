@@ -30,7 +30,7 @@ import { upgradeV5ToV6 } from "./upgradeV5ToV6";
  */
 export function canonicalizeAndValidateCommand(
   command: Command,
-  // ): EnforceUndefined<CommandComplete> {
+  // ): EnforceUndefined<CommandComplete> {// TODO:
 ): CommandComplete {
   const commandUpgraded = upgradeCommand(command);
   const { action, usePrePhraseSnapshot = false, spokenForm } = commandUpgraded;
@@ -47,7 +47,7 @@ export function canonicalizeAndValidateCommand(
     action: {
       ...action,
       name: actionName,
-    } as PartialActionDescriptor,
+    } as PartialActionDescriptor, // TODO:
     usePrePhraseSnapshot,
   };
 }

@@ -1,5 +1,7 @@
 import type {
+  ExecuteCommandOptions,
   InsertSnippetArg,
+  ReplaceWith,
   SimpleActionName,
   WrapWithSnippetArg,
 } from "@cursorless/common";
@@ -51,7 +53,7 @@ export interface ActionReturnValue {
 }
 
 export interface Action {
-  run(targets: Target[], ...args: any[]): Promise<ActionReturnValue>;
+  run(targets: Target[]): Promise<ActionReturnValue>;
 
   /**
    * Used to define final stages that should be run at the end of the pipeline before the action
@@ -116,5 +118,18 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
   editNew: {
     run(targets: Target[]): Promise<ActionReturnValue>;
     runDestinations(destinations: Destination[]): Promise<ActionReturnValue>;
+  };
+  executeCommand: {
+    run(
+      targets: Target[],
+      commandId: string,
+      options?: ExecuteCommandOptions,
+    ): Promise<ActionReturnValue>;
+  };
+  replace: {
+    run(
+      targets: Target[],
+      replaceWith: ReplaceWith,
+    ): Promise<ActionReturnValue>;
   };
 }

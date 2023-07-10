@@ -1,9 +1,9 @@
 import { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-export default class Call implements Action {
+export default class Call {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }

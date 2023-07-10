@@ -120,6 +120,27 @@ export class CommandRunnerImpl implements CommandRunner {
         );
         return this.actions.pasteFromClipboard.run(destinations);
       }
+      case "executeCommand": {
+        const targets = this.getTargets(
+          inferenceContext,
+          partialActionDescriptor.target,
+        );
+        return this.actions.executeCommand.run(
+          targets,
+          partialActionDescriptor.commandId,
+          partialActionDescriptor.options,
+        );
+      }
+      case "replace": {
+        const targets = this.getTargets(
+          inferenceContext,
+          partialActionDescriptor.target,
+        );
+        return this.actions.replace.run(
+          targets,
+          partialActionDescriptor.replaceWith,
+        );
+      }
       case "insertSnippet": {
         const targets = this.getTargets(
           inferenceContext,

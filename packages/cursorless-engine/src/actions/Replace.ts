@@ -1,23 +1,18 @@
-import { FlashStyle } from "@cursorless/common";
+import { FlashStyle, ReplaceWith } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-type RangeGenerator = { start: number };
-
-export default class Replace implements Action {
+export default class Replace {
   constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
-  private getTexts(
-    targets: Target[],
-    replaceWith: string[] | RangeGenerator,
-  ): string[] {
+  private getTexts(targets: Target[], replaceWith: ReplaceWith): string[] {
     if (Array.isArray(replaceWith)) {
       // Broadcast single text to each target
       if (replaceWith.length === 1) {
@@ -34,7 +29,7 @@ export default class Replace implements Action {
 
   async run(
     targets: Target[],
-    replaceWith: string[] | RangeGenerator,
+    replaceWith: ReplaceWith,
   ): Promise<ActionReturnValue> {
     await flashTargets(ide(), targets, FlashStyle.pendingModification0);
 

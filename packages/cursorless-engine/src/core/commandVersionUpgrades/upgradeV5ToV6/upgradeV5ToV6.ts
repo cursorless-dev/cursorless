@@ -2,6 +2,7 @@ import {
   ActionCommandV5,
   CommandV5,
   CommandV6,
+  ExecuteCommandOptions,
   ImplicitTargetDescriptor,
   InsertSnippetArg,
   InsertionMode,
@@ -20,6 +21,7 @@ import {
   PartialTargetDescriptor,
   PartialTargetDescriptorV5,
   PositionModifierV5,
+  ReplaceWith,
   WrapWithSnippetArg,
 } from "@cursorless/common";
 
@@ -73,6 +75,19 @@ function upgradeAction(
       return {
         name: action.name,
         snippetDescription: action.args![0] as WrapWithSnippetArg,
+        target: upgradeTarget(targets[0]),
+      };
+    case "executeCommand":
+      return {
+        name: action.name,
+        commandId: action.args![0] as string,
+        options: action.args?.[1] as ExecuteCommandOptions,
+        target: upgradeTarget(targets[0]),
+      };
+    case "replace":
+      return {
+        name: action.name,
+        replaceWith: action.args![0] as ReplaceWith,
         target: upgradeTarget(targets[0]),
       };
     default:

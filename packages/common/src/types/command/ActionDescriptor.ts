@@ -11,7 +11,6 @@ const simpleActionNames = [
   "deselect",
   "editNewLineAfter",
   "editNewLineBefore",
-  "executeCommand",
   "experimental.setInstanceReference",
   "extractVariable",
   "findInWorkspace",
@@ -30,7 +29,6 @@ const simpleActionNames = [
   "randomizeTargets",
   "remove",
   "rename",
-  "replace",
   "revealDefinition",
   "revealTypeDefinition",
   "reverseTargets",
@@ -53,9 +51,11 @@ const simpleActionNames = [
 const complexActionNames = [
   "callAsFunction",
   "editNew",
+  "executeCommand",
   "insertSnippet",
   "moveToTarget",
   "pasteFromClipboard",
+  "replace",
   "replaceWithTarget",
   "rewrapWithPairedDelimiter",
   "swapTargets",
@@ -138,6 +138,29 @@ export interface PartialWrapSnippetActionDescriptor {
   target: PartialTargetDescriptor;
 }
 
+export interface ExecuteCommandOptions {
+  commandArgs?: any[];
+  ensureSingleEditor?: boolean;
+  ensureSingleTarget?: boolean;
+  restoreSelection?: boolean;
+  showDecorations?: boolean;
+}
+
+export interface PartialExecuteCommandActionDescriptor {
+  name: "executeCommand";
+  commandId: string;
+  options: ExecuteCommandOptions; // TODO: make optional?
+  target: PartialTargetDescriptor;
+}
+
+export type ReplaceWith = string[] | { start: number };
+
+export interface PartialReplaceActionDescriptor {
+  name: "replace";
+  replaceWith: ReplaceWith;
+  target: PartialTargetDescriptor;
+}
+
 export type PartialActionDescriptor =
   | PartialSimpleActionDescriptor
   | PartialBringMoveActionDescriptor
@@ -145,4 +168,6 @@ export type PartialActionDescriptor =
   | PartialWrapWithPairedDelimiterActionDescriptor
   | PartialPasteActionDescriptor
   | PartialInsertSnippetActionDescriptor
-  | PartialWrapSnippetActionDescriptor;
+  | PartialWrapSnippetActionDescriptor
+  | PartialExecuteCommandActionDescriptor
+  | PartialReplaceActionDescriptor;

@@ -191,6 +191,8 @@ export default class KeyboardCommandsTargeted {
       case "rewrapWithPairedDelimiter":
       case "insertSnippet":
       case "wrapWithSnippet":
+      case "executeCommand":
+      case "replace":
         throw Error(`Unsupported keyboard action: ${action}`);
       case "replaceWithTarget":
       case "moveToTarget":
