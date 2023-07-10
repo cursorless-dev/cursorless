@@ -8,10 +8,8 @@ import {
   OutdatedExtensionError,
   PartialActionDescriptor,
   PartialTargetDescriptor,
-  showWarning,
   SimpleScopeTypeType,
 } from "@cursorless/common";
-import { ide } from "../../singletons/ide.singleton";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors.1";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import canonicalizeActionName from "./canonicalizeActionName";
