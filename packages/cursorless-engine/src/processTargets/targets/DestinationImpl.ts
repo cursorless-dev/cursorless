@@ -34,10 +34,6 @@ export default class DestinationImpl implements Destination {
     );
   }
 
-  withTarget(target: Target): Destination {
-    return new DestinationImpl(target, this.insertionMode);
-  }
-
   getEditNewActionType(): EditNewActionType {
     if (
       this.insertionDelimiter === "\n" &&

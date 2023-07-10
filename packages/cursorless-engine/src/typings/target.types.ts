@@ -169,6 +169,5 @@ export interface Destination {
   insertionMode: InsertionMode;
   target: Target;
   constructChangeEdit(text: string): EditWithRangeUpdater;
-  withTarget(target: Target): Destination;
   isEqual(destination: Destination): boolean;
 }
