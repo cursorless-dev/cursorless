@@ -490,7 +490,7 @@
             },
             "iteration": {
               "background": "#00725f6c",
-              "borderSolid": "#00ffd577",
+              "borderSolid": "#00ffd578",
               "borderPorous": "#00ffd525"
             }
           }
@@ -571,13 +571,13 @@
           "default": {
             "domain": {
               "background": "#00e1ff18",
-              "borderSolid": "#ebdeec84",
-              "borderPorous": "#ebdeec3b"
+              "borderSolid": "#19171984",
+              "borderPorous": "#1211123b"
             },
             "content": {
               "background": "#ad00bc5b",
               "borderSolid": "#ee00ff78",
-              "borderPorous": "#ebdeec3b"
+              "borderPorous": "#ee00ff4e"
             },
             "removal": {
               "background": "#ff00002d",
@@ -586,7 +586,7 @@
             },
             "iteration": {
               "background": "#00725f6c",
-              "borderSolid": "#00ffd577",
+              "borderSolid": "#00ffd578",
               "borderPorous": "#00ffd525"
             }
           }
