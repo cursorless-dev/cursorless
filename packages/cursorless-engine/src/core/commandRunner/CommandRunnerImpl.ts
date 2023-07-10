@@ -95,23 +95,40 @@ export class CommandRunnerImpl implements CommandRunner {
         );
         return this.actions.swapTargets.run(targets1, targets2);
       }
-      case "wrapWithPairedDelimiter":
-      case "rewrapWithPairedDelimiter": {
+      case "callAsFunction": {
+        const sources = this.getTargets(
+          inferenceContext,
+          partialActionDescriptor.source,
+        );
+        const destinations = this.getTargets(
+          inferenceContext,
+          partialActionDescriptor.destination,
+        );
+        return this.actions.callAsFunction.run(sources, destinations);
+      }
+      case "wrapWithPairedDelimiter": {
         const targets = this.getTargets(
           inferenceContext,
           partialActionDescriptor.target,
         );
-        return partialActionDescriptor.name === "wrapWithPairedDelimiter"
-          ? this.actions.wrapWithPairedDelimiter.run(
-              targets,
-              partialActionDescriptor.left,
-              partialActionDescriptor.right,
-            )
-          : this.actions.rewrapWithPairedDelimiter.run(
-              targets,
-              partialActionDescriptor.left,
-              partialActionDescriptor.right,
-            );
+        return this.actions.wrapWithPairedDelimiter.run(
+          targets,
+          partialActionDescriptor.left,
+          partialActionDescriptor.right,
+        );
+      }
+      case "rewrapWithPairedDelimiter": {
+        const targets = this.getTargets(
+          inferenceContext,
+          partialActionDescriptor.target,
+          undefined,
+          this.actions.rewrapWithPairedDelimiter.getFinalStages(),
+        );
+        return this.actions.rewrapWithPairedDelimiter.run(
+          targets,
+          partialActionDescriptor.left,
+          partialActionDescriptor.right,
+        );
       }
       case "pasteFromClipboard": {
         const destinations = this.getDestinations(
@@ -139,6 +156,16 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.actions.replace.run(
           targets,
           partialActionDescriptor.replaceWith,
+        );
+      }
+      case "generateSnippet": {
+        const targets = this.getTargets(
+          inferenceContext,
+          partialActionDescriptor.target,
+        );
+        return this.actions.generateSnippet.run(
+          targets,
+          partialActionDescriptor.snippetName,
         );
       }
       case "insertSnippet": {

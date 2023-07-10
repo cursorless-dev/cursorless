@@ -16,7 +16,6 @@ const simpleActionNames = [
   "findInWorkspace",
   "foldRegion",
   "followLink",
-  "generateSnippet",
   "getText",
   "highlight",
   "indentLine",
@@ -52,6 +51,7 @@ const complexActionNames = [
   "callAsFunction",
   "editNew",
   "executeCommand",
+  "generateSnippet",
   "insertSnippet",
   "moveToTarget",
   "pasteFromClipboard",
@@ -82,6 +82,12 @@ export interface PartialBringMoveActionDescriptor {
   destination: PartialDestinationDescriptor;
 }
 
+export interface PartialCallActionDescriptor {
+  name: "callAsFunction";
+  source: PartialTargetDescriptor;
+  destination: PartialTargetDescriptor;
+}
+
 export interface PartialSwapActionDescriptor {
   name: "swapTargets";
   target1: PartialTargetDescriptor;
@@ -98,6 +104,12 @@ export interface PartialWrapWithPairedDelimiterActionDescriptor {
 export interface PartialPasteActionDescriptor {
   name: "pasteFromClipboard";
   destination: PartialDestinationDescriptor;
+}
+
+export interface PartialGenerateSnippetActionDescriptor {
+  name: "generateSnippet";
+  snippetName?: string;
+  target: PartialTargetDescriptor;
 }
 
 interface NamedSnippetArg {
@@ -149,7 +161,7 @@ export interface ExecuteCommandOptions {
 export interface PartialExecuteCommandActionDescriptor {
   name: "executeCommand";
   commandId: string;
-  options: ExecuteCommandOptions; // TODO: make optional?
+  options?: ExecuteCommandOptions;
   target: PartialTargetDescriptor;
 }
 
@@ -165,8 +177,10 @@ export type PartialActionDescriptor =
   | PartialSimpleActionDescriptor
   | PartialBringMoveActionDescriptor
   | PartialSwapActionDescriptor
+  | PartialCallActionDescriptor
   | PartialWrapWithPairedDelimiterActionDescriptor
   | PartialPasteActionDescriptor
+  | PartialGenerateSnippetActionDescriptor
   | PartialInsertSnippetActionDescriptor
   | PartialWrapSnippetActionDescriptor
   | PartialExecuteCommandActionDescriptor

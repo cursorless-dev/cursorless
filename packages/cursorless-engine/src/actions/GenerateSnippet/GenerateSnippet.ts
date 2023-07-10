@@ -4,7 +4,7 @@ import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
 import { matchAll } from "../../util/regex";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
-import { Action, ActionReturnValue } from "../actions.types";
+import { ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import { openNewSnippetFile } from "./openNewSnippetFile";
@@ -45,7 +45,7 @@ import Substituter from "./Substituter";
  * very similar to snippet placeholders, so we would end up with lots of
  * confusing escaping.
  */
-export default class GenerateSnippet implements Action {
+export default class GenerateSnippet {
   constructor() {
     this.run = this.run.bind(this);
   }

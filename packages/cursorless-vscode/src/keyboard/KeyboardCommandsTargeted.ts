@@ -213,6 +213,15 @@ export default class KeyboardCommandsTargeted {
           },
         });
         break;
+      case "callAsFunction":
+        returnValue = await executeCursorlessCommand({
+          action: {
+            name: action,
+            source: target,
+            destination: { type: "implicit" },
+          },
+        });
+        break;
       case "pasteFromClipboard":
         returnValue = await executeCursorlessCommand({
           action: {

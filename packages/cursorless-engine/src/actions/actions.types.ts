@@ -97,9 +97,13 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
       left: string,
       right: string,
     ): Promise<ActionReturnValue>;
+    getFinalStages(): ModifierStage[];
   };
   pasteFromClipboard: {
     run(destinations: Destination[]): Promise<ActionReturnValue>;
+  };
+  generateSnippet: {
+    run(targets: Target[], snippetName?: string): Promise<ActionReturnValue>;
   };
   insertSnippet: {
     run(

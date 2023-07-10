@@ -52,6 +52,12 @@ function upgradeAction(
         target1: upgradeTarget(targets[0]),
         target2: upgradeTarget(targets[1]),
       };
+    case "callAsFunction":
+      return {
+        name: action.name,
+        source: upgradeTarget(targets[0]),
+        destination: upgradeTarget(targets[1]),
+      };
     case "pasteFromClipboard":
       return {
         name: action.name,
@@ -63,6 +69,12 @@ function upgradeAction(
         name: action.name,
         left: action.args![0] as string,
         right: action.args![1] as string,
+        target: upgradeTarget(targets[0]),
+      };
+    case "generateSnippet":
+      return {
+        name: action.name,
+        snippetName: action.args?.[0] as string,
         target: upgradeTarget(targets[0]),
       };
     case "insertSnippet":

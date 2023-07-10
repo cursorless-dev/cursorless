@@ -3,6 +3,7 @@ import {
   Command,
   CommandComplete,
   CommandLatest,
+  EnforceUndefined,
   LATEST_VERSION,
   Modifier,
   OutdatedExtensionError,
@@ -30,8 +31,7 @@ import { upgradeV5ToV6 } from "./upgradeV5ToV6";
  */
 export function canonicalizeAndValidateCommand(
   command: Command,
-  // ): EnforceUndefined<CommandComplete> {// TODO:
-): CommandComplete {
+): EnforceUndefined<CommandComplete> {
   const commandUpgraded = upgradeCommand(command);
   const { action, usePrePhraseSnapshot = false, spokenForm } = commandUpgraded;
 
