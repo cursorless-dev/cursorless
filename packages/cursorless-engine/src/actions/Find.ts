@@ -10,12 +10,12 @@ export class FindInWorkspace implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
-    const { returnValue, thatTargets } = await this.actions.getText.run([
+    const { returnValue, thatTargets } = await this.actions.getText.run(
       targets,
-    ]);
+    );
     const [text] = returnValue as [string];
 
     let query: string;

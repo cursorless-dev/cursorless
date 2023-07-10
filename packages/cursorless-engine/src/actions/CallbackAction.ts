@@ -38,7 +38,7 @@ export class CallbackAction implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     options: CallbackOptions,
   ): Promise<ActionReturnValue> {
     if (options.showDecorations) {

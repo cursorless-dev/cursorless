@@ -8,11 +8,7 @@ import {
 } from "@cursorless/common";
 import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import type {
-  Destination,
-  EditNewActionType,
-  Target,
-} from "../../typings/target.types";
+import type { Destination, Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
@@ -91,24 +87,12 @@ export default abstract class BaseTarget<
     return this.state.contentRange;
   }
 
-  constructChangeEdit(text: string): EditWithRangeUpdater {
-    return {
-      range: this.contentRange,
-      text,
-      updateRange: (range) => range,
-    };
-  }
-
   constructRemovalEdit(): EditWithRangeUpdater {
     return {
       range: this.getRemovalRange(),
       text: "",
       updateRange: (range) => range,
     };
-  }
-
-  getEditNewActionType(): EditNewActionType {
-    return "edit";
   }
 
   getRemovalHighlightRange(): Range {

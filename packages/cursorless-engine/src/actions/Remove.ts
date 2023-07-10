@@ -15,7 +15,7 @@ export default class Delete implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     { showDecorations = true } = {},
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.

@@ -51,7 +51,7 @@ export default class GenerateSnippet implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     snippetName?: string,
   ): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);

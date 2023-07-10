@@ -27,7 +27,7 @@ export default class ExecuteCommand implements Action {
   }
 
   async run(
-    targets: [Target[]],
+    targets: Target[],
     commandId: string,
     {
       commandArgs,

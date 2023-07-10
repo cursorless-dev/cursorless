@@ -116,7 +116,9 @@ abstract class BringMoveSwap {
         usedSources.push(source);
         if (this.type !== "move") {
           results.push({
-            edit: source.constructChangeEdit(destination.target.contentText),
+            edit: source
+              .toDestination("to")
+              .constructChangeEdit(destination.target.contentText),
             editor: source.editor,
             originalTarget: source,
             isSource: true,
@@ -291,6 +293,7 @@ export class Bring extends BringMoveSwap {
 
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "bring");
+    this.run = this.run.bind(this);
   }
 
   async run(
@@ -325,6 +328,7 @@ export class Move extends BringMoveSwap {
 
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "move");
+    this.run = this.run.bind(this);
   }
 
   async run(
@@ -359,6 +363,7 @@ export class Swap extends BringMoveSwap {
 
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "swap");
+    this.run = this.run.bind(this);
   }
 
   async run(
@@ -387,7 +392,9 @@ export class Swap extends BringMoveSwap {
 
       // Add destination edit
       results.push({
-        edit: destination.constructChangeEdit(source.contentText),
+        edit: destination
+          .toDestination("to")
+          .constructChangeEdit(source.contentText),
         editor: destination.editor,
         originalTarget: destination,
         isSource: false,
@@ -395,7 +402,9 @@ export class Swap extends BringMoveSwap {
 
       // Add source edit
       results.push({
-        edit: source.constructChangeEdit(destination.contentText),
+        edit: source
+          .toDestination("to")
+          .constructChangeEdit(destination.contentText),
         editor: source.editor,
         originalTarget: source,
         isSource: true,

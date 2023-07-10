@@ -137,7 +137,6 @@ export interface Target {
   getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range;
-  getEditNewActionType(): EditNewActionType;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
   createContinuousRangeTarget(
@@ -146,8 +145,6 @@ export interface Target {
     includeStart: boolean,
     includeEnd: boolean,
   ): Target;
-  /** Constructs change/insertion edit. Adds delimiter before/after if needed */
-  constructChangeEdit(text: string): EditWithRangeUpdater;
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;
@@ -169,8 +166,10 @@ export interface Destination {
   readonly insertionMode: InsertionMode;
   readonly editor: TextEditor;
   readonly target: Target;
+  readonly contentRange: Range;
   readonly isRaw: boolean;
   readonly insertionDelimiter: string;
+  getEditNewActionType(): EditNewActionType;
+  /** Constructs change/insertion edit. Adds delimiter before/after if needed */
   constructChangeEdit(text: string): EditWithRangeUpdater;
-  isEqual(destination: Destination): boolean;
 }

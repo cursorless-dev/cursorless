@@ -13,7 +13,7 @@ export default class Highlight implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     highlightId?: HighlightId,
   ): Promise<ActionReturnValue> {
     if (ide().capabilities.commands["highlight"] == null) {

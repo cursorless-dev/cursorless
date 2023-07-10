@@ -12,7 +12,7 @@ import {
 } from "../../typings/target.types";
 
 export default class DestinationImpl implements Destination {
-  private readonly contentRange: Range;
+  public readonly contentRange: Range;
   private readonly isLineDelimiter: boolean;
   private readonly isBefore: boolean;
   private readonly indentationString: string;
@@ -25,13 +25,6 @@ export default class DestinationImpl implements Destination {
     this.indentationString = this.isLineDelimiter
       ? getIndentationString(target.editor, target.contentRange)
       : "";
-  }
-
-  isEqual(destination: Destination): boolean {
-    return (
-      this.insertionMode === destination.insertionMode &&
-      this.target.isEqual(destination.target)
-    );
   }
 
   getEditNewActionType(): EditNewActionType {

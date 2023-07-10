@@ -9,7 +9,7 @@ export default class Deselect implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     await runOnTargetsForEachEditor(targets, async (editor, targets) => {
       // Remove selections with a non-empty intersection
       const newSelections = editor.selections.filter(

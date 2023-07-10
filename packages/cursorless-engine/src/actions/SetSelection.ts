@@ -14,7 +14,7 @@ export class SetSelection implements Action {
     return target.contentSelection;
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
 
     const selections = targets.map(this.getSelection);

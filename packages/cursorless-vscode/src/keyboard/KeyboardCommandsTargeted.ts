@@ -3,6 +3,7 @@ import {
   CommandLatest,
   ImplicitTargetDescriptor,
   LATEST_VERSION,
+  PartialActionDescriptor,
   PartialDestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
@@ -187,6 +188,9 @@ export default class KeyboardCommandsTargeted {
 
     switch (action) {
       case "wrapWithPairedDelimiter":
+      case "rewrapWithPairedDelimiter":
+      case "insertSnippet":
+      case "wrapWithSnippet":
         throw Error(`Unsupported keyboard action: ${action}`);
       case "replaceWithTarget":
       case "moveToTarget":
@@ -220,7 +224,7 @@ export default class KeyboardCommandsTargeted {
           action: {
             name: action,
             target,
-          },
+          } as PartialActionDescriptor, // TODO:
         });
     }
 

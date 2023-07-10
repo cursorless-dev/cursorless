@@ -1,4 +1,5 @@
 import {
+  InsertSnippetArg,
   RangeExpansionBehavior,
   ScopeType,
   Snippet,
@@ -13,6 +14,7 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
+import { UntypedTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
 import {
   findMatchingSnippetDefinitionStrict,
@@ -22,23 +24,9 @@ import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
-import { UntypedTarget } from "../processTargets/targets";
+import { ActionReturnValue } from "./actions.types";
 
-interface NamedSnippetArg {
-  type: "named";
-  name: string;
-  substitutions?: Record<string, string>;
-}
-interface CustomSnippetArg {
-  type: "custom";
-  body: string;
-  scopeType?: ScopeType;
-  substitutions?: Record<string, string>;
-}
-type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
-
-export default class InsertSnippet implements Action {
+export default class InsertSnippet {
   private snippetParser = new SnippetParser();
 
   constructor(
@@ -121,12 +109,12 @@ export default class InsertSnippet implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
 
-    await this.actions.editNew.run([targets]);
+    await this.actions.editNew.run(targets);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
       getSelectionInfo(

@@ -1,10 +1,7 @@
-import { InsertionMode } from "@cursorless/common";
-import {
-  BaseTarget,
-  CommonTargetParameters,
-  removalUnsupportedForPosition,
-} from ".";
-import { Target } from "../../typings/target.types";
+import { InsertionMode, Range, TextEditor } from "@cursorless/common";
+import { BaseTarget, CommonTargetParameters } from ".";
+import { EditWithRangeUpdater } from "../../typings/Types";
+import { Destination, EditNewActionType } from "../../typings/target.types";
 
 export default class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
   type = "NotebookCellTarget";
@@ -23,38 +20,38 @@ export default class NotebookCellTarget extends BaseTarget<CommonTargetParameter
     return this.state;
   }
 
-  toPositionTarget(insertionMode: InsertionMode): Target {
-    return new NotebookCellPositionTarget({
-      ...this.state,
-      thatTarget: this,
-      insertionMode,
-    });
+  toDestination(insertionMode: InsertionMode): Destination {
+    return new NotebookCellDestination(this, insertionMode);
   }
 }
 
-interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
-  readonly insertionMode: InsertionMode;
-}
+export class NotebookCellDestination implements Destination {
+  constructor(
+    public target: NotebookCellTarget,
+    public insertionMode: InsertionMode,
+  ) {}
 
-export class NotebookCellPositionTarget extends BaseTarget<NotebookCellPositionTargetParameters> {
-  type = "NotebookCellPositionTarget";
-  insertionDelimiter = "\n";
-  isNotebookCell = true;
-  public insertionMode: InsertionMode;
-
-  constructor(parameters: NotebookCellPositionTargetParameters) {
-    super(parameters);
-    this.insertionMode = parameters.insertionMode;
+  get editor(): TextEditor {
+    return this.target.editor;
   }
 
-  getLeadingDelimiterTarget = () => undefined;
-  getTrailingDelimiterTarget = () => undefined;
-  getRemovalRange = () => removalUnsupportedForPosition(this.insertionMode);
+  get contentRange(): Range {
+    return this.target.contentRange;
+  }
 
-  protected getCloneParameters(): NotebookCellPositionTargetParameters {
-    return {
-      ...this.state,
-      insertionMode: this.insertionMode,
-    };
+  get insertionDelimiter(): string {
+    return this.target.insertionDelimiter;
+  }
+
+  get isRaw(): boolean {
+    return this.target.isRaw;
+  }
+
+  getEditNewActionType(): EditNewActionType {
+    throw new Error("Method not implemented.");
+  }
+
+  constructChangeEdit(_text: string): EditWithRangeUpdater {
+    throw new Error("Method not implemented.");
   }
 }

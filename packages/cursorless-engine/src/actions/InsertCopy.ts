@@ -30,7 +30,7 @@ class InsertCopy implements Action {
     this.runForEditor = this.runForEditor.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, this.runForEditor),
     );

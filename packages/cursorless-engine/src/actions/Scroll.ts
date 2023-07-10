@@ -13,7 +13,7 @@ class Scroll implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const selectionGroups = groupBy(targets, (t: Target) => t.editor);
 
     const lines = Array.from(selectionGroups, ([editor, targets]) => {

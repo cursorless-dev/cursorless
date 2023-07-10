@@ -11,7 +11,7 @@ export default class Clear implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const editor = ensureSingleEditor(targets);
     // Convert to plain targets so that the remove action just removes the
     // content range instead of the removal range
@@ -24,7 +24,7 @@ export default class Clear implements Action {
         }),
     );
 
-    const { thatTargets } = await this.actions.remove.run([plainTargets]);
+    const { thatTargets } = await this.actions.remove.run(plainTargets);
 
     if (thatTargets != null) {
       await setSelectionsAndFocusEditor(

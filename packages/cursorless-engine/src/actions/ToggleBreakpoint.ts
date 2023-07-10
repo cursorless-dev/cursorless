@@ -15,7 +15,7 @@ export default class ToggleBreakpoint implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[], Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const thatTargets = targets.map(({ thatTarget }) => thatTarget);
 
     await flashTargets(ide(), thatTargets, FlashStyle.referenced);

@@ -3,6 +3,7 @@ import {
   CommandV5,
   CommandV6,
   ImplicitTargetDescriptor,
+  InsertSnippetArg,
   InsertionMode,
   Modifier,
   ModifierV5,
@@ -19,6 +20,7 @@ import {
   PartialTargetDescriptor,
   PartialTargetDescriptorV5,
   PositionModifierV5,
+  WrapWithSnippetArg,
 } from "@cursorless/common";
 
 export function upgradeV5ToV6(command: CommandV5): CommandV6 {
@@ -54,17 +56,30 @@ function upgradeAction(
         destination: targetToDestination(targets[0]),
       };
     case "wrapWithPairedDelimiter":
+    case "rewrapWithPairedDelimiter":
       return {
         name: action.name,
         left: action.args![0] as string,
         right: action.args![1] as string,
         target: upgradeTarget(targets[0]),
       };
+    case "insertSnippet":
+      return {
+        name: action.name,
+        snippetDescription: action.args![0] as InsertSnippetArg,
+        target: upgradeTarget(targets[0]),
+      };
+    case "wrapWithSnippet":
+      return {
+        name: action.name,
+        snippetDescription: action.args![0] as WrapWithSnippetArg,
+        target: upgradeTarget(targets[0]),
+      };
     default:
       return {
         name: action.name,
         target: upgradeTarget(targets[0]),
-      };
+      } as PartialActionDescriptor; // TODO:
   }
 }
 

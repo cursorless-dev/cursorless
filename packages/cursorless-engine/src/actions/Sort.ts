@@ -10,14 +10,14 @@ abstract class SortBase implements Action {
 
   protected abstract sortTexts(texts: string[]): string[];
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     // First sort target by document order
     const sortedTargets = targets
       .slice()
       .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start));
 
     const { returnValue: unsortedTexts } = await this.actions.getText.run(
-      [sortedTargets],
+      sortedTargets,
       {
         showDecorations: false,
       },
@@ -25,7 +25,7 @@ abstract class SortBase implements Action {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.actions.replace.run([sortedTargets], sortedTexts);
+    return this.actions.replace.run(sortedTargets, sortedTexts);
   }
 }
 

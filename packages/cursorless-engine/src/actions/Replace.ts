@@ -33,7 +33,7 @@ export default class Replace implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     replaceWith: string[] | RangeGenerator,
   ): Promise<ActionReturnValue> {
     await flashTargets(ide(), targets, FlashStyle.pendingModification0);
@@ -45,7 +45,7 @@ export default class Replace implements Action {
     }
 
     const edits = zip(targets, texts).map(([target, text]) => ({
-      edit: target!.constructChangeEdit(text!),
+      edit: target!.toDestination("to").constructChangeEdit(text!),
       editor: target!.editor,
     }));
 

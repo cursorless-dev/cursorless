@@ -1,18 +1,18 @@
 import {
   PartialDestinationDescriptor,
   PartialTargetDescriptor,
+  ScopeType,
 } from "./PartialTargetDescriptor.types";
 
 const simpleActionNames = [
-  "callAsFunction",
   "clearAndSetSelection",
   "copyToClipboard",
   "cutToClipboard",
   "deselect",
-  "editNew",
   "editNewLineAfter",
   "editNewLineBefore",
   "executeCommand",
+  "experimental.setInstanceReference",
   "extractVariable",
   "findInWorkspace",
   "foldRegion",
@@ -26,7 +26,6 @@ const simpleActionNames = [
   "insertEmptyLineAfter",
   "insertEmptyLineBefore",
   "insertEmptyLinesAround",
-  "insertSnippet",
   "outdentLine",
   "randomizeTargets",
   "remove",
@@ -35,8 +34,6 @@ const simpleActionNames = [
   "revealDefinition",
   "revealTypeDefinition",
   "reverseTargets",
-  "rewrapWithPairedDelimiter",
-  "experimental.setInstanceReference",
   "scrollToBottom",
   "scrollToCenter",
   "scrollToTop",
@@ -51,15 +48,19 @@ const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
-  "wrapWithSnippet",
 ] as const;
 
 const complexActionNames = [
-  "replaceWithTarget",
+  "callAsFunction",
+  "editNew",
+  "insertSnippet",
   "moveToTarget",
-  "swapTargets",
   "pasteFromClipboard",
+  "replaceWithTarget",
+  "rewrapWithPairedDelimiter",
+  "swapTargets",
   "wrapWithPairedDelimiter",
+  "wrapWithSnippet",
 ] as const;
 
 export const actionNames = [
@@ -87,15 +88,53 @@ export interface PartialSwapActionDescriptor {
   target2: PartialTargetDescriptor;
 }
 
+export interface PartialWrapWithPairedDelimiterActionDescriptor {
+  name: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
+  left: string;
+  right: string;
+  target: PartialTargetDescriptor;
+}
+
 export interface PartialPasteActionDescriptor {
   name: "pasteFromClipboard";
   destination: PartialDestinationDescriptor;
 }
 
-export interface PartialWrapWithPairedDelimiterActionDescriptor {
-  name: "wrapWithPairedDelimiter";
-  left: string;
-  right: string;
+interface NamedSnippetArg {
+  type: "named";
+  name: string;
+  substitutions?: Record<string, string>;
+}
+interface CustomSnippetArg {
+  type: "custom";
+  body: string;
+  scopeType?: ScopeType;
+  substitutions?: Record<string, string>;
+}
+export type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
+
+export interface PartialInsertSnippetActionDescriptor {
+  name: "insertSnippet";
+  snippetDescription: InsertSnippetArg;
+  target: PartialTargetDescriptor;
+}
+
+interface NamedSnippetArg {
+  type: "named";
+  name: string;
+  variableName: string;
+}
+interface CustomSnippetArg {
+  type: "custom";
+  body: string;
+  variableName?: string;
+  scopeType?: ScopeType;
+}
+export type WrapWithSnippetArg = NamedSnippetArg | CustomSnippetArg;
+
+export interface PartialWrapSnippetActionDescriptor {
+  name: "wrapWithSnippet";
+  snippetDescription: WrapWithSnippetArg;
   target: PartialTargetDescriptor;
 }
 
@@ -103,5 +142,7 @@ export type PartialActionDescriptor =
   | PartialSimpleActionDescriptor
   | PartialBringMoveActionDescriptor
   | PartialSwapActionDescriptor
+  | PartialWrapWithPairedDelimiterActionDescriptor
   | PartialPasteActionDescriptor
-  | PartialWrapWithPairedDelimiterActionDescriptor;
+  | PartialInsertSnippetActionDescriptor
+  | PartialWrapSnippetActionDescriptor;

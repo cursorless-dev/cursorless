@@ -10,7 +10,7 @@ export default class GetText implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     {
       showDecorations = true,
       ensureSingleTarget: doEnsureSingleTarget = false,

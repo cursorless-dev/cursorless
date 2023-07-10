@@ -1,4 +1,8 @@
-import type { SimpleActionName } from "@cursorless/common";
+import type {
+  InsertSnippetArg,
+  SimpleActionName,
+  WrapWithSnippetArg,
+} from "@cursorless/common";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import type { SelectionWithEditor } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
@@ -47,25 +51,22 @@ export interface ActionReturnValue {
 }
 
 export interface Action {
-  run(targets: Target[][], ...args: any[]): Promise<ActionReturnValue>;
-
-  /**
-   * Used to define stages that should be run before the final positional stage, if there is one
-   * @param args Extra args to command
-   */
-  getPrePositionStages?(...args: any[]): ModifierStage[];
+  run(targets: Target[], ...args: any[]): Promise<ActionReturnValue>;
 
   /**
    * Used to define final stages that should be run at the end of the pipeline before the action
    * @param args Extra args to command
    */
-  getFinalStages?(...args: any[]): ModifierStage[];
+  getFinalStages?(): ModifierStage[];
 }
 
 /**
  * Keeps a map from action names to objects that implement the given action
  */
 export interface ActionRecord extends Record<SimpleActionName, Action> {
+  callAsFunction: {
+    run(sources: Target[], destinations: Target[]): Promise<ActionReturnValue>;
+  };
   replaceWithTarget: {
     run(
       sources: Target[],
@@ -79,6 +80,41 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
     ): Promise<ActionReturnValue>;
   };
   swapTargets: {
-    run(target1: Target[], target2: Target[]): Promise<ActionReturnValue>;
+    run(targets1: Target[], targets2: Target[]): Promise<ActionReturnValue>;
+  };
+  wrapWithPairedDelimiter: {
+    run(
+      targets: Target[],
+      left: string,
+      right: string,
+    ): Promise<ActionReturnValue>;
+  };
+  rewrapWithPairedDelimiter: {
+    run(
+      targets: Target[],
+      left: string,
+      right: string,
+    ): Promise<ActionReturnValue>;
+  };
+  pasteFromClipboard: {
+    run(destinations: Destination[]): Promise<ActionReturnValue>;
+  };
+  insertSnippet: {
+    run(
+      targets: Target[],
+      snippetDescription: InsertSnippetArg,
+    ): Promise<ActionReturnValue>;
+    getPrePositionStages(snippetDescription: InsertSnippetArg): ModifierStage[];
+  };
+  wrapWithSnippet: {
+    run(
+      targets: Target[],
+      snippetDescription: WrapWithSnippetArg,
+    ): Promise<ActionReturnValue>;
+    getFinalStages(snippetDescription: WrapWithSnippetArg): ModifierStage[];
+  };
+  editNew: {
+    run(targets: Target[]): Promise<ActionReturnValue>;
+    runDestinations(destinations: Destination[]): Promise<ActionReturnValue>;
   };
 }

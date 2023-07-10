@@ -6,7 +6,7 @@ export class SetInstanceReference implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     return {
       thatTargets: targets,
       instanceReferenceTargets: targets,

@@ -26,16 +26,24 @@ export class EditNew implements Action {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-    if (targets.some((target) => target.isNotebookCell)) {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
+    return this.runDestinations(
+      targets.map((target) => this.toDestination(target)),
+    );
+  }
+
+  async runDestinations(
+    destinations: Destination[],
+  ): Promise<ActionReturnValue> {
+    if (destinations.some(({ target }) => target.isNotebookCell)) {
       // It is not possible to "pour" a notebook cell and something else,
       // because each notebook cell is its own editor, and you can't have
       // cursors in multiple editors.
-      return runEditNewNotebookCellTargets(this.actions, targets);
+      return runEditNewNotebookCellTargets(this.actions, destinations);
     }
 
     const editableEditor = ide().getEditableTextEditor(
-      ensureSingleEditor(targets),
+      ensureSingleEditor(destinations.map((d) => d.target)),
     );
 
     /**
@@ -43,9 +51,11 @@ export class EditNew implements Action {
      * perform the necessary commands and edits.
      */
     let state: State = {
-      targets,
-      thatRanges: targets.map(({ thatTarget }) => thatTarget.contentRange),
-      cursorRanges: new Array(targets.length).fill(undefined) as undefined[],
+      destinations,
+      thatRanges: destinations.map(({ target }) => target.contentRange),
+      cursorRanges: new Array(destinations.length).fill(
+        undefined,
+      ) as undefined[],
     };
 
     state = await runInsertLineAfterTargets(
@@ -55,29 +65,32 @@ export class EditNew implements Action {
     );
     state = await runEditTargets(this.rangeUpdater, editableEditor, state);
 
-    const newSelections = state.targets.map((target, index) =>
-      state.cursorRanges[index]!.toSelection(target.isReversed),
+    const newSelections = state.destinations.map((destination, index) =>
+      state.cursorRanges[index]!.toSelection(destination.target.isReversed),
     );
     await setSelectionsAndFocusEditor(editableEditor, newSelections);
 
     return {
-      thatSelections: createThatMark(state.targets, state.thatRanges),
+      thatSelections: createThatMark(
+        state.destinations.map((d) => d.target),
+        state.thatRanges,
+      ),
     };
   }
 
-  protected getDestination(target: Target): Destination {
+  protected toDestination(target: Target): Destination {
     return target.toDestination("to");
   }
 }
 
 export class EditNewBefore extends EditNew {
-  protected getDestination(target: Target): Destination {
+  protected toDestination(target: Target): Destination {
     return target.toDestination("before");
   }
 }
 
 export class EditNewAfter extends EditNew {
-  protected getDestination(target: Target): Destination {
+  protected toDestination(target: Target): Destination {
     return target.toDestination("after");
   }
 }
