@@ -1,5 +1,6 @@
 import {
   FlashStyle,
+  Range,
   RangeExpansionBehavior,
   Selection,
   TextEditor,
@@ -38,10 +39,14 @@ interface MarkEntry {
   target: Target;
 }
 
-class BringMoveSwap {
-  constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {
-    // this.run = this.run.bind(this);
-  }
+abstract class BringMoveSwap {
+  protected abstract decoration: {
+    sourceStyle: FlashStyle;
+    destinationStyle: FlashStyle;
+    getSourceRangeCallback: (target: Target) => Range;
+  };
+
+  constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {}
 
   protected broadcastSource(sources: Target[], destinations: Destination[]) {
     if (sources.length === 1) {
@@ -52,38 +57,15 @@ class BringMoveSwap {
     return sources;
   }
 
-  private getDecorationContext() {
-    let sourceStyle: FlashStyle;
-    let getSourceRangeCallback;
-    if (this.type === "bring") {
-      sourceStyle = FlashStyle.referenced;
-      getSourceRangeCallback = getContentRange;
-    } else if (this.type === "move") {
-      sourceStyle = FlashStyle.pendingDelete;
-      getSourceRangeCallback = getRemovalHighlightRange;
-    }
-    // NB this.type === "swap"
-    else {
-      sourceStyle = FlashStyle.pendingModification1;
-      getSourceRangeCallback = getContentRange;
-    }
-    return {
-      sourceStyle,
-      destinationStyle: FlashStyle.pendingModification0,
-      getSourceRangeCallback,
-    };
-  }
-
   protected async decorateTargets(sources: Target[], destinations: Target[]) {
-    const decorationContext = this.getDecorationContext();
     await Promise.all([
       flashTargets(
         ide(),
         sources,
-        decorationContext.sourceStyle,
-        decorationContext.getSourceRangeCallback,
+        this.decoration.sourceStyle,
+        this.decoration.getSourceRangeCallback,
       ),
-      flashTargets(ide(), destinations, decorationContext.destinationStyle),
+      flashTargets(ide(), destinations, this.decoration.destinationStyle),
     ]);
   }
 
@@ -272,14 +254,13 @@ class BringMoveSwap {
   }
 
   protected async decorateThatMark(thatMark: MarkEntry[]) {
-    const decorationContext = this.getDecorationContext();
     const getRange = (target: Target) =>
       thatMark.find((t) => t.target === target)!.selection;
     return Promise.all([
       flashTargets(
         ide(),
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
-        decorationContext.sourceStyle,
+        this.decoration.sourceStyle,
         getRange,
       ),
       flashTargets(
@@ -287,30 +268,27 @@ class BringMoveSwap {
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),
-        decorationContext.destinationStyle,
+        this.decoration.destinationStyle,
         getRange,
       ),
     ]);
   }
 
-  protected calculateMarks(markEntries: MarkEntry[]) {
-    // Only swap has sources as a "that" mark
-    const thatMark =
-      this.type === "swap"
-        ? markEntries
-        : markEntries.filter(({ isSource }) => !isSource);
-
-    // Only swap doesn't have a source mark
-    const sourceMark =
-      this.type === "swap"
-        ? []
-        : markEntries.filter(({ isSource }) => isSource);
-
-    return { thatMark, sourceMark };
+  protected calculateMarksBringMove(markEntries: MarkEntry[]) {
+    return {
+      thatMark: markEntries.filter(({ isSource }) => !isSource),
+      sourceMark: markEntries.filter(({ isSource }) => isSource),
+    };
   }
 }
 
 export class Bring extends BringMoveSwap {
+  decoration = {
+    sourceStyle: FlashStyle.referenced,
+    destinationStyle: FlashStyle.pendingModification0,
+    getSourceRangeCallback: getContentRange,
+  };
+
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "bring");
   }
@@ -330,7 +308,7 @@ export class Bring extends BringMoveSwap {
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
-    const { thatMark, sourceMark } = this.calculateMarks(markEntries);
+    const { thatMark, sourceMark } = this.calculateMarksBringMove(markEntries);
 
     await this.decorateThatMark(thatMark);
 
@@ -339,6 +317,12 @@ export class Bring extends BringMoveSwap {
 }
 
 export class Move extends BringMoveSwap {
+  decoration = {
+    sourceStyle: FlashStyle.pendingDelete,
+    destinationStyle: FlashStyle.pendingModification0,
+    getSourceRangeCallback: getRemovalHighlightRange,
+  };
+
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "move");
   }
@@ -358,7 +342,7 @@ export class Move extends BringMoveSwap {
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
-    const { thatMark, sourceMark } = this.calculateMarks(markEntries);
+    const { thatMark, sourceMark } = this.calculateMarksBringMove(markEntries);
 
     await this.decorateThatMark(thatMark);
 
@@ -367,6 +351,12 @@ export class Move extends BringMoveSwap {
 }
 
 export class Swap extends BringMoveSwap {
+  decoration = {
+    sourceStyle: FlashStyle.pendingModification1,
+    destinationStyle: FlashStyle.pendingModification0,
+    getSourceRangeCallback: getContentRange,
+  };
+
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "swap");
   }
@@ -381,11 +371,9 @@ export class Swap extends BringMoveSwap {
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
-    const { thatMark, sourceMark } = this.calculateMarks(markEntries);
+    await this.decorateThatMark(markEntries);
 
-    await this.decorateThatMark(thatMark);
-
-    return { thatSelections: thatMark, sourceSelections: sourceMark };
+    return { thatSelections: markEntries };
   }
 
   private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
