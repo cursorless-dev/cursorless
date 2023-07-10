@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck sentence
+  action: {name: remove}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: sentence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: Foo foo. Bar bar!baz?
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: Bar bar!baz?
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

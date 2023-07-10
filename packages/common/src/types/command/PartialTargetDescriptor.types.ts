@@ -120,17 +120,18 @@ export type SimpleScopeTypeType =
   | "subParagraph"
   | "environment"
   // Text based scopes
-  | "token"
-  | "line"
-  | "notebookCell"
-  | "paragraph"
-  | "document"
   | "character"
   | "word"
+  | "token"
   | "identifier"
+  | "line"
+  | "sentence"
+  | "paragraph"
+  | "document"
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
-  | "url";
+  | "url"
+  | "notebookCell";
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
