@@ -16,9 +16,8 @@ export function* generateDifferentiatedRanges(
 
   for (const range of ranges) {
     currentRanges = [
-      ...currentRanges.filter(
-        ({ range: previousRange }) =>
-          generalizedRangeTouches(previousRange, range) != null,
+      ...currentRanges.filter(({ range: previousRange }) =>
+        generalizedRangeTouches(previousRange, range),
       ),
     ];
 

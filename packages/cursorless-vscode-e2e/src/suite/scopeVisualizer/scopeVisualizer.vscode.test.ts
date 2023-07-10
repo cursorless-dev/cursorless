@@ -2,6 +2,7 @@ import { commands } from "vscode";
 import asyncSafety from "../../asyncSafety";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { runBasicMultilineContentTest } from "./runBasicMultilineContentTest";
+import { runBasicRemovalTest } from "./runBasicRemovalTest";
 import { runNestedMultilineContentTest } from "./runNestedMultilineContentTest";
 import { runUpdateTest } from "./runUpdateTest";
 
@@ -21,5 +22,9 @@ suite("scope visualizer", async function () {
   test(
     "update",
     asyncSafety(() => runUpdateTest()),
+  );
+  test(
+    "basic removal",
+    asyncSafety(() => runBasicRemovalTest()),
   );
 });
