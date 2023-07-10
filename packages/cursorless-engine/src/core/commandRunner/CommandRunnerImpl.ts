@@ -7,7 +7,7 @@ import { SelectionWithEditor } from "../../typings/Types";
 import { Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
 import { checkForOldInference } from "../commandVersionUpgrades/canonicalizeAndValidateCommand";
-import inferFullTargets from "../inferFullTargets";
+import inferFullTargetDescriptors from "../inferFullTargets";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
 export class CommandRunnerImpl implements CommandRunner {
@@ -24,7 +24,7 @@ export class CommandRunnerImpl implements CommandRunner {
    * 1. Perform inference on targets to fill in details left out using things
    *    like previous targets. For example we would automatically infer that
    *    `"take funk air and bat"` is equivalent to `"take funk air and funk
-   *    bat"`. See {@link inferFullTargets} for details of how this is done.
+   *    bat"`. See {@link inferFullTargetDescriptors} for details of how this is done.
    * 2. Call {@link processTargets} to map each abstract {@link Target} object
    *    to a concrete list of {@link Target} objects.
    * 3. Run the requested action on the given selections. The mapping from
@@ -40,11 +40,14 @@ export class CommandRunnerImpl implements CommandRunner {
     targets: partialTargetDescriptors,
   }: CommandComplete): Promise<unknown> {
     checkForOldInference(partialTargetDescriptors);
-    const targetDescriptors = inferFullTargets(partialTargetDescriptors);
+
+    const targetDescriptors = inferFullTargetDescriptors(
+      partialTargetDescriptors,
+    );
 
     if (this.debug.active) {
       this.debug.log("Full targets:");
-      this.debug.log(JSON.stringify(targetDescriptors, null, 3));
+      this.debug.log(JSON.stringify(targetDescriptors, null, 2));
     }
 
     const action = this.actions[actionName];

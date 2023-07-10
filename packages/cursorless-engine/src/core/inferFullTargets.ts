@@ -24,7 +24,7 @@ import { handleHoistedModifiers } from "./handleHoistedModifiers";
  * @param targets The partial targets which need to be completed by inference.
  * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
  */
-export default function inferFullTargets(
+export default function inferFullTargetDescriptors(
   targets: PartialTargetDescriptor[],
 ): TargetDescriptor[] {
   return targets.map((target, index) =>
