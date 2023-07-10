@@ -39,11 +39,7 @@ export function getPartialTargetDescriptorFromDestination(
       if (destination.target.type === "list") {
         elements.push(...destination.target.elements);
       } else {
-        elements.push(
-          destination.target as
-            | PartialPrimitiveTargetDescriptor
-            | PartialRangeTargetDescriptor,
-        );
+        elements.push(destination.target);
       }
     });
     return {

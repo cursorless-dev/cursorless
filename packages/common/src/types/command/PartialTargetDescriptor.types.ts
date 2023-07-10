@@ -390,7 +390,14 @@ export interface PartialPrimitiveDestinationDescriptor {
 
 export interface PartialListDestinationDescriptor {
   type: "destinationList";
-  destinations: PartialPrimitiveDestinationDescriptor[];
+  destinations: {
+    type: "destination";
+    insertionMode: InsertionMode;
+    target:
+      | PartialPrimitiveTargetDescriptor
+      | PartialRangeTargetDescriptor
+      | PartialListTargetDescriptor;
+  }[];
 }
 
 export type PartialDestinationDescriptor =
