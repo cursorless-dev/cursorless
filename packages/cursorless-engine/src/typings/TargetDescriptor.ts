@@ -1,6 +1,5 @@
 import {
   ImplicitTargetDescriptor,
-  InsertionMode,
   Modifier,
   PartialMark,
   PartialRangeType,
