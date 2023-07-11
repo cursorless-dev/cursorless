@@ -1,4 +1,3 @@
-import { HighlightId } from "../..";
 import {
   PartialDestinationDescriptor,
   PartialTargetDescriptor,
@@ -176,7 +175,7 @@ export interface PartialReplaceActionDescriptor {
 
 export interface PartialHighlightActionDescriptor {
   name: "highlight";
-  highlightId?: HighlightId;
+  highlightId?: string;
   target: PartialTargetDescriptor;
 }
 

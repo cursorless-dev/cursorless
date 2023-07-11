@@ -52,7 +52,9 @@ export class EditNew implements Action {
      */
     let state: State = {
       destinations,
-      thatRanges: destinations.map(({ target }) => target.contentRange),
+      thatRanges: destinations.map(
+        ({ target }) => target.thatTarget.contentRange,
+      ),
       cursorRanges: new Array(destinations.length).fill(
         undefined,
       ) as undefined[],
