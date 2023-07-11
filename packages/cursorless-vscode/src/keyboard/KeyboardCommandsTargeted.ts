@@ -306,8 +306,8 @@ function toDestination(
         insertionMode: "to",
         target,
       };
-      case "implicit":
-        return target
+    case "implicit":
+      return target;
   }
 }
 
