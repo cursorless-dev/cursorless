@@ -67,7 +67,7 @@ export class CommandRunnerImpl implements CommandRunner {
   private runAction(
     partialActionDescriptor: PartialActionDescriptor,
   ): Promise<ActionReturnValue> {
-    const inferenceContext = new InferenceContext();
+    const inferenceContext = new InferenceContext(this.debug);
 
     switch (partialActionDescriptor.name) {
       case "replaceWithTarget":
