@@ -7,13 +7,13 @@ import { Destination, Target } from "../../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Actions } from "../Actions";
-import { Action, ActionReturnValue } from "../actions.types";
+import { SimpleAction, ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
 import { runEditTargets } from "./runEditTargets";
 import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
 import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";
 
-export class EditNew implements Action {
+export class EditNew implements SimpleAction {
   getFinalStages(): ModifierStage[] {
     return [this.modifierStageFactory.create(containingLineIfUntypedModifier)];
   }

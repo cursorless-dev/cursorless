@@ -6,9 +6,9 @@ import {
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-class Scroll implements Action {
+class Scroll implements SimpleAction {
   constructor(private at: RevealLineAt) {
     this.run = this.run.bind(this);
   }

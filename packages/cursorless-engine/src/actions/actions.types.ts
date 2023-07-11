@@ -11,7 +11,7 @@ import type { SelectionWithEditor } from "../typings/Types";
 import type { Destination, Target } from "../typings/target.types";
 
 /**
- * To be returned by {@link Action.run}
+ * To be returned by {@link SimpleAction.run}
  */
 export interface ActionReturnValue {
   /**
@@ -53,7 +53,7 @@ export interface ActionReturnValue {
   instanceReferenceTargets?: Target[];
 }
 
-export interface Action {
+export interface SimpleAction {
   run(targets: Target[]): Promise<ActionReturnValue>;
 
   /**
@@ -66,7 +66,7 @@ export interface Action {
 /**
  * Keeps a map from action names to objects that implement the given action
  */
-export interface ActionRecord extends Record<SimpleActionName, Action> {
+export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
   callAsFunction: {
     run(callees: Target[], args: Target[]): Promise<ActionReturnValue>;
   };

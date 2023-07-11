@@ -7,9 +7,9 @@ import {
   flashTargets,
 } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class FollowLink implements Action {
+export default class FollowLink implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }

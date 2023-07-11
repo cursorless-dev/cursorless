@@ -4,9 +4,9 @@ import { containingLineIfUntypedModifier } from "../processTargets/modifiers/com
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class ToggleBreakpoint implements Action {
+export default class ToggleBreakpoint implements SimpleAction {
   getFinalStages = () => [
     this.modifierStageFactory.create(containingLineIfUntypedModifier),
   ];

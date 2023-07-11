@@ -1,9 +1,9 @@
 import { shuffle } from "lodash";
 import { Target } from "../typings/target.types";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-abstract class SortBase implements Action {
+abstract class SortBase implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }

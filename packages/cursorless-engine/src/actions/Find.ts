@@ -3,9 +3,9 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export class FindInWorkspace implements Action {
+export class FindInWorkspace implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }

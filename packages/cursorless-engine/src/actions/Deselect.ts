@@ -2,9 +2,9 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class Deselect implements Action {
+export default class Deselect implements SimpleAction {
   constructor() {
     this.run = this.run.bind(this);
   }
