@@ -1,7 +1,6 @@
 import {
   CommandComplete,
   DestinationDescriptor,
-  InsertionMode,
   PartialActionDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
@@ -203,32 +202,17 @@ export class CommandRunnerImpl implements CommandRunner {
           ),
         );
       case "primitive":
-        return this.getDestinationsFromTarget(
+        return this.getTargets(
           inferenceContext,
           destinationDescriptor.target,
-          destinationDescriptor.insertionMode,
-          actionFinalStages,
+        ).map((target) =>
+          target.toDestination(destinationDescriptor.insertionMode),
         );
       case "implicit":
-        return this.getDestinationsFromTarget(
-          inferenceContext,
-          destinationDescriptor,
-          "to",
-          actionFinalStages,
+        return this.getTargets(inferenceContext, { type: "implicit" }).map(
+          (target) => target.toDestination("to"),
         );
     }
-  }
-
-  private getDestinationsFromTarget(
-    inferenceContext: InferenceContext,
-    partialTargetDescriptor: PartialTargetDescriptor,
-    insertionMode: InsertionMode,
-    actionFinalStages: ModifierStage[],
-  ) {
-    const targetDescriptor = inferenceContext.run(partialTargetDescriptor);
-    return this.pipelineRunner
-      .run(targetDescriptor, actionFinalStages)
-      .map((target) => target.toDestination(insertionMode));
   }
 }
 
