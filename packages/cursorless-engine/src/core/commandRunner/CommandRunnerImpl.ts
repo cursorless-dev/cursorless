@@ -190,7 +190,7 @@ export class CommandRunnerImpl implements CommandRunner {
   private getDestinations(
     inferenceContext: InferenceContext,
     destinationDescriptor: DestinationDescriptor,
-    actionFinalStages: ModifierStage[] = [],
+    actionFinalStages?: ModifierStage[],
   ): Destination[] {
     switch (destinationDescriptor.type) {
       case "list":
