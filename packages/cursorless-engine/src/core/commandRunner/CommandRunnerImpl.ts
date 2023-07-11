@@ -15,7 +15,6 @@ import { Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
 import { inferFullTargetDescriptor } from "../inferFullTargets";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
-import { TargetDescriptor } from "../../typings/TargetDescriptor";
 
 export class CommandRunnerImpl implements CommandRunner {
   constructor(
@@ -237,20 +236,21 @@ export class CommandRunnerImpl implements CommandRunner {
         target.toDestination(partialDestinationDescriptor.insertionMode),
       );
   }
-
-  private debugTargets(targets: TargetDescriptor[]) {
-    if (this.debug.active) {
-      this.debug.log("Full targets:");
-      this.debug.log(JSON.stringify(targets, null, 2));
-    }
-  }
 }
 
 class InferenceContext {
   private previousTargets: PartialTargetDescriptor[] = [];
 
+  constructor(private debug: Debug) {}
+
   run(target: PartialTargetDescriptor) {
     const ret = inferFullTargetDescriptor(target, this.previousTargets);
+
+    if (this.debug.active) {
+      this.debug.log("Full target:");
+      this.debug.log(JSON.stringify(ret, null, 2));
+    }
+
     this.previousTargets.push(target);
     return ret;
   }
