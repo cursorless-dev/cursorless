@@ -378,7 +378,7 @@ export class Swap extends BringMoveSwap {
 
     await this.decorateThatMark(markEntries);
 
-    return { thatSelections: markEntries };
+    return { thatSelections: markEntries, sourceSelections: [] };
   }
 
   private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
