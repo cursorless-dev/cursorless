@@ -39,7 +39,7 @@ export function inferFullTargetDescriptor(
     case "list":
       return inferListTarget(target, previousTargets);
     case "range":
-      return inferRangeTarget(target, previousTargets);
+      return inferRangeTargetWithHoist(target, previousTargets);
     case "primitive":
       return inferPrimitiveTarget(target, previousTargets);
     case "implicit":
