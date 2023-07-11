@@ -205,13 +205,16 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.getTargets(
           inferenceContext,
           destinationDescriptor.target,
+          actionFinalStages,
         ).map((target) =>
           target.toDestination(destinationDescriptor.insertionMode),
         );
       case "implicit":
-        return this.getTargets(inferenceContext, { type: "implicit" }).map(
-          (target) => target.toDestination("to"),
-        );
+        return this.getTargets(
+          inferenceContext,
+          { type: "implicit" },
+          actionFinalStages,
+        ).map((target) => target.toDestination("to"));
     }
   }
 }
