@@ -114,7 +114,7 @@ abstract class BringMoveSwap {
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
         usedSources.push(source);
-        if (this.type !== "move") {
+        if (this.type === "bring") {
           results.push({
             edit: source
               .toDestination("to")
