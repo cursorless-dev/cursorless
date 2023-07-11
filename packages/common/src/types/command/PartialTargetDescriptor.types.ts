@@ -383,7 +383,7 @@ export type PartialTargetDescriptor =
   | ImplicitTargetDescriptor;
 
 export interface PartialPrimitiveDestinationDescriptor {
-  type: "destination";
+  type: "primitiveDestination";
   insertionMode: InsertionMode;
   target: PartialTargetDescriptor;
 }

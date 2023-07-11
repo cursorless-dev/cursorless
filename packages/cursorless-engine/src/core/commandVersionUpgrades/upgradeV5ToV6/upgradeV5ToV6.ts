@@ -192,13 +192,13 @@ function listTargetToDestination(
     const insertionMode = getInsertionMode(element);
     if (insertionMode != null || destinations.length === 0) {
       destinations.push({
-        type: "destination",
+        type: "primitiveDestination",
         insertionMode: insertionMode ?? "to",
         target: upgradeTarget(element),
       });
     } else {
       destinations.push({
-        type: "destination",
+        type: "primitiveDestination",
         insertionMode: destinations[destinations.length - 1].insertionMode,
         target: upgradeTarget(element),
       });
@@ -217,7 +217,7 @@ function rangeTargetToDestination(
   target: PartialRangeTargetDescriptorV5,
 ): PartialPrimitiveDestinationDescriptor {
   return {
-    type: "destination",
+    type: "primitiveDestination",
     insertionMode: getInsertionMode(target.anchor) ?? "to",
     target: upgradeRangeTarget(target),
   };
@@ -227,7 +227,7 @@ function primitiveTargetToDestination(
   target: PartialPrimitiveTargetDescriptorV5,
 ): PartialPrimitiveDestinationDescriptor {
   return {
-    type: "destination",
+    type: "primitiveDestination",
     insertionMode: getInsertionMode(target) ?? "to",
     target: upgradePrimitiveTarget(target),
   };
@@ -237,7 +237,7 @@ function implicitTargetToDestination(
   target: ImplicitTargetDescriptor,
 ): PartialPrimitiveDestinationDescriptor {
   return {
-    type: "destination",
+    type: "primitiveDestination",
     insertionMode: "to",
     target,
   };

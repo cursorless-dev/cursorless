@@ -300,7 +300,7 @@ function toDestination(
   target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
 ): PartialDestinationDescriptor {
   return {
-    type: "destination",
+    type: "primitiveDestination",
     insertionMode: "to",
     target,
   };
