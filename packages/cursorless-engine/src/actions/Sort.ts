@@ -11,6 +11,10 @@ abstract class SortBase implements Action {
   protected abstract sortTexts(texts: string[]): string[];
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+    if (targets.length < 2) {
+      throw new Error("Require more than one targets with this action");
+    }
+
     // First sort target by document order
     const sortedTargets = targets
       .slice()
