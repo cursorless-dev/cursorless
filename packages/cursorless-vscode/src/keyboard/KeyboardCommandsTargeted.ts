@@ -218,7 +218,7 @@ export default class KeyboardCommandsTargeted {
           action: {
             name: action,
             callee: target,
-            args: { type: "implicit" },
+            argument: { type: "implicit" },
           },
         });
         break;

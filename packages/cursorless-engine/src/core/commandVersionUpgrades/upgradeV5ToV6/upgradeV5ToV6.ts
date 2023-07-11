@@ -58,7 +58,7 @@ function upgradeAction(
       return {
         name: action.name,
         callee: upgradeTarget(targets[0]),
-        args: upgradeTarget(targets[1]),
+        argument: upgradeTarget(targets[1]),
       };
     case "pasteFromClipboard":
       return {

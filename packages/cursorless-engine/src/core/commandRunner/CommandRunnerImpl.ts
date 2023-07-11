@@ -102,7 +102,7 @@ export class CommandRunnerImpl implements CommandRunner {
         );
         const args = this.getTargets(
           inferenceContext,
-          partialActionDescriptor.args,
+          partialActionDescriptor.argument,
         );
         return this.actions.callAsFunction.run(callees, args);
       }

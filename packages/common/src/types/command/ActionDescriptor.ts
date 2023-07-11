@@ -71,6 +71,9 @@ export const actionNames = [
 export type SimpleActionName = (typeof simpleActionNames)[number];
 export type ActionType = (typeof actionNames)[number];
 
+/**
+ * A simple action takes only a single target and no other arguments.
+ */
 export interface PartialSimpleActionDescriptor {
   name: SimpleActionName;
   target: PartialTargetDescriptor;
@@ -84,8 +87,16 @@ export interface PartialBringMoveActionDescriptor {
 
 export interface PartialCallActionDescriptor {
   name: "callAsFunction";
+
+  /**
+   * The target to use as the function to be called.
+   */
   callee: PartialTargetDescriptor;
-  args: PartialTargetDescriptor;
+
+  /**
+   * The target to wrap in a function call.
+   */
+  argument: PartialTargetDescriptor;
 }
 
 export interface PartialSwapActionDescriptor {
@@ -112,18 +123,18 @@ export interface PartialGenerateSnippetActionDescriptor {
   target: PartialTargetDescriptor;
 }
 
-interface NamedSnippetArg {
+interface NamedInsertSnippetArg {
   type: "named";
   name: string;
   substitutions?: Record<string, string>;
 }
-interface CustomSnippetArg {
+interface CustomInsertSnippetArg {
   type: "custom";
   body: string;
   scopeType?: ScopeType;
   substitutions?: Record<string, string>;
 }
-export type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
+export type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
 
 export interface PartialInsertSnippetActionDescriptor {
   name: "insertSnippet";
@@ -131,18 +142,20 @@ export interface PartialInsertSnippetActionDescriptor {
   destination: PartialDestinationDescriptor;
 }
 
-interface NamedSnippetArg {
+interface NamedWrapWithSnippetArg {
   type: "named";
   name: string;
   variableName: string;
 }
-interface CustomSnippetArg {
+interface CustomWrapWithSnippetArg {
   type: "custom";
   body: string;
   variableName?: string;
   scopeType?: ScopeType;
 }
-export type WrapWithSnippetArg = NamedSnippetArg | CustomSnippetArg;
+export type WrapWithSnippetArg =
+  | NamedWrapWithSnippetArg
+  | CustomWrapWithSnippetArg;
 
 export interface PartialWrapSnippetActionDescriptor {
   name: "wrapWithSnippet";
