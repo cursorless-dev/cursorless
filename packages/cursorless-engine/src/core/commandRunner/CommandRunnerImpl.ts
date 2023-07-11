@@ -78,7 +78,7 @@ export class CommandRunnerImpl implements CommandRunner {
             partialActionDescriptor.destination,
           ),
         );
-      case "moveToTarget": {
+      case "moveToTarget":
         return this.actions.moveToTarget.run(
           this.getTargets(inferenceContext, partialActionDescriptor.source),
           this.getDestinations(
@@ -86,27 +86,23 @@ export class CommandRunnerImpl implements CommandRunner {
             partialActionDescriptor.destination,
           ),
         );
-      }
-      case "swapTargets": {
+      case "swapTargets":
         return this.actions.swapTargets.run(
           this.getTargets(inferenceContext, partialActionDescriptor.target1),
           this.getTargets(inferenceContext, partialActionDescriptor.target2),
         );
-      }
-      case "callAsFunction": {
+      case "callAsFunction":
         return this.actions.callAsFunction.run(
           this.getTargets(inferenceContext, partialActionDescriptor.callee),
           this.getTargets(inferenceContext, partialActionDescriptor.argument),
         );
-      }
-      case "wrapWithPairedDelimiter": {
+      case "wrapWithPairedDelimiter":
         return this.actions.wrapWithPairedDelimiter.run(
           this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.left,
           partialActionDescriptor.right,
         );
-      }
-      case "rewrapWithPairedDelimiter": {
+      case "rewrapWithPairedDelimiter":
         return this.actions.rewrapWithPairedDelimiter.run(
           this.getTargets(
             inferenceContext,
@@ -116,23 +112,20 @@ export class CommandRunnerImpl implements CommandRunner {
           partialActionDescriptor.left,
           partialActionDescriptor.right,
         );
-      }
-      case "pasteFromClipboard": {
+      case "pasteFromClipboard":
         return this.actions.pasteFromClipboard.run(
           this.getDestinations(
             inferenceContext,
             partialActionDescriptor.destination,
           ),
         );
-      }
-      case "executeCommand": {
+      case "executeCommand":
         return this.actions.executeCommand.run(
           this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.commandId,
           partialActionDescriptor.options,
         );
-      }
-      case "replace": {
+      case "replace":
         return this.actions.replace.run(
           this.getDestinations(
             inferenceContext,
@@ -140,20 +133,17 @@ export class CommandRunnerImpl implements CommandRunner {
           ),
           partialActionDescriptor.replaceWith,
         );
-      }
-      case "highlight": {
+      case "highlight":
         return this.actions.highlight.run(
           this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.highlightId,
         );
-      }
-      case "generateSnippet": {
+      case "generateSnippet":
         return this.actions.generateSnippet.run(
           this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.snippetName,
         );
-      }
-      case "insertSnippet": {
+      case "insertSnippet":
         return this.actions.insertSnippet.run(
           this.getDestinations(
             inferenceContext,
@@ -164,8 +154,7 @@ export class CommandRunnerImpl implements CommandRunner {
           ),
           partialActionDescriptor.snippetDescription,
         );
-      }
-      case "wrapWithSnippet": {
+      case "wrapWithSnippet":
         return this.actions.wrapWithSnippet.run(
           this.getTargets(
             inferenceContext,
@@ -176,7 +165,6 @@ export class CommandRunnerImpl implements CommandRunner {
           ),
           partialActionDescriptor.snippetDescription,
         );
-      }
       default: {
         const action = this.actions[partialActionDescriptor.name];
 
