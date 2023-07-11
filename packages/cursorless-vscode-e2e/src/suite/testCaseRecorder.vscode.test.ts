@@ -1,8 +1,9 @@
 import {
-  ActionType,
   getFixturePath,
   getRecordedTestsDirPath,
   HatTokenMap,
+  LATEST_VERSION,
+  SimpleActionName,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -12,11 +13,17 @@ import {
 import { assert } from "chai";
 import * as crypto from "crypto";
 import { mkdir, readdir, readFile, rm } from "fs/promises";
-import * as path from "path";
 import * as os from "os";
+import * as path from "path";
 import { basename } from "path";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+
+/*
+ * All tests in this file are running against the latest version of the command
+ * and needs to be manually updated on every command of migration.
+ * This includes the file: fixtures/recorded/testCaseRecorder/takeHarp
+ */
 
 // Ensure that the test case recorder works
 suite("testCaseRecorder", async function () {
@@ -70,18 +77,18 @@ async function testCaseRecorderGracefulError() {
 
     try {
       await runCursorlessCommand({
-        version: 5,
-        action: { name: "badActionName" as ActionType },
-        targets: [
-          {
+        version: LATEST_VERSION,
+        spokenForm: "bad command",
+        usePrePhraseSnapshot: false,
+        action: {
+          name: "badActionName" as SimpleActionName,
+          target: {
             type: "primitive",
             mark: {
               type: "cursor",
             },
           },
-        ],
-        usePrePhraseSnapshot: false,
-        spokenForm: "bad command",
+        },
       });
     } catch (err) {
       // Ignore error
@@ -129,10 +136,12 @@ async function stopRecording() {
 
 async function takeHarp() {
   await runCursorlessCommand({
-    version: 4,
-    action: { name: "setSelection" },
-    targets: [
-      {
+    version: LATEST_VERSION,
+    spokenForm: "take harp",
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "setSelection",
+      target: {
         type: "primitive",
         mark: {
           type: "decoratedSymbol",
@@ -140,9 +149,7 @@ async function takeHarp() {
           character: "h",
         },
       },
-    ],
-    usePrePhraseSnapshot: false,
-    spokenForm: "take harp",
+    },
   });
 }
 
