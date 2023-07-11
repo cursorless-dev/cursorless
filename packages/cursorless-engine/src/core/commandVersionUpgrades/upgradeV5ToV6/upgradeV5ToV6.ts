@@ -23,6 +23,7 @@ import {
   PartialTargetDescriptorV5,
   PositionModifierV5,
   ReplaceWith,
+  SimpleActionName,
   WrapWithSnippetArg,
 } from "@cursorless/common";
 
@@ -111,9 +112,9 @@ function upgradeAction(
       };
     default:
       return {
-        name: action.name,
+        name: action.name as SimpleActionName,
         target: upgradeTarget(targets[0]),
-      } as PartialActionDescriptor; // TODO:
+      };
   }
 }
 

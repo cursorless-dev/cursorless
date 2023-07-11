@@ -47,7 +47,7 @@ export function canonicalizeAndValidateCommand(
     action: {
       ...action,
       name: actionName,
-    } as PartialActionDescriptor, // TODO:
+    } as PartialActionDescriptor,
     usePrePhraseSnapshot,
   };
 }
