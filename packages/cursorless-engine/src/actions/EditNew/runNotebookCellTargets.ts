@@ -30,7 +30,7 @@ export async function runEditNewNotebookCellTargets(
     await editor.editNewNotebookCellBelow();
   }
 
-  const thatMark = createThatMark([destination.target]);
+  const thatMark = createThatMark([destination.target.thatTarget]);
 
   // Apply horrible hack to work around the fact that in vscode the promise
   // resolves before the edits have actually been performed.
