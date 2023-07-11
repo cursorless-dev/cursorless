@@ -65,6 +65,7 @@ export * from "./util/CompositeKeyMap";
 export * from "./ide/normalized/NormalizedIDE";
 export * from "./types/command/command.types";
 export * from "./types/command/PartialTargetDescriptor.types";
+export * from "./types/command/DestinationDescriptor.types";
 export * from "./types/command/ActionDescriptor";
 export * from "./types/command/legacy/CommandV0V1.types";
 export * from "./types/command/legacy/CommandV2.types";

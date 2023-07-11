@@ -1,8 +1,8 @@
 import {
-  PartialDestinationDescriptor,
   PartialTargetDescriptor,
   ScopeType,
 } from "./PartialTargetDescriptor.types";
+import { DestinationDescriptor } from "./DestinationDescriptor.types";
 
 const simpleActionNames = [
   "clearAndSetSelection",
@@ -82,7 +82,7 @@ export interface PartialSimpleActionDescriptor {
 export interface PartialBringMoveActionDescriptor {
   name: "replaceWithTarget" | "moveToTarget";
   source: PartialTargetDescriptor;
-  destination: PartialDestinationDescriptor;
+  destination: DestinationDescriptor;
 }
 
 export interface PartialCallActionDescriptor {
@@ -114,7 +114,7 @@ export interface PartialWrapWithPairedDelimiterActionDescriptor {
 
 export interface PartialPasteActionDescriptor {
   name: "pasteFromClipboard";
-  destination: PartialDestinationDescriptor;
+  destination: DestinationDescriptor;
 }
 
 export interface PartialGenerateSnippetActionDescriptor {
@@ -139,7 +139,7 @@ export type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
 export interface PartialInsertSnippetActionDescriptor {
   name: "insertSnippet";
   snippetDescription: InsertSnippetArg;
-  destination: PartialDestinationDescriptor;
+  destination: DestinationDescriptor;
 }
 
 interface NamedWrapWithSnippetArg {
@@ -183,7 +183,7 @@ export type ReplaceWith = string[] | { start: number };
 export interface PartialReplaceActionDescriptor {
   name: "replace";
   replaceWith: ReplaceWith;
-  destination: PartialDestinationDescriptor;
+  destination: DestinationDescriptor;
 }
 
 export interface PartialHighlightActionDescriptor {

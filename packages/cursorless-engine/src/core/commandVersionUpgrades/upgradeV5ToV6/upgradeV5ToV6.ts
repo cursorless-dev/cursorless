@@ -2,19 +2,19 @@ import {
   ActionCommandV5,
   CommandV5,
   CommandV6,
+  DestinationDescriptor,
   ExecuteCommandOptions,
   HighlightId,
+  ImplicitDestinationDescriptor,
   ImplicitTargetDescriptor,
   InsertSnippetArg,
   InsertionMode,
+  ListDestinationDescriptor,
   Modifier,
   ModifierV5,
   PartialActionDescriptor,
-  PartialDestinationDescriptor,
-  PartialListDestinationDescriptor,
   PartialListTargetDescriptor,
   PartialListTargetDescriptorV5,
-  PartialPrimitiveDestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialPrimitiveTargetDescriptorV5,
   PartialRangeTargetDescriptor,
@@ -22,6 +22,7 @@ import {
   PartialTargetDescriptor,
   PartialTargetDescriptorV5,
   PositionModifierV5,
+  PrimitiveDestinationDescriptor,
   ReplaceWith,
   SimpleActionName,
   WrapWithSnippetArg,
@@ -133,6 +134,22 @@ function upgradeTarget(
   }
 }
 
+function upgradeNonImplicitTarget(
+  target:
+    | PartialPrimitiveTargetDescriptorV5
+    | PartialRangeTargetDescriptorV5
+    | PartialListTargetDescriptorV5,
+) {
+  switch (target.type) {
+    case "list":
+      return upgradeListTarget(target);
+    case "range":
+      return upgradeRangeTarget(target);
+    case "primitive":
+      return upgradePrimitiveTarget(target);
+  }
+}
+
 function upgradeListTarget(
   target: PartialListTargetDescriptorV5,
 ): PartialListTargetDescriptor {
@@ -172,7 +189,7 @@ function upgradePrimitiveTarget(
 
 function targetToDestination(
   target: PartialTargetDescriptorV5,
-): PartialDestinationDescriptor {
+): DestinationDescriptor {
   switch (target.type) {
     case "list":
       return listTargetToDestination(target);
@@ -181,44 +198,44 @@ function targetToDestination(
     case "primitive":
       return primitiveTargetToDestination(target);
     case "implicit":
-      return implicitTargetToDestination(target);
+      return implicitTargetToDestination();
   }
 }
 
 function listTargetToDestination(
   target: PartialListTargetDescriptorV5,
-): PartialDestinationDescriptor {
-  const destinations: PartialPrimitiveDestinationDescriptor[] = [];
+): DestinationDescriptor {
+  const destinations: PrimitiveDestinationDescriptor[] = [];
   target.elements.forEach((element) => {
     const insertionMode = getInsertionMode(element);
     if (insertionMode != null || destinations.length === 0) {
       destinations.push({
-        type: "primitiveDestination",
+        type: "primitive",
         insertionMode: insertionMode ?? "to",
-        target: upgradeTarget(element),
+        target: upgradeNonImplicitTarget(element),
       });
     } else {
       destinations.push({
-        type: "primitiveDestination",
+        type: "primitive",
         insertionMode: destinations[destinations.length - 1].insertionMode,
-        target: upgradeTarget(element),
+        target: upgradeNonImplicitTarget(element),
       });
     }
   });
   if (destinations.length > 1) {
     return {
-      type: "destinationList",
+      type: "list",
       destinations,
-    } as PartialListDestinationDescriptor;
+    } as ListDestinationDescriptor;
   }
   return destinations[0];
 }
 
 function rangeTargetToDestination(
   target: PartialRangeTargetDescriptorV5,
-): PartialPrimitiveDestinationDescriptor {
+): PrimitiveDestinationDescriptor {
   return {
-    type: "primitiveDestination",
+    type: "primitive",
     insertionMode: getInsertionMode(target.anchor) ?? "to",
     target: upgradeRangeTarget(target),
   };
@@ -226,22 +243,16 @@ function rangeTargetToDestination(
 
 function primitiveTargetToDestination(
   target: PartialPrimitiveTargetDescriptorV5,
-): PartialPrimitiveDestinationDescriptor {
+): PrimitiveDestinationDescriptor {
   return {
-    type: "primitiveDestination",
+    type: "primitive",
     insertionMode: getInsertionMode(target) ?? "to",
     target: upgradePrimitiveTarget(target),
   };
 }
 
-function implicitTargetToDestination(
-  target: ImplicitTargetDescriptor,
-): PartialPrimitiveDestinationDescriptor {
-  return {
-    type: "primitiveDestination",
-    insertionMode: "to",
-    target,
-  };
+function implicitTargetToDestination(): ImplicitDestinationDescriptor {
+  return { type: "implicit" };
 }
 
 function getInsertionMode(

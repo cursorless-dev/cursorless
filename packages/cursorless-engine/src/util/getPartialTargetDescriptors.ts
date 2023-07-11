@@ -1,6 +1,6 @@
 import {
   CommandLatest,
-  PartialDestinationDescriptor,
+  DestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
@@ -32,24 +32,29 @@ export function getPartialTargetDescriptors(
 }
 
 export function getPartialTargetDescriptorFromDestination(
-  destination: PartialDestinationDescriptor,
+  destination: DestinationDescriptor,
 ): PartialTargetDescriptor {
-  if (destination.type === "destinationList") {
-    const elements: (
-      | PartialPrimitiveTargetDescriptor
-      | PartialRangeTargetDescriptor
-    )[] = [];
-    destination.destinations.forEach((destination) => {
-      if (destination.target.type === "list") {
-        elements.push(...destination.target.elements);
-      } else {
-        elements.push(destination.target);
-      }
-    });
-    return {
-      type: "list",
-      elements,
-    };
+  switch (destination.type) {
+    case "list": {
+      const elements: (
+        | PartialPrimitiveTargetDescriptor
+        | PartialRangeTargetDescriptor
+      )[] = [];
+      destination.destinations.forEach((destination) => {
+        if (destination.target.type === "list") {
+          elements.push(...destination.target.elements);
+        } else {
+          elements.push(destination.target);
+        }
+      });
+      return {
+        type: "list",
+        elements,
+      };
+    }
+    case "primitive":
+      return destination.target;
+    case "implicit":
+      return destination;
   }
-  return destination.target;
 }

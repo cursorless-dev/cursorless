@@ -4,7 +4,7 @@ import {
   ImplicitTargetDescriptor,
   LATEST_VERSION,
   PartialActionDescriptor,
-  PartialDestinationDescriptor,
+  DestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
@@ -298,12 +298,17 @@ function executeCursorlessCommand(
 
 function toDestination(
   target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
-): PartialDestinationDescriptor {
-  return {
-    type: "primitiveDestination",
-    insertionMode: "to",
-    target,
-  };
+): DestinationDescriptor {
+  switch (target.type) {
+    case "primitive":
+      return {
+        type: "primitive",
+        insertionMode: "to",
+        target,
+      };
+      case "implicit":
+        return target
+  }
 }
 
 const EXIT_CURSORLESS_MODE_ACTIONS: ActionType[] = [

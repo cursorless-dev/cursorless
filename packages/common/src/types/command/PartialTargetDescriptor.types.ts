@@ -381,25 +381,3 @@ export type PartialTargetDescriptor =
   | PartialRangeTargetDescriptor
   | PartialListTargetDescriptor
   | ImplicitTargetDescriptor;
-
-export interface PartialPrimitiveDestinationDescriptor {
-  type: "primitiveDestination";
-  insertionMode: InsertionMode;
-  target: PartialTargetDescriptor;
-}
-
-export interface PartialListDestinationDescriptor {
-  type: "destinationList";
-  destinations: {
-    type: "primitiveDestination";
-    insertionMode: InsertionMode;
-    target:
-      | PartialPrimitiveTargetDescriptor
-      | PartialRangeTargetDescriptor
-      | PartialListTargetDescriptor;
-  }[];
-}
-
-export type PartialDestinationDescriptor =
-  | PartialPrimitiveDestinationDescriptor
-  | PartialListDestinationDescriptor;

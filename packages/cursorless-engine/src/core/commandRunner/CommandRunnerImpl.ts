@@ -1,8 +1,8 @@
 import {
   CommandComplete,
+  DestinationDescriptor,
+  InsertionMode,
   PartialActionDescriptor,
-  PartialDestinationDescriptor,
-  PartialPrimitiveDestinationDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
@@ -11,7 +11,7 @@ import { StoredTargetMap } from "../../index";
 import { TargetPipelineRunner } from "../../processTargets";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { SelectionWithEditor } from "../../typings/Types";
-import { Target } from "../../typings/target.types";
+import { Destination, Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
 import { inferFullTargetDescriptor } from "../inferFullTargets";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
@@ -183,46 +183,52 @@ export class CommandRunnerImpl implements CommandRunner {
     inferenceContext: InferenceContext,
     partialTargetsDescriptor: PartialTargetDescriptor,
     actionFinalStages?: ModifierStage[],
-  ) {
+  ): Target[] {
     const targetDescriptor = inferenceContext.run(partialTargetsDescriptor);
     return this.pipelineRunner.run(targetDescriptor, actionFinalStages);
   }
 
   private getDestinations(
     inferenceContext: InferenceContext,
-    partialDestinationDescriptor: PartialDestinationDescriptor,
+    destinationDescriptor: DestinationDescriptor,
     actionFinalStages: ModifierStage[] = [],
-  ) {
-    if (partialDestinationDescriptor.type === "destinationList") {
-      return partialDestinationDescriptor.destinations.flatMap((destination) =>
-        this.getDestinationsFromPrimitive(
+  ): Destination[] {
+    switch (destinationDescriptor.type) {
+      case "list":
+        return destinationDescriptor.destinations.flatMap((destination) =>
+          this.getDestinations(
+            inferenceContext,
+            destination,
+            actionFinalStages,
+          ),
+        );
+      case "primitive":
+        return this.getDestinationsFromTarget(
           inferenceContext,
-          destination,
+          destinationDescriptor.target,
+          destinationDescriptor.insertionMode,
           actionFinalStages,
-        ),
-      );
+        );
+      case "implicit":
+        return this.getDestinationsFromTarget(
+          inferenceContext,
+          destinationDescriptor,
+          "to",
+          actionFinalStages,
+        );
     }
-    return this.getDestinationsFromPrimitive(
-      inferenceContext,
-      partialDestinationDescriptor,
-      actionFinalStages,
-    );
   }
 
-  private getDestinationsFromPrimitive(
+  private getDestinationsFromTarget(
     inferenceContext: InferenceContext,
-    partialDestinationDescriptor: PartialPrimitiveDestinationDescriptor,
+    partialTargetDescriptor: PartialTargetDescriptor,
+    insertionMode: InsertionMode,
     actionFinalStages: ModifierStage[],
   ) {
-    const destinationTargetDescriptor = inferenceContext.run(
-      partialDestinationDescriptor.target,
-    );
-
+    const targetDescriptor = inferenceContext.run(partialTargetDescriptor);
     return this.pipelineRunner
-      .run(destinationTargetDescriptor, actionFinalStages)
-      .map((target) =>
-        target.toDestination(partialDestinationDescriptor.insertionMode),
-      );
+      .run(targetDescriptor, actionFinalStages)
+      .map((target) => target.toDestination(insertionMode));
   }
 }
 
