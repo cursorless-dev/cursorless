@@ -1,11 +1,7 @@
 import { EndOfModifier, Range, StartOfModifier } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStage } from "../PipelineStages.types";
-import {
-  CommonTargetParameters,
-  PlainTarget,
-  RawSelectionTarget,
-} from "../targets";
+import { CommonTargetParameters, RawSelectionTarget } from "../targets";
 
 abstract class StartEndOfStage implements ModifierStage {
   run(target: Target): Target[] {
@@ -15,11 +11,7 @@ abstract class StartEndOfStage implements ModifierStage {
       contentRange: this.constructContentRange(target.contentRange),
     };
 
-    return [
-      target.isRaw
-        ? new RawSelectionTarget(parameters)
-        : new PlainTarget({ ...parameters, isToken: false }),
-    ];
+    return [new RawSelectionTarget(parameters)];
   }
 
   protected abstract constructContentRange(contentRange: Range): Range;
