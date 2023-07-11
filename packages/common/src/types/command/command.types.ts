@@ -5,12 +5,6 @@ import type { CommandV3 } from "./legacy/CommandV3.types";
 import type { CommandV4 } from "./legacy/CommandV4.types";
 import type { CommandV5 } from "./legacy/CommandV5.types";
 
-// TODO:
-// export type CommandComplete = Required<Omit<CommandLatest, "spokenForm">> &
-//   Pick<CommandLatest, "spokenForm"> & {
-//     action: Required<PartialActionDescriptor>;
-//   };
-
 export type CommandComplete = Required<Omit<CommandLatest, "spokenForm">> &
   Pick<CommandLatest, "spokenForm">;
 export const LATEST_VERSION = 6 as const;
