@@ -384,29 +384,29 @@ export class Swap extends BringMoveSwap {
   private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
     const results: ExtendedEdit[] = [];
 
-    targets1.forEach((source, i) => {
-      const destination = targets2[i];
-      if (source == null || destination == null) {
+    targets1.forEach((target1, i) => {
+      const target2 = targets2[i];
+      if (target1 == null || target2 == null) {
         throw new Error("Targets must have same number of args");
       }
 
       // Add destination edit
       results.push({
-        edit: destination
+        edit: target2
           .toDestination("to")
-          .constructChangeEdit(source.contentText),
-        editor: destination.editor,
-        originalTarget: destination,
+          .constructChangeEdit(target1.contentText),
+        editor: target2.editor,
+        originalTarget: target2,
         isSource: false,
       });
 
       // Add source edit
       results.push({
-        edit: source
+        edit: target1
           .toDestination("to")
-          .constructChangeEdit(destination.contentText),
-        editor: source.editor,
-        originalTarget: source,
+          .constructChangeEdit(target2.contentText),
+        editor: target1.editor,
+        originalTarget: target1,
         isSource: true,
       });
     });

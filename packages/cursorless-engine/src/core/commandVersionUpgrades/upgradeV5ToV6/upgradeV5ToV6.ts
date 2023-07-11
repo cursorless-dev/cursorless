@@ -3,6 +3,7 @@ import {
   CommandV5,
   CommandV6,
   ExecuteCommandOptions,
+  HighlightId,
   ImplicitTargetDescriptor,
   InsertSnippetArg,
   InsertionMode,
@@ -55,8 +56,8 @@ function upgradeAction(
     case "callAsFunction":
       return {
         name: action.name,
-        source: upgradeTarget(targets[0]),
-        destination: upgradeTarget(targets[1]),
+        callees: upgradeTarget(targets[0]),
+        args: upgradeTarget(targets[1]),
       };
     case "pasteFromClipboard":
       return {
@@ -100,6 +101,12 @@ function upgradeAction(
       return {
         name: action.name,
         replaceWith: action.args![0] as ReplaceWith,
+        target: upgradeTarget(targets[0]),
+      };
+    case "highlight":
+      return {
+        name: action.name,
+        highlightId: action.args?.[0] as HighlightId,
         target: upgradeTarget(targets[0]),
       };
     default:

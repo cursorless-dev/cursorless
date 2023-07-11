@@ -5,9 +5,9 @@ import {
   runOnTargetsForEachEditor,
   toGeneralizedRange,
 } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-export default class Highlight implements Action {
+export default class Highlight {
   constructor() {
     this.run = this.run.bind(this);
   }

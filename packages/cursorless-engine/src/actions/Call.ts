@@ -8,23 +8,16 @@ export default class Call {
     this.run = this.run.bind(this);
   }
 
-  async run(
-    sources: Target[],
-    destinations: Target[],
-  ): Promise<ActionReturnValue> {
-    ensureSingleTarget(sources);
+  async run(callees: Target[], args: Target[]): Promise<ActionReturnValue> {
+    ensureSingleTarget(callees);
 
-    const { returnValue: texts } = await this.actions.getText.run(sources, {
+    const { returnValue: texts } = await this.actions.getText.run(callees, {
       showDecorations: false,
     });
 
     // NB: We unwrap and then rewrap the return value here so that we don't include the source mark
     const { thatSelections: thatMark } =
-      await this.actions.wrapWithPairedDelimiter.run(
-        destinations,
-        texts[0] + "(",
-        ")",
-      );
+      await this.actions.wrapWithPairedDelimiter.run(args, texts[0] + "(", ")");
 
     return { thatSelections: thatMark };
   }

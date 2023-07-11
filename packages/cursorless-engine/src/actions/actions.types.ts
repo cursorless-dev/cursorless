@@ -1,5 +1,6 @@
 import type {
   ExecuteCommandOptions,
+  HighlightId,
   InsertSnippetArg,
   ReplaceWith,
   SimpleActionName,
@@ -67,7 +68,7 @@ export interface Action {
  */
 export interface ActionRecord extends Record<SimpleActionName, Action> {
   callAsFunction: {
-    run(sources: Target[], destinations: Target[]): Promise<ActionReturnValue>;
+    run(callees: Target[], args: Target[]): Promise<ActionReturnValue>;
   };
   replaceWithTarget: {
     run(
@@ -134,6 +135,12 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
     run(
       targets: Target[],
       replaceWith: ReplaceWith,
+    ): Promise<ActionReturnValue>;
+  };
+  highlight: {
+    run(
+      targets: Target[],
+      highlightId?: HighlightId,
     ): Promise<ActionReturnValue>;
   };
 }

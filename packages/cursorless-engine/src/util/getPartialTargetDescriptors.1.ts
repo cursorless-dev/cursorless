@@ -11,7 +11,7 @@ export function getPartialTargetDescriptors(
 ): PartialTargetDescriptor[] {
   switch (command.action.name) {
     case "callAsFunction":
-      return [command.action.source, command.action.destination];
+      return [command.action.callees, command.action.args];
     case "replaceWithTarget":
     case "moveToTarget":
       return [

@@ -96,15 +96,15 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.actions.swapTargets.run(targets1, targets2);
       }
       case "callAsFunction": {
-        const sources = this.getTargets(
+        const callees = this.getTargets(
           inferenceContext,
-          partialActionDescriptor.source,
+          partialActionDescriptor.callees,
         );
-        const destinations = this.getTargets(
+        const args = this.getTargets(
           inferenceContext,
-          partialActionDescriptor.destination,
+          partialActionDescriptor.args,
         );
-        return this.actions.callAsFunction.run(sources, destinations);
+        return this.actions.callAsFunction.run(callees, args);
       }
       case "wrapWithPairedDelimiter": {
         const targets = this.getTargets(
@@ -156,6 +156,16 @@ export class CommandRunnerImpl implements CommandRunner {
         return this.actions.replace.run(
           targets,
           partialActionDescriptor.replaceWith,
+        );
+      }
+      case "highlight": {
+        const targets = this.getTargets(
+          inferenceContext,
+          partialActionDescriptor.target,
+        );
+        return this.actions.highlight.run(
+          targets,
+          partialActionDescriptor.highlightId,
         );
       }
       case "generateSnippet": {
@@ -214,11 +224,9 @@ export class CommandRunnerImpl implements CommandRunner {
     actionPrePositionStages?: ModifierStage[],
     actionFinalStages?: ModifierStage[],
   ) {
-    const sourceTargetDescriptor = inferenceContext.run(
-      partialTargetsDescriptor,
-    );
+    const targetDescriptor = inferenceContext.run(partialTargetsDescriptor);
     return this.pipelineRunner.run(
-      sourceTargetDescriptor,
+      targetDescriptor,
       actionPrePositionStages,
       actionFinalStages,
     );

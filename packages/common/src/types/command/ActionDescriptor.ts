@@ -1,3 +1,4 @@
+import { HighlightId } from "../..";
 import {
   PartialDestinationDescriptor,
   PartialTargetDescriptor,
@@ -17,7 +18,6 @@ const simpleActionNames = [
   "foldRegion",
   "followLink",
   "getText",
-  "highlight",
   "indentLine",
   "insertCopyAfter",
   "insertCopyBefore",
@@ -52,6 +52,7 @@ const complexActionNames = [
   "editNew",
   "executeCommand",
   "generateSnippet",
+  "highlight",
   "insertSnippet",
   "moveToTarget",
   "pasteFromClipboard",
@@ -84,8 +85,8 @@ export interface PartialBringMoveActionDescriptor {
 
 export interface PartialCallActionDescriptor {
   name: "callAsFunction";
-  source: PartialTargetDescriptor;
-  destination: PartialTargetDescriptor;
+  callees: PartialTargetDescriptor;
+  args: PartialTargetDescriptor;
 }
 
 export interface PartialSwapActionDescriptor {
@@ -173,6 +174,12 @@ export interface PartialReplaceActionDescriptor {
   target: PartialTargetDescriptor;
 }
 
+export interface PartialHighlightActionDescriptor {
+  name: "highlight";
+  highlightId?: HighlightId;
+  target: PartialTargetDescriptor;
+}
+
 export type PartialActionDescriptor =
   | PartialSimpleActionDescriptor
   | PartialBringMoveActionDescriptor
@@ -184,4 +191,5 @@ export type PartialActionDescriptor =
   | PartialInsertSnippetActionDescriptor
   | PartialWrapSnippetActionDescriptor
   | PartialExecuteCommandActionDescriptor
-  | PartialReplaceActionDescriptor;
+  | PartialReplaceActionDescriptor
+  | PartialHighlightActionDescriptor;
