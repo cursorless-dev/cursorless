@@ -162,6 +162,12 @@ export interface Target {
   toPlainObject(): TargetPlainObject;
 }
 
+/**
+ * A destination is a wrapper around a target that can be used for inserting new
+ * text. It represents things like "after funk", "before air", "to bat", etc. in
+ * commands like "bring funk air to bat", "paste after line", etc.  Destinations
+ * are also created implicitly for actions like "drink" and "pour".
+ */
 export interface Destination {
   readonly insertionMode: InsertionMode;
   readonly editor: TextEditor;
