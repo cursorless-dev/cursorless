@@ -229,13 +229,7 @@ export class CommandRunnerImpl implements CommandRunner {
     partialDestinationDescriptor: PartialDestinationDescriptor,
     actionFinalStages: ModifierStage[] = [],
   ) {
-    if (partialDestinationDescriptor.type === "primitiveDestination") {
-      return this.getDestinationTargetsFromPrimitive(
-        inferenceContext,
-        partialDestinationDescriptor,
-        actionFinalStages,
-      );
-    } else {
+    if (partialDestinationDescriptor.type === "destinationList") {
       return partialDestinationDescriptor.destinations.flatMap((destination) =>
         this.getDestinationTargetsFromPrimitive(
           inferenceContext,
@@ -244,6 +238,11 @@ export class CommandRunnerImpl implements CommandRunner {
         ),
       );
     }
+    return this.getDestinationTargetsFromPrimitive(
+      inferenceContext,
+      partialDestinationDescriptor,
+      actionFinalStages,
+    );
   }
 
   private getDestinationTargetsFromPrimitive(
