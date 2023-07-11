@@ -11,7 +11,7 @@ import {
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "@cursorless/common";
-import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors.1";
+import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import canonicalizeActionName from "./canonicalizeActionName";
 import canonicalizeTargets from "./canonicalizeTargets";
