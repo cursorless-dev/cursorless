@@ -98,7 +98,7 @@ export class CommandRunnerImpl implements CommandRunner {
       case "callAsFunction": {
         const callees = this.getTargets(
           inferenceContext,
-          partialActionDescriptor.callees,
+          partialActionDescriptor.callee,
         );
         const args = this.getTargets(
           inferenceContext,

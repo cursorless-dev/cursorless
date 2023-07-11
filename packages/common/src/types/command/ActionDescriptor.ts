@@ -84,7 +84,7 @@ export interface PartialBringMoveActionDescriptor {
 
 export interface PartialCallActionDescriptor {
   name: "callAsFunction";
-  callees: PartialTargetDescriptor;
+  callee: PartialTargetDescriptor;
   args: PartialTargetDescriptor;
 }
 

@@ -56,7 +56,7 @@ function upgradeAction(
     case "callAsFunction":
       return {
         name: action.name,
-        callees: upgradeTarget(targets[0]),
+        callee: upgradeTarget(targets[0]),
         args: upgradeTarget(targets[1]),
       };
     case "pasteFromClipboard":

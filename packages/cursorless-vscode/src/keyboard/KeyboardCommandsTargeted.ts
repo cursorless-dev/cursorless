@@ -217,7 +217,7 @@ export default class KeyboardCommandsTargeted {
         returnValue = await executeCursorlessCommand({
           action: {
             name: action,
-            callees: target,
+            callee: target,
             args: { type: "implicit" },
           },
         });
