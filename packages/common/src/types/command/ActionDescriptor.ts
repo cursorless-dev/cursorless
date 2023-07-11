@@ -74,18 +74,18 @@ export type ActionType = (typeof actionNames)[number];
 /**
  * A simple action takes only a single target and no other arguments.
  */
-export interface PartialSimpleActionDescriptor {
+export interface SimpleActionDescriptor {
   name: SimpleActionName;
   target: PartialTargetDescriptor;
 }
 
-export interface PartialBringMoveActionDescriptor {
+export interface BringMoveActionDescriptor {
   name: "replaceWithTarget" | "moveToTarget";
   source: PartialTargetDescriptor;
   destination: DestinationDescriptor;
 }
 
-export interface PartialCallActionDescriptor {
+export interface CallActionDescriptor {
   name: "callAsFunction";
 
   /**
@@ -99,25 +99,25 @@ export interface PartialCallActionDescriptor {
   argument: PartialTargetDescriptor;
 }
 
-export interface PartialSwapActionDescriptor {
+export interface SwapActionDescriptor {
   name: "swapTargets";
   target1: PartialTargetDescriptor;
   target2: PartialTargetDescriptor;
 }
 
-export interface PartialWrapWithPairedDelimiterActionDescriptor {
+export interface WrapWithPairedDelimiterActionDescriptor {
   name: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
   left: string;
   right: string;
   target: PartialTargetDescriptor;
 }
 
-export interface PartialPasteActionDescriptor {
+export interface PasteActionDescriptor {
   name: "pasteFromClipboard";
   destination: DestinationDescriptor;
 }
 
-export interface PartialGenerateSnippetActionDescriptor {
+export interface GenerateSnippetActionDescriptor {
   name: "generateSnippet";
   snippetName?: string;
   target: PartialTargetDescriptor;
@@ -136,7 +136,7 @@ interface CustomInsertSnippetArg {
 }
 export type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;
 
-export interface PartialInsertSnippetActionDescriptor {
+export interface InsertSnippetActionDescriptor {
   name: "insertSnippet";
   snippetDescription: InsertSnippetArg;
   destination: DestinationDescriptor;
@@ -157,7 +157,7 @@ export type WrapWithSnippetArg =
   | NamedWrapWithSnippetArg
   | CustomWrapWithSnippetArg;
 
-export interface PartialWrapSnippetActionDescriptor {
+export interface WrapWithSnippetActionDescriptor {
   name: "wrapWithSnippet";
   snippetDescription: WrapWithSnippetArg;
   target: PartialTargetDescriptor;
@@ -171,7 +171,7 @@ export interface ExecuteCommandOptions {
   showDecorations?: boolean;
 }
 
-export interface PartialExecuteCommandActionDescriptor {
+export interface ExecuteCommandActionDescriptor {
   name: "executeCommand";
   commandId: string;
   options?: ExecuteCommandOptions;
@@ -180,28 +180,28 @@ export interface PartialExecuteCommandActionDescriptor {
 
 export type ReplaceWith = string[] | { start: number };
 
-export interface PartialReplaceActionDescriptor {
+export interface ReplaceActionDescriptor {
   name: "replace";
   replaceWith: ReplaceWith;
   destination: DestinationDescriptor;
 }
 
-export interface PartialHighlightActionDescriptor {
+export interface HighlightActionDescriptor {
   name: "highlight";
   highlightId?: string;
   target: PartialTargetDescriptor;
 }
 
 export type PartialActionDescriptor =
-  | PartialSimpleActionDescriptor
-  | PartialBringMoveActionDescriptor
-  | PartialSwapActionDescriptor
-  | PartialCallActionDescriptor
-  | PartialWrapWithPairedDelimiterActionDescriptor
-  | PartialPasteActionDescriptor
-  | PartialGenerateSnippetActionDescriptor
-  | PartialInsertSnippetActionDescriptor
-  | PartialWrapSnippetActionDescriptor
-  | PartialExecuteCommandActionDescriptor
-  | PartialReplaceActionDescriptor
-  | PartialHighlightActionDescriptor;
+  | SimpleActionDescriptor
+  | BringMoveActionDescriptor
+  | SwapActionDescriptor
+  | CallActionDescriptor
+  | PasteActionDescriptor
+  | ExecuteCommandActionDescriptor
+  | ReplaceActionDescriptor
+  | HighlightActionDescriptor
+  | GenerateSnippetActionDescriptor
+  | InsertSnippetActionDescriptor
+  | WrapWithSnippetActionDescriptor
+  | WrapWithPairedDelimiterActionDescriptor;
