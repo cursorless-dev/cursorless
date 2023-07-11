@@ -170,7 +170,7 @@ export type ReplaceWith = string[] | { start: number };
 export interface PartialReplaceActionDescriptor {
   name: "replace";
   replaceWith: ReplaceWith;
-  target: PartialTargetDescriptor;
+  destination: PartialDestinationDescriptor;
 }
 
 export interface PartialHighlightActionDescriptor {

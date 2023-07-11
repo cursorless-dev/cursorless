@@ -6,6 +6,7 @@ export * from "./LineTarget";
 export { default as LineTarget } from "./LineTarget";
 export * from "./NotebookCellTarget";
 export { default as NotebookCellTarget } from "./NotebookCellTarget";
+export { default as NotebookCellDestination } from "./NotebookCellDestination";
 export * from "./ParagraphTarget";
 export { default as ParagraphTarget } from "./ParagraphTarget";
 export * from "./PlainTarget";

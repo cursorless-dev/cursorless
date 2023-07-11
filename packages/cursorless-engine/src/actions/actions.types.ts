@@ -133,7 +133,7 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
   };
   replace: {
     run(
-      targets: Target[],
+      destinations: Destination[],
       replaceWith: ReplaceWith,
     ): Promise<ActionReturnValue>;
   };

@@ -25,7 +25,10 @@ abstract class SortBase implements Action {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.actions.replace.run(sortedTargets, sortedTexts);
+    return this.actions.replace.run(
+      sortedTargets.map((target) => target.toDestination("to")),
+      sortedTexts,
+    );
   }
 }
 

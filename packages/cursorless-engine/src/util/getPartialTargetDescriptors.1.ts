@@ -22,6 +22,7 @@ export function getPartialTargetDescriptors(
       return [command.action.target1, command.action.target2];
     case "pasteFromClipboard":
     case "insertSnippet":
+    case "replace":
       return [
         getPartialTargetDescriptorFromDestination(command.action.destination),
       ];

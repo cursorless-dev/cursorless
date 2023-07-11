@@ -1,6 +1,7 @@
 import {
   InsertionMode,
   Range,
+  Selection,
   TextEditor,
   UnsupportedError,
 } from "@cursorless/common";
@@ -50,6 +51,10 @@ export default class DestinationImpl implements Destination {
     return this.insertionMode === "before" || this.insertionMode === "after"
       ? this.constructEditWithDelimiters(text)
       : this.constructEditWithoutDelimiters(text);
+  }
+
+  get contentSelection(): Selection {
+    return this.contentRange.toSelection(this.target.isReversed);
   }
 
   get editor(): TextEditor {

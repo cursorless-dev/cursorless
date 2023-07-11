@@ -101,7 +101,7 @@ function upgradeAction(
       return {
         name: action.name,
         replaceWith: action.args![0] as ReplaceWith,
-        target: upgradeTarget(targets[0]),
+        destination: targetToDestination(targets[0]),
       };
     case "highlight":
       return {

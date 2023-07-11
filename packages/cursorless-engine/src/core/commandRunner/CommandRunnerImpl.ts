@@ -149,12 +149,12 @@ export class CommandRunnerImpl implements CommandRunner {
         );
       }
       case "replace": {
-        const targets = this.getTargets(
+        const destinations = this.getDestinations(
           inferenceContext,
-          partialActionDescriptor.target,
+          partialActionDescriptor.destination,
         );
         return this.actions.replace.run(
-          targets,
+          destinations,
           partialActionDescriptor.replaceWith,
         );
       }

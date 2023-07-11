@@ -167,6 +167,7 @@ export interface Destination {
   readonly editor: TextEditor;
   readonly target: Target;
   readonly contentRange: Range;
+  readonly contentSelection: Selection;
   readonly isRaw: boolean;
   readonly insertionDelimiter: string;
   getEditNewActionType(): EditNewActionType;
