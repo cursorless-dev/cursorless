@@ -1,12 +1,12 @@
 import {
   ActionType,
   CommandLatest,
+  DestinationDescriptor,
   ImplicitTargetDescriptor,
   LATEST_VERSION,
-  PartialActionDescriptor,
-  DestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
+  SimpleActionName,
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
@@ -233,9 +233,9 @@ export default class KeyboardCommandsTargeted {
       default:
         returnValue = await executeCursorlessCommand({
           action: {
-            name: action,
+            name: action as SimpleActionName,
             target,
-          } as PartialActionDescriptor, // TODO:
+          },
         });
     }
 
@@ -306,8 +306,8 @@ function toDestination(
         insertionMode: "to",
         target,
       };
-      case "implicit":
-        return target
+    case "implicit":
+      return target;
   }
 }
 
