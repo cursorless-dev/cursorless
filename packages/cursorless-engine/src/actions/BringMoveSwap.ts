@@ -75,18 +75,18 @@ abstract class BringMoveSwap {
   ): ExtendedEdit[] {
     const usedSources: Target[] = [];
     const results: ExtendedEdit[] = [];
-    const zipSources =
+    const shouldJoinSources =
       sources.length !== destinations.length && destinations.length === 1;
 
     sources.forEach((source, i) => {
       let destination = destinations[i];
-      if ((source == null || destination == null) && !zipSources) {
+      if ((source == null || destination == null) && !shouldJoinSources) {
         throw new Error("Targets must have same number of args");
       }
 
       if (destination != null) {
         let text: string;
-        if (zipSources) {
+        if (shouldJoinSources) {
           text = sources
             .map((source, i) => {
               const text = source.contentText;
