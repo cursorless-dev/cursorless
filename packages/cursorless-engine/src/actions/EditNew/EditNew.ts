@@ -43,7 +43,7 @@ export class EditNew implements Action {
     }
 
     const editableEditor = ide().getEditableTextEditor(
-      ensureSingleEditor(destinations.map((d) => d.target)),
+      ensureSingleEditor(destinations),
     );
 
     /**

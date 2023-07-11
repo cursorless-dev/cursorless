@@ -129,7 +129,7 @@ export type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
 export interface PartialInsertSnippetActionDescriptor {
   name: "insertSnippet";
   snippetDescription: InsertSnippetArg;
-  target: PartialTargetDescriptor;
+  destination: PartialDestinationDescriptor;
 }
 
 interface NamedSnippetArg {

@@ -20,7 +20,7 @@ export class PasteFromClipboard {
 
   async run(destinations: Destination[]): Promise<ActionReturnValue> {
     const editor = ide().getEditableTextEditor(
-      ensureSingleEditor(destinations.map((d) => d.target)),
+      ensureSingleEditor(destinations),
     );
     const originalEditor = ide().activeEditableTextEditor;
 

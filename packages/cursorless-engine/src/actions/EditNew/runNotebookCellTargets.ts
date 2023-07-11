@@ -11,8 +11,7 @@ export async function runEditNewNotebookCellTargets(
 ): Promise<ActionReturnValue> {
   // Can only run on one target because otherwise we'd end up with cursors in
   // multiple cells, which is unsupported in VSCode
-  ensureSingleTarget(destinations.map((d) => d.target));
-  const destination = destinations[0];
+  const destination = ensureSingleTarget(destinations);
   const editor = ide().getEditableTextEditor(destination.editor);
   const isAbove = destination.insertionMode === "before";
 

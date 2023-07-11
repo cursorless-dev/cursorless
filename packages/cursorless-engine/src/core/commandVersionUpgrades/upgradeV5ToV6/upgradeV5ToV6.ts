@@ -82,7 +82,7 @@ function upgradeAction(
       return {
         name: action.name,
         snippetDescription: action.args![0] as InsertSnippetArg,
-        target: upgradeTarget(targets[0]),
+        destination: targetToDestination(targets[0]),
       };
     case "wrapWithSnippet":
       return {

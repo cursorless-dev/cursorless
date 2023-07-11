@@ -179,15 +179,15 @@ export class CommandRunnerImpl implements CommandRunner {
         );
       }
       case "insertSnippet": {
-        const targets = this.getTargets(
+        const destinations = this.getDestinations(
           inferenceContext,
-          partialActionDescriptor.target,
+          partialActionDescriptor.destination,
           this.actions.insertSnippet.getPrePositionStages(
             partialActionDescriptor.snippetDescription,
           ),
         );
         return this.actions.insertSnippet.run(
-          targets,
+          destinations,
           partialActionDescriptor.snippetDescription,
         );
       }
@@ -235,15 +235,24 @@ export class CommandRunnerImpl implements CommandRunner {
   private getDestinations(
     inferenceContext: InferenceContext,
     partialDestinationDescriptor: PartialDestinationDescriptor,
+    actionPrePositionStages?: ModifierStage[],
+    actionFinalStages?: ModifierStage[],
   ) {
     if (partialDestinationDescriptor.type === "destination") {
       return this.getDestinationTargetsFromPrimitive(
         inferenceContext,
         partialDestinationDescriptor,
+        actionPrePositionStages,
+        actionFinalStages,
       );
     } else {
       return partialDestinationDescriptor.destinations.flatMap((destination) =>
-        this.getDestinationTargetsFromPrimitive(inferenceContext, destination),
+        this.getDestinationTargetsFromPrimitive(
+          inferenceContext,
+          destination,
+          actionPrePositionStages,
+          actionFinalStages,
+        ),
       );
     }
   }
@@ -251,13 +260,19 @@ export class CommandRunnerImpl implements CommandRunner {
   private getDestinationTargetsFromPrimitive(
     inferenceContext: InferenceContext,
     partialDestinationDescriptor: PartialPrimitiveDestinationDescriptor,
+    actionPrePositionStages?: ModifierStage[],
+    actionFinalStages?: ModifierStage[],
   ) {
     const destinationTargetDescriptor = inferenceContext.run(
       partialDestinationDescriptor.target,
     );
 
     return this.pipelineRunner
-      .run(destinationTargetDescriptor)
+      .run(
+        destinationTargetDescriptor,
+        actionPrePositionStages,
+        actionFinalStages,
+      )
       .map((target) =>
         target.toDestination(partialDestinationDescriptor.insertionMode),
       );

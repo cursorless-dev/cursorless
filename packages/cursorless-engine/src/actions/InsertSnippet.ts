@@ -21,7 +21,7 @@ import {
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Target } from "../typings/target.types";
+import { Destination, Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
 import { ActionReturnValue } from "./actions.types";
@@ -109,12 +109,14 @@ export default class InsertSnippet {
   }
 
   async run(
-    targets: Target[],
+    destinations: Destination[],
     snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
-    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
+    const editor = ide().getEditableTextEditor(
+      ensureSingleEditor(destinations),
+    );
 
-    await this.actions.editNew.run(targets);
+    await this.actions.editNew.runDestinations(destinations);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
       getSelectionInfo(
