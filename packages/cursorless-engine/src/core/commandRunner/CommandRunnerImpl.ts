@@ -15,6 +15,7 @@ import { Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
 import { inferFullTargetDescriptor } from "../inferFullTargets";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
+import { TargetDescriptor } from "../../typings/TargetDescriptor";
 
 export class CommandRunnerImpl implements CommandRunner {
   constructor(
@@ -71,146 +72,122 @@ export class CommandRunnerImpl implements CommandRunner {
 
     switch (partialActionDescriptor.name) {
       case "replaceWithTarget":
+        return this.actions.replaceWithTarget.run(
+          this.getTargets(inferenceContext, partialActionDescriptor.source),
+          this.getDestinations(
+            inferenceContext,
+            partialActionDescriptor.destination,
+          ),
+        );
       case "moveToTarget": {
-        const sources = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.source,
+        return this.actions.moveToTarget.run(
+          this.getTargets(inferenceContext, partialActionDescriptor.source),
+          this.getDestinations(
+            inferenceContext,
+            partialActionDescriptor.destination,
+          ),
         );
-        const destinations = this.getDestinations(
-          inferenceContext,
-          partialActionDescriptor.destination,
-        );
-        return partialActionDescriptor.name === "replaceWithTarget"
-          ? this.actions.replaceWithTarget.run(sources, destinations)
-          : this.actions.moveToTarget.run(sources, destinations);
       }
       case "swapTargets": {
-        const targets1 = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target1,
+        return this.actions.swapTargets.run(
+          this.getTargets(inferenceContext, partialActionDescriptor.target1),
+          this.getTargets(inferenceContext, partialActionDescriptor.target2),
         );
-        const targets2 = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target2,
-        );
-        return this.actions.swapTargets.run(targets1, targets2);
       }
       case "callAsFunction": {
-        const callees = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.callee,
+        return this.actions.callAsFunction.run(
+          this.getTargets(inferenceContext, partialActionDescriptor.callee),
+          this.getTargets(inferenceContext, partialActionDescriptor.argument),
         );
-        const args = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.argument,
-        );
-        return this.actions.callAsFunction.run(callees, args);
       }
       case "wrapWithPairedDelimiter": {
-        const targets = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target,
-        );
         return this.actions.wrapWithPairedDelimiter.run(
-          targets,
+          this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.left,
           partialActionDescriptor.right,
         );
       }
       case "rewrapWithPairedDelimiter": {
-        const targets = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target,
-          this.actions.rewrapWithPairedDelimiter.getFinalStages(),
-        );
         return this.actions.rewrapWithPairedDelimiter.run(
-          targets,
+          this.getTargets(
+            inferenceContext,
+            partialActionDescriptor.target,
+            this.actions.rewrapWithPairedDelimiter.getFinalStages(),
+          ),
           partialActionDescriptor.left,
           partialActionDescriptor.right,
         );
       }
       case "pasteFromClipboard": {
-        const destinations = this.getDestinations(
-          inferenceContext,
-          partialActionDescriptor.destination,
+        return this.actions.pasteFromClipboard.run(
+          this.getDestinations(
+            inferenceContext,
+            partialActionDescriptor.destination,
+          ),
         );
-        return this.actions.pasteFromClipboard.run(destinations);
       }
       case "executeCommand": {
-        const targets = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target,
-        );
         return this.actions.executeCommand.run(
-          targets,
+          this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.commandId,
           partialActionDescriptor.options,
         );
       }
       case "replace": {
-        const destinations = this.getDestinations(
-          inferenceContext,
-          partialActionDescriptor.destination,
-        );
         return this.actions.replace.run(
-          destinations,
+          this.getDestinations(
+            inferenceContext,
+            partialActionDescriptor.destination,
+          ),
           partialActionDescriptor.replaceWith,
         );
       }
       case "highlight": {
-        const targets = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target,
-        );
         return this.actions.highlight.run(
-          targets,
+          this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.highlightId,
         );
       }
       case "generateSnippet": {
-        const targets = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target,
-        );
         return this.actions.generateSnippet.run(
-          targets,
+          this.getTargets(inferenceContext, partialActionDescriptor.target),
           partialActionDescriptor.snippetName,
         );
       }
       case "insertSnippet": {
-        const destinations = this.getDestinations(
-          inferenceContext,
-          partialActionDescriptor.destination,
-          this.actions.insertSnippet.getFinalStages(
-            partialActionDescriptor.snippetDescription,
-          ),
-        );
         return this.actions.insertSnippet.run(
-          destinations,
+          this.getDestinations(
+            inferenceContext,
+            partialActionDescriptor.destination,
+            this.actions.insertSnippet.getFinalStages(
+              partialActionDescriptor.snippetDescription,
+            ),
+          ),
           partialActionDescriptor.snippetDescription,
         );
       }
       case "wrapWithSnippet": {
-        const targets = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target,
-          this.actions.wrapWithSnippet.getFinalStages(
-            partialActionDescriptor.snippetDescription,
-          ),
-        );
         return this.actions.wrapWithSnippet.run(
-          targets,
+          this.getTargets(
+            inferenceContext,
+            partialActionDescriptor.target,
+            this.actions.wrapWithSnippet.getFinalStages(
+              partialActionDescriptor.snippetDescription,
+            ),
+          ),
           partialActionDescriptor.snippetDescription,
         );
       }
       default: {
         const action = this.actions[partialActionDescriptor.name];
-        const targets = this.getTargets(
-          inferenceContext,
-          partialActionDescriptor.target,
-          action.getFinalStages?.(),
+
+        return action.run(
+          this.getTargets(
+            inferenceContext,
+            partialActionDescriptor.target,
+            action.getFinalStages?.(),
+          ),
         );
-        return action.run(targets);
       }
     }
   }
@@ -231,21 +208,21 @@ export class CommandRunnerImpl implements CommandRunner {
   ) {
     if (partialDestinationDescriptor.type === "destinationList") {
       return partialDestinationDescriptor.destinations.flatMap((destination) =>
-        this.getDestinationTargetsFromPrimitive(
+        this.getDestinationsFromPrimitive(
           inferenceContext,
           destination,
           actionFinalStages,
         ),
       );
     }
-    return this.getDestinationTargetsFromPrimitive(
+    return this.getDestinationsFromPrimitive(
       inferenceContext,
       partialDestinationDescriptor,
       actionFinalStages,
     );
   }
 
-  private getDestinationTargetsFromPrimitive(
+  private getDestinationsFromPrimitive(
     inferenceContext: InferenceContext,
     partialDestinationDescriptor: PartialPrimitiveDestinationDescriptor,
     actionFinalStages: ModifierStage[],
@@ -261,7 +238,7 @@ export class CommandRunnerImpl implements CommandRunner {
       );
   }
 
-  private debugTargets(targets: Target[]) {
+  private debugTargets(targets: TargetDescriptor[]) {
     if (this.debug.active) {
       this.debug.log("Full targets:");
       this.debug.log(JSON.stringify(targets, null, 2));
