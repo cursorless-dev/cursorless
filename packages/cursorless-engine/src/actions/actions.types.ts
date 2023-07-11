@@ -70,21 +70,25 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
   callAsFunction: {
     run(callees: Target[], args: Target[]): Promise<ActionReturnValue>;
   };
+
   replaceWithTarget: {
     run(
       sources: Target[],
       destinations: Destination[],
     ): Promise<ActionReturnValue>;
   };
+
   moveToTarget: {
     run(
       sources: Target[],
       destinations: Destination[],
     ): Promise<ActionReturnValue>;
   };
+
   swapTargets: {
     run(targets1: Target[], targets2: Target[]): Promise<ActionReturnValue>;
   };
+
   wrapWithPairedDelimiter: {
     run(
       targets: Target[],
@@ -92,6 +96,7 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
       right: string,
     ): Promise<ActionReturnValue>;
   };
+
   rewrapWithPairedDelimiter: {
     run(
       targets: Target[],
@@ -100,12 +105,15 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
     ): Promise<ActionReturnValue>;
     getFinalStages(): ModifierStage[];
   };
+
   pasteFromClipboard: {
     run(destinations: Destination[]): Promise<ActionReturnValue>;
   };
+
   generateSnippet: {
     run(targets: Target[], snippetName?: string): Promise<ActionReturnValue>;
   };
+
   insertSnippet: {
     run(
       destinations: Destination[],
@@ -113,6 +121,7 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
     ): Promise<ActionReturnValue>;
     getFinalStages(snippetDescription: InsertSnippetArg): ModifierStage[];
   };
+
   wrapWithSnippet: {
     run(
       targets: Target[],
@@ -120,10 +129,12 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
     ): Promise<ActionReturnValue>;
     getFinalStages(snippetDescription: WrapWithSnippetArg): ModifierStage[];
   };
+
   editNew: {
     run(targets: Target[]): Promise<ActionReturnValue>;
     runDestinations(destinations: Destination[]): Promise<ActionReturnValue>;
   };
+
   executeCommand: {
     run(
       targets: Target[],
@@ -131,12 +142,14 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
       options?: ExecuteCommandOptions,
     ): Promise<ActionReturnValue>;
   };
+
   replace: {
     run(
       destinations: Destination[],
       replaceWith: ReplaceWith,
     ): Promise<ActionReturnValue>;
   };
+
   highlight: {
     run(
       targets: Target[],
