@@ -121,7 +121,6 @@ export class CommandRunnerImpl implements CommandRunner {
         const targets = this.getTargets(
           inferenceContext,
           partialActionDescriptor.target,
-          undefined,
           this.actions.rewrapWithPairedDelimiter.getFinalStages(),
         );
         return this.actions.rewrapWithPairedDelimiter.run(
@@ -182,7 +181,7 @@ export class CommandRunnerImpl implements CommandRunner {
         const destinations = this.getDestinations(
           inferenceContext,
           partialActionDescriptor.destination,
-          this.actions.insertSnippet.getPrePositionStages(
+          this.actions.insertSnippet.getFinalStages(
             partialActionDescriptor.snippetDescription,
           ),
         );
@@ -195,7 +194,6 @@ export class CommandRunnerImpl implements CommandRunner {
         const targets = this.getTargets(
           inferenceContext,
           partialActionDescriptor.target,
-          undefined,
           this.actions.wrapWithSnippet.getFinalStages(
             partialActionDescriptor.snippetDescription,
           ),
@@ -210,7 +208,6 @@ export class CommandRunnerImpl implements CommandRunner {
         const targets = this.getTargets(
           inferenceContext,
           partialActionDescriptor.target,
-          undefined,
           action.getFinalStages?.(),
         );
         return action.run(targets);
@@ -221,28 +218,21 @@ export class CommandRunnerImpl implements CommandRunner {
   private getTargets(
     inferenceContext: InferenceContext,
     partialTargetsDescriptor: PartialTargetDescriptor,
-    actionPrePositionStages?: ModifierStage[],
     actionFinalStages?: ModifierStage[],
   ) {
     const targetDescriptor = inferenceContext.run(partialTargetsDescriptor);
-    return this.pipelineRunner.run(
-      targetDescriptor,
-      actionPrePositionStages,
-      actionFinalStages,
-    );
+    return this.pipelineRunner.run(targetDescriptor, actionFinalStages);
   }
 
   private getDestinations(
     inferenceContext: InferenceContext,
     partialDestinationDescriptor: PartialDestinationDescriptor,
-    actionPrePositionStages?: ModifierStage[],
-    actionFinalStages?: ModifierStage[],
+    actionFinalStages: ModifierStage[] = [],
   ) {
     if (partialDestinationDescriptor.type === "primitiveDestination") {
       return this.getDestinationTargetsFromPrimitive(
         inferenceContext,
         partialDestinationDescriptor,
-        actionPrePositionStages,
         actionFinalStages,
       );
     } else {
@@ -250,7 +240,6 @@ export class CommandRunnerImpl implements CommandRunner {
         this.getDestinationTargetsFromPrimitive(
           inferenceContext,
           destination,
-          actionPrePositionStages,
           actionFinalStages,
         ),
       );
@@ -260,19 +249,14 @@ export class CommandRunnerImpl implements CommandRunner {
   private getDestinationTargetsFromPrimitive(
     inferenceContext: InferenceContext,
     partialDestinationDescriptor: PartialPrimitiveDestinationDescriptor,
-    actionPrePositionStages?: ModifierStage[],
-    actionFinalStages?: ModifierStage[],
+    actionFinalStages: ModifierStage[],
   ) {
     const destinationTargetDescriptor = inferenceContext.run(
       partialDestinationDescriptor.target,
     );
 
     return this.pipelineRunner
-      .run(
-        destinationTargetDescriptor,
-        actionPrePositionStages,
-        actionFinalStages,
-      )
+      .run(destinationTargetDescriptor, actionFinalStages)
       .map((target) =>
         target.toDestination(partialDestinationDescriptor.insertionMode),
       );

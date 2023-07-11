@@ -38,7 +38,7 @@ export default class InsertSnippet {
     this.run = this.run.bind(this);
   }
 
-  getPrePositionStages(snippetDescription: InsertSnippetArg) {
+  getFinalStages(snippetDescription: InsertSnippetArg) {
     const defaultScopeTypes = this.getScopeTypes(snippetDescription);
 
     return defaultScopeTypes.length === 0

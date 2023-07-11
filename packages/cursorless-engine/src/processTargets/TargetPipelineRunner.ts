@@ -39,16 +39,11 @@ export class TargetPipelineRunner {
    * document containing it, and potentially rich context information such as
    * how to remove the target
    */
-  run(
-    target: TargetDescriptor,
-    actionPrePositionStages?: ModifierStage[],
-    actionFinalStages?: ModifierStage[],
-  ): Target[] {
+  run(target: TargetDescriptor, actionFinalStages?: ModifierStage[]): Target[] {
     return new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
       target,
-      actionPrePositionStages ?? [],
       actionFinalStages ?? [],
     ).run();
   }
@@ -59,7 +54,6 @@ class TargetPipeline {
     private modifierStageFactory: ModifierStageFactory,
     private markStageFactory: MarkStageFactory,
     private target: TargetDescriptor,
-    private actionPrePositionStages: ModifierStage[],
     private actionFinalStages: ModifierStage[],
   ) {}
 
@@ -223,7 +217,6 @@ class TargetPipeline {
      */
     const modifierStages = [
       ...nonModifierStages,
-      ...this.actionPrePositionStages,
       ...this.actionFinalStages,
 
       // This performs auto-expansion to token when you say eg "take this" with an

@@ -111,7 +111,7 @@ export interface ActionRecord extends Record<SimpleActionName, Action> {
       destinations: Destination[],
       snippetDescription: InsertSnippetArg,
     ): Promise<ActionReturnValue>;
-    getPrePositionStages(snippetDescription: InsertSnippetArg): ModifierStage[];
+    getFinalStages(snippetDescription: InsertSnippetArg): ModifierStage[];
   };
   wrapWithSnippet: {
     run(
