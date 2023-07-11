@@ -238,7 +238,7 @@ export class CommandRunnerImpl implements CommandRunner {
     actionPrePositionStages?: ModifierStage[],
     actionFinalStages?: ModifierStage[],
   ) {
-    if (partialDestinationDescriptor.type === "destination") {
+    if (partialDestinationDescriptor.type === "primitiveDestination") {
       return this.getDestinationTargetsFromPrimitive(
         inferenceContext,
         partialDestinationDescriptor,
