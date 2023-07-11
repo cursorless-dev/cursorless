@@ -170,6 +170,7 @@ export interface Destination {
   readonly contentSelection: Selection;
   readonly isRaw: boolean;
   readonly insertionDelimiter: string;
+  withTarget(target: Target): Destination;
   getEditNewActionType(): EditNewActionType;
   /** Constructs change/insertion edit. Adds delimiter before/after if needed */
   constructChangeEdit(text: string): EditWithRangeUpdater;

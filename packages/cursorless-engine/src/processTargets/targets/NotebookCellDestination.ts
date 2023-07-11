@@ -34,6 +34,10 @@ export default class NotebookCellDestination implements Destination {
     return this.target.isRaw;
   }
 
+  withTarget(target: NotebookCellTarget): Destination {
+    return new NotebookCellDestination(target, this.insertionMode);
+  }
+
   getEditNewActionType(): EditNewActionType {
     throw new Error("Method not implemented.");
   }

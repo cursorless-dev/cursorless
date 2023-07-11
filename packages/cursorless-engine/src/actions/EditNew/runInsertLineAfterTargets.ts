@@ -60,9 +60,9 @@ export async function runInsertLineAfterTargets(
 
   return {
     destinations: state.destinations.map((destination, index) =>
-      destination.target
-        .withContentRange(updatedTargetRanges[index])
-        .toDestination(destination.insertionMode),
+      destination.withTarget(
+        destination.target.withContentRange(updatedTargetRanges[index]),
+      ),
     ),
     thatRanges: updatedThatRanges,
     cursorRanges,

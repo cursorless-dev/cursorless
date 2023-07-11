@@ -18,14 +18,50 @@ export default class DestinationImpl implements Destination {
   private readonly isBefore: boolean;
   private readonly indentationString: string;
 
-  constructor(public target: Target, public insertionMode: InsertionMode) {
+  constructor(
+    public target: Target,
+    public insertionMode: InsertionMode,
+    indentationString?: string,
+  ) {
     this.contentRange = getContentRange(target.contentRange, insertionMode);
     this.isBefore = insertionMode === "before";
     // It's only considered a line if the delimiter is only new line symbols
     this.isLineDelimiter = /^(\n)+$/.test(target.insertionDelimiter);
-    this.indentationString = this.isLineDelimiter
-      ? getIndentationString(target.editor, target.contentRange)
-      : "";
+    this.indentationString =
+      indentationString ?? this.isLineDelimiter
+        ? getIndentationString(target.editor, target.contentRange)
+        : "";
+  }
+
+  get contentSelection(): Selection {
+    return this.contentRange.toSelection(this.target.isReversed);
+  }
+
+  get editor(): TextEditor {
+    return this.target.editor;
+  }
+
+  get insertionDelimiter(): string {
+    return this.target.insertionDelimiter;
+  }
+
+  get isRaw(): boolean {
+    return this.target.isRaw;
+  }
+
+  /**
+   * Creates a new destination with the given target while preserving insertion
+   * mode and indentation string from this destination. This is important
+   * because our "edit new" code updates the content range of the target when
+   * multiple edits are performed in the same document, but we want to insert
+   * the original indentation.
+   */
+  withTarget(target: Target): Destination {
+    return new DestinationImpl(
+      target,
+      this.insertionMode,
+      this.indentationString,
+    );
   }
 
   getEditNewActionType(): EditNewActionType {
@@ -51,22 +87,6 @@ export default class DestinationImpl implements Destination {
     return this.insertionMode === "before" || this.insertionMode === "after"
       ? this.constructEditWithDelimiters(text)
       : this.constructEditWithoutDelimiters(text);
-  }
-
-  get contentSelection(): Selection {
-    return this.contentRange.toSelection(this.target.isReversed);
-  }
-
-  get editor(): TextEditor {
-    return this.target.editor;
-  }
-
-  get insertionDelimiter(): string {
-    return this.target.insertionDelimiter;
-  }
-
-  get isRaw(): boolean {
-    return this.target.isRaw;
   }
 
   private constructEditWithDelimiters(text: string): EditWithRangeUpdater {
