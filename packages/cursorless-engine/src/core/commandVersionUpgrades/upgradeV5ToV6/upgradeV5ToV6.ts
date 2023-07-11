@@ -12,7 +12,7 @@ import {
   ListDestinationDescriptor,
   Modifier,
   ModifierV5,
-  PartialActionDescriptor,
+  ActionDescriptor,
   PartialListTargetDescriptor,
   PartialListTargetDescriptorV5,
   PartialPrimitiveTargetDescriptor,
@@ -40,7 +40,7 @@ export function upgradeV5ToV6(command: CommandV5): CommandV6 {
 function upgradeAction(
   action: ActionCommandV5,
   targets: PartialTargetDescriptorV5[],
-): PartialActionDescriptor {
+): ActionDescriptor {
   switch (action.name) {
     case "replaceWithTarget":
     case "moveToTarget":

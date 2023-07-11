@@ -1,7 +1,7 @@
 import {
   CommandComplete,
   DestinationDescriptor,
-  PartialActionDescriptor,
+  ActionDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
@@ -64,113 +64,101 @@ export class CommandRunnerImpl implements CommandRunner {
   }
 
   private runAction(
-    partialActionDescriptor: PartialActionDescriptor,
+    actionDescriptor: ActionDescriptor,
   ): Promise<ActionReturnValue> {
     const inferenceContext = new InferenceContext(this.debug);
 
-    switch (partialActionDescriptor.name) {
+    switch (actionDescriptor.name) {
       case "replaceWithTarget":
         return this.actions.replaceWithTarget.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.source),
-          this.getDestinations(
-            inferenceContext,
-            partialActionDescriptor.destination,
-          ),
+          this.getTargets(inferenceContext, actionDescriptor.source),
+          this.getDestinations(inferenceContext, actionDescriptor.destination),
         );
       case "moveToTarget":
         return this.actions.moveToTarget.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.source),
-          this.getDestinations(
-            inferenceContext,
-            partialActionDescriptor.destination,
-          ),
+          this.getTargets(inferenceContext, actionDescriptor.source),
+          this.getDestinations(inferenceContext, actionDescriptor.destination),
         );
       case "swapTargets":
         return this.actions.swapTargets.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.target1),
-          this.getTargets(inferenceContext, partialActionDescriptor.target2),
+          this.getTargets(inferenceContext, actionDescriptor.target1),
+          this.getTargets(inferenceContext, actionDescriptor.target2),
         );
       case "callAsFunction":
         return this.actions.callAsFunction.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.callee),
-          this.getTargets(inferenceContext, partialActionDescriptor.argument),
+          this.getTargets(inferenceContext, actionDescriptor.callee),
+          this.getTargets(inferenceContext, actionDescriptor.argument),
         );
       case "wrapWithPairedDelimiter":
         return this.actions.wrapWithPairedDelimiter.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.target),
-          partialActionDescriptor.left,
-          partialActionDescriptor.right,
+          this.getTargets(inferenceContext, actionDescriptor.target),
+          actionDescriptor.left,
+          actionDescriptor.right,
         );
       case "rewrapWithPairedDelimiter":
         return this.actions.rewrapWithPairedDelimiter.run(
           this.getTargets(
             inferenceContext,
-            partialActionDescriptor.target,
+            actionDescriptor.target,
             this.actions.rewrapWithPairedDelimiter.getFinalStages(),
           ),
-          partialActionDescriptor.left,
-          partialActionDescriptor.right,
+          actionDescriptor.left,
+          actionDescriptor.right,
         );
       case "pasteFromClipboard":
         return this.actions.pasteFromClipboard.run(
-          this.getDestinations(
-            inferenceContext,
-            partialActionDescriptor.destination,
-          ),
+          this.getDestinations(inferenceContext, actionDescriptor.destination),
         );
       case "executeCommand":
         return this.actions.executeCommand.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.target),
-          partialActionDescriptor.commandId,
-          partialActionDescriptor.options,
+          this.getTargets(inferenceContext, actionDescriptor.target),
+          actionDescriptor.commandId,
+          actionDescriptor.options,
         );
       case "replace":
         return this.actions.replace.run(
-          this.getDestinations(
-            inferenceContext,
-            partialActionDescriptor.destination,
-          ),
-          partialActionDescriptor.replaceWith,
+          this.getDestinations(inferenceContext, actionDescriptor.destination),
+          actionDescriptor.replaceWith,
         );
       case "highlight":
         return this.actions.highlight.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.target),
-          partialActionDescriptor.highlightId,
+          this.getTargets(inferenceContext, actionDescriptor.target),
+          actionDescriptor.highlightId,
         );
       case "generateSnippet":
         return this.actions.generateSnippet.run(
-          this.getTargets(inferenceContext, partialActionDescriptor.target),
-          partialActionDescriptor.snippetName,
+          this.getTargets(inferenceContext, actionDescriptor.target),
+          actionDescriptor.snippetName,
         );
       case "insertSnippet":
         return this.actions.insertSnippet.run(
           this.getDestinations(
             inferenceContext,
-            partialActionDescriptor.destination,
+            actionDescriptor.destination,
             this.actions.insertSnippet.getFinalStages(
-              partialActionDescriptor.snippetDescription,
+              actionDescriptor.snippetDescription,
             ),
           ),
-          partialActionDescriptor.snippetDescription,
+          actionDescriptor.snippetDescription,
         );
       case "wrapWithSnippet":
         return this.actions.wrapWithSnippet.run(
           this.getTargets(
             inferenceContext,
-            partialActionDescriptor.target,
+            actionDescriptor.target,
             this.actions.wrapWithSnippet.getFinalStages(
-              partialActionDescriptor.snippetDescription,
+              actionDescriptor.snippetDescription,
             ),
           ),
-          partialActionDescriptor.snippetDescription,
+          actionDescriptor.snippetDescription,
         );
       default: {
-        const action = this.actions[partialActionDescriptor.name];
+        const action = this.actions[actionDescriptor.name];
 
         return action.run(
           this.getTargets(
             inferenceContext,
-            partialActionDescriptor.target,
+            actionDescriptor.target,
             action.getFinalStages?.(),
           ),
         );

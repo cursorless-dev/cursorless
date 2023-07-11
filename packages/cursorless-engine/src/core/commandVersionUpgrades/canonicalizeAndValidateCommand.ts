@@ -7,7 +7,7 @@ import {
   LATEST_VERSION,
   Modifier,
   OutdatedExtensionError,
-  PartialActionDescriptor,
+  ActionDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "@cursorless/common";
@@ -47,7 +47,7 @@ export function canonicalizeAndValidateCommand(
     action: {
       ...action,
       name: actionName,
-    } as PartialActionDescriptor,
+    } as ActionDescriptor,
     usePrePhraseSnapshot,
   };
 }

@@ -192,7 +192,7 @@ export interface HighlightActionDescriptor {
   target: PartialTargetDescriptor;
 }
 
-export type PartialActionDescriptor =
+export type ActionDescriptor =
   | SimpleActionDescriptor
   | BringMoveActionDescriptor
   | SwapActionDescriptor

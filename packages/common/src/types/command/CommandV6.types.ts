@@ -1,4 +1,4 @@
-import type { PartialActionDescriptor } from "./ActionDescriptor";
+import type { ActionDescriptor } from "./ActionDescriptor";
 
 export interface CommandV6 {
   /**
@@ -19,5 +19,5 @@ export interface CommandV6 {
    */
   usePrePhraseSnapshot: boolean;
 
-  action: PartialActionDescriptor;
+  action: ActionDescriptor;
 }
