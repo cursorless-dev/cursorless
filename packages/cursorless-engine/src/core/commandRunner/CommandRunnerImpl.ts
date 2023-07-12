@@ -80,83 +80,92 @@ export class CommandRunnerImpl implements CommandRunner {
           this.getTargets(actionDescriptor.source),
           this.getDestinations(actionDescriptor.destination),
         );
+
       case "moveToTarget":
         return this.actions.moveToTarget.run(
           this.getTargets(actionDescriptor.source),
           this.getDestinations(actionDescriptor.destination),
         );
+
       case "swapTargets":
         return this.actions.swapTargets.run(
           this.getTargets(actionDescriptor.target1),
           this.getTargets(actionDescriptor.target2),
         );
+
       case "callAsFunction":
         return this.actions.callAsFunction.run(
           this.getTargets(actionDescriptor.callee),
           this.getTargets(actionDescriptor.argument),
         );
+
       case "wrapWithPairedDelimiter":
         return this.actions.wrapWithPairedDelimiter.run(
           this.getTargets(actionDescriptor.target),
           actionDescriptor.left,
           actionDescriptor.right,
         );
+
       case "rewrapWithPairedDelimiter":
         this.finalStages =
           this.actions.rewrapWithPairedDelimiter.getFinalStages();
-
         return this.actions.rewrapWithPairedDelimiter.run(
           this.getTargets(actionDescriptor.target),
           actionDescriptor.left,
           actionDescriptor.right,
         );
+
       case "pasteFromClipboard":
         return this.actions.pasteFromClipboard.run(
           this.getDestinations(actionDescriptor.destination),
         );
+
       case "executeCommand":
         return this.actions.executeCommand.run(
           this.getTargets(actionDescriptor.target),
           actionDescriptor.commandId,
           actionDescriptor.options,
         );
+
       case "replace":
         return this.actions.replace.run(
           this.getDestinations(actionDescriptor.destination),
           actionDescriptor.replaceWith,
         );
+
       case "highlight":
         return this.actions.highlight.run(
           this.getTargets(actionDescriptor.target),
           actionDescriptor.highlightId,
         );
+
       case "generateSnippet":
         return this.actions.generateSnippet.run(
           this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetName,
         );
+
       case "insertSnippet":
         this.finalStages = this.actions.insertSnippet.getFinalStages(
           actionDescriptor.snippetDescription,
         );
-
         return this.actions.insertSnippet.run(
           this.getDestinations(actionDescriptor.destination),
           actionDescriptor.snippetDescription,
         );
+
       case "wrapWithSnippet":
         this.finalStages = this.actions.wrapWithSnippet.getFinalStages(
           actionDescriptor.snippetDescription,
         );
-
         return this.actions.wrapWithSnippet.run(
           this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetDescription,
         );
+
       default: {
         const action = this.actions[actionDescriptor.name];
         this.finalStages = action.getFinalStages?.() ?? [];
-
         return action.run(this.getTargets(actionDescriptor.target));
       }
     }
