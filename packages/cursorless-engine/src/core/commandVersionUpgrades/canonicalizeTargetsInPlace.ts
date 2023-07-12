@@ -33,20 +33,16 @@ function canonicalizeColorsInPlace(
   target: PartialPrimitiveTargetDescriptor,
 ): void {
   if (target.mark?.type === "decoratedSymbol") {
-    target.mark = {
-      ...target.mark,
-      symbolColor:
-        COLOR_CANONICALIZATION_MAPPING[target.mark.symbolColor] ??
-        target.mark.symbolColor,
-    };
+    target.mark.symbolColor =
+      COLOR_CANONICALIZATION_MAPPING[target.mark.symbolColor] ??
+      target.mark.symbolColor;
   }
 }
 
 export default function canonicalizeTargetsInPlace(
   partialTargets: PartialTargetDescriptor[],
 ): void {
-  const partialPrimitiveTargets = getPartialPrimitiveTargets(partialTargets);
-  partialPrimitiveTargets.forEach((target) => {
+  getPartialPrimitiveTargets(partialTargets).forEach((target) => {
     canonicalizeScopeTypesInPlace(target);
     canonicalizeColorsInPlace(target);
   });
