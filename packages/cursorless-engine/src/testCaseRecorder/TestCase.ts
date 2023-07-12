@@ -49,7 +49,7 @@ export class TestCase {
   ) {
     const activeEditor = ide().activeTextEditor!;
     this.command = command;
-    this.partialTargetDescriptors = getPartialTargetDescriptors(command);
+    this.partialTargetDescriptors = getPartialTargetDescriptors(command.action);
     this.targetKeys = this.partialTargetDescriptors
       .map(extractTargetKeys)
       .flat();

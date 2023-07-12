@@ -17,7 +17,7 @@ const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
   purple: "pink",
 };
 
-function canonicalizeScopeTypes(
+function canonicalizeScopeTypesInPlace(
   target: PartialPrimitiveTargetDescriptor,
 ): void {
   target.modifiers?.forEach((mod) => {
@@ -29,7 +29,9 @@ function canonicalizeScopeTypes(
   });
 }
 
-function canonicalizeColors(target: PartialPrimitiveTargetDescriptor): void {
+function canonicalizeColorsInPlace(
+  target: PartialPrimitiveTargetDescriptor,
+): void {
   if (target.mark?.type === "decoratedSymbol") {
     target.mark = {
       ...target.mark,
@@ -40,12 +42,12 @@ function canonicalizeColors(target: PartialPrimitiveTargetDescriptor): void {
   }
 }
 
-export default function canonicalizeTargets(
+export default function canonicalizeTargetsInPlace(
   partialTargets: PartialTargetDescriptor[],
 ): void {
   const partialPrimitiveTargets = getPartialPrimitiveTargets(partialTargets);
   partialPrimitiveTargets.forEach((target) => {
-    canonicalizeScopeTypes(target);
-    canonicalizeColors(target);
+    canonicalizeScopeTypesInPlace(target);
+    canonicalizeColorsInPlace(target);
   });
 }

@@ -1,5 +1,6 @@
 import {
   ActionCommandV5,
+  ActionDescriptor,
   CommandV5,
   CommandV6,
   DestinationDescriptor,
@@ -12,7 +13,6 @@ import {
   ListDestinationDescriptor,
   Modifier,
   ModifierV5,
-  ActionDescriptor,
   PartialListTargetDescriptor,
   PartialListTargetDescriptorV5,
   PartialPrimitiveTargetDescriptor,
@@ -24,9 +24,9 @@ import {
   PositionModifierV5,
   PrimitiveDestinationDescriptor,
   ReplaceWith,
-  SimpleActionName,
   WrapWithSnippetArg,
 } from "@cursorless/common";
+import canonicalizeActionName from "./canonicalizeActionName";
 
 export function upgradeV5ToV6(command: CommandV5): CommandV6 {
   return {
@@ -41,79 +41,87 @@ function upgradeAction(
   action: ActionCommandV5,
   targets: PartialTargetDescriptorV5[],
 ): ActionDescriptor {
-  switch (action.name) {
+  // We canonicalize once and for all
+  const name = canonicalizeActionName(action.name);
+
+  switch (name) {
     case "replaceWithTarget":
     case "moveToTarget":
       return {
-        name: action.name,
+        name,
         source: upgradeTarget(targets[0]),
         destination: targetToDestination(targets[1]),
       };
     case "swapTargets":
       return {
-        name: action.name,
+        name,
         target1: upgradeTarget(targets[0]),
         target2: upgradeTarget(targets[1]),
       };
     case "callAsFunction":
       return {
-        name: action.name,
+        name,
         callee: upgradeTarget(targets[0]),
         argument: upgradeTarget(targets[1]),
       };
     case "pasteFromClipboard":
       return {
-        name: action.name,
+        name,
         destination: targetToDestination(targets[0]),
       };
     case "wrapWithPairedDelimiter":
     case "rewrapWithPairedDelimiter":
       return {
-        name: action.name,
+        name,
         left: action.args![0] as string,
         right: action.args![1] as string,
         target: upgradeTarget(targets[0]),
       };
     case "generateSnippet":
       return {
-        name: action.name,
+        name,
         snippetName: action.args?.[0] as string,
         target: upgradeTarget(targets[0]),
       };
     case "insertSnippet":
       return {
-        name: action.name,
+        name,
         snippetDescription: action.args![0] as InsertSnippetArg,
         destination: targetToDestination(targets[0]),
       };
     case "wrapWithSnippet":
       return {
-        name: action.name,
+        name,
         snippetDescription: action.args![0] as WrapWithSnippetArg,
         target: upgradeTarget(targets[0]),
       };
     case "executeCommand":
       return {
-        name: action.name,
+        name,
         commandId: action.args![0] as string,
         options: action.args?.[1] as ExecuteCommandOptions,
         target: upgradeTarget(targets[0]),
       };
     case "replace":
       return {
-        name: action.name,
+        name,
         replaceWith: action.args![0] as ReplaceWith,
         destination: targetToDestination(targets[0]),
       };
     case "highlight":
       return {
-        name: action.name,
+        name,
         highlightId: action.args?.[0] as HighlightId,
         target: upgradeTarget(targets[0]),
       };
+    case "editNew":
+      return {
+        name,
+        destination: targetToDestination(targets[0]),
+      };
     default:
       return {
-        name: action.name as SimpleActionName,
+        name,
         target: upgradeTarget(targets[0]),
       };
   }

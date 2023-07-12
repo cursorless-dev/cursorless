@@ -7,20 +7,19 @@ import {
   LATEST_VERSION,
   Modifier,
   OutdatedExtensionError,
-  ActionDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
-import canonicalizeActionName from "./canonicalizeActionName";
-import canonicalizeTargets from "./canonicalizeTargets";
+import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
 import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
 import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
 import { upgradeV5ToV6 } from "./upgradeV5ToV6";
+import produce from "immer";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -35,19 +34,15 @@ export function canonicalizeAndValidateCommand(
   const commandUpgraded = upgradeCommand(command);
   const { action, usePrePhraseSnapshot = false, spokenForm } = commandUpgraded;
 
-  const actionName = canonicalizeActionName(action.name);
-  const partialTargets = getPartialTargetDescriptors(commandUpgraded);
-
-  canonicalizeTargets(partialTargets);
-  validateCommand(actionName, partialTargets);
-
   return {
     version: LATEST_VERSION,
     spokenForm,
-    action: {
-      ...action,
-      name: actionName,
-    } as ActionDescriptor,
+    action: produce(action, (draft) => {
+      const partialTargets = getPartialTargetDescriptors(draft);
+
+      canonicalizeTargetsInPlace(partialTargets);
+      validateCommand(action.name, partialTargets);
+    }),
     usePrePhraseSnapshot,
   };
 }

@@ -1,5 +1,5 @@
 import {
-  CommandLatest,
+  ActionDescriptor,
   DestinationDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
@@ -7,28 +7,26 @@ import {
 } from "@cursorless/common";
 
 export function getPartialTargetDescriptors(
-  command: CommandLatest,
+  action: ActionDescriptor,
 ): PartialTargetDescriptor[] {
-  switch (command.action.name) {
+  switch (action.name) {
     case "callAsFunction":
-      return [command.action.callee, command.action.argument];
+      return [action.callee, action.argument];
     case "replaceWithTarget":
     case "moveToTarget":
       return [
-        command.action.source,
-        getPartialTargetDescriptorFromDestination(command.action.destination),
+        action.source,
+        getPartialTargetDescriptorFromDestination(action.destination),
       ];
     case "swapTargets":
-      return [command.action.target1, command.action.target2];
+      return [action.target1, action.target2];
     case "pasteFromClipboard":
     case "insertSnippet":
     case "replace":
     case "editNew":
-      return [
-        getPartialTargetDescriptorFromDestination(command.action.destination),
-      ];
+      return [getPartialTargetDescriptorFromDestination(action.destination)];
     default:
-      return [command.action.target];
+      return [action.target];
   }
 }
 
