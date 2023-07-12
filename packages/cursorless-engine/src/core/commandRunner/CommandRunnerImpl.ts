@@ -163,6 +163,11 @@ export class CommandRunnerImpl implements CommandRunner {
           actionDescriptor.snippetDescription,
         );
 
+      case "editNew":
+        return this.actions.editNew.run(
+          this.getDestinations(actionDescriptor.destination),
+        );
+
       default: {
         const action = this.actions[actionDescriptor.name];
         this.finalStages = action.getFinalStages?.() ?? [];

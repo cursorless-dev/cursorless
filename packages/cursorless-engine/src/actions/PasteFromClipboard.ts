@@ -30,7 +30,7 @@ export class PasteFromClipboard {
     const [originalCursorSelections] = await callFunctionAndUpdateSelections(
       this.rangeUpdater,
       async () => {
-        await this.actions.editNew.runDestinations(destinations);
+        await this.actions.editNew.run(destinations);
       },
       editor.document,
       [editor.selections],

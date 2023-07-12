@@ -131,8 +131,7 @@ export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
   };
 
   editNew: {
-    run(targets: Target[]): Promise<ActionReturnValue>;
-    runDestinations(destinations: Destination[]): Promise<ActionReturnValue>;
+    run(destinations: Destination[]): Promise<ActionReturnValue>;
   };
 
   executeCommand: {

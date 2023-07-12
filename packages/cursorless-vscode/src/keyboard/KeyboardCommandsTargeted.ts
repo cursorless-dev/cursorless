@@ -1,12 +1,11 @@
 import {
+  ActionDescriptor,
   ActionType,
-  CommandLatest,
   DestinationDescriptor,
   ImplicitTargetDescriptor,
   LATEST_VERSION,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
-  SimpleActionName,
   SimpleScopeTypeType,
 } from "@cursorless/common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
@@ -122,10 +121,8 @@ export default class KeyboardCommandsTargeted {
     }
 
     return await executeCursorlessCommand({
-      action: {
-        name: "highlight",
-        target,
-      },
+      name: "highlight",
+      target,
     });
   };
 
@@ -139,34 +136,30 @@ export default class KeyboardCommandsTargeted {
     type = "containingScope",
   }: TargetScopeTypeArgument) =>
     await executeCursorlessCommand({
-      action: {
-        name: "highlight",
-        target: {
-          type: "primitive",
-          modifiers: [
-            {
-              type,
-              scopeType: {
-                type: scopeType,
-              },
+      name: "highlight",
+      target: {
+        type: "primitive",
+        modifiers: [
+          {
+            type,
+            scopeType: {
+              type: scopeType,
             },
-          ],
-          mark: {
-            type: "that",
           },
+        ],
+        mark: {
+          type: "that",
         },
       },
     });
 
   private highlightTarget = () =>
     executeCursorlessCommand({
-      action: {
-        name: "highlight",
-        target: {
-          type: "primitive",
-          mark: {
-            type: "that",
-          },
+      name: "highlight",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "that",
         },
       },
     });
@@ -193,49 +186,47 @@ export default class KeyboardCommandsTargeted {
       case "wrapWithSnippet":
       case "executeCommand":
       case "replace":
+      case "editNew":
         throw Error(`Unsupported keyboard action: ${action}`);
       case "replaceWithTarget":
       case "moveToTarget":
         returnValue = await executeCursorlessCommand({
-          action: {
-            name: action,
-            source: target,
-            destination: toDestination({ type: "implicit" }),
-          },
+          name: action,
+          source: target,
+          destination: toDestination({ type: "implicit" }),
         });
         break;
       case "swapTargets":
         returnValue = await executeCursorlessCommand({
-          action: {
-            name: action,
-            target1: target,
-            target2: { type: "implicit" },
-          },
+          name: action,
+          target1: target,
+          target2: { type: "implicit" },
         });
         break;
       case "callAsFunction":
         returnValue = await executeCursorlessCommand({
-          action: {
-            name: action,
-            callee: target,
-            argument: { type: "implicit" },
-          },
+          name: action,
+          callee: target,
+          argument: { type: "implicit" },
         });
         break;
       case "pasteFromClipboard":
         returnValue = await executeCursorlessCommand({
-          action: {
-            name: action,
-            destination: toDestination(target),
-          },
+          name: action,
+          destination: toDestination(target),
+        });
+        break;
+      case "generateSnippet":
+      case "highlight":
+        returnValue = await executeCursorlessCommand({
+          name: action,
+          target,
         });
         break;
       default:
         returnValue = await executeCursorlessCommand({
-          action: {
-            name: action as SimpleActionName,
-            target,
-          },
+          name: action,
+          target,
         });
     }
 
@@ -256,15 +247,13 @@ export default class KeyboardCommandsTargeted {
    */
   targetSelection = () =>
     executeCursorlessCommand({
-      action: {
-        name: "highlight",
-        target: {
-          type: "primitive",
-          mark: {
-            type: "cursor",
-          },
-          modifiers: [{ type: "toRawSelection" }],
+      name: "highlight",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "cursor",
         },
+        modifiers: [{ type: "toRawSelection" }],
       },
     });
 
@@ -274,23 +263,19 @@ export default class KeyboardCommandsTargeted {
    */
   clearTarget = () =>
     executeCursorlessCommand({
-      action: {
-        name: "highlight",
-        target: {
-          type: "primitive",
-          mark: {
-            type: "nothing",
-          },
+      name: "highlight",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "nothing",
         },
       },
     });
 }
 
-function executeCursorlessCommand(
-  command: Omit<CommandLatest, "version" | "usePrePhraseSnapshot">,
-) {
+function executeCursorlessCommand(action: ActionDescriptor) {
   return runCursorlessCommand({
-    ...command,
+    action,
     version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
   });

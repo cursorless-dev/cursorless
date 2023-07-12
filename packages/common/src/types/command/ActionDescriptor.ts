@@ -192,6 +192,11 @@ export interface HighlightActionDescriptor {
   target: PartialTargetDescriptor;
 }
 
+export interface EditNewActionDescriptor {
+  name: "editNew";
+  destination: DestinationDescriptor;
+}
+
 export type ActionDescriptor =
   | SimpleActionDescriptor
   | BringMoveActionDescriptor
@@ -204,4 +209,5 @@ export type ActionDescriptor =
   | GenerateSnippetActionDescriptor
   | InsertSnippetActionDescriptor
   | WrapWithSnippetActionDescriptor
-  | WrapWithPairedDelimiterActionDescriptor;
+  | WrapWithPairedDelimiterActionDescriptor
+  | EditNewActionDescriptor;

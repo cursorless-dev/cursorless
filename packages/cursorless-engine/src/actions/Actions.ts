@@ -71,14 +71,12 @@ export class Actions implements ActionRecord {
   copyToClipboard = new CopyToClipboard(this.rangeUpdater);
   cutToClipboard = new CutToClipboard(this);
   deselect = new Deselect();
-  editNew = new EditNew(this.rangeUpdater, this, this.modifierStageFactory);
-  editNewLineAfter = new EditNewAfter(
-    this.rangeUpdater,
+  editNew = new EditNew(this.rangeUpdater, this);
+  editNewLineAfter: EditNewAfter = new EditNewAfter(
     this,
     this.modifierStageFactory,
   );
-  editNewLineBefore = new EditNewBefore(
-    this.rangeUpdater,
+  editNewLineBefore: EditNewBefore = new EditNewBefore(
     this,
     this.modifierStageFactory,
   );

@@ -116,7 +116,7 @@ export default class InsertSnippet {
       ensureSingleEditor(destinations),
     );
 
-    await this.actions.editNew.runDestinations(destinations);
+    await this.actions.editNew.run(destinations);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
       getSelectionInfo(
