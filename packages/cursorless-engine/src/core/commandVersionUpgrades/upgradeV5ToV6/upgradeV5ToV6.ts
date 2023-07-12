@@ -4,6 +4,7 @@ import {
   CommandV5,
   CommandV6,
   DestinationDescriptor,
+  EnforceUndefined,
   ExecuteCommandOptions,
   HighlightId,
   ImplicitDestinationDescriptor,
@@ -28,7 +29,7 @@ import {
 } from "@cursorless/common";
 import canonicalizeActionName from "./canonicalizeActionName";
 
-export function upgradeV5ToV6(command: CommandV5): CommandV6 {
+export function upgradeV5ToV6(command: CommandV5): EnforceUndefined<CommandV6> {
   return {
     version: 6,
     spokenForm: command.spokenForm,
@@ -40,7 +41,7 @@ export function upgradeV5ToV6(command: CommandV5): CommandV6 {
 function upgradeAction(
   action: ActionCommandV5,
   targets: PartialTargetDescriptorV5[],
-): ActionDescriptor {
+): EnforceUndefined<ActionDescriptor> {
   // We canonicalize once and for all
   const name = canonicalizeActionName(action.name);
 
@@ -80,7 +81,7 @@ function upgradeAction(
     case "generateSnippet":
       return {
         name,
-        snippetName: action.args?.[0] as string,
+        snippetName: action.args?.[0] as string | undefined,
         target: upgradeTarget(targets[0]),
       };
     case "insertSnippet":
@@ -99,7 +100,7 @@ function upgradeAction(
       return {
         name,
         commandId: action.args![0] as string,
-        options: action.args?.[1] as ExecuteCommandOptions,
+        options: action.args?.[1] as ExecuteCommandOptions | undefined,
         target: upgradeTarget(targets[0]),
       };
     case "replace":
@@ -111,7 +112,7 @@ function upgradeAction(
     case "highlight":
       return {
         name,
-        highlightId: action.args?.[0] as HighlightId,
+        highlightId: action.args?.[0] as HighlightId | undefined,
         target: upgradeTarget(targets[0]),
       };
     case "editNew":
@@ -132,11 +133,9 @@ function upgradeTarget(
 ): PartialTargetDescriptor {
   switch (target.type) {
     case "list":
-      return upgradeListTarget(target);
     case "range":
-      return upgradeRangeTarget(target);
     case "primitive":
-      return upgradePrimitiveTarget(target);
+      return upgradeNonImplicitTarget(target);
     case "implicit":
       return target;
   }
@@ -191,7 +190,7 @@ function upgradePrimitiveTarget(
 ): PartialPrimitiveTargetDescriptor {
   return {
     ...target,
-    modifiers: getModifiers(target.modifiers),
+    modifiers: upgradeModifiers(target.modifiers),
   };
 }
 
@@ -223,6 +222,11 @@ function listTargetToDestination(
         target: upgradeNonImplicitTarget(element),
       });
     } else {
+      // We handle `"before air and bat"` by distributing the `"before"` to all
+      // elements, so that it becomes `"before air and before bat"`.  Note that
+      // when these destinatinos are actually constructed by Talon in non-legacy
+      // cursorless-talon, `"before air and bat"` would be a single destination
+      // with a compound target.
       destinations.push({
         type: "primitive",
         insertionMode: destinations[destinations.length - 1].insertionMode,
@@ -295,11 +299,13 @@ function getInsertionModeFromPrimitive(
     ) {
       return positionModifier.position;
     }
+    // "start" and "end" modifiers don't affect insertion mode; they remain as
+    // modifiers
   }
   return undefined;
 }
 
-function getModifiers(modifiers?: ModifierV5[]): Modifier[] | undefined {
+function upgradeModifiers(modifiers?: ModifierV5[]): Modifier[] | undefined {
   const result: Modifier[] = [];
 
   if (modifiers != null) {
@@ -310,6 +316,8 @@ function getModifiers(modifiers?: ModifierV5[]): Modifier[] | undefined {
         } else if (modifier.position === "end") {
           result.push({ type: "endOf" });
         }
+
+        // Drop "before" and "after" modifiers
       } else {
         result.push(modifier as Modifier);
       }
