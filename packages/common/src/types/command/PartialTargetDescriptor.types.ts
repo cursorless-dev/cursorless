@@ -350,8 +350,6 @@ export type Modifier =
 // vertical puts a selection on each line vertically between the two targets
 export type PartialRangeType = "continuous" | "vertical";
 
-export type InsertionMode = "before" | "after" | "to";
-
 export interface PartialPrimitiveTargetDescriptor {
   type: "primitive";
   mark?: PartialMark;
