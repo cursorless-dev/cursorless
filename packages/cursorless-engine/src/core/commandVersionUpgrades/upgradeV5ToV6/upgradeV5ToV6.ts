@@ -151,9 +151,8 @@ function upgradeNonImplicitTarget(
     case "list":
       return upgradeListTarget(target);
     case "range":
-      return upgradeRangeTarget(target);
     case "primitive":
-      return upgradePrimitiveTarget(target);
+      return upgradeRangeOrPrimitiveTarget(target);
   }
 }
 
@@ -162,15 +161,19 @@ function upgradeListTarget(
 ): PartialListTargetDescriptor {
   return {
     ...target,
-    elements: target.elements.map((element) => {
-      switch (element.type) {
-        case "range":
-          return upgradeRangeTarget(element);
-        case "primitive":
-          return upgradePrimitiveTarget(element);
-      }
-    }),
+    elements: target.elements.map(upgradeRangeOrPrimitiveTarget),
   };
+}
+
+function upgradeRangeOrPrimitiveTarget(
+  target: PartialPrimitiveTargetDescriptorV5 | PartialRangeTargetDescriptorV5,
+) {
+  switch (target.type) {
+    case "range":
+      return upgradeRangeTarget(target);
+    case "primitive":
+      return upgradePrimitiveTarget(target);
+  }
 }
 
 function upgradeRangeTarget(
@@ -209,37 +212,65 @@ function targetToDestination(
   }
 }
 
+/**
+ * Converts a list target to a destination. This is a bit tricky because we need
+ * to split the list into multiple destinations if there is more than one insertion
+ * mode.
+ * @param target The target to convert
+ * @returns The converted destination
+ */
 function listTargetToDestination(
   target: PartialListTargetDescriptorV5,
 ): DestinationDescriptor {
   const destinations: PrimitiveDestinationDescriptor[] = [];
+  let currentElements: (
+    | PartialPrimitiveTargetDescriptor
+    | PartialRangeTargetDescriptor
+  )[] = [];
+  let currentInsertionMode: InsertionMode | undefined = undefined;
+
   target.elements.forEach((element) => {
     const insertionMode = getInsertionMode(element);
-    if (insertionMode != null || destinations.length === 0) {
-      destinations.push({
-        type: "primitive",
-        insertionMode: insertionMode ?? "to",
-        target: upgradeNonImplicitTarget(element),
-      });
+
+    if (insertionMode != null) {
+      // If the insertion mode has changed, we need to create a new destination
+      // with the elements and insertion mode seen so far
+      if (currentElements.length > 0) {
+        destinations.push({
+          type: "primitive",
+          insertionMode: currentInsertionMode ?? "to",
+          target: {
+            type: "list",
+            elements: currentElements,
+          },
+        });
+      }
+
+      currentElements = [upgradeRangeOrPrimitiveTarget(element)];
+      currentInsertionMode = insertionMode;
     } else {
-      // We handle `"before air and bat"` by distributing the `"before"` to all
-      // elements, so that it becomes `"before air and before bat"`.  Note that
-      // when these destinatinos are actually constructed by Talon in non-legacy
-      // cursorless-talon, `"before air and bat"` would be a single destination
-      // with a compound target.
-      destinations.push({
-        type: "primitive",
-        insertionMode: destinations[destinations.length - 1].insertionMode,
-        target: upgradeNonImplicitTarget(element),
-      });
+      currentElements.push(upgradeRangeOrPrimitiveTarget(element));
     }
   });
+
+  if (currentElements.length > 0) {
+    destinations.push({
+      type: "primitive",
+      insertionMode: currentInsertionMode ?? "to",
+      target: {
+        type: "list",
+        elements: currentElements,
+      },
+    });
+  }
+
   if (destinations.length > 1) {
     return {
       type: "list",
       destinations,
     } as ListDestinationDescriptor;
   }
+
   return destinations[0];
 }
 
