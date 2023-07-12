@@ -52,9 +52,15 @@ extension](#running--testing-extension-locally), you may want to check out the
 ## Running / testing extension locally
 
 In order to test out your local version of the extension or to run unit tests
-locally, you need to run the extension in debug mode. To do so you need to run
-the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run
-Extension" or "Extension Tests".
+locally, you need to run the extension in debug mode. To do so, open the root directory:
+
+```bash
+code .
+```
+
+and then, in that window, run the `workbench.action.debug.selectandstart` command in VSCode.
+
+Then select either "Run Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
