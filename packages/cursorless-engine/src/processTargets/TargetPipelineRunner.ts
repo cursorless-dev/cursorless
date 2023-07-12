@@ -196,14 +196,14 @@ class TargetPipeline {
     targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
   ): Target[] {
     let markStage: MarkStage;
-    let nonModifierStages: ModifierStage[];
+    let targetModifierStages: ModifierStage[];
 
     if (targetDescriptor.type === "implicit") {
       markStage = new ImplicitStage();
-      nonModifierStages = [];
+      targetModifierStages = [];
     } else {
       markStage = this.markStageFactory.create(targetDescriptor.mark);
-      nonModifierStages = getModifierStagesFromTargetModifiers(
+      targetModifierStages = getModifierStagesFromTargetModifiers(
         this.modifierStageFactory,
         targetDescriptor.modifiers,
       );
@@ -216,7 +216,7 @@ class TargetPipeline {
      * The modifier pipeline that will be applied to construct our final targets
      */
     const modifierStages = [
-      ...nonModifierStages,
+      ...targetModifierStages,
       ...this.actionFinalStages,
 
       // This performs auto-expansion to token when you say eg "take this" with an

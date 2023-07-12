@@ -129,10 +129,8 @@ function shouldInferPreviousMark(
 }
 
 /**
- * Return a list of modifiers that should not be removed during inference.
- * Today, we remove positional modifiers, because they have their own field on
- * the full targets.  We also remove modifiers that only impact inference, such
- * as `inferPreviousMark`.
+ * Return a list of modifiers that should not be removed during inference. We
+ * remove modifiers that only impact inference, such as `inferPreviousMark`.
  *
  * We return `undefined` if there are no preserved modifiers. Note that we will
  * never return an empty list; we will always return `undefined` if there are no
@@ -145,7 +143,7 @@ function getPreservedModifiers(
 ): Modifier[] | undefined {
   const preservedModifiers =
     target.modifiers?.filter(
-      (modifier) => !["inferPreviousMark"].includes(modifier.type),
+      (modifier) => modifier.type !== "inferPreviousMark",
     ) ?? [];
   if (preservedModifiers.length !== 0) {
     return preservedModifiers;

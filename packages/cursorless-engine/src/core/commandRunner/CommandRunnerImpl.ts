@@ -16,12 +16,16 @@ import { inferFullTargetDescriptor } from "../inferFullTargets";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
 export class CommandRunnerImpl implements CommandRunner {
+  private inferenceContext: InferenceContext;
+
   constructor(
     private debug: Debug,
     private storedTargets: StoredTargetMap,
     private pipelineRunner: TargetPipelineRunner,
     private actions: ActionRecord,
-  ) {}
+  ) {
+    this.inferenceContext = new InferenceContext(this.debug);
+  }
 
   /**
    * Runs a Cursorless command. We proceed as follows:
@@ -66,39 +70,38 @@ export class CommandRunnerImpl implements CommandRunner {
   private runAction(
     actionDescriptor: ActionDescriptor,
   ): Promise<ActionReturnValue> {
-    const inferenceContext = new InferenceContext(this.debug);
+    this.inferenceContext.reset();
 
     switch (actionDescriptor.name) {
       case "replaceWithTarget":
         return this.actions.replaceWithTarget.run(
-          this.getTargets(inferenceContext, actionDescriptor.source),
-          this.getDestinations(inferenceContext, actionDescriptor.destination),
+          this.getTargets(actionDescriptor.source),
+          this.getDestinations(actionDescriptor.destination),
         );
       case "moveToTarget":
         return this.actions.moveToTarget.run(
-          this.getTargets(inferenceContext, actionDescriptor.source),
-          this.getDestinations(inferenceContext, actionDescriptor.destination),
+          this.getTargets(actionDescriptor.source),
+          this.getDestinations(actionDescriptor.destination),
         );
       case "swapTargets":
         return this.actions.swapTargets.run(
-          this.getTargets(inferenceContext, actionDescriptor.target1),
-          this.getTargets(inferenceContext, actionDescriptor.target2),
+          this.getTargets(actionDescriptor.target1),
+          this.getTargets(actionDescriptor.target2),
         );
       case "callAsFunction":
         return this.actions.callAsFunction.run(
-          this.getTargets(inferenceContext, actionDescriptor.callee),
-          this.getTargets(inferenceContext, actionDescriptor.argument),
+          this.getTargets(actionDescriptor.callee),
+          this.getTargets(actionDescriptor.argument),
         );
       case "wrapWithPairedDelimiter":
         return this.actions.wrapWithPairedDelimiter.run(
-          this.getTargets(inferenceContext, actionDescriptor.target),
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.left,
           actionDescriptor.right,
         );
       case "rewrapWithPairedDelimiter":
         return this.actions.rewrapWithPairedDelimiter.run(
           this.getTargets(
-            inferenceContext,
             actionDescriptor.target,
             this.actions.rewrapWithPairedDelimiter.getFinalStages(),
           ),
@@ -107,33 +110,32 @@ export class CommandRunnerImpl implements CommandRunner {
         );
       case "pasteFromClipboard":
         return this.actions.pasteFromClipboard.run(
-          this.getDestinations(inferenceContext, actionDescriptor.destination),
+          this.getDestinations(actionDescriptor.destination),
         );
       case "executeCommand":
         return this.actions.executeCommand.run(
-          this.getTargets(inferenceContext, actionDescriptor.target),
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.commandId,
           actionDescriptor.options,
         );
       case "replace":
         return this.actions.replace.run(
-          this.getDestinations(inferenceContext, actionDescriptor.destination),
+          this.getDestinations(actionDescriptor.destination),
           actionDescriptor.replaceWith,
         );
       case "highlight":
         return this.actions.highlight.run(
-          this.getTargets(inferenceContext, actionDescriptor.target),
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.highlightId,
         );
       case "generateSnippet":
         return this.actions.generateSnippet.run(
-          this.getTargets(inferenceContext, actionDescriptor.target),
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetName,
         );
       case "insertSnippet":
         return this.actions.insertSnippet.run(
           this.getDestinations(
-            inferenceContext,
             actionDescriptor.destination,
             this.actions.insertSnippet.getFinalStages(
               actionDescriptor.snippetDescription,
@@ -144,7 +146,6 @@ export class CommandRunnerImpl implements CommandRunner {
       case "wrapWithSnippet":
         return this.actions.wrapWithSnippet.run(
           this.getTargets(
-            inferenceContext,
             actionDescriptor.target,
             this.actions.wrapWithSnippet.getFinalStages(
               actionDescriptor.snippetDescription,
@@ -156,53 +157,42 @@ export class CommandRunnerImpl implements CommandRunner {
         const action = this.actions[actionDescriptor.name];
 
         return action.run(
-          this.getTargets(
-            inferenceContext,
-            actionDescriptor.target,
-            action.getFinalStages?.(),
-          ),
+          this.getTargets(actionDescriptor.target, action.getFinalStages?.()),
         );
       }
     }
   }
 
   private getTargets(
-    inferenceContext: InferenceContext,
     partialTargetsDescriptor: PartialTargetDescriptor,
     actionFinalStages?: ModifierStage[],
   ): Target[] {
-    const targetDescriptor = inferenceContext.run(partialTargetsDescriptor);
+    const targetDescriptor = this.inferenceContext.run(
+      partialTargetsDescriptor,
+    );
     return this.pipelineRunner.run(targetDescriptor, actionFinalStages);
   }
 
   private getDestinations(
-    inferenceContext: InferenceContext,
     destinationDescriptor: DestinationDescriptor,
     actionFinalStages?: ModifierStage[],
   ): Destination[] {
     switch (destinationDescriptor.type) {
       case "list":
         return destinationDescriptor.destinations.flatMap((destination) =>
-          this.getDestinations(
-            inferenceContext,
-            destination,
-            actionFinalStages,
-          ),
+          this.getDestinations(destination, actionFinalStages),
         );
       case "primitive":
         return this.getTargets(
-          inferenceContext,
           destinationDescriptor.target,
           actionFinalStages,
         ).map((target) =>
           target.toDestination(destinationDescriptor.insertionMode),
         );
       case "implicit":
-        return this.getTargets(
-          inferenceContext,
-          { type: "implicit" },
-          actionFinalStages,
-        ).map((target) => target.toDestination("to"));
+        return this.getTargets({ type: "implicit" }, actionFinalStages).map(
+          (target) => target.toDestination("to"),
+        );
     }
   }
 }
@@ -222,6 +212,10 @@ class InferenceContext {
 
     this.previousTargets.push(target);
     return ret;
+  }
+
+  reset() {
+    this.previousTargets = [];
   }
 }
 
