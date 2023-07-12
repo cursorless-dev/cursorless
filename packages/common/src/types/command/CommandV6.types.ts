@@ -19,5 +19,9 @@ export interface CommandV6 {
    */
   usePrePhraseSnapshot: boolean;
 
+  /**
+   * The action to perform. This field contains everything necessary to actually
+   * perform the action. The other fields are just metadata.
+   */
   action: ActionDescriptor;
 }
