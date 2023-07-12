@@ -71,6 +71,8 @@ export class CommandRunnerImpl implements CommandRunner {
   private runAction(
     actionDescriptor: ActionDescriptor,
   ): Promise<ActionReturnValue> {
+    // Prepare to run the action by resetting the inference context and
+    // defaulting the final stages to an empty array
     this.inferenceContext.reset();
     this.finalStages = [];
 
@@ -206,6 +208,13 @@ export class CommandRunnerImpl implements CommandRunner {
   }
 }
 
+/**
+ * Keeps track of the previous targets that have been passed to
+ * {@link InferenceContext.run} so that we can infer things like `"bring funk
+ * air to bat"` -> `"bring funk air to funk bat"`.  In this case, there will be
+ * two calls to {@link InferenceContext.run}, first with the source `"funk air"`
+ * and then with the destination `"bat"`.
+ */
 class InferenceContext {
   private previousTargets: PartialTargetDescriptor[] = [];
 
