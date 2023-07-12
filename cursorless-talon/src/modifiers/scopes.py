@@ -78,6 +78,7 @@ scope_types = {
     "short paint": "boundedNonWhitespaceSequence",
     "link": "url",
     "cell": "notebookCell",
+    "visible": "visible",
 }
 
 

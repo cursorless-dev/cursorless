@@ -117,6 +117,7 @@
         "notebookCell",
         "paragraph",
         "document",
+        "visible",
         "character",
         "word",
         "nonWhitespaceSequence",

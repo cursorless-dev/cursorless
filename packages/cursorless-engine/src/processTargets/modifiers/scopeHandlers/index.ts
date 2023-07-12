@@ -19,6 +19,7 @@ export * from "./ParagraphScopeHandler";
 export { default as ParagraphScopeHandler } from "./ParagraphScopeHandler";
 export * from "./SentenceScopeHandler/SentenceScopeHandler";
 export { default as SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
+export { default as VisibleScopeHandler } from "./VisibleScopeHandler";
 export * from "./RegexScopeHandler";
 export * from "./ScopeHandlerFactory";
 export * from "./ScopeHandlerFactoryImpl";

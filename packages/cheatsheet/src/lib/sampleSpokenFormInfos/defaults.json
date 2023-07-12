@@ -1465,6 +1465,16 @@
           ]
         },
         {
+          "id": "visible",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "visible",
+              "description": "Visible content in editor"
+            }
+          ]
+        },
+        {
           "id": "word",
           "type": "scopeType",
           "variations": [

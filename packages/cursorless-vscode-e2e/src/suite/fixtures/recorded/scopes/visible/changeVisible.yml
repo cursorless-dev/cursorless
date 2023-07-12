@@ -1,0 +1,23 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change visible
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: visible}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: abc
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

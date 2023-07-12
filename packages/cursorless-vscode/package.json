@@ -776,6 +776,7 @@
               "notebookCell",
               "paragraph",
               "document",
+              "visible",
               "character",
               "word",
               "boundedNonWhitespaceSequence",

@@ -3,6 +3,7 @@ import {
   CharacterScopeHandler,
   CustomRegexScopeHandler,
   DocumentScopeHandler,
+  VisibleScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
   NonWhitespaceSequenceScopeHandler,
@@ -60,6 +61,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new ParagraphScopeHandler(scopeType, languageId);
       case "document":
         return new DocumentScopeHandler(scopeType, languageId);
+      case "visible":
+        return new VisibleScopeHandler(scopeType, languageId);
       case "oneOf":
         return OneOfScopeHandler.create(this, scopeType, languageId);
       case "nonWhitespaceSequence":

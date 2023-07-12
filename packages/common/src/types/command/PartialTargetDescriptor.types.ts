@@ -131,7 +131,8 @@ export type SimpleScopeTypeType =
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
   | "url"
-  | "notebookCell";
+  | "notebookCell"
+  | "visible";
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;

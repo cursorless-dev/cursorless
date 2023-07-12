@@ -59,6 +59,7 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "ss": "boundedNonWhitespaceSequence",
     "sa": "argumentOrParameter",
     "sl": "url",
+    "vz": "visible",
   },
   "cursorless.experimental.keyboard.modal.keybindings.actions": {
     "t": "setSelection",
