@@ -48,15 +48,6 @@ abstract class BringMoveSwap {
 
   constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {}
 
-  protected broadcastSource(sources: Target[], destinations: Destination[]) {
-    if (sources.length === 1) {
-      // If there is only one source target, expand it to same length as
-      // destination target
-      return Array(destinations.length).fill(sources[0]);
-    }
-    return sources;
-  }
-
   protected async decorateTargets(sources: Target[], destinations: Target[]) {
     await Promise.all([
       flashTargets(
@@ -284,6 +275,15 @@ abstract class BringMoveSwap {
   }
 }
 
+function broadcastSource(sources: Target[], destinations: Destination[]) {
+  if (sources.length === 1) {
+    // If there is only one source target, expand it to same length as
+    // destination target
+    return Array(destinations.length).fill(sources[0]);
+  }
+  return sources;
+}
+
 export class Bring extends BringMoveSwap {
   decoration = {
     sourceStyle: FlashStyle.referenced,
@@ -300,7 +300,7 @@ export class Bring extends BringMoveSwap {
     sources: Target[],
     destinations: Destination[],
   ): Promise<ActionReturnValue> {
-    sources = this.broadcastSource(sources, destinations);
+    sources = broadcastSource(sources, destinations);
 
     await this.decorateTargets(
       sources,
@@ -335,7 +335,7 @@ export class Move extends BringMoveSwap {
     sources: Target[],
     destinations: Destination[],
   ): Promise<ActionReturnValue> {
-    sources = this.broadcastSource(sources, destinations);
+    sources = broadcastSource(sources, destinations);
 
     await this.decorateTargets(
       sources,
