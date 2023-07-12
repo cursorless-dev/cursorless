@@ -30,8 +30,7 @@ export class TargetPipelineRunner {
    * concrete representation usable by actions. Conceptually, the input will be
    * something like "the function call argument containing the cursor" and the
    * output will be something like "line 3, characters 5 through 10".
-   * @param targets The abstract target representations provided by the user
-   * @param actionPrePositionStages Modifier stages contributed by the action
+   * @param target The abstract target representations provided by the user
    * @param actionFinalStages Modifier stages contributed by the action that
    * should run at the end of the modifier pipeline
    * @returns A list of lists of typed selections, one list per input target.

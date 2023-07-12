@@ -15,22 +15,19 @@ import {
 import { handleHoistedModifiers } from "./handleHoistedModifiers";
 
 /**
- * Performs inference on the partial targets provided by the user, using
- * previous targets, global defaults, and action-specific defaults to fill out
- * any details that may have been omitted in the spoken form.
- * For example, we would automatically infer that `"take funk air and bat"` is
- * equivalent to `"take funk air and funk bat"`.
+ * Performs inference on the partial target provided by the user, using previous
+ * targets, global defaults, and action-specific defaults to fill out any
+ * details that may have been omitted in the spoken form. For example, we would
+ * automatically infer that `"take funk air and bat"` is equivalent to `"take
+ * funk air and funk bat"`.
  * @param targets The partial targets which need to be completed by inference.
- * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
+ * @param previousTargets The targets that precede the target we are trying to
+ * infer. We look in these targets and their descendants when doing inference so
+ * that eg "bring funk air to bat" will be expanded to "bring funk air to funk
+ * bat".
+ * @returns Target objects fully filled out and ready to be processed by the
+ * target pipeline runner.
  */
-export default function inferFullTargetDescriptors(
-  targets: PartialTargetDescriptor[],
-): TargetDescriptor[] {
-  return targets.map((target, index) =>
-    inferFullTargetDescriptor(target, targets.slice(0, index)),
-  );
-}
-
 export function inferFullTargetDescriptor(
   target: PartialTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
