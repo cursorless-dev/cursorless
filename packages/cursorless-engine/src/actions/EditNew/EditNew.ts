@@ -1,17 +1,10 @@
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
-import { ModifierStageFactory } from "../../processTargets/ModifierStageFactory";
-import { ModifierStage } from "../../processTargets/PipelineStages.types";
-import { containingLineIfUntypedModifier } from "../../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../../singletons/ide.singleton";
-import { Destination, Target } from "../../typings/target.types";
+import { Destination } from "../../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
 import { Actions } from "../Actions";
-import {
-  ActionRecord,
-  ActionReturnValue,
-  SimpleAction,
-} from "../actions.types";
+import { ActionReturnValue } from "../actions.types";
 import { State } from "./EditNew.types";
 import { runEditTargets } from "./runEditTargets";
 import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
@@ -67,33 +60,4 @@ export class EditNew {
       ),
     };
   }
-}
-
-abstract class EditNewLineAction implements SimpleAction {
-  getFinalStages(): ModifierStage[] {
-    return [this.modifierStageFactory.create(containingLineIfUntypedModifier)];
-  }
-
-  protected abstract insertionMode: "before" | "after";
-
-  constructor(
-    private actions: ActionRecord,
-    private modifierStageFactory: ModifierStageFactory,
-  ) {
-    this.run = this.run.bind(this);
-  }
-
-  run(targets: Target[]): Promise<ActionReturnValue> {
-    return this.actions.editNew.run(
-      targets.map((target) => target.toDestination(this.insertionMode)),
-    );
-  }
-}
-
-export class EditNewBefore extends EditNewLineAction {
-  protected insertionMode = "before" as const;
-}
-
-export class EditNewAfter extends EditNewLineAction {
-  protected insertionMode = "after" as const;
 }
