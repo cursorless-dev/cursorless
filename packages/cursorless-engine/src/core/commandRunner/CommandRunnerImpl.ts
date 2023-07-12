@@ -17,6 +17,7 @@ import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
 export class CommandRunnerImpl implements CommandRunner {
   private inferenceContext: InferenceContext;
+  private finalStages: ModifierStage[] = [];
 
   constructor(
     private debug: Debug,
@@ -71,6 +72,7 @@ export class CommandRunnerImpl implements CommandRunner {
     actionDescriptor: ActionDescriptor,
   ): Promise<ActionReturnValue> {
     this.inferenceContext.reset();
+    this.finalStages = [];
 
     switch (actionDescriptor.name) {
       case "replaceWithTarget":
@@ -100,11 +102,11 @@ export class CommandRunnerImpl implements CommandRunner {
           actionDescriptor.right,
         );
       case "rewrapWithPairedDelimiter":
+        this.finalStages =
+          this.actions.rewrapWithPairedDelimiter.getFinalStages();
+
         return this.actions.rewrapWithPairedDelimiter.run(
-          this.getTargets(
-            actionDescriptor.target,
-            this.actions.rewrapWithPairedDelimiter.getFinalStages(),
-          ),
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.left,
           actionDescriptor.right,
         );
@@ -134,64 +136,57 @@ export class CommandRunnerImpl implements CommandRunner {
           actionDescriptor.snippetName,
         );
       case "insertSnippet":
+        this.finalStages = this.actions.insertSnippet.getFinalStages(
+          actionDescriptor.snippetDescription,
+        );
+
         return this.actions.insertSnippet.run(
-          this.getDestinations(
-            actionDescriptor.destination,
-            this.actions.insertSnippet.getFinalStages(
-              actionDescriptor.snippetDescription,
-            ),
-          ),
+          this.getDestinations(actionDescriptor.destination),
           actionDescriptor.snippetDescription,
         );
       case "wrapWithSnippet":
+        this.finalStages = this.actions.wrapWithSnippet.getFinalStages(
+          actionDescriptor.snippetDescription,
+        );
+
         return this.actions.wrapWithSnippet.run(
-          this.getTargets(
-            actionDescriptor.target,
-            this.actions.wrapWithSnippet.getFinalStages(
-              actionDescriptor.snippetDescription,
-            ),
-          ),
+          this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetDescription,
         );
       default: {
         const action = this.actions[actionDescriptor.name];
+        this.finalStages = action.getFinalStages?.() ?? [];
 
-        return action.run(
-          this.getTargets(actionDescriptor.target, action.getFinalStages?.()),
-        );
+        return action.run(this.getTargets(actionDescriptor.target));
       }
     }
   }
 
   private getTargets(
     partialTargetsDescriptor: PartialTargetDescriptor,
-    actionFinalStages?: ModifierStage[],
   ): Target[] {
     const targetDescriptor = this.inferenceContext.run(
       partialTargetsDescriptor,
     );
-    return this.pipelineRunner.run(targetDescriptor, actionFinalStages);
+
+    return this.pipelineRunner.run(targetDescriptor, this.finalStages);
   }
 
   private getDestinations(
     destinationDescriptor: DestinationDescriptor,
-    actionFinalStages?: ModifierStage[],
   ): Destination[] {
     switch (destinationDescriptor.type) {
       case "list":
         return destinationDescriptor.destinations.flatMap((destination) =>
-          this.getDestinations(destination, actionFinalStages),
+          this.getDestinations(destination),
         );
       case "primitive":
-        return this.getTargets(
-          destinationDescriptor.target,
-          actionFinalStages,
-        ).map((target) =>
+        return this.getTargets(destinationDescriptor.target).map((target) =>
           target.toDestination(destinationDescriptor.insertionMode),
         );
       case "implicit":
-        return this.getTargets({ type: "implicit" }, actionFinalStages).map(
-          (target) => target.toDestination("to"),
+        return this.getTargets({ type: "implicit" }).map((target) =>
+          target.toDestination("to"),
         );
     }
   }
