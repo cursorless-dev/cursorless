@@ -87,6 +87,15 @@ class InsertCopy implements Action {
     );
 
     setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
+    const primarySelection = editor.selections[0];
+
+    if (
+      updatedContentSelections.some(
+        (selection) => selection.intersection(primarySelection) != null,
+      )
+    ) {
+      await editableEditor.revealRange(editor.selections[0]);
+    }
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),
