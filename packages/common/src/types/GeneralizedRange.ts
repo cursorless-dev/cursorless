@@ -112,8 +112,6 @@ export function generalizedRangeTouches(
     }
 
     // a.type === "character" && b.type === "line"
-    // Require that the line range is fully contained in the character range
-    // because otherwise it visually looks like the line range is not contained
     return a.start.line <= b.end && a.end.line >= b.start;
   }
 
