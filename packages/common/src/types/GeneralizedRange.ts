@@ -76,6 +76,20 @@ export function isGeneralizedRangeEqual(
   return false;
 }
 
+/**
+ * Determines whether {@link a} contains {@link b}.  This is true if {@link a}
+ * starts before or equal to the start of {@link b} and ends after or equal to
+ * the end of {@link b}.
+ *
+ * Note that if {@link a} is a {@link CharacterRange} and {@link b} is a
+ * {@link LineRange}, we require that the {@link LineRange} is fully contained
+ * in the {@link CharacterRange}, because otherwise it visually looks like the
+ * {@link LineRange} is not contained because the line range extends to the edge
+ * of the screen.
+ * @param a A generalized range
+ * @param b A generalized range
+ * @returns `true` if `a` contains `b`, `false` otherwise
+ */
 export function generalizedRangeContains(
   a: GeneralizedRange,
   b: GeneralizedRange,
@@ -101,6 +115,17 @@ export function generalizedRangeContains(
   return a.start <= b.start.line && a.end >= b.end.line;
 }
 
+/**
+ * Determines whether {@link a} touches {@link b}.  This is true if {@link a}
+ * has any intersection with {@link b}, even if the intersection is empty.
+ *
+ * In the case where one range is a {@link CharacterRange} and the other is a
+ * {@link LineRange}, we return `true` if they both include at least one line
+ * in common.
+ * @param a A generalized range
+ * @param b A generalized range
+ * @returns `true` if `a` touches `b`, `false` otherwise
+ */
 export function generalizedRangeTouches(
   a: GeneralizedRange,
   b: GeneralizedRange,
