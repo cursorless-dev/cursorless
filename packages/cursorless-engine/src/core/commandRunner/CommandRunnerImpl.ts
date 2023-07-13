@@ -170,6 +170,12 @@ export class CommandRunnerImpl implements CommandRunner {
           this.getDestinations(actionDescriptor.destination),
         );
 
+      case "getText":
+        return this.actions.getText.run(
+          this.getTargets(actionDescriptor.target),
+          actionDescriptor.options,
+        );
+
       default: {
         const action = this.actions[actionDescriptor.name];
         this.finalStages = action.getFinalStages?.() ?? [];

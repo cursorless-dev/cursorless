@@ -19,7 +19,6 @@ const simpleActionNames = [
   "findInWorkspace",
   "foldRegion",
   "followLink",
-  "getText",
   "indentLine",
   "insertCopyAfter",
   "insertCopyBefore",
@@ -54,6 +53,7 @@ const complexActionNames = [
   "editNew",
   "executeCommand",
   "generateSnippet",
+  "getText",
   "highlight",
   "insertSnippet",
   "moveToTarget",
@@ -200,6 +200,17 @@ export interface EditNewActionDescriptor {
   destination: DestinationDescriptor;
 }
 
+export interface GetTextActionOptions {
+  showDecorations?: boolean;
+  ensureSingleTarget?: boolean;
+}
+
+export interface GetTextActionDescriptor {
+  name: "getText";
+  options?: GetTextActionOptions;
+  target: PartialTargetDescriptor;
+}
+
 export type ActionDescriptor =
   | SimpleActionDescriptor
   | BringMoveActionDescriptor
@@ -213,4 +224,5 @@ export type ActionDescriptor =
   | InsertSnippetActionDescriptor
   | WrapWithSnippetActionDescriptor
   | WrapWithPairedDelimiterActionDescriptor
-  | EditNewActionDescriptor;
+  | EditNewActionDescriptor
+  | GetTextActionDescriptor;

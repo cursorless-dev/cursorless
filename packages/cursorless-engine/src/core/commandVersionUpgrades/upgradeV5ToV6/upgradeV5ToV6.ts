@@ -6,6 +6,7 @@ import {
   DestinationDescriptor,
   EnforceUndefined,
   ExecuteCommandOptions,
+  GetTextActionOptions,
   HighlightId,
   ImplicitDestinationDescriptor,
   ImplicitTargetDescriptor,
@@ -119,6 +120,12 @@ function upgradeAction(
       return {
         name,
         destination: targetToDestination(targets[0]),
+      };
+    case "getText":
+      return {
+        name,
+        options: action.args?.[0] as GetTextActionOptions | undefined,
+        target: upgradeTarget(targets[0]),
       };
     default:
       return {

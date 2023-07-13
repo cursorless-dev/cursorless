@@ -1,5 +1,6 @@
 import type {
   ExecuteCommandOptions,
+  GetTextActionOptions,
   HighlightId,
   InsertSnippetArg,
   ReplaceWith,
@@ -153,6 +154,13 @@ export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
     run(
       targets: Target[],
       highlightId?: HighlightId,
+    ): Promise<ActionReturnValue>;
+  };
+
+  getText: {
+    run(
+      target: Target[],
+      options?: GetTextActionOptions,
     ): Promise<ActionReturnValue>;
   };
 }
