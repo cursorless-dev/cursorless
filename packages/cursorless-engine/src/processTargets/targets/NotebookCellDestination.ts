@@ -34,7 +34,7 @@ export default class NotebookCellDestination implements Destination {
     return this.target.isRaw;
   }
 
-  withTarget(target: NotebookCellTarget): Destination {
+  withTarget(target: NotebookCellTarget): NotebookCellDestination {
     return new NotebookCellDestination(target, this.insertionMode);
   }
 
