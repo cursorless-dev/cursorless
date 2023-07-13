@@ -6,7 +6,7 @@ import { MarkStageFactory } from "./MarkStageFactory";
 import { MarkStage } from "./PipelineStages.types";
 import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
-import ExplicitMarkStage from "./marks/ExplicitRangeMarkStage";
+import ExplicitMarkStage from "./marks/ExplicitMarkStage";
 import LineNumberStage from "./marks/LineNumberStage";
 import NothingStage from "./marks/NothingStage";
 import RangeMarkStage from "./marks/RangeMarkStage";
@@ -44,7 +44,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
         return new NothingStage(mark);
       case "target":
         return new TargetMarkStage(this.targetPipelineRunner, mark);
-      case "explicitRange":
+      case "explicit":
         return new ExplicitMarkStage(mark);
     }
   }
