@@ -1,11 +1,11 @@
+import { Disposable } from "@cursorless/common";
+import { pull } from "lodash";
 import {
-  Disposable,
   IterationScopeChangeEventCallback,
   IterationScopeRangeConfig,
   ScopeChangeEventCallback,
   ScopeRangeConfig,
-} from "@cursorless/common";
-import { pull } from "lodash";
+} from "..";
 import { Debouncer } from "../core/Debouncer";
 import { ide } from "../singletons/ide.singleton";
 import { ScopeRangeProvider } from "./ScopeRangeProvider";

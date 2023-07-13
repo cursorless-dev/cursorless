@@ -1,14 +1,10 @@
-import {
-  IterationScopeRanges,
-  Range,
-  TextEditor,
-  toCharacterRange,
-} from "@cursorless/common";
+import { Range, TextEditor, toCharacterRange } from "@cursorless/common";
 import { map } from "itertools";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
-import { getTargetRanges } from "./getTargetRanges";
+import { IterationScopeRanges } from "..";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
+import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { Target } from "../typings/target.types";
+import { getTargetRanges } from "./getTargetRanges";
 
 export function getIterationScopes(
   editor: TextEditor,

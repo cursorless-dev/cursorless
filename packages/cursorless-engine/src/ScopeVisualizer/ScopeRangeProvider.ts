@@ -1,9 +1,9 @@
+import { TextEditor } from "@cursorless/common";
 import {
   IterationScopeRangeConfig,
   IterationScopeRanges,
   ScopeRangeConfig,
-  TextEditor,
-} from "@cursorless/common";
+} from "..";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { getIterationRange } from "./getIterationRange";

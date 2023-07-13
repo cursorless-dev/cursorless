@@ -5,13 +5,7 @@
     "outDir": "out",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json",
-    "../../typings/**/*.d.ts",
-    "../vscode-common/src/vscode.ts",
-    "../vscode-common/src/ScopeVisualizerColorConfig.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": [
     {
       "path": "../common"

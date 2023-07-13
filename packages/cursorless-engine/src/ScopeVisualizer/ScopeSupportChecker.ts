@@ -8,7 +8,7 @@ import { LegacyLanguageId } from "../languages/LegacyLanguageId";
 import { languageMatchers } from "../languages/getNodeMatcher";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
-import { ScopeSupport } from "../CursorlessEngineApi";
+import { ScopeSupport } from "../api/CursorlessEngineApi";
 
 export class ScopeSupportChecker {
   constructor(private scopeHandlerFactory: ScopeHandlerFactory) {

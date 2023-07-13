@@ -62,7 +62,6 @@ export const upgradeDecorations: FixtureTransformation = (
             range: extractHighlightRange(flash),
             style: extractHighlightName(flash.name) as keyof typeof FlashStyle,
           })),
-    scopeVisualizations: undefined,
   };
 
   return reorderFields(fixture as TestCaseFixture);

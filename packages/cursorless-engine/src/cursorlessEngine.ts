@@ -1,25 +1,21 @@
 import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
-import {
-  ScopeProvider,
-  StoredTargetMap,
-  TestCaseRecorder,
-  TreeSitter,
-} from ".";
-import { CursorlessEngine } from "./CursorlessEngineApi";
+import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
+import { CursorlessEngine } from "./api/CursorlessEngineApi";
+import { ScopeProvider } from "./api/ScopeProvider";
 import { ScopeRangeWatcher } from "./ScopeVisualizer";
+import { ScopeRangeProvider } from "./ScopeVisualizer/ScopeRangeProvider";
+import { ScopeSupportChecker } from "./ScopeVisualizer/ScopeSupportChecker";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
-import { ScopeRangeProvider } from "./ScopeVisualizer/ScopeRangeProvider";
-import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
-import { ScopeSupportChecker } from "./ScopeVisualizer/ScopeSupportChecker";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,

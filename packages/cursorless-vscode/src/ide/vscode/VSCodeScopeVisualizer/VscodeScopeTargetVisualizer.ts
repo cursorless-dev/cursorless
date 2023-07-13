@@ -1,10 +1,5 @@
-import {
-  Disposable,
-  GeneralizedRange,
-  TargetRanges,
-  TextEditor,
-} from "@cursorless/common";
-import { ScopeSupport } from "@cursorless/cursorless-engine";
+import { Disposable, GeneralizedRange, TextEditor } from "@cursorless/common";
+import { ScopeSupport, TargetRanges } from "@cursorless/cursorless-engine";
 import { VscodeScopeVisualizer } from ".";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 
