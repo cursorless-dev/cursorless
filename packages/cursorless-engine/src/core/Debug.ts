@@ -1,4 +1,8 @@
-import { Disposable, TextEditorSelectionChangeEvent } from "@cursorless/common";
+import {
+  Disposable,
+  LogSeverity,
+  TextEditorSelectionChangeEvent,
+} from "@cursorless/common";
 import type { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
@@ -37,9 +41,7 @@ export class Debug {
   }
 
   log(message: string) {
-    if (this.active) {
-      ide().log(message);
-    }
+    ide().log(LogSeverity.debug, message);
   }
 
   dispose() {

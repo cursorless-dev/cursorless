@@ -21,6 +21,14 @@ import { QuickPickOptions } from "./QuickPickOptions";
 import { State } from "./State";
 
 export type RunMode = "production" | "development" | "test";
+
+export enum LogSeverity {
+  debug = "debug",
+  info = "info",
+  warning = "warning",
+  error = "error",
+}
+
 export type HighlightId = string;
 
 export interface IDE {
@@ -215,10 +223,11 @@ export interface IDE {
   ): Promise<void>;
 
   /**
-   * Write message to the Cursorless log
-   * @param message The message to log
+   * Log a message
+   * @param severity The severity of the message
+   * @param message The content of the message
    */
-  log(message: string): Promise<void>;
+  log(severity: LogSeverity, message: string): void;
 }
 
 export interface WorkspaceFolder {

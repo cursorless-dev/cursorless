@@ -10,7 +10,13 @@ import {
   TextEditorVisibleRangesChangeEvent,
 } from "./types/events.types";
 import { FlashDescriptor } from "./types/FlashDescriptor";
-import { Disposable, IDE, RunMode, WorkspaceFolder } from "./types/ide.types";
+import {
+  Disposable,
+  IDE,
+  LogSeverity,
+  RunMode,
+  WorkspaceFolder,
+} from "./types/ide.types";
 import { Messages } from "./types/Messages";
 import { QuickPickOptions } from "./types/QuickPickOptions";
 import { State } from "./types/State";
@@ -42,8 +48,8 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.setHighlightRanges(highlightId, editor, ranges);
   }
 
-  log(message: string): Promise<void> {
-    return this.original.log(message);
+  log(severity: LogSeverity, message: string): void {
+    this.original.log(severity, message);
   }
 
   onDidOpenTextDocument(
