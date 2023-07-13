@@ -9,6 +9,7 @@ import {
   NotebookCellScopeHandler,
   OneOfScopeHandler,
   ParagraphScopeHandler,
+  ScopeHandlerFactory,
   SentenceScopeHandler,
   TokenScopeHandler,
   UrlScopeHandler,
@@ -16,7 +17,6 @@ import {
 } from ".";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
-import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
