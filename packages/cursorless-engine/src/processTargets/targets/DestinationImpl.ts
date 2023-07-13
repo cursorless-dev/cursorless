@@ -11,7 +11,7 @@ import {
   Target,
 } from "../../typings/target.types";
 
-export default class DestinationImpl implements Destination {
+export class DestinationImpl implements Destination {
   public readonly contentRange: Range;
   private readonly isLineDelimiter: boolean;
   private readonly isBefore: boolean;

@@ -8,7 +8,7 @@ import { EditWithRangeUpdater } from "../../typings/Types";
 import { Destination, EditNewActionType } from "../../typings/target.types";
 import NotebookCellTarget from "./NotebookCellTarget";
 
-export default class NotebookCellDestination implements Destination {
+export class NotebookCellDestination implements Destination {
   constructor(
     public target: NotebookCellTarget,
     public insertionMode: InsertionMode,
