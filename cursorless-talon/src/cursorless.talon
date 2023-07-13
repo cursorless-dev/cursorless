@@ -21,11 +21,6 @@ tag: user.cursorless
 
 {user.cursorless_homophone} settings: user.cursorless_show_settings_in_ide()
 
-visualize <user.cursorless_scope_type>:
-    user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "content")
-visualize <user.cursorless_scope_type> removal:
-    user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "removal")
-visualize <user.cursorless_scope_type> iteration:
-    user.private_cursorless_run_rpc_command_and_wait("cursorless.showScopeVisualizer", cursorless_scope_type, "iteration")
-visualize nothing:
-    user.private_cursorless_run_rpc_command_and_wait("cursorless.hideScopeVisualizer")
+{user.cursorless_show_scope_visualizer} <user.cursorless_scope_type> [{user.cursorless_visualization_type}]:
+    user.private_cursorless_show_scope_visualizer(cursorless_scope_type, cursorless_visualization_type or "content")
+{user.cursorless_hide_scope_visualizer}: user.private_cursorless_hide_scope_visualizer()
