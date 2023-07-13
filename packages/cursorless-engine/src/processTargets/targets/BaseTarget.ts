@@ -14,7 +14,7 @@ import {
   createContinuousRange,
   createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
-import DestinationImpl from "./DestinationImpl";
+import { DestinationImpl } from "./DestinationImpl";
 
 /** Parameters supported by all target classes */
 export interface MinimumTargetParameters {
