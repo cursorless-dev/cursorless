@@ -4,10 +4,6 @@ import { TextEditor } from "../../types/TextEditor";
 import PassthroughIDEBase from "../PassthroughIDEBase";
 import { FlashDescriptor } from "../types/FlashDescriptor";
 import type { HighlightId, IDE } from "../types/ide.types";
-import type {
-  IterationScopeRanges,
-  ScopeRanges,
-} from "../types/IdeScopeVisualizer";
 import SpyMessages, { Message } from "./SpyMessages";
 
 interface Highlight {
@@ -15,23 +11,16 @@ interface Highlight {
   ranges: GeneralizedRange[];
 }
 
-interface ScopeVisualization {
-  scopeRanges: ScopeRanges[] | undefined;
-  iterationScopeRanges: IterationScopeRanges[] | undefined;
-}
-
 export interface SpyIDERecordedValues {
   messages?: Message[];
   flashes?: FlashDescriptor[];
   highlights?: Highlight[];
-  scopeVisualizations?: ScopeVisualization[];
 }
 
 export default class SpyIDE extends PassthroughIDEBase {
   messages: SpyMessages;
   private flashes: FlashDescriptor[] = [];
   private highlights: Highlight[] = [];
-  private scopeVisualizations: ScopeVisualization[] = [];
 
   constructor(original: IDE) {
     super(original);
@@ -43,10 +32,6 @@ export default class SpyIDE extends PassthroughIDEBase {
       messages: this.messages.getSpyValues(),
       flashes: isFlashTest ? this.flashes : undefined,
       highlights: this.highlights.length === 0 ? undefined : this.highlights,
-      scopeVisualizations:
-        this.scopeVisualizations.length === 0
-          ? undefined
-          : this.scopeVisualizations,
     };
 
     return values(ret).every((value) => value == null)
@@ -69,13 +54,5 @@ export default class SpyIDE extends PassthroughIDEBase {
       ranges,
     });
     return super.setHighlightRanges(highlightId, editor, ranges);
-  }
-
-  async setScopeVisualizationRanges(
-    editor: TextEditor,
-    scopeRanges: ScopeRanges[] | undefined,
-    iterationScopeRanges: IterationScopeRanges[] | undefined,
-  ): Promise<void> {
-    this.scopeVisualizations.push({ scopeRanges, iterationScopeRanges });
   }
 }
