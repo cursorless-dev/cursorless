@@ -1,10 +1,14 @@
-import type { Direction } from "@cursorless/common";
+import type { Direction, ScopeType } from "@cursorless/common";
 import { NestedScopeHandler } from ".";
 import { NotebookCellTarget } from "../../targets";
 import { TargetScope } from "./scope.types";
 
 export default class NotebookCellScopeHandler extends NestedScopeHandler {
-  public readonly iterationScopeType = { type: "token" } as const;
+  public readonly scopeType = { type: "notebookCell" } as const;
+
+  get iterationScopeType(): ScopeType {
+    throw new Error(`Every ${this.scopeType} not yet implemented`);
+  }
 
   protected *generateScopesInSearchScope(
     direction: Direction,
