@@ -36,12 +36,6 @@ import ContainingSyntaxScopeStage, {
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
-import {
-  CustomRegexModifier,
-  CustomRegexStage,
-  NonWhitespaceSequenceStage,
-  UrlStage,
-} from "./modifiers/scopeTypeStages/RegexStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
@@ -128,20 +122,14 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     modifier: ContainingScopeModifier | EveryScopeModifier,
   ): ModifierStage {
     switch (modifier.scopeType.type) {
-      case "nonWhitespaceSequence":
-        return new NonWhitespaceSequenceStage(modifier);
       case "boundedNonWhitespaceSequence":
         return new BoundedNonWhitespaceSequenceStage(
           this.languageDefinitions,
           this,
           modifier,
         );
-      case "url":
-        return new UrlStage(modifier);
       case "collectionItem":
         return new ItemStage(this.languageDefinitions, modifier);
-      case "customRegex":
-        return new CustomRegexStage(modifier as CustomRegexModifier);
       case "surroundingPair":
         return new SurroundingPairStage(
           this.languageDefinitions,

@@ -11,6 +11,7 @@ interface PositionTargetParameters extends CommonTargetParameters {
 }
 
 export default class PositionTarget extends BaseTarget<PositionTargetParameters> {
+  type = "PositionTarget";
   insertionDelimiter: string;
   isRaw: boolean;
   private position: TargetPosition;
@@ -125,7 +126,7 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
     const startIndex = this.isBefore
       ? baseStartOffset + this.indentationString.length
       : baseStartOffset +
-        this.insertionDelimiter.length +
+        this.getLengthOfInsertionDelimiter() +
         this.indentationString.length;
 
     const endIndex = startIndex + text.length;
@@ -134,6 +135,19 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
       this.editor.document.positionAt(startIndex),
       this.editor.document.positionAt(endIndex),
     );
+  }
+
+  private getLengthOfInsertionDelimiter(): number {
+    // Went inserting a new line with eol `CRLF` each `\n` will be converted to
+    // `\r\n` and therefore the length is doubled.
+    if (this.editor.document.eol === "CRLF") {
+      // This function is only called when inserting after a range. Therefore we
+      // only care about leading new lines in the insertion delimiter.
+      const match = this.insertionDelimiter.match(/^\n+/);
+      const nlCount = match?.[0].length ?? 0;
+      return this.insertionDelimiter.length + nlCount;
+    }
+    return this.insertionDelimiter.length;
   }
 }
 
