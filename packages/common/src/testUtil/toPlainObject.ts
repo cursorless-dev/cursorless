@@ -83,11 +83,17 @@ export type SerializedMarks = {
   [decoratedCharacter: string]: RangePlainObject;
 };
 
+/**
+ * Simplified Position interface containing only what we need for serialization
+ */
 interface SimplePosition {
   line: number;
   character: number;
 }
 
+/**
+ * Simplified Range interface containing only what we need for serialization
+ */
 interface SimpleRange {
   start: SimplePosition;
   end: SimplePosition;
