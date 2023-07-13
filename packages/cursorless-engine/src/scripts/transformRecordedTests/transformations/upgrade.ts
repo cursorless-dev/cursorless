@@ -8,6 +8,6 @@ export const upgrade = flow(upgradeCommand, reorderFields);
 function upgradeCommand(fixture: TestCaseFixtureLegacy): TestCaseFixture {
   return {
     ...fixture,
-    command: flow(canonicalizeAndValidateCommand)(fixture.command),
+    command: canonicalizeAndValidateCommand(fixture.command),
   };
 }
