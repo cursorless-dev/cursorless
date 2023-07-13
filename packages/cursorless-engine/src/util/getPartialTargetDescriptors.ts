@@ -1,8 +1,6 @@
 import {
   ActionDescriptor,
   DestinationDescriptor,
-  PartialPrimitiveTargetDescriptor,
-  PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 
@@ -16,7 +14,7 @@ export function getPartialTargetDescriptors(
     case "moveToTarget":
       return [
         action.source,
-        getPartialTargetDescriptorFromDestination(action.destination),
+        ...getPartialTargetDescriptorsFromDestination(action.destination),
       ];
     case "swapTargets":
       return [action.target1, action.target2];
@@ -24,36 +22,21 @@ export function getPartialTargetDescriptors(
     case "insertSnippet":
     case "replace":
     case "editNew":
-      return [getPartialTargetDescriptorFromDestination(action.destination)];
+      return getPartialTargetDescriptorsFromDestination(action.destination);
     default:
       return [action.target];
   }
 }
 
-export function getPartialTargetDescriptorFromDestination(
+function getPartialTargetDescriptorsFromDestination(
   destination: DestinationDescriptor,
-): PartialTargetDescriptor {
+): PartialTargetDescriptor[] {
   switch (destination.type) {
-    case "list": {
-      const elements: (
-        | PartialPrimitiveTargetDescriptor
-        | PartialRangeTargetDescriptor
-      )[] = [];
-      destination.destinations.forEach((destination) => {
-        if (destination.target.type === "list") {
-          elements.push(...destination.target.elements);
-        } else {
-          elements.push(destination.target);
-        }
-      });
-      return {
-        type: "list",
-        elements,
-      };
-    }
+    case "list":
+      return destination.destinations.map(({ target }) => target);
     case "primitive":
-      return destination.target;
+      return [destination.target];
     case "implicit":
-      return destination;
+      return [];
   }
 }

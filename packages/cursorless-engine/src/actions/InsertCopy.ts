@@ -87,7 +87,16 @@ class InsertCopy implements SimpleAction {
     );
 
     setSelectionsWithoutFocusingEditor(editableEditor, updatedEditorSelections);
-    await editableEditor.revealRange(editor.selections[0]);
+    const primarySelection = editor.selections[0];
+
+    if (
+      updatedContentSelections.some(
+        (selection) => selection.intersection(primarySelection) != null,
+      )
+    ) {
+      // If the original target contained the user's cursor, reveal it in case it got pushed off screen
+      await editableEditor.revealRange(primarySelection);
+    }
 
     return {
       sourceMark: createThatMark(targets, insertionRanges),

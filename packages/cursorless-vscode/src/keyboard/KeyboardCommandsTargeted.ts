@@ -1,8 +1,6 @@
 import {
   ActionDescriptor,
   ActionType,
-  DestinationDescriptor,
-  ImplicitTargetDescriptor,
   LATEST_VERSION,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
@@ -165,11 +163,11 @@ export default class KeyboardCommandsTargeted {
     });
 
   /**
-   * Performs action {@link action} on the current target
-   * @param action The action to run
+   * Performs action {@link name} on the current target
+   * @param name The action to run
    * @returns A promise that resolves to the result of the cursorless command
    */
-  performActionOnTarget = async (action: ActionType) => {
+  performActionOnTarget = async (name: ActionType) => {
     const target: PartialPrimitiveTargetDescriptor = {
       type: "primitive",
       mark: {
@@ -179,7 +177,7 @@ export default class KeyboardCommandsTargeted {
 
     let returnValue: unknown;
 
-    switch (action) {
+    switch (name) {
       case "wrapWithPairedDelimiter":
       case "rewrapWithPairedDelimiter":
       case "insertSnippet":
@@ -188,52 +186,56 @@ export default class KeyboardCommandsTargeted {
       case "replace":
       case "editNew":
       case "getText":
-        throw Error(`Unsupported keyboard action: ${action}`);
+        throw Error(`Unsupported keyboard action: ${name}`);
       case "replaceWithTarget":
       case "moveToTarget":
         returnValue = await executeCursorlessCommand({
-          name: action,
+          name,
           source: target,
-          destination: toDestination({ type: "implicit" }),
+          destination: { type: "implicit" },
         });
         break;
       case "swapTargets":
         returnValue = await executeCursorlessCommand({
-          name: action,
+          name,
           target1: target,
           target2: { type: "implicit" },
         });
         break;
       case "callAsFunction":
         returnValue = await executeCursorlessCommand({
-          name: action,
+          name,
           callee: target,
           argument: { type: "implicit" },
         });
         break;
       case "pasteFromClipboard":
         returnValue = await executeCursorlessCommand({
-          name: action,
-          destination: toDestination(target),
+          name,
+          destination: {
+            type: "primitive",
+            insertionMode: "to",
+            target,
+          },
         });
         break;
       case "generateSnippet":
       case "highlight":
         returnValue = await executeCursorlessCommand({
-          name: action,
+          name,
           target,
         });
         break;
       default:
         returnValue = await executeCursorlessCommand({
-          name: action,
+          name,
           target,
         });
     }
 
     await this.highlightTarget();
 
-    if (EXIT_CURSORLESS_MODE_ACTIONS.includes(action)) {
+    if (EXIT_CURSORLESS_MODE_ACTIONS.includes(name)) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
       await this.modal.modeOff();
@@ -280,21 +282,6 @@ function executeCursorlessCommand(action: ActionDescriptor) {
     version: LATEST_VERSION,
     usePrePhraseSnapshot: false,
   });
-}
-
-function toDestination(
-  target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
-): DestinationDescriptor {
-  switch (target.type) {
-    case "primitive":
-      return {
-        type: "primitive",
-        insertionMode: "to",
-        target,
-      };
-    case "implicit":
-      return target;
-  }
 }
 
 const EXIT_CURSORLESS_MODE_ACTIONS: ActionType[] = [

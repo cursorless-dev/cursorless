@@ -50,9 +50,9 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
   create(modifier: Modifier): ModifierStage {
     switch (modifier.type) {
       case "startOf":
-        return new StartOfStage(modifier);
+        return new StartOfStage();
       case "endOf":
-        return new EndOfStage(modifier);
+        return new EndOfStage();
       case "extendThroughStartOf":
         return new HeadStage(this, modifier);
       case "extendThroughEndOf":
