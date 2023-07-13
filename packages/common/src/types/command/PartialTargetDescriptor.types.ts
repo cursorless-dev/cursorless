@@ -53,8 +53,12 @@ interface SimpleRange {
   readonly end: SimplePosition;
 }
 
-export interface ExplicitRangeMark {
-  type: "explicitRange";
+/**
+ * Used to explicitly describe a decorated mark managed by another editor. To
+ * day used for the Cursorless "sidecar".
+ */
+export interface ExplicitMark {
+  type: "explicit";
   editorId: string;
   range: SimpleRange;
 }
@@ -67,7 +71,7 @@ export type PartialMark =
   | NothingMark
   | LineNumberMark
   | RangeMark
-  | ExplicitRangeMark;
+  | ExplicitMark;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"

@@ -1,11 +1,11 @@
-import { ExplicitRangeMark, Range } from "@cursorless/common";
+import { ExplicitMark, Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 import { ide } from "../../singletons/ide.singleton";
 
 export default class implements MarkStage {
-  constructor(private mark: ExplicitRangeMark) {}
+  constructor(private mark: ExplicitMark) {}
 
   run(): Target[] {
     const editor = ide().visibleTextEditors.find(
