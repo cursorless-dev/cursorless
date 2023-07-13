@@ -11,8 +11,6 @@ export * from "./ParagraphTarget";
 export { default as ParagraphTarget } from "./ParagraphTarget";
 export * from "./PlainTarget";
 export { default as PlainTarget } from "./PlainTarget";
-export * from "./VerticalRangeTarget";
-export { default as VerticalRangeTarget } from "./VerticalRangeTarget";
 export * from "./DestinationImpl";
 export { default as DestinationImpl } from "./DestinationImpl";
 export * from "./RawSelectionTarget";

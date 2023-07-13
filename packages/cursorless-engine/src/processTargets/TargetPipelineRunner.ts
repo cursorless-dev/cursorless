@@ -17,7 +17,7 @@ import { ModifierStageFactory } from "./ModifierStageFactory";
 import { MarkStage, ModifierStage } from "./PipelineStages.types";
 import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
-import { VerticalRangeTarget } from "./targets";
+import { PlainTarget } from "./targets";
 
 export class TargetPipelineRunner {
   constructor(
@@ -348,7 +348,7 @@ function targetsToVerticalTarget(
     );
 
     results.push(
-      new VerticalRangeTarget({
+      new PlainTarget({
         editor: anchorTarget.editor,
         isReversed: anchorTarget.isReversed,
         contentRange,
