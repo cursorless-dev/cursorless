@@ -14,9 +14,9 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-class InsertCopy implements Action {
+class InsertCopy implements SimpleAction {
   getFinalStages = () => [
     this.modifierStageFactory.create(containingLineIfUntypedModifier),
   ];
@@ -30,7 +30,7 @@ class InsertCopy implements Action {
     this.runForEditor = this.runForEditor.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
@@ -55,7 +55,7 @@ class InsertCopy implements Action {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
     const edits = targets.flatMap((target) =>
-      target.toPositionTarget(position).constructChangeEdit(target.contentText),
+      target.toDestination(position).constructChangeEdit(target.contentText),
     );
 
     const cursorSelections = { selections: editor.selections };

@@ -7,14 +7,14 @@ import {
   flashTargets,
 } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class FollowLink implements Action {
+export default class FollowLink implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const target = ensureSingleTarget(targets);
 
     await flashTargets(ide(), targets, FlashStyle.referenced);
@@ -25,7 +25,7 @@ export default class FollowLink implements Action {
 
     if (!openedLink) {
       await this.actions.executeCommand.run(
-        [targets],
+        targets,
         "editor.action.revealDefinition",
         { restoreSelection: false },
       );

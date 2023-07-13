@@ -31,7 +31,7 @@ abstract class SimpleIdeCommandAction {
   }
 
   async run(
-    targets: [Target[]],
+    targets: Target[],
     { showDecorations }: Options = {},
   ): Promise<ActionReturnValue> {
     const capabilities = ide().capabilities.commands[this.command];

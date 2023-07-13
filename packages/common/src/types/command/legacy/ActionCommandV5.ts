@@ -1,4 +1,4 @@
-export const actionNames = [
+const actionNames = [
   "callAsFunction",
   "clearAndSetSelection",
   "copyToClipboard",
@@ -54,13 +54,13 @@ export const actionNames = [
   "wrapWithSnippet",
 ] as const;
 
-export type ActionType = (typeof actionNames)[number];
+export type ActionTypeV5 = (typeof actionNames)[number];
 
-export interface ActionCommand {
+export interface ActionCommandV5 {
   /**
    * The action to run
    */
-  name: ActionType;
+  name: ActionTypeV5;
 
   /**
    * A list of arguments expected by the given action.

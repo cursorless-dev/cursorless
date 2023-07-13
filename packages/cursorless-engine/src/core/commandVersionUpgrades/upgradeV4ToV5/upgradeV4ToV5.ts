@@ -1,6 +1,6 @@
 import {
-  ActionCommand,
   ActionCommandV4,
+  ActionCommandV5,
   CommandV4,
   CommandV5,
 } from "@cursorless/common";
@@ -13,7 +13,7 @@ export function upgradeV4ToV5(command: CommandV4): CommandV5 {
   };
 }
 
-function upgradeAction(action: ActionCommandV4): ActionCommand {
+function upgradeAction(action: ActionCommandV4): ActionCommandV5 {
   switch (action.name) {
     case "wrapWithSnippet": {
       const [name, variableName] = parseSnippetLocation(

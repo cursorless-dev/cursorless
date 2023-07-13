@@ -31,6 +31,3 @@ finalState:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
 fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}, active: {type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}], positionModifier: {type: position, position: start}}}]
-ide:
-  messages:
-    - {type: warning, id: deprecatedPositionInference}

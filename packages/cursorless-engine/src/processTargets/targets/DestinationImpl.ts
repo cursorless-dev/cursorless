@@ -1,59 +1,77 @@
-import { Range, TextEditor, UnsupportedError } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
-import { TargetPosition } from "@cursorless/common";
-import { EditNewActionType } from "../../typings/target.types";
+import {
+  InsertionMode,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { EditWithRangeUpdater } from "../../typings/Types";
+import {
+  Destination,
+  EditNewActionType,
+  Target,
+} from "../../typings/target.types";
 
-interface PositionTargetParameters extends CommonTargetParameters {
-  readonly position: TargetPosition;
-  readonly insertionDelimiter: string;
-  readonly isRaw: boolean;
-}
+export class DestinationImpl implements Destination {
+  public readonly contentRange: Range;
+  private readonly isLineDelimiter: boolean;
+  private readonly isBefore: boolean;
+  private readonly indentationString: string;
 
-export default class PositionTarget extends BaseTarget<PositionTargetParameters> {
-  type = "PositionTarget";
-  insertionDelimiter: string;
-  isRaw: boolean;
-  private position: TargetPosition;
-  private isLineDelimiter: boolean;
-  private isBefore: boolean;
-  private indentationString: string;
-
-  constructor(parameters: PositionTargetParameters) {
-    super(parameters);
-    this.position = parameters.position;
-    this.insertionDelimiter = parameters.insertionDelimiter;
-    this.isRaw = parameters.isRaw;
-    this.isBefore = parameters.position === "before";
+  constructor(
+    public readonly target: Target,
+    public readonly insertionMode: InsertionMode,
+    indentationString?: string,
+  ) {
+    this.contentRange = getContentRange(target.contentRange, insertionMode);
+    this.isBefore = insertionMode === "before";
     // It's only considered a line if the delimiter is only new line symbols
-    this.isLineDelimiter = /^(\n)+$/.test(parameters.insertionDelimiter);
-    // This calculation must be done here since that that target is not updated by our range updater
-    this.indentationString = this.isLineDelimiter
-      ? getIndentationString(
-          parameters.editor,
-          parameters.thatTarget!.contentRange,
-        )
-      : "";
+    this.isLineDelimiter = /^(\n)+$/.test(target.insertionDelimiter);
+    this.indentationString =
+      indentationString ?? this.isLineDelimiter
+        ? getIndentationString(target.editor, target.contentRange)
+        : "";
   }
 
-  getLeadingDelimiterTarget = () => undefined;
-  getTrailingDelimiterTarget = () => undefined;
+  get contentSelection(): Selection {
+    return this.contentRange.toSelection(this.target.isReversed);
+  }
 
-  getRemovalRange = () => removalUnsupportedForPosition(this.position);
+  get editor(): TextEditor {
+    return this.target.editor;
+  }
+
+  get insertionDelimiter(): string {
+    return this.target.insertionDelimiter;
+  }
+
+  get isRaw(): boolean {
+    return this.target.isRaw;
+  }
+
+  /**
+   * Creates a new destination with the given target while preserving insertion
+   * mode and indentation string from this destination. This is important
+   * because our "edit new" code updates the content range of the target when
+   * multiple edits are performed in the same document, but we want to insert
+   * the original indentation.
+   */
+  withTarget(target: Target): Destination {
+    return new DestinationImpl(
+      target,
+      this.insertionMode,
+      this.indentationString,
+    );
+  }
 
   getEditNewActionType(): EditNewActionType {
     if (
       this.insertionDelimiter === "\n" &&
-      this.position === "after" &&
-      this.state.thatTarget!.contentRange.isSingleLine
+      this.insertionMode === "after" &&
+      this.target.contentRange.isSingleLine
     ) {
       // If the target that we're wrapping is not a single line, then we
       // want to compute indentation based on the entire target.  Otherwise,
       // we allow the editor to determine how to perform indentation.
-      // Note that we use `this.state.thatTarget` rather than `this.thatTarget`
-      // because we don't really want the transitive `thatTarget` behaviour, as
-      // it's not really the "that" target that we're after; it's the target that
-      // we're wrapping.  Should rework this stuff as part of #803.
       return "insertLineAfter";
     }
 
@@ -61,18 +79,9 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
   }
 
   constructChangeEdit(text: string): EditWithRangeUpdater {
-    return this.position === "before" || this.position === "after"
+    return this.insertionMode === "before" || this.insertionMode === "after"
       ? this.constructEditWithDelimiters(text)
       : this.constructEditWithoutDelimiters(text);
-  }
-
-  protected getCloneParameters(): PositionTargetParameters {
-    return {
-      ...this.state,
-      position: this.position,
-      insertionDelimiter: this.insertionDelimiter,
-      isRaw: this.isRaw,
-    };
   }
 
   private constructEditWithDelimiters(text: string): EditWithRangeUpdater {
@@ -86,7 +95,7 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
     return {
       range,
       text: editText,
-      isReplace: this.position === "after",
+      isReplace: this.insertionMode === "after",
       updateRange,
     };
   }
@@ -151,15 +160,6 @@ export default class PositionTarget extends BaseTarget<PositionTargetParameters>
   }
 }
 
-export function removalUnsupportedForPosition(position: string): Range {
-  const preferredModifier =
-    position === "after" || position === "end" ? "trailing" : "leading";
-
-  throw new UnsupportedError(
-    `Please use "${preferredModifier}" modifier; removal is not supported for "${position}"`,
-  );
-}
-
 /** Calculate the minimum indentation/padding for a range */
 function getIndentationString(editor: TextEditor, range: Range) {
   let length = Number.MAX_SAFE_INTEGER;
@@ -175,4 +175,18 @@ function getIndentationString(editor: TextEditor, range: Range) {
     }
   }
   return indentationString;
+}
+
+function getContentRange(
+  contentRange: Range,
+  insertionMode: InsertionMode,
+): Range {
+  switch (insertionMode) {
+    case "before":
+      return contentRange.start.toEmptyRange();
+    case "after":
+      return contentRange.end.toEmptyRange();
+    case "to":
+      return contentRange;
+  }
 }

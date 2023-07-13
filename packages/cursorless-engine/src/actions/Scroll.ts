@@ -6,14 +6,14 @@ import {
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-class Scroll implements Action {
+class Scroll implements SimpleAction {
   constructor(private at: RevealLineAt) {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const selectionGroups = groupBy(targets, (t: Target) => t.editor);
 
     const lines = Array.from(selectionGroups, ([editor, targets]) => {
