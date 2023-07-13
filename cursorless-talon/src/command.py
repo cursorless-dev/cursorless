@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-
+import dataclasses
 from talon import actions, speech_system
 
 from .cursorless_command_server import (
@@ -9,7 +8,7 @@ from .cursorless_command_server import (
 )
 
 
-@dataclass
+@dataclasses.dataclass
 class CursorlessCommand:
     version = 6
     spokenForm: str
@@ -77,14 +76,10 @@ def makes_serializable(value: any):
         return {k: makes_serializable(v) for k, v in value.items()}
     if isinstance(value, list):
         return [makes_serializable(v) for v in value]
-    try:
-        items = value.__dict__
-        class_items = {k: v for k, v in value.__class__.__dict__.items() if k[0] != "_"}
-        all_items = {**class_items, **items}
-        return {k: makes_serializable(v) for k, v in all_items.items()}
-    except AttributeError:
-        return value
-
-    # TODO: Try to utilize this
-    # if dataclasses.is_dataclass(o):
-    #     return dataclasses.asdict(o)
+    if dataclasses.is_dataclass(value):
+        items = {
+            **{k: v for k, v in value.__class__.__dict__.items() if k[0] != "_"},
+            **value.__dict__,
+        }
+        return {k: makes_serializable(v) for k, v in items.items()}
+    return value
