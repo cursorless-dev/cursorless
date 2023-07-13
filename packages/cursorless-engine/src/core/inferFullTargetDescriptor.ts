@@ -1,13 +1,12 @@
 import {
-  ImplicitTargetDescriptor,
   Modifier,
   PartialListTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
-  PositionModifier,
 } from "@cursorless/common";
 import {
+  ListTargetDescriptor,
   Mark,
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
@@ -16,23 +15,20 @@ import {
 import { handleHoistedModifiers } from "./handleHoistedModifiers";
 
 /**
- * Performs inference on the partial targets provided by the user, using
- * previous targets, global defaults, and action-specific defaults to fill out
- * any details that may have been omitted in the spoken form.
- * For example, we would automatically infer that `"take funk air and bat"` is
- * equivalent to `"take funk air and funk bat"`.
+ * Performs inference on the partial target provided by the user, using previous
+ * targets, global defaults, and action-specific defaults to fill out any
+ * details that may have been omitted in the spoken form. For example, we would
+ * automatically infer that `"take funk air and bat"` is equivalent to `"take
+ * funk air and funk bat"`.
  * @param targets The partial targets which need to be completed by inference.
- * @returns Target objects fully filled out and ready to be processed by {@link processTargets}.
+ * @param previousTargets The targets that precede the target we are trying to
+ * infer. We look in these targets and their descendants when doing inference so
+ * that eg "bring funk air to bat" will be expanded to "bring funk air to funk
+ * bat".
+ * @returns Target objects fully filled out and ready to be processed by the
+ * target pipeline runner.
  */
-export default function inferFullTargets(
-  targets: PartialTargetDescriptor[],
-): TargetDescriptor[] {
-  return targets.map((target, index) =>
-    inferTarget(target, targets.slice(0, index)),
-  );
-}
-
-function inferTarget(
+export function inferFullTargetDescriptor(
   target: PartialTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): TargetDescriptor {
@@ -40,8 +36,9 @@ function inferTarget(
     case "list":
       return inferListTarget(target, previousTargets);
     case "range":
+      return inferRangeTargetWithHoist(target, previousTargets);
     case "primitive":
-      return inferNonListTarget(target, previousTargets);
+      return inferPrimitiveTarget(target, previousTargets);
     case "implicit":
       return target;
   }
@@ -50,45 +47,28 @@ function inferTarget(
 function inferListTarget(
   target: PartialListTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): TargetDescriptor {
+): ListTargetDescriptor {
   return {
     ...target,
-    elements: target.elements.map((element, index) =>
-      inferNonListTarget(
-        element,
-        previousTargets.concat(target.elements.slice(0, index)),
-      ),
-    ),
+    elements: target.elements.map((element, index) => {
+      const elementPreviousTargets = previousTargets.concat(
+        target.elements.slice(0, index),
+      );
+      switch (element.type) {
+        case "range":
+          return inferRangeTargetWithHoist(element, elementPreviousTargets);
+        case "primitive":
+          return inferPrimitiveTarget(element, elementPreviousTargets);
+      }
+    }),
   };
 }
 
-function inferNonListTarget(
-  target: PartialPrimitiveTargetDescriptor | PartialRangeTargetDescriptor,
-  previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor | RangeTargetDescriptor {
-  switch (target.type) {
-    case "primitive":
-      return inferPrimitiveTarget(target, previousTargets);
-    case "range":
-      return inferRangeTarget(target, previousTargets);
-  }
-}
-
-function inferRangeTarget(
+function inferRangeTargetWithHoist(
   target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor | RangeTargetDescriptor {
-  const fullTarget: RangeTargetDescriptor = {
-    type: "range",
-    rangeType: target.rangeType ?? "continuous",
-    excludeAnchor: target.excludeAnchor ?? false,
-    excludeActive: target.excludeActive ?? false,
-    anchor: inferPossiblyImplicitTarget(target.anchor, previousTargets),
-    active: inferPrimitiveTarget(
-      target.active,
-      previousTargets.concat(target.anchor),
-    ),
-  };
+): RangeTargetDescriptor | PrimitiveTargetDescriptor {
+  const fullTarget = inferRangeTarget(target, previousTargets);
 
   const isAnchorMarkImplicit =
     target.anchor.type === "implicit" || target.anchor.mark == null;
@@ -96,24 +76,30 @@ function inferRangeTarget(
   return handleHoistedModifiers(fullTarget, isAnchorMarkImplicit);
 }
 
-function inferPossiblyImplicitTarget(
-  target: PartialPrimitiveTargetDescriptor | ImplicitTargetDescriptor,
+function inferRangeTarget(
+  target: PartialRangeTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
-): PrimitiveTargetDescriptor | ImplicitTargetDescriptor {
-  if (target.type === "implicit") {
-    return target;
-  }
-
-  return inferPrimitiveTarget(target, previousTargets);
+): RangeTargetDescriptor {
+  return {
+    type: "range",
+    rangeType: target.rangeType ?? "continuous",
+    excludeAnchor: target.excludeAnchor ?? false,
+    excludeActive: target.excludeActive ?? false,
+    anchor:
+      target.anchor.type === "implicit"
+        ? target.anchor
+        : inferPrimitiveTarget(target.anchor, previousTargets),
+    active: inferPrimitiveTarget(
+      target.active,
+      previousTargets.concat(target.anchor),
+    ),
+  };
 }
 
 function inferPrimitiveTarget(
   target: PartialPrimitiveTargetDescriptor,
   previousTargets: PartialTargetDescriptor[],
 ): PrimitiveTargetDescriptor {
-  const ownPositionModifier = getPositionModifier(target);
-  const ownModifiers = getPreservedModifiers(target);
-
   const mark = target.mark ??
     (shouldInferPreviousMark(target)
       ? getPreviousMark(previousTargets)
@@ -122,37 +108,15 @@ function inferPrimitiveTarget(
     };
 
   const modifiers =
-    ownModifiers ?? getPreviousPreservedModifiers(previousTargets) ?? [];
-
-  const positionModifier =
-    ownPositionModifier ?? getPreviousPositionModifier(previousTargets);
+    getPreservedModifiers(target) ??
+    getPreviousPreservedModifiers(previousTargets) ??
+    [];
 
   return {
     type: target.type,
     mark,
     modifiers,
-    positionModifier,
   };
-}
-
-function getPositionModifier(
-  target: PartialPrimitiveTargetDescriptor,
-): PositionModifier | undefined {
-  if (target.modifiers == null) {
-    return undefined;
-  }
-
-  const positionModifierIndex = target.modifiers.findIndex(
-    (modifier) => modifier.type === "position",
-  );
-
-  if (positionModifierIndex > 0) {
-    throw Error("Position modifiers must be at the start of a modifier chain");
-  }
-
-  return positionModifierIndex === -1
-    ? undefined
-    : (target.modifiers[positionModifierIndex] as PositionModifier);
 }
 
 function shouldInferPreviousMark(
@@ -162,10 +126,8 @@ function shouldInferPreviousMark(
 }
 
 /**
- * Return a list of modifiers that should not be removed during inference.
- * Today, we remove positional modifiers, because they have their own field on
- * the full targets.  We also remove modifiers that only impact inference, such
- * as `inferPreviousMark`.
+ * Return a list of modifiers that should not be removed during inference. We
+ * remove modifiers that only impact inference, such as `inferPreviousMark`.
  *
  * We return `undefined` if there are no preserved modifiers. Note that we will
  * never return an empty list; we will always return `undefined` if there are no
@@ -178,7 +140,7 @@ function getPreservedModifiers(
 ): Modifier[] | undefined {
   const preservedModifiers =
     target.modifiers?.filter(
-      (modifier) => !["position", "inferPreviousMark"].includes(modifier.type),
+      (modifier) => modifier.type !== "inferPreviousMark",
     ) ?? [];
   if (preservedModifiers.length !== 0) {
     return preservedModifiers;
@@ -226,12 +188,6 @@ function getPreviousPreservedModifiers(
   previousTargets: PartialTargetDescriptor[],
 ): Modifier[] | undefined {
   return getPreviousTargetAttribute(previousTargets, getPreservedModifiers);
-}
-
-function getPreviousPositionModifier(
-  previousTargets: PartialTargetDescriptor[],
-): PositionModifier | undefined {
-  return getPreviousTargetAttribute(previousTargets, getPositionModifier);
 }
 
 /**

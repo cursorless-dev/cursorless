@@ -16,7 +16,7 @@ import {
   runOnTargetsForEachEditor,
   runOnTargetsForEachEditorSequentially,
 } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
 interface CallbackOptions {
   callback: (editor: EditableTextEditor, targets: Target[]) => Promise<void>;
@@ -32,13 +32,13 @@ interface CallbackOptions {
  * It takes a {@link CallbackOptions.callback callback} that is called once for
  * each editor, receiving all the targets that are in the given editor.
  */
-export class CallbackAction implements Action {
+export class CallbackAction {
   constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     options: CallbackOptions,
   ): Promise<ActionReturnValue> {
     if (options.showDecorations) {

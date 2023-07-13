@@ -5,15 +5,15 @@ import {
   runOnTargetsForEachEditor,
   toGeneralizedRange,
 } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-export default class Highlight implements Action {
+export default class Highlight {
   constructor() {
     this.run = this.run.bind(this);
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     highlightId?: HighlightId,
   ): Promise<ActionReturnValue> {
     if (ide().capabilities.commands["highlight"] == null) {

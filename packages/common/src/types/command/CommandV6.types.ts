@@ -1,11 +1,10 @@
-import type { PartialTargetDescriptor } from "./PartialTargetDescriptor.types";
-import type { ActionCommand } from "./ActionCommand";
+import type { ActionDescriptor } from "./ActionDescriptor";
 
-export interface CommandV5 {
+export interface CommandV6 {
   /**
    * The version number of the command API
    */
-  version: 5;
+  version: 6;
 
   /**
    * The spoken form of the command if issued from a voice command system
@@ -20,11 +19,9 @@ export interface CommandV5 {
    */
   usePrePhraseSnapshot: boolean;
 
-  action: ActionCommand;
-
   /**
-   * A list of targets expected by the action. Inference will be run on the
-   * targets
+   * The action to perform. This field contains everything necessary to actually
+   * perform the action. The other fields are just metadata.
    */
-  targets: PartialTargetDescriptor[];
+  action: ActionDescriptor;
 }

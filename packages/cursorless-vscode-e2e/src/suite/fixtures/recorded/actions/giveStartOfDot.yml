@@ -1,12 +1,15 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: give before dot
-  action: deselect
-  targets:
-    - type: primitive
-      position: before
+  version: 6
+  spokenForm: give start of dot
+  action:
+    name: deselect
+    target:
+      type: primitive
+      modifiers:
+        - {type: startOf}
       mark: {type: decoratedSymbol, symbolColor: default, character: .}
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: a b.c
   selections:
@@ -28,10 +31,9 @@ finalState:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   thatMark:
-    - type: PositionTarget
+    - type: PlainTarget
       contentRange:
         start: {line: 0, character: 3}
         end: {line: 0, character: 3}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: identity}}]

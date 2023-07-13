@@ -1,12 +1,10 @@
-import { HatStyleName } from "@cursorless/common";
-import update from "immutability-helper";
-import { flow } from "lodash";
-import { transformPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import {
+  HatStyleName,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "@cursorless/common";
+import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 
 const SCOPE_TYPE_CANONICALIZATION_MAPPING: Record<string, SimpleScopeTypeType> =
   {
@@ -19,9 +17,9 @@ const COLOR_CANONICALIZATION_MAPPING: Record<string, HatStyleName> = {
   purple: "pink",
 };
 
-const canonicalizeScopeTypes = (
+function canonicalizeScopeTypesInPlace(
   target: PartialPrimitiveTargetDescriptor,
-): PartialPrimitiveTargetDescriptor => {
+): void {
   target.modifiers?.forEach((mod) => {
     if (mod.type === "containingScope" || mod.type === "everyScope") {
       mod.scopeType.type =
@@ -29,26 +27,23 @@ const canonicalizeScopeTypes = (
         mod.scopeType.type;
     }
   });
-  return target;
-};
+}
 
-const canonicalizeColors = (
+function canonicalizeColorsInPlace(
   target: PartialPrimitiveTargetDescriptor,
-): PartialPrimitiveTargetDescriptor =>
-  target.mark?.type === "decoratedSymbol"
-    ? update(target, {
-        mark: {
-          symbolColor: (symbolColor: string) =>
-            COLOR_CANONICALIZATION_MAPPING[symbolColor] ?? symbolColor,
-        },
-      })
-    : target;
+): void {
+  if (target.mark?.type === "decoratedSymbol") {
+    target.mark.symbolColor =
+      COLOR_CANONICALIZATION_MAPPING[target.mark.symbolColor] ??
+      target.mark.symbolColor;
+  }
+}
 
-export default function canonicalizeTargets(
+export default function canonicalizeTargetsInPlace(
   partialTargets: PartialTargetDescriptor[],
-) {
-  return transformPartialPrimitiveTargets(
-    partialTargets,
-    flow(canonicalizeScopeTypes, canonicalizeColors),
-  );
+): void {
+  getPartialPrimitiveTargets(partialTargets).forEach((target) => {
+    canonicalizeScopeTypesInPlace(target);
+    canonicalizeColorsInPlace(target);
+  });
 }

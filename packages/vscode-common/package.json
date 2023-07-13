@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
   },
   "keywords": [],
   "author": "",

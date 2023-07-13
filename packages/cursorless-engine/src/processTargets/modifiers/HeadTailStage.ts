@@ -1,4 +1,9 @@
-import { HeadTailModifier, Modifier, Range } from "@cursorless/common";
+import {
+  HeadModifier,
+  Modifier,
+  Range,
+  TailModifier,
+} from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
@@ -52,7 +57,7 @@ abstract class HeadTailStage implements ModifierStage {
 export class HeadStage extends HeadTailStage {
   constructor(
     modifierStageFactory: ModifierStageFactory,
-    modifier: HeadTailModifier,
+    modifier: HeadModifier,
   ) {
     super(modifierStageFactory, true, modifier.modifiers);
   }
@@ -65,7 +70,7 @@ export class HeadStage extends HeadTailStage {
 export class TailStage extends HeadTailStage {
   constructor(
     modifierStageFactory: ModifierStageFactory,
-    modifier: HeadTailModifier,
+    modifier: TailModifier,
   ) {
     super(modifierStageFactory, false, modifier.modifiers);
   }

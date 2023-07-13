@@ -11,10 +11,12 @@ import {
   toLineRange,
 } from "@cursorless/common";
 import { zip } from "lodash";
-import { Target } from "../typings/target.types";
+import { Destination, Target } from "../typings/target.types";
 import { SelectionWithEditor } from "../typings/Types";
 
-export function ensureSingleEditor(targets: Target[]): TextEditor {
+export function ensureSingleEditor(
+  targets: Target[] | Destination[],
+): TextEditor {
   if (targets.length === 0) {
     throw new Error("Require at least one target with this action");
   }
@@ -28,7 +30,9 @@ export function ensureSingleEditor(targets: Target[]): TextEditor {
   return editors[0];
 }
 
-export function ensureSingleTarget(targets: Target[]) {
+export function ensureSingleTarget<T extends Target | Destination>(
+  targets: T[],
+): T {
   if (targets.length !== 1) {
     throw new Error("Can only have one target with this action");
   }

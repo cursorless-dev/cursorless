@@ -7,6 +7,7 @@
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type {
+  InsertionMode,
   Range,
   Selection,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
@@ -14,7 +15,6 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   SnippetVariable,
   TargetPlainObject,
-  TargetPosition,
   TextEditor,
 } from "@cursorless/common";
 import type {
@@ -137,7 +137,6 @@ export interface Target {
   getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
   getRemovalHighlightRange(): Range;
-  getEditNewActionType(): EditNewActionType;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
   createContinuousRangeTarget(
@@ -146,16 +145,14 @@ export interface Target {
     includeStart: boolean,
     includeEnd: boolean,
   ): Target;
-  /** Constructs change/insertion edit. Adds delimiter before/after if needed */
-  constructChangeEdit(text: string): EditWithRangeUpdater;
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;
   /**
-   * Construct a position target with the given position.
-   * @param position The position to use, eg `start`, `end`, `before`, `after`
+   * Construct a destination  with the given insertion mode.
+   * @param position The insertion modes to use, eg `before`, `after`, `to`
    */
-  toPositionTarget(position: TargetPosition): Target;
+  toDestination(insertionMode: InsertionMode): Destination;
   /**
    * Constructs an object suitable for serialization by json. This is used to
    * capture targets for testing and recording test cases.
@@ -163,4 +160,24 @@ export interface Target {
    * @returns A plain object that can be json serialized
    */
   toPlainObject(): TargetPlainObject;
+}
+
+/**
+ * A destination is a wrapper around a target that can be used for inserting new
+ * text. It represents things like "after funk", "before air", "to bat", etc. in
+ * commands like "bring funk air to bat", "paste after line", etc.  Destinations
+ * are also created implicitly for actions like "drink" and "pour".
+ */
+export interface Destination {
+  readonly insertionMode: InsertionMode;
+  readonly editor: TextEditor;
+  readonly target: Target;
+  readonly contentRange: Range;
+  readonly contentSelection: Selection;
+  readonly isRaw: boolean;
+  readonly insertionDelimiter: string;
+  withTarget(target: Target): Destination;
+  getEditNewActionType(): EditNewActionType;
+  /** Constructs change/insertion edit. Adds delimiter before/after if needed */
+  constructChangeEdit(text: string): EditWithRangeUpdater;
 }

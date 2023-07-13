@@ -120,17 +120,18 @@ export type SimpleScopeTypeType =
   | "subParagraph"
   | "environment"
   // Text based scopes
-  | "token"
-  | "line"
-  | "notebookCell"
-  | "paragraph"
-  | "document"
   | "character"
   | "word"
+  | "token"
   | "identifier"
+  | "line"
+  | "sentence"
+  | "paragraph"
+  | "document"
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
-  | "url";
+  | "url"
+  | "notebookCell";
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
@@ -267,21 +268,21 @@ export interface InferPreviousMarkModifier {
   type: "inferPreviousMark";
 }
 
-export type TargetPosition = "before" | "after" | "start" | "end";
-
-export interface PositionModifier {
-  type: "position";
-  position: TargetPosition;
+export interface StartOfModifier {
+  type: "startOf";
 }
 
-export interface PartialPrimitiveTargetDescriptor {
-  type: "primitive";
-  mark?: PartialMark;
+export interface EndOfModifier {
+  type: "endOf";
+}
+
+export interface HeadModifier {
+  type: "extendThroughStartOf";
   modifiers?: Modifier[];
 }
 
-export interface HeadTailModifier {
-  type: "extendThroughStartOf" | "extendThroughEndOf";
+export interface TailModifier {
+  type: "extendThroughEndOf";
   modifiers?: Modifier[];
 }
 
@@ -325,14 +326,16 @@ export interface RangeModifier {
 }
 
 export type Modifier =
-  | PositionModifier
+  | StartOfModifier
+  | EndOfModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier
-  | HeadTailModifier
+  | HeadModifier
+  | TailModifier
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
@@ -346,6 +349,12 @@ export type Modifier =
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
 export type PartialRangeType = "continuous" | "vertical";
+
+export interface PartialPrimitiveTargetDescriptor {
+  type: "primitive";
+  mark?: PartialMark;
+  modifiers?: Modifier[];
+}
 
 export interface PartialRangeTargetDescriptor {
   type: "range";

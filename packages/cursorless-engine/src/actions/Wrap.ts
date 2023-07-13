@@ -15,15 +15,15 @@ import { Target } from "../typings/target.types";
 import { FullSelectionInfo } from "../typings/updateSelections";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-export default class Wrap implements Action {
+export default class Wrap {
   constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     left: string,
     right: string,
   ): Promise<ActionReturnValue> {

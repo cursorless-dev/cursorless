@@ -1,20 +1,20 @@
-import { FlashStyle } from "@cursorless/common";
+import { FlashStyle, GetTextActionOptions } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { ensureSingleTarget, flashTargets } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-export default class GetText implements Action {
+export default class GetText {
   constructor() {
     this.run = this.run.bind(this);
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     {
       showDecorations = true,
       ensureSingleTarget: doEnsureSingleTarget = false,
-    } = {},
+    }: GetTextActionOptions = {},
   ): Promise<ActionReturnValue> {
     if (showDecorations) {
       await flashTargets(ide(), targets, FlashStyle.referenced);
