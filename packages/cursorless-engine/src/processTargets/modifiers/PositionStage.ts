@@ -1,4 +1,4 @@
-import { EndOfModifier, Range, StartOfModifier } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStage } from "../PipelineStages.types";
 import {
@@ -12,7 +12,7 @@ abstract class StartEndOfStage implements ModifierStage {
     const parameters: CommonTargetParameters = {
       editor: target.editor,
       isReversed: target.isReversed,
-      contentRange: this.constructContentRange(target.contentRange),
+      contentRange: this.getContentRange(target.contentRange),
     };
 
     return [
@@ -22,25 +22,17 @@ abstract class StartEndOfStage implements ModifierStage {
     ];
   }
 
-  protected abstract constructContentRange(contentRange: Range): Range;
+  protected abstract getContentRange(contentRange: Range): Range;
 }
 
 export class StartOfStage extends StartEndOfStage {
-  constructor(_modifier: StartOfModifier) {
-    super();
-  }
-
-  protected constructContentRange(contentRange: Range): Range {
+  protected getContentRange(contentRange: Range): Range {
     return contentRange.start.toEmptyRange();
   }
 }
 
 export class EndOfStage extends StartEndOfStage {
-  constructor(_modifier: EndOfModifier) {
-    super();
-  }
-
-  protected constructContentRange(contentRange: Range): Range {
+  protected getContentRange(contentRange: Range): Range {
     return contentRange.end.toEmptyRange();
   }
 }
