@@ -8,19 +8,22 @@ export default class implements MarkStage {
   constructor(private mark: ExplicitMark) {}
 
   run(): Target[] {
-    const editor = ide().visibleTextEditors.find(
-      (e) => e.id === this.mark.editorId,
-    );
+    const {
+      editorId,
+      range: { start, end },
+    } = this.mark;
+
+    const editor = ide().visibleTextEditors.find((e) => e.id === editorId);
 
     if (editor == null) {
-      throw new Error(`Couldn't find editor '${this.mark.editorId}'`);
+      throw new Error(`Couldn't find editor '${editorId}'`);
     }
 
     const contentRange = new Range(
-      this.mark.range.start.line,
-      this.mark.range.start.character,
-      this.mark.range.end.line,
-      this.mark.range.end.character,
+      start.line,
+      start.character,
+      end.line,
+      end.character,
     );
 
     return [

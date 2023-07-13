@@ -54,8 +54,10 @@ interface SimpleRange {
 }
 
 /**
- * Used to explicitly describe a decorated mark managed by another editor. To
- * day used for the Cursorless "sidecar".
+ * Used to explicitly provide a range for use as a mark. Today, this mark type
+ * is only used as a hack to enable us to support allowing other editors to
+ * maintain their own hat map when using the Cursorless "sidecar"; see
+ * https://github.com/cursorless-everywhere/notes for more information.
  */
 export interface ExplicitMark {
   type: "explicit";
