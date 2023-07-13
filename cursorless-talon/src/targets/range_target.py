@@ -3,7 +3,7 @@ from typing import Optional
 
 from talon import Module
 
-from .target_types import ImplicitTarget, PrimitiveTarget
+from .target_types import ImplicitTarget, PrimitiveTarget, RangeTarget
 
 mod = Module()
 

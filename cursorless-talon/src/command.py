@@ -85,5 +85,6 @@ def makes_serializable(value: any):
     except AttributeError:
         return value
 
-    if dataclasses.is_dataclass(o):
-        return dataclasses.asdict(o)
+    # TODO: Try to utilize this
+    # if dataclasses.is_dataclass(o):
+    #     return dataclasses.asdict(o)

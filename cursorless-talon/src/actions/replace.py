@@ -1,3 +1,4 @@
+from ..command import cursorless_command_and_wait
 from ..targets.target_types import CursorlessTarget, PrimitiveDestination
 
 

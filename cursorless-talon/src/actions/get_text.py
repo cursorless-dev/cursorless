@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..command import cursorless_command_and_wait
+from ..command import cursorless_command_get
 from ..targets.target_types import CursorlessTarget
 
 
@@ -10,7 +10,7 @@ def cursorless_get_text(
     ensure_single_target: Optional[bool] = None,
 ):
     """Get target texts"""
-    cursorless_command_and_wait(
+    cursorless_command_get(
         {
             "name": "getText",
             "options": {
