@@ -1,0 +1,41 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring air to start of air
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    - type: primitive
+      modifiers:
+        - {type: position, position: start}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: a
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
+finalState:
+  documentContents: aa
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 1}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 1}
+        end: {line: 0, character: 2}
+      isReversed: false
+      hasExplicitRange: true

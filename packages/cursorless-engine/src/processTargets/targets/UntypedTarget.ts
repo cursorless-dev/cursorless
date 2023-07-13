@@ -19,6 +19,7 @@ interface UntypedTargetParameters extends CommonTargetParameters {
  * - Expand to nearest containing pair when asked for boundary or interior
  */
 export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
+  type = "UntypedTarget";
   insertionDelimiter = " ";
   hasExplicitScopeType = false;
 

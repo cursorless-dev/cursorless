@@ -1,6 +1,6 @@
 from talon import Module
 
-from ..primitive_target import BASE_TARGET
+from ..primitive_target import create_base_target
 
 mod = Module()
 
@@ -20,6 +20,6 @@ def cursorless_swap_targets(m) -> list[dict]:
     target_list = m.cursorless_target_list
 
     if len(target_list) == 1:
-        target_list = [BASE_TARGET] + target_list
+        target_list = [create_base_target()] + target_list
 
     return target_list

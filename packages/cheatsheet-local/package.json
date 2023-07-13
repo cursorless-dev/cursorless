@@ -10,7 +10,8 @@
     "webpack": "pnpm compile && webpack --config ./src/webpack.config.ts",
     "build": "pnpm build:prod",
     "build:dev": "pnpm webpack --mode=development",
-    "build:prod": "pnpm webpack --mode=production --node-env=production"
+    "build:prod": "pnpm webpack --mode=production --node-env=production",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
   },
   "keywords": [],
   "author": "",

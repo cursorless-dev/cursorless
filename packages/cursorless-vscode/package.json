@@ -838,14 +838,15 @@
     "uninstall-local": "bash ./scripts/uninstall-local.sh",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
-    "esbuild:prod": "pnpm run esbuild:base --minify --keep-names",
+    "esbuild:prod": "pnpm run esbuild:base --minify",
     "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
     "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
     "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",
     "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
     "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
     "compile": "tsc --build",
-    "watch": "tsc --build --watch"
+    "watch": "tsc --build --watch",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",

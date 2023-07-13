@@ -57,18 +57,6 @@ scope_types = {
     "tags": "xmlBothTags",
     "start tag": "xmlStartTag",
     "end tag": "xmlEndTag",
-    # Text-based scope types
-    "char": "character",
-    "word": "word",
-    "identifier": "identifier",
-    "block": "paragraph",
-    "cell": "notebookCell",
-    "file": "document",
-    "line": "line",
-    "paint": "nonWhitespaceSequence",
-    "short paint": "boundedNonWhitespaceSequence",
-    "link": "url",
-    "token": "token",
     # LaTeX
     "part": "part",
     "chapter": "chapter",
@@ -77,6 +65,19 @@ scope_types = {
     "paragraph": "namedParagraph",
     "subparagraph": "subParagraph",
     "environment": "environment",
+    # Text-based scope types
+    "char": "character",
+    "word": "word",
+    "token": "token",
+    "identifier": "identifier",
+    "line": "line",
+    "sentence": "sentence",
+    "block": "paragraph",
+    "file": "document",
+    "paint": "nonWhitespaceSequence",
+    "short paint": "boundedNonWhitespaceSequence",
+    "link": "url",
+    "cell": "notebookCell",
 }
 
 

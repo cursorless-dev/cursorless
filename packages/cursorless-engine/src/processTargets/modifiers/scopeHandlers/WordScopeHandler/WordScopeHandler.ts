@@ -1,9 +1,9 @@
 import { Range, TextEditor } from "@cursorless/common";
-import { NestedScopeHandler } from ".";
-import WordTokenizer from "../../../scopeHandlers/WordScopeHandler/WordTokenizer";
+import { NestedScopeHandler } from "..";
+import WordTokenizer from "./WordTokenizer";
 import { Direction } from "@cursorless/common";
-import { SubTokenWordTarget } from "../../targets";
-import type { TargetScope } from "./scope.types";
+import { SubTokenWordTarget } from "../../../targets";
+import type { TargetScope } from "../scope.types";
 
 export default class WordScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "word" } as const;

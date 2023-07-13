@@ -1,9 +1,13 @@
-import { Target } from "../../typings/target.types";
 import { TargetPosition } from "@cursorless/common";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
-import { removalUnsupportedForPosition } from "./PositionTarget";
+import {
+  BaseTarget,
+  CommonTargetParameters,
+  removalUnsupportedForPosition,
+} from ".";
+import { Target } from "../../typings/target.types";
 
 export default class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
+  type = "NotebookCellTarget";
   insertionDelimiter = "\n";
   isNotebookCell = true;
 
@@ -33,6 +37,7 @@ interface NotebookCellPositionTargetParameters extends CommonTargetParameters {
 }
 
 export class NotebookCellPositionTarget extends BaseTarget<NotebookCellPositionTargetParameters> {
+  type = "NotebookCellPositionTarget";
   insertionDelimiter = "\n";
   isNotebookCell = true;
   public position: TargetPosition;

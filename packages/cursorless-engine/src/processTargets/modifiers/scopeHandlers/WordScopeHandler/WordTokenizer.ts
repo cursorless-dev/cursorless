@@ -1,5 +1,5 @@
-import { getMatcher } from "../../tokenizer";
-import { matchText } from "../../util/regex";
+import { getMatcher } from "../../../../tokenizer";
+import { matchText } from "../../../../util/regex";
 
 const CAMEL_REGEX = /\p{Lu}?\p{Ll}+|\p{Lu}+(?!\p{Ll})|\p{N}+/gu;
 

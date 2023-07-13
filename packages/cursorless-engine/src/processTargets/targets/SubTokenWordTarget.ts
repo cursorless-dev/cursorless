@@ -1,10 +1,10 @@
 import { Range } from "@cursorless/common";
+import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
-import BaseTarget, { CommonTargetParameters } from "./BaseTarget";
 
 export interface SubTokenTargetParameters extends CommonTargetParameters {
   readonly insertionDelimiter: string;
@@ -13,6 +13,7 @@ export interface SubTokenTargetParameters extends CommonTargetParameters {
 }
 
 export default class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
+  type = "SubTokenWordTarget";
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   insertionDelimiter: string;
