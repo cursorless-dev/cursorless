@@ -1,6 +1,7 @@
 import {
   Position,
   ScopeType,
+  SimpleScopeTypeType,
   TextEditor,
   isEmptyIterable,
 } from "@cursorless/common";
@@ -8,14 +9,26 @@ import { LegacyLanguageId } from "../languages/LegacyLanguageId";
 import { languageMatchers } from "../languages/getNodeMatcher";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
-import { ScopeSupport } from "../api/CursorlessEngineApi";
+import { ScopeSupport } from "../api/ScopeProvider";
 
+/**
+ * Determines the level of support for a given scope type in a given editor.
+ * This is primarily determined by the language id of the editor, though some
+ * scopes are supported in all languages.
+ */
 export class ScopeSupportChecker {
   constructor(private scopeHandlerFactory: ScopeHandlerFactory) {
     this.getScopeSupport = this.getScopeSupport.bind(this);
     this.getIterationScopeSupport = this.getIterationScopeSupport.bind(this);
   }
 
+  /**
+   * Determine the level of support for {@link scopeType} in {@link editor}, as
+   * determined by its language id.
+   * @param editor The editor to check
+   * @param scopeType The scope type to check
+   * @returns The level of support for {@link scopeType} in {@link editor}
+   */
   getScopeSupport(editor: TextEditor, scopeType: ScopeType): ScopeSupport {
     const { languageId } = editor.document;
     const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
@@ -29,6 +42,14 @@ export class ScopeSupportChecker {
       : ScopeSupport.supportedButNotPresentInEditor;
   }
 
+  /**
+   * Determine the level of support for the iteration scope of {@link scopeType}
+   * in {@link editor}, as determined by its language id.
+   * @param editor The editor to check
+   * @param scopeType The scope type to check
+   * @returns The level of support for the iteration scope of {@link scopeType}
+   * in {@link editor}
+   */
   getIterationScopeSupport(
     editor: TextEditor,
     scopeType: ScopeType,
@@ -69,20 +90,17 @@ function getLegacyScopeSupport(
   scopeType: ScopeType,
 ): ScopeSupport {
   switch (scopeType.type) {
-    case "nonWhitespaceSequence":
     case "boundedNonWhitespaceSequence":
-    case "url":
     case "surroundingPair":
-    case "customRegex":
       return ScopeSupport.supportedLegacy;
     case "notebookCell":
-    case "oneOf":
       // FIXME: What to do here
       return ScopeSupport.unsupported;
     default:
       if (
-        languageMatchers[languageId as LegacyLanguageId]?.[scopeType.type] !=
-        null
+        languageMatchers[languageId as LegacyLanguageId]?.[
+          scopeType.type as SimpleScopeTypeType
+        ] != null
       ) {
         return ScopeSupport.supportedLegacy;
       }

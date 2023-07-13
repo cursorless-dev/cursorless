@@ -4,7 +4,6 @@ import {
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
-import { ScopeSupport } from "./CursorlessEngineApi";
 
 export interface ScopeProvider {
   provideScopeRanges: (
@@ -72,4 +71,11 @@ export interface IterationScopeRanges {
     range: GeneralizedRange;
     targets?: TargetRanges[];
   }[];
+}
+
+export enum ScopeSupport {
+  supportedAndPresentInEditor,
+  supportedButNotPresentInEditor,
+  supportedLegacy,
+  unsupported,
 }

@@ -3,12 +3,17 @@ import { last } from "lodash";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 
 /**
- * Get the range to iterate over for the given editor.  We take the union of all
- * visible ranges, add 10 lines either side to make scrolling a bit smoother,
- * and then expand to the largest ancestor of the start and end of the visible
- * range, so that we properly show nesting.
+ * Get the range to iterate over for the given editor.
+ *
+ * - If {@link visibleOnly} is `false`, just return the full document range.
+ * - Otherwise, we
+ *   1. take the union of all visible ranges, then
+ *   2. add 10 lines either side to make scrolling a bit smoother, and then
+ *   3. expand to the largest ancestor of the start and end of the visible
+ *      range, so that we properly show nesting.
  * @param editor The editor to get the iteration range for
  * @param scopeHandler The scope handler to use
+ * @param visibleOnly Whether to only iterate over visible ranges
  * @returns The range to iterate over
  */
 export function getIterationRange(

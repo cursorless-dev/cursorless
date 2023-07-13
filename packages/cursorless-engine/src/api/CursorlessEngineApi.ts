@@ -28,10 +28,3 @@ export interface CommandApi {
    */
   runCommandSafe(...args: unknown[]): Promise<unknown>;
 }
-
-export enum ScopeSupport {
-  supportedAndPresentInEditor,
-  supportedButNotPresentInEditor,
-  supportedLegacy,
-  unsupported,
-}

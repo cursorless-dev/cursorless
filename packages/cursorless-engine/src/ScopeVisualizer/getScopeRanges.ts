@@ -4,7 +4,15 @@ import { ScopeRanges } from "..";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { getTargetRanges } from "./getTargetRanges";
 
-export function getScopes(
+/**
+ * Returns a list of scope ranges of type {@link scopeHandler} within
+ * {@link iterationRange} in {@link editor}.
+ * @param editor The editor to check
+ * @param scopeHandler The scope handler to use
+ * @param iterationRange The range to iterate over
+ * @returns A list of scope ranges for the given editor
+ */
+export function getScopeRanges(
   editor: TextEditor,
   scopeHandler: ScopeHandler,
   iterationRange: Range,

@@ -3,13 +3,17 @@ import {
   IterationScopeRangeConfig,
   IterationScopeRanges,
   ScopeRangeConfig,
+  ScopeRanges,
 } from "..";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { getIterationRange } from "./getIterationRange";
-import { getIterationScopes } from "./getIterationScopes";
-import { getScopes } from "./getScopes";
+import { getIterationScopeRanges } from "./getIterationScopeRanges";
+import { getScopeRanges } from "./getScopeRanges";
 
+/**
+ * Provides scope ranges for a given editor to use eg for visualizing scopes
+ */
 export class ScopeRangeProvider {
   constructor(
     private scopeHandlerFactory: ScopeHandlerFactory,
@@ -23,7 +27,7 @@ export class ScopeRangeProvider {
   provideScopeRanges(
     editor: TextEditor,
     { scopeType, visibleOnly }: ScopeRangeConfig,
-  ) {
+  ): ScopeRanges[] {
     const scopeHandler = this.scopeHandlerFactory.create(
       scopeType,
       editor.document.languageId,
@@ -33,7 +37,7 @@ export class ScopeRangeProvider {
       return [];
     }
 
-    return getScopes(
+    return getScopeRanges(
       editor,
       scopeHandler,
       getIterationRange(editor, scopeHandler, visibleOnly),
@@ -42,11 +46,7 @@ export class ScopeRangeProvider {
 
   provideIterationScopeRanges(
     editor: TextEditor,
-    {
-      scopeType,
-      visibleOnly,
-      includeNestedTargets: includeIterationNestedTargets,
-    }: IterationScopeRangeConfig,
+    { scopeType, visibleOnly, includeNestedTargets }: IterationScopeRangeConfig,
   ): IterationScopeRanges[] {
     const { languageId } = editor.document;
     const scopeHandler = this.scopeHandlerFactory.create(scopeType, languageId);
@@ -64,7 +64,7 @@ export class ScopeRangeProvider {
       return [];
     }
 
-    return getIterationScopes(
+    return getIterationScopeRanges(
       editor,
       iterationScopeHandler,
       this.modifierStageFactory.create({
@@ -72,7 +72,7 @@ export class ScopeRangeProvider {
         scopeType,
       }),
       getIterationRange(editor, scopeHandler, visibleOnly),
-      includeIterationNestedTargets,
+      includeNestedTargets,
     );
   }
 }

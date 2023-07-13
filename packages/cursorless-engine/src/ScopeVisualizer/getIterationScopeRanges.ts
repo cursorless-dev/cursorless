@@ -6,7 +6,18 @@ import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHan
 import { Target } from "../typings/target.types";
 import { getTargetRanges } from "./getTargetRanges";
 
-export function getIterationScopes(
+/**
+ * Returns a list of teration scope ranges of type {@link iterationScopeHandler}
+ * within {@link iterationRange} in {@link editor}.
+ * @param editor The editor to check
+ * @param iterationScopeHandler The scope handler to use
+ * @param everyStage An every stage for use in determining nested targets
+ * @param iterationRange The range to iterate over
+ * @param includeIterationNestedTargets Whether to include nested targets in the
+ * iteration scope ranges
+ * @returns A list of iteration scope ranges for the given editor
+ */
+export function getIterationScopeRanges(
   editor: TextEditor,
   iterationScopeHandler: ScopeHandler,
   everyStage: ModifierStage,
