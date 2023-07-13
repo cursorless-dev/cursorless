@@ -209,9 +209,11 @@ function getPreviousTargetAttribute<T>(
     const target = previousTargets[i];
     switch (target.type) {
       case "primitive": {
-        const attributeValue = getAttribute(target);
-        if (attributeValue != null) {
-          return attributeValue;
+        if (getAttribute != null) {
+          const attributeValue = getAttribute(target);
+          if (attributeValue != null) {
+            return attributeValue;
+          }
         }
         break;
       }

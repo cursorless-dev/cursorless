@@ -56,44 +56,28 @@ export async function updatePackageJson(
           },
         };
 
-  const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
+  const extraFields =
+    input.name === "@cursorless/cursorless-vscode"
+      ? getCursorlessVscodeFields(input)
+      : {};
 
-  const extraFields = isCursorlessVscode
-    ? getCursorlessVscodeFields(input)
-    : {};
+  const extraScripts = isRoot
+    ? {}
+    : {
+        clean: "rm -rf ./out tsconfig.tsbuildinfo",
+      };
 
   return {
     ...input,
     name,
     license: "MIT",
-    scripts: getScripts(input.scripts, isRoot, isCursorlessVscode),
+    scripts: {
+      ...(input.scripts ?? {}),
+      compile: "tsc --build",
+      watch: "tsc --build --watch",
+      ...extraScripts,
+    },
     ...exportFields,
     ...extraFields,
   } as PackageJson;
-}
-
-function getScripts(
-  inputScripts: PackageJson.Scripts | undefined,
-  isRoot: boolean,
-  isCursorlessVscode: boolean,
-) {
-  const scripts: PackageJson.Scripts = {
-    ...(inputScripts ?? {}),
-    compile: "tsc --build",
-    watch: "tsc --build --watch",
-  };
-
-  if (isRoot) {
-    return scripts;
-  }
-
-  const cleanDirs = ["./out", "tsconfig.tsbuildinfo"];
-
-  if (isCursorlessVscode) {
-    cleanDirs.push("./dist");
-  }
-
-  scripts.clean = `rm -rf ${cleanDirs.join(" ")}`;
-
-  return scripts;
 }

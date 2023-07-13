@@ -1,6 +1,7 @@
 from talon import Module
 
-from ..primitive_target import create_base_target
+from ..command import cursorless_command_and_wait
+from ..targets.target_types import CursorlessTarget, PrimitiveTarget
 
 mod = Module()
 
@@ -16,10 +17,23 @@ mod.list(
         "[<user.cursorless_target>] {user.cursorless_swap_connective} <user.cursorless_target>"
     )
 )
-def cursorless_swap_targets(m) -> list[dict]:
-    target_list = m.cursorless_target_list
+def cursorless_swap_targets(m) -> list[CursorlessTarget]:
+    targets = m.cursorless_target_list
 
-    if len(target_list) == 1:
-        target_list = [create_base_target()] + target_list
+    if len(targets) == 1:
+        [PrimitiveTarget(), targets[0]]
 
-    return target_list
+    return targets
+
+
+@mod.action_class
+class Actions:
+    def private_cursorles_swap(targets: list[CursorlessTarget]):
+        """Execute Cursorless swap action"""
+        cursorless_command_and_wait(
+            {
+                "name": "swapTargets",
+                "target1": targets[0],
+                "target2": targets[1],
+            }
+        )

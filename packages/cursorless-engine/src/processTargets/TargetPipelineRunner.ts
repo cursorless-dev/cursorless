@@ -17,7 +17,7 @@ import { ModifierStageFactory } from "./ModifierStageFactory";
 import { MarkStage, ModifierStage } from "./PipelineStages.types";
 import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
-import { PlainTarget } from "./targets";
+import { VerticalRangeTarget } from "./targets";
 
 export class TargetPipelineRunner {
   constructor(
@@ -151,7 +151,7 @@ class TargetPipeline {
     return [
       targetsToContinuousTarget(
         excludeAnchor
-          ? getExcludedScope(
+          ? excludeScope(
               this.modifierStageFactory,
               anchorTarget,
               exclusionScopeType,
@@ -159,7 +159,7 @@ class TargetPipeline {
             )
           : anchorTarget,
         excludeActive
-          ? getExcludedScope(
+          ? excludeScope(
               this.modifierStageFactory,
               activeTarget,
               exclusionScopeType,
@@ -254,17 +254,17 @@ export function processModifierStages(
   return targets;
 }
 
-function getExcludedScope(
+function excludeScope(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
-  scopeType: ScopeType,
+  exclusionScopeType: ScopeType,
   direction: Direction,
 ): Target {
   return (
     modifierStageFactory
       .create({
         type: "relativeScope",
-        scopeType,
+        scopeType: exclusionScopeType,
         direction,
         length: 1,
         offset: 1,
@@ -348,7 +348,7 @@ function targetsToVerticalTarget(
     );
 
     results.push(
-      new PlainTarget({
+      new VerticalRangeTarget({
         editor: anchorTarget.editor,
         isReversed: anchorTarget.isReversed,
         contentRange,

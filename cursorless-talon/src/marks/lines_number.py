@@ -4,7 +4,7 @@ from typing import Any
 
 from talon import Context, Module
 
-from ..compound_targets import is_active_included, is_anchor_included
+from ..targets.range_target import RangeConnective
 
 mod = Module()
 ctx = Context()
@@ -37,7 +37,10 @@ DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in direc
 
 
 @mod.capture(
-    rule="{user.cursorless_line_direction} <user.private_cursorless_number_small> [{user.cursorless_range_connective} <user.private_cursorless_number_small>]"
+    rule=(
+        "{user.cursorless_line_direction} <user.private_cursorless_number_small> "
+        "[{user.cursorless_range_connective} <user.private_cursorless_number_small>]"
+    )
 )
 def cursorless_line_number(m) -> dict[str, Any]:
     direction = directions_map[m.cursorless_line_direction]
@@ -49,14 +52,13 @@ def cursorless_line_number(m) -> dict[str, Any]:
             direction.type,
             direction.formatter(m.private_cursorless_number_small_list[1]),
         )
-        include_anchor = is_anchor_included(m.cursorless_range_connective)
-        include_active = is_active_included(m.cursorless_range_connective)
+        range_connective: RangeConnective = m.cursorless_range_connective
         return {
             "type": "range",
             "anchor": anchor,
             "active": active,
-            "excludeAnchor": not include_anchor,
-            "excludeActive": not include_active,
+            "excludeAnchor": range_connective.excludeAnchor,
+            "excludeActive": range_connective.excludeActive,
         }
     return anchor
 

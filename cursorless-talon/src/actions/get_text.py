@@ -1,19 +1,22 @@
 from typing import Optional
 
-from talon import actions
+from ..command import cursorless_command_and_wait
+from ..targets.target_types import CursorlessTarget
 
 
-def get_text(
-    target: dict,
+def cursorless_get_text(
+    target: CursorlessTarget,
     show_decorations: Optional[bool] = None,
     ensure_single_target: Optional[bool] = None,
 ):
     """Get target texts"""
-    return actions.user.cursorless_single_target_command_get(
-        "getText",
-        target,
+    cursorless_command_and_wait(
         {
-            "showDecorations": show_decorations,
-            "ensureSingleTarget": ensure_single_target,
-        },
+            "name": "getText",
+            "options": {
+                "showDecorations": show_decorations,
+                "ensureSingleTarget": ensure_single_target,
+            },
+            "target": target,
+        }
     )

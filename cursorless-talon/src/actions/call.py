@@ -1,10 +1,12 @@
-from talon import Module, actions
-
-from ..primitive_target import create_implicit_target
-
-mod = Module()
+from ..command import cursorless_command_and_wait
+from ..targets.target_types import CursorlessTarget, ImplicitTarget
 
 
-def run_call_action(target: dict):
-    targets = [target, create_implicit_target()]
-    actions.user.cursorless_multiple_target_command("callAsFunction", targets)
+def cursorless_call_action(target: CursorlessTarget):
+    cursorless_command_and_wait(
+        {
+            "name": "callAsFunction",
+            "callee": target,
+            "argument": ImplicitTarget(),
+        }
+    )

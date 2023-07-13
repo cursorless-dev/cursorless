@@ -3,6 +3,7 @@ import {
   Range,
   Selection,
   TextEditor,
+  UnsupportedError,
 } from "@cursorless/common";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import {
@@ -11,15 +12,15 @@ import {
   Target,
 } from "../../typings/target.types";
 
-export class DestinationImpl implements Destination {
+export default class DestinationImpl implements Destination {
   public readonly contentRange: Range;
   private readonly isLineDelimiter: boolean;
   private readonly isBefore: boolean;
   private readonly indentationString: string;
 
   constructor(
-    public readonly target: Target,
-    public readonly insertionMode: InsertionMode,
+    public target: Target,
+    public insertionMode: InsertionMode,
     indentationString?: string,
   ) {
     this.contentRange = getContentRange(target.contentRange, insertionMode);
@@ -158,6 +159,22 @@ export class DestinationImpl implements Destination {
     }
     return this.insertionDelimiter.length;
   }
+}
+
+export function removalUnsupportedForPosition(
+  insertionMode: InsertionMode,
+): Range {
+  if (insertionMode === "to") {
+    throw new UnsupportedError(
+      `Removal is not supported for "${insertionMode}"`,
+    );
+  }
+
+  const preferredModifier = insertionMode === "after" ? "trailing" : "leading";
+
+  throw new UnsupportedError(
+    `Please use "${preferredModifier}" modifier; removal is not supported for "${insertionMode}"`,
+  );
 }
 
 /** Calculate the minimum indentation/padding for a range */

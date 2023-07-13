@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { EndOfModifier, Range, StartOfModifier } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStage } from "../PipelineStages.types";
 import {
@@ -7,12 +7,12 @@ import {
   RawSelectionTarget,
 } from "../targets";
 
-abstract class PositionStage implements ModifierStage {
+abstract class StartEndOfStage implements ModifierStage {
   run(target: Target): Target[] {
     const parameters: CommonTargetParameters = {
       editor: target.editor,
       isReversed: target.isReversed,
-      contentRange: this.getContentRange(target.contentRange),
+      contentRange: this.constructContentRange(target.contentRange),
     };
 
     return [
@@ -22,17 +22,25 @@ abstract class PositionStage implements ModifierStage {
     ];
   }
 
-  protected abstract getContentRange(contentRange: Range): Range;
+  protected abstract constructContentRange(contentRange: Range): Range;
 }
 
-export class StartOfStage extends PositionStage {
-  protected getContentRange(contentRange: Range): Range {
+export class StartOfStage extends StartEndOfStage {
+  constructor(_modifier: StartOfModifier) {
+    super();
+  }
+
+  protected constructContentRange(contentRange: Range): Range {
     return contentRange.start.toEmptyRange();
   }
 }
 
-export class EndOfStage extends PositionStage {
-  protected getContentRange(contentRange: Range): Range {
+export class EndOfStage extends StartEndOfStage {
+  constructor(_modifier: EndOfModifier) {
+    super();
+  }
+
+  protected constructContentRange(contentRange: Range): Range {
     return contentRange.end.toEmptyRange();
   }
 }

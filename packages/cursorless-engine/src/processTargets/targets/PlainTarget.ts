@@ -2,22 +2,19 @@ import { BaseTarget, CommonTargetParameters } from ".";
 
 interface PlainTargetParameters extends CommonTargetParameters {
   readonly isToken?: boolean;
-  readonly insertionDelimiter?: string;
 }
 
 /**
  * A target that has no leading or trailing delimiters so it's removal range
- * just consists of the content itself. Its insertion delimiter is empty string,
- * unless specified.
+ * just consists of the content itself. Its insertion delimiter is empty string.
  */
 export default class PlainTarget extends BaseTarget<PlainTargetParameters> {
   type = "PlainTarget";
-  insertionDelimiter: string;
+  insertionDelimiter = "";
 
   constructor(parameters: PlainTargetParameters) {
     super(parameters);
     this.isToken = parameters.isToken ?? true;
-    this.insertionDelimiter = parameters.insertionDelimiter ?? "";
   }
 
   getLeadingDelimiterTarget = () => undefined;
@@ -28,7 +25,6 @@ export default class PlainTarget extends BaseTarget<PlainTargetParameters> {
     return {
       ...this.state,
       isToken: this.isToken,
-      insertionDelimiter: this.insertionDelimiter,
     };
   }
 }

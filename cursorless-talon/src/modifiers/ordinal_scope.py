@@ -2,7 +2,7 @@ from typing import Any
 
 from talon import Module
 
-from ..compound_targets import is_active_included, is_anchor_included
+from ..targets.range_target import RangeConnective
 
 first_modifiers = {"first": "first"}
 last_modifiers = {"last": "last"}
@@ -35,14 +35,13 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
         active = create_ordinal_scope_modifier(
             m.cursorless_scope_type, m.ordinal_or_last_list[1]
         )
-        include_anchor = is_anchor_included(m.cursorless_range_connective)
-        include_active = is_active_included(m.cursorless_range_connective)
+        range_connective: RangeConnective = m.cursorless_range_connective
         return {
             "type": "range",
             "anchor": anchor,
             "active": active,
-            "excludeAnchor": not include_anchor,
-            "excludeActive": not include_active,
+            "excludeAnchor": range_connective.excludeAnchor,
+            "excludeActive": range_connective.excludeActive,
         }
     return anchor
 

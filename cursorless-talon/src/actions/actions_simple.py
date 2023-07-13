@@ -5,6 +5,7 @@ from talon import Module
 simple_action_defaults = {
     "bottom": "scrollToBottom",
     "break point": "toggleLineBreakpoint",
+    "call": "callAsFunction",
     "carve": "cutToClipboard",
     "center": "scrollToCenter",
     "change": "clearAndSetSelection",
@@ -27,6 +28,7 @@ simple_action_defaults = {
     "hover": "showHover",
     "indent": "indentLine",
     "inspect": "showDebugHover",
+    "phones": "nextHomophone",
     "post": "setSelectionAfter",
     "pour": "editNewLineAfter",
     "pre": "setSelectionBefore",
@@ -36,18 +38,13 @@ simple_action_defaults = {
     "rename": "rename",
     "reverse": "reverseTargets",
     "scout all": "findInWorkspace",
+    "scout": "findInDocument",
     "shuffle": "randomizeTargets",
     "snippet make": "generateSnippet",
     "sort": "sortTargets",
     "take": "setSelection",
     "type deaf": "revealTypeDefinition",
     "unfold": "unfoldRegion",
-}
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-positional_action_defaults = {
-    "paste": "pasteFromClipboard",
 }
 
 # Don't wait for these actions to finish, usually because they hang on some kind of user interaction
@@ -65,8 +62,4 @@ mod = Module()
 mod.list(
     "cursorless_simple_action",
     desc="Supported simple actions for cursorless navigation",
-)
-mod.list(
-    "cursorless_positional_action",
-    desc="Supported actions for cursorless that expect a positional target",
 )

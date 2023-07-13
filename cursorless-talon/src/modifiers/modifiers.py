@@ -1,10 +1,10 @@
 from talon import Module, app
 
 from ..csv_overrides import init_csv_and_watch_changes
+from ..targets.range_type import range_types
 from .head_tail import head_tail_modifiers
 from .interior import interior_modifiers
 from .ordinal_scope import first_modifiers, last_modifiers
-from .range_type import range_types
 from .relative_scope import forward_backward_modifiers, previous_next_modifiers
 from .simple_scope_modifier import simple_scope_modifiers
 
@@ -53,6 +53,7 @@ head_tail_swallowed_modifiers = [
 modifiers = [
     "<user.cursorless_interior_modifier>",  # inside
     "<user.cursorless_head_tail_modifier>",  # head, tail
+    "<user.cursorless_position_modifier>",  # start of, end of
     *head_tail_swallowed_modifiers,
 ]
 

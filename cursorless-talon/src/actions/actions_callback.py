@@ -4,8 +4,8 @@ from typing import Any
 
 from talon import Module, actions
 
-from .call import run_call_action
-from .homophones import run_homophones_action
+from .call import cursorless_call_action
+from .homophones import cursorless_homophones_action
 
 
 @dataclass
@@ -18,11 +18,9 @@ class CallbackAction:
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
 callbacks = [
-    CallbackAction("call", "callAsFunction", run_call_action),
-    CallbackAction(
-        "scout", "findInDocument", actions.user.cursorless_private_run_find_action
-    ),
-    CallbackAction("phones", "nextHomophone", run_homophones_action),
+    CallbackAction("call", "callAsFunction", cursorless_call_action),
+    CallbackAction("scout", "findInDocument", actions.user.private_cursorless_find),
+    CallbackAction("phones", "nextHomophone", cursorless_homophones_action),
 ]
 
 callback_action_defaults = {
