@@ -31,4 +31,5 @@ tag: user.cursorless
 # {user.cursorless_insert_snippet_action} {user.cursorless_insertion_snippet_single_phrase} <user.text> [{user.cursorless_phrase_terminator}]:
 #     user.private_cursorless_insert_snippet_with_phrase(cursorless_insert_snippet_action, cursorless_insertion_snippet_single_phrase, text)
 
-{user.cursorless_homophone} settings: user.private_cursorless_show_settings_in_ide()
+{user.cursorless_homophone} settings:
+    user.private_cursorless_show_settings_in_ide()
