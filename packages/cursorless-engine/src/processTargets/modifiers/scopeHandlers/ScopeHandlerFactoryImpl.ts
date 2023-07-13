@@ -64,7 +64,7 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
       case "oneOf":
         return OneOfScopeHandler.create(this, scopeType, languageId);
       case "notebookCell":
-        return new NotebookCellScopeHandler(this, scopeType, languageId);
+        return new NotebookCellScopeHandler(scopeType, languageId);
       case "nonWhitespaceSequence":
         return new NonWhitespaceSequenceScopeHandler(
           this,

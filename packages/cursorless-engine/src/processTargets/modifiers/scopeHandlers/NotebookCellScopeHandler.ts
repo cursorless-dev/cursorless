@@ -1,27 +1,42 @@
-import type { Direction, ScopeType } from "@cursorless/common";
-import { NestedScopeHandler } from ".";
+import type {
+  Direction,
+  Position,
+  ScopeType,
+  TextEditor,
+} from "@cursorless/common";
 import { NotebookCellTarget } from "../../targets";
 import { TargetScope } from "./scope.types";
+import BaseScopeHandler from "./BaseScopeHandler";
+import { ScopeIteratorRequirements } from "./scopeHandler.types";
 
-export default class NotebookCellScopeHandler extends NestedScopeHandler {
+export default class NotebookCellScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "notebookCell" } as const;
+  protected isHierarchical = false;
 
-  get iterationScopeType(): ScopeType {
-    throw new Error(`Every ${this.scopeType} not yet implemented`);
+  constructor(_scopeType: ScopeType, _languageId: string) {
+    super();
   }
 
-  protected *generateScopesInSearchScope(
-    direction: Direction,
-    { editor, domain }: TargetScope,
+  get iterationScopeType(): ScopeType {
+    throw new Error(`Every ${this.scopeType.type} not yet implemented`);
+  }
+
+  protected *generateScopeCandidates(
+    editor: TextEditor,
+    _position: Position,
+    _direction: Direction,
+    _hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
+    const contentRange = editor.document.range;
+
     yield {
       editor,
-      domain,
+      domain: contentRange,
       getTargets: (isReversed) => [
         new NotebookCellTarget({
           editor,
           isReversed,
-          contentRange: domain,
+          contentRange: contentRange,
         }),
       ],
     };
