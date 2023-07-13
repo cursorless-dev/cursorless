@@ -151,7 +151,7 @@ class TargetPipeline {
     return [
       targetsToContinuousTarget(
         excludeAnchor
-          ? excludeScope(
+          ? getExcludedScope(
               this.modifierStageFactory,
               anchorTarget,
               exclusionScopeType,
@@ -159,7 +159,7 @@ class TargetPipeline {
             )
           : anchorTarget,
         excludeActive
-          ? excludeScope(
+          ? getExcludedScope(
               this.modifierStageFactory,
               activeTarget,
               exclusionScopeType,
@@ -254,17 +254,17 @@ export function processModifierStages(
   return targets;
 }
 
-function excludeScope(
+function getExcludedScope(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
-  exclusionScopeType: ScopeType,
+  scopeType: ScopeType,
   direction: Direction,
 ): Target {
   return (
     modifierStageFactory
       .create({
         type: "relativeScope",
-        scopeType: exclusionScopeType,
+        scopeType,
         direction,
         length: 1,
         offset: 1,
