@@ -94,7 +94,7 @@ class InsertCopy implements Action {
         (selection) => selection.intersection(primarySelection) != null,
       )
     ) {
-      await editableEditor.revealRange(editor.selections[0]);
+      await editableEditor.revealRange(primarySelection);
     }
 
     return {
