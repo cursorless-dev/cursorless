@@ -7,7 +7,7 @@ import {
   RawSelectionTarget,
 } from "../targets";
 
-abstract class StartEndOfStage implements ModifierStage {
+abstract class PositionStage implements ModifierStage {
   run(target: Target): Target[] {
     const parameters: CommonTargetParameters = {
       editor: target.editor,
@@ -25,13 +25,13 @@ abstract class StartEndOfStage implements ModifierStage {
   protected abstract getContentRange(contentRange: Range): Range;
 }
 
-export class StartOfStage extends StartEndOfStage {
+export class StartOfStage extends PositionStage {
   protected getContentRange(contentRange: Range): Range {
     return contentRange.start.toEmptyRange();
   }
 }
 
-export class EndOfStage extends StartEndOfStage {
+export class EndOfStage extends PositionStage {
   protected getContentRange(contentRange: Range): Range {
     return contentRange.end.toEmptyRange();
   }
