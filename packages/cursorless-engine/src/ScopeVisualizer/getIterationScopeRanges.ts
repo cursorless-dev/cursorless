@@ -1,4 +1,4 @@
-import { Range, TextEditor, toCharacterRange } from "@cursorless/common";
+import { Range, TextEditor } from "@cursorless/common";
 import { map } from "itertools";
 import { IterationScopeRanges } from "..";
 import { ModifierStage } from "../processTargets/PipelineStages.types";
@@ -36,9 +36,9 @@ export function getIterationScopeRanges(
     ),
     (scope) => {
       return {
-        domain: toCharacterRange(scope.domain),
+        domain: scope.domain,
         ranges: scope.getTargets(false).map((target) => ({
-          range: toCharacterRange(target.contentRange),
+          range: target.contentRange,
           targets: includeIterationNestedTargets
             ? getEveryScopeLenient(everyStage, target).map(getTargetRanges)
             : undefined,

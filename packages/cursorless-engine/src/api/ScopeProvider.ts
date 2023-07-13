@@ -1,6 +1,7 @@
 import {
   Disposable,
   GeneralizedRange,
+  Range,
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
@@ -56,19 +57,19 @@ export type IterationScopeChangeEventCallback = (
 ) => void;
 
 export interface ScopeRanges {
-  domain: GeneralizedRange;
+  domain: Range;
   targets: TargetRanges[];
 }
 
 export interface TargetRanges {
-  contentRange: GeneralizedRange;
-  removalRange: GeneralizedRange;
+  contentRange: Range;
+  removalHighlightRange: GeneralizedRange;
 }
 
 export interface IterationScopeRanges {
-  domain: GeneralizedRange;
+  domain: Range;
   ranges: {
-    range: GeneralizedRange;
+    range: Range;
     targets?: TargetRanges[];
   }[];
 }

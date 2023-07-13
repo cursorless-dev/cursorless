@@ -1,4 +1,9 @@
-import { Disposable, GeneralizedRange, TextEditor } from "@cursorless/common";
+import {
+  Disposable,
+  GeneralizedRange,
+  TextEditor,
+  toCharacterRange,
+} from "@cursorless/common";
 import { ScopeSupport, TargetRanges } from "@cursorless/cursorless-engine";
 import { VscodeScopeVisualizer } from ".";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
@@ -18,7 +23,7 @@ abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
         this.renderer.setScopes(
           editor as VscodeTextEditorImpl,
           scopeRanges!.map(({ domain, targets }) => ({
-            domain,
+            domain: toCharacterRange(domain),
             nestedRanges: targets.map((target) => this.getTargetRange(target)),
           })),
         );
@@ -30,7 +35,7 @@ abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
 
 export class VscodeScopeContentVisualizer extends VscodeScopeTargetVisualizer {
   protected getTargetRange({ contentRange }: TargetRanges): GeneralizedRange {
-    return contentRange;
+    return toCharacterRange(contentRange);
   }
 
   protected getNestedScopeRangeType() {
@@ -39,8 +44,10 @@ export class VscodeScopeContentVisualizer extends VscodeScopeTargetVisualizer {
 }
 
 export class VscodeScopeRemovalVisualizer extends VscodeScopeTargetVisualizer {
-  protected getTargetRange({ removalRange }: TargetRanges): GeneralizedRange {
-    return removalRange;
+  protected getTargetRange({
+    removalHighlightRange,
+  }: TargetRanges): GeneralizedRange {
+    return removalHighlightRange;
   }
 
   protected getNestedScopeRangeType() {

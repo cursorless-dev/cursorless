@@ -1,4 +1,4 @@
-import { Disposable, TextEditor } from "@cursorless/common";
+import { Disposable, TextEditor, toCharacterRange } from "@cursorless/common";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 import { ScopeSupport } from "@cursorless/cursorless-engine";
@@ -14,8 +14,8 @@ export class VscodeScopeIterationVisualizer extends VscodeScopeVisualizer {
         this.renderer.setScopes(
           editor as VscodeTextEditorImpl,
           iterationScopeRanges!.map(({ domain, ranges }) => ({
-            domain,
-            nestedRanges: ranges.map(({ range }) => range),
+            domain: toCharacterRange(domain),
+            nestedRanges: ranges.map(({ range }) => toCharacterRange(range)),
           })),
         );
       },

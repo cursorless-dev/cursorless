@@ -1,4 +1,4 @@
-import { Range, TextEditor, toCharacterRange } from "@cursorless/common";
+import { Range, TextEditor } from "@cursorless/common";
 import { map } from "itertools";
 import { ScopeRanges } from "..";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
@@ -23,7 +23,7 @@ export function getScopeRanges(
       distalPosition: iterationRange.end,
     }),
     (scope) => ({
-      domain: toCharacterRange(scope.domain),
+      domain: scope.domain,
       targets: scope.getTargets(false).map(getTargetRanges),
     }),
   );
