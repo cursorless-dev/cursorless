@@ -94,6 +94,7 @@ class InsertCopy implements Action {
         (selection) => selection.intersection(primarySelection) != null,
       )
     ) {
+        // If the original target contained the user's cursor, reveal it in case it got pushed off screen
       await editableEditor.revealRange(primarySelection);
     }
 
