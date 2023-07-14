@@ -5,6 +5,10 @@ import { injectFakes } from "./injectFakes";
 import { checkAndResetFakes } from "./checkAndResetFakes";
 import { ExpectedArgs } from "./scopeVisualizerTest.types";
 
+/**
+ * Tests that the scope visualizer updates correctly when the document is
+ * edited.
+ */
 export async function runUpdateTest() {
   const editor = await openNewEditor("aaa");
 

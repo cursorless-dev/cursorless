@@ -44,7 +44,11 @@ export abstract class VscodeScopeVisualizer {
     this.checkScopeSupport();
   }
 
-  private checkScopeSupport() {
+  /**
+   * Checks if the scope type is supported in the active editor, and shows an
+   * error if not.
+   */
+  private checkScopeSupport(): void {
     const editor = this.ide.activeTextEditor;
 
     if (editor == null) {
@@ -65,6 +69,7 @@ export abstract class VscodeScopeVisualizer {
     }
   }
 
+  /** This function is called initially, as well as whenever color config changes */
   private initialize() {
     const colorConfig = vscodeApi.workspace
       .getConfiguration("cursorless.scopeVisualizer")
@@ -76,7 +81,9 @@ export abstract class VscodeScopeVisualizer {
       getColorsFromConfig(colorConfig, this.getNestedScopeRangeType()),
     );
 
-    // Reregister to cause the renderer to be updated with the new colors
+    // Note that on color config change, we want to re-register the listener
+    // so that the provider will call us again with the current scope ranges
+    // so that we can re-render them with the new colors.
     this.scopeListenerDisposable?.dispose();
     this.scopeListenerDisposable = this.registerListener();
   }

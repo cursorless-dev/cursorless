@@ -6,7 +6,7 @@ import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlight
 import { generateDecorationsForCharacterRange } from "./generateDecorationsForCharacterRange";
 import { generateDecorationsForLineRange } from "./generateDecorationsForLineRange";
 import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
-import { DifferentiatedStyledRange } from "./getDecorationRanges.types";
+import { DifferentiatedStyledRange } from "./decorationStyle.types";
 import { groupDifferentiatedStyledRanges } from "./groupDifferentiatedStyledRanges";
 
 /**

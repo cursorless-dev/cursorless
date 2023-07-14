@@ -43,6 +43,10 @@ export interface TestHelpers {
   ): Promise<TestCaseSnapshot>;
 
   runIntegrationTests(): Promise<void>;
+
+  /**
+   * A thin wrapper around the VSCode API that allows us to mock it for testing.
+   */
   vscodeApi: VscodeApi;
 }
 

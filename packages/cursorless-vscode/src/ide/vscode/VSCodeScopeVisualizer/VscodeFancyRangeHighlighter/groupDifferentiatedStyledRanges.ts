@@ -1,10 +1,19 @@
 import { CompositeKeyDefaultMap } from "@cursorless/common";
 import {
-  DifferentiatedStyledRangeList,
   DifferentiatedStyle,
   DifferentiatedStyledRange,
-} from "./getDecorationRanges.types";
+  DifferentiatedStyledRangeList,
+} from "./decorationStyle.types";
+import { getDifferentiatedStyleMapKey } from "./getDifferentiatedStyleMapKey";
 
+/**
+ * Given a list of differentiated styled ranges, groups them by differentiated
+ * style.
+ *
+ * @param decoratedRanges An iterable of differentiated styled ranges to group.
+ * @returns A list where each elements contains a list of ranges that have the
+ * same differentiated style.
+ */
 export function groupDifferentiatedStyledRanges(
   decoratedRanges: Iterable<DifferentiatedStyledRange>,
 ): DifferentiatedStyledRangeList[] {
@@ -12,8 +21,8 @@ export function groupDifferentiatedStyledRanges(
     DifferentiatedStyle,
     DifferentiatedStyledRangeList
   > = new CompositeKeyDefaultMap(
-    (differentiatedStyles) => ({ differentiatedStyles, ranges: [] }),
-    getStyleKey,
+    (differentiatedStyle) => ({ differentiatedStyle, ranges: [] }),
+    getDifferentiatedStyleMapKey,
   );
 
   for (const { range, differentiatedStyle } of decoratedRanges) {
@@ -21,11 +30,4 @@ export function groupDifferentiatedStyledRanges(
   }
 
   return Array.from(decorations.values());
-}
-
-function getStyleKey({
-  style: { top, right, left, bottom, isWholeLine },
-  differentiationIndex,
-}: DifferentiatedStyle) {
-  return [top, right, left, bottom, isWholeLine ?? false, differentiationIndex];
 }

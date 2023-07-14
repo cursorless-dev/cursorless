@@ -4,6 +4,13 @@ import { checkAndResetFakes } from "./checkAndResetFakes";
 import { injectFakes } from "./injectFakes";
 import { ExpectedArgs } from "./scopeVisualizerTest.types";
 
+/**
+ * Tests that the scope visualizer works with multiline content, by
+ * ensuring that the correct decorations are applied so that it looks
+ * as follows:
+ *
+ * ![basic multiline content](./runBasicMultilineContentTest.png)
+ */
 export async function runBasicMultilineContentTest() {
   await openNewEditor(contents, {
     languageId: "typescript",

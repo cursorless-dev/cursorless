@@ -13,9 +13,19 @@ export interface RendererScope {
   nestedRanges: GeneralizedRange[];
 }
 
+/**
+ * Responsible for rendering scopes, as used by {@link VscodeScopeVisualizer}.
+ * Includes a hack where we color blend domain and nested ranges that are
+ * identical, to reduce load on VSCode renderer and to work around some
+ * glitchiness.
+ */
 export class VscodeScopeRenderer implements Disposable {
   private domainHighlighter: VscodeFancyRangeHighlighter;
   private nestedRangeHighlighter: VscodeFancyRangeHighlighter;
+  /**
+   * A highlighter that blends domain and nested range colors when they have
+   * identical ranges
+   */
   private domainEqualsNestedHighlighter: VscodeFancyRangeHighlighter;
 
   constructor(

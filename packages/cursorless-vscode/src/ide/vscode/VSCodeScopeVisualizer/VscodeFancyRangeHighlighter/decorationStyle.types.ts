@@ -1,9 +1,4 @@
-import {
-  CharacterRange,
-  GeneralizedRange,
-  LineRange,
-  Range,
-} from "@cursorless/common";
+import { GeneralizedRange, Range } from "@cursorless/common";
 
 export enum BorderStyle {
   porous = "dashed",
@@ -19,8 +14,19 @@ export interface DecorationStyle {
   isWholeLine?: boolean;
 }
 
+/**
+ * A decoration style that is differentiated from other styles by a number. We
+ * use this number to ensure that adjacent ranges are rendered with different
+ * TextEditorDecorationTypes, so that they don't get merged together due to a
+ * VSCode bug.
+ */
 export interface DifferentiatedStyle {
   style: DecorationStyle;
+
+  /**
+   * A number that is different from the differentiation indices of any other
+   * ranges that are touching this range.
+   */
   differentiationIndex: number;
 }
 
@@ -35,21 +41,16 @@ export interface DifferentiatedStyledRange {
 }
 
 export interface DifferentiatedStyledRangeList {
-  differentiatedStyles: DifferentiatedStyle;
+  differentiatedStyle: DifferentiatedStyle;
   ranges: Range[];
 }
 
 export interface DifferentiatedGeneralizedRange {
   range: GeneralizedRange;
+
+  /**
+   * A number that is different from the differentiation indices of any other
+   * ranges that are touching this range.
+   */
   differentiationIndex: number;
-}
-
-export interface DifferentiatedCharacterRange
-  extends DifferentiatedGeneralizedRange {
-  range: CharacterRange;
-}
-
-export interface DifferentiatedLineRange
-  extends DifferentiatedGeneralizedRange {
-  range: LineRange;
 }

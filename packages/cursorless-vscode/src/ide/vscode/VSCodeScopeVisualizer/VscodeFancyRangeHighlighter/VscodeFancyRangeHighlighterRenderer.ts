@@ -13,7 +13,8 @@ import {
   DecorationStyle,
   DifferentiatedStyle,
   DifferentiatedStyledRangeList,
-} from "./getDecorationRanges.types";
+} from "./decorationStyle.types";
+import { getDifferentiatedStyleMapKey } from "./getDifferentiatedStyleMapKey";
 
 const BORDER_WIDTH = "1px";
 const BORDER_RADIUS = "2px";
@@ -31,34 +32,39 @@ export class VscodeFancyRangeHighlighterRenderer {
   constructor(colors: RangeTypeColors) {
     this.decorationTypes = new CompositeKeyDefaultMap(
       ({ style }) => getDecorationStyle(colors, style),
-      ({
-        style: { top, right, bottom, left, isWholeLine },
-        differentiationIndex,
-      }) => [
-        top,
-        right,
-        bottom,
-        left,
-        isWholeLine ?? false,
-        differentiationIndex,
-      ],
+      getDifferentiatedStyleMapKey,
     );
   }
 
+  /**
+   * Renders the given ranges in the given editor.
+   *
+   * @param editor The editor to render the decorations in.
+   * @param decoratedRanges A list with one element per differentiated style,
+   * each of which contains a list of ranges to render for that style. We render
+   * the ranges in order of increasing differentiation index.
+   * {@link VscodeFancyRangeHighlighter} uses this to ensure that nested ranges
+   * are rendered after their parents.  Otherwise they partially interleave,
+   * which looks bad.
+   */
   setRanges(
     editor: VscodeTextEditorImpl,
     decoratedRanges: DifferentiatedStyledRangeList[],
-  ) {
+  ): void {
+    /**
+     * Keep track of which styles have no ranges, so that we can set their
+     * range list to `[]`
+     */
     const untouchedDecorationTypes = new Set(this.decorationTypes.values());
 
     decoratedRanges.sort(
       (a, b) =>
-        a.differentiatedStyles.differentiationIndex -
-        b.differentiatedStyles.differentiationIndex,
+        a.differentiatedStyle.differentiationIndex -
+        b.differentiatedStyle.differentiationIndex,
     );
 
     decoratedRanges.forEach(
-      ({ differentiatedStyles: styleParameters, ranges }) => {
+      ({ differentiatedStyle: styleParameters, ranges }) => {
         const decorationType = this.decorationTypes.get(styleParameters);
 
         vscodeApi.editor.setDecorations(
@@ -141,6 +147,9 @@ function getBorderRadius(borders: DecorationStyle): string {
 }
 
 function getSingleCornerBorderRadius(side1: BorderStyle, side2: BorderStyle) {
+  // We only round the corners if both sides are solid, as that makes them look
+  // more finished, whereas we want the dotted borders to look unfinished / cut
+  // off.
   return side1 === BorderStyle.solid && side2 === BorderStyle.solid
     ? BORDER_RADIUS
     : "0px";

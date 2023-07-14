@@ -5,16 +5,28 @@ import {
 } from "@cursorless/common";
 
 import { max } from "lodash";
-import { DifferentiatedGeneralizedRange } from "./getDecorationRanges.types";
+import { DifferentiatedGeneralizedRange } from "./decorationStyle.types";
 
+/**
+ * Given a list of generalized ranges, returns a list of differentiated ranges,
+ * where any ranges that are touching have different differentiation indices.
+ * We ensure that nested ranges have a greater differentiation index than their
+ * parents, so that we can then render them in order of increasing
+ * differentiation index to ensure that nested ranges are rendered after their
+ * parents, so that we don't get strange interleaving artifacts.
+ * @param ranges A list of generalized ranges.
+ * @returns An iterable of differentiated generalized ranges.
+ */
 export function* generateDifferentiatedRanges(
   ranges: GeneralizedRange[],
 ): Iterable<DifferentiatedGeneralizedRange> {
   ranges.sort(compareGeneralizedRangesByStart);
 
+  /** A list of ranges that may touch the current range */
   let currentRanges: DifferentiatedGeneralizedRange[] = [];
 
   for (const range of ranges) {
+    // Remove any ranges that have ended before the start of the current range.
     currentRanges = [
       ...currentRanges.filter(({ range: previousRange }) =>
         generalizedRangeTouches(previousRange, range),
@@ -32,6 +44,16 @@ export function* generateDifferentiatedRanges(
   }
 }
 
+/**
+ * Returns the differentiation index to use for the given range, given a list of
+ * ranges that touch the current range. We return a differentiation index that
+ * differs from any of the given ranges, and is greater than any range
+ * containing {@link range}.
+ *
+ * @param currentRanges A list of ranges that touch the current range
+ * @param range The range to get the differentiation index for
+ * @returns The differentiation index to use for the given range
+ */
 function getDifferentiationIndex(
   currentRanges: DifferentiatedGeneralizedRange[],
   range: GeneralizedRange,
@@ -42,11 +64,12 @@ function getDifferentiationIndex(
       .map((r) => r.differentiationIndex),
   );
 
-  if (maxContainingDifferentiationIndex != null) {
-    return maxContainingDifferentiationIndex + 1;
-  }
+  let i =
+    maxContainingDifferentiationIndex == null
+      ? 0
+      : maxContainingDifferentiationIndex + 1;
 
-  for (let i = 0; ; i++) {
+  for (; ; i++) {
     if (
       !currentRanges.some(
         ({ differentiationIndex }) => differentiationIndex === i,
@@ -57,6 +80,14 @@ function getDifferentiationIndex(
   }
 }
 
+/**
+ * Compares two generalized ranges by their start positions, with line ranges
+ * sorted before character ranges that start on the same line.
+ * @param a A generalized range
+ * @param b A generalized range
+ * @returns -1 if {@link a} should be sorted before {@link b}, 1 if {@link b}
+ * should be sorted before {@link a}, and 0 if they are equal.
+ */
 function compareGeneralizedRangesByStart(
   a: GeneralizedRange,
   b: GeneralizedRange,
@@ -68,7 +99,8 @@ function compareGeneralizedRangesByStart(
     }
 
     // a.type === "character" && b.type === "line"
-    // Line ranges are always sorted before character ranges
+    // Line ranges are always sorted before character ranges that start on the
+    // same line.
     return a.start.line === b.start ? 1 : a.start.line - b.start;
   }
 
@@ -78,5 +110,5 @@ function compareGeneralizedRangesByStart(
   }
 
   // a.type === "line" && b.type === "character"
-  return b.start.line === a.start ? -1 : a.start - b.start.line;
+  return a.start === b.start.line ? -1 : a.start - b.start.line;
 }

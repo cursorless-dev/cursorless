@@ -1,7 +1,7 @@
 import { IDE, ScopeType } from "@cursorless/common";
 import { ScopeProvider } from "@cursorless/cursorless-engine";
 import { VisualizationType } from "../../../ScopeVisualizerCommandApi";
-import { VscodeScopeIterationVisualizer } from "./VscodeScopeIterationVisualizer";
+import { VscodeIterationScopeVisualizer } from "./VscodeIterationScopeVisualizer";
 import {
   VscodeScopeContentVisualizer,
   VscodeScopeRemovalVisualizer,
@@ -19,6 +19,6 @@ export function createVscodeScopeVisualizer(
     case "removal":
       return new VscodeScopeRemovalVisualizer(ide, scopeProvider, scopeType);
     case "iteration":
-      return new VscodeScopeIterationVisualizer(ide, scopeProvider, scopeType);
+      return new VscodeIterationScopeVisualizer(ide, scopeProvider, scopeType);
   }
 }

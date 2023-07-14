@@ -1,6 +1,15 @@
 import tinycolor = require("tinycolor2");
 import { RangeTypeColors } from "./RangeTypeColors";
 
+/**
+ * Blends two {@link RangeTypeColors} color configurations together according to
+ * their alpha channels, with the top color rendered on top of the base color.
+ *
+ * @param baseColors The colors to render underneath
+ * @param topColors The colors to render on top
+ * @returns A color config that is a blend of the two color configs, with the
+ * top color rendered on top of the base color
+ */
 export function blendRangeTypeColors(
   baseColors: RangeTypeColors,
   topColors: RangeTypeColors,
@@ -36,6 +45,17 @@ export function blendRangeTypeColors(
   };
 }
 
+/**
+ * Blends two colors together according to their alpha channels, with the top
+ * color rendered on top of the base color.
+ *
+ * Basd on https://gist.github.com/JordanDelcros/518396da1c13f75ee057
+ *
+ * @param base The color to render underneath
+ * @param top The color to render on top
+ * @returns A color that is a blend of the two colors, with the top color
+ * rendered on top of the base color
+ */
 function blendColors(base: string, top: string): string {
   const baseRgba = tinycolor(base).toRgb();
   const topRgba = tinycolor(top).toRgb();

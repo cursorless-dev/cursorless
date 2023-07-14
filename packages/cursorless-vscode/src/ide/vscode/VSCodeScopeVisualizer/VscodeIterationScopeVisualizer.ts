@@ -3,7 +3,7 @@ import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 import { ScopeSupport } from "@cursorless/cursorless-engine";
 
-export class VscodeScopeIterationVisualizer extends VscodeScopeVisualizer {
+export class VscodeIterationScopeVisualizer extends VscodeScopeVisualizer {
   protected getScopeSupport(editor: TextEditor): ScopeSupport {
     return this.scopeProvider.getIterationScopeSupport(editor, this.scopeType);
   }

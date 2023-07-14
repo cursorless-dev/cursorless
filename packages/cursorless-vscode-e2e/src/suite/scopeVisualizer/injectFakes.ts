@@ -9,7 +9,7 @@ import {
 } from "./scopeVisualizerTest.types";
 
 export async function injectFakes(): Promise<Fakes> {
-  const { vscodeApi: vscodeApi } = (await getCursorlessApi()).testHelpers!;
+  const { vscodeApi } = (await getCursorlessApi()).testHelpers!;
 
   const dispose = sinon.fake<[number], void>();
 

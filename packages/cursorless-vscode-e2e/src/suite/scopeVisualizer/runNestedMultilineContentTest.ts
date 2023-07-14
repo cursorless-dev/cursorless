@@ -4,6 +4,13 @@ import { injectFakes } from "./injectFakes";
 import { checkAndResetFakes } from "./checkAndResetFakes";
 import { ExpectedArgs } from "./scopeVisualizerTest.types";
 
+/**
+ * Tests that the scope visualizer works with nested multiline content, by
+ * ensuring that the correct decorations are applied so that it looks as
+ * follows:
+ *
+ * ![nested multiline content](./runNestedMultilineContentTest.png)
+ */
 export async function runNestedMultilineContentTest() {
   await openNewEditor(contents, {
     languageId: "typescript",

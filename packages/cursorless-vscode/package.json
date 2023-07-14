@@ -65,7 +65,9 @@
     "onCommand:cursorless.showDocumentation",
     "onCommand:cursorless.showQuickPick",
     "onCommand:cursorless.takeSnapshot",
-    "onCommand:cursorless.toggleDecorations"
+    "onCommand:cursorless.toggleDecorations",
+    "onCommand:cursorless.showScopeVisualizer",
+    "onCommand:cursorless.hideScopeVisualizer"
   ],
   "main": "./extension.js",
   "capabilities": {
@@ -167,6 +169,16 @@
       {
         "command": "cursorless.keyboard.modal.modeToggle",
         "title": "Cursorless: Toggle the cursorless modal mode",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.showScopeVisualizer",
+        "title": "Cursorless: Show the scope visualizer",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.hideScopeVisualizer",
+        "title": "Cursorless: Hide the scope visualizer",
         "enablement": "false"
       }
     ],

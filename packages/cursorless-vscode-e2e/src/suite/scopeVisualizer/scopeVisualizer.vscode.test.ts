@@ -16,7 +16,7 @@ suite("scope visualizer", async function () {
     asyncSafety(() => runBasicMultilineContentTest()),
   );
   test(
-    "basic nested multiline content",
+    "nested multiline content",
     asyncSafety(() => runNestedMultilineContentTest()),
   );
   test(

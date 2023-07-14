@@ -3,15 +3,15 @@ import * as sinon from "sinon";
 import {
   createDecorationTypeCallToPlainObject,
   setDecorationsCallToPlainObject,
-} from "./toPlainObject";
+} from "./spyCallsToPlainObject";
 import { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
 
 export function checkAndResetFakes(fakes: Fakes, expected: ExpectedArgs) {
-  const actual = getAndResetFakes(fakes);
+  const actual = getSpyCallsAndResetFakes(fakes);
   assert.deepStrictEqual(actual, expected, JSON.stringify(actual));
 }
 
-export function getAndResetFakes({
+function getSpyCallsAndResetFakes({
   createTextEditorDecorationType,
   setDecorations,
   dispose,

@@ -1,5 +1,10 @@
 import { ScopeVisualizerColorConfig } from "@cursorless/vscode-common";
 
+/**
+ * Fake color config to use for testing. We use an alpha of 50% and try to use
+ * different rgb channels where possible to make it easier to see what happens
+ * when we blend colors.
+ */
 export const COLOR_CONFIG: ScopeVisualizerColorConfig = {
   dark: {
     content: {
