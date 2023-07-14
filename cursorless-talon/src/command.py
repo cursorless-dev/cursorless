@@ -1,4 +1,5 @@
 import dataclasses
+
 from talon import actions, speech_system
 
 from .cursorless_command_server import (
