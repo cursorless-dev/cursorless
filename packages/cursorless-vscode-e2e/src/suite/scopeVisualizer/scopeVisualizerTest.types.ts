@@ -1,5 +1,5 @@
 import { RangePlainObject } from "@cursorless/common";
-import { Vscode } from "@cursorless/vscode-common";
+import { VscodeApi } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import * as vscode from "vscode";
 
@@ -17,10 +17,10 @@ export type SetDecorationsParameters = [
 export interface Fakes {
   setDecorations: sinon.SinonSpy<
     SetDecorationsParameters,
-    ReturnType<Vscode["editor"]["setDecorations"]>
+    ReturnType<VscodeApi["editor"]["setDecorations"]>
   >;
   createTextEditorDecorationType: sinon.SinonSpy<
-    Parameters<Vscode["window"]["createTextEditorDecorationType"]>,
+    Parameters<VscodeApi["window"]["createTextEditorDecorationType"]>,
     MockDecorationType
   >;
   dispose: sinon.SinonSpy<[number], void>;

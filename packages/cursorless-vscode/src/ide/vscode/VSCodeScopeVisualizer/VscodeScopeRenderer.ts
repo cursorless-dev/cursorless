@@ -3,7 +3,6 @@ import {
   GeneralizedRange,
   isGeneralizedRangeEqual,
 } from "@cursorless/common";
-import { Vscode } from "@cursorless/vscode-common";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { RangeTypeColors } from "./RangeTypeColors";
 import { VscodeFancyRangeHighlighter } from "./VscodeFancyRangeHighlighter";
@@ -20,20 +19,14 @@ export class VscodeScopeRenderer implements Disposable {
   private domainEqualsNestedHighlighter: VscodeFancyRangeHighlighter;
 
   constructor(
-    vscode: Vscode,
     domainColors: RangeTypeColors,
     nestedRangeColors: RangeTypeColors,
   ) {
-    this.domainHighlighter = new VscodeFancyRangeHighlighter(
-      vscode,
-      domainColors,
-    );
+    this.domainHighlighter = new VscodeFancyRangeHighlighter(domainColors);
     this.nestedRangeHighlighter = new VscodeFancyRangeHighlighter(
-      vscode,
       nestedRangeColors,
     );
     this.domainEqualsNestedHighlighter = new VscodeFancyRangeHighlighter(
-      vscode,
       blendRangeTypeColors(domainColors, nestedRangeColors),
     );
   }

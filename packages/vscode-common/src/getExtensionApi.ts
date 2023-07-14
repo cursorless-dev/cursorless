@@ -13,7 +13,7 @@ import type {
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { Vscode } from "./vscode";
+import { VscodeApi } from "./VscodeApi";
 
 export interface TestHelpers {
   ide: NormalizedIDE;
@@ -43,7 +43,7 @@ export interface TestHelpers {
   ): Promise<TestCaseSnapshot>;
 
   runIntegrationTests(): Promise<void>;
-  vscode: Vscode;
+  vscodeApi: VscodeApi;
 }
 
 export interface CursorlessApi {

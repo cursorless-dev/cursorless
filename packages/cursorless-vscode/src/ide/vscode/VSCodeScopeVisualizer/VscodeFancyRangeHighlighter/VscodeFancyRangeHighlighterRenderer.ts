@@ -5,7 +5,7 @@ import {
   DecorationRenderOptions,
   TextEditorDecorationType,
 } from "vscode";
-import { Vscode } from "@cursorless/vscode-common";
+import { vscodeApi } from "../../../../vscodeApi";
 import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
 import { RangeTypeColors } from "../RangeTypeColors";
 import {
@@ -28,9 +28,9 @@ export class VscodeFancyRangeHighlighterRenderer {
     TextEditorDecorationType
   >;
 
-  constructor(private vscode: Vscode, colors: RangeTypeColors) {
+  constructor(colors: RangeTypeColors) {
     this.decorationTypes = new CompositeKeyDefaultMap(
-      ({ style }) => getDecorationStyle(this.vscode, colors, style),
+      ({ style }) => getDecorationStyle(colors, style),
       ({
         style: { top, right, bottom, left, isWholeLine },
         differentiationIndex,
@@ -61,7 +61,7 @@ export class VscodeFancyRangeHighlighterRenderer {
       ({ differentiatedStyles: styleParameters, ranges }) => {
         const decorationType = this.decorationTypes.get(styleParameters);
 
-        this.vscode.editor.setDecorations(
+        vscodeApi.editor.setDecorations(
           editor.vscodeEditor,
           decorationType,
           ranges.map(toVscodeRange),
@@ -84,7 +84,6 @@ export class VscodeFancyRangeHighlighterRenderer {
 }
 
 function getDecorationStyle(
-  vscode: Vscode,
   colors: RangeTypeColors,
   borders: DecorationStyle,
 ): TextEditorDecorationType {
@@ -112,7 +111,7 @@ function getDecorationStyle(
     isWholeLine: borders.isWholeLine,
   };
 
-  return vscode.window.createTextEditorDecorationType(options);
+  return vscodeApi.window.createTextEditorDecorationType(options);
 }
 
 function getBorderStyle(borders: DecorationStyle): string {

@@ -1,4 +1,4 @@
-import { Vscode, getCursorlessApi } from "@cursorless/vscode-common";
+import { VscodeApi, getCursorlessApi } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
 import { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";
 import { COLOR_CONFIG } from "./colorConfig";
@@ -9,13 +9,13 @@ import {
 } from "./scopeVisualizerTest.types";
 
 export async function injectFakes(): Promise<Fakes> {
-  const { vscode: vscodeApi } = (await getCursorlessApi()).testHelpers!;
+  const { vscodeApi: vscodeApi } = (await getCursorlessApi()).testHelpers!;
 
   const dispose = sinon.fake<[number], void>();
 
   let decorationIndex = 0;
   const createTextEditorDecorationType = sinon.fake<
-    Parameters<Vscode["window"]["createTextEditorDecorationType"]>,
+    Parameters<VscodeApi["window"]["createTextEditorDecorationType"]>,
     MockDecorationType
   >((_options: DecorationRenderOptions) => {
     const id = decorationIndex++;
@@ -29,7 +29,7 @@ export async function injectFakes(): Promise<Fakes> {
 
   const setDecorations = sinon.fake<
     SetDecorationsParameters,
-    ReturnType<Vscode["editor"]["setDecorations"]>
+    ReturnType<VscodeApi["editor"]["setDecorations"]>
   >();
 
   const getConfigurationValue = sinon.fake.returns(COLOR_CONFIG);

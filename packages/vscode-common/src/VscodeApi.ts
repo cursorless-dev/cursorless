@@ -3,7 +3,7 @@ import { workspace, window, TextEditor } from "vscode";
 /**
  * Subset of VSCode api that we need to be able to mock for testing
  */
-export interface Vscode {
+export interface VscodeApi {
   workspace: typeof workspace;
   window: typeof window;
 

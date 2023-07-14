@@ -1,6 +1,5 @@
 import { GeneralizedRange, Range } from "@cursorless/common";
 import { flatmap } from "itertools";
-import { Vscode } from "@cursorless/vscode-common";
 import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
 import { RangeTypeColors } from "../RangeTypeColors";
 import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
@@ -24,8 +23,8 @@ import { groupDifferentiatedStyledRanges } from "./groupDifferentiatedStyledRang
 export class VscodeFancyRangeHighlighter {
   private renderer: VscodeFancyRangeHighlighterRenderer;
 
-  constructor(vscode: Vscode, colors: RangeTypeColors) {
-    this.renderer = new VscodeFancyRangeHighlighterRenderer(vscode, colors);
+  constructor(colors: RangeTypeColors) {
+    this.renderer = new VscodeFancyRangeHighlighterRenderer(colors);
   }
 
   setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {

@@ -36,8 +36,6 @@ import {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
-import { createVscodeApi } from "./createVscodeApi";
-import { Vscode } from "@cursorless/vscode-common";
 import { ExtensionContext, Location } from "vscode";
 
 /**
@@ -89,18 +87,13 @@ export async function activate(
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
-  const vscode = createVscodeApi();
 
   registerCommands(
     context,
     vscodeIDE,
     commandApi,
     testCaseRecorder,
-    createScopeVisualizerCommandApi(
-      vscode,
-      normalizedIde ?? vscodeIDE,
-      scopeProvider,
-    ),
+    createScopeVisualizerCommandApi(normalizedIde ?? vscodeIDE, scopeProvider),
     keyboardCommands,
     hats,
   );
@@ -115,7 +108,6 @@ export async function activate(
           normalizedIde!,
           injectIde,
           runIntegrationTests,
-          vscode,
         )
       : undefined,
 
@@ -158,7 +150,6 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
 }
 
 function createScopeVisualizerCommandApi(
-  vscode: Vscode,
   ide: IDE,
   scopeProvider: ScopeProvider,
 ): ScopeVisualizerCommandApi {
@@ -168,7 +159,6 @@ function createScopeVisualizerCommandApi(
     start(scopeType: ScopeType, visualizationType: VisualizationType) {
       scopeVisualizer?.dispose();
       scopeVisualizer = createVscodeScopeVisualizer(
-        vscode,
         ide,
         scopeProvider,
         scopeType,
