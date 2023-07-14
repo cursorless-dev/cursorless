@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from talon import Module, app, actions
+from talon import Module, actions, app
 
 from .csv_overrides import init_csv_and_watch_changes
 from .targets.target_types import (
