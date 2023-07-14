@@ -30,15 +30,7 @@ speech_system.register("pre:phrase", on_phrase)
 
 def cursorless_command_and_wait(action: dict):
     """Execute cursorless command and wait for it to finish"""
-    return run_rpc_command_and_wait(
-        CURSORLESS_COMMAND_ID,
-        construct_cursorless_command(action),
-    )
-
-
-def cursorless_command_get(action: dict):
-    """Execute cursorless command and return result"""
-    return run_rpc_command_get(
+    run_rpc_command_and_wait(
         CURSORLESS_COMMAND_ID,
         construct_cursorless_command(action),
     )
@@ -47,6 +39,14 @@ def cursorless_command_get(action: dict):
 def cursorless_command_no_wait(action: dict):
     """Execute cursorless command without waiting"""
     run_rpc_command_no_wait(
+        CURSORLESS_COMMAND_ID,
+        construct_cursorless_command(action),
+    )
+
+
+def cursorless_command_get(action: dict):
+    """Execute cursorless command and return result"""
+    return run_rpc_command_get(
         CURSORLESS_COMMAND_ID,
         construct_cursorless_command(action),
     )
