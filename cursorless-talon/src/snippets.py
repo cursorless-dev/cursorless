@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from talon import Module, app
+from talon import Module, app, actions
 
 from .csv_overrides import init_csv_and_watch_changes
 from .targets.target_types import (
@@ -150,7 +150,7 @@ class Actions:
     def cursorless_insert_snippet_by_name(name: str):
         """Cursorless: Insert named snippet <name>"""
         insert_named_snippet(
-            snippet_name,
+            name,
             ImplicitDestination(),
         )
 
