@@ -50,12 +50,12 @@ class Actions:
             )
         elif action_name in no_wait_actions:
             action = {"name": action_name, "target": target}
-            actions.user.cursorless_command_no_wait(action)
+            actions.user.private_cursorless_command_no_wait(action)
             if action_name in no_wait_actions_post_sleep:
                 actions.sleep(no_wait_actions_post_sleep[action_name])
         else:
             action = {"name": action_name, "target": target}
-            actions.user.cursorless_command_and_wait(action)
+            actions.user.private_cursorless_command_and_wait(action)
 
     def cursorless_vscode_command(command_id: str, target: CursorlessTarget):
         """
@@ -76,9 +76,9 @@ class Actions:
         type = instruction["type"]
         value = instruction["value"]
         if type == "cursorless_action":
-            return actions.user.cursorless_command(value, target)
+            actions.user.cursorless_command(value, target)
         elif type == "ide_command":
-            return actions.user.cursorless_ide_command(value, target)
+            actions.user.cursorless_ide_command(value, target)
 
 
 default_values = {

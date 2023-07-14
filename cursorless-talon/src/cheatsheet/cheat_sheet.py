@@ -22,19 +22,19 @@
 
 # @mod.action_class
 # class Actions:
-#     def cursorless_cheat_sheet_show_html():
+#     def private_cursorless_cheat_sheet_show_html():
 #         """Show new cursorless html cheat sheet"""
 #         app.notify(
 #             'Please first focus an app that supports cursorless, eg say "focus code"'
 #         )
 
-#     def cursorless_cheat_sheet_update_json():
+#     def private_cursorless_cheat_sheet_update_json():
 #         """Update default cursorless cheatsheet json (for developer use only)"""
 #         app.notify(
 #             'Please first focus an app that supports cursorless, eg say "focus code"'
 #         )
 
-#     def cursorless_open_instructions():
+#     def private_cursorless_open_instructions():
 #         """Open web page with cursorless instructions"""
 #         webbrowser.open(instructions_url)
 

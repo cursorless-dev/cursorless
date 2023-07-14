@@ -3,7 +3,6 @@ from typing import Any, Optional
 
 from talon import Module, app
 
-from .command import cursorless_command_and_wait
 from .csv_overrides import init_csv_and_watch_changes
 from .targets.target_types import (
     CursorlessDestination,
@@ -86,7 +85,7 @@ insertion_snippets_single_phrase = {
 
 
 def wrap_with_snippet(snippet_description: dict, target: CursorlessTarget):
-    cursorless_command_and_wait(
+    actions.user.private_cursorless_command_and_wait(
         {
             "name": "wrapWithSnippet",
             "snippetDescription": snippet_description,
@@ -96,7 +95,7 @@ def wrap_with_snippet(snippet_description: dict, target: CursorlessTarget):
 
 
 def insert_snippet(snippet_description: dict, destination: CursorlessDestination):
-    cursorless_command_and_wait(
+    actions.user.private_cursorless_command_and_wait(
         {
             "name": "insertSnippet",
             "snippetDescription": snippet_description,

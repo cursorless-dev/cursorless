@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 
-from talon import Module
+from talon import Module, actions
 
-from ..command import cursorless_command_and_wait
 from ..targets.target_types import (
     CursorlessDestination,
     CursorlessTarget,
@@ -38,7 +37,7 @@ def cursorless_bring_move_targets(m) -> BringMoveTargets:
 class Actions:
     def private_cursorless_bring_move(action_name: str, targets: BringMoveTargets):
         """Execute Cursorless move/bring action"""
-        cursorless_command_and_wait(
+        actions.user.private_cursorless_command_and_wait(
             {
                 "name": action_name,
                 "source": targets.source,

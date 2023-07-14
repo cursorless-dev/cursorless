@@ -1,6 +1,5 @@
-from talon import Module
+from talon import Module, actions
 
-from ..command import cursorless_command_and_wait
 from ..paired_delimiter import PairedDelimiter
 from ..targets.target_types import CursorlessTarget
 
@@ -18,7 +17,7 @@ class Actions:
         if action_name == "rewrap":
             action_name = "rewrapWithPairedDelimiter"
 
-        cursorless_command_and_wait(
+        actions.user.private_cursorless_command_and_wait(
             {
                 "name": action_name,
                 "left": paired_delimiter.left,
@@ -38,7 +37,7 @@ class Actions:
 
         snippet_name, variable_name = parse_snippet_location(snippet_location)
 
-        cursorless_command_and_wait(
+        actions.user.private_cursorless_command_and_wait(
             {
                 "name": action_name,
                 "snippetDescription": {

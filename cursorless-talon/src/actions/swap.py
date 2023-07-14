@@ -1,6 +1,5 @@
-from talon import Module
+from talon import Module, actions
 
-from ..command import cursorless_command_and_wait
 from ..targets.target_types import CursorlessTarget, PrimitiveTarget
 
 mod = Module()
@@ -30,7 +29,7 @@ def cursorless_swap_targets(m) -> list[CursorlessTarget]:
 class Actions:
     def private_cursorles_swap(targets: list[CursorlessTarget]):
         """Execute Cursorless swap action"""
-        cursorless_command_and_wait(
+        actions.user.private_cursorless_command_and_wait(
             {
                 "name": "swapTargets",
                 "target1": targets[0],

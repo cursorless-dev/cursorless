@@ -1,6 +1,6 @@
 import dataclasses
 
-from talon import actions, speech_system
+from talon import Module, actions, speech_system
 
 from .cursorless_command_server import (
     run_rpc_command_and_wait,
@@ -20,6 +20,8 @@ class CursorlessCommand:
 CURSORLESS_COMMAND_ID = "cursorless.command"
 last_phrase = None
 
+mod = Module()
+
 
 def on_phrase(d):
     global last_phrase
@@ -29,28 +31,28 @@ def on_phrase(d):
 speech_system.register("pre:phrase", on_phrase)
 
 
-def cursorless_command_and_wait(action: dict):
-    """Execute cursorless command and wait for it to finish"""
-    run_rpc_command_and_wait(
-        CURSORLESS_COMMAND_ID,
-        construct_cursorless_command(action),
-    )
+@mod.action_class
+class Actions:
+    def private_cursorless_command_and_wait(action: dict):
+        """Execute cursorless command and wait for it to finish"""
+        run_rpc_command_and_wait(
+            CURSORLESS_COMMAND_ID,
+            construct_cursorless_command(action),
+        )
 
+    def private_cursorless_command_no_wait(action: dict):
+        """Execute cursorless command without waiting"""
+        run_rpc_command_no_wait(
+            CURSORLESS_COMMAND_ID,
+            construct_cursorless_command(action),
+        )
 
-def cursorless_command_no_wait(action: dict):
-    """Execute cursorless command without waiting"""
-    run_rpc_command_no_wait(
-        CURSORLESS_COMMAND_ID,
-        construct_cursorless_command(action),
-    )
-
-
-def cursorless_command_get(action: dict):
-    """Execute cursorless command and return result"""
-    return run_rpc_command_get(
-        CURSORLESS_COMMAND_ID,
-        construct_cursorless_command(action),
-    )
+    def private_cursorless_command_get(action: dict):
+        """Execute cursorless command and return result"""
+        return run_rpc_command_get(
+            CURSORLESS_COMMAND_ID,
+            construct_cursorless_command(action),
+        )
 
 
 def construct_cursorless_command(action: dict) -> dict:
