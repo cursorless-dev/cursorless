@@ -1,13 +1,15 @@
-from typing import Any, Optional
 from dataclasses import dataclass
-from .targets.target_types import (
-    CursorlessTarget,
-    CursorlessDestination,
-    ImplicitDestination,
-)
-from talon import Module, actions, app
+from typing import Any, Optional
+
+from talon import Module, app
+
 from .command import cursorless_command_and_wait
 from .csv_overrides import init_csv_and_watch_changes
+from .targets.target_types import (
+    CursorlessDestination,
+    CursorlessTarget,
+    ImplicitDestination,
+)
 
 
 @dataclass
