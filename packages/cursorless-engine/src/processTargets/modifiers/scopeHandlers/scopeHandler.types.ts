@@ -150,5 +150,16 @@ export interface ScopeIteratorRequirements {
    */
   skipAncestorScopes: boolean;
 
+  /**
+   * Indicates whether the ScopeHandler should yield a scope if it is a
+   * descendant of any scope that has been previously yielded.
+   *
+   * - `true` means that descendant scopes of any previously yielded scope will
+   *   be yielded.
+   * - `false` means that descendant scopes of any previously yielded scope will
+   *   not be yielded.
+   *
+   * @default false
+   */
   includeDescendantScopes: boolean;
 }

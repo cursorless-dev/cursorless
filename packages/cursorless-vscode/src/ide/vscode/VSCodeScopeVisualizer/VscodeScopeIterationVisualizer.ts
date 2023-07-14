@@ -13,7 +13,7 @@ export class VscodeScopeIterationVisualizer extends VscodeScopeVisualizer {
       (editor, iterationScopeRanges) => {
         this.renderer.setScopes(
           editor as VscodeTextEditorImpl,
-          iterationScopeRanges!.map(({ domain, ranges }) => ({
+          iterationScopeRanges.map(({ domain, ranges }) => ({
             domain: toCharacterRange(domain),
             nestedRanges: ranges.map(({ range }) => toCharacterRange(range)),
           })),

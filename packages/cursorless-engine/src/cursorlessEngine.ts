@@ -2,7 +2,6 @@ import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
 import { ScopeProvider } from "./api/ScopeProvider";
-import { ScopeRangeWatcher } from "./ScopeVisualizer";
 import { ScopeRangeProvider } from "./ScopeVisualizer/ScopeRangeProvider";
 import { ScopeSupportChecker } from "./ScopeVisualizer/ScopeSupportChecker";
 import { Debug } from "./core/Debug";
@@ -16,6 +15,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
+import { ScopeRangeWatcher } from "./ScopeVisualizer/ScopeRangeWatcher";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,

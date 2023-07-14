@@ -11,7 +11,15 @@ import { DifferentiatedStyledRange } from "./getDecorationRanges.types";
 import { groupDifferentiatedStyledRanges } from "./groupDifferentiatedStyledRanges";
 
 /**
- * Manages VSCode decoration types for a highlight or flash style.
+ * A class for highlighting ranges in a VSCode editor, which does the following:
+ *
+ * - Uses a combination of solid lines and dotted lines to make it easier to
+ *   visualize multi-line ranges, while still making directly adjacent ranges
+ *   visually distinct.
+ * - Works around a bug in VSCode where decorations that are touching get merged
+ *   together.
+ * - Ensures that nested ranges are rendered after their parents, so that they
+ *   look properly nested.
  */
 export class VscodeFancyRangeHighlighter {
   private renderer: VscodeFancyRangeHighlighterRenderer;
@@ -22,8 +30,17 @@ export class VscodeFancyRangeHighlighter {
 
   setRanges(editor: VscodeTextEditorImpl, ranges: GeneralizedRange[]) {
     const decoratedRanges: Iterable<DifferentiatedStyledRange> = flatmap(
+      // We first generate a list of differentiated ranges, which are ranges
+      // where any ranges that are touching have different differentiation
+      // indices.  This is used to ensure that ranges that are touching are
+      // rendered with different TextEditorDecorationTypes, so that they don't
+      // get merged together by VSCode.
       generateDifferentiatedRanges(ranges),
 
+      // Then, we generate the actual decorations for each differentiated range.
+      // A single range will be split into multiple decorations if it spans
+      // multiple lines, so that we can eg use dashed lines to end lines that
+      // are part of the same range.
       function* ({ range, differentiationIndex }) {
         const iterable =
           range.type === "line"
@@ -44,6 +61,8 @@ export class VscodeFancyRangeHighlighter {
 
     this.renderer.setRanges(
       editor,
+      // Group the decorations so that we have a list of ranges for each
+      // differentiated style
       groupDifferentiatedStyledRanges(decoratedRanges),
     );
   }

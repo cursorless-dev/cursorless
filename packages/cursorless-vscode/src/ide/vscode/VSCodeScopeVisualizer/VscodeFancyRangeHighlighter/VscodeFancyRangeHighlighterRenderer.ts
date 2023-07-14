@@ -18,6 +18,10 @@ import {
 const BORDER_WIDTH = "1px";
 const BORDER_RADIUS = "2px";
 
+/**
+ * Handles the actual rendering of decorations for
+ * {@link VscodeFancyRangeHighlighter}.
+ */
 export class VscodeFancyRangeHighlighterRenderer {
   private decorationTypes: CompositeKeyDefaultMap<
     DifferentiatedStyle,

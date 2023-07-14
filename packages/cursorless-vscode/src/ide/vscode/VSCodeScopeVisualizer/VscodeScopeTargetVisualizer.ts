@@ -22,7 +22,7 @@ abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
       (editor, scopeRanges) => {
         this.renderer.setScopes(
           editor as VscodeTextEditorImpl,
-          scopeRanges!.map(({ domain, targets }) => ({
+          scopeRanges.map(({ domain, targets }) => ({
             domain: toCharacterRange(domain),
             nestedRanges: targets.map((target) => this.getTargetRange(target)),
           })),

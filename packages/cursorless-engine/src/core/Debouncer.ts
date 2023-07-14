@@ -1,9 +1,16 @@
 import { ide } from "../singletons/ide.singleton";
 
+/**
+ * Debounces a callback.  Uses the `decorationDebounceDelayMs` configuration
+ * value to determine the debounce delay.
+ */
 export class Debouncer {
   private timeoutHandle: NodeJS.Timeout | null = null;
 
-  constructor(private callback: () => void) {
+  constructor(
+    /** The callback to debounce */
+    private callback: () => void,
+  ) {
     this.run = this.run.bind(this);
   }
 
