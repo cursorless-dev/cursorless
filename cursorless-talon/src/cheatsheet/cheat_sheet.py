@@ -1,148 +1,148 @@
-# import webbrowser
-# from pathlib import Path
+import webbrowser
+from pathlib import Path
 
-# from talon import Context, Module, app
+from talon import Context, Module, app
 
-# from ..cursorless_command_server import run_rpc_command_and_wait
-# from .get_list import get_list, get_lists
-# from .sections.actions import get_actions
-# from .sections.compound_targets import get_compound_targets
-# from .sections.modifiers import get_modifiers
-# from .sections.scopes import get_scopes
-# from .sections.special_marks import get_special_marks
+from ..cursorless_command_server import run_rpc_command_and_wait
+from .get_list import get_list, get_lists
+from .sections.actions import get_actions
+from .sections.compound_targets import get_compound_targets
+from .sections.modifiers import get_modifiers
+from .sections.scopes import get_scopes
+from .sections.special_marks import get_special_marks
 
-# mod = Module()
-# ctx = Context()
-# ctx.matches = r"""
-# tag: user.cursorless
-# """
+mod = Module()
+ctx = Context()
+ctx.matches = r"""
+tag: user.cursorless
+"""
 
-# instructions_url = "https://www.cursorless.org/docs/"
-
-
-# @mod.action_class
-# class Actions:
-#     def private_cursorless_cheat_sheet_show_html():
-#         """Show new cursorless html cheat sheet"""
-#         app.notify(
-#             'Please first focus an app that supports cursorless, eg say "focus code"'
-#         )
-
-#     def private_cursorless_cheat_sheet_update_json():
-#         """Update default cursorless cheatsheet json (for developer use only)"""
-#         app.notify(
-#             'Please first focus an app that supports cursorless, eg say "focus code"'
-#         )
-
-#     def private_cursorless_open_instructions():
-#         """Open web page with cursorless instructions"""
-#         webbrowser.open(instructions_url)
+instructions_url = "https://www.cursorless.org/docs/"
 
 
-# @ctx.action_class("user")
-# class CursorlessActions:
-#     def cursorless_cheat_sheet_show_html():
-#         """Show cursorless html cheat sheet"""
-#         # On Linux browsers installed using snap can't open files in a hidden directory
-#         if app.platform == "linux":
-#             cheatsheet_out_dir = cheatsheet_dir_linux()
-#             cheatsheet_filename = "cursorless-cheatsheet.html"
-#         else:
-#             cheatsheet_out_dir = Path.home() / ".cursorless"
-#             cheatsheet_filename = "cheatsheet.html"
+@mod.action_class
+class Actions:
+    def private_cursorless_cheat_sheet_show_html():
+        """Show new cursorless html cheat sheet"""
+        app.notify(
+            'Please first focus an app that supports cursorless, eg say "focus code"'
+        )
 
-#         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
-#         cheatsheet_out_path = cheatsheet_out_dir / cheatsheet_filename
-#         run_rpc_command_and_wait(
-#             "cursorless.showCheatsheet",
-#             {
-#                 "version": 0,
-#                 "spokenFormInfo": cursorless_cheat_sheet_get_json(),
-#                 "outputPath": str(cheatsheet_out_path),
-#             },
-#         )
-#         webbrowser.open(cheatsheet_out_path.as_uri())
+    def private_cursorless_cheat_sheet_update_json():
+        """Update default cursorless cheatsheet json (for developer use only)"""
+        app.notify(
+            'Please first focus an app that supports cursorless, eg say "focus code"'
+        )
 
-#     def cursorless_cheat_sheet_update_json():
-#         """Update default cursorless cheatsheet json (for developer use only)"""
-#         run_rpc_command_and_wait(
-#             "cursorless.internal.updateCheatsheetDefaults",
-#             cursorless_cheat_sheet_get_json(),
-#         )
+    def private_cursorless_open_instructions():
+        """Open web page with cursorless instructions"""
+        webbrowser.open(instructions_url)
 
 
-# def cheatsheet_dir_linux() -> Path:
-#     """Get cheatsheet directory for Linux"""
-#     try:
-#         # 1. Get users actual document directory
-#         import platformdirs
+@ctx.action_class("user")
+class CursorlessActions:
+    def cursorless_cheat_sheet_show_html():
+        """Show cursorless html cheat sheet"""
+        # On Linux browsers installed using snap can't open files in a hidden directory
+        if app.platform == "linux":
+            cheatsheet_out_dir = cheatsheet_dir_linux()
+            cheatsheet_filename = "cursorless-cheatsheet.html"
+        else:
+            cheatsheet_out_dir = Path.home() / ".cursorless"
+            cheatsheet_filename = "cheatsheet.html"
 
-#         return Path(platformdirs.user_documents_dir())
-#     except Exception:
-#         # 2. Look for a documents directory in user home
-#         user_documents_dir = Path.home() / "Documents"
-#         if user_documents_dir.is_dir():
-#             return user_documents_dir
+        cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
+        cheatsheet_out_path = cheatsheet_out_dir / cheatsheet_filename
+        run_rpc_command_and_wait(
+            "cursorless.showCheatsheet",
+            {
+                "version": 0,
+                "spokenFormInfo": cursorless_cheat_sheet_get_json(),
+                "outputPath": str(cheatsheet_out_path),
+            },
+        )
+        webbrowser.open(cheatsheet_out_path.as_uri())
 
-#         # 3. Fall back to user home
-#         return Path.home()
+    def cursorless_cheat_sheet_update_json():
+        """Update default cursorless cheatsheet json (for developer use only)"""
+        run_rpc_command_and_wait(
+            "cursorless.internal.updateCheatsheetDefaults",
+            cursorless_cheat_sheet_get_json(),
+        )
 
 
-# def cursorless_cheat_sheet_get_json():
-#     """Get cursorless cheat sheet json"""
-#     return {
-#         "sections": [
-#             {
-#                 "name": "Actions",
-#                 "id": "actions",
-#                 "items": get_actions(),
-#             },
-#             {
-#                 "name": "Scopes",
-#                 "id": "scopes",
-#                 "items": get_scopes(),
-#             },
-#             {
-#                 "name": "Modifiers",
-#                 "id": "modifiers",
-#                 "items": get_modifiers(),
-#             },
-#             {
-#                 "name": "Paired delimiters",
-#                 "id": "pairedDelimiters",
-#                 "items": get_lists(
-#                     [
-#                         "wrapper_only_paired_delimiter",
-#                         "wrapper_selectable_paired_delimiter",
-#                         "selectable_only_paired_delimiter",
-#                     ],
-#                     "pairedDelimiter",
-#                 ),
-#             },
-#             {
-#                 "name": "Special marks",
-#                 "id": "specialMarks",
-#                 "items": get_special_marks(),
-#             },
-#             {
-#                 "name": "Positions",
-#                 "id": "positions",
-#                 "items": get_list("position", "position"),
-#             },
-#             {
-#                 "name": "Compound targets",
-#                 "id": "compoundTargets",
-#                 "items": get_compound_targets(),
-#             },
-#             {
-#                 "name": "Colors",
-#                 "id": "colors",
-#                 "items": get_list("hat_color", "hatColor"),
-#             },
-#             {
-#                 "name": "Shapes",
-#                 "id": "shapes",
-#                 "items": get_list("hat_shape", "hatShape"),
-#             },
-#         ]
-#     }
+def cheatsheet_dir_linux() -> Path:
+    """Get cheatsheet directory for Linux"""
+    try:
+        # 1. Get users actual document directory
+        import platformdirs
+
+        return Path(platformdirs.user_documents_dir())
+    except Exception:
+        # 2. Look for a documents directory in user home
+        user_documents_dir = Path.home() / "Documents"
+        if user_documents_dir.is_dir():
+            return user_documents_dir
+
+        # 3. Fall back to user home
+        return Path.home()
+
+
+def cursorless_cheat_sheet_get_json():
+    """Get cursorless cheat sheet json"""
+    return {
+        "sections": [
+            {
+                "name": "Actions",
+                "id": "actions",
+                "items": get_actions(),
+            },
+            {
+                "name": "Scopes",
+                "id": "scopes",
+                "items": get_scopes(),
+            },
+            {
+                "name": "Modifiers",
+                "id": "modifiers",
+                "items": get_modifiers(),
+            },
+            {
+                "name": "Paired delimiters",
+                "id": "pairedDelimiters",
+                "items": get_lists(
+                    [
+                        "wrapper_only_paired_delimiter",
+                        "wrapper_selectable_paired_delimiter",
+                        "selectable_only_paired_delimiter",
+                    ],
+                    "pairedDelimiter",
+                ),
+            },
+            {
+                "name": "Special marks",
+                "id": "specialMarks",
+                "items": get_special_marks(),
+            },
+            {
+                "name": "Positions",
+                "id": "positions",
+                "items": get_list("position", "position"),
+            },
+            {
+                "name": "Compound targets",
+                "id": "compoundTargets",
+                "items": get_compound_targets(),
+            },
+            {
+                "name": "Colors",
+                "id": "colors",
+                "items": get_list("hat_color", "hatColor"),
+            },
+            {
+                "name": "Shapes",
+                "id": "shapes",
+                "items": get_list("hat_shape", "hatShape"),
+            },
+        ]
+    }
