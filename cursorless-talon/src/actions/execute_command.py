@@ -1,4 +1,5 @@
 from talon import actions
+
 from ..targets.target_types import CursorlessTarget
 
 

@@ -10,7 +10,7 @@ tag: user.cursorless
 
 {user.cursorless_homophone} record navigation:
     user.private_cursorless_record_navigation_test()
-{user.cursorless_homophone} record error: 
+{user.cursorless_homophone} record error:
     user.private_cursorless_record_error_test()
 {user.cursorless_homophone} record highlights:
     user.private_cursorless_record_highlights_test()
