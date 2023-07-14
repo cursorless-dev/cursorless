@@ -27,9 +27,7 @@ def get_actions():
     }
 
     swap_connective = list(get_raw_list("swap_connective").keys())[0]
-    source_destination_connective = list(
-        get_raw_list("source_destination_connective").keys()
-    )[0]
+    source_destination_connective = list(get_raw_list("insertion_mode_to").keys())[0]
 
     return [
         *make_dict_readable(
