@@ -2,7 +2,7 @@ from typing import Union
 
 from talon import Module
 
-from .primitive_target import ListTarget, PrimitiveTarget, RangeTarget
+from .target_types import ListTarget, PrimitiveTarget, RangeTarget
 
 mod = Module()
 

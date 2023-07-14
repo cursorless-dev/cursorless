@@ -1,6 +1,6 @@
 from talon import Context, actions, app
 
-from ..actions.get_text import get_text
+from ..actions.get_text import cursorless_get_text
 from ..cursorless_command_server import run_rpc_command_no_wait
 from ..targets.target_types import CursorlessTarget
 
@@ -17,7 +17,7 @@ ctx.tags = ["user.cursorless"]
 class Actions:
     def private_cursorless_find(target: CursorlessTarget):
         """Find text of target in editor"""
-        texts = get_text(target, ensure_single_target=True)
+        texts = cursorless_get_text(target, ensure_single_target=True)
         search_text = texts[0]
         if len(search_text) > 200:
             search_text = search_text[:200]

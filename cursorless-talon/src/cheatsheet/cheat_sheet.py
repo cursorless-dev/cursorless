@@ -41,7 +41,7 @@ class Actions:
 
 @ctx.action_class("user")
 class CursorlessActions:
-    def cursorless_cheat_sheet_show_html():
+    def private_cursorless_cheat_sheet_show_html():
         """Show cursorless html cheat sheet"""
         # On Linux browsers installed using snap can't open files in a hidden directory
         if app.platform == "linux":
@@ -63,7 +63,7 @@ class CursorlessActions:
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
 
-    def cursorless_cheat_sheet_update_json():
+    def private_cursorless_cheat_sheet_update_json():
         """Update default cursorless cheatsheet json (for developer use only)"""
         run_rpc_command_and_wait(
             "cursorless.internal.updateCheatsheetDefaults",
