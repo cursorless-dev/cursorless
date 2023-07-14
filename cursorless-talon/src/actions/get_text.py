@@ -9,9 +9,9 @@ def cursorless_get_text(
     target: CursorlessTarget,
     show_decorations: Optional[bool] = None,
     ensure_single_target: Optional[bool] = None,
-):
+) -> list[str]:
     """Get target texts"""
-    actions.user.private_cursorless_command_get(
+    return actions.user.private_cursorless_command_get(
         {
             "name": "getText",
             "options": {

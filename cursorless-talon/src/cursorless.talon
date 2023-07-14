@@ -17,7 +17,7 @@ tag: user.cursorless
     user.private_cursorless_reformat(cursorless_target, formatters)
 
 <user.cursorless_wrapper_paired_delimiter> {user.cursorless_wrap_action} <user.cursorless_target>:
-    user.private_cursorless_wrap_paired_delimiter(cursorless_wrap_action, cursorless_wrapper_paired_delimiter)
+    user.private_cursorless_wrap_paired_delimiter(cursorless_wrap_action, cursorless_target, cursorless_wrapper_paired_delimiter)
 
 {user.cursorless_wrapper_snippet} {user.cursorless_wrap_action} <user.cursorless_target>:
     user.private_cursorless_wrap_snippet(cursorless_wrap_action, cursorless_target, cursorless_wrapper_snippet)
