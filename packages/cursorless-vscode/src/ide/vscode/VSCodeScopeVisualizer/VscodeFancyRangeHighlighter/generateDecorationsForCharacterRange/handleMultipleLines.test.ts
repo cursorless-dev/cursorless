@@ -10,160 +10,65 @@ interface StyledOffsets {
   offsets: CharacterOffsets;
 }
 
+/**
+ * Compact representation of an input to `handleMultipleLines`. The first
+ * element is the character offsets of the first line, and the rest are the
+ * character offsets of the end of the remaining lines.  We use a single number
+ * for lines after the first because they always start at character 0.
+ */
+type Input = [CharacterOffsets, ...number[]];
+
+/**
+ * Compact representation of the expected highlights for a single line. The
+ * first element is the line number, the second is the character offsets, and
+ * the third is the border styles for the top, bottom, left, and right borders
+ * respectively.
+ */
+type LineDecorations = [
+  number,
+  CharacterOffsets,
+  [BorderStyle, BorderStyle, BorderStyle, BorderStyle],
+];
+
 interface TestCase {
-  input: CharacterOffsets[];
-  expected: StyledOffsets[][];
+  input: Input;
+  expected: LineDecorations[];
 }
+
+const solid = BorderStyle.solid;
+const porous = BorderStyle.porous;
+const none = BorderStyle.none;
 
 const testCases: TestCase[] = [
   {
-    input: [
-      [0, 1],
-      [0, 1],
-    ],
+    input: [[0, 1], 1],
     expected: [
-      [
-        {
-          offsets: [0, 1],
-          style: {
-            left: BorderStyle.solid,
-            right: BorderStyle.porous,
-            top: BorderStyle.solid,
-            bottom: BorderStyle.none,
-          },
-        },
-      ],
-      [
-        {
-          offsets: [0, 1],
-          style: {
-            left: BorderStyle.porous,
-            right: BorderStyle.solid,
-            top: BorderStyle.none,
-            bottom: BorderStyle.solid,
-          },
-        },
-      ],
+      [0, [0, 1], [solid, porous, none, solid]],
+      [1, [0, 1], [none, solid, solid, porous]],
     ],
   },
   {
-    input: [
-      [1, 2],
-      [0, 1],
-    ],
+    input: [[1, 2], 1],
     expected: [
-      [
-        {
-          offsets: [1, 2],
-          style: {
-            left: BorderStyle.solid,
-            right: BorderStyle.porous,
-            top: BorderStyle.solid,
-            bottom: BorderStyle.solid,
-          },
-        },
-      ],
-      [
-        {
-          offsets: [0, 1],
-          style: {
-            left: BorderStyle.porous,
-            right: BorderStyle.solid,
-            top: BorderStyle.solid,
-            bottom: BorderStyle.solid,
-          },
-        },
-      ],
+      [0, [1, 2], [solid, porous, solid, solid]],
+      [1, [0, 1], [solid, solid, solid, porous]],
     ],
   },
   {
-    input: [
-      [1, 3],
-      [0, 2],
-    ],
+    input: [[1, 3], 2],
     expected: [
-      [
-        {
-          offsets: [1, 2],
-          style: {
-            left: BorderStyle.solid,
-            right: BorderStyle.none,
-            top: BorderStyle.solid,
-            bottom: BorderStyle.none,
-          },
-        },
-        {
-          offsets: [2, 3],
-          style: {
-            left: BorderStyle.none,
-            right: BorderStyle.porous,
-            top: BorderStyle.solid,
-            bottom: BorderStyle.solid,
-          },
-        },
-      ],
-      [
-        {
-          offsets: [0, 1],
-          style: {
-            left: BorderStyle.porous,
-            right: BorderStyle.none,
-            top: BorderStyle.solid,
-            bottom: BorderStyle.solid,
-          },
-        },
-        {
-          offsets: [1, 2],
-          style: {
-            left: BorderStyle.none,
-            right: BorderStyle.solid,
-            top: BorderStyle.none,
-            bottom: BorderStyle.solid,
-          },
-        },
-      ],
+      [0, [1, 2], [solid, none, none, solid]],
+      [0, [2, 3], [solid, porous, solid, none]],
+      [1, [0, 1], [solid, none, solid, porous]],
+      [1, [1, 2], [none, solid, solid, none]],
     ],
   },
   {
-    input: [
-      [0, 0],
-      [0, 0],
-      [0, 0],
-    ],
+    input: [[0, 0], 0, 0],
     expected: [
-      [
-        {
-          offsets: [0, 0],
-          style: {
-            left: BorderStyle.solid,
-            right: BorderStyle.porous,
-            top: BorderStyle.solid,
-            bottom: BorderStyle.none,
-          },
-        },
-      ],
-      [
-        {
-          offsets: [0, 0],
-          style: {
-            left: BorderStyle.porous,
-            right: BorderStyle.porous,
-            top: BorderStyle.porous,
-            bottom: BorderStyle.none,
-          },
-        },
-      ],
-      [
-        {
-          offsets: [0, 0],
-          style: {
-            left: BorderStyle.porous,
-            right: BorderStyle.solid,
-            top: BorderStyle.porous,
-            bottom: BorderStyle.solid,
-          },
-        },
-      ],
+      [0, [0, 0], [solid, porous, none, solid]],
+      [1, [0, 0], [porous, porous, none, porous]],
+      [2, [0, 0], [porous, solid, solid, porous]],
     ],
   },
 ];
@@ -171,20 +76,21 @@ const testCases: TestCase[] = [
 suite("handleMultipleLines", () => {
   for (const testCase of testCases) {
     test(JSON.stringify(testCase.input), () => {
+      const [firstLine, ...rest] = testCase.input;
+
       const actual = [
-        ...handleMultipleLines(
-          testCase.input.map(
-            ([start, end], index) => new Range(index, start, index, end),
-          ),
-        ),
+        ...handleMultipleLines([
+          new Range(0, firstLine[0], 0, firstLine[1]),
+          ...rest.map((end, index) => new Range(index + 1, 0, index + 1, end)),
+        ]),
       ];
       assert.deepStrictEqual(
         actual,
-        testCase.expected.flatMap((lineOffsets, index) =>
-          lineOffsets.map(({ style, offsets: [start, end] }) => ({
-            range: new Range(index, start, index, end),
-            style,
-          })),
+        testCase.expected.map(
+          ([lineNumber, [start, end], [top, right, bottom, left]]) => ({
+            range: new Range(lineNumber, start, lineNumber, end),
+            style: { top, right, bottom, left },
+          }),
         ),
       );
     });
