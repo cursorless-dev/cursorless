@@ -6,9 +6,8 @@ import { ExpectedArgs } from "./scopeVisualizerTest.types";
 
 /**
  * Tests that the scope visualizer works with removal ranges, by ensuring that
- * the correct decorations are applied so that it looks as follows:
- *
- * ![basic removal](./runBasicRemovalTest.png)
+ * the correct decorations are applied so that it looks like
+ * `./runBasicRemovalTest.png`.
  */
 export async function runBasicRemovalTest() {
   await openNewEditor("aaa bbb");
