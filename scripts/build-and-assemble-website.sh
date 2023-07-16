@@ -4,7 +4,7 @@ set -euo pipefail
 pnpm install
 pnpm compile
 
-NODE_OPTIONS="--max-old-space-size=4096" \
+NODE_OPTIONS="--max-old-space-size=6144" \
   pnpm \
   --filter 'cursorless-org' \
   --filter 'cursorless-org-*' \
