@@ -73,8 +73,8 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
         range: new Range(lineNumber, currentOffset, lineNumber, event.offset),
         style: {
           ...currentDecoration,
-          // If we're done with this line, draw a border, otherwise don't, so that
-          // it merges in with the next decoration for this line.
+          // If we're done with this line, draw a right border, otherwise don't,
+          // so that it merges in with the next decoration for this line.
           right:
             event.offset === currentLine.end
               ? currentLine.isLast

@@ -8,10 +8,13 @@ const solid = BorderStyle.solid;
 const porous = BorderStyle.porous;
 const none = BorderStyle.none;
 
+/** `[start, end]` */
 type CharacterOffsets = [number, number];
 
+/** `[[firstLineStart, firstLineEnd], ...restLineEnds]` */
 type Input = [CharacterOffsets, ...number[]];
 
+/** `[lineNumber, [start, end], [top, right, bottom, left]` */
 type LineDecorations = [
   number,
   CharacterOffsets,
@@ -27,8 +30,10 @@ interface TestCase {
    * ```
    *
    * We use a single number for lines after the first because they always start
-   * at character 0.  The first line will have line number 0, and the rest will
-   * count up from there.
+   * at character 0.
+   *
+   * The first line will have line number 0, and the rest will count up from
+   * there.
    */
   input: Input;
 
