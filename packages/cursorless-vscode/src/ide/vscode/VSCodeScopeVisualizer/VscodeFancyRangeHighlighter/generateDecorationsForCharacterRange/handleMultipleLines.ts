@@ -37,7 +37,7 @@ export function* handleMultipleLines(
  * previous and next lines.
  */
 function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
-  const { lineNumber, previousLine, currentLine, nextLine } = lineInfo;
+  const { lineNumber, currentLine, nextLine } = lineInfo;
 
   /** A list of "events", corresponding to the start or end of a line */
   const events: Event[] = getEvents(lineInfo);
@@ -47,39 +47,36 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
    * the fly.
    */
   const currentDecoration: Omit<DecorationStyle, "right"> = {
-    // Draw a solid top line if whatever is above us isn't part of our range.
-    // Otherwise draw no line so it merges in with the line above.
-    top:
-      previousLine == null || previousLine.isFirst
-        ? BorderStyle.solid
-        : BorderStyle.none,
-    // Analogous to above, but only care if we're last; doesn't matter if next
-    // line is last because it is guaranteed to start at char 0
+    // Start with a solid top border. We'll switch to no border when previous
+    // line begins.  Don't need to worry about porous because only the first
+    // line can start after char 0.
+    top: BorderStyle.solid,
+
+    // Start with a solid bottom border if we're the last line, otherwise no
+    // border because we'll blend with the next line.
     bottom: currentLine.isLast ? BorderStyle.solid : BorderStyle.none,
+
     // Start with a porous border if we're continuing from previous line
     left: currentLine.isFirst ? BorderStyle.solid : BorderStyle.porous,
   };
 
   let currentOffset = currentLine.start;
   let yieldedAnything = false;
-  let isDone = false;
 
-  for (const { offset, lineType, isStart } of events) {
-    if (isDone) {
-      break;
-    }
-
-    if (offset > currentOffset) {
+  // NB: The `loop` label here allows us to break out of the loop from inside
+  // the switch statement.
+  loop: for (const event of events) {
+    if (event.offset > currentOffset) {
       // If we've moved forward at all since the last event, yield a decoration
       // for the range between the last event and this one.
       yield {
-        range: new Range(lineNumber, currentOffset, lineNumber, offset),
+        range: new Range(lineNumber, currentOffset, lineNumber, event.offset),
         style: {
           ...currentDecoration,
           // If we're done with this line, draw a border, otherwise don't, so that
           // it merges in with the next decoration for this line.
           right:
-            offset === currentLine.end
+            event.offset === currentLine.end
               ? currentLine.isLast
                 ? BorderStyle.solid
                 : BorderStyle.porous
@@ -88,40 +85,30 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
       };
       yieldedAnything = true;
       currentDecoration.left = BorderStyle.none;
+      currentOffset = event.offset;
     }
 
-    switch (lineType) {
+    switch (event.lineType) {
       case LineType.previous:
         // Use no top border when overlapping with previous line so it visually
         // merges; otherwise use porous border to show nice cutoff effect.
-        currentDecoration.top = isStart ? BorderStyle.none : BorderStyle.porous;
+        currentDecoration.top = event.isLineStart
+          ? BorderStyle.none
+          : BorderStyle.porous;
         break;
-      case LineType.current:
-        if (!isStart) {
-          isDone = true;
-        }
+      case LineType.current: // event.isLineStart === false
+        break loop;
+      case LineType.next: // event.isLineStart === false
+        currentDecoration.bottom = nextLine!.isLast
+          ? BorderStyle.solid
+          : BorderStyle.porous;
         break;
-      case LineType.next:
-        // Blend with next line while it is overlapping with us; then switch
-        // to solid or porous, depending if it is the last line.
-        if (isStart) {
-          currentDecoration.bottom = BorderStyle.none;
-        } else {
-          currentDecoration.bottom = nextLine!.isLast
-            ? BorderStyle.solid
-            : BorderStyle.porous;
-        }
-        break;
-    }
-
-    if (currentOffset < offset) {
-      // This guard is necessary so we don't accidentally jump backward if an
-      // adjacent line starts before we do.
-      currentOffset = offset;
     }
   }
 
   if (!yieldedAnything) {
+    // If current line is empty, then we didn't yield anything in the loop above,
+    // so yield a decoration for the whole line.
     yield {
       range: new Range(
         lineNumber,
@@ -137,11 +124,48 @@ function* handleLine(lineInfo: LineInfo): Iterable<StyledRange> {
   }
 }
 
-interface Event {
+interface LineEventBase {
+  /**
+   * The character offset at which this event occurs.  This is the offset of the
+   * character that is the start or end of the line, depending on whether
+   * `isLineStart` is true or false.
+   */
   offset: number;
+
+  /**
+   * The type of line that this event corresponds to.
+   * -1: previous line
+   * 0: current line
+   * 1: next line
+   */
   lineType: LineType;
-  isStart: boolean;
+
+  /**
+   * Whether this event corresponds to the start of a line.  If `false`, it
+   * corresponds to the end of a line.
+   */
+  isLineStart: boolean;
 }
+
+interface PreviousLineEvent extends LineEventBase {
+  offset: number;
+  lineType: LineType.previous;
+  isLineStart: boolean;
+}
+
+interface CurrentLineEvent extends LineEventBase {
+  offset: number;
+  lineType: LineType.current;
+  isLineStart: false;
+}
+
+interface NextLineEvent extends LineEventBase {
+  offset: number;
+  lineType: LineType.next;
+  isLineStart: false;
+}
+
+type Event = PreviousLineEvent | CurrentLineEvent | NextLineEvent;
 
 enum LineType {
   previous = -1,
@@ -151,7 +175,7 @@ enum LineType {
 
 /**
  * Generate "events" for our state machine.
- * @param param0 Info about the line to render
+ * @param lineInfo Info about the line to render
  * @returns A list of "events", corresponding to the start or end of a line
  */
 function getEvents({ previousLine, currentLine, nextLine }: LineInfo) {
@@ -162,12 +186,12 @@ function getEvents({ previousLine, currentLine, nextLine }: LineInfo) {
       {
         offset: previousLine.start,
         lineType: LineType.previous,
-        isStart: true,
+        isLineStart: true,
       },
       {
         offset: previousLine.end,
         lineType: LineType.previous,
-        isStart: false,
+        isLineStart: false,
       },
     );
   }
@@ -177,14 +201,14 @@ function getEvents({ previousLine, currentLine, nextLine }: LineInfo) {
   events.push({
     offset: currentLine.end,
     lineType: LineType.current,
-    isStart: false,
+    isLineStart: false,
   });
 
   if (nextLine != null) {
     events.push({
       offset: nextLine.end,
       lineType: LineType.next,
-      isStart: false,
+      isLineStart: false,
     });
   }
 
@@ -198,7 +222,7 @@ function getEvents({ previousLine, currentLine, nextLine }: LineInfo) {
       if (a.lineType === LineType.current) {
         return 1;
       }
-      return a.isStart ? -1 : 1;
+      return a.isLineStart ? -1 : 1;
     }
 
     return a.offset - b.offset;
