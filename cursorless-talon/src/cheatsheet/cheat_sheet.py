@@ -7,6 +7,7 @@ from ..cursorless_command_server import run_rpc_command_and_wait
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
+from .sections.get_scope_visualizer import get_scope_visualizer
 from .sections.modifiers import get_modifiers
 from .sections.scopes import get_scopes
 from .sections.special_marks import get_special_marks
@@ -101,6 +102,11 @@ def cursorless_cheat_sheet_get_json():
                 "name": "Scopes",
                 "id": "scopes",
                 "items": get_scopes(),
+            },
+            {
+                "name": "Scope visualizer",
+                "id": "scopeVisualizer",
+                "items": get_scope_visualizer(),
             },
             {
                 "name": "Modifiers",
