@@ -871,8 +871,11 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
+    "@types/tinycolor2": "1.4.3",
+    "itertools": "^2.1.1",
     "lodash": "^4.17.21",
     "semver": "^7.3.9",
+    "tinycolor2": "1.6.0",
     "uuid": "^9.0.0",
     "vscode-uri": "^3.0.6"
   }
