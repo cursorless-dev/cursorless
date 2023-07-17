@@ -17,7 +17,6 @@ import {
   ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
@@ -26,6 +25,7 @@ import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { StatusBarItem } from "./StatusBarItem";
+import { ExtensionContext, Location } from "vscode";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -36,7 +36,7 @@ import { StatusBarItem } from "./StatusBarItem";
  * - Creates an entrypoint for running commands {@link CommandRunner}.
  */
 export async function activate(
-  context: vscode.ExtensionContext,
+  context: ExtensionContext,
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
@@ -104,7 +104,7 @@ export async function activate(
   };
 }
 
-async function createVscodeIde(context: vscode.ExtensionContext) {
+async function createVscodeIde(context: ExtensionContext) {
   const vscodeIDE = new VscodeIDE(context);
 
   const hats = new VscodeHats(
@@ -123,7 +123,7 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
   return {
     getNodeAtLocation(document: TextDocument, range: Range) {
       return parseTreeApi.getNodeAtLocation(
-        new vscode.Location(document.uri, toVscodeRange(range)),
+        new Location(document.uri, toVscodeRange(range)),
       );
     },
 
