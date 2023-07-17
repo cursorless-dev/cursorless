@@ -136,6 +136,19 @@ export interface Target {
   /** The range of the delimiter after the content selection */
   getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
+
+  /**
+   * The range that should be highlighted when the target is removed. Note that
+   * we can't just use `getRemovalRange()`, because when we highlight a line for
+   * removal, we don't know which line to highlight just based on the removal
+   * range.
+   *
+   * For example, assume that the document, represented as a string, is `"\n"`.
+   * This corresponds to a document with two empty lines. If we say `"chuck
+   * line"` on either line, the removal range will be the entire document, but
+   * we want to highlight the line that they were on when they said `"chuck
+   * line"`, as that is logically the line they've deleted.
+   */
   getRemovalHighlightRange(): Range;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
