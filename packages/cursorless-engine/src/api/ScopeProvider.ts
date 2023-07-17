@@ -1,4 +1,5 @@
 import {
+  Disposable,
   GeneralizedRange,
   Range,
   ScopeType,
@@ -26,6 +27,32 @@ export interface ScopeProvider {
     editor: TextEditor,
     config: IterationScopeRangeConfig,
   ) => IterationScopeRanges[];
+
+  /**
+   * Registers a callback to be run when the scope ranges change for any visible
+   * editor.  The callback will be run immediately once for each visible editor
+   * with the current scope ranges.
+   * @param callback The callback to run when the scope ranges change
+   * @param config The configuration for the scope ranges
+   * @returns A {@link Disposable} which will stop the callback from running
+   */
+  onDidChangeScopeRanges: (
+    callback: ScopeChangeEventCallback,
+    config: ScopeRangeConfig,
+  ) => Disposable;
+
+  /**
+   * Registers a callback to be run when the iteration scope ranges change for
+   * any visible editor.  The callback will be run immediately once for each
+   * visible editor with the current iteration scope ranges.
+   * @param callback The callback to run when the scope ranges change
+   * @param config The configuration for the scope ranges
+   * @returns A {@link Disposable} which will stop the callback from running
+   */
+  onDidChangeIterationScopeRanges: (
+    callback: IterationScopeChangeEventCallback,
+    config: IterationScopeRangeConfig,
+  ) => Disposable;
 }
 
 interface ScopeRangeConfigBase {
@@ -48,6 +75,16 @@ export interface IterationScopeRangeConfig extends ScopeRangeConfigBase {
    */
   includeNestedTargets: boolean;
 }
+
+export type ScopeChangeEventCallback = (
+  editor: TextEditor,
+  scopeRanges: ScopeRanges[],
+) => void;
+
+export type IterationScopeChangeEventCallback = (
+  editor: TextEditor,
+  scopeRanges: IterationScopeRanges[],
+) => void;
 
 /**
  * Contains the ranges that define a given scope, eg its {@link domain} and the
