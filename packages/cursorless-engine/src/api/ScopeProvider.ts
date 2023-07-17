@@ -53,6 +53,28 @@ export interface ScopeProvider {
     callback: IterationScopeChangeEventCallback,
     config: IterationScopeRangeConfig,
   ) => Disposable;
+
+  /**
+   * Determine the level of support for {@link scopeType} in {@link editor}, as
+   * determined by its language id.
+   * @param editor The editor to check
+   * @param scopeType The scope type to check
+   * @returns The level of support for {@link scopeType} in {@link editor}
+   */
+  getScopeSupport: (editor: TextEditor, scopeType: ScopeType) => ScopeSupport;
+
+  /**
+   * Determine the level of support for the iteration scope of {@link scopeType}
+   * in {@link editor}, as determined by its language id.
+   * @param editor The editor to check
+   * @param scopeType The scope type to check
+   * @returns The level of support for the iteration scope of {@link scopeType}
+   * in {@link editor}
+   */
+  getIterationScopeSupport: (
+    editor: TextEditor,
+    scopeType: ScopeType,
+  ) => ScopeSupport;
 }
 
 interface ScopeRangeConfigBase {
@@ -130,4 +152,11 @@ export interface IterationScopeRanges {
      */
     targets?: TargetRanges[];
   }[];
+}
+
+export enum ScopeSupport {
+  supportedAndPresentInEditor,
+  supportedButNotPresentInEditor,
+  supportedLegacy,
+  unsupported,
 }

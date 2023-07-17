@@ -3,6 +3,7 @@ import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
 import { ScopeProvider } from "./api/ScopeProvider";
 import { ScopeRangeProvider } from "./ScopeVisualizer/ScopeRangeProvider";
+import { ScopeSupportChecker } from "./ScopeVisualizer/ScopeSupportChecker";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
@@ -101,6 +102,7 @@ function createScopeProvider(
   );
 
   const rangeWatcher = new ScopeRangeWatcher(rangeProvider);
+  const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
 
   return {
     provideScopeRanges: rangeProvider.provideScopeRanges,
@@ -108,5 +110,7 @@ function createScopeProvider(
     onDidChangeScopeRanges: rangeWatcher.onDidChangeScopeRanges,
     onDidChangeIterationScopeRanges:
       rangeWatcher.onDidChangeIterationScopeRanges,
+    getScopeSupport: supportChecker.getScopeSupport,
+    getIterationScopeSupport: supportChecker.getIterationScopeSupport,
   };
 }
