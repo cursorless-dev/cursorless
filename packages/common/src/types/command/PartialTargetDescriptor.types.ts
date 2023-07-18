@@ -43,6 +43,28 @@ export interface RangeMark {
   excludeActive?: boolean;
 }
 
+interface SimplePosition {
+  readonly line: number;
+  readonly character: number;
+}
+
+interface SimpleRange {
+  readonly start: SimplePosition;
+  readonly end: SimplePosition;
+}
+
+/**
+ * Used to explicitly provide a range for use as a mark. Today, this mark type
+ * is only used as a hack to enable us to support allowing other editors to
+ * maintain their own hat map when using the Cursorless "sidecar"; see
+ * https://github.com/cursorless-everywhere/notes for more information.
+ */
+export interface ExplicitMark {
+  type: "explicit";
+  editorId: string;
+  range: SimpleRange;
+}
+
 export type PartialMark =
   | CursorMark
   | ThatMark
@@ -50,7 +72,8 @@ export type PartialMark =
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
-  | RangeMark;
+  | RangeMark
+  | ExplicitMark;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"
