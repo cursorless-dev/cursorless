@@ -19,11 +19,11 @@ async function explicitMark() {
   const editorId = ide.visibleTextEditors[0].id;
 
   await runCursorlessCommand({
-    version: 5,
+    version: 6,
     usePrePhraseSnapshot: false,
-    action: { name: "clearAndSetSelection" },
-    targets: [
-      {
+    action: {
+      name: "clearAndSetSelection",
+      target: {
         type: "primitive",
         mark: {
           type: "explicit",
@@ -34,7 +34,7 @@ async function explicitMark() {
           },
         },
       },
-    ],
+    },
   });
 
   assert.equal(editor.document.getText(), "foo  baz");
