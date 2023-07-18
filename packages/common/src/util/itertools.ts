@@ -60,7 +60,6 @@ export function partition<T, U>(
  */
 export function isEmptyIterable(iterable: Iterable<unknown>): boolean {
   for (const _ of iterable) {
-    // eslint-disable-line no-unused-vars, no-unreachable-loop
     return false;
   }
 
