@@ -14,10 +14,6 @@ interface NothingMark {
   type: "nothing";
 }
 
-interface LastCursorPositionMark {
-  type: "lastCursorPosition";
-}
-
 interface DecoratedSymbolMark {
   type: "decoratedSymbol";
   symbolColor: string;
@@ -161,18 +157,6 @@ type ScopeType =
   | SurroundingPairScopeType
   | CustomRegexScopeType
   | OneOfScopeType;
-
-interface ContainingSurroundingPairModifier extends ContainingScopeModifier {
-  scopeType: SurroundingPairScopeType;
-}
-
-interface EverySurroundingPairModifier extends EveryScopeModifier {
-  scopeType: SurroundingPairScopeType;
-}
-
-type SurroundingPairModifier =
-  | ContainingSurroundingPairModifier
-  | EverySurroundingPairModifier;
 
 interface InteriorOnlyModifier {
   type: "interiorOnly";
