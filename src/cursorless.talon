@@ -20,3 +20,8 @@ tag: user.cursorless
     user.cursorless_wrap(cursorless_wrap_action, cursorless_target, cursorless_wrapper)
 
 {user.cursorless_homophone} settings: user.cursorless_show_settings_in_ide()
+
+{user.cursorless_show_scope_visualizer} <user.cursorless_scope_type> [{user.cursorless_visualization_type}]:
+    user.private_cursorless_show_scope_visualizer(cursorless_scope_type, cursorless_visualization_type or "content")
+{user.cursorless_hide_scope_visualizer}:
+    user.private_cursorless_hide_scope_visualizer()
