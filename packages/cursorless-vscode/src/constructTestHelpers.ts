@@ -17,7 +17,7 @@ import {
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
 import { TestHelpers } from "@cursorless/vscode-common";
-import type { TextEditor as VscodeTextEditor } from "vscode";
+import * as vscode from "vscode";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
@@ -62,7 +62,7 @@ export function constructTestHelpers(
     },
 
     setStoredTarget(
-      editor: VscodeTextEditor,
+      editor: vscode.TextEditor,
       key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
