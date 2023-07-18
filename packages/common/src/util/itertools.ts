@@ -50,3 +50,18 @@ export function partition<T, U>(
   }
   return [first, second];
 }
+
+/**
+ * Returns `true` if the given iterable is empty, `false` otherwise
+ *
+ * From https://github.com/sindresorhus/is-empty-iterable/blob/12d3b4f966170d9d85a2067f5326668d5bb910a0/index.js
+ * @param iterable The iterable to check
+ * @returns `true` if the iterable is empty, `false` otherwise
+ */
+export function isEmptyIterable(iterable: Iterable<unknown>): boolean {
+  for (const _ of iterable) {
+    return false;
+  }
+
+  return true;
+}
