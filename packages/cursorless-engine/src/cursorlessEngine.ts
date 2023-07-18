@@ -1,14 +1,21 @@
 import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
+import { CursorlessEngine } from "./api/CursorlessEngineApi";
+import { ScopeProvider } from "./api/ScopeProvider";
+import { ScopeRangeProvider } from "./ScopeVisualizer/ScopeRangeProvider";
+import { ScopeSupportChecker } from "./ScopeVisualizer/ScopeSupportChecker";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
+import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
+import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
-import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
-import { runCommand } from "./runCommand";
+import { ScopeRangeWatcher } from "./ScopeVisualizer/ScopeRangeWatcher";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -68,6 +75,7 @@ export function createCursorlessEngine(
         );
       },
     },
+    scopeProvider: createScopeProvider(languageDefinitions, storedTargets),
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
@@ -78,26 +86,31 @@ export function createCursorlessEngine(
   };
 }
 
-export interface CommandApi {
-  /**
-   * Runs a command.  This is the core of the Cursorless engine.
-   * @param command The command to run
-   */
-  runCommand(command: Command): Promise<unknown>;
+function createScopeProvider(
+  languageDefinitions: LanguageDefinitions,
+  storedTargets: StoredTargetMap,
+): ScopeProvider {
+  const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
 
-  /**
-   * Designed to run commands that come directly from the user.  Ensures that
-   * the command args are of the correct shape.
-   */
-  runCommandSafe(...args: unknown[]): Promise<unknown>;
-}
+  const rangeProvider = new ScopeRangeProvider(
+    scopeHandlerFactory,
+    new ModifierStageFactoryImpl(
+      languageDefinitions,
+      storedTargets,
+      scopeHandlerFactory,
+    ),
+  );
 
-export interface CursorlessEngine {
-  commandApi: CommandApi;
-  testCaseRecorder: TestCaseRecorder;
-  storedTargets: StoredTargetMap;
-  hatTokenMap: HatTokenMapImpl;
-  snippets: Snippets;
-  injectIde: (ide: IDE | undefined) => void;
-  runIntegrationTests: () => Promise<void>;
+  const rangeWatcher = new ScopeRangeWatcher(rangeProvider);
+  const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
+
+  return {
+    provideScopeRanges: rangeProvider.provideScopeRanges,
+    provideIterationScopeRanges: rangeProvider.provideIterationScopeRanges,
+    onDidChangeScopeRanges: rangeWatcher.onDidChangeScopeRanges,
+    onDidChangeIterationScopeRanges:
+      rangeWatcher.onDidChangeIterationScopeRanges,
+    getScopeSupport: supportChecker.getScopeSupport,
+    getIterationScopeSupport: supportChecker.getIterationScopeSupport,
+  };
 }

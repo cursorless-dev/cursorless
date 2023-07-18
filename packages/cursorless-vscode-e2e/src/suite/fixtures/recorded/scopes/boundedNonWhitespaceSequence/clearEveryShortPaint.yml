@@ -1,0 +1,24 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: clear every short paint
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: boundedNonWhitespaceSequence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo(aa|aa-().c_d bb|bb-().'')
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: foo( )
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

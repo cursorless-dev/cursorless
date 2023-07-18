@@ -17,11 +17,11 @@ import {
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
+import { StoredTargetMap } from "..";
 import { ide } from "../singletons/ide.singleton";
-import { cleanUpTestCaseCommand } from "../testUtil/cleanUpTestCaseCommand";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { StoredTargetMap } from "..";
+import { getPartialTargetDescriptors } from "../util/getPartialTargetDescriptors";
 
 export class TestCase {
   private languageId: string;
@@ -48,12 +48,12 @@ export class TestCase {
     private extraSnapshotFields?: ExtraSnapshotField[],
   ) {
     const activeEditor = ide().activeTextEditor!;
-    this.command = cleanUpTestCaseCommand(command);
-
-    this.targetKeys = command.targets.map(extractTargetKeys).flat();
-
+    this.command = command;
+    this.partialTargetDescriptors = getPartialTargetDescriptors(command.action);
+    this.targetKeys = this.partialTargetDescriptors
+      .map(extractTargetKeys)
+      .flat();
     this.languageId = activeEditor.document.languageId;
-    this.partialTargetDescriptors = command.targets;
     this._awaitingFinalMarkInfo = isHatTokenMapTest;
   }
 

@@ -1,0 +1,22 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear pair
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "def funk(words:list<str>):"
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks: {}
+finalState:
+  documentContents: "def funk(words:list):"
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}

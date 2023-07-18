@@ -6,7 +6,7 @@ import {
 import { zip } from "lodash";
 import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../../core/updateSelections/updateSelections";
-import { EditTarget, State } from "./EditNew.types";
+import { EditDestination, State } from "./EditNew.types";
 
 /**
  * Handle targets that will use an edit action to insert a new target, and
@@ -26,23 +26,25 @@ export async function runEditTargets(
   editor: EditableTextEditor,
   state: State,
 ): Promise<State> {
-  const targets: EditTarget[] = state.targets
-    .map((target, index) => {
-      const actionType = target.getEditNewActionType();
+  const destinations: EditDestination[] = state.destinations
+    .map((destination, index) => {
+      const actionType = destination.getEditNewActionType();
       if (actionType === "edit") {
         return {
-          target,
+          destination,
           index,
         };
       }
     })
-    .filter((target): target is EditTarget => !!target);
+    .filter((destination): destination is EditDestination => !!destination);
 
-  if (targets.length === 0) {
+  if (destinations.length === 0) {
     return state;
   }
 
-  const edits = targets.map((target) => target.target.constructChangeEdit(""));
+  const edits = destinations.map((destination) =>
+    destination.destination.constructChangeEdit(""),
+  );
 
   const thatSelections = {
     selections: state.thatRanges.map((r) => r.toSelection(false)),
@@ -86,14 +88,14 @@ export async function runEditTargets(
   });
 
   // Add cursor positions for our edit targets.
-  targets.forEach((delimiterTarget, index) => {
+  destinations.forEach((delimiterTarget, index) => {
     const edit = edits[index];
     const range = edit.updateRange(updatedEditSelections[index]);
     updatedCursorRanges[delimiterTarget.index] = range;
   });
 
   return {
-    targets: state.targets,
+    destinations: state.destinations,
     thatRanges: updatedThatSelections,
     cursorRanges: updatedCursorRanges,
   };

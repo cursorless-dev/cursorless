@@ -50,6 +50,23 @@
       {
         "scope": {
           "langIds": [
+            "go"
+          ]
+        },
+        "body": [
+          "func $name($parameterList) {",
+          "\t$body",
+          "}"
+        ],
+        "variables": {
+          "name": {
+            "formatter": "camelCase"
+          }
+        }
+      },
+      {
+        "scope": {
+          "langIds": [
             "python"
           ]
         },

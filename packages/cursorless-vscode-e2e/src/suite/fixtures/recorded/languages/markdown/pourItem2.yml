@@ -1,0 +1,27 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: pour item
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    * aaa bbb
+    * ccc ddd
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks: {}
+finalState:
+  documentContents: |-
+    * aaa bbb
+    * 
+    * ccc ddd
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
