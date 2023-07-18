@@ -7,8 +7,6 @@ import type {
 } from "..";
 import { FlashStyle, isLineRange } from "..";
 import { Token } from "../types/Token";
-import { Position } from "../types/Position";
-import { Range } from "../types/Range";
 import { Selection } from "../types/Selection";
 
 export type PositionPlainObject = {
@@ -85,7 +83,23 @@ export type SerializedMarks = {
   [decoratedCharacter: string]: RangePlainObject;
 };
 
-export function rangeToPlainObject(range: Range): RangePlainObject {
+/**
+ * Simplified Position interface containing only what we need for serialization
+ */
+interface SimplePosition {
+  line: number;
+  character: number;
+}
+
+/**
+ * Simplified Range interface containing only what we need for serialization
+ */
+interface SimpleRange {
+  start: SimplePosition;
+  end: SimplePosition;
+}
+
+export function rangeToPlainObject(range: SimpleRange): RangePlainObject {
   return {
     start: positionToPlainObject(range.start),
     end: positionToPlainObject(range.end),
@@ -104,7 +118,7 @@ export function selectionToPlainObject(
 export function positionToPlainObject({
   line,
   character,
-}: Position): PositionPlainObject {
+}: SimplePosition): PositionPlainObject {
   return { line, character };
 }
 

@@ -1031,6 +1031,40 @@
       ]
     },
     {
+      "name": "Scope visualizer",
+      "id": "scopeVisualizer",
+      "items": [
+        {
+          "id": "hideScopeVisualizer",
+          "type": "command",
+          "variations": [
+            {
+              "spokenForm": "visualize nothing",
+              "description": "Hide scope visualizer"
+            }
+          ]
+        },
+        {
+          "id": "show_scope_visualizer",
+          "type": "command",
+          "variations": [
+            {
+              "spokenForm": "visualize <scope>",
+              "description": "Visualize <scope>"
+            },
+            {
+              "spokenForm": "visualize <scope> removal",
+              "description": "Visualize <scope> removal range"
+            },
+            {
+              "spokenForm": "visualize <scope> iteration",
+              "description": "Visualize <scope> iteration range"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Scopes",
       "id": "scopes",
       "items": [
@@ -1371,6 +1405,16 @@
             {
               "spokenForm": "selector",
               "description": "Selector"
+            }
+          ]
+        },
+        {
+          "id": "sentence",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "sentence",
+              "description": "Sentence"
             }
           ]
         },
