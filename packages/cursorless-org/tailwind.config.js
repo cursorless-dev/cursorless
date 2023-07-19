@@ -74,6 +74,7 @@ module.exports = {
         xs: "1.2em",
         lg: "1.8em",
         "2xl": "2.4em",
+        "3xl": "3.6em",
       },
       colors: {
         salmon: {
