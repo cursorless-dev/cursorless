@@ -143,6 +143,10 @@ def update_dicts(
     results_map = {}
     for list_name, dict in default_values.items():
         for key, value in dict.items():
+            if value in results_map:
+                warning = f"WARNING: Duplicate value `{value}` in {list_name}.csv"
+                print(warning)
+                app.notify(warning)
             results_map[value] = {"key": key, "value": value, "list": list_name}
 
     # Update result with current values
