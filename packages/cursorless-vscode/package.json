@@ -680,6 +680,69 @@
             },
             "crosshairs": {
               "type": "boolean"
+            },
+            "bridge": {
+              "type": "boolean"
+            },
+            "church": {
+              "type": "boolean"
+            },
+            "fang": {
+              "type": "boolean"
+            },
+            "fez": {
+              "type": "boolean"
+            },
+            "flake": {
+              "type": "boolean"
+            },
+            "gem": {
+              "type": "boolean"
+            },
+            "horn": {
+              "type": "boolean"
+            },
+            "knight": {
+              "type": "boolean"
+            },
+            "leaf": {
+              "type": "boolean"
+            },
+            "meeple": {
+              "type": "boolean"
+            },
+            "moon": {
+              "type": "boolean"
+            },
+            "mosque": {
+              "type": "boolean"
+            },
+            "pail": {
+              "type": "boolean"
+            },
+            "pawn": {
+              "type": "boolean"
+            },
+            "rook": {
+              "type": "boolean"
+            },
+            "shroom": {
+              "type": "boolean"
+            },
+            "singer": {
+              "type": "boolean"
+            },
+            "stair": {
+              "type": "boolean"
+            },
+            "stupa": {
+              "type": "boolean"
+            },
+            "tree": {
+              "type": "boolean"
+            },
+            "wave": {
+              "type": "boolean"
             }
           },
           "default": {
@@ -692,7 +755,28 @@
             "eye": false,
             "play": false,
             "bolt": false,
-            "crosshairs": false
+            "crosshairs": false,
+            "bridge": false,
+            "church": false,
+            "fang": false,
+            "fez": false,
+            "flake": false,
+            "gem": false,
+            "horn": false,
+            "knight": false,
+            "leaf": false,
+            "meeple": false,
+            "moon": false,
+            "mosque": false,
+            "pail": false,
+            "pawn": false,
+            "rook": false,
+            "shroom": false,
+            "singer": false,
+            "stair": false,
+            "stupa": false,
+            "tree": false,
+            "wave": false
           },
           "additionalProperties": false
         },
@@ -771,6 +855,69 @@
             },
             "crosshairs": {
               "type": "number"
+            },
+            "bridge": {
+              "type": "number"
+            },
+            "church": {
+              "type": "number"
+            },
+            "fang": {
+              "type": "number"
+            },
+            "fez": {
+              "type": "number"
+            },
+            "flake": {
+              "type": "number"
+            },
+            "gem": {
+              "type": "number"
+            },
+            "horn": {
+              "type": "number"
+            },
+            "knight": {
+              "type": "number"
+            },
+            "leaf": {
+              "type": "number"
+            },
+            "meeple": {
+              "type": "number"
+            },
+            "moon": {
+              "type": "number"
+            },
+            "mosque": {
+              "type": "number"
+            },
+            "pail": {
+              "type": "number"
+            },
+            "pawn": {
+              "type": "number"
+            },
+            "rook": {
+              "type": "number"
+            },
+            "shroom": {
+              "type": "number"
+            },
+            "singer": {
+              "type": "number"
+            },
+            "stair": {
+              "type": "number"
+            },
+            "stupa": {
+              "type": "number"
+            },
+            "tree": {
+              "type": "number"
+            },
+            "wave": {
+              "type": "number"
             }
           },
           "default": {
@@ -783,7 +930,28 @@
             "eye": 1,
             "play": 1,
             "bolt": 1,
-            "crosshairs": 1
+            "crosshairs": 1,
+            "bridge": 1,
+            "church": 1,
+            "fang": 1,
+            "fez": 1,
+            "flake": 1,
+            "gem": 1,
+            "horn": 1,
+            "knight": 1,
+            "leaf": 1,
+            "meeple": 1,
+            "moon": 1,
+            "mosque": 1,
+            "pail": 1,
+            "pawn": 1,
+            "rook": 1,
+            "shroom": 1,
+            "singer": 1,
+            "stair": 1,
+            "stupa": 1,
+            "tree": 1,
+            "wave": 1
           },
           "additionalProperties": false
         },
@@ -832,6 +1000,90 @@
               "verticalOffset": 0
             },
             "crosshairs": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "bridge": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "church": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "fang": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "fez": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "flake": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "gem": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "horn": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "knight": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "leaf": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "meeple": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "moon": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "mosque": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "pail": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "pawn": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "rook": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "shroom": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "singer": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "stair": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "stupa": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "tree": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "wave": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             }
@@ -934,7 +1186,28 @@
               "eye",
               "play",
               "bolt",
-              "crosshairs"
+              "crosshairs",
+              "bridge",
+              "church",
+              "fang",
+              "fez",
+              "flake",
+              "gem",
+              "horn",
+              "knight",
+              "leaf",
+              "meeple",
+              "moon",
+              "mosque",
+              "pail",
+              "pawn",
+              "rook",
+              "shroom",
+              "singer",
+              "stair",
+              "stupa",
+              "tree",
+              "wave"
             ]
           }
         },
