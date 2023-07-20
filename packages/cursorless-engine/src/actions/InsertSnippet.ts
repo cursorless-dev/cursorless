@@ -1,4 +1,5 @@
 import {
+  InsertSnippetArg,
   RangeExpansionBehavior,
   ScopeType,
   Snippet,
@@ -13,32 +14,19 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
+import { UntypedTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
 import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Target } from "../typings/target.types";
+import { Destination, Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
-import { UntypedTarget } from "../processTargets/targets";
+import { ActionReturnValue } from "./actions.types";
 
-interface NamedSnippetArg {
-  type: "named";
-  name: string;
-  substitutions?: Record<string, string>;
-}
-interface CustomSnippetArg {
-  type: "custom";
-  body: string;
-  scopeType?: ScopeType;
-  substitutions?: Record<string, string>;
-}
-type InsertSnippetArg = NamedSnippetArg | CustomSnippetArg;
-
-export default class InsertSnippet implements Action {
+export default class InsertSnippet {
   private snippetParser = new SnippetParser();
 
   constructor(
@@ -50,7 +38,7 @@ export default class InsertSnippet implements Action {
     this.run = this.run.bind(this);
   }
 
-  getPrePositionStages(snippetDescription: InsertSnippetArg) {
+  getFinalStages(snippetDescription: InsertSnippetArg) {
     const defaultScopeTypes = this.getScopeTypes(snippetDescription);
 
     return defaultScopeTypes.length === 0
@@ -121,12 +109,14 @@ export default class InsertSnippet implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    destinations: Destination[],
     snippetDescription: InsertSnippetArg,
   ): Promise<ActionReturnValue> {
-    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
+    const editor = ide().getEditableTextEditor(
+      ensureSingleEditor(destinations),
+    );
 
-    await this.actions.editNew.run([targets]);
+    await this.actions.editNew.run(destinations);
 
     const targetSelectionInfos = editor.selections.map((selection) =>
       getSelectionInfo(

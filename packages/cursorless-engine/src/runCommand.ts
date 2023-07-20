@@ -37,7 +37,7 @@ export async function runCommand(
 ): Promise<unknown> {
   if (debug.active) {
     debug.log(`command:`);
-    debug.log(JSON.stringify(command, null, 3));
+    debug.log(JSON.stringify(command, null, 2));
   }
 
   const commandComplete = canonicalizeAndValidateCommand(command);

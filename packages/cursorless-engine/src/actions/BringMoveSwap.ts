@@ -1,5 +1,6 @@
 import {
   FlashStyle,
+  Range,
   RangeExpansionBehavior,
   Selection,
   TextEditor,
@@ -12,7 +13,7 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { EditWithRangeUpdater } from "../typings/Types";
-import { Target } from "../typings/target.types";
+import { Destination, Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import {
   flashTargets,
@@ -20,7 +21,7 @@ import {
   runForEachEditor,
 } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
 
@@ -38,72 +39,45 @@ interface MarkEntry {
   target: Target;
 }
 
-class BringMoveSwap implements Action {
-  constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {
-    this.run = this.run.bind(this);
-  }
+abstract class BringMoveSwap {
+  protected abstract decoration: {
+    sourceStyle: FlashStyle;
+    destinationStyle: FlashStyle;
+    getSourceRangeCallback: (target: Target) => Range;
+  };
 
-  private broadcastSource(sources: Target[], destinations: Target[]) {
-    if (sources.length === 1 && this.type !== "swap") {
-      // If there is only one source target, expand it to same length as
-      // destination target
-      return Array(destinations.length).fill(sources[0]);
-    }
-    return sources;
-  }
+  constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {}
 
-  private getDecorationContext() {
-    let sourceStyle: FlashStyle;
-    let getSourceRangeCallback;
-    if (this.type === "bring") {
-      sourceStyle = FlashStyle.referenced;
-      getSourceRangeCallback = getContentRange;
-    } else if (this.type === "move") {
-      sourceStyle = FlashStyle.pendingDelete;
-      getSourceRangeCallback = getRemovalHighlightRange;
-    }
-    // NB this.type === "swap"
-    else {
-      sourceStyle = FlashStyle.pendingModification1;
-      getSourceRangeCallback = getContentRange;
-    }
-    return {
-      sourceStyle,
-      destinationStyle: FlashStyle.pendingModification0,
-      getSourceRangeCallback,
-    };
-  }
-
-  private async decorateTargets(sources: Target[], destinations: Target[]) {
-    const decorationContext = this.getDecorationContext();
+  protected async decorateTargets(sources: Target[], destinations: Target[]) {
     await Promise.all([
       flashTargets(
         ide(),
         sources,
-        decorationContext.sourceStyle,
-        decorationContext.getSourceRangeCallback,
+        this.decoration.sourceStyle,
+        this.decoration.getSourceRangeCallback,
       ),
-      flashTargets(ide(), destinations, decorationContext.destinationStyle),
+      flashTargets(ide(), destinations, this.decoration.destinationStyle),
     ]);
   }
 
-  private getEdits(sources: Target[], destinations: Target[]): ExtendedEdit[] {
+  protected getEditsBringMove(
+    sources: Target[],
+    destinations: Destination[],
+  ): ExtendedEdit[] {
     const usedSources: Target[] = [];
     const results: ExtendedEdit[] = [];
-    const zipSources =
-      sources.length !== destinations.length &&
-      destinations.length === 1 &&
-      this.type !== "swap";
+    const shouldJoinSources =
+      sources.length !== destinations.length && destinations.length === 1;
 
     sources.forEach((source, i) => {
       let destination = destinations[i];
-      if ((source == null || destination == null) && !zipSources) {
+      if ((source == null || destination == null) && !shouldJoinSources) {
         throw new Error("Targets must have same number of args");
       }
 
       if (destination != null) {
         let text: string;
-        if (zipSources) {
+        if (shouldJoinSources) {
           text = sources
             .map((source, i) => {
               const text = source.contentText;
@@ -120,7 +94,7 @@ class BringMoveSwap implements Action {
         results.push({
           edit: destination.constructChangeEdit(text),
           editor: destination.editor,
-          originalTarget: destination,
+          originalTarget: destination.target,
           isSource: false,
         });
       } else {
@@ -131,9 +105,11 @@ class BringMoveSwap implements Action {
       // Prevent multiple instances of the same expanded source.
       if (!usedSources.includes(source)) {
         usedSources.push(source);
-        if (this.type !== "move") {
+        if (this.type === "bring") {
           results.push({
-            edit: source.constructChangeEdit(destination.contentText),
+            edit: source
+              .toDestination("to")
+              .constructChangeEdit(destination.target.contentText),
             editor: source.editor,
             originalTarget: source,
             isSource: true,
@@ -157,7 +133,7 @@ class BringMoveSwap implements Action {
     return results;
   }
 
-  private async performEditsAndComputeThatMark(
+  protected async performEditsAndComputeThatMark(
     edits: ExtendedEdit[],
   ): Promise<MarkEntry[]> {
     return flatten(
@@ -270,15 +246,14 @@ class BringMoveSwap implements Action {
     });
   }
 
-  private async decorateThatMark(thatMark: MarkEntry[]) {
-    const decorationContext = this.getDecorationContext();
+  protected async decorateThatMark(thatMark: MarkEntry[]) {
     const getRange = (target: Target) =>
       thatMark.find((t) => t.target === target)!.selection;
     return Promise.all([
       flashTargets(
         ide(),
         thatMark.filter(({ isSource }) => isSource).map(({ target }) => target),
-        decorationContext.sourceStyle,
+        this.decoration.sourceStyle,
         getRange,
       ),
       flashTargets(
@@ -286,41 +261,57 @@ class BringMoveSwap implements Action {
         thatMark
           .filter(({ isSource }) => !isSource)
           .map(({ target }) => target),
-        decorationContext.destinationStyle,
+        this.decoration.destinationStyle,
         getRange,
       ),
     ]);
   }
 
-  private calculateMarks(markEntries: MarkEntry[]) {
-    // Only swap has sources as a "that" mark
-    const thatMark =
-      this.type === "swap"
-        ? markEntries
-        : markEntries.filter(({ isSource }) => !isSource);
+  protected calculateMarksBringMove(markEntries: MarkEntry[]) {
+    return {
+      thatMark: markEntries.filter(({ isSource }) => !isSource),
+      sourceMark: markEntries.filter(({ isSource }) => isSource),
+    };
+  }
+}
 
-    // Only swap doesn't have a source mark
-    const sourceMark =
-      this.type === "swap"
-        ? []
-        : markEntries.filter(({ isSource }) => isSource);
+function broadcastSource(sources: Target[], destinations: Destination[]) {
+  if (sources.length === 1) {
+    // If there is only one source target, expand it to same length as
+    // destination target
+    return Array(destinations.length).fill(sources[0]);
+  }
+  return sources;
+}
 
-    return { thatMark, sourceMark };
+export class Bring extends BringMoveSwap {
+  decoration = {
+    sourceStyle: FlashStyle.referenced,
+    destinationStyle: FlashStyle.pendingModification0,
+    getSourceRangeCallback: getContentRange,
+  };
+
+  constructor(rangeUpdater: RangeUpdater) {
+    super(rangeUpdater, "bring");
+    this.run = this.run.bind(this);
   }
 
-  async run([sources, destinations]: [
-    Target[],
-    Target[],
-  ]): Promise<ActionReturnValue> {
-    sources = this.broadcastSource(sources, destinations);
+  async run(
+    sources: Target[],
+    destinations: Destination[],
+  ): Promise<ActionReturnValue> {
+    sources = broadcastSource(sources, destinations);
 
-    await this.decorateTargets(sources, destinations);
+    await this.decorateTargets(
+      sources,
+      destinations.map((d) => d.target),
+    );
 
-    const edits = this.getEdits(sources, destinations);
+    const edits = this.getEditsBringMove(sources, destinations);
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
-    const { thatMark, sourceMark } = this.calculateMarks(markEntries);
+    const { thatMark, sourceMark } = this.calculateMarksBringMove(markEntries);
 
     await this.decorateThatMark(thatMark);
 
@@ -328,21 +319,99 @@ class BringMoveSwap implements Action {
   }
 }
 
-export class Bring extends BringMoveSwap {
-  constructor(rangeUpdater: RangeUpdater) {
-    super(rangeUpdater, "bring");
-  }
-}
-
 export class Move extends BringMoveSwap {
+  decoration = {
+    sourceStyle: FlashStyle.pendingDelete,
+    destinationStyle: FlashStyle.pendingModification0,
+    getSourceRangeCallback: getRemovalHighlightRange,
+  };
+
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "move");
+    this.run = this.run.bind(this);
+  }
+
+  async run(
+    sources: Target[],
+    destinations: Destination[],
+  ): Promise<ActionReturnValue> {
+    sources = broadcastSource(sources, destinations);
+
+    await this.decorateTargets(
+      sources,
+      destinations.map((d) => d.target),
+    );
+
+    const edits = this.getEditsBringMove(sources, destinations);
+
+    const markEntries = await this.performEditsAndComputeThatMark(edits);
+
+    const { thatMark, sourceMark } = this.calculateMarksBringMove(markEntries);
+
+    await this.decorateThatMark(thatMark);
+
+    return { thatSelections: thatMark, sourceSelections: sourceMark };
   }
 }
 
 export class Swap extends BringMoveSwap {
+  decoration = {
+    sourceStyle: FlashStyle.pendingModification1,
+    destinationStyle: FlashStyle.pendingModification0,
+    getSourceRangeCallback: getContentRange,
+  };
+
   constructor(rangeUpdater: RangeUpdater) {
     super(rangeUpdater, "swap");
+    this.run = this.run.bind(this);
+  }
+
+  async run(
+    targets1: Target[],
+    targets2: Target[],
+  ): Promise<ActionReturnValue> {
+    await this.decorateTargets(targets1, targets2);
+
+    const edits = this.getEditsSwap(targets1, targets2);
+
+    const markEntries = await this.performEditsAndComputeThatMark(edits);
+
+    await this.decorateThatMark(markEntries);
+
+    return { thatSelections: markEntries, sourceSelections: [] };
+  }
+
+  private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
+    const results: ExtendedEdit[] = [];
+
+    targets1.forEach((target1, i) => {
+      const target2 = targets2[i];
+      if (target1 == null || target2 == null) {
+        throw new Error("Targets must have same number of args");
+      }
+
+      // Add destination edit
+      results.push({
+        edit: target2
+          .toDestination("to")
+          .constructChangeEdit(target1.contentText),
+        editor: target2.editor,
+        originalTarget: target2,
+        isSource: false,
+      });
+
+      // Add source edit
+      results.push({
+        edit: target1
+          .toDestination("to")
+          .constructChangeEdit(target2.contentText),
+        editor: target1.editor,
+        originalTarget: target1,
+        isSource: true,
+      });
+    });
+
+    return results;
   }
 }
 

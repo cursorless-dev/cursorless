@@ -46,7 +46,6 @@ scope_types = {
     "-six section": "sectionLevelSix",
     "selector": "selector",
     "state": "statement",
-    "string": "string",
     "branch": "branch",
     "type": "type",
     "value": "value",

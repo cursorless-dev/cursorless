@@ -65,7 +65,9 @@
     "onCommand:cursorless.showDocumentation",
     "onCommand:cursorless.showQuickPick",
     "onCommand:cursorless.takeSnapshot",
-    "onCommand:cursorless.toggleDecorations"
+    "onCommand:cursorless.toggleDecorations",
+    "onCommand:cursorless.showScopeVisualizer",
+    "onCommand:cursorless.hideScopeVisualizer"
   ],
   "main": "./extension.js",
   "capabilities": {
@@ -167,6 +169,16 @@
       {
         "command": "cursorless.keyboard.modal.modeToggle",
         "title": "Cursorless: Toggle the cursorless modal mode",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.showScopeVisualizer",
+        "title": "Cursorless: Show the scope visualizer",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.hideScopeVisualizer",
+        "title": "Cursorless: Hide the scope visualizer",
         "enablement": "false"
       }
     ],
@@ -398,6 +410,198 @@
             "userColor2": "#ffd8b1"
           },
           "additionalProperties": false
+        },
+        "cursorless.scopeVisualizer.colors.dark": {
+          "description": "Colors to use for scope visualizer with dark themes",
+          "type": "object",
+          "properties": {
+            "domain": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            },
+            "content": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            },
+            "removal": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            },
+            "iteration": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            }
+          },
+          "default": {
+            "domain": {
+              "background": "#00e1ff18",
+              "borderSolid": "#ebdeec84",
+              "borderPorous": "#ebdeec3b"
+            },
+            "content": {
+              "background": "#ad00bc5b",
+              "borderSolid": "#ee00ff78",
+              "borderPorous": "#ebdeec3b"
+            },
+            "removal": {
+              "background": "#ff00002d",
+              "borderSolid": "#ff000078",
+              "borderPorous": "#ff00004a"
+            },
+            "iteration": {
+              "background": "#00725f6c",
+              "borderSolid": "#00ffd578",
+              "borderPorous": "#00ffd525"
+            }
+          }
+        },
+        "cursorless.scopeVisualizer.colors.light": {
+          "description": "Colors to use for scope visualizer with light themes",
+          "type": "object",
+          "properties": {
+            "domain": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            },
+            "content": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            },
+            "removal": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            },
+            "iteration": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderSolid": {
+                  "type": "string",
+                  "format": "color"
+                },
+                "borderPorous": {
+                  "type": "string",
+                  "format": "color"
+                }
+              }
+            }
+          },
+          "default": {
+            "domain": {
+              "background": "#00e1ff18",
+              "borderSolid": "#19171984",
+              "borderPorous": "#1211123b"
+            },
+            "content": {
+              "background": "#ad00bc5b",
+              "borderSolid": "#ee00ff78",
+              "borderPorous": "#ee00ff4e"
+            },
+            "removal": {
+              "background": "#ff00002d",
+              "borderSolid": "#ff000078",
+              "borderPorous": "#ff00004a"
+            },
+            "iteration": {
+              "background": "#00725f6c",
+              "borderSolid": "#00ffd578",
+              "borderPorous": "#00ffd525"
+            }
+          }
         },
         "cursorless.hatEnablement.colors": {
           "description": "Which colors to enable",
@@ -846,7 +1050,7 @@
     "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
@@ -871,8 +1075,11 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
+    "@types/tinycolor2": "1.4.3",
+    "itertools": "^2.1.1",
     "lodash": "^4.17.21",
     "semver": "^7.3.9",
+    "tinycolor2": "1.6.0",
     "uuid": "^9.0.0",
     "vscode-uri": "^3.0.6"
   }

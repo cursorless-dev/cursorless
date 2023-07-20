@@ -1,10 +1,18 @@
+import type {
+  ExecuteCommandOptions,
+  GetTextActionOptions,
+  HighlightId,
+  InsertSnippetArg,
+  ReplaceWith,
+  SimpleActionName,
+  WrapWithSnippetArg,
+} from "@cursorless/common";
 import type { ModifierStage } from "../processTargets/PipelineStages.types";
-import type { Target } from "../typings/target.types";
 import type { SelectionWithEditor } from "../typings/Types";
-import type { ActionType } from "@cursorless/common";
+import type { Destination, Target } from "../typings/target.types";
 
 /**
- * To be returned by {@link Action.run}
+ * To be returned by {@link SimpleAction.run}
  */
 export interface ActionReturnValue {
   /**
@@ -46,23 +54,113 @@ export interface ActionReturnValue {
   instanceReferenceTargets?: Target[];
 }
 
-export interface Action {
-  run(targets: Target[][], ...args: any[]): Promise<ActionReturnValue>;
-
-  /**
-   * Used to define stages that should be run before the final positional stage, if there is one
-   * @param args Extra args to command
-   */
-  getPrePositionStages?(...args: any[]): ModifierStage[];
+export interface SimpleAction {
+  run(targets: Target[]): Promise<ActionReturnValue>;
 
   /**
    * Used to define final stages that should be run at the end of the pipeline before the action
    * @param args Extra args to command
    */
-  getFinalStages?(...args: any[]): ModifierStage[];
+  getFinalStages?(): ModifierStage[];
 }
 
 /**
  * Keeps a map from action names to objects that implement the given action
  */
-export type ActionRecord = Record<ActionType, Action>;
+export interface ActionRecord extends Record<SimpleActionName, SimpleAction> {
+  callAsFunction: {
+    run(callees: Target[], args: Target[]): Promise<ActionReturnValue>;
+  };
+
+  replaceWithTarget: {
+    run(
+      sources: Target[],
+      destinations: Destination[],
+    ): Promise<ActionReturnValue>;
+  };
+
+  moveToTarget: {
+    run(
+      sources: Target[],
+      destinations: Destination[],
+    ): Promise<ActionReturnValue>;
+  };
+
+  swapTargets: {
+    run(targets1: Target[], targets2: Target[]): Promise<ActionReturnValue>;
+  };
+
+  wrapWithPairedDelimiter: {
+    run(
+      targets: Target[],
+      left: string,
+      right: string,
+    ): Promise<ActionReturnValue>;
+  };
+
+  rewrapWithPairedDelimiter: {
+    run(
+      targets: Target[],
+      left: string,
+      right: string,
+    ): Promise<ActionReturnValue>;
+    getFinalStages(): ModifierStage[];
+  };
+
+  pasteFromClipboard: {
+    run(destinations: Destination[]): Promise<ActionReturnValue>;
+  };
+
+  generateSnippet: {
+    run(targets: Target[], snippetName?: string): Promise<ActionReturnValue>;
+  };
+
+  insertSnippet: {
+    run(
+      destinations: Destination[],
+      snippetDescription: InsertSnippetArg,
+    ): Promise<ActionReturnValue>;
+    getFinalStages(snippetDescription: InsertSnippetArg): ModifierStage[];
+  };
+
+  wrapWithSnippet: {
+    run(
+      targets: Target[],
+      snippetDescription: WrapWithSnippetArg,
+    ): Promise<ActionReturnValue>;
+    getFinalStages(snippetDescription: WrapWithSnippetArg): ModifierStage[];
+  };
+
+  editNew: {
+    run(destinations: Destination[]): Promise<ActionReturnValue>;
+  };
+
+  executeCommand: {
+    run(
+      targets: Target[],
+      commandId: string,
+      options?: ExecuteCommandOptions,
+    ): Promise<ActionReturnValue>;
+  };
+
+  replace: {
+    run(
+      destinations: Destination[],
+      replaceWith: ReplaceWith,
+    ): Promise<ActionReturnValue>;
+  };
+
+  highlight: {
+    run(
+      targets: Target[],
+      highlightId?: HighlightId,
+    ): Promise<ActionReturnValue>;
+  };
+
+  getText: {
+    run(
+      target: Target[],
+      options?: GetTextActionOptions,
+    ): Promise<ActionReturnValue>;
+  };
+}

@@ -1,4 +1,4 @@
-import type { TargetPlainObject, TargetPosition } from "@cursorless/common";
+import type { InsertionMode, TargetPlainObject } from "@cursorless/common";
 import {
   NoContainingScopeError,
   Range,
@@ -8,13 +8,13 @@ import {
 } from "@cursorless/common";
 import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
-import type { EditNewActionType, Target } from "../../typings/target.types";
+import type { Destination, Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
-import { toPositionTarget } from "../modifiers/toPositionTarget";
 import {
   createContinuousRange,
   createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import { DestinationImpl } from "./DestinationImpl";
 
 /** Parameters supported by all target classes */
 export interface MinimumTargetParameters {
@@ -87,24 +87,12 @@ export default abstract class BaseTarget<
     return this.state.contentRange;
   }
 
-  constructChangeEdit(text: string): EditWithRangeUpdater {
-    return {
-      range: this.contentRange,
-      text,
-      updateRange: (range) => range,
-    };
-  }
-
   constructRemovalEdit(): EditWithRangeUpdater {
     return {
       range: this.getRemovalRange(),
       text: "",
       updateRange: (range) => range,
     };
-  }
-
-  getEditNewActionType(): EditNewActionType {
-    return "edit";
   }
 
   getRemovalHighlightRange(): Range {
@@ -192,8 +180,8 @@ export default abstract class BaseTarget<
     };
   }
 
-  toPositionTarget(position: TargetPosition): Target {
-    return toPositionTarget(this, position);
+  toDestination(insertionMode: InsertionMode): Destination {
+    return new DestinationImpl(this, insertionMode);
   }
 
   /**

@@ -9,7 +9,7 @@ import {
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import { Destination } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
@@ -18,8 +18,10 @@ import { ActionReturnValue } from "./actions.types";
 export class PasteFromClipboard {
   constructor(private rangeUpdater: RangeUpdater, private actions: Actions) {}
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
-    const editor = ide().getEditableTextEditor(ensureSingleEditor(targets));
+  async run(destinations: Destination[]): Promise<ActionReturnValue> {
+    const editor = ide().getEditableTextEditor(
+      ensureSingleEditor(destinations),
+    );
     const originalEditor = ide().activeEditableTextEditor;
 
     // First call editNew in order to insert delimiters if necessary and leave
@@ -28,7 +30,7 @@ export class PasteFromClipboard {
     const [originalCursorSelections] = await callFunctionAndUpdateSelections(
       this.rangeUpdater,
       async () => {
-        await this.actions.editNew.run([targets]);
+        await this.actions.editNew.run(destinations);
       },
       editor.document,
       [editor.selections],
