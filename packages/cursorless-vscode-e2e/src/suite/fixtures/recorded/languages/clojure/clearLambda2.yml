@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear lambda
+  spokenForm: change lambda
   action: clearAndSetSelection
   targets:
     - type: primitive

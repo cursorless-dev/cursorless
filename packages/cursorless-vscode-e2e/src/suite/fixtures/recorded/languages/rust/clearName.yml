@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  spokenForm: clear name
+  spokenForm: change name
   version: 3
   targets:
     - type: primitive

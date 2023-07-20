@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear bounds double
+  spokenForm: change bounds double
   action: clearAndSetSelection
   targets:
     - type: primitive

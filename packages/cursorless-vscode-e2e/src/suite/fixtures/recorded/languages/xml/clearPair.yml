@@ -1,7 +1,7 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: clear pair
+  spokenForm: change pair
   action: clearAndSetSelection
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear past end of token
+  spokenForm: change past end of token
   action: clearAndSetSelection
   targets:
     - type: range

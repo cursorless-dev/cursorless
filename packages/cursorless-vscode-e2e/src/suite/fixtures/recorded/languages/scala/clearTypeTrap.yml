@@ -1,7 +1,7 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: clear type trap
+  spokenForm: change type trap
   action: clearAndSetSelection
   targets:
     - type: primitive

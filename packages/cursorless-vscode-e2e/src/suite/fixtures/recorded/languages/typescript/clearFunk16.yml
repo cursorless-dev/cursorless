@@ -1,7 +1,7 @@
 languageId: javascript
 command:
   version: 5
-  spokenForm: clear funk
+  spokenForm: change funk
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear round repper
+  spokenForm: change round repper
   action: clearAndSetSelection
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear bound
+  spokenForm: change bound
   action: clearAndSetSelection
   targets:
     - type: primitive

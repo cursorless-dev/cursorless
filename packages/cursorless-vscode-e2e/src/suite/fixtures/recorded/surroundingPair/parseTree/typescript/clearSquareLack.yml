@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear square lack
+  spokenForm: change square lack
   action: clearAndSetSelection
   targets:
     - type: primitive

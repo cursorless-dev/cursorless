@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear second until fourth item
+  spokenForm: change second until fourth item
   version: 3
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear bounds harp
+  spokenForm: change bounds harp
   action: clearAndSetSelection
   targets:
     - type: primitive

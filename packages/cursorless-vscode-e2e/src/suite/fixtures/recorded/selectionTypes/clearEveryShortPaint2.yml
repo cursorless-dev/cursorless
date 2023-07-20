@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear every short paint
+  spokenForm: change every short paint
   version: 2
   targets:
     - type: primitive

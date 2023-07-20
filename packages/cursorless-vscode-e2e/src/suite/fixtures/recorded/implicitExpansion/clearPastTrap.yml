@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 4
-  spokenForm: clear past trap
+  spokenForm: change past trap
   action: {name: clearAndSetSelection}
   targets:
     - type: range

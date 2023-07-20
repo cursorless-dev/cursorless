@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: clear every line funk blue air and cap past blue each
+  spokenForm: change every line funk blue air and cap past blue each
   action: {name: clearAndSetSelection}
   targets:
     - type: list

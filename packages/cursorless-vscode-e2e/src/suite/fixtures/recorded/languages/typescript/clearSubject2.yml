@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 3
-  spokenForm: clear subject
+  spokenForm: change subject
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

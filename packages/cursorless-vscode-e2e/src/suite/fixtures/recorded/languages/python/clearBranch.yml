@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear branch
+  spokenForm: change branch
   version: 3
   targets:
     - type: primitive

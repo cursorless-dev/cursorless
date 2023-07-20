@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear head funk
+  spokenForm: change head funk
   version: 2
   targets:
     - type: primitive

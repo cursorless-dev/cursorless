@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear value zip
+  spokenForm: change value zip
   action: clearAndSetSelection
   targets:
     - type: primitive
