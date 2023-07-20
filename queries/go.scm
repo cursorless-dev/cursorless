@@ -69,10 +69,9 @@
 ;; Mixed keyed and non-keyed elements are also rare in practice.
 ;; The main ambiguity is with {}, but there's little we can do about that.
 ;;
-;; Go users may also expect that the map and list scopes will include the type definition.
-;; However, there is a Cursorless type scope, and defining the map
-;; and list scope to include the type if present has proved to be extremely difficult.
-;; The sticking point is the "if present". It is easy to end up with duplicates.
+;; Go users also expect that the map and list scopes will include the type definition,
+;; as well as any & before the type. (Strictly speaking it is not part of the literal,
+;; but that's not how most humans think about it.)
 ;;
 ;; If you are considering changing the map and list scopes, here is a list of sample literals to consider.
 ;; Many of these are also covered by the tests, but it is helpful to have it all written down
