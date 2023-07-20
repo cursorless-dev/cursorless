@@ -101,9 +101,22 @@
 [
   (literal_value (keyed_element))
   (literal_value . "{" . "}" .)
-] @map
+] @map @collectionItem.iteration @collectionKey.iteration @value.iteration
 
 [
   (literal_value (literal_element))
   (literal_value . "{" . "}" .)
-] @list
+] @list @collectionItem.iteration @value.iteration
+
+(keyed_element
+  (_) @collectionKey
+  ":"
+  (_) @value
+) @collectionItem
+
+(
+  (literal_element) @_literal_element
+  (#not-parent-type? @_literal_element keyed_element)
+) @collectionItem
+
+(return_statement (expression_list) @value) @value.domain

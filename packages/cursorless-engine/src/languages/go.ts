@@ -30,11 +30,6 @@ const nodeMatchers: Partial<
     patternMatcher("parameter_declaration"),
     patternMatcher("argument_declaration"),
   ),
-  collectionKey: "keyed_element[0]",
-  value: cascadingMatcher(
-    patternMatcher("keyed_element[1]"),
-    patternMatcher("return_statement.expression_list!"),
-  ),
 };
 
 export default createPatternMatchers(nodeMatchers);
