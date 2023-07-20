@@ -122,9 +122,21 @@
   (#not-parent-type? @_lit_val composite_literal)
 ) @map @collectionItem.iteration @collectionKey.iteration @value.iteration
 
+;; &T{1}
+(unary_expression
+  operator: "&"
+  (composite_literal
+    body: (literal_value (literal_element))
+  )
+)
+@list @collectionItem.iteration @value.iteration
+
 ;; T{1}
-(composite_literal
-  body: (literal_value (literal_element))
+(
+  (composite_literal
+    body: (literal_value (literal_element))
+  ) @_comp_lit
+  (#not-parent-type? @_comp_lit unary_expression)
 )
 @list @collectionItem.iteration @value.iteration
 
@@ -135,10 +147,30 @@
 )
 @list @collectionItem.iteration @value.iteration
 
-(
-  literal_value . "{" . "}" .
-) @list @map
+;; &T{}
+(unary_expression
+  operator: "&"
+  (composite_literal
+    body: (literal_value . "{" . "}" . )
+  )
+)
+@list @map
 
+;; T{}
+(
+  (composite_literal
+    body: (literal_value . "{" . "}" . )
+  ) @_comp_lit
+  (#not-parent-type? @_comp_lit unary_expression)
+)
+@list @map
+
+;; {}
+(
+  (literal_value . "{" . "}" . ) @_lit_elem
+  (#not-parent-type? @_lit_elem composite_literal)
+)
+@list @map
 
 (keyed_element
   (_) @collectionKey
