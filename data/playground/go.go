@@ -1,5 +1,10 @@
 package p
 
+import (
+	"errors"
+	"fmt"
+)
+
 type S struct {
 	one, b int
 }
@@ -17,6 +22,7 @@ func foo() {
 	_ = M{1: 2}
 	_ = A{0: 1, 2}
 	_ = M{}
+	_ = &A{1, 1: 2}
 }
 
 func statements() error {
@@ -46,12 +52,12 @@ func statements() error {
 	go func() {
 		fmt.Println("concurrency is not parallelism")
 	}()
-	var e any = "how long is a piece of me?"
+	var a any = "how long is a piece of me?"
 	switch a := a.(type) {
 	case int:
 		panic("wow")
 	default:
-		return nil
+		_ = a
 	}
 	switch {
 	case x != 2:
@@ -65,7 +71,7 @@ Again:
 		x &= 1
 		goto Again
 	case 2:
-		return x*2 + x/3
+		return fmt.Errorf("%v", x*2+x/3)
 	}
 Label:
 	for x := 0; x < 10; x++ {

@@ -98,15 +98,47 @@
 ;; (Remember in all of these that types can be `any`, `a` might be a variable name or a struct field,
 ;; 1 might be a map key or an array/slice index, etc. There's a remarkable number of possibilities.)
 
-[
-  (literal_value (keyed_element))
-  (literal_value . "{" . "}" .)
-] @map @collectionItem.iteration @collectionKey.iteration @value.iteration
+;; &T{a: 1}
+(unary_expression
+  operator: "&"
+  (composite_literal
+    body: (literal_value (keyed_element))
+  )
+)
+@map @collectionItem.iteration @collectionKey.iteration @value.iteration
 
-[
-  (literal_value (literal_element))
-  (literal_value . "{" . "}" .)
-] @list @collectionItem.iteration @value.iteration
+;; T{a: 1}
+(
+  (composite_literal
+    body: (literal_value (keyed_element))
+  ) @_comp_lit
+  (#not-parent-type? @_comp_lit unary_expression)
+)
+@map @collectionItem.iteration @collectionKey.iteration @value.iteration
+
+;; {a: 1}
+(
+  (literal_value (keyed_element)) @_lit_val
+  (#not-parent-type? @_lit_val composite_literal)
+) @map @collectionItem.iteration @collectionKey.iteration @value.iteration
+
+;; T{1}
+(composite_literal
+  body: (literal_value (literal_element))
+)
+@list @collectionItem.iteration @value.iteration
+
+;; {1}
+(
+  (literal_value (literal_element)) @_lit_elem
+  (#not-parent-type? @_lit_elem composite_literal)
+)
+@list @collectionItem.iteration @value.iteration
+
+(
+  literal_value . "{" . "}" .
+) @list @map
+
 
 (keyed_element
   (_) @collectionKey
@@ -115,8 +147,8 @@
 ) @collectionItem
 
 (
-  (literal_element) @_literal_element
-  (#not-parent-type? @_literal_element keyed_element)
+  (literal_element) @_lit_elem
+  (#not-parent-type? @_lit_elem keyed_element)
 ) @collectionItem
 
 (return_statement (expression_list) @value) @value.domain
