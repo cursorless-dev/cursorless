@@ -117,7 +117,7 @@
 (
   (composite_literal
     body:
-      (literal_value 
+      (literal_value
         (keyed_element
           (_) @collectionKey
           ":"
@@ -132,7 +132,7 @@
 ;; {a: 1}
 (
   (
-    (literal_value 
+    (literal_value
       (keyed_element
         (_) @collectionKey
         ":"
