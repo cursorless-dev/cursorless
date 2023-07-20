@@ -13,4 +13,11 @@ initialState:
       active: {line: 0, character: 5}
   marks: {}
 fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}]
-thrownError: {name: Error}
+finalState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}
+ide:
+  messages:
+    - {type: warning, id: toFewTargets}
