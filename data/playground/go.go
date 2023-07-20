@@ -17,6 +17,7 @@ type (
 const one = 1
 
 func foo() {
+	_ = map[string]string{"air": "bat", "cap": "drum"}
 	_ = S{one: 1, b: 2}
 	_ = A{1, 2}
 	_ = M{1: 2}
