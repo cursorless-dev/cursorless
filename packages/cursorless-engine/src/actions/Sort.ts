@@ -12,7 +12,9 @@ abstract class SortBase implements Action {
 
   async run([targets]: [Target[]]): Promise<ActionReturnValue> {
     if (targets.length < 2) {
-      throw new Error("Require more than one targets with this action");
+      throw new Error(
+        'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
+      );
     }
 
     // First sort target by document order
