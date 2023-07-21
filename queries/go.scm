@@ -107,8 +107,8 @@
           (_) @collectionKey
           ":"
           (_) @value
-        ) @collectionItem @collectionKey.domain @value.domain @collectionItem.domain
-      ) @collectionKey.iteration @collectionItem.iteration @value.iteration
+        ) @collectionKey.domain @value.domain
+      ) @collectionKey.iteration @value.iteration
   )
 )
 @map
@@ -122,8 +122,8 @@
           (_) @collectionKey
           ":"
           (_) @value
-        ) @collectionItem @value.domain @collectionKey.domain @collectionItem.domain
-      ) @collectionKey.iteration @collectionItem.iteration @value.iteration
+        ) @value.domain @collectionKey.domain
+      ) @collectionKey.iteration @value.iteration
   ) @_comp_lit
   (#not-parent-type? @_comp_lit unary_expression)
 )
@@ -137,8 +137,8 @@
         (_) @collectionKey
         ":"
         (_) @value
-      ) @collectionItem @value.domain @collectionItem.domain @collectionKey.domain
-    )  @_lit_val @collectionItem.iteration @collectionKey.iteration @value.iteration
+      ) @value.domain @collectionKey.domain
+    )  @_lit_val @collectionKey.iteration @value.iteration
   )
   (#not-parent-type? @_lit_val composite_literal)
 ) @map
@@ -147,7 +147,7 @@
 (unary_expression
   operator: "&"
   (composite_literal
-    body: (literal_value (literal_element) @collectionItem) @collectionItem.iteration @value.iteration
+    body: (literal_value (literal_element)) @value.iteration
   )
 )
 @list
@@ -155,7 +155,7 @@
 ;; T{1}
 (
   (composite_literal
-    body: (literal_value (literal_element) @collectionItem) @collectionItem.iteration @value.iteration
+    body: (literal_value (literal_element)) @value.iteration
   ) @_comp_lit
   (#not-parent-type? @_comp_lit unary_expression)
 )
@@ -163,7 +163,7 @@
 
 ;; {1}
 (
-  (literal_value (literal_element) @collectionItem) @_lit_elem @collectionItem.iteration @value.iteration
+  (literal_value (literal_element)) @_lit_elem @value.iteration
   (#not-parent-type? @_lit_elem composite_literal)
 )
 @list
