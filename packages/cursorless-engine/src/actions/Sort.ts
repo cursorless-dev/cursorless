@@ -16,7 +16,7 @@ abstract class SortBase implements SimpleAction {
     if (targets.length < 2) {
       showWarning(
         ide().messages,
-        "toFewTargets",
+        "tooFewTargets",
         'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
       );
     }
