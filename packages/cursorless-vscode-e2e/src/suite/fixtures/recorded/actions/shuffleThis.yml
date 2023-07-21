@@ -20,4 +20,4 @@ finalState:
       active: {line: 0, character: 5}
 ide:
   messages:
-    - {type: warning, id: toFewTargets}
+    - {type: warning, id: tooFewTargets}
