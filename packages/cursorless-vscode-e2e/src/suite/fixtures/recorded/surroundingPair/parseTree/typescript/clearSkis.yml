@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear skis
+  spokenForm: change skis
   action: clearAndSetSelection
   targets:
     - type: primitive

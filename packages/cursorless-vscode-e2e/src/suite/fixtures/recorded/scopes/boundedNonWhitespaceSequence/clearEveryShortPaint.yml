@@ -1,7 +1,7 @@
 languageId: markdown
 command:
   version: 5
-  spokenForm: clear every short paint
+  spokenForm: change every short paint
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

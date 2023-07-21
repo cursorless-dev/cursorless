@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every token past cap
+  spokenForm: change every token past cap
   action: {name: clearAndSetSelection}
   targets:
     - type: range

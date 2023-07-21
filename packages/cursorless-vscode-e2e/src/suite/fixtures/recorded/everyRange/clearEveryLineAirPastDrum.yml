@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every line air past drum
+  spokenForm: change every line air past drum
   action: {name: clearAndSetSelection}
   targets:
     - type: range

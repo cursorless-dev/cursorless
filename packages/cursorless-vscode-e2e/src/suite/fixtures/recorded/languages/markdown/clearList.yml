@@ -1,7 +1,7 @@
 languageId: markdown
 command:
   version: 1
-  spokenForm: clear list
+  spokenForm: change list
   action: clearAndSetSelection
   targets:
     - type: primitive

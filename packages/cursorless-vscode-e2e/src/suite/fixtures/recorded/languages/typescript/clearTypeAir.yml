@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear type air
+  spokenForm: change type air
   action: clearAndSetSelection
   targets:
     - type: primitive

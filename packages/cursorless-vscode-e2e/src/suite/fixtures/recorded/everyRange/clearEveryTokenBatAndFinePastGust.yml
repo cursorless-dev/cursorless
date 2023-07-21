@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every token bat and fine past gust
+  spokenForm: change every token bat and fine past gust
   action: {name: clearAndSetSelection}
   targets:
     - type: list

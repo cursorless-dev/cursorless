@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear type ox
+  spokenForm: change type ox
   action: clearAndSetSelection
   targets:
     - type: primitive

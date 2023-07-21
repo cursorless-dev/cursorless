@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear every custom regex
+  spokenForm: change every custom regex
   version: 2
   targets:
     - type: primitive

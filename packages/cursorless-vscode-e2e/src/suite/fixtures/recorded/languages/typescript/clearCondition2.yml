@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear condition
+  spokenForm: change condition
   version: 2
   targets:
     - type: primitive

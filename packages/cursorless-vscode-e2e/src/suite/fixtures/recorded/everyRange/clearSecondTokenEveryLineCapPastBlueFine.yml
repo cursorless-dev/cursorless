@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear second token every line cap past blue fine
+  spokenForm: change second token every line cap past blue fine
   action: {name: clearAndSetSelection}
   targets:
     - type: range

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear two blocks
+  spokenForm: change two blocks
   version: 3
   targets:
     - type: primitive

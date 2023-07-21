@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: clear core funk
+  spokenForm: change core funk
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

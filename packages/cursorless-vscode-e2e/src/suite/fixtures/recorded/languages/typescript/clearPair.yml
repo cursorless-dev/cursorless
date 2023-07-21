@@ -1,6 +1,6 @@
 languageId: typescriptreact
 command:
-  spokenForm: clear pair
+  spokenForm: change pair
   version: 3
   targets:
     - type: primitive

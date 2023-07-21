@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear two token
+  spokenForm: change two token
   version: 3
   targets:
     - type: primitive

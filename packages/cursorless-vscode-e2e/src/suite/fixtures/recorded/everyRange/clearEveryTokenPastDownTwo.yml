@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every token past down two
+  spokenForm: change every token past down two
   action: {name: clearAndSetSelection}
   targets:
     - type: range

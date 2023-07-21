@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear every line funk
+  spokenForm: change every line funk
   version: 2
   targets:
     - type: primitive

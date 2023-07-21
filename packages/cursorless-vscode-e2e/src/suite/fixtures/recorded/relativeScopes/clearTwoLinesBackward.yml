@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear two lines backward
+  spokenForm: change two lines backward
   version: 3
   targets:
     - type: primitive

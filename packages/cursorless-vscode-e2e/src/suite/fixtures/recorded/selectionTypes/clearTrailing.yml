@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear trailing
+  spokenForm: change trailing
   version: 2
   targets:
     - type: primitive

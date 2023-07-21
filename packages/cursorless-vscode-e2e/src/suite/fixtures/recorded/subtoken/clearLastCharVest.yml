@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear last char vest
+  spokenForm: change last char vest
   action: clearAndSetSelection
   targets:
     - type: primitive

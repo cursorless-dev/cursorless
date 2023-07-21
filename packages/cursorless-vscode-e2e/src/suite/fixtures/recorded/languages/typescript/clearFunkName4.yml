@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 5
-  spokenForm: clear funk name
+  spokenForm: change funk name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

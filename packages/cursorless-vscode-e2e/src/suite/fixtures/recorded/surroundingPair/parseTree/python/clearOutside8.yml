@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: clear outside
+  spokenForm: change outside
   action: clearAndSetSelection
   targets:
     - type: primitive

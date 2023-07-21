@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: clear every funk name fine past blue drum
+  spokenForm: change every funk name fine past blue drum
   action: {name: clearAndSetSelection}
   targets:
     - type: range

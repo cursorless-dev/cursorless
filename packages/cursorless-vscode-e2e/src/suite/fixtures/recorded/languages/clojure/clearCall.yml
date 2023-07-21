@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear call
+  spokenForm: change call
   action: clearAndSetSelection
   targets:
     - type: primitive

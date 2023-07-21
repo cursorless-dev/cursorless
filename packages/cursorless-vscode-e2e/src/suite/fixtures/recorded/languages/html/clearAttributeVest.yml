@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear attribute vest
+  spokenForm: change attribute vest
   action: clearAndSetSelection
   targets:
     - type: primitive

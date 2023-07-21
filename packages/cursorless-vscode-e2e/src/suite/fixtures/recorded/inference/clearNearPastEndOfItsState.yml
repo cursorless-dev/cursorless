@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear near past end of its state
+  spokenForm: change near past end of its state
   version: 3
   targets:
     - type: range

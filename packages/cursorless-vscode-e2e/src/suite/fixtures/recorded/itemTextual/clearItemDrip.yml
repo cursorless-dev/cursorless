@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear item drip
+  spokenForm: change item drip
   version: 2
   targets:
     - type: primitive

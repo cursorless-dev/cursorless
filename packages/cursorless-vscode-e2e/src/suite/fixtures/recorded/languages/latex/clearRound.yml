@@ -1,6 +1,6 @@
 languageId: latex
 command:
-  spokenForm: clear round
+  spokenForm: change round
   version: 2
   targets:
     - type: primitive

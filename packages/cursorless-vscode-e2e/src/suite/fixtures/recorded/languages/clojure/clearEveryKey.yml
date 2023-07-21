@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear every key
+  spokenForm: change every key
   action: clearAndSetSelection
   targets:
     - type: primitive
