@@ -166,7 +166,7 @@
   .
   (keyed_element
     (_) @collectionKey @collectionKey.leading.end.before @collectionKey.trailing.start.after
-    ":" 
+    ":"
     (_) @collectionKey.trailing.end.before
   ) @collectionKey.domain
   .
@@ -180,13 +180,13 @@
   .
   (keyed_element
     (_) @value.leading.start.after
-    ":" 
+    ":"
     (_) @value @value.leading.end.before @value.trailing.start.after
   ) @value.domain
   .
   ["," "}"] @value.trailing.end.before
 ) @value.iteration
-      
+
 ;; values within a list
 (literal_value (literal_element) @value) @value.iteration 
 
