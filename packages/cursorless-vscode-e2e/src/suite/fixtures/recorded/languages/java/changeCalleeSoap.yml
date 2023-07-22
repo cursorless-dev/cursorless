@@ -1,7 +1,7 @@
 languageId: java
 command:
   version: 1
-  spokenForm: change callee soap
+  spokenForm: change callee sun
   action: clearAndSetSelection
   targets:
     - type: primitive

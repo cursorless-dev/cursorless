@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck block batt
+  spokenForm: chuck block bat
   version: 2
   targets:
     - type: primitive

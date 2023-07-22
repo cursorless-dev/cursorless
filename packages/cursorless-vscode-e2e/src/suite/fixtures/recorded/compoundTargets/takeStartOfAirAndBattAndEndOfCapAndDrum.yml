@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: take start of air and batt and end of cap and drum
+  spokenForm: take start of air and bat and end of cap and drum
   action: {name: setSelection}
   targets:
     - type: list
