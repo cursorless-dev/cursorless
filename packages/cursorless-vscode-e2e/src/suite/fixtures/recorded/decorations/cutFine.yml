@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: cut fine
+  spokenForm: carve fine
   version: 2
   targets:
     - type: primitive

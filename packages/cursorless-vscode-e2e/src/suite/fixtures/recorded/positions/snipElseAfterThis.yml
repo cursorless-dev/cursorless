@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: snip else after this
+  spokenForm: snippet else after this
   action:
     name: insertSnippet
     args:

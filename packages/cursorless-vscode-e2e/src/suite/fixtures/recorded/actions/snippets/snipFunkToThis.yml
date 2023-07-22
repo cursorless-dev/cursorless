@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 5
-  spokenForm: snip funk to this
+  spokenForm: snippet funk to this
   action:
     name: insertSnippet
     args:

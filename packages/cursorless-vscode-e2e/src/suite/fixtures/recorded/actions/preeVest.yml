@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: pree vest
+  spokenForm: pre vest
   action: setSelectionBefore
   targets:
     - type: primitive

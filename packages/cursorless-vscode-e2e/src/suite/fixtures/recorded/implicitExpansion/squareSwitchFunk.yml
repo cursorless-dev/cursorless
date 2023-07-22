@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: square switch funk
+  spokenForm: square repack funk
   version: 2
   targets:
     - type: primitive
