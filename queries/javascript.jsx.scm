@@ -77,10 +77,7 @@
 ;;!! <>foo</>
 ;;!  {}    {}
 ;;!  --   ---
-(
-  (jsx_fragment
-    "<" @_.domain.start
-    ">" @name @_.domain.end
-  )
-  (#start-position! @name)
+(jsx_fragment
+  "<" @_.domain.start
+  ">" @name.start.before @_.domain.end
 )

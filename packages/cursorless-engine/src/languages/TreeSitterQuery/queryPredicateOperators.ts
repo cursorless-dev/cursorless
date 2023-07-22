@@ -57,8 +57,7 @@ class StartPosition extends QueryPredicateOperator<StartPosition> {
   schema = z.tuple([q.node]);
 
   run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.start, nodeInfo.range.start);
-
+    nodeInfo.range = nodeInfo.range.before();
     return true;
   }
 }
@@ -74,8 +73,7 @@ class EndPosition extends QueryPredicateOperator<EndPosition> {
   schema = z.tuple([q.node]);
 
   run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.end, nodeInfo.range.end);
-
+    nodeInfo.range = nodeInfo.range.after();
     return true;
   }
 }

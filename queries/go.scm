@@ -118,11 +118,15 @@
   (composite_literal
     body:
       (literal_value
+        ["," "{"] @collectionKey.leading.start.after
+        .
         (keyed_element
-          (_) @collectionKey
-          ":"
-          (_) @value
+          (_) @collectionKey @value.leading.start.after @collectionKey.leading.end.before @collectionKey.trailing.start.after
+          ":" 
+          (_) @value @value.leading.end.before @value.trailing.start.after @collectionKey.trailing.end.before
         ) @value.domain @collectionKey.domain
+        .
+        ["," "}"] @value.trailing.end.before
       ) @collectionKey.iteration @value.iteration
   ) @_comp_lit
   (#not-parent-type? @_comp_lit unary_expression)

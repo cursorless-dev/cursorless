@@ -7,7 +7,7 @@ import { MutableQueryMatch, QueryCapture, QueryMatch } from "./QueryCapture";
 import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
 import { groupBy, uniq } from "lodash";
-import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
+import { checkCaptureStartEnd, convertExclusiveToInclusiveEndpoints } from "./checkCaptureStartEnd";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -95,6 +95,7 @@ export class TreeSitterQuery {
         const captures: QueryCapture[] = Object.entries(
           groupBy(match.captures, ({ name }) => normalizeCaptureName(name)),
         ).map(([name, captures]) => {
+          captures = convertExclusiveToInclusiveEndpoints(captures);
           const capturesAreValid = checkCaptureStartEnd(
             captures,
             ide().messages,
@@ -123,7 +124,7 @@ export class TreeSitterQuery {
 }
 
 function normalizeCaptureName(name: string): string {
-  return name.replace(/\.(start|end)$/, "");
+  return name.replace(/\.(start|end)(\.(before|after))?$/, "");
 }
 
 function positionToPoint(start: Position): Point {
