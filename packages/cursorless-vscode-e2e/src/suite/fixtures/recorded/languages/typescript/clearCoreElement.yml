@@ -1,6 +1,6 @@
 languageId: typescriptreact
 command:
-  spokenForm: change core element
+  spokenForm: change inside element
   version: 2
   targets:
     - type: primitive

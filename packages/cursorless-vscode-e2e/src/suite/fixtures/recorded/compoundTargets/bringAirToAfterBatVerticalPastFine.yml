@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring air to after bat vertical past fine
+  spokenForm: bring air to after bat slice past fine
   action: replaceWithTarget
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring point after first car whale take whale
+  spokenForm: bring point after first char whale take whale
   action: replaceWithTarget
   targets:
     - type: primitive

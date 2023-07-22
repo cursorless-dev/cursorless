@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring fine after third car this
+  spokenForm: bring fine after third char this
   action: replaceWithTarget
   targets:
     - type: primitive

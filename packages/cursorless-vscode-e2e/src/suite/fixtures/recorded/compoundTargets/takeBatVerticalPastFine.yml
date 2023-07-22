@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: take bat vertical past fine
+  spokenForm: take bat slice past fine
   action: setSelection
   targets:
     - type: range

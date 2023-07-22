@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring harp to fourth car whale past second car harp
+  spokenForm: bring harp to fourth char whale past second char harp
   action: replaceWithTarget
   targets:
     - type: primitive

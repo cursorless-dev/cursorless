@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: pre every instance every car air past bat
+  spokenForm: pre every instance every char air past bat
   action: {name: setSelectionBefore}
   targets:
     - type: range
