@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take item blue risk
+  spokenForm: take item blue red
   version: 2
   targets:
     - type: primitive

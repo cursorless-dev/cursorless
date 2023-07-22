@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: chuck type ram
+  spokenForm: chuck type red
   action: remove
   targets:
     - type: primitive

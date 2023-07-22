@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck paint batt
+  spokenForm: chuck paint bat
   action: remove
   targets:
     - type: primitive

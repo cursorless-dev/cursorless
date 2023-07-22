@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change bounds batt
+  spokenForm: change bounds bat
   action: clearAndSetSelection
   targets:
     - type: primitive

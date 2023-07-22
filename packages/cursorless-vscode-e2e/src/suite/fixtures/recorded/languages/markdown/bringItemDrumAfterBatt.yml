@@ -1,7 +1,7 @@
 languageId: markdown
 command:
   version: 5
-  spokenForm: bring item drum after batt
+  spokenForm: bring item drum after bat
   action: {name: replaceWithTarget}
   targets:
     - type: primitive

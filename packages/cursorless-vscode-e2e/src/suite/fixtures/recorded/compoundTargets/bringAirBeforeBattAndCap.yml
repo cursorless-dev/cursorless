@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: bring air before batt and cap
+  spokenForm: bring air before bat and cap
   action: {name: replaceWithTarget}
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: change pair ox
+  spokenForm: change pair odd
   action: clearAndSetSelection
   targets:
     - type: primitive

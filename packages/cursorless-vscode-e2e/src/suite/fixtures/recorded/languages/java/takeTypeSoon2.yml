@@ -1,7 +1,7 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take type soon
+  spokenForm: take type sun
   action: setSelection
   targets:
     - type: primitive
