@@ -9,50 +9,59 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^
 ;;!! key(enter): "enter"
 ;;!  ^^^^^^^^^^^^^^^^^^^
-(_
-  [
-    (expression_statement)
-    (assignment_statement)
-    (settings_declaration)
-    (tag_import_declaration)
-    (key_binding_declaration)
-  ] @statement
-) @_.iteration
+[
+  (expression_statement)
+  (assignment_statement)
+  (settings_declaration)
+  (tag_import_declaration)
+  (key_binding_declaration)
+  (match)
+] @statement
+
+[
+  (declarations)
+  (matches)
+  (block)
+] @statement.iteration
 
 ;;!! not mode: command
 ;;!  ----^^^^---------
-;;!! slap: key("end enter")
-;;!  ^^^^------------------
+;;!! slap: key(enter)
+;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
 (_
-  (_
-    left: _ @name
-  ) @_.domain
-) @_.iteration
+  left: _ @name
+) @_.domain
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^---------
-;;!! slap: key("end enter")
-;;!  ^^^^------------------
+;;!! slap: key(enter)
+;;!  ^^^^------------
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
 (_
-  (_
-    modifiers: (_)? @collectionKey.start
-    left: _ @collectionKey.end
-  ) @_.domain
-) @_.iteration
+  modifiers: (_)? @collectionKey.start
+  left: _ @collectionKey.end
+) @_.domain
 
 ;;!! not mode: command
 ;;!  ----------^^^^^^^
-;;!! slap: key("end enter")
-;;!  ------^^^^^^^^^^^^^^^^
+;;!! slap: key(enter)
+;;!  ------^^^^^^^^^^
 (_
-  (_
-    right: (_) @value
-  ) @_.domain
-) @_.iteration
+  right: (_) @value
+) @_.domain
+
+;;!! not mode: command
+;;!  ^^^^^^^^^^^^^^^^^
+;;!! slap: key(inter)
+;;!  ------^^^^^^^^^^
+[
+  (matches)
+  (declarations)
+  (block)
+] @key.iteration @name.iteration @value.iteration
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
@@ -60,14 +69,13 @@
   (match) @condition
 ) @_.iteration
 
-;;!! slap: key("end enter")
-;;!  ^^^^^^^^^^^^^^^^^^^^^^
-;;!        ################
+;;!! slap: key(enter)
+;;!  ^^^^^^^^^^^^^^^^
 (declarations
   (command_declaration
     right: (_) @command.interior
   ) @command @statement
-) @_.iteration
+) @command.iteration
 
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
