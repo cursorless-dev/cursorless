@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 3
-  spokenForm: ditch branch
+  spokenForm: chuck branch
   action: {name: remove}
   targets:
     - type: primitive

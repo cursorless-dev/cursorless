@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: ditch fine past point
+  spokenForm: chuck fine past point
   version: 3
   targets:
     - type: range

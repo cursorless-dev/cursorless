@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk to this past each
+  spokenForm: snippet funk to this past each
   version: 2
   targets:
     - type: range
