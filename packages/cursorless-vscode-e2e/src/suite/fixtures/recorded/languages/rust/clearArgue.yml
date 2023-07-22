@@ -1,7 +1,7 @@
 languageId: rust
 command:
   version: 3
-  spokenForm: change argue
+  spokenForm: change arg
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change head core curly
+  spokenForm: change head inside curly
   version: 2
   targets:
     - type: primitive

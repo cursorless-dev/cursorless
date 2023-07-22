@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: pre bat vertical between fine
+  spokenForm: pre bat slice between fine
   action: setSelectionBefore
   targets:
     - type: range

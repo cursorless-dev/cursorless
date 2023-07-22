@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: move fourth car harp past second car whale to end of just whale take whale
+  spokenForm: move fourth char harp past second char whale to end of just whale take whale
   version: 2
   targets:
     - type: range

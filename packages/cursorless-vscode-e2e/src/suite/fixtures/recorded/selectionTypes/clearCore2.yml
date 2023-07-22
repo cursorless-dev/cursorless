@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change core
+  spokenForm: change inside
   version: 2
   targets:
     - type: primitive

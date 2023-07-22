@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: post bat vertical until fine
+  spokenForm: post bat slice until fine
   action: setSelectionAfter
   targets:
     - type: range
