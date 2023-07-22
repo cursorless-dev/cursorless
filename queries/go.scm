@@ -97,116 +97,98 @@
 ;; (Remember in all of these that types can be `any`, `a` might be a variable name or a struct field,
 ;; 1 might be a map key or an array/slice index, etc. There's a remarkable number of possibilities.)
 
+;; maps
+
 ;; &T{a: 1}
 (unary_expression
   operator: "&"
-  (composite_literal
-    body:
-      (literal_value
-        (keyed_element
-          (_) @collectionKey
-          ":"
-          (_) @value
-        ) @collectionKey.domain @value.domain
-      ) @collectionKey.iteration @value.iteration
-  )
-)
-@map
+  (composite_literal body: (literal_value (keyed_element)))
+) @map
 
 ;; T{a: 1}
 (
-  (composite_literal
-    body:
-;; import go_key_value.scm
-  ) @_comp_lit
+  (composite_literal body: (literal_value (keyed_element))) @_comp_lit
   (#not-parent-type? @_comp_lit unary_expression)
-)
-@map
-
-;; T{a: 1}
-;;(
-;;  (composite_literal
-;;    body:
-;;      (literal_value
-;;        (keyed_element
-;;          ( 
-;;            (_) @collectionKey @value.leading.start 
-;;            (#end-position! @value.leading.start)
-;;          )
-;;          ":"
-;;          (
-;;            (_) @value @value.leading.end
-;;            (#start-position! @value.leading.end)
-;;          )
-;;        ) @value.domain @collectionKey.domain
-;;      ) @collectionKey.iteration @value.iteration
-;;  ) @_comp_lit
-;;  (#not-parent-type? @_comp_lit unary_expression)
-;;)
-;;@map
+) @map
 
 ;; {a: 1}
 (
-  (
-    (literal_value
-      (keyed_element
-        (_) @collectionKey
-        ":"
-        (_) @value
-      ) @value.domain @collectionKey.domain
-    )  @_lit_val @collectionKey.iteration @value.iteration
-  )
+  (literal_value (keyed_element)) @_lit_val
   (#not-parent-type? @_lit_val composite_literal)
 ) @map
+
+;; lists
 
 ;; &T{1}
 (unary_expression
   operator: "&"
-  (composite_literal
-    body: (literal_value (literal_element)) @value.iteration
-  )
-)
-@list
+  (composite_literal body: (literal_value (literal_element)))
+) @list
 
 ;; T{1}
 (
-  (composite_literal
-    body: (literal_value (literal_element)) @value.iteration
-  ) @_comp_lit
+  (composite_literal body: (literal_value (literal_element))) @_comp_lit
   (#not-parent-type? @_comp_lit unary_expression)
-)
-@list
+) @list
 
 ;; {1}
 (
-  (literal_value (literal_element)) @_lit_elem @value.iteration
+  (literal_value (literal_element)) @_lit_elem
   (#not-parent-type? @_lit_elem composite_literal)
-)
-@list
+) @list
+
+;; empty composite literals
 
 ;; &T{}
 (unary_expression
   operator: "&"
-  (composite_literal
-    body: (literal_value . "{" . "}" . )
-  )
-)
-@list @map
+  (composite_literal body: (literal_value . "{" . "}" . ))
+) @list @map
 
 ;; T{}
 (
-  (composite_literal
-    body: (literal_value . "{" . "}" . )
-  ) @_comp_lit
+  (composite_literal body: (literal_value . "{" . "}" . )) @_comp_lit
   (#not-parent-type? @_comp_lit unary_expression)
-)
-@list @map
+) @list @map
 
 ;; {}
 (
   (literal_value . "{" . "}" . ) @_lit_elem
   (#not-parent-type? @_lit_elem composite_literal)
-)
-@list @map
+) @list @map
 
+;; keys
+;; this has the identical structure to values within a map (see below)
+;; it is separated out because it is easier to reason about
+;; and because treesitter queries limit you to three class names per node
+(literal_value
+  ["," "{"] @collectionKey.leading.start.after
+  .
+  (keyed_element
+    (_) @collectionKey @collectionKey.leading.end.before @collectionKey.trailing.start.after
+    ":" 
+    (_) @collectionKey.trailing.end.before
+  ) @collectionKey.domain
+  .
+  ["," "}"]
+) @collectionKey.iteration
+
+;; values within a map
+;; see comment about keys (above)
+(literal_value
+  ["," "{"]
+  .
+  (keyed_element
+    (_) @value.leading.start.after
+    ":" 
+    (_) @value @value.leading.end.before @value.trailing.start.after
+  ) @value.domain
+  .
+  ["," "}"] @value.trailing.end.before
+) @value.iteration
+      
+;; values within a list
+(literal_value (literal_element) @value) @value.iteration 
+
+;; values within a return statement
 (return_statement (expression_list) @value) @value.domain

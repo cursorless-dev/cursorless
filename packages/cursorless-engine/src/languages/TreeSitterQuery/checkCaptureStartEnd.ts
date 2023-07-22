@@ -1,5 +1,35 @@
-import { Messages, showError } from "@cursorless/common";
-import { QueryCapture } from "./QueryCapture";
+import { Messages, Range, showError } from "@cursorless/common";
+import { MutableQueryCapture, QueryCapture } from "./QueryCapture";
+
+/**
+ * Rewrite captures, absorbing .before and .after into ranges.
+ *
+ * @param captures A list of captures
+ * @returns rewritten captures
+ */
+export function rewriteBeforeAfter(
+  captures: MutableQueryCapture[],
+): MutableQueryCapture[] {
+  // TODO: mutate instead of copy/create/return?
+  return captures.map((capture) => {
+    // Remove trailing .before and .after, adjusting ranges.
+    if (capture.name.endsWith(".before")) {
+      return {
+        ...capture,
+        name: capture.name.replace(/\.before$/, ""),
+        range: capture.range.before(),
+      };
+    }
+    if (capture.name.endsWith(".after")) {
+      return {
+        ...capture,
+        name: capture.name.replace(/\.after$/, ""),
+        range: capture.range.after(),
+      };
+    }
+    return capture;
+  });
+}
 
 /**
  * Checks the captures for a single name to ensure that they are valid.  Detects
