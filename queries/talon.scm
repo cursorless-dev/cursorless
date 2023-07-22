@@ -18,11 +18,14 @@
   (match)
 ] @statement
 
-[
-  (declarations)
-  (matches)
-  (block)
-] @statement.iteration
+(
+  [
+    (declarations)
+    (matches)
+    (block)
+  ] @statement.iteration
+  (#not-empty? @statement.iteration)
+)
 
 ;;!! not mode: command
 ;;!  ----^^^^---------
@@ -57,11 +60,16 @@
 ;;!  ^^^^^^^^^^^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
-[
-  (matches)
-  (declarations)
-  (block)
-] @collectionKey.iteration @name.iteration @value.iteration
+(
+  [
+    (matches)
+    (declarations)
+    (block)
+  ] @collectionKey.iteration @name.iteration @value.iteration
+  (#not-empty? @collectionKey.iteration)
+  (#not-empty? @name.iteration)
+  (#not-empty? @value.iteration)
+)
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
