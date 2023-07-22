@@ -188,7 +188,7 @@
 ) @value.iteration
 
 ;; values within a list
-(literal_value (literal_element) @value) @value.iteration 
+(literal_value (literal_element) @value) @value.iteration
 
 ;; values within a return statement
 (return_statement (expression_list) @value) @value.domain

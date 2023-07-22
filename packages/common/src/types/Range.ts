@@ -148,17 +148,16 @@ export class Range {
   }
 
   /**
-   * after returns a zero-width range at the end of this range. 
+   * after returns a zero-width range at the end of this range.
    */
   public after(): Range {
     return new Range(this.end, this.end);
   }
 
   /**
-   * before returns a zero-width range at the beginning of this range. 
+   * before returns a zero-width range at the beginning of this range.
    */
   public before(): Range {
     return new Range(this.start, this.start);
   }
-  
 }
