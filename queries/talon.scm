@@ -55,13 +55,13 @@
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^^^^^^^^^^
-;;!! slap: key(inter)
+;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
 [
   (matches)
   (declarations)
   (block)
-] @key.iteration @name.iteration @value.iteration
+] @collectionKey.iteration @name.iteration @value.iteration
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
