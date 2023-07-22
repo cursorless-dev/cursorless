@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change bounds double
+  spokenForm: change bounds double quote
   action: clearAndSetSelection
   targets:
     - type: primitive

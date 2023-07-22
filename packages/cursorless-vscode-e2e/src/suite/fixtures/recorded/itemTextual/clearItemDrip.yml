@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: change item drip
+  spokenForm: change item comma
   version: 2
   targets:
     - type: primitive
