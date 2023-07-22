@@ -3,6 +3,8 @@ tag: user.cursorless
 
 {user.cursorless_homophone} record:
     user.run_rpc_command("cursorless.recordTestCase")
+{user.cursorless_homophone} record one:
+    user.run_rpc_command("cursorless.recordOneTestCaseThenPause")
 {user.cursorless_homophone} pause:
     user.run_rpc_command("cursorless.pauseRecording")
 {user.cursorless_homophone} resume:

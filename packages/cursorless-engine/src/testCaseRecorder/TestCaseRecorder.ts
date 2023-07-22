@@ -88,6 +88,7 @@ const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
  */
 export class TestCaseRecorder {
   private active: boolean = false;
+  private pauseAfterNextCommand: boolean = false;
   private fixtureRoot: string | null;
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
@@ -116,6 +117,7 @@ export class TestCaseRecorder {
         : null;
 
     this.toggle = this.toggle.bind(this);
+    this.recordOneThenPause = this.recordOneThenPause.bind(this);
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
     this.takeSnapshot = this.takeSnapshot.bind(this);
@@ -129,6 +131,15 @@ export class TestCaseRecorder {
       return await this.start(arg);
     }
   }
+
+  async recordOneThenPause(arg?: RecordTestCaseCommandArg) {
+    this.pauseAfterNextCommand = true;
+    this.paused = false;
+    if (!this.active) {
+      return await this.start(arg);
+    }
+  }
+
   async pause() {
     if (!this.active) {
       throw Error("Asked to pause recording, but no recording active");
@@ -289,6 +300,7 @@ export class TestCaseRecorder {
   stop() {
     this.active = false;
     this.paused = false;
+    this.pauseAfterNextCommand = false;
   }
 
   async preCommandHook(hatTokenMap: ReadOnlyHatMap, command: CommandLatest) {
@@ -386,6 +398,10 @@ export class TestCaseRecorder {
     }
 
     this.testCase = null;
+    if (this.pauseAfterNextCommand) {
+      this.paused = true;
+      this.pauseAfterNextCommand = false;
+    }
   }
 
   private async writeToFile(outPath: string, fixture: string) {
