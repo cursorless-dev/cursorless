@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: funk wrap past ink
+  spokenForm: funk wrap past sit
   version: 2
   targets:
     - type: range

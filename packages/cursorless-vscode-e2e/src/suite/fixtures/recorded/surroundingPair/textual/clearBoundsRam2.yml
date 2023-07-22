@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change bounds ram
+  spokenForm: change bounds red
   action: clearAndSetSelection
   targets:
     - type: primitive

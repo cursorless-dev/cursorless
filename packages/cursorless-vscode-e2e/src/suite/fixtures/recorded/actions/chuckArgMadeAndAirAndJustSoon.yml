@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: chuck arg made and air and just soon
+  spokenForm: chuck arg made and air and just sun
   action: remove
   targets:
     - type: list

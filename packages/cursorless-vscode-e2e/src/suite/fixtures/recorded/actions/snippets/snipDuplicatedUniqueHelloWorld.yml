@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: snip duplicated unique hello world
+  spokenForm: snippet duplicated unique hello world
   version: 2
   targets:
     - {type: primitive, isImplicit: true}
