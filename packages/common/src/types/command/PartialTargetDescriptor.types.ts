@@ -39,8 +39,8 @@ export interface RangeMark {
   type: "range";
   anchor: PartialMark;
   active: PartialMark;
-  excludeAnchor?: boolean;
-  excludeActive?: boolean;
+  excludeAnchor: boolean;
+  excludeActive: boolean;
 }
 
 interface SimplePosition {
@@ -188,6 +188,8 @@ export type ScopeType =
   | SurroundingPairScopeType
   | CustomRegexScopeType
   | OneOfScopeType;
+
+export type ScopeTypeType = ScopeType["type"];
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -344,8 +346,8 @@ export interface RangeModifier {
   type: "range";
   anchor: Modifier;
   active: Modifier;
-  excludeAnchor?: boolean;
-  excludeActive?: boolean;
+  excludeAnchor: boolean;
+  excludeActive: boolean;
 }
 
 export type Modifier =
@@ -368,6 +370,8 @@ export type Modifier =
   | KeepContentFilterModifier
   | KeepEmptyFilterModifier
   | InferPreviousMarkModifier;
+
+export type ModifierType = Modifier["type"];
 
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets

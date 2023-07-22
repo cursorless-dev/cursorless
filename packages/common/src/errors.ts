@@ -36,3 +36,15 @@ export class NoContainingScopeError extends Error {
     this.name = "NoContainingScopeError";
   }
 }
+
+export class NoSpokenFormError extends Error {
+  constructor(type: string) {
+    super(`No spoken form for: ${type}`);
+  }
+}
+
+export class AmbiguousSpokenFormError extends Error {
+  constructor(type: string) {
+    super(`Ambiguous spoken form for: ${type}`);
+  }
+}
