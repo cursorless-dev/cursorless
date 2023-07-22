@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  spokenForm: clear state
+  spokenForm: change state
   version: 2
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: clear value odd
+  spokenForm: change value odd
   action: clearAndSetSelection
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear pair ram
+  spokenForm: change pair red
   action: clearAndSetSelection
   targets:
     - type: primitive

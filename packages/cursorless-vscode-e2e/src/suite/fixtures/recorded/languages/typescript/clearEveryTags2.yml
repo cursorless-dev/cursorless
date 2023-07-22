@@ -1,7 +1,7 @@
 languageId: typescriptreact
 command:
   version: 5
-  spokenForm: clear every tags
+  spokenForm: change every tags
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

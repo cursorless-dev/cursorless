@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: ditch third word line
+  spokenForm: chuck third word line
   version: 3
   targets:
     - type: primitive

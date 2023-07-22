@@ -1,23 +1,33 @@
+import { showWarning } from "@cursorless/common";
 import { shuffle } from "lodash";
+import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Actions } from "./Actions";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
-abstract class SortBase implements Action {
+abstract class SortBase implements SimpleAction {
   constructor(private actions: Actions) {
     this.run = this.run.bind(this);
   }
 
   protected abstract sortTexts(texts: string[]): string[];
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
+    if (targets.length < 2) {
+      showWarning(
+        ide().messages,
+        "tooFewTargets",
+        'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
+      );
+    }
+
     // First sort target by document order
     const sortedTargets = targets
       .slice()
       .sort((a, b) => a.contentRange.start.compareTo(b.contentRange.start));
 
     const { returnValue: unsortedTexts } = await this.actions.getText.run(
-      [sortedTargets],
+      sortedTargets,
       {
         showDecorations: false,
       },
@@ -25,7 +35,10 @@ abstract class SortBase implements Action {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.actions.replace.run([sortedTargets], sortedTexts);
+    return this.actions.replace.run(
+      sortedTargets.map((target) => target.toDestination("to")),
+      sortedTexts,
+    );
   }
 }
 

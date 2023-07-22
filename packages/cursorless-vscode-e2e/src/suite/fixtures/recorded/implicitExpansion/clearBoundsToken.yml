@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear bounds token
+  spokenForm: change bounds token
   version: 2
   targets:
     - type: primitive

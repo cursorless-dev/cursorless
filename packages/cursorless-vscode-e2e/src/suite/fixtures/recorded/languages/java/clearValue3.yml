@@ -1,6 +1,6 @@
 languageId: java
 command:
-  spokenForm: clear value
+  spokenForm: change value
   version: 2
   targets:
     - type: primitive

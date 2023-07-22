@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear every item
+  spokenForm: change every item
   version: 2
   targets:
     - type: primitive

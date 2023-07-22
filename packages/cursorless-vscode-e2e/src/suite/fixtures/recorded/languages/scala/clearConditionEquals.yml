@@ -1,7 +1,7 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: clear condition equals
+  spokenForm: change condition equals
   action: clearAndSetSelection
   targets:
     - type: primitive

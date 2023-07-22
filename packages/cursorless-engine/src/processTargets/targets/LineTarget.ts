@@ -1,12 +1,12 @@
 import { Position, Range, TextEditor } from "@cursorless/common";
+import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
-import type { CommonTargetParameters } from "./BaseTarget";
-import BaseTarget from "./BaseTarget";
 
 export default class LineTarget extends BaseTarget<CommonTargetParameters> {
+  type = "LineTarget";
   insertionDelimiter = "\n";
   isLine = true;
 

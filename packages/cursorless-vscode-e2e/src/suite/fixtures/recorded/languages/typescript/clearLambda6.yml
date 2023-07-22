@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 5
-  spokenForm: clear lambda
+  spokenForm: change lambda
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

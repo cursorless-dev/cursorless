@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk to air past whale
+  spokenForm: snippet funk to air past whale
   version: 2
   targets:
     - type: range

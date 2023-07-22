@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear three instances
+  spokenForm: change three instances
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

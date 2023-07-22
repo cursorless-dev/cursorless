@@ -7,7 +7,7 @@ from .cursorless_command_server import (
     run_rpc_command_get,
     run_rpc_command_no_wait,
 )
-from .primitive_target import IMPLICIT_TARGET
+from .primitive_target import create_implicit_target
 
 mod = Module()
 
@@ -90,7 +90,7 @@ class Actions:
     ):
         """Execute cursorless command with implicit target"""
         actions.user.cursorless_single_target_command(
-            action, IMPLICIT_TARGET, arg1, arg2, arg3
+            action, create_implicit_target(), arg1, arg2, arg3
         )
 
     def cursorless_multiple_target_command(

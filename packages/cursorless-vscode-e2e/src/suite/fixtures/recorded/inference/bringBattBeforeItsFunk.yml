@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: bring batt before its funk
+  spokenForm: bring bat before its funk
   version: 3
   targets:
     - type: primitive

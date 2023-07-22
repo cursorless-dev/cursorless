@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: clear next state
+  spokenForm: change next state
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

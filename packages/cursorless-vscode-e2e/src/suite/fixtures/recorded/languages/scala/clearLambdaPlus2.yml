@@ -1,7 +1,7 @@
 languageId: scala
 command:
   version: 0
-  spokenForm: clear lambda plus
+  spokenForm: change lambda plus
   action: clearAndSetSelection
   targets:
     - type: primitive

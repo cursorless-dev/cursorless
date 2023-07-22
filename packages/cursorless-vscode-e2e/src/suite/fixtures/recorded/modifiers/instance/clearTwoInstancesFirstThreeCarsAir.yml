@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear two instances first three cars air
+  spokenForm: change two instances first three cars air
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

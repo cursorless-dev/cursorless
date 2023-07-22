@@ -1,0 +1,23 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: chuck bat
+  action: {name: remove}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "aaa bbb: ccc"
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: "aaa: ccc"
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

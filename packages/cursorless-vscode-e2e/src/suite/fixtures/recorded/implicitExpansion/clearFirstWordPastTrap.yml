@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear first word past trap
+  spokenForm: change first word past trap
   version: 2
   targets:
     - type: range

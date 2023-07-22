@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: ditch funk
+  spokenForm: chuck funk
   version: 3
   targets:
     - type: primitive

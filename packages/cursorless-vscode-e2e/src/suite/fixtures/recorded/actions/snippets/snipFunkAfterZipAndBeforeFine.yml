@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk after zip and before fine
+  spokenForm: snippet funk after zip and before fine
   version: 2
   targets:
     - type: list

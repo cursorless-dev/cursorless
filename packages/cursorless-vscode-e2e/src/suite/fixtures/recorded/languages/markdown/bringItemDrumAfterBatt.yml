@@ -1,0 +1,42 @@
+languageId: markdown
+command:
+  version: 5
+  spokenForm: bring item drum after bat
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    - aaa
+      - bbb
+      - ccc
+      - ddd
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    default.d:
+      start: {line: 3, character: 4}
+      end: {line: 3, character: 7}
+    default.b:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 7}
+finalState:
+  documentContents: |-
+    - aaa
+      - bbb
+      - ddd
+      - ccc
+      - ddd
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

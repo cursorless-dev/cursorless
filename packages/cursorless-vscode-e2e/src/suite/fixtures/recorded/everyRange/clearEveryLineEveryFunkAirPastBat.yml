@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: clear every line every funk air past bat
+  spokenForm: change every line every funk air past bat
   action: {name: clearAndSetSelection}
   targets:
     - type: range

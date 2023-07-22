@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear condition
+  spokenForm: change condition
   version: 3
   targets:
     - type: primitive

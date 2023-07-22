@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: ditch condition
+  spokenForm: chuck condition
   version: 3
   targets:
     - type: primitive

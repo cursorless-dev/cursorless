@@ -14,12 +14,14 @@ import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import { ScopeVisualizerCommandApi } from "./ScopeVisualizerCommandApi";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
   testCaseRecorder: TestCaseRecorder,
+  scopeVisualizer: ScopeVisualizerCommandApi,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {
@@ -55,6 +57,10 @@ export function registerCommands(
     // Hats
     ["cursorless.toggleDecorations"]: hats.toggle,
     ["cursorless.recomputeDecorationStyles"]: hats.recomputeDecorationStyles,
+
+    // Scope visualizer
+    ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
+    ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:

@@ -58,10 +58,14 @@ def cursorless_grapheme(m) -> str:
 
 
 @mod.capture(
-    rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.cursorless_grapheme>"
+    rule="[{user.cursorless_hat_color} | gray] [{user.cursorless_hat_shape}] <user.cursorless_grapheme>"
 )
 def cursorless_decorated_symbol(m) -> dict[str, Any]:
     """A decorated symbol"""
+    if m[0] == "gray":
+        actions.app.notify(
+            "The color 'gray' is the default and doesn't need to be spoken out loud. Just say eg 'take air' instead of 'take gray air'"
+        )
     hat_color = getattr(m, "cursorless_hat_color", "default")
     try:
         hat_style_name = f"{hat_color}-{m.cursorless_hat_shape}"

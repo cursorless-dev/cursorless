@@ -38,7 +38,7 @@ export class Debug {
 
   log(...args: any[]) {
     if (this.active) {
-      console.debug(...args);
+      console.log(...args);
     }
   }
 
@@ -93,27 +93,51 @@ export class Debug {
     }
 
     const cursor = node.tree.walk();
-    this.printCursorLocationInfo(cursor, 0);
-
-    for (let i = 1; i < ancestors.length; ++i) {
-      cursor.gotoFirstChild();
-      while (cursor.currentNode().id !== ancestors[i].id) {
-        if (!cursor.gotoNextSibling()) {
-          return;
-        }
-      }
-      this.printCursorLocationInfo(cursor, i);
-    }
-
-    const leafText = ancestors[ancestors.length - 1].text
-      .replace(/\s+/g, " ")
-      .substring(0, 100);
-    console.debug(">".repeat(ancestors.length), `"${leafText}"`);
+    this.printCursorLocationInfo(ancestors, cursor, 0);
   }
 
-  private printCursorLocationInfo(cursor: TreeCursor, depth: number) {
+  private printCursorLocationInfo(
+    nodes: SyntaxNode[],
+    cursor: TreeCursor,
+    index: number,
+  ) {
     const field = cursor.currentFieldName();
     const fieldText = field != null ? `${field}: ` : "";
-    console.debug(">".repeat(depth + 1), `${fieldText}${cursor.nodeType}`);
+    const indent = " ".repeat(index);
+    const nodeIsLast = index === nodes.length - 1;
+    const { nodeIsNamed } = cursor;
+    let text = `${indent}${fieldText}`;
+
+    if (nodeIsNamed) {
+      text += `(${cursor.nodeType}`;
+      if (nodeIsLast) {
+        text += ")";
+      }
+    } else {
+      text += `"${cursor.nodeType}"`;
+    }
+
+    console.log(text);
+
+    if (
+      !nodeIsLast &&
+      this.cursorGoToChildWithId(cursor, nodes[index + 1].id)
+    ) {
+      this.printCursorLocationInfo(nodes, cursor, index + 1);
+    }
+
+    if (nodeIsNamed && !nodeIsLast) {
+      console.log(`${indent})`);
+    }
+  }
+
+  private cursorGoToChildWithId(cursor: TreeCursor, id: number): boolean {
+    cursor.gotoFirstChild();
+    while (cursor.currentNode().id !== id) {
+      if (!cursor.gotoNextSibling()) {
+        return false;
+      }
+    }
+    return true;
   }
 }

@@ -43,6 +43,28 @@ export interface RangeMark {
   excludeActive?: boolean;
 }
 
+interface SimplePosition {
+  readonly line: number;
+  readonly character: number;
+}
+
+interface SimpleRange {
+  readonly start: SimplePosition;
+  readonly end: SimplePosition;
+}
+
+/**
+ * Used to explicitly provide a range for use as a mark. Today, this mark type
+ * is only used as a hack to enable us to support allowing other editors to
+ * maintain their own hat map when using the Cursorless "sidecar"; see
+ * https://github.com/cursorless-everywhere/notes for more information.
+ */
+export interface ExplicitMark {
+  type: "explicit";
+  editorId: string;
+  range: SimpleRange;
+}
+
 export type PartialMark =
   | CursorMark
   | ThatMark
@@ -50,7 +72,8 @@ export type PartialMark =
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
-  | RangeMark;
+  | RangeMark
+  | ExplicitMark;
 
 export type SimpleSurroundingPairName =
   | "angleBrackets"
@@ -111,6 +134,7 @@ export type SimpleScopeTypeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag"
+  | "notebookCell"
   // Latex scope types
   | "part"
   | "chapter"
@@ -120,14 +144,14 @@ export type SimpleScopeTypeType =
   | "subParagraph"
   | "environment"
   // Text based scopes
-  | "token"
-  | "line"
-  | "notebookCell"
-  | "paragraph"
-  | "document"
   | "character"
   | "word"
+  | "token"
   | "identifier"
+  | "line"
+  | "sentence"
+  | "paragraph"
+  | "document"
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
   | "url"
@@ -269,21 +293,21 @@ export interface InferPreviousMarkModifier {
   type: "inferPreviousMark";
 }
 
-export type TargetPosition = "before" | "after" | "start" | "end";
-
-export interface PositionModifier {
-  type: "position";
-  position: TargetPosition;
+export interface StartOfModifier {
+  type: "startOf";
 }
 
-export interface PartialPrimitiveTargetDescriptor {
-  type: "primitive";
-  mark?: PartialMark;
+export interface EndOfModifier {
+  type: "endOf";
+}
+
+export interface HeadModifier {
+  type: "extendThroughStartOf";
   modifiers?: Modifier[];
 }
 
-export interface HeadTailModifier {
-  type: "extendThroughStartOf" | "extendThroughEndOf";
+export interface TailModifier {
+  type: "extendThroughEndOf";
   modifiers?: Modifier[];
 }
 
@@ -327,14 +351,16 @@ export interface RangeModifier {
 }
 
 export type Modifier =
-  | PositionModifier
+  | StartOfModifier
+  | EndOfModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier
-  | HeadTailModifier
+  | HeadModifier
+  | TailModifier
   | LeadingModifier
   | TrailingModifier
   | RawSelectionModifier
@@ -348,6 +374,12 @@ export type Modifier =
 // continuous is one single continuous selection between the two targets
 // vertical puts a selection on each line vertically between the two targets
 export type PartialRangeType = "continuous" | "vertical";
+
+export interface PartialPrimitiveTargetDescriptor {
+  type: "primitive";
+  mark?: PartialMark;
+  modifiers?: Modifier[];
+}
 
 export interface PartialRangeTargetDescriptor {
   type: "range";

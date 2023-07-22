@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: square switch this
+  spokenForm: square repack this
   version: 2
   targets:
     - type: primitive

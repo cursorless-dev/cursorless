@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear start tag
+  spokenForm: change start tag
   action: clearAndSetSelection
   targets:
     - type: primitive

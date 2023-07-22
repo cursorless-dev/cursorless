@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: square switch look past trap
+  spokenForm: square repack look past trap
   version: 2
   targets:
     - type: range

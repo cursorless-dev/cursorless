@@ -4,6 +4,7 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
+import { StoredTargetMap } from "..";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";
@@ -24,7 +25,7 @@ import {
 import ItemStage from "./modifiers/ItemStage";
 import { LeadingStage, TrailingStage } from "./modifiers/LeadingTrailingStages";
 import { OrdinalScopeStage } from "./modifiers/OrdinalScopeStage";
-import PositionStage from "./modifiers/PositionStage";
+import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
 import RangeModifierStage from "./modifiers/RangeModifierStage";
 import RawSelectionStage from "./modifiers/RawSelectionStage";
 import RelativeScopeStage from "./modifiers/RelativeScopeStage";
@@ -36,13 +37,6 @@ import ContainingSyntaxScopeStage, {
   SimpleEveryScopeModifier,
 } from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
-import {
-  CustomRegexModifier,
-  CustomRegexStage,
-  NonWhitespaceSequenceStage,
-  UrlStage,
-} from "./modifiers/scopeTypeStages/RegexStage";
-import { StoredTargetMap } from "..";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
   constructor(
@@ -55,8 +49,10 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
 
   create(modifier: Modifier): ModifierStage {
     switch (modifier.type) {
-      case "position":
-        return new PositionStage(modifier);
+      case "startOf":
+        return new StartOfStage();
+      case "endOf":
+        return new EndOfStage();
       case "extendThroughStartOf":
         return new HeadStage(this, modifier);
       case "extendThroughEndOf":
@@ -131,20 +127,14 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
     switch (modifier.scopeType.type) {
       case "notebookCell":
         return new NotebookCellStage(modifier);
-      case "nonWhitespaceSequence":
-        return new NonWhitespaceSequenceStage(modifier);
       case "boundedNonWhitespaceSequence":
         return new BoundedNonWhitespaceSequenceStage(
           this.languageDefinitions,
           this,
           modifier,
         );
-      case "url":
-        return new UrlStage(modifier);
       case "collectionItem":
         return new ItemStage(this.languageDefinitions, modifier);
-      case "customRegex":
-        return new CustomRegexStage(modifier as CustomRegexModifier);
       case "surroundingPair":
         return new SurroundingPairStage(
           this.languageDefinitions,

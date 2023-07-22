@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: find vest
+  spokenForm: scout vest
   action: getText
   targets:
     - type: primitive

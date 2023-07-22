@@ -1,16 +1,20 @@
 import type { ScopeType } from "@cursorless/common";
 import {
   CharacterScopeHandler,
+  CustomRegexScopeHandler,
   DocumentScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
+  NonWhitespaceSequenceScopeHandler,
   OneOfScopeHandler,
   ParagraphScopeHandler,
+  ScopeHandlerFactory,
+  SentenceScopeHandler,
   TokenScopeHandler,
+  UrlScopeHandler,
   WordScopeHandler,
 } from ".";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 
 /**
@@ -50,12 +54,24 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new IdentifierScopeHandler(this, scopeType, languageId);
       case "line":
         return new LineScopeHandler(scopeType, languageId);
+      case "sentence":
+        return new SentenceScopeHandler(this, scopeType, languageId);
+      case "paragraph":
+        return new ParagraphScopeHandler(scopeType, languageId);
       case "document":
         return new DocumentScopeHandler(scopeType, languageId);
       case "oneOf":
         return OneOfScopeHandler.create(this, scopeType, languageId);
-      case "paragraph":
-        return new ParagraphScopeHandler(scopeType, languageId);
+      case "nonWhitespaceSequence":
+        return new NonWhitespaceSequenceScopeHandler(
+          this,
+          scopeType,
+          languageId,
+        );
+      case "url":
+        return new UrlScopeHandler(this, scopeType, languageId);
+      case "customRegex":
+        return new CustomRegexScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":

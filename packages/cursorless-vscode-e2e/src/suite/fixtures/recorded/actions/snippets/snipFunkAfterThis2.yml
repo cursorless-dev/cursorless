@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk after this
+  spokenForm: snippet funk after this
   version: 2
   targets:
     - type: primitive
