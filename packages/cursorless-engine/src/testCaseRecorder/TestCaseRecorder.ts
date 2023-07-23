@@ -368,9 +368,19 @@ export class TestCaseRecorder {
         "testCaseSaved",
         "Cursorless test case saved.",
         "View",
+        "Delete",
       ).then(async (action) => {
         if (action === "View") {
           await ide().openTextDocument(outPath);
+        }
+        if (action === "Delete") {
+          await fs.unlink(outPath, (err) => {
+            if (err) {
+              console.log("failed to delete ${outPath}: ${err}");
+            } else {
+              console.log("deleted ${outPath}");
+            }
+          });
         }
       });
     }
