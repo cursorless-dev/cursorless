@@ -97,15 +97,11 @@
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! function foo() {   }
 ;;!                  ***
-(
-  (_
-    body: (_
-        .
-        "{" @name.iteration.start
-        "}" @name.iteration.end
-        .
-    )
+(_
+  body: (_
+      .
+      "{" @name.iteration.start.endOf
+      "}" @name.iteration.end.startOf
+      .
   )
-  (#end-position! @name.iteration.start)
-  (#start-position! @name.iteration.end)
 )
