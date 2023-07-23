@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change square left square
+  spokenForm: change inside box square
   action: clearAndSetSelection
   targets:
     - type: primitive

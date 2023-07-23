@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change type rangle
+  spokenForm: change type right angle
   action: clearAndSetSelection
   targets:
     - type: primitive

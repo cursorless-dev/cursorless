@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck before vest
+  spokenForm: chuck leading vest
   action: remove
   targets:
     - type: primitive

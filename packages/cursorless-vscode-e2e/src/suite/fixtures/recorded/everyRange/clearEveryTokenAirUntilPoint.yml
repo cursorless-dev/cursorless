@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change every token air until point
+  spokenForm: change every token air until dot
   action: {name: clearAndSetSelection}
   targets:
     - type: range

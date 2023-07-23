@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change inside round
   action: clearAndSetSelection
   targets:
     - type: primitive

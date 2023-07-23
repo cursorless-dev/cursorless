@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: chuck small paint sun
+  spokenForm: chuck short paint sun
   version: 2
   targets:
     - type: primitive
