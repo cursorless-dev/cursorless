@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take every paint each
+  spokenForm: take every short paint each
   version: 2
   targets:
     - type: primitive

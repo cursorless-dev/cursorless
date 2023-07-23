@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck after line vest
+  spokenForm: chuck trailing line vest
   action: remove
   targets:
     - type: primitive

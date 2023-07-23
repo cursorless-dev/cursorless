@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take last two word harp
+  spokenForm: take last two words harp
   action: setSelection
   targets:
     - type: primitive

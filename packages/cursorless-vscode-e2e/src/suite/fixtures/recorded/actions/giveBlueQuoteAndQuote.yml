@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: give blue quote and quote
+  spokenForm: give blue double quote and double quote
   action: deselect
   targets:
     - type: list

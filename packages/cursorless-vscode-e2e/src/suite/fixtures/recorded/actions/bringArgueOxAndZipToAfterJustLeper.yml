@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: bring arg odd and zip to after just paren
+  spokenForm: bring arg odd and zip after just paren
   action: replaceWithTarget
   targets:
     - type: list

@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: square repack this
+  spokenForm: box repack this
   action: rewrapWithPairedDelimiter
   targets:
     - type: primitive
