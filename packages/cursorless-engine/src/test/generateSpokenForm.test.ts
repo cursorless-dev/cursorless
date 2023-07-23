@@ -3,12 +3,15 @@ import {
   TestCaseFixtureLegacy,
   getRecordedTestPaths,
   getRecordedTestsDirPath,
+  serialize,
+  shouldUpdateFixtures,
 } from "@cursorless/common";
 import * as yaml from "js-yaml";
+import * as assert from "node:assert";
 import * as fs from "node:fs";
 import { promises as fsp } from "node:fs";
 import * as path from "node:path";
-import * as assert from "node:assert";
+
 import { canonicalizeSpokenFormTestCommand } from "../core/commandVersionUpgrades/canonicalizeSpokenFormTestCommand";
 
 suite.skip("Generate spoken forms", async function () {
@@ -33,7 +36,14 @@ async function runTest(file: string) {
   const suffix = getHatTokenMapSuffix(file, fixture.command);
   const spokenForm = spokenFormCommand.spokenForm + suffix;
 
-  assert.equal(fixture.command.spokenForm, spokenForm);
+  if (shouldUpdateFixtures()) {
+    if (fixture.command.spokenForm !== spokenForm) {
+      fixture.command.spokenForm = spokenForm;
+      await fsp.writeFile(file, serialize(fixture));
+    }
+  } else {
+    assert.equal(fixture.command.spokenForm, spokenForm);
+  }
 }
 
 function getHatTokenMapSuffix(file: string, command: Command): string {

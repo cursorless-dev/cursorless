@@ -13,6 +13,7 @@ import {
   SelectionPlainObject,
   serialize,
   SerializedMarks,
+  shouldUpdateFixtures,
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
@@ -32,7 +33,6 @@ import { isUndefined } from "lodash";
 import * as vscode from "vscode";
 import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
 
 function createPosition(position: PositionPlainObject) {
