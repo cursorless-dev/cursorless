@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: else state wrap this
+  spokenForm: else wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive

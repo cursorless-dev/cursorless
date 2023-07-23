@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: bring line air and bat and cap to before drum
+  spokenForm: bring line air and bat and cap before drum
   action: replaceWithTarget
   targets:
     - type: list

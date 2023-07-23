@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring point to start of whale take whale
+  spokenForm: bring dot to start of whale take whale
   action: replaceWithTarget
   targets:
     - type: primitive

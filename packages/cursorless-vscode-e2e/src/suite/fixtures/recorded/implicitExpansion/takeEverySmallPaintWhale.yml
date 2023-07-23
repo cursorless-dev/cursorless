@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take every paint whale
+  spokenForm: take every short paint whale
   version: 2
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring fine to first two char
+  spokenForm: bring fine to first two chars
   action: replaceWithTarget
   targets:
     - type: primitive
