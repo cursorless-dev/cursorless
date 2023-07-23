@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take vertical past fine
+  spokenForm: take slice past fine
   action: setSelection
   targets:
     - type: range

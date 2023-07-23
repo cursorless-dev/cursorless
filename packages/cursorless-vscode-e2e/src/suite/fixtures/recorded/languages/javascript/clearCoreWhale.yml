@@ -1,6 +1,6 @@
 languageId: javascript
 command:
-  spokenForm: change core whale
+  spokenForm: change inside whale
   version: 2
   targets:
     - type: primitive

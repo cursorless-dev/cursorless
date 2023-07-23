@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck first two car whale take whale
+  spokenForm: chuck first two char whale take whale
   action: remove
   targets:
     - type: primitive

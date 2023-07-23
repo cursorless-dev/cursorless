@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: change core every class
+  spokenForm: change inside every class
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

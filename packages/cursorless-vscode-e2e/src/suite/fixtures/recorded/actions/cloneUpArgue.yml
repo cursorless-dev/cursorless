@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clone up argue
+  spokenForm: clone up arg
   version: 2
   targets:
     - type: primitive

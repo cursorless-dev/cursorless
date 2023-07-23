@@ -1,7 +1,7 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change command
+  spokenForm: change call
   action: clearAndSetSelection
   targets:
     - type: primitive

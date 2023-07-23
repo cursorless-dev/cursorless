@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck bounding that
+  spokenForm: chuck bounds that
   version: 2
   targets:
     - type: primitive
