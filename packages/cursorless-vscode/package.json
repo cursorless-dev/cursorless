@@ -693,9 +693,6 @@
             "fez": {
               "type": "boolean"
             },
-            "flake": {
-              "type": "boolean"
-            },
             "gem": {
               "type": "boolean"
             },
@@ -720,9 +717,6 @@
             "pail": {
               "type": "boolean"
             },
-            "pawn": {
-              "type": "boolean"
-            },
             "rook": {
               "type": "boolean"
             },
@@ -736,9 +730,6 @@
               "type": "boolean"
             },
             "stupa": {
-              "type": "boolean"
-            },
-            "tree": {
               "type": "boolean"
             },
             "wave": {
@@ -760,7 +751,6 @@
             "church": false,
             "fang": false,
             "fez": false,
-            "flake": false,
             "gem": false,
             "horn": false,
             "knight": false,
@@ -769,13 +759,11 @@
             "moon": false,
             "mosque": false,
             "pail": false,
-            "pawn": false,
             "rook": false,
             "shroom": false,
             "singer": false,
             "stair": false,
             "stupa": false,
-            "tree": false,
             "wave": false
           },
           "additionalProperties": false
@@ -868,9 +856,6 @@
             "fez": {
               "type": "number"
             },
-            "flake": {
-              "type": "number"
-            },
             "gem": {
               "type": "number"
             },
@@ -895,9 +880,6 @@
             "pail": {
               "type": "number"
             },
-            "pawn": {
-              "type": "number"
-            },
             "rook": {
               "type": "number"
             },
@@ -911,9 +893,6 @@
               "type": "number"
             },
             "stupa": {
-              "type": "number"
-            },
-            "tree": {
               "type": "number"
             },
             "wave": {
@@ -935,7 +914,6 @@
             "church": 1,
             "fang": 1,
             "fez": 1,
-            "flake": 1,
             "gem": 1,
             "horn": 1,
             "knight": 1,
@@ -944,13 +922,11 @@
             "moon": 1,
             "mosque": 1,
             "pail": 1,
-            "pawn": 1,
             "rook": 1,
             "shroom": 1,
             "singer": 1,
             "stair": 1,
             "stupa": 1,
-            "tree": 1,
             "wave": 1
           },
           "additionalProperties": false
@@ -1019,10 +995,6 @@
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
-            "flake": {
-              "sizeAdjustment": 0,
-              "verticalOffset": 0
-            },
             "gem": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
@@ -1055,10 +1027,6 @@
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
-            "pawn": {
-              "sizeAdjustment": 0,
-              "verticalOffset": 0
-            },
             "rook": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
@@ -1076,10 +1044,6 @@
               "verticalOffset": 0
             },
             "stupa": {
-              "sizeAdjustment": 0,
-              "verticalOffset": 0
-            },
-            "tree": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
@@ -1191,7 +1155,6 @@
               "church",
               "fang",
               "fez",
-              "flake",
               "gem",
               "horn",
               "knight",
@@ -1200,13 +1163,11 @@
               "moon",
               "mosque",
               "pail",
-              "pawn",
               "rook",
               "shroom",
               "singer",
               "stair",
               "stupa",
-              "tree",
               "wave"
             ]
           }

@@ -24,7 +24,6 @@ export const HAT_NON_DEFAULT_SHAPES = [
   "church",
   "fang",
   "fez",
-  "flake",
   "gem",
   "horn",
   "knight",
@@ -33,13 +32,11 @@ export const HAT_NON_DEFAULT_SHAPES = [
   "moon",
   "mosque",
   "pail",
-  "pawn",
   "rook",
   "shroom",
   "singer",
   "stair",
   "stupa",
-  "tree",
   "wave",
 ] as const;
 
