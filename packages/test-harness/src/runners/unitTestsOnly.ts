@@ -3,14 +3,15 @@
 
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
-import { runAllTestsInDirs } from "../util/runAllTestsInDir";
+import { runAllTestsInDir } from "../util/runAllTestsInDir";
 
-const testDirectories = ["cursorless-engine", "common"];
-
+/**
+ * Runs all tests that don't have to be run within VSCode.
+ * @returns A promise that resolves when tests have finished running
+ */
 export function run(): Promise<void> {
-  return runAllTestsInDirs(
-    testDirectories.map((testDirectory) =>
-      path.resolve(getCursorlessRepoRoot(), `packages/${testDirectory}`),
-    ),
+  return runAllTestsInDir(
+    path.join(getCursorlessRepoRoot(), "packages"),
+    false,
   );
 }

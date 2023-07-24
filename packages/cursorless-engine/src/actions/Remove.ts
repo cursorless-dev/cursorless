@@ -7,15 +7,15 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export default class Delete implements Action {
+export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     { showDecorations = true } = {},
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.

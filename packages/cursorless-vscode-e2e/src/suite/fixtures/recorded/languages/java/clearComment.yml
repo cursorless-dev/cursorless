@@ -1,6 +1,6 @@
 languageId: java
 command:
-  spokenForm: clear comment
+  spokenForm: change comment
   version: 2
   targets:
     - type: primitive

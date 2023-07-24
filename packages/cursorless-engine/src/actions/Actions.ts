@@ -6,7 +6,8 @@ import Call from "./Call";
 import Clear from "./Clear";
 import { CutToClipboard } from "./CutToClipboard";
 import Deselect from "./Deselect";
-import { EditNew, EditNewAfter, EditNewBefore } from "./EditNew";
+import { EditNew } from "./EditNew";
+import { EditNewAfter, EditNewBefore } from "./EditNewLineAction";
 import ExecuteCommand from "./ExecuteCommand";
 import { FindInWorkspace } from "./Find";
 import FollowLink from "./FollowLink";
@@ -71,14 +72,12 @@ export class Actions implements ActionRecord {
   copyToClipboard = new CopyToClipboard(this.rangeUpdater);
   cutToClipboard = new CutToClipboard(this);
   deselect = new Deselect();
-  editNew = new EditNew(this.rangeUpdater, this, this.modifierStageFactory);
-  editNewLineAfter = new EditNewAfter(
-    this.rangeUpdater,
+  editNew = new EditNew(this.rangeUpdater, this);
+  editNewLineAfter: EditNewAfter = new EditNewAfter(
     this,
     this.modifierStageFactory,
   );
-  editNewLineBefore = new EditNewBefore(
-    this.rangeUpdater,
+  editNewLineBefore: EditNewBefore = new EditNewBefore(
     this,
     this.modifierStageFactory,
   );

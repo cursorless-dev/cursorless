@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck core that
+  spokenForm: chuck inside that
   version: 2
   targets:
     - type: primitive

@@ -7,13 +7,15 @@
 import type { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
 import type {
+  InsertionMode,
   Range,
   Selection,
-  TextEditor,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   Snippet,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   SnippetVariable,
+  TargetPlainObject,
+  TextEditor,
 } from "@cursorless/common";
 import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
@@ -23,7 +25,6 @@ import type {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports
   UntypedTarget,
 } from "../processTargets/targets";
-import type { TargetPosition } from "@cursorless/common";
 import type { EditWithRangeUpdater } from "./Types";
 
 export type EditNewActionType = "edit" | "insertLineAfter";
@@ -135,8 +136,20 @@ export interface Target {
   /** The range of the delimiter after the content selection */
   getTrailingDelimiterTarget(): Target | undefined;
   getRemovalRange(): Range;
+
+  /**
+   * The range that should be highlighted when the target is removed. Note that
+   * we can't just use `getRemovalRange()`, because when we highlight a line for
+   * removal, we don't know which line to highlight just based on the removal
+   * range.
+   *
+   * For example, assume that the document, represented as a string, is `"\n"`.
+   * This corresponds to a document with two empty lines. If we say `"chuck
+   * line"` on either line, the removal range will be the entire document, but
+   * we want to highlight the line that they were on when they said `"chuck
+   * line"`, as that is logically the line they've deleted.
+   */
   getRemovalHighlightRange(): Range;
-  getEditNewActionType(): EditNewActionType;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
   createContinuousRangeTarget(
@@ -145,14 +158,39 @@ export interface Target {
     includeStart: boolean,
     includeEnd: boolean,
   ): Target;
-  /** Constructs change/insertion edit. Adds delimiter before/after if needed */
-  constructChangeEdit(text: string): EditWithRangeUpdater;
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;
   /**
-   * Construct a position target with the given position.
-   * @param position The position to use, eg `start`, `end`, `before`, `after`
+   * Construct a destination  with the given insertion mode.
+   * @param position The insertion modes to use, eg `before`, `after`, `to`
    */
-  toPositionTarget(position: TargetPosition): Target;
+  toDestination(insertionMode: InsertionMode): Destination;
+  /**
+   * Constructs an object suitable for serialization by json. This is used to
+   * capture targets for testing and recording test cases.
+   *
+   * @returns A plain object that can be json serialized
+   */
+  toPlainObject(): TargetPlainObject;
+}
+
+/**
+ * A destination is a wrapper around a target that can be used for inserting new
+ * text. It represents things like "after funk", "before air", "to bat", etc. in
+ * commands like "bring funk air to bat", "paste after line", etc.  Destinations
+ * are also created implicitly for actions like "drink" and "pour".
+ */
+export interface Destination {
+  readonly insertionMode: InsertionMode;
+  readonly editor: TextEditor;
+  readonly target: Target;
+  readonly contentRange: Range;
+  readonly contentSelection: Selection;
+  readonly isRaw: boolean;
+  readonly insertionDelimiter: string;
+  withTarget(target: Target): Destination;
+  getEditNewActionType(): EditNewActionType;
+  /** Constructs change/insertion edit. Adds delimiter before/after if needed */
+  constructChangeEdit(text: string): EditWithRangeUpdater;
 }

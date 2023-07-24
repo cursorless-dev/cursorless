@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear outside rack
+  spokenForm: change pair right square
   action: clearAndSetSelection
   targets:
     - type: primitive

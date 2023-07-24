@@ -1,6 +1,6 @@
 languageId: markdown
 command:
-  spokenForm: clear previous two tokens
+  spokenForm: change previous two tokens
   version: 3
   targets:
     - type: primitive

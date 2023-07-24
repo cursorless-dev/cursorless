@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear outside fine
+  spokenForm: change pair fine
   action: clearAndSetSelection
   targets:
     - type: primitive

@@ -6,9 +6,9 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-class InsertEmptyLines implements Action {
+class InsertEmptyLines implements SimpleAction {
   constructor(
     private rangeUpdater: RangeUpdater,
     private insertAbove: boolean,
@@ -41,7 +41,7 @@ class InsertEmptyLines implements Action {
     }));
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     const results = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
         const ranges = this.getRanges(targets);

@@ -43,6 +43,8 @@ export const cursorlessCommandIds = [
   "cursorless.showQuickPick",
   "cursorless.takeSnapshot",
   "cursorless.toggleDecorations",
+  "cursorless.showScopeVisualizer",
+  "cursorless.hideScopeVisualizer",
 ] as const satisfies readonly `cursorless.${string}`[];
 
 export type CursorlessCommandId = (typeof cursorlessCommandIds)[number];
@@ -103,5 +105,11 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
+  ),
+  ["cursorless.showScopeVisualizer"]: new HiddenCommand(
+    "Show the scope visualizer",
+  ),
+  ["cursorless.hideScopeVisualizer"]: new HiddenCommand(
+    "Hide the scope visualizer",
   ),
 };

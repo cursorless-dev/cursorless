@@ -1,7 +1,7 @@
 languageId: latex
 command:
   version: 5
-  spokenForm: clear elm
+  spokenForm: change element
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

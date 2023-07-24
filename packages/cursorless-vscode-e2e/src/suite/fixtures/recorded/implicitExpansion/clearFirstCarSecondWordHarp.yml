@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear first car second word harp
+  spokenForm: change first char second word harp
   version: 2
   targets:
     - type: primitive

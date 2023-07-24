@@ -1,6 +1,6 @@
 languageId: html
 command:
-  spokenForm: pour elm
+  spokenForm: pour element
   version: 3
   targets:
     - type: primitive

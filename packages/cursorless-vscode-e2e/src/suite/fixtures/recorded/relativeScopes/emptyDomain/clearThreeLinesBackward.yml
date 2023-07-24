@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear three lines backward
+  spokenForm: change three lines backward
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

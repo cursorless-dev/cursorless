@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: bring state fine to after batt
+  spokenForm: bring state fine after state bat
   version: 2
   targets:
     - type: primitive

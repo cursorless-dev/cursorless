@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear outside urge
+  spokenForm: change pair urge
   action: clearAndSetSelection
   targets:
     - type: primitive

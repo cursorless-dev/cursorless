@@ -143,7 +143,7 @@ Note that if the mark is `"this"`, and you have multiple cursors, the modifiers 
 
 ##### Syntactic scopes
 
-For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../queries) for a list of supported languages. Some languages are still supported using our legacy implementation; those will be listed in [here](../../packages/cursorless-engine/src/languages/LegacyLanguageId.ts). Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say `"cursorless cheatsheet"` with VSCode focused) will have the most up-to-date list.
+For programming languages where Cursorless has rich parse tree support, we support modifiers that expand to the nearest containing function, class, etc. See [the source code](../../queries) for a list of supported languages. Some languages are still supported using our legacy implementation; those will be listed in [here](../../packages/cursorless-engine/src/languages/LegacyLanguageId.ts). Below is a list of supported scope types, keeping in mind that this table can sometimes lag behind the actual list. Your cheatsheet (say `"cursorless cheatsheet"` with VSCode focused) will have the most up-to-date list. It can also be helpful to use the [scope visualizer](./scope-visualizer.md) to visualize the scope types on your own code.
 
 | Term           | Syntactic element                                   |
 | -------------- | --------------------------------------------------- |
@@ -348,9 +348,9 @@ Cursorless has support for expanding the selection to the nearest containing pai
 - `"take curly"` expands selection to include containing braces `{` and `}`
 - `"take box"` expands selection to include containing brackets `[` and `]`. See [paired delimiters](#paired-delimiters) for other possible surrounding pairs.
 - `"take inside round"` is the same as `"take round"`, but excludes the parentheses themselves
-- `"take bound round"` selects only the parentheses
+- `"take bounds round"` selects only the parentheses
 - `"take pair"` expands to include the nearest containing pair of any kind
-- `"take bound"` selects the nearest containing paired delimiters themselves of any kind
+- `"take bounds"` selects the nearest containing paired delimiters themselves of any kind
 - `"take inside"` selects until the nearest containing paired delimiters of any kind, but doesn't include the delimiters themselves
 - `"take round air"` selects the parentheses containing the token with a hat over the `a`.
 

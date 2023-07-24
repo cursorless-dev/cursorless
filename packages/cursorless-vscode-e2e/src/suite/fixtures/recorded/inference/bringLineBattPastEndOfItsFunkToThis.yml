@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: bring line batt past end of its funk to this
+  spokenForm: bring line bat past end of its funk to this
   version: 3
   targets:
     - type: range

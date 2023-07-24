@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear short paint leper
+  spokenForm: change short paint paren
   version: 2
   targets:
     - type: primitive

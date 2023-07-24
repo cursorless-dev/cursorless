@@ -1,6 +1,6 @@
 languageId: scala
 command:
-  spokenForm: clear subject
+  spokenForm: change subject
   version: 3
   targets:
     - type: primitive

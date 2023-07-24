@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: ditch second car
+  spokenForm: chuck second char
   version: 2
   targets:
     - type: primitive

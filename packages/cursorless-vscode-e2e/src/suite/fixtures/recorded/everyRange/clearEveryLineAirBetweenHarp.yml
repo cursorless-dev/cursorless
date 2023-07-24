@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every line air between harp
+  spokenForm: change every line air between harp
   action: {name: clearAndSetSelection}
   targets:
     - type: range

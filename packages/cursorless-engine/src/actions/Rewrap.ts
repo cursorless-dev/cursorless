@@ -10,9 +10,9 @@ import {
   flashTargets,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
-import { Action, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue } from "./actions.types";
 
-export default class Rewrap implements Action {
+export default class Rewrap {
   getFinalStages = () => [
     this.modifierStageFactory.create(
       containingSurroundingPairIfUntypedModifier,
@@ -27,7 +27,7 @@ export default class Rewrap implements Action {
   }
 
   async run(
-    [targets]: [Target[]],
+    targets: Target[],
     left: string,
     right: string,
   ): Promise<ActionReturnValue> {

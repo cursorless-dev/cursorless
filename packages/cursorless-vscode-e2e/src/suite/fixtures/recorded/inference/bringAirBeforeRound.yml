@@ -1,0 +1,32 @@
+languageId: plaintext
+command:
+  version: 5
+  spokenForm: bring air before round
+  action: {name: replaceWithTarget}
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    - type: primitive
+      modifiers:
+        - {type: position, position: before}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    ()
+    (a)
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks:
+    default.a:
+      start: {line: 1, character: 1}
+      end: {line: 1, character: 2}
+finalState:
+  documentContents: |-
+    a ()
+    (a)
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

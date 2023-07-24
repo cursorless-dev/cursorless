@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear type urge
+  spokenForm: change type urge
   action: clearAndSetSelection
   targets:
     - type: primitive

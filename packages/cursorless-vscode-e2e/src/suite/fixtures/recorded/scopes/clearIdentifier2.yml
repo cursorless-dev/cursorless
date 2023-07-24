@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear identifier
+  spokenForm: change identifier
   version: 3
   targets:
     - type: primitive

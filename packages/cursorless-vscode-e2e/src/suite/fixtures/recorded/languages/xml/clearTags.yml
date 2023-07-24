@@ -1,7 +1,7 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: clear tags
+  spokenForm: change tags
   action: clearAndSetSelection
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear outside blue double
+  spokenForm: change pair blue double quote
   action: clearAndSetSelection
   targets:
     - type: primitive

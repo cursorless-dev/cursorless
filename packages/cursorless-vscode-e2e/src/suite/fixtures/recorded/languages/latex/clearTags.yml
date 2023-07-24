@@ -1,7 +1,7 @@
 languageId: latex
 command:
   version: 5
-  spokenForm: clear tags
+  spokenForm: change tags
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

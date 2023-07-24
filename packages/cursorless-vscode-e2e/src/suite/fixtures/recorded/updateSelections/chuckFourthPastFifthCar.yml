@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck fourth past fifth car
+  spokenForm: chuck fourth past fifth char
   action: remove
   targets:
     - type: primitive

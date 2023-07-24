@@ -1,12 +1,12 @@
 import { Target } from "../typings/target.types";
-import { Action, ActionReturnValue } from "./actions.types";
+import { SimpleAction, ActionReturnValue } from "./actions.types";
 
-export class SetInstanceReference implements Action {
+export class SetInstanceReference implements SimpleAction {
   constructor() {
     this.run = this.run.bind(this);
   }
 
-  async run([targets]: [Target[]]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     return {
       thatTargets: targets,
       instanceReferenceTargets: targets,

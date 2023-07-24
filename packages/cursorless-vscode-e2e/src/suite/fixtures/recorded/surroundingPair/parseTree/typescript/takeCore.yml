@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: take core
+  spokenForm: take inside pair
   version: 2
   targets:
     - type: primitive

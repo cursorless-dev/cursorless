@@ -1,0 +1,22 @@
+languageId: javascriptreact
+command:
+  version: 5
+  spokenForm: change item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: <Button data-testid="Action Button" data-variant="bare"></Button>
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+finalState:
+  documentContents: <Button  data-variant="bare"></Button>
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

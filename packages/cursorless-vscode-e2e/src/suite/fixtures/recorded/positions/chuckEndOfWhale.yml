@@ -19,4 +19,8 @@ initialState:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
 fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: position, position: end}]}]
-thrownError: {name: UnsupportedError}
+finalState:
+  documentContents: hello world whatever
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

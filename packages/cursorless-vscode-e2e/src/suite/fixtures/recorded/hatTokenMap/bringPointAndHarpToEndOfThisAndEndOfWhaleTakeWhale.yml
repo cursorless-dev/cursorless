@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring point and harp to end of this and end of whale take whale
+  spokenForm: bring dot and harp to end of this and end of whale take whale
   action: replaceWithTarget
   targets:
     - type: list

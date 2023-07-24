@@ -1,7 +1,7 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: clear every funk
+  spokenForm: change every funk
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

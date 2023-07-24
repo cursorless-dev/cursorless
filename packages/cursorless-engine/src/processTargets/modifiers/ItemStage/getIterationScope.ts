@@ -1,4 +1,4 @@
-import { Range, TextEditor } from "@cursorless/common";
+import { Range, TextEditor, TextLine } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
 import { PlainTarget, SurroundingPairTarget } from "../../targets";
@@ -18,27 +18,18 @@ export function getIterationScope(
 ): { range: Range; boundary?: [Range, Range] } {
   let surroundingTarget = getSurroundingPair(languageDefinitions, target);
 
-  // Iteration is necessary in case of nested strings
+  // Iteration is necessary in case of in valid surrounding targets (nested strings, content range adjacent to delimiter)
   while (surroundingTarget != null) {
-    const surroundingStringTarget = getStringSurroundingPair(
-      languageDefinitions,
-      surroundingTarget,
-    );
-
-    // We don't look for items inside strings.
     if (
-      // Not in a string
-      surroundingStringTarget == null ||
-      // In a non-string surrounding pair that is inside a surrounding string. This is fine.
-      surroundingStringTarget.contentRange.start.isBefore(
-        surroundingTarget.contentRange.start,
+      useInteriorOfSurroundingTarget(
+        languageDefinitions,
+        target,
+        surroundingTarget,
       )
     ) {
       return {
         range: surroundingTarget.getInteriorStrict()[0].contentRange,
-        boundary: surroundingTarget
-          .getBoundaryStrict()
-          .map((t) => t.contentRange) as [Range, Range],
+        boundary: getBoundary(surroundingTarget),
       };
     }
 
@@ -53,6 +44,84 @@ export function getIterationScope(
   return {
     range: fitRangeToLineContent(target.editor, target.contentRange),
   };
+}
+
+function useInteriorOfSurroundingTarget(
+  languageDefinitions: LanguageDefinitions,
+  target: Target,
+  surroundingTarget: SurroundingPairTarget,
+): boolean {
+  const { contentRange } = target;
+
+  if (contentRange.isEmpty) {
+    const [left, right] = getBoundary(surroundingTarget);
+    const pos = contentRange.start;
+    // Content range is outside adjacent to pair
+    if (pos.isEqual(left.start) || pos.isEqual(right.end)) {
+      return false;
+    }
+    const line = target.editor.document.lineAt(pos);
+    // Content range is just inside of opening/left delimiter
+    if (
+      pos.isEqual(left.end) &&
+      characterIsWhitespaceOrMissing(line, pos.character)
+    ) {
+      return false;
+    }
+    // Content range is just inside of closing/right delimiter
+    if (
+      pos.isEqual(right.start) &&
+      characterIsWhitespaceOrMissing(line, pos.character - 1)
+    ) {
+      return false;
+    }
+  } else {
+    // Content range is equal to surrounding range
+    if (contentRange.isRangeEqual(surroundingTarget.contentRange)) {
+      return false;
+    }
+
+    // Content range is equal to one of the boundaries of the surrounding range
+    const [left, right] = getBoundary(surroundingTarget);
+    if (contentRange.isRangeEqual(left) || contentRange.isRangeEqual(right)) {
+      return false;
+    }
+  }
+
+  // We don't look for items inside strings.
+  // A non-string surrounding pair that is inside a surrounding string is fine.
+  const surroundingStringTarget = getStringSurroundingPair(
+    languageDefinitions,
+    surroundingTarget,
+  );
+  if (
+    surroundingStringTarget != null &&
+    surroundingTarget.contentRange.start.isBeforeOrEqual(
+      surroundingStringTarget.contentRange.start,
+    )
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function getBoundary(surroundingTarget: SurroundingPairTarget): [Range, Range] {
+  return surroundingTarget.getBoundaryStrict().map((t) => t.contentRange) as [
+    Range,
+    Range,
+  ];
+}
+
+function characterIsWhitespaceOrMissing(
+  line: TextLine,
+  index: number,
+): boolean {
+  return (
+    index < line.range.start.character ||
+    index >= line.range.end.character ||
+    line.text[index].trim() === ""
+  );
 }
 
 function getParentSurroundingPair(

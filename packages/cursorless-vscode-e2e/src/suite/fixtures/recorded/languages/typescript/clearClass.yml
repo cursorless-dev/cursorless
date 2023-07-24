@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear class
+  spokenForm: change class
   version: 2
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck third car whale past second car harp
+  spokenForm: chuck third char whale past second char harp
   action: remove
   targets:
     - type: range

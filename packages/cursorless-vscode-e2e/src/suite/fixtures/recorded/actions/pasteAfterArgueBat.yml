@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: paste after argue bat
+  spokenForm: paste after arg bat
   version: 2
   targets:
     - type: primitive

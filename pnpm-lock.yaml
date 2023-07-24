@@ -217,14 +217,17 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       itertools:
-        specifier: ^1.7.1
-        version: 1.7.1
+        specifier: ^2.1.1
+        version: 2.1.1
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
       node-html-parser:
         specifier: ^5.3.3
         version: 5.4.2
+      sbd:
+        specifier: ^1.0.19
+        version: 1.0.19
       zod:
         specifier: 3.21.4
         version: 3.21.4
@@ -238,6 +241,9 @@ importers:
       '@types/mocha':
         specifier: ^8.0.4
         version: 8.2.3
+      '@types/sbd':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@types/sinon':
         specifier: ^10.0.2
         version: 10.0.13
@@ -381,12 +387,21 @@ importers:
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
+      '@types/tinycolor2':
+        specifier: 1.4.3
+        version: 1.4.3
+      itertools:
+        specifier: ^2.1.1
+        version: 2.1.1
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
       semver:
         specifier: ^7.3.9
         version: 7.4.0
+      tinycolor2:
+        specifier: 1.6.0
+        version: 1.6.0
       uuid:
         specifier: ^9.0.0
         version: 9.0.0
@@ -434,8 +449,8 @@ importers:
         specifier: ^0.17.11
         version: 0.17.11
       fast-xml-parser:
-        specifier: ^3.20.0
-        version: 3.20.0
+        specifier: ^4.2.4
+        version: 4.2.4
       fs-extra:
         specifier: 11.1.0
         version: 11.1.0
@@ -5622,6 +5637,10 @@ packages:
       '@types/node': 16.18.13
     dev: false
 
+  /@types/sbd@1.0.3:
+    resolution: {integrity: sha512-4rOX5JsLAEFrzOB0zvV2fG0lqwyNoo/TTYuQna/rjKi+ZHsN7s3BLfx70gsqGD6DM0j6Ha0QfneU/KspzMMeUg==}
+    dev: true
+
   /@types/scheduler@0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
@@ -5667,6 +5686,10 @@ packages:
 
   /@types/stack-utils@2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
+
+  /@types/tinycolor2@1.4.3:
+    resolution: {integrity: sha512-Kf1w9NE5HEgGxCRyIcRXR/ZYtDv0V8FVPtYHwLxl0O+maGX0erE77pQlD0gpP+/KByMZ87mOA79SjifhSB3PjQ==}
+    dev: false
 
   /@types/tough-cookie@4.0.2:
     resolution: {integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==}
@@ -9176,8 +9199,8 @@ packages:
       punycode: 1.4.1
     dev: false
 
-  /fast-xml-parser@3.20.0:
-    resolution: {integrity: sha512-cMQwDJYVDjMPU56DviszewgMKuNzuf4NQSBuDf9RgZ6FKm5QEMxW05Za8lvnuL6moxoeZVUWBlL733WmovvV6g==}
+  /fast-xml-parser@4.2.4:
+    resolution: {integrity: sha512-fbfMDvgBNIdDJLdLOwacjFAPYt67tr31H9ZhWSm45CDAxvd0I6WTlSOUo7K2P/K5sA5JgMKG64PI3DMcaFdWpQ==}
     hasBin: true
     dependencies:
       strnum: 1.0.5
@@ -10815,10 +10838,8 @@ packages:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.0
 
-  /itertools@1.7.1:
-    resolution: {integrity: sha512-0sC8t0HYOH0wb/mU5eLmp2g19yfhqho12Q6kCX6MGkNEEJQz97LIXzZ2bbIDyzBnQGcMixmcAtByzKjiaFkw8Q==}
-    dependencies:
-      '@babel/runtime': 7.21.0
+  /itertools@2.1.1:
+    resolution: {integrity: sha512-T0icRZBQfWSwhdeBvJT3Sg1m3lBOv1RCD2m+vnY7F12sIInidVDLIn5Fbu1/1gAMN8XIjzkDP48ukF7mTRn/fw==}
     dev: false
 
   /jake@10.8.5:
@@ -12616,7 +12637,7 @@ packages:
       levn: 0.3.0
       prelude-ls: 1.1.2
       type-check: 0.3.2
-      word-wrap: 1.2.3
+      word-wrap: 1.2.4
     dev: true
 
   /optionator@0.9.1:
@@ -12628,7 +12649,7 @@ packages:
       levn: 0.4.1
       prelude-ls: 1.2.1
       type-check: 0.4.0
-      word-wrap: 1.2.3
+      word-wrap: 1.2.4
 
   /ora@5.4.1:
     resolution: {integrity: sha512-5b6Y85tPxZZ7QytO+BQzysW31HJku27cRIlkbAXaNx+BdcVi+LlRFmVXzeF6a7JCwJpyw5c4b+YSVImQIrBpuQ==}
@@ -12882,6 +12903,10 @@ packages:
 
   /parse-numeric-range@1.3.0:
     resolution: {integrity: sha512-twN+njEipszzlMJd4ONUYgSfZPDxgHhT9Ahed5uTigpQn90FggW4SA/AIPq/6a149fTbE9qBEcSwE3FAEp6wQQ==}
+    dev: false
+
+  /parse-srcset@1.0.2:
+    resolution: {integrity: sha512-/2qh0lav6CmI15FzA3i/2Bzk2zCgQhGMkvhOhKNcBVQ1ldgpbfiNTVslmooUmWJcADi1f1kIeynbDRVzNlfR6Q==}
     dev: false
 
   /parse5-htmlparser2-tree-adapter@7.0.0:
@@ -14525,6 +14550,17 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
+  /sanitize-html@2.11.0:
+    resolution: {integrity: sha512-BG68EDHRaGKqlsNjJ2xUB7gpInPA8gVx/mvjO743hZaeMCZ2DwzW7xvsqZ+KNU4QKwj86HJ3uu2liISf2qBBUA==}
+    dependencies:
+      deepmerge: 4.3.0
+      escape-string-regexp: 4.0.0
+      htmlparser2: 8.0.1
+      is-plain-object: 5.0.0
+      parse-srcset: 1.0.2
+      postcss: 8.4.21
+    dev: false
+
   /sax@1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
     dev: false
@@ -14535,6 +14571,12 @@ packages:
     dependencies:
       xmlchars: 2.2.0
     dev: true
+
+  /sbd@1.0.19:
+    resolution: {integrity: sha512-b5RyZMGSrFuIB4AHdbv12uYHS8YGEJ36gtuvG3RflbJGY+T0dXmAL0E4vZjQqT2RsX0v+ZwVqhV2zsGr5aFK9w==}
+    dependencies:
+      sanitize-html: 2.11.0
+    dev: false
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
@@ -15546,6 +15588,10 @@ packages:
 
   /tiny-warning@1.0.3:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
+    dev: false
+
+  /tinycolor2@1.6.0:
+    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
     dev: false
 
   /tinylogic@2.0.0:
@@ -16726,8 +16772,8 @@ packages:
   /wildcard@2.0.0:
     resolution: {integrity: sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==}
 
-  /word-wrap@1.2.3:
-    resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}
+  /word-wrap@1.2.4:
+    resolution: {integrity: sha512-2V81OA4ugVo5pRo46hAoD2ivUJx8jXmWXfUkY4KFNw0hEptvN0QfH3K4nHiwzGeKl5rFKedV48QVoqYavy4YpA==}
     engines: {node: '>=0.10.0'}
 
   /wordwrap@1.0.0:

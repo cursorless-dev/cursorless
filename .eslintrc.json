@@ -46,6 +46,10 @@
         "checkLoops": false
       }
     ],
+    "no-restricted-syntax": [
+      "error",
+      "MemberExpression[object.property.name='constructor'][property.name='name']"
+    ],
     "no-throw-literal": "warn",
     "semi": "off"
   },

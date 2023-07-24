@@ -14,6 +14,7 @@ const DEFAULT_REQUIREMENTS: Omit<ScopeIteratorRequirements, "distalPosition"> =
     containment: null,
     allowAdjacentScopes: false,
     skipAncestorScopes: false,
+    includeDescendantScopes: false,
   };
 
 /**

@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: paste before argue zip
+  spokenForm: paste before arg zip
   version: 2
   targets:
     - type: primitive

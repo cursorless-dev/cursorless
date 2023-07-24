@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear leading second word
+  spokenForm: change leading second word
   version: 2
   targets:
     - type: primitive

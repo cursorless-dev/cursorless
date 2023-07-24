@@ -1,7 +1,7 @@
 languageId: javascript
 command:
   version: 5
-  spokenForm: clear name
+  spokenForm: change name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

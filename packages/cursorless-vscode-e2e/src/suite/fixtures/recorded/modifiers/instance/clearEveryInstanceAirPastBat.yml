@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every instance air past bat
+  spokenForm: change every instance air past bat
   action: {name: clearAndSetSelection}
   targets:
     - type: range

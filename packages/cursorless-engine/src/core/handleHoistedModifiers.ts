@@ -84,7 +84,6 @@ export function handleHoistedModifiers(
               : {
                   type: "primitive",
                   mark: anchor.mark,
-                  positionModifier: undefined,
                   modifiers: unhoistedModifiers,
                 },
           // Remove the hoisted modifier (and everything before it) from the
@@ -111,7 +110,6 @@ export function handleHoistedModifiers(
             type: "target",
             target: pipelineInputDescriptor,
           },
-          positionModifier: anchor.positionModifier,
           modifiers: hoistedModifiers,
         };
       }
