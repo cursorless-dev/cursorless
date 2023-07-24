@@ -24,20 +24,27 @@ A big part of feeling comfortable and productive with Cursorless is getting fami
 All of the [mark types](README.md#Marks) are worth knowing.
 While there are many target modifiers, this document will help you get started fast by focusing on the most important modifiers to learn first.
 
-The biggest difference between the simple `"bring air to bat"` and the intimidating `"bring next three lines air to tail block bat"` is the addition of target modifiers.
-Target modifiers are often chained. `"tail block"` is a chain of two modifiers and they are applied in reverse order (`"block"`, then `"tail"`).
+The biggest difference between the simple `"bring air after bat"` and the intimidating `"bring next three lines air after block state bat"` is the addition of target modifiers.
+Target modifiers are often chained. `"block state"` is a chain of two modifiers and they are applied in reverse order (`"state"`, then `"block"`).
 
 Modifier chains can be applied to each [primitive target](README.md#primitive-targets) in a [compound target](README.md#compound-targets).
-For instance, `"take tail line air and head block bat"` has chain `"tail line"` applied to `"air"` and chain `"head block"` applied to `"bat"`.
+For instance, `"take air and bat"` could be changed to have independent modifiers in front of `"air"` and/or `"bat"`.
 
 ### Some targets are destinations
 
-Commands like `"paste"`, `"bring"`, and `"move"` have a target that is a destination.
+The `"paste"` commands has a single target that is a destination.
+The second targets of `"bring"` and `"move"` commands are destinations.
 Destinations are special.
 Targets are converted into destinations using a destination converter (`"to"`, `"before"`, `"after"`); that is why you have to say commands like `"bring air to bat"` or `"bring air before bat"`.
 The `"to"` might seem like cursorless is trying to resemble a sentence, but `"to"` actually serves a technical purpose of explicitly converting to a destination.
 
-Your destinations should start with a single destination converter before you add modifiers and/or a mark.
+`"to"` generally means you are replacing the destination.
+Some targets are zero-width (ex: `"start of air"`), so nothing is actually deleted.
+
+`"before"` and `"after"` generally mean you are inserting before/after the destination with proper attention to delimiters.
+More details in the next section.
+
+Your destinations should start with a single destination converter before you add modifiers and/or a mark, like in `"paste <destinationConverter> <modifier> <mark>"`.
 
 ### Targets sometimes include a delimiter
 
@@ -72,18 +79,19 @@ Targets are represented by `T` with a possible digit.
 
 - Core Changers
   - `"bring T"`: insert a copy of T at the cursor/selection.
-  - `"bring T1 to T2"`: replace T2 with T
+  - `"bring T1 to T2"`: replace T2 with T.
   - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate delimiters.
-  - `"move T1 [to/before/after T2]"`: like `"bring"`, but moves instead of copies
-  - `"chuck T"`: delete T and appropriate delimiter
-  - `"change T"`: delete T and set cursor(s) to where T was
-  - `"drink/pour T"`: edit new line before/after T
+  - `"move T1 [to/before/after T2]"`: like `"bring"`, but moves instead of copies.
+  - `"swap T1 with T2"`
+  - `"chuck T"`: delete T and appropriate delimiter.
+  - `"change T"`: delete T and set cursor(s) to where T was; delimiters are unchanged.
+  - `"drink/pour T"`: edit new line before/after T.
 - Selection Manipulation
-  - `"take T"`: set selection
-  - `"pre/post T"`: set selection before/after T
+  - `"take T"`: set selection.
+  - `"pre/post T"`: set selection before/after T.
 - Clipboard
-  - `"paste to/before/after T"`
-  - `"carve/copy T"`: cut/copy T
+  - `"paste to/before/after T"`.
+  - `"carve/copy T"`: cut/copy T.
 
 ## Some of the more useful modifiers
 
