@@ -71,9 +71,10 @@ Parts in square braces (`[]`) are optional.
 Targets are represented by `T` with a possible digit.
 
 - Core Changers
-  - `"bring T1 [to T2]"`: replace selection/T2 with T
-    - `"bring T1 before/after T2"`:
-  - `"move T1 [to T2]"`
+  - `"bring T"`: insert a copy of T at the cursor/selection.
+  - `"bring T1 to T2"`: replace T2 with T
+  - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate delimiters.
+  - `"move T1 [to/before/after T2]"`: like `"bring"`, but moves instead of copies
   - `"chuck T"`: delete T and appropriate delimiter
   - `"change T"`: delete T and set cursor(s) to where T was
   - `"drink/pour T"`: edit new line before/after T
@@ -84,13 +85,52 @@ Targets are represented by `T` with a possible digit.
   - `"paste to/before/after T"`
   - `"carve/copy T"`: cut/copy T
 
-## Examples with walkthroughs
+## Some of the more useful modifiers
 
-### TO BE CATEGORIZED
+Here are some very useful modifiers:
 
-### Simple line operations
+- Syntactic scopes ([reference](README.md#syntactic-scopes)) are great for expanding the target to what you want to operate on, like the containing function.
+  - `"arg"`, often used to involve commas, like `"chuck arg air"` or `"bring air after arg bat"` that take care of commas.
+  - `"funk"` for function.
+  - `"state"` for statement (which might span multiple lines or only part of a line).
+- Other modifiers that are like syntactic scopes in that they expand the target.
+  - [`"file"`](README.md#file) for the whole file.
+  - [`"block"`](README.md#block) for a contiguous block of non-empty lines.
+  - [`"line"`](README.md#line), often used in commands like `"chuck line"`.
+  - [`"paint"`](README.md#paint) for contiguous sequence of non-white space characters.
+  - [`"token"`](README.md#token).
+  - [`"word"`](README.md#word) allows you to refer to words within a snake_case or camelCase token.
+  - [`"char"`](README.md#char) for individual characters.
 
-Cursorless might feel token oriented at the beginning, but line operations and feel very natural, especially with use of `"before"` and `"after"`.
+And you can reuse the above scopes when using [relative/ordinal modifiers](README.md#previous--next--ordinal--number).
+Some examples:
+
+- `"[number] [scope]s"`, like `"chuck three lines row 12"` to delete rows 12-14.
+- `"[number] [scope]s backward"`, like `"chuck three lines backward row 12"` to delete rows 10-12.
+- `"[nth] [scope]"`, like `"chuck second word air"` to delete "Banana" from "appleBananaCherry".
+- `"[nth] last [scope]"`, like `"chuck last char air"` to delete "s" from "apples".
+- `"next/previous [scope]"`, like `"chuck until next token"` to delete everything from the cursor/selection to the next token.
+
+`"past"`, `"until"`, and `"and"` are good ways to build up targets.
+
+- `"chuck row 7 past row 9"` to delete rows 7 through 9.
+- `"chuck air until bat"` to delete tokens starting at the air token ending just before the bat token.
+- `"chuck row 7 and row 10"` to delete rows 7 and 10.
+
+There is also `"head"` and `"tail"` to expand a target through to the beginning or end of the line.
+`"take head air"` selects the air token through to the beginning of air's line.
+When followed by a modifier, they will expand their input to the start or end of the given modifier range.
+`"take head funk"` will select from the cursor the start of the containing function.
+
+## Examples of some common operations
+
+The below examples are supposed to show you how to do some of the most common text editing operations, especially the
+operations that might not be initially obvious how to do because of their use of multiple concepts in combination.
+
+### "Line operations
+
+Cursorless might feel token oriented at the beginning, but line operations can feel very natural, especially with use of `"before"` and `"after"`.
+Also, a lot of the line-based examples can be adapted to tokens, blocks, and so on.
 
 #### Bringing a copy of a line to another line
 
@@ -124,6 +164,9 @@ Copying a line to an adjacent line has some specialized command support:
   - The useful difference from `"clone line"` is that your cursor moves up to the new line so that you are editing the "top" line rather than the "bottom" line.
   - `"clone up row 7"` only differs from `"clone row 7"` if your cursor is on row 7.
 
+`"clone"` commands on a line also bring the existing hats to the new line, so you can chain commands to operate on the new line without waiting for the clone to complete and see the new hats.
+Sidenote: `"clone"` can operate on many types of targets, but lines, blocks, functions, and statements are the most common.
+
 #### Operating on multiple lines
 
 You can operate on multiple lines at a time:
@@ -134,10 +177,117 @@ You can operate on multiple lines at a time:
   Both destinations and sources can be multiple lines.
 - `"chuck 3 lines air"` will delete three full lines starting at the line that contains the `"air"` token.
   - This command shows that you should not think of these commands as having a length and a start point; think of them as a mark and zero or more modifiers that expand or shift the target.
-- TODO MAYBE: <number> lines backwards & next & previous & next <number> lines
+- `"chuck row 7 past row 9"` uses the `"past"` modifier to delete row 7 through row 9.
 
-## Some reminders for the author about advanced level content
+#### Joining lines
 
-Whether a command operates on delimiters can be changed by a target modifier.
-`"chuck just bat"` will not delete any spaces; the `"just"` causes the command to ignore delimiters.
-`"take just just just bat"` does the same as `"take bat"`.
+It is common to want to join lines.
+For example, to go from...
+
+```markdown
+apple
+banana
+```
+
+to...
+
+```markdown
+apple banana
+```
+
+There are a few ways to join lines.
+Remember, not everything needs to be done in Cursorless.
+Talon's community config repo [has](https://github.com/talonhub/community/blob/468fb16392e6a9907cb98e2526c1e5cbf3b5fc8d/apps/vscode/vscode.talon#L265) `join lines: user.vscode("editor.action.joinLines")`.
+Using that command will join the current line with the line below it.
+Or, if you have a multi-line selection, then it will join all the selected lines.
+
+Also, you can [customize Cursorless](customization.md##experimental-cursorless-custom-ide-actions) so you can invoke the vscode operation `editor.action.joinLines` with a Cursorless command and target.
+In your Cursorless settings `experimental/actions_custom.csv` file, if you add `join, editor.action.joinLines`, then you can do Cursorless commands like `"join row 7"` to join row 7 and row 8 or `"join 5 lines row 7"` to join 5 lines starting at row 7.
+
+vscode's `editor.action.joinLines` puts a space between joined lines.
+If you want to join lines without a space, `"move <BottomLineTarget> to end of <TopLineTarget>"` or `"move <TopLineTarget> to start of <BottomLineTarget>"` are an approach you could take.
+
+- `"move down 1 to end of line"` if your cursor is on the top line.
+- `"move row 7 to start of row 8"` for any two lines regardless or cursor position.
+
+#### Splitting lines
+
+Sometimes you want to split a line into multiple lines.
+For instance, for this...
+
+```typescript
+someCode(); // some comment
+```
+
+to become this...
+
+```typescript
+// some comment
+someCode();
+```
+
+`"move tail <mark> before its line"` will do the split starting at `"<mark>"` (`"slash"` for the example above).
+First, the `"tail <mark>"` expands the target from the mark to everything until the end of the line.
+The `"its line"` makes Cursorless re-use the previous mark (from `"tail <mark>"`) and expand to the corresponding line.
+The overall `"move ... before ..."` structure moves the tail portion to before the line.
+
+Or, you might want to do the other split, where the tail goes below.
+Where this...
+
+```typescript
+apple banana cherry date
+```
+
+becomes this...
+
+```typescript
+apple banana
+cherry date
+```
+
+`"move tail <mark> after its line"` will do the above split.
+
+### Subtoken changes
+
+Cursorless also has good support for operating on parts of a token.
+Cursorless can recognize and operate on words within a snake_case, camelCase, or PascalCase token.
+
+- `"chuck third word air"` or `"chuck last word air"` to delete `"_cherry"` from `"apple_banana_cherry"`.
+- `"change second word past third word air"` to delete `"BananaCherry"` from `"AppleBananaCherryDate"`.
+- `"chuck last 2 words air"` to delete the last two words of the air token.
+- `"chuck tail token third word air"` to delete from the third word to the last word of the air token.
+  It is probably easier to do `"chuck third word past last word air"`.
+- `"bring 2 words third word air to last word bat"` will replace the last word of the bat token with some words from the air token.
+
+Similar things can be done on characters, like `"chuck last char air"` to delete `"s"` from `"apples"`.
+
+### Arg and item changes
+
+The `"arg"` (argument to a function call) and `"item"` (item in a list, map, or object) modifiers are often helpful because they are comma-aware.
+
+- `"chuck arg bat"` is a good way to go from `someFunction(apple, banana + otherStuff, cherry)` to `someFunction(apple, cherry)`.
+  The command deletes the argument and the appropriate delimiters (comma and a space).
+- `"bring bat after arg air"` lets you go from `someFunction(apple, cherry)` to `someFunction(apple, banana, cherry)`, again taking care of commas and spaces.
+- `"chuck item air"` can go from `someMap = { key1: "apple", key2: "banana" }` to `someMap = { key2: "banana" }`.
+
+### Delimeter-only changes
+
+You can use `"leading"` and `"trailing"` to target delimiters themselves.
+
+- `"chuck leading and trailing air"` to delete the spaces around the air token.
+- `"chuck leading block` will delete the empty lines before the current block.
+
+But `"leading"` and `"trailing"` are not always needed to mess with delimiters.
+
+- `"chuck until next token"` will delete spaces from the cursor to the next token.
+
+## What's next
+
+Eventually there will be more guide-like documentation on the more advanced concepts.
+In the meantime, here are a few more useful concepts to look into.
+
+- [pair operations](README.md#surrounding-pair), with [list of paired delimiters](README.md#paired-delimiters)
+- [snippets](experimental/snippets.md)
+- [every](README.md#every)
+- [instance](README.md#instance)
+- [just](README.md#just)
