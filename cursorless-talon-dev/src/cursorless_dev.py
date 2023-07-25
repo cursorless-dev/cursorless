@@ -28,3 +28,7 @@ class Actions:
         actions.user.run_rpc_command(
             "cursorless.recordTestCase", {"captureFinalThatMark": True}
         )
+
+    def cursorless_record_silent_test():
+        """Start recording Cursorless tests, without confirmation popup windows"""
+        actions.user.run_rpc_command("cursorless.recordTestCase", {"isSilent": True})

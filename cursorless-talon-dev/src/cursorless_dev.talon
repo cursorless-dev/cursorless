@@ -17,6 +17,7 @@ tag: user.cursorless
     user.cursorless_record_highlights_test()
 {user.cursorless_homophone} record that mark:
     user.cursorless_record_that_mark_test()
+{user.cursorless_homophone} record silent: user.cursorless_record_silent_test()
 
 {user.cursorless_homophone} update cheatsheet:
     user.cursorless_cheat_sheet_update_json()
