@@ -73,4 +73,5 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   wave: { sizeAdjustment: 0, verticalOffset: -1 },
   star: { sizeAdjustment: 0, verticalOffset: -1 },
   gate: { sizeAdjustment: 0, verticalOffset: -1 },
+  wrench: { sizeAdjustment: 0, verticalOffset: -1 },
 };

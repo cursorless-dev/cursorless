@@ -19,6 +19,7 @@ const HAT_NON_DEFAULT_SHAPES = [
   "eye",
   "play",
   "bolt",
+  "wrench",
   "crosshairs",
   "bridge",
   "church",

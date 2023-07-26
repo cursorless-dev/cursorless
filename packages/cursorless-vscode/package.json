@@ -678,6 +678,9 @@
             "bolt": {
               "type": "boolean"
             },
+            "wrench": {
+              "type": "boolean"
+            },
             "crosshairs": {
               "type": "boolean"
             },
@@ -752,6 +755,7 @@
             "eye": false,
             "play": false,
             "bolt": false,
+            "wrench": false,
             "crosshairs": false,
             "bridge": false,
             "church": false,
@@ -849,6 +853,9 @@
             "bolt": {
               "type": "number"
             },
+            "wrench": {
+              "type": "number"
+            },
             "crosshairs": {
               "type": "number"
             },
@@ -923,6 +930,7 @@
             "eye": 1,
             "play": 1,
             "bolt": 1,
+            "wrench": 1,
             "crosshairs": 1,
             "bridge": 1,
             "church": 1,
@@ -988,6 +996,10 @@
               "verticalOffset": 0
             },
             "bolt": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "wrench": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
@@ -1174,6 +1186,7 @@
               "eye",
               "play",
               "bolt",
+              "wrench",
               "crosshairs",
               "bridge",
               "church",
