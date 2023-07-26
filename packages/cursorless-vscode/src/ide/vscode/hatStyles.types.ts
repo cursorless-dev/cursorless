@@ -38,6 +38,8 @@ export const HAT_NON_DEFAULT_SHAPES = [
   "stair",
   "stupa",
   "wave",
+  "star",
+  "gate",
 ] as const;
 
 export const HAT_SHAPES = ["default", ...HAT_NON_DEFAULT_SHAPES] as const;

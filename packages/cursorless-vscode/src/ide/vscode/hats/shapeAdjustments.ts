@@ -71,4 +71,6 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   stair: { sizeAdjustment: 0, verticalOffset: -1 },
   stupa: { sizeAdjustment: 0, verticalOffset: -1 },
   wave: { sizeAdjustment: 0, verticalOffset: -1 },
+  star: { sizeAdjustment: 0, verticalOffset: -1 },
+  gate: { sizeAdjustment: 0, verticalOffset: -1 },
 };

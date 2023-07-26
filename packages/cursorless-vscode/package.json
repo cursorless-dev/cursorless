@@ -734,6 +734,12 @@
             },
             "wave": {
               "type": "boolean"
+            },
+            "star": {
+              "type": "boolean"
+            },
+            "gate": {
+              "type": "boolean"
             }
           },
           "default": {
@@ -764,7 +770,9 @@
             "singer": false,
             "stair": false,
             "stupa": false,
-            "wave": false
+            "wave": false,
+            "star": false,
+            "gate": false
           },
           "additionalProperties": false
         },
@@ -897,6 +905,12 @@
             },
             "wave": {
               "type": "number"
+            },
+            "star": {
+              "type": "number"
+            },
+            "gate": {
+              "type": "number"
             }
           },
           "default": {
@@ -927,7 +941,9 @@
             "singer": 1,
             "stair": 1,
             "stupa": 1,
-            "wave": 1
+            "wave": 1,
+            "star": 1,
+            "gate": 1
           },
           "additionalProperties": false
         },
@@ -1050,6 +1066,14 @@
             "wave": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
+            },
+            "star": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "gate": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
             }
           }
         },
@@ -1168,7 +1192,9 @@
               "singer",
               "stair",
               "stupa",
-              "wave"
+              "wave",
+              "star",
+              "gate"
             ]
           }
         },
