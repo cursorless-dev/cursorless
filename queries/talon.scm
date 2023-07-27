@@ -77,17 +77,17 @@
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
-(matches
-  (match) @condition
-) @_.iteration
+(match) @condition
+
+(matches) @condition.iteration
 
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
-(declarations
-  (command_declaration
-    right: (_) @_.interior
-  ) @command
-) @_.iteration
+(command_declaration
+  right: (_) @_.interior
+) @command
+
+(declarations) @command.iteration
 
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
