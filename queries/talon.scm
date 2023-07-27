@@ -24,8 +24,8 @@
 
 (
   [
-    (declarations)
     (matches)
+    (declarations)
     (block)
   ] @statement.iteration
   (#not-empty? @statement.iteration)
