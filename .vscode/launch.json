@@ -90,7 +90,7 @@
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "Prepare test subset",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"

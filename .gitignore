@@ -42,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# test subset config
+packages/common/src/testUtil/testSubsetGrep.txt

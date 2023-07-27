@@ -4,7 +4,7 @@ import * as path from "path";
 import {
   getCursorlessRepoRoot,
   runTestSubset,
-  TEST_SUBSET_GREP_STRING,
+  testSubsetGrepString,
 } from "@cursorless/common";
 import { promisify } from "util";
 
@@ -50,7 +50,7 @@ async function runTestsInDir(
   const mocha = new Mocha({
     ui: "tdd",
     color: true,
-    grep: runTestSubset() ? TEST_SUBSET_GREP_STRING : undefined, // Only run a subset of tests
+    grep: runTestSubset() ? testSubsetGrepString() : undefined, // Only run a subset of tests
   });
 
   const files = filterFiles(await glob("**/**.test.js", { cwd: testRoot }));

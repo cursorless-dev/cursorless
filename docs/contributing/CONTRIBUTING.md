@@ -58,7 +58,9 @@ Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
-The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../packages/common/src/testUtil/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
+The entire test suite takes a little while to run (1-2 mins), so you may want to run just a subset of the tests. To do that, use the "Run test subset" launch config instead of the usual "Extension Tests".
+
+On the very first run, instead of running the tests, it will create `packages/common/src/testUtil/testSubsetGrep.txt` and open it for editing, so that you can specify which tests to run. It'll also display an error message (sadly unavoidable), which you can dismiss. On all subsequent runs, it will use the contents of that file. That file is not tracked by git, so edit it as desired.
 
 ## Code formatting
 
