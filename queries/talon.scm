@@ -1,3 +1,5 @@
+;;!! foo: "bar"
+;;!  ^^^^^^^^^^
 ;;!! edit.left()
 ;;!  ^^^^^^^^^^^
 ;;!! value = 5
@@ -11,12 +13,13 @@
 ;;!! key(enter): "enter"
 ;;!  ^^^^^^^^^^^^^^^^^^^
 [
+  (match)
+  (command_declaration)
+  (settings_declaration)
   (expression_statement)
   (assignment_statement)
-  (settings_declaration)
   (tag_import_declaration)
   (key_binding_declaration)
-  (match)
 ] @statement
 
 (
@@ -82,53 +85,47 @@
 ;;!  ^^^^^^^^^^^^^^^^
 (declarations
   (command_declaration
-    right: (_) @command.interior
-  ) @command @statement
-) @command.iteration
+    right: (_) @_.interior
+  ) @command
+) @_.iteration
 
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
 ;;!! edit.left()
 ;;!  ^^^^^^^^^^^
-(block
-  (_
-    [
-      (key_action)
-      (sleep_action)
-      (action)
-    ] @functionCall
-  )
-) @_.iteration
+[
+  (key_action)
+  (sleep_action)
+  (action)
+] @functionCall
 
 ;;!! edit.left()
 ;;!  ^^^^^^^^^--
-(block
-  (_
-    (action
-      action_name: (_) @functionCallee
-    ) @_.domain
-  )
-) @_.iteration
+(action
+  action_name: (_) @functionCallee
+) @_.domain
 
 ;;!! key(enter)
 ;;!  ^^^-------
-(block
-  (_
-    [
-      (key_action)
-      (sleep_action)
-    ] @functionCallee @_.domain
-    (#shrink-to-match! @functionCallee "\\w+")
-  )
-) @_.iteration
+(
+  [
+    (key_action)
+    (sleep_action)
+  ] @functionCallee @_.domain
+  (#shrink-to-match! @functionCallee "\\w+")
+)
+
+;;!! foo: "bar"
+;;!       ^^^^^
+(block) @functionCall.iteration @functionCallee.iteration
 
 ;;!! key(enter)
 ;;!      ^^^^^
 (key_action
-  arguments: (_) @argumentOrParameter @_.iteration
+  arguments: (_) @argumentOrParameter
 )
 (sleep_action
-  arguments: (_) @argumentOrParameter @_.iteration
+  arguments: (_) @argumentOrParameter
 )
 
 ;;!! print("hello", "world")
@@ -136,5 +133,9 @@
 (action
   arguments: (_
     (_) @argumentOrParameter
-  ) @_.iteration
+  )
 )
+
+;;!! key(enter)
+;;!      ^^^^^
+arguments: (_) @argumentOrParameter.iteration
