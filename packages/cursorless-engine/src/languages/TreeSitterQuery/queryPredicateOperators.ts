@@ -25,8 +25,8 @@ class NotType extends QueryPredicateOperator<NotType> {
 class NotEmpty extends QueryPredicateOperator<NotEmpty> {
   name = "not-empty?" as const;
   schema = z.tuple([q.node]);
-  run({ node }: MutableQueryCapture) {
-    return node.startIndex !== node.endIndex;
+  run({ range }: MutableQueryCapture) {
+    return !range.isEmpty;
   }
 }
 
@@ -127,8 +127,8 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
-class Pattern extends QueryPredicateOperator<Pattern> {
-  name = "pattern!" as const;
+class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
+  name = "shrink-to-match!" as const;
   schema = z.tuple([q.node, q.string]);
 
   run(nodeInfo: MutableQueryCapture, pattern: string) {
@@ -137,14 +137,10 @@ class Pattern extends QueryPredicateOperator<Pattern> {
       node: { text },
     } = nodeInfo;
 
-    if (!range.isSingleLine) {
-      return false;
-    }
-
     const match = text.match(new RegExp(pattern));
 
     if (match?.index == null) {
-      return false;
+      throw Error(`No match for pattern '${pattern}'`);
     }
 
     nodeInfo.range = new Range(
@@ -175,6 +171,6 @@ export const queryPredicateOperators = [
   new StartPosition(),
   new EndPosition(),
   new ChildRange(),
-  new Pattern(),
+  new ShrinkToMatch(),
   new AllowMultiple(),
 ];

@@ -2,9 +2,10 @@
 ;;!  ^^^^^^^^^^^
 ;;!! value = 5
 ;;!  ^^^^^^^^^
-;;!! settings()
-;;!!     speech.debug = 1
-;;!  ^^^^^^^^^^^^^^^^^^^^
+;;!!  settings()
+;;!  {^^^^^^^^^^
+;;!!      speech.debug = 1
+;;!       ^^^^^^^^^^^^^^^^}
 ;;!! tag(): user.some_tag
 ;;!  ^^^^^^^^^^^^^^^^^^^^
 ;;!! key(enter): "enter"
@@ -117,7 +118,7 @@
       (key_action)
       (sleep_action)
     ] @functionCallee @_.domain
-    (#pattern! @functionCallee "\\w+")
+    (#shrink-to-match! @functionCallee "\\w+")
   )
 ) @_.iteration
 
