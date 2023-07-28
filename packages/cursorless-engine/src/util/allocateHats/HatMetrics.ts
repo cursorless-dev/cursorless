@@ -33,7 +33,7 @@ export function hatOldTokenRank(
       hatStyle: style,
     });
 
-    return hatOldTokenRank == null ? Infinity : hatOldTokenRank;
+    return hatOldTokenRank == null ? Infinity : -hatOldTokenRank;
   };
 }
 
