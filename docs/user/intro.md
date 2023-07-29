@@ -255,6 +255,18 @@ cherry date
 
 `"move tail <mark> after its line"` will do the above split.
 
+Pokey has streamlined the operation by [adding a Talon Voice command](https://github.com/pokey/pokey_talon/blob/3a7ccd407be7b97104b99c7288f9771ce0c0db4e/apps/vscode/vscode.talon#L613-L616):
+
+```talon
+break <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    user.vscode("hideSuggestWidget")
+    key("enter")
+```
+
+This is another example that not every text editing operation should be done with only the existing Cursorless system.
+Customization and extension are very handy.
+
 ### Subtoken changes
 
 Cursorless also has good support for operating on parts of a token.
