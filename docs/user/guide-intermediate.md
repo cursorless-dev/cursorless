@@ -128,14 +128,14 @@ Some examples:
 There is also `"head"` and `"tail"` to expand a target through to the beginning or end of the line.
 `"take head air"` selects the air token through to the beginning of air's line.
 When followed by a modifier, they will expand their input to the start or end of the given modifier range.
-`"take head funk"` will select from the cursor the start of the containing function.
+`"take head funk"` will select from the cursor to the start of the containing function.
 
 ## Examples of some common operations
 
 The below examples are supposed to show you how to do some of the most common text editing operations, especially the
 operations that might not be initially obvious how to do because of their use of multiple concepts in combination.
 
-### "Line operations
+### Line operations
 
 Cursorless might feel token oriented at the beginning, but line operations can feel very natural, especially with use of `"before"` and `"after"`.
 Also, a lot of the line-based examples can be adapted to tokens, blocks, and so on.
