@@ -28,9 +28,8 @@ export function checkCaptureStartEnd(
   let shownError = false;
 
   if (captures.length === 2) {
-    const startRange = captures.find(({ name }) =>
-      name.endsWith(".start"),
-    )?.range;
+    const startRange = captures.find(({ name }) => name.endsWith(".start"))
+      ?.range;
     const endRange = captures.find(({ name }) => name.endsWith(".end"))?.range;
     if (startRange != null && endRange != null) {
       if (startRange.end.isBeforeOrEqual(endRange.start)) {

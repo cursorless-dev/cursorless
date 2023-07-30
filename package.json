@@ -34,7 +34,7 @@
     "eslint-import-resolver-typescript": "3.5.5",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "2.8.7",
+    "prettier": "3.0.0",
     "syncpack": "9.8.4",
     "tsx": "3.12.3",
     "typescript": "^5.0.3"
