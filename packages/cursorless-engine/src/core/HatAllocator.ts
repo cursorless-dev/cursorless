@@ -13,7 +13,10 @@ export class HatAllocator {
   private disposables: Disposable[] = [];
   private debouncer = new Debouncer(() => this.allocateHats());
 
-  constructor(private hats: Hats, private context: Context) {
+  constructor(
+    private hats: Hats,
+    private context: Context,
+  ) {
     ide().disposeOnExit(this);
 
     this.disposables.push(
