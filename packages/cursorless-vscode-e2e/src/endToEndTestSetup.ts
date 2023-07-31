@@ -1,8 +1,7 @@
-import { IDE, sleep, SpyIDE } from "@cursorless/common";
+import { IDE, shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
 import { getCursorlessApi } from "@cursorless/vscode-common";
 import { Context } from "mocha";
 import * as sinon from "sinon";
-import shouldUpdateFixtures from "./shouldUpdateFixtures";
 
 /**
  * The number of times the current test has been retried. Will be 0 the first
