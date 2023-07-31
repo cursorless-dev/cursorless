@@ -47,6 +47,7 @@ export class TestCase {
     private startTimestamp: bigint,
     private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
+    private spokenFormError?: string,
   ) {
     const activeEditor = ide().activeTextEditor!;
     this.command = command;
@@ -136,6 +137,7 @@ export class TestCase {
       postEditorOpenSleepTimeMs: undefined,
       postCommandSleepTimeMs: undefined,
       command: this.command,
+      spokenFormError: this.spokenFormError,
       marksToCheck: this.marksToCheck,
       initialState: this.initialState,
       finalState: this.finalState,

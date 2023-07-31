@@ -10,6 +10,7 @@ command:
     args:
       - duplicatedVariableTest
       - {duplicated: hello world}
+spokenFormError: Named insertion snippet 'duplicatedVariableTest'
 initialState:
   documentContents: ""
   selections:

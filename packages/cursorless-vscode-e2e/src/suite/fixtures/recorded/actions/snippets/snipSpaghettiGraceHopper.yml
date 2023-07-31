@@ -8,6 +8,7 @@ command:
   extraArgs:
     - spaghetti
     - {foo: grace hopper}
+spokenFormError: Named insertion snippet 'spaghetti'
 initialState:
   documentContents: ""
   selections:

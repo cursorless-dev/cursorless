@@ -9,6 +9,7 @@ command:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   usePrePhraseSnapshot: true
+spokenFormError: highlight.highlightId
 initialState:
   documentContents: hello world
   selections:

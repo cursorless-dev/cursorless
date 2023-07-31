@@ -10,6 +10,7 @@ command:
         type: lineNumber
         anchor: {lineNumber: 1, type: absolute}
         active: {lineNumber: 3, type: absolute}
+spokenFormError: Absolute line numbers
 initialState:
   documentContents: |
 

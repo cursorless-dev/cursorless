@@ -6,6 +6,7 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string, includeSiblings: false}
+spokenFormError: Scope type 'string'
 initialState:
   documentContents: x := "hello world"
   selections:

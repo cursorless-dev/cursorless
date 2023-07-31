@@ -6,6 +6,7 @@ command:
   targets:
     - {type: primitive, isImplicit: true}
   extraArgs: [spaghetti]
+spokenFormError: Named insertion snippet 'spaghetti'
 initialState:
   documentContents: ""
   selections:

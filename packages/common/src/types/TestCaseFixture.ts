@@ -10,6 +10,7 @@ interface TestCaseFixtureBase {
   languageId: string;
   postEditorOpenSleepTimeMs?: number;
   postCommandSleepTimeMs?: number;
+  spokenFormError?: string;
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined

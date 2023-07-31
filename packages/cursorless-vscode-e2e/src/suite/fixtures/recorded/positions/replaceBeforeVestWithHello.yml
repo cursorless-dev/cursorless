@@ -9,6 +9,7 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:
     - [hello]
+spokenFormError: Action 'replace'
 initialState:
   documentContents: |
 

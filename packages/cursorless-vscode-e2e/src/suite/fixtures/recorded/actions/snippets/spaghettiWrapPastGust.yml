@@ -12,6 +12,7 @@ command:
       excludeStart: false
       excludeEnd: false
   extraArgs: [spaghetti.foo]
+spokenFormError: Named wrap with snippet 'spaghetti.foo'
 initialState:
   documentContents: grace hopper
   selections:

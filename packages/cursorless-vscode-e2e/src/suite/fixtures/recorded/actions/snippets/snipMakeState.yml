@@ -11,6 +11,7 @@ command:
   action:
     name: generateSnippet
     args: [snippetTest1]
+spokenFormError: generateSnippet.snippetName
 initialState:
   documentContents: |-
     if () {
