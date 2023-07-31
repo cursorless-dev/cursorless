@@ -1104,7 +1104,7 @@
           "variations": [
             {
               "spokenForm": "short paint",
-              "description": "Bounded non whitespace sequence"
+              "description": "Non whitespace sequence stopped by surrounding pair delimeters"
             }
           ]
         },
