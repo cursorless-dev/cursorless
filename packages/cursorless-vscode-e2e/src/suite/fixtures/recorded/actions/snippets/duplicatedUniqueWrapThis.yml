@@ -9,6 +9,7 @@ command:
   action:
     name: wrapWithSnippet
     args: [duplicatedVariableTest.unique]
+spokenFormError: Named wrap with snippet 'duplicatedVariableTest.unique'
 initialState:
   documentContents: Hello world
   selections:

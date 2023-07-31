@@ -14,6 +14,7 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
       excludeStart: false
       excludeEnd: false
+spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
 

@@ -9,6 +9,7 @@ command:
   extraArgs:
     - editor.action.addCommentLine
     - {}
+spokenFormError: Action 'executeCommand'
 initialState:
   documentContents: |
     hello world

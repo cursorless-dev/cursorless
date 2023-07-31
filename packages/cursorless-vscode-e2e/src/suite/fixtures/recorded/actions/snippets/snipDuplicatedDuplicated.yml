@@ -8,6 +8,7 @@ command:
   action:
     name: insertSnippet
     args: [duplicatedVariableTest]
+spokenFormError: Named insertion snippet 'duplicatedVariableTest'
 initialState:
   documentContents: ""
   selections:

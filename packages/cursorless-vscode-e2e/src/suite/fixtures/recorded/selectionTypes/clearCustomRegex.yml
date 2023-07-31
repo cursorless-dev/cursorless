@@ -9,6 +9,7 @@ command:
           scopeType: {type: customRegex, regex: '[\w/_.]+'}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'customRegex'
 initialState:
   documentContents: aa.bb/cc_dd123(  )
   selections:

@@ -14,6 +14,7 @@ command:
       modifiers:
         - {type: position, position: after}
   usePrePhraseSnapshot: true
+spokenFormError: Custom insertion snippet
 initialState:
   documentContents: hello world
   selections:

@@ -8,6 +8,7 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   extraArgs:
     - {showDecorations: false, ensureSingleTarget: null}
+spokenFormError: Action 'getText'
 initialState:
   documentContents: |
 

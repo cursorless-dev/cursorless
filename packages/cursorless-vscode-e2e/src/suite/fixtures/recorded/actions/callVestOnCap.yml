@@ -8,6 +8,7 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: c}
+spokenFormError: Action 'callAsFunction' with argument
 initialState:
   documentContents: |
 

@@ -9,6 +9,7 @@ command:
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |
     match user {

@@ -8,6 +8,7 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
   extraArgs:
     - [hello_world]
+spokenFormError: Action 'replace'
 initialState:
   documentContents: |
 

@@ -9,6 +9,7 @@ command:
   extraArgs:
     - editor.action.revealDefinition
     - {restoreSelection: false}
+spokenFormError: Action 'executeCommand'
 initialState:
   documentContents: |
     const value = "value";
