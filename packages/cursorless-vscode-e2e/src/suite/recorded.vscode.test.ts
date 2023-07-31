@@ -11,8 +11,8 @@ import {
   rangeToPlainObject,
   ReadOnlyHatMap,
   SelectionPlainObject,
-  serialize,
   SerializedMarks,
+  serializeTestFixture,
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
@@ -140,7 +140,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
         thrownError: { name: error.name },
       };
 
-      await fsp.writeFile(file, serialize(outputFixture));
+      await fsp.writeFile(file, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
       assert.strictEqual(error.name, fixture.thrownError.name);
     } else {
@@ -196,13 +196,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const actualSpyIdeValues =
     rawSpyIdeValues == null
       ? undefined
-      : omitByDeep(
-          spyIDERecordedValuesToPlainObject(rawSpyIdeValues),
-          isUndefined,
-        );
+      : spyIDERecordedValuesToPlainObject(rawSpyIdeValues);
 
   if (shouldUpdateFixtures()) {
-    const outputFixture = {
+    const outputFixture: TestCaseFixtureLegacy = {
       ...fixture,
       finalState: resultState,
       returnValue,
@@ -210,7 +207,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       thrownError: undefined,
     };
 
-    await fsp.writeFile(file, serialize(outputFixture));
+    await fsp.writeFile(file, serializeTestFixture(outputFixture));
   } else {
     if (fixture.thrownError != null) {
       throw Error(
@@ -231,7 +228,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     );
 
     assert.deepStrictEqual(
-      actualSpyIdeValues,
+      omitByDeep(actualSpyIdeValues, isUndefined),
       fixture.ide,
       "Unexpected ide captured values",
     );
