@@ -331,6 +331,26 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
+##### `"just"`
+
+The `"just"` modifier strips the target of any semantic information, treating it as just a raw range.
+This stripping to a raw range has a few implications...
+
+- A raw range will not have any recognized delimeters.
+  For example...
+  - `"chuck just line"` will delete only the content of the current line.
+    The line delimeter (a line ending) remains and the result is a blank line.
+  - For comparison, `"chuck line"` will delete the current line content and its line ending, so there is one fewer line in the file.
+- A raw range will inherit insertion delimiters from its source in the case of a bring.
+  For example, the difference between `"bring arg air and bat after just left paren"` and `"bring arg air and bat after token left paren"` will tell Cursorless to use `, ` as the delimiter when joining air and bat instead of using the token delimiters that `"token left paren"` would have.
+- In the case of `"instance"`, by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
+
+Some examples:
+
+- `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
+- `"chuck just line"`: deletes just the content of the line, leaving a blank line.
+- `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
+
 ###### Experimental: `"from"`
 
 We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
