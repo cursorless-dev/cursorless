@@ -10,6 +10,7 @@ function reorderFields(
     postEditorOpenSleepTimeMs: fixture.postEditorOpenSleepTimeMs,
     postCommandSleepTimeMs: fixture.postCommandSleepTimeMs,
     command: fixture.command,
+    spokenFormError: fixture.spokenFormError,
     marksToCheck: fixture.marksToCheck,
     initialState: fixture.initialState,
     finalState: fixture.finalState,
