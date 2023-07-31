@@ -26,4 +26,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: []}}]

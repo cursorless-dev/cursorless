@@ -35,4 +35,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: nonWhitespaceSequence, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: b}, selectionType: nonWhitespaceSequence, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}}]

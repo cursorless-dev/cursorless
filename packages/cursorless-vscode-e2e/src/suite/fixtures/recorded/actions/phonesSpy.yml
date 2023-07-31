@@ -33,4 +33,3 @@ finalState:
         end: {line: 1, character: 18}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}]

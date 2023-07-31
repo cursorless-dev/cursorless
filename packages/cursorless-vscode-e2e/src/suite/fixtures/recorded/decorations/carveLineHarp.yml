@@ -35,4 +35,3 @@ ide:
         end: {line: 0, character: 15}
     - style: pendingDelete
       range: {type: line, start: 0, end: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: containingScope, scopeType: {type: line}}]}]

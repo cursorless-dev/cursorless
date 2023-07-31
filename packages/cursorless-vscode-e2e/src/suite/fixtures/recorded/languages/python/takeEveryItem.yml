@@ -25,4 +25,3 @@ finalState:
       active: {line: 1, character: 13}
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}, insideOutsideType: inside}]

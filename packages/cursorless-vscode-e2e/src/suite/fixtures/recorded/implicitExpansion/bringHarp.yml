@@ -25,4 +25,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 5}
       active: {line: 1, character: 5}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: []}, {type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}]

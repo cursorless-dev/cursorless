@@ -34,4 +34,3 @@ finalState:
       isReversed: false
       hasExplicitRange: false
 returnValue: [value]
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

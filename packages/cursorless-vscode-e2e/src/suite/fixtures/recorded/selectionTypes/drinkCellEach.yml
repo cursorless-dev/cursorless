@@ -35,4 +35,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: notebookCell, position: contents, insideOutsideType: inside, modifier: {type: identity}}]
