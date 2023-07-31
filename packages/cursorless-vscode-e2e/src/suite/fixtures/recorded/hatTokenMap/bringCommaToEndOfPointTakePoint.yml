@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: bring comma to end of dot take point
+  spokenForm: bring comma to end of dot take dot
   action: replaceWithTarget
   targets:
     - type: primitive
