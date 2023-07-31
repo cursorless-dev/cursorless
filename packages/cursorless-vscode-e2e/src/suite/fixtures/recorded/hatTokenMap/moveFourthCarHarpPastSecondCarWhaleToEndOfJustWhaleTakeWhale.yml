@@ -58,4 +58,3 @@ finalState:
     default.w:
       start: {line: 0, character: 3}
       end: {line: 0, character: 8}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 3, active: 3, excludeAnchor: false, excludeActive: false}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}]

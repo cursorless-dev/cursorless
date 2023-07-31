@@ -46,4 +46,3 @@ finalState:
       active: {line: 1, character: 3}
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: [{type: everyScope, scopeType: {type: token}}, {type: containingScope, scopeType: {type: paragraph}}]}]

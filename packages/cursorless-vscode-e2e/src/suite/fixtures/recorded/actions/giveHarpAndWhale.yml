@@ -24,5 +24,4 @@ initialState:
     default.w:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]}]
 thrownError: {name: SelectionRequiredError}

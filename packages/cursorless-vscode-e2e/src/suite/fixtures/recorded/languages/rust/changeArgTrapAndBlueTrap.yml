@@ -41,4 +41,3 @@ finalState:
       active: {line: 0, character: 11}
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: argumentOrParameter}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: t}, modifiers: [*ref_0]}]}]

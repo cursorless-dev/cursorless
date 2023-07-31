@@ -34,4 +34,3 @@ finalState:
       isReversed: false
       hasExplicitRange: false
 returnValue: [helloWorld]
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

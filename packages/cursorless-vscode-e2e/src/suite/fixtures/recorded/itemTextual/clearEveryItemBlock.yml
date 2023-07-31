@@ -32,4 +32,3 @@ finalState:
       active: {line: 1, character: 0}
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}, {type: containingScope, scopeType: {type: paragraph}}]}]

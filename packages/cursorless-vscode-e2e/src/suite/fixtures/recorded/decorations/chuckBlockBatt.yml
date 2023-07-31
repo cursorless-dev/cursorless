@@ -40,4 +40,3 @@ ide:
   flashes:
     - style: pendingDelete
       range: {type: line, start: 5, end: 8}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]

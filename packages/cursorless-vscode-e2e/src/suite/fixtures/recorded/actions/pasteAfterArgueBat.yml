@@ -40,4 +40,3 @@ ide:
         type: character
         start: {line: 0, character: 21}
         end: {line: 0, character: 24}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: argumentOrParameter}}]}]

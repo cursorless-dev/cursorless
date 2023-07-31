@@ -18,7 +18,6 @@ initialState:
     default.w:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: position, position: end}]}]
 finalState:
   documentContents: hello world whatever
   selections:

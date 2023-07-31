@@ -23,4 +23,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: interiorOnly}]}]

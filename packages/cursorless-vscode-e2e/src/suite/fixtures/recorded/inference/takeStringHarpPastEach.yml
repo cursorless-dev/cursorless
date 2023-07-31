@@ -39,4 +39,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 3, character: 27}
-fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: string}, insideOutsideType: inside}, end: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: string}, insideOutsideType: inside}}]

@@ -22,4 +22,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: customRegex, regex: '[^\s"''`]+'}, start: -1, length: 1}]}]

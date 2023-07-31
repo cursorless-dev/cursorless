@@ -23,4 +23,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: word}, offset: 1, length: 1, direction: forward}]}]

@@ -35,4 +35,3 @@ ide:
       range: {type: line, start: 2, end: 2}
     - style: justAdded
       range: {type: line, start: 2, end: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

@@ -29,4 +29,3 @@ finalState:
         end: {line: 0, character: 81}
       isReversed: true
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

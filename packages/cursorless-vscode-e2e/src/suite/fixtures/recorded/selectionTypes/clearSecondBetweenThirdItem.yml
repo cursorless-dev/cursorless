@@ -31,4 +31,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: range, anchor: {type: ordinalScope, scopeType: {type: collectionItem}, start: 1, length: 1}, active: {type: ordinalScope, scopeType: {type: collectionItem}, start: 2, length: 1}, excludeAnchor: true, excludeActive: true}]}]

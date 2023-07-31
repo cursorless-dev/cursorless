@@ -29,4 +29,3 @@ finalState:
       active: {line: 1, character: 9}
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}}]

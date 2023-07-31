@@ -78,4 +78,3 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: line, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, selectionType: line, position: before, insideOutsideType: null, modifier: {type: identity}}]

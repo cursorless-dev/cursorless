@@ -18,5 +18,4 @@ initialState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: character}, offset: 1, length: 1, direction: backward}]}]
 thrownError: {name: OutOfRangeError}

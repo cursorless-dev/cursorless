@@ -24,7 +24,6 @@ finalState:
         end: {line: 0, character: 5}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}]
 ide:
   messages:
     - {type: warning, id: tooFewTargets}
