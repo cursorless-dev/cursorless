@@ -1,4 +1,8 @@
-import { ActionDescriptor, CommandComplete } from "@cursorless/common";
+import {
+  ActionDescriptor,
+  CommandComplete,
+  PartialTargetDescriptor,
+} from "@cursorless/common";
 import { RecursiveArray, flattenDeep } from "lodash";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import { actions } from "./defaultSpokenForms/actions";
@@ -9,7 +13,8 @@ import {
   wrapperSnippetToSpokenForm,
 } from "./defaultSpokenForms/snippets";
 import { destinationToSpokenForm } from "./destinationToSpokenForm";
-import { targetToSpokenForm } from "./targetToSpokenForm";
+import { getRangeConnective } from "./getRangeConnective";
+import { primitiveTargetToSpokenForm } from "./primitiveTargetToSpokenForm";
 
 export interface SpokenFormSuccess {
   type: "success";
@@ -122,5 +127,39 @@ function generateSpokenFormComponents(
     default: {
       return [actions[action.name], targetToSpokenForm(action.target)];
     }
+  }
+}
+
+export function targetToSpokenForm(
+  target: PartialTargetDescriptor,
+): RecursiveArray<string> {
+  switch (target.type) {
+    case "list":
+      if (target.elements.length < 2) {
+        throw new NoSpokenFormError("List target with < 2 elements");
+      }
+
+      return target.elements.map((element, i) =>
+        i === 0
+          ? targetToSpokenForm(element)
+          : [connectives.listConnective, targetToSpokenForm(element)],
+      );
+
+    case "range": {
+      const anchor = targetToSpokenForm(target.anchor);
+      const active = targetToSpokenForm(target.active);
+      const connective = getRangeConnective(
+        target.excludeAnchor,
+        target.excludeActive,
+        target.rangeType,
+      );
+      return [anchor, connective, active];
+    }
+
+    case "primitive":
+      return primitiveTargetToSpokenForm(target);
+
+    case "implicit":
+      return [];
   }
 }
