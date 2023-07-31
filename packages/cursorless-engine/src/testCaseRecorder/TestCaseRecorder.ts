@@ -373,10 +373,16 @@ export class TestCaseRecorder {
     await this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {
+      let message = `"${this.testCase!.command.spokenForm}" Cursorless test case saved.`;
+
+      if (this.testCase!.spokenFormError != null) {
+        message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
+      }
+
       showInfo(
         ide().messages,
         "testCaseSaved",
-        `"${this.testCase!.command.spokenForm}" Cursorless test case saved.`,
+        message,
         "View",
         "Delete",
       ).then(async (action) => {
