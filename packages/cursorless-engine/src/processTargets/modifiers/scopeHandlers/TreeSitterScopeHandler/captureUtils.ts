@@ -1,3 +1,4 @@
+import { Range } from "@cursorless/common";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 
 /**
@@ -51,7 +52,7 @@ export function getRelatedRange(
   scopeTypeType: string,
   relationship: string,
   matchHasScopeType: boolean,
-) {
+): Range | undefined {
   return getRelatedCapture(
     match,
     scopeTypeType,
