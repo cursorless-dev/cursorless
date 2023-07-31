@@ -373,32 +373,30 @@ export class TestCaseRecorder {
     await this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {
-      let message = `"${this.testCase!.command.spokenForm}" Cursorless test case saved.`;
+      let message = `"${
+        this.testCase!.command.spokenForm
+      }" Cursorless test case saved.`;
 
       if (this.testCase!.spokenFormError != null) {
         message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
       }
 
-      showInfo(
-        ide().messages,
-        "testCaseSaved",
-        message,
-        "View",
-        "Delete",
-      ).then(async (action) => {
-        if (action === "View") {
-          await ide().openTextDocument(outPath);
-        }
-        if (action === "Delete") {
-          await fs.unlink(outPath, (err) => {
-            if (err) {
-              console.log("failed to delete ${outPath}: ${err}");
-            } else {
-              console.log("deleted ${outPath}");
-            }
-          });
-        }
-      });
+      showInfo(ide().messages, "testCaseSaved", message, "View", "Delete").then(
+        async (action) => {
+          if (action === "View") {
+            await ide().openTextDocument(outPath);
+          }
+          if (action === "Delete") {
+            await fs.unlink(outPath, (err) => {
+              if (err) {
+                console.log("failed to delete ${outPath}: ${err}");
+              } else {
+                console.log("deleted ${outPath}");
+              }
+            });
+          }
+        },
+      );
     }
 
     this.testCase = null;
