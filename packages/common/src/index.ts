@@ -59,6 +59,7 @@ export * from "./testUtil/getFixturePaths";
 export * from "./testUtil/getCursorlessRepoRoot";
 export * from "./testUtil/serialize";
 export * from "./testUtil/TestCaseSnapshot";
+export * from "./testUtil/serializeTestFixture";
 export * from "./util/typeUtils";
 export * from "./ide/types/hatStyles.types";
 export * from "./errors";
