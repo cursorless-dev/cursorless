@@ -65,8 +65,8 @@ repos:
         entry: pnpm transform-recorded-tests
   - repo: local
     hooks:
-      - id: format-recorded-tests
-        name: format-recorded-tests
+      - id: check-recorded-test-marks
+        name: check-recorded-test-marks
         files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm transform-recorded-tests --check-marks
