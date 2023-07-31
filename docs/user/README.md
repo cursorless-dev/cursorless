@@ -219,7 +219,7 @@ For example, the command `take every key [blue] air` will select every key in th
 
 ###### `"word"`
 
-If you need to refer to the individual words within a `camelCase`/`kebab-case`/`snake_case` token, you can use the `"word"` modifier. For example,
+If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"word"` modifier. For example,
 
 - `"second word air"`
 - `"second past fourth word air"`
