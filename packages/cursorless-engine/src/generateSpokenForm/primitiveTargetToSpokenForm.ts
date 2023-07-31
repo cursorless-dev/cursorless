@@ -2,8 +2,9 @@ import {
   LineNumberMark,
   Modifier,
   PartialMark,
-  PartialPrimitiveTargetDescriptor, RelativeScopeModifier,
-  ScopeType
+  PartialPrimitiveTargetDescriptor,
+  RelativeScopeModifier,
+  ScopeType,
 } from "@cursorless/common";
 import { RecursiveArray } from "lodash";
 import { NoSpokenFormError } from "./NoSpokenFormError";
@@ -13,24 +14,24 @@ import {
   hatColorToSpokenForm,
   hatShapeToSpokenForm,
   lineDirections,
-  marks
+  marks,
 } from "./defaultSpokenForms/marks";
 import {
   modifiers,
   modifiersExtra,
   scopeSpokenForms,
   surroundingPairForceDirections,
-  surroundingPairNameToSpokenForm
+  surroundingPairNameToSpokenForm,
 } from "./defaultSpokenForms/modifiers";
 import {
   numberToSpokenForm,
-  ordinalToSpokenForm
+  ordinalToSpokenForm,
 } from "./defaultSpokenForms/numbers";
 import { getRangeConnective } from "./getRangeConnective";
 
-
 export function primitiveTargetToSpokenForm(
-  target: PartialPrimitiveTargetDescriptor): RecursiveArray<string> {
+  target: PartialPrimitiveTargetDescriptor,
+): RecursiveArray<string> {
   const components: RecursiveArray<string> = [];
   if (target.modifiers != null) {
     components.push(target.modifiers.map(modifierToSpokenForm));
@@ -96,23 +97,26 @@ function modifierToSpokenForm(modifier: Modifier): RecursiveArray<string> {
       }
 
       throw new NoSpokenFormError(
-        `'${modifier.type}' with count > 1 and offset away from start / end`
+        `'${modifier.type}' with count > 1 and offset away from start / end`,
       );
     }
 
     case "range": {
-      if (modifier.anchor.type === "ordinalScope" &&
+      if (
+        modifier.anchor.type === "ordinalScope" &&
         modifier.active.type === "ordinalScope" &&
         modifier.anchor.length === 1 &&
         modifier.active.length === 1 &&
-        modifier.anchor.scopeType.type === modifier.active.scopeType.type) {
-        const anchor = modifier.anchor.start === -1
-          ? modifiersExtra.last
-          : ordinalToSpokenForm(modifier.anchor.start + 1);
+        modifier.anchor.scopeType.type === modifier.active.scopeType.type
+      ) {
+        const anchor =
+          modifier.anchor.start === -1
+            ? modifiersExtra.last
+            : ordinalToSpokenForm(modifier.anchor.start + 1);
         const active = modifierToSpokenForm(modifier.active);
         const connective = getRangeConnective(
           modifier.excludeAnchor,
-          modifier.excludeActive
+          modifier.excludeActive,
         );
         return [anchor, connective, active];
       }
@@ -128,14 +132,15 @@ function modifierToSpokenForm(modifier: Modifier): RecursiveArray<string> {
 }
 
 function relativeScopeInclusiveToSpokenForm(
-  modifier: RelativeScopeModifier
+  modifier: RelativeScopeModifier,
 ): RecursiveArray<string> {
   const scope = scopeTypeToSpokenForm(modifier.scopeType);
 
   if (modifier.length === 1) {
-    const direction = modifier.direction === "forward"
-      ? connectives.forward
-      : connectives.backward;
+    const direction =
+      modifier.direction === "forward"
+        ? connectives.forward
+        : connectives.backward;
 
     // token forward/backward
     return [scope, direction];
@@ -155,10 +160,11 @@ function relativeScopeInclusiveToSpokenForm(
 }
 
 function relativeScopeExclusiveToSpokenForm(
-  modifier: RelativeScopeModifier
+  modifier: RelativeScopeModifier,
 ): RecursiveArray<string> {
   const scope = scopeTypeToSpokenForm(modifier.scopeType);
-  const direction = modifier.direction === "forward" ? connectives.next : connectives.previous;
+  const direction =
+    modifier.direction === "forward" ? connectives.next : connectives.previous;
 
   if (modifier.offset === 1) {
     const number = numberToSpokenForm(modifier.length);
@@ -181,7 +187,7 @@ function relativeScopeExclusiveToSpokenForm(
   }
 
   throw new NoSpokenFormError(
-    `${modifier.type} modifier with offset > 1 and length > 1`
+    `${modifier.type} modifier with offset > 1 and length > 1`,
   );
 }
 
@@ -195,9 +201,10 @@ function scopeTypeToSpokenForm(scopeType: ScopeType): string {
     case "surroundingPair": {
       const pair = surroundingPairNameToSpokenForm(scopeType.delimiter);
       if (scopeType.forceDirection != null) {
-        const direction = scopeType.forceDirection === "left"
-          ? surroundingPairForceDirections.left
-          : surroundingPairForceDirections.right;
+        const direction =
+          scopeType.forceDirection === "left"
+            ? surroundingPairForceDirections.left
+            : surroundingPairForceDirections.right;
         return `${direction} ${pair}`;
       }
       return pair;
@@ -228,14 +235,16 @@ function markToSpokenForm(mark: PartialMark): RecursiveArray<string> {
     }
 
     case "range": {
-      if (mark.anchor.type === "lineNumber" &&
-        mark.active.type === "lineNumber") {
+      if (
+        mark.anchor.type === "lineNumber" &&
+        mark.active.type === "lineNumber"
+      ) {
         const [typeAnchor, numberAnchor] = lineNumberToParts(mark.anchor);
         const [typeActive, numberActive] = lineNumberToParts(mark.active);
         if (typeAnchor === typeActive) {
           const connective = getRangeConnective(
             mark.excludeAnchor,
-            mark.excludeActive
+            mark.excludeActive,
           );
           // Row five past seven
           return [typeAnchor, numberAnchor, connective, numberActive];

@@ -2,11 +2,10 @@ import { PartialRangeType } from "@cursorless/common";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import { connectives } from "./defaultSpokenForms/connectives";
 
-
 export function getRangeConnective(
   excludeAnchor: boolean,
   excludeActive: boolean,
-  type?: PartialRangeType
+  type?: PartialRangeType,
 ): string {
   const prefix = type === "vertical" ? `${connectives.verticalRange} ` : "";
   if (excludeAnchor && excludeActive) {
