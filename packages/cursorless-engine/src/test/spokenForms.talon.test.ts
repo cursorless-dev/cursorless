@@ -76,6 +76,7 @@ async function runTest(repl: TalonRepl, command: CommandComplete) {
     }
   })();
 
+  // TODO: Remove once Talon side is on latest version
   const commandActual = canonicalizeAndValidateCommand(commandActualLegacy);
 
   const commandExpected = {
