@@ -31,6 +31,7 @@ import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TestCase } from "./TestCase";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
+import { generateSpokenForm } from "../generateSpokenForm";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -308,8 +309,16 @@ export class TestCaseRecorder {
       this.spyIde = new SpyIDE(this.originalIde);
       injectIde(this.spyIde!);
 
+      const spokenForm = generateSpokenForm(command);
+
       this.testCase = new TestCase(
-        command,
+        {
+          ...command,
+          spokenForm:
+            spokenForm.type === "success"
+              ? spokenForm.value
+              : command.spokenForm,
+        },
         hatTokenMap,
         this.storedTargets,
         this.spyIde,
@@ -318,6 +327,7 @@ export class TestCaseRecorder {
         this.startTimestamp!,
         this.captureFinalThatMark,
         this.extraSnapshotFields,
+        spokenForm.type === "error" ? spokenForm.reason : undefined,
       );
 
       await this.testCase.recordInitialState();
@@ -363,26 +373,30 @@ export class TestCaseRecorder {
     await this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {
-      showInfo(
-        ide().messages,
-        "testCaseSaved",
-        "Cursorless test case saved.",
-        "View",
-        "Delete",
-      ).then(async (action) => {
-        if (action === "View") {
-          await ide().openTextDocument(outPath);
-        }
-        if (action === "Delete") {
-          await fs.unlink(outPath, (err) => {
-            if (err) {
-              console.log("failed to delete ${outPath}: ${err}");
-            } else {
-              console.log("deleted ${outPath}");
-            }
-          });
-        }
-      });
+      let message = `"${
+        this.testCase!.command.spokenForm
+      }" Cursorless test case saved.`;
+
+      if (this.testCase!.spokenFormError != null) {
+        message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
+      }
+
+      showInfo(ide().messages, "testCaseSaved", message, "View", "Delete").then(
+        async (action) => {
+          if (action === "View") {
+            await ide().openTextDocument(outPath);
+          }
+          if (action === "Delete") {
+            await fs.unlink(outPath, (err) => {
+              if (err) {
+                console.log("failed to delete ${outPath}: ${err}");
+              } else {
+                console.log("deleted ${outPath}");
+              }
+            });
+          }
+        },
+      );
     }
 
     this.testCase = null;

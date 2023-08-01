@@ -246,10 +246,13 @@ function listTargetToDestination(
         destinations.push({
           type: "primitive",
           insertionMode: currentInsertionMode ?? "to",
-          target: {
-            type: "list",
-            elements: currentElements,
-          },
+          target:
+            currentElements.length === 1
+              ? currentElements[0]
+              : {
+                  type: "list",
+                  elements: currentElements,
+                },
         });
       }
 
@@ -264,10 +267,13 @@ function listTargetToDestination(
     destinations.push({
       type: "primitive",
       insertionMode: currentInsertionMode ?? "to",
-      target: {
-        type: "list",
-        elements: currentElements,
-      },
+      target:
+        currentElements.length === 1
+          ? currentElements[0]
+          : {
+              type: "list",
+              elements: currentElements,
+            },
     });
   }
 

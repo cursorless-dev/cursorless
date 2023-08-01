@@ -47,7 +47,7 @@ export class TestCase {
     private startTimestamp: bigint,
     private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
-    private spokenFormError?: string,
+    public readonly spokenFormError?: string,
   ) {
     const activeEditor = ide().activeTextEditor!;
     this.command = command;
