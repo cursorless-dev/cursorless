@@ -1,10 +1,24 @@
+from dataclasses import dataclass
 from typing import Any, Optional
 
 from talon import Module, actions, app
 
 from .csv_overrides import init_csv_and_watch_changes
+from .targets.target_types import (
+    CursorlessDestination,
+    CursorlessTarget,
+    ImplicitDestination,
+)
+
+
+@dataclass
+class InsertionSnippet:
+    name: str
+    destination: CursorlessDestination
+
 
 mod = Module()
+
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
 
 # Deprecated tag; we should probably remove this and notify users that they
@@ -27,15 +41,20 @@ mod.list("cursorless_phrase_terminator", "Contains term used to terminate a phra
 
 
 @mod.capture(
-    rule="{user.cursorless_insertion_snippet_no_phrase} | {user.cursorless_insertion_snippet_single_phrase}"
+    rule="({user.cursorless_insertion_snippet_no_phrase} | {user.cursorless_insertion_snippet_single_phrase}) [<user.cursorless_destination>]"
 )
-def cursorless_insertion_snippet(m) -> dict:
+def cursorless_insertion_snippet(m) -> InsertionSnippet:
     try:
         name = m.cursorless_insertion_snippet_no_phrase
     except AttributeError:
         name = m.cursorless_insertion_snippet_single_phrase.split(".")[0]
 
-    return {"type": "named", "name": name}
+    try:
+        destination = m.cursorless_destination
+    except AttributeError:
+        destination = ImplicitDestination()
+
+    return InsertionSnippet(name, destination)
 
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
@@ -48,6 +67,7 @@ wrapper_snippets = {
     "try": "tryCatchStatement.body",
     "link": "link.text",
 }
+
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
@@ -65,65 +85,104 @@ insertion_snippets_single_phrase = {
 }
 
 
+def wrap_with_snippet(snippet_description: dict, target: CursorlessTarget):
+    actions.user.private_cursorless_command_and_wait(
+        {
+            "name": "wrapWithSnippet",
+            "snippetDescription": snippet_description,
+            "target": target,
+        },
+    )
+
+
+def insert_snippet(snippet_description: dict, destination: CursorlessDestination):
+    actions.user.private_cursorless_command_and_wait(
+        {
+            "name": "insertSnippet",
+            "snippetDescription": snippet_description,
+            "destination": destination,
+        },
+    )
+
+
+def insert_named_snippet(
+    name: str,
+    destination: CursorlessDestination,
+    substitutions: Optional[dict] = None,
+):
+    snippet = {
+        "type": "named",
+        "name": name,
+    }
+    if substitutions is not None:
+        snippet["substitutions"] = substitutions
+    insert_snippet(snippet, destination)
+
+
+def insert_custom_snippet(body: str, destination: CursorlessDestination):
+    insert_snippet(
+        {
+            "type": "custom",
+            "body": body,
+        },
+        destination,
+    )
+
+
 @mod.action_class
 class Actions:
+    def private_cursorless_insert_snippet(insertion_snippet: InsertionSnippet):
+        """Execute Cursorless insert snippet action"""
+        insert_named_snippet(
+            insertion_snippet.name,
+            insertion_snippet.destination,
+        )
+
     def private_cursorless_insert_snippet_with_phrase(
-        action: str, snippet_description: str, text: str
+        snippet_description: str, text: str
     ):
-        """Perform cursorless wrap action"""
+        """Cursorless: Insert snippet <snippet_description> with phrase <text>"""
         snippet_name, snippet_variable = snippet_description.split(".")
-        actions.user.cursorless_implicit_target_command(
-            action,
-            {
-                "type": "named",
-                "name": snippet_name,
-                "substitutions": {snippet_variable: text},
-            },
+        insert_named_snippet(
+            snippet_name,
+            ImplicitDestination(),
+            {snippet_variable: text},
         )
 
     def cursorless_insert_snippet_by_name(name: str):
-        """Inserts a named snippet"""
-        actions.user.cursorless_implicit_target_command(
-            "insertSnippet",
-            {
-                "type": "named",
-                "name": name,
-            },
+        """Cursorless: Insert named snippet <name>"""
+        insert_named_snippet(
+            name,
+            ImplicitDestination(),
         )
 
     def cursorless_insert_snippet(body: str):
-        """Inserts a custom snippet"""
-        actions.user.cursorless_implicit_target_command(
-            "insertSnippet",
-            {
-                "type": "custom",
-                "body": body,
-            },
+        """Cursorless: Insert custom snippet <body>"""
+        insert_custom_snippet(
+            body,
+            ImplicitDestination(),
         )
 
     def cursorless_wrap_with_snippet_by_name(
-        name: str, variable_name: str, target: dict
+        name: str, variable_name: str, target: CursorlessTarget
     ):
-        """Wrap target with a named snippet"""
-        actions.user.cursorless_single_target_command_with_arg_list(
-            "wrapWithSnippet",
+        """Cursorless: Wrap target with a named snippet <name>"""
+        wrap_with_snippet(
+            {
+                "type": "named",
+                "name": name,
+                "variableName": variable_name,
+            },
             target,
-            [
-                {
-                    "type": "named",
-                    "name": name,
-                    "variableName": variable_name,
-                }
-            ],
         )
 
     def cursorless_wrap_with_snippet(
         body: str,
-        target: dict,
+        target: CursorlessTarget,
         variable_name: Optional[str] = None,
         scope: Optional[str] = None,
     ):
-        """Wrap target with a custom snippet"""
+        """Cursorless: Wrap target with custom snippet <body>"""
         snippet_arg: dict[str, Any] = {
             "type": "custom",
             "body": body,
@@ -132,11 +191,9 @@ class Actions:
             snippet_arg["scopeType"] = {"type": scope}
         if variable_name is not None:
             snippet_arg["variableName"] = variable_name
-
-        actions.user.cursorless_single_target_command_with_arg_list(
-            "wrapWithSnippet",
+        wrap_with_snippet(
+            snippet_arg,
             target,
-            [snippet_arg],
         )
 
 

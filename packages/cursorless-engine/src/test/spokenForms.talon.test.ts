@@ -68,15 +68,13 @@ async function runTest(repl: TalonRepl, command: CommandComplete) {
     `user.private_cursorless_spoken_form_test("${command.spokenForm}")`,
   );
 
-  const commandActualLegacy = (() => {
+  const commandActual = (() => {
     try {
       return JSON.parse(result);
     } catch (e) {
       throw Error(result);
     }
   })();
-
-  const commandActual = canonicalizeAndValidateCommand(commandActualLegacy);
 
   const commandExpected = {
     ...command,
