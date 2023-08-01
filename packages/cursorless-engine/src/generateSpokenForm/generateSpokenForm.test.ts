@@ -60,7 +60,7 @@ async function runTest(file: string) {
     } else {
       assert.equal(fixture.spokenFormError, generatedSpokenForm.reason);
       // Don't care what the spoken form is in the test case if we don't know
-      // now to generate it
+      // how to generate it
     }
   }
 }
