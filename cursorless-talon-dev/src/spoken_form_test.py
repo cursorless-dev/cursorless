@@ -45,6 +45,7 @@ class UserActions:
         global actual_command
         actual_command = arg1
 
+
 @mod.action_class
 class Actions:
     def private_cursorless_spoken_form_test_mode(enable: bool):
