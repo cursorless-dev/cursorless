@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: square repack harp
+  spokenForm: box repack harp
   action: rewrapWithPairedDelimiter
   targets:
     - type: primitive
@@ -37,4 +37,3 @@ finalState:
         end: {line: 0, character: 6}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]

@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck third car harp past second car whale take whale
+  spokenForm: chuck third char harp past second char whale take whale
   action: remove
   targets:
     - type: range
@@ -42,4 +42,3 @@ finalState:
     default.w:
       start: {line: 0, character: 2}
       end: {line: 0, character: 5}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}}}]

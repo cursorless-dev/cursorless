@@ -31,4 +31,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: range, anchor: {type: lineNumber, lineNumberType: modulo100, lineNumber: 1}, active: {type: lineNumber, lineNumberType: modulo100, lineNumber: 3}, excludeAnchor: false, excludeActive: false}, modifiers: []}]

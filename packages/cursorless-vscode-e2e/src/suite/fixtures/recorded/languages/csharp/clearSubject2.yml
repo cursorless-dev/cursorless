@@ -9,6 +9,7 @@ command:
         - type: containingScope
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: false
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |-
     switch (aaa + 1) {
@@ -28,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]

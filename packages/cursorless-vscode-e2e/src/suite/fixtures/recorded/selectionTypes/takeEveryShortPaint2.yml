@@ -22,4 +22,3 @@ finalState:
       active: {line: 0, character: 16}
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 31}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: boundedNonWhitespaceSequence}}]}]

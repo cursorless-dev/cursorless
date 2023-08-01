@@ -12,6 +12,7 @@ command:
       excludeStart: false
       excludeEnd: false
   extraArgs: [spaghetti.foo]
+spokenFormError: Named wrap with snippet 'spaghetti.foo'
 initialState:
   documentContents: grace hopper
   selections:
@@ -33,4 +34,3 @@ finalState:
         end: {line: 0, character: 46}
       isReversed: true
       hasExplicitRange: true
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: g}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

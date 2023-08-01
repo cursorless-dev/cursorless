@@ -49,4 +49,3 @@ ide:
   flashes:
     - style: pendingDelete
       range: {type: line, start: 0, end: 4}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: paragraph}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: *ref_0}}]

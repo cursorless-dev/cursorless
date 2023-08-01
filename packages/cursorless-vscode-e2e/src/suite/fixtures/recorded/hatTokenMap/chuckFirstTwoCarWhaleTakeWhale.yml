@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck first two car whale take whale
+  spokenForm: chuck first two chars whale take whale
   action: remove
   targets:
     - type: primitive
@@ -27,4 +27,3 @@ finalState:
     default.w:
       start: {line: 0, character: 6}
       end: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1}}]

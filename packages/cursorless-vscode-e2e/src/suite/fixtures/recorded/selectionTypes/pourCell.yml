@@ -22,4 +22,3 @@ finalState:
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: notebookCell, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

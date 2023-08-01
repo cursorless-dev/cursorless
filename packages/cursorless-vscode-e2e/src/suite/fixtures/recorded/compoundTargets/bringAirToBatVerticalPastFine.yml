@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring air to bat vertical past fine
+  spokenForm: bring air to bat slice fine
   action: replaceWithTarget
   targets:
     - type: primitive
@@ -46,4 +46,3 @@ finalState:
   selections:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: range, excludeAnchor: false, excludeActive: false, rangeType: vertical, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}}]

@@ -42,4 +42,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 29}
       active: {line: 1, character: 29}
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: argumentOrParameter}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: g}, modifiers: *ref_0}]}, {type: primitive, mark: {type: cursor}, modifiers: [{type: position, position: end}, {type: toRawSelection}]}]

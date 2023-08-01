@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take vertical past fine
+  spokenForm: take slice fine
   action: setSelection
   targets:
     - type: range
@@ -40,4 +40,3 @@ finalState:
       active: {line: 3, character: 0}
     - anchor: {line: 4, character: 1}
       active: {line: 4, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: vertical, anchor: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

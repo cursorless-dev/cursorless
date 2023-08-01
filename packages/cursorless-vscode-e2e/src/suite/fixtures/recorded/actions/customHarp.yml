@@ -9,6 +9,7 @@ command:
   extraArgs:
     - editor.action.addCommentLine
     - {}
+spokenFormError: Action 'executeCommand'
 initialState:
   documentContents: |
     hello world
@@ -32,4 +33,3 @@ finalState:
         end: {line: 0, character: 10}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change core file
+  spokenForm: change inside file
   version: 2
   targets:
     - type: primitive
@@ -21,4 +21,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 1}
       active: {line: 1, character: 1}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: interiorOnly}, {type: containingScope, scopeType: {type: document}}]}]

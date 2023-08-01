@@ -1,6 +1,6 @@
 languageId: markdown
 command:
-  spokenForm: pour entry
+  spokenForm: pour item
   version: 3
   targets:
     - type: primitive
@@ -25,4 +25,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]

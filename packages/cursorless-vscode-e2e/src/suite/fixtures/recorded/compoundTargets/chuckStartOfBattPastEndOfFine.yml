@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: chuck start of batt past end of fine
+  spokenForm: chuck start of bat past end of fine
   action:
     name: remove
     target:

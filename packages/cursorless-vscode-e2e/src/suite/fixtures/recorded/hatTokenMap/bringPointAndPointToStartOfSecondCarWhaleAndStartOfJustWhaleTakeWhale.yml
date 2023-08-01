@@ -1,8 +1,8 @@
 languageId: plaintext
 command:
   spokenForm: >-
-    bring point and point to start of second car whale and start of just whale
-    take whale
+    bring dot and dot to start of second char whale and start of just whale take
+    whale
   version: 2
   targets:
     - type: list
@@ -55,4 +55,3 @@ finalState:
     default.w:
       start: {line: 0, character: 8}
       end: {line: 0, character: 14}
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: identity}}]}]

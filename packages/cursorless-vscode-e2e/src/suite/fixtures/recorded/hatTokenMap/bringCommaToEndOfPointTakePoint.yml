@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: bring comma to end of point take point
+  spokenForm: bring comma to end of dot take dot
   action: replaceWithTarget
   targets:
     - type: primitive
@@ -35,4 +35,3 @@ finalState:
     default..:
       start: {line: 0, character: 1}
       end: {line: 0, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: ','}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: after, insideOutsideType: inside, modifier: {type: identity}}]

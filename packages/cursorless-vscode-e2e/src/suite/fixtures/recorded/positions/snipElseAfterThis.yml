@@ -12,6 +12,7 @@ command:
       modifiers:
         - {type: position, position: after}
   usePrePhraseSnapshot: true
+spokenFormError: Named insertion snippet 'elseStatement'
 initialState:
   documentContents: |
     if True:

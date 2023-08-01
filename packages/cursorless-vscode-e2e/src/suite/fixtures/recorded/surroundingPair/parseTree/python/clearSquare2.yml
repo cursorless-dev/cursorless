@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change square
+  spokenForm: change inside box
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -17,4 +17,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: squareBrackets, delimitersOnly: false}, insideOutsideType: inside}]

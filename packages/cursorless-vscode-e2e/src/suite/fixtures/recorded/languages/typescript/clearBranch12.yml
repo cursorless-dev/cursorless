@@ -16,4 +16,3 @@ initialState:
       active: {line: 0, character: 12}
   marks: {}
 thrownError: {name: NoContainingScopeError}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change head core
+  spokenForm: change head inside
   version: 2
   targets:
     - type: primitive
@@ -21,4 +21,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: extendThroughStartOf}, {type: interiorOnly}]}]

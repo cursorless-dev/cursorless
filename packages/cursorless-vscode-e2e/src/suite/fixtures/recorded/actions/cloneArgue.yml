@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clone argue
+  spokenForm: clone arg
   version: 2
   targets:
     - type: primitive
@@ -51,4 +51,3 @@ ide:
         type: character
         start: {line: 0, character: 26}
         end: {line: 0, character: 37}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]

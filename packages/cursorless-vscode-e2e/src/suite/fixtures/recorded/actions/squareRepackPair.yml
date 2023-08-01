@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: square repack pair
+  spokenForm: box repack pair
   action: rewrapWithPairedDelimiter
   targets:
     - type: primitive
@@ -34,4 +34,3 @@ finalState:
         end: {line: 0, character: 7}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]

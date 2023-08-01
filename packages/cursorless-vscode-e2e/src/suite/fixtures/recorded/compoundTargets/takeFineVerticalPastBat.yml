@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take fine vertical past bat
+  spokenForm: take fine slice bat
   action: setSelection
   targets:
     - type: range
@@ -45,4 +45,3 @@ finalState:
       active: {line: 3, character: 1}
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 1}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: vertical, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

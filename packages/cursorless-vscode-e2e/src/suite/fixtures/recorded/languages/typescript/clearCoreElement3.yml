@@ -1,7 +1,7 @@
 languageId: javascriptreact
 command:
   version: 5
-  spokenForm: change core element
+  spokenForm: change inside element
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

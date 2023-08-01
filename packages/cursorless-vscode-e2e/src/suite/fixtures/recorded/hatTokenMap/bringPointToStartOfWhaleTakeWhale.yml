@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring point to start of whale take whale
+  spokenForm: bring dot to start of whale take whale
   action: replaceWithTarget
   targets:
     - type: primitive
@@ -35,4 +35,3 @@ finalState:
     default.w:
       start: {line: 0, character: 8}
       end: {line: 0, character: 13}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: before, insideOutsideType: inside, modifier: {type: identity}}]

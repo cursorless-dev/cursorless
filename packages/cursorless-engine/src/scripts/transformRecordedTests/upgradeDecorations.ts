@@ -2,11 +2,9 @@ import {
   FlashStyle,
   GeneralizedRangePlainObject,
   PositionPlainObject,
-  TestCaseFixture,
   TestCaseFixtureLegacy,
 } from "@cursorless/common";
 import { groupBy, partition } from "lodash";
-import { reorderFields } from "./transformations/reorderFields";
 import { FixtureTransformation } from "./types";
 
 interface PlainTestDecoration {
@@ -64,7 +62,7 @@ export const upgradeDecorations: FixtureTransformation = (
           })),
   };
 
-  return reorderFields(fixture as TestCaseFixture);
+  return fixture;
 };
 
 function extractHighlightName(name: string): string {

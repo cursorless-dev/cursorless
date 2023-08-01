@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take every paint whale
+  spokenForm: take every short paint whale
   version: 2
   targets:
     - type: primitive
@@ -26,4 +26,3 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 21}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: everyScope, scopeType: {type: boundedNonWhitespaceSequence}}]}]

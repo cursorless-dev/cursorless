@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: chuck pair round
+  spokenForm: chuck bounds round
   action: remove
   targets:
     - type: primitive
@@ -17,4 +17,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: delimitersOnly}}]

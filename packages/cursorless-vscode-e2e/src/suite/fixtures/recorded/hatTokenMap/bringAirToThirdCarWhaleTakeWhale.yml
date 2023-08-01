@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring air to third car whale take whale
+  spokenForm: bring air to third char whale take whale
   action: replaceWithTarget
   targets:
     - type: primitive
@@ -35,4 +35,3 @@ finalState:
     default.w:
       start: {line: 0, character: 7}
       end: {line: 0, character: 19}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}]

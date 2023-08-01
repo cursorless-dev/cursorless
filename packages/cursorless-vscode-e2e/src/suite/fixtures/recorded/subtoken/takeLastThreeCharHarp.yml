@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take last three char harp
+  spokenForm: take last three chars harp
   action: setSelection
   targets:
     - type: primitive
@@ -28,4 +28,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 30}
       active: {line: 1, character: 33}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: character, anchor: -3, active: -1}, insideOutsideType: inside}]

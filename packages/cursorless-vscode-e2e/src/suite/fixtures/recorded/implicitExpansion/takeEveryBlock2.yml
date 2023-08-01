@@ -40,4 +40,3 @@ finalState:
       active: {line: 4, character: 11}
     - anchor: {line: 6, character: 0}
       active: {line: 7, character: 11}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: paragraph}}]}]

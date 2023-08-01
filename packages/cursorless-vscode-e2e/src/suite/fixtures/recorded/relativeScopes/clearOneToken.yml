@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change one token
+  spokenForm: change token forward
   version: 3
   targets:
     - type: primitive
@@ -18,7 +18,6 @@ initialState:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 13}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 1, direction: forward}]}]
 finalState:
   documentContents: aaa bbb  ddd eee fff
   selections:
