@@ -1,7 +1,7 @@
 import json
 from typing import Any
 
-from talon import Context, Module, actions
+from talon import Context, Module, actions, scope
 
 mod = Module()
 
@@ -20,6 +20,7 @@ ctx.tags = ["user.cursorless", "user.cursorless_default_vocabulary"]
 
 active_microphone = "None"
 actual_command = None
+modes = []
 
 
 @ctx.action_class("user")
@@ -50,24 +51,24 @@ class UserActions:
 class Actions:
     def private_cursorless_spoken_form_test_mode(enable: bool):
         """Enable/disable Cursorless spoken form test mode"""
-        global active_microphone
+        global modes, active_microphone
 
         if enable:
+            modes = scope.get("mode")
+            active_microphone = actions.sound.active_microphone()
+
+            disable_modes()
+            actions.mode.enable("user.cursorless_spoken_form_test")
+            actions.sound.set_microphone("None")
+
             actions.app.notify(
                 "Cursorless spoken form tests are running. Talon microphone is disabled."
             )
-
-            active_microphone = actions.sound.active_microphone()
-            actions.sound.set_microphone("None")
-
-            actions.mode.save()
-            actions.mode.disable("command")
-            actions.mode.disable("dictation")
-            actions.mode.disable("sleep")
-            actions.mode.enable("user.cursorless_spoken_form_test")
         else:
-            actions.mode.restore()
+            actions.mode.disable("user.cursorless_spoken_form_test")
+            enable_modes()
             actions.sound.set_microphone(active_microphone)
+
             actions.app.notify(
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
@@ -82,3 +83,19 @@ class Actions:
             print(json.dumps(actual_command))
         except Exception as e:
             print(f"{e.__class__.__name__}: {e}")
+
+
+def enable_modes():
+    for mode in modes:
+        try:
+            actions.mode.enable(mode)
+        except:
+            pass
+
+
+def disable_modes():
+    for mode in modes:
+        try:
+            actions.mode.disable(mode)
+        except:
+            pass

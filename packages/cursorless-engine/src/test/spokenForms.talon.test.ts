@@ -100,7 +100,7 @@ function getSpokenFormFromFixture(
   return fixture.command.spokenForm;
 }
 
-async function toggleTestMode(repl: TalonRepl, enabled: boolean) {
+function toggleTestMode(repl: TalonRepl, enabled: boolean) {
   const arg = enabled ? "True" : "False";
   return repl.action(`user.private_cursorless_spoken_form_test_mode(${arg})`);
 }
