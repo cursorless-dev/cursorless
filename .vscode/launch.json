@@ -24,7 +24,7 @@
       ]
     },
     {
-      "name": "Extension Tests",
+      "name": "Extension tests",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -34,8 +34,24 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
       ],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "${defaultBuildTask}",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Talon tests",
+      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runTalonTests",
+      "env": {
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [

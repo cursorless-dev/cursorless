@@ -3,15 +3,13 @@
 
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
-import { runAllTestsInDir } from "../util/runAllTestsInDir";
+import { runTestsInDir } from "../util/runAllTestsInDir";
 
 /**
- * Runs all tests that don't have to be run within VSCode.
+ * Runs all Talon tests.
  */
 (async () => {
-  await runAllTestsInDir(
-    path.join(getCursorlessRepoRoot(), "packages"),
-    false,
-    false,
+  await runTestsInDir(path.join(getCursorlessRepoRoot(), "packages"), (files) =>
+    files.filter((f) => f.endsWith("talon.test.js")),
   );
 })();

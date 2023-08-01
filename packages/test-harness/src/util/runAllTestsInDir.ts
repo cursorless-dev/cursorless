@@ -9,13 +9,22 @@ const glob = promisify(globRaw);
 export function runAllTestsInDir(
   testRoot: string,
   includeVscodeTests: boolean,
+  includeTalonTests: boolean,
 ) {
-  return runAllTestsInDirs([testRoot], includeVscodeTests);
+  return runTestsInDir(testRoot, (files) => {
+    if (!includeVscodeTests) {
+      files = files.filter((f) => !f.endsWith("vscode.test.js"));
+    }
+    if (!includeTalonTests) {
+      files = files.filter((f) => !f.endsWith("talon.test.js"));
+    }
+    return files;
+  });
 }
 
-export async function runAllTestsInDirs(
-  testRoots: string[],
-  includeVscodeTests: boolean,
+export async function runTestsInDir(
+  testRoot: string,
+  filterFiles: (files: string[]) => string[],
 ): Promise<void> {
   // Create the mocha test
   const mocha = new Mocha({
@@ -24,16 +33,10 @@ export async function runAllTestsInDirs(
     grep: runTestSubset() ? TEST_SUBSET_GREP_STRING : undefined, // Only run a subset of tests
   });
 
-  for (const testRoot of testRoots) {
-    let files = await glob("**/**.test.js", { cwd: testRoot });
+  const files = filterFiles(await glob("**/**.test.js", { cwd: testRoot }));
 
-    if (!includeVscodeTests) {
-      files = files.filter((f) => !f.endsWith("vscode.test.js"));
-    }
-
-    // Add files to the test suite
-    files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
-  }
+  // Add files to the test suite
+  files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
 
   try {
     // Run the mocha test
