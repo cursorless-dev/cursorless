@@ -16,7 +16,10 @@ ctx.matches = r"""
 mode: user.cursorless_spoken_form_test
 """
 
-ctx.tags = ["user.cursorless", "user.cursorless_default_vocabulary"]
+ctx.tags = [
+    "user.cursorless", 
+    "user.cursorless_default_vocabulary",
+]
 
 active_microphone = "None"
 actual_command = None
