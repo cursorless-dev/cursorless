@@ -92,7 +92,7 @@ def enable_modes():
     for mode in modes:
         try:
             actions.mode.enable(mode)
-        except:
+        except Exception:
             pass
 
 
@@ -100,5 +100,5 @@ def disable_modes():
     for mode in modes:
         try:
             actions.mode.disable(mode)
-        except:
+        except Exception:
             pass
