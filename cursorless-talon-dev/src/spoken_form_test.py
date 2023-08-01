@@ -18,19 +18,22 @@ mode: user.cursorless_spoken_form_test
 
 ctx.tags = ["user.cursorless", "user.cursorless_default_vocabulary"]
 
+active_microphone = "None"
+actual_command = None
+
 
 @ctx.action_class("user")
 class UserActions:
     def did_emit_pre_phrase_signal():
         return True
 
-    def private_cursorless_run_rpc_command_no_wait(
+    def private_cursorless_run_rpc_command_and_wait(
         command_id: str, arg1: Any, arg2: Any = None
     ):
         global actual_command
         actual_command = arg1
 
-    def private_cursorless_run_rpc_command_and_wait(
+    def private_cursorless_run_rpc_command_no_wait(
         command_id: str, arg1: Any, arg2: Any = None
     ):
         global actual_command
@@ -41,7 +44,6 @@ class UserActions:
     ) -> Any:
         global actual_command
         actual_command = arg1
-
 
 @mod.action_class
 class Actions:
@@ -62,9 +64,6 @@ class Actions:
             actions.mode.disable("dictation")
             actions.mode.disable("sleep")
             actions.mode.enable("user.cursorless_spoken_form_test")
-
-            actions.sleep("200ms")
-
         else:
             actions.mode.restore()
             actions.sound.set_microphone(active_microphone)

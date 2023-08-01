@@ -4,7 +4,7 @@ import * as childProcess from "node:child_process";
 export class TalonRepl {
   private child?: childProcess.ChildProcessWithoutNullStreams;
 
-  async action(action: string) {
+  action(action: string) {
     return this.command(`actions.${action}`);
   }
 
@@ -40,7 +40,7 @@ export class TalonRepl {
     });
   }
 
-  private async command(command: string) {
+  private command(command: string) {
     return new Promise<string>((resolve, reject) => {
       if (this.child != null) {
         this.child.stdout.once("data", (data) => {
