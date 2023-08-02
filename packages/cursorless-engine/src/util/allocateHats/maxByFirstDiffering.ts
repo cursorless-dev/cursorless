@@ -20,6 +20,9 @@ export function maxByFirstDiffering<T>(
   arr: T[],
   fns: ((item: T) => number)[],
 ): T | undefined {
+  if (arr.length === 0) {
+    return undefined;
+  }
   let remainingValues = arr;
 
   for (const fn of fns) {
