@@ -3,8 +3,8 @@ from ..get_list import get_raw_list
 
 def get_destinations():
     insertion_modes = {
-        **{p: "to" for p in get_raw_list("insertion_mode_to").keys()},
-        **get_raw_list("insertion_mode_pos")
+        **{p: "to" for p in get_raw_list("insertion_mode_to")},
+        **get_raw_list("insertion_mode_pos"),
     }
 
     descriptions = {
