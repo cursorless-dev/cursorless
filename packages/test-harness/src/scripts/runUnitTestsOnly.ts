@@ -1,17 +1,8 @@
-// Ensures that the aliases such as @cursorless/common that we define in
-// package.json are active
-
+/**
+ * Runs all tests that don't have to be run within VSCode.
+ */
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
 import { runAllTestsInDir } from "../util/runAllTestsInDir";
 
-/**
- * Runs all tests that don't have to be run within VSCode.
- */
-(async () => {
-  await runAllTestsInDir(
-    path.join(getCursorlessRepoRoot(), "packages"),
-    false,
-    false,
-  );
-})();
+runAllTestsInDir(path.join(getCursorlessRepoRoot(), "packages"), false, false);
