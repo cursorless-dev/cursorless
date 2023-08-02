@@ -9,6 +9,7 @@ command:
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |
     class Aaa {
@@ -38,4 +39,3 @@ finalState:
   selections:
     - anchor: {line: 3, character: 12}
       active: {line: 3, character: 12}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]

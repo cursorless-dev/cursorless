@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change core red past harp
+  spokenForm: change inside red past harp
   version: 2
   targets:
     - type: range
@@ -35,4 +35,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: [{type: interiorOnly}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: interiorOnly}]}}]

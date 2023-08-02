@@ -11,6 +11,7 @@ command:
           length: 1
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'customRegex'
 initialState:
   documentContents: aaa-bbb ccc-ddd eee-fff ggg-hhh
   selections:
@@ -22,4 +23,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: customRegex, regex: '[^\s"''`]+'}, start: -1, length: 1}]}]

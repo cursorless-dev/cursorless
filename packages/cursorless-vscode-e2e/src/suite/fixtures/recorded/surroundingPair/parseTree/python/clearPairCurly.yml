@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change pair curly
+  spokenForm: change bounds curly
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -19,4 +19,3 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: curlyBrackets, delimitersOnly: true}, insideOutsideType: inside}]

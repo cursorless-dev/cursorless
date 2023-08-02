@@ -8,6 +8,7 @@ command:
       type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
+spokenFormError: Action 'getText'
 initialState:
   documentContents: |
     foo bar baz

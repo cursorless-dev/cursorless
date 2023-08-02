@@ -49,4 +49,3 @@ finalState:
         end: {line: 0, character: 22}
       isReversed: true
       hasExplicitRange: true
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '='}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: ':'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}}]

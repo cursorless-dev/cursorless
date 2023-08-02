@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring point after first car whale take whale
+  spokenForm: bring dot after first char whale take whale
   action: replaceWithTarget
   targets:
     - type: primitive
@@ -36,4 +36,3 @@ finalState:
     default.w:
       start: {line: 0, character: 7}
       end: {line: 0, character: 13}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: .}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0, excludeAnchor: false, excludeActive: false}}]

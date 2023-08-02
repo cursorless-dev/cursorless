@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take every paint token
+  spokenForm: take every short paint token
   version: 2
   targets:
     - type: primitive
@@ -24,4 +24,3 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 21}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: boundedNonWhitespaceSequence}}, {type: containingScope, scopeType: {type: token}}]}]

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: square repack look past trap
+  spokenForm: box repack look past trap
   version: 2
   targets:
     - type: range
@@ -35,4 +35,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: []}}]

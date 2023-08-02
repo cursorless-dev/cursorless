@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change two token
+  spokenForm: change two tokens
   version: 3
   targets:
     - type: primitive
@@ -18,5 +18,4 @@ initialState:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 2, direction: forward}]}]
 thrownError: {name: OutOfRangeError}

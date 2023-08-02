@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change bounds
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -19,4 +19,3 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: surroundingPair, delimiter: null, delimitersOnly: true}, insideOutsideType: inside}]

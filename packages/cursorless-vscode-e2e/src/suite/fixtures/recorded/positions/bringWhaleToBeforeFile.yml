@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: bring whale to before file
+  spokenForm: bring whale before file
   version: 2
   action: {name: replaceWithTarget}
   targets:
@@ -28,4 +28,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: []}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [{type: position, position: before}, {type: containingScope, scopeType: document}]}]

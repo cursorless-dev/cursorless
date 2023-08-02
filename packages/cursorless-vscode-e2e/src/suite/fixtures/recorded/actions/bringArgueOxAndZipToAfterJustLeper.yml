@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: bring argue odd and zip to after just paren
+  spokenForm: bring arg odd and zip after just paren
   action: replaceWithTarget
   targets:
     - type: list
@@ -69,4 +69,3 @@ finalState:
         end: {line: 0, character: 57}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: z}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: (}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: toRawSelection}, isImplicit: false}]

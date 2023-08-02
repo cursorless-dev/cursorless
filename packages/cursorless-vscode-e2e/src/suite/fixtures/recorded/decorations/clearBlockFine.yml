@@ -36,4 +36,3 @@ ide:
         type: character
         start: {line: 1, character: 4}
         end: {line: 2, character: 7}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: [{type: containingScope, scopeType: {type: paragraph}}]}]

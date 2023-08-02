@@ -38,4 +38,3 @@ finalState:
         end: {line: 2, character: 5}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]

@@ -6,6 +6,7 @@ command:
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string}
+spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
     char* a = "hello world";
@@ -19,4 +20,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 23}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: containingScope, scopeType: string}, insideOutsideType: inside}]

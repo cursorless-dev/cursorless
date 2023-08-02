@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: give quote
+  spokenForm: give double quote
   action: deselect
   targets:
     - type: primitive
@@ -35,4 +35,3 @@ finalState:
         end: {line: 0, character: 1}
       isReversed: false
       hasExplicitRange: false
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '"'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

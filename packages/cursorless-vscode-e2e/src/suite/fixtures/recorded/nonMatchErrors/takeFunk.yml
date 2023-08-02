@@ -13,5 +13,4 @@ initialState:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]
 thrownError: {name: NoContainingScopeError}

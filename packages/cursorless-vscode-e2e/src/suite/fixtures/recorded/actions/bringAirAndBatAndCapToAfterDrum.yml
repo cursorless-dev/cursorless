@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: bring air and bat and cap to after drum
+  spokenForm: bring air and bat and cap after drum
   action: replaceWithTarget
   targets:
     - type: list
@@ -74,4 +74,3 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: identity}}]

@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: give quote and bang
+  spokenForm: give double quote and bang
   action: deselect
   targets:
     - type: list
@@ -46,4 +46,3 @@ finalState:
         end: {line: 0, character: 3}
       isReversed: false
       hasExplicitRange: false
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '"'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '!'}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]}]

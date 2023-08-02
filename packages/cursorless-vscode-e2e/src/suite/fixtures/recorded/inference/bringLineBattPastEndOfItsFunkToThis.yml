@@ -54,4 +54,3 @@ finalState:
   selections:
     - anchor: {line: 6, character: 0}
       active: {line: 6, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [&ref_0 {type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}], positionModifier: {type: position, position: end}}}, {type: primitive, mark: {type: cursor}, modifiers: [*ref_0]}]

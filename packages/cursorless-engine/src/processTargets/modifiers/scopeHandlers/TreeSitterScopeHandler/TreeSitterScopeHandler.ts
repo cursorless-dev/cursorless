@@ -16,7 +16,10 @@ import { findCaptureByName, getRelatedRange } from "./captureUtils";
 export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   protected isHierarchical = true;
 
-  constructor(query: TreeSitterQuery, public scopeType: SimpleScopeType) {
+  constructor(
+    query: TreeSitterQuery,
+    public scopeType: SimpleScopeType,
+  ) {
     super(query);
   }
 

@@ -1,7 +1,7 @@
 languageId: rust
 command:
   version: 3
-  spokenForm: change argue
+  spokenForm: change arg
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -20,4 +20,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: argumentOrParameter}}]}]

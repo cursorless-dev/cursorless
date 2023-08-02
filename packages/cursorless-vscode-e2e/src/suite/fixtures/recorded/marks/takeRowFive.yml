@@ -29,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
-fullTargets: [{type: primitive, mark: {type: lineNumber, anchor: {lineNumber: 4, type: modulo100}, active: {lineNumber: 4, type: modulo100}}, selectionType: line, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: try catch wrap this
+  spokenForm: try wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive
@@ -40,4 +40,3 @@ finalState:
       active: {line: 11, character: 4}
     - anchor: {line: 5, character: 4}
       active: {line: 5, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

@@ -46,7 +46,10 @@ abstract class BringMoveSwap {
     getSourceRangeCallback: (target: Target) => Range;
   };
 
-  constructor(private rangeUpdater: RangeUpdater, private type: ActionType) {}
+  constructor(
+    private rangeUpdater: RangeUpdater,
+    private type: ActionType,
+  ) {}
 
   protected async decorateTargets(sources: Target[], destinations: Target[]) {
     await Promise.all([

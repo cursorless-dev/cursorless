@@ -14,6 +14,7 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
   extraArgs:
     - {start: 0}
+spokenFormError: Action 'replace'
 initialState:
   documentContents: |
 
@@ -61,4 +62,3 @@ finalState:
         end: {line: 3, character: 1}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: null}]}]

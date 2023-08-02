@@ -54,4 +54,3 @@ finalState:
         end: {line: 4, character: 14}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: paragraph}}]}]}]
