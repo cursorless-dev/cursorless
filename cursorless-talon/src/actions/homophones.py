@@ -1,17 +1,18 @@
 from talon import actions, app
 
-from .get_text import get_text
+from .get_text import cursorless_get_text_action
+from .replace import cursorless_replace_action
 
 
-def run_homophones_action(target: dict):
+def cursorless_homophones_action(target: dict):
     """Replaced target with next homophone"""
-    texts = get_text(target, show_decorations=False)
+    texts = cursorless_get_text_action(target, show_decorations=False)
     try:
         updated_texts = list(map(get_next_homophone, texts))
     except LookupError as e:
         app.notify(str(e))
         return
-    actions.user.cursorless_replace(target, updated_texts)
+    cursorless_replace_action(target, updated_texts)
 
 
 def get_next_homophone(word: str):

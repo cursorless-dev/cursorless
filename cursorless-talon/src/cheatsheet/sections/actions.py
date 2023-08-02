@@ -14,6 +14,7 @@ def get_actions():
         "applyFormatter",
         "wrapWithPairedDelimiter",
         "rewrap",
+        "pasteFromClipboard",
     ]
     simple_actions = {
         f"{key} <target>": value
@@ -27,9 +28,6 @@ def get_actions():
     }
 
     swap_connective = list(get_raw_list("swap_connective").keys())[0]
-    source_destination_connective = list(
-        get_raw_list("source_destination_connective").keys()
-    )[0]
 
     return [
         *make_dict_readable(
@@ -44,8 +42,8 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target 1> {source_destination_connective} <target 2>",
-                    "description": "Replace <target 2> with <target 1>",
+                    "spokenForm": f"{complex_actions['replaceWithTarget']} <target> <destination>",
+                    "description": "Replace <destination> with <target>",
                 },
                 {
                     "spokenForm": f"{complex_actions['replaceWithTarget']} <target>",
@@ -54,12 +52,22 @@ def get_actions():
             ],
         },
         {
+            "id": "pasteFromClipboard",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['pasteFromClipboard']} <destination>",
+                    "description": "Replace <destination> with clipboard content",
+                }
+            ],
+        },
+        {
             "id": "moveToTarget",
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": f"{complex_actions['moveToTarget']} <target 1> {source_destination_connective} <target 2>",
-                    "description": "Move <target 1> to <target 2>",
+                    "spokenForm": f"{complex_actions['moveToTarget']} <target> <destination>",
+                    "description": "Move <target> to <destination>",
                 },
                 {
                     "spokenForm": f"{complex_actions['moveToTarget']} <target>",

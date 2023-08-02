@@ -81,18 +81,13 @@ async function runTest(
     `user.private_cursorless_spoken_form_test("${spokenForm}")`,
   );
 
-  const commandsActualLegacy = (() => {
+  const commandsActual = (() => {
     try {
       return JSON.parse(result);
     } catch (e) {
       throw Error(result);
     }
   })();
-
-  // TODO: Remove once Talon side is on latest version
-  const commandsActual = commandsActualLegacy.map(
-    canonicalizeAndValidateCommand,
-  );
 
   const commandsExpected = commands.map((command) => ({
     ...command,
