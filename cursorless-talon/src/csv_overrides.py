@@ -30,6 +30,7 @@ default_ctx.matches = r"""
 tag: user.cursorless_default_vocabulary
 """
 
+
 def init_csv_and_watch_changes(
     filename: str,
     default_values: dict[str, dict[str, str]],
@@ -151,10 +152,10 @@ def check_for_duplicates(filename, default_values):
 def is_removed(value: str):
     return value.startswith("-")
 
+
 def create_default_vocabulary_dicts(
     default_values: dict[str, dict], pluralize_lists: list[str]
 ):
-
     default_values_updated = {}
     for key, value in default_values.items():
         updated_dict = {}
