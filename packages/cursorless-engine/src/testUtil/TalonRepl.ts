@@ -1,6 +1,9 @@
 import * as os from "node:os";
 import * as childProcess from "node:child_process";
 
+/**
+ * A wrapper around the Talon REPL that allows us to send commands to Talon
+ */
 export class TalonRepl {
   private child?: childProcess.ChildProcessWithoutNullStreams;
 
@@ -18,10 +21,8 @@ export class TalonRepl {
         return;
       }
 
-      this.child.stdout.once("data", () => {
-        // The first data from the repl is always: Talon REPL | Python 3.9.13 ...
-        resolve();
-      });
+      // The first data from the repl is always: Talon REPL | Python 3.9.13 ...
+      this.child.stdout.once("data", resolve);
     });
   }
 
