@@ -68,7 +68,9 @@ export function checkCaptureStartEnd(
     showError(
       messages,
       "TreeSitterQuery.checkCaptures.duplicate",
-      `A capture with the same name may only appear once in a single pattern: ${captures}`,
+      `A capture with the same name may only appear once in a single pattern: ${captures.map(
+        ({ name }) => name,
+      )}`,
     );
     shownError = true;
   }
