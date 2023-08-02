@@ -3,12 +3,10 @@ import {
   CommandComplete,
   TestCaseFixtureLegacy,
   getRecordedTestPaths,
-  getRecordedTestsDirPath,
 } from "@cursorless/common";
 import * as assert from "assert";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
-import * as path from "node:path";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
 import { spokenFormsFixture } from "./fixtures/spokenForms.fixture";
@@ -19,20 +17,16 @@ suite("Talon spoken forms", async function () {
 
   suiteSetup(async () => {
     await repl.start();
-    await toggleTestMode(repl, true);
+    await setTestMode(repl, true);
   });
 
   suiteTeardown(async () => {
-    await toggleTestMode(repl, false);
+    await setTestMode(repl, false);
     await repl.stop();
   });
 
-  const relativeDir = path.dirname(getRecordedTestsDirPath());
-
-  getRecordedTestPaths().forEach((testPath) =>
-    test(path.relative(relativeDir, testPath.split(".")[0]), () =>
-      runRecordedFixture(repl, testPath),
-    ),
+  getRecordedTestPaths().forEach(({ name, path }) =>
+    test(name, () => runRecordedFixture(repl, path)),
   );
 
   spokenFormsFixture.forEach((command) =>
@@ -100,7 +94,7 @@ async function runTest(
   assert.deepStrictEqual(commandsActual, commandsExpected);
 }
 
-function toggleTestMode(repl: TalonRepl, enabled: boolean) {
+function setTestMode(repl: TalonRepl, enabled: boolean) {
   const arg = enabled ? "True" : "False";
   return repl.action(`user.private_cursorless_spoken_form_test_mode(${arg})`);
 }

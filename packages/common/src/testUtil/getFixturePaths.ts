@@ -23,8 +23,12 @@ export function getRecordedTestsDirPath() {
 
 export function getRecordedTestPaths() {
   const directory = getRecordedTestsDirPath();
+  const relativeDir = path.dirname(directory);
 
-  return walkFilesSync(directory).filter(
-    (path) => path.endsWith(".yml") || path.endsWith(".yaml"),
-  );
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith(".yml") || p.endsWith(".yaml"))
+    .map((p) => ({
+      name: path.relative(relativeDir, p.split(".")[0]),
+      path: p,
+    }));
 }

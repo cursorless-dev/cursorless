@@ -1,25 +1,19 @@
 import {
   TestCaseFixtureLegacy,
   getRecordedTestPaths,
-  getRecordedTestsDirPath,
   serializeTestFixture,
   shouldUpdateFixtures,
 } from "@cursorless/common";
 import * as yaml from "js-yaml";
 import * as assert from "node:assert";
 import { promises as fsp } from "node:fs";
-import * as path from "node:path";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { generateSpokenForm } from "./generateSpokenForm";
 import { getHatMapCommand } from "./getHatMapCommand";
 
 suite("Generate spoken forms", () => {
-  const relativeDir = path.dirname(getRecordedTestsDirPath());
-
-  getRecordedTestPaths().forEach((testPath) =>
-    test(path.relative(relativeDir, testPath.split(".")[0]), () =>
-      runTest(testPath),
-    ),
+  getRecordedTestPaths().forEach(({ name, path }) =>
+    test(name, () => runTest(path)),
   );
 });
 
