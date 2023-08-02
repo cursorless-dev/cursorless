@@ -12,6 +12,7 @@ import * as path from "node:path";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
 import { spokenFormsFixture } from "./fixtures/spokenForms.fixture";
+import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 
 suite("Talon spoken forms", async function () {
   const repl = new TalonRepl();
@@ -47,28 +48,37 @@ async function runRecordedFixture(repl: TalonRepl, file: string) {
     return;
   }
 
-  const commandComplete = {
-    ...canonicalizeAndValidateCommand(fixture.command),
-    spokenForm: getSpokenFormFromFixture(fixture),
-  };
+  const commands: CommandComplete[] = [
+    canonicalizeAndValidateCommand(fixture.command),
+  ];
 
-  await runTest(repl, commandComplete);
+  if (fixture.marksToCheck != null) {
+    commands.push(getHatMapCommand(fixture.marksToCheck));
+  }
+
+  assert(fixture.command.spokenForm != null);
+
+  await runTest(repl, fixture.command.spokenForm, ...commands);
 }
 
 async function runCommandFixture(repl: TalonRepl, command: Command) {
   const commandComplete = canonicalizeAndValidateCommand(command);
 
-  await runTest(repl, commandComplete);
+  assert(commandComplete.spokenForm != null);
+
+  await runTest(repl, commandComplete.spokenForm, commandComplete);
 }
 
-async function runTest(repl: TalonRepl, command: CommandComplete) {
-  assert.ok(command.spokenForm != null);
-
+async function runTest(
+  repl: TalonRepl,
+  spokenForm: string,
+  ...commands: CommandComplete[]
+) {
   const result = await repl.action(
-    `user.private_cursorless_spoken_form_test("${command.spokenForm}")`,
+    `user.private_cursorless_spoken_form_test("${spokenForm}")`,
   );
 
-  const commandActualLegacy = (() => {
+  const commandsActualLegacy = (() => {
     try {
       return JSON.parse(result);
     } catch (e) {
@@ -77,27 +87,17 @@ async function runTest(repl: TalonRepl, command: CommandComplete) {
   })();
 
   // TODO: Remove once Talon side is on latest version
-  const commandActual = canonicalizeAndValidateCommand(commandActualLegacy);
+  const commandsActual = commandsActualLegacy.map(
+    canonicalizeAndValidateCommand,
+  );
 
-  const commandExpected = {
+  const commandsExpected = commands.map((command) => ({
     ...command,
+    spokenForm,
     usePrePhraseSnapshot: true,
-  };
+  }));
 
-  assert.deepStrictEqual(commandActual, commandExpected);
-}
-
-function getSpokenFormFromFixture(
-  fixture: TestCaseFixtureLegacy,
-): string | undefined {
-  if (fixture.command.spokenForm == null) {
-    return undefined;
-  }
-  if (fixture.marksToCheck != null) {
-    const parts = fixture.command.spokenForm.split(" ");
-    return parts.slice(0, parts.length - 2).join(" ");
-  }
-  return fixture.command.spokenForm;
+  assert.deepStrictEqual(commandsActual, commandsExpected);
 }
 
 function toggleTestMode(repl: TalonRepl, enabled: boolean) {
