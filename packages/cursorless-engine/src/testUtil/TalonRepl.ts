@@ -63,7 +63,6 @@ export class TalonRepl {
    * output to the console.
    */
   async eatOutput(): Promise<void> {
-    let data: string;
     let tryCount = 0;
 
     while (true) {
@@ -71,13 +70,13 @@ export class TalonRepl {
       // `[]` back to us (we could put any Python value in there; `[]` is just a
       // simple one). We keep doing this until we get `[]` back, which means the
       // REPL is responsive again.
-      data = await this.command("[]");
+      const output = (await this.command("[]")).trim();
 
-      if (data.trim() === "[]") {
+      if (output === "[]") {
         break;
       }
 
-      console.log(data.trim());
+      console.log(output);
 
       if (tryCount++ > MAX_OUTPUT_TO_EAT) {
         throw Error("Too much output to eat");
