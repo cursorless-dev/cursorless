@@ -313,10 +313,11 @@ Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
 ##### `"short paint"`
 
-The `"short paint"` modifier will expand the target forward and backward until it hits whitespace or a [surrounding pair](#surrounding-pair) delimiter.
-`"short paint"` will expand over pair delimeters that do not surround the premodified target;
+The `"short paint"` scope is like `"paint"`, but stops not only at whitespace but also stops if it would exit the nearest [surrounding pair](#surrounding-pair). For example, given the text
 
-With the text `(aaa[bbb]ccc ddd)` ...
+```
+(aaa[bbb]ccc ddd)
+```
 
 - `"take short paint air"` would select `aaa[bbb]ccc`.
   - The target starts as `aaa`.
