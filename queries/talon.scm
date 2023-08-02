@@ -115,10 +115,6 @@
   (#shrink-to-match! @functionCallee "\\w+")
 )
 
-;;!! foo: "bar"
-;;!       ^^^^^
-(block) @functionCall.iteration @functionCallee.iteration
-
 ;;!! key(enter)
 ;;!      ^^^^^
 (key_action
