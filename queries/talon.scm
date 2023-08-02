@@ -135,3 +135,7 @@
 ;;!! key(enter)
 ;;!      ^^^^^
 arguments: (_) @argumentOrParameter.iteration
+
+;;!! # foo
+;;!  ^^^^^
+(comment) @comment

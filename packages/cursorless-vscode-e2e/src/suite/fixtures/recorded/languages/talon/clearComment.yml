@@ -1,0 +1,23 @@
+languageId: talon
+command:
+  version: 6
+  spokenForm: clear comment
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "# foo"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
