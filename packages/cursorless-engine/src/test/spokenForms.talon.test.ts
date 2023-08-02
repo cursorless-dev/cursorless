@@ -2,28 +2,33 @@ import {
   Command,
   CommandComplete,
   TestCaseFixtureLegacy,
+  asyncSafety,
   getRecordedTestPaths,
 } from "@cursorless/common";
 import * as assert from "assert";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
 import { spokenFormsFixture } from "./fixtures/spokenForms.fixture";
-import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 
 suite("Talon spoken forms", async function () {
   const repl = new TalonRepl();
 
-  suiteSetup(async () => {
-    await repl.start();
-    await setTestMode(repl, true);
-  });
+  suiteSetup(
+    asyncSafety(async () => {
+      await repl.start();
+      await setTestMode(repl, true);
+    }),
+  );
 
-  suiteTeardown(async () => {
-    await setTestMode(repl, false);
-    await repl.stop();
-  });
+  suiteTeardown(
+    asyncSafety(async () => {
+      await setTestMode(repl, false);
+      await repl.stop();
+    }),
+  );
 
   // Test spoken forms in all of our recorded test fixtures
   getRecordedTestPaths().forEach(({ name, path }) =>

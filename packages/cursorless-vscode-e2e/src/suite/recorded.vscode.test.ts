@@ -1,4 +1,5 @@
 import {
+  asyncSafety,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   extractTargetedMarks,
@@ -30,7 +31,6 @@ import { assert } from "chai";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
 import * as vscode from "vscode";
-import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 import { isUndefined } from "lodash";
