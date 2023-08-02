@@ -1,7 +1,7 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: clear key
+  spokenForm: change key
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

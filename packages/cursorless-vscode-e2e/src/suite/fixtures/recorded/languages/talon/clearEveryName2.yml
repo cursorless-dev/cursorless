@@ -1,7 +1,7 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: clear every name
+  spokenForm: change every name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
