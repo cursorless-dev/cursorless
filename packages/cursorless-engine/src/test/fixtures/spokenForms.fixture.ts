@@ -42,11 +42,9 @@ const tokenForwardAction: ActionDescriptor = {
  * Talon tests by relying on our recorded test fixtures alone.
  */
 export const spokenFormsFixture: Required<CommandV6>[] = [
-  // "air slice past bat" and "air slice bat" are equivalent
   command("take air slice past bat", verticalRangeAction),
   command("take air slice bat", verticalRangeAction),
 
-  // These are all equivalent
   command("take one tokens forward", tokenForwardAction),
   command("take one tokens", tokenForwardAction),
   command("take token forward", tokenForwardAction),
