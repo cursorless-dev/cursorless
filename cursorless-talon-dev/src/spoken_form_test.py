@@ -21,9 +21,15 @@ ctx.tags = [
     "user.cursorless_default_vocabulary",
 ]
 
-active_microphone = "None"
-actual_commands = []
-modes = []
+# Keeps track of the microphone that was active before the spoken form test mode
+saved_microphone = "None"
+
+# Keeps a list of modes that were active before the spoken form test mode was
+# enabled
+saved_modes = []
+
+# Keeps a list of commands run over the course of a spoken form test
+commands_run = []
 
 
 @ctx.action_class("user")
@@ -34,28 +40,28 @@ class UserActions:
     def private_cursorless_run_rpc_command_and_wait(
         command_id: str, arg1: Any, arg2: Any = None
     ):
-        actual_commands.append(arg1)
+        commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_no_wait(
         command_id: str, arg1: Any, arg2: Any = None
     ):
-        actual_commands.append(arg1)
+        commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_get(
         command_id: str, arg1: Any, arg2: Any = None
     ) -> Any:
-        actual_commands.append(arg1)
+        commands_run.append(arg1)
 
 
 @mod.action_class
 class Actions:
     def private_cursorless_spoken_form_test_mode(enable: bool):
         """Enable/disable Cursorless spoken form test mode"""
-        global modes, active_microphone
+        global saved_modes, saved_microphone
 
         if enable:
-            modes = scope.get("mode")
-            active_microphone = actions.sound.active_microphone()
+            saved_modes = scope.get("mode")
+            saved_microphone = actions.sound.active_microphone()
 
             disable_modes()
             actions.mode.enable("user.cursorless_spoken_form_test")
@@ -67,7 +73,7 @@ class Actions:
         else:
             actions.mode.disable("user.cursorless_spoken_form_test")
             enable_modes()
-            actions.sound.set_microphone(active_microphone)
+            actions.sound.set_microphone(saved_microphone)
 
             actions.app.notify(
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
@@ -75,18 +81,18 @@ class Actions:
 
     def private_cursorless_spoken_form_test(phrase: str):
         """Run Cursorless spoken form test"""
-        global actual_commands
-        actual_commands = []
+        global commands_run
+        commands_run = []
 
         try:
             actions.mimic(phrase)
-            print(json.dumps(actual_commands))
+            print(json.dumps(commands_run))
         except Exception as e:
             print(f"{e.__class__.__name__}: {e}")
 
 
 def enable_modes():
-    for mode in modes:
+    for mode in saved_modes:
         try:
             actions.mode.enable(mode)
         except Exception:
@@ -94,7 +100,7 @@ def enable_modes():
 
 
 def disable_modes():
-    for mode in modes:
+    for mode in saved_modes:
         try:
             actions.mode.disable(mode)
         except Exception:
