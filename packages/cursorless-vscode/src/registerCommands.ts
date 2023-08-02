@@ -46,6 +46,8 @@ export function registerCommands(
 
     // Testcase recorder commands
     ["cursorless.recordTestCase"]: testCaseRecorder.toggle,
+    ["cursorless.recordOneTestCaseThenPause"]:
+      testCaseRecorder.recordOneThenPause,
     ["cursorless.pauseRecording"]: testCaseRecorder.pause,
     ["cursorless.resumeRecording"]: testCaseRecorder.resume,
     ["cursorless.takeSnapshot"]: testCaseRecorder.takeSnapshot,

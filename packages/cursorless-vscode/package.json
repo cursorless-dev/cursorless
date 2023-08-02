@@ -60,6 +60,7 @@
     "onCommand:cursorless.pauseRecording",
     "onCommand:cursorless.recomputeDecorationStyles",
     "onCommand:cursorless.recordTestCase",
+    "onCommand:cursorless.recordOneTestCaseThenPause",
     "onCommand:cursorless.resumeRecording",
     "onCommand:cursorless.showCheatsheet",
     "onCommand:cursorless.showDocumentation",
@@ -88,6 +89,10 @@
       {
         "command": "cursorless.recordTestCase",
         "title": "Cursorless: Record test case"
+      },
+      {
+        "command": "cursorless.recordOneTestCaseThenPause",
+        "title": "Cursorless: Record one test case, then pause"
       },
       {
         "command": "cursorless.pauseRecording",
