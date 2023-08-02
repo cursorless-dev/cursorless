@@ -8,7 +8,7 @@ The implementation of the local version of the cheatsheet is split between the T
 
 When you add a new scope type, action, modifier, etc, you'll need to ensure that it shows up both locally and on the website. It will usually automatically show up in the local cheatsheet. You can verify this by saying `"cursorless cheatsheet"` with your development version of `cursorless-talon` active in your Talon user directory, and inspecting the cheatsheet that appears. If it does not, you'll need to make fixes to [the Talon side of the cheatsheet](../../cursorless-talon/src/cheatsheet).
 
-In either case, to get your changes to appear on the website, you need to update the defaults in [`defaults.json`](../../packages/cheatsheet/src/lib/sampleSpokenFormInfos/defaults.json). First make sure you have the `cursorless-talon-dev` user file set in your Talon home directory, as indicated in the [initial contributor setup instructions](CONTRIBUTING.md#initial-setup). Then you can say `"cursorless update cheatsheet"` to update the default spoken forms.
+In either case, to get your changes to appear on the website, you need to update the defaults in [`defaults.json`](../../packages/cheatsheet/src/lib/sampleSpokenFormInfos/defaults.json). First make sure you have the `cursorless-talon-dev` user file set in your Talon home directory, as indicated in the [initial contributor setup instructions](CONTRIBUTING.md#initial-setup). Then you can say `"cursorless update cheatsheet"` to update the default spoken forms. Note that this will use your custom spoken forms, so you may need to do some manual cleanup.
 
 ## Running the cheatsheet in development mode
 
