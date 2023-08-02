@@ -1,6 +1,9 @@
 tag: user.cursorless
 -
 
+# Activate this if you want the default Cursorless vocabulary
+# tag(): user.cursorless_default_vocabulary
+
 {user.cursorless_homophone} record:
     user.run_rpc_command("cursorless.recordTestCase")
 {user.cursorless_homophone} record one:

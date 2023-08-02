@@ -1,9 +1,8 @@
 import webbrowser
 from pathlib import Path
 
-from talon import Context, Module, app
+from talon import Context, Module, actions, app
 
-from ..cursorless_command_server import run_rpc_command_and_wait
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
@@ -54,7 +53,7 @@ class CursorlessActions:
 
         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
         cheatsheet_out_path = cheatsheet_out_dir / cheatsheet_filename
-        run_rpc_command_and_wait(
+        actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
                 "version": 0,
@@ -66,7 +65,7 @@ class CursorlessActions:
 
     def cursorless_cheat_sheet_update_json():
         """Update default cursorless cheatsheet json (for developer use only)"""
-        run_rpc_command_and_wait(
+        actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.internal.updateCheatsheetDefaults",
             cursorless_cheat_sheet_get_json(),
         )

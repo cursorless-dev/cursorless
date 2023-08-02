@@ -1,7 +1,6 @@
-from talon import Module, app
+from talon import Module, actions, app
 
 from .csv_overrides import init_csv_and_watch_changes
-from .cursorless_command_server import run_rpc_command_no_wait
 
 mod = Module()
 mod.list("cursorless_show_scope_visualizer", desc="Show scope visualizer")
@@ -25,13 +24,15 @@ class Actions:
         scope_type: dict, visualization_type: str
     ):
         """Shows scope visualizer"""
-        run_rpc_command_no_wait(
+        actions.user.private_cursorless_run_rpc_command_no_wait(
             "cursorless.showScopeVisualizer", scope_type, visualization_type
         )
 
     def private_cursorless_hide_scope_visualizer():
-        """Hides scope visualizer"""
-        run_rpc_command_no_wait("cursorless.hideScopeVisualizer")
+        """Hides scope visual_izer"""
+        actions.user.private_cursorless_run_rpc_command_no_wait(
+            "cursorless.hideScopeVisualizer"
+        )
 
 
 def on_ready():
