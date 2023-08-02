@@ -25,6 +25,10 @@ cursorless_settings_directory = mod.setting(
     desc="The directory to use for cursorless settings csvs relative to talon user directory",
 )
 
+default_ctx = Context()
+default_ctx.matches = r"""
+tag: user.cursorless_default_vocabulary
+"""
 
 def init_csv_and_watch_changes(
     filename: str,
@@ -147,12 +151,10 @@ def check_for_duplicates(filename, default_values):
 def is_removed(value: str):
     return value.startswith("-")
 
-
 def create_default_vocabulary_dicts(
     default_values: dict[str, dict], pluralize_lists: list[str]
 ):
-    ctx = Context()
-    ctx.matches = "tag: user.cursorless_default_vocabulary"
+
     default_values_updated = {}
     for key, value in default_values.items():
         updated_dict = {}
@@ -162,7 +164,7 @@ def create_default_vocabulary_dicts(
             if active_key:
                 updated_dict[active_key] = value2
         default_values_updated[key] = updated_dict
-    assign_lists_to_context(ctx, default_values_updated, pluralize_lists)
+    assign_lists_to_context(default_ctx, default_values_updated, pluralize_lists)
 
 
 def update_dicts(
