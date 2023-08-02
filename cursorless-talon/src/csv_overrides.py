@@ -72,6 +72,7 @@ def init_csv_and_watch_changes(
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
 
+    check_for_duplicates(filename, default_values)
     create_default_vocabulary_dicts(default_values, pluralize_lists)
 
     def on_watch(path, flags):
@@ -132,6 +133,17 @@ def init_csv_and_watch_changes(
     return unsubscribe
 
 
+def check_for_duplicates(filename, default_values):
+    results_map = {}
+    for list_name, dict in default_values.items():
+        for key, value in dict.items():
+            if value in results_map:
+                existing_list_name = results_map[value]["list"]
+                warning = f"WARNING ({filename}): Value `{value}` duplicated between lists '{existing_list_name}' and '{list_name}'"
+                print(warning)
+                app.notify(warning)
+
+
 def is_removed(value: str):
     return value.startswith("-")
 
@@ -166,11 +178,6 @@ def update_dicts(
     results_map = {}
     for list_name, dict in default_values.items():
         for key, value in dict.items():
-            if value in results_map:
-                existing_list_name = results_map[value]["list"]
-                warning = f"WARNING: Duplicate value `{value}` in lists '{existing_list_name}' and '{list_name}'"
-                print(warning)
-                app.notify(warning)
             results_map[value] = {"key": key, "value": value, "list": list_name}
 
     # Update result with current values
