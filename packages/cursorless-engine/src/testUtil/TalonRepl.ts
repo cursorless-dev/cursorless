@@ -66,13 +66,13 @@ export class TalonRepl {
     let tryCount = 0;
 
     while (true) {
-      // As a hack, we just put `[]` in the REPL, which should cause it to print
-      // `[]` back to us (we could put any Python value in there; `[]` is just a
-      // simple one). We keep doing this until we get `[]` back, which means the
+      // As a hack, we just put `0` in the REPL, which should cause it to print
+      // `0` back to us (we could put any Python value in there; `0` is just a
+      // simple one). We keep doing this until we get `0` back, which means the
       // REPL is responsive again.
-      const output = (await this.command("[]")).trim();
+      const output = (await this.command("0")).trim();
 
-      if (output === "[]") {
+      if (output === "0") {
         break;
       }
 
