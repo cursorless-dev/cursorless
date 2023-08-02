@@ -24,7 +24,7 @@ export enum TestType {
   talon,
 }
 
-export function runTests(...types: TestType[]) {
+export function runAllTests(...types: TestType[]) {
   return runTestsInDir(
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>

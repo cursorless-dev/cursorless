@@ -1,6 +1,6 @@
 /**
  * Runs all tests that don't have to be run within VSCode.
  */
-import { TestType, runTests } from "../util/runAllTestsInDir";
+import { TestType, runAllTests } from "../util/runAllTests";
 
-runTests(TestType.unit);
+runAllTests(TestType.unit);

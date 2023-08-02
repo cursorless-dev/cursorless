@@ -1,4 +1,4 @@
-import { TestType, runTests } from "../util/runAllTestsInDir";
+import { TestType, runAllTests } from "../util/runAllTests";
 
 /**
  * Runs all extension tests.  This function should only be called via the
@@ -8,5 +8,5 @@ import { TestType, runTests } from "../util/runAllTestsInDir";
  * @returns A promise that resolves when tests have finished running
  */
 export function run(): Promise<void> {
-  return runTests(TestType.vscode, TestType.unit);
+  return runAllTests(TestType.vscode, TestType.unit);
 }
