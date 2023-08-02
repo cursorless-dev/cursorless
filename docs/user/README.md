@@ -333,17 +333,15 @@ Pro tip: if you say eg `"take five instances air"`, and it turns out you need mo
 
 ##### `"just"`
 
-The `"just"` modifier strips the target of any semantic information, treating it as just a raw range.
-This stripping to a raw range has a few implications...
+The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
 
-- A raw range will not have any recognized delimeters.
-  For example...
-  - `"chuck just line"` will delete only the content of the current line.
-    The line delimeter (a line ending) remains and the result is a blank line.
-  - For comparison, `"chuck line"` will delete the current line content and its line ending, so there is one fewer line in the file.
-- A raw range will inherit insertion delimiters from its source in the case of a bring.
-  For example, the difference between `"bring arg air and bat after just left paren"` and `"bring arg air and bat after token left paren"` will tell Cursorless to use `, ` as the delimiter when joining air and bat instead of using the token delimiters that `"token left paren"` would have.
-- In the case of `"instance"`, by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
+- The new target has no leading or trailing delimiters. For example:
+  - `"chuck just air"` will delete just the air token, leaving spaces undisturbed, unlike the default behaviour of `"chuck air"` that deletes the air token along with any leading or trailing spaces.
+  - `"chuck just line"` will delete only the content of the current line, without removing the line ending, resulting in a blank line, unlike the default behaviour of `"chuck line"` that removes the line entirely, leaving no blank line.
+- A raw range does not have its own insertion delimitiers.
+  - For example, `"paste after just air"` will paste directly after the air token, without inserting a space, as opposed to the way `"paste after air"` would insert a space before the pasted content.
+  - If you use `"just"` on the destination of a `"bring"` command, it will inherit its insertion delimiters from the source of the `"bring"` action. For example, in the command `"bring arg air and bat after just paren"`, the `"air"` and `"bat"` arguments will be joined by commas. In contrast, `"bring arg air and bat after token paren"` would join the arguments with spaces.
+- In the case of [`"instance"`](#instance), by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
 
 Some examples:
 
