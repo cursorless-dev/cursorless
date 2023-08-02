@@ -1,6 +1,6 @@
 import { ActionDescriptor, CommandV6 } from "@cursorless/common";
 
-const rangeAction: ActionDescriptor = {
+const verticalRangeAction: ActionDescriptor = {
   name: "setSelection",
   target: {
     type: "range",
@@ -18,7 +18,7 @@ const rangeAction: ActionDescriptor = {
   },
 };
 
-const relativeAction: ActionDescriptor = {
+const tokenForwardAction: ActionDescriptor = {
   name: "setSelection",
   target: {
     type: "primitive",
@@ -36,13 +36,20 @@ const relativeAction: ActionDescriptor = {
   },
 };
 
+/**
+ * These are spoken forms that have more than one way to say them, so we have to
+ * pick one in our spoken form generator, meaning we can't test the other in our
+ * Talon tests by relying on our recorded test fixtures alone.
+ */
 export const spokenFormsFixture: Required<CommandV6>[] = [
-  command("take air slice past bat", rangeAction),
-  command("take air slice bat", rangeAction),
+  // "air slice past bat" and "air slice bat" are equivalent
+  command("take air slice past bat", verticalRangeAction),
+  command("take air slice bat", verticalRangeAction),
 
-  command("take one tokens forward", relativeAction),
-  command("take one tokens", relativeAction),
-  command("take token forward", relativeAction),
+  // These are all equivalent
+  command("take one tokens forward", tokenForwardAction),
+  command("take one tokens", tokenForwardAction),
+  command("take token forward", tokenForwardAction),
 ];
 
 function command(
