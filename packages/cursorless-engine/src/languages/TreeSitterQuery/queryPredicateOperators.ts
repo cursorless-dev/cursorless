@@ -127,6 +127,11 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+/**
+ * A predicate operator that modifies the range of the match to shrink to regex
+ * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
+ * of the `@foo` capture to exclude whitespace.
+ */
 class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   name = "shrink-to-match!" as const;
   schema = z.tuple([q.node, q.string]);
