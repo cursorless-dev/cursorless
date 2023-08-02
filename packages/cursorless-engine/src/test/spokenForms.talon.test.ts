@@ -98,7 +98,12 @@ async function runTest(
   assert.deepStrictEqual(commandsActual, commandsExpected);
 }
 
-function setTestMode(repl: TalonRepl, enabled: boolean) {
+async function setTestMode(repl: TalonRepl, enabled: boolean) {
   const arg = enabled ? "True" : "False";
-  return repl.action(`user.private_cursorless_spoken_form_test_mode(${arg})`);
+  await repl.action(`user.private_cursorless_spoken_form_test_mode(${arg})`);
+
+  // If you have warnings in your talon user files, they will be printed to the
+  // repl when you run the above action. We need to eat them so that they don't
+  // interfere with our tests
+  await repl.eatOutput();
 }
