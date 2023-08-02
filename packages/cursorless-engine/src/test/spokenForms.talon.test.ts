@@ -25,10 +25,14 @@ suite("Talon spoken forms", async function () {
     await repl.stop();
   });
 
+  // Test spoken forms in all of our recorded test fixtures
   getRecordedTestPaths().forEach(({ name, path }) =>
     test(name, () => runRecordedFixture(repl, path)),
   );
 
+  // A few more spoken forms that we want to test, mostly due to having multiple
+  // ways to say them so being forced to pick one in our recorded tests so that
+  // our spoken form generator can be deterministic
   spokenFormsFixture.forEach((command) =>
     test(command.spokenForm, () => runCommandFixture(repl, command)),
   );
