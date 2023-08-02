@@ -1,28 +1,48 @@
 import * as globRaw from "glob";
 import * as Mocha from "mocha";
 import * as path from "path";
-import { runTestSubset, TEST_SUBSET_GREP_STRING } from "@cursorless/common";
+import {
+  getCursorlessRepoRoot,
+  runTestSubset,
+  TEST_SUBSET_GREP_STRING,
+} from "@cursorless/common";
 import { promisify } from "util";
 
 const glob = promisify(globRaw);
 
-export function runAllTestsInDir(
-  testRoot: string,
-  includeVscodeTests: boolean,
-  includeTalonTests: boolean,
-) {
-  return runTestsInDir(testRoot, (files) => {
-    if (!includeVscodeTests) {
-      files = files.filter((f) => !f.endsWith("vscode.test.js"));
-    }
-    if (!includeTalonTests) {
-      files = files.filter((f) => !f.endsWith("talon.test.js"));
-    }
-    return files;
-  });
+/**
+ * Type of test to run, eg unit, vscode, talon
+ */
+export enum TestType {
+  /** Unit tests can be run without VSCode or Talon */
+  unit,
+
+  /** VSCode tests must be run from VSCode context */
+  vscode,
+
+  /** Talon tests require a running Talon instance */
+  talon,
 }
 
-export async function runTestsInDir(
+export function runTests(...types: TestType[]) {
+  return runTestsInDir(
+    path.join(getCursorlessRepoRoot(), "packages"),
+    (files) =>
+      files.filter((f) => {
+        if (f.endsWith("vscode.test.js")) {
+          return types.includes(TestType.vscode);
+        }
+
+        if (f.endsWith("talon.test.js")) {
+          return types.includes(TestType.talon);
+        }
+
+        return types.includes(TestType.unit);
+      }),
+  );
+}
+
+async function runTestsInDir(
   testRoot: string,
   filterFiles: (files: string[]) => string[],
 ): Promise<void> {

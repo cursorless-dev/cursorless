@@ -1,8 +1,6 @@
 /**
  * Runs all Talon tests.
  */
-import { getCursorlessRepoRoot } from "@cursorless/common";
-import * as path from "path";
-import { runAllTestsInDir } from "../util/runAllTestsInDir";
+import { TestType, runTests } from "../util/runAllTestsInDir";
 
-runAllTestsInDir(path.join(getCursorlessRepoRoot(), "packages"), false, true);
+runTests(TestType.talon);
