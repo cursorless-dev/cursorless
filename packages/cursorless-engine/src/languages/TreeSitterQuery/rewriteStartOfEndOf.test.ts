@@ -50,26 +50,21 @@ const testCases: TestCase[] = [
   },
 ];
 
+function fillOutCapture(capture: NameRange): MutableQueryCapture {
+  return {
+    ...capture,
+    allowMultiple: false,
+    insertionDelimiter: undefined,
+    document: null as unknown as TextDocument,
+    node: null as unknown as SyntaxNode,
+  };
+}
+
 suite("rewriteStartOfEndOf", () => {
   for (const testCase of testCases) {
     test(testCase.name, () => {
-      const actual = rewriteStartOfEndOf(
-        testCase.captures.map((capture) => ({
-          ...capture,
-          allowMultiple: false,
-          insertionDelimiter: undefined,
-          document: null as unknown as TextDocument,
-          node: null as unknown as SyntaxNode,
-        })),
-      );
-      assert.deepStrictEqual(
-        actual,
-        testCase.expected.map((capture) => ({
-          ...capture,
-          allowMultiple: false,
-          node: null as unknown as SyntaxNode,
-        })),
-      );
+      const actual = rewriteStartOfEndOf(testCase.captures.map(fillOutCapture));
+      assert.deepStrictEqual(actual, testCase.expected.map(fillOutCapture));
     });
   }
 });
