@@ -1,6 +1,6 @@
-import { Range } from "@cursorless/common";
-import { MutableQueryCapture } from "./QueryCapture";
+import { Range, TextDocument } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
+import { MutableQueryCapture } from "./QueryCapture";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
 import assert = require("assert");
 
@@ -57,6 +57,7 @@ suite("rewriteStartOfEndOf", () => {
         testCase.captures.map((capture) => ({
           ...capture,
           allowMultiple: false,
+          document: null as unknown as TextDocument,
           node: null as unknown as SyntaxNode,
         })),
       );
