@@ -16,7 +16,7 @@ const cheatsheetLegend: CheatsheetLegend = [
   {
     term: "modifier",
     definition: "Cursorless modifier",
-    link: "https://www.cursorless.org/docs/#modifiers",
+    link: "#modifiers",
     id: "modifier",
   },
   {
