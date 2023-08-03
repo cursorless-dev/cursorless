@@ -57,7 +57,7 @@ def construct_cursorless_command(action: dict) -> dict:
 
     spoken_form = " ".join(last_phrase["phrase"])
 
-    return makes_serializable(
+    return make_serializable(
         CursorlessCommand(
             spoken_form,
             use_pre_phrase_snapshot,
@@ -66,15 +66,15 @@ def construct_cursorless_command(action: dict) -> dict:
     )
 
 
-def makes_serializable(value: any):
+def make_serializable(value: any):
     if isinstance(value, dict):
-        return {k: makes_serializable(v) for k, v in value.items()}
+        return {k: make_serializable(v) for k, v in value.items()}
     if isinstance(value, list):
-        return [makes_serializable(v) for v in value]
+        return [make_serializable(v) for v in value]
     if dataclasses.is_dataclass(value):
         items = {
             **{k: v for k, v in value.__class__.__dict__.items() if k[0] != "_"},
             **value.__dict__,
         }
-        return {k: makes_serializable(v) for k, v in items.items() if v is not None}
+        return {k: make_serializable(v) for k, v in items.items() if v is not None}
     return value
