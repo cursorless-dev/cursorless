@@ -52,12 +52,18 @@
   left: _ @collectionKey.end
 ) @_.domain
 
-;;!! not mode: command
-;;!  ----------^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
 (_
   right: (_) @value
+  (#not-parent-type? @value match)
+) @_.domain
+
+;;!! not mode: command
+;;!  ----------^^^^^^^
+(match
+  right: (_) @value
+  (#shrink-to-match! @value "\\S[\\s\\S]*")
 ) @_.domain
 
 ;;!! not mode: command
