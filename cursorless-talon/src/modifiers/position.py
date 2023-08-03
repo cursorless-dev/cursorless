@@ -15,7 +15,7 @@ positions = {
     "start of": "start",
     "end of": "end",
 }
-destinations = {
+before_after = {
     "before": "before",
     "after": "after",
 }
@@ -31,7 +31,7 @@ def on_ready():
         "positions",
         {
             "position": positions,
-            "insertion_mode_pos": destinations,
+            "insertion_mode_pos": before_after,
         },
     )
 
