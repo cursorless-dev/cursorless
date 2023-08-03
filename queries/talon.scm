@@ -134,7 +134,11 @@
 ;;!        ^^^^^^^  ^^^^^^^
 (action
   arguments: (_
-    (_) @argumentOrParameter
+    (_)? @_.leading.start.endOf
+    .
+    (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+    .
+    (_)? @_.trailing.end.startOf
   )
 )
 

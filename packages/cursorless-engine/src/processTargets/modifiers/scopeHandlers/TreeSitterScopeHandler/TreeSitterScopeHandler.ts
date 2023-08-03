@@ -1,4 +1,4 @@
-import { SimpleScopeType, TextEditor } from "@cursorless/common";
+import { Range, SimpleScopeType, TextEditor } from "@cursorless/common";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import ScopeTypeTarget from "../../../targets/ScopeTypeTarget";
@@ -62,18 +62,12 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     );
 
-    const trailingDelimiterRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "trailing",
-      true,
+    const trailingDelimiterRange = dropEmptyRange(
+      getRelatedRange(match, scopeTypeType, "trailing", true),
     );
 
-    const interiorRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "interior",
-      true,
+    const interiorRange = dropEmptyRange(
+      getRelatedRange(match, scopeTypeType, "interior", true),
     );
 
     return {
@@ -95,4 +89,8 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       ],
     };
   }
+}
+
+function dropEmptyRange(range?: Range) {
+  return range != null && !range.isEmpty ? range : undefined;
 }
