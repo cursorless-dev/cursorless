@@ -43,11 +43,11 @@ def get_actions():
             "variations": [
                 {
                     "spokenForm": f"{complex_actions['replaceWithTarget']} <target> <destination>",
-                    "description": "Replace <destination> with <target>",
+                    "description": "Copy <target> to <destination>",
                 },
                 {
                     "spokenForm": f"{complex_actions['replaceWithTarget']} <target>",
-                    "description": "Replace selection with <target>",
+                    "description": "Insert copy of <target> at cursor",
                 },
             ],
         },
@@ -57,7 +57,7 @@ def get_actions():
             "variations": [
                 {
                     "spokenForm": f"{complex_actions['pasteFromClipboard']} <destination>",
-                    "description": "Replace <destination> with clipboard content",
+                    "description": "Paste from clipboard at <destination>",
                 }
             ],
         },
@@ -71,7 +71,7 @@ def get_actions():
                 },
                 {
                     "spokenForm": f"{complex_actions['moveToTarget']} <target>",
-                    "description": "Move <target> to selection",
+                    "description": "Move <target> to cursor position",
                 },
             ],
         },
