@@ -57,6 +57,7 @@ suite("rewriteStartOfEndOf", () => {
         testCase.captures.map((capture) => ({
           ...capture,
           allowMultiple: false,
+          insertionDelimiter: undefined,
           document: null as unknown as TextDocument,
           node: null as unknown as SyntaxNode,
         })),

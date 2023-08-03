@@ -48,7 +48,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       return undefined;
     }
 
-    const { range: contentRange, allowMultiple } = capture;
+    const { range: contentRange, allowMultiple, insertionDelimiter } = capture;
 
     const domain =
       getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
@@ -84,7 +84,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           leadingDelimiterRange,
           trailingDelimiterRange,
           interiorRange,
-          // FIXME: Add delimiter text
+          delimiter: insertionDelimiter,
         }),
       ],
     };

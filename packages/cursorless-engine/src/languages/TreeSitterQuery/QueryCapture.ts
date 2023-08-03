@@ -21,6 +21,9 @@ export interface QueryCapture {
    * captures with the same name and domain into a single scope with multiple
    * content ranges. */
   readonly allowMultiple: boolean;
+
+  /** The insertion delimiter to use if any */
+  readonly insertionDelimiter: string | undefined;
 }
 
 /**
@@ -48,6 +51,7 @@ export interface MutableQueryCapture extends QueryCapture {
   document: TextDocument;
   range: Range;
   allowMultiple: boolean;
+  insertionDelimiter: string | undefined;
 }
 
 /**

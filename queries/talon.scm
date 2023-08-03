@@ -140,6 +140,7 @@
     .
     (_)? @_.trailing.end.startOf
   )
+  (#insertion-delimiter! @argumentOrParameter ", ")
 )
 
 ;;!! key(enter)

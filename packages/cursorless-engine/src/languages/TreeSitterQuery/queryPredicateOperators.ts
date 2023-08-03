@@ -134,6 +134,17 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   }
 }
 
+class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
+  name = "insertion-delimiter!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
+    nodeInfo.insertionDelimiter = insertionDelimiter;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new NotType(),
   new NotEmpty(),
@@ -142,4 +153,5 @@ export const queryPredicateOperators = [
   new ChildRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),
+  new InsertionDelimiter(),
 ];
