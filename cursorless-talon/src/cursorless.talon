@@ -10,7 +10,7 @@ tag: user.cursorless
     user.private_cursorless_bring_move(cursorless_bring_move_action, cursorless_bring_move_targets)
 
 {user.cursorless_swap_action} <user.cursorless_swap_targets>:
-    user.private_cursorles_swap(cursorless_swap_targets)
+    user.private_cursorless_swap(cursorless_swap_targets)
 
 {user.cursorless_paste_action} <user.cursorless_destination>:
     user.private_cursorless_paste(cursorless_destination)
