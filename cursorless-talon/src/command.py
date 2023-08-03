@@ -1,4 +1,5 @@
 import dataclasses
+from typing import Any
 
 from talon import Module, actions, speech_system
 
@@ -66,7 +67,19 @@ def construct_cursorless_command(action: dict) -> dict:
     )
 
 
-def make_serializable(value: any):
+def make_serializable(value: Any) -> Any:
+    """
+    Converts a dataclass into a serializable dict
+
+    Note that we don't use the built-in asdict() function because it will
+    ignore the static `type` field.
+
+    Args:
+        value (any): The value to convert
+
+    Returns:
+        _type_: The converted value, ready for serialization
+    """
     if isinstance(value, dict):
         return {k: make_serializable(v) for k, v in value.items()}
     if isinstance(value, list):
