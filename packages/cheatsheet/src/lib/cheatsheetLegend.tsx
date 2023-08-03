@@ -35,7 +35,7 @@ const cheatsheetLegend: CheatsheetLegend = [
     term: "destination",
     definition: "Cursorless destination",
     link: "#destinations",
-    id: "destinations",
+    id: "destination",
   },
   {
     term: "scope",
