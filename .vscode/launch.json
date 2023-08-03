@@ -6,7 +6,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run Extension",
+      "name": "Run extension",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -44,9 +44,9 @@
       ]
     },
     {
+      "name": "Talon tests",
       "type": "node",
       "request": "launch",
-      "name": "Talon tests",
       "program": "${workspaceFolder}/packages/test-harness/out/scripts/runTalonTests",
       "env": {
         "CURSORLESS_TEST": "true",
@@ -60,9 +60,9 @@
       ]
     },
     {
+      "name": "Unit tests only",
       "type": "node",
       "request": "launch",
-      "name": "Unit tests only",
       "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
       "env": {
         "CURSORLESS_TEST": "true",
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "name": "Run Test Subset",
+      "name": "Run test subset",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -87,7 +87,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -108,7 +108,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -130,7 +130,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/all"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -140,7 +140,7 @@
       ]
     },
     {
-      "name": "Docusaurus Start (Debug)",
+      "name": "Docusaurus start",
       "type": "node",
       "request": "launch",
       "env": {
@@ -155,7 +155,7 @@
       ]
     },
     {
-      "name": "Docusaurus Build (Debug)",
+      "name": "Docusaurus build",
       "type": "node",
       "request": "launch",
       "env": {
