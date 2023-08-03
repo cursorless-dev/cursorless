@@ -137,20 +137,20 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   schema = z.tuple([q.node, q.string]);
 
   run(nodeInfo: MutableQueryCapture, pattern: string) {
-    const {
-      range,
-      node: { text },
-    } = nodeInfo;
-
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
     const match = text.match(new RegExp(pattern));
 
     if (match?.index == null) {
       throw Error(`No match for pattern '${pattern}'`);
     }
 
+    const startIndex = document.offsetAt(range.start) + match.index;
+    const endIndex = startIndex + match[0].length;
+
     nodeInfo.range = new Range(
-      range.start.translate(undefined, match.index),
-      range.start.translate(undefined, match.index + match[0].length),
+      document.positionAt(startIndex),
+      document.positionAt(endIndex),
     );
 
     return true;

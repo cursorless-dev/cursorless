@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range, TextDocument } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 
 /**
@@ -45,6 +45,7 @@ export interface MutableQueryCapture extends QueryCapture {
    */
   readonly node: SyntaxNode;
 
+  document: TextDocument;
   range: Range;
   allowMultiple: boolean;
 }

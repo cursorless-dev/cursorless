@@ -77,6 +77,7 @@ export class TreeSitterQuery {
           captures: captures.map(({ name, node }) => ({
             name,
             node,
+            document,
             range: getNodeRange(node),
             allowMultiple: false,
           })),
