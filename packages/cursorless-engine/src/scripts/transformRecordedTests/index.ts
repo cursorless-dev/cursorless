@@ -27,7 +27,8 @@ async function main(args: string[]) {
     throw new Error(`Unknown transformation ${transformationName}`);
   }
 
-  const testPaths = paths.length > 0 ? paths : getRecordedTestPaths();
+  const testPaths =
+    paths.length > 0 ? paths : getRecordedTestPaths().map(({ path }) => path);
 
   let failureCount = 0;
 

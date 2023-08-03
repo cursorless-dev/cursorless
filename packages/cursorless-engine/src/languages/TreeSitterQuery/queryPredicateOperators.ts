@@ -1,4 +1,3 @@
-import { Range } from "@cursorless/common";
 import z from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
@@ -54,40 +53,6 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   schema = z.tuple([q.node, q.integer]);
   run({ node }: MutableQueryCapture, n: number) {
     return node.parent?.children.findIndex((n) => n.id === node.id) === n;
-  }
-}
-
-/**
- * A predicate operator that modifies the range of the match to be a zero-width
- * range at the start of the node.  For example, `(#start-position! @foo)` will
- * modify the range of the `@foo` capture to be a zero-width range at the start
- * of the `@foo` node.
- */
-class StartPosition extends QueryPredicateOperator<StartPosition> {
-  name = "start-position!" as const;
-  schema = z.tuple([q.node]);
-
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.start, nodeInfo.range.start);
-
-    return true;
-  }
-}
-
-/**
- * A predicate operator that modifies the range of the match to be a zero-width
- * range at the end of the node.  For example, `(#end-position! @foo)` will
- * modify the range of the `@foo` capture to be a zero-width range at the end of
- * the `@foo` node.
- */
-class EndPosition extends QueryPredicateOperator<EndPosition> {
-  name = "end-position!" as const;
-  schema = z.tuple([q.node]);
-
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.end, nodeInfo.range.end);
-
-    return true;
   }
 }
 
@@ -173,8 +138,6 @@ export const queryPredicateOperators = [
   new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
-  new StartPosition(),
-  new EndPosition(),
   new ChildRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),

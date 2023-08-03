@@ -311,6 +311,26 @@ foo.bar baz|bongo
 
 Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
+##### `"short paint"`
+
+The `"short paint"` scope is like `"paint"`, but stops not only at whitespace but also stops if it would exit the nearest [surrounding pair](#surrounding-pair). For example, given the text
+
+```
+(aaa[bbb]ccc ddd)
+```
+
+- `"take short paint air"` would select `aaa[bbb]ccc`.
+  - The target starts as `aaa`.
+  - Trying to expand to the left, we immediately hit a `(`, which is part of a paren pair that surrounds the original `aaa`, so that stops leftward expansion.
+  - Trying to expand to the right, we hit a `[`, and that pair of square brackets does not surround the original `aaa`, so rightward expansion continues.
+  - Rightward expansion continues over the `ccc`, then hits a space and stops.
+- `"take short paint square"` would select `aaa[bbb]ccc`.
+  - The target starts as `[`.
+  - The expansion is not stopped by either the square brackets because they do not surround themselves.
+- `"take short paint bat"` would select `bbb`.
+  - The target starts as `bbb`.
+  - The expansion is stopped by the square packets that surround `bbb`.
+
 ##### `"instance"`
 
 The `"instance"` modifier searches for occurrences of the text of the target. For example:

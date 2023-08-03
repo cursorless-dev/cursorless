@@ -37,6 +37,7 @@ export const cursorlessCommandIds = [
   "cursorless.pauseRecording",
   "cursorless.recomputeDecorationStyles",
   "cursorless.recordTestCase",
+  "cursorless.recordOneTestCaseThenPause",
   "cursorless.resumeRecording",
   "cursorless.showCheatsheet",
   "cursorless.showDocumentation",
@@ -58,6 +59,9 @@ export const cursorlessCommandDescriptions: Record<
     "Recompute decoration styles",
   ),
   ["cursorless.recordTestCase"]: new VisibleCommand("Record test case"),
+  ["cursorless.recordOneTestCaseThenPause"]: new VisibleCommand(
+    "Record one test case, then pause",
+  ),
   ["cursorless.pauseRecording"]: new VisibleCommand(
     "Pause test case recording",
   ),

@@ -1,10 +1,10 @@
 import { commands } from "vscode";
-import asyncSafety from "../../asyncSafety";
 import { endToEndTestSetup } from "../../endToEndTestSetup";
 import { runBasicMultilineContentTest } from "./runBasicMultilineContentTest";
 import { runBasicRemovalTest } from "./runBasicRemovalTest";
 import { runNestedMultilineContentTest } from "./runNestedMultilineContentTest";
 import { runUpdateTest } from "./runUpdateTest";
+import { asyncSafety } from "@cursorless/common";
 
 suite("scope visualizer", async function () {
   endToEndTestSetup(this);

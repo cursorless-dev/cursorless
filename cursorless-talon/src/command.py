@@ -2,11 +2,6 @@ from typing import Any
 
 from talon import Module, actions, speech_system
 
-from .cursorless_command_server import (
-    run_rpc_command_and_wait,
-    run_rpc_command_get,
-    run_rpc_command_no_wait,
-)
 from .primitive_target import create_implicit_target
 
 mod = Module()
@@ -73,7 +68,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute single-target cursorless command and return result"""
-        return run_rpc_command_get(
+        return actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
@@ -101,7 +96,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        run_rpc_command_and_wait(
+        actions.user.private_cursorless_run_rpc_command_and_wait(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
@@ -118,7 +113,7 @@ class Actions:
         arg3: Any = NotSet,
     ):
         """Execute multi-target cursorless command"""
-        run_rpc_command_no_wait(
+        actions.user.private_cursorless_run_rpc_command_no_wait(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command_argument(
                 action=action,
