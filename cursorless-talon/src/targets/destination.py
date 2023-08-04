@@ -6,7 +6,10 @@ from .target_types import ListDestination, PrimitiveDestination
 
 mod = Module()
 
-mod.list("cursorless_insertion_mode_pos", desc="Cursorless insertion mode before/after")
+mod.list(
+    "cursorless_insertion_mode_before_after",
+    desc="Cursorless insertion mode before/after",
+)
 mod.list("cursorless_insertion_mode_to", desc="Cursorless insertion mode to")
 mod.tag(
     "cursorless_disable_legacy_destination",
@@ -21,27 +24,27 @@ tag: user.cursorless_disable_legacy_destination
 
 # DEPRECATED @ 2023-08-01
 @mod.capture(
-    rule="([{user.cursorless_insertion_mode_to}] {user.cursorless_insertion_mode_pos}) | {user.cursorless_insertion_mode_to}"
+    rule="([{user.cursorless_insertion_mode_to}] {user.cursorless_insertion_mode_before_after}) | {user.cursorless_insertion_mode_to}"
 )
 def cursorless_insertion_mode(m) -> str:
     try:
-        pos = m.cursorless_insertion_mode_pos
+        before_after = m.cursorless_insertion_mode_before_after
         if hasattr(m, "cursorless_insertion_mode_to"):
             actions.app.notify(
                 "'to before' and 'to after' is deprecated. Please just say 'before' or 'after'"
             )
-        return pos
+        return before_after
     except AttributeError:
         return "to"
 
 
 @ctx.capture(
     "user.cursorless_insertion_mode",
-    rule="{user.cursorless_insertion_mode_pos} | {user.cursorless_insertion_mode_to}",
+    rule="{user.cursorless_insertion_mode_before_after} | {user.cursorless_insertion_mode_to}",
 )
 def cursorless_insertion_mode_ctx(m) -> str:
     try:
-        return m.cursorless_insertion_mode_pos
+        return m.cursorless_insertion_mode_before_after
     except AttributeError:
         return "to"
 

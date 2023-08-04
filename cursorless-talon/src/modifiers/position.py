@@ -31,7 +31,7 @@ def on_ready():
         "positions",
         {
             "position": positions,
-            "insertion_mode_pos": before_after,
+            "insertion_mode_before_after": before_after,
         },
     )
 
