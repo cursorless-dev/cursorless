@@ -45,8 +45,7 @@ def cursorless_range_connective_with_type(m) -> RangeConnectiveWithType:
 
 @mod.capture(
     rule=(
-        "<user.cursorless_range_connective_with_type> <user.cursorless_primitive_target> | "
-        "<user.cursorless_primitive_target> <user.cursorless_range_connective_with_type> <user.cursorless_primitive_target>"
+        "[<user.cursorless_primitive_target>] <user.cursorless_range_connective_with_type> <user.cursorless_primitive_target>"
     )
 )
 def cursorless_range_target(m) -> RangeTarget:
