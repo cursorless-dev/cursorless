@@ -30,8 +30,9 @@ def cursorless_insertion_mode(m) -> str:
     try:
         before_after = m.cursorless_insertion_mode_before_after
         if hasattr(m, "cursorless_insertion_mode_to"):
+            words = m._unmapped
             actions.app.notify(
-                "'to before' and 'to after' is deprecated. Please just say 'before' or 'after'"
+                f"'{' '.join(words)}' is deprecated. Please just say '{words[-1]}'"
             )
         return before_after
     except AttributeError:
