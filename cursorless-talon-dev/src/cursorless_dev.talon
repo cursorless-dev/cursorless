@@ -4,9 +4,6 @@ tag: user.cursorless
 # Activate this if you want the default Cursorless vocabulary
 # tag(): user.cursorless_default_vocabulary
 
-# Activate this tag to disable legacy destination
-# tag(): user.cursorless_disable_legacy_destination
-
 {user.cursorless_homophone} record:
     user.run_rpc_command("cursorless.recordTestCase")
 {user.cursorless_homophone} record one:
