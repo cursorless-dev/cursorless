@@ -1,7 +1,7 @@
 from talon import Module, actions, app
 
 from ..csv_overrides import init_csv_and_watch_changes
-from ..targets.target_types import CursorlessTarget, ImplicitTarget
+from ..targets.target_types import CursorlessTarget, ImplicitDestination
 from .actions_callback import callback_action_defaults, callback_action_map
 from .actions_simple import (
     no_wait_actions,
@@ -46,7 +46,7 @@ class Actions:
             callback_action_map[action_name](target)
         elif action_name in ["replaceWithTarget", "moveToTarget"]:
             actions.user.cursorless_bring_move(
-                action_name, BringMoveTargets(target, ImplicitTarget())
+                action_name, BringMoveTargets(target, ImplicitDestination())
             )
         elif action_name in no_wait_actions:
             action = {"name": action_name, "target": target}
