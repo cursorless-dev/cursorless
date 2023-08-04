@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Literal, Optional, Union
 
+RangeTargetType = Literal["vertical"]
+
 
 @dataclass
 class PrimitiveTarget:
@@ -21,7 +23,7 @@ class RangeTarget:
     active: PrimitiveTarget
     excludeAnchor: bool
     excludeActive: bool
-    rangeType: Optional[str]
+    rangeType: Optional[RangeTargetType]
 
 
 @dataclass
