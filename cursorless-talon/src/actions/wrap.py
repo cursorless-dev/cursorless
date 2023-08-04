@@ -10,7 +10,7 @@ mod.list("cursorless_wrap_action", desc="Cursorless wrap action")
 
 @mod.action_class
 class Actions:
-    def private_cursorless_wrap_paired_delimiter(
+    def private_cursorless_wrap_with_paired_delimiter(
         action_name: str, target: CursorlessTarget, paired_delimiter: PairedDelimiter
     ):
         """Execute Cursorless wrap/rewrap with paired delimiter action"""
@@ -26,7 +26,7 @@ class Actions:
             }
         )
 
-    def private_cursorless_wrap_snippet(
+    def private_cursorless_wrap_with_snippet(
         action_name: str, target: CursorlessTarget, snippet_location: str
     ):
         """Execute Cursorless wrap with snippet action"""
