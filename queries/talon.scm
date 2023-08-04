@@ -20,6 +20,9 @@
   (assignment_statement)
   (tag_import_declaration)
   (key_binding_declaration)
+  (face_declaration)
+  (gamepad_declaration)
+  (parrot_declaration)
 ] @statement
 
 (
@@ -63,7 +66,6 @@
 ;;!  ----------^^^^^^^
 (match
   right: (_) @value
-  (#shrink-to-match! @value "\\S[\\s\\S]*")
 ) @_.domain
 
 ;;!! not mode: command
