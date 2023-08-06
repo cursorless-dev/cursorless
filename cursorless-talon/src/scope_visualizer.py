@@ -29,7 +29,7 @@ class Actions:
         )
 
     def private_cursorless_hide_scope_visualizer():
-        """Hides scope visual_izer"""
+        """Hides scope visualizer"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
             "cursorless.hideScopeVisualizer"
         )
