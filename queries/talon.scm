@@ -20,7 +20,7 @@
   (assignment_statement)
   (tag_import_declaration)
   (key_binding_declaration)
-  (face_declaration)
+  (interface_declaration)
   (gamepad_declaration)
   (parrot_declaration)
 ] @statement
