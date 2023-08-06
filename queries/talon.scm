@@ -55,16 +55,11 @@
   left: _ @collectionKey.end
 ) @_.domain
 
+;;!! not mode: command
+;;!  ----------^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
 (_
-  right: (_) @value
-  (#not-parent-type? @value match)
-) @_.domain
-
-;;!! not mode: command
-;;!  ----------^^^^^^^
-(match
   right: (_) @value
 ) @_.domain
 
