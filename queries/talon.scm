@@ -41,8 +41,10 @@
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
 (_
-  left: _ @name
-) @_.domain
+  (_
+    left: _ @name
+  ) @_.domain
+) @_.iteration
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^---------
@@ -51,32 +53,21 @@
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
 (_
-  modifiers: (_)? @collectionKey.start
-  left: _ @collectionKey.end
-) @_.domain
+  (_
+    modifiers: (_)? @collectionKey.start
+    left: _ @collectionKey.end
+  ) @_.domain
+) @_.iteration
 
 ;;!! not mode: command
 ;;!  ----------^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
 (_
-  right: (_) @value
-) @_.domain
-
-;;!! not mode: command
-;;!  ^^^^^^^^^^^^^^^^^
-;;!! slap: key(enter)
-;;!  ------^^^^^^^^^^
-(
-  [
-    (matches)
-    (declarations)
-    (block)
-  ] @collectionKey.iteration @name.iteration @value.iteration
-  (#not-empty? @collectionKey.iteration)
-  (#not-empty? @name.iteration)
-  (#not-empty? @value.iteration)
-)
+  (_
+    right: (_) @value
+  ) @_.domain
+) @_.iteration
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
