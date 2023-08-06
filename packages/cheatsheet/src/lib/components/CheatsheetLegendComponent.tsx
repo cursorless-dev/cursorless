@@ -20,7 +20,7 @@ export default function CheatsheetLegendComponent({
   return (
     <div
       id="legend"
-      className={`border ${borderClassName} rounded-lg bg-violet-100 dark:bg-violet-900`}
+      className={`border ${borderClassName} rounded-lg bg-violet-100 dark:bg-violet-900 overflow-hidden`}
     >
       <h2 className="text-xl text-center my-1 text-violet-900 dark:text-violet-100">
         Legend
