@@ -55,7 +55,7 @@ export interface MutableQueryCapture extends QueryCapture {
   /**
    * The tree-sitter node that was captured.
    */
-  readonly node: SimpleSyntaxNode;
+  readonly node: Omit<SimpleSyntaxNode, "startPosition" | "endPosition">;
 
   range: Range;
   allowMultiple: boolean;
