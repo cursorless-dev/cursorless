@@ -1,4 +1,5 @@
-import { ActionDescriptor, CommandV6 } from "@cursorless/common";
+import { ActionDescriptor } from "@cursorless/common";
+import { spokenFormTest } from "./spokenFormTest";
 
 const verticalRangeAction: ActionDescriptor = {
   name: "setSelection",
@@ -41,23 +42,11 @@ const tokenForwardAction: ActionDescriptor = {
  * pick one in our spoken form generator, meaning we can't test the other in our
  * Talon tests by relying on our recorded test fixtures alone.
  */
-export const spokenFormsFixture: Required<CommandV6>[] = [
-  command("take air slice past bat", verticalRangeAction),
-  command("take air slice bat", verticalRangeAction),
+export const synonymousSpokenFormsFixture = [
+  spokenFormTest("take air slice past bat", verticalRangeAction),
+  spokenFormTest("take air slice bat", verticalRangeAction),
 
-  command("take one tokens forward", tokenForwardAction),
-  command("take one tokens", tokenForwardAction),
-  command("take token forward", tokenForwardAction),
+  spokenFormTest("take one tokens forward", tokenForwardAction),
+  spokenFormTest("take one tokens", tokenForwardAction),
+  spokenFormTest("take token forward", tokenForwardAction),
 ];
-
-function command(
-  spokenForm: string,
-  action: ActionDescriptor,
-): Required<CommandV6> {
-  return {
-    version: 6,
-    spokenForm,
-    usePrePhraseSnapshot: true,
-    action,
-  };
-}
