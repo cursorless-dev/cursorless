@@ -11,13 +11,18 @@ def cursorless_get_text_action(
     ensure_single_target: Optional[bool] = None,
 ) -> list[str]:
     """Get target texts"""
+    options = {}
+
+    if show_decorations is not None:
+        options["showDecorations"] = show_decorations
+
+    if ensure_single_target is not None:
+        options["ensureSingleTarget"] = ensure_single_target
+
     return actions.user.private_cursorless_command_get(
         {
             "name": "getText",
-            "options": {
-                "showDecorations": show_decorations,
-                "ensureSingleTarget": ensure_single_target,
-            },
+            "options": options,
             "target": target,
         }
     )
