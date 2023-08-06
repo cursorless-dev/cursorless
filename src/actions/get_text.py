@@ -2,18 +2,22 @@ from typing import Optional
 
 from talon import actions
 
+from ..targets.target_types import CursorlessTarget
 
-def get_text(
-    target: dict,
+
+def cursorless_get_text_action(
+    target: CursorlessTarget,
     show_decorations: Optional[bool] = None,
     ensure_single_target: Optional[bool] = None,
-):
+) -> list[str]:
     """Get target texts"""
-    return actions.user.cursorless_single_target_command_get(
-        "getText",
-        target,
+    return actions.user.private_cursorless_command_get(
         {
-            "showDecorations": show_decorations,
-            "ensureSingleTarget": ensure_single_target,
-        },
+            "name": "getText",
+            "options": {
+                "showDecorations": show_decorations,
+                "ensureSingleTarget": ensure_single_target,
+            },
+            "target": target,
+        }
     )
