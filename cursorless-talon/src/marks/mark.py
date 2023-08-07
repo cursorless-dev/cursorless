@@ -15,6 +15,8 @@ mod.list(
     "This list contains the term that is used to refer to any unknown symbol",
 )
 
+# Maps from the id we use in the spoken form csv to the modifier type
+# expected by Cursorless extension
 special_marks = {
     "currentSelection": "cursor",
     "previousTarget": "that",
