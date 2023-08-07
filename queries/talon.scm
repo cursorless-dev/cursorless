@@ -92,10 +92,6 @@
   )
 ) @name.iteration @collectionKey.iteration @value.iteration
 
-;;!! mode: command
-;;!  ^^^^^^^^^^^^^
-(match) @condition
-
 ;;!!  tag: user.foo
 ;;!  {^^^^^^^^^^^^^
 ;;!  (xxxxxxxxxxxxx
@@ -113,12 +109,12 @@
 ;;!   -----------]
 (
   (source_file
-    (matches) @condition.iteration @condition @condition.trailing
-  ) @condition.iteration.domain @condition.domain
+    (matches) @condition @_.trailing
+  ) @_.domain
   (#not-empty? @condition)
-  (#not-empty? @condition.trailing)
+  (#not-empty? @_.trailing)
   (#shrink-to-match! @condition "^(?<keep>.*)(\s|\n|\r)+-$")
-  (#shrink-to-match! @condition.trailing "^.*(?<keep>(\s|\n|\r)+-)$")
+  (#shrink-to-match! @_.trailing "^.*(?<keep>(\s|\n|\r)+-)$")
 )
 
 ;;!! slap: key(enter)
