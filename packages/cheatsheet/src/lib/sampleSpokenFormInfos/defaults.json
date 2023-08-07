@@ -1041,52 +1041,6 @@
       ]
     },
     {
-      "name": "Positions",
-      "id": "positions",
-      "items": [
-        {
-          "id": "after",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "after",
-              "description": "After"
-            }
-          ]
-        },
-        {
-          "id": "before",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "before",
-              "description": "Before"
-            }
-          ]
-        },
-        {
-          "id": "end",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "end of",
-              "description": "End"
-            }
-          ]
-        },
-        {
-          "id": "start",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "start of",
-              "description": "Start"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "Scope visualizer",
       "id": "scopeVisualizer",
       "items": [
