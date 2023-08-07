@@ -31,6 +31,11 @@
     (declarations)
     (block)
   ] @statement.iteration
+
+  ;; The Talon Tree sitter can contain an empty matches node if there is no
+  ;; header. When this happens and the user has an empty cursor at the start of
+  ;; the document we get an empty range for the iteration scope for
+  ;; key/value/name/statement.
   (#not-empty? @statement.iteration)
 )
 
