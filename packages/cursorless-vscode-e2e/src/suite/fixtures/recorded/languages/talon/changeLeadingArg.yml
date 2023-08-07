@@ -1,0 +1,24 @@
+languageId: talon
+command:
+  version: 6
+  spokenForm: change leading arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: leading}
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "test: user.do_stuff(5, 7)"
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}
+  marks: {}
+finalState:
+  documentContents: "test: user.do_stuff(57)"
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}

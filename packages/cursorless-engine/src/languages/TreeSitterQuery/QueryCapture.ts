@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range, TextDocument } from "@cursorless/common";
 import { Point } from "web-tree-sitter";
 
 /**
@@ -35,6 +35,9 @@ export interface QueryCapture {
    * captures with the same name and domain into a single scope with multiple
    * content ranges. */
   readonly allowMultiple: boolean;
+
+  /** The insertion delimiter to use if any */
+  readonly insertionDelimiter: string | undefined;
 }
 
 /**
@@ -57,8 +60,10 @@ export interface MutableQueryCapture extends QueryCapture {
    */
   readonly node: Omit<SimpleSyntaxNode, "startPosition" | "endPosition">;
 
+  readonly document: TextDocument;
   range: Range;
   allowMultiple: boolean;
+  insertionDelimiter: string | undefined;
 }
 
 /**

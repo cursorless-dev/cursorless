@@ -1,0 +1,23 @@
+languageId: talon
+command:
+  version: 6
+  spokenForm: change round
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "command: \"foo (bar) baz\""
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks: {}
+finalState:
+  documentContents: "command: \"foo  baz\""
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

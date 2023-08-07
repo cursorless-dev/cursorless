@@ -134,6 +134,7 @@ export type SimpleScopeTypeType =
   | "xmlElement"
   | "xmlEndTag"
   | "xmlStartTag"
+  | "notebookCell"
   // Latex scope types
   | "part"
   | "chapter"
@@ -154,7 +155,8 @@ export type SimpleScopeTypeType =
   | "nonWhitespaceSequence"
   | "boundedNonWhitespaceSequence"
   | "url"
-  | "notebookCell";
+  // Talon
+  | "command";
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;
