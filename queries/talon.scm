@@ -115,6 +115,8 @@
   (source_file
     (matches) @condition.iteration @condition @condition.trailing
   ) @condition.iteration.domain @condition.domain
+  (#not-empty? @condition)
+  (#not-empty? @condition.trailing)
   (#shrink-to-match! @condition "^(?<keep>.*)(\s|\n|\r)+-$")
   (#shrink-to-match! @condition.trailing "^.*(?<keep>(\s|\n|\r)+-)$")
 )
