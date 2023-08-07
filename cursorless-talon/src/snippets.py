@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from talon import Module, actions, app
+from talon import Module, actions
 
-from .csv_overrides import init_csv_and_watch_changes
 from .targets.target_types import (
     CursorlessDestination,
     CursorlessTarget,
@@ -195,39 +194,3 @@ class Actions:
             snippet_arg,
             target,
         )
-
-
-def on_ready():
-    init_csv_and_watch_changes(
-        "experimental/wrapper_snippets",
-        {
-            "wrapper_snippet": wrapper_snippets,
-        },
-        allow_unknown_values=True,
-        default_list_name="wrapper_snippet",
-    )
-    init_csv_and_watch_changes(
-        "experimental/insertion_snippets",
-        {
-            "insertion_snippet_no_phrase": insertion_snippets_no_phrase,
-        },
-        allow_unknown_values=True,
-        default_list_name="insertion_snippet_no_phrase",
-    )
-    init_csv_and_watch_changes(
-        "experimental/insertion_snippets_single_phrase",
-        {
-            "insertion_snippet_single_phrase": insertion_snippets_single_phrase,
-        },
-        allow_unknown_values=True,
-        default_list_name="insertion_snippet_single_phrase",
-    )
-    init_csv_and_watch_changes(
-        "experimental/miscellaneous",
-        {
-            "phrase_terminator": {"over": "phraseTerminator"},
-        },
-    )
-
-
-app.register("ready", on_ready)

@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 
-from talon import Module, app
-
-from .csv_overrides import init_csv_and_watch_changes
+from talon import Module
 
 mod = Module()
 mod.list(
@@ -24,7 +22,6 @@ mod.list(
 
 @dataclass
 class PairedDelimiter:
-    defaultSpokenForm: str
     cursorlessIdentifier: str
     left: str
     right: str
@@ -37,43 +34,51 @@ class PairedDelimiter:
     is_selectable: bool = True
 
 
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
 paired_delimiters = [
-    PairedDelimiter("curly", "curlyBrackets", "{", "}"),
-    PairedDelimiter("diamond", "angleBrackets", "<", ">"),
-    PairedDelimiter("escaped quad", "escapedDoubleQuotes", '\\"', '\\"'),
-    PairedDelimiter("escaped twin", "escapedSingleQuotes", "\\'", "\\'"),
-    PairedDelimiter("escaped round", "escapedParentheses", "\\(", "\\)"),
-    PairedDelimiter("escaped box", "escapedSquareBrackets", "\\[", "\\]"),
-    PairedDelimiter("quad", "doubleQuotes", '"', '"'),
-    PairedDelimiter("round", "parentheses", "(", ")"),
-    PairedDelimiter("skis", "backtickQuotes", "`", "`"),
-    PairedDelimiter("void", "whitespace", " ", " ", is_selectable=False),
-    PairedDelimiter("box", "squareBrackets", "[", "]"),
-    PairedDelimiter("twin", "singleQuotes", "'", "'"),
-    PairedDelimiter("pair", "any", "", "", is_wrapper=False),
+    PairedDelimiter("curlyBrackets", "{", "}"),
+    PairedDelimiter("angleBrackets", "<", ">"),
+    PairedDelimiter("escapedDoubleQuotes", '\\"', '\\"'),
+    PairedDelimiter("escapedSingleQuotes", "\\'", "\\'"),
+    PairedDelimiter("escapedParentheses", "\\(", "\\)"),
+    PairedDelimiter("escapedSquareBrackets", "\\[", "\\]"),
+    PairedDelimiter("doubleQuotes", '"', '"'),
+    PairedDelimiter("parentheses", "(", ")"),
+    PairedDelimiter("backtickQuotes", "`", "`"),
+    PairedDelimiter("whitespace", " ", " ", is_selectable=False),
+    PairedDelimiter("squareBrackets", "[", "]"),
+    PairedDelimiter("singleQuotes", "'", "'"),
+    PairedDelimiter("any", "", "", is_wrapper=False),
 ]
 
 paired_delimiters_map = {term.cursorlessIdentifier: term for term in paired_delimiters}
 
-wrapper_paired_delimiters_defaults = {
-    term.defaultSpokenForm: term.cursorlessIdentifier
-    for term in paired_delimiters
-    if term.is_wrapper and not term.is_selectable
-}
 
-selectable_paired_delimiters_defaults = {
-    term.defaultSpokenForm: term.cursorlessIdentifier
-    for term in paired_delimiters
-    if term.is_selectable and not term.is_wrapper
-}
+def paired_delimiter_spoken_form_defaults(spoken_forms: dict) -> dict:
+    id_to_spoken_map = {v: k for k, v in spoken_forms.items()}
 
-wrapper_selectable_paired_delimiters_defaults = {
-    term.defaultSpokenForm: term.cursorlessIdentifier
-    for term in paired_delimiters
-    if term.is_selectable and term.is_wrapper
-}
+    wrapper_paired_delimiters_defaults = {
+        id_to_spoken_map[term.cursorlessIdentifier]: term.cursorlessIdentifier
+        for term in paired_delimiters
+        if term.is_wrapper and not term.is_selectable
+    }
+
+    selectable_paired_delimiters_defaults = {
+        id_to_spoken_map[term.cursorlessIdentifier]: term.cursorlessIdentifier
+        for term in paired_delimiters
+        if term.is_selectable and not term.is_wrapper
+    }
+
+    wrapper_selectable_paired_delimiters_defaults = {
+        id_to_spoken_map[term.cursorlessIdentifier]: term.cursorlessIdentifier
+        for term in paired_delimiters
+        if term.is_selectable and term.is_wrapper
+    }
+
+    return {
+        "wrapper_only_paired_delimiter": wrapper_paired_delimiters_defaults,
+        "selectable_only_paired_delimiter": selectable_paired_delimiters_defaults,
+        "wrapper_selectable_paired_delimiter": wrapper_selectable_paired_delimiters_defaults,
+    }
 
 
 @mod.capture(
@@ -101,17 +106,3 @@ def cursorless_selectable_paired_delimiter(m) -> str:
         return m.cursorless_selectable_only_paired_delimiter
     except AttributeError:
         return m.cursorless_wrapper_selectable_paired_delimiter
-
-
-def on_ready():
-    init_csv_and_watch_changes(
-        "paired_delimiters",
-        {
-            "wrapper_only_paired_delimiter": wrapper_paired_delimiters_defaults,
-            "selectable_only_paired_delimiter": selectable_paired_delimiters_defaults,
-            "wrapper_selectable_paired_delimiter": wrapper_selectable_paired_delimiters_defaults,
-        },
-    )
-
-
-app.register("ready", on_ready)

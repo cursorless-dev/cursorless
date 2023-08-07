@@ -14,7 +14,6 @@ mod.list("cursorless_line_direction", desc="Supported directions for line modifi
 
 @dataclass
 class CustomizableTerm:
-    defaultSpokenForm: str
     cursorlessIdentifier: str
     type: str
     formatter: Callable
@@ -24,16 +23,15 @@ class CustomizableTerm:
 # See https://www.cursorless.org/docs/user/customization/
 directions = [
     CustomizableTerm(
-        "row", "lineNumberModulo100", "modulo100", lambda number: number - 1
+        "lineNumberModulo100", "modulo100", lambda number: number - 1
     ),
-    CustomizableTerm("up", "lineNumberRelativeUp", "relative", lambda number: -number),
+    CustomizableTerm("lineNumberRelativeUp", "relative", lambda number: -number),
     CustomizableTerm(
-        "down", "lineNumberRelativeDown", "relative", lambda number: number
+        "lineNumberRelativeDown", "relative", lambda number: number
     ),
 ]
 
 directions_map = {d.cursorlessIdentifier: d for d in directions}
-DEFAULT_DIRECTIONS = {d.defaultSpokenForm: d.cursorlessIdentifier for d in directions}
 
 
 @mod.capture(

@@ -2,8 +2,6 @@ from typing import Any
 
 from talon import Module
 
-simple_scope_modifiers = {"every": "every"}
-
 mod = Module()
 
 mod.list(

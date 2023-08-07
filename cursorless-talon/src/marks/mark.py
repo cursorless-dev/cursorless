@@ -1,11 +1,9 @@
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from talon import Context, Module, actions, app, cron, fs
 
 from ..csv_overrides import init_csv_and_watch_changes
-from .lines_number import DEFAULT_DIRECTIONS
 
 mod = Module()
 ctx = Context()
@@ -44,7 +42,6 @@ mod.list(
     "cursorless_unknown_symbol",
     "This list contains the term that is used to refer to any unknown symbol",
 )
-unknown_symbols_defaults = {"special": "unknownSymbol"}
 
 
 @mod.capture(rule="<user.any_alphanumeric_key> | {user.cursorless_unknown_symbol}")
@@ -78,29 +75,12 @@ def cursorless_decorated_symbol(m) -> dict[str, Any]:
     }
 
 
-@dataclass
-class CustomizableTerm:
-    defaultSpokenForm: str
-    cursorlessIdentifier: str
-    value: Any
-
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-special_marks = [
-    CustomizableTerm("this", "currentSelection", {"type": "cursor"}),
-    CustomizableTerm("that", "previousTarget", {"type": "that"}),
-    CustomizableTerm("source", "previousSource", {"type": "source"}),
-    CustomizableTerm("nothing", "nothing", {"type": "nothing"}),
-    # "last cursor": {"mark": {"type": "lastCursorPosition"}} # Not implemented
-]
-
-special_marks_map = {term.cursorlessIdentifier: term for term in special_marks}
-
-special_marks_defaults = {
-    term.defaultSpokenForm: term.cursorlessIdentifier for term in special_marks
+special_marks = {
+    "currentSelection": {"type": "cursor"},
+    "previousTarget": {"type": "that"},
+    "previousSource": {"type": "source"},
+    "nothing": {"type": "nothing"},
 }
-
 
 mod.list("cursorless_special_mark", desc="Cursorless special marks")
 
@@ -118,7 +98,7 @@ def cursorless_mark(m) -> dict[str, Any]:
     except AttributeError:
         pass
     try:
-        return special_marks_map[m.cursorless_special_mark].value
+        return special_marks[m.cursorless_special_mark].value
     except AttributeError:
         pass
     return m.cursorless_line_number
@@ -232,15 +212,6 @@ slow_reload_job = None
 
 
 def on_ready():
-    init_csv_and_watch_changes(
-        "special_marks",
-        {
-            "special_mark": special_marks_defaults,
-            "unknown_symbol": unknown_symbols_defaults,
-            "line_direction": DEFAULT_DIRECTIONS,
-        },
-    )
-
     setup_hat_styles_csv()
 
     vscode_settings_path: Path = actions.user.vscode_settings_path().resolve()
