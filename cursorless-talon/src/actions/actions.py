@@ -11,22 +11,22 @@ mod = Module()
 
 mod.list(
     "cursorless_simple_action",
-    desc="Cursorless: simple actions",
+    desc="Cursorless internal: simple actions",
 )
 
 mod.list(
     "cursorless_callback_action",
-    desc="Cursorless: callback actions",
+    desc="Cursorless internal: actions implemented via a callback function",
 )
 
 mod.list(
     "cursorless_custom_action",
-    desc="Cursorless: custom actions",
+    desc="Cursorless internal: user-defined custom actions",
 )
 
 mod.list(
     "cursorless_experimental_action",
-    desc="Cursorless: experimental actions",
+    desc="Cursorless internal: experimental actions",
 )
 
 ACTION_LIST_NAMES = [
