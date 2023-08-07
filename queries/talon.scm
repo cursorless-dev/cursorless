@@ -41,10 +41,8 @@
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
 (_
-  (_
-    left: _ @name
-  ) @_.domain
-) @_.iteration
+  left: _ @name
+) @_.domain
 
 ;;!! not mode: command
 ;;!  ^^^^^^^^---------
@@ -53,21 +51,23 @@
 ;;!! tag(): user.cursorless
 ;;!  ^^^^^-----------------
 (_
-  (_
-    modifiers: (_)? @collectionKey.start
-    left: _ @collectionKey.end
-  ) @_.domain
-) @_.iteration
+  modifiers: (_)? @collectionKey.start
+  left: _ @collectionKey.end
+) @_.domain
 
 ;;!! not mode: command
 ;;!  ----------^^^^^^^
 ;;!! slap: key(enter)
 ;;!  ------^^^^^^^^^^
 (_
+  right: (_) @value
+) @_.domain
+
+(_
   (_
-    right: (_) @value
-  ) @_.domain
-) @_.iteration
+    right: (_)
+  )
+) @name.iteration @collectionKey.iteration @value.iteration
 
 ;;!! mode: command
 ;;!  ^^^^^^^^^^^^^
