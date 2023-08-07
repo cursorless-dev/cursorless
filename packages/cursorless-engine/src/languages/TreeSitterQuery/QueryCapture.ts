@@ -1,5 +1,19 @@
 import { Range, TextDocument } from "@cursorless/common";
-import { SyntaxNode } from "web-tree-sitter";
+import { Point } from "web-tree-sitter";
+
+/**
+ * Simple representation of the tree sitter syntax node. Used by
+ * {@link MutableQueryCapture} to avoid using range/text and other mutable
+ * parameters directly from the node.
+ */
+export interface SimpleSyntaxNode {
+  readonly id: number;
+  readonly type: string;
+  readonly startPosition: Point;
+  readonly endPosition: Point;
+  readonly parent: SimpleSyntaxNode | null;
+  readonly children: Array<SimpleSyntaxNode>;
+}
 
 /**
  * A capture of a query pattern against a syntax tree.  Often corresponds to a
@@ -42,11 +56,9 @@ export interface QueryMatch {
  */
 export interface MutableQueryCapture extends QueryCapture {
   /**
-   * The tree-sitter node that was captured. Note that the range may have already
-   * been altered by a prior operator, so please use {@link range} instead of
-   * trying to retrieve the range from the node.
+   * The tree-sitter node that was captured.
    */
-  readonly node: SyntaxNode;
+  readonly node: Omit<SimpleSyntaxNode, "startPosition" | "endPosition">;
 
   readonly document: TextDocument;
   range: Range;

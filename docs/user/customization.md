@@ -139,3 +139,7 @@ add dock string <user.cursorless_target>:
 push <user.cursorless_target> down:
     user.cursorless_ide_command("editor.action.moveLinesDownAction", cursorless_target)
 ```
+
+### Disable legacy destination grammar
+
+The grammar currently supports `paste to before air`. This grammar is considered deprecated/legacy and replaced by `paste before air`. You can today disable this legacy grammar by enabling the tag `user.cursorless_disable_legacy_destination`

@@ -14,26 +14,25 @@ mod.list("cursorless_position", desc='Positions such as "before", "after" etc')
 positions = {
     "start of": "start",
     "end of": "end",
+}
+before_after = {
     "before": "before",
     "after": "after",
 }
 
 
-def construct_positional_modifier(position: str) -> dict[str, Any]:
-    return {"type": "position", "position": position}
-
-
-# Note that we allow positional connectives such as "before" and "after" to appear
-# as modifiers. We may disallow this in the future.
 @mod.capture(rule="{user.cursorless_position}")
-def cursorless_position(m) -> dict[str, Any]:
-    return construct_positional_modifier(m.cursorless_position)
+def cursorless_position_modifier(m) -> dict[str, Any]:
+    return {"type": "startOf" if m.cursorless_position == "start" else "endOf"}
 
 
 def on_ready():
     init_csv_and_watch_changes(
         "positions",
-        {"position": positions},
+        {
+            "position": positions,
+            "insertion_mode_before_after": before_after,
+        },
     )
 
 

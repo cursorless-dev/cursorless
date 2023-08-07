@@ -229,12 +229,12 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "move <target 1> to <target 2>",
-              "description": "Move <target 1> to <target 2>"
+              "spokenForm": "move <target> <destination>",
+              "description": "Move <target> to <destination>"
             },
             {
               "spokenForm": "move <target>",
-              "description": "Move <target> to selection"
+              "description": "Move <target> to cursor position"
             }
           ]
         },
@@ -263,8 +263,8 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "paste <target>",
-              "description": "Paste from clipboard"
+              "spokenForm": "paste <destination>",
+              "description": "Paste from clipboard at <destination>"
             }
           ]
         },
@@ -303,12 +303,12 @@
           "type": "action",
           "variations": [
             {
-              "spokenForm": "bring <target 1> to <target 2>",
-              "description": "Replace <target 2> with <target 1>"
+              "spokenForm": "bring <target> <destination>",
+              "description": "Copy <target> to <destination>"
             },
             {
               "spokenForm": "bring <target>",
-              "description": "Replace selection with <target>"
+              "description": "Insert copy of <target> at cursor"
             }
           ]
         },
@@ -647,6 +647,42 @@
       ]
     },
     {
+      "name": "Destinations",
+      "id": "destinations",
+      "items": [
+        {
+          "id": "destination_after",
+          "type": "destination",
+          "variations": [
+            {
+              "spokenForm": "after <target>",
+              "description": "Insert after <target>"
+            }
+          ]
+        },
+        {
+          "id": "destination_before",
+          "type": "destination",
+          "variations": [
+            {
+              "spokenForm": "before <target>",
+              "description": "Insert before <target>"
+            }
+          ]
+        },
+        {
+          "id": "destination_to",
+          "type": "destination",
+          "variations": [
+            {
+              "spokenForm": "to <target>",
+              "description": "Replace <target>"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Modifiers",
       "id": "modifiers",
       "items": [
@@ -657,6 +693,16 @@
             {
               "spokenForm": "<scope>",
               "description": "Containing instance of <scope>"
+            }
+          ]
+        },
+        {
+          "id": "end",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "end of",
+              "description": "Empty position at end of target"
             }
           ]
         },
@@ -827,6 +873,16 @@
           ]
         },
         {
+          "id": "start",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "start of",
+              "description": "Empty position at start of target"
+            }
+          ]
+        },
+        {
           "id": "toRawSelection",
           "type": "modifier",
           "variations": [
@@ -979,52 +1035,6 @@
             {
               "spokenForm": "void",
               "description": "Whitespace"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Positions",
-      "id": "positions",
-      "items": [
-        {
-          "id": "after",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "after",
-              "description": "After"
-            }
-          ]
-        },
-        {
-          "id": "before",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "before",
-              "description": "Before"
-            }
-          ]
-        },
-        {
-          "id": "end",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "end of",
-              "description": "End"
-            }
-          ]
-        },
-        {
-          "id": "start",
-          "type": "position",
-          "variations": [
-            {
-              "spokenForm": "start of",
-              "description": "Start"
             }
           ]
         }
