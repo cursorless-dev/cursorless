@@ -96,7 +96,13 @@
 ;;!  ^^^^^^^^^^^^^
 (match) @condition
 
-(matches) @condition.iteration
+(
+  (source_file
+    (matches) @condition.iteration @condition @condition.trailing
+  ) @condition.iteration.domain @condition.domain
+  (#shrink-to-match! @condition "^(?<keep>.*)(\s|\n|\r)+-$")
+  (#shrink-to-match! @condition.trailing "^.*(?<keep>(\s|\n|\r)+-)$")
+)
 
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^

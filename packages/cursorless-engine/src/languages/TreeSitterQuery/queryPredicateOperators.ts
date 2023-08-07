@@ -97,6 +97,15 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
  * A predicate operator that modifies the range of the match to shrink to regex
  * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
  * of the `@foo` capture to exclude whitespace.
+ *
+ * If convenient, you can use a special capture group called `keep` to indicate
+ * the part of the match that should be kept.  For example,
+ *
+ * ```
+ * (#shrink-to-match! @foo "^\s+(?<keep>.*)$")
+ * ```
+ *
+ * will modify the range of the `@foo` capture to skip any leading whitespace.
  */
 class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   name = "shrink-to-match!" as const;
@@ -105,14 +114,18 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   run(nodeInfo: MutableQueryCapture, pattern: string) {
     const { document, range } = nodeInfo;
     const text = document.getText(range);
-    const match = text.match(new RegExp(pattern));
+    const match = text.match(new RegExp(pattern, "ds"));
 
     if (match?.index == null) {
       throw Error(`No match for pattern '${pattern}'`);
     }
 
-    const startIndex = document.offsetAt(range.start) + match.index;
-    const endIndex = startIndex + match[0].length;
+    const [startOffset, endOffset] =
+      match.indices?.groups?.keep ?? match.indices![0];
+
+    const baseOffset = document.offsetAt(range.start);
+    const startIndex = baseOffset + startOffset;
+    const endIndex = baseOffset + endOffset;
 
     nodeInfo.range = new Range(
       document.positionAt(startIndex),
