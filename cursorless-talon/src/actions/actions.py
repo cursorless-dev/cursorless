@@ -11,22 +11,22 @@ mod = Module()
 
 mod.list(
     "cursorless_simple_action",
-    desc="Supported simple actions for cursorless navigation",
+    desc="Cursorless: simple actions",
 )
 
 mod.list(
     "cursorless_callback_action",
-    desc="Supported callback actions for cursorless navigation",
+    desc="Cursorless: callback actions",
 )
 
 mod.list(
     "cursorless_custom_action",
-    desc="Supported custom actions for cursorless navigation",
+    desc="Cursorless: custom actions",
 )
 
 mod.list(
     "cursorless_experimental_action",
-    desc="Experimental actions",
+    desc="Cursorless: experimental actions",
 )
 
 ACTION_LIST_NAMES = [
