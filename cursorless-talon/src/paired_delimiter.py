@@ -3,9 +3,7 @@ from dataclasses import dataclass
 from talon import Module
 
 mod = Module()
-mod.list(
-    "cursorless_paired_delimiter", desc="A symbol that comes in pairs, eg brackets"
-)
+
 mod.list(
     "cursorless_wrapper_only_paired_delimiter",
     desc="A paired delimiter that can only be used as a wrapper",

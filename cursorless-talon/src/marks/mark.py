@@ -11,6 +11,18 @@ ctx = Context()
 
 mod.list("cursorless_hat_color", desc="Supported hat colors for cursorless")
 mod.list("cursorless_hat_shape", desc="Supported hat shapes for cursorless")
+mod.list("cursorless_special_mark", desc="Cursorless special marks")
+mod.list(
+    "cursorless_unknown_symbol",
+    "This list contains the term that is used to refer to any unknown symbol",
+)
+
+special_marks = {
+    "currentSelection": "cursor",
+    "previousTarget": "that",
+    "previousSource": "source",
+    "nothing": "nothing",
+}
 
 # NOTE: Please do not change these dicts.  Use the CSVs for customization.
 # See https://www.cursorless.org/docs/user/customization/
@@ -36,12 +48,6 @@ hat_shapes = {
     "cross": "crosshairs",
     "bolt": "bolt",
 }
-
-
-mod.list(
-    "cursorless_unknown_symbol",
-    "This list contains the term that is used to refer to any unknown symbol",
-)
 
 
 @mod.capture(rule="<user.any_alphanumeric_key> | {user.cursorless_unknown_symbol}")
@@ -75,16 +81,6 @@ def cursorless_decorated_symbol(m) -> dict[str, Any]:
     }
 
 
-special_marks = {
-    "currentSelection": {"type": "cursor"},
-    "previousTarget": {"type": "that"},
-    "previousSource": {"type": "source"},
-    "nothing": {"type": "nothing"},
-}
-
-mod.list("cursorless_special_mark", desc="Cursorless special marks")
-
-
 @mod.capture(
     rule=(
         "<user.cursorless_decorated_symbol> | "
@@ -98,7 +94,9 @@ def cursorless_mark(m) -> dict[str, Any]:
     except AttributeError:
         pass
     try:
-        return special_marks[m.cursorless_special_mark].value
+        return {
+            "type": special_marks[m.cursorless_special_mark]
+        }
     except AttributeError:
         pass
     return m.cursorless_line_number
@@ -199,7 +197,7 @@ def setup_hat_styles_csv():
             "hat_color": active_hat_colors,
             "hat_shape": active_hat_shapes,
         },
-        [*hat_colors.values(), *hat_shapes.values()],
+        [*DEFAULT_COLOR_ENABLEMENT.keys(), *DEFAULT_SHAPE_ENABLEMENT.keys()],
         no_update_file=is_shape_error or is_color_error,
     )
 
