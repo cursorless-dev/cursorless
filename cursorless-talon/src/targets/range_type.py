@@ -7,6 +7,8 @@ mod.list(
     desc="A range modifier that indicates the specific type of the range",
 )
 
+# Maps from the id we use in the spoken form csv to the modifier type
+# expected by Cursorless extension
 range_type_map = {
     "verticalRange": "vertical",
 }
