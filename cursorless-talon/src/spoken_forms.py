@@ -3,6 +3,7 @@ from pathlib import Path
 
 from talon import app
 
+from .marks.mark import init_marks
 from .csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
 from .paired_delimiter import paired_delimiter_spoken_form_defaults
 
@@ -19,7 +20,7 @@ def on_ready() -> None:
     )
     init_csv_and_watch_changes(
         "target_connectives",
-        spoken_forms["target_connectives"],
+        spoken_forms["targetConnectives"],
     )
     init_csv_and_watch_changes(
         "modifiers",
@@ -31,28 +32,24 @@ def on_ready() -> None:
     )
     init_csv_and_watch_changes(
         "modifier_scope_types",
-        spoken_forms["scope_types"],
+        spoken_forms["scopeTypes"],
         pluralize_lists=["scope_type"],
     )
     init_csv_and_watch_changes(
         "special_marks",
-        spoken_forms["special_marks"],
+        spoken_forms["specialMarks"],
     )
     init_csv_and_watch_changes(
         "scope_visualizer",
-        spoken_forms["scope_visualizer"],
+        spoken_forms["scopeVisualizer"],
     )
     init_csv_and_watch_changes(
         "paired_delimiters",
-        paired_delimiter_spoken_form_defaults(spoken_forms["matching_pairs"]),
+        paired_delimiter_spoken_form_defaults(spoken_forms["matchingPairs"]),
     )
     init_csv_and_watch_changes(
         "experimental/experimental_actions",
         spoken_forms["experimental.actions"],
-    )
-    init_csv_and_watch_changes(
-        "experimental/miscellaneous",
-        spoken_forms["experimental.miscellaneous"],
     )
     init_csv_and_watch_changes(
         "experimental/actions_custom",
@@ -71,24 +68,30 @@ def on_ready() -> None:
     )
     init_csv_and_watch_changes(
         "experimental/wrapper_snippets",
-        spoken_forms["experimental.wrapper_snippets"],
+        spoken_forms["experimental.wrapperSnippets"],
         allow_unknown_values=True,
         default_list_name="wrapper_snippet",
     )
     init_csv_and_watch_changes(
         "experimental/insertion_snippets",
-        spoken_forms["experimental.insertion_snippets"],
+        spoken_forms["experimental.insertionSnippets"],
         allow_unknown_values=True,
         default_list_name="insertion_snippet_no_phrase",
     )
     init_csv_and_watch_changes(
         "experimental/insertion_snippets_single_phrase",
-        spoken_forms["experimental.insertion_snippets_single_phrase"],
+        spoken_forms["experimental.insertionSnippetsSinglePhrase"],
         allow_unknown_values=True,
         default_list_name="insertion_snippet_single_phrase",
     )
-
-    # TODO: hats/colors
+    init_csv_and_watch_changes(
+        "experimental/miscellaneous",
+        spoken_forms["experimental.miscellaneous"],
+    )
+    init_marks(
+        spoken_forms["hatColors"],
+        spoken_forms["hatShapes"],
+    )
 
 
 app.register("ready", on_ready)

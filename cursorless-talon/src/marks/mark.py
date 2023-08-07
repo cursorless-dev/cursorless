@@ -1,13 +1,11 @@
 from pathlib import Path
 from typing import Any
 
-from talon import Context, Module, actions, app, cron, fs
+from talon import Context, Module, actions, cron, fs
 
 from ..csv_overrides import init_csv_and_watch_changes
 
 mod = Module()
-ctx = Context()
-
 
 mod.list("cursorless_hat_color", desc="Supported hat colors for cursorless")
 mod.list("cursorless_hat_shape", desc="Supported hat shapes for cursorless")
@@ -22,31 +20,6 @@ special_marks = {
     "previousTarget": "that",
     "previousSource": "source",
     "nothing": "nothing",
-}
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-hat_colors = {
-    "blue": "blue",
-    "green": "green",
-    "red": "red",
-    "pink": "pink",
-    "yellow": "yellow",
-    "navy": "userColor1",
-    "apricot": "userColor2",
-}
-
-hat_shapes = {
-    "ex": "ex",
-    "fox": "fox",
-    "wing": "wing",
-    "hole": "hole",
-    "frame": "frame",
-    "curve": "curve",
-    "eye": "eye",
-    "play": "play",
-    "cross": "crosshairs",
-    "bolt": "bolt",
 }
 
 
@@ -143,7 +116,7 @@ FALLBACK_COLOR_ENABLEMENT = DEFAULT_COLOR_ENABLEMENT
 unsubscribe_hat_styles = None
 
 
-def setup_hat_styles_csv():
+def setup_hat_styles_csv(hat_colors: dict, hat_shapes: dict):
     global unsubscribe_hat_styles
 
     (
@@ -195,7 +168,7 @@ def setup_hat_styles_csv():
             "hat_color": active_hat_colors,
             "hat_shape": active_hat_shapes,
         },
-        [*DEFAULT_COLOR_ENABLEMENT.keys(), *DEFAULT_SHAPE_ENABLEMENT.keys()],
+        [*hat_colors.values(), *hat_shapes.values()],
         no_update_file=is_shape_error or is_color_error,
     )
 
@@ -207,8 +180,8 @@ fast_reload_job = None
 slow_reload_job = None
 
 
-def on_ready():
-    setup_hat_styles_csv()
+def init_marks(hat_colors: dict, hat_shapes: dict):
+    setup_hat_styles_csv(hat_colors, hat_shapes)
 
     vscode_settings_path: Path = actions.user.vscode_settings_path().resolve()
 
@@ -216,10 +189,7 @@ def on_ready():
         global fast_reload_job, slow_reload_job
         cron.cancel(fast_reload_job)
         cron.cancel(slow_reload_job)
-        fast_reload_job = cron.after("500ms", setup_hat_styles_csv)
-        slow_reload_job = cron.after("10s", setup_hat_styles_csv)
+        fast_reload_job = cron.after("500ms", lambda: setup_hat_styles_csv(hat_colors, hat_shapes))
+        slow_reload_job = cron.after("10s", lambda: setup_hat_styles_csv(hat_colors, hat_shapes))
 
     fs.watch(str(vscode_settings_path), on_watch)
-
-
-app.register("ready", on_ready)
