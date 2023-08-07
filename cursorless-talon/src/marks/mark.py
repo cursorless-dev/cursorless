@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Any
 
-from talon import Context, Module, actions, cron, fs
+from talon import Module, actions, cron, fs
 
 from ..csv_overrides import init_csv_and_watch_changes
 
@@ -189,7 +189,11 @@ def init_marks(hat_colors: dict, hat_shapes: dict):
         global fast_reload_job, slow_reload_job
         cron.cancel(fast_reload_job)
         cron.cancel(slow_reload_job)
-        fast_reload_job = cron.after("500ms", lambda: setup_hat_styles_csv(hat_colors, hat_shapes))
-        slow_reload_job = cron.after("10s", lambda: setup_hat_styles_csv(hat_colors, hat_shapes))
+        fast_reload_job = cron.after(
+            "500ms", lambda: setup_hat_styles_csv(hat_colors, hat_shapes)
+        )
+        slow_reload_job = cron.after(
+            "10s", lambda: setup_hat_styles_csv(hat_colors, hat_shapes)
+        )
 
     fs.watch(str(vscode_settings_path), on_watch)

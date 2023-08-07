@@ -3,8 +3,8 @@ from pathlib import Path
 
 from talon import app
 
-from .marks.mark import init_marks
 from .csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
+from .marks.mark import init_marks
 from .paired_delimiter import paired_delimiter_spoken_form_defaults
 
 JSON_FILE = Path(__file__).parent / "spoken_forms.json"
