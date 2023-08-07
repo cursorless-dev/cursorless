@@ -48,7 +48,7 @@ export interface MutableQueryCapture extends QueryCapture {
    */
   readonly node: SyntaxNode;
 
-  document: TextDocument;
+  readonly document: TextDocument;
   range: Range;
   allowMultiple: boolean;
   insertionDelimiter: string | undefined;
