@@ -82,11 +82,12 @@ wrapper_selectable_paired_delimiters_defaults = {
         "{user.cursorless_wrapper_selectable_paired_delimiter}"
     )
 )
-def cursorless_wrapper_paired_delimiter(m) -> str:
+def cursorless_wrapper_paired_delimiter(m) -> PairedDelimiter:
     try:
-        return m.cursorless_wrapper_only_paired_delimiter
+        id = m.cursorless_wrapper_only_paired_delimiter
     except AttributeError:
-        return m.cursorless_wrapper_selectable_paired_delimiter
+        id = m.cursorless_wrapper_selectable_paired_delimiter
+    return paired_delimiters_map[id]
 
 
 @mod.capture(

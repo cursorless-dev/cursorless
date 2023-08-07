@@ -1,6 +1,6 @@
 import {
   Command,
-  CommandComplete,
+  CommandLatest,
   TestCaseFixtureLegacy,
   asyncSafety,
   getRecordedTestPaths,
@@ -11,7 +11,9 @@ import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "../generateSpokenForm/getHatMapCommand";
 import { TalonRepl } from "../testUtil/TalonRepl";
-import { spokenFormsFixture } from "./fixtures/spokenForms.fixture";
+import { synonymousSpokenFormsFixture } from "./fixtures/synonymousSpokenForms.fixture";
+import { talonApiFixture } from "./fixtures/talonApi.fixture";
+import { multiActionFixture } from "./fixtures/multiAction.fixture";
 
 suite("Talon spoken forms", async function () {
   const repl = new TalonRepl();
@@ -35,11 +37,13 @@ suite("Talon spoken forms", async function () {
     test(name, () => runRecordedFixture(repl, path)),
   );
 
-  // A few more spoken forms that we want to test, mostly due to having multiple
-  // ways to say them so being forced to pick one in our recorded tests so that
-  // our spoken form generator can be deterministic
-  spokenFormsFixture.forEach((command) =>
-    test(command.spokenForm, () => runCommandFixture(repl, command)),
+  // A few more spoken forms that we want to test
+  [
+    ...synonymousSpokenFormsFixture,
+    ...talonApiFixture,
+    ...multiActionFixture,
+  ].forEach(({ spokenForm, commands, mockedGetValue }) =>
+    test(spokenForm, () => runTest(repl, spokenForm, commands, mockedGetValue)),
   );
 });
 
@@ -51,9 +55,7 @@ async function runRecordedFixture(repl: TalonRepl, file: string) {
     return;
   }
 
-  const commands: CommandComplete[] = [
-    canonicalizeAndValidateCommand(fixture.command),
-  ];
+  const commands: Command[] = [fixture.command];
 
   if (fixture.marksToCheck != null) {
     commands.push(getHatMapCommand(fixture.marksToCheck));
@@ -61,44 +63,55 @@ async function runRecordedFixture(repl: TalonRepl, file: string) {
 
   assert(fixture.command.spokenForm != null);
 
-  await runTest(repl, fixture.command.spokenForm, ...commands);
+  await runTest(repl, fixture.command.spokenForm, commands);
 }
 
-async function runCommandFixture(repl: TalonRepl, command: Command) {
-  const commandComplete = canonicalizeAndValidateCommand(command);
-
-  assert(commandComplete.spokenForm != null);
-
-  await runTest(repl, commandComplete.spokenForm, commandComplete);
-}
+const alreadyRan: Record<
+  string,
+  { commands: CommandLatest[]; mockedGetValue: unknown | undefined }
+> = {};
 
 async function runTest(
   repl: TalonRepl,
   spokenForm: string,
-  ...commands: CommandComplete[]
+  commandsLegacy: Command[],
+  mockedGetValue?: unknown,
 ) {
+  const commandsExpected = commandsLegacy.map((command) => ({
+    ...canonicalizeAndValidateCommand(command),
+    spokenForm,
+    usePrePhraseSnapshot: true,
+  }));
+
+  const valueForCache = { commands: commandsExpected, mockedGetValue };
+
+  // If we've already run this test, we don't need to run it again
+  if (alreadyRan[spokenForm] != null) {
+    assert.deepStrictEqual(alreadyRan[spokenForm], valueForCache);
+    return;
+  }
+
+  alreadyRan[spokenForm] = valueForCache;
+
+  // Note that we have to stringify twice here because the first time is to
+  // convert it to a json string, and the second time is to take that string
+  // and convert it to a python string literal
+  const mockedGetValueString =
+    mockedGetValue == null
+      ? "None"
+      : JSON.stringify(JSON.stringify(mockedGetValue));
+
   const result = await repl.action(
-    `user.private_cursorless_spoken_form_test("${spokenForm}")`,
+    `user.private_cursorless_spoken_form_test("${spokenForm}", ${mockedGetValueString})`,
   );
 
-  const commandsActualLegacy = (() => {
+  const commandsActual = (() => {
     try {
       return JSON.parse(result);
     } catch (e) {
       throw Error(result);
     }
   })();
-
-  // TODO: Remove once Talon side is on latest version
-  const commandsActual = commandsActualLegacy.map(
-    canonicalizeAndValidateCommand,
-  );
-
-  const commandsExpected = commands.map((command) => ({
-    ...command,
-    spokenForm,
-    usePrePhraseSnapshot: true,
-  }));
 
   assert.deepStrictEqual(commandsActual, commandsExpected);
 }
