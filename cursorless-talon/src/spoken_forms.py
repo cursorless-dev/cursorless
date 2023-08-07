@@ -43,16 +43,16 @@ def on_ready() -> None:
         spoken_forms["scope_visualizer"],
     )
     init_csv_and_watch_changes(
+        "paired_delimiters",
+        paired_delimiter_spoken_form_defaults(spoken_forms["matching_pairs"]),
+    )
+    init_csv_and_watch_changes(
         "experimental/experimental_actions",
-        spoken_forms["experimental"]["actions"],
+        spoken_forms["experimental.actions"],
     )
     init_csv_and_watch_changes(
         "experimental/miscellaneous",
-        spoken_forms["experimental"]["miscellaneous"],
-    )
-    init_csv_and_watch_changes(
-        "paired_delimiters",
-        paired_delimiter_spoken_form_defaults(spoken_forms["matching_pairs"]),
+        spoken_forms["experimental.miscellaneous"],
     )
     init_csv_and_watch_changes(
         "experimental/actions_custom",
@@ -69,33 +69,26 @@ def on_ready() -> None:
         default_list_name="custom_regex_scope_type",
         pluralize_lists=["custom_regex_scope_type"],
     )
+    init_csv_and_watch_changes(
+        "experimental/wrapper_snippets",
+        spoken_forms["experimental.wrapper_snippets"],
+        allow_unknown_values=True,
+        default_list_name="wrapper_snippet",
+    )
+    init_csv_and_watch_changes(
+        "experimental/insertion_snippets",
+        spoken_forms["experimental.insertion_snippets"],
+        allow_unknown_values=True,
+        default_list_name="insertion_snippet_no_phrase",
+    )
+    init_csv_and_watch_changes(
+        "experimental/insertion_snippets_single_phrase",
+        spoken_forms["experimental.insertion_snippets_single_phrase"],
+        allow_unknown_values=True,
+        default_list_name="insertion_snippet_single_phrase",
+    )
 
     # TODO: hats/colors
-
-    # init_csv_and_watch_changes(
-    #     "experimental/wrapper_snippets",
-    #     {
-    #         "wrapper_snippet": wrapper_snippets,
-    #     },
-    #     allow_unknown_values=True,
-    #     default_list_name="wrapper_snippet",
-    # )
-    # init_csv_and_watch_changes(
-    #     "experimental/insertion_snippets",
-    #     {
-    #         "insertion_snippet_no_phrase": insertion_snippets_no_phrase,
-    #     },
-    #     allow_unknown_values=True,
-    #     default_list_name="insertion_snippet_no_phrase",
-    # )
-    # init_csv_and_watch_changes(
-    #     "experimental/insertion_snippets_single_phrase",
-    #     {
-    #         "insertion_snippet_single_phrase": insertion_snippets_single_phrase,
-    #     },
-    #     allow_unknown_values=True,
-    #     default_list_name="insertion_snippet_single_phrase",
-    # )
 
 
 app.register("ready", on_ready)

@@ -31,13 +31,13 @@ mod.list(
 
 ACTION_LIST_NAMES = [
     "simple_action",
-    "callback_action"
-    "paste_action"
-    "bring_move_action"
-    "swap_action"
-    "wrap_action"
-    "insert_snippet_action"
-    "reformat_action"
+    "callback_action",
+    "paste_action",
+    "bring_move_action",
+    "swap_action",
+    "wrap_action",
+    "insert_snippet_action",
+    "reformat_action",
     "experimental_action",
 ]
 

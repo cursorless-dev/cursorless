@@ -56,34 +56,6 @@ def cursorless_insertion_snippet(m) -> InsertionSnippet:
     return InsertionSnippet(name, destination)
 
 
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-wrapper_snippets = {
-    "else": "ifElseStatement.alternative",
-    "funk": "functionDeclaration.body",
-    "if else": "ifElseStatement.consequence",
-    "if": "ifStatement.consequence",
-    "try": "tryCatchStatement.body",
-    "link": "link.text",
-}
-
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-insertion_snippets_no_phrase = {
-    "if": "ifStatement",
-    "if else": "ifElseStatement",
-    "try": "tryCatchStatement",
-}
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-insertion_snippets_single_phrase = {
-    "funk": "functionDeclaration.name",
-    "link": "link.text",
-}
-
-
 def wrap_with_snippet(snippet_description: dict, target: CursorlessTarget):
     actions.user.private_cursorless_command_and_wait(
         {
