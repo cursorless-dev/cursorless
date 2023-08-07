@@ -134,6 +134,11 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of the match. For
+ * example, `(#insertion-delimiter! @foo ", ")` will set the insertion delimiter
+ * of the `@foo` capture to `", "`.
+ */
 class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   name = "insertion-delimiter!" as const;
   schema = z.tuple([q.node, q.string]);
