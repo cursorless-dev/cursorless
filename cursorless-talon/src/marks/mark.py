@@ -94,9 +94,7 @@ def cursorless_mark(m) -> dict[str, Any]:
     except AttributeError:
         pass
     try:
-        return {
-            "type": special_marks[m.cursorless_special_mark]
-        }
+        return {"type": special_marks[m.cursorless_special_mark]}
     except AttributeError:
         pass
     return m.cursorless_line_number
