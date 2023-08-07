@@ -124,12 +124,10 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
       match.indices?.groups?.keep ?? match.indices![0];
 
     const baseOffset = document.offsetAt(range.start);
-    const startIndex = baseOffset + startOffset;
-    const endIndex = baseOffset + endOffset;
 
     nodeInfo.range = new Range(
-      document.positionAt(startIndex),
-      document.positionAt(endIndex),
+      document.positionAt(baseOffset + startOffset),
+      document.positionAt(baseOffset + endOffset),
     );
 
     return true;
