@@ -13,6 +13,7 @@ mod.list(
     desc="Supported plural custom regular expression scope types",
 )
 
+
 @mod.capture(
     rule="{user.cursorless_scope_type} | {user.cursorless_custom_regex_scope_type}"
 )

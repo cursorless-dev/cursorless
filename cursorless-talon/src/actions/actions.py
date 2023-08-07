@@ -3,8 +3,8 @@ from talon import Module, actions
 from ..targets.target_types import CursorlessTarget, ImplicitDestination
 from .bring_move import BringMoveTargets
 from .call import cursorless_call_action
-from .homophones import cursorless_homophones_action
 from .execute_command import cursorless_execute_command_action
+from .homophones import cursorless_homophones_action
 
 mod = Module()
 
@@ -25,11 +25,11 @@ mod.list(
 )
 
 mod.list(
-    "cursorless_experimental_action", 
+    "cursorless_experimental_action",
     desc="Experimental actions",
 )
 
-ACTION_LIST_NAMES =  [
+ACTION_LIST_NAMES = [
     "simple_action",
     "callback_action"
     "paste_action"
@@ -37,7 +37,8 @@ ACTION_LIST_NAMES =  [
     "swap_action"
     "wrap_action"
     "insert_snippet_action"
-    "reformat_action""experimental_action",
+    "reformat_action"
+    "experimental_action",
 ]
 
 callback_actions = {
@@ -56,6 +57,7 @@ no_wait_actions = [
 no_wait_actions_post_sleep = {
     "rename": 0.3,
 }
+
 
 @mod.capture(
     rule=(
@@ -119,5 +121,3 @@ class Actions:
             actions.user.cursorless_command(value, target)
         elif type == "ide_command":
             actions.user.cursorless_ide_command(value, target)
-
-

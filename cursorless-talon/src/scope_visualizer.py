@@ -8,6 +8,7 @@ mod.list(
     desc='Cursorless visualization type, e.g. "removal" or "iteration"',
 )
 
+
 @mod.action_class
 class Actions:
     def private_cursorless_show_scope_visualizer(
