@@ -96,6 +96,21 @@
 ;;!  ^^^^^^^^^^^^^
 (match) @condition
 
+;;!!  tag: user.foo
+;;!  {^^^^^^^^^^^^^
+;;!  (xxxxxxxxxxxxx
+;;!  [-------------
+;;!!  app: bar
+;;!   ^^^^^^^^}
+;;!   xxxxxxxx
+;;!   --------
+;;!!  -
+;;!   x)
+;;!   -
+;;!!  bongo: bazman
+;;!   -------------
+;;!!  foo: key(a)
+;;!   -----------]
 (
   (source_file
     (matches) @condition.iteration @condition @condition.trailing
@@ -110,7 +125,9 @@
   right: (_) @_.interior
 ) @command
 
-(declarations) @command.iteration
+(source_file
+  (declarations) @command.iteration
+) @command.iteration.domain
 
 ;;!! key(enter)
 ;;!  ^^^^^^^^^^
