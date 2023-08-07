@@ -97,15 +97,6 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
  * A predicate operator that modifies the range of the match to shrink to regex
  * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
  * of the `@foo` capture to exclude whitespace.
- *
- * If convenient, you can use a special capture group called `keep` to indicate
- * the part of the match that should be kept.  For example,
- *
- * ```
- * (#shrink-to-match! @foo "^\s+(?<keep>.*)$")
- * ```
- *
- * will modify the range of the `@foo` capture to skip any leading whitespace.
  */
 class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   name = "shrink-to-match!" as const;
