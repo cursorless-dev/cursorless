@@ -2,12 +2,11 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from talon import Context, Module
+from talon import Module
 
 from ..targets.range_target import RangeConnective
 
 mod = Module()
-ctx = Context()
 
 mod.list("cursorless_line_direction", desc="Supported directions for line modifier")
 
