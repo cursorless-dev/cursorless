@@ -54,7 +54,7 @@
         "cwd": "packages/common/src/testUtil"
       },
       "presentation": {
-        "reveal": "never"
+        "reveal": "silent"
       },
       "group": "test"
     },
