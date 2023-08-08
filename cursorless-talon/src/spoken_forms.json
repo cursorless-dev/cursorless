@@ -170,6 +170,23 @@
       "string": "string"
     }
   },
+  "paired_delimiters.csv": {
+    "selectable_only_paired_delimiter": { "pair": "any" },
+    "wrapper_only_paired_delimiter": { "void": "whitespace" },
+    "wrapper_selectable_paired_delimiter": {
+      "curly": "curlyBrackets",
+      "diamond": "angleBrackets",
+      "escaped quad": "escapedDoubleQuotes",
+      "escaped twin": "escapedSingleQuotes",
+      "escaped round": "escapedParentheses",
+      "escaped box": "escapedSquareBrackets",
+      "quad": "doubleQuotes",
+      "round": "parentheses",
+      "skis": "backtickQuotes",
+      "box": "squareBrackets",
+      "twin": "singleQuotes"
+    }
+  },
   "special_marks.csv": {
     "special_mark": {
       "this": "currentSelection",
@@ -245,20 +262,5 @@
       "cross": "crosshairs",
       "bolt": "bolt"
     }
-  },
-  "paired_delimiters.csv": {
-    "curly": "curlyBrackets",
-    "diamond": "angleBrackets",
-    "escaped quad": "escapedDoubleQuotes",
-    "escaped twin": "escapedSingleQuotes",
-    "escaped round": "escapedParentheses",
-    "escaped box": "escapedSquareBrackets",
-    "quad": "doubleQuotes",
-    "round": "parentheses",
-    "skis": "backtickQuotes",
-    "void": "whitespace",
-    "box": "squareBrackets",
-    "twin": "singleQuotes",
-    "pair": "any"
   }
 }

@@ -51,34 +51,6 @@ paired_delimiters = [
 paired_delimiters_map = {term.cursorlessIdentifier: term for term in paired_delimiters}
 
 
-def paired_delimiter_spoken_form_defaults(spoken_forms: dict) -> dict:
-    id_to_spoken_map = {v: k for k, v in spoken_forms.items()}
-
-    wrapper_paired_delimiters_defaults = {
-        id_to_spoken_map[term.cursorlessIdentifier]: term.cursorlessIdentifier
-        for term in paired_delimiters
-        if term.is_wrapper and not term.is_selectable
-    }
-
-    selectable_paired_delimiters_defaults = {
-        id_to_spoken_map[term.cursorlessIdentifier]: term.cursorlessIdentifier
-        for term in paired_delimiters
-        if term.is_selectable and not term.is_wrapper
-    }
-
-    wrapper_selectable_paired_delimiters_defaults = {
-        id_to_spoken_map[term.cursorlessIdentifier]: term.cursorlessIdentifier
-        for term in paired_delimiters
-        if term.is_selectable and term.is_wrapper
-    }
-
-    return {
-        "wrapper_only_paired_delimiter": wrapper_paired_delimiters_defaults,
-        "selectable_only_paired_delimiter": selectable_paired_delimiters_defaults,
-        "wrapper_selectable_paired_delimiter": wrapper_selectable_paired_delimiters_defaults,
-    }
-
-
 @mod.capture(
     rule=(
         "{user.cursorless_wrapper_only_paired_delimiter} |"

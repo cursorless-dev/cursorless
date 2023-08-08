@@ -6,7 +6,6 @@ from talon import app, fs
 
 from .csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
 from .marks.mark import init_marks
-from .paired_delimiter import paired_delimiter_spoken_form_defaults
 
 JSON_FILE = Path(__file__).parent / "spoken_forms.json"
 disposables: list[Callable] = []
@@ -33,6 +32,7 @@ def update():
         watch_file(spoken_forms, "target_connectives.csv"),
         watch_file(spoken_forms, "modifiers.csv"),
         watch_file(spoken_forms, "positions.csv"),
+        watch_file(spoken_forms, "paired_delimiters.csv"),
         watch_file(spoken_forms, "special_marks.csv"),
         watch_file(spoken_forms, "scope_visualizer.csv"),
         watch_file(spoken_forms, "experimental/experimental_actions.csv"),
@@ -74,12 +74,6 @@ def update():
             allow_unknown_values=True,
             default_list_name="custom_regex_scope_type",
             pluralize_lists=["custom_regex_scope_type"],
-        ),
-        init_csv_and_watch_changes(
-            "paired_delimiters.csv",
-            paired_delimiter_spoken_form_defaults(
-                spoken_forms["paired_delimiters.csv"]
-            ),
         ),
         init_marks(
             spoken_forms["hat_styles.csv"]["hat_color"],
