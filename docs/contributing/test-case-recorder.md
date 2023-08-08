@@ -35,7 +35,7 @@ command run, and the final state, all in the form of a yaml document. See
 
 ## Test case recorder options
 
-The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [`RecordTestCaseCommandArg`](../../packages/cursorless-engine/src/testCaseRecorder/RecordTestCaseCommandArg.ts).
+The test case recorder has several additional configuration options. The default configuration works for most tests, but you may find the following useful. For a full list of supported configuration options, see [`RecordTestCaseCommandOptions`](../../packages/cursorless-engine/src/testCaseRecorder/RecordTestCaseCommandOptions.ts).
 
 ### The options
 
@@ -63,7 +63,7 @@ Then each time you record a test, you need to issue two commands. The second com
 
 ### Default config per test case directory
 
-Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [`RecordTestCaseCommandArg`](../../packages/cursorless-engine/src/testCaseRecorder/RecordTestCaseCommandArg.ts).
+Any test case directory that contains a `config.json` will set default configuration for all tests recorded in any descendant directory. For example, the file [`actions/config.json`](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/actions/config.json) makes it so that all our action tests will capture the final `that` mark. For a full list of keys supported in this json, see [`RecordTestCaseCommandOptions`](../../packages/cursorless-engine/src/testCaseRecorder/RecordTestCaseCommandOptions.ts).
 
 ### Navigation map tests
 

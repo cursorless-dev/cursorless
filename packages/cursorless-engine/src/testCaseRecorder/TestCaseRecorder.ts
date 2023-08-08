@@ -32,7 +32,7 @@ import { TestCase } from "./TestCase";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
 import { generateSpokenForm } from "../generateSpokenForm";
-import { RecordTestCaseCommandArg } from "./RecordTestCaseCommandArg";
+import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -78,7 +78,7 @@ export class TestCaseRecorder {
     this.takeSnapshot = this.takeSnapshot.bind(this);
   }
 
-  async toggle(arg?: RecordTestCaseCommandArg) {
+  async toggle(arg?: RecordTestCaseCommandOptions) {
     if (this.active) {
       showInfo(ide().messages, "recordStop", "Stopped recording test cases");
       this.stop();
@@ -87,7 +87,7 @@ export class TestCaseRecorder {
     }
   }
 
-  async recordOneThenPause(arg?: RecordTestCaseCommandArg) {
+  async recordOneThenPause(arg?: RecordTestCaseCommandOptions) {
     this.pauseAfterNextCommand = true;
     this.paused = false;
     if (!this.active) {
@@ -148,7 +148,7 @@ export class TestCaseRecorder {
     return this.active && !this.paused;
   }
 
-  async start(arg?: RecordTestCaseCommandArg) {
+  async start(arg?: RecordTestCaseCommandOptions) {
     const { directory, ...explicitConfig } = arg ?? {};
 
     /**
@@ -181,7 +181,7 @@ export class TestCaseRecorder {
 
     // Look for a `config.json` file in ancestors of the recording directory,
     // and merge it with the config provided when calling the command.
-    const config: RecordTestCaseCommandArg = merge(
+    const config: RecordTestCaseCommandOptions = merge(
       {},
       ...(await Promise.all(
         parentDirectories.map((parent) =>
@@ -486,7 +486,7 @@ function capitalize(str: string) {
 
 async function readJsonIfExists(
   path: string,
-): Promise<RecordTestCaseCommandArg> {
+): Promise<RecordTestCaseCommandOptions> {
   let rawText: string;
 
   try {

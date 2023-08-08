@@ -4,7 +4,7 @@ import { ExtraSnapshotField } from "@cursorless/common";
  * This is the type of the `recordTestCase` command's argument. It is used to
  * specify the options for recording a test case.
  */
-export interface RecordTestCaseCommandArg {
+export interface RecordTestCaseCommandOptions {
   /**
    * If this is set to `true`, then for each test case that we record, we expect
    * that the user will issue a second command in each phrase, which refers to a
