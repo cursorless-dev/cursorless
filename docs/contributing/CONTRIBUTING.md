@@ -1,9 +1,7 @@
 # Contributing
 
-Welcome! So glad you've decided to help make Cursorless better. Once you've
-learned how to [set up](#initial-setup) and [run / test a local copy of the
-extension](#running--testing-extension-locally), you may want to check out the
-[Cursorless API docs](api) to learn more about how Cursorless works. You may also find the [VSCode API docs](https://code.visualstudio.com/api) helpful to learn about VSCode extension development.
+Welcome! So glad you've decided to help make Cursorless better. You'll want to start by getting [set up](#initial-setup) and learning how to [run / test a local copy of the
+extension](#running--testing-extension-locally). You may also find the [VSCode API docs](https://code.visualstudio.com/api) helpful to learn about VSCode extension development.
 
 ## Initial setup
 
