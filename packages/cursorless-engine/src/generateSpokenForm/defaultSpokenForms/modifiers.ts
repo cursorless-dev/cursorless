@@ -84,6 +84,8 @@ export const scopeSpokenForms = {
   namedParagraph: "paragraph",
   subParagraph: "subparagraph",
   environment: "environment",
+  // Talon
+  command: "command",
   // Text-based scope types
   character: "char",
   word: "word",

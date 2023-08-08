@@ -151,6 +151,7 @@
       "paragraph": "namedParagraph",
       "subparagraph": "subParagraph",
       "environment": "environment",
+      "command": "command",
       "char": "character",
       "word": "word",
       "token": "token",
@@ -221,6 +222,29 @@
   "experimental.miscellaneous": {
     "phrase_terminator": { "over": "phraseTerminator" }
   },
+  "hats": {
+    "hat_color": {
+      "blue": "blue",
+      "green": "green",
+      "red": "red",
+      "pink": "pink",
+      "yellow": "yellow",
+      "navy": "userColor1",
+      "apricot": "userColor2"
+    },
+    "hat_shape": {
+      "ex": "ex",
+      "fox": "fox",
+      "wing": "wing",
+      "hole": "hole",
+      "frame": "frame",
+      "curve": "curve",
+      "eye": "eye",
+      "play": "play",
+      "cross": "crosshairs",
+      "bolt": "bolt"
+    }
+  },
   "matchingPairs": {
     "curly": "curlyBrackets",
     "diamond": "angleBrackets",
@@ -235,26 +259,5 @@
     "box": "squareBrackets",
     "twin": "singleQuotes",
     "pair": "any"
-  },
-  "hatColors": {
-    "blue": "blue",
-    "green": "green",
-    "red": "red",
-    "pink": "pink",
-    "yellow": "yellow",
-    "navy": "userColor1",
-    "apricot": "userColor2"
-  },
-  "hatShapes": {
-    "ex": "ex",
-    "fox": "fox",
-    "wing": "wing",
-    "hole": "hole",
-    "frame": "frame",
-    "curve": "curve",
-    "eye": "eye",
-    "play": "play",
-    "cross": "crosshairs",
-    "bolt": "bolt"
   }
 }

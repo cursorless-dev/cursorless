@@ -89,8 +89,8 @@ def on_ready() -> None:
         spoken_forms["experimental.miscellaneous"],
     )
     init_marks(
-        spoken_forms["hatColors"],
-        spoken_forms["hatShapes"],
+        spoken_forms["hats"]["hat_color"],
+        spoken_forms["hats"]["hat_shape"],
     )
 
 
