@@ -5,7 +5,7 @@ import { MatchedText, matchRegex, testRegex } from "../../../../util/regex";
 const leadingOffsetRegex = /\S*\p{L}/u;
 // A line with no letters is invalid and breaks sentences
 // Also break lines ending with [.!?]
-const invalidLineRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
+const skipPartRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
 const options: sbd.Options = {
   ["newline_boundaries"]: false,
@@ -18,10 +18,10 @@ export default class SentenceSegmenter {
     let index = 0;
 
     for (const sentence of sentences) {
-      const parts = sentence.split(invalidLineRegex).filter((p) => p != null);
+      const parts = sentence.split(skipPartRegex).filter((p) => p != null);
 
       for (const part of parts) {
-        if (!isInvalidLine(part)) {
+        if (!skipPart(part)) {
           const segment = createSegment(part, index);
           if (segment != null) {
             yield segment;
@@ -57,6 +57,6 @@ function createSegment(
   };
 }
 
-function isInvalidLine(text: string): boolean {
-  return testRegex(invalidLineRegex, text);
+function skipPart(text: string): boolean {
+  return testRegex(skipPartRegex, text);
 }
