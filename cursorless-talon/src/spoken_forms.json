@@ -1,5 +1,6 @@
 {
-  "actions": {
+  "NOTE FOR USERS": "Please don't edit this json file; see https://www.cursorless.org/docs/user/customization",
+  "actions.csv": {
     "simple_action": {
       "bottom": "scrollToBottom",
       "break point": "toggleLineBreakpoint",
@@ -56,7 +57,7 @@
     "insert_snippet_action": { "snippet": "insertSnippet" },
     "reformat_action": { "format": "applyFormatter" }
   },
-  "targetConnectives": {
+  "target_connectives.csv": {
     "range_connective": {
       "between": "rangeExclusive",
       "past": "rangeInclusive",
@@ -67,7 +68,7 @@
     "swap_connective": { "with": "swapConnective" },
     "insertion_mode_to": { "to": "sourceDestinationConnective" }
   },
-  "modifiers": {
+  "modifiers.csv": {
     "simple_modifier": {
       "bounds": "excludeInterior",
       "just": "toRawSelection",
@@ -96,7 +97,7 @@
       "backward": "backward"
     }
   },
-  "positions": {
+  "positions.csv": {
     "position": {
       "start of": "start",
       "end of": "end"
@@ -106,7 +107,7 @@
       "after": "after"
     }
   },
-  "scopeTypes": {
+  "modifier_scope_types.csv": {
     "scope_type": {
       "arg": "argumentOrParameter",
       "attribute": "attribute",
@@ -169,7 +170,7 @@
       "string": "string"
     }
   },
-  "specialMarks": {
+  "special_marks.csv": {
     "special_mark": {
       "this": "currentSelection",
       "that": "previousTarget",
@@ -183,7 +184,7 @@
       "down": "lineNumberRelativeDown"
     }
   },
-  "scopeVisualizer": {
+  "scope_visualizer.csv": {
     "show_scope_visualizer": { "visualize": "showScopeVisualizer" },
     "hide_scope_visualizer": { "visualize nothing": "hideScopeVisualizer" },
     "visualization_type": {
@@ -191,12 +192,12 @@
       "iteration": "iteration"
     }
   },
-  "experimental.actions": {
+  "experimental/experimental_actions.csv": {
     "experimental_action": {
       "-from": "experimental.setInstanceReference"
     }
   },
-  "wrapperSnippets": {
+  "experimental/wrapper_snippets.csv": {
     "wrapper_snippet": {
       "else": "ifElseStatement.alternative",
       "funk": "functionDeclaration.body",
@@ -206,23 +207,23 @@
       "link": "link.text"
     }
   },
-  "insertionSnippets": {
+  "experimental/insertion_snippets.csv": {
     "insertion_snippet_no_phrase": {
       "if": "ifStatement",
       "if else": "ifElseStatement",
       "try": "tryCatchStatement"
     }
   },
-  "insertionSnippetsSinglePhrase": {
+  "experimental/insertion_snippets_single_phrase.csv": {
     "insertion_snippet_single_phrase": {
       "funk": "functionDeclaration.name",
       "link": "link.text"
     }
   },
-  "experimental.miscellaneous": {
+  "experimental/miscellaneous.csv": {
     "phrase_terminator": { "over": "phraseTerminator" }
   },
-  "hats": {
+  "hat_styles.csv": {
     "hat_color": {
       "blue": "blue",
       "green": "green",
@@ -245,7 +246,7 @@
       "bolt": "bolt"
     }
   },
-  "matchingPairs": {
+  "paired_delimiters.csv": {
     "curly": "curlyBrackets",
     "diamond": "angleBrackets",
     "escaped quad": "escapedDoubleQuotes",

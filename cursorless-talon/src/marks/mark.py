@@ -165,7 +165,7 @@ def setup_hat_styles_csv(hat_colors: dict, hat_shapes: dict):
         unsubscribe_hat_styles()
 
     unsubscribe_hat_styles = init_csv_and_watch_changes(
-        "hat_styles",
+        "hat_styles.csv",
         {
             "hat_color": active_hat_colors,
             "hat_shape": active_hat_shapes,
