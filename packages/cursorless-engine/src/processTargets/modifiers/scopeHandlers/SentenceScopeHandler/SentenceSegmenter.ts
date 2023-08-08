@@ -5,6 +5,8 @@ import { MatchedText, matchRegex, testRegex } from "../../../../util/regex";
 const leadingOffsetRegex = /\S*\p{L}/u;
 // A line with no letters is invalid and breaks sentences
 // Also break lines ending with [.!?]
+// FIX ME: Remove second term once bug is fixed.
+// https://github.com/cursorless-dev/cursorless/issues/1753
 const skipPartRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
 const options: sbd.Options = {
