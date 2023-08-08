@@ -3,10 +3,15 @@ import { MatchedText, matchRegex, testRegex } from "../../../../util/regex";
 
 // A sentence starts with a letter with adjacent leading symbols. Whitespace excluded.
 const leadingOffsetRegex = /\S*\p{L}/u;
-// A line with no letters is invalid and breaks sentences
-// Also break lines ending with [.!?]
-// FIX ME: Remove second term once bug is fixed.
-// https://github.com/cursorless-dev/cursorless/issues/1753
+/**
+ * This regex is used to split the text that comes back from sbd. Anything
+ * matching this regex will be discarded from the returned sentence, and split
+ * the sentence in two if it occurs in the middle of a sentence.
+ * 1. Lines with no letters.
+ * 2. Lines ending with [.!?].
+ * FIX ME: Remove second term once bug is fixed.
+ * https://github.com/cursorless-dev/cursorless/issues/1753
+ */
 const skipPartRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
 const options: sbd.Options = {
