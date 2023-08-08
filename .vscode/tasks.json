@@ -59,9 +59,20 @@
       "group": "test"
     },
     {
+      "label": "Edit test subset file",
+      "type": "shell",
+      "command": "{ [ -f testSubsetGrep.txt ] || cp testSubsetGrep.{tmpl,txt} } ; code testSubsetGrep.txt",
+      "options": {
+        "cwd": "packages/common/src/testUtil"
+      },
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
       "label": "Prepare test subset",
-      // it is not possible to have a launch.json entry depend on multiple tasks,
-      // so spell out the multiple dependencies here
       "dependsOn": ["Ensure test subset file exists", "Build"],
       "dependsOrder": "sequence",
       "group": "test"
