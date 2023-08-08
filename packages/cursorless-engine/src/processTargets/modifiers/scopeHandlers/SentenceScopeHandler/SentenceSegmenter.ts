@@ -4,7 +4,8 @@ import { MatchedText, matchRegex, testRegex } from "../../../../util/regex";
 // A sentence starts with a letter with adjacent leading symbols. Whitespace excluded.
 const leadingOffsetRegex = /\S*\p{L}/u;
 // A line with no letters is invalid and breaks sentences
-const invalidLineRegex = /(\n[^\p{L}]*\n)|(?<=[.!?])(\s*\r?\n)/gu;
+// Also break lines ending with [.!?]
+const invalidLineRegex = /(\r?\n[^\p{L}]*\r?\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
 const options: sbd.Options = {
   ["newline_boundaries"]: false,
