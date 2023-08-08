@@ -1,0 +1,29 @@
+languageId: markdown
+command:
+  version: 6
+  spokenForm: change every sentence
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: sentence}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    1. **Custom subtitles** - User customizable subtitles for Talon.
+        - [Subtitles and notifications](./core/on_phrase/subtitles_and_notifications)
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    1. **
+        - [
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
