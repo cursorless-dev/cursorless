@@ -68,19 +68,19 @@ def on_ready() -> None:
     )
     init_csv_and_watch_changes(
         "experimental/wrapper_snippets",
-        spoken_forms["experimental.wrapperSnippets"],
+        spoken_forms["wrapperSnippets"],
         allow_unknown_values=True,
         default_list_name="wrapper_snippet",
     )
     init_csv_and_watch_changes(
         "experimental/insertion_snippets",
-        spoken_forms["experimental.insertionSnippets"],
+        spoken_forms["insertionSnippets"],
         allow_unknown_values=True,
         default_list_name="insertion_snippet_no_phrase",
     )
     init_csv_and_watch_changes(
         "experimental/insertion_snippets_single_phrase",
-        spoken_forms["experimental.insertionSnippetsSinglePhrase"],
+        spoken_forms["insertionSnippetsSinglePhrase"],
         allow_unknown_values=True,
         default_list_name="insertion_snippet_single_phrase",
     )

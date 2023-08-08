@@ -196,7 +196,7 @@
       "-from": "experimental.setInstanceReference"
     }
   },
-  "experimental.wrapperSnippets": {
+  "wrapperSnippets": {
     "wrapper_snippet": {
       "else": "ifElseStatement.alternative",
       "funk": "functionDeclaration.body",
@@ -206,14 +206,14 @@
       "link": "link.text"
     }
   },
-  "experimental.insertionSnippets": {
+  "insertionSnippets": {
     "insertion_snippet_no_phrase": {
       "if": "ifStatement",
       "if else": "ifElseStatement",
       "try": "tryCatchStatement"
     }
   },
-  "experimental.insertionSnippetsSinglePhrase": {
+  "insertionSnippetsSinglePhrase": {
     "insertion_snippet_single_phrase": {
       "funk": "functionDeclaration.name",
       "link": "link.text"
