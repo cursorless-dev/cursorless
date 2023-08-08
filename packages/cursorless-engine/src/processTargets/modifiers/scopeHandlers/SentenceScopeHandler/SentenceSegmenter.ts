@@ -1,8 +1,8 @@
 import * as sbd from "sbd";
 import { MatchedText, matchRegex, testRegex } from "../../../../util/regex";
 
-// A sentence starts with a letter
-const leadingOffsetRegex = /\p{L}/u;
+// A sentence starts with a letter with adjacent leading symbols. Whitespace excluded.
+const leadingOffsetRegex = /\S*\p{L}/u;
 // A line with no letters is invalid and breaks sentences
 const invalidLineRegex = /(\n[^\p{L}]*\n)|(?<=[.!?])(\s*\r?\n)/gu;
 
