@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from talon import app
+from talon import app, fs
 
 from .csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
 from .marks.mark import init_marks
@@ -10,7 +10,7 @@ from .paired_delimiter import paired_delimiter_spoken_form_defaults
 JSON_FILE = Path(__file__).parent / "spoken_forms.json"
 
 
-def on_ready() -> None:
+def update():
     with open(JSON_FILE) as file:
         spoken_forms = json.load(file)
 
@@ -92,6 +92,17 @@ def on_ready() -> None:
         spoken_forms["hats"]["hat_color"],
         spoken_forms["hats"]["hat_shape"],
     )
+
+
+def on_watch(path, flags):
+    if JSON_FILE.match(path):
+        update()
+
+
+def on_ready():
+    update()
+
+    fs.watch(str(JSON_FILE.parent), on_watch)
 
 
 app.register("ready", on_ready)
