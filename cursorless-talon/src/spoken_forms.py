@@ -60,7 +60,7 @@ def update():
             allow_unknown_values=True,
             default_list_name="insertion_snippet_single_phrase",
         ),
-                init_csv_and_watch_changes(
+        init_csv_and_watch_changes(
             "experimental/actions_custom.csv",
             {},
             headers=[SPOKEN_FORM_HEADER, "VSCode command"],
@@ -77,7 +77,9 @@ def update():
         ),
         init_csv_and_watch_changes(
             "paired_delimiters.csv",
-            paired_delimiter_spoken_form_defaults(spoken_forms["paired_delimiters.csv"]),
+            paired_delimiter_spoken_form_defaults(
+                spoken_forms["paired_delimiters.csv"]
+            ),
         ),
         init_marks(
             spoken_forms["hat_styles.csv"]["hat_color"],
