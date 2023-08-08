@@ -11,8 +11,6 @@ import { SimpleScopeTypeType } from "@cursorless/common";
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  map: "composite_literal",
-  list: ["composite_literal", "slice_type", "array_type"],
   ifStatement: "if_statement",
   functionCall: ["call_expression", "composite_literal"],
   functionCallee: ["call_expression[function]", "composite_literal[type]"],
