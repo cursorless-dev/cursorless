@@ -11,3 +11,6 @@ app: vscode
     user.vscode("workbench.action.tasks.terminate")
     insert("Serve")
     key(enter)
+
+^edit test subset$:
+    user.vscode_with_plugin("workbench.action.tasks.runTask", "Edit test subset file")

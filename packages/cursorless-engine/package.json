@@ -6,7 +6,9 @@
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo",
+    "generate-test-subset-file": "tsx ./src/scripts/generateTestSubsetFile/generateTestSubsetFile.ts",
+    "open-test-subset-file": "tsx ./src/scripts/generateTestSubsetFile/generateTestSubsetFile.ts --open"
   },
   "keywords": [],
   "author": "",

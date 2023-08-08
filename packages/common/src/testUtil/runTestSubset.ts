@@ -27,7 +27,7 @@ function testSubsetFilePath() {
     "common",
     "src",
     "testUtil",
-    "testSubsetGrep.txt",
+    "testSubsetGrep.properties",
   );
 }
 

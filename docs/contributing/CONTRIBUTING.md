@@ -58,9 +58,11 @@ Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
-The entire test suite takes a little while to run (1-2 mins), so you may want to run just a subset of the tests. To do that, use the "Run test subset" launch config instead of the usual "Extension Tests".
+The entire test suite takes a little while to run (1-2 mins), so you may want to run just a subset of the tests.
 
-On the very first run, instead of running the tests, it will create `packages/common/src/testUtil/testSubsetGrep.txt` and open it for editing, so that you can specify which tests to run. It'll also display an error message (sadly unavoidable), which you can dismiss. On all subsequent runs, it will use the contents of that file. That file is not tracked by git, so edit it as desired.
+To specify the set of tests to run, run the VSCode task "Edit test subset file". To do this, choose "Tasks: Run Task" from the command pallete. Or if you have the cursorless-talon-dev files installed, say "edit test subset".
+
+To run that subset of tests, use the "Run test subset" launch config instead of the usual "Extension Tests".
 
 ## Code formatting
 

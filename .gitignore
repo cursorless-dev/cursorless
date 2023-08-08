@@ -44,4 +44,4 @@ yarn-error.log*
 next-env.d.ts
 
 # test subset config
-packages/common/src/testUtil/testSubsetGrep.txt
+packages/common/src/testUtil/testSubsetGrep.properties
