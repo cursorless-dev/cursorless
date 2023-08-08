@@ -78,20 +78,20 @@ export class TestCaseRecorder {
     this.takeSnapshot = this.takeSnapshot.bind(this);
   }
 
-  async toggle(arg?: RecordTestCaseCommandOptions) {
+  async toggle(options?: RecordTestCaseCommandOptions) {
     if (this.active) {
       showInfo(ide().messages, "recordStop", "Stopped recording test cases");
       this.stop();
     } else {
-      return await this.start(arg);
+      return await this.start(options);
     }
   }
 
-  async recordOneThenPause(arg?: RecordTestCaseCommandOptions) {
+  async recordOneThenPause(options?: RecordTestCaseCommandOptions) {
     this.pauseAfterNextCommand = true;
     this.paused = false;
     if (!this.active) {
-      return await this.start(arg);
+      return await this.start(options);
     }
   }
 
@@ -148,8 +148,8 @@ export class TestCaseRecorder {
     return this.active && !this.paused;
   }
 
-  async start(arg?: RecordTestCaseCommandOptions) {
-    const { directory, ...explicitConfig } = arg ?? {};
+  async start(options?: RecordTestCaseCommandOptions) {
+    const { directory, ...explicitConfig } = options ?? {};
 
     /**
      * A list of paths of every parent directory between the root fixture
