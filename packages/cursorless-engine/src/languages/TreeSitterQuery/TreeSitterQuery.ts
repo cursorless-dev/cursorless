@@ -78,7 +78,9 @@ export class TreeSitterQuery {
           captures: captures.map(({ name, node }) => ({
             name,
             node,
+            document,
             range: getNodeRange(node),
+            insertionDelimiter: undefined,
             allowMultiple: false,
           })),
         }),
@@ -112,6 +114,9 @@ export class TreeSitterQuery {
               .map(({ range }) => range)
               .reduce((accumulator, range) => range.union(accumulator)),
             allowMultiple: captures.some((capture) => capture.allowMultiple),
+            insertionDelimiter: captures.find(
+              (capture) => capture.insertionDelimiter != null,
+            )?.insertionDelimiter,
           };
         });
 

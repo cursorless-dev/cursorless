@@ -1,14 +1,21 @@
+import dataclasses
 from typing import Any
 
 from talon import Module, actions, speech_system
 
-from .primitive_target import create_implicit_target
 
-mod = Module()
+@dataclasses.dataclass
+class CursorlessCommand:
+    version = 6
+    spokenForm: str
+    usePrePhraseSnapshot: bool
+    action: dict
+
 
 CURSORLESS_COMMAND_ID = "cursorless.command"
-CURSORLESS_COMMAND_VERSION = 5
 last_phrase = None
+
+mod = Module()
 
 
 def on_phrase(d):
@@ -19,129 +26,68 @@ def on_phrase(d):
 speech_system.register("pre:phrase", on_phrase)
 
 
-class NotSet:
-    def __repr__(self):
-        return "<argument not set>"
-
-
 @mod.action_class
 class Actions:
-    def cursorless_single_target_command(
-        action: str,
-        target: dict,
-        arg1: Any = NotSet,
-        arg2: Any = NotSet,
-        arg3: Any = NotSet,
-    ):
-        """Execute single-target cursorless command"""
-        actions.user.cursorless_multiple_target_command(
-            action, [target], arg1, arg2, arg3
-        )
-
-    def cursorless_single_target_command_no_wait(
-        action: str,
-        target: dict,
-        arg1: Any = NotSet,
-        arg2: Any = NotSet,
-        arg3: Any = NotSet,
-    ):
-        """Execute single-target cursorless command"""
-        actions.user.cursorless_multiple_target_command_no_wait(
-            action, [target], arg1, arg2, arg3
-        )
-
-    def cursorless_single_target_command_with_arg_list(
-        action: str, target: dict, args: list[Any]
-    ):
-        """Execute single-target cursorless command with argument list"""
-        actions.user.cursorless_single_target_command(
-            action,
-            target,
-            *args,
-        )
-
-    def cursorless_single_target_command_get(
-        action: str,
-        target: dict,
-        arg1: Any = NotSet,
-        arg2: Any = NotSet,
-        arg3: Any = NotSet,
-    ):
-        """Execute single-target cursorless command and return result"""
-        return actions.user.private_cursorless_run_rpc_command_get(
-            CURSORLESS_COMMAND_ID,
-            construct_cursorless_command_argument(
-                action=action,
-                targets=[target],
-                args=[x for x in [arg1, arg2, arg3] if x is not NotSet],
-            ),
-        )
-
-    def cursorless_implicit_target_command(
-        action: str,
-        arg1: Any = NotSet,
-        arg2: Any = NotSet,
-        arg3: Any = NotSet,
-    ):
-        """Execute cursorless command with implicit target"""
-        actions.user.cursorless_single_target_command(
-            action, create_implicit_target(), arg1, arg2, arg3
-        )
-
-    def cursorless_multiple_target_command(
-        action: str,
-        targets: list[dict],
-        arg1: Any = NotSet,
-        arg2: Any = NotSet,
-        arg3: Any = NotSet,
-    ):
-        """Execute multi-target cursorless command"""
+    def private_cursorless_command_and_wait(action: dict):
+        """Execute cursorless command and wait for it to finish"""
         actions.user.private_cursorless_run_rpc_command_and_wait(
             CURSORLESS_COMMAND_ID,
-            construct_cursorless_command_argument(
-                action=action,
-                targets=targets,
-                args=[x for x in [arg1, arg2, arg3] if x is not NotSet],
-            ),
+            construct_cursorless_command(action),
         )
 
-    def cursorless_multiple_target_command_no_wait(
-        action: str,
-        targets: list[dict],
-        arg1: Any = NotSet,
-        arg2: Any = NotSet,
-        arg3: Any = NotSet,
-    ):
-        """Execute multi-target cursorless command"""
+    def private_cursorless_command_no_wait(action: dict):
+        """Execute cursorless command without waiting"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
             CURSORLESS_COMMAND_ID,
-            construct_cursorless_command_argument(
-                action=action,
-                targets=targets,
-                args=[x for x in [arg1, arg2, arg3] if x is not NotSet],
-            ),
+            construct_cursorless_command(action),
+        )
+
+    def private_cursorless_command_get(action: dict):
+        """Execute cursorless command and return result"""
+        return actions.user.private_cursorless_run_rpc_command_get(
+            CURSORLESS_COMMAND_ID,
+            construct_cursorless_command(action),
         )
 
 
-def construct_cursorless_command_argument(
-    action: str, targets: list[dict], args: list[Any]
-):
+def construct_cursorless_command(action: dict) -> dict:
     try:
         use_pre_phrase_snapshot = actions.user.did_emit_pre_phrase_signal()
     except KeyError:
         use_pre_phrase_snapshot = False
 
-    return {
-        "version": CURSORLESS_COMMAND_VERSION,
-        "spokenForm": get_spoken_form(),
-        "action": {
-            "name": action,
-            "args": args,
-        },
-        "targets": targets,
-        "usePrePhraseSnapshot": use_pre_phrase_snapshot,
-    }
+    spoken_form = " ".join(last_phrase["phrase"])
+
+    return make_serializable(
+        CursorlessCommand(
+            spoken_form,
+            use_pre_phrase_snapshot,
+            action,
+        )
+    )
 
 
-def get_spoken_form():
-    return " ".join(last_phrase["phrase"])
+def make_serializable(value: Any) -> Any:
+    """
+    Converts a dataclass into a serializable dict
+
+    Note that we don't use the built-in asdict() function because it will
+    ignore the static `type` field.
+
+    Args:
+        value (any): The value to convert
+
+    Returns:
+        _type_: The converted value, ready for serialization
+    """
+    if isinstance(value, dict):
+        return {k: make_serializable(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [make_serializable(v) for v in value]
+    if dataclasses.is_dataclass(value):
+        items = {
+            **{k: v for k, v in value.__class__.__dict__.items() if k[0] != "_"},
+            **value.__dict__,
+        }
+        return {k: make_serializable(v) for k, v in items.items() if v is not None}
+    return value

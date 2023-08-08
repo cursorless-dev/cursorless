@@ -60,6 +60,23 @@
       ]
     },
     {
+      "name": "Talon tests subset",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runTalonTests",
+      "env": {
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "${defaultBuildTask}",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
       "name": "Unit tests only",
       "type": "node",
       "request": "launch",

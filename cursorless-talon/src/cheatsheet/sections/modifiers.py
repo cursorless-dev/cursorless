@@ -9,6 +9,7 @@ MODIFIER_LIST_NAMES = [
     "last_modifier",
     "previous_next_modifier",
     "forward_backward_modifier",
+    "position",
 ]
 
 
@@ -48,6 +49,8 @@ def get_modifiers():
                 "toRawSelection": "No inference",
                 "leading": "Leading delimiter range",
                 "trailing": "Trailing delimiter range",
+                "start": "Empty position at start of target",
+                "end": "Empty position at end of target",
             },
         ),
         {

@@ -351,6 +351,33 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
+##### `"just"`
+
+The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
+
+- The new target has no leading or trailing delimiters. For example:
+
+  - `"chuck just air"` will delete just the air token, leaving adjacent spaces undisturbed, unlike the default behaviour of `"chuck air"` that deletes the air token _and_ cleans up adjacent whitespace as appropriate. Ie for
+
+    ```
+    bbb aaa ccc
+    ```
+
+    `"chuck just air"` would result in `bbb  ccc` (note the double space in the middle), whereas `"chuck air"` would result in `bbb ccc`.
+
+  - `"chuck just line"` will delete only the content of the current line, without removing the line ending, resulting in a blank line, unlike the default behaviour of `"chuck line"` that removes the line entirely, leaving no blank line.
+
+- A raw range does not have its own insertion delimitiers.
+  - For example, `"paste after just air"` will paste directly after the air token, without inserting a space, as opposed to the way `"paste after air"` would insert a space before the pasted content.
+  - If you use `"just"` on the destination of a `"bring"` command, it will inherit its insertion delimiters from the source of the `"bring"` action. For example, in the command `"bring arg air and bat after just paren"`, the `"air"` and `"bat"` arguments will be joined by commas. In contrast, `"bring arg air and bat after token paren"` would join the arguments with spaces.
+- In the case of [`"instance"`](#instance), by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
+
+Some examples:
+
+- `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
+- `"chuck just line"`: deletes just the content of the line, leaving a blank line.
+- `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
+
 ###### Experimental: `"from"`
 
 We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:

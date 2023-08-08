@@ -1,3 +1,4 @@
+import { Range } from "@cursorless/common";
 import z from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
@@ -15,6 +16,17 @@ class NotType extends QueryPredicateOperator<NotType> {
   schema = z.tuple([q.node, q.string]).rest(q.string);
   run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
+  }
+}
+
+/**
+ * A predicate operator that returns true if the nodes range is not empty.
+ */
+class NotEmpty extends QueryPredicateOperator<NotEmpty> {
+  name = "not-empty?" as const;
+  schema = z.tuple([q.node]);
+  run({ range }: MutableQueryCapture) {
+    return !range.isEmpty;
   }
 }
 
@@ -81,6 +93,47 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+/**
+ * A predicate operator that modifies the range of the match to shrink to regex
+ * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
+ * of the `@foo` capture to exclude whitespace.
+ *
+ * If convenient, you can use a special capture group called `keep` to indicate
+ * the part of the match that should be kept.  For example,
+ *
+ * ```
+ * (#shrink-to-match! @foo "^\s+(?<keep>.*)$")
+ * ```
+ *
+ * will modify the range of the `@foo` capture to skip any leading whitespace.
+ */
+class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
+  name = "shrink-to-match!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, pattern: string) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const match = text.match(new RegExp(pattern, "ds"));
+
+    if (match?.index == null) {
+      throw Error(`No match for pattern '${pattern}'`);
+    }
+
+    const [startOffset, endOffset] =
+      match.indices?.groups?.keep ?? match.indices![0];
+
+    const baseOffset = document.offsetAt(range.start);
+
+    nodeInfo.range = new Range(
+      document.positionAt(baseOffset + startOffset),
+      document.positionAt(baseOffset + endOffset),
+    );
+
+    return true;
+  }
+}
+
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
@@ -92,10 +145,29 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of the match. For
+ * example, `(#insertion-delimiter! @foo ", ")` will set the insertion delimiter
+ * of the `@foo` capture to `", "`.
+ */
+class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
+  name = "insertion-delimiter!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
+    nodeInfo.insertionDelimiter = insertionDelimiter;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new NotType(),
+  new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),
+  new ShrinkToMatch(),
   new AllowMultiple(),
+  new InsertionDelimiter(),
 ];

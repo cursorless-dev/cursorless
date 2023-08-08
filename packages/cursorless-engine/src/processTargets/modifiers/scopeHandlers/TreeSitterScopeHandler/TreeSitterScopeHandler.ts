@@ -1,4 +1,4 @@
-import { SimpleScopeType, TextEditor } from "@cursorless/common";
+import { Range, SimpleScopeType, TextEditor } from "@cursorless/common";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import ScopeTypeTarget from "../../../targets/ScopeTypeTarget";
@@ -48,25 +48,19 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       return undefined;
     }
 
-    const { range: contentRange, allowMultiple } = capture;
+    const { range: contentRange, allowMultiple, insertionDelimiter } = capture;
 
     const domain =
       getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
 
     const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
-    const leadingDelimiterRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "leading",
-      true,
+    const leadingDelimiterRange = dropEmptyRange(
+      getRelatedRange(match, scopeTypeType, "leading", true),
     );
 
-    const trailingDelimiterRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "trailing",
-      true,
+    const trailingDelimiterRange = dropEmptyRange(
+      getRelatedRange(match, scopeTypeType, "trailing", true),
     );
 
     const interiorRange = getRelatedRange(
@@ -90,9 +84,13 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           leadingDelimiterRange,
           trailingDelimiterRange,
           interiorRange,
-          // FIXME: Add delimiter text
+          delimiter: insertionDelimiter,
         }),
       ],
     };
   }
+}
+
+function dropEmptyRange(range?: Range) {
+  return range != null && !range.isEmpty ? range : undefined;
 }

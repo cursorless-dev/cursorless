@@ -1,5 +1,5 @@
 import json
-from typing import Any
+from typing import Any, Optional
 
 from talon import Context, Module, actions, scope
 
@@ -31,6 +31,8 @@ saved_modes = []
 # Keeps a list of commands run over the course of a spoken form test
 commands_run = []
 
+mockedGetValue = ""
+
 
 @ctx.action_class("user")
 class UserActions:
@@ -51,6 +53,7 @@ class UserActions:
         command_id: str, arg1: Any, arg2: Any = None
     ) -> Any:
         commands_run.append(arg1)
+        return mockedGetValue
 
 
 @mod.action_class
@@ -79,10 +82,14 @@ class Actions:
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
 
-    def private_cursorless_spoken_form_test(phrase: str):
+    def private_cursorless_spoken_form_test(
+        phrase: str, mockedGetValue_: Optional[str]
+    ):
         """Run Cursorless spoken form test"""
-        global commands_run
+        global commands_run, mockedGetValue
         commands_run = []
+        if mockedGetValue_:
+            mockedGetValue = json.loads(mockedGetValue_)
 
         try:
             actions.mimic(phrase)
