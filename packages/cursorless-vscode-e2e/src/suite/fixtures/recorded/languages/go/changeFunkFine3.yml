@@ -1,0 +1,27 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change funk fine
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: func g()
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 4}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
