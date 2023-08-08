@@ -114,7 +114,6 @@ export function renderToHtml(
 
   function handleToken(token: Token): string {
     if (token.type === 'selection') {
-      // console.log('[debug]', 'has selection', token);
       return h(
         'selection',
         { className: token.className },
@@ -154,8 +153,6 @@ export function renderToHtml(
         const lineNumber = index + 1;
         const lineOptions = optionsByLineNumber.get(lineNumber) ?? [];
         const lineClasses = getLineClasses(lineOptions).join(' ');
-        if (lineOptions.length)
-          console.log('[debug] line', lineClasses, lineOptions);
         return h(
           'line',
           {

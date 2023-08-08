@@ -5,26 +5,35 @@ import * as yaml from 'yaml';
 import { buildSpokenForm } from './buildSpokenForm';
 import { generateHtml, SelectionAnchor } from './generateHtml';
 
-const cursorlessRoot = path.resolve('../../../src');
-
 const fixturesDir = path.join(
-  cursorlessRoot,
-  'test',
+  '../../../packages',
+  'cursorless-vscode-e2e',
   'suite',
   'fixtures',
   'recorded'
 );
 
+async function safeGenerateHtml(
+  ...args: [stateName: string, ...rest: Parameters<typeof generateHtml>]
+) {
+  const [stateName, state, languageId] = args;
+  try {
+    return await generateHtml(state, languageId);
+  } catch (e) {
+    console.log('error in state', stateName, e);
+    console.log(JSON.stringify(state, null, 2));
+    throw e;
+  }
+}
+
 export async function loadFixture(folder: string, name: string) {
   const filepath = path.join(fixturesDir, folder, `${name}.yml`);
   const data = yaml.parse(await fs.readFile(filepath, 'utf-8'));
   if (data.command.version !== 2) return;
-  return {
-    language: data.languageId,
-    command: buildSpokenForm(data.command),
-    originalCommand: data.command.spokenForm,
-    during: data.decorations
-      ? generateHtml(
+  try {
+    const during = data.decorations
+      ? await safeGenerateHtml(
+          'decorations',
           {
             ...data.initialState,
             decorations: data.decorations.map(
@@ -48,8 +57,28 @@ export async function loadFixture(folder: string, name: string) {
           },
           data.languageId
         )
-      : undefined,
-    before: generateHtml(data.initialState, data.languageId),
-    after: generateHtml(data.finalState, data.languageId),
-  };
+      : undefined;
+    const before = await safeGenerateHtml(
+      'initialState',
+      data.initialState,
+      data.languageId
+    );
+    const after = await safeGenerateHtml(
+      'finalState',
+      data.finalState,
+      data.languageId
+    );
+    return {
+      language: data.languageId,
+      command: buildSpokenForm(data.command),
+      originalCommand: data.command.spokenForm,
+      during,
+      before,
+      after,
+    };
+  } catch (e) {
+    console.log('error', filepath, e);
+    console.log(JSON.stringify(data, null, 2));
+    throw e;
+  }
 }

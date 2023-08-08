@@ -210,12 +210,13 @@ class SelectionParser {
 }
 
 type BaseToken = Exclude<Token, { type: 'selection' }>;
+type SelectionToken = Extract<Token, { type: 'selection' }>;
 
 class SelectionLineParser {
   selectionType: SelectionType;
   line: Token[];
   result: Token[];
-  activeSelectionTypes: SelectionType[];
+  activeSelectionTypes: string[];
   startIndex: number;
   endIndex: number;
   rawIndex = 0;
@@ -250,28 +251,30 @@ class SelectionLineParser {
     return lastResult?.type === 'selection' ? lastResult : undefined;
   }
 
+  parse(startIndex: number, endIndex: number) {
+    this.startIndex = startIndex;
+    this.endIndex = endIndex;
+    this.rawIndex = 0;
+    while (this.hasRemainingTokens()) {
+      this.parseToken(this.line.shift());
+    }
+    return this.result;
+  }
+
   parseToken(token: Token | undefined) {
     if (!token) return;
-    if (token.type === 'selection') return; // TODO recurse
+    if (token.type === 'selection') return this.parseSelection(token);
     const tokenStart = this.rawIndex;
     this.incrementRawIndex(token);
     const tokenEnd = this.rawIndex;
     const state = this.getTokenState(tokenStart, tokenEnd);
-    console.log('[debug]', {
-      state,
-      tokenStart,
-      tokenEnd,
-      token,
-      startIndex: this.startIndex,
-      endIndex: this.endIndex,
-    });
     switch (state) {
       case 'outside': {
         this.result.push(token);
         return;
       }
       case 'entire': {
-        this.handleWholeSelectionToken(token);
+        this.createSelection(token);
         return;
       }
       case 'start': {
@@ -282,7 +285,33 @@ class SelectionLineParser {
         this.getCurrentSelectionToken()?.selection.push(token);
         return;
       }
+      case 'end': {
+        this.endSelection(token);
+        return;
+      }
+      case 'inner': {
+        this.innerSelection(token);
+        return;
+      }
     }
+  }
+
+  parseSelection(token: SelectionToken) {
+    this.activeSelectionTypes.push(token.className);
+    this.result.push({
+      type: 'selection',
+      className: this.activeSelectionTypes.join(' '),
+      selection: [],
+    });
+    for (const subToken of token.selection) {
+      this.parseToken(subToken);
+    }
+    this.activeSelectionTypes.pop();
+    this.result.push({
+      type: 'selection',
+      className: this.activeSelectionTypes.join(' '),
+      selection: [],
+    });
   }
 
   getCurrentSelectionClassName() {
@@ -293,40 +322,68 @@ class SelectionLineParser {
     this.rawIndex += token.content.length;
   }
 
-  handleWholeSelectionToken(token: BaseToken) {
+  createSelection(token: Token) {
+    this.activeSelectionTypes.push(
+      (token as SelectionToken).className || this.getCurrentSelectionClassName()
+    );
     this.result.push({
       type: 'selection',
-      className: this.getCurrentSelectionClassName(),
+      className: this.activeSelectionTypes.join(' '),
       selection: [token],
     });
   }
 
   startSelection(token: BaseToken) {
-    const stringLength = this.rawIndex - this.startIndex;
-    if (stringLength === token.content.length) {
-      this.handleWholeSelectionToken(token);
-    }
-    const selectionStartIndex = token.content.length - stringLength;
+    const selectionStartIndex =
+      token.content.length - (this.rawIndex - this.startIndex);
     const preSelectionContent = token.content.substring(0, selectionStartIndex);
     const selectionContent = token.content.substring(selectionStartIndex);
-    this.result.push({
-      ...token,
-      content: preSelectionContent,
-    });
-    this.result.push({
-      type: 'selection',
-      className: this.getCurrentSelectionClassName(),
-      selection: [{ ...token, content: selectionContent }],
-    });
+    if (preSelectionContent.length) {
+      this.result.push({
+        ...token,
+        content: preSelectionContent,
+      });
+    }
+    this.createSelection({ ...token, content: selectionContent });
   }
 
-  parse(startIndex: number, endIndex: number) {
-    this.startIndex = startIndex;
-    this.endIndex = endIndex;
-    this.rawIndex = 0;
-    while (this.hasRemainingTokens()) {
-      this.parseToken(this.line.shift());
-    }
-    return this.result;
+  endSelection(token: BaseToken) {
+    const selectionStartIndex =
+      token.content.length - (this.rawIndex - this.endIndex);
+    const selectionContent = token.content.substring(0, selectionStartIndex);
+    const postSelectionContent = token.content.substring(selectionStartIndex);
+    this.getCurrentSelectionToken()?.selection.push({
+      ...token,
+      content: selectionContent,
+    });
+    this.activeSelectionTypes.pop();
+    if (postSelectionContent.length)
+      this.result.push({
+        ...token,
+        content: postSelectionContent,
+      });
+  }
+
+  innerSelection(token: BaseToken) {
+    const stringStart =
+      token.content.length - (this.rawIndex - this.startIndex);
+    const stringEnd = token.content.length - (this.rawIndex - this.endIndex);
+    const preSelectionContent = token.content.substring(0, stringStart);
+    const selectionContent = token.content.substring(stringStart, stringEnd);
+    const postSelectionContent = token.content.substring(stringEnd);
+    if (preSelectionContent.length)
+      this.result.push({
+        ...token,
+        content: preSelectionContent,
+      });
+    this.createSelection({
+      ...token,
+      content: selectionContent,
+    });
+    if (postSelectionContent.length)
+      this.result.push({
+        ...token,
+        content: postSelectionContent,
+      });
   }
 }
