@@ -199,3 +199,10 @@ def init_marks(hat_colors: dict, hat_shapes: dict):
         )
 
     fs.watch(str(vscode_settings_path), on_watch)
+
+    def unsubscribe():
+        fs.unwatch(str(vscode_settings_path), on_watch)
+        if unsubscribe_hat_styles is not None:
+            unsubscribe_hat_styles()
+
+    return unsubscribe

@@ -95,11 +95,11 @@ def update():
             "experimental/miscellaneous",
             spoken_forms["experimental.miscellaneous"],
         ),
+        init_marks(
+            spoken_forms["hats"]["hat_color"],
+            spoken_forms["hats"]["hat_shape"],
+        ),
     ]
-    init_marks(
-        spoken_forms["hats"]["hat_color"],
-        spoken_forms["hats"]["hat_shape"],
-    )
 
 
 def on_watch(path, flags):
