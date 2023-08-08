@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-
 from talon import Module
 
 mod = Module()
@@ -17,38 +15,22 @@ mod.list(
     desc="A paired delimiter that can be used as a scope type and as a wrapper",
 )
 
-
-@dataclass
-class PairedDelimiter:
-    cursorlessIdentifier: str
-    left: str
-    right: str
-
-    # Indicates whether the delimiter can be used to wrap a target
-    is_wrapper: bool = True
-
-    # Indicates whether the delimiter can be used for expanding to surrounding
-    # pair.
-    is_selectable: bool = True
-
-
-paired_delimiters = [
-    PairedDelimiter("curlyBrackets", "{", "}"),
-    PairedDelimiter("angleBrackets", "<", ">"),
-    PairedDelimiter("escapedDoubleQuotes", '\\"', '\\"'),
-    PairedDelimiter("escapedSingleQuotes", "\\'", "\\'"),
-    PairedDelimiter("escapedParentheses", "\\(", "\\)"),
-    PairedDelimiter("escapedSquareBrackets", "\\[", "\\]"),
-    PairedDelimiter("doubleQuotes", '"', '"'),
-    PairedDelimiter("parentheses", "(", ")"),
-    PairedDelimiter("backtickQuotes", "`", "`"),
-    PairedDelimiter("whitespace", " ", " ", is_selectable=False),
-    PairedDelimiter("squareBrackets", "[", "]"),
-    PairedDelimiter("singleQuotes", "'", "'"),
-    PairedDelimiter("any", "", "", is_wrapper=False),
-]
-
-paired_delimiters_map = {term.cursorlessIdentifier: term for term in paired_delimiters}
+# Maps from the id we use in the spoken form csv to the delimiter strings
+paired_delimiters = {
+    "curlyBrackets": ["{", "}"],
+    "angleBrackets": ["<", ">"],
+    "escapedDoubleQuotes": ['\\"', '\\"'],
+    "escapedSingleQuotes": ["\\'", "\\'"],
+    "escapedParentheses": ["\\(", "\\)"],
+    "escapedSquareBrackets": ["\\[", "\\]"],
+    "doubleQuotes": ['"', '"'],
+    "parentheses": ["(", ")"],
+    "backtickQuotes": ["`", "`"],
+    "whitespace": [" ", " "],
+    "squareBrackets": ["[", "]"],
+    "singleQuotes": ["'", "'"],
+    "any": ["", ""],
+}
 
 
 @mod.capture(
@@ -57,12 +39,12 @@ paired_delimiters_map = {term.cursorlessIdentifier: term for term in paired_deli
         "{user.cursorless_wrapper_selectable_paired_delimiter}"
     )
 )
-def cursorless_wrapper_paired_delimiter(m) -> PairedDelimiter:
+def cursorless_wrapper_paired_delimiter(m) -> list[str]:
     try:
         id = m.cursorless_wrapper_only_paired_delimiter
     except AttributeError:
         id = m.cursorless_wrapper_selectable_paired_delimiter
-    return paired_delimiters_map[id]
+    return paired_delimiters[id]
 
 
 @mod.capture(
