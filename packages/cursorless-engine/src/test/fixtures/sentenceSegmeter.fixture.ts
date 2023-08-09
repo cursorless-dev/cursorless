@@ -26,10 +26,14 @@ export const sentenceSegmenterFixture: Fixture[] = [
   },
   {
     input: "1Foo",
-    expectedOutput: ["Foo"],
+    expectedOutput: ["1Foo"],
   },
   {
     input: "_foo",
+    expectedOutput: ["_foo"],
+  },
+  {
+    input: "* foo",
     expectedOutput: ["foo"],
   },
   {
@@ -39,6 +43,18 @@ export const sentenceSegmenterFixture: Fixture[] = [
   {
     input: "* Foo \nbar. *",
     expectedOutput: ["Foo \nbar."],
+  },
+  {
+    input: "Foo bar. Baz bongo.",
+    expectedOutput: ["Foo bar.", "Baz bongo."],
+  },
+  {
+    input: "Foo bar. \nBaz bongo.",
+    expectedOutput: ["Foo bar.", "Baz bongo."],
+  },
+  {
+    input: "Foo Bar. \nBaz bongo.",
+    expectedOutput: ["Foo Bar.", "Baz bongo."],
   },
   {
     input: "Foo \n*\nbar",
