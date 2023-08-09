@@ -17,10 +17,15 @@ special_marks = {
 }
 
 
+@mod.capture(rule="{user.cursorless_special_mark}")
+def cursorless_special_mark(m) -> dict[str, str]:
+    return {"type": special_marks[m.cursorless_special_mark]}
+
+
 @mod.capture(
     rule=(
         "<user.cursorless_decorated_symbol> | "
-        "{user.cursorless_special_mark} |"
+        "<user.cursorless_special_mark> |"
         "<user.cursorless_line_number>"  # row (ie absolute mod 100), up, down
     )
 )
@@ -30,7 +35,7 @@ def cursorless_mark(m) -> dict[str, Any]:
     except AttributeError:
         pass
     try:
-        return {"type": special_marks[m.cursorless_special_mark]}
+        return m.cursorless_special_mark
     except AttributeError:
         pass
     return m.cursorless_line_number
