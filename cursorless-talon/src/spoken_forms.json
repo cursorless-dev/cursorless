@@ -240,6 +240,8 @@
   "experimental/miscellaneous.csv": {
     "phrase_terminator": { "over": "phraseTerminator" }
   },
+  "experimental/actions_custom.csv": {},
+  "experimental/regex_scope_types.csv": {},
   "hat_styles.csv": {
     "hat_color": {
       "blue": "blue",
