@@ -38,7 +38,7 @@ async function breakpointHarpAdd() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
     ],
@@ -66,7 +66,7 @@ async function breakpointTokenHarpAdd() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
     ],
@@ -101,7 +101,7 @@ async function breakpointHarpRemove() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
     ],
@@ -136,7 +136,7 @@ async function breakpointTokenHarpRemove() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
     ],
