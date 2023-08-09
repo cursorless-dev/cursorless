@@ -5,6 +5,7 @@ import exists from "path-exists";
 import { TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
 import { Context } from "./Context";
+import { uniq } from "lodash";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -76,9 +77,7 @@ export async function updateTSConfig(
 
   return {
     ...input,
-    extends: toPosixPath(
-      path.join(pathFromPackageToRoot, "tsconfig.base.json"),
-    ),
+    extends: getExtends(pathFromPackageToRoot, input.extends),
     compilerOptions: {
       ...(input.compilerOptions ?? {}),
       rootDir: "src",
@@ -98,4 +97,24 @@ export async function updateTSConfig(
       toPosixPath(path.join(pathFromPackageToRoot, "typings", "**/*.d.ts")),
     ],
   };
+}
+
+function getExtends(
+  pathFromPackageToRoot: string,
+  inputExtends: string | string[] | undefined,
+) {
+  let extendsList =
+    inputExtends == null
+      ? []
+      : Array.isArray(inputExtends)
+      ? [...inputExtends]
+      : [inputExtends];
+
+  extendsList.push(
+    toPosixPath(path.join(pathFromPackageToRoot, "tsconfig.base.json")),
+  );
+
+  extendsList = uniq(extendsList);
+
+  return extendsList.length === 1 ? extendsList[0] : extendsList;
 }
