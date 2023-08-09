@@ -2,12 +2,6 @@ from typing import Any
 
 from talon import Module
 
-previous_next_modifiers = {"previous": "previous", "next": "next"}
-forward_backward_modifiers = {
-    "forward": "forward",
-    "backward": "backward",
-}
-
 mod = Module()
 
 mod.list("cursorless_previous_next_modifier", desc="Cursorless previous/next modifiers")

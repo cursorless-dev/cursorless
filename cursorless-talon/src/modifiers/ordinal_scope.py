@@ -4,9 +4,6 @@ from talon import Module
 
 from ..targets.range_target import RangeConnective
 
-first_modifiers = {"first": "first"}
-last_modifiers = {"last": "last"}
-
 mod = Module()
 
 mod.list("cursorless_first_modifier", desc="Cursorless first modifiers")
