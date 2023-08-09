@@ -1,10 +1,5 @@
 from talon import Module
 
-head_tail_modifiers = {
-    "head": "extendThroughStartOf",
-    "tail": "extendThroughEndOf",
-}
-
 mod = Module()
 
 mod.list(

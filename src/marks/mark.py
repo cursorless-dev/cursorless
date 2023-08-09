@@ -1,50 +1,28 @@
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from talon import Context, Module, actions, app, cron, fs
+from talon import Module, actions, cron, fs
 
 from ..csv_overrides import init_csv_and_watch_changes
-from .lines_number import DEFAULT_DIRECTIONS
 
 mod = Module()
-ctx = Context()
-
 
 mod.list("cursorless_hat_color", desc="Supported hat colors for cursorless")
 mod.list("cursorless_hat_shape", desc="Supported hat shapes for cursorless")
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-hat_colors = {
-    "blue": "blue",
-    "green": "green",
-    "red": "red",
-    "pink": "pink",
-    "yellow": "yellow",
-    "navy": "userColor1",
-    "apricot": "userColor2",
-}
-
-hat_shapes = {
-    "ex": "ex",
-    "fox": "fox",
-    "wing": "wing",
-    "hole": "hole",
-    "frame": "frame",
-    "curve": "curve",
-    "eye": "eye",
-    "play": "play",
-    "cross": "crosshairs",
-    "bolt": "bolt",
-}
-
-
+mod.list("cursorless_special_mark", desc="Cursorless special marks")
 mod.list(
     "cursorless_unknown_symbol",
     "This list contains the term that is used to refer to any unknown symbol",
 )
-unknown_symbols_defaults = {"special": "unknownSymbol"}
+
+# Maps from the id we use in the spoken form csv to the modifier type
+# expected by Cursorless extension
+special_marks = {
+    "currentSelection": "cursor",
+    "previousTarget": "that",
+    "previousSource": "source",
+    "nothing": "nothing",
+}
 
 
 @mod.capture(rule="<user.any_alphanumeric_key> | {user.cursorless_unknown_symbol}")
@@ -78,33 +56,6 @@ def cursorless_decorated_symbol(m) -> dict[str, Any]:
     }
 
 
-@dataclass
-class CustomizableTerm:
-    defaultSpokenForm: str
-    cursorlessIdentifier: str
-    value: Any
-
-
-# NOTE: Please do not change these dicts.  Use the CSVs for customization.
-# See https://www.cursorless.org/docs/user/customization/
-special_marks = [
-    CustomizableTerm("this", "currentSelection", {"type": "cursor"}),
-    CustomizableTerm("that", "previousTarget", {"type": "that"}),
-    CustomizableTerm("source", "previousSource", {"type": "source"}),
-    CustomizableTerm("nothing", "nothing", {"type": "nothing"}),
-    # "last cursor": {"mark": {"type": "lastCursorPosition"}} # Not implemented
-]
-
-special_marks_map = {term.cursorlessIdentifier: term for term in special_marks}
-
-special_marks_defaults = {
-    term.defaultSpokenForm: term.cursorlessIdentifier for term in special_marks
-}
-
-
-mod.list("cursorless_special_mark", desc="Cursorless special marks")
-
-
 @mod.capture(
     rule=(
         "<user.cursorless_decorated_symbol> | "
@@ -118,7 +69,7 @@ def cursorless_mark(m) -> dict[str, Any]:
     except AttributeError:
         pass
     try:
-        return special_marks_map[m.cursorless_special_mark].value
+        return {"type": special_marks[m.cursorless_special_mark]}
     except AttributeError:
         pass
     return m.cursorless_line_number
@@ -167,7 +118,7 @@ FALLBACK_COLOR_ENABLEMENT = DEFAULT_COLOR_ENABLEMENT
 unsubscribe_hat_styles = None
 
 
-def setup_hat_styles_csv():
+def setup_hat_styles_csv(hat_colors: dict, hat_shapes: dict):
     global unsubscribe_hat_styles
 
     (
@@ -214,7 +165,7 @@ def setup_hat_styles_csv():
         unsubscribe_hat_styles()
 
     unsubscribe_hat_styles = init_csv_and_watch_changes(
-        "hat_styles",
+        "hat_styles.csv",
         {
             "hat_color": active_hat_colors,
             "hat_shape": active_hat_shapes,
@@ -224,24 +175,15 @@ def setup_hat_styles_csv():
     )
 
     if is_shape_error or is_color_error:
-        app.notify("Error reading vscode settings. Restart talon; see log")
+        actions.app.notify("Error reading vscode settings. Restart talon; see log")
 
 
 fast_reload_job = None
 slow_reload_job = None
 
 
-def on_ready():
-    init_csv_and_watch_changes(
-        "special_marks",
-        {
-            "special_mark": special_marks_defaults,
-            "unknown_symbol": unknown_symbols_defaults,
-            "line_direction": DEFAULT_DIRECTIONS,
-        },
-    )
-
-    setup_hat_styles_csv()
+def init_marks(hat_colors: dict, hat_shapes: dict):
+    setup_hat_styles_csv(hat_colors, hat_shapes)
 
     vscode_settings_path: Path = actions.user.vscode_settings_path().resolve()
 
@@ -249,10 +191,18 @@ def on_ready():
         global fast_reload_job, slow_reload_job
         cron.cancel(fast_reload_job)
         cron.cancel(slow_reload_job)
-        fast_reload_job = cron.after("500ms", setup_hat_styles_csv)
-        slow_reload_job = cron.after("10s", setup_hat_styles_csv)
+        fast_reload_job = cron.after(
+            "500ms", lambda: setup_hat_styles_csv(hat_colors, hat_shapes)
+        )
+        slow_reload_job = cron.after(
+            "10s", lambda: setup_hat_styles_csv(hat_colors, hat_shapes)
+        )
 
     fs.watch(str(vscode_settings_path), on_watch)
 
+    def unsubscribe():
+        fs.unwatch(str(vscode_settings_path), on_watch)
+        if unsubscribe_hat_styles is not None:
+            unsubscribe_hat_styles()
 
-app.register("ready", on_ready)
+    return unsubscribe
