@@ -18,7 +18,9 @@ special_marks = {
 
 @mod.capture(rule="{user.cursorless_special_mark}")
 def cursorless_special_mark(m) -> dict[str, str]:
-    return {"type": special_marks[m.cursorless_special_mark]}
+    return {
+        "type": special_marks[m.cursorless_special_mark],
+    }
 
 
 @mod.capture(
