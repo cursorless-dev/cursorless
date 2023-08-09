@@ -12,9 +12,10 @@ import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
-import ContainingSyntaxScopeStage, {
+import {
+  LegacyContainingSyntaxScopeStage,
   SimpleContainingScopeModifier,
-} from "../scopeTypeStages/ContainingSyntaxScopeStage";
+} from "../scopeTypeStages/LegacyContainingSyntaxScopeStage";
 import { getIterationScope } from "./getIterationScope";
 import { tokenizeRange } from "./tokenizeRange";
 
@@ -27,7 +28,7 @@ export default class ItemStage implements ModifierStage {
   run(target: Target): Target[] {
     // First try the language specific implementation of item
     try {
-      return new ContainingSyntaxScopeStage(
+      return new LegacyContainingSyntaxScopeStage(
         this.languageDefinitions,
         this.modifier as SimpleContainingScopeModifier,
       ).run(target);
