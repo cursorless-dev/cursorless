@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Concatenate, ParamSpec, TypeVar
 
 from talon import app, fs
 
@@ -18,6 +18,36 @@ def watch_file(spoken_forms: dict, filename: str) -> Callable:
     )
 
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
+
+def auto_construct_defaults(
+    spoken_forms: dict[str, dict[str, dict[str, str]]],
+    f: Callable[Concatenate[str, dict[str, dict[str, str]], P], R],
+):
+    """
+    Decorator that automatically constructs the default values for the
+    `default_values` parameter of `f` based on the spoken forms in
+    `spoken_forms`, by extracting the value at the key given by the csv
+    filename.
+
+    Note that we only ever pass `init_csv_and_watch_changes` as `f`. The
+    reason we have this decorator is so that we can destructure the kwargs
+    of `init_csv_and_watch_changes` to remove the `default_values` parameter.
+
+    Args:
+        spoken_forms (dict[str, dict[str, dict[str, str]]]): The spoken forms
+        f (Callable[Concatenate[str, dict[str, dict[str, str]], P], R]): Will always be `init_csv_and_watch_changes`
+    """
+
+    def ret(filename: str, *args: P.args, **kwargs: P.kwargs) -> R:
+        default_values = spoken_forms[filename]
+        return f(filename, default_values, *args, **kwargs)
+
+    return ret
+
+
 def update():
     global disposables
 
@@ -27,49 +57,45 @@ def update():
     with open(JSON_FILE) as file:
         spoken_forms = json.load(file)
 
+    handle_csv = auto_construct_defaults(spoken_forms, init_csv_and_watch_changes)
+
     disposables = [
-        watch_file(spoken_forms, "actions.csv"),
-        watch_file(spoken_forms, "target_connectives.csv"),
-        watch_file(spoken_forms, "modifiers.csv"),
-        watch_file(spoken_forms, "positions.csv"),
-        watch_file(spoken_forms, "paired_delimiters.csv"),
-        watch_file(spoken_forms, "special_marks.csv"),
-        watch_file(spoken_forms, "scope_visualizer.csv"),
-        watch_file(spoken_forms, "experimental/experimental_actions.csv"),
-        watch_file(spoken_forms, "experimental/miscellaneous.csv"),
-        init_csv_and_watch_changes(
+        handle_csv("actions.csv"),
+        handle_csv("target_connectives.csv"),
+        handle_csv("modifiers.csv"),
+        handle_csv("positions.csv"),
+        handle_csv("paired_delimiters.csv"),
+        handle_csv("special_marks.csv"),
+        handle_csv("scope_visualizer.csv"),
+        handle_csv("experimental/experimental_actions.csv"),
+        handle_csv("experimental/miscellaneous.csv"),
+        handle_csv(
             "modifier_scope_types.csv",
-            spoken_forms["modifier_scope_types.csv"],
             pluralize_lists=["scope_type"],
         ),
-        init_csv_and_watch_changes(
+        handle_csv(
             "experimental/wrapper_snippets.csv",
-            spoken_forms["experimental/wrapper_snippets.csv"],
             allow_unknown_values=True,
             default_list_name="wrapper_snippet",
         ),
-        init_csv_and_watch_changes(
+        handle_csv(
             "experimental/insertion_snippets.csv",
-            spoken_forms["experimental/insertion_snippets.csv"],
             allow_unknown_values=True,
             default_list_name="insertion_snippet_no_phrase",
         ),
-        init_csv_and_watch_changes(
+        handle_csv(
             "experimental/insertion_snippets_single_phrase.csv",
-            spoken_forms["experimental/insertion_snippets_single_phrase.csv"],
             allow_unknown_values=True,
             default_list_name="insertion_snippet_single_phrase",
         ),
-        init_csv_and_watch_changes(
+        handle_csv(
             "experimental/actions_custom.csv",
-            {},
             headers=[SPOKEN_FORM_HEADER, "VSCode command"],
             allow_unknown_values=True,
             default_list_name="custom_action",
         ),
-        init_csv_and_watch_changes(
+        handle_csv(
             "experimental/regex_scope_types.csv",
-            {},
             headers=[SPOKEN_FORM_HEADER, "Regex"],
             allow_unknown_values=True,
             default_list_name="custom_regex_scope_type",
