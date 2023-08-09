@@ -23,11 +23,9 @@ R = TypeVar("R")
 
 
 def get_defaults_from_file(
+    spoken_forms: dict[str, dict[str, dict[str, str]]],
     f: Callable[Concatenate[str, dict[str, dict[str, str]], P], R],
 ):
-    with open(JSON_FILE) as file:
-        spoken_forms = json.load(file)
-
     def wrapper(filename: str, *args: P.args, **kwargs: P.kwargs) -> R:
         default_values = spoken_forms[filename]
         return f(filename, default_values, *args, **kwargs)
@@ -41,7 +39,10 @@ def update():
     for disposable in disposables:
         disposable()
 
-    watch_csv = get_defaults_from_file(init_csv_and_watch_changes)
+    with open(JSON_FILE) as file:
+        spoken_forms = json.load(file)
+
+    watch_csv = get_defaults_from_file(spoken_forms, init_csv_and_watch_changes)
 
     disposables = [
         watch_csv("actions.csv"),
