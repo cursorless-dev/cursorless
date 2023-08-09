@@ -17,12 +17,19 @@ async function main() {
       ),
     ];
 
+    if (process.argv.includes("--update")) {
+      args.push("--force");
+    }
+
     // Install extension dependencies
-    const process = cp.spawn("code", args, { stdio: "inherit", shell: true });
+    const subprocess = cp.spawn("code", args, {
+      stdio: "inherit",
+      shell: true,
+    });
 
     await new Promise<void>((resolve, reject) => {
-      process.on("error", reject);
-      process.on("exit", (code) => {
+      subprocess.on("error", reject);
+      subprocess.on("exit", (code) => {
         if (code === 0) {
           resolve();
         } else {
