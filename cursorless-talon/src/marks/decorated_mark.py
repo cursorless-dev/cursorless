@@ -1,10 +1,9 @@
-from typing import Any
 from pathlib import Path
+from typing import Any
 
 from talon import Module, actions, cron, fs
 
 from ..csv_overrides import init_csv_and_watch_changes
-
 
 mod = Module()
 
