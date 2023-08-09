@@ -24,7 +24,7 @@ R = TypeVar("R")
 
 def get_defaults_from_file(
     f: Callable[Concatenate[str, dict[str, dict[str, str]], P], R],
-) -> Callable[Concatenate[str, P], R]:
+):
     with open(JSON_FILE) as file:
         spoken_forms = json.load(file)
 
