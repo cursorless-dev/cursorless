@@ -36,7 +36,7 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@types/webpack": "5.28.0",
-    "@webpack-cli/generators": "3.0.1",
+    "@webpack-cli/generators": "3.0.7",
     "autoprefixer": "10.4.13",
     "css-loader": "6.7.3",
     "html-webpack-plugin": "5.5.0",
@@ -48,8 +48,8 @@
     "ts-loader": "9.4.2",
     "ts-node": "10.9.1",
     "typescript": "^5.1.6",
-    "webpack": "5.76.2",
-    "webpack-cli": "5.0.1",
+    "webpack": "5.88.2",
+    "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.11.1"
   }
 }
