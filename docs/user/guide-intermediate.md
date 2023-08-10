@@ -1,104 +1,48 @@
 # Guide to intermediate level Cursorless
 
-This document will try to explicitly bring together a few concepts that underlie a lot of cursorless behavior, then walk through some example editing operations that are common but perhaps tricky to a beginner.
+This document will try to:
+
+- Highlight the most useful actions and modifiers in Cursorless so you know which ones to focus on learning first.
+- Bring together a few important concepts that underlie a lot of Cursorless behavior.
+- Walk through some example editing operations that are common but perhaps tricky to a beginner.
+
 This document assumes that you understand the very basics of cursorless, like what commands `"take air"` and `"chuck line"` do.
 If you don't have the basics down, please read some of [the main documentation page](README.md) and/or watch [the Cursorless tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs).
 
 It is planned for this guide to be expanded to both basic and advanced levels.
 
-## Some important concepts
-
-### Commands have an action and a target or two
-
-Commands have an action and a target or two. `"chuck air"` has the action `"chuck"` and one target (the `"air"` token).
-`"bring air to bat"` has the action `"bring"` and two targets (the `"air"` and `"bat"` tokens).
-
-A target can be more than a single token or line. A target can be a [range](README.md#range-targets), like `"air past bat"` that spans from the `"air"` token to the `"bat"` token, and that is still considered _one_ target.
-A target can even be a vertical slice or list, like the list `"air and bat"`.
-Doing `"take air and bat"` will result in multiple selections and multiple cursors, but it is still one target.
-
-### Targets can be modified
-
-A target contains a mark (ex: `"this"`, `"row ten"`, `"green curve air"`, etc) and target modifiers can be prefixed to suit your needs.
-A big part of feeling comfortable and productive with Cursorless is getting familiar with the most useful mark types and target modifiers.
-All of the [mark types](README.md#Marks) are worth knowing.
-While there are many target modifiers, this document will help you get started fast by focusing on the most important modifiers to learn first.
-
-The biggest difference between the simple `"bring air after bat"` and the intimidating `"bring next three lines air after block state bat"` is the addition of target modifiers.
-Target modifiers are often chained. `"block state"` is a chain of two modifiers and they are applied in reverse order (`"state"`, then `"block"`).
-
-Modifier chains can be applied to each [primitive target](README.md#primitive-targets) in a [compound target](README.md#compound-targets).
-For instance, `"take air and bat"` could be changed to have independent modifiers in front of `"air"` and/or `"bat"`.
-
-### Some targets are destinations
-
-The `"paste"` commands has a single target that is a destination.
-The second targets of `"bring"` and `"move"` commands are destinations.
-Destinations are special.
-Targets are converted into destinations using a destination converter (`"to"`, `"before"`, `"after"`); that is why you have to say commands like `"bring air to bat"` or `"bring air before bat"`.
-The `"to"` might seem like cursorless is trying to resemble a sentence, but `"to"` actually serves a technical purpose of explicitly converting to a destination.
-
-`"to"` generally means you are replacing the destination.
-Some targets are zero-width (ex: `"start of air"`), so nothing is actually deleted.
-
-`"before"` and `"after"` generally mean you are inserting before/after the destination with proper attention to delimiters.
-More details in the next section.
-
-Your destinations should start with a single destination converter before you add modifiers and/or a mark, like in `"paste <destinationConverter> <modifier> <mark>"`.
-
-### Targets sometimes include a delimiter
-
-Some actions will operate on the specified target, and some actions will additionally operate on a delimiter that leads/trails the target.
-
-The command `"take air"` will select a token.
-The command `"chuck air"` will delete a token _and_ leading/trailing spaces (if appropriate ones exist).
-Likewise, `"chuck block air"` will delete a block _and_ leading/trailing empty lines (if appropriate ones exist).
-
-These default behaviors usually do what you want.
-If you have the sentence `apple banana cherry` and run the command `"chuck bat"`, you usually don't want to end up with `apple  cherry` (note the two spaces), so the command deletes a token and appropriate token delimiter.
-
-Here are some target types and their delimiters...
-
-- Character or word within a token: nothing.
-- Token: space.
-- Argument and item: comma and space.
-- Line: line ending.
-- Block: empty line.
-
-Destination converters `"before"` and `"after"` try to work with delimiters.
-`"bring air before bat"` will bring a copy of the `"air"` token _with token delimiter (space)_ before the `"bat"` token giving you something like `"aaa bbb"`.
-
-Special positional target modifiers `"start of"` and `"end of"` do not use delimiters.
-`"bring air to start of bat"` will bring a copy of the `"air"` token _without token delimiter (space)_ before the `"bat"` token, giving you something like `"aaabbb"`.
-
-## Some of the more useful actions
+## Important actions
 
 Here are some of the most useful actions.
 Parts in square braces (`[]`) are optional.
+Slashes (`/`) show alternatives.
 Targets are represented by `T` with a possible digit.
 
-- Core Changers
-  - `"bring T"`: insert a copy of T at the cursor/selection.
-  - `"bring T1 to T2"`: replace T2 with T.
-  - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate delimiters.
-  - `"move T1 [to/before/after T2]"`: like `"bring"`, but moves instead of copies.
-  - `"swap T1 with T2"`
-  - `"chuck T"`: delete T and appropriate delimiter.
-  - `"change T"`: delete T and set cursor(s) to where T was; delimiters are unchanged.
-  - `"drink/pour T"`: edit new line before/after T.
 - Selection Manipulation
   - `"take T"`: set selection.
   - `"pre/post T"`: set selection before/after T.
 - Clipboard
   - `"paste to/before/after T"`.
   - `"carve/copy T"`: cut/copy T.
+- Core Changers
+  - `"bring T"`: insert a copy of T at the cursor/selection.
+  - `"bring T1 to T2"`: replace T2 with T.
+  - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate delimiters.
+  - `"move T1 [to/before/after T2]"`: like `"bring"`, but moves instead of copies.
+  - `"chuck T"`: delete T and appropriate delimiter.
+  - `"change T"`: delete T and set cursor(s) to where T was; delimiters are unchanged.
+  - `"drink/pour T"`: edit new line before/after T.
+- IDE-related
+  - `"follow T"`: open URL or go to definition of T.
+  - `"quick fix T"`: show quick fix for T.
+  - `"reference T"`: show references to T.
 
-## Some of the more useful modifiers
+## Important modifiers
 
 Here are some very useful modifiers:
 
 - Syntactic scopes ([reference](README.md#syntactic-scopes)) are great for expanding the target to what you want to operate on, like the containing function.
-  - `"arg"`, often used to involve commas, like `"chuck arg air"` or `"bring air after arg bat"` that take care of commas.
+  - `"arg"` and `"item"`: often used to involve commas, like `"chuck item air"` or `"bring air after arg bat"` that take care of commas.
   - `"funk"` for function.
   - `"state"` for statement (which might span multiple lines or only part of a line).
 - Other modifiers that are like syntactic scopes in that they expand the target.
@@ -129,6 +73,72 @@ There is also `"head"` and `"tail"` to expand a target through to the beginning 
 `"take head air"` selects the air token through to the beginning of air's line.
 When followed by a modifier, they will expand their input to the start or end of the given modifier range.
 `"take head funk"` will select from the cursor to the start of the containing function.
+
+## Important concepts
+
+### Command structure
+
+Commands have an action and a target or two. `"chuck air"` has the action `"chuck"` and one target (the `"air"` token).
+`"bring air to bat"` has the action `"bring"` and two targets (the `"air"` and `"bat"` tokens).
+
+A target can be more than a single token or line. A target can be a [range](README.md#range-targets), like `"air past bat"` that spans from the `"air"` token to the `"bat"` token, and that is still considered _one_ target.
+A target can even be a vertical slice or list, like the list `"air and bat"`.
+Doing `"take air and bat"` will result in multiple selections and multiple cursors, but it is still one target.
+
+### Marks and modifiers
+
+A target contains a mark (ex: `"this"`, `"row ten"`, `"green curve air"`, etc) and target modifiers can be prefixed to suit your needs.
+A big part of feeling comfortable and productive with Cursorless is getting familiar with the most useful mark types and target modifiers.
+All of the [mark types](README.md#Marks) are worth knowing.
+While there are many target modifiers, this document will help you get started fast by focusing on the most important modifiers to learn first.
+
+The biggest difference between the simple `"bring air after bat"` and the intimidating `"bring next three lines air after block state bat"` is the addition of target modifiers.
+Target modifiers are often chained. `"block state"` is a chain of two modifiers and they are applied in reverse order (`"state"`, then `"block"`).
+
+Modifier chains can be applied to each [primitive target](README.md#primitive-targets) in a [compound target](README.md#compound-targets).
+For instance, `"take air and bat"` could be changed to have independent modifiers in front of `"air"` and/or `"bat"`, such as `"take line air and block bat"`
+
+### Destinations
+
+The `"paste"` commands has a single target that is a destination.
+The second targets of `"bring"` and `"move"` commands are destinations.
+
+In `"bring air before bat"`, `"air"` is the non-destination first target and `"before bat"` is a destination (and second target).
+
+Targets are converted into destinations using a destination converter (`"to"`, `"before"`, `"after"`); that is why you have to say commands like `"bring air to bat"` or `"bring air after bat"`.
+The `"to"` might seem like cursorless is trying to resemble a sentence, but `"to"` actually serves a technical purpose of explicitly converting to a destination.
+
+`"to"` generally means you are replacing the destination.
+Ex: `"paste to air"` will replace the air token.
+
+`"before"` and `"after"` generally mean you are inserting before/after the destination with proper attention to delimiters.
+Ex: `"paste after air"` will insert a space followed by the clipboard contents after the air token.
+More details in the next section.
+
+### Delimiters
+
+Some actions will operate on the specified target, and some actions will additionally operate on a delimiter that leads/trails the target.
+
+The command `"take air"` will select a token.
+The command `"chuck air"` will delete a token _and_ leading/trailing spaces (if appropriate ones exist).
+Likewise, `"chuck block air"` will delete a block _and_ leading/trailing empty lines (if appropriate ones exist).
+
+These default behaviors usually do what you want.
+If you have the sentence `apple banana cherry` and run the command `"chuck bat"`, you usually don't want to end up with `apple  cherry` (note the two spaces), so the command deletes a token and appropriate token delimiter.
+
+Here are some target types and their delimiters...
+
+- Character or word within a token: nothing.
+- Token: space.
+- Argument or item: comma and space.
+- Line: line ending.
+- Block: empty line.
+
+Destination converters `"before"` and `"after"` try to work with delimiters.
+`"bring air before bat"` will bring a copy of the `"air"` token _with token delimiter (space)_ before the `"bat"` token giving you something like `"aaa bbb"`.
+
+Special positional target modifiers `"start of"` and `"end of"` do not use delimiters.
+`"bring air to start of bat"` will bring a copy of the `"air"` token _without token delimiter (space)_ before the `"bat"` token, giving you something like `"aaabbb"`.
 
 ## Examples of some common operations
 
@@ -308,6 +318,6 @@ In the meantime, here are a few more useful concepts to look into.
 
 - [pair operations](README.md#surrounding-pair), with [list of paired delimiters](README.md#paired-delimiters)
 - [snippets](experimental/snippets.md)
-- [every](README.md#every)
-- [instance](README.md#instance)
-- [just](README.md#just)
+- [`"every"`](README.md#every)
+- [`"instance"`](README.md#instance)
+- [`"just"`](README.md#just)
