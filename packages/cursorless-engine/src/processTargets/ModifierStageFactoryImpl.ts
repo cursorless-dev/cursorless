@@ -32,10 +32,11 @@ import RelativeScopeStage from "./modifiers/RelativeScopeStage";
 import SurroundingPairStage from "./modifiers/SurroundingPairStage";
 import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
 import BoundedNonWhitespaceSequenceStage from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
-import ContainingSyntaxScopeStage, {
+import {
+  LegacyContainingSyntaxScopeStage,
   SimpleContainingScopeModifier,
   SimpleEveryScopeModifier,
-} from "./modifiers/scopeTypeStages/ContainingSyntaxScopeStage";
+} from "./modifiers/scopeTypeStages/LegacyContainingSyntaxScopeStage";
 import NotebookCellStage from "./modifiers/scopeTypeStages/NotebookCellStage";
 
 export class ModifierStageFactoryImpl implements ModifierStageFactory {
@@ -142,7 +143,7 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         );
       default:
         // Default to containing syntax scope using tree sitter
-        return new ContainingSyntaxScopeStage(
+        return new LegacyContainingSyntaxScopeStage(
           this.languageDefinitions,
           modifier as SimpleContainingScopeModifier | SimpleEveryScopeModifier,
         );
