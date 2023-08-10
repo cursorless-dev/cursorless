@@ -17,7 +17,7 @@ async function main() {
       ),
     ];
 
-    if (process.argv.includes("--update")) {
+    if (process.argv.includes("--force")) {
       args.push("--force");
     }
 
