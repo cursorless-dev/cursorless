@@ -13,12 +13,4 @@ mod = Module()
     )
 )
 def cursorless_mark(m) -> dict[str, Any]:
-    try:
-        return m.cursorless_decorated_symbol
-    except AttributeError:
-        pass
-    try:
-        return m.cursorless_simple_mark
-    except AttributeError:
-        pass
-    return m.cursorless_line_number
+    return m[0]
