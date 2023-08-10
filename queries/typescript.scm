@@ -7,13 +7,13 @@
 ;;!! function aaa(bbb?: Ccc = "ddd") {}
 ;;!               ^^^--------------
 (optional_parameter
-    (identifier) @name
+  (identifier) @name
 ) @_.domain
 
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
-    (identifier) @name
+  (identifier) @name
 ) @_.domain
 
 ;; Define these here because these node types don't exist in javascript.

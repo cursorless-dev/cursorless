@@ -3,25 +3,25 @@
 ;; `name` scope without `export`
 (
   (_
-      name: (_) @name
+    name: (_) @name
   ) @_.domain
   (#not-parent-type? @_.domain export_statement)
 
   ;; We have special cases for these defined elsewhere
   (#not-type?
-      @_.domain
-      variable_declarator
-      method_signature
-      abstract_method_signature
-      public_field_definition
-      field_definition
+    @_.domain
+    variable_declarator
+    method_signature
+    abstract_method_signature
+    public_field_definition
+    field_definition
   )
 )
 
 ;; `name` scope with `export`
 (export_statement
   (_
-      name: (_) @name
+    name: (_) @name
   ) @dummy
 
   ;; We have a special case for this one.  Note we don't need to list the other
@@ -38,7 +38,7 @@
     ;;!  --------------^^^-------
     (lexical_declaration
       (variable_declarator
-          name: (_) @name
+        name: (_) @name
       )
     )
 
@@ -48,7 +48,7 @@
     ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
     (variable_declaration
       (variable_declarator
-          name: (_) @name
+        name: (_) @name
       )
     )
   ] @_.domain
@@ -66,7 +66,7 @@
       ;;!! export [default] (let | const | var) foo = ...;
       ;;!  -------------------------------------^^^-------
       (variable_declarator
-          name: (_) @name
+        name: (_) @name
       )
     )
   ) @_.domain
@@ -80,13 +80,13 @@
 ;;!! foo += ...;
 ;;!  ^^^--------
 (augmented_assignment_expression
-    left: (_) @name
+  left: (_) @name
 ) @_.domain
 
 ;;!! foo = ...;
 ;;!  ^^^-------
 (assignment_expression
-    left: (_) @name
+  left: (_) @name
 ) @_.domain
 
 [
