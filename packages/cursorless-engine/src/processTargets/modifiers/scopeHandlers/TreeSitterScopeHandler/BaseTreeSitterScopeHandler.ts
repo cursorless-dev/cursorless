@@ -26,20 +26,18 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
-    hints: ScopeIteratorRequirements,
+    _hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     const { document } = editor;
 
-    /** Narrow the range within which tree-sitter searches, for performance */
-    const { start, end } = getQuerySearchRange(
-      document,
-      position,
-      direction,
-      hints,
-    );
+    // Due to a tree-sitter bug, we generate all scopes from the entire file
+    // instead of using `_hints` to restrict the search range to scopes we care
+    // about. The actual scopes yielded to the client are filtered by
+    // `BaseScopeHandler` anyway, so there's no impact on correctness, just
+    // performance. We'd like to roll this back; see #1769.
 
     const scopes = this.query
-      .matches(document, start, end)
+      .matches(document)
       .map((match) => this.matchToScope(editor, match))
       .filter((scope): scope is ExtendedTargetScope => scope != null)
       .sort((a, b) => compareTargetScopes(direction, position, a, b));
