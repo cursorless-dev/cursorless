@@ -188,7 +188,7 @@
     }
   },
   "special_marks.csv": {
-    "special_mark": {
+    "simple_mark": {
       "this": "currentSelection",
       "that": "previousTarget",
       "source": "previousSource",
