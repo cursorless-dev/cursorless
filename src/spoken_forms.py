@@ -5,7 +5,7 @@ from typing import Callable, Concatenate, ParamSpec, TypeVar
 from talon import app, fs
 
 from .csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
-from .marks.mark import init_marks
+from .marks.decorated_mark import init_hats
 
 JSON_FILE = Path(__file__).parent / "spoken_forms.json"
 disposables: list[Callable] = []
@@ -101,7 +101,7 @@ def update():
             default_list_name="custom_regex_scope_type",
             pluralize_lists=["custom_regex_scope_type"],
         ),
-        init_marks(
+        init_hats(
             spoken_forms["hat_styles.csv"]["hat_color"],
             spoken_forms["hat_styles.csv"]["hat_shape"],
         ),
