@@ -99,9 +99,9 @@
 ;;!                  ***
 (_
   body: (_
-      .
-      "{" @name.iteration.start.endOf
-      "}" @name.iteration.end.startOf
-      .
+    .
+    "{" @name.iteration.start.endOf
+    "}" @name.iteration.end.startOf
+    .
   )
 )
