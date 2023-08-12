@@ -1,3 +1,4 @@
+import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as child from "child_process";
 import * as fs from "fs";
 import * as path from "path";
@@ -17,20 +18,12 @@ function run() {
   // Two possible modes:
   //   * user explicitly asked us to open; create as needed, always open
   //   * run as a side effect of "test subset"; create as needed, and open and fail if so
-  const testUtilPath = path.join(
-    __dirname,
-    "..",
-    "..",
-    "..",
-    "..",
-    "..",
+  const testSubsetGrepPath = path.join(
+    getCursorlessRepoRoot(),
     "packages",
     "common",
     "src",
     "testUtil",
-  );
-  const testSubsetGrepPath = path.join(
-    testUtilPath,
     "testSubsetGrep.properties",
   );
   const exists = fs.existsSync(testSubsetGrepPath);
