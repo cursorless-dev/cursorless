@@ -70,7 +70,7 @@
           "variations": [
             {
               "spokenForm": "pour <target>",
-              "description": "Edit new line after"
+              "description": "Edit new line/item/etc after"
             }
           ]
         },
@@ -80,7 +80,7 @@
           "variations": [
             {
               "spokenForm": "drink <target>",
-              "description": "Edit new line before"
+              "description": "Edit new line/item/etc before"
             }
           ]
         },

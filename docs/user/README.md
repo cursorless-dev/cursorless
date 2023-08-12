@@ -578,9 +578,13 @@ For example:
 - `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
 - `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
 
-eg:
-`pour blue air`
-Insert empty line below the token containing letter 'a' with a blue hat.
+eg: `pour blue air` will insert empty line below the token containing letter 'a' with a blue hat and moves the cursor to the new line.
+
+Note: `"drink"` and `"pour"` are actually a bit more versatile than just lines.
+If you use a [syntactic scope](#syntactic-scopes) modifier on the target, then`"drink"` and `"pour"` will do the
+appropriate insertions to prepare the text for a new instance of that scope.
+
+eg: `pour item air` will insert a comma and space after the air item, and place the cursor after the inserted characters.
 
 ### Homophones
 
