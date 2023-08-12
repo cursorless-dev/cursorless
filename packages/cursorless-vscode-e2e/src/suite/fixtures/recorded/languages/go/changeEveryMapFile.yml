@@ -1,0 +1,25 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change every map file
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: map}
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: _ = []T{T{ /* foo */ 0, /* foo */ }, T{}}
+  selections:
+    - anchor: {line: 0, character: 41}
+      active: {line: 0, character: 41}
+  marks: {}
+finalState:
+  documentContents: _ = []T{T{ /* foo */ 0, /* foo */ }, }
+  selections:
+    - anchor: {line: 0, character: 37}
+      active: {line: 0, character: 37}
