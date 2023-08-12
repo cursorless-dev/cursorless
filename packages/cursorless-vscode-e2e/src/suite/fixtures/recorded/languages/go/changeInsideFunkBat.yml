@@ -1,27 +1,28 @@
 languageId: go
 command:
   version: 6
-  spokenForm: change funk name bat
+  spokenForm: change inside funk bat
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
+        - {type: interiorOnly}
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: {type: namedFunction}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "func (t T) f() {\n\t// body\n}"
+  documentContents: func f() { /* body */ }
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks:
     default.b:
-      start: {line: 1, character: 4}
-      end: {line: 1, character: 8}
+      start: {line: 0, character: 14}
+      end: {line: 0, character: 18}
 finalState:
-  documentContents: "func (t T) () {\n\t// body\n}"
+  documentContents: func f() {  }
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

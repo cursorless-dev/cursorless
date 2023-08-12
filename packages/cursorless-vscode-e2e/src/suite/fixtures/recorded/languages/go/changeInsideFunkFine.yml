@@ -1,12 +1,13 @@
 languageId: go
 command:
   version: 6
-  spokenForm: change funk fine
+  spokenForm: change inside funk fine
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
+        - {type: interiorOnly}
         - type: containingScope
           scopeType: {type: namedFunction}
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
@@ -21,7 +22,7 @@ initialState:
       start: {line: 0, character: 11}
       end: {line: 0, character: 12}
 finalState:
-  documentContents: ""
+  documentContents: func (t T) f() {  }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

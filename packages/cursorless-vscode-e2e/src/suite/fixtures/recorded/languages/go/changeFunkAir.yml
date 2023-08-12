@@ -1,7 +1,7 @@
 languageId: go
 command:
   version: 6
-  spokenForm: change funk gust
+  spokenForm: change funk air
   action:
     name: clearAndSetSelection
     target:
@@ -9,17 +9,17 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
-      mark: {type: decoratedSymbol, symbolColor: default, character: g}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: func g()
+  documentContents: func f[X any]() { /* body */ }
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
   marks:
-    default.g:
-      start: {line: 0, character: 5}
-      end: {line: 0, character: 6}
+    default.a:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 12}
 finalState:
   documentContents: ""
   selections:

@@ -1,15 +1,16 @@
 languageId: go
 command:
   version: 6
-  spokenForm: change lambda fine
+  spokenForm: change inside lambda bat
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
+        - {type: interiorOnly}
         - type: containingScope
           scopeType: {type: anonymousFunction}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: _ = func() { /* body */ }
@@ -17,11 +18,11 @@ initialState:
     - anchor: {line: 0, character: 25}
       active: {line: 0, character: 25}
   marks:
-    default.f:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 8}
+    default.b:
+      start: {line: 0, character: 16}
+      end: {line: 0, character: 20}
 finalState:
-  documentContents: "_ = "
+  documentContents: _ = func() {  }
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

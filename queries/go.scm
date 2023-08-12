@@ -191,17 +191,32 @@
 ;; func foo()
 (function_declaration
   name: (_) @functionName
-  body: (_)? @namedFunction.interior
+  body: (block
+    .
+    "{" @namedFunction.interior.start.endOf
+    "}" @namedFunction.interior.end.startOf
+    .
+  )?
 ) @namedFunction @functionName.domain
 
 ;; method declaration
 ;; func (X) foo() {}
 (method_declaration
   name: (_) @functionName
-  body: (_) @namedFunction.interior
+  body: (block
+    .
+    "{" @namedFunction.interior.start.endOf
+    "}" @namedFunction.interior.end.startOf
+    .
+  )
 ) @namedFunction @functionName.domain
 
 ;; func literal
 (func_literal
-  body: (_) @namedFunction.interior
+  body: (block
+    .
+    "{" @anonymousFunction.interior.start.endOf
+    "}" @anonymousFunction.interior.end.startOf
+    .
+  )
 ) @anonymousFunction
