@@ -110,6 +110,8 @@ function inferPrimitiveTarget(
   const modifiers =
     getPreservedModifiers(target) ??
     getPreviousPreservedModifiers(previousTargets) ??
+    getLineNumberMarkModifiers(target) ??
+    getPreviousLineNumberMarkModifiers(previousTargets) ??
     [];
 
   return {
@@ -142,10 +144,15 @@ function getPreservedModifiers(
     target.modifiers?.filter(
       (modifier) => modifier.type !== "inferPreviousMark",
     ) ?? [];
-  if (preservedModifiers.length !== 0) {
-    return preservedModifiers;
-  }
-  // In the absence of any other modifiers line number marks are infer as a containing line scope
+  return preservedModifiers.length !== 0 ? preservedModifiers : undefined;
+}
+
+/**
+ * In the absence of any other modifiers line number marks are infer as a containing line scope
+ */
+function getLineNumberMarkModifiers(
+  target: PartialPrimitiveTargetDescriptor,
+): Modifier[] | undefined {
   if (isLineNumberMark(target)) {
     return [
       {
@@ -188,6 +195,15 @@ function getPreviousPreservedModifiers(
   previousTargets: PartialTargetDescriptor[],
 ): Modifier[] | undefined {
   return getPreviousTargetAttribute(previousTargets, getPreservedModifiers);
+}
+
+function getPreviousLineNumberMarkModifiers(
+  previousTargets: PartialTargetDescriptor[],
+): Modifier[] | undefined {
+  return getPreviousTargetAttribute(
+    previousTargets,
+    getLineNumberMarkModifiers,
+  );
 }
 
 /**
