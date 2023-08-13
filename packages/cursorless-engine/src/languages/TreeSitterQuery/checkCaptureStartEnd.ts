@@ -28,9 +28,8 @@ export function checkCaptureStartEnd(
   let shownError = false;
 
   if (captures.length === 2) {
-    const startRange = captures.find(({ name }) =>
-      name.endsWith(".start"),
-    )?.range;
+    const startRange = captures.find(({ name }) => name.endsWith(".start"))
+      ?.range;
     const endRange = captures.find(({ name }) => name.endsWith(".end"))?.range;
     if (startRange != null && endRange != null) {
       if (startRange.end.isBeforeOrEqual(endRange.start)) {
@@ -69,7 +68,9 @@ export function checkCaptureStartEnd(
     showError(
       messages,
       "TreeSitterQuery.checkCaptures.duplicate",
-      `A capture with the same name may only appear once in a single pattern: ${captures}`,
+      `A capture with the same name may only appear once in a single pattern: ${captures.map(
+        ({ name }) => name,
+      )}`,
     );
     shownError = true;
   }

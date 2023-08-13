@@ -9,6 +9,7 @@ command:
   action:
     name: wrapWithSnippet
     args: [duplicatedVariableTest.duplicated]
+spokenFormError: Named wrap with snippet 'duplicatedVariableTest.duplicated'
 initialState:
   documentContents: Hello world
   selections:
@@ -29,4 +30,3 @@ finalState:
         end: {line: 0, character: 81}
       isReversed: true
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

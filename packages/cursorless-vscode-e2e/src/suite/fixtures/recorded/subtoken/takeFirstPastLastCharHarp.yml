@@ -28,4 +28,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 33}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: character, anchor: 0, active: -1}, insideOutsideType: inside}]

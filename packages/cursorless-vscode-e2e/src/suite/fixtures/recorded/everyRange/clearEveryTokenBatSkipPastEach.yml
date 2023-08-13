@@ -17,6 +17,7 @@ command:
       excludeAnchor: true
       excludeActive: false
   usePrePhraseSnapshot: true
+spokenFormError: Range exclude anchor
 initialState:
   documentContents: |
     aaa bbb ccc ddd eee fff

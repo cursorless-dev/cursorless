@@ -36,4 +36,3 @@ ide:
   flashes:
     - style: justAdded
       range: {type: line, start: 2, end: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

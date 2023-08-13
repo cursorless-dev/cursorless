@@ -70,19 +70,6 @@ const config = {
   onBrokenMarkdownLinks: "throw",
   trailingSlash: true,
 
-  plugins: [
-    [
-      "docusaurus-plugin-typedoc",
-      // TypeDoc options merged with docusaurus specific options
-      {
-        ...require("./typedoc.js"),
-        docsRoot: "../../docs",
-        // Out path is relative to docsRoot
-        out: "contributing/api",
-      },
-    ],
-  ],
-
   presets: [
     [
       "classic",

@@ -22,4 +22,3 @@ finalState:
 ide:
   highlights:
     - ranges: []
-fullTargets: [{type: primitive, mark: {type: nothing}, modifiers: []}]

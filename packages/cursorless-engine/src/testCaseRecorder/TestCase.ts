@@ -1,14 +1,15 @@
 import {
   ActionType,
   CommandLatest,
+  EnforceUndefined,
   extractTargetedMarks,
   ExtraSnapshotField,
   marksToPlainObject,
   PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
   ReadOnlyHatMap,
-  serialize,
   SerializedMarks,
+  serializeTestFixture,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
   TestCaseFixture,
@@ -46,6 +47,7 @@ export class TestCase {
     private startTimestamp: bigint,
     private captureFinalThatMark: boolean,
     private extraSnapshotFields?: ExtraSnapshotField[],
+    public readonly spokenFormError?: string,
   ) {
     const activeEditor = ide().activeTextEditor!;
     this.command = command;
@@ -130,9 +132,12 @@ export class TestCase {
     ) {
       throw Error("Two snapshots must be taken before serializing");
     }
-    const fixture: TestCaseFixture = {
+    const fixture: EnforceUndefined<TestCaseFixture> = {
       languageId: this.languageId,
+      postEditorOpenSleepTimeMs: undefined,
+      postCommandSleepTimeMs: undefined,
       command: this.command,
+      spokenFormError: this.spokenFormError,
       marksToCheck: this.marksToCheck,
       initialState: this.initialState,
       finalState: this.finalState,
@@ -140,7 +145,7 @@ export class TestCase {
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
     };
-    return serialize(fixture);
+    return serializeTestFixture(fixture);
   }
 
   async recordInitialState() {

@@ -5,7 +5,7 @@ export default function CheatsheetNotesComponent(): JSX.Element {
   return (
     <div
       id="notes"
-      className="p-2 border border-violet-300 dark:border-violet-500 rounded-lg bg-violet-100 dark:bg-violet-900"
+      className="p-2 border border-violet-300 dark:border-violet-500 rounded-lg bg-violet-100 dark:bg-violet-900 overflow-hidden"
     >
       <h2 className="text-xl text-center mb-1 text-violet-900 dark:text-violet-100">
         Notes

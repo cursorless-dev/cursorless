@@ -11,6 +11,7 @@ command:
   targets:
     - {type: implicit}
   usePrePhraseSnapshot: true
+spokenFormError: Custom insertion snippet
 initialState:
   documentContents: ""
   selections:

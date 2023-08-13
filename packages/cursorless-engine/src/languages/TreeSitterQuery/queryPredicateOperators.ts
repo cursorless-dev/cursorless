@@ -20,6 +20,17 @@ class NotType extends QueryPredicateOperator<NotType> {
 }
 
 /**
+ * A predicate operator that returns true if the nodes range is not empty.
+ */
+class NotEmpty extends QueryPredicateOperator<NotEmpty> {
+  name = "not-empty?" as const;
+  schema = z.tuple([q.node]);
+  run({ range }: MutableQueryCapture) {
+    return !range.isEmpty;
+  }
+}
+
+/**
  * A predicate operator that returns true if the node's parent is not of the
  * given type. For example, `(not-parent-type? @foo string)` will reject the
  * match if the `@foo` capture is a child of a `string` node. It is acceptable
@@ -43,40 +54,6 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   schema = z.tuple([q.node, q.integer]);
   run({ node }: MutableQueryCapture, n: number) {
     return node.parent?.children.findIndex((n) => n.id === node.id) === n;
-  }
-}
-
-/**
- * A predicate operator that modifies the range of the match to be a zero-width
- * range at the start of the node.  For example, `(#start-position! @foo)` will
- * modify the range of the `@foo` capture to be a zero-width range at the start
- * of the `@foo` node.
- */
-class StartPosition extends QueryPredicateOperator<StartPosition> {
-  name = "start-position!" as const;
-  schema = z.tuple([q.node]);
-
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.start, nodeInfo.range.start);
-
-    return true;
-  }
-}
-
-/**
- * A predicate operator that modifies the range of the match to be a zero-width
- * range at the end of the node.  For example, `(#end-position! @foo)` will
- * modify the range of the `@foo` capture to be a zero-width range at the end of
- * the `@foo` node.
- */
-class EndPosition extends QueryPredicateOperator<EndPosition> {
-  name = "end-position!" as const;
-  schema = z.tuple([q.node]);
-
-  run(nodeInfo: MutableQueryCapture) {
-    nodeInfo.range = new Range(nodeInfo.range.end, nodeInfo.range.end);
-
-    return true;
   }
 }
 
@@ -116,6 +93,47 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
   }
 }
 
+/**
+ * A predicate operator that modifies the range of the match to shrink to regex
+ * match.  For example, `(#shrink-to-match! @foo "\\S+")` will modify the range
+ * of the `@foo` capture to exclude whitespace.
+ *
+ * If convenient, you can use a special capture group called `keep` to indicate
+ * the part of the match that should be kept.  For example,
+ *
+ * ```
+ * (#shrink-to-match! @foo "^\s+(?<keep>.*)$")
+ * ```
+ *
+ * will modify the range of the `@foo` capture to skip any leading whitespace.
+ */
+class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
+  name = "shrink-to-match!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, pattern: string) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const match = text.match(new RegExp(pattern, "ds"));
+
+    if (match?.index == null) {
+      throw Error(`No match for pattern '${pattern}'`);
+    }
+
+    const [startOffset, endOffset] =
+      match.indices?.groups?.keep ?? match.indices![0];
+
+    const baseOffset = document.offsetAt(range.start);
+
+    nodeInfo.range = new Range(
+      document.positionAt(baseOffset + startOffset),
+      document.positionAt(baseOffset + endOffset),
+    );
+
+    return true;
+  }
+}
+
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
@@ -127,12 +145,29 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of the match. For
+ * example, `(#insertion-delimiter! @foo ", ")` will set the insertion delimiter
+ * of the `@foo` capture to `", "`.
+ */
+class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
+  name = "insertion-delimiter!" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
+    nodeInfo.insertionDelimiter = insertionDelimiter;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new NotType(),
+  new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
-  new StartPosition(),
-  new EndPosition(),
   new ChildRange(),
+  new ShrinkToMatch(),
   new AllowMultiple(),
+  new InsertionDelimiter(),
 ];

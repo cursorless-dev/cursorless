@@ -29,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: trailing}]}]

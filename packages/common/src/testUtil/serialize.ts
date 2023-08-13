@@ -51,7 +51,7 @@ function replacer(key: string, value: unknown) {
     return value;
   } // top-level, don't change this
 
-  if (key === "fullTargets" || hasSimpleChildren(value)) {
+  if (hasSimpleChildren(value)) {
     return new CustomDump(value, { flowLevel: 0 });
   }
 

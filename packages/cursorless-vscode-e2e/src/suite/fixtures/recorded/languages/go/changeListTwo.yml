@@ -1,0 +1,27 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change list two
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '2'}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "_ = T{{2: \"a\"}}"
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
+  marks:
+    default.2:
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 8}
+finalState:
+  documentContents: "_ = "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

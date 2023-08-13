@@ -20,7 +20,6 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}, isImplicit: false}]
 ide:
   highlights:
     - ranges:

@@ -10,6 +10,7 @@ command:
         type: lineNumber
         anchor: {lineNumber: 3, type: absolute}
         active: {lineNumber: 3, type: absolute}
+spokenFormError: Absolute line numbers
 initialState:
   documentContents: |
 
@@ -29,4 +30,3 @@ finalState:
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 28}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: line, position: contents, modifier: {type: lineNumber, anchor: {lineNumber: 3, type: absolute}, active: {lineNumber: 3, type: absolute}}, insideOutsideType: inside}]

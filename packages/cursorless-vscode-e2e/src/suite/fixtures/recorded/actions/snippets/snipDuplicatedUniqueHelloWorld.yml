@@ -10,6 +10,7 @@ command:
     args:
       - duplicatedVariableTest
       - {unique: hello world}
+spokenFormError: Named insertion snippet 'duplicatedVariableTest'
 initialState:
   documentContents: ""
   selections:
@@ -30,4 +31,3 @@ finalState:
         end: {line: 0, character: 69}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}]

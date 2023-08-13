@@ -219,7 +219,7 @@ For example, the command `take every key [blue] air` will select every key in th
 
 ###### `"word"`
 
-If you need to refer to the individual words within a `camelCase`/`kebab-case`/`snake_case` token, you can use the `"word"` modifier. For example,
+If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"word"` modifier. For example,
 
 - `"second word air"`
 - `"second past fourth word air"`
@@ -311,6 +311,26 @@ foo.bar baz|bongo
 
 Saying `"every paint"` would select `foo.bar` and `baz|bongo`.
 
+##### `"short paint"`
+
+The `"short paint"` scope is like `"paint"`, but stops not only at whitespace but also stops if it would exit the nearest [surrounding pair](#surrounding-pair). For example, given the text
+
+```
+(aaa[bbb]ccc ddd)
+```
+
+- `"take short paint air"` would select `aaa[bbb]ccc`.
+  - The target starts as `aaa`.
+  - Trying to expand to the left, we immediately hit a `(`, which is part of a paren pair that surrounds the original `aaa`, so that stops leftward expansion.
+  - Trying to expand to the right, we hit a `[`, and that pair of square brackets does not surround the original `aaa`, so rightward expansion continues.
+  - Rightward expansion continues over the `ccc`, then hits a space and stops.
+- `"take short paint square"` would select `aaa[bbb]ccc`.
+  - The target starts as `[`.
+  - The expansion is not stopped by either the square brackets because they do not surround themselves.
+- `"take short paint bat"` would select `bbb`.
+  - The target starts as `bbb`.
+  - The expansion is stopped by the square packets that surround `bbb`.
+
 ##### `"instance"`
 
 The `"instance"` modifier searches for occurrences of the text of the target. For example:
@@ -330,6 +350,33 @@ use the `"just"` modifier, eg `"take every instance just air"`.
 If your cursor is touching a token, you can say `"take every instance"` to select all instances of the given token, (or `"chuck two instances"` to delete the token and its next occurrence, `"pre next instance"` to place your cursor before the next occurrence, etc).
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
+
+##### `"just"`
+
+The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
+
+- The new target has no leading or trailing delimiters. For example:
+
+  - `"chuck just air"` will delete just the air token, leaving adjacent spaces undisturbed, unlike the default behaviour of `"chuck air"` that deletes the air token _and_ cleans up adjacent whitespace as appropriate. Ie for
+
+    ```
+    bbb aaa ccc
+    ```
+
+    `"chuck just air"` would result in `bbb  ccc` (note the double space in the middle), whereas `"chuck air"` would result in `bbb ccc`.
+
+  - `"chuck just line"` will delete only the content of the current line, without removing the line ending, resulting in a blank line, unlike the default behaviour of `"chuck line"` that removes the line entirely, leaving no blank line.
+
+- A raw range does not have its own insertion delimitiers.
+  - For example, `"paste after just air"` will paste directly after the air token, without inserting a space, as opposed to the way `"paste after air"` would insert a space before the pasted content.
+  - If you use `"just"` on the destination of a `"bring"` command, it will inherit its insertion delimiters from the source of the `"bring"` action. For example, in the command `"bring arg air and bat after just paren"`, the `"air"` and `"bat"` arguments will be joined by commas. In contrast, `"bring arg air and bat after token paren"` would join the arguments with spaces.
+- In the case of [`"instance"`](#instance), by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
+
+Some examples:
+
+- `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
+- `"chuck just line"`: deletes just the content of the line, leaving a blank line.
+- `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
 
 ###### Experimental: `"from"`
 

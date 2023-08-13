@@ -10,6 +10,7 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:
     - [hello]
+spokenFormError: Action 'replace'
 initialState:
   documentContents: |
 
@@ -28,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: after, modifier: {type: identity}, insideOutsideType: inside}]

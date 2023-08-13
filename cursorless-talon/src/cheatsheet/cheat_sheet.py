@@ -1,12 +1,12 @@
 import webbrowser
 from pathlib import Path
 
-from talon import Context, Module, app
+from talon import Context, Module, actions, app
 
-from ..cursorless_command_server import run_rpc_command_and_wait
 from .get_list import get_list, get_lists
 from .sections.actions import get_actions
 from .sections.compound_targets import get_compound_targets
+from .sections.destinations import get_destinations
 from .sections.get_scope_visualizer import get_scope_visualizer
 from .sections.modifiers import get_modifiers
 from .sections.scopes import get_scopes
@@ -23,26 +23,26 @@ instructions_url = "https://www.cursorless.org/docs/"
 
 @mod.action_class
 class Actions:
-    def cursorless_cheat_sheet_show_html():
+    def private_cursorless_cheat_sheet_show_html():
         """Show new cursorless html cheat sheet"""
         app.notify(
             'Please first focus an app that supports cursorless, eg say "focus code"'
         )
 
-    def cursorless_cheat_sheet_update_json():
+    def private_cursorless_cheat_sheet_update_json():
         """Update default cursorless cheatsheet json (for developer use only)"""
         app.notify(
             'Please first focus an app that supports cursorless, eg say "focus code"'
         )
 
-    def cursorless_open_instructions():
+    def private_cursorless_open_instructions():
         """Open web page with cursorless instructions"""
         webbrowser.open(instructions_url)
 
 
 @ctx.action_class("user")
 class CursorlessActions:
-    def cursorless_cheat_sheet_show_html():
+    def private_cursorless_cheat_sheet_show_html():
         """Show cursorless html cheat sheet"""
         # On Linux browsers installed using snap can't open files in a hidden directory
         if app.platform == "linux":
@@ -54,7 +54,7 @@ class CursorlessActions:
 
         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
         cheatsheet_out_path = cheatsheet_out_dir / cheatsheet_filename
-        run_rpc_command_and_wait(
+        actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
                 "version": 0,
@@ -64,9 +64,9 @@ class CursorlessActions:
         )
         webbrowser.open(cheatsheet_out_path.as_uri())
 
-    def cursorless_cheat_sheet_update_json():
+    def private_cursorless_cheat_sheet_update_json():
         """Update default cursorless cheatsheet json (for developer use only)"""
-        run_rpc_command_and_wait(
+        actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.internal.updateCheatsheetDefaults",
             cursorless_cheat_sheet_get_json(),
         )
@@ -99,6 +99,11 @@ def cursorless_cheat_sheet_get_json():
                 "items": get_actions(),
             },
             {
+                "name": "Destinations",
+                "id": "destinations",
+                "items": get_destinations(),
+            },
+            {
                 "name": "Scopes",
                 "id": "scopes",
                 "items": get_scopes(),
@@ -129,11 +134,6 @@ def cursorless_cheat_sheet_get_json():
                 "name": "Special marks",
                 "id": "specialMarks",
                 "items": get_special_marks(),
-            },
-            {
-                "name": "Positions",
-                "id": "positions",
-                "items": get_list("position", "position"),
             },
             {
                 "name": "Compound targets",

@@ -24,7 +24,7 @@ export default function CheatsheetListComponent({
   return (
     <div
       id={section.id}
-      className={`border ${borderClassName} rounded-lg bg-stone-100 dark:bg-stone-700`}
+      className={`border ${borderClassName} rounded-lg bg-stone-100 dark:bg-stone-700 overflow-hidden`}
     >
       <h2 className="text-xl text-center my-1">{section.name}</h2>
       <table className="w-full">
