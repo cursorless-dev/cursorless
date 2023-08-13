@@ -12,5 +12,7 @@ app: vscode
     insert("Serve")
     key(enter)
 
-^edit test subset$:
-    user.vscode_with_plugin("workbench.action.tasks.runTask", "Edit test subset file")
+^debug generate subset$:
+    user.vscode_with_plugin("workbench.action.tasks.runTask", "Generate test subset file")
+^debug edit subset$:
+    user.vscode_with_plugin("commands.openFolder", "./packages/common/src/testUtil/testSubsetGrep.properties")

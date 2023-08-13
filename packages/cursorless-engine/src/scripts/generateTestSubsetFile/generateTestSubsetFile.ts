@@ -3,7 +3,7 @@ import * as child from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 
-const template = `# This file contains the grep strings to pass to Mocha when running a subset of tests.
+const TEMPLATE = `# This file contains the grep strings to pass to Mocha when running a subset of tests.
 # These grep strings will be used with the "Run test subset" launch configuration.
 # See https://mochajs.org/#-grep-regexp-g-regexp for supported syntax.
 #
@@ -14,10 +14,12 @@ snippets
 languages/go/
 `;
 
+/**
+ * Generates the testSubsetGrep.properties file if it doesn't exist. If the
+ * --fail-if-not-exists flag is passed, the script will fail if the file doesn't
+ * exist.
+ */
 function run() {
-  // Two possible modes:
-  //   * user explicitly asked us to open; create as needed, always open
-  //   * run as a side effect of "test subset"; create as needed, and open and fail if so
   const testSubsetGrepPath = path.join(
     getCursorlessRepoRoot(),
     "packages",
@@ -26,17 +28,16 @@ function run() {
     "testUtil",
     "testSubsetGrep.properties",
   );
-  const exists = fs.existsSync(testSubsetGrepPath);
-  if (!exists) {
-    fs.writeFileSync(testSubsetGrepPath, template);
-  }
-  const explicit = process.argv.includes("--open");
-  if (explicit || !exists) {
-    child.exec(`code ${testSubsetGrepPath}`);
-  }
-  if (!explicit && !exists) {
-    console.log("Please edit testSubsetGrep.properties and re-run.");
-    process.exit(1);
+
+  if (!fs.existsSync(testSubsetGrepPath)) {
+    fs.writeFileSync(testSubsetGrepPath, TEMPLATE);
+
+    child.execSync(`code ${testSubsetGrepPath}`);
+
+    if (process.argv.includes("--fail-if-not-exists")) {
+      console.log(`Please edit ${testSubsetGrepPath} and re-run.`);
+      process.exit(1);
+    }
   }
 }
 

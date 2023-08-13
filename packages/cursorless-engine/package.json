@@ -7,8 +7,8 @@
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo",
-    "generate-test-subset-file": "tsx ./src/scripts/generateTestSubsetFile/generateTestSubsetFile.ts",
-    "open-test-subset-file": "tsx ./src/scripts/generateTestSubsetFile/generateTestSubsetFile.ts --open"
+    "generate-test-subset-file": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile/generateTestSubsetFile.ts",
+    "generate-test-subset-file-strict": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile/generateTestSubsetFile.ts --fail-if-not-exists"
   },
   "keywords": [],
   "author": "",

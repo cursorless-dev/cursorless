@@ -49,7 +49,7 @@
     {
       "label": "Ensure test subset file exists",
       "type": "npm",
-      "script": "generate-test-subset-file",
+      "script": "generate-test-subset-file-strict",
       "path": "packages/cursorless-engine",
       "presentation": {
         "reveal": "silent"
@@ -57,9 +57,9 @@
       "group": "test"
     },
     {
-      "label": "Edit test subset file",
+      "label": "Generate test subset file",
       "type": "npm",
-      "script": "open-test-subset-file",
+      "script": "generate-test-subset-file",
       "path": "packages/cursorless-engine",
       "presentation": {
         "reveal": "silent"
