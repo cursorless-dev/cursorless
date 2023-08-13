@@ -9,7 +9,7 @@
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo",
-    "generate-test-subset-file": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts",
+    "generate-test-subset-file": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
   "keywords": [],

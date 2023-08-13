@@ -21,15 +21,19 @@ languages/go/
 function run() {
   const testSubsetGrepPath = testSubsetFilePath();
 
-  if (!fs.existsSync(testSubsetGrepPath)) {
+  const exists = fs.existsSync(testSubsetGrepPath);
+
+  if (!exists) {
     fs.writeFileSync(testSubsetGrepPath, TEMPLATE);
+  }
 
+  if (!exists || process.argv.includes("--always-open")) {
     child.execSync(`code ${testSubsetGrepPath}`);
+  }
 
-    if (process.argv.includes("--fail-if-not-exists")) {
-      console.log(`Please edit ${testSubsetGrepPath} and re-run.`);
-      process.exit(1);
-    }
+  if (!exists && process.argv.includes("--fail-if-not-exists")) {
+    console.log(`Please edit ${testSubsetGrepPath} and re-run.`);
+    process.exit(1);
   }
 }
 
