@@ -148,7 +148,7 @@ function getPreservedModifiers(
 }
 
 /**
- * In the absence of any other modifiers line number marks are infer as a containing line scope
+ * `"row five past air"` => `"row five past line air"`
  */
 function getLineNumberMarkModifiers(
   target: PartialPrimitiveTargetDescriptor,
