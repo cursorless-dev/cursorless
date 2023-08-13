@@ -1,7 +1,6 @@
-import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as child from "child_process";
 import * as fs from "fs";
-import * as path from "path";
+import { testSubsetFilePath } from "../testSubset";
 
 const TEMPLATE = `# This file contains the grep strings to pass to Mocha when running a subset of tests.
 # These grep strings will be used with the "Run test subset" launch configuration.
@@ -20,14 +19,7 @@ languages/go/
  * exist.
  */
 function run() {
-  const testSubsetGrepPath = path.join(
-    getCursorlessRepoRoot(),
-    "packages",
-    "common",
-    "src",
-    "testUtil",
-    "testSubsetGrep.properties",
-  );
+  const testSubsetGrepPath = testSubsetFilePath();
 
   if (!fs.existsSync(testSubsetGrepPath)) {
     fs.writeFileSync(testSubsetGrepPath, TEMPLATE);

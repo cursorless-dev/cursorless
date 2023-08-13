@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
+import { getCursorlessRepoRoot } from "@cursorless/common";
 
 /**
  * Returns the grep string to pass to Mocha when running a subset of tests.
@@ -20,13 +20,11 @@ export function testSubsetGrepString(): string {
  * Returns the path of the test subset file.
  * @returns the path of the test subset file
  */
-function testSubsetFilePath() {
+export function testSubsetFilePath() {
   return path.join(
     getCursorlessRepoRoot(),
     "packages",
-    "common",
-    "src",
-    "testUtil",
+    "test-harness",
     "testSubsetGrep.properties",
   );
 }

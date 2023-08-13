@@ -15,4 +15,4 @@ app: vscode
 ^debug generate subset$:
     user.vscode_with_plugin("workbench.action.tasks.runTask", "Generate test subset file")
 ^debug edit subset$:
-    user.vscode_with_plugin("commands.openFolder", "./packages/common/src/testUtil/testSubsetGrep.properties")
+    user.vscode_with_plugin("commands.openFolder", "./packages/test-harness/testSubsetGrep.properties")

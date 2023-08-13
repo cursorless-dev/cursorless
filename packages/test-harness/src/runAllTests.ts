@@ -1,12 +1,9 @@
 import * as globRaw from "glob";
 import * as Mocha from "mocha";
 import * as path from "path";
-import {
-  getCursorlessRepoRoot,
-  runTestSubset,
-  testSubsetGrepString,
-} from "@cursorless/common";
+import { getCursorlessRepoRoot } from "@cursorless/common";
 import { promisify } from "util";
+import { runTestSubset, testSubsetGrepString } from "./testSubset";
 
 const glob = promisify(globRaw);
 
