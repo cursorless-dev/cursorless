@@ -110,7 +110,6 @@ function inferPrimitiveTarget(
   const modifiers =
     getPreservedModifiers(target) ??
     getPreviousPreservedModifiers(previousTargets) ??
-    getLineNumberMarkModifiers(target) ??
     getPreviousLineNumberMarkModifiers(previousTargets) ??
     [];
 
