@@ -25,7 +25,7 @@ export interface SimpleEveryScopeModifier extends EveryScopeModifier {
   scopeType: SimpleScopeType;
 }
 
-export default class implements ModifierStage {
+export class LegacyContainingSyntaxScopeStage implements ModifierStage {
   constructor(
     private languageDefinitions: LanguageDefinitions,
     private modifier: SimpleContainingScopeModifier | SimpleEveryScopeModifier,

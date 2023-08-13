@@ -1,0 +1,268 @@
+{
+  "NOTE FOR USERS": "Please don't edit this json file; see https://www.cursorless.org/docs/user/customization",
+  "actions.csv": {
+    "simple_action": {
+      "bottom": "scrollToBottom",
+      "break point": "toggleLineBreakpoint",
+      "carve": "cutToClipboard",
+      "center": "scrollToCenter",
+      "change": "clearAndSetSelection",
+      "chuck": "remove",
+      "clone up": "insertCopyBefore",
+      "clone": "insertCopyAfter",
+      "comment": "toggleLineComment",
+      "copy": "copyToClipboard",
+      "crown": "scrollToTop",
+      "dedent": "outdentLine",
+      "define": "revealDefinition",
+      "drink": "editNewLineBefore",
+      "drop": "insertEmptyLineBefore",
+      "extract": "extractVariable",
+      "float": "insertEmptyLineAfter",
+      "fold": "foldRegion",
+      "follow": "followLink",
+      "give": "deselect",
+      "highlight": "highlight",
+      "hover": "showHover",
+      "indent": "indentLine",
+      "inspect": "showDebugHover",
+      "post": "setSelectionAfter",
+      "pour": "editNewLineAfter",
+      "pre": "setSelectionBefore",
+      "puff": "insertEmptyLinesAround",
+      "quick fix": "showQuickFix",
+      "reference": "showReferences",
+      "rename": "rename",
+      "reverse": "reverseTargets",
+      "scout all": "findInWorkspace",
+      "shuffle": "randomizeTargets",
+      "snippet make": "generateSnippet",
+      "sort": "sortTargets",
+      "take": "setSelection",
+      "type deaf": "revealTypeDefinition",
+      "unfold": "unfoldRegion"
+    },
+    "callback_action": {
+      "call": "callAsFunction",
+      "scout": "findInDocument",
+      "phones": "nextHomophone"
+    },
+    "paste_action": { "paste": "pasteFromClipboard" },
+    "bring_move_action": {
+      "bring": "replaceWithTarget",
+      "move": "moveToTarget"
+    },
+    "swap_action": { "swap": "swapTargets" },
+    "wrap_action": { "wrap": "wrapWithPairedDelimiter", "repack": "rewrap" },
+    "insert_snippet_action": { "snippet": "insertSnippet" },
+    "reformat_action": { "format": "applyFormatter" }
+  },
+  "target_connectives.csv": {
+    "range_connective": {
+      "between": "rangeExclusive",
+      "past": "rangeInclusive",
+      "-": "rangeExcludingStart",
+      "until": "rangeExcludingEnd"
+    },
+    "list_connective": { "and": "listConnective" },
+    "swap_connective": { "with": "swapConnective" },
+    "insertion_mode_to": { "to": "sourceDestinationConnective" }
+  },
+  "modifiers.csv": {
+    "simple_modifier": {
+      "bounds": "excludeInterior",
+      "just": "toRawSelection",
+      "leading": "leading",
+      "trailing": "trailing",
+      "content": "keepContentFilter",
+      "empty": "keepEmptyFilter",
+      "its": "inferPreviousMark"
+    },
+    "simple_scope_modifier": { "every": "every" },
+    "interior_modifier": {
+      "inside": "interiorOnly"
+    },
+    "head_tail_modifier": {
+      "head": "extendThroughStartOf",
+      "tail": "extendThroughEndOf"
+    },
+    "range_type": {
+      "slice": "verticalRange"
+    },
+    "first_modifier": { "first": "first" },
+    "last_modifier": { "last": "last" },
+    "previous_next_modifier": { "previous": "previous", "next": "next" },
+    "forward_backward_modifier": {
+      "forward": "forward",
+      "backward": "backward"
+    }
+  },
+  "positions.csv": {
+    "position": {
+      "start of": "start",
+      "end of": "end"
+    },
+    "insertion_mode_before_after": {
+      "before": "before",
+      "after": "after"
+    }
+  },
+  "modifier_scope_types.csv": {
+    "scope_type": {
+      "arg": "argumentOrParameter",
+      "attribute": "attribute",
+      "call": "functionCall",
+      "callee": "functionCallee",
+      "class name": "className",
+      "class": "class",
+      "comment": "comment",
+      "funk name": "functionName",
+      "funk": "namedFunction",
+      "if state": "ifStatement",
+      "instance": "instance",
+      "item": "collectionItem",
+      "key": "collectionKey",
+      "lambda": "anonymousFunction",
+      "list": "list",
+      "map": "map",
+      "name": "name",
+      "regex": "regularExpression",
+      "section": "section",
+      "-one section": "sectionLevelOne",
+      "-two section": "sectionLevelTwo",
+      "-three section": "sectionLevelThree",
+      "-four section": "sectionLevelFour",
+      "-five section": "sectionLevelFive",
+      "-six section": "sectionLevelSix",
+      "selector": "selector",
+      "state": "statement",
+      "branch": "branch",
+      "type": "type",
+      "value": "value",
+      "condition": "condition",
+      "unit": "unit",
+      "element": "xmlElement",
+      "tags": "xmlBothTags",
+      "start tag": "xmlStartTag",
+      "end tag": "xmlEndTag",
+      "part": "part",
+      "chapter": "chapter",
+      "subsection": "subSection",
+      "subsubsection": "subSubSection",
+      "paragraph": "namedParagraph",
+      "subparagraph": "subParagraph",
+      "environment": "environment",
+      "command": "command",
+      "char": "character",
+      "word": "word",
+      "token": "token",
+      "identifier": "identifier",
+      "line": "line",
+      "sentence": "sentence",
+      "block": "paragraph",
+      "file": "document",
+      "paint": "nonWhitespaceSequence",
+      "short paint": "boundedNonWhitespaceSequence",
+      "link": "url",
+      "cell": "notebookCell"
+    },
+    "surrounding_pair_scope_type": {
+      "string": "string"
+    }
+  },
+  "paired_delimiters.csv": {
+    "selectable_only_paired_delimiter": { "pair": "any" },
+    "wrapper_only_paired_delimiter": { "void": "whitespace" },
+    "wrapper_selectable_paired_delimiter": {
+      "curly": "curlyBrackets",
+      "diamond": "angleBrackets",
+      "escaped quad": "escapedDoubleQuotes",
+      "escaped twin": "escapedSingleQuotes",
+      "escaped round": "escapedParentheses",
+      "escaped box": "escapedSquareBrackets",
+      "quad": "doubleQuotes",
+      "round": "parentheses",
+      "skis": "backtickQuotes",
+      "box": "squareBrackets",
+      "twin": "singleQuotes"
+    }
+  },
+  "special_marks.csv": {
+    "simple_mark": {
+      "this": "currentSelection",
+      "that": "previousTarget",
+      "source": "previousSource",
+      "nothing": "nothing"
+    },
+    "unknown_symbol": { "special": "unknownSymbol" },
+    "line_direction": {
+      "row": "lineNumberModulo100",
+      "up": "lineNumberRelativeUp",
+      "down": "lineNumberRelativeDown"
+    }
+  },
+  "scope_visualizer.csv": {
+    "show_scope_visualizer": { "visualize": "showScopeVisualizer" },
+    "hide_scope_visualizer": { "visualize nothing": "hideScopeVisualizer" },
+    "visualization_type": {
+      "removal": "removal",
+      "iteration": "iteration"
+    }
+  },
+  "experimental/experimental_actions.csv": {
+    "experimental_action": {
+      "-from": "experimental.setInstanceReference"
+    }
+  },
+  "experimental/wrapper_snippets.csv": {
+    "wrapper_snippet": {
+      "else": "ifElseStatement.alternative",
+      "funk": "functionDeclaration.body",
+      "if else": "ifElseStatement.consequence",
+      "if": "ifStatement.consequence",
+      "try": "tryCatchStatement.body",
+      "link": "link.text"
+    }
+  },
+  "experimental/insertion_snippets.csv": {
+    "insertion_snippet_no_phrase": {
+      "if": "ifStatement",
+      "if else": "ifElseStatement",
+      "try": "tryCatchStatement"
+    }
+  },
+  "experimental/insertion_snippets_single_phrase.csv": {
+    "insertion_snippet_single_phrase": {
+      "funk": "functionDeclaration.name",
+      "link": "link.text"
+    }
+  },
+  "experimental/miscellaneous.csv": {
+    "phrase_terminator": { "over": "phraseTerminator" }
+  },
+  "experimental/actions_custom.csv": {},
+  "experimental/regex_scope_types.csv": {},
+  "hat_styles.csv": {
+    "hat_color": {
+      "blue": "blue",
+      "green": "green",
+      "red": "red",
+      "pink": "pink",
+      "yellow": "yellow",
+      "navy": "userColor1",
+      "apricot": "userColor2"
+    },
+    "hat_shape": {
+      "ex": "ex",
+      "fox": "fox",
+      "wing": "wing",
+      "hole": "hole",
+      "frame": "frame",
+      "curve": "curve",
+      "eye": "eye",
+      "play": "play",
+      "cross": "crosshairs",
+      "bolt": "bolt"
+    }
+  }
+}

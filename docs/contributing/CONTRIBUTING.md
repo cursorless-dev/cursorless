@@ -1,9 +1,7 @@
 # Contributing
 
-Welcome! So glad you've decided to help make Cursorless better. Once you've
-learned how to [set up](#initial-setup) and [run / test a local copy of the
-extension](#running--testing-extension-locally), you may want to check out the
-[Cursorless API docs](api) to learn more about how Cursorless works. You may also find the [VSCode API docs](https://code.visualstudio.com/api) helpful to learn about VSCode extension development.
+Welcome! So glad you've decided to help make Cursorless better. You'll want to start by getting [set up](#initial-setup) and learning how to [run / test a local copy of the
+extension](#running--testing-extension-locally). You may also find the [VSCode API docs](https://code.visualstudio.com/api) helpful to learn about VSCode extension development.
 
 ## Initial setup
 
@@ -39,7 +37,7 @@ extension](#running--testing-extension-locally), you may want to check out the
    pnpm init-vscode-sandbox
    ```
 
-   The `pnpm init-vscode-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you'd like to use additional extensions when debugging locally, you can use the following command:
+   The `pnpm init-vscode-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you need to update any of the extension dependencies in the sandbox, you can add `--force` to the command. If you'd like to use additional extensions when debugging locally, you can use the following command:
 
    ```bash
    code --profile=cursorlessDevelopment --install-extension some.extension

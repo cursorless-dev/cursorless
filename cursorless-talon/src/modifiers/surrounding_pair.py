@@ -3,8 +3,6 @@ from typing import Any
 
 from talon import Context, Module
 
-from ..paired_delimiter import paired_delimiters_map
-
 mod = Module()
 ctx = Context()
 
@@ -35,9 +33,7 @@ def cursorless_surrounding_pair_scope_type(m) -> str:
     try:
         return m.cursorless_surrounding_pair_scope_type
     except AttributeError:
-        return paired_delimiters_map[
-            m.cursorless_selectable_paired_delimiter
-        ].cursorlessIdentifier
+        return m.cursorless_selectable_paired_delimiter
 
 
 @mod.capture(
