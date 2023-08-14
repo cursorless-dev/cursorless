@@ -42,7 +42,7 @@ Targets are represented by `T` with a possible digit.
 Here are some very useful modifiers:
 
 - Syntactic scopes ([reference](README.md#syntactic-scopes)) are great for expanding the target to what you want to operate on, like the containing function.
-  - `"arg"` and `"item"`: for items in a comma-separated list, like `"chuck item air"` or `"bring air after arg bat"`. Commas are inserted / removed as necessary to keep things syntactically valid.  `"item"` works for all comma-separated items; `"arg"` only targets function arguments / parameters
+  - `"arg"` and `"item"`: for items in a comma-separated list, like `"chuck item air"` or `"bring air after arg bat"`. Commas are inserted / removed as necessary to keep things syntactically valid. `"item"` works for all comma-separated items; `"arg"` only targets function arguments / parameters
   - `"funk"` for function.
   - `"state"` for statement (which might span multiple lines or only part of a line).
 - Other modifiers that are like syntactic scopes in that they expand the target.
