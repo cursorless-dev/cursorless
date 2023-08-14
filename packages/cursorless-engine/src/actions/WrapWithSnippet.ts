@@ -9,7 +9,7 @@ import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippets/snippet";
-import { updateSnippetBody } from "../snippets/updateSnippetBody";
+import { normalizeSnippetBodyTabs } from "../snippets/normalizeSnippetBodyTabs";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
@@ -93,7 +93,9 @@ export default class WrapWithSnippet {
 
     const body = this.getBody(snippetDescription, targets);
 
-    const parsedSnippet = this.snippetParser.parse(updateSnippetBody(body));
+    const parsedSnippet = this.snippetParser.parse(
+      normalizeSnippetBodyTabs(body),
+    );
 
     transformSnippetVariables(parsedSnippet, snippetDescription.variableName);
 

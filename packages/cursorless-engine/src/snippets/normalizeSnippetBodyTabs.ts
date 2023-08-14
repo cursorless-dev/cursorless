@@ -1,6 +1,6 @@
 import { getLeadingWhitespace } from "../util/regex";
 
-export function updateSnippetBody(body: string): string {
+export function normalizeSnippetBodyTabs(body: string): string {
   // If snippet body containins tabs don't touch anything.
   if (body.includes("\t")) {
     return body;
