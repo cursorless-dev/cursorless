@@ -1,29 +1,37 @@
 ;; Include everything leading up to the first capture in the domain for name
 (
   (_
+    _ @dummy
+    .
     (capture
       "@" @_.leading
-      name: (identifier) @name
+      name: (identifier) @name.start
     )
+    (capture)? @name.end
+    .
   ) @_.domain
   (#not-type? @_.domain parameters)
+  (#not-type? @dummy capture)
   (#not-parent-type? @_.domain field_definition)
-  (#allow-multiple! @name)
-  (#insertion-delimiter! @name " @")
+  (#insertion-delimiter! @name.start " @")
 )
 
 ;; Include everything leading up to the first capture in the domain for name
 (
   (field_definition
     (_
+      _ @dummy
+      .
       (capture
         "@" @_.leading
-        name: (identifier) @name
+        name: (identifier) @name.start
       )
+      (capture)? @name.end
+      .
     )
   ) @_.domain
-  (#allow-multiple! @name)
-  (#insertion-delimiter! @name " @")
+  (#not-type? @dummy capture)
+  (#insertion-delimiter! @name.start " @")
 )
 
 ;; Only include the capture itself in its domain after the first capture
@@ -41,24 +49,36 @@
 
 (
   (_
-    (capture)
-  ) @name.iteration
-  (#not-type? @name.iteration parameters)
-  (#not-parent-type? @name.iteration field_definition)
+    _ @dummy
+    .
+    (capture) @name.iteration.start
+  ) @name.iteration.end.endOf @name.iteration.domain
+  (#not-type? @dummy capture)
+  (#not-type? @name.iteration.start parameters)
+  (#not-parent-type? @name.iteration.domain field_definition)
 )
 
-(field_definition
-  [
-    ;; Note that we can't use wildcard node due to
-    ;; https://github.com/tree-sitter/tree-sitter/issues/2483
-    (named_node
-      (capture)
-    )
-    (anonymous_node
-      (capture)
-    )
-    (list
-      (capture)
-    )
-  ]
-) @name.iteration
+(
+  (field_definition
+    [
+      ;; Note that we can't use wildcard node due to
+      ;; https://github.com/tree-sitter/tree-sitter/issues/2483
+      (named_node
+        _ @dummy
+        .
+        (capture) @name.iteration.start
+      )
+      (anonymous_node
+        _ @dummy
+        .
+        (capture) @name.iteration.start
+      )
+      (list
+        _ @dummy
+        .
+        (capture) @name.iteration.start
+      )
+    ]
+  ) @name.iteration.end.endOf @name.iteration.domain
+  (#not-type? @dummy capture)
+)
