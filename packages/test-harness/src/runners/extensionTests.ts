@@ -1,4 +1,4 @@
-import { TestType, runAllTests } from "../util/runAllTests";
+import { TestType, runAllTests } from "../runAllTests";
 
 /**
  * Runs all extension tests.  This function should only be called via the

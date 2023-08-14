@@ -44,6 +44,27 @@
       ]
     },
     {
+      "name": "Extension tests subset",
+      "type": "extensionHost",
+      "request": "launch",
+      "env": {
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "args": [
+        "--profile=cursorlessDevelopment",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+      ],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "Prepare test subset",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
       "name": "Talon tests",
       "type": "node",
       "request": "launch",
@@ -85,27 +106,6 @@
         "CURSORLESS_TEST": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Run test subset",
-      "type": "extensionHost",
-      "request": "launch",
-      "env": {
-        "CURSORLESS_TEST": "true",
-        "CURSORLESS_RUN_TEST_SUBSET": "true",
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "args": [
-        "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
-      ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [

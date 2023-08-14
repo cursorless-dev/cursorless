@@ -47,6 +47,33 @@
       "group": "build"
     },
     {
+      "label": "Ensure test subset file exists",
+      "type": "npm",
+      "script": "generate-test-subset-file-strict",
+      "path": "packages/test-harness",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Generate test subset file",
+      "type": "npm",
+      "script": "generate-test-subset-file",
+      "path": "packages/test-harness",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Prepare test subset",
+      "dependsOn": ["Ensure test subset file exists", "Build"],
+      "dependsOrder": "sequence",
+      "group": "test"
+    },
+    {
       "type": "npm",
       "script": "watch",
       "problemMatcher": "$tsc-watch",

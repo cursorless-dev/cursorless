@@ -4,7 +4,7 @@
 
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import * as path from "path";
-import { launchVscodeAndRunTests } from "../util/launchVscodeAndRunTests";
+import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
 
 (async () => {
   // Note that we run all extension tests, including unit tests, in VSCode, even though
