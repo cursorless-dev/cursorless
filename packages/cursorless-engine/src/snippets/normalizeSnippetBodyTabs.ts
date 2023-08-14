@@ -1,5 +1,10 @@
 import { getLeadingWhitespace } from "../util/regex";
 
+/**
+ * Normalizes snippet indentation to tabs.
+ * @param body The snippet body to update.
+ * @returns The snippet body with space indentations replaced by tabs.
+ */
 export function normalizeSnippetBodyTabs(body: string): string {
   // If snippet body containins tabs don't touch anything.
   if (body.includes("\t")) {
