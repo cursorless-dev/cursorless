@@ -34,7 +34,7 @@ Targets are represented by `T` with a possible digit.
   - `"drink/pour T"`: edit new line before/after T.
 - IDE-related
   - `"follow T"`: open URL or go to definition of T.
-  - `"quick fix T"`: show quick fix for T.
+  - `"quick fix T"`: show available quick fixes for T (eg rename, extract variable, etc).
   - `"reference T"`: show references to T.
 
 ## Important modifiers
