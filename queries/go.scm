@@ -215,8 +215,8 @@
 (func_literal
   body: (block
     .
-    "{" @anonymousFunction.interior.start.endOf
-    "}" @anonymousFunction.interior.end.startOf
+    "{" @anonymousFunction.interior.start.endOf @namedFunction.interior.start.endOf
+    "}" @anonymousFunction.interior.end.startOf @namedFunction.interior.end.startOf
     .
   )
-) @anonymousFunction
+) @anonymousFunction @namedFunction
