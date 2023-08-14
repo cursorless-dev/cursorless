@@ -20,6 +20,7 @@ import {
   findMatchingSnippetDefinitionStrict,
   transformSnippetVariables,
 } from "../snippets/snippet";
+import { updateSnippetBody } from "../snippets/updateSnippetBody";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
 import { Destination, Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
@@ -140,7 +141,7 @@ export default class InsertSnippet {
       ),
     );
 
-    const parsedSnippet = this.snippetParser.parse(body);
+    const parsedSnippet = this.snippetParser.parse(updateSnippetBody(body));
 
     transformSnippetVariables(
       parsedSnippet,
