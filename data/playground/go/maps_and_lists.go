@@ -15,6 +15,7 @@ const one = 1
 
 func mapsAndLists() {
 	_ = A{}
+	_ = A{ /* comment */ }
 	_ = A{1}
 	_ = A{1, 2}
 	_ = A{1: 1}
@@ -27,6 +28,7 @@ func mapsAndLists() {
 	_ = AA{{1}, {one: 1}}
 	_ = AA{{1}, {}, {one: 1}}
 	_ = &A{}
+	_ = &A{ /* comment */ }
 	_ = &A{1}
 	_ = &A{one: 1}
 	_ = &A{1: 1}

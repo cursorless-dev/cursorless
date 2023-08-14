@@ -138,10 +138,6 @@
 )
 
 ;; empty composite literals
-;;
-;; each of these will fail to match { /* some comment */ }
-;; because the comment node will break the anchoring.
-;; this is rare enough to not be worth fixing now.
 
 ;; &T{}
 (unary_expression
@@ -150,6 +146,8 @@
     body: (literal_value
       .
       "{"
+      .
+      (comment)*
       .
       "}"
       .
@@ -164,6 +162,8 @@
       .
       "{"
       .
+      (comment)*
+      .
       "}"
       .
     )
@@ -176,6 +176,8 @@
   (literal_value
     .
     "{"
+    .
+    (comment)*
     .
     "}"
     .
