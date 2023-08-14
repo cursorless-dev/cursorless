@@ -61,7 +61,7 @@ Some examples:
 - `"[number] [scope]s backward"`, like `"chuck three lines backward row 12"` to delete rows 10-12.
 - `"[nth] [scope]"`, like `"chuck second word air"` to delete "Banana" from "appleBananaCherry".
 - `"[nth] last [scope]"`, like `"chuck last char air"` to delete "s" from "apples".
-- `"next/previous [scope]"`, like `"chuck until next token"` to delete everything from the cursor/selection to the next token.
+- `"next/previous [scope]"`, like `"chuck until next token"` to delete everything from the cursor/selection to the next token, or `"copy next funk"` to copy the next function after your cursor
 
 `"past"`, `"until"`, and `"and"` are good ways to build up targets.
 
