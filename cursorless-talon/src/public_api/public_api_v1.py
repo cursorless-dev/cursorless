@@ -9,16 +9,20 @@ from ..targets.target_types import (
     RangeTarget,
     RangeTargetType,
 )
+from .extract_decorated_marks import extract_decorated_marks
 
 mod = Module()
 
 
 @mod.action_class
-class Actions:
+class MiscActions:
     def cursorless_v1_extract_decorated_marks(capture: Any) -> list[dict]:
-        """Cursorless api v1: Extract all decorated marks from a cursorless capture"""
+        """Cursorless api v1: Extract all decorated marks from a Talon capture"""
         return extract_decorated_marks(capture)
 
+
+@mod.action_class
+class TargetBuilderActions:
     def cursorless_v1_build_primitive_target(
         modifiers: list[dict], mark: Optional[dict]
     ) -> PrimitiveTarget:
@@ -44,10 +48,16 @@ class Actions:
 
         return ListTarget(elements)
 
+
+@mod.action_class
+class TargetActions:
     def cursorless_v1_target_nothing() -> PrimitiveTarget:
         """Cursorless api v1: Creates the "nothing" target"""
         return PrimitiveTarget({"type": "nothing"}, [])
 
+
+@mod.action_class
+class ActionActions:
     def cursorless_v1_action_highlight(
         target: CursorlessTarget, highlightId: Optional[str] = None
     ) -> None:
@@ -63,29 +73,3 @@ class Actions:
         actions.user.private_cursorless_command_and_wait(
             payload,
         )
-
-
-def extract_decorated_marks(capture: Any) -> list[dict]:
-    if isinstance(capture, ListTarget):
-        return [
-            mark
-            for target in capture.elements
-            for mark in extract_decorated_marks(target)
-        ]
-
-    if isinstance(capture, RangeTarget):
-        return extract_decorated_marks(capture.anchor) + extract_decorated_marks(
-            capture.active
-        )
-
-    if isinstance(capture, PrimitiveTarget):
-        return extract_decorated_marks_from_primitive_target(capture)
-
-    raise TypeError(f"Unknown target type: {type(capture)}")
-
-
-def extract_decorated_marks_from_primitive_target(target: PrimitiveTarget):
-    if target.mark is None or target.mark["type"] != "decoratedSymbol":
-        return []
-
-    return [target.mark]
