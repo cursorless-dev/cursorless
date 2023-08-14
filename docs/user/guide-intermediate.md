@@ -28,7 +28,7 @@ Targets are represented by `T` with a possible digit.
   - `"bring T"`: insert a copy of T at the cursor/selection.
   - `"bring T1 to T2"`: replace T2 with T.
   - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate delimiters.
-  - `"move T1 [to/before/after T2]"`: like `"bring"`, but moves instead of copies.
+  - `"move T1 [to/before/after T2]"`: like `"bring"`, but also deletes the source (ie it 'moves' T1 instead of copying it)
   - `"chuck T"`: delete T and appropriate delimiter.
   - `"change T"`: delete T and set cursor(s) to where T was; delimiters are unchanged.
   - `"drink/pour T"`: edit new line before/after T.
