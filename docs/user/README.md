@@ -500,11 +500,12 @@ In any cursorless command, the action defines what happens to the specified targ
 
 Despite the name cursorless, some of the most basic commands in cursorless are for moving the cursor.
 
-Note that when combined with list targets, these commands will result in multiple cursors
+Note that when combined with list targets, `take`/`pre`/`post` commands will result in multiple cursors.
 
-- `"take <TARGET>"`: Selects the given target
-- `"pre <TARGET>"`: Places the cursor before the given target
-- `"post <TARGET>"`: Places the cursor after the given target
+- `"pre <TARGET>"`: Places the cursor before the given target.
+- `"post <TARGET>"`: Places the cursor after the given target.
+- `"take <TARGET>"`: Selects the given target.
+- `"give <TARGET>"`: Deselects the given target.
 
 eg:
 `pre blue air`
