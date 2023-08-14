@@ -4,7 +4,7 @@ command:
   spokenForm: snip if
   action:
     name: insertSnippet
-    snippetDescription: {type: custom, body: "if ($1) {\n    $0\n}"}
+    snippetDescription: {type: custom, body: "if ($1) {\n  $0\n}"}
     destination: {type: implicit}
   usePrePhraseSnapshot: true
 spokenFormError: Custom insertion snippet
@@ -17,7 +17,7 @@ initialState:
 finalState:
   documentContents: |-
     if () {
-      
+        
     }
   selections:
     - anchor: {line: 0, character: 4}
