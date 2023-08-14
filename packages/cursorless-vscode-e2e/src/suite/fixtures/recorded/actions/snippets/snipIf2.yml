@@ -1,0 +1,31 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: snip if
+  action:
+    name: insertSnippet
+    snippetDescription: {type: custom, body: "if ($1) {\n    $0\n}"}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: true
+spokenFormError: Custom insertion snippet
+initialState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    if () {
+      
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 2, character: 1}
+      isReversed: false
+      hasExplicitRange: true
