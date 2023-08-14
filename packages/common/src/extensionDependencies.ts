@@ -4,4 +4,5 @@ export const extensionDependencies = [
   "scalameta.metals",
   "ms-python.python",
   "mrob95.vscode-talonscript",
+  "jrieken.vscode-tree-sitter-query",
 ];
