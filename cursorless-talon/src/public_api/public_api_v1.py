@@ -23,6 +23,8 @@ class MiscActions:
 
 @mod.action_class
 class TargetBuilderActions:
+    """Cursorless api v1 low-level target builder actions"""
+
     def cursorless_v1_build_primitive_target(
         modifiers: list[dict], mark: Optional[dict]
     ) -> PrimitiveTarget:
