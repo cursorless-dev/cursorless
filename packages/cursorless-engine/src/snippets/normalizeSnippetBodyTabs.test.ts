@@ -14,4 +14,6 @@ suite("normalizeSnippetBodyTabs", () => {
   testUpdate("decreasing", "        foo\n    bar\nbaz", "\t\tfoo\n\tbar\nbaz");
   testUpdate("pyramid", "foo\n    bar\nbaz", "foo\n\tbar\nbaz");
   testUpdate("uneven", "  foo\n   bar\n    baz", "\tfoo\n\t bar\n\t\tbaz");
+  testUpdate("crlf", "  foo\r\n   bar\r\n    baz", "\tfoo\n\t bar\n\t\tbaz");
+  testUpdate("existing tab", "\tfoo\n  bar\n  baz", "\tfoo\n  bar\n  baz");
 });
