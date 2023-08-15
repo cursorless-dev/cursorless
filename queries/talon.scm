@@ -119,9 +119,12 @@
 
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
-(command_declaration
-  right: (_) @_.interior
-) @command
+(
+  (command_declaration
+    right: (_) @_.interior
+  ) @command
+  (#insertion-delimiter! @command "\n")
+)
 
 (source_file
   (declarations) @command.iteration
