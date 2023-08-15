@@ -73,6 +73,22 @@ class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildr
   }
 }
 
+/**
+ * A predicate operator that returns true if the node has more than 1 child not of
+ * type {@link type} (inclusive).  For example, `(has-multiple-children-not-of-type?
+ * @foo bar)` will accept the match if the `@foo` capture has 2 or more children
+ * not of type `bar`.
+ */
+class HasMultipleChildrenNotOfType extends QueryPredicateOperator<HasMultipleChildrenNotOfType> {
+  name = "has-multiple-children-not-of-type?" as const;
+  schema = z.tuple([q.node, q.string]);
+
+  run({ node }: MutableQueryCapture, type: string) {
+    const count = node.children.filter((n) => n.type !== type).length;
+    return count > 1;
+  }
+}
+
 class ChildRange extends QueryPredicateOperator<ChildRange> {
   name = "child-range!" as const;
   schema = z.union([
@@ -187,4 +203,5 @@ export const queryPredicateOperators = [
   new AllowMultiple(),
   new InsertionDelimiter(),
   new HasMultipleChildrenOfType(),
+  new HasMultipleChildrenNotOfType(),
 ];

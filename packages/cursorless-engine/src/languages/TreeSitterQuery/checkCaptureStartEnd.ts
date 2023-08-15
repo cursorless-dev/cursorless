@@ -60,7 +60,9 @@ export function checkCaptureStartEnd(
     showError(
       messages,
       "TreeSitterQuery.checkCaptures.mixRegularStartEnd",
-      `Please do not mix regular captures and start/end captures: ${captures}`,
+      `Please do not mix regular captures and start/end captures: ${captures.map(
+        ({ name, range }) => name + "@" + range.toString(),
+      )}`,
     );
     shownError = true;
   }
@@ -71,7 +73,7 @@ export function checkCaptureStartEnd(
       messages,
       "TreeSitterQuery.checkCaptures.duplicate",
       `A capture with the same name may only appear once in a single pattern: ${captures.map(
-        ({ name }) => name,
+        ({ name, range }) => name + "@" + range.toString(),
       )}`,
     );
     shownError = true;
