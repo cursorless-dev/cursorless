@@ -15,6 +15,6 @@ def get_special_marks():
     )
 
     return [
-        *get_lists(["special_mark", "unknown_symbol"], "mark"),
+        *get_lists(["simple_mark", "unknown_symbol"], "mark"),
         *line_direction_marks,
     ]
