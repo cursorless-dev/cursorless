@@ -22,15 +22,16 @@ Targets are represented by `T` with a possible digit.
   - `"take T"`: set selection.
   - `"pre/post T"`: set selection before/after T.
 - Clipboard
-  - `"paste to/before/after T"`.
+  - `"paste to T"`: replace T with clipboard contents.
+  - `"paste before/after T"`: insert clipboard contents before/after T, including appropriate [delimiters](#delimiters).
   - `"carve/copy T"`: cut/copy T.
 - Core Changers
   - `"bring T"`: insert a copy of T at the cursor/selection.
   - `"bring T1 to T2"`: replace T2 with T.
-  - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate delimiters.
+  - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate [delimiters](#delimiters).
   - `"move T1 [to/before/after T2]"`: like `"bring"`, but also deletes the source (ie it 'moves' T1 instead of copying it)
-  - `"chuck T"`: delete T and appropriate delimiter.
-  - `"change T"`: delete T and set cursor(s) to where T was; delimiters are unchanged.
+  - `"chuck T"`: delete T and appropriate [delimiters](#delimiters).
+  - `"change T"`: delete T and set cursor(s) to where T was; [delimiters](#delimiters) are unchanged.
   - `"drink/pour T"`: edit new line before/after T.
 - IDE-related
   - `"follow T"`: open URL or go to definition of T.
@@ -42,8 +43,11 @@ Targets are represented by `T` with a possible digit.
 Here are some very useful modifiers:
 
 - Syntactic scopes ([reference](README.md#syntactic-scopes)) are great for expanding the target to what you want to operate on, like the containing function.
-  - `"arg"` and `"item"`: for items in a comma-separated list, like `"chuck item air"` or `"bring air after arg bat"`. Commas are inserted / removed as necessary to keep things syntactically valid. `"item"` works for all comma-separated items; `"arg"` only targets function arguments / parameters
-  - `"funk"` for function.
+  - `"arg"` and `"item"`: for items in a comma-separated list, like `"chuck item air"` or `"bring air after arg bat"`.
+    Commas are inserted / removed as necessary to keep things syntactically valid.
+    `"item"` works for all comma-separated items;
+    `"arg"` only targets function arguments/parameters
+  - `"funk"` for a function definition/declaration.
   - `"state"` for statement (which might span multiple lines or only part of a line).
 - Other modifiers that are like syntactic scopes in that they expand the target.
   - [`"file"`](README.md#file) for the whole file.
@@ -57,7 +61,7 @@ Here are some very useful modifiers:
 And you can reuse the above scopes when using [relative/ordinal modifiers](README.md#previous--next--ordinal--number).
 Some examples:
 
-- `"[number] [scope]s"`, like `"chuck three lines row 12"` to delete rows 12-14.
+- `"[number] [scope]s"`, like `"chuck three lines air"` to delete three lines, starting with the line that contains the air token.
 - `"[number] [scope]s backward"`, like `"chuck three lines backward row 12"` to delete rows 10-12.
 - `"[nth] [scope]"`, like `"chuck second word air"` to delete "Banana" from "appleBananaCherry".
 - `"[nth] last [scope]"`, like `"chuck last char air"` to delete "s" from "apples".
@@ -100,7 +104,7 @@ For instance, `"take air and bat"` could be changed to have independent modifier
 
 ### Destinations
 
-The `"paste"` commands has a single target that is a destination.
+The `"paste"` command has a single target that is a destination.
 The second targets of `"bring"` and `"move"` commands are destinations.
 
 In `"bring air before bat"`, `"air"` is the non-destination first target and `"before bat"` is a destination (and second target).
