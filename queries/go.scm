@@ -184,3 +184,41 @@
   ) @list @map
   (#not-parent-type? @list composite_literal)
 )
+
+;; Functions
+
+;; function declaration, generic function declaration, function stub
+;; func foo() {}
+;; func foo[]() {}
+;; func foo()
+(function_declaration
+  name: (_) @functionName
+  body: (block
+    .
+    "{" @namedFunction.interior.start.endOf
+    "}" @namedFunction.interior.end.startOf
+    .
+  )?
+) @namedFunction @functionName.domain
+
+;; method declaration
+;; func (X) foo() {}
+(method_declaration
+  name: (_) @functionName
+  body: (block
+    .
+    "{" @namedFunction.interior.start.endOf
+    "}" @namedFunction.interior.end.startOf
+    .
+  )
+) @namedFunction @functionName.domain
+
+;; func literal
+(func_literal
+  body: (block
+    .
+    "{" @anonymousFunction.interior.start.endOf @namedFunction.interior.start.endOf
+    "}" @anonymousFunction.interior.end.startOf @namedFunction.interior.end.startOf
+    .
+  )
+) @anonymousFunction @namedFunction
