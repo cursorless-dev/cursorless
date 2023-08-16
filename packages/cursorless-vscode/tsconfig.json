@@ -5,12 +5,7 @@
     "outDir": "out",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.json",
-    "../../typings/**/*.d.ts",
-    "../cursorless-engine/src/ReleaseNotes.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": [
     {
       "path": "../common"

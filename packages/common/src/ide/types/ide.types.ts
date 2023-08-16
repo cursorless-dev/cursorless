@@ -213,28 +213,6 @@ export interface IDE {
     editor: TextEditor,
     ranges: GeneralizedRange[],
   ): Promise<void>;
-
-  /**
-   * The current version of Cursorless
-   */
-  version: string;
-
-  /**
-   * Whether the current window is focused.
-   */
-  isFocused: boolean;
-
-  /**
-   * Opens a link externally using the default application. Depending on the
-   * used scheme this can be:
-   * * a browser (`http:`, `https:`)
-   * * a mail client (`mailto:`)
-   * * The ide itself (`vscode:` from `vscode.env.uriScheme`)
-   *
-   * @param target The uri that should be opened.
-   * @returns A promise indicating if open was successful.
-   */
-  openExternal(target: URI): Promise<boolean>;
 }
 
 export interface WorkspaceFolder {

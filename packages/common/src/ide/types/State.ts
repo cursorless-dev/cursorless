@@ -1,16 +1,10 @@
-export interface StateData {
-  hideInferenceWarning: boolean;
-  seenReleaseNotesVersion: string | undefined;
-}
-
 /**
  * A mapping from allowable state keys to their default values
  */
-export const STATE_DEFAULTS: StateData = {
+export const STATE_DEFAULTS = {
   hideInferenceWarning: false,
-  seenReleaseNotesVersion: undefined,
 };
-
+export type StateData = typeof STATE_DEFAULTS;
 export type StateKey = keyof StateData;
 
 /**

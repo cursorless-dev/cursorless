@@ -32,7 +32,6 @@ import { vscodeRunMode } from "./VscodeRunMode";
 import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
-import { URI } from "vscode-uri";
 
 export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;
@@ -208,18 +207,6 @@ export class VscodeIDE implements IDE {
     await vscode.commands.executeCommand(
       "workbench.extensions.action.checkForUpdates",
     );
-  }
-
-  get version() {
-    return this.extensionContext.extension.packageJSON.version;
-  }
-
-  async openExternal(target: URI) {
-    return await vscode.env.openExternal(target);
-  }
-
-  get isFocused() {
-    return vscode.window.state.focused;
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

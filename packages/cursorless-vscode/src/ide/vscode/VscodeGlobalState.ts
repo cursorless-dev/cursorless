@@ -1,11 +1,15 @@
 import type { ExtensionContext } from "vscode";
 import type { State, StateData, StateKey } from "@cursorless/common";
 import { STATE_DEFAULTS } from "@cursorless/common";
+import { SEEN_RELEASE_NOTES_VERSION_KEY } from "../../ReleaseNotes";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {
     // Mark all keys for synchronization
-    extensionContext.globalState.setKeysForSync(Object.keys(STATE_DEFAULTS));
+    extensionContext.globalState.setKeysForSync([
+      ...Object.keys(STATE_DEFAULTS),
+      SEEN_RELEASE_NOTES_VERSION_KEY,
+    ]);
   }
 
   get<K extends StateKey>(key: K): StateData[K] {

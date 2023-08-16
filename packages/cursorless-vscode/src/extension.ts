@@ -37,6 +37,7 @@ import {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
+import { ReleaseNotes } from "./ReleaseNotes";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -55,7 +56,7 @@ export async function activate(
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
-      ? undefined
+      ? vscodeIDE
       : new NormalizedIDE(
           vscodeIDE,
           new FakeIDE(),
@@ -78,13 +79,7 @@ export async function activate(
     snippets,
     injectIde,
     runIntegrationTests,
-    releaseNotes,
-  } = createCursorlessEngine(
-    treeSitter,
-    normalizedIde ?? vscodeIDE,
-    hats,
-    commandServerApi,
-  );
+  } = createCursorlessEngine(treeSitter, normalizedIde, hats, commandServerApi);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
@@ -94,12 +89,12 @@ export async function activate(
     vscodeIDE,
     commandApi,
     testCaseRecorder,
-    createScopeVisualizerCommandApi(normalizedIde ?? vscodeIDE, scopeProvider),
+    createScopeVisualizerCommandApi(normalizedIde, scopeProvider),
     keyboardCommands,
     hats,
   );
 
-  releaseNotes.maybeShow();
+  new ReleaseNotes(context, normalizedIde.messages).maybeShow();
 
   return {
     testHelpers: isTesting()
@@ -108,7 +103,7 @@ export async function activate(
           storedTargets,
           hatTokenMap,
           vscodeIDE,
-          normalizedIde!,
+          normalizedIde as NormalizedIDE,
           injectIde,
           runIntegrationTests,
         )

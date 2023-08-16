@@ -13,7 +13,6 @@ export interface CursorlessEngine {
   snippets: Snippets;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
-  releaseNotes: { maybeShow(): void };
 }
 
 export interface CommandApi {
