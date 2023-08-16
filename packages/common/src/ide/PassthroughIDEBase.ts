@@ -1,3 +1,4 @@
+import { URI } from "vscode-uri";
 import { GeneralizedRange } from "../types/GeneralizedRange";
 import { TextDocument } from "../types/TextDocument";
 import { EditableTextEditor, TextEditor } from "../types/TextEditor";
@@ -154,6 +155,18 @@ export default class PassthroughIDEBase implements IDE {
 
   executeCommand<T>(command: string, ...args: any[]): Promise<T | undefined> {
     return this.original.executeCommand(command, ...args);
+  }
+
+  get version(): string {
+    return this.original.version;
+  }
+
+  get isFocused(): boolean {
+    return this.original.isFocused;
+  }
+
+  openExternal(target: URI): Promise<boolean> {
+    return this.original.openExternal(target);
   }
 
   public onDidChangeTextDocument(

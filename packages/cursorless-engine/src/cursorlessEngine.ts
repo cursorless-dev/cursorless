@@ -16,6 +16,7 @@ import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
 import { injectIde } from "./singletons/ide.singleton";
 import { ScopeRangeWatcher } from "./ScopeVisualizer/ScopeRangeWatcher";
+import { ReleaseNotes } from "./ReleaseNotes";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -83,6 +84,7 @@ export function createCursorlessEngine(
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),
+    releaseNotes: new ReleaseNotes(ide.messages, ide.globalState),
   };
 }
 

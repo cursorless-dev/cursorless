@@ -78,6 +78,7 @@ export async function activate(
     snippets,
     injectIde,
     runIntegrationTests,
+    releaseNotes,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde ?? vscodeIDE,
@@ -97,6 +98,8 @@ export async function activate(
     keyboardCommands,
     hats,
   );
+
+  releaseNotes.maybeShow();
 
   return {
     testHelpers: isTesting()

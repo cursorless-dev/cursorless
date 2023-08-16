@@ -21,6 +21,7 @@ import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";
 import FakeGlobalState from "./FakeGlobalState";
 import FakeMessages from "./FakeMessages";
+import { URI } from "vscode-uri";
 
 export default class FakeIDE implements IDE {
   configuration: FakeConfiguration = new FakeConfiguration();
@@ -115,6 +116,13 @@ export default class FakeIDE implements IDE {
     _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     throw Error("Not implemented");
+  }
+
+  version: string = "0";
+  isFocused: boolean = true;
+
+  openExternal(_target: URI): Promise<boolean> {
+    throw new Error("Method not implemented.");
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
