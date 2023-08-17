@@ -18,17 +18,17 @@
     "itertools": "^2.1.1",
     "lodash": "^4.17.21",
     "node-html-parser": "^5.3.3",
-    "zod": "3.21.4",
-    "sbd": "^1.0.19"
+    "sbd": "^1.0.19",
+    "zod": "3.21.4"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
     "@types/mocha": "^8.0.4",
-    "@types/sinon": "^10.0.2",
     "@types/sbd": "^1.0.3",
+    "@types/sinon": "^10.0.2",
     "js-yaml": "^4.1.0",
-    "mocha": "^8.1.3",
+    "mocha": "^10.2.0",
     "sinon": "^11.1.1"
   },
   "types": "./out/index.d.ts",
