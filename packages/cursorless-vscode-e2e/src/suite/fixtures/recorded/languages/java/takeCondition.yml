@@ -43,3 +43,33 @@ finalState:
   selections:
     - anchor: {line: 2, character: 12}
       active: {line: 2, character: 16}
+-- initial --
+0  |public class MyClass {
+1  |    private MyClass () {
+2  |        if (true) {
+3  |
+sel !
+4  |        }
+5  |        while (true) {
+6  |
+7  |        }
+8  |        for (int i = 0; i < 5; ++i) {
+9  |
+10 |        }
+11 |    }
+12 |}
+-- final --
+0  |public class MyClass {
+1  |    private MyClass () {
+2  |        if (true) {
+sel             [-->
+3  |
+4  |        }
+5  |        while (true) {
+6  |
+7  |        }
+8  |        for (int i = 0; i < 5; ++i) {
+9  |
+10 |        }
+11 |    }
+12 |}

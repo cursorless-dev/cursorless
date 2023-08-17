@@ -23,3 +23,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
+-- initial --
+0  |span[hello="Cleveland"][goodbye="Columbus"] { 
+1  |  color: blue; 
+sel     !
+2  |}
+3  |
+-- final --
+0  |span[hello="Cleveland"][goodbye="Columbus"] { 
+1  |  : blue; 
+sel   !
+2  |}
+3  |

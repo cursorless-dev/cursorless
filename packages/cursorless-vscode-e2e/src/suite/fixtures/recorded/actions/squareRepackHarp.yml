@@ -37,3 +37,15 @@ finalState:
         end: {line: 0, character: 6}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |(hello)
+hat  [---]
+     h
+1  |
+sel !
+-- final --
+0   |[hello]
+src   [---]
+that [-----]
+1   |
+sel  !

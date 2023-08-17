@@ -43,3 +43,26 @@ finalState:
         end: {line: 5, character: 13}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |class Aaa {
+1  |    bbb() {
+2  |        class Bbb {
+3  |            
+sel             !
+4  |        }
+5  |    }
+6  |}
+-- final --
+0   |class Aaa {
+1   |    bbb() {
+2   |        class Bbb {
+3   |            () {
+sel              !
+that             [---
+4   |                
+that ----------------
+5   |            }
+that ------------]
+6   |        }
+7   |    }
+8   |}

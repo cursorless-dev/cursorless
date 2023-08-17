@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 11}
+-- initial --
+0  |fn foo() -> i32 {
+1  |    println!("hello")
+sel               !
+2  |    return 3
+3  |}
+-- final --
+0  |fn foo() -> i32 {
+1  |    println!("hello")
+2  |    return 
+sel            !
+3  |}

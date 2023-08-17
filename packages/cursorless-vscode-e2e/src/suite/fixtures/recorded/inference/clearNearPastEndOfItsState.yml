@@ -38,3 +38,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |const foo = "hello";
+hat [---]
+      n
+1  |
+2  |const bar = "hello";
+sel !
+-- final --
+0  |
+sel !
+1  |
+2  |const bar = "hello";

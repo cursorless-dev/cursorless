@@ -46,3 +46,14 @@ finalState:
         end: {line: 0, character: 3}
       isReversed: false
       hasExplicitRange: false
+-- initial --
+0  |"a!
+sel ###
+hat  ##
+     a!
+1  |
+-- final --
+0   |"a!
+sel  #
+that  ##
+1   |

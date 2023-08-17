@@ -30,3 +30,17 @@ finalState:
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
+-- initial --
+0  |fn main() -> Result<(), Error> {
+hat              [----]
+                   s
+1  |    
+2  |}
+sel  !
+3  |
+-- final --
+0  |fn main() {
+1  |    
+2  |}
+sel  !
+3  |

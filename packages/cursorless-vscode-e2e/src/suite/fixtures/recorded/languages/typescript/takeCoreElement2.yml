@@ -27,3 +27,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 16}
+-- initial --
+0  |function Comp() {
+1  |    return <div></div>;
+sel                     !
+2  |}
+-- final --
+0  |function Comp() {
+1  |    return <div></div>;
+sel                 !
+2  |}

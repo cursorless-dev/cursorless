@@ -22,3 +22,9 @@ finalState:
       active: {line: 0, character: 1}
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
+-- initial --
+0  |{foo.bar(hello-world, whatever-now)} test-this
+sel         !
+-- final --
+0  |{ } test-this
+sel  !!

@@ -29,3 +29,14 @@ finalState:
       active: {line: 1, character: 10}
     - anchor: {line: 2, character: 10}
       active: {line: 2, character: 10}
+-- initial --
+0  |foo:
+1  |    bar = 1
+sel     !
+2  |    baz = 2
+-- final --
+0  |foo:
+1  |    bar = 
+sel           !
+2  |    baz = 
+sel           !

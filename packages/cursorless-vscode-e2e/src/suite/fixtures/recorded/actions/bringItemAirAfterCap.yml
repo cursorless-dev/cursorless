@@ -56,3 +56,24 @@ finalState:
         end: {line: 1, character: 5}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |[
+sel !
+1  |    a,
+hat     #
+        a
+2  |    b,
+3  |    c
+hat     #
+        c
+4  |]
+-- final --
+0   |[
+sel  !
+1   |    a,
+src      #
+2   |    b,
+3   |    c,
+4   |    a
+that     #
+5   |]

@@ -34,3 +34,17 @@ finalState:
         end: {line: 2, character: 18}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |class MyClass:
+1  |    def my_funk():
+sel            !
+2  |        pass
+3  |
+-- final --
+0   |class MyClass:
+1   |    
+sel      !
+2   |    def my_funk():
+that     [------------]
+3   |        pass
+4   |

@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}
+-- initial --
+0  |\usepackage[utf8]{inputenc}
+sel                       !
+-- final --
+0  |\usepackage[utf8]{}
+sel                   !

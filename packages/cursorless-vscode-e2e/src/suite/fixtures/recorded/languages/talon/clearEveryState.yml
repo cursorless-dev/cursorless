@@ -28,3 +28,14 @@ finalState:
       active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
+-- initial --
+0  |settings():
+1  |    speech.debug = 1
+sel     !
+2  |    speech.timeout = 0.4
+-- final --
+0  |settings():
+1  |    
+sel     !
+2  |    
+sel     !

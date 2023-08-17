@@ -20,3 +20,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+-- initial --
+0  |export var aaa = "bbb";
+sel !
+-- final --
+0  |export var  = "bbb";
+sel            !

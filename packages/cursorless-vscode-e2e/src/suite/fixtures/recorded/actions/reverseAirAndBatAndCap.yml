@@ -55,3 +55,16 @@ finalState:
         end: {line: 1, character: 27}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |
+sel !
+1  |const value = ["a", "b", "c"]
+hat                 #    #    #
+                    a    b    c
+2  |
+-- final --
+0   |
+sel  !
+1   |const value = ["c", "b", "a"]
+that                 #    #    #
+2   |

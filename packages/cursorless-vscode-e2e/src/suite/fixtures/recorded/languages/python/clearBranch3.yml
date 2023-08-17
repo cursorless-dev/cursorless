@@ -31,3 +31,18 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |if True:
+1  |    pass
+sel     !
+2  |elif False:
+3  |    pass
+4  |else:
+5  |    pass
+-- final --
+0  |
+sel !
+1  |elif False:
+2  |    pass
+3  |else:
+4  |    pass

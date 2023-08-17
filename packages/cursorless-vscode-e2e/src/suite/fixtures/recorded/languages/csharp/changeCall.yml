@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
+-- initial --
+0  |Taxi t = new Taxi();
+sel                   !
+-- final --
+0  |Taxi t = ;
+sel          !

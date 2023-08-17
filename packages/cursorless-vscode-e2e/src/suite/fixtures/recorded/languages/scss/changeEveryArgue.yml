@@ -27,3 +27,15 @@ finalState:
       active: {line: 2, character: 23}
     - anchor: {line: 2, character: 25}
       active: {line: 2, character: 25}
+-- initial --
+0  |
+1  |.double {
+2  |  transform: translate(-50%, -50%);
+sel                          !
+3  |}
+-- final --
+0  |
+1  |.double {
+2  |  transform: translate(, );
+sel                        ! !
+3  |}

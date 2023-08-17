@@ -24,3 +24,14 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
+-- initial --
+0  |<html>
+1  |    
+sel     !
+2  |</html>
+-- final --
+0  |
+sel !
+1  |    
+2  |
+sel !

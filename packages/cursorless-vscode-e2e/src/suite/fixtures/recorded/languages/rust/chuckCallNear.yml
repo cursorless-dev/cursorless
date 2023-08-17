@@ -26,3 +26,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+-- initial --
+0  |let user = User::new();
+hat                  [-]
+                     n
+1  |
+sel !
+-- final --
+0  |let user =;
+1  |
+sel !

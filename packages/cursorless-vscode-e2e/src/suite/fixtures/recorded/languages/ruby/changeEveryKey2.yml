@@ -19,3 +19,9 @@ finalState:
       active: {line: 0, character: 5}
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
+-- initial --
+0  |h = {"1": "one", "2": "two" }
+sel                          !
+-- final --
+0  |h = {: "one", : "two" }
+sel      !        !

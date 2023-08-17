@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+-- initial --
+0  |Car carObj1("BMW", "X5", 1999);
+sel                    !
+-- final --
+0  |Car ;
+sel     !

@@ -59,3 +59,28 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |const foo = "bar";
+hat       [-]
+          f
+1  |const baz = "bongo";
+sel                     !
+hat       [-]
+            z
+-- final --
+0   |function () {
+sel           !
+that [------------
+1   |    
+that ----
+2   |}
+that ]
+3   |const foo = "bar";
+4   |const baz = "bongo";
+5   |function () {
+sel           !
+that [------------
+6   |    
+that ----
+7   |}
+that ]

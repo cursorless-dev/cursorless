@@ -36,3 +36,17 @@ finalState:
         end: {line: 2, character: 17}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function myFunk(
+1  |    name: string,
+2  |    value: number,
+sel          !
+3  |) {}
+-- final --
+0   |function myFunk(
+1   |    name: string,
+2   |    value: number,
+that     [-----------]
+3   |    ,
+sel      !
+4   |) {}

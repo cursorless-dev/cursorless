@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
+-- initial --
+0  |@namespace url(http://www.w3.org/1999/xhtml);
+sel       !
+-- final --
+0  |@namespace;
+sel       !

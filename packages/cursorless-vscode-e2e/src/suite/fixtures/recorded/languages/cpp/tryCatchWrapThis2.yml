@@ -40,3 +40,27 @@ finalState:
       active: {line: 10, character: 9}
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}
+-- initial --
+0  |if (true) {
+sel !
+1  |    int foo = 0;
+2  |}
+3  |
+4  |int bar = 1;
+sel !
+-- final --
+0  |try {
+1  |    if (true) {
+2  |        int foo = 0;
+3  |    }
+4  |} catch () {
+sel          !
+5  |    
+6  |}
+7  |
+8  |try {
+9  |    int bar = 1;
+10 |} catch () {
+sel          !
+11 |    
+12 |}

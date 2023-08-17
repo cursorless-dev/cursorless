@@ -31,3 +31,11 @@ finalState:
         end: {line: 1, character: 2}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |hello world
+sel   ! !   !
+-- final --
+0   |
+sel  !
+1   |hello world
+that   !

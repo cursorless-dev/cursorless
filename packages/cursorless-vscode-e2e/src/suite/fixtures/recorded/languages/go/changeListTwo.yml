@@ -25,3 +25,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+-- initial --
+0  |_ = T{{2: "a"}}
+sel                !
+hat        #
+           2
+-- final --
+0  |_ = 
+sel     !

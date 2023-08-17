@@ -31,3 +31,22 @@ finalState:
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 4, character: 28}
+-- initial --
+0  |
+sel !
+1  |const value = "Hello world";
+2  |
+3  |const value = "Hello world";
+hat       [---]
+           a
+4  |const value = "Hello world";
+5  |
+-- final --
+0  |
+1  |const value = "Hello world";
+2  |
+3  |const value = "Hello world";
+sel [---------------------------
+4  |const value = "Hello world";
+sel --------------------------->
+5  |

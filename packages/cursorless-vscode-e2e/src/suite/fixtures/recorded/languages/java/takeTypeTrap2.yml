@@ -33,3 +33,21 @@ finalState:
   selections:
     - anchor: {line: 2, character: 38}
       active: {line: 2, character: 61}
+-- initial --
+0  |public class MyClass {
+1  |    private MyClass () {
+2  |        Map<String, String> map = new HashMap<String, String>();
+sel                                       [--------------------->
+hat                                               [----]
+                                                   t
+3  |        List<String> list = new ArrayList<String>();
+4  |    }
+5  |}
+-- final --
+0  |public class MyClass {
+1  |    private MyClass () {
+2  |        Map<String, String> map = new HashMap<String, String>();
+sel                                       [--------------------->
+3  |        List<String> list = new ArrayList<String>();
+4  |    }
+5  |}

@@ -30,3 +30,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
+-- initial --
+0  |hello there
+sel         !
+-- final --
+0  |hello ere
+sel       !

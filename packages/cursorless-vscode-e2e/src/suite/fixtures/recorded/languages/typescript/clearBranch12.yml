@@ -16,3 +16,8 @@ initialState:
       active: {line: 0, character: 12}
   marks: {}
 thrownError: {name: NoContainingScopeError}
+-- initial --
+0  |const aaa = bbb ? ccc : ddd;
+sel             !
+-- final --
+0|

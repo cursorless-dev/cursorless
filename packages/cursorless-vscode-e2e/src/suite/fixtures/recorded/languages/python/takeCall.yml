@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 16}
+-- initial --
+0  |
+1  |my_funk(1, 2, 3)
+sel     !
+-- final --
+0  |
+1  |my_funk(1, 2, 3)
+sel [-------------->

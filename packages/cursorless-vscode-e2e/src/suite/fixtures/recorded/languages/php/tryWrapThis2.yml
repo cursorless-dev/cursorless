@@ -44,3 +44,31 @@ finalState:
       active: {line: 6, character: 9}
     - anchor: {line: 12, character: 9}
       active: {line: 12, character: 9}
+-- initial --
+0  |<?php
+1  |
+2  |if (true) {
+sel !
+3  |    $foo = "Hello world";
+4  |}
+5  |
+6  |$bar = 42;
+sel !
+-- final --
+0  |<?php
+1  |
+2  |try {
+3  |    if (true) {
+4  |        $foo = "Hello world";
+5  |    }
+6  |} catch () {
+sel          !
+7  |    
+8  |}
+9  |
+10 |try {
+11 |    $bar = 42;
+12 |} catch () {
+sel          !
+13 |    
+14 |}

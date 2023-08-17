@@ -33,3 +33,15 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |const foo = "bar";
+sel !
+-- final --
+0   |function () {
+sel           !
+that [------------
+1   |    
+that ----
+2   |}
+that ]
+3   |const foo = "bar";

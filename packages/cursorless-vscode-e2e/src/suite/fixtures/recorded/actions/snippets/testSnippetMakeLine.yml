@@ -52,3 +52,30 @@ finalState:
         end: {line: 0, character: 13}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |\textbf{$foo}
+sel          [->
+-- final --
+0   |{
+that [-----------]
+1   |  "testSnippet": {
+2   |    "definitions": [
+3   |      {
+4   |        "scope": {
+5   |          "langIds": [
+6   |            "plaintext"
+7   |          ]
+8   |        },
+9   |        "body": [
+10  |          "\\textbf{\\$$variable1}"
+sel                          [------->
+11  |        ]
+12  |      }
+13  |    ],
+14  |    "description": "",
+15  |    "variables": {
+16  |      "variable1": {}
+sel         [------->
+17  |    }
+18  |  }
+19  |}

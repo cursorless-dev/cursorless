@@ -23,3 +23,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
+-- initial --
+0  |@mixin move($left-start, $left-stop) {
+1  |  transition: left ($left-stop - $left-start) * $transition-speed;
+sel        !
+2  |}
+3  |
+-- final --
+0  |@mixin move($left-start, $left-stop) {
+1  |  : left ($left-stop - $left-start) * $transition-speed;
+sel   !
+2  |}
+3  |

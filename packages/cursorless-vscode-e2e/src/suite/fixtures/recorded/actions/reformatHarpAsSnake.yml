@@ -35,3 +35,16 @@ finalState:
       isReversed: false
       hasExplicitRange: false
 returnValue: [helloWorld]
+-- initial --
+0  |
+sel !
+1  |const value = "helloWorld";
+hat                [--------]
+                   h
+2  |
+-- final --
+0   |
+sel  !
+1   |const value = "helloWorld";
+that                [--------]
+2   |

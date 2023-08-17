@@ -19,3 +19,9 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
+-- initial --
+0  |<note bar="back" bongo="badman">foo</note>
+sel                           !
+-- final --
+0  |<note  >foo</note>
+sel       !!

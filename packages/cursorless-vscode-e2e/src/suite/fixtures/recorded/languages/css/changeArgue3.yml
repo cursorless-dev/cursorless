@@ -25,3 +25,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 21}
       active: {line: 1, character: 21}
+-- initial --
+0  |a {
+1  |  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+sel                            !
+2  |}
+3  | 
+-- final --
+0  |a {
+1  |  clip-path: polygon(, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+sel                      !
+2  |}
+3  | 

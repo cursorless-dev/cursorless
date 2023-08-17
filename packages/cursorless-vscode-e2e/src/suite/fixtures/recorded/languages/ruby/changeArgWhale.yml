@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
+-- initial --
+0  |a.call(hello, world)
+sel                     !
+hat               [---]
+                  w
+-- final --
+0  |a.call(hello, )
+sel               !

@@ -44,3 +44,15 @@ finalState:
       active: {line: 2, character: 2}
     - anchor: {line: 2, character: 2}
       active: {line: 2, character: 3}
+-- initial --
+0  |a*a
+sel !
+1  |b-b
+2  |c/c
+-- final --
+0  |a*a
+sel ###
+1  |b-b
+sel ###
+2  |c/c
+sel ###

@@ -24,3 +24,9 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 21}
+-- initial --
+0  |(hello world-whatever testing) testing now
+sel    [----->
+-- final --
+0  |(hello world-whatever testing) testing now
+sel  [---> [------------>

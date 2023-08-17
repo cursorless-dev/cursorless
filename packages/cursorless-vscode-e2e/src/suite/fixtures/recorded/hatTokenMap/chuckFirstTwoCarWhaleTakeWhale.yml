@@ -27,3 +27,13 @@ finalState:
     default.w:
       start: {line: 0, character: 6}
       end: {line: 0, character: 9}
+-- initial --
+0  |hello world
+sel            !
+hat       [---]
+          w
+-- final --
+0  |hello rld
+sel          !
+hat       [-]
+           w

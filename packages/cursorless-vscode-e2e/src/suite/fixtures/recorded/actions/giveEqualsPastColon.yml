@@ -49,3 +49,14 @@ finalState:
         end: {line: 0, character: 22}
       isReversed: true
       hasExplicitRange: true
+-- initial --
+0  |const values: string = "hello"
+sel [---> [---->  [---->    [--->
+hat             #        #
+                :        =
+1  |
+-- final --
+0   |const values: string = "hello"
+sel  [---> [---->            [--->
+that             <--------]
+1   |

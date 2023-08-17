@@ -31,3 +31,21 @@ finalState:
   selections:
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}
+-- initial --
+0  |<?php
+1  |
+2  |try {
+3  |
+4  |} catch (Exception $e) {
+sel                     !
+5  |
+6  |}
+-- final --
+0  |<?php
+1  |
+2  |try {
+3  |
+4  |} catch ( $e) {
+sel          !
+5  |
+6  |}

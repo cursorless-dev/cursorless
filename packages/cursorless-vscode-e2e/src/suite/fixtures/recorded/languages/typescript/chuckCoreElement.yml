@@ -24,3 +24,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
+-- initial --
+0  |<div>
+1  |    aaa
+sel     !
+2  |</div>
+-- final --
+0  |<div></div>
+sel      !

@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+-- initial --
+0  |f"j{fdfhjkd}lkjlkj"
+sel         !
+-- final --
+0  |f"j{}lkjlkj"
+sel     !

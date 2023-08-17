@@ -75,3 +75,31 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |a
+hat #
+    a
+1  |b
+hat #
+    b
+2  |c
+hat #
+    c
+3  |
+4  |const values = [e]
+hat                 #
+                    e
+5  |
+sel !
+-- final --
+0   |a
+src  #
+1   |b
+src  #
+2   |c
+src  #
+3   |
+4   |const values = [a, b, c, e]
+that                 [-----]
+5   |
+sel  !

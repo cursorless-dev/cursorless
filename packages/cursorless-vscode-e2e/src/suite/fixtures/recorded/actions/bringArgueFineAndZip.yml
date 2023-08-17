@@ -63,3 +63,25 @@ finalState:
         end: {line: 0, character: 57}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function helloWorld(foo: string, bar: number, baz: string) {
+hat                     [-]                       [-]
+                        f                           z
+1  |
+2  |}
+3  |
+4  |function bongo() {
+sel                !
+5  |    
+6  |}
+-- final --
+0   |function helloWorld(foo: string, bar: number, baz: string) {
+src                      [---------]               [---------]
+1   |
+2   |}
+3   |
+4   |function bongo(foo: string, baz: string) {
+sel                                         !
+that                [----------------------]
+5   |    
+6   |}

@@ -26,3 +26,12 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 6}
+-- initial --
+0  |const aaa = "bbb";
+1  |const ccc = "ddd";
+sel                   !
+-- final --
+0  |const  = "bbb";
+sel       !
+1  |const  = "ddd";
+sel       !

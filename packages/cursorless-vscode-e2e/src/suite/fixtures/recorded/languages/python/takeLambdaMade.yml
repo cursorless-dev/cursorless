@@ -25,3 +25,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 24}
+-- initial --
+0  |
+sel !
+1  |lambda a: print("hello")
+hat [----]
+      m
+-- final --
+0  |
+1  |lambda a: print("hello")
+sel [---------------------->

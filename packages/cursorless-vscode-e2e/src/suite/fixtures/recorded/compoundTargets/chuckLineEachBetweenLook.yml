@@ -46,3 +46,23 @@ finalState:
   selections:
     - anchor: {line: 2, character: 9}
       active: {line: 2, character: 9}
+-- initial --
+0  |hello there
+1  |hello there
+hat       [---]
+            e
+2  |
+3  |
+4  |    hello there
+sel          !
+hat     [---]
+          l
+5  |    hello there
+6  |        hello 
+-- final --
+0  |hello there
+1  |hello there
+2  |    hello there
+sel          !
+3  |    hello there
+4  |        hello 

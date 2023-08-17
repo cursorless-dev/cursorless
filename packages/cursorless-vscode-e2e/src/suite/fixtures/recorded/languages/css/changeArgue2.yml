@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 45}
       active: {line: 1, character: 45}
+-- initial --
+0  |div {
+1  |  background: repeating-linear-gradient(red, orange 50px);
+sel                                                !
+2  |}
+-- final --
+0  |div {
+1  |  background: repeating-linear-gradient(red, );
+sel                                              !
+2  |}

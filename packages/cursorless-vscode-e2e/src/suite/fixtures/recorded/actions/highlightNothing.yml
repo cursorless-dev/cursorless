@@ -22,3 +22,9 @@ finalState:
 ide:
   highlights:
     - ranges: []
+-- initial --
+0  |
+sel !
+-- final --
+0  |
+sel !

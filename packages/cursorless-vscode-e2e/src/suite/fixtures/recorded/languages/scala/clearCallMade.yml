@@ -29,3 +29,17 @@ finalState:
   selections:
     - anchor: {line: 2, character: 2}
       active: {line: 2, character: 2}
+-- initial --
+0  |object Example {
+sel !
+1  |  val numbers = List(1,2,3,4)
+2  |  numbers.map(_ + 1)
+hat           [-]
+              m
+3  |}
+-- final --
+0  |object Example {
+1  |  val numbers = List(1,2,3,4)
+2  |  
+sel   !
+3  |}

@@ -29,3 +29,12 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+-- initial --
+0   |(hello world)
+that        [---]
+1   |
+sel  !
+-- final --
+0  |[hello world]
+1  |
+sel !

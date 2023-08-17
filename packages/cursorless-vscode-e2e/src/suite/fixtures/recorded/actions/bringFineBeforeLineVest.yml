@@ -51,3 +51,22 @@ finalState:
         end: {line: 3, character: 3}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |
+sel !
+1  |    const value = "Hello world";
+hat           [---]
+              v
+2  |foo
+hat [-]
+    f
+3  |
+-- final --
+0   |
+sel  !
+1   |    foo
+that     [-]
+2   |    const value = "Hello world";
+3   |foo
+src  [-]
+4   |

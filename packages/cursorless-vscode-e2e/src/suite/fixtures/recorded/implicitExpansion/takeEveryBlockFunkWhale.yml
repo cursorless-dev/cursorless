@@ -46,3 +46,30 @@ finalState:
       active: {line: 1, character: 28}
     - anchor: {line: 3, character: 4}
       active: {line: 4, character: 1}
+-- initial --
+0  |function whatever() {
+hat          [------]
+             w
+1  |    const testing = "hello";
+2  |
+3  |    const again = "hello";
+4  |}
+5  |
+6  |function another() {
+sel                 !
+7  |    const testing = "hello";
+8  |}
+-- final --
+0  |function whatever() {
+sel [--------------------
+1  |    const testing = "hello";
+sel --------------------------->
+2  |
+3  |    const again = "hello";
+sel     [---------------------
+4  |}
+sel >
+5  |
+6  |function another() {
+7  |    const testing = "hello";
+8  |}

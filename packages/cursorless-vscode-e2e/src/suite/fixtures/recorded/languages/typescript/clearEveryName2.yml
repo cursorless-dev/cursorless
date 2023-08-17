@@ -30,3 +30,16 @@ finalState:
       active: {line: 1, character: 10}
     - anchor: {line: 2, character: 10}
       active: {line: 2, character: 10}
+-- initial --
+0  |function eee() {
+1  |    const aaa = "bbb";
+2  |    const ccc = "ddd";
+sel                       !
+3  |}
+-- final --
+0  |function eee() {
+1  |    const  = "bbb";
+sel           !
+2  |    const  = "ddd";
+sel           !
+3  |}

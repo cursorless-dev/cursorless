@@ -22,3 +22,9 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+-- initial --
+0  |a(b(), c()) + d()
+sel [--------------->
+-- final --
+0  | + 
+sel !  !

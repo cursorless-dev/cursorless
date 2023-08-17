@@ -32,3 +32,18 @@ finalState:
       active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
+-- initial --
+0  |slap:
+1  |    key(end)
+sel     !
+2  |    key(enter)
+3  |    
+4  |    
+-- final --
+0  |slap:
+1  |    
+sel     !
+2  |    
+sel     !
+3  |    
+4  |    

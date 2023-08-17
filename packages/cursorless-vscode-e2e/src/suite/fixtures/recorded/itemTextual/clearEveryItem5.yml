@@ -36,3 +36,21 @@ finalState:
       active: {line: 2, character: 4}
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |[
+1  |    a,
+sel     !
+2  |    [
+3  |        b
+4  |    ],
+5  |    c
+6  |]
+-- final --
+0  |[
+1  |    ,
+sel     !
+2  |    ,
+sel     !
+3  |    
+sel     !
+4  |]

@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 7}
+-- initial --
+0  |if True:
+1  |    pass
+sel     !
+2  |
+3  |while True:
+4  |    pass
+-- final --
+0  |if True:
+sel    [-->
+1  |    pass
+2  |
+3  |while True:
+4  |    pass

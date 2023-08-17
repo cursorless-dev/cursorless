@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
+-- initial --
+0  |class ExampleClass() {
+sel !
+1  |  def example(foo: Int, bar: Int) = foo + bar
+hat               [-]
+                  f
+2  |}
+3  |
+-- final --
+0  |class ExampleClass() {
+1  |  def example(, bar: Int) = foo + bar
+sel               !
+2  |}
+3  |

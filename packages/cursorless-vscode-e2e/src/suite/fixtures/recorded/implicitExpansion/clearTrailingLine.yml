@@ -23,3 +23,10 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+-- initial --
+0  |a b
+sel !
+1  |c d
+-- final --
+0  |a bc d
+sel    !

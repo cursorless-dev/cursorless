@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |class TypesAhoy() {
+sel !
+1  |  def example(foo: List[String]): List[String] = foo
+hat                                        [----]
+                                           s
+2  |}
+3  |
+-- final --
+0  |class TypesAhoy() {
+sel !
+1  |  def example(foo: List[String]) = foo
+2  |}
+3  |

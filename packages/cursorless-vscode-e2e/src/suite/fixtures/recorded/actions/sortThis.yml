@@ -51,3 +51,20 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |2
+sel #
+1  |1
+sel #
+2  |3
+sel #
+-- final --
+0   |1
+sel  #
+that #
+1   |2
+sel  #
+that #
+2   |3
+sel  #
+that #

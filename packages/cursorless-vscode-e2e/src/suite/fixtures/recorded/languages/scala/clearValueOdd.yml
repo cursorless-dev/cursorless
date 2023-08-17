@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 28}
       active: {line: 0, character: 28}
+-- initial --
+0  |class Example(foo: String = "foo") {}
+sel !
+hat                              [-]
+                                  o
+1  |
+-- final --
+0  |class Example(foo: String = ) {}
+sel                             !
+1  |

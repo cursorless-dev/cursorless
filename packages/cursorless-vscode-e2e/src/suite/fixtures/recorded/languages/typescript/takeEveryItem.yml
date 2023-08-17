@@ -27,3 +27,13 @@ finalState:
       active: {line: 1, character: 32}
     - anchor: {line: 1, character: 34}
       active: {line: 1, character: 37}
+-- initial --
+0  |
+1  |const value = { a: 1, b: 2, c: 3, foo };
+sel                  !
+2  |
+-- final --
+0  |
+1  |const value = { a: 1, b: 2, c: 3, foo };
+sel                 [-->  [-->  [-->  [->
+2  |

@@ -56,3 +56,24 @@ finalState:
         end: {line: 4, character: 7}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |hello world there now
+hat       [---] [---]
+              d t
+1  |
+2  |testing
+sel        !
+hat [-----]
+      s
+3  |
+-- final --
+0   |
+sel  !
+1   |hello world there now
+that       [---]
+2   |
+3   |
+sel  !
+4   |testing
+that [-----]
+5   |

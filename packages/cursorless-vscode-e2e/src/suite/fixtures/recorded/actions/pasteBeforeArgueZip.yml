@@ -40,3 +40,12 @@ ide:
         type: character
         start: {line: 0, character: 9}
         end: {line: 0, character: 12}
+-- initial --
+0  |foo(bar, baz, bongo)
+sel                    !
+hat          [-]
+               z
+-- final --
+0   |foo(bar, baz, baz, bongo)
+sel                          !
+that          [-]

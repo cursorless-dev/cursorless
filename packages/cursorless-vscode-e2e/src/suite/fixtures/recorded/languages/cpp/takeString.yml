@@ -20,3 +20,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 23}
+-- initial --
+0  |char* a = "hello world";
+sel                      !
+1  |
+-- final --
+0  |char* a = "hello world";
+sel           [----------->
+1  |

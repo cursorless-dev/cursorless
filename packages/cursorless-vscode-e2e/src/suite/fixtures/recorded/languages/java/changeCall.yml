@@ -19,3 +19,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
+-- initial --
+0  |Box<Integer> integerBox = new Box<>();
+sel                                     !
+1  |
+-- final --
+0  |Box<Integer> integerBox = ;
+sel                           !
+1  |

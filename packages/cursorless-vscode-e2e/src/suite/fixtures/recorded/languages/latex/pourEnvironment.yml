@@ -26,3 +26,14 @@ finalState:
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
+-- initial --
+0  |\begin{quote}
+sel !
+1  |    hello
+2  |\end{quote}
+-- final --
+0  |\begin{quote}
+1  |    hello
+2  |\end{quote}
+3  |
+sel !

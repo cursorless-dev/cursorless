@@ -25,3 +25,12 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+-- initial --
+0  |air: "a"
+sel !
+1  |bat: "b"
+-- final --
+0  |
+sel !
+1  |
+sel !

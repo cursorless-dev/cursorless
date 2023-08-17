@@ -24,3 +24,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
+-- initial --
+0  |struct Some {}
+sel              !
+hat        [--]
+            o
+-- final --
+0  |struct  {}
+sel        !

@@ -54,3 +54,20 @@ finalState:
         end: {line: 4, character: 14}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |if True:
+hat    [--]
+       t
+1  |    pass
+2  |
+sel !
+-- final --
+0   |if True:
+1   |    print("hello")
+that     [------------]
+2   |    pass
+3   |
+4   |print("hello")
+that [------------]
+5   |
+sel  !

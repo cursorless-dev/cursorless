@@ -20,3 +20,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+-- initial --
+0  |let foo: { a: string };
+sel             !
+-- final --
+0  |let foo: {  };
+sel            !

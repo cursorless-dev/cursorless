@@ -34,3 +34,16 @@ finalState:
       active: {line: 2, character: 4}
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
+-- initial --
+0  |<aaa>
+1  |    <bbb>ccc</bbb>
+sel     !
+2  |    <bbb>ddd</bbb>
+3  |</aaa>
+-- final --
+0  |<aaa>
+1  |    ccc
+sel     !  !
+2  |    ddd
+sel     !  !
+3  |</aaa>

@@ -29,3 +29,17 @@ finalState:
       active: {line: 1, character: 17}
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 17}
+-- initial --
+0  |const value = {
+1  |    key1: "hello",
+sel           !
+2  |    key2: "there",
+sel           [----->
+3  |};
+-- final --
+0  |const value = {
+1  |    key1: "hello",
+sel     [----------->
+2  |    key2: "there",
+sel     [----------->
+3  |};

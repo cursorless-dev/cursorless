@@ -36,3 +36,14 @@ finalState:
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
+-- initial --
+0      |aaa bbb ccc aaa ddd aaa
+instRef                 [-]
+hat     [-]
+        a
+1      |
+sel     !
+-- final --
+0  |aaa bbb ccc aaa ddd 
+sel                     !
+1  |

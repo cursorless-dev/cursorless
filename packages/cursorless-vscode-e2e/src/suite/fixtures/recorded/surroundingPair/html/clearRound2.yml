@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 16}
+-- initial --
+0  |<html>
+1  |    <head>
+2  |        <script>(hello)</script>
+sel                    !
+3  |    </head>
+4  |</html>
+-- final --
+0  |<html>
+1  |    <head>
+2  |        <script></script>
+sel                 !
+3  |    </head>
+4  |</html>

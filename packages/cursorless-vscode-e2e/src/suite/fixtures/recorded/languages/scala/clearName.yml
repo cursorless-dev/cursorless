@@ -19,3 +19,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
+-- initial --
+0  |class ExampleClass() {}
+sel !
+1  |
+-- final --
+0  |class () {}
+sel       !
+1  |

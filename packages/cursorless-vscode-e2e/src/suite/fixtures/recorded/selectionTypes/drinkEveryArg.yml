@@ -30,3 +30,13 @@ finalState:
       active: {line: 0, character: 31}
     - anchor: {line: 0, character: 44}
       active: {line: 0, character: 44}
+-- initial --
+0  |function whatever(a: number, b: number, c: number) {
+sel                              !
+1  |    
+2  |}
+-- final --
+0  |function whatever(, a: number, , b: number, , c: number) {
+sel                   !            !            !
+1  |    
+2  |}

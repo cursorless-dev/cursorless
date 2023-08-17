@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
+-- initial --
+0  |<?php
+1  |
+2  |myFunc($value);"
+sel            !
+-- final --
+0  |<?php
+1  |
+2  |myFunc();"
+sel        !

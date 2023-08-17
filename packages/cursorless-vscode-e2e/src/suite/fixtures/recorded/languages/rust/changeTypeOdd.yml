@@ -30,3 +30,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
+-- initial --
+0  |struct S {
+1  |    n: Option<u64>,
+hat        [----]
+           o
+2  |}
+3  |
+sel !
+-- final --
+0  |struct S {
+1  |    n: ,
+sel        !
+2  |}
+3  |

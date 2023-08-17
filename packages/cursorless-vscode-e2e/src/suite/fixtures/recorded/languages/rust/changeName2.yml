@@ -34,3 +34,23 @@ finalState:
   selections:
     - anchor: {line: 5, character: 8}
       active: {line: 5, character: 8}
+-- initial --
+0  |struct S {
+1  |    v: u32,
+2  |}
+3  |
+4  |fn main() {
+5  |    let S { v } = S { v: 32 };
+sel                   !
+6  |}
+7  |
+-- final --
+0  |struct S {
+1  |    v: u32,
+2  |}
+3  |
+4  |fn main() {
+5  |    let  = S { v: 32 };
+sel         !
+6  |}
+7  |

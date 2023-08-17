@@ -21,3 +21,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |\iffalse
+sel !
+1  |some comment
+2  |\fi
+3  |
+-- final --
+0  |
+sel !
+1  |

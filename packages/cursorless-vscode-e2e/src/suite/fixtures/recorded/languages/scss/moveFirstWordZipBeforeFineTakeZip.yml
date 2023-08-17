@@ -43,3 +43,13 @@ finalState:
     default.f:
       start: {line: 0, character: 0}
       end: {line: 0, character: 11}
+-- initial --
+0  |foo-bar baz-bongo
+sel                  !
+hat [-----] [-------]
+    f         z
+-- final --
+0  |baz-foo-bar bongo
+sel                  !
+hat [---------] [---]
+        f         z

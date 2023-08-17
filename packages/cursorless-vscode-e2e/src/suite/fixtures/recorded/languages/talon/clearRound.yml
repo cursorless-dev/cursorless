@@ -21,3 +21,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
+-- initial --
+0  |command: "foo (bar) baz"
+sel                !
+-- final --
+0  |command: "foo  baz"
+sel               !

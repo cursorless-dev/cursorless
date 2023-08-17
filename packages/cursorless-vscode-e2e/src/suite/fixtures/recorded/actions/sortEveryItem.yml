@@ -45,3 +45,10 @@ finalState:
         end: {line: 0, character: 12}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |90, 11, 9, 3
+sel !
+-- final --
+0   |3, 9, 11, 90
+sel  !
+that #  #  []  []

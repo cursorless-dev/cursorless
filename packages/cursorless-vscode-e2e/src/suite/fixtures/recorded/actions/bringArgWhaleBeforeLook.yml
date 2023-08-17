@@ -56,3 +56,24 @@ finalState:
         end: {line: 4, character: 21}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function myFunk(
+sel !
+1  |    name: string,
+2  |    value: number,
+hat     [---]
+          l
+3  |    whatever: boolean
+hat     [------]
+        w
+4  |) {}
+-- final --
+0   |function myFunk(
+sel  !
+1   |    name: string,
+2   |    whatever: boolean,
+that     [---------------]
+3   |    value: number,
+4   |    whatever: boolean
+src      [---------------]
+5   |) {}

@@ -23,3 +23,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}
+-- initial --
+0  |@mixin horizontal-list {
+1  |  @include rtl(float, left, right);
+sel         !
+2  |}
+3  |
+-- final --
+0  |@mixin horizontal-list {
+1  |  @include ;
+sel            !
+2  |}
+3  |

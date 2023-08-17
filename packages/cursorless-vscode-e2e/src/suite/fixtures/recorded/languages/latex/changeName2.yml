@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
+-- initial --
+0  |\section{some section}
+sel             !
+1  |Some Text
+-- final --
+0  |\section{}
+sel          !
+1  |Some Text

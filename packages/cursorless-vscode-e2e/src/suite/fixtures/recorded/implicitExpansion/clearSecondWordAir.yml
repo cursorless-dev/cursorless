@@ -28,3 +28,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+-- initial --
+0  |aaaBbbCccDdd
+sel !
+hat [----------]
+    a
+-- final --
+0  |aaaCccDdd
+sel    !

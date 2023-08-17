@@ -38,3 +38,18 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |let foo;
+sel !
+hat     [-]
+        f
+1  |let bar;
+hat     [-]
+        b
+2  |
+-- final --
+0  |let foo;
+sel !
+1  |let bar;
+2  |let foo;
+3  |

@@ -43,3 +43,25 @@ finalState:
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
+-- initial --
+0  |function foo() {
+1  |    return "";
+sel             !
+2  |}
+3  |
+4  |function bar() {
+hat          [-]
+             b
+5  |    return "";
+6  |}
+-- final --
+0  |function foo() {
+1  |    return "";
+sel             !
+2  |}
+3  |
+4  |bar
+5  |
+6  |function bar() {
+7  |    return "";
+8  |}

@@ -35,3 +35,14 @@ finalState:
 returnValue: [bar]
 ide:
   flashes: []
+-- initial --
+0  |foo bar baz
+hat     [-]
+         a
+1  |
+sel !
+-- final --
+0   |foo bar baz
+that     [-]
+1   |
+sel  !

@@ -29,3 +29,19 @@ finalState:
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
+-- initial --
+0  |case abc
+1  |when true
+2  |  a = 0
+sel     !
+3  |else
+4  |  a = 10
+5  |end
+-- final --
+0  |case abc
+1  |when true
+2  |
+sel !
+3  |else
+4  |  a = 10
+5  |end

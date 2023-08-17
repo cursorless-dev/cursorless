@@ -32,3 +32,19 @@ finalState:
   selections:
     - anchor: {line: 2, character: 2}
       active: {line: 2, character: 2}
+-- initial --
+0  |if (true) {
+1  |  const whatever = "hello";
+2  |} else if (false) {
+3  |  const whatever = "hello";
+sel   !
+4  |} else {
+5  |  const whatever = "hello";
+6  |}
+-- final --
+0  |if (true) {
+1  |  const whatever = "hello";
+2  |}  else {
+sel   !
+3  |  const whatever = "hello";
+4  |}

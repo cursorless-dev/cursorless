@@ -39,3 +39,29 @@ finalState:
   selections:
     - anchor: {line: 2, character: 6}
       active: {line: 2, character: 6}
+-- initial --
+0  |<?php
+1  |
+2  |class MyClass
+3  |{
+4  |    public $value = 'default';
+5  |
+sel !
+6  |    public function helloWorld()
+7  |    {
+8  |
+9  |    }
+10 |}
+-- final --
+0  |<?php
+1  |
+2  |class 
+sel       !
+3  |{
+4  |    public $value = 'default';
+5  |
+6  |    public function helloWorld()
+7  |    {
+8  |
+9  |    }
+10 |}

@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
+-- initial --
+0  |\begin{itemize}
+sel           !
+1  |\end{itemize}
+-- final --
+0  |\begin
+sel       !
+1  |\end{itemize}

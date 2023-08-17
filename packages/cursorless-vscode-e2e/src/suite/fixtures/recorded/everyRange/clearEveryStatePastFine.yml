@@ -42,3 +42,20 @@ finalState:
       active: {line: 3, character: 4}
     - anchor: {line: 4, character: 4}
       active: {line: 4, character: 4}
+-- initial --
+0  |if True:
+1  |    aaa = "bbb"
+2  |
+sel !
+3  |    ccc = "ddd"
+4  |    eee = "fff"
+hat            [-]
+               f
+-- final --
+0  |if True:
+1  |    aaa = "bbb"
+2  |
+3  |    
+sel     !
+4  |    
+sel     !

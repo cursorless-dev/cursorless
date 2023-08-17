@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+-- initial --
+0  |for (int i = 0; i < 5; i++) {}
+sel                    !
+-- final --
+0  |for (int i = 0; ; i++) {}
+sel                 !

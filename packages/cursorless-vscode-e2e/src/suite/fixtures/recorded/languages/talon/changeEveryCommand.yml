@@ -32,3 +32,18 @@ finalState:
       active: {line: 3, character: 0}
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
+-- initial --
+0  |tag: user.foo
+sel !
+1  |app: bar
+2  |-
+3  |bongo: bazman
+4  |foo: key(a)
+-- final --
+0  |tag: user.foo
+1  |app: bar
+2  |-
+3  |
+sel !
+4  |
+sel !

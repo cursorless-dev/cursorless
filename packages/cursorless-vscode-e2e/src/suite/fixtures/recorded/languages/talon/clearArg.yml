@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 22}
+-- initial --
+0  |some command: 
+1  |    user.do_something(1, "hello")
+sel                       !
+2  |    
+3  |    
+-- final --
+0  |some command: 
+1  |    user.do_something(, "hello")
+sel                       !
+2  |    
+3  |    

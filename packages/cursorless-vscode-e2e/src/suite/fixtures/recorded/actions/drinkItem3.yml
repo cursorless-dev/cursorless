@@ -38,3 +38,19 @@ finalState:
         end: {line: 2, character: 5}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |[
+1  |    a,
+sel      !
+2  |    b,
+3  |    c,
+4  |]
+-- final --
+0   |[
+1   |    ,
+sel      !
+2   |    a,
+that     #
+3   |    b,
+4   |    c,
+5   |]

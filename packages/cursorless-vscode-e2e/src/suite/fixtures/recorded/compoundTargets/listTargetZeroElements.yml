@@ -14,3 +14,8 @@ initialState:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
 thrownError: {name: Error}
+-- initial --
+0  |aaa
+sel    !
+-- final --
+0|

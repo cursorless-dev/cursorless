@@ -32,3 +32,19 @@ finalState:
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
+-- initial --
+0  |if n < 0 {
+1  |    print!("{} is negative", n);
+2  |} else if n > 0 {
+3  |    print!("{} is positive", n);
+sel     !
+4  |} else {
+5  |    print!("{} is zero", n);
+6  |}
+-- final --
+0  |if n < 0 {
+1  |    print!("{} is negative", n);
+2  |} else  else {
+sel        !
+3  |    print!("{} is zero", n);
+4  |}

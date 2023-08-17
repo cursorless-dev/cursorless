@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 22}
+-- initial --
+0  |class Example() {
+sel !
+1  |  val example = "some (wrapped text) to test"
+hat                        [-----]
+                           w
+2  |}
+3  |
+-- final --
+0  |class Example() {
+1  |  val example = "some  to test"
+sel                       !
+2  |}
+3  |

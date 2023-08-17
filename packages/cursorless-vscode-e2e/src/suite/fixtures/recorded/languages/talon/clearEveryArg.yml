@@ -30,3 +30,15 @@ finalState:
       active: {line: 1, character: 22}
     - anchor: {line: 1, character: 24}
       active: {line: 1, character: 24}
+-- initial --
+0  |some command: 
+1  |    user.do_something(1, "hello")
+sel                       !
+2  |    
+3  |    
+-- final --
+0  |some command: 
+1  |    user.do_something(, )
+sel                       ! !
+2  |    
+3  |    

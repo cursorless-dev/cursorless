@@ -95,3 +95,28 @@ ide:
         type: character
         start: {line: 0, character: 0}
         end: {line: 0, character: 3}
+-- initial --
+0  |testing
+sel !
+hat [-----]
+      s
+1  |
+2  |hello
+hat [---]
+      l
+3  |there
+sel      !
+-- final --
+0   |baz
+that [-]
+1   |testing
+sel  !
+2   |baz
+that [-]
+3   |
+4   |hello
+5   |there
+sel       !
+6   |
+7   |baz
+that [-]

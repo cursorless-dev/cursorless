@@ -25,3 +25,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 20}
+-- initial --
+0  |
+sel !
+1  |const value = { a: 1, b: 2, c: 3 };
+hat                 #
+                    a
+2  |
+-- final --
+0  |
+1  |const value = { a: 1, b: 2, c: 3 };
+sel                 [-->
+2  |

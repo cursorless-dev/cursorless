@@ -39,3 +39,19 @@ finalState:
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
+-- initial --
+0  |const whatever = "hello";
+hat       [------]
+          w
+1  |const bar = "hello";
+hat       [-]
+          b
+2  |
+sel !
+-- final --
+0  |function () {
+sel          !
+1  |    const whatever = "hello";
+2  |    const bar = "hello";
+3  |}
+4  |

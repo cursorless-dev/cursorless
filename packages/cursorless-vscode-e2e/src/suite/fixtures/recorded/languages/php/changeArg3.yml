@@ -29,3 +29,19 @@ finalState:
   selections:
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 16}
+-- initial --
+0  |<?php
+1  |
+2  |function myFunc($value, ...$nums)
+sel                     !
+3  |{
+4  |
+5  |}
+-- final --
+0  |<?php
+1  |
+2  |function myFunc(, ...$nums)
+sel                 !
+3  |{
+4  |
+5  |}

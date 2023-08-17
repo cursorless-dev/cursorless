@@ -77,3 +77,43 @@ finalState:
       active: {line: 9, character: 0}
     - anchor: {line: 10, character: 4}
       active: {line: 10, character: 4}
+-- initial --
+0  |def aaa():
+hat     [-]
+       ba
+1  |    pass
+2  |
+3  |def bbb():
+4  |    pass
+5  |
+6  |def ccc():
+hat     [-]
+        c
+7  |    pass
+8  |
+9  |def eee():
+hat     [-]
+       be
+10 |    pass
+11 |
+sel !
+-- final --
+0  |
+sel !
+1  |    
+sel     !
+2  |
+3  |def bbb():
+4  |    pass
+5  |
+6  |
+sel !
+7  |    
+sel     !
+8  |
+sel !
+9  |
+sel !
+10 |    
+sel     !
+11 |

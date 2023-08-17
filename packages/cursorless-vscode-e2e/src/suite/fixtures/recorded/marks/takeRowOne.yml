@@ -29,3 +29,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |
+1  |
+2  |
+3  |
+4  |
+sel !
+-- final --
+0  |
+sel !
+1  |
+2  |
+3  |
+4  |

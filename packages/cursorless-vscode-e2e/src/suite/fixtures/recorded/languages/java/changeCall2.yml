@@ -39,3 +39,29 @@ finalState:
   selections:
     - anchor: {line: 8, character: 4}
       active: {line: 8, character: 4}
+-- initial --
+0  |class Point {
+1  |  int x, y;
+2  |  Point(int x, int y) {
+3  |    this.x = x;
+4  |    this.y = y;
+5  |  }
+6  |
+7  |  Point() {
+8  |    this(0, 0);
+sel             !
+9  |  }
+10 |}
+-- final --
+0  |class Point {
+1  |  int x, y;
+2  |  Point(int x, int y) {
+3  |    this.x = x;
+4  |    this.y = y;
+5  |  }
+6  |
+7  |  Point() {
+8  |    
+sel     !
+9  |  }
+10 |}

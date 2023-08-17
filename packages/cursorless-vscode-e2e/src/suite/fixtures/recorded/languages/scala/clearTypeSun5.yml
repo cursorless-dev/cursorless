@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}
+-- initial --
+0  |class TypesAhoy() {
+sel !
+1  |  val foo: String = "foo"
+hat            [----]
+               s
+2  |}
+3  |
+-- final --
+0  |class TypesAhoy() {
+1  |  val foo:  = "foo"
+sel            !
+2  |}
+3  |

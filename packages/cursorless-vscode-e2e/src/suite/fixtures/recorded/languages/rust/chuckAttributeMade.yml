@@ -24,3 +24,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
+-- initial --
+0  |fn foo(x: &mut u32) {}
+sel                      !
+hat            [-]
+               m
+-- final --
+0  |fn foo(x: &u32) {}
+sel                  !

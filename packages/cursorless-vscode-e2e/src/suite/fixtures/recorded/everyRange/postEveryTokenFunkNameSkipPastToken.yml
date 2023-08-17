@@ -42,3 +42,12 @@ finalState:
       active: {line: 0, character: 10}
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
+-- initial --
+0  |def aaa():
+1  |    pass
+sel       !
+-- final --
+0  |def aaa():
+sel         !!!
+1  |    pass
+sel         !

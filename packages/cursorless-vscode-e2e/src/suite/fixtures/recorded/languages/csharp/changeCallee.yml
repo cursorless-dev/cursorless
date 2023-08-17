@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
+-- initial --
+0  |TestMotorcycle moto = new TestMotorcycle();
+sel                                          !
+-- final --
+0  |TestMotorcycle moto = new ();
+sel                           !

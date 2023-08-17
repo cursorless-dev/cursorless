@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+-- initial --
+0  |new test().bar();
+sel          !
+-- final --
+0  |new ().bar();
+sel     !

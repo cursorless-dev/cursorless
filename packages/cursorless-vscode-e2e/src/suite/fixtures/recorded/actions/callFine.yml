@@ -45,3 +45,19 @@ finalState:
         end: {line: 2, character: 8}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |foo;
+hat [-]
+    f
+1  |bar;
+sel [->
+2  |baz;
+sel [->
+-- final --
+0   |foo;
+1   |foo(bar);
+sel      [->
+that [------]
+2   |foo(baz);
+sel      [->
+that [------]

@@ -37,3 +37,19 @@ finalState:
       active: {line: 0, character: 10}
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
+-- initial --
+0  |        Hello, Mr. Anderson. Doing example.com stuff. Hello
+sel !
+1  |    friend  
+2  |
+3  |    Last one?  
+4  |
+5  |
+-- final --
+0  |            
+sel         !!!
+1  |
+2  |      
+sel     !
+3  |
+4  |

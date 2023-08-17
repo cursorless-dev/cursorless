@@ -19,3 +19,9 @@ finalState:
       active: {line: 0, character: 7}
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
+-- initial --
+0  |a.call(hello, world)
+sel                  !
+-- final --
+0  |a.call(, )
+sel        ! !

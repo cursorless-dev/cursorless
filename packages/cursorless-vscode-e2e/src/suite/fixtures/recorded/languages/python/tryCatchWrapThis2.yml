@@ -36,3 +36,23 @@ finalState:
       active: {line: 8, character: 7}
     - anchor: {line: 3, character: 7}
       active: {line: 3, character: 7}
+-- initial --
+0  |if True:
+sel !
+1  |    foo = "hello"
+2  |
+3  |bar = "hello"
+sel !
+-- final --
+0  |try:
+1  |    if True:
+2  |        foo = "hello"
+3  |except :
+sel        !
+4  |    
+5  |
+6  |try:
+7  |    bar = "hello"
+8  |except :
+sel        !
+9  |    

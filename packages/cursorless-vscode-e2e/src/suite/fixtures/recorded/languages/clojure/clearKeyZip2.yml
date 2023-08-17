@@ -31,3 +31,19 @@ finalState:
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |{
+1  |    :foo "bar",
+2  |    ;; hello
+3  |    :baz "whatever",
+hat      [-]
+           z
+4  |}
+sel  !
+-- final --
+0  |{
+1  |    :foo "bar",
+2  |    ;; hello
+3  |     "whatever",
+sel     !
+4  |}

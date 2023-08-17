@@ -29,3 +29,23 @@ finalState:
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 4, character: 5}
+-- initial --
+0  |
+1  |class Bar {
+2  |    constructor () {
+3  |
+sel !
+4  |    }
+5  |}
+6  |
+-- final --
+0  |
+1  |class Bar {
+2  |    constructor () {
+sel     [---------------
+3  |
+sel !
+4  |    }
+sel ---->
+5  |}
+6  |

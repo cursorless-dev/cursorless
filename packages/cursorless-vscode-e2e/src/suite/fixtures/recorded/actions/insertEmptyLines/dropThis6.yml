@@ -31,3 +31,11 @@ ide:
   flashes:
     - style: justAdded
       range: {type: line, start: 0, end: 0}
+-- initial --
+0  |    hello
+sel          !
+-- final --
+0   |
+1   |    hello
+sel           !
+that          !

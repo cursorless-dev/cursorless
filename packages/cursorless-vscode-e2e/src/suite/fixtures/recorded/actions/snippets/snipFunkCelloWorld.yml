@@ -37,3 +37,18 @@ finalState:
         end: {line: 3, character: 5}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |class Aaa {
+1  |    
+sel     !
+2  |}
+-- final --
+0   |class Aaa {
+1   |    celloWorld() {
+sel                 !
+that     [-------------
+2   |        
+that --------
+3   |    }
+that ----]
+4   |}

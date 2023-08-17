@@ -34,3 +34,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 3}
+-- initial --
+0  |foo world whatever
+sel     [--->
+hat [-] [---]
+    f   w
+-- final --
+0  |fld whatever
+sel  [>

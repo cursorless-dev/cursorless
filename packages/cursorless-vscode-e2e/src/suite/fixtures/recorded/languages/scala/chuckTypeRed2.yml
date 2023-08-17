@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |class TypesAhoy() {
+sel !
+1  |  val foo: List[String] = List("foo")
+hat                 [----]
+                      r
+2  |}
+3  |
+-- final --
+0  |class TypesAhoy() {
+sel !
+1  |  val foo = List("foo")
+2  |}
+3  |

@@ -31,3 +31,19 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+-- initial --
+0  |<html>
+1  |    <body>
+hat      [--]
+          o
+2  |        <hr/>
+3  |    </body>
+4  |</html>
+sel        !
+-- final --
+0  |<html>
+1  |    
+sel     !
+2  |        <hr/>
+3  |    </body>
+4  |</html>

@@ -26,3 +26,9 @@ finalState:
       active: {line: 0, character: 22}
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 23}
+-- initial --
+0  |.long-bem-class-name {}
+sel   !
+-- final --
+0  |.long-bem-class-name {}
+sel #[-----------------> ##

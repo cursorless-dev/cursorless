@@ -22,3 +22,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+-- initial --
+0  |aaa() + bbb() + ccc() + ddd()
+sel           [------>
+-- final --
+0  |aaa() + bbb() +  + ddd()
+sel                 !

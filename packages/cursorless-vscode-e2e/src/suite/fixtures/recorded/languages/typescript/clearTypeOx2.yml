@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+-- initial --
+0  |const foo: string = bar<number>(foo);
+sel !
+hat                                 [-]
+                                     o
+-- final --
+0  |const foo:  = bar<number>(foo);
+sel            !

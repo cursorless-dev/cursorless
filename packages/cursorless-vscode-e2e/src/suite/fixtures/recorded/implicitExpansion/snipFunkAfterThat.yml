@@ -39,3 +39,20 @@ finalState:
   selections:
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}
+-- initial --
+0   |function myFunction() {
+sel  !
+1   |    const whatever = "hello";
+that                            !
+2   |}
+3   |
+-- final --
+0  |function myFunction() {
+1  |    const whatever = "hello";
+2  |}
+3  |
+4  |function () {
+sel          !
+5  |    
+6  |}
+7  |

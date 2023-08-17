@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
+-- initial --
+0  |while true  do
+1  |  puts "hi"
+sel      !
+2  |end
+-- final --
+0  |while true  do
+1  |  
+sel   !
+2  |end

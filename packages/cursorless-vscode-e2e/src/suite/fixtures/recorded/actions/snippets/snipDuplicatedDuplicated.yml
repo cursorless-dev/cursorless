@@ -29,3 +29,10 @@ finalState:
         end: {line: 0, character: 59}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |
+sel !
+-- final --
+0   |This variable: '' is duplicated here: '', but '' is unique!
+sel                  !                      !
+that [---------------------------------------------------------]

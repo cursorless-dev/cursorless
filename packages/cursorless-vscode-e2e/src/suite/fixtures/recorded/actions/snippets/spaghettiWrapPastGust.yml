@@ -34,3 +34,12 @@ finalState:
         end: {line: 0, character: 46}
       isReversed: true
       hasExplicitRange: true
+-- initial --
+0  |grace hopper
+sel             !
+hat [---]
+    g
+-- final --
+0   |My friend grace hopper likes to eat spaghetti!
+sel                                                !
+that <--------------------------------------------]

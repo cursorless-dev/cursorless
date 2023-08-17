@@ -29,3 +29,22 @@ finalState:
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 4, character: 5}
+-- initial --
+0  |void f() {
+1  |    int arr[] = {
+2  |        1 + 2,
+sel             !
+3  |        3
+4  |    };
+5  |}
+-- final --
+0  |void f() {
+1  |    int arr[] = {
+sel                 [
+2  |        1 + 2,
+sel --------------
+3  |        3
+sel ---------
+4  |    };
+sel ---->
+5  |}

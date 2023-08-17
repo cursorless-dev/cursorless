@@ -19,3 +19,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
+-- initial --
+0  |{ i: 10, z: 99}
+sel              !
+1  |
+-- final --
+0  |{ i: 10}
+sel        !
+1  |

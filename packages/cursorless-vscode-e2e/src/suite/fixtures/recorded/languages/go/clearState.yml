@@ -17,3 +17,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |if true {
+1  |	
+sel  !
+2  |}
+-- final --
+0  |
+sel !

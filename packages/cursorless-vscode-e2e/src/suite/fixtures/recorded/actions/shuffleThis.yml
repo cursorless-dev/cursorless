@@ -27,3 +27,10 @@ finalState:
 ide:
   messages:
     - {type: warning, id: tooFewTargets}
+-- initial --
+0  |hello
+sel [--->
+-- final --
+0   |hello
+sel  [--->
+that [---]

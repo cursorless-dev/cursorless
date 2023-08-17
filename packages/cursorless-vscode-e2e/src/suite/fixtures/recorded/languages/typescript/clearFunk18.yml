@@ -40,3 +40,23 @@ finalState:
       active: {line: 2, character: 4}
     - anchor: {line: 4, character: 4}
       active: {line: 4, character: 4}
+-- initial --
+0  |class MyClass {
+1  |    constructor(value: string);
+sel                                !
+2  |    constructor(value: number);
+sel                                !
+3  |
+4  |    constructor(value: string | number) {}
+sel                                           !
+5  |}
+-- final --
+0  |class MyClass {
+1  |    
+sel     !
+2  |    
+sel     !
+3  |
+4  |    
+sel     !
+5  |}

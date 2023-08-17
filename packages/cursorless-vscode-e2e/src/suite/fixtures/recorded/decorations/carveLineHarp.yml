@@ -35,3 +35,12 @@ ide:
         end: {line: 0, character: 15}
     - style: pendingDelete
       range: {type: line, start: 0, end: 0}
+-- initial --
+0  |    hello world
+hat     [---]
+        h
+1  |
+sel !
+-- final --
+0  |
+sel !

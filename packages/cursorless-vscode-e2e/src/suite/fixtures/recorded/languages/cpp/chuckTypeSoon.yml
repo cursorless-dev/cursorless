@@ -27,3 +27,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+-- initial --
+0  |void myFunk(string value) {
+hat             [----]
+                s
+1  |    
+sel     !
+2  |}
+-- final --
+0  |void myFunk(value) {
+1  |    
+sel     !
+2  |}

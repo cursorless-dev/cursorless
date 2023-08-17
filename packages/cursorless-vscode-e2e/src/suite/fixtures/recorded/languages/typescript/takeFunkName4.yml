@@ -25,3 +25,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 7}
+-- initial --
+0  |
+1  |let foo = function() {
+2  |
+sel !
+3  |}
+4  |
+-- final --
+0  |
+1  |let foo = function() {
+sel     [->
+2  |
+3  |}
+4  |

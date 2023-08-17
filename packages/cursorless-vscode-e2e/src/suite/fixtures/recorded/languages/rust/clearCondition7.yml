@@ -26,3 +26,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
+-- initial --
+0  |while let Some(i) = number {
+1  |  println!("Matched {:?}!", i);
+sel   !
+2  |}
+-- final --
+0  |while  {
+sel       !
+1  |  println!("Matched {:?}!", i);
+2  |}

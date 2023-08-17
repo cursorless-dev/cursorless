@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
+-- initial --
+0  |b := Student{ Name: "Bob" }
+sel                       !
+-- final --
+0  |b := { Name: "Bob" }
+sel      !

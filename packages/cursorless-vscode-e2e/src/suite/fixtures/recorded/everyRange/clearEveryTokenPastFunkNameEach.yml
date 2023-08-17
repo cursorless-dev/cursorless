@@ -47,3 +47,20 @@ finalState:
       active: {line: 3, character: 0}
     - anchor: {line: 3, character: 1}
       active: {line: 3, character: 1}
+-- initial --
+0  |def aaa():
+1  |    pass
+sel     !
+2  |
+3  |def bbb():
+hat [-]
+     e
+4  |    pass
+-- final --
+0  |def aaa():
+1  |    
+sel     !
+2  |
+3  | ():
+sel !!
+4  |    pass

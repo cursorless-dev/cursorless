@@ -22,3 +22,9 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+-- initial --
+0  |const aaa = "bbb", ccc = "ddd";
+sel !
+-- final --
+0  |const  = "bbb",  = "ddd";
+sel       !         !

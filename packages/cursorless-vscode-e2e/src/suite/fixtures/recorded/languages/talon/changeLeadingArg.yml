@@ -22,3 +22,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
+-- initial --
+0  |test: user.do_stuff(5, 7)
+sel                         !
+-- final --
+0  |test: user.do_stuff(57)
+sel                      !

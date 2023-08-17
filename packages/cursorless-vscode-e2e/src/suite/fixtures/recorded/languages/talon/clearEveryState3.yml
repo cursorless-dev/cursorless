@@ -36,3 +36,21 @@ finalState:
       active: {line: 2, character: 4}
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |some command: 
+1  |    user.do_something()
+sel     !
+2  |    sleep(200ms)
+3  |    key(enter)
+4  |    
+5  |    
+-- final --
+0  |some command: 
+1  |    
+sel     !
+2  |    
+sel     !
+3  |    
+sel     !
+4  |    
+5  |    

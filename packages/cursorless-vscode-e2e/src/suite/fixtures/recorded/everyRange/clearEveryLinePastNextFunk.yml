@@ -54,3 +54,25 @@ finalState:
       active: {line: 3, character: 0}
     - anchor: {line: 4, character: 4}
       active: {line: 4, character: 4}
+-- initial --
+0  |aaa = "bbb"
+sel !
+1  |ccc = "ddd"
+2  |
+3  |def eee():
+4  |    pass
+5  |
+6  |fff = "ggg"
+-- final --
+0  |
+sel !
+1  |
+sel !
+2  |
+sel !
+3  |
+sel !
+4  |    
+sel     !
+5  |
+6  |fff = "ggg"

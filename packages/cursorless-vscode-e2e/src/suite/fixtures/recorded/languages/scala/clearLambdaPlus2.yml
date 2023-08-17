@@ -27,3 +27,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 34}
       active: {line: 1, character: 34}
+-- initial --
+0  |class ExampleClass() {
+sel !
+1  |  val example = List(1,2,3,4).map((x: Int) => x + 1)
+hat                                                 #
+                                                    +
+2  |}
+-- final --
+0  |class ExampleClass() {
+1  |  val example = List(1,2,3,4).map()
+sel                                   !
+2  |}

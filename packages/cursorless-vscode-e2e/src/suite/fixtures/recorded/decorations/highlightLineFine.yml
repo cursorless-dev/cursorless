@@ -41,3 +41,18 @@ ide:
   highlights:
     - ranges:
         - {type: line, start: 1, end: 1}
+-- initial --
+0  |
+sel !
+1  |    foo    
+hat     [-]
+        f
+2  |    bar    
+3  |
+-- final --
+0   |
+sel  !
+1   |    foo    
+that     [-]
+2   |    bar    
+3   |

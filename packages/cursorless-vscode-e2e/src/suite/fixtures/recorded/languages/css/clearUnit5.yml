@@ -34,3 +34,15 @@ finalState:
       active: {line: 1, character: 21}
     - anchor: {line: 1, character: 25}
       active: {line: 1, character: 25}
+-- initial --
+0  |div {
+1  |    padding: 25px 50px 75px 100px;
+sel     !
+2  |}
+3  |  
+-- final --
+0  |div {
+1  |    padding: 25 50 75 100;
+sel                !  !  !   !
+2  |}
+3  |  

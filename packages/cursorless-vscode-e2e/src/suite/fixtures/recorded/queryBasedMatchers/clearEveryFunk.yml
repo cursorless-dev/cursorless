@@ -36,3 +36,22 @@ finalState:
       active: {line: 1, character: 4}
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |class Sample
+1  |    def function
+2  |       statement
+3  |    end
+4  |
+5  |    def function
+6  |       statement
+7  |    end
+8  | end
+sel     !
+-- final --
+0  |class Sample
+1  |    
+sel     !
+2  |
+3  |    
+sel     !
+4  | end

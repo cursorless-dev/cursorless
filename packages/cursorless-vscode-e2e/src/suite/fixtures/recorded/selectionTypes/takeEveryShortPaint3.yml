@@ -24,3 +24,9 @@ finalState:
       active: {line: 0, character: 32}
     - anchor: {line: 0, character: 33}
       active: {line: 0, character: 44}
+-- initial --
+0  |foo[0](bar.test, baz-other-test) something[]
+sel !
+-- final --
+0  |foo[0](bar.test, baz-other-test) something[]
+sel [--------------> [-------------> [--------->

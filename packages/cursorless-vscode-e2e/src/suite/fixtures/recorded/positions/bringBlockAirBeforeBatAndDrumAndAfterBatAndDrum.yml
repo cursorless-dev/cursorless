@@ -66,3 +66,35 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |aaa
+sel !
+hat [-]
+    a
+1  |
+2  |    bbb
+hat     [-]
+        b
+3  |        ccc
+4  |
+5  |        ddd
+hat         [-]
+            d
+6  |    eee
+-- final --
+0  |aaa
+sel !
+1  |
+2  |    aaa
+3  |
+4  |    bbb
+5  |        ccc
+6  |
+7  |    aaa
+8  |
+9  |    aaa
+10 |
+11 |        ddd
+12 |    eee
+13 |
+14 |    aaa

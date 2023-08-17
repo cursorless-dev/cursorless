@@ -21,3 +21,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 17}
+-- initial --
+0  |
+1  |const value = { a: 1, b: 2, c: 3 };
+sel                  !
+2  |
+-- final --
+0  |
+1  |const value = { a: 1, b: 2, c: 3 };
+sel                 #
+2  |

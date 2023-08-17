@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+-- initial --
+0  |{
+1  |    :bongo {
+2  |        :foo "bar",
+3  |        ;; hello
+sel              !
+4  |        :baz "whatever",
+5  |    }
+6  |}
+-- final --
+0  |{
+1  |    
+sel     !
+2  |}

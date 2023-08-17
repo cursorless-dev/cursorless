@@ -34,3 +34,20 @@ finalState:
       active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
+-- initial --
+0  |interface Aaa {
+1  |    bbb(): void;
+2  |    ccc(): void;
+3  |}
+sel  !
+4  |
+5  |function ddd() {}
+-- final --
+0  |interface Aaa {
+1  |    
+sel     !
+2  |    
+sel     !
+3  |}
+4  |
+5  |function ddd() {}

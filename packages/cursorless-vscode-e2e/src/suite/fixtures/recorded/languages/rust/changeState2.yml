@@ -30,3 +30,19 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+-- initial --
+0  |let expensive_closure = |num| {
+1  |    println!("calculating slowly...");
+sel                !
+2  |    thread::sleep(Duration::from_secs(2));
+3  |    num
+4  |};
+5  |
+-- final --
+0  |let expensive_closure = |num| {
+1  |    
+sel     !
+2  |    thread::sleep(Duration::from_secs(2));
+3  |    num
+4  |};
+5  |

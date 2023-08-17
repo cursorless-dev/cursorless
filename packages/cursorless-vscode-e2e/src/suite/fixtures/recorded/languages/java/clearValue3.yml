@@ -30,3 +30,17 @@ finalState:
   selections:
     - anchor: {line: 2, character: 15}
       active: {line: 2, character: 15}
+-- initial --
+0  |public class MyClass {
+1  |    String myFunk() {
+2  |        return "hello";
+sel         !
+3  |    }
+4  |}
+-- final --
+0  |public class MyClass {
+1  |    String myFunk() {
+2  |        return ;
+sel                !
+3  |    }
+4  |}

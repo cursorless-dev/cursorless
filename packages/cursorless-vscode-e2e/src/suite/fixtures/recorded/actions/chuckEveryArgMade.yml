@@ -28,3 +28,12 @@ finalState:
         end: {line: 0, character: 16}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function myFunk(value: string, name: string, age: number) { };
+sel !
+hat                                [--]
+                                     m
+-- final --
+0   |function myFunk() { };
+sel  !
+that                 !

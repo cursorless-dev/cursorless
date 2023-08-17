@@ -25,3 +25,13 @@ finalState:
       active: {line: 1, character: 40}
     - anchor: {line: 1, character: 42}
       active: {line: 1, character: 42}
+-- initial --
+0  |div {
+1  |  background: repeating-linear-gradient(red, orange 50px);
+sel                                                   !
+2  |}
+-- final --
+0  |div {
+1  |  background: repeating-linear-gradient(, );
+sel                                         ! !
+2  |}

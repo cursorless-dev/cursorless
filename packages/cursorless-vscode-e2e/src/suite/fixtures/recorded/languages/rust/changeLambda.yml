@@ -22,3 +22,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}
+-- initial --
+0  |let expensive_closure = |num| {
+1  |    println!("calculating slowly...");
+2  |    thread::sleep(Duration::from_secs(2));
+sel        !
+3  |    num
+4  |};
+-- final --
+0  |let expensive_closure = ;
+sel                         !

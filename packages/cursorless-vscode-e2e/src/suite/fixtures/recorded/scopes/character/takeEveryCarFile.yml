@@ -52,3 +52,14 @@ finalState:
       active: {line: 1, character: 6}
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 7}
+-- initial --
+0  |aaa bbb
+1  |ccc ddd
+2  |
+sel !
+-- final --
+0  |aaa bbb
+sel #######
+1  |ccc ddd
+sel #######
+2  |

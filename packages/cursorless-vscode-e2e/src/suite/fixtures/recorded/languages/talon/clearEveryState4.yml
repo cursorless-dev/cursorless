@@ -50,3 +50,32 @@ finalState:
       active: {line: 7, character: 0}
     - anchor: {line: 8, character: 0}
       active: {line: 8, character: 0}
+-- initial --
+0  |tag(): user.some_tag
+sel !
+1  |
+2  |settings():
+3  |    speech.debug = 1
+4  |
+5  |command: "command"
+6  |key(enter): "enter"
+7  |gamepad(north): "north"
+8  |face(smile): "smile"
+9  |parrot(pop): "pop"
+-- final --
+0  |
+sel !
+1  |
+2  |
+sel !
+3  |
+4  |
+sel !
+5  |
+sel !
+6  |
+sel !
+7  |
+sel !
+8  |
+sel !

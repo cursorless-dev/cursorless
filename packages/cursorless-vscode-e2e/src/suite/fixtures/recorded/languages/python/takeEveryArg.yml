@@ -25,3 +25,15 @@ finalState:
       active: {line: 1, character: 21}
     - anchor: {line: 1, character: 23}
       active: {line: 1, character: 28}
+-- initial --
+0  |
+1  |def my_funk(name: str, value) -> str:
+sel             !
+2  |    return
+3  |
+-- final --
+0  |
+1  |def my_funk(name: str, value) -> str:
+sel             [------->  [--->
+2  |    return
+3  |

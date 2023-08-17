@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |const foo = "hello";
+sel       !
+-- final --
+0  |try {
+1  |    const foo = "hello";
+2  |} catch (err) {
+3  |    
+sel     !
+4  |}

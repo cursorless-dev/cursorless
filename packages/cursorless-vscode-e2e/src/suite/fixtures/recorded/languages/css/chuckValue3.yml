@@ -23,3 +23,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
+-- initial --
+0  |a { 
+1  |  margin-top: 150px !important; 
+sel        !
+2  |}
+3  |
+-- final --
+0  |a { 
+1  |  margin-top:; 
+sel        !
+2  |}
+3  |

@@ -30,3 +30,10 @@ finalState:
         end: {line: 0, character: 70}
       isReversed: true
       hasExplicitRange: true
+-- initial --
+0  |Hello world
+sel [--------->
+-- final --
+0   |This variable: '' is duplicated here: '', but 'Hello world' is unique!
+sel                  !                      !
+that <--------------------------------------------------------------------]

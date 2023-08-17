@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+-- initial --
+0  |def hello_world(name, name2)
+sel                     !
+1  |    puts "hi #{name} and #{name2}"
+2  |end
+-- final --
+0  |def hello_world()
+sel                 !
+1  |    puts "hi #{name} and #{name2}"
+2  |end

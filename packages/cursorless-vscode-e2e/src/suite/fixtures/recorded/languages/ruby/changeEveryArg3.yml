@@ -19,3 +19,9 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
+-- initial --
+0  |yield(hello, world)
+sel                  !
+-- final --
+0  |yield(, )
+sel       ! !

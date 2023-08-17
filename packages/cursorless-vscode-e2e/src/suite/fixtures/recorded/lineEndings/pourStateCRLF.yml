@@ -20,3 +20,14 @@ finalState:
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |def whatever():
+1  |    if True:
+sel     !
+2  |        pass
+-- final --
+0  |def whatever():
+1  |    if True:
+2  |        pass
+3  |    
+sel     !

@@ -57,3 +57,36 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |if () {
+sel     !
+1  |    console.log("hello")
+2  |}
+-- final --
+0   |{
+that [
+1   |  "snippetTest1": {
+that -------------------
+2   |    "definitions": [
+that ]
+3   |      {
+4   |        "scope": {
+5   |          "langIds": [
+6   |            "typescript"
+7   |          ]
+8   |        },
+9   |        "body": [
+10  |          "if ($variable1) {",
+sel                  [------->
+11  |          "\tconsole.log(\"hello\")",
+12  |          "}"
+13  |        ]
+14  |      }
+15  |    ],
+16  |    "description": "",
+17  |    "variables": {
+18  |      "variable1": {}
+sel         [------->
+19  |    }
+20  |  }
+21  |}

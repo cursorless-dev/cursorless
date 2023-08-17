@@ -36,3 +36,12 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |helloWorld
+sel        !
+1  |testingThere
+hat [----------]
+    t
+-- final --
+0  |There
+sel !

@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
+-- initial --
+0  |@mixin replace-text($image, $color: red) {
+sel                         !
+1  |  text-align: left;
+2  |}
+-- final --
+0  |@mixin replace-text(, $color: red) {
+sel                     !
+1  |  text-align: left;
+2  |}

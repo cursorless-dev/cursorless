@@ -19,3 +19,8 @@ initialState:
       active: {line: 0, character: 1}
   marks: {}
 thrownError: {name: OutOfRangeError}
+-- initial --
+0  |a
+sel  !
+-- final --
+0|

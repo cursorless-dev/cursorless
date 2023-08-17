@@ -40,3 +40,15 @@ finalState:
       active: {line: 1, character: 11}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 5}
+-- initial --
+0  |
+1  |const value = "Hello world";
+sel [------------------>
+hat [---]          [---][---]
+    c              hv
+2  |
+-- final --
+0  |
+1  |const value = "Hello world";
+sel                [--->[--->[--->
+2  |

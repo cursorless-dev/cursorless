@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
+-- initial --
+0  |aaa bbb: ccc
+sel             !
+hat     [-]
+        b
+-- final --
+0  |aaa: ccc
+sel         !

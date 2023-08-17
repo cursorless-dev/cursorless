@@ -40,3 +40,27 @@ finalState:
       active: {line: 11, character: 4}
     - anchor: {line: 5, character: 4}
       active: {line: 5, character: 4}
+-- initial --
+0  |if (true) {
+sel !
+1  |    const foo = "hello";
+2  |}
+3  |
+4  |const bar = "hello";
+sel !
+-- final --
+0  |try {
+1  |    if (true) {
+2  |        const foo = "hello";
+3  |    }
+4  |} catch (err) {
+5  |    
+sel     !
+6  |}
+7  |
+8  |try {
+9  |    const bar = "hello";
+10 |} catch (err) {
+11 |    
+sel     !
+12 |}

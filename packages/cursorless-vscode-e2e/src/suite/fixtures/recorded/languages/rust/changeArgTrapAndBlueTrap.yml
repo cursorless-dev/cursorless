@@ -41,3 +41,22 @@ finalState:
       active: {line: 0, character: 11}
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
+-- initial --
+0  |enum Maybe<T> {
+hat            #
+              bt
+1  |    Just(T),
+hat          #
+             t
+2  |    Nothing,
+3  |}
+4  |
+sel !
+-- final --
+0  |enum Maybe<> {
+sel            !
+1  |    Just(),
+sel          !
+2  |    Nothing,
+3  |}
+4  |

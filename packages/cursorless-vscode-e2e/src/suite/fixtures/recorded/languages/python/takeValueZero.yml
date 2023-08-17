@@ -27,3 +27,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 17}
+-- initial --
+0  |{
+sel !
+1  |    "foo": bar[0]
+hat                #
+                   0
+2  |}
+-- final --
+0  |{
+1  |    "foo": bar[0]
+sel            [---->
+2  |}

@@ -25,3 +25,10 @@ finalState:
         end: {line: 0, character: 34}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |
+sel !
+-- final --
+0   |My friend  likes to eat spaghetti!
+sel            !
+that [--------------------------------]

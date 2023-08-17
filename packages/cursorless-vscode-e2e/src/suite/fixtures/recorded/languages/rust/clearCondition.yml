@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 2, character: 25}
       active: {line: 2, character: 25}
+-- initial --
+0  |match user {
+1  |  User { first_name: "John" } => {},
+2  |  User { first_name } if first_name.starts_with("P") => {}
+sel                                                          !
+3  |}
+-- final --
+0  |match user {
+1  |  User { first_name: "John" } => {},
+2  |  User { first_name } if  => {}
+sel                          !
+3  |}

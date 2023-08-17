@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
+-- initial --
+0  |@mixin foo($foo: 123) {
+sel              !
+1  |
+2  |}
+-- final --
+0  |@mixin foo($foo: ) {
+sel                  !
+1  |
+2  |}

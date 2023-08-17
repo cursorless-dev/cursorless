@@ -51,3 +51,15 @@ ide:
         type: character
         start: {line: 0, character: 26}
         end: {line: 0, character: 37}
+-- initial --
+0  |function foo(bar: number) {
+sel                !    !
+1  |    
+2  |}
+-- final --
+0   |function foo(bar: number, bar: number) {
+sel                              !    !
+src               [---------]
+that                           [---------]
+1   |    
+2   |}

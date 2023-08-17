@@ -58,3 +58,46 @@ finalState:
       active: {line: 2, character: 8}
     - anchor: {line: 7, character: 8}
       active: {line: 7, character: 8}
+-- initial --
+0  |class Aaa:
+1  |    @bbb
+2  |    def ccc():
+3  |        ddd = "eee"
+4  |        def fff():
+5  |            pass
+6  |
+7  |    def eee():
+8  |        ddd = "eee"
+sel                    !
+9  |        def fff():
+10 |            pass
+11 |
+12 |class Bbb:
+13 |    @bbb
+14 |    def ccc():
+15 |        ddd = "eee"
+16 |        def fff():
+17 |            pass
+18 |
+-- final --
+0  |class Aaa:
+1  |    @bbb
+2  |    def ():
+sel         !
+3  |        ddd = "eee"
+4  |        def fff():
+5  |            pass
+6  |
+7  |    def ():
+sel         !
+8  |        ddd = "eee"
+9  |        def fff():
+10 |            pass
+11 |
+12 |class Bbb:
+13 |    @bbb
+14 |    def ccc():
+15 |        ddd = "eee"
+16 |        def fff():
+17 |            pass
+18 |

@@ -27,3 +27,13 @@ finalState:
       active: {line: 0, character: 10}
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
+-- initial --
+0  |<html id="(hello)">
+hat            [---]
+                e
+1  |</html>
+sel !
+-- final --
+0  |<html id="hello">
+sel           !    !
+1  |</html>

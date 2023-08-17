@@ -30,3 +30,14 @@ finalState:
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
+-- initial --
+0  |def eee():
+1  |    ddd = "eee"
+sel     !
+2  |    def fff():
+3  |        pass
+-- final --
+0  |def eee():
+1  |    ddd = "eee"
+2  |    
+sel     !

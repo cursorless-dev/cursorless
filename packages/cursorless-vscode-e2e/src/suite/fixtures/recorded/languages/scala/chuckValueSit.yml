@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |class Example() {
+sel !
+1  |  val bling = "blang"
+hat       [---]
+            i
+2  |}
+3  |
+-- final --
+0  |class Example() {
+sel !
+1  |  val bling
+2  |}
+3  |

@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 18}
+-- initial --
+0  |int f(int a, int b) {
+sel                 !
+1  |}
+-- final --
+0  |int f(int a, int b) {
+sel              [--->
+1  |}

@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
+-- initial --
+0  |def matchTest(x: Int): String = x match {
+1  |  case 0 => "zero"
+sel   !
+2  |  case _ => "other"
+3  |}
+-- final --
+0  |def matchTest(x: Int): String = x match {
+1  |  
+sel   !
+2  |  case _ => "other"
+3  |}

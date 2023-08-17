@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 37}
+-- initial --
+0  |" ".join((word for word in word_list), (word for word in word_list))
+sel                                        [-------------------------->
+hat                    [--]
+                          d
+-- final --
+0  |" ".join((word for word in word_list))
+sel          [-------------------------->

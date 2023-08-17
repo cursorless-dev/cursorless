@@ -27,3 +27,11 @@ finalState:
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
+-- initial --
+0  |aaaBbb cccDdd
+sel !
+1  |eeeFff gggHhh
+-- final --
+0  |aaaBbb cccDdd
+1  |eeeFff Hhh
+sel        !

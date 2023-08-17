@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
+-- initial --
+0  |`Hello, ${name + 's'}!`
+sel                 !
+-- final --
+0  |`Hello, !`
+sel         !

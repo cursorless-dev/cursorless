@@ -25,3 +25,10 @@ initialState:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
 thrownError: {name: SelectionRequiredError}
+-- initial --
+0  |hello world
+sel [---> [--->
+hat [---] [---]
+    h     w
+-- final --
+0|

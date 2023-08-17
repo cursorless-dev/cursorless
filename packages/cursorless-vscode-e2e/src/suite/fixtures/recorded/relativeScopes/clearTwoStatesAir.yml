@@ -33,3 +33,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |if aaa:
+hat    [-]
+       a
+1  |    bbb = "ccc"
+2  |    ddd = "eee"
+3  |
+4  |fff = "ggg"
+5  |
+sel !
+-- final --
+0  |
+sel !
+1  |

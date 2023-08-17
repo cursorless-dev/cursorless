@@ -37,3 +37,18 @@ finalState:
         end: {line: 2, character: 17}
       isReversed: false
       hasExplicitRange: false
+-- initial --
+0  |const value = "value";
+1  |
+2  |console.log(value);
+hat             [---]
+                v
+3  |
+sel !
+-- final --
+0   |const value = "value";
+sel        !
+1   |
+2   |console.log(value);
+that             [---]
+3   |

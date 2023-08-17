@@ -25,3 +25,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 7}
+-- initial --
+0  |foo world
+sel      [>
+hat [-] [---]
+    f   w
+-- final --
+0  |foo foo
+sel      [>

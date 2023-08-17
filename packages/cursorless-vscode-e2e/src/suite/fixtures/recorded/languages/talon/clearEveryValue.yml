@@ -40,3 +40,25 @@ finalState:
       active: {line: 3, character: 9}
     - anchor: {line: 4, character: 13}
       active: {line: 4, character: 13}
+-- initial --
+0  |mode: command
+sel !
+1  |os: linux
+2  |and tag: user.some_tag
+3  |not tag: user.some_other_tag
+4  |and not app: some_application
+5  |-
+6  |
+-- final --
+0  |mode: 
+sel       !
+1  |os: 
+sel     !
+2  |and tag: 
+sel          !
+3  |not tag: 
+sel          !
+4  |and not app: 
+sel              !
+5  |-
+6  |

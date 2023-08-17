@@ -19,3 +19,9 @@ finalState:
       active: {line: 0, character: 30}
     - anchor: {line: 0, character: 32}
       active: {line: 0, character: 45}
+-- initial --
+0  |map[string]string{"air": "bat", "cap": "drum"}
+sel                                           !
+-- final --
+0  |map[string]string{"air": "bat", "cap": "drum"}
+sel                   [---------->  [----------->

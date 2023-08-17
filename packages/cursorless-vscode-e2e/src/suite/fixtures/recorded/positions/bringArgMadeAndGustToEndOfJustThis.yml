@@ -42,3 +42,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 29}
       active: {line: 1, character: 29}
+-- initial --
+0  |function whatever(name: string, age: number, inclose: boolean) {
+hat                   [--]          [-]
+                        m            g
+1  |    
+sel     !
+2  |}
+-- final --
+0  |function whatever(name: string, age: number, inclose: boolean) {
+1  |    name: string, age: number
+sel                              !
+2  |}

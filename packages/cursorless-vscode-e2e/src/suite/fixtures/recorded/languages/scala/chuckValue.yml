@@ -19,3 +19,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |type Vector = (Int, Int)
+sel !
+1  |
+-- final --
+0  |type Vector
+sel !
+1  |

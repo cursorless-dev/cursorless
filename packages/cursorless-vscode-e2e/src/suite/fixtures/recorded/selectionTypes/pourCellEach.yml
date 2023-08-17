@@ -35,3 +35,21 @@ finalState:
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
+-- initial --
+0  |# %%
+1  |print("hello")
+hat        [---]
+            e
+2  |
+3  |# %%
+4  |print("hello")
+sel             !
+-- final --
+0  |# %%
+1  |print("hello")
+2  |
+3  |# %%
+4  |
+sel !
+5  |# %%
+6  |print("hello")

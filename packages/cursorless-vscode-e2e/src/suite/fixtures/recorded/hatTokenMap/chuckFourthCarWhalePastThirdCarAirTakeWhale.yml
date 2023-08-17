@@ -42,3 +42,13 @@ finalState:
     default.a:
       start: {line: 0, character: 9}
       end: {line: 0, character: 14}
+-- initial --
+0  |hello world whatever
+sel                     !
+hat       [---] [------]
+          w       a
+-- final --
+0  |hello wortever
+sel               !
+hat       [-][---]
+          w    a

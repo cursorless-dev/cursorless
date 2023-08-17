@@ -19,3 +19,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 23}
       active: {line: 0, character: 23}
+-- initial --
+0  |\href{https://some.url}{some text}
+sel                            !
+1  |
+-- final --
+0  |\href{https://some.url}
+sel                        !
+1  |

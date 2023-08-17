@@ -26,3 +26,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
+-- initial --
+0  |fn foo() {
+1  |    if true { println!("5") } else { println!("6") }
+sel                        !
+2  |}
+-- final --
+0  |fn foo() {
+1  |    if true {  } else { println!("6") }
+sel               !
+2  |}

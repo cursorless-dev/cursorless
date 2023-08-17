@@ -27,3 +27,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
+-- initial --
+0  | .child-selector {
+1  |  height: 10Q;
+sel   !
+hat           [-]
+              1
+2  |}
+-- final --
+0  | .child-selector {
+1  |  height: 10;
+sel             !
+2  |}

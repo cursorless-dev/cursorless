@@ -27,3 +27,14 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
+-- initial --
+0  |\begin{quote}
+1  |    Hello
+sel     !
+2  |\end{quote}
+-- final --
+0  |
+sel !
+1  |    Hello
+2  |
+sel !

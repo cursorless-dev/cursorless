@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
+-- initial --
+0  |if let User { first_name: "John", last_name: "Doe" } = user {
+hat                            [--]
+                               j
+1  |}
+2  |
+sel !
+-- final --
+0  |if let User { : "John", last_name: "Doe" } = user {
+sel               !
+1  |}
+2  |

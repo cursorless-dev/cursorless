@@ -34,3 +34,21 @@ finalState:
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
+-- initial --
+0  |class Test
+1  |  class << self
+2  |    def hello_world
+3  |      puts "hi"
+sel       !
+4  |    end
+5  |  end
+6  |end
+-- final --
+0  |class Test
+1  |  class << self
+2  |    def 
+sel         !
+3  |      puts "hi"
+4  |    end
+5  |  end
+6  |end

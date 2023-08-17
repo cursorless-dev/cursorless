@@ -30,3 +30,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
+-- initial --
+0  |fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
+hat                  #
+                     t
+1  |}
+2  |
+sel !
+-- final --
+0  |fn some_function<T: , U: Clone + Debug>(t: &T, u: &U) -> i32 {
+sel                     !
+1  |}
+2  |

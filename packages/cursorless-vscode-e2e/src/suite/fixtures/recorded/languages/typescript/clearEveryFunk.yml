@@ -36,3 +36,22 @@ finalState:
       active: {line: 1, character: 4}
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |class Foo {
+1  |    bar() {
+2  |        
+3  |    }
+4  |
+5  |    baz() {
+6  |
+7  |    }
+8  |}
+sel  !
+-- final --
+0  |class Foo {
+1  |    
+sel     !
+2  |
+3  |    
+sel     !
+4  |}

@@ -27,3 +27,15 @@ finalState:
       active: {line: 1, character: 40}
     - anchor: {line: 1, character: 42}
       active: {line: 1, character: 42}
+-- initial --
+0  |div {
+1  |  background: repeating-linear-gradient(red, orange 50px);
+sel                                                   !
+2  |  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+3  |}
+-- final --
+0  |div {
+1  |  background: repeating-linear-gradient(, );
+sel                                         ! !
+2  |  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+3  |}

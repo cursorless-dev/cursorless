@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
+-- initial --
+0  |const [bongo, baz] = [foo, bar]
+sel                           !
+hat                               #
+                                  ]
+-- final --
+0  |const [bongo, baz] = []
+sel                       !

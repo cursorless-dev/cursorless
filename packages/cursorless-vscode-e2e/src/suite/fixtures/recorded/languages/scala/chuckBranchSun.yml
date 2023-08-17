@@ -36,3 +36,25 @@ finalState:
   selections:
     - anchor: {line: 3, character: 2}
       active: {line: 4, character: 2}
+-- initial --
+0  |def matchTest(x: Int): String = x match {
+1  |  case 0 => "zero"
+2  |  case 1 => "one"
+hat   [--]
+        s
+3  |  case 2 => "two"
+sel   [--------------
+4  |  case _ => "other"
+sel ->
+5  |}
+6  |
+-- final --
+0  |def matchTest(x: Int): String = x match {
+1  |  case 0 => "zero"
+2  |
+3  |  case 2 => "two"
+sel   [--------------
+4  |  case _ => "other"
+sel ->
+5  |}
+6  |

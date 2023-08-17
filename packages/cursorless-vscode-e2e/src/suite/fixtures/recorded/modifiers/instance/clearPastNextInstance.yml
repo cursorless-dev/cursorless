@@ -36,3 +36,15 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+-- initial --
+0  |aaa bbb aaa fff
+sel !
+1  |ddd eee ddd ggg
+sel !
+2  |
+-- final --
+0  | fff
+sel !
+1  | ggg
+sel !
+2  |

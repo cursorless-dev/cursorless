@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
+-- initial --
+0  |(defmacro foo [bar] "baz" (bongo))
+sel                               !
+-- final --
+0  |(defmacro  [bar] "baz" (bongo))
+sel           !

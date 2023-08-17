@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
+-- initial --
+0  |function hello<Foo>() {}
+sel                  !
+-- final --
+0  |function hello() {}
+sel               !

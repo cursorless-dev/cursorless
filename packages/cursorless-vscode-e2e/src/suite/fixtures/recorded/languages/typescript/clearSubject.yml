@@ -29,3 +29,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
+-- initial --
+0  |switch(aaa) {
+1  |  case 0:
+2  |    break;
+sel     !
+3  |}
+-- final --
+0  |switch() {
+sel        !
+1  |  case 0:
+2  |    break;
+3  |}

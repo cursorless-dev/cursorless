@@ -29,3 +29,17 @@ finalState:
       active: {line: 2, character: 21}
     - anchor: {line: 2, character: 25}
       active: {line: 2, character: 25}
+-- initial --
+0  |a {
+1  |  width: calc(100% - 80px);
+2  |  clip-path: ellipse(115px 55px at 50% 40%);
+sel                          !
+3  |}
+4  | 
+-- final --
+0  |a {
+1  |  width: calc(100% - 80px);
+2  |  clip-path: ellipse( at );
+sel                      !   !
+3  |}
+4  | 

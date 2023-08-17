@@ -36,3 +36,16 @@ ide:
         type: character
         start: {line: 1, character: 4}
         end: {line: 2, character: 7}
+-- initial --
+0  |
+sel !
+1  |    foo ooo    
+hat     [-]
+        f
+2  |    bar    
+3  |
+-- final --
+0  |
+1  |        
+sel     !
+2  |

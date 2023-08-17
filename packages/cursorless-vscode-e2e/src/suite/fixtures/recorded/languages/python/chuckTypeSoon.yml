@@ -25,3 +25,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
+-- initial --
+0  |def my_funk(value: str) -> str:
+hat                    [-]
+                       s
+1  |    pass
+sel         !
+-- final --
+0  |def my_funk(value) -> str:
+1  |    pass
+sel         !

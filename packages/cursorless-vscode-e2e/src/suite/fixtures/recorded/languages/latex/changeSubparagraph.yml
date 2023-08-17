@@ -22,3 +22,14 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |\subparagraph{1}
+sel !
+1  |some text
+2  |\subparagraph{2}
+3  |
+-- final --
+0  |
+sel !
+1  |\subparagraph{2}
+2  |

@@ -28,3 +28,13 @@ finalState:
       active: {line: 1, character: 24}
     - anchor: {line: 1, character: 34}
       active: {line: 1, character: 34}
+-- initial --
+0  |class Ccc {
+1  |    constructor(private aaa: string, bbb: string) {}
+sel                                                 !
+2  |}
+-- final --
+0  |class Ccc {
+1  |    constructor(private : string, : string) {}
+sel                         !         !
+2  |}

@@ -39,3 +39,29 @@ finalState:
   selections:
     - anchor: {line: 8, character: 1}
       active: {line: 8, character: 1}
+-- initial --
+0  |
+1  |fn build_user(email: String, username: String) -> User {
+hat               [---]
+                      l
+2  |    User {
+3  |        email: email,
+4  |        username: username,
+5  |        active: true,
+6  |        sign_in_count: 1,
+7  |    }
+8  |}
+sel  !
+9  |
+-- final --
+0  |
+1  |fn build_user(email, username: String) -> User {
+2  |    User {
+3  |        email: email,
+4  |        username: username,
+5  |        active: true,
+6  |        sign_in_count: 1,
+7  |    }
+8  |}
+sel  !
+9  |

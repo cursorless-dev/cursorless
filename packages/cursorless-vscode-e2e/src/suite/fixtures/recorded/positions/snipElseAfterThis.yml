@@ -30,3 +30,15 @@ finalState:
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |if True:
+1  |    aaa = "bbb"
+sel        !
+2  |
+-- final --
+0  |if True:
+1  |    aaa = "bbb"
+2  |else:
+3  |    
+sel     !
+4  |

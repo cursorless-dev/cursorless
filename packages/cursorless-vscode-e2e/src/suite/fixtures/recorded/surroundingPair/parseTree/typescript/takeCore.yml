@@ -31,3 +31,19 @@ finalState:
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 30}
+-- initial --
+0  |async (editor, targets) => {
+1  |    const edits = targets.map((target, i) =>(
+2  |    text: i%2 === 0?left:right
+sel         !
+3  |    )
+4  |}
+5  |
+-- final --
+0  |async (editor, targets) => {
+1  |    const edits = targets.map((target, i) =>(
+2  |    text: i%2 === 0?left:right
+sel     [------------------------>
+3  |    )
+4  |}
+5  |

@@ -45,3 +45,25 @@ finalState:
       active: {line: 3, character: 1}
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 1}
+-- initial --
+0  |a
+1  |
+2  |b   c
+hat #
+    b
+3  |d   e
+4  |f   g
+hat #
+    f
+5  |
+sel !
+-- final --
+0  |a
+1  |
+2  |b   c
+sel #
+3  |d   e
+sel #
+4  |f   g
+sel #
+5  |

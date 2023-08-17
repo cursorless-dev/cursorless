@@ -23,3 +23,12 @@ initialState:
       active: {line: 2, character: 7}
   marks: {}
 thrownError: {name: NoContainingScopeError}
+-- initial --
+0  |{
+1  |  function myFunk() {
+2  |    // aaa
+sel        !
+3  |  }
+4  |}
+-- final --
+0|

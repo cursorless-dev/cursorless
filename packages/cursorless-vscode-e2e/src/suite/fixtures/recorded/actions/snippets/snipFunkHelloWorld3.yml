@@ -32,3 +32,14 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |
+sel !
+-- final --
+0   |function helloWorld() {
+sel                      !
+that [----------------------
+1   |    
+that ----
+2   |}
+that ]

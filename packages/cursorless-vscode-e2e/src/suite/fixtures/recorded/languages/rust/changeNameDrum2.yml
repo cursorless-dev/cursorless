@@ -32,3 +32,19 @@ finalState:
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
+-- initial --
+0  |let user = User {
+1  |    first_name: "John",
+2  |    last_name: "Doe",
+hat                 [-]
+                    d
+3  |};
+sel   !
+4  |
+-- final --
+0  |let user = User {
+1  |    first_name: "John",
+2  |    : "Doe",
+sel     !
+3  |};
+4  |

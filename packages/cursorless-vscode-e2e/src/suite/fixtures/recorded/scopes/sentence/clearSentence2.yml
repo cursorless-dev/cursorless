@@ -29,3 +29,16 @@ finalState:
   selections:
     - anchor: {line: 1, character: 3}
       active: {line: 1, character: 3}
+-- initial --
+0  |/** 
+1  | * Definitely the worlds
+sel    !
+2  | * best jsdoc
+3  | */
+4  |const value = 2
+-- final --
+0  |/** 
+1  | * 
+sel    !
+2  | */
+3  |const value = 2

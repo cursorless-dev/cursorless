@@ -60,3 +60,25 @@ finalState:
         end: {line: 4, character: 9}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |    hello
+sel !
+hat     [---]
+        h
+1  |
+2  |    world
+hat     [---]
+        w
+3  |    foo
+-- final --
+0   |    hello
+that     [---]
+1   |
+2   |    
+sel      !
+3   |
+4   |    world
+that     [---]
+5   |    
+sel      !
+6   |    foo

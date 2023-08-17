@@ -22,3 +22,9 @@ finalState:
       active: {line: 0, character: 4}
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
+-- initial --
+0  |foo(aa|aa-().c_d bb|bb-().'')
+sel      !
+-- final --
+0  |foo( )
+sel     !!

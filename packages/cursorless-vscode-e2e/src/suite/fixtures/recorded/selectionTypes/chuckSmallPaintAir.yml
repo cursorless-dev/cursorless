@@ -24,3 +24,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
+-- initial --
+0  |some amount of text
+sel                    !
+hat      [----]
+         a
+-- final --
+0  |some of text
+sel             !

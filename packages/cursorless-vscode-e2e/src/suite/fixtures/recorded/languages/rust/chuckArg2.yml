@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
+-- initial --
+0  |fn add(x: i32, y: i32) -> {
+1  |    add(x, 30);
+sel          !
+2  |}
+-- final --
+0  |fn add(x: i32, y: i32) -> {
+1  |    add(30);
+sel         !
+2  |}

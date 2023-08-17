@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
+-- initial --
+0  |interface Foo {
+1  |  bar: Bar;
+sel   !
+2  |  baz: Baz;
+3  |}
+-- final --
+0  |interface Foo {
+1  |  
+sel   !
+2  |  baz: Baz;
+3  |}

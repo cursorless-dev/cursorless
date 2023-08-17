@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
+-- initial --
+0  |let x = [1, 2, 3];
+sel                   !
+hat          #
+             1
+-- final --
+0  |let x =;
+sel         !

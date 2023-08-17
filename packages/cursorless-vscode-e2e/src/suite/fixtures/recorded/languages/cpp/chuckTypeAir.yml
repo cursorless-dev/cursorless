@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
+-- initial --
+0  |string name = "hello";
+sel                       !
+hat        [--]
+            a
+-- final --
+0  |name = "hello";
+sel                !

@@ -43,3 +43,15 @@ finalState:
         end: {line: 1, character: 5}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |hello world there now
+hat [---] [---] [---]
+    h        l  t
+1  |
+sel !
+-- final --
+0   |
+sel  !
+1   |hello world there now
+that [---]
+2   |

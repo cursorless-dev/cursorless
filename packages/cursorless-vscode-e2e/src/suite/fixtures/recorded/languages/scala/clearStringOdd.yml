@@ -28,3 +28,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 16}
+-- initial --
+0  |class ExampleClass() {
+sel !
+1  |  val example = f"formatted ${1} string"
+hat                   [-------]
+                       o
+2  |}
+3  |
+-- final --
+0  |class ExampleClass() {
+1  |  val example = 
+sel                 !
+2  |}
+3  |

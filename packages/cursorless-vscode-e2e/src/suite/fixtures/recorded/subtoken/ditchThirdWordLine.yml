@@ -24,3 +24,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |apiV1 api_v_1
+sel !
+-- final --
+0  |apiV api_v_1
+sel !

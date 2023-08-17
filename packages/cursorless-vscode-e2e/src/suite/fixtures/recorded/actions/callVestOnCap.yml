@@ -37,3 +37,16 @@ finalState:
         end: {line: 1, character: 12}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |
+sel !
+1  |const value = "Hello world";
+hat [---] [---]
+    c     v
+2  |
+-- final --
+0   |
+sel  !
+1   |value(const) value = "Hello world";
+that [----------]
+2   |

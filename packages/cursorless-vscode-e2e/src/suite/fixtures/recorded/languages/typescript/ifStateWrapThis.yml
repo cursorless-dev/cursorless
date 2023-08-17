@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+-- initial --
+0  |const foo = "hello";
+sel       !
+-- final --
+0  |if () {
+sel     !
+1  |    const foo = "hello";
+2  |}

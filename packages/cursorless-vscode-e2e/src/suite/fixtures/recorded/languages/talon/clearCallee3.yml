@@ -24,3 +24,11 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+-- initial --
+0  |some command:
+1  |    sleep(200ms)
+sel                 !
+-- final --
+0  |some command:
+1  |    (200ms)
+sel     !

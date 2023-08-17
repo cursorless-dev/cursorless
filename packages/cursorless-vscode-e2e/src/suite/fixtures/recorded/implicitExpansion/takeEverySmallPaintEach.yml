@@ -30,3 +30,13 @@ finalState:
       active: {line: 0, character: 5}
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 16}
+-- initial --
+0  |first test-block
+hat       [--]
+           e
+1  |for testing
+sel            !
+-- final --
+0  |first test-block
+sel [---> [-------->
+1  |for testing

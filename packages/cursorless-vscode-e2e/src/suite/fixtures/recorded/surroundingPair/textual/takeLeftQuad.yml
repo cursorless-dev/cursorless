@@ -21,3 +21,12 @@ finalState:
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 1, character: 16}
+-- initial --
+0  |hello world whatever "testing testing testing
+sel                           !
+1  |this is another" test "whatever" whatever
+-- final --
+0  |hello world whatever "testing testing testing
+sel                      [-----------------------
+1  |this is another" test "whatever" whatever
+sel --------------->

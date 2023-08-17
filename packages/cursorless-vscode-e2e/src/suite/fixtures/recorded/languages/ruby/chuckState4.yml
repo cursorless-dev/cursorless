@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+-- initial --
+0  |[].each { |i|
+1  |  puts i
+sel   !
+2  |}
+-- final --
+0  |[].each { |i|
+1  |
+sel !
+2  |}

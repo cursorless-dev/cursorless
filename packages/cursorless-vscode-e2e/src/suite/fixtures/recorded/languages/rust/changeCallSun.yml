@@ -27,3 +27,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+-- initial --
+0  |let user = User {
+hat            [--]
+                s
+1  |    name: ""
+2  |}
+sel  !
+-- final --
+0  |let user = 
+sel            !

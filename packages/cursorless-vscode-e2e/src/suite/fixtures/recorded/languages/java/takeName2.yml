@@ -29,3 +29,21 @@ finalState:
   selections:
     - anchor: {line: 2, character: 27}
       active: {line: 2, character: 31}
+-- initial --
+0  |
+1  |public class MyClass {
+2  |    public MyClass (String name, int value) {
+sel                           !
+3  |
+4  |    }
+5  |}
+6  |
+-- final --
+0  |
+1  |public class MyClass {
+2  |    public MyClass (String name, int value) {
+sel                            [-->
+3  |
+4  |    }
+5  |}
+6  |

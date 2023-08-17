@@ -36,3 +36,16 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |class Aaa {
+1  |    
+sel     !
+2  |}
+-- final --
+0   |function () {
+sel           !
+that [------------
+1   |    
+that ----
+2   |}
+that ]

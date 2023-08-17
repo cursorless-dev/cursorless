@@ -19,3 +19,9 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+-- initial --
+0  |f"j{fdfhjkd}lkjlkj"
+sel               !
+-- final --
+0  |j{fdfhjkd}lkjlkj
+sel !               !

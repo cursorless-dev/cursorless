@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+-- initial --
+0  |(https://www.atomiccommits.io/consistent-hashing#code)
+hat  [---]
+        p
+1  |
+sel !
+-- final --
+0  |()
+1  |
+sel !

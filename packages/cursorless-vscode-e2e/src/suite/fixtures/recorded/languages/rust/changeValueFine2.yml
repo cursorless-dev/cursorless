@@ -30,3 +30,17 @@ finalState:
   selections:
     - anchor: {line: 1, character: 23}
       active: {line: 1, character: 23}
+-- initial --
+0  |match user {
+1  |    User { first_name: "John", last_name: "Doe" } => {},
+hat            [--------]
+               f
+2  |}
+3  |
+sel !
+-- final --
+0  |match user {
+1  |    User { first_name: , last_name: "Doe" } => {},
+sel                        !
+2  |}
+3  |

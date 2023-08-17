@@ -39,3 +39,18 @@ finalState:
   selections:
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}
+-- initial --
+0   |function whatever() {
+sel  !
+1   |    const hello = "world";
+that           [---]
+2   |}
+-- final --
+0  |function whatever() {
+1  |    const hello = "world";
+2  |}
+3  |
+4  |function () {
+sel          !
+5  |    
+6  |}

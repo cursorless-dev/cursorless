@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 25}
       active: {line: 0, character: 25}
+-- initial --
+0  |(defn messenger ([]     (messenger "Hello world!")))
+sel                                            !
+-- final --
+0  |(defn messenger ([]     ( "Hello world!")))
+sel                          !

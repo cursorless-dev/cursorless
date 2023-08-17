@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+-- initial --
+0  |String a = "hello";
+sel !
+-- final --
+0  |String a = ;
+sel            !

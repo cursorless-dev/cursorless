@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 13}
+-- initial --
+0  |
+1  |class MyClass:
+2  |    """"""
+sel     !
+-- final --
+0  |
+1  |class MyClass:
+sel       [----->
+2  |    """"""

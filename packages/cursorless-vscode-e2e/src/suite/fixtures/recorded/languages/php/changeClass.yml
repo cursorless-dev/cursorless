@@ -25,3 +25,16 @@ finalState:
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
+-- initial --
+0  |<?php
+1  |
+2  |class MyClass
+3  |{
+4  |
+sel !
+5  |}
+-- final --
+0  |<?php
+1  |
+2  |
+sel !

@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
+-- initial --
+0  |a {
+1  |  width: calc(100% - 80px);
+sel                        !
+2  |}
+-- final --
+0  |a {
+1  |  width: calc();
+sel               !
+2  |}

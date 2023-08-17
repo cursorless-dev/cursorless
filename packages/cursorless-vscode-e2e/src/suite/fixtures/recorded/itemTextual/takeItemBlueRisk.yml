@@ -40,3 +40,25 @@ finalState:
   selections:
     - anchor: {line: 6, character: 14}
       active: {line: 6, character: 17}
+-- initial --
+0  |[
+sel !
+1  |    a b, (c, d),
+2  |    e f, {g, h},
+3  |    i j, [k, l],
+4  |    m n, <o, p>,
+5  |    q r, "s, t",
+6  |    u v, "foo(bar)baz",
+hat               [-]
+                   br
+7  |]
+-- final --
+0  |[
+1  |    a b, (c, d),
+2  |    e f, {g, h},
+3  |    i j, [k, l],
+4  |    m n, <o, p>,
+5  |    q r, "s, t",
+6  |    u v, "foo(bar)baz",
+sel               [->
+7  |]

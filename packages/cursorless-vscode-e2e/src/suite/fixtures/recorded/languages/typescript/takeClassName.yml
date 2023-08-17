@@ -35,3 +35,27 @@ finalState:
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 13}
+-- initial --
+0  |
+1  |class MyClass {
+2  |    constructor () {
+3  |
+4  |    }
+5  |    myFunk () {
+sel     !
+6  |
+7  |    }
+8  |}
+9  |
+-- final --
+0  |
+1  |class MyClass {
+sel       [----->
+2  |    constructor () {
+3  |
+4  |    }
+5  |    myFunk () {
+6  |
+7  |    }
+8  |}
+9  |

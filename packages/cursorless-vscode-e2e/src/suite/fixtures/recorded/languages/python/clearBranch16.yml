@@ -30,3 +30,18 @@ finalState:
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
+-- initial --
+0  |try:
+1  |  pass
+2  |except* ValueError as eg:
+3  |  pass
+4  |else:
+sel !
+5  |  pass
+-- final --
+0  |try:
+1  |  pass
+2  |except* ValueError as eg:
+3  |  pass
+4  |
+sel !

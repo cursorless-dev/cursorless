@@ -21,3 +21,8 @@ initialState:
       active: {line: 0, character: 10}
   marks: {}
 thrownError: {name: NoDelimiterError}
+-- initial --
+0  |helloWorld
+sel           !
+-- final --
+0|

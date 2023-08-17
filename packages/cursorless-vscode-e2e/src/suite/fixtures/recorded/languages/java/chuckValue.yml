@@ -87,3 +87,59 @@ finalState:
       active: {line: 2, character: 9}
     - anchor: {line: 12, character: 9}
       active: {line: 12, character: 9}
+-- initial --
+0  |public class MyClass {
+1  |    public static void main(String[] args) {
+2  |        a = 1;
+sel             #
+3  |        a += 1;
+sel              #
+4  |        a -= 1;
+sel              #
+5  |        a *= 1;
+sel              #
+6  |        a /= 1;
+sel              #
+7  |        a %= 1;
+sel              #
+8  |        a &= 1;
+sel              #
+9  |        a |= 1;
+sel              #
+10 |        a ^= 1;
+sel              #
+11 |        a <<= 1;
+sel               #
+12 |        a >>= 1;
+sel               #
+13 |    }
+14 |}
+15 |
+-- final --
+0  |public class MyClass {
+1  |    public static void main(String[] args) {
+2  |        a;
+sel          !
+3  |        a;
+sel          !
+4  |        a;
+sel          !
+5  |        a;
+sel          !
+6  |        a;
+sel          !
+7  |        a;
+sel          !
+8  |        a;
+sel          !
+9  |        a;
+sel          !
+10 |        a;
+sel          !
+11 |        a;
+sel          !
+12 |        a;
+sel          !
+13 |    }
+14 |}
+15 |

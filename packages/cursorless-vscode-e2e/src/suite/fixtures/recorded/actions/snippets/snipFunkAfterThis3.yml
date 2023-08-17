@@ -39,3 +39,20 @@ finalState:
         end: {line: 6, character: 1}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function helloWorld() {
+1  |    const whatever = "hello";
+sel                    !
+2  |}
+-- final --
+0   |function helloWorld() {
+1   |    const whatever = "hello";
+2   |}
+3   |
+4   |function () {
+sel           !
+that [------------
+5   |    
+that ----
+6   |}
+that ]

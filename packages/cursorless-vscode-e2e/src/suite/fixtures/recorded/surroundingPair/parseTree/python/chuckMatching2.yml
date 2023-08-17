@@ -21,3 +21,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
+-- initial --
+0  |def fff(x, y):
+sel           !
+1  |    pass
+2  |
+-- final --
+0  |def fff:
+sel        !
+1  |    pass
+2  |

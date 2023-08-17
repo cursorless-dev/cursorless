@@ -20,3 +20,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
+-- initial --
+0  |def funk(words:list<str>):
+sel                     !
+-- final --
+0  |def funk(words:list):
+sel                    !

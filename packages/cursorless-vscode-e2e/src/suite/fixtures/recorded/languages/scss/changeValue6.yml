@@ -23,3 +23,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 20}
       active: {line: 1, character: 20}
+-- initial --
+0  |a {
+1  |  background-image: url("/icons/mail.svg");
+sel                                    !
+2  |}
+3  |
+-- final --
+0  |a {
+1  |  background-image: ;
+sel                     !
+2  |}
+3  |

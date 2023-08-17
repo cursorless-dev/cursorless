@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 3, character: 11}
       active: {line: 3, character: 11}
+-- initial --
+0  |<?php
+1  |
+2  |class MyClass {
+3  |    public string $value = 'default';
+sel                                 !
+4  |}
+-- final --
+0  |<?php
+1  |
+2  |class MyClass {
+3  |    public  $value = 'default';
+sel            !
+4  |}

@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 29}
       active: {line: 0, character: 32}
+-- initial --
+0  | x := map[string]string{"a": "b", "c": "d"}
+sel                           !
+-- final --
+0  | x := map[string]string{"a": "b", "c": "d"}
+sel                              [->

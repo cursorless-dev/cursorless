@@ -48,3 +48,30 @@ finalState:
       active: {line: 7, character: 16}
     - anchor: {line: 8, character: 13}
       active: {line: 8, character: 13}
+-- initial --
+0  |tag(): user.some_tag
+sel !
+1  |
+2  |settings():
+3  |    speech.debug = 1
+4  |
+5  |command: "command"
+6  |key(enter): "enter"
+7  |gamepad(north): "north"
+8  |face(smile): "smile"
+-- final --
+0  |tag(): 
+sel        !
+1  |
+2  |settings():
+3  |    
+sel     !
+4  |
+5  |command: 
+sel          !
+6  |key(enter): 
+sel             !
+7  |gamepad(north): 
+sel                 !
+8  |face(smile): 
+sel              !

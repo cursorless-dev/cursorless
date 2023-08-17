@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
+-- initial --
+0  |(defn say-hello
+1  |  [name]
+2  |  (println (str "Hello, " name)))
+sel     !
+-- final --
+0  |(defn 
+sel       !
+1  |  [name]
+2  |  (println (str "Hello, " name)))

@@ -39,3 +39,17 @@ finalState:
       isReversed: false
       hasExplicitRange: true
   sourceMark: []
+-- initial --
+0  |
+sel !
+1  |const value = "Hello world";
+hat       [---]
+          v
+2  |
+-- final --
+0   |value
+sel       !
+that [---]
+1   |const  = "Hello world";
+that       !
+2   |

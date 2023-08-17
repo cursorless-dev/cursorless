@@ -37,3 +37,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
+-- initial --
+0  | .long-bem-class-name {
+hat   [-----------------]
+      l
+1  |   height: 10px;
+2  | }
+3  | 
+sel  !
+-- final --
+0  | .long-bem-classname {
+sel                 !
+1  |   height: 10px;
+2  | }
+3  | 

@@ -26,3 +26,12 @@ finalState:
       active: {line: 0, character: 6}
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 6}
+-- initial --
+0  |class Aaa; end
+1  |class Bbb; end
+sel               !
+-- final --
+0  |class ; end
+sel       !
+1  |class ; end
+sel       !

@@ -32,3 +32,19 @@ finalState:
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
+-- initial --
+0  |enum Maybe<T> {
+1  |    Just(T),
+hat          #
+             t
+2  |    Nothing,
+3  |}
+4  |
+sel !
+-- final --
+0  |enum Maybe<T> {
+1  |    Just(),
+2  |    Nothing,
+3  |}
+4  |
+sel !

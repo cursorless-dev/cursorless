@@ -49,3 +49,23 @@ ide:
   flashes:
     - style: pendingDelete
       range: {type: line, start: 3, end: 8}
+-- initial --
+0  |
+sel !
+1  |a
+hat #
+    a
+2  |a
+3  |
+4  |
+5  |b   c
+hat #
+    b
+6  |d   e
+7  |f   g
+8  |
+-- final --
+0  |
+sel !
+1  |a
+2  |a

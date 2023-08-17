@@ -17,3 +17,8 @@ initialState:
       active: {line: 0, character: 34}
   marks: {}
 thrownError: {name: NoContainingScopeError}
+-- initial --
+0  |_ = T{ /* foo */ a: 0, /* foo */ }
+sel                                   !
+-- final --
+0|

@@ -24,3 +24,9 @@ finalState:
       active: {line: 0, character: 1}
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
+-- initial --
+0  |some.text.here some-other-text word()[]
+sel                     !
+-- final --
+0  |  
+sel !!!

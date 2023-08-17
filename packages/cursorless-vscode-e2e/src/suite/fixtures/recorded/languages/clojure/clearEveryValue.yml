@@ -31,3 +31,20 @@ finalState:
       active: {line: 2, character: 9}
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}
+-- initial --
+0  |
+1  |{
+2  |    :foo "bar",
+3  |    ;; hello
+4  |    :baz "whatever",
+sel              !
+5  |}
+-- final --
+0  |
+1  |{
+2  |    :foo ,
+sel          !
+3  |    ;; hello
+4  |    :baz ,
+sel          !
+5  |}

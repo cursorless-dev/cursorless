@@ -27,3 +27,16 @@ finalState:
       active: {line: 1, character: 11}
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 11}
+-- initial --
+0  |{
+1  |    "foo": "bar",
+sel              !
+2  |    "baz": "bongo",
+3  |}
+-- final --
+0  |{
+1  |    "foo": ,
+sel            !
+2  |    "baz": ,
+sel            !
+3  |}

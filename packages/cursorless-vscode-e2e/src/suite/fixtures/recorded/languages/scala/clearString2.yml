@@ -24,3 +24,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
+-- initial --
+0  |val string = """
+sel                 !
+1  |multi
+2  |line
+3  |string
+4  |"""
+5  |
+-- final --
+0  |val string = 
+sel              !
+1  |

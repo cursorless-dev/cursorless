@@ -17,3 +17,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 13}
+-- initial --
+0  |func add(x int, y int) int {
+1  |	return add(x, y)
+sel              !
+2  |}
+-- final --
+0  |func add(x int, y int) int {
+1  |	return add(x, y)
+sel             #
+2  |}

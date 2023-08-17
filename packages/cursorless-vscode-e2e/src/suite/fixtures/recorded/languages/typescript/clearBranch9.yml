@@ -32,3 +32,19 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |try {
+1  |  const aaa = "bbb";
+sel   !
+2  |} catch (err) {
+3  |  const aaa = "bbb";
+4  |} finally {
+5  |  const aaa = "bbb";
+6  |}
+-- final --
+0  | catch (err) {
+sel !
+1  |  const aaa = "bbb";
+2  |} finally {
+3  |  const aaa = "bbb";
+4  |}

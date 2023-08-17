@@ -25,3 +25,13 @@ finalState:
       active: {line: 1, character: 26}
     - anchor: {line: 1, character: 28}
       active: {line: 1, character: 29}
+-- initial --
+0  |int f(int a, int b) {
+1  |    std::vector<int> v { a, b };
+sel                              !
+2  |}
+-- final --
+0  |int f(int a, int b) {
+1  |    std::vector<int> v { a, b };
+sel                          #  #
+2  |}

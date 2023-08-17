@@ -34,3 +34,20 @@ finalState:
       active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
+-- initial --
+0  |const aaa = {
+1  |    bbb() {},
+2  |    ccc() {},
+3  |}
+sel  !
+4  |
+5  |function ddd() {}
+-- final --
+0  |const aaa = {
+1  |    ,
+sel     !
+2  |    ,
+sel     !
+3  |}
+4  |
+5  |function ddd() {}

@@ -51,3 +51,10 @@ finalState:
         end: {line: 0, character: 13}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |z, a, b, e, E
+sel !
+-- final --
+0   |a, b, E, e, z
+sel  !
+that #  #  #  #  #

@@ -26,3 +26,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
+-- initial --
+0  |func (t T) f() { /* body */ }
+sel                              !
+hat            #
+               f
+-- final --
+0  |func (t T) f() {  }
+sel                  !

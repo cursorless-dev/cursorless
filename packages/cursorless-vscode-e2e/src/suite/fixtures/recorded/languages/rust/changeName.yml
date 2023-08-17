@@ -26,3 +26,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
+-- initial --
+0  |fn main() -> Result<(), Error> {
+1  |    
+sel     !
+2  |}
+3  |
+-- final --
+0  |fn () -> Result<(), Error> {
+sel    !
+1  |    
+2  |}
+3  |

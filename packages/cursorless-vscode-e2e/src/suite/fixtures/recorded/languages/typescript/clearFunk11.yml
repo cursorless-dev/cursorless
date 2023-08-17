@@ -16,3 +16,8 @@ initialState:
       active: {line: 0, character: 0}
   marks: {}
 thrownError: {name: NoContainingScopeError}
+-- initial --
+0  |const foo = function *bar() {}
+sel !
+-- final --
+0|

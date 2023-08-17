@@ -22,3 +22,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
+-- initial --
+0  |_ = func() { _ = 1 }
+sel                    !
+-- final --
+0  |_ = func() {  }
+sel              !

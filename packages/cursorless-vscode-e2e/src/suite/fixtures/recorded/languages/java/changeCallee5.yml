@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
+-- initial --
+0  |public class Test {
+1  |    public Test()  {
+2  |        super();
+sel               !
+3  |    }
+4  |}
+-- final --
+0  |public class Test {
+1  |    public Test()  {
+2  |        ();
+sel         !
+3  |    }
+4  |}

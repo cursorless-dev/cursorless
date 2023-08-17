@@ -39,3 +39,27 @@ finalState:
   selections:
     - anchor: {line: 3, character: 12}
       active: {line: 3, character: 12}
+-- initial --
+0  |class Aaa {
+1  |
+2  |  static void bbb() {
+3  |    switch ("0") {
+4  |      case ("0"):
+sel                  !
+5  |        break;
+6  |    }
+7  |  }
+8  |}
+9  |
+-- final --
+0  |class Aaa {
+1  |
+2  |  static void bbb() {
+3  |    switch () {
+sel             !
+4  |      case ("0"):
+5  |        break;
+6  |    }
+7  |  }
+8  |}
+9  |

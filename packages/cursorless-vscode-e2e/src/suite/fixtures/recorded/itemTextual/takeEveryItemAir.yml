@@ -62,3 +62,30 @@ finalState:
       active: {line: 6, character: 7}
     - anchor: {line: 6, character: 9}
       active: {line: 6, character: 22}
+-- initial --
+0  |[
+sel !
+1  |    a b, (c, d),
+hat     #
+        a
+2  |    e f, {g, h},
+3  |    i j, [k, l],
+4  |    m n, <o, p>,
+5  |    q r, "s, t",
+6  |    u v, "foo(bar)baz",
+7  |]
+-- final --
+0  |[
+1  |    a b, (c, d),
+sel     [->  [---->
+2  |    e f, {g, h},
+sel     [->  [---->
+3  |    i j, [k, l],
+sel     [->  [---->
+4  |    m n, <o, p>,
+sel     [->  [---->
+5  |    q r, "s, t",
+sel     [->  [---->
+6  |    u v, "foo(bar)baz",
+sel     [->  [----------->
+7  |]

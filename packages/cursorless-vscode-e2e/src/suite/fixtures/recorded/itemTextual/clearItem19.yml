@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+-- initial --
+0  |values = {
+1  |    "aaa": "\\",
+sel     !
+2  |    "bbb": "ccc",
+3  |}
+-- final --
+0  |values = {
+1  |    ,
+sel     !
+2  |    "bbb": "ccc",
+3  |}

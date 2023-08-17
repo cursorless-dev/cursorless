@@ -26,3 +26,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |@mixin theme-colors($light-theme: true) {
+1  |  @if $light-theme {
+2  |    background-color: $light-background;
+3  |    color: $light-text;
+4  |  } @else {
+5  |    background-color: $dark-background;
+6  |    color: $dark-text;
+7  |  }
+sel    !
+8  |}
+-- final --
+0  |
+sel !

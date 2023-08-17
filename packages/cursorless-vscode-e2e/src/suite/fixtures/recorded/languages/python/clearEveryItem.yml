@@ -24,3 +24,9 @@ finalState:
       active: {line: 0, character: 20}
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
+-- initial --
+0  |from talon import Context, Module, actions
+sel                          !
+-- final --
+0  |from talon import , , 
+sel                   ! ! !

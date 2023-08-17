@@ -37,3 +37,14 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
+-- initial --
+0      |aaa bbb ccc aaa bbb
+sel     !
+instRef [-----------------]
+hat     [-]
+        a
+1      |aaa ddd eee aaa fff
+-- final --
+0  | bbb ccc  bbb
+sel !        !
+1  |aaa ddd eee aaa fff

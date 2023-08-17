@@ -21,3 +21,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 19}
+-- initial --
+0  |
+1  |value = lambda x: x
+sel               !
+2  |
+-- final --
+0  |
+1  |value = lambda x: x
+sel         [--------->
+2  |

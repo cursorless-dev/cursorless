@@ -46,3 +46,21 @@ ide:
   flashes:
     - style: pendingDelete
       range: {type: line, start: 2, end: 3}
+-- initial --
+0  |
+sel !
+1  |    foo ooo    
+hat     [-]
+        f
+2  |aa
+3  |bb
+4  |    bar    
+hat     [-]
+          r
+5  |
+-- final --
+0  |
+sel !
+1  |    foo ooo    
+2  |    bar    
+3  |

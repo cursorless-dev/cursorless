@@ -35,3 +35,14 @@ ide:
       range: {type: line, start: 0, end: 0}
     - style: justAdded
       range: {type: line, start: 2, end: 2}
+-- initial --
+0  |there
+sel      !
+1  |
+-- final --
+0   |
+1   |there
+sel       !
+that      !
+2   |
+3   |

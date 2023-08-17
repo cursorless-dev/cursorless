@@ -23,3 +23,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
+-- initial --
+0  |class TypesAhoy(foo: List[String]) {}
+sel !
+hat                      [--]
+                         l
+1  |
+-- final --
+0  |class TypesAhoy(foo: ) {}
+sel                      !
+1  |

@@ -26,3 +26,12 @@ finalState:
       active: {line: 0, character: 9}
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
+-- initial --
+0  |function eee() {}
+1  |function fff() {}
+sel                  !
+-- final --
+0  |function () {}
+sel          !
+1  |function () {}
+sel          !

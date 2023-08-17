@@ -45,3 +45,25 @@ finalState:
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
+-- initial --
+0  |function myFunction() {
+1  |    const whatever = "hello";
+hat           [------]
+                a
+2  |}
+3  |
+4  |function testing() {
+5  |    const whatever = "hello";
+hat           [------]
+              w
+6  |}
+7  |
+8  |
+sel !
+-- final --
+0  |function () {
+sel          !
+1  |    
+2  |}
+3  |
+4  |

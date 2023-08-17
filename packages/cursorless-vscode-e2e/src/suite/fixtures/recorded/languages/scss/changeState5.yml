@@ -25,3 +25,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
+-- initial --
+0  |div {
+1  |  a {
+2  |    width: calc(100% - 80px);
+sel       !
+3  |  }
+4  |}
+-- final --
+0  |div {
+1  |  
+sel   !
+2  |}

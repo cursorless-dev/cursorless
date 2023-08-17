@@ -26,3 +26,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
+-- initial --
+0  |struct S<'a, 'b: 'a, T>;
+hat                   #
+                     ba
+1  |
+sel !
+-- final --
+0  |struct S<'a, , T>;
+sel              !
+1  |

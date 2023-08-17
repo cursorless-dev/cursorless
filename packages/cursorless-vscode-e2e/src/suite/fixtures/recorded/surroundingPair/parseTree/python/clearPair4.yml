@@ -23,3 +23,13 @@ finalState:
       active: {line: 0, character: 7}
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+-- initial --
+0  |def fff(x, y):
+sel           !
+1  |    pass
+2  |
+-- final --
+0  |def fffx, y:
+sel        !   !
+1  |    pass
+2  |

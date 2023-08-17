@@ -31,3 +31,14 @@ finalState:
         end: {line: 2, character: 61}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function helloWorld(foo: string, bar: number, baz: string) {}
+sel                                         !
+1  |
+-- final --
+0   |
+sel  !
+1   |
+2   |function helloWorld(foo: string, bar: number, baz: string) {}
+that [-----------------------------------------------------------]
+3   |

@@ -26,3 +26,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
+-- initial --
+0  |fn foo(x: &'a mut u32) -> &'static mut u16 {}
+sel                                              !
+hat                             [----]
+                                s
+1  |
+-- final --
+0  |fn foo(x: &'a mut u32) ->  {}
+sel                           !
+1  |

@@ -35,3 +35,13 @@ finalState:
     default..:
       start: {line: 0, character: 6}
       end: {line: 0, character: 7}
+-- initial --
+0  | . , hello
+sel           !
+hat  #   [---]
+     .   h
+-- final --
+0  | hello. , hello
+sel                !
+hat       #   [---]
+          .   h

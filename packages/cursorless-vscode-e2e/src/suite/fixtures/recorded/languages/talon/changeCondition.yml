@@ -30,3 +30,16 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |tag: user.foo
+1  |app: bar
+2  |-
+3  |bongo: bazman
+4  |foo: key(a)
+sel            !
+-- final --
+0  |
+sel !
+1  |-
+2  |bongo: bazman
+3  |foo: key(a)

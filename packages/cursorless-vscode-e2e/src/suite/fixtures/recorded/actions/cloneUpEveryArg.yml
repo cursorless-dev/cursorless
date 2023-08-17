@@ -46,3 +46,11 @@ finalState:
         end: {line: 0, character: 58}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function myFunk(a: number, b: number) {}
+sel                     !
+-- final --
+0   |function myFunk(a: number, a: number, b: number, b: number) {}
+sel                      !
+src                             [-------]             [-------]
+that                 [-------]             [-------]

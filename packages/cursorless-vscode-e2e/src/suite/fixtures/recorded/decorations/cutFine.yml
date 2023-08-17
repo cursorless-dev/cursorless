@@ -37,3 +37,15 @@ ide:
         type: character
         start: {line: 1, character: 7}
         end: {line: 1, character: 8}
+-- initial --
+0  |
+sel !
+1  |    foo bar
+hat     [-]
+        f
+2  |
+-- final --
+0  |
+sel !
+1  |    bar
+2  |

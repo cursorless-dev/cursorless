@@ -39,3 +39,16 @@ ide:
       range: {type: line, start: 1, end: 1}
     - style: justAdded
       range: {type: line, start: 3, end: 3}
+-- initial --
+0  |hello
+1  |
+sel !
+2  |there
+-- final --
+0   |hello
+1   |
+2   |
+sel  !
+that !
+3   |
+4   |there

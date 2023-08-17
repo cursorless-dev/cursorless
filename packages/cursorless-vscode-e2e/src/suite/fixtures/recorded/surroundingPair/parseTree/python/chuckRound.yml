@@ -21,3 +21,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
+-- initial --
+0  |class a(object):
+sel             !
+1  |    pass
+2  |
+-- final --
+0  |class a:
+sel        !
+1  |    pass
+2  |

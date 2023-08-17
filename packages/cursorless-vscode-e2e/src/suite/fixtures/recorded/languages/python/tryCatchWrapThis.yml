@@ -22,3 +22,12 @@ finalState:
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
+-- initial --
+0  |foo = "hello"
+sel !
+-- final --
+0  |try:
+1  |    foo = "hello"
+2  |except :
+sel        !
+3  |    

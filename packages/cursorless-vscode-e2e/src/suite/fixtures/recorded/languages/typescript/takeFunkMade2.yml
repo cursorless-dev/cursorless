@@ -25,3 +25,16 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 1, character: 1}
+-- initial --
+0  |const myFunk = function() {
+hat       [----]
+          m
+1  |}
+2  |
+sel !
+-- final --
+0  |const myFunk = function() {
+sel [--------------------------
+1  |}
+sel >
+2  |

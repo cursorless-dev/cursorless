@@ -25,3 +25,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 27}
       active: {line: 0, character: 27}
+-- initial --
+0  |const whatever = "hello";
+sel                   !
+-- final --
+0  |const whatever = "function () {
+sel                            !
+1  |    hello
+2  |}";

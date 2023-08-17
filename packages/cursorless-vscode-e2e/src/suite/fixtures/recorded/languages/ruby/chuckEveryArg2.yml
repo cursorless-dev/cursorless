@@ -19,3 +19,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 32}
       active: {line: 0, character: 32}
+-- initial --
+0  |[1, 2, 3].each_with_the_next { |n, i| }
+sel                                   !
+1  |
+-- final --
+0  |[1, 2, 3].each_with_the_next { || }
+sel                                 !
+1  |

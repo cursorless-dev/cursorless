@@ -27,3 +27,12 @@ finalState:
         end: {line: 1, character: 4}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |
+sel !
+-- final --
+0   |def hello_world():
+sel                  !
+that [-----------------
+1   |    
+that ---]

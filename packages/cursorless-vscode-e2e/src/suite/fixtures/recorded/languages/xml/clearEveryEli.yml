@@ -35,3 +35,22 @@ finalState:
       active: {line: 3, character: 4}
     - anchor: {line: 4, character: 4}
       active: {line: 4, character: 4}
+-- initial --
+0  |<note>
+1  |    <to>Tove</to>
+sel           !
+2  |    <from>Jani</from>
+3  |    <heading>Reminder</heading>
+4  |    <body>Don't forget me this weekend!</body>
+5  |</note>
+-- final --
+0  |<note>
+1  |    
+sel     !
+2  |    
+sel     !
+3  |    
+sel     !
+4  |    
+sel     !
+5  |</note>

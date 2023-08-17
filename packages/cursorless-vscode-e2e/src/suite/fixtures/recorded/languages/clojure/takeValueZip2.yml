@@ -21,3 +21,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 18}
+-- initial --
+0  |{:baz {:foo "bar"}}
+sel       !
+hat   [-]
+        z
+-- final --
+0  |{:baz {:foo "bar"}}
+sel       [---------->

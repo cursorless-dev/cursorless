@@ -23,3 +23,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |#header.callout {
+1  |  
+sel   !
+2  |}
+3  |
+-- final --
+0  | {
+sel !
+1  |  
+2  |}
+3  |

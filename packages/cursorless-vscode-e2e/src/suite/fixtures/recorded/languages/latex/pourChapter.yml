@@ -27,3 +27,15 @@ finalState:
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
+-- initial --
+0  |\chapter{Section}
+sel !
+1  |
+2  |Hello World!
+-- final --
+0  |\chapter{Section}
+1  |
+2  |Hello World!
+3  |
+4  |
+sel !

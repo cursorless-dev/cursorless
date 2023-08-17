@@ -33,3 +33,12 @@ ide:
       range: {type: line, start: 0, end: 0}
     - style: justAdded
       range: {type: line, start: 1, end: 1}
+-- initial --
+0  |    hello
+sel          !
+-- final --
+0   |
+1   |    hello
+2   |
+sel  !
+that !

@@ -30,3 +30,11 @@ finalState:
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
+-- initial --
+0  |foo world
+sel    !
+hat     [---]
+        w
+-- final --
+0  |fooworld world
+sel         !

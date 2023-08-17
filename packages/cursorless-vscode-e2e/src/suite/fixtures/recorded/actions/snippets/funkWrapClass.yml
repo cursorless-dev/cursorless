@@ -37,3 +37,18 @@ finalState:
         end: {line: 3, character: 16}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |class Aaa:
+1  |    def bbb():
+2  |        pass
+sel         !
+-- final --
+0   |def ():
+sel      !
+that [------
+1   |    class Aaa:
+that --------------
+2   |        def bbb():
+that ------------------
+3   |            pass
+that ---------------]

@@ -32,3 +32,17 @@ finalState:
   selections:
     - anchor: {line: 2, character: 15}
       active: {line: 2, character: 15}
+-- initial --
+0  |fn f() {
+1  |    let x = vec![];
+2  |    let y = &mut x;
+sel                    !
+hat              [-]
+                 m
+3  |}
+-- final --
+0  |fn f() {
+1  |    let x = vec![];
+2  |    let y = &x;
+sel                !
+3  |}

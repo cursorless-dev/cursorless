@@ -35,3 +35,27 @@ finalState:
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
+-- initial --
+0  |public class MyClass {
+1  |    public static void main(String[] args) {
+2  |        if() {
+3  |            
+sel             !
+4  |        }
+5  |        else if() {
+6  |            
+7  |        }
+8  |        else {
+9  |            
+10 |        }
+11 |    }
+12 |}
+13 |
+-- final --
+0  |public class MyClass {
+1  |    public static void main(String[] args) {
+2  |        
+sel         !
+3  |    }
+4  |}
+5  |

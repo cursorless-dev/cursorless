@@ -17,3 +17,9 @@ initialState:
       active: {line: 0, character: 0}
   marks: {}
 thrownError: {name: NoContainingScopeError}
+-- initial --
+0  |
+sel !
+1  |
+-- final --
+0|

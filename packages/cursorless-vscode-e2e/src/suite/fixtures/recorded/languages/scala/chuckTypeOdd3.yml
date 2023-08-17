@@ -31,3 +31,21 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |class TypesAhoy() {
+sel !
+1  |  f match {
+2  |    case foo: Foo => 12
+hat          [-]
+              o
+3  |  }
+4  |}
+5  |
+-- final --
+0  |class TypesAhoy() {
+sel !
+1  |  f match {
+2  |    case foo => 12
+3  |  }
+4  |}
+5  |

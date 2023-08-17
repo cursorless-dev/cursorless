@@ -41,3 +41,11 @@ ide:
         type: character
         start: {line: 0, character: 12}
         end: {line: 0, character: 17}
+-- initial --
+0  |hello world
+sel         !
+-- final --
+0   |hello world world
+sel                !
+src        [---]
+that             [---]

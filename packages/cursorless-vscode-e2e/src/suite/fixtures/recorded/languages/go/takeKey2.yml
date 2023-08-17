@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 23}
+-- initial --
+0  |map[string]string{"air": "bat", "cap": "drum"}
+sel                     !
+-- final --
+0  |map[string]string{"air": "bat", "cap": "drum"}
+sel                   [--->

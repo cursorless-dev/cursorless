@@ -30,3 +30,14 @@ finalState:
         end: {line: 0, character: 19}
       isReversed: false
       hasExplicitRange: false
+-- initial --
+0  |aaa bbb ccc aaa ddd aaa
+hat                 [-]
+                    d
+1  |
+sel !
+-- final --
+0      |aaa bbb ccc aaa ddd aaa
+instRef                 [-]
+1      |
+sel     !

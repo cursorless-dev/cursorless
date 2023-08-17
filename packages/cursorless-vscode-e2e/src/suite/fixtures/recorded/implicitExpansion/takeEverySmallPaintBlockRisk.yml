@@ -42,3 +42,20 @@ finalState:
       active: {line: 1, character: 3}
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 11}
+-- initial --
+0  |first test-block
+hat [---]
+      r
+1  |for testing
+2  |
+3  |second test-block
+4  |for testing
+sel !
+-- final --
+0  |first test-block
+sel [---> [-------->
+1  |for testing
+sel [-> [----->
+2  |
+3  |second test-block
+4  |for testing

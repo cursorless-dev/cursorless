@@ -40,3 +40,15 @@ finalState:
         end: {line: 0, character: 24}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |function foo(bar: number) {
+sel                         !
+1  |    
+2  |}
+-- final --
+0   |function foo(bar: number, bar: number) {
+sel                                       !
+src               [---------]
+that                           [---------]
+1   |    
+2   |}

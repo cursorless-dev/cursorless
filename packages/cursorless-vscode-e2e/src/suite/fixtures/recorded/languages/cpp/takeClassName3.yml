@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 14}
+-- initial --
+0  |void ClassName::method() {}
+sel                           !
+-- final --
+0  |void ClassName::method() {}
+sel      [------->

@@ -19,3 +19,9 @@ finalState:
       active: {line: 0, character: 4}
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
+-- initial --
+0  |{1: [(1), (2), (3)]}
+sel          !
+-- final --
+0  |{1: (1), (2), (3)}
+sel     !            !

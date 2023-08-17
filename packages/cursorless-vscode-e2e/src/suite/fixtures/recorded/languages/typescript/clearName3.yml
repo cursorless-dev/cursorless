@@ -20,3 +20,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
+-- initial --
+0  |export interface Aaa {}
+sel !
+-- final --
+0  |export interface  {}
+sel                  !

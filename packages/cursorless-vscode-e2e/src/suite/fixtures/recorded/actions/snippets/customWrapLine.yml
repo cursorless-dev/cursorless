@@ -31,3 +31,10 @@ finalState:
         end: {line: 0, character: 45}
       isReversed: false
       hasExplicitRange: true
+-- initial --
+0  |hello world
+sel !
+-- final --
+0   |dummy snippet hole1: (hello world), hole2: ()
+sel                                              !
+that [-------------------------------------------]

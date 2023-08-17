@@ -17,3 +17,9 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
+sel                                      !
+-- final --
+0  | = parameters.leadingDelimiterRange;
+sel !

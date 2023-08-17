@@ -28,3 +28,15 @@ finalState:
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
+-- initial --
+0  |#[cfg_attr(feature = "serde")]
+hat                       [---]
+                           e
+1  |struct Test
+2  |
+sel !
+-- final --
+0  |#[cfg_attr(feature = )]
+sel                      !
+1  |struct Test
+2  |

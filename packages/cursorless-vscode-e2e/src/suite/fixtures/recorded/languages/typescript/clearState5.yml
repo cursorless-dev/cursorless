@@ -38,3 +38,21 @@ finalState:
       active: {line: 2, character: 4}
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+-- initial --
+0  |abstract class Foo {
+1  |    value: string;
+sel     !
+2  |    abstract bar(): void;
+sel     !
+3  |    baz() { }
+sel     !
+4  |}
+-- final --
+0  |abstract class Foo {
+1  |    
+sel     !
+2  |    
+sel     !
+3  |    
+sel     !
+4  |}

@@ -25,3 +25,17 @@ finalState:
   selections:
     - anchor: {line: 2, character: 30}
       active: {line: 2, character: 36}
+-- initial --
+0  |
+1  |const Foo = (
+2  |  <div id="bar" name="foo">bar</div>
+sel                !
+3  |);
+4  |
+-- final --
+0  |
+1  |const Foo = (
+2  |  <div id="bar" name="foo">bar</div>
+sel                               [---->
+3  |);
+4  |

@@ -79,3 +79,49 @@ finalState:
       active: {line: 9, character: 1}
     - anchor: {line: 10, character: 1}
       active: {line: 10, character: 1}
+-- initial --
+0  |a = 1;
+sel     #
+1  |a += 1;
+sel      #
+2  |a -= 1;
+sel      #
+3  |a *= 1;
+sel      #
+4  |a /= 1;
+sel      #
+5  |a %= 1;
+sel      #
+6  |a &= 1;
+sel      #
+7  |a |= 1;
+sel      #
+8  |a ^= 1;
+sel      #
+9  |a <<= 1;
+sel       #
+10 |a >>= 1;
+sel       #
+-- final --
+0  |a;
+sel  !
+1  |a;
+sel  !
+2  |a;
+sel  !
+3  |a;
+sel  !
+4  |a;
+sel  !
+5  |a;
+sel  !
+6  |a;
+sel  !
+7  |a;
+sel  !
+8  |a;
+sel  !
+9  |a;
+sel  !
+10 |a;
+sel  !

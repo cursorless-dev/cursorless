@@ -32,3 +32,22 @@ finalState:
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
+-- initial --
+0  |class Example() {
+sel !
+1  |  val example = """
+2  |  some (wrapped 
+hat         [-----]
+            w
+3  |  text) to test
+4  |  """
+5  |}
+6  |
+-- final --
+0  |class Example() {
+1  |  val example = """
+2  |  some  to test
+sel        !
+3  |  """
+4  |}
+5  |

@@ -31,3 +31,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |aaa = "bbb"
+1  |
+2  |if True:
+3  |    ccc = "ddd"
+sel                !
+4  |
+-- final --
+0  |
+sel !
+1  |
+2  |if True:
+3  |    ccc = "ddd"
+4  |

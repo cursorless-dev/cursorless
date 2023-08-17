@@ -30,3 +30,13 @@ finalState:
   selections:
     - anchor: {line: 0, character: 58}
       active: {line: 0, character: 58}
+-- initial --
+0  | npm version patch --force --commit-hooks false --git-tag-version false
+hat                                                 [---------------]
+                                                    -
+1  |
+sel !
+-- final --
+0  | npm version patch --force --commit-hooks false --git-tag- false
+sel                                                           !
+1  |

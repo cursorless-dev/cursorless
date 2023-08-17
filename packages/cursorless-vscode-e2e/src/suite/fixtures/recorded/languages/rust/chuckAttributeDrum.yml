@@ -27,3 +27,14 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+-- initial --
+0  |#[derive(Debug)]
+hat   [----]
+      d
+1  |struct S {}
+sel            !
+2  |
+-- final --
+0  |struct S {}
+sel            !
+1  |

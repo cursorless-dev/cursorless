@@ -27,3 +27,17 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+-- initial --
+0  |class TypesAhoy() {
+sel !
+1  |  def foo = (x: Int) => x + 1
+hat                 [-]
+                    i
+2  |}
+3  |
+-- final --
+0  |class TypesAhoy() {
+sel !
+1  |  def foo = (x) => x + 1
+2  |}
+3  |

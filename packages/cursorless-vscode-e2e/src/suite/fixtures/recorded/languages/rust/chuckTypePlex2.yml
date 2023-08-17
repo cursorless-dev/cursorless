@@ -26,3 +26,13 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+-- initial --
+0  |const X: [u8; 2] = [0, 0];
+hat       #
+          x
+1  |
+sel !
+-- final --
+0  |const X = [0, 0];
+1  |
+sel !

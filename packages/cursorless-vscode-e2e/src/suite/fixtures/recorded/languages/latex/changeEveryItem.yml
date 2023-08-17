@@ -27,3 +27,16 @@ finalState:
       active: {line: 1, character: 10}
     - anchor: {line: 2, character: 10}
       active: {line: 2, character: 10}
+-- initial --
+0  |\begin{itemize}
+1  |    \item one \LaTeX
+sel           !
+2  |    \item two \LaTeX
+3  |\end{itemize}
+-- final --
+0  |\begin{itemize}
+1  |    \item 
+sel           !
+2  |    \item 
+sel           !
+3  |\end{itemize}

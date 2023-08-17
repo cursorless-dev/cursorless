@@ -24,3 +24,11 @@ finalState:
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
+-- initial --
+0  |do {
+sel !
+1  |} while (true);
+-- final --
+0  |do {
+1  |} while ();
+sel          !

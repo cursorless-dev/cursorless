@@ -26,3 +26,15 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+-- initial --
+0  |enum Foo {
+1  |    Baz { a: int, b: String }
+sel         !
+2  |}
+3  |
+-- final --
+0  |enum Foo {
+1  |     { a: int, b: String }
+sel     !
+2  |}
+3  |
