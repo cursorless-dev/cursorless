@@ -37,6 +37,7 @@ import {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -51,7 +52,7 @@ export async function activate(
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
-  const { vscodeIDE, hats } = await createVscodeIde(context);
+  const { vscodeIDE, hats, fileSystem } = await createVscodeIde(context);
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
@@ -83,6 +84,7 @@ export async function activate(
     normalizedIde ?? vscodeIDE,
     hats,
     commandServerApi,
+    fileSystem,
   );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
@@ -129,7 +131,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats };
+  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

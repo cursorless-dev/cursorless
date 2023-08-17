@@ -1,4 +1,10 @@
-import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
+import {
+  Command,
+  CommandServerApi,
+  FileSystem,
+  Hats,
+  IDE,
+} from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
 import { ScopeProvider } from "./api/ScopeProvider";
@@ -22,6 +28,7 @@ export function createCursorlessEngine(
   ide: IDE,
   hats: Hats,
   commandServerApi: CommandServerApi | null,
+  fileSystem: FileSystem,
 ): CursorlessEngine {
   injectIde(ide);
 
