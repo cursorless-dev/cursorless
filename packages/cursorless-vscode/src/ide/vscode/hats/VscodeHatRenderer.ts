@@ -50,6 +50,9 @@ interface SvgInfo {
   svg: string;
   svgHeightPx: number;
   svgWidthPx: number;
+  originalViewBoxWidth: number;
+  originalViewBoxHeight: number;
+  strokeWidth: number;
 }
 
 /**
@@ -230,6 +233,7 @@ export default class VscodeHatRenderer {
             this.fontMeasurements,
             shape,
             scaleFactor,
+            defaultShapeAdjustments[shape].strokeFactor ?? 1,
             finalVerticalOffsetEm,
           ),
         ];
@@ -248,7 +252,7 @@ export default class VscodeHatRenderer {
             ];
           }
 
-          const { svg, svgWidthPx, svgHeightPx } = svgInfo;
+          const { svgWidthPx, svgHeightPx } = svgInfo;
 
           const { light, dark } = getHatThemeColors(color);
 
@@ -258,12 +262,18 @@ export default class VscodeHatRenderer {
               rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
               light: {
                 before: {
-                  contentIconPath: this.constructColoredSvgDataUri(svg, light),
+                  contentIconPath: this.constructColoredSvgDataUri(
+                    svgInfo,
+                    light,
+                  ),
                 },
               },
               dark: {
                 before: {
-                  contentIconPath: this.constructColoredSvgDataUri(svg, dark),
+                  contentIconPath: this.constructColoredSvgDataUri(
+                    svgInfo,
+                    dark,
+                  ),
                 },
               },
               before: {
@@ -307,15 +317,49 @@ export default class VscodeHatRenderer {
     return isOk;
   }
 
-  private constructColoredSvgDataUri(originalSvg: string, color: string) {
-    const svg = originalSvg
-      .replace(/fill="(?!none)[^"]+"/g, `fill="${color}"`)
-      .replace(/fill:(?!none)[^;]+;/g, `fill:${color};`)
+  private constructColoredSvgDataUri(svgInfo: SvgInfo, color: string) {
+    const { svg: originalSvg } = svgInfo;
+    // If color contains a dash, the second part is a stroke.
+    // If you are code spelunking and have found this undocumented (and thus potentially transient) feature,
+    // please subscribe to https://github.com/cursorless-dev/cursorless/pull/1810
+    // so that you can be notified if/when it changes or is removed.
+    const [fill, stroke] = color.split("-");
+    let svg = originalSvg
+      .replace(/fill="(?!none)[^"]+"/g, `fill="${fill}"`)
+      .replace(/fill:(?!none)[^;]+;/g, `fill:${fill};`)
       .replace(/\r?\n/g, " ");
+    if (stroke !== undefined) {
+      svg = this.addInnerStrokeToSvg(svgInfo, svg, stroke);
+    }
 
     const encoded = encodeURIComponent(svg);
 
     return vscode.Uri.parse(`data:image/svg+xml;utf8,${encoded}`);
+  }
+
+  private addInnerStrokeToSvg(
+    svgInfo: SvgInfo,
+    svg: string,
+    stroke: string,
+  ): string {
+    // All hat svgs have exactly one path element. Extract it.
+    const pathRegex = /<path[^>]*d="([^"]+)"[^>]*\/>/;
+    const pathMatch = pathRegex.exec(svg);
+    if (!pathMatch) {
+      return svg;
+    }
+    const pathData = pathMatch[1];
+    const pathEnd = pathMatch.index! + pathMatch[0].length;
+
+    // Construct the stroke path and clipPath elements
+    const clipPathElem = `<clipPath id="clipPath"><path d="${pathData}" /></clipPath>`;
+    const strokePathElem = `<path d="${pathData}" stroke="${stroke}" stroke-width="${svgInfo.strokeWidth}" fill="none" clip-path="url(#clipPath)" />`;
+
+    // Insert the elements into the SVG after the original path.
+
+    return (
+      svg.slice(0, pathEnd) + clipPathElem + strokePathElem + svg.slice(pathEnd)
+    );
   }
 
   /**
@@ -326,6 +370,7 @@ export default class VscodeHatRenderer {
    * @param fontMeasurements Info about the user's font
    * @param shape The hat shape to process
    * @param scaleFactor How much to scale the hat
+   * @param strokeFactor How much to scale the width of the stroke
    * @param hatVerticalOffsetEm How far off top of characters should hats be
    * @returns An object with the new SVG and its measurements
    */
@@ -333,6 +378,7 @@ export default class VscodeHatRenderer {
     fontMeasurements: FontMeasurements,
     shape: HatShape,
     scaleFactor: number,
+    strokeFactor: number,
     hatVerticalOffsetEm: number,
   ): SvgInfo | null {
     const iconPath =
@@ -394,10 +440,16 @@ export default class VscodeHatRenderer {
       `height="${svgHeightPx}px">` +
       `<g transform="scale(${widthFactor}, 1)">${innerSvg}</g></svg>`;
 
+    const strokeWidth =
+      (1.4 * strokeFactor * originalViewBoxWidth) / svgWidthPx;
+
     return {
       svg,
       svgHeightPx,
       svgWidthPx,
+      originalViewBoxHeight,
+      originalViewBoxWidth,
+      strokeWidth,
     };
   }
 
