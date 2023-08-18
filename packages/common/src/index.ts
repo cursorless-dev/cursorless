@@ -26,6 +26,7 @@ export * from "./ide/types/Events";
 export * from "./ide/types/QuickPickOptions";
 export * from "./ide/types/events.types";
 export * from "./ide/types/Paths";
+export * from "./ide/types/FileSystem.types";
 export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";
 export * from "./types/Position";
