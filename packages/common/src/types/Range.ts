@@ -65,6 +65,17 @@ export class Range {
   }
 
   /**
+   * Check if this range is equal to `other`.
+   *
+   * @param other A range.
+   * @return `true` if the start and end of the given range are equal to
+   * the start and end of this range.
+   */
+  public isEqual(other: Range): boolean {
+    return this.start.isEqual(other.start) && this.end.isEqual(other.end);
+  }
+
+  /**
    * `true` if `start.line` and `end.line` are equal.
    */
   get isSingleLine(): boolean {
