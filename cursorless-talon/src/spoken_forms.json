@@ -262,7 +262,28 @@
       "eye": "eye",
       "play": "play",
       "cross": "crosshairs",
-      "bolt": "bolt"
+      "bolt": "bolt",
+      "wrench": "wrench",
+      "bridge": "bridge",
+      "church": "church",
+      "fang": "fang",
+      "fez": "fez",
+      "gem": "gem",
+      "horn": "horn",
+      "knight": "knight",
+      "leaf": "leaf",
+      "meeple": "meeple",
+      "moon": "moon",
+      "mosque": "mosque",
+      "pail": "pail",
+      "rook": "rook",
+      "shroom": "shroom",
+      "singer": "singer",
+      "stair": "stair",
+      "stupa": "stupa",
+      "wave": "wave",
+      "star": "star",
+      "gate": "gate"
     }
   }
 }
