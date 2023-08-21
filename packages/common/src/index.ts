@@ -44,6 +44,7 @@ export * from "./util/textFormatters";
 export * from "./types/snippet.types";
 export * from "./testUtil/fromPlainObject";
 export * from "./testUtil/toPlainObject";
+export * from "./testUtil/suiteSetup";
 export { default as DefaultMap } from "./util/DefaultMap";
 export * from "./types/GeneralizedRange";
 export * from "./types/RangeOffsets";
