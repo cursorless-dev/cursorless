@@ -1,11 +1,12 @@
-import { Uri, type ExtensionContext } from "vscode";
+import type { ExtensionContext } from "vscode";
 import { Messages, showInfo } from "@cursorless/common";
 import * as semver from "semver";
-import { vscodeApi } from "./vscodeApi";
+import { VscodeApi } from "@cursorless/vscode-common";
+import { URI } from "vscode-uri";
 
 /**
- * The key to use in global storage to track which release notes we've already
- * shown to the user
+ * The key to use in global storage to detect when Cursorless version number has
+ * increased, so we can show release notes.
  */
 export const VERSION_KEY = "version";
 
@@ -22,6 +23,7 @@ function roundDown(version: string) {
  */
 export class ReleaseNotes {
   constructor(
+    private vscodeApi: VscodeApi,
     private extensionContext: ExtensionContext,
     private messages: Messages,
   ) {}
@@ -52,7 +54,7 @@ export class ReleaseNotes {
 
     if (
       // Don't show it in all the windows
-      !vscodeApi.window.state.focused ||
+      !this.vscodeApi.window.state.focused ||
       // Don't show it if they've seen this version before
       !semver.lt(storedVersion, currentVersion)
     ) {
@@ -69,8 +71,8 @@ export class ReleaseNotes {
     );
 
     if (result === WHATS_NEW) {
-      await vscodeApi.env.openExternal(
-        Uri.parse(
+      await this.vscodeApi.env.openExternal(
+        URI.parse(
           `https://cursorless.org/docs/user/release-notes/${currentVersion}/`,
         ),
       );

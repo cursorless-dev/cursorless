@@ -38,6 +38,7 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { ReleaseNotes } from "./ReleaseNotes";
+import { vscodeApi } from "./vscodeApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -94,7 +95,7 @@ export async function activate(
     hats,
   );
 
-  new ReleaseNotes(context, normalizedIde.messages).maybeShow();
+  new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
 
   return {
     testHelpers: isTesting()

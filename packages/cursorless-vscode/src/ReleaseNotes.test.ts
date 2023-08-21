@@ -1,22 +1,20 @@
 import * as sinon from "sinon";
-import {
-  MessageType,
-  Messages,
-  asyncSafety,
-  suiteSetup,
-} from "@cursorless/common";
-import { ExtensionContext, Uri } from "vscode";
+import { MessageType, Messages, asyncSafety } from "@cursorless/common";
+import type { ExtensionContext, Uri } from "vscode";
 import { ReleaseNotes, VERSION_KEY, WHATS_NEW } from "./ReleaseNotes";
-import { vscodeApi } from "./vscodeApi";
+import { VscodeApi } from "@cursorless/vscode-common";
 
 interface Input {
+  /** Whether the VSCode window is focused */
   isFocused: boolean;
   storedVersion: string | undefined;
   currentVersion: string;
+  /** `true` if they pressed `What's new?` */
   pressedButton?: boolean;
 }
 
 interface Output {
+  /** The new version added to storage, or `false` if none added */
   storedVersion: string | false;
   showedMessage: boolean;
   openedUrl?: boolean;
@@ -154,7 +152,9 @@ const testCases: TestCase[] = [
 ];
 
 suite("release notes", async function () {
-  suiteSetup(this);
+  teardown(() => {
+    sinon.restore();
+  });
 
   testCases.forEach(({ input, expectedOutput }) => {
     test(
@@ -179,10 +179,16 @@ function getTestName(input: Input) {
 }
 
 async function runTest(input: Input, expectedOutput: Output) {
-  const { extensionContext, messages, openExternal, update, showMessage } =
-    await injectFakes(input);
+  const {
+    extensionContext,
+    messages,
+    openExternal,
+    update,
+    showMessage,
+    vscodeApi,
+  } = await getFakes(input);
 
-  await new ReleaseNotes(extensionContext, messages).maybeShow();
+  await new ReleaseNotes(vscodeApi, extensionContext, messages).maybeShow();
 
   if (expectedOutput.storedVersion === false) {
     sinon.assert.notCalled(update);
@@ -213,13 +219,18 @@ async function runTest(input: Input, expectedOutput: Output) {
   }
 }
 
-async function injectFakes(input: Input) {
-  sinon.replaceGetter(vscodeApi.window, "state", () => ({
-    focused: input.isFocused,
-  }));
-
+async function getFakes(input: Input) {
   const openExternal = sinon.fake.resolves<[Uri], Promise<boolean>>(true);
-  sinon.replace(vscodeApi.env, "openExternal", openExternal);
+  const vscodeApi = {
+    window: {
+      state: {
+        focused: input.isFocused,
+      },
+    },
+    env: {
+      openExternal,
+    },
+  } as unknown as VscodeApi;
 
   const update = sinon.fake<[string, string], Promise<void>>();
   const extensionContext = {
@@ -244,5 +255,12 @@ async function injectFakes(input: Input) {
     showMessage,
   };
 
-  return { extensionContext, messages, openExternal, update, showMessage };
+  return {
+    extensionContext,
+    messages,
+    openExternal,
+    update,
+    showMessage,
+    vscodeApi,
+  };
 }
