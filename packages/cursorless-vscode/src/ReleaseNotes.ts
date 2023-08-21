@@ -40,11 +40,21 @@ export class ReleaseNotes {
     const storedVersion =
       this.extensionContext.globalState.get<string>(VERSION_KEY);
 
+    if (storedVersion == null) {
+      // This is their initial install; note down initial install version, but
+      // don't show release notes
+      await this.extensionContext.globalState.update(
+        VERSION_KEY,
+        currentVersion,
+      );
+      return;
+    }
+
     if (
       // Don't show it in all the windows
       !vscodeApi.window.state.focused ||
       // Don't show it if they've seen this version before
-      (storedVersion != null && !semver.lt(storedVersion, currentVersion))
+      !semver.lt(storedVersion, currentVersion)
     ) {
       return;
     }
