@@ -1,6 +1,7 @@
 ;; import scm.collections.scm
 ;; import scm.name.scm
 
+;; A statement is any top-level node that's not a comment
 (
   (program
     (_) @statement
@@ -16,23 +17,23 @@
 
 ;; functionCall:
 ;;!! (#aaa? @bbb "ccc")
-;;!    ^^^^
-;;!  ------------------
+;;!  ^^^^^^^^^^^^^^^^^^
 ;; functionCallee:
 ;;!! (#aaa? @bbb "ccc")
-;;!  ^^^^^^^^^^^^^^^^^^
+;;!    ^^^^
+;;!  ------------------
 (predicate
   name: (identifier) @functionCallee.start
   type: (predicate_type) @functionCallee.end
 ) @functionCall @functionCallee.domain
 
 ;;!! ((#aaa!) (#bbb!))
-;;!  *********************
+;;!  *****************
 (grouping) @functionCall.iteration @functionCallee.iteration
 
 ;;!! (#aaa? @bbb "ccc")
-;;!           ^^^^ ^^^^^
-;;!  ********************
+;;!         ^^^^ ^^^^^
+;;!  ******************
 (predicate
   (parameters
     (_) @argumentOrParameter
@@ -61,6 +62,7 @@
 
 ;;!! aaa: (bbb) @ccc
 ;;!  ^^^
+;;!  xxxxx
 ;;!  ---------------
 (field_definition
   name: (identifier) @collectionKey @collectionKey.trailing.start.endOf

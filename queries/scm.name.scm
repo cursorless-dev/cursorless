@@ -1,4 +1,7 @@
-;; Include everything leading up to the first capture in the domain for name
+;;!! (aaa) @bbb @ccc
+;;!         ^^^^^^^^
+;;!        xxxxxxxxx
+;;!  ---------------
 (
   (_
     _ @dummy
@@ -16,7 +19,10 @@
   (#insertion-delimiter! @name.start " @")
 )
 
-;; Include everything leading up to the first capture in the domain for name
+;;!! eee: (aaa) @bbb @ccc
+;;!              ^^^^^^^^
+;;!             xxxxxxxxx
+;;!  --------------------
 (
   (field_definition
     (_
@@ -34,7 +40,10 @@
   (#insertion-delimiter! @name.start " @")
 )
 
-;; Only include the capture itself in its domain after the first capture
+;;!! (aaa) @bbb @ccc
+;;!         ^^^  ^^^
+;;!        xxxx xxxx
+;;!        ---- ----
 (
   (_
     (capture
@@ -47,6 +56,9 @@
   (#insertion-delimiter! @name " @")
 )
 
+;;!! (aaa) @bbb @ccc
+;;!        *********
+;;!  --------------- <~ iteration domain
 (
   (_
     _ @dummy
@@ -58,6 +70,9 @@
   (#not-parent-type? @name.iteration.domain field_definition)
 )
 
+;;!! ddd: (aaa) @bbb @ccc
+;;!             *********
+;;!  -------------------- <~ iteration domain
 (
   (field_definition
     [

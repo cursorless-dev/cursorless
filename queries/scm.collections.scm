@@ -1,3 +1,6 @@
+;;!! (aaa (bbb) (ccc))
+;;!       ^^^^^ ^^^^^
+;;!   ***************
 (
   (named_node
     "(" @collectionItem.iteration.start.endOf
@@ -7,6 +10,9 @@
   )
 )
 
+;;!! ((aaa) (bbb))
+;;!   ^^^^^ ^^^^^
+;;!   ***********
 (
   (grouping
     "(" @collectionItem.iteration.start.endOf
@@ -15,6 +21,14 @@
   )
 )
 
+;; collectionItem:
+;;!! [(aaa) (bbb)] @ccc
+;;!   ^^^^^ ^^^^^
+;;!   ***********
+;; list:
+;;!! [(aaa) (bbb)] @ccc
+;;!  ^^^^^^^^^^^^^
+;;!  ------------------
 (
   (list
     "[" @list.start @collectionItem.iteration.start.endOf
