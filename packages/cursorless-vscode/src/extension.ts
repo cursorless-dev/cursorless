@@ -25,19 +25,20 @@ import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { registerCommands } from "./registerCommands";
-import { StatusBarItem } from "./StatusBarItem";
 import {
   createVscodeScopeVisualizer,
   VscodeScopeVisualizer,
 } from "./ide/vscode/VSCodeScopeVisualizer";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import { registerCommands } from "./registerCommands";
+import { ReleaseNotes } from "./ReleaseNotes";
 import {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
-import { ReleaseNotes } from "./ReleaseNotes";
+import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
 
 /**
@@ -53,7 +54,7 @@ export async function activate(
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
-  const { vscodeIDE, hats } = await createVscodeIde(context);
+  const { vscodeIDE, hats, fileSystem } = await createVscodeIde(context);
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
@@ -80,7 +81,13 @@ export async function activate(
     snippets,
     injectIde,
     runIntegrationTests,
-  } = createCursorlessEngine(treeSitter, normalizedIde, hats, commandServerApi);
+  } = createCursorlessEngine(
+    treeSitter,
+    normalizedIde,
+    hats,
+    commandServerApi,
+    fileSystem,
+  );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
@@ -128,7 +135,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats };
+  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

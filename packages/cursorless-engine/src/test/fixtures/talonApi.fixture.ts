@@ -9,6 +9,14 @@ const setSelectionAction: ActionDescriptor = {
     mark: { type: "cursor" },
   },
 };
+const replaceWithTargetAction: ActionDescriptor = {
+  name: "replaceWithTarget",
+  source: {
+    type: "primitive",
+    mark: { type: "decoratedSymbol", symbolColor: "default", character: "a" },
+  },
+  destination: { type: "implicit" },
+};
 const insertSnippetAction: ActionDescriptor = {
   name: "insertSnippet",
   destination: { type: "implicit" },
@@ -57,6 +65,7 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
  */
 export const talonApiFixture = [
   spokenFormTest("test api command this", setSelectionAction),
+  spokenFormTest("test api command bring air", replaceWithTargetAction),
   spokenFormTest("test api insert snippet", insertSnippetAction),
   spokenFormTest("test api insert snippet by name", insertSnippetByNameAction),
   spokenFormTest("test api wrap with snippet this", wrapWithSnippetAction),

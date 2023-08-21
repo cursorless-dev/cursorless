@@ -3,6 +3,7 @@ import {
   Position,
   TextDocument,
   TextEditor,
+  showError,
 } from "@cursorless/common";
 import { uniqWith } from "lodash";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
@@ -15,6 +16,7 @@ import {
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";
 import { mergeAdjacentBy } from "./mergeAdjacentBy";
+import { ide } from "../../../../singletons/ide.singleton";
 
 /** Base scope handler to use for both tree-sitter scopes and their iteration scopes */
 export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
@@ -65,9 +67,18 @@ export abstract class BaseTreeSitterScopeHandler extends BaseScopeHandler {
               targets.length > 1 &&
               !equivalentScopes.every((scope) => scope.allowMultiple)
             ) {
-              throw Error(
-                "Please use #allow-multiple! predicate in your query to allow multiple matches for this scope type",
+              const message =
+                "Please use #allow-multiple! predicate in your query to allow multiple matches for this scope type";
+
+              showError(
+                ide().messages,
+                "BaseTreeSitterScopeHandler.allow-multiple",
+                message,
               );
+
+              if (ide().runMode === "test") {
+                throw Error(message);
+              }
             }
 
             return targets;

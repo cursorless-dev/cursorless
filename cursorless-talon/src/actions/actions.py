@@ -87,7 +87,7 @@ class Actions:
         if action_name in callback_actions:
             callback_actions[action_name](target)
         elif action_name in ["replaceWithTarget", "moveToTarget"]:
-            actions.user.cursorless_bring_move(
+            actions.user.private_cursorless_bring_move(
                 action_name, BringMoveTargets(target, ImplicitDestination())
             )
         elif action_name in no_wait_actions:
