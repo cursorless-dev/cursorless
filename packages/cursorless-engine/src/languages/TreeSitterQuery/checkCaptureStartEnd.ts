@@ -27,16 +27,18 @@ export function checkCaptureStartEnd(
 
   let shownError = false;
 
-  if (captures.length === 2) {
-    const startRange = captures.find(({ name }) => name.endsWith(".start"))
-      ?.range;
-    const endRange = captures.find(({ name }) => name.endsWith(".end"))?.range;
-    if (startRange != null && endRange != null) {
-      if (startRange.end.isBeforeOrEqual(endRange.start)) {
-        // Found just a start and endpoint in the right order, so we're good
-        return true;
-      }
-
+  const lastStart = captures
+    .filter(({ name }) => name.endsWith(".start"))
+    .map(({ range: { end } }) => end)
+    .sort((a, b) => a.compareTo(b))
+    .at(-1);
+  const firstEnd = captures
+    .filter(({ name }) => name.endsWith(".end"))
+    .map(({ range: { start } }) => start)
+    .sort((a, b) => a.compareTo(b))
+    .at(0);
+  if (lastStart != null && firstEnd != null) {
+    if (lastStart.isAfter(firstEnd)) {
       showError(
         messages,
         "TreeSitterQuery.checkCaptures.badOrder",
@@ -63,7 +65,7 @@ export function checkCaptureStartEnd(
     shownError = true;
   }
 
-  if (regularCount > 1 || startCount > 1 || endCount > 1) {
+  if (regularCount > 1) {
     // Found duplicate captures
     showError(
       messages,
@@ -75,15 +77,5 @@ export function checkCaptureStartEnd(
     shownError = true;
   }
 
-  if (!shownError) {
-    // I don't think it's possible to get here, but just in case, show a generic
-    // error message
-    showError(
-      messages,
-      "TreeSitterQuery.checkCaptures.unexpected",
-      `Unexpected captures: ${captures}`,
-    );
-  }
-
-  return false;
+  return !shownError;
 }
