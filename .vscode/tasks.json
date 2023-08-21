@@ -94,11 +94,16 @@
     },
     {
       "label": "Install local",
-      "type": "shell",
-      "command": "vsce package -o bundle.vsix && code --install-extension bundle.vsix",
-      "presentation": {
-        "focus": true
-      },
+      "type": "npm",
+      "path": "packages/cursorless-vscode",
+      "script": "install-local",
+      "problemMatcher": []
+    },
+    {
+      "label": "Uninstall local",
+      "type": "npm",
+      "path": "packages/cursorless-vscode",
+      "script": "uninstall-local",
       "problemMatcher": []
     },
     {

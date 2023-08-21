@@ -1,18 +1,25 @@
 app: vscode
+win.title: /cursorless/
 -
 ^install local$:
-    user.vscode_with_plugin("workbench.action.tasks.runTask", "Install local")
+    user.run_rpc_command("workbench.action.tasks.runTask", "Install local")
+^uninstall local$:
+    user.run_rpc_command("workbench.action.tasks.runTask", "Uninstall local")
 ^pre commit run$:
-    user.vscode_with_plugin("workbench.action.tasks.runTask", "Run pre commit")
+    user.run_rpc_command("workbench.action.tasks.runTask", "Run pre commit")
 
 ^serve start$:
-    user.vscode_with_plugin("workbench.action.tasks.runTask", "Serve cursorless.org")
+    user.run_rpc_command("workbench.action.tasks.runTask", "Serve cursorless.org")
 ^serve stop$:
-    user.vscode("workbench.action.tasks.terminate")
+    user.run_rpc_command("workbench.action.tasks.terminate")
     insert("Serve")
     key(enter)
 
 ^debug generate subset$:
-    user.vscode_with_plugin("workbench.action.tasks.runTask", "Generate test subset file")
+    user.run_rpc_command("workbench.action.tasks.runTask", "Generate test subset file")
 ^debug edit subset$:
-    user.vscode_with_plugin("commands.openFolder", "./packages/test-harness/testSubsetGrep.properties")
+    user.run_rpc_command("commands.openFolder", "./packages/test-harness/testSubsetGrep.properties")
+
+debug {user.cursorless_launch_configuration}:
+    user.run_rpc_command("commands.startDebugging", cursorless_launch_configuration)
+    user.run_rpc_command("workbench.debug.action.focusRepl")
