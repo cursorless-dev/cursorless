@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: class}
 initialState:
   documentContents: enum class A { B };
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|enum class A { B };
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
   marks: {}
 finalState:
   documentContents: enum class A { B };
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|enum class A { B };
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 18}

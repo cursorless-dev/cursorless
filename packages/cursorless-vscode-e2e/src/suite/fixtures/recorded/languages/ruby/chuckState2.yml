@@ -11,6 +11,12 @@ initialState:
     while true  do
       a = 1
     end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|while true  do
+  # 1|  a = 1
+  # 2|end
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 6}
@@ -20,6 +26,12 @@ finalState:
     while true  do
 
     end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|while true  do
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

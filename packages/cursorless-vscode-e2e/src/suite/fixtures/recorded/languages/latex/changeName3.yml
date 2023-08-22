@@ -11,6 +11,12 @@ initialState:
     \section{some section}
     \subsection
     Some Text
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|\section{some section}
+  # 1|\subsection
+  # 2|Some Text
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -20,6 +26,12 @@ finalState:
     \section{}
     \subsection
     Some Text
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|\section{}
+  # 1|\subsection
+  # 2|Some Text
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

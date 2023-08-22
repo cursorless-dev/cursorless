@@ -8,12 +8,19 @@ command:
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
 initialState:
   documentContents: "{const [bongo, baz] = [foo, bar]}"
+  #             1         2         3
+  #   012345678901234567890123456789012
+  #  +---------------------------------
+  # 0|{const [bongo, baz] = [foo, bar]}
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 20}
   marks: {}
 finalState:
   documentContents: "{}"
+  #   01
+  #  +--
+  # 0|{}
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

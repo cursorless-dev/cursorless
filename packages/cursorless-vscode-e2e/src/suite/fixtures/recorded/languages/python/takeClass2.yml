@@ -12,6 +12,13 @@ initialState:
     @annotation
     class MyClass:
         """"""
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|
+  # 1|@annotation
+  # 2|class MyClass:
+  # 3|    """"""
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
@@ -22,6 +29,13 @@ finalState:
     @annotation
     class MyClass:
         """"""
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|
+  # 1|@annotation
+  # 2|class MyClass:
+  # 3|    """"""
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 10}

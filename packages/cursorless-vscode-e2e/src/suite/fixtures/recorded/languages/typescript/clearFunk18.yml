@@ -17,6 +17,18 @@ initialState:
 
         constructor(value: string | number) {}
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901
+  #  +------------------------------------------
+  # 0|class MyClass {
+  # 1|    constructor(value: string);
+  # 2|    constructor(value: number);
+  # 3|
+  # 4|    constructor(value: string | number) {}
+  # 5|}
+  #  +------------------------------------------
+  #   012345678901234567890123456789012345678901
+  #             1         2         3         4
   selections:
     - anchor: {line: 1, character: 31}
       active: {line: 1, character: 31}
@@ -33,6 +45,18 @@ finalState:
 
         
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|class MyClass {
+  # 1|    
+  # 2|    
+  # 3|
+  # 4|    
+  # 5|}
+  #  +---------------
+  #   012345678901234
+  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

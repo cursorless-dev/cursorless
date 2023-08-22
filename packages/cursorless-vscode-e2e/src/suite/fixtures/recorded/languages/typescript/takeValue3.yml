@@ -11,6 +11,12 @@ initialState:
     function foo() {
         return "hello";
     }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|function foo() {
+  # 1|    return "hello";
+  # 2|}
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
@@ -20,6 +26,12 @@ finalState:
     function foo() {
         return "hello";
     }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|function foo() {
+  # 1|    return "hello";
+  # 2|}
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 18}

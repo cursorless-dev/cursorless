@@ -12,6 +12,10 @@ command:
   action: {name: remove}
 initialState:
   documentContents: "[baz, foo[0], bar]"
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|[baz, foo[0], bar]
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -21,6 +25,9 @@ initialState:
       end: {line: 0, character: 9}
 finalState:
   documentContents: "[baz, bar]"
+  #   0123456789
+  #  +----------
+  # 0|[baz, bar]
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

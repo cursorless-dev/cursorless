@@ -22,6 +22,14 @@ initialState:
     c
 
     d
+  #   0
+  #  +-
+  # 0|a
+  # 1|b
+  # 2|c
+  # 3|
+  # 4|d
+  # 5|
   selections:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}
@@ -45,6 +53,16 @@ finalState:
     c
 
     a b c d
+  #   0123456
+  #  +-------
+  # 0|a
+  # 1|b
+  # 2|c
+  # 3|
+  # 4|a b c d
+  # 5|
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}

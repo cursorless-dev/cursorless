@@ -12,6 +12,10 @@ command:
   action: {name: pasteFromClipboard}
 initialState:
   documentContents: const whatever = "hello";
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|const whatever = "hello";
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
@@ -23,6 +27,11 @@ finalState:
   documentContents: |-
     const whatever = "hello";
     const whatever = "hello";
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|const whatever = "hello";
+  # 1|const whatever = "hello";
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

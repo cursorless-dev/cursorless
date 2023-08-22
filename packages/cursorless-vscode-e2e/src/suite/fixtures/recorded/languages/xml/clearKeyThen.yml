@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
 initialState:
   documentContents: <note bar="back">foo</note>
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|<note bar="back">foo</note>
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
   marks: {}
 finalState:
   documentContents: <note ="back">foo</note>
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|<note ="back">foo</note>
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

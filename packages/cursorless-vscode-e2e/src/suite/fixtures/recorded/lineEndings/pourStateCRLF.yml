@@ -11,12 +11,25 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "def whatever():\r\n    if True:\r\n        pass"
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|def whatever():
+  # 1|    if True:
+  # 2|        pass
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: "def whatever():\r\n    if True:\r\n        pass\r\n    "
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|def whatever():
+  # 1|    if True:
+  # 2|        pass
+  # 3|    
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}

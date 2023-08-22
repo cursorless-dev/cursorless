@@ -9,6 +9,9 @@ command:
   action: {name: insertEmptyLineBefore}
 initialState:
   documentContents: "    "
+  #   0123
+  #  +----
+  # 0|    
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -17,6 +20,10 @@ finalState:
   documentContents: |2-
 
         
+  #   0123
+  #  +----
+  # 0|
+  # 1|    
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

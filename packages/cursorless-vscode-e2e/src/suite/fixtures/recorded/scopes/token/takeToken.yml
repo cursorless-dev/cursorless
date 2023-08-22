@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: plaintext
 command:
   spokenForm: take token
@@ -11,6 +13,9 @@ command:
   action: {name: setSelection}
 initialState:
   documentContents: a b
+  #   012
+  #  +---
+  # 0|a b
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 2}

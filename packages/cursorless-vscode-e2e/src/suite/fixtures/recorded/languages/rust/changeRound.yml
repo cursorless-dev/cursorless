@@ -12,6 +12,11 @@ command:
 initialState:
   documentContents: |
     "hello (there)";
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|"hello (there)";
+  # 1|
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
@@ -19,6 +24,10 @@ initialState:
 finalState:
   documentContents: |
     "hello ";
+  #   012345678
+  #  +---------
+  # 0|"hello ";
+  # 1|
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

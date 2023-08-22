@@ -16,12 +16,18 @@ initialState:
   documentContents: |2-
          
     bbb
+  #   01234
+  #  +-----
+  # 0|     
+  # 1|bbb
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

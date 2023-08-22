@@ -8,12 +8,19 @@ command:
       modifier: {type: containingScope, scopeType: list, includeSiblings: false}
 initialState:
   documentContents: a = %w(1, 2, 3)
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|a = %w(1, 2, 3)
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: "a = "
+  #   0123
+  #  +----
+  # 0|a = 
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

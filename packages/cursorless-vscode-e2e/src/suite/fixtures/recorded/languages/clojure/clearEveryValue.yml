@@ -14,6 +14,18 @@ initialState:
         ;; hello
         :baz "whatever",
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|
+  # 1|{
+  # 2|    :foo "bar",
+  # 3|    ;; hello
+  # 4|    :baz "whatever",
+  # 5|}
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 4, character: 13}
       active: {line: 4, character: 13}
@@ -26,6 +38,18 @@ finalState:
         ;; hello
         :baz ,
     }
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|
+  # 1|{
+  # 2|    :foo ,
+  # 3|    ;; hello
+  # 4|    :baz ,
+  # 5|}
+  #  +------------
+  #   012345678901
+  #             1
   selections:
     - anchor: {line: 2, character: 9}
       active: {line: 2, character: 9}

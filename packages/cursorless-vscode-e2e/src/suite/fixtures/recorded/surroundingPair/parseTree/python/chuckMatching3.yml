@@ -12,12 +12,20 @@ initialState:
 
     dfsd
     """
+  #   012345
+  #  +------
+  # 0|"""fds
+  # 1|
+  # 2|dfsd
+  # 3|"""
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -17,6 +17,17 @@ initialState:
     b   c
     d   e
     f   g
+  #   01234
+  #  +-----
+  # 0|
+  # 1|a
+  # 2|
+  # 3|b   c
+  # 4|d   e
+  # 5|f   g
+  # 6|
+  #  +-----
+  #   01234
   selections:
     - anchor: {line: 6, character: 0}
       active: {line: 6, character: 0}
@@ -29,6 +40,17 @@ finalState:
     b   c
     d   e
     f   g
+  #   01234
+  #  +-----
+  # 0|
+  # 1|a
+  # 2|
+  # 3|b   c
+  # 4|d   e
+  # 5|f   g
+  # 6|
+  #  +-----
+  #   01234
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 1}

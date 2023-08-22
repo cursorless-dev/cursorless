@@ -13,6 +13,12 @@ initialState:
   documentContents: |
     function aaa() {}
     function bbb() {}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|function aaa() {}
+  # 1|function bbb() {}
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -21,6 +27,11 @@ finalState:
   documentContents: |+
 
 
+  #   
+  #  +
+  # 0|
+  # 1|
+  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

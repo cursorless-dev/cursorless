@@ -11,6 +11,12 @@ initialState:
 
     - hello world
     - whatever now
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|
+  # 1|- hello world
+  # 2|- whatever now
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
@@ -20,6 +26,12 @@ finalState:
 
 
     - whatever now
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|
+  # 1|
+  # 2|- whatever now
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

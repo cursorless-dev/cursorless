@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: (defmacro foo [bar] "baz" (bongo))
+  #             1         2         3
+  #   0123456789012345678901234567890123
+  #  +----------------------------------
+  # 0|(defmacro foo [bar] "baz" (bongo))
   selections:
     - anchor: {line: 0, character: 30}
       active: {line: 0, character: 30}
   marks: {}
 finalState:
   documentContents: (defmacro  [bar] "baz" (bongo))
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|(defmacro  [bar] "baz" (bongo))
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}

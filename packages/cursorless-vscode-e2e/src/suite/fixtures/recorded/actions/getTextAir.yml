@@ -12,6 +12,11 @@ spokenFormError: Action 'getText'
 initialState:
   documentContents: |
     foo bar baz
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|foo bar baz
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -22,6 +27,11 @@ initialState:
 finalState:
   documentContents: |
     foo bar baz
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|foo bar baz
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

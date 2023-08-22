@@ -14,6 +14,12 @@ initialState:
     settings():
         speech.debug = 1
         speech.timeout = 0.4
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|settings():
+  # 1|    speech.debug = 1
+  # 2|    speech.timeout = 0.4
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -23,6 +29,12 @@ finalState:
     settings():
         
         
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|settings():
+  # 1|    
+  # 2|    
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

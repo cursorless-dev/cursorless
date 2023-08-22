@@ -13,6 +13,13 @@ initialState:
         :foo "bar",
         :baz "whatever",
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|{
+  # 1|    :foo "bar",
+  # 2|    :baz "whatever",
+  # 3|}
   selections:
     - anchor: {line: 3, character: 1}
       active: {line: 3, character: 1}
@@ -25,6 +32,12 @@ finalState:
     {
         :baz "whatever",
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|{
+  # 1|    :baz "whatever",
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

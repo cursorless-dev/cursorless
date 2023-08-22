@@ -15,6 +15,13 @@ initialState:
         User { first_name: "John" } => {},
         User { first_name } if first_name.starts_with("P") => {}
     }
+  #             1         2         3         4         5
+  #   012345678901234567890123456789012345678901234567890123456789
+  #  +------------------------------------------------------------
+  # 0|match user {
+  # 1|    User { first_name: "John" } => {},
+  # 2|    User { first_name } if first_name.starts_with("P") => {}
+  # 3|}
   selections:
     - anchor: {line: 1, character: 26}
       active: {line: 1, character: 26}
@@ -25,6 +32,13 @@ finalState:
         
         User { first_name } if first_name.starts_with("P") => {}
     }
+  #             1         2         3         4         5
+  #   012345678901234567890123456789012345678901234567890123456789
+  #  +------------------------------------------------------------
+  # 0|match user {
+  # 1|    
+  # 2|    User { first_name } if first_name.starts_with("P") => {}
+  # 3|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

@@ -12,6 +12,13 @@ initialState:
 
     const value = "HelloWorld";
 
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|
+  # 1|const value = "HelloWorld";
+  # 2|
+  # 3|
   selections:
     - anchor: {line: 1, character: 18}
       active: {line: 1, character: 18}
@@ -21,6 +28,13 @@ finalState:
 
     const value = "HelloWorld";
 
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|
+  # 1|const value = "HelloWorld";
+  # 2|
+  # 3|
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 20}

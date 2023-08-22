@@ -15,6 +15,13 @@ initialState:
     struct S {
         n: Option<u64>,
     }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|struct S {
+  # 1|    n: Option<u64>,
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -27,6 +34,12 @@ finalState:
     struct S {
         n,
     }
+  #   0123456789
+  #  +----------
+  # 0|struct S {
+  # 1|    n,
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}

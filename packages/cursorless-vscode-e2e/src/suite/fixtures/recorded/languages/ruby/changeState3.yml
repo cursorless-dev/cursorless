@@ -11,6 +11,12 @@ initialState:
     while true  do
       puts "hi"
     end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|while true  do
+  # 1|  puts "hi"
+  # 2|end
   selections:
     - anchor: {line: 1, character: 5}
       active: {line: 1, character: 5}
@@ -20,6 +26,12 @@ finalState:
     while true  do
       
     end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|while true  do
+  # 1|  
+  # 2|end
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

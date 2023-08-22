@@ -14,6 +14,12 @@ initialState:
   documentContents: |
     #[derive(Debug)]
     struct S {}
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|#[derive(Debug)]
+  # 1|struct S {}
+  # 2|
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}
@@ -24,6 +30,11 @@ initialState:
 finalState:
   documentContents: |
     struct S {}
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|struct S {}
+  # 1|
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

@@ -13,6 +13,17 @@ initialState:
         width: calc(100% - 80px);
       }
     }
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|div {
+  # 1|  a {
+  # 2|    width: calc(100% - 80px);
+  # 3|  }
+  # 4|}
+  #  +-----------------------------
+  #   01234567890123456789012345678
+  #             1         2
   selections:
     - anchor: {line: 2, character: 6}
       active: {line: 2, character: 6}
@@ -22,6 +33,11 @@ finalState:
     div {
       
     }
+  #   01234
+  #  +-----
+  # 0|div {
+  # 1|  
+  # 2|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

@@ -14,6 +14,12 @@ initialState:
   documentContents: |
     #[derive(Debug)]
     sturct S {}
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|#[derive(Debug)]
+  # 1|sturct S {}
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -25,6 +31,12 @@ finalState:
   documentContents: |
     #[derive()]
     sturct S {}
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|#[derive()]
+  # 1|sturct S {}
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

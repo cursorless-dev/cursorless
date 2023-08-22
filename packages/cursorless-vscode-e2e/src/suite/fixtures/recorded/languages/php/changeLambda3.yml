@@ -13,6 +13,17 @@ initialState:
     myFunc(function() {
 
     });
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|<?php
+  # 1|
+  # 2|myFunc(function() {
+  # 3|
+  # 4|});
+  #  +-------------------
+  #   0123456789012345678
+  #             1
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -22,6 +33,11 @@ finalState:
     <?php
 
     myFunc();
+  #   012345678
+  #  +---------
+  # 0|<?php
+  # 1|
+  # 2|myFunc();
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}

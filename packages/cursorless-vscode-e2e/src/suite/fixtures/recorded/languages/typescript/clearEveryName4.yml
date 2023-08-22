@@ -16,6 +16,17 @@ initialState:
         eee() {}
         fff() {}
     }
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|class Aaa {
+  # 1|    bbb = 0;
+  # 2|    eee() {}
+  # 3|    fff() {}
+  # 4|}
+  #  +------------
+  #   012345678901
+  #             1
   selections:
     - anchor: {line: 3, character: 12}
       active: {line: 3, character: 12}
@@ -27,6 +38,17 @@ finalState:
         () {}
         () {}
     }
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|class Aaa {
+  # 1|     = 0;
+  # 2|    () {}
+  # 3|    () {}
+  # 4|}
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

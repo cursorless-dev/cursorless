@@ -18,6 +18,12 @@ initialState:
     class Aaa {
         
     }
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|class Aaa {
+  # 1|    
+  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -31,6 +37,19 @@ finalState:
     class Aaa {
         
     }
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|function () {
+  # 1|    
+  # 2|}
+  # 3|
+  # 4|class Aaa {
+  # 5|    
+  # 6|}
+  #  +-------------
+  #   0123456789012
+  #             1
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

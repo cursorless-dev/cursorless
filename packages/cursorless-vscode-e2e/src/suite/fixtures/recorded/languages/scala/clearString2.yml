@@ -14,6 +14,18 @@ initialState:
     line
     string
     """
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|val string = """
+  # 1|multi
+  # 2|line
+  # 3|string
+  # 4|"""
+  # 5|
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
@@ -21,6 +33,11 @@ initialState:
 finalState:
   documentContents: |
     val string = 
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|val string = 
+  # 1|
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

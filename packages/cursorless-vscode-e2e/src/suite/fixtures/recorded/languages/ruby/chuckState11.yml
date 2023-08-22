@@ -15,6 +15,17 @@ initialState:
     ensure 
       a = 10
     end
+  #   01234567
+  #  +--------
+  # 0|begin
+  # 1|  a = 10
+  # 2|else
+  # 3|  a = 10
+  # 4|ensure 
+  # 5|  a = 10
+  # 6|end
+  #  +--------
+  #   01234567
   selections:
     - anchor: {line: 3, character: 6}
       active: {line: 3, character: 6}
@@ -28,6 +39,17 @@ finalState:
     ensure 
       a = 10
     end
+  #   01234567
+  #  +--------
+  # 0|begin
+  # 1|  a = 10
+  # 2|else
+  # 3|
+  # 4|ensure 
+  # 5|  a = 10
+  # 6|end
+  #  +--------
+  #   01234567
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}

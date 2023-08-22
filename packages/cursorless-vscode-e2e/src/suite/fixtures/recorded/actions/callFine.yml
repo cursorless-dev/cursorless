@@ -13,6 +13,11 @@ initialState:
     foo;
     bar;
     baz;
+  #   0123
+  #  +----
+  # 0|foo;
+  # 1|bar;
+  # 2|baz;
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 3}
@@ -27,6 +32,11 @@ finalState:
     foo;
     foo(bar);
     foo(baz);
+  #   012345678
+  #  +---------
+  # 0|foo;
+  # 1|foo(bar);
+  # 2|foo(baz);
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 7}

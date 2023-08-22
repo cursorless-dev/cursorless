@@ -8,12 +8,17 @@ command:
       modifier: {type: surroundingPair, delimiter: escapedSquareBrackets}
 initialState:
   documentContents: \[foo\]
+  #   0123456
+  #  +-------
+  # 0|\[foo\]
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -12,6 +12,10 @@ command:
   action: {name: remove}
 initialState:
   documentContents: some amount of text
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|some amount of text
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
@@ -21,6 +25,10 @@ initialState:
       end: {line: 0, character: 11}
 finalState:
   documentContents: some of text
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|some of text
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}

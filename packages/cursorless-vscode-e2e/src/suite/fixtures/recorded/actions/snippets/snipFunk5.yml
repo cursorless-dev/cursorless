@@ -16,6 +16,17 @@ initialState:
             
         }
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|function aaa() {
+  # 1|    class Bbb {
+  # 2|        
+  # 3|    }
+  # 4|}
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -29,6 +40,19 @@ finalState:
             }
         }
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|function aaa() {
+  # 1|    class Bbb {
+  # 2|        () {
+  # 3|            
+  # 4|        }
+  # 5|    }
+  # 6|}
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}

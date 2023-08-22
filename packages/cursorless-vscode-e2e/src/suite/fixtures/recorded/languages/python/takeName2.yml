@@ -11,6 +11,13 @@ initialState:
 
     def my_funk(name: str, value) -> str:
         return
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|
+  # 1|def my_funk(name: str, value) -> str:
+  # 2|    return
+  # 3|
   selections:
     - anchor: {line: 1, character: 19}
       active: {line: 1, character: 19}
@@ -20,6 +27,13 @@ finalState:
 
     def my_funk(name: str, value) -> str:
         return
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|
+  # 1|def my_funk(name: str, value) -> str:
+  # 2|    return
+  # 3|
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 16}

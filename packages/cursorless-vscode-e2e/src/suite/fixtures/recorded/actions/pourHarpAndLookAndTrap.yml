@@ -16,6 +16,11 @@ command:
 initialState:
   documentContents: |
     hello world there now
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|hello world there now
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -33,6 +38,12 @@ finalState:
   documentContents: |+
     hello world there now
 
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|hello world there now
+  # 1|
+  # 2|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

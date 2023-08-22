@@ -11,6 +11,12 @@ initialState:
     <?php
 
     $str = ( string ) $num;
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|<?php
+  # 1|
+  # 2|$str = ( string ) $num;
   selections:
     - anchor: {line: 2, character: 18}
       active: {line: 2, character: 18}
@@ -20,6 +26,12 @@ finalState:
     <?php
 
     $str = $num;
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|<?php
+  # 1|
+  # 2|$str = $num;
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}

@@ -16,6 +16,17 @@ initialState:
         key(enter)
         
         
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|slap:
+  # 1|    key(end)
+  # 2|    key(enter)
+  # 3|    
+  # 4|    
+  #  +--------------
+  #   01234567890123
+  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -27,6 +38,15 @@ finalState:
         
         
         
+  #   01234
+  #  +-----
+  # 0|slap:
+  # 1|    
+  # 2|    
+  # 3|    
+  # 4|    
+  #  +-----
+  #   01234
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

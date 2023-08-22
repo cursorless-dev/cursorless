@@ -12,6 +12,13 @@ initialState:
     class ExampleClass() {
       val string = "example string"
     }
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|class ExampleClass() {
+  # 1|  val string = "example string"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 24}
       active: {line: 1, character: 24}
@@ -21,6 +28,13 @@ finalState:
     class ExampleClass() {
       val string = 
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|class ExampleClass() {
+  # 1|  val string = 
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}

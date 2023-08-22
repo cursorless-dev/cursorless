@@ -11,12 +11,20 @@ command:
   action: {name: remove}
 initialState:
   documentContents: "[aaa for aaa in bbb if ccc]"
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|[aaa for aaa in bbb if ccc]
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
   documentContents: "[aaa for aaa in bbb ]"
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|[aaa for aaa in bbb ]
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

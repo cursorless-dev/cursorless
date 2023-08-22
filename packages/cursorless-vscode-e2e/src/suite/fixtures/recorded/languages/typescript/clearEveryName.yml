@@ -13,6 +13,11 @@ initialState:
   documentContents: |-
     const aaa = "bbb";
     const ccc = "ddd";
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|const aaa = "bbb";
+  # 1|const ccc = "ddd";
   selections:
     - anchor: {line: 1, character: 18}
       active: {line: 1, character: 18}
@@ -21,6 +26,11 @@ finalState:
   documentContents: |-
     const  = "bbb";
     const  = "ddd";
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|const  = "bbb";
+  # 1|const  = "ddd";
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

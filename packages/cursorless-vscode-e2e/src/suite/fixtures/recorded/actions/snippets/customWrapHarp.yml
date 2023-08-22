@@ -17,6 +17,11 @@ spokenFormError: Custom wrap with snippet
 initialState:
   documentContents: |
     hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -27,6 +32,11 @@ initialState:
 finalState:
   documentContents: |
     dummy snippet hole1: (hello world), hole2: ()
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|dummy snippet hole1: (hello world), hole2: ()
+  # 1|
   selections:
     - anchor: {line: 0, character: 44}
       active: {line: 0, character: 44}

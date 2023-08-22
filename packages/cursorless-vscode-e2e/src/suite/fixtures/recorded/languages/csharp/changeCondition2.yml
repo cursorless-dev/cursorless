@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
 initialState:
   documentContents: for (int i = 0; i < 5; i++) {}
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|for (int i = 0; i < 5; i++) {}
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
   marks: {}
 finalState:
   documentContents: for (int i = 0; ; i++) {}
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|for (int i = 0; ; i++) {}
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}

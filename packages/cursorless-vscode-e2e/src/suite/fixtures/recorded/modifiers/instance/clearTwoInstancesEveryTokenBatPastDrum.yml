@@ -30,6 +30,19 @@ initialState:
     ccc
     ddd
     eee
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|aaa bbb ccc ddd eee
+  # 1|aaa
+  # 2|bbb
+  # 3|ccc
+  # 4|ddd
+  # 5|eee
+  # 6|
+  #  +-------------------
+  #   0123456789012345678
+  #             1
   selections:
     - anchor: {line: 6, character: 0}
       active: {line: 6, character: 0}
@@ -48,6 +61,17 @@ finalState:
 
 
     eee
+  #   0123456789
+  #  +----------
+  # 0|aaa    eee
+  # 1|aaa
+  # 2|
+  # 3|
+  # 4|
+  # 5|eee
+  # 6|
+  #  +----------
+  #   0123456789
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

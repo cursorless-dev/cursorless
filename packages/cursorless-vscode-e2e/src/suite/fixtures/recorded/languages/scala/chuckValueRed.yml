@@ -12,6 +12,13 @@ initialState:
     class Example() {
       val bar = "bar" + "smang"
     }
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|class Example() {
+  # 1|  val bar = "bar" + "smang"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,6 +31,13 @@ finalState:
     class Example() {
       val bar
     }
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|class Example() {
+  # 1|  val bar
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: const foo = function bar() {}
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|const foo = function bar() {}
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
   marks: {}
 finalState:
   documentContents: const foo = function () {}
+  #             1         2
+  #   01234567890123456789012345
+  #  +--------------------------
+  # 0|const foo = function () {}
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}

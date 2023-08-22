@@ -14,12 +14,20 @@ command:
   usePrePhraseSnapshot: false
 initialState:
   documentContents: aaa(bbb(), ccc()) + ddd()
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|aaa(bbb(), ccc()) + ddd()
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
   marks: {}
 finalState:
   documentContents: "aaa(bbb(), ccc()) + "
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|aaa(bbb(), ccc()) + 
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}

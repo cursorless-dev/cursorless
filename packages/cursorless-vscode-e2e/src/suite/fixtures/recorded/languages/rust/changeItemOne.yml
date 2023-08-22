@@ -13,6 +13,11 @@ command:
 initialState:
   documentContents: |
     let x = [None, Some(1)];
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|let x = [None, Some(1)];
+  # 1|
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}
@@ -23,6 +28,11 @@ initialState:
 finalState:
   documentContents: |
     let x = [None, ];
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|let x = [None, ];
+  # 1|
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}

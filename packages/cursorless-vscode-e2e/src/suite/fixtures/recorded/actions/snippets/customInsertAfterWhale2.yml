@@ -17,6 +17,10 @@ command:
 spokenFormError: Custom insertion snippet
 initialState:
   documentContents: hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -28,6 +32,11 @@ finalState:
   documentContents: |-
     hello world
     dummy snippet hole1: (), hole2: ()
+  #             1         2         3
+  #   0123456789012345678901234567890123
+  #  +----------------------------------
+  # 0|hello world
+  # 1|dummy snippet hole1: (), hole2: ()
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 22}

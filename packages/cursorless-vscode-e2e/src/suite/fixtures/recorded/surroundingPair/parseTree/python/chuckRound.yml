@@ -10,6 +10,12 @@ initialState:
   documentContents: |
     class a(object):
         pass
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|class a(object):
+  # 1|    pass
+  # 2|
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
@@ -18,6 +24,11 @@ finalState:
   documentContents: |
     class a:
         pass
+  #   01234567
+  #  +--------
+  # 0|class a:
+  # 1|    pass
+  # 2|
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

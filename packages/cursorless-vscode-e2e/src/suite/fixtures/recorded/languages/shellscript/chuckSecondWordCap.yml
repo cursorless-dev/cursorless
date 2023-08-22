@@ -17,6 +17,11 @@ command:
 initialState:
   documentContents: |2
      npm version patch --force --commit-hooks false --git-tag-version false
+  #             1         2         3         4         5         6         7
+  #   01234567890123456789012345678901234567890123456789012345678901234567890
+  #  +-----------------------------------------------------------------------
+  # 0| npm version patch --force --commit-hooks false --git-tag-version false
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -27,6 +32,11 @@ initialState:
 finalState:
   documentContents: |2
      npm version patch --force --commit false --git-tag-version false
+  #             1         2         3         4         5         6
+  #   01234567890123456789012345678901234567890123456789012345678901234
+  #  +-----------------------------------------------------------------
+  # 0| npm version patch --force --commit false --git-tag-version false
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

@@ -13,6 +13,17 @@ initialState:
             super();
         }
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|public class Test {
+  # 1|    public Test()  {
+  # 2|        super();
+  # 3|    }
+  # 4|}
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 2, character: 14}
       active: {line: 2, character: 14}
@@ -24,6 +35,17 @@ finalState:
             ();
         }
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|public class Test {
+  # 1|    public Test()  {
+  # 2|        ();
+  # 3|    }
+  # 4|}
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}

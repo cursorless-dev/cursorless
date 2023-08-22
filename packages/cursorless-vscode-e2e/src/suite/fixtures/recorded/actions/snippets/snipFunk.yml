@@ -8,6 +8,8 @@ command:
   extraArgs: [functionDeclaration]
 initialState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -16,6 +18,12 @@ finalState:
     function () {
         
     }
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|function () {
+  # 1|    
+  # 2|}
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

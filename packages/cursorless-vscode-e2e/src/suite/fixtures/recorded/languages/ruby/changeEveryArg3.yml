@@ -8,12 +8,19 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: yield(hello, world)
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|yield(hello, world)
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
   marks: {}
 finalState:
   documentContents: yield(, )
+  #   012345678
+  #  +---------
+  # 0|yield(, )
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

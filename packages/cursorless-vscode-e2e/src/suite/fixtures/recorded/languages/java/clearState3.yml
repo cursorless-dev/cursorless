@@ -15,6 +15,17 @@ initialState:
         @Inject
         private Aaa aaa;
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|public class MyClass {
+  # 1|    @Inject
+  # 2|    private Aaa aaa;
+  # 3|}
+  # 4|
+  #  +----------------------
+  #   0123456789012345678901
+  #             1         2
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -24,6 +35,13 @@ finalState:
     public class MyClass {
         
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|public class MyClass {
+  # 1|    
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

@@ -11,6 +11,12 @@ initialState:
     <html id="value">
         
     </html>
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|<html id="value">
+  # 1|    
+  # 2|</html>
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
@@ -20,6 +26,12 @@ finalState:
     < id="value">
         
     </html>
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|< id="value">
+  # 1|    
+  # 2|</html>
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

@@ -13,6 +13,11 @@ command:
 initialState:
   documentContents: |
     let x = [1];
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|let x = [1];
+  # 1|
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
@@ -23,6 +28,11 @@ initialState:
 finalState:
   documentContents: |
     let x = [];
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|let x = [];
+  # 1|
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

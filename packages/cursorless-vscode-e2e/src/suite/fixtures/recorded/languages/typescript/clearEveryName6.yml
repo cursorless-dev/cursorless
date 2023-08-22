@@ -14,6 +14,12 @@ initialState:
     class Ccc {
         constructor(private aaa: string, bbb: string) {}
     }
+  #             1         2         3         4         5
+  #   0123456789012345678901234567890123456789012345678901
+  #  +----------------------------------------------------
+  # 0|class Ccc {
+  # 1|    constructor(private aaa: string, bbb: string) {}
+  # 2|}
   selections:
     - anchor: {line: 1, character: 48}
       active: {line: 1, character: 48}
@@ -23,6 +29,12 @@ finalState:
     class Ccc {
         constructor(private : string, : string) {}
     }
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012345
+  #  +----------------------------------------------
+  # 0|class Ccc {
+  # 1|    constructor(private : string, : string) {}
+  # 2|}
   selections:
     - anchor: {line: 1, character: 24}
       active: {line: 1, character: 24}

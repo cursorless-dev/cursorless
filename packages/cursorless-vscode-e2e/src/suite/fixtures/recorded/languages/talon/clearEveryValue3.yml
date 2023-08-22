@@ -20,6 +20,24 @@ initialState:
     key(enter): "enter"
     gamepad(north): "north"
     face(smile): "smile"
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|tag(): user.some_tag
+  # 1|
+  # 2|settings():
+  # 3|    speech.debug = 1
+  #  +-----------------------
+  #   01234567890123456789012
+  #  +-----------------------
+  # 4|
+  # 5|command: "command"
+  # 6|key(enter): "enter"
+  # 7|gamepad(north): "north"
+  # 8|face(smile): "smile"
+  #  +-----------------------
+  #   01234567890123456789012
+  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -35,6 +53,24 @@ finalState:
     key(enter): 
     gamepad(north): 
     face(smile): 
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|tag(): 
+  # 1|
+  # 2|settings():
+  # 3|    
+  #  +----------------
+  #   0123456789012345
+  #  +----------------
+  # 4|
+  # 5|command: 
+  # 6|key(enter): 
+  # 7|gamepad(north): 
+  # 8|face(smile): 
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

@@ -11,6 +11,13 @@ initialState:
     a {
       margin: 10px 10px 10px 10px;
     }
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|a {
+  # 1|  margin: 10px 10px 10px 10px;
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
@@ -20,6 +27,13 @@ finalState:
     a {
       : 10px 10px 10px 10px;
     }
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|a {
+  # 1|  : 10px 10px 10px 10px;
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

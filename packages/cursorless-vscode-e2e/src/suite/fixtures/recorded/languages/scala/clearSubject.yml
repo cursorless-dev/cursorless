@@ -15,6 +15,13 @@ initialState:
     def matchTest(x: Int): String = x match {
       case 0 => "zero"
     }
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 0|def matchTest(x: Int): String = x match {
+  # 1|  case 0 => "zero"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
@@ -24,6 +31,13 @@ finalState:
     def matchTest(x: Int): String =  match {
       case 0 => "zero"
     }
+  #             1         2         3
+  #   0123456789012345678901234567890123456789
+  #  +----------------------------------------
+  # 0|def matchTest(x: Int): String =  match {
+  # 1|  case 0 => "zero"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 32}
       active: {line: 0, character: 32}

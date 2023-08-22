@@ -15,11 +15,19 @@ command:
 spokenFormError: "'ordinalScope' with count > 1 and offset away from start / end"
 initialState:
   documentContents: aaa bbb ccc ddd eee
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|aaa bbb ccc ddd eee
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
 finalState:
   documentContents: aaa  ddd eee
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|aaa  ddd eee
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

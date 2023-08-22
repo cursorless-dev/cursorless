@@ -16,6 +16,13 @@ initialState:
         bar = 1
 
     baz: "bongo"
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|foo:
+  # 1|    bar = 1
+  # 2|
+  # 3|baz: "bongo"
   selections:
     - anchor: {line: 3, character: 6}
       active: {line: 3, character: 6}
@@ -26,6 +33,12 @@ finalState:
         
 
     baz: 
+  #   01234
+  #  +-----
+  # 0|foo:
+  # 1|    
+  # 2|
+  # 3|baz: 
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

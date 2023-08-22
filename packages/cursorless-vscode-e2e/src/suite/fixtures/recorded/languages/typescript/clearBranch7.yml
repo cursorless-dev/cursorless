@@ -18,6 +18,19 @@ initialState:
     } finally {
       const aaa = "bbb";
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|try {
+  # 1|  const aaa = "bbb";
+  # 2|} catch (err) {
+  # 3|  const aaa = "bbb";
+  # 4|} finally {
+  # 5|  const aaa = "bbb";
+  # 6|}
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 3, character: 2}
       active: {line: 3, character: 2}
@@ -29,6 +42,17 @@ finalState:
     }  finally {
       const aaa = "bbb";
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|try {
+  # 1|  const aaa = "bbb";
+  # 2|}  finally {
+  # 3|  const aaa = "bbb";
+  # 4|}
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 2, character: 2}
       active: {line: 2, character: 2}

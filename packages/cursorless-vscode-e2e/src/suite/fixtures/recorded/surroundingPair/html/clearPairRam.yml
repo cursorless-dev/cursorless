@@ -14,6 +14,17 @@ initialState:
             <hr/>
         </body>
     </html>
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|<html>
+  # 1|    <body>
+  # 2|        <hr/>
+  # 3|    </body>
+  # 4|</html>
+  #  +-------------
+  #   0123456789012
+  #             1
   selections:
     - anchor: {line: 4, character: 7}
       active: {line: 4, character: 7}
@@ -28,6 +39,17 @@ finalState:
             
         </body>
     </html>
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|<html>
+  # 1|    <body>
+  # 2|        
+  # 3|    </body>
+  # 4|</html>
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}

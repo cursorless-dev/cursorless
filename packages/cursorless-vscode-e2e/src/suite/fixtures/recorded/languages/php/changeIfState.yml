@@ -13,6 +13,17 @@ initialState:
     if (true) {
         return;
     }
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|<?php
+  # 1|
+  # 2|if (true) {
+  # 3|    return;
+  # 4|}
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
@@ -21,6 +32,11 @@ finalState:
   documentContents: |+
     <?php
 
+  #   01234
+  #  +-----
+  # 0|<?php
+  # 1|
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

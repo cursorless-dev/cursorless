@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: plaintext
 command:
   spokenForm: change leading second word
@@ -16,6 +18,9 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: helloWorld
+  #   0123456789
+  #  +----------
+  # 0|helloWorld
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}

@@ -12,6 +12,13 @@ initialState:
         "foo": "bar",
         "baz": "bongo",
     }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|{
+  # 1|    "foo": "bar",
+  # 2|    "baz": "bongo",
+  # 3|}
   selections:
     - anchor: {line: 1, character: 13}
       active: {line: 1, character: 13}
@@ -22,6 +29,13 @@ finalState:
         "foo": ,
         "baz": ,
     }
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|{
+  # 1|    "foo": ,
+  # 2|    "baz": ,
+  # 3|}
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}

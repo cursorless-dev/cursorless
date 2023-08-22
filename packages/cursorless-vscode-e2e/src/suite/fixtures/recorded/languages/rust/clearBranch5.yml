@@ -18,6 +18,19 @@ initialState:
     } else {
         print!("{} is zero", n);
     }
+  #             1         2         3
+  #   01234567890123456789012345678901
+  #  +--------------------------------
+  # 0|if n < 0 {
+  # 1|    print!("{} is negative", n);
+  # 2|} else if n > 0 {
+  # 3|    print!("{} is positive", n);
+  # 4|} else {
+  # 5|    print!("{} is zero", n);
+  # 6|}
+  #  +--------------------------------
+  #   01234567890123456789012345678901
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 2}
       active: {line: 2, character: 2}
@@ -29,6 +42,17 @@ finalState:
     } else  else {
         print!("{} is zero", n);
     }
+  #             1         2         3
+  #   01234567890123456789012345678901
+  #  +--------------------------------
+  # 0|if n < 0 {
+  # 1|    print!("{} is negative", n);
+  # 2|} else  else {
+  # 3|    print!("{} is zero", n);
+  # 4|}
+  #  +--------------------------------
+  #   01234567890123456789012345678901
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}

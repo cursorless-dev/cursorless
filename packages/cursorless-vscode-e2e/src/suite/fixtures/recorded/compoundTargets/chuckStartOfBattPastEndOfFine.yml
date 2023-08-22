@@ -25,6 +25,12 @@ initialState:
 
     bar
     baz
+  #   012
+  #  +---
+  # 0|foo
+  # 1|
+  # 2|bar
+  # 3|baz
   selections:
     - anchor: {line: 3, character: 3}
       active: {line: 3, character: 3}
@@ -39,6 +45,10 @@ finalState:
   documentContents: |-
     foobar
     baz
+  #   012345
+  #  +------
+  # 0|foobar
+  # 1|baz
   selections:
     - anchor: {line: 1, character: 3}
       active: {line: 1, character: 3}

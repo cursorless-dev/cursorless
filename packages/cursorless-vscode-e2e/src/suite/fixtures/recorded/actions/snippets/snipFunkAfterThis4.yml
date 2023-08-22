@@ -10,6 +10,10 @@ command:
   extraArgs: [functionDeclaration]
 initialState:
   documentContents: const foo = "bar";
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|const foo = "bar";
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
@@ -19,6 +23,13 @@ finalState:
     function () {
         
     }
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|const foo = "bar";
+  # 1|function () {
+  # 2|    
+  # 3|}
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}

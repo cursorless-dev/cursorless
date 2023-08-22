@@ -9,6 +9,10 @@ command:
   action: {name: editNewLineAfter}
 initialState:
   documentContents: hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
@@ -20,6 +24,11 @@ initialState:
 finalState:
   documentContents: |
     hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

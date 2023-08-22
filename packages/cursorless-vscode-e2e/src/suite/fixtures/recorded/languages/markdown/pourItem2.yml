@@ -13,6 +13,10 @@ initialState:
   documentContents: |-
     * aaa bbb
     * ccc ddd
+  #   012345678
+  #  +---------
+  # 0|* aaa bbb
+  # 1|* ccc ddd
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
@@ -22,6 +26,11 @@ finalState:
     * aaa bbb
     * 
     * ccc ddd
+  #   012345678
+  #  +---------
+  # 0|* aaa bbb
+  # 1|* 
+  # 2|* ccc ddd
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

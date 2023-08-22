@@ -8,12 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: regularExpression, includeSiblings: false}
 initialState:
   documentContents: a = /.*/
+  #   01234567
+  #  +--------
+  # 0|a = /.*/
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
   marks: {}
 finalState:
   documentContents: "a = "
+  #   0123
+  #  +----
+  # 0|a = 
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

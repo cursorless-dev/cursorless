@@ -13,6 +13,11 @@ initialState:
   documentContents: |-
     - Testing
     - Another test
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|- Testing
+  # 1|- Another test
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
@@ -22,6 +27,12 @@ finalState:
     - Testing
     - 
     - Another test
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|- Testing
+  # 1|- 
+  # 2|- Another test
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

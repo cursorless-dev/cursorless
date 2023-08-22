@@ -11,12 +11,18 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: aaa()bbb()
+  #   0123456789
+  #  +----------
+  # 0|aaa()bbb()
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
   marks: {}
 finalState:
   documentContents: aaa()
+  #   01234
+  #  +-----
+  # 0|aaa()
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}

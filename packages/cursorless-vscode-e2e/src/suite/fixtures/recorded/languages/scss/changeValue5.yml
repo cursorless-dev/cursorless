@@ -11,6 +11,13 @@ initialState:
     a {
       height: $button-height;
     }
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|a {
+  # 1|  height: $button-height;
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 5}
       active: {line: 1, character: 5}
@@ -20,6 +27,13 @@ finalState:
     a {
       height: ;
     }
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|a {
+  # 1|  height: ;
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}

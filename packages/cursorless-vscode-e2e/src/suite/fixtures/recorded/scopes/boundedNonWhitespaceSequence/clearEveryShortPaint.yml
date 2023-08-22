@@ -11,12 +11,19 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo(aa|aa-().c_d bb|bb-().'')
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|foo(aa|aa-().c_d bb|bb-().'')
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
   marks: {}
 finalState:
   documentContents: foo( )
+  #   012345
+  #  +------
+  # 0|foo( )
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

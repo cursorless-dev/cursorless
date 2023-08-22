@@ -11,6 +11,12 @@ initialState:
     <?php
 
     new MyClass();
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|<?php
+  # 1|
+  # 2|new MyClass();
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -20,6 +26,11 @@ finalState:
     <?php
 
     ;
+  #   01234
+  #  +-----
+  # 0|<?php
+  # 1|
+  # 2|;
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

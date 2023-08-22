@@ -8,12 +8,20 @@ command:
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
 initialState:
   documentContents: <note>foo</note>
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|<note>foo</note>
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
   marks: {}
 finalState:
   documentContents: <>foo</note>
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|<>foo</note>
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

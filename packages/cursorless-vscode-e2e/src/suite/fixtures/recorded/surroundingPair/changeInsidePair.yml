@@ -13,12 +13,18 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: (foo)
+  #   01234
+  #  +-----
+  # 0|(foo)
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
   documentContents: ()
+  #   01
+  #  +--
+  # 0|()
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

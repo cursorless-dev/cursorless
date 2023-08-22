@@ -11,6 +11,9 @@ command:
       position: after
 initialState:
   documentContents: foo world
+  #   012345678
+  #  +---------
+  # 0|foo world
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
@@ -20,6 +23,10 @@ initialState:
       end: {line: 0, character: 9}
 finalState:
   documentContents: foo world world
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|foo world world
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

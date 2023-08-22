@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: typescript
 command:
   version: 5
@@ -11,6 +13,10 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: (function bar() {})
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|(function bar() {})
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

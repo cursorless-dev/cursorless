@@ -11,6 +11,12 @@ initialState:
 
     - hello world
     - this is a test
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|
+  # 1|- hello world
+  # 2|- this is a test
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
@@ -18,6 +24,10 @@ initialState:
 finalState:
   documentContents: |+
 
+  #   
+  #  +
+  # 0|
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

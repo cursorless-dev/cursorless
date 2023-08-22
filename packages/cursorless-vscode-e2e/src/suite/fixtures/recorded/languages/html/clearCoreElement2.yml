@@ -15,6 +15,11 @@ initialState:
     <div>
         aaa
     </div>
+  #   0123456
+  #  +-------
+  # 0|<div>
+  # 1|    aaa
+  # 2|</div>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -24,6 +29,11 @@ finalState:
     <div>
         
     </div>
+  #   012345
+  #  +------
+  # 0|<div>
+  # 1|    
+  # 2|</div>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

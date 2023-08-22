@@ -13,6 +13,11 @@ initialState:
   documentContents: |-
     if True:
         foo = "bar"
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|if True:
+  # 1|    foo = "bar"
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -21,6 +26,12 @@ finalState:
   documentContents: |
     if True:
         foo = "bar"
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|if True:
+  # 1|    foo = "bar"
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

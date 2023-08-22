@@ -8,12 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: (foo bar)
+  #   012345678
+  #  +---------
+  # 0|(foo bar)
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: ( bar)
+  #   012345
+  #  +------
+  # 0|( bar)
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

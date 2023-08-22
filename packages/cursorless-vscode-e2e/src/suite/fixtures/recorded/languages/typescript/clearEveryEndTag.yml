@@ -15,6 +15,13 @@ initialState:
         <>ccc</>
         <>ddd</>
     </>
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|<>
+  # 1|    <>ccc</>
+  # 2|    <>ddd</>
+  # 3|</>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -25,6 +32,12 @@ finalState:
         <>ccc
         <>ddd
     </>
+  #   012345678
+  #  +---------
+  # 0|<>
+  # 1|    <>ccc
+  # 2|    <>ddd
+  # 3|</>
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}

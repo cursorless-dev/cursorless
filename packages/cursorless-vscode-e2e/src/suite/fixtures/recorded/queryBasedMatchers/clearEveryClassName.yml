@@ -13,6 +13,11 @@ initialState:
   documentContents: |-
     class Aaa; end
     class Bbb; end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|class Aaa; end
+  # 1|class Bbb; end
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
@@ -21,6 +26,11 @@ finalState:
   documentContents: |-
     class ; end
     class ; end
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|class ; end
+  # 1|class ; end
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

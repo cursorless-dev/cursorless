@@ -11,6 +11,13 @@ initialState:
     void f() {
         [](){}();
     }
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|void f() {
+  # 1|    [](){}();
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -20,6 +27,13 @@ finalState:
     void f() {
         [](){}();
     }
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|void f() {
+  # 1|    [](){}();
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 10}

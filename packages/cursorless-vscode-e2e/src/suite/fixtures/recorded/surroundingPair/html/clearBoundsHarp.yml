@@ -12,6 +12,12 @@ initialState:
     <html id="(hello)">
         <!-- (hello) -->
     </html>
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|<html id="(hello)">
+  # 1|    <!-- (hello) -->
+  # 2|</html>
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
@@ -24,6 +30,12 @@ finalState:
     <html id="(hello)">
         <!-- hello -->
     </html>
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|<html id="(hello)">
+  # 1|    <!-- hello -->
+  # 2|</html>
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}

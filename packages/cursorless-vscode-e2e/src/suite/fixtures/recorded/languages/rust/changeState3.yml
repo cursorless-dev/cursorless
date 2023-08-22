@@ -12,6 +12,11 @@ command:
 initialState:
   documentContents: |
     let x = vec![1, 2, 3];
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|let x = vec![1, 2, 3];
+  # 1|
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
@@ -19,6 +24,10 @@ initialState:
 finalState:
   documentContents: |+
 
+  #   
+  #  +
+  # 0|
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

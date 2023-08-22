@@ -9,6 +9,10 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
   documentContents: yield(hello, world)
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|yield(hello, world)
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
@@ -18,6 +22,10 @@ initialState:
       end: {line: 0, character: 18}
 finalState:
   documentContents: yield(hello, )
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|yield(hello, )
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

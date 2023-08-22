@@ -22,6 +22,11 @@ command:
 initialState:
   documentContents: |
     aaa bbb ccc aaa bbb
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|aaa bbb ccc aaa bbb
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -35,6 +40,11 @@ initialState:
 finalState:
   documentContents: |
     aaa bbb ccc aaa bbb
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|aaa bbb ccc aaa bbb
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

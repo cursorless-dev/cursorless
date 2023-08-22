@@ -11,12 +11,20 @@ initialState:
     struct Point<T> {
         a: T
     }
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|struct Point<T> {
+  # 1|    a: T
+  # 2|}
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -20,6 +20,12 @@ initialState:
       - bbb
       - ccc
       - ddd
+  #   0123456
+  #  +-------
+  # 0|- aaa
+  # 1|  - bbb
+  # 2|  - ccc
+  # 3|  - ddd
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -37,6 +43,15 @@ finalState:
       - ddd
       - ccc
       - ddd
+  #   0123456
+  #  +-------
+  # 0|- aaa
+  # 1|  - bbb
+  # 2|  - ddd
+  # 3|  - ccc
+  # 4|  - ddd
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

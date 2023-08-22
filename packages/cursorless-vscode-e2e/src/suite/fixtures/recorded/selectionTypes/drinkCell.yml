@@ -10,6 +10,11 @@ initialState:
   documentContents: |-
     # %%
     print("hello")
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|# %%
+  # 1|print("hello")
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
@@ -20,6 +25,13 @@ finalState:
 
     # %%
     print("hello")
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|# %%
+  # 1|
+  # 2|# %%
+  # 3|print("hello")
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

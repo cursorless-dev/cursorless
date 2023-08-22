@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
 initialState:
   documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012345
+  #  +----------------------------------------------
+  # 0|map[string]string{"air": "bat", "cap": "drum"}
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
   marks: {}
 finalState:
   documentContents: "map[string]string{\"air\": \"bat\", \"cap\": \"drum\"}"
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012345
+  #  +----------------------------------------------
+  # 0|map[string]string{"air": "bat", "cap": "drum"}
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 23}

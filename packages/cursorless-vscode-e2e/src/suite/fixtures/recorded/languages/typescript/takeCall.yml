@@ -10,6 +10,11 @@ initialState:
   documentContents: |
 
     myFunk()
+  #   01234567
+  #  +--------
+  # 0|
+  # 1|myFunk()
+  # 2|
   selections:
     - anchor: {line: 1, character: 1}
       active: {line: 1, character: 1}
@@ -18,6 +23,11 @@ finalState:
   documentContents: |
 
     myFunk()
+  #   01234567
+  #  +--------
+  # 0|
+  # 1|myFunk()
+  # 2|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 8}

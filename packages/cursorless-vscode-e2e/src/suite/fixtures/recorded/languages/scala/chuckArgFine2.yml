@@ -12,6 +12,13 @@ initialState:
     class ExampleClass() {
       def example(foo: Int, bar: Int) = foo + bar
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|class ExampleClass() {
+  # 1|  def example(foo: Int, bar: Int) = foo + bar
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,6 +31,13 @@ finalState:
     class ExampleClass() {
       def example(bar: Int) = foo + bar
     }
+  #             1         2         3
+  #   01234567890123456789012345678901234
+  #  +-----------------------------------
+  # 0|class ExampleClass() {
+  # 1|  def example(bar: Int) = foo + bar
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

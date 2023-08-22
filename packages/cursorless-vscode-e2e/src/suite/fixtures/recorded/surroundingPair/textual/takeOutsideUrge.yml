@@ -9,6 +9,10 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: u}
 initialState:
   documentContents: (<user.foo>  <user.bar>)
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|(<user.foo>  <user.bar>)
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
@@ -18,6 +22,10 @@ initialState:
       end: {line: 0, character: 18}
 finalState:
   documentContents: (<user.foo>  )
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|(<user.foo>  )
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

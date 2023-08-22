@@ -12,6 +12,12 @@ initialState:
     class ExampleClass() {
       val example = List(1,2,3,4).map(x => x + 1)
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|class ExampleClass() {
+  # 1|  val example = List(1,2,3,4).map(x => x + 1)
+  # 2|}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,6 +30,12 @@ finalState:
     class ExampleClass() {
       val example = List(1,2,3,4).map()
     }
+  #             1         2         3
+  #   01234567890123456789012345678901234
+  #  +-----------------------------------
+  # 0|class ExampleClass() {
+  # 1|  val example = List(1,2,3,4).map()
+  # 2|}
   selections:
     - anchor: {line: 1, character: 34}
       active: {line: 1, character: 34}

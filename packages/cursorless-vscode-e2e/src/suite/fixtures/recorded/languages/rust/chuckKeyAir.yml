@@ -16,6 +16,17 @@ initialState:
         first_name: "John",
         last_name: last_name,
     }
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|let user = User {
+  # 1|    first_name: "John",
+  # 2|    last_name: last_name,
+  # 3|}
+  # 4|
+  #  +-------------------------
+  #   0123456789012345678901234
+  #             1         2
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -29,6 +40,17 @@ finalState:
         first_name: "John",
         last_name,
     }
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|let user = User {
+  # 1|    first_name: "John",
+  # 2|    last_name,
+  # 3|}
+  # 4|
+  #  +-----------------------
+  #   01234567890123456789012
+  #             1         2
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

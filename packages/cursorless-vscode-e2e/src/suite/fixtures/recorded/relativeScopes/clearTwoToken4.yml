@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: plaintext
 command:
   spokenForm: change two tokens
@@ -14,6 +16,10 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa bbb ccc
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|aaa bbb ccc
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

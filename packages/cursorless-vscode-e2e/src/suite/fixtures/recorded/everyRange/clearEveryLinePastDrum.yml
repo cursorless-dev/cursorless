@@ -22,6 +22,12 @@ initialState:
     ccc ddd
     eee fff
     ggg hhh
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
+  # 1|ccc ddd
+  # 2|eee fff
+  # 3|ggg hhh
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -34,6 +40,12 @@ finalState:
     aaa bbb
 
 
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
+  # 1|
+  # 2|
+  # 3|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

@@ -11,12 +11,19 @@ command:
   action: {name: remove}
 initialState:
   documentContents: struct Some {}
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|struct Some {}
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
   marks: {}
 finalState:
   documentContents: struct {}
+  #   012345678
+  #  +---------
+  # 0|struct {}
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

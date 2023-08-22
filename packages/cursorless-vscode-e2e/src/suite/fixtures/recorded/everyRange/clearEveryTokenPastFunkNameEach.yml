@@ -26,6 +26,15 @@ initialState:
 
     def bbb():
         pass
+  #   0123456789
+  #  +----------
+  # 0|def aaa():
+  # 1|    pass
+  # 2|
+  # 3|def bbb():
+  # 4|    pass
+  #  +----------
+  #   0123456789
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -40,6 +49,15 @@ finalState:
 
      ():
         pass
+  #   0123456789
+  #  +----------
+  # 0|def aaa():
+  # 1|    
+  # 2|
+  # 3| ():
+  # 4|    pass
+  #  +----------
+  #   0123456789
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

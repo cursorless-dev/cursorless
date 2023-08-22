@@ -8,11 +8,17 @@ command:
       modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
   documentContents: (\(hello\))
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|(\(hello\))
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

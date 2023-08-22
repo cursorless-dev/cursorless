@@ -11,6 +11,12 @@ initialState:
     <?php
 
     "Hello world";
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|<?php
+  # 1|
+  # 2|"Hello world";
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
@@ -20,6 +26,11 @@ finalState:
     <?php
 
     ;
+  #   01234
+  #  +-----
+  # 0|<?php
+  # 1|
+  # 2|;
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
 initialState:
   documentContents: "h = { one: \"one\", two: \"two\" }"
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|h = { one: "one", two: "two" }
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
   marks: {}
 finalState:
   documentContents: "h = { : \"one\", : \"two\" }"
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|h = { : "one", : "two" }
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

@@ -15,6 +15,11 @@ initialState:
     @aaa
     def bbb():
         pass
+  #   0123456789
+  #  +----------
+  # 0|@aaa
+  # 1|def bbb():
+  # 2|    pass
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -24,6 +29,11 @@ finalState:
     @aaa
     def bbb():
         
+  #   0123456789
+  #  +----------
+  # 0|@aaa
+  # 1|def bbb():
+  # 2|    
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}

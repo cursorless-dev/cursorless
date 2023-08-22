@@ -12,6 +12,17 @@ initialState:
     const Foo = (
       <div id="bar" name="foo">bar</div>
     );
+  #             1         2         3
+  #   012345678901234567890123456789012345
+  #  +------------------------------------
+  # 0|
+  # 1|const Foo = (
+  # 2|  <div id="bar" name="foo">bar</div>
+  # 3|);
+  # 4|
+  #  +------------------------------------
+  #   012345678901234567890123456789012345
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 14}
       active: {line: 2, character: 14}
@@ -22,6 +33,17 @@ finalState:
     const Foo = (
       <div id="bar" name="foo">bar</div>
     );
+  #             1         2         3
+  #   012345678901234567890123456789012345
+  #  +------------------------------------
+  # 0|
+  # 1|const Foo = (
+  # 2|  <div id="bar" name="foo">bar</div>
+  # 3|);
+  # 4|
+  #  +------------------------------------
+  #   012345678901234567890123456789012345
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 15}

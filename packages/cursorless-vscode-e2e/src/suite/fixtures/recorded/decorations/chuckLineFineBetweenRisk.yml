@@ -24,6 +24,18 @@ initialState:
     aa
     bb
         bar    
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|
+  # 1|    foo ooo    
+  # 2|aa
+  # 3|bb
+  # 4|    bar    
+  # 5|
+  #  +---------------
+  #   012345678901234
+  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -39,6 +51,13 @@ finalState:
 
         foo ooo    
         bar    
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|
+  # 1|    foo ooo    
+  # 2|    bar    
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

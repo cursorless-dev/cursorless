@@ -12,6 +12,15 @@ initialState:
     if () {
 
     }
+  #   0123456
+  #  +-------
+  # 0|
+  # 1|if () {
+  # 2|
+  # 3|}
+  # 4|
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -22,6 +31,15 @@ finalState:
     if () {
 
     }
+  #   0123456
+  #  +-------
+  # 0|
+  # 1|if () {
+  # 2|
+  # 3|}
+  # 4|
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 1}

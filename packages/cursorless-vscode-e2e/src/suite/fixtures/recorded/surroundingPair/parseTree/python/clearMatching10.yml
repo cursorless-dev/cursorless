@@ -10,6 +10,11 @@ initialState:
   documentContents: |-
 
     "'jlkjl' 'fsd'"
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|
+  # 1|"'jlkjl' 'fsd'"
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
@@ -18,6 +23,10 @@ finalState:
   documentContents: |-
 
     "'' 'fsd'"
+  #   0123456789
+  #  +----------
+  # 0|
+  # 1|"'' 'fsd'"
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

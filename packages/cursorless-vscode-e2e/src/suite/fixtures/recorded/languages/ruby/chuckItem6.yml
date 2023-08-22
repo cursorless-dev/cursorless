@@ -9,6 +9,11 @@ command:
 initialState:
   documentContents: |
     %i(hello world)
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|%i(hello world)
+  # 1|
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
@@ -16,6 +21,10 @@ initialState:
 finalState:
   documentContents: |
     %i(hello)
+  #   012345678
+  #  +---------
+  # 0|%i(hello)
+  # 1|
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

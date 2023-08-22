@@ -31,6 +31,12 @@ initialState:
 
     hello
     there
+  #   0123456
+  #  +-------
+  # 0|testing
+  # 1|
+  # 2|hello
+  # 3|there
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -54,6 +60,21 @@ finalState:
     there
 
     baz
+  #   0123456
+  #  +-------
+  # 0|baz
+  # 1|testing
+  # 2|baz
+  # 3|
+  #  +-------
+  #   0123456
+  #  +-------
+  # 4|hello
+  # 5|there
+  # 6|
+  # 7|baz
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

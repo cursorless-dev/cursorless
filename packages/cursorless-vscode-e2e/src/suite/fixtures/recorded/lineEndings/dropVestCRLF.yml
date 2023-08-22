@@ -8,6 +8,12 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
   documentContents: "\r\nconst value = \"Hello world\";\r\n"
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|
+  # 1|const value = "Hello world";
+  # 2|
   selections:
     - anchor: {line: 1, character: 28}
       active: {line: 1, character: 28}
@@ -17,6 +23,13 @@ initialState:
       end: {line: 1, character: 11}
 finalState:
   documentContents: "\r\n\r\nconst value = \"Hello world\";\r\n"
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|
+  # 1|
+  # 2|const value = "Hello world";
+  # 3|
   selections:
     - anchor: {line: 2, character: 28}
       active: {line: 2, character: 28}

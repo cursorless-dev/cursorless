@@ -11,12 +11,19 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "key(enter): \"enter\""
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|key(enter): "enter"
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
   marks: {}
 finalState:
   documentContents: ": \"enter\""
+  #   012345678
+  #  +---------
+  # 0|: "enter"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

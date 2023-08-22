@@ -14,6 +14,11 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "func f() {\n\t_ = 1\n}"
+  #   0123456789
+  #  +----------
+  # 0|func f() {
+  # 1|␉_ = 1
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
@@ -23,6 +28,11 @@ initialState:
       end: {line: 0, character: 10}
 finalState:
   documentContents: "func f() {\n\t\n}"
+  #   0123456789
+  #  +----------
+  # 0|func f() {
+  # 1|␉
+  # 2|}
   selections:
     - anchor: {line: 1, character: 1}
       active: {line: 1, character: 1}

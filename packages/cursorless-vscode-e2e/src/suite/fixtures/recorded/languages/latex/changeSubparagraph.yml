@@ -11,6 +11,13 @@ initialState:
     \subparagraph{1}
     some text
     \subparagraph{2}
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|\subparagraph{1}
+  # 1|some text
+  # 2|\subparagraph{2}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -19,6 +26,12 @@ finalState:
   documentContents: |
 
     \subparagraph{2}
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|
+  # 1|\subparagraph{2}
+  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -12,6 +12,12 @@ initialState:
      .child-selector {
       height: 10Q;
     }
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0| .child-selector {
+  # 1|  height: 10Q;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -24,6 +30,12 @@ finalState:
      .child-selector {
       height: 10;
     }
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0| .child-selector {
+  # 1|  height: 10;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}

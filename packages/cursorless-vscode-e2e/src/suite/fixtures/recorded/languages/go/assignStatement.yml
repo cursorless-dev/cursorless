@@ -13,6 +13,9 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: x = 1
+  #   01234
+  #  +-----
+  # 0|x = 1
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
@@ -22,6 +25,8 @@ initialState:
       end: {line: 0, character: 1}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

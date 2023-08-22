@@ -15,6 +15,13 @@ initialState:
     impl Trait for Result<Option<u32>, Box<dyn std::error::Error>> {
         
     }
+  #             1         2         3         4         5         6
+  #   0123456789012345678901234567890123456789012345678901234567890123
+  #  +----------------------------------------------------------------
+  # 0|impl Trait for Result<Option<u32>, Box<dyn std::error::Error>> {
+  # 1|    
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
@@ -27,6 +34,13 @@ finalState:
     impl Trait for  {
         
     }
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|impl Trait for  {
+  # 1|    
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}

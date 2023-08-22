@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: TestMotorcycle moto = new TestMotorcycle[0]();
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012345
+  #  +----------------------------------------------
+  # 0|TestMotorcycle moto = new TestMotorcycle[0]();
   selections:
     - anchor: {line: 0, character: 44}
       active: {line: 0, character: 44}
   marks: {}
 finalState:
   documentContents: TestMotorcycle moto = ();
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|TestMotorcycle moto = ();
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}

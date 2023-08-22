@@ -24,6 +24,13 @@ initialState:
     const foo = "bar";
     const baz = "bongo";
     const bazman = "bongo";
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|const foo = "bar";
+  # 1|const baz = "bongo";
+  # 2|const bazman = "bongo";
+  # 3|
   selections:
     - anchor: {line: 2, character: 12}
       active: {line: 2, character: 12}
@@ -51,6 +58,31 @@ finalState:
     function () {
         
     }
+  #              1         2
+  #    01234567890123456789012
+  #   +-----------------------
+  #  0|function () {
+  #  1|    
+  #  2|}
+  #  3|const foo = "bar";
+  #   +-----------------------
+  #    01234567890123456789012
+  #   +-----------------------
+  #  4|function () {
+  #  5|    
+  #  6|}
+  #  7|const baz = "bongo";
+  #   +-----------------------
+  #    01234567890123456789012
+  #   +-----------------------
+  #  8|const bazman = "bongo";
+  #  9|function () {
+  # 10|    
+  # 11|}
+  # 12|
+  #   +-----------------------
+  #    01234567890123456789012
+  #              1         2
   selections:
     - anchor: {line: 9, character: 9}
       active: {line: 9, character: 9}

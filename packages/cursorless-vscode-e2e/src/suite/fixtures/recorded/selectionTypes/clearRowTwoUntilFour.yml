@@ -19,6 +19,13 @@ initialState:
     c
     d
     e
+  #   0
+  #  +-
+  # 0|a
+  # 1|b
+  # 2|c
+  # 3|d
+  # 4|e
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -29,6 +36,12 @@ finalState:
 
     d
     e
+  #   0
+  #  +-
+  # 0|a
+  # 1|
+  # 2|d
+  # 3|e
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

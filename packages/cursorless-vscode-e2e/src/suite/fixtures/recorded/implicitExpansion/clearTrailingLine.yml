@@ -14,12 +14,19 @@ initialState:
   documentContents: |-
     a b
     c d
+  #   012
+  #  +---
+  # 0|a b
+  # 1|c d
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: a bc d
+  #   012345
+  #  +------
+  # 0|a bc d
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

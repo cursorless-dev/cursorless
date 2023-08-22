@@ -17,6 +17,18 @@ initialState:
         text: i%2 === 0?left:right
         )
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|async (editor, targets) => {
+  # 1|    const edits = targets.map((target, i) =>(
+  # 2|    text: i%2 === 0?left:right
+  # 3|    )
+  # 4|}
+  # 5|
+  #  +---------------------------------------------
+  #   012345678901234567890123456789012345678901234
+  #             1         2         3         4
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -28,6 +40,18 @@ finalState:
         text: i%2 === 0?left:right
         )
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|async (editor, targets) => {
+  # 1|    const edits = targets.map((target, i) =>(
+  # 2|    text: i%2 === 0?left:right
+  # 3|    )
+  # 4|}
+  # 5|
+  #  +---------------------------------------------
+  #   012345678901234567890123456789012345678901234
+  #             1         2         3         4
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 30}

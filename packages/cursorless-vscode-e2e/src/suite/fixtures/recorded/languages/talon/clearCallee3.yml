@@ -13,6 +13,11 @@ initialState:
   documentContents: |-
     some command:
         sleep(200ms)
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|some command:
+  # 1|    sleep(200ms)
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 16}
@@ -21,6 +26,11 @@ finalState:
   documentContents: |-
     some command:
         (200ms)
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|some command:
+  # 1|    (200ms)
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

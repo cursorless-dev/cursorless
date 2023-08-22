@@ -12,6 +12,13 @@ initialState:
     \paragraph{child}
     some text
     \subsubsection{2}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|\subsubsection{1}
+  # 1|\paragraph{child}
+  # 2|some text
+  # 3|\subsubsection{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -20,6 +27,11 @@ finalState:
   documentContents: |-
 
     \subsubsection{2}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|
+  # 1|\subsubsection{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

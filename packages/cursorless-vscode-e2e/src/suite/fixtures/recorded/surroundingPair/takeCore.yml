@@ -14,6 +14,12 @@ initialState:
         "foo",
         "bar"
     ]
+  #   0123456789
+  #  +----------
+  # 0|[
+  # 1|    "foo",
+  # 2|    "bar"
+  # 3|]
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
@@ -24,6 +30,12 @@ finalState:
         "foo",
         "bar"
     ]
+  #   0123456789
+  #  +----------
+  # 0|[
+  # 1|    "foo",
+  # 2|    "bar"
+  # 3|]
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 2, character: 9}

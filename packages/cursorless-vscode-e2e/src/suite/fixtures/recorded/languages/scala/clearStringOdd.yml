@@ -13,6 +13,13 @@ initialState:
     class ExampleClass() {
       val example = f"formatted ${1} string"
     }
+  #             1         2         3
+  #   0123456789012345678901234567890123456789
+  #  +----------------------------------------
+  # 0|class ExampleClass() {
+  # 1|  val example = f"formatted ${1} string"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -25,6 +32,13 @@ finalState:
     class ExampleClass() {
       val example = 
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|class ExampleClass() {
+  # 1|  val example = 
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 16}

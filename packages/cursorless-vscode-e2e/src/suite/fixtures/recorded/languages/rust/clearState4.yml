@@ -14,6 +14,12 @@ initialState:
     fn foo() {
         foo("bar");
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|fn foo() {
+  # 1|    foo("bar");
+  # 2|}
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
@@ -23,6 +29,11 @@ finalState:
     fn foo() {
         
     }
+  #   0123456789
+  #  +----------
+  # 0|fn foo() {
+  # 1|    
+  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

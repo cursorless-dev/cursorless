@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: ruby
 command:
   version: 1
@@ -9,6 +11,11 @@ command:
 initialState:
   documentContents: |2
       [1, 2, 3, [4, 5, 6]] 
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|  [1, 2, 3, [4, 5, 6]] 
+  # 1|
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

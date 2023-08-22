@@ -16,6 +16,17 @@ initialState:
     eee bbb aaa ccc aaa
     fff bbb aaa ccc aaa
     ggg bbb aaa ccc aaa
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|hhh bbb aaa ccc aaa
+  # 1|eee bbb aaa ccc aaa
+  # 2|fff bbb aaa ccc aaa
+  # 3|ggg bbb aaa ccc aaa
+  # 4|
+  #  +-------------------
+  #   0123456789012345678
+  #             1
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -42,6 +53,17 @@ finalState:
     eee bbb aaa ccc aaa
     fff bbb  ccc 
     ggg bbb aaa ccc aaa
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|hhh bbb  ccc 
+  # 1|eee bbb aaa ccc aaa
+  # 2|fff bbb  ccc 
+  # 3|ggg bbb aaa ccc aaa
+  # 4|
+  #  +-------------------
+  #   0123456789012345678
+  #             1
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

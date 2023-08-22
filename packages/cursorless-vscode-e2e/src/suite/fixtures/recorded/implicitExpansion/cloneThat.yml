@@ -10,6 +10,11 @@ command:
 initialState:
   documentContents: |
     hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -25,6 +30,12 @@ finalState:
   documentContents: |
     hello world
     hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
+  # 1|hello world
+  # 2|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

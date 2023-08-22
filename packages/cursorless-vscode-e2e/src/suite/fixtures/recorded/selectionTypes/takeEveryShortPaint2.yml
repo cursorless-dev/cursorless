@@ -11,12 +11,20 @@ command:
   action: {name: setSelection}
 initialState:
   documentContents: foo[0](bar.test, baz-other-test) something[]
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890123
+  #  +--------------------------------------------
+  # 0|foo[0](bar.test, baz-other-test) something[]
   selections:
     - anchor: {line: 0, character: 29}
       active: {line: 0, character: 29}
   marks: {}
 finalState:
   documentContents: foo[0](bar.test, baz-other-test) something[]
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890123
+  #  +--------------------------------------------
+  # 0|foo[0](bar.test, baz-other-test) something[]
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 16}

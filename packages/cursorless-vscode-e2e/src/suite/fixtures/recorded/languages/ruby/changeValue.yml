@@ -11,6 +11,13 @@ initialState:
     def a
         return 100
     end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|def a
+  # 1|    return 100
+  # 2|end
+  # 3|
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 6}
@@ -20,6 +27,13 @@ finalState:
     def a
         return 
     end
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|def a
+  # 1|    return 
+  # 2|end
+  # 3|
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}

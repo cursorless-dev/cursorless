@@ -14,6 +14,12 @@ initialState:
     abstract class Foo {
         protected abstract bongo(): void;
     }
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|abstract class Foo {
+  # 1|    protected abstract bongo(): void;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -23,6 +29,12 @@ finalState:
     abstract class Foo {
 
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|abstract class Foo {
+  # 1|
+  # 2|}
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: className, includeSiblings: false}
 initialState:
   documentContents: case class Example()
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|case class Example()
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: case class ()
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|case class ()
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

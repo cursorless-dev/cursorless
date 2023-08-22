@@ -10,6 +10,11 @@ command:
 initialState:
   documentContents: |
     const r = /a[b]*(c)/;
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|const r = /a[b]*(c)/;
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -20,6 +25,10 @@ initialState:
 finalState:
   documentContents: |
     const r =
+  #   012345678
+  #  +---------
+  # 0|const r =
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

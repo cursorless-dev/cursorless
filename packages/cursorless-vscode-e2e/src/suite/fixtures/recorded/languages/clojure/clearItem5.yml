@@ -8,12 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
 initialState:
   documentContents: "'(foo bar)"
+  #   0123456789
+  #  +----------
+  # 0|'(foo bar)
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
   marks: {}
 finalState:
   documentContents: "'( bar)"
+  #   0123456
+  #  +-------
+  # 0|'( bar)
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

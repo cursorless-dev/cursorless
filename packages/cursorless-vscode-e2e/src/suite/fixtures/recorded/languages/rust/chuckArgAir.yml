@@ -13,6 +13,11 @@ command:
 initialState:
   documentContents: |
     struct S<'a, 'b: 'a, T>;
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|struct S<'a, 'b: 'a, T>;
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -23,6 +28,11 @@ initialState:
 finalState:
   documentContents: |
     struct S<'b: 'a, T>;
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|struct S<'b: 'a, T>;
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

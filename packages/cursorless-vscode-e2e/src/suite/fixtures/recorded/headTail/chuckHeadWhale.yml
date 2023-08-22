@@ -11,6 +11,10 @@ command:
   action: {name: remove}
 initialState:
   documentContents: "    hello world whatever"
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|    hello world whatever
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}
@@ -20,6 +24,10 @@ initialState:
       end: {line: 0, character: 15}
 finalState:
   documentContents: "    whatever"
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|    whatever
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}

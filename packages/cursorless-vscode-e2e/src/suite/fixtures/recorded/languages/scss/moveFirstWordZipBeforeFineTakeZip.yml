@@ -21,6 +21,10 @@ command:
 marksToCheck: [default.z]
 initialState:
   documentContents: foo-bar baz-bongo
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|foo-bar baz-bongo
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
@@ -33,6 +37,10 @@ initialState:
       end: {line: 0, character: 7}
 finalState:
   documentContents: baz-foo-bar bongo
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|baz-foo-bar bongo
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}

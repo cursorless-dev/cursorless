@@ -16,6 +16,18 @@ initialState:
         thread::sleep(Duration::from_secs(2));
         num
     };
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901
+  #  +------------------------------------------
+  # 0|let expensive_closure = |num| {
+  # 1|    println!("calculating slowly...");
+  # 2|    thread::sleep(Duration::from_secs(2));
+  # 3|    num
+  # 4|};
+  # 5|
+  #  +------------------------------------------
+  #   012345678901234567890123456789012345678901
+  #             1         2         3         4
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
@@ -27,6 +39,18 @@ finalState:
         thread::sleep(Duration::from_secs(2));
         num
     };
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901
+  #  +------------------------------------------
+  # 0|let expensive_closure = |num| {
+  # 1|    
+  # 2|    thread::sleep(Duration::from_secs(2));
+  # 3|    num
+  # 4|};
+  # 5|
+  #  +------------------------------------------
+  #   012345678901234567890123456789012345678901
+  #             1         2         3         4
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

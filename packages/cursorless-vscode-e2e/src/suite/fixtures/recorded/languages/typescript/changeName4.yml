@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: let name = parameters.leadingDelimiterRange;
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890123
+  #  +--------------------------------------------
+  # 0|let name = parameters.leadingDelimiterRange;
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
   marks: {}
 finalState:
   documentContents: let  = parameters.leadingDelimiterRange;
+  #             1         2         3
+  #   0123456789012345678901234567890123456789
+  #  +----------------------------------------
+  # 0|let  = parameters.leadingDelimiterRange;
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

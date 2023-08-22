@@ -23,6 +23,19 @@ initialState:
     # Another section
 
     Another text
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|# Some section
+  # 1|
+  # 2|Some text
+  # 3|
+  # 4|# Another section
+  # 5|
+  # 6|Another text
+  #  +-----------------
+  #   01234567890123456
+  #             1
   selections:
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}
@@ -43,6 +56,26 @@ finalState:
     # Some section
 
     Some text
+  #              1
+  #    01234567890123456
+  #   +-----------------
+  #  0|# Some section
+  #  1|
+  #  2|Some text
+  #  3|
+  #   +-----------------
+  #    01234567890123456
+  #   +-----------------
+  #  4|# Another section
+  #  5|
+  #  6|Another text
+  #  7|
+  #  8|# Some section
+  #  9|
+  # 10|Some text
+  #   +-----------------
+  #    01234567890123456
+  #              1
   selections:
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}

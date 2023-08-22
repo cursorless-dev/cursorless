@@ -17,6 +17,17 @@ initialState:
     -
     bongo: bazman
     foo: key(a)
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|tag: user.foo
+  # 1|app: bar
+  # 2|-
+  # 3|bongo: bazman
+  # 4|foo: key(a)
+  #  +-------------
+  #   0123456789012
+  #             1
   selections:
     - anchor: {line: 4, character: 11}
       active: {line: 4, character: 11}
@@ -26,6 +37,12 @@ finalState:
 
     bongo: bazman
     foo: key(a)
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|
+  # 1|bongo: bazman
+  # 2|foo: key(a)
   selections:
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 11}

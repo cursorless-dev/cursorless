@@ -16,6 +16,17 @@ initialState:
         V4(u8, u8, u8, u8),
         V6(String),
     }
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|enum IpAddr {
+  # 1|    V4(u8, u8, u8, u8),
+  # 2|    V6(String),
+  # 3|}
+  # 4|
+  #  +-----------------------
+  #   01234567890123456789012
+  #             1         2
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -28,6 +39,13 @@ finalState:
     enum IpAddr {
         V6(String),
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|enum IpAddr {
+  # 1|    V6(String),
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}

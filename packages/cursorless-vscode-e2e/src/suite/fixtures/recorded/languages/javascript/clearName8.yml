@@ -14,6 +14,12 @@ initialState:
     class Aaa {
         bbb = "ccc"
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|class Aaa {
+  # 1|    bbb = "ccc"
+  # 2|}
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
@@ -23,6 +29,12 @@ finalState:
     class Aaa {
          = "ccc"
     }
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|class Aaa {
+  # 1|     = "ccc"
+  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

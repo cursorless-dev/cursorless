@@ -15,6 +15,12 @@ initialState:
     foo:
         bar = 1
         baz = 2
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|foo:
+  # 1|    bar = 1
+  # 2|    baz = 2
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -24,6 +30,11 @@ finalState:
     foo:
         bar = 
         baz = 
+  #   0123456789
+  #  +----------
+  # 0|foo:
+  # 1|    bar = 
+  # 2|    baz = 
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}

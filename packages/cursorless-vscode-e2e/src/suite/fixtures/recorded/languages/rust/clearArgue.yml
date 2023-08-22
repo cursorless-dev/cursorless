@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "fn do_something(foo: (u8, u16)) {}"
+  #             1         2         3
+  #   0123456789012345678901234567890123
+  #  +----------------------------------
+  # 0|fn do_something(foo: (u8, u16)) {}
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
   marks: {}
 finalState:
   documentContents: fn do_something() {}
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|fn do_something() {}
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}

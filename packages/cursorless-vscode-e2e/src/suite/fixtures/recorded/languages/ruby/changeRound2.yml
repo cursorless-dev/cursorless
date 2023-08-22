@@ -11,6 +11,13 @@ initialState:
     <<-HI
         ok (what)
     HI
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|<<-HI
+  # 1|    ok (what)
+  # 2|HI
+  # 3|
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
@@ -20,6 +27,12 @@ finalState:
     <<-HI
         ok 
     HI
+  #   0123456
+  #  +-------
+  # 0|<<-HI
+  # 1|    ok 
+  # 2|HI
+  # 3|
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}

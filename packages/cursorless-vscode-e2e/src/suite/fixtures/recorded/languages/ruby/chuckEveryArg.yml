@@ -11,6 +11,12 @@ initialState:
     def hello_world(name, name2)
         puts "hi #{name} and #{name2}"
     end
+  #             1         2         3
+  #   0123456789012345678901234567890123
+  #  +----------------------------------
+  # 0|def hello_world(name, name2)
+  # 1|    puts "hi #{name} and #{name2}"
+  # 2|end
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
@@ -20,6 +26,12 @@ finalState:
     def hello_world()
         puts "hi #{name} and #{name2}"
     end
+  #             1         2         3
+  #   0123456789012345678901234567890123
+  #  +----------------------------------
+  # 0|def hello_world()
+  # 1|    puts "hi #{name} and #{name2}"
+  # 2|end
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}

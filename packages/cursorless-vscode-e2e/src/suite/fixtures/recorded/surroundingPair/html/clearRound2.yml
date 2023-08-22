@@ -13,6 +13,17 @@ initialState:
             <script>(hello)</script>
         </head>
     </html>
+  #             1         2         3
+  #   01234567890123456789012345678901
+  #  +--------------------------------
+  # 0|<html>
+  # 1|    <head>
+  # 2|        <script>(hello)</script>
+  # 3|    </head>
+  # 4|</html>
+  #  +--------------------------------
+  #   01234567890123456789012345678901
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 19}
       active: {line: 2, character: 19}
@@ -24,6 +35,17 @@ finalState:
             <script></script>
         </head>
     </html>
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|<html>
+  # 1|    <head>
+  # 2|        <script></script>
+  # 3|    </head>
+  # 4|</html>
+  #  +-------------------------
+  #   0123456789012345678901234
+  #             1         2
   selections:
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 16}

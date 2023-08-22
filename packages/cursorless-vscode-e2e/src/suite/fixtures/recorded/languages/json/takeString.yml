@@ -13,6 +13,17 @@ initialState:
     {
         "foo": "bar"
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|
+  # 1|{
+  # 2|    "foo": "bar"
+  # 3|}
+  # 4|
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 2, character: 12}
       active: {line: 2, character: 12}
@@ -23,6 +34,17 @@ finalState:
     {
         "foo": "bar"
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|
+  # 1|{
+  # 2|    "foo": "bar"
+  # 3|}
+  # 4|
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 16}

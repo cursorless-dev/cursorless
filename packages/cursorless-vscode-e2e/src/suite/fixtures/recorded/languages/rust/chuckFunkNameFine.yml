@@ -12,6 +12,12 @@ initialState:
     fn main() {
         println!("Hello, world!");
     }
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|fn main() {
+  # 1|    println!("Hello, world!");
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
@@ -24,6 +30,12 @@ finalState:
     fn () {
         println!("Hello, world!");
     }
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|fn () {
+  # 1|    println!("Hello, world!");
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

@@ -13,6 +13,12 @@ initialState:
   documentContents: |
     and not mode: command
     -
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|and not mode: command
+  # 1|-
+  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -21,6 +27,11 @@ finalState:
   documentContents: |
     : command
     -
+  #   012345678
+  #  +---------
+  # 0|: command
+  # 1|-
+  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

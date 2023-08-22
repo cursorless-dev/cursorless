@@ -8,12 +8,20 @@ command:
       mark: {type: nothing}
 initialState:
   documentContents: hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
   marks: {}
 finalState:
   documentContents: hello world
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

@@ -12,6 +12,12 @@ initialState:
     class Example(foo: String) {
       def str(bar: String): String = foo + bar
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901
+  #  +------------------------------------------
+  # 0|class Example(foo: String) {
+  # 1|  def str(bar: String): String = foo + bar
+  # 2|}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,6 +30,12 @@ finalState:
     class Example(foo: String) {
       def str(bar: ): String = foo + bar
     }
+  #             1         2         3
+  #   012345678901234567890123456789012345
+  #  +------------------------------------
+  # 0|class Example(foo: String) {
+  # 1|  def str(bar: ): String = foo + bar
+  # 2|}
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}

@@ -9,6 +9,11 @@ command:
 initialState:
   documentContents: |
     { i: 10, z: 99}
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|{ i: 10, z: 99}
+  # 1|
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
@@ -16,6 +21,10 @@ initialState:
 finalState:
   documentContents: |
     { i: 10}
+  #   01234567
+  #  +--------
+  # 0|{ i: 10}
+  # 1|
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

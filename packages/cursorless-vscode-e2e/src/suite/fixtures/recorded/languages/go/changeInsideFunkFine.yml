@@ -14,6 +14,10 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: func (t T) f() { /* body */ }
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|func (t T) f() { /* body */ }
   selections:
     - anchor: {line: 0, character: 29}
       active: {line: 0, character: 29}
@@ -23,6 +27,10 @@ initialState:
       end: {line: 0, character: 12}
 finalState:
   documentContents: func (t T) f() {  }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|func (t T) f() {  }
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}

@@ -12,6 +12,12 @@ initialState:
     interface MyType {
         name: string;
     }
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|interface MyType {
+  # 1|    name: string;
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
@@ -24,6 +30,12 @@ finalState:
     interface MyType {
         name;
     }
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|interface MyType {
+  # 1|    name;
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

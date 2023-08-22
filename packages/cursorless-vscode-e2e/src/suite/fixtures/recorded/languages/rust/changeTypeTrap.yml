@@ -16,6 +16,12 @@ initialState:
     {
 
     }
+  #             1         2         3         4         5         6         7
+  #   01234567890123456789012345678901234567890123456789012345678901234567890123456
+  #  +-----------------------------------------------------------------------------
+  # 0|fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
+  # 1|}
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -27,6 +33,12 @@ finalState:
   documentContents: |
     fn some_function<T: , U: Clone + Debug>(t: &T, u: &U) -> i32 {
     }
+  #             1         2         3         4         5         6
+  #   01234567890123456789012345678901234567890123456789012345678901
+  #  +--------------------------------------------------------------
+  # 0|fn some_function<T: , U: Clone + Debug>(t: &T, u: &U) -> i32 {
+  # 1|}
+  # 2|
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}

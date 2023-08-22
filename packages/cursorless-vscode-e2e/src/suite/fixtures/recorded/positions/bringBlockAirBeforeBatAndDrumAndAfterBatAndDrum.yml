@@ -33,6 +33,19 @@ initialState:
 
             ddd
         eee
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|aaa
+  # 1|
+  # 2|    bbb
+  # 3|        ccc
+  # 4|
+  # 5|        ddd
+  # 6|    eee
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -63,6 +76,33 @@ finalState:
         eee
 
         aaa
+  #              1
+  #    01234567890
+  #   +-----------
+  #  0|aaa
+  #  1|
+  #  2|    aaa
+  #  3|
+  #   +-----------
+  #    01234567890
+  #   +-----------
+  #  4|    bbb
+  #  5|        ccc
+  #  6|
+  #  7|    aaa
+  #   +-----------
+  #    01234567890
+  #   +-----------
+  #  8|
+  #  9|    aaa
+  # 10|
+  # 11|        ddd
+  # 12|    eee
+  # 13|
+  # 14|    aaa
+  #   +-----------
+  #    01234567890
+  #              1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -13,6 +13,11 @@ initialState:
   documentContents: |-
     function eee() {}
     function fff() {}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|function eee() {}
+  # 1|function fff() {}
   selections:
     - anchor: {line: 1, character: 17}
       active: {line: 1, character: 17}
@@ -21,6 +26,11 @@ finalState:
   documentContents: |-
     function () {}
     function () {}
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|function () {}
+  # 1|function () {}
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

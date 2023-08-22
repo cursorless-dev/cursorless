@@ -18,6 +18,19 @@ initialState:
     not tag: user.some_other_tag
     and not app: some_application
     -
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|mode: command
+  # 1|os: linux
+  # 2|and tag: user.some_tag
+  # 3|not tag: user.some_other_tag
+  # 4|and not app: some_application
+  # 5|-
+  # 6|
+  #  +-----------------------------
+  #   01234567890123456789012345678
+  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -25,6 +38,10 @@ initialState:
 finalState:
   documentContents: |+
 
+  #   
+  #  +
+  # 0|
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

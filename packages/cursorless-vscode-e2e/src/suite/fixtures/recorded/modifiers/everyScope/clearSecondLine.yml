@@ -15,6 +15,12 @@ initialState:
   documentContents: |
     aaa bbb ccc
     ddd eee fff
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|aaa bbb ccc
+  # 1|ddd eee fff
+  # 2|
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 7}
@@ -23,6 +29,12 @@ finalState:
   documentContents: |+
     aaa bbb ccc
 
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|aaa bbb ccc
+  # 1|
+  # 2|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

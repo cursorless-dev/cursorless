@@ -15,6 +15,13 @@ initialState:
     match 0:
         case [0]:
             pass
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|match 0:
+  # 1|    case [0]:
+  # 2|        pass
+  # 3|
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -24,6 +31,13 @@ finalState:
     match :
         case [0]:
             pass
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|match :
+  # 1|    case [0]:
+  # 2|        pass
+  # 3|
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

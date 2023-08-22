@@ -10,6 +10,12 @@ initialState:
   documentContents: |
 
     const value = "Hello world";
+  #             1         2
+  #   0123456789012345678901234567
+  #  +----------------------------
+  # 0|
+  # 1|const value = "Hello world";
+  # 2|
   selections:
     - anchor: {line: 1, character: 28}
       active: {line: 1, character: 28}
@@ -21,6 +27,12 @@ finalState:
   documentContents: |
 
     const = "Hello world";
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|
+  # 1|const = "Hello world";
+  # 2|
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 22}

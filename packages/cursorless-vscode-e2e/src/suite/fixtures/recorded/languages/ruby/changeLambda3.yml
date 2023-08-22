@@ -9,6 +9,11 @@ command:
 initialState:
   documentContents: |
     [1,2,3].each { |i| puts i }
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|[1,2,3].each { |i| puts i }
+  # 1|
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
@@ -16,6 +21,11 @@ initialState:
 finalState:
   documentContents: |
     [1,2,3].each 
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|[1,2,3].each 
+  # 1|
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

@@ -11,12 +11,18 @@ command:
   action: {name: remove}
 initialState:
   documentContents: aaaBbbCcc
+  #   012345678
+  #  +---------
+  # 0|aaaBbbCcc
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
   documentContents: aaaCcc
+  #   012345
+  #  +------
+  # 0|aaaCcc
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

@@ -17,6 +17,16 @@ initialState:
       pass
     finally:
       pass
+  #   01234567
+  #  +--------
+  # 0|try:
+  # 1|  pass
+  # 2|except:
+  # 3|  pass
+  # 4|finally:
+  # 5|  pass
+  #  +--------
+  #   01234567
   selections:
     - anchor: {line: 5, character: 2}
       active: {line: 5, character: 2}
@@ -27,6 +37,15 @@ finalState:
       pass
     except:
       pass
+  #   0123456
+  #  +-------
+  # 0|try:
+  # 1|  pass
+  # 2|except:
+  # 3|  pass
+  # 4|
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

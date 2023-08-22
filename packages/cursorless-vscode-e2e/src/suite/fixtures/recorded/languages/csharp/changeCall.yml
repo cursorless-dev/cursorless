@@ -8,12 +8,19 @@ command:
       modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
 initialState:
   documentContents: Taxi t = new Taxi();
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|Taxi t = new Taxi();
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}
   marks: {}
 finalState:
   documentContents: Taxi t = ;
+  #   0123456789
+  #  +----------
+  # 0|Taxi t = ;
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

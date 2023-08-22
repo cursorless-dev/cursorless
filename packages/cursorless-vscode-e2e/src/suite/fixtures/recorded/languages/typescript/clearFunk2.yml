@@ -13,6 +13,18 @@ initialState:
           
       });
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|function bar() {
+  # 1|  foo(() => {
+  # 2|      
+  # 3|  });
+  # 4|}
+  # 5|
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 2, character: 6}
       active: {line: 2, character: 6}
@@ -20,6 +32,10 @@ initialState:
 finalState:
   documentContents: |+
 
+  #   
+  #  +
+  # 0|
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

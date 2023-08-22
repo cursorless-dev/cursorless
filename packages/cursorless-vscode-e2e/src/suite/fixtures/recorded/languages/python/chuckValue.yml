@@ -8,12 +8,19 @@ command:
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
   documentContents: "foo: str = \"hello\""
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|foo: str = "hello"
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
   marks: {}
 finalState:
   documentContents: "foo: str"
+  #   01234567
+  #  +--------
+  # 0|foo: str
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

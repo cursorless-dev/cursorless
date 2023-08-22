@@ -15,6 +15,13 @@ initialState:
       pass
     else:
       pass
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|for aaa in bbb:
+  # 1|  pass
+  # 2|else:
+  # 3|  pass
   selections:
     - anchor: {line: 3, character: 2}
       active: {line: 3, character: 2}
@@ -23,6 +30,12 @@ finalState:
   documentContents: |
     for aaa in bbb:
       pass
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|for aaa in bbb:
+  # 1|  pass
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

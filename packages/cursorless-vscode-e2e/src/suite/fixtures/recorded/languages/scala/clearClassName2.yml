@@ -9,6 +9,11 @@ command:
 initialState:
   documentContents: |
     object ExampleClass {}
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|object ExampleClass {}
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -16,6 +21,10 @@ initialState:
 finalState:
   documentContents: |
     object  {}
+  #   0123456789
+  #  +----------
+  # 0|object  {}
+  # 1|
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

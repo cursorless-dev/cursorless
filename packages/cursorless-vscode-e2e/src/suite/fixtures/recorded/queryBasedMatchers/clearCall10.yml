@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: ruby
 command:
   version: 5
@@ -11,6 +13,9 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: " aaa()"
+  #   012345
+  #  +------
+  # 0| aaa()
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 1}

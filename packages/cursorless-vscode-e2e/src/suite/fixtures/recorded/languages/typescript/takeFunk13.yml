@@ -12,6 +12,13 @@ initialState:
     export default () => {
 
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|
+  # 1|export default () => {
+  # 2|
+  # 3|}
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -22,6 +29,13 @@ finalState:
     export default () => {
 
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|
+  # 1|export default () => {
+  # 2|
+  # 3|}
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 1}

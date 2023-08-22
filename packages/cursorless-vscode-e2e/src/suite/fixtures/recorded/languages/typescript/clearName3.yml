@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: export interface Aaa {}
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|export interface Aaa {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: export interface  {}
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|export interface  {}
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}

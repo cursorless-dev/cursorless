@@ -16,6 +16,11 @@ command:
 initialState:
   documentContents: |
     aaa(bbb(), ccc()) + ddd()
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|aaa(bbb(), ccc()) + ddd()
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -26,6 +31,11 @@ initialState:
 finalState:
   documentContents: |
     aaa() + ddd()
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|aaa() + ddd()
+  # 1|
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

@@ -12,6 +12,13 @@ initialState:
     class TypesAhoy() {
       val foo: List[String] = List("foo")
     }
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|class TypesAhoy() {
+  # 1|  val foo: List[String] = List("foo")
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,6 +31,13 @@ finalState:
     class TypesAhoy() {
       val foo:  = List("foo")
     }
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|class TypesAhoy() {
+  # 1|  val foo:  = List("foo")
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}

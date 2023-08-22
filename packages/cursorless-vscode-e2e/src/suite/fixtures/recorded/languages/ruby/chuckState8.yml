@@ -14,6 +14,16 @@ initialState:
     else
       a = 10
     end
+  #   012345678
+  #  +---------
+  # 0|case abc
+  # 1|when true
+  # 2|  a = 0
+  # 3|else
+  # 4|  a = 10
+  # 5|end
+  #  +---------
+  #   012345678
   selections:
     - anchor: {line: 4, character: 4}
       active: {line: 4, character: 4}
@@ -26,6 +36,16 @@ finalState:
     else
 
     end
+  #   012345678
+  #  +---------
+  # 0|case abc
+  # 1|when true
+  # 2|  a = 0
+  # 3|else
+  # 4|
+  # 5|end
+  #  +---------
+  #   012345678
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

@@ -19,6 +19,11 @@ initialState:
   documentContents: |-
     const foo = "bar";
     const baz = "bongo";
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|const foo = "bar";
+  # 1|const baz = "bongo";
   selections:
     - anchor: {line: 1, character: 18}
       active: {line: 1, character: 18}
@@ -39,6 +44,23 @@ finalState:
     function () {
         
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|const foo = "bar";
+  # 1|function () {
+  # 2|    
+  # 3|}
+  #  +--------------------
+  #   01234567890123456789
+  #  +--------------------
+  # 4|const baz = "bongo";
+  # 5|function () {
+  # 6|    
+  # 7|}
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}

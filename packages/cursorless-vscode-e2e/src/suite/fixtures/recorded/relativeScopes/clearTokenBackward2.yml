@@ -14,12 +14,18 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa bbb
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
   documentContents: "aaa "
+  #   0123
+  #  +----
+  # 0|aaa 
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

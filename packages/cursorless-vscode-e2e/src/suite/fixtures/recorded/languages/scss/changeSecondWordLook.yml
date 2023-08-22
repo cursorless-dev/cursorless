@@ -20,6 +20,13 @@ initialState:
        height: 10px;
      }
      
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0| .long-bem-class-name {
+  # 1|   height: 10px;
+  # 2| }
+  # 3| 
   selections:
     - anchor: {line: 3, character: 1}
       active: {line: 3, character: 1}
@@ -33,6 +40,13 @@ finalState:
        height: 10px;
      }
      
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0| .long--class-name {
+  # 1|   height: 10px;
+  # 2| }
+  # 3| 
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

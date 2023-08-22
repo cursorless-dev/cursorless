@@ -16,6 +16,17 @@ initialState:
         first_name: "John",
         last_name: "Doe",
     };
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|let user = User {
+  # 1|    first_name: "John",
+  # 2|    last_name: "Doe",
+  # 3|};
+  # 4|
+  #  +-----------------------
+  #   01234567890123456789012
+  #             1         2
   selections:
     - anchor: {line: 3, character: 2}
       active: {line: 3, character: 2}
@@ -29,6 +40,17 @@ finalState:
         first_name: "John",
         : "Doe",
     };
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|let user = User {
+  # 1|    first_name: "John",
+  # 2|    : "Doe",
+  # 3|};
+  # 4|
+  #  +-----------------------
+  #   01234567890123456789012
+  #             1         2
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}

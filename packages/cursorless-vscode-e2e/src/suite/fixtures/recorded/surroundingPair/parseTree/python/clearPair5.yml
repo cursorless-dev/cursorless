@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "def funk(words:list<str>):"
+  #             1         2
+  #   01234567890123456789012345
+  #  +--------------------------
+  # 0|def funk(words:list<str>):
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
   marks: {}
 finalState:
   documentContents: "def funk(words:list):"
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|def funk(words:list):
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}

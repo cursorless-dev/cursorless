@@ -17,6 +17,18 @@ initialState:
         pass
     else:
         pass
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|if True:
+  # 1|    pass
+  # 2|elif False:
+  # 3|    pass
+  # 4|else:
+  # 5|    pass
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -28,6 +40,17 @@ finalState:
         pass
     else:
         pass
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|
+  # 1|elif False:
+  # 2|    pass
+  # 3|else:
+  # 4|    pass
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

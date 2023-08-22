@@ -11,12 +11,19 @@ command:
       excludeEnd: false
 initialState:
   documentContents: hello there
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello there
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
   marks: {}
 finalState:
   documentContents: he
+  #   01
+  #  +--
+  # 0|he
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

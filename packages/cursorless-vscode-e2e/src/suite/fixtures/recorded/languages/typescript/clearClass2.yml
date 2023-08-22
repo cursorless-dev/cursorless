@@ -11,12 +11,18 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: abstract class Foo {}
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|abstract class Foo {}
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

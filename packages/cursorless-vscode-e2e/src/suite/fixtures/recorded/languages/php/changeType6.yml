@@ -13,6 +13,17 @@ initialState:
     class MyClass {
         public string $value = 'default';
     }
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|<?php
+  # 1|
+  # 2|class MyClass {
+  # 3|    public string $value = 'default';
+  # 4|}
+  #  +-------------------------------------
+  #   0123456789012345678901234567890123456
+  #             1         2         3
   selections:
     - anchor: {line: 3, character: 32}
       active: {line: 3, character: 32}
@@ -24,6 +35,17 @@ finalState:
     class MyClass {
         public  $value = 'default';
     }
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|<?php
+  # 1|
+  # 2|class MyClass {
+  # 3|    public  $value = 'default';
+  # 4|}
+  #  +-------------------------------
+  #   0123456789012345678901234567890
+  #             1         2         3
   selections:
     - anchor: {line: 3, character: 11}
       active: {line: 3, character: 11}

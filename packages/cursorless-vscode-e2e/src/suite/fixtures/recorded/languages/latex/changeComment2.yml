@@ -9,6 +9,11 @@ command:
 initialState:
   documentContents: |
     \LaTeX % some comment
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|\LaTeX % some comment
+  # 1|
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
@@ -16,6 +21,10 @@ initialState:
 finalState:
   documentContents: |
     \LaTeX 
+  #   0123456
+  #  +-------
+  # 0|\LaTeX 
+  # 1|
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

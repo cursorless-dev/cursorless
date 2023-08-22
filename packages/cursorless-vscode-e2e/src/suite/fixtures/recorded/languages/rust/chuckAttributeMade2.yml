@@ -16,6 +16,13 @@ initialState:
         let x = vec![];
         let y = &mut x;
     }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|fn f() {
+  # 1|    let x = vec![];
+  # 2|    let y = &mut x;
+  # 3|}
   selections:
     - anchor: {line: 2, character: 19}
       active: {line: 2, character: 19}
@@ -29,6 +36,13 @@ finalState:
         let x = vec![];
         let y = &x;
     }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|fn f() {
+  # 1|    let x = vec![];
+  # 2|    let y = &x;
+  # 3|}
   selections:
     - anchor: {line: 2, character: 15}
       active: {line: 2, character: 15}

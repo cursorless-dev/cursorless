@@ -10,6 +10,11 @@ initialState:
   documentContents: |-
     def foo():
         return "hello"
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|def foo():
+  # 1|    return "hello"
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
@@ -18,6 +23,10 @@ finalState:
   documentContents: |-
     def foo():
         return
+  #   0123456789
+  #  +----------
+  # 0|def foo():
+  # 1|    return
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}

@@ -13,6 +13,17 @@ initialState:
     function myFunc(array ...$nums) {
 
     }
+  #             1         2         3
+  #   012345678901234567890123456789012
+  #  +---------------------------------
+  # 0|<?php
+  # 1|
+  # 2|function myFunc(array ...$nums) {
+  # 3|
+  # 4|}
+  #  +---------------------------------
+  #   012345678901234567890123456789012
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 25}
       active: {line: 2, character: 25}
@@ -24,6 +35,17 @@ finalState:
     function myFunc(...$nums) {
 
     }
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|<?php
+  # 1|
+  # 2|function myFunc(...$nums) {
+  # 3|
+  # 4|}
+  #  +---------------------------
+  #   012345678901234567890123456
+  #             1         2
   selections:
     - anchor: {line: 2, character: 19}
       active: {line: 2, character: 19}

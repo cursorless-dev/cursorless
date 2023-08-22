@@ -13,6 +13,9 @@ command:
 spokenFormError: List destination with < 2 elements
 initialState:
   documentContents: aaa bbb
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
@@ -22,6 +25,9 @@ initialState:
       end: {line: 0, character: 3}
 finalState:
   documentContents: aaa bbb
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

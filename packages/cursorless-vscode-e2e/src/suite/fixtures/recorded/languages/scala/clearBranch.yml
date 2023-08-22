@@ -15,6 +15,13 @@ initialState:
       case 0 => "zero"
       case _ => "other"
     }
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 0|def matchTest(x: Int): String = x match {
+  # 1|  case 0 => "zero"
+  # 2|  case _ => "other"
+  # 3|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -25,6 +32,13 @@ finalState:
       
       case _ => "other"
     }
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 0|def matchTest(x: Int): String = x match {
+  # 1|  
+  # 2|  case _ => "other"
+  # 3|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

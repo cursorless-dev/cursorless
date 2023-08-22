@@ -9,6 +9,10 @@ command:
   extraArgs: [ifElseStatement.consequence]
 initialState:
   documentContents: int foo = 0;
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|int foo = 0;
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -20,6 +24,17 @@ finalState:
     } else {
         
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|if () {
+  # 1|    int foo = 0;
+  # 2|} else {
+  # 3|    
+  # 4|}
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

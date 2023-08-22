@@ -13,6 +13,17 @@ initialState:
 
     while True:
         pass
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|if True:
+  # 1|    pass
+  # 2|
+  # 3|while True:
+  # 4|    pass
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 4, character: 4}
       active: {line: 4, character: 4}
@@ -24,6 +35,17 @@ finalState:
 
     while True:
         pass
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|if True:
+  # 1|    pass
+  # 2|
+  # 3|while True:
+  # 4|    pass
+  #  +-----------
+  #   01234567890
+  #             1
   selections:
     - anchor: {line: 3, character: 6}
       active: {line: 3, character: 10}

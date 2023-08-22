@@ -10,6 +10,12 @@ initialState:
   documentContents: |
 
     value = lambda x: x
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|
+  # 1|value = lambda x: x
+  # 2|
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
@@ -18,6 +24,12 @@ finalState:
   documentContents: |
 
     value = lambda x: x
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|
+  # 1|value = lambda x: x
+  # 2|
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 19}

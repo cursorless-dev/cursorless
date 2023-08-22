@@ -11,6 +11,11 @@ initialState:
   documentContents: |-
     <html id="(hello)">
     </html>
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|<html id="(hello)">
+  # 1|</html>
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -22,6 +27,11 @@ finalState:
   documentContents: |-
     <html id="hello">
     </html>
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|<html id="hello">
+  # 1|</html>
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}

@@ -11,12 +11,20 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: <div>(category.count)</div>
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|<div>(category.count)</div>
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
   marks: {}
 finalState:
   documentContents: <div></div>
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|<div></div>
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}

@@ -18,6 +18,19 @@ initialState:
     } else {
       const whatever = "hello";
     }
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|if (true) {
+  # 1|  const whatever = "hello";
+  # 2|} else if (false) {
+  # 3|  const whatever = "hello";
+  # 4|} else {
+  # 5|  const whatever = "hello";
+  # 6|}
+  #  +---------------------------
+  #   012345678901234567890123456
+  #             1         2
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -29,6 +42,17 @@ finalState:
     } else {
       const whatever = "hello";
     }
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|if (false) {
+  # 1|  const whatever = "hello";
+  # 2|} else {
+  # 3|  const whatever = "hello";
+  # 4|}
+  #  +---------------------------
+  #   012345678901234567890123456
+  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

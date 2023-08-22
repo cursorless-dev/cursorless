@@ -11,6 +11,12 @@ initialState:
     <?php
 
     ['first' => 1, 'second' => 2, 'third' => 3];
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890123
+  #  +--------------------------------------------
+  # 0|<?php
+  # 1|
+  # 2|['first' => 1, 'second' => 2, 'third' => 3];
   selections:
     - anchor: {line: 2, character: 24}
       active: {line: 2, character: 24}
@@ -20,6 +26,12 @@ finalState:
     <?php
 
     ['first' => 1, 'third' => 3];
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|<?php
+  # 1|
+  # 2|['first' => 1, 'third' => 3];
   selections:
     - anchor: {line: 2, character: 15}
       active: {line: 2, character: 15}

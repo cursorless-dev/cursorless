@@ -14,6 +14,17 @@ initialState:
             String value = "hello";
         }
     }
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|public class Java {
+  # 1|    private Java(String name) {
+  # 2|        String value = "hello";
+  # 3|    }
+  # 4|}
+  #  +-------------------------------
+  #   0123456789012345678901234567890
+  #             1         2         3
   selections:
     - anchor: {line: 3, character: 1}
       active: {line: 3, character: 1}
@@ -28,6 +39,17 @@ finalState:
             String value = "hello";
         }
     }
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|public class Java {
+  # 1|    private Java(name) {
+  # 2|        String value = "hello";
+  # 3|    }
+  # 4|}
+  #  +-------------------------------
+  #   0123456789012345678901234567890
+  #             1         2         3
   selections:
     - anchor: {line: 3, character: 1}
       active: {line: 3, character: 1}

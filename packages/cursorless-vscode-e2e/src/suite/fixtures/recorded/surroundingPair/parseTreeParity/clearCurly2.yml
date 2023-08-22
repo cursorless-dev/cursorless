@@ -11,12 +11,19 @@ initialState:
     {
         hello
     }
+  #   012345678
+  #  +---------
+  # 0|{
+  # 1|    hello
+  # 2|}
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

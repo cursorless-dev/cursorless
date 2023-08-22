@@ -19,6 +19,10 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: aaaBbb cccBbbb dddBbb
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|aaaBbb cccBbbb dddBbb
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
@@ -28,6 +32,10 @@ initialState:
       end: {line: 0, character: 6}
 finalState:
   documentContents: aaa cccBbbb ddd
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|aaa cccBbbb ddd
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

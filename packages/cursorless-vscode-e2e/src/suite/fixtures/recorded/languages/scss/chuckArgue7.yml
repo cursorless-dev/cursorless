@@ -11,6 +11,12 @@ initialState:
     div {
       background: repeating-linear-gradient(red, orange 50px);
     }
+  #             1         2         3         4         5
+  #   0123456789012345678901234567890123456789012345678901234567
+  #  +----------------------------------------------------------
+  # 0|div {
+  # 1|  background: repeating-linear-gradient(red, orange 50px);
+  # 2|}
   selections:
     - anchor: {line: 1, character: 48}
       active: {line: 1, character: 48}
@@ -20,6 +26,12 @@ finalState:
     div {
       background: repeating-linear-gradient(red);
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|div {
+  # 1|  background: repeating-linear-gradient(red);
+  # 2|}
   selections:
     - anchor: {line: 1, character: 43}
       active: {line: 1, character: 43}

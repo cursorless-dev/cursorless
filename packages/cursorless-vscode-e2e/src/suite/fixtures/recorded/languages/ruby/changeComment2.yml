@@ -8,12 +8,19 @@ command:
       modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
 initialState:
   documentContents: "a = 0 # Hello World"
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|a = 0 # Hello World
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: "a = 0 "
+  #   012345
+  #  +------
+  # 0|a = 0 
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

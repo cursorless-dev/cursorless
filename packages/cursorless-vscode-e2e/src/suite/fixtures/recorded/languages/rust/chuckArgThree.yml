@@ -15,6 +15,13 @@ initialState:
     enum E {
         C(u8, u16, u32),
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|enum E {
+  # 1|    C(u8, u16, u32),
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -27,6 +34,13 @@ finalState:
     enum E {
         C(u8, u16),
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|enum E {
+  # 1|    C(u8, u16),
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}

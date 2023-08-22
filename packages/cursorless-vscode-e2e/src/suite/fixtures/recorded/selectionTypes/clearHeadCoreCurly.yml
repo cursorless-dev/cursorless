@@ -17,6 +17,12 @@ initialState:
     {
         foo(bar baz)
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|{
+  # 1|    foo(bar baz)
+  # 2|}
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
@@ -26,6 +32,11 @@ finalState:
     {
         z)
     }
+  #   012345
+  #  +------
+  # 0|{
+  # 1|    z)
+  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

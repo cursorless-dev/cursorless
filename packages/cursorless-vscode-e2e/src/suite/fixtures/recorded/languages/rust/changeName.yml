@@ -14,6 +14,13 @@ initialState:
     fn main() -> Result<(), Error> {
         
     }
+  #             1         2         3
+  #   01234567890123456789012345678901
+  #  +--------------------------------
+  # 0|fn main() -> Result<(), Error> {
+  # 1|    
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -23,6 +30,13 @@ finalState:
     fn () -> Result<(), Error> {
         
     }
+  #             1         2
+  #   0123456789012345678901234567
+  #  +----------------------------
+  # 0|fn () -> Result<(), Error> {
+  # 1|    
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

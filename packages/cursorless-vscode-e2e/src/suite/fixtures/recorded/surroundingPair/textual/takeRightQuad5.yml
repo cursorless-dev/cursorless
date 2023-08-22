@@ -10,6 +10,11 @@ initialState:
   documentContents: |-
     hello world whatever "testing testing testing
     this is another" test "whatever" whatever
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|hello world whatever "testing testing testing
+  # 1|this is another" test "whatever" whatever
   selections:
     - anchor: {line: 1, character: 23}
       active: {line: 1, character: 23}
@@ -18,6 +23,11 @@ finalState:
   documentContents: |-
     hello world whatever "testing testing testing
     this is another" test "whatever" whatever
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901234
+  #  +---------------------------------------------
+  # 0|hello world whatever "testing testing testing
+  # 1|this is another" test "whatever" whatever
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 32}

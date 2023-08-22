@@ -8,12 +8,18 @@ command:
       modifier: {type: surroundingPair, delimiter: backtickQuotes}
 initialState:
   documentContents: "`Hello, ${name}!`"
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|`Hello, ${name}!`
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

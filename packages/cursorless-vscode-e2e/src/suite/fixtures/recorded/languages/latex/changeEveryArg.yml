@@ -9,6 +9,11 @@ command:
 initialState:
   documentContents: |
     \href{https://some.url}{some text}
+  #             1         2         3
+  #   0123456789012345678901234567890123
+  #  +----------------------------------
+  # 0|\href{https://some.url}{some text}
+  # 1|
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -16,6 +21,10 @@ initialState:
 finalState:
   documentContents: |
     \href{}{}
+  #   012345678
+  #  +---------
+  # 0|\href{}{}
+  # 1|
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

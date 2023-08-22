@@ -11,6 +11,13 @@ initialState:
     @mixin move($left-start, $left-stop) {
       transition: left ($left-stop - $left-start) * $transition-speed;
     }
+  #             1         2         3         4         5         6
+  #   012345678901234567890123456789012345678901234567890123456789012345
+  #  +------------------------------------------------------------------
+  # 0|@mixin move($left-start, $left-stop) {
+  # 1|  transition: left ($left-stop - $left-start) * $transition-speed;
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -20,6 +27,13 @@ finalState:
     @mixin move($left-start, $left-stop) {
       : left ($left-stop - $left-start) * $transition-speed;
     }
+  #             1         2         3         4         5
+  #   01234567890123456789012345678901234567890123456789012345
+  #  +--------------------------------------------------------
+  # 0|@mixin move($left-start, $left-stop) {
+  # 1|  : left ($left-stop - $left-start) * $transition-speed;
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

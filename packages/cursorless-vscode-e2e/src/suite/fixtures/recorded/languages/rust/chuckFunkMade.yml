@@ -12,6 +12,13 @@ initialState:
     fn main() {
         println!("Hello, world!");
     }
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|fn main() {
+  # 1|    println!("Hello, world!");
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -22,6 +29,10 @@ initialState:
 finalState:
   documentContents: |+
 
+  #   
+  #  +
+  # 0|
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

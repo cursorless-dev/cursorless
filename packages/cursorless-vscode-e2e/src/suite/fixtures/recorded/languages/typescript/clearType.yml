@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
 initialState:
   documentContents: "function whatever<T>(): string {}"
+  #             1         2         3
+  #   012345678901234567890123456789012
+  #  +---------------------------------
+  # 0|function whatever<T>(): string {}
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}
   marks: {}
 finalState:
   documentContents: "function whatever<T>():  {}"
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|function whatever<T>():  {}
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}

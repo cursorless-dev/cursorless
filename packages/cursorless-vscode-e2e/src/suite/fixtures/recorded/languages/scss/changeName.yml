@@ -12,6 +12,13 @@ initialState:
       height: 10px;
       color: red;
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|a {
+  # 1|  height: 10px;
+  # 2|  color: red;
+  # 3|}
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
@@ -22,6 +29,13 @@ finalState:
       : 10px;
       color: red;
     }
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|a {
+  # 1|  : 10px;
+  # 2|  color: red;
+  # 3|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

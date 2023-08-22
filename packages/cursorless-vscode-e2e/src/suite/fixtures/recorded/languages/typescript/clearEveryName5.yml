@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "function aaa(bbb: string, ccc: string) {}"
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 0|function aaa(bbb: string, ccc: string) {}
   selections:
     - anchor: {line: 0, character: 37}
       active: {line: 0, character: 37}
   marks: {}
 finalState:
   documentContents: "function aaa(: string, : string) {}"
+  #             1         2         3
+  #   01234567890123456789012345678901234
+  #  +-----------------------------------
+  # 0|function aaa(: string, : string) {}
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

@@ -14,6 +14,12 @@ initialState:
     some command: 
         value = 1 + 1
         
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|some command: 
+  # 1|    value = 1 + 1
+  # 2|    
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -23,6 +29,12 @@ finalState:
     some command: 
         
         
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|some command: 
+  # 1|    
+  # 2|    
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

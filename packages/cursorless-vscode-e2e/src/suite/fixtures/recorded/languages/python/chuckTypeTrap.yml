@@ -11,6 +11,11 @@ initialState:
   documentContents: |-
     def my_funk(value: str) -> str:
         pass
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|def my_funk(value: str) -> str:
+  # 1|    pass
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
@@ -22,6 +27,11 @@ finalState:
   documentContents: |-
     def my_funk(value: str):
         pass
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|def my_funk(value: str):
+  # 1|    pass
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}

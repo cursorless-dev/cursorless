@@ -11,6 +11,12 @@ initialState:
     # Hello world
 
     Testing testing
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|# Hello world
+  # 1|
+  # 2|Testing testing
   selections:
     - anchor: {line: 2, character: 14}
       active: {line: 2, character: 14}
@@ -20,6 +26,12 @@ finalState:
     # 
 
     Testing testing
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|# 
+  # 1|
+  # 2|Testing testing
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

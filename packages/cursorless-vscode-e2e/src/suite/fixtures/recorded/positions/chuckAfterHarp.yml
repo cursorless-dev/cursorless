@@ -13,6 +13,15 @@ initialState:
     " hello"
     " hello "
     return a.b
+  #   0123456789
+  #  +----------
+  # 0|"hello "
+  # 1|" hello"
+  # 2|" hello "
+  # 3|return a.b
+  # 4|
+  #  +----------
+  #   0123456789
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -26,6 +35,15 @@ finalState:
     " hello"
     " hello"
     return a.b
+  #   0123456789
+  #  +----------
+  # 0|"hello "
+  # 1|" hello"
+  # 2|" hello"
+  # 3|return a.b
+  # 4|
+  #  +----------
+  #   0123456789
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

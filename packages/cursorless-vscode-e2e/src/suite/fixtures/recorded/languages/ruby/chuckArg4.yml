@@ -14,6 +14,12 @@ initialState:
     def self.hello(name)
 
     end
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|def self.hello(name)
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
@@ -23,6 +29,12 @@ finalState:
     def self.hello()
 
     end
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|def self.hello()
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}

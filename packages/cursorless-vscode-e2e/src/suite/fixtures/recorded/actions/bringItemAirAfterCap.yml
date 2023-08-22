@@ -21,6 +21,15 @@ initialState:
         b,
         c
     ]
+  #   012345
+  #  +------
+  # 0|[
+  # 1|    a,
+  # 2|    b,
+  # 3|    c
+  # 4|]
+  #  +------
+  #   012345
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -39,6 +48,16 @@ finalState:
         c,
         a
     ]
+  #   012345
+  #  +------
+  # 0|[
+  # 1|    a,
+  # 2|    b,
+  # 3|    c,
+  # 4|    a
+  # 5|]
+  #  +------
+  #   012345
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

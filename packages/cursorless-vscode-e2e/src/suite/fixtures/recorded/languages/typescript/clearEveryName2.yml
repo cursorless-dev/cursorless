@@ -15,6 +15,13 @@ initialState:
         const aaa = "bbb";
         const ccc = "ddd";
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|function eee() {
+  # 1|    const aaa = "bbb";
+  # 2|    const ccc = "ddd";
+  # 3|}
   selections:
     - anchor: {line: 2, character: 22}
       active: {line: 2, character: 22}
@@ -25,6 +32,13 @@ finalState:
         const  = "bbb";
         const  = "ddd";
     }
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|function eee() {
+  # 1|    const  = "bbb";
+  # 2|    const  = "ddd";
+  # 3|}
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}

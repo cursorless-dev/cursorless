@@ -15,12 +15,18 @@ command:
   action: {name: remove}
 initialState:
   documentContents: aña
+  #   01234
+  #  +-----
+  # 0|aña
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
   documentContents: añ
+  #   0123
+  #  +----
+  # 0|añ
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

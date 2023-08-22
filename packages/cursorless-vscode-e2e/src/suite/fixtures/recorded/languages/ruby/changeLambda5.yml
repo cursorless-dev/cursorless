@@ -8,12 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
   documentContents: lambda { puts "hi" }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|lambda { puts "hi" }
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

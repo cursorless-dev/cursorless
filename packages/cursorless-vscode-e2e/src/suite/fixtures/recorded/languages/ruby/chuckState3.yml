@@ -11,6 +11,12 @@ initialState:
     [].each do |i|
       puts i
     end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|[].each do |i|
+  # 1|  puts i
+  # 2|end
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -20,6 +26,12 @@ finalState:
     [].each do |i|
 
     end
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|[].each do |i|
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

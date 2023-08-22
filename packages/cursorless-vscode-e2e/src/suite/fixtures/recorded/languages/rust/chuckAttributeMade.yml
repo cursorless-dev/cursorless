@@ -12,6 +12,10 @@ command:
   action: {name: remove}
 initialState:
   documentContents: "fn foo(x: &mut u32) {}"
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|fn foo(x: &mut u32) {}
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
@@ -21,6 +25,10 @@ initialState:
       end: {line: 0, character: 14}
 finalState:
   documentContents: "fn foo(x: &u32) {}"
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|fn foo(x: &u32) {}
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}

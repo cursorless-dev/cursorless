@@ -11,12 +11,27 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "[\r\n    111,\r\n    222\r\n]"
+  #   012345678
+  #  +---------
+  # 0|[
+  # 1|    111,
+  # 2|    222
+  # 3|]
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: "[\r\n    111,\r\n    ,\r\n    222\r\n]"
+  #   012345678
+  #  +---------
+  # 0|[
+  # 1|    111,
+  # 2|    ,
+  # 3|    222
+  # 4|]
+  #  +---------
+  #   012345678
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}

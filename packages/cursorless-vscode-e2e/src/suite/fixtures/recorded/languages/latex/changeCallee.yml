@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: \href{https://some.url}{some text} \LaTeX
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 0|\href{https://some.url}{some text} \LaTeX
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
   marks: {}
 finalState:
   documentContents: "{https://some.url}{some text} \\LaTeX"
+  #             1         2         3
+  #   012345678901234567890123456789012345
+  #  +------------------------------------
+  # 0|{https://some.url}{some text} \LaTeX
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

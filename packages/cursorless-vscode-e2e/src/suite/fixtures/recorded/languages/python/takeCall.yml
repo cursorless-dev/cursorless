@@ -10,6 +10,11 @@ initialState:
   documentContents: |-
 
     my_funk(1, 2, 3)
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|
+  # 1|my_funk(1, 2, 3)
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -18,6 +23,11 @@ finalState:
   documentContents: |-
 
     my_funk(1, 2, 3)
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|
+  # 1|my_funk(1, 2, 3)
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 16}

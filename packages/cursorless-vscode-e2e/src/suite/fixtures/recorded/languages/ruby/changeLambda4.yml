@@ -8,12 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
   documentContents: Proc.new { puts "hi" }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|Proc.new { puts "hi" }
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

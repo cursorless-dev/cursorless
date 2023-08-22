@@ -19,6 +19,18 @@ initialState:
     if True:
         eee = "fff"
         ccc = "ddd"
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|aaa = "bbb"
+  # 1|
+  # 2|if True:
+  # 3|    eee = "fff"
+  # 4|    ccc = "ddd"
+  # 5|
+  #  +---------------
+  #   012345678901234
+  #             1
   selections:
     - anchor: {line: 4, character: 15}
       active: {line: 4, character: 15}
@@ -30,6 +42,18 @@ finalState:
     if True:
         
         ccc = "ddd"
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|aaa = "bbb"
+  # 1|
+  # 2|if True:
+  # 3|    
+  # 4|    ccc = "ddd"
+  # 5|
+  #  +---------------
+  #   012345678901234
+  #             1
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}

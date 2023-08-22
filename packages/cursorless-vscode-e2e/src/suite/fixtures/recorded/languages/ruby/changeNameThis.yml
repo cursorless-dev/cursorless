@@ -9,12 +9,19 @@ command:
       mark: {type: cursor}
 initialState:
   documentContents: a = "hello"
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|a = "hello"
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: " = \"hello\""
+  #   0123456789
+  #  +----------
+  # 0| = "hello"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -8,12 +8,24 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: "func add(x int, y int) int {\n\treturn add(x, y)\n}"
+  #             1         2
+  #   0123456789012345678901234567
+  #  +----------------------------
+  # 0|func add(x int, y int) int {
+  # 1|␉return add(x, y)
+  # 2|}
   selections:
     - anchor: {line: 1, character: 13}
       active: {line: 1, character: 13}
   marks: {}
 finalState:
   documentContents: "func add(x int, y int) int {\n\treturn add(x, y)\n}"
+  #             1         2
+  #   0123456789012345678901234567
+  #  +----------------------------
+  # 0|func add(x int, y int) int {
+  # 1|␉return add(x, y)
+  # 2|}
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 13}

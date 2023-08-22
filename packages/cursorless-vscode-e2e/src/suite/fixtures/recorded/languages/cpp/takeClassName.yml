@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: className}
 initialState:
   documentContents: class A { int a; };
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|class A { int a; };
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
   marks: {}
 finalState:
   documentContents: class A { int a; };
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|class A { int a; };
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 7}

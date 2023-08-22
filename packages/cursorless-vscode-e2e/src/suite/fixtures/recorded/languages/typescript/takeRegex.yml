@@ -10,6 +10,12 @@ initialState:
   documentContents: |
 
     const value = /\w.+$/
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|
+  # 1|const value = /\w.+$/
+  # 2|
   selections:
     - anchor: {line: 1, character: 17}
       active: {line: 1, character: 17}
@@ -18,6 +24,12 @@ finalState:
   documentContents: |
 
     const value = /\w.+$/
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|
+  # 1|const value = /\w.+$/
+  # 2|
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 21}

@@ -12,6 +12,17 @@ initialState:
     foo = function() {
 
     }
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|
+  # 1|foo = function() {
+  # 2|
+  # 3|}
+  # 4|
+  #  +------------------
+  #   012345678901234567
+  #             1
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -22,6 +33,17 @@ finalState:
     foo = function() {
 
     }
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|
+  # 1|foo = function() {
+  # 2|
+  # 3|}
+  # 4|
+  #  +------------------
+  #   012345678901234567
+  #             1
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 3}

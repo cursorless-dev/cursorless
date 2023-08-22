@@ -17,6 +17,12 @@ initialState:
     function foo() {}
 
     function bar() {}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|function foo() {}
+  # 1|
+  # 2|function bar() {}
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -26,6 +32,12 @@ finalState:
 
 
     function bar() {}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|
+  # 1|
+  # 2|function bar() {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

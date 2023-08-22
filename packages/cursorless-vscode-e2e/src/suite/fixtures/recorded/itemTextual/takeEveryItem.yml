@@ -17,6 +17,18 @@ initialState:
         i j, [k, l],
         m n, <o, p>,
     ]
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|[
+  # 1|    a b, (c, d),
+  # 2|    e f, {g, h},
+  # 3|    i j, [k, l],
+  # 4|    m n, <o, p>,
+  # 5|]
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
@@ -35,6 +47,18 @@ finalState:
         i j, [k, l],
         m n, <o, p>,
     ]
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|[
+  # 1|    a b, (c, d),
+  # 2|    e f, {g, h},
+  # 3|    i j, [k, l],
+  # 4|    m n, <o, p>,
+  # 5|]
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 11}

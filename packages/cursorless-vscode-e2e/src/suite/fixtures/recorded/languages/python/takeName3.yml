@@ -11,6 +11,12 @@ initialState:
 
     class MyClass:
         """"""
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|
+  # 1|class MyClass:
+  # 2|    """"""
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -20,6 +26,12 @@ finalState:
 
     class MyClass:
         """"""
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|
+  # 1|class MyClass:
+  # 2|    """"""
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 13}

@@ -14,6 +14,12 @@ initialState:
     while let Some(i) = number {
       println!("Matched {:?}!", i);
     }
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|while let Some(i) = number {
+  # 1|  println!("Matched {:?}!", i);
+  # 2|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -23,6 +29,12 @@ finalState:
     while  {
       println!("Matched {:?}!", i);
     }
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|while  {
+  # 1|  println!("Matched {:?}!", i);
+  # 2|}
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

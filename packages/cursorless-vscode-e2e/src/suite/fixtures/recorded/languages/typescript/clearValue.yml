@@ -8,12 +8,19 @@ command:
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
   documentContents: a += "world";
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|a += "world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: a += ;
+  #   012345
+  #  +------
+  # 0|a += ;
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}

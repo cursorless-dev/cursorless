@@ -11,12 +11,20 @@ initialState:
     function* generator(i) {
       yield i + 10;
     }
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|function* generator(i) {
+  # 1|  yield i + 10;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

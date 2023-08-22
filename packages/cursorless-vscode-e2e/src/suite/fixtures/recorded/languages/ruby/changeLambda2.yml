@@ -12,6 +12,17 @@ initialState:
         puts i
     end
 
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|[1,2,3].each do |i|
+  # 1|    puts i
+  # 2|end
+  # 3|
+  # 4|
+  #  +-------------------
+  #   0123456789012345678
+  #             1
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
@@ -20,6 +31,12 @@ finalState:
   documentContents: |+
     [1,2,3].each 
 
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|[1,2,3].each 
+  # 1|
+  # 2|
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

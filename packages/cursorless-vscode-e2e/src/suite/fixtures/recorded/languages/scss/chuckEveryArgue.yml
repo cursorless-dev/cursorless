@@ -12,6 +12,13 @@ initialState:
       clip-path: ellipse(115px 55px at 50% 40%);
     }
      
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890123
+  #  +--------------------------------------------
+  # 0|a {
+  # 1|  clip-path: ellipse(115px 55px at 50% 40%);
+  # 2|}
+  # 3| 
   selections:
     - anchor: {line: 1, character: 24}
       active: {line: 1, character: 24}
@@ -22,6 +29,13 @@ finalState:
       clip-path: ellipse();
     }
      
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|a {
+  # 1|  clip-path: ellipse();
+  # 2|}
+  # 3| 
   selections:
     - anchor: {line: 1, character: 21}
       active: {line: 1, character: 21}

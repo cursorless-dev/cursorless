@@ -12,6 +12,13 @@ initialState:
     class TypesAhoy() {
       def example(foo: String): String = "example"
     }
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012345
+  #  +----------------------------------------------
+  # 0|class TypesAhoy() {
+  # 1|  def example(foo: String): String = "example"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,6 +31,13 @@ finalState:
     class TypesAhoy() {
       def example(foo: String):  = "example"
     }
+  #             1         2         3
+  #   0123456789012345678901234567890123456789
+  #  +----------------------------------------
+  # 0|class TypesAhoy() {
+  # 1|  def example(foo: String):  = "example"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 28}
       active: {line: 1, character: 28}

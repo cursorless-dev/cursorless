@@ -14,6 +14,12 @@ initialState:
     while n < 101 {
       n += 1;
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|while n < 101 {
+  # 1|  n += 1;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -23,6 +29,11 @@ finalState:
     while  {
       n += 1;
     }
+  #   012345678
+  #  +---------
+  # 0|while  {
+  # 1|  n += 1;
+  # 2|}
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

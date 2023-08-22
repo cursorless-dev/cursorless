@@ -11,6 +11,12 @@ initialState:
     <?php
 
     myFunc(...$nums);
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|<?php
+  # 1|
+  # 2|myFunc(...$nums);
   selections:
     - anchor: {line: 2, character: 11}
       active: {line: 2, character: 11}
@@ -20,6 +26,11 @@ finalState:
     <?php
 
     myFunc();
+  #   012345678
+  #  +---------
+  # 0|<?php
+  # 1|
+  # 2|myFunc();
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}

@@ -20,6 +20,24 @@ initialState:
            statement
         end
      end
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|class Sample
+  # 1|    def function
+  # 2|       statement
+  # 3|    end
+  #  +----------------
+  #   0123456789012345
+  #  +----------------
+  # 4|
+  # 5|    def function
+  # 6|       statement
+  # 7|    end
+  # 8| end
+  #  +----------------
+  #   0123456789012345
+  #             1
   selections:
     - anchor: {line: 8, character: 4}
       active: {line: 8, character: 4}
@@ -31,6 +49,17 @@ finalState:
 
         
      end
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|class Sample
+  # 1|    
+  # 2|
+  # 3|    
+  # 4| end
+  #  +------------
+  #   012345678901
+  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

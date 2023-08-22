@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: plaintext
 command:
   spokenForm: change bounds token
@@ -12,6 +14,9 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: (aaa)
+  #   01234
+  #  +-----
+  # 0|(aaa)
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

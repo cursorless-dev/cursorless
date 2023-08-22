@@ -14,6 +14,10 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: foo(aa|aa-().c_d bb|bb-().'')
+  #             1         2
+  #   01234567890123456789012345678
+  #  +-----------------------------
+  # 0|foo(aa|aa-().c_d bb|bb-().'')
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -23,6 +27,9 @@ initialState:
       end: {line: 0, character: 4}
 finalState:
   documentContents: " "
+  #   0
+  #  +-
+  # 0| 
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

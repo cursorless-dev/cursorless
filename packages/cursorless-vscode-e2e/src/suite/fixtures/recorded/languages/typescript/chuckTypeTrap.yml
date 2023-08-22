@@ -12,6 +12,12 @@ initialState:
     function myFunk (value: string): string {
         return value;
     }
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 0|function myFunk (value: string): string {
+  # 1|    return value;
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
@@ -24,6 +30,12 @@ finalState:
     function myFunk (value: string) {
         return value;
     }
+  #             1         2         3
+  #   012345678901234567890123456789012
+  #  +---------------------------------
+  # 0|function myFunk (value: string) {
+  # 1|    return value;
+  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

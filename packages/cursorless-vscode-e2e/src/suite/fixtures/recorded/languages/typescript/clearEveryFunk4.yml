@@ -17,6 +17,18 @@ initialState:
     }
 
     function ddd() {}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|interface Aaa {
+  # 1|    bbb(): void;
+  # 2|    ccc(): void;
+  # 3|}
+  # 4|
+  # 5|function ddd() {}
+  #  +-----------------
+  #   01234567890123456
+  #             1
   selections:
     - anchor: {line: 3, character: 1}
       active: {line: 3, character: 1}
@@ -29,6 +41,18 @@ finalState:
     }
 
     function ddd() {}
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|interface Aaa {
+  # 1|    
+  # 2|    
+  # 3|}
+  # 4|
+  # 5|function ddd() {}
+  #  +-----------------
+  #   01234567890123456
+  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

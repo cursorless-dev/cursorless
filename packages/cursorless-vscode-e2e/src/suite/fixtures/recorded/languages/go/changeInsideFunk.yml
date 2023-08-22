@@ -13,12 +13,24 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "func (t T) f() {\n\t_ = 1\n}"
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|func (t T) f() {
+  # 1|␉_ = 1
+  # 2|}
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 6}
   marks: {}
 finalState:
   documentContents: "func (t T) f() {\n\t\n}"
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|func (t T) f() {
+  # 1|␉
+  # 2|}
   selections:
     - anchor: {line: 1, character: 1}
       active: {line: 1, character: 1}

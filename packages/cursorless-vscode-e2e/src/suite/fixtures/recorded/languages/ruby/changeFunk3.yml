@@ -14,12 +14,20 @@ initialState:
     def Thing.hello_world
       puts "hi"
     end
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|def Thing.hello_world
+  # 1|  puts "hi"
+  # 2|end
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -16,6 +16,17 @@ initialState:
     } else if n > 0 {
       print!("{} is positive", n);
     }
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|let foo = if n < 0 {
+  # 1|  print!("{} is negative", n);
+  # 2|} else if n > 0 {
+  # 3|  print!("{} is positive", n);
+  # 4|}
+  #  +------------------------------
+  #   012345678901234567890123456789
+  #             1         2
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -27,6 +38,17 @@ finalState:
     } else if n > 0 {
       print!("{} is positive", n);
     }
+  #             1         2
+  #   012345678901234567890123456789
+  #  +------------------------------
+  # 0|let foo = if  {
+  # 1|  print!("{} is negative", n);
+  # 2|} else if n > 0 {
+  # 3|  print!("{} is positive", n);
+  # 4|}
+  #  +------------------------------
+  #   012345678901234567890123456789
+  #             1         2
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

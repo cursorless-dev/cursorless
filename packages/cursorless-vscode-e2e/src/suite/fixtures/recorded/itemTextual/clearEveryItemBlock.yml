@@ -15,6 +15,10 @@ initialState:
   documentContents: |-
     a, b,
     c, d
+  #   01234
+  #  +-----
+  # 0|a, b,
+  # 1|c, d
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -23,6 +27,10 @@ finalState:
   documentContents: |-
     , ,
     , 
+  #   012
+  #  +---
+  # 0|, ,
+  # 1|, 
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

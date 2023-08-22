@@ -11,6 +11,12 @@ initialState:
     class Hello
 
     end
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|class Hello
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -20,6 +26,11 @@ finalState:
     class 
 
     end
+  #   012345
+  #  +------
+  # 0|class 
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

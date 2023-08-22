@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
 initialState:
   documentContents: "{:baz {:foo \"bar\"}}"
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|{:baz {:foo "bar"}}
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: "{ {:foo \"bar\"}}"
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|{ {:foo "bar"}}
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

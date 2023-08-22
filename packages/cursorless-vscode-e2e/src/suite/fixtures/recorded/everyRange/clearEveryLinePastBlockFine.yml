@@ -29,6 +29,22 @@ initialState:
 
     iii jjj
     kkk lll
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
+  # 1|ccc ddd
+  # 2|
+  # 3|eee fff
+  #  +-------
+  #   0123456
+  #  +-------
+  # 4|ggg hhh
+  # 5|
+  # 6|iii jjj
+  # 7|kkk lll
+  # 8|
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -46,6 +62,22 @@ finalState:
 
     iii jjj
     kkk lll
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
+  # 1|
+  # 2|
+  # 3|
+  #  +-------
+  #   0123456
+  #  +-------
+  # 4|
+  # 5|
+  # 6|iii jjj
+  # 7|kkk lll
+  # 8|
+  #  +-------
+  #   0123456
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

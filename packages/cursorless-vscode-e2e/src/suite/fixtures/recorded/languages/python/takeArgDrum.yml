@@ -9,6 +9,10 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
 initialState:
   documentContents: "\" \".join((word for word in word_list), \"words\")"
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890123456
+  #  +-----------------------------------------------
+  # 0|" ".join((word for word in word_list), "words")
   selections:
     - anchor: {line: 0, character: 47}
       active: {line: 0, character: 47}
@@ -18,6 +22,10 @@ initialState:
       end: {line: 0, character: 23}
 finalState:
   documentContents: "\" \".join((word for word in word_list), \"words\")"
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890123456
+  #  +-----------------------------------------------
+  # 0|" ".join((word for word in word_list), "words")
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 37}

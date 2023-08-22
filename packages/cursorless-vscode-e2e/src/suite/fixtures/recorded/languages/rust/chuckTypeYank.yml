@@ -12,6 +12,13 @@ initialState:
     fn main() {
         let y: f32 = 3.0; // f32
     }
+  #             1         2
+  #   0123456789012345678901234567
+  #  +----------------------------
+  # 0|fn main() {
+  # 1|    let y: f32 = 3.0; // f32
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
@@ -24,6 +31,13 @@ finalState:
     fn main() {
         let y = 3.0; // f32
     }
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|fn main() {
+  # 1|    let y = 3.0; // f32
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

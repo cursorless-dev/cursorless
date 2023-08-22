@@ -13,12 +13,19 @@ command:
   action: {name: remove}
 initialState:
   documentContents: "margin-top: 0;"
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|margin-top: 0;
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: "margin: 0;"
+  #   0123456789
+  #  +----------
+  # 0|margin: 0;
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

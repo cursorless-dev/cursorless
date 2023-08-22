@@ -10,6 +10,12 @@ initialState:
   documentContents: |
 
     value = {a: 1, b: 2, c: 3}
+  #             1         2
+  #   01234567890123456789012345
+  #  +--------------------------
+  # 0|
+  # 1|value = {a: 1, b: 2, c: 3}
+  # 2|
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
@@ -18,6 +24,12 @@ finalState:
   documentContents: |
 
     value = {a: 1, b: 2, c: 3}
+  #             1         2
+  #   01234567890123456789012345
+  #  +--------------------------
+  # 0|
+  # 1|value = {a: 1, b: 2, c: 3}
+  # 2|
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 26}

@@ -14,6 +14,12 @@ initialState:
     interface Aaa {
         bbb(): void;
     }
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|interface Aaa {
+  # 1|    bbb(): void;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 16}
       active: {line: 1, character: 16}
@@ -23,6 +29,12 @@ finalState:
     interface Aaa {
         (): void;
     }
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|interface Aaa {
+  # 1|    (): void;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

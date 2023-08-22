@@ -12,6 +12,17 @@ initialState:
     \subsubsection{child}
     some text
     \subsection{2}
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|\subsection{1}
+  # 1|\subsubsection{child}
+  # 2|some text
+  # 3|\subsection{2}
+  # 4|
+  #  +---------------------
+  #   012345678901234567890
+  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -20,6 +31,12 @@ finalState:
   documentContents: |
 
     \subsection{2}
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|
+  # 1|\subsection{2}
+  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

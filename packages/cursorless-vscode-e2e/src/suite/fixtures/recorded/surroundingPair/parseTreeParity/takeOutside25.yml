@@ -8,12 +8,18 @@ command:
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
   documentContents: ([)]
+  #   0123
+  #  +----
+  # 0|([)]
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
   documentContents: (
+  #   0
+  #  +-
+  # 0|(
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

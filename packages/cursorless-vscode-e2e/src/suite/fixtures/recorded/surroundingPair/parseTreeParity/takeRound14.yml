@@ -8,11 +8,19 @@ command:
       modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
   documentContents: ((hello) () )
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|((hello) () )
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
 finalState:
   documentContents: ((hello)  )
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|((hello)  )
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

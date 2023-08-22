@@ -11,12 +11,20 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa if bbb else ccc
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|aaa if bbb else ccc
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
   marks: {}
 finalState:
   documentContents: aaa if  else ccc
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|aaa if  else ccc
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

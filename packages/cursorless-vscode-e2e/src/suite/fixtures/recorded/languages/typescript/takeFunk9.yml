@@ -14,6 +14,19 @@ initialState:
 
         }
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|
+  # 1|class Bar {
+  # 2|    constructor () {
+  # 3|
+  # 4|    }
+  # 5|}
+  # 6|
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -26,6 +39,19 @@ finalState:
 
         }
     }
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|
+  # 1|class Bar {
+  # 2|    constructor () {
+  # 3|
+  # 4|    }
+  # 5|}
+  # 6|
+  #  +--------------------
+  #   01234567890123456789
+  #             1
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 4, character: 5}

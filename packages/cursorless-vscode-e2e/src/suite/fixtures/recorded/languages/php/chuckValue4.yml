@@ -11,6 +11,12 @@ initialState:
     <?php
 
     return $value;
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|<?php
+  # 1|
+  # 2|return $value;
   selections:
     - anchor: {line: 2, character: 3}
       active: {line: 2, character: 3}
@@ -20,6 +26,11 @@ finalState:
     <?php
 
     return;
+  #   0123456
+  #  +-------
+  # 0|<?php
+  # 1|
+  # 2|return;
   selections:
     - anchor: {line: 2, character: 3}
       active: {line: 2, character: 3}

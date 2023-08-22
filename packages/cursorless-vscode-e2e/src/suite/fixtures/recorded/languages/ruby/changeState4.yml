@@ -11,6 +11,12 @@ initialState:
     class << self
       a = 10
     end
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|class << self
+  # 1|  a = 10
+  # 2|end
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -20,6 +26,12 @@ finalState:
     class << self
       
     end
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|class << self
+  # 1|  
+  # 2|end
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

@@ -14,6 +14,12 @@ initialState:
     def Thing.hello_world
       puts "hi"
     end
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|def Thing.hello_world
+  # 1|  puts "hi"
+  # 2|end
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -23,6 +29,12 @@ finalState:
     def Thing.
       puts "hi"
     end
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|def Thing.
+  # 1|  puts "hi"
+  # 2|end
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}

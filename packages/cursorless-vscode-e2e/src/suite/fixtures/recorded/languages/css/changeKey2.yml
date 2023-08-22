@@ -11,6 +11,12 @@ initialState:
     span[hello="Cleveland"][goodbye="Columbus"] { 
       color: blue; 
     }
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012345
+  #  +----------------------------------------------
+  # 0|span[hello="Cleveland"][goodbye="Columbus"] { 
+  # 1|  color: blue; 
+  # 2|}
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
@@ -20,6 +26,12 @@ finalState:
     span[hello="Cleveland"][goodbye="Columbus"] { 
       : blue; 
     }
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012345
+  #  +----------------------------------------------
+  # 0|span[hello="Cleveland"][goodbye="Columbus"] { 
+  # 1|  : blue; 
+  # 2|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

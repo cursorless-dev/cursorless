@@ -25,6 +25,18 @@ initialState:
         hello there
         hello there
             hello 
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|hello there
+  # 1|hello there
+  # 2|
+  # 3|    hello there
+  # 4|    hello there
+  # 5|        hello 
+  #  +---------------
+  #   012345678901234
+  #             1
   selections:
     - anchor: {line: 3, character: 9}
       active: {line: 3, character: 9}
@@ -42,6 +54,17 @@ finalState:
         hello there
         hello there
             hello 
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|hello there
+  # 1|hello there
+  # 2|    hello there
+  # 3|    hello there
+  # 4|        hello 
+  #  +---------------
+  #   012345678901234
+  #             1
   selections:
     - anchor: {line: 2, character: 9}
       active: {line: 2, character: 9}

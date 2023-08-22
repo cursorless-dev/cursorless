@@ -19,6 +19,12 @@ initialState:
         there
         now
     ) testing
+  #   012345678
+  #  +---------
+  # 0|hello (
+  # 1|    there
+  # 2|    now
+  # 3|) testing
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -29,6 +35,12 @@ finalState:
         there
         now
      testing
+  #   012345678
+  #  +---------
+  # 0|hello (
+  # 1|    there
+  # 2|    now
+  # 3| testing
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}

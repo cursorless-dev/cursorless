@@ -10,6 +10,11 @@ command:
 initialState:
   documentContents: |
     type Vector = (Int, Int)
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|type Vector = (Int, Int)
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -20,6 +25,10 @@ initialState:
 finalState:
   documentContents: |+
 
+  #   
+  #  +
+  # 0|
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

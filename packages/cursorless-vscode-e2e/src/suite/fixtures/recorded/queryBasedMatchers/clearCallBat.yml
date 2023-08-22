@@ -13,6 +13,10 @@ command:
 initialState:
   documentContents: |
     aaa(bbb())
+  #   0123456789
+  #  +----------
+  # 0|aaa(bbb())
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -23,6 +27,10 @@ initialState:
 finalState:
   documentContents: |
     aaa()
+  #   01234
+  #  +-----
+  # 0|aaa()
+  # 1|
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

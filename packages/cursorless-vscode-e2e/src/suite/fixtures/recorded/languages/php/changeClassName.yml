@@ -14,6 +14,18 @@ initialState:
     {
 
     }
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|<?php
+  # 1|
+  # 2|class MyClass
+  # 3|{
+  # 4|
+  # 5|}
+  #  +-------------
+  #   0123456789012
+  #             1
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -26,6 +38,16 @@ finalState:
     {
 
     }
+  #   012345
+  #  +------
+  # 0|<?php
+  # 1|
+  # 2|class 
+  # 3|{
+  # 4|
+  # 5|}
+  #  +------
+  #   012345
   selections:
     - anchor: {line: 2, character: 6}
       active: {line: 2, character: 6}

@@ -11,6 +11,12 @@ initialState:
     a {
       font-family: "hello (world)";
     }
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|a {
+  # 1|  font-family: "hello (world)";
+  # 2|}
   selections:
     - anchor: {line: 1, character: 25}
       active: {line: 1, character: 25}
@@ -20,6 +26,12 @@ finalState:
     a {
       font-family: "hello ";
     }
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|a {
+  # 1|  font-family: "hello ";
+  # 2|}
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 22}

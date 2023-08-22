@@ -9,6 +9,11 @@ command:
 initialState:
   documentContents: |
     \section{some section}
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|\section{some section}
+  # 1|
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
@@ -16,6 +21,10 @@ initialState:
 finalState:
   documentContents: |+
 
+  #   
+  #  +
+  # 0|
+  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

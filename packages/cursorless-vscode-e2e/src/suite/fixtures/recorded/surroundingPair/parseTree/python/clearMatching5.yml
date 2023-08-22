@@ -8,12 +8,20 @@ command:
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
 initialState:
   documentContents: f"j{fdfhjkd}lkjlkj"
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|f"j{fdfhjkd}lkjlkj"
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: f"j{}lkjlkj"
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|f"j{}lkjlkj"
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

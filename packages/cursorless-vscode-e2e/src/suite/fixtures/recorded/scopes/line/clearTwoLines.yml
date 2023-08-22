@@ -16,12 +16,18 @@ initialState:
   documentContents: |-
     aaa bbb
     ccc ddd
+  #   0123456
+  #  +-------
+  # 0|aaa bbb
+  # 1|ccc ddd
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

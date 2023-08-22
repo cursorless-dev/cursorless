@@ -33,6 +33,10 @@ command:
 marksToCheck: [default.w]
 initialState:
   documentContents: hello. world
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|hello. world
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
@@ -45,6 +49,10 @@ initialState:
       end: {line: 0, character: 12}
 finalState:
   documentContents: hello. wo.rld.
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|hello. wo.rld.
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}

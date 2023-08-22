@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: plaintext
 command:
   spokenForm: change identifier
@@ -11,6 +13,9 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: .
+  #   0
+  #  +-
+  # 0|.
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

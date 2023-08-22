@@ -22,6 +22,12 @@ initialState:
     const whatever = "hello";
 
     const whatever = "hello";
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|const whatever = "hello";
+  # 1|
+  # 2|const whatever = "hello";
   selections:
     - anchor: {line: 2, character: 24}
       active: {line: 2, character: 24}
@@ -42,6 +48,17 @@ finalState:
 
     const whatever = "hello";
     whatever
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|const whatever = "hello";
+  # 1|whatever
+  # 2|
+  # 3|const whatever = "hello";
+  # 4|whatever
+  #  +-------------------------
+  #   0123456789012345678901234
+  #             1         2
   selections:
     - anchor: {line: 3, character: 24}
       active: {line: 3, character: 24}

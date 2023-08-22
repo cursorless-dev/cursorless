@@ -9,6 +9,10 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
 initialState:
   documentContents: let x = [1, 2, 3];
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|let x = [1, 2, 3];
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}
@@ -18,6 +22,9 @@ initialState:
       end: {line: 0, character: 10}
 finalState:
   documentContents: let x =;
+  #   01234567
+  #  +--------
+  # 0|let x =;
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

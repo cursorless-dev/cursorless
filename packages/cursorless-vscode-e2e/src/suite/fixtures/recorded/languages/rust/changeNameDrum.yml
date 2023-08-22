@@ -16,6 +16,17 @@ initialState:
         where T: Display + Clone,
               U: Clone + Debug
     {}
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012
+  #  +-------------------------------------------
+  # 0|fn some_function<T, U>(t: &T, u: &U) -> i32
+  # 1|    where T: Display + Clone,
+  # 2|          U: Clone + Debug
+  # 3|{}
+  # 4|
+  #  +-------------------------------------------
+  #   0123456789012345678901234567890123456789012
+  #             1         2         3         4
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -29,6 +40,17 @@ finalState:
         where : Display + Clone,
               U: Clone + Debug
     {}
+  #             1         2         3         4
+  #   0123456789012345678901234567890123456789012
+  #  +-------------------------------------------
+  # 0|fn some_function<T, U>(t: &T, u: &U) -> i32
+  # 1|    where : Display + Clone,
+  # 2|          U: Clone + Debug
+  # 3|{}
+  # 4|
+  #  +-------------------------------------------
+  #   0123456789012345678901234567890123456789012
+  #             1         2         3         4
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}

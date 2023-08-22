@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: "margin-left: pow(4, 3)"
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|margin-left: pow(4, 3)
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
   marks: {}
 finalState:
   documentContents: "margin-left: (4, 3)"
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|margin-left: (4, 3)
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

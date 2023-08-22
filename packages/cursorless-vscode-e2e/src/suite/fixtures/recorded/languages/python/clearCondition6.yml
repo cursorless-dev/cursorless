@@ -14,6 +14,12 @@ initialState:
     match 0:
         case a if a > 1:
             pass
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|match 0:
+  # 1|    case a if a > 1:
+  # 2|        pass
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -23,6 +29,12 @@ finalState:
     match 0:
         case a if :
             pass
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|match 0:
+  # 1|    case a if :
+  # 2|        pass
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}

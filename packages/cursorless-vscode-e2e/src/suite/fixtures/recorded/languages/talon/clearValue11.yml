@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "face(smile): \"smile\""
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|face(smile): "smile"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: "face(smile): "
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|face(smile): 
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

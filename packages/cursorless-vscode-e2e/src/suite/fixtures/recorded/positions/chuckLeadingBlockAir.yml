@@ -17,6 +17,13 @@ initialState:
     const value = "Hello world";
 
         const value = "Hello world";
+  #             1         2         3
+  #   01234567890123456789012345678901
+  #  +--------------------------------
+  # 0|
+  # 1|const value = "Hello world";
+  # 2|
+  # 3|    const value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -29,6 +36,12 @@ finalState:
 
     const value = "Hello world";
         const value = "Hello world";
+  #             1         2         3
+  #   01234567890123456789012345678901
+  #  +--------------------------------
+  # 0|
+  # 1|const value = "Hello world";
+  # 2|    const value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

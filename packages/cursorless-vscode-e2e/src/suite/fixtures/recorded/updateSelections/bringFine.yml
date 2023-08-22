@@ -9,6 +9,9 @@ command:
     - {type: primitive, isImplicit: true}
 initialState:
   documentContents: foo world
+  #   012345678
+  #  +---------
+  # 0|foo world
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
@@ -18,6 +21,10 @@ initialState:
       end: {line: 0, character: 3}
 finalState:
   documentContents: foo fooworld
+  #             1
+  #   012345678901
+  #  +------------
+  # 0|foo fooworld
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

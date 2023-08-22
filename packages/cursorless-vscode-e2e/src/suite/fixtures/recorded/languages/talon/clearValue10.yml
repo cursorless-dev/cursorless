@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "parrot(pop): \"pop\""
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|parrot(pop): "pop"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: "parrot(pop): "
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|parrot(pop): 
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

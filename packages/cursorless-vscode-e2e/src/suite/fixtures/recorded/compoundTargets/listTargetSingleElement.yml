@@ -14,11 +14,16 @@ command:
 spokenFormError: List target with < 2 elements
 initialState:
   documentContents: aaa
+  #   012
+  #  +---
+  # 0|aaa
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

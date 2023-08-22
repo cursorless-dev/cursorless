@@ -9,12 +9,18 @@ command:
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
 initialState:
   documentContents: //**
+  #   0123
+  #  +----
+  # 0|//**
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
   marks: {}
 finalState:
   documentContents: //**
+  #   0123
+  #  +----
+  # 0|//**
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 3}

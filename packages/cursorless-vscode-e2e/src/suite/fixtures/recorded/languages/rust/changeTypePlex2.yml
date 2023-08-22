@@ -13,6 +13,11 @@ command:
 initialState:
   documentContents: |
     const X: [u8; 2] = [0, 0];
+  #             1         2
+  #   01234567890123456789012345
+  #  +--------------------------
+  # 0|const X: [u8; 2] = [0, 0];
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -23,6 +28,11 @@ initialState:
 finalState:
   documentContents: |
     const X:  = [0, 0];
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|const X:  = [0, 0];
+  # 1|
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

@@ -12,6 +12,13 @@ initialState:
     @annotation
     def my_funk(name: str, value) -> str:
         return
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|
+  # 1|@annotation
+  # 2|def my_funk(name: str, value) -> str:
+  # 3|    return
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
@@ -22,6 +29,13 @@ finalState:
     @annotation
     def my_funk(name: str, value) -> str:
         return
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|
+  # 1|@annotation
+  # 2|def my_funk(name: str, value) -> str:
+  # 3|    return
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 10}

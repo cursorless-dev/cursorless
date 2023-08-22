@@ -9,6 +9,10 @@ command:
   extraArgs: [tryCatchStatement.body]
 initialState:
   documentContents: const foo = "hello";
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|const foo = "hello";
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -20,6 +24,17 @@ finalState:
     } catch (err) {
         
     }
+  #             1         2
+  #   012345678901234567890123
+  #  +------------------------
+  # 0|try {
+  # 1|    const foo = "hello";
+  # 2|} catch (err) {
+  # 3|    
+  # 4|}
+  #  +------------------------
+  #   012345678901234567890123
+  #             1         2
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}

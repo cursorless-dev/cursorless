@@ -11,6 +11,10 @@ command:
   action: {name: editNewLineAfter}
 initialState:
   documentContents: // Testing comment
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|// Testing comment
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
@@ -18,6 +22,11 @@ initialState:
 finalState:
   documentContents: |
     // Testing comment
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|// Testing comment
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

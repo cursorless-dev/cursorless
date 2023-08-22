@@ -16,6 +16,10 @@ command:
   action: {name: remove}
 initialState:
   documentContents: hello there
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello there
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
@@ -25,6 +29,9 @@ initialState:
       end: {line: 0, character: 5}
 finalState:
   documentContents: hethere
+  #   0123456
+  #  +-------
+  # 0|hethere
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

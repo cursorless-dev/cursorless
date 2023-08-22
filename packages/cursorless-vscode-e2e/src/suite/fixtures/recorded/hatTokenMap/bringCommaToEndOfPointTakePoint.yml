@@ -13,6 +13,9 @@ command:
 marksToCheck: [default..]
 initialState:
   documentContents: " . , hello"
+  #   0123456789
+  #  +----------
+  # 0| . , hello
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
@@ -25,6 +28,10 @@ initialState:
       end: {line: 0, character: 2}
 finalState:
   documentContents: " ., , hello"
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0| ., , hello
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

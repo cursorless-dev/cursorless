@@ -12,6 +12,11 @@ initialState:
         hello
         now
         there
+  #   012345678
+  #  +---------
+  # 0|    hello
+  # 1|    now
+  # 2|    there
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -23,6 +28,15 @@ finalState:
         now
 
         there
+  #   012345678
+  #  +---------
+  # 0|    hello
+  # 1|
+  # 2|    now
+  # 3|
+  # 4|    there
+  #  +---------
+  #   012345678
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}

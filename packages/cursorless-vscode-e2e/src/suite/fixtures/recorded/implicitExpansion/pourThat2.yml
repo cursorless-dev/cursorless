@@ -11,6 +11,12 @@ initialState:
   documentContents: |+
     hello world
 
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
+  # 1|
+  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -27,6 +33,13 @@ finalState:
     hello world
 
 
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|hello world
+  # 1|
+  # 2|
+  # 3|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

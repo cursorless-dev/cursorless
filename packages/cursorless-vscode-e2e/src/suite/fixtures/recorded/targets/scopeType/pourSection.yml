@@ -14,6 +14,12 @@ initialState:
     # Some section
 
     Some text
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|# Some section
+  # 1|
+  # 2|Some text
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -24,6 +30,17 @@ finalState:
 
     Some text
 
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|# Some section
+  # 1|
+  # 2|Some text
+  # 3|
+  # 4|
+  #  +--------------
+  #   01234567890123
+  #             1
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

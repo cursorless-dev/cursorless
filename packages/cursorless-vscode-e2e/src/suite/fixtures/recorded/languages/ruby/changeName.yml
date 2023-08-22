@@ -11,6 +11,11 @@ initialState:
     def hello
 
     end
+  #   012345678
+  #  +---------
+  # 0|def hello
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -20,6 +25,11 @@ finalState:
     def 
 
     end
+  #   0123
+  #  +----
+  # 0|def 
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

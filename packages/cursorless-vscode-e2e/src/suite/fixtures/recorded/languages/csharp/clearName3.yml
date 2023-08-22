@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: String a = "hello";
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|String a = "hello";
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
   marks: {}
 finalState:
   documentContents: String  = "hello";
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|String  = "hello";
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

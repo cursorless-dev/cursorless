@@ -11,6 +11,11 @@ initialState:
     <?php
 
     [1, 2, 3];
+  #   0123456789
+  #  +----------
+  # 0|<?php
+  # 1|
+  # 2|[1, 2, 3];
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -20,6 +25,11 @@ finalState:
     <?php
 
     [, , ];
+  #   0123456
+  #  +-------
+  # 0|<?php
+  # 1|
+  # 2|[, , ];
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

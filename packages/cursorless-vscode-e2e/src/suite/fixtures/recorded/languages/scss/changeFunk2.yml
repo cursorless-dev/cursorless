@@ -17,12 +17,32 @@ initialState:
         color: $dark-text;
       }
     }
+  #             1         2         3         4
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 0|@mixin theme-colors($light-theme: true) {
+  # 1|  @if $light-theme {
+  # 2|    background-color: $light-background;
+  # 3|    color: $light-text;
+  #  +-----------------------------------------
+  #   01234567890123456789012345678901234567890
+  #  +-----------------------------------------
+  # 4|  } @else {
+  # 5|    background-color: $dark-background;
+  # 6|    color: $dark-text;
+  # 7|  }
+  # 8|}
+  #  +-----------------------------------------
+  #   01234567890123456789012345678901234567890
+  #             1         2         3         4
   selections:
     - anchor: {line: 7, character: 3}
       active: {line: 7, character: 3}
   marks: {}
 finalState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

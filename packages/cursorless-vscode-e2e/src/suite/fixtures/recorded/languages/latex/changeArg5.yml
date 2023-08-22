@@ -8,12 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: \usepackage[utf8]{inputenc}
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|\usepackage[utf8]{inputenc}
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
   marks: {}
 finalState:
   documentContents: \usepackage[utf8]{}
+  #             1
+  #   0123456789012345678
+  #  +-------------------
+  # 0|\usepackage[utf8]{}
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}

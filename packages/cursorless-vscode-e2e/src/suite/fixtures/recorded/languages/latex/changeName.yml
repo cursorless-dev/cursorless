@@ -10,6 +10,11 @@ initialState:
   documentContents: |-
     \section{some section}
     Some Text
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|\section{some section}
+  # 1|Some Text
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -18,6 +23,10 @@ finalState:
   documentContents: |-
     \section{}
     Some Text
+  #   0123456789
+  #  +----------
+  # 0|\section{}
+  # 1|Some Text
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

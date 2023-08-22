@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: plaintext
 command:
   spokenForm: change next file
@@ -14,6 +16,9 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa
+  #   012
+  #  +---
+  # 0|aaa
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

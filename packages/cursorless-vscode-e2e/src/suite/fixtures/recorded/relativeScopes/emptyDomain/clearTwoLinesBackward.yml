@@ -17,6 +17,11 @@ initialState:
     aaa
 
     bbb
+  #   012
+  #  +---
+  # 0|aaa
+  # 1|
+  # 2|bbb
   selections:
     - anchor: {line: 2, character: 3}
       active: {line: 2, character: 3}
@@ -24,6 +29,10 @@ initialState:
 finalState:
   documentContents: |
     aaa
+  #   012
+  #  +---
+  # 0|aaa
+  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

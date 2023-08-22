@@ -11,12 +11,19 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo = bar.baz
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|foo = bar.baz
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 10}
   marks: {}
 finalState:
   documentContents: foo = baz
+  #   012345678
+  #  +---------
+  # 0|foo = baz
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

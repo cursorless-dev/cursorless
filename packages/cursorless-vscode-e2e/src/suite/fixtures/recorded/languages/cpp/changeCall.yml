@@ -8,12 +8,19 @@ command:
       modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
 initialState:
   documentContents: Car carObj1("BMW", "X5", 1999);
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|Car carObj1("BMW", "X5", 1999);
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
   marks: {}
 finalState:
   documentContents: Car ;
+  #   01234
+  #  +-----
+  # 0|Car ;
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

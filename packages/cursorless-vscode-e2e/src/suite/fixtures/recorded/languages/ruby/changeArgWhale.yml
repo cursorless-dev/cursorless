@@ -9,6 +9,10 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
   documentContents: a.call(hello, world)
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|a.call(hello, world)
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}
@@ -18,6 +22,10 @@ initialState:
       end: {line: 0, character: 19}
 finalState:
   documentContents: a.call(hello, )
+  #             1
+  #   012345678901234
+  #  +---------------
+  # 0|a.call(hello, )
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}

@@ -12,6 +12,13 @@ initialState:
         \item one \LaTeX
         \item two \LaTeX
     \end{itemize}
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|\begin{itemize}
+  # 1|    \item one \LaTeX
+  # 2|    \item two \LaTeX
+  # 3|\end{itemize}
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}
@@ -22,6 +29,13 @@ finalState:
         
         \item two \LaTeX
     \end{itemize}
+  #             1
+  #   01234567890123456789
+  #  +--------------------
+  # 0|\begin{itemize}
+  # 1|    
+  # 2|    \item two \LaTeX
+  # 3|\end{itemize}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

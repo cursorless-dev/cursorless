@@ -11,6 +11,12 @@ initialState:
     begin
       puts("hi")
     end until true
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|begin
+  # 1|  puts("hi")
+  # 2|end until true
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
@@ -20,6 +26,12 @@ finalState:
     begin
 
     end until true
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|begin
+  # 1|
+  # 2|end until true
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

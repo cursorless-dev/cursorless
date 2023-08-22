@@ -12,6 +12,17 @@ initialState:
     public class MyClass {
 
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|
+  # 1|public class MyClass {
+  # 2|
+  # 3|}
+  # 4|
+  #  +----------------------
+  #   0123456789012345678901
+  #             1         2
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -22,6 +33,17 @@ finalState:
     public class MyClass {
 
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|
+  # 1|public class MyClass {
+  # 2|
+  # 3|}
+  # 4|
+  #  +----------------------
+  #   0123456789012345678901
+  #             1         2
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 1}

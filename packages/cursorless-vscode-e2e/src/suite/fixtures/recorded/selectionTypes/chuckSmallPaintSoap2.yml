@@ -12,6 +12,10 @@ command:
   action: {name: remove}
 initialState:
   documentContents: f.o(some() text)
+  #             1
+  #   0123456789012345
+  #  +----------------
+  # 0|f.o(some() text)
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
@@ -21,6 +25,9 @@ initialState:
       end: {line: 0, character: 8}
 finalState:
   documentContents: f.o(text)
+  #   012345678
+  #  +---------
+  # 0|f.o(text)
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

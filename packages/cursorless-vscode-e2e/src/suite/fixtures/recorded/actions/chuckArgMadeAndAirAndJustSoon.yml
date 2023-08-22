@@ -16,6 +16,10 @@ command:
           mark: {type: decoratedSymbol, symbolColor: default, character: s}
 initialState:
   documentContents: "function myFunk(value: string, name: string, age: number) { };"
+  #             1         2         3         4         5         6
+  #   01234567890123456789012345678901234567890123456789012345678901
+  #  +--------------------------------------------------------------
+  # 0|function myFunk(value: string, name: string, age: number) { };
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -31,6 +35,10 @@ initialState:
       end: {line: 0, character: 29}
 finalState:
   documentContents: function myFunk(value:) { };
+  #             1         2
+  #   0123456789012345678901234567
+  #  +----------------------------
+  # 0|function myFunk(value:) { };
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

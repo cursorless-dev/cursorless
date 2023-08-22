@@ -8,6 +8,9 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
 initialState:
   documentContents: a b c d
+  #   0123456
+  #  +-------
+  # 0|a b c d
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 1}
@@ -19,6 +22,9 @@ initialState:
       end: {line: 0, character: 7}
 finalState:
   documentContents: a b c d
+  #   0123456
+  #  +-------
+  # 0|a b c d
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 1}

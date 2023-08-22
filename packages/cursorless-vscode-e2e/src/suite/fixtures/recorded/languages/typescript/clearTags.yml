@@ -14,6 +14,12 @@ initialState:
     function Comp() {
         return <>text</>;
     }
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|function Comp() {
+  # 1|    return <>text</>;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
@@ -23,6 +29,12 @@ finalState:
     function Comp() {
         return text;
     }
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|function Comp() {
+  # 1|    return text;
+  # 2|}
   selections:
     - anchor: {line: 1, character: 11}
       active: {line: 1, character: 11}

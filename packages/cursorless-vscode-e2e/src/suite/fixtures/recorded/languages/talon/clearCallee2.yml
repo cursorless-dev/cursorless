@@ -13,6 +13,11 @@ initialState:
   documentContents: |-
     some command:
         key(enter)
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|some command:
+  # 1|    key(enter)
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}
@@ -21,6 +26,11 @@ finalState:
   documentContents: |-
     some command:
         (enter)
+  #             1
+  #   0123456789012
+  #  +-------------
+  # 0|some command:
+  # 1|    (enter)
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

@@ -11,6 +11,12 @@ initialState:
     @mixin replace-text($image, $color: red) {
       text-align: left;
     }
+  #             1         2         3         4
+  #   012345678901234567890123456789012345678901
+  #  +------------------------------------------
+  # 0|@mixin replace-text($image, $color: red) {
+  # 1|  text-align: left;
+  # 2|}
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}
@@ -20,6 +26,12 @@ finalState:
     @mixin replace-text(, $color: red) {
       text-align: left;
     }
+  #             1         2         3
+  #   012345678901234567890123456789012345
+  #  +------------------------------------
+  # 0|@mixin replace-text(, $color: red) {
+  # 1|  text-align: left;
+  # 2|}
   selections:
     - anchor: {line: 0, character: 20}
       active: {line: 0, character: 20}

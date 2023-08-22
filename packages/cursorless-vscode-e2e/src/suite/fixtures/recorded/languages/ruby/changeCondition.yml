@@ -11,6 +11,11 @@ initialState:
     if true
 
     end
+  #   0123456
+  #  +-------
+  # 0|if true
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -20,6 +25,11 @@ finalState:
     if 
 
     end
+  #   012
+  #  +---
+  # 0|if 
+  # 1|
+  # 2|end
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

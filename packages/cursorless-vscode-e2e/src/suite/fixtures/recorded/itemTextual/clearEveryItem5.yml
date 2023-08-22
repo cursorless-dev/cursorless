@@ -18,6 +18,17 @@ initialState:
         ],
         c
     ]
+  #   012345678
+  #  +---------
+  # 0|[
+  # 1|    a,
+  # 2|    [
+  # 3|        b
+  # 4|    ],
+  # 5|    c
+  # 6|]
+  #  +---------
+  #   012345678
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -29,6 +40,15 @@ finalState:
         ,
         
     ]
+  #   01234
+  #  +-----
+  # 0|[
+  # 1|    ,
+  # 2|    ,
+  # 3|    
+  # 4|]
+  #  +-----
+  #   01234
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

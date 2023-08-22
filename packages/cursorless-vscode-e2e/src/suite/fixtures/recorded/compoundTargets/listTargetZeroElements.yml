@@ -1,3 +1,5 @@
+  # (empty)
+
 languageId: plaintext
 command:
   version: 6
@@ -10,6 +12,9 @@ command:
 spokenFormError: List target with < 2 elements
 initialState:
   documentContents: aaa
+  #   012
+  #  +---
+  # 0|aaa
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

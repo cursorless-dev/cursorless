@@ -13,12 +13,27 @@ initialState:
     } else {
       false
     }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|val test = if (true) {
+  # 1|  true
+  # 2|} else {
+  # 3|  false
+  # 4|}
+  #  +----------------------
+  #   0123456789012345678901
+  #             1         2
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
   marks: {}
 finalState:
   documentContents: "val test = "
+  #             1
+  #   01234567890
+  #  +-----------
+  # 0|val test = 
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

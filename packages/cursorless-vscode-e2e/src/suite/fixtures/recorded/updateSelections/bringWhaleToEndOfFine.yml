@@ -12,6 +12,9 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
   documentContents: foo world
+  #   012345678
+  #  +---------
+  # 0|foo world
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
@@ -24,6 +27,10 @@ initialState:
       end: {line: 0, character: 3}
 finalState:
   documentContents: fooworld world
+  #             1
+  #   01234567890123
+  #  +--------------
+  # 0|fooworld world
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

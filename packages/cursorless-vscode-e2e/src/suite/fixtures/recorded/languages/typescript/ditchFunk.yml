@@ -17,6 +17,18 @@ initialState:
 
         baz() {}
     }
+  #             1         2         3
+  #   0123456789012345678901234567890123456
+  #  +-------------------------------------
+  # 0|abstract class Foo {
+  # 1|    protected abstract bar(): void;
+  # 2|    protected abstract bongo(): void;
+  # 3|
+  # 4|    baz() {}
+  # 5|}
+  #  +-------------------------------------
+  #   0123456789012345678901234567890123456
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -29,6 +41,18 @@ finalState:
 
         baz() {}
     }
+  #             1         2         3
+  #   01234567890123456789012345678901234
+  #  +-----------------------------------
+  # 0|abstract class Foo {
+  # 1|    protected abstract bar(): void;
+  # 2|
+  # 3|
+  # 4|    baz() {}
+  # 5|}
+  #  +-----------------------------------
+  #   01234567890123456789012345678901234
+  #             1         2         3
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

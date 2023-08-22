@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: const aaa = "bbb", ccc = "ddd";
+  #             1         2         3
+  #   0123456789012345678901234567890
+  #  +-------------------------------
+  # 0|const aaa = "bbb", ccc = "ddd";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: const  = "bbb",  = "ddd";
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|const  = "bbb",  = "ddd";
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

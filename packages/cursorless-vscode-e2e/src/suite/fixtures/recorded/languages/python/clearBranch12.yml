@@ -11,12 +11,20 @@ command:
   usePrePhraseSnapshot: false
 initialState:
   documentContents: aaa = bbb if ccc else ddd
+  #             1         2
+  #   0123456789012345678901234
+  #  +-------------------------
+  # 0|aaa = bbb if ccc else ddd
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
   marks: {}
 finalState:
   documentContents: "aaa = bbb if ccc else "
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|aaa = bbb if ccc else 
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}

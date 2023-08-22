@@ -13,6 +13,8 @@ command:
 spokenFormError: Named insertion snippet 'duplicatedVariableTest'
 initialState:
   documentContents: ""
+  # (empty)
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -21,6 +23,10 @@ finalState:
   documentContents: >-
     This variable: 'hello_world' is duplicated here: 'hello_world', but '' is
     unique!
+  #             1         2         3         4         5         6         7         8
+  #   012345678901234567890123456789012345678901234567890123456789012345678901234567890
+  #  +---------------------------------------------------------------------------------
+  # 0|This variable: 'hello_world' is duplicated here: 'hello_world', but '' is unique!
   selections:
     - anchor: {line: 0, character: 69}
       active: {line: 0, character: 69}

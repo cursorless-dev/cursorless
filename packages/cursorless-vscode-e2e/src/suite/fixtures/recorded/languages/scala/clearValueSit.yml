@@ -12,6 +12,13 @@ initialState:
     class Example() {
       val bling = "blang"
     }
+  #             1         2
+  #   012345678901234567890
+  #  +---------------------
+  # 0|class Example() {
+  # 1|  val bling = "blang"
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -24,6 +31,13 @@ finalState:
     class Example() {
       val bling = 
     }
+  #             1
+  #   01234567890123456
+  #  +-----------------
+  # 0|class Example() {
+  # 1|  val bling = 
+  # 2|}
+  # 3|
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}

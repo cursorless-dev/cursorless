@@ -10,12 +10,18 @@ command:
   action: {name: setSelection}
 initialState:
   documentContents: ( hello )
+  #   012345678
+  #  +---------
+  # 0|( hello )
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: ( hello )
+  #   012345678
+  #  +---------
+  # 0|( hello )
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 7}

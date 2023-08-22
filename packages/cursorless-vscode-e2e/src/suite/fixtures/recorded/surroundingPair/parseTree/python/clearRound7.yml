@@ -8,12 +8,18 @@ command:
       modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
   documentContents: f"(hello)"
+  #   0123456789
+  #  +----------
+  # 0|f"(hello)"
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
   marks: {}
 finalState:
   documentContents: f""
+  #   012
+  #  +---
+  # 0|f""
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

@@ -12,6 +12,11 @@ command:
 initialState:
   documentContents: |
     function helloWorld(foo: string, bar: number, baz: string) {}
+  #             1         2         3         4         5         6
+  #   0123456789012345678901234567890123456789012345678901234567890
+  #  +-------------------------------------------------------------
+  # 0|function helloWorld(foo: string, bar: number, baz: string) {}
+  # 1|
   selections:
     - anchor: {line: 0, character: 40}
       active: {line: 0, character: 40}
@@ -21,6 +26,13 @@ finalState:
     function helloWorld(foo: string, bar: number, baz: string) {}
 
 
+  #             1         2         3         4         5         6
+  #   0123456789012345678901234567890123456789012345678901234567890
+  #  +-------------------------------------------------------------
+  # 0|function helloWorld(foo: string, bar: number, baz: string) {}
+  # 1|
+  # 2|
+  # 3|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

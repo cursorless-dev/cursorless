@@ -21,6 +21,25 @@ initialState:
     gamepad(north): "north"
     face(smile): "smile"
     parrot(pop): "pop"
+  #             1         2
+  #   01234567890123456789012
+  #  +-----------------------
+  # 0|tag(): user.some_tag
+  # 1|
+  # 2|settings():
+  # 3|    speech.debug = 1
+  #  +-----------------------
+  #   01234567890123456789012
+  #  +-----------------------
+  # 4|
+  # 5|command: "command"
+  # 6|key(enter): "enter"
+  # 7|gamepad(north): "north"
+  # 8|face(smile): "smile"
+  # 9|parrot(pop): "pop"
+  #  +-----------------------
+  #   01234567890123456789012
+  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -35,6 +54,17 @@ finalState:
 
 
 
+  #   
+  #  +
+  # 0|
+  # 1|
+  # 2|
+  # 3|
+  # 4|
+  # 5|
+  # 6|
+  # 7|
+  # 8|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

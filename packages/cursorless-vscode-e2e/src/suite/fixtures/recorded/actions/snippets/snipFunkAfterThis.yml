@@ -13,6 +13,10 @@ command:
     args: [functionDeclaration]
 initialState:
   documentContents: "    const foo = \"bar\";"
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|    const foo = "bar";
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}
@@ -23,6 +27,13 @@ finalState:
         function () {
             
         }
+  #             1         2
+  #   0123456789012345678901
+  #  +----------------------
+  # 0|    const foo = "bar";
+  # 1|    function () {
+  # 2|        
+  # 3|    }
   selections:
     - anchor: {line: 1, character: 13}
       active: {line: 1, character: 13}

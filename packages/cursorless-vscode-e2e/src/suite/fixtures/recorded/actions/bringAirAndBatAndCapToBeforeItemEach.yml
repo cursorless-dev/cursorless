@@ -23,6 +23,18 @@ initialState:
     c
 
     const values = [e]
+  #             1
+  #   012345678901234567
+  #  +------------------
+  # 0|a
+  # 1|b
+  # 2|c
+  # 3|
+  # 4|const values = [e]
+  # 5|
+  #  +------------------
+  #   012345678901234567
+  #             1
   selections:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}
@@ -46,6 +58,18 @@ finalState:
     c
 
     const values = [a, b, c, e]
+  #             1         2
+  #   012345678901234567890123456
+  #  +---------------------------
+  # 0|a
+  # 1|b
+  # 2|c
+  # 3|
+  # 4|const values = [a, b, c, e]
+  # 5|
+  #  +---------------------------
+  #   012345678901234567890123456
+  #             1         2
   selections:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}
