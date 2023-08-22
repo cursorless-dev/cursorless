@@ -30,8 +30,22 @@ export function maxByFirstDiffering<T>(
       return remainingValues[0];
     }
 
-    const max = Math.max(...remainingValues.map(fn));
-    remainingValues = remainingValues.filter((item) => fn(item) === max);
+    // Take a single pass through, accumulating all
+    // items with the single highest value.
+    let best: number = -Infinity;
+    const keep: T[] = [];
+    for (const item of remainingValues) {
+      const value = fn(item);
+      if (value < best) {
+        continue;
+      }
+      if (value > best) {
+        best = value;
+        keep.length = 0;
+      }
+      keep.push(item);
+    }
+    remainingValues = keep;
   }
 
   return remainingValues[0];
