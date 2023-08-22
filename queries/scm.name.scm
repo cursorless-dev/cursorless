@@ -52,7 +52,7 @@
     ) @_.domain
   ) @dummy
   (#not-type? @dummy parameters)
-  (#has-n-children-of-type? @dummy capture 2 -1)
+  (#has-multiple-children-of-type? @dummy capture)
   (#insertion-delimiter! @name " @")
 )
 

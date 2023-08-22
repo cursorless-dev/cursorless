@@ -58,19 +58,18 @@ class IsNthChild extends QueryPredicateOperator<IsNthChild> {
 }
 
 /**
- * A predicate operator that returns true if the node has between {@link min}
- * and {@link max} children of type {@link type} (inclusive).  For example,
- * `(has-n-children-of-type? @foo bar 1 2)` will accept the match if the `@foo`
- * capture has 1, 2 or 3 children of type `bar`. If {@link max} is -1, then we
- * don't limit the maximum.
+ * A predicate operator that returns true if the node has more than 1 child of
+ * type {@link type} (inclusive).  For example, `(has-multiple-children-of-type?
+ * @foo bar)` will accept the match if the `@foo` capture has 2 or more children
+ * of type `bar`.
  */
-class HasNChildrenOfType extends QueryPredicateOperator<HasNChildrenOfType> {
-  name = "has-n-children-of-type?" as const;
-  schema = z.tuple([q.node, q.string, q.integer, q.integer]);
+class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildrenOfType> {
+  name = "has-multiple-children-of-type?" as const;
+  schema = z.tuple([q.node, q.string]);
 
-  run({ node }: MutableQueryCapture, type: string, min: number, max: number) {
+  run({ node }: MutableQueryCapture, type: string) {
     const count = node.children.filter((n) => n.type === type).length;
-    return count >= min && (max === -1 || count <= max);
+    return count > 1;
   }
 }
 
@@ -187,5 +186,5 @@ export const queryPredicateOperators = [
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
-  new HasNChildrenOfType(),
+  new HasMultipleChildrenOfType(),
 ];
