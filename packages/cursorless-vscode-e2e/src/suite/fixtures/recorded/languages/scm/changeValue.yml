@@ -1,0 +1,59 @@
+languageId: scm
+command:
+  version: 6
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    (
+        aaa: (bbb) @ccc @ddd
+        eee: "fff" @ggg
+        hhh: (iii)
+        jjj: [(kkk)] @lll
+        mmm: ((nnn) (ooo))* @ppp
+        qqq: _ @rrr
+    )
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
+    - anchor: {line: 6, character: 4}
+      active: {line: 6, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    (
+        aaa:  @ccc @ddd
+        eee:  @ggg
+        hhh: 
+        jjj:  @lll
+        mmm:  @ppp
+        qqq:  @rrr
+    )
+  selections:
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+    - anchor: {line: 3, character: 9}
+      active: {line: 3, character: 9}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+    - anchor: {line: 5, character: 9}
+      active: {line: 5, character: 9}
+    - anchor: {line: 6, character: 9}
+      active: {line: 6, character: 9}

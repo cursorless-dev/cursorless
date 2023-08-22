@@ -1,0 +1,29 @@
+languageId: scm
+command:
+  version: 6
+  spokenForm: chuck key
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    (
+        aaa: (bbb) @ccc
+    )
+  selections:
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}
+  marks: {}
+finalState:
+  documentContents: |-
+    (
+        (bbb) @ccc
+    )
+  selections:
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
