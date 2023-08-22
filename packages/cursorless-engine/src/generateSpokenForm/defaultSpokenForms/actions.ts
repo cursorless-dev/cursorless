@@ -60,6 +60,7 @@ export const actions = {
   executeCommand: null,
   getText: null,
   replace: null,
+  ["private.getTargets"]: null,
 
   // These actions are implemented talon-side, usually using `getText` followed
   // by some other action.
