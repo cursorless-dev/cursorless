@@ -1,78 +1,19 @@
-languageId: typescript
+languageId: xml
 command:
   version: 1
-  spokenForm: try wrap this
-  action: wrapWithSnippet
+  spokenForm: change attribute
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      mark: {type: cursor}
-  extraArgs: [tryCatchStatement.body]
+      modifier: {type: containingScope, scopeType: attribute, includeSiblings: false}
 initialState:
-  documentContents: |-
-    if (true) {
-        const foo = "hello";
-    }
-
-    const bar = "hello";
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|if (true) {
-  # 1|    const foo = "hello";
-  # 2|}
-  # 3|
-  # 4|const bar = "hello";
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
+  documentContents: <note bar="back">foo</note>
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks: {}
 finalState:
-  documentContents: |-
-    try {
-        if (true) {
-            const foo = "hello";
-        }
-    } catch (err) {
-        
-    }
-
-    try {
-        const bar = "hello";
-    } catch (err) {
-        
-    }
-  #              1         2
-  #    0123456789012345678901234567
-  #   +----------------------------
-  #  0|try {
-  #  1|    if (true) {
-  #  2|        const foo = "hello";
-  #  3|    }
-  #   +----------------------------
-  #    0123456789012345678901234567
-  #   +----------------------------
-  #  4|} catch (err) {
-  #  5|    
-  #  6|}
-  #  7|
-  #   +----------------------------
-  #    0123456789012345678901234567
-  #   +----------------------------
-  #  8|try {
-  #  9|    const bar = "hello";
-  # 10|} catch (err) {
-  # 11|    
-  # 12|}
-  #   +----------------------------
-  #    0123456789012345678901234567
-  #              1         2
+  documentContents: <note >foo</note>
   selections:
-    - anchor: {line: 11, character: 4}
-      active: {line: 11, character: 4}
-    - anchor: {line: 5, character: 4}
-      active: {line: 5, character: 4}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

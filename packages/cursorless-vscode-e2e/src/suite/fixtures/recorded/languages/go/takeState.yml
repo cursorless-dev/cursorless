@@ -8,24 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: "type Hello struct {\n\tworld string\n}"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|type Hello struct {
-  # 1|␉world string
-  # 2|}
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
   marks: {}
 finalState:
   documentContents: "type Hello struct {\n\tworld string\n}"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|type Hello struct {
-  # 1|␉world string
-  # 2|}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 2, character: 1}

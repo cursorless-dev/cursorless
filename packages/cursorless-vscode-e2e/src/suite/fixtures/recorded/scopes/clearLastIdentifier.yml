@@ -1,30 +1,27 @@
 languageId: plaintext
 command:
-  spokenForm: change last identifier
+  spokenForm: change two lines
   version: 3
   targets:
     - type: primitive
       modifiers:
-        - type: ordinalScope
-          scopeType: {type: identifier}
-          start: -1
-          length: 1
+        - type: relativeScope
+          scopeType: {type: line}
+          offset: 0
+          length: 2
+          direction: forward
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb.
-  #   01234567
-  #  +--------
-  # 0|aaa bbb.
+  documentContents: |-
+    aaa bbb
+    ccc ddd
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  marks: {}
-finalState:
-  documentContents: aaa .
-  #   01234
-  #  +-----
-  # 0|aaa .
-  selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}

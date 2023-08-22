@@ -1,32 +1,26 @@
 languageId: plaintext
 command:
-  spokenForm: chuck second char
-  version: 2
+  spokenForm: chuck third word line
+  version: 3
   targets:
     - type: primitive
       modifiers:
-        - type: ordinalRange
-          scopeType: {type: character}
-          anchor: 1
-          active: 1
-          excludeAnchor: false
-          excludeActive: false
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: 2
+          length: 1
+        - type: containingScope
+          scopeType: {type: line}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: añ
-  #   0123
-  #  +----
-  # 0|añ
+  documentContents: apiV1 api_v_1
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: a
-  #   0
-  #  +-
-  # 0|a
+  documentContents: apiV api_v_1
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

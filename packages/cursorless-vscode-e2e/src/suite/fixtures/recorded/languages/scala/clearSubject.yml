@@ -1,43 +1,21 @@
 languageId: scala
 command:
-  spokenForm: change subject
-  version: 3
+  version: 1
+  spokenForm: change type
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: switchStatementSubject}
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
-spokenFormError: Scope type 'switchStatementSubject'
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
 initialState:
   documentContents: |
-    def matchTest(x: Int): String = x match {
-      case 0 => "zero"
-    }
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|def matchTest(x: Int): String = x match {
-  # 1|  case 0 => "zero"
-  # 2|}
-  # 3|
+    type Vector = (Int, Int)
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |
-    def matchTest(x: Int): String =  match {
-      case 0 => "zero"
-    }
-  #             1         2         3
-  #   0123456789012345678901234567890123456789
-  #  +----------------------------------------
-  # 0|def matchTest(x: Int): String =  match {
-  # 1|  case 0 => "zero"
-  # 2|}
-  # 3|
+  documentContents: |+
+
   selections:
-    - anchor: {line: 0, character: 32}
-      active: {line: 0, character: 32}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

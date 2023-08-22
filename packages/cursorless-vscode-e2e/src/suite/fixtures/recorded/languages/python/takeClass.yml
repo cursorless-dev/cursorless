@@ -9,29 +9,19 @@ command:
 initialState:
   documentContents: |-
 
+    @annotation
     class MyClass:
         """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|class MyClass:
-  # 2|    """"""
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
   marks: {}
 finalState:
   documentContents: |-
 
+    @annotation
     class MyClass:
         """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|class MyClass:
-  # 2|    """"""
   selections:
     - anchor: {line: 1, character: 0}
-      active: {line: 2, character: 10}
+      active: {line: 3, character: 10}

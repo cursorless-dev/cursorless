@@ -1,41 +1,28 @@
 languageId: typescript
 command:
-  version: 1
   spokenForm: change funk
-  action: clearAndSetSelection
+  version: 3
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    function bar() {
-      foo(() => {
-          
-      });
+  documentContents: |-
+    abstract class Foo {
+        protected abstract bar(): void;
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|function bar() {
-  # 1|  foo(() => {
-  # 2|      
-  # 3|  });
-  # 4|}
-  # 5|
-  #  +----------------
-  #   0123456789012345
-  #             1
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
+    - anchor: {line: 1, character: 26}
+      active: {line: 1, character: 26}
   marks: {}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |-
+    abstract class Foo {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

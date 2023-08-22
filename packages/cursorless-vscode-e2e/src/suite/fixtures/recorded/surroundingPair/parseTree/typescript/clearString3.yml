@@ -1,24 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change string
-  action: clearAndSetSelection
+  spokenForm: take pair bat
+  action: setSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: string}
+      modifier: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
 initialState:
-  documentContents: "`(hello)`"
-  #   012345678
-  #  +---------
-  # 0|`(hello)`
-  selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-  marks: {}
-finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: const r = /a[b]*/;
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
+finalState:
+  documentContents: const r = /a[b]*/;
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 15}

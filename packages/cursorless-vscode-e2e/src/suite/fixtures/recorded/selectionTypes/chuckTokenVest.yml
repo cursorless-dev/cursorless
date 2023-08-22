@@ -1,39 +1,22 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: chuck token vest
-  action: remove
+  spokenForm: chuck word
+  version: 3
   targets:
     - type: primitive
-      selectionType: token
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: word}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: |
-
-    const value   = "Hello.world  ";
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|
-  # 1|const value   = "Hello.world  ";
-  # 2|
+  documentContents: aaa_bbb_ccc
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
 finalState:
-  documentContents: |
-
-    const = "Hello.world  ";
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|
-  # 1|const = "Hello.world  ";
-  # 2|
+  documentContents: aaa_ccc
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

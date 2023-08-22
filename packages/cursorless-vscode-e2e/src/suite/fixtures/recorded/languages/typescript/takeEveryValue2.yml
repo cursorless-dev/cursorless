@@ -1,43 +1,27 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take every value
+  spokenForm: take funk
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: namedFunction}
 initialState:
-  documentContents: |-
-    {
-        foo: "hello",
-        bar,
+  documentContents: |
+
+    function foo () {
+
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|{
-  # 1|    foo: "hello",
-  # 2|    bar,
-  # 3|}
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    {
-        foo: "hello",
-        bar,
+  documentContents: |
+
+    function foo () {
+
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|{
-  # 1|    foo: "hello",
-  # 2|    bar,
-  # 3|}
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 16}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 7}
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 1}

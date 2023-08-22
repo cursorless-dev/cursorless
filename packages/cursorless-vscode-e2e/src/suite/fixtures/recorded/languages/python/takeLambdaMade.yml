@@ -1,37 +1,27 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take lambda made
+  spokenForm: take lambda pit
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      mark: {type: decoratedSymbol, symbolColor: default, character: p}
 initialState:
   documentContents: |-
 
     lambda a: print("hello")
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|
-  # 1|lambda a: print("hello")
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.m:
-      start: {line: 1, character: 0}
-      end: {line: 1, character: 6}
+    default.p:
+      start: {line: 1, character: 10}
+      end: {line: 1, character: 15}
 finalState:
   documentContents: |-
 
     lambda a: print("hello")
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|
-  # 1|lambda a: print("hello")
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 24}

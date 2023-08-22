@@ -10,21 +10,13 @@ command:
           scopeType: {type: functionName}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: export const myFunk = () => {};
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|export const myFunk = () => {};
+  documentContents: const foo = function bar() {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
   marks: {}
 finalState:
-  documentContents: export const  = () => {};
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|export const  = () => {};
+  documentContents: const foo = function () {}
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}

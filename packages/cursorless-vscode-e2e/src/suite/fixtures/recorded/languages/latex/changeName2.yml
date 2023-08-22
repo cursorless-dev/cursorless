@@ -9,24 +9,17 @@ command:
 initialState:
   documentContents: |-
     \section{some section}
+    \subsection
     Some Text
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|\section{some section}
-  # 1|Some Text
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-
     \section{}
+    \subsection
     Some Text
-  #   0123456789
-  #  +----------
-  # 0|\section{}
-  # 1|Some Text
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

@@ -1,44 +1,26 @@
-languageId: plaintext
+languageId: typescript
 command:
   version: 1
-  spokenForm: chuck second char fine past third char whale
-  action: remove
+  spokenForm: comment trap
+  action: toggleLineComment
   targets:
-    - type: range
-      start:
-        type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      end:
-        type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      excludeStart: false
-      excludeEnd: false
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
 initialState:
-  documentContents: foo world whatever
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|foo world whatever
-  selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
-  marks:
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
-    default.w:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 9}
-finalState:
-  documentContents: fld whatever
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|fld whatever
+  documentContents: |-
+    'hello'
+    'there'
   selections:
     - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 3}
+      active: {line: 1, character: 6}
+  marks:
+    default.t:
+      start: {line: 1, character: 1}
+      end: {line: 1, character: 6}
+finalState:
+  documentContents: |-
+    'hello'
+    // 'there'
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 1, character: 9}

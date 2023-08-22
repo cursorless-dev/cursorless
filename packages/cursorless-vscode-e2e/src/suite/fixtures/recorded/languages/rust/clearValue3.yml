@@ -12,33 +12,17 @@ command:
 initialState:
   documentContents: |-
     fn foo() -> i32 {
-        println!("hello")
-        return 3;
+        return 3
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|fn foo() -> i32 {
-  # 1|    println!("hello")
-  # 2|    return 3;
-  # 3|}
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
   documentContents: |-
     fn foo() -> i32 {
-        println!("hello")
-        return ;
+        return 
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|fn foo() -> i32 {
-  # 1|    println!("hello")
-  # 2|    return ;
-  # 3|}
   selections:
-    - anchor: {line: 2, character: 11}
-      active: {line: 2, character: 11}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}

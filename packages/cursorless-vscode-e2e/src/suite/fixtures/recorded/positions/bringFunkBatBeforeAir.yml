@@ -1,92 +1,47 @@
-languageId: python
+languageId: typescript
 command:
-  spokenForm: bring funk bat before air
+  spokenForm: bring harp after line odd and whale
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      modifiers:
-        - type: containingScope
-          scopeType: {type: namedFunction}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
-      modifiers:
-        - {type: position, position: before}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: o}
+          modifiers:
+            - {type: position, position: after}
+            - type: containingScope
+              scopeType: {type: line}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: true
   action: {name: replaceWithTarget}
 initialState:
-  documentContents: |2
-        def aaa():
+  documentContents: |-
+    const whatever = "hello";
 
-            pass
-
-        def bbb():
-
-            pass
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|    def aaa():
-  # 1|
-  # 2|        pass
-  # 3|
-  #  +--------------
-  #   01234567890123
-  #  +--------------
-  # 4|    def bbb():
-  # 5|
-  # 6|        pass
-  # 7|
-  #  +--------------
-  #   01234567890123
-  #             1
+    const whatever = "hello";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 24}
+      active: {line: 2, character: 24}
   marks:
-    default.b:
-      start: {line: 4, character: 8}
-      end: {line: 4, character: 11}
-    default.a:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 11}
+    default.h:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 14}
+    default.o:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 23}
+    default.w:
+      start: {line: 2, character: 6}
+      end: {line: 2, character: 14}
 finalState:
-  documentContents: |2
-        def bbb():
+  documentContents: |-
+    const whatever = "hello";
+    whatever
 
-            pass
-
-        def aaa():
-
-            pass
-
-        def bbb():
-
-            pass
-  #              1
-  #    01234567890123
-  #   +--------------
-  #  0|    def bbb():
-  #  1|
-  #  2|        pass
-  #  3|
-  #   +--------------
-  #    01234567890123
-  #   +--------------
-  #  4|    def aaa():
-  #  5|
-  #  6|        pass
-  #  7|
-  #   +--------------
-  #    01234567890123
-  #   +--------------
-  #  8|    def bbb():
-  #  9|
-  # 10|        pass
-  # 11|
-  #   +--------------
-  #    01234567890123
-  #              1
+    const whatever = "hello";
+    whatever
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 3, character: 24}
+      active: {line: 3, character: 24}

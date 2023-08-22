@@ -1,27 +1,19 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change quad
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifier: {type: surroundingPair, delimiter: doubleQuotes}
 initialState:
-  documentContents: function hello<Foo>() {}
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|function hello<Foo>() {}
+  documentContents: // "(hello)"
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: function hello() {}
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|function hello() {}
+  documentContents: "// "
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

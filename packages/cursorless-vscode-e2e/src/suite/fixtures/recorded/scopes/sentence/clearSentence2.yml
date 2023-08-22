@@ -1,49 +1,23 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change sentence
-  action: {name: clearAndSetSelection}
+  spokenForm: chuck bat
+  action: {name: remove}
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: sentence}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    /** 
-     * Definitely the worlds
-     * best jsdoc
-     */
-    const value = 2
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|/** 
-  # 1| * Definitely the worlds
-  # 2| * best jsdoc
-  # 3| */
-  # 4|const value = 2
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
+  documentContents: "aaa bbb: ccc"
   selections:
-    - anchor: {line: 1, character: 3}
-      active: {line: 1, character: 3}
-  marks: {}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: |-
-    /** 
-     * 
-     */
-    const value = 2
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|/** 
-  # 1| * 
-  # 2| */
-  # 3|const value = 2
+  documentContents: "aaa: ccc"
   selections:
-    - anchor: {line: 1, character: 3}
-      active: {line: 1, character: 3}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

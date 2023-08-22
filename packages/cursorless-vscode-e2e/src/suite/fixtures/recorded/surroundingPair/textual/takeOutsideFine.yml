@@ -1,31 +1,18 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change pair fine
+  spokenForm: change quad
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifier: {type: surroundingPair, delimiter: doubleQuotes}
 initialState:
-  documentContents: (<user.foo>  <user.bar>)
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|(<user.foo>  <user.bar>)
+  documentContents: "\"\""
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 23}
-  marks:
-    default.f:
-      start: {line: 0, character: 7}
-      end: {line: 0, character: 10}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
 finalState:
-  documentContents: (  <user.bar>)
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|(  <user.bar>)
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

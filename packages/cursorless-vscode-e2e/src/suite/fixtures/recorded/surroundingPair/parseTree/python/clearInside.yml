@@ -7,29 +7,17 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
 initialState:
-  documentContents: |-
-    """fds
-
-    dfsd
-    """
-  #   012345
-  #  +------
-  # 0|"""fds
-  # 1|
-  # 2|dfsd
-  # 3|"""
+  documentContents: |
+    class a(object):
+        pass
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
   marks: {}
 finalState:
-  documentContents: |-
-    """
-    """
-  #   012
-  #  +---
-  # 0|"""
-  # 1|"""
+  documentContents: |
+    class a():
+        pass
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

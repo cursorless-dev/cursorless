@@ -1,30 +1,27 @@
-languageId: plaintext
+languageId: typescript
 command:
-  version: 5
-  spokenForm: chuck first two words
-  action: {name: remove}
+  version: 1
+  spokenForm: chuck first word vest
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: ordinalScope
-          scopeType: {type: word}
-          start: 0
-          length: 2
-  usePrePhraseSnapshot: true
+      modifier: {type: subpiece, pieceType: word, anchor: 0, active: 0}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
-  documentContents: a_b_c
-  #   01234
-  #  +-----
-  # 0|a_b_c
+  documentContents: |
+
+    const value_hello_str = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  marks: {}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 21}
 finalState:
-  documentContents: c
-  #   0
-  #  +-
-  # 0|c
+  documentContents: |
+
+    const hello_str = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

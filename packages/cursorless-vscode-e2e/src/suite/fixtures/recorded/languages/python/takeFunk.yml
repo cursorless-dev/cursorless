@@ -7,33 +7,21 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: namedFunction}
 initialState:
-  documentContents: |
+  documentContents: |-
 
+    @annotation
     def my_funk(name: str, value) -> str:
         return
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|
-  # 1|def my_funk(name: str, value) -> str:
-  # 2|    return
-  # 3|
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
 
+    @annotation
     def my_funk(name: str, value) -> str:
         return
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|
-  # 1|def my_funk(name: str, value) -> str:
-  # 2|    return
-  # 3|
   selections:
     - anchor: {line: 1, character: 0}
-      active: {line: 2, character: 10}
+      active: {line: 3, character: 10}

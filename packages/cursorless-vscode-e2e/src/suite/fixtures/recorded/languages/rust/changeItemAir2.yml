@@ -1,38 +1,28 @@
 languageId: rust
 command:
-  spokenForm: change item air
-  version: 3
+  spokenForm: change item near
+  version: 2
   targets:
     - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    type T = (&'static str, &'static str);
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|type T = (&'static str, &'static str);
-  # 1|
+    let x = [None, Some(1)];
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}
   marks:
-    default.a:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 18}
+    default.n:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 13}
 finalState:
   documentContents: |
-    type T = (, &'static str);
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|type T = (, &'static str);
-  # 1|
+    let x = [, Some(1)];
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

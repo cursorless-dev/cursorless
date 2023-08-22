@@ -11,29 +11,18 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    slap: key(end enter)
+    some command: 
+        value = 1 + 1
         
-        
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|slap: key(end enter)
-  # 1|    
-  # 2|    
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    slap: 
+    some command: 
         
         
-  #   012345
-  #  +------
-  # 0|slap: 
-  # 1|    
-  # 2|    
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

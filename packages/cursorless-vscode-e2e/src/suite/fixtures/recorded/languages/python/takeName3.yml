@@ -1,37 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take name
+  spokenForm: take state
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name}
+      modifier: {type: containingScope, scopeType: statement}
 initialState:
-  documentContents: |-
+  documentContents: |
 
-    class MyClass:
-        """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|class MyClass:
-  # 2|    """"""
-  selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-  marks: {}
-finalState:
-  documentContents: |-
-
-    class MyClass:
-        """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|class MyClass:
-  # 2|    """"""
+    value = "hello world"
   selections:
     - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 13}
+      active: {line: 1, character: 6}
+  marks: {}
+finalState:
+  documentContents: |
+
+    value = "hello world"
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 21}

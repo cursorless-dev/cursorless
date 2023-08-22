@@ -11,27 +11,15 @@ initialState:
     @mixin foo($foo: red) {
 
     }
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|@mixin foo($foo: red) {
-  # 1|
-  # 2|}
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
   marks: {}
 finalState:
   documentContents: |-
     @mixin foo($foo: ) {
 
     }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|@mixin foo($foo: ) {
-  # 1|
-  # 2|}
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}

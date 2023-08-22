@@ -1,11 +1,12 @@
 languageId: scss
 command:
-  spokenForm: change last word look
+  spokenForm: change leading last word look
   version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: l}
       modifiers:
+        - {type: leading}
         - type: ordinalRange
           scopeType: {type: word}
           anchor: -1
@@ -20,13 +21,6 @@ initialState:
        height: 10px;
      }
      
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0| .long-bem-class-name {
-  # 1|   height: 10px;
-  # 2| }
-  # 3| 
   selections:
     - anchor: {line: 3, character: 1}
       active: {line: 3, character: 1}
@@ -36,17 +30,10 @@ initialState:
       end: {line: 0, character: 21}
 finalState:
   documentContents: |2-
-     .long-bem-class- {
+     .long-bem-classname {
        height: 10px;
      }
      
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0| .long-bem-class- {
-  # 1|   height: 10px;
-  # 2| }
-  # 3| 
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

@@ -1,40 +1,25 @@
 languageId: typescript
 command:
-  spokenForm: chuck funk
-  version: 3
+  version: 1
+  spokenForm: else wrap this
+  action: wrapWithSnippet
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: namedFunction}
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+      mark: {type: cursor}
+  extraArgs: [ifElseStatement.alternative]
 initialState:
-  documentContents: |-
-    abstract class Foo {
-        protected abstract bongo(): void;
-    }
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|abstract class Foo {
-  # 1|    protected abstract bongo(): void;
-  # 2|}
+  documentContents: const foo = "hello";
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: |-
-    abstract class Foo {
-
+    if () {
+        
+    } else {
+        const foo = "hello";
     }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|abstract class Foo {
-  # 1|
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

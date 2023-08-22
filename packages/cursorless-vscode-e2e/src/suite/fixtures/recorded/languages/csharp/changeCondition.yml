@@ -11,12 +11,6 @@ initialState:
     if (columnname != a && columnname != b && columnname != c)
     {
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901234567
-  #  +----------------------------------------------------------
-  # 0|if (columnname != a && columnname != b && columnname != c)
-  # 1|{
-  # 2|}
   selections:
     - anchor: {line: 0, character: 28}
       active: {line: 0, character: 28}
@@ -26,11 +20,6 @@ finalState:
     if ()
     {
     }
-  #   01234
-  #  +-----
-  # 0|if ()
-  # 1|{
-  # 2|}
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

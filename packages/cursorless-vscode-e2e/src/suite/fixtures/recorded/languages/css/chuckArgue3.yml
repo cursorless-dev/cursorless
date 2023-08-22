@@ -11,12 +11,6 @@ initialState:
     a {
       width: calc(100% - 80px);
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|a {
-  # 1|  width: calc(100% - 80px);
-  # 2|}
   selections:
     - anchor: {line: 1, character: 23}
       active: {line: 1, character: 23}
@@ -26,12 +20,6 @@ finalState:
     a {
       width: calc();
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|a {
-  # 1|  width: calc();
-  # 2|}
   selections:
     - anchor: {line: 1, character: 14}
       active: {line: 1, character: 14}

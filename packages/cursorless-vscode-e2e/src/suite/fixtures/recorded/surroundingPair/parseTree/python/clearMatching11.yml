@@ -7,26 +7,15 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
 initialState:
-  documentContents: |-
-
-    "'jlkjl' 'fsd'"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|
-  # 1|"'jlkjl' 'fsd'"
+  documentContents: |
+    a[222]
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
   marks: {}
 finalState:
-  documentContents: |-
-
-    "'' 'fsd'"
-  #   0123456789
-  #  +----------
-  # 0|
-  # 1|"'' 'fsd'"
+  documentContents: |
+    a[]
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

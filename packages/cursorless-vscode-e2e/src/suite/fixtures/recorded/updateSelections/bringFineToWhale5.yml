@@ -1,35 +1,38 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring fine to whale
+  spokenForm: bring harp to fourth char whale past second char harp
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+    - type: range
+      start:
+        type: primitive
+        selectionType: token
+        modifier: {type: subpiece, pieceType: character, anchor: 3, active: 3, excludeAnchor: false, excludeActive: false}
+        mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      end:
+        type: primitive
+        selectionType: token
+        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      excludeStart: false
+      excludeEnd: false
 initialState:
   documentContents: foo world whatever
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|foo world whatever
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
   marks:
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+    default.h:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 18}
     default.w:
       start: {line: 0, character: 4}
       end: {line: 0, character: 9}
 finalState:
-  documentContents: foo foo whatever
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|foo foo whatever
+  documentContents: foo worwhateveratever
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}

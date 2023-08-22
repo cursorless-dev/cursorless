@@ -1,35 +1,21 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change condition
+  spokenForm: change every arg
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
-  documentContents: |-
-    if true
-
-    end
-  #   0123456
-  #  +-------
-  # 0|if true
-  # 1|
-  # 2|end
+  documentContents: a.call(hello, world)
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
   marks: {}
 finalState:
-  documentContents: |-
-    if 
-
-    end
-  #   012
-  #  +---
-  # 0|if 
-  # 1|
-  # 2|end
+  documentContents: a.call(, )
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

@@ -8,20 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: "b := Student{ Name: \"Bob\" }"
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|b := Student{ Name: "Bob" }
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
   marks: {}
 finalState:
   documentContents: "b := { Name: \"Bob\" }"
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|b := { Name: "Bob" }
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}

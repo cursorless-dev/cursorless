@@ -1,28 +1,28 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
   spokenForm: chuck file
-  action: remove
+  version: 2
+  action: {name: remove}
   targets:
-    - {type: primitive, selectionType: document}
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
+  documentContents: |2+
 
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
+
+        foo 
+
+        bar 
+
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

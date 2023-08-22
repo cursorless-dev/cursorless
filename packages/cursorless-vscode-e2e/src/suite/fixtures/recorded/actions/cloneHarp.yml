@@ -8,9 +8,6 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: hello
-  #   01234
-  #  +-----
-  # 0|hello
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
@@ -22,10 +19,6 @@ finalState:
   documentContents: |-
     hello
     hello
-  #   01234
-  #  +-----
-  # 0|hello
-  # 1|hello
   selections:
     - anchor: {line: 1, character: 5}
       active: {line: 1, character: 5}

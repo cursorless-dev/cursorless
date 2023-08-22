@@ -1,43 +1,19 @@
 languageId: scala
 command:
-  version: 1
-  spokenForm: change funk name four
+  version: 0
+  spokenForm: change if state
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: '4'}
+      modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
 initialState:
-  documentContents: |
-    class ExampleClass() {
-      def foo() = 42
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  def foo() = 42
-  # 2|}
-  # 3|
+  documentContents: val test = if (true) true else false
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.4:
-      start: {line: 1, character: 14}
-      end: {line: 1, character: 16}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks: {}
 finalState:
-  documentContents: |
-    class ExampleClass() {
-      def () = 42
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  def () = 42
-  # 2|}
-  # 3|
+  documentContents: "val test = "
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

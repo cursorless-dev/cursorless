@@ -18,19 +18,6 @@ initialState:
         ],
         3
     ];
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|[
-  # 1|    [
-  # 2|        1, 
-  # 3|        2
-  # 4|    ],
-  # 5|    3
-  # 6|];
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 4, character: 4}
       active: {line: 4, character: 4}
@@ -41,12 +28,6 @@ finalState:
         ,
         3
     ];
-  #   01234
-  #  +-----
-  # 0|[
-  # 1|    ,
-  # 2|    3
-  # 3|];
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

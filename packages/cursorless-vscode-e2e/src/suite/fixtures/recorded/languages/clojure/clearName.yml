@@ -11,12 +11,6 @@ initialState:
     (defn say-hello
       [name]
       (println (str "Hello, " name)))
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|(defn say-hello
-  # 1|  [name]
-  # 2|  (println (str "Hello, " name)))
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -26,12 +20,6 @@ finalState:
     (defn 
       [name]
       (println (str "Hello, " name)))
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|(defn 
-  # 1|  [name]
-  # 2|  (println (str "Hello, " name)))
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

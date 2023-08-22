@@ -1,35 +1,29 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take comment
+  spokenForm: take condition
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment}
+      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
 initialState:
-  documentContents: |
+  documentContents: |-
+    if True:
+        pass
 
-    # Hello world
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|
-  # 1|# Hello world
-  # 2|
+    while True:
+        pass
   selections:
-    - anchor: {line: 1, character: 1}
-      active: {line: 1, character: 1}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
+    if True:
+        pass
 
-    # Hello world
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|
-  # 1|# Hello world
-  # 2|
+    while True:
+        pass
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 13}
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 10}

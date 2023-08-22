@@ -1,44 +1,30 @@
-languageId: typescript
+languageId: javascriptreact
 command:
-  version: 3
-  spokenForm: change subject
+  version: 5
+  spokenForm: change tags
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: switchStatementSubject}
+          scopeType: {type: xmlBothTags}
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |-
-    switch(aaa + 1) {
-      case 0:
-        break;
+    function Comp() {
+        return <>text</>;
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|switch(aaa + 1) {
-  # 1|  case 0:
-  # 2|    break;
-  # 3|}
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   marks: {}
 finalState:
   documentContents: |-
-    switch() {
-      case 0:
-        break;
+    function Comp() {
+        return text;
     }
-  #   0123456789
-  #  +----------
-  # 0|switch() {
-  # 1|  case 0:
-  # 2|    break;
-  # 3|}
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}

@@ -1,49 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take type
+  spokenForm: take value
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type}
+      modifier: {type: containingScope, scopeType: value}
 initialState:
   documentContents: |
 
-    function myFunk (name: string) {
-
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|
-  # 1|function myFunk (name: string) {
-  # 2|
-  # 3|}
-  # 4|
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
+    const value: string = "Hello world";
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
   documentContents: |
 
-    function myFunk (name: string) {
-
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|
-  # 1|function myFunk (name: string) {
-  # 2|
-  # 3|}
-  # 4|
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
+    const value: string = "Hello world";
   selections:
-    - anchor: {line: 1, character: 23}
-      active: {line: 1, character: 29}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 35}

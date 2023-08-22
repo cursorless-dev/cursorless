@@ -1,43 +1,21 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change previous two instances air
+  spokenForm: change three instances
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
           scopeType: {type: instance}
-          offset: 1
-          length: 2
-          direction: backward
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+          offset: 0
+          length: 3
+          direction: forward
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    aaa bbb ccc aaa ddd aaa
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|aaa bbb ccc aaa ddd aaa
-  # 1|
-  selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-  marks:
-    default.a:
-      start: {line: 0, character: 20}
-      end: {line: 0, character: 23}
-finalState:
-  documentContents: |2
-     bbb ccc  ddd aaa
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0| bbb ccc  ddd aaa
-  # 1|
+  documentContents: aaa bbb aaa
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+  marks: {}
+thrownError: {name: OutOfRangeError}

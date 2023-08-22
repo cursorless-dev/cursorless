@@ -1,41 +1,25 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take class
+  spokenForm: take class name
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: class}
+      modifier: {type: containingScope, scopeType: className}
 initialState:
   documentContents: |-
 
-    @annotation
     class MyClass:
         """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|@annotation
-  # 2|class MyClass:
-  # 3|    """"""
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-
 
-    @annotation
     class MyClass:
         """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|@annotation
-  # 2|class MyClass:
-  # 3|    """"""
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 3, character: 10}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 13}

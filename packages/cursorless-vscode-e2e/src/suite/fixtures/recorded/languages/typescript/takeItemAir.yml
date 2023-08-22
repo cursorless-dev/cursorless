@@ -1,39 +1,27 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take item air
+  spokenForm: take item comma
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: ','}
 initialState:
   documentContents: |
 
     const value = { a: 1, b: 2, c: 3 };
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|
-  # 1|const value = { a: 1, b: 2, c: 3 };
-  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.a:
-      start: {line: 1, character: 16}
-      end: {line: 1, character: 17}
+    default.,:
+      start: {line: 1, character: 20}
+      end: {line: 1, character: 21}
 finalState:
   documentContents: |
 
     const value = { a: 1, b: 2, c: 3 };
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|
-  # 1|const value = { a: 1, b: 2, c: 3 };
-  # 2|
   selections:
     - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 20}
+      active: {line: 1, character: 26}

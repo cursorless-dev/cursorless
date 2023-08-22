@@ -7,20 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
-  documentContents: hi = -> { puts "Hi!" }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|hi = -> { puts "Hi!" }
+  documentContents: |+
+    [1,2,3].each do |i|
+        puts i
+    end
+
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
   marks: {}
 finalState:
-  documentContents: "hi = "
-  #   01234
-  #  +-----
-  # 0|hi = 
+  documentContents: |+
+    [1,2,3].each 
+
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

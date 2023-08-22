@@ -1,28 +1,30 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take second word
+  spokenForm: take third past second word harp
   action: setSelection
   targets:
     - type: primitive
       selectionType: token
-      modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}
+      modifier: {type: subpiece, pieceType: word, anchor: 2, active: 1}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
-  documentContents: ;helloThere;
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|;helloThere;
+  documentContents: |+
+
+    const value = "HelloWorldWhatever";
+
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.h:
+      start: {line: 1, character: 15}
+      end: {line: 1, character: 33}
 finalState:
-  documentContents: ;helloThere;
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|;helloThere;
+  documentContents: |+
+
+    const value = "HelloWorldWhatever";
+
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 11}
+    - anchor: {line: 1, character: 33}
+      active: {line: 1, character: 20}

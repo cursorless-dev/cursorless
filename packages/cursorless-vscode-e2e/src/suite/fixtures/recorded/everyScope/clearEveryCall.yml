@@ -11,19 +11,12 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: a(b(), c()) + d()
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|a(b(), c()) + d()
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 17}
   marks: {}
 finalState:
   documentContents: " + "
-  #   012
-  #  +---
-  # 0| + 
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

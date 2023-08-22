@@ -1,35 +1,25 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring fine after third char this
+  spokenForm: bring fine before this
   action: replaceWithTarget
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
       mark: {type: cursor}
-      position: after
+      position: before
 initialState:
-  documentContents: foo world whatever
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|foo world whatever
+  documentContents: foo world
   selections:
     - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
+      active: {line: 0, character: 4}
   marks:
     default.f:
       start: {line: 0, character: 0}
       end: {line: 0, character: 3}
 finalState:
-  documentContents: foo worfoold whatever
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|foo worfoold whatever
+  documentContents: foo foo world
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

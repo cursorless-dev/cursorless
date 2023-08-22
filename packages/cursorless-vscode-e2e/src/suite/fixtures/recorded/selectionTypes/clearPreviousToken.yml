@@ -1,31 +1,25 @@
 languageId: plaintext
 command:
-  spokenForm: change previous token
+  spokenForm: change previous word
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: token}
+          scopeType: {type: word}
           offset: 1
           length: 1
           direction: backward
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: a  b
-  #   0123
-  #  +----
-  # 0|a  b
+  documentContents: aaaBbbCccDdd
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: "  b"
-  #   012
-  #  +---
-  # 0|  b
+  documentContents: BbbCccDdd
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

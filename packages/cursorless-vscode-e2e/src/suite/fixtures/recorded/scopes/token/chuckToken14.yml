@@ -10,19 +10,13 @@ command:
           scopeType: {type: token}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: a b
-  #   012
-  #  +---
-  # 0|a b
+  documentContents: "\"foo-bar bongo-bazman\""
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 21}
   marks: {}
 finalState:
-  documentContents: a
-  #   0
-  #  +-
-  # 0|a
+  documentContents: "\"foo-bar\""
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

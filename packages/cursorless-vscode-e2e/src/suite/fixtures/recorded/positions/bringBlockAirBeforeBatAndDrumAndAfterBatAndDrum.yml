@@ -1,108 +1,51 @@
-languageId: plaintext
+languageId: python
 command:
-  spokenForm: bring block air before bat and drum and after bat and drum
+  spokenForm: bring funk air after bat
   version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
       modifiers:
         - type: containingScope
-          scopeType: {type: paragraph}
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
-          modifiers:
-            - {type: position, position: before}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: d}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
-          modifiers:
-            - {type: position, position: after}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+          scopeType: {type: namedFunction}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifiers:
+        - {type: position, position: after}
   usePrePhraseSnapshot: true
   action: {name: replaceWithTarget}
 initialState:
-  documentContents: |-
-    aaa
+  documentContents: |2
+        def aaa():
 
-        bbb
-            ccc
+            pass
 
-            ddd
-        eee
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa
-  # 1|
-  # 2|    bbb
-  # 3|        ccc
-  # 4|
-  # 5|        ddd
-  # 6|    eee
-  #  +-----------
-  #   01234567890
-  #             1
+        def bbb():
+
+            pass
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
     default.b:
-      start: {line: 2, character: 4}
-      end: {line: 2, character: 7}
-    default.d:
-      start: {line: 5, character: 8}
-      end: {line: 5, character: 11}
+      start: {line: 4, character: 8}
+      end: {line: 4, character: 11}
 finalState:
-  documentContents: |-
-    aaa
+  documentContents: |2
+        def aaa():
 
-        aaa
+            pass
 
-        bbb
-            ccc
+        def bbb():
 
-        aaa
+            pass
 
-        aaa
+        def aaa():
 
-            ddd
-        eee
-
-        aaa
-  #              1
-  #    01234567890
-  #   +-----------
-  #  0|aaa
-  #  1|
-  #  2|    aaa
-  #  3|
-  #   +-----------
-  #    01234567890
-  #   +-----------
-  #  4|    bbb
-  #  5|        ccc
-  #  6|
-  #  7|    aaa
-  #   +-----------
-  #    01234567890
-  #   +-----------
-  #  8|
-  #  9|    aaa
-  # 10|
-  # 11|        ddd
-  # 12|    eee
-  # 13|
-  # 14|    aaa
-  #   +-----------
-  #    01234567890
-  #              1
+            pass
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

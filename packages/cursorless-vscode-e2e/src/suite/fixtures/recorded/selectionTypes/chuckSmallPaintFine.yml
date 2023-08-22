@@ -11,23 +11,16 @@ command:
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: "[foo[0], bar]"
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|[foo[0], bar]
+  documentContents: "[baz, foo[0], bar]"
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks:
     default.f:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 4}
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 9}
 finalState:
-  documentContents: "[bar]"
-  #   01234
-  #  +-----
-  # 0|[bar]
+  documentContents: "[baz, bar]"
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

@@ -1,61 +1,25 @@
 languageId: markdown
 command:
   version: 1
-  spokenForm: change section
-  action: clearAndSetSelection
+  spokenForm: chuck item
+  action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: section, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
 initialState:
   documentContents: |-
-    # Hello world
 
-    Testing testing
-
-    ## Some test
-
-    Hello there
-
-    ### Another test
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|# Hello world
-  # 1|
-  # 2|Testing testing
-  # 3|
-  #  +----------------
-  #   0123456789012345
-  #  +----------------
-  # 4|## Some test
-  # 5|
-  # 6|Hello there
-  # 7|
-  # 8|### Another test
-  #  +----------------
-  #   0123456789012345
-  #             1
+    - hello world
+    - whatever now
   selections:
-    - anchor: {line: 6, character: 8}
-      active: {line: 6, character: 8}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   marks: {}
 finalState:
-  documentContents: |+
-    # Hello world
+  documentContents: |-
 
-    Testing testing
 
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|# Hello world
-  # 1|
-  # 2|Testing testing
-  # 3|
-  # 4|
-  #  +---------------
-  #   012345678901234
-  #             1
+    - whatever now
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

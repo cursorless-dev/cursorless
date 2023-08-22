@@ -1,5 +1,3 @@
-  # (empty)
-
 languageId: typescript
 command:
   spokenForm: box repack funk
@@ -20,17 +18,6 @@ initialState:
         // aaa
       }
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|{
-  # 1|  function myFunk() {
-  # 2|    // aaa
-  # 3|  }
-  # 4|}
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}

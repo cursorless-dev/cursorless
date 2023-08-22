@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change row two past four
+  spokenForm: change row two until four
   version: 3
   targets:
     - type: primitive
@@ -9,7 +9,7 @@ command:
         anchor: {type: lineNumber, lineNumberType: modulo100, lineNumber: 1}
         active: {type: lineNumber, lineNumberType: modulo100, lineNumber: 3}
         excludeAnchor: false
-        excludeActive: false
+        excludeActive: true
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
@@ -19,13 +19,6 @@ initialState:
     c
     d
     e
-  #   0
-  #  +-
-  # 0|a
-  # 1|b
-  # 2|c
-  # 3|d
-  # 4|e
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -34,12 +27,8 @@ finalState:
   documentContents: |-
     a
 
+    d
     e
-  #   0
-  #  +-
-  # 0|a
-  # 1|
-  # 2|e
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

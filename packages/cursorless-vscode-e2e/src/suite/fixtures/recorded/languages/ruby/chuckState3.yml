@@ -8,30 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |-
-    [].each do |i|
+    [].each { |i|
       puts i
-    end
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|[].each do |i|
-  # 1|  puts i
-  # 2|end
+    }
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    [].each do |i|
+    [].each { |i|
 
-    end
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|[].each do |i|
-  # 1|
-  # 2|end
+    }
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

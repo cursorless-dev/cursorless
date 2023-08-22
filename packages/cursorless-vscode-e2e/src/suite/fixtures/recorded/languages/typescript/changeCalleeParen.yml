@@ -8,22 +8,16 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: (}
 initialState:
-  documentContents: test()
-  #   012345
-  #  +------
-  # 0|test()
+  documentContents: test()()
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks:
     default.(:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 5}
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 7}
 finalState:
   documentContents: ()
-  #   01
-  #  +--
-  # 0|()
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

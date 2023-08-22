@@ -1,26 +1,19 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change inside
+  spokenForm: change pair
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
+      modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: "{const [bongo, baz] = [foo, bar]}"
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|{const [bongo, baz] = [foo, bar]}
-  selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 20}
-  marks: {}
-finalState:
-  documentContents: "{}"
-  #   01
-  #  +--
-  # 0|{}
+  documentContents: "`Hello, ${name}!`"
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -8,30 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |-
-    while true  do
-      puts "hi"
+    class << self
+      a = 10
     end
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|while true  do
-  # 1|  puts "hi"
-  # 2|end
   selections:
-    - anchor: {line: 1, character: 5}
-      active: {line: 1, character: 5}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
   marks: {}
 finalState:
   documentContents: |-
-    while true  do
+    class << self
       
     end
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|while true  do
-  # 1|  
-  # 2|end
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

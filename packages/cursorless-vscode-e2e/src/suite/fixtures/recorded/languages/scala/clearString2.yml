@@ -1,43 +1,30 @@
 languageId: scala
 command:
   version: 0
-  spokenForm: change string
+  spokenForm: change string odd
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
 spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
-    val string = """
-    multi
-    line
-    string
-    """
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|val string = """
-  # 1|multi
-  # 2|line
-  # 3|string
-  # 4|"""
-  # 5|
-  #  +----------------
-  #   0123456789012345
-  #             1
+    class ExampleClass() {
+      val example = f"formatted ${1} string"
+    }
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.o:
+      start: {line: 1, character: 18}
+      end: {line: 1, character: 27}
 finalState:
   documentContents: |
-    val string = 
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|val string = 
-  # 1|
+    class ExampleClass() {
+      val example = 
+    }
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}

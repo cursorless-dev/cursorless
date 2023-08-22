@@ -1,39 +1,31 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take every item
+  spokenForm: take funk
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: namedFunction}
 initialState:
   documentContents: |
 
-    int[] values = {1, 2, 3};
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|
-  # 1|int[] values = {1, 2, 3};
-  # 2|
+    public class MyClass {
+        void myFunk () {
+
+        }
+    }
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 17}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
   marks: {}
 finalState:
   documentContents: |
 
-    int[] values = {1, 2, 3};
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|
-  # 1|int[] values = {1, 2, 3};
-  # 2|
+    public class MyClass {
+        void myFunk () {
+
+        }
+    }
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 17}
-    - anchor: {line: 1, character: 19}
-      active: {line: 1, character: 20}
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 23}
+    - anchor: {line: 2, character: 4}
+      active: {line: 4, character: 5}

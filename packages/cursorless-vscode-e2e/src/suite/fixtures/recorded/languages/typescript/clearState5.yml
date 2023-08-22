@@ -1,62 +1,31 @@
 languageId: typescript
 command:
-  spokenForm: change state
   version: 3
+  spokenForm: change subject
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |-
-    abstract class Foo {
-        value: string;
-        abstract bar(): void;
-        baz() { }
+    switch(aaa) {
+      case 0:
+        break;
     }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|abstract class Foo {
-  # 1|    value: string;
-  # 2|    abstract bar(): void;
-  # 3|    baz() { }
-  # 4|}
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    abstract class Foo {
-        
-        
-        
+    switch() {
+      case 0:
+        break;
     }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|abstract class Foo {
-  # 1|    
-  # 2|    
-  # 3|    
-  # 4|}
-  #  +--------------------
-  #   01234567890123456789
-  #             1
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

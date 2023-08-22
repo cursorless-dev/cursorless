@@ -1,29 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change bounds
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
-  documentContents: "{1: [(1), (2), (3)]}"
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|{1: [(1), (2), (3)]}
+  documentContents: |
+    class a(object):
+        pass
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
   marks: {}
 finalState:
-  documentContents: "1: [(1), (2), (3)]"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|1: [(1), (2), (3)]
+  documentContents: |
+    class a:
+        pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

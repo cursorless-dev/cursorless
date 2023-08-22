@@ -10,11 +10,6 @@ initialState:
   documentContents: |-
     int f(int a, int b) {
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|int f(int a, int b) {
-  # 1|}
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
@@ -23,11 +18,6 @@ finalState:
   documentContents: |-
     int f(int a, int b) {
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|int f(int a, int b) {
-  # 1|}
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 18}

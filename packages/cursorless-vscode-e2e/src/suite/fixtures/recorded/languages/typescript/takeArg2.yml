@@ -1,35 +1,27 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take arg
+  spokenForm: take lambda
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter}
+      modifier: {type: containingScope, scopeType: anonymousFunction}
 initialState:
   documentContents: |
 
-    myFunk(1, 2, 3)
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|
-  # 1|myFunk(1, 2, 3)
-  # 2|
+    const value = () => {
+
+    }
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks: {}
 finalState:
   documentContents: |
 
-    myFunk(1, 2, 3)
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|
-  # 1|myFunk(1, 2, 3)
-  # 2|
+    const value = () => {
+
+    }
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 14}
+      active: {line: 3, character: 1}

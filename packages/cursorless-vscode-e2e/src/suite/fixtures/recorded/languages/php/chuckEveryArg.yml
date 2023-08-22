@@ -1,55 +1,25 @@
 languageId: php
 command:
   version: 1
-  spokenForm: chuck every arg
+  spokenForm: chuck every item
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
 initialState:
   documentContents: |-
     <?php
 
-    function myFunc($value, $nums)
-    {
-
-    }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|<?php
-  # 1|
-  # 2|function myFunc($value, $nums)
-  # 3|{
-  # 4|
-  # 5|}
-  #  +------------------------------
-  #   012345678901234567890123456789
-  #             1         2
+    [1, 2, 3];
   selections:
-    - anchor: {line: 2, character: 20}
-      active: {line: 2, character: 20}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    function myFunc()
-    {
-
-    }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|<?php
-  # 1|
-  # 2|function myFunc()
-  # 3|{
-  # 4|
-  # 5|}
-  #  +-----------------
-  #   01234567890123456
-  #             1
+    [];
   selections:
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}

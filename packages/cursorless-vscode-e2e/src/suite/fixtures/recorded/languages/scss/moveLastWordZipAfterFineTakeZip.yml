@@ -1,53 +1,28 @@
 languageId: scss
 command:
-  spokenForm: move last word zip after fine take zip
+  spokenForm: take every token
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: z}
       modifiers:
-        - type: ordinalRange
-          scopeType: {type: word}
-          anchor: -1
-          active: -1
-          excludeAnchor: false
-          excludeActive: false
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      modifiers:
-        - {type: position, position: after}
+        - type: everyScope
+          scopeType: {type: token}
   usePrePhraseSnapshot: true
-  action: {name: moveToTarget}
-marksToCheck: [default.z]
+  action: {name: setSelection}
 initialState:
-  documentContents: foo-bar baz-bongo
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|foo-bar baz-bongo
+  documentContents: .long-bem-class-name {}
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
-  marks:
-    default.z:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 17}
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 7}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks: {}
 finalState:
-  documentContents: foo-bar-bongo baz
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|foo-bar-bongo baz
+  documentContents: .long-bem-class-name {}
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
-  marks:
-    default.z:
-      start: {line: 0, character: 14}
-      end: {line: 0, character: 17}
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 13}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 20}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 23}

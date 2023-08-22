@@ -11,9 +11,6 @@ command:
   action: {name: remove}
 initialState:
   documentContents: (hello )
-  #   01234567
-  #  +--------
-  # 0|(hello )
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
@@ -27,9 +24,6 @@ initialState:
       hasExplicitRange: false
 finalState:
   documentContents: ()
-  #   01
-  #  +--
-  # 0|()
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

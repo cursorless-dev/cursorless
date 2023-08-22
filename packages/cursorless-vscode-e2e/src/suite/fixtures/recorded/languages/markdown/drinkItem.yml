@@ -1,8 +1,8 @@
 languageId: markdown
 command:
   version: 5
-  spokenForm: drink item
-  action: {name: editNewLineBefore}
+  spokenForm: pour item
+  action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
@@ -15,12 +15,6 @@ initialState:
       - bbb
       - ccc
       - ddd
-  #   0123456
-  #  +-------
-  # 0|- aaa
-  # 1|  - bbb
-  # 2|  - ccc
-  # 3|  - ddd
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -28,19 +22,10 @@ initialState:
 finalState:
   documentContents: |-
     - aaa
-      - 
       - bbb
+      - 
       - ccc
       - ddd
-  #   0123456
-  #  +-------
-  # 0|- aaa
-  # 1|  - 
-  # 2|  - bbb
-  # 3|  - ccc
-  # 4|  - ddd
-  #  +-------
-  #   0123456
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

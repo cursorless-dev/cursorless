@@ -1,29 +1,19 @@
 languageId: rust
 command:
-  spokenForm: chuck class name
-  version: 2
+  version: 1
+  spokenForm: chuck comment
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: className}
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
 initialState:
-  documentContents: struct Some {}
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|struct Some {}
+  documentContents: // a comment
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
   marks: {}
 finalState:
-  documentContents: struct {}
-  #   012345678
-  #  +---------
-  # 0|struct {}
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

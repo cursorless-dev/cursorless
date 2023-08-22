@@ -1,28 +1,22 @@
 languageId: plaintext
 command:
-  spokenForm: change trailing
-  version: 2
+  spokenForm: change word
+  version: 3
   targets:
     - type: primitive
       modifiers:
-        - {type: trailing}
+        - type: containingScope
+          scopeType: {type: word}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb ccc
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
+  documentContents: aaaBbbCcc
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: aaa bbbccc
-  #   0123456789
-  #  +----------
-  # 0|aaa bbbccc
+  documentContents: aaaCcc
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

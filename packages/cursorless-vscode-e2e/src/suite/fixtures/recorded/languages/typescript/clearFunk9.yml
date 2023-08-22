@@ -1,24 +1,28 @@
-  # (empty)
-
 languageId: typescript
 command:
-  version: 5
-  spokenForm: change funk
-  action: {name: clearAndSetSelection}
+  spokenForm: change funk name
+  version: 3
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: {type: functionName}
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: const foo = function bar() {}
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|const foo = function bar() {}
+  documentContents: |-
+    abstract class Foo {
+        protected abstract bar(): void;
+      }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 30}
+      active: {line: 1, character: 30}
   marks: {}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: |-
+    abstract class Foo {
+        protected abstract (): void;
+      }
+  selections:
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 23}

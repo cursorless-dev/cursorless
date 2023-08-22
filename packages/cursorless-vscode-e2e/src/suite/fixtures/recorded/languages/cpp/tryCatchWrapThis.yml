@@ -9,10 +9,6 @@ command:
   extraArgs: [tryCatchStatement.body]
 initialState:
   documentContents: int foo = 0;
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|int foo = 0;
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -24,17 +20,6 @@ finalState:
     } catch () {
         
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|try {
-  # 1|    int foo = 0;
-  # 2|} catch () {
-  # 3|    
-  # 4|}
-  #  +----------------
-  #   0123456789012345
-  #             1
   selections:
     - anchor: {line: 2, character: 9}
       active: {line: 2, character: 9}

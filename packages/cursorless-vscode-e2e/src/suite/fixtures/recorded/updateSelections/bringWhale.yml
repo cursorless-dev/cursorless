@@ -1,17 +1,16 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring whale
+  spokenForm: bring whale after this
   action: replaceWithTarget
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
-    - {type: primitive, isImplicit: true}
+    - type: primitive
+      mark: {type: cursor}
+      position: after
 initialState:
   documentContents: foo world
-  #   012345678
-  #  +---------
-  # 0|foo world
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
@@ -20,11 +19,7 @@ initialState:
       start: {line: 0, character: 4}
       end: {line: 0, character: 9}
 finalState:
-  documentContents: fooworld world
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|fooworld world
+  documentContents: foo world world
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

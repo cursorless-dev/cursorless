@@ -1,27 +1,19 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change start tag
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: containingScope, scopeType: xmlStartTag, includeSiblings: false}
 initialState:
-  documentContents: <note>foo (hello) whatever</note>
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|<note>foo (hello) whatever</note>
+  documentContents: <note>foo</note>
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: <note>foo  whatever</note>
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|<note>foo  whatever</note>
+  documentContents: foo</note>
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

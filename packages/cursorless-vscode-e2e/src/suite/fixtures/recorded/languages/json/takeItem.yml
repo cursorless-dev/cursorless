@@ -10,40 +10,18 @@ initialState:
   documentContents: |
 
     {
-        "foo": "bar"
+        "foo": [1, 2, 3]
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|{
-  # 2|    "foo": "bar"
-  # 3|}
-  # 4|
-  #  +----------------
-  #   0123456789012345
-  #             1
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 13}
   marks: {}
 finalState:
   documentContents: |
 
     {
-        "foo": "bar"
+        "foo": [1, 2, 3]
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|{
-  # 2|    "foo": "bar"
-  # 3|}
-  # 4|
-  #  +----------------
-  #   0123456789012345
-  #             1
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 13}

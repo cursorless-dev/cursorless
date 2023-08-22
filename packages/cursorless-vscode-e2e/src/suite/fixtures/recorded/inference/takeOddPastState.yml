@@ -18,12 +18,6 @@ initialState:
     const foo = "hello";
 
     const bar = "hello";
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|const foo = "hello";
-  # 1|
-  # 2|const bar = "hello";
   selections:
     - anchor: {line: 2, character: 18}
       active: {line: 2, character: 18}
@@ -36,12 +30,6 @@ finalState:
     const foo = "hello";
 
     const bar = "hello";
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|const foo = "hello";
-  # 1|
-  # 2|const bar = "hello";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 2, character: 20}

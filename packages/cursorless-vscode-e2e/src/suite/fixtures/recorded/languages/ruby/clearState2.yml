@@ -1,25 +1,28 @@
-languageId: ruby
+languageId: rust
 command:
-  version: 1
-  spokenForm: change state
-  action: clearAndSetSelection
+  spokenForm: change arg air
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: bar("bongo")
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|bar("bongo")
+  documentContents: |
+    fn foo(x: &'a mut u32) -> &'static mut u16 {}
+  selections:
+    - anchor: {line: 0, character: 45}
+      active: {line: 0, character: 45}
+  marks:
+    default.a:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 13}
+finalState:
+  documentContents: |
+    fn foo() -> &'static mut u16 {}
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
-  marks: {}
-finalState:
-  documentContents: ""
-  # (empty)
-
-  selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}

@@ -8,19 +8,12 @@ command:
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
   documentContents: if (foo > 0) {}
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|if (foo > 0) {}
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: if  {}
-  #   012345
-  #  +------
-  # 0|if  {}
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

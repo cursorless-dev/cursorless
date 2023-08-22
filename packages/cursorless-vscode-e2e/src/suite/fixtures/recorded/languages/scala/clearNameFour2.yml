@@ -1,43 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: change name four
+  spokenForm: change round whale
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: '4'}
+      modifier: {type: surroundingPair, delimiter: parentheses}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
   documentContents: |
-    class ExampleClass() {
-      val foo = 42
+    class Example() {
+      val example = "some (wrapped text) to test"
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  val foo = 42
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.4:
-      start: {line: 1, character: 12}
-      end: {line: 1, character: 14}
+    default.w:
+      start: {line: 1, character: 23}
+      end: {line: 1, character: 30}
 finalState:
   documentContents: |
-    class ExampleClass() {
-      val  = 42
+    class Example() {
+      val example = "some  to test"
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  val  = 42
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}

@@ -1,33 +1,18 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: take left quad
-  action: setSelection
+  spokenForm: change pair
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: left}
+      modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: |-
-    hello world whatever "testing testing testing
-    this is another" test "whatever" whatever
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234
-  #  +---------------------------------------------
-  # 0|hello world whatever "testing testing testing
-  # 1|this is another" test "whatever" whatever
+  documentContents: ()
   selections:
-    - anchor: {line: 1, character: 31}
-      active: {line: 1, character: 31}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
 finalState:
-  documentContents: |-
-    hello world whatever "testing testing testing
-    this is another" test "whatever" whatever
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234
-  #  +---------------------------------------------
-  # 0|hello world whatever "testing testing testing
-  # 1|this is another" test "whatever" whatever
+  documentContents: ""
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 32}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

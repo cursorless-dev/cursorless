@@ -1,35 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take list
+  spokenForm: take map
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list}
+      modifier: {type: containingScope, scopeType: map}
 initialState:
   documentContents: |
 
-    const [a, b, c] = [];
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|const [a, b, c] = [];
-  # 2|
+    const value = { a: 1, b: 2, c: 3 };
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
   marks: {}
 finalState:
   documentContents: |
 
-    const [a, b, c] = [];
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|const [a, b, c] = [];
-  # 2|
+    const value = { a: 1, b: 2, c: 3 };
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 15}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 34}

@@ -1,34 +1,19 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck pair harp
+  spokenForm: chuck round
   action: remove
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
-  documentContents: |
-    (hello) (there)
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|(hello) (there)
-  # 1|
-  selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
-  marks:
-    default.h:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 6}
-finalState:
-  documentContents: |
-    (there)
-  #   0123456
-  #  +-------
-  # 0|(there)
-  # 1|
+  documentContents: (hello)
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

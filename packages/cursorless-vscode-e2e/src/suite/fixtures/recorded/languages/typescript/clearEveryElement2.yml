@@ -12,16 +12,9 @@ command:
 initialState:
   documentContents: |-
     <>
-        <bbb>ccc</bbb>
-        <bbb>ddd</bbb>
+        <>ccc</>
+        <>ddd</>
     </>
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|<>
-  # 1|    <bbb>ccc</bbb>
-  # 2|    <bbb>ddd</bbb>
-  # 3|</>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -32,12 +25,6 @@ finalState:
         
         
     </>
-  #   0123
-  #  +----
-  # 0|<>
-  # 1|    
-  # 2|    
-  # 3|</>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

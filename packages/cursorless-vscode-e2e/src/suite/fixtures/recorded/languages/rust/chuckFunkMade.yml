@@ -1,38 +1,29 @@
 languageId: rust
 command:
   version: 1
-  spokenForm: chuck funk made
+  spokenForm: chuck funk name fine
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
-  documentContents: |
+  documentContents: |-
     fn main() {
         println!("Hello, world!");
     }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|fn main() {
-  # 1|    println!("Hello, world!");
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
   marks:
-    default.m:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 7}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 2}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |-
+    fn () {
+        println!("Hello, world!");
+    }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}

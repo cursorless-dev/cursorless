@@ -1,41 +1,21 @@
-languageId: css
+languageId: scss
 command:
   version: 1
-  spokenForm: change unit one
+  spokenForm: change value
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: unit, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: |2-
-     .child-selector {
-      height: 10Q;
-    }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0| .child-selector {
-  # 1|  height: 10Q;
-  # 2|}
+  documentContents: |
+    @import "subs.css";
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
-  marks:
-    default.1:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 13}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
 finalState:
-  documentContents: |2-
-     .child-selector {
-      height: 10;
-    }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0| .child-selector {
-  # 1|  height: 10;
-  # 2|}
+  documentContents: |
+    @import ;
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

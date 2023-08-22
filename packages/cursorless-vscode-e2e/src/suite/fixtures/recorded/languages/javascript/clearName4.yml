@@ -10,21 +10,15 @@ command:
           scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: export var aaa = "bbb";
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|export var aaa = "bbb";
+  documentContents: const aaa = "bbb", ccc = "ddd";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: export var  = "bbb";
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|export var  = "bbb";
+  documentContents: const  = "bbb",  = "ddd";
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

@@ -10,18 +10,13 @@ command:
           scopeType: {type: functionCall}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: aaa()
-  #   01234
-  #  +-----
-  # 0|aaa()
+  documentContents: aaa() + bbb()
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take row two past down three
+  spokenForm: take row two past four
   action: setSelection
   targets:
     - type: primitive
@@ -9,7 +9,7 @@ command:
       mark:
         type: lineNumber
         anchor: {lineNumber: 1, type: absolute}
-        active: {lineNumber: 3, type: relative}
+        active: {lineNumber: 3, type: absolute}
 spokenFormError: Absolute line numbers
 initialState:
   documentContents: |
@@ -17,17 +17,6 @@ initialState:
     const value = "Hello world";
 
     const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
-  # 3|const value = "Hello world";
-  # 4|
-  #  +----------------------------
-  #   0123456789012345678901234567
-  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -38,17 +27,6 @@ finalState:
     const value = "Hello world";
 
     const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
-  # 3|const value = "Hello world";
-  # 4|
-  #  +----------------------------
-  #   0123456789012345678901234567
-  #             1         2
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 28}

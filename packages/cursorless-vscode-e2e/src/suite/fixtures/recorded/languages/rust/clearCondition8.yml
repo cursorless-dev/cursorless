@@ -1,39 +1,28 @@
 languageId: rust
 command:
+  spokenForm: change name
   version: 3
-  spokenForm: change condition
-  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: {type: name}
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    while n < 101 {
-      n += 1;
+  documentContents: |
+    enum Foo {
+        Baz { a: int, b: String }
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|while n < 101 {
-  # 1|  n += 1;
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
   marks: {}
 finalState:
-  documentContents: |-
-    while  {
-      n += 1;
+  documentContents: |
+    enum Foo {
+         { a: int, b: String }
     }
-  #   012345678
-  #  +---------
-  # 0|while  {
-  # 1|  n += 1;
-  # 2|}
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

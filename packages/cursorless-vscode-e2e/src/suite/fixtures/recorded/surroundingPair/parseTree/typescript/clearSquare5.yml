@@ -1,27 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change inside box
+  spokenForm: change inside box right square
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
+      mark: {type: decoratedSymbol, symbolColor: default, character: ']'}
 initialState:
   documentContents: const [bongo, baz] = [foo, bar]
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|const [bongo, baz] = [foo, bar]
   selections:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
-  marks: {}
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}
+  marks:
+    default.]:
+      start: {line: 0, character: 30}
+      end: {line: 0, character: 31}
 finalState:
   documentContents: const [bongo, baz] = []
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|const [bongo, baz] = []
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}

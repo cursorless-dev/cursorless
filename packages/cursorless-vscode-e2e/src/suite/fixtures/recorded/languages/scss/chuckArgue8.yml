@@ -9,33 +9,19 @@ command:
 initialState:
   documentContents: |-
     a {
-      width: calc(100% - 80px);
+      clip-path: ellipse(115px 55px at 50% 40%);
     }
      
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|a {
-  # 1|  width: calc(100% - 80px);
-  # 2|}
-  # 3| 
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}
   marks: {}
 finalState:
   documentContents: |-
     a {
-      width: calc();
+      clip-path: ellipse(50% 40%);
     }
      
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|a {
-  # 1|  width: calc();
-  # 2|}
-  # 3| 
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}

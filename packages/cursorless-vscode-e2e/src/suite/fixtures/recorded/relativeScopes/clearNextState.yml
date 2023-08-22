@@ -1,45 +1,25 @@
-languageId: python
+languageId: plaintext
 command:
-  version: 5
-  spokenForm: change next state
-  action: {name: clearAndSetSelection}
+  spokenForm: change next token
+  version: 3
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: statement}
+          scopeType: {type: token}
           offset: 1
           length: 1
           direction: forward
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    def aaa():
-        pass
-
-    bbb = "ccc"
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|def aaa():
-  # 1|    pass
-  # 2|
-  # 3|bbb = "ccc"
+  documentContents: .foo bar
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: |+
-    def aaa():
-        pass
-
-  #   0123456789
-  #  +----------
-  # 0|def aaa():
-  # 1|    pass
-  # 2|
-  # 3|
+  documentContents: . bar
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

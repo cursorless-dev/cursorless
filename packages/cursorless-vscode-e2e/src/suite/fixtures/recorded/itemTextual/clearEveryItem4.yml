@@ -11,19 +11,12 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: a, "b\",b\"b", 'c\',c\'c', `d\`,d\`d`
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|a, "b\",b\"b", 'c\',c\'c', `d\`,d\`d`
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: ", , , "
-  #   012345
-  #  +------
-  # 0|, , , 
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

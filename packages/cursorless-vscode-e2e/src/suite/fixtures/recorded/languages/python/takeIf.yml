@@ -1,35 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take if state
+  spokenForm: take item
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: ifStatement}
+      modifier: {type: containingScope, scopeType: collectionItem}
 initialState:
-  documentContents: |-
+  documentContents: |
 
-    if True:
-        return
-  #   0123456789
-  #  +----------
-  # 0|
-  # 1|if True:
-  # 2|    return
+    value = [1, 2, 3]
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
 
-    if True:
-        return
-  #   0123456789
-  #  +----------
-  # 0|
-  # 1|if True:
-  # 2|    return
+    value = [1, 2, 3]
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 2, character: 10}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 10}

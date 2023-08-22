@@ -1,4 +1,4 @@
-languageId: shellscript
+languageId: typescriptreact
 command:
   version: 1
   spokenForm: change pair
@@ -7,19 +7,13 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: "\"$(hello)\""
-  #   0123456789
-  #  +----------
-  # 0|"$(hello)"
+  documentContents: (<hello></hello> )
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: "\"\""
-  #   01
-  #  +--
-  # 0|""
+  documentContents: (</hello> )
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

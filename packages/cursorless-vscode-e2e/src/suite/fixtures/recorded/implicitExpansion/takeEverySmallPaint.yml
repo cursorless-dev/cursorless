@@ -16,17 +16,6 @@ initialState:
 
     second test-block
     for testing
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|first test-block
-  # 1|for testing
-  # 2|
-  # 3|second test-block
-  # 4|for testing
-  #  +-----------------
-  #   01234567890123456
-  #             1
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 3, character: 9}
@@ -38,17 +27,6 @@ finalState:
 
     second test-block
     for testing
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|first test-block
-  # 1|for testing
-  # 2|
-  # 3|second test-block
-  # 4|for testing
-  #  +-----------------
-  #   01234567890123456
-  #             1
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 16}

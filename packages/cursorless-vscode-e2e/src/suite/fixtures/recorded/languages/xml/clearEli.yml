@@ -1,25 +1,19 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: change element
+  spokenForm: change end tag
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlElement, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: xmlEndTag, includeSiblings: false}
 initialState:
   documentContents: <note>foo</note>
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|<note>foo</note>
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: <note>foo
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

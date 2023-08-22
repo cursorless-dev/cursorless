@@ -1,42 +1,33 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: from drum
+  spokenForm: from line
   action: {name: experimental.setInstanceReference}
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    aaa bbb ccc aaa ddd aaa
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|aaa bbb ccc aaa ddd aaa
-  # 1|
+  documentContents: |-
+    aaa bbb ccc aaa bbb
+    aaa ddd eee aaa fff
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-  marks:
-    default.d:
-      start: {line: 0, character: 16}
-      end: {line: 0, character: 19}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
 finalState:
-  documentContents: |
-    aaa bbb ccc aaa ddd aaa
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|aaa bbb ccc aaa ddd aaa
-  # 1|
+  documentContents: |-
+    aaa bbb ccc aaa bbb
+    aaa ddd eee aaa fff
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   instanceReferenceMark:
-    - type: UntypedTarget
+    - type: LineTarget
       contentRange:
-        start: {line: 0, character: 16}
+        start: {line: 0, character: 0}
         end: {line: 0, character: 19}
       isReversed: false
-      hasExplicitRange: false
+      hasExplicitRange: true

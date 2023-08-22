@@ -1,85 +1,28 @@
-languageId: python
+languageId: ruby
 command:
   version: 5
-  spokenForm: change every class
+  spokenForm: change every class name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: class}
+          scopeType: {type: className}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    class Aaa:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
-
-        def eee():
-            ddd = "eee"
-            def fff():
-                pass
-
-    class Bbb:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
-  #              1
-  #    0123456789012345678
-  #   +-------------------
-  #  0|class Aaa:
-  #  1|    @bbb
-  #  2|    def ccc():
-  #  3|        ddd = "eee"
-  #   +-------------------
-  #    0123456789012345678
-  #   +-------------------
-  #  4|        def fff():
-  #  5|            pass
-  #  6|
-  #  7|    def eee():
-  #   +-------------------
-  #    0123456789012345678
-  #   +-------------------
-  #  8|        ddd = "eee"
-  #  9|        def fff():
-  # 10|            pass
-  # 11|
-  #   +-------------------
-  #    0123456789012345678
-  #   +-------------------
-  # 12|class Bbb:
-  # 13|    @bbb
-  # 14|    def ccc():
-  # 15|        ddd = "eee"
-  # 16|        def fff():
-  # 17|            pass
-  # 18|
-  #   +-------------------
-  #    0123456789012345678
-  #              1
+  documentContents: |-
+    class Aaa; end
+    class Bbb; end
   selections:
-    - anchor: {line: 11, character: 0}
-      active: {line: 11, character: 0}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
   marks: {}
 finalState:
-  documentContents: |+
-
-
-
-  #   
-  #  +
-  # 0|
-  # 1|
-  # 2|
-  # 3|
+  documentContents: |-
+    class ; end
+    class ; end
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

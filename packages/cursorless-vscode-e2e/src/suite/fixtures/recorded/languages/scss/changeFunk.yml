@@ -8,34 +8,21 @@ command:
       modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
 initialState:
   documentContents: |-
-    @function pow($base, $exponent) {
-      $result: 1;
-      @for $_ from 1 through $exponent {
-        $result: $result * $base;
+    @mixin theme-colors($light-theme: true) {
+      @if $light-theme {
+        background-color: $light-background;
+        color: $light-text;
+      } @else {
+        background-color: $dark-background;
+        color: $dark-text;
       }
-      @return $result;
     }
-  #             1         2         3
-  #   012345678901234567890123456789012345
-  #  +------------------------------------
-  # 0|@function pow($base, $exponent) {
-  # 1|  $result: 1;
-  # 2|  @for $_ from 1 through $exponent {
-  # 3|    $result: $result * $base;
-  # 4|  }
-  # 5|  @return $result;
-  # 6|}
-  #  +------------------------------------
-  #   012345678901234567890123456789012345
-  #             1         2         3
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 7, character: 3}
+      active: {line: 7, character: 3}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

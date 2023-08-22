@@ -1,38 +1,23 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: chuck vest
-  action: remove
+  spokenForm: change inside file
+  version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
+  documentContents: "\r\n abc \r\n"
   selections:
-    - anchor: {line: 1, character: 28}
-      active: {line: 1, character: 28}
-  marks:
-    default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
 finalState:
-  documentContents: |
-
-    const = "Hello world";
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|const = "Hello world";
-  # 2|
+  documentContents: "\r\n  \r\n"
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
+    - anchor: {line: 1, character: 1}
+      active: {line: 1, character: 1}

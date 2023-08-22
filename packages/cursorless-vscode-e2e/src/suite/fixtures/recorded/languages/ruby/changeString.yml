@@ -7,19 +7,16 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: string}
 initialState:
-  documentContents: "\"Hello World\""
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|"Hello World"
+  documentContents: |-
+    a = %Q(Multi
+    Line
+    String)
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: "a = "
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

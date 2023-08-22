@@ -1,46 +1,28 @@
 languageId: plaintext
 command:
-  spokenForm: change last token round
+  spokenForm: change line backward
   version: 3
   targets:
     - type: primitive
       modifiers:
-        - type: ordinalScope
-          scopeType: {type: token}
-          start: -1
+        - type: relativeScope
+          scopeType: {type: line}
+          offset: 0
           length: 1
-        - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: parentheses}
+          direction: backward
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    hello (
-        there
-        now
-    ) testing
-  #   012345678
-  #  +---------
-  # 0|hello (
-  # 1|    there
-  # 2|    now
-  # 3|) testing
+    aaa bbb
+    ccc ddd
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    hello (
-        there
-        now
-     testing
-  #   012345678
-  #  +---------
-  # 0|hello (
-  # 1|    there
-  # 2|    now
-  # 3| testing
+  documentContents: |
+    aaa bbb
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

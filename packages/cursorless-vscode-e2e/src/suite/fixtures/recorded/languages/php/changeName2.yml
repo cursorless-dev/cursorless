@@ -12,42 +12,26 @@ initialState:
 
     class MyClass
     {
+        public function helloWorld()
+        {
 
+        }
     }
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<?php
-  # 1|
-  # 2|class MyClass
-  # 3|{
-  # 4|
-  # 5|}
-  #  +-------------
-  #   0123456789012
-  #             1
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    class 
+    class MyClass
     {
+        public function ()
+        {
 
+        }
     }
-  #   012345
-  #  +------
-  # 0|<?php
-  # 1|
-  # 2|class 
-  # 3|{
-  # 4|
-  # 5|}
-  #  +------
-  #   012345
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
+    - anchor: {line: 4, character: 20}
+      active: {line: 4, character: 20}

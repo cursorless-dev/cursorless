@@ -1,37 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take class name
+  spokenForm: take comment
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: className}
+      modifier: {type: containingScope, scopeType: comment}
 initialState:
-  documentContents: |-
+  documentContents: |
 
-    class MyClass:
-        """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|class MyClass:
-  # 2|    """"""
+    # Hello world
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 1, character: 1}
+      active: {line: 1, character: 1}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
 
-    class MyClass:
-        """"""
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|class MyClass:
-  # 2|    """"""
+    # Hello world
   selections:
-    - anchor: {line: 1, character: 6}
+    - anchor: {line: 1, character: 0}
       active: {line: 1, character: 13}

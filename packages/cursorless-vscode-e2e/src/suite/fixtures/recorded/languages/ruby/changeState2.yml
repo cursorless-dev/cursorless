@@ -7,19 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
-  documentContents: str = "hello world"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|str = "hello world"
+  documentContents: |-
+    while true  do
+      puts "hi"
+    end
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |-
+    while true  do
+      
+    end
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

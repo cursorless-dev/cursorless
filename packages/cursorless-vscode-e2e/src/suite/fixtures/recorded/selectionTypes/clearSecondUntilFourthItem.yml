@@ -1,39 +1,22 @@
 languageId: plaintext
 command:
-  spokenForm: change second until fourth item
-  version: 3
+  spokenForm: change short paint
+  version: 2
   targets:
     - type: primitive
       modifiers:
-        - type: range
-          anchor:
-            type: ordinalScope
-            scopeType: {type: collectionItem}
-            start: 1
-            length: 1
-          active:
-            type: ordinalScope
-            scopeType: {type: collectionItem}
-            start: 3
-            length: 1
-          excludeAnchor: false
-          excludeActive: true
+        - type: containingScope
+          scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: a, b, c, d
-  #   0123456789
-  #  +----------
-  # 0|a, b, c, d
+  documentContents: "{foo.bar(hello-world, whatever-now)} test-this"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: a, d
-  #   0123
-  #  +----
-  # 0|a, d
+  documentContents: "{foo.bar( whatever-now)} test-this"
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

@@ -1,31 +1,27 @@
-languageId: scss
+languageId: typescript
 command:
-  spokenForm: chuck last word
-  version: 3
+  version: 1
+  spokenForm: chuck last word vest
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: ordinalScope
-          scopeType: {type: word}
-          start: -1
-          length: 1
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+      modifier: {type: subpiece, pieceType: word, anchor: -1, active: -1}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
-  documentContents: "margin-top: 0;"
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|margin-top: 0;
+  documentContents: |
+
+    const value_hello_str = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  marks: {}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 21}
 finalState:
-  documentContents: "margin: 0;"
-  #   0123456789
-  #  +----------
-  # 0|margin: 0;
+  documentContents: |
+
+    const value_hello = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

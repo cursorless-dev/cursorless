@@ -1,35 +1,41 @@
 languageId: java
 command:
-  spokenForm: change state
+  spokenForm: change subject
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |
-    public class MyClass {
+    class Aaa {
+
+      static void bbb() {
+        switch ("0") {
+          case ("0"):
+            break;
+        }
+      }
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|public class MyClass {
-  # 1|}
-  # 2|
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 4, character: 17}
+      active: {line: 4, character: 17}
   marks: {}
 finalState:
-  documentContents: |+
+  documentContents: |
+    class Aaa {
 
-  #   
-  #  +
-  # 0|
-  # 1|
+      static void bbb() {
+        switch () {
+          case ("0"):
+            break;
+        }
+      }
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}

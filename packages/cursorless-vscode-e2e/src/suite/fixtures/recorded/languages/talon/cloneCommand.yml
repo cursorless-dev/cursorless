@@ -1,39 +1,23 @@
 languageId: talon
 command:
   version: 6
-  spokenForm: clone command
+  spokenForm: pour arg
   action:
-    name: insertCopyAfter
+    name: editNewLineAfter
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: command}
+          scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    foo:
-        "bar"
-  #   012345678
-  #  +---------
-  # 0|foo:
-  # 1|    "bar"
+  documentContents: "test: user.do_stuff(5, 7)"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
   marks: {}
 finalState:
-  documentContents: |-
-    foo:
-        "bar"
-    foo:
-        "bar"
-  #   012345678
-  #  +---------
-  # 0|foo:
-  # 1|    "bar"
-  # 2|foo:
-  # 3|    "bar"
+  documentContents: "test: user.do_stuff(5, , 7)"
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}

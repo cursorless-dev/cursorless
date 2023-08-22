@@ -1,5 +1,3 @@
-  # (empty)
-
 languageId: plaintext
 command:
   spokenForm: change two tokens
@@ -15,13 +13,9 @@ command:
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa  bbb ccc
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|aaa  bbb ccc
+  documentContents: aaa bbb ccc
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
-thrownError: {name: NoContainingScopeError}
+thrownError: {name: OutOfRangeError}

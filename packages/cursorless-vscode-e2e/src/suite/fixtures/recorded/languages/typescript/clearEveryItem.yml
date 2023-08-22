@@ -1,32 +1,28 @@
-languageId: javascriptreact
+languageId: typescript
 command:
   version: 5
-  spokenForm: change every item
+  spokenForm: change every name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionItem}
+          scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: <Button data-testid="Action Button" data-variant="bare"></Button>
-  #             1         2         3         4         5         6
-  #   01234567890123456789012345678901234567890123456789012345678901234
-  #  +-----------------------------------------------------------------
-  # 0|<Button data-testid="Action Button" data-variant="bare"></Button>
+  documentContents: |-
+    const aaa = "bbb";
+    const ccc = "ddd";
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 1, character: 18}
+      active: {line: 1, character: 18}
   marks: {}
 finalState:
-  documentContents: <Button  ></Button>
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|<Button  ></Button>
+  documentContents: |-
+    const  = "bbb";
+    const  = "ddd";
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

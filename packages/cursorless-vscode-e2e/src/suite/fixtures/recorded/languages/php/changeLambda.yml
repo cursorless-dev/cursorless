@@ -10,35 +10,16 @@ initialState:
   documentContents: |-
     <?php
 
-    $myFunc = function() {
-
-    };
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|<?php
-  # 1|
-  # 2|$myFunc = function() {
-  # 3|
-  # 4|};
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
+    $myFunc = fn() => 'Hello world';
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
     $myFunc = ;
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|<?php
-  # 1|
-  # 2|$myFunc = ;
   selections:
     - anchor: {line: 2, character: 10}
       active: {line: 2, character: 10}

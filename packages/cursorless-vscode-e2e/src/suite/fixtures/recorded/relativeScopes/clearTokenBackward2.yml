@@ -1,31 +1,25 @@
-languageId: plaintext
+languageId: ruby
 command:
-  spokenForm: change token backward
-  version: 3
+  version: 5
+  spokenForm: change two calls
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: token}
+          scopeType: {type: functionCall}
           offset: 0
-          length: 1
-          direction: backward
+          length: 2
+          direction: forward
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb
-  #   0123456
-  #  +-------
-  # 0|aaa bbb
+  documentContents: aaa(bbb(), ccc())
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: "aaa "
-  #   0123
-  #  +----
-  # 0|aaa 
+  documentContents: aaa()
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

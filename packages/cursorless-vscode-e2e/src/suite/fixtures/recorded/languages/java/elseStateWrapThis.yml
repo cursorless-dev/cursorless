@@ -1,18 +1,14 @@
 languageId: java
 command:
   version: 1
-  spokenForm: else wrap this
+  spokenForm: if else wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifElseStatement.alternative]
+  extraArgs: [ifElseStatement.consequence]
 initialState:
   documentContents: int foo = 0;
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|int foo = 0;
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -20,21 +16,10 @@ initialState:
 finalState:
   documentContents: |-
     if () {
-        
-    } else {
         int foo = 0;
+    } else {
+        
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|if () {
-  # 1|    
-  # 2|} else {
-  # 3|    int foo = 0;
-  # 4|}
-  #  +----------------
-  #   0123456789012345
-  #             1
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

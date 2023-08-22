@@ -1,39 +1,28 @@
 languageId: rust
 command:
-  spokenForm: change state
+  spokenForm: change value
   version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
-  usePrePhraseSnapshot: false
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    fn foo() {
-        foo("bar");
+    fn foo() -> i32 {
+        return 3;
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|fn foo() {
-  # 1|    foo("bar");
-  # 2|}
-  selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
-  marks: {}
-finalState:
-  documentContents: |-
-    fn foo() {
-        
-    }
-  #   0123456789
-  #  +----------
-  # 0|fn foo() {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    fn foo() -> i32 {
+        return ;
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}

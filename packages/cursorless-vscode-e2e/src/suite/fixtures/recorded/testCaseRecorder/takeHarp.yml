@@ -1,32 +1,32 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: take harp
+  spokenForm: bring fine after just this
   action:
-    name: setSelection
-    target:
+    name: replaceWithTarget
+    source:
       type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
-  usePrePhraseSnapshot: false
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        modifiers:
+          - {type: toRawSelection}
+        mark: {type: cursor}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
+  documentContents: foo world
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
   marks:
-    default.h:
+    default.f:
       start: {line: 0, character: 0}
-      end: {line: 0, character: 5}
+      end: {line: 0, character: 3}
 finalState:
-  documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
+  documentContents: foo fooworld
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

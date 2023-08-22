@@ -1,5 +1,3 @@
-  # (empty)
-
 languageId: go
 command:
   version: 6
@@ -15,9 +13,6 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: _ = T{{1}}
-  #   0123456789
-  #  +----------
-  # 0|_ = T{{1}}
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}

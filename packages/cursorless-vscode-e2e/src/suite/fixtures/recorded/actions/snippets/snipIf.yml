@@ -11,12 +11,6 @@ initialState:
     function whatever() {
         
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|function whatever() {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -28,17 +22,6 @@ finalState:
             
         }
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|function whatever() {
-  # 1|    if () {
-  # 2|        
-  # 3|    }
-  # 4|}
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}

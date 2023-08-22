@@ -1,77 +1,32 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change first two instances air
+  spokenForm: change last two instances air
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: ordinalScope
           scopeType: {type: instance}
-          start: 0
+          start: -2
           length: 2
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    bbb aaa ccc aaa ddd aaa
-    eee aaa ccc aaa ddd aaa
-    fff aaa ccc aaa ddd aaa
-    ggg aaa ccc aaa ddd aaa
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|bbb aaa ccc aaa ddd aaa
-  # 1|eee aaa ccc aaa ddd aaa
-  # 2|fff aaa ccc aaa ddd aaa
-  # 3|ggg aaa ccc aaa ddd aaa
-  # 4|
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
+    aaa bbb ccc aaa ddd aaa eee
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
     default.a:
-      start: {line: 3, character: 4}
-      end: {line: 3, character: 7}
-  instanceReferenceMark:
-    - type: LineTarget
-      contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 23}
-      isReversed: false
-      hasExplicitRange: true
-    - type: LineTarget
-      contentRange:
-        start: {line: 2, character: 0}
-        end: {line: 2, character: 23}
-      isReversed: false
-      hasExplicitRange: true
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
 finalState:
   documentContents: |
-    bbb  ccc  ddd aaa
-    eee aaa ccc aaa ddd aaa
-    fff  ccc  ddd aaa
-    ggg aaa ccc aaa ddd aaa
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|bbb  ccc  ddd aaa
-  # 1|eee aaa ccc aaa ddd aaa
-  # 2|fff  ccc  ddd aaa
-  # 3|ggg aaa ccc aaa ddd aaa
-  # 4|
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
+    aaa bbb ccc  ddd  eee
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

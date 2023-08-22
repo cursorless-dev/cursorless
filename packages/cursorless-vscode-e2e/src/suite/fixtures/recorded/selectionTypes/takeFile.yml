@@ -1,56 +1,27 @@
-languageId: plaintext
+languageId: typescript
 command:
-  spokenForm: take file
-  version: 2
+  version: 1
+  spokenForm: take line vest
+  action: setSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: document}
-  usePrePhraseSnapshot: true
-  action: {name: setSelection}
+      selectionType: line
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
-  documentContents: |2+
+  documentContents: |
 
-
-        foo 
-
-        bar 
-
-  #   01234567
-  #  +--------
-  # 0|
-  # 1|
-  # 2|    foo 
-  # 3|
-  # 4|    bar 
-  # 5|
-  # 6|
-  #  +--------
-  #   01234567
-  selections:
-    - anchor: {line: 6, character: 0}
-      active: {line: 6, character: 0}
-  marks: {}
-finalState:
-  documentContents: |2+
-
-
-        foo 
-
-        bar 
-
-  #   01234567
-  #  +--------
-  # 0|
-  # 1|
-  # 2|    foo 
-  # 3|
-  # 4|    bar 
-  # 5|
-  # 6|
-  #  +--------
-  #   01234567
+    const value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
-      active: {line: 6, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 28}

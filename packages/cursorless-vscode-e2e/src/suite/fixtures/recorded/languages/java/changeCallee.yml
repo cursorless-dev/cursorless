@@ -8,20 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: new test().bar();
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|new test().bar();
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
   marks: {}
 finalState:
   documentContents: new ().bar();
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|new ().bar();
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

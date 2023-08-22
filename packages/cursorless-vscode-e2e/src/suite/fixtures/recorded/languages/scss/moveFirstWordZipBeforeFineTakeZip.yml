@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  spokenForm: move first word zip before fine take zip
+  spokenForm: move last word zip after fine take fine
   version: 2
   targets:
     - type: primitive
@@ -8,23 +8,19 @@ command:
       modifiers:
         - type: ordinalRange
           scopeType: {type: word}
-          anchor: 0
-          active: 0
+          anchor: -1
+          active: -1
           excludeAnchor: false
           excludeActive: false
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
       modifiers:
-        - {type: position, position: before}
+        - {type: position, position: after}
   usePrePhraseSnapshot: true
   action: {name: moveToTarget}
-marksToCheck: [default.z]
+marksToCheck: [default.f]
 initialState:
   documentContents: foo-bar baz-bongo
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|foo-bar baz-bongo
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
@@ -36,18 +32,14 @@ initialState:
       start: {line: 0, character: 0}
       end: {line: 0, character: 7}
 finalState:
-  documentContents: baz-foo-bar bongo
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|baz-foo-bar bongo
+  documentContents: foo-bar-bongo baz
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}
   marks:
     default.z:
-      start: {line: 0, character: 12}
+      start: {line: 0, character: 14}
       end: {line: 0, character: 17}
     default.f:
       start: {line: 0, character: 0}
-      end: {line: 0, character: 11}
+      end: {line: 0, character: 13}

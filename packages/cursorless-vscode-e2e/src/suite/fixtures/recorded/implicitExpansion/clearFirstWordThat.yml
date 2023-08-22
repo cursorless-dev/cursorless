@@ -14,10 +14,6 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaaBbbCcc ddd
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|aaaBbbCcc ddd
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
@@ -31,9 +27,6 @@ initialState:
       hasExplicitRange: true
 finalState:
   documentContents: aaaCcc ddd
-  #   0123456789
-  #  +----------
-  # 0|aaaCcc ddd
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

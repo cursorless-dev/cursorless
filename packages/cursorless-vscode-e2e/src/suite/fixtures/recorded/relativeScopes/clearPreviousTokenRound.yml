@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change previous token round
+  spokenForm: change previous two tokens
   version: 3
   targets:
     - type: primitive
@@ -8,40 +8,18 @@ command:
         - type: relativeScope
           scopeType: {type: token}
           offset: 1
-          length: 1
+          length: 2
           direction: backward
-        - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: parentheses}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    hello (
-        there
-        now
-    ) testing
-  #   012345678
-  #  +---------
-  # 0|hello (
-  # 1|    there
-  # 2|    now
-  # 3|) testing
+  documentContents: aaa bbb  ccc
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: |2-
-     (
-        there
-        now
-    ) testing
-  #   012345678
-  #  +---------
-  # 0| (
-  # 1|    there
-  # 2|    now
-  # 3|) testing
+  documentContents: "  ccc"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

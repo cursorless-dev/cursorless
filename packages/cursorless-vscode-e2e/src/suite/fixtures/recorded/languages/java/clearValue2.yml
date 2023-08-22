@@ -13,23 +13,12 @@ initialState:
   documentContents: |-
     public class MyClass {
         String myFunk() {
-            return "hello there";
+            return "hello";
         }
     }
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|public class MyClass {
-  # 1|    String myFunk() {
-  # 2|        return "hello there";
-  # 3|    }
-  # 4|}
-  #  +-----------------------------
-  #   01234567890123456789012345678
-  #             1         2
   selections:
-    - anchor: {line: 2, character: 21}
-      active: {line: 2, character: 21}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
   marks: {}
 finalState:
   documentContents: |-
@@ -38,17 +27,6 @@ finalState:
             return ;
         }
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|public class MyClass {
-  # 1|    String myFunk() {
-  # 2|        return ;
-  # 3|    }
-  # 4|}
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
     - anchor: {line: 2, character: 15}
       active: {line: 2, character: 15}

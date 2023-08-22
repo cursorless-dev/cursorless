@@ -1,37 +1,22 @@
-languageId: plaintext
+languageId: python
 command:
   version: 5
-  spokenForm: pour item
+  spokenForm: pour state
   action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: {type: statement}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "[\r\n    111,\r\n    222\r\n]"
-  #   012345678
-  #  +---------
-  # 0|[
-  # 1|    111,
-  # 2|    222
-  # 3|]
+  documentContents: "def whatever():\r\n    if True:\r\n        pass"
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: "[\r\n    111,\r\n    ,\r\n    222\r\n]"
-  #   012345678
-  #  +---------
-  # 0|[
-  # 1|    111,
-  # 2|    ,
-  # 3|    222
-  # 4|]
-  #  +---------
-  #   012345678
+  documentContents: "def whatever():\r\n    if True:\r\n        pass\r\n    "
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

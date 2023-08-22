@@ -11,20 +11,8 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: const foo = function *bar() {}
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|const foo = function *bar() {}
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
-finalState:
-  documentContents: "const foo = "
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|const foo = 
-  selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+thrownError: {name: NoContainingScopeError}

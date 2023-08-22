@@ -7,23 +7,15 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
 initialState:
-  documentContents: "{1: [(1), (2), (3)]}"
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|{1: [(1), (2), (3)]}
+  documentContents: f"j{fdfhjkd}lkjlkj"
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks: {}
 finalState:
-  documentContents: "{1: (1), (2), (3)}"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|{1: (1), (2), (3)}
+  documentContents: j{fdfhjkd}lkjlkj
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

@@ -1,29 +1,29 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck past end of line
+  spokenForm: chuck past end of look
   action: remove
   targets:
     - type: range
       start: {type: primitive, isImplicit: true}
-      end: {type: primitive, position: after, insideOutsideType: inside, selectionType: line}
+      end:
+        type: primitive
+        position: after
+        insideOutsideType: inside
+        mark: {type: decoratedSymbol, symbolColor: default, character: l}
       excludeStart: false
       excludeEnd: false
 initialState:
   documentContents: hello there
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello there
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
-  marks: {}
+  marks:
+    default.l:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
 finalState:
-  documentContents: he
-  #   01
-  #  +--
-  # 0|he
+  documentContents: he there
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

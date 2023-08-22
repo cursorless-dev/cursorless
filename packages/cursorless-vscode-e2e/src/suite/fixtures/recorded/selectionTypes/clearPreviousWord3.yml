@@ -1,32 +1,33 @@
 languageId: plaintext
 command:
-  spokenForm: change previous word
+  spokenForm: change row two past four
   version: 3
   targets:
     - type: primitive
-      modifiers:
-        - type: relativeScope
-          scopeType: {type: word}
-          offset: 1
-          length: 1
-          direction: backward
+      mark:
+        type: range
+        anchor: {type: lineNumber, lineNumberType: modulo100, lineNumber: 1}
+        active: {type: lineNumber, lineNumberType: modulo100, lineNumber: 3}
+        excludeAnchor: false
+        excludeActive: false
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaaBbbCccDdd
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|aaaBbbCccDdd
-  selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 7}
-  marks: {}
-finalState:
-  documentContents: BbbCccDdd
-  #   012345678
-  #  +---------
-  # 0|BbbCccDdd
+  documentContents: |-
+    a
+    b
+    c
+    d
+    e
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    a
+
+    e
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

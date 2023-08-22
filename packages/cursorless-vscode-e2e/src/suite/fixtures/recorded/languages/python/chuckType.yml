@@ -1,27 +1,27 @@
 languageId: python
 command:
   version: 1
-  spokenForm: chuck type
+  spokenForm: chuck type sun
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
 initialState:
-  documentContents: "foo: str = 'hello'"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|foo: str = 'hello'
+  documentContents: |-
+    def my_funk(value: str) -> str:
+        pass
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-  marks: {}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
+  marks:
+    default.s:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 22}
 finalState:
-  documentContents: foo = 'hello'
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|foo = 'hello'
+  documentContents: |-
+    def my_funk(value) -> str:
+        pass
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}

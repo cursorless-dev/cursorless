@@ -1,33 +1,22 @@
-languageId: plaintext
+languageId: ruby
 command:
-  spokenForm: take start of whale
-  version: 2
+  version: 5
+  spokenForm: change call
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
       modifiers:
-        - {type: position, position: start}
+        - type: containingScope
+          scopeType: {type: functionCall}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
 initialState:
-  documentContents: hello world whatever
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|hello world whatever
+  documentContents: aaa()bbb()
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
-  marks:
-    default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
 finalState:
-  documentContents: hello world whatever
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|hello world whatever
+  documentContents: aaa()
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

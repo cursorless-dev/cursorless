@@ -1,86 +1,42 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: change every key
+  spokenForm: change every name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: collectionKey}
+          scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    tag(): user.some_tag
-
-    settings():
-        speech.debug = 1
-
-    command: "command"
-    key(enter): "enter"
-    gamepad(north): "north"
-    face(smile): "smile"
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|tag(): user.some_tag
-  # 1|
-  # 2|settings():
-  # 3|    speech.debug = 1
-  #  +-----------------------
-  #   01234567890123456789012
-  #  +-----------------------
-  # 4|
-  # 5|command: "command"
-  # 6|key(enter): "enter"
-  # 7|gamepad(north): "north"
-  # 8|face(smile): "smile"
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
+  documentContents: |
+    mode: command
+    os: linux
+    and tag: user.some_tag
+    not tag: user.some_other_tag
+    and not app: some_application
+    -
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    : user.some_tag
-
-    :
-        speech.debug = 1
-
-    : "command"
-    : "enter"
-    : "north"
-    : "smile"
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|: user.some_tag
-  # 1|
-  # 2|:
-  # 3|    speech.debug = 1
-  #  +--------------------
-  #   01234567890123456789
-  #  +--------------------
-  # 4|
-  # 5|: "command"
-  # 6|: "enter"
-  # 7|: "north"
-  # 8|: "smile"
-  #  +--------------------
-  #   01234567890123456789
-  #             1
+  documentContents: |
+    : command
+    : linux
+    and : user.some_tag
+    not : user.some_other_tag
+    and not : some_application
+    -
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
-    - anchor: {line: 6, character: 0}
-      active: {line: 6, character: 0}
-    - anchor: {line: 7, character: 0}
-      active: {line: 7, character: 0}
-    - anchor: {line: 8, character: 0}
-      active: {line: 8, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
+    - anchor: {line: 4, character: 8}
+      active: {line: 4, character: 8}

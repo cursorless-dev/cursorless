@@ -1,26 +1,34 @@
 languageId: typescript
 command:
-  version: 1
-  spokenForm: change value
-  action: clearAndSetSelection
+  version: 3
+  spokenForm: chuck branch
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: a += "world";
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|a += "world";
+  documentContents: |-
+    if (true) {
+      const whatever = "hello";
+    } else if (false) {
+      const whatever = "hello";
+    } else {
+      const whatever = "hello";
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
   marks: {}
 finalState:
-  documentContents: a += ;
-  #   012345
-  #  +------
-  # 0|a += ;
+  documentContents: |-
+    if (true) {
+      const whatever = "hello";
+    }  else {
+      const whatever = "hello";
+    }
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

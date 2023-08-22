@@ -16,12 +16,6 @@ initialState:
     b   c
     d   e
     f   g
-  #   01234
-  #  +-----
-  # 0|
-  # 1|b   c
-  # 2|d   e
-  # 3|f   g
   selections:
     - anchor: {line: 3, character: 5}
       active: {line: 3, character: 5}
@@ -31,8 +25,6 @@ initialState:
       end: {line: 1, character: 1}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

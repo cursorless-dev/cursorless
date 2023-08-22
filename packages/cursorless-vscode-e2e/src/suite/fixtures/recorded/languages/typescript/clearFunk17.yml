@@ -11,30 +11,32 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    interface Aaa {
-        bbb(): void;
+    class MyClass {
+        constructor(value: string);
+        constructor(value: number);
+
+        constructor(value: string | number) {}
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|interface Aaa {
-  # 1|    bbb(): void;
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 31}
+      active: {line: 1, character: 31}
+    - anchor: {line: 2, character: 31}
+      active: {line: 2, character: 31}
+    - anchor: {line: 4, character: 42}
+      active: {line: 4, character: 42}
   marks: {}
 finalState:
   documentContents: |-
-    interface Aaa {
+    class MyClass {
+        
+        
+
         
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|interface Aaa {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

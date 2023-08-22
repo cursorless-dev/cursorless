@@ -1,39 +1,25 @@
-languageId: markdown
+languageId: ruby
 command:
-  spokenForm: change previous two tokens
-  version: 3
+  version: 5
+  spokenForm: change second next call
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: token}
-          offset: 1
-          length: 2
-          direction: backward
+          scopeType: {type: functionCall}
+          offset: 2
+          length: 1
+          direction: forward
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    aaa
-    bbb
-    ccc
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|bbb
-  # 2|ccc
+  documentContents: aaa(bbb(), ccc()) + ddd()
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: |-
-
-    ccc
-  #   012
-  #  +---
-  # 0|
-  # 1|ccc
+  documentContents: "aaa(bbb(), ccc()) + "
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

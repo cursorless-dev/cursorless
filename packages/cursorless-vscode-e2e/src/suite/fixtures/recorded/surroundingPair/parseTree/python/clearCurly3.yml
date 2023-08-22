@@ -1,41 +1,25 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change curly
+  spokenForm: change inside
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: curlyBrackets}
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
 initialState:
   documentContents: |-
+    """fds
+
+    dfsd
     """
-    {
-        hello
-    }
-    """
-  #   012345678
-  #  +---------
-  # 0|"""
-  # 1|{
-  # 2|    hello
-  # 3|}
-  # 4|"""
-  #  +---------
-  #   012345678
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
   documentContents: |-
     """
-
     """
-  #   012
-  #  +---
-  # 0|"""
-  # 1|
-  # 2|"""
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

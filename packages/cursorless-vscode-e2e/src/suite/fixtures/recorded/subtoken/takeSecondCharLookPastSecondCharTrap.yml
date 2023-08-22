@@ -1,44 +1,20 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take second char look past second char trap
+  spokenForm: take second word
   action: setSelection
   targets:
-    - type: range
-      start:
-        type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1}
-        mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      end:
-        type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1}
-        mark: {type: decoratedSymbol, symbolColor: default, character: t}
-      excludeStart: false
-      excludeEnd: false
+    - type: primitive
+      selectionType: token
+      modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}
 initialState:
-  documentContents: "    hello there"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|    hello there
+  documentContents: ;helloThere;
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.l:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 9}
-    default.t:
-      start: {line: 0, character: 10}
-      end: {line: 0, character: 15}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
 finalState:
-  documentContents: "    hello there"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|    hello there
+  documentContents: ;helloThere;
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}

@@ -1,31 +1,29 @@
-languageId: plaintext
+languageId: python
 command:
-  spokenForm: change token forward
-  version: 3
+  version: 5
+  spokenForm: change previous state
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: token}
-          offset: 0
+          scopeType: {type: statement}
+          offset: 1
           length: 1
-          direction: forward
+          direction: backward
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb
-  #   0123456
-  #  +-------
-  # 0|aaa bbb
+  documentContents: |
+    if True:
+        foo = "bar"
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks: {}
 finalState:
-  documentContents: " bbb"
-  #   0123
-  #  +----
-  # 0| bbb
+  documentContents: |
+    if True:
+        
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

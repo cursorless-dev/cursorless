@@ -1,39 +1,29 @@
 languageId: scala
 command:
   version: 0
-  spokenForm: change if state
+  spokenForm: change lambda plus
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: +}
 initialState:
   documentContents: |-
-    val test = if (true) {
-      true
-    } else {
-      false
+    class ExampleClass() {
+      val example = List(1,2,3,4).map(x => x + 1)
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|val test = if (true) {
-  # 1|  true
-  # 2|} else {
-  # 3|  false
-  # 4|}
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.+:
+      start: {line: 1, character: 41}
+      end: {line: 1, character: 42}
 finalState:
-  documentContents: "val test = "
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|val test = 
+  documentContents: |-
+    class ExampleClass() {
+      val example = List(1,2,3,4).map()
+    }
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 1, character: 34}
+      active: {line: 1, character: 34}

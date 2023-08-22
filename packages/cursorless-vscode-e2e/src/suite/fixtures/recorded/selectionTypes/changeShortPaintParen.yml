@@ -1,33 +1,23 @@
+languageId: plaintext
 command:
-  spokenForm: change short paint paren
-  version: 2
+  spokenForm: chuck dot
+  version: 3
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
-      modifiers:
-        - type: containingScope
-          scopeType: {type: boundedNonWhitespaceSequence}
+      mark: {type: decoratedSymbol, symbolColor: default, character: .}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: {name: remove}
 initialState:
-  documentContents: foo(aa|aa-.c_d bb|bb-.'')
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|foo(aa|aa-.c_d bb|bb-.'')
+  documentContents: "  .a"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.(:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 4}
+    default..:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 3}
 finalState:
-  documentContents: " bb|bb-.'')"
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0| bb|bb-.'')
+  documentContents: "  a"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

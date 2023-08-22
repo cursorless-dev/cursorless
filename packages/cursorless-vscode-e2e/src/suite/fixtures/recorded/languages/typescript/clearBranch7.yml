@@ -8,7 +8,7 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     try {
@@ -18,41 +18,17 @@ initialState:
     } finally {
       const aaa = "bbb";
     }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|try {
-  # 1|  const aaa = "bbb";
-  # 2|} catch (err) {
-  # 3|  const aaa = "bbb";
-  # 4|} finally {
-  # 5|  const aaa = "bbb";
-  # 6|}
-  #  +--------------------
-  #   01234567890123456789
-  #             1
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 3, character: 2}
+    - anchor: {line: 5, character: 2}
+      active: {line: 5, character: 2}
   marks: {}
 finalState:
   documentContents: |-
     try {
       const aaa = "bbb";
-    }  finally {
+    } catch (err) {
       const aaa = "bbb";
-    }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|try {
-  # 1|  const aaa = "bbb";
-  # 2|}  finally {
-  # 3|  const aaa = "bbb";
-  # 4|}
-  #  +--------------------
-  #   01234567890123456789
-  #             1
+    } 
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
+    - anchor: {line: 4, character: 2}
+      active: {line: 4, character: 2}

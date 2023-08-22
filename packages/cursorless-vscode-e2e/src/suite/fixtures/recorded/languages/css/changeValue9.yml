@@ -11,12 +11,6 @@ initialState:
     a[data-lang^="tel"] {
       color: rgba(0, 255, 0, 0.5);
     }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|a[data-lang^="tel"] {
-  # 1|  color: rgba(0, 255, 0, 0.5);
-  # 2|}
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}
@@ -26,12 +20,6 @@ finalState:
     a[data-lang^=] {
       color: rgba(0, 255, 0, 0.5);
     }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|a[data-lang^=] {
-  # 1|  color: rgba(0, 255, 0, 0.5);
-  # 2|}
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

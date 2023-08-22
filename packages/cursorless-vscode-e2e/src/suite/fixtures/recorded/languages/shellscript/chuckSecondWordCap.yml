@@ -1,42 +1,32 @@
-languageId: shellscript
+languageId: talon
 command:
-  spokenForm: chuck second word cap
-  version: 2
-  targets:
-    - type: primitive
+  version: 6
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
-        - type: ordinalRange
-          scopeType: {type: word}
-          anchor: 1
-          active: 1
-          excludeAnchor: false
-          excludeActive: false
-      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+        - type: containingScope
+          scopeType: {type: condition}
   usePrePhraseSnapshot: true
-  action: {name: remove}
 initialState:
-  documentContents: |2
-     npm version patch --force --commit-hooks false --git-tag-version false
-  #             1         2         3         4         5         6         7
-  #   01234567890123456789012345678901234567890123456789012345678901234567890
-  #  +-----------------------------------------------------------------------
-  # 0| npm version patch --force --commit-hooks false --git-tag-version false
-  # 1|
+  documentContents: |-
+    tag: user.foo
+    app: bar
+    -
+    bongo: bazman
+    foo: key(a)
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-  marks:
-    default.c:
-      start: {line: 0, character: 27}
-      end: {line: 0, character: 41}
+    - anchor: {line: 4, character: 11}
+      active: {line: 4, character: 11}
+  marks: {}
 finalState:
-  documentContents: |2
-     npm version patch --force --commit false --git-tag-version false
-  #             1         2         3         4         5         6
-  #   01234567890123456789012345678901234567890123456789012345678901234
-  #  +-----------------------------------------------------------------
-  # 0| npm version patch --force --commit false --git-tag-version false
-  # 1|
+  documentContents: |-
+
+    -
+    bongo: bazman
+    foo: key(a)
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

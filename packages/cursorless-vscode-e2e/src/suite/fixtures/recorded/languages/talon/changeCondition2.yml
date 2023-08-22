@@ -1,49 +1,34 @@
 languageId: talon
 command:
   version: 6
-  spokenForm: change condition
+  spokenForm: change every command
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
-        - type: containingScope
-          scopeType: {type: condition}
+        - type: everyScope
+          scopeType: {type: command}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    mode: command
-    os: linux
-    and tag: user.some_tag
-    not tag: user.some_other_tag
-    and not app: some_application
+  documentContents: |-
+    tag: user.foo
+    app: bar
     -
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|mode: command
-  # 1|os: linux
-  # 2|and tag: user.some_tag
-  # 3|not tag: user.some_other_tag
-  # 4|and not app: some_application
-  # 5|-
-  # 6|
-  #  +-----------------------------
-  #   01234567890123456789012345678
-  #             1         2
+    bongo: bazman
+    foo: key(a)
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |
-
+  documentContents: |+
+    tag: user.foo
+    app: bar
     -
-  #   0
-  #  +-
-  # 0|
-  # 1|-
-  # 2|
+
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

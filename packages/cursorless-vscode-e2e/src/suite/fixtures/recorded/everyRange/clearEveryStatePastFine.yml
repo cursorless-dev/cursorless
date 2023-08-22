@@ -23,17 +23,6 @@ initialState:
 
         ccc = "ddd"
         eee = "fff"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|if True:
-  # 1|    aaa = "bbb"
-  # 2|
-  # 3|    ccc = "ddd"
-  # 4|    eee = "fff"
-  #  +---------------
-  #   012345678901234
-  #             1
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -48,17 +37,6 @@ finalState:
 
         
         
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|if True:
-  # 1|    aaa = "bbb"
-  # 2|
-  # 3|    
-  # 4|    
-  #  +---------------
-  #   012345678901234
-  #             1
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}

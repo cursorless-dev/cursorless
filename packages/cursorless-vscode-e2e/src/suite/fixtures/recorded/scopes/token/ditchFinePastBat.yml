@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck fine past bat
+  spokenForm: chuck fine past dot
   version: 3
   targets:
     - type: range
@@ -9,37 +9,28 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: f}
       active:
         type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        mark: {type: decoratedSymbol, symbolColor: default, character: .}
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
   documentContents: |2
-        foo
-        bar.
-  #   01234567
-  #  +--------
-  # 0|    foo
-  # 1|    bar.
-  # 2|
+       foo
+       bar.
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
   marks:
     default.f:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
-    default.b:
-      start: {line: 1, character: 4}
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 6}
+    default..:
+      start: {line: 1, character: 6}
       end: {line: 1, character: 7}
 finalState:
-  documentContents: |2
-        .
-  #   01234
-  #  +-----
-  # 0|    .
-  # 1|
+  documentContents: |+
+
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

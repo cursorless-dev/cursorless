@@ -10,23 +10,21 @@ command:
           scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "function aaa(bbb: string, ccc: string) {}"
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|function aaa(bbb: string, ccc: string) {}
+  documentContents: |-
+    class Ccc {
+        constructor(private aaa: string, bbb: string) {}
+    }
   selections:
-    - anchor: {line: 0, character: 37}
-      active: {line: 0, character: 37}
+    - anchor: {line: 1, character: 48}
+      active: {line: 1, character: 48}
   marks: {}
 finalState:
-  documentContents: "function aaa(: string, : string) {}"
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|function aaa(: string, : string) {}
+  documentContents: |-
+    class Ccc {
+        constructor(private : string, : string) {}
+    }
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
-    - anchor: {line: 0, character: 23}
-      active: {line: 0, character: 23}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}
+    - anchor: {line: 1, character: 34}
+      active: {line: 1, character: 34}

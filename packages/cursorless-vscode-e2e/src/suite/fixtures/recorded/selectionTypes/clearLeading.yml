@@ -1,28 +1,24 @@
 languageId: plaintext
 command:
-  spokenForm: change leading
+  spokenForm: change line pair
   version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - {type: leading}
+        - type: containingScope
+          scopeType: {type: line}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb ccc
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
+  documentContents: foo (bar) baz
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: aaabbb ccc
-  #   0123456789
-  #  +----------
-  # 0|aaabbb ccc
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -7,21 +7,18 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
 initialState:
-  documentContents: val test = if (true) true else false
-  #             1         2         3
-  #   012345678901234567890123456789012345
-  #  +------------------------------------
-  # 0|val test = if (true) true else false
+  documentContents: |-
+    val test = if (true) {
+      true
+    } else {
+      false
+    }
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
   marks: {}
 finalState:
   documentContents: "val test = "
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|val test = 
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

@@ -13,20 +13,9 @@ initialState:
     function myFunc(string $str) {
 
     }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|<?php
-  # 1|
-  # 2|function myFunc(string $str) {
-  # 3|
-  # 4|}
-  #  +------------------------------
-  #   012345678901234567890123456789
-  #             1         2
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 2, character: 19}
+      active: {line: 2, character: 19}
   marks: {}
 finalState:
   documentContents: |-
@@ -35,17 +24,6 @@ finalState:
     function myFunc( $str) {
 
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|<?php
-  # 1|
-  # 2|function myFunc( $str) {
-  # 3|
-  # 4|}
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
   selections:
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 16}

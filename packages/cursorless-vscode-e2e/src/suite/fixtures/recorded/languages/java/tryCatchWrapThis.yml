@@ -8,33 +8,35 @@ command:
       mark: {type: cursor}
   extraArgs: [tryCatchStatement.body]
 initialState:
-  documentContents: int foo = 0;
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|int foo = 0;
+  documentContents: |-
+    if (true) {
+        int foo = 0;
+    }
+
+    int bar = 1;
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: |-
     try {
-        int foo = 0;
+        if (true) {
+            int foo = 0;
+        }
     } catch () {
         
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|try {
-  # 1|    int foo = 0;
-  # 2|} catch () {
-  # 3|    
-  # 4|}
-  #  +----------------
-  #   0123456789012345
-  #             1
+
+    try {
+        int bar = 1;
+    } catch () {
+        
+    }
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 10, character: 9}
+      active: {line: 10, character: 9}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}

@@ -1,24 +1,22 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change call
+  spokenForm: change class
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: class, includeSiblings: false}
 initialState:
-  documentContents: a(1, 2)
-  #   0123456
-  #  +-------
-  # 0|a(1, 2)
+  documentContents: |-
+    class Hi
+
+    end
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

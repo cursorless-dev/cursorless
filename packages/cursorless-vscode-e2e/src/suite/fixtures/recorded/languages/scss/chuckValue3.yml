@@ -1,39 +1,45 @@
 languageId: scss
 command:
-  version: 1
-  spokenForm: chuck value
-  action: remove
+  spokenForm: move first word zip before fine take fine
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: z}
+      modifiers:
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 0
+          active: 0
+          excludeAnchor: false
+          excludeActive: false
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - {type: position, position: before}
+  usePrePhraseSnapshot: true
+  action: {name: moveToTarget}
+marksToCheck: [default.f]
 initialState:
-  documentContents: |
-    a { 
-      margin-top: 150px !important; 
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|a { 
-  # 1|  margin-top: 150px !important; 
-  # 2|}
-  # 3|
+  documentContents: foo-bar baz-bongo
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
-  marks: {}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks:
+    default.z:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 17}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: |
-    a { 
-      margin-top:; 
-    }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|a { 
-  # 1|  margin-top:; 
-  # 2|}
-  # 3|
+  documentContents: baz-foo-bar bongo
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
+  marks:
+    default.z:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 17}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 11}

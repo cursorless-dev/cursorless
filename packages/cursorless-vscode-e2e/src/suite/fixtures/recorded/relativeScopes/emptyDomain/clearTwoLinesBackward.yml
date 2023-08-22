@@ -17,22 +17,14 @@ initialState:
     aaa
 
     bbb
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|
-  # 2|bbb
-  selections:
-    - anchor: {line: 2, character: 3}
-      active: {line: 2, character: 3}
-  marks: {}
-finalState:
-  documentContents: |
-    aaa
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

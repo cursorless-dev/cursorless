@@ -13,24 +13,14 @@ initialState:
   documentContents: |
 
     aaa
-  #   012
-  #  +---
-  # 0|
-  # 1|aaa
-  # 2|
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |+
 
 
-  #   
-  #  +
-  # 0|
-  # 1|
-  # 2|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

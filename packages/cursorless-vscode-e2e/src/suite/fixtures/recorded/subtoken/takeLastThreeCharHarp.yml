@@ -1,25 +1,18 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take last three chars harp
+  spokenForm: take last two words harp
   action: setSelection
   targets:
     - type: primitive
       selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: -3, active: -1}
+      modifier: {type: subpiece, pieceType: word, anchor: -2, active: -1}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |+
 
     const value = "HelloWorldWhatever";
 
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|
-  # 1|const value = "HelloWorldWhatever";
-  # 2|
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -32,13 +25,6 @@ finalState:
 
     const value = "HelloWorldWhatever";
 
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|
-  # 1|const value = "HelloWorldWhatever";
-  # 2|
-  # 3|
   selections:
-    - anchor: {line: 1, character: 30}
+    - anchor: {line: 1, character: 20}
       active: {line: 1, character: 33}

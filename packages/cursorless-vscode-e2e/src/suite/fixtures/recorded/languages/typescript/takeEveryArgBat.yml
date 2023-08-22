@@ -1,31 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take every arg bat
+  spokenForm: take every arg red
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
 initialState:
   documentContents: foo(bar(baz, bongo), bazman)
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|foo(bar(baz, bongo), bazman)
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.b:
-      start: {line: 0, character: 21}
-      end: {line: 0, character: 27}
+    default.r:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
 finalState:
   documentContents: foo(bar(baz, bongo), bazman)
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|foo(bar(baz, bongo), bazman)
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 19}

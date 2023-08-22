@@ -1,25 +1,19 @@
 languageId: javascriptreact
 command:
   version: 5
-  spokenForm: change element
+  spokenForm: change end tag
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: xmlElement}
+          scopeType: {type: xmlEndTag}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
     function Comp() {
         return <>text</>;
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|function Comp() {
-  # 1|    return <>text</>;
-  # 2|}
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
@@ -27,14 +21,8 @@ initialState:
 finalState:
   documentContents: |-
     function Comp() {
-        return ;
+        return <>text;
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|function Comp() {
-  # 1|    return ;
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}

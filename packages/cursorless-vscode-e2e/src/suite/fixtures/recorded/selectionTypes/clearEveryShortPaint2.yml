@@ -1,32 +1,24 @@
 languageId: plaintext
 command:
-  spokenForm: change every short paint
-  version: 2
+  spokenForm: change first two items
+  version: 3
   targets:
     - type: primitive
       modifiers:
-        - type: everyScope
-          scopeType: {type: boundedNonWhitespaceSequence}
+        - type: ordinalScope
+          scopeType: {type: collectionItem}
+          start: 0
+          length: 2
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: "{foo.bar(hello-world, whatever-now)} test-this"
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012345
-  #  +----------------------------------------------
-  # 0|{foo.bar(hello-world, whatever-now)} test-this
+  documentContents: a, b, c, d
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: "{ } test-this"
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|{ } test-this
+  documentContents: ", c, d"
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

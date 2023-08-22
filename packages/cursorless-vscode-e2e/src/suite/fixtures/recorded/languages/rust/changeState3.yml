@@ -1,33 +1,31 @@
 languageId: rust
 command:
-  spokenForm: change state
+  spokenForm: change subject
   version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |
-    let x = vec![1, 2, 3];
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|let x = vec![1, 2, 3];
-  # 1|
+    match user {
+        User { first_name: "John" } => {},
+        User { first_name } if first_name.starts_with("P") => {}
+    }
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 2, character: 27}
+      active: {line: 2, character: 54}
   marks: {}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |
+    match  {
+        User { first_name: "John" } => {},
+        User { first_name } if first_name.starts_with("P") => {}
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

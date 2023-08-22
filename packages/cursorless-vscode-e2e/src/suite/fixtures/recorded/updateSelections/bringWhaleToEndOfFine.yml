@@ -1,36 +1,30 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: bring whale to end of fine
-  action: replaceWithTarget
+  version: 3
+  spokenForm: chuck first past second char
+  action: {name: remove}
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
-    - type: primitive
-      position: after
-      insideOutsideType: inside
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - type: range
+          anchor:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 0
+            length: 1
+          active:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
 initialState:
-  documentContents: foo world
-  #   012345678
-  #  +---------
-  # 0|foo world
+  documentContents: foo world whatever
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-  marks:
-    default.w:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 9}
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
+  marks: {}
 finalState:
-  documentContents: fooworld world
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|fooworld world
+  documentContents: foo rld whatever
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 7}

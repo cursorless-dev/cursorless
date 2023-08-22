@@ -1,45 +1,24 @@
 languageId: plaintext
 command:
-  spokenForm: bring line before whale
-  version: 2
+  version: 5
+  spokenForm: chuck last two words
+  action: {name: remove}
   targets:
     - type: primitive
       modifiers:
-        - type: containingScope
-          scopeType: {type: line}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
-      modifiers:
-        - {type: position, position: before}
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: -2
+          length: 2
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
-  documentContents: |-
-    hello world
-    whatever now
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|hello world
-  # 1|whatever now
+  documentContents: a_b_c
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
-  marks:
-    default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
 finalState:
-  documentContents: |-
-    whatever now
-    hello world
-    whatever now
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|whatever now
-  # 1|hello world
-  # 2|whatever now
+  documentContents: a
   selections:
-    - anchor: {line: 2, character: 12}
-      active: {line: 2, character: 12}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

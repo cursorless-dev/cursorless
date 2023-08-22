@@ -1,29 +1,22 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change callee paren
+  spokenForm: change funk
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
 initialState:
-  documentContents: test()()
-  #   01234567
-  #  +--------
-  # 0|test()()
+  documentContents: |-
+    function* generator(i) {
+      yield i + 10;
+    }
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-  marks:
-    default.(:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 7}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks: {}
 finalState:
-  documentContents: ()
-  #   01
-  #  +--
-  # 0|()
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -8,16 +8,11 @@ command:
       modifier: {type: surroundingPair, delimiter: doubleQuotes}
 initialState:
   documentContents: "\"\""
-  #   01
-  #  +--
-  # 0|""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

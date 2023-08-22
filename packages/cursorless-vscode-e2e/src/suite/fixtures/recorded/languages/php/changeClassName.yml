@@ -1,53 +1,24 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change class name
+  spokenForm: change comment
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: className, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    class MyClass
-    {
-
-    }
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<?php
-  # 1|
-  # 2|class MyClass
-  # 3|{
-  # 4|
-  # 5|}
-  #  +-------------
-  #   0123456789012
-  #             1
+    // Hello world!
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |+
     <?php
 
-    class 
-    {
-
-    }
-  #   012345
-  #  +------
-  # 0|<?php
-  # 1|
-  # 2|class 
-  # 3|{
-  # 4|
-  # 5|}
-  #  +------
-  #   012345
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

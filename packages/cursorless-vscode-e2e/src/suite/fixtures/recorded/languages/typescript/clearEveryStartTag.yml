@@ -11,33 +11,20 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    <>
-        <>ccc</>
-        <>ddd</>
-    </>
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|<>
-  # 1|    <>ccc</>
-  # 2|    <>ddd</>
-  # 3|</>
+    <aaa>
+        <bbb>ccc</bbb>
+        <bbb>ddd</bbb>
+    </aaa>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    <>
-        ccc</>
-        ddd</>
-    </>
-  #   0123456789
-  #  +----------
-  # 0|<>
-  # 1|    ccc</>
-  # 2|    ddd</>
-  # 3|</>
+    <aaa>
+        ccc</bbb>
+        ddd</bbb>
+    </aaa>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

@@ -25,17 +25,6 @@ initialState:
     eee fff ggg
     hhh iii jjj
     kkk lll mmm
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
-  # 1|eee fff ggg
-  # 2|hhh iii jjj
-  # 3|kkk lll mmm
-  # 4|
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -52,17 +41,6 @@ finalState:
       
       
     kkk lll mmm
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
-  # 1|  
-  # 2|  
-  # 3|kkk lll mmm
-  # 4|
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

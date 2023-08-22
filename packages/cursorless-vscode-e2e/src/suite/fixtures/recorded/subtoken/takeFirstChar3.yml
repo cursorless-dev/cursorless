@@ -8,19 +8,13 @@ command:
       selectionType: token
       modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
 initialState:
-  documentContents: ///**
-  #   01234
-  #  +-----
-  # 0|///**
+  documentContents: //***
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
   marks: {}
 finalState:
-  documentContents: ///**
-  #   01234
-  #  +-----
-  # 0|///**
+  documentContents: //***
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 3}

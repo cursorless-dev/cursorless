@@ -1,26 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change bounds round
+  spokenForm: change pair blue double quote
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: excludeInterior}
+      modifier: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
 initialState:
-  documentContents: (hello)
-  #   0123456
-  #  +-------
-  # 0|(hello)
+  documentContents: "\"\""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks:
+    blue.":
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
 finalState:
-  documentContents: hello
-  #   01234
-  #  +-----
-  # 0|hello
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}

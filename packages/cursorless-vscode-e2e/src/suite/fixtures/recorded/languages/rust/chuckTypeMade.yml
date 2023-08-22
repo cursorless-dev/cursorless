@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: chuck type made
+  spokenForm: chuck type odd
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
       modifiers:
         - type: containingScope
           scopeType: {type: type}
@@ -12,60 +12,21 @@ command:
   action: {name: remove}
 initialState:
   documentContents: |
-    trait T {
-        fn f();
+    struct S {
+        n: Option<u64>,
     }
-
-    impl T for Option<u32> {
-        fn f() {
-            unimplemented!()
-        }
-    }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|trait T {
-  # 1|    fn f();
-  # 2|}
-  # 3|
-  #  +------------------------
-  #   012345678901234567890123
-  #  +------------------------
-  # 4|impl T for Option<u32> {
-  # 5|    fn f() {
-  # 6|        unimplemented!()
-  # 7|    }
-  # 8|}
-  # 9|
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
   selections:
-    - anchor: {line: 8, character: 0}
-      active: {line: 8, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
   marks:
-    default.m:
-      start: {line: 4, character: 0}
-      end: {line: 4, character: 4}
+    default.o:
+      start: {line: 1, character: 7}
+      end: {line: 1, character: 13}
 finalState:
-  documentContents: |+
-    trait T {
-        fn f();
+  documentContents: |
+    struct S {
+        n,
     }
-
-
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|trait T {
-  # 1|    fn f();
-  # 2|}
-  # 3|
-  # 4|
-  # 5|
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

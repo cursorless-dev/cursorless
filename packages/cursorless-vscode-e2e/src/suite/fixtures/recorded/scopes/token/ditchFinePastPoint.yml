@@ -17,12 +17,7 @@ command:
 initialState:
   documentContents: |2
        foo
-       bar.
-  #   0123456
-  #  +-------
-  # 0|   foo
-  # 1|   bar.
-  # 2|
+       bar.   
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -36,10 +31,6 @@ initialState:
 finalState:
   documentContents: |+
 
-  #   
-  #  +
-  # 0|
-  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

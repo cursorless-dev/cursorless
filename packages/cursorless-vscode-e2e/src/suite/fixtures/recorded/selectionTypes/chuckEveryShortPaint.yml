@@ -1,28 +1,20 @@
-languageId: plaintext
+languageId: typescript
 command:
-  spokenForm: chuck every short paint
-  version: 2
+  version: 1
+  spokenForm: chuck file
+  action: remove
   targets:
-    - type: primitive
-      modifiers:
-        - type: everyScope
-          scopeType: {type: boundedNonWhitespaceSequence}
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+    - {type: primitive, selectionType: document}
 initialState:
-  documentContents: some.text.here some-other-text word()[]
-  #             1         2         3
-  #   012345678901234567890123456789012345678
-  #  +---------------------------------------
-  # 0|some.text.here some-other-text word()[]
+  documentContents: |
+
+    const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

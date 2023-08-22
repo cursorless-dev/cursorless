@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change type trap
+  spokenForm: change type urge
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
       modifiers:
         - type: containingScope
           scopeType: {type: type}
@@ -12,45 +12,17 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    fn some_function<T, U>(t: &T, u: &U) -> i32
-        where T: Display + Clone,
-              U: Clone + Debug
-    {}
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0|fn some_function<T, U>(t: &T, u: &U) -> i32
-  # 1|    where T: Display + Clone,
-  # 2|          U: Clone + Debug
-  # 3|{}
-  # 4|
-  #  +-------------------------------------------
-  #   0123456789012345678901234567890123456789012
-  #             1         2         3         4
+    const X: [u8; 2] = [0, 0];
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
-    default.t:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 11}
+    default.u:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 12}
 finalState:
   documentContents: |
-    fn some_function<T, U>(t: &T, u: &U) -> i32
-        where T: ,
-              U: Clone + Debug
-    {}
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0|fn some_function<T, U>(t: &T, u: &U) -> i32
-  # 1|    where T: ,
-  # 2|          U: Clone + Debug
-  # 3|{}
-  # 4|
-  #  +-------------------------------------------
-  #   0123456789012345678901234567890123456789012
-  #             1         2         3         4
+    const X: [; 2] = [0, 0];
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

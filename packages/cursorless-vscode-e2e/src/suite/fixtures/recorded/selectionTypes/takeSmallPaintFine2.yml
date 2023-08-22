@@ -1,34 +1,27 @@
-languageId: python
+languageId: typescript
 command:
-  spokenForm: take short paint fine
-  version: 2
+  version: 1
+  spokenForm: take token vest
+  action: setSelection
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      modifiers:
-        - type: containingScope
-          scopeType: {type: boundedNonWhitespaceSequence}
-  usePrePhraseSnapshot: true
-  action: {name: setSelection}
+      selectionType: token
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
-  documentContents: "[baz, foo[0], bar]"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|[baz, foo[0], bar]
+  documentContents: |
+
+    const value   = "Hello.world  ";
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks:
-    default.f:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 9}
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
 finalState:
-  documentContents: "[baz, foo[0], bar]"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|[baz, foo[0], bar]
+  documentContents: |
+
+    const value   = "Hello.world  ";
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 13}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}

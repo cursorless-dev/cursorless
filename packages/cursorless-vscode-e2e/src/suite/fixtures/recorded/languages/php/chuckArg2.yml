@@ -10,22 +10,10 @@ initialState:
   documentContents: |-
     <?php
 
-    function myFunc(...$nums)
+    function myFunc($value, ...$nums)
     {
 
     }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|<?php
-  # 1|
-  # 2|function myFunc(...$nums)
-  # 3|{
-  # 4|
-  # 5|}
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
     - anchor: {line: 2, character: 20}
       active: {line: 2, character: 20}
@@ -34,22 +22,10 @@ finalState:
   documentContents: |-
     <?php
 
-    function myFunc()
+    function myFunc(...$nums)
     {
 
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|<?php
-  # 1|
-  # 2|function myFunc()
-  # 3|{
-  # 4|
-  # 5|}
-  #  +-----------------
-  #   01234567890123456
-  #             1
   selections:
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 16}

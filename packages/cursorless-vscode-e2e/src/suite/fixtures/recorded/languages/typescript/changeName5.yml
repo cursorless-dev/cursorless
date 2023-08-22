@@ -1,27 +1,25 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change name
+  spokenForm: change value
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: foo().bar = parameters.leadingDelimiterRange;
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234
-  #  +---------------------------------------------
-  # 0|foo().bar = parameters.leadingDelimiterRange;
+  documentContents: |-
+    function* generator(i) {
+      yield i + 10;
+    }
   selections:
-    - anchor: {line: 0, character: 25}
-      active: {line: 0, character: 26}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
-  documentContents: " = parameters.leadingDelimiterRange;"
-  #             1         2         3
-  #   012345678901234567890123456789012345
-  #  +------------------------------------
-  # 0| = parameters.leadingDelimiterRange;
+  documentContents: |-
+    function* generator(i) {
+      yield ;
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}

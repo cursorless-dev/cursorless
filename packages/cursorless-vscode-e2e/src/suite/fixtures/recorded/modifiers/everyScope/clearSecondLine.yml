@@ -1,40 +1,37 @@
 languageId: plaintext
 command:
-  spokenForm: change second line
-  version: 3
+  version: 5
+  spokenForm: bring drum after two instances air
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+    - type: primitive
       modifiers:
-        - type: ordinalScope
-          scopeType: {type: line}
-          start: 1
-          length: 1
+        - {type: position, position: after}
+        - type: relativeScope
+          scopeType: {type: instance}
+          offset: 0
+          length: 2
+          direction: forward
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    aaa bbb ccc
-    ddd eee fff
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
-  # 1|ddd eee fff
-  # 2|
+    aaa bbb ccc ddd aaa
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 7}
-  marks: {}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.d:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 15}
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
 finalState:
-  documentContents: |+
-    aaa bbb ccc
-
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
-  # 1|
-  # 2|
+  documentContents: |
+    aaa ddd bbb ccc ddd aaa ddd
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

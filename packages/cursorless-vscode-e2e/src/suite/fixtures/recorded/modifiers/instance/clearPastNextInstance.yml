@@ -1,49 +1,33 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change past next instance
+  spokenForm: change previous two instances air
   action: {name: clearAndSetSelection}
   targets:
-    - type: range
-      anchor: {type: implicit}
-      active:
-        type: primitive
-        modifiers:
-          - type: relativeScope
-            scopeType: {type: instance}
-            offset: 1
-            length: 1
-            direction: forward
-      excludeAnchor: false
-      excludeActive: false
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: instance}
+          offset: 1
+          length: 2
+          direction: backward
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    aaa bbb aaa fff
-    ddd eee ddd ggg
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|aaa bbb aaa fff
-  # 1|ddd eee ddd ggg
-  # 2|
+    aaa bbb ccc aaa ddd aaa
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-  marks: {}
+  marks:
+    default.a:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 23}
 finalState:
   documentContents: |2
-     fff
-     ggg
-  #   0123
-  #  +----
-  # 0| fff
-  # 1| ggg
-  # 2|
+     bbb ccc  ddd aaa
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

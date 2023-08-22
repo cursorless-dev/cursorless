@@ -1,35 +1,23 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take arg
+  spokenForm: take call
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter}
+      modifier: {type: containingScope, scopeType: functionCall}
 initialState:
   documentContents: |
 
     myFunk(1, 2, 3);
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|myFunk(1, 2, 3);
-  # 2|
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
   marks: {}
 finalState:
   documentContents: |
 
     myFunk(1, 2, 3);
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|myFunk(1, 2, 3);
-  # 2|
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 15}

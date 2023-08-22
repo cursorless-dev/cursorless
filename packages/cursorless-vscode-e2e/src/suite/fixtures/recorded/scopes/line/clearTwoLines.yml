@@ -1,33 +1,30 @@
-languageId: plaintext
+languageId: typescript
 command:
-  spokenForm: change two lines
-  version: 3
+  version: 1
+  spokenForm: chuck block air
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: relativeScope
-          scopeType: {type: line}
-          offset: 0
-          length: 2
-          direction: forward
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+      selectionType: paragraph
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
 initialState:
-  documentContents: |-
-    aaa bbb
-    ccc ddd
-  #   0123456
-  #  +-------
-  # 0|aaa bbb
-  # 1|ccc ddd
-  selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-  marks: {}
-finalState:
-  documentContents: ""
-  # (empty)
+  documentContents: |
 
+    const value = "Hello world";
+
+    const value = "Hello world";
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 3, character: 6}
+      end: {line: 3, character: 11}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

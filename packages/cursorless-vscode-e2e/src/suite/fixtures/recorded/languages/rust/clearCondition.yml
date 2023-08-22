@@ -1,44 +1,32 @@
 languageId: rust
 command:
-  spokenForm: change condition
   version: 3
+  spokenForm: change condition
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: condition}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    match user {
-      User { first_name: "John" } => {},
-      User { first_name } if first_name.starts_with("P") => {}
+    if n < 0 {
+      print!("{} is negative", n);
+    } else if n > 0 {
+      print!("{} is positive", n);
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901234567
-  #  +----------------------------------------------------------
-  # 0|match user {
-  # 1|  User { first_name: "John" } => {},
-  # 2|  User { first_name } if first_name.starts_with("P") => {}
-  # 3|}
   selections:
-    - anchor: {line: 2, character: 57}
-      active: {line: 2, character: 57}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    match user {
-      User { first_name: "John" } => {},
-      User { first_name } if  => {}
+    if  {
+      print!("{} is negative", n);
+    } else if n > 0 {
+      print!("{} is positive", n);
     }
-  #             1         2         3
-  #   012345678901234567890123456789012345
-  #  +------------------------------------
-  # 0|match user {
-  # 1|  User { first_name: "John" } => {},
-  # 2|  User { first_name } if  => {}
-  # 3|}
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

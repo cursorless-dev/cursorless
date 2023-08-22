@@ -1,38 +1,29 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: change inside command
+  spokenForm: change inside every command
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - {type: interiorOnly}
-        - type: containingScope
+        - type: everyScope
           scopeType: {type: command}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    slap:
-        key(end)
-        key(enter)
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|slap:
-  # 1|    key(end)
-  # 2|    key(enter)
+    air: "a"
+    bat: "b"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: |-
-    slap:
-        
-  #   01234
-  #  +-----
-  # 0|slap:
-  # 1|    
+    air: 
+    bat: 
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}

@@ -1,29 +1,29 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: change comment
+  spokenForm: change every arg
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: |-
-    /*
-      hello
-    */
-  #   0123456
-  #  +-------
-  # 0|/*
-  # 1|  hello
-  # 2|*/
+
+    .double {
+      transform: translate(-50%, -50%);
+    }
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
+  documentContents: |-
 
+    .double {
+      transform: translate(, );
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 23}
+      active: {line: 2, character: 23}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}

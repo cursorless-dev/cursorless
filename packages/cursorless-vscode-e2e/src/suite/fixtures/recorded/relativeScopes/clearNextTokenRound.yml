@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change next token round
+  spokenForm: change next two tokens
   version: 3
   targets:
     - type: primitive
@@ -8,40 +8,18 @@ command:
         - type: relativeScope
           scopeType: {type: token}
           offset: 1
-          length: 1
+          length: 2
           direction: forward
-        - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: parentheses}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    hello (
-        there
-        now
-    ) testing
-  #   012345678
-  #  +---------
-  # 0|hello (
-  # 1|    there
-  # 2|    now
-  # 3|) testing
+  documentContents: aaa bbb ccc ddd
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: |-
-    hello (
-        there
-        now
-    ) 
-  #   012345678
-  #  +---------
-  # 0|hello (
-  # 1|    there
-  # 2|    now
-  # 3|) 
+  documentContents: "aaa bbb "
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 3, character: 2}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

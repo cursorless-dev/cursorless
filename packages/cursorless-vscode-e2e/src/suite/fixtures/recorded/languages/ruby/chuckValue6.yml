@@ -1,25 +1,22 @@
 languageId: ruby
 command:
-  version: 1
-  spokenForm: chuck value
-  action: remove
+  version: 5
+  spokenForm: change class name
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: className}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: a += 1
-  #   012345
-  #  +------
-  # 0|a += 1
+  documentContents: class Aaa; end
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: a
-  #   0
-  #  +-
-  # 0|a
+  documentContents: class ; end
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

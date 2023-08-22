@@ -1,42 +1,30 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change every instance this past bat
+  spokenForm: change first instance air
   action: {name: clearAndSetSelection}
   targets:
-    - type: range
-      anchor:
-        type: primitive
-        modifiers:
-          - type: everyScope
-            scopeType: {type: instance}
-        mark: {type: cursor}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      excludeAnchor: false
-      excludeActive: false
+    - type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: instance}
+          start: 0
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: aaa bbb ccc aaa bbb
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|aaa bbb ccc aaa bbb
+  documentContents: |
+    aaa bbb ccc aaa ddd aaa
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
-    default.b:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
+    default.a:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 23}
 finalState:
-  documentContents: " ccc "
-  #   01234
-  #  +-----
-  # 0| ccc 
+  documentContents: |2
+     bbb ccc aaa ddd aaa
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}

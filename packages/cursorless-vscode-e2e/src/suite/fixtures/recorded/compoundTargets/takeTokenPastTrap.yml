@@ -13,10 +13,6 @@ command:
       excludeEnd: false
 initialState:
   documentContents: hello there
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello there
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
@@ -26,10 +22,6 @@ initialState:
       end: {line: 0, character: 11}
 finalState:
   documentContents: hello there
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello there
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 11}

@@ -1,27 +1,19 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change name this
+  spokenForm: change regex
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
-      mark: {type: cursor}
+      modifier: {type: containingScope, scopeType: regularExpression, includeSiblings: false}
 initialState:
-  documentContents: a = "hello"
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|a = "hello"
+  documentContents: a = /.*/
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: " = \"hello\""
-  #   0123456789
-  #  +----------
-  # 0| = "hello"
+  documentContents: "a = "
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

@@ -1,31 +1,21 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: chuck every arg
+  spokenForm: chuck every item
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
 initialState:
   documentContents: |
-    [1, 2, 3].each_with_the_next { |n, i| }
-  #             1         2         3
-  #   012345678901234567890123456789012345678
-  #  +---------------------------------------
-  # 0|[1, 2, 3].each_with_the_next { |n, i| }
-  # 1|
+    [1, 2, 3]
   selections:
-    - anchor: {line: 0, character: 34}
-      active: {line: 0, character: 34}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
   documentContents: |
-    [1, 2, 3].each_with_the_next { || }
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|[1, 2, 3].each_with_the_next { || }
-  # 1|
+    []
   selections:
-    - anchor: {line: 0, character: 32}
-      active: {line: 0, character: 32}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

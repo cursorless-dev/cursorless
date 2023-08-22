@@ -1,12 +1,12 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take type blue look
+  spokenForm: take type gust
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: blue, character: l}
+      mark: {type: decoratedSymbol, symbolColor: default, character: g}
 initialState:
   documentContents: |-
     public class MyClass {
@@ -15,25 +15,13 @@ initialState:
             List<String> list = new ArrayList<String>();
         }
     }
-  #             1         2         3         4         5         6
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #  +----------------------------------------------------------------
-  # 0|public class MyClass {
-  # 1|    private MyClass () {
-  # 2|        Map<String, String> map = new HashMap<String, String>();
-  # 3|        List<String> list = new ArrayList<String>();
-  # 4|    }
-  # 5|}
-  #  +----------------------------------------------------------------
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #             1         2         3         4         5         6
   selections:
-    - anchor: {line: 2, character: 38}
-      active: {line: 2, character: 61}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 20}
   marks:
-    blue.l:
-      start: {line: 3, character: 8}
-      end: {line: 3, character: 12}
+    default.g:
+      start: {line: 3, character: 13}
+      end: {line: 3, character: 19}
 finalState:
   documentContents: |-
     public class MyClass {
@@ -42,18 +30,6 @@ finalState:
             List<String> list = new ArrayList<String>();
         }
     }
-  #             1         2         3         4         5         6
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #  +----------------------------------------------------------------
-  # 0|public class MyClass {
-  # 1|    private MyClass () {
-  # 2|        Map<String, String> map = new HashMap<String, String>();
-  # 3|        List<String> list = new ArrayList<String>();
-  # 4|    }
-  # 5|}
-  #  +----------------------------------------------------------------
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #             1         2         3         4         5         6
   selections:
     - anchor: {line: 3, character: 8}
       active: {line: 3, character: 20}

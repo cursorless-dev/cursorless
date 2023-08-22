@@ -10,28 +10,22 @@ initialState:
   documentContents: |-
     <?php
 
-    myFunc($value, $num, $param);
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|<?php
-  # 1|
-  # 2|myFunc($value, $num, $param);
+    function myFunc(...$nums)
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    myFunc($value, $param);
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|<?php
-  # 1|
-  # 2|myFunc($value, $param);
+    function myFunc()
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}

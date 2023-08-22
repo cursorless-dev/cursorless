@@ -1,43 +1,38 @@
 languageId: scss
 command:
-  version: 1
-  spokenForm: change every arg
-  action: clearAndSetSelection
+  spokenForm: change first word look
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      modifiers:
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 0
+          active: 0
+          excludeAnchor: false
+          excludeActive: false
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    a {
-      clip-path: ellipse(115px 55px at 50% 40%);
-    }
+  documentContents: |2-
+     .long-bem-class-name {
+       height: 10px;
+     }
      
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890123
-  #  +--------------------------------------------
-  # 0|a {
-  # 1|  clip-path: ellipse(115px 55px at 50% 40%);
-  # 2|}
-  # 3| 
   selections:
-    - anchor: {line: 1, character: 25}
-      active: {line: 1, character: 25}
-  marks: {}
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}
+  marks:
+    default.l:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 21}
 finalState:
-  documentContents: |-
-    a {
-      clip-path: ellipse( at );
-    }
+  documentContents: |2-
+     .-bem-class-name {
+       height: 10px;
+     }
      
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|a {
-  # 1|  clip-path: ellipse( at );
-  # 2|}
-  # 3| 
   selections:
-    - anchor: {line: 1, character: 21}
-      active: {line: 1, character: 21}
-    - anchor: {line: 1, character: 25}
-      active: {line: 1, character: 25}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

@@ -9,27 +9,15 @@ command:
 initialState:
   documentContents: |
 
-    value = "hello world"
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|value = "hello world"
-  # 2|
+    value = {a: 1, b: 2, c: 3}
   selections:
-    - anchor: {line: 1, character: 5}
-      active: {line: 1, character: 5}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
   marks: {}
 finalState:
   documentContents: |
 
-    value = "hello world"
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|value = "hello world"
-  # 2|
+    value = {a: 1, b: 2, c: 3}
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 13}

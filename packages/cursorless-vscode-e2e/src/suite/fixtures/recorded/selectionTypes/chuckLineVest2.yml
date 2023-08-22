@@ -1,41 +1,26 @@
-languageId: typescript
+languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck line vest
+  spokenForm: chuck link made
   action: remove
   targets:
     - type: primitive
-      selectionType: line
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      selectionType: url
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
 initialState:
-  documentContents: |
-
-    const value = "Hello world";
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|const value = "Hello world";
-  # 3|
+  documentContents: >
+    https://www.atomiccommits.io/consistent-hashing
+    https://www.atomiccommits.io/consistent-hashing#code
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
-    default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    default.m:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 25}
 finalState:
   documentContents: |
-
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
+    https://www.atomiccommits.io/consistent-hashing#code
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

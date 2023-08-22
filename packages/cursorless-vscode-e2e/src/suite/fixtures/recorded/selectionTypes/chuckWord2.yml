@@ -1,28 +1,22 @@
 languageId: plaintext
 command:
-  spokenForm: chuck word
+  spokenForm: change char
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: word}
+          scopeType: {type: character}
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaaBbbCcc
-  #   012345678
-  #  +---------
-  # 0|aaaBbbCcc
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: aaaCcc
-  #   012345
-  #  +------
-  # 0|aaaCcc
+  documentContents: aaaBbCcc
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

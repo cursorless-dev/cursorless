@@ -12,12 +12,6 @@ initialState:
     void myFunk(String value) {
         
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|void myFunk(String value) {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -30,12 +24,6 @@ finalState:
     void myFunk(value) {
         
     }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|void myFunk(value) {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

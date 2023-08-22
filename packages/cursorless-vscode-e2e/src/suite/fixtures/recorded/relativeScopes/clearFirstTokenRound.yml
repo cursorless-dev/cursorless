@@ -1,13 +1,13 @@
 languageId: plaintext
 command:
-  spokenForm: change first token round
+  spokenForm: change last token round
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: ordinalScope
           scopeType: {type: token}
-          start: 0
+          start: -1
           length: 1
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: parentheses}
@@ -19,28 +19,16 @@ initialState:
         there
         now
     ) testing
-  #   012345678
-  #  +---------
-  # 0|hello (
-  # 1|    there
-  # 2|    now
-  # 3|) testing
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    hello 
+    hello (
         there
         now
-    ) testing
-  #   012345678
-  #  +---------
-  # 0|hello 
-  # 1|    there
-  # 2|    now
-  # 3|) testing
+     testing
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

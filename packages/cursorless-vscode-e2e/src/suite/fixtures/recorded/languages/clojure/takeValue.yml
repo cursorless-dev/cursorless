@@ -8,20 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
   documentContents: "{:bar {:foo \"bar\"}}"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|{:bar {:foo "bar"}}
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: "{:bar {:foo \"bar\"}}"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|{:bar {:foo "bar"}}
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 18}

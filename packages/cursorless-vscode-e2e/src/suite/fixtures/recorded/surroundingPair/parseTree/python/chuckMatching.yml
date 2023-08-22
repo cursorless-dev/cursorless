@@ -7,19 +7,17 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: f"j{fdfhjkd}lkjlkj"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|f"j{fdfhjkd}lkjlkj"
+  documentContents: |
+    def fff(x, y):
+        pass
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |
+    def fff:
+        pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

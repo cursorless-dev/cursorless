@@ -1,37 +1,31 @@
 languageId: php
 command:
   version: 1
-  spokenForm: chuck arg
+  spokenForm: chuck every arg
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: |-
     <?php
 
-    myFunc($value, ...$nums);
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|<?php
-  # 1|
-  # 2|myFunc($value, ...$nums);
+    function myFunc($value, $nums)
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 19}
-      active: {line: 2, character: 19}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    myFunc($value);
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|<?php
-  # 1|
-  # 2|myFunc($value);
+    function myFunc()
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 13}
-      active: {line: 2, character: 13}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}

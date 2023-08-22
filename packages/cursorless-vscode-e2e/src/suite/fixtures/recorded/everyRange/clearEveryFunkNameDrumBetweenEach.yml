@@ -30,28 +30,6 @@ initialState:
 
     def ddd():
         pass
-  #    0123456789
-  #   +----------
-  #  0|def aaa():
-  #  1|    pass
-  #  2|
-  #  3|def bbb():
-  #   +----------
-  #    0123456789
-  #   +----------
-  #  4|    pass
-  #  5|
-  #  6|def ccc():
-  #  7|    pass
-  #   +----------
-  #    0123456789
-  #   +----------
-  #  8|
-  #  9|def ddd():
-  # 10|    pass
-  # 11|
-  #   +----------
-  #    0123456789
   selections:
     - anchor: {line: 11, character: 0}
       active: {line: 11, character: 0}
@@ -75,28 +53,6 @@ finalState:
 
     def ddd():
         pass
-  #    0123456789
-  #   +----------
-  #  0|def aaa():
-  #  1|    pass
-  #  2|
-  #  3|def ():
-  #   +----------
-  #    0123456789
-  #   +----------
-  #  4|    pass
-  #  5|
-  #  6|def ():
-  #  7|    pass
-  #   +----------
-  #    0123456789
-  #   +----------
-  #  8|
-  #  9|def ddd():
-  # 10|    pass
-  # 11|
-  #   +----------
-  #    0123456789
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}

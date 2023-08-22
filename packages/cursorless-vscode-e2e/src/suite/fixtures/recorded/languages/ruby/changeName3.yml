@@ -1,40 +1,20 @@
 languageId: ruby
 command:
-  spokenForm: change name
-  version: 2
+  version: 1
+  spokenForm: change name this
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: name}
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      mark: {type: cursor}
 initialState:
-  documentContents: |-
-    def self.hello_world
-      puts "hi"
-    end
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|def self.hello_world
-  # 1|  puts "hi"
-  # 2|end
+  documentContents: a = "hello"
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: |-
-    def self.
-      puts "hi"
-    end
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|def self.
-  # 1|  puts "hi"
-  # 2|end
+  documentContents: " = \"hello\""
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

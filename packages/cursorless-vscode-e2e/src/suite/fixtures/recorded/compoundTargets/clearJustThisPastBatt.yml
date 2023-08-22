@@ -20,10 +20,6 @@ initialState:
   documentContents: |-
     aa
     bb
-  #   01
-  #  +--
-  # 0|aa
-  # 1|bb
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
@@ -33,9 +29,6 @@ initialState:
       end: {line: 1, character: 2}
 finalState:
   documentContents: a
-  #   0
-  #  +-
-  # 0|a
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

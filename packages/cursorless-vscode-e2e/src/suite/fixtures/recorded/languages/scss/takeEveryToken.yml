@@ -1,36 +1,32 @@
-languageId: scss
+languageId: shellscript
 command:
-  spokenForm: take every token
+  spokenForm: change third word dash
   version: 2
   targets:
     - type: primitive
       modifiers:
-        - type: everyScope
-          scopeType: {type: token}
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 2
+          active: 2
+          excludeAnchor: false
+          excludeActive: false
+      mark: {type: decoratedSymbol, symbolColor: default, character: '-'}
   usePrePhraseSnapshot: true
-  action: {name: setSelection}
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: .long-bem-class-name {}
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|.long-bem-class-name {}
+  documentContents: |2
+     npm version patch --force --commit-hooks false --git-tag-version false
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
-  marks: {}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.-:
+      start: {line: 0, character: 48}
+      end: {line: 0, character: 65}
 finalState:
-  documentContents: .long-bem-class-name {}
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|.long-bem-class-name {}
+  documentContents: |2
+     npm version patch --force --commit-hooks false --git-tag- false
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 20}
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 22}
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 23}
+    - anchor: {line: 0, character: 58}
+      active: {line: 0, character: 58}

@@ -1,27 +1,19 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: change key
+  spokenForm: change name
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: <note bar="back">foo</note>
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|<note bar="back">foo</note>
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
   marks: {}
 finalState:
-  documentContents: <note ="back">foo</note>
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|<note ="back">foo</note>
+  documentContents: < bar="back">foo</note>
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

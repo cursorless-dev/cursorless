@@ -9,18 +9,12 @@ command:
   extraArgs: ['[', ']']
 initialState:
   documentContents: (hello)
-  #   0123456
-  #  +-------
-  # 0|(hello)
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
   marks: {}
 finalState:
   documentContents: "[hello]"
-  #   0123456
-  #  +-------
-  # 0|[hello]
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

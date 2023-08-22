@@ -1,45 +1,21 @@
 languageId: scala
 command:
   version: 0
-  spokenForm: change call made
+  spokenForm: change class
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifier: {type: containingScope, scopeType: class, includeSiblings: false}
 initialState:
-  documentContents: |-
-    object Example {
-      val numbers = List(1,2,3,4)
-      numbers.map(_ + 1)
-    }
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|object Example {
-  # 1|  val numbers = List(1,2,3,4)
-  # 2|  numbers.map(_ + 1)
-  # 3|}
+  documentContents: |
+    class ExampleClass() {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  marks:
-    default.m:
-      start: {line: 2, character: 10}
-      end: {line: 2, character: 13}
+  marks: {}
 finalState:
-  documentContents: |-
-    object Example {
-      val numbers = List(1,2,3,4)
-      
-    }
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|object Example {
-  # 1|  val numbers = List(1,2,3,4)
-  # 2|  
-  # 3|}
+  documentContents: |+
+
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

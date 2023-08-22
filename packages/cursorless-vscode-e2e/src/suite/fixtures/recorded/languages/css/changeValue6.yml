@@ -11,13 +11,6 @@ initialState:
     a {
       background-image: url("/icons/mail.svg");
     }
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0|a {
-  # 1|  background-image: url("/icons/mail.svg");
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 1, character: 35}
       active: {line: 1, character: 35}
@@ -27,13 +20,6 @@ finalState:
     a {
       background-image: ;
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|a {
-  # 1|  background-image: ;
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 1, character: 20}
       active: {line: 1, character: 20}

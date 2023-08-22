@@ -1,41 +1,24 @@
-languageId: typescript
+languageId: plaintext
 command:
-  spokenForm: pour if state
-  version: 3
-  targets:
-    - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: ifStatement}
-  usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+  version: 6
+  spokenForm: take harp
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  usePrePhraseSnapshot: false
 initialState:
-  documentContents: |-
-    if (false) {
-        
-    }
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|if (false) {
-  # 1|    
-  # 2|}
+  documentContents: hello world
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-  marks: {}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
 finalState:
-  documentContents: |
-    if (false) {
-        
-    }
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|if (false) {
-  # 1|    
-  # 2|}
-  # 3|
+  documentContents: hello world
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}

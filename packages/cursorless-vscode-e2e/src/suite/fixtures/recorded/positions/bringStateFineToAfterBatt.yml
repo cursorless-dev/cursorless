@@ -1,51 +1,30 @@
-languageId: typescript
+languageId: plaintext
 command:
-  spokenForm: bring state fine after state bat
+  spokenForm: bring whale before file
   version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      modifiers:
-        - type: containingScope
-          scopeType: {type: statement}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
       modifiers:
-        - {type: position, position: after}
+        - {type: position, position: before}
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: {type: document}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
-  documentContents: |
-    let foo;
-    let bar;
-  #   01234567
-  #  +--------
-  # 0|let foo;
-  # 1|let bar;
-  # 2|
+  documentContents: hello world
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.f:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
-    default.b:
-      start: {line: 1, character: 4}
-      end: {line: 1, character: 7}
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
 finalState:
-  documentContents: |
-    let foo;
-    let bar;
-    let foo;
-  #   01234567
-  #  +--------
-  # 0|let foo;
-  # 1|let bar;
-  # 2|let foo;
-  # 3|
+  documentContents: |-
+    world
+    hello world
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

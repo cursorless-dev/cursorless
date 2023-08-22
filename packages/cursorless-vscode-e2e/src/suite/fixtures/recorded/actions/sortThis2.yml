@@ -12,11 +12,6 @@ initialState:
     2
     1
     3
-  #   0
-  #  +-
-  # 0|2
-  # 1|1
-  # 2|3
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 1}
@@ -30,11 +25,6 @@ finalState:
     1
     2
     3
-  #   0
-  #  +-
-  # 0|1
-  # 1|2
-  # 2|3
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 1}

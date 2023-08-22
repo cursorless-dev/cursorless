@@ -1,9 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change name
+  spokenForm: change name drum
   version: 2
   targets:
     - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
       modifiers:
         - type: containingScope
           scopeType: {type: name}
@@ -11,60 +12,23 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    struct S {
-        v: u32,
-    }
-
-    fn main() {
-        let S { v } = S { v: 32 };
-    }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|struct S {
-  # 1|    v: u32,
-  # 2|}
-  # 3|
-  #  +------------------------------
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 4|fn main() {
-  # 5|    let S { v } = S { v: 32 };
-  # 6|}
-  # 7|
-  #  +------------------------------
-  #   012345678901234567890123456789
-  #             1         2
+    fn some_function<T, U>(t: &T, u: &U) -> i32
+        where T: Display + Clone,
+              U: Clone + Debug
+    {}
   selections:
-    - anchor: {line: 5, character: 18}
-      active: {line: 5, character: 18}
-  marks: {}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+  marks:
+    default.d:
+      start: {line: 1, character: 13}
+      end: {line: 1, character: 20}
 finalState:
   documentContents: |
-    struct S {
-        v: u32,
-    }
-
-    fn main() {
-        let  = S { v: 32 };
-    }
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|struct S {
-  # 1|    v: u32,
-  # 2|}
-  # 3|
-  #  +-----------------------
-  #   01234567890123456789012
-  #  +-----------------------
-  # 4|fn main() {
-  # 5|    let  = S { v: 32 };
-  # 6|}
-  # 7|
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
+    fn some_function<T, U>(t: &T, u: &U) -> i32
+        where : Display + Clone,
+              U: Clone + Debug
+    {}
   selections:
-    - anchor: {line: 5, character: 8}
-      active: {line: 5, character: 8}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}

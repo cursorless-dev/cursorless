@@ -1,30 +1,27 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: change state
+  spokenForm: change state air
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
 initialState:
   documentContents: |-
     a {
-      width: calc(100% - 80px);
+      height: 10px;
+      color: red;
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|a {
-  # 1|  width: calc(100% - 80px);
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
-  marks: {}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

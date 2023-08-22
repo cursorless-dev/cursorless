@@ -1,42 +1,32 @@
-languageId: typescript
+languageId: typescriptreact
 command:
   version: 5
-  spokenForm: change every name
+  spokenForm: change every start tag
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: name}
+          scopeType: {type: xmlStartTag}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    class Ccc {
-        constructor(private aaa: string, bbb: string) {}
-    }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901
-  #  +----------------------------------------------------
-  # 0|class Ccc {
-  # 1|    constructor(private aaa: string, bbb: string) {}
-  # 2|}
+    <>
+        <>ccc</>
+        <>ddd</>
+    </>
   selections:
-    - anchor: {line: 1, character: 48}
-      active: {line: 1, character: 48}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    class Ccc {
-        constructor(private : string, : string) {}
-    }
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012345
-  #  +----------------------------------------------
-  # 0|class Ccc {
-  # 1|    constructor(private : string, : string) {}
-  # 2|}
+    <>
+        ccc</>
+        ddd</>
+    </>
   selections:
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
-    - anchor: {line: 1, character: 34}
-      active: {line: 1, character: 34}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

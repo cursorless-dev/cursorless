@@ -7,33 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: selector, includeSiblings: false}
 initialState:
-  documentContents: |
-    span[hello="Cleveland"][goodbye="Columbus"] { 
-      color: blue; 
+  documentContents: |-
+    a.b ~ c.d {
+      
     }
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012345
-  #  +----------------------------------------------
-  # 0|span[hello="Cleveland"][goodbye="Columbus"] { 
-  # 1|  color: blue; 
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
-  documentContents: |2
-     { 
-      color: blue; 
+  documentContents: |2-
+     {
+      
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0| { 
-  # 1|  color: blue; 
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -1,35 +1,45 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take comment
+  spokenForm: take condition
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment}
+      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
 initialState:
-  documentContents: |
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            if (true) {
 
-    // Hello world
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|// Hello world
-  # 2|
+            }
+            while (true) {
+
+            }
+            for (int i = 0; i < 5; ++i) {
+
+            }
+        }
+    }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            if (true) {
 
-    // Hello world
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|// Hello world
-  # 2|
+            }
+            while (true) {
+
+            }
+            for (int i = 0; i < 5; ++i) {
+
+            }
+        }
+    }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 14}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 16}

@@ -1,32 +1,31 @@
 languageId: talon
 command:
   version: 6
-  spokenForm: change trailing arg
+  spokenForm: chuck condition
   action:
-    name: clearAndSetSelection
+    name: remove
     target:
       type: primitive
       modifiers:
-        - {type: trailing}
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: {type: condition}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "test: user.do_stuff(5, 7)"
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|test: user.do_stuff(5, 7)
+  documentContents: |-
+    tag: user.foo
+    app: bar
+    -
+    bongo: bazman
+    foo: key(a)
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: {line: 4, character: 11}
+      active: {line: 4, character: 11}
   marks: {}
 finalState:
-  documentContents: "test: user.do_stuff(57)"
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|test: user.do_stuff(57)
+  documentContents: |-
+
+    bongo: bazman
+    foo: key(a)
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}

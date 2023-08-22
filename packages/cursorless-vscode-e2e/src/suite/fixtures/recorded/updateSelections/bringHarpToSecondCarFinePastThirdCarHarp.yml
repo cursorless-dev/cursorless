@@ -1,46 +1,29 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring harp to second char fine past third char harp
+  spokenForm: bring harp to start of whale
   action: replaceWithTarget
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - type: range
-      start:
-        type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      end:
-        type: primitive
-        selectionType: token
-        modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
-      excludeStart: false
-      excludeEnd: false
+    - type: primitive
+      position: before
+      insideOutsideType: inside
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
-  documentContents: foo world whateverspaghetti
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|foo world whateverspaghetti
+  documentContents: foo world whatever
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 9}
   marks:
     default.h:
       start: {line: 0, character: 10}
-      end: {line: 0, character: 27}
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+      end: {line: 0, character: 18}
+    default.w:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 9}
 finalState:
-  documentContents: fwhateverspaghettiteverspaghetti
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|fwhateverspaghettiteverspaghetti
+  documentContents: foo whateverworld whatever
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 17}

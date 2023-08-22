@@ -1,38 +1,22 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change state
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
-  documentContents: |
-    <<-HI
-        ok (what)
-    HI
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<<-HI
-  # 1|    ok (what)
-  # 2|HI
-  # 3|
+  documentContents: |-
+    if true
+
+    end
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
-  documentContents: |
-    <<-HI
-        ok 
-    HI
-  #   0123456
-  #  +-------
-  # 0|<<-HI
-  # 1|    ok 
-  # 2|HI
-  # 3|
+  documentContents: ""
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

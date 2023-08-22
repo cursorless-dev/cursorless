@@ -1,54 +1,36 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: chuck two instances line air
-  action: {name: remove}
+  spokenForm: change every instance air
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - type: relativeScope
+        - type: everyScope
           scopeType: {type: instance}
-          offset: 0
-          length: 2
-          direction: forward
-        - type: containingScope
-          scopeType: {type: line}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    aaa bbb
-    aaa bbb ccc
-    aaa bbb
-    ddd
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb
-  # 1|aaa bbb ccc
-  # 2|aaa bbb
-  # 3|ddd
-  # 4|
-  #  +-----------
-  #   01234567890
-  #             1
+    aaa bbb ccc aaa ddd aaa
+    eee aaa fff
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks:
     default.a:
       start: {line: 0, character: 0}
       end: {line: 0, character: 3}
 finalState:
-  documentContents: |
-    aaa bbb ccc
-    ddd
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
-  # 1|ddd
-  # 2|
+  documentContents: |2
+     bbb ccc  ddd 
+    eee  fff
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

@@ -16,13 +16,6 @@ initialState:
       default:
         break;
     }
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|switch (aaa) {
-  # 1|  default:
-  # 2|    break;
-  # 3|}
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -33,13 +26,6 @@ finalState:
       default:
         break;
     }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|switch () {
-  # 1|  default:
-  # 2|    break;
-  # 3|}
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

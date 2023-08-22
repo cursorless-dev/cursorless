@@ -8,24 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
 initialState:
   documentContents: "if true {\n\treturn true\n}"
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|if true {
-  # 1|␉return true
-  # 2|}
   selections:
     - anchor: {line: 1, character: 1}
       active: {line: 1, character: 1}
   marks: {}
 finalState:
   documentContents: "if  {\n\treturn true\n}"
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|if  {
-  # 1|␉return true
-  # 2|}
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

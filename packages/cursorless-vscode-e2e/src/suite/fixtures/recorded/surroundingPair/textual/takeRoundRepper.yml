@@ -1,28 +1,48 @@
-languageId: plaintext
+languageId: markdown
 command:
-  version: 1
-  spokenForm: change round right paren
-  action: clearAndSetSelection
+  spokenForm: bring section made after this
+  version: 3
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
-      mark: {type: decoratedSymbol, symbolColor: default, character: )}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: section}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+    - type: primitive
+      mark: {type: cursor}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+  action: {name: replaceWithTarget}
 initialState:
-  documentContents: (hello)
-  #   0123456
-  #  +-------
-  # 0|(hello)
-  selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-  marks:
-    default.):
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 7}
-finalState:
-  documentContents: ""
-  # (empty)
+  documentContents: |-
+    # Some section
 
+    Some text
+
+    # Another section
+
+    Another text
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}
+  marks:
+    default.m:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 4}
+finalState:
+  documentContents: |-
+    # Some section
+
+    Some text
+
+    # Another section
+
+    Another text
+
+    # Some section
+
+    Some text
+  selections:
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}

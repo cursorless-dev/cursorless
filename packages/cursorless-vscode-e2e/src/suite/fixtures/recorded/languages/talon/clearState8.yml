@@ -11,29 +11,22 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    sleep: sleep(200ms)
+    some command: 
+        value = user.get_value()
+
         
         
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|sleep: sleep(200ms)
-  # 1|    
-  # 2|    
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    sleep: 
+    some command: 
+        
+
         
         
-  #   0123456
-  #  +-------
-  # 0|sleep: 
-  # 1|    
-  # 2|    
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

@@ -1,49 +1,23 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take class name
+  spokenForm: take comment
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: className}
+      modifier: {type: containingScope, scopeType: comment}
 initialState:
   documentContents: |
 
-    public class MyClass {
-
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|
-  # 3|}
-  # 4|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
+    // Hello world
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |
 
-    public class MyClass {
-
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|
-  # 3|}
-  # 4|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
+    // Hello world
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 14}

@@ -1,30 +1,30 @@
 languageId: rust
 command:
+  spokenForm: change branch
   version: 3
-  spokenForm: change arg
-  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: {type: branch}
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: "fn do_something(foo: (u8, u16)) {}"
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|fn do_something(foo: (u8, u16)) {}
+  documentContents: |-
+    match user {
+        User { first_name: "John" } => {},
+        User { first_name } if first_name.starts_with("P") => {}
+    }
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 1, character: 26}
+      active: {line: 1, character: 26}
   marks: {}
 finalState:
-  documentContents: fn do_something() {}
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|fn do_something() {}
+  documentContents: |-
+    match user {
+        
+        User { first_name } if first_name.starts_with("P") => {}
+    }
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

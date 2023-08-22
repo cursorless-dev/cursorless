@@ -1,34 +1,25 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change paint
+  spokenForm: change paint bat
   action: clearAndSetSelection
   targets:
-    - {type: primitive, selectionType: nonWhitespaceSequence}
+    - type: primitive
+      selectionType: nonWhitespaceSequence
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
 initialState:
   documentContents: |
     const r = /a[b]*(c)/;
-
-    // a/b/c /d
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|const r = /a[b]*(c)/;
-  # 1|
-  # 2|// a/b/c /d
-  # 3|
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 0, character: 13}
-  marks: {}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
 finalState:
   documentContents: |
-    const r =  /d
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|const r =  /d
-  # 1|
+    const r = 
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}

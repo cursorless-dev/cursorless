@@ -1,26 +1,19 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
-  documentContents: <note>foo</note>
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|<note>foo</note>
+  documentContents: <note>foo (hello) whatever</note>
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
   marks: {}
 finalState:
-  documentContents: <note>foo
-  #   012345678
-  #  +---------
-  # 0|<note>foo
+  documentContents: <note>foo  whatever</note>
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

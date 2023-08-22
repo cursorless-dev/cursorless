@@ -1,73 +1,29 @@
-languageId: typescript
+languageId: javascriptreact
 command:
-  version: 1
-  spokenForm: take condition
-  action: setSelection
+  version: 5
+  spokenForm: take inside element
+  action: {name: setSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    if (true) {
-
+    function Comp() {
+        return <></>;
     }
-    for (let i = 0; i < length; ++i) {
-
-    }
-    while (true) {
-
-    }
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|if (true) {
-  # 1|
-  # 2|}
-  # 3|for (let i = 0; i < length; ++i) {
-  #  +----------------------------------
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 4|
-  # 5|}
-  # 6|while (true) {
-  # 7|
-  # 8|}
-  #  +----------------------------------
-  #   0123456789012345678901234567890123
-  #             1         2         3
   selections:
-    - anchor: {line: 7, character: 0}
-      active: {line: 7, character: 0}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   marks: {}
 finalState:
   documentContents: |-
-    if (true) {
-
+    function Comp() {
+        return <></>;
     }
-    for (let i = 0; i < length; ++i) {
-
-    }
-    while (true) {
-
-    }
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|if (true) {
-  # 1|
-  # 2|}
-  # 3|for (let i = 0; i < length; ++i) {
-  #  +----------------------------------
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 4|
-  # 5|}
-  # 6|while (true) {
-  # 7|
-  # 8|}
-  #  +----------------------------------
-  #   0123456789012345678901234567890123
-  #             1         2         3
   selections:
-    - anchor: {line: 6, character: 7}
-      active: {line: 6, character: 11}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}

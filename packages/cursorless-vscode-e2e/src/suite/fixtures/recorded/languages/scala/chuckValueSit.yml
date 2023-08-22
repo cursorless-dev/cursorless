@@ -1,43 +1,25 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: chuck value sit
-  action: remove
+  spokenForm: change arg fine
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
   documentContents: |
-    class Example() {
-      val bling = "blang"
-    }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|class Example() {
-  # 1|  val bling = "blang"
-  # 2|}
-  # 3|
+    class ExampleClass(foo: Int, bar: Int) {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.i:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    default.f:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 22}
 finalState:
   documentContents: |
-    class Example() {
-      val bling
-    }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|class Example() {
-  # 1|  val bling
-  # 2|}
-  # 3|
+    class ExampleClass(, bar: Int) {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}

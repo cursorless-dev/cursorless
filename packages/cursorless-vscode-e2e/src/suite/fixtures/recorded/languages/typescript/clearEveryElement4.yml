@@ -1,45 +1,32 @@
 languageId: typescriptreact
 command:
   version: 5
-  spokenForm: change every element
+  spokenForm: change every end tag
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: xmlElement}
+          scopeType: {type: xmlEndTag}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    <aaa>
+    <>
         <>ccc</>
         <>ddd</>
-    </aaa>
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|<aaa>
-  # 1|    <>ccc</>
-  # 2|    <>ddd</>
-  # 3|</aaa>
+    </>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    <aaa>
-        
-        
-    </aaa>
-  #   012345
-  #  +------
-  # 0|<aaa>
-  # 1|    
-  # 2|    
-  # 3|</aaa>
+    <>
+        <>ccc
+        <>ddd
+    </>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}

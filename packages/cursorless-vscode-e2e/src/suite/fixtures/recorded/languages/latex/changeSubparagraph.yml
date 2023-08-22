@@ -1,23 +1,17 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change subparagraph
+  spokenForm: change subsection
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: subParagraph, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: subSection, includeSiblings: false}
 initialState:
   documentContents: |
-    \subparagraph{1}
+    \subsection{1}
+    \subsubsection{child}
     some text
-    \subparagraph{2}
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|\subparagraph{1}
-  # 1|some text
-  # 2|\subparagraph{2}
-  # 3|
+    \subsection{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -25,13 +19,7 @@ initialState:
 finalState:
   documentContents: |
 
-    \subparagraph{2}
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|\subparagraph{2}
-  # 2|
+    \subsection{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -11,28 +11,22 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    const aaa = "bbb";
-    const ccc = "ddd";
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|const aaa = "bbb";
-  # 1|const ccc = "ddd";
+    function eee() {
+        const aaa = "bbb";
+        const ccc = "ddd";
+    }
   selections:
-    - anchor: {line: 1, character: 18}
-      active: {line: 1, character: 18}
+    - anchor: {line: 2, character: 22}
+      active: {line: 2, character: 22}
   marks: {}
 finalState:
   documentContents: |-
-    const  = "bbb";
-    const  = "ddd";
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|const  = "bbb";
-  # 1|const  = "ddd";
+    function eee() {
+        const  = "bbb";
+        const  = "ddd";
+    }
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}

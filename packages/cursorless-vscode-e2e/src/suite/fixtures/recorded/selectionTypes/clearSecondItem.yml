@@ -1,30 +1,24 @@
 languageId: plaintext
 command:
-  spokenForm: change second item
+  spokenForm: change second last word
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: collectionItem}
-          start: 1
+          scopeType: {type: word}
+          start: -2
           length: 1
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: a, b, c, d
-  #   0123456789
-  #  +----------
-  # 0|a, b, c, d
+  documentContents: aaaBbbCccDdd
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: a, , c, d
-  #   012345678
-  #  +---------
-  # 0|a, , c, d
+  documentContents: aaaBbbDdd
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

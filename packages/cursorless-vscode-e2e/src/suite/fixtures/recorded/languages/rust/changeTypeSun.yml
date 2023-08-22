@@ -12,35 +12,17 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    fn main() -> Result<(), Error> {
-        
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|fn main() -> Result<(), Error> {
-  # 1|    
-  # 2|}
-  # 3|
+    fn foo(x: &'a mut u32) -> &'static mut u16 {}
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
+    - anchor: {line: 0, character: 45}
+      active: {line: 0, character: 45}
   marks:
     default.s:
-      start: {line: 0, character: 13}
-      end: {line: 0, character: 19}
+      start: {line: 0, character: 28}
+      end: {line: 0, character: 34}
 finalState:
   documentContents: |
-    fn main() ->  {
-        
-    }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|fn main() ->  {
-  # 1|    
-  # 2|}
-  # 3|
+    fn foo(x: &'a mut u32) ->  {}
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 26}
+      active: {line: 0, character: 26}

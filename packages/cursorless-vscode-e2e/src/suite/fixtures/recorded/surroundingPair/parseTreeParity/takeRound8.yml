@@ -1,23 +1,18 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change box
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: surroundingPair, delimiter: squareBrackets}
 initialState:
-  documentContents: (())
-  #   0123
-  #  +----
-  # 0|(())
+  documentContents: "[(hello)]"
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

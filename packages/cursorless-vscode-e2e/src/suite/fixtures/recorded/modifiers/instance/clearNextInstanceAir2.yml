@@ -15,12 +15,7 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    aaa bbb ccc aaa ddd aaa
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|aaa bbb ccc aaa ddd aaa
-  # 1|
+    aaa bbb aaa ccc aaa ddd aaa
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -31,18 +26,21 @@ initialState:
   instanceReferenceMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 0, character: 16}
-        end: {line: 0, character: 19}
+        start: {line: 0, character: 12}
+        end: {line: 0, character: 15}
+      isReversed: false
+      hasExplicitRange: false
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 20}
+        end: {line: 0, character: 23}
       isReversed: false
       hasExplicitRange: false
 finalState:
   documentContents: |
-    aaa bbb ccc aaa ddd 
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|aaa bbb ccc aaa ddd 
-  # 1|
+    aaa bbb aaa ccc  ddd 
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}

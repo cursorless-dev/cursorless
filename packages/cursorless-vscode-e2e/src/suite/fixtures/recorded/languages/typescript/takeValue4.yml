@@ -1,37 +1,25 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take value
-  action: setSelection
+  spokenForm: try wrap this
+  action: wrapWithSnippet
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      mark: {type: cursor}
+  extraArgs: [tryCatchStatement.body]
 initialState:
-  documentContents: |-
-    function foo() {
-        return "hello";
-    }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|function foo() {
-  # 1|    return "hello";
-  # 2|}
+  documentContents: const foo = "hello";
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: |-
-    function foo() {
-        return "hello";
+    try {
+        const foo = "hello";
+    } catch (err) {
+        
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|function foo() {
-  # 1|    return "hello";
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 18}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

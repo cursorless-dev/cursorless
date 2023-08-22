@@ -1,33 +1,26 @@
 languageId: python
 command:
-  spokenForm: chuck short paint fine
+  spokenForm: chuck short paint sun
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
       modifiers:
         - type: containingScope
           scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: "[baz, foo[0], bar]"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|[baz, foo[0], bar]
+  documentContents: f.o(some() text)
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   marks:
-    default.f:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 9}
+    default.s:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 8}
 finalState:
-  documentContents: "[baz, bar]"
-  #   0123456789
-  #  +----------
-  # 0|[baz, bar]
+  documentContents: f.o(text)
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

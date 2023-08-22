@@ -1,31 +1,19 @@
-languageId: talon
+languageId: typescript
 command:
-  version: 6
-  spokenForm: pour arg
-  action:
-    name: editNewLineAfter
-    target:
-      type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: argumentOrParameter}
-  usePrePhraseSnapshot: true
+  version: 1
+  spokenForm: change callee
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
-  documentContents: "test: user.do_stuff(5, 7)"
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|test: user.do_stuff(5, 7)
+  documentContents: foo`hello ${bar}`;
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: "test: user.do_stuff(5, , 7)"
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|test: user.do_stuff(5, , 7)
+  documentContents: "`hello ${bar}`;"
   selections:
-    - anchor: {line: 0, character: 23}
-      active: {line: 0, character: 23}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

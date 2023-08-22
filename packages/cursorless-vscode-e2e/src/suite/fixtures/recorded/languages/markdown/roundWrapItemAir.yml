@@ -1,42 +1,31 @@
-languageId: markdown
+languageId: php
 command:
-  version: 5
-  spokenForm: round wrap item air
-  action:
-    name: wrapWithPairedDelimiter
-    args: [(, )]
+  version: 1
+  spokenForm: change arg
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
-  usePrePhraseSnapshot: true
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |
-    - aaa
-      - bbb
-  #   0123456
-  #  +-------
-  # 0|- aaa
-  # 1|  - bbb
-  # 2|
+  documentContents: |-
+    <?php
+
+    function myFunc($value)
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-  marks:
-    default.a:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 5}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
+  marks: {}
 finalState:
-  documentContents: |
-    - (aaa)
-      - bbb
-  #   0123456
-  #  +-------
-  # 0|- (aaa)
-  # 1|  - bbb
-  # 2|
+  documentContents: |-
+    <?php
+
+    function myFunc()
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}

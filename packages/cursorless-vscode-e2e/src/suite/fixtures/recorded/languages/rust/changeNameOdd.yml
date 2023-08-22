@@ -11,28 +11,16 @@ command:
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    const SOME: usize = 0;
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|const SOME: usize = 0;
-  # 1|
+  documentContents: struct Some {}
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
   marks:
     default.o:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 10}
+      start: {line: 0, character: 7}
+      end: {line: 0, character: 11}
 finalState:
-  documentContents: |
-    const : usize = 0;
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|const : usize = 0;
-  # 1|
+  documentContents: struct  {}
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

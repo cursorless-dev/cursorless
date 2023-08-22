@@ -1,79 +1,40 @@
 languageId: rust
 command:
-  version: 1
-  spokenForm: chuck type look
-  action: remove
+  spokenForm: chuck type made
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
   documentContents: |
+    trait T {
+        fn f();
+    }
 
-    fn build_user(email: String, username: String) -> User {
-        User {
-            email: email,
-            username: username,
-            active: true,
-            sign_in_count: 1,
+    impl T for Option<u32> {
+        fn f() {
+            unimplemented!()
         }
     }
-  #             1         2         3         4         5
-  #   01234567890123456789012345678901234567890123456789012345
-  #  +--------------------------------------------------------
-  # 0|
-  # 1|fn build_user(email: String, username: String) -> User {
-  # 2|    User {
-  # 3|        email: email,
-  #  +--------------------------------------------------------
-  #   01234567890123456789012345678901234567890123456789012345
-  #  +--------------------------------------------------------
-  # 4|        username: username,
-  # 5|        active: true,
-  # 6|        sign_in_count: 1,
-  # 7|    }
-  # 8|}
-  # 9|
-  #  +--------------------------------------------------------
-  #   01234567890123456789012345678901234567890123456789012345
-  #             1         2         3         4         5
   selections:
-    - anchor: {line: 8, character: 1}
-      active: {line: 8, character: 1}
+    - anchor: {line: 8, character: 0}
+      active: {line: 8, character: 0}
   marks:
-    default.l:
-      start: {line: 1, character: 14}
-      end: {line: 1, character: 19}
+    default.m:
+      start: {line: 4, character: 0}
+      end: {line: 4, character: 4}
 finalState:
-  documentContents: |
-
-    fn build_user(email, username: String) -> User {
-        User {
-            email: email,
-            username: username,
-            active: true,
-            sign_in_count: 1,
-        }
+  documentContents: |+
+    trait T {
+        fn f();
     }
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234567
-  #  +------------------------------------------------
-  # 0|
-  # 1|fn build_user(email, username: String) -> User {
-  # 2|    User {
-  # 3|        email: email,
-  #  +------------------------------------------------
-  #   012345678901234567890123456789012345678901234567
-  #  +------------------------------------------------
-  # 4|        username: username,
-  # 5|        active: true,
-  # 6|        sign_in_count: 1,
-  # 7|    }
-  # 8|}
-  # 9|
-  #  +------------------------------------------------
-  #   012345678901234567890123456789012345678901234567
-  #             1         2         3         4
+
+
   selections:
-    - anchor: {line: 8, character: 1}
-      active: {line: 8, character: 1}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

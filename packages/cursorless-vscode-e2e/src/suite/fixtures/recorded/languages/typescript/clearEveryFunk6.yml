@@ -1,57 +1,42 @@
 languageId: typescript
 command:
   version: 5
-  spokenForm: change every funk
+  spokenForm: change every funk name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: namedFunction}
+          scopeType: {type: functionName}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    const aaa = {
-        bbb: "ccc",
-        ddd: "eee",
-    }
+    class Foo {
+        bar() {
+            
+        }
 
-    function fff() {}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|const aaa = {
-  # 1|    bbb: "ccc",
-  # 2|    ddd: "eee",
-  # 3|}
-  # 4|
-  # 5|function fff() {}
-  #  +-----------------
-  #   01234567890123456
-  #             1
+        baz() {
+
+        }
+    }
   selections:
-    - anchor: {line: 3, character: 1}
-      active: {line: 3, character: 1}
+    - anchor: {line: 8, character: 1}
+      active: {line: 8, character: 1}
   marks: {}
 finalState:
-  documentContents: |+
-    const aaa = {
-        bbb: "ccc",
-        ddd: "eee",
-    }
+  documentContents: |-
+    class Foo {
+        () {
+            
+        }
 
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|const aaa = {
-  # 1|    bbb: "ccc",
-  # 2|    ddd: "eee",
-  # 3|}
-  # 4|
-  # 5|
-  #  +---------------
-  #   012345678901234
-  #             1
+        () {
+
+        }
+    }
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}

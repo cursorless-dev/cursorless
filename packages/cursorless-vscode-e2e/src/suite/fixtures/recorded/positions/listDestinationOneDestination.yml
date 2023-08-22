@@ -8,19 +8,11 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
     destination:
       type: list
-      destinations:
-        - type: primitive
-          insertionMode: after
-          target:
-            type: primitive
-            mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      destinations: []
   usePrePhraseSnapshot: true
 spokenFormError: List destination with < 2 elements
 initialState:
   documentContents: aaa bbb
-  #   0123456
-  #  +-------
-  # 0|aaa bbb
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
@@ -28,15 +20,8 @@ initialState:
     default.a:
       start: {line: 0, character: 0}
       end: {line: 0, character: 3}
-    default.b:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
 finalState:
-  documentContents: aaa bbb aaa
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb aaa
+  documentContents: aaa bbb
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

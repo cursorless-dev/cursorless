@@ -27,17 +27,6 @@ initialState:
     ccc ddddd eee
     fff ggg hhh
     iii jjj
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|aaa bbb
-  # 1|ccc ddddd eee
-  # 2|fff ggg hhh
-  # 3|iii jjj
-  # 4|
-  #  +-------------
-  #   0123456789012
-  #             1
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -54,15 +43,6 @@ finalState:
     ccc  eee
     fff  hhh
     iii jjj
-  #   01234567
-  #  +--------
-  # 0|aaa bbb
-  # 1|ccc  eee
-  # 2|fff  hhh
-  # 3|iii jjj
-  # 4|
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

@@ -1,25 +1,19 @@
-languageId: json
+languageId: python
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change pair
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: // (hello)
-  #   0123456789
-  #  +----------
-  # 0|// (hello)
+  documentContents: f"j{fdfhjkd}lkjlkj"
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
   marks: {}
 finalState:
-  documentContents: "// "
-  #   012
-  #  +---
-  # 0|// 
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

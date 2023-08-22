@@ -1,32 +1,25 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring fine before this
+  spokenForm: bring fine to first two chars
   action: replaceWithTarget
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
-      mark: {type: cursor}
-      position: before
+      selectionType: token
+      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1}
 initialState:
-  documentContents: foo world
-  #   012345678
-  #  +---------
-  # 0|foo world
+  documentContents: foo world whatever
   selections:
     - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+      active: {line: 0, character: 9}
   marks:
     default.f:
       start: {line: 0, character: 0}
       end: {line: 0, character: 3}
 finalState:
-  documentContents: foo foo world
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|foo foo world
+  documentContents: foo foorld whatever
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 10}

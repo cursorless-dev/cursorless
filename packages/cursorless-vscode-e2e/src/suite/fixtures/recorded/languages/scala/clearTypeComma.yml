@@ -1,34 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: change type comma
+  spokenForm: change type fine
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: ','}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
-  documentContents: |
-    type Vector = (Int, Int)
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|type Vector = (Int, Int)
-  # 1|
+  documentContents: |-
+    class Example(foo: String) {
+      def str(bar: String): String = foo + bar
+    }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.,:
-      start: {line: 0, character: 18}
-      end: {line: 0, character: 19}
+    default.f:
+      start: {line: 1, character: 33}
+      end: {line: 1, character: 36}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |-
+    class Example(foo: String) {
+      def str(bar: String):  = foo + bar
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}

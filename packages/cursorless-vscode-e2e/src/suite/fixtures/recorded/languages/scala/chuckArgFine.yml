@@ -9,27 +9,21 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
   documentContents: |
-    class ExampleClass(foo: Int, bar: Int) {}
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|class ExampleClass(foo: Int, bar: Int) {}
-  # 1|
+    class ExampleClass() {
+      def example(foo: Int, bar: Int) = foo + bar
+    }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.f:
-      start: {line: 0, character: 19}
-      end: {line: 0, character: 22}
+      start: {line: 1, character: 14}
+      end: {line: 1, character: 17}
 finalState:
   documentContents: |
-    class ExampleClass(bar: Int) {}
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|class ExampleClass(bar: Int) {}
-  # 1|
+    class ExampleClass() {
+      def example(bar: Int) = foo + bar
+    }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -1,29 +1,22 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change every key
+  spokenForm: change funk
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
 initialState:
-  documentContents: "h = { one: \"one\", two: \"two\" }"
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|h = { one: "one", two: "two" }
+  documentContents: |-
+    def hello_world
+        puts "hi"
+    end
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
   marks: {}
 finalState:
-  documentContents: "h = { : \"one\", : \"two\" }"
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|h = { : "one", : "two" }
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,26 +1,19 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change list
+  spokenForm: change map
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: map, includeSiblings: false}
 initialState:
-  documentContents: a = %i(1, 2, 3)
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|a = %i(1, 2, 3)
+  documentContents: h = {"1" => "one"}
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
   marks: {}
 finalState:
-  documentContents: "a = "
-  #   0123
-  #  +----
-  # 0|a = 
+  documentContents: "h = "
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

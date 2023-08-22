@@ -1,40 +1,32 @@
-languageId: javascriptreact
+languageId: typescriptreact
 command:
   version: 5
-  spokenForm: change end tag
+  spokenForm: change every element
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - type: containingScope
-          scopeType: {type: xmlEndTag}
+        - type: everyScope
+          scopeType: {type: xmlElement}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    function Comp() {
-        return <>text</>;
-    }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|function Comp() {
-  # 1|    return <>text</>;
-  # 2|}
+    <aaa>
+        <bbb>ccc</bbb>
+        <bbb>ddd</bbb>
+    </aaa>
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    function Comp() {
-        return <>text;
-    }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|function Comp() {
-  # 1|    return <>text;
-  # 2|}
+    <aaa>
+        
+        
+    </aaa>
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 17}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

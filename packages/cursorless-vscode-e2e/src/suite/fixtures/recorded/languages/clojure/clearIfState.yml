@@ -8,18 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
 initialState:
   documentContents: (if true "hello")
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|(if true "hello")
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

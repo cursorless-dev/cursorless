@@ -1,37 +1,25 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: change name
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
   documentContents: |-
-    @mixin foo($foo: 123) {
-
+    a {
+      font-family: "hello (world)";
     }
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|@mixin foo($foo: 123) {
-  # 1|
-  # 2|}
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
   marks: {}
 finalState:
   documentContents: |-
-    @mixin foo(: 123) {
-
+    a {
+      font-family: "hello ";
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|@mixin foo(: 123) {
-  # 1|
-  # 2|}
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}

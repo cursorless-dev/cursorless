@@ -1,36 +1,30 @@
 languageId: php
 command:
   version: 1
-  spokenForm: chuck value
-  action: remove
+  spokenForm: else wrap this
+  action: wrapWithSnippet
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      mark: {type: cursor}
+  extraArgs: [ifElseStatement.alternative]
 initialState:
   documentContents: |-
     <?php
 
-    $value = 'Hello world';
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|<?php
-  # 1|
-  # 2|$value = 'Hello world';
+    $foo = "Hello world";
   selections:
-    - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    $value;
-  #   0123456
-  #  +-------
-  # 0|<?php
-  # 1|
-  # 2|$value;
+    if () {
+        
+    } else {
+        $foo = "Hello world";
+    }
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

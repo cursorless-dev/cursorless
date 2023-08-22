@@ -1,26 +1,19 @@
-languageId: plaintext
+languageId: markdown
 command:
   version: 1
-  spokenForm: change bounds round
+  spokenForm: change escaped box
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: excludeInterior}
+      modifier: {type: surroundingPair, delimiter: escapedSquareBrackets}
 initialState:
-  documentContents: (hello)
-  #   0123456
-  #  +-------
-  # 0|(hello)
+  documentContents: \[foo\]
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
 finalState:
-  documentContents: hello
-  #   01234
-  #  +-----
-  # 0|hello
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}

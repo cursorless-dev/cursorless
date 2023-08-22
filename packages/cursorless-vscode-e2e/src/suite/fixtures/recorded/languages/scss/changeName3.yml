@@ -8,32 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: |
-    a {
-      margin: 10px 10px 10px 10px;
+    @mixin move($left-start, $left-stop) {
+      transition: left ($left-stop - $left-start) * $transition-speed;
     }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|a {
-  # 1|  margin: 10px 10px 10px 10px;
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
   marks: {}
 finalState:
   documentContents: |
-    a {
-      : 10px 10px 10px 10px;
+    @mixin move($left-start, $left-stop) {
+      : left ($left-stop - $left-start) * $transition-speed;
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|a {
-  # 1|  : 10px 10px 10px 10px;
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

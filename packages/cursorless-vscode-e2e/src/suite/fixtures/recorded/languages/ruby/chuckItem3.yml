@@ -9,22 +9,13 @@ command:
 initialState:
   documentContents: |
     %w(hello world)
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|%w(hello world)
-  # 1|
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
   documentContents: |
-    %w(hello)
-  #   012345678
-  #  +---------
-  # 0|%w(hello)
-  # 1|
+    %w(world)
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

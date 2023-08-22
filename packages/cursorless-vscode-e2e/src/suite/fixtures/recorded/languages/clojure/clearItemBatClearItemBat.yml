@@ -9,10 +9,6 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
 initialState:
   documentContents: "{:foo \"bar\"}"
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|{:foo "bar"}
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
@@ -22,9 +18,6 @@ initialState:
       end: {line: 0, character: 10}
 finalState:
   documentContents: "{}"
-  #   01
-  #  +--
-  # 0|{}
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

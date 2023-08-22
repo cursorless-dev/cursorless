@@ -1,18 +1,14 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: if else wrap this
+  spokenForm: if wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifElseStatement.consequence]
+  extraArgs: [ifStatement.consequence]
 initialState:
   documentContents: const foo = "hello";
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|const foo = "hello";
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -21,20 +17,7 @@ finalState:
   documentContents: |-
     if () {
         const foo = "hello";
-    } else {
-        
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|if () {
-  # 1|    const foo = "hello";
-  # 2|} else {
-  # 3|    
-  # 4|}
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

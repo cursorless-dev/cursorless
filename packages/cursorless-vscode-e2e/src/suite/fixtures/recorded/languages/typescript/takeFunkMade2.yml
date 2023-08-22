@@ -1,39 +1,27 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take funk made
+  spokenForm: take funk name
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      modifier: {type: containingScope, scopeType: functionName}
 initialState:
   documentContents: |
-    const myFunk = function() {
+
+    function foo () {
+
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|const myFunk = function() {
-  # 1|}
-  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
-  marks:
-    default.m:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 12}
+  marks: {}
 finalState:
   documentContents: |
-    const myFunk = function() {
+
+    function foo () {
+
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|const myFunk = function() {
-  # 1|}
-  # 2|
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 1, character: 1}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 12}

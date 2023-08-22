@@ -10,21 +10,13 @@ command:
           scopeType: {type: value}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "face(smile): \"smile\""
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|face(smile): "smile"
+  documentContents: "air: \"a\""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: "face(smile): "
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|face(smile): 
+  documentContents: "air: "
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

@@ -1,41 +1,28 @@
 languageId: rust
 command:
-  version: 1
-  spokenForm: chuck funk name fine
-  action: remove
+  spokenForm: chuck item one
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: |-
-    fn main() {
-        println!("Hello, world!");
-    }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|fn main() {
-  # 1|    println!("Hello, world!");
-  # 2|}
+  documentContents: |
+    let x = [1, 2];
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks:
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 2}
+    default.1:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 10}
 finalState:
-  documentContents: |-
-    fn () {
-        println!("Hello, world!");
-    }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|fn () {
-  # 1|    println!("Hello, world!");
-  # 2|}
+  documentContents: |
+    let x = [2];
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

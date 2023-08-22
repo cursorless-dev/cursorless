@@ -12,17 +12,10 @@ command:
 spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |-
-    switch(aaa) {
+    switch(aaa + 1) {
       case 0:
         break;
     }
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|switch(aaa) {
-  # 1|  case 0:
-  # 2|    break;
-  # 3|}
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -33,12 +26,6 @@ finalState:
       case 0:
         break;
     }
-  #   0123456789
-  #  +----------
-  # 0|switch() {
-  # 1|  case 0:
-  # 2|    break;
-  # 3|}
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

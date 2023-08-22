@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change next block
+  spokenForm: change previous block
   version: 3
   targets:
     - type: primitive
@@ -9,7 +9,7 @@ command:
           scopeType: {type: paragraph}
           offset: 1
           length: 1
-          direction: forward
+          direction: backward
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
@@ -18,30 +18,16 @@ initialState:
     aaa
 
     bbb
-  #   012
-  #  +---
-  # 0|
-  # 1|aaa
-  # 2|
-  # 3|bbb
-  # 4|
-  selections:
-    - anchor: {line: 1, character: 3}
-      active: {line: 1, character: 3}
-  marks: {}
-finalState:
-  documentContents: |+
-
-    aaa
-
-
-  #   012
-  #  +---
-  # 0|
-  # 1|aaa
-  # 2|
-  # 3|
-  # 4|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+
+
+    bbb
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

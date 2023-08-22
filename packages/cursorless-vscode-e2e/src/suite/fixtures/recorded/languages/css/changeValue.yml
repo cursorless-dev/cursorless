@@ -9,11 +9,6 @@ command:
 initialState:
   documentContents: |
     @import "subs.css";
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|@import "subs.css";
-  # 1|
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
@@ -21,10 +16,6 @@ initialState:
 finalState:
   documentContents: |
     @import ;
-  #   012345678
-  #  +---------
-  # 0|@import ;
-  # 1|
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

@@ -17,21 +17,9 @@ initialState:
         pass
     else:
         pass
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|if True:
-  # 1|    pass
-  # 2|elif False:
-  # 3|    pass
-  # 4|else:
-  # 5|    pass
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
   marks: {}
 finalState:
   documentContents: |
@@ -39,17 +27,6 @@ finalState:
         pass
     elif False:
         pass
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|if True:
-  # 1|    pass
-  # 2|elif False:
-  # 3|    pass
-  # 4|
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

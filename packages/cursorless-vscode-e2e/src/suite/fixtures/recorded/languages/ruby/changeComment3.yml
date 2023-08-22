@@ -1,29 +1,25 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change comment
+  spokenForm: change condition
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
 initialState:
   documentContents: |-
-    =begin
-       Hi   
-    =end
-  #   01234567
-  #  +--------
-  # 0|=begin
-  # 1|   Hi   
-  # 2|=end
+    if true
+
+    end
   selections:
-    - anchor: {line: 1, character: 3}
-      active: {line: 1, character: 3}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
+  documentContents: |-
+    if 
 
+    end
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

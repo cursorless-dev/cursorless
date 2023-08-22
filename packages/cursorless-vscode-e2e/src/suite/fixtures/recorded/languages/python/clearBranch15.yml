@@ -17,38 +17,16 @@ initialState:
       pass
     else:
       pass
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|try:
-  # 1|  pass
-  # 2|except* ValueError as eg:
-  # 3|  pass
-  # 4|else:
-  # 5|  pass
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
     try:
       pass
-
-    else:
+    except* ValueError as eg:
       pass
-  #   012345
-  #  +------
-  # 0|try:
-  # 1|  pass
-  # 2|
-  # 3|else:
-  # 4|  pass
-  #  +------
-  #   012345
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

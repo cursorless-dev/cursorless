@@ -1,49 +1,31 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck leading each
+  spokenForm: chuck leading harp
   action: remove
   targets:
     - type: primitive
       position: before
-      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |
     "hello "
     " hello"
     " hello "
     return a.b
-  #   0123456789
-  #  +----------
-  # 0|"hello "
-  # 1|" hello"
-  # 2|" hello "
-  # 3|return a.b
-  # 4|
-  #  +----------
-  #   0123456789
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
   marks:
-    default.e:
-      start: {line: 1, character: 2}
-      end: {line: 1, character: 7}
+    default.h:
+      start: {line: 2, character: 2}
+      end: {line: 2, character: 7}
 finalState:
   documentContents: |
     "hello "
-    "hello"
-    " hello "
+    " hello"
+    "hello "
     return a.b
-  #   0123456789
-  #  +----------
-  # 0|"hello "
-  # 1|"hello"
-  # 2|" hello "
-  # 3|return a.b
-  # 4|
-  #  +----------
-  #   0123456789
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

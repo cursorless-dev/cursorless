@@ -15,13 +15,6 @@ initialState:
 
         foo    
         bar    
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|    foo    
-  # 2|    bar    
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -34,13 +27,6 @@ finalState:
 
         foo    
         bar    
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|    foo    
-  # 2|    bar    
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

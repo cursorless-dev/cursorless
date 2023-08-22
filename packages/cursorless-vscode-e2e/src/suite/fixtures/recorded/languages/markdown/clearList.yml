@@ -1,33 +1,31 @@
 languageId: markdown
 command:
-  version: 1
-  spokenForm: change list
-  action: clearAndSetSelection
+  version: 5
+  spokenForm: drink item
+  action: {name: editNewLineBefore}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-
-    - hello world
-    - this is a test
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|- hello world
-  # 2|- this is a test
+    - aaa
+      - bbb
+      - ccc
+      - ddd
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |-
+    - aaa
+      - 
+      - bbb
+      - ccc
+      - ddd
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

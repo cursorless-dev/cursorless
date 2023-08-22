@@ -1,51 +1,27 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take condition
+  spokenForm: take every arg
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
-  documentContents: |-
-    if True:
-        pass
+  documentContents: |
 
-    while True:
-        pass
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|if True:
-  # 1|    pass
-  # 2|
-  # 3|while True:
-  # 4|    pass
-  #  +-----------
-  #   01234567890
-  #             1
+    def my_funk(name: str, value) -> str:
+        return
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   marks: {}
 finalState:
-  documentContents: |-
-    if True:
-        pass
+  documentContents: |
 
-    while True:
-        pass
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|if True:
-  # 1|    pass
-  # 2|
-  # 3|while True:
-  # 4|    pass
-  #  +-----------
-  #   01234567890
-  #             1
+    def my_funk(name: str, value) -> str:
+        return
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 7}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 28}

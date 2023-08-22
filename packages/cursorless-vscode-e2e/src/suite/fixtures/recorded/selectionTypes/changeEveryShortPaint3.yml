@@ -10,20 +10,13 @@ command:
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: "\"aa|aa-().c_d\" (bb|bb-().'')"
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|"aa|aa-().c_d" (bb|bb-().'')
+  documentContents: foo(aa|aa-().c_d bb|bb-().'')
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: " "
-  #   0
-  #  +-
-  # 0| 
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

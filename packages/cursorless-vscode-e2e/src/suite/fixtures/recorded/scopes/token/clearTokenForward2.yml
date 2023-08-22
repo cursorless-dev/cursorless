@@ -1,31 +1,25 @@
 languageId: plaintext
 command:
-  spokenForm: change token forward
+  spokenForm: chuck fine
   version: 3
   targets:
     - type: primitive
-      modifiers:
-        - type: relativeScope
-          scopeType: {type: token}
-          offset: 0
-          length: 1
-          direction: forward
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: {name: remove}
 initialState:
-  documentContents: .aaa
-  #   0123
-  #  +----
-  # 0|.aaa
+  documentContents: |2
+        foo   
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-  marks: {}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: .
-  #   0
-  #  +-
-  # 0|.
+  documentContents: |+
+
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

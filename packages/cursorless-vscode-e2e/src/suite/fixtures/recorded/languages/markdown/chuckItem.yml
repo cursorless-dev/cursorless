@@ -1,37 +1,28 @@
 languageId: markdown
 command:
-  version: 1
+  version: 5
   spokenForm: chuck item
-  action: remove
+  action: {name: remove}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-
-    - hello world
-    - whatever now
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|- hello world
-  # 2|- whatever now
+    - aaa
+      - bbb
+      - ddd
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
   marks: {}
 finalState:
   documentContents: |-
+    - aaa
 
-
-    - whatever now
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|
-  # 2|- whatever now
+      - ddd
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

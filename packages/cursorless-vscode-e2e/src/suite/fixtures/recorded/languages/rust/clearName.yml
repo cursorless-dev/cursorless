@@ -7,36 +7,22 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: name}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     enum Foo {
         Baz { a: int, b: String }
     }
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|enum Foo {
-  # 1|    Baz { a: int, b: String }
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
   marks: {}
 finalState:
   documentContents: |
     enum Foo {
-         { a: int, b: String }
+        Baz { : int, b: String }
     }
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|enum Foo {
-  # 1|     { a: int, b: String }
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}

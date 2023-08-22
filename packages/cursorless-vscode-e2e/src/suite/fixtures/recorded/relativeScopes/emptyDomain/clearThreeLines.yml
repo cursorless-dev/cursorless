@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change three lines
+  spokenForm: change three lines backward
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -10,26 +10,19 @@ command:
           scopeType: {type: line}
           offset: 0
           length: 3
-          direction: forward
+          direction: backward
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
     aaa
 
     bbb
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|
-  # 2|bbb
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

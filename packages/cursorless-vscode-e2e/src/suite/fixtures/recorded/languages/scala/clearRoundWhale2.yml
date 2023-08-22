@@ -1,59 +1,26 @@
 languageId: scala
 command:
-  version: 1
-  spokenForm: change round whale
+  version: 0
+  spokenForm: change string
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifier: {type: containingScope, scopeType: string, includeSiblings: false}
+spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
-    class Example() {
-      val example = """
-      some (wrapped 
-      text) to test
-      """
+    class ExampleClass() {
+      val string = "example string"
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|class Example() {
-  # 1|  val example = """
-  # 2|  some (wrapped 
-  # 3|  text) to test
-  # 4|  """
-  # 5|}
-  # 6|
-  #  +-------------------
-  #   0123456789012345678
-  #             1
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.w:
-      start: {line: 2, character: 8}
-      end: {line: 2, character: 15}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 24}
+  marks: {}
 finalState:
   documentContents: |
-    class Example() {
-      val example = """
-      some  to test
-      """
+    class ExampleClass() {
+      val string = 
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|class Example() {
-  # 1|  val example = """
-  # 2|  some  to test
-  # 3|  """
-  # 4|}
-  # 5|
-  #  +-------------------
-  #   0123456789012345678
-  #             1
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}

@@ -13,20 +13,13 @@ command:
           direction: forward
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: aaa(bbb(), ccc())
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|aaa(bbb(), ccc())
+  documentContents: aaa(bbb()) + ccc()
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: aaa()
-  #   01234
-  #  +-----
-  # 0|aaa()
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

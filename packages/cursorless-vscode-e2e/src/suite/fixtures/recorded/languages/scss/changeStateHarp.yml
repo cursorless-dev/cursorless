@@ -1,36 +1,39 @@
 languageId: scss
 command:
-  version: 1
-  spokenForm: change state harp
-  action: clearAndSetSelection
+  spokenForm: change trailing first word look
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      modifiers:
+        - {type: trailing}
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 0
+          active: 0
+          excludeAnchor: false
+          excludeActive: false
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    a .child-selector {
-      height: 10px;
-      color: red;
-    }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|a .child-selector {
-  # 1|  height: 10px;
-  # 2|  color: red;
-  # 3|}
+  documentContents: |2-
+     .long-bem-class-name {
+       height: 10px;
+     }
+     
   selections:
-    - anchor: {line: 2, character: 13}
-      active: {line: 2, character: 13}
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}
   marks:
-    default.h:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 17}
+    default.l:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 21}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |2-
+     .longbem-class-name {
+       height: 10px;
+     }
+     
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

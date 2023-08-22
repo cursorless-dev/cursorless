@@ -11,52 +11,42 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    some command: 
-        user.do_something()
-        sleep(200ms)
-        key(enter)
-        
-        
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|some command: 
-  # 1|    user.do_something()
-  # 2|    sleep(200ms)
-  # 3|    key(enter)
-  # 4|    
-  # 5|    
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
+    tag(): user.some_tag
+
+    settings():
+        speech.debug = 1
+
+    command: "command"
+    key(enter): "enter"
+    gamepad(north): "north"
+    face(smile): "smile"
+    parrot(pop): "pop"
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    some command: 
-        
-        
-        
-        
-        
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|some command: 
-  # 1|    
-  # 2|    
-  # 3|    
-  # 4|    
-  # 5|    
-  #  +--------------
-  #   01234567890123
-  #             1
+  documentContents: |+
+
+
+
+
+
+
+
+
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
+    - anchor: {line: 7, character: 0}
+      active: {line: 7, character: 0}
+    - anchor: {line: 8, character: 0}
+      active: {line: 8, character: 0}

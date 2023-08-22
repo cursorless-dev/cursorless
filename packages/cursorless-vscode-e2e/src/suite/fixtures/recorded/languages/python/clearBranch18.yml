@@ -11,31 +11,18 @@ command:
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
-    while True:
+    for aaa in bbb:
       pass
     else:
       pass
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|while True:
-  # 1|  pass
-  # 2|else:
-  # 3|  pass
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
   marks: {}
 finalState:
-  documentContents: |-
-
-    else:
+  documentContents: |
+    for aaa in bbb:
       pass
-  #   012345
-  #  +------
-  # 0|
-  # 1|else:
-  # 2|  pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

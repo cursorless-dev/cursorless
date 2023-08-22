@@ -1,36 +1,27 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: change state air
+  spokenForm: change state harp
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |-
-    a {
+    a .child-selector {
       height: 10px;
       color: red;
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|a {
-  # 1|  height: 10px;
-  # 2|  color: red;
-  # 3|}
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 13}
   marks:
-    default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 1}
+    default.h:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 17}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

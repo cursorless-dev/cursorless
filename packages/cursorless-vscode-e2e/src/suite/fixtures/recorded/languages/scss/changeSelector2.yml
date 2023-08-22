@@ -8,29 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: selector, includeSiblings: false}
 initialState:
   documentContents: |-
-    a.b ~ c.d {
-      
+    span[hello="Cleveland"][goodbye="Columbus"] {
+      color: blue;
     }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|a.b ~ c.d {
-  # 1|  
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
   documentContents: |2-
      {
-      
+      color: blue;
     }
-  #   01
-  #  +--
-  # 0| {
-  # 1|  
-  # 2|}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

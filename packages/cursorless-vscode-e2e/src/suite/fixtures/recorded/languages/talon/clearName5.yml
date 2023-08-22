@@ -10,20 +10,13 @@ command:
           scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "key(enter): \"enter\""
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|key(enter): "enter"
+  documentContents: "gamepad(north): \"north\""
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}
   marks: {}
 finalState:
-  documentContents: ": \"enter\""
-  #   012345678
-  #  +---------
-  # 0|: "enter"
+  documentContents: ": \"north\""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

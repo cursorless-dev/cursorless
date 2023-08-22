@@ -1,26 +1,33 @@
 languageId: html
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change pair bat
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
 initialState:
-  documentContents: <hello> <hello/>
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|<hello> <hello/>
+  documentContents: |-
+    <html>
+        <body>
+            <hr/>
+        </body>
+    </html>
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-  marks: {}
+    - anchor: {line: 4, character: 7}
+      active: {line: 4, character: 7}
+  marks:
+    default.b:
+      start: {line: 3, character: 6}
+      end: {line: 3, character: 10}
 finalState:
-  documentContents: " <hello/>"
-  #   012345678
-  #  +---------
-  # 0| <hello/>
+  documentContents: |-
+    <html>
+        <body>
+            <hr/>
+        
+    </html>
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

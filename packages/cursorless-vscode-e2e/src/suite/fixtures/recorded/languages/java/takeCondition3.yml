@@ -1,95 +1,33 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take condition
+  spokenForm: take every arg
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
-  documentContents: |-
+  documentContents: |
+
     public class MyClass {
-        private MyClass () {
-            if (true) {
+        public MyClass (String name, int value) {
 
-            }
-            while (true) {
-
-            }
-            for (int i = 0; i < 5; ++i) {
-
-            }
         }
     }
-  #              1         2         3
-  #    0123456789012345678901234567890123456
-  #   +-------------------------------------
-  #  0|public class MyClass {
-  #  1|    private MyClass () {
-  #  2|        if (true) {
-  #  3|
-  #   +-------------------------------------
-  #    0123456789012345678901234567890123456
-  #   +-------------------------------------
-  #  4|        }
-  #  5|        while (true) {
-  #  6|
-  #  7|        }
-  #   +-------------------------------------
-  #    0123456789012345678901234567890123456
-  #   +-------------------------------------
-  #  8|        for (int i = 0; i < 5; ++i) {
-  #  9|
-  # 10|        }
-  # 11|    }
-  # 12|}
-  #   +-------------------------------------
-  #    0123456789012345678901234567890123456
-  #              1         2         3
   selections:
-    - anchor: {line: 9, character: 0}
-      active: {line: 9, character: 0}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
+
     public class MyClass {
-        private MyClass () {
-            if (true) {
+        public MyClass (String name, int value) {
 
-            }
-            while (true) {
-
-            }
-            for (int i = 0; i < 5; ++i) {
-
-            }
         }
     }
-  #              1         2         3
-  #    0123456789012345678901234567890123456
-  #   +-------------------------------------
-  #  0|public class MyClass {
-  #  1|    private MyClass () {
-  #  2|        if (true) {
-  #  3|
-  #   +-------------------------------------
-  #    0123456789012345678901234567890123456
-  #   +-------------------------------------
-  #  4|        }
-  #  5|        while (true) {
-  #  6|
-  #  7|        }
-  #   +-------------------------------------
-  #    0123456789012345678901234567890123456
-  #   +-------------------------------------
-  #  8|        for (int i = 0; i < 5; ++i) {
-  #  9|
-  # 10|        }
-  # 11|    }
-  # 12|}
-  #   +-------------------------------------
-  #    0123456789012345678901234567890123456
-  #              1         2         3
   selections:
-    - anchor: {line: 8, character: 24}
-      active: {line: 8, character: 29}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 31}
+    - anchor: {line: 2, character: 33}
+      active: {line: 2, character: 42}

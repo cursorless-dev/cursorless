@@ -8,44 +8,15 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    try:
-      pass
-    except:
-      pass
-    finally:
-      pass
-  #   01234567
-  #  +--------
-  # 0|try:
-  # 1|  pass
-  # 2|except:
-  # 3|  pass
-  # 4|finally:
-  # 5|  pass
-  #  +--------
-  #   01234567
+  documentContents: aaa = bbb if ccc else ddd
   selections:
-    - anchor: {line: 5, character: 2}
-      active: {line: 5, character: 2}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: |
-    try:
-      pass
-    except:
-      pass
-  #   0123456
-  #  +-------
-  # 0|try:
-  # 1|  pass
-  # 2|except:
-  # 3|  pass
-  # 4|
-  #  +-------
-  #   0123456
+  documentContents: aaa =  if ccc else ddd
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

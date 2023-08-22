@@ -1,43 +1,32 @@
-languageId: plaintext
+languageId: python
 command:
-  version: 1
-  spokenForm: replace start of vest with hello
-  action: replace
+  version: 5
+  spokenForm: snippet else after this
+  action:
+    name: insertSnippet
+    args:
+      - {type: named, name: elseStatement}
   targets:
     - type: primitive
-      position: before
-      insideOutsideType: inside
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
-  extraArgs:
-    - [hello]
-spokenFormError: Action 'replace'
+      mark: {type: cursor}
+      modifiers:
+        - {type: position, position: after}
+  usePrePhraseSnapshot: true
+spokenFormError: Named insertion snippet 'elseStatement'
 initialState:
   documentContents: |
-
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
+    if True:
+        aaa = "bbb"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  marks: {}
 finalState:
   documentContents: |
-
-    const hellovalue = "Hello world";
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|
-  # 1|const hellovalue = "Hello world";
-  # 2|
+    if True:
+        aaa = "bbb"
+    else:
+        
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

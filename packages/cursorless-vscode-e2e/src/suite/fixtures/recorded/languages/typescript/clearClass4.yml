@@ -1,28 +1,22 @@
 languageId: typescript
 command:
-  spokenForm: change class
+  spokenForm: change condition
   version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: class}
+          scopeType: {type: condition}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: export class Foo {}
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|export class Foo {}
+  documentContents: "(process.env._ || '').match() ? path1: path2;"
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: " ? path1: path2;"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

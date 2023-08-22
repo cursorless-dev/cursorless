@@ -1,46 +1,38 @@
-languageId: typescriptreact
+languageId: typescript
 command:
   version: 5
-  spokenForm: change every end tag
+  spokenForm: change every funk
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: xmlEndTag}
+          scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    <aaa>
-        <bbb>ccc</bbb>
-        <bbb>ddd</bbb>
-    </aaa>
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|<aaa>
-  # 1|    <bbb>ccc</bbb>
-  # 2|    <bbb>ddd</bbb>
-  # 3|</aaa>
+    class Foo {
+        bar() {
+            
+        }
+
+        baz() {
+
+        }
+    }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 8, character: 1}
+      active: {line: 8, character: 1}
   marks: {}
 finalState:
   documentContents: |-
-    <aaa>
-        <bbb>ccc
-        <bbb>ddd
-    </aaa>
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|<aaa>
-  # 1|    <bbb>ccc
-  # 2|    <bbb>ddd
-  # 3|</aaa>
+    class Foo {
+        
+
+        
+    }
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
-    - anchor: {line: 2, character: 12}
-      active: {line: 2, character: 12}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

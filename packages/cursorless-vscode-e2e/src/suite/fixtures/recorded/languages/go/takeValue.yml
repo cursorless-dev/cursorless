@@ -8,20 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
   documentContents: " x := map[string]string{\"a\": \"b\", \"c\": \"d\"}"
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0| x := map[string]string{"a": "b", "c": "d"}
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
   marks: {}
 finalState:
   documentContents: " x := map[string]string{\"a\": \"b\", \"c\": \"d\"}"
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0| x := map[string]string{"a": "b", "c": "d"}
   selections:
     - anchor: {line: 0, character: 29}
       active: {line: 0, character: 32}

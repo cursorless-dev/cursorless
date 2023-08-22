@@ -1,40 +1,27 @@
-languageId: javascript
+languageId: json
 command:
-  version: 5
-  spokenForm: change name
-  action: {name: clearAndSetSelection}
+  version: 1
+  spokenForm: take item
+  action: setSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: name}
-  usePrePhraseSnapshot: true
+      modifier: {type: containingScope, scopeType: collectionItem}
 initialState:
-  documentContents: |-
-    class Aaa {
-        bbb = "ccc"
+  documentContents: |
+
+    {
+        "foo": "bar"
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|class Aaa {
-  # 1|    bbb = "ccc"
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
   marks: {}
 finalState:
-  documentContents: |-
-    class Aaa {
-         = "ccc"
+  documentContents: |
+
+    {
+        "foo": "bar"
     }
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|class Aaa {
-  # 1|     = "ccc"
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 16}

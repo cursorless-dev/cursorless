@@ -1,40 +1,24 @@
-languageId: typescript
+languageId: javascriptreact
 command:
   version: 5
-  spokenForm: change every funk name
+  spokenForm: change every item
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: functionName}
+          scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    function aaa() {}
-    function bbb() {}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|function aaa() {}
-  # 1|function bbb() {}
-  # 2|
+  documentContents: <Button data-testid="Action Button" data-variant="bare"></Button>
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: |
-    function () {}
-    function () {}
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|function () {}
-  # 1|function () {}
-  # 2|
+  documentContents: <Button  ></Button>
   selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}

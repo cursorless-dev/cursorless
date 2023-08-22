@@ -12,10 +12,6 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: const foo = "bar";
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|const foo = "bar";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -27,17 +23,6 @@ finalState:
     } catch (err) {
         
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|try {
-  # 1|    const foo = "bar";
-  # 2|} catch (err) {
-  # 3|    
-  # 4|}
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}

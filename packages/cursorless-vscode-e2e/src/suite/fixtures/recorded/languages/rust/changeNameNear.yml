@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change name near
+  spokenForm: change name odd
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
       modifiers:
         - type: containingScope
           scopeType: {type: name}
@@ -12,45 +12,17 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    enum Maybe<T> {
-        Just(T),
-        Nothing,
-    }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|enum Maybe<T> {
-  # 1|    Just(T),
-  # 2|    Nothing,
-  # 3|}
-  # 4|
-  #  +---------------
-  #   012345678901234
-  #             1
+    const SOME: usize = 0;
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
-    default.n:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 4}
+    default.o:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 10}
 finalState:
   documentContents: |
-    enum <T> {
-        Just(T),
-        Nothing,
-    }
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|enum <T> {
-  # 1|    Just(T),
-  # 2|    Nothing,
-  # 3|}
-  # 4|
-  #  +------------
-  #   012345678901
-  #             1
+    const : usize = 0;
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

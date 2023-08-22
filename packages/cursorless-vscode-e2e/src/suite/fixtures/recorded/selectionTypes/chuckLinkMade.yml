@@ -1,21 +1,24 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck link made
+  spokenForm: chuck link made past link air
   action: remove
   targets:
-    - type: primitive
-      selectionType: url
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+    - type: range
+      start:
+        type: primitive
+        selectionType: url
+        mark: {type: decoratedSymbol, symbolColor: default, character: m}
+      end:
+        type: primitive
+        selectionType: url
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      excludeStart: false
+      excludeEnd: false
 initialState:
   documentContents: >
     https://www.atomiccommits.io/consistent-hashing
     https://www.atomiccommits.io/consistent-hashing#code
-  #             1         2         3         4         5         6         7         8         9
-  #   0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
-  #  +----------------------------------------------------------------------------------------------------
-  # 0|https://www.atomiccommits.io/consistent-hashing https://www.atomiccommits.io/consistent-hashing#code
-  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -23,14 +26,12 @@ initialState:
     default.m:
       start: {line: 0, character: 12}
       end: {line: 0, character: 25}
+    default.a:
+      start: {line: 0, character: 60}
+      end: {line: 0, character: 73}
 finalState:
-  documentContents: |
-    https://www.atomiccommits.io/consistent-hashing#code
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901
-  #  +----------------------------------------------------
-  # 0|https://www.atomiccommits.io/consistent-hashing#code
-  # 1|
+  documentContents: |+
+
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

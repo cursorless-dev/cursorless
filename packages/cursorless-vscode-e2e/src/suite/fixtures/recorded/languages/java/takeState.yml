@@ -1,49 +1,24 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take state
+  spokenForm: take string
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement}
+      modifier: {type: containingScope, scopeType: string}
+spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
 
-    public class MyClass {
-
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|
-  # 3|}
-  # 4|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
+    String value = "hello world";
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
   marks: {}
 finalState:
   documentContents: |
 
-    public class MyClass {
-
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|
-  # 3|}
-  # 4|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
+    String value = "hello world";
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 3, character: 1}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 28}

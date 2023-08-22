@@ -12,10 +12,6 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: foo(hello, world)
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|foo(hello, world)
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
@@ -25,9 +21,6 @@ initialState:
       end: {line: 0, character: 10}
 finalState:
   documentContents: foo()
-  #   01234
-  #  +-----
-  # 0|foo()
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

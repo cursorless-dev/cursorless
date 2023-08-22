@@ -1,27 +1,25 @@
-languageId: xml
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: change value
-  action: clearAndSetSelection
+  spokenForm: chuck leading whale
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - {type: leading}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: <note bar="back">foo</note>
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|<note bar="back">foo</note>
+  documentContents: hello world whatever
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
-  marks: {}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks:
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
 finalState:
-  documentContents: <note bar=>foo</note>
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|<note bar=>foo</note>
+  documentContents: helloworld whatever
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}

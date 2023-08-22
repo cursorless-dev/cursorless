@@ -1,5 +1,3 @@
-  # (empty)
-
 languageId: typescript
 command:
   version: 5
@@ -12,13 +10,13 @@ command:
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: const foo = function *bar() {}
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|const foo = function *bar() {}
+  documentContents: export default function *() {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

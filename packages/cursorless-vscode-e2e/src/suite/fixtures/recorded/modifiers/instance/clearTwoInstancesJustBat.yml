@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change two instances just bat
+  spokenForm: change two instances last word air
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -11,34 +11,25 @@ command:
           offset: 0
           length: 2
           direction: forward
-        - {type: toRawSelection}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        - type: ordinalScope
+          scopeType: {type: word}
+          start: -1
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    aaa bbb ccc aaa bbbb aaa bbb
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|aaa bbb ccc aaa bbbb aaa bbb
-  # 1|
+  documentContents: aaaBbb cccBbbb dddBbb
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
   marks:
-    default.b:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 6}
 finalState:
-  documentContents: |
-    aaa  ccc aaa b aaa bbb
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|aaa  ccc aaa b aaa bbb
-  # 1|
+  documentContents: aaa cccBbbb ddd
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}

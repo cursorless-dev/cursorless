@@ -13,10 +13,6 @@ command:
   action: {name: pasteFromClipboard}
 initialState:
   documentContents: foo(bar, baz, bongo)
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|foo(bar, baz, bongo)
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
@@ -27,10 +23,6 @@ initialState:
   clipboard: baz
 finalState:
   documentContents: foo(bar, baz, bongo, baz)
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|foo(bar, baz, bongo, baz)
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

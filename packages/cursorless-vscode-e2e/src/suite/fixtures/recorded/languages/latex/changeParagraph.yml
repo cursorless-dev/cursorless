@@ -1,28 +1,17 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change paragraph
+  spokenForm: change part
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedParagraph, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: part, includeSiblings: false}
 initialState:
   documentContents: |
-    \paragraph{1}
-    \subparagraph{child}
+    \part{1}
+    \chapter{child}
     some text
-    \paragraph{2}
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|\paragraph{1}
-  # 1|\subparagraph{child}
-  # 2|some text
-  # 3|\paragraph{2}
-  # 4|
-  #  +--------------------
-  #   01234567890123456789
-  #             1
+    \part{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -30,13 +19,7 @@ initialState:
 finalState:
   documentContents: |
 
-    \paragraph{2}
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|
-  # 1|\paragraph{2}
-  # 2|
+    \part{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

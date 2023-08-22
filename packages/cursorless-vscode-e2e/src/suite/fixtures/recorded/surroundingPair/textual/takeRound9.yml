@@ -1,24 +1,23 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change round right paren
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses}
+      mark: {type: decoratedSymbol, symbolColor: default, character: )}
 initialState:
-  documentContents: (())
-  #   0123
-  #  +----
-  # 0|(())
+  documentContents: (hello)
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks:
+    default.):
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: ()
-  #   01
-  #  +--
-  # 0|()
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

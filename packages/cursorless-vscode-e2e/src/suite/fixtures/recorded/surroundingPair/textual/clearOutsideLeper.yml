@@ -1,35 +1,19 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change pair paren
+  spokenForm: change pair
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
 initialState:
-  documentContents: |
-    [(hello)  (whatever)]
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|[(hello)  (whatever)]
-  # 1|
+  documentContents: ("hello",  "world")
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-  marks:
-    default.(:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 2}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
 finalState:
-  documentContents: |
-    [  (whatever)]
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|[  (whatever)]
-  # 1|
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

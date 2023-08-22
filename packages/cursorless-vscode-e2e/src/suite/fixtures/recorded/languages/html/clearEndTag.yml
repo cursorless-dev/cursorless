@@ -11,11 +11,6 @@ initialState:
     <html>
         
     </html>
-  #   0123456
-  #  +-------
-  # 0|<html>
-  # 1|    
-  # 2|</html>
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -24,11 +19,6 @@ finalState:
   documentContents: |
     <html>
         
-  #   012345
-  #  +------
-  # 0|<html>
-  # 1|    
-  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

@@ -7,20 +7,17 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: \section{some section}
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|\section{some section}
+  documentContents: |-
+    \begin{itemize}
+    \end{itemize}
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: \section
-  #   01234567
-  #  +--------
-  # 0|\section
+  documentContents: |-
+    \begin
+    \end{itemize}
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

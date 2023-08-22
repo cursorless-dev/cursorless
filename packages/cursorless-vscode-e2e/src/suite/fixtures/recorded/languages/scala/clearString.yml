@@ -9,32 +9,18 @@ command:
 spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
-    class ExampleClass() {
-      val string = "example string"
-    }
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|class ExampleClass() {
-  # 1|  val string = "example string"
-  # 2|}
-  # 3|
+    val string = """
+    multi
+    line
+    string
+    """
   selections:
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   marks: {}
 finalState:
   documentContents: |
-    class ExampleClass() {
-      val string = 
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  val string = 
-  # 2|}
-  # 3|
+    val string = 
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

@@ -1,31 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take arg whale
+  spokenForm: take call
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifier: {type: containingScope, scopeType: functionCall}
 initialState:
-  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
-  #             1         2         3         4         5         6
-  #   01234567890123456789012345678901234567890123456789012345678901234567
-  #  +--------------------------------------------------------------------
-  # 0|" ".join((word for word in word_list), (word for word in word_list))
+  documentContents: |-
+
+    my_funk(1, 2, 3)
   selections:
-    - anchor: {line: 0, character: 68}
-      active: {line: 0, character: 68}
-  marks:
-    default.w:
-      start: {line: 0, character: 49}
-      end: {line: 0, character: 53}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
 finalState:
-  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
-  #             1         2         3         4         5         6
-  #   01234567890123456789012345678901234567890123456789012345678901234567
-  #  +--------------------------------------------------------------------
-  # 0|" ".join((word for word in word_list), (word for word in word_list))
+  documentContents: |-
+
+    my_funk(1, 2, 3)
   selections:
-    - anchor: {line: 0, character: 39}
-      active: {line: 0, character: 67}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 16}

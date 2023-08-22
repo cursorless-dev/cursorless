@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change two tokens
+  spokenForm: change two tokens backward
   version: 3
   targets:
     - type: primitive
@@ -9,24 +9,17 @@ command:
           scopeType: {type: token}
           offset: 0
           length: 2
-          direction: forward
+          direction: backward
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb ccc
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
+  documentContents: aaa bbb. ccc
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: " ccc"
-  #   0123
-  #  +----
-  # 0| ccc
+  documentContents: . ccc
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

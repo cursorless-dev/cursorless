@@ -23,11 +23,6 @@ initialState:
   documentContents: |
     if True:
         pass
-  #   01234567
-  #  +--------
-  # 0|if True:
-  # 1|    pass
-  # 2|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -43,18 +38,6 @@ finalState:
         pass
 
     print("hello")
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|if True:
-  # 1|    print("hello")
-  # 2|    pass
-  # 3|
-  # 4|print("hello")
-  # 5|
-  #  +------------------
-  #   012345678901234567
-  #             1
   selections:
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 0}

@@ -1,33 +1,25 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take call
+  spokenForm: take class
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall}
+      modifier: {type: containingScope, scopeType: class}
 initialState:
   documentContents: |-
 
-    my_funk(1, 2, 3)
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|my_funk(1, 2, 3)
+    class MyClass:
+        """"""
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-
 
-    my_funk(1, 2, 3)
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|my_funk(1, 2, 3)
+    class MyClass:
+        """"""
   selections:
     - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 16}
+      active: {line: 2, character: 10}

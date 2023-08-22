@@ -1,36 +1,25 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change string
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: surroundingPair, delimiter: string}
 initialState:
   documentContents: |-
     <?php
 
-    "Hello (world)";
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|<?php
-  # 1|
-  # 2|"Hello (world)";
+    "Hello world";
   selections:
-    - anchor: {line: 2, character: 11}
-      active: {line: 2, character: 11}
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    "Hello ";
-  #   012345678
-  #  +---------
-  # 0|<?php
-  # 1|
-  # 2|"Hello ";
+    ;
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

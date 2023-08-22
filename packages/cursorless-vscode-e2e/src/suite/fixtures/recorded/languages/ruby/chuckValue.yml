@@ -7,20 +7,13 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: "{ hi: \"world\" }"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|{ hi: "world" }
+  documentContents: "{ hi => \"world\" }"
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
   documentContents: "{ hi }"
-  #   012345
-  #  +------
-  # 0|{ hi }
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

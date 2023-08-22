@@ -1,33 +1,37 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take call
+  spokenForm: take class
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall}
+      modifier: {type: containingScope, scopeType: class}
 initialState:
   documentContents: |
 
-    myFunk()
-  #   01234567
-  #  +--------
-  # 0|
-  # 1|myFunk()
-  # 2|
+    class MyClass {
+        constructor () {
+
+        }
+        myFunk () {
+
+        }
+    }
   selections:
-    - anchor: {line: 1, character: 1}
-      active: {line: 1, character: 1}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
   marks: {}
 finalState:
   documentContents: |
 
-    myFunk()
-  #   01234567
-  #  +--------
-  # 0|
-  # 1|myFunk()
-  # 2|
+    class MyClass {
+        constructor () {
+
+        }
+        myFunk () {
+
+        }
+    }
   selections:
     - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 8}
+      active: {line: 8, character: 1}

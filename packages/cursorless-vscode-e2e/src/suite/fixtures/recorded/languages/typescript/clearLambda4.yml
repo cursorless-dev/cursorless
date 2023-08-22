@@ -1,31 +1,22 @@
 languageId: typescript
 command:
-  version: 1
+  version: 5
   spokenForm: change lambda
-  action: clearAndSetSelection
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    foo(async () => {
-
-    })
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|foo(async () => {
-  # 1|
-  # 2|})
+  documentContents: (function () {})
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: foo()
-  #   01234
-  #  +-----
-  # 0|foo()
+  documentContents: ()
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

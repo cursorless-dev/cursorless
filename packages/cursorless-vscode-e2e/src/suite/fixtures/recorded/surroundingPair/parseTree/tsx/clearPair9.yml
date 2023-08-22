@@ -1,26 +1,19 @@
-languageId: typescriptreact
+languageId: typescript
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change inside
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
 initialState:
-  documentContents: (<hello/> )
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|(<hello/> )
+  documentContents: "{const [bongo, baz] = [foo, bar]}"
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 24}
   marks: {}
 finalState:
-  documentContents: ( )
-  #   012
-  #  +---
-  # 0|( )
+  documentContents: "{}"
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

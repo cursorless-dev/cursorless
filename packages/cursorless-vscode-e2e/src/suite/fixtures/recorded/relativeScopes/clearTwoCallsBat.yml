@@ -1,41 +1,27 @@
-languageId: ruby
+languageId: plaintext
 command:
-  version: 5
-  spokenForm: change two calls bat
-  action: {name: clearAndSetSelection}
+  spokenForm: change two lines backward
+  version: 3
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: functionCall}
+          scopeType: {type: line}
           offset: 0
           length: 2
-          direction: forward
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          direction: backward
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    aaa(bbb(), ccc()) + ddd()
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|aaa(bbb(), ccc()) + ddd()
-  # 1|
+  documentContents: |-
+    aaa bbb
+    ccc ddd
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-  marks:
-    default.b:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
+  marks: {}
 finalState:
-  documentContents: |
-    aaa() + ddd()
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|aaa() + ddd()
-  # 1|
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

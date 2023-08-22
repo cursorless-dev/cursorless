@@ -15,13 +15,6 @@ initialState:
         name: string,
         value: number
     ) {}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|function myFunk(
-  # 1|    name: string,
-  # 2|    value: number
-  # 3|) {}
   selections:
     - anchor: {line: 2, character: 9}
       active: {line: 2, character: 9}
@@ -33,17 +26,6 @@ finalState:
         ,
         value: number
     ) {}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|function myFunk(
-  # 1|    name: string,
-  # 2|    ,
-  # 3|    value: number
-  # 4|) {}
-  #  +-----------------
-  #   01234567890123456
-  #             1
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}

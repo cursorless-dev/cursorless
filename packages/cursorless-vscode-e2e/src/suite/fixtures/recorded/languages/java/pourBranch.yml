@@ -1,78 +1,31 @@
 languageId: java
 command:
-  spokenForm: pour branch
-  version: 3
+  version: 1
+  spokenForm: take arg
+  action: setSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: branch}
-  usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+      modifier: {type: containingScope, scopeType: argumentOrParameter}
 initialState:
-  documentContents: |-
-    class Aaa {
-      static void bbb() {
-        var s =
-          switch ("0") {
-            case "0" -> "zero";
-            case "1" -> "one";
-          };
-      }
+  documentContents: |
+
+    public class MyClass {
+        public MyClass (String name, int value) {
+
+        }
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|class Aaa {
-  # 1|  static void bbb() {
-  # 2|    var s =
-  # 3|      switch ("0") {
-  #  +---------------------------
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 4|        case "0" -> "zero";
-  # 5|        case "1" -> "one";
-  # 6|      };
-  # 7|  }
-  # 8|}
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
-    - anchor: {line: 4, character: 21}
-      active: {line: 4, character: 21}
+    - anchor: {line: 2, character: 26}
+      active: {line: 2, character: 26}
   marks: {}
 finalState:
-  documentContents: |-
-    class Aaa {
-      static void bbb() {
-        var s =
-          switch ("0") {
-            case "0" -> "zero";
-            
-            case "1" -> "one";
-          };
-      }
+  documentContents: |
+
+    public class MyClass {
+        public MyClass (String name, int value) {
+
+        }
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|class Aaa {
-  # 1|  static void bbb() {
-  # 2|    var s =
-  # 3|      switch ("0") {
-  #  +---------------------------
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 4|        case "0" -> "zero";
-  # 5|        
-  # 6|        case "1" -> "one";
-  # 7|      };
-  # 8|  }
-  # 9|}
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
-    - anchor: {line: 5, character: 8}
-      active: {line: 5, character: 8}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 31}

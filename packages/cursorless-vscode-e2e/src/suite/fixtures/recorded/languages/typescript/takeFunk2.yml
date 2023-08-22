@@ -9,20 +9,9 @@ command:
 initialState:
   documentContents: |
 
-    export function foo () {
+    export default function foo () {
 
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|
-  # 1|export function foo () {
-  # 2|
-  # 3|}
-  # 4|
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -30,20 +19,9 @@ initialState:
 finalState:
   documentContents: |
 
-    export function foo () {
+    export default function foo () {
 
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|
-  # 1|export function foo () {
-  # 2|
-  # 3|}
-  # 4|
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 1}

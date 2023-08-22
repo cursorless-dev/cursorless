@@ -11,34 +11,18 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    interface Foo {
-      bar: Bar;
-      baz: Baz;
+    type Foo = {
+      bar: string;
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|interface Foo {
-  # 1|  bar: Bar;
-  # 2|  baz: Baz;
-  # 3|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    interface Foo {
+    type Foo = {
       
-      baz: Baz;
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|interface Foo {
-  # 1|  
-  # 2|  baz: Baz;
-  # 3|}
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}

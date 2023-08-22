@@ -1,31 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: chuck arg drum
+  spokenForm: chuck arg fine
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
-  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
-  #             1         2         3         4         5         6
-  #   01234567890123456789012345678901234567890123456789012345678901234567
-  #  +--------------------------------------------------------------------
-  # 0|" ".join((word for word in word_list), (word for word in word_list))
+  documentContents: "\" \".join((word for word in word_list), \"words\")"
   selections:
-    - anchor: {line: 0, character: 39}
-      active: {line: 0, character: 67}
+    - anchor: {line: 0, character: 47}
+      active: {line: 0, character: 47}
   marks:
-    default.d:
-      start: {line: 0, character: 19}
-      end: {line: 0, character: 23}
+    default.f:
+      start: {line: 0, character: 15}
+      end: {line: 0, character: 18}
 finalState:
-  documentContents: "\" \".join((word for word in word_list))"
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|" ".join((word for word in word_list))
+  documentContents: "\" \".join(\"words\")"
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 37}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

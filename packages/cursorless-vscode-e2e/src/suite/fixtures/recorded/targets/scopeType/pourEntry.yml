@@ -1,38 +1,29 @@
 languageId: markdown
 command:
-  spokenForm: pour item
+  spokenForm: pour section
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: {type: section}
   usePrePhraseSnapshot: true
   action: {name: editNewLineAfter}
 initialState:
   documentContents: |-
-    - Testing
-    - Another test
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|- Testing
-  # 1|- Another test
+    # Some section
+
+    Some text
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
   marks: {}
 finalState:
-  documentContents: |-
-    - Testing
-    - 
-    - Another test
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|- Testing
-  # 1|- 
-  # 2|- Another test
+  documentContents: |+
+    # Some section
+
+    Some text
+
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

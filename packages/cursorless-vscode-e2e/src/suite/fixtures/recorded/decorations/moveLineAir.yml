@@ -16,12 +16,6 @@ initialState:
     a a a
     b b b
     c c c
-  #   01234
-  #  +-----
-  # 0|a a a
-  # 1|b b b
-  # 2|c c c
-  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -34,11 +28,6 @@ finalState:
     b b b
     c c c
     a a a
-  #   01234
-  #  +-----
-  # 0|b b b
-  # 1|c c c
-  # 2|a a a
   selections:
     - anchor: {line: 2, character: 5}
       active: {line: 2, character: 5}

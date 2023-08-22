@@ -1,12 +1,12 @@
 languageId: html
 command:
   version: 1
-  spokenForm: change pair bat
+  spokenForm: change pair odd
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
 initialState:
   documentContents: |-
     <html>
@@ -14,42 +14,20 @@ initialState:
             <hr/>
         </body>
     </html>
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<html>
-  # 1|    <body>
-  # 2|        <hr/>
-  # 3|    </body>
-  # 4|</html>
-  #  +-------------
-  #   0123456789012
-  #             1
   selections:
     - anchor: {line: 4, character: 7}
       active: {line: 4, character: 7}
   marks:
-    default.b:
-      start: {line: 3, character: 6}
-      end: {line: 3, character: 10}
+    default.o:
+      start: {line: 1, character: 5}
+      end: {line: 1, character: 9}
 finalState:
   documentContents: |-
     <html>
-        <body>
-            <hr/>
         
+            <hr/>
+        </body>
     </html>
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<html>
-  # 1|    <body>
-  # 2|        <hr/>
-  # 3|    
-  # 4|</html>
-  #  +-------------
-  #   0123456789012
-  #             1
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

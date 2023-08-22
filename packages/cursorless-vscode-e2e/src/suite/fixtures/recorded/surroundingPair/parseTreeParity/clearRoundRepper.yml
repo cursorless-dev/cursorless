@@ -1,28 +1,18 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change round right paren
+  spokenForm: change inside round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
-      mark: {type: decoratedSymbol, symbolColor: default, character: )}
+      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: interiorOnly}
 initialState:
   documentContents: (hello)
-  #   0123456
-  #  +-------
-  # 0|(hello)
-  selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-  marks:
-    default.):
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 7}
-finalState:
-  documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+finalState:
+  documentContents: ()
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

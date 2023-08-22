@@ -1,25 +1,21 @@
 languageId: scala
 command:
   version: 0
-  spokenForm: change class
+  spokenForm: change class name
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: class, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: className, includeSiblings: false}
 initialState:
-  documentContents: case class Example()
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|case class Example()
+  documentContents: |
+    class ExampleClass() {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |
+    class () {}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

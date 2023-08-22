@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change type plex
+  spokenForm: change type sun
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: x}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
       modifiers:
         - type: containingScope
           scopeType: {type: type}
@@ -12,27 +12,21 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    const X: [u8; 2] = [0, 0];
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|const X: [u8; 2] = [0, 0];
-  # 1|
+    fn main() -> Result<(), Error> {
+        
+    }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
   marks:
-    default.x:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 7}
+    default.s:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 19}
 finalState:
   documentContents: |
-    const X:  = [0, 0];
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|const X:  = [0, 0];
-  # 1|
+    fn main() ->  {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

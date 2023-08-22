@@ -1,5 +1,3 @@
-  # (empty)
-
 languageId: ruby
 command:
   version: 5
@@ -12,12 +10,13 @@ command:
           scopeType: {type: functionCall}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: " aaa() "
-  #   0123456
-  #  +-------
-  # 0| aaa() 
+  documentContents: aaa()
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
+finalState:
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 7}
-  marks: {}
-thrownError: {name: NoContainingScopeError}
+      active: {line: 0, character: 0}

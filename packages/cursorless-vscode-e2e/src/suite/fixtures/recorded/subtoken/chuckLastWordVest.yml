@@ -1,22 +1,16 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: chuck last word vest
+  spokenForm: chuck second word vest
   action: remove
   targets:
     - type: primitive
-      modifier: {type: subpiece, pieceType: word, anchor: -1, active: -1}
+      modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
   documentContents: |
 
     const value_hello_str = "Hello world";
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|
-  # 1|const value_hello_str = "Hello world";
-  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -27,13 +21,7 @@ initialState:
 finalState:
   documentContents: |
 
-    const value_hello = "Hello world";
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|
-  # 1|const value_hello = "Hello world";
-  # 2|
+    const value_str = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

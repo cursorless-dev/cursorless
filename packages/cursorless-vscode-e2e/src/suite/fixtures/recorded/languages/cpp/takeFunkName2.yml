@@ -11,12 +11,6 @@ initialState:
     int C::f(int a, int b) {
         
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|int C::f(int a, int b) {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -26,12 +20,6 @@ finalState:
     int C::f(int a, int b) {
         
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|int C::f(int a, int b) {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 8}

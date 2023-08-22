@@ -1,38 +1,22 @@
-languageId: markdown
+languageId: plaintext
 command:
-  version: 6
-  spokenForm: change every sentence
-  action:
-    name: clearAndSetSelection
-    target:
-      type: primitive
+  version: 5
+  spokenForm: chuck sentence
+  action: {name: remove}
+  targets:
+    - type: primitive
       modifiers:
-        - type: everyScope
+        - type: containingScope
           scopeType: {type: sentence}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    1. **Custom subtitles** - User customizable subtitles for Talon. 
-        - [Subtitles and notifications](./core/on_phrase/subtitles_and_notifications)
-  #             1         2         3         4         5         6         7         8
-  #   012345678901234567890123456789012345678901234567890123456789012345678901234567890
-  #  +---------------------------------------------------------------------------------
-  # 0|1. **Custom subtitles** - User customizable subtitles for Talon. 
-  # 1|    - [Subtitles and notifications](./core/on_phrase/subtitles_and_notifications)
+  documentContents: Foo foo. Bar bar!baz?
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    1.  
-        - 
-  #   012345
-  #  +------
-  # 0|1.  
-  # 1|    - 
+  documentContents: Bar bar!baz?
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

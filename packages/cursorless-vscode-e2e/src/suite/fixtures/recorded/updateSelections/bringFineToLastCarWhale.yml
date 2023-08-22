@@ -1,24 +1,20 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring fine to last char whale
+  spokenForm: bring fine to third char whale
   action: replaceWithTarget
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
     - type: primitive
       selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: -1, active: -1, excludeAnchor: false, excludeActive: false}
+      modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
   documentContents: foo world whatever
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|foo world whatever
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
   marks:
     default.f:
       start: {line: 0, character: 0}
@@ -27,11 +23,7 @@ initialState:
       start: {line: 0, character: 4}
       end: {line: 0, character: 9}
 finalState:
-  documentContents: foo worlfoo whatever
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|foo worlfoo whatever
+  documentContents: foo wofoold whatever
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 11}

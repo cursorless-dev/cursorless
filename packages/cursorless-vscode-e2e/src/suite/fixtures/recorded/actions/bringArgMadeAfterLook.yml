@@ -21,17 +21,6 @@ initialState:
         value: number,
         whatever: boolean
     ) {}
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|function myFunk(
-  # 1|    name: string,
-  # 2|    value: number,
-  # 3|    whatever: boolean
-  # 4|) {}
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -50,18 +39,6 @@ finalState:
         name: string,
         whatever: boolean
     ) {}
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|function myFunk(
-  # 1|    name: string,
-  # 2|    value: number,
-  # 3|    name: string,
-  # 4|    whatever: boolean
-  # 5|) {}
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

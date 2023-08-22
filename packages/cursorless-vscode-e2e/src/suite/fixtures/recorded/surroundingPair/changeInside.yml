@@ -1,28 +1,24 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: change inside
+  spokenForm: change inside pair
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: (foo)
-  #   01234
-  #  +-----
-  # 0|(foo)
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
   documentContents: ()
-  #   01
-  #  +--
-  # 0|()
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

@@ -1,29 +1,22 @@
 languageId: rust
 command:
-  spokenForm: change class name
+  spokenForm: change funk name
   version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: className}
+          scopeType: {type: functionName}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: struct Some {}
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|struct Some {}
+  documentContents: fn main() {}
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
   marks: {}
 finalState:
-  documentContents: struct  {}
-  #   0123456789
-  #  +----------
-  # 0|struct  {}
+  documentContents: fn () {}
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

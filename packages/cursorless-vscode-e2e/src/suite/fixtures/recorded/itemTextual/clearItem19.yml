@@ -15,13 +15,6 @@ initialState:
         "aaa": "\\",
         "bbb": "ccc",
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|values = {
-  # 1|    "aaa": "\\",
-  # 2|    "bbb": "ccc",
-  # 3|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -32,13 +25,6 @@ finalState:
         ,
         "bbb": "ccc",
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|values = {
-  # 1|    ,
-  # 2|    "bbb": "ccc",
-  # 3|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

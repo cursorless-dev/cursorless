@@ -11,20 +11,12 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: seq('(', ",", $._import_list, ')')
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|seq('(', ",", $._import_list, ')')
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: seq(, , , )
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|seq(, , , )
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

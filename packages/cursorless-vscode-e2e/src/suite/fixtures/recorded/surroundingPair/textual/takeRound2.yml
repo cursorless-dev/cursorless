@@ -7,17 +7,12 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
-  documentContents: (hello)
-  #   0123456
-  #  +-------
-  # 0|(hello)
+  documentContents: (hello ()  )
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

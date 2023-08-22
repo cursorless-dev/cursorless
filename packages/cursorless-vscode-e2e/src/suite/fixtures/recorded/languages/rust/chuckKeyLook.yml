@@ -1,56 +1,23 @@
 languageId: rust
 command:
-  spokenForm: chuck key look
-  version: 2
+  version: 1
+  spokenForm: chuck list one
+  action: remove
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      modifiers:
-        - type: containingScope
-          scopeType: {type: collectionKey}
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
 initialState:
-  documentContents: |
-    let user = User {
-        first_name: "John",
-        last_name: last_name,
-    }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|let user = User {
-  # 1|    first_name: "John",
-  # 2|    last_name: last_name,
-  # 3|}
-  # 4|
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
+  documentContents: let x = [1, 2, 3];
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks:
-    default.l:
-      start: {line: 2, character: 4}
-      end: {line: 2, character: 13}
+    default.1:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 10}
 finalState:
-  documentContents: |
-    let user = User {
-        first_name: "John",
-        last_name,
-    }
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|let user = User {
-  # 1|    first_name: "John",
-  # 2|    last_name,
-  # 3|}
-  # 4|
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
+  documentContents: let x =;
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

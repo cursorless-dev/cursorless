@@ -1,33 +1,29 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take every arg red
+  spokenForm: take every item
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
-      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
 initialState:
-  documentContents: foo(bar(baz, bongo), bazman)
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|foo(bar(baz, bongo), bazman)
+  documentContents: |
+
+    const value = { a: 1, b: 2, c: 3, foo };
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.r:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
+  marks: {}
 finalState:
-  documentContents: foo(bar(baz, bongo), bazman)
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|foo(bar(baz, bongo), bazman)
+  documentContents: |
+
+    const value = { a: 1, b: 2, c: 3, foo };
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 19}
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 27}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 26}
+    - anchor: {line: 1, character: 28}
+      active: {line: 1, character: 32}
+    - anchor: {line: 1, character: 34}
+      active: {line: 1, character: 37}

@@ -7,34 +7,22 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: statement}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     fn foo() {
         if true { println!("5") } else { println!("6") }
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901
-  #  +----------------------------------------------------
-  # 0|fn foo() {
-  # 1|    if true { println!("5") } else { println!("6") }
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 23}
-      active: {line: 1, character: 23}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
   marks: {}
 finalState:
   documentContents: |-
     fn foo() {
-        if true {  } else { println!("6") }
+        
     }
-  #             1         2         3
-  #   012345678901234567890123456789012345678
-  #  +---------------------------------------
-  # 0|fn foo() {
-  # 1|    if true {  } else { println!("6") }
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

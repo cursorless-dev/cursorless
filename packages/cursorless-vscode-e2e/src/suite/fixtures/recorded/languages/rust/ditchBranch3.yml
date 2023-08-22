@@ -1,58 +1,25 @@
-languageId: rust
+languageId: scala
 command:
-  version: 3
-  spokenForm: chuck branch
-  action: {name: remove}
+  version: 1
+  spokenForm: chuck arg fine
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
-  documentContents: |-
-    if n < 0 {
-        print!("{} is negative", n);
-    } else if n > 0 {
-        print!("{} is positive", n);
-    } else {
-        print!("{} is zero", n);
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|if n < 0 {
-  # 1|    print!("{} is negative", n);
-  # 2|} else if n > 0 {
-  # 3|    print!("{} is positive", n);
-  # 4|} else {
-  # 5|    print!("{} is zero", n);
-  # 6|}
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
+  documentContents: |
+    class ExampleClass(foo: Int, bar: Int) {}
   selections:
-    - anchor: {line: 5, character: 4}
-      active: {line: 5, character: 4}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 22}
 finalState:
-  documentContents: |-
-    if n < 0 {
-        print!("{} is negative", n);
-    } else if n > 0 {
-        print!("{} is positive", n);
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|if n < 0 {
-  # 1|    print!("{} is negative", n);
-  # 2|} else if n > 0 {
-  # 3|    print!("{} is positive", n);
-  # 4|}
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
+  documentContents: |
+    class ExampleClass(bar: Int) {}
   selections:
-    - anchor: {line: 4, character: 1}
-      active: {line: 4, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -10,28 +10,16 @@ initialState:
   documentContents: |-
     <?php
 
-    ['first' => 1, 'second' => 2, 'third' => 3];
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890123
-  #  +--------------------------------------------
-  # 0|<?php
-  # 1|
-  # 2|['first' => 1, 'second' => 2, 'third' => 3];
+    ['first' => 1];
   selections:
-    - anchor: {line: 2, character: 24}
-      active: {line: 2, character: 24}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    ['first' => 1, , 'third' => 3];
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|<?php
-  # 1|
-  # 2|['first' => 1, , 'third' => 3];
+    [];
   selections:
-    - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}

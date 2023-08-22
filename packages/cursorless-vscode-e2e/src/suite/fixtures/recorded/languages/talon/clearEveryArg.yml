@@ -12,35 +12,17 @@ command:
 initialState:
   documentContents: |-
     some command: 
-        user.do_something(1, "hello")
+        key(enter)
         
-        
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|some command: 
-  # 1|    user.do_something(1, "hello")
-  # 2|    
-  # 3|    
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
   marks: {}
 finalState:
   documentContents: |-
     some command: 
-        user.do_something(, )
+        key()
         
-        
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|some command: 
-  # 1|    user.do_something(, )
-  # 2|    
-  # 3|    
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
-    - anchor: {line: 1, character: 24}
-      active: {line: 1, character: 24}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}

@@ -17,18 +17,6 @@ initialState:
 
     def fff():
         pass
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|def aaa():
-  # 1|    bbb = "ccc"
-  # 2|    ddd = "eee"
-  # 3|
-  # 4|def fff():
-  # 5|    pass
-  #  +---------------
-  #   012345678901234
-  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -41,16 +29,6 @@ finalState:
 
     def fff():
         pass
-  #   0123456789
-  #  +----------
-  # 0|def aaa():
-  # 1|    
-  # 2|    
-  # 3|
-  # 4|def fff():
-  # 5|    pass
-  #  +----------
-  #   0123456789
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

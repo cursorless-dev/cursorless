@@ -9,13 +9,7 @@ command:
 initialState:
   documentContents: |
 
-    value = {1, 2, 3}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|
-  # 1|value = {1, 2, 3}
-  # 2|
+    value = {a: 1, b: 2, c: 3}
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
@@ -23,17 +17,11 @@ initialState:
 finalState:
   documentContents: |
 
-    value = {1, 2, 3}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|
-  # 1|value = {1, 2, 3}
-  # 2|
+    value = {a: 1, b: 2, c: 3}
   selections:
     - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 10}
-    - anchor: {line: 1, character: 12}
       active: {line: 1, character: 13}
     - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 16}
+      active: {line: 1, character: 19}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 25}

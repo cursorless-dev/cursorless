@@ -1,38 +1,26 @@
-languageId: plaintext
+languageId: python
 command:
-  spokenForm: change every paint pair paren
+  spokenForm: change every short paint
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
       modifiers:
         - type: everyScope
-          scopeType: {type: nonWhitespaceSequence}
-        - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: any}
+          scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: foo(aa|aa-().c_d bb|bb-().'') { return 1; }
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0|foo(aa|aa-().c_d bb|bb-().'') { return 1; }
+  documentContents: several different words
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-  marks:
-    default.(:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 4}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
 finalState:
-  documentContents: "  { return 1; }"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|  { return 1; }
+  documentContents: "  "
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

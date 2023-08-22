@@ -12,29 +12,17 @@ command:
 initialState:
   documentContents: |-
     some command: 
-        key(enter)
+        sleep(200ms)
         
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|some command: 
-  # 1|    key(enter)
-  # 2|    
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
   marks: {}
 finalState:
   documentContents: |-
     some command: 
-        key()
+        sleep()
         
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|some command: 
-  # 1|    key()
-  # 2|    
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}

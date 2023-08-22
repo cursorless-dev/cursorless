@@ -7,20 +7,13 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: if (foo > 0) {}
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|if (foo > 0) {}
+  documentContents: "const {hello} = {hello: \"world\"}"
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}
   marks: {}
 finalState:
-  documentContents: if  {}
-  #   012345
-  #  +------
-  # 0|if  {}
+  documentContents: "const {hello} = "
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

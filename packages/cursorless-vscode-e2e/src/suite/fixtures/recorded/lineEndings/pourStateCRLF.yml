@@ -1,35 +1,19 @@
-languageId: python
+languageId: plaintext
 command:
-  version: 5
-  spokenForm: pour state
-  action: {name: editNewLineAfter}
+  version: 1
+  spokenForm: chuck nothing
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: statement}
-  usePrePhraseSnapshot: true
+      mark: {type: nothing}
 initialState:
-  documentContents: "def whatever():\r\n    if True:\r\n        pass"
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|def whatever():
-  # 1|    if True:
-  # 2|        pass
+  documentContents: hello world
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
   marks: {}
 finalState:
-  documentContents: "def whatever():\r\n    if True:\r\n        pass\r\n    "
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|def whatever():
-  # 1|    if True:
-  # 2|        pass
-  # 3|    
+  documentContents: hello world
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

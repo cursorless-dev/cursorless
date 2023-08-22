@@ -18,15 +18,6 @@ initialState:
     there
     whatever
 
-  #   01234567
-  #  +--------
-  # 0|hello
-  # 1|there
-  # 2|whatever
-  # 3|
-  # 4|
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}
@@ -45,16 +36,6 @@ finalState:
 
     hello
     whatever
-  #   01234567
-  #  +--------
-  # 0|hello
-  # 1|there
-  # 2|whatever
-  # 3|
-  # 4|hello
-  # 5|whatever
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 5, character: 8}
       active: {line: 5, character: 8}

@@ -15,13 +15,6 @@ initialState:
     const value = "value";
 
     console.log(value);
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|const value = "value";
-  # 1|
-  # 2|console.log(value);
-  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -34,13 +27,6 @@ finalState:
     const value = "value";
 
     console.log(value);
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|const value = "value";
-  # 1|
-  # 2|console.log(value);
-  # 3|
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

@@ -1,34 +1,22 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: change round
-  action: clearAndSetSelection
+  version: 5
+  spokenForm: change short paint
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: boundedNonWhitespaceSequence}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    (hello)
-    (hello)
-  #   0123456
-  #  +-------
-  # 0|(hello)
-  # 1|(hello)
+  documentContents: (hello)
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}

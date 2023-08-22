@@ -19,17 +19,6 @@ initialState:
             
         }
     }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class Aaa {
-  # 1|    bbb() {
-  # 2|        
-  # 3|    }
-  # 4|}
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -45,24 +34,6 @@ finalState:
             
         }
     }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class Aaa {
-  # 1|    () {
-  # 2|        
-  # 3|    }
-  #  +-----------
-  #   01234567890
-  #  +-----------
-  # 4|
-  # 5|    bbb() {
-  # 6|        
-  # 7|    }
-  # 8|}
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

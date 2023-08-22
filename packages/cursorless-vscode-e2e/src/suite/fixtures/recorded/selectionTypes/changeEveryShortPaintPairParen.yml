@@ -1,23 +1,16 @@
-languageId: plaintext
 command:
-  spokenForm: change every short paint pair paren
+  spokenForm: change short paint paren
   version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: (}
       modifiers:
-        - type: everyScope
-          scopeType: {type: boundedNonWhitespaceSequence}
         - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: any}
+          scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: foo(aa|aa-().c_d bb|bb-().'')
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|foo(aa|aa-().c_d bb|bb-().'')
+  documentContents: foo(aa|aa-.c_d bb|bb-.'')
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -26,12 +19,7 @@ initialState:
       start: {line: 0, character: 3}
       end: {line: 0, character: 4}
 finalState:
-  documentContents: " "
-  #   0
-  #  +-
-  # 0| 
+  documentContents: " bb|bb-.'')"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}

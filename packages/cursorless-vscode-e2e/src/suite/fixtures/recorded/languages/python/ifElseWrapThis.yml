@@ -1,18 +1,14 @@
 languageId: python
 command:
   version: 1
-  spokenForm: if else wrap this
+  spokenForm: if wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifElseStatement.consequence]
+  extraArgs: [ifStatement.consequence]
 initialState:
   documentContents: foo = "hello"
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|foo = "hello"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -21,15 +17,6 @@ finalState:
   documentContents: |-
     if :
         foo = "hello"
-    else:
-        
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|if :
-  # 1|    foo = "hello"
-  # 2|else:
-  # 3|    
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

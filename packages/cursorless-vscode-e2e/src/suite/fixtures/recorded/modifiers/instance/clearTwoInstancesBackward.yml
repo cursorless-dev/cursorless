@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change two instances backward
+  spokenForm: change two instances bat
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -10,26 +10,24 @@ command:
           scopeType: {type: instance}
           offset: 0
           length: 2
-          direction: backward
+          direction: forward
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: bbb aaa bbb aaa bbb
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|bbb aaa bbb aaa bbb
+  documentContents: |
+    aaa bbb ccc aaa bbb aaa bbb
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: "bbb aaa  aaa "
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|bbb aaa  aaa 
+  documentContents: |
+    aaa  ccc aaa  aaa bbb
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

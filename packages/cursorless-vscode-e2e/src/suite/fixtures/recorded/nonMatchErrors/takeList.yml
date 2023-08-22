@@ -1,23 +1,27 @@
-  # (empty)
-
-languageId: ruby
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: take list
-  action: setSelection
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
+  version: 6
+  spokenForm: change second next two tokens
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: token}
+          offset: 2
+          length: 2
+          direction: forward
+  usePrePhraseSnapshot: true
+spokenFormError: relativeScope modifier with offset > 1 and length > 1
 initialState:
-  documentContents: |2
-      [1, 2, 3, [4, 5, 6]] 
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|  [1, 2, 3, [4, 5, 6]] 
-  # 1|
+  documentContents: aaa bbb ccc ddd eee
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: aaa bbb  eee
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

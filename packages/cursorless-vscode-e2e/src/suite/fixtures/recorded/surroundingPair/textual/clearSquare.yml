@@ -1,24 +1,18 @@
-languageId: markdown
+languageId: plaintext
 command:
   version: 1
-  spokenForm: change box
+  spokenForm: change escaped quad
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: squareBrackets}
+      modifier: {type: surroundingPair, delimiter: escapedDoubleQuotes}
 initialState:
-  documentContents: "[\\[foo\\]]"
-  #   012345678
-  #  +---------
-  # 0|[\[foo\]]
+  documentContents: \"\"
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-  marks: {}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

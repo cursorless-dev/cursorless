@@ -1,43 +1,38 @@
 languageId: scala
 command:
-  version: 1
-  spokenForm: chuck arg fine
-  action: remove
+  spokenForm: chuck branch sun
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
   documentContents: |
-    class ExampleClass() {
-      example(foo, bar)
+    def matchTest(x: Int): String = x match {
+      case 0 => "zero"
+      case 1 => "one"
+      case 2 => "two"
+      case _ => "other"
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  example(foo, bar)
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 2}
+      active: {line: 4, character: 2}
   marks:
-    default.f:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 13}
+    default.s:
+      start: {line: 2, character: 2}
+      end: {line: 2, character: 6}
 finalState:
   documentContents: |
-    class ExampleClass() {
-      example(bar)
+    def matchTest(x: Int): String = x match {
+      case 0 => "zero"
+
+      case 2 => "two"
+      case _ => "other"
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  example(bar)
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 2}
+      active: {line: 4, character: 2}

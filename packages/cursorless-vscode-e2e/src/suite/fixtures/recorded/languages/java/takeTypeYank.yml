@@ -1,59 +1,23 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take type yank
+  spokenForm: take value
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}
+      modifier: {type: containingScope, scopeType: value}
 initialState:
-  documentContents: |-
-    public class MyClass {
-        private MyClass () {
-            Map<String, String> map = new HashMap<String, String>();
-            List<String> list = new ArrayList<String>();
-        }
-    }
-  #             1         2         3         4         5         6
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #  +----------------------------------------------------------------
-  # 0|public class MyClass {
-  # 1|    private MyClass () {
-  # 2|        Map<String, String> map = new HashMap<String, String>();
-  # 3|        List<String> list = new ArrayList<String>();
-  # 4|    }
-  # 5|}
-  #  +----------------------------------------------------------------
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #             1         2         3         4         5         6
+  documentContents: |
+
+    String value = "hello world";
   selections:
-    - anchor: {line: 3, character: 8}
-      active: {line: 3, character: 20}
-  marks:
-    default.y:
-      start: {line: 3, character: 32}
-      end: {line: 3, character: 41}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks: {}
 finalState:
-  documentContents: |-
-    public class MyClass {
-        private MyClass () {
-            Map<String, String> map = new HashMap<String, String>();
-            List<String> list = new ArrayList<String>();
-        }
-    }
-  #             1         2         3         4         5         6
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #  +----------------------------------------------------------------
-  # 0|public class MyClass {
-  # 1|    private MyClass () {
-  # 2|        Map<String, String> map = new HashMap<String, String>();
-  # 3|        List<String> list = new ArrayList<String>();
-  # 4|    }
-  # 5|}
-  #  +----------------------------------------------------------------
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #             1         2         3         4         5         6
+  documentContents: |
+
+    String value = "hello world";
   selections:
-    - anchor: {line: 3, character: 32}
-      active: {line: 3, character: 49}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 28}

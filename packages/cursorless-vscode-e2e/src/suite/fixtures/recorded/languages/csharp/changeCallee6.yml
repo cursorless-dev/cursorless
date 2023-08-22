@@ -8,19 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: startEngine[0](5, true).test();
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|startEngine[0](5, true).test();
   selections:
     - anchor: {line: 0, character: 29}
       active: {line: 0, character: 29}
   marks: {}
 finalState:
   documentContents: ();
-  #   012
-  #  +---
-  # 0|();
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

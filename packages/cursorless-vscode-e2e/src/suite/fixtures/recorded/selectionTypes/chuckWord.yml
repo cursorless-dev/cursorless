@@ -10,20 +10,13 @@ command:
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: aaa_bbb_ccc
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa_bbb_ccc
-  selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-  marks: {}
-finalState:
-  documentContents: aaa_ccc
-  #   0123456
-  #  +-------
-  # 0|aaa_ccc
+  documentContents: aaaBbbCcc
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+  marks: {}
+finalState:
+  documentContents: aaaCcc
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

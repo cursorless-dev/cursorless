@@ -1,36 +1,25 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: chuck past start of trap
-  action: remove
+  spokenForm: chuck start of whale
+  version: 2
   targets:
-    - type: range
-      start: {type: primitive, isImplicit: true}
-      end:
-        type: primitive
-        position: before
-        insideOutsideType: inside
-        mark: {type: decoratedSymbol, symbolColor: default, character: t}
-      excludeStart: false
-      excludeEnd: false
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - {type: position, position: start}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: hello there
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello there
+  documentContents: hello world whatever
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
   marks:
-    default.t:
+    default.w:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
 finalState:
-  documentContents: hello ere
-  #   012345678
-  #  +---------
-  # 0|hello ere
+  documentContents: hello world whatever
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

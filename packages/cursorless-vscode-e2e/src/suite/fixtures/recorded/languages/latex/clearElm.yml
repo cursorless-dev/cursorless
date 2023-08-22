@@ -1,33 +1,27 @@
 languageId: latex
 command:
   version: 5
-  spokenForm: change element
+  spokenForm: change end tag
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: xmlElement}
+          scopeType: {type: xmlEndTag}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
     \begin{quote}
         Hello
     \end{quote}
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|\begin{quote}
-  # 1|    Hello
-  # 2|\end{quote}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |
+    \begin{quote}
+        Hello
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

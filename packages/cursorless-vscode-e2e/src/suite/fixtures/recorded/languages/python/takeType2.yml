@@ -1,39 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take type
+  spokenForm: take value
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type}
+      modifier: {type: containingScope, scopeType: value}
 initialState:
   documentContents: |
 
-    def my_funk(name: str, value) -> str:
-        return
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|
-  # 1|def my_funk(name: str, value) -> str:
-  # 2|    return
-  # 3|
+    value = "hello world"
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
   marks: {}
 finalState:
   documentContents: |
 
-    def my_funk(name: str, value) -> str:
-        return
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|
-  # 1|def my_funk(name: str, value) -> str:
-  # 2|    return
-  # 3|
+    value = "hello world"
   selections:
-    - anchor: {line: 1, character: 18}
+    - anchor: {line: 1, character: 8}
       active: {line: 1, character: 21}

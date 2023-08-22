@@ -16,17 +16,6 @@ initialState:
         "a\"b\"c",
         222,
     ]
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|[
-  # 1|    111,
-  # 2|    "a\"b\"c",
-  # 3|    222,
-  # 4|]
-  #  +--------------
-  #   01234567890123
-  #             1
   selections:
     - anchor: {line: 2, character: 9}
       active: {line: 2, character: 9}
@@ -38,15 +27,6 @@ finalState:
         ,
         222,
     ]
-  #   01234567
-  #  +--------
-  # 0|[
-  # 1|    111,
-  # 2|    ,
-  # 3|    222,
-  # 4|]
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}

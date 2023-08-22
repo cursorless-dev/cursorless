@@ -11,9 +11,6 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaa bbb
-  #   0123456
-  #  +-------
-  # 0|aaa bbb
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -23,9 +20,6 @@ initialState:
       end: {line: 0, character: 3}
 finalState:
   documentContents: aaabbb
-  #   012345
-  #  +------
-  # 0|aaabbb
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

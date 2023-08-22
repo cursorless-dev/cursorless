@@ -1,29 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change callee paren
-  action: clearAndSetSelection
+  spokenForm: chuck arg drum
+  action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: (}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
 initialState:
-  documentContents: test()
-  #   012345
-  #  +------
-  # 0|test()
+  documentContents: "\" \".join((word for word in word_list), (word for word in word_list))"
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 39}
+      active: {line: 0, character: 67}
   marks:
-    default.(:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 5}
+    default.d:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 23}
 finalState:
-  documentContents: ()
-  #   01
-  #  +--
-  # 0|()
+  documentContents: "\" \".join((word for word in word_list))"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 37}

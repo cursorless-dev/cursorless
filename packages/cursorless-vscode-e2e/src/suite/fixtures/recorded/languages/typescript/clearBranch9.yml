@@ -1,58 +1,22 @@
 languageId: typescript
 command:
-  version: 3
-  spokenForm: change branch
-  action: {name: clearAndSetSelection}
+  spokenForm: change class
+  version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+          scopeType: {type: class}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    try {
-      const aaa = "bbb";
-    } catch (err) {
-      const aaa = "bbb";
-    } finally {
-      const aaa = "bbb";
-    }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|try {
-  # 1|  const aaa = "bbb";
-  # 2|} catch (err) {
-  # 3|  const aaa = "bbb";
-  # 4|} finally {
-  # 5|  const aaa = "bbb";
-  # 6|}
-  #  +--------------------
-  #   01234567890123456789
-  #             1
+  documentContents: export abstract class Foo {}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 0, character: 27}
+      active: {line: 0, character: 27}
   marks: {}
 finalState:
-  documentContents: |2-
-     catch (err) {
-      const aaa = "bbb";
-    } finally {
-      const aaa = "bbb";
-    }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0| catch (err) {
-  # 1|  const aaa = "bbb";
-  # 2|} finally {
-  # 3|  const aaa = "bbb";
-  # 4|}
-  #  +--------------------
-  #   01234567890123456789
-  #             1
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

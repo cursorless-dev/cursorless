@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change value near
+  spokenForm: change value zero
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '0'}
       modifiers:
         - type: containingScope
           scopeType: {type: value}
@@ -12,26 +12,17 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    let x = [None, Some(1)];
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|let x = [None, Some(1)];
-  # 1|
+    let x: u32 = 0;
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
   marks:
-    default.n:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 13}
+    default.0:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
 finalState:
   documentContents: |
-    let x = ;
-  #   012345678
-  #  +---------
-  # 0|let x = ;
-  # 1|
+    let x: u32 = ;
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

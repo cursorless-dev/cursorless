@@ -14,23 +14,9 @@ initialState:
     fn foo() -> i32 {
         if a > b {
             println!("hello")
-            return "hello";
         }
         "whatever"
     }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|fn foo() -> i32 {
-  # 1|    if a > b {
-  # 2|        println!("hello")
-  # 3|        return "hello";
-  # 4|    }
-  # 5|    "whatever"
-  # 6|}
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
     - anchor: {line: 2, character: 18}
       active: {line: 2, character: 18}
@@ -40,23 +26,9 @@ finalState:
     fn foo() -> i32 {
         if a > b {
             println!("hello")
-            return ;
         }
-        "whatever"
+        
     }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|fn foo() -> i32 {
-  # 1|    if a > b {
-  # 2|        println!("hello")
-  # 3|        return ;
-  # 4|    }
-  # 5|    "whatever"
-  # 6|}
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
-    - anchor: {line: 3, character: 15}
-      active: {line: 3, character: 15}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

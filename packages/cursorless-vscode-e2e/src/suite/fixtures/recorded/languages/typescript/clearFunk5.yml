@@ -10,20 +10,9 @@ command:
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: (function foo() {})
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|(function foo() {})
+  documentContents: (function () {})
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
-finalState:
-  documentContents: ()
-  #   01
-  #  +--
-  # 0|()
-  selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+thrownError: {name: NoContainingScopeError}

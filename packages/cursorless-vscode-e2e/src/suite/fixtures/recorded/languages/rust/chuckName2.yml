@@ -1,9 +1,10 @@
 languageId: rust
 command:
-  spokenForm: chuck name
+  spokenForm: chuck name fine
   version: 2
   targets:
     - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
       modifiers:
         - type: containingScope
           scopeType: {type: name}
@@ -11,32 +12,21 @@ command:
   action: {name: remove}
 initialState:
   documentContents: |
-    fn main() -> Result<(), Error> {
-        
+    match user {
+        User { first_name: "John", last_name: last_name } => {}
     }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|fn main() -> Result<(), Error> {
-  # 1|    
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-  marks: {}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks:
+    default.f:
+      start: {line: 1, character: 11}
+      end: {line: 1, character: 21}
 finalState:
   documentContents: |
-    fn () -> Result<(), Error> {
-        
+    match user {
+        User { "John", last_name: last_name } => {}
     }
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|fn () -> Result<(), Error> {
-  # 1|    
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

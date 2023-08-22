@@ -27,12 +27,6 @@ initialState:
 
     bar
     baz
-  #   012
-  #  +---
-  # 0|foo
-  # 1|
-  # 2|bar
-  # 3|baz
   selections:
     - anchor: {line: 3, character: 3}
       active: {line: 3, character: 3}
@@ -41,10 +35,6 @@ finalState:
   documentContents: |-
     bar
     baz
-  #   012
-  #  +---
-  # 0|bar
-  # 1|baz
   selections:
     - anchor: {line: 1, character: 3}
       active: {line: 1, character: 3}

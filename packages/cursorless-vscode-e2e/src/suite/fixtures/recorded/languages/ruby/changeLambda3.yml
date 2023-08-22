@@ -7,25 +7,13 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
-  documentContents: |
-    [1,2,3].each { |i| puts i }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|[1,2,3].each { |i| puts i }
-  # 1|
+  documentContents: Proc.new { puts "hi" }
   selections:
-    - anchor: {line: 0, character: 26}
-      active: {line: 0, character: 26}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
   marks: {}
 finalState:
-  documentContents: |
-    [1,2,3].each 
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|[1,2,3].each 
-  # 1|
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,13 +1,13 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: change call
+  spokenForm: change callee
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionCall}
+          scopeType: {type: functionCallee}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -15,13 +15,6 @@ initialState:
         user.do_something()
         
         
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|some command: 
-  # 1|    user.do_something()
-  # 2|    
-  # 3|    
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 22}
@@ -29,16 +22,9 @@ initialState:
 finalState:
   documentContents: |-
     some command: 
+        ()
         
         
-        
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|some command: 
-  # 1|    
-  # 2|    
-  # 3|    
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

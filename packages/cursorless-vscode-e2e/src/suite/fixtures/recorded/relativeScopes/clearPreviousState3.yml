@@ -1,59 +1,31 @@
-languageId: python
+languageId: markdown
 command:
-  version: 5
-  spokenForm: change previous state
-  action: {name: clearAndSetSelection}
+  spokenForm: change previous token
+  version: 3
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: statement}
+          scopeType: {type: token}
           offset: 1
           length: 1
           direction: backward
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    aaa = "bbb"
-
-    if True:
-        eee = "fff"
-        ccc = "ddd"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|aaa = "bbb"
-  # 1|
-  # 2|if True:
-  # 3|    eee = "fff"
-  # 4|    ccc = "ddd"
-  # 5|
-  #  +---------------
-  #   012345678901234
-  #             1
+  documentContents: |-
+    aaa
+    bbb
+    ccc
   selections:
-    - anchor: {line: 4, character: 15}
-      active: {line: 4, character: 15}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
   marks: {}
 finalState:
-  documentContents: |
-    aaa = "bbb"
+  documentContents: |-
+    aaa
 
-    if True:
-        
-        ccc = "ddd"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|aaa = "bbb"
-  # 1|
-  # 2|if True:
-  # 3|    
-  # 4|    ccc = "ddd"
-  # 5|
-  #  +---------------
-  #   012345678901234
-  #             1
+    ccc
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

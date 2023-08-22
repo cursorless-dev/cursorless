@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: chuck arg blue air
+  spokenForm: chuck arg drum
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
@@ -12,27 +12,19 @@ command:
   action: {name: remove}
 initialState:
   documentContents: |
-    struct S<'a, 'b: 'a, T>;
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|struct S<'a, 'b: 'a, T>;
-  # 1|
+    #[derive(Debug)]
+    sturct S {}
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks:
-    blue.a:
-      start: {line: 0, character: 18}
-      end: {line: 0, character: 19}
+    default.d:
+      start: {line: 0, character: 9}
+      end: {line: 0, character: 14}
 finalState:
   documentContents: |
-    struct S<'a, T>;
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|struct S<'a, T>;
-  # 1|
+    #[derive()]
+    sturct S {}
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

@@ -1,42 +1,31 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change funk
+  spokenForm: change funk name
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    function myFunc() {
+    function helloWorld()
+    {
 
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|<?php
-  # 1|
-  # 2|function myFunc() {
-  # 3|
-  # 4|}
-  #  +-------------------
-  #   0123456789012345678
-  #             1
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
   marks: {}
 finalState:
-  documentContents: |+
+  documentContents: |-
     <?php
 
-  #   01234
-  #  +-----
-  # 0|<?php
-  # 1|
-  # 2|
+    function ()
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}

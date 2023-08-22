@@ -18,22 +18,9 @@ initialState:
     } else {
       const whatever = "hello";
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|if (true) {
-  # 1|  const whatever = "hello";
-  # 2|} else if (false) {
-  # 3|  const whatever = "hello";
-  # 4|} else {
-  # 5|  const whatever = "hello";
-  # 6|}
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
-    - anchor: {line: 4, character: 2}
-      active: {line: 4, character: 2}
+    - anchor: {line: 5, character: 2}
+      active: {line: 5, character: 2}
   marks: {}
 finalState:
   documentContents: |-
@@ -42,17 +29,6 @@ finalState:
     } else if (false) {
       const whatever = "hello";
     } 
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|if (true) {
-  # 1|  const whatever = "hello";
-  # 2|} else if (false) {
-  # 3|  const whatever = "hello";
-  # 4|} 
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
     - anchor: {line: 4, character: 2}
       active: {line: 4, character: 2}

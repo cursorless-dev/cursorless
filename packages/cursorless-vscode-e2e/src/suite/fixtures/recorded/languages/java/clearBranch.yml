@@ -13,66 +13,28 @@ initialState:
   documentContents: |-
     class Aaa {
       static void bbb() {
-        switch ("0") {
-          case ("0"):
-            break;
-          case ("1"):
-            break;
-        }
+        var s =
+          switch ("0") {
+            case "0" -> "zero";
+            case "1" -> "one";
+          };
       }
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|class Aaa {
-  # 1|  static void bbb() {
-  # 2|    switch ("0") {
-  # 3|      case ("0"):
-  #  +---------------------
-  #   012345678901234567890
-  #  +---------------------
-  # 4|        break;
-  # 5|      case ("1"):
-  # 6|        break;
-  # 7|    }
-  # 8|  }
-  # 9|}
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
   selections:
-    - anchor: {line: 4, character: 12}
-      active: {line: 4, character: 12}
+    - anchor: {line: 4, character: 23}
+      active: {line: 4, character: 23}
   marks: {}
 finalState:
   documentContents: |-
     class Aaa {
       static void bbb() {
-        switch ("0") {
-          
-          case ("1"):
-            break;
-        }
+        var s =
+          switch ("0") {
+            
+            case "1" -> "one";
+          };
       }
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|class Aaa {
-  # 1|  static void bbb() {
-  # 2|    switch ("0") {
-  # 3|      
-  #  +---------------------
-  #   012345678901234567890
-  #  +---------------------
-  # 4|      case ("1"):
-  # 5|        break;
-  # 6|    }
-  # 7|  }
-  # 8|}
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
   selections:
-    - anchor: {line: 3, character: 6}
-      active: {line: 3, character: 6}
+    - anchor: {line: 4, character: 8}
+      active: {line: 4, character: 8}

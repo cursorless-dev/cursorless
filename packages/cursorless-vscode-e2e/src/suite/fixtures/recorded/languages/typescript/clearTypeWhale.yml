@@ -1,31 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change type whale
+  spokenForm: change type right angle
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '>'}
 initialState:
   documentContents: "const foo: string = new Bar<number>(foo);"
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|const foo: string = new Bar<number>(foo);
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.w:
-      start: {line: 0, character: 20}
-      end: {line: 0, character: 23}
+    default.>:
+      start: {line: 0, character: 34}
+      end: {line: 0, character: 35}
 finalState:
-  documentContents: "const foo:  = new Bar<number>(foo);"
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|const foo:  = new Bar<number>(foo);
+  documentContents: "const foo: string = new (foo);"
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}

@@ -1,40 +1,23 @@
 languageId: typescript
 command:
-  spokenForm: chuck state
-  version: 3
+  version: 1
+  spokenForm: chuck type red
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: statement}
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
 initialState:
-  documentContents: |-
-    class Foo {
-        private value: string;
-    }
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|class Foo {
-  # 1|    private value: string;
-  # 2|}
+  documentContents: "const hello: string = \"hello\";"
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-  marks: {}
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
+  marks:
+    default.r:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 19}
 finalState:
-  documentContents: |-
-    class Foo {
-
-    }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class Foo {
-  # 1|
-  # 2|}
+  documentContents: const hello = "hello";
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

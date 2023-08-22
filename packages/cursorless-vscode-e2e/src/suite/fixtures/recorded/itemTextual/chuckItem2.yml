@@ -14,11 +14,6 @@ initialState:
     [
         aaa
     ]
-  #   0123456
-  #  +-------
-  # 0|[
-  # 1|    aaa
-  # 2|]
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -28,11 +23,6 @@ finalState:
     [
 
     ]
-  #   0
-  #  +-
-  # 0|[
-  # 1|
-  # 2|]
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

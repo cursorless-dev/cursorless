@@ -1,23 +1,23 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change quad
-  action: clearAndSetSelection
+  spokenForm: take right quad
+  action: setSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes}
+      modifier: {type: surroundingPair, delimiter: doubleQuotes, forceDirection: right}
 initialState:
-  documentContents: "\"hello\""
-  #   0123456
-  #  +-------
-  # 0|"hello"
+  documentContents: |-
+    hello world whatever "testing testing testing
+    this is another" test "whatever" whatever
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
+  marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |-
+    hello world whatever "testing testing testing
+    this is another" test "whatever" whatever
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 21}
+      active: {line: 1, character: 16}

@@ -1,35 +1,35 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take list
+  spokenForm: take map
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list}
+      modifier: {type: containingScope, scopeType: map}
 initialState:
   documentContents: |
 
-    int[] values = {1, 2, 3};
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|
-  # 1|int[] values = {1, 2, 3};
-  # 2|
+    List<String> value = new ArrayList() {
+        {
+            add("a");
+            add("b");
+            add("c");
+        }
+    };
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 17}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
   marks: {}
 finalState:
   documentContents: |
 
-    int[] values = {1, 2, 3};
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|
-  # 1|int[] values = {1, 2, 3};
-  # 2|
+    List<String> value = new ArrayList() {
+        {
+            add("a");
+            add("b");
+            add("c");
+        }
+    };
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 24}
+    - anchor: {line: 2, character: 4}
+      active: {line: 6, character: 5}

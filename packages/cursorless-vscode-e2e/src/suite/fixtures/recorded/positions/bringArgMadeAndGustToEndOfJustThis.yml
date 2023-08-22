@@ -1,56 +1,68 @@
-languageId: typescript
+languageId: plaintext
 command:
-  spokenForm: bring arg made and gust to end of just this
+  spokenForm: bring block air before bat and drum and after bat and drum
   version: 2
   targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: paragraph}
     - type: list
       elements:
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: m}
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
           modifiers:
-            - type: containingScope
-              scopeType: {type: argumentOrParameter}
+            - {type: position, position: before}
         - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: g}
-    - type: primitive
-      mark: {type: cursor}
-      modifiers:
-        - {type: position, position: end}
-        - {type: toRawSelection}
+          mark: {type: decoratedSymbol, symbolColor: default, character: d}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+          modifiers:
+            - {type: position, position: after}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: d}
   usePrePhraseSnapshot: true
   action: {name: replaceWithTarget}
 initialState:
   documentContents: |-
-    function whatever(name: string, age: number, inclose: boolean) {
-        
-    }
-  #             1         2         3         4         5         6
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #  +----------------------------------------------------------------
-  # 0|function whatever(name: string, age: number, inclose: boolean) {
-  # 1|    
-  # 2|}
+    aaa
+
+        bbb
+            ccc
+
+            ddd
+        eee
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks:
-    default.m:
-      start: {line: 0, character: 18}
-      end: {line: 0, character: 22}
-    default.g:
-      start: {line: 0, character: 32}
-      end: {line: 0, character: 35}
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+    default.b:
+      start: {line: 2, character: 4}
+      end: {line: 2, character: 7}
+    default.d:
+      start: {line: 5, character: 8}
+      end: {line: 5, character: 11}
 finalState:
   documentContents: |-
-    function whatever(name: string, age: number, inclose: boolean) {
-        name: string, age: number
-    }
-  #             1         2         3         4         5         6
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #  +----------------------------------------------------------------
-  # 0|function whatever(name: string, age: number, inclose: boolean) {
-  # 1|    name: string, age: number
-  # 2|}
+    aaa
+
+        aaa
+
+        bbb
+            ccc
+
+        aaa
+
+        aaa
+
+            ddd
+        eee
+
+        aaa
   selections:
-    - anchor: {line: 1, character: 29}
-      active: {line: 1, character: 29}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

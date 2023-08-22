@@ -10,33 +10,13 @@ command:
           scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    slap:
-        key(end)
-        key(enter)
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|slap:
-  # 1|    key(end)
-  # 2|    key(enter)
-  # 3|
+  documentContents: "air: \"a\""
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: |
-    :
-        key(end)
-        key(enter)
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|:
-  # 1|    key(end)
-  # 2|    key(enter)
-  # 3|
+  documentContents: ": \"a\""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

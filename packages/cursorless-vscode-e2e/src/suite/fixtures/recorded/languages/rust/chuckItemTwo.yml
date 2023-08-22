@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: chuck item two
+  spokenForm: chuck item vest
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '2'}
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
@@ -12,27 +12,22 @@ command:
   action: {name: remove}
 initialState:
   documentContents: |
-    let x = [1, 2];
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|let x = [1, 2];
-  # 1|
+    enum IpAddr {
+        V4(u8, u8, u8, u8),
+        V6(String),
+    }
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
   marks:
-    default.2:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 13}
+    default.v:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 6}
 finalState:
   documentContents: |
-    let x = [1];
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|let x = [1];
-  # 1|
+    enum IpAddr {
+        V6(String),
+    }
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

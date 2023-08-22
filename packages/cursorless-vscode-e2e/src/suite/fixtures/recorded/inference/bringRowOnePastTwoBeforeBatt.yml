@@ -22,12 +22,6 @@ initialState:
     ccc
 
     b
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|ccc
-  # 2|
-  # 3|b
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -43,14 +37,6 @@ finalState:
     aaa
     ccc
     b
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|ccc
-  # 2|
-  # 3|aaa
-  # 4|ccc
-  # 5|b
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

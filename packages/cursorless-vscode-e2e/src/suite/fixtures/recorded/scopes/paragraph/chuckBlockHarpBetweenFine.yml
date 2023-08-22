@@ -1,63 +1,31 @@
 languageId: plaintext
 command:
-  spokenForm: chuck block harp between fine
-  version: 2
-  action: {name: remove}
+  version: 1
+  spokenForm: chuck block vest
+  action: remove
   targets:
-    - type: range
-      excludeAnchor: true
-      excludeActive: true
-      anchor:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: h}
-        modifiers:
-          - type: containingScope
-            scopeType: {type: paragraph}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
-  usePrePhraseSnapshot: true
+    - type: primitive
+      selectionType: paragraph
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
   documentContents: |
 
-    hello world
+    const value = "Hello world";
 
-
-    foo bar
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|hello world
-  # 2|
-  # 3|
-  # 4|foo bar
-  # 5|
-  #  +-----------
-  #   01234567890
-  #             1
+    const value = "Hello world";
+    const value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.h:
-      start: {line: 1, character: 0}
-      end: {line: 1, character: 5}
-    default.f:
-      start: {line: 4, character: 0}
-      end: {line: 4, character: 3}
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
 finalState:
   documentContents: |
 
-    hello world
-    foo bar
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|hello world
-  # 2|foo bar
-  # 3|
+    const value = "Hello world";
+    const value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

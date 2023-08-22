@@ -1,40 +1,26 @@
 languageId: rust
 command:
-  spokenForm: chuck attribute drum
+  spokenForm: chuck attribute made
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
       modifiers:
         - type: containingScope
           scopeType: {type: attribute}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: |
-    #[derive(Debug)]
-    struct S {}
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|#[derive(Debug)]
-  # 1|struct S {}
-  # 2|
+  documentContents: "fn foo(x: &mut u32) {}"
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
   marks:
-    default.d:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 8}
+    default.m:
+      start: {line: 0, character: 11}
+      end: {line: 0, character: 14}
 finalState:
-  documentContents: |
-    struct S {}
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|struct S {}
-  # 1|
+  documentContents: "fn foo(x: &u32) {}"
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

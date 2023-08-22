@@ -1,29 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take source
+  spokenForm: take that
   action: setSelection
   targets:
     - type: primitive
-      mark: {type: source}
+      mark: {type: that}
 initialState:
   documentContents: |
     value
     const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|value
-  # 1|const value = "Hello world";
-  # 2|
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
-  sourceMark:
+  thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 1, character: 6}
-        end: {line: 1, character: 11}
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 5}
       isReversed: false
       hasExplicitRange: true
   marks: {}
@@ -31,12 +25,6 @@ finalState:
   documentContents: |
     value
     const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|value
-  # 1|const value = "Hello world";
-  # 2|
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 11}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 5}

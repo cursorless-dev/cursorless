@@ -1,40 +1,22 @@
 languageId: latex
 command:
-  version: 5
-  spokenForm: change name
-  action: {name: clearAndSetSelection}
+  spokenForm: change round
+  version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: {type: surroundingPair, delimiter: parentheses}
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    \begin{quote}
-        Hello
-    \end{quote}
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|\begin{quote}
-  # 1|    Hello
-  # 2|\end{quote}
+  documentContents: hello (there)
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: |-
-    \begin{quote}
-        Hello
-    \end{}
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|\begin{quote}
-  # 1|    Hello
-  # 2|\end{}
+  documentContents: "hello "
   selections:
-    - anchor: {line: 2, character: 5}
-      active: {line: 2, character: 5}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

@@ -14,12 +14,6 @@ initialState:
     div {
         padding-left: 25px 50px 75px 100px;
     }  
-  #             1         2         3
-  #   012345678901234567890123456789012345678
-  #  +---------------------------------------
-  # 0|div {
-  # 1|    padding-left: 25px 50px 75px 100px;
-  # 2|}  
   selections:
     - anchor: {line: 1, character: 19}
       active: {line: 1, character: 19}
@@ -29,12 +23,6 @@ finalState:
     div {
         padding-left: 25 50px 75px 100px;
     }  
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|div {
-  # 1|    padding-left: 25 50px 75px 100px;
-  # 2|}  
   selections:
     - anchor: {line: 1, character: 20}
       active: {line: 1, character: 20}

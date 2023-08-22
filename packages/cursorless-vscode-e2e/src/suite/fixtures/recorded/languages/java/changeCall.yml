@@ -9,11 +9,6 @@ command:
 initialState:
   documentContents: |
     Box<Integer> integerBox = new Box<>();
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|Box<Integer> integerBox = new Box<>();
-  # 1|
   selections:
     - anchor: {line: 0, character: 36}
       active: {line: 0, character: 36}
@@ -21,11 +16,6 @@ initialState:
 finalState:
   documentContents: |
     Box<Integer> integerBox = ;
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|Box<Integer> integerBox = ;
-  # 1|
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}

@@ -1,27 +1,28 @@
 languageId: rust
 command:
-  version: 1
   spokenForm: chuck name
-  action: remove
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: "let mut array: [i32; 3] = [0; 3];"
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|let mut array: [i32; 3] = [0; 3];
+  documentContents: |
+    fn main() -> Result<(), Error> {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: "let mut: [i32; 3] = [0; 3];"
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|let mut: [i32; 3] = [0; 3];
+  documentContents: |
+    fn () -> Result<(), Error> {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

@@ -1,56 +1,29 @@
 languageId: rust
 command:
-  spokenForm: chuck arg trap
+  spokenForm: chuck attribute drum
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: {type: attribute}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
   documentContents: |
-    enum Maybe<T> {
-        Just(T),
-        Nothing,
-    }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|enum Maybe<T> {
-  # 1|    Just(T),
-  # 2|    Nothing,
-  # 3|}
-  # 4|
-  #  +---------------
-  #   012345678901234
-  #             1
+    #[derive(Debug)]
+    struct S {}
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks:
-    default.t:
-      start: {line: 1, character: 9}
-      end: {line: 1, character: 10}
+    default.d:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 8}
 finalState:
   documentContents: |
-    enum Maybe<T> {
-        Just(),
-        Nothing,
-    }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|enum Maybe<T> {
-  # 1|    Just(),
-  # 2|    Nothing,
-  # 3|}
-  # 4|
-  #  +---------------
-  #   012345678901234
-  #             1
+    struct S {}
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

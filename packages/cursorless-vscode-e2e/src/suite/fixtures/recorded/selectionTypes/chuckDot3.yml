@@ -1,29 +1,22 @@
 languageId: plaintext
 command:
-  spokenForm: chuck dot
-  version: 3
+  spokenForm: chuck every short paint
+  version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: .}
+      modifiers:
+        - type: everyScope
+          scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: "  . a"
-  #   01234
-  #  +-----
-  # 0|  . a
+  documentContents: some.text.here some-other-text word()[]
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default..:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 3}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks: {}
 finalState:
-  documentContents: "  a"
-  #   012
-  #  +---
-  # 0|  a
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

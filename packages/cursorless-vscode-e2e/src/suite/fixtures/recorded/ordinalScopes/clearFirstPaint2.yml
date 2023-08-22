@@ -1,33 +1,24 @@
 languageId: plaintext
 command:
-  spokenForm: change first paint
+  spokenForm: change first token
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: customRegex, regex: '[^\s"''`]+'}
+          scopeType: {type: token}
           start: 0
           length: 1
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
-spokenFormError: Scope type 'customRegex'
 initialState:
-  documentContents: aaa-bbb ccc-ddd eee-fff ggg-hhh
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|aaa-bbb ccc-ddd eee-fff ggg-hhh
+  documentContents: aaa bbb ccc ddd
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: " ccc-ddd eee-fff ggg-hhh"
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0| ccc-ddd eee-fff ggg-hhh
+  documentContents: aaa  ccc ddd
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

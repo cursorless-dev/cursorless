@@ -1,11 +1,12 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: replace before vest with hello
+  spokenForm: replace end of vest with hello
   action: replace
   targets:
     - type: primitive
-      position: before
+      position: after
+      insideOutsideType: inside
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:
     - [hello]
@@ -14,12 +15,6 @@ initialState:
   documentContents: |
 
     const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -30,13 +25,7 @@ initialState:
 finalState:
   documentContents: |
 
-    const hello value = "Hello world";
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|
-  # 1|const hello value = "Hello world";
-  # 2|
+    const valuehello = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -1,30 +1,23 @@
 languageId: plaintext
 command:
-  spokenForm: change first two items
-  version: 3
+  spokenForm: change head inside
+  version: 2
   targets:
     - type: primitive
       modifiers:
-        - type: ordinalScope
-          scopeType: {type: collectionItem}
-          start: 0
-          length: 2
+        - type: extendThroughStartOf
+          modifiers:
+            - {type: interiorOnly}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: a, b, c, d
-  #   0123456789
-  #  +----------
-  # 0|a, b, c, d
+  documentContents: foo(bar baz)
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: ", c, d"
-  #   012345
-  #  +------
-  # 0|, c, d
+  documentContents: foo(z)
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

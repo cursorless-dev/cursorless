@@ -1,82 +1,26 @@
 languageId: rust
 command:
-  spokenForm: chuck type odd
+  spokenForm: chuck type plex
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      mark: {type: decoratedSymbol, symbolColor: default, character: x}
       modifiers:
         - type: containingScope
           scopeType: {type: type}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: |
-    trait T {
-        fn f();
-    }
-
-    impl T for Option<u32> {
-        fn f() {
-            unimplemented!()
-        }
-    }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|trait T {
-  # 1|    fn f();
-  # 2|}
-  # 3|
-  #  +------------------------
-  #   012345678901234567890123
-  #  +------------------------
-  # 4|impl T for Option<u32> {
-  # 5|    fn f() {
-  # 6|        unimplemented!()
-  # 7|    }
-  # 8|}
-  # 9|
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
+  documentContents: "let x: u32 = 1;"
   selections:
-    - anchor: {line: 8, character: 0}
-      active: {line: 8, character: 0}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
   marks:
-    default.o:
-      start: {line: 4, character: 11}
-      end: {line: 4, character: 17}
+    default.x:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 5}
 finalState:
-  documentContents: |
-    trait T {
-        fn f();
-    }
-
-    impl T for {
-        fn f() {
-            unimplemented!()
-        }
-    }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|trait T {
-  # 1|    fn f();
-  # 2|}
-  # 3|
-  #  +------------------------
-  #   012345678901234567890123
-  #  +------------------------
-  # 4|impl T for {
-  # 5|    fn f() {
-  # 6|        unimplemented!()
-  # 7|    }
-  # 8|}
-  # 9|
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
+  documentContents: let x = 1;
   selections:
-    - anchor: {line: 8, character: 0}
-      active: {line: 8, character: 0}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

@@ -15,13 +15,6 @@ initialState:
         padding: 25px 50px 75px 100px;
     }
       
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|div {
-  # 1|    padding: 25px 50px 75px 100px;
-  # 2|}
-  # 3|  
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -32,13 +25,6 @@ finalState:
         padding: 25 50 75 100;
     }
       
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|div {
-  # 1|    padding: 25 50 75 100;
-  # 2|}
-  # 3|  
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}

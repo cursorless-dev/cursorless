@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change two instances line air
+  spokenForm: change two instances two tokens air
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -11,43 +11,28 @@ command:
           offset: 0
           length: 2
           direction: forward
-        - type: containingScope
-          scopeType: {type: line}
+        - type: relativeScope
+          scopeType: {type: token}
+          offset: 0
+          length: 2
+          direction: forward
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    aaa bbb
-    aaa bbb ccc
-    aaa bbb
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb
-  # 1|aaa bbb ccc
-  # 2|aaa bbb
-  # 3|
+    aaa bbb ccc aaa bbbb aaa bbb
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
     default.a:
       start: {line: 0, character: 0}
       end: {line: 0, character: 3}
 finalState:
-  documentContents: |+
-
-    aaa bbb ccc
-
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|aaa bbb ccc
-  # 2|
-  # 3|
+  documentContents: |2
+     ccc aaa bbbb 
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

@@ -8,28 +8,22 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |-
-    if true 
-      a = 1
+    begin
+      a = 10
+    ensure 
+      a = 10
     end
-  #   01234567
-  #  +--------
-  # 0|if true 
-  # 1|  a = 1
-  # 2|end
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 6}
   marks: {}
 finalState:
   documentContents: |-
-    if true 
+    begin
+      a = 10
+    ensure 
 
     end
-  #   01234567
-  #  +--------
-  # 0|if true 
-  # 1|
-  # 2|end
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

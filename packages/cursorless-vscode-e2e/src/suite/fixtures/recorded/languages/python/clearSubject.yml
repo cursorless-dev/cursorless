@@ -1,43 +1,23 @@
 languageId: python
 command:
-  spokenForm: change subject
-  version: 3
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: switchStatementSubject}
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
-spokenFormError: Scope type 'switchStatementSubject'
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: |
-    match 0:
-        case [0]:
-            pass
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|match 0:
-  # 1|    case [0]:
-  # 2|        pass
-  # 3|
+  documentContents: |-
+    def foo():
+        return "hello"
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
   marks: {}
 finalState:
-  documentContents: |
-    match :
-        case [0]:
-            pass
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|match :
-  # 1|    case [0]:
-  # 2|        pass
-  # 3|
+  documentContents: |-
+    def foo():
+        return 
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}

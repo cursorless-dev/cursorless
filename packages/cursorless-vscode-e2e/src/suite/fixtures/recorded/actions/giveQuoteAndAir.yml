@@ -13,10 +13,6 @@ command:
 initialState:
   documentContents: |
     "a!
-  #   012
-  #  +---
-  # 0|"a!
-  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 1}
@@ -34,10 +30,6 @@ initialState:
 finalState:
   documentContents: |
     "a!
-  #   012
-  #  +---
-  # 0|"a!
-  # 1|
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 3}

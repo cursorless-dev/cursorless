@@ -1,45 +1,18 @@
 languageId: plaintext
 command:
-  spokenForm: chuck fine past dot
+  spokenForm: take token
   version: 3
   targets:
-    - type: range
-      anchor:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: f}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: .}
-      excludeAnchor: false
-      excludeActive: false
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
   usePrePhraseSnapshot: true
-  action: {name: remove}
+  action: {name: setSelection}
 initialState:
-  documentContents: |2
-       foo
-       bar.   
-  #   0123456789
-  #  +----------
-  # 0|   foo
-  # 1|   bar.   
-  # 2|
+  documentContents: a b
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
-  marks:
-    default.f:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 6}
-    default..:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 7}
-finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
-  selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 2}
+  marks: {}
+thrownError: {name: NoContainingScopeError}

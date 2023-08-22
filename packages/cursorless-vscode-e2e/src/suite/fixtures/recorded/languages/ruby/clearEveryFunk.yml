@@ -1,36 +1,19 @@
 languageId: ruby
 command:
-  version: 5
-  spokenForm: change every funk
-  action: {name: clearAndSetSelection}
+  version: 1
+  spokenForm: change state
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: everyScope
-          scopeType: {type: namedFunction}
-  usePrePhraseSnapshot: true
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
-  documentContents: |-
-    def aaa; end
-    def bbb; end
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|def aaa; end
-  # 1|def bbb; end
+  documentContents: foo = bar("bongo")
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
   marks: {}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}

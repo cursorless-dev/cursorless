@@ -1,21 +1,15 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take list
+  spokenForm: take map
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list}
+      modifier: {type: containingScope, scopeType: map}
 initialState:
   documentContents: |
 
-    value = {1, 2, 3}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|
-  # 1|value = {1, 2, 3}
-  # 2|
+    value = {a: 1, b: 2, c: 3}
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
@@ -23,13 +17,7 @@ initialState:
 finalState:
   documentContents: |
 
-    value = {1, 2, 3}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|
-  # 1|value = {1, 2, 3}
-  # 2|
+    value = {a: 1, b: 2, c: 3}
   selections:
     - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 17}
+      active: {line: 1, character: 26}

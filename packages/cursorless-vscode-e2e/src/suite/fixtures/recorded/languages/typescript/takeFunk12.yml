@@ -7,43 +7,21 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: namedFunction}
 initialState:
-  documentContents: |
+  documentContents: |-
 
-    export default function() {
+    export default () => {
 
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|
-  # 1|export default function() {
-  # 2|
-  # 3|}
-  # 4|
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
 
-    export default function() {
+    export default () => {
 
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|
-  # 1|export default function() {
-  # 2|
-  # 3|}
-  # 4|
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 3, character: 1}

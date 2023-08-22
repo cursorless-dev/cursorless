@@ -1,39 +1,25 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: chuck leading vest
-  action: remove
+  spokenForm: chuck end of whale
+  version: 2
   targets:
     - type: primitive
-      position: before
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - {type: position, position: end}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: |
-
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
+  documentContents: hello world whatever
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
   marks:
-    default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
 finalState:
-  documentContents: |
-
-    constvalue = "Hello world";
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|
-  # 1|constvalue = "Hello world";
-  # 2|
+  documentContents: hello world whatever
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

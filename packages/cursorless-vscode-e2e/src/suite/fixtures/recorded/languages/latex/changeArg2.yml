@@ -8,23 +8,14 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |
-    \section{some section}
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|\section{some section}
-  # 1|
+    \href{https://some.url}{some text}
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks: {}
 finalState:
   documentContents: |
-    \section{}
-  #   0123456789
-  #  +----------
-  # 0|\section{}
-  # 1|
+    \href{}{some text}
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

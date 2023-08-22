@@ -1,27 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change type
+  spokenForm: change type air
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
 initialState:
-  documentContents: "const foo: string = new Bar()"
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|const foo: string = new Bar()
+  documentContents: "const foo: string = new Bar<number>(foo);"
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 24}
+      end: {line: 0, character: 27}
 finalState:
-  documentContents: "const foo: string = new ()"
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|const foo: string = new ()
+  documentContents: "const foo: string = new (foo);"
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}

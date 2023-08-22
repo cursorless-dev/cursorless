@@ -8,20 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: (apply f '(1 2 3 4))
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|(apply f '(1 2 3 4))
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 16}
   marks: {}
 finalState:
   documentContents: ( f '(1 2 3 4))
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|( f '(1 2 3 4))
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

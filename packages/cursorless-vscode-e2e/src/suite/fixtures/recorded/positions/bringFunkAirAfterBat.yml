@@ -1,17 +1,17 @@
 languageId: python
 command:
-  spokenForm: bring funk air after bat
+  spokenForm: bring funk bat before air
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
       modifiers:
-        - {type: position, position: after}
+        - {type: position, position: before}
   usePrePhraseSnapshot: true
   action: {name: replaceWithTarget}
 initialState:
@@ -23,39 +23,18 @@ initialState:
         def bbb():
 
             pass
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|    def aaa():
-  # 1|
-  # 2|        pass
-  # 3|
-  #  +--------------
-  #   01234567890123
-  #  +--------------
-  # 4|    def bbb():
-  # 5|
-  # 6|        pass
-  # 7|
-  #  +--------------
-  #   01234567890123
-  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.a:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 11}
     default.b:
       start: {line: 4, character: 8}
       end: {line: 4, character: 11}
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
 finalState:
   documentContents: |2
-        def aaa():
-
-            pass
-
         def bbb():
 
             pass
@@ -63,30 +42,10 @@ finalState:
         def aaa():
 
             pass
-  #              1
-  #    01234567890123
-  #   +--------------
-  #  0|    def aaa():
-  #  1|
-  #  2|        pass
-  #  3|
-  #   +--------------
-  #    01234567890123
-  #   +--------------
-  #  4|    def bbb():
-  #  5|
-  #  6|        pass
-  #  7|
-  #   +--------------
-  #    01234567890123
-  #   +--------------
-  #  8|    def aaa():
-  #  9|
-  # 10|        pass
-  # 11|
-  #   +--------------
-  #    01234567890123
-  #              1
+
+        def bbb():
+
+            pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

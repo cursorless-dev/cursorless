@@ -16,15 +16,6 @@ initialState:
         bbb,
         ccc
     ]
-  #   01234567
-  #  +--------
-  # 0|[
-  # 1|    aaa,
-  # 2|    bbb,
-  # 3|    ccc
-  # 4|]
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 3, character: 7}
       active: {line: 3, character: 7}
@@ -37,16 +28,6 @@ finalState:
         ,
         ccc
     ]
-  #   01234567
-  #  +--------
-  # 0|[
-  # 1|    aaa,
-  # 2|    bbb,
-  # 3|    ,
-  # 4|    ccc
-  # 5|]
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}

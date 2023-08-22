@@ -11,28 +11,22 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    settings():
-        speech.debug = 1
-        speech.timeout = 0.4
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|settings():
-  # 1|    speech.debug = 1
-  # 2|    speech.timeout = 0.4
-  selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks: {}
-finalState:
-  documentContents: |-
-    settings():
+    some command: 
+        value = user.get_value()
+
         
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|settings():
-  # 1|    
+        
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    some command: 
+        value = 
+
+        
+        
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}

@@ -8,7 +8,7 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     if n < 0 {
@@ -18,41 +18,17 @@ initialState:
     } else {
         print!("{} is zero", n);
     }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|if n < 0 {
-  # 1|    print!("{} is negative", n);
-  # 2|} else if n > 0 {
-  # 3|    print!("{} is positive", n);
-  # 4|} else {
-  # 5|    print!("{} is zero", n);
-  # 6|}
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    if n > 0 {
-        print!("{} is positive", n);
-    } else {
+    if n < 0 {
+        print!("{} is negative", n);
+    }  else {
         print!("{} is zero", n);
     }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|if n > 0 {
-  # 1|    print!("{} is positive", n);
-  # 2|} else {
-  # 3|    print!("{} is zero", n);
-  # 4|}
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

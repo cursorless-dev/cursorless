@@ -1,32 +1,22 @@
 languageId: plaintext
 command:
-  spokenForm: change next word
-  version: 3
+  version: 1
+  spokenForm: change paint
+  action: clearAndSetSelection
   targets:
-    - type: primitive
-      modifiers:
-        - type: relativeScope
-          scopeType: {type: word}
-          offset: 1
-          length: 1
-          direction: forward
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+    - {type: primitive, selectionType: nonWhitespaceSequence}
 initialState:
-  documentContents: aaaBbbCccDdd
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|aaaBbbCccDdd
+  documentContents: |
+    const r = /a[b]*(c)/;
+
+    // a/b/c /d
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 7}
+    - anchor: {line: 2, character: 6}
+      active: {line: 0, character: 13}
   marks: {}
 finalState:
-  documentContents: aaaBbbCcc
-  #   012345678
-  #  +---------
-  # 0|aaaBbbCcc
+  documentContents: |
+    const r =  /d
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

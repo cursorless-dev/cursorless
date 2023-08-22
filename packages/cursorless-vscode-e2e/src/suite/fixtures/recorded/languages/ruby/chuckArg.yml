@@ -7,31 +7,15 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |-
-    def hello_world(name)
-        puts "hi #{name)"
-    end
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|def hello_world(name)
-  # 1|    puts "hi #{name)"
-  # 2|end
+  documentContents: |
+    [1, 2, 3].each_with_the_next { |n, i| }
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
+    - anchor: {line: 0, character: 33}
+      active: {line: 0, character: 33}
   marks: {}
 finalState:
-  documentContents: |-
-    def hello_world()
-        puts "hi #{name)"
-    end
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|def hello_world()
-  # 1|    puts "hi #{name)"
-  # 2|end
+  documentContents: |
+    [1, 2, 3].each_with_the_next { |i| }
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 32}

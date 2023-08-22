@@ -10,58 +10,19 @@ command:
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    class Foo {
-        bar() {
-            
-        }
-
-        baz() {
-
-        }
-    }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class Foo {
-  # 1|    bar() {
-  # 2|        
-  # 3|    }
-  #  +-----------
-  #   01234567890
-  #  +-----------
-  # 4|
-  # 5|    baz() {
-  # 6|
-  # 7|    }
-  # 8|}
-  #  +-----------
-  #   01234567890
-  #             1
+  documentContents: |
+    function aaa() {}
+    function bbb() {}
   selections:
-    - anchor: {line: 8, character: 1}
-      active: {line: 8, character: 1}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    class Foo {
-        
+  documentContents: |+
 
-        
-    }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class Foo {
-  # 1|    
-  # 2|
-  # 3|    
-  # 4|}
-  #  +-----------
-  #   01234567890
-  #             1
+
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

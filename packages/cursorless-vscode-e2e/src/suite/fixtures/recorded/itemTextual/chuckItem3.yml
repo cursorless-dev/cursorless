@@ -15,12 +15,6 @@ initialState:
         foo,
         bar,
     ]
-  #   01234567
-  #  +--------
-  # 0|[
-  # 1|    foo,
-  # 2|    bar,
-  # 3|]
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -30,11 +24,6 @@ finalState:
     [
         foo,
     ]
-  #   01234567
-  #  +--------
-  # 0|[
-  # 1|    foo,
-  # 2|]
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}

@@ -1,52 +1,25 @@
 languageId: scss
 command:
-  spokenForm: change second word look
-  version: 2
+  version: 1
+  spokenForm: change selector
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      modifiers:
-        - type: ordinalRange
-          scopeType: {type: word}
-          anchor: 1
-          active: 1
-          excludeAnchor: false
-          excludeActive: false
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+      modifier: {type: containingScope, scopeType: selector, includeSiblings: false}
 initialState:
-  documentContents: |2-
-     .long-bem-class-name {
-       height: 10px;
-     }
-     
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0| .long-bem-class-name {
-  # 1|   height: 10px;
-  # 2| }
-  # 3| 
+  documentContents: |
+    span[hello="Cleveland"][goodbye="Columbus"] { 
+      color: blue; 
+    }
   selections:
-    - anchor: {line: 3, character: 1}
-      active: {line: 3, character: 1}
-  marks:
-    default.l:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 21}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
 finalState:
-  documentContents: |2-
-     .long--class-name {
-       height: 10px;
-     }
-     
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0| .long--class-name {
-  # 1|   height: 10px;
-  # 2| }
-  # 3| 
+  documentContents: |2
+     { 
+      color: blue; 
+    }
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

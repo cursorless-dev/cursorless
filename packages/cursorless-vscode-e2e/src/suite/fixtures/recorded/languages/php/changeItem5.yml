@@ -1,36 +1,25 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change item
+  spokenForm: change key
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    ['first' => 1];
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|<?php
-  # 1|
-  # 2|['first' => 1];
+    ['num' => 1];
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    [];
-  #   01234
-  #  +-----
-  # 0|<?php
-  # 1|
-  # 2|[];
+    [ => 1];
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

@@ -1,30 +1,26 @@
-languageId: typescript
+languageId: typescriptreact
 command:
   version: 5
-  spokenForm: change name
+  spokenForm: change name tags
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: name}
+        - type: containingScope
+          scopeType: {type: xmlBothTags}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: export interface Aaa {}
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|export interface Aaa {}
+  documentContents: <>aaa</>
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: export interface  {}
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|export interface  {}
+  documentContents: <>aaa</>
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

@@ -1,41 +1,29 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: chuck type sun
+  spokenForm: chuck type trap
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
 initialState:
   documentContents: |-
-    interface MyType {
-        name: string;
+    function myFunk (value: string): string {
+        return value;
     }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|interface MyType {
-  # 1|    name: string;
-  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
   marks:
-    default.s:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 16}
+    default.t:
+      start: {line: 0, character: 33}
+      end: {line: 0, character: 39}
 finalState:
   documentContents: |-
-    interface MyType {
-        name;
+    function myFunk (value: string) {
+        return value;
     }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|interface MyType {
-  # 1|    name;
-  # 2|}
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}

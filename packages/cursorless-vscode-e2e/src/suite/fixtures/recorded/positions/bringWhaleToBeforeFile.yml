@@ -1,39 +1,31 @@
 languageId: plaintext
 command:
-  spokenForm: bring whale before file
-  version: 2
-  action: {name: replaceWithTarget}
+  version: 1
+  spokenForm: chuck trailing harp
+  action: remove
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
-    - type: primitive
-      modifiers:
-        - {type: position, position: before}
-        - type: containingScope
-          scopeType: {type: document}
-  usePrePhraseSnapshot: true
+      position: after
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
-  documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
+  documentContents: |
+    "hello "
+    " hello"
+    " hello "
+    return a.b
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
   marks:
-    default.w:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 11}
+    default.h:
+      start: {line: 2, character: 2}
+      end: {line: 2, character: 7}
 finalState:
-  documentContents: |-
-    world
-    hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|world
-  # 1|hello world
+  documentContents: |
+    "hello "
+    " hello"
+    " hello"
+    return a.b
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

@@ -15,10 +15,6 @@ command:
 spokenFormError: Named wrap with snippet 'spaghetti.foo'
 initialState:
   documentContents: grace hopper
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|grace hopper
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
@@ -28,10 +24,6 @@ initialState:
       end: {line: 0, character: 5}
 finalState:
   documentContents: My friend grace hopper likes to eat spaghetti!
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012345
-  #  +----------------------------------------------
-  # 0|My friend grace hopper likes to eat spaghetti!
   selections:
     - anchor: {line: 0, character: 46}
       active: {line: 0, character: 46}

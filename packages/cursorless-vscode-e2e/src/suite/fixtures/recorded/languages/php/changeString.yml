@@ -10,27 +10,16 @@ initialState:
   documentContents: |-
     <?php
 
-    "Hello world";
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|<?php
-  # 1|
-  # 2|"Hello world";
+    "Hello {$name}";
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
     ;
-  #   01234
-  #  +-----
-  # 0|<?php
-  # 1|
-  # 2|;
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

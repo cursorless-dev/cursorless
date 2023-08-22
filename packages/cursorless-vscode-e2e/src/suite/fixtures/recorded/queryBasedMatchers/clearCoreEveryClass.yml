@@ -1,92 +1,24 @@
-languageId: python
+languageId: ruby
 command:
   version: 5
-  spokenForm: change inside every class
+  spokenForm: change every call
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
         - type: everyScope
-          scopeType: {type: class}
+          scopeType: {type: functionCall}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    class Aaa:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
-
-        def eee():
-            ddd = "eee"
-            def fff():
-                pass
-
-    class Bbb:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
-  #              1
-  #    0123456789012345678
-  #   +-------------------
-  #  0|class Aaa:
-  #  1|    @bbb
-  #  2|    def ccc():
-  #  3|        ddd = "eee"
-  #   +-------------------
-  #    0123456789012345678
-  #   +-------------------
-  #  4|        def fff():
-  #  5|            pass
-  #  6|
-  #  7|    def eee():
-  #   +-------------------
-  #    0123456789012345678
-  #   +-------------------
-  #  8|        ddd = "eee"
-  #  9|        def fff():
-  # 10|            pass
-  # 11|
-  #   +-------------------
-  #    0123456789012345678
-  #   +-------------------
-  # 12|class Bbb:
-  # 13|    @bbb
-  # 14|    def ccc():
-  # 15|        ddd = "eee"
-  # 16|        def fff():
-  # 17|            pass
-  # 18|
-  #   +-------------------
-  #    0123456789012345678
-  #              1
+  documentContents: aaa() + bbb() + ccc() + ddd()
   selections:
-    - anchor: {line: 8, character: 19}
-      active: {line: 8, character: 19}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 18}
   marks: {}
 finalState:
-  documentContents: |
-    class Aaa:
-        
-
-    class Bbb:
-        
-  #   0123456789
-  #  +----------
-  # 0|class Aaa:
-  # 1|    
-  # 2|
-  # 3|class Bbb:
-  # 4|    
-  # 5|
-  #  +----------
-  #   0123456789
+  documentContents: aaa() +  +  + ddd()
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 4}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

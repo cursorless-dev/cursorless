@@ -1,34 +1,19 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change inside curly
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: surroundingPair, delimiter: curlyBrackets, delimiterInclusion: interiorOnly}
 initialState:
-  documentContents: |
-    class a(object):
-        pass
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|class a(object):
-  # 1|    pass
-  # 2|
+  documentContents: "{1: [(1), (2), (3)]}"
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: |
-    class a:
-        pass
-  #   01234567
-  #  +--------
-  # 0|class a:
-  # 1|    pass
-  # 2|
+  documentContents: "{}"
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

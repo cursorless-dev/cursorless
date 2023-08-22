@@ -1,53 +1,31 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take down one past three
+  spokenForm: take row five
   action: setSelection
   targets:
     - type: primitive
       selectionType: line
       mark:
         type: lineNumber
-        anchor: {lineNumber: 1, type: relative}
-        active: {lineNumber: 3, type: relative}
+        anchor: {lineNumber: 4, type: modulo100}
+        active: {lineNumber: 4, type: modulo100}
 initialState:
-  documentContents: |
+  documentContents: |+
 
-    const value = "Hello world";
 
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
-  # 3|const value = "Hello world";
-  # 4|
-  #  +----------------------------
-  #   0123456789012345678901234567
-  #             1         2
+
+
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |+
 
-    const value = "Hello world";
 
-    const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
-  # 3|const value = "Hello world";
-  # 4|
-  #  +----------------------------
-  #   0123456789012345678901234567
-  #             1         2
+
+
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 3, character: 28}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

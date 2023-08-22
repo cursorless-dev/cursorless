@@ -11,44 +11,22 @@ command:
   usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
-    if n < 0 {
+    let foo = if n < 0 {
       print!("{} is negative", n);
     } else if n > 0 {
       print!("{} is positive", n);
     }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|if n < 0 {
-  # 1|  print!("{} is negative", n);
-  # 2|} else if n > 0 {
-  # 3|  print!("{} is positive", n);
-  # 4|}
-  #  +------------------------------
-  #   012345678901234567890123456789
-  #             1         2
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 3, character: 2}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    if n < 0 {
+    let foo = if  {
       print!("{} is negative", n);
-    } else if  {
+    } else if n > 0 {
       print!("{} is positive", n);
     }
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|if n < 0 {
-  # 1|  print!("{} is negative", n);
-  # 2|} else if  {
-  # 3|  print!("{} is positive", n);
-  # 4|}
-  #  +------------------------------
-  #   012345678901234567890123456789
-  #             1         2
   selections:
-    - anchor: {line: 2, character: 10}
-      active: {line: 2, character: 10}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

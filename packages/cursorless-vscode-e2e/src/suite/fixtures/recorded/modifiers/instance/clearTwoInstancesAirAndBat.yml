@@ -1,53 +1,27 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change two instances air and bat
+  spokenForm: change two instances backward
   action: {name: clearAndSetSelection}
   targets:
-    - type: list
-      elements:
-        - type: primitive
-          modifiers:
-            - type: relativeScope
-              scopeType: {type: instance}
-              offset: 0
-              length: 2
-              direction: forward
-          mark: {type: decoratedSymbol, symbolColor: default, character: a}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+    - type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: instance}
+          offset: 0
+          length: 2
+          direction: backward
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    aaa bbb ccc aaa bbb
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|aaa bbb ccc aaa bbb
-  # 1|
+  documentContents: bbb aaa bbb aaa bbb
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-  marks:
-    default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
-    default.b:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
 finalState:
-  documentContents: |2
-      ccc  
-  #   0123456
-  #  +-------
-  # 0|  ccc  
-  # 1|
+  documentContents: "bbb aaa  aaa "
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

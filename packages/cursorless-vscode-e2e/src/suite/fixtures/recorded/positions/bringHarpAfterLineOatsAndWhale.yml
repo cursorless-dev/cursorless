@@ -1,64 +1,30 @@
-languageId: typescript
+languageId: plaintext
 command:
-  spokenForm: bring harp after line odd and whale
+  spokenForm: bring harp after file
   version: 2
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
-    - type: list
-      elements:
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: o}
-          modifiers:
-            - {type: position, position: after}
-            - type: containingScope
-              scopeType: {type: line}
-        - type: primitive
-          mark: {type: decoratedSymbol, symbolColor: default, character: w}
+    - type: primitive
+      modifiers:
+        - {type: position, position: after}
+        - type: containingScope
+          scopeType: {type: document}
   usePrePhraseSnapshot: true
-  action: {name: replaceWithTarget}
 initialState:
-  documentContents: |-
-    const whatever = "hello";
-
-    const whatever = "hello";
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|const whatever = "hello";
-  # 1|
-  # 2|const whatever = "hello";
+  documentContents: hello world
   selections:
-    - anchor: {line: 2, character: 24}
-      active: {line: 2, character: 24}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks:
     default.h:
-      start: {line: 0, character: 6}
-      end: {line: 0, character: 14}
-    default.o:
-      start: {line: 0, character: 18}
-      end: {line: 0, character: 23}
-    default.w:
-      start: {line: 2, character: 6}
-      end: {line: 2, character: 14}
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
 finalState:
   documentContents: |-
-    const whatever = "hello";
-    whatever
-
-    const whatever = "hello";
-    whatever
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|const whatever = "hello";
-  # 1|whatever
-  # 2|
-  # 3|const whatever = "hello";
-  # 4|whatever
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
+    hello world
+    hello
   selections:
-    - anchor: {line: 3, character: 24}
-      active: {line: 3, character: 24}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

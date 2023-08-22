@@ -16,33 +16,16 @@ initialState:
 
     Hello there
 
-    ## Another test
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|# Hello world
-  # 1|
-  # 2|Testing testing
-  # 3|
-  #  +---------------
-  #   012345678901234
-  #  +---------------
-  # 4|## Some test
-  # 5|
-  # 6|Hello there
-  # 7|
-  # 8|## Another test
-  #  +---------------
-  #   012345678901234
-  #             1
+    # Another test
   selections:
-    - anchor: {line: 6, character: 9}
-      active: {line: 6, character: 9}
+    - anchor: {line: 6, character: 8}
+      active: {line: 6, character: 8}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
+  documentContents: |-
 
+
+    # Another test
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

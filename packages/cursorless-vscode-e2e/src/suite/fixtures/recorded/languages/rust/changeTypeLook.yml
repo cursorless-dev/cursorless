@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change type look
+  spokenForm: change type odd
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      mark: {type: decoratedSymbol, symbolColor: default, character: o}
       modifiers:
         - type: containingScope
           scopeType: {type: type}
@@ -12,35 +12,21 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    impl Trait for Result<Option<u32>, Box<dyn std::error::Error>> {
-        
+    struct S {
+        n: Option<u64>,
     }
-  #             1         2         3         4         5         6
-  #   0123456789012345678901234567890123456789012345678901234567890123
-  #  +----------------------------------------------------------------
-  # 0|impl Trait for Result<Option<u32>, Box<dyn std::error::Error>> {
-  # 1|    
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 2, character: 1}
-      active: {line: 2, character: 1}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
   marks:
-    default.l:
-      start: {line: 0, character: 15}
-      end: {line: 0, character: 21}
+    default.o:
+      start: {line: 1, character: 7}
+      end: {line: 1, character: 13}
 finalState:
   documentContents: |
-    impl Trait for  {
-        
+    struct S {
+        n: ,
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|impl Trait for  {
-  # 1|    
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}

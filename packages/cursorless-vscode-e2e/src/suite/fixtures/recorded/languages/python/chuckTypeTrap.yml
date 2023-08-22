@@ -1,37 +1,19 @@
 languageId: python
 command:
   version: 1
-  spokenForm: chuck type trap
+  spokenForm: chuck value
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: |-
-    def my_funk(value: str) -> str:
-        pass
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|def my_funk(value: str) -> str:
-  # 1|    pass
+  documentContents: "foo: str = \"hello\""
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
-  marks:
-    default.t:
-      start: {line: 0, character: 27}
-      end: {line: 0, character: 30}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks: {}
 finalState:
-  documentContents: |-
-    def my_funk(value: str):
-        pass
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|def my_funk(value: str):
-  # 1|    pass
+  documentContents: "foo: str"
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

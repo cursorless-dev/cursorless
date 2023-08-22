@@ -1,37 +1,22 @@
 languageId: html
 command:
   version: 1
-  spokenForm: change pair red
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
-      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
   documentContents: |-
     <html>
         <body>
-            <hr/>
+            (hello)
         </body>
     </html>
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<html>
-  # 1|    <body>
-  # 2|        <hr/>
-  # 3|    </body>
-  # 4|</html>
-  #  +-------------
-  #   0123456789012
-  #             1
   selections:
-    - anchor: {line: 4, character: 7}
-      active: {line: 4, character: 7}
-  marks:
-    default.r:
-      start: {line: 2, character: 9}
-      end: {line: 2, character: 11}
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}
+  marks: {}
 finalState:
   documentContents: |-
     <html>
@@ -39,17 +24,6 @@ finalState:
             
         </body>
     </html>
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|<html>
-  # 1|    <body>
-  # 2|        
-  # 3|    </body>
-  # 4|</html>
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}

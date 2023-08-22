@@ -1,30 +1,22 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: chuck bat
+  spokenForm: chuck token
   action: {name: remove}
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "aaa bbb: ccc"
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|aaa bbb: ccc
+  documentContents: foo = bar.baz
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
-  marks:
-    default.b:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 10}
+  marks: {}
 finalState:
-  documentContents: "aaa: ccc"
-  #   01234567
-  #  +--------
-  # 0|aaa: ccc
+  documentContents: foo = baz
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

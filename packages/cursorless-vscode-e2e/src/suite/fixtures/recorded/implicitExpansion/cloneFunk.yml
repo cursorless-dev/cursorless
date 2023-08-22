@@ -14,12 +14,6 @@ initialState:
     function myFunk() {
       // aaa
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|function myFunk() {
-  # 1|  // aaa
-  # 2|}
   selections:
     - anchor: {line: 1, character: 5}
       active: {line: 1, character: 5}
@@ -33,19 +27,6 @@ finalState:
     function myFunk() {
       // aaa
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|function myFunk() {
-  # 1|  // aaa
-  # 2|}
-  # 3|
-  # 4|function myFunk() {
-  # 5|  // aaa
-  # 6|}
-  #  +-------------------
-  #   0123456789012345678
-  #             1
   selections:
     - anchor: {line: 5, character: 5}
       active: {line: 5, character: 5}

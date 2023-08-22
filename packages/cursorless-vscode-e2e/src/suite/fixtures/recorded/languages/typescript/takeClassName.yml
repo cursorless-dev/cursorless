@@ -1,75 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take class name
+  spokenForm: take comment
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: className}
+      modifier: {type: containingScope, scopeType: comment}
 initialState:
   documentContents: |
 
-    class MyClass {
-        constructor () {
-
-        }
-        myFunk () {
-
-        }
-    }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|
-  # 1|class MyClass {
-  # 2|    constructor () {
-  # 3|
-  #  +--------------------
-  #   01234567890123456789
-  #  +--------------------
-  # 4|    }
-  # 5|    myFunk () {
-  # 6|
-  # 7|    }
-  # 8|}
-  # 9|
-  #  +--------------------
-  #   01234567890123456789
-  #             1
+    // const value: string = "Hello world";
   selections:
-    - anchor: {line: 5, character: 4}
-      active: {line: 5, character: 4}
+    - anchor: {line: 1, character: 32}
+      active: {line: 1, character: 32}
   marks: {}
 finalState:
   documentContents: |
 
-    class MyClass {
-        constructor () {
-
-        }
-        myFunk () {
-
-        }
-    }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|
-  # 1|class MyClass {
-  # 2|    constructor () {
-  # 3|
-  #  +--------------------
-  #   01234567890123456789
-  #  +--------------------
-  # 4|    }
-  # 5|    myFunk () {
-  # 6|
-  # 7|    }
-  # 8|}
-  # 9|
-  #  +--------------------
-  #   01234567890123456789
-  #             1
+    // const value: string = "Hello world";
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 39}

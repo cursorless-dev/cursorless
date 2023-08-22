@@ -10,19 +10,13 @@ command:
           scopeType: {type: statement}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "parrot(pop): \"pop\""
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|parrot(pop): "pop"
+  documentContents: "face(smile): \"smile\""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

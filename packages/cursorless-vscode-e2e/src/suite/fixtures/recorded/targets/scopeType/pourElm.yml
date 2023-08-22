@@ -1,39 +1,28 @@
-languageId: html
+languageId: typescript
 command:
-  spokenForm: pour element
+  spokenForm: pour if state
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: xmlElement}
+          scopeType: {type: ifStatement}
   usePrePhraseSnapshot: true
   action: {name: editNewLineAfter}
 initialState:
   documentContents: |-
-    <html>
+    if (false) {
         
-    </html>
-  #   0123456
-  #  +-------
-  # 0|<html>
-  # 1|    
-  # 2|</html>
+    }
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |
-    <html>
+    if (false) {
         
-    </html>
-  #   0123456
-  #  +-------
-  # 0|<html>
-  # 1|    
-  # 2|</html>
-  # 3|
+    }
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}

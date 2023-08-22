@@ -1,31 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change type angle
+  spokenForm: change type near
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: <}
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
 initialState:
   documentContents: "const foo: string = new Bar<number>(foo);"
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|const foo: string = new Bar<number>(foo);
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.<:
-      start: {line: 0, character: 27}
-      end: {line: 0, character: 28}
+    default.n:
+      start: {line: 0, character: 28}
+      end: {line: 0, character: 34}
 finalState:
   documentContents: "const foo: string = new (foo);"
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|const foo: string = new (foo);
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}

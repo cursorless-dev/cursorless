@@ -1,36 +1,31 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change value
-  action: clearAndSetSelection
+  spokenForm: chuck arg
+  action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    yield $value;
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<?php
-  # 1|
-  # 2|yield $value;
+    function myFunc($value)
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    yield ;
-  #   0123456
-  #  +-------
-  # 0|<?php
-  # 1|
-  # 2|yield ;
+    function myFunc()
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}

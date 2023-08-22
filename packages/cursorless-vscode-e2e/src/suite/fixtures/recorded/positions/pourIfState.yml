@@ -1,37 +1,30 @@
-languageId: python
+languageId: plaintext
 command:
-  version: 5
-  spokenForm: pour if state
-  action: {name: editNewLineAfter}
+  version: 1
+  spokenForm: replace after vest with hallo
+  action: replace
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: ifStatement}
-  usePrePhraseSnapshot: true
+      position: after
+      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+  extraArgs:
+    - [hallo]
+spokenFormError: Action 'replace'
 initialState:
-  documentContents: |-
-    if True:
-        foo = "bar"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|if True:
-  # 1|    foo = "bar"
+  documentContents: |
+
+    const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.v:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
 finalState:
   documentContents: |
-    if True:
-        foo = "bar"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|if True:
-  # 1|    foo = "bar"
-  # 2|
+
+    const value hallo = "Hello world";
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,31 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change type odd
+  spokenForm: change type urge
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
 initialState:
-  documentContents: "const foo: string = bar<number>(foo);"
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|const foo: string = bar<number>(foo);
+  documentContents: "const foo: Bar<number> = new Bar<number>(foo);"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.o:
-      start: {line: 0, character: 32}
-      end: {line: 0, character: 35}
+    default.u:
+      start: {line: 0, character: 15}
+      end: {line: 0, character: 21}
 finalState:
-  documentContents: "const foo:  = bar<number>(foo);"
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|const foo:  = bar<number>(foo);
+  documentContents: "const foo:  = new Bar<number>(foo);"
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

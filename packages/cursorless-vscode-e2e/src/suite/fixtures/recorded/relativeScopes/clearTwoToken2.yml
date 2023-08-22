@@ -13,20 +13,9 @@ command:
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa bbb ccc
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa bbb ccc
-  selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-  marks: {}
-finalState:
-  documentContents: "aaa "
-  #   0123
-  #  +----
-  # 0|aaa 
+  documentContents: aaa  bbb ccc
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+  marks: {}
+thrownError: {name: NoContainingScopeError}

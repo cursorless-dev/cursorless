@@ -11,19 +11,12 @@ command:
   action: {name: insertCopyAfter}
 initialState:
   documentContents: hello
-  #   01234
-  #  +-----
-  # 0|hello
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: hello hello
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello hello
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

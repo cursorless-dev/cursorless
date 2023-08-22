@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change name drum
+  spokenForm: change name each
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+      mark: {type: decoratedSymbol, symbolColor: default, character: e}
       modifiers:
         - type: containingScope
           scopeType: {type: name}
@@ -12,35 +12,23 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    match user {
-        User { first_name: "John", last_name: "Doe" } => {},
+    enum IpAddr {
+        V4(u8, u8, u8, u8),
+        V6(String),
     }
-  #             1         2         3         4         5
-  #   01234567890123456789012345678901234567890123456789012345
-  #  +--------------------------------------------------------
-  # 0|match user {
-  # 1|    User { first_name: "John", last_name: "Doe" } => {},
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
   marks:
-    default.d:
-      start: {line: 1, character: 43}
-      end: {line: 1, character: 46}
+    default.e:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 4}
 finalState:
   documentContents: |
-    match user {
-        User { first_name: "John", : "Doe" } => {},
+    enum  {
+        V4(u8, u8, u8, u8),
+        V6(String),
     }
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890123456
-  #  +-----------------------------------------------
-  # 0|match user {
-  # 1|    User { first_name: "John", : "Doe" } => {},
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 31}
-      active: {line: 1, character: 31}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

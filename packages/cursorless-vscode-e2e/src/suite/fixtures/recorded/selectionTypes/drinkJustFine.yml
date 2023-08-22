@@ -1,31 +1,22 @@
-languageId: plaintext
+languageId: python
 command:
-  spokenForm: drink just fine
+  spokenForm: drink token
   version: 2
   action: {name: editNewLineBefore}
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
       modifiers:
-        - {type: toRawSelection}
+        - type: containingScope
+          scopeType: {type: token}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo
-  #   012
-  #  +---
-  # 0|foo
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-  marks:
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+  marks: {}
 finalState:
-  documentContents: foo
-  #   012
-  #  +---
-  # 0|foo
+  documentContents: " foo"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

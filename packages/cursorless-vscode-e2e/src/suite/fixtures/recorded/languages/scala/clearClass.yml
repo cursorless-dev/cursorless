@@ -8,12 +8,7 @@ command:
       modifier: {type: containingScope, scopeType: class, includeSiblings: false}
 initialState:
   documentContents: |
-    class ExampleClass() {}
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|class ExampleClass() {}
-  # 1|
+    object ExampleClass {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -21,10 +16,6 @@ initialState:
 finalState:
   documentContents: |+
 
-  #   
-  #  +
-  # 0|
-  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

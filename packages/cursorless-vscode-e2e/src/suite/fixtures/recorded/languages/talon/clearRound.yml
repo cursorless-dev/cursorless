@@ -11,21 +11,13 @@ command:
           scopeType: {type: surroundingPair, delimiter: parentheses}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "command: \"foo (bar) baz\""
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|command: "foo (bar) baz"
+  documentContents: "# foo (bar) baz"
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: "command: \"foo  baz\""
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|command: "foo  baz"
+  documentContents: "# foo  baz"
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

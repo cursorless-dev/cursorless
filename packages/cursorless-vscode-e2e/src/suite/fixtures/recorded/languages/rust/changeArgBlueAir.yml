@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change arg blue air
+  spokenForm: change arg eight
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '8'}
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
@@ -12,27 +12,21 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    struct S<'a, 'b: 'a, T>;
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|struct S<'a, 'b: 'a, T>;
-  # 1|
+    enum E {
+        C(u8, u16, u32),
+    }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
   marks:
-    blue.a:
-      start: {line: 0, character: 18}
-      end: {line: 0, character: 19}
+    default.8:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 8}
 finalState:
   documentContents: |
-    struct S<'a, , T>;
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|struct S<'a, , T>;
-  # 1|
+    enum E {
+        C(, u16, u32),
+    }
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

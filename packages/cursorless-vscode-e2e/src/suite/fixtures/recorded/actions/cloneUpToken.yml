@@ -11,20 +11,12 @@ command:
   action: {name: insertCopyBefore}
 initialState:
   documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: hello world world
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|hello world world
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}

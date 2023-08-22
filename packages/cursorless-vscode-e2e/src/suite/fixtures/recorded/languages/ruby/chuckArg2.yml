@@ -9,23 +9,13 @@ command:
 initialState:
   documentContents: |
     [1, 2, 3].each_with_the_next { |n, i| }
-  #             1         2         3
-  #   012345678901234567890123456789012345678
-  #  +---------------------------------------
-  # 0|[1, 2, 3].each_with_the_next { |n, i| }
-  # 1|
   selections:
-    - anchor: {line: 0, character: 33}
-      active: {line: 0, character: 33}
+    - anchor: {line: 0, character: 35}
+      active: {line: 0, character: 35}
   marks: {}
 finalState:
   documentContents: |
-    [1, 2, 3].each_with_the_next { |i| }
-  #             1         2         3
-  #   012345678901234567890123456789012345
-  #  +------------------------------------
-  # 0|[1, 2, 3].each_with_the_next { |i| }
-  # 1|
+    [1, 2, 3].each_with_the_next { |n, | }
   selections:
-    - anchor: {line: 0, character: 32}
-      active: {line: 0, character: 32}
+    - anchor: {line: 0, character: 35}
+      active: {line: 0, character: 35}

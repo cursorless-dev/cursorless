@@ -8,23 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |
-    @import "subs.css";
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|@import "subs.css";
-  # 1|
+    a {
+      &:hover { cursor: pointer; }
+    }
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |
+    a {
+      
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

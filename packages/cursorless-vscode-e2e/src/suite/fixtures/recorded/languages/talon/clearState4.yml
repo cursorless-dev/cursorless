@@ -11,30 +11,18 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    settings():
-        speech.debug = 1
-        speech.timeout = 0.4
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|settings():
-  # 1|    speech.debug = 1
-  # 2|    speech.timeout = 0.4
+    slap: key(end enter)
+        
+        
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: |-
-    settings():
+    slap: 
         
-        speech.timeout = 0.4
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|settings():
-  # 1|    
-  # 2|    speech.timeout = 0.4
+        
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

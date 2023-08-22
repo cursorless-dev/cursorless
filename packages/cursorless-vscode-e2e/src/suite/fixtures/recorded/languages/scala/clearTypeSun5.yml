@@ -1,43 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: change type sun
+  spokenForm: change type trap
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
 initialState:
   documentContents: |
     class TypesAhoy() {
-      val foo: String = "foo"
+      def example(foo: String): String = "example"
     }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|class TypesAhoy() {
-  # 1|  val foo: String = "foo"
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.s:
-      start: {line: 1, character: 11}
-      end: {line: 1, character: 17}
+    default.t:
+      start: {line: 1, character: 28}
+      end: {line: 1, character: 34}
 finalState:
   documentContents: |
     class TypesAhoy() {
-      val foo:  = "foo"
+      def example(foo: String):  = "example"
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|class TypesAhoy() {
-  # 1|  val foo:  = "foo"
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 28}
+      active: {line: 1, character: 28}

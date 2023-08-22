@@ -1,39 +1,29 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: change sixth char vest
-  action: clearAndSetSelection
+  spokenForm: change sixth next word
+  version: 3
   targets:
     - type: primitive
-      modifier: {type: subpiece, pieceType: character, anchor: 5, active: 5}
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: word}
+          offset: 6
+          length: 1
+          direction: forward
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-
-    const value_hello_str = "Hello world";
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|
-  # 1|const value_hello_str = "Hello world";
-  # 2|
+  documentContents: |-
+    aaaBbb cccDdd
+    eeeFff gggHhh
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  marks:
-    default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 21}
+  marks: {}
 finalState:
-  documentContents: |
-
-    const valuehello_str = "Hello world";
-  #             1         2         3
-  #   0123456789012345678901234567890123456
-  #  +-------------------------------------
-  # 0|
-  # 1|const valuehello_str = "Hello world";
-  # 2|
+  documentContents: |-
+    aaaBbb cccDdd
+    eeeFff Hhh
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}

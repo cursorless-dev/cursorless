@@ -1,32 +1,34 @@
 languageId: plaintext
 command:
-  spokenForm: take every word
-  version: 3
+  spokenForm: take file
+  version: 2
   targets:
     - type: primitive
       modifiers:
-        - type: everyScope
-          scopeType: {type: word}
+        - type: containingScope
+          scopeType: {type: document}
   usePrePhraseSnapshot: true
   action: {name: setSelection}
 initialState:
-  documentContents: aaaBbbCcc
-  #   012345678
-  #  +---------
-  # 0|aaaBbbCcc
+  documentContents: |2+
+
+
+        foo 
+
+        bar 
+
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
   marks: {}
 finalState:
-  documentContents: aaaBbbCcc
-  #   012345678
-  #  +---------
-  # 0|aaaBbbCcc
+  documentContents: |2+
+
+
+        foo 
+
+        bar 
+
   selections:
     - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 3}
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 9}
+      active: {line: 6, character: 0}

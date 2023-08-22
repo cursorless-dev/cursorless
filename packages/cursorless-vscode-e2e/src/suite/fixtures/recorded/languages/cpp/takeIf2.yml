@@ -13,17 +13,6 @@ initialState:
             
         }
     }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|void f() {
-  # 1|    if constexpr (true) {
-  # 2|        
-  # 3|    }
-  # 4|}
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -35,17 +24,6 @@ finalState:
             
         }
     }
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|void f() {
-  # 1|    if constexpr (true) {
-  # 2|        
-  # 3|    }
-  # 4|}
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 3, character: 5}

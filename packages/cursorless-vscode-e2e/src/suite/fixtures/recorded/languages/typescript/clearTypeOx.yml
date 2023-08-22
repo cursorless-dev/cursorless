@@ -8,24 +8,16 @@ command:
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
 initialState:
-  documentContents: "const foo: string = new Bar<number>(foo);"
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|const foo: string = new Bar<number>(foo);
+  documentContents: "const foo: string = bar<number>(foo);"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.o:
-      start: {line: 0, character: 36}
-      end: {line: 0, character: 39}
+      start: {line: 0, character: 32}
+      end: {line: 0, character: 35}
 finalState:
-  documentContents: "const foo:  = new Bar<number>(foo);"
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|const foo:  = new Bar<number>(foo);
+  documentContents: "const foo:  = bar<number>(foo);"
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}

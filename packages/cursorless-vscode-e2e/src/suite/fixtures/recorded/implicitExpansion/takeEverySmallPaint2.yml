@@ -11,20 +11,12 @@ command:
   action: {name: setSelection}
 initialState:
   documentContents: (hello world-whatever testing) testing now
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901
-  #  +------------------------------------------
-  # 0|(hello world-whatever testing) testing now
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 10}
   marks: {}
 finalState:
   documentContents: (hello world-whatever testing) testing now
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901
-  #  +------------------------------------------
-  # 0|(hello world-whatever testing) testing now
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 6}

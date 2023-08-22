@@ -18,13 +18,6 @@ initialState:
         ddd = "eee"
         def fff():
             pass
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|def eee():
-  # 1|    ddd = "eee"
-  # 2|    def fff():
-  # 3|        pass
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -34,12 +27,6 @@ finalState:
     def eee():
         ddd = "eee"
         
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|def eee():
-  # 1|    ddd = "eee"
-  # 2|    
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}

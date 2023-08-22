@@ -1,35 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take regex
+  spokenForm: take state
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: regularExpression}
+      modifier: {type: containingScope, scopeType: statement}
 initialState:
   documentContents: |
 
-    const value = /\w.+$/
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|const value = /\w.+$/
-  # 2|
+    const value: string = "Hello world";
   selections:
-    - anchor: {line: 1, character: 17}
-      active: {line: 1, character: 17}
+    - anchor: {line: 1, character: 29}
+      active: {line: 1, character: 29}
   marks: {}
 finalState:
   documentContents: |
 
-    const value = /\w.+$/
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|const value = /\w.+$/
-  # 2|
+    const value: string = "Hello world";
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 36}

@@ -1,41 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: chuck type bat
+  spokenForm: chuck type fine
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
 initialState:
   documentContents: |-
     class Example(foo: String) {
       def str(bar: String): String = foo + bar
     }
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901
-  #  +------------------------------------------
-  # 0|class Example(foo: String) {
-  # 1|  def str(bar: String): String = foo + bar
-  # 2|}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.b:
-      start: {line: 1, character: 10}
-      end: {line: 1, character: 13}
+    default.f:
+      start: {line: 1, character: 33}
+      end: {line: 1, character: 36}
 finalState:
   documentContents: |-
     class Example(foo: String) {
-      def str(bar): String = foo + bar
+      def str(bar: String) = foo + bar
     }
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|class Example(foo: String) {
-  # 1|  def str(bar): String = foo + bar
-  # 2|}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -1,33 +1,26 @@
-languageId: plaintext
+languageId: python
 command:
-  version: 6
-  action:
-    name: replaceWithTarget
-    source:
-      type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
-    destination:
-      type: list
-      destinations: []
+  version: 5
+  spokenForm: pour if state
+  action: {name: editNewLineAfter}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: ifStatement}
   usePrePhraseSnapshot: true
-spokenFormError: List destination with < 2 elements
 initialState:
-  documentContents: aaa bbb
-  #   0123456
-  #  +-------
-  # 0|aaa bbb
+  documentContents: |-
+    if True:
+        foo = "bar"
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-  marks:
-    default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
 finalState:
-  documentContents: aaa bbb
-  #   0123456
-  #  +-------
-  # 0|aaa bbb
+  documentContents: |
+    if True:
+        foo = "bar"
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

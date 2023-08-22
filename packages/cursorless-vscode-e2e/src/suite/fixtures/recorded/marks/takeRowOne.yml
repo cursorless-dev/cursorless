@@ -1,45 +1,32 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take row one
+  spokenForm: take row two past down three
   action: setSelection
   targets:
     - type: primitive
       selectionType: line
       mark:
         type: lineNumber
-        anchor: {lineNumber: 0, type: modulo100}
-        active: {lineNumber: 0, type: modulo100}
+        anchor: {lineNumber: 1, type: absolute}
+        active: {lineNumber: 3, type: relative}
+spokenFormError: Absolute line numbers
 initialState:
-  documentContents: |+
+  documentContents: |
 
+    const value = "Hello world";
 
-
-
-  #   
-  #  +
-  # 0|
-  # 1|
-  # 2|
-  # 3|
-  # 4|
-  selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-  marks: {}
-finalState:
-  documentContents: |+
-
-
-
-
-  #   
-  #  +
-  # 0|
-  # 1|
-  # 2|
-  # 3|
-  # 4|
+    const value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+
+    const value = "Hello world";
+
+    const value = "Hello world";
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 3, character: 28}

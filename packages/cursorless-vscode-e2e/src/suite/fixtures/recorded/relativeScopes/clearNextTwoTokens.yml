@@ -1,38 +1,29 @@
-languageId: markdown
+languageId: plaintext
 command:
-  spokenForm: change next two tokens
+  spokenForm: change line forward
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: token}
-          offset: 1
-          length: 2
+          scopeType: {type: line}
+          offset: 0
+          length: 1
           direction: forward
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    aaa
-    bbb
-    ccc
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|bbb
-  # 2|ccc
+    aaa bbb
+    ccc ddd
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: |
-    aaa
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|
+  documentContents: |-
+
+    ccc ddd
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

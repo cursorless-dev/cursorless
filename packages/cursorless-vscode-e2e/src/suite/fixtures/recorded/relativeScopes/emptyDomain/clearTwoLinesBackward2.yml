@@ -1,39 +1,24 @@
-languageId: plaintext
+languageId: markdown
 command:
   version: 5
-  spokenForm: change two lines backward
+  spokenForm: change every short paint
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - type: relativeScope
-          scopeType: {type: line}
-          offset: 0
-          length: 2
-          direction: backward
+        - type: everyScope
+          scopeType: {type: boundedNonWhitespaceSequence}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    aaa
-
-    bbb
-  #   012
-  #  +---
-  # 0|aaa
-  # 1|
-  # 2|bbb
+  documentContents: foo(aa|aa-().c_d bb|bb-().'')
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
   marks: {}
 finalState:
-  documentContents: |-
-
-    bbb
-  #   012
-  #  +---
-  # 0|
-  # 1|bbb
+  documentContents: foo( )
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

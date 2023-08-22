@@ -1,25 +1,19 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change skis
+  spokenForm: change inside box
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: backtickQuotes}
+      modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
 initialState:
-  documentContents: "`Hello, ${name}!`"
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|`Hello, ${name}!`
+  documentContents: const [bongo, baz] = [foo, bar]
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: const [bongo, baz] = []
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

@@ -1,40 +1,22 @@
 languageId: typescript
 command:
+  version: 5
   spokenForm: change funk
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    abstract class Foo {
-        protected abstract bar(): void;
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|abstract class Foo {
-  # 1|    protected abstract bar(): void;
-  # 2|}
+  documentContents: export function *aaa() {}
   selections:
-    - anchor: {line: 1, character: 26}
-      active: {line: 1, character: 26}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    abstract class Foo {
-        
-    }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|abstract class Foo {
-  # 1|    
-  # 2|}
+  documentContents: ""
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

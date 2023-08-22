@@ -1,35 +1,37 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take comment
+  spokenForm: take condition
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment}
+      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
 initialState:
-  documentContents: |
+  documentContents: |-
+    if (true) {
 
-    // const value: string = "Hello world";
-  #             1         2         3
-  #   012345678901234567890123456789012345678
-  #  +---------------------------------------
-  # 0|
-  # 1|// const value: string = "Hello world";
-  # 2|
-  selections:
-    - anchor: {line: 1, character: 32}
-      active: {line: 1, character: 32}
-  marks: {}
-finalState:
-  documentContents: |
+    }
+    for (let i = 0; i < length; ++i) {
 
-    // const value: string = "Hello world";
-  #             1         2         3
-  #   012345678901234567890123456789012345678
-  #  +---------------------------------------
-  # 0|
-  # 1|// const value: string = "Hello world";
-  # 2|
+    }
+    while (true) {
+
+    }
   selections:
     - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 39}
+      active: {line: 1, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+    if (true) {
+
+    }
+    for (let i = 0; i < length; ++i) {
+
+    }
+    while (true) {
+
+    }
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 8}

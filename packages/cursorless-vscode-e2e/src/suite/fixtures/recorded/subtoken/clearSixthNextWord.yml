@@ -1,39 +1,26 @@
 languageId: plaintext
 command:
-  spokenForm: change sixth next word
+  spokenForm: chuck fourth word line
   version: 3
   targets:
     - type: primitive
       modifiers:
-        - type: relativeScope
+        - type: ordinalScope
           scopeType: {type: word}
-          offset: 6
+          start: 3
           length: 1
-          direction: forward
+        - type: containingScope
+          scopeType: {type: line}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: {name: remove}
 initialState:
-  documentContents: |-
-    aaaBbb cccDdd
-    eeeFff gggHhh
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|aaaBbb cccDdd
-  # 1|eeeFff gggHhh
+  documentContents: apiV1 api_v_1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    aaaBbb cccDdd
-    eeeFff Hhh
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|aaaBbb cccDdd
-  # 1|eeeFff Hhh
+  documentContents: apiV1 v_1
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

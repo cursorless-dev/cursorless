@@ -9,10 +9,6 @@ command:
   action: {name: editNewLineBefore}
 initialState:
   documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
@@ -25,11 +21,6 @@ finalState:
   documentContents: |-
 
     hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|hello world
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

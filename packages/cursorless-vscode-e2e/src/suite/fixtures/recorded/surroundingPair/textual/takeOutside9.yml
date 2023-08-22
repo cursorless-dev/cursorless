@@ -1,24 +1,23 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change pair urge
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
 initialState:
-  documentContents: "[hello  (whatever)]"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|[hello  (whatever)]
+  documentContents: (<user.foo>  <user.bar>)
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks:
+    default.u:
+      start: {line: 0, character: 14}
+      end: {line: 0, character: 18}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: (<user.foo>  )
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

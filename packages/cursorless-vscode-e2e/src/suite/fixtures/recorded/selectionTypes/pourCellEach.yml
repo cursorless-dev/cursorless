@@ -1,61 +1,32 @@
-languageId: python
-postEditorOpenSleepTimeMs: 250
-postCommandSleepTimeMs: 400
+languageId: typescript
 command:
-  version: 1
-  spokenForm: pour cell each
-  action: editNewLineAfter
+  spokenForm: pour every arg
+  version: 2
   targets:
     - type: primitive
-      selectionType: notebookCell
-      mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+  action: {name: editNewLineAfter}
 initialState:
   documentContents: |-
-    # %%
-    print("hello")
-
-    # %%
-    print("hello")
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|# %%
-  # 1|print("hello")
-  # 2|
-  # 3|# %%
-  # 4|print("hello")
-  #  +--------------
-  #   01234567890123
-  #             1
+    function whatever(a: number, b: number, c: number) {
+        
+    }
   selections:
-    - anchor: {line: 4, character: 12}
-      active: {line: 4, character: 12}
-  marks:
-    default.e:
-      start: {line: 1, character: 7}
-      end: {line: 1, character: 12}
+    - anchor: {line: 0, character: 29}
+      active: {line: 0, character: 29}
+  marks: {}
 finalState:
   documentContents: |-
-    # %%
-    print("hello")
-
-    # %%
-
-    # %%
-    print("hello")
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|# %%
-  # 1|print("hello")
-  # 2|
-  # 3|# %%
-  # 4|
-  # 5|# %%
-  # 6|print("hello")
-  #  +--------------
-  #   01234567890123
-  #             1
+    function whatever(a: number, , b: number, , c: number, ) {
+        
+    }
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 29}
+      active: {line: 0, character: 29}
+    - anchor: {line: 0, character: 42}
+      active: {line: 0, character: 42}
+    - anchor: {line: 0, character: 55}
+      active: {line: 0, character: 55}

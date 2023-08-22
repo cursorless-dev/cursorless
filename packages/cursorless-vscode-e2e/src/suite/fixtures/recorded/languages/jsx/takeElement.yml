@@ -1,28 +1,17 @@
 languageId: javascript
 command:
   version: 1
-  spokenForm: take element
+  spokenForm: take end tag
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlElement}
+      modifier: {type: containingScope, scopeType: xmlEndTag}
 initialState:
   documentContents: |
 
     const Foo = (
       <div id="bar" name="foo">bar</div>
     );
-  #             1         2         3
-  #   012345678901234567890123456789012345
-  #  +------------------------------------
-  # 0|
-  # 1|const Foo = (
-  # 2|  <div id="bar" name="foo">bar</div>
-  # 3|);
-  # 4|
-  #  +------------------------------------
-  #   012345678901234567890123456789012345
-  #             1         2         3
   selections:
     - anchor: {line: 2, character: 15}
       active: {line: 2, character: 15}
@@ -33,17 +22,6 @@ finalState:
     const Foo = (
       <div id="bar" name="foo">bar</div>
     );
-  #             1         2         3
-  #   012345678901234567890123456789012345
-  #  +------------------------------------
-  # 0|
-  # 1|const Foo = (
-  # 2|  <div id="bar" name="foo">bar</div>
-  # 3|);
-  # 4|
-  #  +------------------------------------
-  #   012345678901234567890123456789012345
-  #             1         2         3
   selections:
-    - anchor: {line: 2, character: 2}
+    - anchor: {line: 2, character: 30}
       active: {line: 2, character: 36}

@@ -1,47 +1,30 @@
 languageId: talon
 command:
-  version: 6
-  spokenForm: chuck condition
-  action:
-    name: remove
-    target:
-      type: primitive
+  version: 5
+  spokenForm: change arg
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    mode: command
-    os: linux
-    and tag: user.some_tag
-    not tag: user.some_other_tag
-    and not app: some_application
-    -
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|mode: command
-  # 1|os: linux
-  # 2|and tag: user.some_tag
-  # 3|not tag: user.some_other_tag
-  # 4|and not app: some_application
-  # 5|-
-  # 6|
-  #  +-----------------------------
-  #   01234567890123456789012345678
-  #             1         2
+  documentContents: |-
+    some command: 
+        user.do_something(1, "hello")
+        
+        
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
   marks: {}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |-
+    some command: 
+        user.do_something(, "hello")
+        
+        
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}

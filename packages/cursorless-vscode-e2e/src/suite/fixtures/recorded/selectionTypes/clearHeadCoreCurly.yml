@@ -1,42 +1,29 @@
-languageId: plaintext
+languageId: typescript
 command:
-  spokenForm: change head inside curly
+  spokenForm: change head funk
   version: 2
   targets:
     - type: primitive
       modifiers:
         - type: extendThroughStartOf
           modifiers:
-            - {type: interiorOnly}
             - type: containingScope
-              scopeType: {type: surroundingPair, delimiter: curlyBrackets}
+              scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    {
-        foo(bar baz)
+    function whatever() {
+        
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|{
-  # 1|    foo(bar baz)
-  # 2|}
-  selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
-  marks: {}
-finalState:
-  documentContents: |-
-    {
-        z)
-    }
-  #   012345
-  #  +------
-  # 0|{
-  # 1|    z)
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    }
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -13,18 +13,6 @@ initialState:
       50%  { margin-top: 150px !important; } /* ignored */
       to   { margin-top: 100px; }
     }
-  #             1         2         3         4         5
-  #   012345678901234567890123456789012345678901234567890123
-  #  +------------------------------------------------------
-  # 0|@keyframes important1 {
-  # 1|  from { margin-top: 50px; }
-  # 2|  50%  { margin-top: 150px !important; } /* ignored */
-  # 3|  to   { margin-top: 100px; }
-  # 4|}
-  # 5|
-  #  +------------------------------------------------------
-  #   012345678901234567890123456789012345678901234567890123
-  #             1         2         3         4         5
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
@@ -32,10 +20,6 @@ initialState:
 finalState:
   documentContents: |+
 
-  #   
-  #  +
-  # 0|
-  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -8,23 +8,14 @@ command:
       modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
 initialState:
   documentContents: |
-    %i(hello world)
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|%i(hello world)
-  # 1|
+    { i: 10, z: 99}
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
   marks: {}
 finalState:
   documentContents: |
-    %i(hello)
-  #   012345678
-  #  +---------
-  # 0|%i(hello)
-  # 1|
+    { i: 10}
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

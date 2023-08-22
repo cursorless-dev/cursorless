@@ -1,39 +1,28 @@
 languageId: rust
 command:
-  version: 1
-  spokenForm: change lambda
-  action: clearAndSetSelection
+  spokenForm: change name
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    let expensive_closure = |num| {
-        println!("calculating slowly...");
-        thread::sleep(Duration::from_secs(2));
-        num
-    };
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901
-  #  +------------------------------------------
-  # 0|let expensive_closure = |num| {
-  # 1|    println!("calculating slowly...");
-  # 2|    thread::sleep(Duration::from_secs(2));
-  # 3|    num
-  # 4|};
-  #  +------------------------------------------
-  #   012345678901234567890123456789012345678901
-  #             1         2         3         4
+  documentContents: |
+    fn main() -> Result<(), Error> {
+        
+    }
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: let expensive_closure = ;
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|let expensive_closure = ;
+  documentContents: |
+    fn () -> Result<(), Error> {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

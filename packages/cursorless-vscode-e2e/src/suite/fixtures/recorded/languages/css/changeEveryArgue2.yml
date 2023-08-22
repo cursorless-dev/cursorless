@@ -12,13 +12,6 @@ initialState:
       background: repeating-linear-gradient(red, orange 50px);
       clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
-  #             1         2         3         4         5         6         7         8         9
-  #   012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012
-  #  +---------------------------------------------------------------------------------------------
-  # 0|div {
-  # 1|  background: repeating-linear-gradient(red, orange 50px);
-  # 2|  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
-  # 3|}
   selections:
     - anchor: {line: 1, character: 50}
       active: {line: 1, character: 50}
@@ -29,13 +22,6 @@ finalState:
       background: repeating-linear-gradient(, );
       clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
     }
-  #             1         2         3         4         5         6         7         8         9
-  #   012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012
-  #  +---------------------------------------------------------------------------------------------
-  # 0|div {
-  # 1|  background: repeating-linear-gradient(, );
-  # 2|  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
-  # 3|}
   selections:
     - anchor: {line: 1, character: 40}
       active: {line: 1, character: 40}

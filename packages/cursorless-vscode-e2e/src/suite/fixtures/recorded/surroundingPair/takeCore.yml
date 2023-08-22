@@ -1,41 +1,41 @@
-languageId: typescript
+languageId: plaintext
 command:
-  spokenForm: take inside
+  spokenForm: take inside red past just harp
   version: 2
   targets:
-    - type: primitive
-      modifiers:
-        - {type: interiorOnly}
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: interiorOnly}
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      active:
+        type: primitive
+        modifiers:
+          - {type: toRawSelection}
+        mark: {type: decoratedSymbol, symbolColor: default, character: h}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: true
   action: {name: setSelection}
 initialState:
   documentContents: |-
-    [
-        "foo",
-        "bar"
-    ]
-  #   0123456789
-  #  +----------
-  # 0|[
-  # 1|    "foo",
-  # 2|    "bar"
-  # 3|]
+    ( hello world )
+    (hello world)
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
-  marks: {}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
+  marks:
+    default.r:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 13}
+    default.h:
+      start: {line: 1, character: 1}
+      end: {line: 1, character: 6}
 finalState:
   documentContents: |-
-    [
-        "foo",
-        "bar"
-    ]
-  #   0123456789
-  #  +----------
-  # 0|[
-  # 1|    "foo",
-  # 2|    "bar"
-  # 3|]
+    ( hello world )
+    (hello world)
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 2, character: 9}
+    - anchor: {line: 0, character: 2}
+      active: {line: 1, character: 6}

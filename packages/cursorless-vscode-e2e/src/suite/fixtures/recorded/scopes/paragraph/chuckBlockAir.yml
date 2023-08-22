@@ -8,24 +8,12 @@ command:
       selectionType: paragraph
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
 initialState:
-  documentContents: |
+  documentContents: |-
 
     const value = "Hello world";
 
     const value = "Hello world";
     const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
-  # 3|const value = "Hello world";
-  # 4|const value = "Hello world";
-  # 5|
-  #  +----------------------------
-  #   0123456789012345678901234567
-  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -34,15 +22,9 @@ initialState:
       start: {line: 3, character: 6}
       end: {line: 3, character: 11}
 finalState:
-  documentContents: |
+  documentContents: |-
 
     const value = "Hello world";
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|
-  # 1|const value = "Hello world";
-  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

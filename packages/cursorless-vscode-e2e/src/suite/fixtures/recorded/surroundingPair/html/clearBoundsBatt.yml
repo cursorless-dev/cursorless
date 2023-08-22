@@ -1,57 +1,29 @@
 languageId: html
 command:
   version: 1
-  spokenForm: change bounds bat
+  spokenForm: change bounds each
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: {type: decoratedSymbol, symbolColor: default, character: e}
 initialState:
   documentContents: |-
-    <html>
-        <body>
-            <hr/>
-        </body>
+    <html id="(hello)">
     </html>
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<html>
-  # 1|    <body>
-  # 2|        <hr/>
-  # 3|    </body>
-  # 4|</html>
-  #  +-------------
-  #   0123456789012
-  #             1
   selections:
-    - anchor: {line: 4, character: 7}
-      active: {line: 4, character: 7}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
-    default.b:
-      start: {line: 3, character: 6}
-      end: {line: 3, character: 10}
+    default.e:
+      start: {line: 0, character: 11}
+      end: {line: 0, character: 16}
 finalState:
   documentContents: |-
-    <html>
-        <body>
-            <hr/>
-        body
+    <html id="hello">
     </html>
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<html>
-  # 1|    <body>
-  # 2|        <hr/>
-  # 3|    body
-  # 4|</html>
-  #  +-------------
-  #   0123456789012
-  #             1
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-    - anchor: {line: 3, character: 8}
-      active: {line: 3, character: 8}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}

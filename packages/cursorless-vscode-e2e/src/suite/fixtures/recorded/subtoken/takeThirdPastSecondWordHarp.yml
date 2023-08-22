@@ -1,44 +1,22 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: take third past second word harp
-  action: setSelection
-  targets:
-    - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: word, anchor: 2, active: 1}
-      mark: {type: decoratedSymbol, symbolColor: default, character: h}
+  version: 6
+  spokenForm: change inside
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: |+
-
-    const value = "HelloWorldWhatever";
-
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|
-  # 1|const value = "HelloWorldWhatever";
-  # 2|
-  # 3|
+  documentContents: (foo)
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.h:
-      start: {line: 1, character: 15}
-      end: {line: 1, character: 33}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
 finalState:
-  documentContents: |+
-
-    const value = "HelloWorldWhatever";
-
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|
-  # 1|const value = "HelloWorldWhatever";
-  # 2|
-  # 3|
+  documentContents: ()
   selections:
-    - anchor: {line: 1, character: 33}
-      active: {line: 1, character: 20}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

@@ -12,12 +12,6 @@ initialState:
     ñ
     ñ
     n
-  #   012
-  #  +---
-  # 0|ñ
-  # 1|ñ
-  # 2|n
-  # 3|
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
@@ -30,12 +24,6 @@ finalState:
     ñ
     ñ
 
-  #   012
-  #  +---
-  # 0|ñ
-  # 1|ñ
-  # 2|
-  # 3|
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

@@ -1,29 +1,23 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: change curly
+  spokenForm: change pair blue double quote
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: curlyBrackets}
+      modifier: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: '"'}
 initialState:
-  documentContents: |-
-    {
-        hello
-    }
-  #   012345678
-  #  +---------
-  # 0|{
-  # 1|    hello
-  # 2|}
+  documentContents: "\"\""
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
-  marks: {}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks:
+    blue.":
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 1}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

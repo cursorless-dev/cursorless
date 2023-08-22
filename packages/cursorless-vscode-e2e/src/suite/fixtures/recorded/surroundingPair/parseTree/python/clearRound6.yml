@@ -1,25 +1,21 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change round
+  spokenForm: change inside box
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: parentheses}
+      modifier: {type: surroundingPair, delimiter: squareBrackets, delimiterInclusion: interiorOnly}
 initialState:
-  documentContents: "\"(hello)\""
-  #   012345678
-  #  +---------
-  # 0|"(hello)"
+  documentContents: |
+    a[222]
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
   marks: {}
 finalState:
-  documentContents: "\"\""
-  #   01
-  #  +--
-  # 0|""
+  documentContents: |
+    a[]
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

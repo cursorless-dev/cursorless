@@ -9,51 +9,19 @@ command:
 initialState:
   documentContents: |
 
-    public class MyClass {
-        public MyClass (String name, int value) {
-
-        }
-    }
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234
-  #  +---------------------------------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|    public MyClass (String name, int value) {
-  # 3|
-  # 4|    }
-  # 5|}
-  # 6|
-  #  +---------------------------------------------
-  #   012345678901234567890123456789012345678901234
-  #             1         2         3         4
+    myFunk(1, 2, 3);
   selections:
-    - anchor: {line: 2, character: 20}
-      active: {line: 2, character: 20}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
   marks: {}
 finalState:
   documentContents: |
 
-    public class MyClass {
-        public MyClass (String name, int value) {
-
-        }
-    }
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234
-  #  +---------------------------------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|    public MyClass (String name, int value) {
-  # 3|
-  # 4|    }
-  # 5|}
-  # 6|
-  #  +---------------------------------------------
-  #   012345678901234567890123456789012345678901234
-  #             1         2         3         4
+    myFunk(1, 2, 3);
   selections:
-    - anchor: {line: 2, character: 20}
-      active: {line: 2, character: 31}
-    - anchor: {line: 2, character: 33}
-      active: {line: 2, character: 42}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 8}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 14}

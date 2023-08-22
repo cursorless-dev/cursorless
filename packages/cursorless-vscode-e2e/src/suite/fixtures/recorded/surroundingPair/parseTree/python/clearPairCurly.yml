@@ -1,29 +1,24 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change bounds curly
+  spokenForm: change quad
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: curlyBrackets, delimiterInclusion: excludeInterior}
+      modifier: {type: surroundingPair, delimiter: doubleQuotes}
 initialState:
-  documentContents: "{1: [(1), (2), (3)]}"
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|{1: [(1), (2), (3)]}
+  documentContents: |-
+    """
+    {
+        hello
+    }
+    """
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
   marks: {}
 finalState:
-  documentContents: "1: [(1), (2), (3)]"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|1: [(1), (2), (3)]
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}

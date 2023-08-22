@@ -1,45 +1,23 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take if state
+  spokenForm: take item
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: ifStatement}
+      modifier: {type: containingScope, scopeType: collectionItem}
 initialState:
   documentContents: |
 
-    if () {
-
-    }
-  #   0123456
-  #  +-------
-  # 0|
-  # 1|if () {
-  # 2|
-  # 3|}
-  # 4|
-  #  +-------
-  #   0123456
+    int[] values = {1, 2, 3};
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
   marks: {}
 finalState:
   documentContents: |
 
-    if () {
-
-    }
-  #   0123456
-  #  +-------
-  # 0|
-  # 1|if () {
-  # 2|
-  # 3|}
-  # 4|
-  #  +-------
-  #   0123456
+    int[] values = {1, 2, 3};
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 3, character: 1}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}

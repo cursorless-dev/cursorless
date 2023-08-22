@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change item near
+  spokenForm: change item one
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
@@ -13,26 +13,16 @@ command:
 initialState:
   documentContents: |
     let x = [None, Some(1)];
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|let x = [None, Some(1)];
-  # 1|
   selections:
     - anchor: {line: 0, character: 24}
       active: {line: 0, character: 24}
   marks:
-    default.n:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 13}
+    default.1:
+      start: {line: 0, character: 20}
+      end: {line: 0, character: 21}
 finalState:
   documentContents: |
-    let x = [, Some(1)];
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|let x = [, Some(1)];
-  # 1|
+    let x = [None, ];
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}

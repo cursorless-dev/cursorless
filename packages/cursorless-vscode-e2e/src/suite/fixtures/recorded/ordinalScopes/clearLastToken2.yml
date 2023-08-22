@@ -1,32 +1,44 @@
-languageId: plaintext
+languageId: typescript
 command:
-  spokenForm: change last token
-  version: 3
+  spokenForm: bring arg made and gust to end of just this
+  version: 2
   targets:
+    - type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: m}
+          modifiers:
+            - type: containingScope
+              scopeType: {type: argumentOrParameter}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: g}
     - type: primitive
+      mark: {type: cursor}
       modifiers:
-        - type: ordinalScope
-          scopeType: {type: token}
-          start: -1
-          length: 1
+        - {type: position, position: end}
+        - {type: toRawSelection}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+  action: {name: replaceWithTarget}
 initialState:
-  documentContents: aaa bbb ccc ddd
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|aaa bbb ccc ddd
+  documentContents: |-
+    function whatever(name: string, age: number, inclose: boolean) {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 8}
-  marks: {}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    default.m:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 22}
+    default.g:
+      start: {line: 0, character: 32}
+      end: {line: 0, character: 35}
 finalState:
-  documentContents: aaa  ccc ddd
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|aaa  ccc ddd
+  documentContents: |-
+    function whatever(name: string, age: number, inclose: boolean) {
+        name: string, age: number
+    }
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 1, character: 29}
+      active: {line: 1, character: 29}

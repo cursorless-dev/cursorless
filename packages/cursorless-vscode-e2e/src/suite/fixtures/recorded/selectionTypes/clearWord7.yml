@@ -1,28 +1,25 @@
-languageId: plaintext
+languageId: python
+postCommandSleepTimeMs: 400
 command:
-  spokenForm: change word
-  version: 3
+  version: 1
+  spokenForm: drink cell
+  action: editNewLineBefore
   targets:
-    - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: word}
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+    - {type: primitive, selectionType: notebookCell}
 initialState:
-  documentContents: aaaBbbCcc
-  #   012345678
-  #  +---------
-  # 0|aaaBbbCcc
+  documentContents: |-
+    # %%
+    print("hello")
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   marks: {}
 finalState:
-  documentContents: aaaBbb
-  #   012345
-  #  +------
-  # 0|aaaBbb
+  documentContents: |-
+    # %%
+
+    # %%
+    print("hello")
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

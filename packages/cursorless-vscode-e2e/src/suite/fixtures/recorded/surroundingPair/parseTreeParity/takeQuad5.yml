@@ -1,23 +1,18 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change quad
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
-  documentContents: "\"hello\""
-  #   0123456
-  #  +-------
-  # 0|"hello"
+  documentContents: ()
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

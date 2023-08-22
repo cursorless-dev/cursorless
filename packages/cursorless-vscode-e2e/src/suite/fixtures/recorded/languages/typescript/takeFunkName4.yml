@@ -9,20 +9,9 @@ command:
 initialState:
   documentContents: |
 
-    let foo = function() {
+    foo = function() {
 
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|let foo = function() {
-  # 2|
-  # 3|}
-  # 4|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
@@ -30,20 +19,9 @@ initialState:
 finalState:
   documentContents: |
 
-    let foo = function() {
+    foo = function() {
 
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|let foo = function() {
-  # 2|
-  # 3|}
-  # 4|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 7}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 3}

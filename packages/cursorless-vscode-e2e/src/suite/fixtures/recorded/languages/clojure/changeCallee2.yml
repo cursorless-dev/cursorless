@@ -8,20 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: (defn messenger ([]     (messenger "Hello world!")))
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901
-  #  +----------------------------------------------------
-  # 0|(defn messenger ([]     (messenger "Hello world!")))
   selections:
     - anchor: {line: 0, character: 43}
       active: {line: 0, character: 43}
   marks: {}
 finalState:
   documentContents: (defn messenger ([]     ( "Hello world!")))
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0|(defn messenger ([]     ( "Hello world!")))
   selections:
     - anchor: {line: 0, character: 25}
       active: {line: 0, character: 25}

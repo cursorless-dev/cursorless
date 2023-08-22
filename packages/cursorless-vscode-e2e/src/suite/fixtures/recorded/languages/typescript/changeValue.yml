@@ -1,37 +1,26 @@
-languageId: typescript
+languageId: typescriptreact
 command:
-  version: 1
-  spokenForm: change value
-  action: clearAndSetSelection
+  spokenForm: chuck inside element
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: xmlElement}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
   documentContents: |-
-    function* generator(i) {
-      yield i + 10;
-    }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|function* generator(i) {
-  # 1|  yield i + 10;
-  # 2|}
+    <div>
+        aaa
+    </div>
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: |-
-    function* generator(i) {
-      yield ;
-    }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|function* generator(i) {
-  # 1|  yield ;
-  # 2|}
+  documentContents: <div></div>
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

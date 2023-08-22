@@ -1,33 +1,28 @@
 languageId: javascript
 command:
-  spokenForm: change inside whale
-  version: 2
+  version: 5
+  spokenForm: change funk
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
-      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+        - type: containingScope
+          scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: "'(hello world) testing'"
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|'(hello world) testing'
+  documentContents: |-
+    class Aaa {
+        bbb = () => {};
+    }
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
-  marks:
-    default.w:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 13}
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}
+  marks: {}
 finalState:
-  documentContents: "'() testing'"
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|'() testing'
+  documentContents: |-
+    class Aaa {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

@@ -8,48 +8,21 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    try:
-      pass
-    except* ValueError as eg:
+    while True:
       pass
     else:
       pass
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|try:
-  # 1|  pass
-  # 2|except* ValueError as eg:
-  # 3|  pass
-  # 4|else:
-  # 5|  pass
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
   marks: {}
 finalState:
   documentContents: |
-    try:
+    while True:
       pass
-    except* ValueError as eg:
-      pass
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|try:
-  # 1|  pass
-  # 2|except* ValueError as eg:
-  # 3|  pass
-  # 4|
-  #  +-------------------------
-  #   0123456789012345678901234
-  #             1         2
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

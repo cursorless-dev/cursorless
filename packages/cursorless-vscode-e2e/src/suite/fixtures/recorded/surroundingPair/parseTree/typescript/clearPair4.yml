@@ -8,20 +8,12 @@ command:
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
   documentContents: "const {hello} = {hello: \"world\"}"
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|const {hello} = {hello: "world"}
   selections:
-    - anchor: {line: 0, character: 23}
-      active: {line: 0, character: 23}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: "const {hello} = "
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|const {hello} = 
+  documentContents: "const  = {hello: \"world\"}"
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

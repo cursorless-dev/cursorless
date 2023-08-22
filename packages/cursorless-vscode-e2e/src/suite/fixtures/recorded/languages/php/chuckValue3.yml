@@ -10,13 +10,7 @@ initialState:
   documentContents: |-
     <?php
 
-    $value += 42;
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|<?php
-  # 1|
-  # 2|$value += 42;
+    return $value;
   selections:
     - anchor: {line: 2, character: 3}
       active: {line: 2, character: 3}
@@ -25,12 +19,7 @@ finalState:
   documentContents: |-
     <?php
 
-    $value;
-  #   0123456
-  #  +-------
-  # 0|<?php
-  # 1|
-  # 2|$value;
+    return;
   selections:
     - anchor: {line: 2, character: 3}
       active: {line: 2, character: 3}

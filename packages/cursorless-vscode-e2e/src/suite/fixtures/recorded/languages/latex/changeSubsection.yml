@@ -1,42 +1,25 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change subsection
+  spokenForm: change subsubsection
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: subSection, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: subSubSection, includeSiblings: false}
 initialState:
-  documentContents: |
-    \subsection{1}
-    \subsubsection{child}
+  documentContents: |-
+    \subsubsection{1}
+    \paragraph{child}
     some text
-    \subsection{2}
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|\subsection{1}
-  # 1|\subsubsection{child}
-  # 2|some text
-  # 3|\subsection{2}
-  # 4|
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
+    \subsubsection{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
 
-    \subsection{2}
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|
-  # 1|\subsection{2}
-  # 2|
+    \subsubsection{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

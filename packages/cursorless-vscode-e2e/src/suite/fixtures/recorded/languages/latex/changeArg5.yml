@@ -1,27 +1,21 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change arg
+  spokenForm: change call
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
 initialState:
-  documentContents: \usepackage[utf8]{inputenc}
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|\usepackage[utf8]{inputenc}
+  documentContents: |
+    \href{https://some.url}{some text} \LaTeX
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: \usepackage[utf8]{}
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|\usepackage[utf8]{}
+  documentContents: |2
+     \LaTeX
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

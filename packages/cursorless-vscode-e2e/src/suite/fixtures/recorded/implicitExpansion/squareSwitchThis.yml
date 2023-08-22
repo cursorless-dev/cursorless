@@ -11,18 +11,12 @@ command:
     args: ['[', ']']
 initialState:
   documentContents: (aaa bbb)
-  #   012345678
-  #  +---------
-  # 0|(aaa bbb)
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
   documentContents: "[aaa bbb]"
-  #   012345678
-  #  +---------
-  # 0|[aaa bbb]
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

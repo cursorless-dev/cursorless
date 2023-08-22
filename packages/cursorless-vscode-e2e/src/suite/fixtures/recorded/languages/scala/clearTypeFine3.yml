@@ -1,35 +1,25 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: change type fine
+  spokenForm: change type look
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
 initialState:
   documentContents: |
-    class TypesAhoy(foo: String) {}
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|class TypesAhoy(foo: String) {}
-  # 1|
+    class TypesAhoy(foo: List[String]) {}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.f:
-      start: {line: 0, character: 16}
-      end: {line: 0, character: 19}
+    default.l:
+      start: {line: 0, character: 21}
+      end: {line: 0, character: 25}
 finalState:
   documentContents: |
     class TypesAhoy(foo: ) {}
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|class TypesAhoy(foo: ) {}
-  # 1|
   selections:
     - anchor: {line: 0, character: 21}
       active: {line: 0, character: 21}

@@ -7,43 +7,25 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: namedFunction}
 initialState:
-  documentContents: |
+  documentContents: |-
 
-    function foo () {
+    class Bar {
+        foo () {
 
+        }
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|
-  # 1|function foo () {
-  # 2|
-  # 3|}
-  # 4|
-  #  +-----------------
-  #   01234567890123456
-  #             1
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
 
-    function foo () {
+    class Bar {
+        foo () {
 
+        }
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|
-  # 1|function foo () {
-  # 2|
-  # 3|}
-  # 4|
-  #  +-----------------
-  #   01234567890123456
-  #             1
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 3, character: 1}
+    - anchor: {line: 2, character: 4}
+      active: {line: 4, character: 5}

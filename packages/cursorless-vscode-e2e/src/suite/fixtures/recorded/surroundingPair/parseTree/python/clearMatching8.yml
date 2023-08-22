@@ -1,34 +1,19 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change inside
+  spokenForm: change pair
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: interiorOnly}
+      modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: |
-    def fff(x, y):
-        pass
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|def fff(x, y):
-  # 1|    pass
-  # 2|
+  documentContents: f"Hello, {name + 's'}!"
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks: {}
 finalState:
-  documentContents: |
-    def fff():
-        pass
-  #   0123456789
-  #  +----------
-  # 0|def fff():
-  # 1|    pass
-  # 2|
+  documentContents: f"Hello, {name + }!"
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

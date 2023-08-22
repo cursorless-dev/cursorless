@@ -7,20 +7,13 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: (<hello></ hello > )
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|(<hello></ hello > )
+  documentContents: (<hello/>)
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: (<hello> )
-  #   0123456789
-  #  +----------
-  # 0|(<hello> )
+  documentContents: ()
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

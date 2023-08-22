@@ -11,29 +11,15 @@ initialState:
     @function invert($amount: 100%, $color) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901234567
-  #  +----------------------------------------------------------
-  # 0|@function invert($amount: 100%, $color) {
-  # 1|  $inverse: change-color($color, $hue: hue($color) + 180);
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 36}
-      active: {line: 0, character: 36}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
   marks: {}
 finalState:
   documentContents: |
-    @function invert($amount: 100%) {
+    @function invert($color) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901234567
-  #  +----------------------------------------------------------
-  # 0|@function invert($amount: 100%) {
-  # 1|  $inverse: change-color($color, $hue: hue($color) + 180);
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 30}
-      active: {line: 0, character: 30}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

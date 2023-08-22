@@ -13,10 +13,6 @@ command:
     args: [functionDeclaration.body]
 initialState:
   documentContents: const whatever = "hello";
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|const whatever = "hello";
   selections:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}
@@ -26,12 +22,6 @@ finalState:
     const whatever = "function () {
         hello
     }";
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|const whatever = "function () {
-  # 1|    hello
-  # 2|}";
   selections:
     - anchor: {line: 0, character: 27}
       active: {line: 0, character: 27}

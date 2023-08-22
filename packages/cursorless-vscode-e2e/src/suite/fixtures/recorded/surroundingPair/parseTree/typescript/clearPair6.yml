@@ -7,21 +7,13 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: "const {hello} = {hello: \"world\"}"
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|const {hello} = {hello: "world"}
+  documentContents: function hello<Foo>() {}
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}
   marks: {}
 finalState:
-  documentContents: "const  = {hello: \"world\"}"
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|const  = {hello: "world"}
+  documentContents: function hello() {}
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

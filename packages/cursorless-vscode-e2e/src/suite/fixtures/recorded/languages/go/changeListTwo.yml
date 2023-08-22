@@ -13,10 +13,6 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: "_ = T{{2: \"a\"}}"
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|_ = T{{2: "a"}}
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
@@ -26,9 +22,6 @@ initialState:
       end: {line: 0, character: 8}
 finalState:
   documentContents: "_ = "
-  #   0123
-  #  +----
-  # 0|_ = 
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

@@ -11,12 +11,6 @@ initialState:
     int main() {
         f(1 + 2, 3 + 4);
     }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|int main() {
-  # 1|    f(1 + 2, 3 + 4);
-  # 2|}
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -26,12 +20,6 @@ finalState:
     int main() {
         f(1 + 2, 3 + 4);
     }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|int main() {
-  # 1|    f(1 + 2, 3 + 4);
-  # 2|}
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 11}

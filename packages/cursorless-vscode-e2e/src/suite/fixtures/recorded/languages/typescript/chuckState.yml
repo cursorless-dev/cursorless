@@ -11,34 +11,18 @@ command:
   action: {name: remove}
 initialState:
   documentContents: |-
-    interface Foo {
-      bar: Bar;
-      baz: Baz;
+    class Foo {
+        private value: string;
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|interface Foo {
-  # 1|  bar: Bar;
-  # 2|  baz: Baz;
-  # 3|}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    interface Foo {
+    class Foo {
 
-      baz: Baz;
     }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|interface Foo {
-  # 1|
-  # 2|  baz: Baz;
-  # 3|}
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

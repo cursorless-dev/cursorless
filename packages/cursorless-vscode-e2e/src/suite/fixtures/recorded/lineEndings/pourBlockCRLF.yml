@@ -1,32 +1,22 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: pour block
+  spokenForm: pour item
   action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: paragraph}
+          scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "\r\n    foo"
-  #   0123456
-  #  +-------
-  # 0|
-  # 1|    foo
+  documentContents: "[\r\n    111,\r\n    222\r\n]"
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
 finalState:
-  documentContents: "\r\n    foo\r\n\r\n    "
-  #   01234567
-  #  +--------
-  # 0|
-  # 1|    foo
-  # 2|
-  # 3|    
+  documentContents: "[\r\n    111,\r\n    ,\r\n    222\r\n]"
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

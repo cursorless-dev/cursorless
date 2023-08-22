@@ -13,17 +13,6 @@ initialState:
             ;
         }
     }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|void f() {
-  # 1|    while (true) {
-  # 2|        ;
-  # 3|    }
-  # 4|}
-  #  +------------------
-  #   012345678901234567
-  #             1
   selections:
     - anchor: {line: 1, character: 7}
       active: {line: 1, character: 7}
@@ -35,17 +24,6 @@ finalState:
             ;
         }
     }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|void f() {
-  # 1|    while (true) {
-  # 2|        ;
-  # 3|    }
-  # 4|}
-  #  +------------------
-  #   012345678901234567
-  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 3, character: 5}

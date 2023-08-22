@@ -10,10 +10,6 @@ command:
 initialState:
   documentContents: |2
         there
-  #   012345678
-  #  +---------
-  # 0|    there
-  # 1|
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
@@ -23,12 +19,6 @@ finalState:
 
         there
 
-  #   012345678
-  #  +---------
-  # 0|
-  # 1|    there
-  # 2|
-  # 3|
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}

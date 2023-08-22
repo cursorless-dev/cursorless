@@ -1,46 +1,24 @@
 languageId: rust
 command:
-  spokenForm: chuck name jury
+  spokenForm: chuck state
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: j}
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: {type: statement}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
   documentContents: |
-    match user {
-        User { first_name: "John", last_name: last_name } => {}
-    }
-  #             1         2         3         4         5
-  #   01234567890123456789012345678901234567890123456789012345678
-  #  +-----------------------------------------------------------
-  # 0|match user {
-  # 1|    User { first_name: "John", last_name: last_name } => {}
-  # 2|}
-  # 3|
+    let x = vec![1, 2, 3];
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
-  marks:
-    default.j:
-      start: {line: 1, character: 24}
-      end: {line: 1, character: 28}
+  marks: {}
 finalState:
-  documentContents: |
-    match user {
-        User { "John", last_name: last_name } => {}
-    }
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890123456
-  #  +-----------------------------------------------
-  # 0|match user {
-  # 1|    User { "John", last_name: last_name } => {}
-  # 2|}
-  # 3|
+  documentContents: |+
+
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

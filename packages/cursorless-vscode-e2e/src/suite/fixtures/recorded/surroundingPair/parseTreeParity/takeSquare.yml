@@ -1,23 +1,21 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: change box
-  action: clearAndSetSelection
+  spokenForm: take inside
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: squareBrackets}
+      modifiers:
+        - {type: interiorOnly}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
 initialState:
-  documentContents: "[(hello)]"
-  #   012345678
-  #  +---------
-  # 0|[(hello)]
+  documentContents: ( hello )
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: ( hello )
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 7}

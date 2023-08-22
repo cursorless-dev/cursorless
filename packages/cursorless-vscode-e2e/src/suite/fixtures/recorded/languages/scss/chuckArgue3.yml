@@ -8,32 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |
-    @function invert($amount: 100%, $color) {
+    @function invert($color, $amount: 100%) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901234567
-  #  +----------------------------------------------------------
-  # 0|@function invert($amount: 100%, $color) {
-  # 1|  $inverse: change-color($color, $hue: hue($color) + 180);
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks: {}
 finalState:
   documentContents: |
-    @function invert($color) {
+    @function invert($amount: 100%) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901234567
-  #  +----------------------------------------------------------
-  # 0|@function invert($color) {
-  # 1|  $inverse: change-color($color, $hue: hue($color) + 180);
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 17}
       active: {line: 0, character: 17}

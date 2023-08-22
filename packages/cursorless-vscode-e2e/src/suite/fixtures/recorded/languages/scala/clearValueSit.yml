@@ -1,43 +1,27 @@
-languageId: scala
+languageId: scss
 command:
   version: 1
-  spokenForm: change value sit
+  spokenForm: change arg
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |
-    class Example() {
-      val bling = "blang"
+  documentContents: |-
+
+    .double {
+      transform: translate(-50%, -50%);
     }
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|class Example() {
-  # 1|  val bling = "blang"
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.i:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
+  marks: {}
 finalState:
-  documentContents: |
-    class Example() {
-      val bling = 
+  documentContents: |-
+
+    .double {
+      transform: translate(, -50%);
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|class Example() {
-  # 1|  val bling = 
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 2, character: 23}
+      active: {line: 2, character: 23}

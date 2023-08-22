@@ -1,49 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take name
+  spokenForm: take regex
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name}
+      modifier: {type: containingScope, scopeType: regularExpression}
 initialState:
   documentContents: |
 
-    function myFunk (name: string) {
-
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|
-  # 1|function myFunk (name: string) {
-  # 2|
-  # 3|}
-  # 4|
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
+    const value = /\w.+$/
   selections:
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 22}
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
   marks: {}
 finalState:
   documentContents: |
 
-    function myFunk (name: string) {
-
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|
-  # 1|function myFunk (name: string) {
-  # 2|
-  # 3|}
-  # 4|
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
+    const value = /\w.+$/
   selections:
-    - anchor: {line: 1, character: 17}
+    - anchor: {line: 1, character: 14}
       active: {line: 1, character: 21}

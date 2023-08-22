@@ -1,30 +1,25 @@
 languageId: ruby
 command:
-  version: 1
   spokenForm: change funk
-  action: clearAndSetSelection
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    def hello_world
-        puts "hi"
+    def self.hello_world
+      puts "hi"
     end
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|def hello_world
-  # 1|    puts "hi"
-  # 2|end
   selections:
-    - anchor: {line: 1, character: 3}
-      active: {line: 1, character: 3}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

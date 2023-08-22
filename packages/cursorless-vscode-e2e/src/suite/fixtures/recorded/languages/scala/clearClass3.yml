@@ -7,24 +7,13 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: class, includeSiblings: false}
 initialState:
-  documentContents: |-
-    trait Greeter {
-      def greet(name: String): Unit
-    }
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|trait Greeter {
-  # 1|  def greet(name: String): Unit
-  # 2|}
+  documentContents: case class Example()
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

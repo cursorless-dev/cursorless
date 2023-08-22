@@ -1,43 +1,43 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change two instances bat
+  spokenForm: change two instances blue air past bat
   action: {name: clearAndSetSelection}
   targets:
-    - type: primitive
-      modifiers:
-        - type: relativeScope
-          scopeType: {type: instance}
-          offset: 0
-          length: 2
-          direction: forward
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: relativeScope
+            scopeType: {type: instance}
+            offset: 0
+            length: 2
+            direction: forward
+        mark: {type: decoratedSymbol, symbolColor: blue, character: a}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
     aaa bbb ccc aaa bbbb aaa bbb
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|aaa bbb ccc aaa bbbb aaa bbb
-  # 1|
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
+    blue.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
     default.b:
       start: {line: 0, character: 4}
       end: {line: 0, character: 7}
 finalState:
-  documentContents: |
-    aaa  ccc aaa bbbb aaa 
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|aaa  ccc aaa bbbb aaa 
-  # 1|
+  documentContents: |2
+     ccc aaa bbbb 
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

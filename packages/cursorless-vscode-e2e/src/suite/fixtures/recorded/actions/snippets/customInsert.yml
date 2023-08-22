@@ -12,18 +12,12 @@ command:
 spokenFormError: Custom insertion snippet
 initialState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: "dummy snippet hole1: (), hole2: ()"
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|dummy snippet hole1: (), hole2: ()
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}

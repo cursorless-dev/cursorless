@@ -1,69 +1,19 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: change every tags
+  spokenForm: change key
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlBothTags, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}
 initialState:
-  documentContents: |-
-    <note>
-        <to>Tove</to>
-        <from>Jani</from>
-        <heading>Reminder</heading>
-        <body>Don't forget me this weekend!</body>
-    </note>
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012345
-  #  +----------------------------------------------
-  # 0|<note>
-  # 1|    <to>Tove</to>
-  # 2|    <from>Jani</from>
-  # 3|    <heading>Reminder</heading>
-  # 4|    <body>Don't forget me this weekend!</body>
-  # 5|</note>
-  #  +----------------------------------------------
-  #   0123456789012345678901234567890123456789012345
-  #             1         2         3         4
+  documentContents: <note bar="back">foo</note>
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks: {}
 finalState:
-  documentContents: |-
-    <note>
-        Tove
-        Jani
-        Reminder
-        Don't forget me this weekend!
-    </note>
-  #             1         2         3
-  #   012345678901234567890123456789012
-  #  +---------------------------------
-  # 0|<note>
-  # 1|    Tove
-  # 2|    Jani
-  # 3|    Reminder
-  # 4|    Don't forget me this weekend!
-  # 5|</note>
-  #  +---------------------------------
-  #   012345678901234567890123456789012
-  #             1         2         3
+  documentContents: <note ="back">foo</note>
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-    - anchor: {line: 3, character: 12}
-      active: {line: 3, character: 12}
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 4}
-    - anchor: {line: 4, character: 33}
-      active: {line: 4, character: 33}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

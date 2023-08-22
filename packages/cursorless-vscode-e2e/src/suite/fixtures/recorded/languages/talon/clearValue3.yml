@@ -10,30 +10,19 @@ command:
           scopeType: {type: value}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    slap:
-        key(end)
-        key(enter)
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|slap:
-  # 1|    key(end)
-  # 2|    key(enter)
-  # 3|
-  selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks: {}
-finalState:
-  documentContents: |
-    slap:
-        
-  #   01234
-  #  +-----
-  # 0|slap:
-  # 1|    
-  # 2|
+  documentContents: |-
+    settings():
+        speech.debug = 1
+        speech.timeout = 0.4
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    settings():
+        speech.debug = 
+        speech.timeout = 0.4
+  selections:
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}

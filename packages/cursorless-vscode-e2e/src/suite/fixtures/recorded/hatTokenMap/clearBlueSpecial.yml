@@ -10,11 +10,6 @@ command:
 initialState:
   documentContents: |
     😄🙃🙁
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|😄🙃🙁
-  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -25,10 +20,6 @@ initialState:
 finalState:
   documentContents: |
     😄🙁
-  #   01234567
-  #  +--------
-  # 0|😄🙁
-  # 1|
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

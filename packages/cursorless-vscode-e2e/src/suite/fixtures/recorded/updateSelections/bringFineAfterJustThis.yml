@@ -1,39 +1,25 @@
 languageId: plaintext
 command:
-  version: 6
-  spokenForm: bring fine after just this
-  action:
-    name: replaceWithTarget
-    source:
-      type: primitive
+  version: 1
+  spokenForm: bring fine after this
+  action: replaceWithTarget
+  targets:
+    - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    destination:
-      type: primitive
-      insertionMode: after
-      target:
-        type: primitive
-        modifiers:
-          - {type: toRawSelection}
-        mark: {type: cursor}
-  usePrePhraseSnapshot: true
+    - type: primitive
+      mark: {type: cursor}
+      position: after
 initialState:
   documentContents: foo world
-  #   012345678
-  #  +---------
-  # 0|foo world
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks:
     default.f:
       start: {line: 0, character: 0}
       end: {line: 0, character: 3}
 finalState:
-  documentContents: foo fooworld
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|foo fooworld
+  documentContents: foo world foo
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

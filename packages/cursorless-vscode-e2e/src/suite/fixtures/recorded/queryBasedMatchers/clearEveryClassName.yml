@@ -1,38 +1,38 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: change every class name
+  spokenForm: change every funk
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: className}
+          scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    class Aaa; end
-    class Bbb; end
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|class Aaa; end
-  # 1|class Bbb; end
+    class Sample
+        def function
+           statement
+        end
+
+        def function
+           statement
+        end
+     end
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 8, character: 4}
+      active: {line: 8, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    class ; end
-    class ; end
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class ; end
-  # 1|class ; end
+    class Sample
+        
+
+        
+     end
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

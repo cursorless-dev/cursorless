@@ -11,18 +11,12 @@ command:
 spokenFormError: Named insertion snippet 'duplicatedVariableTest'
 initialState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: "This variable: '' is duplicated here: '', but '' is unique!"
-  #             1         2         3         4         5
-  #   01234567890123456789012345678901234567890123456789012345678
-  #  +-----------------------------------------------------------
-  # 0|This variable: '' is duplicated here: '', but '' is unique!
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}

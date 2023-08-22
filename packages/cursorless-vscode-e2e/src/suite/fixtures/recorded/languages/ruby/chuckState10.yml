@@ -10,18 +10,11 @@ initialState:
   documentContents: |-
     begin
       a = 10
+    else
+      a = 10
     ensure 
       a = 10
     end
-  #   01234567
-  #  +--------
-  # 0|begin
-  # 1|  a = 10
-  # 2|ensure 
-  # 3|  a = 10
-  # 4|end
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 3, character: 6}
       active: {line: 3, character: 6}
@@ -30,18 +23,11 @@ finalState:
   documentContents: |-
     begin
       a = 10
-    ensure 
+    else
 
+    ensure 
+      a = 10
     end
-  #   01234567
-  #  +--------
-  # 0|begin
-  # 1|  a = 10
-  # 2|ensure 
-  # 3|
-  # 4|end
-  #  +--------
-  #   01234567
   selections:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}

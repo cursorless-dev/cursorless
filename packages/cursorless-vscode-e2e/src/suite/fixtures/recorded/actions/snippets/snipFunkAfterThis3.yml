@@ -16,12 +16,6 @@ initialState:
     function helloWorld() {
         const whatever = "hello";
     }
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|function helloWorld() {
-  # 1|    const whatever = "hello";
-  # 2|}
   selections:
     - anchor: {line: 1, character: 19}
       active: {line: 1, character: 19}
@@ -35,19 +29,6 @@ finalState:
     function () {
         
     }
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|function helloWorld() {
-  # 1|    const whatever = "hello";
-  # 2|}
-  # 3|
-  # 4|function () {
-  # 5|    
-  # 6|}
-  #  +-----------------------------
-  #   01234567890123456789012345678
-  #             1         2
   selections:
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}

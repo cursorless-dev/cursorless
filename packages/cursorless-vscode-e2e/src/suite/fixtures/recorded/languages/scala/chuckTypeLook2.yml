@@ -10,34 +10,20 @@ command:
 initialState:
   documentContents: |
     class TypesAhoy() {
-      def example(foo: List[String]): List[String] = foo
+      val foo: List[String] = List("foo")
     }
-  #             1         2         3         4         5
-  #   0123456789012345678901234567890123456789012345678901
-  #  +----------------------------------------------------
-  # 0|class TypesAhoy() {
-  # 1|  def example(foo: List[String]): List[String] = foo
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.l:
-      start: {line: 1, character: 19}
-      end: {line: 1, character: 23}
+      start: {line: 1, character: 11}
+      end: {line: 1, character: 15}
 finalState:
   documentContents: |
     class TypesAhoy() {
-      def example(foo): List[String] = foo
+      val foo = List("foo")
     }
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|class TypesAhoy() {
-  # 1|  def example(foo): List[String] = foo
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

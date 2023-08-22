@@ -11,20 +11,12 @@ command:
   action: {name: sortTargets}
 initialState:
   documentContents: 90, 11, 9, 3
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|90, 11, 9, 3
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: 3, 9, 11, 90
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|3, 9, 11, 90
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

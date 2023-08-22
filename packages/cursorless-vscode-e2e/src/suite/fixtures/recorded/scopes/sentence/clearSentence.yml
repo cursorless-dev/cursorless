@@ -10,20 +10,22 @@ command:
           scopeType: {type: sentence}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: " Foo foo. Bar bar!"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0| Foo foo. Bar bar!
+  documentContents: |-
+    /** 
+     * Definitely the worlds
+     * best jsdoc
+     */
+    const value = 2
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
   marks: {}
 finalState:
-  documentContents: "  Bar bar!"
-  #   0123456789
-  #  +----------
-  # 0|  Bar bar!
+  documentContents: |-
+    /** 
+     * 
+     */
+    const value = 2
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}

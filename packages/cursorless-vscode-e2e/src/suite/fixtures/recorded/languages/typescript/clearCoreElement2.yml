@@ -1,7 +1,8 @@
-languageId: typescriptreact
+languageId: javascriptreact
 command:
+  version: 5
   spokenForm: change inside element
-  version: 2
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
@@ -9,31 +10,20 @@ command:
         - type: containingScope
           scopeType: {type: xmlElement}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    <div>
-        aaa
-    </div>
-  #   0123456
-  #  +-------
-  # 0|<div>
-  # 1|    aaa
-  # 2|</div>
+    function Comp() {
+        return <>text</>;
+    }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   marks: {}
 finalState:
   documentContents: |-
-    <div>
-        
-    </div>
-  #   012345
-  #  +------
-  # 0|<div>
-  # 1|    
-  # 2|</div>
+    function Comp() {
+        return <></>;
+    }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}

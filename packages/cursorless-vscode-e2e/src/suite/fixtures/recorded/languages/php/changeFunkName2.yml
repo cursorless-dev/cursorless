@@ -1,73 +1,26 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change funk name
+  spokenForm: change if state
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    class MyClass
-    {
-        public function helloWorld()
-        {
-
-        }
+    if (true) {
+        return;
     }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|<?php
-  # 1|
-  # 2|class MyClass
-  # 3|{
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 4|    public function helloWorld()
-  # 5|    {
-  # 6|
-  # 7|    }
-  # 8|}
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
   selections:
-    - anchor: {line: 6, character: 0}
-      active: {line: 6, character: 0}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |+
     <?php
 
-    class MyClass
-    {
-        public function ()
-        {
-
-        }
-    }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|<?php
-  # 1|
-  # 2|class MyClass
-  # 3|{
-  #  +----------------------
-  #   0123456789012345678901
-  #  +----------------------
-  # 4|    public function ()
-  # 5|    {
-  # 6|
-  # 7|    }
-  # 8|}
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
-    - anchor: {line: 4, character: 20}
-      active: {line: 4, character: 20}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

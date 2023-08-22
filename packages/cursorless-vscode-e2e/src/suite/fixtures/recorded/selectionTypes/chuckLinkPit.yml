@@ -1,34 +1,25 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck link pit
+  spokenForm: chuck paint bat
   action: remove
   targets:
     - type: primitive
-      selectionType: url
-      mark: {type: decoratedSymbol, symbolColor: default, character: p}
+      selectionType: nonWhitespaceSequence
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
 initialState:
   documentContents: |
-    (https://www.atomiccommits.io/consistent-hashing#code)
-  #             1         2         3         4         5
-  #   012345678901234567890123456789012345678901234567890123
-  #  +------------------------------------------------------
-  # 0|(https://www.atomiccommits.io/consistent-hashing#code)
-  # 1|
+    const r = /a[b]*(c)/;
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   marks:
-    default.p:
-      start: {line: 0, character: 1}
-      end: {line: 0, character: 6}
+    default.b:
+      start: {line: 0, character: 13}
+      end: {line: 0, character: 14}
 finalState:
   documentContents: |
-    ()
-  #   01
-  #  +--
-  # 0|()
-  # 1|
+    const r =
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

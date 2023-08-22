@@ -15,12 +15,6 @@ initialState:
     b
     c
     d
-  #   0
-  #  +-
-  # 0|a
-  # 1|b
-  # 2|c
-  # 3|d
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 2, character: 1}
@@ -31,12 +25,6 @@ finalState:
 
 
     d
-  #   0
-  #  +-
-  # 0|a
-  # 1|
-  # 2|
-  # 3|d
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

@@ -1,43 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: chuck value red
+  spokenForm: chuck value sit
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: r}
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
 initialState:
   documentContents: |
     class Example() {
-      val bar = "bar" + "smang"
+      val bling = "blang"
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|class Example() {
-  # 1|  val bar = "bar" + "smang"
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.r:
-      start: {line: 1, character: 13}
-      end: {line: 1, character: 16}
+    default.i:
+      start: {line: 1, character: 6}
+      end: {line: 1, character: 11}
 finalState:
   documentContents: |
     class Example() {
-      val bar
+      val bling
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|class Example() {
-  # 1|  val bar
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

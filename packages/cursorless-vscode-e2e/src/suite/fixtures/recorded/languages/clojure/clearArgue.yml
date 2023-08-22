@@ -8,18 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: (foo :bar)
-  #   0123456789
-  #  +----------
-  # 0|(foo :bar)
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: (foo )
-  #   012345
-  #  +------
-  # 0|(foo )
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}

@@ -1,32 +1,22 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: pre every instance every char air past bat
+  spokenForm: pre every instance first char air
   action: {name: setSelectionBefore}
   targets:
-    - type: range
-      anchor:
-        type: primitive
-        modifiers:
-          - type: everyScope
-            scopeType: {type: instance}
-          - type: everyScope
-            scopeType: {type: character}
-        mark: {type: decoratedSymbol, symbolColor: default, character: a}
-      active:
-        type: primitive
-        mark: {type: decoratedSymbol, symbolColor: default, character: b}
-      excludeAnchor: false
-      excludeActive: false
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: instance}
+        - type: ordinalScope
+          scopeType: {type: character}
+          start: 0
+          length: 1
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
     aaa bbb ccc aaa bbb
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|aaa bbb ccc aaa bbb
-  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -34,17 +24,9 @@ initialState:
     default.a:
       start: {line: 0, character: 0}
       end: {line: 0, character: 3}
-    default.b:
-      start: {line: 0, character: 4}
-      end: {line: 0, character: 7}
 finalState:
   documentContents: |
     aaa bbb ccc aaa bbb
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|aaa bbb ccc aaa bbb
-  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -58,23 +40,3 @@ finalState:
       active: {line: 0, character: 13}
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}

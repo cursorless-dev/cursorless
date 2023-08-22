@@ -8,23 +8,15 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: "const aaa = bbb ? ccc : ddd;"
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|const aaa = bbb ? ccc : ddd;
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks: {}
 finalState:
-  documentContents: "const aaa = bbb ? ccc : ;"
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|const aaa = bbb ? ccc : ;
+  documentContents: "const aaa = bbb ?  : ddd;"
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}

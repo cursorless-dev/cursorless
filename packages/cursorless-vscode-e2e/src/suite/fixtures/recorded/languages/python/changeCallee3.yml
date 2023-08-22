@@ -7,22 +7,13 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
-  documentContents: "eval(action)[0]()\r\n"
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|eval(action)[0]()
-  # 1|
+  documentContents: object.method()
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks: {}
 finalState:
-  documentContents: "()\r\n"
-  #   012
-  #  +---
-  # 0|()
-  # 1|
+  documentContents: ()
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

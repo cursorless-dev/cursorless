@@ -1,46 +1,28 @@
 languageId: latex
 command:
   version: 4
-  spokenForm: pour chapter
+  spokenForm: pour environment
   action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: chapter}
+          scopeType: {type: environment}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    \chapter{Section}
-
-    Hello World!
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|\chapter{Section}
-  # 1|
-  # 2|Hello World!
+    \begin{quote}
+        hello
+    \end{quote}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |+
-    \chapter{Section}
-
-    Hello World!
-
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|\chapter{Section}
-  # 1|
-  # 2|Hello World!
-  # 3|
-  # 4|
-  #  +-----------------
-  #   01234567890123456
-  #             1
+  documentContents: |
+    \begin{quote}
+        hello
+    \end{quote}
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}

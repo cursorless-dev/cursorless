@@ -13,10 +13,6 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: type T struct {}
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|type T struct {}
   selections:
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
@@ -26,8 +22,6 @@ initialState:
       end: {line: 0, character: 13}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

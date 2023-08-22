@@ -1,46 +1,42 @@
-languageId: latex
+languageId: markdown
 command:
-  version: 4
-  spokenForm: pour subsubsection
-  action: {name: editNewLineAfter}
+  version: 5
+  spokenForm: bring item drum after bat
+  action: {name: replaceWithTarget}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: subSubSection}
+          scopeType: {type: collectionItem}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      modifiers:
+        - {type: position, position: after}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    \subsubsection{Section}
-
-    Hello World!
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|\subsubsection{Section}
-  # 1|
-  # 2|Hello World!
+    - aaa
+      - bbb
+      - ccc
+      - ddd
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks: {}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks:
+    default.d:
+      start: {line: 3, character: 4}
+      end: {line: 3, character: 7}
+    default.b:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 7}
 finalState:
-  documentContents: |+
-    \subsubsection{Section}
-
-    Hello World!
-
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|\subsubsection{Section}
-  # 1|
-  # 2|Hello World!
-  # 3|
-  # 4|
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
+  documentContents: |-
+    - aaa
+      - bbb
+      - ddd
+      - ccc
+      - ddd
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

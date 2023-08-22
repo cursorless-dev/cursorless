@@ -10,21 +10,13 @@ command:
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaa if bbb else ccc
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|aaa if bbb else ccc
+  documentContents: "[aaa for aaa in bbb if ccc]"
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: aaa if  else ccc
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|aaa if  else ccc
+  documentContents: "[aaa for aaa in bbb if ]"
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}

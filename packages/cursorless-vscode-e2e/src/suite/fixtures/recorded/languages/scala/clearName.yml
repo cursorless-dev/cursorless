@@ -1,31 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: change name
+  spokenForm: change name four
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '4'}
 initialState:
   documentContents: |
-    class ExampleClass() {}
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|class ExampleClass() {}
-  # 1|
+    class ExampleClass() {
+      def foo() = 42
+    }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  marks: {}
+  marks:
+    default.4:
+      start: {line: 1, character: 14}
+      end: {line: 1, character: 16}
 finalState:
   documentContents: |
-    class () {}
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class () {}
-  # 1|
+    class ExampleClass() {
+      def () = 42
+    }
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

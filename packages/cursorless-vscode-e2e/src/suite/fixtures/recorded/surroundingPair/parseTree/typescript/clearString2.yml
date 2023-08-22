@@ -1,24 +1,33 @@
 languageId: typescript
 command:
-  version: 1
-  spokenForm: change string
-  action: clearAndSetSelection
+  spokenForm: take inside pair
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: string}
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+  usePrePhraseSnapshot: true
+  action: {name: setSelection}
 initialState:
-  documentContents: "'(hello)'"
-  #   012345678
-  #  +---------
-  # 0|'(hello)'
+  documentContents: |
+    async (editor, targets) => {
+        const edits = targets.map((target, i) =>(
+        text: i%2 === 0?left:right
+        )
+    }
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 5}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |
+    async (editor, targets) => {
+        const edits = targets.map((target, i) =>(
+        text: i%2 === 0?left:right
+        )
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 30}

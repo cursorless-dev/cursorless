@@ -1,37 +1,32 @@
 languageId: rust
 command:
-  version: 1
   spokenForm: change state
-  action: clearAndSetSelection
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
+  documentContents: |
     let expensive_closure = |num| {
         println!("calculating slowly...");
         thread::sleep(Duration::from_secs(2));
         num
     };
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901
-  #  +------------------------------------------
-  # 0|let expensive_closure = |num| {
-  # 1|    println!("calculating slowly...");
-  # 2|    thread::sleep(Duration::from_secs(2));
-  # 3|    num
-  # 4|};
-  #  +------------------------------------------
-  #   012345678901234567890123456789012345678901
-  #             1         2         3         4
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |
+    let expensive_closure = |num| {
+        
+        thread::sleep(Duration::from_secs(2));
+        num
+    };
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

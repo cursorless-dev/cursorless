@@ -1,71 +1,31 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take map
+  spokenForm: take name
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: map}
+      modifier: {type: containingScope, scopeType: name}
 initialState:
   documentContents: |
 
-    List<String> value = new ArrayList() {
-        {
-            add("a");
-            add("b");
-            add("c");
+    public class MyClass {
+        void myFunk () {
+
         }
-    };
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|
-  # 1|List<String> value = new ArrayList() {
-  # 2|    {
-  # 3|        add("a");
-  #  +--------------------------------------
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 4|        add("b");
-  # 5|        add("c");
-  # 6|    }
-  # 7|};
-  # 8|
-  #  +--------------------------------------
-  #   01234567890123456789012345678901234567
-  #             1         2         3
+    }
   selections:
-    - anchor: {line: 3, character: 8}
-      active: {line: 3, character: 8}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
   marks: {}
 finalState:
   documentContents: |
 
-    List<String> value = new ArrayList() {
-        {
-            add("a");
-            add("b");
-            add("c");
+    public class MyClass {
+        void myFunk () {
+
         }
-    };
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|
-  # 1|List<String> value = new ArrayList() {
-  # 2|    {
-  # 3|        add("a");
-  #  +--------------------------------------
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 4|        add("b");
-  # 5|        add("c");
-  # 6|    }
-  # 7|};
-  # 8|
-  #  +--------------------------------------
-  #   01234567890123456789012345678901234567
-  #             1         2         3
+    }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 6, character: 5}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 15}

@@ -1,30 +1,19 @@
 languageId: rust
 command:
   version: 1
-  spokenForm: chuck list one
+  spokenForm: chuck name
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
-  documentContents: let x = [1, 2, 3];
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|let x = [1, 2, 3];
+  documentContents: "let mut array: [i32; 3] = [0; 3];"
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
-  marks:
-    default.1:
-      start: {line: 0, character: 9}
-      end: {line: 0, character: 10}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  marks: {}
 finalState:
-  documentContents: let x =;
-  #   01234567
-  #  +--------
-  # 0|let x =;
+  documentContents: "let mut: [i32; 3] = [0; 3];"
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

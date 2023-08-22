@@ -1,33 +1,27 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: chuck arg
+  spokenForm: chuck every item
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
 initialState:
   documentContents: |-
     \begin{itemize}
+        \item one \LaTeX
+        \item two \LaTeX
     \end{itemize}
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|\begin{itemize}
-  # 1|\end{itemize}
   selections:
-    - anchor: {line: 0, character: 10}
-      active: {line: 0, character: 10}
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
   marks: {}
 finalState:
   documentContents: |-
-    \begin
+    \begin{itemize}
+        
+        
     \end{itemize}
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|\begin
-  # 1|\end{itemize}
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

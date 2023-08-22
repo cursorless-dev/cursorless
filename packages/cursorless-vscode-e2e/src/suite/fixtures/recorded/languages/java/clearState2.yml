@@ -1,75 +1,29 @@
 languageId: java
 command:
-  version: 1
   spokenForm: change state
-  action: clearAndSetSelection
+  version: 3
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
     public class MyClass {
-        public static void main(String[] args) {
-            if() {
-                
-            }
-            else if() {
-                
-            }
-            else {
-                
-            }
-        }
+        @Inject
+        private Aaa aaa;
     }
-  #              1         2         3         4
-  #    01234567890123456789012345678901234567890123
-  #   +--------------------------------------------
-  #  0|public class MyClass {
-  #  1|    public static void main(String[] args) {
-  #  2|        if() {
-  #  3|            
-  #   +--------------------------------------------
-  #    01234567890123456789012345678901234567890123
-  #   +--------------------------------------------
-  #  4|        }
-  #  5|        else if() {
-  #  6|            
-  #  7|        }
-  #   +--------------------------------------------
-  #    01234567890123456789012345678901234567890123
-  #   +--------------------------------------------
-  #  8|        else {
-  #  9|            
-  # 10|        }
-  # 11|    }
-  # 12|}
-  # 13|
-  #   +--------------------------------------------
-  #    01234567890123456789012345678901234567890123
-  #              1         2         3         4
   selections:
-    - anchor: {line: 3, character: 12}
-      active: {line: 3, character: 12}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |
     public class MyClass {
-        public static void main(String[] args) {
-            
-        }
+        
     }
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890123
-  #  +--------------------------------------------
-  # 0|public class MyClass {
-  # 1|    public static void main(String[] args) {
-  # 2|        
-  # 3|    }
-  # 4|}
-  # 5|
-  #  +--------------------------------------------
-  #   01234567890123456789012345678901234567890123
-  #             1         2         3         4
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

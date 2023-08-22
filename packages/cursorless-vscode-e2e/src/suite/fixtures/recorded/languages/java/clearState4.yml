@@ -12,15 +12,9 @@ command:
 initialState:
   documentContents: |
     public class MyClass {
-        private String value = "hello";
+        public MyClass() {
+        }
     }
-  #             1         2         3
-  #   01234567890123456789012345678901234
-  #  +-----------------------------------
-  # 0|public class MyClass {
-  # 1|    private String value = "hello";
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -30,13 +24,6 @@ finalState:
     public class MyClass {
         
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|public class MyClass {
-  # 1|    
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

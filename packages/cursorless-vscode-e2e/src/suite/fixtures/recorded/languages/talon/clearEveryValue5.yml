@@ -1,46 +1,26 @@
 languageId: talon
 command:
-  version: 6
-  spokenForm: change every value
-  action:
-    name: clearAndSetSelection
-    target:
-      type: primitive
+  version: 5
+  spokenForm: change key
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
       modifiers:
-        - type: everyScope
-          scopeType: {type: value}
+        - type: containingScope
+          scopeType: {type: collectionKey}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    foo:
-        bar = 1
-
-    baz: "bongo"
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|foo:
-  # 1|    bar = 1
-  # 2|
-  # 3|baz: "bongo"
+  documentContents: |
+    and not mode: command
+    -
   selections:
-    - anchor: {line: 3, character: 6}
-      active: {line: 3, character: 6}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    foo:
-        
-
-    baz: 
-  #   01234
-  #  +-----
-  # 0|foo:
-  # 1|    
-  # 2|
-  # 3|baz: 
+  documentContents: |
+    : command
+    -
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 3, character: 5}
-      active: {line: 3, character: 5}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

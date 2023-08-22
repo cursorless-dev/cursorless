@@ -1,35 +1,30 @@
 languageId: rust
 command:
-  version: 1
-  spokenForm: chuck comment
-  action: remove
+  spokenForm: chuck condition
+  version: 2
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: |-
-    /*
-    multi
-    line
-    commment
-    */
-  #   01234567
-  #  +--------
-  # 0|/*
-  # 1|multi
-  # 2|line
-  # 3|commment
-  # 4|*/
-  #  +--------
-  #   01234567
+  documentContents: |
+    match user {
+        User { first_name: "John" } => {},
+        User { first_name } if first_name.starts_with("P") => {}
+    }
   selections:
-    - anchor: {line: 3, character: 7}
-      active: {line: 3, character: 7}
+    - anchor: {line: 2, character: 27}
+      active: {line: 2, character: 54}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: |
+    match user {
+        User { first_name: "John" } => {},
+        User { first_name } => {}
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 23}
+      active: {line: 2, character: 23}

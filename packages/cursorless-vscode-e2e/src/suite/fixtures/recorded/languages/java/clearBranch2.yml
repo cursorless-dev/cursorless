@@ -1,76 +1,22 @@
 languageId: java
 command:
-  spokenForm: change branch
-  version: 3
+  spokenForm: change comment
+  version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: {type: comment}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    class Aaa {
-      static void bbb() {
-        var s =
-          switch ("0") {
-            case "0" -> "zero";
-            case "1" -> "one";
-          };
-      }
-    }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|class Aaa {
-  # 1|  static void bbb() {
-  # 2|    var s =
-  # 3|      switch ("0") {
-  #  +---------------------------
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 4|        case "0" -> "zero";
-  # 5|        case "1" -> "one";
-  # 6|      };
-  # 7|  }
-  # 8|}
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
+  documentContents: /* Hello world */
   selections:
-    - anchor: {line: 4, character: 23}
-      active: {line: 4, character: 23}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: |-
-    class Aaa {
-      static void bbb() {
-        var s =
-          switch ("0") {
-            
-            case "1" -> "one";
-          };
-      }
-    }
-  #             1         2
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 0|class Aaa {
-  # 1|  static void bbb() {
-  # 2|    var s =
-  # 3|      switch ("0") {
-  #  +--------------------------
-  #   01234567890123456789012345
-  #  +--------------------------
-  # 4|        
-  # 5|        case "1" -> "one";
-  # 6|      };
-  # 7|  }
-  # 8|}
-  #  +--------------------------
-  #   01234567890123456789012345
-  #             1         2
+  documentContents: ""
   selections:
-    - anchor: {line: 4, character: 8}
-      active: {line: 4, character: 8}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -8,24 +8,15 @@ command:
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
   documentContents: |-
-    foo(function () {
+    foo(async function () {
 
     })
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|foo(function () {
-  # 1|
-  # 2|})
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   marks: {}
 finalState:
   documentContents: foo()
-  #   01234
-  #  +-----
-  # 0|foo()
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

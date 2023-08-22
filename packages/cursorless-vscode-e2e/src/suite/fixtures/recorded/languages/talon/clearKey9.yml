@@ -1,29 +1,26 @@
 languageId: talon
 command:
   version: 5
-  spokenForm: change key
+  spokenForm: change name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionKey}
+          scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "face(smile): \"smile\""
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|face(smile): "smile"
-  selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
-  marks: {}
-finalState:
-  documentContents: ": \"smile\""
-  #   012345678
-  #  +---------
-  # 0|: "smile"
+  documentContents: |
+    and not mode: command
+    -
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |
+    and not : command
+    -
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

@@ -1,30 +1,22 @@
-languageId: typescript
+languageId: javascriptreact
 command:
+  version: 5
   spokenForm: change item
-  version: 3
+  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: "let foo: { a: string, b: string };"
-  #             1         2         3
-  #   0123456789012345678901234567890123
-  #  +----------------------------------
-  # 0|let foo: { a: string, b: string };
+  documentContents: <Button data-testid="Action Button" data-variant="bare"></Button>
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: "let foo: { a: string,  };"
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|let foo: { a: string,  };
+  documentContents: <Button  data-variant="bare"></Button>
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

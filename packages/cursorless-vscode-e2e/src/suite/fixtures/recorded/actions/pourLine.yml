@@ -15,13 +15,6 @@ initialState:
     class MyClass:
         def my_funk():
             pass
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|class MyClass:
-  # 1|    def my_funk():
-  # 2|        pass
-  # 3|
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
@@ -32,17 +25,6 @@ finalState:
         def my_funk():
             
             pass
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|class MyClass:
-  # 1|    def my_funk():
-  # 2|        
-  # 3|        pass
-  # 4|
-  #  +------------------
-  #   012345678901234567
-  #             1
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}

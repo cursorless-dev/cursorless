@@ -16,17 +16,6 @@ initialState:
         222,
         333
     ]
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|values = [
-  # 1|    111, // don't ...
-  # 2|    222,
-  # 3|    333
-  # 4|]
-  #  +---------------------
-  #   012345678901234567890
-  #             1         2
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
@@ -37,12 +26,6 @@ finalState:
         111, ,
         333
     ]
-  #   0123456789
-  #  +----------
-  # 0|values = [
-  # 1|    111, ,
-  # 2|    333
-  # 3|]
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}

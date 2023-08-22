@@ -1,33 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take arg
+  spokenForm: take arg drum
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
 initialState:
-  documentContents: |-
-
-    my_funk(1, 2, 3)
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|my_funk(1, 2, 3)
+  documentContents: "\" \".join((word for word in word_list), \"words\")"
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
-  marks: {}
+    - anchor: {line: 0, character: 47}
+      active: {line: 0, character: 47}
+  marks:
+    default.d:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 23}
 finalState:
-  documentContents: |-
-
-    my_funk(1, 2, 3)
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|
-  # 1|my_funk(1, 2, 3)
+  documentContents: "\" \".join((word for word in word_list), \"words\")"
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 9}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 37}

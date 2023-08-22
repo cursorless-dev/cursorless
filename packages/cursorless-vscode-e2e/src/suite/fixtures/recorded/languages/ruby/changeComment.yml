@@ -7,19 +7,13 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
 initialState:
-  documentContents: "# Hello World"
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|# Hello World
+  documentContents: "a = 0 # Hello World"
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: ""
-  # (empty)
-
+  documentContents: "a = 0 "
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

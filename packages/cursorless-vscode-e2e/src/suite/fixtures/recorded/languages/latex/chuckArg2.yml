@@ -7,21 +7,13 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: \usepackage[utf8]{inputenc}
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|\usepackage[utf8]{inputenc}
+  documentContents: \section{some section}
   selections:
-    - anchor: {line: 0, character: 21}
-      active: {line: 0, character: 21}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   marks: {}
 finalState:
-  documentContents: \usepackage[utf8]
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|\usepackage[utf8]
+  documentContents: \section
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

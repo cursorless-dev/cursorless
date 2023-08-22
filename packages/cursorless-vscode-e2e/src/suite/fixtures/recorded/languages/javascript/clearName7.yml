@@ -12,29 +12,17 @@ command:
 initialState:
   documentContents: |-
     class Aaa {
-        bbb = "ccc";
+        bbb = "ccc"
     }
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|class Aaa {
-  # 1|    bbb = "ccc";
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   marks: {}
 finalState:
   documentContents: |-
     class Aaa {
-         = "ccc";
+         = "ccc"
     }
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|class Aaa {
-  # 1|     = "ccc";
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

@@ -13,13 +13,6 @@ initialState:
       height: 10px;
       color: red;
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|a .child-selector {
-  # 1|  height: 10px;
-  # 2|  color: red;
-  # 3|}
   selections:
     - anchor: {line: 2, character: 13}
       active: {line: 2, character: 13}
@@ -29,8 +22,6 @@ initialState:
       end: {line: 0, character: 17}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

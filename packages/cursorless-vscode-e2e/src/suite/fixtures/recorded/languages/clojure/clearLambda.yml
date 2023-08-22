@@ -8,18 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
   documentContents: (fn [] (println "Hello world"))
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|(fn [] (println "Hello world"))
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}
   marks: {}
 finalState:
   documentContents: ""
-  # (empty)
-
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

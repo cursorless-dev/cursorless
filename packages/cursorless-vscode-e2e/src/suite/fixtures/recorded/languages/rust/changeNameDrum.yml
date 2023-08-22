@@ -12,45 +12,23 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    fn some_function<T, U>(t: &T, u: &U) -> i32
-        where T: Display + Clone,
-              U: Clone + Debug
-    {}
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0|fn some_function<T, U>(t: &T, u: &U) -> i32
-  # 1|    where T: Display + Clone,
-  # 2|          U: Clone + Debug
-  # 3|{}
-  # 4|
-  #  +-------------------------------------------
-  #   0123456789012345678901234567890123456789012
-  #             1         2         3         4
+    let user = User {
+        first_name: "John",
+        last_name: "Doe",
+    };
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
   marks:
     default.d:
-      start: {line: 1, character: 13}
-      end: {line: 1, character: 20}
+      start: {line: 2, character: 16}
+      end: {line: 2, character: 19}
 finalState:
   documentContents: |
-    fn some_function<T, U>(t: &T, u: &U) -> i32
-        where : Display + Clone,
-              U: Clone + Debug
-    {}
-  #             1         2         3         4
-  #   0123456789012345678901234567890123456789012
-  #  +-------------------------------------------
-  # 0|fn some_function<T, U>(t: &T, u: &U) -> i32
-  # 1|    where : Display + Clone,
-  # 2|          U: Clone + Debug
-  # 3|{}
-  # 4|
-  #  +-------------------------------------------
-  #   0123456789012345678901234567890123456789012
-  #             1         2         3         4
+    let user = User {
+        first_name: "John",
+        : "Doe",
+    };
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

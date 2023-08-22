@@ -1,46 +1,23 @@
-languageId: markdown
+languageId: plaintext
 command:
-  spokenForm: pour section
-  version: 3
+  version: 1
+  spokenForm: bring fine
+  action: replaceWithTarget
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: section}
-  usePrePhraseSnapshot: true
-  action: {name: editNewLineAfter}
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+    - {type: primitive, isImplicit: true}
 initialState:
-  documentContents: |-
-    # Some section
-
-    Some text
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|# Some section
-  # 1|
-  # 2|Some text
+  documentContents: foo world
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
-  marks: {}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
 finalState:
-  documentContents: |+
-    # Some section
-
-    Some text
-
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|# Some section
-  # 1|
-  # 2|Some text
-  # 3|
-  # 4|
-  #  +--------------
-  #   01234567890123
-  #             1
+  documentContents: foo fooworld
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

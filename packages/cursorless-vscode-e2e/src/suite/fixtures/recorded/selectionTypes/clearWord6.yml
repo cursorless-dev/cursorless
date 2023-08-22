@@ -11,18 +11,12 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: aaaBbbCcc
-  #   012345678
-  #  +---------
-  # 0|aaaBbbCcc
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: aaaCcc
-  #   012345
-  #  +------
-  # 0|aaaCcc
+  documentContents: aaaBbb
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

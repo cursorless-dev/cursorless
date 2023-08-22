@@ -11,30 +11,18 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    type Foo = {
-      bar: string;
+    class Foo {
+        private value: string;
     }
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|type Foo = {
-  # 1|  bar: string;
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
-    type Foo = {
-      
+    class Foo {
+        
     }
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|type Foo = {
-  # 1|  
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

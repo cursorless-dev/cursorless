@@ -1,42 +1,28 @@
 languageId: rust
 command:
-  spokenForm: change name
-  version: 3
+  spokenForm: change state
+  version: 2
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
-  usePrePhraseSnapshot: false
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    enum Foo {
-        Baz { a: int, b: String }
+  documentContents: |-
+    fn foo() {
+        if true { println!("5") } else { println!("6") }
     }
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|enum Foo {
-  # 1|    Baz { a: int, b: String }
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 23}
   marks: {}
 finalState:
-  documentContents: |
-    enum Foo {
-        Baz { : int, b: String }
+  documentContents: |-
+    fn foo() {
+        if true {  } else { println!("6") }
     }
-  #             1         2
-  #   0123456789012345678901234567
-  #  +----------------------------
-  # 0|enum Foo {
-  # 1|    Baz { : int, b: String }
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}

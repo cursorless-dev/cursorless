@@ -1,44 +1,31 @@
 languageId: scala
 command:
-  version: 3
-  spokenForm: change branch
-  action: {name: clearAndSetSelection}
+  version: 0
+  spokenForm: change call made
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: branch}
-  usePrePhraseSnapshot: true
+      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
 initialState:
   documentContents: |-
-    def matchTest(x: Int): String = x match {
-      case 0 => "zero"
-      case _ => "other"
+    object Example {
+      val numbers = List(1,2,3,4)
+      numbers.map(_ + 1)
     }
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|def matchTest(x: Int): String = x match {
-  # 1|  case 0 => "zero"
-  # 2|  case _ => "other"
-  # 3|}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
-  marks: {}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.m:
+      start: {line: 2, character: 10}
+      end: {line: 2, character: 13}
 finalState:
   documentContents: |-
-    def matchTest(x: Int): String = x match {
+    object Example {
+      val numbers = List(1,2,3,4)
       
-      case _ => "other"
     }
-  #             1         2         3         4
-  #   01234567890123456789012345678901234567890
-  #  +-----------------------------------------
-  # 0|def matchTest(x: Int): String = x match {
-  # 1|  
-  # 2|  case _ => "other"
-  # 3|}
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

@@ -14,11 +14,6 @@ command:
 initialState:
   documentContents: |
     _ = &T{ /* comment */ }
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|_ = &T{ /* comment */ }
-  # 1|
   selections:
     - anchor: {line: 0, character: 23}
       active: {line: 0, character: 23}
@@ -29,10 +24,6 @@ initialState:
 finalState:
   documentContents: |
     _ = 
-  #   0123
-  #  +----
-  # 0|_ = 
-  # 1|
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

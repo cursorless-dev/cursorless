@@ -1,26 +1,25 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: chuck name this
+  spokenForm: chuck state
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
-      mark: {type: cursor}
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
-  documentContents: a = 1
-  #   01234
-  #  +-----
-  # 0|a = 1
+  documentContents: |-
+    if true 
+      a = 1
+    end
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}
   marks: {}
 finalState:
-  documentContents: "= 1"
-  #   012
-  #  +---
-  # 0|= 1
+  documentContents: |-
+    if true 
+
+    end
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

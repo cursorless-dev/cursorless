@@ -1,38 +1,32 @@
 languageId: rust
 command:
-  spokenForm: change type sun
+  spokenForm: change type trap
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: s}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
       modifiers:
         - type: containingScope
           scopeType: {type: type}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    fn foo(x: &'a mut u32) -> &'static mut u16 {}
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234
-  #  +---------------------------------------------
-  # 0|fn foo(x: &'a mut u32) -> &'static mut u16 {}
-  # 1|
+  documentContents: >
+    fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32
+    {
+
+    }
   selections:
-    - anchor: {line: 0, character: 45}
-      active: {line: 0, character: 45}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks:
-    default.s:
-      start: {line: 0, character: 28}
-      end: {line: 0, character: 34}
+    default.t:
+      start: {line: 0, character: 17}
+      end: {line: 0, character: 18}
 finalState:
   documentContents: |
-    fn foo(x: &'a mut u32) ->  {}
-  #             1         2
-  #   01234567890123456789012345678
-  #  +-----------------------------
-  # 0|fn foo(x: &'a mut u32) ->  {}
-  # 1|
+    fn some_function<T: , U: Clone + Debug>(t: &T, u: &U) -> i32 {
+    }
   selections:
-    - anchor: {line: 0, character: 26}
-      active: {line: 0, character: 26}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}

@@ -8,30 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: |-
-    @mixin move($left-start, $left-stop) {
-      transition: left ($left-stop - $left-start) * $transition-speed;
+    a[data-lang^="tel"] {
+      color: rgba(0, 255, 0, 0.5);
     }
-  #             1         2         3         4         5         6
-  #   012345678901234567890123456789012345678901234567890123456789012345
-  #  +------------------------------------------------------------------
-  # 0|@mixin move($left-start, $left-stop) {
-  # 1|  transition: left ($left-stop - $left-start) * $transition-speed;
-  # 2|}
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
   marks: {}
 finalState:
   documentContents: |-
-    @mixin ($left-start, $left-stop) {
-      transition: left ($left-stop - $left-start) * $transition-speed;
+    a[^="tel"] {
+      color: rgba(0, 255, 0, 0.5);
     }
-  #             1         2         3         4         5         6
-  #   012345678901234567890123456789012345678901234567890123456789012345
-  #  +------------------------------------------------------------------
-  # 0|@mixin ($left-start, $left-stop) {
-  # 1|  transition: left ($left-stop - $left-start) * $transition-speed;
-  # 2|}
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

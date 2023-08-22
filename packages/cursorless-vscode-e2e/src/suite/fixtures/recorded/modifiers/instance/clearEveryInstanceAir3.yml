@@ -1,75 +1,40 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change every instance air
+  spokenForm: change every instance air past bat
   action: {name: clearAndSetSelection}
   targets:
-    - type: primitive
-      modifiers:
-        - type: everyScope
-          scopeType: {type: instance}
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+    - type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - type: everyScope
+            scopeType: {type: instance}
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      excludeAnchor: false
+      excludeActive: false
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    hhh bbb aaa ccc aaa
-    eee bbb aaa ccc aaa
-    fff bbb aaa ccc aaa
-    ggg bbb aaa ccc aaa
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|hhh bbb aaa ccc aaa
-  # 1|eee bbb aaa ccc aaa
-  # 2|fff bbb aaa ccc aaa
-  # 3|ggg bbb aaa ccc aaa
-  # 4|
-  #  +-------------------
-  #   0123456789012345678
-  #             1
+    aaa bbb ccc aaa bbb
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
     default.a:
-      start: {line: 3, character: 8}
-      end: {line: 3, character: 11}
-  instanceReferenceMark:
-    - type: LineTarget
-      contentRange:
-        start: {line: 0, character: 0}
-        end: {line: 0, character: 19}
-      isReversed: false
-      hasExplicitRange: true
-    - type: LineTarget
-      contentRange:
-        start: {line: 2, character: 0}
-        end: {line: 2, character: 19}
-      isReversed: false
-      hasExplicitRange: true
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: |
-    hhh bbb  ccc 
-    eee bbb aaa ccc aaa
-    fff bbb  ccc 
-    ggg bbb aaa ccc aaa
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|hhh bbb  ccc 
-  # 1|eee bbb aaa ccc aaa
-  # 2|fff bbb  ccc 
-  # 3|ggg bbb aaa ccc aaa
-  # 4|
-  #  +-------------------
-  #   0123456789012345678
-  #             1
+  documentContents: |2
+     ccc 
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
-    - anchor: {line: 2, character: 13}
-      active: {line: 2, character: 13}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}

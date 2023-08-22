@@ -11,48 +11,24 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    if (true) {
-      const whatever = "hello";
-    } else if (false) {
-      const whatever = "hello";
-    } else {
-      const whatever = "hello";
+    try {
+      const aaa = "bbb";
+    } catch (err) {
+      const aaa = "bbb";
+    } finally {
+      const aaa = "bbb";
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|if (true) {
-  # 1|  const whatever = "hello";
-  # 2|} else if (false) {
-  # 3|  const whatever = "hello";
-  # 4|} else {
-  # 5|  const whatever = "hello";
-  # 6|}
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
   marks: {}
 finalState:
-  documentContents: |2-
-     else if (false) {
-      const whatever = "hello";
-    } else {
-      const whatever = "hello";
+  documentContents: |-
+    try {
+      const aaa = "bbb";
+    }  finally {
+      const aaa = "bbb";
     }
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0| else if (false) {
-  # 1|  const whatever = "hello";
-  # 2|} else {
-  # 3|  const whatever = "hello";
-  # 4|}
-  #  +---------------------------
-  #   012345678901234567890123456
-  #             1         2
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

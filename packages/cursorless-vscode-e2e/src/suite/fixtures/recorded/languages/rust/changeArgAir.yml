@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change arg air
+  spokenForm: change arg blue air
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
@@ -12,27 +12,17 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    fn foo(x: &'a mut u32) -> &'static mut u16 {}
-  #             1         2         3         4
-  #   012345678901234567890123456789012345678901234
-  #  +---------------------------------------------
-  # 0|fn foo(x: &'a mut u32) -> &'static mut u16 {}
-  # 1|
+    struct S<'a, 'b: 'a, T>;
   selections:
-    - anchor: {line: 0, character: 45}
-      active: {line: 0, character: 45}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks:
-    default.a:
-      start: {line: 0, character: 12}
-      end: {line: 0, character: 13}
+    blue.a:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 19}
 finalState:
   documentContents: |
-    fn foo() -> &'static mut u16 {}
-  #             1         2         3
-  #   0123456789012345678901234567890
-  #  +-------------------------------
-  # 0|fn foo() -> &'static mut u16 {}
-  # 1|
+    struct S<'a, , T>;
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

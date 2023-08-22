@@ -1,33 +1,29 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring fine to whale
+  spokenForm: bring harp to end of whale
   action: replaceWithTarget
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
     - type: primitive
+      position: after
+      insideOutsideType: inside
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
 initialState:
-  documentContents: foo world
-  #   012345678
-  #  +---------
-  # 0|foo world
+  documentContents: foo world whatever
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}
   marks:
-    default.f:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+    default.h:
+      start: {line: 0, character: 10}
+      end: {line: 0, character: 18}
     default.w:
       start: {line: 0, character: 4}
       end: {line: 0, character: 9}
 finalState:
-  documentContents: foo foo
-  #   0123456
-  #  +-------
-  # 0|foo foo
+  documentContents: foo worldwhatever whatever
   selections:
-    - anchor: {line: 0, character: 5}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 9}

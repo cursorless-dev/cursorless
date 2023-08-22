@@ -1,32 +1,33 @@
 languageId: plaintext
 command:
-  spokenForm: change second next word
+  spokenForm: change second past third item
   version: 3
   targets:
     - type: primitive
       modifiers:
-        - type: relativeScope
-          scopeType: {type: word}
-          offset: 2
-          length: 1
-          direction: forward
+        - type: range
+          anchor:
+            type: ordinalScope
+            scopeType: {type: collectionItem}
+            start: 1
+            length: 1
+          active:
+            type: ordinalScope
+            scopeType: {type: collectionItem}
+            start: 2
+            length: 1
+          excludeAnchor: false
+          excludeActive: false
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaaBbbCccDdd
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|aaaBbbCccDdd
+  documentContents: a, b, c, d
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: aaaBbbCcc
-  #   012345678
-  #  +---------
-  # 0|aaaBbbCcc
+  documentContents: a, , d
   selections:
-    - anchor: {line: 0, character: 9}
-      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

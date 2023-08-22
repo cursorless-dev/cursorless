@@ -1,57 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: chuck type odd
+  spokenForm: chuck type red
   action: remove
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
 initialState:
   documentContents: |
     class TypesAhoy() {
-      f match {
-        case foo: Foo => 12
-      }
+      def example(foo: List[String]): List[String] = foo
     }
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|class TypesAhoy() {
-  # 1|  f match {
-  # 2|    case foo: Foo => 12
-  # 3|  }
-  # 4|}
-  # 5|
-  #  +-----------------------
-  #   01234567890123456789012
-  #             1         2
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.o:
-      start: {line: 2, character: 9}
-      end: {line: 2, character: 12}
+    default.r:
+      start: {line: 1, character: 24}
+      end: {line: 1, character: 30}
 finalState:
   documentContents: |
     class TypesAhoy() {
-      f match {
-        case foo => 12
-      }
+      def example(foo): List[String] = foo
     }
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|class TypesAhoy() {
-  # 1|  f match {
-  # 2|    case foo => 12
-  # 3|  }
-  # 4|}
-  # 5|
-  #  +-------------------
-  #   0123456789012345678
-  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -1,38 +1,30 @@
 languageId: rust
 command:
-  spokenForm: change item one
+  spokenForm: change key drum
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
       modifiers:
         - type: containingScope
-          scopeType: {type: collectionItem}
+          scopeType: {type: collectionKey}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    let x = [None, Some(1)];
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|let x = [None, Some(1)];
-  # 1|
+    if let User { first_name: "John", last_name: "Doe" } = user {
+    }
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks:
-    default.1:
-      start: {line: 0, character: 20}
-      end: {line: 0, character: 21}
+    default.d:
+      start: {line: 0, character: 46}
+      end: {line: 0, character: 49}
 finalState:
   documentContents: |
-    let x = [None, ];
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|let x = [None, ];
-  # 1|
+    if let User { first_name: "John", : "Doe" } = user {
+    }
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 34}
+      active: {line: 0, character: 34}

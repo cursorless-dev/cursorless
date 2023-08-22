@@ -1,4 +1,4 @@
-languageId: typescript
+languageId: plaintext
 command:
   spokenForm: chuck inside
   version: 2
@@ -9,26 +9,13 @@ command:
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
-  documentContents: |-
-    [
-        "foo",
-        "bar"
-    ]
-  #   0123456789
-  #  +----------
-  # 0|[
-  # 1|    "foo",
-  # 2|    "bar"
-  # 3|]
+  documentContents: ( hello )
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: "[]"
-  #   01
-  #  +--
-  # 0|[]
+  documentContents: ()
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

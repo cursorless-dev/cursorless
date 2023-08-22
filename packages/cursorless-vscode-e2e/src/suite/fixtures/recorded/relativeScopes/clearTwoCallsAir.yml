@@ -1,7 +1,7 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: change two calls air
+  spokenForm: change two calls bat
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -11,30 +11,21 @@ command:
           offset: 0
           length: 2
           direction: forward
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
     aaa(bbb(), ccc()) + ddd()
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|aaa(bbb(), ccc()) + ddd()
-  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   marks:
-    default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: |+
-
-  #   
-  #  +
-  # 0|
-  # 1|
+  documentContents: |
+    aaa() + ddd()
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

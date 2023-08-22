@@ -1,35 +1,24 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take state
+  spokenForm: take string
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement}
+      modifier: {type: containingScope, scopeType: string}
+spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
 
     value = "hello world"
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|value = "hello world"
-  # 2|
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   marks: {}
 finalState:
   documentContents: |
 
     value = "hello world"
-  #             1         2
-  #   012345678901234567890
-  #  +---------------------
-  # 0|
-  # 1|value = "hello world"
-  # 2|
   selections:
-    - anchor: {line: 1, character: 0}
+    - anchor: {line: 1, character: 8}
       active: {line: 1, character: 21}

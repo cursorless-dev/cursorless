@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: chuck arg air
+  spokenForm: chuck arg blue air
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: a}
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
@@ -13,26 +13,16 @@ command:
 initialState:
   documentContents: |
     struct S<'a, 'b: 'a, T>;
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|struct S<'a, 'b: 'a, T>;
-  # 1|
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   marks:
-    default.a:
-      start: {line: 0, character: 10}
-      end: {line: 0, character: 11}
+    blue.a:
+      start: {line: 0, character: 18}
+      end: {line: 0, character: 19}
 finalState:
   documentContents: |
-    struct S<'b: 'a, T>;
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|struct S<'b: 'a, T>;
-  # 1|
+    struct S<'a, T>;
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

@@ -16,11 +16,6 @@ command:
 initialState:
   documentContents: |
     const values: string = "hello"
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|const values: string = "hello"
-  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 5}
@@ -40,11 +35,6 @@ initialState:
 finalState:
   documentContents: |
     const values: string = "hello"
-  #             1         2
-  #   012345678901234567890123456789
-  #  +------------------------------
-  # 0|const values: string = "hello"
-  # 1|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 5}

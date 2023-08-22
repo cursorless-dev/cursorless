@@ -1,27 +1,19 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: change callee
+  spokenForm: change comment
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
 initialState:
-  documentContents: "margin-left: pow(4, 3)"
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|margin-left: pow(4, 3)
+  documentContents: // comment
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: "margin-left: (4, 3)"
-  #             1
-  #   0123456789012345678
-  #  +-------------------
-  # 0|margin-left: (4, 3)
+  documentContents: ""
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

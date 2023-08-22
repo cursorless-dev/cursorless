@@ -1,36 +1,29 @@
 languageId: php
 command:
   version: 1
-  spokenForm: chuck pair
+  spokenForm: chuck type
   action: remove
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    "hello world";
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|<?php
-  # 1|
-  # 2|"hello world";
+    function myFunc(string $str) {
+
+    }
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    ;
-  #   01234
-  #  +-----
-  # 0|<?php
-  # 1|
-  # 2|;
+    function myFunc($str) {
+
+    }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}

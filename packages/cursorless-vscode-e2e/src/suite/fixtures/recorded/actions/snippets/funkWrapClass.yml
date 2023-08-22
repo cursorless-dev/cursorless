@@ -17,12 +17,6 @@ initialState:
     class Aaa:
         def bbb():
             pass
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|class Aaa:
-  # 1|    def bbb():
-  # 2|        pass
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 8}
@@ -33,13 +27,6 @@ finalState:
         class Aaa:
             def bbb():
                 pass
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|def ():
-  # 1|    class Aaa:
-  # 2|        def bbb():
-  # 3|            pass
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

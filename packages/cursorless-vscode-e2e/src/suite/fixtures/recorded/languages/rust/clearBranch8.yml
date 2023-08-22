@@ -1,58 +1,30 @@
 languageId: rust
 command:
+  spokenForm: change condition
   version: 3
-  spokenForm: change branch
-  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    if n < 0 {
-        print!("{} is negative", n);
-    } else if n > 0 {
-        print!("{} is positive", n);
-    } else {
-        print!("{} is zero", n);
+    match user {
+      User { first_name: "John" } => {},
+      User { first_name } if first_name.starts_with("P") => {}
     }
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|if n < 0 {
-  # 1|    print!("{} is negative", n);
-  # 2|} else if n > 0 {
-  # 3|    print!("{} is positive", n);
-  # 4|} else {
-  # 5|    print!("{} is zero", n);
-  # 6|}
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
   selections:
-    - anchor: {line: 4, character: 2}
-      active: {line: 4, character: 2}
+    - anchor: {line: 2, character: 57}
+      active: {line: 2, character: 57}
   marks: {}
 finalState:
   documentContents: |-
-    if n < 0 {
-        print!("{} is negative", n);
-    } else if n > 0 {
-        print!("{} is positive", n);
-    } 
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|if n < 0 {
-  # 1|    print!("{} is negative", n);
-  # 2|} else if n > 0 {
-  # 3|    print!("{} is positive", n);
-  # 4|} 
-  #  +--------------------------------
-  #   01234567890123456789012345678901
-  #             1         2         3
+    match user {
+      User { first_name: "John" } => {},
+      User { first_name } if  => {}
+    }
   selections:
-    - anchor: {line: 4, character: 2}
-      active: {line: 4, character: 2}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}

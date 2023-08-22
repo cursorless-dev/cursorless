@@ -8,19 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
   documentContents: obj.method[0]();
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|obj.method[0]();
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
   marks: {}
 finalState:
   documentContents: ();
-  #   012
-  #  +---
-  # 0|();
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

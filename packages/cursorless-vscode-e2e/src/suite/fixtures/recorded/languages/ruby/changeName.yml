@@ -8,28 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: |-
-    def hello
+    class Hello
 
     end
-  #   012345678
-  #  +---------
-  # 0|def hello
-  # 1|
-  # 2|end
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   marks: {}
 finalState:
   documentContents: |-
-    def 
+    class 
 
     end
-  #   0123
-  #  +----
-  # 0|def 
-  # 1|
-  # 2|end
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

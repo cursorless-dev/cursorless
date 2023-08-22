@@ -1,35 +1,60 @@
 languageId: python
 command:
   version: 5
-  spokenForm: change inside funk
+  spokenForm: change every class name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
-        - {type: interiorOnly}
-        - type: containingScope
-          scopeType: {type: namedFunction}
+        - type: everyScope
+          scopeType: {type: className}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    def bbb():
-        pass
-  #   0123456789
-  #  +----------
-  # 0|def bbb():
-  # 1|    pass
+  documentContents: |
+    class Aaa:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
+
+        def eee():
+            ddd = "eee"
+            def fff():
+                pass
+
+    class Bbb:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 18, character: 0}
+      active: {line: 18, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    def bbb():
-        
-  #   0123456789
-  #  +----------
-  # 0|def bbb():
-  # 1|    
+  documentContents: |
+    class :
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
+
+        def eee():
+            ddd = "eee"
+            def fff():
+                pass
+
+    class :
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 12, character: 6}
+      active: {line: 12, character: 6}

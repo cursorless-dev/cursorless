@@ -1,27 +1,28 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck nothing
-  action: remove
+  spokenForm: highlight harp
+  action: highlight
   targets:
     - type: primitive
-      mark: {type: nothing}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
-  marks: {}
+  marks:
+    default.h:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 5}
 finalState:
   documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
+ide:
+  highlights:
+    - ranges:
+        - type: character
+          start: {line: 0, character: 0}
+          end: {line: 0, character: 5}

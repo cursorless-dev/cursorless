@@ -1,78 +1,25 @@
-languageId: java
+languageId: javascript
 command:
-  version: 1
-  spokenForm: try wrap this
-  action: wrapWithSnippet
+  spokenForm: change inside whale
+  version: 2
   targets:
     - type: primitive
-      mark: {type: cursor}
-  extraArgs: [tryCatchStatement.body]
+      modifiers:
+        - {type: interiorOnly}
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    if (true) {
-        int foo = 0;
-    }
-
-    int bar = 1;
-  #             1
-  #   0123456789012345
-  #  +----------------
-  # 0|if (true) {
-  # 1|    int foo = 0;
-  # 2|}
-  # 3|
-  # 4|int bar = 1;
-  #  +----------------
-  #   0123456789012345
-  #             1
+  documentContents: "'(hello world) testing'"
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks: {}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+  marks:
+    default.w:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 13}
 finalState:
-  documentContents: |-
-    try {
-        if (true) {
-            int foo = 0;
-        }
-    } catch () {
-        
-    }
-
-    try {
-        int bar = 1;
-    } catch () {
-        
-    }
-  #              1
-  #    01234567890123456789
-  #   +--------------------
-  #  0|try {
-  #  1|    if (true) {
-  #  2|        int foo = 0;
-  #  3|    }
-  #   +--------------------
-  #    01234567890123456789
-  #   +--------------------
-  #  4|} catch () {
-  #  5|    
-  #  6|}
-  #  7|
-  #   +--------------------
-  #    01234567890123456789
-  #   +--------------------
-  #  8|try {
-  #  9|    int bar = 1;
-  # 10|} catch () {
-  # 11|    
-  # 12|}
-  #   +--------------------
-  #    01234567890123456789
-  #              1
+  documentContents: "'() testing'"
   selections:
-    - anchor: {line: 10, character: 9}
-      active: {line: 10, character: 9}
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

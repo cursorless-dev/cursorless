@@ -1,35 +1,33 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change comment
+  spokenForm: change every arg
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: |-
     <?php
 
-    // Hello world!
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|<?php
-  # 1|
-  # 2|// Hello world!
+    function myFunc($value, $nums)
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
   marks: {}
 finalState:
-  documentContents: |+
+  documentContents: |-
     <?php
 
-  #   01234
-  #  +-----
-  # 0|<?php
-  # 1|
-  # 2|
+    function myFunc(, )
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}

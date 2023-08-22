@@ -1,39 +1,34 @@
-languageId: typescript
+languageId: plaintext
 command:
-  version: 1
-  spokenForm: take token vest
-  action: setSelection
+  spokenForm: bring line before whale
+  version: 2
   targets:
     - type: primitive
-      selectionType: token
-      mark: {type: decoratedSymbol, symbolColor: default, character: v}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: w}
+      modifiers:
+        - {type: position, position: before}
+  usePrePhraseSnapshot: true
+  action: {name: replaceWithTarget}
 initialState:
-  documentContents: |
-
-    const value   = "Hello.world  ";
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|
-  # 1|const value   = "Hello.world  ";
-  # 2|
+  documentContents: |-
+    hello world
+    whatever now
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   marks:
-    default.v:
-      start: {line: 1, character: 6}
-      end: {line: 1, character: 11}
+    default.w:
+      start: {line: 0, character: 6}
+      end: {line: 0, character: 11}
 finalState:
-  documentContents: |
-
-    const value   = "Hello.world  ";
-  #             1         2         3
-  #   01234567890123456789012345678901
-  #  +--------------------------------
-  # 0|
-  # 1|const value   = "Hello.world  ";
-  # 2|
+  documentContents: |-
+    whatever now
+    hello world
+    whatever now
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 11}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}

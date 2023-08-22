@@ -30,19 +30,6 @@ initialState:
         pass
 
     fff = "ggg"
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|aaa = "bbb"
-  # 1|ccc = "ddd"
-  # 2|
-  # 3|def eee():
-  # 4|    pass
-  # 5|
-  # 6|fff = "ggg"
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -56,19 +43,6 @@ finalState:
         
 
     fff = "ggg"
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|
-  # 2|
-  # 3|
-  # 4|    
-  # 5|
-  # 6|fff = "ggg"
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

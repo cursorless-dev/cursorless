@@ -11,13 +11,6 @@ initialState:
     int f(int a) {
         a = 2;
     }
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|int f(int a) {
-  # 1|    a = 2;
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 1, character: 5}
       active: {line: 1, character: 5}
@@ -27,13 +20,6 @@ finalState:
     int f(int a) {
         a = 2;
     }
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|int f(int a) {
-  # 1|    a = 2;
-  # 2|}
-  # 3|
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 9}

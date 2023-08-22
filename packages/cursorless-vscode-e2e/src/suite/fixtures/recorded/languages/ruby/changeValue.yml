@@ -1,39 +1,25 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change value
-  action: clearAndSetSelection
+  spokenForm: chuck arg
+  action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |
-    def a
-        return 100
+  documentContents: |-
+    def hello_world(name)
+        puts "hi #{name)"
     end
-  #             1
-  #   01234567890123
-  #  +--------------
-  # 0|def a
-  # 1|    return 100
-  # 2|end
-  # 3|
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
   marks: {}
 finalState:
-  documentContents: |
-    def a
-        return 
+  documentContents: |-
+    def hello_world()
+        puts "hi #{name)"
     end
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|def a
-  # 1|    return 
-  # 2|end
-  # 3|
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

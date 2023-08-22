@@ -1,39 +1,23 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take item one
+  spokenForm: take key
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      modifier: {type: containingScope, scopeType: collectionKey}
 initialState:
   documentContents: |
 
-    const value = [1, 2, 3]
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|
-  # 1|const value = [1, 2, 3]
-  # 2|
+    const value = { a: 1, b: 2, c: 3 };
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.1:
-      start: {line: 1, character: 15}
-      end: {line: 1, character: 16}
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 17}
+  marks: {}
 finalState:
   documentContents: |
 
-    const value = [1, 2, 3]
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0|
-  # 1|const value = [1, 2, 3]
-  # 2|
+    const value = { a: 1, b: 2, c: 3 };
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 17}

@@ -1,27 +1,33 @@
 languageId: java
 command:
   version: 1
-  spokenForm: change name
+  spokenForm: change state
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
-  documentContents: a += "world"
-  #             1
-  #   012345678901
-  #  +------------
-  # 0|a += "world"
+  documentContents: |
+    public class MyClass {
+        public static void main(String[] args) {
+            switch("foo") {
+                case "bar":
+                    
+                    break;
+            }
+        }
+    }
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 4, character: 16}
+      active: {line: 4, character: 16}
   marks: {}
 finalState:
-  documentContents: " += \"world\""
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0| += "world"
+  documentContents: |
+    public class MyClass {
+        public static void main(String[] args) {
+            
+        }
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}

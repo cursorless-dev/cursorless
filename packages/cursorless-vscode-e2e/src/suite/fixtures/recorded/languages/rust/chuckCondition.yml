@@ -1,52 +1,27 @@
 languageId: rust
 command:
-  spokenForm: chuck condition
-  version: 2
+  version: 1
+  spokenForm: chuck funk made
+  action: remove
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: condition}
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
 initialState:
   documentContents: |
-    match user {
-        User { first_name: "John" } => {},
-        User { first_name } if first_name.starts_with("P") => {}
+    fn main() {
+        println!("Hello, world!");
     }
-  #             1         2         3         4         5
-  #   012345678901234567890123456789012345678901234567890123456789
-  #  +------------------------------------------------------------
-  # 0|match user {
-  # 1|    User { first_name: "John" } => {},
-  # 2|    User { first_name } if first_name.starts_with("P") => {}
-  # 3|}
-  # 4|
-  #  +------------------------------------------------------------
-  #   012345678901234567890123456789012345678901234567890123456789
-  #             1         2         3         4         5
   selections:
-    - anchor: {line: 2, character: 27}
-      active: {line: 2, character: 54}
-  marks: {}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks:
+    default.m:
+      start: {line: 0, character: 3}
+      end: {line: 0, character: 7}
 finalState:
-  documentContents: |
-    match user {
-        User { first_name: "John" } => {},
-        User { first_name } => {}
-    }
-  #             1         2         3
-  #   01234567890123456789012345678901234567
-  #  +--------------------------------------
-  # 0|match user {
-  # 1|    User { first_name: "John" } => {},
-  # 2|    User { first_name } => {}
-  # 3|}
-  # 4|
-  #  +--------------------------------------
-  #   01234567890123456789012345678901234567
-  #             1         2         3
+  documentContents: |+
+
   selections:
-    - anchor: {line: 2, character: 23}
-      active: {line: 2, character: 23}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

@@ -11,12 +11,6 @@ initialState:
   documentContents: |2
 
         foo bar
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|
-  # 1|    foo bar
-  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -28,11 +22,6 @@ finalState:
   documentContents: |2
 
         bar
-  #   0123456
-  #  +-------
-  # 0|
-  # 1|    bar
-  # 2|
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

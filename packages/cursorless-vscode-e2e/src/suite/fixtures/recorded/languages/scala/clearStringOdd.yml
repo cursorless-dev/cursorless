@@ -1,44 +1,29 @@
 languageId: scala
 command:
-  version: 0
-  spokenForm: change string odd
-  action: clearAndSetSelection
+  spokenForm: change subject
+  version: 3
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: string, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
-spokenFormError: Scope type 'string'
+      modifiers:
+        - type: containingScope
+          scopeType: {type: switchStatementSubject}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |
-    class ExampleClass() {
-      val example = f"formatted ${1} string"
+    def matchTest(x: Int): String = x match {
+      case 0 => "zero"
     }
-  #             1         2         3
-  #   0123456789012345678901234567890123456789
-  #  +----------------------------------------
-  # 0|class ExampleClass() {
-  # 1|  val example = f"formatted ${1} string"
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-  marks:
-    default.o:
-      start: {line: 1, character: 18}
-      end: {line: 1, character: 27}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
+  marks: {}
 finalState:
   documentContents: |
-    class ExampleClass() {
-      val example = 
+    def matchTest(x: Int): String =  match {
+      case 0 => "zero"
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|class ExampleClass() {
-  # 1|  val example = 
-  # 2|}
-  # 3|
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 0, character: 32}
+      active: {line: 0, character: 32}

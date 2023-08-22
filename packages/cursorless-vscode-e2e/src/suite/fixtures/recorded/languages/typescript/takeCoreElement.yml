@@ -13,29 +13,17 @@ command:
 initialState:
   documentContents: |-
     function Comp() {
-        return <></>;
+        return <div></div>;
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|function Comp() {
-  # 1|    return <></>;
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
   marks: {}
 finalState:
   documentContents: |-
     function Comp() {
-        return <></>;
+        return <div></div>;
     }
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|function Comp() {
-  # 1|    return <></>;
-  # 2|}
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}

@@ -8,20 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: className}
 initialState:
   documentContents: void ClassName::method() {}
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|void ClassName::method() {}
   selections:
     - anchor: {line: 0, character: 26}
       active: {line: 0, character: 26}
   marks: {}
 finalState:
   documentContents: void ClassName::method() {}
-  #             1         2
-  #   012345678901234567890123456
-  #  +---------------------------
-  # 0|void ClassName::method() {}
   selections:
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 14}

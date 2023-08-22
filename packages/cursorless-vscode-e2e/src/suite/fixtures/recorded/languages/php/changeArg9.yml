@@ -1,37 +1,25 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change arg
+  spokenForm: change call
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    myFunc($value, ...$nums);
-  #             1         2
-  #   0123456789012345678901234
-  #  +-------------------------
-  # 0|<?php
-  # 1|
-  # 2|myFunc($value, ...$nums);
+    myFunk(1, 2, 3);
   selections:
-    - anchor: {line: 2, character: 19}
-      active: {line: 2, character: 19}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    myFunc($value, );
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|<?php
-  # 1|
-  # 2|myFunc($value, );
+    ;
   selections:
-    - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

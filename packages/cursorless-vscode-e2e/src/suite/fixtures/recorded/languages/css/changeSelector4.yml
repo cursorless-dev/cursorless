@@ -11,12 +11,6 @@ initialState:
     #header .callout {
 
     }
-  #             1
-  #   012345678901234567
-  #  +------------------
-  # 0|#header .callout {
-  # 1|
-  # 2|}
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
@@ -26,11 +20,6 @@ finalState:
      {
 
     }
-  #   01
-  #  +--
-  # 0| {
-  # 1|
-  # 2|}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

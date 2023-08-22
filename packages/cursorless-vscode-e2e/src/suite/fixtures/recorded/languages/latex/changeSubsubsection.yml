@@ -1,37 +1,19 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change subsubsection
-  action: clearAndSetSelection
+  spokenForm: chuck arg
+  action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: subSubSection, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |-
-    \subsubsection{1}
-    \paragraph{child}
-    some text
-    \subsubsection{2}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|\subsubsection{1}
-  # 1|\paragraph{child}
-  # 2|some text
-  # 3|\subsubsection{2}
+  documentContents: \usepackage[utf8]{inputenc}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks: {}
 finalState:
-  documentContents: |-
-
-    \subsubsection{2}
-  #             1
-  #   01234567890123456
-  #  +-----------------
-  # 0|
-  # 1|\subsubsection{2}
+  documentContents: \usepackage{inputenc}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

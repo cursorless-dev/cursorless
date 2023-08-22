@@ -1,53 +1,27 @@
 languageId: scss
 command:
-  spokenForm: change leading last word look
-  version: 2
+  version: 1
+  spokenForm: change name
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
-      modifiers:
-        - {type: leading}
-        - type: ordinalRange
-          scopeType: {type: word}
-          anchor: -1
-          active: -1
-          excludeAnchor: false
-          excludeActive: false
-  usePrePhraseSnapshot: true
-  action: {name: clearAndSetSelection}
+      modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
-  documentContents: |2-
-     .long-bem-class-name {
-       height: 10px;
-     }
-     
-  #             1         2
-  #   01234567890123456789012
-  #  +-----------------------
-  # 0| .long-bem-class-name {
-  # 1|   height: 10px;
-  # 2| }
-  # 3| 
+  documentContents: |-
+    a {
+      height: 10px;
+      color: red;
+    }
   selections:
-    - anchor: {line: 3, character: 1}
-      active: {line: 3, character: 1}
-  marks:
-    default.l:
-      start: {line: 0, character: 2}
-      end: {line: 0, character: 21}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks: {}
 finalState:
-  documentContents: |2-
-     .long-bem-classname {
-       height: 10px;
-     }
-     
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0| .long-bem-classname {
-  # 1|   height: 10px;
-  # 2| }
-  # 3| 
+  documentContents: |-
+    a {
+      : 10px;
+      color: red;
+    }
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

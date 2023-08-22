@@ -13,20 +13,12 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: _ = func() { _ = 1 }
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|_ = func() { _ = 1 }
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
   marks: {}
 finalState:
   documentContents: _ = func() {  }
-  #             1
-  #   012345678901234
-  #  +---------------
-  # 0|_ = func() {  }
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}

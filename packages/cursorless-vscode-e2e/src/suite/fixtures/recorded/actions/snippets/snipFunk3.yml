@@ -14,12 +14,6 @@ initialState:
     class Aaa {
         
     }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class Aaa {
-  # 1|    
-  # 2|}
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
@@ -31,17 +25,6 @@ finalState:
             
         }
     }
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|class Aaa {
-  # 1|    () {
-  # 2|        
-  # 3|    }
-  # 4|}
-  #  +-----------
-  #   01234567890
-  #             1
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

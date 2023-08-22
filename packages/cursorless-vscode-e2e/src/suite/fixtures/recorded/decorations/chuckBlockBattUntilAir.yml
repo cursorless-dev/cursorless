@@ -27,22 +27,6 @@ initialState:
     b   c
     d   e
     f   g
-  #   01234
-  #  +-----
-  # 0|
-  # 1|a
-  # 2|a
-  # 3|
-  #  +-----
-  #   01234
-  #  +-----
-  # 4|
-  # 5|b   c
-  # 6|d   e
-  # 7|f   g
-  # 8|
-  #  +-----
-  #   01234
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -58,11 +42,6 @@ finalState:
 
     a
     a
-  #   0
-  #  +-
-  # 0|
-  # 1|a
-  # 2|a
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

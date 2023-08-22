@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change two instances first three chars air
+  spokenForm: change two instances just bat
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -11,36 +11,24 @@ command:
           offset: 0
           length: 2
           direction: forward
-        - type: ordinalScope
-          scopeType: {type: character}
-          start: 0
-          length: 3
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+        - {type: toRawSelection}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    aaabbb aaaccc
-  #             1
-  #   0123456789012
-  #  +-------------
-  # 0|aaabbb aaaccc
-  # 1|
-  selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-  marks:
-    default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 6}
-finalState:
-  documentContents: |
-    bbb ccc
-  #   0123456
-  #  +-------
-  # 0|bbb ccc
-  # 1|
+    aaa bbb ccc aaa bbbb aaa bbb
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: |
+    aaa  ccc aaa b aaa bbb
+  selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

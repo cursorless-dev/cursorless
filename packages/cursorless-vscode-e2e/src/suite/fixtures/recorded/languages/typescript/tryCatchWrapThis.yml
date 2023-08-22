@@ -8,33 +8,35 @@ command:
       mark: {type: cursor}
   extraArgs: [tryCatchStatement.body]
 initialState:
-  documentContents: const foo = "hello";
-  #             1
-  #   01234567890123456789
-  #  +--------------------
-  # 0|const foo = "hello";
+  documentContents: |-
+    if (true) {
+        const foo = "hello";
+    }
+
+    const bar = "hello";
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: |-
     try {
-        const foo = "hello";
+        if (true) {
+            const foo = "hello";
+        }
     } catch (err) {
         
     }
-  #             1         2
-  #   012345678901234567890123
-  #  +------------------------
-  # 0|try {
-  # 1|    const foo = "hello";
-  # 2|} catch (err) {
-  # 3|    
-  # 4|}
-  #  +------------------------
-  #   012345678901234567890123
-  #             1         2
+
+    try {
+        const bar = "hello";
+    } catch (err) {
+        
+    }
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 11, character: 4}
+      active: {line: 11, character: 4}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}

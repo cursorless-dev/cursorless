@@ -11,10 +11,6 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: hello world
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello world
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
@@ -24,10 +20,6 @@ initialState:
       end: {line: 0, character: 11}
 finalState:
   documentContents: hello hello
-  #             1
-  #   01234567890
-  #  +-----------
-  # 0|hello hello
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}

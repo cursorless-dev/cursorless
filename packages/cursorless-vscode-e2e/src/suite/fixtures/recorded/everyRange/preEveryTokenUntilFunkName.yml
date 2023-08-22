@@ -22,10 +22,6 @@ initialState:
   documentContents: |-
     def aaa():
         pass
-  #   0123456789
-  #  +----------
-  # 0|def aaa():
-  # 1|    pass
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
@@ -34,10 +30,6 @@ finalState:
   documentContents: |-
     def aaa():
         pass
-  #   0123456789
-  #  +----------
-  # 0|def aaa():
-  # 1|    pass
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}

@@ -10,48 +10,22 @@ initialState:
   documentContents: |
 
     public class MyClass {
-        void myFunk () {
+        public MyClass (String name, int value) {
 
         }
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|    void myFunk () {
-  # 3|
-  # 4|    }
-  # 5|}
-  # 6|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 2, character: 27}
+      active: {line: 2, character: 27}
   marks: {}
 finalState:
   documentContents: |
 
     public class MyClass {
-        void myFunk () {
+        public MyClass (String name, int value) {
 
         }
     }
-  #             1         2
-  #   0123456789012345678901
-  #  +----------------------
-  # 0|
-  # 1|public class MyClass {
-  # 2|    void myFunk () {
-  # 3|
-  # 4|    }
-  # 5|}
-  # 6|
-  #  +----------------------
-  #   0123456789012345678901
-  #             1         2
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 8}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 26}
