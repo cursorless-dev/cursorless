@@ -19,6 +19,7 @@ const simpleActionNames = [
   "findInWorkspace",
   "foldRegion",
   "followLink",
+  "private.getTargets",
   "indentLine",
   "insertCopyAfter",
   "insertCopyBefore",
