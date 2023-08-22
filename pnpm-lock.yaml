@@ -202,12 +202,18 @@ importers:
       '@types/mocha':
         specifier: ^8.0.4
         version: 8.2.3
+      '@types/sinon':
+        specifier: ^10.0.2
+        version: 10.0.13
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
       mocha:
         specifier: ^10.2.0
         version: 10.2.0
+      sinon:
+        specifier: ^11.1.1
+        version: 11.1.2
 
   packages/cursorless-engine:
     dependencies:
@@ -452,6 +458,9 @@ importers:
       mocha:
         specifier: ^10.2.0
         version: 10.2.0
+      sinon:
+        specifier: ^11.1.1
+        version: 11.1.2
 
   packages/cursorless-vscode-e2e:
     dependencies:

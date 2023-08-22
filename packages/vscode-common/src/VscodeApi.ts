@@ -1,4 +1,4 @@
-import { workspace, window, TextEditor } from "vscode";
+import { workspace, window, TextEditor, env } from "vscode";
 
 /**
  * Subset of VSCode api that we need to be able to mock for testing
@@ -6,6 +6,7 @@ import { workspace, window, TextEditor } from "vscode";
 export interface VscodeApi {
   workspace: typeof workspace;
   window: typeof window;
+  env: typeof env;
 
   /**
    * Wrapper around editor api for easy mocking.  Provides various
