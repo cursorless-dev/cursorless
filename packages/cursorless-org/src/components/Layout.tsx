@@ -1,8 +1,9 @@
+import { MDXProvider } from "@mdx-js/react";
+import type { MDXComponents } from "mdx/types.js";
 import Head from "next/head";
-import { MDXProvider, MDXProviderComponentsProp } from "@mdx-js/react";
 import BaseSocial from "./BaseSocial";
 
-const components: MDXProviderComponentsProp = {
+const components: MDXComponents = {
   h1: ({ children }) => (
     <h1 className="text-center text-[2.5em] leading-tight mb-3">{children}</h1>
   ),
