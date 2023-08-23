@@ -50,8 +50,14 @@ export function minimumTokenRankContainingGrapheme(
   tokenRank: number,
   graphemeTokenRanks: { [key: string]: number[] },
 ): HatMetric {
-  return ({ grapheme: { text } }) =>
-    min(graphemeTokenRanks[text].filter((r) => r > tokenRank)) ?? Infinity;
+  return memoizedHatMetric(
+    ({ grapheme: { text } }): number => {
+      return (
+        min(graphemeTokenRanks[text].filter((r) => r > tokenRank)) ?? Infinity
+      );
+    },
+    ({ grapheme }) => grapheme.text,
+  );
 }
 
 /**
@@ -84,4 +90,30 @@ export function penaltyEquivalenceClass(hatStability: HatStability): HatMetric {
     case HatStability.stable:
       return (_) => 0;
   }
+}
+
+/**
+ * Memoizes a hat metric based on a key function.
+ * Hat allocation can be highly repetitive across any given dimension
+ * (grapheme, hat style, etc).
+ * This helps us avoid accidentally quadratic behavior in the number of tokens
+ * in minimumTokenRankContainingGrapheme.
+ * @param fn The hat metric to memoize
+ * @param key A function that returns a key for a given hat candidate
+ * @returns A memoized version of the hat metric
+ */
+function memoizedHatMetric(
+  fn: HatMetric,
+  key: (hat: HatCandidate) => any,
+): HatMetric {
+  const cache = new Map<any, number>();
+  return (hat: HatCandidate): number => {
+    const k = key(hat);
+    if (cache.has(k)) {
+      return cache.get(k) as number;
+    }
+    const result = fn(hat);
+    cache.set(k, result);
+    return result;
+  };
 }
