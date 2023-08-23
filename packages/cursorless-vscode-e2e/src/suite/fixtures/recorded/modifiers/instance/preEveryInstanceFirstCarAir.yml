@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: pre every instance first car air
+  spokenForm: pre every instance first char air
   action: {name: setSelectionBefore}
   targets:
     - type: primitive

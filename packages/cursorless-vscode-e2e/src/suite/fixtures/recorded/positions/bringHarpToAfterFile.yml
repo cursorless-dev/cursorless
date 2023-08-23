@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: bring harp to after file
+  spokenForm: bring harp after file
   version: 2
   action: {name: replaceWithTarget}
   targets:
@@ -28,4 +28,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: []}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: document}]}]

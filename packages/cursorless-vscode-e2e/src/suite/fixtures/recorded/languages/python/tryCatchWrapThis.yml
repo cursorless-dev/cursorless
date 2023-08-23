@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 1
-  spokenForm: try catch wrap this
+  spokenForm: try wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive
@@ -22,4 +22,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: statement, includeSiblings: false}}]

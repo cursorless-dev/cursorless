@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck fourth past fifth car
+  spokenForm: chuck fourth past fifth char
   action: remove
   targets:
     - type: primitive
@@ -18,4 +18,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 3, active: 4, excludeAnchor: false, excludeActive: false}}]

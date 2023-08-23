@@ -35,13 +35,10 @@ export class LanguageDefinition {
    */
   static create(
     treeSitter: TreeSitter,
+    queryDir: string,
     languageId: string,
   ): LanguageDefinition | undefined {
-    const languageQueryPath = join(
-      ide().assetsRoot,
-      "queries",
-      `${languageId}.scm`,
-    );
+    const languageQueryPath = join(queryDir, `${languageId}.scm`);
 
     if (!existsSync(languageQueryPath)) {
       return undefined;

@@ -1,13 +1,14 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: snip spaghetti grace hopper
+  spokenForm: snippet spaghetti grace hopper
   action: insertSnippet
   targets:
     - {type: primitive, isImplicit: true}
   extraArgs:
     - spaghetti
     - {foo: grace hopper}
+spokenFormError: Named insertion snippet 'spaghetti'
 initialState:
   documentContents: ""
   selections:
@@ -26,4 +27,3 @@ finalState:
         end: {line: 0, character: 46}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

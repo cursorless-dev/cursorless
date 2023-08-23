@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear two instances blue air past bat
+  spokenForm: change two instances blue air past bat
   action: {name: clearAndSetSelection}
   targets:
     - type: range

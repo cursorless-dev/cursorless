@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear every line funk
+  spokenForm: change every line funk
   version: 2
   targets:
     - type: primitive
@@ -34,4 +34,3 @@ finalState:
       active: {line: 2, character: 2}
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: line}}, {type: containingScope, scopeType: {type: namedFunction}}]}]

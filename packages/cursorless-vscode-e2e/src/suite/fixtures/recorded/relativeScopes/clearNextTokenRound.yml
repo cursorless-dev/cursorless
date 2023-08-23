@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear next token round
+  spokenForm: change next token round
   version: 3
   targets:
     - type: primitive
@@ -33,4 +33,3 @@ finalState:
   selections:
     - anchor: {line: 3, character: 2}
       active: {line: 3, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 1, length: 1, direction: forward}, {type: containingScope, scopeType: {type: surroundingPair, delimiter: parentheses}}]}]

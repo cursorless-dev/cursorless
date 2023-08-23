@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear previous funk
+  spokenForm: change previous funk
   version: 2
   targets:
     - type: primitive
@@ -29,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: previousContainingScope, scopeType: {type: namedFunction}}]}]

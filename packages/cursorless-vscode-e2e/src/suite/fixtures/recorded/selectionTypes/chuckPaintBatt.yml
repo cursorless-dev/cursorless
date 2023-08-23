@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck paint batt
+  spokenForm: chuck paint bat
   action: remove
   targets:
     - type: primitive
@@ -23,4 +23,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: nonWhitespaceSequence, position: contents, insideOutsideType: outside, modifier: {type: identity}, isImplicit: false}]

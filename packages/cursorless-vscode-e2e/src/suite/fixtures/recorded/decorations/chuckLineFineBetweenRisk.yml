@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck line fine between risk
+  spokenForm: chuck line fine between red
   version: 2
   targets:
     - type: range
@@ -46,4 +46,3 @@ ide:
   flashes:
     - style: pendingDelete
       range: {type: line, start: 2, end: 3}
-fullTargets: [{type: range, excludeAnchor: true, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: *ref_0}}]

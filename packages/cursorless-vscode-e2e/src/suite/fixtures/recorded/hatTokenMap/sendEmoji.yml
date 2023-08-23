@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
-  spokenForm: clear special
+  spokenForm: change special
   version: 2
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: 😄}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Unknown character '😄'
 initialState:
   documentContents: |
     😄
@@ -23,4 +24,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: �}, modifiers: []}]

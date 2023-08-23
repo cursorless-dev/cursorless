@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear second item
+  spokenForm: change second item
   version: 3
   targets:
     - type: primitive
@@ -22,4 +22,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalScope, scopeType: {type: collectionItem}, start: 1, length: 1}]}]

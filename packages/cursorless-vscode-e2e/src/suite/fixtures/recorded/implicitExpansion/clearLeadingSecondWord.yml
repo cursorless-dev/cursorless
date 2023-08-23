@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear leading second word
+  spokenForm: change leading second word
   version: 2
   targets:
     - type: primitive
@@ -20,5 +20,4 @@ initialState:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: leading}, {type: ordinalRange, scopeType: {type: word}, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}]}]
 thrownError: {name: NoDelimiterError}

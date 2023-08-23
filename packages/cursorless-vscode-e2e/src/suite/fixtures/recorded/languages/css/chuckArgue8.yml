@@ -1,7 +1,7 @@
 languageId: css
 command:
   version: 1
-  spokenForm: chuck argue
+  spokenForm: chuck arg
   action: remove
   targets:
     - type: primitive
@@ -23,4 +23,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 31}
       active: {line: 1, character: 31}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}]

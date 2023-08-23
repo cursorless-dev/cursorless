@@ -1,12 +1,14 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-  "files.exclude": {
-    "out": false // set this to true to hide the "out" folder with the compiled JS files
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
-  "search.exclude": {
-    "out": true // set this to false to include "out" folder in search results
+  "[scm]": {
+    "editor.defaultFormatter": "AndreasArvidsson.andreas-talon"
   },
-  "python.formatting.provider": "black",
+  "[talon]": {
+    "editor.defaultFormatter": "wenkokke.tree-sitter-talon"
+  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
   "typescript.tsc.autoDetect": "off",

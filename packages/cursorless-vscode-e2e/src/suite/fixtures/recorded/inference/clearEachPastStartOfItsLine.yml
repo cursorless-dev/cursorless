@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear each past start of its line
+  spokenForm: change each past start of its line
   version: 3
   targets:
     - type: range
@@ -38,4 +38,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: [{type: containingScope, scopeType: {type: line}}], positionModifier: {type: position, position: start}}}]

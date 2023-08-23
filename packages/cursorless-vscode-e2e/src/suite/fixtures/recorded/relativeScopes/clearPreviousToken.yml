@@ -1,6 +1,6 @@
 languageId: markdown
 command:
-  spokenForm: clear previous token
+  spokenForm: change previous token
   version: 3
   targets:
     - type: primitive
@@ -29,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 1, length: 1, direction: backward}]}]

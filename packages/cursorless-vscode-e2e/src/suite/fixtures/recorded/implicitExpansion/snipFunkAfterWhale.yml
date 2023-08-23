@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk after whale
+  spokenForm: snippet funk after whale
   version: 2
   targets:
     - type: primitive
@@ -37,4 +37,3 @@ finalState:
   selections:
     - anchor: {line: 4, character: 9}
       active: {line: 4, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: [], positionModifier: {type: position, position: after}}]

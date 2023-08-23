@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear vest
+  spokenForm: change vest
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -31,4 +31,3 @@ finalState:
         end: {line: 1, character: 6}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

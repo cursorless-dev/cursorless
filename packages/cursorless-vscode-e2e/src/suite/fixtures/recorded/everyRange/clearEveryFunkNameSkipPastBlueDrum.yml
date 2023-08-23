@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: clear every funk name skip past blue drum
+  spokenForm: change every funk name skip past blue drum
   action: {name: clearAndSetSelection}
   targets:
     - type: range
@@ -16,6 +16,7 @@ command:
       excludeAnchor: true
       excludeActive: false
   usePrePhraseSnapshot: true
+spokenFormError: Range exclude anchor
 initialState:
   documentContents: |
     def aaa():

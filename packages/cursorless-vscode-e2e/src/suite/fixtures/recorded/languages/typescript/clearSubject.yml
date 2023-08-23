@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 3
-  spokenForm: clear subject
+  spokenForm: change subject
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -9,6 +9,7 @@ command:
         - type: containingScope
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |-
     switch(aaa) {
@@ -28,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]

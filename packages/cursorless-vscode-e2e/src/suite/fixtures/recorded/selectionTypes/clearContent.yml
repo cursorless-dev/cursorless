@@ -1,6 +1,6 @@
 languageId: markdown
 command:
-  spokenForm: clear content
+  spokenForm: change content
   version: 3
   targets:
     - type: primitive
@@ -34,4 +34,3 @@ finalState:
       active: {line: 1, character: 0}
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: keepContentFilter}]}]

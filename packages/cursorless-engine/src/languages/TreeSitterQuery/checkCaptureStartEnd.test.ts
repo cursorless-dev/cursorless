@@ -5,7 +5,7 @@ import assert = require("assert");
 
 interface TestCase {
   name: string;
-  captures: Omit<QueryCapture, "allowMultiple">[];
+  captures: Omit<QueryCapture, "allowMultiple" | "insertionDelimiter">[];
   isValid: boolean;
   expectedErrorMessageIds: string[];
 }
@@ -130,7 +130,7 @@ const testCases: TestCase[] = [
   },
 
   {
-    name: "should show error for capture with multiple start",
+    name: "should allow capture with multiple start",
     captures: [
       {
         name: "@foo.start",
@@ -145,8 +145,8 @@ const testCases: TestCase[] = [
         range: new Range(0, 2, 0, 3),
       },
     ],
-    isValid: false,
-    expectedErrorMessageIds: ["TreeSitterQuery.checkCaptures.duplicate"],
+    isValid: true,
+    expectedErrorMessageIds: [],
   },
 
   {
@@ -157,7 +157,7 @@ const testCases: TestCase[] = [
         range: new Range(0, 0, 0, 0),
       },
       {
-        name: "@foo.start",
+        name: "@foo",
         range: new Range(0, 1, 0, 2),
       },
       {
@@ -192,6 +192,7 @@ suite("checkCaptureStartEnd", () => {
         testCase.captures.map((capture) => ({
           ...capture,
           allowMultiple: false,
+          insertionDelimiter: undefined,
         })),
         messages,
       );

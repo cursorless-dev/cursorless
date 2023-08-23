@@ -1,6 +1,6 @@
 languageId: java
 command:
-  spokenForm: clear branch
+  spokenForm: change branch
   version: 3
   targets:
     - type: primitive
@@ -38,4 +38,3 @@ finalState:
   selections:
     - anchor: {line: 4, character: 8}
       active: {line: 4, character: 8}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]

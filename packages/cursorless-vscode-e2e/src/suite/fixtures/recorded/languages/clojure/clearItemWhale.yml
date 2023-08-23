@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear item whale
+  spokenForm: change item whale
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -21,4 +21,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 13}
       active: {line: 0, character: 13}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w, usePrePhraseSnapshot: true}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}}]

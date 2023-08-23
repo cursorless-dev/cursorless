@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every line past block fine
+  spokenForm: change every line past block fine
   action: {name: clearAndSetSelection}
   targets:
     - type: range

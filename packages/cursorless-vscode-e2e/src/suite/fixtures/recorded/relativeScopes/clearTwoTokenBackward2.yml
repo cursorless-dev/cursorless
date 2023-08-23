@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear two token backward
+  spokenForm: change two tokens backward
   version: 3
   targets:
     - type: primitive
@@ -18,5 +18,4 @@ initialState:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: token}, offset: 0, length: 2, direction: backward}]}]
 thrownError: {name: NoContainingScopeError}

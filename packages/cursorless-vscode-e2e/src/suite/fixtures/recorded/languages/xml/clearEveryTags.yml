@@ -1,7 +1,7 @@
 languageId: xml
 command:
   version: 1
-  spokenForm: clear every tags
+  spokenForm: change every tags
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -43,4 +43,3 @@ finalState:
       active: {line: 4, character: 4}
     - anchor: {line: 4, character: 33}
       active: {line: 4, character: 33}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: xmlBothTags, includeSiblings: true}, isImplicit: false}]

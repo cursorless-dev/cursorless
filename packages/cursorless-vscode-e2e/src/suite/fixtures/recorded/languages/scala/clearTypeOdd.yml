@@ -1,7 +1,7 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: clear type odd
+  spokenForm: change type odd
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -27,4 +27,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 19}
       active: {line: 0, character: 19}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]

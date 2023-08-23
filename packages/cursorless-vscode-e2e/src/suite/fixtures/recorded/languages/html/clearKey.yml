@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear key
+  spokenForm: change key
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -23,4 +23,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: false}}]

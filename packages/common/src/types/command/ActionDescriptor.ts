@@ -46,6 +46,7 @@ const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
+  "private.getTargets",
 ] as const;
 
 const complexActionNames = [

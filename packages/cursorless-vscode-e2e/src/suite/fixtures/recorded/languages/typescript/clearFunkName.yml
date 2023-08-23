@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear funk name
+  spokenForm: change funk name
   version: 3
   targets:
     - type: primitive
@@ -26,4 +26,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 23}
       active: {line: 1, character: 23}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: functionName}}]}]

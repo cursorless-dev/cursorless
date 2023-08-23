@@ -1,6 +1,6 @@
 languageId: java
 command:
-  spokenForm: clear subject
+  spokenForm: change subject
   version: 3
   targets:
     - type: primitive
@@ -9,6 +9,7 @@ command:
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |
     class Aaa {
@@ -38,4 +39,3 @@ finalState:
   selections:
     - anchor: {line: 4, character: 14}
       active: {line: 4, character: 14}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: switchStatementSubject}}]}]

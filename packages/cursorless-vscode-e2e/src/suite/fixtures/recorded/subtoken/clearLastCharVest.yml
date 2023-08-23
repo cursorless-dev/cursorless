@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear last char vest
+  spokenForm: change last char vest
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -25,4 +25,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 20}
       active: {line: 1, character: 20}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: character, anchor: -1, active: -1}, insideOutsideType: inside}]

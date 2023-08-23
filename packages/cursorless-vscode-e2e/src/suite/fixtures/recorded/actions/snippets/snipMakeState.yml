@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip make state
+  spokenForm: snippet make state
   version: 2
   targets:
     - type: primitive
@@ -11,6 +11,7 @@ command:
   action:
     name: generateSnippet
     args: [snippetTest1]
+spokenFormError: generateSnippet.snippetName
 initialState:
   documentContents: |-
     if () {
@@ -56,4 +57,3 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: statement}}]}]

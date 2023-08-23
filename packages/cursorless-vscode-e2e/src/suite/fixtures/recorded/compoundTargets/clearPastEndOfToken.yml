@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear past end of token
+  spokenForm: change past end of token
   action: clearAndSetSelection
   targets:
     - type: range
@@ -20,4 +20,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
-fullTargets: [{type: range, excludeStart: false, excludeEnd: false, start: {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, end: {type: primitive, mark: {type: cursorToken}, selectionType: token, position: after, modifier: {type: identity}, insideOutsideType: inside}}]

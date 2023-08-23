@@ -13,9 +13,11 @@
   (if) @ifStatement
 ) @_.iteration
 
-
 (_
-  [(method) (singleton_method)] @namedFunction
+  [
+    (method)
+    (singleton_method)
+  ] @namedFunction
 ) @_.iteration
 
 (_

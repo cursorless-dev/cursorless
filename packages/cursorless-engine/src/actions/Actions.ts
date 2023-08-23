@@ -12,6 +12,7 @@ import ExecuteCommand from "./ExecuteCommand";
 import { FindInWorkspace } from "./Find";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
+import GetTargets from "./GetTargets";
 import GetText from "./GetText";
 import Highlight from "./Highlight";
 import {
@@ -144,4 +145,5 @@ export class Actions implements ActionRecord {
     this.snippets,
     this.modifierStageFactory,
   );
+  ["private.getTargets"] = new GetTargets();
 }

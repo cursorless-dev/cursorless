@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear this past start of token
+  spokenForm: change this past start of token
   version: 3
   targets:
     - type: range
@@ -28,4 +28,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: []}, active: {type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}], positionModifier: {type: position, position: start}}}]

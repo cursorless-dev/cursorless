@@ -1,0 +1,25 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change second two tokens
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: ordinalScope
+          scopeType: {type: token}
+          start: 1
+          length: 2
+  usePrePhraseSnapshot: true
+spokenFormError: "'ordinalScope' with count > 1 and offset away from start / end"
+initialState:
+  documentContents: aaa bbb ccc ddd eee
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+finalState:
+  documentContents: aaa  ddd eee
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

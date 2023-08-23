@@ -8,6 +8,7 @@ import { parsePredicates } from "./parsePredicates";
 import { predicateToString } from "./predicateToString";
 import { groupBy, uniq } from "lodash";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
+import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
 
 /**
  * Wrapper around a tree-sitter query that provides a more convenient API, and
@@ -62,14 +63,14 @@ export class TreeSitterQuery {
 
   matches(
     document: TextDocument,
-    start: Position,
-    end: Position,
+    start?: Position,
+    end?: Position,
   ): QueryMatch[] {
     return this.query
       .matches(
         this.treeSitter.getTree(document).rootNode,
-        positionToPoint(start),
-        positionToPoint(end),
+        start == null ? undefined : positionToPoint(start),
+        end == null ? undefined : positionToPoint(end),
       )
       .map(
         ({ pattern, captures }): MutableQueryMatch => ({
@@ -77,7 +78,9 @@ export class TreeSitterQuery {
           captures: captures.map(({ name, node }) => ({
             name,
             node,
+            document,
             range: getNodeRange(node),
+            insertionDelimiter: undefined,
             allowMultiple: false,
           })),
         }),
@@ -95,6 +98,7 @@ export class TreeSitterQuery {
         const captures: QueryCapture[] = Object.entries(
           groupBy(match.captures, ({ name }) => normalizeCaptureName(name)),
         ).map(([name, captures]) => {
+          captures = rewriteStartOfEndOf(captures);
           const capturesAreValid = checkCaptureStartEnd(
             captures,
             ide().messages,
@@ -110,6 +114,9 @@ export class TreeSitterQuery {
               .map(({ range }) => range)
               .reduce((accumulator, range) => range.union(accumulator)),
             allowMultiple: captures.some((capture) => capture.allowMultiple),
+            insertionDelimiter: captures.find(
+              (capture) => capture.insertionDelimiter != null,
+            )?.insertionDelimiter,
           };
         });
 
@@ -123,7 +130,7 @@ export class TreeSitterQuery {
 }
 
 function normalizeCaptureName(name: string): string {
-  return name.replace(/\.(start|end)$/, "");
+  return name.replace(/(\.(start|end))?(\.(startOf|endOf))?$/, "");
 }
 
 function positionToPoint(start: Position): Point {

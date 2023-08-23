@@ -25,18 +25,21 @@ import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { registerCommands } from "./registerCommands";
-import { StatusBarItem } from "./StatusBarItem";
 import {
   createVscodeScopeVisualizer,
   VscodeScopeVisualizer,
 } from "./ide/vscode/VSCodeScopeVisualizer";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import { registerCommands } from "./registerCommands";
+import { ReleaseNotes } from "./ReleaseNotes";
 import {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
+import { StatusBarItem } from "./StatusBarItem";
+import { vscodeApi } from "./vscodeApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -51,11 +54,11 @@ export async function activate(
 ): Promise<CursorlessApi> {
   const parseTreeApi = await getParseTreeApi();
 
-  const { vscodeIDE, hats } = await createVscodeIde(context);
+  const { vscodeIDE, hats, fileSystem } = await createVscodeIde(context);
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
-      ? undefined
+      ? vscodeIDE
       : new NormalizedIDE(
           vscodeIDE,
           new FakeIDE(),
@@ -80,9 +83,10 @@ export async function activate(
     runIntegrationTests,
   } = createCursorlessEngine(
     treeSitter,
-    normalizedIde ?? vscodeIDE,
+    normalizedIde,
     hats,
     commandServerApi,
+    fileSystem,
   );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
@@ -93,10 +97,12 @@ export async function activate(
     vscodeIDE,
     commandApi,
     testCaseRecorder,
-    createScopeVisualizerCommandApi(normalizedIde ?? vscodeIDE, scopeProvider),
+    createScopeVisualizerCommandApi(normalizedIde, scopeProvider),
     keyboardCommands,
     hats,
   );
+
+  new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
 
   return {
     testHelpers: isTesting()
@@ -105,7 +111,7 @@ export async function activate(
           storedTargets,
           hatTokenMap,
           vscodeIDE,
-          normalizedIde!,
+          normalizedIde as NormalizedIDE,
           injectIde,
           runIntegrationTests,
         )
@@ -129,7 +135,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats };
+  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

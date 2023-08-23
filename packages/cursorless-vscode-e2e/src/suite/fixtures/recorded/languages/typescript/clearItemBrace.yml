@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear item brace
+  spokenForm: change item brace
   version: 2
   targets:
     - type: primitive
@@ -32,4 +32,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '{'}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]

@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear every token bat skip past each
+  spokenForm: change every token bat skip past each
   action: {name: clearAndSetSelection}
   targets:
     - type: range
@@ -17,6 +17,7 @@ command:
       excludeAnchor: true
       excludeActive: false
   usePrePhraseSnapshot: true
+spokenFormError: Range exclude anchor
 initialState:
   documentContents: |
     aaa bbb ccc ddd eee fff

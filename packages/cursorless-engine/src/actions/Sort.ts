@@ -1,7 +1,9 @@
+import { showWarning } from "@cursorless/common";
 import { shuffle } from "lodash";
+import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
 abstract class SortBase implements SimpleAction {
   constructor(private actions: Actions) {
@@ -11,6 +13,14 @@ abstract class SortBase implements SimpleAction {
   protected abstract sortTexts(texts: string[]): string[];
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
+    if (targets.length < 2) {
+      showWarning(
+        ide().messages,
+        "tooFewTargets",
+        'This action works on multiple targets, e.g. "sort every line block" instead of "sort block".',
+      );
+    }
+
     // First sort target by document order
     const sortedTargets = targets
       .slice()

@@ -7,6 +7,7 @@ import {
   EnforceUndefined,
   ExecuteCommandOptions,
   GetTextActionOptions,
+  HighlightActionDescriptor,
   HighlightId,
   ImplicitDestinationDescriptor,
   ImplicitTargetDescriptor,
@@ -110,12 +111,16 @@ function upgradeAction(
         replaceWith: action.args![0] as ReplaceWith,
         destination: targetToDestination(targets[0]),
       };
-    case "highlight":
-      return {
+    case "highlight": {
+      const result: HighlightActionDescriptor = {
         name,
-        highlightId: action.args?.[0] as HighlightId | undefined,
         target: upgradeTarget(targets[0]),
       };
+      if (action.args?.[0] != null) {
+        result.highlightId = action.args?.[0] as HighlightId;
+      }
+      return result;
+    }
     case "editNew":
       return {
         name,
@@ -187,21 +192,34 @@ function upgradeRangeTarget(
   target: PartialRangeTargetDescriptorV5,
 ): PartialRangeTargetDescriptor {
   const { anchor, active } = target;
-  return {
-    ...target,
+  const result: PartialRangeTargetDescriptor = {
+    type: "range",
     anchor:
       anchor.type === "implicit" ? anchor : upgradePrimitiveTarget(anchor),
     active: upgradePrimitiveTarget(active),
+    excludeAnchor: target.excludeAnchor,
+    excludeActive: target.excludeActive,
   };
+  if (target.rangeType != null) {
+    result.rangeType = target.rangeType;
+  }
+  return result;
 }
 
 function upgradePrimitiveTarget(
   target: PartialPrimitiveTargetDescriptorV5,
 ): PartialPrimitiveTargetDescriptor {
-  return {
-    ...target,
-    modifiers: upgradeModifiers(target.modifiers),
+  const result: PartialPrimitiveTargetDescriptor = {
+    type: "primitive",
   };
+  const modifiers = upgradeModifiers(target.modifiers);
+  if (modifiers != null) {
+    result.modifiers = modifiers;
+  }
+  if (target.mark != null) {
+    result.mark = target.mark;
+  }
+  return result;
 }
 
 function targetToDestination(
@@ -236,22 +254,29 @@ function listTargetToDestination(
   )[] = [];
   let currentInsertionMode: InsertionMode | undefined = undefined;
 
+  const potentiallyAddDestination = () => {
+    if (currentElements.length > 0) {
+      destinations.push({
+        type: "primitive",
+        insertionMode: currentInsertionMode ?? "to",
+        target:
+          currentElements.length === 1
+            ? currentElements[0]
+            : {
+                type: "list",
+                elements: currentElements,
+              },
+      });
+    }
+  };
+
   target.elements.forEach((element) => {
     const insertionMode = getInsertionMode(element);
 
     if (insertionMode != null) {
       // If the insertion mode has changed, we need to create a new destination
       // with the elements and insertion mode seen so far
-      if (currentElements.length > 0) {
-        destinations.push({
-          type: "primitive",
-          insertionMode: currentInsertionMode ?? "to",
-          target: {
-            type: "list",
-            elements: currentElements,
-          },
-        });
-      }
+      potentiallyAddDestination();
 
       currentElements = [upgradeRangeOrPrimitiveTarget(element)];
       currentInsertionMode = insertionMode;
@@ -260,16 +285,7 @@ function listTargetToDestination(
     }
   });
 
-  if (currentElements.length > 0) {
-    destinations.push({
-      type: "primitive",
-      insertionMode: currentInsertionMode ?? "to",
-      target: {
-        type: "list",
-        elements: currentElements,
-      },
-    });
-  }
+  potentiallyAddDestination();
 
   if (destinations.length > 1) {
     return {

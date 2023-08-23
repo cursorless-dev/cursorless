@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck after line vest
+  spokenForm: chuck trailing line vest
   action: remove
   targets:
     - type: primitive
@@ -29,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: line, position: after, modifier: {type: identity}, insideOutsideType: outside}]

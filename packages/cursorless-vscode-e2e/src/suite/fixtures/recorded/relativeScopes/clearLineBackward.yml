@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear line backward
+  spokenForm: change line backward
   version: 3
   targets:
     - type: primitive
@@ -26,4 +26,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: relativeScope, scopeType: {type: line}, offset: 0, length: 1, direction: backward}]}]

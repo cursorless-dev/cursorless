@@ -1,0 +1,24 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change inside funk
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "func (t T) f() {\n\t_ = 1\n}"
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}
+  marks: {}
+finalState:
+  documentContents: "func (t T) f() {\n\t\n}"
+  selections:
+    - anchor: {line: 1, character: 1}
+      active: {line: 1, character: 1}

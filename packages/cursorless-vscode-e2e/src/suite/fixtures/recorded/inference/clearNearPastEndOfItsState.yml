@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear near past end of its state
+  spokenForm: change near past end of its state
   version: 3
   targets:
     - type: range
@@ -38,4 +38,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}, modifiers: [{type: containingScope, scopeType: {type: statement}}], positionModifier: {type: position, position: end}}}]

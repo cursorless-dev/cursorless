@@ -1,10 +1,6 @@
 export * from "./cursorlessCommandIds";
 export * from "./testUtil/extractTargetedMarks";
 export { default as FakeIDE } from "./ide/fake/FakeIDE";
-export {
-  runTestSubset,
-  TEST_SUBSET_GREP_STRING,
-} from "./testUtil/runTestSubset";
 export { Message } from "./ide/spy/SpyMessages";
 export { SpyIDERecordedValues } from "./ide/spy/SpyIDE";
 export { default as SpyIDE } from "./ide/spy/SpyIDE";
@@ -30,6 +26,7 @@ export * from "./ide/types/Events";
 export * from "./ide/types/QuickPickOptions";
 export * from "./ide/types/events.types";
 export * from "./ide/types/Paths";
+export * from "./ide/types/FileSystem.types";
 export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";
 export * from "./types/Position";
@@ -58,7 +55,10 @@ export * from "./testUtil/testConstants";
 export * from "./testUtil/getFixturePaths";
 export * from "./testUtil/getCursorlessRepoRoot";
 export * from "./testUtil/serialize";
+export * from "./testUtil/shouldUpdateFixtures";
 export * from "./testUtil/TestCaseSnapshot";
+export * from "./testUtil/serializeTestFixture";
+export * from "./testUtil/asyncSafety";
 export * from "./util/typeUtils";
 export * from "./ide/types/hatStyles.types";
 export * from "./errors";

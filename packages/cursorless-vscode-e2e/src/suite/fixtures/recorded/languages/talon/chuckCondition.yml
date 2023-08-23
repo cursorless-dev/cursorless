@@ -1,0 +1,31 @@
+languageId: talon
+command:
+  version: 6
+  spokenForm: chuck condition
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    tag: user.foo
+    app: bar
+    -
+    bongo: bazman
+    foo: key(a)
+  selections:
+    - anchor: {line: 4, character: 11}
+      active: {line: 4, character: 11}
+  marks: {}
+finalState:
+  documentContents: |-
+
+    bongo: bazman
+    foo: key(a)
+  selections:
+    - anchor: {line: 2, character: 11}
+      active: {line: 2, character: 11}

@@ -1,7 +1,7 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: clear type comma
+  spokenForm: change type comma
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -23,4 +23,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: ','}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}, isImplicit: false}]

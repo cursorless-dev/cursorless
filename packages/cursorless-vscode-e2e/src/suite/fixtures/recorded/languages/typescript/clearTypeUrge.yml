@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear type urge
+  spokenForm: change type urge
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -21,4 +21,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 11}
       active: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: u, usePrePhraseSnapshot: true}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck core that
+  spokenForm: chuck inside that
   version: 2
   targets:
     - type: primitive
@@ -27,4 +27,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: interiorOnly}]}]

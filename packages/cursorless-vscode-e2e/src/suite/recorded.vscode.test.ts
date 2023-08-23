@@ -1,4 +1,5 @@
 import {
+  asyncSafety,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   extractTargetedMarks,
@@ -11,8 +12,9 @@ import {
   rangeToPlainObject,
   ReadOnlyHatMap,
   SelectionPlainObject,
-  serialize,
   SerializedMarks,
+  serializeTestFixture,
+  shouldUpdateFixtures,
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
@@ -26,14 +28,12 @@ import {
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { promises as fsp } from "fs";
 import * as yaml from "js-yaml";
-import { isUndefined } from "lodash";
+import { promises as fsp } from "node:fs";
 import * as vscode from "vscode";
-import asyncSafety from "../asyncSafety";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-import shouldUpdateFixtures from "../shouldUpdateFixtures";
 import { setupFake } from "./setupFake";
+import { isUndefined } from "lodash";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -55,9 +55,9 @@ suite("recorded test cases", async function () {
     setupFake(ide, HatStability.stable);
   });
 
-  getRecordedTestPaths().forEach((path) =>
+  getRecordedTestPaths().forEach(({ name, path }) =>
     test(
-      path.split(".")[0],
+      name,
       asyncSafety(() => runTest(path, getSpy()!)),
     ),
   );
@@ -140,7 +140,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
         thrownError: { name: error.name },
       };
 
-      await fsp.writeFile(file, serialize(outputFixture));
+      await fsp.writeFile(file, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
       assert.strictEqual(error.name, fixture.thrownError.name);
     } else {
@@ -196,13 +196,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const actualSpyIdeValues =
     rawSpyIdeValues == null
       ? undefined
-      : omitByDeep(
-          spyIDERecordedValuesToPlainObject(rawSpyIdeValues),
-          isUndefined,
-        );
+      : spyIDERecordedValuesToPlainObject(rawSpyIdeValues);
 
   if (shouldUpdateFixtures()) {
-    const outputFixture = {
+    const outputFixture: TestCaseFixtureLegacy = {
       ...fixture,
       finalState: resultState,
       returnValue,
@@ -210,7 +207,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       thrownError: undefined,
     };
 
-    await fsp.writeFile(file, serialize(outputFixture));
+    await fsp.writeFile(file, serializeTestFixture(outputFixture));
   } else {
     if (fixture.thrownError != null) {
       throw Error(
@@ -231,7 +228,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     );
 
     assert.deepStrictEqual(
-      actualSpyIdeValues,
+      omitByDeep(actualSpyIdeValues, isUndefined),
       fixture.ide,
       "Unexpected ide captured values",
     );

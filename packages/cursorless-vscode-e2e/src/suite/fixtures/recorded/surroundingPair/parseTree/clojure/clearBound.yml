@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear bound
+  spokenForm: change bounds
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -19,4 +19,3 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 0, character: 5}
       active: {line: 0, character: 5}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}}]

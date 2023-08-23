@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: take core
+  spokenForm: take inside pair
   version: 2
   targets:
     - type: primitive
@@ -31,4 +31,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 30}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: surroundingPair, delimiter: any}}, {type: interiorOnly}]}]

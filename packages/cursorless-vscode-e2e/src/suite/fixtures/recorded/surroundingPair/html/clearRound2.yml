@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear round
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -27,4 +27,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 16}
       active: {line: 2, character: 16}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses}, isImplicit: false}]

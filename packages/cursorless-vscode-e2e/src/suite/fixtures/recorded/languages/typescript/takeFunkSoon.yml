@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take funk soon
+  spokenForm: take funk sun
   action: setSelection
   targets:
     - type: primitive
@@ -25,4 +25,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 1, character: 1}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}, isImplicit: false}]

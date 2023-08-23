@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear sentence
+  spokenForm: change sentence
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

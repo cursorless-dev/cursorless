@@ -1,12 +1,22 @@
 languageId: plaintext
 command:
-  version: 1
-  spokenForm: chuck first past second car
-  action: remove
+  version: 3
+  spokenForm: chuck first past second char
+  action: {name: remove}
   targets:
     - type: primitive
-      selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1, excludeAnchor: false, excludeActive: false}
+      modifiers:
+        - type: range
+          anchor:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 0
+            length: 1
+          active:
+            type: ordinalScope
+            scopeType: {type: character}
+            start: 1
+            length: 1
 initialState:
   documentContents: foo world whatever
   selections:
@@ -18,4 +28,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursorToken}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: subpiece, pieceType: character, anchor: 0, active: 1, excludeAnchor: false, excludeActive: false}}]

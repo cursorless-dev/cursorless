@@ -8,7 +8,9 @@
     "test": "env CURSORLESS_TEST=true tsx --conditions=cursorless:bundler src/scripts/runTestsCI.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo",
+    "generate-test-subset-file": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts --always-open",
+    "generate-test-subset-file-strict": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +23,7 @@
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.0.4",
     "@vscode/test-electron": "^2.1.3",
-    "mocha": "^8.1.3"
+    "mocha": "^10.2.0"
   },
   "types": "./out/index.d.ts",
   "exports": {

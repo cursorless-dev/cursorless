@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: clear previous two instances air
+  spokenForm: change previous two instances air
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive

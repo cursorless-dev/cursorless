@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: pree vest
+  spokenForm: pre vest
   action: setSelectionBefore
   targets:
     - type: primitive
@@ -31,4 +31,3 @@ finalState:
         end: {line: 1, character: 11}
       isReversed: false
       hasExplicitRange: false
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

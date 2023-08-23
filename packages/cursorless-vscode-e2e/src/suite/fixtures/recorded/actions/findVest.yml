@@ -1,13 +1,14 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: find vest
+  spokenForm: scout vest
   action: getText
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:
     - {showDecorations: null, ensureSingleTarget: true}
+spokenFormError: Action 'getText'
 initialState:
   documentContents: |
 
@@ -34,4 +35,3 @@ finalState:
       isReversed: false
       hasExplicitRange: false
 returnValue: [value]
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

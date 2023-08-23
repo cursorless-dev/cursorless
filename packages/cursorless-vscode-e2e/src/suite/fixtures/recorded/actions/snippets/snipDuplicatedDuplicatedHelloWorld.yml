@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: snip duplicated duplicated hello world
+  spokenForm: snippet duplicated duplicated hello world
   version: 2
   targets:
     - {type: primitive, isImplicit: true}
@@ -10,6 +10,7 @@ command:
     args:
       - duplicatedVariableTest
       - {duplicated: hello world}
+spokenFormError: Named insertion snippet 'duplicatedVariableTest'
 initialState:
   documentContents: ""
   selections:
@@ -30,4 +31,3 @@ finalState:
         end: {line: 0, character: 81}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: toRawSelection}]}]

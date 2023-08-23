@@ -1,7 +1,7 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take type soon
+  spokenForm: take type sun
   action: setSelection
   targets:
     - type: primitive
@@ -33,4 +33,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 8}
       active: {line: 2, character: 27}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]

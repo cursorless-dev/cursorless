@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 3
-  spokenForm: clear branch
+  spokenForm: change branch
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -32,4 +32,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 2}
       active: {line: 2, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]

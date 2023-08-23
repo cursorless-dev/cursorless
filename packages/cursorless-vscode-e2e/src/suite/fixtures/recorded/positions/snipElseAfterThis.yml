@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: snip else after this
+  spokenForm: snippet else after this
   action:
     name: insertSnippet
     args:
@@ -12,6 +12,7 @@ command:
       modifiers:
         - {type: position, position: after}
   usePrePhraseSnapshot: true
+spokenFormError: Named insertion snippet 'elseStatement'
 initialState:
   documentContents: |
     if True:

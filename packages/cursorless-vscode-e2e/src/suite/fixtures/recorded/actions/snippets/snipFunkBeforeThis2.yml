@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk before this
+  spokenForm: snippet funk before this
   version: 2
   targets:
     - type: primitive
@@ -33,4 +33,3 @@ finalState:
         end: {line: 2, character: 5}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: position, position: before}]}]

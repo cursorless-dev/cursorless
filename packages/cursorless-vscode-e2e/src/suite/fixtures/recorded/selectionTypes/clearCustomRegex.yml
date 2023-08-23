@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear custom regex
+  spokenForm: change custom regex
   version: 2
   targets:
     - type: primitive
@@ -9,6 +9,7 @@ command:
           scopeType: {type: customRegex, regex: '[\w/_.]+'}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
+spokenFormError: Scope type 'customRegex'
 initialState:
   documentContents: aa.bb/cc_dd123(  )
   selections:
@@ -20,4 +21,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: customRegex, regex: '[\w/_.]+'}}]}]

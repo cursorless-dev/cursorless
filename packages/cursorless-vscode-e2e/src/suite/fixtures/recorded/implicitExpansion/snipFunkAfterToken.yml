@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk after token
+  spokenForm: snippet funk after token
   version: 2
   targets:
     - type: primitive
@@ -33,4 +33,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 28}
       active: {line: 1, character: 28}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}], positionModifier: {type: position, position: after}}]

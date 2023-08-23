@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear second word
+  spokenForm: change second word
   version: 2
   targets:
     - type: primitive
@@ -24,4 +24,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: ordinalRange, scopeType: {type: word}, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}]}]

@@ -14,12 +14,21 @@ CURSORLESS_IDENTIFIER_HEADER = "Cursorless identifier"
 
 
 mod = Module()
+mod.tag(
+    "cursorless_default_vocabulary",
+    desc="Use default cursorless vocabulary instead of user custom",
+)
 cursorless_settings_directory = mod.setting(
     "cursorless_settings_directory",
     type=str,
     default="cursorless-settings",
     desc="The directory to use for cursorless settings csvs relative to talon user directory",
 )
+
+default_ctx = Context()
+default_ctx.matches = r"""
+tag: user.cursorless_default_vocabulary
+"""
 
 
 def init_csv_and_watch_changes(
@@ -67,6 +76,9 @@ def init_csv_and_watch_changes(
     super_default_values = get_super_values(default_values)
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
+
+    check_for_duplicates(filename, default_values)
+    create_default_vocabulary_dicts(default_values, pluralize_lists)
 
     def on_watch(path, flags):
         if file_path.match(path):
@@ -126,8 +138,34 @@ def init_csv_and_watch_changes(
     return unsubscribe
 
 
+def check_for_duplicates(filename, default_values):
+    results_map = {}
+    for list_name, dict in default_values.items():
+        for key, value in dict.items():
+            if value in results_map:
+                existing_list_name = results_map[value]["list"]
+                warning = f"WARNING ({filename}): Value `{value}` duplicated between lists '{existing_list_name}' and '{list_name}'"
+                print(warning)
+                app.notify(warning)
+
+
 def is_removed(value: str):
     return value.startswith("-")
+
+
+def create_default_vocabulary_dicts(
+    default_values: dict[str, dict], pluralize_lists: list[str]
+):
+    default_values_updated = {}
+    for key, value in default_values.items():
+        updated_dict = {}
+        for key2, value2 in value.items():
+            # Enable deactivated(prefixed with a `-`) items
+            active_key = key2[1:] if key2.startswith("-") else key2
+            if active_key:
+                updated_dict[active_key] = value2
+        default_values_updated[key] = updated_dict
+    assign_lists_to_context(default_ctx, default_values_updated, pluralize_lists)
 
 
 def update_dicts(
@@ -136,7 +174,7 @@ def update_dicts(
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
     default_list_name: Optional[str],
-    pluralize_lists: Optional[list[str]],
+    pluralize_lists: list[str],
     ctx: Context,
 ):
     # Create map with all default values
@@ -179,6 +217,14 @@ def update_dicts(
                 results[obj["list"]][k.strip()] = value
 
     # Assign result to talon context list
+    assign_lists_to_context(ctx, results, pluralize_lists)
+
+
+def assign_lists_to_context(
+    ctx: Context,
+    results: dict,
+    pluralize_lists: list[str],
+):
     for list_name, dict in results.items():
         list_singular_name = get_cursorless_list_name(list_name)
         ctx.lists[list_singular_name] = dict

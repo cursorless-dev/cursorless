@@ -1,7 +1,7 @@
 languageId: scala
 command:
   version: 0
-  spokenForm: clear class name
+  spokenForm: change class name
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -19,4 +19,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: className, includeSiblings: false}, isImplicit: false}]

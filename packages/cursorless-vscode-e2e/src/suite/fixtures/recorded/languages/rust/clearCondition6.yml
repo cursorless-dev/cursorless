@@ -1,7 +1,7 @@
 languageId: rust
 command:
   version: 3
-  spokenForm: clear condition
+  spokenForm: change condition
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -26,4 +26,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: condition}}]}]

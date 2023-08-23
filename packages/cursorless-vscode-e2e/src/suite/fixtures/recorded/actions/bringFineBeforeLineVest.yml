@@ -51,4 +51,3 @@ finalState:
         end: {line: 3, character: 3}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: []}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, modifiers: [{type: position, position: before}, {type: containingScope, scopeType: {type: line}}]}]

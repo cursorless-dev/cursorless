@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: chuck type ram
+  spokenForm: chuck type red
   action: remove
   targets:
     - type: primitive
@@ -21,4 +21,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: type, includeSiblings: false}}]

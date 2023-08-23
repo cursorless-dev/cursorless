@@ -41,4 +41,3 @@ ide:
         type: character
         start: {line: 0, character: 6}
         end: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: token}}]}]

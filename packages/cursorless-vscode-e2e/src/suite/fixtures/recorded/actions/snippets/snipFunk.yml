@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: snip funk
+  spokenForm: snippet funk
   action: insertSnippet
   targets:
     - {type: primitive, isImplicit: true}
@@ -26,4 +26,3 @@ finalState:
         end: {line: 2, character: 1}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

@@ -31,55 +31,10 @@ import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TestCase } from "./TestCase";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
+import { generateSpokenForm } from "../generateSpokenForm";
+import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
-
-interface RecordTestCaseCommandArg {
-  /**
-   * If this is set to `true`, then for each test case that we record, we expect
-   * that the user will issue a second command in each phrase, which refers to a
-   * decorated mark whose range we'd like to check that it got updated properly
-   * during the previous command. We use this functionality in order to check
-   * that the token range update works properly. For example, you might say
-   * `"chuck second car ox air take air"` to check that removing a character
-   * from a token properly updates the token.
-   */
-  isHatTokenMapTest?: boolean;
-
-  /** If true decorations will be added to the test fixture */
-  isDecorationsTest?: boolean;
-
-  /**
-   * The directory in which to store the test cases that we record. If left out
-   * the user will be prompted to select a directory within the default recorded
-   * test case directory.
-   */
-  directory?: string;
-
-  /**
-   * If `true`, don't show a little pop up each time to indicate we've recorded a
-   * test case
-   */
-  isSilent?: boolean;
-
-  extraSnapshotFields?: ExtraSnapshotField[];
-
-  /**
-   * Whether to flash a background for calibrating a video recording
-   */
-  showCalibrationDisplay?: boolean;
-
-  /**
-   * Whether we should record a tests which yield errors in addition to tests
-   * which do not error.
-   */
-  recordErrors?: boolean;
-
-  /**
-   * Whether to capture the `that` mark returned by the action.
-   */
-  captureFinalThatMark?: boolean;
-}
 
 const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
 
@@ -88,6 +43,7 @@ const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
  */
 export class TestCaseRecorder {
   private active: boolean = false;
+  private pauseAfterNextCommand: boolean = false;
   private fixtureRoot: string | null;
   private targetDirectory: string | null = null;
   private testCase: TestCase | null = null;
@@ -116,19 +72,29 @@ export class TestCaseRecorder {
         : null;
 
     this.toggle = this.toggle.bind(this);
+    this.recordOneThenPause = this.recordOneThenPause.bind(this);
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
     this.takeSnapshot = this.takeSnapshot.bind(this);
   }
 
-  async toggle(arg?: RecordTestCaseCommandArg) {
+  async toggle(options?: RecordTestCaseCommandOptions) {
     if (this.active) {
       showInfo(ide().messages, "recordStop", "Stopped recording test cases");
       this.stop();
     } else {
-      return await this.start(arg);
+      return await this.start(options);
     }
   }
+
+  async recordOneThenPause(options?: RecordTestCaseCommandOptions) {
+    this.pauseAfterNextCommand = true;
+    this.paused = false;
+    if (!this.active) {
+      return await this.start(options);
+    }
+  }
+
   async pause() {
     if (!this.active) {
       throw Error("Asked to pause recording, but no recording active");
@@ -182,8 +148,8 @@ export class TestCaseRecorder {
     return this.active && !this.paused;
   }
 
-  async start(arg?: RecordTestCaseCommandArg) {
-    const { directory, ...explicitConfig } = arg ?? {};
+  async start(options?: RecordTestCaseCommandOptions) {
+    const { directory, ...explicitConfig } = options ?? {};
 
     /**
      * A list of paths of every parent directory between the root fixture
@@ -215,7 +181,7 @@ export class TestCaseRecorder {
 
     // Look for a `config.json` file in ancestors of the recording directory,
     // and merge it with the config provided when calling the command.
-    const config: RecordTestCaseCommandArg = merge(
+    const config: RecordTestCaseCommandOptions = merge(
       {},
       ...(await Promise.all(
         parentDirectories.map((parent) =>
@@ -289,6 +255,7 @@ export class TestCaseRecorder {
   stop() {
     this.active = false;
     this.paused = false;
+    this.pauseAfterNextCommand = false;
   }
 
   async preCommandHook(hatTokenMap: ReadOnlyHatMap, command: CommandLatest) {
@@ -308,8 +275,16 @@ export class TestCaseRecorder {
       this.spyIde = new SpyIDE(this.originalIde);
       injectIde(this.spyIde!);
 
+      const spokenForm = generateSpokenForm(command);
+
       this.testCase = new TestCase(
-        command,
+        {
+          ...command,
+          spokenForm:
+            spokenForm.type === "success"
+              ? spokenForm.value
+              : command.spokenForm,
+        },
         hatTokenMap,
         this.storedTargets,
         this.spyIde,
@@ -318,6 +293,7 @@ export class TestCaseRecorder {
         this.startTimestamp!,
         this.captureFinalThatMark,
         this.extraSnapshotFields,
+        spokenForm.type === "error" ? spokenForm.reason : undefined,
       );
 
       await this.testCase.recordInitialState();
@@ -363,19 +339,37 @@ export class TestCaseRecorder {
     await this.writeToFile(outPath, fixture);
 
     if (!this.isSilent) {
-      showInfo(
-        ide().messages,
-        "testCaseSaved",
-        "Cursorless test case saved.",
-        "View",
-      ).then(async (action) => {
-        if (action === "View") {
-          await ide().openTextDocument(outPath);
-        }
-      });
+      let message = `"${
+        this.testCase!.command.spokenForm
+      }" Cursorless test case saved.`;
+
+      if (this.testCase!.spokenFormError != null) {
+        message += ` Spoken form error: ${this.testCase!.spokenFormError}`;
+      }
+
+      showInfo(ide().messages, "testCaseSaved", message, "View", "Delete").then(
+        async (action) => {
+          if (action === "View") {
+            await ide().openTextDocument(outPath);
+          }
+          if (action === "Delete") {
+            await fs.unlink(outPath, (err) => {
+              if (err) {
+                console.log(`failed to delete ${outPath}: ${err}`);
+              } else {
+                console.log(`deleted ${outPath}`);
+              }
+            });
+          }
+        },
+      );
     }
 
     this.testCase = null;
+    if (this.pauseAfterNextCommand) {
+      this.paused = true;
+      this.pauseAfterNextCommand = false;
+    }
   }
 
   private async writeToFile(outPath: string, fixture: string) {
@@ -492,7 +486,7 @@ function capitalize(str: string) {
 
 async function readJsonIfExists(
   path: string,
-): Promise<RecordTestCaseCommandArg> {
+): Promise<RecordTestCaseCommandOptions> {
   let rawText: string;
 
   try {

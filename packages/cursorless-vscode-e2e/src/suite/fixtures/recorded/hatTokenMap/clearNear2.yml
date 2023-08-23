@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear near
+  spokenForm: change near
   version: 2
   targets:
     - type: primitive
@@ -27,4 +27,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}, modifiers: []}]

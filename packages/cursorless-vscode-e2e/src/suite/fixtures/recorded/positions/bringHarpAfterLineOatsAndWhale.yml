@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: bring harp after line oats and whale
+  spokenForm: bring harp after line odd and whale
   version: 2
   targets:
     - type: primitive
@@ -45,4 +45,3 @@ finalState:
   selections:
     - anchor: {line: 3, character: 24}
       active: {line: 3, character: 24}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: []}, {type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, modifiers: &ref_0 [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, modifiers: *ref_0}]}]

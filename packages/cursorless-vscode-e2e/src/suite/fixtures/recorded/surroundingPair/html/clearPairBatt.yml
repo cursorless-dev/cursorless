@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear pair batt
+  spokenForm: change pair bat
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -31,4 +31,3 @@ finalState:
   selections:
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any}}]

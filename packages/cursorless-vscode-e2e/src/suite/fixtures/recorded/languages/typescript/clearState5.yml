@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear state
+  spokenForm: change state
   version: 3
   targets:
     - type: primitive
@@ -38,4 +38,3 @@ finalState:
       active: {line: 2, character: 4}
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: statement}}]}]

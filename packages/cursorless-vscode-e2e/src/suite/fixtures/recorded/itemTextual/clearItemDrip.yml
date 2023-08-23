@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear item drip
+  spokenForm: change item comma
   version: 2
   targets:
     - type: primitive
@@ -24,4 +24,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: ','}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]

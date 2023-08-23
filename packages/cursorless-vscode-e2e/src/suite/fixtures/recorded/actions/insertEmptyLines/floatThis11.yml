@@ -32,4 +32,3 @@ ide:
   flashes:
     - style: justAdded
       range: {type: line, start: 1, end: 1}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

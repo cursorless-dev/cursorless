@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear every line that
+  spokenForm: change every line that
   version: 2
   targets:
     - type: primitive
@@ -33,4 +33,3 @@ finalState:
       active: {line: 0, character: 0}
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: that}, modifiers: [{type: everyScope, scopeType: {type: line}}]}]

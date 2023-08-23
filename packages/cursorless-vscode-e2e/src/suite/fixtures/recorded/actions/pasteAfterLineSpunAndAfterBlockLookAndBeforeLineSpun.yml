@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: paste after line spun and after block look and before line spun
+  spokenForm: paste after line sun and after block look and before line sun
   version: 2
   targets:
     - type: list
@@ -95,4 +95,3 @@ ide:
         type: character
         start: {line: 0, character: 0}
         end: {line: 0, character: 3}
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: paragraph}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: position, position: before}, {type: containingScope, scopeType: {type: line}}]}]}]

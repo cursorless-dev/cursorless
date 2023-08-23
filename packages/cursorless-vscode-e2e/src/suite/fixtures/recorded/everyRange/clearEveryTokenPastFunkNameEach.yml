@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 5
-  spokenForm: clear every token past funk name each
+  spokenForm: change every token past funk name each
   action: {name: clearAndSetSelection}
   targets:
     - type: range

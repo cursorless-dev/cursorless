@@ -1,7 +1,7 @@
 languageId: python
 command:
   version: 3
-  spokenForm: clear branch
+  spokenForm: change branch
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -20,4 +20,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]

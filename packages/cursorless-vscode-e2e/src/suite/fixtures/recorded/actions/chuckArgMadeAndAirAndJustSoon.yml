@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: chuck arg made and air and just soon
+  spokenForm: chuck arg made and air and just sun
   action: remove
   targets:
     - type: list
@@ -41,4 +41,3 @@ finalState:
         end: {line: 0, character: 22}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: toRawSelection}, isImplicit: false}]}]

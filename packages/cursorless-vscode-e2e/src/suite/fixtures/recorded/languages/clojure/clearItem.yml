@@ -1,7 +1,7 @@
 languageId: clojure
 command:
   version: 1
-  spokenForm: clear item
+  spokenForm: change item
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -27,4 +27,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}}]

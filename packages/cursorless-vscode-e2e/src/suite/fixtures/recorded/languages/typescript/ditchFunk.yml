@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: ditch funk
+  spokenForm: chuck funk
   version: 3
   targets:
     - type: primitive
@@ -32,4 +32,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]

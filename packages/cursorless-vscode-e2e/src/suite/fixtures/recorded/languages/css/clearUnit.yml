@@ -1,6 +1,6 @@
 languageId: css
 command:
-  spokenForm: clear unit
+  spokenForm: change unit
   version: 3
   targets:
     - type: primitive
@@ -26,4 +26,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 15}
       active: {line: 1, character: 15}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: unit}}]}]

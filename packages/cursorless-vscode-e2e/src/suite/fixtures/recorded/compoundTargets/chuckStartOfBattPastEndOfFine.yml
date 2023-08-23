@@ -1,0 +1,44 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: chuck start of bat past end of fine
+  action:
+    name: remove
+    target:
+      type: range
+      anchor:
+        type: primitive
+        modifiers:
+          - {type: startOf}
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      active:
+        type: primitive
+        modifiers:
+          - {type: endOf}
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    foo
+
+    bar
+    baz
+  selections:
+    - anchor: {line: 3, character: 3}
+      active: {line: 3, character: 3}
+  marks:
+    default.b:
+      start: {line: 2, character: 0}
+      end: {line: 2, character: 3}
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |-
+    foobar
+    baz
+  selections:
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}

@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear every item
+  spokenForm: change every item
   version: 2
   targets:
     - type: primitive
@@ -26,4 +26,3 @@ finalState:
       active: {line: 1, character: 11}
     - anchor: {line: 1, character: 13}
       active: {line: 1, character: 13}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]

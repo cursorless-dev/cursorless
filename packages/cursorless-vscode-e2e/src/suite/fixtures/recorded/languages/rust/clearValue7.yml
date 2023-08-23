@@ -1,6 +1,6 @@
 languageId: rust
 command:
-  spokenForm: clear value
+  spokenForm: change value
   version: 2
   targets:
     - type: primitive
@@ -26,4 +26,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: value}}]}]

@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear round
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -16,4 +16,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 2}
       active: {line: 0, character: 2}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: includeDelimiters}}]

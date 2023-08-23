@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: snip funk to this past each
+  spokenForm: snippet funk to this past each
   version: 2
   targets:
     - type: range
@@ -40,4 +40,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: continuous, anchor: {type: primitive, mark: {type: cursor}, modifiers: []}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, modifiers: []}}]

@@ -1,0 +1,36 @@
+languageId: scm
+command:
+  version: 5
+  spokenForm: change every item
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    (
+      (_
+        (_) @dummy
+        (capture) @name @_.domain.end
+      ) @_.domain.start
+    )
+  selections:
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
+  marks: {}
+finalState:
+  documentContents: |-
+    (
+      (_
+        
+        
+      ) @_.domain.start
+    )
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

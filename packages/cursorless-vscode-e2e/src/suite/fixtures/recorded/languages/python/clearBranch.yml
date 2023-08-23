@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear branch
+  spokenForm: change branch
   version: 3
   targets:
     - type: primitive
@@ -29,4 +29,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: branch}}]}]

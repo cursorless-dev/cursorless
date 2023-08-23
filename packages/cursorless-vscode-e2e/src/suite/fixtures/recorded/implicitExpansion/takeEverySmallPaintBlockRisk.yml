@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take every paint block risk
+  spokenForm: take every short paint block red
   version: 2
   targets:
     - type: primitive
@@ -42,4 +42,3 @@ finalState:
       active: {line: 1, character: 3}
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: [{type: everyScope, scopeType: {type: boundedNonWhitespaceSequence}}, {type: containingScope, scopeType: {type: paragraph}}]}]

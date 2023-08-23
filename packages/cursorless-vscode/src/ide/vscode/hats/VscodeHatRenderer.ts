@@ -247,6 +247,11 @@ export default class VscodeHatRenderer {
     const hatHeightPx = defaultHatHeightPx * scaleFactor;
     const hatWidthPx = defaultHatWidthPx * scaleFactor;
 
+    // If svg is too wide, scale it down. This will change the aspect ratio
+    const maxHatWidthPx = characterWidth - 1;
+    const widthFactor =
+      hatWidthPx > maxHatWidthPx ? maxHatWidthPx / hatWidthPx : 1;
+
     const hatVerticalOffsetPx =
       (DEFAULT_VERTICAL_OFFSET_EM + hatVerticalOffsetEm) * fontSize -
       hatHeightPx / 2;
@@ -257,22 +262,24 @@ export default class VscodeHatRenderer {
     const newViewBoxWidth = originalViewBoxWidth * (svgWidthPx / hatWidthPx);
     const newViewBoxHeight = newViewBoxWidth * (svgHeightPx / svgWidthPx);
     const newViewBoxX =
-      (-(characterWidth - hatWidthPx) * (newViewBoxWidth / svgWidthPx)) / 2;
+      (-(characterWidth - hatWidthPx * widthFactor) *
+        (newViewBoxWidth / svgWidthPx)) /
+      2;
     const newViewBoxY = 0;
 
     const newViewBoxString = `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`;
 
-    if (
-      rawSvg.match(/width="[^"]+"/) == null ||
-      rawSvg.match(/height="[^"]+"/) == null
-    ) {
-      throw Error("Raw svg doesn't have height or width");
-    }
+    const innerSvg = rawSvg
+      .replace(/width="[^"]+"/, ``)
+      .replace(/height="[^"]+"/, ``)
+      .replace(/viewBox="([^"]+)"/, `style="overflow:visible"`);
 
-    const svg = rawSvg
-      .replace(/width="[^"]+"/, `width="${svgWidthPx}px"`)
-      .replace(/height="[^"]+"/, `height="${svgHeightPx}px"`)
-      .replace(/viewBox="([^"]+)"/, `viewBox="${newViewBoxString}"`);
+    const svg =
+      `<svg xmlns="http://www.w3.org/2000/svg" ` +
+      `viewBox="${newViewBoxString}" ` +
+      `width="${svgWidthPx}px" ` +
+      `height="${svgHeightPx}px">` +
+      `<g transform="scale(${widthFactor}, 1)">${innerSvg}</g></svg>`;
 
     return {
       svg,

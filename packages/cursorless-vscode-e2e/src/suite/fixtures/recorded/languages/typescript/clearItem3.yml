@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: clear item
+  spokenForm: change item
   version: 3
   targets:
     - type: primitive
@@ -20,4 +20,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 22}
       active: {line: 0, character: 22}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]

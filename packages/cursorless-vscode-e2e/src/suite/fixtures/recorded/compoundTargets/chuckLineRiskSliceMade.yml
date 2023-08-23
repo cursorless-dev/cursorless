@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck line risk slice made
+  spokenForm: chuck line red slice made
   version: 2
   targets:
     - type: range
@@ -41,4 +41,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: false, rangeType: vertical, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: line}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, modifiers: *ref_0}}]

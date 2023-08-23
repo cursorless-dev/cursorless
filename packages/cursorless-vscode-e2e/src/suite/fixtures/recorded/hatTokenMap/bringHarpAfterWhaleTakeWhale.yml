@@ -34,4 +34,3 @@ finalState:
     default.w:
       start: {line: 0, character: 6}
       end: {line: 0, character: 11}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: after, insideOutsideType: null, modifier: {type: identity}}]

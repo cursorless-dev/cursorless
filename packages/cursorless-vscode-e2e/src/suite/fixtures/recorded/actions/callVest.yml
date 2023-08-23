@@ -7,6 +7,7 @@ command:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
     - {type: primitive, isImplicit: true}
+spokenFormError: Action 'callAsFunction' with argument
 initialState:
   documentContents: |
 
@@ -32,4 +33,3 @@ finalState:
         end: {line: 0, character: 7}
       isReversed: false
       hasExplicitRange: true
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}, {type: primitive, mark: {type: cursor}, selectionType: token, position: contents, modifier: {type: identity}, insideOutsideType: inside}]

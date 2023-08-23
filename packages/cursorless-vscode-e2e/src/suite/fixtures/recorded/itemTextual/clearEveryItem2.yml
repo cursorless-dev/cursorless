@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear every item
+  spokenForm: change every item
   version: 2
   targets:
     - type: primitive
@@ -24,4 +24,3 @@ finalState:
       active: {line: 0, character: 2}
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]

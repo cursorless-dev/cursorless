@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: square switch this
+  spokenForm: box repack this
   version: 2
   targets:
     - type: primitive
@@ -20,4 +20,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 4}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: []}]

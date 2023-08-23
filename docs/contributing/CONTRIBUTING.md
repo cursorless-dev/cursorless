@@ -1,9 +1,7 @@
 # Contributing
 
-Welcome! So glad you've decided to help make Cursorless better. Once you've
-learned how to [set up](#initial-setup) and [run / test a local copy of the
-extension](#running--testing-extension-locally), you may want to check out the
-[Cursorless API docs](api) to learn more about how Cursorless works. You may also find the [VSCode API docs](https://code.visualstudio.com/api) helpful to learn about VSCode extension development.
+Welcome! So glad you've decided to help make Cursorless better. You'll want to start by getting [set up](#initial-setup) and learning how to [run / test a local copy of the
+extension](#running--testing-extension-locally). You may also find the [VSCode API docs](https://code.visualstudio.com/api) helpful to learn about VSCode extension development.
 
 ## Initial setup
 
@@ -39,7 +37,7 @@ extension](#running--testing-extension-locally), you may want to check out the
    pnpm init-vscode-sandbox
    ```
 
-   The `pnpm init-vscode-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you'd like to use additional extensions when debugging locally, you can use the following command:
+   The `pnpm init-vscode-sandbox` command creates a local [VSCode settings profile](https://code.visualstudio.com/updates/v1_72#_settings-profiles) that acts as a sandbox containing a specific set of VSCode extensions that will be run alongside Cursorless when you launch Cursorless in debug or test mode. This approach is [suggested](https://code.visualstudio.com/updates/v1_72#_extension-debugging-in-a-clean-environment) by the VSCode documentation. If you need to update any of the extension dependencies in the sandbox, you can add `--force` to the command. If you'd like to use additional extensions when debugging locally, you can use the following command:
 
    ```bash
    code --profile=cursorlessDevelopment --install-extension some.extension
@@ -58,7 +56,13 @@ Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
-The entire test suite takes a little while to run (1-2 mins), so if you'd like to run just a subset of the tests, you can edit the constant in [`runTestSubset`](../../packages/common/src/testUtil/runTestSubset.ts) to a string supported by [mocha grep](https://mochajs.org/#-grep-regexp-g-regexp) and use the "Run Test Subset" launch config instead of the usual "Extension Tests".
+The entire test suite takes a little while to run (1-2 mins), so you may want to run just a subset of the tests.
+
+To specify the set of tests to run, say `"debug generate subset"`, or if you haven't installed the cursorless-talon-dev files, run the VSCode task "Generate test subset file". To do this, choose "Tasks: Run Task" from the command pallete.
+
+To run the specified subset of tests, use the "Run test subset" launch config instead of the usual "Extension Tests".
+
+If you need to edit the subset of tests to run in the future, you can say `"debug edit subset"`.
 
 ## Code formatting
 

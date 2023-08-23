@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: clear bounds each
+  spokenForm: change bounds each
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -27,4 +27,3 @@ finalState:
       active: {line: 0, character: 10}
     - anchor: {line: 0, character: 15}
       active: {line: 0, character: 15}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: e}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}, isImplicit: false}]

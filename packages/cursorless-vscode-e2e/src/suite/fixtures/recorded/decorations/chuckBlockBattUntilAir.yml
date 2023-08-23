@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck block batt until air
+  spokenForm: chuck block bat until air
   version: 2
   targets:
     - type: range
@@ -49,4 +49,3 @@ ide:
   flashes:
     - style: pendingDelete
       range: {type: line, start: 3, end: 8}
-fullTargets: [{type: range, excludeAnchor: false, excludeActive: true, rangeType: continuous, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: b}, modifiers: &ref_0 [{type: containingScope, scopeType: {type: paragraph}}]}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: a}, modifiers: *ref_0}}]

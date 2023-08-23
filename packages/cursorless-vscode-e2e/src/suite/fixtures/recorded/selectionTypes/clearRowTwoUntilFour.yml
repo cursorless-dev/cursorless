@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear row two until four
+  spokenForm: change row two until four
   version: 3
   targets:
     - type: primitive
@@ -32,4 +32,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-fullTargets: [{type: primitive, mark: {type: range, anchor: {type: lineNumber, lineNumberType: modulo100, lineNumber: 1}, active: {type: lineNumber, lineNumberType: modulo100, lineNumber: 3}, excludeAnchor: false, excludeActive: true}, modifiers: []}]

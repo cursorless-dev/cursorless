@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take item blue risk
+  spokenForm: take item blue red
   version: 2
   targets:
     - type: primitive
@@ -40,4 +40,3 @@ finalState:
   selections:
     - anchor: {line: 6, character: 14}
       active: {line: 6, character: 17}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: r}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]

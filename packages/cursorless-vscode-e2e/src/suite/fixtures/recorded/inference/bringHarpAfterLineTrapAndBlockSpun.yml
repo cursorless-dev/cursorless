@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: bring harp after line trap and block spun
+  spokenForm: bring harp after line trap and block sun
   version: 2
   targets:
     - type: primitive
@@ -51,4 +51,3 @@ finalState:
   selections:
     - anchor: {line: 4, character: 7}
       active: {line: 4, character: 7}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, modifiers: []}, {type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: t}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: line}}]}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: s}, modifiers: [{type: position, position: after}, {type: containingScope, scopeType: {type: paragraph}}]}]}]

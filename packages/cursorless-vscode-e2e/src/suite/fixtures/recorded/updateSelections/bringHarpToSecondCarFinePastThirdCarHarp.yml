@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: bring harp to second car fine past third car harp
+  spokenForm: bring harp to second char fine past third char harp
   action: replaceWithTarget
   targets:
     - type: primitive
@@ -36,4 +36,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 9}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: range, excludeAnchor: false, excludeActive: false, anchor: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 1, active: 1, excludeAnchor: false, excludeActive: false}}, active: {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: h}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: subpiece, pieceType: character, anchor: 2, active: 2, excludeAnchor: false, excludeActive: false}}}]

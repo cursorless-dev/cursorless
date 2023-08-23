@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: clear second word vest
+  spokenForm: change second word vest
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -25,4 +25,3 @@ finalState:
   selections:
     - anchor: {line: 1, character: 12}
       active: {line: 1, character: 12}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: v}, selectionType: token, position: contents, modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}, insideOutsideType: inside}]

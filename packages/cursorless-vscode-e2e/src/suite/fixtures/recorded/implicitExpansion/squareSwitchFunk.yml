@@ -1,6 +1,6 @@
 languageId: typescript
 command:
-  spokenForm: square switch funk
+  spokenForm: box repack funk
   version: 2
   targets:
     - type: primitive
@@ -22,5 +22,4 @@ initialState:
     - anchor: {line: 2, character: 7}
       active: {line: 2, character: 7}
   marks: {}
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: namedFunction}}]}]
 thrownError: {name: NoContainingScopeError}

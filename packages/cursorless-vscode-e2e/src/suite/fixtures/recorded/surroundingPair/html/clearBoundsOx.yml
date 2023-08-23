@@ -1,7 +1,7 @@
 languageId: html
 command:
   version: 1
-  spokenForm: clear bounds ox
+  spokenForm: change bounds odd
   action: clearAndSetSelection
   targets:
     - type: primitive
@@ -33,4 +33,3 @@ finalState:
       active: {line: 1, character: 4}
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: o}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}}]

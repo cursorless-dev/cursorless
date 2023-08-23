@@ -1,0 +1,19 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change map
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: _ = T{ /* foo */ 0, /* foo */ }
+  selections:
+    - anchor: {line: 0, character: 31}
+      active: {line: 0, character: 31}
+  marks: {}
+thrownError: {name: NoContainingScopeError}

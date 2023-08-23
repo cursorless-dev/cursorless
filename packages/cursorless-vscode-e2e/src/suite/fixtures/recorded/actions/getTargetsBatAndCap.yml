@@ -1,0 +1,52 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: get targets bat and cap
+  action:
+    name: private.getTargets
+    target:
+      type: list
+      elements:
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: b}
+        - type: primitive
+          mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: true
+spokenFormError: Action 'private.getTargets'
+initialState:
+  documentContents: a b c d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 3}
+    default.c:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 5}
+finalState:
+  documentContents: a b c d
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 2}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: false
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 5}
+      isReversed: false
+      hasExplicitRange: false
+returnValue:
+  - contentRange:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 3}
+  - contentRange:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 5}

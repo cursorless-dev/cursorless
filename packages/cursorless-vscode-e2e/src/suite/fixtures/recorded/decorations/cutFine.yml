@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: cut fine
+  spokenForm: carve fine
   version: 2
   targets:
     - type: primitive
@@ -37,4 +37,3 @@ ide:
         type: character
         start: {line: 1, character: 7}
         end: {line: 1, character: 8}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: f}, modifiers: []}]
