@@ -6,7 +6,7 @@ const components: MDXProviderComponentsProp = {
   h1: ({ children }) => (
     <h1 className="text-center text-[2.5em] leading-tight mb-3">{children}</h1>
   ),
-  h2: ({ children }) => <h2 className="text-[1.5em] mb-5">{children}</h2>,
+  h2: ({ children }) => <h2 className="text-[1.5em] my-5">{children}</h2>,
   h3: ({ children }) => <h3 className="text-[1.3em] mt-4">{children}</h3>,
   hr: () => <hr className="my-5 border-salmon-900 dark:border-salmon-100" />,
   ul: ({ children }) => <ul className="list-disc ml-8">{children}</ul>,
