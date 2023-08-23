@@ -28,7 +28,7 @@ export function maxByFirstDiffering<T>(
     if (remainingValues.length === 1) {
       return remainingValues[0];
     }
-    remainingValues = highest(remainingValues, fn);
+    remainingValues = maxByAllowingTies(remainingValues, fn);
   }
   return remainingValues[0];
 }
@@ -40,7 +40,7 @@ export function maxByFirstDiffering<T>(
  * @param fn A function that returns a number for each item in the array
  * @returns All items in the array that share the maximum value
  **/
-function highest<T>(arr: T[], fn: (item: T) => number): T[] {
+export function maxByAllowingTies<T>(arr: T[], fn: (item: T) => number): T[] {
   // This is equivalent to, but faster than:
   //
   // const max = Math.max(...arr.map(fn));
