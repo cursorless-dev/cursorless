@@ -276,11 +276,11 @@ importers:
         specifier: 2.3.0
         version: 2.3.0(webpack@5.88.2)
       '@mdx-js/react':
-        specifier: ^1.6.22
-        version: 1.6.22(react@18.2.0)
+        specifier: 2.3.0
+        version: 2.3.0(react@18.2.0)
       '@next/mdx':
         specifier: 13.4.10
-        version: 13.4.10(@mdx-js/loader@2.3.0)(@mdx-js/react@1.6.22)
+        version: 13.4.10(@mdx-js/loader@2.3.0)(@mdx-js/react@2.3.0)
       '@types/mdx':
         specifier: 2.0.5
         version: 2.0.5
@@ -3342,14 +3342,6 @@ packages:
       - supports-color
     dev: false
 
-  /@mdx-js/react@1.6.22(react@18.2.0):
-    resolution: {integrity: sha512-TDoPum4SHdfPiGSAaRBw7ECyI8VaHpK8GJugbJIJuqyh6kzw9ZLJZW3HGL3NNrJGxcAixUvqROm+YuQOo5eXtg==}
-    peerDependencies:
-      react: ^16.13.1 || ^17.0.0 || 18
-    dependencies:
-      react: 18.2.0
-    dev: false
-
   /@mdx-js/react@2.3.0(react@18.2.0):
     resolution: {integrity: sha512-zQH//gdOmuu7nt2oJR29vFhDv88oGPmVw6BggmrHeMI+xgEkp1B2dX9/bMBSYtK0dyLX/aOmesKS09g222K1/g==}
     peerDependencies:
@@ -3375,7 +3367,7 @@ packages:
       glob: 7.1.7
     dev: false
 
-  /@next/mdx@13.4.10(@mdx-js/loader@2.3.0)(@mdx-js/react@1.6.22):
+  /@next/mdx@13.4.10(@mdx-js/loader@2.3.0)(@mdx-js/react@2.3.0):
     resolution: {integrity: sha512-0ZbUIr3yuFFfkaYth2kNFAT0fbyylJTMqZy5zTdb7YGqvYjKFD8n75L3UYAX0g5mibGp3iETJ0I7730sW13PKQ==}
     peerDependencies:
       '@mdx-js/loader': '>=0.15.0'
@@ -3387,7 +3379,7 @@ packages:
         optional: true
     dependencies:
       '@mdx-js/loader': 2.3.0(webpack@5.88.2)
-      '@mdx-js/react': 1.6.22(react@18.2.0)
+      '@mdx-js/react': 2.3.0(react@18.2.0)
       source-map: 0.7.4
     dev: false
 
