@@ -9,6 +9,7 @@ const components: MDXComponents = {
   ),
   h2: ({ children }) => <h2 className="text-[1.5em] my-5">{children}</h2>,
   h3: ({ children }) => <h3 className="text-[1.3em] mt-4">{children}</h3>,
+  h4: ({ children }) => <h4 className="text-[1.2em] mt-4">{children}</h4>,
   hr: () => <hr className="my-5 border-salmon-900 dark:border-salmon-100" />,
   ul: ({ children }) => <ul className="list-disc ml-8">{children}</ul>,
   ol: ({ children }) => <ol className="list-decimal ml-8">{children}</ol>,
