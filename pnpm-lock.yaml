@@ -272,6 +272,18 @@ importers:
       '@cursorless/cheatsheet':
         specifier: workspace:*
         version: link:../cheatsheet
+      '@mdx-js/loader':
+        specifier: 2.3.0
+        version: 2.3.0(webpack@5.88.2)
+      '@mdx-js/react':
+        specifier: ^1.6.22
+        version: 1.6.22(react@18.2.0)
+      '@next/mdx':
+        specifier: 13.4.10
+        version: 13.4.10(@mdx-js/loader@2.3.0)(@mdx-js/react@1.6.22)
+      '@types/mdx':
+        specifier: 2.0.5
+        version: 2.0.5
       eslint:
         specifier: ^8.38.0
         version: 8.38.0
@@ -297,6 +309,9 @@ importers:
       '@svgr/webpack':
         specifier: 6.5.1
         version: 6.5.1
+      '@types/mdx-js__react':
+        specifier: 1.5.5
+        version: 1.5.5
       '@types/node':
         specifier: ^16.11.3
         version: 16.18.13
@@ -3291,6 +3306,18 @@ packages:
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
 
+  /@mdx-js/loader@2.3.0(webpack@5.88.2):
+    resolution: {integrity: sha512-IqsscXh7Q3Rzb+f5DXYk0HU71PK+WuFsEhf+mSV3fOhpLcEpgsHvTQ2h0T6TlZ5gHOaBeFjkXwB52by7ypMyNg==}
+    peerDependencies:
+      webpack: '>=4'
+    dependencies:
+      '@mdx-js/mdx': 2.3.0
+      source-map: 0.7.4
+      webpack: 5.88.2(webpack-cli@5.1.4)
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@mdx-js/mdx@2.3.0:
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
     dependencies:
@@ -3313,6 +3340,14 @@ packages:
       vfile: 5.3.7
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@mdx-js/react@1.6.22(react@18.2.0):
+    resolution: {integrity: sha512-TDoPum4SHdfPiGSAaRBw7ECyI8VaHpK8GJugbJIJuqyh6kzw9ZLJZW3HGL3NNrJGxcAixUvqROm+YuQOo5eXtg==}
+    peerDependencies:
+      react: ^16.13.1 || ^17.0.0 || 18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@mdx-js/react@2.3.0(react@18.2.0):
@@ -3338,6 +3373,22 @@ packages:
     resolution: {integrity: sha512-QmMPItnU7VeojI1KnuwL9SLFWEwmaNHNlnOGpoTwdLoSiP9sc8KYiAHWEc4/44L+cAdCxcZYvn7frcRNP5l84Q==}
     dependencies:
       glob: 7.1.7
+    dev: false
+
+  /@next/mdx@13.4.10(@mdx-js/loader@2.3.0)(@mdx-js/react@1.6.22):
+    resolution: {integrity: sha512-0ZbUIr3yuFFfkaYth2kNFAT0fbyylJTMqZy5zTdb7YGqvYjKFD8n75L3UYAX0g5mibGp3iETJ0I7730sW13PKQ==}
+    peerDependencies:
+      '@mdx-js/loader': '>=0.15.0'
+      '@mdx-js/react': '>=0.15.0'
+    peerDependenciesMeta:
+      '@mdx-js/loader':
+        optional: true
+      '@mdx-js/react':
+        optional: true
+    dependencies:
+      '@mdx-js/loader': 2.3.0(webpack@5.88.2)
+      '@mdx-js/react': 1.6.22(react@18.2.0)
+      source-map: 0.7.4
     dev: false
 
   /@next/swc-android-arm-eabi@13.2.3:
@@ -4775,6 +4826,12 @@ packages:
     dependencies:
       '@types/unist': 2.0.6
     dev: false
+
+  /@types/mdx-js__react@1.5.5:
+    resolution: {integrity: sha512-k8pnaP6JXVlQh18HgL5X6sYFNC/qZnzO7R2+HsmwrwUd+JnnsU0d9lyyT0RQrHg1anxDU36S98TI/fsGtmYqqg==}
+    dependencies:
+      '@types/react': 18.0.28
+    dev: true
 
   /@types/mdx@2.0.5:
     resolution: {integrity: sha512-76CqzuD6Q7LC+AtbPqrvD9AqsN0k8bsYo2bM2J8pmNldP1aIPAbzUQ7QbobyXL4eLr1wK5x8FZFe8eF/ubRuBg==}
