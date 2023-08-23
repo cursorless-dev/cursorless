@@ -24,29 +24,45 @@ export function maxByFirstDiffering<T>(
     return undefined;
   }
   let remainingValues = arr;
-
   for (const fn of fns) {
     if (remainingValues.length === 1) {
       return remainingValues[0];
     }
-
-    // Take a single pass through, accumulating all
-    // items with the single highest value.
-    let best: number = -Infinity;
-    const keep: T[] = [];
-    for (const item of remainingValues) {
-      const value = fn(item);
-      if (value < best) {
-        continue;
-      }
-      if (value > best) {
-        best = value;
-        keep.length = 0;
-      }
-      keep.push(item);
-    }
-    remainingValues = keep;
+    remainingValues = highest(remainingValues, fn);
   }
-
   return remainingValues[0];
+}
+
+/**
+ * Given an array of items and a function that returns a number for each item,
+ * return all items that share the maximum value according to that function.
+ * @param arr The array to find the max values of
+ * @param fn A function that returns a number for each item in the array
+ * @returns All items in the array that share the maximum value
+ **/
+function highest<T>(arr: T[], fn: (item: T) => number): T[] {
+  // This is equivalent to, but faster than:
+  //
+  // const max = Math.max(...arr.map(fn));
+  // return arr.filter((item) => fn(item) === max);
+  //
+  // It does only a single pass through the array, and allocates no
+  // intermediate arrays (in the common case).
+
+  // Accumulate all items with the single highest value,
+  // resetting whenever we find a new highest value.
+  let best: number = -Infinity;
+  const keep: T[] = [];
+  for (const item of arr) {
+    const value = fn(item);
+    if (value < best) {
+      continue;
+    }
+    if (value > best) {
+      best = value;
+      keep.length = 0;
+    }
+    keep.push(item);
+  }
+  return keep;
 }
