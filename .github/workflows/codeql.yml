@@ -97,4 +97,4 @@ jobs:
 
     steps:
       - name: Do nothing
-        run: 'true'
+        run: "true"
