@@ -1,6 +1,9 @@
-import { StoredTargetKey, StoredTargetMap } from "../../core/StoredTargets";
-import { Target } from "../../typings/target.types";
-import { MarkStage } from "../PipelineStages.types";
+import type {
+  StoredTargetKey,
+  StoredTargetMap,
+} from "../../core/StoredTargets";
+import type { Target } from "../../typings/target.types";
+import type { MarkStage } from "../PipelineStages.types";
 
 export class StoredTargetStage implements MarkStage {
   constructor(

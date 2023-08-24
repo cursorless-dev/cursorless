@@ -1,23 +1,16 @@
+import type { IDE, Range, ScopeType, TextDocument } from "@cursorless/common";
 import {
   FakeIDE,
   getFakeCommandServerApi,
-  IDE,
   isTesting,
   NormalizedIDE,
-  Range,
-  ScopeType,
-  TextDocument,
 } from "@cursorless/common";
+import type { ScopeProvider, TreeSitter } from "@cursorless/cursorless-engine";
+import { createCursorlessEngine } from "@cursorless/cursorless-engine";
+import type { CursorlessApi, ParseTreeApi } from "@cursorless/vscode-common";
 import {
-  createCursorlessEngine,
-  ScopeProvider,
-  TreeSitter,
-} from "@cursorless/cursorless-engine";
-import {
-  CursorlessApi,
   getCommandServerApi,
   getParseTreeApi,
-  ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
@@ -27,14 +20,12 @@ import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import {
-  createVscodeScopeVisualizer,
-  VscodeScopeVisualizer,
-} from "./ide/vscode/VSCodeScopeVisualizer";
+import type { VscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
+import { createVscodeScopeVisualizer } from "./ide/vscode/VSCodeScopeVisualizer";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
-import {
+import type {
   ScopeVisualizerCommandApi,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";

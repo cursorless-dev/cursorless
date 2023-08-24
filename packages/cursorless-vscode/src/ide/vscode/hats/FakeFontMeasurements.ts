@@ -1,4 +1,4 @@
-import { FontMeasurements } from "./FontMeasurements";
+import type { FontMeasurements } from "./FontMeasurements";
 
 export class FakeFontMeasurements implements FontMeasurements {
   fontSize = 12;

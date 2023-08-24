@@ -1,9 +1,14 @@
-import { CustomRegexScopeType, Direction, ScopeType } from "@cursorless/common";
+import type {
+  CustomRegexScopeType,
+  Direction,
+  ScopeType,
+} from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler, ScopeHandlerFactory } from ".";
+import type { ScopeHandlerFactory } from ".";
+import { NestedScopeHandler } from ".";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
-import { TargetScope } from "./scope.types";
+import type { TargetScope } from "./scope.types";
 
 abstract class RegexStageBase extends NestedScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "line" };

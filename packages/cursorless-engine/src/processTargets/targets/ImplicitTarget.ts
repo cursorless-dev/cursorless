@@ -1,4 +1,5 @@
-import { BaseTarget, CommonTargetParameters } from ".";
+import type { CommonTargetParameters } from ".";
+import { BaseTarget } from ".";
 
 /**
  * A target that was not explicitly spoken by the user. For example:

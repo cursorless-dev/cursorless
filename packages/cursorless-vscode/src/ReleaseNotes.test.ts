@@ -1,8 +1,9 @@
 import * as sinon from "sinon";
-import { MessageType, Messages, asyncSafety } from "@cursorless/common";
+import type { MessageType, Messages } from "@cursorless/common";
+import { asyncSafety } from "@cursorless/common";
 import type { ExtensionContext, Uri } from "vscode";
 import { ReleaseNotes, VERSION_KEY, WHATS_NEW } from "./ReleaseNotes";
-import { VscodeApi } from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/vscode-common";
 
 interface Input {
   /** Whether the VSCode window is focused */

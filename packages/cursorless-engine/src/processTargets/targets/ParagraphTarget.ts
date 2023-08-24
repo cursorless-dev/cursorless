@@ -1,12 +1,8 @@
-import {
-  Position,
-  Range,
-  TextDocument,
-  TextEditor,
-  TextLine,
-} from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
-import { Target } from "../../typings/target.types";
+import type { TextDocument, TextEditor, TextLine } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
+import type { CommonTargetParameters } from ".";
+import { BaseTarget, LineTarget } from ".";
+import type { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";

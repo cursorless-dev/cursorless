@@ -1,5 +1,6 @@
-import { Messages, Range } from "@cursorless/common";
-import { QueryCapture } from "./QueryCapture";
+import type { Messages } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { QueryCapture } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
 import assert = require("assert");
 

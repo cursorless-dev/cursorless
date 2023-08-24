@@ -1,13 +1,16 @@
-import { SimpleScopeTypeType, SnippetDefinition } from "@cursorless/common";
-import { Target } from "../typings/target.types";
+import type {
+  SimpleScopeTypeType,
+  SnippetDefinition,
+} from "@cursorless/common";
+import type { Target } from "../typings/target.types";
+import type { TextmateSnippet } from "./vendor/vscodeSnippet/snippetParser";
 import {
   Placeholder,
   Text,
-  TextmateSnippet,
   Variable,
 } from "./vendor/vscodeSnippet/snippetParser";
 import { KnownSnippetVariableNames } from "./vendor/vscodeSnippet/snippetVariables";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 
 /**
  * Replaces the snippet variable with name `placeholderName` with

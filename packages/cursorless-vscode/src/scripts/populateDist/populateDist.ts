@@ -3,7 +3,7 @@ import { copy, exists } from "fs-extra";
 import { lstat, mkdir, readFile, writeFile } from "fs/promises";
 import * as path from "path";
 import { assets } from "./assets";
-import { Context } from "./context";
+import type { Context } from "./context";
 
 // Iterate over assets, copying each file to the destination.  Any parent
 // directories will be created as necessary, and source directories will be

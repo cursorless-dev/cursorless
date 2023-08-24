@@ -1,4 +1,4 @@
-import { Snippet, SnippetMap } from "@cursorless/common";
+import type { Snippet, SnippetMap } from "@cursorless/common";
 import { cloneDeep, groupBy, mapValues, merge } from "lodash";
 import { compareSnippetDefinitions } from "./compareSnippetDefinitions";
 

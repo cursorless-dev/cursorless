@@ -1,4 +1,4 @@
-import { DifferentiatedStyle } from "./decorationStyle.types";
+import type { DifferentiatedStyle } from "./decorationStyle.types";
 
 /**
  * Returns a list of values that uniquely definees a differentiated style, for

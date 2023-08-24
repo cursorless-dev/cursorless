@@ -1,7 +1,7 @@
-import { RangeMark } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { MarkStageFactory } from "../MarkStageFactory";
-import { MarkStage } from "../PipelineStages.types";
+import type { RangeMark } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { MarkStageFactory } from "../MarkStageFactory";
+import type { MarkStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../TargetPipelineRunner";
 
 export default class RangeMarkStage implements MarkStage {

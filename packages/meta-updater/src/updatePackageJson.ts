@@ -1,7 +1,7 @@
 import * as yaml from "js-yaml";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
-import { PackageJson } from "type-fest";
-import { Context } from "./Context";
+import type { PackageJson } from "type-fest";
+import type { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 import { readFile } from "fs/promises";
 import { join } from "path";

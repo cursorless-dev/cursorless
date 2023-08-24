@@ -1,9 +1,9 @@
-import {
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
   Modifier,
 } from "@cursorless/common";
-import { ModifierStage } from "./PipelineStages.types";
+import type { ModifierStage } from "./PipelineStages.types";
 
 export interface ModifierStageFactory {
   create(modifier: Modifier): ModifierStage;

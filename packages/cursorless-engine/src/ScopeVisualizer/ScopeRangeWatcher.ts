@@ -1,6 +1,7 @@
-import { Disposable, showError } from "@cursorless/common";
+import type { Disposable } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { pull } from "lodash";
-import {
+import type {
   IterationScopeChangeEventCallback,
   IterationScopeRangeConfig,
   ScopeChangeEventCallback,
@@ -8,9 +9,9 @@ import {
   ScopeRanges,
 } from "..";
 import { Debouncer } from "../core/Debouncer";
-import { LanguageDefinitions } from "../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
-import { ScopeRangeProvider } from "./ScopeRangeProvider";
+import type { ScopeRangeProvider } from "./ScopeRangeProvider";
 
 /**
  * Watches for changes to the scope ranges of visible editors and notifies

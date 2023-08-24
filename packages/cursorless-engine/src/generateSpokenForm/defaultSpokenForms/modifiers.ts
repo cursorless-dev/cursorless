@@ -1,9 +1,9 @@
-import {
+import type {
   ModifierType,
   SimpleScopeTypeType,
   SurroundingPairName,
-  CompositeKeyMap,
 } from "@cursorless/common";
+import { CompositeKeyMap } from "@cursorless/common";
 
 export const modifiers = {
   excludeInterior: "bounds",

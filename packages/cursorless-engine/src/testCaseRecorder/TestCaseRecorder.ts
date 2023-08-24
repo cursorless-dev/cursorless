@@ -1,23 +1,25 @@
-import {
+import type {
   CommandComplete,
   CommandLatest,
   DecoratedSymbolMark,
-  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-  extractTargetedMarks,
   ExtraSnapshotField,
-  getKey,
-  getRecordedTestsDirPath,
   HatTokenMap,
   IDE,
-  marksToPlainObject,
   ReadOnlyHatMap,
-  serialize,
   SerializedMarks,
+  TextEditorOptions,
+} from "@cursorless/common";
+import {
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
+  extractTargetedMarks,
+  getKey,
+  getRecordedTestsDirPath,
+  marksToPlainObject,
+  serialize,
   showError,
   showInfo,
   sleep,
   SpyIDE,
-  TextEditorOptions,
   toLineRange,
   walkDirsSync,
 } from "@cursorless/common";
@@ -29,10 +31,10 @@ import * as path from "path";
 import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TestCase } from "./TestCase";
-import { StoredTargetMap } from "../core/StoredTargets";
-import { CommandRunner } from "../CommandRunner";
+import type { StoredTargetMap } from "../core/StoredTargets";
+import type { CommandRunner } from "../CommandRunner";
 import { generateSpokenForm } from "../generateSpokenForm";
-import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import type { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 

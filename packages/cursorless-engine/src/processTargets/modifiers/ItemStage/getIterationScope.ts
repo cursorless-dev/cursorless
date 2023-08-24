@@ -1,7 +1,9 @@
-import { Range, TextEditor, TextLine } from "@cursorless/common";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { Target } from "../../../typings/target.types";
-import { PlainTarget, SurroundingPairTarget } from "../../targets";
+import type { TextEditor, TextLine } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { Target } from "../../../typings/target.types";
+import type { SurroundingPairTarget } from "../../targets";
+import { PlainTarget } from "../../targets";
 import { fitRangeToLineContent } from "../scopeHandlers";
 import { processSurroundingPair } from "../surroundingPair";
 

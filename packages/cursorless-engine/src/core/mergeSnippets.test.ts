@@ -1,4 +1,4 @@
-import { SnippetMap } from "@cursorless/common";
+import type { SnippetMap } from "@cursorless/common";
 import { mergeSnippets } from "./mergeSnippets";
 import assert = require("assert");
 

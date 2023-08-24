@@ -1,18 +1,17 @@
-import {
-  RangeExpansionBehavior,
+import type {
   EditableTextEditor,
   Range,
-  Selection,
   TextDocument,
 } from "@cursorless/common";
+import { RangeExpansionBehavior, Selection } from "@cursorless/common";
 import { flatten } from "lodash";
-import { Edit } from "../../typings/Types";
-import {
+import type { Edit } from "../../typings/Types";
+import type {
   FullSelectionInfo,
   SelectionInfo,
 } from "../../typings/updateSelections";
 import { performDocumentEdits } from "../../util/performDocumentEdits";
-import { RangeUpdater } from "./RangeUpdater";
+import type { RangeUpdater } from "./RangeUpdater";
 
 interface SelectionsWithBehavior {
   selections: readonly Selection[];

@@ -1,10 +1,10 @@
 import { FlashStyle, isTesting, Range } from "@cursorless/common";
-import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
+import type { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
-import { Target } from "../../typings/target.types";
+import type { Target } from "../../typings/target.types";
 import { matchAll } from "../../util/regex";
 import { ensureSingleTarget, flashTargets } from "../../util/targetUtils";
-import { ActionReturnValue } from "../actions.types";
+import type { ActionReturnValue } from "../actions.types";
 import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import { openNewSnippetFile } from "./openNewSnippetFile";

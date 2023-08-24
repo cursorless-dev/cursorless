@@ -1,7 +1,7 @@
-import { CascadingModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import type { CascadingModifier } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStage } from "../PipelineStages.types";
 
 /**
  * Tries each of the given modifiers in turn until one of them doesn't throw an

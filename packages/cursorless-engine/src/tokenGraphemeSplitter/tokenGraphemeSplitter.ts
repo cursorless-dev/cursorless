@@ -1,10 +1,7 @@
 import { deburr, escapeRegExp } from "lodash";
 import { ide } from "../singletons/ide.singleton";
-import {
-  TokenHatSplittingMode,
-  Disposable,
-  Notifier,
-} from "@cursorless/common";
+import type { TokenHatSplittingMode, Disposable } from "@cursorless/common";
+import { Notifier } from "@cursorless/common";
 import { matchAll } from "../util/regex";
 
 /**

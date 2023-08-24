@@ -1,6 +1,7 @@
-import { ExplicitMark, Range } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { MarkStage } from "../PipelineStages.types";
+import type { ExplicitMark } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 import { ide } from "../../singletons/ide.singleton";
 

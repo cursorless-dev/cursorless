@@ -1,4 +1,5 @@
-import { Command, CURSORLESS_COMMAND_ID } from "@cursorless/common";
+import type { Command } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID } from "@cursorless/common";
 import * as vscode from "vscode";
 
 export function runCursorlessCommand(command: Command) {

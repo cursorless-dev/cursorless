@@ -1,9 +1,9 @@
-import { Selection } from "@cursorless/common";
+import type { Selection } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
-import { Destination } from "../../typings/target.types";
+import type { Destination } from "../../typings/target.types";
 import { createThatMark, ensureSingleTarget } from "../../util/targetUtils";
-import { Actions } from "../Actions";
-import { ActionReturnValue } from "../actions.types";
+import type { Actions } from "../Actions";
+import type { ActionReturnValue } from "../actions.types";
 
 export async function runEditNewNotebookCellTargets(
   actions: Actions,

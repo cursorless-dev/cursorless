@@ -7,7 +7,7 @@ import type {
 import { pull } from "lodash";
 import { ide } from "../../singletons/ide.singleton";
 import type { Edit } from "../../typings/Types";
-import {
+import type {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
 } from "../../typings/updateSelections";

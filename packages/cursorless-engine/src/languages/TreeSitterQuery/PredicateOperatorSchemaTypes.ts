@@ -1,9 +1,9 @@
-import z from "zod";
-import {
+import type z from "zod";
+import type {
   SchemaInputType,
   SchemaOutputType,
 } from "./operatorArgumentSchemaTypes";
-import { MutableQueryCapture } from "./QueryCapture";
+import type { MutableQueryCapture } from "./QueryCapture";
 
 /**
  * A schema used to validate a list of operands for a given predicate operator.

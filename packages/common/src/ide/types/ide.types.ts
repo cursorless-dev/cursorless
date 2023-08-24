@@ -4,21 +4,21 @@ import type {
   TextDocument,
   TextEditor,
 } from "../..";
-import { URI } from "vscode-uri";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { Capabilities } from "./Capabilities";
-import { Clipboard } from "./Clipboard";
-import { Configuration } from "./Configuration";
-import { TextDocumentChangeEvent } from "./Events";
-import {
+import type { URI } from "vscode-uri";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { Capabilities } from "./Capabilities";
+import type { Clipboard } from "./Clipboard";
+import type { Configuration } from "./Configuration";
+import type { TextDocumentChangeEvent } from "./Events";
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "./events.types";
-import { FlashDescriptor } from "./FlashDescriptor";
-import { Messages } from "./Messages";
-import { QuickPickOptions } from "./QuickPickOptions";
-import { State } from "./State";
+import type { FlashDescriptor } from "./FlashDescriptor";
+import type { Messages } from "./Messages";
+import type { QuickPickOptions } from "./QuickPickOptions";
+import type { State } from "./State";
 
 export type RunMode = "production" | "development" | "test";
 export type HighlightId = string;

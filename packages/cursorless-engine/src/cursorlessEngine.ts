@@ -1,13 +1,14 @@
-import {
+import type {
   Command,
   CommandServerApi,
   FileSystem,
   Hats,
   IDE,
 } from "@cursorless/common";
-import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
-import { CursorlessEngine } from "./api/CursorlessEngineApi";
-import { ScopeProvider } from "./api/ScopeProvider";
+import type { TreeSitter } from ".";
+import { StoredTargetMap, TestCaseRecorder } from ".";
+import type { CursorlessEngine } from "./api/CursorlessEngineApi";
+import type { ScopeProvider } from "./api/ScopeProvider";
 import { ScopeRangeProvider } from "./ScopeVisualizer/ScopeRangeProvider";
 import { ScopeSupportChecker } from "./ScopeVisualizer/ScopeSupportChecker";
 import { Debug } from "./core/Debug";

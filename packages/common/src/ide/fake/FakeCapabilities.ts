@@ -1,4 +1,4 @@
-import { Capabilities } from "../types/Capabilities";
+import type { Capabilities } from "../types/Capabilities";
 
 export class FakeCapabilities implements Capabilities {
   commands = {

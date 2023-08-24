@@ -1,24 +1,26 @@
-import {
+import type {
   ActionType,
   CommandLatest,
   EnforceUndefined,
-  extractTargetedMarks,
   ExtraSnapshotField,
-  marksToPlainObject,
   PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
   ReadOnlyHatMap,
   SerializedMarks,
-  serializeTestFixture,
   SpyIDE,
-  spyIDERecordedValuesToPlainObject,
   TestCaseFixture,
   TestCaseSnapshot,
   ThrownError,
   Token,
 } from "@cursorless/common";
+import {
+  extractTargetedMarks,
+  marksToPlainObject,
+  serializeTestFixture,
+  spyIDERecordedValuesToPlainObject,
+} from "@cursorless/common";
 import { pick } from "lodash";
-import { StoredTargetMap } from "..";
+import type { StoredTargetMap } from "..";
 import { ide } from "../singletons/ide.singleton";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";

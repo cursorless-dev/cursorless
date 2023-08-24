@@ -1,10 +1,10 @@
-import {
+import type {
   ExcludeInteriorModifier,
   InteriorOnlyModifier,
 } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStage } from "../PipelineStages.types";
 import { containingSurroundingPairIfUntypedModifier } from "./commonContainingScopeIfUntypedModifiers";
 
 export class InteriorOnlyStage implements ModifierStage {

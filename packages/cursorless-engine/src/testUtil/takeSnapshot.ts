@@ -1,15 +1,17 @@
-import {
+import type {
   Clipboard,
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
-  hrtimeBigintToSeconds,
   IDE,
-  rangeToPlainObject,
-  selectionToPlainObject,
   SerializedMarks,
   TestCaseSnapshot,
   TextEditor,
+} from "@cursorless/common";
+import {
+  hrtimeBigintToSeconds,
+  rangeToPlainObject,
+  selectionToPlainObject,
 } from "@cursorless/common";
 import type { StoredTargetMap } from "../core/StoredTargets";
 

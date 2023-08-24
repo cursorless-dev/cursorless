@@ -1,12 +1,12 @@
 import { FlashStyle, Range, Selection, toLineRange } from "@cursorless/common";
 import { flatten } from "lodash";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 class InsertEmptyLines implements SimpleAction {
   constructor(

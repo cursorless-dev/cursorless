@@ -1,4 +1,4 @@
-import {
+import type {
   Direction,
   OneOfScopeType,
   Position,
@@ -6,10 +6,10 @@ import {
 } from "@cursorless/common";
 import BaseScopeHandler from "./BaseScopeHandler";
 import { advanceIteratorsUntil, getInitialIteratorInfos } from "./IteratorInfo";
-import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { compareTargetScopes } from "./compareTargetScopes";
 import type { TargetScope } from "./scope.types";
-import {
+import type {
   CustomScopeType,
   ScopeHandler,
   ScopeIteratorRequirements,

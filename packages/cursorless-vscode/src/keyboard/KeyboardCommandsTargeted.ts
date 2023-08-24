@@ -1,17 +1,17 @@
-import {
+import type {
   ActionDescriptor,
   ActionType,
-  LATEST_VERSION,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "@cursorless/common";
+import { LATEST_VERSION } from "@cursorless/common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
-import KeyboardCommandsModal from "./KeyboardCommandsModal";
-import KeyboardHandler from "./KeyboardHandler";
+import type KeyboardCommandsModal from "./KeyboardCommandsModal";
+import type KeyboardHandler from "./KeyboardHandler";
 
 type TargetingMode = "replace" | "extend" | "append";
 

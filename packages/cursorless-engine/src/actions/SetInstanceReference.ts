@@ -1,5 +1,5 @@
-import { Target } from "../typings/target.types";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { Target } from "../typings/target.types";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export class SetInstanceReference implements SimpleAction {
   constructor() {

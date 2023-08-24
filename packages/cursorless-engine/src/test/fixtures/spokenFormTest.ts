@@ -1,4 +1,4 @@
-import { ActionDescriptor, CommandV6 } from "@cursorless/common";
+import type { ActionDescriptor, CommandV6 } from "@cursorless/common";
 
 export interface SpokenFormTest {
   /**

@@ -1,11 +1,11 @@
 import { sortedIndexBy } from "lodash";
-import {
+import type {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,
 } from "@cursorless/common";
 import { findDelimiterPairAdjacentToSelection } from "./findDelimiterPairAdjacentToSelection";
 import { findDelimiterPairContainingSelection } from "./findDelimiterPairContainingSelection";
-import {
+import type {
   SurroundingPairOffsets,
   Offsets,
   PossibleDelimiterOccurrence,

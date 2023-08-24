@@ -1,5 +1,5 @@
-import { SimpleSurroundingPairName } from "@cursorless/common";
-import { IndividualDelimiter } from "./types";
+import type { SimpleSurroundingPairName } from "@cursorless/common";
+import type { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
 import { isString } from "../../../util/type";

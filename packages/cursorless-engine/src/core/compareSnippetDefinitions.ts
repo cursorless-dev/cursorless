@@ -1,9 +1,9 @@
-import {
+import type {
   SimpleScopeTypeType,
   SnippetDefinition,
   SnippetScope,
 } from "@cursorless/common";
-import { SnippetOrigin } from "./mergeSnippets";
+import type { SnippetOrigin } from "./mergeSnippets";
 
 /**
  * Compares two snippet definitions by how specific their scope, breaking

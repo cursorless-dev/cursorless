@@ -3,17 +3,17 @@ import {
   RangeExpansionBehavior,
   toCharacterRange,
 } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   callFunctionAndUpdateSelections,
   callFunctionAndUpdateSelectionsWithBehavior,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Destination } from "../typings/target.types";
+import type { Destination } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { ActionReturnValue } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue } from "./actions.types";
 
 export class PasteFromClipboard {
   constructor(

@@ -1,14 +1,14 @@
 import { getFixturePath } from "../../index";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { TextEditor } from "../../types/TextEditor";
-import FakeClipboard from "../fake/FakeClipboard";
-import FakeConfiguration from "../fake/FakeConfiguration";
-import FakeGlobalState from "../fake/FakeGlobalState";
-import FakeIDE from "../fake/FakeIDE";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextEditor } from "../../types/TextEditor";
+import type FakeClipboard from "../fake/FakeClipboard";
+import type FakeConfiguration from "../fake/FakeConfiguration";
+import type FakeGlobalState from "../fake/FakeGlobalState";
+import type FakeIDE from "../fake/FakeIDE";
 import PassthroughIDEBase from "../PassthroughIDEBase";
-import { FlashDescriptor } from "../types/FlashDescriptor";
+import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type { IDE } from "../types/ide.types";
-import { QuickPickOptions } from "../types/QuickPickOptions";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
 
 export class NormalizedIDE extends PassthroughIDEBase {
   configuration: FakeConfiguration;

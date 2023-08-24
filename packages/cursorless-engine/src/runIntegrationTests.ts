@@ -1,8 +1,8 @@
 import assert = require("assert");
 import { languageMatchers } from "./languages/getNodeMatcher";
-import { TreeSitter } from "./typings/TreeSitter";
+import type { TreeSitter } from "./typings/TreeSitter";
 import { legacyLanguageIds } from "./languages/LegacyLanguageId";
-import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "./languages/LanguageDefinitions";
 
 /**
  * Run tests that require multiple components to be instantiated, as well as a

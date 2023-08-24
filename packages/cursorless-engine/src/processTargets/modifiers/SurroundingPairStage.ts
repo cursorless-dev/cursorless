@@ -2,10 +2,10 @@ import type {
   ContainingSurroundingPairModifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
-import { LanguageDefinitions } from "../../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../../languages/LanguageDefinitions";
 import type { Target } from "../../typings/target.types";
 import type { ModifierStage } from "../PipelineStages.types";
-import { SurroundingPairTarget } from "../targets";
+import type { SurroundingPairTarget } from "../targets";
 import { processSurroundingPair } from "./surroundingPair";
 
 /**

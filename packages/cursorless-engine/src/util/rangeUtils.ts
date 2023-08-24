@@ -1,4 +1,5 @@
-import { Position, Range, TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
 import { getLeadingWhitespace, getTrailingWhitespace } from "./regex";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {

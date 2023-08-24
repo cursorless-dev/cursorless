@@ -1,5 +1,5 @@
+import type { TestCaseFixtureLegacy } from "@cursorless/common";
 import {
-  TestCaseFixtureLegacy,
   getRecordedTestPaths,
   serializeTestFixture,
   shouldUpdateFixtures,

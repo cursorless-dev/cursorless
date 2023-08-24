@@ -2,9 +2,9 @@ import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
 import path from "path";
 import exists from "path-exists";
-import { TsConfigJson } from "type-fest";
+import type { TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
-import { Context } from "./Context";
+import type { Context } from "./Context";
 import { uniq } from "lodash";
 
 /**

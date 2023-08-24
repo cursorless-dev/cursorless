@@ -1,5 +1,5 @@
-import { Range, TextDocument } from "@cursorless/common";
-import { Language, SyntaxNode, Tree } from "web-tree-sitter";
+import type { Range, TextDocument } from "@cursorless/common";
+import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
 
 export interface TreeSitter {
   /**

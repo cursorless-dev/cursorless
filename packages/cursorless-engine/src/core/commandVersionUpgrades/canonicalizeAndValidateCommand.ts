@@ -1,15 +1,14 @@
-import {
+import type {
   ActionType,
   Command,
   CommandComplete,
   CommandLatest,
   EnforceUndefined,
-  LATEST_VERSION,
   Modifier,
-  OutdatedExtensionError,
   PartialTargetDescriptor,
   SimpleScopeTypeType,
 } from "@cursorless/common";
+import { LATEST_VERSION, OutdatedExtensionError } from "@cursorless/common";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";

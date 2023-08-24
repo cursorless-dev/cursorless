@@ -1,4 +1,5 @@
 import type { ScopeType } from "@cursorless/common";
+import type { ScopeHandlerFactory } from ".";
 import {
   CharacterScopeHandler,
   CustomRegexScopeHandler,
@@ -8,13 +9,12 @@ import {
   NonWhitespaceSequenceScopeHandler,
   OneOfScopeHandler,
   ParagraphScopeHandler,
-  ScopeHandlerFactory,
   SentenceScopeHandler,
   TokenScopeHandler,
   UrlScopeHandler,
   WordScopeHandler,
 } from ".";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 
 /**

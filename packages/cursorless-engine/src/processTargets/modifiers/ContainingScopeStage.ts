@@ -1,11 +1,9 @@
-import {
-  ContainingScopeModifier,
-  NoContainingScopeError,
-} from "@cursorless/common";
+import type { ContainingScopeModifier } from "@cursorless/common";
+import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
 
 /**

@@ -13,7 +13,7 @@ import type {
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { VscodeApi } from "./VscodeApi";
+import type { VscodeApi } from "./VscodeApi";
 
 export interface TestHelpers {
   ide: NormalizedIDE;

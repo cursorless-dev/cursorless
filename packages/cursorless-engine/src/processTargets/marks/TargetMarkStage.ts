@@ -1,7 +1,7 @@
-import { TargetPipelineRunner } from "..";
-import { TargetMark } from "../../typings/TargetDescriptor";
-import { Target } from "../../typings/target.types";
-import { MarkStage } from "../PipelineStages.types";
+import type { TargetPipelineRunner } from "..";
+import type { TargetMark } from "../../typings/TargetDescriptor";
+import type { Target } from "../../typings/target.types";
+import type { MarkStage } from "../PipelineStages.types";
 
 export class TargetMarkStage implements MarkStage {
   constructor(

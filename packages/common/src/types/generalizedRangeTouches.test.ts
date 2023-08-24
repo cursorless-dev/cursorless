@@ -1,5 +1,6 @@
 import assert = require("assert");
-import { GeneralizedRange, generalizedRangeTouches, Position } from "..";
+import type { GeneralizedRange } from "..";
+import { generalizedRangeTouches, Position } from "..";
 
 suite("generalizedRangeTouches", () => {
   test("character", () => {

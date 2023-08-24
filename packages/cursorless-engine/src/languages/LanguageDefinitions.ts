@@ -1,14 +1,13 @@
-import {
+import type {
   Disposable,
   FileSystem,
-  Notifier,
   Range,
   TextDocument,
-  getCursorlessRepoRoot,
 } from "@cursorless/common";
+import { Notifier, getCursorlessRepoRoot } from "@cursorless/common";
 import { join } from "path";
-import { SyntaxNode } from "web-tree-sitter";
-import { TreeSitter } from "..";
+import type { SyntaxNode } from "web-tree-sitter";
+import type { TreeSitter } from "..";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
 

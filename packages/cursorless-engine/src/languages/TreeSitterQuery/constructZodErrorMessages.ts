@@ -1,5 +1,5 @@
-import { PredicateOperand } from "web-tree-sitter";
-import z from "zod";
+import type { PredicateOperand } from "web-tree-sitter";
+import type z from "zod";
 import { operandToString } from "./predicateToString";
 
 export function constructZodErrorMessages(

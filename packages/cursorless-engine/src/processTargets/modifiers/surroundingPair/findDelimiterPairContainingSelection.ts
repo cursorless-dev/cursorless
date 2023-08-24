@@ -1,10 +1,10 @@
-import {
+import type {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,
 } from "@cursorless/common";
 import { generateUnmatchedDelimiters } from "./generateUnmatchedDelimiters";
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
-import {
+import type {
   Offsets,
   PossibleDelimiterOccurrence,
   SurroundingPairOffsets,

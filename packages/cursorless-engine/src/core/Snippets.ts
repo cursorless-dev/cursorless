@@ -1,4 +1,5 @@
-import { showError, Snippet, SnippetMap, walkFiles } from "@cursorless/common";
+import type { Snippet, SnippetMap } from "@cursorless/common";
+import { showError, walkFiles } from "@cursorless/common";
 import { readFile, stat } from "fs/promises";
 import { max } from "lodash";
 import { join } from "path";

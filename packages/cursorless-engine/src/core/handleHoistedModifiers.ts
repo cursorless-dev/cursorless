@@ -1,7 +1,7 @@
-import { Modifier } from "@cursorless/common";
+import type { Modifier } from "@cursorless/common";
 import produce from "immer";
 import { findLastIndex } from "lodash";
-import {
+import type {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
 } from "../typings/TargetDescriptor";

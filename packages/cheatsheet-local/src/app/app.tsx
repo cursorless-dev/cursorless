@@ -1,4 +1,5 @@
-import { CheatsheetPage, CheatsheetInfo } from "@cursorless/cheatsheet";
+import type { CheatsheetInfo } from "@cursorless/cheatsheet";
+import { CheatsheetPage } from "@cursorless/cheatsheet";
 import "../styles.css";
 
 declare global {

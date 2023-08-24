@@ -1,4 +1,4 @@
-import { VscodeApi } from "@cursorless/vscode-common";
+import type { VscodeApi } from "@cursorless/vscode-common";
 import { env, window, workspace } from "vscode";
 
 /**

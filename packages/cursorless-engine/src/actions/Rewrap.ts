@@ -1,16 +1,16 @@
 import { FlashStyle } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingSurroundingPairIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import {
   createThatMark,
   flashTargets,
   runOnTargetsForEachEditor,
 } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Rewrap {
   getFinalStages = () => [

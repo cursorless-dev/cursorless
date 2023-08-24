@@ -1,4 +1,4 @@
-import {
+import type {
   ActionCommandV5,
   ActionDescriptor,
   CommandV5,

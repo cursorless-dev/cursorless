@@ -1,4 +1,4 @@
-import { ActionDescriptor } from "@cursorless/common";
+import type { ActionDescriptor } from "@cursorless/common";
 import { spokenFormTest } from "./spokenFormTest";
 
 // See cursorless-talon-dev/src/cursorless_test.talon

@@ -1,4 +1,4 @@
-import { PredicateOperand, PredicateResult } from "web-tree-sitter";
+import type { PredicateOperand, PredicateResult } from "web-tree-sitter";
 
 export function predicateToString(
   predicateDescriptor: PredicateResult,

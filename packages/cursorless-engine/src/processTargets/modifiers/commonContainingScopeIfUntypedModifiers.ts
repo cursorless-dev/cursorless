@@ -1,4 +1,4 @@
-import { Modifier } from "@cursorless/common";
+import type { Modifier } from "@cursorless/common";
 // NB: We import `Target` below just so that @link below resolves.  Once one of
 // the following issues are fixed, we can either remove the above line or
 // switch to `{import("foo")}` syntax in the `{@link}` tag.

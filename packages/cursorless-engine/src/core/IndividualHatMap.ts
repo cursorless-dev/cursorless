@@ -1,15 +1,15 @@
-import {
-  getKey,
+import type {
   HatStyleName,
   ReadOnlyHatMap,
   TextDocument,
   Token,
   TokenHat,
 } from "@cursorless/common";
+import { getKey } from "@cursorless/common";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { getMatcher } from "../tokenizer";
-import { FullRangeInfo } from "../typings/updateSelections";
-import { RangeUpdater } from "./updateSelections/RangeUpdater";
+import type { FullRangeInfo } from "../typings/updateSelections";
+import type { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * A token with information that the rangeUpdater can use to keep its

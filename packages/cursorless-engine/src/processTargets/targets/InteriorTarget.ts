@@ -1,6 +1,7 @@
-import { Range } from "@cursorless/common";
-import { BaseTarget, MinimumTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
+import type { Range } from "@cursorless/common";
+import type { MinimumTargetParameters } from ".";
+import { BaseTarget } from ".";
+import type { Target } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
 import {

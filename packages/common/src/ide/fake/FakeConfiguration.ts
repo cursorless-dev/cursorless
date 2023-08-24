@@ -1,13 +1,13 @@
 import { get } from "lodash";
 import { Notifier } from "../../util/Notifier";
-import {
+import type {
   Configuration,
   ConfigurationScope,
-  CONFIGURATION_DEFAULTS,
   CursorlessConfigKey,
   CursorlessConfiguration,
 } from "../types/Configuration";
-import { GetFieldType, Paths } from "../types/Paths";
+import { CONFIGURATION_DEFAULTS } from "../types/Configuration";
+import type { GetFieldType, Paths } from "../types/Paths";
 
 interface ConfigurationScopeValues {
   scope: ConfigurationScope;

@@ -4,7 +4,7 @@
 // https://github.com/pnpm/pnpm/blob/d583fbb2ad7e6b986d133a4eaf60824713f13c06/LICENSE
 import { readWantedLockfile } from "@pnpm/lockfile-file";
 import { createUpdateOptions } from "@pnpm/meta-updater";
-import { Context } from "./Context";
+import type { Context } from "./Context";
 import { updatePackageJson } from "./updatePackageJson";
 import { updateTSConfig } from "./updateTSConfig";
 

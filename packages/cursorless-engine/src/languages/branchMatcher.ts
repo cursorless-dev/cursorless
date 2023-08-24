@@ -1,4 +1,4 @@
-import { NodeMatcher } from "../typings/Types";
+import type { NodeMatcher } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   cascadingMatcher,

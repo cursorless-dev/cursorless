@@ -1,11 +1,11 @@
-import { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../../core/updateSelections/RangeUpdater";
 import { ide } from "../../singletons/ide.singleton";
-import { Destination } from "../../typings/target.types";
+import type { Destination } from "../../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../../util/setSelectionsAndFocusEditor";
 import { createThatMark, ensureSingleEditor } from "../../util/targetUtils";
-import { Actions } from "../Actions";
-import { ActionReturnValue } from "../actions.types";
-import { State } from "./EditNew.types";
+import type { Actions } from "../Actions";
+import type { ActionReturnValue } from "../actions.types";
+import type { State } from "./EditNew.types";
 import { runEditTargets } from "./runEditTargets";
 import { runInsertLineAfterTargets } from "./runInsertLineAfterTargets";
 import { runEditNewNotebookCellTargets } from "./runNotebookCellTargets";

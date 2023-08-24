@@ -1,9 +1,8 @@
+import type { HatTokenMap, SimpleActionName } from "@cursorless/common";
 import {
   getFixturePath,
   getRecordedTestsDirPath,
-  HatTokenMap,
   LATEST_VERSION,
-  SimpleActionName,
 } from "@cursorless/common";
 import {
   getCursorlessApi,

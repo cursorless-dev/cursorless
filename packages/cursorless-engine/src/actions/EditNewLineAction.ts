@@ -1,8 +1,12 @@
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
-import { ModifierStage } from "../processTargets/PipelineStages.types";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStage } from "../processTargets/PipelineStages.types";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
-import { Target } from "../typings/target.types";
-import { ActionRecord, ActionReturnValue, SimpleAction } from "./actions.types";
+import type { Target } from "../typings/target.types";
+import type {
+  ActionRecord,
+  ActionReturnValue,
+  SimpleAction,
+} from "./actions.types";
 
 abstract class EditNewLineAction implements SimpleAction {
   getFinalStages(): ModifierStage[] {

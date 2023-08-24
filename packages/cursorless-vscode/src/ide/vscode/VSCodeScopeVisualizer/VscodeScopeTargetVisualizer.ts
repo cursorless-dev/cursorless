@@ -1,12 +1,12 @@
-import {
+import type {
   Disposable,
   GeneralizedRange,
   TextEditor,
-  toCharacterRange,
 } from "@cursorless/common";
-import { ScopeSupport, TargetRanges } from "@cursorless/cursorless-engine";
+import { toCharacterRange } from "@cursorless/common";
+import type { ScopeSupport, TargetRanges } from "@cursorless/cursorless-engine";
 import { VscodeScopeVisualizer } from ".";
-import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 
 abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
   protected abstract getTargetRange(

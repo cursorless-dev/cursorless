@@ -1,4 +1,4 @@
-import {
+import type {
   ActionCommandV4,
   ActionCommandV5,
   CommandV4,

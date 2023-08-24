@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { FontMeasurements } from "./FontMeasurements";
+import type { FontMeasurements } from "./FontMeasurements";
 
 /**
  * Contains measurements for the user's font

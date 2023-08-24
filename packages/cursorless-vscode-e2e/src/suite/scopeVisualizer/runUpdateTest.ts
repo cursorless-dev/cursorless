@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
 import { injectFakes } from "./injectFakes";
 import { checkAndResetFakes } from "./checkAndResetFakes";
-import { ExpectedArgs } from "./scopeVisualizerTest.types";
+import type { ExpectedArgs } from "./scopeVisualizerTest.types";
 
 /**
  * Tests that the scope visualizer updates correctly when the document is

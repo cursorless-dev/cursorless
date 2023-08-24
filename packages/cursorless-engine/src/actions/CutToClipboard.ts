@@ -1,14 +1,14 @@
+import type { FlashDescriptor } from "@cursorless/common";
 import {
-  FlashDescriptor,
   FlashStyle,
   Range,
   toCharacterRange,
   toLineRange,
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
-import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { Target } from "../typings/target.types";
+import type { Actions } from "./Actions";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export class CutToClipboard implements SimpleAction {
   constructor(private actions: Actions) {

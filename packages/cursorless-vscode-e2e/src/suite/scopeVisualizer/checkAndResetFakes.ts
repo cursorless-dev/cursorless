@@ -1,10 +1,10 @@
 import { assert } from "chai";
-import * as sinon from "sinon";
+import type * as sinon from "sinon";
 import {
   createDecorationTypeCallToPlainObject,
   setDecorationsCallToPlainObject,
 } from "./spyCallsToPlainObject";
-import { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
+import type { Fakes, ExpectedArgs } from "./scopeVisualizerTest.types";
 
 export function checkAndResetFakes(fakes: Fakes, expected: ExpectedArgs) {
   const actual = getSpyCallsAndResetFakes(fakes);

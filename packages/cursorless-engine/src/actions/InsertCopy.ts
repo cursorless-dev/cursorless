@@ -1,20 +1,20 @@
+import type { TextEditor } from "@cursorless/common";
 import {
   FlashStyle,
   RangeExpansionBehavior,
   Selection,
-  TextEditor,
   toCharacterRange,
 } from "@cursorless/common";
 import { flatten, zip } from "lodash";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { containingLineIfUntypedModifier } from "../processTargets/modifiers/commonContainingScopeIfUntypedModifiers";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { createThatMark, runOnTargetsForEachEditor } from "../util/targetUtils";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 class InsertCopy implements SimpleAction {
   getFinalStages = () => [

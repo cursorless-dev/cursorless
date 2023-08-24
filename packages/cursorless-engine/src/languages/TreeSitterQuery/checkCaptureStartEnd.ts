@@ -1,5 +1,6 @@
-import { Messages, showError } from "@cursorless/common";
-import { QueryCapture } from "./QueryCapture";
+import type { Messages } from "@cursorless/common";
+import { showError } from "@cursorless/common";
+import type { QueryCapture } from "./QueryCapture";
 
 /**
  * Checks the captures for a single name to ensure that they are valid.  Detects

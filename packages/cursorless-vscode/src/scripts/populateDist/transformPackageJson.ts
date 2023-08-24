@@ -1,5 +1,5 @@
 import * as semver from "semver";
-import { Context } from "./context";
+import type { Context } from "./context";
 import { runCommand } from "./runCommand";
 
 export async function transformPackageJson(

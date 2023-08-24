@@ -1,20 +1,16 @@
-import {
-  CURSORLESS_COMMAND_ID,
-  CursorlessCommandId,
-  isTesting,
-} from "@cursorless/common";
-import {
+import type { CursorlessCommandId } from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID, isTesting } from "@cursorless/common";
+import type {
   CommandApi,
   TestCaseRecorder,
-  showCheatsheet,
-  updateDefaults,
 } from "@cursorless/cursorless-engine";
+import { showCheatsheet, updateDefaults } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
 import { showDocumentation, showQuickPick } from "./commands";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { ScopeVisualizerCommandApi } from "./ScopeVisualizerCommandApi";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import type { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import type { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import type { ScopeVisualizerCommandApi } from "./ScopeVisualizerCommandApi";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,

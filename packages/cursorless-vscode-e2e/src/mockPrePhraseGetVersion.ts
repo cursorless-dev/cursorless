@@ -1,4 +1,4 @@
-import { CommandServerApi } from "@cursorless/common";
+import type { CommandServerApi } from "@cursorless/common";
 import * as sinon from "sinon";
 
 export function mockPrePhraseGetVersion(

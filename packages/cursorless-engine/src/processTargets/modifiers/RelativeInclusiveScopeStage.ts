@@ -1,14 +1,12 @@
-import {
-  NoContainingScopeError,
-  RelativeScopeModifier,
-} from "@cursorless/common";
+import type { RelativeScopeModifier } from "@cursorless/common";
+import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { itake } from "itertools";
 import { OutOfRangeError } from "./targetSequenceUtils";
 /**

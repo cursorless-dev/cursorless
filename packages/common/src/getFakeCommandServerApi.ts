@@ -1,4 +1,4 @@
-import { CommandServerApi } from "./types/CommandServerApi";
+import type { CommandServerApi } from "./types/CommandServerApi";
 
 export function getFakeCommandServerApi(): CommandServerApi {
   return {

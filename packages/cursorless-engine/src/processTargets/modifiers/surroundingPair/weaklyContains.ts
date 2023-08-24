@@ -1,4 +1,4 @@
-import { Offsets } from "./types";
+import type { Offsets } from "./types";
 
 /**
  * Determines whether {@link offsets1} weakly contains {@link offsets2}, which

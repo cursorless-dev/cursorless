@@ -1,4 +1,4 @@
-import { MutableQueryCapture } from "./QueryCapture";
+import type { MutableQueryCapture } from "./QueryCapture";
 
 /**
  * Modifies captures by applying any `.startOf` or `.endOf` suffixes. For

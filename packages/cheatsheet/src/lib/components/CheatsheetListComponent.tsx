@@ -1,4 +1,4 @@
-import { CheatsheetSection, Variation } from "../CheatsheetInfo";
+import type { CheatsheetSection, Variation } from "../CheatsheetInfo";
 import useIsHighlighted from "../hooks/useIsHighlighted";
 import { formatCaptures } from "./formatCaptures";
 

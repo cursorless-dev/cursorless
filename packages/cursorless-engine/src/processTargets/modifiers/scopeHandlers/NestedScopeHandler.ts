@@ -1,8 +1,8 @@
 import type { Direction, ScopeType } from "@cursorless/common";
-import { Position, TextEditor } from "@cursorless/common";
+import type { Position, TextEditor } from "@cursorless/common";
 import { flatmap } from "itertools";
 import BaseScopeHandler from "./BaseScopeHandler";
-import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import type { TargetScope } from "./scope.types";
 import type {
   ScopeHandler,

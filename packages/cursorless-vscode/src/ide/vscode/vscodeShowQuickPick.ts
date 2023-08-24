@@ -1,5 +1,8 @@
 import * as vscode from "vscode";
-import { QuickPickOptions, UnknownValuesOptions } from "@cursorless/common";
+import type {
+  QuickPickOptions,
+  UnknownValuesOptions,
+} from "@cursorless/common";
 
 export async function vscodeShowQuickPick(
   items: readonly string[],

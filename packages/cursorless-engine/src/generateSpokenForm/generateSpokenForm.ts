@@ -1,11 +1,12 @@
-import {
+import type {
   ActionDescriptor,
   CommandComplete,
   DestinationDescriptor,
   InsertionMode,
   PartialTargetDescriptor,
 } from "@cursorless/common";
-import { RecursiveArray, flattenDeep } from "lodash";
+import type { RecursiveArray } from "lodash";
+import { flattenDeep } from "lodash";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import { actions } from "./defaultSpokenForms/actions";
 import { connectives } from "./defaultSpokenForms/connectives";

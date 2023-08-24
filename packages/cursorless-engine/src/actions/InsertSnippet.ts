@@ -1,18 +1,17 @@
-import {
+import type {
   InsertSnippetArg,
-  RangeExpansionBehavior,
   ScopeType,
   Snippet,
   SnippetDefinition,
-  textFormatters,
 } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import { RangeExpansionBehavior, textFormatters } from "@cursorless/common";
+import type { Snippets } from "../core/Snippets";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   callFunctionAndUpdateSelectionInfos,
   getSelectionInfo,
 } from "../core/updateSelections/updateSelections";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedExplicitStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { UntypedTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
@@ -21,10 +20,10 @@ import {
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Destination, Target } from "../typings/target.types";
+import type { Destination, Target } from "../typings/target.types";
 import { ensureSingleEditor } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { ActionReturnValue } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class InsertSnippet {
   private snippetParser = new SnippetParser();

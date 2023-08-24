@@ -1,10 +1,11 @@
-import { EditableTextEditor, FlashStyle, TextEditor } from "@cursorless/common";
+import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
 import { flatten } from "lodash";
 import { selectionToStoredTarget } from "../core/commandRunner/selectionToStoredTarget";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import {
   setSelectionsAndFocusEditor,
   setSelectionsWithoutFocusingEditor,
@@ -16,7 +17,7 @@ import {
   runOnTargetsForEachEditor,
   runOnTargetsForEachEditorSequentially,
 } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 interface CallbackOptions {
   callback: (editor: EditableTextEditor, targets: Target[]) => Promise<void>;

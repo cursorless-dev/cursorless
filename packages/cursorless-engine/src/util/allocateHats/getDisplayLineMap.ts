@@ -1,4 +1,4 @@
-import { TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
 import { concat, flatten, flow, range, uniq } from "lodash";
 
 /**

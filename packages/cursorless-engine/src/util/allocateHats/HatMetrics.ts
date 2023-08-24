@@ -1,6 +1,7 @@
-import { CompositeKeyMap, HatStability, TokenHat } from "@cursorless/common";
+import type { CompositeKeyMap, TokenHat } from "@cursorless/common";
+import { HatStability } from "@cursorless/common";
 import { min } from "lodash";
-import { HatCandidate } from "./allocateHats";
+import type { HatCandidate } from "./allocateHats";
 
 /**
  * A function that takes a hat candidate and returns a number representing its

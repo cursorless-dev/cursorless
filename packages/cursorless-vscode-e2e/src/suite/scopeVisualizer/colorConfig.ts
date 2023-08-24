@@ -1,4 +1,4 @@
-import { ScopeVisualizerColorConfig } from "@cursorless/vscode-common";
+import type { ScopeVisualizerColorConfig } from "@cursorless/vscode-common";
 
 /**
  * Fake color config to use for testing. We use an alpha of 50% and try to use

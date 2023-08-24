@@ -1,7 +1,10 @@
-import { Disposable, TextEditorSelectionChangeEvent } from "@cursorless/common";
+import type {
+  Disposable,
+  TextEditorSelectionChangeEvent,
+} from "@cursorless/common";
 import type { SyntaxNode, TreeCursor } from "web-tree-sitter";
 import { ide } from "../singletons/ide.singleton";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { TreeSitter } from "../typings/TreeSitter";
 
 /**
  * Debug logger
