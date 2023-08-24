@@ -35,8 +35,20 @@ def get_actions():
             simple_actions,
             {
                 "callAsFunction": "Call <target> on selection",
+                "editNewLineAfter": "Edit new line or other scope after",
+                "editNewLineBefore": "Edit new line or other scope before",
             },
         ),
+        {
+            "id": "editNewLineBefore",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['editNewLineBefore']} <target>",
+                    "description": "Edit new line/item/etc before",
+                },
+            ],
+        },
         {
             "id": "replaceWithTarget",
             "type": "action",
