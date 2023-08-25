@@ -15,6 +15,7 @@ const components: MDXComponents = {
   ol: ({ children }) => <ol className="list-decimal ml-8">{children}</ol>,
   li: ({ children }) => <li className="my-2">{children}</li>,
   img: ({ src, alt }) => (
+    // FIXME: Figure out how to use next/image with MDX
     // eslint-disable-next-line @next/next/no-img-element
     <img
       className="mx-auto my-5 dark:border-salmon-700 dark:border dark:p-1 dark:rounded-sm"
