@@ -40,16 +40,6 @@ def get_actions():
             },
         ),
         {
-            "id": "editNewLineBefore",
-            "type": "action",
-            "variations": [
-                {
-                    "spokenForm": f"{complex_actions['editNewLineBefore']} <target>",
-                    "description": "Edit new line/item/etc before",
-                },
-            ],
-        },
-        {
             "id": "replaceWithTarget",
             "type": "action",
             "variations": [
