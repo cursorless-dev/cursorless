@@ -14,6 +14,15 @@ const components: MDXComponents = {
   ul: ({ children }) => <ul className="list-disc ml-8">{children}</ul>,
   ol: ({ children }) => <ol className="list-decimal ml-8">{children}</ol>,
   li: ({ children }) => <li className="my-2">{children}</li>,
+  img: ({ src, alt }) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className="mx-auto my-5 dark:border-salmon-700 dark:border dark:p-1 dark:rounded-sm"
+      src={src}
+      alt={alt}
+      style={{ maxWidth: "100%" }}
+    />
+  ),
 };
 
 export const bodyClasses = "bg-salmon-100 dark:bg-salmon-900";
