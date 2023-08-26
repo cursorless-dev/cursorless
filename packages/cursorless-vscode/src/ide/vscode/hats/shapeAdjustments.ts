@@ -56,7 +56,7 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   bridge: { sizeAdjustment: 0, verticalOffset: -1 },
   church: { sizeAdjustment: 0, verticalOffset: -1 },
   fang: { sizeAdjustment: 0, verticalOffset: -1 },
-  fez: { sizeAdjustment: 0, verticalOffset: -1 },
+  cone: { sizeAdjustment: 0, verticalOffset: -1 },
   gem: { sizeAdjustment: 0, verticalOffset: -1 },
   horn: { sizeAdjustment: 0, verticalOffset: -1 },
   knight: { sizeAdjustment: 0, verticalOffset: -1 },

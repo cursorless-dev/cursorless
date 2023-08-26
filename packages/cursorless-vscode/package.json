@@ -693,7 +693,7 @@
             "fang": {
               "type": "boolean"
             },
-            "fez": {
+            "cone": {
               "type": "boolean"
             },
             "gem": {
@@ -760,7 +760,7 @@
             "bridge": false,
             "church": false,
             "fang": false,
-            "fez": false,
+            "cone": false,
             "gem": false,
             "horn": false,
             "knight": false,
@@ -868,7 +868,7 @@
             "fang": {
               "type": "number"
             },
-            "fez": {
+            "cone": {
               "type": "number"
             },
             "gem": {
@@ -935,7 +935,7 @@
             "bridge": 1,
             "church": 1,
             "fang": 1,
-            "fez": 1,
+            "cone": 1,
             "gem": 1,
             "horn": 1,
             "knight": 1,
@@ -1019,7 +1019,7 @@
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
-            "fez": {
+            "cone": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
@@ -1191,7 +1191,7 @@
               "bridge",
               "church",
               "fang",
-              "fez",
+              "cone",
               "gem",
               "horn",
               "knight",

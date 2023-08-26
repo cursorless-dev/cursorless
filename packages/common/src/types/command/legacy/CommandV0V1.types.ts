@@ -138,7 +138,7 @@ const HAT_NON_DEFAULT_SHAPES = [
   "bridge",
   "church",
   "fang",
-  "fez",
+  "cone",
   "gem",
   "horn",
   "knight",
