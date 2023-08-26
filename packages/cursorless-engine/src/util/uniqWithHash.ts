@@ -47,6 +47,11 @@ export function uniqWithHash<T>(
     hashToItems.set(key, uniqWith(hashToItems.get(key)!, fn));
   });
 
+  // Another common case: Everything is unique.
+  if (needsUniq.length === 0) {
+    return array;
+  }
+
   // To preserve order, step through the original items
   // one at a time, returning it as appropriate.
   return array.flatMap((item) => {
