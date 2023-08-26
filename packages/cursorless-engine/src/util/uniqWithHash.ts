@@ -12,6 +12,16 @@ export function uniqWithHash<T>(
   fn: (a: T, b: T) => boolean,
   hash: (t: T) => string,
 ): T[] {
+  // Handle the common, tiny cases without allocating anything extra.
+  if (array.length < 2) {
+    return array;
+  }
+  if (array.length === 2) {
+    if (fn(array[0]!, array[1]!)) {
+      return [array[0]!];
+    }
+    return array;
+  }
   // First, split up the array using the hash function.
   // This keeps the sets of items passed to uniqWith small,
   // so that the quadratic runtime of uniqWith less of a problem.
