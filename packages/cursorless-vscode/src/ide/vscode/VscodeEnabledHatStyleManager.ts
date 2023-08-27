@@ -10,6 +10,7 @@ import {
   HAT_NON_DEFAULT_SHAPES,
   VscodeHatStyleName,
 } from "./hatStyles.types";
+import { HatShapeSpecs } from "./hats/shapeAdjustments";
 
 export interface ExtendedHatStyleInfo extends HatStyleInfo {
   color: HatColor;
@@ -62,13 +63,17 @@ export default class VscodeEnabledHatStyleManager {
       .get<Record<HatColor, boolean>>("colors")!;
     const shapePenalties = vscode.workspace
       .getConfiguration("cursorless.hatPenalties")
-      .get<Record<HatShape, number>>("shapes")!;
+      .get<Record<string, number>>("shapes")!;
     const colorPenalties = vscode.workspace
       .getConfiguration("cursorless.hatPenalties")
       .get<Record<HatColor, number>>("colors")!;
     const maxPenalty = vscode.workspace
       .getConfiguration("cursorless")
       .get<number>("maximumHatStylePenalty")!;
+
+    const userHatShapes = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<HatShapeSpecs>("hatShapes")!;
 
     shapeEnablement.default = true;
     colorEnablement.default = true;
@@ -79,9 +84,15 @@ export default class VscodeEnabledHatStyleManager {
     const activeHatColors = isTesting()
       ? HAT_COLORS.filter((color) => !color.startsWith("user"))
       : HAT_COLORS.filter((color) => colorEnablement[color]);
-    const activeNonDefaultHatShapes = HAT_NON_DEFAULT_SHAPES.filter(
+    const activeNonDefaultHatShapes: string[] = HAT_NON_DEFAULT_SHAPES.filter(
       (shape) => shapeEnablement[shape],
     );
+    // add enabled user hat shapes to activeNonDefaultHatShapes
+    Object.keys(userHatShapes).forEach((shape) => {
+      if (userHatShapes[shape].enabled ?? true) {
+        activeNonDefaultHatShapes.push(shape as HatShape);
+      }
+    });
 
     this.hatStyleMap = {
       ...Object.fromEntries(

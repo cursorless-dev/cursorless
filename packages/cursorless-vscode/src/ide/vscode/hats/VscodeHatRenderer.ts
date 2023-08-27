@@ -8,10 +8,11 @@ import {
   DEFAULT_HAT_HEIGHT_EM,
   DEFAULT_VERTICAL_OFFSET_EM,
   IndividualHatAdjustmentMap,
+  HatShapeSpecs,
 } from "./shapeAdjustments";
 import { Listener, Notifier } from "@cursorless/common";
 import { FontMeasurements } from "./FontMeasurements";
-import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
+import { HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
 } from "../VscodeEnabledHatStyleManager";
@@ -31,6 +32,7 @@ const hatConfigSections = [
   "cursorless.hatSizeAdjustment",
   "cursorless.hatVerticalOffset",
   "cursorless.individualHatAdjustments",
+  "cursorless.hatShapes",
 ];
 
 /**
@@ -101,6 +103,9 @@ export default class VscodeHatRenderer {
 
   private destroyDecorations() {
     Object.values(this.decorationMap).forEach((decoration) => {
+      if (decoration === undefined) {
+        return;
+      }
       decoration.dispose();
     });
   }
@@ -126,10 +131,52 @@ export default class VscodeHatRenderer {
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
 
+    const userHatShapes = vscode.workspace
+      .getConfiguration("cursorless")
+      .get<HatShapeSpecs>("hatShapes")!;
+
+    // console.log("NEW HAT SHAPES", JSON.stringify(userHatShapes));
+
+    const customHats: Map<string, string> = new Map();
+    const allHatShapes: string[] = [...HAT_SHAPES];
+    for (const [key, value] of Object.entries(userHatShapes)) {
+      const enabled = value.enabled ?? true;
+      if (!enabled) {
+        continue;
+      }
+      if (value.path === undefined && value.ellipse === undefined) {
+        console.log("ERROR: path or ellipse must be defined");
+        continue;
+      }
+
+      // console.log("KV", key, value);
+      const viewBoxWidth = value.viewBoxWidth ?? 100;
+      const viewBoxHeight = value.viewBoxHeight ?? 1;
+      const transform = value.transform ?? "";
+      if (value.path === undefined && value.ellipse === undefined) {
+        console.log("ERROR: path or ellipse must be defined");
+        return;
+      }
+      // TODO: colors
+      const g = value.path
+        ? `<path transform="${transform}" fill="#000" d="${value.path}"></path>`
+        : `<ellipse transform="${transform}" fill="#000" cx="${
+            value.ellipse![0]
+          }" cy="${value.ellipse![1]}" rx="${value.ellipse![2]}" ry="${
+            value.ellipse![3]
+          }"></ellipse>`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" width="1em" height="1em"><g>${g}</g></svg>`;
+
+      customHats.set(key, svg);
+      if (!allHatShapes.includes(key)) {
+        allHatShapes.push(key);
+      }
+    }
+
     const hatSvgMap = Object.fromEntries(
-      HAT_SHAPES.map((shape) => {
+      allHatShapes.map((shape) => {
         const { sizeAdjustment = 0, verticalOffset = 0 } =
-          defaultShapeAdjustments[shape];
+          defaultShapeAdjustments[shape] ?? {};
 
         const {
           sizeAdjustment: userIndividualSizeAdjustment = 0,
@@ -148,6 +195,7 @@ export default class VscodeHatRenderer {
         return [
           shape,
           this.processSvg(
+            customHats.get(shape) ?? "",
             this.fontMeasurements,
             shape,
             scaleFactor,
@@ -223,18 +271,25 @@ export default class VscodeHatRenderer {
    * @returns An object with the new SVG and its measurements
    */
   private processSvg(
+    customSVG: string,
     fontMeasurements: FontMeasurements,
-    shape: HatShape,
+    shape: string,
     scaleFactor: number,
     hatVerticalOffsetEm: number,
   ) {
-    const iconPath = join(
-      this.extensionContext.extensionPath,
-      "images",
-      "hats",
-      `${shape}.svg`,
-    );
-    const rawSvg = readFileSync(iconPath, "utf8");
+    let rawSvg = customSVG;
+    if (rawSvg === "") {
+      // console.log(`LOADING ${shape} from file`);
+      const iconPath = join(
+        this.extensionContext.extensionPath,
+        "images",
+        "hats",
+        `${shape}.svg`,
+      );
+      rawSvg = readFileSync(iconPath, "utf8");
+    } else {
+      // console.log(`using ${shape} = ${rawSvg}`);
+    }
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;
 
     const { originalViewBoxHeight, originalViewBoxWidth } =

@@ -5,7 +5,18 @@ export interface HatAdjustments {
   verticalOffset?: number;
 }
 
-export type IndividualHatAdjustmentMap = Record<HatShape, HatAdjustments>;
+export type IndividualHatAdjustmentMap = Record<string, HatAdjustments>;
+
+export interface HatShapeSpec {
+  viewBoxWidth?: number;
+  viewBoxHeight?: number;
+  enabled?: boolean;
+  transform?: string;
+  path?: string;
+  ellipse?: number[];
+}
+
+export type HatShapeSpecs = Record<string, HatShapeSpec>;
 
 export const DEFAULT_HAT_HEIGHT_EM = 0.29;
 export const DEFAULT_VERTICAL_OFFSET_EM = 0.032;
