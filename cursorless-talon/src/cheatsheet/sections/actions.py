@@ -35,8 +35,8 @@ def get_actions():
             simple_actions,
             {
                 "callAsFunction": "Call <target> on selection",
-                "editNewLineAfter": "Edit new line or other scope after",
-                "editNewLineBefore": "Edit new line or other scope before",
+                "editNewLineAfter": "Edit new line/scope after",
+                "editNewLineBefore": "Edit new line/scope before",
             },
         ),
         {
