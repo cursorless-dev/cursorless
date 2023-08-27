@@ -14,13 +14,13 @@ export function uniqWithHash<T>(
 ): T[] {
   // Handle the common, tiny cases without allocating anything extra.
   if (array.length < 2) {
-    return array;
+    return [...array];
   }
   if (array.length === 2) {
     if (fn(array[0]!, array[1]!)) {
       return [array[0]!];
     }
-    return array;
+    return [...array];
   }
   // First, split up the array using the hash function.
   // This keeps the sets of items passed to uniqWith small,
@@ -49,7 +49,7 @@ export function uniqWithHash<T>(
 
   // Another common case: Everything is unique.
   if (needsUniq.length === 0) {
-    return array;
+    return [...array];
   }
 
   // To preserve order, step through the original items
@@ -63,7 +63,7 @@ export function uniqWithHash<T>(
     }
     const first = items[0]!;
     if (!isEqual(first, item)) {
-      // Not our turn yet.
+      // Removed by uniqWith.
       return [];
     }
     // Emit item.
