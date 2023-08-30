@@ -1,42 +1,46 @@
-# Guide to intermediate level Cursorless
+# Guide to intermediate-level Cursorless
 
-This document will try to:
+Starting to feel comfortable with the basics? Great 🙌! Let's get you to the next level. This document will do the following:
 
-- Highlight the most useful actions and modifiers in Cursorless so you know which ones to focus on learning first.
-- Bring together a few important concepts that underlie a lot of Cursorless behavior.
+- Highlight the actions and modifiers in Cursorless that the pros use most.
+- Teach you a few important concepts that underlie a lot of Cursorless behavior.
 - Walk through some example editing operations that are common but perhaps tricky to a beginner.
 
-This document assumes that you understand the very basics of cursorless, like what commands `"take air"` and `"chuck line"` do.
-If you don't have the basics down, please read some of [the main documentation page](README.md) and/or watch [the Cursorless tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs).
+This document assumes that you understand the very basics of Cursorless, like `"take air"` and `"chuck line"`.
+If those commands don't mean anything to you, we'd advise having a look at of [the main documentation page](README.md) and watching [the Cursorless tutorial videos](https://www.youtube.com/watch?v=5mAzHGM2M0k&list=PLXv2sppxeoQZz49evjy4T0QJRIgc_JPqs) to get off the ground.
 
-It is planned for this guide to be expanded to both basic and advanced levels.
+We plan to add basic and advanced levels before and after this guide; for now the [the main documentation page](README.md) and the YouTube videos are the best place to learn basic / advanced Cursorless.
+
+Note that we use the following conventions here:
+
+- Words in square braces (`[]`) are optional, eg `hello [world]` means you can say `"hello"` or `"hello world"`.
+- Slashes (`/`) show alternatives. For example, `hello/world` means you can say `"hello"` or `"world"`.
+- Targets are represented by `T` with a possible digit, eg `T` or `T1` or `T2`. For example, `bring T1 to T2` means you can say `"bring air to bat"`.
 
 ## Important actions
 
-Here are some of the most useful actions.
-Parts in square braces (`[]`) are optional.
-Slashes (`/`) show alternatives.
-Targets are represented by `T` with a possible digit.
+Here are some of the most useful actions:
 
-- Selection Manipulation
-  - `"take T"`: set selection.
-  - `"pre/post T"`: set selection before/after T.
+- Moving the cursor
+  - `"take T"`: select the target `T`. Note that you'll use this action less and less as you get more comfortable with the other Cursorless actions.
+  - `"pre/post T"`: place your cursor before/after T.
 - Clipboard
-  - `"paste to T"`: replace T with clipboard contents.
-  - `"paste before/after T"`: insert clipboard contents before/after T, including appropriate [delimiters](#delimiters).
-  - `"carve/copy T"`: cut/copy T.
-- Core Changers
-  - `"bring T"`: insert a copy of T at the cursor/selection.
-  - `"bring T1 to T2"`: replace T2 with T.
-  - `"bring T1 before/after T2"`: insert a copy of T1 before/after T2, including appropriate [delimiters](#delimiters).
-  - `"move T1 [to/before/after T2]"`: like `"bring"`, but also deletes the source (ie it 'moves' T1 instead of copying it)
-  - `"chuck T"`: delete T and appropriate [delimiters](#delimiters).
-  - `"change T"`: delete T and set cursor(s) to where T was; [delimiters](#delimiters) are unchanged.
-  - `"drink/pour T"`: edit new line before/after T.
+  - `"paste to T"`: replace `T` with clipboard contents.
+  - `"paste before/after T"`: insert clipboard contents before/after `T`, including appropriate [delimiters](#delimiters).
+  - `"carve/copy T"`: cut/copy `T`.
+- Changing text
+  - `"bring T"`: insert a copy of `T` at the cursor/selection.
+  - `"bring T1 to T2"`: replace `T2` with `T1`.
+  - `"bring T1 before/after T2"`: insert a copy of `T1` before/after `T2`, including appropriate [delimiters](#delimiters).
+  - `"move T1 [to/before/after T2]"`: like `"bring"`, but also deletes the source (ie it 'moves' `T1` instead of copying it)
+  - `"chuck T"`: delete `T` and appropriate [delimiters](#delimiters).
+  - `"change T"`: delete `T` and set cursor(s) to where `T` was; [delimiters](#delimiters) are unchanged.
+  - `"drink/pour T"`: edit new line before/after `T`.
 - IDE-related
   - `"follow T"`: open URL or go to definition of T.
   - `"quick fix T"`: show available quick fixes for T (eg rename, extract variable, etc).
   - `"reference T"`: show references to T.
+  - `"rename T"`: invokes the built-in IDE rename operation on `T`, which will update all references to the given variable to the new name.
 
 ## Important modifiers
 
