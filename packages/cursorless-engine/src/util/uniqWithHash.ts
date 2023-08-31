@@ -1,4 +1,4 @@
-import { uniqWith, isEqual } from "lodash";
+import { uniqWith } from "lodash";
 
 /**
  * Like lodash.uniqWith, but uses a hash function to (mostly) avoid quadratic runtime.
