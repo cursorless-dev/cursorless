@@ -3,13 +3,13 @@ import { uniqWith, isEqual } from "lodash";
 /**
  * Like lodash.uniqWith, but uses a hash function to (mostly) avoid quadratic runtime.
  * @param array The array to uniq
- * @param fn The equality function
+ * @param isEqual The equality function
  * @param hash The hash function. It must be a valid hash function, insofar as it must return the same value for equal items. A hash function that returns a constant value is equivalent to lodash.uniqWith.
  * @returns The uniq array
  */
 export function uniqWithHash<T>(
   array: T[],
-  fn: (a: T, b: T) => boolean,
+  isEqual: (a: T, b: T) => boolean,
   hash: (t: T) => string,
 ): T[] {
   // Handle the common, tiny cases without allocating anything extra.
@@ -17,15 +17,16 @@ export function uniqWithHash<T>(
     return [...array];
   }
   if (array.length === 2) {
-    if (fn(array[0]!, array[1]!)) {
-      return [array[0]!];
+    if (isEqual(array[0], array[1])) {
+      return [array[0]];
     }
     return [...array];
   }
   // First, split up the array using the hash function.
   // This keeps the sets of items passed to uniqWith small,
   // so that the quadratic runtime of uniqWith less of a problem.
-  // Keep track of which sets have multiple items, so that we can uniq them.
+
+  /* Keep track of which sets have multiple items, so that we can uniq them. */
   const needsUniq: string[] = [];
   const hashToItems: Map<string, T[]> = array.reduce((acc, item) => {
     const key = hash(item);
@@ -34,17 +35,18 @@ export function uniqWithHash<T>(
       acc.set(key, [item]);
       return acc;
     }
-    if (items.length === 1) {
+
+    acc.get(key)!.push(item);
+    if (items.length === 2) {
       needsUniq.push(key);
     }
-    acc.get(key)!.push(item);
     return acc;
   }, new Map<string, T[]>());
 
   // For hash collisions, uniq the items,
   // letting uniqWith provide correct semantics.
   needsUniq.forEach((key) => {
-    hashToItems.set(key, uniqWith(hashToItems.get(key)!, fn));
+    hashToItems.set(key, uniqWith(hashToItems.get(key)!, isEqual));
   });
 
   // Another common case: Everything is unique.
@@ -54,6 +56,10 @@ export function uniqWithHash<T>(
 
   // To preserve order, step through the original items
   // one at a time, returning it as appropriate.
+  // We need to do this because uniqWith preserves order,
+  // and we are mimicking its semantics.
+  // Note that items were added in order,
+  // and uniqWith preserved that order.
   return array.flatMap((item) => {
     const key = hash(item);
     const items = hashToItems.get(key)!;
@@ -68,7 +74,6 @@ export function uniqWithHash<T>(
     }
     // Emit item.
     items.shift();
-    hashToItems.set(key, items);
     return first;
   });
 }

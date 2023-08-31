@@ -146,4 +146,8 @@ export class Position {
   public concise(): string {
     return `${this.line}:${this.character}`;
   }
+
+  public toString(): string {
+    return this.concise();
+  }
 }

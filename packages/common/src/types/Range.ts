@@ -154,4 +154,8 @@ export class Range {
   public concise(): string {
     return `${this.start.concise()}-${this.end.concise()}`;
   }
+
+  public toString(): string {
+    return this.concise();
+  }
 }

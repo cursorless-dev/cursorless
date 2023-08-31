@@ -80,4 +80,8 @@ export class Selection extends Range {
   public concise(): string {
     return `${this.anchor.concise()}->${this.active.concise()}`;
   }
+
+  public toString(): string {
+    return this.concise();
+  }
 }
