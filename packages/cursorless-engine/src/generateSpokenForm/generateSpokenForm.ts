@@ -56,6 +56,7 @@ function generateSpokenFormComponents(
     case "getText":
     case "replace":
     case "executeCommand":
+    case "private.getTargets":
       throw new NoSpokenFormError(`Action '${action.name}'`);
 
     case "replaceWithTarget":
