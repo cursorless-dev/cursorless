@@ -1,4 +1,4 @@
-import { EditableTextEditor, Selection } from "@cursorless/common";
+import type { EditableTextEditor, Selection } from "@cursorless/common";
 
 import uniqDeep from "./uniqDeep";
 

@@ -1,8 +1,8 @@
-import { Command, HatTokenMap, IDE } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { StoredTargetMap } from "../core/StoredTargets";
-import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
-import { ScopeProvider } from "./ScopeProvider";
+import type { Command, HatTokenMap, IDE } from "@cursorless/common";
+import type { Snippets } from "../core/Snippets";
+import type { StoredTargetMap } from "../core/StoredTargets";
+import type { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
+import type { ScopeProvider } from "./ScopeProvider";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;

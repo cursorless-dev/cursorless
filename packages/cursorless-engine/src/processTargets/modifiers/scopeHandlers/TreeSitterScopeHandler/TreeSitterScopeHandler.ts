@@ -1,12 +1,10 @@
-import { Range, SimpleScopeType, TextEditor } from "@cursorless/common";
-import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { Range, SimpleScopeType, TextEditor } from "@cursorless/common";
+import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import ScopeTypeTarget from "../../../targets/ScopeTypeTarget";
-import { CustomScopeType } from "../scopeHandler.types";
-import {
-  BaseTreeSitterScopeHandler,
-  ExtendedTargetScope,
-} from "./BaseTreeSitterScopeHandler";
+import type { CustomScopeType } from "../scopeHandler.types";
+import type { ExtendedTargetScope } from "./BaseTreeSitterScopeHandler";
+import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
 import { TreeSitterIterationScopeHandler } from "./TreeSitterIterationScopeHandler";
 import { findCaptureByName, getRelatedRange } from "./captureUtils";
 

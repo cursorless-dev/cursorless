@@ -1,11 +1,9 @@
 import { Range } from "@cursorless/common";
-import {
-  BorderStyle,
-  DecorationStyle,
-  StyledRange,
-} from "../decorationStyle.types";
+import type { DecorationStyle, StyledRange } from "../decorationStyle.types";
+import { BorderStyle } from "../decorationStyle.types";
 import { flatmap } from "itertools";
-import { generateLineInfos, LineInfo } from "./generateLineInfos";
+import type { LineInfo } from "./generateLineInfos";
+import { generateLineInfos } from "./generateLineInfos";
 
 /**
  * Generates decorations for a range, which has already been split up into line

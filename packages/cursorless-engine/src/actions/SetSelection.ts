@@ -1,9 +1,9 @@
 import { Selection } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export class SetSelection implements SimpleAction {
   constructor() {

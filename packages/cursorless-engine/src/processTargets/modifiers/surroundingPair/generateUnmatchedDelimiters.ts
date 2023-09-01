@@ -1,6 +1,6 @@
 import { range } from "lodash";
-import { SimpleSurroundingPairName } from "@cursorless/common";
-import {
+import type { SimpleSurroundingPairName } from "@cursorless/common";
+import type {
   DelimiterOccurrence,
   DelimiterSide,
   PossibleDelimiterOccurrence,

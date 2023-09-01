@@ -1,21 +1,21 @@
 import type { EditableTextEditor, TextEditor } from "../..";
 import { pull } from "lodash";
-import { GeneralizedRange } from "../../types/GeneralizedRange";
-import { TextDocument } from "../../types/TextDocument";
+import type { GeneralizedRange } from "../../types/GeneralizedRange";
+import type { TextDocument } from "../../types/TextDocument";
 import type { TextDocumentChangeEvent } from "../types/Events";
-import {
+import type {
   Event,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "../types/events.types";
-import { FlashDescriptor } from "../types/FlashDescriptor";
+import type { FlashDescriptor } from "../types/FlashDescriptor";
 import type {
   Disposable,
   IDE,
   RunMode,
   WorkspaceFolder,
 } from "../types/ide.types";
-import { QuickPickOptions } from "../types/QuickPickOptions";
+import type { QuickPickOptions } from "../types/QuickPickOptions";
 import { FakeCapabilities } from "./FakeCapabilities";
 import FakeClipboard from "./FakeClipboard";
 import FakeConfiguration from "./FakeConfiguration";

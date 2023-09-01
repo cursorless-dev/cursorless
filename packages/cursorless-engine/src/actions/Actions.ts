@@ -1,6 +1,6 @@
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { Snippets } from "../core/Snippets";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
@@ -56,7 +56,7 @@ import { Random, Reverse, Sort } from "./Sort";
 import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
-import { ActionRecord } from "./actions.types";
+import type { ActionRecord } from "./actions.types";
 
 /**
  * Keeps a map from action names to objects that implement the given action

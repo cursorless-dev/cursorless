@@ -1,5 +1,5 @@
 import { UntypedTarget } from "../../processTargets/targets";
-import { SelectionWithEditor } from "../../typings/Types";
+import type { SelectionWithEditor } from "../../typings/Types";
 
 /**
  * Given a selection with an editor, constructs an appropriate `Target` to use

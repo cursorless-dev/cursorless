@@ -1,12 +1,6 @@
 import * as semver from "semver";
-import {
-  commands,
-  NotebookDocument,
-  TextEditor,
-  version,
-  ViewColumn,
-  window,
-} from "vscode";
+import type { NotebookDocument, TextEditor } from "vscode";
+import { commands, version, ViewColumn, window } from "vscode";
 import { getCellIndex } from "@cursorless/vscode-common";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
 import {
@@ -14,7 +8,7 @@ import {
   isVscodeLegacyNotebookVersion,
 } from "./notebook/notebookLegacy";
 import type { VscodeIDE } from "./VscodeIDE";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {
   [ViewColumn.One]: "workbench.action.focusFirstEditorGroup",

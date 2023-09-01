@@ -1,6 +1,6 @@
 import { range as lodashRange } from "lodash";
-import { Range } from "../types/Range";
-import { TextEditor } from "../types/TextEditor";
+import type { Range } from "../types/Range";
+import type { TextEditor } from "../types/TextEditor";
 
 /**
  * @param editor The editor containing the range

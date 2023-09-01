@@ -1,6 +1,6 @@
-import { HatStyleName } from "../ide/types/hatStyles.types";
-import { Range } from "./Range";
-import { Token } from "./Token";
+import type { HatStyleName } from "../ide/types/hatStyles.types";
+import type { Range } from "./Range";
+import type { Token } from "./Token";
 
 /**
  * Maps from (hatStyle, character) pairs to tokens

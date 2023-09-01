@@ -1,6 +1,6 @@
-import { DecoratedSymbolMark, ReadOnlyHatMap } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { MarkStage } from "../PipelineStages.types";
+import type { DecoratedSymbolMark, ReadOnlyHatMap } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 
 export default class implements MarkStage {

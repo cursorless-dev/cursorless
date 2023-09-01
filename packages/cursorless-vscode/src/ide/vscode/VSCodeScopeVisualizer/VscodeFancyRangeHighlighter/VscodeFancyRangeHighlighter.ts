@@ -1,12 +1,13 @@
-import { GeneralizedRange, Range } from "@cursorless/common";
+import type { GeneralizedRange } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { flatmap } from "itertools";
-import { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
-import { RangeTypeColors } from "../RangeTypeColors";
+import type { VscodeTextEditorImpl } from "../../VscodeTextEditorImpl";
+import type { RangeTypeColors } from "../RangeTypeColors";
 import { VscodeFancyRangeHighlighterRenderer } from "./VscodeFancyRangeHighlighterRenderer";
 import { generateDecorationsForCharacterRange } from "./generateDecorationsForCharacterRange";
 import { generateDecorationsForLineRange } from "./generateDecorationsForLineRange";
 import { generateDifferentiatedRanges } from "./generateDifferentiatedRanges";
-import { DifferentiatedStyledRange } from "./decorationStyle.types";
+import type { DifferentiatedStyledRange } from "./decorationStyle.types";
 import { groupDifferentiatedStyledRanges } from "./groupDifferentiatedStyledRanges";
 
 /**

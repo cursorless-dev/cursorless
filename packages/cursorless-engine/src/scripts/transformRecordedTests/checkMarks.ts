@@ -1,4 +1,5 @@
-import { FakeIDE, TestCaseFixtureLegacy } from "@cursorless/common";
+import type { TestCaseFixtureLegacy } from "@cursorless/common";
+import { FakeIDE } from "@cursorless/common";
 import { uniq } from "lodash";
 import { injectIde } from "../../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.singleton";

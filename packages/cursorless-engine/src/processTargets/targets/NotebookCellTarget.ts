@@ -1,6 +1,7 @@
-import { InsertionMode } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
-import { Destination } from "../../typings/target.types";
+import type { InsertionMode } from "@cursorless/common";
+import type { CommonTargetParameters } from ".";
+import { BaseTarget } from ".";
+import type { Destination } from "../../typings/target.types";
 import { NotebookCellDestination } from "./NotebookCellDestination";
 
 export default class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {

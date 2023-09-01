@@ -1,8 +1,9 @@
-import { FlashStyle, ScopeType, WrapWithSnippetArg } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { ScopeType, WrapWithSnippetArg } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
+import type { Snippets } from "../core/Snippets";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
-import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import type { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { ModifyIfUntypedStage } from "../processTargets/modifiers/ConditionalModifierStages";
 import { ide } from "../singletons/ide.singleton";
 import {
@@ -10,9 +11,9 @@ import {
   transformSnippetVariables,
 } from "../snippets/snippet";
 import { SnippetParser } from "../snippets/vendor/vscodeSnippet/snippetParser";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { ensureSingleEditor, flashTargets } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class WrapWithSnippet {
   private snippetParser = new SnippetParser();

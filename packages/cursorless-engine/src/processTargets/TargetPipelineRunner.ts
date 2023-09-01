@@ -1,20 +1,20 @@
-import {
+import type {
   Direction,
   ImplicitTargetDescriptor,
   Modifier,
-  Range,
   ScopeType,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import { uniqWith, zip } from "lodash";
-import {
+import type {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
   TargetDescriptor,
 } from "../typings/TargetDescriptor";
-import { Target } from "../typings/target.types";
-import { MarkStageFactory } from "./MarkStageFactory";
-import { ModifierStageFactory } from "./ModifierStageFactory";
-import { MarkStage, ModifierStage } from "./PipelineStages.types";
+import type { Target } from "../typings/target.types";
+import type { MarkStageFactory } from "./MarkStageFactory";
+import type { ModifierStageFactory } from "./ModifierStageFactory";
+import type { MarkStage, ModifierStage } from "./PipelineStages.types";
 import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";

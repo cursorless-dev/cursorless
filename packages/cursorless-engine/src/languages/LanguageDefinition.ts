@@ -1,11 +1,12 @@
-import { ScopeType, SimpleScopeType, showError } from "@cursorless/common";
+import type { ScopeType, SimpleScopeType } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { existsSync, readFileSync } from "fs";
 import { dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { ide } from "../singletons/ide.singleton";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";

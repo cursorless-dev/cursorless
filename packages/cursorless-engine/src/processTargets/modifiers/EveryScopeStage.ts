@@ -1,12 +1,12 @@
-import type { EveryScopeModifier, TextEditor } from "@cursorless/common";
-import { NoContainingScopeError, Range } from "@cursorless/common";
+import type { EveryScopeModifier, TextEditor, Range } from "@cursorless/common";
+import { NoContainingScopeError } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { getContainingScopeTarget } from "./getContainingScopeTarget";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import { TargetScope } from "./scopeHandlers/scope.types";
-import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
  * This modifier returns all scopes intersecting the input target if the target

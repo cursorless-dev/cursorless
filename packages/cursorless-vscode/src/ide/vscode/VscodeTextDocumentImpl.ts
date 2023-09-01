@@ -1,17 +1,17 @@
-import {
+import type {
   EndOfLine,
   Position,
-  Range,
   TextDocument,
   TextLine,
 } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import {
   fromVscodeEndOfLine,
   fromVscodePosition,
   toVscodePosition,
   toVscodeRange,
 } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
+import type * as vscode from "vscode";
 import type { URI } from "vscode-uri";
 import VscodeTextLineImpl from "./VscodeTextLineImpl";
 

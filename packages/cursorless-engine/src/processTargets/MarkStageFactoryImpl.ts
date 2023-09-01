@@ -1,9 +1,9 @@
-import { ReadOnlyHatMap } from "@cursorless/common";
-import { TargetPipelineRunner } from ".";
-import { StoredTargetMap } from "..";
-import { Mark } from "../typings/TargetDescriptor";
-import { MarkStageFactory } from "./MarkStageFactory";
-import { MarkStage } from "./PipelineStages.types";
+import type { ReadOnlyHatMap } from "@cursorless/common";
+import type { TargetPipelineRunner } from ".";
+import type { StoredTargetMap } from "..";
+import type { Mark } from "../typings/TargetDescriptor";
+import type { MarkStageFactory } from "./MarkStageFactory";
+import type { MarkStage } from "./PipelineStages.types";
 import CursorStage from "./marks/CursorStage";
 import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
 import ExplicitMarkStage from "./marks/ExplicitMarkStage";

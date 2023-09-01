@@ -1,12 +1,12 @@
 import { HatStability } from "@cursorless/common";
 import { get } from "lodash";
 import * as vscode from "vscode";
-import {
+import type {
   Configuration,
   ConfigurationScope,
   CursorlessConfiguration,
 } from "@cursorless/common";
-import { GetFieldType, Paths } from "@cursorless/common";
+import type { GetFieldType, Paths } from "@cursorless/common";
 import { Notifier } from "@cursorless/common";
 import type { VscodeIDE } from "./VscodeIDE";
 

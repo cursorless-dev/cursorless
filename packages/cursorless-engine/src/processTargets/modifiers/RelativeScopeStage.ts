@@ -1,10 +1,10 @@
 import type { RelativeScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import RelativeExclusiveScopeStage from "./RelativeExclusiveScopeStage";
 import { RelativeInclusiveScopeStage } from "./RelativeInclusiveScopeStage";
-import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
+import type { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
 /**
  * Implements relative scope modifiers like "next funk", "two tokens", etc.

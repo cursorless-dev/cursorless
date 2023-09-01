@@ -1,6 +1,6 @@
-import { Command, CommandLatest } from "..";
-import { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
-import { PlainSpyIDERecordedValues } from "../testUtil/toPlainObject";
+import type { Command, CommandLatest } from "..";
+import type { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
+import type { PlainSpyIDERecordedValues } from "../testUtil/toPlainObject";
 
 export type ThrownError = {
   name: string;

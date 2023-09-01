@@ -1,11 +1,11 @@
-import { HighlightId } from "@cursorless/common";
+import type { HighlightId } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import {
   runOnTargetsForEachEditor,
   toGeneralizedRange,
 } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Highlight {
   constructor() {

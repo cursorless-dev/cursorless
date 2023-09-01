@@ -1,4 +1,4 @@
-import { IDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/common";
 
 /**
  * This is the `ide` singleton

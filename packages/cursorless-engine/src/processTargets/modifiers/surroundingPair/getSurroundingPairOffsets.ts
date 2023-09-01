@@ -1,4 +1,4 @@
-import { SurroundingPairOffsets, DelimiterOccurrence } from "./types";
+import type { SurroundingPairOffsets, DelimiterOccurrence } from "./types";
 
 /**
  * Given a pair of delimiters, returns a pair of start and end offsets

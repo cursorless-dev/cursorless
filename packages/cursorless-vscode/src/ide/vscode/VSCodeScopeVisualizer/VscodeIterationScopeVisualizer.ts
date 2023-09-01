@@ -1,7 +1,8 @@
-import { Disposable, TextEditor, toCharacterRange } from "@cursorless/common";
-import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
+import type { Disposable, TextEditor } from "@cursorless/common";
+import { toCharacterRange } from "@cursorless/common";
+import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
-import { ScopeSupport } from "@cursorless/cursorless-engine";
+import type { ScopeSupport } from "@cursorless/cursorless-engine";
 
 export class VscodeIterationScopeVisualizer extends VscodeScopeVisualizer {
   protected getScopeSupport(editor: TextEditor): ScopeSupport {

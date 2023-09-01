@@ -1,11 +1,11 @@
-import {
+import type {
   Modifier,
   PartialListTargetDescriptor,
   PartialPrimitiveTargetDescriptor,
   PartialRangeTargetDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
-import {
+import type {
   ListTargetDescriptor,
   Mark,
   PrimitiveTargetDescriptor,

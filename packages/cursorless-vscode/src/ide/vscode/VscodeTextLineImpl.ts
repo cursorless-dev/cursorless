@@ -1,6 +1,6 @@
-import { Range, TextLine } from "@cursorless/common";
+import type { Range, TextLine } from "@cursorless/common";
 import { fromVscodeRange } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
+import type * as vscode from "vscode";
 
 export default class VscodeTextLineImpl implements TextLine {
   constructor(private line: vscode.TextLine) {}

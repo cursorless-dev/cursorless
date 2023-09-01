@@ -1,18 +1,17 @@
-import {
+import type {
   ComplexSurroundingPairName,
-  Selection,
   SurroundingPairScopeType,
 } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import getTextFragmentExtractor, {
-  TextFragmentExtractor,
-} from "../../../languages/getTextFragmentExtractor";
-import { Target } from "../../../typings/target.types";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { TextFragmentExtractor } from "../../../languages/getTextFragmentExtractor";
+import getTextFragmentExtractor from "../../../languages/getTextFragmentExtractor";
+import type { Target } from "../../../typings/target.types";
 import { SurroundingPairTarget } from "../../targets";
 import { getContainingScopeTarget } from "../getContainingScopeTarget";
 import { complexDelimiterMap } from "./delimiterMaps";
-import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
+import type { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
 

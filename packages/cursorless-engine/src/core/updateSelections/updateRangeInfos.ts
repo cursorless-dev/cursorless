@@ -2,12 +2,12 @@ import { sumBy } from "lodash";
 import getOffsetsForDeleteOrReplace from "./getOffsetsForDeleteOrReplace";
 import getOffsetsForEmptyRangeInsert from "./getOffsetsForEmptyRangeInsert";
 import getOffsetsForNonEmptyRangeInsert from "./getOffsetsForNonEmptyRangeInsert";
-import {
+import type {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,
   ChangeEventInfo,
 } from "../../typings/updateSelections";
-import { RangeOffsets } from "@cursorless/common";
+import type { RangeOffsets } from "@cursorless/common";
 import { getUpdatedText } from "./getUpdatedText";
 
 /**

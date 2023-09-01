@@ -20,6 +20,7 @@
         "assertionStyle": "as"
       }
     ],
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/naming-convention": "warn",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-inferrable-types": "off",

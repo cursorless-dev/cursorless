@@ -1,14 +1,14 @@
 import { keys, merge, toPairs } from "lodash";
 import * as vscode from "vscode";
+import type { Keymap } from "./defaultKeymaps";
 import {
   DEFAULT_ACTION_KEYMAP,
   DEFAULT_COLOR_KEYMAP,
-  Keymap,
   DEFAULT_SCOPE_KEYMAP,
   DEFAULT_SHAPE_KEYMAP,
 } from "./defaultKeymaps";
-import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
-import KeyboardHandler from "./KeyboardHandler";
+import type KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import type KeyboardHandler from "./KeyboardHandler";
 
 type SectionName = "actions" | "scopes" | "colors" | "shapes";
 

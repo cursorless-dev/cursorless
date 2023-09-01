@@ -1,6 +1,6 @@
 import { toCharacterRange, toLineRange } from "@cursorless/common";
-import { Target } from "../typings/target.types";
-import { TargetRanges } from "../api/ScopeProvider";
+import type { Target } from "../typings/target.types";
+import type { TargetRanges } from "../api/ScopeProvider";
 
 export function getTargetRanges(target: Target): TargetRanges {
   return {

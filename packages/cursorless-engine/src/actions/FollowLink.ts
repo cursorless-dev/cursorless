@@ -1,13 +1,13 @@
 import { FlashStyle } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import {
   createThatMark,
   ensureSingleTarget,
   flashTargets,
 } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export default class FollowLink implements SimpleAction {
   constructor(private actions: Actions) {

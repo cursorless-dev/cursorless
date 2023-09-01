@@ -1,6 +1,6 @@
-import { Range, TextDocument, TextEditor } from "@cursorless/common";
+import type { Range, TextDocument, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import {
+import type {
   SimpleSurroundingPairName,
   SurroundingPairScopeType,
 } from "@cursorless/common";
@@ -9,7 +9,7 @@ import { isContainedInErrorNode } from "../../../util/treeSitterUtils";
 import { extractSelectionFromSurroundingPairOffsets } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairCore } from "./findSurroundingPairCore";
 import { getIndividualDelimiters } from "./getIndividualDelimiters";
-import {
+import type {
   IndividualDelimiter,
   Offsets,
   PossibleDelimiterOccurrence,

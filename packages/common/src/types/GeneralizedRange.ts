@@ -1,6 +1,6 @@
-import { Position } from "./Position";
-import { Range } from "./Range";
-import { TextEditor } from "./TextEditor";
+import type { Position } from "./Position";
+import type { Range } from "./Range";
+import type { TextEditor } from "./TextEditor";
 
 /**
  * A range of lines in a document, unlike the standard {@link Range}, which is

@@ -1,10 +1,9 @@
-import {
+import type {
   Command,
   CommandLatest,
   TestCaseFixtureLegacy,
-  asyncSafety,
-  getRecordedTestPaths,
 } from "@cursorless/common";
+import { asyncSafety, getRecordedTestPaths } from "@cursorless/common";
 import * as assert from "assert";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";

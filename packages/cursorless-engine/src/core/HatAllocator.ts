@@ -3,7 +3,7 @@ import { ide } from "../singletons/ide.singleton";
 import tokenGraphemeSplitter from "../singletons/tokenGraphemeSplitter.singleton";
 import { allocateHats } from "../util/allocateHats";
 import { Debouncer } from "./Debouncer";
-import { IndividualHatMap } from "./IndividualHatMap";
+import type { IndividualHatMap } from "./IndividualHatMap";
 
 interface Context {
   getActiveMap(): Promise<IndividualHatMap>;

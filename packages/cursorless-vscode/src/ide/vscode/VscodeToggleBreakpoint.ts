@@ -1,7 +1,7 @@
-import { BreakpointDescriptor } from "@cursorless/common";
+import type { BreakpointDescriptor } from "@cursorless/common";
 import { toVscodeRange } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeToggleBreakpoint(
   editor: VscodeTextEditorImpl,

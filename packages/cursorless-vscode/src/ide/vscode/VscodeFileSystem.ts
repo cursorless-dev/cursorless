@@ -1,9 +1,9 @@
-import {
+import type {
   Disposable,
   FileSystem,
   PathChangeListener,
-  walkFiles,
 } from "@cursorless/common";
+import { walkFiles } from "@cursorless/common";
 import { stat } from "fs/promises";
 import { max } from "lodash";
 

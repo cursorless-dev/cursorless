@@ -1,6 +1,9 @@
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import type {
+  NodeMatcherAlternative,
+  SelectionWithEditor,
+} from "../typings/Types";
 import { typedNodeFinder } from "../util/nodeFinders";
 import {
   createPatternMatchers,

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { HatColor } from "../hatStyles.types";
+import type { HatColor } from "../hatStyles.types";
 
 interface OldDecorationColorSetting {
   dark: string;

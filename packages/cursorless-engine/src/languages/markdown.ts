@@ -1,8 +1,9 @@
-import { Range, Selection, TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { Range, Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { getMatchesInRange } from "../util/getMatchesInRange";
-import { SimpleScopeTypeType } from "@cursorless/common";
-import {
+import type { SimpleScopeTypeType } from "@cursorless/common";
+import type {
   NodeFinder,
   NodeMatcherAlternative,
   SelectionWithContext,

@@ -1,6 +1,10 @@
-import { Selection, TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SelectionExtractor, SelectionWithContext } from "../typings/Types";
+import type {
+  SelectionExtractor,
+  SelectionWithContext,
+} from "../typings/Types";
 import {
   childRangeSelector,
   positionFromPoint,

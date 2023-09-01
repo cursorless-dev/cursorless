@@ -4,18 +4,18 @@ import {
   Selection,
   toCharacterRange,
 } from "@cursorless/common";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import {
   getSelectionInfo,
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Edit } from "../typings/Types";
-import { Target } from "../typings/target.types";
-import { FullSelectionInfo } from "../typings/updateSelections";
+import type { Edit } from "../typings/Types";
+import type { Target } from "../typings/target.types";
+import type { FullSelectionInfo } from "../typings/updateSelections";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Wrap {
   constructor(private rangeUpdater: RangeUpdater) {

@@ -1,12 +1,13 @@
-import {
+import type {
   Disposable,
   IDE,
   ScopeType,
   TextEditor,
-  showError,
 } from "@cursorless/common";
-import { ScopeProvider, ScopeSupport } from "@cursorless/cursorless-engine";
-import {
+import { showError } from "@cursorless/common";
+import type { ScopeProvider } from "@cursorless/cursorless-engine";
+import { ScopeSupport } from "@cursorless/cursorless-engine";
+import type {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
 } from "@cursorless/vscode-common";

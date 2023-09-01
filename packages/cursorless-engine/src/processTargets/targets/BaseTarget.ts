@@ -1,11 +1,11 @@
-import type { InsertionMode, TargetPlainObject } from "@cursorless/common";
-import {
-  NoContainingScopeError,
+import type {
+  InsertionMode,
+  TargetPlainObject,
   Range,
   Selection,
   TextEditor,
-  rangeToPlainObject,
 } from "@cursorless/common";
+import { NoContainingScopeError, rangeToPlainObject } from "@cursorless/common";
 import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type { Destination, Target } from "../../typings/target.types";

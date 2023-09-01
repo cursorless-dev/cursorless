@@ -1,4 +1,4 @@
-import { CommandV6 } from "./CommandV6.types";
+import type { CommandV6 } from "./CommandV6.types";
 import type { CommandV0, CommandV1 } from "./legacy/CommandV0V1.types";
 import type { CommandV2 } from "./legacy/CommandV2.types";
 import type { CommandV3 } from "./legacy/CommandV3.types";

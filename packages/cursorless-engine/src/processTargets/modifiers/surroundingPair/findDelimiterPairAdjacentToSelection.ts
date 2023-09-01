@@ -1,7 +1,7 @@
-import { SurroundingPairScopeType } from "@cursorless/common";
+import type { SurroundingPairScopeType } from "@cursorless/common";
 import { findOppositeDelimiter } from "./findOppositeDelimiter";
 import { getSurroundingPairOffsets } from "./getSurroundingPairOffsets";
-import {
+import type {
   DelimiterOccurrence,
   Offsets,
   PossibleDelimiterOccurrence,

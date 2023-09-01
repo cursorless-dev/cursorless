@@ -2,7 +2,7 @@ import { getRecordedTestPaths } from "@cursorless/common";
 import { identity } from "./transformations/identity";
 import { upgrade } from "./transformations/upgrade";
 import { transformFile } from "./transformFile";
-import { FixtureTransformation } from "./types";
+import type { FixtureTransformation } from "./types";
 import { upgradeDecorations } from "./upgradeDecorations";
 import { checkMarks } from "./checkMarks";
 

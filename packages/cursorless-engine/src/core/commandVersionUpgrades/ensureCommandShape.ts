@@ -1,4 +1,8 @@
-import { ActionType, Command, PartialTargetV0V1 } from "@cursorless/common";
+import type {
+  ActionType,
+  Command,
+  PartialTargetV0V1,
+} from "@cursorless/common";
 import { isString } from "../../util/type";
 
 /**

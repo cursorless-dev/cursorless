@@ -1,12 +1,12 @@
-import {
+import type {
   ContainingScopeModifier,
   EveryScopeModifier,
-  NoContainingScopeError,
 } from "@cursorless/common";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { Target } from "../../../typings/target.types";
-import { ModifierStageFactory } from "../../ModifierStageFactory";
-import { ModifierStage } from "../../PipelineStages.types";
+import { NoContainingScopeError } from "@cursorless/common";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { Target } from "../../../typings/target.types";
+import type { ModifierStageFactory } from "../../ModifierStageFactory";
+import type { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
 import { processSurroundingPair } from "../surroundingPair";
 

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import type { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export default async function vscodeOpenLink(
   editor: VscodeTextEditorImpl,

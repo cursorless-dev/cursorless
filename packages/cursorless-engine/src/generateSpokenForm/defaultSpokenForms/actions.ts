@@ -1,4 +1,4 @@
-import { ActionType } from "@cursorless/common";
+import type { ActionType } from "@cursorless/common";
 
 /**
  * This is a mapping from action names to their default spoken forms, or `null`

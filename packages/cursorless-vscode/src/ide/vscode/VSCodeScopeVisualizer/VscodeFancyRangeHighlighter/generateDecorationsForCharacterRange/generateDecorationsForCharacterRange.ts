@@ -1,5 +1,7 @@
-import { Range, TextEditor, getLineRanges } from "@cursorless/common";
-import { BorderStyle, StyledRange } from "../decorationStyle.types";
+import type { Range, TextEditor } from "@cursorless/common";
+import { getLineRanges } from "@cursorless/common";
+import type { StyledRange } from "../decorationStyle.types";
+import { BorderStyle } from "../decorationStyle.types";
 import { handleMultipleLines } from "./handleMultipleLines";
 
 /**

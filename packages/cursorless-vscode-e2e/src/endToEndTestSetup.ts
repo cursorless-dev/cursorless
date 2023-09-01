@@ -1,6 +1,7 @@
-import { IDE, shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
+import type { IDE } from "@cursorless/common";
+import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
 import { getCursorlessApi } from "@cursorless/vscode-common";
-import { Context } from "mocha";
+import type { Context } from "mocha";
 import * as sinon from "sinon";
 
 /**

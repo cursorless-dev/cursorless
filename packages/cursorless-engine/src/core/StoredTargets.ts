@@ -1,4 +1,4 @@
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 
 export type StoredTargetKey = "that" | "source" | "instanceReference";
 

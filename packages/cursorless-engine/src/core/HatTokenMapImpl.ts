@@ -1,4 +1,4 @@
-import {
+import type {
   CommandServerApi,
   HatTokenMap,
   Hats,
@@ -8,10 +8,10 @@ import {
 import { hrtime } from "process";
 import { ide } from "../singletons/ide.singleton";
 import { abs } from "../util/bigint";
-import { Debug } from "./Debug";
+import type { Debug } from "./Debug";
 import { HatAllocator } from "./HatAllocator";
 import { IndividualHatMap } from "./IndividualHatMap";
-import { RangeUpdater } from "./updateSelections/RangeUpdater";
+import type { RangeUpdater } from "./updateSelections/RangeUpdater";
 
 /**
  * Maximum age for the pre-phrase snapshot before we consider it to be stale

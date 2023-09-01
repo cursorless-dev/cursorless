@@ -1,11 +1,11 @@
-import {
+import type {
   FlashStyle,
   GeneralizedRangePlainObject,
   PositionPlainObject,
   TestCaseFixtureLegacy,
 } from "@cursorless/common";
 import { groupBy, partition } from "lodash";
-import { FixtureTransformation } from "./types";
+import type { FixtureTransformation } from "./types";
 
 interface PlainTestDecoration {
   name: string;

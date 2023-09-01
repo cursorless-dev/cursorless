@@ -1,4 +1,4 @@
-import {
+import type {
   CommandServerApi,
   ExcludableSnapshotField,
   ExtraSnapshotField,
@@ -10,15 +10,17 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import {
+import type {
   StoredTargetKey,
   StoredTargetMap,
+} from "@cursorless/cursorless-engine";
+import {
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
-import { TestHelpers } from "@cursorless/vscode-common";
-import * as vscode from "vscode";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import type { TestHelpers } from "@cursorless/vscode-common";
+import type * as vscode from "vscode";
+import type { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
 

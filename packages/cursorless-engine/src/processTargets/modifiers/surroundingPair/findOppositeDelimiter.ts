@@ -1,6 +1,6 @@
-import { SurroundingPairDirection } from "@cursorless/common";
+import type { SurroundingPairDirection } from "@cursorless/common";
 import { findUnmatchedDelimiter } from "./generateUnmatchedDelimiters";
-import {
+import type {
   DelimiterOccurrence,
   DelimiterSide,
   IndividualDelimiter,

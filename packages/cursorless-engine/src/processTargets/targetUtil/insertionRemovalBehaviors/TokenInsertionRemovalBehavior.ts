@@ -1,4 +1,5 @@
-import { Range, TextEditor } from "@cursorless/common";
+import type { TextEditor } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import type { Target } from "../../../typings/target.types";
 import { expandToFullLine } from "../../../util/rangeUtils";
 import { PlainTarget } from "../../targets";

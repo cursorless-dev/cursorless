@@ -1,6 +1,8 @@
-import { Position, Range, TextEditor } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
+import type { TextEditor } from "@cursorless/common";
+import { Position, Range } from "@cursorless/common";
+import type { CommonTargetParameters } from ".";
+import { BaseTarget } from ".";
+import type { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";

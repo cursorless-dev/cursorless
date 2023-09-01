@@ -1,6 +1,6 @@
-import { Direction, Position, TextEditor } from "@cursorless/common";
-import { TargetScope } from "./scopeHandlers/scope.types";
-import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
+import type { Direction, Position, TextEditor } from "@cursorless/common";
+import type { TargetScope } from "./scopeHandlers/scope.types";
+import type { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
 /**
  * Returns the preferred scope touching the input position, or undefined if no

@@ -1,17 +1,17 @@
-import {
+import type {
   Direction,
   Position,
   TextDocument,
   TextEditor,
-  showError,
 } from "@cursorless/common";
+import { showError } from "@cursorless/common";
 import { uniqWith } from "lodash";
-import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import BaseScopeHandler from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
-import { TargetScope } from "../scope.types";
-import {
+import type { TargetScope } from "../scope.types";
+import type {
   ContainmentPolicy,
   ScopeIteratorRequirements,
 } from "../scopeHandler.types";

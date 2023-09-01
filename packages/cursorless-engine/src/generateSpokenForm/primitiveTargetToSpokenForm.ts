@@ -1,4 +1,4 @@
-import {
+import type {
   LineNumberMark,
   Modifier,
   PartialMark,
@@ -6,7 +6,7 @@ import {
   RelativeScopeModifier,
   ScopeType,
 } from "@cursorless/common";
-import { RecursiveArray } from "lodash";
+import type { RecursiveArray } from "lodash";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import { characterToSpokenForm } from "./defaultSpokenForms/characters";
 import { connectives } from "./defaultSpokenForms/connectives";

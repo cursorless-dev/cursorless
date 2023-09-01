@@ -1,7 +1,7 @@
-import { Range, RelativeScopeModifier } from "@cursorless/common";
+import type { Range, RelativeScopeModifier } from "@cursorless/common";
 import { findLastIndex } from "lodash";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
 import { UntypedTarget } from "../targets";
 import {
   createRangeTargetFromIndices,

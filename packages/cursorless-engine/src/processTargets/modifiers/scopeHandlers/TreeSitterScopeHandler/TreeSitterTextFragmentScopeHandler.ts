@@ -1,12 +1,10 @@
-import { ScopeType, TextEditor } from "@cursorless/common";
-import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
-import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
+import type { ScopeType, TextEditor } from "@cursorless/common";
+import type { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
+import type { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "../../../../languages/captureNames";
 import { PlainTarget } from "../../../targets";
-import {
-  BaseTreeSitterScopeHandler,
-  ExtendedTargetScope,
-} from "./BaseTreeSitterScopeHandler";
+import type { ExtendedTargetScope } from "./BaseTreeSitterScopeHandler";
+import { BaseTreeSitterScopeHandler } from "./BaseTreeSitterScopeHandler";
 import { findCaptureByName } from "./captureUtils";
 
 /** Scope handler to be used for extracting text fragments from the perspective

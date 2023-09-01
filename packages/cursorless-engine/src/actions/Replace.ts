@@ -1,11 +1,12 @@
-import { FlashStyle, ReplaceWith } from "@cursorless/common";
+import type { ReplaceWith } from "@cursorless/common";
+import { FlashStyle } from "@cursorless/common";
 import { flatten, zip } from "lodash";
-import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
+import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Destination } from "../typings/target.types";
+import type { Destination } from "../typings/target.types";
 import { flashTargets, runForEachEditor } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Replace {
   constructor(private rangeUpdater: RangeUpdater) {

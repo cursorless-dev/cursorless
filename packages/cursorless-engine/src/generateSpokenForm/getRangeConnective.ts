@@ -1,4 +1,4 @@
-import { PartialRangeType } from "@cursorless/common";
+import type { PartialRangeType } from "@cursorless/common";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import { connectives } from "./defaultSpokenForms/connectives";
 

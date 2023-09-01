@@ -1,11 +1,11 @@
-import { PredicateOperand } from "web-tree-sitter";
-import z from "zod";
-import {
+import type { PredicateOperand } from "web-tree-sitter";
+import type z from "zod";
+import type {
   AcceptFunctionArgs,
   HasSchema,
   InferSchemaType,
 } from "./PredicateOperatorSchemaTypes";
-import { MutableQueryMatch } from "./QueryCapture";
+import type { MutableQueryMatch } from "./QueryCapture";
 import { constructZodErrorMessages } from "./constructZodErrorMessages";
 
 /**

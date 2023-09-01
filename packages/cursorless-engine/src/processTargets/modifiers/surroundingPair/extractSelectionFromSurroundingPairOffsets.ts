@@ -1,5 +1,6 @@
-import { Range, Selection, TextDocument } from "@cursorless/common";
-import { SurroundingPairOffsets } from "./types";
+import type { TextDocument } from "@cursorless/common";
+import { Range, Selection } from "@cursorless/common";
+import type { SurroundingPairOffsets } from "./types";
 
 export interface SurroundingPairInfo {
   contentRange: Selection;

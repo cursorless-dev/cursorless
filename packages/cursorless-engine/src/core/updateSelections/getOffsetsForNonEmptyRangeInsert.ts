@@ -1,7 +1,10 @@
 import { invariant } from "immutability-helper";
 import { leftAnchored, rightAnchored } from "../../util/regex";
-import { ChangeEventInfo, FullRangeInfo } from "../../typings/updateSelections";
-import { RangeOffsets } from "@cursorless/common";
+import type {
+  ChangeEventInfo,
+  FullRangeInfo,
+} from "../../typings/updateSelections";
+import type { RangeOffsets } from "@cursorless/common";
 
 /**
  * Gets updated offsets for the range `rangeInfo` after the change described by

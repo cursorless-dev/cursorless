@@ -5,7 +5,7 @@ import type {
 } from "@cursorless/common";
 import { NoContainingScopeError, Selection } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import type { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { getNodeMatcher } from "../../../languages/getNodeMatcher";
 import type {
   NodeMatcher,

@@ -1,7 +1,7 @@
 import { pull } from "lodash";
 import * as vscode from "vscode";
-import { Disposable } from "vscode";
-import { StatusBarItem } from "../StatusBarItem";
+import type { Disposable } from "vscode";
+import type { StatusBarItem } from "../StatusBarItem";
 
 /**
  * This when clause context is active if any Cursorless listener is in control

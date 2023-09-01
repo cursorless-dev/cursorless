@@ -1,6 +1,6 @@
-import { Range, TextEditor } from "@cursorless/common";
+import type { Range, TextEditor } from "@cursorless/common";
 import { last } from "lodash";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 
 /**
  * Get the range to iterate over for the given editor.

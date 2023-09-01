@@ -1,5 +1,5 @@
 import { isDeepStrictEqual } from "util";
-import { PartialPrimitiveTargetDescriptorV2 } from "@cursorless/common";
+import type { PartialPrimitiveTargetDescriptorV2 } from "@cursorless/common";
 
 const STRICT_HERE = {
   type: "primitive",

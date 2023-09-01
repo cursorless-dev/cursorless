@@ -10,8 +10,8 @@ import {
   conditionMatcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative } from "../typings/Types";
-import { SimpleScopeTypeType } from "@cursorless/common";
+import type { NodeMatcherAlternative } from "../typings/Types";
+import type { SimpleScopeTypeType } from "@cursorless/common";
 import { nodeFinder, typedNodeFinder } from "../util/nodeFinders";
 import { delimitedSelector, childRangeSelector } from "../util/nodeSelectors";
 import { patternFinder } from "../util/nodeFinders";

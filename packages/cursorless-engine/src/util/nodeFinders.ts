@@ -1,6 +1,7 @@
-import { Position, Selection } from "@cursorless/common";
+import type { Selection } from "@cursorless/common";
+import { Position } from "@cursorless/common";
 import type { Point, SyntaxNode } from "web-tree-sitter";
-import { NodeFinder } from "../typings/Types";
+import type { NodeFinder } from "../typings/Types";
 
 export const nodeFinder = (
   isTargetNode: (node: SyntaxNode) => boolean,

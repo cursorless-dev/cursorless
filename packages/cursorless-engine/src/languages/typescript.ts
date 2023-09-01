@@ -1,6 +1,6 @@
-import { SimpleScopeTypeType } from "@cursorless/common";
+import type { SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import {
+import type {
   NodeMatcher,
   NodeMatcherAlternative,
   SelectionWithEditor,

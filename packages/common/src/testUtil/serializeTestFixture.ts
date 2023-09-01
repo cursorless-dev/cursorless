@@ -1,5 +1,5 @@
-import { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
-import { EnforceUndefined } from "../util/typeUtils";
+import type { TestCaseFixtureLegacy } from "../types/TestCaseFixture";
+import type { EnforceUndefined } from "../util/typeUtils";
 import { serialize } from "./serialize";
 
 function reorderFields(

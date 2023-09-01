@@ -1,7 +1,8 @@
 import { getCellIndex } from "@cursorless/vscode-common";
 import { range } from "lodash";
 import * as semver from "semver";
-import { commands, NotebookDocument, TextDocument, version } from "vscode";
+import type { NotebookDocument, TextDocument } from "vscode";
+import { commands, version } from "vscode";
 import { toVscodeEditor } from "../toVscodeEditor";
 import type { VscodeIDE } from "../VscodeIDE";
 import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";

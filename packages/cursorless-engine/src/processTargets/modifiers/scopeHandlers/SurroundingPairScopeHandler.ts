@@ -1,8 +1,8 @@
-import { Position, TextEditor } from "@cursorless/common";
-import { Direction, SurroundingPairScopeType } from "@cursorless/common";
+import type { Position, TextEditor } from "@cursorless/common";
+import type { Direction, SurroundingPairScopeType } from "@cursorless/common";
 import BaseScopeHandler from "./BaseScopeHandler";
-import { TargetScope } from "./scope.types";
-import { ScopeIteratorRequirements } from "./scopeHandler.types";
+import type { TargetScope } from "./scope.types";
+import type { ScopeIteratorRequirements } from "./scopeHandler.types";
 
 export default class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;

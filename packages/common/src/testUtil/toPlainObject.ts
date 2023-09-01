@@ -4,10 +4,11 @@ import type {
   LineRange,
   Message,
   SpyIDERecordedValues,
+  FlashStyle,
 } from "..";
-import { FlashStyle, isLineRange } from "..";
-import { Token } from "../types/Token";
-import { Selection } from "../types/Selection";
+import { isLineRange } from "..";
+import type { Token } from "../types/Token";
+import type { Selection } from "../types/Selection";
 
 export type PositionPlainObject = {
   line: number;

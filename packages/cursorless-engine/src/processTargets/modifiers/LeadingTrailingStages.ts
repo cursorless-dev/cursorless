@@ -1,7 +1,7 @@
-import { LeadingModifier, TrailingModifier } from "@cursorless/common";
-import { Target } from "../../typings/target.types";
-import { ModifierStageFactory } from "../ModifierStageFactory";
-import { ModifierStage } from "../PipelineStages.types";
+import type { LeadingModifier, TrailingModifier } from "@cursorless/common";
+import type { Target } from "../../typings/target.types";
+import type { ModifierStageFactory } from "../ModifierStageFactory";
+import type { ModifierStage } from "../PipelineStages.types";
 import { containingTokenIfUntypedModifier } from "./commonContainingScopeIfUntypedModifiers";
 
 /**

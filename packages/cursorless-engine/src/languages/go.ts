@@ -5,8 +5,8 @@ import {
   cascadingMatcher,
   patternMatcher,
 } from "../util/nodeMatchers";
-import { NodeMatcherAlternative } from "../typings/Types";
-import { SimpleScopeTypeType } from "@cursorless/common";
+import type { NodeMatcherAlternative } from "../typings/Types";
+import type { SimpleScopeTypeType } from "@cursorless/common";
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>

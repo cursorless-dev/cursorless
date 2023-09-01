@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { InsertSnippetArg, WrapWithSnippetArg } from "@cursorless/common";
+import type { InsertSnippetArg, WrapWithSnippetArg } from "@cursorless/common";
 import { NoSpokenFormError } from "../NoSpokenFormError";
 
 const insertionSnippets: Record<string, string> = {

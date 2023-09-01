@@ -1,9 +1,10 @@
-import { Range, UnsupportedLanguageError } from "@cursorless/common";
+import type { Range } from "@cursorless/common";
+import { UnsupportedLanguageError } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SelectionWithEditor } from "../typings/Types";
+import type { SelectionWithEditor } from "../typings/Types";
 import { notSupported } from "../util/nodeMatchers";
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
-import { LegacyLanguageId } from "./LegacyLanguageId";
+import type { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";

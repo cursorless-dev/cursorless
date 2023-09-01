@@ -1,12 +1,12 @@
 import { rangeToPlainObject } from "@cursorless/common";
-import { DecorationRenderOptions } from "vscode";
-import {
+import type { DecorationRenderOptions } from "vscode";
+import type {
   SetDecorationsParameters,
   DecorationRangesPlainObject,
   DecorationRenderOptionsPlainObject,
   MockDecorationType,
 } from "./scopeVisualizerTest.types";
-import { SinonSpyCall } from "sinon";
+import type { SinonSpyCall } from "sinon";
 
 export function setDecorationsCallToPlainObject({
   args: [_editor, decorationType, ranges],

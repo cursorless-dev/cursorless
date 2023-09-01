@@ -1,11 +1,7 @@
-import {
-  InsertionMode,
-  Range,
-  Selection,
-  TextEditor,
-} from "@cursorless/common";
-import { EditWithRangeUpdater } from "../../typings/Types";
-import {
+import type { InsertionMode, Selection, TextEditor } from "@cursorless/common";
+import { Range } from "@cursorless/common";
+import type { EditWithRangeUpdater } from "../../typings/Types";
+import type {
   Destination,
   EditNewActionType,
   Target,

@@ -1,4 +1,4 @@
-import { CommandId } from "./CommandId";
+import type { CommandId } from "./CommandId";
 
 export interface Capabilities {
   readonly commands: CommandCapabilityMap;

@@ -1,10 +1,10 @@
 import { PlainTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
-import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import type { Actions } from "./Actions";
+import type { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export default class Clear implements SimpleAction {
   constructor(private actions: Actions) {
