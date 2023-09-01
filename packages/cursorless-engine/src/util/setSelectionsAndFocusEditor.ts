@@ -1,6 +1,6 @@
 import { EditableTextEditor, Selection } from "@cursorless/common";
 
-import uniqDeep from "./uniqDeep";
+import { uniqWithHash } from "./uniqWithHash";
 
 export async function setSelectionsAndFocusEditor(
   editor: EditableTextEditor,
@@ -22,5 +22,9 @@ export function setSelectionsWithoutFocusingEditor(
   editor: EditableTextEditor,
   selections: Selection[],
 ) {
-  editor.selections = uniqDeep(selections);
+  editor.selections = uniqWithHash(
+    selections,
+    (a, b) => a.isEqual(b),
+    (s) => s.concise(),
+  );
 }

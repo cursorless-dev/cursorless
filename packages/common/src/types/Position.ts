@@ -138,4 +138,16 @@ export class Position {
   public toEmptyRange(): Range {
     return new Range(this, this);
   }
+
+  /**
+   * Return a concise string representation of the position.
+   * @returns concise representation
+   **/
+  public concise(): string {
+    return `${this.line}:${this.character}`;
+  }
+
+  public toString(): string {
+    return this.concise();
+  }
 }
