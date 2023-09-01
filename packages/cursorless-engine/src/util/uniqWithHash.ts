@@ -43,16 +43,16 @@ export function uniqWithHash<T>(
     return acc;
   }, new Map<string, T[]>());
 
+  // Another common case: Everything is unique.
+  if (needsUniq.length === 0) {
+    return [...array];
+  }
+
   // For hash collisions, uniq the items,
   // letting uniqWith provide correct semantics.
   needsUniq.forEach((key) => {
     hashToItems.set(key, uniqWith(hashToItems.get(key)!, isEqual));
   });
-
-  // Another common case: Everything is unique.
-  if (needsUniq.length === 0) {
-    return [...array];
-  }
 
   // To preserve order, step through the original items
   // one at a time, returning it as appropriate.
@@ -70,6 +70,8 @@ export function uniqWithHash<T>(
     const first = items[0]!;
     if (!isEqual(first, item)) {
       // Removed by uniqWith.
+      // Note that it is sufficient to check the first item,
+      // because uniqWith preserves order.
       return [];
     }
     // Emit item.
