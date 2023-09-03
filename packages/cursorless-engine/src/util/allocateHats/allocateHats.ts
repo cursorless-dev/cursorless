@@ -14,11 +14,13 @@ import { Grapheme, TokenGraphemeSplitter } from "../../tokenGraphemeSplitter";
 import { chooseTokenHat } from "./chooseTokenHat";
 import { getHatRankingContext } from "./getHatRankingContext";
 import { getRankedTokens } from "./getRankedTokens";
+import WordTokenizer from "../../processTargets/modifiers/scopeHandlers/WordScopeHandler/WordTokenizer";
 
 export interface HatCandidate {
   grapheme: Grapheme;
   style: HatStyleName;
   penalty: number;
+  isFirstLetter: boolean;
 }
 
 /**
@@ -137,6 +139,10 @@ function getTokenRemainingHatCandidates(
   token: Token,
   availableGraphemeStyles: DefaultMap<string, HatStyleMap>,
 ): HatCandidate[] {
+  const words = new WordTokenizer(
+    token.editor.document.languageId,
+  ).splitIdentifier(token.text);
+  const firstLetters = new Set<number>(words.map((word) => word.index));
   return tokenGraphemeSplitter
     .getTokenGraphemes(token.text)
     .flatMap((grapheme) =>
@@ -145,13 +151,14 @@ function getTokenRemainingHatCandidates(
           grapheme,
           style,
           penalty,
+          isFirstLetter: firstLetters.has(grapheme.tokenStartOffset),
         }),
       ),
     );
 }
 
 /**
- * @param token The token that recevied the hat
+ * @param token The token that received the hat
  * @param chosenHat The hat we chose for the token
  * @returns An object indicating the hat assigned to the token, along with the
  * range of the grapheme upon which it sits

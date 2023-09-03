@@ -23,7 +23,7 @@ const PRE_PHRASE_SNAPSHOT_MAX_AGE_NS = BigInt(6e10); // 60 seconds
  */
 export class HatTokenMapImpl implements HatTokenMap {
   /**
-   * This is the active map the changes every time we reallocate hats. It is
+   * This is the active map that changes every time we reallocate hats. It is
    * liable to change in the middle of a phrase.
    */
   private activeMap: IndividualHatMap;

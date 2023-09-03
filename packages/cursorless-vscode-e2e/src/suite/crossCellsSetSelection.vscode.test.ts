@@ -37,7 +37,7 @@ async function runTest() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "w",
+          character: "o",
         },
       },
     ],

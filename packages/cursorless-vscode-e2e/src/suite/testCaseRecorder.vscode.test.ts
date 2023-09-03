@@ -146,7 +146,7 @@ async function takeHarp() {
         mark: {
           type: "decoratedSymbol",
           symbolColor: "default",
-          character: "h",
+          character: "e",
         },
       },
     },
@@ -158,11 +158,11 @@ async function checkRecordedTest(tmpdir: string) {
   assert.lengthOf(paths, 1);
 
   const actualRecordedTestPath = paths[0];
-  assert.equal(basename(actualRecordedTestPath), "takeHarp.yml");
+  assert.equal(basename(actualRecordedTestPath), "takeEach.yml");
 
   const expected = (
     await readFile(
-      getFixturePath("recorded/testCaseRecorder/takeHarp.yml"),
+      getFixturePath("recorded/testCaseRecorder/takeEach.yml"),
       "utf8",
     )
   )

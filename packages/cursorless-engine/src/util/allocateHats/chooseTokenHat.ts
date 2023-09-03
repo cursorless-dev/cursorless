@@ -2,6 +2,7 @@ import { HatStability, TokenHat } from "@cursorless/common";
 import { HatCandidate } from "./allocateHats";
 import { RankingContext } from "./getHatRankingContext";
 import {
+  avoidFirstLetter,
   hatOldTokenRank,
   isOldTokenHat,
   minimumTokenRankContainingGrapheme,
@@ -71,7 +72,10 @@ export function chooseTokenHat(
     // 4. Narrow to the hats with the lowest penalty
     negativePenalty,
 
-    // 5. Prefer hats that sit on a grapheme that doesn't appear in any highly
+    // 5. Avoid the first grapheme of the token if possible
+    avoidFirstLetter,
+
+    // 6. Prefer hats that sit on a grapheme that doesn't appear in any highly
     //    ranked token
     minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
   ])!;
