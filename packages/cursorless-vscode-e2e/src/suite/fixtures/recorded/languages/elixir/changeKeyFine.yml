@@ -1,0 +1,27 @@
+languageId: elixir
+command:
+  version: 6
+  spokenForm: change key fine
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: f}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "%{ \"foo\" => \"lorem\", \"bar\" => \"ipsum\", \"baz\" => \"dolor\"}"
+  selections:
+    - anchor: {line: 0, character: 56}
+      active: {line: 0, character: 56}
+  marks:
+    default.f:
+      start: {line: 0, character: 4}
+      end: {line: 0, character: 7}
+finalState:
+  documentContents: "%{  => \"lorem\", \"bar\" => \"ipsum\", \"baz\" => \"dolor\"}"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
