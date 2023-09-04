@@ -69,3 +69,28 @@
     .
   )
 ) @namedFunction @functionName.domain
+
+(call
+  target: (identifier) @_target
+  (#match? @_target "^(defmodule)$")
+  (arguments
+    (alias) @className
+  )
+  (do_block
+    .
+    "do" @class.interior.start.endOf
+    "end" @class.interior.end.startOf
+    .
+  )
+) @class @className.domain
+
+(source) @className.iteration @class.iteration
+(source) @statement.iteration
+
+(source) @namedFunction.iteration @functionName.iteration
+;; Is it better to have the class as the function iteration scope?
+;; elixir devs only
+;;   (call
+;;     target: (identifier) @_target
+;;     (#match? @_target "^(defmodule)$")
+;;   ) @namedFunction.iteration @functionName.iteration
