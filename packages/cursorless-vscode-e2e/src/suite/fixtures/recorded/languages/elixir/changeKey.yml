@@ -1,0 +1,33 @@
+languageId: elixir
+command:
+  version: 6
+  spokenForm: change key
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    %{
+      :a => "lorem",
+      "b" => "ipsum",
+      3 => "dolor"
+    }
+  selections:
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 13}
+  marks: {}
+finalState:
+  documentContents: |
+    %{
+      :a => "lorem",
+       => "ipsum",
+      3 => "dolor"
+    }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
