@@ -33,6 +33,7 @@
 
 (call
   target: (identifier) @_target
+  (#match? @_target "^(def|defp|defdelegate|defguard|defguardp|defmacro|defmacrop|defn|defnp)$")
   (arguments
     [
       ; zero-arity functions with no parentheses
@@ -56,5 +57,4 @@
     "end" @namedFunction.interior.end.startOf
     .
   )?
-  (#match? @_target "^(def|defp|defdelegate|defguard|defguardp|defmacro|defmacrop|defn|defnp)$")
 ) @namedFunction @functionName.domain
