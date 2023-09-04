@@ -1,34 +1,45 @@
 (comment) @comment
 (anonymous_function) @anonymousFunction
-
 (call
   target: (_) @functionCallee
 ) @functionCall @functionCallee.domain
 
-(keywords
-  (pair
-    key: (_) @collectionKey @collectionItem.trailing.end.startOf
-    value: (_) @value
-  ) @collectionItem @collectionItem.trailing.start.endOf
-  (
-    ","
-  )
-?
- @collectionItem.trailing.start.startOf
-  (#allow-multiple! @collectionItem)
-)
-
-;; %{:a => "lorem", "b" => "ipsum", 3 => "dolor"},
+;; Map
+;; %{:a => "lorem", "b" => "ipsum", 3 => "dolor"}
 (map_content
   (_)? @_.leading.start.endOf
   .
-  (binary_operator
-    left: (_) @collectionKey
-    right: (_) @value
-  ) @collectionItem @collectionKey.domain @value.domain @_.leading.end.startOf @_.trailing.start.endOf
+  (binary_operator) @collectionItem @_.leading.end.startOf @_.trailing.start.endOf
   .
   (_)? @_.trailing.end.startOf
   (#insertion-delimiter! @collectionItem ", ")
+)
+(map_content
+  (binary_operator
+    left: (_) @collectionKey
+    right: (_) @value
+  ) @collectionKey.domain @value.domain
+)
+
+;; Shorthand map syntax
+;; %{a: "lorem", b: "ipsum"}
+(map_content
+  (keywords
+    (_)? @_.leading.start.endOf
+    .
+    (pair) @collectionItem @_.leading.end.startOf @_.trailing.start.endOf
+    .
+    (_)? @_.trailing.end.startOf
+  )
+  (#insertion-delimiter! @collectionItem ", ")
+)
+(map_content
+  (keywords
+    (pair
+      key: (_) @collectionKey
+      value: (_) @value
+    ) @collectionKey.domain @value.domain
+  )
 )
 
 (call
@@ -56,5 +67,5 @@
     "do" @namedFunction.interior.start.endOf
     "end" @namedFunction.interior.end.startOf
     .
-  )?
+  )
 ) @namedFunction @functionName.domain
