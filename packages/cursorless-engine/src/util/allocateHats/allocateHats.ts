@@ -69,7 +69,7 @@ export function allocateHats(
   );
 
   /* All initially enabled hat styles. */
-  const allEnabledHatStyles = Object.keys(enabledHatStyles);
+  const enabledHatStyleNames = Object.keys(enabledHatStyles);
 
   /**
    * A map from graphemes to the remaining hat styles that have not yet been
@@ -80,7 +80,7 @@ export function allocateHats(
    * and this is a hot path.
    */
   const graphemeRemainingHatCandidates = new DefaultMap<string, HatStyleName[]>(
-    () => [...allEnabledHatStyles],
+    () => [...enabledHatStyleNames],
   );
 
   // Iterate through tokens in order of decreasing rank, assigning each one a
