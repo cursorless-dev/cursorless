@@ -59,7 +59,7 @@ export default class VscodeHatRenderer {
     this.disposables.push(
       vscode.workspace.onDidChangeConfiguration(
         async ({ affectsConfiguration }) => {
-          if (affectsConfiguration("cursorless.experimental.hatsDir")) {
+          if (affectsConfiguration("cursorless.experimental.hatShapesDir")) {
             await this.updateHatsDirWatcher();
           } else if (
             hatConfigSections.some((section) => affectsConfiguration(section))
@@ -109,7 +109,7 @@ export default class VscodeHatRenderer {
 
     const hatsDir = vscode.workspace
       .getConfiguration("cursorless.experimental")
-      .get<string>("hatsDir")!;
+      .get<string>("hatShapesDir")!;
 
     if (hatsDir && fs.existsSync(hatsDir)) {
       await this.updateShapeOverrides(hatsDir);
