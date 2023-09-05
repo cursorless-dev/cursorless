@@ -1,6 +1,6 @@
-import { readFileSync } from "fs";
 import { cloneDeep, isEqual } from "lodash";
-import { join } from "path";
+import * as path from "node:path";
+import * as fs from "node:fs";
 import * as vscode from "vscode";
 import getHatThemeColors from "./getHatThemeColors";
 import {
@@ -44,6 +44,8 @@ export default class VscodeHatRenderer {
   private disposables: vscode.Disposable[] = [];
   private notifier: Notifier<[]> = new Notifier();
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
+  private hatsDirWatcher?: fs.FSWatcher;
+  private hatShapeOverrides: Record<string, string> = {};
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
@@ -57,7 +59,9 @@ export default class VscodeHatRenderer {
     this.disposables.push(
       vscode.workspace.onDidChangeConfiguration(
         async ({ affectsConfiguration }) => {
-          if (
+          if (affectsConfiguration("cursorless.experimental.hatsDir")) {
+            await this.updateHatsDirWatcher();
+          } else if (
             hatConfigSections.some((section) => affectsConfiguration(section))
           ) {
             await this.recomputeDecorations();
@@ -88,6 +92,7 @@ export default class VscodeHatRenderer {
 
   async init() {
     await this.constructDecorations();
+    await this.updateHatsDirWatcher();
   }
 
   /**
@@ -99,10 +104,50 @@ export default class VscodeHatRenderer {
     return this.decorationMap[hatStyle];
   }
 
+  private async updateHatsDirWatcher() {
+    this.destroyHatsDirWatcher();
+
+    const hatsDir = vscode.workspace
+      .getConfiguration("cursorless.experimental")
+      .get<string>("hatsDir")!;
+
+    if (hatsDir && fs.existsSync(hatsDir)) {
+      await this.updateShapeOverrides(hatsDir);
+      let timeout: NodeJS.Timeout;
+
+      this.hatsDirWatcher = fs.watch(hatsDir, () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => this.updateShapeOverrides(hatsDir), 50);
+      });
+    } else {
+      this.hatShapeOverrides = {};
+      await this.recomputeDecorations();
+    }
+  }
+
+  private async updateShapeOverrides(dir: string) {
+    this.hatShapeOverrides = {};
+
+    for (const file of fs.readdirSync(dir)) {
+      if (file.endsWith(".svg")) {
+        this.hatShapeOverrides[file.split(".")[0]] = path.join(dir, file);
+      }
+    }
+
+    await this.recomputeDecorations();
+  }
+
   private destroyDecorations() {
     Object.values(this.decorationMap).forEach((decoration) => {
       decoration.dispose();
     });
+  }
+
+  private destroyHatsDirWatcher() {
+    if (this.hatsDirWatcher != null) {
+      this.hatsDirWatcher.close();
+      this.hatsDirWatcher = undefined;
+    }
   }
 
   private async recomputeDecorations() {
@@ -228,13 +273,15 @@ export default class VscodeHatRenderer {
     scaleFactor: number,
     hatVerticalOffsetEm: number,
   ) {
-    const iconPath = join(
-      this.extensionContext.extensionPath,
-      "images",
-      "hats",
-      `${shape}.svg`,
-    );
-    const rawSvg = readFileSync(iconPath, "utf8");
+    const iconPath =
+      this.hatShapeOverrides[shape] ??
+      path.join(
+        this.extensionContext.extensionPath,
+        "images",
+        "hats",
+        `${shape}.svg`,
+      );
+    const rawSvg = fs.readFileSync(iconPath, "utf8");
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
@@ -306,6 +353,7 @@ export default class VscodeHatRenderer {
 
   dispose() {
     this.destroyDecorations();
+    this.destroyHatsDirWatcher();
     this.disposables.forEach(({ dispose }) => dispose());
   }
 }

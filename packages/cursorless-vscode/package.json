@@ -841,6 +841,10 @@
           "description": "Directory containing snippets for use in cursorless",
           "type": "string"
         },
+        "cursorless.experimental.hatsDir": {
+          "description": "Directory containing hat shape svg files for use in cursorless",
+          "type": "string"
+        },
         "cursorless.experimental.keyboard.modal.keybindings.actions": {
           "description": "Define modal keybindings for actions",
           "type": "object",
