@@ -150,6 +150,25 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   }
 }
 
+/**
+ * A predicate operator that modifies the range of the match by trimming trailing whitespace,
+ * similar to the javascript trimEnd function.
+ */
+class TrimEnd extends QueryPredicateOperator<TrimEnd> {
+  name = "trim-end!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const trimmed = text.trimEnd();
+    const endOffset =
+      document.offsetAt(range.end) + trimmed.length - text.length;
+    nodeInfo.range = new Range(range.start, document.positionAt(endOffset));
+    return true;
+  }
+}
+
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
@@ -193,6 +212,7 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
+  new TrimEnd(),
   new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
