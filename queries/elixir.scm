@@ -62,12 +62,8 @@
       )
     ]
   )
-  (do_block
-    .
-    "do" @namedFunction.interior.start.endOf
-    "end" @namedFunction.interior.end.startOf
-    .
-  )
+  (do_block) @namedFunction.interior
+  (#shrink-to-match! @namedFunction.interior "^do\\n?\\w*(?<keep>.*?\\n)\\s*end$")
 ) @namedFunction @functionName.domain
 
 (call
