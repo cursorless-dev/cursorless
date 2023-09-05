@@ -8,7 +8,6 @@ defmodule DataStructures do
   %{}
   %{a: 1, b: 2}
   %{:a => 1, "b" => 2, c => 3}
-  # NOTE: this is troublesome for the queries, there are commas at two different levels
   %{"a" => 1, b: 2, c: 3}
   %{user | name: "Jane", email: "jane@example.com"}
   %{user | "name" => "Jane"}

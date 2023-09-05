@@ -89,7 +89,7 @@
 
 (source) @namedFunction.iteration @functionName.iteration
 ;; Is it better to have the class as the function iteration scope?
-;; elixir devs only
+;; I believe `def`s can only go inside modules
 ;;   (call
 ;;     target: (identifier) @_target
 ;;     (#match? @_target "^(defmodule)$")
