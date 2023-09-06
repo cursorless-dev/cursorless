@@ -27,6 +27,8 @@
   (with_statement)
 ] @statement
 
+(comment) @comment @textFragment
+
 (
   (function_definition
     name: (_) @functionName
