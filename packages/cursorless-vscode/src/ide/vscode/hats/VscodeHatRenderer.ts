@@ -1,20 +1,22 @@
+import { Listener, Notifier, walkFiles } from "@cursorless/common";
 import { cloneDeep, isEqual } from "lodash";
-import * as path from "node:path";
 import * as fs from "node:fs";
+import * as path from "node:path";
 import * as vscode from "vscode";
-import getHatThemeColors from "./getHatThemeColors";
-import {
-  defaultShapeAdjustments,
-  DEFAULT_HAT_HEIGHT_EM,
-  DEFAULT_VERTICAL_OFFSET_EM,
-  IndividualHatAdjustmentMap,
-} from "./shapeAdjustments";
-import { Listener, Notifier } from "@cursorless/common";
-import { FontMeasurements } from "./FontMeasurements";
-import { HatShape, HAT_SHAPES, VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
 } from "../VscodeEnabledHatStyleManager";
+import { HAT_SHAPES, HatShape, VscodeHatStyleName } from "../hatStyles.types";
+import { FontMeasurements } from "./FontMeasurements";
+import getHatThemeColors from "./getHatThemeColors";
+import {
+  DEFAULT_HAT_HEIGHT_EM,
+  DEFAULT_VERTICAL_OFFSET_EM,
+  IndividualHatAdjustmentMap,
+  defaultShapeAdjustments,
+} from "./shapeAdjustments";
+
+const CURSORLESS_HAT_SHAPES_SUFFIX = ".svg";
 
 type HatDecorationMap = Partial<
   Record<VscodeHatStyleName, vscode.TextEditorDecorationType>
@@ -111,30 +113,45 @@ export default class VscodeHatRenderer {
       .getConfiguration("cursorless.experimental")
       .get<string>("hatShapesDir")!;
 
-    if (hatsDir && fs.existsSync(hatsDir)) {
+    if (hatsDir) {
       await this.updateShapeOverrides(hatsDir);
       let timeout: NodeJS.Timeout;
 
-      this.hatsDirWatcher = fs.watch(hatsDir, () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => this.updateShapeOverrides(hatsDir), 50);
-      });
+      if (fs.existsSync(hatsDir)) {
+        this.hatsDirWatcher = fs.watch(hatsDir, () => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => this.updateShapeOverrides(hatsDir), 50);
+        });
+      }
     } else {
       this.hatShapeOverrides = {};
       await this.recomputeDecorations();
     }
   }
 
-  private async updateShapeOverrides(dir: string) {
+  private async updateShapeOverrides(hatShapesDir: string) {
     this.hatShapeOverrides = {};
+    const files = await this.getHatShapePaths(hatShapesDir);
 
-    for (const file of fs.readdirSync(dir)) {
-      if (file.endsWith(".svg")) {
-        this.hatShapeOverrides[file.split(".")[0]] = path.join(dir, file);
-      }
+    for (const file of files) {
+      const name = path.basename(file, CURSORLESS_HAT_SHAPES_SUFFIX);
+      this.hatShapeOverrides[name] = file;
     }
 
     await this.recomputeDecorations();
+  }
+
+  private async getHatShapePaths(hatShapesDir: string) {
+    try {
+      return await walkFiles(hatShapesDir, CURSORLESS_HAT_SHAPES_SUFFIX);
+    } catch (error) {
+      void vscode.window.showErrorMessage(
+        `Error with cursorless hat shapes dir "${hatShapesDir}": ${
+          (error as Error).message
+        }`,
+      );
+      return [];
+    }
   }
 
   private destroyDecorations() {

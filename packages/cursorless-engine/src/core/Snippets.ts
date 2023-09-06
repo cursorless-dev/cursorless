@@ -236,8 +236,6 @@ export class Snippets {
   }
 }
 
-async function getSnippetPaths(snippetsDir: string) {
-  return (await walkFiles(snippetsDir)).filter((path) =>
-    path.endsWith(CURSORLESS_SNIPPETS_SUFFIX),
-  );
+function getSnippetPaths(snippetsDir: string) {
+  return walkFiles(snippetsDir, CURSORLESS_SNIPPETS_SUFFIX);
 }
