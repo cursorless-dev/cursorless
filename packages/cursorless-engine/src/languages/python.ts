@@ -65,7 +65,6 @@ const nodeMatchers: Partial<
   anonymousFunction: "lambda?.lambda",
   functionCall: "call",
   functionCallee: "call[function]",
-  comment: "comment",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
 

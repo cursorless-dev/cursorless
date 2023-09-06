@@ -27,6 +27,8 @@
   (with_statement)
 ] @statement
 
+(comment) @comment @textFragment
+
 (
   (string
     _ @textFragment.start.endOf
