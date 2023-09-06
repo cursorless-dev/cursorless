@@ -143,8 +143,8 @@ function getTokenOldHatMap(oldTokenHats: readonly TokenHat[]) {
 function getTokenRemainingHatCandidates(
   tokenGraphemeSplitter: TokenGraphemeSplitter,
   token: Token,
-  availableGraphemeStyles: DefaultMap<string, HatStyleName[]>,
-  allHatStyles: HatStyleMap,
+  graphemeRemainingHatCandidates: DefaultMap<string, HatStyleName[]>,
+  enabledHatStyles: HatStyleMap,
 ): HatCandidate[] {
   // Use iteration here instead of functional constructs,
   // because this is a hot path and we want to avoid allocating arrays
@@ -152,14 +152,14 @@ function getTokenRemainingHatCandidates(
   const candidates: HatCandidate[] = [];
   const graphemes = tokenGraphemeSplitter.getTokenGraphemes(token.text);
   for (const grapheme of graphemes) {
-    for (const style of availableGraphemeStyles.get(grapheme.text)!) {
+    for (const style of graphemeRemainingHatCandidates.get(grapheme.text)) {
       // Allocating and pushing all of these objects is
       // the single most expensive thing in hat allocation.
       // Please pay attention to performance when modifying this code.
       candidates.push({
         grapheme,
         style,
-        penalty: allHatStyles[style].penalty,
+        penalty: enabledHatStyles[style].penalty,
       });
     }
   }
