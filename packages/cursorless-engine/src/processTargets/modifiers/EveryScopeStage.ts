@@ -65,7 +65,7 @@ export class EveryScopeStage implements ModifierStage {
       ) {
         // If the only scope that came back completely contains the input target
         // range, we treat the input as if it had no explicit range, expanding
-        // to default iteration socpe below
+        // to default iteration scope below
         scopes = undefined;
       }
     }

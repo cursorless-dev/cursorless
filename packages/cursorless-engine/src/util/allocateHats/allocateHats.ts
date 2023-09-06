@@ -167,7 +167,7 @@ function getTokenRemainingHatCandidates(
 }
 
 /**
- * @param token The token that recevied the hat
+ * @param token The token that received the hat
  * @param chosenHat The hat we chose for the token
  * @returns An object indicating the hat assigned to the token, along with the
  * range of the grapheme upon which it sits

@@ -16,7 +16,7 @@ export function unifyRemovalTargets(targets: Target[]): Target[] {
       a.contentRange.start.compareTo(b.contentRange.start),
     );
     let run = true;
-    // Merge targets untill there are no overlaps/intersections
+    // Merge targets until there are no overlaps/intersections
     while (run) {
       [results, run] = unifyTargetsOnePass(results);
     }

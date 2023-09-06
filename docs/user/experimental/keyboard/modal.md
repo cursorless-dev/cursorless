@@ -99,7 +99,7 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
   },
 ```
 
-Any supported scopes, actions, or colors can be added to these sections, using the same identifierss that appear in the second column of your customisation csvs. Feel free to add / tweak / remove the keyboard shortcuts above as you see fit.
+Any supported scopes, actions, or colors can be added to these sections, using the same identifiers that appear in the second column of your customisation csvs. Feel free to add / tweak / remove the keyboard shortcuts above as you see fit.
 
 The above allows you to press `d` followed by any letter to highlight the given token, `i` to expand to its containing line, and `t` to select the given target.
 
