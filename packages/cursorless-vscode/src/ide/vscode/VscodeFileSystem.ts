@@ -1,3 +1,4 @@
+import * as semver from "semver";
 import {
   Disposable,
   FileSystem,
@@ -7,16 +8,17 @@ import {
 import { stat } from "fs/promises";
 import * as fs from "node:fs";
 import { max } from "lodash";
+import { version } from "vscode";
 
 export class VscodeFileSystem implements FileSystem {
   watchDir(path: string, onDidChange: PathChangeListener): Disposable {
-    // Just poll for now; we can take advantage of VSCode's sophisticated
-    // watcher later. Note that we would need to do a version check, as VSCode
-    // file watcher is only available in more recent versions of VSCode.
-    return new PollingFileSystemWatcher(path, onDidChange);
-  }
+    if (semver.lt(version, "1.67.0")) {
+      // Just poll for now; we can take advantage of VSCode's sophisticated
+      // watcher later. Note that we would need to do a version check, as VSCode
+      // file watcher is only available in more recent versions of VSCode.
+      return new PollingFileSystemWatcher(path, onDidChange);
+    }
 
-  watchDirNew(path: string, onDidChange: PathChangeListener): Disposable {
     let timeout: NodeJS.Timeout;
 
     const hatsDirWatcher = fs.watch(path, () => {

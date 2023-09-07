@@ -119,9 +119,8 @@ export default class VscodeHatRenderer {
       await this.updateShapeOverrides(hatsDir);
 
       if (fs.existsSync(hatsDir)) {
-        this.hatsDirWatcherDisposable = this.fileSystem.watchDirNew(
-          hatsDir,
-          () => this.updateShapeOverrides(hatsDir),
+        this.hatsDirWatcherDisposable = this.fileSystem.watchDir(hatsDir, () =>
+          this.updateShapeOverrides(hatsDir),
         );
       }
     } else {
