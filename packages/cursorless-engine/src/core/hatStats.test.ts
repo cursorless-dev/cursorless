@@ -146,7 +146,9 @@ suite("hatStats", () => {
           if (shouldUpdateFixtures()) {
             fs.writeFileSync(goldenPath, golden);
           } else {
-            const actual = fs.readFileSync(goldenPath, "utf-8");
+            let actual = fs.readFileSync(goldenPath, "utf-8");
+            // convert \r\n to just \n (hi, Windows!)
+            actual = actual.replace(/\r\n/g, "\n");
             assert.equal(actual, golden);
           }
         }
@@ -184,7 +186,8 @@ suite("hatStats", () => {
       if (shouldUpdateFixtures()) {
         fs.writeFileSync(filepath + ".stats", s);
       } else {
-        const actual = fs.readFileSync(statsPath, "utf-8");
+        let actual = fs.readFileSync(statsPath, "utf-8");
+        actual = actual.replace(/\r\n/g, "\n");
         assert.equal(actual, s);
       }
     });
