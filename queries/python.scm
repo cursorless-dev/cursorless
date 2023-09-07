@@ -28,6 +28,13 @@
 ] @statement
 
 (
+  (string
+    _ @textFragment.start.endOf
+    _ @textFragment.end.startOf
+  ) @string
+)
+
+(
   (function_definition
     name: (_) @functionName
     body: (_) @namedFunction.interior

@@ -50,7 +50,6 @@ const nodeMatchers: Partial<
 > = {
   map: dictionaryTypes,
   list: listTypes,
-  string: "string",
   collectionItem: cascadingMatcher(
     matcher(
       itemNodeFinder("import_from_statement", "dotted_name", true),

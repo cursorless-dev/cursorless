@@ -165,7 +165,6 @@ const textFragmentExtractors: Record<
     "php",
     phpStringTextFragmentExtractor,
   ),
-  python: constructDefaultTextFragmentExtractor("python"),
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
     rubyStringTextFragmentExtractor,
