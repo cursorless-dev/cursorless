@@ -1,0 +1,266 @@
+_          _   _ _  A
+defmodule MyApp.Mod do
+[-------] [---]|[-] []
+
+    _      _ A_
+  alias MyApp.Car
+  [---] [---]|[-]
+
+​
+
+  _     _      _________AAAAA__A
+  @model_regex ~r/^[A-Z][a-Z]*$/
+  |[---------] |||||||||||||||||
+
+​
+
+  A  A _
+  @doc """
+  |[-] [-]
+
+  _     _ B   _     B
+  This is a function.
+  [--] [] | [------]|
+
+​
+
+  _   _     _      _     A          _      _
+  ## People use markdown in docstrings usually
+  [] [----] [-] [------] [] [--------] [-----]
+
+    A  A  B
+    * So lists
+    | [] [---]
+
+    B  A       A B    _       _       A  _C    A  A   A
+    * And inline code for arguments like `color` is common
+    | [-] [----] [--] [-] [-------] [--] |[---]| [] [----]
+
+  A
+  """
+  [-]
+
+  B       _        _    A_ C
+  def database_call(color) do
+  [-] [-----------]|[---]| []
+
+    _     _
+    query =
+    [---] |
+
+         BAD C   C _
+      from(c in Car,
+      [--]|| [] [-]|
+
+         _   _
+        where:
+        [---]|
+
+          EC  B  A  AA       B
+          c.make == :toyota or
+          ||[--] [] |[----] []
+
+               A    BB  _  C_A  D   ACA BDF    B ADA_1    __EB
+            fragment("lower(?) like ?", s.color, ^"#{color}%")
+            [------]||[---]||| [--] ||| ||[---]| ||||[---]||||
+
+      C
+      )
+      |
+
+​
+
+       A    B
+    results =
+    [-----] |
+
+      A
+      query
+      [---]
+
+      __   A ED  DD
+      |> Repo.all()
+      || [--]|[-]||
+
+      AA  B  FA     E C
+      |> Enum.filter(fn
+      || [--]|[----]|[]
+
+        AA2    B C     A A B     C
+        %{color: :unknown} -> false
+        ||[---]| |[-----]| [] [---]
+
+        3 C  41C    C   B         2        __F    D     C D          CE
+        c -> c.make == Application.fetch_env!(__MODULE__, :make_filter)
+        | [] ||[--] [] [---------]|[-------]||[--------]| |[---------]|
+
+       D F
+      end)
+      [-]|
+
+      BB   B 3  C1_BA_4 B   D BA55    B1
+      |> Enum.map(&[&1.model, &1.color])
+      || [--]|[-]||||||[---]| |||[---]||
+
+​
+
+                       A
+     E  6 B2  D    E _21  E   DA B          _
+    Enum.at(results, 0).model =~ @model_regex
+    [--]|[]|[-----]| |||[---] || |[---------]
+
+   F
+  end
+  [-]
+
+B
+end
+[-]
+
+​
+
+               A
+  B        A   26   F
+defmodule MyApp.Car do
+[-------] [---]|[-] []
+
+  C   C      F
+  @moduledoc """
+  |[-------] [-]
+
+  E     A    D
+  A database model
+  | [------] [---]
+
+  1
+  """
+  [-]
+
+          A
+  D     C 3  A
+  use Ecto.Schema
+  [-] [--]|[----]
+
+             A
+  E      C   4    B
+  import Ecto.Changeset
+  [----] [--]|[-------]
+
+​
+
+      E  2  D 3 1
+  schema "cars" do
+  [----] |[--]| []
+
+                      A
+    C    3E    EF   D 5  E 1
+    field(:color, Ecto.Enum,
+    [---]||[---]| [--]|[--]|
+
+                                                                A A   A A
+      A     F C1B   2 2     B 3 3C    4 4 F    5 5  F  6 6B     1 1  22 2 B   C
+      values: [:blue, :unknown, :green, :silver, :black, :yellow, :red, :white]
+      [----]| ||[--]| |[-----]| |[---]| |[----]| |[---]| |[----]| |[-]| |[---]|
+
+    3
+    )
+    |
+
+​
+
+          A     A A
+    D    43F    3 4    1 4
+    field(:model, :string)
+    [---]||[---]| |[----]|
+
+          A    A A
+    E    55 1  4 6E     5
+    field(:make, :string)
+    [---]||[--]| |[----]|
+
+​
+
+               B     A      A
+           A  61 C   5    D 6   F  6
+    belongs_to(:owner, MyApp.Person)
+    [--------]||[---]| [---]|[----]|
+
+​
+
+              AA
+     1        11
+    timestamps()
+    [--------]||
+
+    3
+  end
+  [-]
+
+​
+
+               A    A      A
+    F  C       2 2  6    F 2  C
+  def changeset(sign, attrs) do
+  [-] [-------]|[--]| [---]| []
+
+      B             E D
+    required_fields = [
+    [-------------] | |
+
+      B    B
+      2  C 1
+      :make,
+      |[--]|
+
+      B
+      3 D
+      :model
+      |[---]
+
+    D
+    ]
+    |
+
+​
+
+     E              F E
+    optional_fields = [
+    [-------------] | |
+
+      B
+      4 D
+      :owner
+      |[---]
+
+    E
+    ]
+    |
+
+​
+
+      D
+    sign
+    [--]
+
+           A     B                                   A
+    CC  2  3   1 2   C             _   F             3
+    |> cast(attrs, required_fields ++ optional_fields)
+    || [--]|[---]| [-------------] [] [-------------]|
+
+                        A               A
+    DD B                4         1     4
+    |> validate_required(required_fields)
+    || [---------------]|[-------------]|
+
+                             AB      B     B C                  A
+    EE           C           551     3   1 6 1           C      5
+    |> foreign_key_constraint(:people, name: :cars_owned_by_fkey)
+    || [--------------------]||[----]| [--]| |[----------------]|
+
+  D
+  end
+  [-]
+
+E
+end
+[-]
