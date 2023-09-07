@@ -1,4 +1,9 @@
-import { Listener, Notifier, walkFiles } from "@cursorless/common";
+import {
+  Listener,
+  Notifier,
+  PathChangeListener,
+  walkFiles,
+} from "@cursorless/common";
 import { cloneDeep, isEqual } from "lodash";
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -6,7 +11,6 @@ import * as vscode from "vscode";
 import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
 } from "../VscodeEnabledHatStyleManager";
-import type { VscodeFileSystem } from "../VscodeFileSystem";
 import { HAT_SHAPES, HatShape, VscodeHatStyleName } from "../hatStyles.types";
 import { FontMeasurements } from "./FontMeasurements";
 import getHatThemeColors from "./getHatThemeColors";
@@ -52,7 +56,6 @@ export default class VscodeHatRenderer {
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
-    private fileSystem: VscodeFileSystem,
     private enabledHatStyles: VscodeEnabledHatStyleManager,
     private fontMeasurements: FontMeasurements,
   ) {
@@ -119,7 +122,7 @@ export default class VscodeHatRenderer {
       await this.updateShapeOverrides(hatsDir);
 
       if (fs.existsSync(hatsDir)) {
-        this.hatsDirWatcherDisposable = this.fileSystem.watchDir(hatsDir, () =>
+        this.hatsDirWatcherDisposable = watchDir(hatsDir, () =>
           this.updateShapeOverrides(hatsDir),
         );
       }
@@ -373,4 +376,18 @@ export default class VscodeHatRenderer {
     this.destroyHatsDirWatcher();
     this.disposables.forEach(({ dispose }) => dispose());
   }
+}
+
+function watchDir(
+  path: string,
+  onDidChange: PathChangeListener,
+): vscode.Disposable {
+  const hatsDirWatcher = vscode.workspace.createFileSystemWatcher(
+    new vscode.RelativePattern(path, "*"),
+  );
+  hatsDirWatcher.onDidChange(onDidChange);
+  hatsDirWatcher.onDidCreate(onDidChange);
+  hatsDirWatcher.onDidDelete(onDidChange);
+
+  return hatsDirWatcher;
 }

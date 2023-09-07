@@ -13,7 +13,6 @@ import * as vscode from "vscode";
 import { Disposable } from "vscode";
 import { VscodeHatStyleName } from "../hatStyles.types";
 import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
-import type { VscodeFileSystem } from "../VscodeFileSystem";
 import type { VscodeIDE } from "../VscodeIDE";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 import { FontMeasurements } from "./FontMeasurements";
@@ -29,7 +28,6 @@ export class VscodeHats implements Hats {
   constructor(
     private ide: VscodeIDE,
     extensionContext: vscode.ExtensionContext,
-    fileSystem: VscodeFileSystem,
     fontMeasurements: FontMeasurements,
   ) {
     this.enabledHatStyleManager = new VscodeEnabledHatStyleManager(
@@ -37,7 +35,6 @@ export class VscodeHats implements Hats {
     );
     this.hatRenderer = new VscodeHatRenderer(
       extensionContext,
-      fileSystem,
       this.enabledHatStyleManager,
       fontMeasurements,
     );

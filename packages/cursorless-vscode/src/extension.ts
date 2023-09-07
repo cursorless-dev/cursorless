@@ -125,19 +125,17 @@ export async function activate(
 
 async function createVscodeIde(context: vscode.ExtensionContext) {
   const vscodeIDE = new VscodeIDE(context);
-  const fileSystem = new VscodeFileSystem();
 
   const hats = new VscodeHats(
     vscodeIDE,
     context,
-    fileSystem,
     vscodeIDE.runMode === "test"
       ? new FakeFontMeasurements()
       : new FontMeasurementsImpl(context),
   );
   await hats.init();
 
-  return { vscodeIDE, hats, fileSystem };
+  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
