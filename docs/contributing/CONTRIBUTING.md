@@ -45,22 +45,22 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 
    where `some.extension` is the id of the extension you'd like to install into the sandbox
 
-6. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
+6. Copy / symlink [`cursorless-talon-dev`](https://github.com/cursorless-dev/cursorless/tree/main/cursorless-talon-dev) into your Talon user directory for some useful voice commands for developing Cursorless.
 
 ## Running / testing extension locally
 
 In order to test out your local version of the extension or to run unit tests
 locally, you need to run the extension in debug mode. To do so you need to run
 the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run
-Extension" or "Extension Tests".
+extension" or "Extension tests".
 
 ### Running a subset of tests
 
 The entire test suite takes a little while to run (1-2 mins), so you may want to run just a subset of the tests.
 
-To specify the set of tests to run, say `"debug generate subset"`, or if you haven't installed the cursorless-talon-dev files, run the VSCode task "Generate test subset file". To do this, choose "Tasks: Run Task" from the command pallete.
+To specify the set of tests to run, say `"debug generate subset"`, or if you haven't installed the cursorless-talon-dev files, run the VSCode task "Generate test subset file". To do this, choose "Tasks: Run Task" from the command palette.
 
-To run the specified subset of tests, use the "Run test subset" launch config instead of the usual "Extension Tests".
+To run the specified subset of tests, use the "Extension tests subset" launch config instead of the usual "Extension tests".
 
 If you need to edit the subset of tests to run in the future, you can say `"debug edit subset"`.
 
