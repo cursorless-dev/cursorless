@@ -383,7 +383,7 @@ function watchDir(
   onDidChange: PathChangeListener,
 ): vscode.Disposable {
   const hatsDirWatcher = vscode.workspace.createFileSystemWatcher(
-    new vscode.RelativePattern(path, "*"),
+    new vscode.RelativePattern(path, `**/*${CURSORLESS_HAT_SHAPES_SUFFIX}`),
   );
   hatsDirWatcher.onDidChange(onDidChange);
   hatsDirWatcher.onDidCreate(onDidChange);
