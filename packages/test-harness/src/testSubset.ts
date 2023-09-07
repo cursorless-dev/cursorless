@@ -8,12 +8,17 @@ import { getCursorlessRepoRoot } from "@cursorless/common";
  */
 export function testSubsetGrepString(): string {
   const inFile = testSubsetFilePath();
-  return fs
+  let grepStr = fs
     .readFileSync(inFile, "utf-8")
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter((line) => line.length > 0 && !line.startsWith("#"))
     .join("|");
+  if (process.platform === "win32") {
+    // Path separators are OS specific ("/" for Linux/MacOS and "\\" for Windows).
+    grepStr = grepStr.replaceAll("/", "\\\\");
+  }
+  return grepStr;
 }
 
 /**
