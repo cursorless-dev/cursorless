@@ -5,6 +5,7 @@ import {
   walkFiles,
 } from "@cursorless/common";
 import { stat } from "fs/promises";
+import * as fs from "node:fs";
 import { max } from "lodash";
 
 export class VscodeFileSystem implements FileSystem {
@@ -13,6 +14,22 @@ export class VscodeFileSystem implements FileSystem {
     // watcher later. Note that we would need to do a version check, as VSCode
     // file watcher is only available in more recent versions of VSCode.
     return new PollingFileSystemWatcher(path, onDidChange);
+  }
+
+  watchDirNew(path: string, onDidChange: PathChangeListener): Disposable {
+    let timeout: NodeJS.Timeout;
+
+    const hatsDirWatcher = fs.watch(path, () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(onDidChange, 50);
+    });
+
+    return {
+      dispose: () => {
+        clearTimeout(timeout);
+        hatsDirWatcher.close();
+      },
+    };
   }
 }
 

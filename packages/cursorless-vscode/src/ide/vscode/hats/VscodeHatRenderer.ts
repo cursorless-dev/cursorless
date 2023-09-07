@@ -6,6 +6,7 @@ import * as vscode from "vscode";
 import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
 } from "../VscodeEnabledHatStyleManager";
+import type { VscodeFileSystem } from "../VscodeFileSystem";
 import { HAT_SHAPES, HatShape, VscodeHatStyleName } from "../hatStyles.types";
 import { FontMeasurements } from "./FontMeasurements";
 import getHatThemeColors from "./getHatThemeColors";
@@ -46,11 +47,12 @@ export default class VscodeHatRenderer {
   private disposables: vscode.Disposable[] = [];
   private notifier: Notifier<[]> = new Notifier();
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
-  private hatsDirWatcher?: fs.FSWatcher;
+  private hatsDirWatcherDisposable?: vscode.Disposable;
   private hatShapeOverrides: Record<string, string> = {};
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
+    private fileSystem: VscodeFileSystem,
     private enabledHatStyles: VscodeEnabledHatStyleManager,
     private fontMeasurements: FontMeasurements,
   ) {
@@ -115,13 +117,12 @@ export default class VscodeHatRenderer {
 
     if (hatsDir) {
       await this.updateShapeOverrides(hatsDir);
-      let timeout: NodeJS.Timeout;
 
       if (fs.existsSync(hatsDir)) {
-        this.hatsDirWatcher = fs.watch(hatsDir, () => {
-          clearTimeout(timeout);
-          timeout = setTimeout(() => this.updateShapeOverrides(hatsDir), 50);
-        });
+        this.hatsDirWatcherDisposable = this.fileSystem.watchDirNew(
+          hatsDir,
+          () => this.updateShapeOverrides(hatsDir),
+        );
       }
     } else {
       this.hatShapeOverrides = {};
@@ -161,9 +162,9 @@ export default class VscodeHatRenderer {
   }
 
   private destroyHatsDirWatcher() {
-    if (this.hatsDirWatcher != null) {
-      this.hatsDirWatcher.close();
-      this.hatsDirWatcher = undefined;
+    if (this.hatsDirWatcherDisposable != null) {
+      this.hatsDirWatcherDisposable.dispose();
+      this.hatsDirWatcherDisposable = undefined;
     }
   }
 
