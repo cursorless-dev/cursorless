@@ -73,40 +73,10 @@ function processSurroundingPairCore(
   ] ?? [scopeType.delimiter];
 
   let node: SyntaxNode | null;
-  let textFragmentExtractor: TextFragmentExtractor;
+  let textFragmentExtractor: TextFragmentExtractor | null;
 
   const textFragmentScopeHandler =
     languageDefinition?.getTextFragmentScopeHandler();
-
-  if (textFragmentScopeHandler != null) {
-    const containingScope = getContainingScopeTarget(
-      target,
-      textFragmentScopeHandler,
-      0,
-    );
-
-    if (containingScope != null) {
-      const surroundingRange = findSurroundingPairTextBased(
-        editor,
-        range,
-        containingScope[0].contentRange,
-        delimiters,
-        scopeType,
-      );
-      if (surroundingRange != null) {
-        // Found the pair within this text fragment or comment, e.g. "(abc)"
-        return surroundingRange;
-      }
-      // Search in the rest of the file, to find e.g. ("abc")
-      return findSurroundingPairTextBased(
-        editor,
-        range,
-        null,
-        delimiters,
-        scopeType,
-      );
-    }
-  }
 
   try {
     node = languageDefinitions.getNodeAtLocation(document, range);
@@ -140,13 +110,31 @@ function processSurroundingPairCore(
     }
   }
 
-  // If we have a parse tree but we are in a string node or in a comment node,
-  // then we use the text-based algorithm
-  const selectionWithEditor = {
-    editor,
-    selection: new Selection(range.start, range.end),
-  };
-  const textFragmentRange = textFragmentExtractor(node, selectionWithEditor);
+  const textFragmentRange = (() => {
+    if (textFragmentScopeHandler != null) {
+      const containingScope = getContainingScopeTarget(
+        target,
+        textFragmentScopeHandler,
+        0,
+      );
+
+      return containingScope?.[0].contentRange;
+    }
+
+    if (textFragmentExtractor == null) {
+      return editor.document.range;
+    }
+
+    // If we have a parse tree but we are in a string node or in a comment node,
+    // then we use the text-based algorithm
+    const selectionWithEditor = {
+      editor,
+      selection: new Selection(range.start, range.end),
+    };
+
+    return textFragmentExtractor(node, selectionWithEditor);
+  })();
+
   if (textFragmentRange != null) {
     const surroundingRange = findSurroundingPairTextBased(
       editor,

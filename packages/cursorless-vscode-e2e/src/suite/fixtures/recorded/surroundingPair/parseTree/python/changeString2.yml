@@ -1,0 +1,23 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: change string
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: string}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "\"\"\"hello\"\"\""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: "\"hello\"\"\""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
