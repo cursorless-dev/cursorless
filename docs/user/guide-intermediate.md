@@ -291,7 +291,7 @@ Cursorless also has good support for operating on parts of a token.
 Cursorless can recognize and operate on words within a snake_case, camelCase, or PascalCase token.
 
 - `"chuck third word air"` or `"chuck last word air"` to delete `"_cherry"` from `"apple_banana_cherry"`.
-- `"change second word past third word air"` to delete `"BananaCherry"` from `"AppleBananaCherryDate"`.
+- `"change second past third word air"` to delete `"BananaCherry"` from `"AppleBananaCherryDate"`.
 - `"chuck last 2 words air"` to delete the last two words of the air token.
 - `"chuck tail token third word air"` to delete from the third word to the last word of the air token.
   It is probably easier to do `"chuck third word past last word air"`.
