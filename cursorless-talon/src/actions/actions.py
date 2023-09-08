@@ -1,6 +1,5 @@
-from typing import List, Union
+from typing import Union
 
-from .replace import cursorless_replace_action
 from talon import Module, actions
 
 from ..targets.target_types import (
@@ -12,6 +11,7 @@ from .bring_move import BringMoveTargets
 from .call import cursorless_call_action
 from .execute_command import cursorless_execute_command_action
 from .homophones import cursorless_homophones_action
+from .replace import cursorless_replace_action
 
 mod = Module()
 
@@ -119,7 +119,7 @@ class Actions:
         return cursorless_execute_command_action(command_id, target)
 
     def cursorless_insert(
-        destination: CursorlessDestination, text: Union[str, List[str]]
+        destination: CursorlessDestination, text: Union[str, list[str]]
     ):
         """Perform text insertion on Cursorless destination"""
         if isinstance(text, str):
