@@ -23,9 +23,6 @@ import { ternaryBranchMatcher } from "./ternaryBranchMatcher";
 export const getTypeNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "type") ?? null;
 
-const dictionaryTypes = ["dictionary", "dictionary_comprehension"];
-const listTypes = ["list", "list_comprehension", "set"];
-
 function itemNodeFinder(
   parentType: string,
   childType: string,
@@ -48,8 +45,6 @@ function itemNodeFinder(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  map: dictionaryTypes,
-  list: listTypes,
   string: "string",
   collectionItem: cascadingMatcher(
     matcher(
