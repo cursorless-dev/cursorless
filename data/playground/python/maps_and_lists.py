@@ -22,13 +22,13 @@ def mapsAndLists():
     _ = {1, 2, 3}
 
     # Python "dictionary" is "map" scope
-    d1 = {"a":1, "b": 2, "c": 3}
+    d1 = {"a": 1, "b": 2, "c": 3}
     _ = {key1: 1, key2: 2, key3: 3}
-    _ = {value:key for (key,value) in d1.items()}
+    _ = {value: key for (key, value) in d1.items()}
 
     # complex ones
     _ = [[1, 2, 3], 4, 5, 6]
-    _ = [[1, 2, 3], {1, 2, 3}, {"a":1, "b": 2, "c": 3}]
-    _ = {{"a":1, "b": 2, "c": 3}: 1, d1: 2}
+    _ = [[1, 2, 3], {1, 2, 3}, {"a": 1, "b": 2, "c": 3}]
+    _ = {{"a": 1, "b": 2, "c": 3}: 1, d1: 2}
     _ = {{1, 2, 3}: 1, {2, 3, 4}: 2}
     _ = ({1, 2, 3}, {1, 2, 3}, {1, 2, 3})
