@@ -167,6 +167,7 @@ const nodeMatchers: Partial<
       "pair[key]",
       "jsx_attribute.property_identifier!",
       "interface_declaration.object_type.property_signature[name]!",
+      "type_alias_declaration.object_type.property_signature[name]!",
       "shorthand_property_identifier",
     ],
     [":"],
