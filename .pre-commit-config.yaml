@@ -83,8 +83,3 @@ repos:
     rev: 23.3.0
     hooks:
       - id: black
-  - repo: https://github.com/wenkokke/talonfmt
-    rev: 1.9.5
-    hooks:
-      - id: talonfmt
-        args: ["--in-place"]
