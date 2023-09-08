@@ -90,11 +90,16 @@ def insert_named_snippet(
     insert_snippet(snippet, destination)
 
 
-def insert_custom_snippet(body: str, destination: CursorlessDestination):
+def insert_custom_snippet(
+    body: str,
+    destination: CursorlessDestination,
+    scope_type: Optional[str] = None,
+):
     insert_snippet(
         {
             "type": "custom",
             "body": body,
+            "scopeType": {"type": scope_type} if scope_type else None,
         },
         destination,
     )
@@ -127,12 +132,13 @@ class Actions:
             ImplicitDestination(),
         )
 
-    def cursorless_insert_snippet(body: str):
+    def cursorless_insert_snippet(
+        body: str,
+        destination: Optional[CursorlessDestination] = ImplicitDestination(),
+        scope_type: Optional[str] = None,
+    ):
         """Cursorless: Insert custom snippet <body>"""
-        insert_custom_snippet(
-            body,
-            ImplicitDestination(),
-        )
+        insert_custom_snippet(body, destination, scope_type)
 
     def cursorless_wrap_with_snippet_by_name(
         name: str, variable_name: str, target: CursorlessTarget
