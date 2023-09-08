@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 397.01 264.7" width="1em" height="1em"><defs><style>.cls-1{fill:#666666;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M202.63,262.78,393.87,22c9.57-17.55-4.67-30.45-17.29-13.74-43.06,57-133.84,112.18-178.08,112.18S63,64.71,19.21,8.27C4.76-10.33-6.36,6.05,4.13,22l191.2,240.77A4.44,4.44,0,0,0,202.63,262.78Z"/></g></g></svg>
+<svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_8_225)">
+<path d="M6.00001 9L0 0C0 0 4.5 3 6 3C7.5 3 9.65685 1.23015 12 0L6.00001 9Z" fill="#FF0000"/>
+</g>
+<defs>
+<clipPath id="clip0_8_225">
+<rect width="12" height="9" fill="white"/>
+</clipPath>
+</defs>
+</svg>
