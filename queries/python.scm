@@ -32,7 +32,7 @@
 (
   (assignment
     right: (_) @value
-  )
+  ) @_.domain
 )
 
 ;; a /= 25
@@ -40,7 +40,7 @@
 (
   (augmented_assignment
     right: (_) @value
-  )
+  ) @_.domain
 )
 
 ;; d = {"a": 1234}
