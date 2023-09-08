@@ -206,7 +206,7 @@ export default class VscodeHatRenderer {
       .replace(/fill="none"/g, "")
       .replace(/fill="[^"]+"/g, `fill="${color}"`)
       .replace(/fill:[^;]+;/g, `fill:${color};`)
-      .replace(/\r?\n/g, "");
+      .replace(/\r?\n/g, " ");
 
     const encoded = encodeURIComponent(svg);
 
