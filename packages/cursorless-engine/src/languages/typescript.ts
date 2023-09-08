@@ -240,6 +240,9 @@ const nodeMatchers: Partial<
       // satisfices type declaration
       "satisfies_expression.generic_type!",
       "satisfies_expression.predefined_type!",
+      // <type> declaration
+      "type_assertion.type_arguments.generic_type!",
+      "type_assertion.type_arguments.predefined_type!",
     ),
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
