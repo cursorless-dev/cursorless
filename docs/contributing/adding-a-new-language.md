@@ -37,3 +37,12 @@ likely be helpful to look at the existing recorded test cases (eg
 [java](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/java)) to see how
 they
 should end up looking when they're recorded.
+
+## 3. Migrating from old scope handler to new one (tree-sitter based)
+
+We suggest the following:
+
+- Have a look at how scopes were migrated for different languages from the [previous PRs with scope-migration label](https://github.com/cursorless-dev/cursorless/pulls?q=is%3Apr+is%3Aclosed+label%3Ascope-migration)
+- Choose a language you know well and use
+- Only migrate one scope at a time and do a PR for it (or a few scopes at a time only, see previous PRs above)
+- Look at this list of [tips](https://github.com/cursorless-dev/cursorless/wiki/Language-implementor-tips)
