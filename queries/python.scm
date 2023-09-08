@@ -27,6 +27,17 @@
   (with_statement)
 ] @statement
 
+[
+  (dictionary)
+  (dictionary_comprehension)
+] @map
+
+[
+  (list)
+  (list_comprehension)
+  (set)
+] @list
+
 (
   (function_definition
     name: (_) @functionName
