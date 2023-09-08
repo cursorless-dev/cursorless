@@ -27,7 +27,6 @@ def mapsAndLists():
     _ = {value:key for (key,value) in d1.items()}
 
     # complex ones
-    _ = [L, S, D]
     _ = [[1, 2, 3], 4, 5, 6]
     _ = [[1, 2, 3], {1, 2, 3}, {"a":1, "b": 2, "c": 3}]
     _ = {{"a":1, "b": 2, "c": 3}: 1, d1: 2}
