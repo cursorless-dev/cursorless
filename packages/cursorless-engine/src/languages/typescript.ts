@@ -237,7 +237,7 @@ const nodeMatchers: Partial<
       // as type declarations
       "as_expression.generic_type!",
       "as_expression.predefined_type!",
-      // satisfices type declaration
+      // satisfies type declaration
       "satisfies_expression.generic_type!",
       "satisfies_expression.predefined_type!",
       // <type> declaration
