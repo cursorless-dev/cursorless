@@ -31,3 +31,5 @@ _ = {{1, 2, 3}: 1, {2, 3, 4}: 2}
 # value to be of "value" scope so we have it here
 # to be sure we ignore it
 d1["a"]
+
+value = "hello world"
