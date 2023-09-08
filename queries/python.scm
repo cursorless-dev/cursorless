@@ -27,6 +27,50 @@
   (with_statement)
 ] @statement
 
+;; a = 25
+;;     ^^
+(
+  (assignment
+    right: (_) @value
+  )
+)
+
+;; a /= 25
+;;      ^^
+(
+  (augmented_assignment
+    right: (_) @value
+  )
+)
+
+;; d = {"a": 1234}
+;;           ^^^^
+;;      ---------
+;;
+;; NOTE: we ignore d["a"] of type
+;; (subscript
+;;  value: ...
+;; )
+(
+  (_
+    value: (_) @value
+  ) @_.domain
+  (#not-type? @_.domain subscript)
+)
+
+;; def func():
+;;     return 1
+;;            ^
+;;     --------
+;;
+;; NOTE: in tree-sitter, both "return" and the b are children of `return_statement`
+;; but "return" is anonymous whereas b is named node, so no need to exclude explicitly
+(
+  (return_statement
+    (_) @value
+  ) @_.domain
+)
+
 (
   (function_definition
     name: (_) @functionName
