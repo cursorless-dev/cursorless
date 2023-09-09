@@ -1,8 +1,9 @@
 import sys
 
+
 def statements():
-    print(sys.path[0]) # comment 1
-    print("hello") # comment 2
+    print(sys.path[0])  # comment 1
+    print("hello")  # comment 2
 
     # the below statement has additional spaces after it
     val = 1 == 2
@@ -11,11 +12,9 @@ def statements():
 
     # also the below has non-empty indentation
 
-
     c = range(10)
     c.append(100)
     x = 1
-    x++
     two = 2
     x /= 2
     for i in range(10):
@@ -34,5 +33,6 @@ def statements():
         print("You are allowed to party")
     else:
         print("You're too young to party")
+
 
 statements()
