@@ -27,6 +27,13 @@
   (with_statement)
 ] @statement
 
+(comment) @comment @textFragment
+
+(string
+  _ @textFragment.start.endOf
+  _ @textFragment.end.startOf
+) @string
+
 [
   (dictionary)
   (dictionary_comprehension)
