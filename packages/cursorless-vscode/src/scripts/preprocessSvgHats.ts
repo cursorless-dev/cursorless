@@ -9,6 +9,7 @@ async function main() {
   const dumper = new parser.XMLBuilder({
     ignoreAttributes: false,
     suppressEmptyNode: true,
+    format: true,
   });
 
   readdirSync(directory, { withFileTypes: true }).forEach(async (dirent) => {
@@ -30,8 +31,8 @@ async function main() {
 
     const outputSvg = dumper
       .build(svgJson)
-      .replace(/fill="[^"]+"/, `fill="#666666"`)
-      .replace(/fill:[^;]+;/, `fill:#666666;`);
+      .replace(/fill="(?!none)[^"]+"/g, 'fill="#666666"')
+      .replace(/fill:(?!none)[^;]+;/g, "fill:#666666;");
 
     await fsp.writeFile(filePath, outputSvg);
   });
