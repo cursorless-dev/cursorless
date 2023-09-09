@@ -1,7 +1,7 @@
 
 # the argument value "True" that is part of "b=True"
 # is "value" scope
-def func(b=True):
+def func(b=True, c=True):
     # the returned value "1" that is part of "return 1"
     # is "value" scope
     if b is True:
@@ -18,6 +18,10 @@ func(False)
 # both "1.5" and "25" are "value" scope
 val = 1.5
 val /= 25
+
+val1, val2 = 0, 5  
+val1 = val2
+
 
 # values of a Python "dictionary" are "value" scope
 d1 = {"a": 1, "b": 2, "c": 3}

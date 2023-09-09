@@ -29,23 +29,50 @@
 
 ;; a = 25
 ;;     ^^
+;;   xxxx
+;; ------
 (
   (assignment
+    [
+      "="
+    ] @_.leading
     right: (_) @value
   ) @_.domain
 )
 
 ;; a /= 25
 ;;      ^^
+;;   xxxxx
+;; -------
 (
   (augmented_assignment
+    [
+      "+="
+      "-="
+      "*="
+      "/="
+      "%="
+      "//="
+      "**="
+      "&="
+      "|="
+      "^="
+      "<<="
+      ">>="
+    ] @_.leading
     right: (_) @value
   ) @_.domain
 )
 
 ;; d = {"a": 1234}
 ;;           ^^^^
+;;         xxxxxx
 ;;      ---------
+;;
+;; def func(b=True):
+;;            ^^^^
+;;           xxxxx
+;;          ------
 ;;
 ;; NOTE: we ignore d["a"] of type
 ;; (subscript
@@ -53,6 +80,10 @@
 ;; )
 (
   (_
+    [
+      ":"
+      "="
+    ] @_.leading
     value: (_) @value
   ) @_.domain
   (#not-type? @_.domain subscript)
@@ -61,10 +92,11 @@
 ;; def func():
 ;;     return 1
 ;;            ^
+;;            x
 ;;     --------
 ;;
-;; NOTE: in tree-sitter, both "return" and the b are children of `return_statement`
-;; but "return" is anonymous whereas b is named node, so no need to exclude explicitly
+;; NOTE: in tree-sitter, both "return" and the "1" are children of `return_statement`
+;; but "return" is anonymous whereas "1" is named node, so no need to exclude explicitly
 (
   (return_statement
     (_) @value
