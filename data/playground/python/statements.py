@@ -15,7 +15,6 @@ def statements():
     c = range(10)
     c.append(100)
     x = 1
-    two = 2
     x /= 2
     for i in range(10):
         if i == 0:
@@ -23,7 +22,6 @@ def statements():
         print(i)
         break
 
-    a = "how long is a piece of me?"
     age = 120
     if age > 90:
         print("You are too old to party, granny.")
