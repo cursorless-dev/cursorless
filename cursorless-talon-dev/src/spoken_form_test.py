@@ -1,5 +1,5 @@
 import json
-from typing import Any, Optional
+from typing import Any
 
 from talon import Context, Module, actions, scope
 
@@ -82,9 +82,7 @@ class Actions:
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
 
-    def private_cursorless_spoken_form_test(
-        phrase: str, mockedGetValue_: Optional[str]
-    ):
+    def private_cursorless_spoken_form_test(phrase: str, mockedGetValue_: str | None):
         """Run Cursorless spoken form test"""
         global commands_run, mockedGetValue
         commands_run = []

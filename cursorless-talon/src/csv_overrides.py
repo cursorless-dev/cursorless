@@ -2,7 +2,6 @@ import csv
 from collections.abc import Container
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 from talon import Context, Module, actions, app, fs
 
@@ -34,13 +33,13 @@ tag: user.cursorless_default_vocabulary
 def init_csv_and_watch_changes(
     filename: str,
     default_values: dict[str, dict[str, str]],
-    extra_ignored_values: Optional[list[str]] = None,
+    extra_ignored_values: list[str] | None = None,
     allow_unknown_values: bool = False,
-    default_list_name: Optional[str] = None,
+    default_list_name: str | None = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     ctx: Context = Context(),
     no_update_file: bool = False,
-    pluralize_lists: Optional[list[str]] = [],
+    pluralize_lists: list[str] | None = [],
 ):
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
@@ -173,7 +172,7 @@ def update_dicts(
     current_values: dict,
     extra_ignored_values: list[str],
     allow_unknown_values: bool,
-    default_list_name: Optional[str],
+    default_list_name: str | None,
     pluralize_lists: list[str],
     ctx: Context,
 ):
