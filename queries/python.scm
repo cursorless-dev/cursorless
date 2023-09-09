@@ -29,12 +29,10 @@
 
 (comment) @comment @textFragment
 
-(
-  (string
-    _ @textFragment.start.endOf
-    _ @textFragment.end.startOf
-  ) @string
-)
+(string
+  _ @textFragment.start.endOf
+  _ @textFragment.end.startOf
+) @string
 
 [
   (dictionary)
