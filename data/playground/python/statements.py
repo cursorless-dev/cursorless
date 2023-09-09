@@ -5,12 +5,12 @@ def statements():
     print("hello") # comment 2
 
     # the below statement has additional spaces after it
-    val = 1 == 2    
+    val = 1 == 2
     if val is True:
         return
 
     # also the below has non-empty indentation
-    
+
 
     c = range(10)
     c.append(100)
