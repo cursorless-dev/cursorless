@@ -27,81 +27,56 @@
   (with_statement)
 ] @statement
 
-;; a = 25
-;;     ^^
-;;   xxxx
-;; ------
-(
-  (assignment
-    [
-      "="
-    ] @_.leading
-    right: (_) @value
-  ) @_.domain
-)
-
-;; a /= 25
-;;      ^^
-;;   xxxxx
-;; -------
-(
-  (augmented_assignment
-    [
-      "+="
-      "-="
-      "*="
-      "/="
-      "%="
-      "//="
-      "**="
-      "&="
-      "|="
-      "^="
-      "<<="
-      ">>="
-    ] @_.leading
-    right: (_) @value
-  ) @_.domain
-)
-
-;; d = {"a": 1234}
-;;           ^^^^
-;;         xxxxxx
-;;      ---------
-;;
-;; {value: key for (key, value) in d1.items()}
-;;         ^^^
-;;       xxxxx
-;;  ----------
-(pair
-  ":" @_.leading
-  value: (_) @value
+;;!! a = 25
+;;!      ^^
+;;!    xxxx
+;;!  ------
+(assignment
+  (_) @_.leading.start.endOf
+  .
+  right: (_) @value @_.leading.end.startOf
 ) @_.domain
 
-;; def func(value: str=""):
-;;                     ^^
-;;                    xxx
-;;          -------------
-(parameters
+;;!! a /= 25
+;;!       ^^
+;;!    xxxxx
+;;!  -------
+(augmented_assignment
+  (_) @_.leading.start.endOf
+  .
+  right: (_) @value @_.leading.end.startOf
+) @_.domain
+
+;;!! d = {"a": 1234}
+;;!            ^^^^
+;;!          xxxxxx
+;;!       ---------
+;;!! {value: key for (key, value) in d1.items()}
+;;!          ^^^
+;;!        xxxxx
+;;!   ----------
+;;!! def func(value: str=""):
+;;!                      ^^
+;;!                     xxx
+;;!           -------------
+(
   (_
-    "=" @_.leading
-    value: (_) @value
+    (_) @_.leading.start.endOf
+    .
+    value: (_) @value @_.leading.end.startOf
   ) @_.domain
+  (#not-type? @_.domain subscript)
 )
 
-;; def func():
-;;     return 1
-;;            ^
-;;            x
-;;     --------
+;;!! return 1
+;;!         ^
+;;!  --------
 ;;
 ;; NOTE: in tree-sitter, both "return" and the "1" are children of `return_statement`
 ;; but "return" is anonymous whereas "1" is named node, so no need to exclude explicitly
-(
-  (return_statement
-    (_) @value
-  ) @_.domain
-)
+(return_statement
+  (_) @value
+) @_.domain
 
 (
   (function_definition
@@ -136,24 +111,24 @@
 (module) @namedFunction.iteration @functionName.iteration
 (class_definition) @namedFunction.iteration @functionName.iteration
 
-;; def foo():
-;;     a = 0
-;;     *****
-;;     b = 1
-;;     *****
-;;     c = 2
-;;     *****
+;;!! def foo():
+;;!!     a = 0
+;;!     <*****
+;;!!     b = 1
+;;!      *****
+;;!!     c = 2
+;;!      *****>
 (block) @statement.iteration @value.iteration
 
-;; {"a": 1, "b": 2, "c": 3}
-;;  **********************
+;;!! {"a": 1, "b": 2, "c": 3}
+;;!   **********************
 (dictionary
   "{" @value.iteration.start.endOf
   "}" @value.iteration.end.startOf
 )
 
-;; def func(a=0, b=1):
-;;          ********
+;;!! def func(a=0, b=1):
+;;!           ********
 (parameters
   "(" @value.iteration.start.endOf
   ")" @value.iteration.end.startOf
