@@ -1,44 +1,44 @@
-_  _       _            _      _ _
+_  _       _       _      _      _
 // Package intern interns strings.
 [] [-----] [----] [-----] [-----]|
 
-A     _       A _     _       _ A
+A    _       A  _    _      _   A
 // Interning is best effort only.
 [] [-------] [] [--] [----] [--]|
 
-B         _  _      _   A      _    _
+B      _         _  _   A      _   _
 // Interned strings may be removed automatically
 [] [------] [-----] [-] [] [-----] [-----------]
 
-C  _   _     A _             _     B
+C  A    _ A    _           _       B
 // at any time without notification.
 [] [] [-] [--] [-----] [----------]|
 
-D   A        _     _ B       A      _
+D   _   _        A   B  _      A
 // All functions may be called concurrently
 [] [-] [-------] [-] [] [----] [----------]
 
-E     _        A   A     A  A    C
+E     _ B            _ A    A    C
 // with themselves and each other.
 [] [--] [--------] [-] [--] [---]|
 
-   _    A
+   _    B
 package intern
 [-----] [----]
 
- A     _ A  A
+C      _A   A
 import "sync"
 [----] |[--]|
 
-B      B B   DA    _ C   EB   _
+A   A    B   DB    _ C   EC   _
 var pool sync.Pool = sync.Pool{
 [-] [--] [--]|[--] | [--]|[--]|
 
-   A_ A   __ B        A_ B
+ A  _ A   __ D        A_ B
 ␉New: func() interface{} {
  [-]| [--]|| [-------]|| |
 
-     A     A A  C_     A_D     A
+  A      B   AC  _D     _E     A
 ␉␉return make(map[string]string)
   [----] [--]|[-]|[----]|[----]|
 
@@ -50,31 +50,32 @@ B
 }
 |
 
-F  E         B    FA        BF
+F  F      B       1A E       F
 // String returns s, interned.
 [] [----] [-----] || [------]|
 
-B         BB1  A    B 2      C
+B    2     B3 4     B 5      C
 func String(s string) string {
 [--] [----]|| [----]| [----] |
 
- B AA  B  1 B CC2D B A3     A4     D
+ D AA D   1A  CC2DE  A6     A C    D
 ␉m := pool.Get().(map[string]string)
  | || [--]|[-]||||[-]|[----]|[----]|
 
- BB  B BB CB5B
+            A
+ BB B  BB FB1B
 ␉c, ok := m[s]
  || [] || ||||
 
-  C C  D
+ F  C  D
 ␉if ok {
  [] [] |
 
-     C3 C EDE
+  E   3F  E1E
 ␉␉pool.Put(m)
   [--]|[-]|||
 
-   C     C
+  C      C
 ␉␉return c
   [----] |
 
@@ -82,17 +83,17 @@ func String(s string) string {
 ␉}
  |
 
-        A
- EC6C C 1
+   A    A
+ 2C2C C 3
 ␉m[s] = s
  |||| | |
 
-  D  4 D FFF
+ 1   42  F3F
 ␉pool.Put(m)
  [--]|[-]|||
 
         A
- A      2
+ D      4
 ␉return s
  [----] |
 
@@ -100,33 +101,33 @@ D
 }
 |
 
-1  C     B       D    C      B  C      CC    D    5
+1  C     E       D D         D  B  E    C 1       5
 // Bytes returns b converted to a string, interned.
 [] [---] [-----] | [-------] [] | [----]| [------]|
 
-D     B   1E DD C  1      D E
+C    E    1F DD1   1  F     E
 func Bytes(b []byte) string {
 [--] [---]|| ||[--]| [----] |
 
                 A
- 1 CD    D6 E 2213 D E  C   E C    3
+ 4 CD 3   6B  22135  E 1    E 2    3
 ␉m := pool.Get().(map[string]string)
  | || [--]|[-]||||[-]|[----]|[----]|
 
- DD  C DE 2F D    4F4F
+ ED D  DE 6F 3    424F
 ␉c, ok := m[string(b)]
  || [] || ||[----]||||
 
-  E E  F
+ 2  E  F
 ␉if ok {
  [] [] |
 
-      A
-     E2 E 535
+      A    A
+  4   25  515
 ␉␉pool.Put(m)
   [--]|[-]|||
 
-   F     E
+  F      F
 ␉␉return c
   [----] |
 
@@ -135,22 +136,22 @@ func Bytes(b []byte) string {
  |
 
  A
- 3 EF      E616
+ 5 EF  4    636
 ␉s := string(b)
  | || [----]|||
 
-   A    A
- 4141 1 5
+ A A    B
+ 2161 1 1
 ␉m[s] = s
  |||| | |
 
-     A   A A
-  F  3 F 151
+     A   AAA
+ 6   3 A 131
 ␉pool.Put(m)
  [--]|[-]|||
 
-        A
-  1     6
+        B
+ 1      2
 ␉return s
  [----] |
 
