@@ -27,6 +27,58 @@
   (with_statement)
 ] @statement
 
+;;!! a = 25
+;;!      ^^
+;;!   xxxxx
+;;!  ------
+(assignment
+  (_) @_.leading.start.endOf
+  .
+  right: (_) @value @_.leading.end.startOf
+) @_.domain
+
+;;!! a /= 25
+;;!       ^^
+;;!   xxxxxx
+;;!  -------
+(augmented_assignment
+  (_) @_.leading.start.endOf
+  .
+  right: (_) @value @_.leading.end.startOf
+) @_.domain
+
+;;!! d = {"a": 1234}
+;;!            ^^^^
+;;!          xxxxxx
+;;!       ---------
+;;!! {value: key for (key, value) in d1.items()}
+;;!          ^^^
+;;!        xxxxx
+;;!   ----------
+;;!! def func(value: str = ""):
+;;!                        ^^
+;;!                     xxxxx
+;;!           ---------------
+(
+  (_
+    (_) @_.leading.start.endOf
+    .
+    value: (_) @value @_.leading.end.startOf
+  ) @_.domain
+  (#not-type? @_.domain subscript)
+)
+
+;;!! return 1
+;;!         ^
+;;!        xx
+;;!  --------
+;;
+;; NOTE: in tree-sitter, both "return" and the "1" are children of `return_statement`
+;; but "return" is anonymous whereas "1" is named node, so no need to exclude explicitly
+(return_statement
+  (_) @value
+) @_.domain
+
 (comment) @comment @textFragment
 
 (string
@@ -77,6 +129,26 @@
 (module) @statement.iteration
 (module) @namedFunction.iteration @functionName.iteration
 (class_definition) @namedFunction.iteration @functionName.iteration
-(_
-  body: (_) @statement.iteration
+
+;;!! def foo():
+;;!!     a = 0
+;;!     <*****
+;;!!     b = 1
+;;!      *****
+;;!!     c = 2
+;;!      *****>
+(block) @statement.iteration @value.iteration
+
+;;!! {"a": 1, "b": 2, "c": 3}
+;;!   **********************
+(dictionary
+  "{" @value.iteration.start.endOf
+  "}" @value.iteration.end.startOf
+)
+
+;;!! def func(a=0, b=1):
+;;!           ********
+(parameters
+  "(" @value.iteration.start.endOf
+  ")" @value.iteration.end.startOf
 )
