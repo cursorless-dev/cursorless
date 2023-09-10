@@ -37,9 +37,7 @@ def my_funk(value: str = "hello", other: bool=False) -> str:
 
 # we can say "change every value" to allow modifying all the values in one go
 def foo():
-    a = 0
-    b = 1
-    c = 2
+    pass
 
 # But we don't support outside of a function yet
 a = 0
@@ -56,7 +54,7 @@ _ = {value: key for (key, value) in d1.items()}
 _ = {{"a": 1, "b": 2, "c": 3}: 1, d1: 2}
 _ = {{1, 2, 3}: 1, {2, 3, 4}: 2}
 
-# we don't want the access to a a Python "dictionary" 
+# we don't want the access to a a Python "dictionary"
 # value to be of "value" scope so we have it here
 # to be sure we ignore it
 d1["a"]
