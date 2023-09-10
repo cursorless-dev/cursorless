@@ -29,7 +29,7 @@
 
 ;;!! a = 25
 ;;!      ^^
-;;!    xxxx
+;;!   xxxxx
 ;;!  ------
 (assignment
   (_) @_.leading.start.endOf
@@ -39,7 +39,7 @@
 
 ;;!! a /= 25
 ;;!       ^^
-;;!    xxxxx
+;;!   xxxxxx
 ;;!  -------
 (augmented_assignment
   (_) @_.leading.start.endOf
@@ -55,10 +55,10 @@
 ;;!          ^^^
 ;;!        xxxxx
 ;;!   ----------
-;;!! def func(value: str=""):
-;;!                      ^^
-;;!                     xxx
-;;!           -------------
+;;!! def func(value: str = ""):
+;;!                        ^^
+;;!                     xxxxx
+;;!           ---------------
 (
   (_
     (_) @_.leading.start.endOf
@@ -70,6 +70,7 @@
 
 ;;!! return 1
 ;;!         ^
+;;!        xx
 ;;!  --------
 ;;
 ;; NOTE: in tree-sitter, both "return" and the "1" are children of `return_statement`
