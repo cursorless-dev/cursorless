@@ -1,3 +1,9 @@
+# Useful commands:
+# "visualize value"
+# "visualize value iteration"
+# "take value"
+# "chuck value"
+# "chuck every value"
 
 # the argument value "True" that is part of "b=True"
 # is "value" scope
@@ -19,12 +25,28 @@ func(False)
 val = 1.5
 val /= 25
 
-val1, val2 = 0, 5  
+val1, val2 = 0, 5
+val1 = 0, val2 = 5
 val1 = val2
 
+def my_funk(value: str) -> str:
+    print(value)
+
+# we can say "change every value" to allow modifying all the values in one go
+def foo():
+    a = 0
+    b = 1
+    c = 2
+
+# But we don't support outside of a function yet
+a = 0
+b = 1
+c = 2
 
 # values of a Python "dictionary" are "value" scope
+# we can say "chuck every value" to convert the dict into a set
 d1 = {"a": 1, "b": 2, "c": 3}
+
 _ = {value: key for (key, value) in d1.items()}
 
 # complex ones

@@ -135,6 +135,32 @@
 (module) @statement.iteration
 (module) @namedFunction.iteration @functionName.iteration
 (class_definition) @namedFunction.iteration @functionName.iteration
-(_
-  body: (_) @statement.iteration
+
+;; _ = {value: key for (key, value) in d1.items()}
+;;      **********
+;;(_
+;;  body: (_) @statement.iteration @value.iteration
+;;)
+
+;; def foo():
+;;     a = 0
+;;     *****
+;;     b = 1
+;;     *****
+;;     c = 2
+;;     *****
+(block) @statement.iteration @value.iteration
+
+;; {"a": 1, "b": 2, "c": 3}
+;;  **********************
+(dictionary
+  "{" @value.iteration.start.endOf
+  "}" @value.iteration.end.startOf
+)
+
+;; def func(a=0, b=1):
+;;          ********
+(parameters
+  "(" @value.iteration.start.endOf
+  ")" @value.iteration.end.startOf
 )
