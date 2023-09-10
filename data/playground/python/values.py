@@ -32,6 +32,9 @@ val1 = val2
 def my_funk(value: str) -> str:
     print(value)
 
+def my_funk(value: str = "hello", other: bool=False) -> str:
+    print(value)
+
 # we can say "change every value" to allow modifying all the values in one go
 def foo():
     a = 0

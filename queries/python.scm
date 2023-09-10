@@ -69,24 +69,24 @@
 ;;         xxxxxx
 ;;      ---------
 ;;
-;; def func(b=True):
-;;            ^^^^
-;;           xxxxx
-;;          ------
-;;
-;; NOTE: we ignore d["a"] of type
-;; (subscript
-;;  value: ...
-;; )
-(
+;; {value: key for (key, value) in d1.items()}
+;;         ^^^
+;;       xxxxx
+;;  ----------
+(pair
+  ":" @_.leading
+  value: (_) @value
+) @_.domain
+
+;; def func(value: str=""):
+;;                     ^^
+;;                    xxx
+;;          -------------
+(parameters
   (_
-    [
-      ":"
-      "="
-    ] @_.leading
+    "=" @_.leading
     value: (_) @value
   ) @_.domain
-  (#not-type? @_.domain subscript)
 )
 
 ;; def func():
@@ -135,12 +135,6 @@
 (module) @statement.iteration
 (module) @namedFunction.iteration @functionName.iteration
 (class_definition) @namedFunction.iteration @functionName.iteration
-
-;; _ = {value: key for (key, value) in d1.items()}
-;;      **********
-;;(_
-;;  body: (_) @statement.iteration @value.iteration
-;;)
 
 ;; def foo():
 ;;     a = 0
