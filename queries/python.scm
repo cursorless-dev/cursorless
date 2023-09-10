@@ -78,6 +78,24 @@
   (_) @value
 ) @_.domain
 
+(comment) @comment @textFragment
+
+(string
+  _ @textFragment.start.endOf
+  _ @textFragment.end.startOf
+) @string
+
+[
+  (dictionary)
+  (dictionary_comprehension)
+] @map
+
+[
+  (list)
+  (list_comprehension)
+  (set)
+] @list
+
 (
   (function_definition
     name: (_) @functionName
