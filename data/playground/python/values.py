@@ -37,7 +37,9 @@ def my_funk(value: str = "hello", other: bool=False) -> str:
 
 # we can say "change every value" to allow modifying all the values in one go
 def foo():
-    pass
+    a = 0
+    b = 1
+    c = 2
 
 # But we don't support outside of a function yet
 a = 0
