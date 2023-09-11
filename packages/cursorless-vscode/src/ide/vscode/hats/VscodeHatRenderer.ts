@@ -261,15 +261,16 @@ export default class VscodeHatRenderer {
 
   private constructColoredSvgDataUri(originalSvg: string, color: string) {
     if (
-      originalSvg.match(/fill="[^"]+"/) == null &&
-      originalSvg.match(/fill:[^;]+;/) == null
+      originalSvg.match(/fill="(?!none)[^"]+"/) == null &&
+      originalSvg.match(/fill:(?!none)[^;]+;/) == null
     ) {
       throw Error("Raw svg doesn't have fill");
     }
 
     const svg = originalSvg
-      .replace(/fill="[^"]+"/, `fill="${color}"`)
-      .replace(/fill:[^;]+;/, `fill:${color};`);
+      .replace(/fill="(?!none)[^"]+"/g, `fill="${color}"`)
+      .replace(/fill:(?!none)[^;]+;/g, `fill:${color};`)
+      .replace(/\r?\n/g, " ");
 
     const encoded = encodeURIComponent(svg);
 
