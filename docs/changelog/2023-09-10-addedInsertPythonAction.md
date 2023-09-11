@@ -1,6 +1,6 @@
 ---
 tags: [enhancement, talon]
-dateMerged: 2023-09-10
+mergeDate: 2023-09-10
 pullRequest: https://github.com/cursorless-dev/cursorless/pull/1875
 ---
 
