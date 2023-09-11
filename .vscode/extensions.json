@@ -3,6 +3,7 @@
   // for the documentation about the extensions.json format
   "recommendations": [
     "AndreasArvidsson.andreas-talon",
+    "charliermarsh.ruff",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "jrieken.vscode-tree-sitter-query",

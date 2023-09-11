@@ -1,6 +1,15 @@
-import { Range, TextDocument } from "@cursorless/common";
+import {
+  Disposable,
+  FileSystem,
+  Notifier,
+  Range,
+  TextDocument,
+  getCursorlessRepoRoot,
+} from "@cursorless/common";
+import { join } from "path";
 import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "..";
+import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
 
 /**
@@ -14,6 +23,8 @@ const LANGUAGE_UNDEFINED = Symbol("LANGUAGE_UNDEFINED");
  * constructing them as necessary
  */
 export class LanguageDefinitions {
+  private notifier: Notifier = new Notifier();
+
   /**
    * Maps from language id to {@link LanguageDefinition} or
    * {@link LANGUAGE_UNDEFINED} if language doesn't have new-style definitions.
@@ -28,8 +39,31 @@ export class LanguageDefinitions {
     string,
     LanguageDefinition | typeof LANGUAGE_UNDEFINED
   > = new Map();
+  private queryDir: string;
+  private disposables: Disposable[] = [];
 
-  constructor(private treeSitter: TreeSitter) {}
+  constructor(
+    fileSystem: FileSystem,
+    private treeSitter: TreeSitter,
+  ) {
+    // Use the repo root as the root for development mode, so that we can
+    // we can make hot-reloading work for the queries
+    this.queryDir = join(
+      ide().runMode === "development"
+        ? getCursorlessRepoRoot()
+        : ide().assetsRoot,
+      "queries",
+    );
+
+    if (ide().runMode === "development") {
+      this.disposables.push(
+        fileSystem.watchDir(this.queryDir, () => {
+          this.languageDefinitions.clear();
+          this.notifier.notifyListeners();
+        }),
+      );
+    }
+  }
 
   /**
    * Get a language definition for the given language id, if the language
@@ -44,7 +78,7 @@ export class LanguageDefinitions {
 
     if (definition == null) {
       definition =
-        LanguageDefinition.create(this.treeSitter, languageId) ??
+        LanguageDefinition.create(this.treeSitter, this.queryDir, languageId) ??
         LANGUAGE_UNDEFINED;
 
       this.languageDefinitions.set(languageId, definition);
@@ -58,5 +92,11 @@ export class LanguageDefinitions {
    */
   public getNodeAtLocation(document: TextDocument, range: Range): SyntaxNode {
     return this.treeSitter.getNodeAtLocation(document, range);
+  }
+
+  onDidChangeDefinition = this.notifier.registerListener;
+
+  dispose() {
+    this.disposables.forEach((disposable) => disposable.dispose());
   }
 }

@@ -1,10 +1,17 @@
+from typing import Union
+
 from talon import Module, actions
 
-from ..targets.target_types import CursorlessTarget, ImplicitDestination
+from ..targets.target_types import (
+    CursorlessDestination,
+    CursorlessTarget,
+    ImplicitDestination,
+)
 from .bring_move import BringMoveTargets
 from .call import cursorless_call_action
 from .execute_command import cursorless_execute_command_action
 from .homophones import cursorless_homophones_action
+from .replace import cursorless_replace_action
 
 mod = Module()
 
@@ -87,7 +94,7 @@ class Actions:
         if action_name in callback_actions:
             callback_actions[action_name](target)
         elif action_name in ["replaceWithTarget", "moveToTarget"]:
-            actions.user.cursorless_bring_move(
+            actions.user.private_cursorless_bring_move(
                 action_name, BringMoveTargets(target, ImplicitDestination())
             )
         elif action_name in no_wait_actions:
@@ -110,6 +117,14 @@ class Actions:
     def cursorless_ide_command(command_id: str, target: CursorlessTarget):
         """Perform ide command on cursorless target"""
         return cursorless_execute_command_action(command_id, target)
+
+    def cursorless_insert(
+        destination: CursorlessDestination, text: Union[str, list[str]]
+    ):
+        """Perform text insertion on Cursorless destination"""
+        if isinstance(text, str):
+            text = [text]
+        cursorless_replace_action(destination, text)
 
     def private_cursorless_action_or_ide_command(
         instruction: dict, target: CursorlessTarget

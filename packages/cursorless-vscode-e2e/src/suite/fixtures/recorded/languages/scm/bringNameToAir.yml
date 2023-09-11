@@ -1,0 +1,36 @@
+languageId: scm
+command:
+  version: 6
+  spokenForm: bring name to air
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    (aaa) @bbb @ccc @ddd
+    (eee) @fff
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 1}
+      end: {line: 0, character: 4}
+finalState:
+  documentContents: |-
+    (aaa) @fff
+    (eee) @fff
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

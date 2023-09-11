@@ -1,4 +1,10 @@
-import { Command, CommandServerApi, Hats, IDE } from "@cursorless/common";
+import {
+  Command,
+  CommandServerApi,
+  FileSystem,
+  Hats,
+  IDE,
+} from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
 import { ScopeProvider } from "./api/ScopeProvider";
@@ -22,13 +28,13 @@ export function createCursorlessEngine(
   ide: IDE,
   hats: Hats,
   commandServerApi: CommandServerApi | null,
+  fileSystem: FileSystem,
 ): CursorlessEngine {
   injectIde(ide);
 
   const debug = new Debug(treeSitter);
 
   const rangeUpdater = new RangeUpdater();
-  ide.disposeOnExit(rangeUpdater);
 
   const snippets = new Snippets();
   snippets.init();
@@ -45,7 +51,9 @@ export function createCursorlessEngine(
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
 
-  const languageDefinitions = new LanguageDefinitions(treeSitter);
+  const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
+
+  ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
   return {
     commandApi: {
@@ -101,7 +109,10 @@ function createScopeProvider(
     ),
   );
 
-  const rangeWatcher = new ScopeRangeWatcher(rangeProvider);
+  const rangeWatcher = new ScopeRangeWatcher(
+    languageDefinitions,
+    rangeProvider,
+  );
   const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
 
   return {

@@ -1,4 +1,7 @@
-import { ActionDescriptor } from "@cursorless/common";
+import {
+  ActionDescriptor,
+  PartialPrimitiveTargetDescriptor,
+} from "@cursorless/common";
 import { spokenFormTest } from "./spokenFormTest";
 
 // See cursorless-talon-dev/src/cursorless_test.talon
@@ -8,6 +11,32 @@ const setSelectionAction: ActionDescriptor = {
     type: "primitive",
     mark: { type: "cursor" },
   },
+};
+const replaceWithTargetAction: ActionDescriptor = {
+  name: "replaceWithTarget",
+  source: decoratedPrimitiveTarget("a"),
+  destination: { type: "implicit" },
+};
+const insertSingleWordTargetAction: ActionDescriptor = {
+  name: "replace",
+  destination: {
+    type: "primitive",
+    insertionMode: "to",
+    target: decoratedPrimitiveTarget("a"),
+  },
+  replaceWith: ["hello"],
+};
+const insertMultipleWordsTargetAction: ActionDescriptor = {
+  name: "replace",
+  destination: {
+    type: "primitive",
+    insertionMode: "after",
+    target: {
+      type: "list",
+      elements: [decoratedPrimitiveTarget("a"), decoratedPrimitiveTarget("b")],
+    },
+  },
+  replaceWith: ["hello", "world"],
 };
 const insertSnippetAction: ActionDescriptor = {
   name: "insertSnippet",
@@ -57,6 +86,12 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
  */
 export const talonApiFixture = [
   spokenFormTest("test api command this", setSelectionAction),
+  spokenFormTest("test api command bring air", replaceWithTargetAction),
+  spokenFormTest("test api insert hello to air", insertSingleWordTargetAction),
+  spokenFormTest(
+    "test api insert hello and world after air and bat",
+    insertMultipleWordsTargetAction,
+  ),
   spokenFormTest("test api insert snippet", insertSnippetAction),
   spokenFormTest("test api insert snippet by name", insertSnippetByNameAction),
   spokenFormTest("test api wrap with snippet this", wrapWithSnippetAction),
@@ -65,3 +100,12 @@ export const talonApiFixture = [
     wrapWithSnippetByNameAction,
   ),
 ];
+
+function decoratedPrimitiveTarget(
+  character: string,
+): PartialPrimitiveTargetDescriptor {
+  return {
+    type: "primitive",
+    mark: { type: "decoratedSymbol", symbolColor: "default", character },
+  };
+}

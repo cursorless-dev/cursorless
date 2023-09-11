@@ -1,0 +1,24 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change inside lambda
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: _ = func() { _ = 1 }
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: _ = func() {  }
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

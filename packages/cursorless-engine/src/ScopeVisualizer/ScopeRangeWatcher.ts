@@ -1,12 +1,14 @@
-import { Disposable } from "@cursorless/common";
+import { Disposable, showError } from "@cursorless/common";
 import { pull } from "lodash";
 import {
   IterationScopeChangeEventCallback,
   IterationScopeRangeConfig,
   ScopeChangeEventCallback,
   ScopeRangeConfig,
+  ScopeRanges,
 } from "..";
 import { Debouncer } from "../core/Debouncer";
+import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
 import { ScopeRangeProvider } from "./ScopeRangeProvider";
 
@@ -19,7 +21,10 @@ export class ScopeRangeWatcher {
   private debouncer = new Debouncer(() => this.onChange());
   private listeners: (() => void)[] = [];
 
-  constructor(private scopeRangeProvider: ScopeRangeProvider) {
+  constructor(
+    languageDefinitions: LanguageDefinitions,
+    private scopeRangeProvider: ScopeRangeProvider,
+  ) {
     this.disposables.push(
       // An Event which fires when the array of visible editors has changed.
       ide().onDidChangeVisibleTextEditors(this.debouncer.run),
@@ -32,6 +37,7 @@ export class ScopeRangeWatcher {
       // dirty-state changes.
       ide().onDidChangeTextDocument(this.debouncer.run),
       ide().onDidChangeTextEditorVisibleRanges(this.debouncer.run),
+      languageDefinitions.onDidChangeDefinition(this.debouncer.run),
       this.debouncer,
     );
 
@@ -54,10 +60,31 @@ export class ScopeRangeWatcher {
   ): Disposable {
     const fn = () => {
       ide().visibleTextEditors.forEach((editor) => {
-        callback(
-          editor,
-          this.scopeRangeProvider.provideScopeRanges(editor, config),
-        );
+        let scopeRanges: ScopeRanges[];
+        try {
+          scopeRanges = this.scopeRangeProvider.provideScopeRanges(
+            editor,
+            config,
+          );
+        } catch (err) {
+          showError(
+            ide().messages,
+            "ScopeRangeWatcher.provide",
+            (err as Error).message,
+          );
+          // If there was a problem getting scopes for an editor, we show an
+          // error and clear any scopes we might have shown last time. This is
+          // especially important during development, but also seems like the
+          // robust thing to do generally.
+          scopeRanges = [];
+
+          if (ide().runMode === "test") {
+            // Fail hard if we're in test mode; otherwise recover
+            throw err;
+          }
+        }
+
+        callback(editor, scopeRanges);
       });
     };
 

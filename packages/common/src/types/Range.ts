@@ -146,4 +146,16 @@ export class Range {
       ? new Selection(this.end, this.start)
       : new Selection(this.start, this.end);
   }
+
+  /**
+   * Return a concise string representation of the range
+   * @returns concise representation
+   **/
+  public concise(): string {
+    return `${this.start.concise()}-${this.end.concise()}`;
+  }
+
+  public toString(): string {
+    return this.concise();
+  }
 }

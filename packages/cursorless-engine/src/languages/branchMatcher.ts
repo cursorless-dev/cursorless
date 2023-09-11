@@ -15,7 +15,7 @@ import { childRangeSelector } from "../util/nodeSelectors";
  * "if_statement" or "try_statement"
  * @param optionalBranchTypes The optional branch type names that can be
  * children of the top-level statement, eg "else_clause" or "except_clause"
- * @returns A node matcher capabale of matching this type of branch
+ * @returns A node matcher capable of matching this type of branch
  */
 export function branchMatcher(
   statementType: string,

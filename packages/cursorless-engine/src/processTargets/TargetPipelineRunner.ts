@@ -5,7 +5,7 @@ import {
   Range,
   ScopeType,
 } from "@cursorless/common";
-import { uniqWith, zip } from "lodash";
+import { zip } from "lodash";
 import {
   PrimitiveTargetDescriptor,
   RangeTargetDescriptor,
@@ -18,6 +18,7 @@ import { MarkStage, ModifierStage } from "./PipelineStages.types";
 import ImplicitStage from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";
+import { uniqWithHash } from "../util/uniqWithHash";
 
 export class TargetPipelineRunner {
   constructor(
@@ -287,7 +288,11 @@ function calcIsReversed(anchor: Target, active: Target) {
 }
 
 function uniqTargets(array: Target[]): Target[] {
-  return uniqWith(array, (a, b) => a.isEqual(b));
+  return uniqWithHash(
+    array,
+    (a, b) => a.isEqual(b),
+    (a) => a.contentRange.concise(),
+  );
 }
 
 function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
