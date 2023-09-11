@@ -3,7 +3,7 @@ import {
   RangeExpansionBehavior,
   ReplaceWith,
 } from "@cursorless/common";
-import { flatten, zip } from "lodash";
+import { zip } from "lodash";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
