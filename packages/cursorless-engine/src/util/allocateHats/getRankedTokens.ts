@@ -44,7 +44,9 @@ export function getRankedTokens(
       ),
     );
 
-    return tokens.map((token, index) => ({ token, rank: -index }));
+    return tokens.map((token, index) => ({
+      token,
+    }));
   });
 }
 
@@ -67,11 +69,4 @@ function getRankedEditors(
 
 export interface RankedToken {
   token: Token;
-
-  /**
-   * A number indicating how likely the token is to be used.  Tokens closer to
-   * the cursor will be considered more likely to be used, and will receive a
-   * higher rank, causing them to be assigned better hats.
-   */
-  rank: number;
 }

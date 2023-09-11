@@ -1,10 +1,10 @@
-import { HatStability, TokenHat } from "@cursorless/common";
+import { DefaultMap, HatStability, TokenHat } from "@cursorless/common";
 import { HatCandidate } from "./allocateHats";
 import { RankingContext } from "./getHatRankingContext";
 import {
   hatOldTokenRank,
   isOldTokenHat,
-  minimumTokenRankContainingGrapheme,
+  leastPopularGrapheme,
   negativePenalty,
   penaltyEquivalenceClass,
 } from "./HatMetrics";
@@ -48,10 +48,10 @@ import { maxByFirstDiffering } from "./maxByFirstDiffering";
  * @returns The chosen hat, or `undefined` if {@link candidates} was empty
  */
 export function chooseTokenHat(
-  { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
+  { hatOldTokenRanks }: RankingContext,
   hatStability: HatStability,
-  tokenRank: number,
   oldTokenHat: TokenHat | undefined,
+  graphemePopularity: DefaultMap<string, number>,
   candidates: HatCandidate[],
 ): HatCandidate | undefined {
   // We narrow down the candidates by a series of criteria until there is only
@@ -71,8 +71,7 @@ export function chooseTokenHat(
     // 4. Narrow to the hats with the lowest penalty
     negativePenalty,
 
-    // 5. Prefer hats that sit on a grapheme that doesn't appear in any highly
-    //    ranked token
-    minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
+    // 5. Avoid popular graphemes
+    leastPopularGrapheme(graphemePopularity),
   ])!;
 }
