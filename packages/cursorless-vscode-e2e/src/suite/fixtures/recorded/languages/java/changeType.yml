@@ -16,7 +16,7 @@ initialState:
 
     public class MyClass {
       public void myFunk() {
-        Map.Entry<String, String> = null;
+        Map.Entry<String, String> e = null;
       }
     }
   selections:
@@ -29,7 +29,7 @@ finalState:
 
     public class MyClass {
       public void myFunk() {
-         = null;
+         e = null;
       }
     }
   selections:
