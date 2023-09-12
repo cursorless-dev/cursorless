@@ -45,7 +45,6 @@ function itemNodeFinder(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  string: "string",
   collectionItem: cascadingMatcher(
     matcher(
       itemNodeFinder("import_from_statement", "dotted_name", true),
@@ -61,7 +60,6 @@ const nodeMatchers: Partial<
   anonymousFunction: "lambda?.lambda",
   functionCall: "call",
   functionCallee: "call[function]",
-  comment: "comment",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
 
@@ -82,28 +80,6 @@ const nodeMatchers: Partial<
     "parameters.identifier!",
     "*[name]",
   ],
-  value: cascadingMatcher(
-    leadingMatcher(
-      ["assignment[right]", "augmented_assignment[right]", "~subscript[value]"],
-      [
-        ":",
-        "=",
-        "+=",
-        "-=",
-        "*=",
-        "/=",
-        "%=",
-        "//=",
-        "**=",
-        "&=",
-        "|=",
-        "^=",
-        "<<=",
-        ">>=",
-      ],
-    ),
-    patternMatcher("return_statement.~return!"),
-  ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),
