@@ -6,7 +6,7 @@ import { flatten } from "lodash";
  * Note: Returns full paths
  * Based on https://gist.github.com/kethinov/6658166#gistcomment-1941504
  * @param dir
- * @param fileEnding
+ * @param fileEnding If defined, only return files ending with this string. Eg `.txt`
  * @returns
  */
 export const walkFiles = async (
