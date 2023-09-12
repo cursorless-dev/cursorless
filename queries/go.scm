@@ -222,3 +222,87 @@
     .
   )
 ) @anonymousFunction @namedFunction
+
+;; keys in maps
+(literal_value
+  "{" @collectionKey.iteration.start.endOf
+  (keyed_element
+    (_) @collectionKey @collectionKey.trailing.start.endOf
+    ":"
+    (_) @collectionKey.trailing.end.startOf
+  ) @collectionKey.domain
+  "}" @collectionKey.iteration.end.startOf
+)
+
+;; values in maps
+(literal_value
+  "{" @value.iteration.start.endOf
+  (keyed_element
+    (_) @value.leading.start.endOf
+    ":"
+    (_) @value @value.leading.end.startOf
+  ) @value.domain
+  "}" @value.iteration.end.startOf
+)
+
+;; values in return statements
+
+;; one value within a return statement
+(return_statement
+  (expression_list
+    .
+    (_)
+    .
+  ) @value
+  (#insertion-delimiter! @value ", ")
+) @value.domain @value.iteration
+
+;; multiple values within a return statement
+
+;; NB: gofmt puts the comma after block comments in lists of things
+;;
+;; Like this:
+;;   return "lorem" /* comment */, "ipsum"
+;; Not like this:
+;;   return "lorem", /* comment */ "ipsum"
+;;
+;; It's really hard to deal with commas both before and after,
+;; and they're rare anyway, so assume gofmt for now.
+;; Non-gofmt commas will mess up removal ranges.
+
+;; the first value
+
+;; BUG: in this code:
+;;   return "lorem" /* comment */ , "ipsum"
+;; the comment is included in the removal range of "lorem".
+;; This is too hard to fix now, because it would require
+;; disjoint removal ranges. And it is rare anyway.
+
+;; the first of many return values...
+(return_statement
+  (expression_list
+    .
+    (_) @value @value.trailing.start.endOf
+    (#insertion-delimiter! @value ", ")
+    .
+    (comment)* @value.trailing.omit
+    .
+    ","
+    .
+    (_) @value.trailing.end.startOf
+  ) @_exprlist @value.leading.start.startOf
+  (#not-type? @value comment)
+  (#has-multiple-children-not-of-type? @_exprlist comment)
+) @value.iteration
+
+;; ...and the rest of the values
+(return_statement
+  (expression_list
+    "," @value.leading.start.startOf
+    .
+    (_) @value @value.leading.start.startOf
+    (#insertion-delimiter! @value ", ")
+  ) @_exprlist
+  (#not-type? @value comment)
+  (#has-multiple-children-not-of-type? @_exprlist comment)
+) @value.iteration
