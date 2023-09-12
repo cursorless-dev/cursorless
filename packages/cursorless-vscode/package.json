@@ -108,22 +108,22 @@
       },
       {
         "command": "cursorless.command",
-        "title": "Cursorless: The core cursorless command",
+        "title": "Cursorless: The core Cursorless command",
         "enablement": "false"
       },
       {
         "command": "cursorless.showQuickPick",
-        "title": "Cursorless: Pop up a quick pick of all cursorless commands",
+        "title": "Cursorless: Pop up a quick pick of all Cursorless commands",
         "enablement": "false"
       },
       {
         "command": "cursorless.showCheatsheet",
-        "title": "Cursorless: Display the cursorless cheatsheet",
+        "title": "Cursorless: Display the Cursorless cheatsheet",
         "enablement": "false"
       },
       {
         "command": "cursorless.internal.updateCheatsheetDefaults",
-        "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock knausj and cursorless.",
+        "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock knausj and Cursorless.",
         "enablement": "false"
       },
       {
@@ -133,7 +133,7 @@
       },
       {
         "command": "cursorless.keyboard.escape",
-        "title": "Cursorless: Should be mapped to the escape key when using cursorless keyboard. By default, exits modal keyboard mode, but changes behaviour when Cursorless is expecting a continuation keystroke.  For example, when you type a color and Cursorless is waiting for a character, it cancels the color and switches back to modal mode.",
+        "title": "Cursorless: Should be mapped to the escape key when using Cursorless keyboard. By default, exits modal keyboard mode, but changes behaviour when Cursorless is expecting a continuation keystroke.  For example, when you type a color and Cursorless is waiting for a character, it cancels the color and switches back to modal mode.",
         "enablement": "false"
       },
       {
@@ -163,17 +163,17 @@
       },
       {
         "command": "cursorless.keyboard.modal.modeOn",
-        "title": "Cursorless: Turn on the cursorless modal mode",
+        "title": "Cursorless: Turn on the Cursorless modal mode",
         "enablement": "false"
       },
       {
         "command": "cursorless.keyboard.modal.modeOff",
-        "title": "Cursorless: Turn off the cursorless modal mode",
+        "title": "Cursorless: Turn off the Cursorless modal mode",
         "enablement": "false"
       },
       {
         "command": "cursorless.keyboard.modal.modeToggle",
-        "title": "Cursorless: Toggle the cursorless modal mode",
+        "title": "Cursorless: Toggle the Cursorless modal mode",
         "enablement": "false"
       },
       {
@@ -838,11 +838,11 @@
           }
         },
         "cursorless.experimental.snippetsDir": {
-          "description": "Directory containing snippets for use in cursorless",
+          "description": "Directory containing snippets for use in Cursorless",
           "type": "string"
         },
         "cursorless.experimental.hatShapesDir": {
-          "description": "Directory containing hat shape svg files for use in cursorless",
+          "description": "Directory containing hat shape svg files for use in Cursorless",
           "type": "string"
         },
         "cursorless.experimental.keyboard.modal.keybindings.actions": {
