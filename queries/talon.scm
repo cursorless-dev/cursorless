@@ -113,8 +113,8 @@
   ) @_.domain
   (#not-empty? @condition)
   (#not-empty? @_.trailing)
-  (#shrink-to-match! @condition "^(?<keep>.*)(\s|\n|\r)+-$")
-  (#shrink-to-match! @_.trailing "^.*(?<keep>(\s|\n|\r)+-)$")
+  (#trim-end! @condition)
+  (#trim-end! @_.trailing)
 )
 
 ;;!! slap: key(enter)
