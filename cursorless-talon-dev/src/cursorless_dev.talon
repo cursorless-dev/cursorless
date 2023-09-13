@@ -28,3 +28,6 @@ tag: user.cursorless
 
 test snippet make <user.cursorless_target>:
     user.private_cursorless_make_snippet_test(cursorless_target)
+
+playground <user.cursorless_target>:
+    user.cursorless_command("playground", cursorless_target)

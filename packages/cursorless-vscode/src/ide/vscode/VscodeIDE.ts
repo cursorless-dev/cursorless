@@ -126,6 +126,14 @@ export class VscodeIDE implements IDE {
     return this.fromVscodeEditor(await window.showTextDocument(textDocument));
   }
 
+  public async openUntitledTextDocument(options?: {
+    language?: string;
+    content?: string;
+  }): Promise<TextEditor> {
+    const textDocument = await workspace.openTextDocument(options);
+    return this.fromVscodeEditor(await window.showTextDocument(textDocument));
+  }
+
   public async showInputBox(
     options?: InputBoxOptions,
   ): Promise<string | undefined> {

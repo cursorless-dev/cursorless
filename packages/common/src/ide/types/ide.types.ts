@@ -106,6 +106,18 @@ export interface IDE {
   openTextDocument(path: string): Promise<TextEditor>;
 
   /**
+   * Opens an untitled document.
+   *
+   * @see {@link openTextDocument}
+   * @param options optional language and documents content
+   * @return An editor
+   */
+  openUntitledTextDocument(options?: {
+    language?: string;
+    content?: string;
+  }): Promise<TextEditor>;
+
+  /**
    * An event that is emitted when a {@link TextDocument text document} is opened or when the language id
    * of a text document {@link languages.setTextDocumentLanguage has been changed}.
    *

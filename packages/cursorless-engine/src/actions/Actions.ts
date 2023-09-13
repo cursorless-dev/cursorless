@@ -1,3 +1,4 @@
+import { TreeSitter } from "..";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
@@ -26,6 +27,7 @@ import {
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
 import { PasteFromClipboard } from "./PasteFromClipboard";
+import Playground from "./Playground";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -63,6 +65,7 @@ import { ActionRecord } from "./actions.types";
  */
 export class Actions implements ActionRecord {
   constructor(
+    private treeSitter: TreeSitter,
     private snippets: Snippets,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
@@ -127,6 +130,7 @@ export class Actions implements ActionRecord {
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
   ["experimental.setInstanceReference"] = new SetInstanceReference();
+  playground = new Playground(this.treeSitter);
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();
