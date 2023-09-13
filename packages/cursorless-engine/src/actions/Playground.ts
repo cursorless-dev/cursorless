@@ -1,4 +1,5 @@
-import { FlashStyle, Range } from "@cursorless/common";
+import { FlashStyle, Range, TextDocument } from "@cursorless/common";
+import * as path from "node:path";
 import { Tree, TreeCursor } from "web-tree-sitter";
 import type { TreeSitter } from "..";
 import { ide } from "../singletons/ide.singleton";
@@ -14,24 +15,39 @@ export default class Playground {
   async run(targets: Target[]): Promise<ActionReturnValue> {
     await flashTargets(ide(), targets, FlashStyle.referenced);
 
-    const results: string[] = [];
+    const results: string[] = ["# Cursorless playground"];
 
     for (const target of targets) {
-      const tree = this.treeSitter.getTree(target.editor.document);
-      results.push(parseTree(tree, target.contentRange));
+      const {
+        editor: { document },
+        contentRange,
+      } = target;
+      const tree = this.treeSitter.getTree(document);
+      results.push(parseTree(tree, document, contentRange));
     }
 
-    ide().openUntitledTextDocument({ content: results.join("\n\n") });
+    ide().openUntitledTextDocument({
+      language: "markdown",
+      content: results.join("\n\n"),
+    });
 
     return { thatTargets: targets };
   }
 }
 
-function parseTree(tree: Tree, range: Range): string {
-  const results: string[] = [];
+function parseTree(tree: Tree, document: TextDocument, range: Range): string {
+  const results: string[] = [
+    `## ${path.basename(document.uri.path)} ${range}\n`,
+    `\`\`\`${document.languageId}`,
+    document.getText(range),
+    "```\n",
+    "```js",
+  ];
   const cursor = tree.walk();
 
   parseCursor(results, range, 0, cursor);
+
+  results.push("```");
 
   return results.join("\n");
 }
