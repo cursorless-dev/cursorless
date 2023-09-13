@@ -112,7 +112,7 @@ export default class VscodeHatRenderer {
   }
 
   private async updateHatsDirWatcher() {
-    this.destroyHatsDirWatcher();
+    this.hatsDirWatcherDisposable?.dispose();
 
     const hatsDir = vscode.workspace
       .getConfiguration("cursorless.experimental")
@@ -161,13 +161,6 @@ export default class VscodeHatRenderer {
     Object.values(this.decorationMap).forEach((decoration) => {
       decoration.dispose();
     });
-  }
-
-  private destroyHatsDirWatcher() {
-    if (this.hatsDirWatcherDisposable != null) {
-      this.hatsDirWatcherDisposable.dispose();
-      this.hatsDirWatcherDisposable = undefined;
-    }
   }
 
   private async recomputeDecorations() {
@@ -374,7 +367,7 @@ export default class VscodeHatRenderer {
 
   dispose() {
     this.destroyDecorations();
-    this.destroyHatsDirWatcher();
+    this.hatsDirWatcherDisposable?.dispose();
     this.disposables.forEach(({ dispose }) => dispose());
   }
 }
