@@ -22,6 +22,10 @@ import { State } from "./State";
 
 export type RunMode = "production" | "development" | "test";
 export type HighlightId = string;
+export interface OpenUntitledTextDocumentOptions {
+  language?: string;
+  content?: string;
+}
 
 export interface IDE {
   readonly configuration: Configuration;
@@ -112,10 +116,9 @@ export interface IDE {
    * @param options optional language and documents content
    * @return An editor
    */
-  openUntitledTextDocument(options?: {
-    language?: string;
-    content?: string;
-  }): Promise<TextEditor>;
+  openUntitledTextDocument(
+    options?: OpenUntitledTextDocumentOptions,
+  ): Promise<TextEditor>;
 
   /**
    * An event that is emitted when a {@link TextDocument text document} is opened or when the language id

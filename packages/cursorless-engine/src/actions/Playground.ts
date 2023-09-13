@@ -16,61 +16,16 @@ export default class Playground {
 
     const results: string[] = [];
 
-    console.log("start");
-
     for (const target of targets) {
       const tree = this.treeSitter.getTree(target.editor.document);
       results.push(parseTree(tree, target.contentRange));
     }
 
-    console.log("done");
-    console.log(results.join("\n"));
-
-    // ide().openUntitledTextDocument({ content: results.join("\n") });
+    ide().openUntitledTextDocument({ content: results.join("\n\n") });
 
     return { thatTargets: targets };
   }
 }
-
-// function parseTree(tree: Tree, range: Range): string {
-//   const results: string[] = [];
-
-//   const cursor = tree.walk();
-
-//   let goParents = 0;
-//   let numIndents = 0;
-
-//   while (true) {
-//     if (useNode(cursor, range)) {
-//       results.push(
-//         `${getIndentation(numIndents)}${getFieldName(cursor)}${
-//           cursor.nodeType
-//         } ${getRangeText(cursor)}`,
-//       );
-//     }
-
-//     if (cursor.gotoFirstChild()) {
-//       goParents++;
-//       numIndents++;
-//     } else if (!cursor.gotoNextSibling()) {
-//       if (goParents === 0) {
-//         break;
-//       }
-
-//       while (goParents > 0) {
-//         cursor.gotoParent();
-//         goParents--;
-//         numIndents--;
-
-//         if (cursor.gotoNextSibling()) {
-//           break;
-//         }
-//       }
-//     }
-//   }
-
-//   return results.join("\n");
-// }
 
 function parseTree(tree: Tree, range: Range): string {
   const results: string[] = [];
@@ -95,18 +50,13 @@ function parseCursor(
         } ${getRangeText(cursor)}`,
       );
 
-      const node = cursor.currentNode();
-
       if (cursor.gotoFirstChild()) {
         parseCursor(results, range, numIndents + 1, cursor);
-        cursor.reset(node);
+        cursor.gotoParent();
       }
     }
 
-    console.log(cursor.nodeType);
-
     if (!cursor.gotoNextSibling()) {
-      console.log("no sibling");
       return;
     }
   }
