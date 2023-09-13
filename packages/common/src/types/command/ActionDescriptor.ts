@@ -26,7 +26,6 @@ const simpleActionNames = [
   "insertEmptyLineBefore",
   "insertEmptyLinesAround",
   "outdentLine",
-  "playground",
   "randomizeTargets",
   "remove",
   "rename",
@@ -47,6 +46,7 @@ const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
+  "private.playground",
   "private.getTargets",
 ] as const;
 

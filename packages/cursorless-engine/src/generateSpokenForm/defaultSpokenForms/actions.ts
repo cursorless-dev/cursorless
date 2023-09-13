@@ -54,7 +54,7 @@ export const actions = {
   insertSnippet: "snippet",
   pasteFromClipboard: "paste",
 
-  playground: "playground",
+  ["private.playground"]: "playground",
   ["experimental.setInstanceReference"]: "from",
 
   editNew: null,

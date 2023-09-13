@@ -79,6 +79,18 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
     variableName: "body",
   },
 };
+const playgroundAction: ActionDescriptor = {
+  name: "wrapWithSnippet",
+  target: {
+    type: "primitive",
+    mark: { type: "cursor" },
+  },
+  snippetDescription: {
+    type: "named",
+    name: "functionDeclaration",
+    variableName: "body",
+  },
+};
 
 /**
  * These test our Talon api using dummy spoken forms defined in

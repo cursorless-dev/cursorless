@@ -130,7 +130,6 @@ export class Actions implements ActionRecord {
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
   ["experimental.setInstanceReference"] = new SetInstanceReference();
-  playground = new Playground(this.treeSitter);
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();
@@ -149,5 +148,6 @@ export class Actions implements ActionRecord {
     this.snippets,
     this.modifierStageFactory,
   );
+  ["private.playground"] = new Playground(this.treeSitter);
   ["private.getTargets"] = new GetTargets();
 }
