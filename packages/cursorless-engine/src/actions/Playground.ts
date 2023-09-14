@@ -37,7 +37,7 @@ export default class Playground {
 
 function parseTree(tree: Tree, document: TextDocument, range: Range): string {
   const results: string[] = [
-    `## ${path.basename(document.uri.path)} ${range}\n`,
+    `## ${path.basename(document.uri.path)} [${range}]\n`,
     `\`\`\`${document.languageId}`,
     document.getText(range),
     "```\n",
@@ -59,16 +59,24 @@ function parseCursor(
   cursor: TreeCursor,
 ): void {
   while (true) {
-    if (useNode(cursor, range)) {
-      results.push(
-        `${getIndentation(numIndents)}${getFieldName(cursor)}${
-          cursor.nodeType
-        } ${getRangeText(cursor)}`,
+    if (cursor.nodeIsNamed) {
+      const nodeRange = new Range(
+        cursor.startPosition.row,
+        cursor.startPosition.column,
+        cursor.endPosition.row,
+        cursor.endPosition.column,
       );
+      if (range.intersection(nodeRange) != null) {
+        results.push(
+          `${getIndentation(numIndents)}${getFieldName(cursor)}${
+            cursor.nodeType
+          } [${nodeRange}]`,
+        );
 
-      if (cursor.gotoFirstChild()) {
-        parseCursor(results, range, numIndents + 1, cursor);
-        cursor.gotoParent();
+        if (cursor.gotoFirstChild()) {
+          parseCursor(results, range, numIndents + 1, cursor);
+          cursor.gotoParent();
+        }
       }
     }
 
@@ -78,25 +86,8 @@ function parseCursor(
   }
 }
 
-function useNode(cursor: TreeCursor, range: Range) {
-  if (!cursor.nodeIsNamed) {
-    return false;
-  }
-  const nodeRange = new Range(
-    cursor.startPosition.row,
-    cursor.startPosition.column,
-    cursor.endPosition.row,
-    cursor.endPosition.column,
-  );
-  return range.intersection(nodeRange) != null;
-}
-
 function getIndentation(length: number): string {
   return "  ".repeat(length);
-}
-
-function getRangeText(cursor: TreeCursor): string {
-  return `[${cursor.startPosition.row}, ${cursor.startPosition.column}] - [${cursor.endPosition.row}, ${cursor.endPosition.column}]`;
 }
 
 function getFieldName(cursor: TreeCursor): string {
