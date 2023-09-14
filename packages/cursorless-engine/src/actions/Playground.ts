@@ -59,25 +59,23 @@ function parseCursor(
   numIndents: number,
 ): void {
   while (true) {
-    if (cursor.nodeIsNamed) {
-      const nodeRange = new Range(
-        cursor.startPosition.row,
-        cursor.startPosition.column,
-        cursor.endPosition.row,
-        cursor.endPosition.column,
+    const nodeRange = new Range(
+      cursor.startPosition.row,
+      cursor.startPosition.column,
+      cursor.endPosition.row,
+      cursor.endPosition.column,
+    );
+
+    if (contentRange.intersection(nodeRange) != null) {
+      results.push(
+        `${getIndentation(numIndents)}${getFieldName(cursor)}${getType(
+          cursor,
+        )} [${nodeRange}]`,
       );
 
-      if (contentRange.intersection(nodeRange) != null) {
-        results.push(
-          `${getIndentation(numIndents)}${getFieldName(cursor)}${
-            cursor.nodeType
-          } [${nodeRange}]`,
-        );
-
-        if (cursor.gotoFirstChild()) {
-          parseCursor(results, contentRange, cursor, numIndents + 1);
-          cursor.gotoParent();
-        }
+      if (cursor.gotoFirstChild()) {
+        parseCursor(results, contentRange, cursor, numIndents + 1);
+        cursor.gotoParent();
       }
     }
 
@@ -94,4 +92,8 @@ function getIndentation(length: number): string {
 function getFieldName(cursor: TreeCursor): string {
   const field = cursor.currentFieldName();
   return field != null ? `${field}: ` : "";
+}
+
+function getType(cursor: TreeCursor): string {
+  return cursor.nodeIsNamed ? cursor.nodeType : `"${cursor.nodeType}"`;
 }
