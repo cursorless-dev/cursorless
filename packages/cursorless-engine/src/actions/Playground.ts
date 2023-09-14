@@ -66,6 +66,7 @@ function parseCursor(
         cursor.endPosition.row,
         cursor.endPosition.column,
       );
+
       if (contentRange.intersection(nodeRange) != null) {
         results.push(
           `${getIndentation(numIndents)}${getFieldName(cursor)}${
