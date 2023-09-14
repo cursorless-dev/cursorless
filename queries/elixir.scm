@@ -44,7 +44,7 @@
 
 (call
   target: (identifier) @_target
-  (#match? @_target "^(def|defp|defdelegate|defguard|defguardp|defmacro|defmacrop|defn|defnp)$")
+  (#match? @_target "^(def|defp|defdelegate|defmacro|defmacrop|defn|defnp)$")
   (arguments
     [
       ; zero-arity functions with no parentheses
@@ -64,6 +64,35 @@
   )
   (do_block) @namedFunction.interior
   (#shrink-to-match! @namedFunction.interior "^do\\n?\\w*(?<keep>.*?\\n)\\s*end$")
+) @namedFunction @functionName.domain
+
+;; def fun(), do: 1
+(call
+  target: (identifier) @_target
+  (#match? @_target "^(def|defp|defdelegate|defmacro|defmacrop|defn|defnp)$")
+  (arguments
+    (keywords
+      (pair
+        key: (_) @do_keyword
+        value: (_) @namedFunction.interior
+      )
+    )
+    (#match? @do_keyword "^do: $")
+  )
+) @namedFunction @functionName.domain
+
+;; defguard guard(term) when is_integer(term) and rem(term, 2) == 0
+(call
+  target: (identifier) @_target
+  (#match? @_target "^(defguard|defguardp)$")
+  (arguments
+    (binary_operator
+      left: (call
+        target: (identifier) @functionName
+      )
+      operator: "when"
+    )
+  )
 ) @namedFunction @functionName.domain
 
 (call
