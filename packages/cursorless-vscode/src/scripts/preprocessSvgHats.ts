@@ -12,7 +12,10 @@ async function main() {
     format: true,
   });
 
-  readdirSync(directory, { withFileTypes: true }).forEach(async (dirent) => {
+  for (const dirent of readdirSync(directory, { withFileTypes: true })) {
+    if (!dirent.isFile() || !dirent.name.endsWith(".svg")) {
+      continue;
+    }
     const filePath = path.join(directory, dirent.name);
     const rawSvg = await fsp.readFile(filePath, { encoding: "utf8" });
     const svgJson = new parser.XMLParser({ ignoreAttributes: false }).parse(
@@ -35,7 +38,7 @@ async function main() {
       .replace(/fill:(?!none)[^;]+;/g, "fill:#666666;");
 
     await fsp.writeFile(filePath, outputSvg);
-  });
+  }
 }
 
 main();
