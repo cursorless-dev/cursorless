@@ -1,11 +1,11 @@
 import { FlashStyle, Range, TextDocument } from "@cursorless/common";
 import * as path from "node:path";
-import { Tree, TreeCursor } from "web-tree-sitter";
+import type { Tree, TreeCursor } from "web-tree-sitter";
 import type { TreeSitter } from "..";
 import { ide } from "../singletons/ide.singleton";
-import { Target } from "../typings/target.types";
+import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
-import { ActionReturnValue } from "./actions.types";
+import type { ActionReturnValue } from "./actions.types";
 
 export default class Playground {
   constructor(private treeSitter: TreeSitter) {
@@ -18,12 +18,9 @@ export default class Playground {
     const results: string[] = ["# Cursorless playground"];
 
     for (const target of targets) {
-      const {
-        editor: { document },
-        contentRange,
-      } = target;
-      const tree = this.treeSitter.getTree(document);
-      results.push(parseTree(tree, document, contentRange));
+      const { editor, contentRange } = target;
+      const tree = this.treeSitter.getTree(editor.document);
+      results.push(parseTree(editor.document, tree, contentRange));
     }
 
     ide().openUntitledTextDocument({
@@ -35,17 +32,20 @@ export default class Playground {
   }
 }
 
-function parseTree(tree: Tree, document: TextDocument, range: Range): string {
+function parseTree(
+  document: TextDocument,
+  tree: Tree,
+  contentRange: Range,
+): string {
   const results: string[] = [
-    `## ${path.basename(document.uri.path)} [${range}]\n`,
+    `## ${path.basename(document.uri.path)} [${contentRange}]\n`,
     `\`\`\`${document.languageId}`,
-    document.getText(range),
+    document.getText(contentRange),
     "```\n",
     "```js",
   ];
-  const cursor = tree.walk();
 
-  parseCursor(results, range, 0, cursor);
+  parseCursor(results, contentRange, tree.walk(), 0);
 
   results.push("```");
 
@@ -54,9 +54,9 @@ function parseTree(tree: Tree, document: TextDocument, range: Range): string {
 
 function parseCursor(
   results: string[],
-  range: Range,
-  numIndents: number,
+  contentRange: Range,
   cursor: TreeCursor,
+  numIndents: number,
 ): void {
   while (true) {
     if (cursor.nodeIsNamed) {
@@ -66,7 +66,7 @@ function parseCursor(
         cursor.endPosition.row,
         cursor.endPosition.column,
       );
-      if (range.intersection(nodeRange) != null) {
+      if (contentRange.intersection(nodeRange) != null) {
         results.push(
           `${getIndentation(numIndents)}${getFieldName(cursor)}${
             cursor.nodeType
@@ -74,7 +74,7 @@ function parseCursor(
         );
 
         if (cursor.gotoFirstChild()) {
-          parseCursor(results, range, numIndents + 1, cursor);
+          parseCursor(results, contentRange, cursor, numIndents + 1);
           cursor.gotoParent();
         }
       }
