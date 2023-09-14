@@ -46,6 +46,17 @@ const hatConfigSections = [
  * hats.  The decision about which hat styles should be available is up to
  * {@link VscodeEnabledHatStyles}
  */
+
+const SETTING_SECTION_HAT_SHAPES_DIR = "cursorless.private";
+const SETTING_NAME_HAT_SHAPES_DIR = "hatShapesDir";
+const hatShapesDirSettingId = `${SETTING_SECTION_HAT_SHAPES_DIR}.${SETTING_NAME_HAT_SHAPES_DIR}`;
+
+interface SvgInfo {
+  svg: string;
+  svgHeightPx: number;
+  svgWidthPx: number;
+}
+
 export default class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
@@ -66,7 +77,7 @@ export default class VscodeHatRenderer {
     this.disposables.push(
       vscode.workspace.onDidChangeConfiguration(
         async ({ affectsConfiguration }) => {
-          if (affectsConfiguration("cursorless.private.hatShapesDir")) {
+          if (affectsConfiguration(hatShapesDirSettingId)) {
             await this.updateHatsDirWatcher();
           } else if (
             hatConfigSections.some((section) => affectsConfiguration(section))
@@ -115,8 +126,8 @@ export default class VscodeHatRenderer {
     this.hatsDirWatcherDisposable?.dispose();
 
     const hatsDir = vscode.workspace
-      .getConfiguration("cursorless.experimental")
-      .get<string>("hatShapesDir")!;
+      .getConfiguration(SETTING_SECTION_HAT_SHAPES_DIR)
+      .get<string>(SETTING_NAME_HAT_SHAPES_DIR)!;
 
     if (hatsDir) {
       await this.updateShapeOverrides(hatsDir);
@@ -218,7 +229,16 @@ export default class VscodeHatRenderer {
     this.decorationMap = Object.fromEntries(
       Object.entries(this.enabledHatStyles.hatStyleMap).map(
         ([styleName, { color, shape }]) => {
-          const { svg, svgWidthPx, svgHeightPx } = hatSvgMap[shape];
+          const svgInfo = hatSvgMap[shape];
+
+          if (svgInfo == null) {
+            return [
+              styleName,
+              vscode.window.createTextEditorDecorationType({}),
+            ];
+          }
+
+          const { svg, svgWidthPx, svgHeightPx } = svgInfo;
 
           const { light, dark } = getHatThemeColors(color);
 
@@ -252,14 +272,32 @@ export default class VscodeHatRenderer {
     );
   }
 
-  private constructColoredSvgDataUri(originalSvg: string, color: string) {
+  private checkSvg(shape: HatShape, svg: string) {
+    let isOk = true;
+
     if (
-      originalSvg.match(/fill="(?!none)[^"]+"/) == null &&
-      originalSvg.match(/fill:(?!none)[^;]+;/) == null
+      svg.match(/fill="(?!none)[^"]+"/) == null &&
+      svg.match(/fill:(?!none)[^;]+;/) == null
     ) {
-      throw Error("Raw svg doesn't have fill");
+      vscode.window.showErrorMessage(
+        `Raw svg '${shape}' is missing 'fill' property`,
+      );
+      isOk = false;
     }
 
+    const viewBoxMatch = svg.match(/viewBox="([^"]+)"/);
+
+    if (viewBoxMatch == null) {
+      vscode.window.showErrorMessage(
+        `Raw svg '${shape}' is missing 'viewBox' property`,
+      );
+      isOk = false;
+    }
+
+    return isOk;
+  }
+
+  private constructColoredSvgDataUri(originalSvg: string, color: string) {
     const svg = originalSvg
       .replace(/fill="(?!none)[^"]+"/g, `fill="${color}"`)
       .replace(/fill:(?!none)[^;]+;/g, `fill:${color};`)
@@ -286,7 +324,7 @@ export default class VscodeHatRenderer {
     shape: HatShape,
     scaleFactor: number,
     hatVerticalOffsetEm: number,
-  ) {
+  ): SvgInfo | null {
     const iconPath =
       this.hatShapeOverrides[shape] ??
       path.join(
@@ -298,8 +336,12 @@ export default class VscodeHatRenderer {
     const rawSvg = fs.readFileSync(iconPath, "utf8");
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;
 
+    if (!this.checkSvg(shape, rawSvg)) {
+      return null;
+    }
+
     const { originalViewBoxHeight, originalViewBoxWidth } =
-      this.getViewBoxDimensions(rawSvg);
+      this.getViewBoxDimensions(shape, rawSvg);
 
     const defaultHatHeightPx = DEFAULT_HAT_HEIGHT_EM * fontSize;
     const defaultHatWidthPx =
@@ -349,11 +391,8 @@ export default class VscodeHatRenderer {
     };
   }
 
-  private getViewBoxDimensions(rawSvg: string) {
-    const viewBoxMatch = rawSvg.match(/viewBox="([^"]+)"/);
-    if (viewBoxMatch == null) {
-      throw Error("View box not found in svg");
-    }
+  private getViewBoxDimensions(shape: HatShape, rawSvg: string) {
+    const viewBoxMatch = rawSvg.match(/viewBox="([^"]+)"/)!;
 
     const originalViewBoxString = viewBoxMatch[1];
     const [_0, _1, originalViewBoxWidthStr, originalViewBoxHeightStr] =
