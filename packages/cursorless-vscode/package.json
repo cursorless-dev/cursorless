@@ -1016,33 +1016,6 @@
         "extensions": [
           ".cursorless-snippets"
         ]
-      },
-      {
-        "id": "talon",
-        "aliases": [
-          "Talon"
-        ],
-        "extensions": [
-          ".talon"
-        ]
-      },
-      {
-        "id": "scala",
-        "aliases": [
-          "Scala"
-        ],
-        "extensions": [
-          ".scala"
-        ]
-      },
-      {
-        "id": "scm",
-        "aliases": [
-          "Tree-sitter Query"
-        ],
-        "extensions": [
-          ".scm"
-        ]
       }
     ],
     "jsonValidation": [
