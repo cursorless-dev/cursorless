@@ -838,7 +838,7 @@
           }
         },
         "cursorless.experimental.snippetsDir": {
-          "description": "Directory containing snippets for use in cursorless",
+          "description": "Directory containing snippets for use in Cursorless",
           "type": "string"
         },
         "cursorless.experimental.keyboard.modal.keybindings.actions": {
