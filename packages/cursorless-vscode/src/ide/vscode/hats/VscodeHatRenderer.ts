@@ -66,7 +66,7 @@ export default class VscodeHatRenderer {
     this.disposables.push(
       vscode.workspace.onDidChangeConfiguration(
         async ({ affectsConfiguration }) => {
-          if (affectsConfiguration("cursorless.experimental.hatShapesDir")) {
+          if (affectsConfiguration("cursorless.private.hatShapesDir")) {
             await this.updateHatsDirWatcher();
           } else if (
             hatConfigSections.some((section) => affectsConfiguration(section))
