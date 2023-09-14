@@ -6,13 +6,16 @@ import { flatten } from "lodash";
  * Note: Returns full paths
  * Based on https://gist.github.com/kethinov/6658166#gistcomment-1941504
  * @param dir
- * @param filelist
+ * @param fileEnding If defined, only return files ending with this string. Eg `.txt`
  * @returns
  */
-export const walkFiles = async (dir: string): Promise<string[]> => {
+export const walkFiles = async (
+  dir: string,
+  fileEnding?: string,
+): Promise<string[]> => {
   const dirEntries = await readdir(dir, { withFileTypes: true });
 
-  return flatten(
+  const files = flatten(
     await Promise.all(
       dirEntries.map(async (dirent) => {
         const filePath = path.join(dir, dirent.name);
@@ -20,4 +23,10 @@ export const walkFiles = async (dir: string): Promise<string[]> => {
       }),
     ),
   );
+
+  if (fileEnding != null) {
+    return files.filter((file) => file.endsWith(fileEnding));
+  }
+
+  return files;
 };

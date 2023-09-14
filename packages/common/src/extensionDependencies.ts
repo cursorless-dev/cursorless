@@ -1,9 +1,11 @@
 export const extensionDependencies = [
   "pokey.parse-tree",
-  "ms-toolsai.jupyter",
+
+  // Register necessary file extensions for tests
   "scalameta.metals",
-  "ms-python.python",
   "mrob95.vscode-talonscript",
   "jrieken.vscode-tree-sitter-query",
+  // Necessary for the `drink cell` and `pour cell` tests
+  "ms-toolsai.jupyter",
   "jakebecker.elixir-ls",
 ];
