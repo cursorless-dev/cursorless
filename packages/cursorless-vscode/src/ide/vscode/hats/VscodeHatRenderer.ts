@@ -341,7 +341,7 @@ export default class VscodeHatRenderer {
     }
 
     const { originalViewBoxHeight, originalViewBoxWidth } =
-      this.getViewBoxDimensions(shape, rawSvg);
+      this.getViewBoxDimensions(rawSvg);
 
     const defaultHatHeightPx = DEFAULT_HAT_HEIGHT_EM * fontSize;
     const defaultHatWidthPx =
@@ -391,7 +391,7 @@ export default class VscodeHatRenderer {
     };
   }
 
-  private getViewBoxDimensions(shape: HatShape, rawSvg: string) {
+  private getViewBoxDimensions(rawSvg: string) {
     const viewBoxMatch = rawSvg.match(/viewBox="([^"]+)"/)!;
 
     const originalViewBoxString = viewBoxMatch[1];
