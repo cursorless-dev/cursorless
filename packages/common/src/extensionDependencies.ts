@@ -5,4 +5,5 @@ export const extensionDependencies = [
   "ms-python.python",
   "mrob95.vscode-talonscript",
   "jrieken.vscode-tree-sitter-query",
+  "jakebecker.elixir-ls",
 ];
