@@ -32,7 +32,7 @@ export class Range {
   constructor(line1: number, char1: number, line2: number, char2: number);
 
   constructor(...args: any[]) {
-    const [start, end]: [Position, Position] = (() => {
+    const [p1, p2]: [Position, Position] = (() => {
       // Arguments are two positions
       if (args.length === 2) {
         return args as [Position, Position];
@@ -43,12 +43,12 @@ export class Range {
     })();
 
     // Ranges are always non-reversed
-    if (start.isBefore(end)) {
-      this.start = start;
-      this.end = end;
+    if (p1.isBefore(p2)) {
+      this.start = p1;
+      this.end = p2;
     } else {
-      this.start = end;
-      this.end = start;
+      this.start = p2;
+      this.end = p1;
     }
   }
 
