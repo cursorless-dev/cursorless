@@ -75,7 +75,7 @@ function parseCursor(
     );
 
     if (contentRange.intersection(nodeRange) != null) {
-      const indentation = getIndentation(numIndents);
+      const indentation = "  ".repeat(numIndents);
       const fieldName = getFieldName(cursor);
       const prefix = indentation + fieldName;
 
@@ -113,10 +113,6 @@ function parseCursor(
       return;
     }
   }
-}
-
-function getIndentation(length: number): string {
-  return "  ".repeat(length);
 }
 
 function getFieldName(cursor: TreeCursor): string {
