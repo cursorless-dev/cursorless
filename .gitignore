@@ -42,8 +42,3 @@ next-env.d.ts
 
 # test subset config
 packages/test-harness/testSubsetGrep.properties
-
-data/playground/.metals
-data/playground/.vscode
-data/playground/.scala-build
-.talon
