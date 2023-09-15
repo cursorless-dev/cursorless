@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range, adjustPosition } from "@cursorless/common";
 import z from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
@@ -161,10 +161,11 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
   run(nodeInfo: MutableQueryCapture) {
     const { document, range } = nodeInfo;
     const text = document.getText(range);
-    const trimmed = text.trimEnd();
-    const endOffset =
-      document.offsetAt(range.end) + trimmed.length - text.length;
-    nodeInfo.range = new Range(range.start, document.positionAt(endOffset));
+    const whitespaceLength = text.length - text.trimEnd().length;
+    nodeInfo.range = new Range(
+      range.start,
+      adjustPosition(document, range.end, -whitespaceLength),
+    );
     return true;
   }
 }
