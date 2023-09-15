@@ -6,4 +6,4 @@ force-exclude = ["vendor", "data/playground"]
 select = ["E", "F", "C4", "I001", "UP", "SIM"]
 ignore = ["E501", "SIM105", "UP035"]
 target-version = "py39"
-extend-exclude = ["vendor", "data/playground/**/*.py"]
+extend-exclude = ["vendor", "data/playground/**/*.py", "data/playground/**/*.ts"]
