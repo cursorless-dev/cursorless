@@ -6,7 +6,7 @@
 import { extensionDependencies } from "@cursorless/common";
 import * as cp from "child_process";
 
-const extraExtensions = ["pokey.command-server", "pokey.talon"];
+const extraExtensions = ["pokey.command-server"];
 
 async function main() {
   try {

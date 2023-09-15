@@ -1,0 +1,43 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: place hello to fine
+  action:
+    name: replace
+    replaceWith: [hello]
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: f}
+  usePrePhraseSnapshot: true
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: foo
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.f:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: hello
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 5}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 5}
+      isReversed: false
+      hasExplicitRange: false
