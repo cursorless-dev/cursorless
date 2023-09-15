@@ -111,11 +111,8 @@
 
 (source) @className.iteration @class.iteration
 (source) @statement.iteration
-
 (source) @namedFunction.iteration @functionName.iteration
-;; Is it better to have the class as the function iteration scope?
-;; I believe `def`s can only go inside modules
-;;   (call
-;;     target: (identifier) @_target
-;;     (#match? @_target "^(defmodule)$")
-;;   ) @namedFunction.iteration @functionName.iteration
+(call
+  target: (identifier) @_target
+  (#match? @_target "^(defmodule)$")
+) @namedFunction.iteration @functionName.iteration
