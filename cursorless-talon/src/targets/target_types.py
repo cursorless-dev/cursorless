@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import Literal, Optional, Union
+from typing import Any, Literal, Optional, Union
+
+from ..marks.mark_types import Mark
 
 RangeTargetType = Literal["vertical"]
 
@@ -7,8 +9,8 @@ RangeTargetType = Literal["vertical"]
 @dataclass
 class PrimitiveTarget:
     type = "primitive"
-    mark: Optional[dict]
-    modifiers: Optional[list[dict]]
+    mark: Optional[Mark]
+    modifiers: Optional[list[dict[str, Any]]]
 
 
 @dataclass
