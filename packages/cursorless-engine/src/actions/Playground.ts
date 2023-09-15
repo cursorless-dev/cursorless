@@ -37,23 +37,31 @@ function parseTree(
   tree: Tree,
   contentRange: Range,
 ): string {
-  const results: string[] = [
+  const resultPlayground: string[] = [];
+  const resultQuery: string[] = [];
+
+  parseCursor(resultPlayground, resultQuery, contentRange, tree.walk(), 0);
+
+  return [
     `## ${path.basename(document.uri.path)} [${contentRange}]\n`,
     `\`\`\`${document.languageId}`,
     document.getText(contentRange),
-    "```\n",
+    "```",
+    "",
     "```js",
-  ];
-
-  parseCursor(results, contentRange, tree.walk(), 0);
-
-  results.push("```");
-
-  return results.join("\n");
+    ...resultPlayground,
+    "```",
+    "",
+    "```scm",
+    ...resultQuery,
+    "```",
+    "",
+  ].join("\n");
 }
 
 function parseCursor(
-  results: string[],
+  resultPlayground: string[],
+  resultQuery: string[],
   contentRange: Range,
   cursor: TreeCursor,
   numIndents: number,
@@ -66,16 +74,31 @@ function parseCursor(
       cursor.endPosition.column,
     );
 
+    const indentation = getIndentation(numIndents);
+
     if (contentRange.intersection(nodeRange) != null) {
-      results.push(
-        `${getIndentation(numIndents)}${getFieldName(cursor)}${getType(
-          cursor,
-        )} [${nodeRange}]`,
-      );
+      const fieldName = getFieldName(cursor);
+      const prefix = indentation + fieldName;
+
+      if (cursor.nodeIsNamed) {
+        resultPlayground.push(`${prefix}${cursor.nodeType} [${nodeRange}]`);
+        resultQuery.push(`${prefix}(${cursor.nodeType}`);
+      } else {
+        const type = `"${cursor.nodeType}"`;
+        resultPlayground.push(`${prefix}${type} [${nodeRange}]`);
+        resultQuery.push(`${prefix}${type}`);
+      }
 
       if (cursor.gotoFirstChild()) {
-        parseCursor(results, contentRange, cursor, numIndents + 1);
+        parseCursor(
+          resultPlayground,
+          resultQuery,
+          contentRange,
+          cursor,
+          numIndents + 1,
+        );
         cursor.gotoParent();
+        resultQuery.push(`${indentation})`);
       }
     }
 
@@ -92,8 +115,4 @@ function getIndentation(length: number): string {
 function getFieldName(cursor: TreeCursor): string {
   const field = cursor.currentFieldName();
   return field != null ? `${field}: ` : "";
-}
-
-function getType(cursor: TreeCursor): string {
-  return cursor.nodeIsNamed ? cursor.nodeType : `"${cursor.nodeType}"`;
 }
