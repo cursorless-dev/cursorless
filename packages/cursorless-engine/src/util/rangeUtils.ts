@@ -1,5 +1,4 @@
 import { Position, Range, TextEditor } from "@cursorless/common";
-import { getLeadingWhitespace, getTrailingWhitespace } from "./regex";
 
 export function isAtEndOfLine(editor: TextEditor, position: Position) {
   const endLine = editor.document.lineAt(position);
