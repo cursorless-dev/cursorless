@@ -252,10 +252,7 @@
 
 ;; internal if in an if-else chain
 (if_statement
-  (
-    "else"
-  )
- @branch.start.startOf
+  "else" @branch.start.startOf
   alternative: (if_statement
     consequence: (block) @branch.end.endOf
   )
@@ -263,10 +260,7 @@
 
 ;; final else branch in an if-else chain
 (if_statement
-  (
-    "else"
-  )
- @branch.start.startOf
+  "else" @branch.start.startOf
   alternative: (block)
 ) @branch.end.endOf
 
