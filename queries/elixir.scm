@@ -1,4 +1,5 @@
-(comment) @comment
+(comment) @comment @textFragment
+(string) @string @textFragment
 (anonymous_function) @anonymousFunction
 (call
   target: (_) @functionCallee
