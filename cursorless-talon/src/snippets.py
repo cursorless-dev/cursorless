@@ -93,7 +93,7 @@ def insert_named_snippet(
 def insert_custom_snippet(
     body: str,
     destination: CursorlessDestination,
-    scope_types: Optional[list[str]] = None,
+    scope_types: Optional[list[dict]] = None,
 ):
     snippet = {
         "type": "custom",
@@ -101,7 +101,7 @@ def insert_custom_snippet(
     }
 
     if scope_types:
-       snippet["scopeTypes"] = [{"type": scope_type} for scope_type in scope_types]
+       snippet["scopeTypes"] = scope_types
 
     insert_snippet(snippet, destination)
 
@@ -142,7 +142,12 @@ class Actions:
         if isinstance(scope_type, str):
             scope_type = [scope_type]
 
-        insert_custom_snippet(body, destination, scope_type)
+        if scope_type is not None:
+            scope_types = [{"type": st} for st in scope_type]
+        else:
+            scope_types = None
+
+        insert_custom_snippet(body, destination, scope_types)
 
     def cursorless_wrap_with_snippet_by_name(
         name: str, variable_name: str, target: CursorlessTarget
