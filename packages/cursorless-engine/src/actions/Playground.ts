@@ -74,31 +74,38 @@ function parseCursor(
       cursor.endPosition.column,
     );
 
-    const indentation = getIndentation(numIndents);
-
     if (contentRange.intersection(nodeRange) != null) {
+      const indentation = getIndentation(numIndents);
       const fieldName = getFieldName(cursor);
       const prefix = indentation + fieldName;
 
+      // Named node
       if (cursor.nodeIsNamed) {
         resultPlayground.push(`${prefix}${cursor.nodeType} [${nodeRange}]`);
         resultQuery.push(`${prefix}(${cursor.nodeType}`);
-      } else {
+
+        // Named node with children
+        if (cursor.gotoFirstChild()) {
+          parseCursor(
+            resultPlayground,
+            resultQuery,
+            contentRange,
+            cursor,
+            numIndents + 1,
+          );
+          cursor.gotoParent();
+          resultQuery.push(`${indentation})`);
+        }
+        // Named node without children
+        else {
+          resultQuery[resultQuery.length - 1] += ")";
+        }
+      }
+      // Anonymous node
+      else {
         const type = `"${cursor.nodeType}"`;
         resultPlayground.push(`${prefix}${type} [${nodeRange}]`);
         resultQuery.push(`${prefix}${type}`);
-      }
-
-      if (cursor.gotoFirstChild()) {
-        parseCursor(
-          resultPlayground,
-          resultQuery,
-          contentRange,
-          cursor,
-          numIndents + 1,
-        );
-        cursor.gotoParent();
-        resultQuery.push(`${indentation})`);
       }
     }
 
