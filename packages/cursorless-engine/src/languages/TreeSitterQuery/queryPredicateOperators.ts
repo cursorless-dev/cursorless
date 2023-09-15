@@ -162,6 +162,19 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
 }
 
 /**
+ * A predicate operator that logs a node, for debugging.
+ */
+class Log extends QueryPredicateOperator<Log> {
+  name = "log!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    console.log(`#log!: ${nodeInfo.name}@${nodeInfo.range}`);
+    return true;
+  }
+}
+
+/**
  * A predicate operator that sets the insertion delimiter of the match. For
  * example, `(#insertion-delimiter! @foo ", ")` will set the insertion delimiter
  * of the `@foo` capture to `", "`.
@@ -178,6 +191,7 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 }
 
 export const queryPredicateOperators = [
+  new Log(),
   new NotType(),
   new NotEmpty(),
   new NotParentType(),

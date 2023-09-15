@@ -1,4 +1,4 @@
-import { Range, UnsupportedLanguageError } from "@cursorless/common";
+import { Range } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { SelectionWithEditor } from "../typings/Types";
 import { notSupported } from "../util/nodeMatchers";
@@ -104,14 +104,8 @@ function constructHackedStringTextFragmentExtractor(
  */
 export default function getTextFragmentExtractor(
   languageId: string,
-): TextFragmentExtractor {
-  const extractor = textFragmentExtractors[languageId as LegacyLanguageId];
-
-  if (extractor == null) {
-    throw new UnsupportedLanguageError(languageId);
-  }
-
-  return extractor;
+): TextFragmentExtractor | null {
+  return textFragmentExtractors[languageId as LegacyLanguageId];
 }
 
 // NB: For now when we want use the entire file as a text fragment we just
@@ -165,7 +159,6 @@ const textFragmentExtractors: Record<
     "php",
     phpStringTextFragmentExtractor,
   ),
-  python: constructDefaultTextFragmentExtractor("python"),
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
     rubyStringTextFragmentExtractor,

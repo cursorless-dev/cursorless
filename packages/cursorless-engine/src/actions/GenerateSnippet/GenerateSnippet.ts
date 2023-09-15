@@ -175,7 +175,7 @@ export default class GenerateSnippet {
       // as wrapperScopeType.  Ie the output will look like `{|}` (with the `|`
       // representing a tabstop in the meta-snippet)
       //
-      // NB: We use the subsituter here, with `isQuoted=true` because in order
+      // NB: We use the substituter here, with `isQuoted=true` because in order
       // to make this work for the meta-snippet, we want to end up with
       // something like `{$3}`, which is not valid json.  So we instead arrange
       // to end up with json like `"hgidfsivhs"`, and then replace the whole

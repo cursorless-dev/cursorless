@@ -2,7 +2,7 @@ from typing import Optional
 
 from talon import actions, app
 
-from ..targets.target_types import CursorlessTarget
+from ..targets.target_types import CursorlessTarget, PrimitiveDestination
 from .get_text import cursorless_get_text_action
 from .replace import cursorless_replace_action
 
@@ -15,7 +15,8 @@ def cursorless_homophones_action(target: CursorlessTarget):
     except LookupError as e:
         app.notify(str(e))
         return
-    cursorless_replace_action(target, updated_texts)
+    destination = PrimitiveDestination("to", target)
+    cursorless_replace_action(destination, updated_texts)
 
 
 def get_next_homophone(word: str) -> str:

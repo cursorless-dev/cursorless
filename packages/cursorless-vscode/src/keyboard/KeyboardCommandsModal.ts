@@ -173,7 +173,7 @@ export default class KeyboardCommandsModal {
     let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
 
     // We handle multi-key sequences by repeatedly awaiting a single keypress
-    // until they've pressed somethign in the map.
+    // until they've pressed something in the map.
     while (keyHandler == null) {
       if (!this.isPrefixOfKey(sequence)) {
         const errorMessage = `Unknown key sequence "${sequence}"`;
