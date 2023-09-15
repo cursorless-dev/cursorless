@@ -1,11 +1,11 @@
 export const extensionDependencies = [
+  // Cursorless access to Tree sitter
   "pokey.parse-tree",
-  // Register necessary file extensions for tests
-  "scalameta.metals",
-  "mrob95.vscode-talonscript",
-  "jrieken.vscode-tree-sitter-query",
-  // necessary for Elixir tests
-  "jakebecker.elixir-ls",
+  // Register necessary language-IDs for tests
+  "scala-lang.scala", // scala
+  "mrob95.vscode-talonscript", // talon
+  "jrieken.vscode-tree-sitter-query", // scm
+  "jakebecker.elixir-ls", // elixir
   // Necessary for the `drink cell` and `pour cell` tests
   "ms-toolsai.jupyter",
 ];

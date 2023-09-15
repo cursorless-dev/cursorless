@@ -12,32 +12,27 @@ export class Range {
   readonly end: Position;
 
   /**
-   * Create a new range from two positions. If `start` is not
-   * before or equal to `end`, the values will be swapped.
+   * Create a new range from two positions.
+   * The earlier of `p1` and `p2` will be used as the start position.
    *
-   * @param start A position.
-   * @param end A position.
+   * @param p1 A position.
+   * @param p2 A position.
    */
-  constructor(start: Position, end: Position);
+  constructor(p1: Position, p2: Position);
 
   /**
-   * Create a new range from number coordinates. It is a shorter equivalent of
-   * using `new Range(new Position(startLine, startCharacter), new Position(endLine, endCharacter))`
+   * Create a new range from number coordinates.
+   * It is equivalent to `new Range(new Position(line1, char1), new Position(line2, char2))`
    *
-   * @param startLine A zero-based line value.
-   * @param startCharacter A zero-based character value.
-   * @param endLine A zero-based line value.
-   * @param endCharacter A zero-based character value.
+   * @param line1 A zero-based line value.
+   * @param char1 A zero-based character value.
+   * @param line2 A zero-based line value.
+   * @param char2 A zero-based character value.
    */
-  constructor(
-    startLine: number,
-    startCharacter: number,
-    endLine: number,
-    endCharacter: number,
-  );
+  constructor(line1: number, char1: number, line2: number, char2: number);
 
   constructor(...args: any[]) {
-    const [start, end]: [Position, Position] = (() => {
+    const [p1, p2]: [Position, Position] = (() => {
       // Arguments are two positions
       if (args.length === 2) {
         return args as [Position, Position];
@@ -48,12 +43,12 @@ export class Range {
     })();
 
     // Ranges are always non-reversed
-    if (start.isBefore(end)) {
-      this.start = start;
-      this.end = end;
+    if (p1.isBefore(p2)) {
+      this.start = p1;
+      this.end = p2;
     } else {
-      this.start = end;
-      this.end = start;
+      this.start = p2;
+      this.end = p1;
     }
   }
 
@@ -98,8 +93,9 @@ export class Range {
   }
 
   /**
-   * Intersect `range` with this range and returns a new range or `undefined`
-   * if the ranges have no overlap.
+   * Intersect `range` with this range and returns a new range.
+   * If the ranges are adjacent but non-overlapping, the resulting range is empty.
+   * If the ranges have no overlap and are not adjacent, it returns `undefined`.
    *
    * @param other A range.
    * @return A range of the greater start and smaller end positions. Will
@@ -125,12 +121,12 @@ export class Range {
   }
 
   /**
-   * Derived a new range from this range.
+   * Derive a new range from this range.
+   * If the resulting range has end before start, they are swapped.
    *
    * @param start A position that should be used as start. The default value is the {@link Range.start current start}.
    * @param end A position that should be used as end. The default value is the {@link Range.end current end}.
    * @return A range derived from this range with the given start and end position.
-   * If start and end are not different `this` range will be returned.
    */
   public with(start?: Position, end?: Position): Range {
     return new Range(start ?? this.start, end ?? this.end);
