@@ -8,7 +8,6 @@ from ..targets.target_types import (
     ImplicitDestination,
 )
 from .bring_move import BringMoveTargets
-from .call import cursorless_call_action
 from .execute_command import cursorless_execute_command_action
 from .homophones import cursorless_homophones_action
 from .replace import cursorless_replace_action
@@ -44,11 +43,11 @@ ACTION_LIST_NAMES = [
     "wrap_action",
     "insert_snippet_action",
     "reformat_action",
+    "call_action",
     "experimental_action",
 ]
 
 callback_actions: dict[str, Callable[[CursorlessTarget], None]] = {
-    "callAsFunction": cursorless_call_action,
     "findInDocument": actions.user.private_cursorless_find,
     "nextHomophone": cursorless_homophones_action,
 }
@@ -70,6 +69,7 @@ no_wait_actions_post_sleep = {
         "{user.cursorless_simple_action} |"
         "{user.cursorless_experimental_action} |"
         "{user.cursorless_callback_action} |"
+        "{user.cursorless_call_action} |"
         "{user.cursorless_custom_action}"
     )
 )
@@ -96,6 +96,8 @@ class Actions:
             actions.user.private_cursorless_bring_move(
                 action_name, BringMoveTargets(target, ImplicitDestination())
             )
+        elif action_name == "callAsFunction":
+            actions.user.private_cursorless_call(target)
         elif action_name in no_wait_actions:
             action = {"name": action_name, "target": target}
             actions.user.private_cursorless_command_no_wait(action)
