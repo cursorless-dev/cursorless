@@ -32,7 +32,7 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
     verticalOffset: 0,
   },
   frame: {
-    sizeAdjustment: -12.5,
+    sizeAdjustment: -5,
     verticalOffset: 0,
   },
   curve: {
