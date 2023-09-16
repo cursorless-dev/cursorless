@@ -50,16 +50,15 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
 
     for (let i = startLine + 1; i <= endLine && i < document.lineCount; ++i) {
       const nextLine = document.lineAt(i);
-      const start = prevLine.range.end;
-      const end = nextLine.range.start;
 
       edits.push({
-        range: new Range(start, end),
-        text:
-          prevLine.lastNonWhitespaceCharacterIndex < start.character ||
-          nextLine.firstNonWhitespaceCharacterIndex > end.character
-            ? ""
-            : " ",
+        range: new Range(
+          prevLine.range.end.line,
+          prevLine.lastNonWhitespaceCharacterIndex,
+          nextLine.range.start.line,
+          nextLine.firstNonWhitespaceCharacterIndex,
+        ),
+        text: " ",
         isReplace: true,
       });
 
