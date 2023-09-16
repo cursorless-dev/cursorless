@@ -27,7 +27,7 @@ import {
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
 import { PasteFromClipboard } from "./PasteFromClipboard";
-import Playground from "./Playground";
+import ParseTree from "./ParseTree";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -148,6 +148,6 @@ export class Actions implements ActionRecord {
     this.snippets,
     this.modifierStageFactory,
   );
-  ["private.playground"] = new Playground(this.treeSitter);
+  ["private.parseTree"] = new ParseTree(this.treeSitter);
   ["private.getTargets"] = new GetTargets();
 }

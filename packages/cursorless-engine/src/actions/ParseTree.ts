@@ -7,7 +7,7 @@ import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class Playground {
+export default class ParseTree {
   constructor(private treeSitter: TreeSitter) {
     this.run = this.run.bind(this);
   }
@@ -15,7 +15,7 @@ export default class Playground {
   async run(targets: Target[]): Promise<ActionReturnValue> {
     await flashTargets(ide(), targets, FlashStyle.referenced);
 
-    const results: string[] = ["# Cursorless playground"];
+    const results: string[] = ["# Cursorless parse tree"];
 
     for (const target of targets) {
       const { editor, contentRange } = target;

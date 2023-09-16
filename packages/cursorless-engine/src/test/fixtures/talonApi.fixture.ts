@@ -79,8 +79,8 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
     variableName: "body",
   },
 };
-const playgroundAction: ActionDescriptor = {
-  name: "private.playground",
+const parseTreeAction: ActionDescriptor = {
+  name: "private.parseTree",
   target: decoratedPrimitiveTarget("a"),
 };
 
@@ -103,7 +103,7 @@ export const talonApiFixture = [
     "test api wrap with snippet by name this",
     wrapWithSnippetByNameAction,
   ),
-  spokenFormTest("playground air", playgroundAction),
+  spokenFormTest("parse tree air", parseTreeAction),
 ];
 
 function decoratedPrimitiveTarget(
