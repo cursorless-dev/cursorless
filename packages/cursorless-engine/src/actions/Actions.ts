@@ -109,7 +109,7 @@ export class Actions implements ActionRecord {
     this,
     this.modifierStageFactory,
   );
-  joinLines = new JoinLines();
+  joinLines = new JoinLines(this.rangeUpdater);
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);
   pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);
