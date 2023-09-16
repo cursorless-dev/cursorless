@@ -1,4 +1,5 @@
 from typing import Optional
+
 from talon import Module, actions
 
 from ..targets.target_types import CursorlessTarget, ImplicitTarget
