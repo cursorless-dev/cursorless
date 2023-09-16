@@ -25,6 +25,7 @@ import {
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
+import JoinLines from "./JoinLines";
 import { PasteFromClipboard } from "./PasteFromClipboard";
 import Remove from "./Remove";
 import Replace from "./Replace";
@@ -108,6 +109,7 @@ export class Actions implements ActionRecord {
     this,
     this.modifierStageFactory,
   );
+  joinLines = new JoinLines();
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);
   pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);
