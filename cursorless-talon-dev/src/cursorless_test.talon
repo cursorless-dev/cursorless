@@ -19,4 +19,3 @@ test api wrap with snippet <user.cursorless_target>:
     user.cursorless_wrap_with_snippet("Hello, $foo!  My name is $bar!", cursorless_target, "foo", "statement")
 test api wrap with snippet by name <user.cursorless_target>:
     user.cursorless_wrap_with_snippet_by_name("functionDeclaration", "body", cursorless_target)
-
