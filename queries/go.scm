@@ -232,6 +232,7 @@
     (type_case)
   ] @branch
   (#trim-end! @branch)
+  (#insertion-delimiter! @branch "\n")
 )
 
 [
@@ -243,12 +244,15 @@
 
 ;; first if in an if-else chain
 (
-  (if_statement
-    consequence: (block) @branch.end.endOf
-  ) @_if
-  (#not-parent-type? @_if if_statement)
-)
+  (
+    (if_statement
+      consequence: (block) @branch.end.endOf
+    ) @_if
+    (#not-parent-type? @_if if_statement)
+  )
  @branch.start.startOf
+  (#insertion-delimiter! @branch.start.startOf " ")
+)
 
 ;; internal if in an if-else chain
 (if_statement
@@ -256,19 +260,17 @@
   alternative: (if_statement
     consequence: (block) @branch.end.endOf
   )
+  (#insertion-delimiter! @branch.start.startOf " ")
 )
 
 ;; final else branch in an if-else chain
-(if_statement
-  "else" @branch.start.startOf
-  alternative: (block)
-) @branch.end.endOf
-
-;; if statement without any elses
-(if_statement
-  consequence: (block)
-  .
-) @branch
+(
+  (if_statement
+    "else" @branch.start.startOf
+    alternative: (block)
+  ) @branch.end.endOf
+  (#insertion-delimiter! @branch.start.startOf " ")
+)
 
 ;; iteration scope is always the outermost if statement
 (

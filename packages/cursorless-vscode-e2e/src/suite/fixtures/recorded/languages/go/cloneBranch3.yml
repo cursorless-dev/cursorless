@@ -17,7 +17,7 @@ initialState:
       active: {line: 4, character: 4}
   marks: {}
 finalState:
-  documentContents: "if x {\n\tx++\n} else if y {\n\ty++\nelse {\n\tx--\n}\n} else {\n\tx--\n}"
+  documentContents: "if x {\n\tx++\n} else if y {\n\ty++\n} else {\n\tx--\n} else {\n\tx--\n}"
   selections:
-    - anchor: {line: 7, character: 4}
-      active: {line: 7, character: 4}
+    - anchor: {line: 6, character: 4}
+      active: {line: 6, character: 4}

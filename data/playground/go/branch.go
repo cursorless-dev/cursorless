@@ -39,6 +39,12 @@ func ifElseChains(x int) {
 		x--
 		x--
 		x--
+	} else if z:=0; x == 2 {
+		x--
+		x--
+		x--
+	} else if x == 3 {
+		x++
 	} else if x == 3 {
 		x++
 	} else {
