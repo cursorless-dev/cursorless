@@ -9,7 +9,7 @@ of a document. See the
 [docs](https://github.com/pokey/vscode-parse-tree/#adding-a-new-language) there
 for how to add support for a new parser
 
-## 2. Ensure file type is supported by VScode
+## 2. Ensure file type is supported by VSCode
 
 If you are adding support for a new language that isn't natively detected by VSCode, you will need to add the appropriate extension to the list of dependencies. The list of languages officially supported by VSCode is listed [here](https://code.visualstudio.com/docs/languages/identifiers). You can add the extension to `packages/common/src/extensionDependencies.ts` and then re-run `pnpm init-vscode-sandbox` to ensure it is installed. If you do not do this you will ing counter errors when attempting to execute cursorless commands in the next step. See [here](https://github.com/cursorless-dev/cursorless/issues/1895)
 
