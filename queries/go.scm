@@ -244,13 +244,10 @@
 
 ;; first if in an if-else chain
 (
-  (
-    (if_statement
-      consequence: (block) @branch.end.endOf
-    ) @_if
-    (#not-parent-type? @_if if_statement)
-  )
- @branch.start.startOf
+  (if_statement
+    consequence: (block) @branch.end.endOf
+  ) @_if @branch.start.startOf
+  (#not-parent-type? @_if if_statement)
   (#insertion-delimiter! @branch.start.startOf " ")
 )
 
@@ -274,7 +271,6 @@
 
 ;; iteration scope is always the outermost if statement
 (
-  (if_statement) @_if
+  (if_statement) @_if @branch.iteration
   (#not-parent-type? @_if if_statement)
 )
- @branch.iteration
