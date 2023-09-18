@@ -101,6 +101,7 @@ export class DestinationImpl implements Destination {
   }
 
   private constructEditWithoutDelimiters(text: string): EditWithRangeUpdater {
+    s;
     return {
       range: this.contentRange,
       text,
@@ -120,14 +121,13 @@ export class DestinationImpl implements Destination {
           ? line.firstNonWhitespaceCharacterIndex
           : line.lastNonWhitespaceCharacterIndex;
 
+        // Use the full line to include indentation
         if (contentPosition.character === nonWhitespaceCharacterIndex) {
           return this.isBefore ? line.range.start : line.range.end;
         }
-
-        return contentPosition;
-      } else {
-        return contentPosition;
       }
+
+      return contentPosition;
     })();
 
     return new Range(position, position);
