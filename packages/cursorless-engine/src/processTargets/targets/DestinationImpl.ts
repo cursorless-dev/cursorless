@@ -101,7 +101,6 @@ export class DestinationImpl implements Destination {
   }
 
   private constructEditWithoutDelimiters(text: string): EditWithRangeUpdater {
-    s;
     return {
       range: this.contentRange,
       text,
