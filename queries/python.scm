@@ -17,6 +17,7 @@
   (if_statement)
   (import_from_statement)
   (import_statement)
+  (match_statement)
   (nonlocal_statement)
   (pass_statement)
   (print_statement)
