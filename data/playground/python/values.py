@@ -5,6 +5,7 @@
 # "chuck value"
 # "chuck every value"
 
+
 # the argument value "True" that is part of "b=True"
 # is "value" scope
 def func(b=True, c=True):
@@ -14,6 +15,7 @@ def func(b=True, c=True):
         return 1
     else:
         return 0
+
 
 # the argument value "False" that is part of "b=False"
 # is "value" scope
@@ -28,17 +30,21 @@ val /= 25
 val1, val2 = 0, 5
 val1 = val2
 
+
 def my_funk(value: str) -> str:
     print(value)
 
-def my_funk(value: str = "hello", other: bool=False) -> str:
+
+def my_funk(value: str = "hello", other: bool = False) -> str:
     print(value)
+
 
 # we can say "change every value" to allow modifying all the values in one go
 def foo():
     a = 0
     b = 1
     c = 2
+
 
 # But we don't support outside of a function yet
 a = 0
