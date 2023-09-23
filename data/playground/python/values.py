@@ -26,7 +26,6 @@ val = 1.5
 val /= 25
 
 val1, val2 = 0, 5
-val1 = 0, val2 = 5
 val1 = val2
 
 def my_funk(value: str) -> str:
