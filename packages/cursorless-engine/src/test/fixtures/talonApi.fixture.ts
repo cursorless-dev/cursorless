@@ -80,7 +80,7 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
   },
 };
 const parseTreeAction: ActionDescriptor = {
-  name: "private.parseTree",
+  name: "private.showParseTree",
   target: decoratedPrimitiveTarget("a"),
 };
 

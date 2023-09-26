@@ -7,7 +7,7 @@ import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class ParseTree {
+export default class ShowParseTree {
   constructor(private treeSitter: TreeSitter) {
     this.run = this.run.bind(this);
   }

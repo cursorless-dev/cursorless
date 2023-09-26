@@ -3,7 +3,7 @@ command:
   version: 6
   spokenForm: parse tree file
   action:
-    name: private.parseTree
+    name: private.showParseTree
     target:
       type: primitive
       modifiers:
