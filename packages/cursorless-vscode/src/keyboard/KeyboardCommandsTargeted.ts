@@ -235,6 +235,8 @@ export default class KeyboardCommandsTargeted {
 
     await this.highlightTarget();
 
+    const EXIT_CURSORLESS_MODE_ACTIONS:string[]=vscode.workspace.getConfiguration("cursorless.experimental.keyboard.modal").get("exit_actions")??[];
+    
     if (EXIT_CURSORLESS_MODE_ACTIONS.includes(name)) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
@@ -284,10 +286,7 @@ function executeCursorlessCommand(action: ActionDescriptor) {
   });
 }
 
-const EXIT_CURSORLESS_MODE_ACTIONS: ActionType[] = [
-  "setSelectionBefore",
-  "setSelectionAfter",
-  "editNewLineBefore",
-  "editNewLineAfter",
-  "clearAndSetSelection",
-];
+
+
+
+

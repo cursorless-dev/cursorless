@@ -902,6 +902,14 @@
             ]
           }
         },
+        "cursorless.experimental.keyboard.modal.exit_actions": {
+          "description": "Define actions that exit modal mode",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
         "cursorless.experimental.keyboard.modal.keybindings.colors": {
           "description": "Define modal keybindings for colors",
           "type": "object",
