@@ -8,8 +8,9 @@ import * as yaml from "js-yaml";
 import * as assert from "node:assert";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { generateSpokenForm } from "./generateSpokenForm";
 import { getHatMapCommand } from "./getHatMapCommand";
+import { SpokenFormGenerator } from ".";
+import { defaultSpokenFormMap } from "../DefaultSpokenFormMap";
 
 suite("Generate spoken forms", () => {
   getRecordedTestPaths().forEach(({ name, path }) =>
@@ -21,23 +22,25 @@ async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
 
-  const generatedSpokenForm = generateSpokenForm(
+  const generator = new SpokenFormGenerator(defaultSpokenFormMap);
+
+  const generatedSpokenForm = generator.command(
     canonicalizeAndValidateCommand(fixture.command),
   );
 
   if (fixture.marksToCheck != null && generatedSpokenForm.type === "success") {
     // If the test has marks to check (eg a hat token map test), it will end in
     // "take <mark>" as a way to indicate which mark to check
-    const hatMapSpokenForm = generateSpokenForm(
+    const hatMapSpokenForm = generator.command(
       getHatMapCommand(fixture.marksToCheck),
     );
     assert(hatMapSpokenForm.type === "success");
-    generatedSpokenForm.value += " " + hatMapSpokenForm.value;
+    generatedSpokenForm.preferred += " " + hatMapSpokenForm.preferred;
   }
 
   if (shouldUpdateFixtures()) {
     if (generatedSpokenForm.type === "success") {
-      fixture.command.spokenForm = generatedSpokenForm.value;
+      fixture.command.spokenForm = generatedSpokenForm.preferred;
       fixture.spokenFormError = undefined;
     } else {
       fixture.spokenFormError = generatedSpokenForm.reason;
@@ -47,7 +50,7 @@ async function runTest(file: string) {
     await fsp.writeFile(file, serializeTestFixture(fixture));
   } else {
     if (generatedSpokenForm.type === "success") {
-      assert.equal(fixture.command.spokenForm, generatedSpokenForm.value);
+      assert.equal(fixture.command.spokenForm, generatedSpokenForm.preferred);
       assert.equal(fixture.spokenFormError, undefined);
     } else {
       assert.equal(fixture.spokenFormError, generatedSpokenForm.reason);

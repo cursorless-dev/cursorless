@@ -57,7 +57,7 @@ export class LanguageDefinitions {
 
     if (ide().runMode === "development") {
       this.disposables.push(
-        fileSystem.watchDir(this.queryDir, () => {
+        fileSystem.watch(this.queryDir, () => {
           this.languageDefinitions.clear();
           this.notifier.notifyListeners();
         }),

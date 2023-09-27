@@ -75,6 +75,24 @@ export interface ScopeProvider {
     editor: TextEditor,
     scopeType: ScopeType,
   ) => ScopeSupport;
+
+  /**
+   * Registers a callback to be run when the scope support changes for the active
+   * editor.  The callback will be run immediately once with the current support
+   * levels for the active editor.
+   * @param callback The callback to run when the scope support changes
+   * @returns A {@link Disposable} which will stop the callback from running
+   */
+  onDidChangeScopeSupport: (callback: ScopeSupportEventCallback) => Disposable;
+
+  /**
+   * Registers a callback to be run when the scope support changes for the active
+   * editor.  The callback will be run immediately once with the current support
+   * levels for the active editor.
+   * @param callback The callback to run when the scope support changes
+   * @returns A {@link Disposable} which will stop the callback from running
+   */
+  onDidChangeScopeInfo(callback: ScopeTypeInfoEventCallback): Disposable;
 }
 
 interface ScopeRangeConfigBase {
@@ -107,6 +125,26 @@ export type IterationScopeChangeEventCallback = (
   editor: TextEditor,
   scopeRanges: IterationScopeRanges[],
 ) => void;
+
+export interface ScopeSupportInfo extends ScopeTypeInfo {
+  support: ScopeSupport;
+  iterationScopeSupport: ScopeSupport;
+}
+
+export type ScopeSupportLevels = ScopeSupportInfo[];
+
+export type ScopeSupportEventCallback = (
+  supportLevels: ScopeSupportLevels,
+) => void;
+
+export interface ScopeTypeInfo {
+  scopeType: ScopeType;
+  spokenForms: string[] | undefined;
+  humanReadableName: string;
+  isLanguageSpecific: boolean;
+}
+
+export type ScopeTypeInfoEventCallback = (scopeInfos: ScopeTypeInfo[]) => void;
 
 /**
  * Contains the ranges that define a given scope, eg its {@link domain} and the

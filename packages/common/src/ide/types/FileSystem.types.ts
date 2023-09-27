@@ -9,5 +9,5 @@ export interface FileSystem {
    * @param onDidChange A function to call on changes
    * @returns A disposable to cancel the watcher
    */
-  watchDir(path: string, onDidChange: PathChangeListener): Disposable;
+  watch(path: string, onDidChange: PathChangeListener): Disposable;
 }
