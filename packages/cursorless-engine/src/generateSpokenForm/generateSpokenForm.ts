@@ -5,8 +5,8 @@ import {
   InsertionMode,
   PartialTargetDescriptor,
   ScopeType,
+  camelCaseToAllDown,
 } from "@cursorless/common";
-import { RecursiveArray } from "lodash";
 import { NoSpokenFormError } from "./NoSpokenFormError";
 import { actions } from "./defaultSpokenForms/actions";
 import { connectives } from "./defaultSpokenForms/connectives";
@@ -174,9 +174,7 @@ export class SpokenFormGenerator {
     }
   }
 
-  private handleTarget(
-    target: PartialTargetDescriptor,
-  ): RecursiveArray<string> {
+  private handleTarget(target: PartialTargetDescriptor): SpokenFormComponent {
     switch (target.type) {
       case "list":
         if (target.elements.length < 2) {
@@ -210,7 +208,7 @@ export class SpokenFormGenerator {
 
   private handleDestination(
     destination: DestinationDescriptor,
-  ): RecursiveArray<string> {
+  ): SpokenFormComponent {
     switch (destination.type) {
       case "list":
         if (destination.destinations.length < 2) {
@@ -252,12 +250,41 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
   }
 
   if (Array.isArray(component)) {
-    return constructSpokenFormsArray(component);
+    return cartesianProduct(component.map(constructSpokenForms)).map((words) =>
+      words.join(" "),
+    );
   }
+
+  if (component.spokenForms.length === 0) {
+    throw new NoSpokenFormError(
+      `${camelCaseToAllDown(component.spokenFormType)} with id ${
+        component.id
+      }; please see https://www.cursorless.org/docs/user/customization/ for more information`,
+    );
+  }
+
+  return component.spokenForms;
 }
 
-function cartesianProduct<T>(...arrays: T[][]): T[] {
-  return arrays.reduce((acc, val) =>
-    acc.flatMap((x) => val.map((y) => [...x, y])),
+/**
+ * Given an array of arrays, constructs all possible combinations of the
+ * elements of the arrays. For example, given [[1, 2], [3, 4]], returns [[1, 3],
+ * [1, 4], [2, 3], [2, 4]]. If any of the arrays are empty, returns an empty
+ * array.
+ * @param arrays The arrays to take the cartesian product of
+ */
+function cartesianProduct<T>(arrays: T[][]): T[][] {
+  if (arrays.length === 0) {
+    return [];
+  }
+
+  if (arrays.length === 1) {
+    return arrays[0].map((element) => [element]);
+  }
+
+  const [first, ...rest] = arrays;
+  const restCartesianProduct = cartesianProduct(rest);
+  return first.flatMap((element) =>
+    restCartesianProduct.map((restElement) => [element, ...restElement]),
   );
 }

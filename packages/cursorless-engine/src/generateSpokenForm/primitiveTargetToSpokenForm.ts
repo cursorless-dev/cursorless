@@ -20,7 +20,6 @@ import {
   numberToSpokenForm,
   ordinalToSpokenForm,
 } from "./defaultSpokenForms/numbers";
-import { surroundingPairNameToSpokenForm } from "./defaultSpokenForms/modifiers";
 import { characterToSpokenForm } from "./defaultSpokenForms/characters";
 import {
   GeneratorSpokenFormMap,
@@ -35,7 +34,7 @@ export class PrimitiveTargetSpokenFormGenerator {
   handlePrimitiveTarget(
     target: PartialPrimitiveTargetDescriptor,
   ): SpokenFormComponent {
-    const components: SpokenFormComponents = [];
+    const components: SpokenFormComponent[] = [];
     if (target.modifiers != null) {
       components.push(target.modifiers.map(this.handleModifier));
     }
@@ -147,7 +146,7 @@ export class PrimitiveTargetSpokenFormGenerator {
 
   private handleRelativeScopeInclusive(
     modifier: RelativeScopeModifier,
-  ): SpokenFormComponents {
+  ): SpokenFormComponent {
     const scope = this.handleScopeType(modifier.scopeType);
 
     if (modifier.length === 1) {
@@ -175,7 +174,7 @@ export class PrimitiveTargetSpokenFormGenerator {
 
   private handleRelativeScopeExclusive(
     modifier: RelativeScopeModifier,
-  ): SpokenFormComponents {
+  ): SpokenFormComponent {
     const scope = this.handleScopeType(modifier.scopeType);
     const direction =
       modifier.direction === "forward"
@@ -207,7 +206,7 @@ export class PrimitiveTargetSpokenFormGenerator {
     );
   }
 
-  handleScopeType(scopeType: ScopeType): SpokenForms {
+  handleScopeType(scopeType: ScopeType): SpokenFormComponent {
     switch (scopeType.type) {
       case "oneOf":
       case "customRegex":
@@ -220,10 +219,7 @@ export class PrimitiveTargetSpokenFormGenerator {
             `Scope type '${scopeType.type}' with delimiter 'collectionBoundary'`,
           );
         }
-        const pair = surroundingPairNameToSpokenForm(
-          this.spokenFormMap,
-          scopeType.delimiter,
-        );
+        const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
         if (scopeType.forceDirection != null) {
           const direction =
             scopeType.forceDirection === "left"
@@ -239,7 +235,7 @@ export class PrimitiveTargetSpokenFormGenerator {
     }
   }
 
-  private handleMark(mark: PartialMark): SpokenFormComponents {
+  private handleMark(mark: PartialMark): SpokenFormComponent {
     switch (mark.type) {
       case "decoratedSymbol": {
         const [color, shape] = mark.symbolColor.split("-");
@@ -314,7 +310,28 @@ export class PrimitiveTargetSpokenFormGenerator {
   }
 }
 
+function pluralize(name: SpokenFormComponent): SpokenFormComponent {
+  if (typeof name === "string") {
+    return pluralizeString(name);
+  }
+
+  if (Array.isArray(name)) {
+    if (name.length === 0) {
+      return name;
+    }
+
+    const last = name[name.length - 1];
+
+    return [...name.slice(0, -1), pluralize(last)];
+  }
+
+  return {
+    ...name,
+    spokenForms: name.spokenForms.map(pluralizeString),
+  };
+}
+
 // FIXME: Properly pluralize
-function pluralize(name: string): string {
+function pluralizeString(name: string): string {
   return `${name}s`;
 }
