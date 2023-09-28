@@ -5,6 +5,7 @@ from ..targets.target_types import CursorlessTarget, ImplicitTarget
 mod = Module()
 mod.list("cursorless_call_action", desc="Cursorless call action")
 
+
 @mod.action_class
 class Actions:
     def private_cursorless_call(

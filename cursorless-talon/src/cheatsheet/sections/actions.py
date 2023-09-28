@@ -112,7 +112,7 @@ def get_actions():
                 {
                     "spokenForm": f"{complex_actions['callAsFunction']} <target 1> on <target 2>",
                     "description": "Call <target 1> on <target 2>",
-                }
+                },
             ],
         },
         {
