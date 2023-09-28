@@ -6,7 +6,7 @@ import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TestCaseRecorder } from "./index";
+import { StoredTargetMap, TestCaseRecorder, TreeSitter } from "./index";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
@@ -26,6 +26,7 @@ import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandler
  * 5. Call {@link CommandRunnerImpl.run} to run the actual command.
  */
 export async function runCommand(
+  treeSitter: TreeSitter,
   debug: Debug,
   hatTokenMap: HatTokenMap,
   testCaseRecorder: TestCaseRecorder,
@@ -47,6 +48,7 @@ export async function runCommand(
   );
 
   let commandRunner = createCommandRunner(
+    treeSitter,
     languageDefinitions,
     debug,
     storedTargets,
@@ -66,6 +68,7 @@ export async function runCommand(
 }
 
 function createCommandRunner(
+  treeSitter: TreeSitter,
   languageDefinitions: LanguageDefinitions,
   debug: Debug,
   storedTargets: StoredTargetMap,
@@ -92,6 +95,6 @@ function createCommandRunner(
     debug,
     storedTargets,
     targetPipelineRunner,
-    new Actions(snippets, rangeUpdater, modifierStageFactory),
+    new Actions(treeSitter, snippets, rangeUpdater, modifierStageFactory),
   );
 }

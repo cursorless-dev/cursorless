@@ -92,7 +92,7 @@ Note that each snippet can use `insertionScopeTypes` to indicate that it will au
 
 As usual, the spoken forms for these snippets can be [customized by csv](../customization.md). The csvs are in the files in `cursorless-settings/experimental` with `snippet` in their name.
 
-In addition, you can change the term `"snippet"` (for snippet insertion) using actions.csv. Keep in mind that if you change it to `"snip"`, you may want to turn off the built-in knausj `"snip"` commands to avoid conflicts.
+In addition, you can change the term `"snippet"` (for snippet insertion) using actions.csv. Keep in mind that if you change it to `"snip"`, you may want to turn off the built-in community `"snip"` commands to avoid conflicts.
 
 ## Adding your own snippets
 
