@@ -54,6 +54,7 @@ export const actions = {
   insertSnippet: "snippet",
   pasteFromClipboard: "paste",
 
+  ["private.showParseTree"]: "parse tree",
   ["experimental.setInstanceReference"]: "from",
 
   editNew: null,
