@@ -106,11 +106,11 @@ def get_actions():
             "type": "action",
             "variations": [
                 {
-                    "spokenForm": "Call <target>",
+                    "spokenForm": f"{complex_actions['callAsFunction']} <target>",
                     "description": "Call <target> on selection",
                 },
                 {
-                    "spokenForm": "Call <target 1> on <target 2>",
+                    "spokenForm": f"{complex_actions['callAsFunction']} <target 1> on <target 2>",
                     "description": "Call <target 1> on <target 2>",
                 }
             ],
