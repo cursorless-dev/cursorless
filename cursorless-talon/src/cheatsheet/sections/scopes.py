@@ -5,5 +5,8 @@ def get_scopes():
     return get_lists(
         ["scope_type"],
         "scopeType",
-        {"argumentOrParameter": "Argument"},
+        {
+            "argumentOrParameter": "Argument",
+            "boundedNonWhitespaceSequence": "Non whitespace sequence stopped by surrounding pair delimeters",
+        },
     )
