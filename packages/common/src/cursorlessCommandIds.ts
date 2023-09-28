@@ -78,7 +78,7 @@ export const cursorlessCommandDescriptions: Record<
     "Display the cursorless cheatsheet",
   ),
   ["cursorless.internal.updateCheatsheetDefaults"]: new HiddenCommand(
-    "Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock knausj and cursorless.",
+    "Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
   ),
   ["cursorless.takeSnapshot"]: new HiddenCommand(
     "Take a snapshot of the current editor state",
