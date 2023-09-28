@@ -8,6 +8,7 @@ import { cloneDeep, isEqual } from "lodash";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as vscode from "vscode";
+import { vscodeGetConfigurationString } from "../VscodeConfiguration";
 import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
 } from "../VscodeEnabledHatStyleManager";
@@ -47,9 +48,7 @@ const hatConfigSections = [
  * {@link VscodeEnabledHatStyles}
  */
 
-const SETTING_SECTION_HAT_SHAPES_DIR = "cursorless.private";
-const SETTING_NAME_HAT_SHAPES_DIR = "hatShapesDir";
-const hatShapesDirSettingId = `${SETTING_SECTION_HAT_SHAPES_DIR}.${SETTING_NAME_HAT_SHAPES_DIR}`;
+const hatShapesDirSettingId = "cursorless.private.hatShapesDir";
 
 interface SvgInfo {
   svg: string;
@@ -125,9 +124,7 @@ export default class VscodeHatRenderer {
   private async updateHatsDirWatcher() {
     this.hatsDirWatcherDisposable?.dispose();
 
-    const hatsDir = vscode.workspace
-      .getConfiguration(SETTING_SECTION_HAT_SHAPES_DIR)
-      .get<string>(SETTING_NAME_HAT_SHAPES_DIR)!;
+    const hatsDir = vscodeGetConfigurationString(hatShapesDirSettingId);
 
     if (hatsDir) {
       await this.updateShapeOverrides(hatsDir);
