@@ -84,9 +84,10 @@
 ;;!             ^^^
 ;;!  ---------------
 (for_statement
+  left: (_) @name
   right: (_) @value
-  ":" @value.domain.end
-) @value.domain.start.startOf
+  ":" @_.domain.end
+) @_.domain.start.startOf
 
 (comment) @comment @textFragment
 
