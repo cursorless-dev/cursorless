@@ -41,11 +41,16 @@ export class CustomSpokenForms implements SpokenFormMap {
 
   private isInitialized_ = false;
 
+  /**
+   * Whether the custom spoken forms have been initialized. If `false`, the
+   * default spoken forms are currently being used while the custom spoken forms
+   * are being loaded.
+   */
   get isInitialized() {
     return this.isInitialized_;
   }
 
-  private constructor(fileSystem: FileSystem) {
+  constructor(fileSystem: FileSystem) {
     this.disposer.push(
       fileSystem.watch(spokenFormsPath, () => this.updateSpokenFormMaps()),
     );
@@ -61,7 +66,9 @@ export class CustomSpokenForms implements SpokenFormMap {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
+    console.log("updateSpokenFormMaps before getSpokenFormEntries");
     const entries = await getSpokenFormEntries();
+    console.log("updateSpokenFormMaps after getSpokenFormEntries");
 
     this.simpleScopeTypeType = Object.fromEntries(
       entries
@@ -88,6 +95,8 @@ export class CustomSpokenForms implements SpokenFormMap {
         .map(({ id, spokenForms }) => [id, spokenForms] as const),
     );
 
+    console.log("updateSpokenFormMaps at end");
+    this.isInitialized_ = true;
     this.notifier.notifyListeners();
   }
 

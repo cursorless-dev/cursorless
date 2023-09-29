@@ -129,16 +129,11 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 
 class ScopeSupportTreeItem extends vscode.TreeItem {
   constructor(scopeTypeInfo: ScopeTypeInfo) {
-    let label: string, description: string | undefined;
-    if (scopeTypeInfo.spokenForms == null) {
-      label = scopeTypeInfo.humanReadableName;
-    } else {
-      label =
-        scopeTypeInfo.spokenForms.length === 0
-          ? "-"
-          : `"${scopeTypeInfo.spokenForms[0]}"`;
-      description = scopeTypeInfo.humanReadableName;
-    }
+    const label =
+      scopeTypeInfo.spokenForm.type === "error"
+        ? "-"
+        : `"${scopeTypeInfo.spokenForm.preferred}"`;
+    const description = scopeTypeInfo.humanReadableName;
 
     super(label, vscode.TreeItemCollapsibleState.None);
 

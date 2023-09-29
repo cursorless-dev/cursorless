@@ -5,6 +5,7 @@ import {
   ScopeType,
   TextEditor,
 } from "@cursorless/common";
+import { SpokenForm } from "../generateSpokenForm";
 
 export interface ScopeProvider {
   /**
@@ -139,7 +140,7 @@ export type ScopeSupportEventCallback = (
 
 export interface ScopeTypeInfo {
   scopeType: ScopeType;
-  spokenForms: string[] | undefined;
+  spokenForm: SpokenForm;
   humanReadableName: string;
   isLanguageSpecific: boolean;
 }

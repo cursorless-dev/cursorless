@@ -6,10 +6,9 @@ import {
   IDE,
 } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
+import { CustomSpokenForms } from "./CustomSpokenForms";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
 import { ScopeProvider } from "./api/ScopeProvider";
-import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
-import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
@@ -20,10 +19,13 @@ import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryI
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
-import { injectIde } from "./singletons/ide.singleton";
-import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
-import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { ScopeInfoProvider } from "./scopeProviders/ScopeInfoProvider";
+import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
+import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
+import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
+import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
+import { injectIde } from "./singletons/ide.singleton";
+import { SpokenFormGenerator } from "./generateSpokenForm";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -55,7 +57,11 @@ export function createCursorlessEngine(
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
 
+  const customSpokenForms = new CustomSpokenForms(fileSystem);
+
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
+
+  console.log("createCursorlessEngine");
 
   return {
     commandApi: {
@@ -90,7 +96,7 @@ export function createCursorlessEngine(
     scopeProvider: createScopeProvider(
       languageDefinitions,
       storedTargets,
-      fileSystem,
+      customSpokenForms,
     ),
     testCaseRecorder,
     storedTargets,
@@ -105,7 +111,7 @@ export function createCursorlessEngine(
 function createScopeProvider(
   languageDefinitions: LanguageDefinitions,
   storedTargets: StoredTargetMap,
-  fileSystem: FileSystem,
+  customSpokenForms: CustomSpokenForms,
 ): ScopeProvider {
   const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
 
@@ -123,7 +129,10 @@ function createScopeProvider(
     rangeProvider,
   );
   const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
-  const infoProvider = ScopeInfoProvider.create(fileSystem);
+  const infoProvider = new ScopeInfoProvider(
+    customSpokenForms,
+    new SpokenFormGenerator(customSpokenForms),
+  );
   const supportWatcher = new ScopeSupportWatcher(
     languageDefinitions,
     supportChecker,

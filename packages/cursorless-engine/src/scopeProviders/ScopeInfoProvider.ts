@@ -1,27 +1,19 @@
 import {
-  CustomRegexScopeType,
   Disposable,
-  FileSystem,
+  Disposer,
   ScopeType,
-  SimpleScopeTypeType,
-  SurroundingPairName,
   SurroundingPairScopeType,
-  isSimpleScopeType,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/common";
 import { pull } from "lodash";
-import { ScopeTypeInfo, ScopeTypeInfoEventCallback } from "..";
-import { Debouncer } from "../core/Debouncer";
 import { homedir } from "os";
 import * as path from "path";
+import { ScopeTypeInfo, ScopeTypeInfoEventCallback } from "..";
+import { CustomSpokenForms } from "../CustomSpokenForms";
+
+import { SpokenFormGenerator } from "../generateSpokenForm";
 import { scopeTypeToString } from "./scopeTypeToString";
-import {
-  CustomRegexSpokenFormEntry,
-  PairedDelimiterSpokenFormEntry,
-  SimpleScopeTypeTypeSpokenFormEntry,
-  getSpokenFormEntries,
-} from "./getSpokenFormEntries";
 
 export const spokenFormsPath = path.join(
   homedir(),
@@ -33,31 +25,20 @@ export const spokenFormsPath = path.join(
  * Maintains a list of all scope types and notifies listeners when it changes.
  */
 export class ScopeInfoProvider {
-  private disposables: Disposable[] = [];
-  private debouncer = new Debouncer(() => this.onChange(), 250);
+  private disposer = new Disposer();
   private listeners: ScopeTypeInfoEventCallback[] = [];
-  private simpleScopeTypeSpokenFormMap?: Record<SimpleScopeTypeType, string[]>;
-  private pairedDelimiterSpokenFormMap?: Record<SurroundingPairName, string[]>;
-  private customRegexSpokenFormMap?: Record<string, string[]>;
   private scopeInfos!: ScopeTypeInfo[];
 
-  private constructor(fileSystem: FileSystem) {
-    this.disposables.push(
-      fileSystem.watch(spokenFormsPath, this.debouncer.run),
-      this.debouncer,
+  constructor(
+    private customSpokenForms: CustomSpokenForms,
+    private spokenFormGenerator: SpokenFormGenerator,
+  ) {
+    this.disposer.push(
+      customSpokenForms.onDidChangeCustomSpokenForms(() => this.onChange()),
     );
 
     this.onDidChangeScopeInfo = this.onDidChangeScopeInfo.bind(this);
-  }
-
-  static create(fileSystem: FileSystem) {
-    const obj = new ScopeInfoProvider(fileSystem);
-    obj.init();
-    return obj;
-  }
-
-  private async init() {
-    await this.updateScopeTypeInfos();
+    this.updateScopeTypeInfos();
   }
 
   /**
@@ -69,7 +50,6 @@ export class ScopeInfoProvider {
    * @returns A {@link Disposable} which will stop the callback from running
    */
   onDidChangeScopeInfo(callback: ScopeTypeInfoEventCallback): Disposable {
-    this.updateScopeTypeInfos().then(() => callback(this.getScopeTypeInfos()));
     callback(this.getScopeTypeInfos());
 
     this.listeners.push(callback);
@@ -82,76 +62,36 @@ export class ScopeInfoProvider {
   }
 
   private async onChange() {
-    await this.updateScopeTypeInfos();
+    this.updateScopeTypeInfos();
 
     this.listeners.forEach((listener) => listener(this.scopeInfos));
   }
 
-  private async updateScopeTypeInfos(): Promise<void> {
-    const update = () => {
-      const scopeTypes: ScopeType[] = [
-        ...simpleScopeTypeTypes
-          // Ignore instance pseudo-scope for now
-          // Skip "string" because we use surrounding pair for that
-          .filter(
-            (scopeTypeType) =>
-              scopeTypeType !== "instance" && scopeTypeType !== "string",
-          )
-          .map((scopeTypeType) => ({
-            type: scopeTypeType,
-          })),
-
-        ...surroundingPairNames.map(
-          (surroundingPairName): SurroundingPairScopeType => ({
-            type: "surroundingPair",
-            delimiter: surroundingPairName,
-          }),
-        ),
-
-        ...(this.customRegexSpokenFormMap == null
-          ? []
-          : Object.keys(this.customRegexSpokenFormMap)
-        ).map(
-          (regex): CustomRegexScopeType => ({ type: "customRegex", regex }),
-        ),
-      ];
-
-      this.scopeInfos = scopeTypes.map((scopeType) =>
-        this.getScopeTypeInfo(scopeType),
-      );
-    };
-
-    update();
-
-    return this.updateSpokenFormMaps().then(update);
-  }
-
-  private async updateSpokenFormMaps() {
-    const entries = await getSpokenFormEntries();
-
-    this.simpleScopeTypeSpokenFormMap = Object.fromEntries(
-      entries
+  private updateScopeTypeInfos(): void {
+    const scopeTypes: ScopeType[] = [
+      ...simpleScopeTypeTypes
+        // Ignore instance pseudo-scope for now
+        // Skip "string" because we use surrounding pair for that
         .filter(
-          (entry): entry is SimpleScopeTypeTypeSpokenFormEntry =>
-            entry.type === "simpleScopeTypeType",
+          (scopeTypeType) =>
+            scopeTypeType !== "instance" && scopeTypeType !== "string",
         )
-        .map(({ id, spokenForms }) => [id, spokenForms] as const),
-    );
-    this.customRegexSpokenFormMap = Object.fromEntries(
-      entries
-        .filter(
-          (entry): entry is CustomRegexSpokenFormEntry =>
-            entry.type === "customRegex",
-        )
-        .map(({ id, spokenForms }) => [id, spokenForms] as const),
-    );
-    this.pairedDelimiterSpokenFormMap = Object.fromEntries(
-      entries
-        .filter(
-          (entry): entry is PairedDelimiterSpokenFormEntry =>
-            entry.type === "pairedDelimiter",
-        )
-        .map(({ id, spokenForms }) => [id, spokenForms] as const),
+        .map((scopeTypeType) => ({
+          type: scopeTypeType,
+        })),
+
+      ...surroundingPairNames.map(
+        (surroundingPairName): SurroundingPairScopeType => ({
+          type: "surroundingPair",
+          delimiter: surroundingPairName,
+        }),
+      ),
+
+      ...this.customSpokenForms.getCustomRegexScopeTypes(),
+    ];
+
+    this.scopeInfos = scopeTypes.map((scopeType) =>
+      this.getScopeTypeInfo(scopeType),
     );
   }
 
@@ -162,37 +102,10 @@ export class ScopeInfoProvider {
   getScopeTypeInfo(scopeType: ScopeType): ScopeTypeInfo {
     return {
       scopeType,
-      spokenForms: this.getSpokenForms(scopeType),
+      spokenForm: this.spokenFormGenerator.scopeType(scopeType),
       humanReadableName: scopeTypeToString(scopeType),
       isLanguageSpecific: isLanguageSpecific(scopeType),
     };
-  }
-
-  getSpokenForms(scopeType: ScopeType): string[] | undefined {
-    if (isSimpleScopeType(scopeType)) {
-      return this.simpleScopeTypeSpokenFormMap?.[scopeType.type];
-    }
-
-    if (scopeType.type === "surroundingPair") {
-      return this.pairedDelimiterSpokenFormMap?.[scopeType.delimiter];
-    }
-
-    if (scopeType.type === "customRegex") {
-      return this.customRegexSpokenFormMap?.[scopeType.regex];
-    }
-
-    return undefined;
-  }
-
-  dispose(): void {
-    this.disposables.forEach(({ dispose }) => {
-      try {
-        dispose();
-      } catch (e) {
-        // do nothing; some of the VSCode disposables misbehave, and we don't
-        // want that to prevent us from disposing the rest of the disposables
-      }
-    });
   }
 }
 
