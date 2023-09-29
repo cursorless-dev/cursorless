@@ -13,6 +13,7 @@ import { ScopeTypeInfo, ScopeTypeInfoEventCallback } from "..";
 
 import { CustomSpokenFormGenerator } from "../generateSpokenForm/CustomSpokenFormGenerator";
 import { scopeTypeToString } from "./scopeTypeToString";
+import { SpeakableSurroundingPairName } from "../SpokenFormMap";
 
 export const spokenFormsPath = path.join(
   homedir(),
@@ -68,7 +69,7 @@ export class ScopeInfoProvider {
   private updateScopeTypeInfos(): void {
     const scopeTypes: ScopeType[] = [
       ...simpleScopeTypeTypes
-        // Ignore instance pseudo-scope for now
+        // Ignore instance pseudo-scope because it's not really a scope
         // Skip "string" because we use surrounding pair for that
         .filter(
           (scopeTypeType) =>
@@ -78,12 +79,21 @@ export class ScopeInfoProvider {
           type: scopeTypeType,
         })),
 
-      ...surroundingPairNames.map(
-        (surroundingPairName): SurroundingPairScopeType => ({
-          type: "surroundingPair",
-          delimiter: surroundingPairName,
-        }),
-      ),
+      ...surroundingPairNames
+        .filter(
+          (
+            surroundingPairName,
+          ): surroundingPairName is Exclude<
+            SpeakableSurroundingPairName,
+            "whitespace"
+          > => surroundingPairName !== "collectionBoundary",
+        )
+        .map(
+          (surroundingPairName): SurroundingPairScopeType => ({
+            type: "surroundingPair",
+            delimiter: surroundingPairName,
+          }),
+        ),
 
       ...this.customSpokenFormGenerator.getCustomRegexScopeTypes(),
     ];
