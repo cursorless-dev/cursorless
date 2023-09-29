@@ -1,11 +1,15 @@
 import json
-from itertools import groupby
 from pathlib import Path
 from typing import Callable, Concatenate, ParamSpec, TypeVar
 
 from talon import app, fs
 
-from .csv_overrides import SPOKEN_FORM_HEADER, init_csv_and_watch_changes
+from .csv_overrides import (
+    SPOKEN_FORM_HEADER,
+    ListToSpokenForms,
+    SpokenFormEntry,
+    init_csv_and_watch_changes,
+)
 from .marks.decorated_mark import init_hats
 from .spoken_forms_output import SpokenFormsOutput
 
@@ -16,15 +20,13 @@ disposables: list[Callable] = []
 P = ParamSpec("P")
 R = TypeVar("R")
 
-# Maps from Talon list name to a map from spoken form to value
-ListToSpokenForms = dict[str, dict[str, str]]
-
 
 def auto_construct_defaults(
     spoken_forms: dict[str, ListToSpokenForms],
-    handle_new_values: Callable[[ListToSpokenForms], None],
+    handle_new_values: Callable[[list[SpokenFormEntry]], None],
     f: Callable[
-        Concatenate[str, ListToSpokenForms, Callable[[ListToSpokenForms], None], P], R
+        Concatenate[str, ListToSpokenForms, Callable[[list[SpokenFormEntry]], None], P],
+        R,
     ],
 ):
     """
@@ -74,7 +76,7 @@ def update():
         spoken_forms = json.load(file)
 
     initialized = False
-    custom_spoken_forms: ListToSpokenForms = {}
+    custom_spoken_forms: list[SpokenFormEntry] = []
     spoken_forms_output = SpokenFormsOutput()
     spoken_forms_output.init()
 
@@ -82,19 +84,17 @@ def update():
         spoken_forms_output.write(
             [
                 {
-                    "type": entry_type,
-                    "id": value,
-                    "spokenForms": [spoken_form[0] for spoken_form in spoken_forms],
+                    "type": LIST_TO_TYPE_MAP[entry.list_name],
+                    "id": entry.id,
+                    "spokenForms": entry.spoken_forms,
                 }
-                for list_name, entry_type in LIST_TO_TYPE_MAP.items()
-                for value, spoken_forms in groupby(
-                    custom_spoken_forms[list_name].items(), lambda item: item[1]
-                )
+                for entry in custom_spoken_forms
+                if entry.list_name in LIST_TO_TYPE_MAP
             ]
         )
 
-    def handle_new_values(values: ListToSpokenForms):
-        custom_spoken_forms.update(values)
+    def handle_new_values(values: list[SpokenFormEntry]):
+        custom_spoken_forms.extend(values)
         if initialized:
             # On first run, we just do one update at the end, so we suppress
             # writing until we get there

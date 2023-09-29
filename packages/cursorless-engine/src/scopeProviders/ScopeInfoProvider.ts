@@ -10,9 +10,8 @@ import { pull } from "lodash";
 import { homedir } from "os";
 import * as path from "path";
 import { ScopeTypeInfo, ScopeTypeInfoEventCallback } from "..";
-import { CustomSpokenForms } from "../CustomSpokenForms";
 
-import { SpokenFormGenerator } from "../generateSpokenForm";
+import { CustomSpokenFormGenerator } from "../generateSpokenForm/CustomSpokenFormGenerator";
 import { scopeTypeToString } from "./scopeTypeToString";
 
 export const spokenFormsPath = path.join(
@@ -29,12 +28,11 @@ export class ScopeInfoProvider {
   private listeners: ScopeTypeInfoEventCallback[] = [];
   private scopeInfos!: ScopeTypeInfo[];
 
-  constructor(
-    private customSpokenForms: CustomSpokenForms,
-    private spokenFormGenerator: SpokenFormGenerator,
-  ) {
+  constructor(private customSpokenFormGenerator: CustomSpokenFormGenerator) {
     this.disposer.push(
-      customSpokenForms.onDidChangeCustomSpokenForms(() => this.onChange()),
+      customSpokenFormGenerator.onDidChangeCustomSpokenForms(() =>
+        this.onChange(),
+      ),
     );
 
     this.onDidChangeScopeInfo = this.onDidChangeScopeInfo.bind(this);
@@ -87,7 +85,7 @@ export class ScopeInfoProvider {
         }),
       ),
 
-      ...this.customSpokenForms.getCustomRegexScopeTypes(),
+      ...this.customSpokenFormGenerator.getCustomRegexScopeTypes(),
     ];
 
     this.scopeInfos = scopeTypes.map((scopeType) =>
@@ -102,7 +100,8 @@ export class ScopeInfoProvider {
   getScopeTypeInfo(scopeType: ScopeType): ScopeTypeInfo {
     return {
       scopeType,
-      spokenForm: this.spokenFormGenerator.scopeType(scopeType),
+      spokenForm:
+        this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType),
       humanReadableName: scopeTypeToString(scopeType),
       isLanguageSpecific: isLanguageSpecific(scopeType),
     };
