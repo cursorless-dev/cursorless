@@ -80,6 +80,14 @@
   (_) @value
 ) @_.domain
 
+;;!! for aaa in bbb:
+;;!             ^^^
+;;!  ---------------
+(for_statement
+  right: (identifier) @value
+  ":" @value.domain.end
+) @value.domain.start.startOf
+
 (comment) @comment @textFragment
 
 (string
