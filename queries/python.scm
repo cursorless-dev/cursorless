@@ -84,7 +84,7 @@
 ;;!             ^^^
 ;;!  ---------------
 (for_statement
-  right: (identifier) @value
+  right: (_) @value
   ":" @value.domain.end
 ) @value.domain.start.startOf
 
