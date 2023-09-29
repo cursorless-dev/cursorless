@@ -6,12 +6,7 @@ import {
 } from "@cursorless/common";
 import { homedir } from "os";
 import * as path from "path";
-import {
-  CustomRegexSpokenFormEntry,
-  PairedDelimiterSpokenFormEntry,
-  SimpleScopeTypeTypeSpokenFormEntry,
-  getSpokenFormEntries,
-} from "./scopeProviders/getSpokenFormEntries";
+import { getSpokenFormEntries } from "./scopeProviders/getSpokenFormEntries";
 import { SpokenFormMap } from "./SpokenFormMap";
 import { defaultSpokenFormMap } from "./DefaultSpokenFormMap";
 
@@ -20,6 +15,12 @@ export const spokenFormsPath = path.join(
   ".cursorless",
   "spokenForms.json",
 );
+
+const ENTRY_TYPES = [
+  "simpleScopeTypeType",
+  "customRegex",
+  "pairedDelimiter",
+] as const;
 
 /**
  * Maintains a list of all scope types and notifies listeners when it changes.
@@ -66,36 +67,22 @@ export class CustomSpokenForms implements SpokenFormMap {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
-    console.log("updateSpokenFormMaps before getSpokenFormEntries");
     const entries = await getSpokenFormEntries();
-    console.log("updateSpokenFormMaps after getSpokenFormEntries");
 
-    this.simpleScopeTypeType = Object.fromEntries(
-      entries
-        .filter(
-          (entry): entry is SimpleScopeTypeTypeSpokenFormEntry =>
-            entry.type === "simpleScopeTypeType",
-        )
-        .map(({ id, spokenForms }) => [id, spokenForms] as const),
-    );
-    this.customRegex = Object.fromEntries(
-      entries
-        .filter(
-          (entry): entry is CustomRegexSpokenFormEntry =>
-            entry.type === "customRegex",
-        )
-        .map(({ id, spokenForms }) => [id, spokenForms] as const),
-    );
-    this.pairedDelimiter = Object.fromEntries(
-      entries
-        .filter(
-          (entry): entry is PairedDelimiterSpokenFormEntry =>
-            entry.type === "pairedDelimiter",
-        )
-        .map(({ id, spokenForms }) => [id, spokenForms] as const),
-    );
+    for (const entryType of ENTRY_TYPES) {
+      // TODO: Handle case where we've added a new scope type but they haven't yet
+      // updated their talon files. In that case we want to indicate in tree view
+      // that the scope type exists but they need to update their talon files to
+      // be able to speak it. We could just detect that there's no entry for it in
+      // the spoken forms file, but that feels a bit brittle.
+      // FIXME: How to avoid the type assertion?
+      this[entryType] = Object.fromEntries(
+        entries
+          .filter((entry) => entry.type === entryType)
+          .map(({ id, spokenForms }) => [id, spokenForms]),
+      ) as any;
+    }
 
-    console.log("updateSpokenFormMaps at end");
     this.isInitialized_ = true;
     this.notifier.notifyListeners();
   }

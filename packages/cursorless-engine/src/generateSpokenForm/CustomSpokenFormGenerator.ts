@@ -25,15 +25,21 @@ export class CustomSpokenFormGenerator {
     );
   }
 
-  onDidChangeCustomSpokenForms = (listener: Listener<[]>) =>
-    this.customSpokenForms.onDidChangeCustomSpokenForms(listener);
+  onDidChangeCustomSpokenForms(listener: Listener<[]>) {
+    return this.customSpokenForms.onDidChangeCustomSpokenForms(listener);
+  }
 
-  commandToSpokenForm = (command: CommandComplete) =>
-    this.spokenFormGenerator.command(command);
+  commandToSpokenForm(command: CommandComplete) {
+    return this.spokenFormGenerator.command(command);
+  }
 
-  scopeTypeToSpokenForm = (scopeType: ScopeType) =>
-    this.spokenFormGenerator.scopeType(scopeType);
+  scopeTypeToSpokenForm(scopeType: ScopeType) {
+    return this.spokenFormGenerator.scopeType(scopeType);
+  }
 
-  getCustomRegexScopeTypes = () =>
-    this.customSpokenForms.getCustomRegexScopeTypes();
+  getCustomRegexScopeTypes() {
+    return this.customSpokenForms.getCustomRegexScopeTypes();
+  }
+
+  dispose = this.disposer.dispose;
 }

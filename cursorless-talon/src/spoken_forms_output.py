@@ -4,6 +4,8 @@ from typing import TypedDict
 
 from talon import app
 
+from .command import CursorlessCommand
+
 SPOKEN_FORMS_OUTPUT_PATH = Path.home() / ".cursorless" / "spokenForms.json"
 
 
@@ -31,7 +33,11 @@ class SpokenFormsOutput:
     def write(self, spoken_forms: list[SpokenFormEntry]):
         with open(SPOKEN_FORMS_OUTPUT_PATH, "w") as out:
             try:
-                out.write(json.dumps({"version": 0, "entries": spoken_forms}))
+                out.write(
+                    json.dumps(
+                        {"version": CursorlessCommand.version, "entries": spoken_forms}
+                    )
+                )
             except Exception:
                 error_message = (
                     f"Error writing spoken form json {SPOKEN_FORMS_OUTPUT_PATH}"
