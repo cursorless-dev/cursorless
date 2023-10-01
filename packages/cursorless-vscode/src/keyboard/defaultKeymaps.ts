@@ -1,4 +1,4 @@
-import { ActionType } from "@cursorless/common";
+import { ActionType, ModifierType } from "@cursorless/common";
 import { SimpleScopeTypeType } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { isTesting } from "@cursorless/common";
@@ -22,3 +22,5 @@ export const DEFAULT_COLOR_KEYMAP: Keymap<HatColor> = isTesting()
   : {};
 
 export const DEFAULT_SHAPE_KEYMAP: Keymap<HatShape> = isTesting() ? {} : {};
+
+export const DEFAULT_MODIFIER_KEYMAP: Keymap<ModifierType> = isTesting() ? {} : {};

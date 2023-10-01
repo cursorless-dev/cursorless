@@ -1,6 +1,7 @@
 import {
   ActionDescriptor,
   ActionType,
+  Direction,
   LATEST_VERSION,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
@@ -14,7 +15,7 @@ import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
 
 type TargetingMode = "replace" | "extend" | "append";
-
+type TargetModifierTypeArgument = "every" | "interiorOnly" | "excludeInterior";
 interface TargetDecoratedMarkArgument {
   color?: HatColor;
   shape?: HatShape;
@@ -151,6 +152,24 @@ export default class KeyboardCommandsTargeted {
       },
     });
 
+  
+  targetModifierType = async (mod: TargetModifierTypeArgument) =>
+    await executeCursorlessCommand({
+      name: "highlight",
+      target: {
+        type: "primitive",
+        modifiers: [
+          {
+           type: "interiorOnly",
+           
+          },
+        ],
+        mark: {
+          type: "that",
+        },
+      },
+    });
+
   private highlightTarget = () =>
     executeCursorlessCommand({
       name: "highlight",
@@ -258,7 +277,47 @@ export default class KeyboardCommandsTargeted {
         mark: {
           type: "cursor",
         },
-        modifiers: [{ type: "toRawSelection" }],
+      },
+    });
+
+  expandTarget = (direction:Direction) =>
+
+    executeCursorlessCommand({
+
+      name: "highlight",
+      target: {
+        type: "range",
+        anchor: {
+          type: "primitive",
+          mark: {
+            type: "that",
+          },
+        },
+        active: {
+          type: "primitive",
+          mark: {
+            type: "that",
+            
+          },
+          modifiers: [
+            {
+              type: "relativeScope",
+              direction: direction,
+              length: 1,
+              offset: 1,
+              scopeType: {
+                type: "token",
+              },            
+              
+            },
+
+          ],
+        },
+        excludeActive: false,
+        excludeAnchor: false,
+        
+
+        
       },
     });
 
@@ -278,7 +337,7 @@ export default class KeyboardCommandsTargeted {
     });
 }
 
-function executeCursorlessCommand(action: ActionDescriptor) {
+export function executeCursorlessCommand(action: ActionDescriptor) {
   return runCursorlessCommand({
     action,
     version: LATEST_VERSION,

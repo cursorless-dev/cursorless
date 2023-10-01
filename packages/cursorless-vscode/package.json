@@ -927,6 +927,16 @@
             ]
           }
         },
+        "cursorless.experimental.keyboard.modal.keybindings.modifiers": {
+          "description": "Define modal keybindings for modifiers",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "interiorOnly"
+            ]
+          }
+        },
         "cursorless.experimental.keyboard.modal.keybindings.shapes": {
           "description": "Define modal keybindings for shapes",
           "type": "object",

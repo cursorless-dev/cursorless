@@ -6,11 +6,13 @@ import {
   Keymap,
   DEFAULT_SCOPE_KEYMAP,
   DEFAULT_SHAPE_KEYMAP,
+  DEFAULT_MODIFIER_KEYMAP,
 } from "./defaultKeymaps";
+import { Direction } from "@cursorless/common";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
-
-type SectionName = "actions" | "scopes" | "colors" | "shapes";
+import { executeCursorlessCommand } from "./KeyboardCommandsTargeted";
+type SectionName = "actions" | "scopes" | "colors" | "shapes" | "modifiers";
 
 interface KeyHandler<T> {
   sectionName: SectionName;
@@ -34,6 +36,7 @@ export default class KeyboardCommandsModal {
    * colors, etc).
    */
   private mergedKeymap!: Record<string, KeyHandler<any>>;
+  cursorOffset: vscode.Position;
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
@@ -45,6 +48,7 @@ export default class KeyboardCommandsModal {
     this.handleInput = this.handleInput.bind(this);
 
     this.constructMergedKeymap();
+    this.cursorOffset = new vscode.Position(0, 0);
   }
 
   init() {
@@ -81,6 +85,11 @@ export default class KeyboardCommandsModal {
       this.targeted.targetDecoratedMark({
         shape: value,
       }),
+    );
+
+    this.handleSection("modifiers", DEFAULT_MODIFIER_KEYMAP, (value) =>
+      this.targeted.targetModifierType("interiorOnly"),
+
     );
   }
 
@@ -172,9 +181,38 @@ export default class KeyboardCommandsModal {
     let sequence = text;
     let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
 
+    const curCursorOffset = vscode.window.activeTextEditor?.selection.active;
+
+    if (curCursorOffset != null && this.cursorOffset != null) {
+      if (curCursorOffset.line != this.cursorOffset.line) {
+        await executeCursorlessCommand({
+          name: "highlight",
+          target: {
+            type: "primitive",
+            mark: {
+              type: "cursor",
+            },
+          },
+        });
+        vscode.window.showInformationMessage("Cursor moved, highlighting new selection");
+      }
+    }
+    if (curCursorOffset != null) {
+      this.cursorOffset = curCursorOffset;
+    }
+
+    if (sequence == "i"){
+      vscode.window.showInformationMessage("i pressed");
+      this.targeted.expandTarget("forward");
+      return;
+    }
+
     // We handle multi-key sequences by repeatedly awaiting a single keypress
     // until they've pressed something in the map.
     while (keyHandler == null) {
+
+      
+
       if (!this.isPrefixOfKey(sequence)) {
         const errorMessage = `Unknown key sequence "${sequence}"`;
         vscode.window.showErrorMessage(errorMessage);
