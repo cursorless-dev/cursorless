@@ -150,6 +150,17 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   }
 }
 
+/**
+ * Indicates that it is ok for multiple captures to have the same domain but
+ * different targets.  For example, if we have the query `(#allow-multiple!
+ * @foo)`, then if we define the query so that `@foo` appears multiple times
+ * with the same domain but different targets, then the given domain will end up
+ * with multiple targets. The canonical example is `tags` in HTML / jsx.
+ *
+ * This operator is allowed to be applied to a capture that doesn't actually
+ * appear; ie we can make it so that we allow multiple if the capture appears in
+ * the pattern.
+ */
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);

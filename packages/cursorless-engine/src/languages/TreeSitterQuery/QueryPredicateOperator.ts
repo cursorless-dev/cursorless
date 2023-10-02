@@ -47,6 +47,17 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
     ...args: AcceptFunctionArgs<z.infer<InferSchemaType<T>>>
   ): boolean;
 
+  /**
+   * Whether it is ok for a node argument to be missing.  If true, then the
+   * operator will just accept the pattern if the given node is missing.  If
+   * false, then the operator will throw an error if the node is missing.
+   *
+   * This is useful if we want to set some flag on a node, but only if it's
+   * present.
+   *
+   * @returns A boolean indicating whether it is ok for a node argument to be
+   * missing.
+   */
   protected allowMissingNode(): boolean {
     return false;
   }
