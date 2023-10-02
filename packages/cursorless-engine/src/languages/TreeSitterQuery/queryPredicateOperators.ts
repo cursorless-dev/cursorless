@@ -154,6 +154,10 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
 
+  protected allowMissingNode(): boolean {
+    return true;
+  }
+
   run(nodeInfo: MutableQueryCapture) {
     nodeInfo.allowMultiple = true;
 

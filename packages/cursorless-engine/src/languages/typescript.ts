@@ -124,34 +124,6 @@ function typeMatcher(): NodeMatcher {
   };
 }
 
-function valueMatcher() {
-  const pFinder = patternFinder(
-    "assignment_expression[right]",
-    "augmented_assignment_expression[right]",
-    "*[value]",
-    "shorthand_property_identifier",
-  );
-  return matcher(
-    (node: SyntaxNode) =>
-      node.type === "jsx_attribute" ? node.lastChild : pFinder(node),
-    selectWithLeadingDelimiter(
-      ":",
-      "=",
-      "+=",
-      "-=",
-      "*=",
-      "/=",
-      "%=",
-      "**=",
-      "&=",
-      "|=",
-      "^=",
-      "<<=",
-      ">>=",
-    ),
-  );
-}
-
 const mapTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
@@ -170,11 +142,6 @@ const nodeMatchers: Partial<
       "shorthand_property_identifier",
     ],
     [":"],
-  ),
-  value: cascadingMatcher(
-    valueMatcher(),
-    patternMatcher("return_statement.~return!"),
-    patternMatcher("yield_expression.~yield!"),
   ),
   ifStatement: "if_statement",
   comment: "comment",
