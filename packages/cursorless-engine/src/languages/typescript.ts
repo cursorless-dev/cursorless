@@ -231,10 +231,19 @@ const nodeMatchers: Partial<
     // Typed parameters, properties, and functions
     typeMatcher(),
     // matcher(findTypeNode, selectWithLeadingDelimiter(":")),
-    // Type alias/interface declarations
     patternMatcher(
+      // Type alias/interface declarations
       "export_statement?.type_alias_declaration",
       "export_statement?.interface_declaration",
+      // as type declarations
+      "as_expression.generic_type!",
+      "as_expression.predefined_type!",
+      // satisfies type declaration
+      "satisfies_expression.generic_type!",
+      "satisfies_expression.predefined_type!",
+      // <type> declaration
+      "type_assertion.type_arguments.generic_type!",
+      "type_assertion.type_arguments.predefined_type!",
     ),
   ),
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),

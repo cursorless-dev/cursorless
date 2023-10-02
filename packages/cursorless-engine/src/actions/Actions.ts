@@ -1,3 +1,4 @@
+import { TreeSitter } from "..";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
@@ -26,6 +27,7 @@ import {
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
 import { PasteFromClipboard } from "./PasteFromClipboard";
+import ShowParseTree from "./ShowParseTree";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -63,6 +65,7 @@ import { ActionRecord } from "./actions.types";
  */
 export class Actions implements ActionRecord {
   constructor(
+    private treeSitter: TreeSitter,
     private snippets: Snippets,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
@@ -145,5 +148,6 @@ export class Actions implements ActionRecord {
     this.snippets,
     this.modifierStageFactory,
   );
+  ["private.showParseTree"] = new ShowParseTree(this.treeSitter);
   ["private.getTargets"] = new GetTargets();
 }

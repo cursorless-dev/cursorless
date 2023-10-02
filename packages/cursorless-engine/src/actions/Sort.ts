@@ -35,10 +35,12 @@ abstract class SortBase implements SimpleAction {
 
     const sortedTexts = this.sortTexts(unsortedTexts);
 
-    return this.actions.replace.run(
+    const { thatSelections } = await this.actions.replace.run(
       sortedTargets.map((target) => target.toDestination("to")),
       sortedTexts,
     );
+
+    return { thatSelections };
   }
 }
 

@@ -4,6 +4,7 @@ from typing import Any
 from talon import Module, actions, cron, fs
 
 from ..csv_overrides import init_csv_and_watch_changes
+from .mark_types import DecoratedSymbol
 
 mod = Module()
 
@@ -28,9 +29,9 @@ def cursorless_grapheme(m) -> str:
 @mod.capture(
     rule="[{user.cursorless_hat_color}] [{user.cursorless_hat_shape}] <user.cursorless_grapheme>"
 )
-def cursorless_decorated_symbol(m) -> dict[str, Any]:
+def cursorless_decorated_symbol(m) -> DecoratedSymbol:
     """A decorated symbol"""
-    hat_color = getattr(m, "cursorless_hat_color", "default")
+    hat_color: str = getattr(m, "cursorless_hat_color", "default")
     try:
         hat_style_name = f"{hat_color}-{m.cursorless_hat_shape}"
     except AttributeError:
@@ -82,10 +83,10 @@ FALLBACK_SHAPE_ENABLEMENT = {
 }
 FALLBACK_COLOR_ENABLEMENT = DEFAULT_COLOR_ENABLEMENT
 
-unsubscribe_hat_styles = None
+unsubscribe_hat_styles: Any = None
 
 
-def setup_hat_styles_csv(hat_colors: dict, hat_shapes: dict):
+def setup_hat_styles_csv(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
     global unsubscribe_hat_styles
 
     (
@@ -149,7 +150,7 @@ fast_reload_job = None
 slow_reload_job = None
 
 
-def init_hats(hat_colors: dict, hat_shapes: dict):
+def init_hats(hat_colors: dict[str, str], hat_shapes: dict[str, str]):
     setup_hat_styles_csv(hat_colors, hat_shapes)
 
     vscode_settings_path: Path = actions.user.vscode_settings_path().resolve()

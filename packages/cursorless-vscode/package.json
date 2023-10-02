@@ -123,7 +123,7 @@
       },
       {
         "command": "cursorless.internal.updateCheatsheetDefaults",
-        "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock knausj and cursorless.",
+        "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
         "enablement": "false"
       },
       {
@@ -838,7 +838,7 @@
           }
         },
         "cursorless.experimental.snippetsDir": {
-          "description": "Directory containing snippets for use in cursorless",
+          "description": "Directory containing snippets for use in Cursorless",
           "type": "string"
         },
         "cursorless.experimental.keyboard.modal.keybindings.actions": {

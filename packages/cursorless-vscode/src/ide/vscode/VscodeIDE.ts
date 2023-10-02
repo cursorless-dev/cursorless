@@ -6,6 +6,7 @@ import {
   HighlightId,
   IDE,
   InputBoxOptions,
+  OpenUntitledTextDocumentOptions,
   OutdatedExtensionError,
   QuickPickOptions,
   RunMode,
@@ -19,7 +20,7 @@ import {
 import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
 import * as vscode from "vscode";
-import { ExtensionContext, window, workspace, WorkspaceFolder } from "vscode";
+import { ExtensionContext, WorkspaceFolder, window, workspace } from "vscode";
 import { VscodeCapabilities } from "./VscodeCapabilities";
 import VscodeClipboard from "./VscodeClipboard";
 import VscodeConfiguration from "./VscodeConfiguration";
@@ -29,9 +30,9 @@ import VscodeGlobalState from "./VscodeGlobalState";
 import VscodeHighlights, { HighlightStyle } from "./VscodeHighlights";
 import VscodeMessages from "./VscodeMessages";
 import { vscodeRunMode } from "./VscodeRunMode";
-import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
+import { vscodeShowQuickPick } from "./vscodeShowQuickPick";
 
 export class VscodeIDE implements IDE {
   readonly configuration: VscodeConfiguration;
@@ -123,6 +124,13 @@ export class VscodeIDE implements IDE {
 
   public async openTextDocument(path: string): Promise<TextEditor> {
     const textDocument = await workspace.openTextDocument(path);
+    return this.fromVscodeEditor(await window.showTextDocument(textDocument));
+  }
+
+  public async openUntitledTextDocument(
+    options?: OpenUntitledTextDocumentOptions,
+  ): Promise<TextEditor> {
+    const textDocument = await workspace.openTextDocument(options);
     return this.fromVscodeEditor(await window.showTextDocument(textDocument));
   }
 
