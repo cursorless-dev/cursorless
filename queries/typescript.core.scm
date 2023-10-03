@@ -72,3 +72,81 @@
   (interface_declaration)
   (object_type)
 ] @namedFunction.iteration @functionName.iteration
+
+;; Special cases for `(let | const | var) foo = ...;` because the full statement
+;; is actually a grandparent of the `name` node, so we want the domain to include
+;; this full grandparent statement.
+(
+  [
+    ;;!! (const | let) aaa: Bbb = 0;
+    ;;!                     ^^^
+    ;;!                   xxxxx
+    ;;!  -----------------------------
+    (lexical_declaration
+      (variable_declarator
+        type: (type_annotation
+          (_) @type
+        ) @type.removal
+      )
+    )
+
+    ;;!! var aaa: Bbb = 0;
+    ;;!           ^^^
+    ;;!         xxxxx
+    ;;!  -----------------
+    ;; Note that we can't merge this with the variable declaration above because
+    ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
+    (variable_declaration
+      (variable_declarator
+        type: (type_annotation
+          (_) @type
+        ) @type.removal
+      )
+    )
+  ] @_.domain
+  (#not-parent-type? @_.domain export_statement)
+
+  ;; Handle multiple variable declarators in one statement, eg
+  ;;!! (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
+  ;;!  -------------------------^^^-------------^^^-------
+  (#allow-multiple! @type)
+)
+
+(
+  (export_statement
+    (_
+      ;;!! export (const | let | var) aaa: Bbb = 0;
+      ;;!                                  ^^^
+      ;;!                                xxxxx
+      ;;!  ----------------------------------------
+      (variable_declarator
+        type: (type_annotation
+          (_) @type
+        ) @type.removal
+      )
+    )
+  ) @_.domain
+
+  ;; Handle multiple variable declarators in one statement, eg
+  ;;!! export (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
+  ;;!  --------------------------------^^^-------------^^^-------
+  (#allow-multiple! @type)
+)
+
+;;!! (const | let | var) aaa: Ccc = 0, bbb: Ddd = 0;
+;;!1                          ^^^
+;;!1                        xxxxx
+;;!1                     ------------
+;;!1                                        ^^^
+;;!1                                      xxxxx
+;;!1                                   ------------
+(
+  (_
+    (variable_declarator
+      type: (type_annotation
+        (_) @type
+      ) @type.removal
+    ) @_.domain
+  ) @dummy
+  (#has-multiple-children-of-type? @dummy variable_declarator)
+)

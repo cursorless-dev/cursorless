@@ -1,0 +1,55 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: chuck name
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const aaa: number = 0;
+    let bbb: number = 0;
+    var hhh: number = 0;
+    const ddd: number = 0, eee: number = 0;
+    let fff: number = 0, ggg: number = 0;
+    var iii: number = 0;
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
+    - anchor: {line: 3, character: 39}
+      active: {line: 3, character: 39}
+    - anchor: {line: 4, character: 37}
+      active: {line: 4, character: 37}
+    - anchor: {line: 5, character: 20}
+      active: {line: 5, character: 20}
+  marks: {}
+finalState:
+  documentContents: |-
+    0;
+    0;
+    0;
+    0, 0;
+    0, 0;
+    0;
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+    - anchor: {line: 3, character: 5}
+      active: {line: 3, character: 5}
+    - anchor: {line: 4, character: 5}
+      active: {line: 4, character: 5}
+    - anchor: {line: 5, character: 2}
+      active: {line: 5, character: 2}
