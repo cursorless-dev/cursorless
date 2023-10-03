@@ -83,9 +83,3 @@ finalState:
       active: {line: 9, character: 38}
     - anchor: {line: 10, character: 36}
       active: {line: 10, character: 36}
-ide:
-  messages:
-    - {type: error, id: BaseTreeSitterScopeHandler.allow-multiple}
-    - {type: error, id: BaseTreeSitterScopeHandler.allow-multiple}
-    - {type: error, id: BaseTreeSitterScopeHandler.allow-multiple}
-    - {type: error, id: BaseTreeSitterScopeHandler.allow-multiple}

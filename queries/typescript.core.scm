@@ -150,3 +150,58 @@
   ) @dummy
   (#has-multiple-children-of-type? @dummy variable_declarator)
 )
+
+(
+  (_
+    [
+      type: (_
+        (_) @type
+      )
+      return_type: (_
+        (_) @type
+      )
+    ] @type.removal
+  ) @_.domain
+  (#not-type? @_.domain variable_declarator)
+)
+
+;;!! new Aaa<Bbb>()
+;;!      ^^^^^^^^
+;;!  ------------
+(new_expression
+  constructor: (_) @type.start
+  type_arguments: (_)? @type.end
+)
+
+(
+  [
+    (type_alias_declaration)
+    (interface_declaration)
+  ] @type
+  (#not-parent-type? @type export_statement)
+)
+
+(
+  (export_statement
+    [
+      (type_alias_declaration)
+      (interface_declaration)
+    ] @type
+  ) @_.domain
+)
+
+(as_expression
+  (_) @_.leading.start.endOf
+  [
+    (generic_type)
+    (predefined_type)
+  ] @type @_.leading.end.startOf
+) @_.domain
+
+(satisfies_expression
+  (_) @_.leading.start.endOf
+  [
+    (generic_type)
+    (predefined_type)
+  ] @type @_.leading.end.startOf
+) @_.domain

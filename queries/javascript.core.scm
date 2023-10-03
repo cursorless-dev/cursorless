@@ -232,8 +232,8 @@
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
-  ;;!  -------------------------^^^-------------^^^-------
-  (#allow-multiple! @type)
+  ;;!  -------------------------------^^^-------------^^^-
+  (#allow-multiple! @value)
 )
 
 (
@@ -253,8 +253,8 @@
 
   ;; Handle multiple variable declarators in one statement, eg
   ;;!! export (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
-  ;;!  --------------------------------^^^-------------^^^-------
-  (#allow-multiple! @type)
+  ;;!  --------------------------------------^^^-------------^^^-
+  (#allow-multiple! @value)
 )
 
 ;;!! (const | let | var) aaa: Ccc = 0, bbb: Ddd = 0;
