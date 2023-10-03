@@ -140,6 +140,20 @@
   (_) @value
 ) @_.domain
 
+;; value:
+;;!! for aaa in bbb:
+;;!             ^^^
+;;!  ---------------
+;; name:
+;;!! for aaa in bbb:
+;;!      ^^^
+;;!  ---------------
+(for_statement
+  left: (_) @name
+  right: (_) @value
+  ":" @_.domain.end
+) @_.domain.start.startOf
+
 (comment) @comment @textFragment
 
 (string

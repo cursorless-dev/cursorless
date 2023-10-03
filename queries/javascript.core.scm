@@ -310,6 +310,20 @@
   (_) @value
 ) @_.domain
 
+;; name:
+;;!! for (const aaa of bbb) {}
+;;!             ^^^
+;;!  ----------------------
+;; value:
+;;!! for (const aaa of bbb) {}
+;;!                    ^^^
+;;!  ----------------------
+(for_in_statement
+  left: (_) @name
+  right: (_) @value
+  ")" @_.domain.end.endOf
+) @_.domain.start.startOf
+
 [
   (program)
   (formal_parameters)
