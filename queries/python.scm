@@ -38,14 +38,74 @@
   right: (_) @value @_.leading.end.startOf
 ) @_.domain
 
+;; value:
 ;;!! a /= 25
 ;;!       ^^
 ;;!   xxxxxx
 ;;!  -------
+;; name:
+;;!! a /= 25
+;;!  ^
+;;!  xxxxx
+;;!  -------
 (augmented_assignment
+  left: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
+  right: (_) @value @value.leading.end.startOf @name.trailing.end.startOf
+) @_.domain
+
+;;!! a = 25
+;;!  ^
+;;!  xxxx
+;;!  ------
+;;!! a: int = 25
+;;!  ^
+;;!  xxxxxxxxx
+;;!  -----------
+(assignment
+  left: (_) @name @name.trailing.start.endOf
+  right: (_)? @name.trailing.end.startOf
+) @_.domain
+
+(_
+  name: (_) @name
+) @_.domain
+
+;;!! def aaa(bbb):
+;;!          ^^^
+(parameters
+  (identifier) @name
+)
+
+;;!! def aaa(bbb: str):
+;;!          ^^^
+;;!          --------
+(typed_parameter
+  .
+  (_) @name
+) @_.domain
+
+;; Matches any node at field `type` of its parent, with leading delimiter until
+;; previous named node. For example:
+;;!! aaa: str = "bbb";
+;;!       ^^^
+;;!  -----------------
+;;!     xxxxx
+(_
   (_) @_.leading.start.endOf
   .
-  right: (_) @value @_.leading.end.startOf
+  type: (_) @type @_.leading.end.startOf
+) @_.domain
+
+;;!!  def aaa() -> str:
+;;!                ^^^
+;;!            xxxxxxx
+;;!  [-----------------
+;;!!      pass
+;;!   --------]
+(function_definition
+  (_) @_.leading.start.endOf
+  .
+  return_type: (_) @type @_.leading.end.startOf
 ) @_.domain
 
 ;;!! d = {"a": 1234}
@@ -79,6 +139,20 @@
 (return_statement
   (_) @value
 ) @_.domain
+
+;; value:
+;;!! for aaa in bbb:
+;;!             ^^^
+;;!  ---------------
+;; name:
+;;!! for aaa in bbb:
+;;!      ^^^
+;;!  ---------------
+(for_statement
+  left: (_) @name
+  right: (_) @value
+  ":" @_.domain.end
+) @_.domain.start.startOf
 
 (comment) @comment @textFragment
 
@@ -127,7 +201,7 @@
 ) @class @className.domain
 
 (module) @className.iteration @class.iteration
-(module) @statement.iteration
+(module) @statement.iteration @value.iteration @name.iteration
 (module) @namedFunction.iteration @functionName.iteration
 (class_definition) @namedFunction.iteration @functionName.iteration
 
@@ -138,7 +212,8 @@
 ;;!      *****
 ;;!!     c = 2
 ;;!      *****>
-(block) @statement.iteration @value.iteration
+(block) @statement.iteration @value.iteration @name.iteration
+(block) @type.iteration
 
 ;;!! {"a": 1, "b": 2, "c": 3}
 ;;!   **********************
@@ -150,6 +225,6 @@
 ;;!! def func(a=0, b=1):
 ;;!           ********
 (parameters
-  "(" @value.iteration.start.endOf
-  ")" @value.iteration.end.startOf
+  "(" @value.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
+  ")" @value.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
 )

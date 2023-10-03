@@ -1,6 +1,11 @@
 [tool.black]
 target-version = ["py39"]
-force-exclude = ["vendor", "data/playground"]
+force-exclude = '''
+(
+  ^/vendor/
+  | ^/data/playground/
+)
+'''
 
 [tool.ruff]
 select = ["E", "F", "C4", "I001", "UP", "SIM"]

@@ -43,7 +43,6 @@
       "unfold": "unfoldRegion"
     },
     "callback_action": {
-      "call": "callAsFunction",
       "scout": "findInDocument",
       "phones": "nextHomophone"
     },
@@ -55,7 +54,8 @@
     "swap_action": { "swap": "swapTargets" },
     "wrap_action": { "wrap": "wrapWithPairedDelimiter", "repack": "rewrap" },
     "insert_snippet_action": { "snippet": "insertSnippet" },
-    "reformat_action": { "format": "applyFormatter" }
+    "reformat_action": { "format": "applyFormatter" },
+    "call_action": { "call": "callAsFunction" }
   },
   "target_connectives.csv": {
     "range_connective": {

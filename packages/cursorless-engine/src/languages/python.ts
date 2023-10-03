@@ -69,17 +69,6 @@ const nodeMatchers: Partial<
     // Ternaries
     patternMatcher("conditional_expression[1]"),
   ),
-  type: leadingMatcher(
-    ["function_definition[return_type]", "*[type]"],
-    [":", "->"],
-  ),
-  name: [
-    "assignment[left]",
-    "augmented_assignment[left]",
-    "typed_parameter.identifier!",
-    "parameters.identifier!",
-    "*[name]",
-  ],
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),
     matcher(patternFinder("call.generator_expression!"), childRangeSelector()),

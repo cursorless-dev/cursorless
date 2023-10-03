@@ -1,0 +1,25 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change every type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "function ccc(aaa: string, bbb: string) {}"
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: "function ccc(aaa: , bbb: ) {}"
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 25}
+      active: {line: 0, character: 25}

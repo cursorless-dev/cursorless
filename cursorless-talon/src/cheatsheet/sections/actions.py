@@ -12,6 +12,7 @@ def get_actions():
         "moveToTarget",
         "swapTargets",
         "applyFormatter",
+        "callAsFunction",
         "wrapWithPairedDelimiter",
         "rewrap",
         "pasteFromClipboard",
@@ -34,7 +35,6 @@ def get_actions():
             "action",
             simple_actions,
             {
-                "callAsFunction": "Call <target> on selection",
                 "editNewLineAfter": "Edit new line/scope after",
                 "editNewLineBefore": "Edit new line/scope before",
             },
@@ -99,6 +99,20 @@ def get_actions():
                     "spokenForm": f"{complex_actions['applyFormatter']} <formatter> at <target>",
                     "description": "Reformat <target> as <formatter>",
                 }
+            ],
+        },
+        {
+            "id": "callAsFunction",
+            "type": "action",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_actions['callAsFunction']} <target>",
+                    "description": "Call <target> on selection",
+                },
+                {
+                    "spokenForm": f"{complex_actions['callAsFunction']} <target 1> on <target 2>",
+                    "description": "Call <target 1> on <target 2>",
+                },
             ],
         },
         {

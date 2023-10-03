@@ -81,3 +81,22 @@
   "<" @_.domain.start
   ">" @name.startOf @_.domain.end
 )
+
+;;!! <aaa bbb="ccc" />
+;;!           ^^^^^
+;;!          xxxxxx
+;;!       ---------
+(jsx_attribute
+  (_) @value.leading.start.endOf
+  (_) @value @value.leading.end.startOf
+) @_.domain
+
+(jsx_self_closing_element
+  "<" @value.iteration.start.endOf
+  "/" @value.iteration.end.startOf
+)
+
+(jsx_opening_element
+  "<" @value.iteration.start.endOf
+  ">" @value.iteration.end.startOf
+)
