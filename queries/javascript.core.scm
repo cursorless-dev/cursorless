@@ -310,6 +310,12 @@
   (_) @value
 ) @_.domain
 
+(for_in_statement
+  left: (_) @name
+  right: (_) @value
+  ")" @_.domain.end.endOf
+) @_.domain.start.startOf
+
 [
   (program)
   (formal_parameters)
