@@ -47,8 +47,8 @@
     (lexical_declaration
       .
       (variable_declarator
-        name: (_) @name @name.removal.end.endOf @value.leading.start.endOf
-        value: (_)? @value @name.removal.end.startOf @value.leading.end.startOf
+        name: (_) @name @name.removal.end.endOf
+        value: (_)? @name.removal.end.startOf
       )
     )
 
@@ -67,8 +67,8 @@
     (variable_declaration
       .
       (variable_declarator
-        name: (_) @name @name.removal.end.endOf @value.leading.start.endOf
-        value: (_)? @value @name.removal.end.startOf @value.leading.end.startOf
+        name: (_) @name @name.removal.end.endOf
+        value: (_)? @name.removal.end.startOf
       )
     )
   ] @_.domain @name.removal.start.startOf
@@ -78,7 +78,6 @@
   ;;!! (let | const | var) aaa = ..., ccc = ...;
   ;;!  --------------------^^^--------^^^-------
   (#allow-multiple! @name)
-  (#allow-multiple! @value)
 )
 
 ;; Note that the same domains below will also have the first variable
@@ -99,8 +98,8 @@
       (variable_declarator)
       .
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-        value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
+        name: (_) @name @name.trailing.start.endOf
+        value: (_)? @name.trailing.end.startOf
       )
     )
 
@@ -120,8 +119,8 @@
       (variable_declarator)
       .
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-        value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
+        name: (_) @name @name.trailing.start.endOf
+        value: (_)? @name.trailing.end.startOf
       )
     )
   ] @_.domain
@@ -131,7 +130,6 @@
   ;;!! (let | const | var) aaa = ..., ccc = ...;
   ;;!  --------------------^^^--------^^^-------
   (#allow-multiple! @name)
-  (#allow-multiple! @value)
 )
 
 (
@@ -148,8 +146,8 @@
       ;;!                                xxxx
       ;;!  -----------------------------------
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-        value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
+        name: (_) @name @name.trailing.start.endOf
+        value: (_)? @name.trailing.end.startOf
       )
     )
   ) @_.domain
@@ -158,7 +156,6 @@
   ;;!! var foo = ..., bar = ...;
   ;;!  ----^^^--------^^^-------
   (#allow-multiple! @name)
-  (#allow-multiple! @value)
 )
 
 ;; name:
@@ -171,36 +168,106 @@
 ;;!                            ^
 ;;!                         xxxx
 ;;!                      -------
-(
-  (_
-    .
-    (variable_declarator
-      name: (_) @name @name.removal.end.endOf @value.leading.start.endOf
-      value: (_)? @value @name.removal.end.startOf @value.leading.end.startOf
-    ) @_.domain
-    .
-    (variable_declarator)
-  ) @dummy @name.removal.start.startOf
-)
+(_
+  .
+  (variable_declarator
+    name: (_) @name @name.removal.end.endOf
+    value: (_)? @name.removal.end.startOf
+  ) @_.domain
+  .
+  (variable_declarator)
+) @name.removal.start.startOf
 
-;; name:
 ;;!! (const | let | var) aaa = 0, bbb = 0;
-;;!1                              ^^^
-;;!1                              xxxxxx
-;;!1                              -------
-;; value:
-;;!! (const | let | var) aaa = 0, bbb = 0;
-;;!1                                    ^
-;;!1                                 xxxx
-;;!1                              -------
+;;!                               ^^^
+;;!                               xxxxxx
+;;!                               -------
 (_
   (variable_declarator)
   .
   (variable_declarator
-    name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-    value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
+    name: (_) @name @name.trailing.start.endOf
+    value: (_)? @name.trailing.end.startOf
   ) @_.domain
-) @dummy
+)
+
+;; Special cases for `(let | const | var) foo = ...;` because the full statement
+;; is actually a grandparent of the `name` node, so we want the domain to include
+;; this full grandparent statement.
+(
+  [
+    ;;!! (const | let) aaa: Bbb = 0;
+    ;;!                           ^
+    ;;!                        xxxx
+    ;;!  ---------------------------
+    (lexical_declaration
+      (variable_declarator
+        (_) @value.leading.start.endOf
+        .
+        value: (_)? @value @value.leading.end.startOf
+      )
+    )
+
+    ;;!! var aaa: Bbb = 0;
+    ;;!                 ^
+    ;;!              xxxx
+    ;;!  -----------------
+    ;; Note that we can't merge this with the variable declaration above because
+    ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
+    (variable_declaration
+      (variable_declarator
+        (_) @value.leading.start.endOf
+        .
+        value: (_)? @value @value.leading.end.startOf
+      )
+    )
+  ] @_.domain
+  (#not-parent-type? @_.domain export_statement)
+
+  ;; Handle multiple variable declarators in one statement, eg
+  ;;!! (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
+  ;;!  -------------------------------^^^-------------^^^-
+  (#allow-multiple! @value)
+)
+
+(
+  (export_statement
+    (_
+      ;;!! export (const | let | var) aaa: Bbb = 0;
+      ;;!                                        ^
+      ;;!                                     xxxx
+      ;;!  ----------------------------------------
+      (variable_declarator
+        (_) @value.leading.start.endOf
+        .
+        value: (_)? @value @value.leading.end.startOf
+      )
+    )
+  ) @_.domain
+
+  ;; Handle multiple variable declarators in one statement, eg
+  ;;!! export (let | const | var) aaa: Bbb = ..., ccc: Ddd = ...;
+  ;;!  --------------------------------------^^^-------------^^^-
+  (#allow-multiple! @value)
+)
+
+;;!! (const | let | var) aaa: Ccc = 0, bbb: Ddd = 0;
+;;!1                                ^
+;;!1                             xxxx
+;;!1                     ------------
+;;!2                                              ^
+;;!2                                           xxxx
+;;!2                                   ------------
+(
+  (_
+    (variable_declarator
+      (_) @value.leading.start.endOf
+      .
+      value: (_)? @value @value.leading.end.startOf
+    ) @_.domain
+  ) @dummy
+  (#has-multiple-children-of-type? @dummy variable_declarator)
+)
 
 (expression_statement
   [
@@ -327,7 +394,7 @@
 [
   (program)
   (formal_parameters)
-] @name.iteration @value.iteration
+] @name.iteration @value.iteration @type.iteration
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! function foo() {   }
@@ -335,8 +402,8 @@
 (_
   body: (_
     .
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
     .
   )
 )
