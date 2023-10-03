@@ -36,18 +36,53 @@ export default class Keymap {
     private handlerMap: Record<string, SectionName> = {};
 
     constructor() {
+        this.clearAllMaps.bind(this);
+        this.loadKeymap.bind(this);
+        this.loadSection.bind(this);
+        this.getMergeKeys.bind(this);
+        this.setMap.bind(this);
+        this.clearMap.bind(this);
+        this.getConflictingKeyMapEntry.bind(this);
         this.loadKeymap();
     }
 
+
     public loadKeymap() {
+        this.clearAllMaps();
         this.loadSection("actions", DEFAULT_ACTION_KEYMAP);
         this.loadSection("scopes", DEFAULT_SCOPE_KEYMAP);
         this.loadSection("colors", DEFAULT_COLOR_KEYMAP);
         this.loadSection("shapes", DEFAULT_SHAPE_KEYMAP);
         this.loadSection("modifiers", DEFAULT_MODIFIER_KEYMAP);
     }
+    clearAllMaps() {
+        this.clearMap("actions");
+        this.clearMap("scopes");
+        this.clearMap("colors");
+        this.clearMap("shapes");
+        this.clearMap("modifiers");
+    }
 
+    public getKeyValue(key: string): [SectionName, any] | undefined {
 
+        if (this.actionKeymap[key] != null) {
+            return ["actions", this.actionKeymap[key]];
+        }
+        if (this.scopeKeymap[key] != null) {
+            return ["scopes", this.scopeKeymap[key]];
+        }
+        if (this.colorKeymap[key] != null) {
+            return ["colors", this.colorKeymap[key]];
+        }
+        if (this.shapeKeymap[key] != null) {
+            return ["shapes", this.shapeKeymap[key]];
+        }
+        if (this.modifierKeymap[key] != null) {
+            return ["modifiers", this.modifierKeymap[key]];
+        }
+        return undefined;
+
+    }
 
     private loadSection<T>(sectionName: SectionName, defaultKeyMap: SectionKeymap<T>) {
         const userOverrides: SectionKeymap<T> =
@@ -70,9 +105,12 @@ export default class Keymap {
     }
 
     public getMergeKeys():string[]{
-        return merge({}, this.actionKeymap, this.scopeKeymap, this.colorKeymap, this.shapeKeymap, this.modifierKeymap).keys();
+        return Object.keys(merge({}, this.actionKeymap, this.scopeKeymap, this.colorKeymap, this.shapeKeymap, this.modifierKeymap));
     }
 
+    public isPrefixOfMapEntry(text:string):boolean{
+        return this.getMergeKeys().some((key)=>key.startsWith(text));
+    }
 
     public setMap(sectionName:SectionName,key:string,value:any){
         switch (sectionName) {
@@ -126,11 +164,11 @@ export default class Keymap {
      */
         getConflictingKeyMapEntry(text: string): [string, string] | undefined {
             const allMap = {
-              "actions": this.actionKeymap.keys,
-              "scopes": this.scopeKeymap.keys,
-              "colors": this.colorKeymap.keys,
-              "shapes": this.shapeKeymap.keys,
-              "modifiers": this.modifierKeymap.keys,
+              "actions": this.actionKeymap,
+              "scopes": this.scopeKeymap,
+              "colors": this.colorKeymap,
+              "shapes": this.shapeKeymap,
+              "modifiers": this.modifierKeymap,
             };
           
             for (const [sectionName, keyMap] of Object.entries(allMap)) {
@@ -146,6 +184,26 @@ export default class Keymap {
             return undefined;
           }
 
+    public getActionKeymap(): SectionKeymap<ActionType> {
+        return this.actionKeymap;
+    }
 
+    public getScopeKeymap(): SectionKeymap<SimpleScopeTypeType> {
+        return this.scopeKeymap;
+    }
+
+    public getColorKeymap(): SectionKeymap<HatColor> {
+        return this.colorKeymap;
+    }
+
+    public getShapeKeymap(): SectionKeymap<HatShape> {
+        return this.shapeKeymap;
+    }
+
+    public getModifierKeymap(): SectionKeymap<ModifierType> {
+        return this.modifierKeymap;
+    }
+
+    
 
 }

@@ -1,28 +1,13 @@
-import { List, keys, merge, toPairs } from "lodash";
 import * as vscode from "vscode";
-import {
-  DEFAULT_ACTION_KEYMAP,
-  DEFAULT_COLOR_KEYMAP,
-  Keymap,
-  DEFAULT_SCOPE_KEYMAP,
-  DEFAULT_SHAPE_KEYMAP,
-  DEFAULT_MODIFIER_KEYMAP,
-} from "./defaultKeymaps";
+
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 import { executeCursorlessCommand } from "./KeyboardCommandsTargeted";
-
-type SectionName = "actions" | "scopes" | "colors" | "shapes" | "modifiers";
-
+import Keymap from "./Keymap";
 
 
 
 
-interface KeyHandler<T> {
-  sectionName: SectionName;
-  value: T;
-  handleValue(): Promise<unknown>;
-}
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -39,9 +24,9 @@ export default class KeyboardCommandsModal {
    * Merged map from all the different sections of the key map (eg actions,
    * colors, etc).
    */
-  private mergedKeymap!: Record<string, KeyHandler<any>>;
-  cursorOffset: vscode.Position;
   
+  cursorOffset: vscode.Position;
+  private keymap: Keymap;
   
 
   constructor(
@@ -53,8 +38,9 @@ export default class KeyboardCommandsModal {
     this.modeOff = this.modeOff.bind(this);
     this.handleInput = this.handleInput.bind(this);
 
-    this.constructMergedKeymap();
+    // this.constructMergedKeymap();
     this.cursorOffset = new vscode.Position(0, 0);
+    this.keymap = new Keymap();
     
   }
 
@@ -66,82 +52,13 @@ export default class KeyboardCommandsModal {
             "cursorless.experimental.keyboard.modal.keybindings",
           )
         ) {
-          this.constructMergedKeymap();
+          this.keymap.loadKeymap();
         }
       }),
     );
-  }
-
-  private constructMergedKeymap() {
-    this.mergedKeymap = {};
-
-    this.handleSection("actions", DEFAULT_ACTION_KEYMAP, (value) =>
-      this.targeted.performActionOnTarget(value),
-    );
-    this.handleSection("scopes", DEFAULT_SCOPE_KEYMAP, (value) =>
-      this.targeted.targetScopeType({
-        scopeType: value,
-      }),
-    );
-    this.handleSection("colors", DEFAULT_COLOR_KEYMAP, (value) =>
-      this.targeted.targetDecoratedMark({
-        color: value,
-      }),
-    );
-    this.handleSection("shapes", DEFAULT_SHAPE_KEYMAP, (value) =>
-      this.targeted.targetDecoratedMark({
-        shape: value,
-      }),
-    );
-
-    this.handleSection("modifiers", DEFAULT_MODIFIER_KEYMAP, (value) =>
-      this.targeted.targetModifierType("interiorOnly"),
-
-    );
-  }
-
-  /**
-   * Adds a section (eg actions, scopes, etc) to the merged keymap.
-   *
-   * @param sectionName The name of the section (eg `"actions"`, `"scopes"`, etc)
-   * @param defaultKeyMap The default values for this keymap
-   * @param handleValue The function to call when the user presses the given key
-   */
-  private handleSection<T>(
-    sectionName: SectionName,
-    defaultKeyMap: Keymap<T>,
-    handleValue: (value: T) => Promise<unknown>,
-  ) {
-    const userOverrides: Keymap<T> =
-      vscode.workspace
-        .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
-        .get<Keymap<T>>(sectionName) ?? {};
-    const keyMap = merge({}, defaultKeyMap, userOverrides);
-
-    for (const [key, value] of toPairs(keyMap)) {
-      const conflictingEntry = this.getConflictingKeyMapEntry(key);
-      if (conflictingEntry != null) {
-        const { sectionName: conflictingSection, value: conflictingValue } =
-          conflictingEntry;
-
-        vscode.window.showErrorMessage(
-          `Conflicting keybindings: \`${sectionName}.${value}\` and \`${conflictingSection}.${conflictingValue}\` both want key '${key}'`,
-        );
-
-        continue;
-      }
-
-      const entry: KeyHandler<T> = {
-        sectionName,
-        value,
-        handleValue: () => handleValue(value),
-      };
-
-      this.mergedKeymap[key] = entry;
-    }
     
-
   }
+
 
   modeOn = async () => {
     if (this.isModeOn()) {
@@ -201,22 +118,19 @@ export default class KeyboardCommandsModal {
 
   async handleInput(text: string) {
     let sequence = text;
-    let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
+    // let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
 
-    const curCursorOffset = vscode.window.activeTextEditor?.selection.active;
+    const map = this.keymap.getMergeKeys()
+    let hasHandler = map.includes(sequence);
 
-    if (curCursorOffset != null && this.cursorOffset != null) {
-      if (!curCursorOffset.isEqual(this.cursorOffset) ) {
-        await this.setTargetToCursor();
-        }
-    }
+
 
 
     // We handle multi-key sequences by repeatedly awaiting a single keypress
     // until they've pressed something in the map.
-    while (keyHandler == null) {      
+    while (!hasHandler) {      
 
-      if (!this.isPrefixOfKey(sequence)) {
+      if (!this.keymap.isPrefixOfMapEntry(sequence)) {
         const errorMessage = `Unknown key sequence "${sequence}"`;
         vscode.window.showErrorMessage(errorMessage);
         throw Error(errorMessage);
@@ -233,32 +147,50 @@ export default class KeyboardCommandsModal {
       }
 
       sequence += nextKey;
-      keyHandler = this.mergedKeymap[sequence];
+      hasHandler = this.keymap.getMergeKeys().includes(sequence);
     }
-
-    keyHandler.handleValue();
+    const curCursorOffset = vscode.window.activeTextEditor?.selection.active;
+    if (curCursorOffset != null && this.cursorOffset != null) {
+      if (!curCursorOffset.isEqual(this.cursorOffset) ) {
+        await this.setTargetToCursor();
+        }
+    }
+    this.handleSequence(sequence);
     if (curCursorOffset != null) {
       this.cursorOffset = curCursorOffset;
     }
   }
 
-  isPrefixOfKey(text: string): boolean {
-    return keys(this.mergedKeymap).some((key) => key.startsWith(text));
+
+  private handleSequence(sequence: string) {
+    const sectionName = this.keymap.getKeyValue(sequence);
+    if (sectionName == null) {
+      return;
+    }
+    const [section, value] = sectionName;
+    switch (section) {
+      case "actions":
+        this.targeted.performActionOnTarget(value);
+        break;
+      case "scopes":
+        this.targeted.targetScopeType({
+          scopeType: value,
+        });
+        break;
+      case "colors":
+        this.targeted.targetDecoratedMark({
+          color: value,
+        },this.keymap);
+        break;
+      case "shapes":
+        this.targeted.targetDecoratedMark({
+          shape: value,
+        }, this.keymap);
+        break;
+      case "modifiers":
+        this.targeted.targetModifierType("interiorOnly");
+        break;
+    }
   }
 
-  /**
-   * This function can be used to detect if a proposed map entry conflicts with
-   * one in the map.  Used to detect if the user tries to use two map entries,
-   * one of which is a prefix of the other.
-   * @param text The proposed new map entry
-   * @returns The first map entry that conflicts with {@link text}, if one
-   * exists
-   */
-  getConflictingKeyMapEntry(text: string): KeyHandler<any> | undefined {
-    const conflictingPair = toPairs(this.mergedKeymap).find(
-      ([key]) => text.startsWith(key) || key.startsWith(text),
-    );
-
-    return conflictingPair == null ? undefined : conflictingPair[1];
-  }
 }

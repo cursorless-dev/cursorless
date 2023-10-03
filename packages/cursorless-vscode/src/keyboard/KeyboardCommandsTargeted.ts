@@ -13,6 +13,7 @@ import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
+import Keymap from "./Keymap";
 
 type TargetingMode = "replace" | "extend" | "append";
 type TargetModifierTypeArgument = "every" | "interiorOnly" | "excludeInterior";
@@ -64,6 +65,9 @@ export default class KeyboardCommandsTargeted {
     return this.modal;
   } 
 
+
+
+
   /**
    * Sets the highlighted target to the given decorated mark. If {@link character} is
    * omitted, then we wait for the user to press a character
@@ -75,20 +79,36 @@ export default class KeyboardCommandsTargeted {
     shape = "default",
     character,
     mode = "replace",
-  }: TargetDecoratedMarkArgument) => {
-    character =
-      character ??
-      (await this.keyboardHandler.awaitSingleKeypress({
+  }: TargetDecoratedMarkArgument,
+  keymap:Keymap) => {
+
+    const getCharacter = async (status:string="Which hat?") => {
+      return await this.keyboardHandler.awaitSingleKeypress({
         cursorStyle: vscode.TextEditorCursorStyle.Underline,
         whenClauseContext: "cursorless.keyboard.targeted.awaitingHatCharacter",
-        statusBarText: "Which hat?",
-      }));
+        statusBarText: status,
+      });
+    }
+    character = await getCharacter();
+    
 
     if (character == null) {
       // Cancelled
       return;
     }
-    
+    if (keymap.getColorKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
+      color = keymap.getColorKeymap()[character.toLowerCase()];
+      character = await getCharacter("Color ${color} selected. Which hat?");
+    }
+    else if (keymap.getShapeKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
+      shape = keymap.getShapeKeymap()[character.toLowerCase()];
+      character = await getCharacter("Shape ${shape} selected. Which hat?");
+    }
+    if (character == null) {
+      // Cancelled
+      return;
+    }
+
 
 
     let target: PartialTargetDescriptor = {
