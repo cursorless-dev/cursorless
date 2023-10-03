@@ -1051,8 +1051,8 @@
     "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
     "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
     "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",
-    "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
-    "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/average.ts",
+    "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/add.ts",
+    "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/average.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist"
