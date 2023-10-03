@@ -137,9 +137,9 @@
 ;;!1                          ^^^
 ;;!1                        xxxxx
 ;;!1                     ------------
-;;!1                                        ^^^
-;;!1                                      xxxxx
-;;!1                                   ------------
+;;!2                                        ^^^
+;;!2                                      xxxxx
+;;!2                                   ------------
 (
   (_
     (variable_declarator
@@ -168,7 +168,6 @@
 
 ;;!! new Aaa<Bbb>()
 ;;!      ^^^^^^^^
-;;!  ------------
 (new_expression
   constructor: (_) @type.start
   type_arguments: (_)? @type.end
