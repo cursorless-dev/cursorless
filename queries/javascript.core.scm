@@ -178,16 +178,10 @@
   (variable_declarator)
 ) @name.removal.start.startOf
 
-;; name:
 ;;!! (const | let | var) aaa = 0, bbb = 0;
-;;!1                              ^^^
-;;!1                              xxxxxx
-;;!1                              -------
-;; value:
-;;!! (const | let | var) aaa = 0, bbb = 0;
-;;!1                                    ^
-;;!1                                 xxxx
-;;!1                              -------
+;;!                               ^^^
+;;!                               xxxxxx
+;;!                               -------
 (_
   (variable_declarator)
   .
@@ -203,9 +197,9 @@
 (
   [
     ;;!! (const | let) aaa: Bbb = 0;
-    ;;!                     ^^^
-    ;;!                   xxxxx
-    ;;!  -----------------------------
+    ;;!                           ^
+    ;;!                        xxxx
+    ;;!  ---------------------------
     (lexical_declaration
       (variable_declarator
         (_) @value.leading.start.endOf
@@ -215,8 +209,8 @@
     )
 
     ;;!! var aaa: Bbb = 0;
-    ;;!           ^^^
-    ;;!         xxxxx
+    ;;!                 ^
+    ;;!              xxxx
     ;;!  -----------------
     ;; Note that we can't merge this with the variable declaration above because
     ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
@@ -240,8 +234,8 @@
   (export_statement
     (_
       ;;!! export (const | let | var) aaa: Bbb = 0;
-      ;;!                                  ^^^
-      ;;!                                xxxxx
+      ;;!                                        ^
+      ;;!                                     xxxx
       ;;!  ----------------------------------------
       (variable_declarator
         (_) @value.leading.start.endOf
@@ -258,11 +252,11 @@
 )
 
 ;;!! (const | let | var) aaa: Ccc = 0, bbb: Ddd = 0;
-;;!1                          ^^^
-;;!1                        xxxxx
+;;!1                                ^
+;;!1                             xxxx
 ;;!1                     ------------
-;;!1                                        ^^^
-;;!1                                      xxxxx
+;;!1                                              ^
+;;!1                                           xxxx
 ;;!1                                   ------------
 (
   (_
