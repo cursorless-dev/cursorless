@@ -1,0 +1,31 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: chuck name
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa = bbb
+    aaa: str = bbb
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 14}
+  marks: {}
+finalState:
+  documentContents: |-
+    bbb
+    bbb
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 3}
