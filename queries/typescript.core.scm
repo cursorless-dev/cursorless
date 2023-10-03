@@ -185,14 +185,12 @@
 
 ;;!! export interface Aaa {}
 ;;!! export type Aaa = Bbb;
-(
-  (export_statement
-    [
-      (type_alias_declaration)
-      (interface_declaration)
-    ] @type
-  ) @_.domain
-)
+(export_statement
+  [
+    (type_alias_declaration)
+    (interface_declaration)
+  ] @type
+) @_.domain
 
 ;;!! aaa as Bbb
 ;;!         ^^^
