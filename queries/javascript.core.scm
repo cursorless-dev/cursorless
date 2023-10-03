@@ -380,7 +380,7 @@
 [
   (program)
   (formal_parameters)
-] @name.iteration @value.iteration
+] @name.iteration @value.iteration @type.iteration
 
 ;; Treat interior of all bodies as iteration scopes for `name`, eg
 ;;!! function foo() {   }
@@ -388,8 +388,8 @@
 (_
   body: (_
     .
-    "{" @name.iteration.start.endOf @value.iteration.start.endOf
-    "}" @name.iteration.end.startOf @value.iteration.end.startOf
+    "{" @name.iteration.start.endOf @value.iteration.start.endOf @type.iteration.start.endOf
+    "}" @name.iteration.end.startOf @value.iteration.end.startOf @type.iteration.end.startOf
     .
   )
 )
