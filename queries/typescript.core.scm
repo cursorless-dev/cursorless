@@ -81,7 +81,7 @@
     ;;!! (const | let) aaa: Bbb = 0;
     ;;!                     ^^^
     ;;!                   xxxxx
-    ;;!  -----------------------------
+    ;;!  ---------------------------
     (lexical_declaration
       (variable_declarator
         type: (type_annotation
