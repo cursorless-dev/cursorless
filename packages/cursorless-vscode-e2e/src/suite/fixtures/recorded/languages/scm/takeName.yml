@@ -19,5 +19,5 @@ initialState:
 finalState:
   documentContents: (aaa) @bbb @ccc @ddd
   selections:
-    - anchor: {line: 0, character: 7}
+    - anchor: {line: 0, character: 6}
       active: {line: 0, character: 20}
