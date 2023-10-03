@@ -8,6 +8,6 @@ TODOS_FOUND=$(git grep --color=always -nw TODO -- ':!scripts/forbid-todo.sh' || 
 
 if [ -n "$TODOS_FOUND" ]; then
   printf "\e[1;31mERROR: \e[0mTODOs found in codebase:\n"
-  printf %s "$TODOS_FOUND\n"
+  printf '%s\n' "$TODOS_FOUND"
   exit 1
 fi
