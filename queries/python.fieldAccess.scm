@@ -2,9 +2,9 @@
 ;; ^^^
 (
   (attribute
-    object: (_) @fieldAccess
+    object: (_) @private.fieldAccess
   )
-  (#not-type? @fieldAccess call attribute subscript)
+  (#not-type? @private.fieldAccess call attribute subscript)
 )
 
 ;; foo().bar
@@ -13,7 +13,7 @@
   (attribute
     object: (call
       function: (_) @dummy
-    ) @fieldAccess
+    ) @private.fieldAccess
   )
   (#not-type? @dummy attribute)
 )
@@ -24,7 +24,7 @@
   (attribute
     object: (subscript
       value: (_) @dummy
-    ) @fieldAccess
+    ) @private.fieldAccess
   )
   (#not-type? @dummy attribute)
 )
@@ -33,8 +33,8 @@
 ;;    ^^^^
 (
   (attribute
-    "." @fieldAccess.start
-    attribute: (_) @fieldAccess.end
+    "." @private.fieldAccess.start
+    attribute: (_) @private.fieldAccess.end
   ) @dummy
   (#not-parent-type? @dummy call subscript)
 )
@@ -43,18 +43,18 @@
 ;;    ^^^^^^
 (call
   function: (attribute
-    "." @fieldAccess.start
+    "." @private.fieldAccess.start
   )
-  arguments: (_) @fieldAccess.end
+  arguments: (_) @private.fieldAccess.end
 )
 
 ;; foo.bar[0]
 ;;    ^^^^^^^
 (subscript
   value: (attribute
-    "." @fieldAccess.start
+    "." @private.fieldAccess.start
   )
-  "]" @fieldAccess.end
+  "]" @private.fieldAccess.end
 )
 
 ;; foo[bar.baz]
@@ -67,19 +67,27 @@
 ;; of the call.
 (subscript
   subscript: (attribute
-    "." @fieldAccess.start
-    attribute: (_) @fieldAccess.end
+    "." @private.fieldAccess.start
+    attribute: (_) @private.fieldAccess.end
   )
 )
 
 ;; Use the largest attribute, call, or subscript
 ;; in a chain of such ancestors as the iteration scope.
 (
-  [(attribute) (call) (subscript)] @fieldAccess.iteration
-  (#not-parent-type? @fieldAccess.iteration attribute call subscript)
+  [
+    (attribute)
+    (call)
+    (subscript)
+  ] @private.fieldAccess.iteration
+  (#not-parent-type? @private.fieldAccess.iteration attribute call subscript)
 )
 
 ;; Use the interior of the `[]` in a subscript as an iteration scope
 (subscript
-  subscript: [(attribute) (call) (subscript)] @fieldAccess.iteration
+  subscript: [
+    (attribute)
+    (call)
+    (subscript)
+  ] @private.fieldAccess.iteration
 )

@@ -7,8 +7,9 @@ command:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: fieldAccess}
+          scopeType: {type: private.fieldAccess}
   usePrePhraseSnapshot: true
+spokenFormError: Scope type 'private.fieldAccess'
 initialState:
   documentContents: aaa.bbb() + ccc()
   selections:

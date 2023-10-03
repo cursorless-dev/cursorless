@@ -2,9 +2,9 @@
 ;; ^^^
 (
   (member_expression
-    object: (_) @fieldAccess
+    object: (_) @private.fieldAccess
   )
-  (#not-type? @fieldAccess call_expression member_expression subscript_expression)
+  (#not-type? @private.fieldAccess call_expression member_expression subscript_expression)
 )
 
 ;; foo().bar
@@ -13,7 +13,7 @@
   (member_expression
     object: (call_expression
       function: (_) @dummy
-    ) @fieldAccess
+    ) @private.fieldAccess
   )
   (#not-type? @dummy member_expression)
 )
@@ -24,7 +24,7 @@
   (member_expression
     object: (subscript_expression
       object: (_) @dummy
-    ) @fieldAccess
+    ) @private.fieldAccess
   )
   (#not-type? @dummy member_expression)
 )
@@ -33,8 +33,11 @@
 ;;    ^^^^
 (
   (member_expression
-    ["." (optional_chain)] @fieldAccess.start
-    property: (_) @fieldAccess.end
+    [
+      "."
+      (optional_chain)
+    ] @private.fieldAccess.start
+    property: (_) @private.fieldAccess.end
   ) @dummy
   (#not-parent-type? @dummy call_expression subscript_expression)
 )
@@ -43,18 +46,24 @@
 ;;    ^^^^^^
 (call_expression
   function: (member_expression
-    ["." (optional_chain)] @fieldAccess.start
+    [
+      "."
+      (optional_chain)
+    ] @private.fieldAccess.start
   )
-  arguments: (_) @fieldAccess.end
+  arguments: (_) @private.fieldAccess.end
 )
 
 ;; foo.bar[0]
 ;;    ^^^^^^^
 (subscript_expression
   object: (member_expression
-    ["." (optional_chain)] @fieldAccess.start
+    [
+      "."
+      (optional_chain)
+    ] @private.fieldAccess.start
   )
-  "]" @fieldAccess.end
+  "]" @private.fieldAccess.end
 )
 
 ;; foo[bar.baz]
@@ -67,19 +76,30 @@
 ;; of the call_expression.
 (subscript_expression
   index: (member_expression
-    ["." (optional_chain)] @fieldAccess.start
-    property: (_) @fieldAccess.end
+    [
+      "."
+      (optional_chain)
+    ] @private.fieldAccess.start
+    property: (_) @private.fieldAccess.end
   )
 )
 
 ;; Use the largest member_expression, call_expression, or subscript_expression
 ;; in a chain of such ancestors as the iteration scope.
 (
-  [(member_expression) (call_expression) (subscript_expression)] @fieldAccess.iteration
-  (#not-parent-type? @fieldAccess.iteration member_expression call_expression subscript_expression)
+  [
+    (member_expression)
+    (call_expression)
+    (subscript_expression)
+  ] @private.fieldAccess.iteration
+  (#not-parent-type? @private.fieldAccess.iteration member_expression call_expression subscript_expression)
 )
 
 ;; Use the interior of the `[]` in a subscript_expression as an iteration scope
 (subscript_expression
-  index: [(member_expression) (call_expression) (subscript_expression)] @fieldAccess.iteration
+  index: [
+    (member_expression)
+    (call_expression)
+    (subscript_expression)
+  ] @private.fieldAccess.iteration
 )

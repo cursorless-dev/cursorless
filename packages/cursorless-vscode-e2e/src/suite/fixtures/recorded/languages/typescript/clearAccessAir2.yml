@@ -7,9 +7,10 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: fieldAccess}
+          scopeType: {type: private.fieldAccess}
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
+spokenFormError: Scope type 'private.fieldAccess'
 initialState:
   documentContents: |
     aaa?.bbb()

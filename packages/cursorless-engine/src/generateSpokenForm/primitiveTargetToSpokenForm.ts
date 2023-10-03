@@ -196,6 +196,7 @@ function scopeTypeToSpokenForm(scopeType: ScopeType): string {
     case "oneOf":
     case "customRegex":
     case "switchStatementSubject":
+    case "private.fieldAccess":
     case "string":
       throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
     case "surroundingPair": {
