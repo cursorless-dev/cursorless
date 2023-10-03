@@ -1,4 +1,4 @@
-import { keys, merge, toPairs } from "lodash";
+import { List, keys, merge, toPairs } from "lodash";
 import * as vscode from "vscode";
 import {
   DEFAULT_ACTION_KEYMAP,
@@ -8,11 +8,15 @@ import {
   DEFAULT_SHAPE_KEYMAP,
   DEFAULT_MODIFIER_KEYMAP,
 } from "./defaultKeymaps";
-import { Direction } from "@cursorless/common";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 import { executeCursorlessCommand } from "./KeyboardCommandsTargeted";
+
 type SectionName = "actions" | "scopes" | "colors" | "shapes" | "modifiers";
+
+
+
+
 
 interface KeyHandler<T> {
   sectionName: SectionName;
@@ -37,6 +41,8 @@ export default class KeyboardCommandsModal {
    */
   private mergedKeymap!: Record<string, KeyHandler<any>>;
   cursorOffset: vscode.Position;
+  
+  
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
@@ -49,6 +55,7 @@ export default class KeyboardCommandsModal {
 
     this.constructMergedKeymap();
     this.cursorOffset = new vscode.Position(0, 0);
+    
   }
 
   init() {
@@ -132,6 +139,8 @@ export default class KeyboardCommandsModal {
 
       this.mergedKeymap[key] = entry;
     }
+    
+
   }
 
   modeOn = async () => {
@@ -177,6 +186,19 @@ export default class KeyboardCommandsModal {
     return this.inputDisposable != null;
   }
 
+
+  private async  setTargetToCursor() {
+    await executeCursorlessCommand({
+      name: "highlight",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "cursor",
+        },
+      },
+    });
+  }
+
   async handleInput(text: string) {
     let sequence = text;
     let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
@@ -184,34 +206,15 @@ export default class KeyboardCommandsModal {
     const curCursorOffset = vscode.window.activeTextEditor?.selection.active;
 
     if (curCursorOffset != null && this.cursorOffset != null) {
-      if (curCursorOffset.line != this.cursorOffset.line) {
-        await executeCursorlessCommand({
-          name: "highlight",
-          target: {
-            type: "primitive",
-            mark: {
-              type: "cursor",
-            },
-          },
-        });
-        vscode.window.showInformationMessage("Cursor moved, highlighting new selection");
-      }
-    }
-    if (curCursorOffset != null) {
-      this.cursorOffset = curCursorOffset;
+      if (!curCursorOffset.isEqual(this.cursorOffset) ) {
+        await this.setTargetToCursor();
+        }
     }
 
-    if (sequence == "i"){
-      vscode.window.showInformationMessage("i pressed");
-      this.targeted.expandTarget("forward");
-      return;
-    }
 
     // We handle multi-key sequences by repeatedly awaiting a single keypress
     // until they've pressed something in the map.
-    while (keyHandler == null) {
-
-      
+    while (keyHandler == null) {      
 
       if (!this.isPrefixOfKey(sequence)) {
         const errorMessage = `Unknown key sequence "${sequence}"`;
@@ -234,6 +237,9 @@ export default class KeyboardCommandsModal {
     }
 
     keyHandler.handleValue();
+    if (curCursorOffset != null) {
+      this.cursorOffset = curCursorOffset;
+    }
   }
 
   isPrefixOfKey(text: string): boolean {
@@ -241,7 +247,7 @@ export default class KeyboardCommandsModal {
   }
 
   /**
-   * This function can be used to deterct if a proposed map entry conflicts with
+   * This function can be used to detect if a proposed map entry conflicts with
    * one in the map.  Used to detect if the user tries to use two map entries,
    * one of which is a prefix of the other.
    * @param text The proposed new map entry

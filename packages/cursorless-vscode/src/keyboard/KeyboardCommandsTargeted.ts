@@ -39,6 +39,7 @@ interface TargetScopeTypeArgument {
  */
 export default class KeyboardCommandsTargeted {
   private modal!: KeyboardCommandsModal;
+  lastTarget: PartialTargetDescriptor;
 
   constructor(private keyboardHandler: KeyboardHandler) {
     this.targetDecoratedMark = this.targetDecoratedMark.bind(this);
@@ -46,11 +47,22 @@ export default class KeyboardCommandsTargeted {
     this.targetScopeType = this.targetScopeType.bind(this);
     this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
+    this.highlightTarget = this.highlightTarget.bind(this);
+    this.lastTarget = {   
+      type: "primitive",
+      mark: {
+        type: "that",
+      },
+    };
   }
 
   init(modal: KeyboardCommandsModal) {
     this.modal = modal;
   }
+
+  getMode() {
+    return this.modal;
+  } 
 
   /**
    * Sets the highlighted target to the given decorated mark. If {@link character} is
@@ -76,6 +88,8 @@ export default class KeyboardCommandsTargeted {
       // Cancelled
       return;
     }
+    
+
 
     let target: PartialTargetDescriptor = {
       type: "primitive",
@@ -170,7 +184,7 @@ export default class KeyboardCommandsTargeted {
       },
     });
 
-  private highlightTarget = () =>
+  highlightTarget = () =>
     executeCursorlessCommand({
       name: "highlight",
       target: {
