@@ -151,6 +151,7 @@
   (#has-multiple-children-of-type? @dummy variable_declarator)
 )
 
+;; Generic type matcher
 (
   (_
     [
@@ -173,6 +174,8 @@
   type_arguments: (_)? @type.end
 )
 
+;;!! interface Aaa {}
+;;!! type Aaa = Bbb;
 (
   [
     (type_alias_declaration)
@@ -181,6 +184,8 @@
   (#not-parent-type? @type export_statement)
 )
 
+;;!! export interface Aaa {}
+;;!! export type Aaa = Bbb;
 (
   (export_statement
     [
@@ -190,6 +195,10 @@
   ) @_.domain
 )
 
+;;!! aaa as Bbb
+;;!         ^^^
+;;!     xxxxxxx
+;;!  ----------
 (as_expression
   (_) @_.leading.start.endOf
   [
@@ -198,6 +207,10 @@
   ] @type @_.leading.end.startOf
 ) @_.domain
 
+;;!! aaa satisfies Bbb
+;;!                ^^^
+;;!     xxxxxxxxxxxxxx
+;;!  -----------------
 (satisfies_expression
   (_) @_.leading.start.endOf
   [
