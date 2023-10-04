@@ -47,6 +47,16 @@ export default class VscodeConfiguration implements Configuration {
   onDidChangeConfiguration = this.notifier.registerListener;
 }
 
+/**
+ * Gets a configuration value from vscode, with supported variables expanded.
+ * For example, `${userHome}` will be expanded to the user's home directory.
+ *
+ * We currently only support `${userHome}`.
+ *
+ * @param path The path to the configuration value, eg `cursorless.snippetsDir`
+ * @returns The configuration value, with variables expanded, or undefined if
+ * the value is not set
+ */
 export function vscodeGetConfigurationString(path: string): string | undefined {
   const value = vscode.workspace.getConfiguration().get<string>(path);
 

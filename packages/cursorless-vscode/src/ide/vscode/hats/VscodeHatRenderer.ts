@@ -41,13 +41,6 @@ const hatConfigSections = [
   "cursorless.individualHatAdjustments",
 ];
 
-/**
- * Maintains the VSCode decoration type objects corresponding to each hat style.
- * This class is responsible for the actual svgs / colors used to render the
- * hats.  The decision about which hat styles should be available is up to
- * {@link VscodeEnabledHatStyles}
- */
-
 const hatShapesDirSettingId = "cursorless.private.hatShapesDir";
 
 interface SvgInfo {
@@ -56,6 +49,12 @@ interface SvgInfo {
   svgWidthPx: number;
 }
 
+/**
+ * Maintains the VSCode decoration type objects corresponding to each hat style.
+ * This class is responsible for the actual svgs / colors used to render the
+ * hats.  The decision about which hat styles should be available is up to
+ * {@link VscodeEnabledHatStyles}
+ */
 export default class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
@@ -123,7 +122,7 @@ export default class VscodeHatRenderer {
 
   private async updateHatsDirWatcher() {
     this.hatsDirWatcherDisposable?.dispose();
-
+c
     const hatsDir = vscodeGetConfigurationString(hatShapesDirSettingId);
 
     if (hatsDir) {
