@@ -1,5 +1,5 @@
-;; foo.bar
-;; ^^^
+;;!! foo.bar
+;;!  ^^^
 (
   (member_expression
     object: (_) @private.fieldAccess
@@ -7,8 +7,8 @@
   (#not-type? @private.fieldAccess call_expression member_expression subscript_expression)
 )
 
-;; foo().bar
-;; ^^^^^
+;;!! foo().bar
+;;!  ^^^^^
 (
   (member_expression
     object: (call_expression
@@ -18,8 +18,8 @@
   (#not-type? @dummy member_expression)
 )
 
-;; foo[0].bar
-;; ^^^^^^
+;;!! foo[0].bar
+;;!  ^^^^^^
 (
   (member_expression
     object: (subscript_expression
@@ -29,8 +29,8 @@
   (#not-type? @dummy member_expression)
 )
 
-;; foo.bar
-;;    ^^^^
+;;!! foo.bar
+;;!     ^^^^
 (
   (member_expression
     [
@@ -42,8 +42,8 @@
   (#not-parent-type? @dummy call_expression subscript_expression)
 )
 
-;; foo.bar()
-;;    ^^^^^^
+;;!! foo.bar()
+;;!     ^^^^^^
 (call_expression
   function: (member_expression
     [
@@ -54,8 +54,8 @@
   arguments: (_) @private.fieldAccess.end
 )
 
-;; foo.bar[0]
-;;    ^^^^^^^
+;;!! foo.bar[0]
+;;!     ^^^^^^^
 (subscript_expression
   object: (member_expression
     [
@@ -66,8 +66,8 @@
   "]" @private.fieldAccess.end
 )
 
-;; foo[bar.baz]
-;;        ^^^^
+;;!! foo[bar.baz]
+;;!         ^^^^
 ;; The reason we need this special treatment for subscript_expression is that
 ;; the member_expression inside the index of the subscript_expression is a
 ;; direct child of the subscript_expression, so will be ruled out by the

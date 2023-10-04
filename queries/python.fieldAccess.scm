@@ -1,5 +1,5 @@
-;; foo.bar
-;; ^^^
+;;!! foo.bar
+;;!  ^^^
 (
   (attribute
     object: (_) @private.fieldAccess
@@ -7,8 +7,8 @@
   (#not-type? @private.fieldAccess call attribute subscript)
 )
 
-;; foo().bar
-;; ^^^^^
+;;!! foo().bar
+;;!  ^^^^^
 (
   (attribute
     object: (call
@@ -18,8 +18,8 @@
   (#not-type? @dummy attribute)
 )
 
-;; foo[0].bar
-;; ^^^^^^
+;;!! foo[0].bar
+;;!  ^^^^^^
 (
   (attribute
     object: (subscript
@@ -29,8 +29,8 @@
   (#not-type? @dummy attribute)
 )
 
-;; foo.bar
-;;    ^^^^
+;;!! foo.bar
+;;!     ^^^^
 (
   (attribute
     "." @private.fieldAccess.start
@@ -39,8 +39,8 @@
   (#not-parent-type? @dummy call subscript)
 )
 
-;; foo.bar()
-;;    ^^^^^^
+;;!! foo.bar()
+;;!     ^^^^^^
 (call
   function: (attribute
     "." @private.fieldAccess.start
@@ -48,8 +48,8 @@
   arguments: (_) @private.fieldAccess.end
 )
 
-;; foo.bar[0]
-;;    ^^^^^^^
+;;!! foo.bar[0]
+;;!     ^^^^^^^
 (subscript
   value: (attribute
     "." @private.fieldAccess.start
@@ -57,8 +57,8 @@
   "]" @private.fieldAccess.end
 )
 
-;; foo[bar.baz]
-;;        ^^^^
+;;!! foo[bar.baz]
+;;!         ^^^^
 ;; The reason we need this special treatment for subscript is that
 ;; the attribute inside the subscript of the subscript is a
 ;; direct child of the subscript, so will be ruled out by the
