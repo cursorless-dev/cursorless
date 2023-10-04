@@ -16,6 +16,21 @@ suite("Generate spoken forms", () => {
   getRecordedTestPaths().forEach(({ name, path }) =>
     test(name, () => runTest(path)),
   );
+
+  test("generate spoken form for custom regex", () => {
+    const generator = new SpokenFormGenerator({
+      ...defaultSpokenFormMap,
+      customRegex: { foo: ["bar"] },
+    });
+
+    const spokenForm = generator.scopeType({
+      type: "customRegex",
+      regex: "foo",
+    });
+
+    assert(spokenForm.type === "success");
+    assert.equal(spokenForm.preferred, "bar");
+  });
 });
 
 async function runTest(file: string) {

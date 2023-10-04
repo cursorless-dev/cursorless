@@ -250,8 +250,12 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
   }
 
   if (Array.isArray(component)) {
+    if (component.length === 0) {
+      return [""];
+    }
+
     return cartesianProduct(component.map(constructSpokenForms)).map((words) =>
-      words.join(" "),
+      words.filter((word) => word.length !== 0).join(" "),
     );
   }
 

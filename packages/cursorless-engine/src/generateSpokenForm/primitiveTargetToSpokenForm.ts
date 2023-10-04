@@ -209,7 +209,6 @@ export class PrimitiveTargetSpokenFormGenerator {
   handleScopeType(scopeType: ScopeType): SpokenFormComponent {
     switch (scopeType.type) {
       case "oneOf":
-      case "customRegex":
       case "switchStatementSubject":
       case "string":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
@@ -221,14 +220,25 @@ export class PrimitiveTargetSpokenFormGenerator {
         }
         const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
         if (scopeType.forceDirection != null) {
-          const direction =
-            scopeType.forceDirection === "left"
-              ? this.spokenFormMap.surroundingPairForceDirection.left
-              : this.spokenFormMap.surroundingPairForceDirection.right;
-          return `${direction} ${pair}`;
+          return [
+            this.spokenFormMap.surroundingPairForceDirection[
+              scopeType.forceDirection
+            ],
+            pair,
+          ];
         }
         return pair;
       }
+
+      case "customRegex":
+        return (
+          this.spokenFormMap.customRegex[scopeType.regex] ?? {
+            type: "singleTerm",
+            spokenForms: [],
+            spokenFormType: "customRegex",
+            id: scopeType.regex,
+          }
+        );
 
       default:
         return this.spokenFormMap.simpleScopeTypeType[scopeType.type];
