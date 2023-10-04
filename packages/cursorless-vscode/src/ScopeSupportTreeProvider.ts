@@ -96,7 +96,17 @@ export class ScopeSupportTreeProvider
   getScopeTypesWithSupport(scopeSupport: ScopeSupport): ScopeSupportTreeItem[] {
     return this.supportLevels
       .filter((supportLevel) => supportLevel.support === scopeSupport)
-      .map((supportLevel) => new ScopeSupportTreeItem(supportLevel));
+      .map((supportLevel) => new ScopeSupportTreeItem(supportLevel))
+      .sort((a, b) => {
+        if (
+          a.scopeTypeInfo.isLanguageSpecific !==
+          b.scopeTypeInfo.isLanguageSpecific
+        ) {
+          return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
+        }
+
+        return a.label.localeCompare(b.label);
+      });
   }
 
   dispose() {
@@ -130,7 +140,9 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 }
 
 class ScopeSupportTreeItem extends vscode.TreeItem {
-  constructor(scopeTypeInfo: ScopeTypeInfo) {
+  public label: string;
+
+  constructor(public scopeTypeInfo: ScopeTypeInfo) {
     const label =
       scopeTypeInfo.spokenForm.type === "error"
         ? "-"
@@ -138,6 +150,8 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
     const description = scopeTypeInfo.humanReadableName;
 
     super(label, vscode.TreeItemCollapsibleState.None);
+
+    this.label = label;
 
     this.description = description;
 
@@ -158,6 +172,10 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
       ],
       title: `Visualize ${scopeTypeInfo.humanReadableName}`,
     };
+
+    if (scopeTypeInfo.isLanguageSpecific) {
+      this.resourceUri = vscode.window.activeTextEditor?.document.uri;
+    }
   }
 }
 
