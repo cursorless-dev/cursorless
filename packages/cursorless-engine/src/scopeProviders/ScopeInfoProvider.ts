@@ -73,7 +73,9 @@ export class ScopeInfoProvider {
         // Skip "string" because we use surrounding pair for that
         .filter(
           (scopeTypeType) =>
-            scopeTypeType !== "instance" && scopeTypeType !== "string",
+            scopeTypeType !== "instance" &&
+            scopeTypeType !== "string" &&
+            scopeTypeType !== "switchStatementSubject",
         )
         .map((scopeTypeType) => ({
           type: scopeTypeType,

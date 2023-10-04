@@ -1,3 +1,4 @@
+import { CursorlessCommandId } from "@cursorless/common";
 import {
   ScopeProvider,
   ScopeSupport,
@@ -5,6 +6,7 @@ import {
   ScopeTypeInfo,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
+import { VisualizationType } from "./ScopeVisualizerCommandApi";
 
 export class ScopeSupportTreeProvider
   implements vscode.TreeDataProvider<MyTreeItem>
@@ -138,6 +140,24 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
     super(label, vscode.TreeItemCollapsibleState.None);
 
     this.description = description;
+
+    if (
+      scopeTypeInfo.spokenForm.type === "success" &&
+      scopeTypeInfo.spokenForm.alternatives.length > 0
+    ) {
+      this.tooltip = scopeTypeInfo.spokenForm.alternatives
+        .map((spokenForm) => `"${spokenForm}"`)
+        .join("\n");
+    }
+
+    this.command = {
+      command: "cursorless.showScopeVisualizer" satisfies CursorlessCommandId,
+      arguments: [
+        scopeTypeInfo.scopeType,
+        "content" satisfies VisualizationType,
+      ],
+      title: `Visualize ${scopeTypeInfo.humanReadableName}`,
+    };
   }
 }
 

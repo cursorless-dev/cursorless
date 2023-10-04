@@ -187,8 +187,7 @@
       },
       {
         "command": "cursorless.showScopeVisualizer",
-        "title": "Cursorless: Show the scope visualizer",
-        "enablement": "false"
+        "title": "Cursorless: Show the scope visualizer"
       },
       {
         "command": "cursorless.hideScopeVisualizer",

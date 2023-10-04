@@ -110,10 +110,10 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
   ),
-  ["cursorless.showScopeVisualizer"]: new HiddenCommand(
+  ["cursorless.showScopeVisualizer"]: new VisibleCommand(
     "Show the scope visualizer",
   ),
-  ["cursorless.hideScopeVisualizer"]: new HiddenCommand(
+  ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
     "Hide the scope visualizer",
   ),
 };
