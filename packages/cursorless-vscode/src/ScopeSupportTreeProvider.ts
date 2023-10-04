@@ -99,6 +99,12 @@ export class ScopeSupportTreeProvider
       .map((supportLevel) => new ScopeSupportTreeItem(supportLevel))
       .sort((a, b) => {
         if (
+          a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type
+        ) {
+          return a.scopeTypeInfo.spokenForm.type === "error" ? 1 : -1;
+        }
+
+        if (
           a.scopeTypeInfo.isLanguageSpecific !==
           b.scopeTypeInfo.isLanguageSpecific
         ) {
