@@ -69,6 +69,12 @@ export const cursorlessCommandDescriptions: Record<
     "Resume test case recording",
   ),
   ["cursorless.showDocumentation"]: new VisibleCommand("Show documentation"),
+  ["cursorless.showScopeVisualizer"]: new VisibleCommand(
+    "Show the scope visualizer",
+  ),
+  ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
+    "Hide the scope visualizer",
+  ),
 
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
   ["cursorless.showQuickPick"]: new HiddenCommand(
@@ -109,11 +115,5 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
-  ),
-  ["cursorless.showScopeVisualizer"]: new VisibleCommand(
-    "Show the scope visualizer",
-  ),
-  ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
-    "Hide the scope visualizer",
   ),
 };

@@ -116,6 +116,14 @@
         "title": "Cursorless: Show documentation"
       },
       {
+        "command": "cursorless.showScopeVisualizer",
+        "title": "Cursorless: Show the scope visualizer"
+      },
+      {
+        "command": "cursorless.hideScopeVisualizer",
+        "title": "Cursorless: Hide the scope visualizer"
+      },
+      {
         "command": "cursorless.command",
         "title": "Cursorless: The core cursorless command",
         "enablement": "false"
@@ -183,15 +191,6 @@
       {
         "command": "cursorless.keyboard.modal.modeToggle",
         "title": "Cursorless: Toggle the cursorless modal mode",
-        "enablement": "false"
-      },
-      {
-        "command": "cursorless.showScopeVisualizer",
-        "title": "Cursorless: Show the scope visualizer"
-      },
-      {
-        "command": "cursorless.hideScopeVisualizer",
-        "title": "Cursorless: Hide the scope visualizer",
         "enablement": "false"
       }
     ],
