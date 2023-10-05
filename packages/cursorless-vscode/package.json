@@ -79,10 +79,10 @@
   },
   "contributes": {
     "views": {
-      "explorer": [
+      "cursorless": [
         {
           "id": "cursorlessScopeSupport",
-          "name": "Cursorless scope support"
+          "name": "Scope support"
         }
       ]
     },
@@ -1039,6 +1039,15 @@
           "fontCharacter": "\\E900"
         }
       }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cursorless",
+          "title": "Cursorless",
+          "icon": "images/icon.svg"
+        }
+      ]
     }
   },
   "sponsor": {

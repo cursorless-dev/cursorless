@@ -40,3 +40,6 @@ tag: user.cursorless
 
 {user.cursorless_homophone} settings:
     user.private_cursorless_show_settings_in_ide()
+
+bar {user.cursorless_homophone}:
+    user.private_cursorless_show_sidebar()

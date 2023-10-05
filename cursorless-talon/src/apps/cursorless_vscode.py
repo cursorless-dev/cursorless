@@ -32,3 +32,9 @@ class Actions:
         )
         actions.sleep("250ms")
         actions.insert("cursorless")
+
+    def private_cursorless_show_sidebar():
+        """Show Cursorless sidebar"""
+        actions.user.private_cursorless_run_rpc_command_and_wait(
+            "workbench.view.extension.cursorless"
+        )
