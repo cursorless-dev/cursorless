@@ -26,7 +26,7 @@ export class ScopeSupportTreeProvider
     private context: vscode.ExtensionContext,
     private scopeProvider: ScopeProvider,
   ) {
-    this.treeView = vscode.window.createTreeView("cursorlessScopeSupport", {
+    this.treeView = vscode.window.createTreeView("cursorless.scopeSupport", {
       treeDataProvider: this,
     });
 
