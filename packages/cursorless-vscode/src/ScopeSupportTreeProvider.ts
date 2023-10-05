@@ -180,7 +180,7 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
     };
 
     if (scopeTypeInfo.isLanguageSpecific) {
-      this.resourceUri = vscode.window.activeTextEditor?.document.uri;
+      this.iconPath = new vscode.ThemeIcon("code");
     }
   }
 }
