@@ -14,14 +14,14 @@ import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { ScopeVisualizerCommandApi } from "./ScopeVisualizerCommandApi";
+import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
   testCaseRecorder: TestCaseRecorder,
-  scopeVisualizer: ScopeVisualizerCommandApi,
+  scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {

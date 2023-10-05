@@ -1,4 +1,4 @@
-import { CursorlessCommandId } from "@cursorless/common";
+import { CursorlessCommandId, Disposer } from "@cursorless/common";
 import {
   ScopeProvider,
   ScopeSupport,
@@ -6,12 +6,16 @@ import {
   ScopeTypeInfo,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
-import { VisualizationType } from "./ScopeVisualizerCommandApi";
+import {
+  ScopeVisualizer,
+  VisualizationType,
+} from "./ScopeVisualizerCommandApi";
+import { isEqual } from "lodash";
 
 export class ScopeSupportTreeProvider
   implements vscode.TreeDataProvider<MyTreeItem>
 {
-  private onDidChangeScopeSupportDisposable: vscode.Disposable | undefined;
+  private visibleDisposable: Disposer | undefined;
   private treeView: vscode.TreeView<MyTreeItem>;
   private supportLevels: ScopeSupportLevels = [];
 
@@ -25,6 +29,7 @@ export class ScopeSupportTreeProvider
   constructor(
     private context: vscode.ExtensionContext,
     private scopeProvider: ScopeProvider,
+    private scopeVisualizer: ScopeVisualizer,
   ) {
     this.treeView = vscode.window.createTreeView("cursorless.scopeSupport", {
       treeDataProvider: this,
@@ -40,8 +45,13 @@ export class ScopeSupportTreeProvider
   static create(
     context: vscode.ExtensionContext,
     scopeProvider: ScopeProvider,
+    scopeVisualizer: ScopeVisualizer,
   ): ScopeSupportTreeProvider {
-    const treeProvider = new ScopeSupportTreeProvider(context, scopeProvider);
+    const treeProvider = new ScopeSupportTreeProvider(
+      context,
+      scopeProvider,
+      scopeVisualizer,
+    );
     treeProvider.init();
     return treeProvider;
   }
@@ -54,27 +64,32 @@ export class ScopeSupportTreeProvider
 
   onDidChangeVisible(e: vscode.TreeViewVisibilityChangeEvent) {
     if (e.visible) {
-      if (this.onDidChangeScopeSupportDisposable != null) {
+      if (this.visibleDisposable != null) {
         return;
       }
 
       this.registerScopeSupportListener();
     } else {
-      if (this.onDidChangeScopeSupportDisposable == null) {
+      if (this.visibleDisposable == null) {
         return;
       }
 
-      this.onDidChangeScopeSupportDisposable.dispose();
-      this.onDidChangeScopeSupportDisposable = undefined;
+      this.visibleDisposable.dispose();
+      this.visibleDisposable = undefined;
     }
   }
 
   private registerScopeSupportListener() {
-    this.onDidChangeScopeSupportDisposable =
+    this.visibleDisposable = new Disposer();
+    this.visibleDisposable.push(
       this.scopeProvider.onDidChangeScopeSupport((supportLevels) => {
         this.supportLevels = supportLevels;
         this._onDidChangeTreeData.fire();
-      });
+      }),
+      this.scopeVisualizer.onDidChangeScopeType(() => {
+        this._onDidChangeTreeData.fire();
+      }),
+    );
   }
 
   getTreeItem(element: MyTreeItem): MyTreeItem {
@@ -96,7 +111,13 @@ export class ScopeSupportTreeProvider
   getScopeTypesWithSupport(scopeSupport: ScopeSupport): ScopeSupportTreeItem[] {
     return this.supportLevels
       .filter((supportLevel) => supportLevel.support === scopeSupport)
-      .map((supportLevel) => new ScopeSupportTreeItem(supportLevel))
+      .map(
+        (supportLevel) =>
+          new ScopeSupportTreeItem(
+            supportLevel,
+            isEqual(supportLevel.scopeType, this.scopeVisualizer.scopeType),
+          ),
+      )
       .sort((a, b) => {
         if (
           a.scopeTypeInfo.spokenForm.type !== b.scopeTypeInfo.spokenForm.type
@@ -111,12 +132,12 @@ export class ScopeSupportTreeProvider
           return a.scopeTypeInfo.isLanguageSpecific ? -1 : 1;
         }
 
-        return a.label.localeCompare(b.label);
+        return a.label.label.localeCompare(b.label.label);
       });
   }
 
   dispose() {
-    this.onDidChangeScopeSupportDisposable?.dispose();
+    this.visibleDisposable?.dispose();
   }
 }
 
@@ -146,9 +167,12 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 }
 
 class ScopeSupportTreeItem extends vscode.TreeItem {
-  public label: string;
+  public label: vscode.TreeItemLabel;
 
-  constructor(public scopeTypeInfo: ScopeTypeInfo) {
+  constructor(
+    public scopeTypeInfo: ScopeTypeInfo,
+    isVisualized: boolean,
+  ) {
     const label =
       scopeTypeInfo.spokenForm.type === "error"
         ? "-"
@@ -157,7 +181,10 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
 
     super(label, vscode.TreeItemCollapsibleState.None);
 
-    this.label = label;
+    this.label = {
+      label,
+      highlights: isVisualized ? [[0, label.length]] : [],
+    };
 
     this.description = description;
 
@@ -170,14 +197,21 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
         .join("\n");
     }
 
-    this.command = {
-      command: "cursorless.showScopeVisualizer" satisfies CursorlessCommandId,
-      arguments: [
-        scopeTypeInfo.scopeType,
-        "content" satisfies VisualizationType,
-      ],
-      title: `Visualize ${scopeTypeInfo.humanReadableName}`,
-    };
+    this.command = isVisualized
+      ? {
+          command:
+            "cursorless.hideScopeVisualizer" satisfies CursorlessCommandId,
+          title: "Hide the scope visualizer",
+        }
+      : {
+          command:
+            "cursorless.showScopeVisualizer" satisfies CursorlessCommandId,
+          arguments: [
+            scopeTypeInfo.scopeType,
+            "content" satisfies VisualizationType,
+          ],
+          title: `Visualize ${scopeTypeInfo.humanReadableName}`,
+        };
 
     if (scopeTypeInfo.isLanguageSpecific) {
       this.iconPath = new vscode.ThemeIcon("code");

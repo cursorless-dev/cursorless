@@ -1,8 +1,14 @@
-import { ScopeType } from "@cursorless/common";
+import { Disposable, ScopeType } from "@cursorless/common";
 
-export interface ScopeVisualizerCommandApi {
+export type VisualizerScopeTypeListener = (
+  scopeType: ScopeType | undefined,
+) => void;
+
+export interface ScopeVisualizer {
   start(scopeType: ScopeType, visualizationType: VisualizationType): void;
   stop(): void;
+  readonly scopeType: ScopeType | undefined;
+  onDidChangeScopeType(listener: VisualizerScopeTypeListener): Disposable;
 }
 
 export type VisualizationType = "content" | "removal" | "iteration";
