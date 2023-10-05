@@ -172,7 +172,7 @@ export const simpleScopeTypeTypes = [
 export function isSimpleScopeType(
   scopeType: ScopeType,
 ): scopeType is SimpleScopeType {
-  return simpleScopeTypeTypes.includes(scopeType.type as any);
+  return (simpleScopeTypeTypes as readonly string[]).includes(scopeType.type);
 }
 
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
