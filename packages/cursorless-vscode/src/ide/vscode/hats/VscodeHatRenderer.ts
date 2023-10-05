@@ -122,7 +122,6 @@ export default class VscodeHatRenderer {
 
   private async updateHatsDirWatcher() {
     this.hatsDirWatcherDisposable?.dispose();
-    c;
     const hatsDir = vscodeGetConfigurationString(hatShapesDirSettingId);
 
     if (hatsDir) {

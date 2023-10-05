@@ -58,8 +58,10 @@ export default class VscodeConfiguration implements Configuration {
  * the value is not set
  */
 export function vscodeGetConfigurationString(path: string): string | undefined {
-  const value = vscode.workspace.getConfiguration().get<string>(path);
-
+  const index = path.lastIndexOf(".");
+  const section = path.substring(0, index);
+  const field = path.substring(index + 1);
+  const value = vscode.workspace.getConfiguration(section).get<string>(field);
   return value != null ? evaluateStringVariables(value) : undefined;
 }
 
