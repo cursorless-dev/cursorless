@@ -33,6 +33,8 @@ export interface SpokenFormSuccess {
 export interface SpokenFormError {
   type: "error";
   reason: string;
+  requiresTalonUpdate: boolean;
+  isSecret: boolean;
 }
 
 export type SpokenForm = SpokenFormSuccess | SpokenFormError;
@@ -80,7 +82,12 @@ export class SpokenFormGenerator {
       return { type: "success", preferred, alternatives };
     } catch (e) {
       if (e instanceof NoSpokenFormError) {
-        return { type: "error", reason: e.reason };
+        return {
+          type: "error",
+          reason: e.reason,
+          requiresTalonUpdate: e.requiresTalonUpdate,
+          isSecret: e.isSecret,
+        };
       }
 
       throw e;
@@ -259,15 +266,17 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
     );
   }
 
-  if (component.spokenForms.length === 0) {
+  if (component.spokenForms.spokenForms.length === 0) {
     throw new NoSpokenFormError(
       `${camelCaseToAllDown(component.spokenFormType)} with id ${
         component.id
       }; please see https://www.cursorless.org/docs/user/customization/ for more information`,
+      component.spokenForms.requiresTalonUpdate,
+      component.spokenForms.isSecret,
     );
   }
 
-  return component.spokenForms;
+  return component.spokenForms.spokenForms;
 }
 
 /**

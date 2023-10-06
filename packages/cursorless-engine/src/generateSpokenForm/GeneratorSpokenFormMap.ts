@@ -1,5 +1,6 @@
 import {
   SpokenFormMap,
+  SpokenFormMapEntry,
   SpokenFormMapKeyTypes,
   SpokenFormType,
 } from "../SpokenFormMap";
@@ -13,7 +14,7 @@ export type GeneratorSpokenFormMap = {
 
 export interface SingleTermSpokenForm {
   type: "singleTerm";
-  spokenForms: string[];
+  spokenForms: SpokenFormMapEntry;
   spokenFormType: SpokenFormType;
   id: string;
 }
@@ -26,7 +27,7 @@ export type SpokenFormComponent =
 export function getGeneratorSpokenForms(
   spokenFormMap: SpokenFormMap,
 ): GeneratorSpokenFormMap {
-  // TODO: Don't cast here; need to make our own mapValues with stronger typing
+  // FIXME: Don't cast here; need to make our own mapValues with stronger typing
   // using tricks from our object.d.ts
   return Object.fromEntries(
     Object.entries(spokenFormMap).map(([spokenFormType, map]) => [

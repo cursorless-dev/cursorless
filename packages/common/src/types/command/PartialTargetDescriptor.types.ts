@@ -175,6 +175,15 @@ export function isSimpleScopeType(
   return (simpleScopeTypeTypes as readonly string[]).includes(scopeType.type);
 }
 
+const SECRET_SCOPE_TYPES = [
+  "string",
+  "switchStatementSubject",
+] as const satisfies readonly SimpleScopeTypeType[];
+
+export function isSecretScopeType(scopeType: ScopeType): boolean {
+  return (SECRET_SCOPE_TYPES as readonly string[]).includes(scopeType.type);
+}
+
 export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
 export interface SimpleScopeType {

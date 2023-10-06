@@ -6,9 +6,12 @@ import {
   ScopeType,
 } from "@cursorless/common";
 import { SpokenFormGenerator } from ".";
+import { CustomSpokenFormGenerator } from "..";
 import { CustomSpokenForms } from "../CustomSpokenForms";
 
-export class CustomSpokenFormGenerator {
+export class CustomSpokenFormGeneratorImpl
+  implements CustomSpokenFormGenerator
+{
   private customSpokenForms: CustomSpokenForms;
   private spokenFormGenerator: SpokenFormGenerator;
   private disposer = new Disposer();
@@ -39,6 +42,10 @@ export class CustomSpokenFormGenerator {
 
   getCustomRegexScopeTypes() {
     return this.customSpokenForms.getCustomRegexScopeTypes();
+  }
+
+  get needsInitialTalonUpdate() {
+    return this.customSpokenForms.needsInitialTalonUpdate;
   }
 
   dispose = this.disposer.dispose;

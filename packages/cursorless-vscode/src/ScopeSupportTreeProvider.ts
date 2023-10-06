@@ -1,16 +1,21 @@
 import { CursorlessCommandId, Disposer } from "@cursorless/common";
 import {
+  CustomSpokenFormGenerator,
   ScopeProvider,
   ScopeSupport,
   ScopeSupportLevels,
   ScopeTypeInfo,
 } from "@cursorless/cursorless-engine";
+import { VscodeApi } from "@cursorless/vscode-common";
+import { isEqual } from "lodash";
 import * as vscode from "vscode";
+import { URI } from "vscode-uri";
 import {
   ScopeVisualizer,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
-import { isEqual } from "lodash";
+
+export const DONT_SHOW_TALON_UPDATE_MESSAGE_KEY = "dontShowUpdateTalonMessage";
 
 export class ScopeSupportTreeProvider
   implements vscode.TreeDataProvider<MyTreeItem>
@@ -18,6 +23,7 @@ export class ScopeSupportTreeProvider
   private visibleDisposable: Disposer | undefined;
   private treeView: vscode.TreeView<MyTreeItem>;
   private supportLevels: ScopeSupportLevels = [];
+  private shownUpdateTalonMessage = false;
 
   private _onDidChangeTreeData: vscode.EventEmitter<
     MyTreeItem | undefined | null | void
@@ -27,11 +33,14 @@ export class ScopeSupportTreeProvider
   > = this._onDidChangeTreeData.event;
 
   constructor(
+    private vscodeApi: VscodeApi,
     private context: vscode.ExtensionContext,
     private scopeProvider: ScopeProvider,
     private scopeVisualizer: ScopeVisualizer,
+    private customSpokenFormGenerator: CustomSpokenFormGenerator,
+    private hasCommandServer: boolean,
   ) {
-    this.treeView = vscode.window.createTreeView("cursorless.scopeSupport", {
+    this.treeView = vscodeApi.window.createTreeView("cursorless.scopeSupport", {
       treeDataProvider: this,
     });
 
@@ -43,14 +52,20 @@ export class ScopeSupportTreeProvider
   }
 
   static create(
+    vscodeApi: VscodeApi,
     context: vscode.ExtensionContext,
     scopeProvider: ScopeProvider,
     scopeVisualizer: ScopeVisualizer,
+    customSpokenFormGenerator: CustomSpokenFormGenerator,
+    hasCommandServer: boolean,
   ): ScopeSupportTreeProvider {
     const treeProvider = new ScopeSupportTreeProvider(
+      vscodeApi,
       context,
       scopeProvider,
       scopeVisualizer,
+      customSpokenFormGenerator,
+      hasCommandServer,
     );
     treeProvider.init();
     return treeProvider;
@@ -98,6 +113,7 @@ export class ScopeSupportTreeProvider
 
   getChildren(element?: MyTreeItem): MyTreeItem[] {
     if (element == null) {
+      this.possiblyShowUpdateTalonMessage();
       return getSupportCategories();
     }
 
@@ -108,9 +124,46 @@ export class ScopeSupportTreeProvider
     throw new Error("Unexpected element");
   }
 
+  private async possiblyShowUpdateTalonMessage() {
+    if (
+      !this.customSpokenFormGenerator.needsInitialTalonUpdate ||
+      this.shownUpdateTalonMessage ||
+      !this.hasCommandServer ||
+      (await this.context.globalState.get(DONT_SHOW_TALON_UPDATE_MESSAGE_KEY))
+    ) {
+      return;
+    }
+
+    this.shownUpdateTalonMessage = true;
+
+    const result = await this.vscodeApi.window.showInformationMessage(
+      "In order to see your custom spoken forms in the sidebar, you'll need to update your Cursorless Talon files.",
+      "How?",
+      "Don't show again",
+    );
+
+    if (result === "How?") {
+      await this.vscodeApi.env.openExternal(
+        URI.parse(
+          "https://www.cursorless.org/docs/user/updating/#updating-the-talon-side",
+        ),
+      );
+    } else if (result === "Don't show again") {
+      await this.context.globalState.update(
+        DONT_SHOW_TALON_UPDATE_MESSAGE_KEY,
+        true,
+      );
+    }
+  }
+
   getScopeTypesWithSupport(scopeSupport: ScopeSupport): ScopeSupportTreeItem[] {
     return this.supportLevels
-      .filter((supportLevel) => supportLevel.support === scopeSupport)
+      .filter(
+        (supportLevel) =>
+          supportLevel.support === scopeSupport &&
+          (supportLevel.spokenForm.type !== "error" ||
+            !supportLevel.spokenForm.isSecret),
+      )
       .map(
         (supportLevel) =>
           new ScopeSupportTreeItem(
@@ -169,6 +222,11 @@ function getSupportCategories(): SupportCategoryTreeItem[] {
 class ScopeSupportTreeItem extends vscode.TreeItem {
   public label: vscode.TreeItemLabel;
 
+  /**
+   * @param scopeTypeInfo The scope type info
+   * @param isVisualized Whether the scope type is currently being visualized
+    with the scope visualizer
+   */
   constructor(
     public scopeTypeInfo: ScopeTypeInfo,
     isVisualized: boolean,
@@ -181,6 +239,10 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
 
     super(label, vscode.TreeItemCollapsibleState.None);
 
+    const requiresTalonUpdate =
+      scopeTypeInfo.spokenForm.type === "error" &&
+      scopeTypeInfo.spokenForm.requiresTalonUpdate;
+
     this.label = {
       label,
       highlights: isVisualized ? [[0, label.length]] : [],
@@ -188,13 +250,16 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
 
     this.description = description;
 
-    if (
-      scopeTypeInfo.spokenForm.type === "success" &&
-      scopeTypeInfo.spokenForm.alternatives.length > 0
-    ) {
-      this.tooltip = scopeTypeInfo.spokenForm.alternatives
-        .map((spokenForm) => `"${spokenForm}"`)
-        .join("\n");
+    if (scopeTypeInfo.spokenForm.type === "success") {
+      if (scopeTypeInfo.spokenForm.alternatives.length > 0) {
+        this.tooltip = scopeTypeInfo.spokenForm.alternatives
+          .map((spokenForm) => `"${spokenForm}"`)
+          .join("\n");
+      }
+    } else if (requiresTalonUpdate) {
+      this.tooltip = "Requires Talon update";
+    } else {
+      this.tooltip = "Spoken form disabled; see customization docs";
     }
 
     this.command = isVisualized

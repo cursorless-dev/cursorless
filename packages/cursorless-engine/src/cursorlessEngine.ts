@@ -13,7 +13,7 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { CustomSpokenFormGenerator } from "./generateSpokenForm/CustomSpokenFormGenerator";
+import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
@@ -56,7 +56,7 @@ export function createCursorlessEngine(
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
 
-  const customSpokenFormGenerator = new CustomSpokenFormGenerator(fileSystem);
+  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(fileSystem);
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
@@ -97,6 +97,7 @@ export function createCursorlessEngine(
       storedTargets,
       customSpokenFormGenerator,
     ),
+    customSpokenFormGenerator,
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
@@ -110,7 +111,7 @@ export function createCursorlessEngine(
 function createScopeProvider(
   languageDefinitions: LanguageDefinitions,
   storedTargets: StoredTargetMap,
-  customSpokenFormGenerator: CustomSpokenFormGenerator,
+  customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
 ): ScopeProvider {
   const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
 

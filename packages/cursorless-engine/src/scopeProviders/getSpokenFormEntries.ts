@@ -1,7 +1,14 @@
 import { LATEST_VERSION, SimpleScopeTypeType } from "@cursorless/common";
 import { readFile } from "fs/promises";
-import { spokenFormsPath } from "./ScopeInfoProvider";
+import { homedir } from "os";
 import { SpeakableSurroundingPairName } from "../SpokenFormMap";
+import * as path from "path";
+
+export const spokenFormsPath = path.join(
+  homedir(),
+  ".cursorless",
+  "spokenForms.json",
+);
 
 export interface CustomRegexSpokenFormEntry {
   type: "customRegex";
@@ -21,26 +28,26 @@ export interface SimpleScopeTypeTypeSpokenFormEntry {
   spokenForms: string[];
 }
 
-type SpokenFormEntry =
+export type SpokenFormEntry =
   | CustomRegexSpokenFormEntry
   | PairedDelimiterSpokenFormEntry
   | SimpleScopeTypeTypeSpokenFormEntry;
 
 export async function getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
-  try {
-    const payload = JSON.parse(await readFile(spokenFormsPath, "utf-8"));
+  const payload = JSON.parse(await readFile(spokenFormsPath, "utf-8"));
 
-    if (payload.version !== LATEST_VERSION) {
-      // In the future, we'll need to handle migrations. Not sure exactly how yet.
-      throw new Error(
-        `Invalid spoken forms version. Expected ${LATEST_VERSION} but got ${payload.version}`,
-      );
-    }
+  /**
+   * This assignment is to ensure that the compiler will error if we forget to
+   * handle spokenForms.json when we bump the command version.
+   */
+  const latestCommandVersion: 6 = LATEST_VERSION;
 
-    return payload.entries;
-  } catch (err) {
-    console.error(`Error getting spoken forms`);
-    console.error(err);
-    return [];
+  if (payload.version !== latestCommandVersion) {
+    // In the future, we'll need to handle migrations. Not sure exactly how yet.
+    throw new Error(
+      `Invalid spoken forms version. Expected ${LATEST_VERSION} but got ${payload.version}`,
+    );
   }
+
+  return payload.entries;
 }

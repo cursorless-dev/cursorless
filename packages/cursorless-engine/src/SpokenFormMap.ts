@@ -37,8 +37,16 @@ export interface SpokenFormMapKeyTypes {
 
 export type SpokenFormType = keyof SpokenFormMapKeyTypes;
 
+export interface SpokenFormMapEntry {
+  spokenForms: string[];
+  isCustom: boolean;
+  defaultSpokenForms: string[];
+  requiresTalonUpdate: boolean;
+  isSecret: boolean;
+}
+
 export type SpokenFormMap = {
   readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
-    Record<SpokenFormMapKeyTypes[K], string[]>
+    Record<SpokenFormMapKeyTypes[K], SpokenFormMapEntry>
   >;
 };

@@ -209,8 +209,6 @@ export class PrimitiveTargetSpokenFormGenerator {
   handleScopeType(scopeType: ScopeType): SpokenFormComponent {
     switch (scopeType.type) {
       case "oneOf":
-      case "switchStatementSubject":
-      case "string":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
       case "surroundingPair": {
         if (scopeType.delimiter === "collectionBoundary") {
@@ -337,7 +335,10 @@ function pluralize(name: SpokenFormComponent): SpokenFormComponent {
 
   return {
     ...name,
-    spokenForms: name.spokenForms.map(pluralizeString),
+    spokenForms: {
+      ...name.spokenForms,
+      spokenForms: name.spokenForms.spokenForms.map(pluralizeString),
+    },
   };
 }
 

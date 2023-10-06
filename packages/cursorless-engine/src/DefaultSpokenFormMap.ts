@@ -1,13 +1,17 @@
 import { mapValues } from "lodash";
-import { SpokenFormMap, SpokenFormMapKeyTypes } from "./SpokenFormMap";
+import {
+  SpokenFormMap,
+  SpokenFormMapEntry,
+  SpokenFormMapKeyTypes,
+} from "./SpokenFormMap";
 
-type DefaultSpokenFormMap = {
+type DefaultSpokenFormMapDefinition = {
   readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
-    Record<SpokenFormMapKeyTypes[K], string | null>
+    Record<SpokenFormMapKeyTypes[K], string | DefaultSpokenFormMapEntry>
   >;
 };
 
-const defaultSpokenFormMapCore: DefaultSpokenFormMap = {
+const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   pairedDelimiter: {
     curlyBrackets: "curly",
     angleBrackets: "diamond",
@@ -45,15 +49,14 @@ const defaultSpokenFormMapCore: DefaultSpokenFormMap = {
     name: "name",
     regularExpression: "regex",
     section: "section",
-    sectionLevelOne: "one section",
-    sectionLevelTwo: "two section",
-    sectionLevelThree: "three section",
-    sectionLevelFour: "four section",
-    sectionLevelFive: "five section",
-    sectionLevelSix: "six section",
+    sectionLevelOne: disabledByDefault("one section"),
+    sectionLevelTwo: disabledByDefault("two section"),
+    sectionLevelThree: disabledByDefault("three section"),
+    sectionLevelFour: disabledByDefault("four section"),
+    sectionLevelFive: disabledByDefault("five section"),
+    sectionLevelSix: disabledByDefault("six section"),
     selector: "selector",
     statement: "state",
-    string: "string",
     branch: "branch",
     type: "type",
     value: "value",
@@ -88,7 +91,8 @@ const defaultSpokenFormMapCore: DefaultSpokenFormMap = {
     url: "link",
     notebookCell: "cell",
 
-    switchStatementSubject: null,
+    string: secret("parse tree string"),
+    switchStatementSubject: secret("subject"),
   },
 
   surroundingPairForceDirection: {
@@ -124,10 +128,67 @@ const defaultSpokenFormMapCore: DefaultSpokenFormMap = {
   customRegex: {},
 };
 
-// TODO: Don't cast here; need to make our own mapValues with stronger typing
+function disabledByDefault(
+  ...spokenForms: string[]
+): DefaultSpokenFormMapEntry {
+  return {
+    defaultSpokenForms: spokenForms,
+    isDisabledByDefault: true,
+    isSecret: false,
+  };
+}
+
+function secret(...spokenForms: string[]): DefaultSpokenFormMapEntry {
+  return {
+    defaultSpokenForms: spokenForms,
+    isDisabledByDefault: true,
+    isSecret: true,
+  };
+}
+
+interface DefaultSpokenFormMapEntry {
+  defaultSpokenForms: string[];
+  isDisabledByDefault: boolean;
+  isSecret: boolean;
+}
+
+export type DefaultSpokenFormMap = {
+  readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
+    Record<SpokenFormMapKeyTypes[K], DefaultSpokenFormMapEntry>
+  >;
+};
+
+// FIXME: Don't cast here; need to make our own mapValues with stronger typing
 // using tricks from our object.d.ts
-export const defaultSpokenFormMap = mapValues(
+export const defaultSpokenFormInfo = mapValues(
   defaultSpokenFormMapCore,
   (entry) =>
-    mapValues(entry, (subEntry) => (subEntry == null ? [] : [subEntry])),
+    mapValues(entry, (subEntry) =>
+      typeof subEntry === "string"
+        ? {
+            defaultSpokenForms: [subEntry],
+            isDisabledByDefault: false,
+            isSecret: false,
+          }
+        : subEntry,
+    ),
+) as DefaultSpokenFormMap;
+
+// FIXME: Don't cast here; need to make our own mapValues with stronger typing
+// using tricks from our object.d.ts
+export const defaultSpokenFormMap = mapValues(defaultSpokenFormInfo, (entry) =>
+  mapValues(
+    entry,
+    ({
+      defaultSpokenForms,
+      isDisabledByDefault,
+      isSecret,
+    }): SpokenFormMapEntry => ({
+      spokenForms: isDisabledByDefault ? [] : defaultSpokenForms,
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isSecret,
+    }),
+  ),
 ) as SpokenFormMap;

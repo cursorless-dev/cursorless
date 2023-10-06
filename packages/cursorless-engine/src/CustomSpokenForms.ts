@@ -3,18 +3,25 @@ import {
   Disposer,
   FileSystem,
   Notifier,
+  showError,
 } from "@cursorless/common";
-import { homedir } from "os";
-import * as path from "path";
-import { getSpokenFormEntries } from "./scopeProviders/getSpokenFormEntries";
-import { SpokenFormMap } from "./SpokenFormMap";
-import { defaultSpokenFormMap } from "./DefaultSpokenFormMap";
-
-export const spokenFormsPath = path.join(
-  homedir(),
-  ".cursorless",
-  "spokenForms.json",
-);
+import { isEqual } from "lodash";
+import {
+  defaultSpokenFormInfo,
+  defaultSpokenFormMap,
+} from "./DefaultSpokenFormMap";
+import {
+  SpokenFormMap,
+  SpokenFormMapEntry,
+  SpokenFormType,
+} from "./SpokenFormMap";
+import {
+  SpokenFormEntry,
+  getSpokenFormEntries,
+  spokenFormsPath,
+} from "./scopeProviders/getSpokenFormEntries";
+import { ide } from "./singletons/ide.singleton";
+import { dirname } from "node:path";
 
 const ENTRY_TYPES = [
   "simpleScopeTypeType",
@@ -41,6 +48,15 @@ export class CustomSpokenForms implements SpokenFormMap {
   modifierExtra = defaultSpokenFormMap.modifierExtra;
 
   private isInitialized_ = false;
+  private needsInitialTalonUpdate_: boolean | undefined;
+
+  /**
+   * If `true`, indicates they need to update their Talon files to get the
+   * machinery used to share spoken forms from Talon to the VSCode extension.
+   */
+  get needsInitialTalonUpdate() {
+    return this.needsInitialTalonUpdate_;
+  }
 
   /**
    * Whether the custom spoken forms have been initialized. If `false`, the
@@ -53,7 +69,9 @@ export class CustomSpokenForms implements SpokenFormMap {
 
   constructor(fileSystem: FileSystem) {
     this.disposer.push(
-      fileSystem.watch(spokenFormsPath, () => this.updateSpokenFormMaps()),
+      fileSystem.watch(dirname(spokenFormsPath), () =>
+        this.updateSpokenFormMaps(),
+      ),
     );
 
     this.updateSpokenFormMaps();
@@ -67,7 +85,30 @@ export class CustomSpokenForms implements SpokenFormMap {
   onDidChangeCustomSpokenForms = this.notifier.registerListener;
 
   private async updateSpokenFormMaps(): Promise<void> {
-    const entries = await getSpokenFormEntries();
+    let entries: SpokenFormEntry[];
+    try {
+      entries = await getSpokenFormEntries();
+    } catch (err) {
+      if ((err as any)?.code === "ENOENT") {
+        // Handle case where spokenForms.json doesn't exist yet
+        console.log(
+          `Custom spoken forms file not found at ${spokenFormsPath}. Using default spoken forms.`,
+        );
+        this.needsInitialTalonUpdate_ = true;
+        this.notifier.notifyListeners();
+      } else {
+        console.error("Error loading custom spoken forms", err);
+        showError(
+          ide().messages,
+          "CustomSpokenForms.updateSpokenFormMaps",
+          `Error loading custom spoken forms: ${
+            (err as Error).message
+          }}}. Falling back to default spoken forms.`,
+        );
+      }
+
+      return;
+    }
 
     for (const entryType of ENTRY_TYPES) {
       // TODO: Handle case where we've added a new scope type but they haven't yet
@@ -76,10 +117,45 @@ export class CustomSpokenForms implements SpokenFormMap {
       // be able to speak it. We could just detect that there's no entry for it in
       // the spoken forms file, but that feels a bit brittle.
       // FIXME: How to avoid the type assertion?
-      this[entryType] = Object.fromEntries(
+      const entry = Object.fromEntries(
         entries
           .filter((entry) => entry.type === entryType)
           .map(({ id, spokenForms }) => [id, spokenForms]),
+      );
+
+      this[entryType] = Object.fromEntries(
+        Object.entries(defaultSpokenFormInfo[entryType]).map(
+          ([key, { defaultSpokenForms, isSecret }]): [
+            SpokenFormType,
+            SpokenFormMapEntry,
+          ] => {
+            const customSpokenForms = entry[key];
+            if (customSpokenForms != null) {
+              return [
+                key as SpokenFormType,
+                {
+                  defaultSpokenForms,
+                  spokenForms: customSpokenForms,
+                  requiresTalonUpdate: false,
+                  isCustom: isEqual(defaultSpokenForms, customSpokenForms),
+                  isSecret,
+                },
+              ];
+            } else {
+              return [
+                key as SpokenFormType,
+                {
+                  defaultSpokenForms,
+                  spokenForms: [],
+                  // If it's not a secret spoken form, then it's a new scope type
+                  requiresTalonUpdate: !isSecret,
+                  isCustom: false,
+                  isSecret,
+                },
+              ];
+            }
+          },
+        ),
       ) as any;
     }
 

@@ -7,12 +7,23 @@ import { ScopeProvider } from "./ScopeProvider";
 export interface CursorlessEngine {
   commandApi: CommandApi;
   scopeProvider: ScopeProvider;
+  customSpokenFormGenerator: CustomSpokenFormGenerator;
   testCaseRecorder: TestCaseRecorder;
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
   snippets: Snippets;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
+}
+
+export interface CustomSpokenFormGenerator {
+  /**
+   * If `true`, indicates they need to update their Talon files to get the
+   * machinery used to share spoken forms from Talon to the VSCode extension.
+   */
+  readonly needsInitialTalonUpdate: boolean | undefined;
+
+  onDidChangeCustomSpokenForms: (listener: () => void) => void;
 }
 
 export interface CommandApi {

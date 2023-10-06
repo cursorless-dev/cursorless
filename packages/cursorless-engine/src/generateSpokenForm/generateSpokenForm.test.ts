@@ -10,7 +10,22 @@ import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "./getHatMapCommand";
 import { SpokenFormGenerator } from ".";
-import { defaultSpokenFormMap } from "../DefaultSpokenFormMap";
+import { defaultSpokenFormInfo } from "../DefaultSpokenFormMap";
+import { mapValues } from "lodash";
+import { SpokenFormMap, SpokenFormMapEntry } from "../SpokenFormMap";
+
+const spokenFormMap = mapValues(defaultSpokenFormInfo, (entry) =>
+  mapValues(
+    entry,
+    ({ defaultSpokenForms }): SpokenFormMapEntry => ({
+      spokenForms: defaultSpokenForms,
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isSecret: false,
+    }),
+  ),
+) as SpokenFormMap;
 
 suite("Generate spoken forms", () => {
   getRecordedTestPaths().forEach(({ name, path }) =>
@@ -19,8 +34,16 @@ suite("Generate spoken forms", () => {
 
   test("generate spoken form for custom regex", () => {
     const generator = new SpokenFormGenerator({
-      ...defaultSpokenFormMap,
-      customRegex: { foo: ["bar"] },
+      ...spokenFormMap,
+      customRegex: {
+        foo: {
+          spokenForms: ["bar"],
+          isCustom: false,
+          defaultSpokenForms: ["bar"],
+          requiresTalonUpdate: false,
+          isSecret: false,
+        },
+      },
     });
 
     const spokenForm = generator.scopeType({
@@ -37,7 +60,7 @@ async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
 
-  const generator = new SpokenFormGenerator(defaultSpokenFormMap);
+  const generator = new SpokenFormGenerator(spokenFormMap);
 
   const generatedSpokenForm = generator.command(
     canonicalizeAndValidateCommand(fixture.command),

@@ -1,4 +1,5 @@
 import {
+  Disposable,
   FakeIDE,
   getFakeCommandServerApi,
   IDE,
@@ -37,6 +38,7 @@ import { ReleaseNotes } from "./ReleaseNotes";
 import {
   ScopeVisualizer,
   VisualizationType,
+  VisualizerScopeTypeListener,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
@@ -82,6 +84,7 @@ export async function activate(
     snippets,
     injectIde,
     runIntegrationTests,
+    customSpokenFormGenerator,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde,
@@ -93,7 +96,14 @@ export async function activate(
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
   const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
-  ScopeSupportTreeProvider.create(context, scopeProvider, scopeVisualizer);
+  ScopeSupportTreeProvider.create(
+    vscodeApi,
+    context,
+    scopeProvider,
+    scopeVisualizer,
+    customSpokenFormGenerator,
+    commandServerApi != null,
+  );
 
   registerCommands(
     context,

@@ -7,19 +7,11 @@ import {
   surroundingPairNames,
 } from "@cursorless/common";
 import { pull } from "lodash";
-import { homedir } from "os";
-import * as path from "path";
 import { ScopeTypeInfo, ScopeTypeInfoEventCallback } from "..";
 
-import { CustomSpokenFormGenerator } from "../generateSpokenForm/CustomSpokenFormGenerator";
+import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { scopeTypeToString } from "./scopeTypeToString";
 import { SpeakableSurroundingPairName } from "../SpokenFormMap";
-
-export const spokenFormsPath = path.join(
-  homedir(),
-  ".cursorless",
-  "spokenForms.json",
-);
 
 /**
  * Maintains a list of all scope types and notifies listeners when it changes.
@@ -29,7 +21,9 @@ export class ScopeInfoProvider {
   private listeners: ScopeTypeInfoEventCallback[] = [];
   private scopeInfos!: ScopeTypeInfo[];
 
-  constructor(private customSpokenFormGenerator: CustomSpokenFormGenerator) {
+  constructor(
+    private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
+  ) {
     this.disposer.push(
       customSpokenFormGenerator.onDidChangeCustomSpokenForms(() =>
         this.onChange(),
@@ -70,13 +64,7 @@ export class ScopeInfoProvider {
     const scopeTypes: ScopeType[] = [
       ...simpleScopeTypeTypes
         // Ignore instance pseudo-scope because it's not really a scope
-        // Skip "string" because we use surrounding pair for that
-        .filter(
-          (scopeTypeType) =>
-            scopeTypeType !== "instance" &&
-            scopeTypeType !== "string" &&
-            scopeTypeType !== "switchStatementSubject",
-        )
+        .filter((scopeTypeType) => scopeTypeType !== "instance")
         .map((scopeTypeType) => ({
           type: scopeTypeType,
         })),
