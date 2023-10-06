@@ -56,7 +56,9 @@ export function createCursorlessEngine(
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
 
-  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(fileSystem);
+  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
+    fileSystem,
+  );
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
