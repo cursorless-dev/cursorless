@@ -111,11 +111,6 @@ export class CustomSpokenForms implements SpokenFormMap {
     }
 
     for (const entryType of ENTRY_TYPES) {
-      // TODO: Handle case where we've added a new scope type but they haven't yet
-      // updated their talon files. In that case we want to indicate in tree view
-      // that the scope type exists but they need to update their talon files to
-      // be able to speak it. We could just detect that there's no entry for it in
-      // the spoken forms file, but that feels a bit brittle.
       // FIXME: How to avoid the type assertion?
       const entry = Object.fromEntries(
         entries
