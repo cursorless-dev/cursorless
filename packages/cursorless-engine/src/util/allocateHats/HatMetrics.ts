@@ -1,5 +1,5 @@
 import { CompositeKeyMap, HatStability, TokenHat } from "@cursorless/common";
-import { min } from "lodash";
+import { memoize, min } from "lodash";
 import { HatCandidate } from "./allocateHats";
 
 /**
@@ -50,8 +50,13 @@ export function minimumTokenRankContainingGrapheme(
   tokenRank: number,
   graphemeTokenRanks: { [key: string]: number[] },
 ): HatMetric {
-  return ({ grapheme: { text } }) =>
-    min(graphemeTokenRanks[text].filter((r) => r > tokenRank)) ?? Infinity;
+  const coreMetric = memoize((graphemeText: string): number => {
+    return (
+      min(graphemeTokenRanks[graphemeText].filter((r) => r > tokenRank)) ??
+      Infinity
+    );
+  });
+  return ({ grapheme: { text } }) => coreMetric(text);
 }
 
 /**

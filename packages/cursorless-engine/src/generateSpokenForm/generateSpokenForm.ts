@@ -76,13 +76,14 @@ function generateSpokenFormComponents(
       ];
 
     case "callAsFunction":
-      if (action.argument != null) {
-        throw new NoSpokenFormError(`Action '${action.name}' with argument`);
+      if (action.argument.type === "implicit") {
+        return [actions[action.name], targetToSpokenForm(action.callee)];
       }
       return [
         actions[action.name],
         targetToSpokenForm(action.callee),
-        // targetToSpokenForm(action.argument),
+        "on",
+        targetToSpokenForm(action.argument),
       ];
 
     case "wrapWithPairedDelimiter":

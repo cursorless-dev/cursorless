@@ -23,9 +23,6 @@ import { ternaryBranchMatcher } from "./ternaryBranchMatcher";
 export const getTypeNode = (node: SyntaxNode) =>
   node.children.find((child) => child.type === "type") ?? null;
 
-const dictionaryTypes = ["dictionary", "dictionary_comprehension"];
-const listTypes = ["list", "list_comprehension", "set"];
-
 function itemNodeFinder(
   parentType: string,
   childType: string,
@@ -48,9 +45,6 @@ function itemNodeFinder(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  map: dictionaryTypes,
-  list: listTypes,
-  string: "string",
   collectionItem: cascadingMatcher(
     matcher(
       itemNodeFinder("import_from_statement", "dotted_name", true),
@@ -66,7 +60,6 @@ const nodeMatchers: Partial<
   anonymousFunction: "lambda?.lambda",
   functionCall: "call",
   functionCallee: "call[function]",
-  comment: "comment",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
 
@@ -75,39 +68,6 @@ const nodeMatchers: Partial<
 
     // Ternaries
     patternMatcher("conditional_expression[1]"),
-  ),
-  type: leadingMatcher(
-    ["function_definition[return_type]", "*[type]"],
-    [":", "->"],
-  ),
-  name: [
-    "assignment[left]",
-    "augmented_assignment[left]",
-    "typed_parameter.identifier!",
-    "parameters.identifier!",
-    "*[name]",
-  ],
-  value: cascadingMatcher(
-    leadingMatcher(
-      ["assignment[right]", "augmented_assignment[right]", "~subscript[value]"],
-      [
-        ":",
-        "=",
-        "+=",
-        "-=",
-        "*=",
-        "/=",
-        "%=",
-        "//=",
-        "**=",
-        "&=",
-        "|=",
-        "^=",
-        "<<=",
-        ">>=",
-      ],
-    ),
-    patternMatcher("return_statement.~return!"),
   ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),

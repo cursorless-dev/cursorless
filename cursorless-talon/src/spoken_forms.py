@@ -54,7 +54,7 @@ def update():
     for disposable in disposables:
         disposable()
 
-    with open(JSON_FILE) as file:
+    with open(JSON_FILE, encoding="utf-8") as file:
         spoken_forms = json.load(file)
 
     handle_csv = auto_construct_defaults(spoken_forms, init_csv_and_watch_changes)

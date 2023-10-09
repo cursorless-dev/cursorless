@@ -13,10 +13,6 @@ digits = "zero one two three four five six seven eight nine".split()
 
 # https://github.com/talonhub/community/blob/9acb6c9659bb0c9b794a7b7126d025603b4ed726/core/keys/keys.py#L139C1-L171C2
 punctuation_words = {
-    # TODO: I'm not sure why we need these, I think it has something to do with
-    # Dragon. Possibly it has been fixed by later improvements to talon? -rntz
-    # "`": "`",
-    # ",": ",",  # <== these things
     "back tick": "`",
     "comma": ",",
     # Workaround for issue with conformer b-series; see #946

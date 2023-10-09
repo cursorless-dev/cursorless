@@ -10,7 +10,13 @@ import {
   TextEditorVisibleRangesChangeEvent,
 } from "./types/events.types";
 import { FlashDescriptor } from "./types/FlashDescriptor";
-import { Disposable, IDE, RunMode, WorkspaceFolder } from "./types/ide.types";
+import {
+  Disposable,
+  IDE,
+  OpenUntitledTextDocumentOptions,
+  RunMode,
+  WorkspaceFolder,
+} from "./types/ide.types";
 import { Messages } from "./types/Messages";
 import { QuickPickOptions } from "./types/QuickPickOptions";
 import { State } from "./types/State";
@@ -135,6 +141,12 @@ export default class PassthroughIDEBase implements IDE {
 
   public openTextDocument(path: string): Promise<TextEditor> {
     return this.original.openTextDocument(path);
+  }
+
+  public openUntitledTextDocument(
+    options?: OpenUntitledTextDocumentOptions,
+  ): Promise<TextEditor> {
+    return this.original.openUntitledTextDocument(options);
   }
 
   public showQuickPick(

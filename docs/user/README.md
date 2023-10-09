@@ -351,6 +351,15 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
+###### Experimental: `"from"`
+
+We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
+
+- `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
+- `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
+
+Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+
 ##### `"just"`
 
 The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
@@ -367,7 +376,7 @@ The `"just"` modifier strips the target of any semantic information, treating it
 
   - `"chuck just line"` will delete only the content of the current line, without removing the line ending, resulting in a blank line, unlike the default behaviour of `"chuck line"` that removes the line entirely, leaving no blank line.
 
-- A raw range does not have its own insertion delimitiers.
+- A raw range does not have its own insertion delimiters.
   - For example, `"paste after just air"` will paste directly after the air token, without inserting a space, as opposed to the way `"paste after air"` would insert a space before the pasted content.
   - If you use `"just"` on the destination of a `"bring"` command, it will inherit its insertion delimiters from the source of the `"bring"` action. For example, in the command `"bring arg air and bat after just paren"`, the `"air"` and `"bat"` arguments will be joined by commas. In contrast, `"bring arg air and bat after token paren"` would join the arguments with spaces.
 - In the case of [`"instance"`](#instance), by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
@@ -377,15 +386,6 @@ Some examples:
 - `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
 - `"chuck just line"`: deletes just the content of the line, leaving a blank line.
 - `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
-
-###### Experimental: `"from"`
-
-We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
-
-- `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
-- `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
-
-Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
 
 ##### Surrounding pair
 
@@ -579,9 +579,13 @@ For example:
 - `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line
 - `"pour <TARGET>"`: Inserts a new line below the target line, and moves the cursor to the newly created line
 
-eg:
-`pour blue air`
-Insert empty line below the token containing letter 'a' with a blue hat.
+eg: `pour blue air` will insert empty line below the token containing letter 'a' with a blue hat and moves the cursor to the new line.
+
+Note: `"drink"` and `"pour"` are actually a bit more versatile than just lines.
+If you use a [syntactic scope](#syntactic-scopes) modifier on the target, then`"drink"` and `"pour"` will do the
+appropriate insertions to prepare the text for a new instance of that scope.
+
+eg: `pour item air` will insert a comma and space after the air item, and place the cursor after the inserted characters.
 
 ### Homophones
 

@@ -1,0 +1,25 @@
+languageId: javascriptreact
+command:
+  version: 6
+  spokenForm: change every value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: <aaa bbb="ccc" ddd="eee"></aaa>
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: <aaa bbb= ddd=></aaa>
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}

@@ -21,6 +21,10 @@
             {
               "spokenForm": "call <target>",
               "description": "Call <target> on selection"
+            },
+            {
+              "spokenForm": "call <target 1> on <target 2>",
+              "description": "Call <target 1> on <target 2>"
             }
           ]
         },
@@ -70,7 +74,7 @@
           "variations": [
             {
               "spokenForm": "pour <target>",
-              "description": "Edit new line after"
+              "description": "Edit new line/scope after"
             }
           ]
         },
@@ -80,7 +84,7 @@
           "variations": [
             {
               "spokenForm": "drink <target>",
-              "description": "Edit new line before"
+              "description": "Edit new line/scope before"
             }
           ]
         },
@@ -1185,6 +1189,16 @@
             {
               "spokenForm": "key",
               "description": "Collection key"
+            }
+          ]
+        },
+        {
+          "id": "command",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "command",
+              "description": "Command"
             }
           ]
         },
