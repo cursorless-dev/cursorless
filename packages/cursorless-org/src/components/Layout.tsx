@@ -24,6 +24,15 @@ const components: MDXComponents = {
       style={{ maxWidth: "100%" }}
     />
   ),
+  CalloutParent: ({ children }) => (
+    <div className="columns-2 mx-[-110px] -mt-12">{children}</div>
+  ),
+  CalloutBox: ({ title, children }) => (
+    <div className="rounded-md p-2 border border-salmon-300 dark:border-salmon-700 w-96 break-inside-avoid mt-12">
+      <span className="font-bold">{title}</span>
+      {children}
+    </div>
+  ),
 };
 
 export const bodyClasses = "bg-salmon-100 dark:bg-salmon-900";
