@@ -1,13 +1,13 @@
 import {
   CommandComplete,
   Disposer,
-  FileSystem,
   Listener,
   ScopeType,
 } from "@cursorless/common";
 import { SpokenFormGenerator } from ".";
 import { CustomSpokenFormGenerator } from "..";
 import { CustomSpokenForms } from "../CustomSpokenForms";
+import { TalonSpokenForms } from "../scopeProviders/SpokenFormEntry";
 
 export class CustomSpokenFormGeneratorImpl
   implements CustomSpokenFormGenerator
@@ -16,8 +16,8 @@ export class CustomSpokenFormGeneratorImpl
   private spokenFormGenerator: SpokenFormGenerator;
   private disposer = new Disposer();
 
-  constructor(fileSystem: FileSystem) {
-    this.customSpokenForms = new CustomSpokenForms(fileSystem);
+  constructor(talonSpokenForms: TalonSpokenForms) {
+    this.customSpokenForms = new CustomSpokenForms(talonSpokenForms);
     this.spokenFormGenerator = new SpokenFormGenerator(this.customSpokenForms);
     this.disposer.push(
       this.customSpokenForms.onDidChangeCustomSpokenForms(() => {

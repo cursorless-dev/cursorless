@@ -1,53 +1,87 @@
-import { LATEST_VERSION, SimpleScopeTypeType } from "@cursorless/common";
-import { readFile } from "fs/promises";
-import { homedir } from "os";
-import { SpeakableSurroundingPairName } from "../SpokenFormMap";
+import {
+  Disposer,
+  FileSystem,
+  LATEST_VERSION,
+  Notifier,
+  isTesting,
+} from "@cursorless/common";
+import * as crypto from "crypto";
+import { mkdir, readFile } from "fs/promises";
+import * as os from "os";
+
 import * as path from "path";
+import {
+  NeedsInitialTalonUpdateError,
+  SpokenFormEntry,
+  TalonSpokenForms,
+} from "./SpokenFormEntry";
 
-export const spokenFormsPath = path.join(
-  homedir(),
-  ".cursorless",
-  "spokenForms.json",
-);
-
-export interface CustomRegexSpokenFormEntry {
-  type: "customRegex";
-  id: string;
-  spokenForms: string[];
+interface TalonSpokenFormsPayload {
+  version: number;
+  entries: SpokenFormEntry[];
 }
 
-export interface PairedDelimiterSpokenFormEntry {
-  type: "pairedDelimiter";
-  id: SpeakableSurroundingPairName;
-  spokenForms: string[];
-}
+export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
+  private disposer = new Disposer();
+  private notifier = new Notifier();
+  private spokenFormsPath;
 
-export interface SimpleScopeTypeTypeSpokenFormEntry {
-  type: "simpleScopeTypeType";
-  id: SimpleScopeTypeType;
-  spokenForms: string[];
-}
+  constructor(private fileSystem: FileSystem) {
+    const cursorlessDir = isTesting()
+      ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+      : path.join(os.homedir(), ".cursorless");
 
-export type SpokenFormEntry =
-  | CustomRegexSpokenFormEntry
-  | PairedDelimiterSpokenFormEntry
-  | SimpleScopeTypeTypeSpokenFormEntry;
+    this.spokenFormsPath = path.join(cursorlessDir, "spokenForms.json");
 
-export async function getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
-  const payload = JSON.parse(await readFile(spokenFormsPath, "utf-8"));
+    this.init();
+  }
 
-  /**
-   * This assignment is to ensure that the compiler will error if we forget to
-   * handle spokenForms.json when we bump the command version.
-   */
-  const latestCommandVersion: 6 = LATEST_VERSION;
-
-  if (payload.version !== latestCommandVersion) {
-    // In the future, we'll need to handle migrations. Not sure exactly how yet.
-    throw new Error(
-      `Invalid spoken forms version. Expected ${LATEST_VERSION} but got ${payload.version}`,
+  private async init() {
+    const parentDir = path.dirname(this.spokenFormsPath);
+    await mkdir(parentDir, { recursive: true });
+    this.disposer.push(
+      this.fileSystem.watch(parentDir, () => this.notifier.notifyListeners()),
     );
   }
 
-  return payload.entries;
+  /**
+   * Registers a callback to be run when the spoken forms change.
+   * @param callback The callback to run when the scope ranges change
+   * @returns A {@link Disposable} which will stop the callback from running
+   */
+  onDidChange = this.notifier.registerListener;
+
+  async getSpokenFormEntries(): Promise<SpokenFormEntry[]> {
+    let payload: TalonSpokenFormsPayload;
+    try {
+      payload = JSON.parse(await readFile(this.spokenFormsPath, "utf-8"));
+    } catch (err) {
+      if ((err as any)?.code === "ENOENT") {
+        throw new NeedsInitialTalonUpdateError(
+          `Custom spoken forms file not found at ${this.spokenFormsPath}. Using default spoken forms.`,
+        );
+      }
+
+      throw err;
+    }
+
+    /**
+     * This assignment is to ensure that the compiler will error if we forget to
+     * handle spokenForms.json when we bump the command version.
+     */
+    const latestCommandVersion: 6 = LATEST_VERSION;
+
+    if (payload.version !== latestCommandVersion) {
+      // In the future, we'll need to handle migrations. Not sure exactly how yet.
+      throw new Error(
+        `Invalid spoken forms version. Expected ${LATEST_VERSION} but got ${payload.version}`,
+      );
+    }
+
+    return payload.entries;
+  }
+
+  dispose() {
+    this.disposer.dispose();
+  }
 }

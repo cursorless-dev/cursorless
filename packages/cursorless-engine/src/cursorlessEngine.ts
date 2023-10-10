@@ -25,6 +25,7 @@ import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
+import { TalonSpokenFormsJsonReader } from "./scopeProviders/getSpokenFormEntries";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -56,8 +57,10 @@ export function createCursorlessEngine(
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
 
+  const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
+
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
-    fileSystem,
+    talonSpokenForms,
   );
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);

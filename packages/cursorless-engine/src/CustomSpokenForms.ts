@@ -1,12 +1,10 @@
 import {
   CustomRegexScopeType,
   Disposer,
-  FileSystem,
   Notifier,
   showError,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
-import { dirname } from "node:path";
 import {
   DefaultSpokenFormMapEntry,
   defaultSpokenFormInfo,
@@ -18,10 +16,10 @@ import {
   SpokenFormType,
 } from "./SpokenFormMap";
 import {
+  NeedsInitialTalonUpdateError,
   SpokenFormEntry,
-  getSpokenFormEntries,
-  spokenFormsPath,
-} from "./scopeProviders/getSpokenFormEntries";
+  TalonSpokenForms,
+} from "./scopeProviders/SpokenFormEntry";
 import { ide } from "./singletons/ide.singleton";
 
 const ENTRY_TYPES = [
@@ -68,11 +66,9 @@ export class CustomSpokenForms implements SpokenFormMap {
     return this.isInitialized_;
   }
 
-  constructor(fileSystem: FileSystem) {
+  constructor(private talonSpokenForms: TalonSpokenForms) {
     this.disposer.push(
-      fileSystem.watch(dirname(spokenFormsPath), () =>
-        this.updateSpokenFormMaps(),
-      ),
+      talonSpokenForms.onDidChange(() => this.updateSpokenFormMaps()),
     );
 
     this.updateSpokenFormMaps();
@@ -88,13 +84,11 @@ export class CustomSpokenForms implements SpokenFormMap {
   private async updateSpokenFormMaps(): Promise<void> {
     let entries: SpokenFormEntry[];
     try {
-      entries = await getSpokenFormEntries();
+      entries = await this.talonSpokenForms.getSpokenFormEntries();
     } catch (err) {
-      if ((err as any)?.code === "ENOENT") {
+      if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
-        console.log(
-          `Custom spoken forms file not found at ${spokenFormsPath}. Using default spoken forms.`,
-        );
+        console.log(err.message);
         this.needsInitialTalonUpdate_ = true;
         this.notifier.notifyListeners();
       } else {
