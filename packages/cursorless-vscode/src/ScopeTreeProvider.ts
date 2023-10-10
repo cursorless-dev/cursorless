@@ -30,6 +30,7 @@ import {
 } from "./ScopeVisualizerCommandApi";
 
 export const DONT_SHOW_TALON_UPDATE_MESSAGE_KEY = "dontShowUpdateTalonMessage";
+
 export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   private visibleDisposable: Disposer | undefined;
   private treeView: TreeView<MyTreeItem>;

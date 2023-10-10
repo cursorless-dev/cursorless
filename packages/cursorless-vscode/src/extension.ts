@@ -83,6 +83,7 @@ export async function activate(
     scopeProvider,
     snippets,
     injectIde,
+    spokenFormsJsonPath,
     runIntegrationTests,
     customSpokenFormGenerator,
   } = createCursorlessEngine(
@@ -125,6 +126,7 @@ export async function activate(
           hatTokenMap,
           vscodeIDE,
           normalizedIde as NormalizedIDE,
+          spokenFormsJsonPath,
           injectIde,
           runIntegrationTests,
         )

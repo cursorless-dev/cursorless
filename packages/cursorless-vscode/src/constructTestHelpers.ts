@@ -28,6 +28,7 @@ export function constructTestHelpers(
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
+  spokenFormsJsonPath: string,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
@@ -60,6 +61,8 @@ export function constructTestHelpers(
         forceRealClipboard ? vscodeIDE.clipboard : undefined,
       );
     },
+
+    spokenFormsJsonPath,
 
     setStoredTarget(
       editor: vscode.TextEditor,
