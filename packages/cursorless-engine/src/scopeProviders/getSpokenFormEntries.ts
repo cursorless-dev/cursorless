@@ -24,7 +24,7 @@ interface TalonSpokenFormsPayload {
 export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
   private disposer = new Disposer();
   private notifier = new Notifier();
-  private spokenFormsPath;
+  public readonly spokenFormsPath;
 
   constructor(private fileSystem: FileSystem) {
     const cursorlessDir = isTesting()
