@@ -6,7 +6,9 @@ import {
   showError,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
+import { dirname } from "node:path";
 import {
+  DefaultSpokenFormMapEntry,
   defaultSpokenFormInfo,
   defaultSpokenFormMap,
 } from "./DefaultSpokenFormMap";
@@ -21,7 +23,6 @@ import {
   spokenFormsPath,
 } from "./scopeProviders/getSpokenFormEntries";
 import { ide } from "./singletons/ide.singleton";
-import { dirname } from "node:path";
 
 const ENTRY_TYPES = [
   "simpleScopeTypeType",
@@ -118,39 +119,41 @@ export class CustomSpokenForms implements SpokenFormMap {
           .map(({ id, spokenForms }) => [id, spokenForms]),
       );
 
+      const defaultEntry: Partial<Record<string, DefaultSpokenFormMapEntry>> =
+        defaultSpokenFormInfo[entryType];
+      const ids = Array.from(
+        new Set([...Object.keys(defaultEntry), ...Object.keys(entry)]),
+      );
       this[entryType] = Object.fromEntries(
-        Object.entries(defaultSpokenFormInfo[entryType]).map(
-          ([key, { defaultSpokenForms, isSecret }]): [
-            SpokenFormType,
-            SpokenFormMapEntry,
-          ] => {
-            const customSpokenForms = entry[key];
-            if (customSpokenForms != null) {
-              return [
-                key as SpokenFormType,
-                {
-                  defaultSpokenForms,
-                  spokenForms: customSpokenForms,
-                  requiresTalonUpdate: false,
-                  isCustom: isEqual(defaultSpokenForms, customSpokenForms),
-                  isSecret,
-                },
-              ];
-            } else {
-              return [
-                key as SpokenFormType,
-                {
-                  defaultSpokenForms,
-                  spokenForms: [],
-                  // If it's not a secret spoken form, then it's a new scope type
-                  requiresTalonUpdate: !isSecret,
-                  isCustom: false,
-                  isSecret,
-                },
-              ];
-            }
-          },
-        ),
+        ids.map((id): [SpokenFormType, SpokenFormMapEntry] => {
+          const { defaultSpokenForms = [], isSecret = false } =
+            defaultEntry[id] ?? {};
+          const customSpokenForms = entry[id];
+          if (customSpokenForms != null) {
+            return [
+              id as SpokenFormType,
+              {
+                defaultSpokenForms,
+                spokenForms: customSpokenForms,
+                requiresTalonUpdate: false,
+                isCustom: isEqual(defaultSpokenForms, customSpokenForms),
+                isSecret,
+              },
+            ];
+          } else {
+            return [
+              id as SpokenFormType,
+              {
+                defaultSpokenForms,
+                spokenForms: [],
+                // If it's not a secret spoken form, then it's a new scope type
+                requiresTalonUpdate: !isSecret,
+                isCustom: false,
+                isSecret,
+              },
+            ];
+          }
+        }),
       ) as any;
     }
 

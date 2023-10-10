@@ -146,7 +146,7 @@ function secret(...spokenForms: string[]): DefaultSpokenFormMapEntry {
   };
 }
 
-interface DefaultSpokenFormMapEntry {
+export interface DefaultSpokenFormMapEntry {
   defaultSpokenForms: string[];
   isDisabledByDefault: boolean;
   isSecret: boolean;
