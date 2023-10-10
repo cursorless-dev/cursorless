@@ -25,12 +25,16 @@ const components: MDXComponents = {
     />
   ),
   CalloutParent: ({ children }) => (
-    <div className="columns-2 mx-[-110px] -mt-12">{children}</div>
+    <div className="sm:columns-2 sm:-mx-8 md:-mx-20 -mt-7 gap-7 lg:-mt-12 lg:gap-12">
+      {children}
+    </div>
   ),
   CalloutBox: ({ title, children }) => (
-    <div className="rounded-md p-2 border border-salmon-300 dark:border-salmon-700 w-96 break-inside-avoid mt-12">
-      <span className="font-bold">{title}</span>
-      {children}
+    <div className="rounded-md w-full break-inside-avoid pt-7 lg:pt-12">
+      <div className="rounded-md p-2 border border-salmon-300 dark:border-salmon-700">
+        <span className="font-bold">{title}</span>
+        {children}
+      </div>
     </div>
   ),
 };
