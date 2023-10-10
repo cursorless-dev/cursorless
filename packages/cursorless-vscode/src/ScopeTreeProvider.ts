@@ -7,8 +7,22 @@ import {
   ScopeTypeInfo,
 } from "@cursorless/cursorless-engine";
 import { VscodeApi } from "@cursorless/vscode-common";
+import { CURSORLESS_SCOPE_TREE_VIEW_ID } from "@cursorless/vscode-common";
 import { isEqual } from "lodash";
-import * as vscode from "vscode";
+import type {
+  Event,
+  ExtensionContext,
+  TreeDataProvider,
+  TreeItemLabel,
+  TreeView,
+  TreeViewVisibilityChangeEvent,
+} from "vscode";
+import {
+  EventEmitter,
+  ThemeIcon,
+  TreeItem,
+  TreeItemCollapsibleState,
+} from "vscode";
 import { URI } from "vscode-uri";
 import {
   ScopeVisualizer,
@@ -16,33 +30,32 @@ import {
 } from "./ScopeVisualizerCommandApi";
 
 export const DONT_SHOW_TALON_UPDATE_MESSAGE_KEY = "dontShowUpdateTalonMessage";
-
-export class ScopeSupportTreeProvider
-  implements vscode.TreeDataProvider<MyTreeItem>
-{
+export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
   private visibleDisposable: Disposer | undefined;
-  private treeView: vscode.TreeView<MyTreeItem>;
+  private treeView: TreeView<MyTreeItem>;
   private supportLevels: ScopeSupportLevels = [];
   private shownUpdateTalonMessage = false;
 
-  private _onDidChangeTreeData: vscode.EventEmitter<
+  private _onDidChangeTreeData: EventEmitter<
     MyTreeItem | undefined | null | void
-  > = new vscode.EventEmitter<MyTreeItem | undefined | null | void>();
-  readonly onDidChangeTreeData: vscode.Event<
-    MyTreeItem | undefined | null | void
-  > = this._onDidChangeTreeData.event;
+  > = new EventEmitter<MyTreeItem | undefined | null | void>();
+  readonly onDidChangeTreeData: Event<MyTreeItem | undefined | null | void> =
+    this._onDidChangeTreeData.event;
 
   constructor(
     private vscodeApi: VscodeApi,
-    private context: vscode.ExtensionContext,
+    private context: ExtensionContext,
     private scopeProvider: ScopeProvider,
     private scopeVisualizer: ScopeVisualizer,
     private customSpokenFormGenerator: CustomSpokenFormGenerator,
     private hasCommandServer: boolean,
   ) {
-    this.treeView = vscodeApi.window.createTreeView("cursorless.scopeSupport", {
-      treeDataProvider: this,
-    });
+    this.treeView = vscodeApi.window.createTreeView(
+      CURSORLESS_SCOPE_TREE_VIEW_ID,
+      {
+        treeDataProvider: this,
+      },
+    );
 
     this.context.subscriptions.push(
       this.treeView,
@@ -53,13 +66,13 @@ export class ScopeSupportTreeProvider
 
   static create(
     vscodeApi: VscodeApi,
-    context: vscode.ExtensionContext,
+    context: ExtensionContext,
     scopeProvider: ScopeProvider,
     scopeVisualizer: ScopeVisualizer,
     customSpokenFormGenerator: CustomSpokenFormGenerator,
     hasCommandServer: boolean,
-  ): ScopeSupportTreeProvider {
-    const treeProvider = new ScopeSupportTreeProvider(
+  ): ScopeTreeProvider {
+    const treeProvider = new ScopeTreeProvider(
       vscodeApi,
       context,
       scopeProvider,
@@ -77,7 +90,7 @@ export class ScopeSupportTreeProvider
     }
   }
 
-  onDidChangeVisible(e: vscode.TreeViewVisibilityChangeEvent) {
+  onDidChangeVisible(e: TreeViewVisibilityChangeEvent) {
     if (e.visible) {
       if (this.visibleDisposable != null) {
         return;
@@ -197,30 +210,30 @@ export class ScopeSupportTreeProvider
 function getSupportCategories(): SupportCategoryTreeItem[] {
   return [
     new SupportCategoryTreeItem(
-      "Supported and present in editor",
+      "Present",
       ScopeSupport.supportedAndPresentInEditor,
-      vscode.TreeItemCollapsibleState.Expanded,
+      TreeItemCollapsibleState.Expanded,
     ),
     new SupportCategoryTreeItem(
-      "Supported but not present in editor",
+      "Not present",
       ScopeSupport.supportedButNotPresentInEditor,
-      vscode.TreeItemCollapsibleState.Expanded,
+      TreeItemCollapsibleState.Expanded,
     ),
     new SupportCategoryTreeItem(
-      "Supported using legacy pathways",
+      "Legacy",
       ScopeSupport.supportedLegacy,
-      vscode.TreeItemCollapsibleState.Expanded,
+      TreeItemCollapsibleState.Expanded,
     ),
     new SupportCategoryTreeItem(
       "Unsupported",
       ScopeSupport.unsupported,
-      vscode.TreeItemCollapsibleState.Collapsed,
+      TreeItemCollapsibleState.Collapsed,
     ),
   ];
 }
 
-class ScopeSupportTreeItem extends vscode.TreeItem {
-  public label: vscode.TreeItemLabel;
+class ScopeSupportTreeItem extends TreeItem {
+  public label: TreeItemLabel;
 
   /**
    * @param scopeTypeInfo The scope type info
@@ -237,7 +250,7 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
         : `"${scopeTypeInfo.spokenForm.preferred}"`;
     const description = scopeTypeInfo.humanReadableName;
 
-    super(label, vscode.TreeItemCollapsibleState.None);
+    super(label, TreeItemCollapsibleState.None);
 
     const requiresTalonUpdate =
       scopeTypeInfo.spokenForm.type === "error" &&
@@ -279,16 +292,16 @@ class ScopeSupportTreeItem extends vscode.TreeItem {
         };
 
     if (scopeTypeInfo.isLanguageSpecific) {
-      this.iconPath = new vscode.ThemeIcon("code");
+      this.iconPath = new ThemeIcon("code");
     }
   }
 }
 
-class SupportCategoryTreeItem extends vscode.TreeItem {
+class SupportCategoryTreeItem extends TreeItem {
   constructor(
     label: string,
     public readonly scopeSupport: ScopeSupport,
-    collapsibleState: vscode.TreeItemCollapsibleState,
+    collapsibleState: TreeItemCollapsibleState,
   ) {
     super(label, collapsibleState);
   }

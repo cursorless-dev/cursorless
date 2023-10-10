@@ -46,7 +46,7 @@
   ],
   "activationEvents": [
     "onLanguage",
-    "onView:cursorless.scopeSupport",
+    "onView:cursorless.scopes",
     "onCommand:cursorless.command",
     "onCommand:cursorless.internal.updateCheatsheetDefaults",
     "onCommand:cursorless.keyboard.escape",
@@ -81,8 +81,8 @@
     "views": {
       "cursorless": [
         {
-          "id": "cursorless.scopeSupport",
-          "name": "Scope support"
+          "id": "cursorless.scopes",
+          "name": "Scopes"
         }
       ]
     },

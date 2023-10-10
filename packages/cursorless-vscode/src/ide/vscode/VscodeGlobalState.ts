@@ -2,7 +2,7 @@ import type { State, StateData, StateKey } from "@cursorless/common";
 import { STATE_DEFAULTS } from "@cursorless/common";
 import type { ExtensionContext } from "vscode";
 import { VERSION_KEY } from "../../ReleaseNotes";
-import { DONT_SHOW_TALON_UPDATE_MESSAGE_KEY } from "../../ScopeSupportTreeProvider";
+import { DONT_SHOW_TALON_UPDATE_MESSAGE_KEY } from "../../ScopeTreeProvider";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {
