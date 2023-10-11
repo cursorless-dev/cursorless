@@ -19,7 +19,7 @@ import { ScopeSupportChecker } from "./ScopeSupportChecker";
  */
 export class ScopeSupportWatcher {
   private disposables: Disposable[] = [];
-  private debouncer = new Debouncer(() => this.onChange());
+  private debouncer = new Debouncer(() => this.onChange);
   private listeners: ScopeSupportEventCallback[] = [];
 
   constructor(
@@ -27,6 +27,9 @@ export class ScopeSupportWatcher {
     private scopeSupportChecker: ScopeSupportChecker,
     private scopeInfoProvider: ScopeInfoProvider,
   ) {
+    this.onChange = this.onChange.bind(this);
+    this.onDidChangeScopeSupport = this.onDidChangeScopeSupport.bind(this);
+
     this.disposables.push(
       // An event that fires when a text document opens
       ide().onDidOpenTextDocument(this.debouncer.run),
@@ -39,11 +42,9 @@ export class ScopeSupportWatcher {
       // dirty-state changes.
       ide().onDidChangeTextDocument(this.debouncer.run),
       languageDefinitions.onDidChangeDefinition(this.debouncer.run),
-      this.scopeInfoProvider.onDidChangeScopeInfo(() => this.onChange()),
+      this.scopeInfoProvider.onDidChangeScopeInfo(this.onChange),
       this.debouncer,
     );
-
-    this.onDidChangeScopeSupport = this.onDidChangeScopeSupport.bind(this);
   }
 
   /**
