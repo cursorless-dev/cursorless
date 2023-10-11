@@ -18,11 +18,13 @@ export class CustomSpokenFormGeneratorImpl
 
   constructor(talonSpokenForms: TalonSpokenForms) {
     this.customSpokenForms = new CustomSpokenForms(talonSpokenForms);
-    this.spokenFormGenerator = new SpokenFormGenerator(this.customSpokenForms);
+    this.spokenFormGenerator = new SpokenFormGenerator(
+      this.customSpokenForms.spokenFormMap,
+    );
     this.disposer.push(
       this.customSpokenForms.onDidChangeCustomSpokenForms(() => {
         this.spokenFormGenerator = new SpokenFormGenerator(
-          this.customSpokenForms,
+          this.customSpokenForms.spokenFormMap,
         );
       }),
     );

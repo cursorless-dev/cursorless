@@ -28,25 +28,24 @@ const ENTRY_TYPES = [
   "pairedDelimiter",
 ] as const;
 
+type Writable<T> = {
+  -readonly [K in keyof T]: T[K];
+};
+
 /**
  * Maintains a list of all scope types and notifies listeners when it changes.
  */
-export class CustomSpokenForms implements SpokenFormMap {
+export class CustomSpokenForms {
   private disposer = new Disposer();
   private notifier = new Notifier();
 
-  // Initialize to defaults
-  simpleScopeTypeType = defaultSpokenFormMap.simpleScopeTypeType;
-  pairedDelimiter = defaultSpokenFormMap.pairedDelimiter;
-  customRegex = defaultSpokenFormMap.customRegex;
+  private spokenFormMap_: Writable<SpokenFormMap> = { ...defaultSpokenFormMap };
 
-  // FIXME: Get these from Talon
-  surroundingPairForceDirection =
-    defaultSpokenFormMap.surroundingPairForceDirection;
-  simpleModifier = defaultSpokenFormMap.simpleModifier;
-  modifierExtra = defaultSpokenFormMap.modifierExtra;
+  get spokenFormMap(): SpokenFormMap {
+    return this.spokenFormMap_;
+  }
 
-  private isInitialized_ = false;
+  private customSpokenFormsInitialized_ = false;
   private needsInitialTalonUpdate_: boolean | undefined;
 
   /**
@@ -62,8 +61,8 @@ export class CustomSpokenForms implements SpokenFormMap {
    * default spoken forms are currently being used while the custom spoken forms
    * are being loaded.
    */
-  get isInitialized() {
-    return this.isInitialized_;
+  get customSpokenFormsInitialized() {
+    return this.customSpokenFormsInitialized_;
   }
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
@@ -88,9 +87,7 @@ export class CustomSpokenForms implements SpokenFormMap {
     } catch (err) {
       if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
-        console.log(err.message);
         this.needsInitialTalonUpdate_ = true;
-        this.notifier.notifyListeners();
       } else {
         console.error("Error loading custom spoken forms", err);
         showError(
@@ -101,6 +98,10 @@ export class CustomSpokenForms implements SpokenFormMap {
           }}}. Falling back to default spoken forms.`,
         );
       }
+
+      this.spokenFormMap_ = { ...defaultSpokenFormMap };
+      this.customSpokenFormsInitialized_ = false;
+      this.notifier.notifyListeners();
 
       return;
     }
@@ -118,7 +119,7 @@ export class CustomSpokenForms implements SpokenFormMap {
       const ids = Array.from(
         new Set([...Object.keys(defaultEntry), ...Object.keys(entry)]),
       );
-      this[entryType] = Object.fromEntries(
+      this.spokenFormMap_[entryType] = Object.fromEntries(
         ids.map((id): [SpokenFormType, SpokenFormMapEntry] => {
           const { defaultSpokenForms = [], isSecret = false } =
             defaultEntry[id] ?? {};
@@ -151,12 +152,12 @@ export class CustomSpokenForms implements SpokenFormMap {
       ) as any;
     }
 
-    this.isInitialized_ = true;
+    this.customSpokenFormsInitialized_ = true;
     this.notifier.notifyListeners();
   }
 
   getCustomRegexScopeTypes(): CustomRegexScopeType[] {
-    return Object.keys(this.customRegex).map((regex) => ({
+    return Object.keys(this.spokenFormMap_.customRegex).map((regex) => ({
       type: "customRegex",
       regex,
     }));

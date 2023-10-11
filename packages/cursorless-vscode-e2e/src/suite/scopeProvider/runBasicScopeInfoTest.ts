@@ -5,8 +5,7 @@ import {
   ScopeSupportLevels,
 } from "@cursorless/common";
 import Sinon = require("sinon");
-import { sleepWithBackoff } from "../../endToEndTestSetup";
-import { commands } from "vscode";
+import { Position, Range, TextDocument, commands } from "vscode";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
 /**
@@ -22,22 +21,33 @@ export async function runBasicScopeInfoTest() {
   const disposable = scopeProvider.onDidChangeScopeSupport(fake);
 
   try {
-    assertCalledWithScopeInfo(fake, unsupported);
+    await assertCalledWithScopeInfo(fake, unsupported);
 
-    await openNewEditor(contents, {
+    const editor = await openNewEditor("", {
       languageId: "typescript",
     });
-    await sleepWithBackoff(25);
+    await assertCalledWithScopeInfo(fake, supported);
 
-    assertCalledWithScopeInfo(fake, present);
+    await editor.edit((editBuilder) => {
+      editBuilder.insert(new Position(0, 0), contents);
+    });
+    await assertCalledWithScopeInfo(fake, present);
+
+    await editor.edit((editBuilder) => {
+      editBuilder.delete(getDocumentRange(editor.document));
+    });
+    await assertCalledWithScopeInfo(fake, supported);
 
     await commands.executeCommand("workbench.action.closeAllEditors");
-    await sleepWithBackoff(25);
-
-    assertCalledWithScopeInfo(fake, unsupported);
+    await assertCalledWithScopeInfo(fake, unsupported);
   } finally {
     disposable.dispose();
   }
+}
+
+function getDocumentRange(textDocument: TextDocument) {
+  const { end } = textDocument.lineAt(textDocument.lineCount - 1).range;
+  return new Range(0, 0, end.line, end.character);
 }
 
 const contents = `
@@ -50,7 +60,10 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
   return {
     humanReadableName: "named function",
     isLanguageSpecific: true,
-    iterationScopeSupport: scopeSupport,
+    iterationScopeSupport:
+      scopeSupport === ScopeSupport.unsupported
+        ? ScopeSupport.unsupported
+        : ScopeSupport.supportedAndPresentInEditor,
     scopeType: {
       type: "namedFunction",
     },
@@ -64,4 +77,5 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
 }
 
 const unsupported = getExpectedScope(ScopeSupport.unsupported);
+const supported = getExpectedScope(ScopeSupport.supportedButNotPresentInEditor);
 const present = getExpectedScope(ScopeSupport.supportedAndPresentInEditor);
