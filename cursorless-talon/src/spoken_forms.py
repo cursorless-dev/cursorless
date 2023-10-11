@@ -23,7 +23,7 @@ R = TypeVar("R")
 
 def auto_construct_defaults(
     spoken_forms: dict[str, ListToSpokenForms],
-    handle_new_values: Callable[[list[SpokenFormEntry]], None],
+    handle_new_values: Callable[[str, list[SpokenFormEntry]], None],
     f: Callable[
         Concatenate[str, ListToSpokenForms, Callable[[list[SpokenFormEntry]], None], P],
         R,
@@ -47,7 +47,13 @@ def auto_construct_defaults(
 
     def ret(filename: str, *args: P.args, **kwargs: P.kwargs) -> R:
         default_values = spoken_forms[filename]
-        return f(filename, default_values, handle_new_values, *args, **kwargs)
+        return f(
+            filename,
+            default_values,
+            lambda new_values: handle_new_values(filename, new_values),
+            *args,
+            **kwargs,
+        )
 
     return ret
 
@@ -76,7 +82,7 @@ def update():
         spoken_forms = json.load(file)
 
     initialized = False
-    custom_spoken_forms: list[SpokenFormEntry] = []
+    custom_spoken_forms: dict[str, list[SpokenFormEntry]] = {}
     spoken_forms_output = SpokenFormsOutput()
     spoken_forms_output.init()
 
@@ -88,13 +94,14 @@ def update():
                     "id": entry.id,
                     "spokenForms": entry.spoken_forms,
                 }
-                for entry in custom_spoken_forms
+                for spoken_form_list in custom_spoken_forms.values()
+                for entry in spoken_form_list
                 if entry.list_name in LIST_TO_TYPE_MAP
             ]
         )
 
-    def handle_new_values(values: list[SpokenFormEntry]):
-        custom_spoken_forms.extend(values)
+    def handle_new_values(csv_name: str, values: list[SpokenFormEntry]):
+        custom_spoken_forms[csv_name] = values
         if initialized:
             # On first run, we just do one update at the end, so we suppress
             # writing until we get there
