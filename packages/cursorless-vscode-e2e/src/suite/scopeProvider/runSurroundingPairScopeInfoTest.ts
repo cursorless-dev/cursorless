@@ -5,14 +5,14 @@ import {
   ScopeSupportLevels,
 } from "@cursorless/common";
 import * as sinon from "sinon";
-import { Position, Range, TextDocument, commands } from "vscode";
+import { commands } from "vscode";
 import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 
 /**
  * Tests that the scope provider correctly reports the scope support for a
- * simple named function.
+ * simple surrounding pair.
  */
-export async function runBasicScopeInfoTest() {
+export async function runSurroundingPairScopeInfoTest() {
   const { scopeProvider } = (await getCursorlessApi()).testHelpers!;
   const fake = sinon.fake<[scopeInfos: ScopeSupportLevels], void>();
 
@@ -23,20 +23,8 @@ export async function runBasicScopeInfoTest() {
   try {
     await assertCalledWithScopeInfo(fake, unsupported);
 
-    const editor = await openNewEditor("", {
-      languageId: "typescript",
-    });
-    await assertCalledWithScopeInfo(fake, supported);
-
-    await editor.edit((editBuilder) => {
-      editBuilder.insert(new Position(0, 0), contents);
-    });
-    await assertCalledWithScopeInfo(fake, present);
-
-    await editor.edit((editBuilder) => {
-      editBuilder.delete(getDocumentRange(editor.document));
-    });
-    await assertCalledWithScopeInfo(fake, supported);
+    await openNewEditor("");
+    await assertCalledWithScopeInfo(fake, legacy);
 
     await commands.executeCommand("workbench.action.closeAllEditors");
     await assertCalledWithScopeInfo(fake, unsupported);
@@ -45,31 +33,18 @@ export async function runBasicScopeInfoTest() {
   }
 }
 
-function getDocumentRange(textDocument: TextDocument) {
-  const { end } = textDocument.lineAt(textDocument.lineCount - 1).range;
-  return new Range(0, 0, end.line, end.character);
-}
-
-const contents = `
-function helloWorld() {
-
-}
-`;
-
 function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
   return {
-    humanReadableName: "named function",
-    isLanguageSpecific: true,
+    humanReadableName: "Matching pair of parentheses",
+    isLanguageSpecific: false,
     iterationScopeSupport:
       scopeSupport === ScopeSupport.unsupported
         ? ScopeSupport.unsupported
-        : ScopeSupport.supportedAndPresentInEditor,
-    scopeType: {
-      type: "namedFunction",
-    },
+        : ScopeSupport.supportedLegacy,
+    scopeType: { type: "surroundingPair", delimiter: "parentheses" },
     spokenForm: {
       alternatives: [],
-      preferred: "funk",
+      preferred: "round",
       type: "success",
     },
     support: scopeSupport,
@@ -77,5 +52,4 @@ function getExpectedScope(scopeSupport: ScopeSupport): ScopeSupportInfo {
 }
 
 const unsupported = getExpectedScope(ScopeSupport.unsupported);
-const supported = getExpectedScope(ScopeSupport.supportedButNotPresentInEditor);
-const present = getExpectedScope(ScopeSupport.supportedAndPresentInEditor);
+const legacy = getExpectedScope(ScopeSupport.supportedLegacy);

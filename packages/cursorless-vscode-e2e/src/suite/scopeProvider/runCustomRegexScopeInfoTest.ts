@@ -7,13 +7,14 @@ import {
   ScopeType,
   sleep,
 } from "@cursorless/common";
-import Sinon = require("sinon");
+import * as sinon from "sinon";
 import {
   assertCalledWithScopeInfo,
-  assertCalledWithoutScopeInfo as assertCalledWithoutScope,
+  assertCalledWithoutScopeType as assertCalledWithoutScope,
 } from "./assertCalledWithScopeInfo";
 import { stat, unlink, writeFile } from "fs/promises";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
+import { commands } from "vscode";
 
 /**
  * Tests that the scope provider correctly reports the scope support for a
@@ -22,7 +23,9 @@ import { sleepWithBackoff } from "../../endToEndTestSetup";
 export async function runCustomRegexScopeInfoTest() {
   const { scopeProvider, spokenFormsJsonPath } = (await getCursorlessApi())
     .testHelpers!;
-  const fake = Sinon.fake<[scopeInfos: ScopeSupportLevels], void>();
+  const fake = sinon.fake<[scopeInfos: ScopeSupportLevels], void>();
+
+  await commands.executeCommand("workbench.action.closeAllEditors");
 
   const disposable = scopeProvider.onDidChangeScopeSupport(fake);
 
@@ -51,7 +54,7 @@ export async function runCustomRegexScopeInfoTest() {
       await unlink(spokenFormsJsonPath);
       // Sleep to ensure that the scope support provider has time to update
       // before the next test starts
-      await sleep(50);
+      await sleep(250);
     } catch (e) {
       // Do nothing
     }

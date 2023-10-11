@@ -24,7 +24,7 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
-import { TalonSpokenFormsJsonReader } from "./scopeProviders/getSpokenFormEntries";
+import { TalonSpokenFormsJsonReader } from "./scopeProviders/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
 
 export function createCursorlessEngine(
