@@ -19,7 +19,7 @@ import { ScopeSupportChecker } from "./ScopeSupportChecker";
  */
 export class ScopeSupportWatcher {
   private disposables: Disposable[] = [];
-  private debouncer = new Debouncer(() => this.onChange);
+  private debouncer = new Debouncer(() => this.onChange());
   private listeners: ScopeSupportEventCallback[] = [];
 
   constructor(

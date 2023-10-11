@@ -20,7 +20,7 @@ import { ScopeRangeProvider } from "./ScopeRangeProvider";
  */
 export class ScopeRangeWatcher {
   private disposables: Disposable[] = [];
-  private debouncer = new Debouncer(() => this.onChange);
+  private debouncer = new Debouncer(() => this.onChange());
   private listeners: (() => void)[] = [];
 
   constructor(
