@@ -5,6 +5,7 @@ import {
   ScopeSupportInfo,
   ScopeSupportLevels,
   ScopeType,
+  sleep,
 } from "@cursorless/common";
 import Sinon = require("sinon");
 import {
@@ -48,6 +49,9 @@ export async function runCustomRegexScopeInfoTest() {
     try {
       await stat(spokenFormsJsonPath);
       await unlink(spokenFormsJsonPath);
+      // Sleep to ensure that the scope support provider has time to update
+      // before the next test starts
+      await sleep(50);
     } catch (e) {
       // Do nothing
     }
