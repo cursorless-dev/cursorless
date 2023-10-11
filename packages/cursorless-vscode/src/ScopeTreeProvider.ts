@@ -1,11 +1,12 @@
-import { CursorlessCommandId, Disposer } from "@cursorless/common";
 import {
-  CustomSpokenFormGenerator,
+  CursorlessCommandId,
+  Disposer,
   ScopeProvider,
   ScopeSupport,
   ScopeSupportLevels,
   ScopeTypeInfo,
-} from "@cursorless/cursorless-engine";
+} from "@cursorless/common";
+import { CustomSpokenFormGenerator } from "@cursorless/cursorless-engine";
 import { VscodeApi } from "@cursorless/vscode-common";
 import { CURSORLESS_SCOPE_TREE_VIEW_ID } from "@cursorless/vscode-common";
 import { isEqual } from "lodash";

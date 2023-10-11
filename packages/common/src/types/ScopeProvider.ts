@@ -3,9 +3,9 @@ import {
   GeneralizedRange,
   Range,
   ScopeType,
+  SpokenForm,
   TextEditor,
-} from "@cursorless/common";
-import { SpokenForm } from "../generateSpokenForm";
+} from "..";
 
 export interface ScopeProvider {
   /**

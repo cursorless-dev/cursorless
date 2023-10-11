@@ -5,6 +5,7 @@ import type {
   HatTokenMap,
   IDE,
   NormalizedIDE,
+  ScopeProvider,
   SerializedMarks,
   SnippetMap,
   TargetPlainObject,
@@ -18,6 +19,8 @@ import { VscodeApi } from "./VscodeApi";
 export interface TestHelpers {
   ide: NormalizedIDE;
   injectIde: (ide: IDE) => void;
+
+  scopeProvider: ScopeProvider;
 
   hatTokenMap: HatTokenMap;
 

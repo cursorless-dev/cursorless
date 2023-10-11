@@ -2,16 +2,17 @@ import {
   Disposable,
   Disposer,
   ScopeType,
+  ScopeTypeInfo,
+  ScopeTypeInfoEventCallback,
   SurroundingPairScopeType,
   simpleScopeTypeTypes,
   surroundingPairNames,
 } from "@cursorless/common";
 import { pull } from "lodash";
-import { ScopeTypeInfo, ScopeTypeInfoEventCallback } from "..";
 
+import { SpeakableSurroundingPairName } from "../SpokenFormMap";
 import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { scopeTypeToString } from "./scopeTypeToString";
-import { SpeakableSurroundingPairName } from "../SpokenFormMap";
 
 /**
  * Maintains a list of all scope types and notifies listeners when it changes.

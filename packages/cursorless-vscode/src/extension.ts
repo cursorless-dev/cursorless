@@ -6,12 +6,12 @@ import {
   isTesting,
   NormalizedIDE,
   Range,
+  ScopeProvider,
   ScopeType,
   TextDocument,
 } from "@cursorless/common";
 import {
   createCursorlessEngine,
-  ScopeProvider,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -127,6 +127,7 @@ export async function activate(
           vscodeIDE,
           normalizedIde as NormalizedIDE,
           spokenFormsJsonPath,
+          scopeProvider,
           injectIde,
           runIntegrationTests,
         )

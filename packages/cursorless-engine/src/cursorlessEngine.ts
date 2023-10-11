@@ -4,10 +4,10 @@ import {
   FileSystem,
   Hats,
   IDE,
+  ScopeProvider,
 } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
-import { ScopeProvider } from "./api/ScopeProvider";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
@@ -24,8 +24,8 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
-import { injectIde } from "./singletons/ide.singleton";
 import { TalonSpokenFormsJsonReader } from "./scopeProviders/getSpokenFormEntries";
+import { injectIde } from "./singletons/ide.singleton";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,

@@ -2,7 +2,7 @@ import { Command, HatTokenMap, IDE } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { TestCaseRecorder } from "../testCaseRecorder/TestCaseRecorder";
-import { ScopeProvider } from "./ScopeProvider";
+import { ScopeProvider } from "@cursorless/common";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;

@@ -23,21 +23,7 @@ import {
   SpokenFormComponent,
   getGeneratorSpokenForms,
 } from "./GeneratorSpokenFormMap";
-
-export interface SpokenFormSuccess {
-  type: "success";
-  preferred: string;
-  alternatives: string[];
-}
-
-export interface SpokenFormError {
-  type: "error";
-  reason: string;
-  requiresTalonUpdate: boolean;
-  isSecret: boolean;
-}
-
-export type SpokenForm = SpokenFormSuccess | SpokenFormError;
+import { SpokenForm } from "@cursorless/common";
 
 export class SpokenFormGenerator {
   private primitiveGenerator: PrimitiveTargetSpokenFormGenerator;

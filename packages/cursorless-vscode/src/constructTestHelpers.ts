@@ -5,6 +5,7 @@ import {
   HatTokenMap,
   IDE,
   NormalizedIDE,
+  ScopeProvider,
   SerializedMarks,
   TargetPlainObject,
   TestCaseSnapshot,
@@ -29,6 +30,7 @@ export function constructTestHelpers(
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
   spokenFormsJsonPath: string,
+  scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
@@ -36,6 +38,7 @@ export function constructTestHelpers(
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,
+    scopeProvider,
 
     toVscodeEditor,
 

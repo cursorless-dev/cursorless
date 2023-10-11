@@ -1,6 +1,12 @@
-import { Disposable, ScopeType } from "@cursorless/common";
+import {
+  Disposable,
+  ScopeSupport,
+  ScopeSupportEventCallback,
+  ScopeSupportInfo,
+  ScopeType,
+} from "@cursorless/common";
 import { pull } from "lodash";
-import { ScopeSupport, ScopeSupportEventCallback, ScopeSupportInfo } from "..";
+
 import { Debouncer } from "../core/Debouncer";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
