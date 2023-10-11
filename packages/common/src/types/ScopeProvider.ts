@@ -94,6 +94,18 @@ export interface ScopeProvider {
    * @returns A {@link Disposable} which will stop the callback from running
    */
   onDidChangeScopeInfo(callback: ScopeTypeInfoEventCallback): Disposable;
+
+  /**
+   * Determine the level of support for the iteration scope of {@link scopeType}
+   * in {@link editor}, as determined by its language id.
+   * @param editor The editor to check
+   * @param scopeType The scope type to check
+   * @returns The level of support for the iteration scope of {@link scopeType}
+   * in {@link editor}
+   */
+  getScopeInfo: (
+    scopeType: ScopeType,
+  ) => ScopeTypeInfo;
 }
 
 interface ScopeRangeConfigBase {

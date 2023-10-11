@@ -9,6 +9,10 @@ import { Disposable } from "../ide/types/ide.types";
 export class Disposer implements Disposable {
   private disposables: Disposable[] = [];
 
+  constructor(...disposables: Disposable[]) {
+    this.push(...disposables)
+  }
+
   public push(...disposables: Disposable[]) {
     this.disposables.push(...disposables);
   }

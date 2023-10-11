@@ -32,6 +32,7 @@ export class ScopeInfoProvider {
     );
 
     this.onDidChangeScopeInfo = this.onDidChangeScopeInfo.bind(this);
+    this.getScopeTypeInfo = this.getScopeTypeInfo.bind(this);
     this.updateScopeTypeInfos();
   }
 

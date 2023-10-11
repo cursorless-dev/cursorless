@@ -39,7 +39,7 @@ export class ScopeSupportWatcher {
       // dirty-state changes.
       ide().onDidChangeTextDocument(this.debouncer.run),
       languageDefinitions.onDidChangeDefinition(this.debouncer.run),
-      this.scopeInfoProvider.onDidChangeScopeInfo(this.debouncer.run),
+      this.scopeInfoProvider.onDidChangeScopeInfo(() => this.onChange()),
       this.debouncer,
     );
 

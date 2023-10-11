@@ -35,14 +35,15 @@ import {
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
+import { ScopeTreeProvider } from "./ScopeTreeProvider";
 import {
   ScopeVisualizer,
+  VisualizerScopeTypeListener as ScopeVisualizerListener,
   VisualizationType,
-  VisualizerScopeTypeListener,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
-import { ScopeTreeProvider } from "./ScopeTreeProvider";
+import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -97,6 +98,9 @@ export async function activate(
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
   const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
+  context.subscriptions.push(
+    revisualizeOnCustomRegexChange(scopeVisualizer, scopeProvider),
+  );
   ScopeTreeProvider.create(
     vscodeApi,
     context,
@@ -178,7 +182,7 @@ function createScopeVisualizer(
   let scopeVisualizer: VscodeScopeVisualizer | undefined;
   let currentScopeType: ScopeType | undefined;
 
-  const listeners: VisualizerScopeTypeListener[] = [];
+  const listeners: ScopeVisualizerListener[] = [];
 
   return {
     start(scopeType: ScopeType, visualizationType: VisualizationType) {
@@ -191,21 +195,21 @@ function createScopeVisualizer(
       );
       scopeVisualizer.start();
       currentScopeType = scopeType;
-      listeners.forEach((listener) => listener(scopeType));
+      listeners.forEach((listener) => listener(scopeType, visualizationType));
     },
 
     stop() {
       scopeVisualizer?.dispose();
       scopeVisualizer = undefined;
       currentScopeType = undefined;
-      listeners.forEach((listener) => listener(undefined));
+      listeners.forEach((listener) => listener(undefined, undefined));
     },
 
     get scopeType() {
       return currentScopeType;
     },
 
-    onDidChangeScopeType(listener: VisualizerScopeTypeListener): Disposable {
+    onDidChangeScopeType(listener: ScopeVisualizerListener): Disposable {
       listeners.push(listener);
 
       return {

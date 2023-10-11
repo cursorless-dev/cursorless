@@ -151,6 +151,7 @@ function createScopeProvider(
     getScopeSupport: supportChecker.getScopeSupport,
     getIterationScopeSupport: supportChecker.getIterationScopeSupport,
     onDidChangeScopeSupport: supportWatcher.onDidChangeScopeSupport,
+    getScopeInfo: infoProvider.getScopeTypeInfo,
     onDidChangeScopeInfo: infoProvider.onDidChangeScopeInfo,
   };
 }
