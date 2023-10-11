@@ -10,7 +10,7 @@ export class Disposer implements Disposable {
   private disposables: Disposable[] = [];
 
   constructor(...disposables: Disposable[]) {
-    this.push(...disposables)
+    this.push(...disposables);
   }
 
   public push(...disposables: Disposable[]) {

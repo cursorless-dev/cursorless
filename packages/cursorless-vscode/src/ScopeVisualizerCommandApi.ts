@@ -1,7 +1,8 @@
 import { Disposable, ScopeType } from "@cursorless/common";
 
 export type VisualizerScopeTypeListener = (
-  scopeType: ScopeType | undefined, visualizationType: VisualizationType | undefined,
+  scopeType: ScopeType | undefined,
+  visualizationType: VisualizationType | undefined,
 ) => void;
 
 export interface ScopeVisualizer {

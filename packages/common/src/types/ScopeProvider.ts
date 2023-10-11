@@ -103,9 +103,7 @@ export interface ScopeProvider {
    * @returns The level of support for the iteration scope of {@link scopeType}
    * in {@link editor}
    */
-  getScopeInfo: (
-    scopeType: ScopeType,
-  ) => ScopeTypeInfo;
+  getScopeInfo: (scopeType: ScopeType) => ScopeTypeInfo;
 }
 
 interface ScopeRangeConfigBase {

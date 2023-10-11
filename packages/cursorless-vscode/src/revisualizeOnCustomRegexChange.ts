@@ -1,8 +1,13 @@
 import {
   Disposable,
-  Disposer, ScopeProvider, ScopeTypeInfo
+  Disposer,
+  ScopeProvider,
+  ScopeTypeInfo,
 } from "@cursorless/common";
-import { ScopeVisualizer, VisualizationType } from "./ScopeVisualizerCommandApi";
+import {
+  ScopeVisualizer,
+  VisualizationType,
+} from "./ScopeVisualizerCommandApi";
 import { isEqual } from "lodash";
 
 /**
@@ -19,7 +24,7 @@ import { isEqual } from "lodash";
  */
 export function revisualizeOnCustomRegexChange(
   scopeVisualizer: ScopeVisualizer,
-  scopeProvider: ScopeProvider
+  scopeProvider: ScopeProvider,
 ): Disposable {
   let currentRegexScopeInfo: ScopeTypeInfo | undefined;
   let currentVisualizationType: VisualizationType | undefined;
@@ -34,20 +39,24 @@ export function revisualizeOnCustomRegexChange(
     }),
 
     scopeProvider.onDidChangeScopeInfo((scopeInfos) => {
-      if (currentRegexScopeInfo != null &&
-        !scopeInfos.some((scopeInfo) => isEqual(scopeInfo.scopeType, currentRegexScopeInfo!.scopeType)
-        )) {
+      if (
+        currentRegexScopeInfo != null &&
+        !scopeInfos.some((scopeInfo) =>
+          isEqual(scopeInfo.scopeType, currentRegexScopeInfo!.scopeType),
+        )
+      ) {
         const replacement = scopeInfos.find(
-          (scopeInfo) => scopeInfo.scopeType.type === "customRegex" &&
-            isEqual(scopeInfo.spokenForm, currentRegexScopeInfo!.spokenForm)
+          (scopeInfo) =>
+            scopeInfo.scopeType.type === "customRegex" &&
+            isEqual(scopeInfo.spokenForm, currentRegexScopeInfo!.spokenForm),
         );
         if (replacement != null) {
           scopeVisualizer.start(
             replacement.scopeType,
-            currentVisualizationType!
+            currentVisualizationType!,
           );
         }
       }
-    })
+    }),
   );
 }
