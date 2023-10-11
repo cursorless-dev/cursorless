@@ -151,19 +151,21 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
     this.shownUpdateTalonMessage = true;
 
+    const HOW_BUTTON_TEXT = "How?";
+    const DONT_SHOW_AGAIN_BUTTON_TEXT = "Don't show again";
     const result = await this.vscodeApi.window.showInformationMessage(
       "In order to see your custom spoken forms in the sidebar, you'll need to update your Cursorless Talon files.",
-      "How?",
-      "Don't show again",
+      HOW_BUTTON_TEXT,
+      DONT_SHOW_AGAIN_BUTTON_TEXT,
     );
 
-    if (result === "How?") {
+    if (result === HOW_BUTTON_TEXT) {
       await this.vscodeApi.env.openExternal(
         URI.parse(
           "https://www.cursorless.org/docs/user/updating/#updating-the-talon-side",
         ),
       );
-    } else if (result === "Don't show again") {
+    } else if (result === DONT_SHOW_AGAIN_BUTTON_TEXT) {
       await this.context.globalState.update(
         DONT_SHOW_TALON_UPDATE_MESSAGE_KEY,
         true,
