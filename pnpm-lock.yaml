@@ -388,9 +388,6 @@ importers:
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
-      '@types/tinycolor2':
-        specifier: 1.4.3
-        version: 1.4.3
       itertools:
         specifier: ^2.1.1
         version: 2.1.1
@@ -437,6 +434,9 @@ importers:
       '@types/sinon':
         specifier: ^10.0.2
         version: 10.0.13
+      '@types/tinycolor2':
+        specifier: 1.4.3
+        version: 1.4.3
       '@types/uuid':
         specifier: ^8.3.4
         version: 8.3.4
@@ -4940,7 +4940,7 @@ packages:
 
   /@types/tinycolor2@1.4.3:
     resolution: {integrity: sha512-Kf1w9NE5HEgGxCRyIcRXR/ZYtDv0V8FVPtYHwLxl0O+maGX0erE77pQlD0gpP+/KByMZ87mOA79SjifhSB3PjQ==}
-    dev: false
+    dev: true
 
   /@types/tough-cookie@4.0.2:
     resolution: {integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==}
