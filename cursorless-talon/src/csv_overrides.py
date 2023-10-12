@@ -1,8 +1,9 @@
 import csv
 from collections.abc import Container
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional, TypedDict
 
 from talon import Context, Module, actions, app, fs
 
@@ -25,50 +26,74 @@ cursorless_settings_directory = mod.setting(
     desc="The directory to use for cursorless settings csvs relative to talon user directory",
 )
 
-default_ctx = Context()
-default_ctx.matches = r"""
+# The global context we use for our lists
+ctx = Context()
+
+# A context that contains default vocabulary, for use in testing
+normalized_ctx = Context()
+normalized_ctx.matches = r"""
 tag: user.cursorless_default_vocabulary
 """
 
 
+# Maps from Talon list name to a map from spoken form to value
+ListToSpokenForms = dict[str, dict[str, str]]
+
+
+@dataclass
+class SpokenFormEntry:
+    list_name: str
+    id: str
+    spoken_forms: list[str]
+
+
 def init_csv_and_watch_changes(
     filename: str,
-    default_values: dict[str, dict[str, str]],
+    default_values: ListToSpokenForms,
+    handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]] = None,
     extra_ignored_values: Optional[list[str]] = None,
     extra_allowed_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
-    ctx: Context = Context(),
     no_update_file: bool = False,
-    pluralize_lists: Optional[list[str]] = None,
+    pluralize_lists: list[str] = [],
 ):
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
     for changes to the csv.  Talon lists will be generated based on the keys of
     `default_values`.  For example, if there is a key `foo`, there will be a
-    list created called `user.cursorless_foo` that will contain entries from
-    the original dict at the key `foo`, updated according to customization in
-    the csv at
+    list created called `user.cursorless_foo` that will contain entries from the
+    original dict at the key `foo`, updated according to customization in the
+    csv at
 
-        actions.path.talon_user() / "cursorless-settings" / filename
+    ```
+    actions.path.talon_user() / "cursorless-settings" / filename
+    ```
 
     Note that the settings directory location can be customized using the
     `user.cursorless_settings_directory` setting.
 
     Args:
         filename (str): The name of the csv file to be placed in
-        `cursorles-settings` dir
-        default_values (dict[str, dict]): The default values for the lists to
-        be customized in the given csv
-        extra_ignored_values list[str]: Don't throw an exception if any of
-        these appear as values; just ignore them and don't add them to any list
-        allow_unknown_values bool: If unknown values appear, just put them in the list
-        default_list_name Optional[str]: If unknown values are allowed, put any
-        unknown values in this list
-        no_update_file Optional[bool]: Set this to `TRUE` to indicate that we should
-        not update the csv. This is used generally in case there was an issue coming up with the default set of values so we don't want to persist those to disk
-        pluralize_lists: Create plural version of given lists
+            `cursorles-settings` dir
+        default_values (ListToSpokenForms): The default values for the lists to
+            be customized in the given csv
+        handle_new_values (Optional[Callable[[list[SpokenFormEntry]], None]]): A
+            callback to be called when the lists are updated
+        extra_ignored_values (Optional[list[str]]): Don't throw an exception if
+            any of these appear as values; just ignore them and don't add them
+            to any list
+        allow_unknown_values (bool): If unknown values appear, just put them in
+            the list
+        default_list_name (Optional[str]): If unknown values are
+            allowed, put any unknown values in this list
+        headers (list[str]): The headers to use for the csv
+        no_update_file (bool): Set this to `True` to indicate that we should not
+            update the csv. This is used generally in case there was an issue
+            coming up with the default set of values so we don't want to persist
+            those to disk
+        pluralize_lists (list[str]): Create plural version of given lists
     """
     # Don't allow both `extra_allowed_values` and `allow_unknown_values`
     assert not (extra_allowed_values and allow_unknown_values)
@@ -112,7 +137,7 @@ def init_csv_and_watch_changes(
                 allow_unknown_values=allow_unknown_values,
                 default_list_name=default_list_name,
                 pluralize_lists=pluralize_lists,
-                ctx=ctx,
+                handle_new_values=handle_new_values,
             )
 
     fs.watch(str(file_path.parent), on_watch)
@@ -135,7 +160,7 @@ def init_csv_and_watch_changes(
             allow_unknown_values=allow_unknown_values,
             default_list_name=default_list_name,
             pluralize_lists=pluralize_lists,
-            ctx=ctx,
+            handle_new_values=handle_new_values,
         )
     else:
         if not no_update_file:
@@ -148,7 +173,7 @@ def init_csv_and_watch_changes(
             allow_unknown_values=allow_unknown_values,
             default_list_name=default_list_name,
             pluralize_lists=pluralize_lists,
-            ctx=ctx,
+            handle_new_values=handle_new_values,
         )
 
     def unsubscribe():
@@ -184,23 +209,23 @@ def create_default_vocabulary_dicts(
             if active_key:
                 updated_dict[active_key] = value2
         default_values_updated[key] = updated_dict
-    assign_lists_to_context(default_ctx, default_values_updated, pluralize_lists)
+    assign_lists_to_context(normalized_ctx, default_values_updated, pluralize_lists)
 
 
 def update_dicts(
-    default_values: dict[str, dict],
-    current_values: dict,
+    default_values: ListToSpokenForms,
+    current_values: dict[str, str],
     extra_ignored_values: list[str],
     extra_allowed_values: list[str],
     allow_unknown_values: bool,
     default_list_name: Optional[str],
     pluralize_lists: list[str],
-    ctx: Context,
+    handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]],
 ):
     # Create map with all default values
-    results_map = {}
-    for list_name, dict in default_values.items():
-        for key, value in dict.items():
+    results_map: dict[str, ResultsListEntry] = {}
+    for list_name, obj in default_values.items():
+        for key, value in obj.items():
             results_map[value] = {"key": key, "value": value, "list": list_name}
 
     # Update result with current values
@@ -211,6 +236,7 @@ def update_dicts(
             if value in extra_ignored_values:
                 pass
             elif allow_unknown_values or value in extra_allowed_values:
+                assert default_list_name is not None
                 results_map[value] = {
                     "key": key,
                     "value": value,
@@ -221,9 +247,35 @@ def update_dicts(
 
     # Convert result map back to result list
     results = {res["list"]: {} for res in results_map.values()}
-    for obj in results_map.values():
+    values: list[SpokenFormEntry] = []
+    for list_name, id, spoken_forms in generate_spoken_forms(
+        list(results_map.values())
+    ):
+        for spoken_form in spoken_forms:
+            results[list_name][spoken_form] = id
+        values.append(
+            SpokenFormEntry(list_name=list_name, id=id, spoken_forms=spoken_forms)
+        )
+
+    # Assign result to talon context list
+    assign_lists_to_context(ctx, results, pluralize_lists)
+
+    if handle_new_values is not None:
+        handle_new_values(values)
+
+
+class ResultsListEntry(TypedDict):
+    key: str
+    value: str
+    list: str
+
+
+def generate_spoken_forms(results_list: list[ResultsListEntry]):
+    for obj in results_list:
         value = obj["value"]
         key = obj["key"]
+
+        spoken = []
         if not is_removed(key):
             for k in key.split("|"):
                 if value == "pasteFromClipboard" and k.endswith(" to"):
@@ -234,10 +286,13 @@ def update_dicts(
                     # cursorless before this change would have "paste to" as
                     # their spoken form and so would need to say "paste to to".
                     k = k[:-3]
-                results[obj["list"]][k.strip()] = value
+                spoken.append(k.strip())
 
-    # Assign result to talon context list
-    assign_lists_to_context(ctx, results, pluralize_lists)
+        yield (
+            obj["list"],
+            value,
+            spoken,
+        )
 
 
 def assign_lists_to_context(
@@ -410,7 +465,7 @@ def get_full_path(filename: str):
     return (settings_directory / filename).resolve()
 
 
-def get_super_values(values: dict[str, dict[str, str]]):
+def get_super_values(values: ListToSpokenForms):
     result: dict[str, str] = {}
     for value_dict in values.values():
         result.update(value_dict)
