@@ -52,6 +52,7 @@ export class NormalizedIDE extends PassthroughIDEBase {
       ),
       snippetsDir: getFixturePath("cursorless-snippets"),
     });
+    this.configuration.mockConfiguration("decorationDebounceDelayMs", 0);
   }
 
   flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
