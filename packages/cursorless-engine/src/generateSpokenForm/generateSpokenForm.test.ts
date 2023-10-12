@@ -8,36 +8,82 @@ import * as yaml from "js-yaml";
 import * as assert from "node:assert";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { generateSpokenForm } from "./generateSpokenForm";
 import { getHatMapCommand } from "./getHatMapCommand";
+import { SpokenFormGenerator } from ".";
+import { defaultSpokenFormInfo } from "../DefaultSpokenFormMap";
+import { mapValues } from "lodash";
+import { SpokenFormMap, SpokenFormMapEntry } from "../spokenForms/SpokenFormMap";
+
+const spokenFormMap = mapValues(defaultSpokenFormInfo, (entry) =>
+  mapValues(
+    entry,
+    ({ defaultSpokenForms }): SpokenFormMapEntry => ({
+      spokenForms: defaultSpokenForms,
+      isCustom: false,
+      defaultSpokenForms,
+      requiresTalonUpdate: false,
+      isSecret: false,
+    }),
+  ),
+) as SpokenFormMap;
 
 suite("Generate spoken forms", () => {
   getRecordedTestPaths().forEach(({ name, path }) =>
     test(name, () => runTest(path)),
   );
+
+  test("generate spoken form for custom regex", () => {
+    const generator = new SpokenFormGenerator({
+      ...spokenFormMap,
+      customRegex: {
+        foo: {
+          spokenForms: ["bar"],
+          isCustom: false,
+          defaultSpokenForms: ["bar"],
+          requiresTalonUpdate: false,
+          isPrivate: false,
+        },
+      },
+    });
+
+    const spokenForm = generator.processScopeType({
+      type: "customRegex",
+      regex: "foo",
+    });
+
+    assert(spokenForm.type === "success");
+    assert.equal(spokenForm.spokenForms, "bar");
+  });
 });
 
 async function runTest(file: string) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
 
-  const generatedSpokenForm = generateSpokenForm(
+  const generator = new SpokenFormGenerator(spokenFormMap);
+
+  const generatedSpokenForm = generator.processCommand(
     canonicalizeAndValidateCommand(fixture.command),
   );
+
+  if (generatedSpokenForm.type === "success") {
+    assert(generatedSpokenForm.spokenForms.length === 1);
+  }
 
   if (fixture.marksToCheck != null && generatedSpokenForm.type === "success") {
     // If the test has marks to check (eg a hat token map test), it will end in
     // "take <mark>" as a way to indicate which mark to check
-    const hatMapSpokenForm = generateSpokenForm(
+    const hatMapSpokenForm = generator.processCommand(
       getHatMapCommand(fixture.marksToCheck),
     );
     assert(hatMapSpokenForm.type === "success");
-    generatedSpokenForm.value += " " + hatMapSpokenForm.value;
+    assert(hatMapSpokenForm.spokenForms.length === 1);
+    generatedSpokenForm.spokenForms[0] += " " + hatMapSpokenForm.spokenForms[0];
   }
 
   if (shouldUpdateFixtures()) {
     if (generatedSpokenForm.type === "success") {
-      fixture.command.spokenForm = generatedSpokenForm.value;
+      fixture.command.spokenForm = generatedSpokenForm.spokenForms[0];
       fixture.spokenFormError = undefined;
     } else {
       fixture.spokenFormError = generatedSpokenForm.reason;
@@ -47,7 +93,10 @@ async function runTest(file: string) {
     await fsp.writeFile(file, serializeTestFixture(fixture));
   } else {
     if (generatedSpokenForm.type === "success") {
-      assert.equal(fixture.command.spokenForm, generatedSpokenForm.value);
+      assert.equal(
+        fixture.command.spokenForm,
+        generatedSpokenForm.spokenForms[0],
+      );
       assert.equal(fixture.spokenFormError, undefined);
     } else {
       assert.equal(fixture.spokenFormError, generatedSpokenForm.reason);
