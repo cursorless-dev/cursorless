@@ -10,7 +10,7 @@ import {
 import * as sinon from "sinon";
 import {
   assertCalledWithScopeInfo,
-  assertCalledWithoutScopeType as assertCalledWithoutScope,
+  assertCalledWithoutScopeInfo,
 } from "./assertCalledWithScopeInfo";
 import { stat, unlink, writeFile } from "fs/promises";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
@@ -30,7 +30,7 @@ export async function runCustomRegexScopeInfoTest() {
   const disposable = scopeProvider.onDidChangeScopeSupport(fake);
 
   try {
-    await assertCalledWithoutScope(fake, scopeType);
+    await assertCalledWithoutScopeInfo(fake, scopeType);
 
     await writeFile(
       spokenFormsJsonPath,
@@ -44,7 +44,7 @@ export async function runCustomRegexScopeInfoTest() {
 
     await unlink(spokenFormsJsonPath);
     await sleepWithBackoff(50);
-    await assertCalledWithoutScope(fake, scopeType);
+    await assertCalledWithoutScopeInfo(fake, scopeType);
   } finally {
     disposable.dispose();
 

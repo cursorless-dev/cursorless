@@ -1,10 +1,7 @@
 import { getCursorlessApi } from "@cursorless/vscode-common";
 import { LATEST_VERSION, ScopeTypeInfo, sleep } from "@cursorless/common";
 import * as sinon from "sinon";
-import {
-  assertCalled,
-  assertCalledWithScopeInfo,
-} from "./assertCalledWithScopeInfo";
+import { assertCalledWithScopeInfo } from "./assertCalledWithScopeInfo";
 import { stat, unlink, writeFile } from "fs/promises";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
 
@@ -19,17 +16,14 @@ export async function runCustomSpokenFormScopeInfoTest() {
   const disposable = scopeProvider.onDidChangeScopeInfo(fake);
 
   try {
-    await assertCalled(
+    await assertCalledWithScopeInfo(
       fake,
-      [
-        roundStandard,
-        namedFunctionStandard,
-        lambdaStandard,
-        statementStandard,
-        squareStandard,
-        subjectStandard,
-      ],
-      [],
+      roundStandard,
+      namedFunctionStandard,
+      lambdaStandard,
+      statementStandard,
+      squareStandard,
+      subjectStandard,
     );
 
     await writeFile(
@@ -49,17 +43,14 @@ export async function runCustomSpokenFormScopeInfoTest() {
 
     await unlink(spokenFormsJsonPath);
     await sleepWithBackoff(50);
-    await assertCalled(
+    await assertCalledWithScopeInfo(
       fake,
-      [
-        roundStandard,
-        namedFunctionStandard,
-        lambdaStandard,
-        statementStandard,
-        squareStandard,
-        subjectStandard,
-      ],
-      [],
+      roundStandard,
+      namedFunctionStandard,
+      lambdaStandard,
+      statementStandard,
+      squareStandard,
+      subjectStandard,
     );
   } finally {
     disposable.dispose();

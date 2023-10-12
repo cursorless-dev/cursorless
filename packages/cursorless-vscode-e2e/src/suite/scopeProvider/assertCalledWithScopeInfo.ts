@@ -4,47 +4,13 @@ import { assert } from "chai";
 import { sleepWithBackoff } from "../../endToEndTestSetup";
 import { isEqual } from "lodash";
 
-async function sleepAndCheck<T>(
+export async function assertCalledWithScopeInfo<T extends ScopeTypeInfo>(
   fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
-  check: () => void,
+  ...expectedScopeInfos: T[]
 ) {
   await sleepWithBackoff(25);
   sinon.assert.called(fake);
 
-  check();
-
-  fake.resetHistory();
-}
-
-export function assertCalled<T extends ScopeTypeInfo>(
-  fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
-  expectedScopeInfos: T[],
-  expectedNotToHaveScopeTypes: ScopeType[],
-) {
-  return sleepAndCheck(fake, () => {
-    assertCalledWith(expectedScopeInfos, fake);
-    assertCalledWithout(expectedNotToHaveScopeTypes, fake);
-  });
-}
-
-export function assertCalledWithScopeInfo<T extends ScopeTypeInfo>(
-  fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
-  ...expectedScopeInfos: T[]
-) {
-  return sleepAndCheck(fake, () => assertCalledWith(expectedScopeInfos, fake));
-}
-
-export async function assertCalledWithoutScopeType<T extends ScopeTypeInfo>(
-  fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
-  ...scopeTypes: ScopeType[]
-) {
-  return sleepAndCheck(fake, () => assertCalledWithout(scopeTypes, fake));
-}
-
-function assertCalledWith<T extends ScopeTypeInfo>(
-  expectedScopeInfos: T[],
-  fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
-) {
   for (const expectedScopeInfo of expectedScopeInfos) {
     const actualScopeInfo = fake.lastCall.args[0].find((scopeInfo) =>
       isEqual(scopeInfo.scopeType, expectedScopeInfo.scopeType),
@@ -52,12 +18,17 @@ function assertCalledWith<T extends ScopeTypeInfo>(
     assert.isDefined(actualScopeInfo);
     assert.deepEqual(actualScopeInfo, expectedScopeInfo);
   }
+
+  fake.resetHistory();
 }
 
-function assertCalledWithout<T extends ScopeTypeInfo>(
-  scopeTypes: ScopeType[],
+export async function assertCalledWithoutScopeInfo<T extends ScopeTypeInfo>(
   fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
+  ...scopeTypes: ScopeType[]
 ) {
+  await sleepWithBackoff(25);
+  sinon.assert.called(fake);
+
   for (const scopeType of scopeTypes) {
     assert.isUndefined(
       fake.lastCall.args[0].find((scopeInfo) =>
@@ -65,4 +36,6 @@ function assertCalledWithout<T extends ScopeTypeInfo>(
       ),
     );
   }
+
+  fake.resetHistory();
 }
