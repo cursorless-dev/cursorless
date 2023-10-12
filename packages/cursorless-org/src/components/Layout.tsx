@@ -60,7 +60,9 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
       </Head>
       <MDXProvider components={components}>
         <main className="text-salmon-900 dark:text-salmon-100 font-mono p-4 sm:p-5 lg:p-8">
+          {/* TODO: Logo */}
           <div className="max-w-prose mx-auto">{children}</div>
+          {/* TODO: Footer? */}
         </main>
       </MDXProvider>
     </>
