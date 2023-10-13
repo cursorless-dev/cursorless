@@ -5,7 +5,7 @@ import BaseSocial from "./BaseSocial";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
-    <h1 className="text-center text-[2.5em] leading-tight mb-3">{children}</h1>
+    <h1 className="text-[2.2em] leading-tight mb-3">{children}</h1>
   ),
   h2: ({ children }) => <h2 className="text-[1.5em] my-5">{children}</h2>,
   h3: ({ children }) => <h3 className="text-[1.3em] mt-4">{children}</h3>,
