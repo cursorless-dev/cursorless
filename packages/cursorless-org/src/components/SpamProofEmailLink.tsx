@@ -1,4 +1,4 @@
-import { EmailAddress } from "../pages/parseEmailAddress";
+import { EmailAddress } from "../parseEmailAddress";
 
 interface Props {
   address: EmailAddress;
