@@ -4,6 +4,8 @@ export const meta = {
     "🚀 Help enable the adoption of Cursorless by accelerating its development.",
 };
 
+import { SpamProofEmailLink } from "../components/SpamProofEmailLink";
+
 # {meta.title}
 
 ## {meta.description}
@@ -28,9 +30,7 @@ The Enablement Group consists of stakeholders whose talents, lived experiences, 
 
 **To join, send an email to Cursorless founder Pokey Rule**
 
-{/* TODO: Fill in email address */}
-
-<a href="mailto:user@example.com">user@example.com</a>
+<SpamProofEmailLink address={props.enablementGroupEmail} />
 
 <CalloutParent>
 
@@ -114,6 +114,4 @@ Your participation will help Cursorless maintain its growth trajectory and uphol
 
 **To join, send an email to Cursorless founder Pokey Rule**
 
-{/* TODO: Fill in email address */}
-
-<a href="mailto:user@example.com">user@example.com</a>
+<SpamProofEmailLink address={props.enablementGroupEmail} />
