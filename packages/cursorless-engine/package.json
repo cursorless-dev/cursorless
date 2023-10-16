@@ -17,7 +17,6 @@
     "immutability-helper": "^3.1.1",
     "itertools": "^2.1.1",
     "lodash": "^4.17.21",
-    "node-html-parser": "^5.3.3",
     "sbd": "^1.0.19",
     "zod": "3.21.4"
   },

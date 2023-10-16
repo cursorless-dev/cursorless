@@ -37,17 +37,10 @@ export async function showCheatsheet({
 
   const cheatsheetPath = path.join(ide().assetsRoot, "cheatsheet.html");
 
-  const cheatsheetContent = (await readFile(cheatsheetPath)).toString();
-
-  const root = parse(cheatsheetContent);
-
-  root.getElementById(
-    "cheatsheet-data",
-  ).textContent = `document.cheatsheetInfo = ${JSON.stringify(
-    spokenFormInfo,
-  )};`;
-
-  await writeFile(outputPath, root.toString());
+  cheatsheetContent = (await readFile(cheatsheetPath)).toString();
+  cheatsheetContent.replace(/(<script id="cheatsheet-data">).*?(</script>)/,
+                            "$1" + ${JSON.stringify(spokenFormInfo)} + "$2");
+  await writeFile(outputPath, cheatsheetContent);
 }
 
 /**
