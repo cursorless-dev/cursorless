@@ -1,5 +1,4 @@
 import { readFile, writeFile } from "fs/promises";
-import parse from "node-html-parser";
 import path = require("path");
 import produce from "immer";
 import { sortBy } from "lodash";
@@ -38,8 +37,8 @@ export async function showCheatsheet({
   const cheatsheetPath = path.join(ide().assetsRoot, "cheatsheet.html");
 
   cheatsheetContent = (await readFile(cheatsheetPath)).toString();
-  cheatsheetContent.replace(/(<script id="cheatsheet-data">).*?(</script>)/,
-                            "$1" + ${JSON.stringify(spokenFormInfo)} + "$2");
+  cheatsheetContent.replace(/(<script id="cheatsheet-data">).*?(<\/script>)/,
+                            "$1" + JSON.stringify(spokenFormInfo) + "$2");
   await writeFile(outputPath, cheatsheetContent);
 }
 
