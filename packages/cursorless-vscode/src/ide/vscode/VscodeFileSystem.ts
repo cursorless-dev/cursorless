@@ -1,4 +1,5 @@
 import { Disposable, FileSystem, PathChangeListener } from "@cursorless/common";
+import * as vscode from "vscode";
 import { RelativePattern, Uri, workspace } from "vscode";
 
 export class VscodeFileSystem implements FileSystem {
@@ -7,9 +8,12 @@ export class VscodeFileSystem implements FileSystem {
     const watcher = workspace.createFileSystemWatcher(
       new RelativePattern(Uri.file(path), "**"),
     );
-    watcher.onDidChange(onDidChange);
-    watcher.onDidCreate(onDidChange);
-    watcher.onDidDelete(onDidChange);
-    return watcher;
+
+    return vscode.Disposable.from(
+      watcher,
+      watcher.onDidChange(onDidChange),
+      watcher.onDidCreate(onDidChange),
+      watcher.onDidDelete(onDidChange),
+    );
   }
 }
