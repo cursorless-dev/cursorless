@@ -1,12 +1,12 @@
 import { Disposable, FileSystem, PathChangeListener } from "@cursorless/common";
 import * as vscode from "vscode";
-import { RelativePattern, Uri, workspace } from "vscode";
+import { RelativePattern, workspace } from "vscode";
 
 export class VscodeFileSystem implements FileSystem {
   watchDir(path: string, onDidChange: PathChangeListener): Disposable {
     // FIXME: Support globs?
     const watcher = workspace.createFileSystemWatcher(
-      new RelativePattern(Uri.file(path), "**"),
+      new RelativePattern(path, "**"),
     );
 
     return vscode.Disposable.from(
