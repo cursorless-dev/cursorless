@@ -414,10 +414,9 @@ function watchDir(
     new vscode.RelativePattern(path, `**/*${CURSORLESS_HAT_SHAPES_SUFFIX}`),
   );
 
-  return vscode.Disposable.from(
-    hatsDirWatcher,
-    hatsDirWatcher.onDidChange(onDidChange),
-    hatsDirWatcher.onDidCreate(onDidChange),
-    hatsDirWatcher.onDidDelete(onDidChange),
-  );
+  hatsDirWatcher.onDidChange(onDidChange);
+  hatsDirWatcher.onDidCreate(onDidChange);
+  hatsDirWatcher.onDidDelete(onDidChange);
+
+  return hatsDirWatcher;
 }
