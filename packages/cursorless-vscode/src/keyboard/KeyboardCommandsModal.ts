@@ -4,6 +4,7 @@ import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 import { executeCursorlessCommand } from "./KeyboardCommandsTargeted";
 import Keymap from "./Keymap";
+import { Direction } from "@cursorless/common";
 
 
 
@@ -20,10 +21,7 @@ export default class KeyboardCommandsModal {
    */
   private inputDisposable: vscode.Disposable | undefined;
 
-  /**
-   * Merged map from all the different sections of the key map (eg actions,
-   * colors, etc).
-   */
+
   
   cursorOffset: vscode.Position;
   private keymap: Keymap;
@@ -121,14 +119,43 @@ export default class KeyboardCommandsModal {
     // let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
 
     const map = this.keymap.getMergeKeys()
-    let hasHandler = map.includes(sequence);
+
+    // Todo: fix Hacky
+
+    let direction: Direction | undefined=undefined;
+
+    if (sequence === "u") {
+      direction = "forward";
+    }
+
+    if (sequence === "e") {
+      direction = "backward";  
+    }
+
+    if (direction != null) {
+      const curCursorOffset = vscode.window.activeTextEditor?.selection.active;
+      if (curCursorOffset != null && this.cursorOffset != null) {
+        if (!curCursorOffset.isEqual(this.cursorOffset) ) {
+          await this.setTargetToCursor();
+          }
+      }
+      this.targeted.expandTarget(direction);
+
+      if (curCursorOffset != null) {
+        this.cursorOffset = curCursorOffset;
+      }
+      return;
+  
+    }
 
 
 
 
+ 
+    let isValidSequence = map.includes(sequence);
     // We handle multi-key sequences by repeatedly awaiting a single keypress
     // until they've pressed something in the map.
-    while (!hasHandler) {      
+    while (!isValidSequence) {      
 
       if (!this.keymap.isPrefixOfMapEntry(sequence)) {
         const errorMessage = `Unknown key sequence "${sequence}"`;
@@ -147,22 +174,24 @@ export default class KeyboardCommandsModal {
       }
 
       sequence += nextKey;
-      hasHandler = this.keymap.getMergeKeys().includes(sequence);
+      isValidSequence = this.keymap.getMergeKeys().includes(sequence);
     }
+
+
+    await this.handleSequence(sequence);
+
+  }
+
+
+  private async  handleSequence(sequence: string) {
+
     const curCursorOffset = vscode.window.activeTextEditor?.selection.active;
     if (curCursorOffset != null && this.cursorOffset != null) {
       if (!curCursorOffset.isEqual(this.cursorOffset) ) {
         await this.setTargetToCursor();
         }
     }
-    this.handleSequence(sequence);
-    if (curCursorOffset != null) {
-      this.cursorOffset = curCursorOffset;
-    }
-  }
 
-
-  private handleSequence(sequence: string) {
     const sectionName = this.keymap.getKeyValue(sequence);
     if (sectionName == null) {
       return;
@@ -191,6 +220,11 @@ export default class KeyboardCommandsModal {
         this.targeted.targetModifierType("interiorOnly");
         break;
     }
+
+    if (curCursorOffset != null) {
+      this.cursorOffset = curCursorOffset;
+    }
+
   }
 
 }
