@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take harp and string each
+  spokenForm: take harp and parse tree string each
   action: setSelection
   targets:
     - type: list
@@ -11,7 +11,6 @@ command:
         - type: primitive
           modifier: {type: containingScope, scopeType: string}
           mark: {type: decoratedSymbol, symbolColor: default, character: e}
-spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
 

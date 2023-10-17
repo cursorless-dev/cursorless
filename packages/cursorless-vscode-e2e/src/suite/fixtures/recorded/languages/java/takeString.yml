@@ -1,12 +1,11 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take string
+  spokenForm: take parse tree string
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string}
-spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
 

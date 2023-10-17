@@ -9,7 +9,6 @@ command:
         - type: containingScope
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |-
     switch(aaa) {
