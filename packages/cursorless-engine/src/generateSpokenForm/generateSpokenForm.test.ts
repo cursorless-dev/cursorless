@@ -17,12 +17,12 @@ import { SpokenFormMap, SpokenFormMapEntry } from "../spokenForms/SpokenFormMap"
 const spokenFormMap = mapValues(defaultSpokenFormInfo, (entry) =>
   mapValues(
     entry,
-    ({ defaultSpokenForms }): SpokenFormMapEntry => ({
-      spokenForms: defaultSpokenForms,
+    ({ defaultSpokenForms, isPrivate }): SpokenFormMapEntry => ({
+      spokenForms: isPrivate ? [] : defaultSpokenForms,
       isCustom: false,
       defaultSpokenForms,
       requiresTalonUpdate: false,
-      isSecret: false,
+      isPrivate,
     }),
   ),
 ) as SpokenFormMap;

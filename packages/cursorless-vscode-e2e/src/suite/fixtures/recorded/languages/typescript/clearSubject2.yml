@@ -9,6 +9,9 @@ command:
         - type: containingScope
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
+spokenFormError: >-
+  simple scope type type with id switchStatementSubject; this is a private spoken
+  form currently only for internal experimentation
 initialState:
   documentContents: |-
     switch(aaa + 1) {

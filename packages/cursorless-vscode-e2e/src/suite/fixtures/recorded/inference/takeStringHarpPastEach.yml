@@ -14,6 +14,9 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
       excludeStart: false
       excludeEnd: false
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
 initialState:
   documentContents: |
 
