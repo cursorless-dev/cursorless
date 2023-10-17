@@ -12,47 +12,40 @@ export const DEFAULT_VERTICAL_OFFSET_EM = 0.032;
 
 export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   default: {
-    sizeAdjustment: -15,
-    verticalOffset: 0,
+    sizeAdjustment: -30,
   },
   ex: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
+    sizeAdjustment: -20,
+    verticalOffset: 0.5,
   },
   fox: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
+    sizeAdjustment: -15,
   },
   wing: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
+    sizeAdjustment: -2.5,
   },
   hole: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
+    sizeAdjustment: -5.5,
   },
   frame: {
-    sizeAdjustment: -5,
-    verticalOffset: 0,
+    sizeAdjustment: -20,
+    verticalOffset: -1.25,
   },
   curve: {
-    sizeAdjustment: 0,
-    verticalOffset: -5,
+    sizeAdjustment: -6,
+    verticalOffset: -3.15,
   },
   eye: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
+    sizeAdjustment: -4.5,
+    verticalOffset: -0.5,
   },
-  play: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
-  },
+  play: {},
   bolt: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
+    sizeAdjustment: -5.5,
+    verticalOffset: -0.5,
   },
   crosshairs: {
-    sizeAdjustment: 0,
-    verticalOffset: 0,
+    sizeAdjustment: 9.5,
+    verticalOffset: -0.25,
   },
 };
