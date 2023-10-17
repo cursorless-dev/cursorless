@@ -8,6 +8,7 @@ import { cloneDeep, isEqual } from "lodash";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as vscode from "vscode";
+import { vscodeGetConfigurationString } from "../VscodeConfiguration";
 import VscodeEnabledHatStyleManager, {
   ExtendedHatStyleMap,
 } from "../VscodeEnabledHatStyleManager";
@@ -40,16 +41,7 @@ const hatConfigSections = [
   "cursorless.individualHatAdjustments",
 ];
 
-/**
- * Maintains the VSCode decoration type objects corresponding to each hat style.
- * This class is responsible for the actual svgs / colors used to render the
- * hats.  The decision about which hat styles should be available is up to
- * {@link VscodeEnabledHatStyles}
- */
-
-const SETTING_SECTION_HAT_SHAPES_DIR = "cursorless.private";
-const SETTING_NAME_HAT_SHAPES_DIR = "hatShapesDir";
-const hatShapesDirSettingId = `${SETTING_SECTION_HAT_SHAPES_DIR}.${SETTING_NAME_HAT_SHAPES_DIR}`;
+const hatShapesDirSettingId = "cursorless.private.hatShapesDir";
 
 interface SvgInfo {
   svg: string;
@@ -57,6 +49,12 @@ interface SvgInfo {
   svgWidthPx: number;
 }
 
+/**
+ * Maintains the VSCode decoration type objects corresponding to each hat style.
+ * This class is responsible for the actual svgs / colors used to render the
+ * hats.  The decision about which hat styles should be available is up to
+ * {@link VscodeEnabledHatStyles}
+ */
 export default class VscodeHatRenderer {
   private decorationMap!: HatDecorationMap;
   private disposables: vscode.Disposable[] = [];
@@ -124,10 +122,7 @@ export default class VscodeHatRenderer {
 
   private async updateHatsDirWatcher() {
     this.hatsDirWatcherDisposable?.dispose();
-
-    const hatsDir = vscode.workspace
-      .getConfiguration(SETTING_SECTION_HAT_SHAPES_DIR)
-      .get<string>(SETTING_NAME_HAT_SHAPES_DIR)!;
+    const hatsDir = vscodeGetConfigurationString(hatShapesDirSettingId);
 
     if (hatsDir) {
       await this.updateShapeOverrides(hatsDir);

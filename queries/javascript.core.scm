@@ -354,11 +354,14 @@
 
 ;; Match nodes at field `value` of their parent node, setting leading delimiter
 ;; to be the range until the previous named node
-(_
-  (_)? @value.leading.start.endOf
-  .
-  value: (_) @value @value.leading.end.startOf
-) @_.domain
+(
+  (_
+    (_)? @value.leading.start.endOf
+    .
+    value: (_) @value @value.leading.end.startOf
+  ) @_.domain
+  (#not-type? @_.domain variable_declarator)
+)
 
 ;;!! const aaa = {bbb};
 ;;!               ^^^
