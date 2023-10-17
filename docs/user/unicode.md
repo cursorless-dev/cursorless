@@ -7,11 +7,11 @@ Cursorless has first-class support for Unicode. By default, when constructing ha
 - Africa
 - África
 
-For Unicode symbols that are not letters, and that are not speakable in knausj, for example emoji, Chinese characters, etc, we have a special "character" called `"special"` that can be used. So for example, if there were a blue hat over a '😄' character, you could say `"take blue special"` to select it. As always, the spoken form `"special"` can be [customized](customization.md).
+For Unicode symbols that are not letters, and that are not speakable by default, for example emoji, Chinese characters, etc, we have a special "character" called `"special"` that can be used. So for example, if there were a blue hat over a '😄' character, you could say `"take blue special"` to select it. As always, the spoken form `"special"` can be [customized](customization.md).
 
 ## Advanced customization
 
-The above setup will allow you to refer to any Unicode token. However, if you have overridden your `<user.any_alphanumeric_key>` capture to contain characters other than lowercase letters and the default knausj symbols, you can tell Cursorless to be less aggressive with its normalization, so that it can allocate hats more efficiently.
+The above setup will allow you to refer to any Unicode token, and is sufficient for most users. However, if you have overridden your `<user.any_alphanumeric_key>` capture to contain characters other than lowercase letters and the default symbols, you can tell Cursorless to be less aggressive with its normalization, so that it can allocate hats more efficiently. Note that this is not necessary in order to refer to these tokens; it just makes hat allocation slightly more efficient.
 
 ### Preserving case
 

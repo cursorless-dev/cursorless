@@ -79,6 +79,10 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
     variableName: "body",
   },
 };
+const parseTreeAction: ActionDescriptor = {
+  name: "private.showParseTree",
+  target: decoratedPrimitiveTarget("a"),
+};
 
 /**
  * These test our Talon api using dummy spoken forms defined in
@@ -99,6 +103,7 @@ export const talonApiFixture = [
     "test api wrap with snippet by name this",
     wrapWithSnippetByNameAction,
   ),
+  spokenFormTest("parse tree air", parseTreeAction),
 ];
 
 function decoratedPrimitiveTarget(

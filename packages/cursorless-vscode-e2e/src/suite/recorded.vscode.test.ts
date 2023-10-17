@@ -68,7 +68,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
-  // TODO The snapshot gets messed up with timing issues when running the recorded tests
+  // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
 
@@ -180,7 +180,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     excludeFields.push("instanceReferenceMark");
   }
 
-  // TODO Visible ranges are not asserted, see:
+  // FIXME Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     excludeFields,

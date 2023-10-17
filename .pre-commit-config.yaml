@@ -32,6 +32,7 @@ repos:
         exclude_types: [svg]
         exclude: patches/.*\.patch
       - id: fix-byte-order-marker
+      - id: forbid-submodules
       - id: mixed-line-ending
       - id: trailing-whitespace
         # Trailing whitespace breaks yaml files if you use a multiline string

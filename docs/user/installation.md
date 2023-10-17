@@ -1,8 +1,8 @@
 # Installation
 
 1. Install [Talon](https://talonvoice.com/)
-2. Install [knausj_talon](https://github.com/knausj85/knausj_talon).
-   _(Or see [here](https://github.com/cursorless-dev/cursorless/wiki/Talon-home-requirements) if you prefer not to use knausj.)_
+2. Install the [community Talon commands](https://github.com/talonhub/community).
+   _(Or see [here](https://github.com/cursorless-dev/cursorless/wiki/Talon-home-requirements) if you prefer not to use community.)_
 3. Install [VSCode](https://code.visualstudio.com/)
 4. Install the [VSCode talon extension pack](https://marketplace.visualstudio.com/items?itemName=pokey.talon)
 5. Install the [Cursorless VSCode extension](https://marketplace.visualstudio.com/items?itemName=pokey.cursorless)
@@ -25,9 +25,9 @@ Alternatively, access the directory by right clicking the Talon icon in taskbar,
 The folder structure should look something like the below:
 
 ```insert code:
-~/.talon/user/knausj_talon
-~/.talon/user/knausj_talon/apps
-~/.talon/user/knausj_talon/code
+~/.talon/user/community
+~/.talon/user/community/apps
+~/.talon/user/community/code
 ...
 ~/.talon/user/cursorless-talon
 ~/.talon/user/cursorless-talon/src
@@ -50,9 +50,9 @@ Alternatively, access the directory by right clicking the Talon icon in taskbar,
 The folder structure should look something like the below:
 
 ```insert code:
-%AppData%\Talon\user\knausj_talon
-%AppData%\Talon\user\knausj_talon\apps
-%AppData%\Talon\user\knausj_talon\code
+%AppData%\Talon\user\community
+%AppData%\Talon\user\community\apps
+%AppData%\Talon\user\community\code
 ...
 %AppData%\Talon\user\cursorless-talon
 %AppData%\Talon\user\cursorless-talon\src
