@@ -1,5 +1,6 @@
 import { mapValues } from "lodash";
 import {
+  PartialSpokenFormTypes,
   SpokenFormMap,
   SpokenFormMapEntry,
   SpokenFormMapKeyTypes,
@@ -154,9 +155,11 @@ export interface DefaultSpokenFormMapEntry {
 }
 
 export type DefaultSpokenFormMap = {
-  readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
-    Record<SpokenFormMapKeyTypes[K], DefaultSpokenFormMapEntry>
-  >;
+  readonly [K in keyof SpokenFormMapKeyTypes]: K extends PartialSpokenFormTypes
+    ? Readonly<
+        Partial<Record<SpokenFormMapKeyTypes[K], DefaultSpokenFormMapEntry>>
+      >
+    : Record<SpokenFormMapKeyTypes[K], DefaultSpokenFormMapEntry>;
 };
 
 // FIXME: Don't cast here; need to make our own mapValues with stronger typing

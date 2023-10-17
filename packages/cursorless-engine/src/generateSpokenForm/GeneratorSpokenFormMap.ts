@@ -1,4 +1,5 @@
 import {
+  PartialSpokenFormMapKeys,
   SpokenFormMap,
   SpokenFormMapEntry,
   SpokenFormMapKeyTypes,
@@ -6,10 +7,9 @@ import {
 } from "../SpokenFormMap";
 
 export type GeneratorSpokenFormMap = {
-  readonly [K in keyof SpokenFormMapKeyTypes]: Record<
-    SpokenFormMapKeyTypes[K],
-    SingleTermSpokenForm
-  >;
+  readonly [K in keyof SpokenFormMapKeyTypes]: K extends PartialSpokenFormMapKeys
+    ? Partial<Record<SpokenFormMapKeyTypes[K], SingleTermSpokenForm>>
+    : Record<SpokenFormMapKeyTypes[K], SingleTermSpokenForm>;
 };
 
 export interface SingleTermSpokenForm {

@@ -229,8 +229,14 @@ export class PrimitiveTargetSpokenFormGenerator {
       case "customRegex":
         return (
           this.spokenFormMap.customRegex[scopeType.regex] ?? {
-            type: "singleTerm",
-            spokenForms: [],
+            type: "customizable",
+            spokenForms: {
+              spokenForms: [],
+              isCustom: true,
+              defaultSpokenForms: [],
+              requiresTalonUpdate: false,
+              isPrivate: false,
+            },
             spokenFormType: "customRegex",
             id: scopeType.regex,
           }

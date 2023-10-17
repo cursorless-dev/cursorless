@@ -58,6 +58,13 @@ export interface SpokenFormMapKeyTypes {
 
 export type SpokenFormType = keyof SpokenFormMapKeyTypes;
 
+/**
+ * These are the types of spoken forms that are not total mappings, eg if you
+ * look up a string in `spokenFormMap.customRegex`, you might get `undefined`,
+ * even though technically the identifier type is `string`.
+ */
+export type PartialSpokenFormTypes = "customRegex";
+
 export interface SpokenFormMapEntry {
   /**
    * The spoken forms for this entry. These could either be a user's custom
@@ -102,7 +109,7 @@ export interface SpokenFormMapEntry {
  * the value is a map of identifiers to {@link SpokenFormMapEntry}s.
  */
 export type SpokenFormMap = {
-  readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
-    Record<SpokenFormMapKeyTypes[K], SpokenFormMapEntry>
-  >;
+  readonly [K in keyof SpokenFormMapKeyTypes]: K extends PartialSpokenFormTypes
+    ? Readonly<Partial<Record<SpokenFormMapKeyTypes[K], SpokenFormMapEntry>>>
+    : Readonly<Record<SpokenFormMapKeyTypes[K], SpokenFormMapEntry>>;
 };
