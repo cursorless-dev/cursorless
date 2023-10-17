@@ -12,6 +12,13 @@ type DefaultSpokenFormMapDefinition = {
   >;
 };
 
+/**
+ * This map contains the default spoken forms for all our speakable entities,
+ * including scope types, paired delimiters, etc. We would like this map to
+ * become the sole source of truth for our default spoken forms, including the
+ * Talon side. Today it is only used on the extension side for testing, and as a
+ * fallback when we can't get the custom spoken forms from Talon.
+ */
 const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   pairedDelimiter: {
     curlyBrackets: "curly",
@@ -130,7 +137,15 @@ const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   customRegex: {},
 };
 
-function disabledByDefault(
+/**
+ * Used to construct entities that should not be speakable by default.
+ *
+ * @param spokenForms The default spoken forms for this entity
+ * @returns A DefaultSpokenFormMapEntry with the given spoken forms, and
+ * {@link DefaultSpokenFormMapEntry.isDisabledByDefault|isDisabledByDefault} set
+ * to true
+ */
+function isDisabledByDefault(
   ...spokenForms: string[]
 ): DefaultSpokenFormMapEntry {
   return {
@@ -140,7 +155,15 @@ function disabledByDefault(
   };
 }
 
-function secret(...spokenForms: string[]): DefaultSpokenFormMapEntry {
+/**
+ * Used to construct entities that are only for internal experimentation.
+ *
+ * @param spokenForms The default spoken forms for this entity
+ * @returns A DefaultSpokenFormMapEntry with the given spoken forms, and
+ * {@link DefaultSpokenFormMapEntry.isDisabledByDefault|isDisabledByDefault} and
+ * {@link DefaultSpokenFormMapEntry.isPrivate|isPrivate} set to true
+ */
+function isPrivate(...spokenForms: string[]): DefaultSpokenFormMapEntry {
   return {
     defaultSpokenForms: spokenForms,
     isDisabledByDefault: true,
@@ -150,8 +173,19 @@ function secret(...spokenForms: string[]): DefaultSpokenFormMapEntry {
 
 export interface DefaultSpokenFormMapEntry {
   defaultSpokenForms: string[];
+
+  /**
+   * If `true`, indicates that the entry may have a default spoken form, but
+   * it should not be enabled by default. These will show up in user csv's with
+   * a `-` at the beginning.
+   */
   isDisabledByDefault: boolean;
-  isSecret: boolean;
+
+  /**
+   * If `true`, indicates that the entry is only for internal experimentation,
+   * and should not be exposed to users except within a targeted working group.
+   */
+  isPrivate: boolean;
 }
 
 export type DefaultSpokenFormMap = {
