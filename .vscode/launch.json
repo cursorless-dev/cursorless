@@ -157,6 +157,23 @@
       ]
     },
     {
+      "name": "Update fixtures, unit tests only",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
+      "env": {
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "${defaultBuildTask}",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
       "name": "Docusaurus start",
       "type": "node",
       "request": "launch",
