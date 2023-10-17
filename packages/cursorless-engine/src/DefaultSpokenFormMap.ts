@@ -18,6 +18,12 @@ type DefaultSpokenFormMapDefinition = {
  * become the sole source of truth for our default spoken forms, including the
  * Talon side. Today it is only used on the extension side for testing, and as a
  * fallback when we can't get the custom spoken forms from Talon.
+ *
+ * In this map, for regular entities, ie ones that are speakable by default, not
+ * private, and have only one spoken form, we allow a shorthand of just providing
+ * the spoken form as a string. For more complex cases, we can use the
+ * {@link isPrivate} or {@link isDisabledByDefault} helper functions to construct
+ * {@link DefaultSpokenFormMapEntry} objects, or just construct them manually.
  */
 const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   pairedDelimiter: {
@@ -196,8 +202,12 @@ export type DefaultSpokenFormMap = {
     : Record<SpokenFormMapKeyTypes[K], DefaultSpokenFormMapEntry>;
 };
 
-// FIXME: Don't cast here; need to make our own mapValues with stronger typing
-// using tricks from our object.d.ts
+/**
+ * This map contains information about the default spoken forms for all our
+ * speakable entities, including scope types, paired delimiters, etc. Note that
+ * this map can't be used as a spoken form map. If you want something that can
+ * be used as a spoken form map, see {@link defaultSpokenFormMap}.
+ */
 export const defaultSpokenFormInfo = mapValues(
   defaultSpokenFormMapCore,
   (entry) =>
@@ -210,23 +220,31 @@ export const defaultSpokenFormInfo = mapValues(
           }
         : subEntry,
     ),
+  // FIXME: Don't cast here; need to make our own mapValues with stronger typing
+  // using tricks from our object.d.ts
 ) as DefaultSpokenFormMap;
 
-// FIXME: Don't cast here; need to make our own mapValues with stronger typing
-// using tricks from our object.d.ts
-export const defaultSpokenFormMap = mapValues(defaultSpokenFormInfo, (entry) =>
-  mapValues(
-    entry,
-    ({
-      defaultSpokenForms,
-      isDisabledByDefault,
-      isSecret,
-    }): SpokenFormMapEntry => ({
-      spokenForms: isDisabledByDefault ? [] : defaultSpokenForms,
-      isCustom: false,
-      defaultSpokenForms,
-      requiresTalonUpdate: false,
-      isSecret,
-    }),
-  ),
+/**
+ * A spoken form map constructed from the default spoken forms. It is designed to
+ * be used as a fallback when the Talon spoken form map is not available.
+ */
+export const defaultSpokenFormMap = mapValues(
+  defaultSpokenFormInfo,
+  (entry) =>
+    mapValues(
+      entry,
+      ({
+        defaultSpokenForms,
+        isDisabledByDefault,
+        isPrivate,
+      }): SpokenFormMapEntry => ({
+        spokenForms: isDisabledByDefault ? [] : defaultSpokenForms,
+        isCustom: false,
+        defaultSpokenForms,
+        requiresTalonUpdate: false,
+        isPrivate,
+      }),
+    ),
+  // FIXME: Don't cast here; need to make our own mapValues with stronger typing
+  // using tricks from our object.d.ts
 ) as SpokenFormMap;
