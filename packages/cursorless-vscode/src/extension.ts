@@ -1,4 +1,5 @@
 import {
+  Disposable,
   FakeIDE,
   getFakeCommandServerApi,
   IDE,
@@ -35,7 +36,8 @@ import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
 import {
-  ScopeVisualizerCommandApi,
+  ScopeVisualizer,
+  ScopeVisualizerListener,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
@@ -91,13 +93,14 @@ export async function activate(
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
+  const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
 
   registerCommands(
     context,
     vscodeIDE,
     commandApi,
     testCaseRecorder,
-    createScopeVisualizerCommandApi(normalizedIde, scopeProvider),
+    scopeVisualizer,
     keyboardCommands,
     hats,
   );
@@ -155,11 +158,14 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
   };
 }
 
-function createScopeVisualizerCommandApi(
+function createScopeVisualizer(
   ide: IDE,
   scopeProvider: ScopeProvider,
-): ScopeVisualizerCommandApi {
+): ScopeVisualizer {
   let scopeVisualizer: VscodeScopeVisualizer | undefined;
+  let currentScopeType: ScopeType | undefined;
+
+  const listeners: ScopeVisualizerListener[] = [];
 
   return {
     start(scopeType: ScopeType, visualizationType: VisualizationType) {
@@ -171,11 +177,29 @@ function createScopeVisualizerCommandApi(
         visualizationType,
       );
       scopeVisualizer.start();
+      currentScopeType = scopeType;
+      listeners.forEach((listener) => listener(scopeType, visualizationType));
     },
 
     stop() {
       scopeVisualizer?.dispose();
       scopeVisualizer = undefined;
+      currentScopeType = undefined;
+      listeners.forEach((listener) => listener(undefined, undefined));
+    },
+
+    get scopeType() {
+      return currentScopeType;
+    },
+
+    onDidChangeScopeType(listener: ScopeVisualizerListener): Disposable {
+      listeners.push(listener);
+
+      return {
+        dispose() {
+          listeners.splice(listeners.indexOf(listener), 1);
+        },
+      };
     },
   };
 }

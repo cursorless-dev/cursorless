@@ -30,13 +30,12 @@ The directory location can be customized using the `user.cursorless_settings_dir
 Note that these csv's:
 
 - support empty lines,
-- supports multiple spoken forms for a single action
+- support multiple spoken forms for a single identifier using `|` as a separator, eg `ditch|chuck, remove`,
 - support comment lines beginning with `#`, and
-- ignore any leading / trailing whitespace on spoken forms and cursorless
-  identifiers
+- ignore leading / trailing whitespace on identifiers and spoken forms
 
 If the spoken form begins with a `-`, it will be disabled. Please do not remove
-these lines, because that will trigger cursorless to add them back on next
+any lines, because that will trigger cursorless to add them back on next
 reload, as cursorless uses these lines to track disabled spoken forms.
 
 ### Changing a spoken form
