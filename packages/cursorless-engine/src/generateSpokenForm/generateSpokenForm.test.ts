@@ -14,6 +14,10 @@ import { defaultSpokenFormInfo } from "../DefaultSpokenFormMap";
 import { mapValues } from "lodash";
 import { SpokenFormMap, SpokenFormMapEntry } from "../spokenForms/SpokenFormMap";
 
+/**
+ * A spoken form map to use for testing. Just uses default spoken forms, but
+ * enables spoken forms that are disabled by default.
+ */
 const spokenFormMap = mapValues(defaultSpokenFormInfo, (entry) =>
   mapValues(
     entry,
@@ -38,8 +42,8 @@ suite("Generate spoken forms", () => {
       customRegex: {
         foo: {
           spokenForms: ["bar"],
-          isCustom: false,
-          defaultSpokenForms: ["bar"],
+          isCustom: true,
+          defaultSpokenForms: [],
           requiresTalonUpdate: false,
           isPrivate: false,
         },
