@@ -679,6 +679,8 @@ Each of these commands performs a vscode action of the same or a similar name on
 - `"reference <TARGET>"` search the workspace for all references to the target
 - `"hover <TARGET>"` displays the tooltip that would appear if you hovered the mouse over the target
 - `"quick fix <TARGET>"` displays quick fixes and refactors suggested by the vscode
+- `"scout <TARGET>"` search the document for the target
+- `"scout all <TARGET>"` search the workspace for the target
 
 eg:
 `define blue air`
