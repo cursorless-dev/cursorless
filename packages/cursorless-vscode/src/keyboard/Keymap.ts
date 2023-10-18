@@ -5,7 +5,8 @@ import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { merge, toPairs } from "lodash";
 
 
-type SectionName = "actions" | "scopes" | "colors" | "shapes" | "modifiers";
+
+type SectionName = "actions" | "scopes" | "colors" | "shapes" | "modifiers" | "keyboardActions";
 export type SectionKeymap<T> = Record<string, T>;
 
 export const DEFAULT_ACTION_KEYMAP: SectionKeymap<ActionType> = isTesting()
@@ -32,6 +33,8 @@ export default class Keymap {
     private colorKeymap: SectionKeymap<HatColor> = {};
     private shapeKeymap: SectionKeymap<HatShape> = {};
     private modifierKeymap: SectionKeymap<ModifierType> = {};
+    private keyboardActions: SectionKeymap<string> = {};
+
 
     private handlerMap: Record<string, SectionName> = {};
 
@@ -63,7 +66,7 @@ export default class Keymap {
         this.clearMap("modifiers");
     }
 
-    public getKeyValue(key: string): [SectionName, any] | undefined {
+    public getSectionAndCommand(key: string): [SectionName, any]  {
 
         if (this.actionKeymap[key] != null) {
             return ["actions", this.actionKeymap[key]];
@@ -80,7 +83,12 @@ export default class Keymap {
         if (this.modifierKeymap[key] != null) {
             return ["modifiers", this.modifierKeymap[key]];
         }
-        return undefined;
+        if (this.keyboardActions[key] != null) {
+            return ["actions", this.keyboardActions[key]];
+        }
+        // TODO How to log this?
+        return ["actions", undefined];
+        
 
     }
 
@@ -105,7 +113,7 @@ export default class Keymap {
     }
 
     public getMergeKeys():string[]{
-        return Object.keys(merge({}, this.actionKeymap, this.scopeKeymap, this.colorKeymap, this.shapeKeymap, this.modifierKeymap));
+        return Object.keys(merge( {},this.actionKeymap, this.scopeKeymap, this.colorKeymap, this.shapeKeymap, this.modifierKeymap,this.keyboardActions)) as string[];
     }
 
     public isPrefixOfMapEntry(text:string):boolean{
@@ -129,6 +137,9 @@ export default class Keymap {
             case "modifiers":
                 this.modifierKeymap[key]=value;
                 break;
+            case "keyboardActions":
+                this.keyboardActions[key]=value;
+                break;
         }
     }
 
@@ -148,6 +159,9 @@ export default class Keymap {
                 break;
             case "modifiers":
                 this.modifierKeymap={};
+                break;
+            case "keyboardActions":
+                this.keyboardActions={};
                 break;
         }
     }
@@ -169,6 +183,7 @@ export default class Keymap {
               "colors": this.colorKeymap,
               "shapes": this.shapeKeymap,
               "modifiers": this.modifierKeymap,
+                "keyboardActions": this.keyboardActions,
             };
           
             for (const [sectionName, keyMap] of Object.entries(allMap)) {
