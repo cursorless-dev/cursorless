@@ -29,7 +29,7 @@
   },
   "homepage": "https://www.cursorless.org/",
   "engines": {
-    "vscode": "^1.61.0"
+    "vscode": "^1.66.0"
   },
   "extensionKind": [
     "ui",
@@ -1069,7 +1069,7 @@
     "@types/sinon": "^10.0.2",
     "@types/tinycolor2": "1.4.3",
     "@types/uuid": "^8.3.4",
-    "@types/vscode": "~1.61.0",
+    "@types/vscode": "~1.66.0",
     "chai": "^4.3.6",
     "esbuild": "^0.17.11",
     "fast-xml-parser": "^4.2.5",
