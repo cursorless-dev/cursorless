@@ -19,18 +19,18 @@ import { getRangeConnective } from "./getRangeConnective";
 import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import { PrimitiveTargetSpokenFormGenerator } from "./primitiveTargetToSpokenForm";
 import {
-  GeneratorSpokenFormMap,
-  SpokenFormComponent,
-  getGeneratorSpokenForms,
-} from "./GeneratorSpokenFormMap";
+  SpokenFormComponentMap,
+  getSpokenFormComponentMap,
+} from "./getSpokenFormComponentMap";
+import { SpokenFormComponent } from "./SpokenFormComponent";
 import { SpokenForm } from "@cursorless/common";
 
 export class SpokenFormGenerator {
   private primitiveGenerator: PrimitiveTargetSpokenFormGenerator;
-  private spokenFormMap: GeneratorSpokenFormMap;
+  private spokenFormMap: SpokenFormComponentMap;
 
   constructor(spokenFormMap: SpokenFormMap) {
-    this.spokenFormMap = getGeneratorSpokenForms(spokenFormMap);
+    this.spokenFormMap = getSpokenFormComponentMap(spokenFormMap);
 
     this.primitiveGenerator = new PrimitiveTargetSpokenFormGenerator(
       this.spokenFormMap,
@@ -40,25 +40,41 @@ export class SpokenFormGenerator {
   /**
    * Given a command, generates its spoken form.
    * @param command The command to generate a spoken form for
-   * @returns The spoken form of the command, or null if the command has no spoken
-   * form
+   * @returns The spoken form of the command
    */
-  command(command: CommandComplete): SpokenForm {
+  processCommand(command: CommandComplete): SpokenForm {
     return this.componentsToSpokenForm(() => this.handleAction(command.action));
   }
 
   /**
-   * Given a command, generates its spoken form.
-   * @param command The command to generate a spoken form for
-   * @returns The spoken form of the command, or null if the command has no spoken
-   * form
+   * Given a scope type, generates its spoken form.
+   * @param scopeType The scope type to generate a spoken form for
+   * @returns The spoken form of the scope type
    */
-  scopeType(scopeType: ScopeType): SpokenForm {
+  processScopeType(scopeType: ScopeType): SpokenForm {
     return this.componentsToSpokenForm(() => [
       this.primitiveGenerator.handleScopeType(scopeType),
     ]);
   }
 
+  /**
+   * Given a function that returns a spoken form component, generates a spoken
+   * form for that component by flattening the component and performing a
+   * cartesian product over any elements that have multiple ways to be spoken.
+   * Note that this spoken form object can correspond to multiple actual spoken
+   * forms, consisting of a preferred spoken form and a list of alternative
+   * spoken forms.
+   *
+   * Note that today, we arbitrarily choose the first spoken form as the
+   * preferred spoken form, and the rest as alternative spoken forms.
+   *
+   * If the function throws a {@link NoSpokenFormError}, returns an error spoken
+   * form object instead.
+   *
+   * @param getComponents A function that returns the components to generate a
+   * spoken form for
+   * @returns A spoken form for the given components
+   */
   private componentsToSpokenForm(
     getComponents: () => SpokenFormComponent,
   ): SpokenForm {
@@ -257,9 +273,11 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
     const componentInfo = `${camelCaseToAllDown(
       component.spokenFormType,
     )} with id ${component.id}`;
-    const helpInfo = component.spokenForms.isSecret
-      ? "this is a secret spoken form currently only for internal experimentation"
+
+    const helpInfo = component.spokenForms.isPrivate
+      ? "this is a private spoken form currently only for internal experimentation"
       : "please see https://www.cursorless.org/docs/user/customization/ for more information";
+
     throw new NoSpokenFormError(
       `${componentInfo}; ${helpInfo}`,
       component.spokenForms.requiresTalonUpdate,
