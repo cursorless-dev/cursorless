@@ -16,7 +16,6 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   },
   ex: {
     sizeAdjustment: -15,
-    verticalOffset: 0.5,
   },
   fox: {
     sizeAdjustment: -10,
@@ -29,7 +28,6 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   },
   frame: {
     sizeAdjustment: -20,
-    verticalOffset: -1,
   },
   curve: {
     sizeAdjustment: -6,
@@ -37,12 +35,10 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   },
   eye: {
     sizeAdjustment: -4.5,
-    verticalOffset: -0.5,
   },
   play: {},
   bolt: {
     sizeAdjustment: -5.5,
-    verticalOffset: -0.5,
   },
   crosshairs: {},
 };
