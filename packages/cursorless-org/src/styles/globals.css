@@ -74,3 +74,46 @@
     /* Modern Browsers */ url("/fonts/Inconsolata_SemiExpanded-ExtraBold.ttf")
       format("truetype");
 }
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-Regular.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-Medium.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-SemiBold.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-Bold.ttf") format("truetype");
+}

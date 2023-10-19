@@ -58,7 +58,8 @@ module.exports = {
         stretched: { raw: "(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)" },
       },
       fontFamily: {
-        mono: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
+        mono: ["Inconsolata", ...defaultTheme.fontFamily.mono],
+        monoWide: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
       },
       width: {
         smBase: smallWidth,

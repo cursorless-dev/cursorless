@@ -21,7 +21,7 @@ export default function LandingPage() {
         <title>{TITLE}</title>
         <IndexSocial />
       </Head>
-      <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 font-mono font-bold tracking-[0.18em] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex ">
+      <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 font-monoWide font-bold tracking-[0.18em] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex ">
         {/*
         Note that the font scale gets applied to this element so that all nested elements can use
         `em` units and will automatically be scaled.

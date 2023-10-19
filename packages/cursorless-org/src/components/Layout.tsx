@@ -2,12 +2,19 @@ import { MDXProvider } from "@mdx-js/react";
 import type { MDXComponents } from "mdx/types.js";
 import Head from "next/head";
 import BaseSocial from "./BaseSocial";
+import Logo from "../pages/logo.svg";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
-    <h1 className="text-[2.2em] leading-tight mb-3">{children}</h1>
+    <h1 className="text-center uppercase text-[2em] leading-tight mb-20 mt-6 tracking-[0.14em] font-semibold">
+      {children}
+    </h1>
   ),
-  h2: ({ children }) => <h2 className="text-[1.5em] my-5">{children}</h2>,
+  h2: ({ children }) => (
+    <h2 className="uppercase text-[1.5em] my-5 font-semibold tracking-[0.08em]">
+      {children}
+    </h2>
+  ),
   h3: ({ children }) => <h3 className="text-[1.3em] mt-4">{children}</h3>,
   h4: ({ children }) => <h4 className="text-[1.2em] mt-4">{children}</h4>,
   hr: () => <hr className="my-5 border-salmon-900 dark:border-salmon-100" />,
@@ -59,9 +66,14 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
         />
       </Head>
       <MDXProvider components={components}>
-        <main className="text-salmon-900 dark:text-salmon-100 font-mono p-4 sm:p-5 lg:p-8">
-          {/* TODO: Logo */}
-          <div className="max-w-prose mx-auto">{children}</div>
+        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal p-4 sm:p-5 sm:pt-24 lg:p-10 lg:pt-12 tracking-[0.08em]">
+          <div className="max-w-prose mx-auto">
+            <Logo
+              title="Logo"
+              className="mx-auto align-middle w-[30px] h-[30px] sm:w-[5.53em] sm:h-[5.53em]"
+            />
+            {children}
+          </div>
           {/* TODO: Footer? */}
         </main>
       </MDXProvider>
