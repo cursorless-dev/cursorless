@@ -1,4 +1,5 @@
 ;; import javascript.function.scm
+;; import javascript.fieldAccess.scm
 
 ;; `name` scope without `export`
 (

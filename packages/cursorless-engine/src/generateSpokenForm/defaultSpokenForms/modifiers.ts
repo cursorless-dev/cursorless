@@ -101,6 +101,7 @@ export const scopeSpokenForms = {
   notebookCell: "cell",
 
   switchStatementSubject: null,
+  ["private.fieldAccess"]: null,
 } as const satisfies Record<SimpleScopeTypeType, string | null>;
 
 type ExtendedSurroundingPairName = SurroundingPairName | "whitespace";
