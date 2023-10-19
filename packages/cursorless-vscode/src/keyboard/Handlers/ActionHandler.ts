@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 
 import { executeCursorlessCommand } from "../KeyboardCommandsTargeted";
 import { Handler } from "../Handler";
+import { ActionType } from "@cursorless/common";
 
 
 
@@ -15,7 +16,7 @@ import { Handler } from "../Handler";
    */
 export async function performActionOnTarget(mode: Handler, keySequence: string): Promise<void> {
 
-    const name = mode.keymap.getActionKeymap()[keySequence.toLowerCase()];
+    const name = keySequence as ActionType;
 
     const target= mode.constructTarget();
     const lastPrimTarget = mode.getLatestTarget();

@@ -2,15 +2,23 @@ import * as vscode from "vscode";
 import { getStyleName } from "../../ide/vscode/hats/getStyleName";
 import { PartialTargetDescriptor } from "@cursorless/common";
 import { Handler } from "../Handler";
+import { HAT_COLORS, HAT_NON_DEFAULT_SHAPES, HatColor, HatShape } from "../../ide/vscode/hatStyles.types";
 
  
  export  async function targetDecoratedMark (mode: Handler, keySequence:string):Promise<void>  {
 
-    const keymap= mode.keymap;
+    
     const keyboardHandler = mode.keyboardHandler;
 
-    let color = keymap.getColorKeymap()[keySequence.toLowerCase()]??"default";
-    let shape = keymap.getShapeKeymap()[keySequence.toLowerCase()]??"default";  
+    let color: HatColor = "default";
+    if ( keySequence in HAT_COLORS){
+      color = keySequence as HatColor;
+    }
+
+    let shape: HatShape = "default";
+    if ( keySequence in HAT_NON_DEFAULT_SHAPES){
+      shape = keySequence as HatShape;
+    }
 
     const getCharacter = async (status:string="Which hat?") => {
       return await keyboardHandler.awaitSingleKeypress({
@@ -26,14 +34,23 @@ import { Handler } from "../Handler";
       // Cancelled
       return;
     }
-    if (keymap.getColorKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
-      color = keymap.getColorKeymap()[character.toLowerCase()];
-      character = await getCharacter("Color ${color} selected. Which hat?");
+
+    if ( character === character.toUpperCase()){
+      const pickedColor = mode.getFirstKeyMatching(character, HAT_COLORS);
+      if ( pickedColor !== undefined){
+        color = pickedColor as HatColor;
+      }
+      const pickedShape = mode.getFirstKeyMatching(character, HAT_NON_DEFAULT_SHAPES);
+      if ( pickedShape !== undefined){
+        shape = pickedShape as HatShape;
+      }
+      if ( pickedColor !== undefined || pickedShape !== undefined){
+        character = await getCharacter(`${color} ${shape} ___?`);
+      }
     }
-    else if (keymap.getShapeKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
-      shape = keymap.getShapeKeymap()[character.toLowerCase()];
-      character = await getCharacter("Shape ${shape} selected. Which hat?");
-    }
+
+
+    
     if (character == null) {
       // Cancelled
       return;
