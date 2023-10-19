@@ -24,7 +24,8 @@ function strictEncodeURIComponent(str: string) {
 /**
  * A link to an email address, attempting to prevent spam bots from finding it.
  * Encodes the URI for the href using very aggressive uri encoding, and for the
- * displayed email text, uses a hidden span to prevent bots from finding it.
+ * displayed email text, injects dummy text in a hidden span so that bots will
+ * see it but humans won't.
  *
  * Tricks taken from https://spencermortensen.com/articles/email-obfuscation/
  *
