@@ -2,8 +2,9 @@ import {
   PartialSpokenFormTypes,
   SpokenFormMap,
   SpokenFormMapKeyTypes,
-} from "../SpokenFormMap";
-import { CustomizableSpokenFormComponent } from "./SpokenFormComponent";
+  SpokenFormType,
+} from "../spokenForms/SpokenFormMap";
+import { CustomizableSpokenFormComponentForType } from "./SpokenFormComponent";
 
 /**
  * A spoken form component map is a map of spoken form types to a map of IDs to
@@ -13,9 +14,21 @@ import { CustomizableSpokenFormComponent } from "./SpokenFormComponent";
  * generation.
  */
 export type SpokenFormComponentMap = {
-  readonly [K in keyof SpokenFormMapKeyTypes]: K extends PartialSpokenFormTypes
-    ? Partial<Record<SpokenFormMapKeyTypes[K], CustomizableSpokenFormComponent>>
-    : Record<SpokenFormMapKeyTypes[K], CustomizableSpokenFormComponent>;
+  readonly [K in SpokenFormType]: K extends PartialSpokenFormTypes
+    ? Readonly<
+        Partial<
+          Record<
+            SpokenFormMapKeyTypes[K],
+            CustomizableSpokenFormComponentForType<K>
+          >
+        >
+      >
+    : Readonly<
+        Record<
+          SpokenFormMapKeyTypes[K],
+          CustomizableSpokenFormComponentForType<K>
+        >
+      >;
 };
 
 /**

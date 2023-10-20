@@ -1,9 +1,10 @@
 import { mapValues } from "lodash";
 import {
-  PartialSpokenFormTypes,
   SpokenFormMap,
   SpokenFormMapEntry,
   SpokenFormMapKeyTypes,
+  SpokenFormMappingType,
+  mapSpokenForms,
 } from "./SpokenFormMap";
 
 type DefaultSpokenFormMapDefinition = {
@@ -194,13 +195,8 @@ export interface DefaultSpokenFormMapEntry {
   isPrivate: boolean;
 }
 
-export type DefaultSpokenFormMap = {
-  readonly [K in keyof SpokenFormMapKeyTypes]: K extends PartialSpokenFormTypes
-    ? Readonly<
-        Partial<Record<SpokenFormMapKeyTypes[K], DefaultSpokenFormMapEntry>>
-      >
-    : Record<SpokenFormMapKeyTypes[K], DefaultSpokenFormMapEntry>;
-};
+export type DefaultSpokenFormMap =
+  SpokenFormMappingType<DefaultSpokenFormMapEntry>;
 
 /**
  * This map contains information about the default spoken forms for all our
@@ -208,21 +204,17 @@ export type DefaultSpokenFormMap = {
  * this map can't be used as a spoken form map. If you want something that can
  * be used as a spoken form map, see {@link defaultSpokenFormMap}.
  */
-export const defaultSpokenFormInfo = mapValues(
+export const defaultSpokenFormInfo: DefaultSpokenFormMap = mapSpokenForms(
   defaultSpokenFormMapCore,
-  (entry) =>
-    mapValues(entry, (subEntry) =>
-      typeof subEntry === "string"
-        ? {
-            defaultSpokenForms: [subEntry],
-            isDisabledByDefault: false,
-            isPrivate: false,
-          }
-        : subEntry,
-    ),
-  // FIXME: Don't cast here; need to make our own mapValues with stronger typing
-  // using tricks from our object.d.ts
-) as DefaultSpokenFormMap;
+  (subEntry) =>
+    typeof subEntry === "string"
+      ? {
+          defaultSpokenForms: [subEntry],
+          isDisabledByDefault: false,
+          isPrivate: false,
+        }
+      : subEntry,
+);
 
 /**
  * A spoken form map constructed from the default spoken forms. It is designed to

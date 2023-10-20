@@ -1,4 +1,8 @@
-import { SpokenFormMapEntry, SpokenFormType } from "../SpokenFormMap";
+import {
+  SpokenFormMapEntry,
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
+} from "../spokenForms/SpokenFormMap";
 
 /**
  * A component of a spoken form used internally during spoken form generation.
@@ -17,14 +21,18 @@ export type SpokenFormComponent =
   | string
   | SpokenFormComponent[];
 
+export interface CustomizableSpokenFormComponentForType<T extends SpokenFormType> {
+  type: "customizable";
+  spokenForms: SpokenFormMapEntry;
+  spokenFormType: T;
+  id: SpokenFormMapKeyTypes[T];
+}
+
 /**
  * A customizable spoken form component. This is a spoken form component that
  * can be customized by the user. It is used internally during spoken form
  * generation.
  */
-export interface CustomizableSpokenFormComponent {
-  type: "customizable";
-  spokenForms: SpokenFormMapEntry;
-  spokenFormType: SpokenFormType;
-  id: string;
-}
+export type CustomizableSpokenFormComponent = {
+  [K in SpokenFormType]: CustomizableSpokenFormComponentForType<K>;
+}[SpokenFormType];

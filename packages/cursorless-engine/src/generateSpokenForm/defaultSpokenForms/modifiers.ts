@@ -1,7 +1,9 @@
 import { CompositeKeyMap } from "@cursorless/common";
 import { SpeakableSurroundingPairName } from "../../spokenForms/SpokenFormMap";
 import { SpokenFormComponentMap } from "../getSpokenFormComponentMap";
-import { CustomizableSpokenFormComponent } from "../SpokenFormComponent";
+import {
+  CustomizableSpokenFormComponentForType,
+} from "../SpokenFormComponent";
 
 const surroundingPairsDelimiters: Record<
   SpeakableSurroundingPairName,
@@ -50,7 +52,7 @@ export function surroundingPairDelimitersToSpokenForm(
   spokenFormMap: SpokenFormComponentMap,
   left: string,
   right: string,
-): CustomizableSpokenFormComponent {
+): CustomizableSpokenFormComponentForType<"pairedDelimiter"> {
   const pairName = surroundingPairDelimiterToName.get([left, right]);
   if (pairName == null) {
     throw Error(`Unknown surrounding pair delimiters '${left} ${right}'`);
