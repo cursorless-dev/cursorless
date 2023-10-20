@@ -1,8 +1,10 @@
 import {
   SpokenFormMapEntry,
-  SpokenFormMapKeyTypes,
-  SpokenFormType,
 } from "../spokenForms/SpokenFormMap";
+import {
+  SpokenFormMapKeyTypes,
+  SpokenFormType
+} from "../spokenForms/SpokenFormType";
 
 /**
  * A component of a spoken form used internally during spoken form generation.
