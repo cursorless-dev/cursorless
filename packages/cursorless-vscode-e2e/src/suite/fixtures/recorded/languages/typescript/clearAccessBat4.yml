@@ -10,7 +10,9 @@ command:
           scopeType: {type: private.fieldAccess}
       mark: {type: decoratedSymbol, symbolColor: default, character: b}
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'private.fieldAccess'
+spokenFormError: >-
+  simple scope type type with id private.fieldAccess; this is a private spoken
+  form currently only for internal experimentation
 initialState:
   documentContents: |
     a?.[0].b?.()

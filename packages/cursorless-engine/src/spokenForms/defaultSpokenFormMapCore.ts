@@ -30,6 +30,8 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     any: "pair",
     string: "string",
     whitespace: "void",
+
+    collectionBoundary: isPrivate("collection boundary"),
   },
 
   simpleScopeTypeType: {

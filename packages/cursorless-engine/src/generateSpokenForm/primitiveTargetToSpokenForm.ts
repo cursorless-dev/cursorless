@@ -209,11 +209,6 @@ export class PrimitiveTargetSpokenFormGenerator {
       case "oneOf":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
       case "surroundingPair": {
-        if (scopeType.delimiter === "collectionBoundary") {
-          throw new NoSpokenFormError(
-            `Scope type '${scopeType.type}' with delimiter 'collectionBoundary'`,
-          );
-        }
         const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
         if (scopeType.forceDirection != null) {
           return [

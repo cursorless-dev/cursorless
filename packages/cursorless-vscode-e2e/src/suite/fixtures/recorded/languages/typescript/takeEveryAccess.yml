@@ -9,7 +9,9 @@ command:
         - type: everyScope
           scopeType: {type: private.fieldAccess}
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'private.fieldAccess'
+spokenFormError: >-
+  simple scope type type with id private.fieldAccess; this is a private spoken
+  form currently only for internal experimentation
 initialState:
   documentContents: aaa.bbb() + ccc()
   selections:

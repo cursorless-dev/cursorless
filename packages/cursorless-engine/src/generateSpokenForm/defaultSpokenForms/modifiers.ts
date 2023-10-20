@@ -1,9 +1,7 @@
 import { CompositeKeyMap } from "@cursorless/common";
 import { SpeakableSurroundingPairName } from "../../spokenForms/SpokenFormMap";
 import { SpokenFormComponentMap } from "../getSpokenFormComponentMap";
-import {
-  CustomizableSpokenFormComponentForType,
-} from "../SpokenFormComponent";
+import { CustomizableSpokenFormComponentForType } from "../SpokenFormComponent";
 
 const surroundingPairsDelimiters: Record<
   SpeakableSurroundingPairName,
@@ -24,6 +22,7 @@ const surroundingPairsDelimiters: Record<
 
   any: null,
   string: null,
+  collectionBoundary: null,
 };
 
 const surroundingPairDelimiterToName = new CompositeKeyMap<

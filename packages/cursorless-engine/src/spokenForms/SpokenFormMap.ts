@@ -4,9 +4,7 @@ import {
   SurroundingPairName,
 } from "@cursorless/common";
 
-export type SpeakableSurroundingPairName =
-  | Exclude<SurroundingPairName, "collectionBoundary">
-  | "whitespace";
+export type SpeakableSurroundingPairName = SurroundingPairName | "whitespace";
 
 export type SimpleModifierType = Exclude<
   ModifierType,
