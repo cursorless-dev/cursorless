@@ -11,25 +11,22 @@ import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/c
 import { getHatMapCommand } from "./getHatMapCommand";
 import { SpokenFormGenerator } from ".";
 import { defaultSpokenFormInfoMap } from "../spokenForms/defaultSpokenFormMap";
-import { mapValues } from "lodash";
-import { SpokenFormMap, SpokenFormMapEntry } from "../spokenForms/SpokenFormMap";
+import { SpokenFormMap, mapSpokenForms } from "../spokenForms/SpokenFormMap";
 
 /**
  * A spoken form map to use for testing. Just uses default spoken forms, but
  * enables spoken forms that are disabled by default.
  */
-const spokenFormMap = mapValues(defaultSpokenFormInfoMap, (entry) =>
-  mapValues(
-    entry,
-    ({ defaultSpokenForms, isPrivate }): SpokenFormMapEntry => ({
-      spokenForms: isPrivate ? [] : defaultSpokenForms,
-      isCustom: false,
-      defaultSpokenForms,
-      requiresTalonUpdate: false,
-      isPrivate,
-    }),
-  ),
-) as SpokenFormMap;
+const spokenFormMap: SpokenFormMap = mapSpokenForms(
+  defaultSpokenFormInfoMap,
+  ({ defaultSpokenForms, isPrivate }) => ({
+    spokenForms: isPrivate ? [] : defaultSpokenForms,
+    isCustom: false,
+    defaultSpokenForms,
+    requiresTalonUpdate: false,
+    isPrivate,
+  }),
+);
 
 suite("Generate spoken forms", () => {
   getRecordedTestPaths().forEach(({ name, path }) =>
