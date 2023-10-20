@@ -10,7 +10,7 @@ import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "./getHatMapCommand";
 import { SpokenFormGenerator } from ".";
-import { defaultSpokenFormInfo } from "../DefaultSpokenFormMap";
+import { defaultSpokenFormInfoMap } from "../spokenForms/defaultSpokenFormMap";
 import { mapValues } from "lodash";
 import { SpokenFormMap, SpokenFormMapEntry } from "../spokenForms/SpokenFormMap";
 
@@ -18,7 +18,7 @@ import { SpokenFormMap, SpokenFormMapEntry } from "../spokenForms/SpokenFormMap"
  * A spoken form map to use for testing. Just uses default spoken forms, but
  * enables spoken forms that are disabled by default.
  */
-const spokenFormMap = mapValues(defaultSpokenFormInfo, (entry) =>
+const spokenFormMap = mapValues(defaultSpokenFormInfoMap, (entry) =>
   mapValues(
     entry,
     ({ defaultSpokenForms, isPrivate }): SpokenFormMapEntry => ({

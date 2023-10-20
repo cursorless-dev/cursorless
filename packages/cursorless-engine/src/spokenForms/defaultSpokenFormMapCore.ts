@@ -1,17 +1,5 @@
-import { mapValues } from "lodash";
-import {
-  SpokenFormMap,
-  SpokenFormMapEntry,
-  SpokenFormMapKeyTypes,
-  SpokenFormMappingType,
-  mapSpokenForms,
-} from "./SpokenFormMap";
-
-type DefaultSpokenFormMapDefinition = {
-  readonly [K in keyof SpokenFormMapKeyTypes]: Readonly<
-    Record<SpokenFormMapKeyTypes[K], string | DefaultSpokenFormMapEntry>
-  >;
-};
+import { DefaultSpokenFormMapDefinition } from "./defaultSpokenFormMap.types";
+import { isDisabledByDefault, isPrivate } from "./spokenFormMapUtil";
 
 /**
  * This map contains the default spoken forms for all our speakable entities,
@@ -26,7 +14,7 @@ type DefaultSpokenFormMapDefinition = {
  * {@link isPrivate} or {@link isDisabledByDefault} helper functions to construct
  * {@link DefaultSpokenFormMapEntry} objects, or just construct them manually.
  */
-const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
+export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
   pairedDelimiter: {
     curlyBrackets: "curly",
     angleBrackets: "diamond",
@@ -143,100 +131,3 @@ const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
   customRegex: {},
 };
-
-/**
- * Used to construct entities that should not be speakable by default.
- *
- * @param spokenForms The default spoken forms for this entity
- * @returns A DefaultSpokenFormMapEntry with the given spoken forms, and
- * {@link DefaultSpokenFormMapEntry.isDisabledByDefault|isDisabledByDefault} set
- * to true
- */
-function isDisabledByDefault(
-  ...spokenForms: string[]
-): DefaultSpokenFormMapEntry {
-  return {
-    defaultSpokenForms: spokenForms,
-    isDisabledByDefault: true,
-    isPrivate: false,
-  };
-}
-
-/**
- * Used to construct entities that are only for internal experimentation.
- *
- * @param spokenForms The default spoken forms for this entity
- * @returns A DefaultSpokenFormMapEntry with the given spoken forms, and
- * {@link DefaultSpokenFormMapEntry.isDisabledByDefault|isDisabledByDefault} and
- * {@link DefaultSpokenFormMapEntry.isPrivate|isPrivate} set to true
- */
-function isPrivate(...spokenForms: string[]): DefaultSpokenFormMapEntry {
-  return {
-    defaultSpokenForms: spokenForms,
-    isDisabledByDefault: true,
-    isPrivate: true,
-  };
-}
-
-export interface DefaultSpokenFormMapEntry {
-  defaultSpokenForms: string[];
-
-  /**
-   * If `true`, indicates that the entry may have a default spoken form, but
-   * it should not be enabled by default. These will show up in user csv's with
-   * a `-` at the beginning.
-   */
-  isDisabledByDefault: boolean;
-
-  /**
-   * If `true`, indicates that the entry is only for internal experimentation,
-   * and should not be exposed to users except within a targeted working group.
-   */
-  isPrivate: boolean;
-}
-
-export type DefaultSpokenFormMap =
-  SpokenFormMappingType<DefaultSpokenFormMapEntry>;
-
-/**
- * This map contains information about the default spoken forms for all our
- * speakable entities, including scope types, paired delimiters, etc. Note that
- * this map can't be used as a spoken form map. If you want something that can
- * be used as a spoken form map, see {@link defaultSpokenFormMap}.
- */
-export const defaultSpokenFormInfo: DefaultSpokenFormMap = mapSpokenForms(
-  defaultSpokenFormMapCore,
-  (subEntry) =>
-    typeof subEntry === "string"
-      ? {
-          defaultSpokenForms: [subEntry],
-          isDisabledByDefault: false,
-          isPrivate: false,
-        }
-      : subEntry,
-);
-
-/**
- * A spoken form map constructed from the default spoken forms. It is designed to
- * be used as a fallback when the Talon spoken form map is not available.
- */
-export const defaultSpokenFormMap = mapValues(
-  defaultSpokenFormInfo,
-  (entry) =>
-    mapValues(
-      entry,
-      ({
-        defaultSpokenForms,
-        isDisabledByDefault,
-        isPrivate,
-      }): SpokenFormMapEntry => ({
-        spokenForms: isDisabledByDefault ? [] : defaultSpokenForms,
-        isCustom: false,
-        defaultSpokenForms,
-        requiresTalonUpdate: false,
-        isPrivate,
-      }),
-    ),
-  // FIXME: Don't cast here; need to make our own mapValues with stronger typing
-  // using tricks from our object.d.ts
-) as SpokenFormMap;

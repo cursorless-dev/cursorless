@@ -33,7 +33,7 @@ import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
 import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { SpokenFormGenerator } from "../generateSpokenForm";
-import { defaultSpokenFormMap } from "../DefaultSpokenFormMap";
+import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
