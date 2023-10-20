@@ -1,4 +1,8 @@
-import type { InsertionMode, TargetPlainObject } from "@cursorless/common";
+import type {
+  EnforceUndefined,
+  InsertionMode,
+  TargetPlainObject,
+} from "@cursorless/common";
 import {
   NoContainingScopeError,
   Range,
@@ -43,7 +47,7 @@ export default abstract class BaseTarget<
 > implements Target
 {
   protected abstract readonly type: string;
-  protected readonly state: CommonTargetParameters;
+  protected readonly state: EnforceUndefined<CommonTargetParameters>;
   isLine = false;
   isToken = true;
   hasExplicitScopeType = true;
@@ -123,7 +127,7 @@ export default abstract class BaseTarget<
     });
   }
 
-  protected abstract getCloneParameters(): TParameters;
+  protected abstract getCloneParameters(): EnforceUndefined<TParameters>;
 
   createContinuousRangeTarget(
     isReversed: boolean,
@@ -172,7 +176,10 @@ export default abstract class BaseTarget<
    *
    * @returns The object to be used for determining equality
    */
-  protected getEqualityParameters(): Omit<TParameters, "thatTarget"> {
+  protected getEqualityParameters(): Omit<
+    EnforceUndefined<TParameters>,
+    "thatTarget"
+  > {
     const { thatTarget, ...otherCloneParameters } = this.getCloneParameters();
 
     return {
