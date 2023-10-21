@@ -76,13 +76,14 @@ export default class KeyboardCommandsModal {
       displayOptions: {
         cursorStyle: vscode.TextEditorCursorStyle.BlockOutline,
         whenClauseContext: "cursorless.keyboard.modal.mode",
-        statusBarText: "Listening...",
+        statusBarText: "",
       },
       handleCancelled: this.modeOff,
     });
 
     // Set target to current selection when we enter the mode
     await this.targeted.targetSelection();
+    this.handler.clearTargets();
   };
 
   modeOff = async () => {

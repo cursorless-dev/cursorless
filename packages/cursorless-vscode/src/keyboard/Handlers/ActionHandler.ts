@@ -86,6 +86,6 @@ export async function performActionOnTarget(mode: Handler, keySequence: string):
         // exit modal mode
         await mode.modeOff();
     }
-
+    mode.clearTargets();
     
 }

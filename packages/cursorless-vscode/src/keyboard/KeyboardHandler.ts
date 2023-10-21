@@ -296,6 +296,14 @@ export default class KeyboardHandler {
     }
   }
 
+  public setStatusBarText(text: string) {
+    
+    if (this.activeListener?.listener ) {
+      this.activeListener.listener.displayOptions.statusBarText = text;
+    }
+    this.ensureStatusBarText();
+  }
+
   private ensureStatusBarText() {
     if (!this.isActivated) {
       return;
