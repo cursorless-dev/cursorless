@@ -7,7 +7,7 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: (<hello></hello> )
+  documentContents: (<hello></ hello > )
   selections:
     - anchor: {line: 0, character: 16}
       active: {line: 0, character: 16}

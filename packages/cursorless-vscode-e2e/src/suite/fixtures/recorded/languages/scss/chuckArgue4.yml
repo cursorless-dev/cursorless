@@ -7,19 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |
-    @function invert($color, $amount: 100%) {
-      $inverse: change-color($color, $hue: hue($color) + 180);
+  documentContents: |-
+    .micro {
+      width: sum(50px, 30px, 100px);
     }
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
   marks: {}
 finalState:
-  documentContents: |
-    @function invert($amount: 100%) {
-      $inverse: change-color($color, $hue: hue($color) + 180);
+  documentContents: |-
+    .micro {
+      width: sum(30px, 100px);
     }
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}

@@ -11,18 +11,26 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    fn main() -> Result<(), Error> {
-        
+    struct S {
+        v: u32,
+    }
+
+    fn main() {
+        let S { v } = S { v: 32 };
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 5, character: 18}
+      active: {line: 5, character: 18}
   marks: {}
 finalState:
   documentContents: |
-    fn () -> Result<(), Error> {
-        
+    struct S {
+        v: u32,
+    }
+
+    fn main() {
+        let  = S { v: 32 };
     }
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 5, character: 8}
+      active: {line: 5, character: 8}

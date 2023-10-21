@@ -11,22 +11,14 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    let expensive_closure = |num| {
-        println!("calculating slowly...");
-        thread::sleep(Duration::from_secs(2));
-        num
-    };
+    let x = vec![1, 2, 3];
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: |
-    let expensive_closure = |num| {
-        
-        thread::sleep(Duration::from_secs(2));
-        num
-    };
+  documentContents: |+
+
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

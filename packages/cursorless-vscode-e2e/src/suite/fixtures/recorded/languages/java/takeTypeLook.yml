@@ -1,12 +1,12 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take type look
+  spokenForm: take type pit
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      mark: {type: decoratedSymbol, symbolColor: default, character: p}
 initialState:
   documentContents: |-
     public class MyClass {
@@ -16,12 +16,12 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 2, character: 27}
-      active: {line: 2, character: 27}
+    - anchor: {line: 3, character: 52}
+      active: {line: 3, character: 52}
   marks:
-    default.l:
-      start: {line: 3, character: 21}
-      end: {line: 3, character: 25}
+    default.p:
+      start: {line: 2, character: 8}
+      end: {line: 2, character: 11}
 finalState:
   documentContents: |-
     public class MyClass {
@@ -31,5 +31,5 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 3, character: 8}
-      active: {line: 3, character: 20}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 27}

@@ -12,21 +12,19 @@ command:
 initialState:
   documentContents: |-
     some command: 
-        value = user.get_value()
-
+        user.do_something()
         
         
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
   marks: {}
 finalState:
   documentContents: |-
     some command: 
-        value = 
-
+        
         
         
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

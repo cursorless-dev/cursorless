@@ -8,22 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: |-
-
-    .double {
-      transform: translate(-50%, -50%);
+    div {
+      background: repeating-linear-gradient(red, orange 50px);
     }
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 1, character: 50}
+      active: {line: 1, character: 50}
   marks: {}
 finalState:
   documentContents: |-
-
-    .double {
-      transform: translate(, );
+    div {
+      background: repeating-linear-gradient(, );
     }
   selections:
-    - anchor: {line: 2, character: 23}
-      active: {line: 2, character: 23}
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 1, character: 40}
+      active: {line: 1, character: 40}
+    - anchor: {line: 1, character: 42}
+      active: {line: 1, character: 42}

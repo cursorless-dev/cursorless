@@ -12,7 +12,7 @@ command:
 initialState:
   documentContents: |-
     some command: 
-        value = 1 + 1
+        value = user.get_value() 
         
   selections:
     - anchor: {line: 1, character: 4}
@@ -21,7 +21,7 @@ initialState:
 finalState:
   documentContents: |-
     some command: 
-        
+         
         
   selections:
     - anchor: {line: 1, character: 4}

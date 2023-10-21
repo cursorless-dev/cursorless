@@ -30,8 +30,8 @@ initialState:
             def fff():
                 pass
   selections:
-    - anchor: {line: 10, character: 16}
-      active: {line: 10, character: 16}
+    - anchor: {line: 11, character: 0}
+      active: {line: 11, character: 0}
   marks: {}
 finalState:
   documentContents: |+

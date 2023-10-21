@@ -9,8 +9,8 @@ command:
 initialState:
   documentContents: <hello/>
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
   documentContents: ""

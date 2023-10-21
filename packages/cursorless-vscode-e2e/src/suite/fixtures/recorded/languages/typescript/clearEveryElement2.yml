@@ -12,8 +12,8 @@ command:
 initialState:
   documentContents: |-
     <>
-        <bbb>ccc</bbb>
-        <bbb>ddd</bbb>
+        <>ccc</>
+        <>ddd</>
     </>
   selections:
     - anchor: {line: 1, character: 4}

@@ -1,23 +1,27 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: if wrap this
-  action: wrapWithSnippet
+  spokenForm: take arg
+  action: setSelection
   targets:
     - type: primitive
-      mark: {type: cursor}
-  extraArgs: [ifStatement.consequence]
+      modifier: {type: containingScope, scopeType: argumentOrParameter}
 initialState:
-  documentContents: const foo = "hello";
-  selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-  marks: {}
-finalState:
-  documentContents: |-
-    if () {
-        const foo = "hello";
+  documentContents: |
+
+    function myFunk (name: string) {
+
     }
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
+  marks: {}
+finalState:
+  documentContents: |
+
+    function myFunk (name: string) {
+
+    }
+  selections:
+    - anchor: {line: 1, character: 17}
+      active: {line: 1, character: 29}

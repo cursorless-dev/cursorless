@@ -1,4 +1,4 @@
-languageId: javascript
+languageId: typescript
 command:
   version: 5
   spokenForm: change funk
@@ -10,13 +10,19 @@ command:
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: let foo = () => {};
+  documentContents: |-
+    interface Aaa {
+        bbb(): void;
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |-
+    interface Aaa {
+        
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

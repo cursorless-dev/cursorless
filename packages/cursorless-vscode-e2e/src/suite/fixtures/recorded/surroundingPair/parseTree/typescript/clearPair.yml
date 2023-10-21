@@ -9,8 +9,8 @@ command:
 initialState:
   documentContents: if (foo > 0) {}
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: if  {}

@@ -1,11 +1,11 @@
 languageId: javascript
 command:
   version: 1
-  spokenForm: take every attribute
+  spokenForm: take key
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: collectionKey}
 initialState:
   documentContents: |
 
@@ -13,8 +13,8 @@ initialState:
       <div id="bar" name="foo">bar</div>
     );
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}
   marks: {}
 finalState:
   documentContents: |
@@ -24,6 +24,4 @@ finalState:
     );
   selections:
     - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 15}
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 26}
+      active: {line: 2, character: 9}

@@ -1,17 +1,17 @@
 languageId: latex
 command:
   version: 4
-  spokenForm: pour subsection
+  spokenForm: pour subsubsection
   action: {name: editNewLineAfter}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: subSection}
+          scopeType: {type: subSubSection}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    \subsection{Section}
+    \subsubsection{Section}
 
     Hello World!
   selections:
@@ -20,7 +20,7 @@ initialState:
   marks: {}
 finalState:
   documentContents: |+
-    \subsection{Section}
+    \subsubsection{Section}
 
     Hello World!
 

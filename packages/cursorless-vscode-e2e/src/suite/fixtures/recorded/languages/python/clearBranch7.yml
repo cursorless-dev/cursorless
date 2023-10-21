@@ -8,25 +8,26 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    if True:
-        pass
-    elif False:
-        pass
-    else:
-        pass
+    try:
+      pass
+    except:
+      pass
+    finally:
+      pass
   selections:
-    - anchor: {line: 5, character: 4}
-      active: {line: 5, character: 4}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
-  documentContents: |
-    if True:
-        pass
-    elif False:
-        pass
+  documentContents: |-
+
+    except:
+      pass
+    finally:
+      pass
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

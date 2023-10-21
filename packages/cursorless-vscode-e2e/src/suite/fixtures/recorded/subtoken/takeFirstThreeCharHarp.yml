@@ -1,12 +1,12 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take first three chars harp
+  spokenForm: take first two words harp
   action: setSelection
   targets:
     - type: primitive
       selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 2}
+      modifier: {type: subpiece, pieceType: word, anchor: 0, active: 1}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |+
@@ -27,4 +27,4 @@ finalState:
 
   selections:
     - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 18}
+      active: {line: 1, character: 25}

@@ -1,14 +1,14 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: replace after vest with hallo
+  spokenForm: replace before vest with hello
   action: replace
   targets:
     - type: primitive
-      position: after
+      position: before
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   extraArgs:
-    - [hallo]
+    - [hello]
 spokenFormError: Action 'replace'
 initialState:
   documentContents: |
@@ -24,7 +24,7 @@ initialState:
 finalState:
   documentContents: |
 
-    const value hallo = "Hello world";
+    const hello value = "Hello world";
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

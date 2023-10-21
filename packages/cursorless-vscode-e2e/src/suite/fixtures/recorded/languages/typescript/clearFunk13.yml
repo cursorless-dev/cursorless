@@ -10,10 +10,10 @@ command:
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: var foo = () => {};
+  documentContents: export var foo = () => {};
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
   documentContents: ""

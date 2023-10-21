@@ -19,8 +19,8 @@ initialState:
       const whatever = "hello";
     }
   selections:
-    - anchor: {line: 4, character: 2}
-      active: {line: 4, character: 2}
+    - anchor: {line: 5, character: 2}
+      active: {line: 5, character: 2}
   marks: {}
 finalState:
   documentContents: |-

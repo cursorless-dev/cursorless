@@ -1,11 +1,11 @@
 languageId: javascript
 command:
   version: 1
-  spokenForm: take tags
+  spokenForm: take value
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlBothTags}
+      modifier: {type: containingScope, scopeType: value}
 initialState:
   documentContents: |
 
@@ -13,8 +13,8 @@ initialState:
       <div id="bar" name="foo">bar</div>
     );
   selections:
-    - anchor: {line: 2, character: 15}
-      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 9}
   marks: {}
 finalState:
   documentContents: |
@@ -23,7 +23,5 @@ finalState:
       <div id="bar" name="foo">bar</div>
     );
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 27}
-    - anchor: {line: 2, character: 30}
-      active: {line: 2, character: 36}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 15}

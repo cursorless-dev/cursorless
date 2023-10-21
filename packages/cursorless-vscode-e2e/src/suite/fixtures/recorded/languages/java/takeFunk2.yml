@@ -1,16 +1,16 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take funk
+  spokenForm: take funk name
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction}
+      modifier: {type: containingScope, scopeType: functionName}
 initialState:
   documentContents: |
 
     public class MyClass {
-        public MyClass () {
+        void myFunk () {
 
         }
     }
@@ -22,10 +22,10 @@ finalState:
   documentContents: |
 
     public class MyClass {
-        public MyClass () {
+        void myFunk () {
 
         }
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 4, character: 5}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 15}

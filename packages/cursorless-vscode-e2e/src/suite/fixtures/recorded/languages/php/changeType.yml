@@ -14,8 +14,8 @@ initialState:
 
     }
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 2, character: 19}
+      active: {line: 2, character: 19}
   marks: {}
 finalState:
   documentContents: |-

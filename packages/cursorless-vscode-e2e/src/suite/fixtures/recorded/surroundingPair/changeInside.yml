@@ -1,13 +1,15 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: change inside
+  spokenForm: change inside pair
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: (foo)

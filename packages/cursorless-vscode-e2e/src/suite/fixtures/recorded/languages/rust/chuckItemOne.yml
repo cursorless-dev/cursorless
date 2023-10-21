@@ -12,7 +12,7 @@ command:
   action: {name: remove}
 initialState:
   documentContents: |
-    let x = [1, 2];
+    let x = [1];
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
@@ -22,7 +22,7 @@ initialState:
       end: {line: 0, character: 10}
 finalState:
   documentContents: |
-    let x = [2];
+    let x = [];
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}

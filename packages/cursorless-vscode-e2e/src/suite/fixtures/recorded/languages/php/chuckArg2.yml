@@ -10,7 +10,7 @@ initialState:
   documentContents: |-
     <?php
 
-    function myFunc(...$nums)
+    function myFunc($value, ...$nums)
     {
 
     }
@@ -22,7 +22,7 @@ finalState:
   documentContents: |-
     <?php
 
-    function myFunc()
+    function myFunc(...$nums)
     {
 
     }

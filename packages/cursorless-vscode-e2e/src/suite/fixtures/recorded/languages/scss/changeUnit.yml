@@ -9,11 +9,11 @@ command:
 initialState:
   documentContents: |2-
      .child-selector {
-      height: 10vmax;
+      height: 10rlh;
     }
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   marks: {}
 finalState:
   documentContents: |2-

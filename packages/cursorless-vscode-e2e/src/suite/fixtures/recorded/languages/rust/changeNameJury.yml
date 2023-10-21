@@ -1,10 +1,10 @@
 languageId: rust
 command:
-  spokenForm: change name jury
+  spokenForm: change name look
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: j}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
       modifiers:
         - type: containingScope
           scopeType: {type: name}
@@ -19,14 +19,14 @@ initialState:
     - anchor: {line: 3, character: 0}
       active: {line: 3, character: 0}
   marks:
-    default.j:
-      start: {line: 1, character: 24}
-      end: {line: 1, character: 28}
+    default.l:
+      start: {line: 1, character: 31}
+      end: {line: 1, character: 40}
 finalState:
   documentContents: |
     match user {
-        User { : "John", last_name: "Doe" } => {},
+        User { first_name: "John", : "Doe" } => {},
     }
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 31}
+      active: {line: 1, character: 31}

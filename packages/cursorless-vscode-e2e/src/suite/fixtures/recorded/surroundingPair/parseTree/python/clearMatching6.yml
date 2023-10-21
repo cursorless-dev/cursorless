@@ -9,8 +9,8 @@ command:
 initialState:
   documentContents: f"j{fdfhjkd}lkjlkj"
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
   marks: {}
 finalState:
   documentContents: f""

@@ -1,25 +1,29 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change string
+  spokenForm: change type
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: string}
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    "Hello {$name}";
+    function myFunc(string $str) {
+
+    }
   selections:
-    - anchor: {line: 2, character: 11}
-      active: {line: 2, character: 11}
+    - anchor: {line: 2, character: 25}
+      active: {line: 2, character: 25}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    ;
+    function myFunc( $str) {
+
+    }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}

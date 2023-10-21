@@ -8,16 +8,16 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |
-    @function invert($amount: 100%, $color) {
+    @function invert($color, $amount: 100%) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
   marks: {}
 finalState:
   documentContents: |
-    @function invert($color) {
+    @function invert($amount: 100%) {
       $inverse: change-color($color, $hue: hue($color) + 180);
     }
   selections:

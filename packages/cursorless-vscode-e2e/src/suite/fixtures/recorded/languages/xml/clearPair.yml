@@ -9,11 +9,11 @@ command:
 initialState:
   documentContents: <note>foo</note>
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
   marks: {}
 finalState:
-  documentContents: foo</note>
+  documentContents: <note>foo
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

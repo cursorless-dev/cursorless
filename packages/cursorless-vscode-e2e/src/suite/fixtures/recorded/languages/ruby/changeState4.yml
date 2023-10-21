@@ -8,16 +8,16 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |-
-    class << self
+    def foo.method2
       a = 10
     end
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 1, character: 5}
+      active: {line: 1, character: 5}
   marks: {}
 finalState:
   documentContents: |-
-    class << self
+    def foo.method2
       
     end
   selections:

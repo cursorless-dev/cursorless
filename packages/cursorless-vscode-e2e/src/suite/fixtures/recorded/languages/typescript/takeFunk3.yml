@@ -9,7 +9,7 @@ command:
 initialState:
   documentContents: |
 
-    export default function foo () {
+    let foo = function() {
 
     }
   selections:
@@ -19,7 +19,7 @@ initialState:
 finalState:
   documentContents: |
 
-    export default function foo () {
+    let foo = function() {
 
     }
   selections:

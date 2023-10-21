@@ -1,28 +1,24 @@
 languageId: plaintext
 command:
-  spokenForm: chuck file
-  version: 2
-  action: {name: remove}
+  spokenForm: chuck last two items
+  version: 3
   targets:
     - type: primitive
       modifiers:
-        - type: containingScope
-          scopeType: {type: document}
+        - type: ordinalScope
+          scopeType: {type: collectionItem}
+          start: -2
+          length: 2
   usePrePhraseSnapshot: true
+  action: {name: remove}
 initialState:
-  documentContents: |2+
-
-
-        foo 
-
-        bar 
-
+  documentContents: a, b, c, d
   selections:
-    - anchor: {line: 6, character: 0}
-      active: {line: 6, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: a, b
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

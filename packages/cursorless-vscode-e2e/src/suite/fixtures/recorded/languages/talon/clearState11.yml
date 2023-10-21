@@ -10,7 +10,7 @@ command:
           scopeType: {type: statement}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "tag(): user.some_tag"
+  documentContents: "gamepad(north): \"north\""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

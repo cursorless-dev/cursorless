@@ -1,34 +1,24 @@
 languageId: rust
 command:
-  spokenForm: change name trap
+  spokenForm: change round
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: t}
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: {type: surroundingPair, delimiter: parentheses}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |
-    enum Maybe<T> {
-        Just(T),
-        Nothing,
-    }
+    "hello (there)";
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
-  marks:
-    default.t:
-      start: {line: 1, character: 9}
-      end: {line: 1, character: 10}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
 finalState:
   documentContents: |
-    enum Maybe<T> {
-        (T),
-        Nothing,
-    }
+    "hello ";
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

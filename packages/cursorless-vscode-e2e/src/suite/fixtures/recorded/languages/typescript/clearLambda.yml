@@ -8,7 +8,7 @@ command:
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
   documentContents: |-
-    foo(() => {
+    foo(function () {
 
     })
   selections:

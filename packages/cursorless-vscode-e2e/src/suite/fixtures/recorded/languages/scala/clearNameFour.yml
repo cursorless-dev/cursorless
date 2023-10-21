@@ -10,19 +10,19 @@ command:
 initialState:
   documentContents: |
     class ExampleClass() {
-      def foo() = 42
+      val foo = 42
     }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.4:
-      start: {line: 1, character: 14}
-      end: {line: 1, character: 16}
+      start: {line: 1, character: 12}
+      end: {line: 1, character: 14}
 finalState:
   documentContents: |
     class ExampleClass() {
-      def () = 42
+      val  = 42
     }
   selections:
     - anchor: {line: 1, character: 6}

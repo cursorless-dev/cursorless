@@ -9,11 +9,11 @@ command:
 initialState:
   documentContents: \usepackage[utf8]{inputenc}
   selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
   marks: {}
 finalState:
-  documentContents: \usepackage[]{inputenc}
+  documentContents: \usepackage[utf8]{}
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}

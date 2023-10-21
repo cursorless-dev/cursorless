@@ -9,7 +9,7 @@ command:
 initialState:
   documentContents: |
 
-    export function foo () {
+    export default function foo () {
 
     }
   selections:
@@ -19,9 +19,9 @@ initialState:
 finalState:
   documentContents: |
 
-    export function foo () {
+    export default function foo () {
 
     }
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 19}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 27}

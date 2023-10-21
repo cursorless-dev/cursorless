@@ -1,19 +1,25 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change callee
+  spokenForm: change chapter
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: chapter, includeSiblings: false}
 initialState:
-  documentContents: \href{https://some.url}{some text} \LaTeX
+  documentContents: |
+    \chapter{1}
+    \section{child}
+    some text
+    \chapter{2}
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: "{https://some.url}{some text} \\LaTeX"
+  documentContents: |
+
+    \chapter{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

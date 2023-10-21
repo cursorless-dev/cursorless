@@ -1,17 +1,17 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change part
+  spokenForm: change section
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: part, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: section, includeSiblings: false}
 initialState:
   documentContents: |
-    \part{1}
-    \chapter{child}
+    \section{1}
+    \subsection{child}
     some text
-    \part{2}
+    \section{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -19,7 +19,7 @@ initialState:
 finalState:
   documentContents: |
 
-    \part{2}
+    \section{2}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

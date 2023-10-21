@@ -1,35 +1,25 @@
-languageId: python
+languageId: plaintext
 command:
-  version: 5
-  spokenForm: change two states air
-  action: {name: clearAndSetSelection}
+  spokenForm: change two tokens
+  version: 3
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: statement}
+          scopeType: {type: token}
           offset: 0
           length: 2
           direction: forward
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    if aaa:
-        bbb = "ccc"
-        ddd = "eee"
-
-    fff = "ggg"
+  documentContents: aaa bbb ccc ddd eee fff
   selections:
-    - anchor: {line: 5, character: 0}
-      active: {line: 5, character: 0}
-  marks:
-    default.a:
-      start: {line: 0, character: 3}
-      end: {line: 0, character: 6}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 13}
+  marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: aaa bbb  eee fff
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

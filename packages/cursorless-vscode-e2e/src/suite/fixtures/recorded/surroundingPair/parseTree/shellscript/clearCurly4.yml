@@ -1,13 +1,13 @@
 languageId: shellscript
 command:
   version: 1
-  spokenForm: change curly
+  spokenForm: change pair
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: curlyBrackets}
+      modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: "\"${hello}\""
+  documentContents: "\"$(hello)\""
   selections:
     - anchor: {line: 0, character: 6}
       active: {line: 0, character: 6}

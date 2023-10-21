@@ -8,15 +8,11 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: aaa = bbb if ccc else ddd
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
   marks: {}
-finalState:
-  documentContents: "aaa = bbb if ccc else "
-  selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+thrownError: {name: NoContainingScopeError}

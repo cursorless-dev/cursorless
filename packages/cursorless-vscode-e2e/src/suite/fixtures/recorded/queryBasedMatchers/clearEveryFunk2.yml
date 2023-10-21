@@ -30,8 +30,8 @@ initialState:
             def fff():
                 pass
   selections:
-    - anchor: {line: 3, character: 8}
-      active: {line: 3, character: 8}
+    - anchor: {line: 11, character: 0}
+      active: {line: 11, character: 0}
   marks: {}
 finalState:
   documentContents: |
@@ -41,13 +41,11 @@ finalState:
         
 
     class Bbb:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
+        
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
     - anchor: {line: 3, character: 4}
       active: {line: 3, character: 4}
+    - anchor: {line: 6, character: 4}
+      active: {line: 6, character: 4}

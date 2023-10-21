@@ -7,13 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: "@namespace url(http://www.w3.org/1999/xhtml);"
+  documentContents: |
+    a { 
+      margin-top: 150px !important; 
+    }
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
   marks: {}
 finalState:
-  documentContents: "@namespace;"
+  documentContents: |
+    a { 
+      margin-top:; 
+    }
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}

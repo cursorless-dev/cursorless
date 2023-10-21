@@ -8,18 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |-
-    [].each { |i|
-      puts i
-    }
+    begin
+      puts("hi")
+    end until true
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    [].each { |i|
+    begin
 
-    }
+    end until true
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

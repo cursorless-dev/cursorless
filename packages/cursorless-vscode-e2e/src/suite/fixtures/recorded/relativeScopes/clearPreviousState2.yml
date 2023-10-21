@@ -17,17 +17,19 @@ initialState:
     aaa = "bbb"
 
     if True:
+        eee = "fff"
         ccc = "ddd"
   selections:
-    - anchor: {line: 3, character: 15}
-      active: {line: 3, character: 15}
+    - anchor: {line: 4, character: 15}
+      active: {line: 4, character: 15}
   marks: {}
 finalState:
   documentContents: |
-
+    aaa = "bbb"
 
     if True:
+        
         ccc = "ddd"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

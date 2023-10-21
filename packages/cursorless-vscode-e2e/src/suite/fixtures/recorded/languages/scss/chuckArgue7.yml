@@ -8,18 +8,20 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |-
-    div {
-      background: repeating-linear-gradient(red, orange 50px);
+    a {
+      width: calc(100% - 80px);
     }
+     
   selections:
-    - anchor: {line: 1, character: 48}
-      active: {line: 1, character: 48}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
   marks: {}
 finalState:
   documentContents: |-
-    div {
-      background: repeating-linear-gradient(red);
+    a {
+      width: calc();
     }
+     
   selections:
-    - anchor: {line: 1, character: 43}
-      active: {line: 1, character: 43}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}

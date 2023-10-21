@@ -7,10 +7,10 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: "`Hello, ${name}!`"
+  documentContents: "[\"hello\",  \"world\"]"
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
   documentContents: ""

@@ -8,7 +8,7 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: condition}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: |-
     if n < 0 {
@@ -17,16 +17,16 @@ initialState:
       print!("{} is positive", n);
     }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    if  {
+    if n < 0 {
       print!("{} is negative", n);
-    } else if n > 0 {
+    } else if  {
       print!("{} is positive", n);
     }
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}

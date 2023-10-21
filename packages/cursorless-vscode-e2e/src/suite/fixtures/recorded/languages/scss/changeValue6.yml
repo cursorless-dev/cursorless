@@ -8,18 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
   documentContents: |
-    a {
-      background-image: url("/icons/mail.svg");
+    @mixin move($left-start, $left-stop) {
+      transition: left ($left-stop - $left-start) * $transition-speed;
     }
   selections:
-    - anchor: {line: 1, character: 35}
-      active: {line: 1, character: 35}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
   documentContents: |
-    a {
-      background-image: ;
+    @mixin move($left-start, $left-stop) {
+      transition: ;
     }
   selections:
-    - anchor: {line: 1, character: 20}
-      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}

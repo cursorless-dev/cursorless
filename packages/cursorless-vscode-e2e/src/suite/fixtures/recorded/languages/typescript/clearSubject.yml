@@ -12,7 +12,7 @@ command:
 spokenFormError: Scope type 'switchStatementSubject'
 initialState:
   documentContents: |-
-    switch(aaa) {
+    switch(aaa + 1) {
       case 0:
         break;
     }

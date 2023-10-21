@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take down one
+  spokenForm: take down one past three
   action: setSelection
   targets:
     - type: primitive
@@ -9,7 +9,7 @@ command:
       mark:
         type: lineNumber
         anchor: {lineNumber: 1, type: relative}
-        active: {lineNumber: 1, type: relative}
+        active: {lineNumber: 3, type: relative}
 initialState:
   documentContents: |
 
@@ -28,4 +28,4 @@ finalState:
     const value = "Hello world";
   selections:
     - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 28}
+      active: {line: 3, character: 28}

@@ -8,20 +8,26 @@ command:
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
   documentContents: |-
-    a {
-      height: 10px;
-      color: red;
+    @function pow($base, $exponent) {
+      $result: 1;
+      @for $_ from 1 through $exponent {
+        $result: $result * $base;
+      }
+      @return $result;
     }
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 1, character: 13}
+      active: {line: 1, character: 13}
   marks: {}
 finalState:
   documentContents: |-
-    a {
-      : 10px;
-      color: red;
+    @function ($base, $exponent) {
+      $result: 1;
+      @for $_ from 1 through $exponent {
+        $result: $result * $base;
+      }
+      @return $result;
     }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

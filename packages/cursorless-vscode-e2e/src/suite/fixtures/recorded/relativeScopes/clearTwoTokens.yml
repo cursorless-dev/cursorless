@@ -15,11 +15,11 @@ command:
 initialState:
   documentContents: aaa bbb. ccc
   selections:
-    - anchor: {line: 0, character: 7}
+    - anchor: {line: 0, character: 4}
       active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: aaa bbb
+  documentContents: aaa  ccc
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}

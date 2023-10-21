@@ -1,24 +1,23 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change environment
+  spokenForm: change every arg
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: environment, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: |
-    \begin{itemize}
-        \item one \LaTeX
-        \item two \LaTeX
-    \end{itemize}
+    \href{https://some.url}{some text}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: |
+    \href{}{}
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

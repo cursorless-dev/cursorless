@@ -1,12 +1,11 @@
 languageId: json
 command:
   version: 1
-  spokenForm: take string
+  spokenForm: take value
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: string}
-spokenFormError: Scope type 'string'
+      modifier: {type: containingScope, scopeType: value}
 initialState:
   documentContents: |
 
@@ -14,8 +13,8 @@ initialState:
         "foo": "bar"
     }
   selections:
-    - anchor: {line: 2, character: 12}
-      active: {line: 2, character: 12}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
   marks: {}
 finalState:
   documentContents: |

@@ -19,8 +19,8 @@ initialState:
 
     bbb
   selections:
-    - anchor: {line: 3, character: 1}
-      active: {line: 3, character: 1}
+    - anchor: {line: 3, character: 3}
+      active: {line: 3, character: 3}
   marks: {}
 finalState:
   documentContents: |+

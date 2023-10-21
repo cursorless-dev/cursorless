@@ -1,15 +1,15 @@
 languageId: plaintext
 command:
-  spokenForm: change previous block
+  spokenForm: change two blocks
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
           scopeType: {type: paragraph}
-          offset: 1
-          length: 1
-          direction: backward
+          offset: 0
+          length: 2
+          direction: forward
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
@@ -19,15 +19,13 @@ initialState:
 
     bbb
   selections:
-    - anchor: {line: 3, character: 3}
-      active: {line: 3, character: 3}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |+
 
 
-
-    bbb
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}

@@ -10,24 +10,13 @@ command:
           scopeType: {type: branch}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    switch (aaa) {
-      case 0:
-        break;
-      case 1:
-        break;
-    }
+  documentContents: "const aaa = bbb ? ccc : ddd;"
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}
   marks: {}
 finalState:
-  documentContents: |-
-    switch (aaa) {
-      
-      case 1:
-        break;
-    }
+  documentContents: "const aaa = bbb ? ccc : ;"
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}

@@ -1,28 +1,24 @@
 languageId: python
 command:
-  spokenForm: chuck condition
-  version: 3
+  version: 1
+  spokenForm: else wrap this
+  action: wrapWithSnippet
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: condition}
-  usePrePhraseSnapshot: true
-  action: {name: remove}
+      mark: {type: cursor}
+  extraArgs: [ifElseStatement.alternative]
 initialState:
-  documentContents: |-
-    match 0:
-        case a if a > 1:
-            pass
+  documentContents: foo = "hello"
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
   documentContents: |-
-    match 0:
-        case a :
-            pass
+    if :
+        
+    else:
+        foo = "hello"
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

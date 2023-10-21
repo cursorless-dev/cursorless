@@ -7,7 +7,9 @@ command:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
-  documentContents: "\r\nconst value = \"Hello world\";\r\n"
+  documentContents: |
+
+    const value = "Hello world";
   selections:
     - anchor: {line: 1, character: 28}
       active: {line: 1, character: 28}
@@ -16,7 +18,9 @@ initialState:
       start: {line: 1, character: 6}
       end: {line: 1, character: 11}
 finalState:
-  documentContents: "\r\nconst = \"Hello world\";\r\n"
+  documentContents: |
+
+    const = "Hello world";
   selections:
     - anchor: {line: 1, character: 22}
       active: {line: 1, character: 22}

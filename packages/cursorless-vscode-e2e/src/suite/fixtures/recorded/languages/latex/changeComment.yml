@@ -8,16 +8,14 @@ command:
       modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
 initialState:
   documentContents: |
-    \iffalse
-    some comment
-    \fi
+    \LaTeX % some comment
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
   marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: |
+    \LaTeX 
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

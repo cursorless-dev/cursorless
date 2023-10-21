@@ -11,8 +11,8 @@ initialState:
     hello world whatever "testing testing testing
     this is another" test "whatever" whatever
   selections:
-    - anchor: {line: 1, character: 23}
-      active: {line: 1, character: 23}
+    - anchor: {line: 1, character: 26}
+      active: {line: 1, character: 26}
   marks: {}
 finalState:
   documentContents: |-

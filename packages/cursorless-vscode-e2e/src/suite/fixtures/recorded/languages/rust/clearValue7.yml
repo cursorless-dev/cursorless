@@ -12,17 +12,25 @@ command:
 initialState:
   documentContents: |-
     fn foo() -> i32 {
+        if a > b {
+            println!("hello")
+            return "hello";
+        }
         "whatever"
     }
   selections:
-    - anchor: {line: 1, character: 5}
-      active: {line: 1, character: 5}
+    - anchor: {line: 2, character: 18}
+      active: {line: 2, character: 18}
   marks: {}
 finalState:
   documentContents: |-
     fn foo() -> i32 {
-        
+        if a > b {
+            println!("hello")
+            return ;
+        }
+        "whatever"
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 3, character: 15}
+      active: {line: 3, character: 15}

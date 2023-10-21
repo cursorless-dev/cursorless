@@ -7,10 +7,10 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: name, includeSiblings: false}
 initialState:
-  documentContents: this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
+  documentContents: leadingDelimiterRange_[0] = parameters.leadingDelimiterRange;
   selections:
-    - anchor: {line: 0, character: 37}
-      active: {line: 0, character: 37}
+    - anchor: {line: 0, character: 36}
+      active: {line: 0, character: 36}
   marks: {}
 finalState:
   documentContents: " = parameters.leadingDelimiterRange;"

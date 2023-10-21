@@ -12,16 +12,16 @@ command:
 initialState:
   documentContents: |-
     class Aaa {
-        bbb = "ccc";
+        bbb = "ccc"
     }
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}
   marks: {}
 finalState:
   documentContents: |-
     class Aaa {
-         = "ccc";
+         = "ccc"
     }
   selections:
     - anchor: {line: 1, character: 4}

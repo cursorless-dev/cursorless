@@ -9,11 +9,11 @@ command:
 initialState:
   documentContents: <hello> <hello/>
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: " <hello/>"
+  documentContents: "<hello> "
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

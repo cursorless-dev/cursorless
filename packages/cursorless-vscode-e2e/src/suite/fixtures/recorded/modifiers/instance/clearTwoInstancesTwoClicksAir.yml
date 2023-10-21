@@ -1,38 +1,32 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change two instances two tokens air
-  action: {name: clearAndSetSelection}
+  spokenForm: from drum
+  action: {name: experimental.setInstanceReference}
   targets:
     - type: primitive
-      modifiers:
-        - type: relativeScope
-          scopeType: {type: instance}
-          offset: 0
-          length: 2
-          direction: forward
-        - type: relativeScope
-          scopeType: {type: token}
-          offset: 0
-          length: 2
-          direction: forward
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: d}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
-    aaa bbb ccc aaa bbbb aaa bbb
+    aaa bbb ccc aaa ddd aaa
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
   marks:
-    default.a:
-      start: {line: 0, character: 0}
-      end: {line: 0, character: 3}
+    default.d:
+      start: {line: 0, character: 16}
+      end: {line: 0, character: 19}
 finalState:
-  documentContents: |2
-     ccc aaa bbbb 
+  documentContents: |
+    aaa bbb ccc aaa ddd aaa
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  instanceReferenceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 16}
+        end: {line: 0, character: 19}
+      isReversed: false
+      hasExplicitRange: false

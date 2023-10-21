@@ -7,15 +7,13 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
-  documentContents: |
-    \href{https://some.url}{some text}
+  documentContents: \usepackage[utf8]{inputenc}
   selections:
     - anchor: {line: 0, character: 14}
       active: {line: 0, character: 14}
   marks: {}
 finalState:
-  documentContents: |
-    \href{}{some text}
+  documentContents: \usepackage[]{inputenc}
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}

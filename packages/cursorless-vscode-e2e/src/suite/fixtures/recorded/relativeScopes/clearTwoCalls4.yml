@@ -13,13 +13,13 @@ command:
           direction: forward
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: aaa(bbb()) + ccc()
+  documentContents: aaa(bbb(), ccc())
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: aaa(
+  documentContents: aaa()
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}

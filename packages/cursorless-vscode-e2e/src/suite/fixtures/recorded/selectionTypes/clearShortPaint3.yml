@@ -1,9 +1,10 @@
 languageId: plaintext
 command:
-  spokenForm: change short paint
+  spokenForm: change short paint paren
   version: 2
   targets:
     - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: (}
       modifiers:
         - type: containingScope
           scopeType: {type: boundedNonWhitespaceSequence}
@@ -12,9 +13,12 @@ command:
 initialState:
   documentContents: "{foo.bar(hello-world, whatever-now)} test-this"
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 11}
-  marks: {}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  marks:
+    default.(:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 9}
 finalState:
   documentContents: "{ whatever-now)} test-this"
   selections:

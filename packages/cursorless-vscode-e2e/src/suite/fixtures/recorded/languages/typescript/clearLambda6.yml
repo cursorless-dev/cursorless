@@ -10,7 +10,7 @@ command:
           scopeType: {type: anonymousFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: (function bar() {})
+  documentContents: (function *bar() {})
   selections:
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}

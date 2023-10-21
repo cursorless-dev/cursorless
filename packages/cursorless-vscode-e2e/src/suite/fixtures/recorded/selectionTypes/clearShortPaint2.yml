@@ -12,8 +12,8 @@ command:
 initialState:
   documentContents: "{foo.bar(hello-world, whatever-now)} test-this"
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}
   marks: {}
 finalState:
   documentContents: "{ whatever-now)} test-this"

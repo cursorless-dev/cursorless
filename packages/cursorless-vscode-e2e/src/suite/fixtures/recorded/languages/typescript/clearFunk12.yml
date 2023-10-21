@@ -1,4 +1,4 @@
-languageId: typescript
+languageId: javascript
 command:
   version: 5
   spokenForm: change funk
@@ -10,7 +10,7 @@ command:
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: export default function *() {}
+  documentContents: var foo = () => {};
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

@@ -10,10 +10,10 @@ initialState:
   documentContents: |-
     <?php
 
-    myFunk(1, 2, 3);
+    new MyClass();
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
   documentContents: |-

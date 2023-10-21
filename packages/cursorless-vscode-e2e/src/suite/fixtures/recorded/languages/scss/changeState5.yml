@@ -8,20 +8,15 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |-
-    div {
-      a {
-        width: calc(100% - 80px);
-      }
+    a {
+      width: calc(100% - 80px);
     }
   selections:
-    - anchor: {line: 2, character: 6}
-      active: {line: 2, character: 6}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   marks: {}
 finalState:
-  documentContents: |-
-    div {
-      
-    }
+  documentContents: ""
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,11 +1,11 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change first char vest
+  spokenForm: change first word vest
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 0}
+      modifier: {type: subpiece, pieceType: word, anchor: 0, active: 0}
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
 initialState:
   documentContents: |
@@ -21,7 +21,7 @@ initialState:
 finalState:
   documentContents: |
 
-    const alue_hello_str = "Hello world";
+    const _hello_str = "Hello world";
   selections:
     - anchor: {line: 1, character: 6}
       active: {line: 1, character: 6}

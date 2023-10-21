@@ -12,14 +12,14 @@ initialState:
         add(x, 30);
     }
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
   marks: {}
 finalState:
   documentContents: |-
-    fn add(y: i32) -> {
-        add(x, 30);
+    fn add(x: i32, y: i32) -> {
+        add(30);
     }
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}

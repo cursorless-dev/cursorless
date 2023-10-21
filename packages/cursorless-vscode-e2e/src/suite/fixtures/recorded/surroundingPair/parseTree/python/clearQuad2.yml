@@ -1,24 +1,23 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change quad
+  spokenForm: change inside round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: doubleQuotes}
+      modifier: {type: surroundingPair, delimiter: parentheses, delimiterInclusion: interiorOnly}
 initialState:
-  documentContents: |-
-    """
-    {
-        hello
-    }
-    """
+  documentContents: |
+    class a(object):
+        pass
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |
+    class a():
+        pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

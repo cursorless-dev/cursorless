@@ -1,11 +1,11 @@
 languageId: php
 command:
   version: 1
-  spokenForm: change class
+  spokenForm: change class name
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: class, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: className, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
@@ -19,9 +19,13 @@ initialState:
       active: {line: 4, character: 0}
   marks: {}
 finalState:
-  documentContents: |+
+  documentContents: |-
     <?php
 
+    class 
+    {
+
+    }
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}

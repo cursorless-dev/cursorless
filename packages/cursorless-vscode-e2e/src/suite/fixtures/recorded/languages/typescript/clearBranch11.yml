@@ -12,11 +12,7 @@ command:
 initialState:
   documentContents: "const aaa = bbb ? ccc : ddd;"
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
   marks: {}
-finalState:
-  documentContents: "const aaa = bbb ?  : ddd;"
-  selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+thrownError: {name: NoContainingScopeError}

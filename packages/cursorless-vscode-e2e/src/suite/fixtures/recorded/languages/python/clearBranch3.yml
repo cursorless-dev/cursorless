@@ -18,16 +18,16 @@ initialState:
     else:
         pass
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks: {}
 finalState:
   documentContents: |-
-
-    elif False:
+    if True:
         pass
+
     else:
         pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

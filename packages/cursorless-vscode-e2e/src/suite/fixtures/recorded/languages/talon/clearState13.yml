@@ -10,7 +10,7 @@ command:
           scopeType: {type: statement}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "parrot(pop): \"pop\""
+  documentContents: "face(smile): \"smile\""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

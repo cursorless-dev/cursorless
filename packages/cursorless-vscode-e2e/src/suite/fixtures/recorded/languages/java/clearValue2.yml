@@ -13,12 +13,12 @@ initialState:
   documentContents: |-
     public class MyClass {
         String myFunk() {
-            return "hello there";
+            return "hello";
         }
     }
   selections:
-    - anchor: {line: 2, character: 21}
-      active: {line: 2, character: 21}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
   marks: {}
 finalState:
   documentContents: |-

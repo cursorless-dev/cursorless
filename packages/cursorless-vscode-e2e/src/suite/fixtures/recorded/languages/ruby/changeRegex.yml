@@ -1,19 +1,19 @@
 languageId: ruby
 command:
   version: 1
-  spokenForm: change regex
+  spokenForm: change round
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: regularExpression, includeSiblings: false}
+      modifier: {type: surroundingPair, delimiter: parentheses}
 initialState:
-  documentContents: a = /.*/
+  documentContents: "\"hello (world)\""
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}
+  marks: {}
+finalState:
+  documentContents: "\"hello \""
   selections:
     - anchor: {line: 0, character: 7}
       active: {line: 0, character: 7}
-  marks: {}
-finalState:
-  documentContents: "a = "
-  selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}

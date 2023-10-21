@@ -10,22 +10,16 @@ initialState:
   documentContents: |-
     <?php
 
-    function myFunc($value)
-    {
-
-    }
+    myFunc($value, $num, $param);
   selections:
-    - anchor: {line: 2, character: 20}
-      active: {line: 2, character: 20}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 16}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    function myFunc()
-    {
-
-    }
+    myFunc($value, , $param);
   selections:
-    - anchor: {line: 2, character: 16}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 15}
+      active: {line: 2, character: 15}

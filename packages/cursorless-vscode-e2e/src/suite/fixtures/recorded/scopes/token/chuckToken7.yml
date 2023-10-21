@@ -12,11 +12,11 @@ command:
 initialState:
   documentContents: "\" a b c \""
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
-  documentContents: "\" b c \""
+  documentContents: "\" a b \""
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

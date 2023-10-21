@@ -7,17 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
-  documentContents: |
-    a {
-      &:hover { cursor: pointer; }
+  documentContents: |-
+    div {
+      a {
+        width: calc(100% - 80px);
+      }
     }
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}
   marks: {}
 finalState:
-  documentContents: |
-    a {
+  documentContents: |-
+    div {
       
     }
   selections:

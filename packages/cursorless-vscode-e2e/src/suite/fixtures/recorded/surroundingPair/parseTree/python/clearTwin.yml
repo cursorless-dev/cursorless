@@ -1,19 +1,16 @@
-languageId: python
+languageId: shellscript
 command:
-  version: 5
-  spokenForm: change twin
-  action: {name: clearAndSetSelection}
+  version: 1
+  spokenForm: change pair
+  action: clearAndSetSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: singleQuotes}
-  usePrePhraseSnapshot: true
+      modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: "\"'hello'\""
+  documentContents: "\"${hello}\""
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: "\"\""

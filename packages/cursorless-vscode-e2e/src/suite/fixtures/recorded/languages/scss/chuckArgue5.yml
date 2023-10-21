@@ -12,14 +12,14 @@ initialState:
       width: sum(50px, 30px, 100px);
     }
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 27}
+      active: {line: 1, character: 27}
   marks: {}
 finalState:
   documentContents: |-
     .micro {
-      width: sum(30px, 100px);
+      width: sum(50px, 30px);
     }
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 23}

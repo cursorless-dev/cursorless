@@ -14,7 +14,6 @@ initialState:
     fn foo() -> i32 {
         if a > b {
             println!("hello")
-            return "hello";
         }
         "whatever"
     }
@@ -27,10 +26,9 @@ finalState:
     fn foo() -> i32 {
         if a > b {
             println!("hello")
-            return ;
         }
-        "whatever"
+        
     }
   selections:
-    - anchor: {line: 3, character: 15}
-      active: {line: 3, character: 15}
+    - anchor: {line: 4, character: 4}
+      active: {line: 4, character: 4}

@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  spokenForm: move last word zip after fine take fine
+  spokenForm: move last word zip after fine take zip
   version: 2
   targets:
     - type: primitive
@@ -18,7 +18,7 @@ command:
         - {type: position, position: after}
   usePrePhraseSnapshot: true
   action: {name: moveToTarget}
-marksToCheck: [default.f]
+marksToCheck: [default.z]
 initialState:
   documentContents: foo-bar baz-bongo
   selections:

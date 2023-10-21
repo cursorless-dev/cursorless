@@ -16,10 +16,10 @@ initialState:
   documentContents: aaaBbbCccDdd
   selections:
     - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
-  documentContents: BbbCccDdd
+  documentContents: aaaCccDdd
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}

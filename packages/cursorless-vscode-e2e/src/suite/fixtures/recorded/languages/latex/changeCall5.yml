@@ -1,21 +1,19 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change call
+  spokenForm: change callee
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
-  documentContents: |
-    \section{some section}{}
+  documentContents: \href{https://some.url}{some text} \LaTeX
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
   marks: {}
 finalState:
-  documentContents: |
-    {}
+  documentContents: "{https://some.url}{some text} \\LaTeX"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

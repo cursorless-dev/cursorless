@@ -12,15 +12,15 @@ command:
 initialState:
   documentContents: |-
     some command:
-        key(enter)
+        sleep(200ms)
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
   marks: {}
 finalState:
   documentContents: |-
     some command:
-        (enter)
+        (200ms)
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

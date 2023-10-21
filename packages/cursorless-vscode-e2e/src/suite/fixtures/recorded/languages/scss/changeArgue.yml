@@ -8,20 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
 initialState:
   documentContents: |-
-
-    .double {
-      transform: translate(-50%, -50%);
+    @mixin replace-text($image, $color: red) {
+      text-align: left;
     }
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 0, character: 34}
+      active: {line: 0, character: 34}
   marks: {}
 finalState:
   documentContents: |-
-
-    .double {
-      transform: translate(, -50%);
+    @mixin replace-text($image, ) {
+      text-align: left;
     }
   selections:
-    - anchor: {line: 2, character: 23}
-      active: {line: 2, character: 23}
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}

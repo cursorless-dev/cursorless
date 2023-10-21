@@ -1,27 +1,27 @@
 languageId: json
 command:
   version: 1
-  spokenForm: take item
+  spokenForm: take key
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem}
+      modifier: {type: containingScope, scopeType: collectionKey}
 initialState:
   documentContents: |
 
     {
-        "foo": [1, 2, 3]
+        "foo": "bar"
     }
   selections:
-    - anchor: {line: 2, character: 13}
-      active: {line: 2, character: 13}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}
   marks: {}
 finalState:
   documentContents: |
 
     {
-        "foo": [1, 2, 3]
+        "foo": "bar"
     }
   selections:
-    - anchor: {line: 2, character: 12}
-      active: {line: 2, character: 13}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 9}

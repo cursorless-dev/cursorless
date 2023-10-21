@@ -1,11 +1,11 @@
 languageId: latex
 command:
   version: 1
-  spokenForm: change every item
+  spokenForm: change item
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: true}
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
 initialState:
   documentContents: |-
     \begin{itemize}
@@ -13,17 +13,15 @@ initialState:
         \item two \LaTeX
     \end{itemize}
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
   documentContents: |-
     \begin{itemize}
         \item 
-        \item 
+        \item two \LaTeX
     \end{itemize}
   selections:
     - anchor: {line: 1, character: 10}
       active: {line: 1, character: 10}
-    - anchor: {line: 2, character: 10}
-      active: {line: 2, character: 10}

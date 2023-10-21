@@ -10,33 +10,41 @@ command:
           scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    mode: command
-    os: linux
-    and tag: user.some_tag
-    not tag: user.some_other_tag
-    and not app: some_application
-    -
+  documentContents: |-
+    tag(): user.some_tag
+
+    settings():
+        speech.debug = 1
+
+    command: "command"
+    key(enter): "enter"
+    gamepad(north): "north"
+    face(smile): "smile"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |
-    : command
-    : linux
-    and : user.some_tag
-    not : user.some_other_tag
-    and not : some_application
-    -
+  documentContents: |-
+    : user.some_tag
+
+    :
+        speech.debug = 1
+
+    : "command"
+    : "enter"
+    : "north"
+    : "smile"
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
-    - anchor: {line: 4, character: 8}
-      active: {line: 4, character: 8}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
+    - anchor: {line: 7, character: 0}
+      active: {line: 7, character: 0}
+    - anchor: {line: 8, character: 0}
+      active: {line: 8, character: 0}

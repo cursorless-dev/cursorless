@@ -1,33 +1,29 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: change type odd
+  spokenForm: change type red
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: o}
+      mark: {type: decoratedSymbol, symbolColor: default, character: r}
 initialState:
   documentContents: |
     class TypesAhoy() {
-      f match {
-        case foo: Foo => 12
-      }
+      def example(foo: List[String]): List[String] = foo
     }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.o:
-      start: {line: 2, character: 9}
-      end: {line: 2, character: 12}
+    default.r:
+      start: {line: 1, character: 24}
+      end: {line: 1, character: 30}
 finalState:
   documentContents: |
     class TypesAhoy() {
-      f match {
-        case foo:  => 12
-      }
+      def example(foo: ): List[String] = foo
     }
   selections:
-    - anchor: {line: 2, character: 14}
-      active: {line: 2, character: 14}
+    - anchor: {line: 1, character: 19}
+      active: {line: 1, character: 19}

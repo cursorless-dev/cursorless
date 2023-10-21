@@ -1,28 +1,25 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: change funk
+  spokenForm: change item
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: collectionItem, includeSiblings: false}
 initialState:
   documentContents: |-
-    @mixin theme-colors($light-theme: true) {
-      @if $light-theme {
-        background-color: $light-background;
-        color: $light-text;
-      } @else {
-        background-color: $dark-background;
-        color: $dark-text;
-      }
+    a {
+      width: calc(100% - 80px);
     }
   selections:
-    - anchor: {line: 7, character: 3}
-      active: {line: 7, character: 3}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |-
+    a {
+      
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

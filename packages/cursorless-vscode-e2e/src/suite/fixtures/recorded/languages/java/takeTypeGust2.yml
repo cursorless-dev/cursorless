@@ -1,12 +1,12 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take type gust
+  spokenForm: take type harp
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: g}
+      mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |-
     public class MyClass {
@@ -16,12 +16,12 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 3, character: 32}
-      active: {line: 3, character: 49}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 27}
   marks:
-    default.g:
-      start: {line: 3, character: 42}
-      end: {line: 3, character: 48}
+    default.h:
+      start: {line: 2, character: 38}
+      end: {line: 2, character: 45}
 finalState:
   documentContents: |-
     public class MyClass {
@@ -31,5 +31,5 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 3, character: 32}
-      active: {line: 3, character: 49}
+    - anchor: {line: 2, character: 38}
+      active: {line: 2, character: 61}

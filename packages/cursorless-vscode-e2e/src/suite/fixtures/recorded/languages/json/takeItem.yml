@@ -10,18 +10,18 @@ initialState:
   documentContents: |
 
     {
-        "foo": "bar"
+        "foo": [1, 2, 3]
     }
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 2, character: 13}
+      active: {line: 2, character: 13}
   marks: {}
 finalState:
   documentContents: |
 
     {
-        "foo": "bar"
+        "foo": [1, 2, 3]
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 16}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 13}

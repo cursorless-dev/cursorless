@@ -8,16 +8,18 @@ command:
       modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
 initialState:
   documentContents: |-
-    @function pow($base, $exponent) {
-      $result: 1;
-      @for $_ from 1 through $exponent {
-        $result: $result * $base;
+    @mixin theme-colors($light-theme: true) {
+      @if $light-theme {
+        background-color: $light-background;
+        color: $light-text;
+      } @else {
+        background-color: $dark-background;
+        color: $dark-text;
       }
-      @return $result;
     }
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 7, character: 3}
+      active: {line: 7, character: 3}
   marks: {}
 finalState:
   documentContents: ""

@@ -12,14 +12,11 @@ initialState:
       puts("hi")
     end until true
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 2, character: 5}
+      active: {line: 2, character: 5}
   marks: {}
 finalState:
-  documentContents: |-
-    begin
-
-    end until true
+  documentContents: ""
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -8,22 +8,22 @@ command:
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
 initialState:
-  documentContents: |-
-    class Example(foo: String) {
-      def str(bar: String): String = foo + bar
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo: List[String]): List[String] = foo
     }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.o:
-      start: {line: 0, character: 14}
-      end: {line: 0, character: 17}
+      start: {line: 1, character: 49}
+      end: {line: 1, character: 52}
 finalState:
-  documentContents: |-
-    class Example(foo: ) {
-      def str(bar: String): String = foo + bar
+  documentContents: |
+    class TypesAhoy() {
+      def example(foo: List[String]):  = foo
     }
   selections:
-    - anchor: {line: 0, character: 19}
-      active: {line: 0, character: 19}
+    - anchor: {line: 1, character: 34}
+      active: {line: 1, character: 34}

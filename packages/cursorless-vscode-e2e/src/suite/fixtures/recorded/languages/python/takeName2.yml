@@ -7,19 +7,19 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: name}
 initialState:
-  documentContents: |
+  documentContents: |-
 
-    def my_funk(name: str, value) -> str:
-        return
+    class MyClass:
+        """"""
   selections:
-    - anchor: {line: 1, character: 19}
-      active: {line: 1, character: 19}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
 
-    def my_funk(name: str, value) -> str:
-        return
+    class MyClass:
+        """"""
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 13}

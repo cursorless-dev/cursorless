@@ -10,8 +10,8 @@ initialState:
   documentContents: |
     a[222]
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
   marks: {}
 finalState:
   documentContents: |

@@ -1,12 +1,12 @@
 languageId: php
 command:
   version: 1
-  spokenForm: if wrap this
+  spokenForm: try wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifStatement.consequence]
+  extraArgs: [tryCatchStatement.body]
 initialState:
   documentContents: |-
     <?php
@@ -20,9 +20,11 @@ finalState:
   documentContents: |-
     <?php
 
-    if () {
+    try {
         $foo = "Hello world";
+    } catch () {
+        
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 4, character: 9}
+      active: {line: 4, character: 9}

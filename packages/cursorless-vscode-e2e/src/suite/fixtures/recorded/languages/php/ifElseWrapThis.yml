@@ -1,12 +1,12 @@
 languageId: php
 command:
   version: 1
-  spokenForm: if else wrap this
+  spokenForm: if wrap this
   action: wrapWithSnippet
   targets:
     - type: primitive
       mark: {type: cursor}
-  extraArgs: [ifElseStatement.consequence]
+  extraArgs: [ifStatement.consequence]
 initialState:
   documentContents: |-
     <?php
@@ -22,8 +22,6 @@ finalState:
 
     if () {
         $foo = "Hello world";
-    } else {
-        
     }
   selections:
     - anchor: {line: 2, character: 4}

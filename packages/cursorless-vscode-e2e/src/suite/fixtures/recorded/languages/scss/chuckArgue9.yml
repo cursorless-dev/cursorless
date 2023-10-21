@@ -1,11 +1,11 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: chuck arg
+  spokenForm: chuck every arg
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: |-
     a {
@@ -19,7 +19,7 @@ initialState:
 finalState:
   documentContents: |-
     a {
-      clip-path: ellipse(50% 40%);
+      clip-path: ellipse();
     }
      
   selections:

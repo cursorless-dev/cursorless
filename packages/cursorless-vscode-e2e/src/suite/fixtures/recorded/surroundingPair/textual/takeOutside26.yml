@@ -7,11 +7,10 @@ command:
     - type: primitive
       modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: (<user.foo>  <user.bar>)
+  documentContents: (hello)
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
-  marks: {}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
 finalState:
   documentContents: ""
   selections:

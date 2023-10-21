@@ -10,7 +10,7 @@ initialState:
   documentContents: |-
 
     class Bar {
-        foo () {
+        foo = () => {
 
         }
     }
@@ -22,7 +22,7 @@ finalState:
   documentContents: |-
 
     class Bar {
-        foo () {
+        foo = () => {
 
         }
     }

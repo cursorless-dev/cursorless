@@ -9,8 +9,8 @@ command:
 initialState:
   documentContents: (hello)
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
 finalState:
   documentContents: ""
   selections:

@@ -11,8 +11,8 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    while let Some(i) = number {
-      println!("Matched {:?}!", i);
+    while n < 101 {
+      n += 1;
     }
   selections:
     - anchor: {line: 1, character: 2}
@@ -21,7 +21,7 @@ initialState:
 finalState:
   documentContents: |-
     while  {
-      println!("Matched {:?}!", i);
+      n += 1;
     }
   selections:
     - anchor: {line: 0, character: 6}

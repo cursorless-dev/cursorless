@@ -11,7 +11,7 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    if let Some(i) = number {
+    while let Some(i) = number {
       println!("Matched {:?}!", i);
     }
   selections:
@@ -20,9 +20,9 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    if  {
+    while  {
       println!("Matched {:?}!", i);
     }
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

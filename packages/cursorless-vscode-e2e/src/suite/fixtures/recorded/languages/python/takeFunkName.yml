@@ -1,25 +1,25 @@
 languageId: python
 command:
   version: 1
-  spokenForm: take funk name
+  spokenForm: take if state
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: functionName}
+      modifier: {type: containingScope, scopeType: ifStatement}
 initialState:
-  documentContents: |
+  documentContents: |-
 
-    def my_funk(name: str, value) -> str:
+    if True:
         return
   selections:
     - anchor: {line: 2, character: 4}
       active: {line: 2, character: 4}
   marks: {}
 finalState:
-  documentContents: |
+  documentContents: |-
 
-    def my_funk(name: str, value) -> str:
+    if True:
         return
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 11}
+    - anchor: {line: 1, character: 0}
+      active: {line: 2, character: 10}

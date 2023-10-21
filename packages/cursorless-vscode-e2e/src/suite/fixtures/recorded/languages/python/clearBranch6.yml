@@ -18,8 +18,8 @@ initialState:
     else:
         pass
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
   marks: {}
 finalState:
   documentContents: |

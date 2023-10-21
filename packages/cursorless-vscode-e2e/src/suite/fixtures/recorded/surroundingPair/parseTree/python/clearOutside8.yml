@@ -1,19 +1,21 @@
 languageId: python
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change bounds
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifier: {type: surroundingPair, delimiter: any, delimiterInclusion: excludeInterior}
 initialState:
-  documentContents: f"Hello, {name + 's'}!"
-  selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
-  marks: {}
-finalState:
-  documentContents: f"Hello, !"
+  documentContents: "{1: [(1), (2), (3)]}"
   selections:
     - anchor: {line: 0, character: 9}
       active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: "{1: (1), (2), (3)}"
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 17}
+      active: {line: 0, character: 17}

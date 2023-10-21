@@ -1,60 +1,26 @@
 languageId: python
 command:
-  version: 5
-  spokenForm: change every class name
-  action: {name: clearAndSetSelection}
+  spokenForm: change every item
+  version: 2
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: className}
+          scopeType: {type: collectionItem}
   usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |
-    class Aaa:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
-
-        def eee():
-            ddd = "eee"
-            def fff():
-                pass
-
-    class Bbb:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
+  documentContents: from talon import Context, Module, actions
   selections:
-    - anchor: {line: 18, character: 0}
-      active: {line: 18, character: 0}
+    - anchor: {line: 0, character: 25}
+      active: {line: 0, character: 25}
   marks: {}
 finalState:
-  documentContents: |
-    class :
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
-
-        def eee():
-            ddd = "eee"
-            def fff():
-                pass
-
-    class :
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
+  documentContents: "from talon import , , "
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
-    - anchor: {line: 12, character: 6}
-      active: {line: 12, character: 6}
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

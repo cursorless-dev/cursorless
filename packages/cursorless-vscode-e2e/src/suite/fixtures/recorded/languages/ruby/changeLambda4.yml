@@ -7,10 +7,10 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: anonymousFunction, includeSiblings: false}
 initialState:
-  documentContents: Proc.new { puts "hi" }
+  documentContents: lambda { puts "hi" }
   selections:
-    - anchor: {line: 0, character: 20}
-      active: {line: 0, character: 20}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 finalState:
   documentContents: ""

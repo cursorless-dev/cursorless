@@ -1,33 +1,22 @@
 languageId: python
 command:
+  spokenForm: change condition
   version: 3
-  spokenForm: change branch
-  action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
 initialState:
-  documentContents: |-
-    try:
-      pass
-    except:
-      pass
-    finally:
-      pass
+  documentContents: aaa if bbb else ccc
   selections:
-    - anchor: {line: 3, character: 2}
-      active: {line: 3, character: 2}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   marks: {}
 finalState:
-  documentContents: |-
-    try:
-      pass
-
-    finally:
-      pass
+  documentContents: aaa if  else ccc
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

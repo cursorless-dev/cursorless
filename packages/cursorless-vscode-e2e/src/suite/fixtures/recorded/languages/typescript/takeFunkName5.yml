@@ -9,7 +9,7 @@ command:
 initialState:
   documentContents: |
 
-    foo = function() {
+    let foo = () => {
 
     }
   selections:
@@ -19,9 +19,9 @@ initialState:
 finalState:
   documentContents: |
 
-    foo = function() {
+    let foo = () => {
 
     }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 3}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 7}

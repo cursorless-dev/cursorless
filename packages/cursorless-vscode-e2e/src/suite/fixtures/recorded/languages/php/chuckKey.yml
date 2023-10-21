@@ -12,8 +12,8 @@ initialState:
 
     ['num' => 1];
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
   marks: {}
 finalState:
   documentContents: |-

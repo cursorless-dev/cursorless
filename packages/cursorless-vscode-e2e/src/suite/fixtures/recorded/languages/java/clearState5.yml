@@ -12,7 +12,7 @@ command:
 initialState:
   documentContents: |
     public class MyClass {
-        public MyClass() {
+        private void myFunction() {
         }
     }
   selections:

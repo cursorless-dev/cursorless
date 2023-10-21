@@ -10,10 +10,10 @@ command:
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: export abstract class Foo {}
+  documentContents: abstract class Foo {}
   selections:
-    - anchor: {line: 0, character: 27}
-      active: {line: 0, character: 27}
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
   marks: {}
 finalState:
   documentContents: ""

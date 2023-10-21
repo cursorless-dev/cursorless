@@ -1,22 +1,12 @@
 languageId: typescript
 command:
-  version: 3
-  spokenForm: take first past second word harp
-  action: {name: setSelection}
+  version: 1
+  spokenForm: take first three chars harp
+  action: setSelection
   targets:
     - type: primitive
-      modifiers:
-        - type: range
-          anchor:
-            type: ordinalScope
-            scopeType: {type: word}
-            start: 0
-            length: 1
-          active:
-            type: ordinalScope
-            scopeType: {type: word}
-            start: 1
-            length: 1
+      selectionType: token
+      modifier: {type: subpiece, pieceType: character, anchor: 0, active: 2}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |+
@@ -37,4 +27,4 @@ finalState:
 
   selections:
     - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 25}
+      active: {line: 1, character: 18}

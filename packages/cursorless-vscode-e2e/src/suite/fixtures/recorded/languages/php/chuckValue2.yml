@@ -10,7 +10,7 @@ initialState:
   documentContents: |-
     <?php
 
-    $value = 'Hello world';
+    $value += 42;
   selections:
     - anchor: {line: 2, character: 3}
       active: {line: 2, character: 3}

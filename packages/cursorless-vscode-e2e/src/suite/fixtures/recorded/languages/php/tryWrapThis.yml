@@ -11,20 +11,36 @@ initialState:
   documentContents: |-
     <?php
 
-    $foo = "Hello world";
+    if (true) {
+        $foo = "Hello world";
+    }
+
+    $bar = 42;
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
     try {
-        $foo = "Hello world";
+        if (true) {
+            $foo = "Hello world";
+        }
+    } catch () {
+        
+    }
+
+    try {
+        $bar = 42;
     } catch () {
         
     }
   selections:
-    - anchor: {line: 4, character: 9}
-      active: {line: 4, character: 9}
+    - anchor: {line: 6, character: 9}
+      active: {line: 6, character: 9}
+    - anchor: {line: 12, character: 9}
+      active: {line: 12, character: 9}

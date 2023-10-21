@@ -7,10 +7,10 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
-  documentContents: let test = new obj.Test()
+  documentContents: let test = new obj.Tests[0]()
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
   marks: {}
 finalState:
   documentContents: let test = new ()

@@ -10,9 +10,19 @@ command:
           scopeType: {type: functionName}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: const foo = function bar() {}
+  documentContents: |-
+    interface Aaa {
+        bbb(): void;
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 16}
   marks: {}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: |-
+    interface Aaa {
+        (): void;
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

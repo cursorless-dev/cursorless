@@ -8,15 +8,15 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: true
+  usePrePhraseSnapshot: false
 initialState:
   documentContents: aaa = bbb if ccc else ddd
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
   marks: {}
 finalState:
-  documentContents: aaa =  if ccc else ddd
+  documentContents: "aaa = bbb if ccc else "
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

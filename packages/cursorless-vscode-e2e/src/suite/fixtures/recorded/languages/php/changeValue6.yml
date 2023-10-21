@@ -10,16 +10,16 @@ initialState:
   documentContents: |-
     <?php
 
-    $value = 'Hello world';
+    yield $value;
   selections:
-    - anchor: {line: 2, character: 3}
-      active: {line: 2, character: 3}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    $value = ;
+    yield ;
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}

@@ -9,20 +9,20 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: s}
 initialState:
   documentContents: |-
-    function myFunk (value: string): string {
-        return value;
+    interface MyType {
+        name: string;
     }
   selections:
     - anchor: {line: 2, character: 1}
       active: {line: 2, character: 1}
   marks:
     default.s:
-      start: {line: 0, character: 24}
-      end: {line: 0, character: 30}
+      start: {line: 1, character: 10}
+      end: {line: 1, character: 16}
 finalState:
   documentContents: |-
-    function myFunk (value): string {
-        return value;
+    interface MyType {
+        name;
     }
   selections:
     - anchor: {line: 2, character: 1}

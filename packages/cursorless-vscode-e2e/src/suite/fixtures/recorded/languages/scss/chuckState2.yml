@@ -1,25 +1,19 @@
 languageId: scss
 command:
   version: 1
-  spokenForm: chuck state
+  spokenForm: chuck value
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
-  documentContents: |
-    @keyframes important1 {
-      from { margin-top: 50px; }
-      50%  { margin-top: 150px !important; } /* ignored */
-      to   { margin-top: 100px; }
-    }
+  documentContents: "@namespace prefix \"XML-namespace-URL\";"
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: "@namespace;"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

@@ -8,7 +8,7 @@ command:
       modifiers:
         - type: containingScope
           scopeType: {type: branch}
-  usePrePhraseSnapshot: false
+  usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
     if (true) {
@@ -19,16 +19,16 @@ initialState:
       const whatever = "hello";
     }
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    if (true) {
+    if (false) {
       const whatever = "hello";
-    }  else {
+    } else {
       const whatever = "hello";
     }
   selections:
-    - anchor: {line: 2, character: 2}
-      active: {line: 2, character: 2}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

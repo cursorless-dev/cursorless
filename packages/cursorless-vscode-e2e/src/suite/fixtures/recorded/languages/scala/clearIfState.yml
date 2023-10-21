@@ -7,7 +7,12 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: ifStatement, includeSiblings: false}
 initialState:
-  documentContents: val test = if (true) true else false
+  documentContents: |-
+    val test = if (true) {
+      true
+    } else {
+      false
+    }
   selections:
     - anchor: {line: 0, character: 12}
       active: {line: 0, character: 12}

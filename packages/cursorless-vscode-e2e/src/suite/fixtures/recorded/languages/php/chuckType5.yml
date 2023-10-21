@@ -1,25 +1,25 @@
 languageId: php
 command:
   version: 1
-  spokenForm: chuck type
+  spokenForm: chuck value
   action: remove
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
   documentContents: |-
     <?php
 
-    $str = ( string ) $num;
+    ['num' => 1];
   selections:
-    - anchor: {line: 2, character: 18}
-      active: {line: 2, character: 18}
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    $str = $num;
+    ['num'];
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}

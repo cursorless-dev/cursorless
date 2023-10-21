@@ -9,7 +9,7 @@ command:
 initialState:
   documentContents: |
 
-    value = [1, 2, 3]
+    value = {1, 2, 3}
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 9}
@@ -17,7 +17,7 @@ initialState:
 finalState:
   documentContents: |
 
-    value = [1, 2, 3]
+    value = {1, 2, 3}
   selections:
     - anchor: {line: 1, character: 9}
       active: {line: 1, character: 10}

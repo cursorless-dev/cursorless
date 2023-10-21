@@ -10,22 +10,28 @@ initialState:
   documentContents: |-
     <?php
 
-    function helloWorld()
+    class MyClass
     {
+        public function helloWorld()
+        {
 
+        }
     }
   selections:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
+    - anchor: {line: 6, character: 0}
+      active: {line: 6, character: 0}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    function ()
+    class MyClass
     {
+        public function ()
+        {
 
+        }
     }
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 9}
+    - anchor: {line: 4, character: 20}
+      active: {line: 4, character: 20}

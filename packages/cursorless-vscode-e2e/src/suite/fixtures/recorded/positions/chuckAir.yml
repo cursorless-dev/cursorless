@@ -1,10 +1,11 @@
 languageId: plaintext
 command:
   version: 1
-  spokenForm: chuck air
+  spokenForm: chuck leading air
   action: remove
   targets:
     - type: primitive
+      position: before
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
 initialState:
   documentContents: |
@@ -24,7 +25,7 @@ finalState:
     "hello "
     " hello"
     " hello "
-    return .b
+    returna.b
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

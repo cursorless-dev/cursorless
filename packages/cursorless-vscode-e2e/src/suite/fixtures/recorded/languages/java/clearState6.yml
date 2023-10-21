@@ -12,18 +12,14 @@ command:
 initialState:
   documentContents: |
     public class MyClass {
-        private void myFunction() {
-        }
     }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |
-    public class MyClass {
-        
-    }
+  documentContents: |+
+
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,11 +1,11 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take class
+  spokenForm: take class name
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: class}
+      modifier: {type: containingScope, scopeType: className}
 initialState:
   documentContents: |
 
@@ -33,5 +33,5 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 8, character: 1}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 13}

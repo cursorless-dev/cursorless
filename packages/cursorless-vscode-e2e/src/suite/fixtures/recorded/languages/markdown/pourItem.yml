@@ -11,21 +11,17 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    - aaa
-      - bbb
-      - ccc
-      - ddd
+    * aaa bbb
+    * ccc ddd
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    - aaa
-      - bbb
-      - 
-      - ccc
-      - ddd
+    * aaa bbb
+    * 
+    * ccc ddd
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

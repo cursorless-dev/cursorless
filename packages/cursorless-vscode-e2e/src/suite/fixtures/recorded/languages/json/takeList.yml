@@ -1,27 +1,28 @@
 languageId: json
 command:
   version: 1
-  spokenForm: take list
+  spokenForm: take string
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: list}
+      modifier: {type: containingScope, scopeType: string}
+spokenFormError: Scope type 'string'
 initialState:
   documentContents: |
 
     {
-        "foo": [1, 2, 3]
+        "foo": "bar"
     }
   selections:
-    - anchor: {line: 2, character: 19}
-      active: {line: 2, character: 19}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
   marks: {}
 finalState:
   documentContents: |
 
     {
-        "foo": [1, 2, 3]
+        "foo": "bar"
     }
   selections:
     - anchor: {line: 2, character: 11}
-      active: {line: 2, character: 20}
+      active: {line: 2, character: 16}

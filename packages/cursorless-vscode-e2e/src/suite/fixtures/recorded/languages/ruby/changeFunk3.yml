@@ -11,15 +11,24 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    def Thing.hello_world
-      puts "hi"
+    class Test
+      class << self
+        def hello_world
+          puts "hi"
+        end
+      end
     end
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 6}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |-
+    class Test
+      class << self
+        
+      end
+    end
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}

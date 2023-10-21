@@ -11,18 +11,18 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    slap: key(end enter)
+    sleep: sleep(200ms)
         
         
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
   documentContents: |-
-    slap: 
+    sleep: 
         
         
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

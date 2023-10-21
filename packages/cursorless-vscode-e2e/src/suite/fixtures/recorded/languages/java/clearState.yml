@@ -10,16 +10,20 @@ initialState:
   documentContents: |
     public class MyClass {
         public static void main(String[] args) {
-            switch("foo") {
-                case "bar":
-                    
-                    break;
+            if() {
+                
+            }
+            else if() {
+                
+            }
+            else {
+                
             }
         }
     }
   selections:
-    - anchor: {line: 4, character: 16}
-      active: {line: 4, character: 16}
+    - anchor: {line: 3, character: 12}
+      active: {line: 3, character: 12}
   marks: {}
 finalState:
   documentContents: |

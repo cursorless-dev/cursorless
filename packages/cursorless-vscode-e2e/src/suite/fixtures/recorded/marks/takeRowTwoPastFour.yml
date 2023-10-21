@@ -1,32 +1,30 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take row two past four
+  spokenForm: take source
   action: setSelection
   targets:
     - type: primitive
-      selectionType: line
-      mark:
-        type: lineNumber
-        anchor: {lineNumber: 1, type: absolute}
-        active: {lineNumber: 3, type: absolute}
-spokenFormError: Absolute line numbers
+      mark: {type: source}
 initialState:
   documentContents: |
-
-    const value = "Hello world";
-
+    value
     const value = "Hello world";
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 1, character: 6}
+        end: {line: 1, character: 11}
+      isReversed: false
+      hasExplicitRange: true
   marks: {}
 finalState:
   documentContents: |
-
-    const value = "Hello world";
-
+    value
     const value = "Hello world";
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 3, character: 28}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 11}

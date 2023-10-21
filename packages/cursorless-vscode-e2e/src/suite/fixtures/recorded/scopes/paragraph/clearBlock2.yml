@@ -14,8 +14,8 @@ initialState:
 
     aaa
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 3}
+      active: {line: 1, character: 3}
   marks: {}
 finalState:
   documentContents: |+

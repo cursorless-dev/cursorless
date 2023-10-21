@@ -8,14 +8,16 @@ command:
       modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
 initialState:
   documentContents: |
-    \href{https://some.url}{some text} \LaTeX
+    \begin{itemize}
+    \end{itemize}
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
   marks: {}
 finalState:
-  documentContents: |2
-     \LaTeX
+  documentContents: |
+
+    \end{itemize}
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

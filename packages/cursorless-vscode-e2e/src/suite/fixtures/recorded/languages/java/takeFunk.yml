@@ -10,7 +10,7 @@ initialState:
   documentContents: |
 
     public class MyClass {
-        void myFunk () {
+        public MyClass () {
 
         }
     }
@@ -22,7 +22,7 @@ finalState:
   documentContents: |
 
     public class MyClass {
-        void myFunk () {
+        public MyClass () {
 
         }
     }

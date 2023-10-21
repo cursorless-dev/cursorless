@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take up one past down one
+  spokenForm: take up one past row four
   action: setSelection
   targets:
     - type: primitive
@@ -9,7 +9,8 @@ command:
       mark:
         type: lineNumber
         anchor: {lineNumber: -1, type: relative}
-        active: {lineNumber: 1, type: relative}
+        active: {lineNumber: 3, type: absolute}
+spokenFormError: Absolute line numbers
 initialState:
   documentContents: |
 

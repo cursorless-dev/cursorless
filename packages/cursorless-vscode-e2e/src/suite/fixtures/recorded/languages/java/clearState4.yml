@@ -12,7 +12,8 @@ command:
 initialState:
   documentContents: |
     public class MyClass {
-        private String value = "hello";
+        public MyClass() {
+        }
     }
   selections:
     - anchor: {line: 1, character: 4}

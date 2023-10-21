@@ -7,7 +7,10 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
 initialState:
-  documentContents: // this is a line comment
+  documentContents: |-
+    /*
+      block comment
+    */
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

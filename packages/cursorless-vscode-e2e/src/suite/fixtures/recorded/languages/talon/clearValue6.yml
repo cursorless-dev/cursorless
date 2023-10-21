@@ -10,23 +10,13 @@ command:
           scopeType: {type: value}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    some command: 
-        value = user.get_value()
-
-        
-        
+  documentContents: "key(enter): \"enter\""
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
-    some command: 
-        value = 
-
-        
-        
+  documentContents: "key(enter): "
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}

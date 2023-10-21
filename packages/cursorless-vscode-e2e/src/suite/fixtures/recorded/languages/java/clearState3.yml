@@ -12,12 +12,11 @@ command:
 initialState:
   documentContents: |
     public class MyClass {
-        @Inject
-        private Aaa aaa;
+        private String value = "hello";
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |

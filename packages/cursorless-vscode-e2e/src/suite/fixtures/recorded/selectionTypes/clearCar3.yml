@@ -10,13 +10,13 @@ command:
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:
-  documentContents: aaaBbbCcc
+  documentContents: " a"
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: aabbCcc
+  documentContents: " "
   selections:
-    - anchor: {line: 0, character: 2}
-      active: {line: 0, character: 2}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

@@ -1,45 +1,28 @@
-languageId: python
+languageId: ruby
 command:
   version: 5
-  spokenForm: change every class
+  spokenForm: change every class name
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: class}
+          scopeType: {type: className}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    class Aaa:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
-
-        def eee():
-            ddd = "eee"
-            def fff():
-                pass
-
-    class Bbb:
-        @bbb
-        def ccc():
-            ddd = "eee"
-            def fff():
-                pass
+  documentContents: |-
+    class Aaa; end
+    class Bbb; end
   selections:
-    - anchor: {line: 11, character: 0}
-      active: {line: 11, character: 0}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
   marks: {}
 finalState:
-  documentContents: |+
-
-
-
+  documentContents: |-
+    class ; end
+    class ; end
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

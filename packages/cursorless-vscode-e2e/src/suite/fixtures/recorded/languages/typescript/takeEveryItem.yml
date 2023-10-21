@@ -9,7 +9,7 @@ command:
 initialState:
   documentContents: |
 
-    const value = { a: 1, b: 2, c: 3, foo };
+    const value = [1, 2, 3, foo];
   selections:
     - anchor: {line: 1, character: 17}
       active: {line: 1, character: 17}
@@ -17,13 +17,13 @@ initialState:
 finalState:
   documentContents: |
 
-    const value = { a: 1, b: 2, c: 3, foo };
+    const value = [1, 2, 3, foo];
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 20}
-    - anchor: {line: 1, character: 22}
-      active: {line: 1, character: 26}
-    - anchor: {line: 1, character: 28}
-      active: {line: 1, character: 32}
-    - anchor: {line: 1, character: 34}
-      active: {line: 1, character: 37}
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 18}
+      active: {line: 1, character: 19}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 22}
+    - anchor: {line: 1, character: 24}
+      active: {line: 1, character: 27}

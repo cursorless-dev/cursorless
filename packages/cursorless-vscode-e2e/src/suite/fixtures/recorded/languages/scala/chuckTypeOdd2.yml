@@ -10,19 +10,23 @@ command:
 initialState:
   documentContents: |
     class TypesAhoy() {
-      def example(foo: List[String]): List[String] = foo
+      f match {
+        case foo: Foo => 12
+      }
     }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
     default.o:
-      start: {line: 1, character: 49}
-      end: {line: 1, character: 52}
+      start: {line: 2, character: 9}
+      end: {line: 2, character: 12}
 finalState:
   documentContents: |
     class TypesAhoy() {
-      def example(foo: List[String]) = foo
+      f match {
+        case foo => 12
+      }
     }
   selections:
     - anchor: {line: 0, character: 0}

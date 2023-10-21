@@ -7,10 +7,10 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: functionCallee, includeSiblings: false}
 initialState:
-  documentContents: eval(action)[0]()
+  documentContents: object.method()
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
   marks: {}
 finalState:
   documentContents: ()

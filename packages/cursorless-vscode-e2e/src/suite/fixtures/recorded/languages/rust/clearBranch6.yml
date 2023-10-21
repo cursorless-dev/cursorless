@@ -19,16 +19,16 @@ initialState:
         print!("{} is zero", n);
     }
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}
   marks: {}
 finalState:
   documentContents: |-
     if n < 0 {
         print!("{} is negative", n);
-    } else  else {
-        print!("{} is zero", n);
-    }
+    } else if n > 0 {
+        print!("{} is positive", n);
+    } 
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 4, character: 2}
+      active: {line: 4, character: 2}

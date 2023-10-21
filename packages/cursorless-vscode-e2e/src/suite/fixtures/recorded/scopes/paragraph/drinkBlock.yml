@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: drink block
+  spokenForm: pour block
   version: 2
   targets:
     - type: primitive
@@ -8,7 +8,7 @@ command:
         - type: containingScope
           scopeType: {type: paragraph}
   usePrePhraseSnapshot: true
-  action: {name: editNewLineBefore}
+  action: {name: editNewLineAfter}
 initialState:
   documentContents: |2
         hello there
@@ -19,10 +19,10 @@ initialState:
   marks: {}
 finalState:
   documentContents: |2
-        
+        hello there
+        hello there
 
-        hello there
-        hello there
+        
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

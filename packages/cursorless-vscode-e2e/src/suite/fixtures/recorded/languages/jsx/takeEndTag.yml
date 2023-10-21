@@ -1,11 +1,11 @@
 languageId: javascript
 command:
   version: 1
-  spokenForm: take end tag
+  spokenForm: take every attribute
   action: setSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: xmlEndTag}
+      modifier: {type: containingScope, scopeType: attribute, includeSiblings: true}
 initialState:
   documentContents: |
 
@@ -13,7 +13,7 @@ initialState:
       <div id="bar" name="foo">bar</div>
     );
   selections:
-    - anchor: {line: 2, character: 15}
+    - anchor: {line: 2, character: 7}
       active: {line: 2, character: 15}
   marks: {}
 finalState:
@@ -23,5 +23,7 @@ finalState:
       <div id="bar" name="foo">bar</div>
     );
   selections:
-    - anchor: {line: 2, character: 30}
-      active: {line: 2, character: 36}
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 15}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 26}

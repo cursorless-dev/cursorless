@@ -9,11 +9,11 @@ command:
 initialState:
   documentContents: f"Hello, {name + 's'}!"
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
   marks: {}
 finalState:
-  documentContents: f"Hello, {name + }!"
+  documentContents: f"Hello, !"
   selections:
-    - anchor: {line: 0, character: 17}
-      active: {line: 0, character: 17}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

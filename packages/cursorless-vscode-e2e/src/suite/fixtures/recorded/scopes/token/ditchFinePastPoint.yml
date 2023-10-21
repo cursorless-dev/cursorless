@@ -17,7 +17,7 @@ command:
 initialState:
   documentContents: |2
        foo
-       bar.
+       bar.   
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}

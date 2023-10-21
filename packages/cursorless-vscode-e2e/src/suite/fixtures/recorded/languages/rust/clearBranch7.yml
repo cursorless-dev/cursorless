@@ -19,8 +19,8 @@ initialState:
         print!("{} is zero", n);
     }
   selections:
-    - anchor: {line: 5, character: 4}
-      active: {line: 5, character: 4}
+    - anchor: {line: 4, character: 2}
+      active: {line: 4, character: 2}
   marks: {}
 finalState:
   documentContents: |-

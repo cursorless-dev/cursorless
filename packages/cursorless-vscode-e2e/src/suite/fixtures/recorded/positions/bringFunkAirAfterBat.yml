@@ -1,17 +1,17 @@
 languageId: python
 command:
-  spokenForm: bring funk air after bat
+  spokenForm: bring funk bat before air
   version: 2
   targets:
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
       modifiers:
         - type: containingScope
           scopeType: {type: namedFunction}
     - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
       modifiers:
-        - {type: position, position: after}
+        - {type: position, position: before}
   usePrePhraseSnapshot: true
   action: {name: replaceWithTarget}
 initialState:
@@ -27,18 +27,14 @@ initialState:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks:
-    default.a:
-      start: {line: 0, character: 8}
-      end: {line: 0, character: 11}
     default.b:
       start: {line: 4, character: 8}
       end: {line: 4, character: 11}
+    default.a:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 11}
 finalState:
   documentContents: |2
-        def aaa():
-
-            pass
-
         def bbb():
 
             pass
@@ -46,6 +42,10 @@ finalState:
         def aaa():
 
             pass
+
+        def bbb():
+
+            pass
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}

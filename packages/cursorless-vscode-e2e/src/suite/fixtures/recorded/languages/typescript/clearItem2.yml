@@ -12,11 +12,11 @@ command:
 initialState:
   documentContents: "let foo: { a: string, b: string };"
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
   marks: {}
 finalState:
-  documentContents: "let foo: { , b: string };"
+  documentContents: "let foo: { a: string,  };"
   selections:
-    - anchor: {line: 0, character: 11}
-      active: {line: 0, character: 11}
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}

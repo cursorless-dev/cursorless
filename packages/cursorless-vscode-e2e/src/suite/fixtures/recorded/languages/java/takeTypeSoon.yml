@@ -16,12 +16,12 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 27}
+    - anchor: {line: 2, character: 38}
+      active: {line: 2, character: 61}
   marks:
     default.s:
-      start: {line: 2, character: 12}
-      end: {line: 2, character: 18}
+      start: {line: 2, character: 54}
+      end: {line: 2, character: 60}
 finalState:
   documentContents: |-
     public class MyClass {
@@ -31,5 +31,5 @@ finalState:
         }
     }
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 27}
+    - anchor: {line: 2, character: 38}
+      active: {line: 2, character: 61}

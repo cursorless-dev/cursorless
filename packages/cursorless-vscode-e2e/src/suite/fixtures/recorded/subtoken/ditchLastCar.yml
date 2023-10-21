@@ -14,13 +14,13 @@ command:
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
+  documentContents: aña
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  marks: {}
+finalState:
   documentContents: añ
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}
-  marks: {}
-finalState:
-  documentContents: a
-  selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}

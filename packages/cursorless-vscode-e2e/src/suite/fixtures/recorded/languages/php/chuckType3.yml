@@ -10,20 +10,16 @@ initialState:
   documentContents: |-
     <?php
 
-    function myFunc(array ...$nums) {
-
-    }
+    (string) $str;
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 2, character: 10}
+      active: {line: 2, character: 10}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    function myFunc(...$nums) {
-
-    }
+    $str;
   selections:
-    - anchor: {line: 2, character: 19}
-      active: {line: 2, character: 19}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}

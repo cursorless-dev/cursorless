@@ -7,10 +7,10 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
-  documentContents: foo = bar("bongo")
+  documentContents: bar("bongo")
   selections:
-    - anchor: {line: 0, character: 13}
-      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
   marks: {}
 finalState:
   documentContents: ""

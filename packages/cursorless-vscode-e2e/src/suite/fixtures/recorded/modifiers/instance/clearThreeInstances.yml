@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: change three instances
+  spokenForm: change two instances
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
@@ -9,13 +9,21 @@ command:
         - type: relativeScope
           scopeType: {type: instance}
           offset: 0
-          length: 3
+          length: 2
           direction: forward
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: aaa bbb aaa
+  documentContents: |
+    aaa bbb ccc aaa ddd aaa
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
-thrownError: {name: OutOfRangeError}
+finalState:
+  documentContents: |2
+     bbb ccc  ddd aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}

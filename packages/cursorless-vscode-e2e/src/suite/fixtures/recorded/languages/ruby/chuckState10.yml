@@ -10,6 +10,8 @@ initialState:
   documentContents: |-
     begin
       a = 10
+    else
+      a = 10
     ensure 
       a = 10
     end
@@ -21,8 +23,10 @@ finalState:
   documentContents: |-
     begin
       a = 10
-    ensure 
+    else
 
+    ensure 
+      a = 10
     end
   selections:
     - anchor: {line: 3, character: 0}

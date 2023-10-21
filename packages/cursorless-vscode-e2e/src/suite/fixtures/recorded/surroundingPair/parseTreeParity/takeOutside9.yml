@@ -1,16 +1,16 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change pair
+  spokenForm: change quad
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: any}
+      modifier: {type: surroundingPair, delimiter: doubleQuotes}
 initialState:
-  documentContents: "[hello  (whatever)]"
+  documentContents: "\"\""
   selections:
-    - anchor: {line: 0, character: 7}
-      active: {line: 0, character: 7}
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
 finalState:
   documentContents: ""
   selections:

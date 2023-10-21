@@ -11,8 +11,8 @@ initialState:
     \section{some section}
     Some Text
   selections:
-    - anchor: {line: 1, character: 7}
-      active: {line: 1, character: 7}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
   marks: {}
 finalState:
   documentContents: |-

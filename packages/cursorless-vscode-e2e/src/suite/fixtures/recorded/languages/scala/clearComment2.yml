@@ -1,22 +1,29 @@
 languageId: scala
 command:
-  version: 0
-  spokenForm: change comment
+  version: 1
+  spokenForm: change condition equals
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: comment, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: condition, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: '='}
 initialState:
-  documentContents: |-
-    /*
-      block comment
-    */
+  documentContents: |
+    class Example() {
+      if (1 + 2 == 3) println("wow")
+    }
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-  marks: {}
+  marks:
+    default.=:
+      start: {line: 1, character: 12}
+      end: {line: 1, character: 14}
 finalState:
-  documentContents: ""
+  documentContents: |
+    class Example() {
+      if () println("wow")
+    }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

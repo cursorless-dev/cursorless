@@ -15,27 +15,27 @@ initialState:
     class Aaa {
 
       static void bbb() {
-        switch ("0") {
-          case ("0"):
-            break;
-        }
+        var s =
+          switch ("0") {
+            case "0" -> "zero";
+          };
       }
     }
   selections:
-    - anchor: {line: 4, character: 17}
-      active: {line: 4, character: 17}
+    - anchor: {line: 5, character: 22}
+      active: {line: 5, character: 22}
   marks: {}
 finalState:
   documentContents: |
     class Aaa {
 
       static void bbb() {
-        switch () {
-          case ("0"):
-            break;
-        }
+        var s =
+          switch () {
+            case "0" -> "zero";
+          };
       }
     }
   selections:
-    - anchor: {line: 3, character: 12}
-      active: {line: 3, character: 12}
+    - anchor: {line: 4, character: 14}
+      active: {line: 4, character: 14}

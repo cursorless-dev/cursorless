@@ -1,28 +1,28 @@
 languageId: rust
 command:
-  spokenForm: chuck item sit
-  version: 3
+  spokenForm: chuck item two
+  version: 2
   targets:
     - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '2'}
       modifiers:
         - type: containingScope
           scopeType: {type: collectionItem}
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
   usePrePhraseSnapshot: true
   action: {name: remove}
 initialState:
   documentContents: |
-    type T = (&'static str, &'static str);
+    let x = [1, 2];
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks:
-    default.i:
-      start: {line: 0, character: 26}
-      end: {line: 0, character: 32}
+    default.2:
+      start: {line: 0, character: 12}
+      end: {line: 0, character: 13}
 finalState:
   documentContents: |
-    type T = (&'static str);
+    let x = [1];
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

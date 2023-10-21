@@ -1,11 +1,11 @@
 languageId: scala
 command:
   version: 1
-  spokenForm: change funk four
+  spokenForm: change funk name four
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+      modifier: {type: containingScope, scopeType: functionName, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: '4'}
 initialState:
   documentContents: |
@@ -22,8 +22,8 @@ initialState:
 finalState:
   documentContents: |
     class ExampleClass() {
-      
+      def () = 42
     }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}

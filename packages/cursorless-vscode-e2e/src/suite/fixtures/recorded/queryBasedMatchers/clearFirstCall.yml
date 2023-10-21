@@ -1,14 +1,14 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: change first call
+  spokenForm: change last call
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: ordinalScope
           scopeType: {type: functionCall}
-          start: 0
+          start: -1
           length: 1
   usePrePhraseSnapshot: true
 initialState:
@@ -18,7 +18,7 @@ initialState:
       active: {line: 0, character: 18}
   marks: {}
 finalState:
-  documentContents: aaa() +  + ccc() + ddd()
+  documentContents: aaa() + bbb() +  + ddd()
   selections:
-    - anchor: {line: 0, character: 8}
-      active: {line: 0, character: 8}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}

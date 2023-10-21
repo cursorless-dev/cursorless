@@ -10,15 +10,13 @@ command:
           scopeType: {type: statement}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    air: "a"
+  documentContents: "key(enter): \"enter\""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |+
-
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

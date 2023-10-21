@@ -8,20 +8,22 @@ command:
       modifier: {type: containingScope, scopeType: argumentOrParameter, includeSiblings: true}
 initialState:
   documentContents: |-
-    div {
-      background: repeating-linear-gradient(red, orange 50px);
+    a {
+      clip-path: ellipse(115px 55px at 50% 40%);
     }
+     
   selections:
-    - anchor: {line: 1, character: 50}
-      active: {line: 1, character: 50}
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}
   marks: {}
 finalState:
   documentContents: |-
-    div {
-      background: repeating-linear-gradient(, );
+    a {
+      clip-path: ellipse( at );
     }
+     
   selections:
-    - anchor: {line: 1, character: 40}
-      active: {line: 1, character: 40}
-    - anchor: {line: 1, character: 42}
-      active: {line: 1, character: 42}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
+    - anchor: {line: 1, character: 25}
+      active: {line: 1, character: 25}

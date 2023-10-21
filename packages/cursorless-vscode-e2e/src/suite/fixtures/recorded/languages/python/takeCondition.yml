@@ -14,8 +14,8 @@ initialState:
     while True:
         pass
   selections:
-    - anchor: {line: 4, character: 4}
-      active: {line: 4, character: 4}
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
   marks: {}
 finalState:
   documentContents: |-
@@ -25,5 +25,5 @@ finalState:
     while True:
         pass
   selections:
-    - anchor: {line: 3, character: 6}
-      active: {line: 3, character: 10}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 7}

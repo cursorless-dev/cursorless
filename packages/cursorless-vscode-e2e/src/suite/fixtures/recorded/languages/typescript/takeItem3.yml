@@ -11,13 +11,13 @@ initialState:
 
     const value = { a: 1, b: 2, c: 3 };
   selections:
-    - anchor: {line: 1, character: 20}
-      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 21}
+      active: {line: 1, character: 21}
   marks: {}
 finalState:
   documentContents: |
 
     const value = { a: 1, b: 2, c: 3 };
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 20}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 26}

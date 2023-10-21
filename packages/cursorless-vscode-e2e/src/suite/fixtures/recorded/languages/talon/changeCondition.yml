@@ -11,22 +11,21 @@ command:
           scopeType: {type: condition}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    tag: user.foo
-    app: bar
+  documentContents: |
+    mode: command
+    os: linux
+    and tag: user.some_tag
+    not tag: user.some_other_tag
+    and not app: some_application
     -
-    bongo: bazman
-    foo: key(a)
   selections:
-    - anchor: {line: 4, character: 11}
-      active: {line: 4, character: 11}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
 
     -
-    bongo: bazman
-    foo: key(a)
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

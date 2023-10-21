@@ -8,15 +8,24 @@ command:
       modifier: {type: containingScope, scopeType: statement, includeSiblings: false}
 initialState:
   documentContents: |-
-    begin
-      puts("hi")
-    end until true
+    case abc
+    when true
+      a = 0
+    else
+      a = 10
+    end
   selections:
-    - anchor: {line: 2, character: 5}
-      active: {line: 2, character: 5}
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |-
+    case abc
+    when true
+
+    else
+      a = 10
+    end
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

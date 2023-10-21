@@ -11,8 +11,8 @@ initialState:
     def foo():
         return "hello"
   selections:
-    - anchor: {line: 1, character: 14}
-      active: {line: 1, character: 14}
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
   marks: {}
 finalState:
   documentContents: |-

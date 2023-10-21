@@ -9,15 +9,19 @@ command:
 initialState:
   documentContents: |
 
-    const value: string = "Hello world";
+    function myFunk (name: string) {
+
+    }
   selections:
-    - anchor: {line: 1, character: 29}
-      active: {line: 1, character: 29}
+    - anchor: {line: 1, character: 22}
+      active: {line: 1, character: 22}
   marks: {}
 finalState:
   documentContents: |
 
-    const value: string = "Hello world";
+    function myFunk (name: string) {
+
+    }
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 19}
+    - anchor: {line: 1, character: 23}
+      active: {line: 1, character: 29}

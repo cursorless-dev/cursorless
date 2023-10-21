@@ -1,4 +1,4 @@
-languageId: ruby
+languageId: python
 command:
   version: 5
   spokenForm: change every funk
@@ -10,27 +10,42 @@ command:
           scopeType: {type: namedFunction}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    class Sample
-        def function
-           statement
-        end
+  documentContents: |
+    class Aaa:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
 
-        def function
-           statement
-        end
-     end
+        def eee():
+            ddd = "eee"
+            def fff():
+                pass
+
+    class Bbb:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
   selections:
-    - anchor: {line: 8, character: 4}
-      active: {line: 8, character: 4}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
   marks: {}
 finalState:
-  documentContents: |-
-    class Sample
+  documentContents: |
+    class Aaa:
         
 
         
-     end
+
+    class Bbb:
+        @bbb
+        def ccc():
+            ddd = "eee"
+            def fff():
+                pass
   selections:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}

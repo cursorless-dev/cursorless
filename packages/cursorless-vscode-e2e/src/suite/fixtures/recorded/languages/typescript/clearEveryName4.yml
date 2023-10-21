@@ -10,27 +10,15 @@ command:
           scopeType: {type: name}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    class Aaa {
-        bbb = 0;
-        eee() {}
-        fff() {}
-    }
+  documentContents: "function aaa(bbb: string, ccc: string) {}"
   selections:
-    - anchor: {line: 3, character: 12}
-      active: {line: 3, character: 12}
+    - anchor: {line: 0, character: 37}
+      active: {line: 0, character: 37}
   marks: {}
 finalState:
-  documentContents: |-
-    class Aaa {
-         = 0;
-        () {}
-        () {}
-    }
+  documentContents: "function aaa(: string, : string) {}"
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 4}
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}

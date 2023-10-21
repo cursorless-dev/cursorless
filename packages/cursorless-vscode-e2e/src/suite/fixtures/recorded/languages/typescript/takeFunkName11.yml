@@ -7,25 +7,21 @@ command:
     - type: primitive
       modifier: {type: containingScope, scopeType: functionName}
 initialState:
-  documentContents: |-
+  documentContents: |
 
-    class Bar {
-        foo = () => {
+    export function foo () {
 
-        }
     }
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
 
-    class Bar {
-        foo = () => {
+    export function foo () {
 
-        }
     }
   selections:
-    - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 7}
+    - anchor: {line: 1, character: 16}
+      active: {line: 1, character: 19}

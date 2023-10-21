@@ -8,12 +8,12 @@ command:
       modifier: {type: containingScope, scopeType: value, includeSiblings: false}
 initialState:
   documentContents: |-
-    @mixin foo($foo: 123) {
+    @mixin foo($foo: red) {
 
     }
   selections:
-    - anchor: {line: 0, character: 18}
-      active: {line: 0, character: 18}
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
   marks: {}
 finalState:
   documentContents: |-

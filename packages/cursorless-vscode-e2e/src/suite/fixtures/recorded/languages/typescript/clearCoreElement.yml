@@ -14,7 +14,6 @@ initialState:
   documentContents: |-
     <div>
         aaa
-        <span>bbb</span>
     </div>
   selections:
     - anchor: {line: 1, character: 4}

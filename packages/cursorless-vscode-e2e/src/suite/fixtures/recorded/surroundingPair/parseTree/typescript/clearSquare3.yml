@@ -9,8 +9,8 @@ command:
 initialState:
   documentContents: const [bongo, baz] = [foo, bar]
   selections:
-    - anchor: {line: 0, character: 22}
-      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
   marks: {}
 finalState:
   documentContents: const [bongo, baz] = []

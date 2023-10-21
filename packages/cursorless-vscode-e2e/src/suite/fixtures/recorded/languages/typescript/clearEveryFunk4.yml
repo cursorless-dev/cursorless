@@ -11,9 +11,9 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    interface Aaa {
-        bbb(): void;
-        ccc(): void;
+    const aaa = {
+        bbb() {},
+        ccc() {},
     }
 
     function ddd() {}
@@ -23,9 +23,9 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    interface Aaa {
-        
-        
+    const aaa = {
+        ,
+        ,
     }
 
     function ddd() {}

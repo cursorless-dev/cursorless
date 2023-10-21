@@ -11,9 +11,8 @@ command:
   action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
-    interface Foo {
-      bar: Bar;
-      baz: Baz;
+    type Foo = {
+      bar: string;
     }
   selections:
     - anchor: {line: 1, character: 2}
@@ -21,9 +20,8 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    interface Foo {
+    type Foo = {
       
-      baz: Baz;
     }
   selections:
     - anchor: {line: 1, character: 2}

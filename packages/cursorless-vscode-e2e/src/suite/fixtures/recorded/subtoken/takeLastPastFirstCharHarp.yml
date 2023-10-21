@@ -1,12 +1,12 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take last past first char harp
+  spokenForm: take last past first word harp
   action: setSelection
   targets:
     - type: primitive
       selectionType: token
-      modifier: {type: subpiece, pieceType: character, anchor: -1, active: 0}
+      modifier: {type: subpiece, pieceType: word, anchor: -1, active: 0}
       mark: {type: decoratedSymbol, symbolColor: default, character: h}
 initialState:
   documentContents: |+

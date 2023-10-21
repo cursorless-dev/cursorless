@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  spokenForm: chuck first word cap
+  spokenForm: chuck last word cap
   version: 2
   targets:
     - type: primitive
@@ -8,8 +8,8 @@ command:
       modifiers:
         - type: ordinalRange
           scopeType: {type: word}
-          anchor: 0
-          active: 0
+          anchor: -1
+          active: -1
           excludeAnchor: false
           excludeActive: false
   usePrePhraseSnapshot: true
@@ -28,7 +28,7 @@ initialState:
       end: {line: 0, character: 16}
 finalState:
   documentContents: |2-
-     .selector {
+     .child {
        height: 10px;
      }
   selections:

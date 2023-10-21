@@ -16,20 +16,17 @@ initialState:
 
     Hello there
 
-    # Another test
+    ### Another test
   selections:
-    - anchor: {line: 6, character: 9}
-      active: {line: 6, character: 9}
+    - anchor: {line: 6, character: 8}
+      active: {line: 6, character: 8}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |+
     # Hello world
 
     Testing testing
 
-
-
-    # Another test
   selections:
     - anchor: {line: 4, character: 0}
       active: {line: 4, character: 0}

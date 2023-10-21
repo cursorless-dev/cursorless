@@ -10,9 +10,9 @@ command:
           scopeType: {type: functionCall}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: " aaa()"
+  documentContents: "aaa() "
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
   marks: {}
 thrownError: {name: NoContainingScopeError}

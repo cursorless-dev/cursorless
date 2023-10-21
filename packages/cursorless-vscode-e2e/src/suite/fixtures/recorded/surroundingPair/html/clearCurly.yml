@@ -1,33 +1,19 @@
 languageId: html
 command:
   version: 1
-  spokenForm: change curly
+  spokenForm: change pair
   action: clearAndSetSelection
   targets:
     - type: primitive
-      modifier: {type: surroundingPair, delimiter: curlyBrackets}
+      modifier: {type: surroundingPair, delimiter: any}
 initialState:
-  documentContents: |
-    <html>
-      <head>
-        <style>
-          body { color: red; }
-        </style>
-      </head>
-    </html>
+  documentContents: <hello/>
   selections:
-    - anchor: {line: 3, character: 16}
-      active: {line: 3, character: 16}
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
   marks: {}
 finalState:
-  documentContents: |
-    <html>
-      <head>
-        <style>
-          body 
-        </style>
-      </head>
-    </html>
+  documentContents: ""
   selections:
-    - anchor: {line: 3, character: 11}
-      active: {line: 3, character: 11}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
