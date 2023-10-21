@@ -678,7 +678,70 @@
             "bolt": {
               "type": "boolean"
             },
+            "wrench": {
+              "type": "boolean"
+            },
             "crosshairs": {
+              "type": "boolean"
+            },
+            "bridge": {
+              "type": "boolean"
+            },
+            "church": {
+              "type": "boolean"
+            },
+            "fang": {
+              "type": "boolean"
+            },
+            "cone": {
+              "type": "boolean"
+            },
+            "gem": {
+              "type": "boolean"
+            },
+            "horn": {
+              "type": "boolean"
+            },
+            "knight": {
+              "type": "boolean"
+            },
+            "leaf": {
+              "type": "boolean"
+            },
+            "meeple": {
+              "type": "boolean"
+            },
+            "moon": {
+              "type": "boolean"
+            },
+            "mosque": {
+              "type": "boolean"
+            },
+            "pail": {
+              "type": "boolean"
+            },
+            "rook": {
+              "type": "boolean"
+            },
+            "shroom": {
+              "type": "boolean"
+            },
+            "singer": {
+              "type": "boolean"
+            },
+            "stair": {
+              "type": "boolean"
+            },
+            "stupa": {
+              "type": "boolean"
+            },
+            "wave": {
+              "type": "boolean"
+            },
+            "star": {
+              "type": "boolean"
+            },
+            "gate": {
               "type": "boolean"
             }
           },
@@ -692,7 +755,28 @@
             "eye": false,
             "play": false,
             "bolt": false,
-            "crosshairs": false
+            "wrench": false,
+            "crosshairs": false,
+            "bridge": false,
+            "church": false,
+            "fang": false,
+            "cone": false,
+            "gem": false,
+            "horn": false,
+            "knight": false,
+            "leaf": false,
+            "meeple": false,
+            "moon": false,
+            "mosque": false,
+            "pail": false,
+            "rook": false,
+            "shroom": false,
+            "singer": false,
+            "stair": false,
+            "stupa": false,
+            "wave": false,
+            "star": false,
+            "gate": false
           },
           "additionalProperties": false
         },
@@ -769,7 +853,70 @@
             "bolt": {
               "type": "number"
             },
+            "wrench": {
+              "type": "number"
+            },
             "crosshairs": {
+              "type": "number"
+            },
+            "bridge": {
+              "type": "number"
+            },
+            "church": {
+              "type": "number"
+            },
+            "fang": {
+              "type": "number"
+            },
+            "cone": {
+              "type": "number"
+            },
+            "gem": {
+              "type": "number"
+            },
+            "horn": {
+              "type": "number"
+            },
+            "knight": {
+              "type": "number"
+            },
+            "leaf": {
+              "type": "number"
+            },
+            "meeple": {
+              "type": "number"
+            },
+            "moon": {
+              "type": "number"
+            },
+            "mosque": {
+              "type": "number"
+            },
+            "pail": {
+              "type": "number"
+            },
+            "rook": {
+              "type": "number"
+            },
+            "shroom": {
+              "type": "number"
+            },
+            "singer": {
+              "type": "number"
+            },
+            "stair": {
+              "type": "number"
+            },
+            "stupa": {
+              "type": "number"
+            },
+            "wave": {
+              "type": "number"
+            },
+            "star": {
+              "type": "number"
+            },
+            "gate": {
               "type": "number"
             }
           },
@@ -783,7 +930,28 @@
             "eye": 1,
             "play": 1,
             "bolt": 1,
-            "crosshairs": 1
+            "wrench": 1,
+            "crosshairs": 1,
+            "bridge": 1,
+            "church": 1,
+            "fang": 1,
+            "cone": 1,
+            "gem": 1,
+            "horn": 1,
+            "knight": 1,
+            "leaf": 1,
+            "meeple": 1,
+            "moon": 1,
+            "mosque": 1,
+            "pail": 1,
+            "rook": 1,
+            "shroom": 1,
+            "singer": 1,
+            "stair": 1,
+            "stupa": 1,
+            "wave": 1,
+            "star": 1,
+            "gate": 1
           },
           "additionalProperties": false
         },
@@ -831,7 +999,91 @@
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
+            "wrench": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
             "crosshairs": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "bridge": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "church": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "fang": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "cone": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "gem": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "horn": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "knight": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "leaf": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "meeple": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "moon": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "mosque": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "pail": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "rook": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "shroom": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "singer": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "stair": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "stupa": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "wave": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "star": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "gate": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             }
@@ -934,7 +1186,28 @@
               "eye",
               "play",
               "bolt",
-              "crosshairs"
+              "wrench",
+              "crosshairs",
+              "bridge",
+              "church",
+              "fang",
+              "cone",
+              "gem",
+              "horn",
+              "knight",
+              "leaf",
+              "meeple",
+              "moon",
+              "mosque",
+              "pail",
+              "rook",
+              "shroom",
+              "singer",
+              "stair",
+              "stupa",
+              "wave",
+              "star",
+              "gate"
             ]
           }
         },

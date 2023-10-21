@@ -92,6 +92,27 @@ The following shapes are supported. Note that to target the default (dot) shape 
 | `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
 | `"cross"`   | ![Crosshairs](../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
 | `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
+| `"wrench"`  | ![Wrench](../../images/hats/wrench.svg)         | `wrench`     | ❌                  |
+| `"bridge"`  | ![Bridge](../../images/hats/bridge.svg)         | `bridge`     | ❌                  |
+| `"church"`  | ![Church](../../images/hats/church.svg)         | `church`     | ❌                  |
+| `"fang"`    | ![Fang](../../images/hats/fang.svg)             | `fang`       | ❌                  |
+| `"cone"`    | ![Cone](../../images/hats/cone.svg)             | `cone`       | ❌                  |
+| `"gem"`     | ![Gem](../../images/hats/gem.svg)               | `gem`        | ❌                  |
+| `"horn"`    | ![Horn](../../images/hats/horn.svg)             | `horn`       | ❌                  |
+| `"knight"`  | ![Knight](../../images/hats/knight.svg)         | `knight`     | ❌                  |
+| `"leaf"`    | ![Leaf](../../images/hats/leaf.svg)             | `leaf`       | ❌                  |
+| `"meeple"`  | ![Meeple](../../images/hats/meeple.svg)         | `meeple`     | ❌                  |
+| `"moon"`    | ![Moon](../../images/hats/moon.svg)             | `moon`       | ❌                  |
+| `"mosque"`  | ![Mosque](../../images/hats/mosque.svg)         | `mosque`     | ❌                  |
+| `"pail"`    | ![Pail](../../images/hats/pail.svg)             | `pail`       | ❌                  |
+| `"rook"`    | ![Rook](../../images/hats/rook.svg)             | `rook`       | ❌                  |
+| `"shroom"`  | ![Shroom](../../images/hats/shroom.svg)         | `shroom`     | ❌                  |
+| `"singer"`  | ![Singer](../../images/hats/singer.svg)         | `singer`     | ❌                  |
+| `"stair"`   | ![Stair](../../images/hats/stair.svg)           | `stair`      | ❌                  |
+| `"stupa"`   | ![Stupa](../../images/hats/stupa.svg)           | `stupa`      | ❌                  |
+| `"wave"`    | ![Wave](../../images/hats/wave.svg)             | `wave`       | ❌                  |
+| `"star"`    | ![Star](../../images/hats/star.svg)             | `star`       | ❌                  |
+| `"gate"`    | ![Gate](../../images/hats/gate.svg)             | `gate`       | ❌                  |
 
 You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
