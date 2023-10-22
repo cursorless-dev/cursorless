@@ -340,6 +340,10 @@ export class Handler {
 
   public addModifier(modifier: Modifier): void {
     const modifiedTargets = [];
+    if (this.targets.length === 0) {
+      // ensure that there is at least one target
+      this.targets = [this.getLatestTarget()];
+    }
     for (let curTarget of this.getTargets()) {
       if (curTarget === undefined) {
         return;
