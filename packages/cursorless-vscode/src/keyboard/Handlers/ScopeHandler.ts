@@ -7,7 +7,7 @@ import {
 } from "@cursorless/common";
 import { Handler } from "../Handler";
 
-const SimpleScopeTypeArray = [
+export const SimpleScopeTypeArray = [
     "argumentOrParameter",
     "anonymousFunction",
     "attribute",

@@ -23,6 +23,7 @@ export const layer0 = {
     "j": `mode.clearTargets();`,
 
     ";": `mode.setKeybindingLayer(2);`,
+    "y": `mode.run("everyScope");`,
     
 }
 

@@ -12,7 +12,7 @@ import { performActionOnTarget } from "./Handlers/ActionHandler";
 import { layer0, layer1, layer2 } from "./fixedKeymap";
 import { targetScope } from "./Handlers/ScopeHandler";
 import { targetPairedDelimiter } from "./Handlers/PairedDelimiterHandler";
-import { modifyInteriorExterior } from "./Handlers/ModifierHandler";
+import { everyModifier, modifyInteriorExterior } from "./Handlers/ModifierHandler";
 
 export interface KeyboardPartialTargetGenerator {
   (mode: Handler, keySequence: string): Promise<void>;
@@ -149,6 +149,8 @@ const commandMap: Record<string, KeyboardPartialTargetGenerator> = {
 
   interiorOnly: modifyInteriorExterior,
   excludeInterior: modifyInteriorExterior,
+
+  everyScope: everyModifier
 };
 
 const targetCombinationOptionsList = ["replace", "list", "range"] as const;
