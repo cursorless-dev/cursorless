@@ -1,4 +1,4 @@
-import { EveryScopeModifier, Modifier, ScopeType, SimpleScopeType } from "@cursorless/common";
+import { EveryScopeModifier,SimpleScopeType } from "@cursorless/common";
 import { Handler } from "../Handler";
 import * as vscode from "vscode";
 import { SimpleScopeTypeArray } from "./ScopeHandler";

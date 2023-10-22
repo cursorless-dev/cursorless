@@ -4,7 +4,7 @@ import {
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import KeyboardHandler from "./KeyboardHandler";
-import Keymap from "./Keymap";
+
 import { targetDecoratedMark } from "./Handlers/TargetHandler";
 import { executeCursorlessCommand } from "./KeyboardCommandsTargeted";
 import KeyboardCommandsModal from "./KeyboardVsCodeMode";
@@ -159,7 +159,6 @@ type TargetCombinationOptions = typeof targetCombinationOptionsList[number];
 export class Handler {
   private targets: PartialPrimitiveTargetDescriptor[] = [];
 
-  public readonly keymap: Keymap;
   public readonly keyboardHandler: KeyboardHandler;
 
   private currentLayer = 0;
@@ -168,11 +167,9 @@ export class Handler {
 
   constructor(
     keyboardHandler: KeyboardHandler,
-    keymap: Keymap,
     private vscodeMode: KeyboardCommandsModal
   ) {
     this.keyboardHandler = keyboardHandler;
-    this.keymap = keymap;
     this.handleInput = this.handleInput.bind(this);
     this.highlightTarget = this.highlightTarget.bind(this);
     this.addTarget = this.addTarget.bind(this);

@@ -30,6 +30,7 @@ export const layer0 = {
 export const layer1 = {
     "h": "mode.run('editNewLineBefore');",
     "t": "mode.run('editNewLineAfter');",
+    "g": `mode.run("character");`,
 }
 
 export const layer2 = {

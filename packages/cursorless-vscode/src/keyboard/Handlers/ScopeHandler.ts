@@ -1,8 +1,5 @@
 import {
     ContainingScopeModifier,
-    RelativeScopeModifier,
-    ScopeType,
-    SimpleScopeType,
     SimpleScopeTypeType,
 } from "@cursorless/common";
 import { Handler } from "../Handler";

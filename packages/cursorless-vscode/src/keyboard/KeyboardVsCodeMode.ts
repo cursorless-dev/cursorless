@@ -3,7 +3,6 @@ import * as vscode from "vscode";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 import { executeCursorlessCommand } from "./KeyboardCommandsTargeted";
-import Keymap from "./Keymap";
 // import { Direction } from "@cursorless/common";
 // import { performActionOnTarget } from "./Handlers/ActionHandler";
 import { Handler } from "./Handler";
@@ -26,7 +25,7 @@ export default class KeyboardCommandsModal {
 
   
   cursorOffset: vscode.Position;
-  public keymap: Keymap;
+  
   private handler: Handler;
 
 
@@ -43,8 +42,7 @@ export default class KeyboardCommandsModal {
 
     // this.constructMergedKeymap();
     this.cursorOffset = new vscode.Position(0, 0);
-    this.keymap = new Keymap();
-    this.handler = new Handler(keyboardHandler, this.keymap, this);
+    this.handler = new Handler(keyboardHandler, this);
     
   }
 
@@ -56,7 +54,7 @@ export default class KeyboardCommandsModal {
             "cursorless.experimental.keyboard.modal.keybindings",
           )
         ) {
-          this.keymap.loadKeymap();
+          return;
         }
       }),
     );
