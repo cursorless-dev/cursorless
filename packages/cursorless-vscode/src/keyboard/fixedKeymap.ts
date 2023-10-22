@@ -11,7 +11,7 @@ export const layer0 = {
 
     "p": `mode.run("paragraph");`,
     ",": `mode.run("line");`,
-    ".": `mode.run("statement");`,
+    ".": `mode.run("collectionKey");`,
 
     "i": `mode.run("replaceWithTarget");`,
     "o": `mode.run("clearAndSetSelection");`,
@@ -21,9 +21,31 @@ export const layer0 = {
     "k": `mode.setKeybindingLayer(1);`,
     "a": `mode.toggleCombineTargets();`,
     "j": `mode.clearTargets();`,
+
+    ";": `mode.setKeybindingLayer(2);`,
+    
 }
 
 export const layer1 = {
     "h": "mode.run('editNewLineBefore');",
     "t": "mode.run('editNewLineAfter');",
+}
+
+export const layer2 = {
+    "[": "mode.run('squareBrackets');",
+    "{": "mode.run('curlyBrackets');",
+    "(": "mode.run('parentheses');",
+    "<": "mode.run('angleBrackets');",
+
+    "]": "mode.run('squareBrackets');",
+    "}": "mode.run('curlyBrackets');",
+    ")": "mode.run('parentheses');",
+    ">": "mode.run('angleBrackets');",
+
+    ",": "mode.run('any');",
+    ";": "mode.run('interiorOnly');",
+    ".": "mode.run('excludeInterior');",
+
+
+
 }

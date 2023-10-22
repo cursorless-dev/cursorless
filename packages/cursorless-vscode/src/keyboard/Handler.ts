@@ -1,4 +1,5 @@
 import {
+  Modifier,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
@@ -8,8 +9,10 @@ import { targetDecoratedMark } from "./Handlers/TargetHandler";
 import { executeCursorlessCommand } from "./KeyboardCommandsTargeted";
 import KeyboardCommandsModal from "./KeyboardVsCodeMode";
 import { performActionOnTarget } from "./Handlers/ActionHandler";
-import { layer0, layer1 } from "./fixedKeymap";
+import { layer0, layer1, layer2 } from "./fixedKeymap";
 import { targetScope } from "./Handlers/ScopeHandler";
+import { targetPairedDelimiter } from "./Handlers/PairedDelimiterHandler";
+import { modifyInteriorExterior } from "./Handlers/ModifierHandler";
 
 export interface KeyboardPartialTargetGenerator {
   (mode: Handler, keySequence: string): Promise<void>;
@@ -77,8 +80,75 @@ const commandMap: Record<string, KeyboardPartialTargetGenerator> = {
   wrapWithPairedDelimiter: performActionOnTarget,
   wrapWithSnippet: performActionOnTarget,
 
-  paragraph: targetScope,
-  line: targetScope,
+
+   argumentOrParameter:targetScope,
+   attribute:targetScope,
+   paragraph:targetScope,
+   branch:targetScope,
+   functionCall:targetScope,
+   functionCallee:targetScope,
+   notebookCell:targetScope,
+   chapter:targetScope,
+   character:targetScope,
+   class:targetScope,
+   className:targetScope,
+   comment:targetScope,
+   condition:targetScope,
+   xmlElement:targetScope,
+   xmlEndTag:targetScope,
+   environment:targetScope,
+   document:targetScope,
+   namedFunction:targetScope,
+   functionName:targetScope,
+   identifier:targetScope,
+   ifStatement:targetScope,
+   instance:targetScope,
+   collectionItem:targetScope,
+   collectionKey:targetScope,
+   anonymousFunction:targetScope,
+   line:targetScope,
+   url:targetScope,
+   list:targetScope,
+   map:targetScope,
+   name:targetScope,
+   nonWhitespaceSequence:targetScope,
+   namedParagraph:targetScope,
+   part:targetScope,
+   regularExpression:targetScope,
+   section:targetScope,
+   selector:targetScope,
+   sentence:targetScope,
+   boundedNonWhitespaceSequence:targetScope,
+   xmlStartTag:targetScope,
+   statement:targetScope,
+   string:targetScope,
+   subParagraph:targetScope,
+   subSection:targetScope,
+   subSubSection:targetScope,
+   xmlBothTags:targetScope,
+   token:targetScope,
+   type:targetScope,
+   unit:targetScope,
+   value:targetScope,
+   word:targetScope,
+  
+
+  squareBrackets: targetPairedDelimiter,
+  curlyBrackets: targetPairedDelimiter,
+  angleBrackets: targetPairedDelimiter,
+  escapedSquareBrackets: targetPairedDelimiter,
+  escapedDoubleQuotes: targetPairedDelimiter,
+  escapedParentheses: targetPairedDelimiter,
+  escapedSingleQuotes: targetPairedDelimiter,
+  any: targetPairedDelimiter,
+  doubleQuotes: targetPairedDelimiter,
+  parentheses: targetPairedDelimiter,
+  backtickQuotes: targetPairedDelimiter,
+  singleQuotes: targetPairedDelimiter,
+  whitespace: targetPairedDelimiter,
+
+  interiorOnly: modifyInteriorExterior,
+  excludeInterior: modifyInteriorExterior,
 };
 
 const targetCombinationOptionsList = ["replace", "list", "range"] as const;
@@ -91,10 +161,7 @@ export class Handler {
   public readonly keyboardHandler: KeyboardHandler;
 
   private currentLayer = 0;
-  private readonly keybindings: Record<string, string>[] = [
-    layer0,
-    layer1,
-  ];
+  private readonly keybindings: Record<string, string>[] = [layer0, layer1, layer2];
   private combineTargets: TargetCombinationOptions = "replace";
 
   constructor(
@@ -110,7 +177,9 @@ export class Handler {
     this.replaceLastTarget = this.replaceLastTarget.bind(this);
     this.setStatusBarText = this.setStatusBarText.bind(this);
     this.toggleCombineTargets = this.toggleCombineTargets.bind(this);
-    this.setTargetCombinationOption = this.setTargetCombinationOption.bind(this);
+    this.setTargetCombinationOption = this.setTargetCombinationOption.bind(
+      this
+    );
     this.constructTarget = this.constructTarget.bind(this);
     this.getLatestTarget = this.getLatestTarget.bind(this);
     this.clearTargets = this.clearTargets.bind(this);
@@ -153,7 +222,6 @@ export class Handler {
     this.setStatusBarText();
   }
 
-
   async handleInput(sequence: string): Promise<void> {
     // mode variable is necessary for eval
     // eslint-disable-next-line @typescript-eslint/no-this-alias, @typescript-eslint/no-unused-vars
@@ -164,7 +232,6 @@ export class Handler {
     }
     return;
   }
-
 
   private async highlightTarget(): Promise<void> {
     await executeCursorlessCommand({
@@ -182,7 +249,7 @@ export class Handler {
   }
 
   public addTarget(target: PartialPrimitiveTargetDescriptor): void {
-    if ( this.combineTargets === "replace" ) {
+    if (this.combineTargets === "replace") {
       this.targets = [];
     }
     this.targets.push(target);
@@ -202,8 +269,17 @@ export class Handler {
   }
 
   public clearTargets(): void {
-    this.targets = [];
+    this.targets = [
+      {
+        type: "primitive",
+        mark: {
+          type: "nothing",
+        },
+      },
+    ];
     this.highlightTarget();
+    this.currentLayer = 0;
+    this.targets = [];
     this.setStatusBarText();
   }
 
@@ -219,7 +295,7 @@ export class Handler {
   }
 
   public constructTarget(): PartialTargetDescriptor {
-    if (this.combineTargets === "list") {
+    if (this.combineTargets === "list" && this.targets.length > 1) {
       const targetList = [];
       for (const target of this.targets) {
         targetList.push(target);
@@ -228,10 +304,10 @@ export class Handler {
         type: "list",
         elements: targetList,
       };
-    } else if (this.combineTargets === "range" && this.targets.length > 1) {
+    } else if ( this.combineTargets === "range" && this.targets.length > 1) {
       return {
         type: "range",
-        anchor: this.targets[0],
+        anchor: { type: "primitive", mark: { type: "that" } },
         active: this.targets[this.targets.length - 1],
         excludeActive: false,
         excludeAnchor: false,
@@ -241,18 +317,42 @@ export class Handler {
   }
 
   private setStatusBarText(): void {
-    this.keyboardHandler.setStatusBarText(`M: ${this.combineTargets}, L: ${this.currentLayer}`);
+    this.keyboardHandler.setStatusBarText(
+      `M: ${this.combineTargets}, L: ${this.currentLayer}`
+    );
   }
 
   public toggleCombineTargets(): void {
     const index = targetCombinationOptionsList.indexOf(this.combineTargets);
     this.setTargetCombinationOption(
-        targetCombinationOptionsList[(index + 1) % targetCombinationOptionsList.length]
-        );
-      this.setStatusBarText();
+      targetCombinationOptionsList[
+        (index + 1) % targetCombinationOptionsList.length
+      ]
+    );
+    this.setStatusBarText();
   }
 
   public setTargetCombinationOption(option: TargetCombinationOptions): void {
     this.combineTargets = option;
+  }
+
+  public addModifier(modifier: Modifier): void {
+    const modifiedTargets = [];
+    for (let curTarget of this.getTargets()) {
+      if (curTarget === undefined) {
+        return;
+      }
+      const mods:Modifier[]=[modifier]
+      if ( curTarget.modifiers){
+        mods.push(...curTarget.modifiers)
+      }
+      curTarget = {
+        type: curTarget.type,
+        modifiers: mods,
+        mark: curTarget.mark,
+      };
+        modifiedTargets.push(curTarget);
+    }
+    this.replaceAllTargets(modifiedTargets);
   }
 }

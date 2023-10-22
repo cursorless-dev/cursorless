@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { getStyleName } from "../../ide/vscode/hats/getStyleName";
 import { PartialTargetDescriptor } from "@cursorless/common";
 import { Handler } from "../Handler";
-import { HAT_COLORS, HAT_NON_DEFAULT_SHAPES, HatColor, HatShape } from "../../ide/vscode/hatStyles.types";
+import { HAT_COLORS, HAT_NON_DEFAULT_SHAPES, HatColor, HatNonDefaultShape, HatShape } from "../../ide/vscode/hatStyles.types";
 
  
  export  async function targetDecoratedMark (mode: Handler, keySequence:string):Promise<void>  {
@@ -11,12 +11,12 @@ import { HAT_COLORS, HAT_NON_DEFAULT_SHAPES, HatColor, HatShape } from "../../id
     const keyboardHandler = mode.keyboardHandler;
 
     let color: HatColor = "default";
-    if ( keySequence in HAT_COLORS){
+    if ( HAT_COLORS.includes(keySequence as HatColor)){
       color = keySequence as HatColor;
     }
 
     let shape: HatShape = "default";
-    if ( keySequence in HAT_NON_DEFAULT_SHAPES){
+    if ( HAT_NON_DEFAULT_SHAPES.includes(keySequence as HatNonDefaultShape)){
       shape = keySequence as HatShape;
     }
 
