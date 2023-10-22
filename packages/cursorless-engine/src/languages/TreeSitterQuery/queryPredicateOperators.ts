@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import z from "zod";
+import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";

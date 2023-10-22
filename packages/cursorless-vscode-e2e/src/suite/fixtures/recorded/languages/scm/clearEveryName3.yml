@@ -21,10 +21,10 @@ initialState:
 finalState:
   documentContents: |-
     (anonymous_node
-      name: (_) @ @
+      name: (_)  
     )
   selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
     - anchor: {line: 1, character: 13}
       active: {line: 1, character: 13}
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}

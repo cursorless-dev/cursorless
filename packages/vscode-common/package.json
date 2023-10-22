@@ -15,7 +15,7 @@
     "@cursorless/common": "workspace:*"
   },
   "devDependencies": {
-    "@types/vscode": "~1.61.0"
+    "@types/vscode": "~1.66.0"
   },
   "types": "./out/index.d.ts",
   "exports": {

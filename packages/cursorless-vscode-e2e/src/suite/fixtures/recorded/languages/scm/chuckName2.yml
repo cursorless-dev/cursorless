@@ -17,7 +17,7 @@ initialState:
       active: {line: 0, character: 20}
   marks: {}
 finalState:
-  documentContents: "(aaa) @bbb @ccc "
+  documentContents: (aaa) @bbb @ccc
   selections:
-    - anchor: {line: 0, character: 16}
-      active: {line: 0, character: 16}
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}
