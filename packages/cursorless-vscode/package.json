@@ -937,6 +937,16 @@
             ]
           }
         },
+         "cursorless.experimental.keyboard.modal.keybindings.keyboardActions": {
+          "description": "",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "toggleTargetMode"
+            ]
+          }
+        },
         "cursorless.experimental.keyboard.modal.keybindings.shapes": {
           "description": "Define modal keybindings for shapes",
           "type": "object",

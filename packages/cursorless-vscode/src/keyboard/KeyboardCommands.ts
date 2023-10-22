@@ -1,5 +1,5 @@
 import { ExtensionContext } from "vscode";
-import KeyboardCommandsModal from "./KeyboardCommandsModal";
+import KeyboardCommandsModal from "./KeyboardVsCodeMode";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 import { StatusBarItem } from "../StatusBarItem";
