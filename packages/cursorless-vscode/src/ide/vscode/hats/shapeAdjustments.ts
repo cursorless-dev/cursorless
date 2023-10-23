@@ -15,30 +15,30 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
     sizeAdjustment: -30,
   },
   ex: {
-    sizeAdjustment: -15,
+    sizeAdjustment: -10,
   },
   fox: {
-    sizeAdjustment: -10,
+    sizeAdjustment: -2.5,
   },
   wing: {
     sizeAdjustment: -2.5,
   },
   hole: {
-    sizeAdjustment: -5.5,
+    sizeAdjustment: -5,
   },
   frame: {
-    sizeAdjustment: -20,
+    sizeAdjustment: -15,
   },
   curve: {
-    sizeAdjustment: -6,
+    sizeAdjustment: -5,
     verticalOffset: -3,
   },
   eye: {
-    sizeAdjustment: -4.5,
+    sizeAdjustment: -5,
   },
   play: {},
   bolt: {
-    sizeAdjustment: -5.5,
+    sizeAdjustment: -5,
   },
   crosshairs: {},
 };
