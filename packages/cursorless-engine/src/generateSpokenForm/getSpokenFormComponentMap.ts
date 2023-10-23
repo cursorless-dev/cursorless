@@ -1,9 +1,8 @@
+import { SpokenFormMap } from "../spokenForms/SpokenFormMap";
 import {
-  SpokenFormMap,
-} from "../spokenForms/SpokenFormMap";
-import {
-  PartialSpokenFormTypes, SpokenFormMapKeyTypes,
-  SpokenFormType
+  PartialSpokenFormTypes,
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
 } from "../spokenForms/SpokenFormType";
 import { CustomizableSpokenFormComponentForType } from "./SpokenFormComponent";
 

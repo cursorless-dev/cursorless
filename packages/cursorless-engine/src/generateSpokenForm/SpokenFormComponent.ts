@@ -1,9 +1,7 @@
-import {
-  SpokenFormMapEntry,
-} from "../spokenForms/SpokenFormMap";
+import { SpokenFormMapEntry } from "../spokenForms/SpokenFormMap";
 import {
   SpokenFormMapKeyTypes,
-  SpokenFormType
+  SpokenFormType,
 } from "../spokenForms/SpokenFormType";
 
 /**
@@ -23,7 +21,9 @@ export type SpokenFormComponent =
   | string
   | SpokenFormComponent[];
 
-export interface CustomizableSpokenFormComponentForType<T extends SpokenFormType> {
+export interface CustomizableSpokenFormComponentForType<
+  T extends SpokenFormType,
+> {
   type: "customizable";
   spokenForms: SpokenFormMapEntry;
   spokenFormType: T;
