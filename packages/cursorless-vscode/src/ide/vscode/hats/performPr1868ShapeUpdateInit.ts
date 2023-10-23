@@ -46,13 +46,6 @@ export async function performPr1868ShapeUpdateInit(
     true,
   );
 
-  if (
-    // Don't show it if they don't have any shapes enabled
-    !hasAnyShapesEnabled(hatStyleMap)
-  ) {
-    return;
-  }
-
   let shownMessage = false;
 
   // If they have any individual adjustments, we should tell them to reset them
@@ -87,7 +80,12 @@ export async function performPr1868ShapeUpdateInit(
   }
 
   // If they have any global adjustments, they may want to tweak them
-  if (userSizeAdjustment !== 0 || userVerticalOffset !== 0) {
+  if (
+    (userSizeAdjustment !== 0 || userVerticalOffset !== 0) &&
+    // Don't bother if they have no shapes enabled, as the default shape
+    // is similar enough in size / offset to the old default shape
+    hasAnyShapesEnabled(hatStyleMap)
+  ) {
     const TAKE_ME_THERE = "Take me there";
     const message = shownMessage
       ? "You may also want to tweak your global hat settings."
