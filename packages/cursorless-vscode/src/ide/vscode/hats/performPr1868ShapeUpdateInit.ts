@@ -1,5 +1,5 @@
 import { Messages, showInfo } from "@cursorless/common";
-import { EXTENSION_ID, VscodeApi } from "@cursorless/vscode-common";
+import { VscodeApi } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { ExtendedHatStyleMap } from "../VscodeEnabledHatStyleManager";
 import { IndividualHatAdjustmentMap } from "./shapeAdjustments";
@@ -103,7 +103,7 @@ export async function performPr1868ShapeUpdateInit(
     if (result === TAKE_ME_THERE) {
       await vscode.commands.executeCommand(
         "workbench.action.openSettings",
-        `@ext:${EXTENSION_ID}`,
+        `@ext:${extensionContext.extension.id}`,
       );
     }
   }
