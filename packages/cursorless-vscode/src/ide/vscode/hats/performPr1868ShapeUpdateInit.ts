@@ -110,5 +110,8 @@ export async function performPr1868ShapeUpdateInit(
 }
 
 function hasAnyShapesEnabled(hatStyleMap: ExtendedHatStyleMap) {
+  // A bit of a hack, but if they have any shapes enabled, they'll have keys
+  // like `blue-fox`, which contain a `-`. If they don't have any shapes
+  // enabled, they'll only have keys like `blue`, `default, etc.
   return Object.keys(hatStyleMap).some((key) => key.includes("-"));
 }
