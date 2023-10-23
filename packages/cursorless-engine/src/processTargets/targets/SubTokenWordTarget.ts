@@ -75,7 +75,7 @@ export default class SubTokenWordTarget extends BaseTarget<SubTokenTargetParamet
     );
   }
 
-  protected getCloneParameters(): SubTokenTargetParameters {
+  protected getCloneParameters() {
     return {
       ...this.state,
       leadingDelimiterRange: this.leadingDelimiterRange_,

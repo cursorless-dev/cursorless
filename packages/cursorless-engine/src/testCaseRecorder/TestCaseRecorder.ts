@@ -31,8 +31,9 @@ import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { TestCase } from "./TestCase";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
-import { generateSpokenForm } from "../generateSpokenForm";
 import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import { SpokenFormGenerator } from "../generateSpokenForm";
+import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -59,6 +60,7 @@ export class TestCaseRecorder {
   private captureFinalThatMark: boolean = false;
   private spyIde: SpyIDE | undefined;
   private originalIde: IDE | undefined;
+  private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
 
   constructor(
     private hatTokenMap: HatTokenMap,
@@ -275,14 +277,20 @@ export class TestCaseRecorder {
       this.spyIde = new SpyIDE(this.originalIde);
       injectIde(this.spyIde!);
 
-      const spokenForm = generateSpokenForm(command);
+      const spokenForm = this.spokenFormGenerator.processCommand(command);
 
       this.testCase = new TestCase(
         {
           ...command,
+
+          // If spoken form is an error, we just use the spoken form that they
+          // actually used. If it is a success, we use the first spoken form
+          // that from our generator, which will almost always be the only spoken
+          // form. If there are multiple, there will be a test failure so we can
+          // cross that bridge if it happens.
           spokenForm:
             spokenForm.type === "success"
-              ? spokenForm.value
+              ? spokenForm.spokenForms[0]
               : command.spokenForm,
         },
         hatTokenMap,
