@@ -84,8 +84,9 @@ export async function getExtensionApiStrict<T>(extensionId: string) {
   return (await extension.activate()) as T;
 }
 
+export const EXTENSION_ID = "pokey.cursorless";
 export const getCursorlessApi = () =>
-  getExtensionApiStrict<CursorlessApi>("pokey.cursorless");
+  getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
 
 export const getParseTreeApi = () =>
   getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");

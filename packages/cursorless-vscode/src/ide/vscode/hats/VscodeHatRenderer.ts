@@ -1,9 +1,11 @@
 import {
   Listener,
+  Messages,
   Notifier,
   PathChangeListener,
   walkFiles,
 } from "@cursorless/common";
+import { VscodeApi } from "@cursorless/vscode-common";
 import { cloneDeep, isEqual } from "lodash";
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -21,6 +23,7 @@ import {
   IndividualHatAdjustmentMap,
   defaultShapeAdjustments,
 } from "./shapeAdjustments";
+import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
 
 const CURSORLESS_HAT_SHAPES_SUFFIX = ".svg";
 
@@ -64,7 +67,9 @@ export default class VscodeHatRenderer {
   private hatShapeOverrides: Record<string, string> = {};
 
   constructor(
+    private vscodeApi: VscodeApi,
     private extensionContext: vscode.ExtensionContext,
+    private messages: Messages,
     private enabledHatStyles: VscodeEnabledHatStyleManager,
     private fontMeasurements: FontMeasurements,
   ) {
@@ -189,6 +194,16 @@ export default class VscodeHatRenderer {
     const userIndividualAdjustments = vscode.workspace
       .getConfiguration("cursorless")
       .get<IndividualHatAdjustmentMap>("individualHatAdjustments")!;
+
+    performPr1868ShapeUpdateInit(
+      this.extensionContext,
+      this.vscodeApi,
+      this.messages,
+      this.enabledHatStyles.hatStyleMap,
+      userSizeAdjustment,
+      userVerticalOffset,
+      userIndividualAdjustments,
+    );
 
     const hatSvgMap = Object.fromEntries(
       HAT_SHAPES.map((shape) => {

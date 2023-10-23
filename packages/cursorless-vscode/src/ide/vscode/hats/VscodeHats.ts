@@ -8,7 +8,7 @@ import {
   Range,
   TextEditor,
 } from "@cursorless/common";
-import { toVscodeRange } from "@cursorless/vscode-common";
+import { toVscodeRange, VscodeApi } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { Disposable } from "vscode";
 import { VscodeHatStyleName } from "../hatStyles.types";
@@ -27,6 +27,7 @@ export class VscodeHats implements Hats {
 
   constructor(
     private ide: VscodeIDE,
+    vscodeApi: VscodeApi,
     extensionContext: vscode.ExtensionContext,
     fontMeasurements: FontMeasurements,
   ) {
@@ -34,7 +35,9 @@ export class VscodeHats implements Hats {
       extensionContext,
     );
     this.hatRenderer = new VscodeHatRenderer(
+      vscodeApi,
       extensionContext,
+      ide.messages,
       this.enabledHatStyleManager,
       fontMeasurements,
     );
