@@ -9,7 +9,9 @@ command:
           scopeType: {type: customRegex, regex: '\p{Zs}+'}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
-spokenFormError: Scope type 'customRegex'
+spokenFormError: >-
+  custom regex with id \p{Zs}+; please see
+  https://www.cursorless.org/docs/user/customization/ for more information
 initialState:
   documentContents: "\"  \""
   selections:
