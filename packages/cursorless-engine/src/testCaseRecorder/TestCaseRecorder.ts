@@ -282,6 +282,12 @@ export class TestCaseRecorder {
       this.testCase = new TestCase(
         {
           ...command,
+
+          // If spoken form is an error, we just use the spoken form that they
+          // actually used. If it is a success, we use the first spoken form
+          // that from our generator, which will almost always be the only spoken
+          // form. If there are multiple, there will be a test failure so we can
+          // cross that bridge if it happens.
           spokenForm:
             spokenForm.type === "success"
               ? spokenForm.spokenForms[0]
