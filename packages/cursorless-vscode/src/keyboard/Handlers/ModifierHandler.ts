@@ -1,4 +1,4 @@
-import { EveryScopeModifier,SimpleScopeType } from "@cursorless/common";
+import { EveryScopeModifier } from "@cursorless/common";
 import { Handler } from "../Handler";
 import * as vscode from "vscode";
 import { SimpleScopeTypeArray } from "./ScopeHandler";
@@ -43,13 +43,13 @@ export async function everyModifier(
     if (scope === undefined) {
         throw Error(`No scope found for character : ${character}`);
     }
-    if (!SimpleScopeTypeArray.includes(scope)) {
+    if (!SimpleScopeTypeArray.includes(scope as any)) {
         throw Error(`Unsupported scope: ${scope}`);
     }
 
     const modifier: EveryScopeModifier = {
         type: "everyScope",
-        scopeType: {type:scope as SimpleScopeType},
+        scopeType: {type:scope as any},
     };
     mode.addModifier(modifier);
 }

@@ -72,7 +72,7 @@ export async function targetScope(
     mode: Handler,
     keySequence: string
 ): Promise<void> {
-    if (!SimpleScopeTypeArray.includes(keySequence)) {
+    if (!SimpleScopeTypeArray.includes(keySequence as any)) {
         throw Error(`Unsupported scope: ${keySequence}`);
     }
     const scopeType: SimpleScopeTypeType = keySequence as SimpleScopeTypeType;

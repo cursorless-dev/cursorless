@@ -11,7 +11,7 @@ import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardVsCodeMode";
 import KeyboardHandler from "./KeyboardHandler";
-import Keymap from "./Keymap";
+
 
 type TargetingMode = "replace" | "extend" | "append";
 type TargetModifierTypeArgument = "every" | "interiorOnly" | "excludeInterior";
@@ -77,84 +77,83 @@ export default class KeyboardCommandsTargeted {
     shape = "default",
     character,
     mode = "replace",
-  }: TargetDecoratedMarkArgument,
-  keymap:Keymap) => {
+  }: TargetDecoratedMarkArgument) => {
 
-    const getCharacter = async (status:string="Which hat?") => {
-      return await this.keyboardHandler.awaitSingleKeypress({
-        cursorStyle: vscode.TextEditorCursorStyle.Underline,
-        whenClauseContext: "cursorless.keyboard.targeted.awaitingHatCharacter",
-        statusBarText: status,
-      });
-    }
-    character = await getCharacter();
+    // const getCharacter = async (status:string="Which hat?") => {
+    //   return await this.keyboardHandler.awaitSingleKeypress({
+    //     cursorStyle: vscode.TextEditorCursorStyle.Underline,
+    //     whenClauseContext: "cursorless.keyboard.targeted.awaitingHatCharacter",
+    //     statusBarText: status,
+    //   });
+    // }
+    // character = await getCharacter();
     
 
-    if (character == null) {
-      // Cancelled
-      return;
-    }
-    if (keymap.getColorKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
-      color = keymap.getColorKeymap()[character.toLowerCase()];
-      character = await getCharacter("Color ${color} selected. Which hat?");
-    }
-    else if (keymap.getShapeKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
-      shape = keymap.getShapeKeymap()[character.toLowerCase()];
-      character = await getCharacter("Shape ${shape} selected. Which hat?");
-    }
-    if (character == null) {
-      // Cancelled
-      return;
-    }
+    // if (character == null) {
+    //   // Cancelled
+    //   return;
+    // }
+    // if (keymap.getColorKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
+    //   color = keymap.getColorKeymap()[character.toLowerCase()];
+    //   character = await getCharacter("Color ${color} selected. Which hat?");
+    // }
+    // else if (keymap.getShapeKeymap()[character.toLowerCase()] && character === character.toUpperCase()) {
+    //   shape = keymap.getShapeKeymap()[character.toLowerCase()];
+    //   character = await getCharacter("Shape ${shape} selected. Which hat?");
+    // }
+    // if (character == null) {
+    //   // Cancelled
+    //   return;
+    // }
 
 
 
-    let target: PartialTargetDescriptor = {
-      type: "primitive",
-      mark: {
-        type: "decoratedSymbol",
-        symbolColor: getStyleName(color, shape),
-        character,
-      },
-    };
+    // let target: PartialTargetDescriptor = {
+    //   type: "primitive",
+    //   mark: {
+    //     type: "decoratedSymbol",
+    //     symbolColor: getStyleName(color, shape),
+    //     character,
+    //   },
+    // };
 
-    switch (mode) {
-      case "extend":
-        target = {
-          type: "range",
-          anchor: {
-            type: "primitive",
-            mark: {
-              type: "that",
-            },
-          },
-          active: target,
-          excludeActive: false,
-          excludeAnchor: false,
-        };
-        break;
-      case "append":
-        target = {
-          type: "list",
-          elements: [
-            {
-              type: "primitive",
-              mark: {
-                type: "that",
-              },
-            },
-            target,
-          ],
-        };
-        break;
-      case "replace":
-        break;
-    }
+    // switch (mode) {
+    //   case "extend":
+    //     target = {
+    //       type: "range",
+    //       anchor: {
+    //         type: "primitive",
+    //         mark: {
+    //           type: "that",
+    //         },
+    //       },
+    //       active: target,
+    //       excludeActive: false,
+    //       excludeAnchor: false,
+    //     };
+    //     break;
+    //   case "append":
+    //     target = {
+    //       type: "list",
+    //       elements: [
+    //         {
+    //           type: "primitive",
+    //           mark: {
+    //             type: "that",
+    //           },
+    //         },
+    //         target,
+    //       ],
+    //     };
+    //     break;
+    //   case "replace":
+    //     break;
+    // }
 
-    return await executeCursorlessCommand({
-      name: "highlight",
-      target,
-    });
+    // return await executeCursorlessCommand({
+    //   name: "highlight",
+    //   target,
+    // });
   };
 
   /**
@@ -212,7 +211,16 @@ export default class KeyboardCommandsTargeted {
         },
       },
     });
-
+    performActionOnTarget = () =>
+    executeCursorlessCommand({
+      name: "highlight",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "that",
+        },
+      },
+    });
 
   /**
    * Sets the current target to the current selection

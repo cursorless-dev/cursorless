@@ -3,7 +3,9 @@
   "compilerOptions": {
     "target": "es2020",
     "outDir": "out",
-    "rootDir": "src"
+    "rootDir": "src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
   },
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"],
   "references": [
