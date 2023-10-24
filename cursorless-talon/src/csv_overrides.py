@@ -57,7 +57,7 @@ def init_csv_and_watch_changes(
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     no_update_file: bool = False,
-    pluralize_lists: list[str] = [],
+    pluralize_lists: Optional[list[str]] = None,
 ):
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
