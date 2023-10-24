@@ -7,49 +7,38 @@ export interface HatAdjustments {
 
 export type IndividualHatAdjustmentMap = Record<HatShape, HatAdjustments>;
 
-export const DEFAULT_HAT_HEIGHT_EM = 0.29;
-export const DEFAULT_VERTICAL_OFFSET_EM = 0.032;
+export const DEFAULT_HAT_HEIGHT_EM = 0.36;
+export const DEFAULT_VERTICAL_OFFSET_EM = 0.05;
 
 export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   default: {
-    sizeAdjustment: -14,
-    verticalOffset: -0.35,
+    sizeAdjustment: -30,
   },
   ex: {
-    sizeAdjustment: 10,
+    sizeAdjustment: -15,
   },
   fox: {
-    sizeAdjustment: 10,
+    sizeAdjustment: -10,
   },
   wing: {
-    sizeAdjustment: 15.5,
-    verticalOffset: 1.1,
+    sizeAdjustment: -2.5,
   },
   hole: {
-    sizeAdjustment: 32.5,
-    verticalOffset: -2,
+    sizeAdjustment: -5.5,
   },
   frame: {
-    sizeAdjustment: -15,
-    verticalOffset: -2.25,
+    sizeAdjustment: -20,
   },
   curve: {
-    sizeAdjustment: -21,
-    verticalOffset: -3.15,
+    sizeAdjustment: -6,
+    verticalOffset: -3,
   },
   eye: {
-    sizeAdjustment: -6.5,
-    verticalOffset: -1,
+    sizeAdjustment: -4.5,
   },
-  play: {
-    sizeAdjustment: -8,
-    verticalOffset: -0.5,
-  },
+  play: {},
   bolt: {
-    sizeAdjustment: 22.5,
+    sizeAdjustment: -5.5,
   },
-  crosshairs: {
-    sizeAdjustment: 29.5,
-    verticalOffset: -1,
-  },
+  crosshairs: {},
 };
