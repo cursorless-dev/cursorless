@@ -9,7 +9,9 @@ command:
           scopeType: {type: switchStatementSubject}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
-spokenFormError: Scope type 'switchStatementSubject'
+spokenFormError: >-
+  simple scope type type with id switchStatementSubject; this is a private
+  spoken form currently only for internal experimentation
 initialState:
   documentContents: |
     def matchTest(x: Int): String = x match {

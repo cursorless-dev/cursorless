@@ -54,7 +54,7 @@ def update():
     for disposable in disposables:
         disposable()
 
-    with open(JSON_FILE) as file:
+    with open(JSON_FILE, encoding="utf-8") as file:
         spoken_forms = json.load(file)
 
     handle_csv = auto_construct_defaults(spoken_forms, init_csv_and_watch_changes)
@@ -72,6 +72,8 @@ def update():
         handle_csv(
             "modifier_scope_types.csv",
             pluralize_lists=["scope_type"],
+            extra_allowed_values=["private.fieldAccess"],
+            default_list_name="scope_type",
         ),
         handle_csv(
             "experimental/wrapper_snippets.csv",

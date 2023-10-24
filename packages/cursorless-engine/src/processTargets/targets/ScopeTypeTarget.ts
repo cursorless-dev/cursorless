@@ -145,6 +145,9 @@ export default class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameter
   protected getCloneParameters() {
     return {
       ...this.state,
+      delimiter: this.insertionDelimiter,
+      removalRange: undefined,
+      interiorRange: undefined,
       scopeTypeType: this.scopeTypeType_,
       contentRemovalRange: this.removalRange_,
       leadingDelimiterRange: this.leadingDelimiterRange_,

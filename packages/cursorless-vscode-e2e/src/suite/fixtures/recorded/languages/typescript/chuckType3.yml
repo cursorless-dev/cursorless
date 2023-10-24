@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: chuck type
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: const aaa = <string>bbb;
+  selections:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}
+  marks: {}
+finalState:
+  documentContents: const aaa = bbb;
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}

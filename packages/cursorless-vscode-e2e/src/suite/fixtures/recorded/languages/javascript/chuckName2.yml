@@ -1,0 +1,23 @@
+languageId: javascript
+command:
+  version: 6
+  spokenForm: chuck name
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: const aaa = "bbb", ccc = "ddd";
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: "\"bbb\", ccc = \"ddd\";"
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

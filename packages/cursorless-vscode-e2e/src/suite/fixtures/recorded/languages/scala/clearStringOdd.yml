@@ -1,13 +1,15 @@
 languageId: scala
 command:
   version: 0
-  spokenForm: change string odd
+  spokenForm: change parse tree string odd
   action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string, includeSiblings: false}
       mark: {type: decoratedSymbol, symbolColor: default, character: o}
-spokenFormError: Scope type 'string'
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
 initialState:
   documentContents: |
     class ExampleClass() {
