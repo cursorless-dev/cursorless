@@ -18,7 +18,7 @@ fi
 
 # Ensure VSCode 'code' command is installed
 if ! command -v code &>/dev/null; then
-  echo "VSCode 'code' command not found; see https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line"
+  echo "VSCode 'code' command not found; see https://code.visualstudio.com/docs/editor/command-line#_launching-from-command-line"
   exit 1
 fi
 
