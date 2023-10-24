@@ -4,9 +4,8 @@ from typing import TypedDict
 
 from talon import app
 
-from .command import CursorlessCommand
-
-SPOKEN_FORMS_OUTPUT_PATH = Path.home() / ".cursorless" / "spokenForms.json"
+SPOKEN_FORMS_OUTPUT_PATH = Path.home() / ".cursorless" / "state.json"
+STATE_JSON_VERSION_NUMBER = 0
 
 
 class SpokenFormEntry(TypedDict):
@@ -35,7 +34,10 @@ class SpokenFormsOutput:
             try:
                 out.write(
                     json.dumps(
-                        {"version": CursorlessCommand.version, "entries": spoken_forms}
+                        {
+                            "version": STATE_JSON_VERSION_NUMBER,
+                            "spokenForms": spoken_forms,
+                        }
                     )
                 )
             except Exception:
