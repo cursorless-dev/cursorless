@@ -16,6 +16,12 @@ if ! command -v gh &>/dev/null; then
   exit 1
 fi
 
+# Ensure VSCode 'code' command is installed
+if ! command -v code &>/dev/null; then
+  echo "VSCode 'code' command not found; see https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line"
+  exit 1
+fi
+
 pr_number="$1"
 repo="cursorless-dev/cursorless"
 
@@ -27,8 +33,8 @@ if [[ $checks == *still-running ]]; then
 fi
 
 # 2. Get desired check run (ubuntu-latest, stable)
-check_number=$(echo "$checks" | fgrep 'Test (ubuntu-latest, stable)' | cut -d / -f8)
-echo "Downloading vsix for PR $pr_number From check $check_number"
+check_number=$(echo "$checks" | grep -F 'Test (ubuntu-latest, stable)' | cut -d / -f8)
+echo "Downloading vsix for PR $pr_number from check $check_number"
 
 # Temp directory to put downloaded extension
 tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t 'cursorless-vsix')
@@ -38,7 +44,7 @@ function finish {
 trap finish EXIT
 
 # 3. Download extension vsix
-gh run download $check_number --repo "$repo" --name vsix --dir "$tmpdir"
+gh run download "$check_number" --repo "$repo" --name vsix --dir "$tmpdir"
 
 # 4. Uninstall production cursorless
 code --uninstall-extension pokey.cursorless || echo "Cursorless not currently installed"
