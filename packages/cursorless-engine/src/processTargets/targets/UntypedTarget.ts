@@ -60,6 +60,7 @@ export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   protected getCloneParameters() {
     return {
       ...this.state,
+      isToken: this.isToken,
       hasExplicitRange: this.hasExplicitRange,
     };
   }
