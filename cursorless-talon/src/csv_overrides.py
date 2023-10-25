@@ -245,18 +245,23 @@ def update_dicts(
             else:
                 raise
 
-    # Convert result map back to result list
-    lists: ListToSpokenForms = {res["list"]: {} for res in results_map.values()}
-    spoken_form_entries: list[SpokenFormEntry] = []
-    for list_name, id, spoken_forms in generate_spoken_forms(results_map.values()):
-        for spoken_form in spoken_forms:
-            lists[list_name][spoken_form] = id
-        spoken_form_entries.append(
-            SpokenFormEntry(list_name=list_name, id=id, spoken_forms=spoken_forms)
-        )
+    spoken_form_entries = list(generate_spoken_forms(results_map.values()))
 
     # Assign result to talon context list
-    assign_lists_to_context(ctx, lists, pluralize_lists)
+    assign_lists_to_context(
+        ctx,
+        {
+            **{res["list"]: {} for res in results_map.values()},
+            **{
+                spoken_form_entry.list_name: {
+                    spoken_form: spoken_form_entry.id
+                    for spoken_form in spoken_form_entry.spoken_forms
+                }
+                for spoken_form_entry in spoken_form_entries
+            },
+        },
+        pluralize_lists,
+    )
 
     if handle_new_values is not None:
         handle_new_values(spoken_form_entries)
@@ -286,7 +291,7 @@ def generate_spoken_forms(results_list: Iterable[ResultsListEntry]):
                     k = k[:-3]
                 spoken.append(k.strip())
 
-        yield (
+        yield SpokenFormEntry(
             obj["list"],
             value,
             spoken,
