@@ -3,7 +3,7 @@ from collections.abc import Container
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Optional, TypedDict
+from typing import Callable, Iterable, Optional, TypedDict
 
 from talon import Context, Module, actions, app, fs
 
@@ -246,22 +246,20 @@ def update_dicts(
                 raise
 
     # Convert result map back to result list
-    results = {res["list"]: {} for res in results_map.values()}
-    values: list[SpokenFormEntry] = []
-    for list_name, id, spoken_forms in generate_spoken_forms(
-        list(results_map.values())
-    ):
+    lists: ListToSpokenForms = {res["list"]: {} for res in results_map.values()}
+    spoken_form_entries: list[SpokenFormEntry] = []
+    for list_name, id, spoken_forms in generate_spoken_forms(results_map.values()):
         for spoken_form in spoken_forms:
-            results[list_name][spoken_form] = id
-        values.append(
+            lists[list_name][spoken_form] = id
+        spoken_form_entries.append(
             SpokenFormEntry(list_name=list_name, id=id, spoken_forms=spoken_forms)
         )
 
     # Assign result to talon context list
-    assign_lists_to_context(ctx, results, pluralize_lists)
+    assign_lists_to_context(ctx, lists, pluralize_lists)
 
     if handle_new_values is not None:
-        handle_new_values(values)
+        handle_new_values(spoken_form_entries)
 
 
 class ResultsListEntry(TypedDict):
@@ -270,7 +268,7 @@ class ResultsListEntry(TypedDict):
     list: str
 
 
-def generate_spoken_forms(results_list: list[ResultsListEntry]):
+def generate_spoken_forms(results_list: Iterable[ResultsListEntry]):
     for obj in results_list:
         value = obj["value"]
         key = obj["key"]
@@ -297,10 +295,10 @@ def generate_spoken_forms(results_list: list[ResultsListEntry]):
 
 def assign_lists_to_context(
     ctx: Context,
-    results: dict,
+    lists: ListToSpokenForms,
     pluralize_lists: list[str],
 ):
-    for list_name, dict in results.items():
+    for list_name, dict in lists.items():
         list_singular_name = get_cursorless_list_name(list_name)
         ctx.lists[list_singular_name] = dict
         if list_name in pluralize_lists:
