@@ -3,7 +3,6 @@ from collections import defaultdict
 from collections.abc import Container
 from dataclasses import dataclass
 from datetime import datetime
-from itertools import groupby
 from pathlib import Path
 from typing import Callable, Iterable, Optional, TypedDict
 
