@@ -248,7 +248,6 @@ def update_dicts(
                 raise
 
     spoken_form_entries = list(generate_spoken_forms(results_map.values()))
-    print(f"spoken_form_entries: {spoken_form_entries}")
 
     # Assign result to talon context list
     lists: ListToSpokenForms = defaultdict(dict)
@@ -297,7 +296,6 @@ def assign_lists_to_context(
     lists: ListToSpokenForms,
     pluralize_lists: list[str],
 ):
-    print(f"lists: {lists}")
     for list_name, dict in lists.items():
         list_singular_name = get_cursorless_list_name(list_name)
         ctx.lists[list_singular_name] = dict
