@@ -1,4 +1,5 @@
 import csv
+from collections import defaultdict
 from collections.abc import Container
 from dataclasses import dataclass
 from datetime import datetime
@@ -250,20 +251,11 @@ def update_dicts(
     print(f"spoken_form_entries: {spoken_form_entries}")
 
     # Assign result to talon context list
-    assign_lists_to_context(
-        ctx,
-        {
-            list_name: {
-                spoken_form: entry.id
-                for entry in spoken_form_entries
-                for spoken_form in entry.spoken_forms
-            }
-            for list_name, spoken_form_entries in groupby(
-                spoken_form_entries, key=lambda x: x.list_name
-            )
-        },
-        pluralize_lists,
-    )
+    lists: ListToSpokenForms = defaultdict(dict)
+    for entry in spoken_form_entries:
+        for spoken_form in entry.spoken_forms:
+            lists[entry.list_name][spoken_form] = entry.id
+    assign_lists_to_context(ctx, lists, pluralize_lists)
 
     if handle_new_values is not None:
         handle_new_values(spoken_form_entries)
