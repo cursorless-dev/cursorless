@@ -2,6 +2,7 @@ import csv
 from collections.abc import Container
 from dataclasses import dataclass
 from datetime import datetime
+from itertools import groupby
 from pathlib import Path
 from typing import Callable, Iterable, Optional, TypedDict
 
@@ -225,40 +226,41 @@ def update_dicts(
     # Create map with all default values
     results_map: dict[str, ResultsListEntry] = {}
     for list_name, obj in default_values.items():
-        for key, value in obj.items():
-            results_map[value] = {"key": key, "value": value, "list": list_name}
+        for spoken, id in obj.items():
+            results_map[id] = {"spoken": spoken, "id": id, "list": list_name}
 
     # Update result with current values
-    for key, value in current_values.items():
+    for spoken, id in current_values.items():
         try:
-            results_map[value]["key"] = key
+            results_map[id]["spoken"] = spoken
         except KeyError:
-            if value in extra_ignored_values:
+            if id in extra_ignored_values:
                 pass
-            elif allow_unknown_values or value in extra_allowed_values:
+            elif allow_unknown_values or id in extra_allowed_values:
                 assert default_list_name is not None
-                results_map[value] = {
-                    "key": key,
-                    "value": value,
+                results_map[id] = {
+                    "spoken": spoken,
+                    "id": id,
                     "list": default_list_name,
                 }
             else:
                 raise
 
     spoken_form_entries = list(generate_spoken_forms(results_map.values()))
+    print(f"spoken_form_entries: {spoken_form_entries}")
 
     # Assign result to talon context list
     assign_lists_to_context(
         ctx,
         {
-            **{res["list"]: {} for res in results_map.values()},
-            **{
-                spoken_form_entry.list_name: {
-                    spoken_form: spoken_form_entry.id
-                    for spoken_form in spoken_form_entry.spoken_forms
-                }
-                for spoken_form_entry in spoken_form_entries
-            },
+            list_name: {
+                spoken_form: entry.id
+                for entry in spoken_form_entries
+                for spoken_form in entry.spoken_forms
+            }
+            for list_name, spoken_form_entries in groupby(
+                spoken_form_entries, key=lambda x: x.list_name
+            )
         },
         pluralize_lists,
     )
@@ -268,20 +270,20 @@ def update_dicts(
 
 
 class ResultsListEntry(TypedDict):
-    key: str
-    value: str
+    spoken: str
+    id: str
     list: str
 
 
 def generate_spoken_forms(results_list: Iterable[ResultsListEntry]):
     for obj in results_list:
-        value = obj["value"]
-        key = obj["key"]
+        id = obj["id"]
+        spoken = obj["spoken"]
 
-        spoken = []
-        if not is_removed(key):
-            for k in key.split("|"):
-                if value == "pasteFromClipboard" and k.endswith(" to"):
+        spoken_forms = []
+        if not is_removed(spoken):
+            for k in spoken.split("|"):
+                if id == "pasteFromClipboard" and k.endswith(" to"):
                     # FIXME: This is a hack to work around the fact that the
                     # spoken form of the `pasteFromClipboard` action used to be
                     # "paste to", but now the spoken form is just "paste" and
@@ -289,12 +291,12 @@ def generate_spoken_forms(results_list: Iterable[ResultsListEntry]):
                     # cursorless before this change would have "paste to" as
                     # their spoken form and so would need to say "paste to to".
                     k = k[:-3]
-                spoken.append(k.strip())
+                spoken_forms.append(k.strip())
 
         yield SpokenFormEntry(
-            obj["list"],
-            value,
-            spoken,
+            list_name=obj["list"],
+            id=id,
+            spoken_forms=spoken_forms,
         )
 
 
@@ -303,6 +305,7 @@ def assign_lists_to_context(
     lists: ListToSpokenForms,
     pluralize_lists: list[str],
 ):
+    print(f"lists: {lists}")
     for list_name, dict in lists.items():
         list_singular_name = get_cursorless_list_name(list_name)
         ctx.lists[list_singular_name] = dict

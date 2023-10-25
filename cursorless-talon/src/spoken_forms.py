@@ -82,6 +82,8 @@ def update():
         spoken_forms = json.load(file)
 
     initialized = False
+
+    # Maps from csv name to list of SpokenFormEntry
     custom_spoken_forms: dict[str, list[SpokenFormEntry]] = {}
     spoken_forms_output = SpokenFormsOutput()
     spoken_forms_output.init()
