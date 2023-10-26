@@ -51,8 +51,8 @@ class SpokenFormEntry:
 def init_csv_and_watch_changes(
     filename: str,
     default_values: ListToSpokenForms,
-    *,
     handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]] = None,
+    *,
     extra_ignored_values: Optional[list[str]] = None,
     extra_allowed_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
