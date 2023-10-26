@@ -11,7 +11,6 @@ export { getKey, splitKey } from "./util/splitKey";
 export { hrtimeBigintToSeconds } from "./util/timeUtils";
 export * from "./util/walkSync";
 export * from "./util/walkAsync";
-export * from "./util/disposableFrom";
 export * from "./util/camelCaseToAllDown";
 export { Notifier } from "./util/Notifier";
 export type { Listener } from "./util/Notifier";
