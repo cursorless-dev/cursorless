@@ -1,4 +1,4 @@
-import { Disposer, FileSystem, Notifier } from "@cursorless/common";
+import { Disposable, FileSystem, Notifier } from "@cursorless/common";
 import { readFile } from "fs/promises";
 
 import * as path from "path";
@@ -16,15 +16,13 @@ interface TalonSpokenFormsPayload {
 const LATEST_SPOKEN_FORMS_JSON_VERSION = 0;
 
 export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
-  private disposer = new Disposer();
+  private disposable: Disposable;
   private notifier = new Notifier();
 
   constructor(private fileSystem: FileSystem) {
-    this.disposer.push(
-      this.fileSystem.watchDir(
-        path.dirname(this.fileSystem.cursorlessTalonStateJsonPath),
-        () => this.notifier.notifyListeners(),
-      ),
+    this.disposable = this.fileSystem.watchDir(
+      path.dirname(this.fileSystem.cursorlessTalonStateJsonPath),
+      () => this.notifier.notifyListeners(),
     );
   }
 
@@ -62,7 +60,7 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
   }
 
   dispose() {
-    this.disposer.dispose();
+    this.disposable.dispose();
   }
 }
 

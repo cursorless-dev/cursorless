@@ -1,13 +1,13 @@
 import {
   CustomRegexScopeType,
-  Disposer,
+  Disposable,
   Notifier,
   showError,
 } from "@cursorless/common";
 import { isEqual } from "lodash";
 import {
-  SUPPORTED_ENTRY_TYPES,
   NeedsInitialTalonUpdateError,
+  SUPPORTED_ENTRY_TYPES,
   SpokenFormEntry,
   TalonSpokenForms,
 } from "../scopeProviders/TalonSpokenForms";
@@ -31,7 +31,7 @@ type Writable<T> = {
  * forms for a subset of all customizable spoken forms.
  */
 export class CustomSpokenForms {
-  private disposer = new Disposer();
+  private disposable: Disposable;
   private notifier = new Notifier();
 
   private spokenFormMap_: Writable<SpokenFormMap> = { ...defaultSpokenFormMap };
@@ -61,8 +61,8 @@ export class CustomSpokenForms {
   }
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
-    this.disposer.push(
-      talonSpokenForms.onDidChange(() => this.updateSpokenFormMaps()),
+    this.disposable = talonSpokenForms.onDidChange(() =>
+      this.updateSpokenFormMaps(),
     );
 
     this.updateSpokenFormMaps();
@@ -129,7 +129,7 @@ export class CustomSpokenForms {
   }
 
   dispose() {
-    this.disposer.dispose();
+    this.disposable.dispose();
   }
 }
 
