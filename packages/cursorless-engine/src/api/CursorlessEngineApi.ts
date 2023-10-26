@@ -12,7 +12,6 @@ export interface CursorlessEngine {
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
   snippets: Snippets;
-  spokenFormsJsonPath: string;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
 }
