@@ -1,5 +1,5 @@
 import { Disposer, FileSystem, Notifier } from "@cursorless/common";
-import { mkdir, readFile } from "fs/promises";
+import { readFile } from "fs/promises";
 
 import * as path from "path";
 import {
@@ -20,17 +20,10 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
   private notifier = new Notifier();
 
   constructor(private fileSystem: FileSystem) {
-    this.init();
-  }
-
-  private async init() {
-    const parentDir = path.dirname(
-      this.fileSystem.cursorlessTalonStateJsonPath,
-    );
-    await mkdir(parentDir, { recursive: true });
     this.disposer.push(
-      this.fileSystem.watchDir(parentDir, () =>
-        this.notifier.notifyListeners(),
+      this.fileSystem.watchDir(
+        path.dirname(this.fileSystem.cursorlessTalonStateJsonPath),
+        () => this.notifier.notifyListeners(),
       ),
     );
   }

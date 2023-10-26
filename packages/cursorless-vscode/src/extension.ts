@@ -45,6 +45,7 @@ import {
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
+import { mkdir } from "fs/promises";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -149,6 +150,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   const cursorlessDir = isTesting()
     ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
     : path.join(os.homedir(), ".cursorless");
+  await mkdir(cursorlessDir, { recursive: true });
 
   return { vscodeIDE, hats, fileSystem: new VscodeFileSystem(cursorlessDir) };
 }
