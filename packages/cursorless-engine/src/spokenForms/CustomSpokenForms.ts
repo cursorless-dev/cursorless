@@ -79,6 +79,9 @@ export class CustomSpokenForms {
     let allCustomEntries: SpokenFormEntry[];
     try {
       allCustomEntries = await this.talonSpokenForms.getSpokenFormEntries();
+      if (allCustomEntries.length === 0) {
+        throw new Error("Custom spoken forms list empty");
+      }
     } catch (err) {
       if (err instanceof NeedsInitialTalonUpdateError) {
         // Handle case where spokenForms.json doesn't exist yet
