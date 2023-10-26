@@ -6,7 +6,7 @@ import {
   NeedsInitialTalonUpdateError,
   SpokenFormEntry,
   TalonSpokenForms,
-} from "../scopeProviders/SpokenFormEntry";
+} from "../scopeProviders/TalonSpokenForms";
 
 interface TalonSpokenFormsPayload {
   version: number;
