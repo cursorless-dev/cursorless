@@ -50,7 +50,7 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
         await readFile(this.cursorlessTalonStateJsonPath, "utf-8"),
       );
     } catch (err) {
-      if ((err as any)?.code === "ENOENT") {
+      if (isErrnoException(err) && err.code === "ENOENT") {
         throw new NeedsInitialTalonUpdateError(
           `Custom spoken forms file not found at ${this.cursorlessTalonStateJsonPath}. Using default spoken forms.`,
         );
@@ -72,4 +72,16 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
   dispose() {
     this.disposer.dispose();
   }
+}
+
+/**
+ * A user-defined type guard function that checks if a given error is a
+ * `NodeJS.ErrnoException`.
+ *
+ * @param {any} error - The error to check.
+ * @returns {error is NodeJS.ErrnoException} - Returns `true` if the error is a
+ * {@link NodeJS.ErrnoException}, otherwise `false`.
+ */
+function isErrnoException(error: any): error is NodeJS.ErrnoException {
+  return error instanceof Error && "code" in error;
 }
