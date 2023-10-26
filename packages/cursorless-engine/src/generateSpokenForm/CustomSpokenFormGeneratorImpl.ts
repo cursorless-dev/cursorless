@@ -1,6 +1,6 @@
 import {
   CommandComplete,
-  Disposer,
+  Disposable,
   Listener,
   ScopeType,
 } from "@cursorless/common";
@@ -19,19 +19,19 @@ export class CustomSpokenFormGeneratorImpl
 {
   private customSpokenForms: CustomSpokenForms;
   private spokenFormGenerator: SpokenFormGenerator;
-  private disposer = new Disposer();
+  private disposable: Disposable;
 
   constructor(talonSpokenForms: TalonSpokenForms) {
     this.customSpokenForms = new CustomSpokenForms(talonSpokenForms);
     this.spokenFormGenerator = new SpokenFormGenerator(
       this.customSpokenForms.spokenFormMap,
     );
-    this.disposer.push(
-      this.customSpokenForms.onDidChangeCustomSpokenForms(() => {
+    this.disposable = this.customSpokenForms.onDidChangeCustomSpokenForms(
+      () => {
         this.spokenFormGenerator = new SpokenFormGenerator(
           this.customSpokenForms.spokenFormMap,
         );
-      }),
+      },
     );
   }
 
@@ -56,6 +56,6 @@ export class CustomSpokenFormGeneratorImpl
   }
 
   dispose() {
-    this.disposer.dispose();
+    this.disposable.dispose();
   }
 }
