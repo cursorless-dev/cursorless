@@ -139,7 +139,15 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
+  // FIXME: Inject this from test harness. Would need to arrange to delay
+  // extension initialization, probably by returning a function from extension
+  // init that has parameters consisting of test configuration, and have that
+  // function do the actual initialization.
+  const cursorlessDir = isTesting()
+    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+    : path.join(os.homedir(), ".cursorless");
+
+  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem(cursorlessDir) };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

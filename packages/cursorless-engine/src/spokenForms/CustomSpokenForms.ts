@@ -125,7 +125,9 @@ export class CustomSpokenForms {
     }));
   }
 
-  dispose = this.disposer.dispose;
+  dispose() {
+    this.disposer.dispose();
+  }
 }
 
 function updateEntriesForType<T extends SpokenFormType>(

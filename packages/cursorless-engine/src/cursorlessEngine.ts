@@ -99,7 +99,6 @@ export function createCursorlessEngine(
     storedTargets,
     hatTokenMap,
     snippets,
-    spokenFormsJsonPath: talonSpokenForms.spokenFormsPath,
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),

@@ -55,5 +55,7 @@ export class CustomSpokenFormGeneratorImpl
     return this.customSpokenForms.needsInitialTalonUpdate;
   }
 
-  dispose = this.disposer.dispose;
+  dispose() {
+    this.disposer.dispose();
+  }
 }
