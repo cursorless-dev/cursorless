@@ -7,7 +7,7 @@ import {
 import { SpokenFormGenerator } from ".";
 import { CustomSpokenFormGenerator } from "..";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
-import { TalonSpokenForms } from "../scopeProviders/SpokenFormEntry";
+import { TalonSpokenForms } from "../scopeProviders/TalonSpokenForms";
 
 /**
  * Simple facade that combines the {@link CustomSpokenForms} and

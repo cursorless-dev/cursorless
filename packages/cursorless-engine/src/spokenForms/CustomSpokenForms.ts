@@ -10,7 +10,7 @@ import {
   NeedsInitialTalonUpdateError,
   SpokenFormEntry,
   TalonSpokenForms,
-} from "../scopeProviders/SpokenFormEntry";
+} from "../scopeProviders/TalonSpokenForms";
 import { ide } from "../singletons/ide.singleton";
 import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
 import { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
