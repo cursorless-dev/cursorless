@@ -1,5 +1,8 @@
-import { Notifier, SimpleScopeTypeType } from "@cursorless/common";
-import { SpeakableSurroundingPairName } from "../spokenForms/SpokenFormType";
+import { Notifier } from "@cursorless/common";
+import {
+  SpokenFormMapKeyTypes,
+  SpokenFormType,
+} from "../spokenForms/SpokenFormType";
 
 /**
  * Interface representing a communication mechanism whereby Talon can provide
@@ -10,28 +13,27 @@ export interface TalonSpokenForms {
   onDidChange: Notifier["registerListener"];
 }
 
-export interface CustomRegexSpokenFormEntry {
-  type: "customRegex";
-  id: string;
+/**
+ * The types of entries for which we currently support getting custom spoken
+ * forms from Talon.
+ */
+export const SUPPORTED_ENTRY_TYPES = [
+  "simpleScopeTypeType",
+  "customRegex",
+  "pairedDelimiter",
+] as const;
+
+type SupportedEntryType = (typeof SUPPORTED_ENTRY_TYPES)[number];
+
+export interface SpokenFormEntryForType<T extends SpokenFormType> {
+  type: T;
+  id: SpokenFormMapKeyTypes[T];
   spokenForms: string[];
 }
 
-export interface PairedDelimiterSpokenFormEntry {
-  type: "pairedDelimiter";
-  id: SpeakableSurroundingPairName;
-  spokenForms: string[];
-}
-
-export interface SimpleScopeTypeTypeSpokenFormEntry {
-  type: "simpleScopeTypeType";
-  id: SimpleScopeTypeType;
-  spokenForms: string[];
-}
-
-export type SpokenFormEntry =
-  | CustomRegexSpokenFormEntry
-  | PairedDelimiterSpokenFormEntry
-  | SimpleScopeTypeTypeSpokenFormEntry;
+export type SpokenFormEntry = {
+  [K in SpokenFormType]: SpokenFormEntryForType<K>;
+}[SupportedEntryType];
 
 export class NeedsInitialTalonUpdateError extends Error {
   constructor(message: string) {

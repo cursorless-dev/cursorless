@@ -6,28 +6,19 @@ import {
 } from "@cursorless/common";
 import { isEqual } from "lodash";
 import {
+  SUPPORTED_ENTRY_TYPES,
   NeedsInitialTalonUpdateError,
   SpokenFormEntry,
   TalonSpokenForms,
 } from "../scopeProviders/SpokenFormEntry";
 import { ide } from "../singletons/ide.singleton";
 import { SpokenFormMap, SpokenFormMapEntry } from "./SpokenFormMap";
-import { SpokenFormType } from "./SpokenFormType";
+import { SpokenFormMapKeyTypes, SpokenFormType } from "./SpokenFormType";
 import {
   defaultSpokenFormInfoMap,
   defaultSpokenFormMap,
 } from "./defaultSpokenFormMap";
 import { DefaultSpokenFormMapEntry } from "./defaultSpokenFormMap.types";
-
-/**
- * The types of entries for which we currently support getting custom spoken
- * forms from Talon.
- */
-const ENTRY_TYPES = [
-  "simpleScopeTypeType",
-  "customRegex",
-  "pairedDelimiter",
-] as const;
 
 type Writable<T> = {
   -readonly [K in keyof T]: T[K];
@@ -110,61 +101,17 @@ export class CustomSpokenForms {
       return;
     }
 
-    for (const entryType of ENTRY_TYPES) {
-      const customEntries = Object.fromEntries(
-        allCustomEntries
-          .filter((entry) => entry.type === entryType)
-          .map(({ id, spokenForms }) => [id, spokenForms]),
+    for (const entryType of SUPPORTED_ENTRY_TYPES) {
+      updateEntriesForType(
+        this.spokenFormMap_,
+        entryType,
+        defaultSpokenFormInfoMap[entryType],
+        Object.fromEntries(
+          allCustomEntries
+            .filter((entry) => entry.type === entryType)
+            .map(({ id, spokenForms }) => [id, spokenForms]),
+        ),
       );
-
-      const defaultEntries: Partial<Record<string, DefaultSpokenFormMapEntry>> =
-        defaultSpokenFormInfoMap[entryType];
-
-      /**
-       * The ids of the entries to include in the spoken form map. We need a
-       * union of the ids from the default entry and the custom entry. The custom
-       * entry could be missing private entries, or it could be missing entries
-       * because the Talon side is old. The default entry could be missing entries
-       * like custom regexes, where the user can create arbitrary ids.
-       */
-      const ids = Array.from(
-        new Set([
-          ...Object.keys(defaultEntries),
-          ...Object.keys(customEntries),
-        ]),
-      );
-      // FIXME: How to avoid the type assertions here?
-      this.spokenFormMap_[entryType] = Object.fromEntries(
-        ids.map((id): [SpokenFormType, SpokenFormMapEntry] => {
-          const { defaultSpokenForms = [], isPrivate = false } =
-            defaultEntries[id] ?? {};
-          const customSpokenForms = customEntries[id];
-          if (customSpokenForms != null) {
-            return [
-              id as SpokenFormType,
-              {
-                defaultSpokenForms,
-                spokenForms: customSpokenForms,
-                requiresTalonUpdate: false,
-                isCustom: isEqual(defaultSpokenForms, customSpokenForms),
-                isPrivate,
-              },
-            ];
-          } else {
-            return [
-              id as SpokenFormType,
-              {
-                defaultSpokenForms,
-                spokenForms: [],
-                // If it's not a private spoken form, then it's a new scope type
-                requiresTalonUpdate: !isPrivate,
-                isCustom: false,
-                isPrivate,
-              },
-            ];
-          }
-        }),
-      ) as any;
     }
 
     this.customSpokenFormsInitialized_ = true;
@@ -179,4 +126,54 @@ export class CustomSpokenForms {
   }
 
   dispose = this.disposer.dispose;
+}
+
+function updateEntriesForType<T extends SpokenFormType>(
+  spokenFormMapToUpdate: Writable<SpokenFormMap>,
+  key: T,
+  defaultEntries: Partial<
+    Record<SpokenFormMapKeyTypes[T], DefaultSpokenFormMapEntry>
+  >,
+  customEntries: Partial<Record<SpokenFormMapKeyTypes[T], string[]>>,
+) {
+  /**
+   * The ids of the entries to include in the spoken form map. We need a
+   * union of the ids from the default entry and the custom entry. The custom
+   * entry could be missing private entries, or it could be missing entries
+   * because the Talon side is old. The default entry could be missing entries
+   * like custom regexes, where the user can create arbitrary ids.
+   */
+  const ids = Array.from(
+    new Set([...Object.keys(defaultEntries), ...Object.keys(customEntries)]),
+  ) as SpokenFormMapKeyTypes[T][];
+
+  const obj: Partial<Record<SpokenFormMapKeyTypes[T], SpokenFormMapEntry>> = {};
+  for (const id of ids) {
+    const { defaultSpokenForms = [], isPrivate = false } =
+      defaultEntries[id] ?? {};
+    const customSpokenForms = customEntries[id];
+
+    obj[id] =
+      customSpokenForms == null
+        ? // No entry for the given id. This either means that the user needs to
+          // update Talon, or it's a private spoken form.
+          {
+            defaultSpokenForms,
+            spokenForms: [],
+            // If it's not a private spoken form, then it's a new scope type
+            requiresTalonUpdate: !isPrivate,
+            isCustom: false,
+            isPrivate,
+          }
+        : // We have an entry for the given id
+          {
+            defaultSpokenForms,
+            spokenForms: customSpokenForms,
+            requiresTalonUpdate: false,
+            isCustom: isEqual(defaultSpokenForms, customSpokenForms),
+            isPrivate,
+          };
+  }
+
+  spokenFormMapToUpdate[key] = obj as SpokenFormMap[T];
 }
