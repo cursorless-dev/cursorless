@@ -18,7 +18,7 @@ export interface FileSystem {
   readonly cursorlessDir: string;
 
   /**
-   * The path to the spoken forms JSON file.
+   * The path to the Cursorless talon state JSON file.
    */
   readonly cursorlessTalonStateJsonPath: string;
 }
