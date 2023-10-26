@@ -22,8 +22,10 @@ export class Disposer implements Disposable {
       try {
         dispose();
       } catch (e) {
-        // do nothing; some of the VSCode disposables misbehave, and we don't
-        // want that to prevent us from disposing the rest of the disposables
+        // just log, but don't throw; some of the VSCode disposables misbehave,
+        // and we don't want that to prevent us from disposing the rest of the
+        // disposables
+        console.error(e);
       }
     });
   }
