@@ -35,12 +35,13 @@ def init_csv_and_watch_changes(
     filename: str,
     default_values: dict[str, dict[str, str]],
     extra_ignored_values: Optional[list[str]] = None,
+    extra_allowed_values: Optional[list[str]] = None,
     allow_unknown_values: bool = False,
     default_list_name: Optional[str] = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     ctx: Context = Context(),
     no_update_file: bool = False,
-    pluralize_lists: Optional[list[str]] = [],
+    pluralize_lists: Optional[list[str]] = None,
 ):
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
@@ -69,8 +70,21 @@ def init_csv_and_watch_changes(
         not update the csv. This is used generally in case there was an issue coming up with the default set of values so we don't want to persist those to disk
         pluralize_lists: Create plural version of given lists
     """
+    # Don't allow both `extra_allowed_values` and `allow_unknown_values`
+    assert not (extra_allowed_values and allow_unknown_values)
+
+    # If `extra_allowed_values` or `allow_unknown_values` is given, we need a
+    # `default_list_name` to put unknown values in
+    assert not (
+        (extra_allowed_values or allow_unknown_values) and not default_list_name
+    )
+
     if extra_ignored_values is None:
         extra_ignored_values = []
+    if extra_allowed_values is None:
+        extra_allowed_values = []
+    if pluralize_lists is None:
+        pluralize_lists = []
 
     file_path = get_full_path(filename)
     super_default_values = get_super_values(default_values)
@@ -83,53 +97,58 @@ def init_csv_and_watch_changes(
     def on_watch(path, flags):
         if file_path.match(path):
             current_values, has_errors = read_file(
-                file_path,
-                headers,
-                super_default_values.values(),
-                extra_ignored_values,
-                allow_unknown_values,
+                path=file_path,
+                headers=headers,
+                default_identifiers=super_default_values.values(),
+                extra_ignored_values=extra_ignored_values,
+                extra_allowed_values=extra_allowed_values,
+                allow_unknown_values=allow_unknown_values,
             )
             update_dicts(
-                default_values,
-                current_values,
-                extra_ignored_values,
-                allow_unknown_values,
-                default_list_name,
-                pluralize_lists,
-                ctx,
+                default_values=default_values,
+                current_values=current_values,
+                extra_ignored_values=extra_ignored_values,
+                extra_allowed_values=extra_allowed_values,
+                allow_unknown_values=allow_unknown_values,
+                default_list_name=default_list_name,
+                pluralize_lists=pluralize_lists,
+                ctx=ctx,
             )
 
     fs.watch(str(file_path.parent), on_watch)
 
     if file_path.is_file():
         current_values = update_file(
-            file_path,
-            headers,
-            super_default_values,
-            extra_ignored_values,
-            allow_unknown_values,
-            no_update_file,
+            path=file_path,
+            headers=headers,
+            default_values=super_default_values,
+            extra_ignored_values=extra_ignored_values,
+            extra_allowed_values=extra_allowed_values,
+            allow_unknown_values=allow_unknown_values,
+            no_update_file=no_update_file,
         )
         update_dicts(
-            default_values,
-            current_values,
-            extra_ignored_values,
-            allow_unknown_values,
-            default_list_name,
-            pluralize_lists,
-            ctx,
+            default_values=default_values,
+            current_values=current_values,
+            extra_ignored_values=extra_ignored_values,
+            extra_allowed_values=extra_allowed_values,
+            allow_unknown_values=allow_unknown_values,
+            default_list_name=default_list_name,
+            pluralize_lists=pluralize_lists,
+            ctx=ctx,
         )
     else:
         if not no_update_file:
             create_file(file_path, headers, super_default_values)
         update_dicts(
-            default_values,
-            super_default_values,
-            extra_ignored_values,
-            allow_unknown_values,
-            default_list_name,
-            pluralize_lists,
-            ctx,
+            default_values=default_values,
+            current_values=super_default_values,
+            extra_ignored_values=extra_ignored_values,
+            extra_allowed_values=extra_allowed_values,
+            allow_unknown_values=allow_unknown_values,
+            default_list_name=default_list_name,
+            pluralize_lists=pluralize_lists,
+            ctx=ctx,
         )
 
     def unsubscribe():
@@ -172,6 +191,7 @@ def update_dicts(
     default_values: dict[str, dict],
     current_values: dict,
     extra_ignored_values: list[str],
+    extra_allowed_values: list[str],
     allow_unknown_values: bool,
     default_list_name: Optional[str],
     pluralize_lists: list[str],
@@ -190,7 +210,7 @@ def update_dicts(
         except KeyError:
             if value in extra_ignored_values:
                 pass
-            elif allow_unknown_values:
+            elif allow_unknown_values or value in extra_allowed_values:
                 results_map[value] = {
                     "key": key,
                     "value": value,
@@ -238,15 +258,17 @@ def update_file(
     headers: list[str],
     default_values: dict[str, str],
     extra_ignored_values: list[str],
+    extra_allowed_values: list[str],
     allow_unknown_values: bool,
     no_update_file: bool,
 ):
     current_values, has_errors = read_file(
-        path,
-        headers,
-        default_values.values(),
-        extra_ignored_values,
-        allow_unknown_values,
+        path=path,
+        headers=headers,
+        default_identifiers=default_values.values(),
+        extra_ignored_values=extra_ignored_values,
+        extra_allowed_values=extra_allowed_values,
+        allow_unknown_values=allow_unknown_values,
     )
     current_identifiers = current_values.values()
 
@@ -311,6 +333,7 @@ def read_file(
     headers: list[str],
     default_identifiers: Container[str],
     extra_ignored_values: list[str],
+    extra_allowed_values: list[str],
     allow_unknown_values: bool,
 ):
     with open(path) as csv_file:
@@ -353,6 +376,7 @@ def read_file(
         if (
             value not in default_identifiers
             and value not in extra_ignored_values
+            and value not in extra_allowed_values
             and not allow_unknown_values
         ):
             has_errors = True

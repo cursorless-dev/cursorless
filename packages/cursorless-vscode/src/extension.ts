@@ -131,6 +131,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
 
   const hats = new VscodeHats(
     vscodeIDE,
+    vscodeApi,
     context,
     vscodeIDE.runMode === "test"
       ? new FakeFontMeasurements()

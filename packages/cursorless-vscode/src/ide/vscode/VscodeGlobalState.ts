@@ -1,7 +1,8 @@
-import type { ExtensionContext } from "vscode";
 import type { State, StateData, StateKey } from "@cursorless/common";
 import { STATE_DEFAULTS } from "@cursorless/common";
+import type { ExtensionContext } from "vscode";
 import { VERSION_KEY } from "../../ReleaseNotes";
+import { PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY } from "./hats/performPr1868ShapeUpdateInit";
 
 export default class VscodeGlobalState implements State {
   constructor(private extensionContext: ExtensionContext) {
@@ -9,6 +10,7 @@ export default class VscodeGlobalState implements State {
     extensionContext.globalState.setKeysForSync([
       ...Object.keys(STATE_DEFAULTS),
       VERSION_KEY,
+      PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY,
     ]);
   }
 

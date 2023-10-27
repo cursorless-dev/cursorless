@@ -29,7 +29,7 @@
   },
   "homepage": "https://www.cursorless.org/",
   "engines": {
-    "vscode": "^1.61.0"
+    "vscode": "^1.66.0"
   },
   "extensionKind": [
     "ui",
@@ -363,7 +363,7 @@
             }
           },
           "default": {
-            "default": "#aaa7bb",
+            "default": "#B9B6CD",
             "blue": "#089ad3",
             "green": "#36B33F",
             "red": "#E02D28",
@@ -651,10 +651,19 @@
           "type": "object",
           "order": 3,
           "properties": {
-            "ex": {
+            "bolt": {
+              "type": "boolean"
+            },
+            "curve": {
               "type": "boolean"
             },
             "fox": {
+              "type": "boolean"
+            },
+            "frame": {
+              "type": "boolean"
+            },
+            "play": {
               "type": "boolean"
             },
             "wing": {
@@ -663,36 +672,27 @@
             "hole": {
               "type": "boolean"
             },
-            "frame": {
-              "type": "boolean"
-            },
-            "curve": {
-              "type": "boolean"
-            },
-            "eye": {
-              "type": "boolean"
-            },
-            "play": {
-              "type": "boolean"
-            },
-            "bolt": {
+            "ex": {
               "type": "boolean"
             },
             "crosshairs": {
               "type": "boolean"
+            },
+            "eye": {
+              "type": "boolean"
             }
           },
           "default": {
-            "ex": false,
+            "bolt": false,
+            "curve": false,
             "fox": false,
+            "frame": false,
+            "play": false,
             "wing": false,
             "hole": false,
-            "frame": false,
-            "curve": false,
-            "eye": false,
-            "play": false,
-            "bolt": false,
-            "crosshairs": false
+            "ex": false,
+            "crosshairs": false,
+            "eye": false
           },
           "additionalProperties": false
         },
@@ -742,10 +742,19 @@
           "description": "How much to penalize each hat shape. Number of syllables is a good default",
           "type": "object",
           "properties": {
-            "ex": {
+            "bolt": {
+              "type": "number"
+            },
+            "curve": {
               "type": "number"
             },
             "fox": {
+              "type": "number"
+            },
+            "frame": {
+              "type": "number"
+            },
+            "play": {
               "type": "number"
             },
             "wing": {
@@ -754,36 +763,27 @@
             "hole": {
               "type": "number"
             },
-            "frame": {
-              "type": "number"
-            },
-            "curve": {
-              "type": "number"
-            },
-            "eye": {
-              "type": "number"
-            },
-            "play": {
-              "type": "number"
-            },
-            "bolt": {
+            "ex": {
               "type": "number"
             },
             "crosshairs": {
               "type": "number"
+            },
+            "eye": {
+              "type": "number"
             }
           },
           "default": {
-            "ex": 1,
+            "bolt": 1,
+            "curve": 1,
             "fox": 1,
+            "frame": 1,
+            "play": 1,
             "wing": 1,
             "hole": 1,
-            "frame": 1,
-            "curve": 1,
-            "eye": 1,
-            "play": 1,
-            "bolt": 1,
-            "crosshairs": 1
+            "ex": 1,
+            "crosshairs": 1,
+            "eye": 1
           },
           "additionalProperties": false
         },
@@ -795,11 +795,23 @@
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
-            "ex": {
+            "bolt": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "curve": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
             "fox": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "frame": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "play": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
@@ -811,27 +823,15 @@
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
-            "frame": {
-              "sizeAdjustment": 0,
-              "verticalOffset": 0
-            },
-            "curve": {
-              "sizeAdjustment": 0,
-              "verticalOffset": 0
-            },
-            "eye": {
-              "sizeAdjustment": 0,
-              "verticalOffset": 0
-            },
-            "play": {
-              "sizeAdjustment": 0,
-              "verticalOffset": 0
-            },
-            "bolt": {
+            "ex": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             },
             "crosshairs": {
+              "sizeAdjustment": 0,
+              "verticalOffset": 0
+            },
+            "eye": {
               "sizeAdjustment": 0,
               "verticalOffset": 0
             }
@@ -925,16 +925,16 @@
           "additionalProperties": {
             "type": "string",
             "enum": [
-              "ex",
+              "bolt",
+              "curve",
               "fox",
+              "frame",
+              "play",
               "wing",
               "hole",
-              "frame",
-              "curve",
-              "eye",
-              "play",
-              "bolt",
-              "crosshairs"
+              "ex",
+              "crosshairs",
+              "eye"
             ]
           }
         },
@@ -1051,8 +1051,8 @@
     "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
     "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
     "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",
-    "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
-    "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAssignments/add.ts",
+    "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/add.ts",
+    "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/average.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist"
@@ -1069,7 +1069,7 @@
     "@types/sinon": "^10.0.2",
     "@types/tinycolor2": "1.4.3",
     "@types/uuid": "^8.3.4",
-    "@types/vscode": "~1.61.0",
+    "@types/vscode": "~1.66.0",
     "chai": "^4.3.6",
     "esbuild": "^0.17.11",
     "fast-xml-parser": "^4.2.5",
