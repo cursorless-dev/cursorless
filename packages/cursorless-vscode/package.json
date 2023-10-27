@@ -1088,6 +1088,5 @@
     "tinycolor2": "1.6.0",
     "uuid": "^9.0.0",
     "vscode-uri": "^3.0.6"
-  },
-  "type": "module"
+  }
 }

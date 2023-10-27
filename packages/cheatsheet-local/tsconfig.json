@@ -29,7 +29,6 @@
     "src/**/*.ts",
     "src/**/*.json",
     "src/**/*.tsx",
-    "../../typings/**/*.d.ts",
-    "src/webpack.config.cts"
+    "../../typings/**/*.d.ts"
   ]
 }
