@@ -274,9 +274,18 @@ function constructSpokenForms(component: SpokenFormComponent): string[] {
       component.spokenFormType,
     )} with id ${component.id}`;
 
-    const helpInfo = component.spokenForms.isPrivate
-      ? "this is a private spoken form currently only for internal experimentation"
-      : "please see https://www.cursorless.org/docs/user/customization/ for more information";
+    let helpInfo: string;
+
+    if (component.spokenForms.isPrivate) {
+      helpInfo =
+        "this is a private spoken form currently only for internal experimentation";
+    } else if (component.spokenForms.requiresTalonUpdate) {
+      helpInfo =
+        "please update talon to the latest version (see https://www.cursorless.org/docs/user/updating/)";
+    } else {
+      helpInfo =
+        "please see https://www.cursorless.org/docs/user/customization/ for more information";
+    }
 
     throw new NoSpokenFormError(
       `${componentInfo}; ${helpInfo}`,

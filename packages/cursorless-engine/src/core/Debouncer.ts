@@ -10,6 +10,7 @@ export class Debouncer {
   constructor(
     /** The callback to debounce */
     private callback: () => void,
+    private debounceDelayMs?: number,
   ) {
     this.run = this.run.bind(this);
   }
@@ -19,9 +20,9 @@ export class Debouncer {
       clearTimeout(this.timeoutHandle);
     }
 
-    const decorationDebounceDelayMs = ide().configuration.getOwnConfiguration(
-      "decorationDebounceDelayMs",
-    );
+    const decorationDebounceDelayMs =
+      this.debounceDelayMs ??
+      ide().configuration.getOwnConfiguration("decorationDebounceDelayMs");
 
     this.timeoutHandle = setTimeout(() => {
       this.callback();

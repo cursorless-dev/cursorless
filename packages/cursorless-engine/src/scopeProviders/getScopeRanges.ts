@@ -1,6 +1,6 @@
-import { Range, TextEditor } from "@cursorless/common";
+import { Range, ScopeRanges, TextEditor } from "@cursorless/common";
 import { map } from "itertools";
-import { ScopeRanges } from "..";
+
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { getTargetRanges } from "./getTargetRanges";
 
