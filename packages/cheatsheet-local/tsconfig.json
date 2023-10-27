@@ -8,16 +8,13 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "module": "ESNext",
     "target": "es5",
     "allowJs": true
   },
   "ts-node": {
     "compilerOptions": {
       "module": "NodeNext",
-      "moduleResolution": "NodeNext",
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true
+      "moduleResolution": "NodeNext"
     }
   },
   "references": [
