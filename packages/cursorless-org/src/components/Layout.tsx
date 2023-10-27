@@ -6,18 +6,18 @@ import Logo from "../pages/logo.svg";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
-    <h1 className="text-center uppercase text-[2em] leading-tight mb-20 mt-6 tracking-[0.14em] font-semibold">
+    <h1 className="text-center uppercase text-[2em] leading-tight mt-6 tracking-[0.14em] font-semibold">
       {children}
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="uppercase text-[1.5em] my-5 font-semibold tracking-[0.08em]">
+    <h2 className="uppercase text-[1.5em] my-8 font-semibold tracking-[0.08em]">
       {children}
     </h2>
   ),
   h3: ({ children }) => <h3 className="text-[1.3em] mt-4">{children}</h3>,
   h4: ({ children }) => <h4 className="text-[1.2em] mt-4">{children}</h4>,
-  hr: () => <hr className="my-5 border-salmon-900 dark:border-salmon-100" />,
+  hr: () => <hr className="my-8 border-teal-400" />,
   ul: ({ children }) => <ul className="list-disc ml-8">{children}</ul>,
   ol: ({ children }) => <ol className="list-decimal ml-8">{children}</ol>,
   li: ({ children }) => <li className="my-2">{children}</li>,
@@ -25,7 +25,7 @@ const components: MDXComponents = {
     // FIXME: Figure out how to use next/image with MDX
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className="mx-auto my-5 dark:border-salmon-700 dark:border dark:p-1 dark:rounded-sm"
+      className="mx-auto my-12 border-teal-400 dark:border p-6 dark:rounded-sm"
       src={src}
       alt={alt}
       style={{ maxWidth: "100%" }}
@@ -66,11 +66,11 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
         />
       </Head>
       <MDXProvider components={components}>
-        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal p-4 sm:p-5 sm:pt-24 lg:p-10 lg:pt-12 tracking-[0.08em]">
-          <div className="max-w-prose mx-auto">
+        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-light p-4 sm:p-5 sm:pt-36 lg:p-10 lg:pt-12 tracking-[0.08em]">
+          <div className="max-w-[70ch] mx-auto">
             <Logo
               title="Logo"
-              className="mx-auto align-middle w-[30px] h-[30px] sm:w-[5.53em] sm:h-[5.53em]"
+              className="mx-auto align-middle w-[30px] h-[30px] sm:w-[6.284090em] sm:h-[6.284090em]"
             />
             {children}
           </div>
