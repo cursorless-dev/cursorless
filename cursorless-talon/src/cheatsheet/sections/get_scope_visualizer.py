@@ -24,4 +24,14 @@ def get_scope_visualizer():
                 ],
             ],
         },
+        {
+            "id": "show_scope_sidebar",
+            "type": "command",
+            "variations": [
+                {
+                    "spokenForm": "bar cursorless",
+                    "description": "Show cursorless sidebar",
+                },
+            ],
+        },
     ]

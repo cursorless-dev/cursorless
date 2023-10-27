@@ -38,6 +38,7 @@ import {
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
+import { ScopeTreeProvider } from "./ScopeTreeProvider";
 import {
   ScopeVisualizer,
   ScopeVisualizerListener,
@@ -99,6 +100,15 @@ export async function activate(
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
   const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
+
+  new ScopeTreeProvider(
+    vscodeApi,
+    context,
+    scopeProvider,
+    scopeVisualizer,
+    customSpokenFormGenerator,
+    commandServerApi != null,
+  );
 
   registerCommands(
     context,
