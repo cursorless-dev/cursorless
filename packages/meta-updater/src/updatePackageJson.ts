@@ -69,7 +69,6 @@ export async function updatePackageJson(
     ...input,
     name,
     license: "MIT",
-    type: undefined,
     scripts: await getScripts(
       input.scripts,
       packageDir,
