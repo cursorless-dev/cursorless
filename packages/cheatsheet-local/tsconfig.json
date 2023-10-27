@@ -8,7 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "module": "es6",
+    "module": "NodeNext",
     "target": "es5",
     "allowJs": true
   },

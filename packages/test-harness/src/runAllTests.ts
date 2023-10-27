@@ -1,5 +1,5 @@
-import * as globRaw from "glob";
-import * as Mocha from "mocha";
+import globRaw from "glob";
+import Mocha from "mocha";
 import * as path from "path";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import { promisify } from "util";
