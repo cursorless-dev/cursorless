@@ -14,8 +14,10 @@
   },
   "ts-node": {
     "compilerOptions": {
-      "module": "CommonJS",
-      "moduleResolution": "NodeNext"
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true
     }
   },
   "references": [
@@ -27,6 +29,7 @@
     "src/**/*.ts",
     "src/**/*.json",
     "src/**/*.tsx",
-    "../../typings/**/*.d.ts"
+    "../../typings/**/*.d.ts",
+    "src/webpack.config.cts"
   ]
 }
