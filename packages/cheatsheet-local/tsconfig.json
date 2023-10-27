@@ -14,7 +14,8 @@
   },
   "ts-node": {
     "compilerOptions": {
-      "module": "ESNext"
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext"
     }
   },
   "references": [
