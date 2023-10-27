@@ -39,7 +39,7 @@ export function SpamProofEmailLink({ address: { username, domain } }: Props) {
   const href = `mailto:${strictEncodeURIComponent(rawEmailHref)}`;
 
   return (
-    <a href={href}>
+    <a href={href} className="text-teal-400 underline underline-offset-4">
       {`${username}@`}
       <span className="hidden">Die spam!</span>
       {domain}
