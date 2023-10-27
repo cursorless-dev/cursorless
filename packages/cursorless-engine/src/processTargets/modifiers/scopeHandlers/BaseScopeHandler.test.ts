@@ -5,8 +5,8 @@ import {
   CustomScopeType,
   ScopeIteratorRequirements,
 } from "./scopeHandler.types";
-import assert = require("assert");
 import { compareTargetScopes } from "./compareTargetScopes";
+import assert from "assert";
 
 class TestScopeHandler extends BaseScopeHandler {
   public scopeType = undefined;
