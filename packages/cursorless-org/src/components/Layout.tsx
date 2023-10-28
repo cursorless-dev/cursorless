@@ -6,22 +6,22 @@ import Logo from "../pages/logo.svg";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
-    <h1 className="text-center uppercase text-[1.9em] leading-tight mt-7 tracking-[0.14em] font-semibold">
+    <h1 className="text-center uppercase text-[1.88em] leading-tight mt-7 tracking-[0.14em] font-semibold">
       {children}
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="uppercase text-[1.4em] my-8 font-semibold tracking-[0.08em]">
+    <h2 className="uppercase text-[1.4em] mt-8 mb-4 sm:mb-8 font-semibold tracking-[0.08em]">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="uppercase text-[1.5rem] my-6 font-medium tracking-[0.08em]">
+    <h3 className="uppercase text-[1.5rem] mt-6 mb-3 sm:mb-6 font-medium tracking-[0.08em]">
       {children}
     </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="uppercase text-[1.5rem] mt-11 mb-6 font-medium tracking-[0.08em]">
+    <h4 className="uppercase text-[1.5rem] mt-11 mb-3 sm:mb-6 font-medium tracking-[0.08em]">
       {children}
     </h4>
   ),
@@ -43,7 +43,7 @@ const components: MDXComponents = {
     // FIXME: Figure out how to use next/image with MDX
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className="mx-auto my-12 border-teal-400 dark:border p-6 dark:rounded-sm"
+      className="mx-auto my-12 border-teal-400 dark:border p-3 sm:p-6 dark:rounded-sm"
       src={src}
       alt={alt}
       style={{ maxWidth: "100%" }}
@@ -54,7 +54,7 @@ const components: MDXComponents = {
   ),
   CalloutBox: ({ title, children }) => (
     <div className="my-6">
-      <h4 className="uppercase text-[1.5rem] mb-6 leading-tight font-medium tracking-[0.08em]">
+      <h4 className="uppercase text-[1.5rem] mb-3 sm:mb-6 leading-tight font-medium tracking-[0.08em]">
         {title}
       </h4>
       {children}
@@ -95,7 +95,7 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
         />
       </Head>
       <MDXProvider components={components}>
-        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal sm:font-light p-4 sm:p-5 sm:pt-36 lg:p-10 lg:pt-12 tracking-[0.08em]">
+        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal sm:font-light px-4 pt-8 sm:pt-16 lg:pt-20 pb-8 tracking-[0.08em]">
           <div className="max-w-prose mx-auto">
             <Logo
               title="Logo"
