@@ -78,6 +78,17 @@
 @font-face {
   font-family: "Inconsolata";
   font-style: normal;
+  font-weight: 200;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  src:
+    local(""),
+    /* Modern Browsers */ url("/fonts/Inconsolata-ExtraLight.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
   font-weight: 300;
   font-stretch: 1% 500%; /* Required by Chrome */
   src:
