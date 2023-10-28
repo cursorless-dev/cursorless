@@ -16,16 +16,30 @@ const components: MDXComponents = {
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="uppercase text-[1.3em] my-6">{children}</h3>
+    <h3 className="uppercase text-[1.5rem] my-6 font-medium tracking-[0.08em]">
+      {children}
+    </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="uppercase text-[1.2em] mt-10">{children}</h4>
+    <h4 className="uppercase text-[1.5rem] mt-11 mb-6 font-medium tracking-[0.08em]">
+      {children}
+    </h4>
   ),
   hr: () => <hr className="my-8 border-teal-400" />,
   ul: ({ children }) => <ul className="list-disc ml-8">{children}</ul>,
   ol: ({ children }) => <ol className="list-decimal ml-8">{children}</ol>,
   li: ({ children }) => <li className="my-2">{children}</li>,
   img: ({ src, alt }) => (
+    // FIXME: Figure out how to use next/image with MDX
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className="mx-auto my-12 rounded-[4px] border-teal-400 border-[1.5px]"
+      src={src}
+      alt={alt}
+      style={{ maxWidth: "100%" }}
+    />
+  ),
+  CursorlessScreenshot: ({ src, alt }) => (
     // FIXME: Figure out how to use next/image with MDX
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -40,8 +54,23 @@ const components: MDXComponents = {
   ),
   CalloutBox: ({ title, children }) => (
     <div className="my-6">
-      <h4 className="uppercase text-[1.3em] mb-6 leading-tight">{title}</h4>
+      <h4 className="uppercase text-[1.5rem] mb-6 leading-tight font-medium tracking-[0.08em]">
+        {title}
+      </h4>
       {children}
+    </div>
+  ),
+  Tiers: ({ children }) => (
+    <div className="my-8 uppercase font-medium tracking-[0.1em] text-[1.2em]">
+      {children}
+    </div>
+  ),
+  Tier: ({ emoji, type, price }) => (
+    <div className="flex gap-3 leading-8">
+      <span className="">{emoji}</span>
+      <span className="">{type}</span>
+      <span>{"-"}</span>
+      <span className="text-teal-400">{price}</span>
     </div>
   ),
 };
@@ -66,11 +95,11 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
         />
       </Head>
       <MDXProvider components={components}>
-        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-light p-4 sm:p-5 sm:pt-36 lg:p-10 lg:pt-12 tracking-[0.08em]">
+        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal sm:font-light p-4 sm:p-5 sm:pt-36 lg:p-10 lg:pt-12 tracking-[0.08em]">
           <div className="max-w-prose mx-auto">
             <Logo
               title="Logo"
-              className="mx-auto align-middle w-[30px] h-[30px] sm:w-[6.284090em] sm:h-[6.284090em]"
+              className="mx-auto align-middle w-[6.284em] h-[6.284em]"
             />
             {children}
           </div>
