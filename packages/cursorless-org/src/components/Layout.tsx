@@ -95,7 +95,7 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
         />
       </Head>
       <MDXProvider components={components}>
-        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal sm:font-light px-4 pt-8 sm:pt-16 lg:pt-20 pb-8 tracking-[0.08em]">
+        <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal sm:font-light px-4 pt-8 sm:pt-16 lg:pt-20 pb-8 tracking-[0.08em] leading-6">
           <div className="max-w-prose mx-auto">
             <Logo
               title="Logo"
