@@ -30,7 +30,7 @@ class SpokenFormsOutput:
             app.notify(error_message)
 
     def write(self, spoken_forms: list[SpokenFormEntry]):
-        with open(SPOKEN_FORMS_OUTPUT_PATH, "w") as out:
+        with open(SPOKEN_FORMS_OUTPUT_PATH, "w", encoding="UTF-8") as out:
             try:
                 out.write(
                     json.dumps(
