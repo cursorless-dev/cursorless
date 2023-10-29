@@ -3,10 +3,13 @@ import { RelativePattern, workspace } from "vscode";
 import * as path from "path";
 
 export class VscodeFileSystem implements FileSystem {
-  constructor(public cursorlessDir: string) {}
+  public readonly cursorlessTalonStateJsonPath: string;
 
-  public get cursorlessTalonStateJsonPath() {
-    return path.join(this.cursorlessDir, "state.json");
+  constructor(public readonly cursorlessDir: string) {
+    this.cursorlessTalonStateJsonPath = path.join(
+      this.cursorlessDir,
+      "state.json",
+    );
   }
 
   watchDir(path: string, onDidChange: PathChangeListener): Disposable {
