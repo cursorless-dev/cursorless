@@ -6,12 +6,12 @@ import {
   isTesting,
   NormalizedIDE,
   Range,
+  ScopeProvider,
   ScopeType,
   TextDocument,
 } from "@cursorless/common";
 import {
   createCursorlessEngine,
-  ScopeProvider,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -87,6 +87,7 @@ export async function activate(
     snippets,
     injectIde,
     runIntegrationTests,
+    customSpokenFormGenerator,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde,
@@ -119,6 +120,8 @@ export async function activate(
           hatTokenMap,
           vscodeIDE,
           normalizedIde as NormalizedIDE,
+          fileSystem.cursorlessTalonStateJsonPath,
+          scopeProvider,
           injectIde,
           runIntegrationTests,
         )
