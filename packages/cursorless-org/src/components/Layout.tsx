@@ -43,14 +43,16 @@ const components: MDXComponents = {
     // FIXME: Figure out how to use next/image with MDX
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      className="mx-auto my-12 border-teal-400 dark:border p-3 sm:p-6 dark:rounded-sm"
+      className="mx-auto my-12 border-teal-400 border p-3 sm:p-6 rounded-sm"
       src={src}
       alt={alt}
       style={{ maxWidth: "100%" }}
     />
   ),
   CalloutParent: ({ children }) => (
-    <div className="border-teal-400 border px-7 my-12">{children}</div>
+    <div className="border-teal-400 border rounded-sm px-7 my-12">
+      {children}
+    </div>
   ),
   CalloutBox: ({ title, children }) => (
     <div className="my-6">
