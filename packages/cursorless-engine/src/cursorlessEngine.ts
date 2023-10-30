@@ -15,11 +15,13 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
+import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
 import { ScopeRangeWatcher } from "./ScopeVisualizer/ScopeRangeWatcher";
 
@@ -52,6 +54,12 @@ export function createCursorlessEngine(
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
+
+  const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
+
+  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
+    talonSpokenForms,
+  );
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
@@ -86,6 +94,7 @@ export function createCursorlessEngine(
       },
     },
     scopeProvider: createScopeProvider(languageDefinitions, storedTargets),
+    customSpokenFormGenerator,
     testCaseRecorder,
     storedTargets,
     hatTokenMap,

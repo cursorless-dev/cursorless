@@ -21,6 +21,9 @@ import {
   ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
+import * as crypto from "crypto";
+import * as os from "os";
+import * as path from "path";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
@@ -42,6 +45,7 @@ import {
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
+import { mkdir } from "fs/promises";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -139,7 +143,16 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
+  // FIXME: Inject this from test harness. Would need to arrange to delay
+  // extension initialization, probably by returning a function from extension
+  // init that has parameters consisting of test configuration, and have that
+  // function do the actual initialization.
+  const cursorlessDir = isTesting()
+    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+    : path.join(os.homedir(), ".cursorless");
+  await mkdir(cursorlessDir, { recursive: true });
+
+  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem(cursorlessDir) };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
