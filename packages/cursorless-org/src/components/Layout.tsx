@@ -61,8 +61,8 @@ const components: MDXComponents = {
     </div>
   ),
   Testimonial: ({ children, src, name, title, company }) => (
-    <div className="flex flex-col items-center my-12 dark:bg-salmon-700 p-2 rounded-sm">
-      <blockquote className="mb-6 flex">{children}</blockquote>
+    <div className="flex flex-col items-center mt-8 mb-8 dark:bg-salmon-700 p-6 rounded-sm">
+      <blockquote className="mb-6 flex flex-col gap-4">{children}</blockquote>
       <div className="flex items-center gap-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
