@@ -63,7 +63,7 @@ const components: MDXComponents = {
     </div>
   ),
   Testimonials: ({ children }) => (
-    <div className="carousel items-start gap-6 w-full sm:w-[150%] sm:-ml-[25%] box-border">
+    <div className="carousel items-start gap-6 w-full sm:w-[125%] sm:-ml-[12.5%] box-border">
       {children}
     </div>
   ),
