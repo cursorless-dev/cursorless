@@ -1,4 +1,5 @@
 export * from "./cursorlessCommandIds";
+export * from "./cursorlessSideBarIds";
 export * from "./testUtil/extractTargetedMarks";
 export { default as FakeIDE } from "./ide/fake/FakeIDE";
 export type { Message } from "./ide/spy/SpyMessages";

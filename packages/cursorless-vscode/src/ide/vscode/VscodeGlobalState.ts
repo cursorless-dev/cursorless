@@ -2,6 +2,7 @@ import type { State, StateData, StateKey } from "@cursorless/common";
 import { STATE_DEFAULTS } from "@cursorless/common";
 import type { ExtensionContext } from "vscode";
 import { VERSION_KEY } from "../../ReleaseNotes";
+import { DONT_SHOW_TALON_UPDATE_MESSAGE_KEY } from "../../ScopeTreeProvider";
 import { PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY } from "./hats/performPr1868ShapeUpdateInit";
 
 export default class VscodeGlobalState implements State {
@@ -11,6 +12,7 @@ export default class VscodeGlobalState implements State {
       ...Object.keys(STATE_DEFAULTS),
       VERSION_KEY,
       PERFORMED_PR_1868_SHAPE_UPDATE_INIT_KEY,
+      DONT_SHOW_TALON_UPDATE_MESSAGE_KEY,
     ]);
   }
 
