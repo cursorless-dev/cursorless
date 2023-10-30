@@ -74,11 +74,9 @@ const components: MDXComponents = {
           src={src}
           alt={name}
         />
-        <div className="flex flex-col">
-          <div className="font-semibold text-[1.2em] leading-none mb-1">
-            {name}
-          </div>
-          <div className="text-[0.9em] leading-none mb-1">{title}</div>
+        <div className="flex flex-col gap-[0.375rem]">
+          <div className="font-semibold text-[1.2em] leading-none">{name}</div>
+          <div className="text-[0.9em] leading-none">{title}</div>
           <div className="text-[0.9em] leading-none">{company}</div>
         </div>
       </div>
