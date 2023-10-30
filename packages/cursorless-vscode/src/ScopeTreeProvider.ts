@@ -200,26 +200,10 @@ export class ScopeTreeProvider implements TreeDataProvider<MyTreeItem> {
 
 function getSupportCategories(): SupportCategoryTreeItem[] {
   return [
-    new SupportCategoryTreeItem(
-      "Present",
-      ScopeSupport.supportedAndPresentInEditor,
-      TreeItemCollapsibleState.Expanded,
-    ),
-    new SupportCategoryTreeItem(
-      "Not present",
-      ScopeSupport.supportedButNotPresentInEditor,
-      TreeItemCollapsibleState.Expanded,
-    ),
-    new SupportCategoryTreeItem(
-      "Legacy",
-      ScopeSupport.supportedLegacy,
-      TreeItemCollapsibleState.Expanded,
-    ),
-    new SupportCategoryTreeItem(
-      "Unsupported",
-      ScopeSupport.unsupported,
-      TreeItemCollapsibleState.Collapsed,
-    ),
+    new SupportCategoryTreeItem(ScopeSupport.supportedAndPresentInEditor),
+    new SupportCategoryTreeItem(ScopeSupport.supportedButNotPresentInEditor),
+    new SupportCategoryTreeItem(ScopeSupport.supportedLegacy),
+    new SupportCategoryTreeItem(ScopeSupport.unsupported),
   ];
 }
 
@@ -283,12 +267,35 @@ class ScopeSupportTreeItem extends TreeItem {
 }
 
 class SupportCategoryTreeItem extends TreeItem {
-  constructor(
-    label: string,
-    public readonly scopeSupport: ScopeSupport,
-    collapsibleState: TreeItemCollapsibleState,
-  ) {
+  constructor(public readonly scopeSupport: ScopeSupport) {
+    let label: string;
+    let description: string;
+    let collapsibleState: TreeItemCollapsibleState;
+    switch (scopeSupport) {
+      case ScopeSupport.supportedAndPresentInEditor:
+        label = "Present";
+        description = "in active editor";
+        collapsibleState = TreeItemCollapsibleState.Expanded;
+        break;
+      case ScopeSupport.supportedButNotPresentInEditor:
+        label = "Supported";
+        description = "but not present in active editor";
+        collapsibleState = TreeItemCollapsibleState.Expanded;
+        break;
+      case ScopeSupport.supportedLegacy:
+        label = "Legacy";
+        description = "may or may not be present in active editor";
+        collapsibleState = TreeItemCollapsibleState.Expanded;
+        break;
+      case ScopeSupport.unsupported:
+        label = "Unsupported";
+        description = "unsupported in language of active editor";
+        collapsibleState = TreeItemCollapsibleState.Collapsed;
+        break;
+    }
+
     super(label, collapsibleState);
+    this.description = description;
   }
 }
 
