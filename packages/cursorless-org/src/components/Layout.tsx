@@ -60,6 +60,26 @@ const components: MDXComponents = {
       {children}
     </div>
   ),
+  Testimonial: ({ children, src, name, title, company }) => (
+    <div className="flex flex-col items-center my-12 dark:bg-salmon-700 p-2 rounded-sm">
+      <blockquote className="mb-6 flex">{children}</blockquote>
+      <div className="flex items-center gap-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="rounded-full w-[4.5em] h-[4.5em]"
+          src={src}
+          alt={name}
+        />
+        <div className="flex flex-col">
+          <div className="font-semibold tracking-[0.08em] text-[1.2em]">
+            {name}
+          </div>
+          <div className="text-[0.9em]">{title}</div>
+          <div className="text-[0.9em]">{company}</div>
+        </div>
+      </div>
+    </div>
+  ),
   Tiers: ({ children }) => (
     <div className="my-8 uppercase font-medium tracking-[0.1em] text-[1.2em]">
       {children}
