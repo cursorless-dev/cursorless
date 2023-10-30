@@ -63,7 +63,7 @@ const components: MDXComponents = {
     </div>
   ),
   Testimonial: ({ children, src, name, title, company }) => (
-    <div className="flex flex-col items-center mt-8 mb-8 dark:bg-salmon-700 p-4 sm:p-6 rounded-sm">
+    <div className="flex flex-col items-center mt-8 mb-8 bg-salmon-300 dark:bg-salmon-700 p-4 sm:p-6 rounded-sm">
       <blockquote className="mb-5 sm:mb-6 flex flex-col gap-4">
         {children}
       </blockquote>
