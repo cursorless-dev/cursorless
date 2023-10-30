@@ -68,7 +68,7 @@ const components: MDXComponents = {
     </div>
   ),
   Testimonial: ({ children, src, name, title, company }) => (
-    <div className="w-5/6 sm:w-2/3 box-border carousel-item flex flex-col items-center mt-8 mb-8 bg-salmon-300 dark:bg-salmon-700 p-3 sm:p-6 rounded-sm">
+    <div className="w-5/6 sm:w-2/3 box-border carousel-item flex flex-col items-center mt-8 mb-8 bg-teal-100 dark:bg-teal-900 border border-teal-400 text-teal-700 dark:text-teal-300 p-3 sm:p-6 rounded-sm">
       <blockquote className="mb-5 sm:mb-6 flex flex-col gap-4">
         {children}
       </blockquote>
@@ -80,7 +80,9 @@ const components: MDXComponents = {
           alt={name}
         />
         <div className="flex flex-col gap-[0.375rem]">
-          <div className="font-semibold text-[1.2em] leading-none">{name}</div>
+          <div className="text-teal-800 dark:text-teal-200 font-semibold text-[1.2em] leading-none">
+            {name}
+          </div>
           <div className="text-[0.9em] leading-none">{title}</div>
           <div className="text-[0.9em] leading-none">{company}</div>
         </div>
