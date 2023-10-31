@@ -3,6 +3,7 @@
 ;; and then cleaned up.
 [
   (break_statement)
+  (class_declaration)
   (compound_statement)
   (const_declaration)
   (continue_statement)
