@@ -4,7 +4,6 @@ import { SimpleScopeTypeType } from "@cursorless/common";
 import {
   NodeMatcherAlternative,
   SelectionWithContext,
-  SelectionWithEditor,
 } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
@@ -106,14 +105,3 @@ const nodeMatchers: Partial<
   argumentOrParameter: argumentMatcher("arguments", "formal_parameters"),
 };
 export default createPatternMatchers(nodeMatchers);
-
-export function stringTextFragmentExtractor(
-  node: SyntaxNode,
-  _selection: SelectionWithEditor,
-) {
-  if (node.type === "string") {
-    return getNodeRange(node);
-  }
-
-  return null;
-}

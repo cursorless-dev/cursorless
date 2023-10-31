@@ -7,7 +7,6 @@ import { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
-import { stringTextFragmentExtractor as phpStringTextFragmentExtractor } from "./php";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
@@ -155,10 +154,6 @@ const textFragmentExtractors: Record<
   ),
   latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
-  php: constructDefaultTextFragmentExtractor(
-    "php",
-    phpStringTextFragmentExtractor,
-  ),
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
     rubyStringTextFragmentExtractor,
