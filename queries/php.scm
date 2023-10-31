@@ -50,6 +50,23 @@
 ) @class @className.domain
 
 [
+  (function_definition) @namedFunction
+  (method_declaration) @namedFunction
+  (expression_statement
+    (assignment_expression
+      right: (anonymous_function_creation_expression)
+    ) @namedFunction
+    ";" @_.trailing
+  )
+  (expression_statement
+    (assignment_expression
+      right: (arrow_function)
+    ) @namedFunction
+    ";" @_.trailing
+  )
+] @namedFunction.domain
+
+[
   (anonymous_function_creation_expression)
   (arrow_function)
 ] @anonymousFunction

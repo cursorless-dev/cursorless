@@ -74,15 +74,6 @@ const nodeMatchers: Partial<
     matcher(patternFinder("cast_expression[type]"), castTypeExtractor),
   ),
 
-  namedFunction: trailingMatcher(
-    [
-      "function_definition",
-      "assignment_expression.anonymous_function_creation_expression",
-      "assignment_expression.arrow_function",
-    ],
-    [";"],
-  ),
-
   value: leadingMatcher(
     [
       "array_element_initializer[1]",

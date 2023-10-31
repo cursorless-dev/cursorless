@@ -1,9 +1,9 @@
 languageId: php
 command:
   version: 6
-  spokenForm: chuck funk
+  spokenForm: change funk
   action:
-    name: remove
+    name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
@@ -22,9 +22,10 @@ initialState:
       active: {line: 3, character: 0}
   marks: {}
 finalState:
-  documentContents: |+
+  documentContents: |-
     <?php
 
+    ;
   selections:
     - anchor: {line: 2, character: 0}
       active: {line: 2, character: 0}
