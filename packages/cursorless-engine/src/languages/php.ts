@@ -82,8 +82,6 @@ const nodeMatchers: Partial<
     ],
     [";"],
   ),
-  functionCall: ["function_call_expression", "object_creation_expression"],
-  functionName: ["function_definition[name]", "method_declaration[name]"],
 
   value: leadingMatcher(
     [

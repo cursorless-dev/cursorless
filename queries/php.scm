@@ -53,3 +53,17 @@
   (anonymous_function_creation_expression)
   (arrow_function)
 ] @anonymousFunction
+
+[
+  (function_definition
+    name: (_) @functionName
+  )
+  (method_declaration
+    name: (_) @functionName
+  )
+] @functionName.domain
+
+[
+  (function_call_expression)
+  (object_creation_expression)
+] @functionCall
