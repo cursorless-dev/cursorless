@@ -31,6 +31,10 @@
   (while_statement)
 ] @statement
 
+[
+  (string)
+] @string @textFragment
+
 (comment) @comment @textFragment
 
 [

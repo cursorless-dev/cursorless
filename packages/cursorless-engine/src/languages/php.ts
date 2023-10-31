@@ -74,7 +74,6 @@ const nodeMatchers: Partial<
     "function_definition[name]",
     "method_declaration[name]",
   ],
-  string: "string",
   type: cascadingMatcher(
     trailingMatcher(["~cast_expression[type]"]),
     matcher(patternFinder("cast_expression[type]"), castTypeExtractor),
