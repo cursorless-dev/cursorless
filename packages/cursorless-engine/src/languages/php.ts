@@ -63,7 +63,6 @@ function castTypeExtractor(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  ifStatement: "if_statement",
   name: [
     "assignment_expression[left]",
     "class_declaration[name]",

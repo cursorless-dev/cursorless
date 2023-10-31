@@ -39,6 +39,8 @@
 
 (comment) @comment @textFragment
 
+(if_statement) @ifStatement
+
 [
   (array_creation_expression)
 ] @list
