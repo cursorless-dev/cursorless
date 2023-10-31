@@ -42,11 +42,9 @@
   (array_creation_expression)
 ] @list
 
-(
-  (class_declaration
-    name: (_) @className
-  ) @class @className.domain
-)
+(class_declaration
+  name: (_) @className
+) @class @className.domain
 
 [
   (anonymous_function_creation_expression)
