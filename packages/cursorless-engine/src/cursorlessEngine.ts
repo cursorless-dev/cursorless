@@ -4,24 +4,28 @@ import {
   FileSystem,
   Hats,
   IDE,
+  ScopeProvider,
 } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
-import { ScopeProvider } from "./api/ScopeProvider";
-import { ScopeRangeProvider } from "./ScopeVisualizer/ScopeRangeProvider";
-import { ScopeSupportChecker } from "./ScopeVisualizer/ScopeSupportChecker";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
+import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
 import { runIntegrationTests } from "./runIntegrationTests";
+import { ScopeInfoProvider } from "./scopeProviders/ScopeInfoProvider";
+import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
+import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
+import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
+import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
+import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
-import { ScopeRangeWatcher } from "./ScopeVisualizer/ScopeRangeWatcher";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -52,6 +56,12 @@ export function createCursorlessEngine(
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
+
+  const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
+
+  const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
+    talonSpokenForms,
+  );
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
@@ -85,7 +95,12 @@ export function createCursorlessEngine(
         );
       },
     },
-    scopeProvider: createScopeProvider(languageDefinitions, storedTargets),
+    scopeProvider: createScopeProvider(
+      languageDefinitions,
+      storedTargets,
+      customSpokenFormGenerator,
+    ),
+    customSpokenFormGenerator,
     testCaseRecorder,
     storedTargets,
     hatTokenMap,
@@ -99,6 +114,7 @@ export function createCursorlessEngine(
 function createScopeProvider(
   languageDefinitions: LanguageDefinitions,
   storedTargets: StoredTargetMap,
+  customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
 ): ScopeProvider {
   const scopeHandlerFactory = new ScopeHandlerFactoryImpl(languageDefinitions);
 
@@ -116,6 +132,12 @@ function createScopeProvider(
     rangeProvider,
   );
   const supportChecker = new ScopeSupportChecker(scopeHandlerFactory);
+  const infoProvider = new ScopeInfoProvider(customSpokenFormGenerator);
+  const supportWatcher = new ScopeSupportWatcher(
+    languageDefinitions,
+    supportChecker,
+    infoProvider,
+  );
 
   return {
     provideScopeRanges: rangeProvider.provideScopeRanges,
@@ -125,5 +147,8 @@ function createScopeProvider(
       rangeWatcher.onDidChangeIterationScopeRanges,
     getScopeSupport: supportChecker.getScopeSupport,
     getIterationScopeSupport: supportChecker.getIterationScopeSupport,
+    onDidChangeScopeSupport: supportWatcher.onDidChangeScopeSupport,
+    getScopeInfo: infoProvider.getScopeTypeInfo,
+    onDidChangeScopeInfo: infoProvider.onDidChangeScopeInfo,
   };
 }

@@ -1,12 +1,14 @@
-import { Disposable, showError } from "@cursorless/common";
-import { pull } from "lodash";
 import {
+  Disposable,
   IterationScopeChangeEventCallback,
   IterationScopeRangeConfig,
   ScopeChangeEventCallback,
   ScopeRangeConfig,
   ScopeRanges,
-} from "..";
+  showError,
+} from "@cursorless/common";
+import { pull } from "lodash";
+
 import { Debouncer } from "../core/Debouncer";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ide } from "../singletons/ide.singleton";
@@ -25,6 +27,11 @@ export class ScopeRangeWatcher {
     languageDefinitions: LanguageDefinitions,
     private scopeRangeProvider: ScopeRangeProvider,
   ) {
+    this.onChange = this.onChange.bind(this);
+    this.onDidChangeScopeRanges = this.onDidChangeScopeRanges.bind(this);
+    this.onDidChangeIterationScopeRanges =
+      this.onDidChangeIterationScopeRanges.bind(this);
+
     this.disposables.push(
       // An Event which fires when the array of visible editors has changed.
       ide().onDidChangeVisibleTextEditors(this.debouncer.run),
@@ -37,13 +44,9 @@ export class ScopeRangeWatcher {
       // dirty-state changes.
       ide().onDidChangeTextDocument(this.debouncer.run),
       ide().onDidChangeTextEditorVisibleRanges(this.debouncer.run),
-      languageDefinitions.onDidChangeDefinition(this.debouncer.run),
+      languageDefinitions.onDidChangeDefinition(this.onChange),
       this.debouncer,
     );
-
-    this.onDidChangeScopeRanges = this.onDidChangeScopeRanges.bind(this);
-    this.onDidChangeIterationScopeRanges =
-      this.onDidChangeIterationScopeRanges.bind(this);
   }
 
   /**

@@ -1,10 +1,11 @@
 import {
   Disposable,
   GeneralizedRange,
+  ScopeSupport,
+  TargetRanges,
   TextEditor,
   toCharacterRange,
 } from "@cursorless/common";
-import { ScopeSupport, TargetRanges } from "@cursorless/cursorless-engine";
 import { VscodeScopeVisualizer } from ".";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 

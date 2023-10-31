@@ -1,5 +1,6 @@
 import {
   Position,
+  ScopeSupport,
   ScopeType,
   SimpleScopeTypeType,
   TextEditor,
@@ -9,7 +10,6 @@ import { LegacyLanguageId } from "../languages/LegacyLanguageId";
 import { languageMatchers } from "../languages/getNodeMatcher";
 import { ScopeHandlerFactory } from "../processTargets/modifiers/scopeHandlers/ScopeHandlerFactory";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
-import { ScopeSupport } from "../api/ScopeProvider";
 
 /**
  * Determines the level of support for a given scope type in a given editor.
