@@ -33,6 +33,7 @@
 
 [
   (string)
+  (shell_command_expression)
 ] @string @textFragment
 
 (comment) @comment @textFragment
