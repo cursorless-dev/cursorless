@@ -75,7 +75,7 @@ const components: MDXComponents = {
       <div className="flex items-center gap-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          className="rounded-full w-[4.5em] h-[4.5em] border-teal-400 border-[0.5px]"
+          className="rounded-full w-[4.5em] h-[4.5em] border-teal-400 border dark:border-[0.5px]"
           src={src}
           alt={name}
         />
