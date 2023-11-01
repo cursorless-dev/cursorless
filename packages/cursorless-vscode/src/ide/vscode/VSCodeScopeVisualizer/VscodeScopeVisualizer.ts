@@ -1,11 +1,12 @@
 import {
   Disposable,
   IDE,
+  ScopeProvider,
+  ScopeSupport,
   ScopeType,
   TextEditor,
   showError,
 } from "@cursorless/common";
-import { ScopeProvider, ScopeSupport } from "@cursorless/cursorless-engine";
 import {
   ScopeRangeType,
   ScopeVisualizerColorConfig,

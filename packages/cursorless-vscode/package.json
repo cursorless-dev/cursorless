@@ -46,6 +46,7 @@
   ],
   "activationEvents": [
     "onLanguage",
+    "onView:cursorless.scopes",
     "onCommand:cursorless.command",
     "onCommand:cursorless.internal.updateCheatsheetDefaults",
     "onCommand:cursorless.keyboard.escape",
@@ -77,6 +78,14 @@
     }
   },
   "contributes": {
+    "views": {
+      "cursorless": [
+        {
+          "id": "cursorless.scopes",
+          "name": "Scopes"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "cursorless.toggleDecorations",
@@ -105,6 +114,14 @@
       {
         "command": "cursorless.showDocumentation",
         "title": "Cursorless: Show documentation"
+      },
+      {
+        "command": "cursorless.showScopeVisualizer",
+        "title": "Cursorless: Show the scope visualizer"
+      },
+      {
+        "command": "cursorless.hideScopeVisualizer",
+        "title": "Cursorless: Hide the scope visualizer"
       },
       {
         "command": "cursorless.command",
@@ -174,16 +191,6 @@
       {
         "command": "cursorless.keyboard.modal.modeToggle",
         "title": "Cursorless: Toggle the cursorless modal mode",
-        "enablement": "false"
-      },
-      {
-        "command": "cursorless.showScopeVisualizer",
-        "title": "Cursorless: Show the scope visualizer",
-        "enablement": "false"
-      },
-      {
-        "command": "cursorless.hideScopeVisualizer",
-        "title": "Cursorless: Hide the scope visualizer",
         "enablement": "false"
       }
     ],
@@ -1032,6 +1039,15 @@
           "fontCharacter": "\\E900"
         }
       }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cursorless",
+          "title": "Cursorless",
+          "icon": "images/logo.svg"
+        }
+      ]
     }
   },
   "sponsor": {
