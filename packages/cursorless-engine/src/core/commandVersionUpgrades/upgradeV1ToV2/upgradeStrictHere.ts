@@ -1,4 +1,4 @@
-import { isDeepStrictEqual } from "util";
+import { isEqual } from "lodash";
 import { PartialPrimitiveTargetDescriptorV2 } from "@cursorless/common";
 
 const STRICT_HERE = {
@@ -16,4 +16,4 @@ const IMPLICIT_TARGET: PartialPrimitiveTargetDescriptorV2 = {
 export const upgradeStrictHere = (
   target: PartialPrimitiveTargetDescriptorV2,
 ): PartialPrimitiveTargetDescriptorV2 =>
-  isDeepStrictEqual(target, STRICT_HERE) ? IMPLICIT_TARGET : target;
+  isEqual(target, STRICT_HERE) ? IMPLICIT_TARGET : target;
