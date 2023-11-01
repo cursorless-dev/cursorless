@@ -135,7 +135,6 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
             />
             {children}
           </div>
-          {/* TODO: Footer? */}
         </main>
       </MDXProvider>
     </>
