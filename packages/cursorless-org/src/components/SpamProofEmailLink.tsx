@@ -42,8 +42,8 @@ export function SpamProofEmailLink({
   children,
 }: Props) {
   // URL encode every character of the email address, including the mailto: prefix
-  const email = `${username}@${domain}`;
-  let href = `mailto:${email}`;
+  const rawEmailHref = `${username}@${domain}`;
+  let href = `mailto:${strictEncodeURIComponent(rawEmailHref)}`;
 
   if (subject != null) {
     const subjectEncoded = encodeURIComponent(subject).replace(/\+/g, "%20");
