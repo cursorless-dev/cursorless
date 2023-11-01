@@ -1,8 +1,9 @@
 import { MDXProvider } from "@mdx-js/react";
 import type { MDXComponents } from "mdx/types.js";
 import Head from "next/head";
-import BaseSocial from "./BaseSocial";
 import Logo from "../pages/logo.svg";
+import BaseSocial from "./BaseSocial";
+import { SpamProofEmailLink } from "./SpamProofEmailLink";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
@@ -90,16 +91,18 @@ const components: MDXComponents = {
     </div>
   ),
   Tiers: ({ children }) => (
-    <div className="my-8 uppercase font-medium tracking-[0.1em] text-[1.2em]">
+    <div className="my-8 font-medium tracking-[0.1em] text-[1.2em]">
       {children}
     </div>
   ),
-  Tier: ({ emoji, type, price }) => (
+  Tier: ({ emoji, type, price, address, subject, body }) => (
     <div className="flex gap-3 leading-8">
       <span className="">{emoji}</span>
-      <span className="">{type}</span>
+      <span className="uppercase">{type}</span>
       <span>{"-"}</span>
-      <span className="text-teal-400">{price}</span>
+      <SpamProofEmailLink address={address} subject={subject} body={body}>
+        {price} / year
+      </SpamProofEmailLink>
     </div>
   ),
 };

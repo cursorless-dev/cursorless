@@ -5,6 +5,14 @@ export const meta = {
 };
 
 import { SpamProofEmailLink } from "../components/SpamProofEmailLink";
+export const emailSubject = "Cursorless Enablement Group";
+export const emailBody = `Hi Pokey,
+
+I'm interested in joining the Cursorless Enablement Group. Please send me more information.
+
+Thanks,
+
+`;
 
 # {meta.title}
 
@@ -102,7 +110,11 @@ The Enablement Group consists of stakeholders whose talents, lived experiences, 
 
 **To join, send an email to Cursorless founder Pokey Rule**
 
-<SpamProofEmailLink address={props.emailAddress} />
+<SpamProofEmailLink
+  address={props.emailAddress}
+  subject={emailSubject}
+  body={emailBody}
+/>
 
 <CalloutParent>
 
@@ -179,13 +191,38 @@ Members of the Cursorless Enablement Group enjoy several privileges. The access 
 Your participation will help Cursorless maintain its growth trajectory and uphold its cutting-edge quality and esteemed 5-star reputation in coding by voice. And you'll make a lasting impact on the direction of accessible technology.
 
 <Tiers>
-  <Tier emoji="😍️" type="individuals" price="$495" />
-  <Tier emoji="🕊️" type="non-profits" price="$995" />
-  <Tier emoji="🏢" type="companies" price="$2,495" />
+  <Tier
+    emoji="😍️"
+    type="individuals"
+    price="$495"
+    address={props.emailAddress}
+    subject={emailSubject}
+    body={emailBody}
+  />
+  <Tier
+    emoji="🕊️"
+    type="non-profits"
+    price="$995"
+    address={props.emailAddress}
+    subject={emailSubject}
+    body={emailBody}
+  />
+  <Tier
+    emoji="🏢"
+    type="companies"
+    price="$2,495"
+    address={props.emailAddress}
+    subject={emailSubject}
+    body={emailBody}
+  />
 </Tiers>
 
 To join, send an email to Cursorless founder Pokey Rule
 
 {/* TODO: default email subject / message */}
 
-<SpamProofEmailLink address={props.emailAddress} />
+<SpamProofEmailLink
+  address={props.emailAddress}
+  subject={emailSubject}
+  body={emailBody}
+/>

@@ -1,7 +1,9 @@
 import { EmailAddress } from "../parseEmailAddress";
 
-interface Props {
+interface Props extends React.PropsWithChildren {
   address: EmailAddress;
+  subject?: string;
+  body?: string;
 }
 
 /**
@@ -33,16 +35,35 @@ function strictEncodeURIComponent(str: string) {
  * @returns A link to the email address, attempting to prevent spam bots from
  *         finding it
  */
-export function SpamProofEmailLink({ address: { username, domain } }: Props) {
+export function SpamProofEmailLink({
+  address: { username, domain },
+  subject,
+  body,
+  children,
+}: Props) {
   // URL encode every character of the email address, including the mailto: prefix
-  const rawEmailHref = `${username}@${domain}`;
-  const href = `mailto:${strictEncodeURIComponent(rawEmailHref)}`;
+  const email = `${username}@${domain}`;
+  let href = `mailto:${email}`;
+
+  if (subject != null) {
+    const subjectEncoded = encodeURIComponent(subject).replace(/\+/g, "%20");
+    href += `?subject=${subjectEncoded}`;
+  }
+
+  if (body != null) {
+    const bodyEncoded = encodeURIComponent(body).replace(/\+/g, "%20");
+    href += (href.includes("?") ? "&" : "?") + `body=${bodyEncoded}`;
+  }
 
   return (
     <a href={href} className="text-teal-400 underline underline-offset-4">
-      {`${username}@`}
-      <span className="hidden">Die spam!</span>
-      {domain}
+      {children ?? (
+        <>
+          {`${username}@`}
+          <span className="hidden">Die spam!</span>
+          {domain}
+        </>
+      )}
     </a>
   );
 }
