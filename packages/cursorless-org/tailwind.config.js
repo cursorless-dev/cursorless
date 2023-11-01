@@ -98,5 +98,8 @@ module.exports = {
       },
     },
   },
+  daisyui: {
+    base: false,
+  },
   plugins: [require("daisyui")],
 };
