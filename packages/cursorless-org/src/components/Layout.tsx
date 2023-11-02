@@ -4,6 +4,7 @@ import Head from "next/head";
 import Logo from "../pages/logo.svg";
 import BaseSocial from "./BaseSocial";
 import { SpamProofEmailLink } from "./SpamProofEmailLink";
+import Link from "next/link";
 
 const components: MDXComponents = {
   h1: ({ children }) => (
@@ -127,10 +128,12 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
       <MDXProvider components={components}>
         <main className="text-salmon-900 dark:text-salmon-100 font-mono font-normal sm:dark:font-light px-4 pt-8 sm:pt-16 lg:pt-20 pb-8 tracking-[0.08em] leading-6">
           <div className="max-w-prose mx-auto">
-            <Logo
-              title="Logo"
-              className="mx-auto align-middle w-[6.284em] h-[6.284em]"
-            />
+            <Link href="/">
+              <Logo
+                title="Logo"
+                className="mx-auto align-middle w-[6.284em] h-[6.284em]"
+              />
+            </Link>
             {children}
           </div>
         </main>
