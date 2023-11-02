@@ -20,12 +20,12 @@ export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
-  testCaseRecorder: TestCaseRecorder,
+  testCaseRecorder: TestCaseRecorder | null,
   scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {
-  const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
+  const commands: Record<CursorlessCommandId, ((...args: any[]) => any)|null> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       try {
@@ -45,12 +45,12 @@ export function registerCommands(
     ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
 
     // Testcase recorder commands
-    ["cursorless.recordTestCase"]: testCaseRecorder.toggle,
+    ["cursorless.recordTestCase"]: testCaseRecorder === null ? null : testCaseRecorder.toggle,
     ["cursorless.recordOneTestCaseThenPause"]:
-      testCaseRecorder.recordOneThenPause,
-    ["cursorless.pauseRecording"]: testCaseRecorder.pause,
-    ["cursorless.resumeRecording"]: testCaseRecorder.resume,
-    ["cursorless.takeSnapshot"]: testCaseRecorder.takeSnapshot,
+    testCaseRecorder === null ? null : testCaseRecorder.recordOneThenPause,
+    ["cursorless.pauseRecording"]: testCaseRecorder === null ? null : testCaseRecorder.pause,
+    ["cursorless.resumeRecording"]: testCaseRecorder === null ? null : testCaseRecorder.resume,
+    ["cursorless.takeSnapshot"]: testCaseRecorder === null ? null : testCaseRecorder.takeSnapshot,
 
     // Other commands
     ["cursorless.showQuickPick"]: showQuickPick,
@@ -90,9 +90,14 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
   };
 
+  commands["cursorless.showQuickPick"] = showQuickPick;
+
   extensionContext.subscriptions.push(
-    ...Object.entries(commands).map(([commandId, callback]) =>
-      vscode.commands.registerCommand(commandId, callback),
+    ...Object.entries(commands)
+      .filter(([commandId, callback]) => { return callback !== null})
+      .map(([commandId, callback]) =>
+        vscode.commands.registerCommand(commandId,
+          (callback as (...args: any[]) => any)),
     ),
   );
 }

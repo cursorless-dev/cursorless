@@ -57,7 +57,7 @@ export async function runCommand(
     rangeUpdater,
   );
 
-  if (testCaseRecorder.isActive()) {
+  if (testCaseRecorder !== null && testCaseRecorder.isActive()) {
     commandRunner = testCaseRecorder.wrapCommandRunner(
       readableHatMap,
       commandRunner,
