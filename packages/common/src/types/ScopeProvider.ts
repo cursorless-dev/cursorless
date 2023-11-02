@@ -3,8 +3,9 @@ import {
   GeneralizedRange,
   Range,
   ScopeType,
+  SpokenForm,
   TextEditor,
-} from "@cursorless/common";
+} from "..";
 
 export interface ScopeProvider {
   /**
@@ -17,6 +18,7 @@ export interface ScopeProvider {
     editor: TextEditor,
     config: ScopeRangeConfig,
   ) => ScopeRanges[];
+
   /**
    * Get the iteration scope ranges for the given editor.
    * @param editor The editor
@@ -75,6 +77,41 @@ export interface ScopeProvider {
     editor: TextEditor,
     scopeType: ScopeType,
   ) => ScopeSupport;
+
+  /**
+   * Registers a callback to be run when the scope support changes for the active
+   * editor.  The callback will be run immediately once with the current support
+   * levels for the active editor.
+   *
+   * Note that this watcher could be expensive, because it runs all the scope
+   * handlers for the active editor every time the content of the active editor
+   * changes. If you only need info about the available scopes, including their
+   * spoken forms, you should use {@link onDidChangeScopeInfo} instead.
+   * @param callback The callback to run when the scope support changes
+   * @returns A {@link Disposable} which will stop the callback from running
+   */
+  onDidChangeScopeSupport: (callback: ScopeSupportEventCallback) => Disposable;
+
+  /**
+   * Registers a callback to be run when the scope info changes.  The callback
+   * will be run immediately once with the current scope info.
+   *
+   * Includes information about the available scopes, including their custom
+   * spoken forms, if available. Note that even custom regex scopes will be
+   * available, as reported to the engine by Talon.
+   * @param callback The callback to run when the scope support changes
+   * @returns A {@link Disposable} which will stop the callback from running
+   */
+  onDidChangeScopeInfo(callback: ScopeTypeInfoEventCallback): Disposable;
+
+  /**
+   * Get info about {@link scopeType}, including its custom spoken form, if
+   * available.
+   * @param editor The editor to check
+   * @param scopeType The scope type to check
+   * @returns Info about {@link scopeType}
+   */
+  getScopeInfo: (scopeType: ScopeType) => ScopeTypeInfo;
 }
 
 interface ScopeRangeConfigBase {
@@ -107,6 +144,24 @@ export type IterationScopeChangeEventCallback = (
   editor: TextEditor,
   scopeRanges: IterationScopeRanges[],
 ) => void;
+
+export interface ScopeSupportInfo extends ScopeTypeInfo {
+  support: ScopeSupport;
+  iterationScopeSupport: ScopeSupport;
+}
+
+export type ScopeSupportEventCallback = (
+  scopeSupportInfos: ScopeSupportInfo[],
+) => void;
+
+export interface ScopeTypeInfo {
+  scopeType: ScopeType;
+  spokenForm: SpokenForm;
+  humanReadableName: string;
+  isLanguageSpecific: boolean;
+}
+
+export type ScopeTypeInfoEventCallback = (scopeInfos: ScopeTypeInfo[]) => void;
 
 /**
  * Contains the ranges that define a given scope, eg its {@link domain} and the
