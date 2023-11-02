@@ -45,12 +45,16 @@ export function registerCommands(
     ["cursorless.internal.updateCheatsheetDefaults"]: updateDefaults,
 
     // Testcase recorder commands
-    ["cursorless.recordTestCase"]: testCaseRecorder === null ? null : testCaseRecorder.toggle,
+    ["cursorless.recordTestCase"]:
+      testCaseRecorder === null ? null : testCaseRecorder.toggle,
     ["cursorless.recordOneTestCaseThenPause"]:
-    testCaseRecorder === null ? null : testCaseRecorder.recordOneThenPause,
-    ["cursorless.pauseRecording"]: testCaseRecorder === null ? null : testCaseRecorder.pause,
-    ["cursorless.resumeRecording"]: testCaseRecorder === null ? null : testCaseRecorder.resume,
-    ["cursorless.takeSnapshot"]: testCaseRecorder === null ? null : testCaseRecorder.takeSnapshot,
+      testCaseRecorder === null ? null : testCaseRecorder.recordOneThenPause,
+    ["cursorless.pauseRecording"]:
+      testCaseRecorder === null ? null : testCaseRecorder.pause,
+    ["cursorless.resumeRecording"]:
+      testCaseRecorder === null ? null : testCaseRecorder.resume,
+    ["cursorless.takeSnapshot"]:
+      testCaseRecorder === null ? null : testCaseRecorder.takeSnapshot,
 
     // Other commands
     ["cursorless.showQuickPick"]: showQuickPick,
