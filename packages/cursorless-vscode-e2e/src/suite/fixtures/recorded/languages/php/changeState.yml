@@ -1,29 +1,28 @@
 languageId: php
 command:
   version: 6
-  spokenForm: chuck funk
+  spokenForm: change state
   action:
-    name: remove
+    name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: namedFunction}
+          scopeType: {type: statement}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
+  documentContents: |
     <?php
 
-    $myFunk = function() {
-
-    };
+    $myVar = 'Hello world';
   selections:
-    - anchor: {line: 3, character: 0}
-      active: {line: 3, character: 0}
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
   marks: {}
 finalState:
   documentContents: |+
     <?php
+
 
   selections:
     - anchor: {line: 2, character: 0}

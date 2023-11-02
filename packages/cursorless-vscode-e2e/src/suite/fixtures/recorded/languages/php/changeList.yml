@@ -1,29 +1,32 @@
 languageId: php
 command:
   version: 6
-  spokenForm: change round
+  spokenForm: change list
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: parentheses}
+          scopeType: {type: list}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
     <?php
 
-    'Hello (world)';
+    $list = [
+        'hello',
+        'world'
+    ];
   selections:
-    - anchor: {line: 2, character: 11}
-      active: {line: 2, character: 11}
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
   marks: {}
 finalState:
   documentContents: |-
     <?php
 
-    'Hello ';
+    $list = ;
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
