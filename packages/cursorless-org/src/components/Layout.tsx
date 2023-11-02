@@ -64,12 +64,10 @@ const components: MDXComponents = {
     </div>
   ),
   Testimonials: ({ children }) => (
-    <div className="carousel items-start gap-6 w-full sm:w-[110%] md:w-[125%] lg:w-[150%] box-border">
-      {children}
-    </div>
+    <div className="flex flex-col gap-5 mt-8">{children}</div>
   ),
   Testimonial: ({ children, src, name, title, company }) => (
-    <div className="w-3/4 sm:w-3/4 md:w-3/4 lg:w-2/3 box-border carousel-item flex flex-col items-center mt-8 mb-8 bg-teal-100 dark:bg-teal-900 border border-teal-400 text-teal-700 dark:text-teal-300 p-3 sm:p-6 rounded-sm">
+    <div className="flex flex-col items-center bg-teal-100 dark:bg-teal-900 border border-teal-400 text-teal-700 dark:text-teal-300 p-3 sm:p-6 rounded-sm">
       <blockquote className="mb-5 sm:mb-6 flex flex-col gap-4">
         {children}
       </blockquote>
