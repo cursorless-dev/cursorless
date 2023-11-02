@@ -25,7 +25,10 @@ export function registerCommands(
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {
-  const commands: Record<CursorlessCommandId, ((...args: any[]) => any)|null> = {
+  const commands: Record<
+    CursorlessCommandId,
+    ((...args: any[]) => any) | null
+  > = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       try {
@@ -98,10 +101,14 @@ export function registerCommands(
 
   extensionContext.subscriptions.push(
     ...Object.entries(commands)
-      .filter(([commandId, callback]) => { return callback !== null})
+      .filter(([commandId, callback]) => {
+        return callback !== null;
+      })
       .map(([commandId, callback]) =>
-        vscode.commands.registerCommand(commandId,
-          (callback as (...args: any[]) => any)),
-    ),
+        vscode.commands.registerCommand(
+          commandId,
+          callback as (...args: any[]) => any,
+        ),
+      ),
   );
 }
