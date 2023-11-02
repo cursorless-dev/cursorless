@@ -29,7 +29,7 @@ export async function runCommand(
   treeSitter: TreeSitter,
   debug: Debug,
   hatTokenMap: HatTokenMap,
-  testCaseRecorder: TestCaseRecorder,
+  testCaseRecorder: TestCaseRecorder | null,
   snippets: Snippets,
   storedTargets: StoredTargetMap,
   languageDefinitions: LanguageDefinitions,
