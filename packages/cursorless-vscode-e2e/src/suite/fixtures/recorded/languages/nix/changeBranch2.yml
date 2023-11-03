@@ -13,23 +13,20 @@ command:
 initialState:
   documentContents: |
     {
-      key =
-        if a
-        then b
-        else c;
+      foo = if a 
+      then b
+      else c;
     }
   selections:
-    - anchor: {line: 3, character: 6}
-      active: {line: 3, character: 6}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
   marks: {}
 finalState:
   documentContents: |
     {
-      key =
-        if a
-        
-        else c;
+      foo = 
+      else c;
     }
   selections:
-    - anchor: {line: 3, character: 4}
-      active: {line: 3, character: 4}
+    - anchor: {line: 1, character: 8}
+      active: {line: 1, character: 8}
