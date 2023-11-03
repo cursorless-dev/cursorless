@@ -1,4 +1,6 @@
+;;
 ;; Statements
+;;
 
 ;; Any top-level expression that isn't a comment is a statement
 (
@@ -51,7 +53,9 @@
     (_) @statement.iteration @value.iteration @name.iteration
 )
 
+;;
 ;; Conditionals
+;;
 
 ;;!! key = if a then b else c;
 ;;!        ^^^^^^^^^^^^^^^^^^
@@ -79,7 +83,9 @@
     condition: (_) @condition
 ) @_.domain
 
+;;
 ;; Lists and maps
+;;
 
 ;;!! foo = [ a b c ];
 ;;!        ^^^^^^^^^
@@ -103,7 +109,9 @@
     expression: (_) @_.trailing.end.startOf
 ) @_.domain
 
+;;
 ;; Strings
+;;
 
 ;;!! # foo
 ;;!  ^^^^^
@@ -122,7 +130,9 @@
     (interpolation) @argumentOrParameter
 ) @_.iteration
 
+;;
 ;; Functions
+;;
 
 ;; Note for this part of the function, we identify is as lambda only
 ;;!! x = a: b: a + b;
@@ -154,17 +164,121 @@
     expression: (function_expression) @namedFunction.interior
 ) @namedFunction @functionName.domain
 
+;; Calls to functions are a bit finicky, because of everything being curried lambdas
+(
+    (apply_expression) @dummy @functionCall @argumentOrParameter.iteration
+    (#not-parent-type? @functionCall apply_expression)
+)
+
+;; This is gross, but not sure how to do fuzzy matching against an unknown number of
+;; nested child nodes. Arbitrarily stopping at 5 args for now, as that ought to be enough
+;; arguments for anyone
+;; Args:
+;;!! mkHost a b c d e
+;;!           ^
+;;!           xx
+;;!        <*********>
+;;! Callee:
+;;!! mkHost a b c d e
+;;!  ^^^^^^
+;;!  xxxxxxx
+;;!  ----------------
+;; The mkHost node looks like this:
+;; #   (binding_set
+;; #    binding: (binding
+;; #     expression: (attrset_expression
+;; #      (binding_set
+;; #       binding: (binding
+;; #        expression: (apply_expression
+;; #         function: (apply_expression
+;; #          function: (apply_expression
+;; #           function: (variable_expression
+;; #            name: (identifier)
+;; #           )
 (apply_expression
-    function: (_) @functionCallee
+    [
+        (apply_expression
+            function: (variable_expression
+                name: (identifier) @functionCallee
+            )
+        )
+        (apply_expression
+            [
+                (apply_expression
+                    function: (variable_expression
+                        name: (identifier) @functionCallee
+                    )
+                )
+                (apply_expression
+                    [
+                        (apply_expression
+                            function: (variable_expression
+                                name: (identifier) @functionCallee
+                            )
+                        )
+                        (apply_expression
+                            (apply_expression
+                                function: (variable_expression
+                                    name: (identifier) @functionCallee
+                                )
+                            )
+                        )
+                    ]
+                )
+            ]
+        )
+    ]
+) @_.domain
+
+;; Args:
+;;!! mkHost a
+;;!         ^
+;;!         x
+;;!  --------
+;;! Callee:
+;;!! mkHost a
+;;!  ^^^^^^
+;;!  xxxxxx
+;;!  --------
+(apply_expression
+    function: (variable_expression
+        name: (identifier) @functionCallee
+    )
     argument: (_) @argumentOrParameter
 ) @_.domain
 
-(apply_expression) @functionCall
+(apply_expression
+    argument: (_) @argumentOrParameter
+)
+
 (function_expression
     (formals) @argumentOrParameter
 ) @_.domain
 
+;; inherit is a built-in keyword, but is close enough to a function...
+;; Callee:
+;;!! inherit pkgs input output;
+;;!  ^^^^^^^
+;;!  xxxxxxxx
+;;!  -------------------------
+;; Args:
+;;!! inherit pkgs input output;
+;;!          ^^^^
+;;!          xxxxx
+;;!         <*****************>
+(inherit
+    "inherit" @functionCallee
+    (
+        (inherited_attrs) @argumentOrParameter.iteration
+    )
+) @functionCall @_.domain
+(inherited_attrs
+    attr: (_) @argumentOrParameter
+)
+
+;;
 ;; Names and Values
+;;
 
 ;;!! a = 25;
 ;;!      ^^
