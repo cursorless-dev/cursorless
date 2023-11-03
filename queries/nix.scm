@@ -67,14 +67,14 @@
     "if" @branch.start
     condition: (_)
     "then"
-    consequence: (_) @branch.end
+    consequence: (_) @branch.end @branch.interior
 )
 ;;!! key = if a then b else c;
 ;;!                    ^^^^^^
 ;;!                   xxxxxxx
 (if_expression
     "else" @branch.start
-    alternative: (_) @branch.end
+    alternative: (_) @branch.end @branch.interior
 )
 
 ;;!! key = if a > 10 then b else c;
