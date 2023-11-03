@@ -1,6 +1,6 @@
 import { SimpleSurroundingPairName } from "@cursorless/common";
 import { IndividualDelimiter } from "./types";
-import { delimiterToText } from "./delimiterMaps";
+import { getSimpleDelimiterMap } from "./getDelimiterMaps";
 import { concat, uniq } from "lodash";
 import { isString } from "../../../util/type";
 
@@ -13,8 +13,10 @@ import { isString } from "../../../util/type";
  * @returns A list of information about all possible left / right delimiter instances
  */
 export function getIndividualDelimiters(
+  languageId: string,
   delimiters: SimpleSurroundingPairName[],
 ): IndividualDelimiter[] {
+  const delimiterToText = getSimpleDelimiterMap(languageId);
   return delimiters.flatMap((delimiter) => {
     const [leftDelimiter, rightDelimiter] = delimiterToText[delimiter];
 

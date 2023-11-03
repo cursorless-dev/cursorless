@@ -1,0 +1,35 @@
+languageId: nix
+command:
+  version: 6
+  spokenForm: change branch
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    {
+      key =
+        if a
+        then b
+        else c;
+    }
+  selections:
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 6}
+  marks: {}
+finalState:
+  documentContents: |
+    {
+      key =
+        if a
+        
+        else c;
+    }
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}

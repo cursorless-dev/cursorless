@@ -9,7 +9,7 @@ import getTextFragmentExtractor from "../../../languages/getTextFragmentExtracto
 import { Target } from "../../../typings/target.types";
 import { SurroundingPairTarget } from "../../targets";
 import { getContainingScopeTarget } from "../getContainingScopeTarget";
-import { complexDelimiterMap } from "./delimiterMaps";
+import { complexDelimiterMap } from "./getDelimiterMaps";
 import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";

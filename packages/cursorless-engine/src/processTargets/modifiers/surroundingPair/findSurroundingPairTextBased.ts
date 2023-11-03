@@ -74,7 +74,10 @@ export function findSurroundingPairTextBased(
   const document: TextDocument = editor.document;
   const fullRange = allowableRange ?? document.range;
 
-  const individualDelimiters = getIndividualDelimiters(delimiters);
+  const individualDelimiters = getIndividualDelimiters(
+    editor.document.languageId,
+    delimiters,
+  );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
