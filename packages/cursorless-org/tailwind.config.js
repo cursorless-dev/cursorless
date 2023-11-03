@@ -58,7 +58,8 @@ module.exports = {
         stretched: { raw: "(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)" },
       },
       fontFamily: {
-        mono: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
+        mono: ["Inconsolata", ...defaultTheme.fontFamily.mono],
+        monoWide: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
       },
       width: {
         smBase: smallWidth,
@@ -74,14 +75,25 @@ module.exports = {
         xs: "1.2em",
         lg: "1.8em",
         "2xl": "2.4em",
+        "3xl": "3.6em",
       },
       colors: {
         salmon: {
           100: "#FFFAF8",
           300: "#F8C9BA",
           400: "#FF9273",
+          700: "#372e2a",
           800: "#161110",
           900: "#0A0707",
+        },
+        teal: {
+          100: "#F9FFFE",
+          200: "#CDFFF9",
+          300: "#99FFF3",
+          400: "#00907F",
+          700: "#005349",
+          800: "#00443C",
+          900: "#00110F",
         },
       },
     },
