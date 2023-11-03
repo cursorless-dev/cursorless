@@ -13,21 +13,21 @@ const components: MDXComponents = {
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="uppercase text-[1.4em] mt-8 mb-4 sm:mb-8 font-semibold tracking-[0.08em]">
+    <h2 className="uppercase text-[1.5em] mt-8 mb-4 sm:mb-8 leading-[1.2] font-semibold tracking-[0.08em]">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="uppercase text-[1.5rem] mt-6 mb-3 sm:mb-6 font-medium tracking-[0.08em]">
+    <h3 className="uppercase text-[1.25rem] mt-6 mb-3 sm:mb-6 leading-tight font-medium tracking-[0.08em]">
       {children}
     </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="uppercase text-[1.5rem] mt-11 mb-3 sm:mb-6 font-medium tracking-[0.08em]">
+    <h4 className="uppercase text-[1.125rem] mt-11 mb-3 sm:mb-6 font-medium tracking-[0.08em]">
       {children}
     </h4>
   ),
-  hr: () => <hr className="my-8 border-teal-400" />,
+  hr: () => <hr className="my-8 border-white" />,
   ul: ({ children }) => <ul className="list-disc ml-8">{children}</ul>,
   ol: ({ children }) => <ol className="list-decimal ml-8">{children}</ol>,
   li: ({ children }) => <li className="my-2">{children}</li>,
@@ -51,16 +51,8 @@ const components: MDXComponents = {
       style={{ maxWidth: "100%" }}
     />
   ),
-  CalloutParent: ({ children }) => (
-    <div className="border-teal-400 border rounded-sm px-7 my-12">
-      {children}
-    </div>
-  ),
-  CalloutBox: ({ title, children }) => (
-    <div className="my-6">
-      <h4 className="uppercase text-[1.5rem] mb-3 sm:mb-6 leading-tight font-medium tracking-[0.08em]">
-        {title}
-      </h4>
+  CalloutBox: ({ children }) => (
+    <div className="border-teal-400 border rounded-sm px-7 my-12 pb-6">
       {children}
     </div>
   ),
@@ -95,12 +87,12 @@ const components: MDXComponents = {
     </div>
   ),
   Tier: ({ emoji, type, price, address, subject, body }) => (
-    <div className="flex gap-3 leading-8">
-      <span className="">{emoji}</span>
-      <span className="uppercase">{type}</span>
-      <span>{"-"}</span>
+    <div className="grid grid-cols-2 gap-2 leading-8">
+      <span className="uppercase">
+        {emoji} {type}
+      </span>
       <SpamProofEmailLink address={address} subject={subject} body={body}>
-        {price} / year
+        <span className="text-[24px]">{price}</span>
       </SpamProofEmailLink>
     </div>
   ),
