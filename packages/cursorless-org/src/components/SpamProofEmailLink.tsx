@@ -56,13 +56,16 @@ export function SpamProofEmailLink({
   }
 
   return (
-    <a href={href} className="text-teal-400 underline underline-offset-4">
+    <a
+      href={href}
+      className="text-teal-600 dark:text-teal-500 underline underline-offset-4"
+    >
       {children ?? (
-        <>
+        <span className="text-[18px]">
           {`${username}@`}
           <span className="hidden">Die spam!</span>
           {domain}
-        </>
+        </span>
       )}
     </a>
   );
