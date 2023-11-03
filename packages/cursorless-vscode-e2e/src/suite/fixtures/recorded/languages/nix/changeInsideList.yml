@@ -1,0 +1,33 @@
+languageId: nix
+command:
+  version: 6
+  spokenForm: change inside list
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    {
+      foo = [ 1 2 3 ];
+    }
+  selections:
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
+  marks: {}
+finalState:
+  documentContents: |
+    {
+      foo = [  ];
+    }
+  selections:
+    - anchor: {line: 1, character: 10}
+      active: {line: 1, character: 10}
+ide:
+  messages:
+    - {type: error, id: TreeSitterQuery.checkCaptures.duplicate}

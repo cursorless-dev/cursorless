@@ -88,16 +88,27 @@
 ;;
 
 ;;!! foo = [ a b c ];
-;;!        ^^^^^^^^^
+;;!          ^
+;;!          xx
 (list_expression
     element: (_) @collectionItem
+)
+
+;;!! foo = [ a b c ];
+;;!        ^^^^^^^^^
+(list_expression
+    element: (_)+ @list.interior
 ) @list
 
 ;;!! foo = { x = 1; y = 2; };
 ;;!        ^^^^^^^^^^^^^^^^^
 [
-    (attrset_expression)
-    (rec_attrset_expression)
+    (attrset_expression
+        (_) @map.interior
+    )
+    (rec_attrset_expression
+        (_) @map.interior
+    )
 ] @map @statement.iteration @value.iteration @name.iteration
 
 ;;!! foo = { x = 1; y = 2; };
