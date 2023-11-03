@@ -27,7 +27,7 @@ const components: MDXComponents = {
       {children}
     </h4>
   ),
-  hr: () => <hr className="my-8 border-white" />,
+  hr: () => <hr className="my-8 border-black dark:border-white" />,
   ul: ({ children }) => <ul className="list-disc ml-8">{children}</ul>,
   ol: ({ children }) => <ol className="list-decimal ml-8">{children}</ol>,
   li: ({ children }) => <li className="my-2">{children}</li>,
