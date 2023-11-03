@@ -13,12 +13,12 @@ const components: MDXComponents = {
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="uppercase text-[1.4em] mt-8 mb-4 sm:mb-8 font-semibold tracking-[0.08em]">
+    <h2 className="uppercase text-[1.5em] mt-8 mb-4 sm:mb-8 font-semibold tracking-[0.08em]">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="uppercase text-[1.5rem] mt-6 mb-3 sm:mb-6 font-medium tracking-[0.08em]">
+    <h3 className="uppercase text-[1.4rem] mt-6 mb-3 sm:mb-6 font-medium tracking-[0.08em]">
       {children}
     </h3>
   ),
@@ -58,9 +58,9 @@ const components: MDXComponents = {
   ),
   CalloutBox: ({ title, children }) => (
     <div className="my-6">
-      <h4 className="uppercase text-[1.5rem] mb-3 sm:mb-6 leading-tight font-medium tracking-[0.08em]">
+      <h3 className="uppercase text-[1.5rem] mb-3 sm:mb-6 leading-tight font-medium tracking-[0.08em]">
         {title}
-      </h4>
+      </h3>
       {children}
     </div>
   ),
