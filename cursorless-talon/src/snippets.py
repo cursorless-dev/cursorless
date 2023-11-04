@@ -174,7 +174,7 @@ class Actions:
 
 
 @ctx.action_class("user")
-class Actions:
+class UserActions:
     # The module declaration of this action exists in community
     def insert_wrapper_snippet(
         body: str,
