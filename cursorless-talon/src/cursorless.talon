@@ -33,6 +33,7 @@ tag: user.cursorless
 {user.cursorless_wrapper_snippet} {user.cursorless_wrap_action} <user.cursorless_target>:
     user.private_cursorless_wrap_with_snippet(cursorless_wrap_action, cursorless_target, cursorless_wrapper_snippet)
 
+# These snippets are defined in community
 {user.snippet_wrapper} {user.cursorless_wrap_action} <user.cursorless_target>:
     user.insert_wrapper_snippet_by_name(snippet_wrapper, cursorless_target)
 
