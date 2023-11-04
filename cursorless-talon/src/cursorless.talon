@@ -33,6 +33,9 @@ tag: user.cursorless
 {user.cursorless_wrapper_snippet} {user.cursorless_wrap_action} <user.cursorless_target>:
     user.private_cursorless_wrap_with_snippet(cursorless_wrap_action, cursorless_target, cursorless_wrapper_snippet)
 
+{user.snippet_wrapper} {user.cursorless_wrap_action} <user.cursorless_target>:
+    user.insert_wrapper_snippet_by_name(snippet_wrapper, cursorless_target)
+
 {user.cursorless_show_scope_visualizer} <user.cursorless_scope_type> [{user.cursorless_visualization_type}]:
     user.private_cursorless_show_scope_visualizer(cursorless_scope_type, cursorless_visualization_type or "content")
 {user.cursorless_hide_scope_visualizer}:

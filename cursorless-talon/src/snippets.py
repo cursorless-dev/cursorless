@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from talon import Module, actions
+from talon import Module, Context, actions
 
 from .targets.target_types import (
     CursorlessDestination,
@@ -17,6 +17,11 @@ class InsertionSnippet:
 
 
 mod = Module()
+
+ctx = Context()
+ctx.matches = r"""
+tag: user.cursorless
+"""
 
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
 
@@ -166,3 +171,14 @@ class Actions:
             snippet_arg,
             target,
         )
+
+
+@ctx.action_class("user")
+class Actions:
+    # The module declaration of this action exists in community
+    def insert_wrapper_snippet(
+        body: str,
+        target: Any,
+        scope: str = None,
+    ):
+        actions.user.cursorless_wrap_with_snippet(body, target, None, scope)
