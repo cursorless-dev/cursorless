@@ -53,9 +53,7 @@ export function transformSnippetVariables(
         candidate.children.forEach((child) => placeholder.appendChild(child));
         candidate.parent.replace(candidate, [placeholder]);
       }
-    }
-
-    if (candidate instanceof Placeholder) {
+    } else if (candidate instanceof Placeholder) {
       if (candidate.index.toString() === placeholderName) {
         candidate.parent.replace(candidate, [new Variable("TM_SELECTED_TEXT")]);
       }
