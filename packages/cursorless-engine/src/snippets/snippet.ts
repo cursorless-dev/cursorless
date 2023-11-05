@@ -54,6 +54,12 @@ export function transformSnippetVariables(
         candidate.parent.replace(candidate, [placeholder]);
       }
     }
+
+    if (candidate instanceof Placeholder) {
+      if (candidate.index.toString() === placeholderName) {
+        candidate.parent.replace(candidate, [new Variable("TM_SELECTED_TEXT")]);
+      }
+    }
     return true;
   });
 }
