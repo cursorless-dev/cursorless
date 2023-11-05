@@ -86,7 +86,7 @@ export function allocateHats(
   // Iterate through tokens in order of decreasing rank, assigning each one a
   // hat
   return rankedTokens
-    .map<TokenHat | undefined>(({ token, rank: tokenRank }) => {
+    .map<TokenHat | undefined>(({ token, score: tokenScore }) => {
       /**
        * All hats for the graphemes in this token that weren't taken by a
        * higher ranked token
@@ -101,7 +101,7 @@ export function allocateHats(
       const chosenHat = chooseTokenHat(
         context,
         hatStability,
-        tokenRank,
+        tokenScore,
         tokenOldHatMap.get(token),
         tokenRemainingHatCandidates,
       );

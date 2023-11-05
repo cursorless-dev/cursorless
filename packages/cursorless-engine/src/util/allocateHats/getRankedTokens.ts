@@ -2,7 +2,7 @@ import { TextEditor } from "@cursorless/common";
 import { flatten } from "lodash";
 import { Token } from "@cursorless/common";
 import { getDisplayLineMap } from "./getDisplayLineMap";
-import { getTokenComparator } from "./getTokenComparator";
+import { getTokenComparator, tokenScore } from "./getTokenComparator";
 import { getTokensInRange } from "./getTokensInRange";
 
 /**
@@ -37,14 +37,16 @@ export function getRankedTokens(
       ),
     );
 
-    tokens.sort(
-      getTokenComparator(
-        displayLineMap.get(referencePosition.line)!,
-        referencePosition.character,
-      ),
-    );
+    const displayLine = displayLineMap.get(referencePosition.line)!;
 
-    return tokens.map((token, index) => ({ token, rank: -index }));
+    // Sort tokens, with the closest token to the reference position first.
+    tokens.sort(getTokenComparator(displayLine, referencePosition.character));
+
+    // Apply a coarse score to each token.
+    return tokens.map((token) => ({
+      token,
+      score: tokenScore(token, editor === activeTextEditor, displayLine),
+    }));
   });
 }
 
@@ -69,9 +71,9 @@ export interface RankedToken {
   token: Token;
 
   /**
-   * A number indicating how likely the token is to be used.  Tokens closer to
-   * the cursor will be considered more likely to be used, and will receive a
-   * higher rank, causing them to be assigned better hats.
+   * A number indicating how important the token is.
+   * Broadly speaking, tokens closer to the cursor will have a higher score,
+   * causing them to be assigned better hats.
    */
-  rank: number;
+  score: number;
 }

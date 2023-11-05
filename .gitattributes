@@ -1,0 +1,3 @@
+# do not modify line endings of our hat test golden files
+packages/cursorless-engine/src/test/fixtures/hat-stats/*.golden -text
+packages/cursorless-engine/src/test/fixtures/hat-stats/*.stats -text

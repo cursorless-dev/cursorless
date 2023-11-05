@@ -1,0 +1,160 @@
+_  _       _       _      _      _
+// Package intern interns strings.
+[] [-----] [----] [-----] [-----]|
+
+A    _       A  _    _      _   A
+// Interning is best effort only.
+[] [-------] [] [--] [----] [--]|
+
+B      _         _  _   A      _   _
+// Interned strings may be removed automatically
+[] [------] [-----] [-] [] [-----] [-----------]
+
+C  A    _ A    _           _       B
+// at any time without notification.
+[] [] [-] [--] [-----] [----------]|
+
+D   _   _        A   B  _      A
+// All functions may be called concurrently
+[] [-] [-------] [-] [] [----] [----------]
+
+E     _ B            _ A    A    C
+// with themselves and each other.
+[] [--] [--------] [-] [--] [---]|
+
+   _    B
+package intern
+[-----] [----]
+
+C      _A   A
+import "sync"
+[----] |[--]|
+
+A   A    B   DB    _ C   EC   _
+var pool sync.Pool = sync.Pool{
+[-] [--] [--]|[--] | [--]|[--]|
+
+ A  _ A   __ D        A_ B
+␉New: func() interface{} {
+ [-]| [--]|| [-------]|| |
+
+  A      B   AC  _D     _E     A
+␉␉return make(map[string]string)
+  [----] [--]|[-]|[----]|[----]|
+
+ A_
+␉},
+ ||
+
+B
+}
+|
+
+F  F      B       1A E       F
+// String returns s, interned.
+[] [----] [-----] || [------]|
+
+B    2     B3 4     B 5      C
+func String(s string) string {
+[--] [----]|| [----]| [----] |
+
+ D AA D   1A  CC2DE  A6     A C    D
+␉m := pool.Get().(map[string]string)
+ | || [--]|[-]||||[-]|[----]|[----]|
+
+            A
+ BB B  BB FB1B
+␉c, ok := m[s]
+ || [] || ||||
+
+ F  C  D
+␉if ok {
+ [] [] |
+
+  E   3F  E1E
+␉␉pool.Put(m)
+  [--]|[-]|||
+
+  C      C
+␉␉return c
+  [----] |
+
+ C
+␉}
+ |
+
+   A    A
+ 2C2C C 3
+␉m[s] = s
+ |||| | |
+
+ 1   42  F3F
+␉pool.Put(m)
+ [--]|[-]|||
+
+        A
+ D      4
+␉return s
+ [----] |
+
+D
+}
+|
+
+1  C     E       D D         D  B  E    C 1       5
+// Bytes returns b converted to a string, interned.
+[] [---] [-----] | [-------] [] | [----]| [------]|
+
+C    E    1F DD1   1  F     E
+func Bytes(b []byte) string {
+[--] [---]|| ||[--]| [----] |
+
+                A
+ 4 CD 3   6B  22135  E 1    E 2    3
+␉m := pool.Get().(map[string]string)
+ | || [--]|[-]||||[-]|[----]|[----]|
+
+ ED D  DE 6F 3    424F
+␉c, ok := m[string(b)]
+ || [] || ||[----]||||
+
+ 2  E  F
+␉if ok {
+ [] [] |
+
+      A    A
+  4   25  515
+␉␉pool.Put(m)
+  [--]|[-]|||
+
+  F      F
+␉␉return c
+  [----] |
+
+ E
+␉}
+ |
+
+ A
+ 5 EF  4    636
+␉s := string(b)
+ | || [----]|||
+
+ A A    B
+ 2161 1 1
+␉m[s] = s
+ |||| | |
+
+     A   AAA
+ 6   3 A 131
+␉pool.Put(m)
+ [--]|[-]|||
+
+        B
+ 1      2
+␉return s
+ [----] |
+
+F
+}
+|

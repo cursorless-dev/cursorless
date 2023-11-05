@@ -43,10 +43,10 @@ export function getHatRankingContext(
     number
   >(({ grapheme, hatStyle }) => [grapheme, hatStyle]);
 
-  tokens.forEach(({ token, rank }) => {
+  tokens.forEach(({ token, score }) => {
     const existingTokenHat = oldTokenHatMap.get(token);
     if (existingTokenHat != null) {
-      hatOldTokenRanks.set(existingTokenHat, rank);
+      hatOldTokenRanks.set(existingTokenHat, score);
     }
     tokenGraphemeSplitter
       .getTokenGraphemes(token.text)
@@ -60,7 +60,7 @@ export function getHatRankingContext(
           graphemeTokenRanks[graphemeText] = tokenRanksForGrapheme;
         }
 
-        tokenRanksForGrapheme.push(rank);
+        tokenRanksForGrapheme.push(score);
       });
   });
 

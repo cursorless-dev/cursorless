@@ -50,13 +50,17 @@ import { maxByFirstDiffering } from "./maxByFirstDiffering";
 export function chooseTokenHat(
   { hatOldTokenRanks, graphemeTokenRanks }: RankingContext,
   hatStability: HatStability,
-  tokenRank: number,
+  tokenScore: number,
   oldTokenHat: TokenHat | undefined,
   candidates: HatCandidate[],
 ): HatCandidate | undefined {
   // We narrow down the candidates by a series of criteria until there is only
   // one left
   return maxByFirstDiffering(candidates, [
+    // 0. TODO: https://github.com/cursorless-dev/cursorless/issues/1278
+    // Today, when choosing a hat for a token in chooseTokenHat, we first discard any tokens that are less than ideal according to our hat equivalence class mapping, as defined by user setting
+    // We should add a metric before that step that returns 0 if the hat would be stolen from another token with the same rank as the token getting its hat assigned, and return 1 otherwise
+
     // 1. Discard any hats that are sufficiently worse than the best hat that we
     //    wouldn't use them even if they were our old hat
     penaltyEquivalenceClass(hatStability),
@@ -73,6 +77,6 @@ export function chooseTokenHat(
 
     // 5. Prefer hats that sit on a grapheme that doesn't appear in any highly
     //    ranked token
-    minimumTokenRankContainingGrapheme(tokenRank, graphemeTokenRanks),
+    minimumTokenRankContainingGrapheme(tokenScore, graphemeTokenRanks),
   ])!;
 }

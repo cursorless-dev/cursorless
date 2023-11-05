@@ -6,7 +6,7 @@ interface TokenWithDisplayLine extends Token {
 
 /**
  * Gets a comparison function that can be used to sort tokens based on their
- * distance from the current cursor in terms of display lines.
+ * distance from the current cursor in terms of display lines and characters.
  * @param selectionDisplayLine The display line of the cursor location
  * @param selectionCharacterIndex The character index of current cursor within line
  */
@@ -36,4 +36,33 @@ export function getTokenComparator(
 
     return token1CharacterDiff - token2CharacterDiff;
   };
+}
+
+/**
+ * Scores tokens based on their
+ * distance from the current cursor in terms of display lines.
+ * @param selectionDisplayLine The display line of the cursor location
+ * @param selectionCharacterIndex The character index of current cursor within line
+ */
+export function tokenScore(
+  token: TokenWithDisplayLine,
+  isActiveEditor: boolean,
+  selectionDisplayLine: number,
+): number {
+  // See https://github.com/cursorless-dev/cursorless/issues/1278
+  // for a discussion of the scoring function
+  if (!isActiveEditor) {
+    // worst score
+    // todo: differentiate between near and far in inactive editors?
+    return -3;
+  }
+  const lineDiff = Math.abs(token.displayLine - selectionDisplayLine);
+  if (lineDiff <= 3) {
+    return 0;
+  }
+  if (lineDiff <= 10) {
+    return -1;
+  }
+  // Same editor, but far away
+  return -2;
 }

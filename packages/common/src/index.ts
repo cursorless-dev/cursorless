@@ -92,3 +92,4 @@ export * from "./getFakeCommandServerApi";
 export * from "./types/TestCaseFixture";
 export * from "./util/getEnvironmentVariableStrict";
 export * from "./util/CompositeKeyDefaultMap";
+export { MockTextDocument, MockTextEditor } from "./testUtil/mockEditor";
