@@ -7,7 +7,6 @@ import {
   ScopeProvider,
 } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
-import { RealTestCaseRecorder } from "./testCaseRecorder/RealTestCaseRecorder";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";

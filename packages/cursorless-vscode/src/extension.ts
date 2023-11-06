@@ -48,7 +48,14 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
 import { mkdir } from "fs/promises";
-import { Debug, RangeUpdater, StoredTargetMap, HatTokenMapImpl, RealTestCaseRecorder, injectIde } from "@cursorless/cursorless-engine";
+import {
+  Debug,
+  RangeUpdater,
+  StoredTargetMap,
+  HatTokenMapImpl,
+  RealTestCaseRecorder,
+  injectIde,
+} from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.

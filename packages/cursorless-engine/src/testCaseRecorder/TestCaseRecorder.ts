@@ -6,8 +6,12 @@ import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
  * Used for recording test cases
  */
 export interface TestCaseRecorder {
-  toggle: (options?: RecordTestCaseCommandOptions) => Promise<{ startTimestampISO: string; } | null | undefined>;
-  recordOneThenPause: (options?: RecordTestCaseCommandOptions) => Promise<{ startTimestampISO: string; } | null | undefined>;
+  toggle: (
+    options?: RecordTestCaseCommandOptions,
+  ) => Promise<{ startTimestampISO: string } | null | undefined>;
+  recordOneThenPause: (
+    options?: RecordTestCaseCommandOptions,
+  ) => Promise<{ startTimestampISO: string } | null | undefined>;
   pause: () => Promise<void>;
   resume: () => Promise<void>;
   takeSnapshot: (
