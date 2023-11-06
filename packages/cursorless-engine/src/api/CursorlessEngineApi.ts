@@ -8,11 +8,7 @@ export interface CursorlessEngine {
   commandApi: CommandApi;
   scopeProvider: ScopeProvider;
   customSpokenFormGenerator: CustomSpokenFormGenerator;
-  testCaseRecorder: TestCaseRecorder;
-  storedTargets: StoredTargetMap;
-  hatTokenMap: HatTokenMap;
   snippets: Snippets;
-  injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
 }
 

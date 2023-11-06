@@ -7,6 +7,7 @@ import {
   ScopeProvider,
 } from "@cursorless/common";
 import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
+import { RealTestCaseRecorder } from "./testCaseRecorder/RealTestCaseRecorder";
 import { CursorlessEngine } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
@@ -25,7 +26,6 @@ import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
-import { injectIde } from "./singletons/ide.singleton";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -33,27 +33,14 @@ export function createCursorlessEngine(
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
+  debug: Debug,
+  rangeUpdater: RangeUpdater,
+  hatTokenMap: HatTokenMapImpl,
+  storedTargets: StoredTargetMap,
+  testCaseRecorder: TestCaseRecorder,
 ): CursorlessEngine {
-  injectIde(ide);
-
-  const debug = new Debug(treeSitter);
-
-  const rangeUpdater = new RangeUpdater();
-
   const snippets = new Snippets();
   snippets.init();
-
-  const hatTokenMap = new HatTokenMapImpl(
-    rangeUpdater,
-    debug,
-    hats,
-    commandServerApi,
-  );
-  hatTokenMap.allocateHats();
-
-  const storedTargets = new StoredTargetMap();
-
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
 
@@ -101,11 +88,7 @@ export function createCursorlessEngine(
       customSpokenFormGenerator,
     ),
     customSpokenFormGenerator,
-    testCaseRecorder,
-    storedTargets,
-    hatTokenMap,
     snippets,
-    injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),
   };

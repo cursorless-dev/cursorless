@@ -48,6 +48,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
 import { mkdir } from "fs/promises";
+import { Debug, RangeUpdater, StoredTargetMap, HatTokenMapImpl, RealTestCaseRecorder, injectIde } from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -72,6 +73,7 @@ export async function activate(
           new FakeIDE(),
           vscodeIDE.runMode === "test",
         );
+  injectIde(normalizedIde);
 
   const commandServerApi =
     vscodeIDE.runMode === "test"
@@ -80,14 +82,26 @@ export async function activate(
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
+  const debug = new Debug(treeSitter);
+
+  const rangeUpdater = new RangeUpdater();
+
+  const hatTokenMap = new HatTokenMapImpl(
+    rangeUpdater,
+    debug,
+    hats,
+    commandServerApi,
+  );
+  hatTokenMap.allocateHats();
+
+  const storedTargets = new StoredTargetMap();
+
+  const testCaseRecorder = new RealTestCaseRecorder(hatTokenMap, storedTargets);
+
   const {
     commandApi,
-    testCaseRecorder,
-    storedTargets,
-    hatTokenMap,
     scopeProvider,
     snippets,
-    injectIde,
     runIntegrationTests,
     customSpokenFormGenerator,
   } = createCursorlessEngine(
@@ -96,6 +110,11 @@ export async function activate(
     hats,
     commandServerApi,
     fileSystem,
+    debug,
+    rangeUpdater,
+    hatTokenMap,
+    storedTargets,
+    testCaseRecorder,
   );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");

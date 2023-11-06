@@ -28,6 +28,7 @@ import { merge } from "lodash";
 import * as path from "path";
 import { ide, injectIde } from "../singletons/ide.singleton";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
+import { TestCaseRecorder } from "./TestCaseRecorder";
 import { TestCase } from "./TestCase";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
@@ -42,7 +43,7 @@ const TIMING_CALIBRATION_HIGHLIGHT_ID = "timingCalibration";
 /**
  * Used for recording test cases
  */
-export class TestCaseRecorder {
+export class RealTestCaseRecorder implements TestCaseRecorder {
   private active: boolean = false;
   private pauseAfterNextCommand: boolean = false;
   private fixtureRoot: string | null;
