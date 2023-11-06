@@ -198,10 +198,7 @@
 ;;!  ----------
 (as_expression
   (_) @_.leading.start.endOf
-  [
-    (generic_type)
-    (predefined_type)
-  ] @type @_.leading.end.startOf
+  (_) @type @_.leading.end.startOf
 ) @_.domain
 
 ;;!! aaa satisfies Bbb
