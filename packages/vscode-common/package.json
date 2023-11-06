@@ -23,5 +23,6 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
-  }
+  },
+  "type": "module"
 }

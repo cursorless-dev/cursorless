@@ -34,5 +34,6 @@
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
     "esbuild": "^0.17.11"
-  }
+  },
+  "type": "module"
 }

@@ -35,5 +35,6 @@
     "mocha": "^10.2.0",
     "sinon": "^11.1.1"
   },
-  "types": "./out/index.d.ts"
+  "types": "./out/index.d.ts",
+  "type": "module"
 }

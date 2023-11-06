@@ -11,6 +11,14 @@
     "target": "es5",
     "allowJs": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true
+    }
+  },
   "references": [
     {
       "path": "../cheatsheet"
@@ -20,6 +28,7 @@
     "src/**/*.ts",
     "src/**/*.json",
     "src/**/*.tsx",
-    "../../typings/**/*.d.ts"
+    "../../typings/**/*.d.ts",
+    "src/webpack.config.cts"
   ]
 }
