@@ -66,7 +66,7 @@ export function createCursorlessEngine(
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
-  const commandRunnerDecorators = new Array<CommandRunnerDecorator>();
+  const commandRunnerDecorators: CommandRunnerDecorator[] = [];
 
   return {
     commandApi: {
