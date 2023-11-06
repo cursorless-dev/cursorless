@@ -27,7 +27,7 @@
     "@types/chai": "^4.3.3",
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
-    "@types/mocha": "^8.0.4",
+    "@types/mocha": "^10.0.3",
     "@types/sinon": "^10.0.2",
     "@types/vscode": "~1.66.0",
     "chai": "^4.3.6",

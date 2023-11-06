@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
-    "@types/mocha": "^8.0.4",
+    "@types/mocha": "^10.0.3",
     "@types/sinon": "^10.0.2",
     "js-yaml": "^4.1.0",
     "mocha": "^10.2.0",

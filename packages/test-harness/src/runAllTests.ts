@@ -26,11 +26,11 @@ export function runAllTests(...types: TestType[]) {
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
       files.filter((f) => {
-        if (f.endsWith("vscode.test.js")) {
+        if (f.endsWith("vscode.test.cjs")) {
           return types.includes(TestType.vscode);
         }
 
-        if (f.endsWith("talon.test.js")) {
+        if (f.endsWith("talon.test.cjs")) {
           return types.includes(TestType.talon);
         }
 
@@ -50,7 +50,7 @@ async function runTestsInDir(
     grep: runTestSubset() ? testSubsetGrepString() : undefined, // Only run a subset of tests
   });
 
-  const files = filterFiles(await glob("**/**.test.js", { cwd: testRoot }));
+  const files = filterFiles(await glob("**/**.test.cjs", { cwd: testRoot }));
 
   // Add files to the test suite
   files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));

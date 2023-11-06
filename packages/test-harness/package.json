@@ -8,6 +8,7 @@
     "test": "env CURSORLESS_TEST=true tsx --conditions=cursorless:bundler src/scripts/runTestsCI.ts",
     "compile": "tsc --build",
     "build": "esbuild ./src/runners/extensionTests.ts --conditions=cursorless:bundler --bundle --outfile=dist/extensionTests.cjs --external:vscode --format=cjs --platform=node",
+    "buildTests": "esbuild --conditions=cursorless:bundler --bundle --outdir=dist --external:vscode --format=cjs --platform=node --out-extension:.js=.cjs $(find .. -name '*.test.ts')",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist",
     "generate-test-subset-file": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts --always-open",
@@ -22,7 +23,7 @@
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
-    "@types/mocha": "^8.0.4",
+    "@types/mocha": "^10.0.3",
     "@vscode/test-electron": "^2.1.3",
     "esbuild": "^0.17.11",
     "mocha": "^10.2.0"
