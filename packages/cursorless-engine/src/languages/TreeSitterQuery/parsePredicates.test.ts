@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert = require("assert");
 import { parsePredicates } from "./parsePredicates";
 import { PredicateResult } from "web-tree-sitter";
 

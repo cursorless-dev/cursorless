@@ -5,7 +5,7 @@ import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.single
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import { upgrade } from "./transformations/upgrade";
-import assert from "assert";
+import assert = require("assert");
 
 export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
   const command = upgrade(originalFixture).command;

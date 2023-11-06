@@ -1,7 +1,7 @@
 import { Messages, Range } from "@cursorless/common";
 import { QueryCapture } from "./QueryCapture";
 import { checkCaptureStartEnd } from "./checkCaptureStartEnd";
-import assert from "assert";
+import assert = require("assert");
 
 interface TestCase {
   name: string;

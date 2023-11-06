@@ -1,9 +1,9 @@
 import { readFile, writeFile } from "fs/promises";
 import parse from "node-html-parser";
+import path = require("path");
 import produce from "immer";
 import { sortBy } from "lodash";
 import { ide } from "../singletons/ide.singleton";
-import path from "path";
 
 /**
  * The argument expected by the cheatsheet command.

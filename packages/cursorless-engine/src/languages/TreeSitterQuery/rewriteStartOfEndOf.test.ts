@@ -2,7 +2,7 @@ import { Range, TextDocument } from "@cursorless/common";
 import { SyntaxNode } from "web-tree-sitter";
 import { MutableQueryCapture } from "./QueryCapture";
 import { rewriteStartOfEndOf } from "./rewriteStartOfEndOf";
-import assert from "assert";
+import assert = require("assert");
 
 type NameRange = Pick<MutableQueryCapture, "name" | "range">;
 

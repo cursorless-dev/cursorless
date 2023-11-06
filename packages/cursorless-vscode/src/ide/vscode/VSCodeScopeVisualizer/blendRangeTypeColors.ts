@@ -1,4 +1,4 @@
-import tinycolor from "tinycolor2";
+import tinycolor = require("tinycolor2");
 import { RangeTypeColors } from "./RangeTypeColors";
 
 /**

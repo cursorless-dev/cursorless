@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert = require("assert");
 import { BorderStyle } from "../decorationStyle.types";
 import { handleMultipleLines } from "./handleMultipleLines";
 import { Range } from "@cursorless/common";

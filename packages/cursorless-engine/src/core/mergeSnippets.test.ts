@@ -1,6 +1,6 @@
 import { SnippetMap } from "@cursorless/common";
 import { mergeSnippets } from "./mergeSnippets";
-import assert from "assert";
+import assert = require("assert");
 
 interface TestCase {
   name: string;
