@@ -34,7 +34,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -55,7 +55,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "Prepare test subset",
@@ -125,7 +125,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -147,7 +147,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
