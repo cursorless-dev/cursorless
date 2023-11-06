@@ -11,7 +11,6 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
-  CommandRunnerDecorator,
   createCursorlessEngine,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
@@ -49,8 +48,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
 import { mkdir } from "fs/promises";
-import { CommandRunner, TestCaseRecorder } from "@cursorless/cursorless-engine";
-import { ReadOnlyHatMap } from "@cursorless/common";
+import { TestCaseRecorder } from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
