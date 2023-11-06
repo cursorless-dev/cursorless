@@ -14,7 +14,9 @@ export interface CursorlessEngine {
   snippets: Snippets;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
-  addCommandRunnerDecorator: (commandRunnerDecorator: CommandRunnerDecorator) => void;
+  addCommandRunnerDecorator: (
+    commandRunnerDecorator: CommandRunnerDecorator,
+  ) => void;
 }
 
 export interface CustomSpokenFormGenerator {
@@ -48,5 +50,8 @@ export interface CommandRunnerDecorator {
    * @returns A new CommandRunner that invokes the provided CommandRunner in
    *   addition to performing some other work.
    */
-  wrapCommandRunner: (readableHatMap: ReadOnlyHatMap, commandRunner: CommandRunner) => CommandRunner;
+  wrapCommandRunner: (
+    readableHatMap: ReadOnlyHatMap,
+    commandRunner: CommandRunner,
+  ) => CommandRunner;
 }

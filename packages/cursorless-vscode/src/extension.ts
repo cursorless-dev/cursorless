@@ -58,7 +58,10 @@ class TestCaseRecorderCommandRunnerDecorator implements CommandRunnerDecorator {
   constructor(testCaseRecorder: TestCaseRecorder) {
     this.testCaseRecorder = testCaseRecorder;
   }
-  wrapCommandRunner(readableHatMap: ReadOnlyHatMap, commandRunner: CommandRunner) {
+  wrapCommandRunner(
+    readableHatMap: ReadOnlyHatMap,
+    commandRunner: CommandRunner,
+  ) {
     if (this.testCaseRecorder.isActive()) {
       return this.testCaseRecorder.wrapCommandRunner(
         readableHatMap,
@@ -120,7 +123,9 @@ export async function activate(
   );
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
-  addCommandRunnerDecorator(new TestCaseRecorderCommandRunnerDecorator(testCaseRecorder));
+  addCommandRunnerDecorator(
+    new TestCaseRecorderCommandRunnerDecorator(testCaseRecorder),
+  );
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
