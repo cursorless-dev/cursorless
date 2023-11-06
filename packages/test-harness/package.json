@@ -7,9 +7,9 @@
   "scripts": {
     "test": "env CURSORLESS_TEST=true tsx --conditions=cursorless:bundler src/scripts/runTestsCI.ts",
     "compile": "tsc --build",
-    "build": "esbuild ./src/runners/extensionTests.ts --conditions=cursorless:bundler --bundle --outfile=dist/extensionTests.js --external:vscode --format=cjs --platform=node",
+    "build": "esbuild ./src/runners/extensionTests.ts --conditions=cursorless:bundler --bundle --outfile=dist/extensionTests.cjs --external:vscode --format=cjs --platform=node",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist",
     "generate-test-subset-file": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "tsx --conditions=cursorless:bundler ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
