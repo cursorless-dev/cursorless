@@ -105,9 +105,8 @@ async function getScripts(
   if (isRoot) {
     // Ensure that `pnpm transform-recorded-tests` mirrors what is in pre-commit
     // config
-    scripts["transform-recorded-tests"] = await getTransformRecordedTestsScript(
-      packageDir,
-    );
+    scripts["transform-recorded-tests"] =
+      await getTransformRecordedTestsScript(packageDir);
 
     return scripts;
   }

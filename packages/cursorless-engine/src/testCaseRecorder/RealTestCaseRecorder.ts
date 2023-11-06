@@ -125,9 +125,8 @@ export class RealTestCaseRecorder implements TestCaseRecorder {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
       );
-      const readableHatMap = await this.hatTokenMap.getReadableMap(
-        usePrePhraseSnapshot,
-      );
+      const readableHatMap =
+        await this.hatTokenMap.getReadableMap(usePrePhraseSnapshot);
       marks = marksToPlainObject(extractTargetedMarks(keys, readableHatMap));
     } else {
       marks = undefined;
