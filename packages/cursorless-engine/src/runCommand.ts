@@ -12,6 +12,7 @@ import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 /**
  * Entry point for Cursorless commands. We proceed as follows:
@@ -29,11 +30,11 @@ export async function runCommand(
   treeSitter: TreeSitter,
   debug: Debug,
   hatTokenMap: HatTokenMap,
-  testCaseRecorder: TestCaseRecorder,
   snippets: Snippets,
   storedTargets: StoredTargetMap,
   languageDefinitions: LanguageDefinitions,
   rangeUpdater: RangeUpdater,
+  commandRunnerDecorators: Array<CommandRunnerDecorator>,
   command: Command,
 ): Promise<unknown> {
   if (debug.active) {
@@ -57,11 +58,8 @@ export async function runCommand(
     rangeUpdater,
   );
 
-  if (testCaseRecorder.isActive()) {
-    commandRunner = testCaseRecorder.wrapCommandRunner(
-      readableHatMap,
-      commandRunner,
-    );
+  for (var decorator of commandRunnerDecorators) {
+    commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 
   return await commandRunner.run(commandComplete);

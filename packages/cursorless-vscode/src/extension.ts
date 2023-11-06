@@ -11,6 +11,7 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
+  CommandRunnerDecorator,
   createCursorlessEngine,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
@@ -48,6 +49,26 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
 import { mkdir } from "fs/promises";
+import { CommandRunner, TestCaseRecorder } from "@cursorless/cursorless-engine";
+import { ReadOnlyHatMap } from "@cursorless/common";
+
+class TestCaseRecorderCommandRunnerDecorator implements CommandRunnerDecorator {
+  testCaseRecorder: TestCaseRecorder;
+
+  constructor(testCaseRecorder: TestCaseRecorder) {
+    this.testCaseRecorder = testCaseRecorder;
+  }
+  wrapCommandRunner(readableHatMap: ReadOnlyHatMap, commandRunner: CommandRunner) {
+    if (this.testCaseRecorder.isActive()) {
+      return this.testCaseRecorder.wrapCommandRunner(
+        readableHatMap,
+        commandRunner,
+      );
+    } else {
+      return commandRunner;
+    }
+  }
+}
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -82,13 +103,13 @@ export async function activate(
 
   const {
     commandApi,
-    testCaseRecorder,
     storedTargets,
     hatTokenMap,
     scopeProvider,
     snippets,
     injectIde,
     runIntegrationTests,
+    addCommandRunnerDecorator,
     customSpokenFormGenerator,
   } = createCursorlessEngine(
     treeSitter,
@@ -97,6 +118,9 @@ export async function activate(
     commandServerApi,
     fileSystem,
   );
+
+  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  addCommandRunnerDecorator(new TestCaseRecorderCommandRunnerDecorator(testCaseRecorder));
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
