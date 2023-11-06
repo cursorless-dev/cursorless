@@ -6,7 +6,7 @@ import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TestCaseRecorder, TreeSitter } from "./index";
+import { StoredTargetMap, TreeSitter } from "./index";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
@@ -58,7 +58,7 @@ export async function runCommand(
     rangeUpdater,
   );
 
-  for (var decorator of commandRunnerDecorators) {
+  for (const decorator of commandRunnerDecorators) {
     commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 

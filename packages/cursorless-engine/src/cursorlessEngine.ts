@@ -6,8 +6,11 @@ import {
   IDE,
   ScopeProvider,
 } from "@cursorless/common";
-import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
-import { CommandRunnerDecorator, CursorlessEngine } from "./api/CursorlessEngineApi";
+import { StoredTargetMap, TreeSitter } from ".";
+import {
+  CommandRunnerDecorator,
+  CursorlessEngine,
+} from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
@@ -109,7 +112,7 @@ export function createCursorlessEngine(
       runIntegrationTests(treeSitter, languageDefinitions),
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
-    }
+    },
   };
 }
 
