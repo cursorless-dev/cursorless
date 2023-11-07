@@ -7,7 +7,8 @@ command:
     args:
       - type: custom
         body: "dummy snippet hole1: ($hole1), hole2: ($hole2)"
-        scopeType: {type: line}
+        scopeTypes:
+          - {type: line}
   targets:
     - type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
