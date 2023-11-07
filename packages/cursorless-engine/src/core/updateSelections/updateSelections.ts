@@ -330,7 +330,7 @@ async function performEditsAndUpdateInternal(
   return selectionInfosToSelections(selectionInfoMatrix);
 }
 
-// TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
+// FIXME: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
 export async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,

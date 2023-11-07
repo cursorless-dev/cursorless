@@ -1,10 +1,6 @@
 import { SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeMatcher,
-  NodeMatcherAlternative,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
@@ -20,9 +16,6 @@ import {
   extendForwardPastOptional,
   getNodeInternalRange,
   getNodeRange,
-  pairSelectionExtractor,
-  selectWithLeadingDelimiter,
-  simpleSelectionExtractor,
   unwrapSelectionExtractor,
 } from "../util/nodeSelectors";
 import { branchMatcher } from "./branchMatcher";
@@ -69,89 +62,6 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
-function typeMatcher(): NodeMatcher {
-  const delimiterSelector = selectWithLeadingDelimiter(":");
-  return function (selection: SelectionWithEditor, node: SyntaxNode) {
-    if (
-      node.parent?.type === "new_expression" &&
-      node.type !== "new" &&
-      node.type !== "arguments"
-    ) {
-      const identifierNode = node.parent.children.find(
-        (n) => n.type === "identifier",
-      );
-      const argsNode = node.parent.children.find(
-        (n) => n.type === "type_arguments",
-      );
-      if (identifierNode && argsNode) {
-        return [
-          {
-            node,
-            selection: pairSelectionExtractor(
-              selection.editor,
-              identifierNode,
-              argsNode,
-            ),
-          },
-        ];
-      } else if (identifierNode) {
-        return [
-          {
-            node: identifierNode,
-            selection: simpleSelectionExtractor(
-              selection.editor,
-              identifierNode,
-            ),
-          },
-        ];
-      }
-    }
-
-    const typeAnnotationNode = node.children.find((child) =>
-      ["type_annotation", "opting_type_annotation"].includes(child.type),
-    );
-    const targetNode = typeAnnotationNode?.lastChild;
-
-    if (targetNode) {
-      return [
-        {
-          node: targetNode,
-          selection: delimiterSelector(selection.editor, targetNode),
-        },
-      ];
-    }
-    return null;
-  };
-}
-
-function valueMatcher() {
-  const pFinder = patternFinder(
-    "assignment_expression[right]",
-    "augmented_assignment_expression[right]",
-    "*[value]",
-    "shorthand_property_identifier",
-  );
-  return matcher(
-    (node: SyntaxNode) =>
-      node.type === "jsx_attribute" ? node.lastChild : pFinder(node),
-    selectWithLeadingDelimiter(
-      ":",
-      "=",
-      "+=",
-      "-=",
-      "*=",
-      "/=",
-      "%=",
-      "**=",
-      "&=",
-      "|=",
-      "^=",
-      "<<=",
-      ">>=",
-    ),
-  );
-}
-
 const mapTypes = ["object", "object_pattern"];
 const listTypes = ["array", "array_pattern"];
 
@@ -170,11 +80,6 @@ const nodeMatchers: Partial<
       "shorthand_property_identifier",
     ],
     [":"],
-  ),
-  value: cascadingMatcher(
-    valueMatcher(),
-    patternMatcher("return_statement.~return!"),
-    patternMatcher("yield_expression.~yield!"),
   ),
   ifStatement: "if_statement",
   comment: "comment",
@@ -227,16 +132,6 @@ const nodeMatchers: Partial<
     "export_statement?.abstract_class_declaration", // export abstract class | abstract class
     "export_statement.class", // export default class
   ],
-  type: cascadingMatcher(
-    // Typed parameters, properties, and functions
-    typeMatcher(),
-    // matcher(findTypeNode, selectWithLeadingDelimiter(":")),
-    // Type alias/interface declarations
-    patternMatcher(
-      "export_statement?.type_alias_declaration",
-      "export_statement?.interface_declaration",
-    ),
-  ),
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
   // XML, JSX
   attribute: ["jsx_attribute"],

@@ -1,6 +1,6 @@
-from typing import Any
-
 from talon import Module
+
+from .mark_types import Mark
 
 mod = Module()
 
@@ -12,5 +12,5 @@ mod = Module()
         "<user.cursorless_line_number>"  # row (ie absolute mod 100), up, down
     )
 )
-def cursorless_mark(m) -> dict[str, Any]:
+def cursorless_mark(m) -> Mark:
     return m[0]

@@ -1,23 +1,28 @@
 languageId: php
 command:
-  version: 1
+  version: 6
   spokenForm: chuck funk
-  action: remove
-  targets:
-    - type: primitive
-      modifier: {type: containingScope, scopeType: namedFunction, includeSiblings: false}
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: namedFunction}
+  usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
+  documentContents: |
     <?php
 
-    $myFunc = fn() => 'Hello world';
+    $myFunk = fn() => 'Hello world';
   selections:
-    - anchor: {line: 2, character: 25}
-      active: {line: 2, character: 25}
+    - anchor: {line: 2, character: 24}
+      active: {line: 2, character: 24}
   marks: {}
 finalState:
   documentContents: |+
     <?php
+
 
   selections:
     - anchor: {line: 2, character: 0}

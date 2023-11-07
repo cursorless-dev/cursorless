@@ -93,6 +93,7 @@ const nodeMatchers: Partial<
   type: trailingMatcher([
     "generic_type.type_arguments.type_identifier",
     "generic_type.type_identifier",
+    "generic_type.scoped_type_identifier.type_identifier",
     "type_identifier",
     "local_variable_declaration[type]",
     "array_creation_expression[type]",

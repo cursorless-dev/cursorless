@@ -1,0 +1,43 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: place hello after air
+  action:
+    name: replace
+    replaceWith: [hello]
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+spokenFormError: Action 'replace'
+initialState:
+  documentContents: aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: aaa hello
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 4}
+        end: {line: 0, character: 9}
+      isReversed: false
+      hasExplicitRange: true
+  sourceMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: false

@@ -21,7 +21,7 @@ When a token is picking its hat, it will have a pool of available hats based on
 
 - Which hats are enabled,
 - What characters make up the token,
-- Which hats have already been taken by a higher ranked hat.
+- Which hats have already been taken by a higher ranked token.
 
 One of these candidate hats might be the hat the token was already wearing before this pass started (if it had one), and some of them will be hats that lower ranked tokens were wearing before the pass started.
 
