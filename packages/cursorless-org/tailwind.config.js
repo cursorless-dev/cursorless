@@ -49,9 +49,7 @@ const references = JSON.parse(
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [".", ...references].map(
-    (package) => `${package}/src/**/*.{js,ts,jsx,tsx}`,
-  ),
+  content: [".", ...references].map((pkg) => `${pkg}/src/**/*.{js,ts,jsx,tsx}`),
   theme: {
     extend: {
       screens: {

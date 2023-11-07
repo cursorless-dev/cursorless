@@ -23,8 +23,6 @@ trap finish EXIT
 
 outfile="$tmpdir/out.cjs"
 
-echo "Bundling $FILE_TO_RUN to $outfile"
-
 esbuild --sourcemap --log-level=warning --conditions=cursorless:bundler --bundle --format=cjs --platform=node "${FILE_TO_RUN}" --outfile="${outfile}"
 
 # Bundle the TypeScript file using esbuild and execute it with node, passing any additional arguments to node

@@ -18,7 +18,7 @@
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
-    "transform-recorded-tests": "tsx --conditions=cursorless:bundler packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
+    "transform-recorded-tests": "CURSORLESS_REPO_ROOT=. ./packages/common/scripts/my-ts-node.sh packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "tsc --build --watch"
   },
   "keywords": [],
@@ -29,6 +29,7 @@
     "@types/node": "^16.11.3",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
+    "esbuild": "^0.17.11",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "3.5.5",
@@ -36,7 +37,6 @@
     "eslint-plugin-unused-imports": "^3.0.0",
     "prettier": "3.0.3",
     "syncpack": "9.8.4",
-    "tsx": "3.12.3",
     "typescript": "^5.2.2"
   },
   "pnpm": {
