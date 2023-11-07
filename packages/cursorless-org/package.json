@@ -35,7 +35,7 @@
     "autoprefixer": "10.4.13",
     "http-server": "14.1.1",
     "postcss": "8.4.31",
-    "tailwindcss": "3.2.7"
+    "tailwindcss": "3.3.5"
   },
   "license": "MIT",
   "main": "./out/index.js",
@@ -44,6 +44,12 @@
     ".": {
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
     }
   },
   "type": "module"
