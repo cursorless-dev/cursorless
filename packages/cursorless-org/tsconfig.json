@@ -11,7 +11,9 @@
     "jsx": "preserve",
     "incremental": true,
     "rootDir": "src",
-    "outDir": "out"
+    "outDir": "out",
+    "emitDeclarationOnly": false,
+    "noEmit": true
   },
   "include": [
     "src/**/*.ts",
