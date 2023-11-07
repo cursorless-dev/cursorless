@@ -68,7 +68,7 @@
       "name": "Talon tests",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runTalonTests",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
