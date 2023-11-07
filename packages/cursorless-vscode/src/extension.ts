@@ -49,7 +49,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
 import { mkdir } from "fs/promises";
-import { CommandRunner, TestCaseRecorder } from "@cursorless/cursorless-engine";
+import { TestCaseRecorder } from "@cursorless/cursorless-engine";
 import { ReadOnlyHatMap } from "@cursorless/common";
 
 /**

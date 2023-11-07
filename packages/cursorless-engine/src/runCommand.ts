@@ -34,7 +34,7 @@ export async function runCommand(
   storedTargets: StoredTargetMap,
   languageDefinitions: LanguageDefinitions,
   rangeUpdater: RangeUpdater,
-  commandRunnerDecorators: Array<CommandRunnerDecorator>,
+  commandRunnerDecorators: CommandRunnerDecorator[],
   command: Command,
 ): Promise<unknown> {
   if (debug.active) {
