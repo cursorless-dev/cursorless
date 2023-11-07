@@ -101,7 +101,7 @@
       "name": "Unit tests only",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
