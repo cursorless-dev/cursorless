@@ -101,7 +101,7 @@ def insert_custom_snippet(
     }
 
     if scope_types:
-       snippet["scopeTypes"] = scope_types
+        snippet["scopeTypes"] = scope_types
 
     insert_snippet(snippet, destination)
 
