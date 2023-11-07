@@ -1,9 +1,4 @@
-import type {
-  CharacterRange,
-  GeneralizedRange,
-  LineRange,
-  Message,
-} from "..";
+import type { CharacterRange, GeneralizedRange, LineRange } from "..";
 import { FlashStyle, isLineRange } from "..";
 import { Token } from "../types/Token";
 import { Selection } from "../types/Selection";
