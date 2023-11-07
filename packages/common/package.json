@@ -31,5 +31,8 @@
       "default": "./out/index.js"
     }
   },
+  "bin": {
+    "my-ts-node": "./scripts/my-ts-node.sh"
+  },
   "type": "module"
 }

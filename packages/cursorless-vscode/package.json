@@ -1064,7 +1064,7 @@
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify",
-    "populate-dist": "esbuild --conditions=cursorless:bundler --bundle --format=cjs --platform=node ./src/scripts/populateDist/index.ts --outfile=/tmp/populateDist.js && node /tmp/populateDist.js",
+    "populate-dist": "my-ts-node ./src/scripts/populateDist/index.ts",
     "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
     "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",
     "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/add.ts",
