@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# my-ts-node: a script to bundle TypeScript files with esbuild and execute them directly, with optional sourcemaps
+# my-ts-node: a script to bundle TypeScript files with esbuild and execute them directly
 
 # Extract the first argument as the file to run
 FILE_TO_RUN="$1"
@@ -13,24 +13,19 @@ if [ -z "$FILE_TO_RUN" ]; then
   exit 1
 fi
 
-# Check if DEBUG is set and add sourcemaps if it is
-SOURCEMAP_FLAG=""
-if [ -n "${DEBUG:-}" ]; then
-  SOURCEMAP_FLAG="--sourcemap"
-fi
-
 # Generate tmp dir for output and source map
-tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t 'my-ts-node')
+tmpdir="./out/my-ts-node-tmp"
+mkdir -p "$tmpdir"
 function finish {
   rm -rf "$tmpdir"
 }
 trap finish EXIT
 
-outfile="$tmpdir/out.js"
+outfile="$tmpdir/out.cjs"
 
 echo "Bundling $FILE_TO_RUN to $outfile"
 
-esbuild $SOURCEMAP_FLAG --conditions=cursorless:bundler --bundle --platform=node "${FILE_TO_RUN}" --outfile="${outfile}"
+esbuild --sourcemap --log-level=warning --conditions=cursorless:bundler --bundle --format=cjs --platform=node "${FILE_TO_RUN}" --outfile="${outfile}"
 
 # Bundle the TypeScript file using esbuild and execute it with node, passing any additional arguments to node
 node "$outfile" "$@"
