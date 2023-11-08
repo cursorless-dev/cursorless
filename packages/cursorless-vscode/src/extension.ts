@@ -48,6 +48,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
 import { mkdir } from "fs/promises";
+import { TestCaseRecorder } from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -82,13 +83,13 @@ export async function activate(
 
   const {
     commandApi,
-    testCaseRecorder,
     storedTargets,
     hatTokenMap,
     scopeProvider,
     snippets,
     injectIde,
     runIntegrationTests,
+    addCommandRunnerDecorator,
     customSpokenFormGenerator,
   } = createCursorlessEngine(
     treeSitter,
@@ -97,6 +98,9 @@ export async function activate(
     commandServerApi,
     fileSystem,
   );
+
+  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  addCommandRunnerDecorator(testCaseRecorder);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);

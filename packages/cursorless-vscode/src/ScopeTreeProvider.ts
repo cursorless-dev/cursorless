@@ -25,6 +25,8 @@ import {
   ThemeIcon,
   TreeItem,
   TreeItemCollapsibleState,
+  extensions,
+  window,
 } from "vscode";
 import { URI } from "vscode-uri";
 import {
@@ -261,7 +263,22 @@ class ScopeSupportTreeItem extends TreeItem {
         };
 
     if (scopeTypeInfo.isLanguageSpecific) {
-      this.iconPath = new ThemeIcon("code");
+      const languageId = window.activeTextEditor?.document.languageId;
+      if (languageId != null) {
+        const fileExtension = getLanguageExtensionSampleFromLanguageId(
+          window.activeTextEditor!.document.languageId,
+        );
+        if (fileExtension != null) {
+          this.resourceUri = URI.parse(
+            "cursorless-dummy://dummy/dummy" + fileExtension,
+          );
+        }
+      }
+
+      if (this.resourceUri == null) {
+        // Fall back to a generic icon
+        this.iconPath = new ThemeIcon("code");
+      }
     }
   }
 }
@@ -300,3 +317,29 @@ class SupportCategoryTreeItem extends TreeItem {
 }
 
 type MyTreeItem = ScopeSupportTreeItem | SupportCategoryTreeItem;
+
+/**
+ * Get file extension example from vscode [Language Id](https://code.visualstudio.com/docs/languages/identifiers)
+ * Would've been easier with https://github.com/microsoft/vscode/issues/109919
+ * Example:
+ * - 'typescript' => '.ts'
+ * FIXME: Maybe memoise?
+ */
+export function getLanguageExtensionSampleFromLanguageId(
+  languageId: string,
+): string | undefined {
+  for (const extension of extensions.all) {
+    const languages: { id: string; extensions: string[] }[] | undefined =
+      extension.packageJSON?.contributes?.languages;
+
+    if (!languages) {
+      continue;
+    }
+
+    for (const contributedLanguage of languages) {
+      if (contributedLanguage.id === languageId) {
+        return contributedLanguage.extensions[0];
+      }
+    }
+  }
+}

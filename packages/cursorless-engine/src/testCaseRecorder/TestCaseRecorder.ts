@@ -459,6 +459,9 @@ export class TestCaseRecorder {
     readableHatMap: ReadOnlyHatMap,
     runner: CommandRunner,
   ): CommandRunner {
+    if (!this.isActive()) {
+      return runner;
+    }
     return {
       run: async (commandComplete: CommandComplete) => {
         try {
