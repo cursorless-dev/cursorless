@@ -15,9 +15,7 @@ import { processSurroundingPair } from "../surroundingPair";
  * Expand the target until reaching a white space or surrounding pair.
  * If there is no surrounding pair defaults to the non white space sequence
  */
-export class BoundedNonWhitespaceSequenceStage
-  implements ModifierStage
-{
+export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
   constructor(
     private languageDefinitions: LanguageDefinitions,
     private modifierStageFactory: ModifierStageFactory,
