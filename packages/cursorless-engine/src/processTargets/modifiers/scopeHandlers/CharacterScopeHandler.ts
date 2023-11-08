@@ -16,7 +16,7 @@ const SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}\p{Z}\p{C}]/gu;
 
 const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
 
-export default class CharacterScopeHandler extends NestedScopeHandler {
+export class CharacterScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "character" } as const;
   public readonly iterationScopeType = { type: "token" } as const;
 

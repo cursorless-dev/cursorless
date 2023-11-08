@@ -6,7 +6,7 @@ import type {
 import type { ModifierStage } from "../../PipelineStages.types";
 import { NotebookCellTarget } from "../../targets";
 
-export default class implements ModifierStage {
+export class NotebookCellStage implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
   run(target: Target): NotebookCellTarget[] {

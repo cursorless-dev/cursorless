@@ -1,5 +1,5 @@
 import { TextEditor, Position, Direction, Range } from "@cursorless/common";
-import BaseScopeHandler from "./BaseScopeHandler";
+import { BaseScopeHandler } from "./BaseScopeHandler";
 import { TargetScope } from "./scope.types";
 import {
   CustomScopeType,

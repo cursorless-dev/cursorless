@@ -18,7 +18,7 @@ import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages"
 import { OutOfRangeError } from "./targetSequenceUtils";
 import { StoredTargetMap } from "../..";
 
-export default class InstanceStage implements ModifierStage {
+export class InstanceStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private storedTargets: StoredTargetMap,
