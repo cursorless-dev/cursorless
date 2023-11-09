@@ -38,6 +38,12 @@ const config: Configuration = {
         test: /\.(ts|tsx)$/i,
         loader: "ts-loader",
         exclude: ["/node_modules/"],
+        options: {
+          compilerOptions: {
+            noEmit: false,
+            emitDeclarationOnly: false,
+          },
+        },
       },
       {
         test: /\.css$/i,

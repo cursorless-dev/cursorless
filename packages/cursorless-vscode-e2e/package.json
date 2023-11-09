@@ -11,9 +11,9 @@
     }
   },
   "scripts": {
-    "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "watch:esbuild": "pnpm compile --watch"
   },
   "keywords": [],
   "author": "",

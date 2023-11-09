@@ -4,9 +4,10 @@
   "description": "The core Cursorless engine, which is responsible for parsing and executing commands, allocating hats, etc",
   "main": "./out/index.js",
   "scripts": {
-    "compile": "tsc --build",
+    "compile": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "watch:esbuild": "pnpm compile --watch"
   },
   "keywords": [],
   "author": "",

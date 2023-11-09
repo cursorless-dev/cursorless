@@ -5,10 +5,10 @@
   "main": "./out/index.js",
   "scripts": {
     "test": "jest",
-    "compile": "tsc --build",
-    "build": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "watch:esbuild": "pnpm compile --watch"
   },
   "keywords": [],
   "author": "",

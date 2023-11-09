@@ -6,7 +6,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
-    "compile": "tsc --build",
+    "compile": "tsc --build && pnpm -r compile",
     "fix:eslint": "pnpm lint:ts --fix",
     "fix:meta": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "fix:syncpack": "pnpm syncpack fix-mismatches",
@@ -19,7 +19,8 @@
     "test-compile": "tsc --build",
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
     "transform-recorded-tests": "CURSORLESS_REPO_ROOT=. ./packages/common/scripts/my-ts-node.sh packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
-    "watch": "tsc --build --watch"
+    "watch": "tsc --build --watch",
+    "watch:esbuild": "pnpm -r watch:esbuild"
   },
   "keywords": [],
   "author": "",

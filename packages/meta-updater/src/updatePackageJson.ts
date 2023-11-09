@@ -7,6 +7,19 @@ import { readFile } from "fs/promises";
 import { join } from "path";
 
 /**
+ * These are the entrypoints. All other packages are designed to be imported;
+ * these are designed to be run.
+ */
+const APPS = [
+  "@cursorless/cheatsheet-local",
+  "@cursorless/cursorless-org-docs",
+  "@cursorless/cursorless-org",
+  "@cursorless/cursorless-vscode-e2e",
+  "@cursorless/cursorless-vscode",
+  "@cursorless/test-harness",
+];
+
+/**
  * Given a package.json, update it to match our conventions.  This function is
  * called by the pnpm `meta-updater` plugin either to check if the package.json
  * is up to date or to update it, depending on flags.
@@ -38,26 +51,27 @@ export async function updatePackageJson(
       ? input.name
       : `@cursorless/${input.name}`;
 
-  const exportFields: Partial<PackageJson> =
-    isRoot || input.name === "@cursorless/cursorless-vscode"
-      ? {}
-      : {
-          main: "./out/index.js",
-          types: "./out/index.d.ts",
-          exports: {
-            ["."]: {
-              // We add a custom condition called `cursorless:bundler` for use with esbuild to
-              // ensure that it uses source .ts files when importing from another
-              // package in our monorepo.  We use this both for esbuild and for tsx.
-              // See
-              // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
-              // and
-              // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
-              ["cursorless:bundler"]: "./src/index.ts",
-              default: "./out/index.js",
-            },
+  const isLib = !(isRoot || APPS.includes(input.name ?? ""));
+
+  const exportFields: Partial<PackageJson> = !isLib
+    ? {}
+    : {
+        main: "./out/index.js",
+        types: "./out/index.d.ts",
+        exports: {
+          ["."]: {
+            // We add a custom condition called `cursorless:bundler` for use with esbuild to
+            // ensure that it uses source .ts files when importing from another
+            // package in our monorepo.  We use this both for esbuild and for tsx.
+            // See
+            // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
+            // and
+            // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
+            ["cursorless:bundler"]: "./src/index.ts",
+            default: "./out/index.js",
           },
-        };
+        },
+      };
 
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
 
@@ -69,13 +83,19 @@ export async function updatePackageJson(
     ...input,
     name,
     license: "MIT",
-    type: "module",
+    type: name === "@cursorless/cursorless-org-docs" ? undefined : "module",
     scripts: await getScripts(
       input.scripts,
+      name,
       packageDir,
       isRoot,
       isCursorlessVscode,
+      isLib,
     ),
+    devDependencies: {
+      ...(input.devDependencies ?? {}),
+      esbuild: input.devDependencies?.esbuild ?? (isLib ? "0" : undefined),
+    },
     ...exportFields,
     ...extraFields,
   } as PackageJson;
@@ -93,14 +113,28 @@ interface PreCommitConfig {
 
 async function getScripts(
   inputScripts: PackageJson.Scripts | undefined,
+  name: string | undefined,
   packageDir: string,
   isRoot: boolean,
   isCursorlessVscode: boolean,
+  isLib: boolean,
 ) {
+  let compile: string | undefined;
+  if (isLib) {
+    compile =
+      "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js";
+  } else if (isRoot) {
+    compile = "tsc --build && pnpm -r compile";
+  }
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
-    compile: "tsc --build",
+    compile,
     watch: "tsc --build --watch",
+    ...(isLib
+      ? {
+          ["watch:esbuild"]: "pnpm compile --watch",
+        }
+      : {}),
   };
 
   if (isRoot) {
@@ -112,13 +146,16 @@ async function getScripts(
     return scripts;
   }
 
-  const cleanDirs = ["./out", "tsconfig.tsbuildinfo"];
+  const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
 
-  if (isCursorlessVscode) {
-    cleanDirs.push("./dist");
-  }
+  const clean = `rm -rf ${cleanDirs.join(" ")}`;
 
-  scripts.clean = `rm -rf ${cleanDirs.join(" ")}`;
+  const cleanScripts =
+    name === "@cursorless/cursorless-org-docs"
+      ? ["pnpm clear", clean]
+      : [clean];
+
+  scripts.clean = cleanScripts.join(" && ");
 
   return scripts;
 }
@@ -148,9 +185,9 @@ async function getTransformRecordedTestsScript(packageDir: string) {
     );
   }
 
-  const transformRecordedTestsScript = formatRecordedTestsEntry.slice(
-    "pnpm exec ".length,
-  );
+  const transformRecordedTestsScript =
+    "CURSORLESS_REPO_ROOT=. " +
+    formatRecordedTestsEntry.slice("pnpm exec ".length);
 
   return transformRecordedTestsScript;
 }

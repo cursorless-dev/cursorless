@@ -89,8 +89,24 @@
       "group": "test"
     },
     {
+      "label": "watch",
+      "dependsOn": ["Watch esbuild", "Watch typescript"],
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "watch:esbuild",
+      "label": "Watch esbuild",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build"
+    },
+    {
       "type": "npm",
       "script": "watch",
+      "label": "Watch typescript",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
       "presentation": {

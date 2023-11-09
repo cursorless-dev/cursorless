@@ -6,7 +6,6 @@
   "main": "./out/index.js",
   "scripts": {
     "test": "env CURSORLESS_TEST=true my-ts-node src/scripts/runTestsCI.ts",
-    "compile": "tsc --build",
     "build": "pnpm run build:runner && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
     "build:runner": "pnpm run build:base ./src/runners/extensionTests.ts --outfile=dist/extensionTests.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
@@ -14,7 +13,7 @@
     "build:tests": "pnpm run build:base --outdir=dist --out-extension:.js=.cjs $(find .. -name '*.test.ts')",
     "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
     "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
