@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
-/*eslint-env node*/
-
-import { resolve, relative } from "path";
+import type { Config } from "@docusaurus/types";
+import type { Root } from "mdast";
+import { relative, resolve } from "path";
 import { themes } from "prism-react-renderer";
-
+import * as unified from "unified";
+import { visit } from "unist-util-visit";
 
 /**
  * Files within /docs reference repository directories
@@ -20,11 +18,7 @@ import { themes } from "prism-react-renderer";
  * - If anywhere but /docs - link to GitHub.
  */
 function remarkPluginFixLinksToRepositoryArtifacts() {
-  /** @type {import('unified').Transformer} */
-  const transformer = async (ast, file) => {
-    // Package does not support require es modules.
-    // Easiest workaround I found.
-    const { visit } = await import("unist-util-visit");
+  const transformer: unified.Transformer<Root> = async (ast, file) => {
     visit(ast, "link", (node) => {
       const link: string = node.url;
       if (link.startsWith("http://") || link.startsWith("https://")) {
@@ -40,7 +34,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       }
 
       const repoRoot = resolve(__dirname, "../..");
-      const artifact = resolve(file.dirname, link);
+      const artifact = resolve(file.dirname!, link);
       const artifactRelative = relative(repoRoot, artifact);
 
       // We host all files under docs, will resolve as a relative link
@@ -58,8 +52,7 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
   return transformer;
 }
 
-/** @type {import('@docusaurus/types').Config} */
-const config = {
+const config: Config = {
   title: "Cursorless",
   tagline: "Structural voice coding at the speed of thought",
   url: "https://www.cursorless.org",
@@ -72,7 +65,6 @@ const config = {
   presets: [
     [
       "classic",
-      /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
           path: "../../docs",
@@ -94,54 +86,50 @@ const config = {
     ],
   ],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    {
-      navbar: {
-        title: "Cursorless",
-        logo: {
-          alt: "Cursorless",
-          src: "icon.svg",
+  themeConfig: {
+    navbar: {
+      title: "Cursorless",
+      logo: {
+        alt: "Cursorless",
+        src: "icon.svg",
+      },
+      items: [
+        {
+          position: "left",
+          type: "docSidebar",
+          to: "user/",
+          sidebarId: "user",
+          label: "For users",
         },
-        items: [
-          {
-            position: "left",
-            type: "doc",
-            docId: "user/README",
-            to: "user/",
-            sidebarId: "user",
-            label: "For users",
-          },
-          {
-            type: "doc",
-            position: "left",
-            docId: "contributing/CONTRIBUTING",
-            to: "contributing/",
-            sidebarId: "contributing",
-            label: "For contributors",
-          },
-          {
-            href: "https://github.com/cursorless-dev/cursorless",
-            position: "right",
-            className: "header-github-link",
-            "aria-label": "GitHub repository",
-          },
-        ],
-      },
-      prism: {
-        theme: themes.github,
-        darkTheme: themes.dracula,
-        additionalLanguages: ["bash", "diff", "json", "python"],
-      },
-      colorMode: {
-        respectPrefersColorScheme: true,
-      },
-      algolia: {
-        appId: "YTJQ4I3GBJ",
-        apiKey: "2cc808dde95f119a19420ddc2941ee7d",
-        indexName: "cursorless",
-      },
+        {
+          type: "docSidebar",
+          position: "left",
+          to: "contributing/",
+          sidebarId: "contributing",
+          label: "For contributors",
+        },
+        {
+          href: "https://github.com/cursorless-dev/cursorless",
+          position: "right",
+          className: "header-github-link",
+          ["aria-label"]: "GitHub repository",
+        },
+      ],
     },
+    prism: {
+      theme: themes.github,
+      darkTheme: themes.dracula,
+      additionalLanguages: ["bash", "diff", "json", "python"],
+    },
+    colorMode: {
+      respectPrefersColorScheme: true,
+    },
+    algolia: {
+      appId: "YTJQ4I3GBJ",
+      apiKey: "2cc808dde95f119a19420ddc2941ee7d",
+      indexName: "cursorless",
+    },
+  },
 };
 
 export default config;

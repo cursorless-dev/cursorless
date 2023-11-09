@@ -15,7 +15,7 @@
 
 Clone repo into `~/.talon/user`
 
-```insert code:
+```bash
 cd ~/.talon/user
 git clone https://github.com/cursorless-dev/cursorless-talon.git cursorless-talon
 ```
@@ -24,7 +24,7 @@ Alternatively, access the directory by right clicking the Talon icon in taskbar,
 
 The folder structure should look something like the below:
 
-```insert code:
+```bash
 ~/.talon/user/community
 ~/.talon/user/community/apps
 ~/.talon/user/community/code

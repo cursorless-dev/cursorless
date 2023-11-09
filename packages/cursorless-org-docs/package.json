@@ -15,7 +15,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./build"
+    "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./build"
   },
   "dependencies": {
     "@algolia/client-search": "4.15.0",
@@ -31,7 +31,7 @@
     "prism-react-renderer": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "unist-util-visit": "^4.1.2"
+    "unist-util-visit": "^5.0.0"
   },
   "browserslist": {
     "production": [
@@ -47,8 +47,11 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.0.0",
+    "@docusaurus/types": "3.0.0",
     "@tsconfig/docusaurus": "2.0.0",
-    "typescript": "^5.2.2"
+    "@types/mdast": "4.0.3",
+    "typescript": "^5.2.2",
+    "unified": "11.0.4"
   },
   "license": "MIT",
   "main": "./out/index.js",
@@ -58,6 +61,5 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
-  },
-  "type": "module"
+  }
 }
