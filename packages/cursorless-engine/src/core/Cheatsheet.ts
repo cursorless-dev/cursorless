@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "fs/promises";
-import parse from "node-html-parser";
+import { parse } from "node-html-parser";
 import produce from "immer";
 import { sortBy } from "lodash";
 import { ide } from "../singletons/ide.singleton";

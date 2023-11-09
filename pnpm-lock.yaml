@@ -242,8 +242,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       node-html-parser:
-        specifier: ^5.3.3
-        version: 5.4.2
+        specifier: ^6.1.11
+        version: 6.1.11
       sbd:
         specifier: ^1.0.19
         version: 1.0.19
@@ -12332,10 +12332,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /node-html-parser@5.4.2:
-    resolution: {integrity: sha512-RaBPP3+51hPne/OolXxcz89iYvQvKOydaqoePpOgXcrOKZhjVIzmpKZz+Hd/RBO2/zN2q6CNJhQzucVz+u3Jyw==}
+  /node-html-parser@6.1.11:
+    resolution: {integrity: sha512-FAgwwZ6h0DSDWxfD0Iq1tsDcBCxdJB1nXpLPPxX8YyVWzbfCjKWEzaynF4gZZ/8hziUmp7ZSaKylcn0iKhufUQ==}
     dependencies:
-      css-select: 4.3.0
+      css-select: 5.1.0
       he: 1.2.0
     dev: false
 

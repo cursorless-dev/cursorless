@@ -52,5 +52,11 @@
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.11.1"
   },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
   "type": "module"
 }
