@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "webpack": "pnpm compile && NODE_OPTIONS=\"--loader=ts-node/esm --conditions=cursorless:bundler --experimental-specifier-resolution=node\" webpack --config ./src/webpack.config.ts",
+    "webpack": "pnpm compile && NODE_OPTIONS=--loader=ts-node/esm webpack --config ./src/webpack.config.ts",
     "build": "pnpm build:prod",
     "build:dev": "pnpm webpack --mode=development",
     "build:prod": "pnpm webpack --mode=production --node-env=production",
@@ -39,6 +39,7 @@
     "@webpack-cli/generators": "3.0.7",
     "autoprefixer": "10.4.13",
     "css-loader": "6.7.3",
+    "esbuild": "^0.17.11",
     "html-webpack-plugin": "5.5.0",
     "jest": "29.7.0",
     "postcss": "8.4.31",

@@ -92,6 +92,9 @@ importers:
       '@types/react-helmet':
         specifier: 6.1.6
         version: 6.1.6
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@18.18.2)(ts-node@10.9.1)
@@ -147,6 +150,9 @@ importers:
       css-loader:
         specifier: 6.7.3
         version: 6.7.3(webpack@5.89.0)
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
       html-webpack-plugin:
         specifier: 5.5.0
         version: 5.5.0(webpack@5.89.0)
@@ -205,6 +211,9 @@ importers:
       '@types/sinon':
         specifier: ^10.0.2
         version: 10.0.13
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
@@ -257,6 +266,9 @@ importers:
       '@types/sinon':
         specifier: ^10.0.2
         version: 10.0.13
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
       fast-check:
         specifier: 3.12.0
         version: 3.12.0
@@ -318,6 +330,9 @@ importers:
       autoprefixer:
         specifier: 10.4.13
         version: 10.4.13(postcss@8.4.31)
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
       eslint:
         specifier: ^8.38.0
         version: 8.38.0
@@ -394,6 +409,9 @@ importers:
       '@types/mdast':
         specifier: 4.0.3
         version: 4.0.3
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -522,6 +540,9 @@ importers:
       chai:
         specifier: ^4.3.6
         version: 4.3.7
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
@@ -609,6 +630,9 @@ importers:
       '@types/vscode':
         specifier: ~1.66.0
         version: 1.66.0
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
 
 packages:
 
