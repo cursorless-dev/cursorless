@@ -20,7 +20,7 @@
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
     "transform-recorded-tests": "CURSORLESS_REPO_ROOT=. ./packages/common/scripts/my-ts-node.sh packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "tsc --build --watch",
-    "watch:esbuild": "pnpm -r watch:esbuild"
+    "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild"
   },
   "keywords": [],
   "author": "",
