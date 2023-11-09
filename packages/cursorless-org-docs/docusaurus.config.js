@@ -3,9 +3,8 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 /*eslint-env node*/
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-const path = require("path");
+import { resolve, relative } from "path";
+const { themes } = require("prism-react-renderer");
 
 /**
  * Files within /docs reference repository directories
@@ -40,9 +39,9 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         return;
       }
 
-      let repoRoot = path.resolve(__dirname, "../..");
-      let artifact = path.resolve(file.dirname, link);
-      let artifactRelative = path.relative(repoRoot, artifact);
+      let repoRoot = resolve(__dirname, "../..");
+      let artifact = resolve(file.dirname, link);
+      let artifactRelative = relative(repoRoot, artifact);
 
       // We host all files under docs, will resolve as a relative link
       if (artifactRelative.startsWith("docs/")) {
@@ -130,8 +129,9 @@ const config = {
         ],
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: themes.github,
+        darkTheme: themes.dracula,
+        additionalLanguages: ["bash", "diff", "json", "python"],
       },
       colorMode: {
         respectPrefersColorScheme: true,
@@ -144,4 +144,4 @@ const config = {
     }),
 };
 
-module.exports = config;
+export default config;
