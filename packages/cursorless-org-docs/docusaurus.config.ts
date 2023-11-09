@@ -4,7 +4,8 @@
 /*eslint-env node*/
 
 import { resolve, relative } from "path";
-const { themes } = require("prism-react-renderer");
+import { themes } from "prism-react-renderer";
+
 
 /**
  * Files within /docs reference repository directories
@@ -23,10 +24,9 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
   const transformer = async (ast, file) => {
     // Package does not support require es modules.
     // Easiest workaround I found.
-    let { visit } = await import("unist-util-visit");
+    const { visit } = await import("unist-util-visit");
     visit(ast, "link", (node) => {
-      /** @type string */
-      let link = node.url;
+      const link: string = node.url;
       if (link.startsWith("http://") || link.startsWith("https://")) {
         return;
       }
@@ -39,9 +39,9 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
         return;
       }
 
-      let repoRoot = resolve(__dirname, "../..");
-      let artifact = resolve(file.dirname, link);
-      let artifactRelative = relative(repoRoot, artifact);
+      const repoRoot = resolve(__dirname, "../..");
+      const artifact = resolve(file.dirname, link);
+      const artifactRelative = relative(repoRoot, artifact);
 
       // We host all files under docs, will resolve as a relative link
       if (artifactRelative.startsWith("docs/")) {
@@ -73,7 +73,7 @@ const config = {
     [
       "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      {
         docs: {
           path: "../../docs",
           // Followed https://ricard.dev/how-to-set-docs-as-homepage-for-docusaurus/
@@ -90,13 +90,13 @@ const config = {
         theme: {
           customCss: [require.resolve("./src/css/custom.css")],
         },
-      }),
+      },
     ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    {
       navbar: {
         title: "Cursorless",
         logo: {
@@ -141,7 +141,7 @@ const config = {
         apiKey: "2cc808dde95f119a19420ddc2941ee7d",
         indexName: "cursorless",
       },
-    }),
+    },
 };
 
 export default config;
