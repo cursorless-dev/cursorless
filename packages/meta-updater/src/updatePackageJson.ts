@@ -182,7 +182,7 @@ async function getTransformRecordedTestsScript(packageDir: string) {
   }
 
   const transformRecordedTestsScript =
-    "CURSORLESS_REPO_ROOT=. " +
+    "cross-env CURSORLESS_REPO_ROOT=. " +
     formatRecordedTestsEntry.slice("pnpm exec ".length);
 
   return transformRecordedTestsScript;
