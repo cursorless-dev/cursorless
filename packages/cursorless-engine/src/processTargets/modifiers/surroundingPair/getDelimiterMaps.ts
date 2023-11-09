@@ -5,7 +5,7 @@ import {
 
 type IndividualDelimiterText = string | string[];
 
-export const delimiterToText: Record<
+const delimiterToText: Record<
   SimpleSurroundingPairName,
   [IndividualDelimiterText, IndividualDelimiterText]
 > = {
@@ -23,6 +23,22 @@ export const delimiterToText: Record<
   parentheses: [["(", "$("], ")"],
   singleQuotes: ["'", "'"],
   squareBrackets: ["[", "]"],
+};
+
+const delimiterToTextNix: Record<
+  SimpleSurroundingPairName,
+  [IndividualDelimiterText, IndividualDelimiterText]
+> = {
+  ...delimiterToText,
+  singleQuotes: ["''", "''"],
+};
+
+const delimiterToTextLua: Record<
+  SimpleSurroundingPairName,
+  [IndividualDelimiterText, IndividualDelimiterText]
+> = {
+  ...delimiterToText,
+  // FIXME: Add [[ ]] somewhere
 };
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(
@@ -46,3 +62,24 @@ export const complexDelimiterMap: Record<
     "angleBrackets",
   ],
 };
+
+/**
+ * Given a language id, returns a list of all possible delimiters
+ * for that language.
+ * @param languageId The language id
+ * @returns A list of all possible delimiters for that language
+ */
+export function getSimpleDelimiterMap(
+  languageId: string,
+): Record<
+  SimpleSurroundingPairName,
+  [IndividualDelimiterText, IndividualDelimiterText]
+> {
+  if (languageId == "nix") {
+    return delimiterToTextNix;
+  } else if (languageId == "lua") {
+    return delimiterToTextLua;
+  } else {
+    return delimiterToText;
+  }
+}
