@@ -1080,7 +1080,7 @@
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
     "@types/mocha": "^10.0.3",
-    "@types/node": "^18.18.9",
+    "@types/node": "^18.18.2",
     "@types/semver": "^7.3.9",
     "@types/sinon": "^10.0.2",
     "@types/tinycolor2": "1.4.3",
