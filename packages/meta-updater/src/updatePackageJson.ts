@@ -5,6 +5,8 @@ import { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
 import { readFile } from "fs/promises";
 import { join } from "path";
+import { omitByDeep } from "@cursorless/common";
+import { isUndefined } from "lodash";
 
 /**
  * These are the entrypoints. All other packages are designed to be imported;
@@ -79,26 +81,21 @@ export async function updatePackageJson(
     ? getCursorlessVscodeFields(input)
     : {};
 
-  return {
+  const output = {
     ...input,
     name,
     license: "MIT",
     type: name === "@cursorless/cursorless-org-docs" ? undefined : "module",
-    scripts: await getScripts(
-      input.scripts,
-      name,
-      packageDir,
-      isRoot,
-      isCursorlessVscode,
-      isLib,
-    ),
+    scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
     devDependencies: {
       ...(input.devDependencies ?? {}),
       esbuild: input.devDependencies?.esbuild ?? (isLib ? "0" : undefined),
     },
     ...exportFields,
     ...extraFields,
-  } as PackageJson;
+  };
+
+  return omitByDeep(output, isUndefined) as PackageJson;
 }
 
 interface PreCommitConfig {
@@ -116,7 +113,6 @@ async function getScripts(
   name: string | undefined,
   packageDir: string,
   isRoot: boolean,
-  isCursorlessVscode: boolean,
   isLib: boolean,
 ) {
   let compile: string | undefined;
