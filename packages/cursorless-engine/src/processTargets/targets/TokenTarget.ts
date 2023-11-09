@@ -7,7 +7,7 @@ import {
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
-export default class TokenTarget extends BaseTarget<CommonTargetParameters> {
+export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";
   insertionDelimiter = " ";
 

@@ -5,7 +5,7 @@ import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 
-export default class LineTarget extends BaseTarget<CommonTargetParameters> {
+export class LineTarget extends BaseTarget<CommonTargetParameters> {
   type = "LineTarget";
   insertionDelimiter = "\n";
   isLine = true;
