@@ -51,6 +51,7 @@ const config: Configuration = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
+    conditionNames: ["cursorless:bundler"],
   },
 };
 
