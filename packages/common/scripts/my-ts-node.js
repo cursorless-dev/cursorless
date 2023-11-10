@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-/* eslint-disable no-undef */
+// @ts-check
+// Note: type annotations allow type checking and IDEs autocompletion
+/*eslint-env node*/
 import { spawn } from "child_process";
 import { existsSync, mkdirSync, rmdirSync } from "fs";
 import { join } from "path";
@@ -63,7 +65,7 @@ function main() {
       runCommand(process.execPath, [outFile, ...args]);
     } else {
       console.error(`esbuild failed with code ${code}`);
-      process.exit(code);
+      process.exit(code ?? undefined);
     }
   });
 }
