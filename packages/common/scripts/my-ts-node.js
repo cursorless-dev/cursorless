@@ -79,7 +79,8 @@ function main() {
   esbuildProcess.on("close", (code) => {
     if (code === 0) {
       // Execute the bundled file with Node, passing any additional arguments
-      runCommand(process.execPath, [outFile, ...childArgs]);
+      const nodeProcess = runCommand(process.execPath, [outFile, ...childArgs]);
+      nodeProcess.on("close", (code) => process.exit(code ?? undefined));
     } else {
       console.error(`esbuild failed with code ${code}`);
       process.exit(code ?? undefined);
