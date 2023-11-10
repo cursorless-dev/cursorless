@@ -5,7 +5,7 @@
   "main": "./out/index.js",
   "scripts": {
     "compile": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
-    "watch": "pnpm run --parallel '/^watch:.*/'",
+    "watch": "pnpm run --filter @cursorless/vscode-common --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
     "watch:esbuild": "pnpm compile --watch",
     "watch:tsc": "tsc --build --watch"

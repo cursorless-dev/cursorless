@@ -108,7 +108,7 @@ async function getScripts(
     ...(isLib
       ? {
           compile: `esbuild ${LIB_ENTRY_POINT} --sourcemap --format=esm --bundle --packages=external --outfile=${LIB_JS_OUTPUT}`,
-          watch: "pnpm run --parallel '/^watch:.*/'",
+          watch: `pnpm run --filter ${name} --parallel '/^watch:.*/'`,
           ["watch:esbuild"]: "pnpm compile --watch",
         }
       : {}),
