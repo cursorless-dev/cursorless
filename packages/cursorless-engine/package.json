@@ -28,7 +28,6 @@
     "@types/mocha": "^10.0.3",
     "@types/sbd": "^1.0.3",
     "@types/sinon": "^10.0.2",
-    "esbuild": "^0.17.11",
     "fast-check": "3.12.0",
     "js-yaml": "^4.1.0",
     "mocha": "^10.2.0",

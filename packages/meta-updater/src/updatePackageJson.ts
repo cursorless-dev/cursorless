@@ -74,10 +74,6 @@ export async function updatePackageJson(
     license: "MIT",
     type: name === "@cursorless/cursorless-org-docs" ? undefined : "module",
     scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
-    devDependencies: {
-      ...(input.devDependencies ?? {}),
-      esbuild: input.devDependencies?.esbuild ?? (isLib ? "0" : undefined),
-    },
     ...exportFields,
     ...extraFields,
   };
