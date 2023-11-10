@@ -16,8 +16,8 @@ import type { Destination, Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
-  createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeUntypedTarget} from "../targetUtil/createContinuousRangeUntypedTarget";
 import { DestinationImpl } from "./DestinationImpl";
 
 /** Parameters supported by all target classes */

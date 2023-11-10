@@ -1,7 +1,7 @@
 import { Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeUntypedTarget} from "../targetUtil/createContinuousRangeUntypedTarget";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,

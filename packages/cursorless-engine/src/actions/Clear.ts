@@ -1,4 +1,4 @@
-import { PlainTarget } from "../processTargets/targets";
+import { PlainTarget } from "../processTargets/targets/PlainTarget";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { setSelectionsAndFocusEditor } from "../util/setSelectionsAndFocusEditor";
