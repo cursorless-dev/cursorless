@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "webpack": "env NODE_OPTIONS=--loader=ts-node/esm webpack --config ./src/webpack.config.ts",
+    "webpack": "pnpm -w compile && env NODE_OPTIONS=--loader=ts-node/esm webpack --config ./src/webpack.config.ts",
     "build": "pnpm build:prod",
     "build:dev": "pnpm webpack --mode=development",
     "build:prod": "pnpm webpack --mode=production --node-env=production",
