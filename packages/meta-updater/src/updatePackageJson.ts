@@ -1,12 +1,16 @@
-import * as yaml from "js-yaml";
+import { omitByDeep } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import { readFile } from "fs/promises";
+import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
+import { join } from "path";
 import { PackageJson } from "type-fest";
 import { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
-import { readFile } from "fs/promises";
-import { join } from "path";
-import { omitByDeep } from "@cursorless/common";
-import { isUndefined } from "lodash";
+
+const LIB_ENTRY_POINT = "./src/index.ts";
+const LIB_JS_OUTPUT = "./out/index.js";
+const LIB_TS_DECL_OUTPUT = "./out/index.d.ts";
 
 /**
  * Given a package.json, update it to match our conventions.  This function is
@@ -45,8 +49,8 @@ export async function updatePackageJson(
   const exportFields: Partial<PackageJson> = !isLib
     ? {}
     : {
-        main: "./out/index.js",
-        types: "./out/index.d.ts",
+        main: LIB_JS_OUTPUT,
+        types: LIB_TS_DECL_OUTPUT,
         exports: {
           ["."]: {
             // We add a custom condition called `cursorless:bundler` for use with esbuild to
@@ -56,8 +60,8 @@ export async function updatePackageJson(
             // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
             // and
             // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
-            ["cursorless:bundler"]: "./src/index.ts",
-            default: "./out/index.js",
+            ["cursorless:bundler"]: LIB_ENTRY_POINT,
+            default: LIB_JS_OUTPUT,
           },
         },
       };
@@ -100,8 +104,7 @@ async function getScripts(
 ) {
   let compile: string | undefined;
   if (isLib) {
-    compile =
-      "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js";
+    compile = `esbuild ${LIB_ENTRY_POINT} --sourcemap --format=esm --bundle --packages=external --outfile=${LIB_JS_OUTPUT}`;
   } else if (isRoot) {
     compile = "tsc --build && pnpm -r compile";
   }
