@@ -13,7 +13,11 @@ import { join, resolve } from "path";
  * @param {import("child_process").SpawnOptionsWithoutStdio | undefined} [options]
  */
 function runCommand(command, args, options) {
-  return spawn(command, args, { stdio: "inherit", ...options });
+  return spawn(command, args, {
+    stdio: "inherit",
+    shell: process.platform === "win32",
+    ...options,
+  });
 }
 
 // Function to create a temporary directory and return its path
