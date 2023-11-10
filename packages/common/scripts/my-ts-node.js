@@ -79,7 +79,11 @@ function main() {
   esbuildProcess.on("close", (code) => {
     if (code === 0) {
       // Execute the bundled file with Node, passing any additional arguments
-      const nodeProcess = runCommand(process.execPath, [outFile, ...childArgs]);
+      const nodeProcess = runCommand(process.execPath, [
+        "--enable-source-maps",
+        outFile,
+        ...childArgs,
+      ]);
       nodeProcess.on("close", (code) => process.exit(code ?? undefined));
     } else {
       console.error(`esbuild failed with code ${code}`);
