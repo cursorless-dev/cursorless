@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node",
-    "compile": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
     "watch:esbuild": "pnpm compile --watch"

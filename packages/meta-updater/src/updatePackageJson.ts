@@ -9,19 +9,6 @@ import { omitByDeep } from "@cursorless/common";
 import { isUndefined } from "lodash";
 
 /**
- * These are the entrypoints. All other packages are designed to be imported;
- * these are designed to be run.
- */
-const APPS = [
-  "@cursorless/cheatsheet-local",
-  "@cursorless/cursorless-org-docs",
-  "@cursorless/cursorless-org",
-  "@cursorless/cursorless-vscode-e2e",
-  "@cursorless/cursorless-vscode",
-  "@cursorless/test-harness",
-];
-
-/**
  * Given a package.json, update it to match our conventions.  This function is
  * called by the pnpm `meta-updater` plugin either to check if the package.json
  * is up to date or to update it, depending on flags.
@@ -53,7 +40,7 @@ export async function updatePackageJson(
       ? input.name
       : `@cursorless/${input.name}`;
 
-  const isLib = !(isRoot || APPS.includes(input.name ?? ""));
+  const isLib = !isRoot && !input.private;
 
   const exportFields: Partial<PackageJson> = !isLib
     ? {}
