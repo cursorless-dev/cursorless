@@ -65,6 +65,16 @@ function main() {
   process.on("SIGINT", () => cleanupTempDirectory(tempDir));
   process.on("SIGTERM", () => cleanupTempDirectory(tempDir));
 
+  // Canonicalize the file path
+  const filePath = require.resolve(fileToRun);
+
+  // Check that the input file exists
+  if (!existsSync(filePath)) {
+    console.error(`Error: Input file ${filePath} does not exist.`);
+    process.exit(1);
+  }
+  console.log("filePath", filePath);
+
   // Run esbuild to bundle the TypeScript file
   const esbuildProcess = runCommand("esbuild", [
     "--sourcemap",
@@ -73,7 +83,7 @@ function main() {
     "--bundle",
     "--format=cjs",
     "--platform=node",
-    fileToRun,
+    filePath,
     "--outfile=" + outFile,
   ]);
 
