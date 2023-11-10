@@ -102,18 +102,13 @@ async function getScripts(
   isRoot: boolean,
   isLib: boolean,
 ) {
-  let compile: string | undefined;
-  if (isLib) {
-    compile = `esbuild ${LIB_ENTRY_POINT} --sourcemap --format=esm --bundle --packages=external --outfile=${LIB_JS_OUTPUT}`;
-  } else if (isRoot) {
-    compile = "tsc --build && pnpm -r compile";
-  }
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
-    compile,
-    watch: "tsc --build --watch",
+    ["watch:tsc"]: "tsc --build --watch",
     ...(isLib
       ? {
+          compile: `esbuild ${LIB_ENTRY_POINT} --sourcemap --format=esm --bundle --packages=external --outfile=${LIB_JS_OUTPUT}`,
+          watch: "pnpm run --parallel '/^watch:.*/'",
           ["watch:esbuild"]: "pnpm compile --watch",
         }
       : {}),

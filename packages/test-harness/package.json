@@ -12,10 +12,11 @@
     "build:talon": "pnpm run build:base ./src/scripts/runTalonTests.ts --outfile=dist/runTalonTests.cjs",
     "build:tests": "pnpm run build:base --outdir=dist --out-extension:.js=.cjs $(find .. -name '*.test.ts')",
     "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
-    "watch": "tsc --build --watch",
+    "watch": "pnpm run --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
     "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
-    "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
+    "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists",
+    "watch:tsc": "tsc --build --watch"
   },
   "keywords": [],
   "author": "",

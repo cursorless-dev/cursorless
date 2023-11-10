@@ -1069,8 +1069,9 @@
     "preprocess-svg-hats": "my-ts-node src/scripts/preprocessSvgHats.ts",
     "hat-adjustment-add": "my-ts-node src/scripts/hatAdjustments/add.ts",
     "hat-adjustment-average": "my-ts-node src/scripts/hatAdjustments/average.ts",
-    "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "watch": "pnpm run --parallel '/^watch:.*/'",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "watch:tsc": "tsc --build --watch"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",

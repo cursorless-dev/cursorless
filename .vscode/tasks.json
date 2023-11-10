@@ -105,7 +105,7 @@
     },
     {
       "type": "npm",
-      "script": "watch",
+      "script": "watch:tsc",
       "label": "Watch typescript",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,

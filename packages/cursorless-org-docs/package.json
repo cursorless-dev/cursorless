@@ -13,8 +13,9 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "watch": "tsc --build --watch",
-    "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "watch": "pnpm run --parallel '/^watch:.*/'",
+    "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "watch:tsc": "tsc --build --watch"
   },
   "dependencies": {
     "@algolia/client-search": "4.15.0",

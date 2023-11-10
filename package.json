@@ -19,8 +19,9 @@
     "test-compile": "tsc --build",
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
     "transform-recorded-tests": "env CURSORLESS_REPO_ROOT=. ./packages/common/scripts/my-ts-node.sh packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
-    "watch": "tsc --build --watch",
-    "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild"
+    "watch": "pnpm run -w --parallel '/^watch:.*/'",
+    "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild",
+    "watch:tsc": "tsc --build --watch"
   },
   "keywords": [],
   "author": "",

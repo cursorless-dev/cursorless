@@ -11,9 +11,10 @@
     }
   },
   "scripts": {
-    "watch": "tsc --build --watch",
+    "watch": "pnpm run --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "watch:esbuild": "pnpm compile --watch"
+    "watch:esbuild": "pnpm compile --watch",
+    "watch:tsc": "tsc --build --watch"
   },
   "keywords": [],
   "author": "",

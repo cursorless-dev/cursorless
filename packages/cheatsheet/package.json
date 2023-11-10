@@ -6,9 +6,10 @@
   "scripts": {
     "test": "jest",
     "compile": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
-    "watch": "tsc --build --watch",
+    "watch": "pnpm run --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "watch:esbuild": "pnpm compile --watch"
+    "watch:esbuild": "pnpm compile --watch",
+    "watch:tsc": "tsc --build --watch"
   },
   "keywords": [],
   "author": "",
