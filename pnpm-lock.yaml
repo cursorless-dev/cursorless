@@ -205,9 +205,6 @@ importers:
       '@types/sinon':
         specifier: ^10.0.2
         version: 10.0.13
-      esbuild:
-        specifier: ^0.17.11
-        version: 0.17.11
       js-yaml:
         specifier: ^4.1.0
         version: 4.1.0
