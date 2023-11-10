@@ -11,7 +11,7 @@
     "build:runner": "pnpm run build:base ./src/runners/extensionTests.ts --outfile=dist/extensionTests.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
     "build:talon": "pnpm run build:base ./src/scripts/runTalonTests.ts --outfile=dist/runTalonTests.cjs",
-    "build:tests": "./scripts/build-tests.sh",
+    "build:tests": "bash ./scripts/build-tests.sh",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
