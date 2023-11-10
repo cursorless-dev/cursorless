@@ -10,7 +10,7 @@
     "build:runner": "pnpm run build:base ./src/runners/extensionTests.ts --outfile=dist/extensionTests.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
     "build:talon": "pnpm run build:base ./src/scripts/runTalonTests.ts --outfile=dist/runTalonTests.cjs",
-    "build:tests": "pnpm run build:base --outdir=dist --out-extension:.js=.cjs $(find .. -name '*.test.ts')",
+    "build:tests": "./scripts/build-tests.sh",
     "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
