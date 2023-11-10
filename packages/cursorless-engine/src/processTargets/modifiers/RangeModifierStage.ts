@@ -2,7 +2,7 @@ import { RangeModifier } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
-import { targetsToContinuousTarget } from "../TargetPipelineRunner";
+import {targetsToContinuousTarget} from "../../util/targetsToContinuousTarget";
 
 export class RangeModifierStage implements ModifierStage {
   constructor(
