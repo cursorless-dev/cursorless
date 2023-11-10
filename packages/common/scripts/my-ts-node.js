@@ -4,7 +4,7 @@
 /*eslint-env node*/
 import { spawn } from "child_process";
 import { existsSync, mkdirSync, rmdirSync } from "fs";
-import { join } from "path";
+import { join, resolve } from "path";
 
 // Function to run a command with arguments and return a child process
 /**
@@ -66,7 +66,7 @@ function main() {
   process.on("SIGTERM", () => cleanupTempDirectory(tempDir));
 
   // Canonicalize the file path
-  const filePath = require.resolve(fileToRun);
+  const filePath = resolve(fileToRun);
 
   // Check that the input file exists
   if (!existsSync(filePath)) {
