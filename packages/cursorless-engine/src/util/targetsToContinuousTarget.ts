@@ -1,6 +1,4 @@
 import {Target} from "../typings/target.types";
-import {ensureSingleEditor, calcIsReversed} from "../processTargets/TargetPipelineRunner";
-
 
 export function targetsToContinuousTarget(
   anchorTarget: Target,
@@ -23,3 +21,20 @@ export function targetsToContinuousTarget(
     !excludeEnd
   );
 }
+
+export function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
+  if (anchorTarget.editor !== activeTarget.editor) {
+    throw new Error("Cannot form range between targets in different editors");
+  }
+}
+
+export function calcIsReversed(anchor: Target, active: Target) {
+  if (anchor.contentRange.start.isAfter(active.contentRange.start)) {
+    return true;
+  }
+  if (anchor.contentRange.start.isBefore(active.contentRange.start)) {
+    return false;
+  }
+  return anchor.contentRange.end.isAfter(active.contentRange.end);
+}
+
