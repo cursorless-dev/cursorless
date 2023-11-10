@@ -30,7 +30,7 @@ function main() {
   // Check if the input file is specified
   if (args.length === 0) {
     console.error("Error: No input file specified.");
-    console.error("Usage: node myTsNode.js <file.ts> [script args...]");
+    console.error("Usage: my-ts-node <file.ts> [script args...]");
     process.exit(1);
   }
 
