@@ -4,13 +4,13 @@
   "description": "The core Cursorless engine, which is responsible for parsing and executing commands, allocating hats, etc",
   "main": "./out/index.js",
   "scripts": {
-    "compile": "pnpm compile:esbuild && pnpm compile:tsc",
-    "watch": "pnpm run --filter @cursorless/cursorless-engine --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "watch:esbuild": "pnpm compile:esbuild --watch",
-    "watch:tsc": "pnpm compile:esbuild --watch",
+    "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
-    "compile:tsc": "tsc --build"
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/cursorless-engine --parallel '/^watch:.*/'"
   },
   "keywords": [],
   "author": "",
