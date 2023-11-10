@@ -104,11 +104,11 @@ async function getScripts(
 ) {
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
-    ["watch:tsc"]: "tsc --build --watch",
     ...(isLib
       ? {
           compile: `esbuild ${LIB_ENTRY_POINT} --sourcemap --format=esm --bundle --packages=external --outfile=${LIB_JS_OUTPUT}`,
           watch: `pnpm run --filter ${name} --parallel '/^watch:.*/'`,
+          ["watch:tsc"]: "tsc --build --watch",
           ["watch:esbuild"]: "pnpm compile --watch",
         }
       : {}),
