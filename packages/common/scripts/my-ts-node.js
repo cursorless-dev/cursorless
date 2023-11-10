@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // @ts-check
 /*eslint-env node*/
+// This script runs a TypeScript file using Node.js by first bundling it with
+// esbuild.
 import { spawn } from "child_process";
 import { existsSync, mkdirSync, rmdirSync } from "fs";
 import { join } from "path";
