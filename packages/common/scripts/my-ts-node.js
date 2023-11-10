@@ -7,11 +7,19 @@ import { existsSync, mkdirSync, rmdirSync } from "fs";
 import { join } from "path";
 
 // Function to run a command with arguments and return a child process
+/**
+ * @param {string} command
+ * @param {readonly string[]} args
+ * @param {import("child_process").SpawnOptionsWithoutStdio | undefined} [options]
+ */
 function runCommand(command, args, options) {
   return spawn(command, args, { stdio: "inherit", ...options });
 }
 
 // Function to create a temporary directory and return its path
+/**
+ * @param {string} baseDir
+ */
 function createTempDirectory(baseDir) {
   const tempDir = join(baseDir, "out/my-ts-node-tmp");
   if (!existsSync(tempDir)) {
@@ -21,6 +29,9 @@ function createTempDirectory(baseDir) {
 }
 
 // Function to clean up the temporary directory
+/**
+ * @param {import("fs").PathLike} tempDir
+ */
 function cleanupTempDirectory(tempDir) {
   if (existsSync(tempDir)) {
     rmdirSync(tempDir, { recursive: true });
@@ -38,6 +49,13 @@ function main() {
     process.exit(1);
   }
 
+  // Print PATH for debugging
+  console.log(process.env.PATH);
+
+  // Tell typescript this can't be undefined
+  /** @type {string} */
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const fileToRun = args.shift();
   const tempDir = createTempDirectory(process.cwd());
   const outFile = join(tempDir, "out.cjs");
