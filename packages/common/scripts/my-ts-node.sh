@@ -14,6 +14,9 @@ if [ -z "$FILE_TO_RUN" ]; then
 fi
 
 # Generate tmp dir for output and source map
+#
+# Note that it's important for the tmpdir to be within the project root,
+# otherwise VSCode will ignore source maps and breakpoints won't work
 tmpdir="./out/my-ts-node-tmp"
 mkdir -p "$tmpdir"
 function finish {
