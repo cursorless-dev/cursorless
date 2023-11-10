@@ -5,10 +5,8 @@
   "private": true,
   "scripts": {
     "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node",
-    "watch": "pnpm run --parallel '/^watch:.*/'",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "watch:esbuild": "pnpm compile --watch",
-    "watch:tsc": "tsc --build --watch"
+    "watch:tsc": "tsc --build --watch",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
