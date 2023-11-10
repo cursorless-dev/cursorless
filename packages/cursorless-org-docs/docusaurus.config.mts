@@ -20,7 +20,7 @@ import { visit } from "unist-util-visit";
 function remarkPluginFixLinksToRepositoryArtifacts() {
   const transformer: unified.Transformer<Root> = async (ast, file) => {
     visit(ast, "link", (node) => {
-      const link: string = node.url;
+      const link = node.url;
       if (link.startsWith("http://") || link.startsWith("https://")) {
         return;
       }

@@ -5,15 +5,15 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "noEmit": true,
+    "emitDeclarationOnly": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
     "rootDir": "src",
-    "outDir": "out",
-    "emitDeclarationOnly": false,
-    "noEmit": true
+    "outDir": "out"
   },
   "include": [
     "src/**/*.ts",
