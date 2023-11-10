@@ -5,7 +5,7 @@
   "private": true,
   "main": "./out/index.js",
   "scripts": {
-    "test": "env CURSORLESS_TEST=true my-ts-node src/scripts/runTestsCI.ts",
+    "test": "pnpm build:base ./src/scripts/runTestsCI.ts --outfile=dist/runTestsCI.cjs && env CURSORLESS_TEST=true node dist/runTestsCI.cjs",
     "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
     "build": "pnpm run build:runner && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
     "build:runner": "pnpm run build:base ./src/runners/extensionTests.ts --outfile=dist/extensionTests.cjs",
