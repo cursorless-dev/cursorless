@@ -1,27 +1,24 @@
 #!/usr/bin/env node
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 /*eslint-env node*/
 import { spawn } from "child_process";
 import { existsSync, mkdirSync, rmdirSync } from "fs";
-import { join, resolve } from "path";
+import { join } from "path";
 
-// Function to run a command with arguments and return a child process
 /**
+ * Run a command with arguments and return a child process
  * @param {string} command
- * @param {readonly string[]} args
- * @param {import("child_process").SpawnOptionsWithoutStdio | undefined} [options]
+ * @param {string[]} args
  */
-function runCommand(command, args, options) {
+function runCommand(command, args) {
   return spawn(command, args, {
     stdio: "inherit",
     shell: process.platform === "win32",
-    ...options,
   });
 }
 
-// Function to create a temporary directory and return its path
 /**
+ * Create a temporary directory and return its path
  * @param {string} baseDir
  */
 function createTempDirectory(baseDir) {
@@ -32,8 +29,8 @@ function createTempDirectory(baseDir) {
   return tempDir;
 }
 
-// Function to clean up the temporary directory
 /**
+ * Clean up the temporary directory
  * @param {import("fs").PathLike} tempDir
  */
 function cleanupTempDirectory(tempDir) {
@@ -53,14 +50,10 @@ function main() {
     process.exit(1);
   }
 
-  // Print PATH for debugging
-  console.log(process.env.PATH);
+  const [fileToRun, ...childArgs] = args;
 
-  // Tell typescript this can't be undefined
-  /** @type {string} */
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const fileToRun = args.shift();
+  // Note that the temporary directory must be in the workspace root, otherwise
+  // VSCode will ignore the source maps, and breakpoints will not work.
   const tempDir = createTempDirectory(process.cwd());
   const outFile = join(tempDir, "out.cjs");
 
@@ -68,16 +61,6 @@ function main() {
   process.on("exit", () => cleanupTempDirectory(tempDir));
   process.on("SIGINT", () => cleanupTempDirectory(tempDir));
   process.on("SIGTERM", () => cleanupTempDirectory(tempDir));
-
-  // Canonicalize the file path
-  const filePath = resolve(fileToRun);
-
-  // Check that the input file exists
-  if (!existsSync(filePath)) {
-    console.error(`Error: Input file ${filePath} does not exist.`);
-    process.exit(1);
-  }
-  console.log("filePath", filePath);
 
   // Run esbuild to bundle the TypeScript file
   const esbuildProcess = runCommand("esbuild", [
@@ -87,14 +70,14 @@ function main() {
     "--bundle",
     "--format=cjs",
     "--platform=node",
-    filePath,
+    fileToRun,
     "--outfile=" + outFile,
   ]);
 
   esbuildProcess.on("close", (code) => {
     if (code === 0) {
       // Execute the bundled file with Node, passing any additional arguments
-      runCommand(process.execPath, [outFile, ...args]);
+      runCommand(process.execPath, [outFile, ...childArgs]);
     } else {
       console.error(`esbuild failed with code ${code}`);
       process.exit(code ?? undefined);
