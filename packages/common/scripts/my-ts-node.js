@@ -20,7 +20,9 @@ function createTempDirectory(baseDir) {
 
 // Function to clean up the temporary directory
 function cleanupTempDirectory(tempDir) {
-  rmdirSync(tempDir, { recursive: true, force: true });
+  if (fs.existsSync(tempDir)) {
+    fs.rmdirSync(tempDir, { recursive: true });
+  }
 }
 
 // Main function to execute the script
