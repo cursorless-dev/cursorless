@@ -84,7 +84,7 @@
       "name": "Talon tests subset",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runTalonTests",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
@@ -160,7 +160,7 @@
       "name": "Update fixtures, unit tests only",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
