@@ -8,9 +8,9 @@
     "build": "next build && next export",
     "start": "http-server out -a 127.0.0.1 -p 8080",
     "lint": "next lint",
-    "watch": "pnpm run --parallel '/^watch:.*/'",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "watch:tsc": "tsc --build --watch"
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
