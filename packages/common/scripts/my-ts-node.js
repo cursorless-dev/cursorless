@@ -20,7 +20,7 @@ function createTempDirectory(baseDir) {
 
 // Function to clean up the temporary directory
 function cleanupTempDirectory(tempDir) {
-  rmdirSync(tempDir, { recursive: true });
+  rmdirSync(tempDir, { recursive: true, force: true });
 }
 
 // Main function to execute the script
