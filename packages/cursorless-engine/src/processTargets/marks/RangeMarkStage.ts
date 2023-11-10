@@ -2,7 +2,7 @@ import { RangeMark } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { MarkStageFactory } from "../MarkStageFactory";
 import { MarkStage } from "../PipelineStages.types";
-import {targetsToContinuousTarget} from "../../util/targetsToContinuousTarget";
+import { targetsToContinuousTarget } from "../../util/targetsToContinuousTarget";
 
 export class RangeMarkStage implements MarkStage {
   constructor(
