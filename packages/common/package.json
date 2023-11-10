@@ -36,7 +36,7 @@
     }
   },
   "bin": {
-    "my-ts-node": "./scripts/my-ts-node.sh"
+    "my-ts-node": "bash ./scripts/my-ts-node.sh"
   },
   "type": "module"
 }
