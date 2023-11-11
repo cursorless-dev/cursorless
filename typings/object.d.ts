@@ -1,15 +1,4 @@
-// From https://fettblog.eu/typescript-better-object-keys/
-type ObjectKeys<T> = T extends object
-  ? (keyof T)[]
-  : T extends number
-  ? []
-  : T extends Array<any> | string
-  ? string[]
-  : never;
-
 interface ObjectConstructor {
-  keys<T>(o: T): ObjectKeys<T>;
-
   fromEntries<
     V extends PropertyKey,
     T extends [readonly [V, any]] | Array<readonly [V, any]>,

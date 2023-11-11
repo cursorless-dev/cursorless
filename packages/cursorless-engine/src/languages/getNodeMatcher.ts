@@ -52,7 +52,7 @@ export function getNodeMatcher(
 
 export const languageMatchers: Record<
   LegacyLanguageId,
-  Record<SimpleScopeTypeType, NodeMatcher>
+  Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
   c: cpp,
   cpp,
