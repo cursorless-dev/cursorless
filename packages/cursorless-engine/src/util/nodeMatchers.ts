@@ -21,6 +21,7 @@ import {
   simpleSelectionExtractor,
   unwrapSelectionExtractor,
 } from "./nodeSelectors";
+import { unsafeKeys } from "./object";
 
 export function matcher(
   finder: NodeFinder,
@@ -177,14 +178,19 @@ export const notSupported: NodeMatcher = (
 
 export function createPatternMatchers(
   nodeMatchers: Partial<Record<SimpleScopeTypeType, NodeMatcherAlternative>>,
-): Record<SimpleScopeTypeType, NodeMatcher> {
-  Object.keys(nodeMatchers).forEach((scopeType: SimpleScopeTypeType) => {
-    const matcher = nodeMatchers[scopeType];
-    if (Array.isArray(matcher)) {
-      nodeMatchers[scopeType] = patternMatcher(...matcher);
-    } else if (typeof matcher === "string") {
-      nodeMatchers[scopeType] = patternMatcher(matcher);
-    }
-  });
-  return nodeMatchers as Record<SimpleScopeTypeType, NodeMatcher>;
+): Partial<Record<SimpleScopeTypeType, NodeMatcher>> {
+  return Object.freeze(
+    Object.fromEntries(
+      unsafeKeys(nodeMatchers).map((scopeType: SimpleScopeTypeType) => {
+        const matcher = nodeMatchers[scopeType];
+        if (Array.isArray(matcher)) {
+          return [scopeType, patternMatcher(...matcher)];
+        } else if (typeof matcher === "string") {
+          return [scopeType, patternMatcher(matcher)];
+        } else {
+          return [scopeType, matcher];
+        }
+      }),
+    ),
+  );
 }

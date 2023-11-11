@@ -159,7 +159,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ? undefined
       : marksToPlainObject(
           extractTargetedMarks(
-            Object.keys(fixture.finalState.marks) as string[],
+            Object.keys(fixture.finalState.marks),
             readableHatMap,
           ),
         );
