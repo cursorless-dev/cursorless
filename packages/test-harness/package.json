@@ -15,8 +15,8 @@
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
-    "generate-test-subset-file": "env CURSORLESS_REPO_ROOT=../.. my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
-    "generate-test-subset-file-strict": "env CURSORLESS_REPO_ROOT=../.. my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
+    "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
+    "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
   "keywords": [],
   "author": "",

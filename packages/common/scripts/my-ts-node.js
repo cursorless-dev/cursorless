@@ -4,17 +4,23 @@
 // This script runs a TypeScript file using Node.js by first bundling it with
 // esbuild.
 import { spawn } from "cross-spawn";
-import { existsSync, mkdirSync, rmdirSync } from "fs";
-import { join } from "path";
+import { existsSync, mkdirSync, rmdirSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
 /**
  * Run a command with arguments and return a child process
  * @param {string} command
  * @param {string[]} args
+ * @param {NodeJS.ProcessEnv?} extraEnv
  */
-function runCommand(command, args) {
+function runCommand(command, args, extraEnv = {}) {
   return spawn(command, args, {
     stdio: "inherit",
+    env: {
+      ...process.env,
+      ...extraEnv,
+    },
   });
 }
 
@@ -78,11 +84,18 @@ function main() {
   esbuildProcess.on("close", (code) => {
     if (code === 0) {
       // Execute the bundled file with Node, passing any additional arguments
-      const nodeProcess = runCommand(process.execPath, [
-        "--enable-source-maps",
-        outFile,
-        ...childArgs,
-      ]);
+      const nodeProcess = runCommand(
+        process.execPath,
+        ["--enable-source-maps", outFile, ...childArgs],
+        {
+          ["CURSORLESS_REPO_ROOT"]: join(
+            dirname(fileURLToPath(import.meta.url)),
+            "..",
+            "..",
+            "..",
+          ),
+        },
+      );
       nodeProcess.on("close", (code) => process.exit(code ?? undefined));
     } else {
       console.error(`esbuild failed with code ${code}`);
