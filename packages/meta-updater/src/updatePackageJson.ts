@@ -164,9 +164,9 @@ async function getTransformRecordedTestsScript(packageDir: string) {
     );
   }
 
-  const transformRecordedTestsScript =
-    "env CURSORLESS_REPO_ROOT=. " +
-    formatRecordedTestsEntry.slice("pnpm exec ".length);
+  const transformRecordedTestsScript = formatRecordedTestsEntry.slice(
+    "pnpm exec ".length,
+  );
 
   return transformRecordedTestsScript;
 }
