@@ -20,17 +20,6 @@ class NotType extends QueryPredicateOperator<NotType> {
 }
 
 /**
- * A predicate operator that returns true if the nodes range is not empty.
- */
-class NotEmpty extends QueryPredicateOperator<NotEmpty> {
-  name = "not-empty?" as const;
-  schema = z.tuple([q.node]);
-  run({ range }: MutableQueryCapture) {
-    return !range.isEmpty;
-  }
-}
-
-/**
  * A predicate operator that returns true if the node's parent is not of the
  * given type. For example, `(not-parent-type? @foo string)` will reject the
  * match if the `@foo` capture is a child of a `string` node. It is acceptable
@@ -229,7 +218,6 @@ export const queryPredicateOperators = [
   new Log(),
   new NotType(),
   new TrimEnd(),
-  new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),

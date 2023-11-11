@@ -6,7 +6,7 @@ import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
-export default class IdentifierScopeHandler extends NestedScopeHandler {
+export class IdentifierScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "identifier" } as const;
   public readonly iterationScopeType = { type: "line" } as const;
 

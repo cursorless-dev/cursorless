@@ -1,10 +1,4 @@
-import type {
-  CharacterRange,
-  GeneralizedRange,
-  LineRange,
-  Message,
-  SpyIDERecordedValues,
-} from "..";
+import type { CharacterRange, GeneralizedRange, LineRange } from "..";
 import { FlashStyle, isLineRange } from "..";
 import { Token } from "../types/Token";
 import { Selection } from "../types/Selection";
@@ -27,20 +21,14 @@ export type CharacterRangePlainObject = {
 
 export type GeneralizedRangePlainObject = CharacterRangePlainObject | LineRange;
 
-interface PlainFlashDescriptor {
+export interface PlainFlashDescriptor {
   style: keyof typeof FlashStyle;
   range: GeneralizedRangePlainObject;
 }
 
-interface PlainHighlight {
+export interface PlainHighlight {
   highlightId: string | undefined;
   ranges: GeneralizedRangePlainObject[];
-}
-
-export interface PlainSpyIDERecordedValues {
-  messages: Message[] | undefined;
-  flashes: PlainFlashDescriptor[] | undefined;
-  highlights: PlainHighlight[] | undefined;
 }
 
 export type SelectionPlainObject = {
@@ -146,23 +134,5 @@ export function characterRangeToPlainObject(
     type: "character",
     start: positionToPlainObject(range.start),
     end: positionToPlainObject(range.end),
-  };
-}
-
-export function spyIDERecordedValuesToPlainObject(
-  input: SpyIDERecordedValues,
-): PlainSpyIDERecordedValues {
-  return {
-    messages: input.messages,
-    flashes: input.flashes?.map((descriptor) => ({
-      style: descriptor.style,
-      range: generalizedRangeToPlainObject(descriptor.range),
-    })),
-    highlights: input.highlights?.map((highlight) => ({
-      highlightId: highlight.highlightId,
-      ranges: highlight.ranges.map((range) =>
-        generalizedRangeToPlainObject(range),
-      ),
-    })),
   };
 }

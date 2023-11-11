@@ -6,12 +6,12 @@ import {
   isTesting,
   NormalizedIDE,
   Range,
+  ScopeProvider,
   ScopeType,
   TextDocument,
 } from "@cursorless/common";
 import {
   createCursorlessEngine,
-  ScopeProvider,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -21,6 +21,9 @@ import {
   ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
+import * as crypto from "crypto";
+import * as os from "os";
+import * as path from "path";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
@@ -35,6 +38,8 @@ import {
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
+import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
+import { ScopeTreeProvider } from "./ScopeTreeProvider";
 import {
   ScopeVisualizer,
   ScopeVisualizerListener,
@@ -42,6 +47,8 @@ import {
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
+import { mkdir } from "fs/promises";
+import { TestCaseRecorder } from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -76,13 +83,14 @@ export async function activate(
 
   const {
     commandApi,
-    testCaseRecorder,
     storedTargets,
     hatTokenMap,
     scopeProvider,
     snippets,
     injectIde,
     runIntegrationTests,
+    addCommandRunnerDecorator,
+    customSpokenFormGenerator,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde,
@@ -91,9 +99,24 @@ export async function activate(
     fileSystem,
   );
 
+  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  addCommandRunnerDecorator(testCaseRecorder);
+
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
   const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
+  context.subscriptions.push(
+    revisualizeOnCustomRegexChange(scopeVisualizer, scopeProvider),
+  );
+
+  new ScopeTreeProvider(
+    vscodeApi,
+    context,
+    scopeProvider,
+    scopeVisualizer,
+    customSpokenFormGenerator,
+    commandServerApi != null,
+  );
 
   registerCommands(
     context,
@@ -115,6 +138,8 @@ export async function activate(
           hatTokenMap,
           vscodeIDE,
           normalizedIde as NormalizedIDE,
+          fileSystem.cursorlessTalonStateJsonPath,
+          scopeProvider,
           injectIde,
           runIntegrationTests,
         )
@@ -131,6 +156,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
 
   const hats = new VscodeHats(
     vscodeIDE,
+    vscodeApi,
     context,
     vscodeIDE.runMode === "test"
       ? new FakeFontMeasurements()
@@ -138,7 +164,16 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
+  // FIXME: Inject this from test harness. Would need to arrange to delay
+  // extension initialization, probably by returning a function from extension
+  // init that has parameters consisting of test configuration, and have that
+  // function do the actual initialization.
+  const cursorlessDir = isTesting()
+    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+    : path.join(os.homedir(), ".cursorless");
+  await mkdir(cursorlessDir, { recursive: true });
+
+  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem(cursorlessDir) };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

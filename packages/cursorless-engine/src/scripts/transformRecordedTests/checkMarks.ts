@@ -27,9 +27,7 @@ export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
     ...(originalFixture.marksToCheck ?? []),
   ];
 
-  const actualMarks = Object.keys(
-    originalFixture.initialState.marks ?? {},
-  ) as string[];
+  const actualMarks = Object.keys(originalFixture.initialState.marks ?? {});
 
   assert.deepStrictEqual(
     uniq(actualMarks.map(normalizeGraphemes)).sort(),

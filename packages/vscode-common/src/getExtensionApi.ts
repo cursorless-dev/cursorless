@@ -5,6 +5,7 @@ import type {
   HatTokenMap,
   IDE,
   NormalizedIDE,
+  ScopeProvider,
   SerializedMarks,
   SnippetMap,
   TargetPlainObject,
@@ -18,6 +19,8 @@ import { VscodeApi } from "./VscodeApi";
 export interface TestHelpers {
   ide: NormalizedIDE;
   injectIde: (ide: IDE) => void;
+
+  scopeProvider: ScopeProvider;
 
   hatTokenMap: HatTokenMap;
 
@@ -43,6 +46,8 @@ export interface TestHelpers {
   ): Promise<TestCaseSnapshot>;
 
   runIntegrationTests(): Promise<void>;
+
+  cursorlessTalonStateJsonPath: string;
 
   /**
    * A thin wrapper around the VSCode API that allows us to mock it for testing.
@@ -84,8 +89,9 @@ export async function getExtensionApiStrict<T>(extensionId: string) {
   return (await extension.activate()) as T;
 }
 
+export const EXTENSION_ID = "pokey.cursorless";
 export const getCursorlessApi = () =>
-  getExtensionApiStrict<CursorlessApi>("pokey.cursorless");
+  getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
 
 export const getParseTreeApi = () =>
   getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");

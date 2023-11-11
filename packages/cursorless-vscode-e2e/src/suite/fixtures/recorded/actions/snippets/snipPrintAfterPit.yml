@@ -1,0 +1,47 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: snip print after pit
+  action:
+    name: insertSnippet
+    snippetDescription:
+      type: custom
+      body: print($0)
+      scopeTypes:
+        - {type: namedFunction}
+        - {type: statement}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: p}
+  usePrePhraseSnapshot: true
+spokenFormError: Custom insertion snippet
+initialState:
+  documentContents: |
+    def my_funk():
+        print("allow")
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.p:
+      start: {line: 1, character: 4}
+      end: {line: 1, character: 9}
+finalState:
+  documentContents: |
+    def my_funk():
+        print("allow")
+
+    print()
+  selections:
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 6}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 3, character: 0}
+        end: {line: 3, character: 7}
+      isReversed: false
+      hasExplicitRange: true

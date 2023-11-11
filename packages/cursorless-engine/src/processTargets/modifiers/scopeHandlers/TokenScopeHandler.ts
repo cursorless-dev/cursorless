@@ -7,7 +7,7 @@ import { testRegex } from "../../../util/regex";
 import { TokenTarget } from "../../targets";
 import type { TargetScope } from "./scope.types";
 
-export default class TokenScopeHandler extends NestedScopeHandler {
+export class TokenScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "token" } as const;
   public readonly iterationScopeType = { type: "line" } as const;
 
