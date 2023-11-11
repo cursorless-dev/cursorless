@@ -13,13 +13,15 @@ import { join, isAbsolute } from "path";
  * @param {string[]} args
  */
 function runCommand(command, args) {
-  if (isAbsolute(command)) {
+  const isWin = process.platform === "win32";
+
+  if (isWin && isAbsolute(command)) {
     command = `"${command}"`;
   }
 
   return spawn(command, args, {
     stdio: "inherit",
-    shell: process.platform === "win32",
+    shell: isWin,
   });
 }
 
