@@ -5,7 +5,7 @@
 // esbuild.
 import { spawn } from "child_process";
 import { existsSync, mkdirSync, rmdirSync } from "fs";
-import { join, isAbsolute } from "path";
+import { join } from "path";
 
 /**
  * Run a command with arguments and return a child process
@@ -13,15 +13,9 @@ import { join, isAbsolute } from "path";
  * @param {string[]} args
  */
 function runCommand(command, args) {
-  const isWin = process.platform === "win32";
-
-  if (isWin && isAbsolute(command)) {
-    command = `"${command}"`;
-  }
-
   return spawn(command, args, {
     stdio: "inherit",
-    shell: isWin,
+    shell: process.platform === "win32",
   });
 }
 
