@@ -6,7 +6,7 @@ import { BaseTarget, CommonTargetParameters } from ".";
  * - The implicit destination in the command `"bring air"`
  * - The implicit anchor in the range `"take past air"`
  */
-export default class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
+export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   type = "ImplicitTarget";
   insertionDelimiter = "";
   isRaw = true;

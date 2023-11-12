@@ -28,7 +28,7 @@ interface SurroundingPairTargetParameters extends CommonTargetParameters {
   readonly boundary: [Range, Range];
 }
 
-export default class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParameters> {
+export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParameters> {
   type = "SurroundingPairTarget";
   insertionDelimiter = " ";
   private interiorRange_: Range;

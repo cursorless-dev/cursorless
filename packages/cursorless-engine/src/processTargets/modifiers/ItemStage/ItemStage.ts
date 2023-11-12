@@ -19,7 +19,7 @@ import {
 import { getIterationScope } from "./getIterationScope";
 import { tokenizeRange } from "./tokenizeRange";
 
-export default class ItemStage implements ModifierStage {
+export class ItemStage implements ModifierStage {
   constructor(
     private languageDefinitions: LanguageDefinitions,
     private modifier: ContainingScopeModifier | EveryScopeModifier,

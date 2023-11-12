@@ -15,7 +15,7 @@ import { OutOfRangeError } from "./targetSequenceUtils";
  * {@link ScopeHandler.generateScopes} to get the desired scopes, skipping the
  * first scope if input range is empty and is at start of that scope.
  */
-export default class RelativeExclusiveScopeStage implements ModifierStage {
+export class RelativeExclusiveScopeStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private scopeHandlerFactory: ScopeHandlerFactory,

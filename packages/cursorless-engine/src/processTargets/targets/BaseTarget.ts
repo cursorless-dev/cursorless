@@ -42,7 +42,7 @@ export interface CloneWithParameters {
  *
  * @template TParameters The constructor parameters.
  */
-export default abstract class BaseTarget<
+export abstract class BaseTarget<
   in out TParameters extends MinimumTargetParameters,
 > implements Target
 {
