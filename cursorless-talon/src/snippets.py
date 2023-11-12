@@ -179,6 +179,7 @@ class UserActions:
     def insert_wrapper_snippet(
         body: str,
         target: Any,
+        variable_name: str,
         scope: str = None,
     ):
-        actions.user.cursorless_wrap_with_snippet(body, target, None, scope)
+        actions.user.cursorless_wrap_with_snippet(body, target, variable_name, scope)
