@@ -173,6 +173,16 @@
   type_arguments: (_)? @type.end
 )
 
+;;!! useState<string>()
+;;!! useState<Record<string, string>>()
+;;!           ^^^^^^^^^^^^^^^^^^^^^^
+;;!                  ^^^^^^  ^^^^^^
+(call_expression
+  type_arguments: (type_arguments
+    (_) @type
+  )
+)
+
 ;;!! interface Aaa {}
 ;;!! type Aaa = Bbb;
 (
