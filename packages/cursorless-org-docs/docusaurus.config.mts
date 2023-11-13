@@ -1,9 +1,13 @@
 import type { Config } from "@docusaurus/types";
 import type { Root } from "mdast";
-import { relative, resolve } from "path";
+import { dirname, relative, resolve } from "path";
 import { themes } from "prism-react-renderer";
-import * as unified from "unified";
+import type { Transformer } from "unified";
 import { visit } from "unist-util-visit";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+
+const require = createRequire(import.meta.url);
 
 /**
  * Files within /docs reference repository directories
@@ -17,11 +21,11 @@ import { visit } from "unist-util-visit";
  * - Try resolving it relative to repo root.
  * - If anywhere but /docs - link to GitHub.
  */
-function remarkPluginFixLinksToRepositoryArtifacts() {
-  const transformer: unified.Transformer<Root> = async (ast, file) => {
+function remarkPluginFixLinksToRepositoryArtifacts(): Transformer<Root> {
+  return (ast, file) => {
     visit(ast, "link", (node) => {
-      const link = node.url;
-      if (link.startsWith("http://") || link.startsWith("https://")) {
+      const { url } = node;
+      if (url.startsWith("http://") || url.startsWith("https://")) {
         return;
       }
 
@@ -29,12 +33,15 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       // markdown representaiton as well as on our original files.
       // These are relative links that docusaurus already figured out
       // based on realative links to .md files
-      if (link.startsWith("/docs/")) {
+      if (url.startsWith("/docs/")) {
         return;
       }
 
-      const repoRoot = resolve(__dirname, "../..");
-      const artifact = resolve(file.dirname!, link);
+      const repoRoot = resolve(
+        dirname(fileURLToPath(import.meta.url)),
+        "../..",
+      );
+      const artifact = resolve(file.dirname!, url);
       const artifactRelative = relative(repoRoot, artifact);
 
       // We host all files under docs, will resolve as a relative link
@@ -49,7 +56,6 @@ function remarkPluginFixLinksToRepositoryArtifacts() {
       node.url = linkToRepositoryArtifact;
     });
   };
-  return transformer;
 }
 
 const config: Config = {
