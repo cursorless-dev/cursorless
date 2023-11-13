@@ -1,8 +1,8 @@
-import assert = require("assert");
 import { languageMatchers } from "./languages/getNodeMatcher";
 import { TreeSitter } from "./typings/TreeSitter";
 import { legacyLanguageIds } from "./languages/LegacyLanguageId";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import assert from "assert";
 import { unsafeKeys } from "./util/object";
 
 /**

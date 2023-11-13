@@ -71,7 +71,7 @@
     "onCommand:cursorless.showScopeVisualizer",
     "onCommand:cursorless.hideScopeVisualizer"
   ],
-  "main": "./extension.js",
+  "main": "./extension.cjs",
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": true
@@ -1057,21 +1057,21 @@
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm run populate-dist",
     "build:dev": "pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
-    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=dist/extension.cjs --external:vscode --format=cjs --platform=node",
     "install-local": "bash ./scripts/install-local.sh",
     "install-from-pr": "bash ./scripts/install-from-pr.sh",
     "uninstall-local": "bash ./scripts/uninstall-local.sh",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify",
-    "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
-    "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
-    "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",
-    "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/add.ts",
-    "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/average.ts",
+    "populate-dist": "my-ts-node ./src/scripts/populateDist/index.ts",
+    "init-launch-sandbox": "my-ts-node src/scripts/initLaunchSandbox.ts",
+    "preprocess-svg-hats": "my-ts-node src/scripts/preprocessSvgHats.ts",
+    "hat-adjustment-add": "my-ts-node src/scripts/hatAdjustments/add.ts",
+    "hat-adjustment-average": "my-ts-node src/scripts/hatAdjustments/average.ts",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
@@ -1079,8 +1079,8 @@
     "@types/glob": "^7.1.3",
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
-    "@types/mocha": "^8.0.4",
-    "@types/node": "^16.11.3",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "^18.18.2",
     "@types/semver": "^7.3.9",
     "@types/sinon": "^10.0.2",
     "@types/tinycolor2": "1.4.3",
@@ -1104,5 +1104,6 @@
     "tinycolor2": "1.6.0",
     "uuid": "^9.0.0",
     "vscode-uri": "^3.0.6"
-  }
+  },
+  "type": "module"
 }
