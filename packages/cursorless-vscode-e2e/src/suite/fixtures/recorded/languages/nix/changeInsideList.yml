@@ -12,22 +12,13 @@ command:
           scopeType: {type: list}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |
-    {
-      foo = [ 1 2 3 ];
-    }
+  documentContents: "{ d = [ \"1\" 2 ]; }"
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   marks: {}
 finalState:
-  documentContents: |
-    {
-      foo = [  ];
-    }
+  documentContents: "{ d = [  ]; }"
   selections:
-    - anchor: {line: 1, character: 10}
-      active: {line: 1, character: 10}
-ide:
-  messages:
-    - {type: error, id: TreeSitterQuery.checkCaptures.duplicate}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

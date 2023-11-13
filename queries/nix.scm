@@ -3,19 +3,19 @@
 ;;
 
 ;; Any top-level expression that isn't a comment is a statement
-(
-    (source_code
-        (_) @statement
-    ) @_.iteration
-    (#not-type? @statement comment)
-)
+;; (
+;;     (source_code
+;;         (_) @statement
+;;     ) @_.iteration
+;;     (#not-type? @statement comment)
+;; )
 (source_code) @comment.iteration
 
 ;; Any foo = <expression> anywhere is a statement
-[
-    (inherit)
-    (binding)
-] @statement
+;; [
+;;     (inherit)
+;;     (binding)
+;; ] @statement
 (binding_set) @map.iteration @list.iteration @ifStatement.iteration
 
 ;; This matches assert statements as stand-alone statements. This
@@ -97,7 +97,8 @@
 ;;!! foo = [ a b c ];
 ;;!        ^^^^^^^^^
 (list_expression
-    element: (_)+ @list.interior
+    "[" @list.interior.start.endOf
+    "]" @list.interior.end.startOf
 ) @list
 
 ;;!! foo = { x = 1; y = 2; };
@@ -110,6 +111,22 @@
         (_) @map.interior
     )
 ] @map @statement.iteration @value.iteration @name.iteration
+
+;;!! foo = { x = 1; };
+;;!          ^^^^^^
+(attrset_expression
+    (binding_set
+        binding: (_) @collectionItem
+    )
+) @_.iteration
+
+;;!! foo = rec { x = 1; };
+;;!              ^^^^^^
+(rec_attrset_expression
+    (binding_set
+        binding: (_) @collectionItem
+    )
+) @_.iteration
 
 ;;!! foo = { x = 1; y = 2; };
 ;;!          ^
