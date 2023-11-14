@@ -172,16 +172,21 @@
 (function_expression
   [
     (
-      ;; Match foo@{ a, b }: style
-      (identifier) @argumentOrParameter.start
-      "@"
+      ;; Match { a, b } and foo@{ a, b }: style
+      (identifier)? @argumentOrParameter.start
+      .
+      "@"?
+      .
       (formals) @argumentOrParameter.end
     )
-    ;; Match a: style arg
-    (identifier) @argumentOrParameter
-
-    ;; Match { a, b }: style
-    (formals) @argumentOrParameter
+    (
+      ;; Match a: and { a, b }@foo: styles
+      (formals)? @argumentOrParameter.start
+      .
+      "@"?
+      .
+      (identifier) @argumentOrParameter.end
+    )
   ]
   .
   body: (_) @anonymousFunction.interior
@@ -298,10 +303,6 @@
 
 (apply_expression
   argument: (_) @argumentOrParameter
-)
-
-(function_expression
-  (formals) @argumentOrParameter
 )
 
 ;;
