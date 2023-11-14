@@ -2,13 +2,14 @@ import {
   ComplexSurroundingPairName,
   SimpleSurroundingPairName,
 } from "@cursorless/common";
+import { unsafeKeys } from "../../../util/object";
 
 type IndividualDelimiterText = string | string[];
 
 export const delimiterToText: Record<
   SimpleSurroundingPairName,
   [IndividualDelimiterText, IndividualDelimiterText]
-> = {
+> = Object.freeze({
   angleBrackets: [
     ["</", "<"],
     [">", "/>"],
@@ -23,7 +24,7 @@ export const delimiterToText: Record<
   parentheses: [["(", "$("], ")"],
   singleQuotes: ["'", "'"],
   squareBrackets: ["[", "]"],
-};
+});
 
 export const leftToRightMap: Record<string, string> = Object.fromEntries(
   Object.values(delimiterToText),
@@ -37,7 +38,7 @@ export const complexDelimiterMap: Record<
   ComplexSurroundingPairName,
   SimpleSurroundingPairName[]
 > = {
-  any: Object.keys(delimiterToText),
+  any: unsafeKeys(delimiterToText),
   string: ["singleQuotes", "doubleQuotes", "backtickQuotes"],
   collectionBoundary: [
     "parentheses",

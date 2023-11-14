@@ -4,9 +4,13 @@
   "description": "The core Cursorless engine, which is responsible for parsing and executing commands, allocating hats, etc",
   "main": "./out/index.js",
   "scripts": {
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/cursorless-engine --parallel '/^watch:.*/'"
   },
   "keywords": [],
   "author": "",
@@ -17,14 +21,14 @@
     "immutability-helper": "^3.1.1",
     "itertools": "^2.1.1",
     "lodash": "^4.17.21",
-    "node-html-parser": "^5.3.3",
+    "node-html-parser": "^6.1.11",
     "sbd": "^1.0.19",
     "zod": "3.22.3"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
-    "@types/mocha": "^8.0.4",
+    "@types/mocha": "^10.0.3",
     "@types/sbd": "^1.0.3",
     "@types/sinon": "^10.0.2",
     "fast-check": "3.12.0",
@@ -38,5 +42,6 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
-  }
+  },
+  "type": "module"
 }

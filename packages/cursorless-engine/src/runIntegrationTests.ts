@@ -1,8 +1,9 @@
-import assert = require("assert");
 import { languageMatchers } from "./languages/getNodeMatcher";
 import { TreeSitter } from "./typings/TreeSitter";
 import { legacyLanguageIds } from "./languages/LegacyLanguageId";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import assert from "assert";
+import { unsafeKeys } from "./util/object";
 
 /**
  * Run tests that require multiple components to be instantiated, as well as a
@@ -27,7 +28,7 @@ async function assertNoScopesBothLegacyAndNew(
   for (const languageId of legacyLanguageIds) {
     await treeSitter.loadLanguage(languageId);
 
-    Object.keys(languageMatchers[languageId]).map((scopeTypeType) => {
+    unsafeKeys(languageMatchers[languageId]).map((scopeTypeType) => {
       if (
         languageDefinitions.get(languageId)?.getScopeHandler({
           type: scopeTypeType,
