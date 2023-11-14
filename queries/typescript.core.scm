@@ -183,6 +183,22 @@
   )
 )
 
+;;!! function foo<A>() {}
+;;!               ^
+(function_declaration
+  type_parameters: (type_parameters
+    (_) @type
+  )
+)
+
+;;!! const foo = <A>() => {}
+;;!               ^
+(arrow_function
+  type_parameters: (type_parameters
+    (_) @type
+  )
+)
+
 ;;!! interface Aaa {}
 ;;!! type Aaa = Bbb;
 (
