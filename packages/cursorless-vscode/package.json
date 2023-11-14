@@ -909,6 +909,41 @@
             ]
           }
         },
+        "cursorless.experimental.keyboard.modal.keybindings.vscodeCommands": {
+          "description": "Define modal keybindings for running vscode commands",
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "object"
+            ],
+            "properties": {
+              "commandId": {
+                "type": "string",
+                "description": "The vscode command to run"
+              },
+              "args": {
+                "type": "array",
+                "description": "The arguments to pass to the command"
+              },
+              "executeAtTarget": {
+                "type": "boolean",
+                "description": "If `true`, indicates that the command should be executed at the target by moving the cursor there first, running the command, and then moving the cursor back to the original position"
+              },
+              "keepChangedSelection": {
+                "type": "boolean",
+                "description": "If `true`, the selection will be retained after the command is run, rather than being restored to its original position. This setting only applies when `executeAtTarget` is `true`."
+              },
+              "exitCursorlessMode": {
+                "type": "boolean",
+                "description": "If `true`, indicates that the command should exit cursorless mode after it is run."
+              }
+            },
+            "required": [
+              "commandId"
+            ]
+          }
+        },
         "cursorless.experimental.keyboard.modal.keybindings.colors": {
           "description": "Define modal keybindings for colors",
           "type": "object",
