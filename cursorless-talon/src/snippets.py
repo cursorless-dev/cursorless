@@ -32,6 +32,11 @@ mod.tag(
     desc="tag for enabling experimental snippet support",
 )
 
+mod.tag(
+    "cursorless_use_community_snippets",
+    "If active use community snippets instead of Cursorless snippets",
+)
+
 mod.list("cursorless_wrapper_snippet", desc="Cursorless wrapper snippet")
 mod.list(
     "cursorless_insertion_snippet_no_phrase",
@@ -176,7 +181,7 @@ class Actions:
 @ctx.action_class("user")
 class UserActions:
     # The module declaration of this action exists in community
-    def insert_wrapper_snippet(
+    def wrap_with_snippet(
         body: str,
         target: Any,
         variable_name: str,
