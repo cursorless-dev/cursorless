@@ -23,23 +23,22 @@
 ;; would otherwise all match as a single statement. See the playground/nix/asserts.nix
 ;; file for an example.
 (
-    (assert_expression
-        "assert" @statement.start
-        condition: (_)
-        ";" @statement.end
-        body: (_)
-    ) @_.domain
-    (#not-parent-type? @_.domain binding)
+  (assert_expression
+    "assert" @statement.start
+    condition: (_)
+    ";" @statement.end
+    body: (_)
+  ) @_.domain
+  (#not-parent-type? @_.domain binding)
 )
 (assert_expression
-    "assert" @functionCallee @functionCall.start
-    condition: (_) @condition
-    body: (_) @branch @functionCall.end.startOf
+  condition: (_) @condition
+  body: (_) @branch
 ) @_.domain
 
 (
-    (with_expression) @statement
-    (#not-parent-type? @statement binding)
+  (with_expression) @statement
+  (#not-parent-type? @statement binding)
 )
 
 ;;!! let
@@ -49,8 +48,9 @@
 ;;!    *****>
 ;;!! in a + b
 (let_expression
-    "let"
-    (_) @statement.iteration @value.iteration @name.iteration
+  "let"
+  .
+  (_) @statement.iteration @value.iteration @name.iteration
 )
 
 ;;
@@ -64,23 +64,23 @@
 ;;!        ^^^^^^^^^^^
 ;;!        xxxxxxxxxxxx
 (if_expression
-    "if" @branch.start
-    condition: (_)
-    "then"
-    consequence: (_) @branch.end @branch.interior
+  "if" @branch.start
+  condition: (_)
+  "then"
+  consequence: (_) @branch.end @branch.interior
 )
 ;;!! key = if a then b else c;
 ;;!                    ^^^^^^
 ;;!                   xxxxxxx
 (if_expression
-    "else" @branch.start
-    alternative: (_) @branch.end @branch.interior
+  "else" @branch.start
+  alternative: (_) @branch.end @branch.interior
 )
 
 ;;!! key = if a > 10 then b else c;
 ;;!           ^^^^^^
 (if_expression
-    condition: (_) @condition
+  condition: (_) @condition
 ) @_.domain
 
 ;;
@@ -91,41 +91,41 @@
 ;;!          ^
 ;;!          xx
 (list_expression
-    element: (_) @collectionItem
+  element: (_) @collectionItem
 )
 
 ;;!! foo = [ a b c ];
 ;;!        ^^^^^^^^^
 (list_expression
-    "[" @list.interior.start.endOf
-    "]" @list.interior.end.startOf
+  "[" @list.interior.start.endOf
+  "]" @list.interior.end.startOf
 ) @list
 
 ;;!! foo = { x = 1; y = 2; };
 ;;!        ^^^^^^^^^^^^^^^^^
 [
-    (attrset_expression
-        (_) @map.interior
-    )
-    (rec_attrset_expression
-        (_) @map.interior
-    )
+  (attrset_expression
+    (_) @map.interior
+  )
+  (rec_attrset_expression
+    (_) @map.interior
+  )
 ] @map @statement.iteration @value.iteration @name.iteration
 
 ;;!! foo = { x = 1; };
 ;;!          ^^^^^^
 (attrset_expression
-    (binding_set
-        binding: (_) @collectionItem
-    )
+  (binding_set
+    binding: (_) @collectionItem
+  )
 ) @_.iteration
 
 ;;!! foo = rec { x = 1; };
 ;;!              ^^^^^^
 (rec_attrset_expression
-    (binding_set
-        binding: (_) @collectionItem
-    )
+  (binding_set
+    binding: (_) @collectionItem
+  )
 ) @_.iteration
 
 ;;!! foo = { x = 1; y = 2; };
@@ -133,8 +133,8 @@
 ;;!          xxxx
 ;;!          -----
 (binding
-    attrpath: (_) @collectionKey @_.trailing.start.endOf
-    expression: (_) @_.trailing.end.startOf
+  attrpath: (_) @collectionKey @_.trailing.start.endOf
+  expression: (_) @_.trailing.end.startOf
 ) @_.domain
 
 ;;
@@ -146,8 +146,8 @@
 (comment) @comment @textFragment
 
 [
-    (string_expression)
-    (indented_string_expression)
+  (string_expression)
+  (indented_string_expression)
 ] @string
 (string_fragment) @textFragment
 
@@ -155,7 +155,7 @@
 ;;!           ^^^^^^
 ;;!      <**************>
 (string_expression
-    (interpolation) @argumentOrParameter
+  (interpolation) @argumentOrParameter
 ) @_.iteration
 
 ;;
@@ -167,35 +167,35 @@
 ;;!         ^^^^^^^^ Func1 due to currying
 ;;!      ^^^^^^^^^^^ Func2 due to currying
 (function_expression
-    [
-        (
-            ;; Match foo@{ a, b }: style
-            (identifier) @argumentOrParameter.start
-            "@"
-            (formals) @argumentOrParameter.end
-        )
-        ;; Match a: style arg
-        (identifier) @argumentOrParameter
+  [
+    (
+      ;; Match foo@{ a, b }: style
+      (identifier) @argumentOrParameter.start
+      "@"
+      (formals) @argumentOrParameter.end
+    )
+    ;; Match a: style arg
+    (identifier) @argumentOrParameter
 
-        ;; Match { a, b }: style
-        (formals) @argumentOrParameter
-    ]
-    .
-    body: (_) @anonymousFunction.interior
-) @_.domain @anonymousFunction @argumentOrParameter.iteration
+    ;; Match { a, b }: style
+    (formals) @argumentOrParameter
+  ]
+  .
+  body: (_) @anonymousFunction.interior
+) @anonymousFunction @argumentOrParameter.iteration
 
 ;; We define the named function as the full assignment of the lambda
 ;; This means funk name becomes the variable holding the lambda
 (binding
-    (_) @functionName
-    "="
-    expression: (function_expression) @namedFunction.interior
+  (_) @functionName
+  "="
+  expression: (function_expression) @namedFunction.interior
 ) @namedFunction @functionName.domain
 
 ;; Calls to functions are a bit finicky, because of everything being curried lambdas
 (
-    (apply_expression) @dummy @functionCall @argumentOrParameter.iteration
-    (#not-parent-type? @functionCall apply_expression)
+  (apply_expression) @dummy @functionCall @argumentOrParameter.iteration
+  (#not-parent-type? @functionCall apply_expression)
 )
 
 ;; This is gross, but not sure how to do fuzzy matching against an unknown number of
@@ -211,51 +211,39 @@
 ;;!  ^^^^^^
 ;;!  xxxxxxx
 ;;!  ----------------
-;; The mkHost node looks like this:
-;; #   (binding_set
-;; #    binding: (binding
-;; #     expression: (attrset_expression
-;; #      (binding_set
-;; #       binding: (binding
-;; #        expression: (apply_expression
-;; #         function: (apply_expression
-;; #          function: (apply_expression
-;; #           function: (variable_expression
-;; #            name: (identifier)
-;; #           )
 (apply_expression
-    [
+  [
+    (apply_expression
+      function: (variable_expression
+        name: (identifier) @functionCallee
+      )
+    )
+    (apply_expression
+      [
         (apply_expression
-            function: (variable_expression
+          function: (variable_expression
+            name: (identifier) @functionCallee
+          )
+        )
+        (apply_expression
+          [
+            (apply_expression
+              function: (variable_expression
                 name: (identifier) @functionCallee
+              )
             )
-        )
-        (apply_expression
-            [
-                (apply_expression
-                    function: (variable_expression
-                        name: (identifier) @functionCallee
-                    )
+            (apply_expression
+              (apply_expression
+                function: (variable_expression
+                  name: (identifier) @functionCallee
                 )
-                (apply_expression
-                    [
-                        (apply_expression
-                            function: (variable_expression
-                                name: (identifier) @functionCallee
-                            )
-                        )
-                        (apply_expression
-                            (apply_expression
-                                function: (variable_expression
-                                    name: (identifier) @functionCallee
-                                )
-                            )
-                        )
-                    ]
-                )
-            ]
+              )
+            )
+          ]
         )
-    ]
+      ]
+    )
+  ]
 ) @_.domain
 
 ;; Args:
@@ -269,39 +257,18 @@
 ;;!  xxxxxx
 ;;!  --------
 (apply_expression
-    function: (variable_expression
-        name: (identifier) @functionCallee
-    )
-    argument: (_) @argumentOrParameter
+  function: (variable_expression
+    name: (identifier) @functionCallee
+  )
+  argument: (_) @argumentOrParameter
 ) @_.domain
 
 (apply_expression
-    argument: (_) @argumentOrParameter
+  argument: (_) @argumentOrParameter
 )
 
 (function_expression
-    (formals) @argumentOrParameter
-) @_.domain
-
-;; inherit is a built-in keyword, but is close enough to a function...
-;; Callee:
-;;!! inherit pkgs input output;
-;;!  ^^^^^^^
-;;!  xxxxxxxx
-;;!  -------------------------
-;; Args:
-;;!! inherit pkgs input output;
-;;!          ^^^^
-;;!          xxxxx
-;;!         <*****************>
-(inherit
-    "inherit" @functionCallee
-    (
-        (inherited_attrs) @argumentOrParameter.iteration
-    )
-) @functionCall @_.domain
-(inherited_attrs
-    attr: (_) @argumentOrParameter
+  (formals) @argumentOrParameter
 )
 
 ;;
@@ -313,9 +280,9 @@
 ;;!   xxxxx
 ;;!  -------
 (binding
-    (_) @_.leading.start.endOf
-    .
-    expression: (_) @value @_.leading.end.startOf
+  (_) @_.leading.start.endOf
+  .
+  expression: (_) @value @_.leading.end.startOf
 ) @_.domain
 
 ;;!! a = 25;
@@ -323,7 +290,7 @@
 ;;!  xxxx
 ;;!  -------
 (binding
-    (_) @name @_.leading.end.startOf @_.trailing.start.endOf
-    .
-    expression: (_) @_.trailing.end.startOf
+  (_) @name @_.leading.end.startOf @_.trailing.start.endOf
+  .
+  expression: (_) @_.trailing.end.startOf
 ) @_.domain
