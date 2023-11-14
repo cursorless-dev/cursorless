@@ -143,7 +143,10 @@
 
 ;;!! # foo
 ;;!  ^^^^^
-(comment) @comment @textFragment
+(
+  (comment) @comment @textFragment @comment.interior
+  (#shrink-to-match! @comment.interior "# ?(?<keep>.*)$")
+)
 
 [
   (string_expression)
