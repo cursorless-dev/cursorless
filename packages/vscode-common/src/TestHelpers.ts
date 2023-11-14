@@ -6,13 +6,13 @@ import type {
   IDE,
   NormalizedIDE,
   ScopeProvider,
-  SerializedMarks, TargetPlainObject,
+  SerializedMarks,
+  TargetPlainObject,
   TestCaseSnapshot,
-  TextEditor
+  TextEditor,
 } from "@cursorless/common";
 import * as vscode from "vscode";
-import {VscodeApi} from "./VscodeApi";
-
+import { VscodeApi } from "./VscodeApi";
 
 export interface TestHelpers {
   ide: NormalizedIDE;
@@ -29,7 +29,7 @@ export interface TestHelpers {
   setStoredTarget(
     editor: vscode.TextEditor,
     key: string,
-    targets: TargetPlainObject[] | undefined
+    targets: TargetPlainObject[] | undefined,
   ): void;
 
   // FIXME: Remove this once we have a better way to get this function
@@ -40,7 +40,7 @@ export interface TestHelpers {
     editor: TextEditor,
     ide: IDE,
     marks: SerializedMarks | undefined,
-    forceRealClipboard: boolean
+    forceRealClipboard: boolean,
   ): Promise<TestCaseSnapshot>;
 
   runIntegrationTests(): Promise<void>;

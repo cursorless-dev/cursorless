@@ -1,10 +1,7 @@
-import type {
-  CommandServerApi,
-  SnippetMap,
-} from "@cursorless/common";
+import type { CommandServerApi, SnippetMap } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import {TestHelpers} from "./TestHelpers";
+import { TestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {
   testHelpers: TestHelpers | undefined;
