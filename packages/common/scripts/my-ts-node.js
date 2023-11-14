@@ -4,6 +4,7 @@
 // This script runs a TypeScript file using Node.js by first bundling it with
 // esbuild.
 import { spawn } from "cross-spawn";
+import { build } from "esbuild";
 import { existsSync, mkdirSync, rmdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -12,7 +13,7 @@ import { dirname, join } from "node:path";
  * Run a command with arguments and return a child process
  * @param {string} command
  * @param {string[]} args
- * @param {NodeJS.ProcessEnv?} extraEnv
+ * @param {Partial<NodeJS.ProcessEnv>?} extraEnv
  */
 function runCommand(command, args, extraEnv = {}) {
   return spawn(command, args, {
@@ -47,7 +48,7 @@ function cleanupTempDirectory(tempDir) {
 }
 
 // Main function to execute the script
-function main() {
+async function main() {
   const args = process.argv.slice(2);
 
   // Check if the input file is specified
@@ -70,38 +71,30 @@ function main() {
   process.on("SIGTERM", () => cleanupTempDirectory(tempDir));
 
   // Run esbuild to bundle the TypeScript file
-  const esbuildProcess = runCommand("esbuild", [
-    "--sourcemap",
-    "--log-level=warning",
-    "--conditions=cursorless:bundler",
-    "--bundle",
-    "--format=cjs",
-    "--platform=node",
-    fileToRun,
-    "--outfile=" + outFile,
-  ]);
-
-  esbuildProcess.on("close", (code) => {
-    if (code === 0) {
-      // Execute the bundled file with Node, passing any additional arguments
-      const nodeProcess = runCommand(
-        process.execPath,
-        ["--enable-source-maps", outFile, ...childArgs],
-        {
-          ["CURSORLESS_REPO_ROOT"]: join(
-            dirname(fileURLToPath(import.meta.url)),
-            "..",
-            "..",
-            "..",
-          ),
-        },
-      );
-      nodeProcess.on("close", (code) => process.exit(code ?? undefined));
-    } else {
-      console.error(`esbuild failed with code ${code}`);
-      process.exit(code ?? undefined);
-    }
+  await build({
+    entryPoints: [fileToRun],
+    sourcemap: true,
+    conditions: ["cursorless:bundler"],
+    logLevel: "warning",
+    platform: "node",
+    bundle: true,
+    format: "cjs",
+    outfile: outFile,
   });
+
+  const nodeProcess = runCommand(
+    process.execPath,
+    ["--enable-source-maps", outFile, ...childArgs],
+    {
+      ["CURSORLESS_REPO_ROOT"]: join(
+        dirname(fileURLToPath(import.meta.url)),
+        "..",
+        "..",
+        "..",
+      ),
+    },
+  );
+  nodeProcess.on("close", (code) => process.exit(code ?? undefined));
 }
 
 main();
