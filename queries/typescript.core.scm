@@ -177,26 +177,17 @@
 ;;!           ^^^^^^
 ;;!! useState<Record<string, string>>()
 ;;!           ^^^^^^^^^^^^^^^^^^^^^^
-(call_expression
-  type_arguments: (type_arguments
-    (_) @type
-  )
+;;!                  ^^^^^^  ^^^^^^
+(type_arguments
+  (_) @type
 )
 
 ;;!! function foo<A>() {}
 ;;!               ^
-(function_declaration
-  type_parameters: (type_parameters
-    (_) @type
-  )
-)
-
 ;;!! const foo = <A>() => {}
 ;;!               ^
-(arrow_function
-  type_parameters: (type_parameters
-    (_) @type
-  )
+(type_parameters
+  (_) @type
 )
 
 ;;!! interface Aaa {}
