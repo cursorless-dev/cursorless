@@ -8,6 +8,7 @@ import { build } from "esbuild";
 import { existsSync, mkdirSync, rmdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { randomBytes } from "node:crypto";
 
 /**
  * Run a command with arguments and return a child process
@@ -30,7 +31,12 @@ function runCommand(command, args, extraEnv = {}) {
  * @param {string} baseDir
  */
 function createTempDirectory(baseDir) {
-  const tempDir = join(baseDir, "out/my-ts-node-tmp");
+  const tempDir = join(
+    baseDir,
+    "out",
+    "my-ts-node-tmp",
+    randomBytes(16).toString("hex"),
+  );
   if (!existsSync(tempDir)) {
     mkdirSync(tempDir, { recursive: true });
   }
