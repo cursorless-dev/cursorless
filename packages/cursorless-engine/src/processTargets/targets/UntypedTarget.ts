@@ -6,7 +6,7 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import {createContinuousRange} from "../targetUtil/createContinuousRange";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
@@ -70,7 +70,7 @@ export function createContinuousRangeUntypedTarget(
   startTarget: Target,
   endTarget: Target,
   includeStart: boolean,
-  includeEnd: boolean
+  includeEnd: boolean,
 ): UntypedTarget {
   return new UntypedTarget({
     editor: startTarget.editor,
@@ -80,9 +80,8 @@ export function createContinuousRangeUntypedTarget(
       startTarget,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     ),
     isToken: startTarget.isToken && endTarget.isToken,
   });
 }
-

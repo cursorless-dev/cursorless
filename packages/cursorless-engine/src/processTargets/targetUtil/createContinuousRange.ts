@@ -44,5 +44,3 @@ export function createContinuousLineRange(
 
   return new Range(start, end);
 }
-
-

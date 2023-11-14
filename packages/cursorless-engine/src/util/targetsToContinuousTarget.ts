@@ -1,10 +1,10 @@
-import {Target} from "../typings/target.types";
+import { Target } from "../typings/target.types";
 
 export function targetsToContinuousTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean = false,
-  excludeActive: boolean = false
+  excludeActive: boolean = false,
 ): Target {
   ensureSingleEditor(anchorTarget, activeTarget);
 
@@ -18,7 +18,7 @@ export function targetsToContinuousTarget(
     isReversed,
     endTarget,
     !excludeStart,
-    !excludeEnd
+    !excludeEnd,
   );
 }
 
@@ -37,4 +37,3 @@ export function calcIsReversed(anchor: Target, active: Target) {
   }
   return anchor.contentRange.end.isAfter(active.contentRange.end);
 }
-

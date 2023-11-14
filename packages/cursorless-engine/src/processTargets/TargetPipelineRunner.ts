@@ -19,9 +19,9 @@ import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";
 import { uniqWithHash } from "../util/uniqWithHash";
-import {targetsToContinuousTarget} from "../util/targetsToContinuousTarget";
-import {ensureSingleEditor} from "../util/targetsToContinuousTarget";
-import {calcIsReversed} from "../util/targetsToContinuousTarget";
+import { targetsToContinuousTarget } from "../util/targetsToContinuousTarget";
+import { ensureSingleEditor } from "../util/targetsToContinuousTarget";
+import { calcIsReversed } from "../util/targetsToContinuousTarget";
 
 export class TargetPipelineRunner {
   constructor(
