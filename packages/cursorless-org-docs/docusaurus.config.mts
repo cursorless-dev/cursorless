@@ -63,7 +63,38 @@ const config: Config = {
   tagline: "Structural voice coding at the speed of thought",
   url: "https://www.cursorless.org",
   baseUrl: "/docs/",
-  favicon: "/docs/favicon.ico",
+  stylesheets: [
+    // Icons generated with https://favicon.io/favicon-generator/
+    {
+      rel: "icon",
+      type: "image/svg+xml",
+      href: "/favicon.svg",
+    },
+    {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      href: "/apple-touch-icon.png?v=1",
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      href: "/favicon-32x32.png?v=1",
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "16x16",
+      href: "/favicon-16x16.png?v=1",
+    },
+    { rel: "manifest", href: "/site.webmanifest?v=1" },
+    {
+      rel: "mask-icon",
+      href: "/safari-pinned-tab.svg?v=1",
+      color: "#7c7c7c",
+    },
+    { rel: "shortcut icon", href: "/favicon.ico?v=1" },
+  ],
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
   trailingSlash: true,
@@ -97,7 +128,10 @@ const config: Config = {
       title: "Cursorless",
       logo: {
         alt: "Cursorless",
-        src: "icon.svg",
+        src: "logo.svg",
+        srcDark: "logo-dark.svg",
+        href: "https://www.cursorless.org/",
+        target: "_self",
       },
       items: [
         {
