@@ -48,4 +48,8 @@ export const DEFAULT_VSCODE_COMMAND_KEYMAP: Keymap<ModalVscodeCommandDescriptor>
       }
     : {};
 
+type MiscValue = "combineColorAndShape" | "makeRange" | "makeList";
+
+export const DEFAULT_MISC_KEYMAP: Keymap<MiscValue> = isTesting() ? {} : {};
+
 export const DEFAULT_SHAPE_KEYMAP: Keymap<HatShape> = isTesting() ? {} : {};

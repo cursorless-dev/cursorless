@@ -5,6 +5,7 @@ import KeyboardHandler from "./KeyboardHandler";
 import {
   DEFAULT_ACTION_KEYMAP,
   DEFAULT_COLOR_KEYMAP,
+  DEFAULT_MISC_KEYMAP,
   DEFAULT_SCOPE_KEYMAP,
   DEFAULT_SHAPE_KEYMAP,
   DEFAULT_VSCODE_COMMAND_KEYMAP,
@@ -84,8 +85,13 @@ export default class KeyboardCommandsModal {
   private constructMergedKeymap() {
     this.rootLayer.clear();
 
-    this.rootLayer.handleSection("actions", DEFAULT_ACTION_KEYMAP, (value) =>
-      this.targeted.performActionOnTarget(value),
+    this.rootLayer.handleSection(
+      "actions",
+      DEFAULT_ACTION_KEYMAP,
+      async (value) => {
+        // Don't await this, because we want to return immediately
+        this.targeted.performActionOnTarget(value);
+      },
     );
     this.rootLayer.handleSection("scopes", DEFAULT_SCOPE_KEYMAP, (value) =>
       this.targeted.targetScopeType({
@@ -105,8 +111,26 @@ export default class KeyboardCommandsModal {
     this.rootLayer.handleSection(
       "vscodeCommands",
       DEFAULT_VSCODE_COMMAND_KEYMAP,
-      (value) => this.handleVscodeCommand(value),
+      async (value) => {
+        // Don't await this, because we want to return immediately
+        this.handleVscodeCommand(value);
+      },
     );
+    const combineColorAndShapeLayer = this.getColorShapeLayer();
+    this.rootLayer.handleSection("misc", DEFAULT_MISC_KEYMAP, async (value) => {
+      switch (value) {
+        case "combineColorAndShape":
+          return await combineColorAndShapeLayer.handleInput("");
+        case "makeRange":
+          return this.targeted.targetDecoratedMark({
+            mode: "extend",
+          });
+        case "makeList":
+          return this.targeted.targetDecoratedMark({
+            mode: "append",
+          });
+      }
+    });
   }
 
   modeOn = async () => {
@@ -147,6 +171,50 @@ export default class KeyboardCommandsModal {
       this.modeOn();
     }
   };
+
+  private getColorShapeLayer() {
+    const shapeLayer = new KeyboardCommandsModalLayer(this.keyboardHandler, {
+      reportConflicts: false,
+    });
+    shapeLayer.handleSection("shapes", DEFAULT_SHAPE_KEYMAP, async (value) => {
+      return await shapeLayer.handleInput("");
+    });
+
+    const combineColorAndShapeLayer = new KeyboardCommandsModalLayer(
+      this.keyboardHandler,
+      {
+        reportConflicts: false,
+      },
+    );
+    combineColorAndShapeLayer.handleSection(
+      "colors",
+      DEFAULT_COLOR_KEYMAP,
+      async (color) => {
+        const colorLayer = new KeyboardCommandsModalLayer(
+          this.keyboardHandler,
+          {
+            reportConflicts: false,
+          },
+        );
+        colorLayer.handleSection(
+          "colors",
+          DEFAULT_COLOR_KEYMAP,
+          async (shape) => {
+            return await colorLayer.handleInput("");
+          },
+        );
+        return await combineColorAndShapeLayer.handleInput("");
+      },
+    );
+    combineColorAndShapeLayer.handleSection(
+      "shapes",
+      DEFAULT_SHAPE_KEYMAP,
+      async (value) => {
+        currentShape = value;
+      },
+    );
+    return combineColorAndShapeLayer;
+  }
 
   private isModeOn() {
     return this.inputDisposable != null;

@@ -6,8 +6,9 @@ import { Keymap } from "./defaultKeymaps";
 
 type SectionName =
   | "actions"
-  | "scopes"
   | "colors"
+  | "misc"
+  | "scopes"
   | "shapes"
   | "vscodeCommands";
 
@@ -113,7 +114,7 @@ export class KeyboardCommandsModalLayer {
       keyHandler = this.mergedKeymap[sequence];
     }
 
-    keyHandler.handleValue();
+    return await keyHandler.handleValue();
   }
 
   isPrefixOfKey(text: string): boolean {
