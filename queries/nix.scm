@@ -299,7 +299,7 @@
     name: (identifier) @functionCallee
   )
   argument: (_) @argumentOrParameter
-) @_.domain
+) @functionCall @_.domain
 
 (apply_expression
   argument: (_) @argumentOrParameter
