@@ -2,13 +2,13 @@
 ;; Statements
 ;;
 
-;; Any top-level expression that isn't a comment is a statement
-;; (
-;;     (source_code
-;;         (_) @statement
-;;     ) @_.iteration
-;;     (#not-type? @statement comment)
-;; )
+(let_expression
+  (binding_set
+    (_) @statement @_.domain
+  )
+  "in" @statement.iteration.end.startOf
+)
+
 (source_code) @comment.iteration
 
 ;; Any foo = <expression> anywhere is a statement
@@ -110,7 +110,7 @@
   (rec_attrset_expression
     (_) @map.interior
   )
-] @map @statement.iteration @value.iteration @name.iteration
+] @map @value.iteration @name.iteration
 
 ;;!! foo = { x = 1; };
 ;;!          ^^^^^^
@@ -192,12 +192,6 @@
   expression: (function_expression) @namedFunction.interior
 ) @namedFunction @functionName.domain
 
-;; Calls to functions are a bit finicky, because of everything being curried lambdas
-(
-  (apply_expression) @dummy @functionCall @argumentOrParameter.iteration
-  (#not-parent-type? @functionCall apply_expression)
-)
-
 ;; This is gross, but not sure how to do fuzzy matching against an unknown number of
 ;; nested child nodes. Arbitrarily stopping at 5 args for now, as that ought to be enough
 ;; arguments for anyone
@@ -244,7 +238,43 @@
       ]
     )
   ]
-) @_.domain
+) @functionCall @_.domain
+
+;; Similar to above, but sometimes the function calls are in select_expression
+(apply_expression
+  [
+    (select_expression
+      expression: (variable_expression
+        name: (identifier)
+      )
+    ) @functionCallee
+    (apply_expression
+      [
+        (select_expression
+          expression: (variable_expression
+            name: (identifier)
+          )
+        ) @functionCallee
+        (apply_expression
+          [
+            (select_expression
+              expression: (variable_expression
+                name: (identifier)
+              )
+            ) @functionCallee
+            (apply_expression
+              (select_expression
+                expression: (variable_expression
+                  name: (identifier)
+                )
+              ) @functionCallee
+            )
+          ]
+        )
+      ]
+    )
+  ]
+) @functionCall @_.domain
 
 ;; Args:
 ;;!! mkHost a
