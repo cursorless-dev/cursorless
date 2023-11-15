@@ -11,15 +11,15 @@ command:
           scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
+  documentContents: |
     { pkgs, ... }:
     { a = 1; }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
     :
     { a = 1; }
   selections:

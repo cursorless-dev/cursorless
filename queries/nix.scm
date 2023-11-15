@@ -25,19 +25,19 @@
 (
   (assert_expression
     "assert" @statement.start @statement.domain.start
-    condition: (_) @condition
+    condition: (_)
     ";" @statement.end
     body: (_) @statement.domain.end.startOf
-  ) @condition.domain
-  (#not-parent-type? @condition.domain binding)
+  ) @dummy
+  (#not-parent-type? @dummy binding)
 )
 
 ;; FIXME: Branch only makes sense probably for single line assert, but may not keep it.
 ;; also don't know how to match on single line only
-;; (assert_expression
-;;   condition: (_) @condition
-;;   body: (_) @branch
-;; ) @_.domain
+(assert_expression
+  condition: (_) @condition
+  ;;   body: (_) @branch
+) @_.domain
 
 ;; Match with when it's part of an expression like:
 ;; with lib;
@@ -160,10 +160,22 @@
 ;; Inside comment:
 ;;!! # foo
 ;;!    ^^^
-(
-  (comment) @comment @textFragment @comment.interior
-  (#shrink-to-match! @comment.interior "# ?(?<keep>.*)$")
-)
+(comment) @comment @textFragment
+
+;; FIXME: This works for inside comment on #, but breaks multi-line /* */
+;; Not sure how to match different interiors depending on contents. Almost
+;; need a #regex predicate? Can't use shrink-to-match in [] without errors
+;; [
+;;   (
+;;     (comment) @comment.interior
+;;     (#shrink-to-match! @comment.interior "# ?(?<keep>.*)$")
+;;   )
+;;   (
+;;     (comment) @comment.interior
+;;     ;; This would need to be a multi-line match, which I'm not sure shrink-to-match can do
+;;     ;; (#shrink-to-match! @comment.interior "/\*(?<keep>.*)\*/$")
+;;   )
+;; ] @comment
 
 [
   (string_expression)
@@ -187,22 +199,35 @@
 ;;!         ^^^^^^^^ Func1 due to currying
 ;;!      ^^^^^^^^^^^ Func2 due to currying
 (function_expression
+  .
   [
     (
-      ;; Match { a, b } and foo@{ a, b }: style
+      ;; Match foo@{ a, b }:
       (identifier)? @argumentOrParameter.start
       .
-      "@"?
+      "@"
       .
       (formals) @argumentOrParameter.end
     )
     (
-      ;; Match a: and { a, b }@foo: styles
-      (formals)? @argumentOrParameter.start
+      ;; Match{ a, b }@foo:
+      (formals) @argumentOrParameter.start
       .
-      "@"?
+      "@"
       .
       (identifier) @argumentOrParameter.end
+    )
+    ;; Match { a, b }:
+    (
+      (formals) @argumentOrParameter
+      .
+      ":"
+    )
+    ;; Match a:
+    (
+      (identifier) @argumentOrParameter
+      .
+      ":"
     )
   ]
   .
