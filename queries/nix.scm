@@ -24,22 +24,35 @@
 ;; file for an example.
 (
   (assert_expression
-    "assert" @statement.start
-    condition: (_)
+    "assert" @statement.start @statement.domain.start
+    condition: (_) @condition
     ";" @statement.end
-    body: (_)
-  ) @_.domain
-  (#not-parent-type? @_.domain binding)
+    body: (_) @statement.domain.end.startOf
+  ) @condition.domain
+  (#not-parent-type? @condition.domain binding)
 )
-(assert_expression
-  condition: (_) @condition
-  body: (_) @branch
-) @_.domain
 
+;; FIXME: Branch only makes sense probably for single line assert, but may not keep it.
+;; also don't know how to match on single line only
+;; (assert_expression
+;;   condition: (_) @condition
+;;   body: (_) @branch
+;; ) @_.domain
+
+;; Match with when it's part of an expression like:
+;; with lib;
+;; let ... in ...;
 (
-  (with_expression) @statement
-  (#not-parent-type? @statement binding)
+  (with_expression
+    "with" @statement.start
+    .
+    environment: (_)
+    ";" @statement.end
+  ) @dummy
+  (#not-parent-type? @dummy binding)
 )
+
+;; FIXME: Need something like above for inherit, but only if it is on a single line.
 
 ;;!! let
 ;;!!   a = 1;
@@ -141,8 +154,12 @@
 ;; Strings
 ;;
 
+;; Comment
 ;;!! # foo
 ;;!  ^^^^^
+;; Inside comment:
+;;!! # foo
+;;!    ^^^
 (
   (comment) @comment @textFragment @comment.interior
   (#shrink-to-match! @comment.interior "# ?(?<keep>.*)$")
@@ -201,8 +218,8 @@
 ) @namedFunction @functionName.domain
 
 ;; This is gross, but not sure how to do fuzzy matching against an unknown number of
-;; nested child nodes. Arbitrarily stopping at 5 args for now, as that ought to be enough
-;; arguments for anyone
+;; nested child nodes. Possiblyl should be a new predicate. Arbitrarily stopping at
+;; 5 args for now, as that ought to be enough arguments for anyone
 ;; Args:
 ;;!! mkHost a b c d e
 ;;!           ^

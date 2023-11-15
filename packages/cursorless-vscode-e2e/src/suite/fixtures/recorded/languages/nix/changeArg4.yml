@@ -11,21 +11,21 @@ command:
           scopeType: {type: argumentOrParameter}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
+  documentContents: |
     {
-      outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, sops-nix, ... }:
+        outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, sops-nix, ... }:
         {};
     }
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: {line: 1, character: 44}
+      active: {line: 1, character: 44}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
     {
-      outputs = :
+        outputs = :
         {};
     }
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: {line: 1, character: 14}
+      active: {line: 1, character: 14}
