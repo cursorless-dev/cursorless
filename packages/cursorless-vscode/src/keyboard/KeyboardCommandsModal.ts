@@ -89,7 +89,7 @@ export default class KeyboardCommandsModal {
       "actions",
       DEFAULT_ACTION_KEYMAP,
       async (value) => {
-        // Don't await this, because we want to return immediately
+        // Note: We don't await this, in case the action hangs
         this.targeted.performActionOnTarget(value);
       },
     );
@@ -112,7 +112,7 @@ export default class KeyboardCommandsModal {
       "vscodeCommands",
       DEFAULT_VSCODE_COMMAND_KEYMAP,
       async (value) => {
-        // Don't await this, because we want to return immediately
+        // Note: We don't await this, in case the command hangs
         this.handleVscodeCommand(value);
       },
     );

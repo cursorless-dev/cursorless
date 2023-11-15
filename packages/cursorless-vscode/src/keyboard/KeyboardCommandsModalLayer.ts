@@ -12,21 +12,21 @@ type SectionName =
   | "shapes"
   | "vscodeCommands";
 
-interface KeyHandler<T> {
+interface KeyHandler<T, V> {
   sectionName: SectionName;
   value: T;
-  handleValue(): Promise<unknown>;
+  handleValue(): Promise<V>;
 }
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
  */
-export class KeyboardCommandsModalLayer {
+export class KeyboardCommandsModalLayer<V = unknown> {
   /**
    * Merged map from all the different sections of the key map (eg actions,
    * colors, etc).
    */
-  private mergedKeymap!: Record<string, KeyHandler<any>>;
+  private mergedKeymap!: Record<string, KeyHandler<unknown, V>>;
 
   constructor(
     private keyboardHandler: KeyboardHandler,
@@ -51,7 +51,7 @@ export class KeyboardCommandsModalLayer {
   handleSection<T>(
     sectionName: SectionName,
     defaultKeyMap: Keymap<T>,
-    handleValue: (value: T) => Promise<unknown>,
+    handleValue: (value: T) => Promise<V>,
   ) {
     const userOverrides: Keymap<T> = isTesting()
       ? {}
@@ -77,7 +77,7 @@ export class KeyboardCommandsModalLayer {
         continue;
       }
 
-      const entry: KeyHandler<T> = {
+      const entry: KeyHandler<T, V> = {
         sectionName,
         value,
         handleValue: () => handleValue(value),
@@ -87,9 +87,10 @@ export class KeyboardCommandsModalLayer {
     }
   }
 
-  async handleInput(text: string) {
+  async handleInput(text: string): Promise<V | undefined> {
     let sequence = text;
-    let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
+    let keyHandler: KeyHandler<unknown, V> | undefined =
+      this.mergedKeymap[sequence];
 
     // We handle multi-key sequences by repeatedly awaiting a single keypress
     // until they've pressed something in the map.
@@ -107,7 +108,7 @@ export class KeyboardCommandsModalLayer {
       });
 
       if (nextKey == null) {
-        return;
+        return undefined;
       }
 
       sequence += nextKey;
@@ -129,7 +130,7 @@ export class KeyboardCommandsModalLayer {
    * @returns The first map entry that conflicts with {@link text}, if one
    * exists
    */
-  getConflictingKeyMapEntry(text: string): KeyHandler<any> | undefined {
+  getConflictingKeyMapEntry(text: string): KeyHandler<unknown, V> | undefined {
     const conflictingPair = toPairs(this.mergedKeymap).find(
       ([key]) => text.startsWith(key) || key.startsWith(text),
     );
