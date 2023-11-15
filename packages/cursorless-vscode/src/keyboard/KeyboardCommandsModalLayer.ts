@@ -1,22 +1,9 @@
-import { isTesting } from "@cursorless/common";
-import { keys, merge, toPairs } from "lodash";
+import { toPairs } from "lodash";
 import * as vscode from "vscode";
 import KeyboardHandler from "./KeyboardHandler";
 import { Keymap } from "./defaultKeymaps";
-
-type SectionName =
-  | "actions"
-  | "colors"
-  | "misc"
-  | "scopes"
-  | "shapes"
-  | "vscodeCommands";
-
-interface KeyHandler<T, V> {
-  sectionName: SectionName;
-  value: T;
-  handleValue(): Promise<V>;
-}
+import { getSectionKeyMap } from "./getSectionKeyMap";
+import { KeyHandler, SectionName } from "./KeyHandler";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -53,14 +40,7 @@ export class KeyboardCommandsModalLayer<V = unknown> {
     defaultKeyMap: Keymap<T>,
     handleValue: (value: T) => Promise<V>,
   ) {
-    const userOverrides: Keymap<T> = isTesting()
-      ? {}
-      : vscode.workspace
-          .getConfiguration(
-            "cursorless.experimental.keyboard.modal.keybindings",
-          )
-          .get<Keymap<T>>(sectionName) ?? {};
-    const keyMap = merge({}, defaultKeyMap, userOverrides);
+    const keyMap = getSectionKeyMap<T>(sectionName, defaultKeyMap);
 
     for (const [key, value] of toPairs(keyMap)) {
       const conflictingEntry = this.getConflictingKeyMapEntry(key);
@@ -116,25 +96,5 @@ export class KeyboardCommandsModalLayer<V = unknown> {
     }
 
     return await keyHandler.handleValue();
-  }
-
-  isPrefixOfKey(text: string): boolean {
-    return keys(this.mergedKeymap).some((key) => key.startsWith(text));
-  }
-
-  /**
-   * This function can be used to detect if a proposed map entry conflicts with
-   * one in the map.  Used to detect if the user tries to use two map entries,
-   * one of which is a prefix of the other.
-   * @param text The proposed new map entry
-   * @returns The first map entry that conflicts with {@link text}, if one
-   * exists
-   */
-  getConflictingKeyMapEntry(text: string): KeyHandler<unknown, V> | undefined {
-    const conflictingPair = toPairs(this.mergedKeymap).find(
-      ([key]) => text.startsWith(key) || key.startsWith(text),
-    );
-
-    return conflictingPair == null ? undefined : conflictingPair[1];
   }
 }

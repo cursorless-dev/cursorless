@@ -1,4 +1,6 @@
+import { toPairs } from "lodash";
 import * as vscode from "vscode";
+import { KeyHandler } from "./KeyHandler";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
@@ -9,8 +11,11 @@ import {
   DEFAULT_SCOPE_KEYMAP,
   DEFAULT_SHAPE_KEYMAP,
   DEFAULT_VSCODE_COMMAND_KEYMAP,
+  Keymap,
   ModalVscodeCommandDescriptor,
 } from "./defaultKeymaps";
+import { getSectionKeyMap } from "./getSectionKeyMap";
+import { getConflictingKeyMapEntry } from "./isPrefixOfKey";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -93,6 +98,19 @@ export default class KeyboardCommandsModal {
         this.targeted.performActionOnTarget(value);
       },
     );
+
+    const actionKeyMap = getSectionKeyMap("actions", DEFAULT_ACTION_KEYMAP);
+
+    const stateMachine: StateMachine = {
+      initialState: "root",
+      states: {
+        root: {
+          id: "root",
+          transitions: mergeKeymaps(actionKeyMap),
+        },
+      },
+    };
+
     this.rootLayer.handleSection("scopes", DEFAULT_SCOPE_KEYMAP, (value) =>
       this.targeted.targetScopeType({
         scopeType: value,
@@ -219,4 +237,34 @@ export default class KeyboardCommandsModal {
   private isModeOn() {
     return this.inputDisposable != null;
   }
+}
+
+function mergeKeymaps<T = unknown>(...actionKeyMap: Keymap<T>[]) {
+  const keyMap: Keymap<T> = {};
+
+  for (const [key, value] of toPairs(keyMap)) {
+    const conflictingEntry = getConflictingKeyMapEntry(keyMap, key);
+    if (conflictingEntry != null) {
+      if (options.reportConflicts) {
+        const { sectionName: conflictingSection, value: conflictingValue } =
+          conflictingEntry;
+
+        vscode.window.showErrorMessage(
+          `Conflicting keybindings: \`${sectionName}.${value}\` and \`${conflictingSection}.${conflictingValue}\` both want key '${key}'`,
+        );
+      }
+
+      continue;
+    }
+
+    const entry: KeyHandler<T, V> = {
+      sectionName,
+      value,
+      handleValue: () => handleValue(value),
+    };
+
+    keyMap[key] = entry;
+  }
+
+  return keyMap;
 }
