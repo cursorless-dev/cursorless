@@ -5,7 +5,7 @@ import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 import { createContinuousRange } from "./util/createContinuousRange";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
