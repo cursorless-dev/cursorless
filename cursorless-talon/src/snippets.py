@@ -108,14 +108,20 @@ def insert_named_snippet(
     insert_snippet(snippet, destination)
 
 
-def insert_custom_snippet(body: str, destination: CursorlessDestination):
-    insert_snippet(
-        {
-            "type": "custom",
-            "body": body,
-        },
-        destination,
-    )
+def insert_custom_snippet(
+    body: str,
+    destination: CursorlessDestination,
+    scope_types: Optional[list[dict]] = None,
+):
+    snippet = {
+        "type": "custom",
+        "body": body,
+    }
+
+    if scope_types:
+        snippet["scopeTypes"] = scope_types
+
+    insert_snippet(snippet, destination)
 
 
 @mod.action_class

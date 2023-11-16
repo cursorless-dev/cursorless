@@ -136,7 +136,7 @@ interface NamedInsertSnippetArg {
 interface CustomInsertSnippetArg {
   type: "custom";
   body: string;
-  scopeType?: ScopeType;
+  scopeTypes?: ScopeType[];
   substitutions?: Record<string, string>;
 }
 export type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;

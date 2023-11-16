@@ -16,6 +16,6 @@ jobs:
       - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: package.json
           cache: pnpm
       - run: bash -x scripts/build-and-assemble-website.sh

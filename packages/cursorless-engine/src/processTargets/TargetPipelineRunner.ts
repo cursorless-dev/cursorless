@@ -15,7 +15,7 @@ import { Target } from "../typings/target.types";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { MarkStage, ModifierStage } from "./PipelineStages.types";
-import ImplicitStage from "./marks/ImplicitStage";
+import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";
 import { uniqWithHash } from "../util/uniqWithHash";

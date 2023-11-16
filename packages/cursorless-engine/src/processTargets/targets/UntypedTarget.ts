@@ -18,7 +18,7 @@ interface UntypedTargetParameters extends CommonTargetParameters {
  * - Use token delimiters (space) for removal and insertion
  * - Expand to nearest containing pair when asked for boundary or interior
  */
-export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
+export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   type = "UntypedTarget";
   insertionDelimiter = " ";
   hasExplicitScopeType = false;

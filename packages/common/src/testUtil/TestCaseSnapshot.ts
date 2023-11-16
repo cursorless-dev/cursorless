@@ -3,7 +3,7 @@ import {
   SelectionPlainObject,
   SerializedMarks,
   TargetPlainObject,
-} from "./toPlainObject";
+} from "../util/toPlainObject";
 
 export type TestCaseSnapshot = {
   documentContents: string;

@@ -4,12 +4,12 @@ import { StoredTargetMap } from "..";
 import { Mark } from "../typings/TargetDescriptor";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { MarkStage } from "./PipelineStages.types";
-import CursorStage from "./marks/CursorStage";
-import DecoratedSymbolStage from "./marks/DecoratedSymbolStage";
-import ExplicitMarkStage from "./marks/ExplicitMarkStage";
-import LineNumberStage from "./marks/LineNumberStage";
-import NothingStage from "./marks/NothingStage";
-import RangeMarkStage from "./marks/RangeMarkStage";
+import { CursorStage } from "./marks/CursorStage";
+import { DecoratedSymbolStage } from "./marks/DecoratedSymbolStage";
+import { ExplicitMarkStage } from "./marks/ExplicitMarkStage";
+import { LineNumberStage } from "./marks/LineNumberStage";
+import { NothingStage } from "./marks/NothingStage";
+import { RangeMarkStage } from "./marks/RangeMarkStage";
 import { StoredTargetStage } from "./marks/StoredTargetStage";
 import { TargetMarkStage } from "./marks/TargetMarkStage";
 

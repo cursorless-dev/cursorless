@@ -6,42 +6,45 @@
   "scripts": {
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
-    "compile": "tsc --build",
+    "compile": "tsc --build && pnpm -r --if-present compile:esbuild",
     "fix:eslint": "pnpm lint:ts --fix",
     "fix:meta": "pnpm run meta-updater:base && pnpm -r exec prettier --write tsconfig.json package.json",
     "fix:syncpack": "pnpm syncpack fix-mismatches",
     "init-vscode-sandbox": "pnpm --filter=@cursorless/cursorless-vscode init-launch-sandbox",
     "lint:meta": "pnpm run meta-updater:base --test",
-    "lint:ts": "eslint packages --ext ts,tsx",
+    "lint:ts": "eslint packages --ext ts,tsx,mts",
     "lint": "pnpm run lint:meta && syncpack list-mismatches && pnpm run lint:ts",
     "meta-updater:base": "pnpm --filter=@cursorless/meta-updater build && meta-updater",
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
-    "transform-recorded-tests": "tsx --conditions=cursorless:bundler packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
-    "watch": "tsc --build --watch"
+    "transform-recorded-tests": "./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
+    "watch": "pnpm run -w --parallel '/^watch:.*/'",
+    "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild",
+    "watch:tsc": "tsc --build --watch"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@pnpm/meta-updater": "1.0.0",
-    "@types/node": "^16.11.3",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "@typescript-eslint/parser": "^6.9.0",
-    "eslint": "^8.38.0",
+    "@types/node": "^18.18.2",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "esbuild": "^0.17.11",
+    "eslint": "^8.53.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "3.5.5",
     "eslint-plugin-import": "2.28.1",
+    "eslint-plugin-unicorn": "49.0.0",
     "eslint-plugin-unused-imports": "^3.0.0",
     "prettier": "3.0.3",
     "syncpack": "9.8.4",
-    "tsx": "3.12.3",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "pnpm": {
     "patchedDependencies": {
-      "@docusaurus/theme-search-algolia@3.0.0-alpha.0": "patches/@docusaurus__theme-search-algolia@2.3.1.patch"
+      "@docusaurus/theme-search-algolia@3.0.0": "patches/@docusaurus__theme-search-algolia@2.3.1.patch"
     },
     "peerDependencyRules": {
       "ignoreMissing": [
@@ -53,5 +56,9 @@
       }
     }
   },
-  "packageManager": "pnpm@8.6.12"
+  "engines": {
+    "node": ">=18.18.2"
+  },
+  "packageManager": "pnpm@8.6.12",
+  "type": "module"
 }

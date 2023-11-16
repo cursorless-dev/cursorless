@@ -1,4 +1,5 @@
-const withMDX = require("@next/mdx")({
+import mdx from "@next/mdx";
+const withMDX = mdx({
   options: {
     providerImportSource: "@mdx-js/react",
   },
@@ -21,4 +22,4 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);

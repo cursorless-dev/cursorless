@@ -5,7 +5,7 @@ import type { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 import { getActiveSelections } from "./getActiveSelections";
 
-export default class CursorStage implements MarkStage {
+export class CursorStage implements MarkStage {
   constructor(private mark: CursorMark) {}
 
   run(): Target[] {

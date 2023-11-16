@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "esModuleInterop": true,
+    "emitDeclarationOnly": false,
     "outDir": "out"
   },
   "references": [],
