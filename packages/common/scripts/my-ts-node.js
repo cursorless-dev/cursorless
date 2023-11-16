@@ -37,9 +37,9 @@ function createTempDirectory(baseDir) {
     "my-ts-node-tmp",
     randomBytes(16).toString("hex"),
   );
-  if (!existsSync(tempDir)) {
-    mkdirSync(tempDir, { recursive: true });
-  }
+
+  mkdirSync(tempDir, { recursive: true });
+
   return tempDir;
 }
 
