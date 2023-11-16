@@ -1,10 +1,7 @@
 import { Range, SimpleScopeTypeType } from "@cursorless/common";
-import {
-  BaseTarget,
-  CommonTargetParameters,
-  InteriorTarget,
-  PlainTarget,
-} from ".";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import { InteriorTarget } from "./InteriorTarget";
+import { PlainTarget } from "./PlainTarget";
 import { Target } from "../../typings/target.types";
 import { isSameType } from "../../util/typeUtils";
 import {
