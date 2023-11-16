@@ -215,5 +215,5 @@ class Actions:
         """Cursorless: Wrap target with community snippet <name>"""
         snippet: CommunityWrapperSnippet = actions.user.get_wrapper_snippet(name)
         actions.user.cursorless_wrap_with_snippet(
-            snippet.scope, target, snippet.variableName, snippet.scope
+            snippet.body, target, snippet.variableName, snippet.scope
         )
