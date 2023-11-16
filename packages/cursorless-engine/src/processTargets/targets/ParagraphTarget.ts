@@ -8,7 +8,7 @@ import {
 import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { constructLineTarget } from "../../util/tryConstructTarget";
+import {constructLineTarget} from "./LineTarget";
 import { isSameType } from "../../util/typeUtils";
 import { createContinuousLineRange } from "./util/createContinuousRange";
 
