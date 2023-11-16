@@ -6,7 +6,7 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
+import { createContinuousRange } from "./util/createContinuousRange";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
