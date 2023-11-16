@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Optional, Union
 
-from talon import Context, Module, actions
+from talon import Module, actions
 
 from .targets.target_types import (
     CursorlessDestination,
