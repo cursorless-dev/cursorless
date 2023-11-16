@@ -1,11 +1,9 @@
 import { Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import type { Target } from "../../typings/target.types";
-import {
-  getTokenLeadingDelimiterTarget,
-  getTokenRemovalRange,
-  getTokenTrailingDelimiterTarget,
-} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import {getTokenRemovalRange} from "./PlainTarget";
+import {getTokenTrailingDelimiterTarget} from "./PlainTarget";
+import {getTokenLeadingDelimiterTarget} from "./PlainTarget";
 import { createContinuousRange } from "./util/createContinuousRange";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
