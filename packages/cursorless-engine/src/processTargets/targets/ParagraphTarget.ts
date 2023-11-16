@@ -5,7 +5,8 @@ import {
   TextEditor,
   TextLine,
 } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
+import { BaseTarget, CommonTargetParameters, LineTarget } from "./BaseTarget";
+import { LineTarget } from "./LineTarget";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import {constructLineTarget} from "./LineTarget";
