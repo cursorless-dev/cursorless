@@ -1,6 +1,6 @@
 import { Direction, Range } from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler } from "..";
+import { NestedScopeHandler } from "../NestedScopeHandler";
 import { TokenTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
 import { SentenceSegmenter } from "./SentenceSegmenter";
