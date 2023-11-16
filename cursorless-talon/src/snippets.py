@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from talon import Context, Module, actions
 
@@ -16,12 +16,20 @@ class InsertionSnippet:
     destination: CursorlessDestination
 
 
-mod = Module()
+@dataclass
+class CommunityInsertionSnippet:
+    body: str
+    scopes: list[str] = None
 
-ctx = Context()
-ctx.matches = r"""
-tag: user.cursorless
-"""
+
+@dataclass
+class CommunityWrapperSnippet:
+    body: str
+    variableName: str
+    scope: str = None
+
+
+mod = Module()
 
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
 
@@ -137,12 +145,21 @@ class Actions:
             ImplicitDestination(),
         )
 
-    def cursorless_insert_snippet(body: str):
+    def cursorless_insert_snippet(
+        body: str,
+        destination: Optional[CursorlessDestination] = ImplicitDestination(),
+        scope_type: Optional[Union[str, list[str]]] = None,
+    ):
         """Cursorless: Insert custom snippet <body>"""
-        insert_custom_snippet(
-            body,
-            ImplicitDestination(),
-        )
+        if isinstance(scope_type, str):
+            scope_type = [scope_type]
+
+        if scope_type is not None:
+            scope_types = [{"type": st} for st in scope_type]
+        else:
+            scope_types = None
+
+        insert_custom_snippet(body, destination, scope_types)
 
     def cursorless_wrap_with_snippet_by_name(
         name: str, variable_name: str, target: CursorlessTarget
@@ -177,14 +194,20 @@ class Actions:
             target,
         )
 
-
-@ctx.action_class("user")
-class UserActions:
-    # The module declaration of this action exists in community
-    def wrap_with_snippet(
-        body: str,
-        target: Any,
-        variable_name: str,
-        scope: str = None,
+    def private_cursorless_insert_community_snippet(
+        name: str, destination: CursorlessDestination
     ):
-        actions.user.cursorless_wrap_with_snippet(body, target, variable_name, scope)
+        """Cursorless: Insert community snippet <name>"""
+        snippet: CommunityInsertionSnippet = actions.user.get_wrapper_snippet(name)
+        actions.user.cursorless_insert_snippet(
+            snippet.body, destination, snippet.scopes
+        )
+
+    def private_cursorless_wrap_with_community_snippet(
+        name: str, target: CursorlessTarget
+    ):
+        """Cursorless: Wrap target with community snippet <name>"""
+        snippet: CommunityWrapperSnippet = actions.user.get_wrapper_snippet(name)
+        actions.user.cursorless_wrap_with_snippet(
+            snippet.scope, target, snippet.variableName, snippet.scope
+        )

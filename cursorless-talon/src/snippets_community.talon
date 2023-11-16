@@ -5,5 +5,9 @@ and tag: user.cursorless_use_community_snippets
 -
 
 # These snippets are defined in community
+
+{user.snippet_wrapper} {user.snippet} <user.cursorless_destination>:
+    user.private_cursorless_insert_community_snippet(cursorless_destination, snippet)
+
 {user.snippet_wrapper} {user.cursorless_wrap_action} <user.cursorless_target>:
-    user.wrap_with_snippet_by_name(snippet_wrapper, cursorless_target)
+    user.private_cursorless_wrap_with_community_snippet(snippet_wrapper, cursorless_target)
