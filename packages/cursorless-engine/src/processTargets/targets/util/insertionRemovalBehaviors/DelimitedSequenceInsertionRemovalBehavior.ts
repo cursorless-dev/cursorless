@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import { Target } from "../../../typings/target.types";
+import { Target } from "../../../../typings/target.types";
 
 /**
  * Constructs a removal range for the given target that includes either the

@@ -6,7 +6,7 @@ import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRangeFromRanges,
   createContinuousRangeUntypedTarget,
-} from "../targetUtil/createContinuousRange";
+} from "./util/createContinuousRange";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
