@@ -10,7 +10,10 @@ import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";
-import { createContinuousLineRange, createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
+import {
+  createContinuousLineRange,
+  createContinuousRangeOrUntypedTarget,
+} from "../targetUtil/createContinuousRange";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";

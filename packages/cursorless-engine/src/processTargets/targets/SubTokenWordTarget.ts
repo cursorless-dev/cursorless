@@ -3,7 +3,10 @@ import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";
-import { createContinuousRange, createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
+import {
+  createContinuousRange,
+  createContinuousRangeOrUntypedTarget,
+} from "../targetUtil/createContinuousRange";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 
 export interface SubTokenTargetParameters extends CommonTargetParameters {
