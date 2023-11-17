@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import z from "zod";
+import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
@@ -16,17 +16,6 @@ class NotType extends QueryPredicateOperator<NotType> {
   schema = z.tuple([q.node, q.string]).rest(q.string);
   run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
-  }
-}
-
-/**
- * A predicate operator that returns true if the nodes range is not empty.
- */
-class NotEmpty extends QueryPredicateOperator<NotEmpty> {
-  name = "not-empty?" as const;
-  schema = z.tuple([q.node]);
-  run({ range }: MutableQueryCapture) {
-    return !range.isEmpty;
   }
 }
 
@@ -208,7 +197,6 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
-  new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),

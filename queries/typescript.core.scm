@@ -173,6 +173,23 @@
   type_arguments: (_)? @type.end
 )
 
+;;!! useState<string>()
+;;!           ^^^^^^
+;;!! useState<Record<string, string>>()
+;;!           ^^^^^^^^^^^^^^^^^^^^^^
+;;!                  ^^^^^^  ^^^^^^
+(type_arguments
+  (_) @type
+)
+
+;;!! function foo<A>() {}
+;;!               ^
+;;!! const foo = <A>() => {}
+;;!               ^
+(type_parameters
+  (_) @type
+)
+
 ;;!! interface Aaa {}
 ;;!! type Aaa = Bbb;
 (
@@ -198,10 +215,7 @@
 ;;!  ----------
 (as_expression
   (_) @_.leading.start.endOf
-  [
-    (generic_type)
-    (predefined_type)
-  ] @type @_.leading.end.startOf
+  (_) @type @_.leading.end.startOf
 ) @_.domain
 
 ;;!! aaa satisfies Bbb

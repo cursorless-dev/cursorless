@@ -75,88 +75,108 @@ export type PartialMark =
   | RangeMark
   | ExplicitMark;
 
+export const simpleSurroundingPairNames = [
+  "angleBrackets",
+  "backtickQuotes",
+  "curlyBrackets",
+  "doubleQuotes",
+  "escapedDoubleQuotes",
+  "escapedParentheses",
+  "escapedSquareBrackets",
+  "escapedSingleQuotes",
+  "parentheses",
+  "singleQuotes",
+  "squareBrackets",
+] as const;
+export const complexSurroundingPairNames = [
+  "string",
+  "any",
+  "collectionBoundary",
+] as const;
+export const surroundingPairNames = [
+  ...simpleSurroundingPairNames,
+  ...complexSurroundingPairNames,
+];
 export type SimpleSurroundingPairName =
-  | "angleBrackets"
-  | "backtickQuotes"
-  | "curlyBrackets"
-  | "doubleQuotes"
-  | "escapedDoubleQuotes"
-  | "escapedParentheses"
-  | "escapedSquareBrackets"
-  | "escapedSingleQuotes"
-  | "parentheses"
-  | "singleQuotes"
-  | "squareBrackets";
+  (typeof simpleSurroundingPairNames)[number];
 export type ComplexSurroundingPairName =
-  | "string"
-  | "any"
-  | "collectionBoundary";
+  (typeof complexSurroundingPairNames)[number];
 export type SurroundingPairName =
   | SimpleSurroundingPairName
   | ComplexSurroundingPairName;
 
-export type SimpleScopeTypeType =
-  | "argumentOrParameter"
-  | "anonymousFunction"
-  | "attribute"
-  | "branch"
-  | "class"
-  | "className"
-  | "collectionItem"
-  | "collectionKey"
-  | "comment"
-  | "functionCall"
-  | "functionCallee"
-  | "functionName"
-  | "ifStatement"
-  | "instance"
-  | "list"
-  | "map"
-  | "name"
-  | "namedFunction"
-  | "regularExpression"
-  | "statement"
-  | "string"
-  | "type"
-  | "value"
-  | "condition"
-  | "section"
-  | "sectionLevelOne"
-  | "sectionLevelTwo"
-  | "sectionLevelThree"
-  | "sectionLevelFour"
-  | "sectionLevelFive"
-  | "sectionLevelSix"
-  | "selector"
-  | "switchStatementSubject"
-  | "unit"
-  | "xmlBothTags"
-  | "xmlElement"
-  | "xmlEndTag"
-  | "xmlStartTag"
-  | "notebookCell"
+export const simpleScopeTypeTypes = [
+  "argumentOrParameter",
+  "anonymousFunction",
+  "attribute",
+  "branch",
+  "class",
+  "className",
+  "collectionItem",
+  "collectionKey",
+  "comment",
+  "private.fieldAccess",
+  "functionCall",
+  "functionCallee",
+  "functionName",
+  "ifStatement",
+  "instance",
+  "list",
+  "map",
+  "name",
+  "namedFunction",
+  "regularExpression",
+  "statement",
+  "string",
+  "type",
+  "value",
+  "condition",
+  "section",
+  "sectionLevelOne",
+  "sectionLevelTwo",
+  "sectionLevelThree",
+  "sectionLevelFour",
+  "sectionLevelFive",
+  "sectionLevelSix",
+  "selector",
+  "switchStatementSubject",
+  "unit",
+  "xmlBothTags",
+  "xmlElement",
+  "xmlEndTag",
+  "xmlStartTag",
   // Latex scope types
-  | "part"
-  | "chapter"
-  | "subSection"
-  | "subSubSection"
-  | "namedParagraph"
-  | "subParagraph"
-  | "environment"
+  "part",
+  "chapter",
+  "subSection",
+  "subSubSection",
+  "namedParagraph",
+  "subParagraph",
+  "environment",
   // Text based scopes
-  | "character"
-  | "word"
-  | "token"
-  | "identifier"
-  | "line"
-  | "sentence"
-  | "paragraph"
-  | "document"
-  | "nonWhitespaceSequence"
-  | "boundedNonWhitespaceSequence"
-  | "url"
+  "character",
+  "word",
+  "token",
+  "identifier",
+  "line",
+  "sentence",
+  "paragraph",
+  "document",
+  "nonWhitespaceSequence",
+  "boundedNonWhitespaceSequence",
+  "url",
+  "notebookCell",
   // Talon
-  | "command";
+  "command",
+] as const;
+
+export function isSimpleScopeType(
+  scopeType: ScopeType,
+): scopeType is SimpleScopeType {
+  return (simpleScopeTypeTypes as readonly string[]).includes(scopeType.type);
+}
+
+export type SimpleScopeTypeType = (typeof simpleScopeTypeTypes)[number];
 
 export interface SimpleScopeType {
   type: SimpleScopeTypeType;

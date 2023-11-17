@@ -1,54 +1,7 @@
-import type {
-  CommandServerApi,
-  ExcludableSnapshotField,
-  ExtraSnapshotField,
-  HatTokenMap,
-  IDE,
-  NormalizedIDE,
-  SerializedMarks,
-  SnippetMap,
-  TargetPlainObject,
-  TestCaseSnapshot,
-  TextEditor,
-} from "@cursorless/common";
+import type { CommandServerApi, SnippetMap } from "@cursorless/common";
 import * as vscode from "vscode";
 import type { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { VscodeApi } from "./VscodeApi";
-
-export interface TestHelpers {
-  ide: NormalizedIDE;
-  injectIde: (ide: IDE) => void;
-
-  hatTokenMap: HatTokenMap;
-
-  commandServerApi: CommandServerApi;
-
-  toVscodeEditor(editor: TextEditor): vscode.TextEditor;
-
-  setStoredTarget(
-    editor: vscode.TextEditor,
-    key: string,
-    targets: TargetPlainObject[] | undefined,
-  ): void;
-
-  // FIXME: Remove this once we have a better way to get this function
-  // accessible from our tests
-  takeSnapshot(
-    excludeFields: ExcludableSnapshotField[],
-    extraFields: ExtraSnapshotField[],
-    editor: TextEditor,
-    ide: IDE,
-    marks: SerializedMarks | undefined,
-    forceRealClipboard: boolean,
-  ): Promise<TestCaseSnapshot>;
-
-  runIntegrationTests(): Promise<void>;
-
-  /**
-   * A thin wrapper around the VSCode API that allows us to mock it for testing.
-   */
-  vscodeApi: VscodeApi;
-}
+import { TestHelpers } from "./TestHelpers";
 
 export interface CursorlessApi {
   testHelpers: TestHelpers | undefined;
@@ -84,8 +37,9 @@ export async function getExtensionApiStrict<T>(extensionId: string) {
   return (await extension.activate()) as T;
 }
 
+export const EXTENSION_ID = "pokey.cursorless";
 export const getCursorlessApi = () =>
-  getExtensionApiStrict<CursorlessApi>("pokey.cursorless");
+  getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
 
 export const getParseTreeApi = () =>
   getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");

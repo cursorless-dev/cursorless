@@ -2,7 +2,7 @@ import { Direction, Position, TextEditor, showError } from "@cursorless/common";
 import { uniqWith } from "lodash";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
-import BaseScopeHandler from "../BaseScopeHandler";
+import { BaseScopeHandler } from "../BaseScopeHandler";
 import { compareTargetScopes } from "../compareTargetScopes";
 import { TargetScope } from "../scope.types";
 import { ScopeIteratorRequirements } from "../scopeHandler.types";

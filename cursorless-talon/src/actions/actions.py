@@ -45,6 +45,7 @@ ACTION_LIST_NAMES = [
     "reformat_action",
     "call_action",
     "experimental_action",
+    "custom_action",
 ]
 
 callback_actions: dict[str, Callable[[CursorlessTarget], None]] = {

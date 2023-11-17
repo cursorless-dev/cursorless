@@ -67,9 +67,7 @@ export default class InsertSnippet {
             type: scopeTypeType,
           }));
     } else {
-      return snippetDescription.scopeType == null
-        ? []
-        : [snippetDescription.scopeType];
+      return snippetDescription.scopeTypes ?? [];
     }
   }
 

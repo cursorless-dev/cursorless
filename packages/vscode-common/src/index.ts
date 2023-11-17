@@ -1,4 +1,5 @@
 export * from "./getExtensionApi";
+export * from "./TestHelpers";
 export * from "./notebook";
 export * from "./testUtil/openNewEditor";
 export * from "./vscodeUtil";

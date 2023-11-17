@@ -12,7 +12,7 @@ export interface SubTokenTargetParameters extends CommonTargetParameters {
   readonly trailingDelimiterRange?: Range;
 }
 
-export default class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
+export class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
   type = "SubTokenWordTarget";
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
@@ -75,7 +75,7 @@ export default class SubTokenWordTarget extends BaseTarget<SubTokenTargetParamet
     );
   }
 
-  protected getCloneParameters(): SubTokenTargetParameters {
+  protected getCloneParameters() {
     return {
       ...this.state,
       leadingDelimiterRange: this.leadingDelimiterRange_,

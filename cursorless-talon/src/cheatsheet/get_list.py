@@ -59,8 +59,12 @@ def make_dict_readable(
 
 
 def make_readable(text: str) -> str:
+    text, is_private = (
+        (text[8:], True) if text.startswith("private.") else (text, False)
+    )
     text = text.replace(".", " ")
-    return de_camel(text).lower().capitalize()
+    text = de_camel(text).lower().capitalize()
+    return f"{text} (PRIVATE)" if is_private else text
 
 
 def de_camel(text: str) -> str:

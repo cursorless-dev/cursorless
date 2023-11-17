@@ -5,7 +5,7 @@ import tokenGraphemeSplitter from "../../singletons/tokenGraphemeSplitter.single
 import { extractTargetKeys } from "../../testUtil/extractTargetKeys";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
 import { upgrade } from "./transformations/upgrade";
-import assert = require("assert");
+import assert from "assert";
 
 export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
   const command = upgrade(originalFixture).command;
@@ -27,9 +27,7 @@ export function checkMarks(originalFixture: TestCaseFixtureLegacy): undefined {
     ...(originalFixture.marksToCheck ?? []),
   ];
 
-  const actualMarks = Object.keys(
-    originalFixture.initialState.marks ?? {},
-  ) as string[];
+  const actualMarks = Object.keys(originalFixture.initialState.marks ?? {});
 
   assert.deepStrictEqual(
     uniq(actualMarks.map(normalizeGraphemes)).sort(),

@@ -1,17 +1,25 @@
-import { Position, Range, TextEditor } from "@cursorless/common";
-import { Direction, ScopeType } from "@cursorless/common";
+import {
+  Direction,
+  Position,
+  Range,
+  ScopeType,
+  SimpleScopeTypeType,
+  TextEditor,
+} from "@cursorless/common";
+import { ide } from "../../../singletons/ide.singleton";
 import { LineTarget } from "../../targets";
-import BaseScopeHandler from "./BaseScopeHandler";
+import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 
-export default class LineScopeHandler extends BaseScopeHandler {
+export class LineScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "line" } as const;
-  public readonly iterationScopeType = { type: "document" } as const;
+  public readonly iterationScopeType: ScopeType;
   protected readonly isHierarchical = false;
   public readonly includeAdjacentInEvery: boolean = true;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
     super();
+    this.iterationScopeType = { type: getIterationScopeTypeType() };
   }
 
   *generateScopeCandidates(
@@ -66,4 +74,11 @@ export function fitRangeToLineContent(editor: TextEditor, range: Range) {
     endLine.lineNumber,
     endLine.lastNonWhitespaceCharacterIndex,
   );
+}
+
+function getIterationScopeTypeType(): SimpleScopeTypeType {
+  const useParagraph = ide().configuration.getOwnConfiguration(
+    "private.lineParagraphIterationScope",
+  );
+  return useParagraph ? "paragraph" : "document";
 }

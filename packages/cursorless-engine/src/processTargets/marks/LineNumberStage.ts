@@ -5,7 +5,7 @@ import type { MarkStage } from "../PipelineStages.types";
 import { createLineTarget } from "../modifiers/scopeHandlers";
 import { LineTarget } from "../targets";
 
-export default class implements MarkStage {
+export class LineNumberStage implements MarkStage {
   constructor(private mark: LineNumberMark) {}
 
   run(): LineTarget[] {

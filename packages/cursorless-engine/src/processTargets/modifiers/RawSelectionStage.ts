@@ -3,7 +3,7 @@ import type { RawSelectionModifier } from "@cursorless/common";
 import type { ModifierStage } from "../PipelineStages.types";
 import { RawSelectionTarget } from "../targets";
 
-export default class RawSelectionStage implements ModifierStage {
+export class RawSelectionStage implements ModifierStage {
   constructor(private modifier: RawSelectionModifier) {}
 
   run(target: Target): Target[] {

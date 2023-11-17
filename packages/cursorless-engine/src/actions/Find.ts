@@ -13,9 +13,8 @@ export class FindInWorkspace implements SimpleAction {
   async run(targets: Target[]): Promise<ActionReturnValue> {
     ensureSingleTarget(targets);
 
-    const { returnValue, thatTargets } = await this.actions.getText.run(
-      targets,
-    );
+    const { returnValue, thatTargets } =
+      await this.actions.getText.run(targets);
     const [text] = returnValue as [string];
 
     let query: string;
