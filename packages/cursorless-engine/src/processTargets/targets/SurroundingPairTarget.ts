@@ -11,6 +11,7 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import { createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
 
 interface SurroundingPairTargetParameters extends CommonTargetParameters {
   /**
@@ -68,6 +69,22 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
           isReversed: this.isReversed,
           contentRange,
         }),
+    );
+  }
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean,
+  ): Target {
+    return createContinuousRangeOrUntypedTarget(
+      isReversed,
+      this,
+      this.getCloneParameters(),
+      endTarget,
+      includeStart,
+      includeEnd,
     );
   }
 

@@ -1,4 +1,7 @@
 import { BaseTarget, CommonTargetParameters } from ".";
+import type { Target } from "../../typings/target.types";
+import { createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
+
 
 interface PlainTargetParameters extends CommonTargetParameters {
   readonly isToken?: boolean;
@@ -23,6 +26,22 @@ export class PlainTarget extends BaseTarget<PlainTargetParameters> {
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean,
+  ): Target {
+    return createContinuousRangeOrUntypedTarget(
+      isReversed,
+      this,
+      this.getCloneParameters(),
+      endTarget,
+      includeStart,
+      includeEnd,
+    );
+  }
 
   protected getCloneParameters() {
     return {

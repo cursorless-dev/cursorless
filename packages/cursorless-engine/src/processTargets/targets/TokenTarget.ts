@@ -6,6 +6,7 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import { createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
 
 export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";
@@ -19,6 +20,22 @@ export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   }
   getRemovalRange(): Range {
     return getTokenRemovalRange(this);
+  }
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean,
+  ): Target {
+    return createContinuousRangeOrUntypedTarget(
+      isReversed,
+      this,
+      this.getCloneParameters(),
+      endTarget,
+      includeStart,
+      includeEnd,
+    );
   }
 
   protected getCloneParameters() {

@@ -3,7 +3,7 @@ import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
-import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import { createContinuousLineRange, createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
 
 export class LineTarget extends BaseTarget<CommonTargetParameters> {
   type = "LineTarget";
@@ -61,8 +61,10 @@ export class LineTarget extends BaseTarget<CommonTargetParameters> {
       });
     }
 
-    return super.createContinuousRangeTarget(
+    return createContinuousRangeOrUntypedTarget(
       isReversed,
+      this,
+      this.getCloneParameters(),
       endTarget,
       includeStart,
       includeEnd,

@@ -13,11 +13,6 @@ import {
 import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type { Destination, Target } from "../../typings/target.types";
-import { isSameType } from "../../util/typeUtils";
-import {
-  createContinuousRange,
-  createContinuousRangeUntypedTarget,
-} from "../targetUtil/createContinuousRange";
 import { DestinationImpl } from "./DestinationImpl";
 
 /** Parameters supported by all target classes */
@@ -129,35 +124,12 @@ export abstract class BaseTarget<
 
   protected abstract getCloneParameters(): EnforceUndefined<TParameters>;
 
-  createContinuousRangeTarget(
+  abstract createContinuousRangeTarget(
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
     includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      const constructor = Object.getPrototypeOf(this).constructor;
-
-      return new constructor({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return createContinuousRangeUntypedTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
-  }
+  ): Target;
 
   isEqual(otherTarget: Target): boolean {
     return (

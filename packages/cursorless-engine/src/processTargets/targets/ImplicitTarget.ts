@@ -1,4 +1,6 @@
 import { BaseTarget, CommonTargetParameters } from ".";
+import type { Target } from "../../typings/target.types";
+import { createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
 
 /**
  * A target that was not explicitly spoken by the user. For example:
@@ -17,6 +19,22 @@ export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
+
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean,
+  ): Target {
+    return createContinuousRangeOrUntypedTarget(
+      isReversed,
+      this,
+      this.getCloneParameters(),
+      endTarget,
+      includeStart,
+      includeEnd,
+    );
+  }
 
   protected getCloneParameters = () => this.state;
 }

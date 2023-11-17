@@ -1,6 +1,7 @@
 import { Position, Range } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { UntypedTarget } from "../targets";
+import { isSameType } from "../../util/typeUtils";
 
 export function createContinuousRange(
   startTarget: Target,
@@ -65,4 +66,36 @@ export function createContinuousRangeUntypedTarget(
     ),
     isToken: startTarget.isToken && endTarget.isToken,
   });
+}
+
+export function createContinuousRangeOrUntypedTarget(
+  isReversed: boolean,
+  startTarget: Target,
+  cloneParameters: any,
+  endTarget: Target,
+  includeStart: boolean,
+  includeEnd: boolean,
+): Target {
+  if (isSameType(startTarget, endTarget)) {
+    const constructor = Object.getPrototypeOf(startTarget).constructor;
+
+    return new constructor({
+      ...cloneParameters,
+      isReversed,
+      contentRange: createContinuousRange(
+        startTarget,
+        endTarget,
+        includeStart,
+        includeEnd,
+      ),
+    });
+  }
+
+  return createContinuousRangeUntypedTarget(
+    isReversed,
+    startTarget,
+    endTarget,
+    includeStart,
+    includeEnd,
+  );
 }

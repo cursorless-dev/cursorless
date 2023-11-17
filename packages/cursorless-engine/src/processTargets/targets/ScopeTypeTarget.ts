@@ -10,6 +10,7 @@ import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
   createContinuousRangeFromRanges,
+  createContinuousRangeOrUntypedTarget,
 } from "../targetUtil/createContinuousRange";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import {
@@ -134,8 +135,10 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       }
     }
 
-    return super.createContinuousRangeTarget(
+    return createContinuousRangeOrUntypedTarget(
       isReversed,
+      this,
+      this.getCloneParameters(),
       endTarget,
       includeStart,
       includeEnd,
