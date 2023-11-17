@@ -187,7 +187,6 @@ function getTrailingCharacter(editor: TextEditor, contentRange: Range): string {
  * @returns A new {@link PlainTarget} constructed from the given range, or null
  * if the range is undefined
  */
-
 export function tryConstructPlainTarget(
   editor: TextEditor,
   range: Range | undefined,
