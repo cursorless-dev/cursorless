@@ -87,7 +87,9 @@ function getTrailingDelimiterRange(editor: TextEditor, range: Range) {
   return end.line + 1 < editor.document.lineCount
     ? new Range(range.end, new Position(end.line + 1, 0))
     : undefined;
-}/**
+}
+
+/**
  * Constructs a {@link LineTarget} from the given range, or returns undefined
  * if the range is undefined
  * @param editor The editor containing the range
