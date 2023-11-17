@@ -176,7 +176,9 @@ function getTrailingCharacter(editor: TextEditor, contentRange: Range): string {
   return end.isBefore(line.range.end)
     ? editor.document.getText(new Range(end.translate(undefined, 1), end))
     : "";
-} /**
+}
+
+/**
  * Constructs a {@link PlainTarget} from the given range, or returns undefined
  * if the range is undefined
  * @param editor The editor containing the range
