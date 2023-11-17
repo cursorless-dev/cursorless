@@ -9,9 +9,9 @@ import {
   createContinuousRangeFromRanges,
 } from "./util/createContinuousRange";
 import { getDelimitedSequenceRemovalRange } from "./util/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
-import {getTokenRemovalRange} from "./PlainTarget";
-import {getTokenTrailingDelimiterTarget} from "./PlainTarget";
-import {getTokenLeadingDelimiterTarget} from "./PlainTarget";
+import { getTokenRemovalRange } from "./PlainTarget";
+import { getTokenTrailingDelimiterTarget } from "./PlainTarget";
+import { getTokenLeadingDelimiterTarget } from "./PlainTarget";
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;

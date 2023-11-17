@@ -30,5 +30,3 @@ export function tryConstructTarget<T extends Target>(
         contentRange: range,
       });
 }
-
-

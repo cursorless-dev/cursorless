@@ -2,9 +2,9 @@ import { Position, Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
-import {tryConstructPlainTarget} from "./PlainTarget";
+import { tryConstructPlainTarget } from "./PlainTarget";
 import { createContinuousLineRange } from "./util/createContinuousRange";
-import {tryConstructTarget} from "./util/tryConstructTarget";
+import { tryConstructTarget } from "./util/tryConstructTarget";
 
 export class LineTarget extends BaseTarget<CommonTargetParameters> {
   type = "LineTarget";
@@ -102,8 +102,7 @@ function getTrailingDelimiterRange(editor: TextEditor, range: Range) {
 export function constructLineTarget(
   editor: TextEditor,
   range: Range | undefined,
-  isReversed: boolean
+  isReversed: boolean,
 ): LineTarget | undefined {
   return tryConstructTarget(LineTarget, editor, range, isReversed);
 }
-

@@ -1,8 +1,8 @@
-import {Range, TextEditor} from "@cursorless/common";
-import {Target} from "../../typings/target.types";
-import {BaseTarget, CommonTargetParameters } from "./BaseTarget";
-import {expandToFullLine} from "../../util/rangeUtils";
-import {tryConstructTarget} from "./util/tryConstructTarget";
+import { Range, TextEditor } from "@cursorless/common";
+import { Target } from "../../typings/target.types";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import { expandToFullLine } from "../../util/rangeUtils";
+import { tryConstructTarget } from "./util/tryConstructTarget";
 
 interface PlainTargetParameters extends CommonTargetParameters {
   readonly isToken?: boolean;
@@ -41,10 +41,10 @@ const leadingDelimiters = ['"', "'", "(", "[", "{", "<"];
 const trailingDelimiters = ['"', "'", ")", "]", "}", ">", ",", ";", ":"];
 
 export function getTokenLeadingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
-  const {editor} = target;
-  const {start} = target.contentRange;
+  const { editor } = target;
+  const { start } = target.contentRange;
 
   const startLine = editor.document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);
@@ -53,22 +53,22 @@ export function getTokenLeadingDelimiterTarget(
   return leadingDelimiters == null
     ? undefined
     : new PlainTarget({
-      contentRange: new Range(
-        start.line,
-        start.character - leadingDelimiters[0].length,
-        start.line,
-        start.character
-      ),
-      editor,
-      isReversed: target.isReversed,
-    });
+        contentRange: new Range(
+          start.line,
+          start.character - leadingDelimiters[0].length,
+          start.line,
+          start.character,
+        ),
+        editor,
+        isReversed: target.isReversed,
+      });
 }
 
 export function getTokenTrailingDelimiterTarget(
-  target: Target
+  target: Target,
 ): Target | undefined {
-  const {editor} = target;
-  const {end} = target.contentRange;
+  const { editor } = target;
+  const { end } = target.contentRange;
 
   const endLine = editor.document.lineAt(end);
   const trailingText = endLine.text.slice(end.character);
@@ -77,15 +77,15 @@ export function getTokenTrailingDelimiterTarget(
   return trailingDelimiters == null
     ? undefined
     : new PlainTarget({
-      contentRange: new Range(
-        end.line,
-        end.character,
-        end.line,
-        end.character + trailingDelimiters[0].length
-      ),
-      editor,
-      isReversed: target.isReversed,
-    });
+        contentRange: new Range(
+          end.line,
+          end.character,
+          end.line,
+          end.character + trailingDelimiters[0].length,
+        ),
+        editor,
+        isReversed: target.isReversed,
+      });
 }
 /**
  * Constructs a removal range for the given target that may remove whitespace on
@@ -114,18 +114,22 @@ export function getTokenTrailingDelimiterTarget(
  */
 
 export function getTokenRemovalRange(target: Target): Range {
-  const {editor, contentRange} = target;
-  const {start, end} = contentRange;
+  const { editor, contentRange } = target;
+  const { start, end } = contentRange;
 
-  const leadingWhitespaceRange = target.getLeadingDelimiterTarget()?.contentRange ?? start.toEmptyRange();
+  const leadingWhitespaceRange =
+    target.getLeadingDelimiterTarget()?.contentRange ?? start.toEmptyRange();
 
-  const trailingWhitespaceRange = target.getTrailingDelimiterTarget()?.contentRange ?? end.toEmptyRange();
+  const trailingWhitespaceRange =
+    target.getTrailingDelimiterTarget()?.contentRange ?? end.toEmptyRange();
 
   const fullLineRange = expandToFullLine(editor, contentRange);
 
-  if (leadingWhitespaceRange
-    .union(trailingWhitespaceRange)
-    .isRangeEqual(fullLineRange)) {
+  if (
+    leadingWhitespaceRange
+      .union(trailingWhitespaceRange)
+      .isRangeEqual(fullLineRange)
+  ) {
     // If we would just be leaving a line with whitespace on it, we delete the
     // whitespace
     return fullLineRange;
@@ -134,9 +138,11 @@ export function getTokenRemovalRange(target: Target): Range {
   // Use trailing range if: There is a leading range OR there is no leading
   // content OR there is an approved leading delimiter character
   if (!trailingWhitespaceRange.isEmpty) {
-    if (!leadingWhitespaceRange.isEmpty ||
+    if (
+      !leadingWhitespaceRange.isEmpty ||
       contentRange.start.isEqual(fullLineRange.start) ||
-      leadingDelimiters.includes(getLeadingCharacter(editor, contentRange))) {
+      leadingDelimiters.includes(getLeadingCharacter(editor, contentRange))
+    ) {
       return contentRange.union(trailingWhitespaceRange);
     }
   }
@@ -144,8 +150,10 @@ export function getTokenRemovalRange(target: Target): Range {
   // Use leading range if: There is no trailing content OR there is an approved
   // trailing delimiter character
   if (!leadingWhitespaceRange.isEmpty) {
-    if (contentRange.end.isEqual(fullLineRange.end) ||
-      trailingDelimiters.includes(getTrailingCharacter(editor, contentRange))) {
+    if (
+      contentRange.end.isEqual(fullLineRange.end) ||
+      trailingDelimiters.includes(getTrailingCharacter(editor, contentRange))
+    ) {
       return contentRange.union(leadingWhitespaceRange);
     }
   }
@@ -168,7 +176,7 @@ function getTrailingCharacter(editor: TextEditor, contentRange: Range): string {
   return end.isBefore(line.range.end)
     ? editor.document.getText(new Range(end.translate(undefined, 1), end))
     : "";
-}/**
+} /**
  * Constructs a {@link PlainTarget} from the given range, or returns undefined
  * if the range is undefined
  * @param editor The editor containing the range
@@ -181,8 +189,7 @@ function getTrailingCharacter(editor: TextEditor, contentRange: Range): string {
 export function tryConstructPlainTarget(
   editor: TextEditor,
   range: Range | undefined,
-  isReversed: boolean
+  isReversed: boolean,
 ): PlainTarget | undefined {
   return tryConstructTarget(PlainTarget, editor, range, isReversed);
 }
-
