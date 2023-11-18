@@ -40,6 +40,8 @@
     name: (_) @className
 ) @class @className.domain
 
+;;!! void myFunk() {}
+;;!  ^^^^^^^^^^^^^^^^
 (method_declaration
     (identifier) @functionName
 ) @namedFunction @functionName.domain
@@ -47,23 +49,39 @@
     (identifier) @functionName
 ) @namedFunction @functionName.domain
 
+;;!! ((value) -> true)
+;;!   ^^^^^^^^^^^^^^^
 (lambda_expression) @anonymousFunction
 
+;;!! if (value) {}
+;;!  ^^^^^^^^^^^^^
 (
     (if_statement) @ifStatement
     (#not-parent-type? @ifStatement "if_statement")
 )
 
+;;!! "string"
+;;!  ^^^^^^^^
 (string_literal) @string @textFragment
 
+;;!! // comment
+;;!  ^^^^^^^^^^
 [
     (line_comment)
     (block_comment)
 ] @comment @textFragment
 
+;;!! int[] values = {1, 2, 3};
+;;!                 ^^^^^^^^^
 (array_initializer) @list
 
-(block) @map
+;;!! List<String> value = new ArrayList() {{ add("a"); }};
+;;!                                       ^^^^^^^^^^^^^^^
+(object_creation_expression
+    (class_body
+        (block) @map
+    )
+)
 
 [
     (method_invocation)
@@ -117,19 +135,18 @@
     condition: (_) @condition
 ) @_.domain
 
-;;!! switch (value) {}
-;;!          ^^^^^
-;;!  -----------------
-(switch_expression
-    condition: (_) @condition @switchStatementSubject
-    (#child-range! @condition 0 -1 true true)
-    (#child-range! @switchStatementSubject 0 -1 true true)
-) @_.domain
-
 ;;!! while (value) {}
 ;;!         ^^^^^
 ;;!  ----------------
 (while_statement
     condition: (_) @condition
     (#child-range! @condition 0 -1 true true)
+) @_.domain
+
+;;!! switch (value) {}
+;;!          ^^^^^
+;;!  -----------------
+(switch_expression
+    condition: (_) @switchStatementSubject
+    (#child-range! @switchStatementSubject 0 -1 true true)
 ) @_.domain
