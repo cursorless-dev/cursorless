@@ -2,7 +2,6 @@ import {
   createPatternMatchers,
   argumentMatcher,
   leadingMatcher,
-  trailingMatcher,
   matcher,
   cascadingMatcher,
 } from "../util/nodeMatchers";
