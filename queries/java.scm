@@ -98,6 +98,26 @@
     (switch_rule)
 ] @branch
 
+;;!! case "0": return "zero";
+;;!       ^^^
+;;!  ------------------------
+(switch_block_statement_group
+    (switch_label
+        (_) @condition
+    )
+) @condition.domain
+
+;;!! case "0" -> "zero";
+;;!       ^^^
+;;!  -------------------
+(switch_rule
+    (switch_label
+        (_) @condition
+    )
+) @condition.domain
+
+(switch_expression) @branch.iteration @condition.iteration
+
 ;;!! if () {}
 ;;!  ^^^^^^^^
 (
@@ -159,3 +179,5 @@
 (ternary_expression
     alternative: (_) @branch
 )
+
+(ternary_expression) @branch.iteration
