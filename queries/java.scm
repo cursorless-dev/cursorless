@@ -150,3 +150,12 @@
     condition: (_) @switchStatementSubject
     (#child-range! @switchStatementSubject 0 -1 true true)
 ) @_.domain
+
+;;!! true ? 1 : 2
+(ternary_expression
+    condition: (_) @condition
+    consequence: (_) @branch
+) @condition.domain
+(ternary_expression
+    alternative: (_) @branch
+)
