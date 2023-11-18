@@ -203,3 +203,44 @@
 (assignment_expression
     left: (_) @name
 ) @_.domain
+
+;;!! Map<String, String>
+;;!     ^^^^^^^  ^^^^^^
+(type_arguments
+    (type_identifier) @type
+)
+
+;;!! List<String> list = value;
+;;!  ^^^^^^^^^^^^
+;;!  --------------------------
+(local_variable_declaration
+    type: (_) @type
+) @_.domain
+
+;;!! name = new ArrayList<String>();
+;;!             ^^^^^^^^^^^^^^^^^
+;;!         -----------------------
+(object_creation_expression
+    type: (_) @type
+) @_.domain
+
+;;!! name = new int[5];
+;;!             ^^^
+;;!         ----------
+(array_creation_expression
+    type: (_) @type
+) @_.domain
+
+;;!! void myFunk(int value) {}
+;;!              ^^^
+;;!              ---------
+(formal_parameter
+    type: (_) @type
+) @_.domain
+
+;;!! int size() {}
+;;!  ^^^
+;;!  -------------
+(method_declaration
+    type: (_) @type
+) @_.domain
