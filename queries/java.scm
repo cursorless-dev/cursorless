@@ -180,4 +180,26 @@
     alternative: (_) @branch
 )
 
+;;!! true ? 1 : 2
+;;!  ^^^^^^^^^^^^
 (ternary_expression) @branch.iteration
+
+(_
+    name: (_) @name
+) @_.domain
+
+;;!! void myFunk(int value) {}
+;;!                  ^^^^^
+;;!  -------------------------
+(formal_parameters
+    (formal_parameter
+        (identifier) @name
+    ) @_.domain
+) @_.iteration
+
+;;!! int value = 0;
+;;!      ^^^^^
+;;!  --------------
+(assignment_expression
+    left: (_) @name
+) @_.domain

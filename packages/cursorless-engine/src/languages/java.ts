@@ -29,12 +29,6 @@ const nodeMatchers: Partial<
       childRangeSelector(["argument_list", ";"], []),
     ),
   ),
-  name: [
-    "*[declarator][name]",
-    "assignment_expression[left]",
-    "*[name]",
-    "formal_parameter.identifier!",
-  ],
   type: trailingMatcher([
     "generic_type.type_arguments.type_identifier",
     "generic_type.type_identifier",
