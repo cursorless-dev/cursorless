@@ -463,3 +463,8 @@
   (array)
   (array_pattern)
 ] @list
+
+(switch_statement
+  value: (_) @switchStatementSubject
+  (#child-range! @switchStatementSubject 0 -1 true true)
+) @_.domain
