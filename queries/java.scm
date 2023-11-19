@@ -37,17 +37,17 @@
 ] @statement
 
 (class_declaration
-    name: (_) @className
-) @class @className.domain
+    name: (_) @name @className
+) @class @_.domain
 
 ;;!! void myFunk() {}
 ;;!  ^^^^^^^^^^^^^^^^
 (method_declaration
-    (identifier) @functionName
-) @namedFunction @functionName.domain
+    name: (_) @name @functionName
+) @namedFunction @_.domain
 (constructor_declaration
-    (identifier) @functionName
-) @namedFunction @functionName.domain
+    name: (_) @name @functionName
+) @namedFunction @_.domain
 
 ;;!! ((value) -> true)
 ;;!   ^^^^^^^^^^^^^^^
@@ -190,10 +190,6 @@
 ;;!  ^^^^^^^^^^^^
 (ternary_expression) @branch.iteration
 
-(_
-    name: (_) @name
-) @_.domain
-
 ;;!! void myFunk(int value) {}
 ;;!                  ^^^^^
 ;;!  -------------------------
@@ -271,3 +267,40 @@
 (explicit_constructor_invocation
     (argument_list) @functionCallee.end.startOf
 ) @functionCallee.start.startOf @_.domain
+
+;;!! for (int value : values) {}
+;;!                   ^^^^^^
+;;!  ---------------------------
+(enhanced_for_statement
+    type: (_) @type
+    name: (_) @name
+    value: (_) @value
+) @_.domain
+
+;;!! int value = 1;
+;;!              ^
+;;!           xxxx
+;;!  --------------
+(local_variable_declaration
+    (variable_declarator
+        name: (_) @name @value.removal.start.endOf
+        value: (_) @value @value.removal.end
+    )
+) @_.domain
+
+;;!! value = 1;
+;;!          ^
+;;!       xxxx
+;;!  ----------
+(assignment_expression
+    left: (_) @value.removal.start.endOf
+    right: (_) @value @value.removal.end
+) @_.domain
+
+;;!! return value;
+;;!         ^^^^^
+;;!  -------------
+(
+    (return_statement) @value @_.domain
+    (#child-range! @value 1 -2)
+)
