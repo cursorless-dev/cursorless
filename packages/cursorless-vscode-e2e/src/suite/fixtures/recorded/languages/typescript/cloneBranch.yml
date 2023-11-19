@@ -1,0 +1,40 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: clone branch
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    if (1 > 0) {
+        
+    } else if (1 > 2) {
+        
+    } else {
+        
+    }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+  marks: {}
+finalState:
+  documentContents: |-
+    if (1 > 0) {
+        
+    } else if (1 > 2) {
+        
+    }
+    else if (1 > 2) {
+        
+    } else {
+        
+    }
+  selections:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
