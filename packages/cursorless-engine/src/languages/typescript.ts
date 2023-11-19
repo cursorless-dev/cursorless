@@ -13,7 +13,6 @@ import {
 import {
   childRangeSelector,
   extendForwardPastOptional,
-  unwrapSelectionExtractor,
 } from "../util/nodeSelectors";
 import { branchMatcher } from "./branchMatcher";
 import { elseExtractor, elseIfExtractor } from "./elseIfExtractor";
