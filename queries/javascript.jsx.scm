@@ -100,3 +100,7 @@
   "<" @value.iteration.start.endOf
   ">" @value.iteration.end.startOf
 )
+
+(jsx_text) @textFragment
+
+(jsx_attribute) @attribute

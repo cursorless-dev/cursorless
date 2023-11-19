@@ -1,6 +1,5 @@
 import { SimpleScopeTypeType } from "@cursorless/common";
-import type { SyntaxNode } from "web-tree-sitter";
-import { NodeMatcherAlternative, SelectionWithEditor } from "../typings/Types";
+import { NodeMatcherAlternative } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
@@ -14,8 +13,6 @@ import {
 import {
   childRangeSelector,
   extendForwardPastOptional,
-  getNodeInternalRange,
-  getNodeRange,
   unwrapSelectionExtractor,
 } from "../util/nodeSelectors";
 import { branchMatcher } from "./branchMatcher";
@@ -70,7 +67,6 @@ const nodeMatchers: Partial<
 > = {
   map: mapTypes,
   list: listTypes,
-  string: ["string", "template_string"],
   collectionItem: "jsx_attribute",
   collectionKey: trailingMatcher(
     [
@@ -81,9 +77,6 @@ const nodeMatchers: Partial<
     ],
     [":"],
   ),
-  ifStatement: "if_statement",
-  comment: "comment",
-  regularExpression: "regex",
   className: ["class_declaration[name]", "class[name]"],
   functionCall: ["call_expression", "new_expression"],
   functionCallee: cascadingMatcher(
@@ -133,28 +126,6 @@ const nodeMatchers: Partial<
     "export_statement.class", // export default class
   ],
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
-  // XML, JSX
-  attribute: ["jsx_attribute"],
 };
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);
-
-export function stringTextFragmentExtractor(
-  node: SyntaxNode,
-  _selection: SelectionWithEditor,
-) {
-  if (
-    node.type === "string_fragment" ||
-    node.type === "regex_pattern" ||
-    node.type === "jsx_text"
-  ) {
-    return getNodeRange(node);
-  }
-
-  if (node.type === "template_string") {
-    // Exclude starting and ending quotation marks
-    return getNodeInternalRange(node);
-  }
-
-  return null;
-}

@@ -418,3 +418,25 @@
   "{" @value.iteration.start.endOf
   "}" @value.iteration.end.startOf
 )
+
+[
+  (string)
+  (template_string)
+] @string
+
+(comment) @comment
+
+(if_statement) @ifStatement
+
+(regex) @regularExpression
+
+[
+  (string_fragment)
+  (comment)
+  (regex_pattern)
+] @textFragment
+
+(
+  (template_string) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
