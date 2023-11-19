@@ -81,13 +81,13 @@ const nodeMatchers: Partial<
       "method_definition",
     ),
   ),
-  branch: cascadingMatcher(
-    patternMatcher("switch_case"),
-    matcher(patternFinder("else_clause"), elseExtractor("if_statement")),
-    matcher(patternFinder("if_statement"), elseIfExtractor()),
-    branchMatcher("try_statement", ["catch_clause", "finally_clause"]),
-    ternaryBranchMatcher("ternary_expression", [1, 2]),
-  ),
+  // branch: cascadingMatcher(
+  //   patternMatcher("switch_case"),
+  //   matcher(patternFinder("else_clause"), elseExtractor("if_statement")),
+  //   matcher(patternFinder("if_statement"), elseIfExtractor()),
+  //   branchMatcher("try_statement", ["catch_clause", "finally_clause"]),
+  //   ternaryBranchMatcher("ternary_expression", [1, 2]),
+  // ),
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
 };
 

@@ -494,16 +494,15 @@
 
 (ternary_expression
   condition: (_) @condition
-) @_.domain
+  consequence: (_) @branch
+) @condition.domain
+(ternary_expression
+  alternative: (_) @branch
+)
 
 (for_statement
   condition: (_) @condition
   (#child-range! @condition 0 -1 false true)
-) @_.domain
-
-(if_statement
-  condition: (_) @condition
-  (#child-range! @condition 0 -1 true true)
 ) @_.domain
 
 (while_statement
@@ -515,3 +514,56 @@
   condition: (_) @condition
   (#child-range! @condition 0 -1 true true)
 ) @_.domain
+
+(switch_case
+  value: (_) @condition
+) @branch @value.domain
+
+(switch_statement) @branch.iteration @condition.iteration
+
+;;!! if () {}
+;;!  ^^^^^^^^
+(
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
+  ) @dummy @branch.start.startOf @condition.domain.start.startOf
+  (#not-parent-type? @dummy "else_clause")
+  (#child-range! @condition 0 -1 true true)
+)
+
+;;!! else if () {}
+;;!  ^^^^^^^^^^^^^
+(else_clause
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
+  )
+  (#child-range! @condition 0 -1 true true)
+) @branch.start.startOf @condition.domain.start.startOf
+
+;;!! else {}
+;;!  ^^^^^^^
+(else_clause
+  (statement_block)
+) @branch
+
+(
+  (if_statement) @branch.iteration
+  (#not-parent-type? @branch.iteration "else_clause")
+)
+
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+)
+
+(try_statement
+  handler: (_) @branch
+)
+
+(try_statement
+  finalizer: (_) @branch
+)
+
+(try_statement) @branch.iteration
