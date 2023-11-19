@@ -103,4 +103,10 @@
 
 (jsx_text) @textFragment
 
-(jsx_attribute) @attribute
+(jsx_opening_element
+  (jsx_attribute) @attribute
+) @_.domain
+
+(jsx_self_closing_element
+  (jsx_attribute) @attribute
+) @_.domain
