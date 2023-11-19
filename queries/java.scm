@@ -244,3 +244,24 @@
 (method_declaration
     type: (_) @type
 ) @_.domain
+
+;;!! new test()
+;;!  ^^^^^^^^
+;;!  ----------
+(object_creation_expression
+    (argument_list) @functionCallee.end.startOf
+) @functionCallee.start.startOf @_.domain
+
+;;!! new test().bar();
+;;!  ^^^^^^^^^^^^^^
+;;!  ----------------
+(method_invocation
+    (argument_list) @functionCallee.end.startOf
+) @functionCallee.start.startOf @_.domain
+
+;;!! super();
+;;!  ^^^^^
+;;!  -------
+(explicit_constructor_invocation
+    (argument_list) @functionCallee.end.startOf
+) @functionCallee.start.startOf @_.domain

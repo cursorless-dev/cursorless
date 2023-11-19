@@ -1,33 +1,15 @@
 import {
-  createPatternMatchers,
   argumentMatcher,
+  createPatternMatchers,
   leadingMatcher,
-  matcher,
-  cascadingMatcher,
 } from "../util/nodeMatchers";
-import { childRangeSelector } from "../util/nodeSelectors";
-import { patternFinder } from "../util/nodeFinders";
 
-import { NodeMatcherAlternative } from "../typings/Types";
 import { SimpleScopeTypeType } from "@cursorless/common";
+import { NodeMatcherAlternative } from "../typings/Types";
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  functionCallee: cascadingMatcher(
-    matcher(
-      patternFinder("method_invocation"),
-      childRangeSelector(["argument_list"], []),
-    ),
-    matcher(
-      patternFinder("object_creation_expression"),
-      childRangeSelector(["argument_list"], []),
-    ),
-    matcher(
-      patternFinder("explicit_constructor_invocation"),
-      childRangeSelector(["argument_list", ";"], []),
-    ),
-  ),
   value: leadingMatcher(
     [
       "*[declarator][value]",
