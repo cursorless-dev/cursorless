@@ -83,6 +83,12 @@
     )
 )
 
+;;!! foo(1);
+;;!  ^^^^^^
+;;!! new Foo(1);
+;;!  ^^^^^^^^^^
+;;!! super(1);
+;;!  ^^^^^^^^
 [
     (method_invocation)
     (object_creation_expression)
