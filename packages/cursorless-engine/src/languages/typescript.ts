@@ -82,15 +82,6 @@ const nodeMatchers: Partial<
       "method_definition",
     ),
   ),
-  condition: cascadingMatcher(
-    patternMatcher("ternary_expression[condition]"),
-    conditionMatcher(
-      "if_statement[condition]",
-      "for_statement[condition]",
-      "while_statement[condition]",
-      "do_statement[condition]",
-    ),
-  ),
   branch: cascadingMatcher(
     patternMatcher("switch_case"),
     matcher(patternFinder("else_clause"), elseExtractor("if_statement")),
@@ -98,11 +89,6 @@ const nodeMatchers: Partial<
     branchMatcher("try_statement", ["catch_clause", "finally_clause"]),
     ternaryBranchMatcher("ternary_expression", [1, 2]),
   ),
-  // class: [
-  //   "export_statement?.class_declaration", // export class | class
-  //   "export_statement?.abstract_class_declaration", // export abstract class | abstract class
-  //   "export_statement.class", // export default class
-  // ],
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
 };
 

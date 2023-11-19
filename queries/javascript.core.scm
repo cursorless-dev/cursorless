@@ -491,3 +491,27 @@
 (class
   name: (_) @className
 ) @_.domain
+
+(ternary_expression
+  condition: (_) @condition
+) @_.domain
+
+(for_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 false true)
+) @_.domain
+
+(if_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 true true)
+) @_.domain
+
+(while_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 true true)
+) @_.domain
+
+(do_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 true true)
+) @_.domain
