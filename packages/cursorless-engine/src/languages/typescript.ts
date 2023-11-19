@@ -102,10 +102,6 @@ const nodeMatchers: Partial<
       "do_statement[condition]",
     ),
   ),
-  switchStatementSubject: matcher(
-    patternFinder("switch_statement[value]"),
-    unwrapSelectionExtractor,
-  ),
   branch: cascadingMatcher(
     patternMatcher("switch_case"),
     matcher(patternFinder("else_clause"), elseExtractor("if_statement")),
