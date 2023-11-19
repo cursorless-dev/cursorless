@@ -4,7 +4,6 @@ import { patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
   cascadingMatcher,
-  conditionMatcher,
   createPatternMatchers,
   matcher,
   patternMatcher,
