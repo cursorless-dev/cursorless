@@ -58,7 +58,7 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
           nextLine.range.start.line,
           nextLine.firstNonWhitespaceCharacterIndex,
         ),
-        text: " ",
+        text: nextLine.isEmptyOrWhitespace ? "" : " ",
         isReplace: true,
       });
 
