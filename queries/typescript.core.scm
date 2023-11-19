@@ -229,3 +229,16 @@
     (predefined_type)
   ] @type @_.leading.end.startOf
 ) @_.domain
+
+(
+  (abstract_class_declaration) @class
+  (#not-parent-type? @class export_statement)
+)
+
+(export_statement
+  (abstract_class_declaration)
+) @class
+
+(abstract_class_declaration
+  name: (_) @name
+) @_.domain

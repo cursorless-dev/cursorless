@@ -441,14 +441,6 @@
   (#child-range! @textFragment 0 -1 true true)
 )
 
-(class_declaration
-  name: (_) @className
-) @_.domain
-
-(class
-  name: (_) @className
-) @_.domain
-
 [
   (call_expression)
   (new_expression)
@@ -476,3 +468,26 @@
 (new_expression
   (arguments) @functionCallee.end.startOf
 ) @functionCallee.start.startOf @_.domain
+
+(
+  [
+    (class_declaration)
+    (class)
+  ] @class
+  (#not-parent-type? @class export_statement)
+)
+
+(export_statement
+  [
+    (class_declaration)
+    (class)
+  ]
+) @class
+
+(class_declaration
+  name: (_) @className
+) @_.domain
+
+(class
+  name: (_) @className
+) @_.domain

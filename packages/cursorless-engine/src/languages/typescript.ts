@@ -98,11 +98,11 @@ const nodeMatchers: Partial<
     branchMatcher("try_statement", ["catch_clause", "finally_clause"]),
     ternaryBranchMatcher("ternary_expression", [1, 2]),
   ),
-  class: [
-    "export_statement?.class_declaration", // export class | class
-    "export_statement?.abstract_class_declaration", // export abstract class | abstract class
-    "export_statement.class", // export default class
-  ],
+  // class: [
+  //   "export_statement?.class_declaration", // export class | class
+  //   "export_statement?.abstract_class_declaration", // export abstract class | abstract class
+  //   "export_statement.class", // export default class
+  // ],
   argumentOrParameter: argumentMatcher("formal_parameters", "arguments"),
 };
 
