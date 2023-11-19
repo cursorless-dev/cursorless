@@ -169,6 +169,11 @@
     (#child-range! @condition 0 -1 true true)
 ) @_.domain
 
+(do_statement
+    condition: (_) @condition
+    (#child-range! @condition 0 -1 true true)
+) @_.domain
+
 ;;!! switch (value) {}
 ;;!          ^^^^^
 ;;!  -----------------
