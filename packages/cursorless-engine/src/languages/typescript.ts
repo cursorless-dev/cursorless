@@ -71,7 +71,6 @@ const nodeMatchers: Partial<
   map: mapTypes,
   list: listTypes,
   string: ["string", "template_string"],
-  collectionItem: "jsx_attribute",
   collectionKey: trailingMatcher(
     [
       "pair[key]",
