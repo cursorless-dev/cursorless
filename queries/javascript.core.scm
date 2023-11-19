@@ -468,3 +468,11 @@
   value: (_) @switchStatementSubject
   (#child-range! @switchStatementSubject 0 -1 true true)
 ) @_.domain
+
+(call_expression
+  function: (_) @functionCallee
+) @_.domain
+
+(new_expression
+  (arguments) @functionCallee.end.startOf
+) @functionCallee.start.startOf @_.domain

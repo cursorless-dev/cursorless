@@ -72,13 +72,6 @@ const nodeMatchers: Partial<
     ],
     [":"],
   ),
-  functionCallee: cascadingMatcher(
-    patternMatcher("call_expression[function]"),
-    matcher(
-      patternFinder("new_expression"),
-      childRangeSelector(["arguments"], []),
-    ),
-  ),
   statement: cascadingMatcher(
     matcher(
       patternFinder(
