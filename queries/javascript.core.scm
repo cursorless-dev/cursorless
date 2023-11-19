@@ -440,3 +440,26 @@
   (template_string) @textFragment
   (#child-range! @textFragment 0 -1 true true)
 )
+
+(class_declaration
+  name: (_) @className
+) @_.domain
+
+(class
+  name: (_) @className
+) @_.domain
+
+[
+  (call_expression)
+  (new_expression)
+] @functionCall
+
+[
+  (object)
+  (object_pattern)
+] @map
+
+[
+  (array)
+  (array_pattern)
+] @list

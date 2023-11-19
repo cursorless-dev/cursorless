@@ -37,7 +37,7 @@ const STATEMENT_TYPES = [
   "expression_statement",
   "for_in_statement",
   "for_statement",
-  "function_declaration",
+  "functions_declaration",
   "function_signature",
   "generator_function_declaration",
   "if_statement",
@@ -59,14 +59,9 @@ const STATEMENT_TYPES = [
   "with_statement",
 ];
 
-const mapTypes = ["object", "object_pattern"];
-const listTypes = ["array", "array_pattern"];
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  map: mapTypes,
-  list: listTypes,
   collectionItem: "jsx_attribute",
   collectionKey: trailingMatcher(
     [
@@ -77,8 +72,6 @@ const nodeMatchers: Partial<
     ],
     [":"],
   ),
-  className: ["class_declaration[name]", "class[name]"],
-  functionCall: ["call_expression", "new_expression"],
   functionCallee: cascadingMatcher(
     patternMatcher("call_expression[function]"),
     matcher(
