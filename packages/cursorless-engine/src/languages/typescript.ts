@@ -10,10 +10,7 @@ import {
   patternMatcher,
   trailingMatcher,
 } from "../util/nodeMatchers";
-import {
-  childRangeSelector,
-  extendForwardPastOptional,
-} from "../util/nodeSelectors";
+import { extendForwardPastOptional } from "../util/nodeSelectors";
 import { branchMatcher } from "./branchMatcher";
 import { elseExtractor, elseIfExtractor } from "./elseIfExtractor";
 import { ternaryBranchMatcher } from "./ternaryBranchMatcher";
