@@ -24,7 +24,7 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    if (false) {
+    else if (false) {
       const whatever = "hello";
     } else {
       const whatever = "hello";
