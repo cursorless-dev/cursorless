@@ -1,59 +1,43 @@
 ;;!! (aaa) @bbb @ccc
-;;!         ^^^^^^^^
-;;!        xxxxxxxxx
+;;!        ^^^^^^^^^
 ;;!  ---------------
 (
   (_
     _ @dummy
     .
-    (capture
-      "@" @_.leading
-      name: (identifier) @name.start
-    )
+    (capture) @name.start
     (capture)? @name.end
     .
   ) @_.domain
   (#not-type? @_.domain parameters)
   (#not-type? @dummy capture)
   (#not-parent-type? @_.domain field_definition)
-  (#insertion-delimiter! @name.start " @")
 )
 
 ;;!! eee: (aaa) @bbb @ccc
-;;!              ^^^^^^^^
-;;!             xxxxxxxxx
+;;!             ^^^^^^^^^
 ;;!  --------------------
 (
   (field_definition
     (_
       _ @dummy
       .
-      (capture
-        "@" @_.leading
-        name: (identifier) @name.start
-      )
+      (capture) @name.start
       (capture)? @name.end
       .
     )
   ) @_.domain
   (#not-type? @dummy capture)
-  (#insertion-delimiter! @name.start " @")
 )
 
 ;;!! (aaa) @bbb @ccc
-;;!         ^^^  ^^^
-;;!        xxxx xxxx
-;;!        ---- ----
+;;!        ^^^^ ^^^^
 (
   (_
-    (capture
-      "@" @_.leading
-      name: (identifier) @name
-    ) @_.domain
+    (capture) @name
   ) @dummy
   (#not-type? @dummy parameters)
   (#has-multiple-children-of-type? @dummy capture)
-  (#insertion-delimiter! @name " @")
 )
 
 ;;!! (aaa) @bbb @ccc

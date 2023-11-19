@@ -1,0 +1,31 @@
+languageId: python
+command:
+  version: 5
+  spokenForm: clear access air
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: private.fieldAccess}
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+spokenFormError: >-
+  simple scope type type with id private.fieldAccess; this is a private spoken
+  form currently only for internal experimentation
+initialState:
+  documentContents: |
+    aaa().bbb.ccc().ddd
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: |
+    .bbb.ccc().ddd
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

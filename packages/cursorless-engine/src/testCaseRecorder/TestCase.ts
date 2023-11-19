@@ -23,6 +23,7 @@ import { ide } from "../singletons/ide.singleton";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
 import { getPartialTargetDescriptors } from "../util/getPartialTargetDescriptors";
+import { unsafeKeys } from "../util/object";
 
 export class TestCase {
   private languageId: string;
@@ -122,7 +123,7 @@ export class TestCase {
       visibleRanges: !visibleRangeActions.includes(this.command.action.name),
     };
 
-    return Object.keys(excludedFields).filter((field) => excludedFields[field]);
+    return unsafeKeys(excludedFields).filter((field) => excludedFields[field]);
   }
 
   toYaml() {

@@ -3,13 +3,13 @@ import {
   SelectionPlainObject,
   SerializedMarks,
   TargetPlainObject,
-} from "./toPlainObject";
+} from "../util/toPlainObject";
 
 export type TestCaseSnapshot = {
   documentContents: string;
   selections: SelectionPlainObject[];
   clipboard?: string;
-  // TODO Visible ranges are not asserted during testing, see:
+  // FIXME Visible ranges are not asserted during testing, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
   visibleRanges?: RangePlainObject[];
   marks?: SerializedMarks;

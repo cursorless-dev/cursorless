@@ -20,7 +20,7 @@ const options: sbd.Options = {
   ["preserve_whitespace"]: true,
 };
 
-export default class SentenceSegmenter {
+export class SentenceSegmenter {
   *segment(text: string): Iterable<MatchedText> {
     const sentences = sbd.sentences(text, options);
     let index = 0;

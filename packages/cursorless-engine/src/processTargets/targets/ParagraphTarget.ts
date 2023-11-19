@@ -12,7 +12,7 @@ import { constructLineTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 
-export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
+export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";
   insertionDelimiter = "\n\n";
   isLine = true;
@@ -34,7 +34,7 @@ export default class ParagraphTarget extends BaseTarget<CommonTargetParameters> 
   }
 
   getRemovalRange(): Range {
-    // TODO: In the future we could get rid of this function if {@link
+    // FIXME: In the future we could get rid of this function if {@link
     // getDelimitedSequenceRemovalRange} made a continuous range from the target
     // past its delimiter target and then used the removal range of that.
     const delimiterTarget =

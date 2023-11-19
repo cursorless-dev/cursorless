@@ -1,0 +1,103 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: chuck type
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const aaa: number = 0;
+    let bbb: number = 0;
+    var hhh: number = 0;
+    const ddd: number = 0, eee: number = 0;
+    let fff: number = 0, ggg: number = 0;
+    var iii: number = 0;
+    export const jjj: number = 0;
+    export let kkk: number = 0;
+    export var lll: number = 0;
+    export const mmm: number = 0, nnn: number = 0;
+    export let ooo: number = 0, ppp: number = 0;
+    let qqq: number;
+    var rrr: number;
+    let sss: number, ttt: number;
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+    - anchor: {line: 1, character: 20}
+      active: {line: 1, character: 20}
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}
+    - anchor: {line: 3, character: 39}
+      active: {line: 3, character: 39}
+    - anchor: {line: 4, character: 37}
+      active: {line: 4, character: 37}
+    - anchor: {line: 5, character: 20}
+      active: {line: 5, character: 20}
+    - anchor: {line: 6, character: 29}
+      active: {line: 6, character: 29}
+    - anchor: {line: 7, character: 27}
+      active: {line: 7, character: 27}
+    - anchor: {line: 8, character: 27}
+      active: {line: 8, character: 27}
+    - anchor: {line: 9, character: 46}
+      active: {line: 9, character: 46}
+    - anchor: {line: 10, character: 44}
+      active: {line: 10, character: 44}
+    - anchor: {line: 11, character: 16}
+      active: {line: 11, character: 16}
+    - anchor: {line: 12, character: 16}
+      active: {line: 12, character: 16}
+    - anchor: {line: 13, character: 29}
+      active: {line: 13, character: 29}
+  marks: {}
+finalState:
+  documentContents: |-
+    const aaa = 0;
+    let bbb = 0;
+    var hhh = 0;
+    const ddd = 0, eee = 0;
+    let fff = 0, ggg = 0;
+    var iii = 0;
+    export const jjj = 0;
+    export let kkk = 0;
+    export var lll = 0;
+    export const mmm = 0, nnn = 0;
+    export let ooo = 0, ppp = 0;
+    let qqq;
+    var rrr;
+    let sss, ttt;
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+    - anchor: {line: 2, character: 12}
+      active: {line: 2, character: 12}
+    - anchor: {line: 3, character: 23}
+      active: {line: 3, character: 23}
+    - anchor: {line: 4, character: 21}
+      active: {line: 4, character: 21}
+    - anchor: {line: 5, character: 12}
+      active: {line: 5, character: 12}
+    - anchor: {line: 6, character: 21}
+      active: {line: 6, character: 21}
+    - anchor: {line: 7, character: 19}
+      active: {line: 7, character: 19}
+    - anchor: {line: 8, character: 19}
+      active: {line: 8, character: 19}
+    - anchor: {line: 9, character: 30}
+      active: {line: 9, character: 30}
+    - anchor: {line: 10, character: 28}
+      active: {line: 10, character: 28}
+    - anchor: {line: 11, character: 8}
+      active: {line: 11, character: 8}
+    - anchor: {line: 12, character: 8}
+      active: {line: 12, character: 8}
+    - anchor: {line: 13, character: 13}
+      active: {line: 13, character: 13}

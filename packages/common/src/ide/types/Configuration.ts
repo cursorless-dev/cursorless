@@ -9,6 +9,9 @@ export type CursorlessConfiguration = {
   experimental: { snippetsDir: string | undefined; hatStability: HatStability };
   decorationDebounceDelayMs: number;
   debug: boolean;
+  private: {
+    lineParagraphIterationScope: boolean;
+  };
 };
 
 export type CursorlessConfigKey = keyof CursorlessConfiguration;
@@ -27,6 +30,9 @@ export const CONFIGURATION_DEFAULTS: CursorlessConfiguration = {
     hatStability: HatStability.balanced,
   },
   debug: false,
+  private: {
+    lineParagraphIterationScope: false,
+  },
 };
 
 export interface Configuration {

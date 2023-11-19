@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import z from "zod";
+import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
 import { QueryPredicateOperator } from "./QueryPredicateOperator";
@@ -16,17 +16,6 @@ class NotType extends QueryPredicateOperator<NotType> {
   schema = z.tuple([q.node, q.string]).rest(q.string);
   run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
-  }
-}
-
-/**
- * A predicate operator that returns true if the nodes range is not empty.
- */
-class NotEmpty extends QueryPredicateOperator<NotEmpty> {
-  name = "not-empty?" as const;
-  schema = z.tuple([q.node]);
-  run({ range }: MutableQueryCapture) {
-    return !range.isEmpty;
   }
 }
 
@@ -150,9 +139,24 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   }
 }
 
+/**
+ * Indicates that it is ok for multiple captures to have the same domain but
+ * different targets.  For example, if we have the query `(#allow-multiple!
+ * @foo)`, then if we define the query so that `@foo` appears multiple times
+ * with the same domain but different targets, then the given domain will end up
+ * with multiple targets. The canonical example is `tags` in HTML / jsx.
+ *
+ * This operator is allowed to be applied to a capture that doesn't actually
+ * appear; ie we can make it so that we allow multiple if the capture appears in
+ * the pattern.
+ */
 class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   name = "allow-multiple!" as const;
   schema = z.tuple([q.node]);
+
+  protected allowMissingNode(): boolean {
+    return true;
+  }
 
   run(nodeInfo: MutableQueryCapture) {
     nodeInfo.allowMultiple = true;
@@ -193,7 +197,6 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
-  new NotEmpty(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),

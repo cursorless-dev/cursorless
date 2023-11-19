@@ -6,7 +6,7 @@ import {
 } from "@cursorless/common";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import { Destination, EditNewActionType } from "../../typings/target.types";
-import NotebookCellTarget from "./NotebookCellTarget";
+import { NotebookCellTarget } from "./NotebookCellTarget";
 
 export class NotebookCellDestination implements Destination {
   constructor(

@@ -46,6 +46,19 @@ const insertSnippetAction: ActionDescriptor = {
     body: "Hello, $foo!  My name is $bar!",
   },
 };
+const insertSnippetWithScopeAction: ActionDescriptor = {
+  name: "insertSnippet",
+  destination: {
+    type: "primitive",
+    insertionMode: "after",
+    target: decoratedPrimitiveTarget("a"),
+  },
+  snippetDescription: {
+    type: "custom",
+    body: "Hello, $foo!  My name is $bar!",
+    scopeTypes: [{ type: "statement" }],
+  },
+};
 const insertSnippetByNameAction: ActionDescriptor = {
   name: "insertSnippet",
   destination: { type: "implicit" },
@@ -79,6 +92,10 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
     variableName: "body",
   },
 };
+const parseTreeAction: ActionDescriptor = {
+  name: "private.showParseTree",
+  target: decoratedPrimitiveTarget("a"),
+};
 
 /**
  * These test our Talon api using dummy spoken forms defined in
@@ -93,12 +110,17 @@ export const talonApiFixture = [
     insertMultipleWordsTargetAction,
   ),
   spokenFormTest("test api insert snippet", insertSnippetAction),
+  spokenFormTest(
+    "test api insert snippet after air",
+    insertSnippetWithScopeAction,
+  ),
   spokenFormTest("test api insert snippet by name", insertSnippetByNameAction),
   spokenFormTest("test api wrap with snippet this", wrapWithSnippetAction),
   spokenFormTest(
     "test api wrap with snippet by name this",
     wrapWithSnippetByNameAction,
   ),
+  spokenFormTest("parse tree air", parseTreeAction),
 ];
 
 function decoratedPrimitiveTarget(

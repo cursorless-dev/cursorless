@@ -5,6 +5,7 @@ import {
   HatTokenMap,
   IDE,
   NormalizedIDE,
+  ScopeProvider,
   SerializedMarks,
   TargetPlainObject,
   TestCaseSnapshot,
@@ -28,6 +29,8 @@ export function constructTestHelpers(
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
+  cursorlessTalonStateJsonPath: string,
+  scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
@@ -35,6 +38,7 @@ export function constructTestHelpers(
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,
+    scopeProvider,
 
     toVscodeEditor,
 
@@ -60,6 +64,8 @@ export function constructTestHelpers(
         forceRealClipboard ? vscodeIDE.clipboard : undefined,
       );
     },
+
+    cursorlessTalonStateJsonPath,
 
     setStoredTarget(
       editor: vscode.TextEditor,

@@ -55,6 +55,7 @@ export const actions = {
   pasteFromClipboard: "paste",
   joinLines: "join",
 
+  ["private.showParseTree"]: "parse tree",
   ["experimental.setInstanceReference"]: "from",
 
   editNew: null,
