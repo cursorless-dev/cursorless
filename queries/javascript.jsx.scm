@@ -105,8 +105,8 @@
 
 (jsx_opening_element
   (jsx_attribute) @attribute
-) @_.domain
+) @_.iteration
 
 (jsx_self_closing_element
   (jsx_attribute) @attribute
-) @_.domain
+) @_.iteration
