@@ -5,8 +5,8 @@ import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRangeFromRanges,
-  createContinuousRangeUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeUntypedTarget} from "./BaseTarget";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;

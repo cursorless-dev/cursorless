@@ -6,11 +6,9 @@ import {
   TokenTarget,
 } from ".";
 import { Target } from "../../typings/target.types";
-import {
-  getTokenLeadingDelimiterTarget,
-  getTokenRemovalRange,
-  getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import {getTokenRemovalRange} from "./BaseTarget";
+import {getTokenTrailingDelimiterTarget} from "./BaseTarget";
+import {getTokenLeadingDelimiterTarget} from "./BaseTarget";
 
 interface SurroundingPairTargetParameters extends CommonTargetParameters {
   /**

@@ -1,11 +1,9 @@
 import { Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
-import {
-  getTokenLeadingDelimiterTarget,
-  getTokenRemovalRange,
-  getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import {getTokenRemovalRange} from "./BaseTarget";
+import {getTokenTrailingDelimiterTarget} from "./BaseTarget";
+import {getTokenLeadingDelimiterTarget} from "./BaseTarget";
 
 export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";
