@@ -255,7 +255,110 @@
   subject: (_) @switchStatementSubject
 ) @_.domain
 
+;;!! { "value": 0 }
+;;!    ^^^^^^^
+;;!    xxxxxxxxx
 (pair
   key: (_) @collectionKey @_.removal.start
   value: (_) @_.removal.end.startOf
+) @_.domain
+
+;;!! if True:
+;;!     ^^^^
+(if_statement
+  condition: (_) @condition
+) @_.domain
+
+;;!! elif True:
+;;!     ^^^^
+(elif_clause
+  condition: (_) @condition
+) @_.domain
+
+;;!! while True:
+;;!        ^^^^
+(while_statement
+  condition: (_) @condition
+) @_.domain
+
+;;!! match value:
+;;!        ^^^^^
+(case_clause
+  pattern: (_) @condition
+) @_.domain
+
+;;!! case a if a > 1:
+;;!            ^^^^^
+;;!         xxxxxxxx
+;;!         --------
+(case_clause
+  (if_clause
+    "if"
+    (_) @condition
+  ) @_.domain @_.removal
+)
+
+(match_statement) @branch.iteration @condition.iteration
+
+;;!! if True else 0
+;;!     ^^^^
+;;!  --------------
+(
+  (conditional_expression
+    "if"
+    .
+    (_) @condition
+  ) @_.domain
+)
+
+;;!! [aaa for aaa in bbb if ccc]
+;;!                         ^^^
+;;!                      xxxxxx
+;;!  ---------------------------
+(list_comprehension
+  (if_clause
+    "if"
+    (_) @condition
+  ) @_.removal
+) @_.domain
+
+;;!! (aaa for aaa in bbb if ccc)
+;;!                         ^^^
+;;!                      xxxxxx
+;;!  ---------------------------
+(generator_expression
+  (if_clause
+    "if"
+    (_) @condition
+  ) @_.removal
+) @_.domain
+
+;;!! {aaa for aaa in bbb if ccc}
+;;!                         ^^^
+;;!                      xxxxxx
+;;!  ---------------------------
+(set_comprehension
+  (if_clause
+    "if"
+    (_) @condition
+  ) @_.removal
+) @_.domain
+
+;;!! {aaa: aaa for aaa in bbb if ccc}
+;;!                              ^^^
+;;!                           xxxxxx
+;;!  --------------------------------
+(dictionary_comprehension
+  (if_clause
+    "if"
+    (_) @condition
+  ) @_.removal
+) @_.domain
+
+;;!! for name in value:
+;;!      ^^^^    ^^^^^
+;;!  ------------------
+(for_statement
+  left: (_) @name
+  right: (_) @value
 ) @_.domain

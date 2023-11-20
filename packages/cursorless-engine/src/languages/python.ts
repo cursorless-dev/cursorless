@@ -5,9 +5,7 @@ import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
   argumentMatcher,
   cascadingMatcher,
-  conditionMatcher,
   createPatternMatchers,
-  leadingMatcher,
   matcher,
   patternMatcher,
 } from "../util/nodeMatchers";
@@ -52,15 +50,6 @@ const nodeMatchers: Partial<
       itemNodeFinder("global_statement", "identifier"),
       argumentSelectionExtractor(),
     ),
-  ),
-  condition: cascadingMatcher(
-    conditionMatcher("*[condition]"),
-
-    // Comprehensions and match statements
-    leadingMatcher(["*.if_clause![0]"], ["if"]),
-
-    // Ternaries
-    patternMatcher("conditional_expression[1]"),
   ),
   argumentOrParameter: cascadingMatcher(
     argumentMatcher("parameters", "argument_list"),

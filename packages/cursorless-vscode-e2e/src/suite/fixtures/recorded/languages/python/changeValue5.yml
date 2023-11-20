@@ -1,18 +1,18 @@
 languageId: python
 command:
   version: 6
-  spokenForm: change name
+  spokenForm: change value
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: name}
+          scopeType: {type: value}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    for aaa in bbb:
+    for name in value:
         pass
   selections:
     - anchor: {line: 1, character: 4}
@@ -20,8 +20,8 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    for  in bbb:
+    for name in :
         pass
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}

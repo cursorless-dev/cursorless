@@ -15,8 +15,8 @@ initialState:
         case a if a > 1:
             pass
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
   marks: {}
 finalState:
   documentContents: |-
@@ -24,5 +24,5 @@ finalState:
         case a :
             pass
   selections:
-    - anchor: {line: 2, character: 8}
-      active: {line: 2, character: 8}
+    - anchor: {line: 1, character: 11}
+      active: {line: 1, character: 11}
