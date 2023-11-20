@@ -3,7 +3,7 @@ import { BaseTarget, CommonTargetParameters } from ".";
 import { Destination } from "../../typings/target.types";
 import { NotebookCellDestination } from "./NotebookCellDestination";
 import type { Target } from "../../typings/target.types";
-import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
+import { createContinuousRangeOrUntypedTarget } from "./UntypedTarget";
 
 export class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
   type = "NotebookCellTarget";

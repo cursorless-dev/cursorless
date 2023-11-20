@@ -2,7 +2,7 @@ import { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { BaseTarget, CommonTargetParameters, PlainTarget } from "./";
 import type { Target } from "../../typings/target.types";
-import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
+import { createContinuousRangeOrUntypedTarget } from "./UntypedTarget";
 
 export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
   type = "DocumentTarget";

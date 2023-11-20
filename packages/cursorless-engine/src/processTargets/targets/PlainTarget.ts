@@ -1,6 +1,6 @@
 import { BaseTarget, CommonTargetParameters } from ".";
 import type { Target } from "../../typings/target.types";
-import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
+import { createContinuousRangeOrUntypedTarget } from "./UntypedTarget";
 
 interface PlainTargetParameters extends CommonTargetParameters {
   readonly isToken?: boolean;

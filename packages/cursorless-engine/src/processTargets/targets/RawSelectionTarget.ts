@@ -1,6 +1,6 @@
 import { BaseTarget, CommonTargetParameters } from ".";
 import type { Target } from "../../typings/target.types";
-import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
+import { createContinuousRangeOrUntypedTarget } from "./UntypedTarget";
 
 /**
  * A target that has no leading or trailing delimiters so it's removal range

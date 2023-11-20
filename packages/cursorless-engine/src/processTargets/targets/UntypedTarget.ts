@@ -6,8 +6,8 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import {createContinuousRange} from "../targetUtil/createContinuousRange";
-import {isSameType} from "../../util/typeUtils";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
+import { isSameType } from "../../util/typeUtils";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
@@ -72,7 +72,7 @@ export function createContinuousRangeUntypedTarget(
   startTarget: Target,
   endTarget: Target,
   includeStart: boolean,
-  includeEnd: boolean
+  includeEnd: boolean,
 ): UntypedTarget {
   return new UntypedTarget({
     editor: startTarget.editor,
@@ -82,7 +82,7 @@ export function createContinuousRangeUntypedTarget(
       startTarget,
       endTarget,
       includeStart,
-      includeEnd
+      includeEnd,
     ),
     isToken: startTarget.isToken && endTarget.isToken,
   });
@@ -94,7 +94,7 @@ export function createContinuousRangeOrUntypedTarget(
   cloneParameters: any,
   endTarget: Target,
   includeStart: boolean,
-  includeEnd: boolean
+  includeEnd: boolean,
 ): Target {
   if (isSameType(startTarget, endTarget)) {
     const constructor = Object.getPrototypeOf(startTarget).constructor;
@@ -106,7 +106,7 @@ export function createContinuousRangeOrUntypedTarget(
         startTarget,
         endTarget,
         includeStart,
-        includeEnd
+        includeEnd,
       ),
     });
   }
@@ -116,7 +116,6 @@ export function createContinuousRangeOrUntypedTarget(
     startTarget,
     endTarget,
     includeStart,
-    includeEnd
+    includeEnd,
   );
 }
-

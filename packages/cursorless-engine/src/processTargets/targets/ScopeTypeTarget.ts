@@ -11,7 +11,7 @@ import {
   createContinuousRange,
   createContinuousRangeFromRanges,
 } from "../targetUtil/createContinuousRange";
-import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
+import { createContinuousRangeOrUntypedTarget } from "./UntypedTarget";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import {
   getTokenLeadingDelimiterTarget,
