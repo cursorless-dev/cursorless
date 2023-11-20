@@ -7,7 +7,6 @@ import {
   createPatternMatchers,
   matcher,
   patternMatcher,
-  trailingMatcher,
 } from "../util/nodeMatchers";
 import { extendForwardPastOptional } from "../util/nodeSelectors";
 
