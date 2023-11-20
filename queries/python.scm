@@ -298,11 +298,15 @@
   ) @_.domain @_.removal
 )
 
+;;!! case 0: pass
+;;!  ^^^^^^^^^^^^
+(case_clause) @branch
+
 (match_statement) @branch.iteration @condition.iteration
 
-;;!! if True else 0
-;;!     ^^^^
-;;!  --------------
+;;!! 1 if True else 0
+;;!       ^^^^
+;;!  ----------------
 (
   (conditional_expression
     "if"
@@ -310,6 +314,28 @@
     (_) @condition
   ) @_.domain
 )
+
+;;!! 1 if True else 0
+;;!  ^
+(
+  (conditional_expression
+    (_) @branch
+    .
+    "if"
+  )
+)
+
+;;!! 1 if True else 0
+;;!                 ^
+(
+  (conditional_expression
+    "else"
+    .
+    (_) @branch
+  )
+)
+
+(conditional_expression) @branch.iteration
 
 ;;!! [aaa for aaa in bbb if ccc]
 ;;!                         ^^^
@@ -362,3 +388,55 @@
   left: (_) @name
   right: (_) @value
 ) @_.domain
+
+;;!! if True: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start
+  consequence: (_) @branch.end
+)
+
+;;!! elif True: pass
+;;!  ^^^^^^^^^^^^^^^
+(elif_clause) @branch
+
+;;!! else: pass
+;;!  ^^^^^^^^^^
+(else_clause) @branch
+
+(if_statement) @branch.iteration
+
+;;!! try: pass
+;;!  ^^^^^^^^^
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+)
+
+;;!! except: pass
+;;!  ^^^^^^^^^^^^
+(except_clause) @branch
+
+;;!! finally: pass
+;;!  ^^^^^^^^^^^^^
+(finally_clause) @branch
+
+(try_statement) @branch.iteration
+
+;;!! while True: pass
+;;!  ^^^^^^^^^^^^^^^^
+(while_statement
+  "while" @branch.start
+  body: (_) @branch.end
+)
+
+(while_statement) @branch.iteration
+
+;;!! for aaa in bbb: pass
+;;!  ^^^^^^^^^^^^^^^^^^^^
+(for_statement
+  "for" @branch.start
+  body: (_) @branch.end
+)
+
+(for_statement) @branch.iteration
