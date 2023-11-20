@@ -79,7 +79,7 @@ const spokenFormJsonContents = {
     },
     {
       type: "simpleScopeTypeType",
-      id: "switchStatementSubject",
+      id: "private.switchStatementSubject",
       spokenForms: ["custom subject"],
     },
     {
@@ -96,7 +96,7 @@ const spokenFormJsonContents = {
 };
 
 const subjectStandard: ScopeTypeInfo = {
-  humanReadableName: "switch statement subject",
+  humanReadableName: "private switch statement subject",
   isLanguageSpecific: true,
   scopeType: { type: "private.switchStatementSubject" },
   spokenForm: {
@@ -109,7 +109,7 @@ const subjectStandard: ScopeTypeInfo = {
 };
 
 const subjectCustom: ScopeTypeInfo = {
-  humanReadableName: "switch statement subject",
+  humanReadableName: "private switch statement subject",
   isLanguageSpecific: true,
   scopeType: { type: "private.switchStatementSubject" },
   spokenForm: {
