@@ -1,3 +1,5 @@
+;;!! "string"
+;;!   ^^^^^^
 (string_content) @textFragment
 
 ;;!! {"value": 0}
