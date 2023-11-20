@@ -153,7 +153,6 @@ const textFragmentExtractors: Record<
     jsonStringTextFragmentExtractor,
   ),
   latex: fullDocumentTextFragmentExtractor,
-  markdown: fullDocumentTextFragmentExtractor,
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
     rubyStringTextFragmentExtractor,

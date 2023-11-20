@@ -1,12 +1,16 @@
-import { Range, Selection, TextEditor } from "@cursorless/common";
+import {
+  Range,
+  Selection,
+  SimpleScopeTypeType,
+  TextEditor,
+} from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { getMatchesInRange } from "../util/getMatchesInRange";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import {
   NodeFinder,
   NodeMatcherAlternative,
   SelectionWithContext,
 } from "../typings/Types";
+import { getMatchesInRange } from "../util/getMatchesInRange";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import { createPatternMatchers, matcher } from "../util/nodeMatchers";
 import {
@@ -139,8 +143,6 @@ function itemExtractor(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  list: ["list"],
-  comment: "html_block",
   name: matcher(
     leadingSiblingNodeFinder(patternFinder("atx_heading[heading_content]")),
     nameExtractor,
