@@ -230,3 +230,32 @@
   "(" @value.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
   ")" @value.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
 )
+
+;;!! if true: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement) @ifStatement
+
+;;!! foo()
+;;!  ^^^^^
+(call) @functionCall
+
+;;!! foo()
+;;!  ^^^^^
+(call
+  function: (_) @functionCallee
+) @_.domain
+
+;;!! lambda _: pass
+;;!  ^^^^^^^^^^^^^^
+(lambda) @anonymousFunction
+
+;;!! match value:
+;;!        ^^^^^
+(match_statement
+  subject: (_) @switchStatementSubject
+) @_.domain
+
+(pair
+  key: (_) @collectionKey @_.removal.start
+  value: (_) @_.removal.end.startOf
+) @_.domain

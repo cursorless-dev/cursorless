@@ -1,6 +1,5 @@
-import { Selection } from "@cursorless/common";
+import { Selection, SimpleScopeTypeType } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { argumentNodeFinder, patternFinder } from "../util/nodeFinders";
 import {
@@ -11,7 +10,6 @@ import {
   leadingMatcher,
   matcher,
   patternMatcher,
-  trailingMatcher,
 } from "../util/nodeMatchers";
 import {
   argumentSelectionExtractor,
@@ -55,11 +53,6 @@ const nodeMatchers: Partial<
       argumentSelectionExtractor(),
     ),
   ),
-  collectionKey: trailingMatcher(["pair[key]"], [":"]),
-  ifStatement: "if_statement",
-  anonymousFunction: "lambda?.lambda",
-  functionCall: "call",
-  functionCallee: "call[function]",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
 
@@ -86,7 +79,6 @@ const nodeMatchers: Partial<
     ]),
     ternaryBranchMatcher("conditional_expression", [0, 2]),
   ),
-  switchStatementSubject: "match_statement[subject]",
 };
 
 export default createPatternMatchers(nodeMatchers);
