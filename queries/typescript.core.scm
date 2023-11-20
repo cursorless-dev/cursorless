@@ -254,15 +254,17 @@
 ;;!                   ^^^^
 ;;!                   xxxxxx
 ;;!                   ------------
-(object_type
-  (property_signature
-    name: (_) @collectionKey @_.removal.start
-    type: (_
-      ":"
-      (_) @_.removal.end.startOf
-    )
-  ) @_.domain
-) @_.iteration
+(property_signature
+  name: (_) @collectionKey @_.removal.start
+  type: (_
+    ":"
+    (_) @_.removal.end.startOf
+  )
+) @_.domain
+
+;;!! interface Type { name: string; }
+;;!                 ^^^^^^^^^^^^^^^^^
+(object_type) @collectionKey.iteration
 
 ;; Non-exported statements
 (
