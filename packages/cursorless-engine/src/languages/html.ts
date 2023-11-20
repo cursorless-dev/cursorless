@@ -32,7 +32,6 @@ const nodeMatchers: Partial<
   xmlStartTag: getStartTag,
   xmlEndTag: getEndTag,
   attribute: attribute,
-  collectionItem: attribute,
   name: "*?.tag_name!",
   collectionKey: ["*?.attribute_name!"],
   value: leadingMatcher(
