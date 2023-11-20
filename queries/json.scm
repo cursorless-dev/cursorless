@@ -12,6 +12,9 @@
 ;;!  ^^^^^^^^
 (string) @string
 
+;;!! {"value": 0}
+;;!   ^^^^^^^  ^
+;;!   ----------
 (pair
     key: (_) @collectionKey
     value: (_) @value
