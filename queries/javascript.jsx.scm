@@ -101,10 +101,19 @@
   (_) @value @value.leading.end.startOf
 ) @_.domain
 
-[
-  (jsx_opening_element)
-  (jsx_self_closing_element)
-] @attribute.iteration @collectionKey.iteration @value.iteration
+;;!! <aaa />
+;;!   ^^^^
+(jsx_self_closing_element
+  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "/" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! <aaa></aaa>
+;;!   ^^^
+(jsx_opening_element
+  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  ">" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
 
 ;;!! <div>text</div>
 ;;!       ^^^^
