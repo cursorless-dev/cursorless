@@ -3,10 +3,8 @@ import { BaseTarget, MinimumTargetParameters } from ".";
 import { Target } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { isSameType } from "../../util/typeUtils";
-import {
-  createContinuousRangeFromRanges,
-} from "../targetUtil/createContinuousRange";
-import {createContinuousRangeUntypedTarget} from "./BaseTarget";
+import { createContinuousRangeFromRanges } from "../targetUtil/createContinuousRange";
+import { createContinuousRangeUntypedTarget } from "./BaseTarget";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
