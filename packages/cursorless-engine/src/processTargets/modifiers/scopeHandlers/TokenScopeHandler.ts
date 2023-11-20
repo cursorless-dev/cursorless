@@ -42,12 +42,28 @@ export class TokenScopeHandler extends NestedScopeHandler {
     } = scopeA;
     const { identifierMatcher } = getMatcher(document.languageId);
 
+    const textA = document.getText(scopeA.domain);
+
     // NB: Don't directly use `test` here because global regexes are stateful
     // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
-    return testRegex(identifierMatcher, document.getText(scopeA.domain))
-      ? true
-      : testRegex(identifierMatcher, document.getText(scopeB.domain))
-      ? false
-      : undefined;
+    if (testRegex(identifierMatcher, textA)) {
+      return true;
+    }
+
+    const textB = document.getText(scopeB.domain);
+
+    if (testRegex(identifierMatcher, textB)) {
+      return false;
+    }
+
+    if (textA === "$") {
+      return true;
+    }
+
+    if (textB === "$") {
+      return false;
+    }
+
+    return undefined;
   }
 }
