@@ -86,6 +86,9 @@
       "head": "extendThroughStartOf",
       "tail": "extendThroughEndOf"
     },
+    "glyph_modifier": {
+      "glyph": "glyph"
+    },
     "range_type": {
       "slice": "verticalRange"
     },

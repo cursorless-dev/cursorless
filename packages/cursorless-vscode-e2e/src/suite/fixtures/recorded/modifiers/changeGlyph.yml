@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change glyph
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: glyph, glyph: a}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: a a a
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: " a a"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

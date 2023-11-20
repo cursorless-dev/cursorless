@@ -16,6 +16,7 @@ import {
   KeepContentFilterStage,
   KeepEmptyFilterStage,
 } from "./modifiers/FilterStages";
+import { GlyphStage } from "./modifiers/GlyphStage";
 import { HeadStage, TailStage } from "./modifiers/HeadTailStage";
 import { InstanceStage } from "./modifiers/InstanceStage";
 import {
@@ -68,6 +69,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new LeadingStage(this, modifier);
       case "trailing":
         return new TrailingStage(this, modifier);
+      case "glyph":
+        return new GlyphStage(this, modifier);
       case "containingScope":
         return new ContainingScopeStage(
           this,

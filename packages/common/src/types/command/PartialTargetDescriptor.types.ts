@@ -321,6 +321,11 @@ export interface EndOfModifier {
   type: "endOf";
 }
 
+export interface GlyphModifier {
+  type: "glyph";
+  glyph: string;
+}
+
 export interface HeadModifier {
   type: "extendThroughStartOf";
   modifiers?: Modifier[];
@@ -379,6 +384,7 @@ export type Modifier =
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier
+  | GlyphModifier
   | HeadModifier
   | TailModifier
   | LeadingModifier
