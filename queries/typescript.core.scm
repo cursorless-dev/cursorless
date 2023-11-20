@@ -180,7 +180,8 @@
 ;;!                  ^^^^^^  ^^^^^^
 (type_arguments
   (_) @type
-)
+  (#not-parent-type? @dummy type_assertion)
+) @dummy
 
 ;;!! function foo<A>() {}
 ;;!               ^
