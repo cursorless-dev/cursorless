@@ -252,3 +252,27 @@
     )
   ) @_.domain
 ) @_.iteration
+
+(
+  [
+    (ambient_declaration)
+    (abstract_class_declaration)
+    (enum_declaration)
+    (function_signature)
+    (import_alias)
+    (interface_declaration)
+    (internal_module)
+    (module)
+    (type_alias_declaration)
+  ] @statement
+  (#not-parent-type? @statement export_statement)
+)
+
+(
+  [
+    (property_signature)
+    (public_field_definition)
+    (abstract_method_signature)
+  ] @statement.start
+  ";"? @statement.end
+)
