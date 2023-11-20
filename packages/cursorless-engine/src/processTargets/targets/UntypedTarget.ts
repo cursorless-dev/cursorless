@@ -1,12 +1,13 @@
 import { Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+import {createContinuousRange} from "../targetUtil/createContinuousRange";
+import {isSameType} from "../../util/typeUtils";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
@@ -65,3 +66,57 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
     };
   }
 }
+
+export function createContinuousRangeUntypedTarget(
+  isReversed: boolean,
+  startTarget: Target,
+  endTarget: Target,
+  includeStart: boolean,
+  includeEnd: boolean
+): UntypedTarget {
+  return new UntypedTarget({
+    editor: startTarget.editor,
+    isReversed,
+    hasExplicitRange: true,
+    contentRange: createContinuousRange(
+      startTarget,
+      endTarget,
+      includeStart,
+      includeEnd
+    ),
+    isToken: startTarget.isToken && endTarget.isToken,
+  });
+}
+
+export function createContinuousRangeOrUntypedTarget(
+  isReversed: boolean,
+  startTarget: Target,
+  cloneParameters: any,
+  endTarget: Target,
+  includeStart: boolean,
+  includeEnd: boolean
+): Target {
+  if (isSameType(startTarget, endTarget)) {
+    const constructor = Object.getPrototypeOf(startTarget).constructor;
+
+    return new constructor({
+      ...cloneParameters,
+      isReversed,
+      contentRange: createContinuousRange(
+        startTarget,
+        endTarget,
+        includeStart,
+        includeEnd
+      ),
+    });
+  }
+
+  return createContinuousRangeUntypedTarget(
+    isReversed,
+    startTarget,
+    endTarget,
+    includeStart,
+    includeEnd
+  );
+}
+

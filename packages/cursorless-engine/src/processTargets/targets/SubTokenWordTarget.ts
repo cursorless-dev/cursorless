@@ -5,8 +5,8 @@ import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
-  createContinuousRangeOrUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 
 export interface SubTokenTargetParameters extends CommonTargetParameters {

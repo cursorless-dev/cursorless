@@ -1,6 +1,6 @@
 import { BaseTarget, CommonTargetParameters } from ".";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
 
 /**
  * A target that was not explicitly spoken by the user. For example:

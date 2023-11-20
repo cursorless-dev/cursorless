@@ -5,8 +5,8 @@ import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import {
   createContinuousLineRange,
-  createContinuousRangeOrUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
 
 export class LineTarget extends BaseTarget<CommonTargetParameters> {
   type = "LineTarget";

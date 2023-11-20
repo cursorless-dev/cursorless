@@ -6,7 +6,7 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import { createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
 
 export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   type = "TokenTarget";

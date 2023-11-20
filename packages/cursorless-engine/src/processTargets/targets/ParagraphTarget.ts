@@ -12,8 +12,8 @@ import { constructLineTarget } from "../../util/tryConstructTarget";
 import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousLineRange,
-  createContinuousRangeOrUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
   type = "ParagraphTarget";

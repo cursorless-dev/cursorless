@@ -11,7 +11,7 @@ import {
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
-import { createContinuousRangeOrUntypedTarget } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
 
 interface SurroundingPairTargetParameters extends CommonTargetParameters {
   /**

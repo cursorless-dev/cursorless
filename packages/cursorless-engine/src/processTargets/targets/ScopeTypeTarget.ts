@@ -10,8 +10,8 @@ import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
   createContinuousRangeFromRanges,
-  createContinuousRangeOrUntypedTarget,
 } from "../targetUtil/createContinuousRange";
+import {createContinuousRangeOrUntypedTarget} from "./UntypedTarget";
 import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 import {
   getTokenLeadingDelimiterTarget,
