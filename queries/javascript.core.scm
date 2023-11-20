@@ -408,15 +408,20 @@
   "}" @value.iteration.end.startOf
 )
 
+;;!! "string"
+;;!! `string`
+;;!  ^^^^^^^^
 [
   (string)
   (template_string)
 ] @string
 
+;;!! // comment
+;;!  ^^^^^^^^^^
 (comment) @comment
 
-(if_statement) @ifStatement
-
+;;!! /\w+/
+;;!  ^^^^^
 (regex) @regularExpression
 
 [
@@ -430,34 +435,57 @@
   (#child-range! @textFragment 0 -1 true true)
 )
 
-[
-  (call_expression)
-  (new_expression)
-] @functionCall
-
+;;!! { value: 0 }
+;;!  ^^^^^^^^^^^^
 [
   (object)
   (object_pattern)
 ] @map
 
+;;!! [ 0 ]
+;;!  ^^^^^
 [
   (array)
   (array_pattern)
 ] @list
 
+;;!! if () {}
+;;!  ^^^^^^^^
+(if_statement) @ifStatement
+
+;;!! switch (value) {}
+;;!          ^^^^^
+;;!  -----------------
 (switch_statement
   value: (_) @switchStatementSubject
   (#child-range! @switchStatementSubject 0 -1 true true)
 ) @_.domain
 
+;;!! foo()
+;;!  ^^^^^
+;;!! new Foo()
+;;!  ^^^^^^^^^
+[
+  (call_expression)
+  (new_expression)
+] @functionCall
+
+;;!! foo()
+;;!  ^^^
+;;!  -----
 (call_expression
   function: (_) @functionCallee
 ) @_.domain
 
+;;!! new Foo()
+;;!  ^^^^^^^
+;;!  ---------
 (new_expression
   (arguments) @functionCallee.end.startOf
 ) @functionCallee.start.startOf @_.domain
 
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
 (
   [
     (class_declaration)
@@ -466,6 +494,8 @@
   (#not-parent-type? @class export_statement)
 )
 
+;;!! export class Foo {}
+;;!  ^^^^^^^^^^^^^^^^^^^
 (export_statement
   [
     (class_declaration)
@@ -473,14 +503,20 @@
   ]
 ) @class
 
+;;!! class Foo {}
+;;!        ^^^
+;;!  ------------
 (class_declaration
   name: (_) @className
 ) @_.domain
-
 (class
   name: (_) @className
 ) @_.domain
 
+;;!! true ? 0 : 1;
+;;!  ^^^^
+;;!         ^   ^
+;;! --------------
 (ternary_expression
   condition: (_) @condition
   consequence: (_) @branch
