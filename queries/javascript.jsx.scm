@@ -91,22 +91,15 @@
   (_) @value @value.leading.end.startOf
 ) @_.domain
 
-(jsx_self_closing_element
-  "<" @value.iteration.start.endOf
-  "/" @value.iteration.end.startOf
-)
+(jsx_attribute
+  (property_identifier) @collectionKey
+) @_.domain
 
-(jsx_opening_element
-  "<" @value.iteration.start.endOf
-  ">" @value.iteration.end.startOf
-)
+(jsx_attribute) @attribute
+
+[
+  (jsx_opening_element)
+  (jsx_self_closing_element)
+] @attribute.iteration @collectionKey.iteration @value.iteration
 
 (jsx_text) @textFragment
-
-(jsx_opening_element
-  (jsx_attribute) @attribute
-) @_.iteration
-
-(jsx_self_closing_element
-  (jsx_attribute) @attribute
-) @_.iteration

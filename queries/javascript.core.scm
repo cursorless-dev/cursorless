@@ -352,20 +352,9 @@
   (#not-parent-type? @_.domain expression_statement)
 )
 
-;; Match nodes at field `value` of their parent node, setting leading delimiter
-;; to be the range until the previous named node
-(
-  (_
-    (_)? @value.leading.start.endOf
-    .
-    value: (_) @value @value.leading.end.startOf
-  ) @_.domain
-  (#not-type? @_.domain variable_declarator)
-)
-
 ;;!! const aaa = {bbb};
 ;;!               ^^^
-(shorthand_property_identifier) @value
+(shorthand_property_identifier) @collectionKey @value
 
 ;;!! return 0;
 ;;!         ^
@@ -567,3 +556,10 @@
 )
 
 (try_statement) @branch.iteration
+
+(pair
+  key: (_) @collectionKey @collectionKey.removal.start @value.removal.start.endOf
+  value: (_) @value @collectionKey.removal.end.startOf @value.removal.end
+) @_.domain
+
+(object) @collectionKey.iteration

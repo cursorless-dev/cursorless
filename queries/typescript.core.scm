@@ -242,3 +242,13 @@
 (abstract_class_declaration
   name: (_) @name
 ) @_.domain
+
+(object_type
+  (property_signature
+    name: (_) @collectionKey @_.removal.start
+    type: (_
+      ":"
+      (_) @_.removal.end.startOf
+    )
+  ) @_.domain
+) @_.iteration

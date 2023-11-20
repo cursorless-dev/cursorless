@@ -55,15 +55,6 @@ const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
   collectionItem: "jsx_attribute",
-  collectionKey: trailingMatcher(
-    [
-      "pair[key]",
-      "jsx_attribute.property_identifier!",
-      "object_type.property_signature[name]!",
-      "shorthand_property_identifier",
-    ],
-    [":"],
-  ),
   statement: cascadingMatcher(
     matcher(
       patternFinder(
