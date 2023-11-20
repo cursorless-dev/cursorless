@@ -116,7 +116,7 @@ const nodeMatchers: Partial<
       "do_statement[condition]",
     ),
   ),
-  switchStatementSubject: matcher(
+  ["private.switchStatementSubject"]: matcher(
     patternFinder("switch_statement[value]"),
     unwrapSelectionExtractor,
   ),

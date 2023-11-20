@@ -116,7 +116,7 @@ const nodeMatchers: Partial<
   condition: conditionMatcher("*[condition]"),
   argumentOrParameter: argumentMatcher("formal_parameters", "argument_list"),
   branch: ["switch_block_statement_group", "switch_rule"],
-  switchStatementSubject: "switch_expression[condition][0]",
+  ["private.switchStatementSubject"]: "switch_expression[condition][0]",
 };
 
 export default createPatternMatchers(nodeMatchers);
