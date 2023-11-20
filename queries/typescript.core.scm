@@ -230,19 +230,30 @@
   ] @type @_.leading.end.startOf
 ) @_.domain
 
+;;!! abstract class MyClass {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
 (
   (abstract_class_declaration) @class
   (#not-parent-type? @class export_statement)
 )
 
+;;!! export abstract class MyClass {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (export_statement
   (abstract_class_declaration)
 ) @class
 
+;;!! class MyClass {}
+;;!        ^^^^^^^
+;;!  ----------------
 (abstract_class_declaration
   name: (_) @name
 ) @_.domain
 
+;;!! interface Type { name: string; }
+;;!                   ^^^^
+;;!                   xxxxxx
+;;!                   ------------
 (object_type
   (property_signature
     name: (_) @collectionKey @_.removal.start
@@ -253,6 +264,7 @@
   ) @_.domain
 ) @_.iteration
 
+;; Non-exported statements
 (
   [
     (ambient_declaration)
@@ -268,6 +280,7 @@
   (#not-parent-type? @statement export_statement)
 )
 
+;; Statements with optional trailing `;`
 (
   [
     (property_signature)

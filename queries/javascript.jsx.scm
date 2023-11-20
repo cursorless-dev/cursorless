@@ -83,6 +83,16 @@
 )
 
 ;;!! <aaa bbb="ccc" />
+;;!       ^^^^^^^^^
+(jsx_attribute) @attribute
+
+;;!! <aaa bbb="ccc" />
+;;!       ^^^
+(jsx_attribute
+  (property_identifier) @collectionKey
+) @_.domain
+
+;;!! <aaa bbb="ccc" />
 ;;!           ^^^^^
 ;;!          xxxxxx
 ;;!       ---------
@@ -91,15 +101,11 @@
   (_) @value @value.leading.end.startOf
 ) @_.domain
 
-(jsx_attribute
-  (property_identifier) @collectionKey
-) @_.domain
-
-(jsx_attribute) @attribute
-
 [
   (jsx_opening_element)
   (jsx_self_closing_element)
 ] @attribute.iteration @collectionKey.iteration @value.iteration
 
+;;!! <div>text</div>
+;;!       ^^^^
 (jsx_text) @textFragment
