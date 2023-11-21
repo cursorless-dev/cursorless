@@ -15,7 +15,7 @@ import { isSameType } from "../../util/typeUtils";
  * otherwise returns an UntypedTarget from this to endTarget.
  */
 export abstract class CommonTarget<
-  in out TParameters extends MinimumTargetParameters
+  in out TParameters extends MinimumTargetParameters,
 > extends BaseTarget<TParameters> {
   createContinuousRangeTarget(
     isReversed: boolean,

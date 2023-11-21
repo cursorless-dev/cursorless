@@ -1,5 +1,4 @@
-import { BaseTarget, CommonTargetParameters } from ".";
-import type { Target } from "../../typings/target.types";
+import { CommonTargetParameters } from ".";
 import { CommonTarget } from "./UntypedTarget";
 
 interface PlainTargetParameters extends CommonTargetParameters {
