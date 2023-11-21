@@ -3,9 +3,9 @@ import { BaseTarget, CommonTargetParameters } from ".";
 import { Destination } from "../../typings/target.types";
 import { NotebookCellDestination } from "./NotebookCellDestination";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeOrUntypedTarget } from "./UntypedTarget";
+import { CommonTarget } from "./UntypedTarget";
 
-export class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
+export class NotebookCellTarget extends CommonTarget<CommonTargetParameters> {
   type = "NotebookCellTarget";
   insertionDelimiter = "\n";
   isNotebookCell = true;
@@ -17,22 +17,6 @@ export class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
-
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    return createContinuousRangeOrUntypedTarget(
-      isReversed,
-      this,
-      this.getCloneParameters(),
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
-  }
 
   protected getCloneParameters() {
     return this.state;

@@ -2,9 +2,9 @@ import { Range } from "@cursorless/common";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { BaseTarget, CommonTargetParameters, PlainTarget } from "./";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeOrUntypedTarget } from "./UntypedTarget";
+import { CommonTarget } from "./UntypedTarget";
 
-export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
+export class DocumentTarget extends CommonTarget<CommonTargetParameters> {
   type = "DocumentTarget";
   insertionDelimiter = "\n";
   isLine = true;
@@ -32,22 +32,6 @@ export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
         contentRange: shrinkRangeToFitContent(this.editor, this.contentRange),
       }),
     ];
-  }
-
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    return createContinuousRangeOrUntypedTarget(
-      isReversed,
-      this,
-      this.getCloneParameters(),
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
   }
 
   protected getCloneParameters() {

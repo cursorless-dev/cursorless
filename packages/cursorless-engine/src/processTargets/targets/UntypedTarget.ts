@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
+import { BaseTarget, MinimumTargetParameters, CommonTargetParameters } from ".";
 import type { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
@@ -8,6 +8,31 @@ import {
 } from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import { isSameType } from "../../util/typeUtils";
+
+/**
+ * An abstract target base class who createContinueRangeTarget method returns either
+ * a createContinuousRange if this and endTarget have the same type or
+ * otherwise returns an UntypedTarget from this to endTarget.
+ */
+export abstract class CommonTarget<
+  in out TParameters extends MinimumTargetParameters
+> extends BaseTarget<TParameters> {
+  createContinuousRangeTarget(
+    isReversed: boolean,
+    endTarget: Target,
+    includeStart: boolean,
+    includeEnd: boolean,
+  ): Target {
+    return createContinuousRangeOrUntypedTarget(
+      isReversed,
+      this,
+      this.getCloneParameters(),
+      endTarget,
+      includeStart,
+      includeEnd,
+    );
+  }
+}
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
