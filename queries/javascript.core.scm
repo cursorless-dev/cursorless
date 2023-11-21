@@ -564,8 +564,8 @@
   (if_statement
     condition: (_) @condition
     consequence: (_) @branch.end.endOf
-  ) @dummy @branch.start.startOf @condition.domain
-  (#not-parent-type? @dummy "else_clause")
+  ) @branch.start.startOf @condition.domain
+  (#not-parent-type? @condition.domain "else_clause")
   (#child-range! @condition 0 -1 true true)
 )
 
