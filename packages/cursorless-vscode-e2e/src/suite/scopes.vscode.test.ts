@@ -13,7 +13,8 @@ import { assert } from "chai";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("Scope test cases", async function () {
+// TODO: Remove .only
+suite.only("Scope test cases", async function () {
   endToEndTestSetup(this);
 
   getScopeTestPaths().forEach(({ path, name, languageId, facetId }) =>
@@ -178,34 +179,40 @@ function serializeHeader(
   const lines: string[] = ["", `[${fullHeader}]`];
 
   codeLines.forEach((codeLine, index) => {
-    lines.push(codeLine);
+    lines.push(" " + codeLine);
     if (index === start.line) {
-      lines.push(renderStartRange(start, end, codeLine.length));
+      if (range.isSingleLine) {
+        lines.push(serializeRange(start, end));
+      } else {
+        lines.push(serializeStartRange(start, codeLine.length));
+      }
     } else if (index === end.line) {
-      lines.push(renderEndRange(end));
+      lines.push(serializeEndRange(end));
     }
   });
 
   return lines.join("\n");
 }
 
-const SYMBOL = "^";
-
-function renderStartRange(
-  start: Position,
-  end: Position,
-  rowLength: number,
-): string {
-  const chars: string[] = [];
-  const length = start.line === end.line ? end.character : rowLength;
-  for (let i = 0; i < length; ++i) {
-    chars.push(i < start.character ? " " : SYMBOL);
-  }
-  return chars.join("");
+function serializeRange(start: Position, end: Position): string {
+  return [
+    new Array(start.character + 1).join(" "),
+    "[",
+    new Array(end.character - start.character + 1).join("-"),
+    "]",
+  ].join("");
 }
 
-function renderEndRange(end: Position): string {
-  return new Array(end.character + 1).join(SYMBOL);
+function serializeStartRange(start: Position, rowLength: number): string {
+  return [
+    new Array(start.character + 1).join(" "),
+    "[",
+    new Array(rowLength - start.character + 1).join("-"),
+  ].join("");
+}
+
+function serializeEndRange(end: Position): string {
+  return [" ", new Array(end.character + 1).join("-"), "]"].join("");
 }
 
 function getScope(facetId: string): ScopeType {
@@ -217,6 +224,9 @@ function getScope(facetId: string): ScopeType {
   }
   if (facetId.endsWith("function")) {
     return { type: "namedFunction" };
+  }
+  if (facetId.endsWith("line")) {
+    return { type: "line" };
   }
   throw Error(`Unknown facetId ${facetId}`);
 }
