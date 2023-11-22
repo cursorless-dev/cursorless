@@ -151,20 +151,27 @@
   (#has-multiple-children-of-type? @dummy variable_declarator)
 )
 
-;; Generic type matcher
-(
+;;!! function ccc(aaa: string, bbb?: string) {}
+;;!                    ^^^^^^        ^^^^^^
+(formal_parameters
   (_
-    [
-      type: (_
-        (_) @type
-      )
-      return_type: (_
-        (_) @type
-      )
-    ] @type.removal
+    pattern: (_) @type.leading.start.endOf
+    type: (_
+      ":"
+      (_) @type @type.leading.end.startOf
+    )
   ) @_.domain
-  (#not-type? @_.domain variable_declarator)
 )
+
+;;!! function ccc(): string {}
+;;!                  ^^^^^^
+(function_declaration
+  parameters: (_) @type.leading.end.endOf
+  return_type: (_
+    ":"
+    (_) @type @type.leading.end.startOf
+  )
+) @_.domain
 
 ;;!! new Aaa<Bbb>()
 ;;!      ^^^^^^^^
@@ -256,10 +263,10 @@
 ;;!                   xxxxxx
 ;;!                   ------------
 (property_signature
-  name: (_) @collectionKey @_.removal.start
+  name: (_) @collectionKey @collectionKey.trailing.start.endOf @type.leading.start.endOf
   type: (_
     ":"
-    (_) @_.removal.end.startOf
+    (_) @type @collectionKey.trailing.end.startOf @type.leading.end.startOf
   )
 ) @_.domain
 
