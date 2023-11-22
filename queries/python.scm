@@ -349,32 +349,15 @@
 ) @_.domain
 
 ;;!! (aaa for aaa in bbb if ccc)
-;;!                         ^^^
-;;!                      xxxxxx
-;;!  ---------------------------
-(generator_expression
-  (if_clause
-    "if"
-    (_) @condition
-  ) @_.removal
-) @_.domain
-
 ;;!! {aaa for aaa in bbb if ccc}
 ;;!                         ^^^
 ;;!                      xxxxxx
 ;;!  ---------------------------
-(set_comprehension
-  (if_clause
-    "if"
-    (_) @condition
-  ) @_.removal
-) @_.domain
-
 ;;!! {aaa: aaa for aaa in bbb if ccc}
 ;;!                              ^^^
 ;;!                           xxxxxx
 ;;!  --------------------------------
-(dictionary_comprehension
+(_
   (if_clause
     "if"
     (_) @condition
