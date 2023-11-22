@@ -17,7 +17,7 @@ indent_size = 4
 [*.svg]
 insert_final_newline = false
 
-[*.{yml,yaml,scope}]
+[*.{yml,yaml}]
 # Trailing whitespace breaks yaml files if you use a multiline string
 # with a line that has trailing white space. Many of our recorded
 # tests use strings with trailing white space to represent the final
@@ -29,6 +29,15 @@ trim_trailing_whitespace = false
 indent_style = tab
 
 [**/vendor/**]
+charset = unset
+end_of_line = unset
+indent_size = unset
+indent_style = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
+max_line_length = unset
+
+[*.scope]
 charset = unset
 end_of_line = unset
 indent_size = unset

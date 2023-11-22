@@ -3,114 +3,114 @@ aaa
 
 ---
 
-[Content 1]
+[#1 Content]
  
 []
  aaa
  
 
-[Removal 1]
+[#1 Removal]
  
 [
  aaa
  ]
  
 
-[Trailing delimiter: Content 1]
+[#1 Trailing delimiter: Content]
  
 [
  aaa
  ]
  
 
-[Trailing delimiter: Removal 1]
+[#1 Trailing delimiter: Removal]
  
 [
  aaa
  ]
  
 
-[Domain 1]
+[#1 Domain]
  
 []
  aaa
  
 
-[Content 2]
+[#2 Content]
  
  aaa
 [---]
  
 
-[Removal 2]
+[#2 Removal]
  
  aaa
 [---
  
  ]
 
-[Leading delimiter: Content 2]
+[#2 Leading delimiter: Content]
  
 [
  aaa
  ]
  
 
-[Leading delimiter: Removal 2]
+[#2 Leading delimiter: Removal]
  
 [
  aaa
  ]
  
 
-[Trailing delimiter: Content 2]
+[#2 Trailing delimiter: Content]
  
  aaa
    [
  
  ]
 
-[Trailing delimiter: Removal 2]
+[#2 Trailing delimiter: Removal]
  
  aaa
    [
  
  ]
 
-[Domain 2]
+[#2 Domain]
  
  aaa
 [---]
  
 
-[Content 3]
+[#3 Content]
  
  aaa
  
 []
 
-[Removal 3]
+[#3 Removal]
  
  aaa
    [
  
  ]
 
-[Leading delimiter: Content 3]
+[#3 Leading delimiter: Content]
  
  aaa
    [
  
  ]
 
-[Leading delimiter: Removal 3]
+[#3 Leading delimiter: Removal]
  
  aaa
    [
  
  ]
 
-[Domain 3]
+[#3 Domain]
  
  aaa
  

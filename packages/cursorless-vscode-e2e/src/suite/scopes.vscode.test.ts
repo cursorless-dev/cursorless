@@ -167,13 +167,14 @@ function serializeHeader(
   const { start, end } = range;
   const fullHeader = (() => {
     const parts: string[] = [];
+    if (index != null) {
+      parts.push(`#${index}`);
+    }
     if (prefix.length > 0) {
       parts.push(prefix.join(" | ") + ":");
     }
     parts.push(header);
-    if (index != null) {
-      parts.push(index.toString());
-    }
+
     return parts.join(" ");
   })();
   const lines: string[] = ["", `[${fullHeader}]`];
