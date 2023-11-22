@@ -252,23 +252,29 @@
     type: (_) @type
 ) @_.domain
 
-;;!! new test()
+;;!! new test();
 ;;!  ^^^^^^^^
-;;!  ----------
-(object_creation_expression
-    (argument_list) @functionCallee.end.startOf
-) @functionCallee.start.startOf @_.domain
+;;!  -----------
+(_
+    (object_creation_expression
+        (argument_list) @functionCallee.end.startOf
+    ) @functionCallee.start.startOf @_.domain.start
+    ";"? @_.domain.end
+)
 
 ;;!! new test().bar();
 ;;!  ^^^^^^^^^^^^^^
-;;!  ----------------
-(method_invocation
-    (argument_list) @functionCallee.end.startOf
-) @functionCallee.start.startOf @_.domain
+;;!  -----------------
+(_
+    (method_invocation
+        (argument_list) @functionCallee.end.startOf
+    ) @functionCallee.start.startOf @_.domain.start
+    ";"? @_.domain.end
+)
 
 ;;!! super();
 ;;!  ^^^^^
-;;!  -------
+;;!  --------
 (explicit_constructor_invocation
     (argument_list) @functionCallee.end.startOf
 ) @functionCallee.start.startOf @_.domain
