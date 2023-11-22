@@ -2,6 +2,7 @@ import {
   Disposable,
   FakeIDE,
   getFakeCommandServerApi,
+  getLanguageScopeSupport,
   IDE,
   isTesting,
   NormalizedIDE,
@@ -142,6 +143,7 @@ export async function activate(
           scopeProvider,
           injectIde,
           runIntegrationTests,
+          getLanguageScopeSupport,
         )
       : undefined,
 

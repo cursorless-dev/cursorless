@@ -93,4 +93,5 @@ export * from "./types/TestCaseFixture";
 export * from "./util/getEnvironmentVariableStrict";
 export * from "./util/CompositeKeyDefaultMap";
 export * from "./util/toPlainObject";
-export * from "./facets";
+export * from "./scopeSupportFacets/scopeSupportFacets";
+export * from "./scopeSupportFacets/getLanguageScopeSupport";

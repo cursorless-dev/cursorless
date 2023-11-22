@@ -1,4 +1,4 @@
-import { SimpleScopeTypeType } from ".";
+import { SimpleScopeTypeType } from "..";
 
 const scopeSupportFacets = [
   //   "list",
@@ -127,5 +127,10 @@ export enum ScopeSupportFacetLevel {
 
 export type LanguageScopeSupportFacetMap = Record<
   ScopeSupportFacet,
+  ScopeSupportFacetLevel
+>;
+
+export type TextualLanguageScopeSupportFacetMap = Record<
+  TextualScopeSupportFacet,
   ScopeSupportFacetLevel
 >;

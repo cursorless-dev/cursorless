@@ -6,6 +6,7 @@ import {
   ScopeRanges,
   ScopeSupportFacet,
   scopeSupportFacetInfos,
+  ScopeSupportFacetLevel,
   ScopeType,
   shouldUpdateFixtures,
   TargetRanges,
@@ -14,19 +15,66 @@ import {
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
+import { groupBy } from "lodash";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
-  getScopeTestPaths().forEach(({ path, name, languageId, facetId }) =>
+  const testPaths = getScopeTestPaths();
+  const languages = groupBy(testPaths, (test) => test.languageId);
+
+  if (!shouldUpdateFixtures()) {
+    Object.entries(languages).forEach(([languageId, testPaths]) =>
+      test(
+        languageId,
+        asyncSafety(() =>
+          testLanguageSupport(
+            languageId,
+            testPaths.map((test) => test.facet),
+          ),
+        ),
+      ),
+    );
+  }
+
+  testPaths.forEach(({ path, name, languageId, facet }) =>
     test(
       name,
-      asyncSafety(() => runTest(path, languageId, facetId)),
+      asyncSafety(() => runTest(path, languageId, facet)),
     ),
   );
 });
+
+async function testLanguageSupport(languageId: string, testedFacets: string[]) {
+  const { getLanguageScopeSupport } = (await getCursorlessApi()).testHelpers!;
+
+  const scopeSupport: Record<string, ScopeSupportFacetLevel | undefined> =
+    getLanguageScopeSupport(languageId);
+
+  if (scopeSupport == null) {
+    assert.fail(`Missing scope support for language '${languageId}'`);
+  }
+
+  const supportedFacets = Object.keys(scopeSupport).filter(
+    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supported,
+  );
+
+  // Assert that all tested facets are supported by the language
+  for (const testedFacet of testedFacets) {
+    if (!supportedFacets.includes(testedFacet)) {
+      assert.fail(`Missing scope support for tested facet '${testedFacet}'`);
+    }
+  }
+
+  // Assert that all supported facets are tested
+  for (const supportedFacet of supportedFacets) {
+    if (!testedFacets.includes(supportedFacet)) {
+      assert.fail(`Missing test for scope support facet '${supportedFacet}'`);
+    }
+  }
+}
 
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;

@@ -47,6 +47,6 @@ export function getScopeTestPaths() {
       path: p,
       name: path.relative(relativeDir, p.substring(0, p.lastIndexOf("."))),
       languageId: path.dirname(path.relative(directory, p)),
-      facetId: path.basename(p.substring(0, p.lastIndexOf("."))),
+      facet: path.basename(p.substring(0, p.lastIndexOf("."))),
     }));
 }

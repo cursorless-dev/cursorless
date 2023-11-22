@@ -4,12 +4,14 @@ import type {
   ExtraSnapshotField,
   HatTokenMap,
   IDE,
+  LanguageScopeSupportFacetMap,
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
+  TextualLanguageScopeSupportFacetMap,
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import { VscodeApi } from "./VscodeApi";
@@ -51,4 +53,8 @@ export interface TestHelpers {
    * A thin wrapper around the VSCode API that allows us to mock it for testing.
    */
   vscodeApi: VscodeApi;
+
+  getLanguageScopeSupport: (
+    languageId: string,
+  ) => TextualLanguageScopeSupportFacetMap | LanguageScopeSupportFacetMap;
 }
