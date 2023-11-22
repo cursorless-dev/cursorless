@@ -5,13 +5,15 @@ import {
   Range,
   ScopeRanges,
   ScopeType,
+  shouldUpdateFixtures,
+  TargetRanges,
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite.only("scope test cases", async function () {
+suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
   getScopeTestPaths().forEach(({ path, name, languageId, facetId }) =>
@@ -44,31 +46,92 @@ async function runTest(file: string, languageId: string, facetId: string) {
     scopeType,
   });
 
-  const updatedFixture = serializesScopes(code, scopes);
+  const outputFixture = [code, "---", serializeScopes(code, scopes)].join("\n");
 
-  console.log(updatedFixture);
+  if (shouldUpdateFixtures()) {
+    await fsp.writeFile(file, outputFixture);
+  } else {
+    assert.equal(outputFixture, fixture);
+  }
 }
 
-function serializesScopes(code: string, scopes: ScopeRanges[]): string {
+function serializeScopes(code: string, scopes: ScopeRanges[]): string {
   const codeLines = code.split(/\r?\n/);
-  const lines: string[] = [code, "---", ""];
+  return scopes.map((scope) => serializeScope(codeLines, scope)).join("\n");
+}
 
-  for (const scope of scopes) {
-    for (const target of scope.targets) {
-      lines.push(renderHeader(codeLines, "Content", target.contentRange));
-    }
+function serializeScope(codeLines: string[], scope: ScopeRanges): string {
+  return [
+    serializeTargets(codeLines, scope.targets, []),
+    serializeHeader(codeLines, [], "Domain", scope.domain),
+  ].join("\n");
+}
+
+function serializeTargets(
+  codeLines: string[],
+  targets: TargetRanges[],
+  prefix: string[],
+): string {
+  return targets
+    .map((target) => serializeTarget(codeLines, target, prefix))
+    .join("\n");
+}
+
+function serializeTarget(
+  codeLines: string[],
+  target: TargetRanges,
+  prefix: string[],
+): string {
+  const lines: string[] = [];
+
+  lines.push(
+    serializeHeader(codeLines, prefix, "Content", target.contentRange),
+    serializeHeader(codeLines, prefix, "Removal", target.removalRange),
+  );
+
+  if (target.leadingDelimiter != null) {
+    lines.push(
+      serializeTarget(codeLines, target.leadingDelimiter, [
+        ...prefix,
+        "Leading delimiter",
+      ]),
+    );
+  }
+
+  if (target.trailingDelimiter != null) {
+    lines.push(
+      serializeTarget(codeLines, target.trailingDelimiter, [
+        ...prefix,
+        "Trailing delimiter",
+      ]),
+    );
+  }
+
+  if (target.interior != null) {
+    lines.push(
+      serializeTargets(codeLines, target.interior, [...prefix, "Interior"]),
+    );
+  }
+
+  if (target.boundary != null) {
+    lines.push(
+      serializeTargets(codeLines, target.boundary, [...prefix, "Boundary"]),
+    );
   }
 
   return lines.join("\n");
 }
 
-function renderHeader(
+function serializeHeader(
   codeLines: string[],
+  prefix: string[],
   header: string,
   range: Range,
 ): string {
   const { start, end } = range;
-  const lines: string[] = [`[${header}]`];
+  const fullHeader =
+    prefix.length > 0 ? `${prefix.join(" | ")}: ${header}` : header;
+  const lines: string[] = ["", `[${fullHeader}]`];
 
   codeLines.forEach((codeLine, index) => {
     lines.push(codeLine);
