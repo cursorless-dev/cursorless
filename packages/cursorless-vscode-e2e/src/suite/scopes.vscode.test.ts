@@ -1,22 +1,45 @@
 import {
   asyncSafety,
+  getLanguageScopeSupport,
   getScopeTestPaths,
   Position,
   Range,
   ScopeRanges,
+  ScopeSupportFacet,
+  scopeSupportFacetInfos,
   ScopeType,
   shouldUpdateFixtures,
   TargetRanges,
+  TextualScopeSupportFacet,
+  textualScopeSupportFacetInfos,
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
+import { groupBy } from "lodash";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite("Scope test cases", async function () {
+suite.only("Scope test cases", async function () {
   endToEndTestSetup(this);
 
-  getScopeTestPaths().forEach(({ path, name, languageId, facetId }) =>
+  const testPaths = getScopeTestPaths();
+  const languages = groupBy(testPaths, (test) => test.languageId);
+
+  if (!shouldUpdateFixtures()) {
+    Object.entries(languages).forEach(([languageId, testPaths]) =>
+      test(
+        languageId,
+        asyncSafety(() =>
+          testLanguageSupport(
+            languageId,
+            testPaths.map((test) => test.facetId),
+          ),
+        ),
+      ),
+    );
+  }
+
+  testPaths.forEach(({ path, name, languageId, facetId }) =>
     test(
       name,
       asyncSafety(() => runTest(path, languageId, facetId)),
@@ -24,9 +47,17 @@ suite("Scope test cases", async function () {
   );
 });
 
+async function testLanguageSupport(languageId: string, facetIds: string[]) {
+  console.log(languageId);
+  console.log(facetIds);
+  const scopeSupport = getLanguageScopeSupport(languageId);
+
+  assert.isTrue(scopeSupport != null, "Missing scope support");
+}
+
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
-  const scopeType = getScope(facetId);
+  const scopeType = getScopeType(facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
     .replaceAll("\r\n", "\n");
@@ -175,7 +206,6 @@ function serializeHeader(
       parts.push(prefix.join(" | ") + ":");
     }
     parts.push(header);
-
     return parts.join(" ");
   })();
   const lines: string[] = ["", `[${fullHeader}]`];
@@ -224,21 +254,15 @@ function serializeEndRange(end: Position): string {
   return [" ", new Array(end.character + 1).join("-"), "]"].join("");
 }
 
-function getScope(facetId: string): ScopeType {
-  if (facetId.endsWith(".name")) {
-    return { type: "name" };
+function getScopeType(facetId: string): ScopeType {
+  if (facetId in textualScopeSupportFacetInfos) {
+    const { scopeType } =
+      textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet];
+    return { type: scopeType };
   }
-  if (facetId.endsWith(".value")) {
-    return { type: "value" };
+  if (facetId in scopeSupportFacetInfos) {
+    const { scopeType } = scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+    return { type: scopeType };
   }
-  if (facetId.endsWith("function")) {
-    return { type: "namedFunction" };
-  }
-  if (facetId.endsWith("line")) {
-    return { type: "line" };
-  }
-  if (facetId.endsWith("paragraph")) {
-    return { type: "paragraph" };
-  }
-  throw Error(`Unknown facetId ${facetId}`);
+  throw Error(`Unknown facetId '${facetId}'`);
 }
