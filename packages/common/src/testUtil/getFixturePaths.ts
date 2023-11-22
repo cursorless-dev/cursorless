@@ -42,7 +42,7 @@ export function getScopeTestPaths() {
   const relativeDir = path.dirname(directory);
 
   return walkFilesSync(directory)
-    .filter((p) => p.endsWith(".txt"))
+    .filter((p) => p.endsWith(".scope"))
     .map((p) => ({
       path: p,
       name: path.relative(relativeDir, p.substring(0, p.lastIndexOf("."))),
