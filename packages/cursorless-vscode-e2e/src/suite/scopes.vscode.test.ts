@@ -46,7 +46,9 @@ async function runTest(file: string, languageId: string, facetId: string) {
     scopeType,
   });
 
-  const outputFixture = [code, "---", serializeScopes(code, scopes)].join("\n");
+  const outputFixture = [code, "---", serializeScopes(code, scopes), ""].join(
+    "\n",
+  );
 
   if (shouldUpdateFixtures()) {
     await fsp.writeFile(file, outputFixture);
