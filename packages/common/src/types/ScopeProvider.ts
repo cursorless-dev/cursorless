@@ -178,7 +178,12 @@ export interface ScopeRanges {
  */
 export interface TargetRanges {
   contentRange: Range;
+  removalRange: Range;
   removalHighlightRange: GeneralizedRange;
+  interior: TargetRanges[] | undefined;
+  boundary: TargetRanges[] | undefined;
+  leadingDelimiter: TargetRanges | undefined;
+  trailingDelimiter: TargetRanges | undefined;
 }
 
 /**

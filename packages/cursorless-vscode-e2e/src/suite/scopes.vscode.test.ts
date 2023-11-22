@@ -1,6 +1,5 @@
 import {
   asyncSafety,
-  GeneralizedRange,
   getScopeTestPaths,
   Position,
   Range,
