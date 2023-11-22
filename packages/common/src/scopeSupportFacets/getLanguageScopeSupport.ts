@@ -5,8 +5,6 @@ import {
   TextualLanguageScopeSupportFacetMap,
 } from "./scopeSupportFacets";
 
-
-
 export function getLanguageScopeSupport(
   languageId: string,
 ): TextualLanguageScopeSupportFacetMap | LanguageScopeSupportFacetMap {
