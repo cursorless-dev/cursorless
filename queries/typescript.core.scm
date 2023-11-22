@@ -232,7 +232,7 @@
 ) @_.domain
 
 ;;!! abstract class MyClass {}
-;;!  ^^^^^^^^^^^^^^^^^^^^^^^^
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^
 (
   (abstract_class_declaration) @class
   (#not-parent-type? @class export_statement)
