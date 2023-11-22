@@ -65,7 +65,11 @@ async function runTest(file: string, languageId: string, facetId: string) {
 function serializeScopes(codeLines: string[], scopes: ScopeRanges[]): string {
   return scopes
     .map((scope, index) =>
-      serializeScope(codeLines, scope, scopes.length > 1 ? index : undefined),
+      serializeScope(
+        codeLines,
+        scope,
+        scopes.length > 1 ? index + 1 : undefined,
+      ),
     )
     .join("\n");
 }
@@ -201,7 +205,7 @@ function renderStartRange(
 }
 
 function renderEndRange(end: Position): string {
-  return new Array(end.character).join(SYMBOL);
+  return new Array(end.character + 1).join(SYMBOL);
 }
 
 function getScope(facetId: string): ScopeType {
@@ -210,6 +214,9 @@ function getScope(facetId: string): ScopeType {
   }
   if (facetId.endsWith(".value")) {
     return { type: "value" };
+  }
+  if (facetId.endsWith("function")) {
+    return { type: "namedFunction" };
   }
   throw Error(`Unknown facetId ${facetId}`);
 }
