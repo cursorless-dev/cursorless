@@ -561,8 +561,11 @@
 (
   (if_statement
     condition: (_) @condition
-    consequence: (_) @branch.end.endOf
-  ) @branch.start.startOf @condition.domain
+    consequence: (_) @branch.end.endOf @branch.removal.end.endOf
+    alternative: (_
+      (if_statement) @branch.removal.end.startOf
+    )?
+  ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
   (#not-parent-type? @condition.domain "else_clause")
   (#child-range! @condition 0 -1 true true)
 )
