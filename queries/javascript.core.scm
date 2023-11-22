@@ -488,9 +488,13 @@
 ;;!  ^^^^^^^^^^^^
 (
   [
-    (class_declaration)
-    (class)
-  ] @class
+    (class_declaration
+      name: (_) @className
+    )
+    (class
+      name: (_) @className
+    )
+  ] @class @_.domain
   (#not-parent-type? @class export_statement)
 )
 
@@ -498,20 +502,14 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^
 (export_statement
   [
-    (class_declaration)
-    (class)
+    (class_declaration
+      name: (_) @className
+    )
+    (class
+      name: (_) @className
+    )
   ]
-) @class
-
-;;!! class Foo {}
-;;!        ^^^
-;;!  ------------
-(class_declaration
-  name: (_) @className
-) @_.domain
-(class
-  name: (_) @className
-) @_.domain
+) @class @_.domain
 
 ;;!! true ? 0 : 1;
 ;;!  ^^^^

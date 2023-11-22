@@ -241,15 +241,19 @@
 ;;!! abstract class MyClass {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^
 (
-  (abstract_class_declaration) @class
+  (abstract_class_declaration
+    name: (_) @className
+  ) @class @_.domain
   (#not-parent-type? @class export_statement)
 )
 
 ;;!! export abstract class MyClass {}
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (export_statement
-  (abstract_class_declaration)
-) @class
+  (abstract_class_declaration
+    name: (_) @className
+  )
+) @class @_.domain
 
 ;;!! class MyClass {}
 ;;!        ^^^^^^^
