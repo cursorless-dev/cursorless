@@ -298,13 +298,13 @@
 (local_variable_declaration
     (variable_declarator
         name: (_) @name @value.removal.start.endOf
-        value: (_) @value @value.removal.end
+        value: (_)? @value @value.removal.end
     )
 ) @_.domain
 (field_declaration
     (variable_declarator
         name: (_) @name @value.removal.start.endOf
-        value: (_) @value @value.removal.end
+        value: (_)? @value @value.removal.end
     )
 ) @_.domain
 
