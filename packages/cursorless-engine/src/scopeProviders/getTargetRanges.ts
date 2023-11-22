@@ -28,10 +28,11 @@ export function getTargetRanges(target: Target): TargetRanges {
     removalHighlightRange: target.isLine
       ? toLineRange(target.getRemovalHighlightRange())
       : toCharacterRange(target.getRemovalHighlightRange()),
-    interior,
-    boundary,
     leadingDelimiter: getOptionalTarget(target.getLeadingDelimiterTarget()),
     trailingDelimiter: getOptionalTarget(target.getTrailingDelimiterTarget()),
+    interior,
+    boundary,
+    insertionDelimiter: target.insertionDelimiter,
   };
 }
 
