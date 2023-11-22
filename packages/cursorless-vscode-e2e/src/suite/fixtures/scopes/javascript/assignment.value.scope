@@ -3,20 +3,20 @@ const name = "Hello world";
 
 [Content]
  const name = "Hello world";
-             [-------------]
+              ^^^^^^^^^^^^^
 
 [Removal]
  const name = "Hello world";
-          [----------------]
+           ^^^^^^^^^^^^^^^^
 
 [Leading delimiter: Content]
  const name = "Hello world";
-          [---]
+           ^^^
 
 [Leading delimiter: Removal]
  const name = "Hello world";
-          [---]
+           ^^^
 
 [Domain]
  const name = "Hello world";
-[---------------------------]
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^

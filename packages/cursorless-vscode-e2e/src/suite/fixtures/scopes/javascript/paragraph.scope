@@ -6,15 +6,15 @@ bbb
 
 [Content]
  
- aaa
 [---
+ aaa
  bbb
  ---]
  
 
 [Removal]
- 
 [
+ 
  aaa
  bbb
  
@@ -28,24 +28,24 @@ bbb
  
 
 [Leading delimiter: Removal]
- 
 [
+ 
  aaa
  ]
  bbb
  
 
 [Leading delimiter | Trailing delimiter: Content]
- 
 [
+ 
  aaa
  ]
  bbb
  
 
 [Leading delimiter | Trailing delimiter: Removal]
- 
 [
+ 
  aaa
  ]
  bbb
@@ -61,31 +61,31 @@ bbb
 [Trailing delimiter: Removal]
  
  aaa
- bbb
    [
+ bbb
  
  ]
 
 [Trailing delimiter | Leading delimiter: Content]
  
  aaa
- bbb
    [
+ bbb
  
  ]
 
 [Trailing delimiter | Leading delimiter: Removal]
  
  aaa
- bbb
    [
+ bbb
  
  ]
 
 [Domain]
  
- aaa
 [---
+ aaa
  bbb
  ---]
  

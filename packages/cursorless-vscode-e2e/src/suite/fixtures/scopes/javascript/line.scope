@@ -10,22 +10,22 @@ aaa
  
 
 [#1 Removal]
- 
 [
+ 
  aaa
  ]
  
 
 [#1 Trailing delimiter: Content]
- 
 [
+ 
  aaa
  ]
  
 
 [#1 Trailing delimiter: Removal]
- 
 [
+ 
  aaa
  ]
  
@@ -39,48 +39,48 @@ aaa
 [#2 Content]
  
  aaa
-[---]
+ ^^^
  
 
 [#2 Removal]
  
- aaa
 [---
+ aaa
  
  ]
 
 [#2 Leading delimiter: Content]
- 
 [
+ 
  aaa
  ]
  
 
 [#2 Leading delimiter: Removal]
- 
 [
+ 
  aaa
  ]
  
 
 [#2 Trailing delimiter: Content]
  
- aaa
    [
+ aaa
  
  ]
 
 [#2 Trailing delimiter: Removal]
  
- aaa
    [
+ aaa
  
  ]
 
 [#2 Domain]
  
  aaa
-[---]
+ ^^^
  
 
 [#3 Content]
@@ -91,22 +91,22 @@ aaa
 
 [#3 Removal]
  
- aaa
    [
+ aaa
  
  ]
 
 [#3 Leading delimiter: Content]
  
- aaa
    [
+ aaa
  
  ]
 
 [#3 Leading delimiter: Removal]
  
- aaa
    [
+ aaa
  
  ]
 

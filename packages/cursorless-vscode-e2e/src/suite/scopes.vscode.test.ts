@@ -181,15 +181,21 @@ function serializeHeader(
   const lines: string[] = ["", `[${fullHeader}]`];
 
   codeLines.forEach((codeLine, index) => {
-    lines.push(" " + codeLine);
+    const fullCodeLine = " " + codeLine;
+
     if (index === start.line) {
       if (range.isSingleLine) {
+        lines.push(fullCodeLine);
         lines.push(serializeRange(start, end));
       } else {
         lines.push(serializeStartRange(start, codeLine.length));
+        lines.push(fullCodeLine);
       }
     } else if (index === end.line) {
+      lines.push(fullCodeLine);
       lines.push(serializeEndRange(end));
+    } else {
+      lines.push(fullCodeLine);
     }
   });
 
@@ -197,11 +203,12 @@ function serializeHeader(
 }
 
 function serializeRange(start: Position, end: Position): string {
+  if (start.isEqual(end)) {
+    return [new Array(start.character + 1).join(" "), "[]"].join("");
+  }
   return [
-    new Array(start.character + 1).join(" "),
-    "[",
-    new Array(end.character - start.character + 1).join("-"),
-    "]",
+    new Array(start.character + 2).join(" "),
+    new Array(end.character - start.character + 1).join("^"),
   ].join("");
 }
 

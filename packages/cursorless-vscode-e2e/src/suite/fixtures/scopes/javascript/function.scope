@@ -4,22 +4,22 @@ function myFunk() {
 ---
 
 [Content]
- function myFunk() {
 [-------------------
+ function myFunk() {
  
  }
  -]
 
 [Removal]
- function myFunk() {
 [-------------------
+ function myFunk() {
  
  }
  -]
 
 [Domain]
- function myFunk() {
 [-------------------
+ function myFunk() {
  
  }
  -]
