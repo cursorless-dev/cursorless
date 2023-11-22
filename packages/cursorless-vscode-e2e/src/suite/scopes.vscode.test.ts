@@ -13,7 +13,7 @@ import { assert } from "chai";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-// TODO: Remove .only
+// fixme: Remove .only
 suite.only("Scope test cases", async function () {
   endToEndTestSetup(this);
 
