@@ -27,7 +27,7 @@ suite("Scope test cases", async function () {
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
   const scopeType = getScope(facetId);
-  const fixture = (await fsp.readFile(file)).toString().replace(/\r\n/g, "\n");
+  const fixture = (await fsp.readFile(file, "utf8")).toString();
   const delimiterIndex = fixture.match(/\r?\n^---$/m)?.index;
 
   assert.ok(
