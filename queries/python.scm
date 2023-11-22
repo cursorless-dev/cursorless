@@ -259,8 +259,8 @@
 ;;!    ^^^^^^^
 ;;!    xxxxxxxxx
 (pair
-  key: (_) @collectionKey @_.removal.start
-  value: (_) @_.removal.end.startOf
+  key: (_) @collectionKey @collectionKey.trailing.start.endOf
+  value: (_) @collectionKey.trailing.end.startOf
 ) @_.domain
 
 ;;!! if True:
