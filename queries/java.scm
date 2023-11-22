@@ -207,9 +207,12 @@
 ;;!! int value = 0;
 ;;!      ^^^^^
 ;;!  --------------
-(assignment_expression
-    left: (_) @name
-) @_.domain
+(_
+    (assignment_expression
+        left: (_) @name
+    ) @_.domain.start
+    ";"? @_.domain.end
+)
 
 ;;!! Map<String, String>
 ;;!     ^^^^^^^  ^^^^^^
@@ -298,15 +301,24 @@
         value: (_) @value @value.removal.end
     )
 ) @_.domain
+(field_declaration
+    (variable_declarator
+        name: (_) @name @value.removal.start.endOf
+        value: (_) @value @value.removal.end
+    )
+) @_.domain
 
 ;;!! value = 1;
 ;;!          ^
 ;;!       xxxx
 ;;!  ----------
-(assignment_expression
-    left: (_) @value.removal.start.endOf
-    right: (_) @value @value.removal.end
-) @_.domain
+(_
+    (assignment_expression
+        left: (_) @value.removal.start.endOf
+        right: (_) @value @value.removal.end
+    ) @_.domain.start
+    ";"? @_.domain.end
+)
 
 ;;!! return value;
 ;;!         ^^^^^
