@@ -1,6 +1,5 @@
 import {
   asyncSafety,
-  getLanguageScopeSupport,
   getScopeTestPaths,
   Position,
   Range,
@@ -15,45 +14,19 @@ import {
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { groupBy } from "lodash";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-suite.only("Scope test cases", async function () {
+suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
-  const testPaths = getScopeTestPaths();
-  const languages = groupBy(testPaths, (test) => test.languageId);
-
-  if (!shouldUpdateFixtures()) {
-    Object.entries(languages).forEach(([languageId, testPaths]) =>
-      test(
-        languageId,
-        asyncSafety(() =>
-          testLanguageSupport(
-            languageId,
-            testPaths.map((test) => test.facetId),
-          ),
-        ),
-      ),
-    );
-  }
-
-  testPaths.forEach(({ path, name, languageId, facetId }) =>
+  getScopeTestPaths().forEach(({ path, name, languageId, facetId }) =>
     test(
       name,
       asyncSafety(() => runTest(path, languageId, facetId)),
     ),
   );
 });
-
-async function testLanguageSupport(languageId: string, facetIds: string[]) {
-  console.log(languageId);
-  console.log(facetIds);
-  const scopeSupport = getLanguageScopeSupport(languageId);
-
-  assert.isTrue(scopeSupport != null, "Missing scope support");
-}
 
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
