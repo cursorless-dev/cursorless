@@ -1,0 +1,91 @@
+
+aaa
+bbb
+
+---
+
+[Content]
+ 
+ aaa
+[---
+ bbb
+ ---]
+ 
+
+[Removal]
+ 
+[
+ aaa
+ bbb
+ 
+ ]
+
+[Leading delimiter: Content]
+ 
+[]
+ aaa
+ bbb
+ 
+
+[Leading delimiter: Removal]
+ 
+[
+ aaa
+ ]
+ bbb
+ 
+
+[Leading delimiter | Trailing delimiter: Content]
+ 
+[
+ aaa
+ ]
+ bbb
+ 
+
+[Leading delimiter | Trailing delimiter: Removal]
+ 
+[
+ aaa
+ ]
+ bbb
+ 
+
+[Trailing delimiter: Content]
+ 
+ aaa
+ bbb
+ 
+[]
+
+[Trailing delimiter: Removal]
+ 
+ aaa
+ bbb
+   [
+ 
+ ]
+
+[Trailing delimiter | Leading delimiter: Content]
+ 
+ aaa
+ bbb
+   [
+ 
+ ]
+
+[Trailing delimiter | Leading delimiter: Removal]
+ 
+ aaa
+ bbb
+   [
+ 
+ ]
+
+[Domain]
+ 
+ aaa
+[---
+ bbb
+ ---]
+ 

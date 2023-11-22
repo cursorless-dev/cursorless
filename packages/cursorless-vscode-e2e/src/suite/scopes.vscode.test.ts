@@ -13,8 +13,7 @@ import { assert } from "chai";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
-// fixme: Remove .only
-suite.only("Scope test cases", async function () {
+suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
   getScopeTestPaths().forEach(({ path, name, languageId, facetId }) =>
@@ -228,6 +227,9 @@ function getScope(facetId: string): ScopeType {
   }
   if (facetId.endsWith("line")) {
     return { type: "line" };
+  }
+  if (facetId.endsWith("paragraph")) {
+    return { type: "paragraph" };
   }
   throw Error(`Unknown facetId ${facetId}`);
 }
