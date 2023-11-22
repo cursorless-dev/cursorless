@@ -1,0 +1,117 @@
+
+aaa
+
+---
+
+[#1 Content]
+ 
+[]
+ aaa
+ 
+
+[#1 Removal]
+ 
+[
+ aaa
+ ]
+ 
+
+[#1 Trailing delimiter: Content]
+ 
+[
+ aaa
+ ]
+ 
+
+[#1 Trailing delimiter: Removal]
+ 
+[
+ aaa
+ ]
+ 
+
+[#1 Domain]
+ 
+[]
+ aaa
+ 
+
+[#2 Content]
+ 
+ aaa
+[---]
+ 
+
+[#2 Removal]
+ 
+ aaa
+[---
+ 
+ ]
+
+[#2 Leading delimiter: Content]
+ 
+[
+ aaa
+ ]
+ 
+
+[#2 Leading delimiter: Removal]
+ 
+[
+ aaa
+ ]
+ 
+
+[#2 Trailing delimiter: Content]
+ 
+ aaa
+   [
+ 
+ ]
+
+[#2 Trailing delimiter: Removal]
+ 
+ aaa
+   [
+ 
+ ]
+
+[#2 Domain]
+ 
+ aaa
+[---]
+ 
+
+[#3 Content]
+ 
+ aaa
+ 
+[]
+
+[#3 Removal]
+ 
+ aaa
+   [
+ 
+ ]
+
+[#3 Leading delimiter: Content]
+ 
+ aaa
+   [
+ 
+ ]
+
+[#3 Leading delimiter: Removal]
+ 
+ aaa
+   [
+ 
+ ]
+
+[#3 Domain]
+ 
+ aaa
+ 
+[]
