@@ -46,9 +46,14 @@ async function runTest(file: string, languageId: string, facetId: string) {
     scopeType,
   });
 
-  const outputFixture = [code, "---", serializeScopes(code, scopes), ""].join(
-    "\n",
-  );
+  const codeLines = code.split(/\r?\n/);
+
+  const outputFixture = [
+    ...codeLines,
+    "---",
+    serializeScopes(codeLines, scopes),
+    "",
+  ].join("\n");
 
   if (shouldUpdateFixtures()) {
     await fsp.writeFile(file, outputFixture);
@@ -57,15 +62,22 @@ async function runTest(file: string, languageId: string, facetId: string) {
   }
 }
 
-function serializeScopes(code: string, scopes: ScopeRanges[]): string {
-  const codeLines = code.split(/\r?\n/);
-  return scopes.map((scope) => serializeScope(codeLines, scope)).join("\n");
+function serializeScopes(codeLines: string[], scopes: ScopeRanges[]): string {
+  return scopes
+    .map((scope, index) =>
+      serializeScope(codeLines, scope, scopes.length > 1 ? index : undefined),
+    )
+    .join("\n");
 }
 
-function serializeScope(codeLines: string[], scope: ScopeRanges): string {
+function serializeScope(
+  codeLines: string[],
+  scope: ScopeRanges,
+  index: number | undefined,
+): string {
   return [
-    serializeTargets(codeLines, scope.targets, []),
-    serializeHeader(codeLines, [], "Domain", scope.domain),
+    serializeTargets(codeLines, scope.targets, [], index),
+    serializeHeader(codeLines, [], "Domain", index, scope.domain),
   ].join("\n");
 }
 
@@ -73,9 +85,10 @@ function serializeTargets(
   codeLines: string[],
   targets: TargetRanges[],
   prefix: string[],
+  index: number | undefined,
 ): string {
   return targets
-    .map((target) => serializeTarget(codeLines, target, prefix))
+    .map((target) => serializeTarget(codeLines, target, prefix, index))
     .join("\n");
 }
 
@@ -83,41 +96,56 @@ function serializeTarget(
   codeLines: string[],
   target: TargetRanges,
   prefix: string[],
+  index: number | undefined,
 ): string {
   const lines: string[] = [];
 
   lines.push(
-    serializeHeader(codeLines, prefix, "Content", target.contentRange),
-    serializeHeader(codeLines, prefix, "Removal", target.removalRange),
+    serializeHeader(codeLines, prefix, "Content", index, target.contentRange),
+    serializeHeader(codeLines, prefix, "Removal", index, target.removalRange),
   );
 
   if (target.leadingDelimiter != null) {
     lines.push(
-      serializeTarget(codeLines, target.leadingDelimiter, [
-        ...prefix,
-        "Leading delimiter",
-      ]),
+      serializeTarget(
+        codeLines,
+        target.leadingDelimiter,
+        [...prefix, "Leading delimiter"],
+        index,
+      ),
     );
   }
 
   if (target.trailingDelimiter != null) {
     lines.push(
-      serializeTarget(codeLines, target.trailingDelimiter, [
-        ...prefix,
-        "Trailing delimiter",
-      ]),
+      serializeTarget(
+        codeLines,
+        target.trailingDelimiter,
+        [...prefix, "Trailing delimiter"],
+        index,
+      ),
     );
   }
 
   if (target.interior != null) {
     lines.push(
-      serializeTargets(codeLines, target.interior, [...prefix, "Interior"]),
+      serializeTargets(
+        codeLines,
+        target.interior,
+        [...prefix, "Interior"],
+        index,
+      ),
     );
   }
 
   if (target.boundary != null) {
     lines.push(
-      serializeTargets(codeLines, target.boundary, [...prefix, "Boundary"]),
+      serializeTargets(
+        codeLines,
+        target.boundary,
+        [...prefix, "Boundary"],
+        index,
+      ),
     );
   }
 
@@ -128,11 +156,21 @@ function serializeHeader(
   codeLines: string[],
   prefix: string[],
   header: string,
+  index: number | undefined,
   range: Range,
 ): string {
   const { start, end } = range;
-  const fullHeader =
-    prefix.length > 0 ? `${prefix.join(" | ")}: ${header}` : header;
+  const fullHeader = (() => {
+    const parts: string[] = [];
+    if (prefix.length > 0) {
+      parts.push(prefix.join(" | ") + ":");
+    }
+    parts.push(header);
+    if (index != null) {
+      parts.push(index.toString());
+    }
+    return parts.join(" ");
+  })();
   const lines: string[] = ["", `[${fullHeader}]`];
 
   codeLines.forEach((codeLine, index) => {

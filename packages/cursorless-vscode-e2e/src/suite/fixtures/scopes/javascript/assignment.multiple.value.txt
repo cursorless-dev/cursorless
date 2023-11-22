@@ -1,0 +1,53 @@
+const name = "Hello world";
+const value = 2;
+---
+
+[Content 1]
+const name = "Hello world";
+             ^^^^^^^^^^^^^
+const value = 2;
+
+[Removal 1]
+const name = "Hello world";
+          ^^^^^^^^^^^^^^^^
+const value = 2;
+
+[Leading delimiter: Content 1]
+const name = "Hello world";
+          ^^^
+const value = 2;
+
+[Leading delimiter: Removal 1]
+const name = "Hello world";
+          ^^^
+const value = 2;
+
+[Domain 1]
+const name = "Hello world";
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+const value = 2;
+
+[Content 2]
+const name = "Hello world";
+const value = 2;
+              ^
+
+[Removal 2]
+const name = "Hello world";
+const value = 2;
+           ^^^^
+
+[Leading delimiter: Content 2]
+const name = "Hello world";
+const value = 2;
+           ^^^
+
+[Leading delimiter: Removal 2]
+const name = "Hello world";
+const value = 2;
+           ^^^
+
+[Domain 2]
+const name = "Hello world";
+const value = 2;
+^^^^^^^^^^^^^^^^
