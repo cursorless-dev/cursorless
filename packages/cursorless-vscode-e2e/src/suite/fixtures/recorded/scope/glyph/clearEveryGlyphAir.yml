@@ -1,22 +1,26 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: change glyph
+  spokenForm: clear every glyph air
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
-        - {type: glyph, glyph: a}
+        - type: everyScope
+          scopeType: {type: glyph, character: a}
   usePrePhraseSnapshot: true
+spokenFormError: Scope type 'glyph'
 initialState:
-  documentContents: a a a
+  documentContents: abc$!4123a
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: " a a"
+  documentContents: bc$!4123
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

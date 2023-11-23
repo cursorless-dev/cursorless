@@ -3,6 +3,7 @@ import {
   CharacterScopeHandler,
   CustomRegexScopeHandler,
   DocumentScopeHandler,
+  GlyphScopeHandler,
   IdentifierScopeHandler,
   LineScopeHandler,
   NonWhitespaceSequenceScopeHandler,
@@ -72,6 +73,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new UrlScopeHandler(this, scopeType, languageId);
       case "customRegex":
         return new CustomRegexScopeHandler(this, scopeType, languageId);
+      case "glyph":
+        return new GlyphScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":

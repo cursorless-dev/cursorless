@@ -125,7 +125,7 @@ def update():
         handle_csv("experimental/miscellaneous.csv"),
         handle_csv(
             "modifier_scope_types.csv",
-            pluralize_lists=["scope_type"],
+            pluralize_lists=["scope_type", "glyph_scope_type"],
             extra_allowed_values=["private.fieldAccess"],
             default_list_name="scope_type",
         ),

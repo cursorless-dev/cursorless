@@ -1,22 +1,27 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: change glyph
+  spokenForm: clear next glyph dollar
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
-        - {type: glyph, glyph: b}
+        - type: relativeScope
+          scopeType: {type: glyph, character: $}
+          offset: 1
+          length: 1
+          direction: forward
   usePrePhraseSnapshot: true
+spokenFormError: Scope type 'glyph'
 initialState:
-  documentContents: a $b
+  documentContents: abc$!4123a
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: a $
+  documentContents: abc!4123a
   selections:
     - anchor: {line: 0, character: 3}
       active: {line: 0, character: 3}

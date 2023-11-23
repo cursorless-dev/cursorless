@@ -34,7 +34,6 @@ modifiers = [
     "<user.cursorless_interior_modifier>",  # inside
     "<user.cursorless_head_tail_modifier>",  # head, tail
     "<user.cursorless_position_modifier>",  # start of, end of
-    "<user.cursorless_glyph_modifier>",  # glyph air/dollar
     *head_tail_swallowed_modifiers,
 ]
 
