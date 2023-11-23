@@ -128,9 +128,10 @@
 ;;!  ^^^^^^^^
 (
     (if_statement
-        "if" @branch.start
+        "if" @branch.start @branch.removal.start
         condition: (_) @condition
-        consequence: (block) @branch.end
+        consequence: (block) @branch.end @branch.removal.end
+        alternative: (if_statement)? @branch.removal.end.startOf
     ) @condition.domain
     (#not-parent-type? @condition.domain "if_statement")
     (#child-range! @condition 0 -1 true true)
