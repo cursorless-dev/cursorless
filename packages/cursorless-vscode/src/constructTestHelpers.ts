@@ -35,16 +35,12 @@ export function constructTestHelpers(
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
-  getLanguageScopeSupport: (
-    languageId: string,
-  ) => TextualLanguageScopeSupportFacetMap | LanguageScopeSupportFacetMap,
 ): TestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,
     scopeProvider,
-    getLanguageScopeSupport,
 
     toVscodeEditor,
 

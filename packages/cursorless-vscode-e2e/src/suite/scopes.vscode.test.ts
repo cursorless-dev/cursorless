@@ -1,5 +1,6 @@
 import {
   asyncSafety,
+  getLanguageScopeSupport,
   getScopeTestPaths,
   Position,
   Range,
@@ -48,8 +49,6 @@ suite("Scope test cases", async function () {
 });
 
 async function testLanguageSupport(languageId: string, testedFacets: string[]) {
-  const { getLanguageScopeSupport } = (await getCursorlessApi()).testHelpers!;
-
   const scopeSupport: Record<string, ScopeSupportFacetLevel | undefined> =
     getLanguageScopeSupport(languageId);
 
