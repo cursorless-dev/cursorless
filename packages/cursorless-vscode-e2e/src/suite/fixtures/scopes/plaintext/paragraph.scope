@@ -36,15 +36,6 @@ bbb
  bbb
  
 
-[Leading delimiter | Trailing delimiter: Content]
-[Leading delimiter | Trailing delimiter: Removal]
-[
- 
- aaa
- ]
- bbb
- 
-
 [Trailing delimiter: Content]
  
  aaa
@@ -53,15 +44,6 @@ bbb
 []
 
 [Trailing delimiter: Removal]
- 
- aaa
-   [
- bbb
- 
- ]
-
-[Trailing delimiter | Leading delimiter: Content]
-[Trailing delimiter | Leading delimiter: Removal]
  
  aaa
    [

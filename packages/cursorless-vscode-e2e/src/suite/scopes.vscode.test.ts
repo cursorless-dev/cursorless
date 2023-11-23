@@ -143,7 +143,7 @@ function serializeScope(
     return serializeTarget(
       codeLines,
       scope.targets[0],
-      [],
+      undefined,
       scopeIndex,
       undefined,
       scope.domain,
@@ -152,36 +152,99 @@ function serializeScope(
 
   // If we have multiple targets or the domain is not equal to the content range: add domain last
   return [
-    serializeTargets(codeLines, scope.targets, [], scopeIndex),
-    "",
-    serializeHeader([], "Domain", scopeIndex, undefined),
-    serializeCodeRange(codeLines, scope.domain),
-  ].join("\n");
-}
-
-function serializeTargets(
-  codeLines: string[],
-  targets: TargetRanges[],
-  prefix: string[],
-  scopeIndex: number | undefined,
-): string {
-  return targets
-    .map((target, index) =>
+    ...scope.targets.map((target, index) =>
       serializeTarget(
         codeLines,
         target,
-        prefix,
+        undefined,
         scopeIndex,
-        targets.length > 1 ? index + 1 : undefined,
+        scope.targets.length > 1 ? index + 1 : undefined,
       ),
-    )
-    .join("\n");
+    ),
+    "",
+    serializeHeader(undefined, "Domain", scopeIndex, undefined),
+    serializeCodeRange(codeLines, scope.domain),
+  ].join("\n");
 }
 
 function serializeTarget(
   codeLines: string[],
   target: TargetRanges,
-  prefix: string[],
+  prefix: string | undefined,
+  scopeIndex: number | undefined,
+  targetIndex: number | undefined,
+  domain?: Range,
+): string {
+  const lines: string[] = [
+    serializeTargetBasics(
+      codeLines,
+      target,
+      prefix,
+      scopeIndex,
+      targetIndex,
+      domain,
+    ),
+  ];
+
+  if (target.leadingDelimiter != null) {
+    lines.push(
+      serializeTargetBasics(
+        codeLines,
+        target.leadingDelimiter,
+        "Leading delimiter",
+        scopeIndex,
+        targetIndex,
+      ),
+    );
+  }
+
+  if (target.trailingDelimiter != null) {
+    lines.push(
+      serializeTargetBasics(
+        codeLines,
+        target.trailingDelimiter,
+        "Trailing delimiter",
+        scopeIndex,
+        targetIndex,
+      ),
+    );
+  }
+
+  if (target.interior != null) {
+    lines.push(
+      ...target.interior.map((interior) =>
+        serializeTargetBasics(
+          codeLines,
+          interior,
+          "Interior",
+          scopeIndex,
+          targetIndex,
+        ),
+      ),
+    );
+  }
+
+  if (target.boundary != null) {
+    lines.push(
+      ...target.boundary.map((interior) =>
+        serializeTargetBasics(
+          codeLines,
+          interior,
+          "Boundary",
+          scopeIndex,
+          targetIndex,
+        ),
+      ),
+    );
+  }
+
+  return lines.join("\n");
+}
+
+function serializeTargetBasics(
+  codeLines: string[],
+  target: TargetRanges,
+  prefix: string | undefined,
   scopeIndex: number | undefined,
   targetIndex: number | undefined,
   domain?: Range,
@@ -209,57 +272,11 @@ function serializeTarget(
     );
   }
 
-  if (target.leadingDelimiter != null) {
-    lines.push(
-      serializeTarget(
-        codeLines,
-        target.leadingDelimiter,
-        [...prefix, "Leading delimiter"],
-        scopeIndex,
-        undefined,
-      ),
-    );
-  }
-
-  if (target.trailingDelimiter != null) {
-    lines.push(
-      serializeTarget(
-        codeLines,
-        target.trailingDelimiter,
-        [...prefix, "Trailing delimiter"],
-        scopeIndex,
-        undefined,
-      ),
-    );
-  }
-
-  if (target.interior != null) {
-    lines.push(
-      serializeTargets(
-        codeLines,
-        target.interior,
-        [...prefix, "Interior"],
-        scopeIndex,
-      ),
-    );
-  }
-
-  if (target.boundary != null) {
-    lines.push(
-      serializeTargets(
-        codeLines,
-        target.boundary,
-        [...prefix, "Boundary"],
-        scopeIndex,
-      ),
-    );
-  }
-
   return lines.join("\n");
 }
 
 function serializeHeader(
-  prefix: string[],
+  prefix: string | undefined,
   header: string,
   scopeIndex: number | undefined,
   targetIndex: number | undefined,
@@ -268,8 +285,8 @@ function serializeHeader(
   if (scopeIndex != null) {
     parts.push(`#${scopeIndex}`);
   }
-  if (prefix.length > 0) {
-    parts.push(prefix.join(" | ") + ":");
+  if (prefix != null) {
+    parts.push(prefix + ":");
   }
   parts.push(header);
   if (targetIndex != null) {
