@@ -4,14 +4,12 @@ import {
   ExtraSnapshotField,
   HatTokenMap,
   IDE,
-  LanguageScopeSupportFacetMap,
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
-  TextualLanguageScopeSupportFacetMap,
 } from "@cursorless/common";
 import {
   StoredTargetKey,
