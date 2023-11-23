@@ -10,17 +10,11 @@ const name = "Hello world";
  ^^^^^^^^^^^^^
 
 [Leading delimiter: Content]
- const name = "Hello world";
-      ^
-
 [Leading delimiter: Removal]
  const name = "Hello world";
       ^
 
 [Trailing delimiter: Content]
- const name = "Hello world";
-           ^
-
 [Trailing delimiter: Removal]
  const name = "Hello world";
            ^

@@ -5,6 +5,7 @@ bbb
 ---
 
 [Content]
+[Domain]
  
 [---
  aaa
@@ -36,13 +37,6 @@ bbb
  
 
 [Leading delimiter | Trailing delimiter: Content]
-[
- 
- aaa
- ]
- bbb
- 
-
 [Leading delimiter | Trailing delimiter: Removal]
 [
  
@@ -67,13 +61,6 @@ bbb
  ]
 
 [Trailing delimiter | Leading delimiter: Content]
- 
- aaa
-   [
- bbb
- 
- ]
-
 [Trailing delimiter | Leading delimiter: Removal]
  
  aaa
@@ -81,11 +68,3 @@ bbb
  bbb
  
  ]
-
-[Domain]
- 
-[---
- aaa
- bbb
- ---]
- 
