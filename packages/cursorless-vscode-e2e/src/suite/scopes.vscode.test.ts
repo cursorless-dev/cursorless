@@ -61,17 +61,21 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   );
 
   // Assert that all tested facets are supported by the language
-  for (const testedFacet of testedFacets) {
-    if (!supportedFacets.includes(testedFacet)) {
-      assert.fail(`Missing scope support for tested facet '${testedFacet}'`);
-    }
+  const unsupportedFacets = testedFacets.filter(
+    (testedFacet) => !supportedFacets.includes(testedFacet),
+  );
+  if (unsupportedFacets.length > 0) {
+    const values = unsupportedFacets.join(", ");
+    assert.fail(`Missing scope support for tested facets [${values}]`);
   }
 
   // Assert that all supported facets are tested
-  for (const supportedFacet of supportedFacets) {
-    if (!testedFacets.includes(supportedFacet)) {
-      assert.fail(`Missing test for scope support facet '${supportedFacet}'`);
-    }
+  const untestedFacets = supportedFacets.filter(
+    (supportedFacet) => !testedFacets.includes(supportedFacet),
+  );
+  if (untestedFacets.length > 0) {
+    const values = untestedFacets.join(", ");
+    assert.fail(`Missing test for scope support facets [${values}]`);
   }
 }
 
