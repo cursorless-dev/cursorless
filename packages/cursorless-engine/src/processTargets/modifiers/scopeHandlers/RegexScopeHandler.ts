@@ -5,11 +5,11 @@ import {
   ScopeType,
 } from "@cursorless/common";
 import { imap } from "itertools";
+import { escapeRegExp } from "lodash";
 import { NestedScopeHandler, ScopeHandlerFactory } from ".";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
 import { TargetScope } from "./scope.types";
-import { escapeRegExp } from "lodash";
 
 abstract class RegexStageBase extends NestedScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "line" };
