@@ -10,6 +10,5 @@ export * from "./OneOfScopeHandler";
 export * from "./ParagraphScopeHandler";
 export * from "./SentenceScopeHandler/SentenceScopeHandler";
 export * from "./RegexScopeHandler";
-export * from "./GlyphScopeHandler";
 export * from "./ScopeHandlerFactory";
 export * from "./ScopeHandlerFactoryImpl";

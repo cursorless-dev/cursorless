@@ -1,9 +1,15 @@
-import { CustomRegexScopeType, Direction, ScopeType } from "@cursorless/common";
+import {
+  CustomRegexScopeType,
+  Direction,
+  GlyphScopeType,
+  ScopeType,
+} from "@cursorless/common";
 import { imap } from "itertools";
 import { NestedScopeHandler, ScopeHandlerFactory } from ".";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
 import { TargetScope } from "./scope.types";
+import { escapeRegExp } from "lodash";
 
 abstract class RegexStageBase extends NestedScopeHandler {
   public readonly iterationScopeType: ScopeType = { type: "line" };
@@ -56,6 +62,20 @@ export class CustomRegexScopeHandler extends RegexStageBase {
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
     readonly scopeType: CustomRegexScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, scopeType, languageId);
+  }
+}
+
+export class GlyphScopeHandler extends RegexStageBase {
+  get regex() {
+    return new RegExp(escapeRegExp(this.scopeType.character), "g");
+  }
+
+  constructor(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    readonly scopeType: GlyphScopeType,
     languageId: string,
   ) {
     super(scopeHandlerFactory, scopeType, languageId);
