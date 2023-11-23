@@ -4,14 +4,12 @@ import type {
   ExtraSnapshotField,
   HatTokenMap,
   IDE,
-  LanguageScopeSupportFacetMap,
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
-  TextualLanguageScopeSupportFacetMap,
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import { VscodeApi } from "./VscodeApi";
