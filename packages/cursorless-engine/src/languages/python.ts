@@ -86,7 +86,7 @@ const nodeMatchers: Partial<
     ]),
     ternaryBranchMatcher("conditional_expression", [0, 2]),
   ),
-  switchStatementSubject: "match_statement[subject]",
+  ["private.switchStatementSubject"]: "match_statement[subject]",
 };
 
 export default createPatternMatchers(nodeMatchers);
