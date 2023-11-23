@@ -70,7 +70,7 @@ export class CustomRegexScopeHandler extends RegexStageBase {
 
 export class GlyphScopeHandler extends RegexStageBase {
   get regex() {
-    return new RegExp(escapeRegExp(this.scopeType.character), "g");
+    return new RegExp(escapeRegExp(this.scopeType.character), "gu");
   }
 
   constructor(
