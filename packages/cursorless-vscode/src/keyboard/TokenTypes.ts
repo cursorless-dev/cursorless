@@ -42,11 +42,13 @@ type MiscValue =
  */
 export interface TokenTypeValueMap {
   // tokens corresponding exactly to config sections
-  simpleAction: SimpleKeyboardActionType;
   simpleScopeTypeType: SimpleScopeTypeType;
   color: HatColor;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
+
+  // action config section
+  simpleAction: SimpleKeyboardActionType;
 
   // misc config section
   makeRange: undefined;

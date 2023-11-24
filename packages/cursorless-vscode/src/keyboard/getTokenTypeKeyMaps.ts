@@ -33,15 +33,17 @@ import { simpleKeyboardActionNames } from "./KeyboardActionType";
  */
 export function getTokenTypeKeyMaps(): TokenTypeKeyMapMap {
   return {
+    simpleScopeTypeType: getSectionKeyMap("scopes", "simpleScopeTypeType"),
+    color: getSectionKeyMap("colors", "color"),
+    shape: getSectionKeyMap("shapes", "shape"),
+    vscodeCommand: getSectionKeyMap("vscodeCommands", "vscodeCommand"),
+
+    // action config section
     simpleAction: getSectionKeyMap(
       "actions",
       "simpleAction",
       simpleKeyboardActionNames,
     ),
-    simpleScopeTypeType: getSectionKeyMap("scopes", "simpleScopeTypeType"),
-    color: getSectionKeyMap("colors", "color"),
-    shape: getSectionKeyMap("shapes", "shape"),
-    vscodeCommand: getSectionKeyMap("vscodeCommands", "vscodeCommand"),
 
     // misc config section
     makeRange: getSingularSectionEntry("misc", "makeRange"),
