@@ -1,5 +1,0 @@
-- [ ] makeList
-- [ ] "every"
-- [ ] "two funks"
-- [ ] "round"
-- [ ] "round wrap"
