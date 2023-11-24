@@ -1,8 +1,9 @@
-import { ScopeType, SimpleActionName } from "@cursorless/common";
+import { ScopeType } from "@cursorless/common";
 import * as vscode from "vscode";
+import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import { SimpleKeyboardActionType } from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
-import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -69,7 +70,7 @@ export class KeyboardCommandHandler {
   performSimpleActionOnTarget({
     actionName,
   }: {
-    actionName: SimpleActionName;
+    actionName: SimpleKeyboardActionType;
   }) {
     this.targeted.performActionOnTarget(actionName);
   }
