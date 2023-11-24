@@ -106,6 +106,11 @@ export interface Target {
    */
   readonly hasExplicitRange: boolean;
 
+  /**
+   * If `true`, doesn't auto-expand to token in eg "take this"
+   */
+  readonly avoidImplicitExpansion: boolean;
+
   /** If true this target is a raw selection and its insertion delimiter should not be used on bring action */
   readonly isRaw: boolean;
 

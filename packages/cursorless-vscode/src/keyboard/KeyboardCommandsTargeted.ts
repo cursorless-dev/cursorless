@@ -319,8 +319,8 @@ export default class KeyboardCommandsTargeted {
         type: "primitive",
         mark: {
           type: "cursor",
+          avoidImplicitExpansion: true,
         },
-        modifiers: [{ type: "toRawSelection" }],
       },
     });
 

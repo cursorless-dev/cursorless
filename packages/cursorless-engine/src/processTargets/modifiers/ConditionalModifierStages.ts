@@ -93,6 +93,7 @@ export class ContainingTokenIfUntypedEmptyStage extends ConditionalModifierBaseS
     return (
       !target.hasExplicitScopeType &&
       !target.hasExplicitRange &&
+      !target.avoidImplicitExpansion &&
       target.contentRange.isEmpty
     );
   }

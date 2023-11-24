@@ -1,5 +1,10 @@
 export interface CursorMark {
   type: "cursor";
+
+  /**
+   * If `true`, then don't do auto expansion of the target to containing token.
+   */
+  avoidImplicitExpansion?: boolean;
 }
 
 export interface ThatMark {

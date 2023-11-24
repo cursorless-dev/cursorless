@@ -11,6 +11,7 @@ import {
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
   readonly isToken?: boolean;
+  readonly avoidImplicitExpansion?: boolean;
 }
 
 /**
@@ -27,6 +28,7 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
     super(parameters);
     this.hasExplicitRange = parameters.hasExplicitRange;
     this.isToken = parameters.isToken ?? true;
+    this.avoidImplicitExpansion = parameters.avoidImplicitExpansion ?? false;
   }
 
   getLeadingDelimiterTarget(): Target | undefined {
@@ -62,6 +64,7 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
       ...this.state,
       isToken: this.isToken,
       hasExplicitRange: this.hasExplicitRange,
+      avoidImplicitExpansion: this.avoidImplicitExpansion,
     };
   }
 }

@@ -56,6 +56,7 @@ export abstract class BaseTarget<
   isImplicit = false;
   isNotebookCell = false;
   isWord = false;
+  avoidImplicitExpansion = false;
 
   constructor(parameters: TParameters & CommonTargetParameters) {
     this.state = {

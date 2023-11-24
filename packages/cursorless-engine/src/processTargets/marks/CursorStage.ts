@@ -17,6 +17,7 @@ export class CursorStage implements MarkStage {
           contentRange: selection.selection,
           hasExplicitRange: !selection.selection.isEmpty,
           isToken: false,
+          avoidImplicitExpansion: this.mark.avoidImplicitExpansion,
         }),
     );
   }
