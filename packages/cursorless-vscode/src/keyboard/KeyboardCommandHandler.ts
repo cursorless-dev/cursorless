@@ -102,6 +102,6 @@ interface TargetRelativeScopeArg {
 }
 
 interface Offset {
-  direction?: "forward" | "backward" | null;
-  number?: number | null;
+  direction: "forward" | "backward" | null;
+  number: number | null;
 }

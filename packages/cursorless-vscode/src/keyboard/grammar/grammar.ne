@@ -46,8 +46,7 @@ decoratedMark -> %combineColorAndShape %shape %color {%
 
 # Contains a direction and a number for use with relative and ordinal
 offset -> %direction:? number {% capture("direction", "number") %}
-offset -> number %direction {% capture("number", "direction") %}
-offset -> %direction {% capture("direction") %}
+offset -> number:? %direction {% capture("number", "direction") %}
 
 number -> %digit:+ {%
   ([digits]) =>

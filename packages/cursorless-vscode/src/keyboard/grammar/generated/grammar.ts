@@ -76,8 +76,9 @@ const grammar: Grammar = {
     {"name": "offset$ebnf$1", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": id},
     {"name": "offset$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "offset", "symbols": ["offset$ebnf$1", "number"], "postprocess": capture("direction", "number")},
-    {"name": "offset", "symbols": ["number", (lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": capture("number", "direction")},
-    {"name": "offset", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": capture("direction")},
+    {"name": "offset$ebnf$2", "symbols": ["number"], "postprocess": id},
+    {"name": "offset$ebnf$2", "symbols": [], "postprocess": () => null},
+    {"name": "offset", "symbols": ["offset$ebnf$2", (lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": capture("number", "direction")},
     {"name": "number$ebnf$1", "symbols": [(lexer.has("digit") ? {type: "digit"} : digit)]},
     {"name": "number$ebnf$1", "symbols": ["number$ebnf$1", (lexer.has("digit") ? {type: "digit"} : digit)], "postprocess": (d) => d[0].concat([d[1]])},
     {"name": "number", "symbols": ["number$ebnf$1"], "postprocess": 

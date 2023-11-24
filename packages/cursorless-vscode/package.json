@@ -1107,6 +1107,7 @@
     "generate-grammar:base": "nearleyc src/keyboard/grammar/grammar.ne",
     "ensure-grammar-up-to-date": "pnpm -s generate-grammar:base | diff -u src/keyboard/grammar/generated/grammar.ts -",
     "generate-grammar": "pnpm generate-grammar:base -o src/keyboard/grammar/generated/grammar.ts",
+    "generate-railroad": "nearley-railroad src/keyboard/grammar/grammar.ne -o out/railroad.html",
     "test": "pnpm ensure-grammar-up-to-date",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
