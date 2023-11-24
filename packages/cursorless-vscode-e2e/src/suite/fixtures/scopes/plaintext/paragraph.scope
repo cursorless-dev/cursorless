@@ -23,7 +23,7 @@ bbb
 
 [Leading delimiter: Content]
  
-[]
+{}
  aaa
  bbb
  
@@ -41,7 +41,7 @@ bbb
  aaa
  bbb
  
-[]
+{}
 
 [Trailing delimiter: Removal]
  

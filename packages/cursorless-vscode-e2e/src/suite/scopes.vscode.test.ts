@@ -323,7 +323,7 @@ function serializeCodeRange(codeLines: string[], range: Range): string {
 
 function serializeRange(start: Position, end: Position): string {
   if (start.isEqual(end)) {
-    return [new Array(start.character + 1).join(" "), "[]"].join("");
+    return [new Array(start.character + 1).join(" "), "{}"].join("");
   }
   return [
     new Array(start.character + 2).join(" "),
