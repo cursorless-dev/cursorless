@@ -17,8 +17,8 @@ main -> %makeRange decoratedMark {%
 # "funk"
 main -> scopeType {% command("targetScopeType", ["scopeType"]) %}
 
-# "third next two funks"
-# "third previous two funks"
+# "[third] next [two] funks"
+# "[third] previous [two] funks"
 main -> offset:? %relative number:? scopeType {%
   command(
     "targetRelativeScope",
