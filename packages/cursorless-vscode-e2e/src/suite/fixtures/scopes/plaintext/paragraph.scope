@@ -6,47 +6,47 @@ bbb
 
 [Content]
 [Domain]
- 
+ ◂
 [---
  aaa
  bbb
  ---]
- 
+ ◂
 
 [Removal]
 [
- 
+ ◂
  aaa
  bbb
- 
+ ◂
  ]
 
 [Leading delimiter: Content]
- 
+ ◂
 {}
  aaa
  bbb
- 
+ ◂
 
 [Leading delimiter: Removal]
 [
- 
+ ◂
  aaa
  ]
  bbb
- 
+ ◂
 
 [Trailing delimiter: Content]
- 
+ ◂
  aaa
  bbb
- 
+ ◂
 {}
 
 [Trailing delimiter: Removal]
- 
+ ◂
  aaa
    [
  bbb
- 
+ ◂
  ]

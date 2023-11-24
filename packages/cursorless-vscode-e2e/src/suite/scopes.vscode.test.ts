@@ -300,7 +300,8 @@ function serializeCodeRange(codeLines: string[], range: Range): string {
   const lines: string[] = [];
 
   codeLines.forEach((codeLine, index) => {
-    const fullCodeLine = " " + codeLine;
+    const suffix = codeLine.length === 0 || codeLine.endsWith(" ") ? "◂" : "";
+    const fullCodeLine = ` ${codeLine}${suffix}`;
 
     if (index === start.line) {
       if (range.isSingleLine) {

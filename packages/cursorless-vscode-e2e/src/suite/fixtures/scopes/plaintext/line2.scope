@@ -5,74 +5,74 @@ aaa
 
 [#1 Content]
 [#1 Domain]
- 
+ ◂
 {}
  aaa
- 
+ ◂
 
 [#1 Removal]
 [
- 
+ ◂
  aaa
  ]
- 
+ ◂
 
 [#1 Trailing delimiter: Content]
 [#1 Trailing delimiter: Removal]
 [
- 
+ ◂
  aaa
  ]
- 
+ ◂
 
 [#2 Content]
 [#2 Domain]
- 
+ ◂
  aaa
  ^^^
- 
+ ◂
 
 [#2 Removal]
- 
+ ◂
 [---
  aaa
- 
+ ◂
  ]
 
 [#2 Leading delimiter: Content]
 [#2 Leading delimiter: Removal]
 [
- 
+ ◂
  aaa
  ]
- 
+ ◂
 
 [#2 Trailing delimiter: Content]
 [#2 Trailing delimiter: Removal]
- 
+ ◂
    [
  aaa
- 
+ ◂
  ]
 
 [#3 Content]
 [#3 Domain]
- 
+ ◂
  aaa
- 
+ ◂
 {}
 
 [#3 Removal]
- 
+ ◂
    [
  aaa
- 
+ ◂
  ]
 
 [#3 Leading delimiter: Content]
 [#3 Leading delimiter: Removal]
- 
+ ◂
    [
  aaa
- 
+ ◂
  ]

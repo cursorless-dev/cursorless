@@ -8,6 +8,6 @@ function myFunk() {
 [Domain]
 [-------------------
  function myFunk() {
- 
+ ◂
  }
  -]
