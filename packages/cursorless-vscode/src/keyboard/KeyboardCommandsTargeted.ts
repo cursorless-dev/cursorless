@@ -2,9 +2,10 @@ import {
   ActionDescriptor,
   ActionType,
   LATEST_VERSION,
+  Modifier,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
-  SimpleScopeTypeType,
+  ScopeType,
 } from "@cursorless/common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
@@ -27,7 +28,7 @@ interface TargetDecoratedMarkArgument {
 }
 
 interface TargetScopeTypeArgument {
-  scopeType: SimpleScopeTypeType;
+  scopeType: ScopeType;
   type?: "containingScope" | "everyScope";
 }
 
@@ -142,11 +143,26 @@ export default class KeyboardCommandsTargeted {
         modifiers: [
           {
             type,
-            scopeType: {
-              type: scopeType,
-            },
+            scopeType,
           },
         ],
+        mark: {
+          type: "that",
+        },
+      },
+    });
+
+  /**
+   * Applies {@link modifier} to the current target
+   * @param param0 Describes the desired modifier
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  targetModifier = async (modifier: Modifier) =>
+    await executeCursorlessCommand({
+      name: "highlight",
+      target: {
+        type: "primitive",
+        modifiers: [modifier],
         mark: {
           type: "that",
         },
