@@ -58,7 +58,7 @@ const grammar: Grammar = {
     {"name": "main$ebnf$2", "symbols": [], "postprocess": () => null},
     {"name": "main", "symbols": ["main$ebnf$1", (lexer.has("relative") ? {type: "relative"} : relative), "main$ebnf$2", "scopeType"], "postprocess": 
         command(
-          "targetRelativeScope",
+          "targetRelativeExclusiveScope",
           ["offset", null, "length", "scopeType"],
         )
         },

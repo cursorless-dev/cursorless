@@ -94,7 +94,7 @@ const testCases: TestCase[] = [
           type: "namedFunction",
         },
       },
-      type: "targetRelativeScope",
+      type: "targetRelativeExclusiveScope",
     },
   },
   {
@@ -114,7 +114,7 @@ const testCases: TestCase[] = [
           type: "namedFunction",
         },
       },
-      type: "targetRelativeScope",
+      type: "targetRelativeExclusiveScope",
     },
   },
   {

@@ -79,7 +79,11 @@ export class KeyboardCommandHandler {
     this.targeted.targetScopeType(arg);
   }
 
-  targetRelativeScope({ offset, length, scopeType }: TargetRelativeScopeArg) {
+  targetRelativeExclusiveScope({
+    offset,
+    length,
+    scopeType,
+  }: TargetRelativeExclusiveScopeArg) {
     this.targeted.targetModifier({
       type: "relativeScope",
       offset: offset?.number ?? 1,
@@ -96,7 +100,7 @@ interface DecoratedMarkArg {
     shape?: HatShape;
   };
 }
-interface TargetRelativeScopeArg {
+interface TargetRelativeExclusiveScopeArg {
   offset: Offset;
   length: number | null;
   scopeType: ScopeType;

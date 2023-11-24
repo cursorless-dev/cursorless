@@ -21,7 +21,7 @@ main -> scopeType {% command("targetScopeType", ["scopeType"]) %}
 # "[third] previous [two] funks"
 main -> offset:? %relative number:? scopeType {%
   command(
-    "targetRelativeScope",
+    "targetRelativeExclusiveScope",
     ["offset", null, "length", "scopeType"],
   )
 %}
