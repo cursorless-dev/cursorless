@@ -32,7 +32,7 @@ type MiscValue =
  *
  * 1. Those directly corresponding to a section in the config. These will have
  *    the same type as the corresponding section in {@link SectionTypes}, but
- *    the name of the key will be singular. For example, {@link simpleAction}
+ *    the name of the key will be singular. For example, {@link color}
  * 2. Those corresponding to a single entry in a config section. These are
  *    tokens that need some special grammatical treatment. They don't need to
  *    have a value, so we just use `undefined` as their type. For example,
