@@ -27,7 +27,7 @@ main -> offset:? %relative number:? scopeType {%
 %}
 
 # "chuck"
-main -> %action {% command("performSimpleActionOnTarget", ["actionName"]) %}
+main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionName"]) %}
 
 # Custom vscode command
 main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}

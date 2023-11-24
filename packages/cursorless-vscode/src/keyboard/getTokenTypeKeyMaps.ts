@@ -4,6 +4,7 @@ import {
   getSectionKeyMap,
   getSingularSectionEntry,
 } from "./sectionKeyMapExtractors";
+import { simpleKeyboardActionNames } from "./KeyboardActionType";
 
 /**
  * Returns a map from token type names to a keymap for that token type. Something like:
@@ -32,7 +33,11 @@ import {
  */
 export function getTokenTypeKeyMaps(): TokenTypeKeyMapMap {
   return {
-    action: getSectionKeyMap("actions", "action"),
+    simpleAction: getSectionKeyMap(
+      "actions",
+      "simpleAction",
+      simpleKeyboardActionNames,
+    ),
     simpleScopeTypeType: getSectionKeyMap("scopes", "simpleScopeTypeType"),
     color: getSectionKeyMap("colors", "color"),
     shape: getSectionKeyMap("shapes", "shape"),

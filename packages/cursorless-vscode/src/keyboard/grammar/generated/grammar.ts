@@ -5,7 +5,7 @@
 function id(d: any[]): any { return d[0]; }
 declare var makeRange: any;
 declare var relative: any;
-declare var action: any;
+declare var simpleAction: any;
 declare var vscodeCommand: any;
 declare var simpleScopeTypeType: any;
 declare var color: any;
@@ -62,7 +62,7 @@ const grammar: Grammar = {
           ["offset", null, "length", "scopeType"],
         )
         },
-    {"name": "main", "symbols": [(lexer.has("action") ? {type: "action"} : action)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
+    {"name": "main", "symbols": [(lexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
     {"name": "main", "symbols": [(lexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
     {"name": "decoratedMark", "symbols": [(lexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},

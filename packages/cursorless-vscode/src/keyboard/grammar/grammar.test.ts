@@ -107,6 +107,7 @@ const testCases: TestCase[] = [
       arg: {
         length: null,
         offset: {
+          number: null,
           direction: "backward",
         },
         scopeType: {

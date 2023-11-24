@@ -1,12 +1,16 @@
-import { ActionType, SimpleScopeTypeType } from "@cursorless/common";
+import { SimpleScopeTypeType } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
+import {
+  KeyboardActionType,
+  SimpleKeyboardActionType,
+} from "./KeyboardActionType";
 
 /**
  * Maps from modal keyboard config section name to the type of entry expected in
  * that section.
  */
 export interface SectionTypes {
-  actions: ActionType;
+  actions: KeyboardActionType;
   colors: HatColor;
   misc: MiscValue;
   scopes: SimpleScopeTypeType;
@@ -28,7 +32,7 @@ type MiscValue =
  *
  * 1. Those directly corresponding to a section in the config. These will have
  *    the same type as the corresponding section in {@link SectionTypes}, but
- *    the name of the key will be singular. For example, {@link action}
+ *    the name of the key will be singular. For example, {@link simpleAction}
  * 2. Those corresponding to a single entry in a config section. These are
  *    tokens that need some special grammatical treatment. They don't need to
  *    have a value, so we just use `undefined` as their type. For example,
@@ -38,7 +42,7 @@ type MiscValue =
  */
 export interface TokenTypeValueMap {
   // tokens corresponding exactly to config sections
-  action: ActionType;
+  simpleAction: SimpleKeyboardActionType;
   simpleScopeTypeType: SimpleScopeTypeType;
   color: HatColor;
   shape: HatShape;
