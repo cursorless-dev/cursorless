@@ -276,19 +276,9 @@
 ;;!! match value:
 ;;!        ^^^^^
 (case_clause
-  pattern: (_) @condition
+  pattern: (_) @condition.start
+  guard: (_)? @condition.end
 ) @_.domain
-
-;;!! case a if a > 1:
-;;!            ^^^^^
-;;!         xxxxxxxx
-;;!         --------
-(case_clause
-  (if_clause
-    "if"
-    (_) @condition
-  ) @_.domain @_.removal
-)
 
 ;;!! case 0: pass
 ;;!  ^^^^^^^^^^^^
@@ -333,13 +323,6 @@
 ;;!                         ^^^
 ;;!                      xxxxxx
 ;;!  ---------------------------
-(list_comprehension
-  (if_clause
-    "if"
-    (_) @condition
-  ) @_.removal
-) @_.domain
-
 ;;!! (aaa for aaa in bbb if ccc)
 ;;!! {aaa for aaa in bbb if ccc}
 ;;!                         ^^^
@@ -354,6 +337,7 @@
     "if"
     (_) @condition
   ) @_.removal
+  (#not-parent-type? @_.removal case_clause)
 ) @_.domain
 
 ;;!! for name in value:
