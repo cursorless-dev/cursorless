@@ -8,7 +8,6 @@ import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
-import { stringTextFragmentExtractor as typescriptStringTextFragmentExtractor } from "./typescript";
 
 export type TextFragmentExtractor = (
   node: SyntaxNode,
@@ -131,14 +130,6 @@ const textFragmentExtractors: Record<
     "html",
     htmlStringTextFragmentExtractor,
   ),
-  javascript: constructDefaultTextFragmentExtractor(
-    "javascript",
-    typescriptStringTextFragmentExtractor,
-  ),
-  javascriptreact: constructDefaultTextFragmentExtractor(
-    "javascriptreact",
-    typescriptStringTextFragmentExtractor,
-  ),
   latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
   ruby: constructDefaultTextFragmentExtractor(
@@ -154,14 +145,6 @@ const textFragmentExtractors: Record<
     scssStringTextFragmentExtractor,
   ),
   rust: constructDefaultTextFragmentExtractor("rust"),
-  typescript: constructDefaultTextFragmentExtractor(
-    "typescript",
-    typescriptStringTextFragmentExtractor,
-  ),
-  typescriptreact: constructDefaultTextFragmentExtractor(
-    "typescriptreact",
-    typescriptStringTextFragmentExtractor,
-  ),
   xml: constructDefaultTextFragmentExtractor(
     "xml",
     htmlStringTextFragmentExtractor,

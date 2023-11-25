@@ -1,8 +1,8 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take every key
-  action: setSelection
+  spokenForm: change every key
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: collectionKey, includeSiblings: true}
@@ -19,11 +19,11 @@ initialState:
 finalState:
   documentContents: |-
     {
-        foo: "hello",
-        bar,
+        : "hello",
+        ,
     }
   selections:
     - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 7}
+      active: {line: 1, character: 4}
     - anchor: {line: 2, character: 4}
-      active: {line: 2, character: 7}
+      active: {line: 2, character: 4}
