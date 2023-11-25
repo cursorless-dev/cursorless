@@ -265,19 +265,11 @@
 
 ;;!! if True:
 ;;!     ^^^^
-(if_statement
-  condition: (_) @condition
-) @_.domain
-
 ;;!! elif True:
-;;!     ^^^^
-(elif_clause
-  condition: (_) @condition
-) @_.domain
-
+;;!       ^^^^
 ;;!! while True:
 ;;!        ^^^^
-(while_statement
+(_
   condition: (_) @condition
 ) @_.domain
 
