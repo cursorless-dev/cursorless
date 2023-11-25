@@ -6,7 +6,6 @@ import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
-import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 
@@ -130,14 +129,6 @@ const textFragmentExtractors: Record<
   html: constructDefaultTextFragmentExtractor(
     "html",
     htmlStringTextFragmentExtractor,
-  ),
-  jsonc: constructDefaultTextFragmentExtractor(
-    "jsonc",
-    jsonStringTextFragmentExtractor,
-  ),
-  json: constructDefaultTextFragmentExtractor(
-    "json",
-    jsonStringTextFragmentExtractor,
   ),
   latex: fullDocumentTextFragmentExtractor,
   markdown: fullDocumentTextFragmentExtractor,
