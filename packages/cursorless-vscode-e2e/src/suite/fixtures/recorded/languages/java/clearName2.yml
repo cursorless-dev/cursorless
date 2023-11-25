@@ -1,14 +1,13 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take name
-  action: setSelection
+  spokenForm: change name
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: name}
 initialState:
   documentContents: |
-
     public class MyClass {
         void myFunk () {
 
@@ -20,12 +19,11 @@ initialState:
   marks: {}
 finalState:
   documentContents: |
-
     public class MyClass {
-        void myFunk () {
+        void  () {
 
         }
     }
   selections:
-    - anchor: {line: 2, character: 9}
-      active: {line: 2, character: 15}
+    - anchor: {line: 1, character: 9}
+      active: {line: 1, character: 9}
