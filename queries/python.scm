@@ -252,7 +252,7 @@
 ;;!! match value:
 ;;!        ^^^^^
 (match_statement
-  subject: (_) @switchStatementSubject
+  subject: (_) @private.switchStatementSubject
 ) @_.domain
 
 ;;!! { "value": 0 }

@@ -79,7 +79,7 @@ const spokenFormJsonContents = {
     },
     {
       type: "simpleScopeTypeType",
-      id: "switchStatementSubject",
+      id: "private.switchStatementSubject",
       spokenForms: ["custom subject"],
     },
     {
@@ -96,22 +96,22 @@ const spokenFormJsonContents = {
 };
 
 const subjectStandard: ScopeTypeInfo = {
-  humanReadableName: "switch statement subject",
+  humanReadableName: "private switch statement subject",
   isLanguageSpecific: true,
-  scopeType: { type: "switchStatementSubject" },
+  scopeType: { type: "private.switchStatementSubject" },
   spokenForm: {
     isPrivate: true,
     reason:
-      "simple scope type type with id switchStatementSubject; this is a private spoken form currently only for internal experimentation",
+      "simple scope type type with id private.switchStatementSubject; this is a private spoken form currently only for internal experimentation",
     requiresTalonUpdate: false,
     type: "error",
   },
 };
 
 const subjectCustom: ScopeTypeInfo = {
-  humanReadableName: "switch statement subject",
+  humanReadableName: "private switch statement subject",
   isLanguageSpecific: true,
-  scopeType: { type: "switchStatementSubject" },
+  scopeType: { type: "private.switchStatementSubject" },
   spokenForm: {
     spokenForms: ["custom subject"],
     type: "success",

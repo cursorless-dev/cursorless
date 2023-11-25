@@ -44,7 +44,7 @@ const nodeMatchers: Partial<
     }),
   ),
 
-  switchStatementSubject: "match_expression[value]",
+  ["private.switchStatementSubject"]: "match_expression[value]",
   name: ["*[name]", "*[pattern]"],
   functionName: "function_definition[name]",
 
