@@ -98,7 +98,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
     ["private.fieldAccess"]: isPrivate("access"),
     string: isPrivate("parse tree string"),
-    switchStatementSubject: isPrivate("subject"),
+    ["private.switchStatementSubject"]: isPrivate("subject"),
   },
 
   surroundingPairForceDirection: {
