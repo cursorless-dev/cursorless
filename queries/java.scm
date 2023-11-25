@@ -205,16 +205,6 @@
     ) @_.domain
 ) @_.iteration
 
-;;!! int value = 0;
-;;!      ^^^^^
-;;!  --------------
-(_
-    (assignment_expression
-        left: (_) @name
-    ) @_.domain.start
-    ";"? @_.domain.end
-)
-
 ;;!! Map<String, String>
 ;;!     ^^^^^^^  ^^^^^^
 (type_arguments
@@ -298,14 +288,14 @@
 ;;!  --------------
 (local_variable_declaration
     (variable_declarator
-        name: (_) @name @value.removal.start.endOf
-        value: (_)? @value @value.removal.end
+        name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
+        value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
     )
 ) @_.domain
 (field_declaration
     (variable_declarator
-        name: (_) @name @value.removal.start.endOf
-        value: (_)? @value @value.removal.end
+        name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
+        value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
     )
 ) @_.domain
 
@@ -315,8 +305,8 @@
 ;;!  ----------
 (_
     (assignment_expression
-        left: (_) @value.removal.start.endOf
-        right: (_) @value @value.removal.end
+        left: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
+        right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
     ) @_.domain.start
     ";"? @_.domain.end
 )
