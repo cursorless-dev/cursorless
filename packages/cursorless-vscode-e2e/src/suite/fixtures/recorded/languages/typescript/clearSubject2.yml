@@ -7,11 +7,11 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: switchStatementSubject}
+          scopeType: {type: private.switchStatementSubject}
   usePrePhraseSnapshot: true
 spokenFormError: >-
-  simple scope type type with id switchStatementSubject; this is a private
-  spoken form currently only for internal experimentation
+  simple scope type type with id private.switchStatementSubject; this is a
+  private spoken form currently only for internal experimentation
 initialState:
   documentContents: |-
     switch(aaa + 1) {

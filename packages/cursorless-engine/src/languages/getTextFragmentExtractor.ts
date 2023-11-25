@@ -131,10 +131,6 @@ const textFragmentExtractors: Record<
     "html",
     htmlStringTextFragmentExtractor,
   ),
-  java: constructDefaultTextFragmentExtractor(
-    "java",
-    constructHackedStringTextFragmentExtractor("java"),
-  ),
   jsonc: constructDefaultTextFragmentExtractor(
     "jsonc",
     jsonStringTextFragmentExtractor,

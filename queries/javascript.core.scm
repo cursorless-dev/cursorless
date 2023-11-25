@@ -457,8 +457,8 @@
 ;;!          ^^^^^
 ;;!  -----------------
 (switch_statement
-  value: (_) @switchStatementSubject
-  (#child-range! @switchStatementSubject 0 -1 true true)
+  value: (_) @private.switchStatementSubject
+  (#child-range! @private.switchStatementSubject 0 -1 true true)
 ) @_.domain
 
 ;;!! foo()

@@ -97,6 +97,24 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "z": "bolt",
     "w": "crosshairs"
   },
+  "cursorless.experimental.keyboard.modal.keybindings.vscodeCommands": {
+    // For simple commands, just use the command name
+    // "aa": "workbench.action.editor.changeLanguageMode",
+
+    // For commands with args, use the following format
+    // "am": {
+    //   "commandId": "some.command.id",
+    //   "args": ["foo", 0]
+    // }
+
+    // If you'd like to run the command on the active target, use the following format
+    "am": {
+      "commandId": "editor.action.joinLines",
+      "executeAtTarget": true,
+      // "keepChangedSelection": true,
+      // "exitCursorlessMode": true,
+    }
+  }
 ```
 
 Any supported scopes, actions, or colors can be added to these sections, using the same identifiers that appear in the second column of your customisation csvs. Feel free to add / tweak / remove the keyboard shortcuts above as you see fit.
