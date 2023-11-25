@@ -320,9 +320,6 @@
 (conditional_expression) @branch.iteration
 
 ;;!! [aaa for aaa in bbb if ccc]
-;;!                         ^^^
-;;!                      xxxxxx
-;;!  ---------------------------
 ;;!! (aaa for aaa in bbb if ccc)
 ;;!! {aaa for aaa in bbb if ccc}
 ;;!                         ^^^
