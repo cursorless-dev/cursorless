@@ -68,6 +68,9 @@ const grammar: Grammar = {
           ["offset", _, "length", "scopeType"],
         )
         },
+    {"name": "main", "symbols": ["offset", "scopeType"], "postprocess": 
+        command("targetRelativeInclusiveScope", ["offset", "scopeType"])
+        },
     {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
     {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "scopeType", "symbols": [(keyboardLexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
