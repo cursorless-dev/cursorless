@@ -3,19 +3,20 @@ aaa
 
 ---
 
-[#1 Content]
-[#1 Domain]
- ◂
-{}
- aaa
- ◂
+[#1 Content] =
+[#1 Domain] = (0,0)-(0,0)
+0| 
+  ><
+1| aaa
 
-[#1 Removal]
-[
- ◂
- aaa
- ]
- ◂
+2|
+
+[#1 Removal] = (0,0)-(1,0)
+0| 
+  >
+1| aaa
+   <
+2|
 
 [#1 Trailing delimiter: Content]
 [#1 Trailing delimiter: Removal]
