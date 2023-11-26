@@ -131,7 +131,6 @@ const textFragmentExtractors: Record<
     htmlStringTextFragmentExtractor,
   ),
   latex: fullDocumentTextFragmentExtractor,
-  markdown: fullDocumentTextFragmentExtractor,
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
     rubyStringTextFragmentExtractor,
