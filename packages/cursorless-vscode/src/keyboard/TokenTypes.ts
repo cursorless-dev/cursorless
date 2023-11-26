@@ -1,4 +1,4 @@
-import { SimpleScopeTypeType } from "@cursorless/common";
+import { SimpleScopeTypeType, SurroundingPairName } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import {
   KeyboardActionType,
@@ -14,6 +14,7 @@ export interface SectionTypes {
   color: HatColor;
   misc: MiscValue;
   scope: SimpleScopeTypeType;
+  pairedDelimiter: SurroundingPairName;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
   modifier: ModifierType;
@@ -48,6 +49,7 @@ export interface TokenTypeValueMap {
   color: HatColor;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
+  pairedDelimiter: SurroundingPairName;
 
   // action config section
   simpleAction: SimpleKeyboardActionType;

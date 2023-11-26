@@ -36,6 +36,7 @@ export function getTokenTypeKeyMaps(
     color: config.getTokenKeyMap("color"),
     shape: config.getTokenKeyMap("shape"),
     vscodeCommand: config.getTokenKeyMap("vscodeCommand"),
+    pairedDelimiter: config.getTokenKeyMap("pairedDelimiter"),
 
     // action config section
     simpleAction: config.getTokenKeyMap(

@@ -10,6 +10,7 @@ declare var nextPrev: any;
 declare var simpleAction: any;
 declare var vscodeCommand: any;
 declare var simpleScopeTypeType: any;
+declare var pairedDelimiter: any;
 declare var color: any;
 declare var shape: any;
 declare var combineColorAndShape: any;
@@ -74,6 +75,9 @@ const grammar: Grammar = {
     {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
     {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "scopeType", "symbols": [(keyboardLexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
+    {"name": "scopeType", "symbols": [(keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
+        ([delimiter]) => ({ type: "surroundingPair", delimiter })
+        },
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (keyboardLexer.has("color") ? {type: "color"} : color), (keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(_, "color", "shape")},
