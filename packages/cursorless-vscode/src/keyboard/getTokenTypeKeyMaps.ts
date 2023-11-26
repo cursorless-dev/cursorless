@@ -44,6 +44,7 @@ export function getTokenTypeKeyMaps(
       "action",
       simpleKeyboardActionNames,
     ),
+    wrap: config.getTokenKeyMap("wrap", "misc", ["wrap"]),
 
     // misc config section
     makeRange: config.getTokenKeyMap("makeRange", "misc", ["makeRange"]),

@@ -186,75 +186,82 @@ export default class KeyboardCommandsTargeted {
    * @param name The action to run
    * @returns A promise that resolves to the result of the cursorless command
    */
-  performActionOnTarget = async (name: ActionType) => {
-    const target: PartialPrimitiveTargetDescriptor = {
+  performSimpleActionOnTarget = async (name: ActionType) => {
+    return this.performActionOnTarget((target) => {
+      switch (name) {
+        case "wrapWithPairedDelimiter":
+        case "rewrapWithPairedDelimiter":
+        case "insertSnippet":
+        case "wrapWithSnippet":
+        case "executeCommand":
+        case "replace":
+        case "editNew":
+        case "getText":
+          throw Error(`Unsupported keyboard action: ${name}`);
+        case "replaceWithTarget":
+        case "moveToTarget":
+          return {
+            name,
+            source: target,
+            destination: { type: "implicit" },
+          };
+        case "swapTargets":
+          return {
+            name,
+            target1: target,
+            target2: { type: "implicit" },
+          };
+        case "callAsFunction":
+          return {
+            name,
+            callee: target,
+            argument: { type: "implicit" },
+          };
+        case "pasteFromClipboard":
+          return {
+            name,
+            destination: {
+              type: "primitive",
+              insertionMode: "to",
+              target,
+            },
+          };
+        case "generateSnippet":
+        case "highlight":
+          return {
+            name,
+            target,
+          };
+        default:
+          return {
+            name,
+            target,
+          };
+      }
+    });
+  };
+
+  /**
+   * Performs action {@link name} on the current target
+   * @param name The action to run
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  performActionOnTarget = async (
+    constructActionPayload: (
+      target: PartialPrimitiveTargetDescriptor,
+    ) => ActionDescriptor,
+  ) => {
+    const action = constructActionPayload({
       type: "primitive",
       mark: {
         type: "that",
       },
-    };
-
-    let returnValue: unknown;
-
-    switch (name) {
-      case "wrapWithPairedDelimiter":
-      case "rewrapWithPairedDelimiter":
-      case "insertSnippet":
-      case "wrapWithSnippet":
-      case "executeCommand":
-      case "replace":
-      case "editNew":
-      case "getText":
-        throw Error(`Unsupported keyboard action: ${name}`);
-      case "replaceWithTarget":
-      case "moveToTarget":
-        returnValue = await executeCursorlessCommand({
-          name,
-          source: target,
-          destination: { type: "implicit" },
-        });
-        break;
-      case "swapTargets":
-        returnValue = await executeCursorlessCommand({
-          name,
-          target1: target,
-          target2: { type: "implicit" },
-        });
-        break;
-      case "callAsFunction":
-        returnValue = await executeCursorlessCommand({
-          name,
-          callee: target,
-          argument: { type: "implicit" },
-        });
-        break;
-      case "pasteFromClipboard":
-        returnValue = await executeCursorlessCommand({
-          name,
-          destination: {
-            type: "primitive",
-            insertionMode: "to",
-            target,
-          },
-        });
-        break;
-      case "generateSnippet":
-      case "highlight":
-        returnValue = await executeCursorlessCommand({
-          name,
-          target,
-        });
-        break;
-      default:
-        returnValue = await executeCursorlessCommand({
-          name,
-          target,
-        });
-    }
+    });
+    const returnValue = await executeCursorlessCommand(action);
 
     await this.highlightTarget();
 
-    if (EXIT_CURSORLESS_MODE_ACTIONS.includes(name)) {
+    if (EXIT_CURSORLESS_MODE_ACTIONS.includes(action.name)) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
       await this.modal.modeOff();

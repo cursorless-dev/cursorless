@@ -1,9 +1,10 @@
-import { ScopeType } from "@cursorless/common";
+import { ScopeType, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { SimpleKeyboardActionType } from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -82,11 +83,20 @@ export class KeyboardCommandHandler {
   }: {
     actionName: SimpleKeyboardActionType;
   }) {
-    this.targeted.performActionOnTarget(actionName);
+    this.targeted.performSimpleActionOnTarget(actionName);
   }
 
   modifyTargetContainingScope(arg: { scopeType: ScopeType }) {
     this.targeted.modifyTargetContainingScope(arg);
+  }
+  performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
+    const [left, right] = surroundingPairsDelimiters[delimiter]!;
+    this.targeted.performActionOnTarget((target) => ({
+      name: "wrapWithPairedDelimiter",
+      target,
+      left,
+      right,
+    }));
   }
 
   targetEveryScopeType(arg: { scopeType: ScopeType }) {

@@ -25,7 +25,8 @@ type MiscValue =
   | "makeRange"
   | "makeList"
   | "forward"
-  | "backward";
+  | "backward"
+  | "wrap"; // TODO: move wrap somewhere out of misc
 
 /**
  * Maps from token type used in parser to the type of values that the token type
@@ -53,6 +54,7 @@ export interface TokenTypeValueMap {
 
   // action config section
   simpleAction: SimpleKeyboardActionType;
+  wrap: "wrap";
 
   // misc config section
   makeRange: "makeRange";
