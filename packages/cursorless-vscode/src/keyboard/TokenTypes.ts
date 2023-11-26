@@ -53,6 +53,7 @@ export interface TokenTypeValueMap {
 
   // action config section
   simpleAction: SimpleKeyboardActionType;
+  wrap: undefined;
 
   // misc config section
   makeRange: "makeRange";
