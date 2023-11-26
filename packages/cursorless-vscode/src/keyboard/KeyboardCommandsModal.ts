@@ -80,6 +80,13 @@ export default class KeyboardCommandsModal {
    */
   private computeLayer() {
     const acceptableTokenTypes = getAcceptableTokenTypes(this.parser);
+    console.log(
+      `acceptableTokenTypes: ${JSON.stringify(
+        acceptableTokenTypes,
+        undefined,
+        2,
+      )}`,
+    );
     // FIXME: Here's where we'd update sidebar
     const sections = pick(
       this.sections,
@@ -115,6 +122,7 @@ export default class KeyboardCommandsModal {
       let currentText: string | undefined = text;
       while (true) {
         const token = await this.currentLayer.handleInput(currentText);
+        console.log(`token: ${JSON.stringify(token, undefined, 2)}`);
         if (token == null) {
           throw new KeySequenceCancelledError();
         }
@@ -137,6 +145,7 @@ export default class KeyboardCommandsModal {
       }
 
       const nextTokenTypes = getAcceptableTokenTypes(this.parser);
+
       if (nextTokenTypes.length > 0) {
         // Because we stop as soon as a valid parse is found, there shouldn't
         // be any way to continue
@@ -147,6 +156,13 @@ export default class KeyboardCommandsModal {
         throw new Error("Ambiguous parse");
       }
 
+      console.log(
+        `this.parser.results: ${JSON.stringify(
+          this.parser.results,
+          undefined,
+          2,
+        )}`,
+      );
       const [{ type, arg }] = this.parser.results;
 
       // Run the command
