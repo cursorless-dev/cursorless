@@ -34,6 +34,11 @@ main -> offset:? %relative number:? scopeType {%
   )
 %}
 
+# "three funks [backward]"
+main -> offset scopeType {%
+  command("targetRelativeInclusiveScope", ["offset", "scopeType"])
+%}
+
 # "chuck"
 main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionName"]) %}
 

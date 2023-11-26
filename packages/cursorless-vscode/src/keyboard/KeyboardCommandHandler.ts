@@ -103,6 +103,19 @@ export class KeyboardCommandHandler {
       scopeType,
     });
   }
+
+  targetRelativeInclusiveScope({
+    offset,
+    scopeType,
+  }: TargetRelativeInclusiveScopeArg) {
+    this.targeted.targetModifier({
+      type: "relativeScope",
+      offset: 0,
+      direction: offset?.direction ?? "forward",
+      length: offset?.number ?? 1,
+      scopeType,
+    });
+  }
 }
 
 interface DecoratedMarkArg {
@@ -114,6 +127,10 @@ interface DecoratedMarkArg {
 interface TargetRelativeExclusiveScopeArg {
   offset: Offset;
   length: number | null;
+  scopeType: ScopeType;
+}
+interface TargetRelativeInclusiveScopeArg {
+  offset: Offset;
   scopeType: ScopeType;
 }
 
