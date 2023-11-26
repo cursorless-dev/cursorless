@@ -36,6 +36,7 @@ export function getTokenTypeKeyMaps(
     color: config.getTokenKeyMap("color"),
     shape: config.getTokenKeyMap("shape"),
     vscodeCommand: config.getTokenKeyMap("vscodeCommand"),
+    pairedDelimiter: config.getTokenKeyMap("pairedDelimiter"),
 
     // action config section
     simpleAction: config.getTokenKeyMap(
@@ -59,7 +60,6 @@ export function getTokenTypeKeyMaps(
 
     // modifier config section
     nextPrev: config.getTokenKeyMap("nextPrev", "modifier", ["nextPrev"]),
-    relative: config.getTokenKeyMap("relative", "modifier", ["relative"]),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

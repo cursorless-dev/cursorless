@@ -47,6 +47,9 @@ main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 
 # ========================== Captures =========================
 scopeType -> %simpleScopeTypeType {% capture("type") %}
+scopeType -> %pairedDelimiter {%
+  ([delimiter]) => ({ type: "surroundingPair", delimiter })
+%}
 
 decoratedMark ->
     %color {% capture("color") %}
