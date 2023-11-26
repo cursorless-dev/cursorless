@@ -8,9 +8,10 @@ declare var makeList: any;
 declare var every: any;
 declare var relative: any;
 declare var simpleAction: any;
+declare var wrap: any;
+declare var pairedDelimiter: any;
 declare var vscodeCommand: any;
 declare var simpleScopeTypeType: any;
-declare var pairedDelimiter: any;
 declare var color: any;
 declare var shape: any;
 declare var combineColorAndShape: any;
@@ -73,6 +74,9 @@ const grammar: Grammar = {
         command("targetRelativeInclusiveScope", ["offset", "scopeType"])
         },
     {"name": "main", "symbols": [(lexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
+    {"name": "main", "symbols": [(lexer.has("wrap") ? {type: "wrap"} : wrap), (lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
+        command("performWrapActionOnTarget", [null, "delimiter"])
+        },
     {"name": "main", "symbols": [(lexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
     {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 

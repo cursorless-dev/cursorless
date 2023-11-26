@@ -4,6 +4,7 @@ import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { SimpleKeyboardActionType } from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -80,6 +81,16 @@ export class KeyboardCommandHandler {
     actionName: SimpleKeyboardActionType;
   }) {
     this.targeted.performActionOnTarget(actionName);
+  }
+
+  performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
+    const [left, right] = surroundingPairsDelimiters[delimiter as any]!;
+    this.targeted.performActionOnTarget((target) => ({
+      name: "wrapWithPairedDelimiter",
+      target,
+      left,
+      right,
+    }));
   }
 
   targetScopeType(arg: { scopeType: ScopeType }) {

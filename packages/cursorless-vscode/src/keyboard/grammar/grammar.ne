@@ -42,6 +42,11 @@ main -> offset scopeType {%
 # "chuck"
 main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionName"]) %}
 
+# "round wrap"
+main -> %wrap %pairedDelimiter {%
+  command("performWrapActionOnTarget", [null, "delimiter"])
+%}
+
 # Custom vscode command
 main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 

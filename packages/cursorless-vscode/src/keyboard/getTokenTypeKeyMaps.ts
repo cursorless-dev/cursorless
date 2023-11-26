@@ -45,6 +45,7 @@ export function getTokenTypeKeyMaps(): TokenTypeKeyMapMap {
       "simpleAction",
       simpleKeyboardActionNames,
     ),
+    wrap: getSingularSectionEntry("actions", "wrap"),
 
     // misc config section
     makeRange: getSingularSectionEntry("misc", "makeRange"),
