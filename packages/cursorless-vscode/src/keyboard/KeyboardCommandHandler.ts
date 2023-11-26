@@ -1,9 +1,10 @@
-import { ScopeType } from "@cursorless/common";
+import { ScopeType, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { SimpleKeyboardActionType } from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -35,6 +36,13 @@ export class KeyboardCommandHandler {
     this.targeted.targetDecoratedMark({
       ...decoratedMark,
       mode: "extend",
+    });
+  }
+
+  targetDecoratedMarkAppend({ decoratedMark }: DecoratedMarkArg) {
+    this.targeted.targetDecoratedMark({
+      ...decoratedMark,
+      mode: "append",
     });
   }
 
@@ -81,6 +89,19 @@ export class KeyboardCommandHandler {
   modifyTargetContainingScope(arg: { scopeType: ScopeType }) {
     this.targeted.modifyTargetContainingScope(arg);
   }
+  performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
+    const [left, right] = surroundingPairsDelimiters[delimiter]!;
+    this.targeted.performActionOnTarget((target) => ({
+      name: "wrapWithPairedDelimiter",
+      target,
+      left,
+      right,
+    }));
+  }
+
+  targetEveryScopeType(arg: { scopeType: ScopeType }) {
+    this.targeted.modifyTargetContainingScope({ ...arg, type: "everyScope" });
+  }
 
   targetRelativeExclusiveScope({
     offset,
@@ -95,6 +116,19 @@ export class KeyboardCommandHandler {
       scopeType,
     });
   }
+
+  targetRelativeInclusiveScope({
+    offset,
+    scopeType,
+  }: TargetRelativeInclusiveScopeArg) {
+    this.targeted.targetModifier({
+      type: "relativeScope",
+      offset: 0,
+      direction: offset?.direction ?? "forward",
+      length: offset?.number ?? 1,
+      scopeType,
+    });
+  }
 }
 
 interface DecoratedMarkArg {
@@ -106,6 +140,10 @@ interface DecoratedMarkArg {
 interface TargetRelativeExclusiveScopeArg {
   offset: Offset;
   length: number | null;
+  scopeType: ScopeType;
+}
+interface TargetRelativeInclusiveScopeArg {
+  offset: Offset;
   scopeType: ScopeType;
 }
 

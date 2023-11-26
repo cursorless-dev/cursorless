@@ -4,8 +4,12 @@
 // @ts-ignore
 function id(d: any[]): any { return d[0]; }
 declare var makeRange: any;
+declare var makeList: any;
+declare var every: any;
 declare var nextPrev: any;
 declare var simpleAction: any;
+declare var wrap: any;
+declare var pairedDelimiter: any;
 declare var vscodeCommand: any;
 declare var simpleScopeTypeType: any;
 declare var color: any;
@@ -51,7 +55,11 @@ const grammar: Grammar = {
     {"name": "main", "symbols": [(keyboardLexer.has("makeRange") ? {type: "makeRange"} : makeRange), "decoratedMark"], "postprocess": 
         command("targetDecoratedMarkExtend", [_, "decoratedMark"])
         },
+    {"name": "main", "symbols": [(keyboardLexer.has("makeList") ? {type: "makeList"} : makeList), "decoratedMark"], "postprocess": 
+        command("targetDecoratedMarkAppend", [_, "decoratedMark"])
+        },
     {"name": "main", "symbols": ["scopeType"], "postprocess": command("modifyTargetContainingScope", ["scopeType"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("every") ? {type: "every"} : every), "scopeType"], "postprocess": command("targetEveryScopeType", [_, "scopeType"])},
     {"name": "main$ebnf$1", "symbols": ["offset"], "postprocess": id},
     {"name": "main$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "main$ebnf$2", "symbols": ["number"], "postprocess": id},
@@ -62,9 +70,18 @@ const grammar: Grammar = {
           ["offset", _, "length", "scopeType"],
         )
         },
+    {"name": "main", "symbols": ["offset", "scopeType"], "postprocess": 
+        command("targetRelativeInclusiveScope", ["offset", "scopeType"])
+        },
     {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("wrap") ? {type: "wrap"} : wrap), (keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
+        command("performWrapActionOnTarget", [_, "delimiter"])
+        },
     {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "scopeType", "symbols": [(keyboardLexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
+    {"name": "scopeType", "symbols": [(keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
+        ([delimiter]) => ({ type: "surroundingPair", delimiter })
+        },
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (keyboardLexer.has("color") ? {type: "color"} : color), (keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(_, "color", "shape")},

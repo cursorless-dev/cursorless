@@ -14,8 +14,16 @@ main -> %makeRange decoratedMark {%
   command("targetDecoratedMarkExtend", [_, "decoratedMark"])
 %}
 
+# "and air"
+main -> %makeList decoratedMark {%
+  command("targetDecoratedMarkAppend", [_, "decoratedMark"])
+%}
+
 # "funk"
 main -> scopeType {% command("modifyTargetContainingScope", ["scopeType"]) %}
+
+# "every funk"
+main -> %every scopeType {% command("targetEveryScopeType", [_, "scopeType"]) %}
 
 # "[third] next [two] funks"
 # "[third] previous [two] funks"
@@ -26,14 +34,27 @@ main -> offset:? %nextPrev number:? scopeType {%
   )
 %}
 
+# "three funks [backward]"
+main -> offset scopeType {%
+  command("targetRelativeInclusiveScope", ["offset", "scopeType"])
+%}
+
 # "chuck"
 main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionName"]) %}
+
+# "round wrap"
+main -> %wrap %pairedDelimiter {%
+  command("performWrapActionOnTarget", [_, "delimiter"])
+%}
 
 # Custom vscode command
 main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 
 # ========================== Captures =========================
 scopeType -> %simpleScopeTypeType {% capture("type") %}
+scopeType -> %pairedDelimiter {%
+  ([delimiter]) => ({ type: "surroundingPair", delimiter })
+%}
 
 decoratedMark ->
     %color {% capture("color") %}
