@@ -19,30 +19,30 @@
 ;;!! <aaa id="me">
 ;;!       ^^
 (attribute
-    (attribute_name) @collectionKey
+    (attribute_name) @collectionKey @collectionKey.trailing.start.endOf
+    [
+        (quoted_attribute_value)
+        (attribute_value)
+    ] ? @collectionKey.trailing.end.startOf
 ) @_.domain
 
 ;;!! <aaa value=2>
 ;;!             ^
-(attribute
-    (attribute_name) @value.leading.start.endOf
-    (attribute_value) @value @value.leading.end.startOf
-    (#not-parent-type? @value quoted_attribute_value)
-) @_.domain
-
 ;;!! <aaa id="me">
 ;;!          ^^^^
 (attribute
     (attribute_name) @value.leading.start.endOf
-    (quoted_attribute_value) @string @value @value.leading.end.startOf
-    (#not-parent-type? @value quoted_attribute_value)
+    [
+        (quoted_attribute_value)
+        (attribute_value)
+    ] @value @value.leading.end.startOf
 ) @value.domain
 
 ;;!! <aaa id="me">
 ;;!           ^^
 (quoted_attribute_value
     (attribute_value) @textFragment
-)
+) @string
 
 ;;!! <aaa>
 ;;!  ^^^^^
