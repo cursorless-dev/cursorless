@@ -14,6 +14,7 @@ export interface SectionTypes {
   colors: HatColor;
   misc: MiscValue;
   scopes: SimpleScopeTypeType;
+  pairedDelimiters: SurroundingPairName;
   shapes: HatShape;
   vscodeCommands: ModalVscodeCommandDescriptor;
   modifier: ModifierKeyMapValue;
@@ -46,6 +47,7 @@ export interface TokenTypeValueMap {
   color: HatColor;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
+  pairedDelimiter: SurroundingPairName;
 
   // action config section
   simpleAction: SimpleKeyboardActionType;

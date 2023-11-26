@@ -10,6 +10,7 @@ declare var relative: any;
 declare var simpleAction: any;
 declare var vscodeCommand: any;
 declare var simpleScopeTypeType: any;
+declare var pairedDelimiter: any;
 declare var color: any;
 declare var shape: any;
 declare var combineColorAndShape: any;
@@ -74,6 +75,9 @@ const grammar: Grammar = {
     {"name": "main", "symbols": [(lexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
     {"name": "main", "symbols": [(lexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
+    {"name": "scopeType", "symbols": [(lexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
+        ([delimiter]) => ({ type: "surroundingPair", delimiter })
+        },
     {"name": "decoratedMark", "symbols": [(lexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
     {"name": "decoratedMark", "symbols": [(lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
     {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("color") ? {type: "color"} : color), (lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": 

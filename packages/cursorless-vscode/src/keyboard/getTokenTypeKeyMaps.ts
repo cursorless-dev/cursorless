@@ -37,6 +37,7 @@ export function getTokenTypeKeyMaps(): TokenTypeKeyMapMap {
     color: getSectionKeyMap("colors", "color"),
     shape: getSectionKeyMap("shapes", "shape"),
     vscodeCommand: getSectionKeyMap("vscodeCommands", "vscodeCommand"),
+    pairedDelimiter: getSectionKeyMap("pairedDelimiters", "pairedDelimiter"),
 
     // action config section
     simpleAction: getSectionKeyMap(
