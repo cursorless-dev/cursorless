@@ -86,6 +86,10 @@ export class KeyboardCommandHandler {
     this.targeted.targetScopeType(arg);
   }
 
+  targetEveryScopeType(arg: { scopeType: ScopeType }) {
+    this.targeted.targetScopeType({ ...arg, type: "everyScope" });
+  }
+
   targetRelativeExclusiveScope({
     offset,
     length,

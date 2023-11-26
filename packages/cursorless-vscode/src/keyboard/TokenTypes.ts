@@ -18,7 +18,7 @@ export interface SectionTypes {
   vscodeCommands: ModalVscodeCommandDescriptor;
   modifier: ModifierKeyMapValue;
 }
-type ModifierKeyMapValue = "relative";
+type ModifierKeyMapValue = "relative" | "every";
 type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
@@ -58,6 +58,7 @@ export interface TokenTypeValueMap {
 
   // modifier config section
   relative: undefined;
+  every: undefined;
 
   digit: number;
 }

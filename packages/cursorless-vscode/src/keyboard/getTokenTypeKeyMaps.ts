@@ -56,6 +56,7 @@ export function getTokenTypeKeyMaps(): TokenTypeKeyMapMap {
 
     // modifier config section
     relative: getSingularSectionEntry("modifier", "relative"),
+    every: getSingularSectionEntry("modifier", "every"),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

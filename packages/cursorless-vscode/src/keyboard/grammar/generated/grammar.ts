@@ -5,6 +5,7 @@
 function id(d: any[]): any { return d[0]; }
 declare var makeRange: any;
 declare var makeList: any;
+declare var every: any;
 declare var relative: any;
 declare var simpleAction: any;
 declare var vscodeCommand: any;
@@ -56,6 +57,7 @@ const grammar: Grammar = {
         command("targetDecoratedMarkAppend", [null, "decoratedMark"])
         },
     {"name": "main", "symbols": ["scopeType"], "postprocess": command("targetScopeType", ["scopeType"])},
+    {"name": "main", "symbols": [(lexer.has("every") ? {type: "every"} : every), "scopeType"], "postprocess": command("targetEveryScopeType", [null, "scopeType"])},
     {"name": "main$ebnf$1", "symbols": ["offset"], "postprocess": id},
     {"name": "main$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "main$ebnf$2", "symbols": ["number"], "postprocess": id},
