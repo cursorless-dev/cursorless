@@ -12,7 +12,7 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    for aaa in bbb:
+    for name in value:
         pass
   selections:
     - anchor: {line: 1, character: 4}
@@ -20,7 +20,7 @@ initialState:
   marks: {}
 finalState:
   documentContents: |-
-    for  in bbb:
+    for  in value:
         pass
   selections:
     - anchor: {line: 0, character: 4}
