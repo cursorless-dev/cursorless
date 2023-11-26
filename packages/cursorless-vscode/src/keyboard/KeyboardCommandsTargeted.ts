@@ -42,6 +42,8 @@ export default class KeyboardCommandsTargeted {
   constructor(private keyboardHandler: KeyboardHandler) {
     this.targetDecoratedMark = this.targetDecoratedMark.bind(this);
     this.performActionOnTarget = this.performActionOnTarget.bind(this);
+    this.performVscodeCommandOnTarget =
+      this.performVscodeCommandOnTarget.bind(this);
     this.targetScopeType = this.targetScopeType.bind(this);
     this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
@@ -245,6 +247,52 @@ export default class KeyboardCommandsTargeted {
   };
 
   /**
+   * Performs the given VSCode command on the current target. If
+   * {@link keepChangedSelection} is true, then the selection will not be
+   * restored after the command is run.
+   *
+   * @param commandId The command to run
+   * @param options Additional options
+   * @returns A promise that resolves to the result of the VSCode command
+   */
+  performVscodeCommandOnTarget = async (
+    commandId: string,
+    {
+      args,
+      keepChangedSelection,
+      exitCursorlessMode,
+    }: VscodeCommandOnTargetOptions = {},
+  ) => {
+    const target: PartialPrimitiveTargetDescriptor = {
+      type: "primitive",
+      mark: {
+        type: "that",
+      },
+    };
+
+    const returnValue = await executeCursorlessCommand({
+      name: "executeCommand",
+      target,
+      commandId,
+      options: {
+        restoreSelection: !keepChangedSelection,
+        showDecorations: true,
+        commandArgs: args,
+      },
+    });
+
+    await this.highlightTarget();
+
+    if (exitCursorlessMode) {
+      // For some Cursorless actions, it is more convenient if we automatically
+      // exit modal mode
+      await this.modal.modeOff();
+    }
+
+    return returnValue;
+  };
+
+  /**
    * Sets the current target to the current selection
    * @returns A promise that resolves to the result of the cursorless command
    */
@@ -274,6 +322,17 @@ export default class KeyboardCommandsTargeted {
         },
       },
     });
+}
+
+interface VscodeCommandOnTargetOptions {
+  /** The arguments to pass to the command */
+  args?: unknown[];
+
+  /** If `true`, the selection will not be restored after the command is run */
+  keepChangedSelection?: boolean;
+
+  /** If `true`, exit Cursorless mode after running command */
+  exitCursorlessMode?: boolean;
 }
 
 function executeCursorlessCommand(action: ActionDescriptor) {

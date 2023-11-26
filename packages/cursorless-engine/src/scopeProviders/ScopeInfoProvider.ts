@@ -144,7 +144,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "sectionLevelFive":
     case "sectionLevelSix":
     case "selector":
-    case "switchStatementSubject":
+    case "private.switchStatementSubject":
     case "unit":
     case "xmlBothTags":
     case "xmlElement":
