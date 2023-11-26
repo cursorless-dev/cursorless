@@ -5,6 +5,7 @@
 function id(d: any[]): any { return d[0]; }
 declare var makeRange: any;
 declare var makeList: any;
+declare var every: any;
 declare var nextPrev: any;
 declare var simpleAction: any;
 declare var vscodeCommand: any;
@@ -56,6 +57,7 @@ const grammar: Grammar = {
         command("targetDecoratedMarkAppend", [_, "decoratedMark"])
         },
     {"name": "main", "symbols": ["scopeType"], "postprocess": command("modifyTargetContainingScope", ["scopeType"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("every") ? {type: "every"} : every), "scopeType"], "postprocess": command("targetEveryScopeType", [_, "scopeType"])},
     {"name": "main$ebnf$1", "symbols": ["offset"], "postprocess": id},
     {"name": "main$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "main$ebnf$2", "symbols": ["number"], "postprocess": id},

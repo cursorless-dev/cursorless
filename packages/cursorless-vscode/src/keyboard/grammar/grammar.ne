@@ -22,6 +22,9 @@ main -> %makeList decoratedMark {%
 # "funk"
 main -> scopeType {% command("modifyTargetContainingScope", ["scopeType"]) %}
 
+# "every funk"
+main -> %every scopeType {% command("targetEveryScopeType", [_, "scopeType"]) %}
+
 # "[third] next [two] funks"
 # "[third] previous [two] funks"
 main -> offset:? %nextPrev number:? scopeType {%
