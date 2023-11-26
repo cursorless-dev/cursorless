@@ -25,16 +25,16 @@
 ;;!! <aaa value=2>
 ;;!             ^
 (attribute
-    (attribute_name) @value.removal.start.endOf
-    (attribute_value) @value @value.removal.end.endOf
+    (attribute_name) @value.leading.start.endOf
+    (attribute_value) @value @value.leading.end.startOf
     (#not-parent-type? @value quoted_attribute_value)
 ) @_.domain
 
 ;;!! <aaa id="me">
 ;;!          ^^^^
 (attribute
-    (attribute_name) @value.removal.start.endOf
-    (quoted_attribute_value) @string @value @value.removal.end.endOf
+    (attribute_name) @value.leading.start.endOf
+    (quoted_attribute_value) @string @value @value.leading.end.startOf
     (#not-parent-type? @value quoted_attribute_value)
 ) @value.domain
 
