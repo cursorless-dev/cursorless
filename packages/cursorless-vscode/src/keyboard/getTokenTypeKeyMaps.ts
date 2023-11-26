@@ -47,6 +47,7 @@ export function getTokenTypeKeyMaps(): TokenTypeKeyMapMap {
 
     // misc config section
     makeRange: getSingularSectionEntry("misc", "makeRange"),
+    makeList: getSingularSectionEntry("misc", "makeList"),
     combineColorAndShape: getSingularSectionEntry(
       "misc",
       "combineColorAndShape",

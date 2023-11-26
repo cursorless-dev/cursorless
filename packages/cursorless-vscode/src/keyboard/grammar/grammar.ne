@@ -14,6 +14,11 @@ main -> %makeRange decoratedMark {%
   command("targetDecoratedMarkExtend", [null, "decoratedMark"])
 %}
 
+# "and air"
+main -> %makeList decoratedMark {%
+  command("targetDecoratedMarkAppend", [null, "decoratedMark"])
+%}
+
 # "funk"
 main -> scopeType {% command("targetScopeType", ["scopeType"]) %}
 

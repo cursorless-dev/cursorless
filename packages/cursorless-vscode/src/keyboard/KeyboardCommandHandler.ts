@@ -38,6 +38,13 @@ export class KeyboardCommandHandler {
     });
   }
 
+  targetDecoratedMarkAppend({ decoratedMark }: DecoratedMarkArg) {
+    this.targeted.targetDecoratedMark({
+      ...decoratedMark,
+      mode: "append",
+    });
+  }
+
   async vscodeCommand({
     command: commandInfo,
   }: {
