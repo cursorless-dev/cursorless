@@ -3,11 +3,12 @@ function myFunk() {
 }
 ---
 
-[Content]
-[Removal]
-[Domain]
-[-------------------
- function myFunk() {
- ◂
- }
- -]
+[Content] =
+[Removal] =
+[Domain] = (0,0)-(2,1)
+0| function myFunk() {
+  >-------------------
+1| 
+
+2| }
+   -<
