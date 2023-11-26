@@ -46,6 +46,7 @@ export function getTokenTypeKeyMaps(
 
     // misc config section
     makeRange: config.getTokenKeyMap("makeRange", "misc", ["makeRange"]),
+    makeList: config.getTokenKeyMap("makeList", "misc", ["makeList"]),
     combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",
       "misc",

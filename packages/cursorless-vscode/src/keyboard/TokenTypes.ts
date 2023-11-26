@@ -54,6 +54,7 @@ export interface TokenTypeValueMap {
 
   // misc config section
   makeRange: "makeRange";
+  makeList: "makeList";
   combineColorAndShape: "combineColorAndShape";
   direction: "forward" | "backward";
 
