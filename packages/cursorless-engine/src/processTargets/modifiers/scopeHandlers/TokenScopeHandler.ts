@@ -56,12 +56,8 @@ export class TokenScopeHandler extends NestedScopeHandler {
       return false;
     }
 
-    if (textA === "$") {
+    if (textA === "$" && textB !== "$") {
       return true;
-    }
-
-    if (textB === "$") {
-      return false;
     }
 
     return undefined;
