@@ -230,7 +230,9 @@ function serializeCodeRange(codeLines: string[], range: Range): string {
   const lines: string[] = [];
 
   codeLines.forEach((codeLine, lineNumber) => {
-    lines.push(`${lineNumber}| ${codeLine}`.trimEnd());
+    lines.push(
+      codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
+    );
 
     if (lineNumber === start.line) {
       const prefix = fill(" ", start.character + 2) + ">";
