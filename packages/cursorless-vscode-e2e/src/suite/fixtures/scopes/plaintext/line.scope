@@ -1,8 +1,8 @@
 aaa
 ---
 
-[Content]
-[Removal]
-[Domain]
- aaa
- ^^^
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:3
+0| aaa
+  >---<

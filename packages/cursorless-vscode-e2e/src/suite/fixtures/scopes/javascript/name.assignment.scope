@@ -1,24 +1,22 @@
 const name = "Hello world";
 ---
 
-[Content] = (0,5)-(0,9)
+[Content] = 0:6-0:10
 0| const name = "Hello world";
         >----<
 
-[Removal]
- const name = "Hello world";
- ^^^^^^^^^^^^^
+[Removal] =
+0| const name = "Hello world";
+  >-------------<
 
-[Leading delimiter: Content]
-[Leading delimiter: Removal]
- const name = "Hello world";
-      ^
+[Leading delimiter] = 0:5-0:6
+0| const name = "Hello world";
+       >-<
 
-[Trailing delimiter: Content]
-[Trailing delimiter: Removal]
- const name = "Hello world";
-           ^
+[Trailing delimiter] = 0:10-0:11
+0| const name = "Hello world";
+            >-<
 
-[Domain]
- const name = "Hello world";
- ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[Domain] = 0:0-0:27
+0| const name = "Hello world";
+  >---------------------------<

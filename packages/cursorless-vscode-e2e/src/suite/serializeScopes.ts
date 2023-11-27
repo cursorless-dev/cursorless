@@ -1,4 +1,4 @@
-import { Position, Range, ScopeRanges, TargetRanges } from "@cursorless/common";
+import { Range, ScopeRanges, TargetRanges } from "@cursorless/common";
 
 export function serializeScopes(code: string, scopes: ScopeRanges[]): string {
   const codeLines = code.split("\n");
@@ -28,7 +28,6 @@ function serializeScope(
     return serializeTarget(
       codeLines,
       scope.targets[0],
-      undefined,
       scopeIndex,
       undefined,
       scope.domain,
@@ -41,13 +40,12 @@ function serializeScope(
       serializeTarget(
         codeLines,
         target,
-        undefined,
         scopeIndex,
         scope.targets.length > 1 ? index + 1 : undefined,
       ),
     ),
     "",
-    serializeHeader(undefined, "Domain", scopeIndex, undefined),
+    serializeHeader(undefined, "Domain", scopeIndex, undefined, scope.domain),
     serializeCodeRange(codeLines, scope.domain),
   ].join("\n");
 }
@@ -55,21 +53,44 @@ function serializeScope(
 function serializeTarget(
   codeLines: string[],
   target: TargetRanges,
-  prefix: string | undefined,
   scopeIndex: number | undefined,
   targetIndex: number | undefined,
   domain?: Range,
 ): string {
-  const lines: string[] = [
-    serializeTargetBasics(
-      codeLines,
-      target,
-      prefix,
-      scopeIndex,
-      targetIndex,
-      domain,
+  const lines: string[] = [""];
+
+  const headers = ["Content"];
+
+  // Add removal and domain headers below content header if their ranges are equal
+  if (target.contentRange.isRangeEqual(target.removalRange)) {
+    headers.push("Removal");
+  }
+  if (domain != null) {
+    headers.push("Domain");
+  }
+
+  lines.push(
+    ...headers.map((header, index) =>
+      serializeHeader(
+        undefined,
+        header,
+        scopeIndex,
+        targetIndex,
+        index === headers.length - 1 ? target.contentRange : undefined,
+      ),
     ),
-  ];
+  );
+
+  lines.push(serializeCodeRange(codeLines, target.contentRange));
+
+  // Add separate removal header below content if their ranges are not equal
+  if (!target.contentRange.isRangeEqual(target.removalRange)) {
+    lines.push(
+      "",
+      serializeHeader(undefined, "Removal", scopeIndex, targetIndex),
+      serializeCodeRange(codeLines, target.removalRange),
+    );
+  }
 
   if (target.leadingDelimiter != null) {
     lines.push(
@@ -132,27 +153,37 @@ function serializeTargetBasics(
   prefix: string | undefined,
   scopeIndex: number | undefined,
   targetIndex: number | undefined,
-  domain?: Range,
 ): string {
-  const lines: string[] = [];
+  const lines: string[] = [""];
 
-  lines.push("", serializeHeader(prefix, "Content", scopeIndex, targetIndex));
-
-  // Add removal and domain headers below content header if their ranges are equal
   if (target.contentRange.isRangeEqual(target.removalRange)) {
-    lines.push(serializeHeader(prefix, "Removal", scopeIndex, targetIndex));
-  }
-  if (domain != null && target.contentRange.isRangeEqual(domain)) {
-    lines.push(serializeHeader(prefix, "Domain", scopeIndex, targetIndex));
-  }
-
-  lines.push(serializeCodeRange(codeLines, target.contentRange));
-
-  // Add separate removal header below content if their ranges are not equal
-  if (!target.contentRange.isRangeEqual(target.removalRange)) {
     lines.push(
-      "",
-      serializeHeader(prefix, "Removal", scopeIndex, targetIndex),
+      serializeHeader(
+        prefix,
+        undefined,
+        scopeIndex,
+        targetIndex,
+        target.contentRange,
+      ),
+    );
+    lines.push(serializeCodeRange(codeLines, target.contentRange));
+  } else {
+    lines.push(
+      serializeHeader(
+        prefix,
+        "Content",
+        scopeIndex,
+        targetIndex,
+        target.contentRange,
+      ),
+      serializeCodeRange(codeLines, target.contentRange),
+      serializeHeader(
+        prefix,
+        "Removal",
+        scopeIndex,
+        targetIndex,
+        target.removalRange,
+      ),
       serializeCodeRange(codeLines, target.removalRange),
     );
   }
@@ -162,69 +193,62 @@ function serializeTargetBasics(
 
 function serializeHeader(
   prefix: string | undefined,
-  header: string,
+  header: string | undefined,
   scopeIndex: number | undefined,
   targetIndex: number | undefined,
+  range?: Range,
 ): string {
   const parts: string[] = [];
   if (scopeIndex != null) {
     parts.push(`#${scopeIndex}`);
   }
   if (prefix != null) {
-    parts.push(prefix + ":");
+    if (header != null) {
+      parts.push(prefix + ":");
+    } else {
+      parts.push(prefix);
+    }
   }
-  parts.push(header);
+  if (header != null) {
+    parts.push(header);
+  }
   if (targetIndex != null) {
     parts.push(targetIndex.toString());
   }
-  return `[${parts.join(" ")}]`;
+  const suffix = range != null ? ` ${range.toString()}` : "";
+  return `[${parts.join(" ")}] =${suffix}`;
 }
 
 function serializeCodeRange(codeLines: string[], range: Range): string {
   const { start, end } = range;
   const lines: string[] = [];
 
-  codeLines.forEach((codeLine, index) => {
-    const suffix = codeLine.length === 0 || codeLine.endsWith(" ") ? "◂" : "";
-    const fullCodeLine = ` ${codeLine}${suffix}`;
+  codeLines.forEach((codeLine, lineNumber) => {
+    lines.push(`${lineNumber}| ${codeLine}`.trimEnd());
 
-    if (index === start.line) {
-      if (range.isSingleLine) {
-        lines.push(fullCodeLine);
-        lines.push(serializeRange(start, end));
+    if (lineNumber === start.line) {
+      const prefix = fill(" ", start.character + 2) + ">";
+      if (start.line === end.line) {
+        lines.push(prefix + fill("-", end.character - start.character) + "<");
       } else {
-        lines.push(serializeStartRange(start, codeLine.length));
-        lines.push(fullCodeLine);
+        lines.push(prefix + fill("-", codeLine.length - start.character));
       }
-    } else if (index === end.line) {
-      lines.push(fullCodeLine);
-      lines.push(serializeEndRange(end));
+    } else if (lineNumber > start.line && lineNumber < end.line) {
+      if (codeLine.length > 0) {
+        lines.push("   " + fill("-", codeLine.length));
+      } else {
+        lines.push("");
+      }
+    } else if (lineNumber === end.line) {
+      lines.push("   " + fill("-", end.character) + "<");
     } else {
-      lines.push(fullCodeLine);
+      lines.push("");
     }
   });
 
   return lines.join("\n");
 }
 
-function serializeRange(start: Position, end: Position): string {
-  if (start.isEqual(end)) {
-    return [new Array(start.character + 1).join(" "), "{}"].join("");
-  }
-  return [
-    new Array(start.character + 2).join(" "),
-    new Array(end.character - start.character + 1).join("^"),
-  ].join("");
-}
-
-function serializeStartRange(start: Position, rowLength: number): string {
-  return [
-    new Array(start.character + 1).join(" "),
-    "[",
-    new Array(rowLength - start.character + 1).join("-"),
-  ].join("");
-}
-
-function serializeEndRange(end: Position): string {
-  return [" ", new Array(end.character + 1).join("-"), "]"].join("");
+function fill(character: string, count: number): string {
+  return new Array(count + 1).join(character);
 }

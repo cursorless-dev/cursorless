@@ -4,76 +4,84 @@ aaa
 ---
 
 [#1 Content] =
-[#1 Domain] = (0,0)-(0,0)
-0| 
+[#1 Domain] = 0:0-0:0
+0|
   ><
 1| aaa
 
 2|
 
-[#1 Removal] = (0,0)-(1,0)
-0| 
+
+[#1 Removal] =
+0|
   >
 1| aaa
    <
 2|
 
-[#1 Trailing delimiter: Content]
-[#1 Trailing delimiter: Removal]
-[
- ◂
- aaa
- ]
- ◂
 
-[#2 Content]
-[#2 Domain]
- ◂
- aaa
- ^^^
- ◂
+[#1 Trailing delimiter] = 0:0-1:0
+0|
+  >
+1| aaa
+   <
+2|
 
-[#2 Removal]
- ◂
-[---
- aaa
- ◂
- ]
 
-[#2 Leading delimiter: Content]
-[#2 Leading delimiter: Removal]
-[
- ◂
- aaa
- ]
- ◂
+[#2 Content] =
+[#2 Domain] = 1:0-1:3
+0|
 
-[#2 Trailing delimiter: Content]
-[#2 Trailing delimiter: Removal]
- ◂
-   [
- aaa
- ◂
- ]
+1| aaa
+  >---<
+2|
 
-[#3 Content]
-[#3 Domain]
- ◂
- aaa
- ◂
-{}
 
-[#3 Removal]
- ◂
-   [
- aaa
- ◂
- ]
+[#2 Removal] =
+0|
 
-[#3 Leading delimiter: Content]
-[#3 Leading delimiter: Removal]
- ◂
-   [
- aaa
- ◂
- ]
+1| aaa
+  >---
+2|
+   <
+
+[#2 Leading delimiter] = 0:0-1:0
+0|
+  >
+1| aaa
+   <
+2|
+
+
+[#2 Trailing delimiter] = 1:3-2:0
+0|
+
+1| aaa
+     >
+2|
+   <
+
+[#3 Content] =
+[#3 Domain] = 2:0-2:0
+0|
+
+1| aaa
+
+2|
+  ><
+
+[#3 Removal] =
+0|
+
+1| aaa
+     >
+2|
+   <
+
+[#3 Leading delimiter] = 1:3-2:0
+0|
+
+1| aaa
+     >
+2|
+   <

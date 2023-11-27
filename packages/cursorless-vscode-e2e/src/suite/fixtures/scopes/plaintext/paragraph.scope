@@ -4,49 +4,61 @@ bbb
 
 ---
 
-[Content]
-[Domain]
- ◂
-[---
- aaa
- bbb
- ---]
- ◂
+[Content] =
+[Domain] = 1:0-2:3
+0|
 
-[Removal]
-[
- ◂
- aaa
- bbb
- ◂
- ]
+1| aaa
+  >---
+2| bbb
+   ---<
+3|
 
-[Leading delimiter: Content]
- ◂
-{}
- aaa
- bbb
- ◂
 
-[Leading delimiter: Removal]
-[
- ◂
- aaa
- ]
- bbb
- ◂
+[Removal] =
+0|
+  >
+1| aaa
+   ---
+2| bbb
+   ---
+3|
+   <
 
-[Trailing delimiter: Content]
- ◂
- aaa
- bbb
- ◂
-{}
+[Leading delimiter: Content] = 0:0-0:0
+0|
+  ><
+1| aaa
 
-[Trailing delimiter: Removal]
- ◂
- aaa
-   [
- bbb
- ◂
- ]
+2| bbb
+
+3|
+
+[Leading delimiter: Removal] = 0:0-1:0
+0|
+  >
+1| aaa
+   <
+2| bbb
+
+3|
+
+
+[Trailing delimiter: Content] = 3:0-3:0
+0|
+
+1| aaa
+
+2| bbb
+
+3|
+  ><
+[Trailing delimiter: Removal] = 2:3-3:0
+0|
+
+1| aaa
+
+2| bbb
+     >
+3|
+   <
