@@ -1,6 +1,7 @@
 # Installation
 
-1. Install [Talon](https://talonvoice.com/)
+1. Install [Talon](https://talonvoice.com/)   
+    * Make sure the speech engine is installed by clicking on the `Speech Recognition` tab
 2. Install the [community Talon commands](https://github.com/talonhub/community).
    _(Or see [here](https://github.com/cursorless-dev/cursorless/wiki/Talon-home-requirements) if you prefer not to use community.)_
 3. Install [VSCode](https://code.visualstudio.com/)
