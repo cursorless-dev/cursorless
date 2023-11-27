@@ -1,0 +1,20 @@
+aaa
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:1
+0| aaa
+  >-<
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 0:1-0:2
+0| aaa
+   >-<
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 0:2-0:3
+0| aaa
+    >-<
