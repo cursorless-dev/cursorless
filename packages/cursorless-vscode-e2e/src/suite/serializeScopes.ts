@@ -87,7 +87,13 @@ function serializeTarget(
   if (!target.contentRange.isRangeEqual(target.removalRange)) {
     lines.push(
       "",
-      serializeHeader(undefined, "Removal", scopeIndex, targetIndex),
+      serializeHeader(
+        undefined,
+        "Removal",
+        scopeIndex,
+        targetIndex,
+        target.removalRange,
+      ),
       serializeCodeRange(codeLines, target.removalRange),
     );
   }

@@ -5,7 +5,7 @@ const name = "Hello world";
 0| const name = "Hello world";
         >----<
 
-[Removal] =
+[Removal] = 0:0-0:13
 0| const name = "Hello world";
   >-------------<
 
