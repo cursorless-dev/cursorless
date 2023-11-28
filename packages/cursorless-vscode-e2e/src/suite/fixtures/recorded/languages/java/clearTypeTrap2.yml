@@ -1,12 +1,12 @@
 languageId: java
 command:
   version: 1
-  spokenForm: take type gust
-  action: setSelection
+  spokenForm: change type trap
+  action: clearAndSetSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: type, includeSiblings: false}
-      mark: {type: decoratedSymbol, symbolColor: default, character: g}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
 initialState:
   documentContents: |-
     public class MyClass {
@@ -16,20 +16,20 @@ initialState:
         }
     }
   selections:
-    - anchor: {line: 3, character: 32}
-      active: {line: 3, character: 49}
+    - anchor: {line: 2, character: 38}
+      active: {line: 2, character: 61}
   marks:
-    default.g:
-      start: {line: 3, character: 42}
-      end: {line: 3, character: 48}
+    default.t:
+      start: {line: 2, character: 46}
+      end: {line: 2, character: 52}
 finalState:
   documentContents: |-
     public class MyClass {
         private MyClass () {
-            Map<String, String> map = new HashMap<String, String>();
+            Map<String, String> map = new HashMap<, String>();
             List<String> list = new ArrayList<String>();
         }
     }
   selections:
-    - anchor: {line: 3, character: 32}
-      active: {line: 3, character: 49}
+    - anchor: {line: 2, character: 46}
+      active: {line: 2, character: 46}

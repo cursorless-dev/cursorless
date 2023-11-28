@@ -15,7 +15,6 @@ import csharp from "./csharp";
 import go from "./go";
 import { patternMatchers as html } from "./html";
 import java from "./java";
-import { patternMatchers as json } from "./json";
 import latex from "./latex";
 import markdown from "./markdown";
 import php from "./php";
@@ -64,8 +63,6 @@ export const languageMatchers: Record<
   java,
   javascript: typescript,
   javascriptreact: typescript,
-  json,
-  jsonc: json,
   latex,
   markdown,
   php,

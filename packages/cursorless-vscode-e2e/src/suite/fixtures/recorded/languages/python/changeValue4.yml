@@ -18,4 +18,10 @@ initialState:
     - anchor: {line: 1, character: 4}
       active: {line: 1, character: 4}
   marks: {}
-thrownError: {name: NoContainingScopeError}
+finalState:
+  documentContents: |-
+    for aaa in :
+        pass
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

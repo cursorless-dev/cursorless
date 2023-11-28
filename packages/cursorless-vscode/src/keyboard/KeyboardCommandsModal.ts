@@ -1,16 +1,24 @@
+import { isTesting } from "@cursorless/common";
 import { keys, merge, toPairs } from "lodash";
 import * as vscode from "vscode";
+import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import KeyboardHandler from "./KeyboardHandler";
 import {
   DEFAULT_ACTION_KEYMAP,
   DEFAULT_COLOR_KEYMAP,
-  Keymap,
   DEFAULT_SCOPE_KEYMAP,
   DEFAULT_SHAPE_KEYMAP,
+  DEFAULT_VSCODE_COMMAND_KEYMAP,
+  Keymap,
+  ModalVscodeCommandDescriptor,
 } from "./defaultKeymaps";
-import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
-import KeyboardHandler from "./KeyboardHandler";
 
-type SectionName = "actions" | "scopes" | "colors" | "shapes";
+type SectionName =
+  | "actions"
+  | "scopes"
+  | "colors"
+  | "shapes"
+  | "vscodeCommands";
 
 interface KeyHandler<T> {
   sectionName: SectionName;
@@ -61,6 +69,30 @@ export default class KeyboardCommandsModal {
     );
   }
 
+  private async handleVscodeCommand(commandInfo: ModalVscodeCommandDescriptor) {
+    const {
+      commandId,
+      args,
+      executeAtTarget,
+      keepChangedSelection,
+      exitCursorlessMode,
+    } =
+      typeof commandInfo === "string" || commandInfo instanceof String
+        ? ({ commandId: commandInfo } as Exclude<
+            ModalVscodeCommandDescriptor,
+            string
+          >)
+        : commandInfo;
+    if (executeAtTarget) {
+      return await this.targeted.performVscodeCommandOnTarget(commandId, {
+        args,
+        keepChangedSelection,
+        exitCursorlessMode,
+      });
+    }
+    return await vscode.commands.executeCommand(commandId, ...(args ?? []));
+  }
+
   private constructMergedKeymap() {
     this.mergedKeymap = {};
 
@@ -82,6 +114,11 @@ export default class KeyboardCommandsModal {
         shape: value,
       }),
     );
+    this.handleSection(
+      "vscodeCommands",
+      DEFAULT_VSCODE_COMMAND_KEYMAP,
+      (value) => this.handleVscodeCommand(value),
+    );
   }
 
   /**
@@ -96,10 +133,13 @@ export default class KeyboardCommandsModal {
     defaultKeyMap: Keymap<T>,
     handleValue: (value: T) => Promise<unknown>,
   ) {
-    const userOverrides: Keymap<T> =
-      vscode.workspace
-        .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
-        .get<Keymap<T>>(sectionName) ?? {};
+    const userOverrides: Keymap<T> = isTesting()
+      ? {}
+      : vscode.workspace
+          .getConfiguration(
+            "cursorless.experimental.keyboard.modal.keybindings",
+          )
+          .get<Keymap<T>>(sectionName) ?? {};
     const keyMap = merge({}, defaultKeyMap, userOverrides);
 
     for (const [key, value] of toPairs(keyMap)) {
