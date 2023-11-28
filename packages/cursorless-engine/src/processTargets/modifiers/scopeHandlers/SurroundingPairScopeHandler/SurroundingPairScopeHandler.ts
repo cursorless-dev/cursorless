@@ -10,14 +10,14 @@ import {
   simpleSurroundingPairNames,
 } from "@cursorless/common";
 import { escapeRegExp, uniq } from "lodash";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import { SurroundingPairTarget } from "../../targets";
-import { complexDelimiterMap } from "../surroundingPair/delimiterMaps";
-import { getIndividualDelimiters } from "../surroundingPair/getIndividualDelimiters";
-import { IndividualDelimiter } from "../surroundingPair/types";
-import { BaseScopeHandler } from "./BaseScopeHandler";
-import { TargetScope } from "./scope.types";
-import { ScopeIteratorRequirements } from "./scopeHandler.types";
+import { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
+import { SurroundingPairTarget } from "../../../targets";
+import { complexDelimiterMap } from "./delimiterMaps";
+import { getIndividualDelimiters } from "./getIndividualDelimiters";
+import { IndividualDelimiter } from "./types";
+import { BaseScopeHandler } from "../BaseScopeHandler";
+import { TargetScope } from "../scope.types";
+import { ScopeIteratorRequirements } from "../scopeHandler.types";
 
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   // public readonly iterationScopeType;

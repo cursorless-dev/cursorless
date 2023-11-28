@@ -209,16 +209,7 @@ export class PrimitiveTargetSpokenFormGenerator {
       case "oneOf":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
       case "surroundingPair": {
-        const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
-        if (scopeType.forceDirection != null) {
-          return [
-            this.spokenFormMap.surroundingPairForceDirection[
-              scopeType.forceDirection
-            ],
-            pair,
-          ];
-        }
-        return pair;
+        return this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
       }
 
       case "customRegex":

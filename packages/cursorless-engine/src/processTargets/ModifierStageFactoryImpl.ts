@@ -127,13 +127,9 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
       case "notebookCell":
         return new NotebookCellStage(modifier);
       case "boundedNonWhitespaceSequence":
-        return new BoundedNonWhitespaceSequenceStage(
-          this.languageDefinitions,
-          this,
-          modifier,
-        );
+        return new BoundedNonWhitespaceSequenceStage(this, modifier);
       case "collectionItem":
-        return new ItemStage(this.languageDefinitions, modifier);
+        return new ItemStage(this, this.languageDefinitions, modifier);
       default:
         // Default to containing syntax scope using tree sitter
         return new LegacyContainingSyntaxScopeStage(

@@ -1,5 +1,4 @@
 import { FlashStyle, isTesting, Range } from "@cursorless/common";
-import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
 import { matchAll } from "../../util/regex";
@@ -9,6 +8,7 @@ import { constructSnippetBody } from "./constructSnippetBody";
 import { editText } from "./editText";
 import { openNewSnippetFile } from "./openNewSnippetFile";
 import Substituter from "./Substituter";
+import type { Offsets } from "../../typings/Types";
 
 /**
  * This action can be used to automatically create a snippet from a target. Any

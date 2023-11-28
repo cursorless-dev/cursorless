@@ -3,12 +3,10 @@ import {
   EveryScopeModifier,
   NoContainingScopeError,
 } from "@cursorless/common";
-import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
 import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
 import { TokenTarget } from "../../targets";
-import { processSurroundingPair } from "../surroundingPair";
 
 /**
  * Intersection of NonWhitespaceSequenceStage and a surrounding pair
@@ -17,7 +15,6 @@ import { processSurroundingPair } from "../surroundingPair";
  */
 export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
   constructor(
-    private languageDefinitions: LanguageDefinitions,
     private modifierStageFactory: ModifierStageFactory,
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
@@ -27,22 +24,25 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },
     });
-
-    const paintTargets = paintStage.run(target);
-
-    const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
-      type: "surroundingPair",
-      delimiter: "any",
-      requireStrongContainment: true,
+    const surroundingPairStage = this.modifierStageFactory.create({
+      type: "containingScope",
+      scopeType: {
+        type: "surroundingPair",
+        delimiter: "any",
+        requireStrongContainment: true,
+      },
     });
 
-    if (pairInfo == null) {
+    const paintTargets = paintStage.run(target);
+    const pairTarget = surroundingPairStage.run(target)[0];
+
+    if (pairTarget == null) {
       return paintTargets;
     }
 
     const targets = paintTargets.flatMap((paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.getInteriorStrict()[0].contentRange,
+        pairTarget.getInteriorStrict()[0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {

@@ -10,6 +10,7 @@ import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
 import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
+import { ModifierStageFactory } from "../../ModifierStageFactory";
 import { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
 import {
@@ -21,6 +22,7 @@ import { tokenizeRange } from "./tokenizeRange";
 
 export class ItemStage implements ModifierStage {
   constructor(
+    private modifierStageFactory: ModifierStageFactory,
     private languageDefinitions: LanguageDefinitions,
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
@@ -38,17 +40,17 @@ export class ItemStage implements ModifierStage {
 
     // Then try the textual implementation
     if (this.modifier.type === "everyScope") {
-      return this.getEveryTarget(this.languageDefinitions, target);
+      return this.getEveryTarget(this.modifierStageFactory, target);
     }
-    return [this.getSingleTarget(this.languageDefinitions, target)];
+    return [this.getSingleTarget(this.modifierStageFactory, target)];
   }
 
   private getEveryTarget(
-    languageDefinitions: LanguageDefinitions,
+    modifierStageFactory: ModifierStageFactory,
     target: Target,
   ) {
     const itemInfos = getItemInfosForIterationScope(
-      languageDefinitions,
+      modifierStageFactory,
       target,
     );
 
@@ -67,11 +69,11 @@ export class ItemStage implements ModifierStage {
   }
 
   private getSingleTarget(
-    languageDefinitions: LanguageDefinitions,
+    modifierStageFactory: ModifierStageFactory,
     target: Target,
   ) {
     const itemInfos = getItemInfosForIterationScope(
-      languageDefinitions,
+      modifierStageFactory,
       target,
     );
 
@@ -136,10 +138,10 @@ function filterItemInfos(target: Target, itemInfos: ItemInfo[]): ItemInfo[] {
 }
 
 function getItemInfosForIterationScope(
-  languageDefinitions: LanguageDefinitions,
+  modifierStageFactory: ModifierStageFactory,
   target: Target,
 ) {
-  const { range, boundary } = getIterationScope(languageDefinitions, target);
+  const { range, boundary } = getIterationScope(modifierStageFactory, target);
   return getItemsInRange(target.editor, range, boundary);
 }
 
