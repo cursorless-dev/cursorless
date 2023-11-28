@@ -5,11 +5,6 @@ import { notSupported } from "../util/nodeMatchers";
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
-<<<<<<< HEAD
-import { stringTextFragmentExtractor as jsonStringTextFragmentExtractor } from "./json";
-=======
-import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
->>>>>>> main
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 
