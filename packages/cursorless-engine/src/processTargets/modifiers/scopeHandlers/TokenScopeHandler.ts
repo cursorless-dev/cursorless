@@ -40,7 +40,7 @@ export class TokenScopeHandler extends NestedScopeHandler {
     scopeB: TargetScope,
   ): boolean | undefined {
     const { identifierMatcher } = getMatcher(this.languageId);
-    // Regexes indicating preferences.  We prefer identifiers then preferred
+    // Regexes indicating preferences. We prefer identifiers then preferred
     // symbols.
     return isPreferredOverHelper(scopeA, scopeB, [
       identifierMatcher,

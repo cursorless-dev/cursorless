@@ -51,7 +51,7 @@ export class CharacterScopeHandler extends NestedScopeHandler {
     scopeB: TargetScope,
   ): boolean | undefined {
     const { identifierMatcher } = getMatcher(this.languageId);
-    // Regexes indicating preferences.  We prefer identifiers, preferred
+    // Regexes indicating preferences. We prefer identifiers, preferred
     // symbols, then nonwhitespace.
     return isPreferredOverHelper(scopeA, scopeB, [
       identifierMatcher,
