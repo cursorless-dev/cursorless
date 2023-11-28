@@ -83,19 +83,32 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
         indices.push([match.index!, delimiterInfo]);
       } else if (side === "right") {
         const startDelimiter = indices.pop();
+
         if (startDelimiter != null) {
-          const startIndex = startDelimiter[0];
-          const endIndex = match.index! + delimiterInfo.text.length;
+          const leftDelimiterStartIndex = startDelimiter[0];
+          const leftDelimiterEndIndex =
+            startDelimiter[0] + startDelimiter[1].text.length;
+          const rightDelimiterStartIndex = match.index!;
+          const rightDelimiterEndIndex =
+            match.index! + delimiterInfo.text.length;
+
           if (
-            (direction === "forward" && endIndex >= offset) ||
-            startIndex <= offset
+            useScope(
+              direction,
+              offset,
+              leftDelimiterStartIndex,
+              leftDelimiterEndIndex,
+              rightDelimiterStartIndex,
+              rightDelimiterEndIndex,
+              this.scopeType.requireStrongContainment,
+            )
           ) {
             yield createsScope(
               editor,
-              startDelimiter[0],
-              startDelimiter[1],
-              match.index!,
-              delimiterInfo,
+              leftDelimiterStartIndex,
+              leftDelimiterEndIndex,
+              rightDelimiterStartIndex,
+              rightDelimiterEndIndex,
             );
           }
         }
@@ -105,21 +118,44 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
   }
 }
 
+function useScope(
+  direction: Direction,
+  offset: number,
+  leftDelimiterStartIndex: number,
+  leftDelimiterEndIndex: number,
+  rightDelimiterStartIndex: number,
+  rightDelimiterEndIndex: number,
+  requireStrongContainment?: boolean,
+): boolean {
+  if (
+    (direction === "forward" && rightDelimiterEndIndex < offset) ||
+    leftDelimiterStartIndex > offset
+  ) {
+    return false;
+  }
+
+  if (requireStrongContainment) {
+    if (offset < leftDelimiterEndIndex || offset > rightDelimiterStartIndex) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function createsScope(
   editor: TextEditor,
-  startIndex: number,
-  startDelimiter: IndividualDelimiter,
-  endIndex: number,
-  endDelimiter: IndividualDelimiter,
+  leftDelimiterStartIndex: number,
+  leftDelimiterEndIndex: number,
+  rightDelimiterStartIndex: number,
+  rightDelimiterEndIndex: number,
 ): TargetScope {
   const { document } = editor;
-  const startOuter = document.positionAt(startIndex);
-  const startInner = document.positionAt(
-    startIndex + startDelimiter.text.length,
-  );
-  const endInner = document.positionAt(endIndex);
-  const endOuter = document.positionAt(endIndex + endDelimiter.text.length);
-  const range = new Range(startOuter, endOuter);
+  const leftDelimiterStart = document.positionAt(leftDelimiterStartIndex);
+  const leftDelimiterEnd = document.positionAt(leftDelimiterEndIndex);
+  const rightDelimiterStart = document.positionAt(rightDelimiterStartIndex);
+  const rightDelimiterEnd = document.positionAt(rightDelimiterEndIndex);
+  const range = new Range(leftDelimiterStart, rightDelimiterEnd);
 
   return {
     editor,
@@ -129,10 +165,10 @@ function createsScope(
         editor,
         contentRange: range,
         isReversed,
-        interiorRange: new Range(startInner, endInner),
+        interiorRange: new Range(leftDelimiterEnd, rightDelimiterStart),
         boundary: [
-          new Range(startOuter, startInner),
-          new Range(endInner, endOuter),
+          new Range(leftDelimiterStart, leftDelimiterEnd),
+          new Range(rightDelimiterStart, rightDelimiterEnd),
         ],
       }),
     ],

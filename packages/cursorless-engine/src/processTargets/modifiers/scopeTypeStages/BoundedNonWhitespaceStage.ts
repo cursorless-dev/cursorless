@@ -34,7 +34,14 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
     });
 
     const paintTargets = paintStage.run(target);
-    const pairTarget = surroundingPairStage.run(target)[0];
+
+    const pairTarget = (() => {
+      try {
+        return surroundingPairStage.run(target)[0];
+      } catch (error) {
+        return undefined;
+      }
+    })();
 
     if (pairTarget == null) {
       return paintTargets;
