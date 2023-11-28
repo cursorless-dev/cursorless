@@ -1,4 +1,3 @@
-from contextlib import suppress
 from typing import Any
 
 from talon import Context, Module

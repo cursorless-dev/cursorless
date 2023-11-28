@@ -2,7 +2,6 @@ import {
   ContainingScopeModifier,
   EveryScopeModifier,
   Modifier,
-  SurroundingPairModifier,
 } from "@cursorless/common";
 import { StoredTargetMap } from "..";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
@@ -29,7 +28,6 @@ import { EndOfStage, StartOfStage } from "./modifiers/PositionStage";
 import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
-import { SurroundingPairStage } from "./modifiers/SurroundingPairStage";
 import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
 import { BoundedNonWhitespaceSequenceStage } from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import {
