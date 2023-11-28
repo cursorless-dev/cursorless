@@ -6,11 +6,8 @@ export function isPreferredOverHelper(
   scopeB: TargetScope,
   matchers: RegExp[],
 ): boolean | undefined {
-  const {
-    editor: { document },
-  } = scopeA;
-  const textA = document.getText(scopeA.domain);
-  const textB = document.getText(scopeB.domain);
+  const textA = scopeA.editor.document.getText(scopeA.domain);
+  const textB = scopeA.editor.document.getText(scopeB.domain);
 
   for (const matcher of matchers) {
     // NB: Don't directly use `test` here because global regexes are stateful
