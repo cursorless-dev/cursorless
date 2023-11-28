@@ -14,6 +14,7 @@ import type { TargetScope } from "./scope.types";
  */
 const SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}\p{Z}\p{C}]/gu;
 
+const PREFERRED_SYMBOLS_REGEX = /[$]/;
 const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
 
 export class CharacterScopeHandler extends NestedScopeHandler {
@@ -54,18 +55,22 @@ export class CharacterScopeHandler extends NestedScopeHandler {
     } = scopeA;
     const { identifierMatcher } = getMatcher(this.languageId);
 
-    const aText = document.getText(scopeA.domain);
-    const bText = document.getText(scopeB.domain);
+    const textA = document.getText(scopeA.domain);
+    const textB = document.getText(scopeB.domain);
 
-    // Regexes indicating preferences.  We prefer identifiers, then
-    // nonwhitespace.
-    const matchers = [identifierMatcher, NONWHITESPACE_REGEX];
+    // Regexes indicating preferences.  We prefer identifiers, preferred
+    // symbols, then nonwhitespace.
+    const matchers = [
+      identifierMatcher,
+      PREFERRED_SYMBOLS_REGEX,
+      NONWHITESPACE_REGEX,
+    ];
 
     for (const matcher of matchers) {
       // NB: Don't directly use `test` here because global regexes are stateful
       // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
-      const aMatchesRegex = testRegex(matcher, aText);
-      const bMatchesRegex = testRegex(matcher, bText);
+      const aMatchesRegex = testRegex(matcher, textA);
+      const bMatchesRegex = testRegex(matcher, textB);
 
       if (aMatchesRegex && !bMatchesRegex) {
         return true;
