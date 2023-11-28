@@ -136,11 +136,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         );
       case "collectionItem":
         return new ItemStage(this.languageDefinitions, modifier);
-      case "surroundingPair":
-        return new SurroundingPairStage(
-          this.languageDefinitions,
-          modifier as SurroundingPairModifier,
-        );
       default:
         // Default to containing syntax scope using tree sitter
         return new LegacyContainingSyntaxScopeStage(

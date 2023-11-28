@@ -15,14 +15,21 @@ mod.list(
 
 
 @mod.capture(
-    rule="{user.cursorless_scope_type} | {user.cursorless_custom_regex_scope_type}"
+    rule="{user.cursorless_scope_type} | <user.cursorless_surrounding_pair> | {user.cursorless_custom_regex_scope_type}"
 )
 def cursorless_scope_type(m) -> dict[str, str]:
     """Cursorless scope type singular"""
     try:
         return {"type": m.cursorless_scope_type}
     except AttributeError:
-        return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
+        pass
+
+    try:
+        return m.cursorless_surrounding_pair
+    except AttributeError:
+        pass
+
+    return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
 
 
 @mod.capture(

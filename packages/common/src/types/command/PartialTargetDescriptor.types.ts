@@ -187,11 +187,9 @@ export interface CustomRegexScopeType {
   regex: string;
 }
 
-export type SurroundingPairDirection = "left" | "right";
 export interface SurroundingPairScopeType {
   type: "surroundingPair";
   delimiter: SurroundingPairName;
-  forceDirection?: SurroundingPairDirection;
 
   /**
    * If `true`, then only accept pairs where the pair completely contains the

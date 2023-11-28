@@ -8,15 +8,6 @@ ctx = Context()
 
 
 mod.list(
-    "cursorless_delimiter_force_direction",
-    desc="Can be used to force an ambiguous delimiter to extend in one direction",
-)
-ctx.lists["user.cursorless_delimiter_force_direction"] = [
-    "left",
-    "right",
-]
-
-mod.list(
     "cursorless_surrounding_pair_scope_type",
     desc="Scope types that can function as surrounding pairs",
 )
@@ -36,9 +27,7 @@ def cursorless_surrounding_pair_scope_type(m) -> str:
         return m.cursorless_selectable_paired_delimiter
 
 
-@mod.capture(
-    rule="[{user.cursorless_delimiter_force_direction}] <user.cursorless_surrounding_pair_scope_type>"
-)
+@mod.capture(rule="<user.cursorless_surrounding_pair_scope_type>")
 def cursorless_surrounding_pair(m) -> dict[str, Any]:
     """Expand to containing surrounding pair"""
     try:
@@ -46,15 +35,7 @@ def cursorless_surrounding_pair(m) -> dict[str, Any]:
     except AttributeError:
         surrounding_pair_scope_type = "any"
 
-    scope_type = {
+    return {
         "type": "surroundingPair",
         "delimiter": surrounding_pair_scope_type,
-    }
-
-    with suppress(AttributeError):
-        scope_type["forceDirection"] = m.cursorless_delimiter_force_direction
-
-    return {
-        "type": "containingScope",
-        "scopeType": scope_type,
     }

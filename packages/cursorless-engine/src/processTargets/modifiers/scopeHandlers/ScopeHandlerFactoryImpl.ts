@@ -10,6 +10,7 @@ import {
   ParagraphScopeHandler,
   ScopeHandlerFactory,
   SentenceScopeHandler,
+  SurroundingPairScopeHandler,
   TokenScopeHandler,
   UrlScopeHandler,
   WordScopeHandler,
@@ -72,6 +73,12 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new UrlScopeHandler(this, scopeType, languageId);
       case "customRegex":
         return new CustomRegexScopeHandler(this, scopeType, languageId);
+      case "surroundingPair":
+        return new SurroundingPairScopeHandler(
+          this.languageDefinitions,
+          scopeType,
+          languageId,
+        );
       case "custom":
         return scopeType.scopeHandler;
       case "instance":
