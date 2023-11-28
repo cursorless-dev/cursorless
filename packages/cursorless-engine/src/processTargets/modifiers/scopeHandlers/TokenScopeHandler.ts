@@ -43,23 +43,36 @@ export class TokenScopeHandler extends NestedScopeHandler {
     const { identifierMatcher } = getMatcher(document.languageId);
 
     const textA = document.getText(scopeA.domain);
-
-    // NB: Don't directly use `test` here because global regexes are stateful
-    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
-    if (testRegex(identifierMatcher, textA)) {
-      return true;
-    }
-
     const textB = document.getText(scopeB.domain);
 
-    if (testRegex(identifierMatcher, textB)) {
-      return false;
-    }
-
-    if (textA === "$" && textB !== "$") {
-      return true;
-    }
-
-    return undefined;
+    return (
+      // First check for identifiers
+      isPreferredOver(textA, textB, (text) =>
+        // NB: Don't directly use `test` here because global regexes are stateful
+        // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec#finding_successive_matches
+        testRegex(identifierMatcher, text),
+      ) ??
+      // Then check for dollar signs
+      isPreferredOver(textA, textB, (text) => text === "$")
+    );
   }
+}
+
+function isPreferredOver(
+  textA: string,
+  textB: string,
+  matcher: (text: string) => boolean,
+): boolean | undefined {
+  const matchesA = matcher(textA);
+  const matchesB = matcher(textB);
+
+  if (matchesA && !matchesB) {
+    return true;
+  }
+
+  if (!matchesA && matchesB) {
+    return false;
+  }
+
+  return undefined;
 }
