@@ -7,7 +7,7 @@ import { TokenTarget } from "../../targets";
 import { isPreferredOverHelper } from "./isPreferredOverHelper";
 import type { TargetScope } from "./scope.types";
 
-const PREFERRED_SYMBOLS_REGEX = /[$]/;
+const PREFERRED_SYMBOLS_REGEX = /[$]/g;
 
 export class TokenScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "token" } as const;

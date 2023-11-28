@@ -14,7 +14,7 @@ import type { TargetScope } from "./scope.types";
  */
 const SPLIT_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}\p{Z}\p{C}]/gu;
 
-const PREFERRED_SYMBOLS_REGEX = /[$]/;
+const PREFERRED_SYMBOLS_REGEX = /[$]/g;
 const NONWHITESPACE_REGEX = /\p{L}\p{M}*|[\p{N}\p{P}\p{S}]/gu;
 
 export class CharacterScopeHandler extends NestedScopeHandler {
