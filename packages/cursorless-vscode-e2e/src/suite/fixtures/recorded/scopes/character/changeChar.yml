@@ -11,13 +11,39 @@ command:
           scopeType: {type: character}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: $$
+  documentContents: |-
+    $.
+    .$
+    $a
+    a$
+    $$
   selections:
+    - anchor: {line: 4, character: 1}
+      active: {line: 4, character: 1}
+    - anchor: {line: 3, character: 1}
+      active: {line: 3, character: 1}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
+    - anchor: {line: 1, character: 1}
+      active: {line: 1, character: 1}
     - anchor: {line: 0, character: 1}
       active: {line: 0, character: 1}
   marks: {}
 finalState:
-  documentContents: $
+  documentContents: |-
+    .
+    .
+    $
+    $
+    $
   selections:
-    - anchor: {line: 0, character: 1}
-      active: {line: 0, character: 1}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+    - anchor: {line: 1, character: 1}
+      active: {line: 1, character: 1}
+    - anchor: {line: 2, character: 1}
+      active: {line: 2, character: 1}
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+    - anchor: {line: 4, character: 1}
+      active: {line: 4, character: 1}
