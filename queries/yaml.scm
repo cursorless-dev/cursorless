@@ -56,11 +56,13 @@
 
 ;;!! foo: bar
 ;;!       ^^^
-(string_scalar) @string @textFragment
+;;!! | block scalar
+;;!  ^^^^^^^^^^^^^
+[
+    (string_scalar)
+    (block_scalar)
+] @string @textFragment
 
 ;;!! # comment
 ;;!  ^^^^^^^^^
 (comment) @comment @textFragment
-
-;;!! | block scalar
-(block_scalar) @textFragment
