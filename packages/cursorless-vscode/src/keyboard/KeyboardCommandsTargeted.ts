@@ -170,17 +170,6 @@ export default class KeyboardCommandsTargeted {
       },
     });
 
-  private highlightTarget = () =>
-    executeCursorlessCommand({
-      name: "highlight",
-      target: {
-        type: "primitive",
-        mark: {
-          type: "that",
-        },
-      },
-    });
-
   /**
    * Performs action {@link name} on the current target
    * @param name The action to run
@@ -259,8 +248,6 @@ export default class KeyboardCommandsTargeted {
     });
     const returnValue = await executeCursorlessCommand(action);
 
-    await this.highlightTarget();
-
     if (EXIT_CURSORLESS_MODE_ACTIONS.includes(action.name)) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
@@ -304,8 +291,6 @@ export default class KeyboardCommandsTargeted {
         commandArgs: args,
       },
     });
-
-    await this.highlightTarget();
 
     if (exitCursorlessMode) {
       // For some Cursorless actions, it is more convenient if we automatically
