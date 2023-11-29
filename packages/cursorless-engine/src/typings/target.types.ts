@@ -152,12 +152,24 @@ export interface Target {
   getRemovalHighlightRange(): Range;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
-  createContinuousRangeTarget(
+  /**
+   * Attempt to create a range target that preserves some of the semantics of
+   * this target. Most targets will return `undefined` for targets not of the
+   * same type, and for targets of the same type, inherit some of the args from
+   * the two targets. Trailing delimiter should come from end target, leading
+   * from start target, etc.
+   *
+   * Note that you likely don't want to call this function directly; it is
+   * designed to be used by {@link createContinuousRangeTarget}.
+   * @param isReversed
+   * @param endTarget
+   */
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
     includeEnd: boolean,
-  ): Target;
+  ): Target | undefined;
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;

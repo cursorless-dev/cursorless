@@ -1,7 +1,6 @@
 import { Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
@@ -42,19 +41,8 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
       : getTokenRemovalRange(this);
   }
 
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    return createContinuousRangeUntypedTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+  maybeCreateRichRangeTarget(): undefined {
+    return undefined;
   }
 
   protected getCloneParameters() {

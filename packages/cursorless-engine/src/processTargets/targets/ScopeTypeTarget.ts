@@ -99,47 +99,44 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       : getTokenRemovalRange(this);
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
     includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      const scopeTarget = endTarget;
-      if (this.scopeTypeType_ === scopeTarget.scopeTypeType_) {
-        const contentRemovalRange =
-          this.removalRange_ != null || scopeTarget.removalRange_ != null
-            ? createContinuousRangeFromRanges(
-                this.removalRange_ ?? this.contentRange,
-                scopeTarget.removalRange_ ?? scopeTarget.contentRange,
-                includeStart,
-                includeEnd,
-              )
-            : undefined;
-
-        return new ScopeTypeTarget({
-          ...this.getCloneParameters(),
-          isReversed,
-          leadingDelimiterRange: this.leadingDelimiterRange_,
-          trailingDelimiterRange: scopeTarget.trailingDelimiterRange_,
-          removalRange: contentRemovalRange,
-          contentRange: createContinuousRange(
-            this,
-            endTarget,
-            includeStart,
-            includeEnd,
-          ),
-        });
-      }
+  ): Target | undefined {
+    if (
+      !includeStart ||
+      !includeEnd ||
+      !isSameType(this, endTarget) ||
+      this.scopeTypeType_ !== endTarget.scopeTypeType_
+    ) {
+      return undefined;
     }
 
-    return super.createContinuousRangeTarget(
+    const contentRemovalRange =
+      this.removalRange_ != null || endTarget.removalRange_ != null
+        ? createContinuousRangeFromRanges(
+            this.removalRange_ ?? this.contentRange,
+            endTarget.removalRange_ ?? endTarget.contentRange,
+            includeStart,
+            includeEnd,
+          )
+        : undefined;
+
+    return new ScopeTypeTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      leadingDelimiterRange: this.leadingDelimiterRange_,
+      trailingDelimiterRange: endTarget.trailingDelimiterRange_,
+      removalRange: contentRemovalRange,
+      contentRange: createContinuousRange(
+        this,
+        endTarget,
+        includeStart,
+        includeEnd,
+      ),
+    });
   }
 
   protected getCloneParameters() {

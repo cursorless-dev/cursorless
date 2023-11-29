@@ -42,12 +42,12 @@ export class LineTarget extends BaseTarget<CommonTargetParameters> {
 
   getRemovalHighlightRange = () => this.fullLineContentRange;
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
     includeEnd: boolean,
-  ): Target {
+  ): Target | undefined {
     if (endTarget.isLine) {
       return new LineTarget({
         editor: this.editor,
@@ -61,12 +61,7 @@ export class LineTarget extends BaseTarget<CommonTargetParameters> {
       });
     }
 
-    return super.createContinuousRangeTarget(
-      isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+    return undefined;
   }
 
   protected getCloneParameters() {

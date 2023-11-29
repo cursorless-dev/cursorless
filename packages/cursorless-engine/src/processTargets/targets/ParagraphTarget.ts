@@ -73,12 +73,12 @@ export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
       : this.fullLineContentRange;
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: Target,
     includeStart: boolean,
     includeEnd: boolean,
-  ): Target {
+  ): Target | undefined {
     if (isSameType(this, endTarget)) {
       return new ParagraphTarget({
         ...this.getCloneParameters(),
@@ -105,12 +105,7 @@ export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
       });
     }
 
-    return super.createContinuousRangeTarget(
-      isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+    return undefined;
   }
 
   protected getCloneParameters() {
