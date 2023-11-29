@@ -9,7 +9,7 @@ import {
   TextEditor,
   simpleSurroundingPairNames,
 } from "@cursorless/common";
-import { escapeRegExp, uniq } from "lodash";
+import { escapeRegExp, reverse, uniq } from "lodash";
 import { LanguageDefinitions } from "../../../../languages/LanguageDefinitions";
 import { SurroundingPairTarget } from "../../../targets";
 import { complexDelimiterMap } from "./delimiterMaps";
@@ -19,7 +19,15 @@ import { BaseScopeHandler } from "../BaseScopeHandler";
 import { TargetScope } from "../scope.types";
 import { ScopeIteratorRequirements } from "../scopeHandler.types";
 
+interface Pair {
+  leftDelimiterStartIndex: number;
+  leftDelimiterEndIndex: number;
+  rightDelimiterStartIndex: number;
+  rightDelimiterEndIndex: number;
+}
+
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
+  // TODO:
   // public readonly iterationScopeType;
   public readonly iterationScopeType: ScopeType = { type: "document" };
 
@@ -31,6 +39,7 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     private languageId: string,
   ) {
     super();
+    // TODO:
     // this.iterationScopeType = this.scopeType;
   }
 
@@ -40,9 +49,47 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
     direction: Direction,
     _hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    const { document } = editor;
+    // TODO:
     // this.languageDefinitions.get(this.languageId)?.getScopeHandler()
 
+    const offset = editor.document.offsetAt(position);
+    let pairs = this.getPairs(editor, offset, direction);
+
+    if (direction === "backward") {
+      pairs = reverse(pairs);
+    }
+
+    const comparator =
+      direction === "forward"
+        ? (pair: Pair) => pair.leftDelimiterStartIndex < offset
+        : (pair: Pair) => pair.rightDelimiterEndIndex > offset;
+
+    pairs.sort((a, b) => {
+      if (comparator(a)) {
+        return 1;
+      }
+      if (comparator(b)) {
+        return -1;
+      }
+      return 0;
+    });
+
+    for (const pair of pairs) {
+      yield createsScope(
+        editor,
+        pair.leftDelimiterStartIndex,
+        pair.leftDelimiterEndIndex,
+        pair.rightDelimiterStartIndex,
+        pair.rightDelimiterEndIndex,
+      );
+    }
+  }
+
+  private getPairs(
+    editor: TextEditor,
+    offset: number,
+    direction: Direction,
+  ): Pair[] {
     const delimiters = complexDelimiterMap[
       this.scopeType.delimiter as ComplexSurroundingPairName
     ] ?? [this.scopeType.delimiter];
@@ -60,14 +107,14 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
      */
     const delimiterRegex = getDelimiterRegex(individualDelimiters);
 
-    const matches = document.getText().matchAll(delimiterRegex);
-
-    const offset = document.offsetAt(position);
+    const matches = editor.document.getText().matchAll(delimiterRegex);
 
     const pairCount: Record<
       SimpleSurroundingPairName,
       [number, IndividualDelimiter][]
     > = Object.fromEntries(simpleSurroundingPairNames.map((sp) => [sp, []]));
+
+    const pairs: Pair[] = [];
 
     for (const match of matches) {
       const delimiterInfo = delimiterTextToDelimiterInfoMap[match[0]];
@@ -84,64 +131,44 @@ export class SurroundingPairScopeHandler extends BaseScopeHandler {
       } else if (side === "right") {
         const startDelimiter = indices.pop();
 
-        if (startDelimiter != null) {
-          const leftDelimiterStartIndex = startDelimiter[0];
-          const leftDelimiterEndIndex =
-            startDelimiter[0] + startDelimiter[1].text.length;
-          const rightDelimiterStartIndex = match.index!;
-          const rightDelimiterEndIndex =
-            match.index! + delimiterInfo.text.length;
+        if (startDelimiter == null) {
+          continue;
+        }
 
+        const leftDelimiterStartIndex = startDelimiter[0];
+        const leftDelimiterEndIndex =
+          startDelimiter[0] + startDelimiter[1].text.length;
+        const rightDelimiterStartIndex = match.index!;
+        const rightDelimiterEndIndex = match.index! + delimiterInfo.text.length;
+
+        if (this.scopeType.requireStrongContainment) {
           if (
-            useScope(
-              direction,
-              offset,
-              leftDelimiterStartIndex,
-              leftDelimiterEndIndex,
-              rightDelimiterStartIndex,
-              rightDelimiterEndIndex,
-              this.scopeType.requireStrongContainment,
-            )
+            offset < leftDelimiterEndIndex ||
+            offset > rightDelimiterStartIndex
           ) {
-            yield createsScope(
-              editor,
-              leftDelimiterStartIndex,
-              leftDelimiterEndIndex,
-              rightDelimiterStartIndex,
-              rightDelimiterEndIndex,
-            );
+            continue;
           }
         }
+
+        if (direction === "forward") {
+          if (rightDelimiterEndIndex < offset) {
+            continue;
+          }
+        } else if (leftDelimiterStartIndex > offset) {
+          continue;
+        }
+
+        pairs.push({
+          leftDelimiterStartIndex,
+          leftDelimiterEndIndex,
+          rightDelimiterStartIndex,
+          rightDelimiterEndIndex,
+        });
       }
-      pairCount[delimiterInfo.delimiter] = indices;
     }
-  }
-}
 
-function useScope(
-  direction: Direction,
-  offset: number,
-  leftDelimiterStartIndex: number,
-  leftDelimiterEndIndex: number,
-  rightDelimiterStartIndex: number,
-  rightDelimiterEndIndex: number,
-  requireStrongContainment?: boolean,
-): boolean {
-  if (direction === "forward") {
-    if (rightDelimiterEndIndex < offset) {
-      return false;
-    }
-  } else if (leftDelimiterStartIndex > offset) {
-    return false;
+    return pairs;
   }
-
-  if (requireStrongContainment) {
-    if (offset < leftDelimiterEndIndex || offset > rightDelimiterStartIndex) {
-      return false;
-    }
-  }
-
-  return true;
 }
 
 function createsScope(
