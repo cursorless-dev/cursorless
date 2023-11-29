@@ -33,6 +33,7 @@
     (flow_node) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
     .
     (flow_node)? @collectionItem.trailing.end.startOf
+    (#insertion-delimiter! @collectionItem ", ")
 ) @list
 
 ;;!! { foo: bar }
@@ -43,6 +44,7 @@
     (flow_pair) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
     .
     (flow_pair)? @collectionItem.trailing.end.startOf
+    (#insertion-delimiter! @collectionItem ", ")
 ) @map
 
 [
@@ -52,8 +54,8 @@
     (flow_mapping)
 ] @collectionItem.iteration @collectionKey.iteration @value.iteration
 
-;;!! languageId: plauintext
-;;!              ^^^^^^^^^^
+;;!! foo: bar
+;;!       ^^^
 (string_scalar) @string @textFragment
 
 ;;!! # comment
