@@ -1,9 +1,6 @@
 import { Target } from "../typings/target.types";
-import {
-  createContinuousRange,
-  createContinuousRangeUntypedTarget,
-} from "./targetUtil/createContinuousRange";
-import { PlainTarget } from "./targets";
+import { createContinuousRange } from "./targetUtil/createContinuousRange";
+import { PlainTarget, UntypedTarget } from "./targets";
 
 export function createContinuousRangeTarget(
   isReversed: boolean,
@@ -37,11 +34,16 @@ export function createContinuousRangeTarget(
     });
   }
 
-  return createContinuousRangeUntypedTarget(
+  return new UntypedTarget({
+    editor: startTarget.editor,
     isReversed,
-    startTarget,
-    endTarget,
-    includeStart,
-    includeEnd,
-  );
+    hasExplicitRange: true,
+    contentRange: createContinuousRange(
+      startTarget,
+      endTarget,
+      includeStart,
+      includeEnd,
+    ),
+    isToken: startTarget.isToken && endTarget.isToken,
+  });
 }
