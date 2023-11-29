@@ -11,6 +11,8 @@ export class StoredTargetMap {
   private notifier = new Notifier<[StoredTargetKey, Target[] | undefined]>();
 
   set(key: StoredTargetKey, targets: Target[] | undefined) {
+    // TODO: Figure out how to set a target to undefined
+    // Maybe need separate command?
     this.targetMap.set(key, targets);
     this.notifier.notifyListeners(key, targets);
   }
