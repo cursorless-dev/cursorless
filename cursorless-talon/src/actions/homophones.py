@@ -3,13 +3,12 @@ from typing import Optional
 from talon import actions, app
 
 from ..targets.target_types import CursorlessTarget, PrimitiveDestination
-from .get_text import cursorless_get_text_action
 from .replace import cursorless_replace_action
 
 
 def cursorless_homophones_action(target: CursorlessTarget):
     """Replaced target with next homophone"""
-    texts = cursorless_get_text_action(target, show_decorations=False)
+    texts = actions.user.cursorless_get_text(target, show_decorations=False)
     try:
         updated_texts = list(map(get_next_homophone, texts))
     except LookupError as e:
