@@ -127,10 +127,11 @@ function useScope(
   rightDelimiterEndIndex: number,
   requireStrongContainment?: boolean,
 ): boolean {
-  if (
-    (direction === "forward" && rightDelimiterEndIndex < offset) ||
-    leftDelimiterStartIndex > offset
-  ) {
+  if (direction === "forward") {
+    if (rightDelimiterEndIndex < offset) {
+      return false;
+    }
+  } else if (leftDelimiterStartIndex > offset) {
     return false;
   }
 
