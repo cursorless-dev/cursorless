@@ -19,13 +19,13 @@ export function serializeScopes(code: string, scopes: ScopeRanges[]): string {
 function serializeScope(
   codeLines: string[],
   scope: ScopeRanges,
-  scopeIndex: number | undefined,
+  scopeNumber: number | undefined,
 ): string {
   if (scope.targets.length === 1) {
     return serializeTarget(
       codeLines,
       scope.targets[0],
-      scopeIndex,
+      scopeNumber,
       undefined,
       scope.domain,
     );
@@ -37,12 +37,12 @@ function serializeScope(
       serializeTarget(
         codeLines,
         target,
-        scopeIndex,
+        scopeNumber,
         scope.targets.length > 1 ? index + 1 : undefined,
       ),
     ),
     "",
-    serializeHeader(undefined, "Domain", scopeIndex, undefined, scope.domain),
+    serializeHeader(undefined, "Domain", scopeNumber, undefined, scope.domain),
     serializeCodeRange(codeLines, scope.domain),
   ].join("\n");
 }
@@ -50,8 +50,8 @@ function serializeScope(
 function serializeTarget(
   codeLines: string[],
   target: TargetRanges,
-  scopeIndex: number | undefined,
-  targetIndex: number | undefined,
+  scopeNumber: number | undefined,
+  targetNumber: number | undefined,
   domain?: Range,
 ): string {
   const lines: string[] = [""];
@@ -71,8 +71,8 @@ function serializeTarget(
       serializeHeader(
         undefined,
         header,
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         index === headers.length - 1 ? target.contentRange : undefined,
       ),
     ),
@@ -87,8 +87,8 @@ function serializeTarget(
       serializeHeader(
         undefined,
         "Removal",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         target.removalRange,
       ),
       serializeCodeRange(codeLines, target.removalRange),
@@ -101,8 +101,8 @@ function serializeTarget(
         codeLines,
         target.leadingDelimiter,
         "Leading delimiter",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
       ),
     );
   }
@@ -113,8 +113,8 @@ function serializeTarget(
         codeLines,
         target.trailingDelimiter,
         "Trailing delimiter",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
       ),
     );
   }
@@ -126,8 +126,8 @@ function serializeTarget(
           codeLines,
           interior,
           "Interior",
-          scopeIndex,
-          targetIndex,
+          scopeNumber,
+          targetNumber,
         ),
       ),
     );
@@ -140,8 +140,8 @@ function serializeTarget(
           codeLines,
           interior,
           "Boundary",
-          scopeIndex,
-          targetIndex,
+          scopeNumber,
+          targetNumber,
         ),
       ),
     );
@@ -150,13 +150,13 @@ function serializeTarget(
   if (domain != null && !target.contentRange.isRangeEqual(domain)) {
     lines.push(
       "",
-      serializeHeader(undefined, "Domain", scopeIndex, targetIndex, domain),
+      serializeHeader(undefined, "Domain", scopeNumber, targetNumber, domain),
       serializeCodeRange(codeLines, domain),
     );
   }
 
   lines.push(
-    serializeTargetInsertionDelimiter(target, scopeIndex, targetIndex),
+    serializeTargetInsertionDelimiter(target, scopeNumber, targetNumber),
   );
 
   return lines.join("\n");
@@ -164,14 +164,14 @@ function serializeTarget(
 
 function serializeTargetInsertionDelimiter(
   target: TargetRanges,
-  scopeIndex: number | undefined,
-  targetIndex: number | undefined,
+  scopeNumber: number | undefined,
+  targetNumber: number | undefined,
 ): string {
   const header = serializeHeader(
     undefined,
     "Insertion delimiter",
-    scopeIndex,
-    targetIndex,
+    scopeNumber,
+    targetNumber,
   );
   const delimiter = target.insertionDelimiter
     .replaceAll("\r\n", "\\r\\n")
@@ -183,8 +183,8 @@ function serializeTargetBasics(
   codeLines: string[],
   target: TargetRanges,
   prefix: string | undefined,
-  scopeIndex: number | undefined,
-  targetIndex: number | undefined,
+  scopeNumber: number | undefined,
+  targetNumber: number | undefined,
 ): string {
   const lines: string[] = [""];
 
@@ -193,8 +193,8 @@ function serializeTargetBasics(
       serializeHeader(
         prefix,
         undefined,
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         target.contentRange,
       ),
     );
@@ -204,16 +204,16 @@ function serializeTargetBasics(
       serializeHeader(
         prefix,
         "Content",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         target.contentRange,
       ),
       serializeCodeRange(codeLines, target.contentRange),
       serializeHeader(
         prefix,
         "Removal",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         target.removalRange,
       ),
       serializeCodeRange(codeLines, target.removalRange),
@@ -226,14 +226,19 @@ function serializeTargetBasics(
 function serializeHeader(
   prefix: string | undefined,
   header: string | undefined,
-  scopeIndex: number | undefined,
-  targetIndex: number | undefined,
+  scopeNumber: number | undefined,
+  targetNumber: number | undefined,
   range?: Range,
 ): string {
   const parts: string[] = [];
-  if (scopeIndex != null) {
-    parts.push(`#${scopeIndex}`);
+  if (scopeNumber != null || targetNumber != null) {
+    if (targetNumber != null) {
+      parts.push(`#${scopeNumber ?? 1}.${targetNumber}`);
+    } else {
+      parts.push(`#${scopeNumber}`);
+    }
   }
+
   if (prefix != null) {
     if (header != null) {
       parts.push(prefix + ":");
@@ -241,12 +246,11 @@ function serializeHeader(
       parts.push(prefix);
     }
   }
+
   if (header != null) {
     parts.push(header);
   }
-  if (targetIndex != null) {
-    parts.push(targetIndex.toString());
-  }
+
   const suffix = range != null ? ` ${range.toString()}` : "";
   return `[${parts.join(" ")}] =${suffix}`;
 }
