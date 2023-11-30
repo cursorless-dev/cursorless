@@ -111,7 +111,7 @@ function serializeTarget({
 
   if (target.leadingDelimiter != null) {
     lines.push(
-      serializeTargetBasics({
+      serializeTargetCompact({
         codeLines,
         target: target.leadingDelimiter,
         prefix: "Leading delimiter",
@@ -123,7 +123,7 @@ function serializeTarget({
 
   if (target.trailingDelimiter != null) {
     lines.push(
-      serializeTargetBasics({
+      serializeTargetCompact({
         codeLines,
         target: target.trailingDelimiter,
         prefix: "Trailing delimiter",
@@ -136,7 +136,7 @@ function serializeTarget({
   if (target.interior != null) {
     lines.push(
       ...target.interior.map((interior) =>
-        serializeTargetBasics({
+        serializeTargetCompact({
           codeLines,
           target: interior,
           prefix: "Interior",
@@ -150,7 +150,7 @@ function serializeTarget({
   if (target.boundary != null) {
     lines.push(
       ...target.boundary.map((interior) =>
-        serializeTargetBasics({
+        serializeTargetCompact({
           codeLines,
           target: interior,
           prefix: "Boundary",
@@ -195,7 +195,7 @@ function serializeTargetInsertionDelimiter(
   return `\n${header} ${JSON.stringify(target.insertionDelimiter)}`;
 }
 
-interface SerializedTargetBasicsArg {
+interface SerializedTargetCompactArg {
   codeLines: string[];
   target: TargetRanges;
   prefix: string | undefined;
@@ -203,13 +203,20 @@ interface SerializedTargetBasicsArg {
   targetIndex: number | undefined;
 }
 
-function serializeTargetBasics({
+/**
+ * Given a target, serialize it compactly, including only the content and
+ * removal ranges. We use this for auxiliary targets like delimiters and
+ * interior/boundary targets of a target that we're serializing.
+ * @param arg Configuration object
+ * @returns A string representing the target
+ */
+function serializeTargetCompact({
   codeLines,
   target,
   prefix,
   scopeIndex,
   targetIndex,
-}: SerializedTargetBasicsArg): string {
+}: SerializedTargetCompactArg): string {
   const lines: string[] = [""];
 
   if (target.contentRange.isRangeEqual(target.removalRange)) {
