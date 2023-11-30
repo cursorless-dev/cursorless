@@ -91,3 +91,9 @@
   (element)
   (end_tag) @xmlElement.iteration.end.startOf @xmlBothTags.iteration.end.startOf
 )
+
+(_
+  (start_tag) @xmlStartTag.iteration.start.endOf @xmlEndTag.iteration.start.endOf
+  (element)
+  (end_tag) @xmlStartTag.iteration.end.startOf @xmlEndTag.iteration.end.startOf
+)
