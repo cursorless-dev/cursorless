@@ -1,4 +1,4 @@
-import { Position, Range, Range, TextEditor, TextEditor } from "@cursorless/common";
+import { Position, Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
 import {tryConstructPlainTarget} from "./PlainTarget";
