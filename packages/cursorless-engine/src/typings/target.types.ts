@@ -152,12 +152,33 @@ export interface Target {
   getRemovalHighlightRange(): Range;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
-  createContinuousRangeTarget(
+
+  /**
+   * Targets use this function to determine what happens when a range target is
+   * created from two targets of the same type. This function is called by
+   * {@link createContinuousRangeTarget} to create the range target if both
+   * sides of the range are included and are of the same type.
+   *
+   * The newly created range target can inherit some of the args from the two
+   * targets. Trailing delimiter should come from end target, leading from start
+   * target, etc.
+   *
+   * If for whatever reason it doesn't make sense to create a rich range target
+   * from the two targets, this function should return null. For example,
+   * {@link ScopeTypeTarget} returns null if the two targets have different
+   * scope types, and {@link UntypedTarget} returns null because it never makes
+   * sense to create a rich range target from two untyped targets.
+   *
+   * @param isReversed Indicates whether the range is reversed.
+   * @param endTarget The end target of the range.
+   * @returns The new target of the same type as the two targets, corresponding
+   * to an inclusive range between the two targets.
+   */
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target;
+    endTarget: ThisType<this> & Target,
+  ): (ThisType<this> & Target) | null;
+
   /** Constructs removal edit */
   constructRemovalEdit(): EditWithRangeUpdater;
   isEqual(target: Target): boolean;
