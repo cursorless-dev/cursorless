@@ -8,7 +8,7 @@ import {
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import { LineTarget } from "./LineTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { constructLineTarget } from "../../util/tryConstructTarget";
+import {constructLineTarget} from "./LineTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
