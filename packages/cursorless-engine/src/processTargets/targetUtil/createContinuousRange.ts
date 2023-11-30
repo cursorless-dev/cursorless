@@ -1,6 +1,5 @@
 import { Position, Range } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
-import { UntypedTarget } from "../targets";
 
 export function createContinuousRange(
   startTarget: Target,
@@ -44,25 +43,4 @@ export function createContinuousLineRange(
         .range.end;
 
   return new Range(start, end);
-}
-
-export function createContinuousRangeUntypedTarget(
-  isReversed: boolean,
-  startTarget: Target,
-  endTarget: Target,
-  includeStart: boolean,
-  includeEnd: boolean,
-): UntypedTarget {
-  return new UntypedTarget({
-    editor: startTarget.editor,
-    isReversed,
-    hasExplicitRange: true,
-    contentRange: createContinuousRange(
-      startTarget,
-      endTarget,
-      includeStart,
-      includeEnd,
-    ),
-    isToken: startTarget.isToken && endTarget.isToken,
-  });
 }

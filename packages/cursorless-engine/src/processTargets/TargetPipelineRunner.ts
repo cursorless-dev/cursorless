@@ -19,6 +19,7 @@ import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";
 import { uniqWithHash } from "../util/uniqWithHash";
+import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
 
 export class TargetPipelineRunner {
   constructor(
@@ -315,8 +316,9 @@ export function targetsToContinuousTarget(
   const excludeStart = isReversed ? excludeActive : excludeAnchor;
   const excludeEnd = isReversed ? excludeAnchor : excludeActive;
 
-  return startTarget.createContinuousRangeTarget(
+  return createContinuousRangeTarget(
     isReversed,
+    startTarget,
     endTarget,
     !excludeStart,
     !excludeEnd,

@@ -1,6 +1,7 @@
 import { ScopeType } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
+import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
 
 export class OutOfRangeError extends Error {
   constructor() {
@@ -32,8 +33,9 @@ export function createRangeTargetFromIndices(
     return targets[startIndex];
   }
 
-  return targets[startIndex].createContinuousRangeTarget(
+  return createContinuousRangeTarget(
     isReversed,
+    targets[startIndex],
     targets[endIndex],
     true,
     true,
