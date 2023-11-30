@@ -1,5 +1,6 @@
 import { Range, ScopeRanges, TargetRanges } from "@cursorless/common";
 import { serializeTargetRange } from "./serializeTargetRange";
+import { serializeHeader } from "./serializeHeader";
 
 export function serializeScopeFixture(
   code: string,
@@ -56,7 +57,7 @@ function serializeScope(
   ].join("\n");
 }
 
-interface SerializedTargetArg {
+interface SerializeTargetArg {
   codeLines: string[];
   target: TargetRanges;
   scopeIndex: number | undefined;
@@ -70,7 +71,7 @@ function serializeTarget({
   scopeIndex,
   targetIndex,
   domain,
-}: SerializedTargetArg): string {
+}: SerializeTargetArg): string {
   const lines: string[] = [""];
 
   const headers = ["Content"];
@@ -195,7 +196,7 @@ function serializeTargetInsertionDelimiter(
   return `\n${header} ${JSON.stringify(target.insertionDelimiter)}`;
 }
 
-interface SerializedTargetCompactArg {
+interface SerializeTargetCompactArg {
   codeLines: string[];
   target: TargetRanges;
   prefix: string | undefined;
@@ -216,7 +217,7 @@ function serializeTargetCompact({
   prefix,
   scopeIndex,
   targetIndex,
-}: SerializedTargetCompactArg): string {
+}: SerializeTargetCompactArg): string {
   const lines: string[] = [""];
 
   if (target.contentRange.isRangeEqual(target.removalRange)) {
@@ -252,40 +253,4 @@ function serializeTargetCompact({
   }
 
   return lines.join("\n");
-}
-
-interface SerializeHeaderArg {
-  prefix?: string;
-  header: string | undefined;
-  scopeIndex: number | undefined;
-  targetIndex: number | undefined;
-  range?: Range;
-}
-
-function serializeHeader({
-  prefix,
-  header,
-  scopeIndex,
-  targetIndex,
-  range,
-}: SerializeHeaderArg): string {
-  const parts: string[] = [];
-  if (scopeIndex != null) {
-    parts.push(`#${scopeIndex}`);
-  }
-  if (prefix != null) {
-    if (header != null) {
-      parts.push(prefix + ":");
-    } else {
-      parts.push(prefix);
-    }
-  }
-  if (header != null) {
-    parts.push(header);
-  }
-  if (targetIndex != null) {
-    parts.push(targetIndex.toString());
-  }
-  const suffix = range != null ? ` ${range}` : "";
-  return `[${parts.join(" ")}] =${suffix}`;
 }
