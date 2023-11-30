@@ -18,3 +18,5 @@ ccc
 
 4| ccc
    ---<
+
+[Insertion delimiter] = "\n"

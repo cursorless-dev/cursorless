@@ -17,3 +17,5 @@
 [Trailing delimiter] = 0:5-0:7
 0|   aaa  
        >--<
+
+[Insertion delimiter] = " "

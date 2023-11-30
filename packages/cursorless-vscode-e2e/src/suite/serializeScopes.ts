@@ -21,10 +21,7 @@ function serializeScope(
   scope: ScopeRanges,
   scopeIndex: number | undefined,
 ): string {
-  if (
-    scope.targets.length === 1 &&
-    scope.targets[0].contentRange.isRangeEqual(scope.domain)
-  ) {
+  if (scope.targets.length === 1) {
     return serializeTarget(
       codeLines,
       scope.targets[0],
@@ -65,7 +62,7 @@ function serializeTarget(
   if (target.contentRange.isRangeEqual(target.removalRange)) {
     headers.push("Removal");
   }
-  if (domain != null) {
+  if (domain != null && target.contentRange.isRangeEqual(domain)) {
     headers.push("Domain");
   }
 
@@ -150,7 +147,36 @@ function serializeTarget(
     );
   }
 
+  if (domain != null && !target.contentRange.isRangeEqual(domain)) {
+    lines.push(
+      "",
+      serializeHeader(undefined, "Domain", scopeIndex, targetIndex, domain),
+      serializeCodeRange(codeLines, domain),
+    );
+  }
+
+  lines.push(
+    serializeTargetInsertionDelimiter(target, scopeIndex, targetIndex),
+  );
+
   return lines.join("\n");
+}
+
+function serializeTargetInsertionDelimiter(
+  target: TargetRanges,
+  scopeIndex: number | undefined,
+  targetIndex: number | undefined,
+): string {
+  const header = serializeHeader(
+    undefined,
+    "Insertion delimiter",
+    scopeIndex,
+    targetIndex,
+  );
+  const delimiter = target.insertionDelimiter
+    .replaceAll("\r\n", "\\r\\n")
+    .replaceAll("\n", "\\n");
+  return `\n${header} "${delimiter}"`;
 }
 
 function serializeTargetBasics(

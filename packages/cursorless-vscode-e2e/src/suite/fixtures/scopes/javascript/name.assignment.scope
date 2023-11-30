@@ -20,3 +20,5 @@ const name = "Hello world";
 [Domain] = 0:0-0:27
 0| const name = "Hello world";
   >---------------------------<
+
+[Insertion delimiter] = " "

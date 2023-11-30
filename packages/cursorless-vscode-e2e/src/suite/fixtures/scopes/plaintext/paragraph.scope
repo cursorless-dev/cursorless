@@ -62,3 +62,5 @@ bbb
      >
 3|
    <
+
+[Insertion delimiter] = "\n\n"

@@ -12,3 +12,5 @@ function myFunk() {
 
 2| }
    -<
+
+[Insertion delimiter] = "\n\n"
