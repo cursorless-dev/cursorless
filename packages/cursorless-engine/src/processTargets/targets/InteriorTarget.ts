@@ -1,5 +1,5 @@
 import { Range } from "@cursorless/common";
-import { BaseTarget, MinimumTargetParameters } from ".";
+import { BaseTarget, MinimumTargetParameters } from "./BaseTarget";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { createContinuousRangeFromRanges } from "../targetUtil/createContinuousRange";
 

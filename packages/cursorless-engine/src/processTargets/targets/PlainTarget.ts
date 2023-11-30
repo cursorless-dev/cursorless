@@ -1,4 +1,4 @@
-import { BaseTarget, CommonTargetParameters } from ".";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 
 interface PlainTargetParameters extends CommonTargetParameters {
   readonly isToken?: boolean;
