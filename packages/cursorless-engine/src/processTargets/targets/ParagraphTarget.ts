@@ -6,7 +6,7 @@ import {
   TextLine,
 } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
-import { BaseTarget, CommonTargetParameters, LineTarget } from "./LineTarget";
+import { LineTarget } from "./LineTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";

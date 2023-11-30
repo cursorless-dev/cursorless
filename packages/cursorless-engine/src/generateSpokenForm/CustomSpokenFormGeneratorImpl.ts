@@ -4,7 +4,7 @@ import {
   Listener,
   ScopeType,
 } from "@cursorless/common";
-import { SpokenFormGenerator } from "./generateSpokenForm/SpokenFormGenerator";
+import { SpokenFormGenerator } from "./generateSpokenForm/generateSpokenForm";
 import { CustomSpokenFormGenerator } from "./generateSpokenForm/CustomSpokenFormGenerator";
 import { CustomSpokenForms } from "../spokenForms/CustomSpokenForms";
 import { TalonSpokenForms } from "../scopeProviders/TalonSpokenForms";
