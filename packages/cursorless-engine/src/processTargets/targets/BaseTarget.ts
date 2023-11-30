@@ -13,9 +13,8 @@ import {
 import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type { Destination, Target } from "../../typings/target.types";
-import { isSameType } from "../../util/typeUtils";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
 import { DestinationImpl } from "./DestinationImpl";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 
 /** Parameters supported by all target classes */
 export interface MinimumTargetParameters {
@@ -128,21 +127,8 @@ export abstract class BaseTarget<
 
   maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target | undefined {
-    if (!includeStart || !includeEnd || !isSameType(this, endTarget)) {
-      return undefined;
-    }
-
-    return this.createRichRangeTarget(isReversed, endTarget);
-  }
-
-  protected createRichRangeTarget(
-    isReversed: boolean,
     endTarget: ThisType<this> & Target,
-  ): ThisType<this> & Target {
+  ): (ThisType<this> & Target) | null {
     const { constructor } = Object.getPrototypeOf(this);
 
     return new constructor({

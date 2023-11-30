@@ -41,8 +41,8 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
       : getTokenRemovalRange(this);
   }
 
-  maybeCreateRichRangeTarget(): undefined {
-    return undefined;
+  maybeCreateRichRangeTarget(): null {
+    return null;
   }
 
   protected getCloneParameters() {

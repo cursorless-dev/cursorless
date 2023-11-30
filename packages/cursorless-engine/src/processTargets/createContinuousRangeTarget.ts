@@ -1,6 +1,10 @@
 import { Target } from "../typings/target.types";
-import { createContinuousRange } from "./targetUtil/createContinuousRange";
-import { PlainTarget, UntypedTarget } from "./targets";
+import { isSameType } from "../util/typeUtils";
+import {
+  createContinuousLineRange,
+  createContinuousRange,
+} from "./targetUtil/createContinuousRange";
+import { LineTarget, UntypedTarget } from "./targets";
 
 export function createContinuousRangeTarget(
   isReversed: boolean,
@@ -9,28 +13,27 @@ export function createContinuousRangeTarget(
   includeStart: boolean,
   includeEnd: boolean,
 ): Target {
-  const richTarget = startTarget.maybeCreateRichRangeTarget(
-    isReversed,
-    endTarget,
-    includeStart,
-    includeEnd,
-  );
+  if (includeStart && includeEnd && isSameType(startTarget, endTarget)) {
+    const richTarget = startTarget.maybeCreateRichRangeTarget(
+      isReversed,
+      endTarget,
+    );
 
-  if (richTarget != null) {
-    return richTarget;
+    if (richTarget != null) {
+      return richTarget;
+    }
   }
 
-  if (!includeStart || !includeEnd) {
-    return new PlainTarget({
+  if (startTarget.isLine && endTarget.isLine) {
+    return new LineTarget({
       editor: startTarget.editor,
-      contentRange: createContinuousRange(
+      isReversed,
+      contentRange: createContinuousLineRange(
         startTarget,
         endTarget,
         includeStart,
         includeEnd,
       ),
-      isReversed,
-      isToken: false,
     });
   }
 
@@ -44,6 +47,7 @@ export function createContinuousRangeTarget(
       includeStart,
       includeEnd,
     ),
-    isToken: startTarget.isToken && endTarget.isToken,
+    isToken:
+      includeStart && includeEnd && startTarget.isToken && endTarget.isToken,
   });
 }

@@ -34,7 +34,7 @@ export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
     };
   }
 
-  createRichRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: InteriorTarget,
   ): InteriorTarget {

@@ -45,7 +45,7 @@ export class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
     return getDelimitedSequenceRemovalRange(this);
   }
 
-  createRichRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: SubTokenWordTarget,
   ): SubTokenWordTarget {

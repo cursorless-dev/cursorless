@@ -1,6 +1,5 @@
 import { Position, Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
@@ -44,24 +43,13 @@ export class LineTarget extends BaseTarget<CommonTargetParameters> {
 
   maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target | undefined {
-    if (endTarget.isLine) {
-      return new LineTarget({
-        editor: this.editor,
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return undefined;
+    endTarget: LineTarget,
+  ): LineTarget {
+    return new LineTarget({
+      editor: this.editor,
+      isReversed,
+      contentRange: createContinuousLineRange(this, endTarget, true, true),
+    });
   }
 
   protected getCloneParameters() {

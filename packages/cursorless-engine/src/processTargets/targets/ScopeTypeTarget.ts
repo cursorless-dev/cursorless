@@ -6,7 +6,6 @@ import {
   PlainTarget,
 } from ".";
 import { Target } from "../../typings/target.types";
-import { isSameType } from "../../util/typeUtils";
 import {
   createContinuousRange,
   createContinuousRangeFromRanges,
@@ -101,17 +100,10 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
 
   maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target | undefined {
-    if (
-      !includeStart ||
-      !includeEnd ||
-      !isSameType(this, endTarget) ||
-      this.scopeTypeType_ !== endTarget.scopeTypeType_
-    ) {
-      return undefined;
+    endTarget: ScopeTypeTarget,
+  ): ScopeTypeTarget | null {
+    if (this.scopeTypeType_ !== endTarget.scopeTypeType_) {
+      return null;
     }
 
     const contentRemovalRange =
@@ -119,8 +111,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
         ? createContinuousRangeFromRanges(
             this.removalRange_ ?? this.contentRange,
             endTarget.removalRange_ ?? endTarget.contentRange,
-            includeStart,
-            includeEnd,
+            true,
+            true,
           )
         : undefined;
 
@@ -130,12 +122,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       leadingDelimiterRange: this.leadingDelimiterRange_,
       trailingDelimiterRange: endTarget.trailingDelimiterRange_,
       removalRange: contentRemovalRange,
-      contentRange: createContinuousRange(
-        this,
-        endTarget,
-        includeStart,
-        includeEnd,
-      ),
+      contentRange: createContinuousRange(this, endTarget, true, true),
     });
   }
 
