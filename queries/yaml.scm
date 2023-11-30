@@ -17,13 +17,17 @@
 
 ;;!! - 0
 ;;!  ^^^
-(block_sequence
-  (block_sequence_item)? @collectionItem.leading.start.endOf
-  .
-  (block_sequence_item) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
-  .
-  (block_sequence_item)? @collectionItem.trailing.end.startOf
-) @list
+(
+  (block_sequence
+    (block_sequence_item)? @collectionItem.leading.start.endOf
+    .
+    (block_sequence_item) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
+    .
+    (block_sequence_item)? @collectionItem.trailing.end.startOf
+    (#trim-end! @collectionItem)
+  ) @list
+  (#trim-end! @list)
+)
 
 ;;!! [0]
 ;;!   ^
