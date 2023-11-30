@@ -10,9 +10,9 @@ import { LineTarget, UntypedTarget } from "./targets";
  * Creates a target consisting of a range between two targets. If the targets
  * are of the same type, and {@link includeStart} and {@link includeEnd} are
  * `true`, then we call {@link Target.maybeCreateRichRangeTarget} on
- * {@link startTarget} to give it the opportunity determine what the new target
- * looks like, ie whether it is a token target, its scope type, its delimiters,
- * etc
+ * {@link startTarget} to give it the opportunity to determine what the new
+ * target looks like, ie whether it is a token target, its scope type, its
+ * delimiters, etc
  *
  * If the targets are not of the same type, or {@link includeStart} and
  * {@link includeEnd} are `false`, then the target will be a line target if both
