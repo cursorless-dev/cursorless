@@ -221,8 +221,8 @@ function serializeTargetBasics({
         targetIndex,
         range: target.contentRange,
       }),
+      serializeTargetRange(codeLines, target.contentRange),
     );
-    lines.push(serializeTargetRange(codeLines, target.contentRange));
   } else {
     lines.push(
       serializeHeader({
