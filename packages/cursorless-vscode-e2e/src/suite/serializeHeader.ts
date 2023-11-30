@@ -3,8 +3,8 @@ import { Range } from "@cursorless/common";
 interface SerializeHeaderArg {
   prefix?: string;
   header: string | undefined;
-  scopeIndex: number | undefined;
-  targetIndex: number | undefined;
+  scopeNumber: number | undefined;
+  targetNumber: number | undefined;
   range?: Range;
 }
 
@@ -27,14 +27,19 @@ interface SerializeHeaderArg {
 export function serializeHeader({
   prefix,
   header,
-  scopeIndex,
-  targetIndex,
+  scopeNumber,
+  targetNumber,
   range,
 }: SerializeHeaderArg): string {
   const parts: string[] = [];
-  if (scopeIndex != null) {
-    parts.push(`#${scopeIndex}`);
+  if (scopeNumber != null || targetNumber != null) {
+    if (targetNumber != null) {
+      parts.push(`#${scopeNumber ?? 1}.${targetNumber}`);
+    } else {
+      parts.push(`#${scopeNumber}`);
+    }
   }
+
   if (prefix != null) {
     if (header != null) {
       parts.push(prefix + ":");
@@ -42,12 +47,11 @@ export function serializeHeader({
       parts.push(prefix);
     }
   }
+
   if (header != null) {
     parts.push(header);
   }
-  if (targetIndex != null) {
-    parts.push(targetIndex.toString());
-  }
+
   const suffix = range != null ? ` ${range}` : "";
   return `[${parts.join(" ")}] =${suffix}`;
 }

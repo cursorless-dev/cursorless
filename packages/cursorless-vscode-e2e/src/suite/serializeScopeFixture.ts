@@ -24,14 +24,14 @@ export function serializeScopeFixture(
 function serializeScope(
   codeLines: string[],
   { domain, targets }: ScopeRanges,
-  scopeIndex: number | undefined,
+  scopeNumber: number | undefined,
 ): string {
   if (targets.length === 1) {
     return serializeTarget({
       codeLines,
       target: targets[0],
-      scopeIndex,
-      targetIndex: undefined,
+      scopeNumber,
+      targetNumber: undefined,
       domain,
     });
   }
@@ -42,15 +42,15 @@ function serializeScope(
       serializeTarget({
         codeLines,
         target,
-        scopeIndex,
-        targetIndex: index + 1,
+        scopeNumber,
+        targetNumber: index + 1,
       }),
     ),
     "",
     serializeHeader({
       header: "Domain",
-      scopeIndex,
-      targetIndex: undefined,
+      scopeNumber,
+      targetNumber: undefined,
       range: domain,
     }),
     serializeTargetRange(codeLines, domain),
@@ -60,16 +60,16 @@ function serializeScope(
 interface SerializeTargetArg {
   codeLines: string[];
   target: TargetRanges;
-  scopeIndex: number | undefined;
-  targetIndex: number | undefined;
+  scopeNumber: number | undefined;
+  targetNumber: number | undefined;
   domain?: Range;
 }
 
 function serializeTarget({
   codeLines,
   target,
-  scopeIndex,
-  targetIndex,
+  scopeNumber,
+  targetNumber,
   domain,
 }: SerializeTargetArg): string {
   const lines: string[] = [""];
@@ -88,8 +88,8 @@ function serializeTarget({
     ...headers.map((header, index) =>
       serializeHeader({
         header,
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         range: index === headers.length - 1 ? target.contentRange : undefined,
       }),
     ),
@@ -102,8 +102,8 @@ function serializeTarget({
       "",
       serializeHeader({
         header: "Removal",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         range: target.removalRange,
       }),
       serializeTargetRange(codeLines, target.removalRange),
@@ -116,8 +116,8 @@ function serializeTarget({
         codeLines,
         target: target.leadingDelimiter,
         prefix: "Leading delimiter",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
       }),
     );
   }
@@ -128,8 +128,8 @@ function serializeTarget({
         codeLines,
         target: target.trailingDelimiter,
         prefix: "Trailing delimiter",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
       }),
     );
   }
@@ -141,8 +141,8 @@ function serializeTarget({
           codeLines,
           target: interior,
           prefix: "Interior",
-          scopeIndex,
-          targetIndex,
+          scopeNumber,
+          targetNumber,
         }),
       ),
     );
@@ -155,8 +155,8 @@ function serializeTarget({
           codeLines,
           target: interior,
           prefix: "Boundary",
-          scopeIndex,
-          targetIndex,
+          scopeNumber,
+          targetNumber,
         }),
       ),
     );
@@ -167,8 +167,8 @@ function serializeTarget({
       "",
       serializeHeader({
         header: "Domain",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         range: domain,
       }),
       serializeTargetRange(codeLines, domain),
@@ -176,7 +176,7 @@ function serializeTarget({
   }
 
   lines.push(
-    serializeTargetInsertionDelimiter(target, scopeIndex, targetIndex),
+    serializeTargetInsertionDelimiter(target, scopeNumber, targetNumber),
   );
 
   return lines.join("\n");
@@ -184,13 +184,13 @@ function serializeTarget({
 
 function serializeTargetInsertionDelimiter(
   target: TargetRanges,
-  scopeIndex: number | undefined,
-  targetIndex: number | undefined,
+  scopeNumber: number | undefined,
+  targetNumber: number | undefined,
 ): string {
   const header = serializeHeader({
     header: "Insertion delimiter",
-    scopeIndex,
-    targetIndex,
+    scopeNumber,
+    targetNumber,
   });
 
   return `\n${header} ${JSON.stringify(target.insertionDelimiter)}`;
@@ -200,8 +200,8 @@ interface SerializeTargetCompactArg {
   codeLines: string[];
   target: TargetRanges;
   prefix: string | undefined;
-  scopeIndex: number | undefined;
-  targetIndex: number | undefined;
+  scopeNumber: number | undefined;
+  targetNumber: number | undefined;
 }
 
 /**
@@ -215,8 +215,8 @@ function serializeTargetCompact({
   codeLines,
   target,
   prefix,
-  scopeIndex,
-  targetIndex,
+  scopeNumber,
+  targetNumber,
 }: SerializeTargetCompactArg): string {
   const lines: string[] = [""];
 
@@ -225,8 +225,8 @@ function serializeTargetCompact({
       serializeHeader({
         prefix,
         header: undefined,
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         range: target.contentRange,
       }),
       serializeTargetRange(codeLines, target.contentRange),
@@ -236,16 +236,16 @@ function serializeTargetCompact({
       serializeHeader({
         prefix,
         header: "Content",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         range: target.contentRange,
       }),
       serializeTargetRange(codeLines, target.contentRange),
       serializeHeader({
         prefix,
         header: "Removal",
-        scopeIndex,
-        targetIndex,
+        scopeNumber,
+        targetNumber,
         range: target.removalRange,
       }),
       serializeTargetRange(codeLines, target.removalRange),
