@@ -90,7 +90,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
     .replaceAll("\r\n", "\n");
-  const delimiterIndex = fixture.match(/\r?\n^---$/m)?.index;
+  const delimiterIndex = fixture.match(/^---$/m)?.index;
 
   assert.ok(
     delimiterIndex != null,
