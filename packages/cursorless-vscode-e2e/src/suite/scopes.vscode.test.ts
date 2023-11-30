@@ -12,7 +12,7 @@ import {
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { groupBy } from "lodash";
+import { groupBy, uniq } from "lodash";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import { serializeScopes } from "./serializeScopes";
@@ -26,7 +26,7 @@ suite("Scope test cases", async function () {
   if (!shouldUpdateFixtures()) {
     Object.entries(languages).forEach(([languageId, testPaths]) =>
       test(
-        languageId,
+        `${languageId} facet coverage`,
         asyncSafety(() =>
           testLanguageSupport(
             languageId,
@@ -45,6 +45,12 @@ suite("Scope test cases", async function () {
   );
 });
 
+/**
+ * Ensures that all supported facets for a language are tested, and that all
+ * tested facets are listed as supported in {@link getLanguageScopeSupport}
+ * @param languageId The language to test
+ * @param testedFacets The facets for {@link languageId} that are tested
+ */
 async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   const scopeSupport: Record<string, ScopeSupportFacetLevel | undefined> =
     getLanguageScopeSupport(languageId);
@@ -62,8 +68,10 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (testedFacet) => !supportedFacets.includes(testedFacet),
   );
   if (unsupportedFacets.length > 0) {
-    const values = unsupportedFacets.join(", ");
-    assert.fail(`Missing scope support for tested facets [${values}]`);
+    const values = uniq(unsupportedFacets).join(", ");
+    assert.fail(
+      `${languageId}: Facets [${values}] are tested but not listed in getLanguageScopeSupport`,
+    );
   }
 
   // Assert that all supported facets are tested
@@ -72,7 +80,9 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   );
   if (untestedFacets.length > 0) {
     const values = untestedFacets.join(", ");
-    assert.fail(`Missing test for scope support facets [${values}]`);
+    assert.fail(
+      `${languageId}: Missing test for scope support facets [${values}]`,
+    );
   }
 }
 
