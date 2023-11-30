@@ -5,7 +5,6 @@ import { notSupported } from "../util/nodeMatchers";
 import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
-import { stringTextFragmentExtractor as htmlStringTextFragmentExtractor } from "./html";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
 import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 
@@ -126,10 +125,6 @@ const textFragmentExtractors: Record<
     "css",
     scssStringTextFragmentExtractor,
   ),
-  html: constructDefaultTextFragmentExtractor(
-    "html",
-    htmlStringTextFragmentExtractor,
-  ),
   latex: fullDocumentTextFragmentExtractor,
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
@@ -144,8 +139,4 @@ const textFragmentExtractors: Record<
     scssStringTextFragmentExtractor,
   ),
   rust: constructDefaultTextFragmentExtractor("rust"),
-  xml: constructDefaultTextFragmentExtractor(
-    "xml",
-    htmlStringTextFragmentExtractor,
-  ),
 };
