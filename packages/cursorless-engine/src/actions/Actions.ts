@@ -1,4 +1,4 @@
-import { TreeSitter } from "..";
+import { TreeSitter } from "../typings/TreeSitter";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
