@@ -6,6 +6,24 @@ import {
 } from "./targetUtil/createContinuousRange";
 import { LineTarget, UntypedTarget } from "./targets";
 
+/**
+ * Creates a target consisting of a range between two targets. If the targets
+ * are of the same type, and {@link includeStart} and {@link includeEnd} are
+ * `true`, then the target types can determine what the new target looks like,
+ * ie whether it is a token target, its scope type, its delimiters, etc
+ *
+ * If the targets are not of the same type, or {@link includeStart} and
+ * {@link includeEnd} are `false`, then the target will be a line target if both
+ * targets are line targets, otherwise it will be an untyped target.
+ *
+ * @param isReversed If `true`, active is before anchor
+ * @param startTarget The start of the range
+ * @param endTarget The end of the range
+ * @param includeStart Whether to include the start of the range
+ * @param includeEnd Whether to include the end of the range
+ * @returns A target consisting of a range between {@link startTarget} and
+ * {@link endTarget}
+ */
 export function createContinuousRangeTarget(
   isReversed: boolean,
   startTarget: Target,
