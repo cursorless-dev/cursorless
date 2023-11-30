@@ -253,11 +253,11 @@
 
 ;; internal if in an if-else chain
 (if_statement
-  "else" @branch.start.startOf
+  "else" @branch.start
   alternative: (if_statement
-    consequence: (block) @branch.end.endOf
+    consequence: (block) @branch.end
   )
-  (#insertion-delimiter! @branch.start.startOf " ")
+  (#insertion-delimiter! @branch.start " ")
 )
 
 ;; final else branch in an if-else chain
