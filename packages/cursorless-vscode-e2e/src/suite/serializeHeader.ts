@@ -15,10 +15,10 @@ interface SerializeHeaderArg {
  * serializeHeader({
  *  prefix: "Leading delimiter",
  *  header: "Content",
- *  scopeIndex: 1,
- *  targetIndex: 2,
+ *  scopeNumber: 1,
+ *  targetNumber: 2,
  *  range: new Range(new Position(1, 2), new Position(3, 4)),
- * }) === "[#1 Leading delimiter: Content 2] =1:2-3:4"
+ * }) === "[#1.2 Leading delimiter: Content] = 1:2-3:4"
  * ```
  *
  * @param param A configuration object
