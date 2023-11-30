@@ -56,7 +56,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     getLanguageScopeSupport(languageId);
 
   if (scopeSupport == null) {
-    assert.fail(`Missing scope support for language '${languageId}'`);
+    assert.fail(`Missing scope support entry in getLanguageScopeSupport`);
   }
 
   const supportedFacets = Object.keys(scopeSupport).filter(
@@ -70,7 +70,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   if (unsupportedFacets.length > 0) {
     const values = uniq(unsupportedFacets).join(", ");
     assert.fail(
-      `${languageId}: Facets [${values}] are tested but not listed in getLanguageScopeSupport`,
+      `Facets [${values}] are tested but not listed in getLanguageScopeSupport`,
     );
   }
 
@@ -80,9 +80,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   );
   if (untestedFacets.length > 0) {
     const values = untestedFacets.join(", ");
-    assert.fail(
-      `${languageId}: Missing test for scope support facets [${values}]`,
-    );
+    assert.fail(`Missing test for scope support facets [${values}]`);
   }
 }
 
