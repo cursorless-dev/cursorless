@@ -42,6 +42,9 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   }
 
   maybeCreateRichRangeTarget(): null {
+    // It never makes sense to create a rich range target from an untyped
+    // target. We let {@link createContinuousRangeTarget} handle constructing an
+    // untyped range.
     return null;
   }
 
