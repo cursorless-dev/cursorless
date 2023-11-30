@@ -1,0 +1,23 @@
+languageId: java
+command:
+  version: 1
+  spokenForm: change value
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: value}
+initialState:
+  documentContents: |
+
+    String value = "hello world";
+  selections:
+    - anchor: {line: 1, character: 12}
+      active: {line: 1, character: 12}
+  marks: {}
+finalState:
+  documentContents: |
+
+    String value = ;
+  selections:
+    - anchor: {line: 1, character: 15}
+      active: {line: 1, character: 15}

@@ -13,7 +13,7 @@ initialState:
       active: {line: 0, character: 28}
   marks: {}
 finalState:
-  documentContents: let test = new ()
+  documentContents: let test = ()
   selections:
-    - anchor: {line: 0, character: 15}
-      active: {line: 0, character: 15}
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

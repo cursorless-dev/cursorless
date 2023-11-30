@@ -12,6 +12,7 @@ suite("Basic keyboard test", async function () {
 
   test("Don't take keyboard control on startup", () => checkKeyboardStartup());
   test("Basic keyboard test", () => basic());
+  test("Run vscode command", () => vscodeCommand());
   test("Check that entering and leaving mode is no-op", () =>
     enterAndLeaveIsNoOp());
 });
@@ -54,6 +55,37 @@ async function basic() {
   await typeText("a");
 
   assert.equal(editor.document.getText().trim(), "a");
+}
+
+async function vscodeCommand() {
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+
+  const editor = await openNewEditor("aaa;\nbbb;\nccc;\n", {
+    languageId: "typescript",
+  });
+  await hatTokenMap.allocateHats();
+
+  editor.selection = new vscode.Selection(0, 0, 0, 0);
+
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
+
+  // Target default b
+  await typeText("db");
+
+  // Comment line containing *selection*
+  await typeText("c");
+  assert.equal(editor.document.getText(), "// aaa;\nbbb;\nccc;\n");
+
+  // Comment line containing *target*
+  await typeText("mc");
+  assert.equal(editor.document.getText(), "// aaa;\n// bbb;\nccc;\n");
+
+  // Comment line containing *target*, keeping changed selection and exiting
+  // cursorless mode
+  await typeText("dcmma");
+  assert.equal(editor.document.getText(), "// aaa;\n// bbb;\n// a;\n");
+
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
 }
 
 async function enterAndLeaveIsNoOp() {

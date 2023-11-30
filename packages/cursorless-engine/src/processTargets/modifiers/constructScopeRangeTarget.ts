@@ -1,4 +1,5 @@
 import { Target } from "../../typings/target.types";
+import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
 import { TargetScope } from "./scopeHandlers/scope.types";
 
 /**
@@ -41,6 +42,6 @@ export function constructScopeRangeTarget(
     : [target2, target1];
 
   return [
-    startTarget.createContinuousRangeTarget(isReversed, endTarget, true, true),
+    createContinuousRangeTarget(isReversed, startTarget, endTarget, true, true),
   ];
 }

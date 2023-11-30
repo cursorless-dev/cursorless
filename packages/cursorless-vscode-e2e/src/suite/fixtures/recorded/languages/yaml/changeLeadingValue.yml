@@ -1,0 +1,24 @@
+languageId: yaml
+command:
+  version: 6
+  spokenForm: change leading value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: leading}
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "foo: bar"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: foobar
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
