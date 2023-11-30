@@ -28,14 +28,17 @@ import { Range } from "@cursorless/common";
  * @param range The range to represent
  * @returns A string that annotates {@link range} in {@link codeLines}
  */
-export function serializeTargetRange(codeLines: string[], range: Range): string {
+export function serializeTargetRange(
+  codeLines: string[],
+  range: Range,
+): string {
   const { start, end } = range;
   const lines: string[] = [];
 
   codeLines.forEach((codeLine, lineNumber) => {
     // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
     lines.push(
-      codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`
+      codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
     );
 
     if (lineNumber === start.line) {
