@@ -15,7 +15,7 @@ import { assert } from "chai";
 import { groupBy, uniq } from "lodash";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { serializeScopes } from "./serializeScopes";
+import { serializeScopeFixture } from "./serializeScopeFixture";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
@@ -108,7 +108,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
     scopeType,
   });
 
-  const outputFixture = serializeScopes(code, scopes);
+  const outputFixture = serializeScopeFixture(code, scopes);
 
   if (shouldUpdateFixtures()) {
     await fsp.writeFile(file, outputFixture);

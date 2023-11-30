@@ -1,7 +1,10 @@
 import { Range, ScopeRanges, TargetRanges } from "@cursorless/common";
 
-export function serializeScopes(code: string, scopes: ScopeRanges[]): string {
-  const codeLines = code.split(/\r?\n/g);
+export function serializeScopeFixture(
+  code: string,
+  scopes: ScopeRanges[],
+): string {
+  const codeLines = code.split("\n");
 
   const serializedScopes = scopes
     .map((scope, index) =>
