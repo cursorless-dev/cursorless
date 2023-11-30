@@ -92,12 +92,12 @@ async function runTest(file: string, languageId: string, facetId: string) {
     .replaceAll("\r\n", "\n");
   const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-  assert.ok(
-    delimiterIndex != null,
+  assert.isNotNull(
+    delimiterIndex,
     "Can't find delimiter '---' in scope fixture",
   );
 
-  const code = fixture.slice(0, delimiterIndex);
+  const code = fixture.slice(0, delimiterIndex! - 1);
 
   await openNewEditor(code, { languageId });
 
