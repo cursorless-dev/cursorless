@@ -1,19 +1,19 @@
 import { Range, ScopeRanges, TargetRanges } from "@cursorless/common";
 
 export function serializeScopes(code: string, scopes: ScopeRanges[]): string {
-  const codeLines = code.split("\n");
-  return [
-    ...codeLines,
-    "---",
-    ...scopes.map((scope, index) =>
+  const codeLines = code.split(/\r?\n/g);
+
+  const serializedScopes = scopes
+    .map((scope, index) =>
       serializeScope(
         codeLines,
         scope,
         scopes.length > 1 ? index + 1 : undefined,
       ),
-    ),
-    "",
-  ].join("\n");
+    )
+    .join("\n\n");
+
+  return [...codeLines, "---", serializedScopes, ""].join("\n");
 }
 
 function serializeScope(
