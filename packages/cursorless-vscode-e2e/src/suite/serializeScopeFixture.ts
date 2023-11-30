@@ -92,9 +92,8 @@ function serializeTarget({
         range: index === headers.length - 1 ? target.contentRange : undefined,
       }),
     ),
+    serializeTargetRange(codeLines, target.contentRange),
   );
-
-  lines.push(serializeTargetRange(codeLines, target.contentRange));
 
   // Add separate removal header below content if their ranges are not equal
   if (!target.contentRange.isRangeEqual(target.removalRange)) {
@@ -192,10 +191,8 @@ function serializeTargetInsertionDelimiter(
     scopeIndex,
     targetIndex,
   });
-  const delimiter = target.insertionDelimiter
-    .replaceAll("\r\n", "\\r\\n")
-    .replaceAll("\n", "\\n");
-  return `\n${header} "${delimiter}"`;
+
+  return `\n${header} ${JSON.stringify(target.insertionDelimiter)}`;
 }
 
 interface SerializedTargetBasicsArg {
