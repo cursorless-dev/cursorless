@@ -46,7 +46,7 @@ export function getScopeTestPaths() {
     .map((p) => ({
       path: p,
       name: path.relative(relativeDir, p.substring(0, p.lastIndexOf("."))),
-      languageId: path.dirname(path.relative(directory, p)),
+      languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
       facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1],
     }));
 }
