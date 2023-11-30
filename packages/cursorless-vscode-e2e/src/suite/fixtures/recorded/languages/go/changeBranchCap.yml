@@ -1,0 +1,35 @@
+languageId: go
+command:
+  version: 6
+  spokenForm: change branch cap
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    switch x {
+    case 1:
+    case 2:
+    }
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}
+  marks:
+    default.c:
+      start: {line: 1, character: 0}
+      end: {line: 1, character: 4}
+finalState:
+  documentContents: |-
+    switch x {
+
+    case 2:
+    }
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
