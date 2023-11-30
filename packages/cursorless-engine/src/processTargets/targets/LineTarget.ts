@@ -2,7 +2,7 @@ import { Position, Range, TextEditor } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
 import {tryConstructPlainTarget} from "./PlainTarget";
-import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import { createContinuousLineRange } from "./util/createContinuousRange";
 import {tryConstructTarget} from "../../util/tryConstructTarget";
 
 export class LineTarget extends BaseTarget<CommonTargetParameters> {

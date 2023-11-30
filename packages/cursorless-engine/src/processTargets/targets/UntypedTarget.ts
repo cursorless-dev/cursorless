@@ -5,7 +5,7 @@ import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
