@@ -126,7 +126,10 @@ def update():
         handle_csv(
             "modifier_scope_types.csv",
             pluralize_lists=["scope_type"],
-            extra_allowed_values=["private.fieldAccess"],
+            extra_allowed_values=[
+                "private.fieldAccess",
+                "private.switchStatementSubject",
+            ],
             default_list_name="scope_type",
         ),
         handle_csv(

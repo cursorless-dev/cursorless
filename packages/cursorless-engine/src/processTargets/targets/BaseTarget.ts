@@ -13,12 +13,8 @@ import {
 import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type { Destination, Target } from "../../typings/target.types";
-import { isSameType } from "../../util/typeUtils";
-import {
-  createContinuousRange,
-  createContinuousRangeUntypedTarget,
-} from "../targetUtil/createContinuousRange";
 import { DestinationImpl } from "./DestinationImpl";
+import { createContinuousRange } from "../targetUtil/createContinuousRange";
 
 /** Parameters supported by all target classes */
 export interface MinimumTargetParameters {
@@ -129,34 +125,17 @@ export abstract class BaseTarget<
 
   protected abstract getCloneParameters(): EnforceUndefined<TParameters>;
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      const constructor = Object.getPrototypeOf(this).constructor;
+    endTarget: ThisType<this> & Target,
+  ): (ThisType<this> & Target) | null {
+    const { constructor } = Object.getPrototypeOf(this);
 
-      return new constructor({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return createContinuousRangeUntypedTarget(
+    return new constructor({
+      ...this.getCloneParameters(),
       isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousRange(this, endTarget, true, true),
+    });
   }
 
   isEqual(otherTarget: Target): boolean {

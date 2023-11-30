@@ -13,7 +13,7 @@ initialState:
       active: {line: 0, character: 9}
   marks: {}
 finalState:
-  documentContents: new ().bar();
+  documentContents: ().bar();
   selections:
-    - anchor: {line: 0, character: 4}
-      active: {line: 0, character: 4}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

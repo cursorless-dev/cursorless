@@ -1,12 +1,7 @@
 import { Range } from "@cursorless/common";
 import { BaseTarget, MinimumTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
-import { isSameType } from "../../util/typeUtils";
-import {
-  createContinuousRangeFromRanges,
-  createContinuousRangeUntypedTarget,
-} from "../targetUtil/createContinuousRange";
+import { createContinuousRangeFromRanges } from "../targetUtil/createContinuousRange";
 
 export interface InteriorTargetParameters extends MinimumTargetParameters {
   readonly fullInteriorRange: Range;
@@ -39,33 +34,19 @@ export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
     };
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      const constructor = Object.getPrototypeOf(this).constructor;
-
-      return new constructor({
-        ...this.getCloneParameters(),
-        isReversed,
-        fullInteriorRange: createContinuousRangeFromRanges(
-          this.fullInteriorRange,
-          endTarget.fullInteriorRange,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return createContinuousRangeUntypedTarget(
+    endTarget: InteriorTarget,
+  ): InteriorTarget {
+    return new InteriorTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      fullInteriorRange: createContinuousRangeFromRanges(
+        this.fullInteriorRange,
+        endTarget.fullInteriorRange,
+        true,
+        true,
+      ),
+    });
   }
 }

@@ -1,0 +1,31 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    function foo<A>() {
+        
+    }
+
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: |+
+    function foo<>() {
+        
+    }
+
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

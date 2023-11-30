@@ -26,9 +26,9 @@ finalState:
   documentContents: |-
     if n < 0 {
         print!("{} is negative", n);
-    } else  else {
+    }  else {
         print!("{} is zero", n);
     }
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

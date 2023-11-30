@@ -11,7 +11,7 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "unused-imports", "import"],
+  "plugins": ["@typescript-eslint", "unused-imports", "import", "unicorn"],
   "rules": {
     "import/no-relative-packages": "error",
     "@typescript-eslint/consistent-type-assertions": [
@@ -52,7 +52,8 @@
       "MemberExpression[object.property.name='constructor'][property.name='name']"
     ],
     "no-throw-literal": "warn",
-    "semi": "off"
+    "semi": "off",
+    "unicorn/prefer-module": "error"
   },
   "overrides": [
     {

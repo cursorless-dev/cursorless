@@ -6,10 +6,8 @@ import {
   TextLine,
 } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters, LineTarget } from ".";
-import { Target } from "../../typings/target.types";
 import { expandToFullLine } from "../../util/rangeUtils";
 import { constructLineTarget } from "../../util/tryConstructTarget";
-import { isSameType } from "../../util/typeUtils";
 import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
 
 export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
@@ -73,44 +71,15 @@ export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
       : this.fullLineContentRange;
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      return new ParagraphTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    if (endTarget.isLine) {
-      return new LineTarget({
-        editor: this.editor,
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return super.createContinuousRangeTarget(
+    endTarget: ParagraphTarget,
+  ): ParagraphTarget {
+    return new ParagraphTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousLineRange(this, endTarget, true, true),
+    });
   }
 
   protected getCloneParameters() {

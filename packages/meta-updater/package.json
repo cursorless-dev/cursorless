@@ -7,7 +7,7 @@
     "build": "esbuild ./src/index.ts --conditions=cursorless:bundler --bundle --outfile=dist/index.cjs --format=cjs --platform=node",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
@@ -34,5 +34,6 @@
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
     "esbuild": "^0.17.11"
-  }
+  },
+  "type": "module"
 }
