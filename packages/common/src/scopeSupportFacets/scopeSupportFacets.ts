@@ -12,6 +12,7 @@ const scopeSupportFacets = [
   //   "anonymousFunction",
   //   "anonymousFunction.interior",
   "name.assignment",
+  "key.attribute",
   "value.assignment",
   //   "value.assignment.removal",
   //   "value.return",
@@ -41,6 +42,7 @@ const scopeSupportFacets = [
   //   "class.interior",
   //   "className",
   //   "type",
+  "tags.element",
 ] as const;
 
 const textualScopeSupportFacets = [
@@ -79,11 +81,23 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
     examples: ["const foo = 1"],
   },
+  ["key.attribute"]: {
+    label: "Attributes key",
+    description: "Key(LHS) of an attribute",
+    scopeType: "collectionKey",
+    examples: ['id="root"'],
+  },
   ["value.assignment"]: {
     label: "Assignment value",
     description: "Value(RHS) of an assignment",
     scopeType: "value",
     examples: ["const foo = 1"],
+  },
+  ["tags.element"]: {
+    label: "Tags",
+    description: "Both tags in an xml element",
+    scopeType: "xmlBothTags",
+    examples: ["<div></div>"],
   },
   // list: {
   //   label: "List",
