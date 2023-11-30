@@ -12,10 +12,10 @@ import {
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { groupBy } from "lodash";
+import { groupBy, uniq } from "lodash";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { serializeScopes } from "./serializeScopes";
+import { serializeScopeFixture } from "./serializeScopeFixture";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
@@ -26,7 +26,7 @@ suite("Scope test cases", async function () {
   if (!shouldUpdateFixtures()) {
     Object.entries(languages).forEach(([languageId, testPaths]) =>
       test(
-        languageId,
+        `${languageId} facet coverage`,
         asyncSafety(() =>
           testLanguageSupport(
             languageId,
@@ -45,12 +45,18 @@ suite("Scope test cases", async function () {
   );
 });
 
+/**
+ * Ensures that all supported facets for a language are tested, and that all
+ * tested facets are listed as supported in {@link getLanguageScopeSupport}
+ * @param languageId The language to test
+ * @param testedFacets The facets for {@link languageId} that are tested
+ */
 async function testLanguageSupport(languageId: string, testedFacets: string[]) {
   const scopeSupport: Record<string, ScopeSupportFacetLevel | undefined> =
     getLanguageScopeSupport(languageId);
 
   if (scopeSupport == null) {
-    assert.fail(`Missing scope support for language '${languageId}'`);
+    assert.fail(`Missing scope support entry in getLanguageScopeSupport`);
   }
 
   const supportedFacets = Object.keys(scopeSupport).filter(
@@ -62,8 +68,10 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     (testedFacet) => !supportedFacets.includes(testedFacet),
   );
   if (unsupportedFacets.length > 0) {
-    const values = unsupportedFacets.join(", ");
-    assert.fail(`Missing scope support for tested facets [${values}]`);
+    const values = uniq(unsupportedFacets).join(", ");
+    assert.fail(
+      `Facets [${values}] are tested but not listed in getLanguageScopeSupport`,
+    );
   }
 
   // Assert that all supported facets are tested
@@ -82,14 +90,14 @@ async function runTest(file: string, languageId: string, facetId: string) {
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
     .replaceAll("\r\n", "\n");
-  const delimiterIndex = fixture.match(/\r?\n^---$/m)?.index;
+  const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-  assert.ok(
-    delimiterIndex != null,
+  assert.isNotNull(
+    delimiterIndex,
     "Can't find delimiter '---' in scope fixture",
   );
 
-  const code = fixture.slice(0, delimiterIndex);
+  const code = fixture.slice(0, delimiterIndex! - 1);
 
   await openNewEditor(code, { languageId });
 
@@ -100,7 +108,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
     scopeType,
   });
 
-  const outputFixture = serializeScopes(code, scopes);
+  const outputFixture = serializeScopeFixture(code, scopes);
 
   if (shouldUpdateFixtures()) {
     await fsp.writeFile(file, outputFixture);
