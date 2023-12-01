@@ -352,20 +352,9 @@
   (#not-parent-type? @_.domain expression_statement)
 )
 
-;; Match nodes at field `value` of their parent node, setting leading delimiter
-;; to be the range until the previous named node
-(
-  (_
-    (_)? @value.leading.start.endOf
-    .
-    value: (_) @value @value.leading.end.startOf
-  ) @_.domain
-  (#not-type? @_.domain variable_declarator)
-)
-
 ;;!! const aaa = {bbb};
 ;;!               ^^^
-(shorthand_property_identifier) @value
+(shorthand_property_identifier) @collectionKey @value
 
 ;;!! return 0;
 ;;!         ^
@@ -415,6 +404,263 @@
 ;;!! const aaa = {bbb: 0, ccc: 0};
 ;;!               **************
 (object
-  "{" @value.iteration.start.endOf
-  "}" @value.iteration.end.startOf
+  "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! "string"
+;;!! `string`
+;;!  ^^^^^^^^
+[
+  (string)
+  (template_string)
+] @string
+
+;;!! // comment
+;;!  ^^^^^^^^^^
+(comment) @comment
+
+;;!! /\w+/
+;;!  ^^^^^
+(regex) @regularExpression
+
+[
+  (string_fragment)
+  (comment)
+  (regex_pattern)
+] @textFragment
+
+(
+  (template_string) @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
+
+;;!! { value: 0 }
+;;!  ^^^^^^^^^^^^
+[
+  (object)
+  (object_pattern)
+] @map
+
+;;!! [ 0 ]
+;;!  ^^^^^
+[
+  (array)
+  (array_pattern)
+] @list
+
+;;!! if () {}
+;;!  ^^^^^^^^
+(if_statement) @ifStatement
+
+;;!! switch (value) {}
+;;!          ^^^^^
+;;!  -----------------
+(switch_statement
+  value: (_) @private.switchStatementSubject
+  (#child-range! @private.switchStatementSubject 0 -1 true true)
+) @_.domain
+
+;;!! foo()
+;;!  ^^^^^
+;;!! new Foo()
+;;!  ^^^^^^^^^
+[
+  (call_expression)
+  (new_expression)
+] @functionCall
+
+;;!! foo()
+;;!  ^^^
+;;!  -----
+(call_expression
+  function: (_) @functionCallee
+) @_.domain
+
+;;!! new Foo()
+;;!  ^^^^^^^
+;;!  ---------
+(new_expression
+  (arguments) @functionCallee.end.startOf
+) @functionCallee.start.startOf @_.domain
+
+;;!! class Foo {}
+;;!  ^^^^^^^^^^^^
+(
+  [
+    (class_declaration
+      name: (_) @className
+    )
+    (class
+      name: (_) @className
+    )
+  ] @class @_.domain
+  (#not-parent-type? @class export_statement)
+)
+
+;;!! export class Foo {}
+;;!  ^^^^^^^^^^^^^^^^^^^
+(export_statement
+  [
+    (class_declaration
+      name: (_) @className
+    )
+    (class
+      name: (_) @className
+    )
+  ]
+) @class @_.domain
+
+;;!! true ? 0 : 1;
+;;!  ^^^^
+;;!         ^   ^
+;;! --------------
+(ternary_expression
+  condition: (_) @condition
+  consequence: (_) @branch
+) @condition.domain
+(ternary_expression
+  alternative: (_) @branch
+)
+
+;;!! for (let i = 0; i < 2; ++i) {}
+;;!                  ^^^^^
+;;!  ------------------------------
+(for_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 false true)
+) @_.domain
+
+;;!! while (true) {}
+;;!         ^^^^
+(while_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 true true)
+) @_.domain
+
+;;!! do {} while (true);
+;;!               ^^^^
+(do_statement
+  condition: (_) @condition
+  (#child-range! @condition 0 -1 true true)
+) @_.domain
+
+;;!! case 0: {}
+;;!  ^^^^^^^^^^
+;;!       ^
+(switch_case
+  value: (_) @condition
+) @branch @condition.domain
+
+;;!! switch () {}
+;;!  ^^^^^^^^^^^^
+(switch_statement) @branch.iteration @condition.iteration
+
+;;!! if () {}
+;;!  ^^^^^^^^
+(
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @branch.removal.end.endOf
+    alternative: (_
+      (if_statement) @branch.removal.end.startOf
+    )?
+  ) @branch.start.startOf @branch.removal.start.startOf @condition.domain
+  (#not-parent-type? @condition.domain "else_clause")
+  (#child-range! @condition 0 -1 true true)
+)
+
+;;!! else if () {}
+;;!  ^^^^^^^^^^^^^
+(else_clause
+  (if_statement
+    condition: (_) @condition
+    consequence: (_) @branch.end.endOf @condition.domain.end.endOf
+  )
+  (#child-range! @condition 0 -1 true true)
+) @branch.start.startOf @condition.domain.start.startOf
+
+;;!! else {}
+;;!  ^^^^^^^
+(else_clause
+  (statement_block)
+) @branch
+
+;;!! if () {} else if () {} else {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(
+  (if_statement) @branch.iteration
+  (#not-parent-type? @branch.iteration "else_clause")
+)
+
+;;!! try () {}
+;;!  ^^^^^^^^^
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+)
+
+;;!! catch () {}
+;;!  ^^^^^^^^^^^
+(try_statement
+  handler: (_) @branch
+)
+
+;;!! finally {}
+;;!  ^^^^^^^^^^
+(try_statement
+  finalizer: (_) @branch
+)
+
+;;!! try () {} catch () {} finally {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(try_statement) @branch.iteration
+
+;;!! { value: 0 }
+;;!    ^^^^^
+;;!    xxxxxxx
+;;!! { value: 0 }
+;;!           ^
+;;!         xxx
+;;!    --------
+(pair
+  key: (_) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
+  value: (_) @value @collectionKey.trailing.end.startOf @value.leading.end.startOf
+) @_.domain
+
+;; Statements that are not a child of an export statement
+;; Generated by the following command:
+;; > curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-typescript/4c20b54771e4b390ee058af2930feb2cd55f2bf8/typescript/src/node-types.json \
+;;   | jq '[.[] | select(.type == "statement" or .type == "declaration") | .subtypes[].type]'
+(
+  [
+    (break_statement)
+    (class_declaration)
+    (continue_statement)
+    (debugger_statement)
+    (declaration)
+    (do_statement)
+    (empty_statement)
+    (export_statement)
+    (expression_statement)
+    (for_in_statement)
+    (for_statement)
+    (generator_function_declaration)
+    (if_statement)
+    (import_statement)
+    (labeled_statement)
+    (lexical_declaration)
+    (return_statement)
+    ;; (statement_block), This is disabled since we want the whole statement and not just the block
+    (switch_statement)
+    (throw_statement)
+    (try_statement)
+    (variable_declaration)
+    (while_statement)
+    (with_statement)
+
+    ;; Manually added1
+    (method_definition)
+  ] @statement
+  (#not-parent-type? @statement export_statement)
 )

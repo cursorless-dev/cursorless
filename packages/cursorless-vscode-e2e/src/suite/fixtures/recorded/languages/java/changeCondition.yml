@@ -1,0 +1,43 @@
+languageId: java
+command:
+  version: 6
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    public class MyClass {
+      public void myFunk() {
+        if (true) {
+        }
+        else if (false) {
+        }
+        else {
+        }
+      }
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |
+    public class MyClass {
+      public void myFunk() {
+        if () {
+        }
+        else if (false) {
+        }
+        else {
+        }
+      }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}

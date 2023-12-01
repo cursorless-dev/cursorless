@@ -21,7 +21,7 @@ initialState:
 finalState:
   documentContents: |-
     match 0:
-        case a :
+        case:
             pass
   selections:
     - anchor: {line: 2, character: 8}

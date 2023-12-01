@@ -8,9 +8,6 @@
 ;;!  --------
 (type_assertion
   (type_arguments
-    [
-      (generic_type)
-      (predefined_type)
-    ] @type
+    (_) @type
   ) @_.removal
 ) @_.domain
