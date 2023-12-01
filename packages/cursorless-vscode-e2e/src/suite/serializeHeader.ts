@@ -33,11 +33,14 @@ export function serializeHeader({
 }: SerializeHeaderArg): string {
   const parts: string[] = [];
   if (scopeNumber != null || targetNumber != null) {
-    if (targetNumber != null) {
-      parts.push(`#${scopeNumber ?? 1}.${targetNumber}`);
-    } else {
-      parts.push(`#${scopeNumber}`);
+    const numberParts: string[] = ["#"];
+    if (scopeNumber != null) {
+      numberParts.push(scopeNumber.toString());
     }
+    if (targetNumber != null) {
+      numberParts.push(`.${targetNumber}`);
+    }
+    parts.push(numberParts.join(""));
   }
 
   if (prefix != null) {
