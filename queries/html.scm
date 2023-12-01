@@ -2,14 +2,14 @@
 ;;!   ^^^
 ;;!  -----
 (start_tag
-    (tag_name) @name
+  (tag_name) @name
 ) @_.domain
 
 ;;!! </aaa>
 ;;!    ^^^
 ;;!  ------
 (end_tag
-    (tag_name) @name
+  (tag_name) @name
 ) @_.domain
 
 ;;!! <aaa id="me">
@@ -19,11 +19,11 @@
 ;;!! <aaa id="me">
 ;;!       ^^
 (attribute
-    (attribute_name) @collectionKey @collectionKey.trailing.start.endOf
-    [
-        (quoted_attribute_value)
-        (attribute_value)
-    ] ? @collectionKey.trailing.end.startOf
+  (attribute_name) @collectionKey @collectionKey.trailing.start.endOf
+  [
+    (quoted_attribute_value)
+    (attribute_value)
+  ] ? @collectionKey.trailing.end.startOf
 ) @_.domain
 
 ;;!! <aaa value=2>
@@ -31,17 +31,17 @@
 ;;!! <aaa id="me">
 ;;!          ^^^^
 (attribute
-    (attribute_name) @value.leading.start.endOf
-    [
-        (quoted_attribute_value)
-        (attribute_value)
-    ] @value @value.leading.end.startOf
+  (attribute_name) @value.leading.start.endOf
+  [
+    (quoted_attribute_value)
+    (attribute_value)
+  ] @value @value.leading.end.startOf
 ) @value.domain
 
 ;;!! <aaa id="me">
 ;;!           ^^
 (quoted_attribute_value
-    (attribute_value) @textFragment
+  (attribute_value) @textFragment
 ) @string
 
 ;;!! <aaa>
@@ -66,28 +66,34 @@
 ;;!  ^^^^^^^^^^^^^^^
 ;;!       ^^^^
 (_
-    (start_tag) @xmlElement.interior.start.endOf
-    (end_tag) @xmlElement.interior.end.startOf
+  (start_tag) @xmlElement.interior.start.endOf
+  (end_tag) @xmlElement.interior.end.startOf
 ) @xmlElement
 
 ;;!! <aaa>text</aaa>
 ;;!  ^^^^^    ^^^^^^
 ;;!  ---------------
 (_
-    (start_tag) @xmlStartTag
-    (end_tag) @xmlEndTag
+  (start_tag) @xmlStartTag
+  (end_tag) @xmlEndTag
 ) @_.domain
 
 (_
-    [
-        (start_tag)
-        (end_tag)
-    ] @xmlBothTags
-    (#allow-multiple! @xmlBothTags)
+  [
+    (start_tag)
+    (end_tag)
+  ] @xmlBothTags
+  (#allow-multiple! @xmlBothTags)
 ) @_.domain
 
 (_
-    (start_tag) @xmlElement.iteration.start.endOf @xmlBothTags.iteration.start.endOf
-    (element)
-    (end_tag) @xmlElement.iteration.end.startOf @xmlBothTags.iteration.end.startOf
+  (start_tag) @xmlElement.iteration.start.endOf @xmlBothTags.iteration.start.endOf
+  (element)
+  (end_tag) @xmlElement.iteration.end.startOf @xmlBothTags.iteration.end.startOf
+)
+
+(_
+  (start_tag) @xmlStartTag.iteration.start.endOf @xmlEndTag.iteration.start.endOf
+  (element)
+  (end_tag) @xmlStartTag.iteration.end.startOf @xmlEndTag.iteration.end.startOf
 )
