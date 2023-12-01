@@ -1,10 +1,7 @@
 import { range } from "lodash";
 import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
-import {
-  getSectionKeyMap,
-  getSingularSectionEntry,
-} from "./sectionKeyMapExtractors";
 import { simpleKeyboardActionNames } from "./KeyboardActionType";
+import { KeyboardConfig } from "./KeyboardConfig";
 
 /**
  * Returns a map from token type names to a keymap for that token type. Something like:
@@ -31,30 +28,38 @@ import { simpleKeyboardActionNames } from "./KeyboardActionType";
  * ```
  * @returns A map from token type names to a keymap for that token type.
  */
-export function getTokenTypeKeyMaps(): TokenTypeKeyMapMap {
+export function getTokenTypeKeyMaps(
+  config: KeyboardConfig,
+): TokenTypeKeyMapMap {
   return {
-    simpleScopeTypeType: getSectionKeyMap("scopes", "simpleScopeTypeType"),
-    color: getSectionKeyMap("colors", "color"),
-    shape: getSectionKeyMap("shapes", "shape"),
-    vscodeCommand: getSectionKeyMap("vscodeCommands", "vscodeCommand"),
+    simpleScopeTypeType: config.getSectionKeyMap(
+      "scopes",
+      "simpleScopeTypeType",
+    ),
+    color: config.getSectionKeyMap("colors", "color"),
+    shape: config.getSectionKeyMap("shapes", "shape"),
+    vscodeCommand: config.getSectionKeyMap("vscodeCommands", "vscodeCommand"),
 
     // action config section
-    simpleAction: getSectionKeyMap(
+    simpleAction: config.getSectionKeyMap(
       "actions",
       "simpleAction",
       simpleKeyboardActionNames,
     ),
 
     // misc config section
-    makeRange: getSingularSectionEntry("misc", "makeRange"),
-    combineColorAndShape: getSingularSectionEntry(
+    makeRange: config.getSingularSectionEntry("misc", "makeRange"),
+    combineColorAndShape: config.getSingularSectionEntry(
       "misc",
       "combineColorAndShape",
     ),
-    direction: getSectionKeyMap("misc", "direction", ["forward", "backward"]),
+    direction: config.getSectionKeyMap("misc", "direction", [
+      "forward",
+      "backward",
+    ]),
 
     // modifier config section
-    relative: getSingularSectionEntry("modifier", "relative"),
+    relative: config.getSingularSectionEntry("modifier", "relative"),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

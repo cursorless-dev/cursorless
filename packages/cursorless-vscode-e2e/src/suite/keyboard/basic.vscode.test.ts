@@ -2,9 +2,17 @@ import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../../endToEndTestSetup";
+import sinon from "sinon";
+import path from "path";
+import { getCursorlessRepoRoot } from "@cursorless/common";
+import { readFile } from "node:fs/promises";
 
 suite("Basic keyboard test", async function () {
   endToEndTestSetup(this);
+
+  this.beforeEach(async () => {
+    await injectFakes();
+  });
 
   this.afterEach(async () => {
     await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
@@ -46,7 +54,7 @@ async function basic() {
   await typeText("sf");
 
   // Select target
-  await typeText("t");
+  await typeText("at");
 
   assert.isTrue(editor.selection.isEqual(new vscode.Selection(0, 0, 0, 17)));
 
@@ -73,16 +81,16 @@ async function vscodeCommand() {
   await typeText("db");
 
   // Comment line containing *selection*
-  await typeText("c");
+  await typeText("va");
   assert.equal(editor.document.getText(), "// aaa;\nbbb;\nccc;\n");
 
   // Comment line containing *target*
-  await typeText("mc");
+  await typeText("vb");
   assert.equal(editor.document.getText(), "// aaa;\n// bbb;\nccc;\n");
 
   // Comment line containing *target*, keeping changed selection and exiting
   // cursorless mode
-  await typeText("dcmma");
+  await typeText("dcvca");
   assert.equal(editor.document.getText(), "// aaa;\n// bbb;\n// a;\n");
 
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOff");
@@ -110,4 +118,39 @@ async function typeText(text: string) {
     // get right.
     await sleepWithBackoff(100);
   }
+}
+
+async function injectFakes(): Promise<void> {
+  const { vscodeApi } = (await getCursorlessApi()).testHelpers!;
+
+  const keyboardConfigPath = path.join(
+    getCursorlessRepoRoot(),
+    "packages/cursorless-vscode/src/keyboard/keyboard-config.fixture.json",
+  );
+
+  const keyboardConfig = JSON.parse(await readFile(keyboardConfigPath, "utf8"));
+
+  const getConfigurationValue = sinon.fake((sectionName) => {
+    return keyboardConfig[
+      `cursorless.experimental.keyboard.modal.keybindings.${sectionName}`
+    ];
+  });
+
+  sinon.replace(
+    vscodeApi.workspace,
+    "getConfiguration",
+    sinon.fake((section) => {
+      if (
+        !section?.startsWith(
+          "cursorless.experimental.keyboard.modal.keybindings",
+        )
+      ) {
+        return vscode.workspace.getConfiguration(section);
+      }
+
+      return {
+        get: getConfigurationValue,
+      } as unknown as vscode.WorkspaceConfiguration;
+    }),
+  );
 }

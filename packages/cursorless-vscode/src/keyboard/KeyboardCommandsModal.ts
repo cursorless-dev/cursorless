@@ -10,6 +10,8 @@ import grammar from "./grammar/generated/grammar";
 import { getAcceptableTokenTypes } from "./grammar/getAcceptableTokenTypes";
 import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
+import { VscodeApi } from "@cursorless/vscode-common";
+import { KeyboardConfig } from "./KeyboardConfig";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -31,19 +33,20 @@ export default class KeyboardCommandsModal {
   private sections!: TokenTypeKeyMapMap;
   private keyboardCommandHandler: KeyboardCommandHandler;
   private compiledGrammar = Grammar.fromCompiled(grammar);
+  private keyboardConfig: KeyboardConfig;
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
     private targeted: KeyboardCommandsTargeted,
     private keyboardHandler: KeyboardHandler,
+    private vscodeApi: VscodeApi,
   ) {
     this.modeOn = this.modeOn.bind(this);
     this.modeOff = this.modeOff.bind(this);
     this.handleInput = this.handleInput.bind(this);
 
+    this.keyboardConfig = new KeyboardConfig(vscodeApi);
     this.keyboardCommandHandler = new KeyboardCommandHandler(targeted);
-
-    this.processKeyMap();
   }
 
   init() {
@@ -65,7 +68,7 @@ export default class KeyboardCommandsModal {
   }
 
   private processKeyMap() {
-    this.sections = getTokenTypeKeyMaps();
+    this.sections = getTokenTypeKeyMaps(this.keyboardConfig);
     this.resetParser();
   }
 
@@ -94,6 +97,12 @@ export default class KeyboardCommandsModal {
   modeOn = async () => {
     if (this.isModeOn()) {
       return;
+    }
+
+    if (this.currentLayer == null) {
+      // Construct keymap lazily for ease of mocking and to save performance
+      // when the mode is never used
+      this.processKeyMap();
     }
 
     this.inputDisposable = this.keyboardHandler.pushListener({
