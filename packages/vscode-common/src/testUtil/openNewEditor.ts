@@ -1,4 +1,4 @@
-import { getParseTreeApi } from "..";
+import { getParseTreeApi } from "../getExtensionApi";
 import * as vscode from "vscode";
 
 interface NewEditorOptions {

@@ -14,7 +14,7 @@ import { isEqual } from "lodash";
 import type { EditWithRangeUpdater } from "../../typings/Types";
 import type { Destination, Target } from "../../typings/target.types";
 import { DestinationImpl } from "./DestinationImpl";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
+import { createContinuousRange } from "./util/createContinuousRange";
 
 /** Parameters supported by all target classes */
 export interface MinimumTargetParameters {
