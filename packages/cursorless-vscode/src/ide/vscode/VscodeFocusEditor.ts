@@ -8,11 +8,11 @@ import {
   window,
 } from "vscode";
 import { getCellIndex } from "@cursorless/vscode-common";
-import { getNotebookFromCellDocument } from "./notebook/notebook";
+import { getNotebookFromCellDocumentCurrent } from "./notebook/notebookCurrent";
 import {
   focusNotebookCellLegacy,
-  isVscodeLegacyNotebookVersion,
 } from "./notebook/notebookLegacy";
+import {isVscodeLegacyNotebookVersion} from "./notebook/notebook";
 import type { VscodeIDE } from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
@@ -69,7 +69,7 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
 }
 
 async function focusNotebookCell(editor: VscodeTextEditorImpl) {
-  const desiredNotebookEditor = getNotebookFromCellDocument(
+  const desiredNotebookEditor = getNotebookFromCellDocumentCurrent(
     editor.vscodeEditor.document,
   );
   if (desiredNotebookEditor == null) {

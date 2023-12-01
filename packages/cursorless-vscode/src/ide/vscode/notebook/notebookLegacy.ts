@@ -1,15 +1,10 @@
 import { getCellIndex } from "@cursorless/vscode-common";
 import { range } from "lodash";
-import * as semver from "semver";
-import { commands, NotebookDocument, TextDocument, version } from "vscode";
+import { commands, NotebookDocument, TextDocument } from "vscode";
 import { toVscodeEditor } from "../toVscodeEditor";
 import type { VscodeIDE } from "../VscodeIDE";
 import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { getNotebookFromCellDocument } from "./notebook";
-
-export function isVscodeLegacyNotebookVersion() {
-  return semver.lt(version, "1.68.0");
-}
+import { getNotebookFromCellDocumentCurrent } from "./notebookCurrent";
 
 export async function focusNotebookCellLegacy(
   ide: VscodeIDE,
@@ -23,10 +18,10 @@ export async function focusNotebookCellLegacy(
 
   const vscodeActiveEditor = toVscodeEditor(activeTextEditor);
 
-  const editorNotebook = getNotebookFromCellDocument(
+  const editorNotebook = getNotebookFromCellDocumentCurrent(
     editor.vscodeEditor.document,
   );
-  const activeEditorNotebook = getNotebookFromCellDocument(
+  const activeEditorNotebook = getNotebookFromCellDocumentCurrent(
     vscodeActiveEditor.document,
   );
 

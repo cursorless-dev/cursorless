@@ -1,6 +1,6 @@
 import { Selection } from "@cursorless/common";
 import * as vscode from "vscode";
-import { getNotebookFromCellDocument } from "./notebook/notebook";
+import { getNotebookFromCellDocumentCurrent } from "./notebook/notebookCurrent";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 export async function vscodeEditNewNotebookCellAbove(
@@ -40,5 +40,5 @@ export async function vscodeEditNewNotebookCellBelow(
 }
 
 function isNotebookEditor(editor: VscodeTextEditorImpl) {
-  return getNotebookFromCellDocument(editor.vscodeEditor.document) != null;
+  return getNotebookFromCellDocumentCurrent(editor.vscodeEditor.document) != null;
 }
