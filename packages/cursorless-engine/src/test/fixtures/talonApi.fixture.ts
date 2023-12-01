@@ -96,6 +96,11 @@ const parseTreeAction: ActionDescriptor = {
   name: "private.showParseTree",
   target: decoratedPrimitiveTarget("a"),
 };
+const getTextAction: ActionDescriptor = {
+  name: "getText",
+  options: {},
+  target: decoratedPrimitiveTarget("a"),
+};
 
 /**
  * These test our Talon api using dummy spoken forms defined in
@@ -121,6 +126,7 @@ export const talonApiFixture = [
     wrapWithSnippetByNameAction,
   ),
   spokenFormTest("parse tree air", parseTreeAction),
+  spokenFormTest("test api get text air", getTextAction),
 ];
 
 function decoratedPrimitiveTarget(
