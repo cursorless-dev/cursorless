@@ -66,19 +66,25 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
     }
   }
 
-  async handleInput(text: string = ""): Promise<Param | undefined> {
+  async handleInput(text: string): Promise<Param | undefined> {
+    if (!this.isPrefixOfKey("")) {
+      throw Error("No keys in keymap for current layer");
+    }
+
+    if (!this.isPrefixOfKey(text)) {
+      // If we haven't consumed any input yet, then it means the first
+      // character was a false start so we should cancel the whole thing.
+      const errorMessage = `Invalid key '${text}'`;
+      vscode.window.showErrorMessage(errorMessage);
+      throw new Error(errorMessage);
+    }
+
     let sequence = text;
     let value: Param | undefined = this.mergedKeymap[sequence];
 
     // We handle multi-key sequences by repeatedly awaiting a single keypress
     // until they've pressed something in the map.
     while (value == null) {
-      if (!this.isPrefixOfKey(sequence)) {
-        const errorMessage = `Unknown key sequence "${sequence}"`;
-        vscode.window.showErrorMessage(errorMessage);
-        throw Error(errorMessage);
-      }
-
       const nextKey = await this.keyboardHandler.awaitSingleKeypress({
         cursorStyle: vscode.TextEditorCursorStyle.Underline,
         whenClauseContext: "cursorless.keyboard.targeted.awaitingKeys",
@@ -89,7 +95,14 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
         return undefined;
       }
 
-      sequence += nextKey;
+      const possibleNextSequence = sequence + nextKey;
+      if (!this.isPrefixOfKey(possibleNextSequence)) {
+        const errorMessage = `Invalid key '${nextKey}'`;
+        vscode.window.showErrorMessage(errorMessage);
+        continue;
+      }
+
+      sequence = possibleNextSequence;
       value = this.mergedKeymap[sequence];
     }
 

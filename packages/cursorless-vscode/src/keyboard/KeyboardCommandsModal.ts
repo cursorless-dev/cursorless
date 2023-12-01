@@ -112,7 +112,16 @@ export default class KeyboardCommandsModal {
 
   async handleInput(text: string) {
     try {
-      let currentText: string | undefined = text;
+      /**
+       * The text to feed to the layer. This will be a single character
+       * initially, when we're called by {@link KeyboardHandler}. We pass it to
+       * the layer, which will ask for more characters if necessary to complete
+       * the key sequence for a single parser token.
+       *
+       * If the parser wants more tokens, we set this to "" so that the layer
+       * can ask for characters for the next token from scratch.
+       */
+      let currentText: string = text;
       while (true) {
         const token = await this.currentLayer.handleInput(currentText);
         if (token == null) {
@@ -126,14 +135,14 @@ export default class KeyboardCommandsModal {
           break;
         }
 
-        currentText = undefined;
+        currentText = "";
         this.computeLayer();
       }
 
       if (this.parser.results.length > 1) {
         console.error("Ambiguous parse:");
         console.error(JSON.stringify(this.parser.results, null, 2));
-        throw new Error("Ambiguous parse");
+        throw new Error("Ambiguous parse; see console output");
       }
 
       const nextTokenTypes = getAcceptableTokenTypes(this.parser);
@@ -144,7 +153,7 @@ export default class KeyboardCommandsModal {
           "Ambiguous whether parsing is complete. Possible following tokens:",
         );
         console.error(JSON.stringify(nextTokenTypes, null, 2));
-        throw new Error("Ambiguous parse");
+        throw new Error("Ambiguous parse; see console output");
       }
 
       const [{ type, arg }] = this.parser.results;
