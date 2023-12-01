@@ -121,7 +121,7 @@ export default class KeyboardCommandsModal {
        * If the parser wants more tokens, we set this to "" so that the layer
        * can ask for characters for the next token from scratch.
        */
-      let currentText: string = text;
+      let currentText = text;
       while (true) {
         const token = await this.currentLayer.handleInput(currentText);
         if (token == null) {
