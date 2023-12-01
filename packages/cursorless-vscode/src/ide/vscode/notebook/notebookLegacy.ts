@@ -4,7 +4,7 @@ import { commands, NotebookDocument, TextDocument } from "vscode";
 import { toVscodeEditor } from "../toVscodeEditor";
 import type { VscodeIDE } from "../VscodeIDE";
 import type { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-import { getNotebookFromCellDocumentCurrent } from "./notebookCurrent";
+import { getNotebookFromCellDocument } from "./notebook";
 
 export async function focusNotebookCellLegacy(
   ide: VscodeIDE,
@@ -18,10 +18,10 @@ export async function focusNotebookCellLegacy(
 
   const vscodeActiveEditor = toVscodeEditor(activeTextEditor);
 
-  const editorNotebook = getNotebookFromCellDocumentCurrent(
+  const editorNotebook = getNotebookFromCellDocument(
     editor.vscodeEditor.document,
   );
-  const activeEditorNotebook = getNotebookFromCellDocumentCurrent(
+  const activeEditorNotebook = getNotebookFromCellDocument(
     vscodeActiveEditor.document,
   );
 
