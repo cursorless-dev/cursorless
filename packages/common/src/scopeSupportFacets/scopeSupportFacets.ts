@@ -13,7 +13,11 @@ const scopeSupportFacets = [
   //   "anonymousFunction.interior",
   "name.assignment",
   "key.attribute",
+  "key.mapPair",
+  "key.mapPair.iteration",
   "value.assignment",
+  "value.mapPair",
+  "value.mapPair.iteration",
   //   "value.assignment.removal",
   //   "value.return",
   //   "value.return.removal",
@@ -62,6 +66,7 @@ export interface ScopeSupportFacetInfo {
   label: string;
   description: string;
   scopeType: SimpleScopeTypeType;
+  isIteration?: boolean;
   examples: string[];
 }
 
@@ -87,11 +92,37 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "collectionKey",
     examples: ['id="root"'],
   },
+  ["key.mapPair"]: {
+    label: "Map key",
+    description: "Key(LHS) of a map pair",
+    scopeType: "collectionKey",
+    examples: ["value: 0"],
+  },
+  ["key.mapPair.iteration"]: {
+    label: "Map pair key iteration",
+    description: "Iteration of map pair keys",
+    scopeType: "collectionKey",
+    isIteration: true,
+    examples: ["{ value: 0 }"],
+  },
   ["value.assignment"]: {
     label: "Assignment value",
     description: "Value(RHS) of an assignment",
     scopeType: "value",
     examples: ["const foo = 1"],
+  },
+  ["value.mapPair"]: {
+    label: "Map pair value",
+    description: "Key(RHS) of a map pair",
+    scopeType: "value",
+    examples: ["value: 0"],
+  },
+  ["value.mapPair.iteration"]: {
+    label: "Map pair value iteration",
+    description: "Iteration of map pair values",
+    scopeType: "value",
+    isIteration: true,
+    examples: ["{ value: 0 }"],
   },
   ["tags.element"]: {
     label: "Tags",
@@ -170,9 +201,8 @@ export enum ScopeSupportFacetLevel {
   notApplicable,
 }
 
-export type LanguageScopeSupportFacetMap = Record<
-  ScopeSupportFacet,
-  ScopeSupportFacetLevel
+export type LanguageScopeSupportFacetMap = Partial<
+  Record<ScopeSupportFacet, ScopeSupportFacetLevel>
 >;
 
 export type TextualLanguageScopeSupportFacetMap = Record<

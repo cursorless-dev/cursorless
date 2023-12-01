@@ -15,7 +15,10 @@ import { assert } from "chai";
 import { groupBy, uniq } from "lodash";
 import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
-import { serializeScopeFixture } from "./serializeScopeFixture";
+import {
+  serializeIterationScopeFixture,
+  serializeScopeFixture,
+} from "./serializeScopeFixture";
 
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
@@ -86,7 +89,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
 
 async function runTest(file: string, languageId: string, facetId: string) {
   const { ide, scopeProvider } = (await getCursorlessApi()).testHelpers!;
-  const scopeType = getScopeType(facetId);
+  const { scopeType, isIteration } = getScopeType(facetId);
   const fixture = (await fsp.readFile(file, "utf8"))
     .toString()
     .replaceAll("\r\n", "\n");
@@ -103,12 +106,27 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const editor = ide.activeTextEditor!;
 
-  const scopes = scopeProvider.provideScopeRanges(editor, {
-    visibleOnly: false,
-    scopeType,
-  });
+  const outputFixture = ((): string => {
+    const config = {
+      visibleOnly: false,
+      scopeType,
+    };
 
-  const outputFixture = serializeScopeFixture(code, scopes);
+    if (isIteration) {
+      const iterationScopes = scopeProvider.provideIterationScopeRanges(
+        editor,
+        {
+          ...config,
+          includeNestedTargets: false,
+        },
+      );
+      return serializeIterationScopeFixture(code, iterationScopes);
+    }
+
+    const scopes = scopeProvider.provideScopeRanges(editor, config);
+
+    return serializeScopeFixture(code, scopes);
+  })();
 
   if (shouldUpdateFixtures()) {
     await fsp.writeFile(file, outputFixture);
@@ -117,15 +135,25 @@ async function runTest(file: string, languageId: string, facetId: string) {
   }
 }
 
-function getScopeType(facetId: string): ScopeType {
+function getScopeType(facetId: string): {
+  scopeType: ScopeType;
+  isIteration: boolean;
+} {
   if (facetId in textualScopeSupportFacetInfos) {
-    const { scopeType } =
+    const { scopeType, isIteration } =
       textualScopeSupportFacetInfos[facetId as TextualScopeSupportFacet];
-    return { type: scopeType };
+    return {
+      scopeType: { type: scopeType },
+      isIteration: isIteration ?? false,
+    };
   }
   if (facetId in scopeSupportFacetInfos) {
-    const { scopeType } = scopeSupportFacetInfos[facetId as ScopeSupportFacet];
-    return { type: scopeType };
+    const { scopeType, isIteration } =
+      scopeSupportFacetInfos[facetId as ScopeSupportFacet];
+    return {
+      scopeType: { type: scopeType },
+      isIteration: isIteration ?? false,
+    };
   }
-  throw Error(`Unknown facetId '${facetId}'`);
+  throw Error(`Unknown facet '${facetId}'`);
 }

@@ -1,6 +1,11 @@
-import { Range, ScopeRanges, TargetRanges } from "@cursorless/common";
-import { serializeTargetRange } from "./serializeTargetRange";
+import {
+  IterationScopeRanges,
+  Range,
+  ScopeRanges,
+  TargetRanges,
+} from "@cursorless/common";
 import { serializeHeader } from "./serializeHeader";
+import { serializeTargetRange } from "./serializeTargetRange";
 
 export function serializeScopeFixture(
   code: string,
@@ -8,15 +13,35 @@ export function serializeScopeFixture(
 ): string {
   const codeLines = code.split("\n");
 
-  const serializedScopes = scopes
-    .map((scope, index) =>
-      serializeScope(
-        codeLines,
-        scope,
-        scopes.length > 1 ? index + 1 : undefined,
-      ),
-    )
-    .join("\n\n");
+  const serializedScopes = scopes.map((scope, index) =>
+    serializeScope(codeLines, scope, scopes.length > 1 ? index + 1 : undefined),
+  );
+
+  return serializeScopeFixtureHelper(codeLines, serializedScopes);
+}
+
+export function serializeIterationScopeFixture(
+  code: string,
+  scopes: IterationScopeRanges[],
+): string {
+  const codeLines = code.split("\n");
+
+  const serializedScopes = scopes.map((scope, index) =>
+    serializeIterationScope(
+      codeLines,
+      scope,
+      scopes.length > 1 ? index + 1 : undefined,
+    ),
+  );
+
+  return serializeScopeFixtureHelper(codeLines, serializedScopes);
+}
+
+function serializeScopeFixtureHelper(
+  codeLines: string[],
+  scopes: string[],
+): string {
+  const serializedScopes = scopes.join("\n\n");
 
   return [...codeLines, "---", serializedScopes, ""].join("\n");
 }
@@ -55,6 +80,53 @@ function serializeScope(
     }),
     serializeTargetRange(codeLines, domain),
   ].join("\n");
+}
+
+function serializeIterationScope(
+  codeLines: string[],
+  { domain, ranges }: IterationScopeRanges,
+  scopeNumber: number | undefined,
+): string {
+  const lines: string[] = [""];
+
+  const groupHeaders = !ranges.some(
+    (range) => !domain.isRangeEqual(range.range),
+  );
+
+  ranges.forEach((range, index) => {
+    if (!groupHeaders && index > 0) {
+      lines.push("");
+    }
+
+    lines.push(
+      serializeHeader({
+        header: "Range",
+        scopeNumber,
+        targetNumber: ranges.length > 1 ? index + 1 : undefined,
+        range: groupHeaders ? undefined : range.range,
+      }),
+    );
+
+    if (!groupHeaders) {
+      lines.push(serializeTargetRange(codeLines, range.range));
+    }
+  });
+
+  if (!groupHeaders) {
+    lines.push("");
+  }
+
+  lines.push(
+    serializeHeader({
+      header: "Domain",
+      scopeNumber,
+      targetNumber: undefined,
+      range: domain,
+    }),
+    serializeTargetRange(codeLines, domain),
+  );
+
+  return lines.join("\n");
 }
 
 interface SerializeTargetArg {
