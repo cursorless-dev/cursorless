@@ -1,5 +1,5 @@
-import {tryConstructTarget} from "../../util/tryConstructTarget";
-import {TextEditor, Range} from "@cursorless/common";
+import { tryConstructTarget } from "../../util/tryConstructTarget";
+import { TextEditor, Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 
 interface PlainTargetParameters extends CommonTargetParameters {
@@ -47,8 +47,7 @@ export class PlainTarget extends BaseTarget<PlainTargetParameters> {
 export function tryConstructPlainTarget(
   editor: TextEditor,
   range: Range | undefined,
-  isReversed: boolean
+  isReversed: boolean,
 ): PlainTarget | undefined {
   return tryConstructTarget(PlainTarget, editor, range, isReversed);
 }
-

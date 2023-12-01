@@ -1,14 +1,7 @@
 import { Range } from "@cursorless/common";
-import {
-  BaseTarget,
-  CommonTargetParameters,
-} from "./BaseTarget";
-import {
-  InteriorTarget,
-  } from "./InteriorTarget";
-import {
-  TokenTarget,
-} from "./TokenTarget";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import { InteriorTarget } from "./InteriorTarget";
+import { TokenTarget } from "./TokenTarget";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,

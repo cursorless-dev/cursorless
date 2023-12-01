@@ -1,4 +1,8 @@
-import type { CharacterRange, GeneralizedRange, LineRange } from "../types/GeneralizedRange";
+import type {
+  CharacterRange,
+  GeneralizedRange,
+  LineRange,
+} from "../types/GeneralizedRange";
 import { isLineRange } from "../types/GeneralizedRange";
 import { FlashStyle } from "../ide/types/FlashDescriptor";
 import { Token } from "../types/Token";

@@ -40,5 +40,7 @@ export async function vscodeEditNewNotebookCellBelow(
 }
 
 function isNotebookEditor(editor: VscodeTextEditorImpl) {
-  return getNotebookFromCellDocumentCurrent(editor.vscodeEditor.document) != null;
+  return (
+    getNotebookFromCellDocumentCurrent(editor.vscodeEditor.document) != null
+  );
 }

@@ -1,6 +1,6 @@
 import { Range } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
-import {tryConstructPlainTarget} from "./PlainTarget";
+import { tryConstructPlainTarget } from "./PlainTarget";
 import { createContinuousRange } from "./util/createContinuousRange";
 import { getDelimitedSequenceRemovalRange } from "./util/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 

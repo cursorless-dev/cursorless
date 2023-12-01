@@ -1,7 +1,5 @@
 import { Range, TextEditor } from "@cursorless/common";
-import {
-  CommonTargetParameters,
-} from "../processTargets/targets";
+import { CommonTargetParameters } from "../processTargets/targets";
 import { Target } from "../typings/target.types";
 
 type TargetConstructor<T extends Target> = new (

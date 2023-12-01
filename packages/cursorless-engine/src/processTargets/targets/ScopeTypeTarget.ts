@@ -1,14 +1,7 @@
 import { Range, SimpleScopeTypeType } from "@cursorless/common";
-import {
-  BaseTarget,
-  CommonTargetParameters,
-} from "./BaseTarget";
-import {
-  InteriorTarget,
-} from "./InteriorTarget";
-import {
-  PlainTarget,
-} from "./PlainTarget";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import { InteriorTarget } from "./InteriorTarget";
+import { PlainTarget } from "./PlainTarget";
 import { Target } from "../../typings/target.types";
 import {
   createContinuousRange,
