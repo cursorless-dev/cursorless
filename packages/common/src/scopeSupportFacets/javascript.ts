@@ -8,10 +8,10 @@ const { supported, notApplicable } = ScopeSupportFacetLevel;
 export const javascriptSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   ["name.assignment"]: supported,
-  ["key.mapPair"]: notApplicable,
-  ["key.mapPair.iteration"]: notApplicable,
-  ["value.mapPair"]: notApplicable,
-  ["value.mapPair.iteration"]: notApplicable,
+  ["key.mapPair"]: supported,
+  ["key.mapPair.iteration"]: supported,
+  ["value.mapPair"]: supported,
+  ["value.mapPair.iteration"]: supported,
   ["value.assignment"]: supported,
 
   ["key.attribute"]: notApplicable,
