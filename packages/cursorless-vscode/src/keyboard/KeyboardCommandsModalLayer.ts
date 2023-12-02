@@ -66,7 +66,7 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
     }
   }
 
-  async handleInput(text: string): Promise<Param | undefined> {
+  async handleInput(text: string, { previousKeys }: { previousKeys: string }) {
     if (!this.isPrefixOfKey(text)) {
       if (text === "") {
         throw Error("No keys in keymap for current layer");
@@ -88,7 +88,7 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
       const nextKey = await this.keyboardHandler.awaitSingleKeypress({
         cursorStyle: vscode.TextEditorCursorStyle.Underline,
         whenClauseContext: "cursorless.keyboard.targeted.awaitingKeys",
-        statusBarText: "Finish sequence...",
+        statusBarText: `${previousKeys + sequence}...`,
       });
 
       if (nextKey == null) {
@@ -106,7 +106,7 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
       value = this.mergedKeymap[sequence];
     }
 
-    return value;
+    return { keysPressed: sequence, value };
   }
 
   private isPrefixOfKey(text: string): boolean {

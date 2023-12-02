@@ -131,13 +131,16 @@ export default class KeyboardCommandsModal {
        * can ask for characters for the next token from scratch.
        */
       let currentText = text;
+      let previousKeys = "";
       while (true) {
-        const token = await this.currentLayer.handleInput(currentText);
-        if (token == null) {
+        const layerOutput = await this.currentLayer.handleInput(currentText, {
+          previousKeys,
+        });
+        if (layerOutput == null) {
           throw new KeySequenceCancelledError();
         }
 
-        this.parser.feed([token]);
+        this.parser.feed([layerOutput.value]);
 
         if (this.parser.results.length > 0) {
           // We've found a valid parse
@@ -145,6 +148,7 @@ export default class KeyboardCommandsModal {
         }
 
         currentText = "";
+        previousKeys += layerOutput.keysPressed;
         this.computeLayer();
       }
 
