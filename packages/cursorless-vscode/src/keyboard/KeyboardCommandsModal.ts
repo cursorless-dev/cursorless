@@ -39,7 +39,7 @@ export default class KeyboardCommandsModal {
     private extensionContext: vscode.ExtensionContext,
     private targeted: KeyboardCommandsTargeted,
     private keyboardHandler: KeyboardHandler,
-    private vscodeApi: VscodeApi,
+    vscodeApi: VscodeApi,
   ) {
     this.modeOn = this.modeOn.bind(this);
     this.modeOff = this.modeOff.bind(this);
