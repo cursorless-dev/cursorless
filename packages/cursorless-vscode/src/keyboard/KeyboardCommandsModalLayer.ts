@@ -67,16 +67,16 @@ export class KeyboardCommandsModalLayer<Param extends { type: any }> {
   }
 
   async handleInput(text: string): Promise<Param | undefined> {
-    if (!this.isPrefixOfKey("")) {
-      throw Error("No keys in keymap for current layer");
-    }
-
     if (!this.isPrefixOfKey(text)) {
+      if (text === "") {
+        throw Error("No keys in keymap for current layer");
+      }
+
       // If we haven't consumed any input yet, then it means the first
       // character was a false start so we should cancel the whole thing.
       const errorMessage = `Invalid key '${text}'`;
       vscode.window.showErrorMessage(errorMessage);
-      throw new Error(errorMessage);
+      throw Error(errorMessage);
     }
 
     let sequence = text;
