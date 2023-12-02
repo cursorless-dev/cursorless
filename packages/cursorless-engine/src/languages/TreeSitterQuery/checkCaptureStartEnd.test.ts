@@ -5,7 +5,10 @@ import assert from "assert";
 
 interface TestCase {
   name: string;
-  captures: Omit<QueryCapture, "allowMultiple" | "insertionDelimiter">[];
+  captures: Omit<
+    QueryCapture,
+    "allowMultiple" | "insertionDelimiter" | "insertionPrefix"
+  >[];
   isValid: boolean;
   expectedErrorMessageIds: string[];
 }
@@ -193,6 +196,7 @@ suite("checkCaptureStartEnd", () => {
           ...capture,
           allowMultiple: false,
           insertionDelimiter: undefined,
+          insertionPrefix: undefined,
         })),
         messages,
       );

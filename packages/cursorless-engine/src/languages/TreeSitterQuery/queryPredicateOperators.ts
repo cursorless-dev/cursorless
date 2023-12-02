@@ -214,6 +214,20 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   }
 }
 
+class InsertionPrefix extends QueryPredicateOperator<InsertionPrefix> {
+  name = "insertion-prefix!" as const;
+  schema = z.union([z.tuple([q.node, q.string]), z.tuple([q.node, q.node])]);
+
+  run(nodeInfo: MutableQueryCapture, prefix: string | MutableQueryCapture) {
+    nodeInfo.insertionPrefix =
+      typeof prefix === "string"
+        ? prefix
+        : nodeInfo.document.getText(prefix.range);
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
@@ -224,5 +238,6 @@ export const queryPredicateOperators = [
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
+  new InsertionPrefix(),
   new HasMultipleChildrenOfType(),
 ];

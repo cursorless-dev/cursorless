@@ -81,6 +81,7 @@ export class TreeSitterQuery {
             document,
             range: getNodeRange(node),
             insertionDelimiter: undefined,
+            insertionPrefix: undefined,
             allowMultiple: false,
           })),
         }),
@@ -117,6 +118,9 @@ export class TreeSitterQuery {
             insertionDelimiter: captures.find(
               (capture) => capture.insertionDelimiter != null,
             )?.insertionDelimiter,
+            insertionPrefix: captures.find(
+              (capture) => capture.insertionPrefix != null,
+            )?.insertionPrefix,
           };
         });
 

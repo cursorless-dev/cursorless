@@ -16,15 +16,22 @@
 ) @map
 
 ;;!! - 0
-;;!  ^^^
+;;!    ^
+;;!  ---
 (
   (block_sequence
     (block_sequence_item)? @collectionItem.leading.start.endOf
     .
-    (block_sequence_item) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
+    (block_sequence_item
+      (_) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
+    ) @collectionItem.domain
     .
-    (block_sequence_item)? @collectionItem.trailing.end.startOf
+    (block_sequence_item
+      (_) @collectionItem.trailing.end.startOf
+    )?
     (#trim-end! @collectionItem)
+    (#insertion-delimiter! @collectionItem "\n")
+    (#insertion-prefix! @collectionItem "- ")
   ) @list
   (#trim-end! @list)
 )

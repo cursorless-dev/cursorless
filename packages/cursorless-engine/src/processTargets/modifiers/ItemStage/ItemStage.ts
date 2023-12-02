@@ -109,7 +109,7 @@ export class ItemStage implements ModifierStage {
     itemInfo: ItemInfo,
     removalRange?: Range,
   ) {
-    const delimiter = getInsertionDelimiter(
+    const insertionDelimiter = getInsertionDelimiter(
       target.editor,
       itemInfo.leadingDelimiterRange,
       itemInfo.trailingDelimiterRange,
@@ -120,7 +120,7 @@ export class ItemStage implements ModifierStage {
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: itemInfo.contentRange,
-      delimiter,
+      insertionDelimiter,
       leadingDelimiterRange: itemInfo.leadingDelimiterRange,
       trailingDelimiterRange: itemInfo.trailingDelimiterRange,
       removalRange,

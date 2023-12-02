@@ -16,7 +16,8 @@ import {
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
-  readonly delimiter?: string;
+  readonly insertionDelimiter?: string;
+  readonly insertionPrefix?: string;
   readonly removalRange?: Range;
   readonly interiorRange?: Range;
   readonly leadingDelimiterRange?: Range;
@@ -32,6 +33,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
   insertionDelimiter: string;
+  insertionPrefix?: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
@@ -41,7 +43,9 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
     this.insertionDelimiter =
-      parameters.delimiter ?? getDelimiter(parameters.scopeTypeType);
+      parameters.insertionDelimiter ??
+      getInsertionDelimiter(parameters.scopeTypeType);
+    this.insertionPrefix = parameters.insertionPrefix;
     this.hasDelimiterRange_ =
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
   }
@@ -126,7 +130,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   protected getCloneParameters() {
     return {
       ...this.state,
-      delimiter: this.insertionDelimiter,
+      insertionDelimiter: this.insertionDelimiter,
+      insertionPrefix: this.insertionPrefix,
       removalRange: undefined,
       interiorRange: undefined,
       scopeTypeType: this.scopeTypeType_,
@@ -137,7 +142,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   }
 }
 
-function getDelimiter(scopeType: SimpleScopeTypeType): string {
+function getInsertionDelimiter(scopeType: SimpleScopeTypeType): string {
   switch (scopeType) {
     case "class":
     case "namedFunction":

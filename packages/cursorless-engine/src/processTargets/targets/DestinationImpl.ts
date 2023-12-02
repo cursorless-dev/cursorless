@@ -4,6 +4,7 @@ import {
   Selection,
   TextEditor,
 } from "@cursorless/common";
+import { escapeRegExp } from "lodash";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import {
   Destination,
@@ -44,6 +45,10 @@ export class DestinationImpl implements Destination {
     return this.target.insertionDelimiter;
   }
 
+  private get insertionPrefix(): string | undefined {
+    return this.target.insertionPrefix;
+  }
+
   get isRaw(): boolean {
     return this.target.isRaw;
   }
@@ -65,9 +70,10 @@ export class DestinationImpl implements Destination {
 
   getEditNewActionType(): EditNewActionType {
     if (
-      this.insertionDelimiter === "\n" &&
       this.insertionMode === "after" &&
-      this.target.contentRange.isSingleLine
+      this.target.contentRange.isSingleLine &&
+      this.insertionDelimiter === "\n" &&
+      this.insertionPrefix == null
     ) {
       // If the target that we're wrapping is not a single line, then we
       // want to compute indentation based on the entire target.  Otherwise,
@@ -116,12 +122,37 @@ export class DestinationImpl implements Destination {
 
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(contentPosition);
-        const nonWhitespaceCharacterIndex = this.isBefore
-          ? line.firstNonWhitespaceCharacterIndex
-          : line.lastNonWhitespaceCharacterIndex;
+
+        const useFullLineRange = (() => {
+          if (this.isBefore) {
+            // With an insertion prefix the position we want to insert before is extended to the left
+            if (this.insertionPrefix != null) {
+              // The leading text on the same line before the content range
+              const text = line.text.slice(
+                line.firstNonWhitespaceCharacterIndex,
+                contentPosition.character,
+              );
+
+              // The leading text on the line is the prefix with optional whitespace
+              const pattern = new RegExp(
+                `^${escapeRegExp(this.insertionPrefix)}\\s*$`,
+              );
+              return pattern.test(text);
+            }
+
+            return (
+              contentPosition.character ===
+              line.firstNonWhitespaceCharacterIndex
+            );
+          }
+
+          return (
+            contentPosition.character === line.lastNonWhitespaceCharacterIndex
+          );
+        })();
 
         // Use the full line to include indentation
-        if (contentPosition.character === nonWhitespaceCharacterIndex) {
+        if (useFullLineRange) {
           return this.isBefore ? line.range.start : line.range.end;
         }
       }
@@ -133,7 +164,8 @@ export class DestinationImpl implements Destination {
   }
 
   private getEditText(text: string) {
-    const insertionText = this.indentationString + text;
+    const insertionText =
+      this.indentationString + (this.insertionPrefix ?? "") + text;
 
     return this.isBefore
       ? insertionText + this.insertionDelimiter
@@ -141,12 +173,14 @@ export class DestinationImpl implements Destination {
   }
 
   private updateRange(range: Range, text: string) {
-    const baseStartOffset = this.editor.document.offsetAt(range.start);
+    const baseStartOffset =
+      this.editor.document.offsetAt(range.start) +
+      this.indentationString.length +
+      (this.insertionPrefix?.length ?? 0);
+
     const startIndex = this.isBefore
-      ? baseStartOffset + this.indentationString.length
-      : baseStartOffset +
-        this.getLengthOfInsertionDelimiter() +
-        this.indentationString.length;
+      ? baseStartOffset
+      : baseStartOffset + this.getLengthOfInsertionDelimiter();
 
     const endIndex = startIndex + text.length;
 
