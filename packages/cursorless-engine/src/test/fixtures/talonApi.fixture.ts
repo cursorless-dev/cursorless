@@ -98,7 +98,18 @@ const parseTreeAction: ActionDescriptor = {
 };
 const getTextAction: ActionDescriptor = {
   name: "getText",
-  options: {},
+  options: {
+    showDecorations: true,
+    ensureSingleTarget: true,
+  },
+  target: decoratedPrimitiveTarget("a"),
+};
+const getTextListAction: ActionDescriptor = {
+  name: "getText",
+  options: {
+    showDecorations: true,
+    ensureSingleTarget: false,
+  },
   target: decoratedPrimitiveTarget("a"),
 };
 
@@ -127,6 +138,7 @@ export const talonApiFixture = [
   ),
   spokenFormTest("parse tree air", parseTreeAction),
   spokenFormTest("test api get text air", getTextAction),
+  spokenFormTest("test api get text list air", getTextListAction),
 ];
 
 function decoratedPrimitiveTarget(

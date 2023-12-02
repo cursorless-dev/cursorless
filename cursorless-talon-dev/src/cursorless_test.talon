@@ -9,6 +9,8 @@ test api command bring <user.cursorless_target>:
     user.cursorless_command("replaceWithTarget", cursorless_target)
 test api get text <user.cursorless_target>:
     user.cursorless_get_text(cursorless_target)
+test api get text list <user.cursorless_target>:
+    user.cursorless_get_text_list(cursorless_target)
 
 test api insert <user.word> <user.cursorless_destination>:
     user.cursorless_insert(cursorless_destination, word)

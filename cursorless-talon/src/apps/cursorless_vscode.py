@@ -15,8 +15,7 @@ ctx.tags = ["user.cursorless"]
 class Actions:
     def private_cursorless_find(target: CursorlessTarget):
         """Find text of target in editor"""
-        texts = actions.user.cursorless_get_text(target, ensure_single_target=True)
-        search_text = texts[0]
+        search_text = actions.user.cursorless_get_text(target)
         if len(search_text) > 200:
             search_text = search_text[:200]
             app.notify("Search text is longer than 200 characters; truncating")
