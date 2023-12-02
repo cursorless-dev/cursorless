@@ -43,19 +43,21 @@ export class KeyboardCommandHandler {
   }: {
     command: ModalVscodeCommandDescriptor;
   }) {
+    // plain ol' string command id
+    if (isString(commandInfo)) {
+      await vscode.commands.executeCommand(commandInfo);
+      return;
+    }
+
+    // structured command
     const {
       commandId,
       args,
       executeAtTarget,
       keepChangedSelection,
       exitCursorlessMode,
-    } =
-      typeof commandInfo === "string" || commandInfo instanceof String
-        ? ({ commandId: commandInfo } as Exclude<
-            ModalVscodeCommandDescriptor,
-            string
-          >)
-        : commandInfo;
+    } = commandInfo;
+
     if (executeAtTarget) {
       await this.targeted.performVscodeCommandOnTarget(commandId, {
         args,
@@ -64,6 +66,7 @@ export class KeyboardCommandHandler {
       });
       return;
     }
+
     await vscode.commands.executeCommand(commandId, ...(args ?? []));
   }
 
@@ -109,4 +112,8 @@ interface TargetRelativeExclusiveScopeArg {
 interface Offset {
   direction: "forward" | "backward" | null;
   number: number | null;
+}
+
+function isString(input: any): input is string {
+  return typeof input === "string" || input instanceof String;
 }
