@@ -33,9 +33,9 @@ export function serializeHeader({
 }: SerializeHeaderArg): string {
   const parts: string[] = [];
   if (scopeNumber != null || targetNumber != null) {
-    const numberParts: string[] = ["#"];
+    const numberParts: string[] = [];
     if (scopeNumber != null) {
-      numberParts.push(scopeNumber.toString());
+      numberParts.push(`#${scopeNumber}`);
     }
     if (targetNumber != null) {
       numberParts.push(`.${targetNumber}`);
