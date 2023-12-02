@@ -80,7 +80,7 @@ export class TreeSitterQuery {
             node,
             document,
             range: getNodeRange(node),
-            insertionDelimiter: undefined,
+            insertionDelimiters: undefined,
             allowMultiple: false,
           })),
         }),
@@ -114,9 +114,9 @@ export class TreeSitterQuery {
               .map(({ range }) => range)
               .reduce((accumulator, range) => range.union(accumulator)),
             allowMultiple: captures.some((capture) => capture.allowMultiple),
-            insertionDelimiter: captures.find(
-              (capture) => capture.insertionDelimiter != null,
-            )?.insertionDelimiter,
+            insertionDelimiters: captures.find(
+              (capture) => capture.insertionDelimiters != null,
+            )?.insertionDelimiters,
           };
         });
 

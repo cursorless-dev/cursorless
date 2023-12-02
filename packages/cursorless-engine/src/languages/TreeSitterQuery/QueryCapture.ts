@@ -37,7 +37,7 @@ export interface QueryCapture {
   readonly allowMultiple: boolean;
 
   /** The insertion delimiter to use if any */
-  readonly insertionDelimiter: string | undefined;
+  readonly insertionDelimiters: string[] | undefined;
 }
 
 /**
@@ -63,7 +63,7 @@ export interface MutableQueryCapture extends QueryCapture {
   readonly document: TextDocument;
   range: Range;
   allowMultiple: boolean;
-  insertionDelimiter: string | undefined;
+  insertionDelimiters: string[] | undefined;
 }
 
 /**

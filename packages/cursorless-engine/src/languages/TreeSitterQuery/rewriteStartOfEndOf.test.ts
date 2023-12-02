@@ -54,7 +54,7 @@ function fillOutCapture(capture: NameRange): MutableQueryCapture {
   return {
     ...capture,
     allowMultiple: false,
-    insertionDelimiter: undefined,
+    insertionDelimiters: undefined,
     document: null as unknown as TextDocument,
     node: null as unknown as SyntaxNode,
   };

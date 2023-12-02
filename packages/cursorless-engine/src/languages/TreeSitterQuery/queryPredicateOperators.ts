@@ -205,10 +205,14 @@ class Log extends QueryPredicateOperator<Log> {
  */
 class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   name = "insertion-delimiter!" as const;
-  schema = z.tuple([q.node, q.string]);
+  schema = z.union([
+    z.tuple([q.node, q.string]),
+    z.tuple([q.node, q.string, q.string]),
+    z.tuple([q.node, q.string, q.string, q.string]),
+  ]);
 
-  run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
-    nodeInfo.insertionDelimiter = insertionDelimiter;
+  run(nodeInfo: MutableQueryCapture, ...insertionDelimiters: string[]) {
+    nodeInfo.insertionDelimiters = insertionDelimiters;
 
     return true;
   }

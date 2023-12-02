@@ -48,7 +48,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       return undefined;
     }
 
-    const { range: contentRange, allowMultiple, insertionDelimiter } = capture;
+    const { range: contentRange, allowMultiple, insertionDelimiters } = capture;
 
     const domain =
       getRelatedRange(match, scopeTypeType, "domain", true) ?? contentRange;
@@ -70,6 +70,8 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     );
 
+    const delimiter = getInsertionDelimiter(editor, match, insertionDelimiters);
+
     return {
       editor,
       domain,
@@ -84,11 +86,37 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           leadingDelimiterRange,
           trailingDelimiterRange,
           interiorRange,
-          delimiter: insertionDelimiter,
+          delimiter,
         }),
       ],
     };
   }
+}
+
+function getInsertionDelimiter(
+  editor: TextEditor,
+  match: QueryMatch,
+  insertionDelimiters?: string[],
+): string | undefined {
+  if (insertionDelimiters == null) {
+    return undefined;
+  }
+
+  for (const delimiter of insertionDelimiters) {
+    if (!delimiter.startsWith("@")) {
+      return delimiter;
+    }
+
+    const capture = findCaptureByName(match, delimiter.slice(1));
+    if (capture != null) {
+      const { range } = capture;
+      if (!range.isEmpty) {
+        return editor.document.getText(range);
+      }
+    }
+  }
+
+  return undefined;
 }
 
 function dropEmptyRange(range?: Range) {
