@@ -436,6 +436,9 @@ importers:
       tinycolor2:
         specifier: 1.6.0
         version: 1.6.0
+      trie-search:
+        specifier: 2.0.0
+        version: 2.0.0
       uuid:
         specifier: ^9.0.0
         version: 9.0.0
@@ -9213,6 +9216,12 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: true
 
+  /hasharray@1.1.2:
+    resolution: {integrity: sha512-7w3idwaVXX9gL9LiTCBSNKRGTBcp2WI/kf13UYeZ9+trOGBHVYHei6qtMY6DVnwGOouVUSRg0+L2xf4Q2/CmzA==}
+    dependencies:
+      jclass: 1.2.1
+    dev: false
+
   /hasown@2.0.0:
     resolution: {integrity: sha512-vUptKVTpIJhcczKBbgnS+RtcuYMB8+oNzPK2/Hp3hanz8JmpATdmmgLgSaadVREkDm+e2giHwY3ZRkyjSIDDFA==}
     engines: {node: '>= 0.4'}
@@ -10236,6 +10245,11 @@ packages:
       chalk: 4.1.2
       filelist: 1.0.4
       minimatch: 3.1.2
+
+  /jclass@1.2.1:
+    resolution: {integrity: sha512-mRx8uv1qJLOtxbRf3IWOQIH2ro7VIPn6ZkhbTcUJvJEslLzYA7BSATXDi/GR1yKYV9DASsjTZL+0YJPdqSMznw==}
+    engines: {node: '>= 0.6'}
+    dev: false
 
   /jest-changed-files@29.7.0:
     resolution: {integrity: sha512-fEArFiwf1BpQ+4bXSprcDc3/x4HSzL4al2tozwVpDFpsxALjLYdyiIK4e5Vz66GQJIbXJ82+35PtysofptNX2w==}
@@ -15728,6 +15742,12 @@ packages:
 
   /treeverse@1.0.4:
     resolution: {integrity: sha512-whw60l7r+8ZU8Tu/Uc2yxtc4ZTZbR/PF3u1IPNKGQ6p8EICLb3Z2lAgoqw9bqYd8IkgnsaOcLzYHFckjqNsf0g==}
+
+  /trie-search@2.0.0:
+    resolution: {integrity: sha512-AJMlAQ/6E5+K45SAOqzeqr0qXWqSREclp3mAWss0PvB9ifBL+QXn2LeZBgUBUifjj5ZtTpo4uKplqUnt9VZcdQ==}
+    dependencies:
+      hasharray: 1.1.2
+    dev: false
 
   /trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}

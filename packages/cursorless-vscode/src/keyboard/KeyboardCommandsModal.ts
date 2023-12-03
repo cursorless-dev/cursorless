@@ -1,4 +1,4 @@
-import { pick } from "lodash";
+import { pick, toPairs } from "lodash";
 import { Grammar, Parser } from "nearley";
 import * as vscode from "vscode";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
@@ -82,15 +82,16 @@ export default class KeyboardCommandsModal {
    * only the keys that are currently valid.
    */
   private computeLayer() {
-    const acceptableTokenTypes = getAcceptableTokenTypes(this.parser);
+    const acceptableTokenTypeInfos = getAcceptableTokenTypes(this.parser);
     // FIXME: Here's where we'd update sidebar
-    const sections = pick(
-      this.sections,
-      acceptableTokenTypes.map(({ type }) => type),
+    const acceptableTokenTypes = acceptableTokenTypeInfos.map(
+      ({ type }) => type,
     );
     this.currentLayer = new KeyboardCommandsModalLayer(
       this.keyboardHandler,
-      Object.values(sections),
+      Object.values(pick(this.sections, acceptableTokenTypes)).flatMap(
+        toPairs<KeyDescriptor>,
+      ),
     );
   }
 
