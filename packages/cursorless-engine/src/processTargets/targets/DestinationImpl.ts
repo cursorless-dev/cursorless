@@ -153,10 +153,8 @@ export class DestinationImpl implements Destination {
           new RegExp(`${escapeRegExp(this.insertionPrefix)}\\s*$`),
         );
         if (prefixIndex !== -1) {
-          return start.with(
-            undefined,
-            start.character - (leadingText.length - prefixIndex),
-          );
+          const delta = leadingText.length - prefixIndex;
+          return start.with(undefined, start.character - delta);
         }
       }
 
