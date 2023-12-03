@@ -195,8 +195,9 @@ export class DestinationImpl implements Destination {
     // `\r\n` and therefore the length is doubled.
     if (this.editor.document.eol === "CRLF") {
       const matches = this.insertionDelimiter.match(/\n/g);
-      const nlCount = matches?.length ?? 0;
-      return this.insertionDelimiter.length + nlCount;
+      if (matches != null) {
+        return this.insertionDelimiter.length + matches.length;
+      }
     }
     return this.insertionDelimiter.length;
   }
