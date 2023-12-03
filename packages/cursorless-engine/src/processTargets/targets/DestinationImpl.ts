@@ -1,5 +1,6 @@
 import {
   InsertionMode,
+  Position,
   Range,
   Selection,
   TextEditor,
@@ -116,43 +117,16 @@ export class DestinationImpl implements Destination {
 
   private getEditRange() {
     const position = (() => {
-      const contentPosition = this.isBefore
-        ? this.contentRange.start
-        : this.contentRange.end;
+      const contentPosition = this.getContentPosition();
 
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(contentPosition);
 
-        const useFullLineRange = (() => {
-          if (this.isBefore) {
-            // With an insertion prefix the position we want to insert before is extended to the left
-            if (this.insertionPrefix != null) {
-              // The leading text on the same line before the content range
-              const text = line.text.slice(
-                line.firstNonWhitespaceCharacterIndex,
-                contentPosition.character,
-              );
-
-              // The leading text on the line is the prefix with optional whitespace
-              const pattern = new RegExp(
-                `^${escapeRegExp(this.insertionPrefix)}\\s*$`,
-              );
-              return pattern.test(text);
-            }
-
-            return (
-              contentPosition.character ===
-              line.firstNonWhitespaceCharacterIndex
-            );
-          }
-
-          return (
-            contentPosition.character === line.lastNonWhitespaceCharacterIndex
-          );
-        })();
-
-        // Use the full line to include indentation
-        if (useFullLineRange) {
+        // Use the full line with included indentation and trailing whitespaces
+        if (
+          contentPosition.character === line.firstNonWhitespaceCharacterIndex ||
+          contentPosition.character === line.lastNonWhitespaceCharacterIndex
+        ) {
           return this.isBefore ? line.range.start : line.range.end;
         }
       }
@@ -161,6 +135,35 @@ export class DestinationImpl implements Destination {
     })();
 
     return new Range(position, position);
+  }
+
+  private getContentPosition(): Position {
+    if (this.isBefore) {
+      const { start } = this.contentRange;
+
+      // With an insertion prefix the position we want to edit/insert before is extended to the left
+      if (this.insertionPrefix != null) {
+        // The leading text on the same line before the content range
+        const leadingText = this.editor.document
+          .lineAt(start)
+          .text.slice(0, start.character);
+
+        // Try to find the prefix (with optional trailing whitespace) just before the content range
+        const prefixIndex = leadingText.search(
+          new RegExp(`${escapeRegExp(this.insertionPrefix)}\\s*$`),
+        );
+        if (prefixIndex !== -1) {
+          return start.with(
+            undefined,
+            start.character - (leadingText.length - prefixIndex),
+          );
+        }
+      }
+
+      return start;
+    }
+
+    return this.contentRange.end;
   }
 
   private getEditText(text: string) {
