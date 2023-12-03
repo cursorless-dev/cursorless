@@ -214,6 +214,11 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of the match based on a condition. For
+ * example, `(#conditional-insertion-delimiter! @foo @bar ", " ",\n")` will set the insertion delimiter
+ * of the `@foo` capture to `", "` if the `@bar` capture is a single line and `",\n"` otherwise.
+ */
 class ConditionalInsertionDelimiter extends QueryPredicateOperator<ConditionalInsertionDelimiter> {
   name = "conditional-insertion-delimiter!" as const;
   schema = z.tuple([q.node, q.node, q.string, q.string]);
@@ -232,6 +237,11 @@ class ConditionalInsertionDelimiter extends QueryPredicateOperator<ConditionalIn
   }
 }
 
+/**
+ * A predicate operator that sets the insertion prefix of the match. For
+ * example, `(#insertion-prefix! @foo "* ")` will set the insertion prefix
+ * of the `@foo` capture to `"* "`.
+ */
 class InsertionPrefix extends QueryPredicateOperator<InsertionPrefix> {
   name = "insertion-prefix!" as const;
   schema = z.union([z.tuple([q.node, q.string]), z.tuple([q.node, q.node])]);
