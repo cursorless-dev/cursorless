@@ -121,12 +121,12 @@ export class DestinationImpl implements Destination {
 
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(contentPosition);
+        const nonWhitespaceCharacterIndex = this.isBefore
+          ? line.firstNonWhitespaceCharacterIndex
+          : line.lastNonWhitespaceCharacterIndex;
 
         // Use the full line with included indentation and trailing whitespaces
-        if (
-          contentPosition.character === line.firstNonWhitespaceCharacterIndex ||
-          contentPosition.character === line.lastNonWhitespaceCharacterIndex
-        ) {
+        if (contentPosition.character === nonWhitespaceCharacterIndex) {
           return this.isBefore ? line.range.start : line.range.end;
         }
       }
