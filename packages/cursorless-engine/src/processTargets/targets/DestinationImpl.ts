@@ -26,8 +26,7 @@ export class DestinationImpl implements Destination {
   ) {
     this.contentRange = getContentRange(target.contentRange, insertionMode);
     this.isBefore = insertionMode === "before";
-    // It's only considered a line if the delimiter is only new line symbols
-    this.isLineDelimiter = /^(\n)+$/.test(target.insertionDelimiter);
+    this.isLineDelimiter = target.insertionDelimiter.includes("\n");
     this.indentationString =
       indentationString ?? this.isLineDelimiter
         ? getIndentationString(target.editor, target.contentRange)
@@ -197,7 +196,7 @@ export class DestinationImpl implements Destination {
     if (this.editor.document.eol === "CRLF") {
       // This function is only called when inserting after a range. Therefore we
       // only care about leading new lines in the insertion delimiter.
-      const match = this.insertionDelimiter.match(/^\n+/);
+      const match = this.insertionDelimiter.match(/\n+/);
       const nlCount = match?.[0].length ?? 0;
       return this.insertionDelimiter.length + nlCount;
     }

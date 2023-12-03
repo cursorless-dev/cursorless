@@ -664,3 +664,30 @@
   ] @statement
   (#not-parent-type? @statement export_statement)
 )
+
+(
+  (formal_parameters
+    (_)? @_.leading.start.endOf
+    .
+    (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+    .
+    (_)? @_.trailing.end.startOf
+  ) @dummy
+  (#conditional-insertion-delimiter! @argumentOrParameter @dummy ", " ",\n")
+)
+
+(
+  (arguments
+    (_)? @_.leading.start.endOf
+    .
+    (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+    .
+    (_)? @_.trailing.end.startOf
+  ) @dummy
+  (#conditional-insertion-delimiter! @argumentOrParameter @dummy ", " ",\n")
+)
+
+[
+  (formal_parameters)
+  (arguments)
+] @argumentOrParameter.iteration

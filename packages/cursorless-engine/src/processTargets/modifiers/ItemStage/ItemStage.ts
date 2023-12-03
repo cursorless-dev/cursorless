@@ -8,7 +8,6 @@ import {
 } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
-import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
@@ -110,10 +109,8 @@ export class ItemStage implements ModifierStage {
     removalRange?: Range,
   ) {
     const insertionDelimiter = getInsertionDelimiter(
-      target.editor,
       itemInfo.leadingDelimiterRange,
       itemInfo.trailingDelimiterRange,
-      ", ",
     );
     return new ScopeTypeTarget({
       scopeTypeType: this.modifier.scopeType.type as SimpleScopeTypeType,
@@ -126,6 +123,17 @@ export class ItemStage implements ModifierStage {
       removalRange,
     });
   }
+}
+
+function getInsertionDelimiter(
+  leadingDelimiterRange?: Range,
+  trailingDelimiterRange?: Range,
+): string {
+  return (leadingDelimiterRange != null &&
+    !leadingDelimiterRange.isSingleLine) ||
+    (trailingDelimiterRange != null && !trailingDelimiterRange.isSingleLine)
+    ? ",\n"
+    : ", ";
 }
 
 /** Filter item infos by content range and domain intersection */

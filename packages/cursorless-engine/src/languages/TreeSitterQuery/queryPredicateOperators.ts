@@ -214,6 +214,24 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   }
 }
 
+class ConditionalInsertionDelimiter extends QueryPredicateOperator<ConditionalInsertionDelimiter> {
+  name = "conditional-insertion-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    nodeCondition: MutableQueryCapture,
+    insertionDelimiterConsequence: string,
+    insertionDelimiterAlternative: string,
+  ) {
+    nodeInfo.insertionDelimiter = nodeCondition.range.isSingleLine
+      ? insertionDelimiterConsequence
+      : insertionDelimiterAlternative;
+
+    return true;
+  }
+}
+
 class InsertionPrefix extends QueryPredicateOperator<InsertionPrefix> {
   name = "insertion-prefix!" as const;
   schema = z.union([z.tuple([q.node, q.string]), z.tuple([q.node, q.node])]);
@@ -238,6 +256,7 @@ export const queryPredicateOperators = [
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
+  new ConditionalInsertionDelimiter(),
   new InsertionPrefix(),
   new HasMultipleChildrenOfType(),
 ];

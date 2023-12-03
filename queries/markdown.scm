@@ -23,12 +23,12 @@
 ;;!  ---
 (
   (list_item
-    (_) @prefix
+    (_) @dummy
     (paragraph
       (inline) @collectionItem
     )
-  ) @collectionItem.domain @collectionItem.removal
-  (#trim-end! @collectionItem.domain)
+  ) @_.domain @_.removal
+  (#trim-end! @_.domain)
   (#insertion-delimiter! @collectionItem "\n")
-  (#insertion-prefix! @collectionItem @prefix)
+  (#insertion-prefix! @collectionItem @dummy)
 )
