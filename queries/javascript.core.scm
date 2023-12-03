@@ -675,6 +675,7 @@
     .
     (_)? @_.trailing.end.startOf
   ) @dummy
+  (#not-type? @argumentOrParameter "comment")
   (#conditional-insertion-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
@@ -688,6 +689,7 @@
     .
     (_)? @_.trailing.end.startOf
   ) @dummy
+  (#not-type? @argumentOrParameter "comment")
   (#conditional-insertion-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
