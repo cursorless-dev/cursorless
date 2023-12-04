@@ -35,18 +35,16 @@ main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 # ========================== Captures =========================
 scopeType -> %simpleScopeTypeType {% capture("type") %}
 
-decoratedMark -> %color {% capture("color") %}
-decoratedMark -> %shape {% capture("shape") %}
-decoratedMark -> %combineColorAndShape %color %shape {%
-  capture(null, "color", "shape")
-%}
-decoratedMark -> %combineColorAndShape %shape %color {%
-  capture(null, "shape", "color")
-%}
+decoratedMark ->
+    %color {% capture("color") %}
+  | %shape {% capture("shape") %}
+  | %combineColorAndShape %color %shape {% capture(null, "color", "shape") %}
+  | %combineColorAndShape %shape %color {% capture(null, "shape", "color") %}
 
 # Contains a direction and a number for use with relative and ordinal
-offset -> %direction:? number {% capture("direction", "number") %}
-offset -> number:? %direction {% capture("number", "direction") %}
+offset ->
+    %direction:? number {% capture("direction", "number") %}
+  | number:? %direction {% capture("number", "direction") %}
 
 number -> %digit:+ {%
   ([digits]) =>

@@ -67,12 +67,8 @@ const grammar: Grammar = {
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
     {"name": "decoratedMark", "symbols": [(lexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
     {"name": "decoratedMark", "symbols": [(lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
-    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("color") ? {type: "color"} : color), (lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": 
-        capture(null, "color", "shape")
-        },
-    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("shape") ? {type: "shape"} : shape), (lexer.has("color") ? {type: "color"} : color)], "postprocess": 
-        capture(null, "shape", "color")
-        },
+    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("color") ? {type: "color"} : color), (lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(null, "color", "shape")},
+    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("shape") ? {type: "shape"} : shape), (lexer.has("color") ? {type: "color"} : color)], "postprocess": capture(null, "shape", "color")},
     {"name": "offset$ebnf$1", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": id},
     {"name": "offset$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "offset", "symbols": ["offset$ebnf$1", "number"], "postprocess": capture("direction", "number")},
