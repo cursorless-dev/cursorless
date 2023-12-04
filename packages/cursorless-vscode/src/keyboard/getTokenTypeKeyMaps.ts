@@ -32,35 +32,32 @@ export function getTokenTypeKeyMaps(
   config: KeyboardConfig,
 ): TokenTypeKeyMapMap {
   return {
-    simpleScopeTypeType: config.getSectionKeyMap(
-      "scopes",
-      "simpleScopeTypeType",
-    ),
-    color: config.getSectionKeyMap("colors", "color"),
-    shape: config.getSectionKeyMap("shapes", "shape"),
-    vscodeCommand: config.getSectionKeyMap("vscodeCommands", "vscodeCommand"),
+    simpleScopeTypeType: config.getTokenKeyMap("simpleScopeTypeType", "scope"),
+    color: config.getTokenKeyMap("color"),
+    shape: config.getTokenKeyMap("shape"),
+    vscodeCommand: config.getTokenKeyMap("vscodeCommand"),
 
     // action config section
-    simpleAction: config.getSectionKeyMap(
-      "actions",
+    simpleAction: config.getTokenKeyMap(
       "simpleAction",
+      "action",
       simpleKeyboardActionNames,
     ),
 
     // misc config section
-    makeRange: config.getSectionKeyMap("misc", "makeRange", ["makeRange"]),
-    combineColorAndShape: config.getSectionKeyMap(
-      "misc",
+    makeRange: config.getTokenKeyMap("makeRange", "misc", ["makeRange"]),
+    combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",
+      "misc",
       ["combineColorAndShape"],
     ),
-    direction: config.getSectionKeyMap("misc", "direction", [
+    direction: config.getTokenKeyMap("direction", "misc", [
       "forward",
       "backward",
     ]),
 
     // modifier config section
-    nextPrev: config.getSectionKeyMap("modifier", "nextPrev", ["nextPrev"]),
+    nextPrev: config.getTokenKeyMap("nextPrev", "modifier", ["nextPrev"]),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

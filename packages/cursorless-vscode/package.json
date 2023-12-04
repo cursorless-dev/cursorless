@@ -848,7 +848,7 @@
           "description": "Directory containing snippets for use in Cursorless",
           "type": "string"
         },
-        "cursorless.experimental.keyboard.modal.keybindings.actions": {
+        "cursorless.experimental.keyboard.modal.keybindings.action": {
           "description": "Define modal keybindings for actions",
           "type": "object",
           "additionalProperties": {
@@ -909,7 +909,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.vscodeCommands": {
+        "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
           "description": "Define modal keybindings for running vscode commands",
           "type": "object",
           "additionalProperties": {
@@ -944,7 +944,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.colors": {
+        "cursorless.experimental.keyboard.modal.keybindings.color": {
           "description": "Define modal keybindings for colors",
           "type": "object",
           "additionalProperties": {
@@ -961,7 +961,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.shapes": {
+        "cursorless.experimental.keyboard.modal.keybindings.shape": {
           "description": "Define modal keybindings for shapes",
           "type": "object",
           "additionalProperties": {
@@ -980,7 +980,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.scopes": {
+        "cursorless.experimental.keyboard.modal.keybindings.scope": {
           "description": "Define modal keybindings for scopes",
           "type": "object",
           "additionalProperties": {

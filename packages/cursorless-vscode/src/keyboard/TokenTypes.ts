@@ -10,12 +10,12 @@ import {
  * that section.
  */
 export interface SectionTypes {
-  actions: KeyboardActionType;
-  colors: HatColor;
+  action: KeyboardActionType;
+  color: HatColor;
   misc: MiscValue;
-  scopes: SimpleScopeTypeType;
-  shapes: HatShape;
-  vscodeCommands: ModalVscodeCommandDescriptor;
+  scope: SimpleScopeTypeType;
+  shape: HatShape;
+  vscodeCommand: ModalVscodeCommandDescriptor;
   modifier: ModifierKeyMapValue;
 }
 type ModifierKeyMapValue = "nextPrev";
