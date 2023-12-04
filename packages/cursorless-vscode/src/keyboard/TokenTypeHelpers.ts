@@ -5,9 +5,7 @@ export type SectionName = keyof SectionTypes;
 export type TokenType = keyof TokenTypeValueMap;
 
 type TokenTypeKeyDescriptorMap = {
-  [K in keyof TokenTypeValueMap]: TokenTypeValueMap[K] extends undefined
-    ? { type: K }
-    : { type: K; value: TokenTypeValueMap[K] };
+  [K in keyof TokenTypeValueMap]: { type: K; value: TokenTypeValueMap[K] };
 };
 
 export type TokenTypeKeyMapMap = {

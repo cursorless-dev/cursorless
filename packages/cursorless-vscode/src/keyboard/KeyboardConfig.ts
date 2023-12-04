@@ -66,36 +66,4 @@ export class KeyboardConfig {
       }),
     );
   }
-
-  /**
-   * Returns a keymap with entries only for the given value. This map will usually
-   * just contain a single entry, but it's possible for a user to have aliases for
-   * a given value, in which case it will contain multiple entries.
-   *
-   * Example:
-   *
-   * ```ts
-   * assert.equal(
-   *   getSingularSectionEntry(getSectionKeyMapRaw("misc"), "makeRange"),
-   *   {
-   *     "r": { type: "makeRange" },
-   *   },
-   * );
-   * ```
-   *
-   * @param keyMap The keymap for the given config section
-   * @param value The value to get the entries for
-   * @returns A keymap with entries only for the given value
-   */
-  getSingularSectionEntry<
-    K extends SectionName,
-    V extends SectionTypes[K] & TokenType,
-  >(sectionName: K, value: V): KeyMap<{ type: V }> {
-    return mapValues(
-      pickBy(this.getSectionKeyMapRaw(sectionName), (v): v is V => v === value),
-      (v) => ({
-        type: v,
-      }),
-    );
-  }
 }

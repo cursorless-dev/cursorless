@@ -51,12 +51,12 @@ export interface TokenTypeValueMap {
   simpleAction: SimpleKeyboardActionType;
 
   // misc config section
-  makeRange: undefined;
-  combineColorAndShape: undefined;
+  makeRange: "makeRange";
+  combineColorAndShape: "combineColorAndShape";
   direction: "forward" | "backward";
 
   // modifier config section
-  nextPrev: undefined;
+  nextPrev: "nextPrev";
 
   digit: number;
 }

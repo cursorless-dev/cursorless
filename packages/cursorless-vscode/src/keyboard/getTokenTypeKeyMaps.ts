@@ -48,10 +48,11 @@ export function getTokenTypeKeyMaps(
     ),
 
     // misc config section
-    makeRange: config.getSingularSectionEntry("misc", "makeRange"),
-    combineColorAndShape: config.getSingularSectionEntry(
+    makeRange: config.getSectionKeyMap("misc", "makeRange", ["makeRange"]),
+    combineColorAndShape: config.getSectionKeyMap(
       "misc",
       "combineColorAndShape",
+      ["combineColorAndShape"],
     ),
     direction: config.getSectionKeyMap("misc", "direction", [
       "forward",
@@ -59,7 +60,7 @@ export function getTokenTypeKeyMaps(
     ]),
 
     // modifier config section
-    nextPrev: config.getSingularSectionEntry("modifier", "nextPrev"),
+    nextPrev: config.getSectionKeyMap("modifier", "nextPrev", ["nextPrev"]),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

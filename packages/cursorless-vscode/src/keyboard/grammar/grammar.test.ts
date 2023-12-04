@@ -35,7 +35,7 @@ const testCases: TestCase[] = [
   },
   {
     tokens: [
-      { type: "combineColorAndShape" },
+      { type: "combineColorAndShape", value: "combineColorAndShape" },
       { type: "color", value: "green" },
       { type: "shape", value: "fox" },
     ],
@@ -51,7 +51,7 @@ const testCases: TestCase[] = [
   },
   {
     tokens: [
-      { type: "combineColorAndShape" },
+      { type: "combineColorAndShape", value: "combineColorAndShape" },
       { type: "shape", value: "fox" },
       { type: "color", value: "green" },
     ],
@@ -66,7 +66,10 @@ const testCases: TestCase[] = [
     },
   },
   {
-    tokens: [{ type: "makeRange" }, { type: "color", value: "green" }],
+    tokens: [
+      { type: "makeRange", value: "makeRange" },
+      { type: "color", value: "green" },
+    ],
     expected: {
       arg: {
         decoratedMark: {
@@ -80,7 +83,7 @@ const testCases: TestCase[] = [
     tokens: [
       { type: "digit", value: 1 },
       { type: "digit", value: 2 },
-      { type: "nextPrev" },
+      { type: "nextPrev", value: "nextPrev" },
       { type: "simpleScopeTypeType", value: "namedFunction" },
     ],
     expected: {
@@ -100,7 +103,7 @@ const testCases: TestCase[] = [
   {
     tokens: [
       { type: "direction", value: "backward" },
-      { type: "nextPrev" },
+      { type: "nextPrev", value: "nextPrev" },
       { type: "simpleScopeTypeType", value: "namedFunction" },
     ],
     expected: {
