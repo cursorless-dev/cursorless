@@ -15,7 +15,7 @@ declare var direction: any;
 declare var digit: any;
 
 import { capture, command, UNUSED as _ } from "../grammarHelpers"
-import { lexer } from "../lexer";
+import { keyboardLexer } from "../keyboardLexer";
 
 interface NearleyToken {
   value: any;
@@ -45,10 +45,10 @@ interface Grammar {
 };
 
 const grammar: Grammar = {
-  Lexer: lexer,
+  Lexer: keyboardLexer,
   ParserRules: [
     {"name": "main", "symbols": ["decoratedMark"], "postprocess": command("targetDecoratedMarkReplace", ["decoratedMark"])},
-    {"name": "main", "symbols": [(lexer.has("makeRange") ? {type: "makeRange"} : makeRange), "decoratedMark"], "postprocess": 
+    {"name": "main", "symbols": [(keyboardLexer.has("makeRange") ? {type: "makeRange"} : makeRange), "decoratedMark"], "postprocess": 
         command("targetDecoratedMarkExtend", [_, "decoratedMark"])
         },
     {"name": "main", "symbols": ["scopeType"], "postprocess": command("modifyTargetContainingScope", ["scopeType"])},
@@ -56,27 +56,27 @@ const grammar: Grammar = {
     {"name": "main$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "main$ebnf$2", "symbols": ["number"], "postprocess": id},
     {"name": "main$ebnf$2", "symbols": [], "postprocess": () => null},
-    {"name": "main", "symbols": ["main$ebnf$1", (lexer.has("nextPrev") ? {type: "nextPrev"} : nextPrev), "main$ebnf$2", "scopeType"], "postprocess": 
+    {"name": "main", "symbols": ["main$ebnf$1", (keyboardLexer.has("nextPrev") ? {type: "nextPrev"} : nextPrev), "main$ebnf$2", "scopeType"], "postprocess": 
         command(
           "targetRelativeExclusiveScope",
           ["offset", _, "length", "scopeType"],
         )
         },
-    {"name": "main", "symbols": [(lexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
-    {"name": "main", "symbols": [(lexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
-    {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
-    {"name": "decoratedMark", "symbols": [(lexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
-    {"name": "decoratedMark", "symbols": [(lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
-    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("color") ? {type: "color"} : color), (lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(_, "color", "shape")},
-    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("shape") ? {type: "shape"} : shape), (lexer.has("color") ? {type: "color"} : color)], "postprocess": capture(_, "shape", "color")},
-    {"name": "offset$ebnf$1", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": id},
+    {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
+    {"name": "scopeType", "symbols": [(keyboardLexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
+    {"name": "decoratedMark", "symbols": [(keyboardLexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
+    {"name": "decoratedMark", "symbols": [(keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
+    {"name": "decoratedMark", "symbols": [(keyboardLexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (keyboardLexer.has("color") ? {type: "color"} : color), (keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(_, "color", "shape")},
+    {"name": "decoratedMark", "symbols": [(keyboardLexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (keyboardLexer.has("shape") ? {type: "shape"} : shape), (keyboardLexer.has("color") ? {type: "color"} : color)], "postprocess": capture(_, "shape", "color")},
+    {"name": "offset$ebnf$1", "symbols": [(keyboardLexer.has("direction") ? {type: "direction"} : direction)], "postprocess": id},
     {"name": "offset$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "offset", "symbols": ["offset$ebnf$1", "number"], "postprocess": capture("direction", "number")},
     {"name": "offset$ebnf$2", "symbols": ["number"], "postprocess": id},
     {"name": "offset$ebnf$2", "symbols": [], "postprocess": () => null},
-    {"name": "offset", "symbols": ["offset$ebnf$2", (lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": capture("number", "direction")},
-    {"name": "number$ebnf$1", "symbols": [(lexer.has("digit") ? {type: "digit"} : digit)]},
-    {"name": "number$ebnf$1", "symbols": ["number$ebnf$1", (lexer.has("digit") ? {type: "digit"} : digit)], "postprocess": (d) => d[0].concat([d[1]])},
+    {"name": "offset", "symbols": ["offset$ebnf$2", (keyboardLexer.has("direction") ? {type: "direction"} : direction)], "postprocess": capture("number", "direction")},
+    {"name": "number$ebnf$1", "symbols": [(keyboardLexer.has("digit") ? {type: "digit"} : digit)]},
+    {"name": "number$ebnf$1", "symbols": ["number$ebnf$1", (keyboardLexer.has("digit") ? {type: "digit"} : digit)], "postprocess": (d) => d[0].concat([d[1]])},
     {"name": "number", "symbols": ["number$ebnf$1"], "postprocess": 
         ([digits]) =>
           digits.reduce((total: number, digit: number) => total * 10 + digit, 0)

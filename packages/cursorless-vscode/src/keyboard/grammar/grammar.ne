@@ -1,9 +1,9 @@
 @preprocessor typescript
 @{%
 import { capture, command, UNUSED as _ } from "../grammarHelpers"
-import { lexer } from "../lexer";
+import { keyboardLexer } from "../keyboardLexer";
 %}
-@lexer lexer
+@lexer keyboardLexer
 
 # ===================== Top-level commands ===================
 # "air"

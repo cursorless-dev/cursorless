@@ -17,7 +17,7 @@ interface Token {
  * method that the parser will then use to transform the token into the actual
  * value that will be used when constructing rule outputs.
  */
-class MyLexer implements Lexer {
+class KeyboardLexer implements Lexer {
   buffer: any[] = [];
   bufferIndex = 0;
   index = 0;
@@ -54,4 +54,4 @@ class MyLexer implements Lexer {
   }
 }
 
-export const lexer = new MyLexer();
+export const keyboardLexer = new KeyboardLexer();
