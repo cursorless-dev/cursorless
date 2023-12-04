@@ -1,7 +1,8 @@
 import nearley, { State } from "nearley";
-import { isEqual, uniqWith } from "lodash";
+import { isEqual } from "lodash";
 import { CommandRulePostProcessor } from "./CommandRulePostProcessor";
 import { WorkQueue } from "./WorkQueue";
+import { uniqWithHash } from "@cursorless/common";
 
 /**
  * Given a parser, returns a list of acceptable token types at the current state
@@ -16,7 +17,7 @@ import { WorkQueue } from "./WorkQueue";
  * top-level rules want them
  */
 export function getAcceptableTokenTypes(parser: nearley.Parser) {
-  return uniqWith(
+  return uniqWithHash(
     parser.table[parser.table.length - 1].scannable.flatMap(
       (scannableState) => {
         /** The token type */
@@ -30,6 +31,7 @@ export function getAcceptableTokenTypes(parser: nearley.Parser) {
       },
     ),
     isEqual,
+    ({ type, command }) => [type, command].join("\u0000"),
   );
 }
 
