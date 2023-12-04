@@ -1,7 +1,6 @@
-import { mapValues, merge, pickBy } from "lodash";
+import { mapValues, pickBy } from "lodash";
 import { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
 import { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
-import { defaultMap } from "./defaultKeymaps";
 import { VscodeApi } from "@cursorless/vscode-common";
 
 export class KeyboardConfig {
@@ -16,13 +15,11 @@ export class KeyboardConfig {
   private getSectionKeyMapRaw<S extends SectionName>(
     sectionName: S,
   ): KeyMap<SectionTypes[S]> {
-    type T = SectionTypes[S];
-    const userOverrides: KeyMap<T> =
+    return (
       this.vscodeApi.workspace
         .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
-        .get<KeyMap<T>>(sectionName) ?? {};
-    const defaultKeyMap: KeyMap<T> = defaultMap[sectionName] ?? {};
-    return merge({}, defaultKeyMap, userOverrides);
+        .get<KeyMap<SectionTypes[S]>>(sectionName) ?? {}
+    );
   }
 
   /**
