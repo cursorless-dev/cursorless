@@ -12,6 +12,7 @@ import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
 import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
 import { VscodeApi } from "@cursorless/vscode-common";
 import { KeyboardConfig } from "./KeyboardConfig";
+import { CompositeKeyMap } from "@cursorless/common";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -29,6 +30,10 @@ export default class KeyboardCommandsModal {
    * colors, etc).
    */
   private currentLayer!: KeyboardCommandsModalLayer<KeyDescriptor>;
+  private layerCache = new CompositeKeyMap<
+    string[],
+    KeyboardCommandsModalLayer<KeyDescriptor>
+  >((keys) => keys);
   private parser!: Parser;
   private sections!: TokenTypeKeyMapMap;
   private keyboardCommandHandler: KeyboardCommandHandler;
@@ -61,6 +66,7 @@ export default class KeyboardCommandsModal {
             this.modeOff();
             this.modeOn();
           }
+          this.layerCache.clear();
           this.processKeyMap();
         }
       }),
@@ -84,15 +90,20 @@ export default class KeyboardCommandsModal {
   private computeLayer() {
     const acceptableTokenTypeInfos = getAcceptableTokenTypes(this.parser);
     // FIXME: Here's where we'd update sidebar
-    const acceptableTokenTypes = acceptableTokenTypeInfos.map(
-      ({ type }) => type,
-    );
-    this.currentLayer = new KeyboardCommandsModalLayer(
-      this.keyboardHandler,
-      Object.values(pick(this.sections, acceptableTokenTypes)).flatMap(
-        toPairs<KeyDescriptor>,
-      ),
-    );
+    const acceptableTokenTypes = acceptableTokenTypeInfos
+      .map(({ type }) => type)
+      .sort();
+    let layer = this.layerCache.get(acceptableTokenTypes);
+    if (layer == null) {
+      layer = new KeyboardCommandsModalLayer(
+        this.keyboardHandler,
+        Object.values(pick(this.sections, acceptableTokenTypes)).flatMap(
+          toPairs<KeyDescriptor>,
+        ),
+      );
+      this.layerCache.set(acceptableTokenTypes, layer);
+    }
+    this.currentLayer = layer;
   }
 
   modeOn = async () => {
