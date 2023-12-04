@@ -22,10 +22,10 @@ class MyLexer implements Lexer {
   bufferIndex = 0;
   index = 0;
 
-  reset(data: Token[], state?: LexerState) {
+  reset(data: Token[], { index }: LexerState = { index: 0 }) {
     this.buffer = data;
     this.bufferIndex = 0;
-    this.index = state ? state.index : 0;
+    this.index = index;
   }
 
   next() {
