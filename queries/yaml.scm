@@ -24,7 +24,7 @@
     .
     (block_sequence_item
       (_) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
-    ) @collectionItem.domain
+    ) @collectionItem.domain @collectionItem.insertion
     .
     (block_sequence_item
       (_) @collectionItem.trailing.end.startOf

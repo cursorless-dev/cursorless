@@ -1,11 +1,9 @@
 import {
   InsertionMode,
-  Position,
   Range,
   Selection,
   TextEditor,
 } from "@cursorless/common";
-import { escapeRegExp } from "lodash";
 import { EditWithRangeUpdater } from "../../typings/Types";
 import {
   Destination,
@@ -116,51 +114,29 @@ export class DestinationImpl implements Destination {
 
   private getEditRange() {
     const position = (() => {
-      const contentPosition = this.getContentPosition();
+      const insertionRange =
+        this.target.insertionRange ?? this.target.contentRange;
+
+      const insertionPosition = this.isBefore
+        ? insertionRange.start
+        : insertionRange.end;
 
       if (this.isLineDelimiter) {
-        const line = this.editor.document.lineAt(contentPosition);
+        const line = this.editor.document.lineAt(insertionPosition);
         const nonWhitespaceCharacterIndex = this.isBefore
           ? line.firstNonWhitespaceCharacterIndex
           : line.lastNonWhitespaceCharacterIndex;
 
         // Use the full line with included indentation and trailing whitespaces
-        if (contentPosition.character === nonWhitespaceCharacterIndex) {
+        if (insertionPosition.character === nonWhitespaceCharacterIndex) {
           return this.isBefore ? line.range.start : line.range.end;
         }
       }
 
-      return contentPosition;
+      return insertionPosition;
     })();
 
     return new Range(position, position);
-  }
-
-  private getContentPosition(): Position {
-    if (this.isBefore) {
-      const { start } = this.contentRange;
-
-      // With an insertion prefix the position we want to edit/insert before is extended to the left
-      if (this.insertionPrefix != null) {
-        // The leading text on the same line before the content range
-        const leadingText = this.editor.document
-          .lineAt(start)
-          .text.slice(0, start.character);
-
-        // Try to find the prefix (with optional trailing whitespace) just before the content range
-        const prefixIndex = leadingText.search(
-          new RegExp(`${escapeRegExp(this.insertionPrefix)}\\s*$`),
-        );
-        if (prefixIndex !== -1) {
-          const delta = leadingText.length - prefixIndex;
-          return start.with(undefined, start.character - delta);
-        }
-      }
-
-      return start;
-    }
-
-    return this.contentRange.end;
   }
 
   private getEditText(text: string) {

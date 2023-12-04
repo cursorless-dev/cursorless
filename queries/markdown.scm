@@ -23,9 +23,9 @@
 ;;!  ---
 (
   (list_item
-    (_) @dummy
+    (_) @dummy @_.insertion.start
     (paragraph
-      (inline) @collectionItem
+      (inline) @collectionItem @_.insertion.end
     )
   ) @_.domain @_.removal
   (#trim-end! @_.domain)

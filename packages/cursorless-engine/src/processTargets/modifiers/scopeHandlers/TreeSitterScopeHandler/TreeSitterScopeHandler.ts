@@ -60,6 +60,13 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
     const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
+    const insertionRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "insertion",
+      true,
+    );
+
     const leadingDelimiterRange = dropEmptyRange(
       getRelatedRange(match, scopeTypeType, "leading", true),
     );
@@ -86,6 +93,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           isReversed,
           contentRange,
           removalRange,
+          insertionRange,
           leadingDelimiterRange,
           trailingDelimiterRange,
           interiorRange,

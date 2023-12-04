@@ -39,6 +39,9 @@ export interface Target {
   /** The range of the content */
   readonly contentRange: Range;
 
+  /* The range to insert before or after. If not defined fallback to content range */
+  readonly insertionRange?: Range;
+
   /** If this selection has a delimiter use it for inserting before or after the target. For example, new line for a line or paragraph and comma for a list or argument */
   readonly insertionDelimiter: string;
 

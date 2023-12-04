@@ -18,6 +18,7 @@ export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
   readonly insertionDelimiter?: string;
   readonly insertionPrefix?: string;
+  readonly insertionRange?: Range;
   readonly removalRange?: Range;
   readonly interiorRange?: Range;
   readonly leadingDelimiterRange?: Range;
@@ -32,12 +33,14 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
+  insertionRange?: Range;
   insertionDelimiter: string;
   insertionPrefix?: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
     this.scopeTypeType_ = parameters.scopeTypeType;
+    this.insertionRange = parameters.insertionRange;
     this.removalRange_ = parameters.removalRange;
     this.interiorRange_ = parameters.interiorRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
@@ -132,10 +135,10 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       ...this.state,
       insertionDelimiter: this.insertionDelimiter,
       insertionPrefix: this.insertionPrefix,
+      insertionRange: this.insertionRange,
       removalRange: undefined,
       interiorRange: undefined,
       scopeTypeType: this.scopeTypeType_,
-      contentRemovalRange: this.removalRange_,
       leadingDelimiterRange: this.leadingDelimiterRange_,
       trailingDelimiterRange: this.trailingDelimiterRange_,
     };
