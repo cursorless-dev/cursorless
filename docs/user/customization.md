@@ -119,7 +119,7 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
   eg: `user.cursorless_ide_command("editor.action.addCommentLine", cursorless_target)`
 - `user.cursorless_get_text(target: CursorlessTarget, show_decorations: bool = True) -> str`
   Get text from target
-- `user.cursorless_get_text(target: CursorlessTarget, show_decorations: bool = True) -> list[str]`
+- `user.cursorless_get_text_list(target: CursorlessTarget, show_decorations: bool = True) -> list[str]`
   Get texts from multiple targets
 - `user.cursorless_insert(destination: CursorlessDestination, text: Union[str, List[str]])`:
   Insert text at destination.
