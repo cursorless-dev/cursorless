@@ -1,17 +1,20 @@
 import { KeyboardCommandArgTypes } from "../KeyboardCommandTypeHelpers";
 import { CommandRulePostProcessor } from "./CommandRulePostProcessor";
 
+export const UNUSED = Symbol("unused");
+export type Unused = typeof UNUSED;
+
 /**
  * @param args The values output by the parser rule
  * @param argNames The keys to use for the payload
  * @returns An object with the given keys mapped to the values at the same
  * positions in the parser rule's output
  */
-function constructPayload(args: any[], argNames: (string | null)[]) {
+function constructPayload(args: any[], argNames: (string | Unused)[]) {
   const arg: Record<string, any> = {};
   for (let i = 0; i < argNames.length; i++) {
     const name = argNames[i];
-    if (name == null) {
+    if (name === UNUSED) {
       continue;
     }
     arg[name] = args[i];
@@ -38,14 +41,14 @@ function constructPayload(args: any[], argNames: (string | null)[]) {
  */
 export function command<T extends keyof KeyboardCommandArgTypes>(
   type: T,
-  argNames: (keyof KeyboardCommandArgTypes[T] | null)[],
+  argNames: (keyof KeyboardCommandArgTypes[T] | Unused)[],
 ): CommandRulePostProcessor<T> {
   function ret(args: any[]) {
     return {
       type,
       arg: constructPayload(
         args,
-        argNames as (string | null)[],
+        argNames as (string | Unused)[],
       ) as KeyboardCommandArgTypes[T],
     };
   }
@@ -62,7 +65,7 @@ export function command<T extends keyof KeyboardCommandArgTypes>(
  * @returns A postprocess function that constructs a payload with the given keys
  * mapped to the values at the same positions in the parser rule's output
  */
-export function capture(...argNames: (string | null)[]) {
+export function capture(...argNames: (string | Unused)[]) {
   function ret(args: any[]) {
     return constructPayload(args, argNames);
   }

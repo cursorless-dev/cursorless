@@ -1,6 +1,6 @@
 @preprocessor typescript
 @{%
-import { capture, command } from "../grammarHelpers"
+import { capture, command, UNUSED as _ } from "../grammarHelpers"
 import { lexer } from "../lexer";
 %}
 @lexer lexer
@@ -11,7 +11,7 @@ main -> decoratedMark {% command("targetDecoratedMarkReplace", ["decoratedMark"]
 
 # "past air"
 main -> %makeRange decoratedMark {%
-  command("targetDecoratedMarkExtend", [null, "decoratedMark"])
+  command("targetDecoratedMarkExtend", [_, "decoratedMark"])
 %}
 
 # "funk"
@@ -22,7 +22,7 @@ main -> scopeType {% command("modifyTargetContainingScope", ["scopeType"]) %}
 main -> offset:? %nextPrev number:? scopeType {%
   command(
     "targetRelativeExclusiveScope",
-    ["offset", null, "length", "scopeType"],
+    ["offset", _, "length", "scopeType"],
   )
 %}
 
@@ -38,8 +38,8 @@ scopeType -> %simpleScopeTypeType {% capture("type") %}
 decoratedMark ->
     %color {% capture("color") %}
   | %shape {% capture("shape") %}
-  | %combineColorAndShape %color %shape {% capture(null, "color", "shape") %}
-  | %combineColorAndShape %shape %color {% capture(null, "shape", "color") %}
+  | %combineColorAndShape %color %shape {% capture(_, "color", "shape") %}
+  | %combineColorAndShape %shape %color {% capture(_, "shape", "color") %}
 
 # Contains a direction and a number for use with nextPrev and ordinal
 offset ->

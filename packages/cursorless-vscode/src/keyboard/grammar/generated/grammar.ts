@@ -14,7 +14,7 @@ declare var combineColorAndShape: any;
 declare var direction: any;
 declare var digit: any;
 
-import { capture, command } from "../grammarHelpers"
+import { capture, command, UNUSED as _ } from "../grammarHelpers"
 import { lexer } from "../lexer";
 
 interface NearleyToken {
@@ -49,7 +49,7 @@ const grammar: Grammar = {
   ParserRules: [
     {"name": "main", "symbols": ["decoratedMark"], "postprocess": command("targetDecoratedMarkReplace", ["decoratedMark"])},
     {"name": "main", "symbols": [(lexer.has("makeRange") ? {type: "makeRange"} : makeRange), "decoratedMark"], "postprocess": 
-        command("targetDecoratedMarkExtend", [null, "decoratedMark"])
+        command("targetDecoratedMarkExtend", [_, "decoratedMark"])
         },
     {"name": "main", "symbols": ["scopeType"], "postprocess": command("modifyTargetContainingScope", ["scopeType"])},
     {"name": "main$ebnf$1", "symbols": ["offset"], "postprocess": id},
@@ -59,7 +59,7 @@ const grammar: Grammar = {
     {"name": "main", "symbols": ["main$ebnf$1", (lexer.has("nextPrev") ? {type: "nextPrev"} : nextPrev), "main$ebnf$2", "scopeType"], "postprocess": 
         command(
           "targetRelativeExclusiveScope",
-          ["offset", null, "length", "scopeType"],
+          ["offset", _, "length", "scopeType"],
         )
         },
     {"name": "main", "symbols": [(lexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
@@ -67,8 +67,8 @@ const grammar: Grammar = {
     {"name": "scopeType", "symbols": [(lexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
     {"name": "decoratedMark", "symbols": [(lexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
     {"name": "decoratedMark", "symbols": [(lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
-    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("color") ? {type: "color"} : color), (lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(null, "color", "shape")},
-    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("shape") ? {type: "shape"} : shape), (lexer.has("color") ? {type: "color"} : color)], "postprocess": capture(null, "shape", "color")},
+    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("color") ? {type: "color"} : color), (lexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(_, "color", "shape")},
+    {"name": "decoratedMark", "symbols": [(lexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (lexer.has("shape") ? {type: "shape"} : shape), (lexer.has("color") ? {type: "color"} : color)], "postprocess": capture(_, "shape", "color")},
     {"name": "offset$ebnf$1", "symbols": [(lexer.has("direction") ? {type: "direction"} : direction)], "postprocess": id},
     {"name": "offset$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "offset", "symbols": ["offset$ebnf$1", "number"], "postprocess": capture("direction", "number")},
