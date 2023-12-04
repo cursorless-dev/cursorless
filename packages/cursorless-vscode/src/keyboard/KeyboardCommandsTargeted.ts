@@ -27,7 +27,7 @@ interface TargetDecoratedMarkArgument {
   mode?: TargetingMode;
 }
 
-interface TargetScopeTypeArgument {
+interface ModifyTargetContainingScopeArgument {
   scopeType: ScopeType;
   type?: "containingScope" | "everyScope";
 }
@@ -45,7 +45,8 @@ export default class KeyboardCommandsTargeted {
     this.performActionOnTarget = this.performActionOnTarget.bind(this);
     this.performVscodeCommandOnTarget =
       this.performVscodeCommandOnTarget.bind(this);
-    this.targetScopeType = this.targetScopeType.bind(this);
+    this.modifyTargetContainingScope =
+      this.modifyTargetContainingScope.bind(this);
     this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
   }
@@ -132,10 +133,10 @@ export default class KeyboardCommandsTargeted {
    * @param param0 Describes the desired scope type
    * @returns A promise that resolves to the result of the cursorless command
    */
-  targetScopeType = async ({
+  modifyTargetContainingScope = async ({
     scopeType,
     type = "containingScope",
-  }: TargetScopeTypeArgument) =>
+  }: ModifyTargetContainingScopeArgument) =>
     await executeCursorlessCommand({
       name: "highlight",
       target: {

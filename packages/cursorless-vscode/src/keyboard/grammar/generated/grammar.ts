@@ -51,7 +51,7 @@ const grammar: Grammar = {
     {"name": "main", "symbols": [(lexer.has("makeRange") ? {type: "makeRange"} : makeRange), "decoratedMark"], "postprocess": 
         command("targetDecoratedMarkExtend", [null, "decoratedMark"])
         },
-    {"name": "main", "symbols": ["scopeType"], "postprocess": command("targetScopeType", ["scopeType"])},
+    {"name": "main", "symbols": ["scopeType"], "postprocess": command("modifyTargetContainingScope", ["scopeType"])},
     {"name": "main$ebnf$1", "symbols": ["offset"], "postprocess": id},
     {"name": "main$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "main$ebnf$2", "symbols": ["number"], "postprocess": id},

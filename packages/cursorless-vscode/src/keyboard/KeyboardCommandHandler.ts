@@ -78,8 +78,8 @@ export class KeyboardCommandHandler {
     this.targeted.performActionOnTarget(actionName);
   }
 
-  targetScopeType(arg: { scopeType: ScopeType }) {
-    this.targeted.targetScopeType(arg);
+  modifyTargetContainingScope(arg: { scopeType: ScopeType }) {
+    this.targeted.modifyTargetContainingScope(arg);
   }
 
   targetRelativeExclusiveScope({

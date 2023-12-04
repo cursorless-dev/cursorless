@@ -15,7 +15,7 @@ main -> %makeRange decoratedMark {%
 %}
 
 # "funk"
-main -> scopeType {% command("targetScopeType", ["scopeType"]) %}
+main -> scopeType {% command("modifyTargetContainingScope", ["scopeType"]) %}
 
 # "[third] next [two] funks"
 # "[third] previous [two] funks"
