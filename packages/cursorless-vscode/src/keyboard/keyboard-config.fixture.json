@@ -63,7 +63,7 @@
     "-": "backward"
   },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
-    "n": "relative"
+    "n": "nextPrev"
   },
   "cursorless.experimental.keyboard.modal.keybindings.vscodeCommands": {
     "va": "editor.action.addCommentLine",

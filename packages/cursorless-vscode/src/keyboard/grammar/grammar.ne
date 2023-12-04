@@ -19,7 +19,7 @@ main -> scopeType {% command("modifyTargetContainingScope", ["scopeType"]) %}
 
 # "[third] next [two] funks"
 # "[third] previous [two] funks"
-main -> offset:? %relative number:? scopeType {%
+main -> offset:? %nextPrev number:? scopeType {%
   command(
     "targetRelativeExclusiveScope",
     ["offset", null, "length", "scopeType"],
@@ -41,7 +41,7 @@ decoratedMark ->
   | %combineColorAndShape %color %shape {% capture(null, "color", "shape") %}
   | %combineColorAndShape %shape %color {% capture(null, "shape", "color") %}
 
-# Contains a direction and a number for use with relative and ordinal
+# Contains a direction and a number for use with nextPrev and ordinal
 offset ->
     %direction:? number {% capture("direction", "number") %}
   | number:? %direction {% capture("number", "direction") %}

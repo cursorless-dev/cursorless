@@ -80,7 +80,7 @@ const testCases: TestCase[] = [
     tokens: [
       { type: "digit", value: 1 },
       { type: "digit", value: 2 },
-      { type: "relative" },
+      { type: "nextPrev" },
       { type: "simpleScopeTypeType", value: "namedFunction" },
     ],
     expected: {
@@ -100,7 +100,7 @@ const testCases: TestCase[] = [
   {
     tokens: [
       { type: "direction", value: "backward" },
-      { type: "relative" },
+      { type: "nextPrev" },
       { type: "simpleScopeTypeType", value: "namedFunction" },
     ],
     expected: {

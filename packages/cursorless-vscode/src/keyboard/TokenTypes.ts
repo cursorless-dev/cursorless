@@ -18,7 +18,7 @@ export interface SectionTypes {
   vscodeCommands: ModalVscodeCommandDescriptor;
   modifier: ModifierKeyMapValue;
 }
-type ModifierKeyMapValue = "relative";
+type ModifierKeyMapValue = "nextPrev";
 type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
@@ -56,7 +56,7 @@ export interface TokenTypeValueMap {
   direction: "forward" | "backward";
 
   // modifier config section
-  relative: undefined;
+  nextPrev: undefined;
 
   digit: number;
 }

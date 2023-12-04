@@ -59,7 +59,7 @@ export function getTokenTypeKeyMaps(
     ]),
 
     // modifier config section
-    relative: config.getSingularSectionEntry("modifier", "relative"),
+    nextPrev: config.getSingularSectionEntry("modifier", "nextPrev"),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

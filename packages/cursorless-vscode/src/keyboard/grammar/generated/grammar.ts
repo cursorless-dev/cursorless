@@ -4,7 +4,7 @@
 // @ts-ignore
 function id(d: any[]): any { return d[0]; }
 declare var makeRange: any;
-declare var relative: any;
+declare var nextPrev: any;
 declare var simpleAction: any;
 declare var vscodeCommand: any;
 declare var simpleScopeTypeType: any;
@@ -56,7 +56,7 @@ const grammar: Grammar = {
     {"name": "main$ebnf$1", "symbols": [], "postprocess": () => null},
     {"name": "main$ebnf$2", "symbols": ["number"], "postprocess": id},
     {"name": "main$ebnf$2", "symbols": [], "postprocess": () => null},
-    {"name": "main", "symbols": ["main$ebnf$1", (lexer.has("relative") ? {type: "relative"} : relative), "main$ebnf$2", "scopeType"], "postprocess": 
+    {"name": "main", "symbols": ["main$ebnf$1", (lexer.has("nextPrev") ? {type: "nextPrev"} : nextPrev), "main$ebnf$2", "scopeType"], "postprocess": 
         command(
           "targetRelativeExclusiveScope",
           ["offset", null, "length", "scopeType"],
