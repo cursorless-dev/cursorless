@@ -114,12 +114,9 @@ export class DestinationImpl implements Destination {
 
   private getEditRange() {
     const position = (() => {
-      const insertionRange =
-        this.target.insertionRange ?? this.target.contentRange;
-
       const insertionPosition = this.isBefore
-        ? insertionRange.start
-        : insertionRange.end;
+        ? this.target.extendedContentRange.start
+        : this.target.extendedContentRange.end;
 
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(insertionPosition);

@@ -39,8 +39,8 @@ export interface Target {
   /** The range of the content */
   readonly contentRange: Range;
 
-  /* The range to insert before or after. If not defined fallback to content range */
-  readonly insertionRange?: Range;
+  /* The content range including prefixes like `-` and `*` in markdown collection items */
+  readonly extendedContentRange: Range;
 
   /** If this selection has a delimiter use it for inserting before or after the target. For example, new line for a line or paragraph and comma for a list or argument */
   readonly insertionDelimiter: string;

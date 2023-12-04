@@ -29,9 +29,9 @@
   )?
   .
   (list_item
-    (_) @dummy @_.insertion.start
+    (_) @dummy @_.extended.start
     (paragraph
-      (inline) @collectionItem @_.insertion.end @_.trailing.start.endOf
+      (inline) @collectionItem @_.extended.end @_.trailing.start.endOf
     )
   ) @_.domain @_.leading.end.startOf
   .

@@ -25,7 +25,7 @@
     (block_sequence_item
       "-" @collectionItem.leading.end.startOf
       (_) @collectionItem @collectionItem.trailing.end.endOf
-    ) @collectionItem.domain @collectionItem.insertion
+    ) @collectionItem.domain @collectionItem.extended
     .
     (block_sequence_item)? @collectionItem.trailing.end.startOf
     (#trim-end! @collectionItem)

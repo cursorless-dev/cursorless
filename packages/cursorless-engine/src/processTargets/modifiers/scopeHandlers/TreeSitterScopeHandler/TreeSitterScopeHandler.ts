@@ -60,10 +60,10 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
     const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
-    const insertionRange = getRelatedRange(
+    const extendedContentRange = getRelatedRange(
       match,
       scopeTypeType,
-      "insertion",
+      "extended",
       true,
     );
 
@@ -92,8 +92,8 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           editor,
           isReversed,
           contentRange,
+          extendedContentRange,
           removalRange,
-          insertionRange,
           leadingDelimiterRange,
           trailingDelimiterRange,
           interiorRange,
