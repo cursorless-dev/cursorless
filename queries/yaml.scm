@@ -23,12 +23,11 @@
     (block_sequence_item)? @collectionItem.leading.start.endOf
     .
     (block_sequence_item
-      (_) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
+      "-" @collectionItem.leading.end.startOf
+      (_) @collectionItem @collectionItem.trailing.end.endOf
     ) @collectionItem.domain @collectionItem.insertion
     .
-    (block_sequence_item
-      (_) @collectionItem.trailing.end.startOf
-    )?
+    (block_sequence_item)? @collectionItem.trailing.end.startOf
     (#trim-end! @collectionItem)
     (#insertion-delimiter! @collectionItem "\n")
     (#insertion-prefix! @collectionItem "- ")

@@ -8,7 +8,7 @@ import { Target } from "../../../../typings/target.types";
  * @returns The removal range for the given target
  */
 export function getDelimitedSequenceRemovalRange(target: Target): Range {
-  const { contentRange } = target;
+  const contentRange = target.insertionRange ?? target.contentRange;
 
   const delimiterTarget =
     target.getTrailingDelimiterTarget() ?? target.getLeadingDelimiterTarget();

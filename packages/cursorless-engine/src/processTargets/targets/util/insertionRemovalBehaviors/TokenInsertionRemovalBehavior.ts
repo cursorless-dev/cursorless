@@ -10,7 +10,7 @@ export function getTokenLeadingDelimiterTarget(
   target: Target,
 ): Target | undefined {
   const { editor } = target;
-  const { start } = target.contentRange;
+  const { start } = target.insertionRange ?? target.contentRange;
 
   const startLine = editor.document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);
@@ -34,7 +34,7 @@ export function getTokenTrailingDelimiterTarget(
   target: Target,
 ): Target | undefined {
   const { editor } = target;
-  const { end } = target.contentRange;
+  const { end } = target.insertionRange ?? target.contentRange;
 
   const endLine = editor.document.lineAt(end);
   const trailingText = endLine.text.slice(end.character);
@@ -80,7 +80,8 @@ export function getTokenTrailingDelimiterTarget(
  * @returns The removal range for the given target
  */
 export function getTokenRemovalRange(target: Target): Range {
-  const { editor, contentRange } = target;
+  const { editor } = target;
+  const contentRange = target.insertionRange ?? target.contentRange;
   const { start, end } = contentRange;
 
   const leadingWhitespaceRange =

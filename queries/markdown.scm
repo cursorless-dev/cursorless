@@ -21,13 +21,21 @@
 ;;!! - 0
 ;;!    ^
 ;;!  ---
-(
+(list
+  (list_item
+    (paragraph
+      (inline) @_.leading.start.endOf
+    )
+  )?
+  .
   (list_item
     (_) @dummy @_.insertion.start
     (paragraph
-      (inline) @collectionItem @_.insertion.end
+      (inline) @collectionItem @_.insertion.end @_.trailing.start.endOf
     )
-  ) @_.domain @_.removal
+  ) @_.domain @_.leading.end.startOf
+  .
+  (list_item)? @_.trailing.end.startOf
   (#trim-end! @_.domain)
   (#insertion-delimiter! @collectionItem "\n")
   (#insertion-prefix! @collectionItem @dummy)
