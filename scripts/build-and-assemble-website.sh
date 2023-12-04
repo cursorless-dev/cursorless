@@ -21,3 +21,4 @@ mkdir -p "$docs_dir"
 
 cp -r packages/cursorless-org/out/* "$root_dir"
 cp -r packages/cursorless-org-docs/build/* "$docs_dir"
+cp packages/cursorless-vscode/out/railroad.html "$root_dir/keyboard-modal-railroad.html"
