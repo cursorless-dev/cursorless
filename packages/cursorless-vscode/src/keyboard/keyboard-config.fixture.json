@@ -1,6 +1,6 @@
 {
   "!!NOTE!!": "This file is for internal development purposes only; these experimental features are not supported and could break at any time.",
-  "cursorless.experimental.keyboard.modal.keybindings.scopes": {
+  "cursorless.experimental.keyboard.modal.keybindings.scope": {
     "i": "line",
     "sb": "paragraph",
     ";": "statement",
@@ -18,7 +18,7 @@
     "sa": "argumentOrParameter",
     "sl": "url"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.actions": {
+  "cursorless.experimental.keyboard.modal.keybindings.action": {
     "at": "setSelection",
     "ah": "setSelectionBefore",
     "al": "setSelectionAfter",
@@ -39,7 +39,7 @@
     "ap": "pasteFromClipboard",
     "ad": "followLink"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.colors": {
+  "cursorless.experimental.keyboard.modal.keybindings.color": {
     "d": "default",
     "b": "blue",
     "y": "yellow",
@@ -47,7 +47,7 @@
     "g": "green",
     "p": "pink"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.shapes": {
+  "cursorless.experimental.keyboard.modal.keybindings.shape": {
     "hx": "ex",
     "hf": "fox",
     "hq": "frame",
@@ -65,7 +65,7 @@
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
     "n": "nextPrev"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.vscodeCommands": {
+  "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
     "va": "editor.action.addCommentLine",
     "vb": {
       "commandId": "editor.action.addCommentLine",
