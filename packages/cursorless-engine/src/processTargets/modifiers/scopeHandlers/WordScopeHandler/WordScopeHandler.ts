@@ -1,5 +1,5 @@
 import { Range, TextEditor } from "@cursorless/common";
-import { NestedScopeHandler } from "..";
+import { NestedScopeHandler } from "../NestedScopeHandler";
 import { WordTokenizer } from "./WordTokenizer";
 import { Direction } from "@cursorless/common";
 import { SubTokenWordTarget } from "../../../targets";

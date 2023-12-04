@@ -1,6 +1,7 @@
 import { CustomRegexScopeType, Direction, ScopeType } from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler, ScopeHandlerFactory } from ".";
+import { NestedScopeHandler } from "./NestedScopeHandler";
+import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
 import { TargetScope } from "./scope.types";

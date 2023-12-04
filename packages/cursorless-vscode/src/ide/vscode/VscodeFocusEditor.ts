@@ -9,10 +9,8 @@ import {
 } from "vscode";
 import { getCellIndex } from "@cursorless/vscode-common";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
-import {
-  focusNotebookCellLegacy,
-  isVscodeLegacyNotebookVersion,
-} from "./notebook/notebookLegacy";
+import { focusNotebookCellLegacy } from "./notebook/notebookLegacy";
+import { isVscodeLegacyNotebookVersion } from "./notebook/notebook";
 import type { VscodeIDE } from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 

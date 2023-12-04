@@ -6,7 +6,7 @@ import {
   TextEditor,
   toCharacterRange,
 } from "@cursorless/common";
-import { VscodeScopeVisualizer } from ".";
+import { VscodeScopeVisualizer } from "./VscodeScopeVisualizer";
 import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
 
 abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {

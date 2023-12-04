@@ -6,7 +6,8 @@ import {
   IDE,
   ScopeProvider,
 } from "@cursorless/common";
-import { StoredTargetMap, TreeSitter } from ".";
+import { StoredTargetMap } from "./core/StoredTargets";
+import { TreeSitter } from "./typings/TreeSitter";
 import {
   CommandRunnerDecorator,
   CursorlessEngine,

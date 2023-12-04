@@ -151,20 +151,27 @@
   (#has-multiple-children-of-type? @dummy variable_declarator)
 )
 
-;; Generic type matcher
-(
+;;!! function ccc(aaa: string, bbb?: string) {}
+;;!                    ^^^^^^        ^^^^^^
+(formal_parameters
   (_
-    [
-      type: (_
-        (_) @type
-      )
-      return_type: (_
-        (_) @type
-      )
-    ] @type.removal
+    pattern: (_) @type.leading.start.endOf
+    type: (_
+      ":"
+      (_) @type @type.leading.end.startOf
+    )
   ) @_.domain
-  (#not-type? @_.domain variable_declarator)
 )
+
+;;!! function ccc(): string {}
+;;!                  ^^^^^^
+(function_declaration
+  parameters: (_) @type.leading.end.endOf
+  return_type: (_
+    ":"
+    (_) @type @type.leading.end.startOf
+  )
+) @_.domain
 
 ;;!! new Aaa<Bbb>()
 ;;!      ^^^^^^^^
@@ -180,7 +187,8 @@
 ;;!                  ^^^^^^  ^^^^^^
 (type_arguments
   (_) @type
-)
+  (#not-parent-type? @dummy type_assertion)
+) @dummy
 
 ;;!! function foo<A>() {}
 ;;!               ^
@@ -229,3 +237,69 @@
     (predefined_type)
   ] @type @_.leading.end.startOf
 ) @_.domain
+
+;;!! abstract class MyClass {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^
+(
+  (abstract_class_declaration
+    name: (_) @className
+  ) @class @_.domain
+  (#not-parent-type? @class export_statement)
+)
+
+;;!! export abstract class MyClass {}
+;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(export_statement
+  (abstract_class_declaration
+    name: (_) @className
+  )
+) @class @_.domain
+
+;;!! class MyClass {}
+;;!        ^^^^^^^
+;;!  ----------------
+(abstract_class_declaration
+  name: (_) @name
+) @_.domain
+
+;;!! interface Type { name: string; }
+;;!                   ^^^^
+;;!                   xxxxxx
+;;!                   ------------
+(property_signature
+  name: (_) @collectionKey @collectionKey.trailing.start.endOf @type.leading.start.endOf
+  type: (_
+    ":"
+    (_) @type @collectionKey.trailing.end.startOf @type.leading.end.startOf
+  )
+) @_.domain
+
+;;!! interface Type { name: string; }
+;;!                 ^^^^^^^^^^^^^^^^^
+(object_type) @collectionKey.iteration
+
+;; Non-exported statements
+(
+  [
+    (ambient_declaration)
+    (abstract_class_declaration)
+    (enum_declaration)
+    (function_signature)
+    (import_alias)
+    (interface_declaration)
+    (internal_module)
+    (module)
+    (type_alias_declaration)
+  ] @statement
+  (#not-parent-type? @statement export_statement)
+)
+
+;; Statements with optional trailing `;`
+(
+  [
+    (property_signature)
+    (public_field_definition)
+    (abstract_method_signature)
+  ] @statement.start
+  ";"? @statement.end
+)

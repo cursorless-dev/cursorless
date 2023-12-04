@@ -148,7 +148,7 @@ const nodeMatchers: Partial<
     conditionMatcher("*[condition]"),
     patternMatcher("while_statement[0]"),
   ),
-  switchStatementSubject: [
+  ["private.switchStatementSubject"]: [
     "switch_statement.tuple_expression!",
     "switch_statement[value]",
   ],
