@@ -50,7 +50,7 @@ export class KeyboardConfig {
 
   /**
    * Returns a keymap mapping from key sequences to tokens for use in our key
-   * sequence parser. If `sectionName` is omitted, it defaults to `type`. If `If
+   * sequence parser. If `sectionName` is omitted, it defaults to `type`. If
    * `only` is provided, we filter to include only entries with these values.
    *
    * Example:
