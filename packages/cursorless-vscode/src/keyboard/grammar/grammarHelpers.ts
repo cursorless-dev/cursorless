@@ -61,6 +61,25 @@ export function command<T extends keyof KeyboardCommandArgTypes>(
  * grammar. The output will be an object with the keys of {@link argNames}
  * mapped to the values at the same positions in the parser rule's output.
  *
+ * For example:
+ *
+ * ```ts
+ * const processor = capture("foo", "bar");
+ * processor(["a", "b"]) === { foo: "a", bar: "b" }
+ * ```
+ *
+ * When used in a parser rule, it would look like:
+ *
+ * ```nearley
+ * foo -> bar baz {% capture("bar", "baz") %}
+ * ```
+ *
+ * Then if the rule matched with tokens 0 then 1, the output would be:
+ *
+ * ```ts
+ * { bar: 0, baz: 1 }
+ * ```
+ *
  * @param argNames The keys to use for the payload
  * @returns A postprocess function that constructs a payload with the given keys
  * mapped to the values at the same positions in the parser rule's output
