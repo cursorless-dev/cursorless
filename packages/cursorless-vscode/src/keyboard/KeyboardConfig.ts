@@ -24,7 +24,7 @@ export class KeyboardConfig {
 
   /**
    * Returns a keymap with a subset of entries from a given config section. If
-   * `values` is not provided, all entries will be returned.
+   * `only` is not provided, all entries will be returned.
    *
    * Example:
    *
@@ -38,8 +38,9 @@ export class KeyboardConfig {
    * );
    * ```
    *
-   * @param keyMap The keymap for the given config section
-   * @param value The value to get the entries for
+   * @param sectionName The name of the config section
+   * @param type The type of the token
+   * @param only If provided, only entries with these values will be returned
    * @returns A keymap with entries only for the given value
    */
   getSectionKeyMap<
@@ -47,12 +48,18 @@ export class KeyboardConfig {
     T extends TokenType,
     V extends SectionTypes[K] & TokenTypeValueMap[T] = SectionTypes[K] &
       TokenTypeValueMap[T],
-  >(sectionName: K, type: T, values?: V[]): KeyMap<{ type: T; value: V }> {
+  >(sectionName: K, type: T, only?: V[]): KeyMap<{ type: T; value: V }> {
+    const section = this.getSectionKeyMapRaw(sectionName);
+
+    if (only == null) {
+      return mapValues(section, (value) => ({
+        type,
+        value: value as V,
+      }));
+    }
+
     return mapValues(
-      pickBy(
-        this.getSectionKeyMapRaw(sectionName),
-        (v): v is V => values?.includes(v as V) ?? true,
-      ),
+      pickBy(section, (v): v is V => only.includes(v as V)),
       (value) => ({
         type,
         value,
