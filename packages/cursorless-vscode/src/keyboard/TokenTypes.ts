@@ -28,16 +28,18 @@ type MiscValue =
 
 /**
  * Maps from token type used in parser to the type of values that the token type
- * can have. There are three kinds of token types:
+ * can have. There are a few kinds of token types:
  *
  * 1. Those directly corresponding to a section in the config. These will have
- *    the same type as the corresponding section in {@link SectionTypes}, but
- *    the name of the key will be singular. For example, {@link color}
- * 2. Those corresponding to a single entry in a config section. These are
- *    tokens that need some special grammatical treatment. They don't need to
- *    have a value, so we just use `undefined` as their type. For example,
+ *    the same name and type as the corresponding section in
+ *    {@link SectionTypes}. For example, {@link color}
+ * 2. Those corresponding to subset of entries in a config section. For example,
+ *    {@link simpleAction}
+ * 3. Those corresponding to a single entry in a config section. These are
+ *    tokens that need some special grammatical treatment. They will have a type
+ *    which is a constant string equal to the key name. For example,
  *    {@link makeRange}
- * 3. Others. These are tokens that are not directly related to the config. For
+ * 4. Others. These are tokens that are not directly related to the config. For
  *    example, {@link digit}
  */
 export interface TokenTypeValueMap {
