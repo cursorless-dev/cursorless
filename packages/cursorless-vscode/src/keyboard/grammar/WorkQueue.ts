@@ -2,7 +2,8 @@
  * A queue that ensures that each item is only yielded once
  */
 export class WorkQueue<T> {
-  private items = new Map<T, boolean>();
+  private items = new Set<T>();
+  private queue: T[] = [];
 
   constructor(...initialItems: T[]) {
     this.push(...initialItems);
@@ -11,20 +12,15 @@ export class WorkQueue<T> {
   push(...items: T[]) {
     for (const item of items) {
       if (!this.items.has(item)) {
-        this.items.set(item, false);
+        this.items.add(item);
+        this.queue.push(item);
       }
     }
   }
 
   *[Symbol.iterator]() {
-    // while there are still items that haven't been yielded
-    while ([...this.items.values()].some((value) => !value)) {
-      // find any item that hasn't been yielded yet
-      const currentItem = [...this.items.entries()].find(
-        ([_, visited]) => !visited,
-      )![0];
-      this.items.set(currentItem, true);
-      yield currentItem;
+    while (this.queue.length > 0) {
+      yield this.queue.shift()!;
     }
   }
 }
