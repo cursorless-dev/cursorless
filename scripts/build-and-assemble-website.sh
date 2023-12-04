@@ -10,6 +10,8 @@ NODE_OPTIONS="--max-old-space-size=6144" \
   --filter 'cursorless-org-*' \
   build
 
+pnpm -F cursorless-vscode generate-railroad
+
 # Merge the root site and the documentation site, placing the documentation site
 # under docs/
 
