@@ -238,6 +238,11 @@ export interface ContainingScopeModifier {
   ancestorIndex?: number;
 }
 
+export interface ContiguousScopeModifier {
+  type: "contiguousScope";
+  scopeType: ScopeType;
+}
+
 export interface EveryScopeModifier {
   type: "everyScope";
   scopeType: ScopeType;
@@ -376,6 +381,7 @@ export type Modifier =
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
   | ContainingScopeModifier
+  | ContiguousScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier

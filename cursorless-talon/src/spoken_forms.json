@@ -78,7 +78,7 @@
       "empty": "keepEmptyFilter",
       "its": "inferPreviousMark"
     },
-    "simple_scope_modifier": { "every": "every" },
+    "simple_scope_modifier": { "every": "every", "slurp": "contiguous" },
     "interior_modifier": {
       "inside": "interiorOnly"
     },
