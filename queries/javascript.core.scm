@@ -412,7 +412,8 @@
 ;;!               ^^^
 ;;!          --------
 (pair_pattern
-  value: (_) @value
+  key: (_) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
+  value: (_) @value @collectionKey.trailing.end.startOf @value.leading.end.startOf
 ) @_.domain
 
 ;;!! "string"
