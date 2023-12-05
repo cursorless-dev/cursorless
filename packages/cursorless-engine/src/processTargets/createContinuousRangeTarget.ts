@@ -3,7 +3,7 @@ import { isSameType } from "../util/typeUtils";
 import {
   createContinuousLineRange,
   createContinuousRange,
-} from "./targetUtil/createContinuousRange";
+} from "./targets/util/createContinuousRange";
 import { LineTarget, UntypedTarget } from "./targets";
 
 /**

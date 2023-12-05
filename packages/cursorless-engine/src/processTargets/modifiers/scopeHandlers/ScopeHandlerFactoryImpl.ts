@@ -1,19 +1,17 @@
 import type { ScopeType } from "@cursorless/common";
-import {
-  CharacterScopeHandler,
-  CustomRegexScopeHandler,
-  DocumentScopeHandler,
-  IdentifierScopeHandler,
-  LineScopeHandler,
-  NonWhitespaceSequenceScopeHandler,
-  OneOfScopeHandler,
-  ParagraphScopeHandler,
-  ScopeHandlerFactory,
-  SentenceScopeHandler,
-  TokenScopeHandler,
-  UrlScopeHandler,
-  WordScopeHandler,
-} from ".";
+import { CharacterScopeHandler } from "./CharacterScopeHandler";
+import { CustomRegexScopeHandler } from "./RegexScopeHandler";
+import { DocumentScopeHandler } from "./DocumentScopeHandler";
+import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
+import { LineScopeHandler } from "./LineScopeHandler";
+import { NonWhitespaceSequenceScopeHandler } from "./RegexScopeHandler";
+import { OneOfScopeHandler } from "./OneOfScopeHandler";
+import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
+import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
+import { TokenScopeHandler } from "./TokenScopeHandler";
+import { UrlScopeHandler } from "./RegexScopeHandler";
+import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 

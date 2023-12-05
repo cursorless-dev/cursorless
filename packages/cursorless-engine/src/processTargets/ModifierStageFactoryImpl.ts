@@ -4,7 +4,7 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
-import { StoredTargetMap } from "..";
+import { StoredTargetMap } from "../core/StoredTargets";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";

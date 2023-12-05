@@ -11,9 +11,9 @@
 ;;!! xxxxxxx
 ;;!  -------
 (section
-    (atx_heading
-        (_)
-        heading_content: (_) @name
-    ) @_.removal
-    (#shrink-to-match! @name "^\\s*(?<keep>.*)$")
+  (atx_heading
+    (_)
+    heading_content: (_) @name
+  ) @_.removal
+  (#shrink-to-match! @name "^\\s*(?<keep>.*)$")
 ) @_.domain
