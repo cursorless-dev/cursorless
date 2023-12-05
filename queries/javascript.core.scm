@@ -408,6 +408,13 @@
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
 
+;;!! const { aaa: bbb } = ccc;
+;;!               ^^^
+;;!          --------
+(pair_pattern
+  value: (_) @value
+) @_.domain
+
 ;;!! "string"
 ;;!! `string`
 ;;!  ^^^^^^^^
