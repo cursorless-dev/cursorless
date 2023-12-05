@@ -11,13 +11,13 @@ command:
           scopeType: {type: value}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: "lambda str: 0"
+  documentContents: "map(lambda str: 0)"
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
   marks: {}
 finalState:
-  documentContents: "lambda str: "
+  documentContents: "map(lambda str: )"
   selections:
-    - anchor: {line: 0, character: 12}
-      active: {line: 0, character: 12}
+    - anchor: {line: 0, character: 16}
+      active: {line: 0, character: 16}
