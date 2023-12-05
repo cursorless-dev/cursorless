@@ -8,7 +8,7 @@ import {
 } from "@cursorless/common";
 import { join } from "path";
 import { SyntaxNode } from "web-tree-sitter";
-import { TreeSitter } from "..";
+import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
 

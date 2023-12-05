@@ -40,7 +40,7 @@ repos:
         # tests use strings with trailing white space to represent the final
         # document contents. For example
         # packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/ruby/changeCondition.yml
-        exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/.*/[^/]*\.(yml|scope)$
+        exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$|scope$|/generated/|^patches/
   - repo: local
     hooks:
       - id: eslint

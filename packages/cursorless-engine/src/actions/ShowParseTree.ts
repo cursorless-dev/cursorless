@@ -1,7 +1,7 @@
 import { FlashStyle, Range, TextDocument } from "@cursorless/common";
 import * as path from "node:path";
 import type { Tree, TreeCursor } from "web-tree-sitter";
-import type { TreeSitter } from "..";
+import type { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import type { Target } from "../typings/target.types";
 import { flashTargets } from "../util/targetUtils";

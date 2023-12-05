@@ -63,9 +63,14 @@
   ;;!  -------------------------------^^^-------
   (public_field_definition
     name: (_) @name
-  ) @name.domain.start
+    type: (_
+      ":"
+      (_) @type
+    )?
+    value: (_)? @value
+  ) @_.domain.start
   .
-  ";"? @name.domain.end
+  ";"? @_.domain.end
 )
 
 [
@@ -165,7 +170,9 @@
 
 ;;!! function ccc(): string {}
 ;;!                  ^^^^^^
-(function_declaration
+;;!! ccc(): string {}
+;;!         ^^^^^^
+(_
   parameters: (_) @type.leading.end.endOf
   return_type: (_
     ":"
@@ -266,13 +273,16 @@
 ;;!                   ^^^^
 ;;!                   xxxxxx
 ;;!                   ------------
-(property_signature
-  name: (_) @collectionKey @collectionKey.trailing.start.endOf @type.leading.start.endOf
-  type: (_
-    ":"
-    (_) @type @collectionKey.trailing.end.startOf @type.leading.end.startOf
-  )
-) @_.domain
+(
+  (property_signature
+    name: (_) @collectionKey @collectionKey.trailing.start.endOf @type.leading.start.endOf
+    type: (_
+      ":"
+      (_) @type @collectionKey.trailing.end.startOf @type.leading.end.startOf
+    )
+  ) @_.domain.start
+  ";"? @_.domain.end
+)
 
 ;;!! interface Type { name: string; }
 ;;!                 ^^^^^^^^^^^^^^^^^

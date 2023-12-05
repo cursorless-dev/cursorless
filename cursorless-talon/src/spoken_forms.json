@@ -76,7 +76,8 @@
       "trailing": "trailing",
       "content": "keepContentFilter",
       "empty": "keepEmptyFilter",
-      "its": "inferPreviousMark"
+      "its": "inferPreviousMark",
+      "visible": "visible"
     },
     "simple_scope_modifier": { "every": "every" },
     "interior_modifier": {
@@ -154,7 +155,7 @@
       "environment": "environment",
       "command": "command",
       "char": "character",
-      "word": "word",
+      "sub": "word",
       "token": "token",
       "identifier": "identifier",
       "line": "line",
