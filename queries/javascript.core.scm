@@ -370,6 +370,14 @@
   (_) @value
 ) @_.domain
 
+;;!! str => str.length > 0
+;;!         ^^^^^^^^^^^^^^
+;;!  ---------------------
+(arrow_function
+  body: (_) @value
+  (#not-type? @value statement_block)
+) @_.domain
+
 ;; name:
 ;;!! for (const aaa of bbb) {}
 ;;!             ^^^
