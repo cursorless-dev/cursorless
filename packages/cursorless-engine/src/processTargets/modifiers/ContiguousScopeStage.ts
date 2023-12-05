@@ -4,7 +4,7 @@ import type {
   Position,
   TextEditor,
 } from "@cursorless/common";
-import { NoContainingScopeError } from "@cursorless/common";
+import { NoContainingScopeError, Range } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
@@ -12,26 +12,6 @@ import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 
-/**
- * This modifier returns all scopes intersecting the input target if the target
- * has an explicit range (ie {@link Target.hasExplicitRange} is `true`).  If the
- * target does not have an explicit range, this modifier returns all scopes in
- * the canonical iteration scope defined by the scope handler in
- * {@link ScopeHandler.getIterationScopesTouchingPosition}.
- *
- * We proceed as follows:
- *
- * 1. If target has an explicit range, call
- *    {@link ScopeHandler.getScopesOverlappingRange} on our scope handler.  If
- *    we get back at least one {@link TargetScope} whose
- *    {@link TargetScope.domain|domain} terminates within the input target
- *    range, just return all targets directly.
- * 2. If we didn't get any scopes that terminate within the input target, or if
- *    the target had no explicit range, then expand to the containing instance
- *    of {@link ScopeHandler.iterationScopeType}, and then return all targets
- *    returned from {@link ScopeHandler.getScopesOverlappingRange} when applied
- *    to the expanded target's {@link Target.contentRange}.
- */
 export class ContiguousScopeStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
@@ -41,7 +21,7 @@ export class ContiguousScopeStage implements ModifierStage {
 
   run(target: Target): Target[] {
     const { scopeType } = this.modifier;
-    const { editor, isReversed, contentRange } = target;
+    const { editor, contentRange } = target;
 
     const scopeHandler = this.scopeHandlerFactory.create(
       scopeType,
@@ -52,65 +32,70 @@ export class ContiguousScopeStage implements ModifierStage {
       throw new NoContainingScopeError(scopeType.type);
     }
 
-    const start = getDistalScope(
-      scopeHandler,
-      editor,
-      contentRange.start,
-      "backward",
-    );
-    const end = getDistalScope(
-      scopeHandler,
-      editor,
-      contentRange.end,
-      "forward",
-    );
+    const targets = [
+      ...getScopes(scopeHandler, editor, contentRange.start, "backward"),
+      ...getScopes(scopeHandler, editor, contentRange.end, "forward"),
+    ]
+      .filter((scope) => scope != null)
+      .flatMap((scope) => scope?.getTargets(false) ?? []);
 
-    if (start == null || end == null) {
+    if (targets.length === 0) {
       throw new NoContainingScopeError(scopeType.type);
     }
 
-    return [
-      new Target...
-    ]
+    let newContentRange = targets[0].contentRange;
 
-    // return scopes.flatMap((scope) => scope.getTargets(isReversed));
+    for (const target of targets) {
+      newContentRange = newContentRange.union(target.contentRange);
+    }
+
+    return [targets[0].withContentRange(newContentRange)];
   }
 }
 
-function getDistalScope(
+function getScopes(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
   position: Position,
   direction: Direction,
-): TargetScope | undefined {
-  let result: TargetScope | undefined;
+): [TargetScope | undefined, TargetScope | undefined] {
+  let first, last: TargetScope | undefined;
 
   const generator = scopeHandler.generateScopes(editor, position, direction, {
     skipAncestorScopes: true,
   });
 
   for (const scope of generator) {
-    if (result == null) {
-      result = scope;
+    if (first == null || last == null) {
+      first = scope;
+      last = scope;
       continue;
     }
 
     const [previousScope, nextScope] = (() => {
       if (direction === "forward") {
-        return [result, scope];
+        return [last, scope];
       }
-      return [scope, result];
+      return [scope, last];
     })();
 
-    if (isAdjacent(previousScope, nextScope)) {
-      result = scope;
+    if (isAdjacent(editor, previousScope, nextScope)) {
+      last = scope;
     }
   }
 
-  return result;
+  return [first, last];
 }
 
 function isAdjacent(
+  editor: TextEditor,
   previousScope: TargetScope,
   nextScope: TargetScope,
-): boolean {}
+): boolean {
+  const rangeBetween = new Range(
+    previousScope.domain.end,
+    nextScope.domain.start,
+  );
+  const text = editor.document.getText(rangeBetween);
+  return /^\s*$/.test(text);
+}
