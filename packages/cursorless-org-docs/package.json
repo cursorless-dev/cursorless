@@ -20,11 +20,11 @@
   "dependencies": {
     "@algolia/client-search": "4.15.0",
     "@docsearch/react": "3.3.3",
-    "@docusaurus/core": "3.0.0",
-    "@docusaurus/preset-classic": "3.0.0",
-    "@docusaurus/theme-classic": "3.0.0",
-    "@docusaurus/theme-common": "3.0.0",
-    "@docusaurus/theme-search-algolia": "3.0.0",
+    "@docusaurus/core": "3.0.1",
+    "@docusaurus/preset-classic": "3.0.1",
+    "@docusaurus/theme-classic": "3.0.1",
+    "@docusaurus/theme-common": "3.0.1",
+    "@docusaurus/theme-search-algolia": "3.0.1",
     "@mdx-js/react": "3.0.0",
     "clsx": "^1.2.1",
     "mdast-util-find-and-replace": "^2.2.2",
@@ -46,8 +46,8 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.0.0",
-    "@docusaurus/types": "3.0.0",
+    "@docusaurus/module-type-aliases": "3.0.1",
+    "@docusaurus/types": "3.0.1",
     "@tsconfig/docusaurus": "2.0.0",
     "@types/mdast": "4.0.3",
     "typescript": "^5.2.2",
