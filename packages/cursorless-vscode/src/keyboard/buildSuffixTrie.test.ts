@@ -102,6 +102,14 @@ const testCases: TestCase[] = [
     ],
   },
   {
+    input: ["aa", "ab"],
+    expected: [
+      { key: "aa", value: "aa" },
+      { key: "ab", value: "ab" },
+      { key: "b", value: "ab" },
+    ],
+  },
+  {
     input: ["a", "A"],
     expected: [
       { key: "a", value: "a" },
