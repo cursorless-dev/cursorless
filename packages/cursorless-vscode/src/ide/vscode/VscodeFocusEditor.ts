@@ -32,6 +32,11 @@ export default async function vscodeFocusEditor(
   ide: VscodeIDE,
   editor: VscodeTextEditorImpl,
 ) {
+  // Focusing the search editor brings focus back to the input field.
+  if (editor.document.uri.scheme === "search-editor") {
+    return;
+  }
+
   const viewColumn = getViewColumn(editor.vscodeEditor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
