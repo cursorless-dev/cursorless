@@ -229,7 +229,7 @@ For example, the following command:
 
     "take second past fourth sub blue air"
 
-Selects the second, third and fourth sub in the token containing letter 'a' with a blue hat.
+Selects the second, third and fourth word in the token containing letter 'a' with a blue hat.
 
 ###### `"char"`
 
