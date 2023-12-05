@@ -142,9 +142,9 @@
   (_) @value
 ) @_.domain
 
-;;!! lambda str => len(str)
-;;!                ^^^^^^^^
-;;!  ----------------------
+;;!! lambda str => len(str) > 0
+;;!                ^^^^^^^^^^^^
+;;!  --------------------------
 (lambda
   body: (_) @value
 ) @_.domain
