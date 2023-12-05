@@ -11,13 +11,13 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    // Hello
+    // 1
 
     function helloWorld() {
-        // Hello
+        // 2
     }
 
-    // Hello
+    // 3
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
