@@ -1,0 +1,39 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change every line
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+
+    a
+
+    b   c
+    d   e
+    f   g
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+
+    a
+
+
+
+
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
