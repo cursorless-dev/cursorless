@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: chuck first two words
+  spokenForm: chuck first two subs
   action: {name: remove}
   targets:
     - type: primitive

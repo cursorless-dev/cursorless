@@ -28,7 +28,7 @@ trim_trailing_whitespace = false
 [Makefile]
 indent_style = tab
 
-[**/vendor/**]
+[**/{vendor,generated}/**]
 charset = unset
 end_of_line = unset
 indent_size = unset
