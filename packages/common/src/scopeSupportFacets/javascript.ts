@@ -5,7 +5,7 @@ import {
 
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
-export const javascriptSupport: LanguageScopeSupportFacetMap = {
+export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   ["name.assignment"]: supported,
   ["key.mapPair"]: supported,

@@ -1,5 +1,5 @@
-import { htmlSupport } from "./html";
-import { javascriptSupport } from "./javascript";
+import { htmlScopeSupport } from "./html";
+import { javascriptScopeSupport } from "./javascript";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 
 export function getLanguageScopeSupport(
@@ -7,9 +7,9 @@ export function getLanguageScopeSupport(
 ): LanguageScopeSupportFacetMap {
   switch (languageId) {
     case "javascript":
-      return javascriptSupport;
+      return javascriptScopeSupport;
     case "html":
-      return htmlSupport;
+      return htmlScopeSupport;
   }
   throw Error(`Unsupported language: '${languageId}'`);
 }

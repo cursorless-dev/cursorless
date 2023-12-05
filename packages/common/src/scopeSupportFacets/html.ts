@@ -5,7 +5,7 @@ import {
 
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
-export const htmlSupport: LanguageScopeSupportFacetMap = {
+export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   ["key.attribute"]: supported,
   ["tags"]: supported,
 
