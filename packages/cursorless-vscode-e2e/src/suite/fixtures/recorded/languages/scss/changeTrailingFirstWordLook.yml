@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  spokenForm: change trailing first word look
+  spokenForm: change trailing first sub look
   version: 2
   targets:
     - type: primitive
