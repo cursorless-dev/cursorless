@@ -36,6 +36,7 @@ export default async function vscodeFocusEditor(
   // FIXME: This is a hack. There is no way to focus the search editor. If we
   // could figure out if the editor was not focused, we could issue
   // `search.action.focusNextSearchResult`.
+  // Issue: https://github.com/cursorless-dev/cursorless/issues/1722
   if (editor.document.uri.scheme === "search-editor") {
     return;
   }
