@@ -11,7 +11,7 @@ command:
           scopeType: {type: value}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: map(str => str.length)
+  documentContents: map(str => 0)
   selections:
     - anchor: {line: 0, character: 4}
       active: {line: 0, character: 4}
