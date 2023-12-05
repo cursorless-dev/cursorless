@@ -154,7 +154,7 @@
       "environment": "environment",
       "command": "command",
       "char": "character",
-      "word": "word",
+      "sub": "word",
       "token": "token",
       "identifier": "identifier",
       "line": "line",

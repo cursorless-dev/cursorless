@@ -84,7 +84,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     command: "command",
     // Text-based scope types
     character: "char",
-    word: "word",
+    word: "sub",
     token: "token",
     identifier: "identifier",
     line: "line",
