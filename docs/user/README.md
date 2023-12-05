@@ -217,19 +217,19 @@ For example, the command `take every key [blue] air` will select every key in th
 
 ##### Sub-token modifiers
 
-###### `"word"`
+###### `"sub"`
 
-If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"word"` modifier. For example,
+If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"sub"` modifier. For example,
 
-- `"second word air"`
-- `"second past fourth word air"`
-- `"last word air"`
+- `"second sub air"`
+- `"second past fourth sub air"`
+- `"last sub air"`
 
 For example, the following command:
 
-    "take second past fourth word blue air"
+    "take second past fourth sub blue air"
 
-Selects the second, third and fourth word in the token containing letter 'a' with a blue hat.
+Selects the second, third and fourth sub in the token containing letter 'a' with a blue hat.
 
 ###### `"char"`
 
