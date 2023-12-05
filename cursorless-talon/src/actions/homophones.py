@@ -8,7 +8,7 @@ from .replace import cursorless_replace_action
 
 def cursorless_homophones_action(target: CursorlessTarget):
     """Replaced target with next homophone"""
-    texts = actions.user.cursorless_get_text_list(target, False)
+    texts = actions.user.cursorless_get_text_list(target, True)
     try:
         updated_texts = list(map(get_next_homophone, texts))
     except LookupError as e:

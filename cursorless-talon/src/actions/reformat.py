@@ -12,7 +12,7 @@ mod.list("cursorless_reformat_action", desc="Cursorless reformat action")
 class Actions:
     def private_cursorless_reformat(target: CursorlessTarget, formatters: str):
         """Execute Cursorless reformat action. Reformat target with formatter"""
-        texts = actions.user.cursorless_get_text_list(target, False)
+        texts = actions.user.cursorless_get_text_list(target, True)
         updated_texts = [actions.user.reformat_text(text, formatters) for text in texts]
         destination = PrimitiveDestination("to", target)
         cursorless_replace_action(destination, updated_texts)
