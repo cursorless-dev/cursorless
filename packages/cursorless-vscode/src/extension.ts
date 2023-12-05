@@ -103,7 +103,11 @@ export async function activate(
   addCommandRunnerDecorator(testCaseRecorder);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
-  const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
+  const keyboardCommands = KeyboardCommands.create(
+    context,
+    vscodeApi,
+    statusBarItem,
+  );
   const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
   context.subscriptions.push(
     revisualizeOnCustomRegexChange(scopeVisualizer, scopeProvider),

@@ -56,6 +56,7 @@ export * from "./types/GeneralizedRange";
 export * from "./types/RangeOffsets";
 export * from "./util/omitByDeep";
 export * from "./util/range";
+export * from "./util/uniqWithHash";
 export * from "./testUtil/isTesting";
 export * from "./testUtil/testConstants";
 export * from "./testUtil/getFixturePaths";

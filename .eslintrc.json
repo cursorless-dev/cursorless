@@ -78,5 +78,10 @@
       }
     }
   },
-  "ignorePatterns": ["**/vendor/**/*.ts", "**/vendor/**/*.js", "**/out/**"]
+  "ignorePatterns": [
+    "**/vendor/**/*.ts",
+    "**/vendor/**/*.js",
+    "**/out/**",
+    "**/generated/**"
+  ]
 }
