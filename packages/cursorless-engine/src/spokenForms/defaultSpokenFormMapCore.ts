@@ -117,6 +117,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     startOf: "start of",
     endOf: "end of",
     interiorOnly: "inside",
+    visible: "visible",
     extendThroughStartOf: "head",
     extendThroughEndOf: "tail",
     everyScope: "every",
