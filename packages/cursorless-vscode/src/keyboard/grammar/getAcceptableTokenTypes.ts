@@ -1,7 +1,7 @@
 import nearley, { State } from "nearley";
 import { isEqual } from "lodash";
 import { CommandRulePostProcessor } from "./CommandRulePostProcessor";
-import { WorkQueue } from "./WorkQueue";
+import { UniqueWorkQueue } from "./UniqueWorkQueue";
 import { uniqWithHash } from "@cursorless/common";
 import { UNUSED } from "./grammarHelpers";
 import { KeyboardCommandHandler } from "../KeyboardCommandHandler";
@@ -54,7 +54,7 @@ function getMetadata<T extends keyof KeyboardCommandHandler>(
  */
 function getRootStates(state: nearley.State) {
   /** A queue of states to process; ensures we don't try to process state twice */
-  const queue = new WorkQueue(state);
+  const queue = new UniqueWorkQueue(state);
   const roots: State[] = [];
 
   for (const state of queue) {

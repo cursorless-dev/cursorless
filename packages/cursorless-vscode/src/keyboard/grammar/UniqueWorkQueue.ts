@@ -1,7 +1,8 @@
 /**
- * A queue that ensures that each item is only yielded once
+ * A queue that ensures that each item is only yielded once even if it is pushed
+ * multiple times.
  */
-export class WorkQueue<T> {
+export class UniqueWorkQueue<T> {
   private items = new Set<T>();
   private queue: T[] = [];
 
