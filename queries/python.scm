@@ -142,6 +142,13 @@
   (_) @value
 ) @_.domain
 
+;;!! lambda str => len(str)
+;;!                ^^^^^^^^
+;;!  ----------------------
+(lambda
+  body: (_) @value
+) @_.domain
+
 ;; value:
 ;;!! for aaa in bbb:
 ;;!             ^^^
