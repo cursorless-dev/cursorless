@@ -63,9 +63,14 @@
   ;;!  -------------------------------^^^-------
   (public_field_definition
     name: (_) @name
-  ) @name.domain.start
+    type: (_
+      ":"
+      (_) @type
+    )?
+    value: (_)? @value
+  ) @_.domain.start
   .
-  ";"? @name.domain.end
+  ";"? @_.domain.end
 )
 
 [
@@ -165,7 +170,9 @@
 
 ;;!! function ccc(): string {}
 ;;!                  ^^^^^^
-(function_declaration
+;;!! ccc(): string {}
+;;!         ^^^^^^
+(_
   parameters: (_) @type.leading.end.endOf
   return_type: (_
     ":"
