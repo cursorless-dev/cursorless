@@ -374,7 +374,8 @@
 ;;!         ^^^^^^^^^^^^^^
 ;;!  ---------------------
 (arrow_function
-  (binary_expression) @value
+  body: (_) @value
+  (#not-type? @value statement_block)
 ) @_.domain
 
 ;; name:

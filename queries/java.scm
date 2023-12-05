@@ -318,3 +318,11 @@
   (return_statement) @value @_.domain
   (#child-range! @value 1 -2)
 )
+
+;;!! str -> str.length > 0
+;;!         ^^^^^^^^^^^^^^
+;;!  ---------------------
+(lambda_expression
+  body: (_) @value
+  (#not-type? @value block)
+) @_.domain
