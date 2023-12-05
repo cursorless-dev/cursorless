@@ -16,9 +16,9 @@ export interface SectionTypes {
   scope: SimpleScopeTypeType;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
-  modifier: ModifierKeyMapValue;
+  modifier: ModifierType;
 }
-type ModifierKeyMapValue = "nextPrev";
+type ModifierType = "nextPrev";
 type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
