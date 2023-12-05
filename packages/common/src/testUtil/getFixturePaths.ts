@@ -28,7 +28,9 @@ export function getRecordedTestPaths() {
   return walkFilesSync(directory)
     .filter((p) => p.endsWith(".yml") || p.endsWith(".yaml"))
     .map((p) => ({
-      name: path.relative(relativeDir, p.substring(0, p.lastIndexOf("."))),
+      name: path
+        .relative(relativeDir, p.substring(0, p.lastIndexOf(".")))
+        .replaceAll("\\", "/"),
       path: p,
     }));
 }
