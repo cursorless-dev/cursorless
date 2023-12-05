@@ -1,17 +1,11 @@
 import { htmlSupport } from "./html";
 import { javascriptSupport } from "./javascript";
-import { plaintextSupport } from "./plaintext";
-import {
-  LanguageScopeSupportFacetMap,
-  TextualLanguageScopeSupportFacetMap,
-} from "./scopeSupportFacets";
+import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 
 export function getLanguageScopeSupport(
   languageId: string,
-): TextualLanguageScopeSupportFacetMap | LanguageScopeSupportFacetMap {
+): LanguageScopeSupportFacetMap {
   switch (languageId) {
-    case "plaintext":
-      return plaintextSupport;
     case "javascript":
       return javascriptSupport;
     case "html":

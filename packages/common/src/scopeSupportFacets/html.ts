@@ -1,13 +1,13 @@
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
-} from "@cursorless/common";
+} from "./scopeSupportFacets.types";
 
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const htmlSupport: LanguageScopeSupportFacetMap = {
   ["key.attribute"]: supported,
-  ["tags.element"]: supported,
+  ["tags"]: supported,
 
   namedFunction: notApplicable,
   ["name.assignment"]: notApplicable,

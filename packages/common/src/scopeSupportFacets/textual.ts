@@ -1,11 +1,11 @@
 import {
   ScopeSupportFacetLevel,
   TextualLanguageScopeSupportFacetMap,
-} from "@cursorless/common";
+} from "./scopeSupportFacets.types";
 
 const { supported } = ScopeSupportFacetLevel;
 
-export const plaintextSupport: TextualLanguageScopeSupportFacetMap = {
+export const textualScopeSupport: TextualLanguageScopeSupportFacetMap = {
   character: supported,
   word: supported,
   token: supported,
