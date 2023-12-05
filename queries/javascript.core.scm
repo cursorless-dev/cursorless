@@ -370,6 +370,13 @@
   (_) @value
 ) @_.domain
 
+;;!! str => str.length > 0
+;;!         ^^^^^^^^^^^^^^
+;;!  ---------------------
+(arrow_function
+  (binary_expression) @value
+) @_.domain
+
 ;; name:
 ;;!! for (const aaa of bbb) {}
 ;;!             ^^^
