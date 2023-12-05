@@ -273,13 +273,16 @@
 ;;!                   ^^^^
 ;;!                   xxxxxx
 ;;!                   ------------
-(property_signature
-  name: (_) @collectionKey @collectionKey.trailing.start.endOf @type.leading.start.endOf
-  type: (_
-    ":"
-    (_) @type @collectionKey.trailing.end.startOf @type.leading.end.startOf
-  )
-) @_.domain
+(
+  (property_signature
+    name: (_) @collectionKey @collectionKey.trailing.start.endOf @type.leading.start.endOf
+    type: (_
+      ":"
+      (_) @type @collectionKey.trailing.end.startOf @type.leading.end.startOf
+    )
+  ) @_.domain.start
+  ";"? @_.domain.end
+)
 
 ;;!! interface Type { name: string; }
 ;;!                 ^^^^^^^^^^^^^^^^^
