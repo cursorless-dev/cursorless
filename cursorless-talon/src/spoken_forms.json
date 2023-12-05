@@ -76,7 +76,8 @@
       "trailing": "trailing",
       "content": "keepContentFilter",
       "empty": "keepEmptyFilter",
-      "its": "inferPreviousMark"
+      "its": "inferPreviousMark",
+      "visible": "visible"
     },
     "simple_scope_modifier": { "every": "every" },
     "interior_modifier": {
