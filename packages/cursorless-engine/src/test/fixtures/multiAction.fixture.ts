@@ -9,7 +9,6 @@ const getTextAction: ActionDescriptor = {
   },
   options: {
     showDecorations: false,
-    ensureSingleTarget: false,
   },
 };
 
