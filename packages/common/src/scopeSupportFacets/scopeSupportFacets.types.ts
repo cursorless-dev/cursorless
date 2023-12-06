@@ -59,11 +59,9 @@ const textualScopeSupportFacets = [
 ] as const;
 
 export interface ScopeSupportFacetInfo {
-  readonly label: string;
   readonly description: string;
   readonly scopeType: SimpleScopeTypeType;
   readonly isIteration?: boolean;
-  readonly examples: readonly string[];
 }
 
 export enum ScopeSupportFacetLevel {
