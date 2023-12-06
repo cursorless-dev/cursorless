@@ -66,7 +66,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
       "backward",
     );
 
-    for (const targets of targetsBackward) {
+    for (const targetRange of targetRangesBackwardIter) {
       if (targetsForward != null && isAdjacent(targets[1], targetsForward[0])) {
         yield targetsToScope(targets[0], targetsForward[1]);
         targetsForward = undefined;
