@@ -40,6 +40,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
     direction: Direction,
+    _hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
     return direction === "backward"
       ? this.generateScopeCandidatesBackward(editor, position)
