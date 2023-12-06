@@ -7,6 +7,7 @@ import { Edit } from "../typings/Types";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
+import { range as iterRange, map, pairwise } from "itertools";
 
 export default class JoinLines {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -46,23 +47,21 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
   for (const range of contentRanges) {
     const startLine = range.start.line;
     const endLine = range.isSingleLine ? startLine + 1 : range.end.line;
-    let prevLine = document.lineAt(startLine);
 
-    for (let i = startLine + 1; i <= endLine && i < document.lineCount; ++i) {
-      const nextLine = document.lineAt(i);
-
+    const lineIter = map(iterRange(startLine, endLine + 1), (i) =>
+      document.lineAt(i),
+    );
+    for (const [line1, line2] of pairwise(lineIter)) {
       edits.push({
         range: new Range(
-          prevLine.range.end.line,
-          prevLine.lastNonWhitespaceCharacterIndex,
-          nextLine.range.start.line,
-          nextLine.firstNonWhitespaceCharacterIndex,
+          line1.range.end.line,
+          line1.lastNonWhitespaceCharacterIndex,
+          line2.range.start.line,
+          line2.firstNonWhitespaceCharacterIndex,
         ),
-        text: nextLine.isEmptyOrWhitespace ? "" : " ",
+        text: line2.isEmptyOrWhitespace ? "" : " ",
         isReplace: true,
       });
-
-      prevLine = nextLine;
     }
   }
 
