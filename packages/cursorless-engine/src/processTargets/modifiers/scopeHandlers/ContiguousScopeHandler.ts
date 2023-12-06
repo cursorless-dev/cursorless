@@ -51,7 +51,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
       : this.generateScopeCandidatesForward(editor, position);
   }
 
-  *generateScopeCandidatesBackward(
+  private *generateScopeCandidatesBackward(
     editor: TextEditor,
     position: Position,
   ): Iterable<TargetScope> {
