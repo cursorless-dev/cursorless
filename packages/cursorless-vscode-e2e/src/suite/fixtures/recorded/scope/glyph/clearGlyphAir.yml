@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: clear glyph air
+  spokenForm: change glyph air
   action:
     name: clearAndSetSelection
     target:
@@ -10,7 +10,6 @@ command:
         - type: containingScope
           scopeType: {type: glyph, character: a}
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'glyph'
 initialState:
   documentContents: abc$!4123a
   selections:

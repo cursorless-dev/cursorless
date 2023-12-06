@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: clear next glyph bat
+  spokenForm: change next glyph bat
   action:
     name: clearAndSetSelection
     target:
@@ -13,7 +13,6 @@ command:
           length: 1
           direction: forward
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'glyph'
 initialState:
   documentContents: aB
   selections:

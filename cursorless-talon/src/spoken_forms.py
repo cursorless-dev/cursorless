@@ -68,6 +68,7 @@ LIST_TO_TYPE_MAP = {
     "wrapper_only_paired_delimiter": "pairedDelimiter",
     "surrounding_pair_scope_type": "pairedDelimiter",
     "scope_type": "simpleScopeTypeType",
+    "glyph_scope_type": "complexScopeType",
     "custom_regex_scope_type": "customRegex",
 }
 

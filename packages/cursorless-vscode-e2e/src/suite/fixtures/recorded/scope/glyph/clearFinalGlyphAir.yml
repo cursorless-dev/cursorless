@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: clear final glyph air
+  spokenForm: change last glyph air
   action:
     name: clearAndSetSelection
     target:
@@ -12,7 +12,6 @@ command:
           start: -1
           length: 1
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'glyph'
 initialState:
   documentContents: abc$!4123a
   selections:

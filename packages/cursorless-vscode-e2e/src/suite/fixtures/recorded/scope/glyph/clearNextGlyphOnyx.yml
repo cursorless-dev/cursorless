@@ -13,7 +13,7 @@ command:
           length: 1
           direction: forward
   usePrePhraseSnapshot: true
-spokenFormError: Scope type 'glyph'
+spokenFormError: Unknown character 'å'
 initialState:
   documentContents: abå
   selections:
