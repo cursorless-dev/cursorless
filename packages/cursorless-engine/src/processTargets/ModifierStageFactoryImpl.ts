@@ -11,7 +11,6 @@ import { ModifierStage } from "./PipelineStages.types";
 import { CascadingStage } from "./modifiers/CascadingStage";
 import { ModifyIfUntypedStage } from "./modifiers/ConditionalModifierStages";
 import { ContainingScopeStage } from "./modifiers/ContainingScopeStage";
-import { ContiguousScopeStage } from "./modifiers/ContiguousScopeStage";
 import { EveryScopeStage } from "./modifiers/EveryScopeStage";
 import {
   KeepContentFilterStage,
@@ -74,12 +73,6 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new VisibleStage(modifier);
       case "containingScope":
         return new ContainingScopeStage(
-          this,
-          this.scopeHandlerFactory,
-          modifier,
-        );
-      case "contiguousScope":
-        return new ContiguousScopeStage(
           this,
           this.scopeHandlerFactory,
           modifier,

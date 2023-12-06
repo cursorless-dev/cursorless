@@ -59,6 +59,7 @@ type ModifierExtra =
   | "previous"
   | "next"
   | "forward"
-  | "backward";
+  | "backward"
+  | "contiguousScope";
 
 export type SpokenFormType = keyof SpokenFormMapKeyTypes;

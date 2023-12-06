@@ -15,15 +15,7 @@ mod.list(
 )
 def cursorless_simple_scope_modifier(m) -> dict[str, Any]:
     """Containing scope, every scope, etc"""
-    match m[0]:
-        case "every":
-            type = "everyScope"
-        case "contiguous":
-            type = "contiguousScope"
-        case _:
-            type = "containingScope"
-
     return {
-        "type": type,
+        "type": "everyScope" if m[0] == "every" else "containingScope",
         "scopeType": m.cursorless_scope_type,
     }

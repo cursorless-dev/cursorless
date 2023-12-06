@@ -1,3 +1,4 @@
+from typing import Any
 from talon import Module
 
 mod = Module()
@@ -12,28 +13,45 @@ mod.list(
     "cursorless_custom_regex_scope_type_plural",
     desc="Supported plural custom regular expression scope types",
 )
+mod.list(
+    "cursorless_contiguous_scope_type",
+    desc="Cursorless contiguous scope type",
+)
 
 
 @mod.capture(
-    rule="{user.cursorless_scope_type} | {user.cursorless_custom_regex_scope_type}"
+    rule="[{user.cursorless_contiguous_scope_type}] ({user.cursorless_scope_type} | {user.cursorless_custom_regex_scope_type})"
 )
-def cursorless_scope_type(m) -> dict[str, str]:
+def cursorless_scope_type(m) -> dict[str, Any]:
     """Cursorless scope type singular"""
     try:
-        return {"type": m.cursorless_scope_type}
+        scope_type = {"type": m.cursorless_scope_type}
     except AttributeError:
-        return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
+        scope_type = {
+            "type": "customRegex",
+            "regex": m.cursorless_custom_regex_scope_type,
+        }
+
+    try:
+        return {"type": m.cursorless_contiguous_scope_type, "scopeType": scope_type}
+    except AttributeError:
+        return scope_type
 
 
 @mod.capture(
-    rule="{user.cursorless_scope_type_plural} | {user.cursorless_custom_regex_scope_type_plural}"
+    rule="[{user.cursorless_contiguous_scope_type}] ({user.cursorless_scope_type_plural} | {user.cursorless_custom_regex_scope_type_plural})"
 )
-def cursorless_scope_type_plural(m) -> dict[str, str]:
+def cursorless_scope_type_plural(m) -> dict[str, Any]:
     """Cursorless scope type plural"""
     try:
-        return {"type": m.cursorless_scope_type_plural}
+        scope_type = {"type": m.cursorless_scope_type_plural}
     except AttributeError:
-        return {
+        scope_type = {
             "type": "customRegex",
             "regex": m.cursorless_custom_regex_scope_type_plural,
         }
+
+    try:
+        return {"type": m.cursorless_contiguous_scope_type, "scopeType": scope_type}
+    except AttributeError:
+        return scope_type

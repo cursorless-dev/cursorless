@@ -65,3 +65,10 @@ export function isEmptyIterable(iterable: Iterable<unknown>): boolean {
 
   return true;
 }
+
+export function next<T>(generator: Iterable<T>): T | undefined {
+  for (const value of generator) {
+    return value;
+  }
+  return undefined;
+}

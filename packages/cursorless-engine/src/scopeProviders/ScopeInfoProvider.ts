@@ -176,6 +176,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
       return false;
 
     case "oneOf":
+    case "contiguous":
       throw Error(
         `Can't decide whether scope type ${JSON.stringify(
           scopeType,

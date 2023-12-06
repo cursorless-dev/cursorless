@@ -14,6 +14,7 @@ import { UrlScopeHandler } from "./RegexScopeHandler";
 import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
+import { ContiguousScopeHandler } from "./ContiguousScopeHandler";
 
 /**
  * Returns a scope handler for the given scope type and language id, or
@@ -72,6 +73,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new CustomRegexScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
+      case "contiguous":
+        return new ContiguousScopeHandler(this, scopeType, languageId);
       case "instance":
         // Handle instance pseudoscope with its own special modifier
         throw Error("Unexpected scope type 'instance'");

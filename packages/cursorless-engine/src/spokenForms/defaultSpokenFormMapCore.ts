@@ -121,7 +121,6 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     extendThroughStartOf: "head",
     extendThroughEndOf: "tail",
     everyScope: "every",
-    contiguousScope: "slurp",
   },
 
   modifierExtra: {
@@ -131,6 +130,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     next: "next",
     forward: "forward",
     backward: "backward",
+    contiguousScope: "fat",
   },
 
   customRegex: {},

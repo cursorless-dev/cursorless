@@ -205,11 +205,17 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
+export interface ContiguousScopeType {
+  type: "contiguous";
+  scopeType: ScopeType;
+}
+
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
-  | OneOfScopeType;
+  | OneOfScopeType
+  | ContiguousScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -240,11 +246,6 @@ export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
   ancestorIndex?: number;
-}
-
-export interface ContiguousScopeModifier {
-  type: "contiguousScope";
-  scopeType: ScopeType;
 }
 
 export interface EveryScopeModifier {
@@ -386,7 +387,6 @@ export type Modifier =
   | ExcludeInteriorModifier
   | VisibleModifier
   | ContainingScopeModifier
-  | ContiguousScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier
   | RelativeScopeModifier
