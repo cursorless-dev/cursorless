@@ -208,6 +208,7 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (scopeType.type) {
       case "oneOf":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
+
       case "contiguous": {
         const scope = this.handleScopeType(scopeType.scopeType);
         return [this.spokenFormMap.modifierExtra.contiguousScope, scope];
