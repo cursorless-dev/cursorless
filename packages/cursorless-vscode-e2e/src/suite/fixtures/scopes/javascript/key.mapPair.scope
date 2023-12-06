@@ -1,0 +1,20 @@
+{ value: 123 }
+---
+
+[Content] = 0:2-0:7
+0| { value: 123 }
+    >-----<
+
+[Removal] = 0:2-0:9
+0| { value: 123 }
+    >-------<
+
+[Trailing delimiter] = 0:7-0:9
+0| { value: 123 }
+         >--<
+
+[Domain] = 0:2-0:12
+0| { value: 123 }
+    >----------<
+
+[Insertion delimiter] = " "
