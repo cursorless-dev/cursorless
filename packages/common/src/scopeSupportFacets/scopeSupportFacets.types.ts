@@ -80,8 +80,3 @@ export type TextualScopeSupportFacet =
 export type LanguageScopeSupportFacetMap = Partial<
   Record<ScopeSupportFacet, ScopeSupportFacetLevel>
 >;
-
-export type TextualLanguageScopeSupportFacetMap = Record<
-  TextualScopeSupportFacet,
-  ScopeSupportFacetLevel
->;
