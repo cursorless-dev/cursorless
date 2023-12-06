@@ -50,7 +50,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
   ): Iterable<TargetScope> {
-    const targetsForward = next(
+    let targetsForward = next(
       getTargetsInDirection(this.scopeHandler, editor, position, "forward"),
     );
 
@@ -64,6 +64,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     for (const targets of targetsBackward) {
       if (targetsForward != null && isAdjacent(targets[1], targetsForward[0])) {
         yield targetsToScope(targets[0], targetsForward[1]);
+        targetsForward = undefined;
       } else {
         yield targetsToScope(...targets);
       }
@@ -74,7 +75,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
   ): Iterable<TargetScope> {
-    const targetsBackward = next(
+    let targetsBackward = next(
       getTargetsInDirection(this.scopeHandler, editor, position, "backward"),
     );
 
@@ -91,6 +92,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
         isAdjacent(targetsBackward[1], targets[0])
       ) {
         yield targetsToScope(targetsBackward[0], targets[1]);
+        targetsBackward = undefined;
       } else {
         yield targetsToScope(...targets);
       }
