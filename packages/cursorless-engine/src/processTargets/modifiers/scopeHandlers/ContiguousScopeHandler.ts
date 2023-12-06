@@ -56,7 +56,12 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     position: Position,
   ): Iterable<TargetScope> {
     let targetRangeForward = next(
-      generateTargetRangesInDirection(this.scopeHandler, editor, position, "forward"),
+      generateTargetRangesInDirection(
+        this.scopeHandler,
+        editor,
+        position,
+        "forward",
+      ),
     );
 
     const targetRangesBackwardIter = generateTargetRangesInDirection(
@@ -67,11 +72,14 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     );
 
     for (const targetRange of targetRangesBackwardIter) {
-      if (targetsForward != null && isAdjacent(targets[1], targetsForward[0])) {
-        yield targetsToScope(targets[0], targetsForward[1]);
-        targetsForward = undefined;
+      if (
+        targetRangeForward != null &&
+        isAdjacent(targetRange[1], targetRangeForward[0])
+      ) {
+        yield targetsToScope(targetRange[0], targetRangeForward[1]);
+        targetRangeForward = undefined;
       } else {
-        yield targetsToScope(...targets);
+        yield targetsToScope(...targetRange);
       }
     }
   }
@@ -80,26 +88,31 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
   ): Iterable<TargetScope> {
-    let targetsBackward = next(
-      getTargetsInDirection(this.scopeHandler, editor, position, "backward"),
+    let targetRangeBackward = next(
+      generateTargetRangesInDirection(
+        this.scopeHandler,
+        editor,
+        position,
+        "backward",
+      ),
     );
 
-    const targetsForward = getTargetsInDirection(
+    const targetRangesForwardIter = generateTargetRangesInDirection(
       this.scopeHandler,
       editor,
       position,
       "forward",
     );
 
-    for (const targets of targetsForward) {
+    for (const targetRange of targetRangesForwardIter) {
       if (
-        targetsBackward != null &&
-        isAdjacent(targetsBackward[1], targets[0])
+        targetRangeBackward != null &&
+        isAdjacent(targetRangeBackward[1], targetRange[0])
       ) {
-        yield targetsToScope(targetsBackward[0], targets[1]);
-        targetsBackward = undefined;
+        yield targetsToScope(targetRangeBackward[0], targetRange[1]);
+        targetRangeBackward = undefined;
       } else {
-        yield targetsToScope(...targets);
+        yield targetsToScope(...targetRange);
       }
     }
   }
@@ -125,7 +138,7 @@ function targetsToScope(
   };
 }
 
-function* getTargetsInDirection(
+function* generateTargetRangesInDirection(
   scopeHandler: ScopeHandler,
   editor: TextEditor,
   position: Position,
