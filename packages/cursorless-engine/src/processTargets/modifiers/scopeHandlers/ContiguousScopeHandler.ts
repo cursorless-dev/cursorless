@@ -76,7 +76,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     }
   }
 
-  *generateScopeCandidatesForward(
+  private *generateScopeCandidatesForward(
     editor: TextEditor,
     position: Position,
   ): Iterable<TargetScope> {
