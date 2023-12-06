@@ -26,6 +26,7 @@
       "hover": "showHover",
       "indent": "indentLine",
       "inspect": "showDebugHover",
+      "join": "joinLines",
       "post": "setSelectionAfter",
       "pour": "editNewLineAfter",
       "pre": "setSelectionBefore",
