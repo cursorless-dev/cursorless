@@ -8,10 +8,14 @@ import {
   next,
 } from "@cursorless/common";
 import { ScopeHandlerFactory } from ".";
-import { Target } from "../../../typings/target.types";
+import type { Target } from "../../../typings/target.types";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
-import { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
+import type {
+  CustomScopeType,
+  ScopeHandler,
+  ScopeIteratorRequirements,
+} from "./scopeHandler.types";
 
 export class ContiguousScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = false;
