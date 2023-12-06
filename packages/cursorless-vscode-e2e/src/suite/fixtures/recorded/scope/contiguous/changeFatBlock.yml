@@ -1,0 +1,29 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change fat block
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType:
+            type: contiguous
+            scopeType: {type: paragraph}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    aaa
+    aaa
+
+    bbb
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: ""
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

@@ -1,0 +1,32 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change fat comment
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType:
+            type: contiguous
+            scopeType: {type: comment}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    // 111
+    // 222
+
+    // 333
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks: {}
+finalState:
+  documentContents: |-
+
+
+    // 333
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

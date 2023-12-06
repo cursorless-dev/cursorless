@@ -102,6 +102,14 @@ function targetsToScope(
   leadingTarget: Target,
   trailingTarget: Target,
 ): TargetScope {
+  if (leadingTarget.contentRange.isRangeEqual(trailingTarget.contentRange)) {
+    return {
+      editor: leadingTarget.editor,
+      domain: leadingTarget.contentRange,
+      getTargets: () => [leadingTarget],
+    };
+  }
+
   const range = leadingTarget.contentRange.union(trailingTarget.contentRange);
   return {
     editor: leadingTarget.editor,
