@@ -1,6 +1,6 @@
 languageId: shellscript
 command:
-  spokenForm: chuck second word cap
+  spokenForm: chuck second sub cap
   version: 2
   targets:
     - type: primitive

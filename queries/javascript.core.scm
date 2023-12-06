@@ -370,6 +370,14 @@
   (_) @value
 ) @_.domain
 
+;;!! str => str.length > 0
+;;!         ^^^^^^^^^^^^^^
+;;!  ---------------------
+(arrow_function
+  body: (_) @value
+  (#not-type? @value statement_block)
+) @_.domain
+
 ;; name:
 ;;!! for (const aaa of bbb) {}
 ;;!             ^^^
@@ -407,6 +415,14 @@
   "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
+
+;;!! const { aaa: bbb } = ccc;
+;;!               ^^^
+;;!          --------
+(pair_pattern
+  key: (_) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
+  value: (_) @value @collectionKey.trailing.end.startOf @value.leading.end.startOf
+) @_.domain
 
 ;;!! "string"
 ;;!! `string`

@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
@@ -140,6 +140,26 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
 }
 
 /**
+ * A predicate operator that modifies the range of the match by trimming trailing whitespace,
+ * similar to the javascript trimEnd function.
+ */
+class TrimEnd extends QueryPredicateOperator<TrimEnd> {
+  name = "trim-end!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const whitespaceLength = text.length - text.trimEnd().length;
+    nodeInfo.range = new Range(
+      range.start,
+      adjustPosition(document, range.end, -whitespaceLength),
+    );
+    return true;
+  }
+}
+
+/**
  * Indicates that it is ok for multiple captures to have the same domain but
  * different targets.  For example, if we have the query `(#allow-multiple!
  * @foo)`, then if we define the query so that `@foo` appears multiple times
@@ -197,6 +217,7 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
+  new TrimEnd(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),

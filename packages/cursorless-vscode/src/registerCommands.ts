@@ -73,7 +73,7 @@ export function registerCommands(
       keyboardCommands.targeted.targetDecoratedMark,
 
     ["cursorless.keyboard.targeted.targetScope"]:
-      keyboardCommands.targeted.targetScopeType,
+      keyboardCommands.targeted.modifyTargetContainingScope,
 
     ["cursorless.keyboard.targeted.targetSelection"]:
       keyboardCommands.targeted.targetSelection,

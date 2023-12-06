@@ -238,6 +238,10 @@ export interface ExcludeInteriorModifier {
   type: "excludeInterior";
 }
 
+export interface VisibleModifier {
+  type: "visible";
+}
+
 export interface ContainingScopeModifier {
   type: "containingScope";
   scopeType: ScopeType;
@@ -381,6 +385,7 @@ export type Modifier =
   | EndOfModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
+  | VisibleModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier

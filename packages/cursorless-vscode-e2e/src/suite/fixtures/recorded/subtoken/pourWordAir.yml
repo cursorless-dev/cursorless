@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 5
-  spokenForm: pour word air
+  spokenForm: pour sub air
   action: {name: editNewLineAfter}
   targets:
     - type: primitive

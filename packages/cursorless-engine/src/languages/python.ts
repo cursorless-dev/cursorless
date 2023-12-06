@@ -44,6 +44,10 @@ const nodeMatchers: Partial<
       argumentSelectionExtractor(),
     ),
     matcher(
+      itemNodeFinder("import_statement", "dotted_name", false),
+      argumentSelectionExtractor(),
+    ),
+    matcher(
       itemNodeFinder("global_statement", "identifier"),
       argumentSelectionExtractor(),
     ),

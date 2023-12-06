@@ -1,16 +1,13 @@
 import { Range } from "@cursorless/common";
-import {
-  BaseTarget,
-  CommonTargetParameters,
-  InteriorTarget,
-  TokenTarget,
-} from ".";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import { InteriorTarget } from "./InteriorTarget";
+import { TokenTarget } from "./TokenTarget";
 import { Target } from "../../typings/target.types";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 interface SurroundingPairTargetParameters extends CommonTargetParameters {
   /**

@@ -9,10 +9,8 @@ import {
 } from "vscode";
 import { getCellIndex } from "@cursorless/vscode-common";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
-import {
-  focusNotebookCellLegacy,
-  isVscodeLegacyNotebookVersion,
-} from "./notebook/notebookLegacy";
+import { focusNotebookCellLegacy } from "./notebook/notebookLegacy";
+import { isVscodeLegacyNotebookVersion } from "./notebook/notebook";
 import type { VscodeIDE } from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
@@ -34,6 +32,15 @@ export default async function vscodeFocusEditor(
   ide: VscodeIDE,
   editor: VscodeTextEditorImpl,
 ) {
+  // Focusing the search editor brings focus back to the input field.
+  // FIXME: This is a hack. There is no way to focus the search editor. If we
+  // could figure out if the editor was not focused, we could issue
+  // `search.action.focusNextSearchResult`.
+  // Issue: https://github.com/cursorless-dev/cursorless/issues/1722
+  if (editor.document.uri.scheme === "search-editor") {
+    return;
+  }
+
   const viewColumn = getViewColumn(editor.vscodeEditor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
