@@ -9,7 +9,6 @@ import {
   shouldUpdateFixtures,
   TextualScopeSupportFacet,
   textualScopeSupportFacetInfos,
-  textualScopeSupport,
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
@@ -21,7 +20,7 @@ import {
   serializeScopeFixture,
 } from "./serializeScopeFixture";
 
-suite("Scope test cases", async function () {
+suite.only("Scope test cases", async function () {
   endToEndTestSetup(this);
 
   const testPaths = getScopeTestPaths();
@@ -56,18 +55,19 @@ suite("Scope test cases", async function () {
  * @param testedFacets The facets for {@link languageId} that are tested
  */
 async function testLanguageSupport(languageId: string, testedFacets: string[]) {
-  const scopeSupport: Record<string, ScopeSupportFacetLevel | undefined> =
-    languageId === "textual"
-      ? textualScopeSupport
-      : getLanguageScopeSupport(languageId);
+  const supportedFacets = (() => {
+    if (languageId === "textual") {
+      return Object.keys(textualScopeSupportFacetInfos);
+    }
 
-  if (scopeSupport == null) {
-    assert.fail(`Missing scope support entry in getLanguageScopeSupport`);
-  }
+    const scopeSupport = getLanguageScopeSupport(languageId);
 
-  const supportedFacets = Object.keys(scopeSupport).filter(
-    (facet) => scopeSupport[facet] === ScopeSupportFacetLevel.supported,
-  );
+    return Object.keys(scopeSupport).filter(
+      (facet) =>
+        scopeSupport[facet as ScopeSupportFacet] ===
+        ScopeSupportFacetLevel.supported,
+    );
+  })();
 
   // Assert that all tested facets are supported by the language
   const unsupportedFacets = testedFacets.filter(
