@@ -55,8 +55,8 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     editor: TextEditor,
     position: Position,
   ): Iterable<TargetScope> {
-    let targetsForward = next(
-      getTargetsInDirection(this.scopeHandler, editor, position, "forward"),
+    let targetRangeForward = next(
+      generateTargetRangesInDirection(this.scopeHandler, editor, position, "forward"),
     );
 
     const targetsBackward = getTargetsInDirection(
