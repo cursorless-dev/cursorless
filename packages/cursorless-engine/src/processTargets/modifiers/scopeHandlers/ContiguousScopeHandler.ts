@@ -148,7 +148,6 @@ function* getTargetsInDirection(
         if (!isAdjacent(leadingTarget, trailingTarget)) {
           yield isForward ? [first, last] : [last, first];
           first = target;
-          last = undefined;
         }
       }
 
