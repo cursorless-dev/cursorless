@@ -175,8 +175,10 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "customRegex":
       return false;
 
-    case "oneOf":
     case "contiguous":
+      return isLanguageSpecific(scopeType.scopeType);
+
+    case "oneOf":
       throw Error(
         `Can't decide whether scope type ${JSON.stringify(
           scopeType,
