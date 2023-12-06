@@ -59,7 +59,7 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
       generateTargetRangesInDirection(this.scopeHandler, editor, position, "forward"),
     );
 
-    const targetsBackward = getTargetsInDirection(
+    const targetRangesBackwardIter = generateTargetRangesInDirection(
       this.scopeHandler,
       editor,
       position,
