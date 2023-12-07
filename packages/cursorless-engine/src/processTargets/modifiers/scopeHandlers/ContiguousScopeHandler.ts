@@ -8,7 +8,7 @@ import {
   next,
 } from "@cursorless/common";
 import { ScopeHandlerFactory } from ".";
-import type { Target } from "../../../typings/target.types";
+import { createContinuousRangeTarget } from "../../createContinuousRangeTarget";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
@@ -67,32 +67,32 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
         targetRangeOpposite != null &&
         isAdjacent(targetRangeOpposite.proximal, targetRange.proximal)
       ) {
-        yield targetsToScope(targetRangeOpposite.distal, targetRange.distal);
+        yield combineScopes(targetRangeOpposite.distal, targetRange.distal);
         targetRangeOpposite = undefined;
       } else {
-        yield targetsToScope(targetRange.proximal, targetRange.distal);
+        yield combineScopes(targetRange.proximal, targetRange.distal);
       }
     }
   }
 }
 
-function targetsToScope(
-  leadingTarget: Target,
-  trailingTarget: Target,
-): TargetScope {
-  if (leadingTarget.contentRange.isRangeEqual(trailingTarget.contentRange)) {
-    return {
-      editor: leadingTarget.editor,
-      domain: leadingTarget.contentRange,
-      getTargets: () => [leadingTarget],
-    };
+function combineScopes(scope1: TargetScope, scope2: TargetScope): TargetScope {
+  if (scope1.domain.isRangeEqual(scope2.domain)) {
+    return scope1;
   }
 
-  const range = leadingTarget.contentRange.union(trailingTarget.contentRange);
   return {
-    editor: leadingTarget.editor,
-    domain: range,
-    getTargets: () => [leadingTarget.withContentRange(range)],
+    editor: scope1.editor,
+    domain: scope1.domain.union(scope2.domain),
+    getTargets: (isReversed) => [
+      createContinuousRangeTarget(
+        isReversed,
+        scope1.getTargets(false)[0],
+        scope2.getTargets(false)[0],
+        true,
+        true,
+      ),
+    ],
   };
 }
 
@@ -101,8 +101,8 @@ function* generateTargetRangesInDirection(
   editor: TextEditor,
   position: Position,
   direction: Direction,
-): Iterable<{ proximal: Target; distal: Target }> {
-  let proximal, distal: Target | undefined;
+): Iterable<{ proximal: TargetScope; distal: TargetScope }> {
+  let proximal, distal: TargetScope | undefined;
 
   const generator = scopeHandler.generateScopes(editor, position, direction, {
     allowAdjacentScopes: true,
@@ -110,20 +110,18 @@ function* generateTargetRangesInDirection(
   });
 
   for (const scope of generator) {
-    for (const target of scope.getTargets(false)) {
-      if (proximal == null) {
-        proximal = target;
-      }
-
-      if (distal != null) {
-        if (!isAdjacent(distal, target)) {
-          yield { proximal, distal };
-          proximal = target;
-        }
-      }
-
-      distal = target;
+    if (proximal == null) {
+      proximal = scope;
     }
+
+    if (distal != null) {
+      if (!isAdjacent(distal, scope)) {
+        yield { proximal, distal };
+        proximal = scope;
+      }
+    }
+
+    distal = scope;
   }
 
   if (proximal != null && distal != null) {
@@ -131,10 +129,13 @@ function* generateTargetRangesInDirection(
   }
 }
 
-function isAdjacent(target1: Target, target2: Target): boolean {
-  if (target1.contentRange.isRangeEqual(target2.contentRange)) {
+function isAdjacent(scope1: TargetScope, scope2: TargetScope): boolean {
+  if (scope1.domain.isRangeEqual(scope2.domain)) {
     return true;
   }
+
+  const target1 = scope1.getTargets(false)[0];
+  const target2 = scope2.getTargets(false)[0];
 
   const [leadingTarget, trailingTarget] = target1.contentRange.start.isBefore(
     target2.contentRange.start,
