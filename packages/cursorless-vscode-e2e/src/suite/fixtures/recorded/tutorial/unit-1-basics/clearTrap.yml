@@ -42,6 +42,3 @@ finalState:
   selections:
     - anchor: {line: 2, character: 22}
       active: {line: 2, character: 22}
-  thatMark:
-    - anchor: {line: 2, character: 22}
-      active: {line: 2, character: 22}

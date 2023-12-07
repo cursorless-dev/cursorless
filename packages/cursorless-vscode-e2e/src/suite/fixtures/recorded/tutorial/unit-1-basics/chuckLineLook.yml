@@ -50,6 +50,3 @@ finalState:
       active: {line: 2, character: 21}
     - anchor: {line: 5, character: 15}
       active: {line: 5, character: 17}
-  thatMark:
-    - anchor: {line: 4, character: 0}
-      active: {line: 4, character: 0}
