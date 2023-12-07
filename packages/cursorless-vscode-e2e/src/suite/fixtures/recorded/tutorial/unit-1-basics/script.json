@@ -1,0 +1,14 @@
+[
+	"Every cursorless command consists of an action performed on a target. For example, the command {step:takeWhale.yml} selects the token with a grey hat over the 'w'.",
+	"When a hat is not gray, we need to use a color to refer to it: {step:takeBlueSun.yml}",
+	"Selecting a single token is great but oftentimes we need something bigger. Say {step:takeEachPastKick.yml} to select a range.",
+	"Despite its name, one of the most powerful aspects of cursorless is the ability to use more than one cursor. Let's try that: {step:takeCapAndWhale.yml}",
+	"But let's show that cursorless can live up to its name: we can say {step:chuckDrum.yml} to delete a word without ever moving our cursor.",
+	"Tokens are great, but they're just one way to think of a document. Let's try working with lines: {step:chuckLineLook.yml}",
+	"We can also use {scopeType:line} to refer to the line containing our cursor: {step:takeLine.yml}",
+	"You now know how to select and delete; let's give you a couple more actions to play with: say {action:setSelectionBefore} to place the cursor before a target, as in {step:preInk.yml}",
+	"Say {action:setSelectionAfter} to place the cursor after a target: {step:postLook.yml}",
+	"Say {action:clearAndSetSelection} to delete a word and move your cursor to where it used to be: {step:clearTrap.yml}",
+	"Chaining commands is a great way to code faster: {step:clearWhaleWordYou.yml+wordYou}",
+	"And that wraps up unit 1 of the cursorless tutorial! Next time, we'll write some code ☺️"
+]

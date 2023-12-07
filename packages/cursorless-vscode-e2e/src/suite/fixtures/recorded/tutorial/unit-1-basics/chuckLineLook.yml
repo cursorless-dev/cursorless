@@ -1,0 +1,55 @@
+languageId: plaintext
+command:
+  spokenForm: chuck line look
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: false
+  action: {name: remove}
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 21}
+    - anchor: {line: 6, character: 15}
+      active: {line: 6, character: 17}
+  marks:
+    default.l:
+      start: {line: 4, character: 13}
+      end: {line: 4, character: 16}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 2, character: 14}
+      active: {line: 2, character: 21}
+    - anchor: {line: 5, character: 15}
+      active: {line: 5, character: 17}
+  thatMark:
+    - anchor: {line: 4, character: 0}
+      active: {line: 4, character: 0}
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: l}, selectionType: line, position: contents, insideOutsideType: outside, modifier: {type: identity}}]

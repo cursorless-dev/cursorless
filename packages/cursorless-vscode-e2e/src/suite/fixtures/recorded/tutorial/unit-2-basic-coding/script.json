@@ -1,0 +1,12 @@
+[
+	"When editing code, we often think in terms of statements, functions, etc. Let's clone a statement: {step:cloneStateInk.yml}",
+	"{scopeType:statement} is one of many scopes supported by cursorless. To see all available scopes, use the command {literalStep:cursorless help}, and look at the Scopes section.",
+	"Cursorless tries its best to keep your commands short. In the following command, we just say {scopeType:string} once, but cursorless infers that both targets are strings: {step:swapStringAirWithWhale.yml}",
+	"Great. Let's learn a new action. The {action:editNewLineAfter} action lets you start editing a new line below any line on your screen: {step:pourUrge.yml}",
+	"Now let's try applying a cursorless action to the current line: {step:dedentThis.yml}",
+	"Code reuse is a fact of life as a programmer. Cursorless makes this easy with the {action:replaceWithTarget} command: {step:bringStateUrge.yml}",
+	"{action:replaceWithTarget} also works with two targets just like {action:swapTargets}: {step:bringBlueCapToValueRisk.yml}",
+	"Cursorless tries its best to use its knowledge of programming languages to leave you with syntactically valid code. Note how it cleans up the comma here: {step:chuckArgueBlueVest.yml}",
+	"We introduced a lot of different scopes today. If you're anything like us, you've already forgotten them all. The important thing to remember is that you can always say {literalStep:cursorless help} to see a list.",
+	"As always, feel free to stick around and play with this file to practice what you've just learned. Happy coding :)"
+]
