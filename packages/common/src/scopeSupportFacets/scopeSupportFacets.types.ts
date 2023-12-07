@@ -11,8 +11,11 @@ const scopeSupportFacets = [
 
   "list",
   "map",
+  "statement",
   "ifStatement",
   "regularExpression",
+  "switchStatementSubject",
+  "fieldAccess",
 
   "class",
   "className",
@@ -64,14 +67,12 @@ const scopeSupportFacets = [
 
   "type.foreach",
 
+  // FIXME: Still in legacy
   // section
   // selector
-  // "private.switchStatementSubject"
   // unit
-  // "private.fieldAccess"
   // collectionItem
-  //   "statement",
-  //   "textFragment",
+  // textFragment
 ] as const;
 
 const textualScopeSupportFacets = [

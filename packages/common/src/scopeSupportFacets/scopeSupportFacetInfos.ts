@@ -43,6 +43,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A map/dictionary",
     scopeType: "map",
   },
+  statement: {
+    description: "A statement",
+    scopeType: "statement",
+  },
   ifStatement: {
     description: "An if statement",
     scopeType: "ifStatement",
@@ -50,6 +54,14 @@ export const scopeSupportFacetInfos: Record<
   regularExpression: {
     description: "A regular expression",
     scopeType: "regularExpression",
+  },
+  switchStatementSubject: {
+    description: "The subject of a switch statement",
+    scopeType: "private.switchStatementSubject",
+  },
+  fieldAccess: {
+    description: "A field access",
+    scopeType: "private.fieldAccess",
   },
 
   class: {
