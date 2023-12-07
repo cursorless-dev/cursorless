@@ -5,16 +5,26 @@ import {
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported } = ScopeSupportFacetLevel;
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
+  list: supported,
+  map: supported,
+  class: supported,
+  className: supported,
   namedFunction: supported,
-  ["name.foreach"]: supported,
-  ["name.assignment"]: supported,
-  ["key.mapPair"]: supported,
-  ["key.mapPair.iteration"]: supported,
-  ["value.mapPair"]: supported,
-  ["value.mapPair.iteration"]: supported,
-  ["value.assignment"]: supported,
-  ["value.foreach"]: supported,
+  "namedFunction.method": supported,
+  anonymousFunction: supported,
+  "anonymousFunction.lambda": supported,
+  functionName: supported,
+  "name.foreach": supported,
+  "name.assignment": supported,
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+  "value.mapPair": supported,
+  "value.mapPair.iteration": supported,
+  "value.assignment": supported,
+  "value.foreach": supported,
+  "value.return": supported,
+  "value.return.lambda": supported,
 };

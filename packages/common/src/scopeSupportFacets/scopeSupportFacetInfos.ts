@@ -9,18 +9,57 @@ export const scopeSupportFacetInfos: Record<
   ScopeSupportFacet,
   ScopeSupportFacetInfo
 > = {
-  namedFunction: {
-    description: "A named function",
-    scopeType: "namedFunction",
-  },
   element: {
     description: "A xml/html element",
     scopeType: "xmlElement",
   },
-
+  tags: {
+    description: "Both tags in an xml element",
+    scopeType: "xmlBothTags",
+  },
   attribute: {
     description: "A attribute of an element",
     scopeType: "attribute",
+  },
+
+  list: {
+    description: "A list/array",
+    scopeType: "list",
+  },
+  map: {
+    description: "A map/dictionary",
+    scopeType: "map",
+  },
+
+  class: {
+    description: "A class",
+    scopeType: "class",
+  },
+  className: {
+    description: "The name of a class",
+    scopeType: "className",
+  },
+
+  namedFunction: {
+    description: "A named function",
+    scopeType: "namedFunction",
+  },
+
+  "namedFunction.method": {
+    description: "A named method in a class",
+    scopeType: "namedFunction",
+  },
+  anonymousFunction: {
+    description: "A anonymous function. Lambda or other",
+    scopeType: "anonymousFunction",
+  },
+  "anonymousFunction.lambda": {
+    description: "A lambda function",
+    scopeType: "anonymousFunction",
+  },
+  functionName: {
+    description: "The name of a function",
+    scopeType: "functionName",
   },
 
   "name.assignment": {
@@ -67,14 +106,17 @@ export const scopeSupportFacetInfos: Record<
     description: "Value(RHS) of an attribute",
     scopeType: "value",
   },
+  "value.return": {
+    description: "Return value of a function",
+    scopeType: "value",
+  },
+  "value.return.lambda": {
+    description: "Implicit return value from a lambda",
+    scopeType: "value",
+  },
 
   "type.foreach": {
     description: "Type of variable in a for each loop",
     scopeType: "type",
-  },
-
-  tags: {
-    description: "Both tags in an xml element",
-    scopeType: "xmlBothTags",
   },
 };

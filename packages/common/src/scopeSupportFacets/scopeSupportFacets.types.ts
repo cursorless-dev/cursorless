@@ -1,16 +1,18 @@
 import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 
 const scopeSupportFacets = [
-  //   "list",
-  //   "list.interior",
-  //   "map",
-  //   "map.interior",
-  //   "collectionKey",
+  "list",
+  "map",
   "element",
   "attribute",
+
+  "class",
+  "className",
   "namedFunction",
-  //   "functionName",
-  //   "anonymousFunction",
+  "namedFunction.method",
+  "anonymousFunction",
+  "anonymousFunction.lambda",
+  "functionName",
 
   "name.assignment",
   "name.foreach",
@@ -24,8 +26,8 @@ const scopeSupportFacets = [
   "value.mapPair.iteration",
   "value.attribute",
   "value.foreach",
-  //   "value.return",
-  //   "value.collectionItem",
+  "value.return",
+  "value.return.lambda",
 
   //   "statement",
   //   "ifStatement",
@@ -44,9 +46,7 @@ const scopeSupportFacets = [
   //   "functionCallee",
   //   "argumentOrParameter.argument",
   //   "argumentOrParameter.parameter",
-  //   "class",
   //   "class.interior",
-  //   "className",
 
   "type.foreach",
 
