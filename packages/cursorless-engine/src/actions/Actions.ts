@@ -1,7 +1,8 @@
-import { TreeSitter } from "../typings/TreeSitter";
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { TreeSitter } from "../typings/TreeSitter";
+import BrakeLine from "./BrakeLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
@@ -28,7 +29,6 @@ import {
 import InsertSnippet from "./InsertSnippet";
 import JoinLines from "./JoinLines";
 import { PasteFromClipboard } from "./PasteFromClipboard";
-import ShowParseTree from "./ShowParseTree";
 import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
@@ -39,6 +39,7 @@ import {
   SetSelectionAfter,
   SetSelectionBefore,
 } from "./SetSelection";
+import ShowParseTree from "./ShowParseTree";
 import {
   CopyToClipboard,
   ExtractVariable,
@@ -113,6 +114,7 @@ export class Actions implements ActionRecord {
     this.modifierStageFactory,
   );
   joinLines = new JoinLines(this.rangeUpdater);
+  breakLine = new BrakeLine(this.rangeUpdater);
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);
   pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);

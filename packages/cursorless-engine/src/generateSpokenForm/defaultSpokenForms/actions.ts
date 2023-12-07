@@ -5,6 +5,7 @@ import { ActionType } from "@cursorless/common";
  * if the action has no spoken form.
  */
 export const actions = {
+  breakLine: "break line",
   scrollToBottom: "bottom",
   toggleLineBreakpoint: "break point",
   cutToClipboard: "carve",
