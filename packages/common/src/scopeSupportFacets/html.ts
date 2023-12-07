@@ -10,6 +10,8 @@ const { supported, notApplicable } = ScopeSupportFacetLevel;
 export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   element: supported,
   tags: supported,
+  startTag: supported,
+  endTag: supported,
   attribute: supported,
   "key.attribute": supported,
   "value.attribute": supported,

@@ -13,9 +13,18 @@ export const scopeSupportFacetInfos: Record<
     description: "A spoken command",
     scopeType: "command",
   },
+
   element: {
     description: "A xml/html element",
     scopeType: "xmlElement",
+  },
+  startTag: {
+    description: "The start tag of an xml element",
+    scopeType: "xmlStartTag",
+  },
+  endTag: {
+    description: "The end tag of an xml element",
+    scopeType: "xmlEndTag",
   },
   tags: {
     description: "Both tags in an xml element",

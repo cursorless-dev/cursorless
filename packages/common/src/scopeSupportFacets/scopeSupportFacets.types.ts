@@ -3,8 +3,10 @@ import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.ty
 const scopeSupportFacets = [
   "command",
 
-  "tags",
   "element",
+  "tags",
+  "startTag",
+  "endTag",
   "attribute",
 
   "list",
@@ -62,6 +64,13 @@ const scopeSupportFacets = [
 
   "type.foreach",
 
+  // regularExpression
+  // section
+  // selector
+  // "private.switchStatementSubject"
+  // unit
+  // "private.fieldAccess"
+  // collectionItem
   //   "statement",
   //   "textFragment",
 ] as const;
