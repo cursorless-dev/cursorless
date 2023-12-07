@@ -13,11 +13,6 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   ifStatement: supported,
 
-  functionCall: supported,
-  "functionCall.constructor": supported,
-  functionCallee: supported,
-  "functionCallee.constructor": supported,
-
   class: supported,
   className: supported,
 
@@ -27,15 +22,27 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "anonymousFunction.lambda": supported,
   functionName: supported,
 
+  functionCall: supported,
+  "functionCall.constructor": supported,
+  functionCallee: supported,
+  "functionCallee.constructor": supported,
+
   "comment.line": supported,
   "comment.block": supported,
+
+  "string.singleLine": supported,
+  "string.multiLine": supported,
+
+  "branch.if": supported,
+  "branch.try": supported,
+  "branch.switchCase": supported,
 
   "condition.if": supported,
   "condition.while": supported,
   "condition.doWhile": supported,
   "condition.for": supported,
   "condition.ternary": supported,
-  "condition.switch": supported,
+  "condition.switchCase": supported,
 
   "name.foreach": supported,
   "name.assignment": supported,

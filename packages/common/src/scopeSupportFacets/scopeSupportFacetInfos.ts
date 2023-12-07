@@ -36,23 +36,6 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "ifStatement",
   },
 
-  functionCall: {
-    description: "A function call",
-    scopeType: "functionCall",
-  },
-  "functionCall.constructor": {
-    description: "A constructor call",
-    scopeType: "functionCall",
-  },
-  functionCallee: {
-    description: "The callee of a function call",
-    scopeType: "functionCallee",
-  },
-  "functionCallee.constructor": {
-    description: "The callee of a constructor call",
-    scopeType: "functionCallee",
-  },
-
   class: {
     description: "A class",
     scopeType: "class",
@@ -83,6 +66,23 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionName",
   },
 
+  functionCall: {
+    description: "A function call",
+    scopeType: "functionCall",
+  },
+  "functionCall.constructor": {
+    description: "A constructor call",
+    scopeType: "functionCall",
+  },
+  functionCallee: {
+    description: "The callee of a function call",
+    scopeType: "functionCallee",
+  },
+  "functionCallee.constructor": {
+    description: "The callee of a constructor call",
+    scopeType: "functionCallee",
+  },
+
   "comment.line": {
     description: "A line comment",
     scopeType: "comment",
@@ -90,6 +90,28 @@ export const scopeSupportFacetInfos: Record<
   "comment.block": {
     description: "A block comment",
     scopeType: "comment",
+  },
+
+  "string.singleLine": {
+    description: "A single line string",
+    scopeType: "string",
+  },
+  "string.multiLine": {
+    description: "A multi line string",
+    scopeType: "string",
+  },
+
+  "branch.if": {
+    description: "An if/elif/else branch",
+    scopeType: "branch",
+  },
+  "branch.try": {
+    description: "A try/catch/finally branch",
+    scopeType: "branch",
+  },
+  "branch.switchCase": {
+    description: "A switch/case/default branch",
+    scopeType: "branch",
   },
 
   "condition.if": {
@@ -112,7 +134,7 @@ export const scopeSupportFacetInfos: Record<
     description: "A condition in a ternary expression",
     scopeType: "condition",
   },
-  "condition.switch": {
+  "condition.switchCase": {
     description: "A condition in a switch statement",
     scopeType: "condition",
   },

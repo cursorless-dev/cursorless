@@ -10,11 +10,6 @@ const scopeSupportFacets = [
 
   "ifStatement",
 
-  "functionCall",
-  "functionCall.constructor",
-  "functionCallee",
-  "functionCallee.constructor",
-
   "class",
   "className",
   "namedFunction",
@@ -23,15 +18,27 @@ const scopeSupportFacets = [
   "anonymousFunction.lambda",
   "functionName",
 
+  "functionCall",
+  "functionCall.constructor",
+  "functionCallee",
+  "functionCallee.constructor",
+
   "comment.line",
   "comment.block",
+
+  "string.singleLine",
+  "string.multiLine",
+
+  "branch.if",
+  "branch.try",
+  "branch.switchCase",
 
   "condition.if",
   "condition.while",
   "condition.doWhile",
   "condition.for",
   "condition.ternary",
-  "condition.switch",
+  "condition.switchCase",
 
   "name.assignment",
   "name.foreach",
@@ -52,9 +59,6 @@ const scopeSupportFacets = [
 
   //   "statement",
 
-  //   "branch",
-  //   "string.singleLine",
-  //   "string.multiLine",
   //   "textFragment",
   //   "argumentOrParameter.argument",
   //   "argumentOrParameter.parameter",
