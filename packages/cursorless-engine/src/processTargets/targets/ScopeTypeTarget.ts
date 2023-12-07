@@ -38,11 +38,11 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
     this.scopeTypeType_ = parameters.scopeTypeType;
-    this.prefixRange = parameters.prefixRange;
     this.removalRange_ = parameters.removalRange;
     this.interiorRange_ = parameters.interiorRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
+    this.prefixRange = parameters.prefixRange;
     this.insertionDelimiter =
       parameters.insertionDelimiter ??
       getInsertionDelimiter(parameters.scopeTypeType);

@@ -10,7 +10,7 @@ export function getTokenLeadingDelimiterTarget(
   target: Target,
 ): Target | undefined {
   const { editor } = target;
-  const start = target.prefixRange?.start ?? target.contentRange.start;
+  const { start } = union(target.contentRange, target.prefixRange);
 
   const startLine = editor.document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);

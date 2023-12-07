@@ -215,9 +215,11 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 }
 
 /**
- * A predicate operator that sets the insertion delimiter of the match based on a condition. For
- * example, `(#single-or-multi-line-delimiter! @foo @bar ", " ",\n")` will set the insertion delimiter
- * of the `@foo` capture to `", "` if the `@bar` capture is a single line and `",\n"` otherwise.
+ * A predicate operator that sets the insertion delimiter based upon if the
+ * capture note is single or multiline. For
+ * example,`(#single-or-multi-line-delimiter! @foo @bar ", " ",\n")` will set
+ * the insertion delimiter of the `@foo` capture to `", "` if the `@bar` capture
+ * is a single line and `",\n"` otherwise.
  */
 class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
   name = "single-or-multi-line-delimiter!" as const;

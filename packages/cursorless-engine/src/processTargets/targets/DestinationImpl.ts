@@ -10,6 +10,7 @@ import {
   EditNewActionType,
   Target,
 } from "../../typings/target.types";
+import { union } from "../../util/rangeUtils";
 
 export class DestinationImpl implements Destination {
   public readonly contentRange: Range;
@@ -116,7 +117,7 @@ export class DestinationImpl implements Destination {
   private getEditRange() {
     const position = (() => {
       const insertionPosition = this.isBefore
-        ? this.target.prefixRange?.start ?? this.target.contentRange.start
+        ? union(this.target.contentRange, this.target.prefixRange).start
         : this.target.contentRange.end;
 
       if (this.isLineDelimiter) {

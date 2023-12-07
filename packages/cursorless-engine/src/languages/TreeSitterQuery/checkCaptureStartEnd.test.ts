@@ -193,7 +193,6 @@ suite("checkCaptureStartEnd", () => {
           ...capture,
           allowMultiple: false,
           insertionDelimiter: undefined,
-          insertionPrefix: undefined,
         })),
         messages,
       );
