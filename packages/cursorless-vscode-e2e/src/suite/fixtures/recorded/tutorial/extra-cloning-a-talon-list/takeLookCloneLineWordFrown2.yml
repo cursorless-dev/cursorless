@@ -1,14 +1,15 @@
 languageId: python
 command:
+  version: 6
   spokenForm: clone line
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}
   usePrePhraseSnapshot: false
-  action: {name: insertCopyAfter}
 initialState:
   documentContents: |-
     from talon import Context, Module

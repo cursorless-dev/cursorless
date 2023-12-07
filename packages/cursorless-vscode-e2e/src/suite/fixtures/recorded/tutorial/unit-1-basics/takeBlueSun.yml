@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take blue sun
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: blue, character: s}
   usePrePhraseSnapshot: false
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     ==================================================

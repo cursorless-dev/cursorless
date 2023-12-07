@@ -1,17 +1,22 @@
 languageId: python
 command:
+  version: 6
   spokenForm: bring blue cap to value red
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: blue, character: c}
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: r}
-      modifiers:
-        - type: containingScope
-          scopeType: {type: value}
+    destination:
+      type: primitive
+      insertionMode: to
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: value}
+        mark: {type: decoratedSymbol, symbolColor: default, character: r}
   usePrePhraseSnapshot: false
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

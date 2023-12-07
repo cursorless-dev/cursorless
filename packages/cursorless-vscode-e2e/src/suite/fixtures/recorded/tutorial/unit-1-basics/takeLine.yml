@@ -1,14 +1,15 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take line
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}
   usePrePhraseSnapshot: false
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     ==================================================

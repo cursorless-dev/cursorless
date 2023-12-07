@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck drum
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: remove
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: d}
   usePrePhraseSnapshot: false
-  action: {name: remove}
 initialState:
   documentContents: |-
     ==================================================

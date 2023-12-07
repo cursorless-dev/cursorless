@@ -1,16 +1,17 @@
 languageId: python
 command:
+  version: 6
   spokenForm: bring state urge
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: statement}
-    - {type: primitive, isImplicit: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

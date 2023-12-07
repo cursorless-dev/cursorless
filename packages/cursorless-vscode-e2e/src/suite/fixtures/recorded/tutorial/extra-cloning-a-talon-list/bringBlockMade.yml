@@ -1,16 +1,17 @@
 languageId: python
 command:
+  version: 6
   spokenForm: bring block made
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: paragraph}
-    - {type: primitive, isImplicit: true}
+      mark: {type: decoratedSymbol, symbolColor: default, character: m}
+    destination: {type: implicit}
   usePrePhraseSnapshot: false
-  action: {name: replaceWithTarget}
 initialState:
   documentContents: |+
     from talon import Context, Module

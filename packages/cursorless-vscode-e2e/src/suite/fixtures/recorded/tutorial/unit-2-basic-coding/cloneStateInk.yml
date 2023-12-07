@@ -1,15 +1,16 @@
 languageId: python
 command:
+  version: 6
   spokenForm: clone state sit
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: statement}
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
   usePrePhraseSnapshot: false
-  action: {name: insertCopyAfter}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

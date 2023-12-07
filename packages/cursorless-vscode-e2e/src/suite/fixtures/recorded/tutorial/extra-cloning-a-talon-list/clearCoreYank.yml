@@ -1,16 +1,17 @@
 languageId: python
 command:
+  version: 6
   spokenForm: change inside pair yank
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       modifiers:
         - {type: interiorOnly}
         - type: containingScope
           scopeType: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}
   usePrePhraseSnapshot: false
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     from talon import Context, Module

@@ -1,12 +1,13 @@
 languageId: python
 command:
+  version: 6
   spokenForm: dedent this
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: outdentLine
+    target:
+      type: primitive
       mark: {type: cursor}
   usePrePhraseSnapshot: false
-  action: {name: outdentLine}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

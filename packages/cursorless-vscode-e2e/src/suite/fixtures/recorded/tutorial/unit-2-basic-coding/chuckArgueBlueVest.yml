@@ -1,15 +1,16 @@
 languageId: python
 command:
+  version: 6
   spokenForm: chuck arg blue vest
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: blue, character: v}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: argumentOrParameter}
+      mark: {type: decoratedSymbol, symbolColor: blue, character: v}
   usePrePhraseSnapshot: false
-  action: {name: remove}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

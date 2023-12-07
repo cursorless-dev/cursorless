@@ -1,12 +1,13 @@
 languageId: python
 command:
+  version: 6
   spokenForm: change right paren
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: )}
   usePrePhraseSnapshot: false
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     from talon import Context, Module

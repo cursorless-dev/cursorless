@@ -1,9 +1,11 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take each past crunch
-  version: 2
-  targets:
-    - type: range
+  action:
+    name: setSelection
+    target:
+      type: range
       anchor:
         type: primitive
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
@@ -13,7 +15,6 @@ command:
       excludeAnchor: false
       excludeActive: false
   usePrePhraseSnapshot: false
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     ==================================================

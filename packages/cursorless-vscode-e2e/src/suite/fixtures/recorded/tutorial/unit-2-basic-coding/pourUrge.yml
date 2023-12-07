@@ -1,12 +1,13 @@
 languageId: python
 command:
+  version: 6
   spokenForm: pour urge
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: editNewLineAfter
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: u}
   usePrePhraseSnapshot: false
-  action: {name: editNewLineAfter}
 initialState:
   documentContents: |
     def print_color(color, invert=False):

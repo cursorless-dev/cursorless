@@ -1,16 +1,17 @@
 languageId: python
 command:
+  version: 6
   spokenForm: change underscore and cap
-  version: 2
-  targets:
-    - type: list
+  action:
+    name: clearAndSetSelection
+    target:
+      type: list
       elements:
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: _}
         - type: primitive
           mark: {type: decoratedSymbol, symbolColor: default, character: c}
   usePrePhraseSnapshot: false
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     from talon import Context, Module

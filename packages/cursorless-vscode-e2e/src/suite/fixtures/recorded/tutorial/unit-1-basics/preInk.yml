@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: pre sit
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelectionBefore
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: i}
   usePrePhraseSnapshot: false
-  action: {name: setSelectionBefore}
 initialState:
   documentContents: |-
     ==================================================

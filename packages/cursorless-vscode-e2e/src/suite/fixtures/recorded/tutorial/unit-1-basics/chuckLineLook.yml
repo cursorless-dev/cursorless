@@ -1,15 +1,16 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: chuck line look
-  version: 2
-  targets:
-    - type: primitive
-      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  action:
+    name: remove
+    target:
+      type: primitive
       modifiers:
         - type: containingScope
           scopeType: {type: line}
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
   usePrePhraseSnapshot: false
-  action: {name: remove}
 initialState:
   documentContents: |-
     ==================================================

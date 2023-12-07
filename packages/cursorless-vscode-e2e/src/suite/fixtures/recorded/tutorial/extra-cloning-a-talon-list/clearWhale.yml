@@ -1,12 +1,13 @@
 languageId: python
 command:
+  version: 6
   spokenForm: change whale
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: false
-  action: {name: clearAndSetSelection}
 initialState:
   documentContents: |-
     from talon import Context, Module

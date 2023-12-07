@@ -1,12 +1,13 @@
 languageId: plaintext
 command:
+  version: 6
   spokenForm: take whale
-  version: 2
-  targets:
-    - type: primitive
+  action:
+    name: setSelection
+    target:
+      type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: w}
   usePrePhraseSnapshot: false
-  action: {name: setSelection}
 initialState:
   documentContents: |-
     ==================================================
