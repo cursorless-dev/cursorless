@@ -168,9 +168,13 @@ async function runTest(file: string, spyIde: SpyIDE) {
     excludeFields.push("clipboard");
   }
 
-  excludeFields.push("thatMark");
+  if (fixture.finalState?.thatMark == null) {
+    excludeFields.push("thatMark");
+  }
 
-  excludeFields.push("sourceMark");
+  if (fixture.finalState?.sourceMark == null) {
+    excludeFields.push("sourceMark");
+  }
 
   if (fixture.finalState?.instanceReferenceMark == null) {
     excludeFields.push("instanceReferenceMark");
