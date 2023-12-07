@@ -9,6 +9,10 @@ export const scopeSupportFacetInfos: Record<
   ScopeSupportFacet,
   ScopeSupportFacetInfo
 > = {
+  command: {
+    description: "A spoken command",
+    scopeType: "command",
+  },
   element: {
     description: "A xml/html element",
     scopeType: "xmlElement",
