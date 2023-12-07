@@ -215,11 +215,17 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 }
 
 /**
- * A predicate operator that sets the insertion delimiter based upon if the
- * capture note is single or multiline. For
- * example,`(#single-or-multi-line-delimiter! @foo @bar ", " ",\n")` will set
- * the insertion delimiter of the `@foo` capture to `", "` if the `@bar` capture
- * is a single line and `",\n"` otherwise.
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * either {@link insertionDelimiterConsequence} or
+ * {@link insertionDelimiterAlternative} depending on whether
+ * {@link conditionNodeInfo} is single or multiline, respectively. For example,
+ *
+ * ```scm
+ * (#single-or-multi-line-delimiter! @foo @bar ", " ",\n")
+ * ```
+ *
+ * will set the insertion delimiter of the `@foo` capture to `", "` if the
+ * `@bar` capture is a single line and `",\n"` otherwise.
  */
 class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
   name = "single-or-multi-line-delimiter!" as const;
@@ -227,11 +233,11 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
 
   run(
     nodeInfo: MutableQueryCapture,
-    nodeCondition: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
     insertionDelimiterConsequence: string,
     insertionDelimiterAlternative: string,
   ) {
-    nodeInfo.insertionDelimiter = nodeCondition.range.isSingleLine
+    nodeInfo.insertionDelimiter = conditionNodeInfo.range.isSingleLine
       ? insertionDelimiterConsequence
       : insertionDelimiterAlternative;
 
