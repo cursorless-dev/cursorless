@@ -20,7 +20,7 @@ import {
   serializeScopeFixture,
 } from "./serializeScopeFixture";
 
-suite.only("Scope test cases", async function () {
+suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
   const testPaths = getScopeTestPaths();
