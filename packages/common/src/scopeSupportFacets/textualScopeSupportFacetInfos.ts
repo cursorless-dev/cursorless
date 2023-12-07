@@ -19,9 +19,17 @@ export const textualScopeSupportFacetInfos: Record<
     description: "A single token in the document",
     scopeType: "token",
   },
+  identifier: {
+    description: "A single identifier in the document",
+    scopeType: "identifier",
+  },
   line: {
     description: "A single line in the document",
     scopeType: "line",
+  },
+  sentence: {
+    description: "A single sentence in the document",
+    scopeType: "sentence",
   },
   paragraph: {
     description:
@@ -31,5 +39,19 @@ export const textualScopeSupportFacetInfos: Record<
   document: {
     description: "The entire document",
     scopeType: "document",
+  },
+  nonWhitespaceSequence: {
+    description: "A sequence of non-whitespace characters",
+    scopeType: "nonWhitespaceSequence",
+  },
+  // FIXME: Still in legacy
+  // boundedNonWhitespaceSequence: {
+  //   description:
+  //     "A sequence of non-whitespace characters bounded by matching pair",
+  //   scopeType: "boundedNonWhitespaceSequence",
+  // },
+  url: {
+    description: "A url",
+    scopeType: "url",
   },
 };

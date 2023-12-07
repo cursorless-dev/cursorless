@@ -68,9 +68,15 @@ const textualScopeSupportFacets = [
   "character",
   "word",
   "token",
+  "identifier",
   "line",
+  "sentence",
   "paragraph",
   "document",
+  "nonWhitespaceSequence",
+  // FIXME: Still in legacy
+  // "boundedNonWhitespaceSequence",
+  "url",
 ] as const;
 
 export interface ScopeSupportFacetInfo {

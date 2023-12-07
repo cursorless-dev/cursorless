@@ -27,7 +27,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   functionCallee: supported,
   "functionCallee.constructor": supported,
 
-  // Still in legacy
+  // FIXME: Still in legacy
   // "argumentOrParameter.actual": supported,
   // "argumentOrParameter.formal": supported,
 
