@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear core sun
+  spokenForm: change inside pair sun
   version: 2
   targets:
     - type: primitive

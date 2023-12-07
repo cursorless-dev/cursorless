@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clone state ink
+  spokenForm: clone state sit
   version: 2
   targets:
     - type: primitive

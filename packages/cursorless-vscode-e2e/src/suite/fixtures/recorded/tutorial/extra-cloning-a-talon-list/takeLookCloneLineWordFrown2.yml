@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: take look clone line word frown
+  spokenForm: clone line
   version: 2
   targets:
     - type: primitive

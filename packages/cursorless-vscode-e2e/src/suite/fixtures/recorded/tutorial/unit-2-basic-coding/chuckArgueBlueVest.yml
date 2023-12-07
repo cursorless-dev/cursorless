@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: chuck argue blue vest
+  spokenForm: chuck arg blue vest
   version: 2
   targets:
     - type: primitive

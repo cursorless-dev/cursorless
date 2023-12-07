@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear whale
+  spokenForm: change whale
   version: 2
   targets:
     - type: primitive

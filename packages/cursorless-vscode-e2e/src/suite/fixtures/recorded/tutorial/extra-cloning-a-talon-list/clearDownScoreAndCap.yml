@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear down score and cap
+  spokenForm: change underscore and cap
   version: 2
   targets:
     - type: list

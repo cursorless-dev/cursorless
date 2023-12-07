@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear repper leper
+  spokenForm: change right paren
   version: 2
   targets:
     - type: primitive

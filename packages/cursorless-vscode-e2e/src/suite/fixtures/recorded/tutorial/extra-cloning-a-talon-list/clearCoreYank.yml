@@ -1,6 +1,6 @@
 languageId: python
 command:
-  spokenForm: clear core yank
+  spokenForm: change inside pair yank
   version: 2
   targets:
     - type: primitive

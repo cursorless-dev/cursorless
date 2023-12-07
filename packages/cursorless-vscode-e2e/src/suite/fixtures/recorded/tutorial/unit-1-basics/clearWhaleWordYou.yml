@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: clear whale word you
+  spokenForm: change whale
   version: 2
   targets:
     - type: primitive
