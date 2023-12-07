@@ -15,6 +15,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Name(LHS) of an assignment",
     scopeType: "name",
   },
+  ["name.foreach"]: {
+    description: "Variable name in a for each loop",
+    scopeType: "name",
+  },
   ["key.attribute"]: {
     description: "Key(LHS) of an attribute",
     scopeType: "collectionKey",
@@ -40,6 +44,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Iteration of map pair values",
     scopeType: "value",
     isIteration: true,
+  },
+  ["value.foreach"]: {
+    description: "Iterable in a for each loop",
+    scopeType: "value",
   },
   ["tags"]: {
     description: "Both tags in an xml element",

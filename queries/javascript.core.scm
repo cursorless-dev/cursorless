@@ -389,8 +389,7 @@
 (for_in_statement
   left: (_) @name
   right: (_) @value
-  ")" @_.domain.end.endOf
-) @_.domain.start.startOf
+) @_.domain
 
 [
   (program)
