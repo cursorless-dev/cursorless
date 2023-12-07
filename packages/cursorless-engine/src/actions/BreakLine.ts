@@ -1,4 +1,4 @@
-import { FlashStyle, Range, TextEditor } from "@cursorless/common";
+import { FlashStyle, Position, Range, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
@@ -50,10 +50,21 @@ function getEdits(editor: TextEditor, contentRanges: Range[]): Edit[] {
       0,
       line.firstNonWhitespaceCharacterIndex,
     );
+    const characterTrailingWhitespace = line.text
+      .slice(0, position.character)
+      .search(/\s+$/);
+    const replacementRange =
+      characterTrailingWhitespace > -1
+        ? new Range(
+            new Position(line.lineNumber, characterTrailingWhitespace),
+            position,
+          )
+        : position.toEmptyRange();
 
     edits.push({
-      range: position.toEmptyRange(),
+      range: replacementRange,
       text: "\n" + indentation,
+      isReplace: !replacementRange.isEmpty,
     });
   }
 

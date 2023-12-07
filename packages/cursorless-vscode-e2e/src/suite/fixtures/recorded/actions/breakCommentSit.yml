@@ -29,7 +29,7 @@ finalState:
   documentContents: |-
     [
       0,
-      1, 
+      1,
       // interesting
       2
     ]
