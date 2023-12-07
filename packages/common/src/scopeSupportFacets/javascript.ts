@@ -10,17 +10,25 @@ const { supported } = ScopeSupportFacetLevel;
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
+
+  "comment.line": supported,
+  "comment.block": supported,
+
   class: supported,
   className: supported,
+
   namedFunction: supported,
   "namedFunction.method": supported,
   anonymousFunction: supported,
   "anonymousFunction.lambda": supported,
   functionName: supported,
+
   "name.foreach": supported,
   "name.assignment": supported,
+
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
+
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
   "value.assignment": supported,

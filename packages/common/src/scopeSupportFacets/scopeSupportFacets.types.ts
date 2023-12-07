@@ -3,8 +3,13 @@ import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.ty
 const scopeSupportFacets = [
   "list",
   "map",
+
+  "tags",
   "element",
   "attribute",
+
+  "comment.line",
+  "comment.block",
 
   "class",
   "className",
@@ -29,6 +34,8 @@ const scopeSupportFacets = [
   "value.return",
   "value.return.lambda",
 
+  "type.foreach",
+
   //   "statement",
   //   "ifStatement",
   //   "condition.if",
@@ -37,8 +44,6 @@ const scopeSupportFacets = [
   //   "condition.for",
   //   "condition.ternary",
   //   "branch",
-  //   "comment.line",
-  //   "comment.block",
   //   "string.singleLine",
   //   "string.multiLine",
   //   "textFragment",
@@ -46,11 +51,6 @@ const scopeSupportFacets = [
   //   "functionCallee",
   //   "argumentOrParameter.argument",
   //   "argumentOrParameter.parameter",
-  //   "class.interior",
-
-  "type.foreach",
-
-  "tags",
 ] as const;
 
 const textualScopeSupportFacets = [

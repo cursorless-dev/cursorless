@@ -31,6 +31,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "map",
   },
 
+  "comment.line": {
+    description: "A line comment",
+    scopeType: "comment",
+  },
+  "comment.block": {
+    description: "A block comment",
+    scopeType: "comment",
+  },
+
   class: {
     description: "A class",
     scopeType: "class",
