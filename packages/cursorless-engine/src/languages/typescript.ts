@@ -4,8 +4,6 @@ import { createPatternMatchers } from "../util/nodeMatchers";
 
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
-> = {
-  collectionItem: "jsx_attribute",
-};
+> = {};
 
 export const patternMatchers = createPatternMatchers(nodeMatchers);

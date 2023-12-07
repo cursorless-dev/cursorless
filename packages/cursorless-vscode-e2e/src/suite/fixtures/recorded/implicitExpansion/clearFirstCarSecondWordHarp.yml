@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change first char second word harp
+  spokenForm: change first char second sub harp
   version: 2
   targets:
     - type: primitive

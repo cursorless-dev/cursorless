@@ -2,9 +2,10 @@ import {
   ActionDescriptor,
   ActionType,
   LATEST_VERSION,
+  Modifier,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
-  SimpleScopeTypeType,
+  ScopeType,
 } from "@cursorless/common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
@@ -26,8 +27,8 @@ interface TargetDecoratedMarkArgument {
   mode?: TargetingMode;
 }
 
-interface TargetScopeTypeArgument {
-  scopeType: SimpleScopeTypeType;
+interface ModifyTargetContainingScopeArgument {
+  scopeType: ScopeType;
   type?: "containingScope" | "everyScope";
 }
 
@@ -44,7 +45,8 @@ export default class KeyboardCommandsTargeted {
     this.performActionOnTarget = this.performActionOnTarget.bind(this);
     this.performVscodeCommandOnTarget =
       this.performVscodeCommandOnTarget.bind(this);
-    this.targetScopeType = this.targetScopeType.bind(this);
+    this.modifyTargetContainingScope =
+      this.modifyTargetContainingScope.bind(this);
     this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
   }
@@ -131,10 +133,10 @@ export default class KeyboardCommandsTargeted {
    * @param param0 Describes the desired scope type
    * @returns A promise that resolves to the result of the cursorless command
    */
-  targetScopeType = async ({
+  modifyTargetContainingScope = async ({
     scopeType,
     type = "containingScope",
-  }: TargetScopeTypeArgument) =>
+  }: ModifyTargetContainingScopeArgument) =>
     await executeCursorlessCommand({
       name: "highlight",
       target: {
@@ -142,11 +144,26 @@ export default class KeyboardCommandsTargeted {
         modifiers: [
           {
             type,
-            scopeType: {
-              type: scopeType,
-            },
+            scopeType,
           },
         ],
+        mark: {
+          type: "that",
+        },
+      },
+    });
+
+  /**
+   * Applies {@link modifier} to the current target
+   * @param param0 Describes the desired modifier
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  targetModifier = async (modifier: Modifier) =>
+    await executeCursorlessCommand({
+      name: "highlight",
+      target: {
+        type: "primitive",
+        modifiers: [modifier],
         mark: {
           type: "that",
         },
