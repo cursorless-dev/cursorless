@@ -40,79 +40,37 @@ export class ContiguousScopeHandler extends BaseScopeHandler {
     return this.scopeHandler.iterationScopeType;
   }
 
-  generateScopeCandidates(
+  *generateScopeCandidates(
     editor: TextEditor,
     position: Position,
     direction: Direction,
     _hints: ScopeIteratorRequirements,
   ): Iterable<TargetScope> {
-    return direction === "backward"
-      ? this.generateScopeCandidatesBackward(editor, position)
-      : this.generateScopeCandidatesForward(editor, position);
-  }
-
-  private *generateScopeCandidatesBackward(
-    editor: TextEditor,
-    position: Position,
-  ): Iterable<TargetScope> {
-    let targetRangeForward = next(
+    let targetRangeOpposite = next(
       generateTargetRangesInDirection(
         this.scopeHandler,
         editor,
         position,
-        "forward",
+        direction === "forward" ? "backward" : "forward",
       ),
     );
 
-    const targetRangesBackwardIter = generateTargetRangesInDirection(
+    const targetRangesIter = generateTargetRangesInDirection(
       this.scopeHandler,
       editor,
       position,
-      "backward",
+      direction,
     );
 
-    for (const targetRange of targetRangesBackwardIter) {
+    for (const targetRange of targetRangesIter) {
       if (
-        targetRangeForward != null &&
-        isAdjacent(targetRange[1], targetRangeForward[0])
+        targetRangeOpposite != null &&
+        isAdjacent(targetRangeOpposite.proximal, targetRange.proximal)
       ) {
-        yield targetsToScope(targetRange[0], targetRangeForward[1]);
-        targetRangeForward = undefined;
+        yield targetsToScope(targetRangeOpposite.distal, targetRange.distal);
+        targetRangeOpposite = undefined;
       } else {
-        yield targetsToScope(...targetRange);
-      }
-    }
-  }
-
-  private *generateScopeCandidatesForward(
-    editor: TextEditor,
-    position: Position,
-  ): Iterable<TargetScope> {
-    let targetRangeBackward = next(
-      generateTargetRangesInDirection(
-        this.scopeHandler,
-        editor,
-        position,
-        "backward",
-      ),
-    );
-
-    const targetRangesForwardIter = generateTargetRangesInDirection(
-      this.scopeHandler,
-      editor,
-      position,
-      "forward",
-    );
-
-    for (const targetRange of targetRangesForwardIter) {
-      if (
-        targetRangeBackward != null &&
-        isAdjacent(targetRangeBackward[1], targetRange[0])
-      ) {
-        yield targetsToScope(targetRangeBackward[0], targetRange[1]);
-        targetRangeBackward = undefined;
-      } else {
-        yield targetsToScope(...targetRange);
+        yield targetsToScope(targetRange.proximal, targetRange.distal);
       }
     }
   }
@@ -143,9 +101,8 @@ function* generateTargetRangesInDirection(
   editor: TextEditor,
   position: Position,
   direction: Direction,
-): Iterable<[Target, Target]> {
-  const isForward = direction === "forward";
-  let first, last: Target | undefined;
+): Iterable<{ proximal: Target; distal: Target }> {
+  let proximal, distal: Target | undefined;
 
   const generator = scopeHandler.generateScopes(editor, position, direction, {
     allowAdjacentScopes: true,
@@ -154,36 +111,36 @@ function* generateTargetRangesInDirection(
 
   for (const scope of generator) {
     for (const target of scope.getTargets(false)) {
-      if (first == null) {
-        first = target;
+      if (proximal == null) {
+        proximal = target;
       }
 
-      if (last != null) {
-        const [leadingTarget, trailingTarget] = isForward
-          ? [last, target]
-          : [target, last];
-
-        if (!isAdjacent(leadingTarget, trailingTarget)) {
-          yield isForward ? [first, last] : [last, first];
-          first = target;
+      if (distal != null) {
+        if (!isAdjacent(distal, target)) {
+          yield { proximal, distal };
+          proximal = target;
         }
       }
 
-      last = target;
+      distal = target;
     }
   }
 
-  if (first != null && last != null) {
-    yield isForward ? [first, last] : [last, first];
+  if (proximal != null && distal != null) {
+    yield { proximal, distal };
   }
 }
 
-function isAdjacent(leadingTarget: Target, trailingTarget: Target): boolean {
-  if (
-    leadingTarget.contentRange.intersection(trailingTarget.contentRange) != null
-  ) {
+function isAdjacent(target1: Target, target2: Target): boolean {
+  if (target1.contentRange.isRangeEqual(target2.contentRange)) {
     return true;
   }
+
+  const [leadingTarget, trailingTarget] = target1.contentRange.start.isBefore(
+    target2.contentRange.start,
+  )
+    ? [target1, target2]
+    : [target2, target1];
 
   const leadingRange =
     leadingTarget.getTrailingDelimiterTarget()?.contentRange ??
