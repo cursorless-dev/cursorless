@@ -23,6 +23,9 @@ const scopeSupportFacets = [
   "functionCallee",
   "functionCallee.constructor",
 
+  "argumentOrParameter.actual",
+  "argumentOrParameter.formal",
+
   "comment.line",
   "comment.block",
 
@@ -58,10 +61,7 @@ const scopeSupportFacets = [
   "type.foreach",
 
   //   "statement",
-
   //   "textFragment",
-  //   "argumentOrParameter.argument",
-  //   "argumentOrParameter.parameter",
 ] as const;
 
 const textualScopeSupportFacets = [

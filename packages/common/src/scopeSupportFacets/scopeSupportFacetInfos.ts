@@ -83,6 +83,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionCallee",
   },
 
+  "argumentOrParameter.actual": {
+    description: "An actual parameter in a function call",
+    scopeType: "argumentOrParameter",
+  },
+  "argumentOrParameter.formal": {
+    description: "A formal parameter in a function definition",
+    scopeType: "argumentOrParameter",
+  },
+
   "comment.line": {
     description: "A line comment",
     scopeType: "comment",
