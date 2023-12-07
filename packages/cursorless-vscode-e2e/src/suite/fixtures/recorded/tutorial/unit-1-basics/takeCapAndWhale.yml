@@ -57,4 +57,3 @@ finalState:
       active: {line: 2, character: 21}
     - anchor: {line: 6, character: 15}
       active: {line: 6, character: 17}
-fullTargets: [{type: list, elements: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: c}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: w}, selectionType: token, position: contents, insideOutsideType: inside, modifier: {type: identity}}]}]

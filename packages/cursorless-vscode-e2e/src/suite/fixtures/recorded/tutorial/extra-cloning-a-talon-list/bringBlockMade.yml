@@ -55,4 +55,3 @@ finalState:
   sourceMark:
     - anchor: {line: 5, character: 0}
       active: {line: 8, character: 1}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: m}, selectionType: paragraph, position: contents, insideOutsideType: null, modifier: {type: identity}}, {type: primitive, mark: {type: cursor}, selectionType: paragraph, position: contents, insideOutsideType: null, modifier: {type: identity}}]

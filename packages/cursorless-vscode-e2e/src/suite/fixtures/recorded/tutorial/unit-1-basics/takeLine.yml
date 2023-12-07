@@ -49,4 +49,3 @@ finalState:
       active: {line: 2, character: 50}
     - anchor: {line: 5, character: 0}
       active: {line: 5, character: 41}
-fullTargets: [{type: primitive, mark: {type: cursor}, selectionType: line, position: contents, insideOutsideType: inside, modifier: {type: identity}}]

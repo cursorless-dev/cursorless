@@ -67,4 +67,3 @@ finalState:
   sourceMark:
     - anchor: {line: 7, character: 17}
       active: {line: 7, character: 22}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: blue, character: c}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: identity}, isImplicit: false}, {type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: r}, selectionType: token, position: contents, insideOutsideType: null, modifier: {type: containingScope, scopeType: value, includeSiblings: false}, isImplicit: false}]

@@ -50,4 +50,3 @@ finalState:
   thatMark:
     - anchor: {line: 6, character: 31}
       active: {line: 6, character: 31}
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: d}, selectionType: token, position: contents, insideOutsideType: outside, modifier: {type: identity}}]
