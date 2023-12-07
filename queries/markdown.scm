@@ -29,7 +29,7 @@
   )?
   .
   (list_item
-    (_) @dummy @_.prefix
+    (_) @_.prefix
     (paragraph
       (inline) @collectionItem @_.trailing.start.endOf
     )
