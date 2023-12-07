@@ -4,6 +4,7 @@ import { javascriptScopeSupport } from "./javascript";
 import { pythonScopeSupport } from "./python";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { talonScopeSupport } from "./talon";
+import { typescriptScopeSupport } from "./typescript";
 
 export function getLanguageScopeSupport(
   languageId: string,
@@ -11,6 +12,8 @@ export function getLanguageScopeSupport(
   switch (languageId) {
     case "javascript":
       return javascriptScopeSupport;
+    case "typescript":
+      return typescriptScopeSupport;
     case "java":
       return javaScopeSupport;
     case "python":

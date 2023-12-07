@@ -1,0 +1,89 @@
+class MyClass {
+  value = 0;
+}
+---
+
+[#1 Content] = 0:6-0:13
+0| class MyClass {
+        >-------<
+1|   value = 0;
+
+2| }
+
+
+[#1 Removal] = 0:6-0:14
+0| class MyClass {
+        >--------<
+1|   value = 0;
+
+2| }
+
+
+[#1 Leading delimiter] = 0:5-0:6
+0| class MyClass {
+       >-<
+1|   value = 0;
+
+2| }
+
+
+[#1 Trailing delimiter] = 0:13-0:14
+0| class MyClass {
+               >-<
+1|   value = 0;
+
+2| }
+
+
+[#1 Domain] = 0:0-2:1
+0| class MyClass {
+  >---------------
+1|   value = 0;
+   ------------
+2| }
+   -<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:2-1:7
+0| class MyClass {
+
+1|   value = 0;
+    >-----<
+2| }
+
+
+[#2 Removal] = 1:2-1:8
+0| class MyClass {
+
+1|   value = 0;
+    >------<
+2| }
+
+
+[#2 Leading delimiter] = 1:0-1:2
+0| class MyClass {
+
+1|   value = 0;
+  >--<
+2| }
+
+
+[#2 Trailing delimiter] = 1:7-1:8
+0| class MyClass {
+
+1|   value = 0;
+         >-<
+2| }
+
+
+[#2 Domain] = 1:2-1:12
+0| class MyClass {
+
+1|   value = 0;
+    >----------<
+2| }
+
+
+[#2 Insertion delimiter] = " "

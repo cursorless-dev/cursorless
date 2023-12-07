@@ -184,6 +184,18 @@ export const scopeSupportFacetInfos: Record<
     description: "Variable name in a for each loop",
     scopeType: "name",
   },
+  "name.function": {
+    description: "Name of a function",
+    scopeType: "name",
+  },
+  "name.class": {
+    description: "Name of a class",
+    scopeType: "name",
+  },
+  "name.field": {
+    description: "Name(LHS) of a field",
+    scopeType: "name",
+  },
 
   "key.attribute": {
     description: "Key(LHS) of an attribute",
@@ -228,9 +240,33 @@ export const scopeSupportFacetInfos: Record<
     description: "Implicit return value from a lambda",
     scopeType: "value",
   },
+  "value.field": {
+    description: "Value(RHS) of a field",
+    scopeType: "value",
+  },
 
+  "type.assignment": {
+    description: "Type of variable in an assignment",
+    scopeType: "type",
+  },
+  "type.formalParameter": {
+    description: "Type of formal parameter in a function definition",
+    scopeType: "type",
+  },
+  "type.return": {
+    description: "Type of return value in a function definition",
+    scopeType: "type",
+  },
+  "type.field": {
+    description: "Type of field in a class",
+    scopeType: "type",
+  },
   "type.foreach": {
     description: "Type of variable in a for each loop",
+    scopeType: "type",
+  },
+  "type.interface": {
+    description: "Type of interface",
     scopeType: "type",
   },
 };

@@ -52,6 +52,9 @@ const scopeSupportFacets = [
 
   "name.assignment",
   "name.foreach",
+  "name.function",
+  "name.class",
+  "name.field",
 
   "key.attribute",
   "key.mapPair",
@@ -64,8 +67,14 @@ const scopeSupportFacets = [
   "value.foreach",
   "value.return",
   "value.return.lambda",
+  "value.field",
 
+  "type.assignment",
+  "type.formalParameter",
+  "type.return",
+  "type.field",
   "type.foreach",
+  "type.interface",
 
   // FIXME: Still in legacy
   // section

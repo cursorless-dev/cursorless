@@ -36,7 +36,8 @@
   ;;!  ^^^-------
   (field_definition
     property: (_) @name
-  ) @name.domain.start
+    value: (_)? @value
+  ) @_.domain.start
   .
-  ";"? @name.domain.end
+  ";"? @_.domain.end
 )

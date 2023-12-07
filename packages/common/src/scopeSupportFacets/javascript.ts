@@ -53,6 +53,9 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   "name.foreach": supported,
   "name.assignment": supported,
+  "name.function": supported,
+  "name.class": supported,
+  "name.field": supported,
 
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
@@ -63,4 +66,5 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,
+  "value.field": supported,
 };
