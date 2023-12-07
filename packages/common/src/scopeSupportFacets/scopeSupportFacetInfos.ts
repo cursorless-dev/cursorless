@@ -30,9 +30,27 @@ export const scopeSupportFacetInfos: Record<
     description: "A map/dictionary",
     scopeType: "map",
   },
+
   ifStatement: {
     description: "An if statement",
     scopeType: "ifStatement",
+  },
+
+  functionCall: {
+    description: "A function call",
+    scopeType: "functionCall",
+  },
+  "functionCall.constructor": {
+    description: "A constructor call",
+    scopeType: "functionCall",
+  },
+  functionCallee: {
+    description: "The callee of a function call",
+    scopeType: "functionCallee",
+  },
+  "functionCallee.constructor": {
+    description: "The callee of a constructor call",
+    scopeType: "functionCallee",
   },
 
   class: {
@@ -92,6 +110,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "condition.ternary": {
     description: "A condition in a ternary expression",
+    scopeType: "condition",
+  },
+  "condition.switch": {
+    description: "A condition in a switch statement",
     scopeType: "condition",
   },
 

@@ -7,7 +7,13 @@ const scopeSupportFacets = [
 
   "list",
   "map",
+
   "ifStatement",
+
+  "functionCall",
+  "functionCall.constructor",
+  "functionCallee",
+  "functionCallee.constructor",
 
   "class",
   "className",
@@ -25,6 +31,7 @@ const scopeSupportFacets = [
   "condition.doWhile",
   "condition.for",
   "condition.ternary",
+  "condition.switch",
 
   "name.assignment",
   "name.foreach",
@@ -49,8 +56,6 @@ const scopeSupportFacets = [
   //   "string.singleLine",
   //   "string.multiLine",
   //   "textFragment",
-  //   "functionCall",
-  //   "functionCallee",
   //   "argumentOrParameter.argument",
   //   "argumentOrParameter.parameter",
 ] as const;
