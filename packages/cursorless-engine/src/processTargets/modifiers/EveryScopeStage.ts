@@ -82,6 +82,9 @@ export class EveryScopeStage implements ModifierStage {
           getScopesOverlappingRange(scopeHandler, editor, iterationRange),
         );
       } catch (error) {
+        if (!(error instanceof NoContainingScopeError)) {
+          throw error;
+        }
         scopes = [];
       }
     }
