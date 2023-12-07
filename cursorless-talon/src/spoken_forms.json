@@ -3,7 +3,7 @@
   "actions.csv": {
     "simple_action": {
       "bottom": "scrollToBottom",
-      "break line": "breakLine",
+      "break": "breakLine",
       "break point": "toggleLineBreakpoint",
       "carve": "cutToClipboard",
       "center": "scrollToCenter",

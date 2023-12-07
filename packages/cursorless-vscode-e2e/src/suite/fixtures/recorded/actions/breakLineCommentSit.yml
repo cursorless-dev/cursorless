@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 6
-  spokenForm: break line comment sit
+  spokenForm: break comment sit
   action:
     name: breakLine
     target:
