@@ -32,8 +32,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
-  public prefixRange?: Range;
-  insertionDelimiter: string;
+  public readonly prefixRange?: Range;
+  readonly insertionDelimiter: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
