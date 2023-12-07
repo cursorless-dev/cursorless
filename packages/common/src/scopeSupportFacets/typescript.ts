@@ -12,6 +12,5 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.formalParameter": supported,
   "type.return": supported,
   "type.field": supported,
-  "type.foreach": supported,
   "type.interface": supported,
 };
