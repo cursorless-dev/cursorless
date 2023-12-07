@@ -6,25 +6,27 @@ const scopeSupportFacets = [
   //   "map",
   //   "map.interior",
   //   "collectionKey",
+  "element",
+  "attribute",
   "namedFunction",
-  //   "namedFunction.interior",
   //   "functionName",
   //   "anonymousFunction",
-  //   "anonymousFunction.interior",
+
   "name.assignment",
   "name.foreach",
+
   "key.attribute",
   "key.mapPair",
   "key.mapPair.iteration",
+
   "value.assignment",
   "value.mapPair",
   "value.mapPair.iteration",
+  "value.attribute",
   "value.foreach",
-  //   "value.assignment.removal",
   //   "value.return",
-  //   "value.return.removal",
   //   "value.collectionItem",
-  //   "value.collectionItem.removal",
+
   //   "statement",
   //   "ifStatement",
   //   "condition.if",
@@ -41,13 +43,13 @@ const scopeSupportFacets = [
   //   "functionCall",
   //   "functionCallee",
   //   "argumentOrParameter.argument",
-  //   "argumentOrParameter.argument.removal",
   //   "argumentOrParameter.parameter",
-  //   "argumentOrParameter.parameter.removal",
   //   "class",
   //   "class.interior",
   //   "className",
-  //   "type",
+
+  "type.foreach",
+
   "tags",
 ] as const;
 

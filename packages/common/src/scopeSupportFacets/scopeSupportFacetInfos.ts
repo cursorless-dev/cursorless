@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import {
   ScopeSupportFacet,
   ScopeSupportFacetInfo,
@@ -11,45 +13,67 @@ export const scopeSupportFacetInfos: Record<
     description: "A named function",
     scopeType: "namedFunction",
   },
-  ["name.assignment"]: {
+  element: {
+    description: "A xml/html element",
+    scopeType: "xmlElement",
+  },
+
+  attribute: {
+    description: "A attribute of an element",
+    scopeType: "attribute",
+  },
+
+  "name.assignment": {
     description: "Name(LHS) of an assignment",
     scopeType: "name",
   },
-  ["name.foreach"]: {
+  "name.foreach": {
     description: "Variable name in a for each loop",
     scopeType: "name",
   },
-  ["key.attribute"]: {
+
+  "key.attribute": {
     description: "Key(LHS) of an attribute",
     scopeType: "collectionKey",
   },
-  ["key.mapPair"]: {
+  "key.mapPair": {
     description: "Key(LHS) of a map pair",
     scopeType: "collectionKey",
   },
-  ["key.mapPair.iteration"]: {
+  "key.mapPair.iteration": {
     description: "Iteration of map pair keys",
     scopeType: "collectionKey",
     isIteration: true,
   },
-  ["value.assignment"]: {
+
+  "value.assignment": {
     description: "Value(RHS) of an assignment",
     scopeType: "value",
   },
-  ["value.mapPair"]: {
+  "value.mapPair": {
     description: "Key(RHS) of a map pair",
     scopeType: "value",
   },
-  ["value.mapPair.iteration"]: {
+  "value.mapPair.iteration": {
     description: "Iteration of map pair values",
     scopeType: "value",
     isIteration: true,
   },
-  ["value.foreach"]: {
+  "value.foreach": {
     description: "Iterable in a for each loop",
     scopeType: "value",
   },
-  ["tags"]: {
+  "value.attribute": {
+    description: "Value(RHS) of an attribute",
+    scopeType: "value",
+  },
+
+  "type.foreach": {
+    description: "Type of variable in a for each loop",
+    scopeType: "type",
+  },
+
+  tags: {
     description: "Both tags in an xml element",
     scopeType: "xmlBothTags",
   },

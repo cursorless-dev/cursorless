@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
@@ -6,14 +8,17 @@ import {
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
-  ["key.attribute"]: supported,
-  ["tags"]: supported,
+  element: supported,
+  tags: supported,
+  attribute: supported,
+  "key.attribute": supported,
+  "value.attribute": supported,
 
   namedFunction: notApplicable,
-  ["name.assignment"]: notApplicable,
-  ["key.mapPair"]: notApplicable,
-  ["key.mapPair.iteration"]: notApplicable,
-  ["value.mapPair"]: notApplicable,
-  ["value.mapPair.iteration"]: notApplicable,
-  ["value.assignment"]: notApplicable,
+  "name.assignment": notApplicable,
+  "key.mapPair": notApplicable,
+  "key.mapPair.iteration": notApplicable,
+  "value.mapPair": notApplicable,
+  "value.mapPair.iteration": notApplicable,
+  "value.assignment": notApplicable,
 };
