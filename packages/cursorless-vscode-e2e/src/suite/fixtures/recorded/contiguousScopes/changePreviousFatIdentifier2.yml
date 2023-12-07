@@ -1,0 +1,28 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change previous fat identifier
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType:
+            type: contiguous
+            scopeType: {type: identifier}
+          offset: 1
+          length: 1
+          direction: backward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb | ccc
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: " | ccc"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

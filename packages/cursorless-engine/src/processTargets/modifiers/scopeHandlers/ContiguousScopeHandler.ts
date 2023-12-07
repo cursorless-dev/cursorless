@@ -84,15 +84,26 @@ function combineScopes(scope1: TargetScope, scope2: TargetScope): TargetScope {
   return {
     editor: scope1.editor,
     domain: scope1.domain.union(scope2.domain),
-    getTargets: (isReversed) => [
-      createContinuousRangeTarget(
-        isReversed,
-        scope1.getTargets(false)[0],
-        scope2.getTargets(false)[0],
-        true,
-        true,
-      ),
-    ],
+    getTargets: (isReversed) => {
+      const target1 = scope1.getTargets(isReversed)[0];
+      const target2 = scope2.getTargets(isReversed)[0];
+
+      const [startTarget, endTarget] = target1.contentRange.start.isBefore(
+        target2.contentRange.start,
+      )
+        ? [target1, target2]
+        : [target2, target1];
+
+      return [
+        createContinuousRangeTarget(
+          isReversed,
+          startTarget,
+          endTarget,
+          true,
+          true,
+        ),
+      ];
+    },
   };
 }
 
