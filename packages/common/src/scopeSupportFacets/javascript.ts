@@ -10,8 +10,8 @@ const { supported } = ScopeSupportFacetLevel;
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
-
   ifStatement: supported,
+  regularExpression: supported,
 
   class: supported,
   className: supported,

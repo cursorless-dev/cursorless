@@ -43,10 +43,13 @@ export const scopeSupportFacetInfos: Record<
     description: "A map/dictionary",
     scopeType: "map",
   },
-
   ifStatement: {
     description: "An if statement",
     scopeType: "ifStatement",
+  },
+  regularExpression: {
+    description: "A regular expression",
+    scopeType: "regularExpression",
   },
 
   class: {

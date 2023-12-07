@@ -11,8 +11,8 @@ const scopeSupportFacets = [
 
   "list",
   "map",
-
   "ifStatement",
+  "regularExpression",
 
   "class",
   "className",
@@ -64,7 +64,6 @@ const scopeSupportFacets = [
 
   "type.foreach",
 
-  // regularExpression
   // section
   // selector
   // "private.switchStatementSubject"
