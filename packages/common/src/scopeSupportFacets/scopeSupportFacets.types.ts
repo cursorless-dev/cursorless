@@ -1,15 +1,13 @@
 import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 
 const scopeSupportFacets = [
-  "list",
-  "map",
-
   "tags",
   "element",
   "attribute",
 
-  "comment.line",
-  "comment.block",
+  "list",
+  "map",
+  "ifStatement",
 
   "class",
   "className",
@@ -18,6 +16,15 @@ const scopeSupportFacets = [
   "anonymousFunction",
   "anonymousFunction.lambda",
   "functionName",
+
+  "comment.line",
+  "comment.block",
+
+  "condition.if",
+  "condition.while",
+  "condition.doWhile",
+  "condition.for",
+  "condition.ternary",
 
   "name.assignment",
   "name.foreach",
@@ -37,12 +44,7 @@ const scopeSupportFacets = [
   "type.foreach",
 
   //   "statement",
-  //   "ifStatement",
-  //   "condition.if",
-  //   "condition.while",
-  //   "condition.doWhile",
-  //   "condition.for",
-  //   "condition.ternary",
+
   //   "branch",
   //   "string.singleLine",
   //   "string.multiLine",

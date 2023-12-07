@@ -30,14 +30,9 @@ export const scopeSupportFacetInfos: Record<
     description: "A map/dictionary",
     scopeType: "map",
   },
-
-  "comment.line": {
-    description: "A line comment",
-    scopeType: "comment",
-  },
-  "comment.block": {
-    description: "A block comment",
-    scopeType: "comment",
+  ifStatement: {
+    description: "An if statement",
+    scopeType: "ifStatement",
   },
 
   class: {
@@ -53,7 +48,6 @@ export const scopeSupportFacetInfos: Record<
     description: "A named function",
     scopeType: "namedFunction",
   },
-
   "namedFunction.method": {
     description: "A named method in a class",
     scopeType: "namedFunction",
@@ -69,6 +63,36 @@ export const scopeSupportFacetInfos: Record<
   functionName: {
     description: "The name of a function",
     scopeType: "functionName",
+  },
+
+  "comment.line": {
+    description: "A line comment",
+    scopeType: "comment",
+  },
+  "comment.block": {
+    description: "A block comment",
+    scopeType: "comment",
+  },
+
+  "condition.if": {
+    description: "A condition in an if statement",
+    scopeType: "condition",
+  },
+  "condition.while": {
+    description: "A condition in a while loop",
+    scopeType: "condition",
+  },
+  "condition.doWhile": {
+    description: "A condition in a do while loop",
+    scopeType: "condition",
+  },
+  "condition.for": {
+    description: "A condition in a for loop",
+    scopeType: "condition",
+  },
+  "condition.ternary": {
+    description: "A condition in a ternary expression",
+    scopeType: "condition",
   },
 
   "name.assignment": {
