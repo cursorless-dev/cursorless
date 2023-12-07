@@ -53,6 +53,7 @@ export const actions = {
   rewrapWithPairedDelimiter: "repack",
   insertSnippet: "snippet",
   pasteFromClipboard: "paste",
+  joinLines: "join",
 
   ["private.showParseTree"]: "parse tree",
   ["experimental.setInstanceReference"]: "from",

@@ -706,6 +706,17 @@ eg:
 
 Extracts the function call containing the decorated 'a' into its own variable.
 
+### Join
+
+Join multiple lines together.
+
+- `"join <TARGET>"`
+
+eg:
+
+- `join air`: Join the line with the token containing the letter 'a' with its next line.
+- `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
+
 ## Paired delimiters
 
 | Default spoken form | Delimiter name        | Symbol inserted before target | Symbol inserted after target | Is wrapper? | Is selectable? |

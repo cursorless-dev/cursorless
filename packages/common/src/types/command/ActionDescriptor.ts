@@ -25,6 +25,7 @@ const simpleActionNames = [
   "insertEmptyLineAfter",
   "insertEmptyLineBefore",
   "insertEmptyLinesAround",
+  "joinLines",
   "outdentLine",
   "randomizeTargets",
   "remove",
