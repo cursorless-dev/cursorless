@@ -11,7 +11,13 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "unused-imports", "import", "unicorn"],
+  "plugins": [
+    "@typescript-eslint",
+    "unused-imports",
+    "import",
+    "unicorn",
+    "mocha"
+  ],
   "rules": {
     "import/no-relative-packages": "error",
     "@typescript-eslint/consistent-type-assertions": [
@@ -53,7 +59,9 @@
     ],
     "no-throw-literal": "warn",
     "semi": "off",
-    "unicorn/prefer-module": "error"
+    "unicorn/prefer-module": "error",
+    "mocha/no-skipped-tests": "error",
+    "mocha/no-exclusive-tests": "error"
   },
   "overrides": [
     {
