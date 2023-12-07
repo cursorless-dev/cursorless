@@ -7,7 +7,9 @@ import {
   TextEditor,
   next,
 } from "@cursorless/common";
+import { zip } from "itertools";
 import { ScopeHandlerFactory } from ".";
+import { Target } from "../../../typings/target.types";
 import { createContinuousRangeTarget } from "../../createContinuousRangeTarget";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
@@ -85,24 +87,23 @@ function combineScopes(scope1: TargetScope, scope2: TargetScope): TargetScope {
     editor: scope1.editor,
     domain: scope1.domain.union(scope2.domain),
     getTargets: (isReversed) => {
-      const target1 = scope1.getTargets(isReversed)[0];
-      const target2 = scope2.getTargets(isReversed)[0];
+      return zip(
+        scope1.getTargets(isReversed),
+        scope2.getTargets(isReversed),
+      ).map(([target1, target2]) => {
+        const [startTarget, endTarget] = getTargetsInDocumentOrder(
+          target1,
+          target2,
+        );
 
-      const [startTarget, endTarget] = target1.contentRange.start.isBefore(
-        target2.contentRange.start,
-      )
-        ? [target1, target2]
-        : [target2, target1];
-
-      return [
-        createContinuousRangeTarget(
+        return createContinuousRangeTarget(
           isReversed,
           startTarget,
           endTarget,
           true,
           true,
-        ),
-      ];
+        );
+      });
     },
   };
 }
@@ -145,34 +146,41 @@ function isAdjacent(scope1: TargetScope, scope2: TargetScope): boolean {
     return true;
   }
 
-  const target1 = scope1.getTargets(false)[0];
-  const target2 = scope2.getTargets(false)[0];
-
-  const [leadingTarget, trailingTarget] = target1.contentRange.start.isBefore(
-    target2.contentRange.start,
-  )
-    ? [target1, target2]
-    : [target2, target1];
+  const [startTarget, endTarget] = getTargetsInDocumentOrder(
+    scope1.getTargets(false)[0],
+    scope2.getTargets(false)[0],
+  );
 
   const leadingRange =
-    leadingTarget.getTrailingDelimiterTarget()?.contentRange ??
-    leadingTarget.contentRange;
+    startTarget.getTrailingDelimiterTarget()?.contentRange ??
+    startTarget.contentRange;
   const trailingRange =
-    trailingTarget.getLeadingDelimiterTarget()?.contentRange ??
-    trailingTarget.contentRange;
+    endTarget.getLeadingDelimiterTarget()?.contentRange ??
+    endTarget.contentRange;
 
   if (leadingRange.intersection(trailingRange) != null) {
     return true;
   }
 
+  // Non line targets are excluded if they are separated by more than one line
   if (
-    !leadingTarget.isLine &&
+    !startTarget.isLine &&
     trailingRange.start.line - leadingRange.end.line > 1
   ) {
     return false;
   }
 
+  // Finally targets are excluded if there is non whitespace text between them
   const rangeBetween = new Range(leadingRange.end, trailingRange.start);
-  const text = leadingTarget.editor.document.getText(rangeBetween);
+  const text = startTarget.editor.document.getText(rangeBetween);
   return /^\s*$/.test(text);
+}
+
+function getTargetsInDocumentOrder(
+  target1: Target,
+  target2: Target,
+): [Target, Target] {
+  return target1.contentRange.start.isBefore(target2.contentRange.start)
+    ? [target1, target2]
+    : [target2, target1];
 }
