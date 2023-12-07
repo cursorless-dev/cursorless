@@ -2,7 +2,7 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { TreeSitter } from "../typings/TreeSitter";
-import BrakeLine from "./BrakeLine";
+import BrakeLine from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
