@@ -17,8 +17,7 @@ import {
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
   readonly insertionDelimiter?: string;
-  readonly insertionPrefix?: string;
-  readonly extendedContentRange?: Range;
+  readonly prefixRange?: Range;
   readonly removalRange?: Range;
   readonly interiorRange?: Range;
   readonly leadingDelimiterRange?: Range;
@@ -28,19 +27,18 @@ export interface ScopeTypeTargetParameters extends CommonTargetParameters {
 export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   type = "ScopeTypeTarget";
   private scopeTypeType_: SimpleScopeTypeType;
-  private extendedContentRange_?: Range;
   private removalRange_?: Range;
   private interiorRange_?: Range;
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
+  public prefixRange?: Range;
   insertionDelimiter: string;
-  insertionPrefix?: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
     this.scopeTypeType_ = parameters.scopeTypeType;
-    this.extendedContentRange_ = parameters.extendedContentRange;
+    this.prefixRange = parameters.prefixRange;
     this.removalRange_ = parameters.removalRange;
     this.interiorRange_ = parameters.interiorRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
@@ -48,13 +46,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     this.insertionDelimiter =
       parameters.insertionDelimiter ??
       getInsertionDelimiter(parameters.scopeTypeType);
-    this.insertionPrefix = parameters.insertionPrefix;
     this.hasDelimiterRange_ =
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
-  }
-
-  get extendedContentRange(): Range {
-    return this.extendedContentRange_ ?? this.state.contentRange;
   }
 
   getLeadingDelimiterTarget(): Target | undefined {
@@ -138,8 +131,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     return {
       ...this.state,
       insertionDelimiter: this.insertionDelimiter,
-      insertionPrefix: this.insertionPrefix,
-      extendedContentRange: this.extendedContentRange_,
+      prefixRange: this.prefixRange,
       removalRange: undefined,
       interiorRange: undefined,
       scopeTypeType: this.scopeTypeType_,

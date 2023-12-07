@@ -29,14 +29,13 @@
   )?
   .
   (list_item
-    (_) @dummy @_.extended.start
+    (_) @dummy @_.prefix
     (paragraph
-      (inline) @collectionItem @_.extended.end @_.trailing.start.endOf
+      (inline) @collectionItem @_.trailing.start.endOf
     )
   ) @_.domain @_.leading.end.startOf
   .
   (list_item)? @_.trailing.end.startOf
   (#trim-end! @_.domain)
   (#insertion-delimiter! @collectionItem "\n")
-  (#insertion-prefix! @collectionItem @dummy)
 )

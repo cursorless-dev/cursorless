@@ -38,9 +38,6 @@ export interface QueryCapture {
 
   /** The insertion delimiter to use if any */
   readonly insertionDelimiter: string | undefined;
-
-  /** The insertion prefix to use if any */
-  readonly insertionPrefix: string | undefined;
 }
 
 /**
@@ -67,7 +64,6 @@ export interface MutableQueryCapture extends QueryCapture {
   range: Range;
   allowMultiple: boolean;
   insertionDelimiter: string | undefined;
-  insertionPrefix: string | undefined;
 }
 
 /**

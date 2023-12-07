@@ -16,6 +16,7 @@ export class DestinationImpl implements Destination {
   private readonly isLineDelimiter: boolean;
   private readonly isBefore: boolean;
   private readonly indentationString: string;
+  private readonly insertionPrefix?: string;
 
   constructor(
     public readonly target: Target,
@@ -29,6 +30,10 @@ export class DestinationImpl implements Destination {
       indentationString ?? this.isLineDelimiter
         ? getIndentationString(target.editor, target.contentRange)
         : "";
+    this.insertionPrefix =
+      target.prefixRange != null
+        ? target.editor.document.getText(target.prefixRange)
+        : undefined;
   }
 
   get contentSelection(): Selection {
@@ -41,10 +46,6 @@ export class DestinationImpl implements Destination {
 
   get insertionDelimiter(): string {
     return this.target.insertionDelimiter;
-  }
-
-  private get insertionPrefix(): string | undefined {
-    return this.target.insertionPrefix;
   }
 
   get isRaw(): boolean {
@@ -115,8 +116,8 @@ export class DestinationImpl implements Destination {
   private getEditRange() {
     const position = (() => {
       const insertionPosition = this.isBefore
-        ? this.target.extendedContentRange.start
-        : this.target.extendedContentRange.end;
+        ? this.target.prefixRange?.start ?? this.target.contentRange.start
+        : this.target.contentRange.end;
 
       if (this.isLineDelimiter) {
         const line = this.editor.document.lineAt(insertionPosition);

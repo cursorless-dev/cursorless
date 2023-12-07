@@ -87,10 +87,6 @@ export abstract class BaseTarget<
     return this.state.contentRange;
   }
 
-  get extendedContentRange(): Range {
-    return this.state.contentRange;
-  }
-
   constructRemovalEdit(): EditWithRangeUpdater {
     return {
       range: this.getRemovalRange(),

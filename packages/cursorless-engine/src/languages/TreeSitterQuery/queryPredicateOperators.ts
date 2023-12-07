@@ -216,11 +216,11 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
 
 /**
  * A predicate operator that sets the insertion delimiter of the match based on a condition. For
- * example, `(#conditional-insertion-delimiter! @foo @bar ", " ",\n")` will set the insertion delimiter
+ * example, `(#single-or-multi-line-delimiter! @foo @bar ", " ",\n")` will set the insertion delimiter
  * of the `@foo` capture to `", "` if the `@bar` capture is a single line and `",\n"` otherwise.
  */
-class ConditionalInsertionDelimiter extends QueryPredicateOperator<ConditionalInsertionDelimiter> {
-  name = "conditional-insertion-delimiter!" as const;
+class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
+  name = "single-or-multi-line-delimiter!" as const;
   schema = z.tuple([q.node, q.node, q.string, q.string]);
 
   run(
@@ -237,25 +237,6 @@ class ConditionalInsertionDelimiter extends QueryPredicateOperator<ConditionalIn
   }
 }
 
-/**
- * A predicate operator that sets the insertion prefix of the match. For
- * example, `(#insertion-prefix! @foo "* ")` will set the insertion prefix
- * of the `@foo` capture to `"* "`.
- */
-class InsertionPrefix extends QueryPredicateOperator<InsertionPrefix> {
-  name = "insertion-prefix!" as const;
-  schema = z.union([z.tuple([q.node, q.string]), z.tuple([q.node, q.node])]);
-
-  run(nodeInfo: MutableQueryCapture, prefix: string | MutableQueryCapture) {
-    nodeInfo.insertionPrefix =
-      typeof prefix === "string"
-        ? prefix
-        : nodeInfo.document.getText(prefix.range);
-
-    return true;
-  }
-}
-
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
@@ -266,7 +247,6 @@ export const queryPredicateOperators = [
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
-  new ConditionalInsertionDelimiter(),
-  new InsertionPrefix(),
+  new SingleOrMultilineDelimiter(),
   new HasMultipleChildrenOfType(),
 ];

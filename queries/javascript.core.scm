@@ -692,7 +692,7 @@
     (_)? @_.trailing.end.startOf
   ) @dummy
   (#not-type? @argumentOrParameter "comment")
-  (#conditional-insertion-delimiter! @argumentOrParameter @dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
 ;;!! foo("bar")
@@ -706,7 +706,7 @@
     (_)? @_.trailing.end.startOf
   ) @dummy
   (#not-type? @argumentOrParameter "comment")
-  (#conditional-insertion-delimiter! @argumentOrParameter @dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
 [
