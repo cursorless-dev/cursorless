@@ -8,7 +8,7 @@ import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
 
-export default class BrakeLine {
+export class BreakLine {
   constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
   }
