@@ -1,3 +1,4 @@
+from typing import Optional
 from talon import Module, actions
 
 from ..targets.target_types import CursorlessTarget
@@ -9,7 +10,7 @@ mod = Module()
 class Actions:
     def cursorless_get_text(
         target: CursorlessTarget,
-        no_decorations: bool = False,
+        no_decorations: Optional[bool] = None,
     ) -> str:
         """Get target text"""
         return cursorless_get_text(
@@ -20,7 +21,7 @@ class Actions:
 
     def cursorless_get_text_list(
         target: CursorlessTarget,
-        no_decorations: bool = False,
+        no_decorations: Optional[bool] = None,
     ) -> list[str]:
         """Get texts for multiple targets"""
         return cursorless_get_text(
@@ -33,16 +34,16 @@ class Actions:
 def cursorless_get_text(
     target: CursorlessTarget,
     *,
-    no_decorations: bool,
-    ensure_single_target: bool,
+    no_decorations: Optional[bool] = None,
+    ensure_single_target: Optional[bool] = None,
 ) -> list[str]:
     """Get target texts"""
     options: dict[str, bool] = {}
 
-    if no_decorations:
-        options["showDecorations"] = False
-    if ensure_single_target:
-        options["ensureSingleTarget"] = True
+    if no_decorations is not None:
+        options["showDecorations"] = not no_decorations
+    if ensure_single_target is not None:
+        options["ensureSingleTarget"] = ensure_single_target
 
     return actions.user.private_cursorless_command_get(
         {
