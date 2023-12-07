@@ -2,7 +2,7 @@ import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
 import { TreeSitter } from "../typings/TreeSitter";
-import BrakeLine from "./BreakLine";
+import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
@@ -114,7 +114,7 @@ export class Actions implements ActionRecord {
     this.modifierStageFactory,
   );
   joinLines = new JoinLines(this.rangeUpdater);
-  breakLine = new BrakeLine(this.rangeUpdater);
+  breakLine = new BreakLine(this.rangeUpdater);
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);
   pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);
