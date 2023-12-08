@@ -8,7 +8,7 @@ import { OneOfScopeHandler } from "./OneOfScopeHandler";
 import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
 import {
   CustomRegexScopeHandler,
-  GlyphScopeHandler,
+  LiteralScopeHandler,
   NonWhitespaceSequenceScopeHandler,
   UrlScopeHandler,
 } from "./RegexScopeHandler";
@@ -73,8 +73,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new UrlScopeHandler(this, scopeType, languageId);
       case "customRegex":
         return new CustomRegexScopeHandler(this, scopeType, languageId);
-      case "glyph":
-        return new GlyphScopeHandler(this, scopeType, languageId);
+      case "literal":
+        return new LiteralScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":

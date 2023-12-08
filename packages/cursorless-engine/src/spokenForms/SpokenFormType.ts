@@ -14,7 +14,7 @@ import {
 export interface SpokenFormMapKeyTypes {
   pairedDelimiter: SpeakableSurroundingPairName;
   simpleScopeTypeType: SimpleScopeTypeType;
-  complexScopeTypeType: "glyph";
+  complexScopeTypeType: "literal";
   surroundingPairForceDirection: "left" | "right";
 
   /**

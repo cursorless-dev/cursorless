@@ -205,9 +205,9 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
-export interface GlyphScopeType {
-  type: "glyph";
-  character: string;
+export interface LiteralScopeType {
+  type: "literal";
+  literal: string;
 }
 
 export type ScopeType =
@@ -215,7 +215,7 @@ export type ScopeType =
   | SurroundingPairScopeType
   | CustomRegexScopeType
   | OneOfScopeType
-  | GlyphScopeType;
+  | LiteralScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {

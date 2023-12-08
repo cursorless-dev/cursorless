@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: glyph, character: a}
+          scopeType: {type: literal, literal: a}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: abc$!4123a

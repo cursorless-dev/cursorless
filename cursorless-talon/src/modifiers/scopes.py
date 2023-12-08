@@ -15,7 +15,7 @@ mod.list(
 
 
 @mod.capture(
-    rule="{user.cursorless_scope_type} | <user.cursorless_glyph_scope_type> | {user.cursorless_custom_regex_scope_type}"
+    rule="{user.cursorless_scope_type} | <user.cursorless_literal_scope_type> | {user.cursorless_custom_regex_scope_type}"
 )
 def cursorless_scope_type(m) -> dict[str, str]:
     """Cursorless scope type singular"""
@@ -25,7 +25,7 @@ def cursorless_scope_type(m) -> dict[str, str]:
         pass
 
     try:
-        return m.cursorless_glyph_scope_type
+        return m.cursorless_literal_scope_type
     except AttributeError:
         pass
 
@@ -33,7 +33,7 @@ def cursorless_scope_type(m) -> dict[str, str]:
 
 
 @mod.capture(
-    rule="{user.cursorless_scope_type_plural} | <user.cursorless_glyph_scope_type_plural> | {user.cursorless_custom_regex_scope_type_plural}"
+    rule="{user.cursorless_scope_type_plural} | <user.cursorless_literal_scope_type_plural> | {user.cursorless_custom_regex_scope_type_plural}"
 )
 def cursorless_scope_type_plural(m) -> dict[str, str]:
     """Cursorless scope type plural"""
@@ -43,7 +43,7 @@ def cursorless_scope_type_plural(m) -> dict[str, str]:
         pass
 
     try:
-        return m.cursorless_glyph_scope_type_plural
+        return m.cursorless_literal_scope_type_plural
     except AttributeError:
         pass
 

@@ -1,7 +1,7 @@
 import {
   CustomRegexScopeType,
   Direction,
-  GlyphScopeType,
+  LiteralScopeType,
   ScopeType,
 } from "@cursorless/common";
 import { imap } from "itertools";
@@ -69,14 +69,14 @@ export class CustomRegexScopeHandler extends RegexStageBase {
   }
 }
 
-export class GlyphScopeHandler extends RegexStageBase {
+export class LiteralScopeHandler extends RegexStageBase {
   get regex() {
-    return new RegExp(escapeRegExp(this.scopeType.character), "gui");
+    return new RegExp(escapeRegExp(this.scopeType.literal), "gui");
   }
 
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
-    readonly scopeType: GlyphScopeType,
+    readonly scopeType: LiteralScopeType,
     languageId: string,
   ) {
     super(scopeHandlerFactory, scopeType, languageId);
