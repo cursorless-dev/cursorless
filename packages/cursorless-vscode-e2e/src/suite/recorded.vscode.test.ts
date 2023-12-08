@@ -89,21 +89,15 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   editor.selections = fixture.initialState.selections.map(createSelection);
 
-  if (fixture.initialState.thatMark) {
-    setStoredTarget(editor, "that", fixture.initialState.thatMark);
-  }
+  setStoredTarget(editor, "that", fixture.initialState.thatMark);
 
-  if (fixture.initialState.sourceMark) {
-    setStoredTarget(editor, "source", fixture.initialState.sourceMark);
-  }
+  setStoredTarget(editor, "source", fixture.initialState.sourceMark);
 
-  if (fixture.initialState.instanceReferenceMark) {
-    setStoredTarget(
-      editor,
-      "instanceReference",
-      fixture.initialState.instanceReferenceMark,
-    );
-  }
+  setStoredTarget(
+    editor,
+    "instanceReference",
+    fixture.initialState.instanceReferenceMark,
+  );
 
   if (fixture.initialState.clipboard) {
     vscode.env.clipboard.writeText(fixture.initialState.clipboard);
