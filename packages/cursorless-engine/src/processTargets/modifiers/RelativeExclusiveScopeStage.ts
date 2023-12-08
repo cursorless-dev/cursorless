@@ -3,6 +3,7 @@ import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
+import { getContainingScopeTarget } from "./getContainingScopeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
@@ -36,13 +37,23 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
     const { isReversed, editor, contentRange } = target;
     const { length: desiredScopeCount, direction, offset } = this.modifier;
 
-    const initialRange =
-      getPreferredScopeTouchingPosition(
-        scopeHandler,
-        editor,
-        direction === "forward" ? contentRange.start : contentRange.end,
-        direction,
-      )?.domain ?? contentRange;
+    const initialRange = (() => {
+      if (contentRange.isEmpty) {
+        return (
+          getPreferredScopeTouchingPosition(
+            scopeHandler,
+            editor,
+            direction === "forward" ? contentRange.start : contentRange.end,
+            direction,
+          )?.domain ?? contentRange
+        );
+      }
+
+      return (
+        getContainingScopeTarget(target, scopeHandler)?.[0].contentRange ??
+        contentRange
+      );
+    })();
 
     const initialPosition =
       direction === "forward" ? initialRange.end : initialRange.start;

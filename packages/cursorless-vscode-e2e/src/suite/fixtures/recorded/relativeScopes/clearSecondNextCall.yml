@@ -1,14 +1,14 @@
 languageId: ruby
 command:
   version: 5
-  spokenForm: change second next call
+  spokenForm: change next call
   action: {name: clearAndSetSelection}
   targets:
     - type: primitive
       modifiers:
         - type: relativeScope
           scopeType: {type: functionCall}
-          offset: 2
+          offset: 1
           length: 1
           direction: forward
   usePrePhraseSnapshot: true
