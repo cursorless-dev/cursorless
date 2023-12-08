@@ -115,9 +115,19 @@ export const scopeSupportFacetInfos: Record<
     description: "An actual parameter in a function call",
     scopeType: "argumentOrParameter",
   },
+  "argumentOrParameter.actual.iteration": {
+    description: "Iteration of actual parameters",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
+  },
   "argumentOrParameter.formal": {
     description: "A formal parameter in a function definition",
     scopeType: "argumentOrParameter",
+  },
+  "argumentOrParameter.formal.iteration": {
+    description: "Iteration of formal parameters",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
   },
 
   "comment.line": {
