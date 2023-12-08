@@ -680,3 +680,36 @@
   ] @statement
   (#not-parent-type? @statement export_statement)
 )
+
+;;!! foo(name: string) {}
+;;!      ^^^^^^^^^^^^
+(
+  (formal_parameters
+    (_)? @_.leading.start.endOf
+    .
+    (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+    .
+    (_)? @_.trailing.end.startOf
+  ) @dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+)
+
+;;!! foo("bar")
+;;!      ^^^^^
+(
+  (arguments
+    (_)? @_.leading.start.endOf
+    .
+    (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+    .
+    (_)? @_.trailing.end.startOf
+  ) @dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+)
+
+[
+  (formal_parameters)
+  (arguments)
+] @argumentOrParameter.iteration

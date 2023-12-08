@@ -1,9 +1,9 @@
-languageId: yaml
+languageId: markdown
 command:
   version: 6
-  spokenForm: change item
+  spokenForm: clone up item
   action:
-    name: clearAndSetSelection
+    name: insertCopyBefore
     target:
       type: primitive
       modifiers:
@@ -12,18 +12,19 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    foo:
-      - 0
-      - 1
+    - aaa
+    - bbb
+    - ccc
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
   marks: {}
 finalState:
   documentContents: |-
-    foo:
-      - 
-      - 1
+    - aaa
+    - bbb
+    - bbb
+    - ccc
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

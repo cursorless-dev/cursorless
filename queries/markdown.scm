@@ -17,3 +17,25 @@
   ) @_.removal
   (#shrink-to-match! @name "^\\s*(?<keep>.*)$")
 ) @_.domain
+
+;;!! - 0
+;;!    ^
+;;!  ---
+(list
+  (list_item
+    (paragraph
+      (inline) @_.leading.start.endOf
+    )
+  )?
+  .
+  (list_item
+    (_) @_.prefix
+    (paragraph
+      (inline) @collectionItem @_.trailing.start.endOf
+    )
+  ) @_.domain @_.leading.end.startOf
+  .
+  (list_item)? @_.trailing.end.startOf
+  (#trim-end! @_.domain)
+  (#insertion-delimiter! @collectionItem "\n")
+)
