@@ -3,6 +3,7 @@ import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
+import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
@@ -32,16 +33,24 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
-    const { isReversed, editor, contentRange: inputRange } = target;
+    const { isReversed, editor, contentRange } = target;
     const { length: desiredScopeCount, direction, offset } = this.modifier;
 
+    const initialRange =
+      getPreferredScopeTouchingPosition(
+        scopeHandler,
+        editor,
+        direction === "forward" ? contentRange.start : contentRange.end,
+        direction,
+      )?.domain ?? contentRange;
+
     const initialPosition =
-      direction === "forward" ? inputRange.end : inputRange.start;
+      direction === "forward" ? initialRange.end : initialRange.start;
 
     // If inputRange is empty, then we skip past any scopes that start at
     // inputRange.  Otherwise just disallow any scopes that start strictly
     // before the end of input range (strictly after for "backward").
-    const containment: ContainmentPolicy | undefined = inputRange.isEmpty
+    const containment: ContainmentPolicy | undefined = initialRange.isEmpty
       ? "disallowed"
       : "disallowedIfStrict";
 
