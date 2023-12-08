@@ -70,6 +70,17 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     );
 
+    const rawPrefixRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "prefix",
+      true,
+    );
+    const prefixRange =
+      rawPrefixRange != null
+        ? new Range(rawPrefixRange.start, contentRange.start)
+        : undefined;
+
     return {
       editor,
       domain,
@@ -80,11 +91,12 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
           editor,
           isReversed,
           contentRange,
+          prefixRange,
           removalRange,
           leadingDelimiterRange,
           trailingDelimiterRange,
           interiorRange,
-          delimiter: insertionDelimiter,
+          insertionDelimiter,
         }),
       ],
     };

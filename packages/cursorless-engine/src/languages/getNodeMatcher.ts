@@ -22,7 +22,6 @@ import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
 import { patternMatchers as scss } from "./scss";
-import { patternMatchers as typescript } from "./typescript";
 
 export function getNodeMatcher(
   languageId: string,
@@ -59,8 +58,6 @@ export const languageMatchers: Record<
   clojure,
   go,
   java,
-  javascript: typescript,
-  javascriptreact: typescript,
   latex,
   markdown,
   php,
@@ -69,8 +66,6 @@ export const languageMatchers: Record<
   scala,
   scss,
   rust,
-  typescript,
-  typescriptreact: typescript,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

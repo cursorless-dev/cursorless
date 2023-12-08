@@ -717,6 +717,16 @@ eg:
 - `join air`: Join the line with the token containing the letter 'a' with its next line.
 - `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
 
+### Break
+
+Break line in two.
+
+- `"break <TARGET>"`
+
+eg:
+
+- `break air`: Break the line with the token containing the letter 'a'. 'a' is now the first token on the new line.
+
 ## Paired delimiters
 
 | Default spoken form | Delimiter name        | Symbol inserted before target | Symbol inserted after target | Is wrapper? | Is selectable? |

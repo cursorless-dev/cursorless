@@ -214,6 +214,37 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * either {@link insertionDelimiterConsequence} or
+ * {@link insertionDelimiterAlternative} depending on whether
+ * {@link conditionNodeInfo} is single or multiline, respectively. For example,
+ *
+ * ```scm
+ * (#single-or-multi-line-delimiter! @foo @bar ", " ",\n")
+ * ```
+ *
+ * will set the insertion delimiter of the `@foo` capture to `", "` if the
+ * `@bar` capture is a single line and `",\n"` otherwise.
+ */
+class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
+  name = "single-or-multi-line-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
+    insertionDelimiterConsequence: string,
+    insertionDelimiterAlternative: string,
+  ) {
+    nodeInfo.insertionDelimiter = conditionNodeInfo.range.isSingleLine
+      ? insertionDelimiterConsequence
+      : insertionDelimiterAlternative;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
@@ -224,5 +255,6 @@ export const queryPredicateOperators = [
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
+  new SingleOrMultilineDelimiter(),
   new HasMultipleChildrenOfType(),
 ];

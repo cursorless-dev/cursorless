@@ -10,12 +10,14 @@ import {
   EditNewActionType,
   Target,
 } from "../../typings/target.types";
+import { union } from "../../util/rangeUtils";
 
 export class DestinationImpl implements Destination {
   public readonly contentRange: Range;
   private readonly isLineDelimiter: boolean;
   private readonly isBefore: boolean;
   private readonly indentationString: string;
+  private readonly insertionPrefix?: string;
 
   constructor(
     public readonly target: Target,
@@ -24,12 +26,15 @@ export class DestinationImpl implements Destination {
   ) {
     this.contentRange = getContentRange(target.contentRange, insertionMode);
     this.isBefore = insertionMode === "before";
-    // It's only considered a line if the delimiter is only new line symbols
-    this.isLineDelimiter = /^(\n)+$/.test(target.insertionDelimiter);
+    this.isLineDelimiter = target.insertionDelimiter.includes("\n");
     this.indentationString =
       indentationString ?? this.isLineDelimiter
         ? getIndentationString(target.editor, target.contentRange)
         : "";
+    this.insertionPrefix =
+      target.prefixRange != null
+        ? target.editor.document.getText(target.prefixRange)
+        : undefined;
   }
 
   get contentSelection(): Selection {
@@ -65,9 +70,10 @@ export class DestinationImpl implements Destination {
 
   getEditNewActionType(): EditNewActionType {
     if (
-      this.insertionDelimiter === "\n" &&
       this.insertionMode === "after" &&
-      this.target.contentRange.isSingleLine
+      this.target.contentRange.isSingleLine &&
+      this.insertionDelimiter === "\n" &&
+      this.insertionPrefix == null
     ) {
       // If the target that we're wrapping is not a single line, then we
       // want to compute indentation based on the entire target.  Otherwise,
@@ -110,30 +116,31 @@ export class DestinationImpl implements Destination {
 
   private getEditRange() {
     const position = (() => {
-      const contentPosition = this.isBefore
-        ? this.contentRange.start
-        : this.contentRange.end;
+      const insertionPosition = this.isBefore
+        ? union(this.target.contentRange, this.target.prefixRange).start
+        : this.target.contentRange.end;
 
       if (this.isLineDelimiter) {
-        const line = this.editor.document.lineAt(contentPosition);
+        const line = this.editor.document.lineAt(insertionPosition);
         const nonWhitespaceCharacterIndex = this.isBefore
           ? line.firstNonWhitespaceCharacterIndex
           : line.lastNonWhitespaceCharacterIndex;
 
-        // Use the full line to include indentation
-        if (contentPosition.character === nonWhitespaceCharacterIndex) {
+        // Use the full line with included indentation and trailing whitespaces
+        if (insertionPosition.character === nonWhitespaceCharacterIndex) {
           return this.isBefore ? line.range.start : line.range.end;
         }
       }
 
-      return contentPosition;
+      return insertionPosition;
     })();
 
     return new Range(position, position);
   }
 
   private getEditText(text: string) {
-    const insertionText = this.indentationString + text;
+    const insertionText =
+      this.indentationString + (this.insertionPrefix ?? "") + text;
 
     return this.isBefore
       ? insertionText + this.insertionDelimiter
@@ -141,12 +148,14 @@ export class DestinationImpl implements Destination {
   }
 
   private updateRange(range: Range, text: string) {
-    const baseStartOffset = this.editor.document.offsetAt(range.start);
+    const baseStartOffset =
+      this.editor.document.offsetAt(range.start) +
+      this.indentationString.length +
+      (this.insertionPrefix?.length ?? 0);
+
     const startIndex = this.isBefore
-      ? baseStartOffset + this.indentationString.length
-      : baseStartOffset +
-        this.getLengthOfInsertionDelimiter() +
-        this.indentationString.length;
+      ? baseStartOffset
+      : baseStartOffset + this.getLengthOfInsertionDelimiter();
 
     const endIndex = startIndex + text.length;
 
@@ -160,11 +169,10 @@ export class DestinationImpl implements Destination {
     // Went inserting a new line with eol `CRLF` each `\n` will be converted to
     // `\r\n` and therefore the length is doubled.
     if (this.editor.document.eol === "CRLF") {
-      // This function is only called when inserting after a range. Therefore we
-      // only care about leading new lines in the insertion delimiter.
-      const match = this.insertionDelimiter.match(/^\n+/);
-      const nlCount = match?.[0].length ?? 0;
-      return this.insertionDelimiter.length + nlCount;
+      const matches = this.insertionDelimiter.match(/\n/g);
+      if (matches != null) {
+        return this.insertionDelimiter.length + matches.length;
+      }
     }
     return this.insertionDelimiter.length;
   }
