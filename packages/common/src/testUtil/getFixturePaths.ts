@@ -21,6 +21,10 @@ export function getRecordedTestsDirPath() {
   return path.join(getFixturesPath(), "recorded");
 }
 
+export function getScopeTestsDirPath() {
+  return path.join(getFixturesPath(), "scopes");
+}
+
 export function getRecordedTestPaths() {
   const directory = getRecordedTestsDirPath();
   const relativeDir = path.dirname(directory);
@@ -32,5 +36,19 @@ export function getRecordedTestPaths() {
         .relative(relativeDir, p.substring(0, p.lastIndexOf(".")))
         .replaceAll("\\", "/"),
       path: p,
+    }));
+}
+
+export function getScopeTestPaths() {
+  const directory = getScopeTestsDirPath();
+  const relativeDir = path.dirname(directory);
+
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith(".scope"))
+    .map((p) => ({
+      path: p,
+      name: path.relative(relativeDir, p.substring(0, p.lastIndexOf("."))),
+      languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
+      facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1],
     }));
 }
