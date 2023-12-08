@@ -7,10 +7,9 @@ import {
   TextEditor,
   next,
 } from "@cursorless/common";
-import { zip } from "itertools";
 import { ScopeHandlerFactory } from ".";
 import { Target } from "../../../typings/target.types";
-import { createContinuousRangeTarget } from "../../createContinuousRangeTarget";
+import { constructScopeRangeTarget } from "../constructScopeRangeTarget";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
 import type {
@@ -87,23 +86,7 @@ function combineScopes(scope1: TargetScope, scope2: TargetScope): TargetScope {
     editor: scope1.editor,
     domain: scope1.domain.union(scope2.domain),
     getTargets: (isReversed) => {
-      return zip(
-        scope1.getTargets(isReversed),
-        scope2.getTargets(isReversed),
-      ).map(([target1, target2]) => {
-        const [startTarget, endTarget] = getTargetsInDocumentOrder(
-          target1,
-          target2,
-        );
-
-        return createContinuousRangeTarget(
-          isReversed,
-          startTarget,
-          endTarget,
-          true,
-          true,
-        );
-      });
+      return constructScopeRangeTarget(isReversed, scope1, scope2);
     },
   };
 }
