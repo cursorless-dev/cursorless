@@ -5,7 +5,7 @@ import {
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported } = ScopeSupportFacetLevel;
+const { supported, supportedLegacy, notApplicable } = ScopeSupportFacetLevel;
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
@@ -30,9 +30,8 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   functionCallee: supported,
   "functionCallee.constructor": supported,
 
-  // FIXME: Still in legacy
-  // "argumentOrParameter.actual": supported,
-  // "argumentOrParameter.formal": supported,
+  "argumentOrParameter.actual": supportedLegacy,
+  "argumentOrParameter.formal": supportedLegacy,
 
   "comment.line": supported,
   "comment.block": supported,
@@ -67,4 +66,20 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.field": supported,
+
+  element: supported,
+  tags: supported,
+  startTag: supported,
+  endTag: supported,
+  attribute: supported,
+  "key.attribute": supported,
+  "value.attribute": supported,
+
+  "type.assignment": notApplicable,
+  "type.formalParameter": notApplicable,
+  "type.return": notApplicable,
+  "type.field": notApplicable,
+  "type.foreach": notApplicable,
+  "type.interface": notApplicable,
+  command: notApplicable,
 };

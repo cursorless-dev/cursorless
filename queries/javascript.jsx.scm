@@ -89,7 +89,8 @@
 ;;!! <aaa bbb="ccc" />
 ;;!       ^^^
 (jsx_attribute
-  (property_identifier) @collectionKey
+  (property_identifier) @collectionKey @_.trailing.start.endOf
+  (_)? @_.trailing.end.startOf
 ) @_.domain
 
 ;;!! <aaa bbb="ccc" />
