@@ -111,21 +111,21 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionCallee",
   },
 
-  "argumentOrParameter.actual": {
-    description: "An actual parameter in a function call",
+  "argument.actual": {
+    description: "An actual argument/parameter in a function call",
     scopeType: "argumentOrParameter",
   },
-  "argumentOrParameter.actual.iteration": {
-    description: "Iteration of actual parameters",
+  "argument.actual.iteration": {
+    description: "Iteration of actual arguments",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
-  "argumentOrParameter.formal": {
-    description: "A formal parameter in a function definition",
+  "argument.formal": {
+    description: "A formal argument/parameter in a function definition",
     scopeType: "argumentOrParameter",
   },
-  "argumentOrParameter.formal.iteration": {
-    description: "Iteration of formal parameters",
+  "argument.formal.iteration": {
+    description: "Iteration of formal arguments",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },

@@ -30,10 +30,10 @@ const scopeSupportFacets = [
   "functionCallee",
   "functionCallee.constructor",
 
-  "argumentOrParameter.actual",
-  "argumentOrParameter.actual.iteration",
-  "argumentOrParameter.formal",
-  "argumentOrParameter.formal.iteration",
+  "argument.actual",
+  "argument.actual.iteration",
+  "argument.formal",
+  "argument.formal.iteration",
 
   "comment.line",
   "comment.block",

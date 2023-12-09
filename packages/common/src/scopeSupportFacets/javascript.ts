@@ -30,10 +30,10 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   functionCallee: supported,
   "functionCallee.constructor": supported,
 
-  "argumentOrParameter.actual": supportedLegacy,
-  "argumentOrParameter.actual.iteration": supportedLegacy,
-  "argumentOrParameter.formal": supportedLegacy,
-  "argumentOrParameter.formal.iteration": supportedLegacy,
+  "argument.actual": supported,
+  "argument.actual.iteration": supported,
+  "argument.formal": supported,
+  "argument.formal.iteration": supported,
 
   "comment.line": supported,
   "comment.block": supported,

@@ -1,0 +1,10 @@
+foo(value);
+---
+
+[Range] = 0:4-0:9
+0| foo(value);
+      >-----<
+
+[Domain] = 0:3-0:10
+0| foo(value);
+     >-------<
