@@ -208,10 +208,10 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (scopeType.type) {
       case "oneOf":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
-      case "literal":
+      case "glyph":
         return [
-          this.spokenFormMap.complexScopeTypeType.literal,
-          characterToSpokenForm(scopeType.literal),
+          this.spokenFormMap.complexScopeTypeType.glyph,
+          characterToSpokenForm(scopeType.character),
         ];
       case "surroundingPair": {
         const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];

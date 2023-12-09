@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: ordinalScope
-          scopeType: {type: literal, literal: a}
+          scopeType: {type: glyph, character: a}
           start: -1
           length: 1
   usePrePhraseSnapshot: true

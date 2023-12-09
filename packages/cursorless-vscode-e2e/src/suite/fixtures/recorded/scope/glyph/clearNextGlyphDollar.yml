@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: relativeScope
-          scopeType: {type: literal, literal: $}
+          scopeType: {type: glyph, character: $}
           offset: 1
           length: 1
           direction: forward

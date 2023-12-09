@@ -10,7 +10,7 @@ MODIFIER_LIST_NAMES = [
     "previous_next_modifier",
     "forward_backward_modifier",
     "position",
-    "literal_modifier",
+    "glyph_modifier",
 ]
 
 
@@ -29,7 +29,7 @@ def get_modifiers():
         "next",
         "backward",
         "forward",
-        "literal",
+        "glyph",
     ]
     simple_modifiers = {
         key: value
@@ -104,12 +104,12 @@ def get_modifiers():
             ],
         },
         {
-            "id": "literal",
+            "id": "glyph",
             "type": "modifier",
             "variations": [
                 {
-                    "spokenForm": f"{complex_modifiers['literal']} <literal>",
-                    "description": "First instance of <literal>",
+                    "spokenForm": f"{complex_modifiers['glyph']} <glyph>",
+                    "description": "First instance of <glyph>",
                 },
             ],
         },
