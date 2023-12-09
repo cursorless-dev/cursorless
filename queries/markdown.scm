@@ -24,18 +24,18 @@
 (list
   (list_item
     (paragraph
-      (inline) @_.leading.start.endOf
+      (inline) @_.leading.endOf
     )
   )?
   .
   (list_item
     (_) @_.prefix
     (paragraph
-      (inline) @collectionItem @_.trailing.start.endOf
+      (inline) @collectionItem
     )
-  ) @_.domain @_.leading.end.startOf
+  ) @_.domain
   .
-  (list_item)? @_.trailing.end.startOf
+  (list_item)? @_.trailing.startOf
   (#trim-end! @_.domain)
   (#insertion-delimiter! @collectionItem "\n")
 )

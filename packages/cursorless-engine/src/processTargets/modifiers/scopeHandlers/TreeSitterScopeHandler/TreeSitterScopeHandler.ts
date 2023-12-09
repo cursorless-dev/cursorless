@@ -1,4 +1,9 @@
-import { Range, SimpleScopeType, TextEditor } from "@cursorless/common";
+import {
+  Position,
+  Range,
+  SimpleScopeType,
+  TextEditor,
+} from "@cursorless/common";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
@@ -55,14 +60,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
     const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
-    const leadingDelimiterRange = dropEmptyRange(
-      getRelatedRange(match, scopeTypeType, "leading", true),
-    );
-
-    const trailingDelimiterRange = dropEmptyRange(
-      getRelatedRange(match, scopeTypeType, "trailing", true),
-    );
-
     const interiorRange = getRelatedRange(
       match,
       scopeTypeType,
@@ -70,16 +67,20 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     );
 
-    const rawPrefixRange = getRelatedRange(
-      match,
-      scopeTypeType,
-      "prefix",
-      true,
+    const prefixRange = createRangeUntilPosition(
+      getRelatedRange(match, scopeTypeType, "prefix", true),
+      contentRange.start,
     );
-    const prefixRange =
-      rawPrefixRange != null
-        ? new Range(rawPrefixRange.start, contentRange.start)
-        : undefined;
+
+    const leadingDelimiterRange = createRangeUntilPosition(
+      getRelatedRange(match, scopeTypeType, "leading", true),
+      prefixRange?.start ?? contentRange.start,
+    );
+
+    const trailingDelimiterRange = createRangeUntilPosition(
+      getRelatedRange(match, scopeTypeType, "trailing", true),
+      contentRange.end,
+    );
 
     return {
       editor,
@@ -103,6 +104,9 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   }
 }
 
-function dropEmptyRange(range?: Range) {
-  return range != null && !range.isEmpty ? range : undefined;
+function createRangeUntilPosition(
+  range: Range | undefined,
+  position: Position,
+) {
+  return range != null ? range.union(position.toEmptyRange()) : undefined;
 }
