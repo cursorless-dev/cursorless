@@ -1,10 +1,10 @@
-foo(value);
+foo(arg1, arg2);
 ---
 
-[Range] = 0:4-0:9
-0| foo(value);
-      >-----<
+[Range] = 0:4-0:14
+0| foo(arg1, arg2);
+      >----------<
 
-[Domain] = 0:3-0:10
-0| foo(value);
-     >-------<
+[Domain] = 0:3-0:15
+0| foo(arg1, arg2);
+     >------------<
