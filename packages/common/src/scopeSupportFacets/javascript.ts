@@ -5,7 +5,7 @@ import {
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported, supportedLegacy, notApplicable } = ScopeSupportFacetLevel;
+const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
