@@ -67,17 +67,17 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     );
 
-    const prefixRange = createRangeUntilPosition(
+    const prefixRange = createRangeWithPosition(
       getRelatedRange(match, scopeTypeType, "prefix", true),
       contentRange.start,
     );
 
-    const leadingDelimiterRange = createRangeUntilPosition(
+    const leadingDelimiterRange = createRangeWithPosition(
       getRelatedRange(match, scopeTypeType, "leading", true),
       prefixRange?.start ?? contentRange.start,
     );
 
-    const trailingDelimiterRange = createRangeUntilPosition(
+    const trailingDelimiterRange = createRangeWithPosition(
       getRelatedRange(match, scopeTypeType, "trailing", true),
       contentRange.end,
     );
@@ -104,9 +104,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
   }
 }
 
-function createRangeUntilPosition(
-  range: Range | undefined,
-  position: Position,
-) {
+function createRangeWithPosition(range: Range | undefined, position: Position) {
   return range != null ? range.union(position.toEmptyRange()) : undefined;
 }
