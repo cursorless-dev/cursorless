@@ -1,13 +1,12 @@
 import {
   Command,
+  CommandHistory,
   CommandServerApi,
   FileSystem,
   Hats,
   IDE,
   ScopeProvider,
 } from "@cursorless/common";
-import { StoredTargetMap } from "./core/StoredTargets";
-import { TreeSitter } from "./typings/TreeSitter";
 import {
   CommandRunnerDecorator,
   CursorlessEngine,
@@ -15,10 +14,12 @@ import {
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
+import { StoredTargetMap } from "./core/StoredTargets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
@@ -28,8 +29,8 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
-import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
+import { TreeSitter } from "./typings/TreeSitter";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -37,6 +38,7 @@ export function createCursorlessEngine(
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
+  commandHistory: CommandHistory,
 ): CursorlessEngine {
   injectIde(ide);
 
@@ -65,7 +67,13 @@ export function createCursorlessEngine(
     talonSpokenForms,
   );
 
-  ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
+  ide.disposeOnExit(
+    rangeUpdater,
+    languageDefinitions,
+    hatTokenMap,
+    debug,
+    commandHistory,
+  );
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
 
@@ -81,6 +89,7 @@ export function createCursorlessEngine(
           languageDefinitions,
           rangeUpdater,
           commandRunnerDecorators,
+          commandHistory,
           command,
         );
       },
@@ -95,6 +104,7 @@ export function createCursorlessEngine(
           languageDefinitions,
           rangeUpdater,
           commandRunnerDecorators,
+          commandHistory,
           ensureCommandShape(args),
         );
       },

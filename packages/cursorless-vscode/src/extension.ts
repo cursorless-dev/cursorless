@@ -12,6 +12,7 @@ import {
 } from "@cursorless/common";
 import {
   createCursorlessEngine,
+  TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -22,6 +23,7 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
+import { mkdir } from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
@@ -29,6 +31,10 @@ import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import {
+  DisabledCommandHistory,
+  VscodeCommandHistory,
+} from "./ide/vscode/VscodeCommandHistory";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import {
@@ -47,8 +53,6 @@ import {
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
-import { mkdir } from "fs/promises";
-import { TestCaseRecorder } from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -81,6 +85,11 @@ export async function activate(
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
+  const commandHistory =
+    vscodeIDE.runMode === "test"
+      ? DisabledCommandHistory
+      : new VscodeCommandHistory(vscodeIDE, fileSystem);
+
   const {
     commandApi,
     storedTargets,
@@ -97,6 +106,7 @@ export async function activate(
     hats,
     commandServerApi,
     fileSystem,
+    commandHistory,
   );
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);

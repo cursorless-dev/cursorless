@@ -49,6 +49,7 @@ export * from "./types/ScopeProvider";
 export * from "./types/SpokenForm";
 export * from "./util/textFormatters";
 export * from "./types/snippet.types";
+export * from "./types/CommandHistory";
 export * from "./testUtil/fromPlainObject";
 export * from "./testUtil/spyToPlainObject";
 export { default as DefaultMap } from "./util/DefaultMap";

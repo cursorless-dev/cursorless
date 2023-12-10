@@ -40,6 +40,7 @@ export class VscodeIDE implements IDE {
   readonly messages: VscodeMessages;
   readonly clipboard: VscodeClipboard;
   readonly capabilities: VscodeCapabilities;
+  readonly cursorlessVersion: string;
   private flashHandler: VscodeFlashHandler;
   private highlights: VscodeHighlights;
   private editorMap;
@@ -53,6 +54,7 @@ export class VscodeIDE implements IDE {
     this.flashHandler = new VscodeFlashHandler(this, this.highlights);
     this.capabilities = new VscodeCapabilities();
     this.editorMap = new WeakMap<vscode.TextEditor, VscodeTextEditorImpl>();
+    this.cursorlessVersion = extensionContext.extension.packageJSON.version;
   }
 
   async showQuickPick(
