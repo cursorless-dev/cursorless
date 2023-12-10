@@ -90,6 +90,8 @@ export async function activate(
       ? DisabledCommandHistory
       : new VscodeCommandHistory(vscodeIDE, fileSystem);
 
+  context.subscriptions.push(commandHistory);
+
   const {
     commandApi,
     storedTargets,

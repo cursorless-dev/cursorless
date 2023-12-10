@@ -67,13 +67,7 @@ export function createCursorlessEngine(
     talonSpokenForms,
   );
 
-  ide.disposeOnExit(
-    rangeUpdater,
-    languageDefinitions,
-    hatTokenMap,
-    debug,
-    commandHistory,
-  );
+  ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
 
