@@ -4,6 +4,7 @@ import produce from "immer";
 import { sortBy } from "lodash";
 import { ide } from "../singletons/ide.singleton";
 import path from "path";
+import { CheatsheetInfo } from "@cursorless/cheatsheet";
 
 /**
  * The argument expected by the cheatsheet command.
@@ -17,6 +18,8 @@ interface CheatSheetCommandArg {
   /**
    * A representation of all spoken forms that is used to generate the
    * cheatsheet.
+   * 
+   * The command is called from talon and this is passed as one of the parameters.
    */
   spokenFormInfo: CheatsheetInfo;
 
@@ -26,6 +29,12 @@ interface CheatSheetCommandArg {
   outputPath: string;
 }
 
+/**
+ * Despite the name, does not show the cheatsheet. Instead, it updates the cheatsheet file.
+ * I should read history of this file to understand why all of this was not done on talon side.
+ * 
+ * Usage stats will be collected extension side (source of truth for all things cursorless).
+ */
 export async function showCheatsheet({
   version,
   spokenFormInfo,
@@ -35,12 +44,17 @@ export async function showCheatsheet({
     throw new Error(`Unsupported cheatsheet api version: ${version}`);
   }
 
+  // Appears to mismatch the linux path in the talon code
   const cheatsheetPath = path.join(ide().assetsRoot, "cheatsheet.html");
 
   const cheatsheetContent = (await readFile(cheatsheetPath)).toString();
 
   const root = parse(cheatsheetContent);
 
+  // Add usage stats here option #2
+  // Like ... document.cheatsheetUsageStats
+
+  // Inject data into the cheatsheet
   root.getElementById(
     "cheatsheet-data",
   ).textContent = `document.cheatsheetInfo = ${JSON.stringify(
@@ -87,25 +101,4 @@ export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
   });
 
   await writeFile(defaultsPath, JSON.stringify(outputObject, null, "\t"));
-}
-
-// FIXME: Stop duplicating these types once we have #945
-// The source of truth is at /cursorless-nx/libs/cheatsheet/src/lib/CheatsheetInfo.tsx
-interface Variation {
-  spokenForm: string;
-  description: string;
-}
-
-interface CheatsheetSection {
-  name: string;
-  id: string;
-  items: {
-    id: string;
-    type: string;
-    variations: Variation[];
-  }[];
-}
-
-interface CheatsheetInfo {
-  sections: CheatsheetSection[];
 }
