@@ -63,7 +63,6 @@ export class VscodeCommandHistory implements CommandHistory {
       vscode.workspace
         .getConfiguration(settingSection)
         .get<boolean>(settingName) ?? false;
-    console.log(this.active);
   }
 
   dispose() {
