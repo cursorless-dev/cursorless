@@ -21,8 +21,15 @@ export class CustomSpokenFormGeneratorImpl
   private spokenFormGenerator: SpokenFormGenerator;
   private disposable: Disposable;
 
+  /**
+   * A promise that resolves when the custom spoken forms have been loaded.
+   */
+  public readonly customSpokenFormsInitialized: Promise<void>;
+
   constructor(talonSpokenForms: TalonSpokenForms) {
     this.customSpokenForms = new CustomSpokenForms(talonSpokenForms);
+    this.customSpokenFormsInitialized =
+      this.customSpokenForms.customSpokenFormsInitialized;
     this.spokenFormGenerator = new SpokenFormGenerator(
       this.customSpokenForms.spokenFormMap,
     );
