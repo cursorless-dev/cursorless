@@ -96,37 +96,39 @@ export const scopeSupportFacetInfos: Record<
   },
 
   functionCall: {
-    description: "A function call",
+    description: "A function call, eg `foo(bar)`",
     scopeType: "functionCall",
   },
   "functionCall.constructor": {
-    description: "A constructor call",
+    description: "A constructor call, eg `new Foo(bar)`",
     scopeType: "functionCall",
   },
   functionCallee: {
-    description: "The callee of a function call",
+    description: "The callee of a function call, eg the `foo` in `foo(bar)`",
     scopeType: "functionCallee",
   },
   "functionCallee.constructor": {
-    description: "The callee of a constructor call",
+    description:
+      "The callee of a constructor call, eg the `new Foo` in `new Foo()`",
     scopeType: "functionCallee",
   },
 
   "argument.actual": {
-    description: "An actual argument/parameter in a function call",
+    description: "An argument/parameter in a function call",
     scopeType: "argumentOrParameter",
   },
   "argument.actual.iteration": {
-    description: "Iteration of actual arguments",
+    description: "Iteration scope of arguments in a function call",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
   "argument.formal": {
-    description: "A formal argument/parameter in a function definition",
+    description: "A parameter in a function declaration",
     scopeType: "argumentOrParameter",
   },
   "argument.formal.iteration": {
-    description: "Iteration of formal arguments",
+    description:
+      "Iteration scope of the formal parameters of a function declaration",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
@@ -141,11 +143,11 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "string.singleLine": {
-    description: "A single line string",
+    description: "A single-line string",
     scopeType: "string",
   },
   "string.multiLine": {
-    description: "A multi line string",
+    description: "A multi-line string",
     scopeType: "string",
   },
 
@@ -158,7 +160,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "branch",
   },
   "branch.switchCase": {
-    description: "A switch/case/default branch",
+    description: "A case/default branch in a switch/match statement",
+    scopeType: "branch",
+  },
+  "branch.ternary": {
+    description: "A branch in a ternary expression",
     scopeType: "branch",
   },
 
