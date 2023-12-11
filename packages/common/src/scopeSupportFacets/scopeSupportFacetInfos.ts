@@ -82,7 +82,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "namedFunction",
   },
   anonymousFunction: {
-    description: "A anonymous function. Lambda or other",
+    description: "An anonymous function, eg a lambda function",
     scopeType: "anonymousFunction",
   },
   "anonymousFunction.lambda": {
