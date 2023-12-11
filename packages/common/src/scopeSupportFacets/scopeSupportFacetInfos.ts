@@ -78,7 +78,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "namedFunction",
   },
   "namedFunction.method": {
-    description: "A named method in a class",
+    description: "A named method declaration in a class",
     scopeType: "namedFunction",
   },
   anonymousFunction: {
