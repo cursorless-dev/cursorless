@@ -20,7 +20,7 @@ const settingName = "commandHistory";
 const settingFullName = `${settingSection}.${settingName}`;
 
 /**
- * This class is responsible for writing command history to disk.
+ * When user opts in, this class sanitizes and appends each Cursorless command to a local log file in `.cursorless` dir.
  */
 export class CommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
