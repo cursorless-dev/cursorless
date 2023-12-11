@@ -1,6 +1,4 @@
 import {
-  Position,
-  Range,
   SimpleScopeType,
   TextEditor,
 } from "@cursorless/common";
@@ -67,20 +65,26 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     );
 
-    const prefixRange = createRangeWithPosition(
-      getRelatedRange(match, scopeTypeType, "prefix", true),
-      contentRange.start,
-    );
+    const prefixRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "prefix",
+      true,
+    )?.with(undefined, contentRange.start);
 
-    const leadingDelimiterRange = createRangeWithPosition(
-      getRelatedRange(match, scopeTypeType, "leading", true),
-      prefixRange?.start ?? contentRange.start,
-    );
+    const leadingDelimiterRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "leading",
+      true,
+    )?.with(undefined, prefixRange?.start ?? contentRange.start);
 
-    const trailingDelimiterRange = createRangeWithPosition(
-      getRelatedRange(match, scopeTypeType, "trailing", true),
-      contentRange.end,
-    );
+    const trailingDelimiterRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "trailing",
+      true,
+    )?.with(contentRange.start);
 
     return {
       editor,
@@ -102,8 +106,4 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       ],
     };
   }
-}
-
-function createRangeWithPosition(range: Range | undefined, position: Position) {
-  return range != null ? range.union(position.toEmptyRange()) : undefined;
 }
