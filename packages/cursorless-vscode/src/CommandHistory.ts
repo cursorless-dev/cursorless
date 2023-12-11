@@ -105,7 +105,7 @@ function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
           replaceWith: [],
         };
       }
-      break;
+      return action;
 
     // Remove substitutions and custom body
     case "insertSnippet": {
@@ -128,10 +128,64 @@ function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
           },
         };
       }
-      break;
-  }
+      return action;
 
-  return action;
+    case "breakLine":
+    case "clearAndSetSelection":
+    case "copyToClipboard":
+    case "cutToClipboard":
+    case "deselect":
+    case "editNewLineAfter":
+    case "editNewLineBefore":
+    case "experimental.setInstanceReference":
+    case "extractVariable":
+    case "findInWorkspace":
+    case "foldRegion":
+    case "followLink":
+    case "indentLine":
+    case "insertCopyAfter":
+    case "insertCopyBefore":
+    case "insertEmptyLineAfter":
+    case "insertEmptyLineBefore":
+    case "insertEmptyLinesAround":
+    case "joinLines":
+    case "outdentLine":
+    case "randomizeTargets":
+    case "remove":
+    case "rename":
+    case "revealDefinition":
+    case "revealTypeDefinition":
+    case "reverseTargets":
+    case "scrollToBottom":
+    case "scrollToCenter":
+    case "scrollToTop":
+    case "setSelection":
+    case "setSelectionAfter":
+    case "setSelectionBefore":
+    case "showDebugHover":
+    case "showHover":
+    case "showQuickFix":
+    case "showReferences":
+    case "sortTargets":
+    case "toggleLineBreakpoint":
+    case "toggleLineComment":
+    case "unfoldRegion":
+    case "private.showParseTree":
+    case "private.getTargets":
+    case "callAsFunction":
+    case "editNew":
+    case "executeCommand":
+    case "generateSnippet":
+    case "getText":
+    case "highlight":
+    case "moveToTarget":
+    case "pasteFromClipboard":
+    case "replaceWithTarget":
+    case "rewrapWithPairedDelimiter":
+    case "swapTargets":
+    case "wrapWithPairedDelimiter":
+      return action;
+  }
 }
 
 function getMonthDate(date: Date): string {
