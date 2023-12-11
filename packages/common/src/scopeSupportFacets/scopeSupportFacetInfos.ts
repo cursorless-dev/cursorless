@@ -65,7 +65,7 @@ export const scopeSupportFacetInfos: Record<
   },
 
   class: {
-    description: "A class",
+    description: "A class in an object-oriented language",
     scopeType: "class",
   },
   className: {
