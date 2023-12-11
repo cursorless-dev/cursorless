@@ -10,16 +10,15 @@ def get_scopes():
             {
                 "argumentOrParameter": "Argument",
                 "boundedNonWhitespaceSequence": "Non whitespace sequence stopped by surrounding pair delimeters",
-                "glyph": "stuff",
             },
         ),
         {
             "id": "glyph",
-            "type": "modifier",
+            "type": "scopeType",
             "variations": [
                 {
-                    "spokenForm": f"{complex_scopes['glyph']} <glyph>",
-                    "description": "First instance of <glyph>",
+                    "spokenForm": f"{complex_scopes['glyph']} <character>",
+                    "description": "Instance of single character <character>",
                 },
             ],
         },
