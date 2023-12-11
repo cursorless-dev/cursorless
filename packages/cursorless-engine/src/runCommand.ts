@@ -1,12 +1,6 @@
-import {
-  Command,
-  CommandHistory,
-  HatTokenMap,
-  ReadOnlyHatMap,
-} from "@cursorless/common";
+import { Command, HatTokenMap, ReadOnlyHatMap } from "@cursorless/common";
 import { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
-import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
@@ -18,6 +12,7 @@ import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 /**
  * Entry point for Cursorless commands. We proceed as follows:
@@ -40,7 +35,6 @@ export async function runCommand(
   languageDefinitions: LanguageDefinitions,
   rangeUpdater: RangeUpdater,
   commandRunnerDecorators: CommandRunnerDecorator[],
-  commandHistory: CommandHistory,
   command: Command,
 ): Promise<unknown> {
   if (debug.active) {
@@ -49,8 +43,6 @@ export async function runCommand(
   }
 
   const commandComplete = canonicalizeAndValidateCommand(command);
-
-  void commandHistory.append(commandComplete);
 
   const readableHatMap = await hatTokenMap.getReadableMap(
     commandComplete.usePrePhraseSnapshot,

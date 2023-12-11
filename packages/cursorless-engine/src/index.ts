@@ -6,3 +6,4 @@ export * from "./core/StoredTargets";
 export * from "./typings/TreeSitter";
 export * from "./cursorlessEngine";
 export * from "./api/CursorlessEngineApi";
+export * from "./CommandRunner";

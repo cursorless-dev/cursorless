@@ -1,15 +1,17 @@
 import {
   CommandComplete,
-  CommandHistory,
-  CommandHistoryItem,
   Disposable,
   FileSystem,
+  ReadOnlyHatMap,
 } from "@cursorless/common";
 import * as fs from "fs/promises";
-import { mkdirSync } from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 import { VscodeIDE } from "./VscodeIDE";
+import type {
+  CommandRunner,
+  CommandRunnerDecorator,
+} from "@cursorless/cursorless-engine";
 
 const dirName = "commandHistory";
 const filePrefix = "cursorlessCommandHistory";
@@ -17,7 +19,13 @@ const settingSection = "cursorless";
 const settingName = "commandHistory";
 const settingFullName = `${settingSection}.${settingName}`;
 
-export class VscodeCommandHistory implements CommandHistory {
+export interface CommandHistoryItem {
+  date: string;
+  cursorlessVersion: string;
+  command: CommandComplete;
+}
+
+export class VscodeCommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
   private readonly cursorlessVersion: string;
   private disposable: Disposable;
@@ -28,8 +36,6 @@ export class VscodeCommandHistory implements CommandHistory {
     this.cursorlessVersion = ide.cursorlessVersion;
     this.dirPath = path.join(fileSystem.cursorlessDir, dirName);
 
-    mkdirSync(this.dirPath, { recursive: true });
-
     this.evaluateSetting();
 
     this.disposable = vscode.workspace.onDidChangeConfiguration((event) => {
@@ -39,10 +45,24 @@ export class VscodeCommandHistory implements CommandHistory {
     });
   }
 
-  async append(command: CommandComplete): Promise<void> {
+  wrapCommandRunner(
+    readableHatMap: ReadOnlyHatMap,
+    runner: CommandRunner,
+  ): CommandRunner {
     if (!this.active) {
-      return;
+      return runner;
     }
+    return {
+      run: async (commandComplete: CommandComplete) => {
+        void this.append(commandComplete);
+
+        return await runner.run(commandComplete);
+      },
+    };
+  }
+
+  private async append(command: CommandComplete): Promise<void> {
+    await fs.mkdir(this.dirPath, { recursive: true });
 
     const date = new Date();
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
@@ -69,11 +89,6 @@ export class VscodeCommandHistory implements CommandHistory {
     this.disposable.dispose();
   }
 }
-
-export const DisabledCommandHistory: CommandHistory = {
-  async append(command: CommandComplete) {},
-  dispose() {},
-};
 
 function sanitizeCommand(command: CommandComplete): CommandComplete {
   // TODO: Sanitize action payload

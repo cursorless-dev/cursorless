@@ -31,10 +31,7 @@ import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-import {
-  DisabledCommandHistory,
-  VscodeCommandHistory,
-} from "./ide/vscode/VscodeCommandHistory";
+import { VscodeCommandHistory } from "./ide/vscode/VscodeCommandHistory";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import {
@@ -85,13 +82,6 @@ export async function activate(
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
-  const commandHistory =
-    vscodeIDE.runMode === "test"
-      ? DisabledCommandHistory
-      : new VscodeCommandHistory(vscodeIDE, fileSystem);
-
-  context.subscriptions.push(commandHistory);
-
   const {
     commandApi,
     storedTargets,
@@ -108,11 +98,16 @@ export async function activate(
     hats,
     commandServerApi,
     fileSystem,
-    commandHistory,
   );
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
   addCommandRunnerDecorator(testCaseRecorder);
+
+  if (vscodeIDE.runMode !== "test") {
+    const commandHistory = new VscodeCommandHistory(vscodeIDE, fileSystem);
+    addCommandRunnerDecorator(commandHistory);
+    context.subscriptions.push(commandHistory);
+  }
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(
