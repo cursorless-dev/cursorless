@@ -197,6 +197,12 @@ export const scopeSupportFacetInfos: Record<
     description: "Name(LHS) of an assignment",
     scopeType: "name",
   },
+
+  "name.assignment.pattern": {
+    description:
+      "LHS of an assignment with pattern destructuring, eg the `{ aaa }` in `const { aaa } = ...`",
+    scopeType: "name",
+  },
   "name.foreach": {
     description: "Variable name in a for each loop",
     scopeType: "name",

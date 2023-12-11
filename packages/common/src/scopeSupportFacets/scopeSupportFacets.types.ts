@@ -54,6 +54,7 @@ const scopeSupportFacets = [
   "condition.switchCase",
 
   "name.assignment",
+  "name.assignment.pattern",
   "name.foreach",
   "name.function",
   "name.class",

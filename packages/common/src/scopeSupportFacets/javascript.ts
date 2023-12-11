@@ -44,6 +44,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "branch.if": supported,
   "branch.try": supported,
   "branch.switchCase": supported,
+  "branch.ternary": supported,
 
   "condition.if": supported,
   "condition.while": supported,
@@ -54,6 +55,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   "name.foreach": supported,
   "name.assignment": supported,
+  "name.assignment.pattern": supported,
   "name.function": supported,
   "name.class": supported,
   "name.field": supported,
