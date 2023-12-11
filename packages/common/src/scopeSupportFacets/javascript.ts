@@ -42,8 +42,10 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "string.multiLine": supported,
 
   "branch.if": supported,
+  "branch.if.iteration": supported,
   "branch.try": supported,
   "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
   "branch.ternary": supported,
 
   "condition.if": supported,

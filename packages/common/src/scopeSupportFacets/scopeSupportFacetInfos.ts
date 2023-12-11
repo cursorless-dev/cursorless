@@ -96,20 +96,20 @@ export const scopeSupportFacetInfos: Record<
   },
 
   functionCall: {
-    description: "A function call, eg `foo(bar)`",
+    description: "A function call",
     scopeType: "functionCall",
   },
   "functionCall.constructor": {
-    description: "A constructor call, eg `new Foo(bar)`",
+    description: "A constructor call",
     scopeType: "functionCall",
   },
   functionCallee: {
-    description: "The callee of a function call, eg the `foo` in `foo(bar)`",
+    description: "The function being called in a function call",
     scopeType: "functionCallee",
   },
   "functionCallee.constructor": {
     description:
-      "The callee of a constructor call, eg the `new Foo` in `new Foo()`",
+      "The class being constructed in a class instantiation, including the `new` keyword",
     scopeType: "functionCallee",
   },
 
@@ -118,7 +118,8 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
   },
   "argument.actual.iteration": {
-    description: "Iteration scope of arguments in a function call",
+    description:
+      "Iteration scope of arguments in a function call, should be inside the parens of the argument list",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
@@ -128,7 +129,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.formal.iteration": {
     description:
-      "Iteration scope of the formal parameters of a function declaration",
+      "Iteration scope of the formal parameters of a function declaration; should be the whole parameter list",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
@@ -155,6 +156,13 @@ export const scopeSupportFacetInfos: Record<
     description: "An if/elif/else branch",
     scopeType: "branch",
   },
+
+  "branch.if.iteration": {
+    description:
+      "Iteration scope for if/elif/else branch; should be the entire if-else statement",
+    scopeType: "branch",
+    isIteration: true,
+  },
   "branch.try": {
     description: "A try/catch/finally branch",
     scopeType: "branch",
@@ -162,6 +170,12 @@ export const scopeSupportFacetInfos: Record<
   "branch.switchCase": {
     description: "A case/default branch in a switch/match statement",
     scopeType: "branch",
+  },
+  "branch.switchCase.iteration": {
+    description:
+      "Iteration scope for branches in a switch/match statement; should contain all the cases",
+    scopeType: "branch",
+    isIteration: true,
   },
   "branch.ternary": {
     description: "A branch in a ternary expression",
@@ -194,17 +208,15 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "name.assignment": {
-    description: "Name(LHS) of an assignment",
+    description: "Name (LHS) of an assignment",
     scopeType: "name",
   },
-
   "name.assignment.pattern": {
-    description:
-      "LHS of an assignment with pattern destructuring, eg the `{ aaa }` in `const { aaa } = ...`",
+    description: "LHS of an assignment with pattern destructuring",
     scopeType: "name",
   },
   "name.foreach": {
-    description: "Variable name in a for each loop",
+    description: "Iteration variable name in a for each loop",
     scopeType: "name",
   },
   "name.function": {
@@ -216,20 +228,21 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
   },
   "name.field": {
-    description: "Name(LHS) of a field",
+    description: "Name (LHS) of a field in a class / interface",
     scopeType: "name",
   },
 
   "key.attribute": {
-    description: "Key(LHS) of an attribute",
+    description: "Key (LHS) of an attribute eg in an xml element",
     scopeType: "collectionKey",
   },
   "key.mapPair": {
-    description: "Key(LHS) of a map pair",
+    description: "Key (LHS) of a key-value pair of a map",
     scopeType: "collectionKey",
   },
   "key.mapPair.iteration": {
-    description: "Iteration of map pair keys",
+    description:
+      "Iteration scope of key-value pairs in a map; should be between the braces",
     scopeType: "collectionKey",
     isIteration: true,
   },

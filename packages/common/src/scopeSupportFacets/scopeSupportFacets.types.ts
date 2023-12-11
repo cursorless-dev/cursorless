@@ -42,8 +42,10 @@ const scopeSupportFacets = [
   "string.multiLine",
 
   "branch.if",
+  "branch.if.iteration",
   "branch.try",
   "branch.switchCase",
+  "branch.switchCase.iteration",
   "branch.ternary",
 
   "condition.if",
