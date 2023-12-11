@@ -171,6 +171,9 @@
     },
     "surrounding_pair_scope_type": {
       "string": "string"
+    },
+    "glyph_scope_type": {
+      "glyph": "glyph"
     }
   },
   "paired_delimiters.csv": {

@@ -173,6 +173,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "notebookCell":
     case "surroundingPair":
     case "customRegex":
+    case "glyph":
       return false;
 
     case "oneOf":
