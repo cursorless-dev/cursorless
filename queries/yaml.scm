@@ -1,18 +1,18 @@
 ;; ;;!! foo: bar
 ;; ;;!  ^^^  ^^^
 (_
-  key: (_) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
-  value: (_) @value @collectionKey.trailing.start.startOf @value.leading.start.startOf
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
 ;;!! foo: bar
 ;;!  ^^^^^^^^
 (block_mapping
-  (block_mapping_pair)? @collectionItem.leading.start.endOf
+  (block_mapping_pair)? @collectionItem.leading.endOf
   .
-  (block_mapping_pair) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
+  (block_mapping_pair) @collectionItem
   .
-  (block_mapping_pair)? @collectionItem.trailing.end.startOf
+  (block_mapping_pair)? @collectionItem.trailing.startOf
 ) @map
 
 ;;!! - 0
@@ -20,14 +20,14 @@
 ;;!  ---
 (
   (block_sequence
-    (block_sequence_item)? @collectionItem.leading.start.endOf
+    (block_sequence_item)? @collectionItem.leading.endOf
     .
     (block_sequence_item
-      "-" @collectionItem.leading.end.startOf @collectionItem.prefix
-      (_) @collectionItem @collectionItem.trailing.end.endOf
+      "-" @collectionItem.prefix
+      (_) @collectionItem
     ) @collectionItem.domain
     .
-    (block_sequence_item)? @collectionItem.trailing.end.startOf
+    (block_sequence_item)? @collectionItem.trailing.startOf
     (#trim-end! @collectionItem)
     (#insertion-delimiter! @collectionItem "\n")
   ) @list
@@ -37,22 +37,22 @@
 ;;!! [0]
 ;;!   ^
 (flow_sequence
-  (flow_node)? @collectionItem.leading.start.endOf
+  (flow_node)? @collectionItem.leading.endOf
   .
-  (flow_node) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
+  (flow_node) @collectionItem
   .
-  (flow_node)? @collectionItem.trailing.end.startOf
+  (flow_node)? @collectionItem.trailing.startOf
   (#insertion-delimiter! @collectionItem ", ")
 ) @list
 
 ;;!! { foo: bar }
 ;;!    ^^^^^^^^
 (flow_mapping
-  (flow_pair)? @collectionItem.leading.start.endOf
+  (flow_pair)? @collectionItem.leading.endOf
   .
-  (flow_pair) @collectionItem @collectionItem.leading.end.startOf @collectionItem.trailing.end.endOf
+  (flow_pair) @collectionItem
   .
-  (flow_pair)? @collectionItem.trailing.end.startOf
+  (flow_pair)? @collectionItem.trailing.startOf
   (#insertion-delimiter! @collectionItem ", ")
 ) @map
 
