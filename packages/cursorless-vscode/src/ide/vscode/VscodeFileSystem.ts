@@ -4,11 +4,16 @@ import * as path from "path";
 
 export class VscodeFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;
+  public readonly cursorlessCommandHistoryDirPath: string;
 
   constructor(public readonly cursorlessDir: string) {
     this.cursorlessTalonStateJsonPath = path.join(
       this.cursorlessDir,
       "state.json",
+    );
+    this.cursorlessCommandHistoryDirPath = path.join(
+      this.cursorlessDir,
+      "commandHistory",
     );
   }
 
