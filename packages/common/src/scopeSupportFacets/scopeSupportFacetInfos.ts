@@ -31,7 +31,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "xmlBothTags",
   },
   attribute: {
-    description: "A attribute of an element",
+    description: "A attribute, eg of an html element or a C++ attribute",
     scopeType: "attribute",
   },
 
