@@ -97,6 +97,7 @@ function sanitizeCommand(command: CommandComplete): CommandComplete {
 
 function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
   switch (action.name) {
+    // Remove replace with text
     case "replace":
       if (Array.isArray(action.replaceWith)) {
         return {
@@ -106,6 +107,7 @@ function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
       }
       break;
 
+    // Remove substitutions and custom body
     case "insertSnippet": {
       const { substitutions, ...rest } = action.snippetDescription;
       return {
@@ -115,6 +117,7 @@ function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
       };
     }
 
+    // Remove custom body
     case "wrapWithSnippet":
       if (action.snippetDescription.type === "custom") {
         return {
