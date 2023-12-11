@@ -52,14 +52,14 @@ export class CommandHistory implements CommandRunnerDecorator {
 
     return {
       run: async (commandComplete: CommandComplete) => {
-        await this.append(commandComplete);
+        await this.appendToLog(commandComplete);
 
         return await runner.run(commandComplete);
       },
     };
   }
 
-  private async append(command: CommandComplete): Promise<void> {
+  private async appendToLog(command: CommandComplete): Promise<void> {
     const date = new Date();
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
     const file = path.join(this.dirPath, fileName);
