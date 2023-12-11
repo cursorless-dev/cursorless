@@ -44,7 +44,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "map",
   },
   statement: {
-    description: "A statement",
+    description: "A statement, eg assignment, for loop, etc",
     scopeType: "statement",
   },
   ifStatement: {
