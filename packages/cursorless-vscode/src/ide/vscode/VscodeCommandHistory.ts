@@ -29,10 +29,10 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
     extensionContext: vscode.ExtensionContext,
     fileSystem: FileSystem,
   ) {
-    this.evaluateSetting = this.evaluateSetting.bind(this);
     this.cursorlessVersion = extensionContext.extension.packageJSON.version;
     this.dirPath = path.join(fileSystem.cursorlessDir, dirName);
 
+    // Read initial setting value. The watcher below will take care of changes.
     this.evaluateSetting();
 
     this.disposable = vscode.workspace.onDidChangeConfiguration((event) => {
@@ -49,9 +49,10 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
     if (!this.active) {
       return runner;
     }
+
     return {
       run: async (commandComplete: CommandComplete) => {
-        void this.append(commandComplete);
+        await this.append(commandComplete);
 
         return await runner.run(commandComplete);
       },
@@ -76,10 +77,9 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
   }
 
   private evaluateSetting() {
-    this.active =
-      vscode.workspace
-        .getConfiguration(settingSection)
-        .get<boolean>(settingName) ?? false;
+    this.active = vscode.workspace
+      .getConfiguration(settingSection)
+      .get<boolean>(settingName, false);
   }
 
   dispose() {
@@ -87,8 +87,8 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
   }
 }
 
+// Remove spoken form and sanitize action
 function sanitizeCommand(command: CommandComplete): CommandComplete {
-  // Remove spoken form and sanitize action
   const { spokenForm, action, ...rest } = command;
   return {
     ...rest,
