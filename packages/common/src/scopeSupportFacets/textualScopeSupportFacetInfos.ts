@@ -20,7 +20,7 @@ export const textualScopeSupportFacetInfos: Record<
     scopeType: "token",
   },
   identifier: {
-    description: "A single identifier in the document",
+    description: "A single alphanumeric identifier in the document",
     scopeType: "identifier",
   },
   line: {
@@ -51,7 +51,7 @@ export const textualScopeSupportFacetInfos: Record<
   //   scopeType: "boundedNonWhitespaceSequence",
   // },
   url: {
-    description: "A url",
+    description: "A url",Ment Tweaks
     scopeType: "url",
   },
 };
