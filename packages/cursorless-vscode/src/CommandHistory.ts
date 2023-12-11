@@ -19,6 +19,9 @@ const settingSection = "cursorless";
 const settingName = "commandHistory";
 const settingFullName = `${settingSection}.${settingName}`;
 
+/**
+ * This class is responsible for writing command history to disk.
+ */
 export class CommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
   private readonly cursorlessVersion: string;
