@@ -98,8 +98,8 @@
 ;;!          xxxxxx
 ;;!       ---------
 (jsx_attribute
-  (_) @value.leading.start.endOf
-  (_) @value @value.leading.end.startOf
+  (_) @_.leading.endOf
+  (_) @value
 ) @_.domain
 
 ;;!! <aaa />

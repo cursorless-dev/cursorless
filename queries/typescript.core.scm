@@ -160,10 +160,10 @@
 ;;!                    ^^^^^^        ^^^^^^
 (formal_parameters
   (_
-    pattern: (_) @type.leading.start.endOf
+    pattern: (_) @_.leading.endOf
     type: (_
       ":"
-      (_) @type @type.leading.end.startOf
+      (_) @type
     )
   ) @_.domain
 )
@@ -173,10 +173,10 @@
 ;;!! ccc(): string {}
 ;;!         ^^^^^^
 (_
-  parameters: (_) @type.leading.end.endOf
+  parameters: (_) @_.leading.endOf
   return_type: (_
     ":"
-    (_) @type @type.leading.end.startOf
+    (_) @type
   )
 ) @_.domain
 
@@ -229,8 +229,8 @@
 ;;!     xxxxxxx
 ;;!  ----------
 (as_expression
-  (_) @_.leading.start.endOf
-  (_) @type @_.leading.end.startOf
+  (_) @_.leading.endOf
+  (_) @type
 ) @_.domain
 
 ;;!! aaa satisfies Bbb
@@ -238,11 +238,11 @@
 ;;!     xxxxxxxxxxxxxx
 ;;!  -----------------
 (satisfies_expression
-  (_) @_.leading.start.endOf
+  (_) @_.leading.endOf
   [
     (generic_type)
     (predefined_type)
-  ] @type @_.leading.end.startOf
+  ] @type
 ) @_.domain
 
 ;;!! abstract class MyClass {}
@@ -275,10 +275,10 @@
 ;;!                   ------------
 (
   (property_signature
-    name: (_) @collectionKey @collectionKey.trailing.start.endOf @type.leading.start.endOf
+    name: (_) @collectionKey @type.leading.endOf
     type: (_
       ":"
-      (_) @type @collectionKey.trailing.end.startOf @type.leading.end.startOf
+      (_) @type @collectionKey.trailing.startOf
     )
   ) @_.domain.start
   ";"? @_.domain.end

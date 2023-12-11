@@ -1,4 +1,4 @@
-import { Range, SimpleScopeType, TextEditor } from "@cursorless/common";
+import { SimpleScopeType, TextEditor } from "@cursorless/common";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
@@ -55,14 +55,6 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
 
     const removalRange = getRelatedRange(match, scopeTypeType, "removal", true);
 
-    const leadingDelimiterRange = dropEmptyRange(
-      getRelatedRange(match, scopeTypeType, "leading", true),
-    );
-
-    const trailingDelimiterRange = dropEmptyRange(
-      getRelatedRange(match, scopeTypeType, "trailing", true),
-    );
-
     const interiorRange = getRelatedRange(
       match,
       scopeTypeType,
@@ -70,16 +62,26 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       true,
     );
 
-    const rawPrefixRange = getRelatedRange(
+    const prefixRange = getRelatedRange(
       match,
       scopeTypeType,
       "prefix",
       true,
-    );
-    const prefixRange =
-      rawPrefixRange != null
-        ? new Range(rawPrefixRange.start, contentRange.start)
-        : undefined;
+    )?.with(undefined, contentRange.start);
+
+    const leadingDelimiterRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "leading",
+      true,
+    )?.with(undefined, prefixRange?.start ?? contentRange.start);
+
+    const trailingDelimiterRange = getRelatedRange(
+      match,
+      scopeTypeType,
+      "trailing",
+      true,
+    )?.with(contentRange.end);
 
     return {
       editor,
@@ -101,8 +103,4 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       ],
     };
   }
-}
-
-function dropEmptyRange(range?: Range) {
-  return range != null && !range.isEmpty ? range : undefined;
 }
