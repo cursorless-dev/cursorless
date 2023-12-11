@@ -1,17 +1,9 @@
-import { Range, SimpleScopeTypeType, TextEditor } from "@cursorless/common";
+import { SimpleScopeTypeType, TextEditor } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeFinder,
-  NodeMatcherAlternative,
-  SelectionWithContext,
-} from "../typings/Types";
-import { getMatchesInRange } from "../util/getMatchesInRange";
+import { NodeFinder, NodeMatcherAlternative } from "../typings/Types";
 import { leadingSiblingNodeFinder, patternFinder } from "../util/nodeFinders";
 import { createPatternMatchers, matcher } from "../util/nodeMatchers";
-import {
-  extendUntilNextMatchingSiblingOrLast,
-  selectWithLeadingDelimiter,
-} from "../util/nodeSelectors";
+import { extendUntilNextMatchingSiblingOrLast } from "../util/nodeSelectors";
 import { shrinkRangeToFitContent } from "../util/selectionUtils";
 
 const HEADING_MARKER_TYPES = [
@@ -69,48 +61,9 @@ function sectionMatcher(...patterns: string[]) {
   return matcher(leadingSiblingNodeFinder(finder), sectionExtractor);
 }
 
-const itemLeadingDelimiterExtractor = selectWithLeadingDelimiter(
-  "list_marker_parenthesis",
-  "list_marker_dot",
-  "list_marker_star",
-  "list_marker_minus",
-  "list_marker_plus",
-);
-
-function excludeTrailingNewline(editor: TextEditor, range: Range) {
-  const matches = getMatchesInRange(/\r?\n\s*$/g, editor, range);
-
-  if (matches.length > 0) {
-    return new Range(range.start, matches[0].start);
-  }
-
-  return range;
-}
-
-function itemExtractor(
-  editor: TextEditor,
-  node: SyntaxNode,
-): SelectionWithContext {
-  const { selection } = itemLeadingDelimiterExtractor(editor, node);
-  const line = editor.document.lineAt(selection.start);
-  const leadingRange = new Range(line.range.start, selection.start);
-  const indent = editor.document.getText(leadingRange);
-
-  return {
-    context: {
-      containingListDelimiter: `\n${indent}`,
-      leadingDelimiterRange: leadingRange,
-    },
-    selection: excludeTrailingNewline(editor, selection).toSelection(
-      selection.isReversed,
-    ),
-  };
-}
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  collectionItem: matcher(patternFinder("list_item.paragraph!"), itemExtractor),
   section: sectionMatcher("atx_heading"),
   sectionLevelOne: sectionMatcher("atx_heading.atx_h1_marker"),
   sectionLevelTwo: sectionMatcher("atx_heading.atx_h2_marker"),

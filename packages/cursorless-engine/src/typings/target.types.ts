@@ -42,6 +42,9 @@ export interface Target {
   /** If this selection has a delimiter use it for inserting before or after the target. For example, new line for a line or paragraph and comma for a list or argument */
   readonly insertionDelimiter: string;
 
+  /** Optional prefix. For example, dash or asterisk for a markdown item */
+  readonly prefixRange?: Range;
+
   /** If true this target should be treated as a line */
   readonly isLine: boolean;
 

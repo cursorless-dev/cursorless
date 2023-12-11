@@ -288,14 +288,14 @@
 ;;!  --------------
 (local_variable_declaration
   (variable_declarator
-    name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-    value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
+    name: (_) @name @value.leading.endOf
+    value: (_)? @value @name.trailing.startOf
   )
 ) @_.domain
 (field_declaration
   (variable_declarator
-    name: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-    value: (_)? @value @name.trailing.end.startOf @value.leading.end.startOf
+    name: (_) @name @value.leading.endOf
+    value: (_)? @value @name.trailing.startOf
   )
 ) @_.domain
 
@@ -305,8 +305,8 @@
 ;;!  ----------
 (_
   (assignment_expression
-    left: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-    right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+    left: (_) @name @value.leading.endOf
+    right: (_) @value @name.trailing.startOf
   ) @_.domain.start
   ";"? @_.domain.end
 )

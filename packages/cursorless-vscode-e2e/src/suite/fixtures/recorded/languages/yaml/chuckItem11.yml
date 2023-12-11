@@ -1,9 +1,9 @@
 languageId: yaml
 command:
   version: 6
-  spokenForm: change item
+  spokenForm: chuck item
   action:
-    name: clearAndSetSelection
+    name: remove
     target:
       type: primitive
       modifiers:
@@ -14,16 +14,13 @@ initialState:
   documentContents: |-
     foo:
       - 0
-      - 1
   selections:
     - anchor: {line: 1, character: 2}
       active: {line: 1, character: 2}
   marks: {}
 finalState:
-  documentContents: |-
+  documentContents: |
     foo:
-      - 
-      - 1
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
