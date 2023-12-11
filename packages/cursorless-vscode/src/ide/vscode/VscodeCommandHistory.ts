@@ -6,13 +6,13 @@ import {
   FileSystem,
   ReadOnlyHatMap,
 } from "@cursorless/common";
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
-import * as vscode from "vscode";
 import type {
   CommandRunner,
   CommandRunnerDecorator,
 } from "@cursorless/cursorless-engine";
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
+import * as vscode from "vscode";
 
 const filePrefix = "cursorlessCommandHistory";
 const settingSection = "cursorless";
@@ -60,8 +60,6 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
   }
 
   private async append(command: CommandComplete): Promise<void> {
-    await fs.mkdir(this.dirPath, { recursive: true });
-
     const date = new Date();
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
     const file = path.join(this.dirPath, fileName);
@@ -73,6 +71,7 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
     };
     const data = JSON.stringify(historyItem) + "\n";
 
+    await fs.mkdir(this.dirPath, { recursive: true });
     await fs.appendFile(file, data, "utf8");
   }
 
