@@ -15,7 +15,7 @@ export const scopeSupportFacetInfos: Record<
   },
 
   element: {
-    description: "A xml/html element",
+    description: "An xml/html element. Also used for LaTeX environments",
     scopeType: "xmlElement",
   },
   startTag: {
