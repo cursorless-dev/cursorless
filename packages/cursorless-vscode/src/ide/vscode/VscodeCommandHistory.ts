@@ -1,4 +1,5 @@
 import {
+  ActionDescriptor,
   CommandComplete,
   Disposable,
   FileSystem,
@@ -17,12 +18,6 @@ const filePrefix = "cursorlessCommandHistory";
 const settingSection = "cursorless";
 const settingName = "commandHistory";
 const settingFullName = `${settingSection}.${settingName}`;
-
-export interface CommandHistoryItem {
-  date: string;
-  cursorlessVersion: string;
-  command: CommandComplete;
-}
 
 export class VscodeCommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
@@ -70,7 +65,7 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
     const file = path.join(this.dirPath, fileName);
 
-    const historyItem: CommandHistoryItem = {
+    const historyItem = {
       date: getDayDate(date),
       cursorlessVersion: this.cursorlessVersion,
       command: sanitizeCommand(command),
@@ -93,9 +88,47 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
 }
 
 function sanitizeCommand(command: CommandComplete): CommandComplete {
-  // TODO: Sanitize action payload
-  const { spokenForm, ...rest } = command;
-  return rest;
+  const { spokenForm, action, ...rest } = command;
+  return {
+    ...rest,
+    action: sanitizeAction(action),
+  };
+}
+
+function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
+  switch (action.name) {
+    case "replace":
+      if (Array.isArray(action.replaceWith)) {
+        return {
+          ...action,
+          replaceWith: [],
+        };
+      }
+      break;
+
+    case "insertSnippet": {
+      const { substitutions, ...rest } = action.snippetDescription;
+      return {
+        ...action,
+        snippetDescription:
+          rest.type === "custom" ? { ...rest, body: "" } : rest,
+      };
+    }
+
+    case "wrapWithSnippet":
+      if (action.snippetDescription.type === "custom") {
+        return {
+          ...action,
+          snippetDescription: {
+            ...action.snippetDescription,
+            body: "",
+          },
+        };
+      }
+      break;
+  }
+
+  return action;
 }
 
 function getMonthDate(date: Date): string {
