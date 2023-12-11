@@ -27,11 +27,11 @@ import { mkdir } from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
+import { CommandHistory } from "./CommandHistory";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-import { VscodeCommandHistory } from "./ide/vscode/VscodeCommandHistory";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import {
@@ -104,7 +104,7 @@ export async function activate(
   addCommandRunnerDecorator(testCaseRecorder);
 
   if (vscodeIDE.runMode !== "test") {
-    const commandHistory = new VscodeCommandHistory(context, fileSystem);
+    const commandHistory = new CommandHistory(context, fileSystem);
     addCommandRunnerDecorator(commandHistory);
     context.subscriptions.push(commandHistory);
   }

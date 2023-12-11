@@ -19,7 +19,7 @@ const settingSection = "cursorless";
 const settingName = "commandHistory";
 const settingFullName = `${settingSection}.${settingName}`;
 
-export class VscodeCommandHistory implements CommandRunnerDecorator {
+export class CommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
   private readonly cursorlessVersion: string;
   private disposable: Disposable;
