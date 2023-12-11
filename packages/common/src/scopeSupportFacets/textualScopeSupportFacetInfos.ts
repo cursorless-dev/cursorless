@@ -51,7 +51,7 @@ export const textualScopeSupportFacetInfos: Record<
   //   scopeType: "boundedNonWhitespaceSequence",
   // },
   url: {
-    description: "A url",Ment Tweaks
+    description: "A url",
     scopeType: "url",
   },
 };
