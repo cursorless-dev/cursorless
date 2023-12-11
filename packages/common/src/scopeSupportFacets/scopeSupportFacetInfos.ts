@@ -10,7 +10,7 @@ export const scopeSupportFacetInfos: Record<
   ScopeSupportFacetInfo
 > = {
   command: {
-    description: "A spoken command",
+    description: "A command, for example Talon spoken command or bash",
     scopeType: "command",
   },
 
