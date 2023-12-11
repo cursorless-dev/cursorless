@@ -11,19 +11,19 @@ class MyClass {
 2| }
 
 
-[Removal] = 1:9-1:11
+[Removal] = 1:7-1:11
 0| class MyClass {
 
 1|   value = 0;
-           >--<
+         >----<
 2| }
 
 
-[Leading delimiter] = 1:9-1:10
+[Leading delimiter] = 1:7-1:10
 0| class MyClass {
 
 1|   value = 0;
-           >-<
+         >---<
 2| }
 
 

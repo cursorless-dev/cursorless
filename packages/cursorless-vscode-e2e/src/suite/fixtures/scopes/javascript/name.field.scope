@@ -54,27 +54,19 @@ class MyClass {
 2| }
 
 
-[#2 Removal] = 1:2-1:8
+[#2 Removal] = 1:2-1:10
 0| class MyClass {
 
 1|   value = 0;
-    >------<
+    >--------<
 2| }
 
 
-[#2 Leading delimiter] = 1:0-1:2
+[#2 Trailing delimiter] = 1:7-1:10
 0| class MyClass {
 
 1|   value = 0;
-  >--<
-2| }
-
-
-[#2 Trailing delimiter] = 1:7-1:8
-0| class MyClass {
-
-1|   value = 0;
-         >-<
+         >---<
 2| }
 
 
