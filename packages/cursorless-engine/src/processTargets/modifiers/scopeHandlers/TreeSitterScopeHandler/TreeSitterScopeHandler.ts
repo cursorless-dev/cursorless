@@ -1,7 +1,4 @@
-import {
-  SimpleScopeType,
-  TextEditor,
-} from "@cursorless/common";
+import { SimpleScopeType, TextEditor } from "@cursorless/common";
 import { TreeSitterQuery } from "../../../../languages/TreeSitterQuery";
 import { QueryMatch } from "../../../../languages/TreeSitterQuery/QueryCapture";
 import { ScopeTypeTarget } from "../../../targets/ScopeTypeTarget";
