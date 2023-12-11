@@ -88,6 +88,7 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
 }
 
 function sanitizeCommand(command: CommandComplete): CommandComplete {
+  // Remove spoken form and sanitize action
   const { spokenForm, action, ...rest } = command;
   return {
     ...rest,
