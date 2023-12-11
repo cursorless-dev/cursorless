@@ -31,9 +31,12 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
   private disposable: Disposable;
   private active: boolean = false;
 
-  constructor(ide: VscodeIDE, fileSystem: FileSystem) {
+  constructor(
+    extensionContext: vscode.ExtensionContext,
+    fileSystem: FileSystem,
+  ) {
     this.evaluateSetting = this.evaluateSetting.bind(this);
-    this.cursorlessVersion = ide.cursorlessVersion;
+    this.cursorlessVersion = extensionContext.extension.packageJSON.version;
     this.dirPath = path.join(fileSystem.cursorlessDir, dirName);
 
     this.evaluateSetting();

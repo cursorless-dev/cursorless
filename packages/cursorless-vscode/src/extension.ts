@@ -104,7 +104,7 @@ export async function activate(
   addCommandRunnerDecorator(testCaseRecorder);
 
   if (vscodeIDE.runMode !== "test") {
-    const commandHistory = new VscodeCommandHistory(vscodeIDE, fileSystem);
+    const commandHistory = new VscodeCommandHistory(context, fileSystem);
     addCommandRunnerDecorator(commandHistory);
     context.subscriptions.push(commandHistory);
   }
