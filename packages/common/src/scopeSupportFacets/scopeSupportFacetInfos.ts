@@ -248,15 +248,16 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "value.assignment": {
-    description: "Value(RHS) of an assignment",
+    description: "Value (RHS) of an assignment",
     scopeType: "value",
   },
   "value.mapPair": {
-    description: "Key(RHS) of a map pair",
+    description: "Value (RHS) of a key-value pair in a map",
     scopeType: "value",
   },
   "value.mapPair.iteration": {
-    description: "Iteration of map pair values",
+    description:
+      "Iteration scope of key-value pairs in a map; should be between the braces",
     scopeType: "value",
     isIteration: true,
   },
@@ -265,7 +266,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
   "value.attribute": {
-    description: "Value(RHS) of an attribute",
+    description: "Value (RHS) of an attribute eg in an xml element",
     scopeType: "value",
   },
   "value.return": {
@@ -277,7 +278,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
   },
   "value.field": {
-    description: "Value(RHS) of a field",
+    description: "Value (RHS) of a field in a class / interface",
     scopeType: "value",
   },
 
@@ -286,15 +287,15 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.formalParameter": {
-    description: "Type of formal parameter in a function definition",
+    description: "Type of formal parameter in a function declaration",
     scopeType: "type",
   },
   "type.return": {
-    description: "Type of return value in a function definition",
+    description: "Type of return value in a function declaration",
     scopeType: "type",
   },
   "type.field": {
-    description: "Type of field in a class",
+    description: "Type of field in a class / interface",
     scopeType: "type",
   },
   "type.foreach": {
@@ -302,7 +303,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.interface": {
-    description: "Type of interface",
+    description: "An interface declaration",
     scopeType: "type",
   },
 };
