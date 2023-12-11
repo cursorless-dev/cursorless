@@ -21,4 +21,9 @@ export interface FileSystem {
    * The path to the Cursorless talon state JSON file.
    */
   readonly cursorlessTalonStateJsonPath: string;
+
+  /**
+   * The path to the Cursorless command history directory.
+   */
+  readonly cursorlessCommandHistoryDirPath: string;
 }

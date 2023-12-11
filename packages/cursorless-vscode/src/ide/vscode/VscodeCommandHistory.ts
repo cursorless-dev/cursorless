@@ -1,19 +1,19 @@
 import {
   ActionDescriptor,
   CommandComplete,
+  CommandHistoryItem,
   Disposable,
   FileSystem,
   ReadOnlyHatMap,
 } from "@cursorless/common";
-import * as fs from "fs/promises";
-import * as path from "path";
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
 import * as vscode from "vscode";
 import type {
   CommandRunner,
   CommandRunnerDecorator,
 } from "@cursorless/cursorless-engine";
 
-const dirName = "commandHistory";
 const filePrefix = "cursorlessCommandHistory";
 const settingSection = "cursorless";
 const settingName = "commandHistory";
@@ -23,14 +23,14 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
   private readonly cursorlessVersion: string;
   private disposable: Disposable;
-  private active: boolean = false;
+  private isActive: boolean = false;
 
   constructor(
     extensionContext: vscode.ExtensionContext,
     fileSystem: FileSystem,
   ) {
     this.cursorlessVersion = extensionContext.extension.packageJSON.version;
-    this.dirPath = path.join(fileSystem.cursorlessDir, dirName);
+    this.dirPath = fileSystem.cursorlessCommandHistoryDirPath;
 
     // Read initial setting value. The watcher below will take care of changes.
     this.evaluateSetting();
@@ -46,7 +46,7 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
     readableHatMap: ReadOnlyHatMap,
     runner: CommandRunner,
   ): CommandRunner {
-    if (!this.active) {
+    if (!this.isActive) {
       return runner;
     }
 
@@ -66,7 +66,7 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
     const file = path.join(this.dirPath, fileName);
 
-    const historyItem = {
+    const historyItem: CommandHistoryItem = {
       date: getDayDate(date),
       cursorlessVersion: this.cursorlessVersion,
       command: sanitizeCommand(command),
@@ -77,7 +77,7 @@ export class VscodeCommandHistory implements CommandRunnerDecorator {
   }
 
   private evaluateSetting() {
-    this.active = vscode.workspace
+    this.isActive = vscode.workspace
       .getConfiguration(settingSection)
       .get<boolean>(settingName, false);
   }
