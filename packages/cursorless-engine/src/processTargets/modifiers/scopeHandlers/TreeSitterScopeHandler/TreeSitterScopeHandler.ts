@@ -81,7 +81,7 @@ export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
       scopeTypeType,
       "trailing",
       true,
-    )?.with(contentRange.start);
+    )?.with(contentRange.end);
 
     return {
       editor,
