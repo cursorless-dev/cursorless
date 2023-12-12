@@ -427,6 +427,9 @@ importers:
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
+      immer:
+        specifier: ^9.0.15
+        version: 9.0.21
       itertools:
         specifier: ^2.1.1
         version: 2.1.1

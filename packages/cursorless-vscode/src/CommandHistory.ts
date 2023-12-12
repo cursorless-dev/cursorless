@@ -10,6 +10,7 @@ import type {
   CommandRunner,
   CommandRunnerDecorator,
 } from "@cursorless/cursorless-engine";
+import produce from "immer";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import * as vscode from "vscode";
@@ -81,7 +82,7 @@ export class CommandHistory implements CommandRunnerDecorator {
       date: getDayDate(date),
       cursorlessVersion: this.cursorlessVersion,
       thrownError: thrownError?.name,
-      command: sanitizeCommand(command),
+      command: produce(command, (draft) => sanitizeCommandInPlace(draft)),
     };
     const data = JSON.stringify(historyItem) + "\n";
 
@@ -101,48 +102,38 @@ export class CommandHistory implements CommandRunnerDecorator {
 }
 
 // Remove spoken form and sanitize action
-function sanitizeCommand(command: CommandComplete): CommandComplete {
-  const { spokenForm, action, ...rest } = command;
-  return {
-    ...rest,
-    action: sanitizeAction(action),
-  };
+function sanitizeCommandInPlace(command: CommandComplete): void {
+  delete command.spokenForm;
+  sanitizeActionInPlace(command.action);
 }
 
-function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
+function sanitizeActionInPlace(action: ActionDescriptor): void {
   switch (action.name) {
     // Remove replace with text
     case "replace":
       if (Array.isArray(action.replaceWith)) {
-        return {
-          ...action,
-          replaceWith: [],
-        };
+        action.replaceWith = [];
       }
-      return action;
+      break;
 
     // Remove substitutions and custom body
     case "insertSnippet": {
-      const { substitutions, ...rest } = action.snippetDescription;
-      return {
-        ...action,
-        snippetDescription:
-          rest.type === "custom" ? { ...rest, body: "" } : rest,
-      };
+      const { snippetDescription } = action;
+      delete snippetDescription.substitutions;
+      if (snippetDescription.type === "custom") {
+        snippetDescription.body = "";
+      }
+      break;
     }
 
     // Remove custom body
-    case "wrapWithSnippet":
-      if (action.snippetDescription.type === "custom") {
-        return {
-          ...action,
-          snippetDescription: {
-            ...action.snippetDescription,
-            body: "",
-          },
-        };
+    case "wrapWithSnippet": {
+      const { snippetDescription } = action;
+      if (snippetDescription.type === "custom") {
+        snippetDescription.body = "";
       }
-      return action;
+      break;
+    }
 
     case "breakLine":
     case "clearAndSetSelection":
@@ -198,7 +189,12 @@ function sanitizeAction(action: ActionDescriptor): ActionDescriptor {
     case "rewrapWithPairedDelimiter":
     case "swapTargets":
     case "wrapWithPairedDelimiter":
-      return action;
+      break;
+
+    default: {
+      // Ensure we don't miss any new actions
+      const _exhaustiveCheck: never = action;
+    }
   }
 }
 
