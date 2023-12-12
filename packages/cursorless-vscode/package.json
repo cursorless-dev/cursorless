@@ -1145,6 +1145,7 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
+    "immer": "^9.0.15",
     "itertools": "^2.1.1",
     "lodash": "^4.17.21",
     "nearley": "2.20.1",
