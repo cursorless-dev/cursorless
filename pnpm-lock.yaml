@@ -67,6 +67,9 @@ importers:
 
   packages/cheatsheet:
     dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       '@fortawesome/fontawesome-svg-core':
         specifier: 6.3.0
         version: 6.3.0
@@ -122,6 +125,9 @@ importers:
       '@cursorless/cheatsheet':
         specifier: workspace:*
         version: link:../cheatsheet
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -235,9 +241,6 @@ importers:
 
   packages/cursorless-engine:
     dependencies:
-      '@cursorless/cheatsheet':
-        specifier: workspace:*
-        version: link:../cheatsheet
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common

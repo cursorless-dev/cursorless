@@ -4,7 +4,11 @@
     "rootDir": "src",
     "outDir": "out",
     "jsx": "react-jsx",
-    "lib": ["es5", "es6", "dom"],
+    "lib": [
+      "es5",
+      "es6",
+      "dom"
+    ],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,6 +21,9 @@
   "references": [
     {
       "path": "../cheatsheet"
+    },
+    {
+      "path": "../common"
     }
   ],
   "include": [

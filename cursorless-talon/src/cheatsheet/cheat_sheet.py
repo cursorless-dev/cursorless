@@ -56,14 +56,12 @@ class CursorlessActions:
         cheatsheet_out_dir.mkdir(parents=True, exist_ok=True)
         cheatsheet_out_path = cheatsheet_out_dir / cheatsheet_filename
 
-        # This will update the cheatsheet.html file
+        # Despite the showCheatsheet name, will only update the cheatsheet.html file,
         actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.showCheatsheet",
             {
                 "version": 0,
-                # Add usage statistics as part of the spokenFormInfo option #3 (don't like this one)
                 "spokenFormInfo": cursorless_cheat_sheet_get_json(),
-                # Add usage statistics to the cheatsheet option #1
                 "outputPath": str(cheatsheet_out_path),
             },
         )

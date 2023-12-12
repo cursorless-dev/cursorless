@@ -1,4 +1,4 @@
-import { CheatsheetSection, Variation } from "../CheatsheetInfo";
+import { CheatsheetSection, Variation } from "@cursorless/common";
 import useIsHighlighted from "../hooks/useIsHighlighted";
 import { formatCaptures } from "./formatCaptures";
 

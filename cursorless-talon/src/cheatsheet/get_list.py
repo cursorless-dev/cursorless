@@ -40,7 +40,6 @@ def get_raw_list(name: str) -> Mapping[str, str]:
     return registry.lists[cursorless_list_name][0].copy()
 
 
-# Is this code used when generating .html cheatsheet?
 def make_dict_readable(
     type: str, dict: Mapping[str, str], descriptions: Mapping[str, str]
 ) -> list[ListItemDescriptor]:

@@ -4,7 +4,7 @@ import produce from "immer";
 import { sortBy } from "lodash";
 import { ide } from "../singletons/ide.singleton";
 import path from "path";
-import { CheatsheetInfo } from "@cursorless/cheatsheet";
+import { CheatsheetInfo } from "@cursorless/common";
 
 /**
  * The argument expected by the cheatsheet command.
