@@ -1,7 +1,7 @@
 import {
   ActionDescriptor,
   CommandComplete,
-  CommandHistoryItem,
+  CommandHistoryEntry,
   Disposable,
   FileSystem,
   ReadOnlyHatMap,
@@ -55,21 +55,32 @@ export class CommandHistory implements CommandRunnerDecorator {
 
     return {
       run: async (commandComplete: CommandComplete) => {
-        await this.appendToLog(commandComplete);
+        try {
+          const returnValue = await runner.run(commandComplete);
 
-        return await runner.run(commandComplete);
+          await this.appendToLog(commandComplete);
+
+          return returnValue;
+        } catch (e) {
+          await this.appendToLog(commandComplete, e as Error);
+          throw e;
+        }
       },
     };
   }
 
-  private async appendToLog(command: CommandComplete): Promise<void> {
+  private async appendToLog(
+    command: CommandComplete,
+    thrownError?: Error,
+  ): Promise<void> {
     const date = new Date();
     const fileName = `${filePrefix}_${getMonthDate(date)}.jsonl`;
     const file = path.join(this.dirPath, fileName);
 
-    const historyItem: CommandHistoryItem = {
+    const historyItem: CommandHistoryEntry = {
       date: getDayDate(date),
       cursorlessVersion: this.cursorlessVersion,
+      thrownError: thrownError?.name,
       command: sanitizeCommand(command),
     };
     const data = JSON.stringify(historyItem) + "\n";
