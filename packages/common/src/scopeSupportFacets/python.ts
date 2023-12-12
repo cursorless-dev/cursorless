@@ -5,11 +5,16 @@ import {
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+const { supported, supportedLegacy, notApplicable } = ScopeSupportFacetLevel;
 
 export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "value.foreach": supported,
+
+  "argument.actual": supportedLegacy,
+  "argument.actual.iteration": supportedLegacy,
+  "argument.formal": supportedLegacy,
+  "argument.formal.iteration": supportedLegacy,
 
   element: notApplicable,
   tags: notApplicable,
