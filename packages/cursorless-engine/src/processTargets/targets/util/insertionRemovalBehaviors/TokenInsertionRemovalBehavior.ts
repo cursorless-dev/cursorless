@@ -1,6 +1,6 @@
 import { Range, TextEditor } from "@cursorless/common";
 import type { Target } from "../../../../typings/target.types";
-import { expandToFullLine } from "../../../../util/rangeUtils";
+import { expandToFullLine, union } from "../../../../util/rangeUtils";
 import { PlainTarget } from "../../PlainTarget";
 
 const leadingDelimiters = ['"', "'", "(", "[", "{", "<"];
@@ -10,7 +10,7 @@ export function getTokenLeadingDelimiterTarget(
   target: Target,
 ): Target | undefined {
   const { editor } = target;
-  const { start } = target.contentRange;
+  const { start } = union(target.contentRange, target.prefixRange);
 
   const startLine = editor.document.lineAt(start);
   const leadingText = startLine.text.slice(0, start.character);
@@ -80,7 +80,8 @@ export function getTokenTrailingDelimiterTarget(
  * @returns The removal range for the given target
  */
 export function getTokenRemovalRange(target: Target): Range {
-  const { editor, contentRange } = target;
+  const { editor } = target;
+  const contentRange = union(target.contentRange, target.prefixRange);
   const { start, end } = contentRange;
 
   const leadingWhitespaceRange =

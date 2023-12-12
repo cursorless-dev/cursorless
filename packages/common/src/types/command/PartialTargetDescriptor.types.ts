@@ -205,11 +205,17 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
+export interface GlyphScopeType {
+  type: "glyph";
+  character: string;
+}
+
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
-  | OneOfScopeType;
+  | OneOfScopeType
+  | GlyphScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {

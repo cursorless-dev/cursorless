@@ -21,8 +21,7 @@ initialState:
 finalState:
   documentContents: |-
     - aaa
-
       - ddd
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}

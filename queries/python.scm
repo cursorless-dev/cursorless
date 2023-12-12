@@ -35,9 +35,9 @@
 ;;!   xxxxx
 ;;!  ------
 (assignment
-  (_) @_.leading.start.endOf
+  (_) @_.leading.endOf
   .
-  right: (_) @value @_.leading.end.startOf
+  right: (_) @value
 ) @_.domain
 
 ;; value:
@@ -51,8 +51,8 @@
 ;;!  xxxxx
 ;;!  -------
 (augmented_assignment
-  left: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-  right: (_) @value @value.leading.end.startOf @name.trailing.end.startOf
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
 ;;!! a = 25
@@ -64,8 +64,8 @@
 ;;!  xxxxxxxxx
 ;;!  -----------
 (assignment
-  left: (_) @name @name.trailing.start.endOf
-  right: (_)? @name.trailing.end.startOf
+  left: (_) @name
+  right: (_)? @_.trailing.startOf
 ) @_.domain
 
 (_
@@ -93,9 +93,9 @@
 ;;!  -----------------
 ;;!     xxxxx
 (_
-  (_) @_.leading.start.endOf
+  (_) @_.leading.endOf
   .
-  type: (_) @type @_.leading.end.startOf
+  type: (_) @type
 ) @_.domain
 
 ;;!!  def aaa() -> str:
@@ -105,9 +105,9 @@
 ;;!!      pass
 ;;!   --------]
 (function_definition
-  (_) @_.leading.start.endOf
+  (_) @_.leading.endOf
   .
-  return_type: (_) @type @_.leading.end.startOf
+  return_type: (_) @type
 ) @_.domain
 
 ;;!! d = {"a": 1234}
@@ -124,9 +124,9 @@
 ;;!           ---------------
 (
   (_
-    (_) @_.leading.start.endOf
+    (_) @_.leading.endOf
     .
-    value: (_) @value @_.leading.end.startOf
+    value: (_) @value
   ) @_.domain
   (#not-type? @_.domain subscript)
 )
@@ -266,8 +266,8 @@
 ;;!    ^^^^^^^
 ;;!    xxxxxxxxx
 (pair
-  key: (_) @collectionKey @collectionKey.trailing.start.endOf
-  value: (_) @collectionKey.trailing.end.startOf
+  key: (_) @collectionKey
+  value: (_) @_.trailing.startOf
 ) @_.domain
 
 ;;!! if True:

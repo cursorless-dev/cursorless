@@ -15,6 +15,16 @@
           ]
         },
         {
+          "id": "breakLine",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "break <target>",
+              "description": "Break line"
+            }
+          ]
+        },
+        {
           "id": "callAsFunction",
           "type": "action",
           "variations": [
@@ -225,6 +235,16 @@
             {
               "spokenForm": "snippet <target>",
               "description": "Insert snippet"
+            }
+          ]
+        },
+        {
+          "id": "joinLines",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "join <target>",
+              "description": "Join lines"
             }
           ]
         },
@@ -905,6 +925,16 @@
               "description": "Trailing delimiter range"
             }
           ]
+        },
+        {
+          "id": "visible",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "visible",
+              "description": "Visible"
+            }
+          ]
         }
       ]
     },
@@ -1055,6 +1085,16 @@
             {
               "spokenForm": "visualize nothing",
               "description": "Hide scope visualizer"
+            }
+          ]
+        },
+        {
+          "id": "show_scope_sidebar",
+          "type": "command",
+          "variations": [
+            {
+              "spokenForm": "bar cursorless",
+              "description": "Show cursorless sidebar"
             }
           ]
         },
@@ -1269,6 +1309,16 @@
             {
               "spokenForm": "funk name",
               "description": "Function name"
+            }
+          ]
+        },
+        {
+          "id": "glyph",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "glyph <character>",
+              "description": "Instance of single character <character>"
             }
           ]
         },
@@ -1537,7 +1587,7 @@
           "type": "scopeType",
           "variations": [
             {
-              "spokenForm": "word",
+              "spokenForm": "sub",
               "description": "Word"
             }
           ]
