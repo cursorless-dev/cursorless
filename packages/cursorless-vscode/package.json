@@ -282,6 +282,7 @@
         "cursorless.commandHistory": {
           "type": "boolean",
           "default": false,
+          "order": 2,
           "description": "Whether to log (sanitized) Cursorless commands to disk. Can be used for generating user statistics and improving Cursorless. Only stored locally and files are never sent to the internet."
         },
         "cursorless.tokenHatSplittingMode.preserveCase": {
