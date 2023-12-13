@@ -138,27 +138,3 @@ async function takeCommand(character: string) {
     },
   });
 }
-
-async function checkRecordedTest(tmpdir: string) {
-  const paths = await readdir(tmpdir);
-  assert.lengthOf(paths, 1);
-
-  // const actualRecordedTestPath = paths[0];
-  // assert.equal(basename(actualRecordedTestPath), "takeHarp.yml");
-
-  // const expected = (
-  //   await readFile(
-  //     getFixturePath("recorded/testCaseRecorder/takeHarp.yml"),
-  //     "utf8",
-  //   )
-  // )
-  //   // We use this to ensure that the test works on Windows. Depending on user
-  //   // / CI git config, the file might be checked out with CRLF line endings
-  //   .replaceAll("\r\n", "\n");
-  // const actualRecordedTest = await readFile(
-  //   path.join(tmpdir, actualRecordedTestPath),
-  //   "utf8",
-  // );
-
-  // assert.equal(actualRecordedTest, expected);
-}
