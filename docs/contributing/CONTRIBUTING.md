@@ -45,7 +45,7 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 
    where `some.extension` is the id of the extension you'd like to install into the sandbox
 
-6. Copy / symlink [`cursorless-talon-dev`](https://github.com/cursorless-dev/cursorless/tree/main/cursorless-talon-dev) into your Talon user directory for some useful voice commands for developing Cursorless.
+6. Copy / symlink [`cursorless-talon-dev`](cursorless/cursorless-talon-dev) into your Talon user directory for some useful voice commands for developing Cursorless.
 
 ## Running / testing extension locally
 
