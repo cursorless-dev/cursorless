@@ -487,14 +487,14 @@
 
 ;;!! foo();
 ;;!  ^^^
-;;!  ------
+;;!  -----
 (call_expression
   function: (_) @functionCallee
 ) @_.domain
 
 ;;!! new Foo();
 ;;!  ^^^^^^^
-;;!  ----------
+;;!  ---------
 (new_expression
   (arguments) @functionCallee.end.startOf
 ) @functionCallee.start.startOf @_.domain
