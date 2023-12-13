@@ -36,9 +36,10 @@ export function getContainingScopeTarget(
       scope = expandFromPosition(
         scopeHandler,
         editor,
-        scope.domain.start,
-        "backward",
-        ancestorIndex - 1,
+        scope.domain.end,
+        "forward",
+        ancestorIndex,
+        true,
       );
     }
 
@@ -86,10 +87,12 @@ function expandFromPosition(
   position: Position,
   direction: Direction,
   ancestorIndex: number,
+  allowAdjacentScopes: boolean = false,
 ): TargetScope | undefined {
   let nextAncestorIndex = 0;
   for (const scope of scopeHandler.generateScopes(editor, position, direction, {
     containment: "required",
+    allowAdjacentScopes,
   })) {
     if (nextAncestorIndex === ancestorIndex) {
       return scope;
