@@ -49,6 +49,17 @@ export class PrimitiveTargetSpokenFormGenerator {
         throw new NoSpokenFormError(`Modifier '${modifier.type}'`);
 
       case "containingScope":
+        if (modifier.ancestorIndex != null) {
+          if (modifier.ancestorIndex === 1) {
+            return [
+              this.spokenFormMap.modifierExtra.grandScope,
+              this.handleScopeType(modifier.scopeType),
+            ];
+          }
+          throw new NoSpokenFormError(
+            `Modifier '${modifier.type}' with ancestor index != 1`,
+          );
+        }
         return [this.handleScopeType(modifier.scopeType)];
 
       case "everyScope":

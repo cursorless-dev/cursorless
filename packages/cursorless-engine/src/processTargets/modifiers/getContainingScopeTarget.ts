@@ -36,8 +36,8 @@ export function getContainingScopeTarget(
       scope = expandFromPosition(
         scopeHandler,
         editor,
-        scope.domain.end,
-        "forward",
+        scope.domain.start,
+        "backward",
         ancestorIndex - 1,
       );
     }
