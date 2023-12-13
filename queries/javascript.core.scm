@@ -483,7 +483,7 @@
 [
   (call_expression)
   (new_expression)
-] @functionCall @_.domain
+] @functionCall
 
 ;;!! foo();
 ;;!  ^^^
