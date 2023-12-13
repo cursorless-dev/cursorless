@@ -34,6 +34,7 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
   });
 
   teardown(() => {
+    console.log("teardown");
     sinon.restore();
     injectIde(ide);
   });

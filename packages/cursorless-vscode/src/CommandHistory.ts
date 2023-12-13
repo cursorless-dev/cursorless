@@ -2,7 +2,6 @@ import {
   ActionDescriptor,
   CommandComplete,
   CommandHistoryEntry,
-  Disposable,
   FileSystem,
   ReadOnlyHatMap,
 } from "@cursorless/common";
@@ -10,6 +9,7 @@ import type {
   CommandRunner,
   CommandRunnerDecorator,
 } from "@cursorless/cursorless-engine";
+import { VscodeApi } from "@cursorless/vscode-common";
 import produce from "immer";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
@@ -18,7 +18,6 @@ import * as vscode from "vscode";
 const filePrefix = "cursorlessCommandHistory";
 const settingSection = "cursorless";
 const settingName = "commandHistory";
-const settingFullName = `${settingSection}.${settingName}`;
 
 /**
  * When user opts in, this class sanitizes and appends each Cursorless command to a local log file in `.cursorless` dir.
@@ -26,31 +25,21 @@ const settingFullName = `${settingSection}.${settingName}`;
 export class CommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
   private readonly cursorlessVersion: string;
-  private disposable: Disposable;
-  private isActive: boolean = false;
 
   constructor(
     extensionContext: vscode.ExtensionContext,
+    private vscodeApi: VscodeApi,
     fileSystem: FileSystem,
   ) {
     this.cursorlessVersion = extensionContext.extension.packageJSON.version;
     this.dirPath = fileSystem.cursorlessCommandHistoryDirPath;
-
-    // Read initial setting value. The watcher below will take care of changes.
-    this.evaluateSetting();
-
-    this.disposable = vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration(settingFullName)) {
-        this.evaluateSetting();
-      }
-    });
   }
 
   wrapCommandRunner(
     readableHatMap: ReadOnlyHatMap,
     runner: CommandRunner,
   ): CommandRunner {
-    if (!this.isActive) {
+    if (!this.isActive()) {
       return runner;
     }
 
@@ -90,14 +79,10 @@ export class CommandHistory implements CommandRunnerDecorator {
     await fs.appendFile(file, data, "utf8");
   }
 
-  private evaluateSetting() {
-    this.isActive = vscode.workspace
+  private isActive(): boolean {
+    return this.vscodeApi.workspace
       .getConfiguration(settingSection)
       .get<boolean>(settingName, false);
-  }
-
-  dispose() {
-    this.disposable.dispose();
   }
 }
 

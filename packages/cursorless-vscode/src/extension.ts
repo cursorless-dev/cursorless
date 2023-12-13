@@ -100,14 +100,10 @@ export async function activate(
     fileSystem,
   );
 
+  addCommandRunnerDecorator(new CommandHistory(context, vscodeApi, fileSystem));
+
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
   addCommandRunnerDecorator(testCaseRecorder);
-
-  if (vscodeIDE.runMode !== "test") {
-    const commandHistory = new CommandHistory(context, fileSystem);
-    addCommandRunnerDecorator(commandHistory);
-    context.subscriptions.push(commandHistory);
-  }
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(
@@ -149,7 +145,7 @@ export async function activate(
           hatTokenMap,
           vscodeIDE,
           normalizedIde as NormalizedIDE,
-          fileSystem.cursorlessTalonStateJsonPath,
+          fileSystem,
           scopeProvider,
           injectIde,
           runIntegrationTests,
