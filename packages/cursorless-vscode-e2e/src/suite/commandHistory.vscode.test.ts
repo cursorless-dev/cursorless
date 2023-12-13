@@ -15,10 +15,8 @@ import { endToEndTestSetup } from "../endToEndTestSetup";
 /*
  * All tests in this file are running against the latest version of the command
  * and needs to be manually updated on every command migration.
- * This includes the file: fixtures/recorded/testCaseRecorder/takeHarp
  */
 
-// Ensure that the test case recorder works
 suite("commandHistory", async function () {
   endToEndTestSetup(this);
 
