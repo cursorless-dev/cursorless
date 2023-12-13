@@ -8,6 +8,7 @@ import {
   TestCaseRecorder,
   showCheatsheet,
   updateDefaults,
+  tutorialCreate,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
 import { showDocumentation, showQuickPick } from "./commands";
@@ -88,6 +89,10 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: keyboardCommands.modal.modeOn,
     ["cursorless.keyboard.modal.modeOff"]: keyboardCommands.modal.modeOff,
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
+
+    // Tutorial commands
+    ["cursorless.tutorial.create"]: tutorialCreate,
+    // ["cursorless.tutorial.create"]: tutorialCommands.create,
   };
 
   extensionContext.subscriptions.push(

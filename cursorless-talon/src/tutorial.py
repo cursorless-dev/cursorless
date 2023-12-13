@@ -10,7 +10,7 @@ from .get_action_spoken_form import lookup_action
 
 regex = re.compile(r"\{(\w+):([^}]+)\}")
 tutorial_dir = Path(
-    "/Users/pokey/src/cursorless-vscode/src/test/suite/fixtures/recorded/tutorial/unit-2-basic-coding"
+    r"C:\work\tools\voicecoding\cursorless_fork\packages\cursorless-vscode-e2e\src\suite\fixtures\recorded\tutorial\unit-2-basic-coding"
 )
 
 
@@ -29,8 +29,24 @@ def process_scope_type(argument: str):
 
 
 def process_cursorless_command_step(argument: str):
+    print(f"{argument=}")
     step_fixture = yaml.safe_load((tutorial_dir / argument).read_text())
+    print(f"{step_fixture['command']=}")
+    result = actions.user.private_cursorless_run_rpc_command_get(
+        "cursorless.tutorial.create",
+        {
+            "version": 0,
+            "stepFixture": step_fixture,
+        },
+    )
+    print(f"{result=}")
     return f"<cmd@{cursorless_command_to_spoken_form(step_fixture['command'])}/>"
+    # return f"<cmd@{result}/>"
+
+
+# TODO get this information from the extension
+def cursorless_command_to_spoken_form(command: dict[str, str]):
+    return command["spokenForm"]
 
 
 interpolation_processor_map: dict[str, Callable[[str], str]] = {
