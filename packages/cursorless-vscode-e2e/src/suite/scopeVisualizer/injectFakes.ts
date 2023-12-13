@@ -1,6 +1,6 @@
 import { VscodeApi, getCursorlessApi } from "@cursorless/vscode-common";
 import * as sinon from "sinon";
-import { DecorationRenderOptions, WorkspaceConfiguration } from "vscode";
+import { DecorationRenderOptions } from "vscode";
 import { COLOR_CONFIG } from "./colorConfig";
 import {
   Fakes,
@@ -32,7 +32,7 @@ export async function injectFakes(): Promise<Fakes> {
     ReturnType<VscodeApi["editor"]["setDecorations"]>
   >();
 
-  const getConfigurationValue = sinon.fake.returns(COLOR_CONFIG);
+  const defaultGetConfiguration = vscodeApi.workspace.getConfiguration;
 
   sinon.replace(
     vscodeApi.window,
@@ -43,9 +43,13 @@ export async function injectFakes(): Promise<Fakes> {
   sinon.replace(
     vscodeApi.workspace,
     "getConfiguration",
-    sinon.fake.returns({
-      get: getConfigurationValue,
-    } as unknown as WorkspaceConfiguration),
+    sinon.fake((configuration) => {
+      if (configuration === "cursorless.scopeVisualizer.colors") {
+        return COLOR_CONFIG as any;
+      }
+
+      return defaultGetConfiguration(configuration);
+    }),
   );
 
   return { setDecorations, createTextEditorDecorationType, dispose };

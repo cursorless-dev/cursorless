@@ -26,9 +26,9 @@ export class KeyboardConfig {
     const getSection = (
       sectionName: string,
     ): KeyMap<SectionTypes[S]> | undefined =>
-      this.vscodeApi.workspace
-        .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
-        .get<KeyMap<SectionTypes[S]>>(sectionName);
+      this.vscodeApi.workspace.getConfiguration<KeyMap<SectionTypes[S]>>(
+        `cursorless.experimental.keyboard.modal.keybindings.${sectionName}`,
+      );
 
     let section = getSection(sectionName);
 

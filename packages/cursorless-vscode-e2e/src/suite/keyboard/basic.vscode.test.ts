@@ -130,27 +130,17 @@ async function injectFakes(): Promise<void> {
 
   const keyboardConfig = JSON.parse(await readFile(keyboardConfigPath, "utf8"));
 
-  const getConfigurationValue = sinon.fake((sectionName) => {
-    return keyboardConfig[
-      `cursorless.experimental.keyboard.modal.keybindings.${sectionName}`
-    ];
-  });
+  const defaultGetConfiguration = vscodeApi.workspace.getConfiguration;
 
   sinon.replace(
     vscodeApi.workspace,
     "getConfiguration",
-    sinon.fake((section) => {
-      if (
-        !section?.startsWith(
-          "cursorless.experimental.keyboard.modal.keybindings",
-        )
-      ) {
-        return vscode.workspace.getConfiguration(section);
+    sinon.fake((configuration) => {
+      if (keyboardConfig[configuration] != null) {
+        return keyboardConfig[configuration];
       }
 
-      return {
-        get: getConfigurationValue,
-      } as unknown as vscode.WorkspaceConfiguration;
+      return defaultGetConfiguration(configuration);
     }),
   );
 }

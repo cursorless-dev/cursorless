@@ -1,12 +1,23 @@
-import { workspace, window, TextEditor, env } from "vscode";
+import { window, TextEditor, env, Disposable } from "vscode";
 
 /**
  * Subset of VSCode api that we need to be able to mock for testing
  */
 export interface VscodeApi {
-  workspace: typeof workspace;
   window: typeof window;
   env: typeof env;
+
+  workspace: {
+    getConfiguration<T>(configuration: string): T | undefined;
+    watchConfiguration<T>(
+      configuration: string,
+      callback: (value: T | undefined) => void,
+    ): Disposable;
+    onDidChangeConfiguration(
+      configuration: string | string[],
+      callback: () => void,
+    ): Disposable;
+  };
 
   /**
    * Wrapper around editor api for easy mocking.  Provides various

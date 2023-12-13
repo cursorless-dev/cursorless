@@ -35,11 +35,8 @@ export abstract class VscodeScopeVisualizer {
   ) {
     this.disposables.push(
       vscodeApi.workspace.onDidChangeConfiguration(
-        ({ affectsConfiguration }) => {
-          if (affectsConfiguration("cursorless.scopeVisualizer.colors")) {
-            this.initialize();
-          }
-        },
+        "cursorless.scopeVisualizer.colors",
+        () => this.initialize(),
       ),
     );
   }
@@ -76,9 +73,10 @@ export abstract class VscodeScopeVisualizer {
 
   /** This function is called initially, as well as whenever color config changes */
   private initialize() {
-    const colorConfig = vscodeApi.workspace
-      .getConfiguration("cursorless.scopeVisualizer")
-      .get<ScopeVisualizerColorConfig>("colors")!;
+    const colorConfig =
+      vscodeApi.workspace.getConfiguration<ScopeVisualizerColorConfig>(
+        "cursorless.scopeVisualizer.colors",
+      )!;
 
     this.renderer?.dispose();
     this.renderer = new VscodeScopeRenderer(
