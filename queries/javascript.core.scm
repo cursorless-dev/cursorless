@@ -480,33 +480,24 @@
 ;;!  ^^^^^
 ;;!! new Foo()
 ;;!  ^^^^^^^^^
-(
-  [
-    (call_expression)
-    (new_expression)
-  ] @functionCall @_.domain.start
-  ";"? @_.domain.end
-)
+[
+  (call_expression)
+  (new_expression)
+] @functionCall @_.domain.start
 
 ;;!! foo();
 ;;!  ^^^
 ;;!  ------
-(
-  (call_expression
-    function: (_) @functionCallee
-  ) @_.domain.start
-  ";"? @_.domain.end
-)
+(call_expression
+  function: (_) @functionCallee
+) @_.domain.start
 
 ;;!! new Foo();
 ;;!  ^^^^^^^
 ;;!  ----------
-(
-  (new_expression
-    (arguments) @functionCallee.end.startOf
-  ) @functionCallee.start.startOf @_.domain.start
-  ";"? @_.domain.end
-)
+(new_expression
+  (arguments) @functionCallee.end.startOf
+) @functionCallee.start.startOf @_.domain.start
 
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^

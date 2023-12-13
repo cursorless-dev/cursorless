@@ -2,12 +2,9 @@ new Foo.bar(0);
 ---
 
 [Content] =
-[Removal] = 0:0-0:14
+[Removal] =
+[Domain] = 0:0-0:14
 0| new Foo.bar(0);
   >--------------<
-
-[Domain] = 0:0-0:15
-0| new Foo.bar(0);
-  >---------------<
 
 [Insertion delimiter] = " "
