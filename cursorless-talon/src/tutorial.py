@@ -24,6 +24,7 @@ def process_action(argument: str):
 
 
 def process_scope_type(argument: str):
+    # TODO not sure what we are trying to achieve here
     _, spoken_form = lookup_scope_type(argument)
     return f'<*"{spoken_form}"/>'
 
@@ -37,6 +38,7 @@ def process_cursorless_command_step(argument: str):
         {
             "version": 0,
             "stepFixture": step_fixture,
+            "yamlFilename": argument,
         },
     )
     print(f"{result=}")
