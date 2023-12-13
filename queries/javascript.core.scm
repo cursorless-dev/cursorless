@@ -483,21 +483,21 @@
 [
   (call_expression)
   (new_expression)
-] @functionCall @_.domain.start
+] @functionCall @_.domain
 
 ;;!! foo();
 ;;!  ^^^
 ;;!  ------
 (call_expression
   function: (_) @functionCallee
-) @_.domain.start
+) @_.domain
 
 ;;!! new Foo();
 ;;!  ^^^^^^^
 ;;!  ----------
 (new_expression
   (arguments) @functionCallee.end.startOf
-) @functionCallee.start.startOf @_.domain.start
+) @functionCallee.start.startOf @_.domain
 
 ;;!! class Foo {}
 ;;!  ^^^^^^^^^^^^
