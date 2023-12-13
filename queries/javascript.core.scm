@@ -485,14 +485,14 @@
   (new_expression)
 ] @functionCall
 
-;;!! foo();
+;;!! foo()
 ;;!  ^^^
 ;;!  -----
 (call_expression
   function: (_) @functionCallee
 ) @_.domain
 
-;;!! new Foo();
+;;!! new Foo()
 ;;!  ^^^^^^^
 ;;!  ---------
 (new_expression
