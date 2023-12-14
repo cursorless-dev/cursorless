@@ -40,12 +40,14 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
-    let targets = getTargetsForIterationScope(
-      this.scopeHandlerFactory,
-      scopeHandler,
-      target,
-      this.modifier,
-    );
+    let targets = scopeHandler.isHierarchical
+      ? getTargetsForIterationScope(
+          this.scopeHandlerFactory,
+          scopeHandler,
+          target,
+          this.modifier,
+        )
+      : undefined;
 
     if (targets == null) {
       targets = getTargetsForPosition(scopeHandler, target, this.modifier);

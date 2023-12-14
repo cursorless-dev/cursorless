@@ -16,6 +16,7 @@ import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
 import { ScopeHandler } from "./scopeHandlers/scopeHandler.types";
 import { OutOfRangeError } from "./targetSequenceUtils";
+import { PlainTarget } from "../targets";
 /**
  * Handles relative modifiers that include targets intersecting with the input,
  * eg `"two funks"`, `"token backward"`, etc.  Proceeds as follows:
@@ -50,33 +51,32 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     const { isReversed, editor, contentRange } = target;
     const { length: desiredScopeCount, direction } = this.modifier;
 
-    const initialScope = getPreferredScopeTouchingPosition(
-      scopeHandler,
-      editor,
-      direction === "forward" ? contentRange.start : contentRange.end,
-      direction,
-    );
+    // const initialRange = getPreferredScopeTouchingPosition(
+    //   scopeHandler,
+    //   editor,
+    //   direction === "forward" ? contentRange.start : contentRange.end,
+    //   direction,
+    // )?.domain;
 
-    if (initialScope == null) {
+    const containingTargets = getContainingScopeTarget(target, scopeHandler);
+
+    if (containingTargets) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
-
-    const initialTarget = ensureSingleTarget(initialScope, isReversed);
 
     let it = scopeHandler.isHierarchical
       ? getScopesForIterationScope(
           this.scopeHandlerFactory,
           scopeHandler,
-          initialTarget,
+          editor,
+          initialRange,
           this.modifier,
         )
       : undefined;
 
     if (it == null) {
       const initialPosition =
-        direction === "forward"
-          ? initialTarget.contentRange.start
-          : initialTarget.contentRange.end;
+        direction === "forward" ? initialRange.start : initialRange.end;
       it = scopeHandler.generateScopes(editor, initialPosition, direction, {
         skipAncestorScopes: true,
       });
@@ -96,36 +96,43 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
   }
 }
 
-export function ensureSingleTarget(
-  scope: TargetScope,
-  isReversed: boolean,
-): Target {
-  const targets = scope.getTargets(isReversed);
-
-  if (targets.length !== 1) {
-    throw new Error("Can only have one target with this modifier");
-  }
-
-  return targets[0];
-}
-
-function getScopesForIterationScope(
+function* getScopesForIterationScope(
   scopeHandlerFactory: ScopeHandlerFactory,
   scopeHandler: ScopeHandler,
-  target: Target,
+  editor: TextEditor,
+  range: Range,
   modifier: RelativeScopeModifier,
 ): Iterable<TargetScope> | undefined {
-  const { editor, contentRange } = target;
   const { direction } = modifier;
   const isForward = direction === "forward";
-  const initialPosition = isForward ? contentRange.end : contentRange.start;
+  const initialPosition = isForward ? range.start : range.end;
 
   const iterationScopeHandler = scopeHandlerFactory.create(
     scopeHandler.iterationScopeType,
-    target.editor.document.languageId,
+    editor.document.languageId,
   );
 
   if (iterationScopeHandler == null) {
+    return undefined;
+  }
+
+  // const iterationScopeTarget = getContainingScopeTarget(
+  //   target,
+  //   iterationScopeHandler,
+  // );
+
+  // if (iterationScopeTarget == null) {
+  //   return undefined;
+  // }
+
+  const initialIterationRange = getPreferredScopeTouchingPosition(
+    iterationScopeHandler,
+    editor,
+    initialPosition,
+    direction,
+  )?.domain;
+
+  if (initialIterationRange == null) {
     return undefined;
   }
 
@@ -150,16 +157,18 @@ function getScopesForIterationScope(
       );
       for (const scope of scopes) {
         console.log("scope", scope.domain.toString());
+        yield scope;
       }
     }
   }
 
-  let scopes = getDefaultIterationRange(
+  let scopes = getDefaultIterationRanges(
     scopeHandler,
     scopeHandlerFactory,
-    target,
+    editor,
+    range,
   )?.flatMap((iterationRange) =>
-    getScopesOverlappingRange(scopeHandler, target.editor, iterationRange),
+    getScopesOverlappingRange(scopeHandler, editor, iterationRange),
   );
 
   if (scopes == null) {
@@ -181,14 +190,15 @@ function getScopesForIterationScope(
   return scopes.slice(index);
 }
 
-function getDefaultIterationRange(
+function getDefaultIterationRanges(
   scopeHandler: ScopeHandler,
   scopeHandlerFactory: ScopeHandlerFactory,
-  target: Target,
+  editor: TextEditor,
+  range: Range,
 ): Range[] | undefined {
   const iterationScopeHandler = scopeHandlerFactory.create(
     scopeHandler.iterationScopeType,
-    target.editor.document.languageId,
+    editor.document.languageId,
   );
 
   if (iterationScopeHandler == null) {
@@ -196,7 +206,7 @@ function getDefaultIterationRange(
   }
 
   const iterationScopeTarget = getContainingScopeTarget(
-    target,
+    new PlainTarget({ editor, contentRange: range, isReversed: false }),
     iterationScopeHandler,
   );
 
@@ -218,4 +228,12 @@ function getScopesOverlappingRange(
       skipAncestorScopes: true,
     }),
   );
+}
+
+export function ensureSingleTarget(targets: Target[]): Target {
+  if (targets.length !== 1) {
+    throw new Error("Can only have one target with this modifier");
+  }
+
+  return targets[0];
 }
