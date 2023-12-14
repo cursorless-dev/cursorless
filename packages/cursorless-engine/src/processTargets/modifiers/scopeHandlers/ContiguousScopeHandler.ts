@@ -7,6 +7,7 @@ import {
   next,
 } from "@cursorless/common";
 import { Target } from "../../../typings/target.types";
+import { ensureSingleTarget } from "../../../util/targetUtils";
 import { constructScopeRangeTarget } from "../constructScopeRangeTarget";
 import { BaseScopeHandler } from "./BaseScopeHandler";
 import type { TargetScope } from "./scope.types";
@@ -120,8 +121,8 @@ function isAdjacent(scope1: TargetScope, scope2: TargetScope): boolean {
   }
 
   const [startTarget, endTarget] = getTargetsInDocumentOrder(
-    scope1.getTargets(false)[0],
-    scope2.getTargets(false)[0],
+    ensureSingleTarget(scope1.getTargets(false)),
+    ensureSingleTarget(scope2.getTargets(false)),
   );
 
   const leadingRange =
