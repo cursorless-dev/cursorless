@@ -71,7 +71,7 @@ export class LanguageDefinition {
       scopeType as SimpleScopeType,
     );
 
-    if (scopeType.type === "comment") {
+    if (useContiguousScopeHandler(scopeType)) {
       return new ContiguousScopeHandler(scopeHandler);
     }
 
@@ -150,4 +150,16 @@ function readQueryFileAndImports(languageQueryPath: string) {
   }
 
   return Object.values(rawQueryStrings).join("\n");
+}
+
+/**
+ * Returns true if the given scope type should use a contiguous scope handler.
+ */
+function useContiguousScopeHandler(scopeType: ScopeType): boolean {
+  switch (scopeType.type) {
+    case "comment":
+      return true;
+    default:
+      return false;
+  }
 }
