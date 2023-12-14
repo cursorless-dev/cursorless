@@ -2,10 +2,11 @@ import { ScopeType, SimpleScopeType, showError } from "@cursorless/common";
 import { existsSync, readFileSync } from "fs";
 import { dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
+import { ContiguousScopeHandler } from "../processTargets/modifiers/scopeHandlers/ContiguousScopeHandler";
 import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
+import type { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { ide } from "../singletons/ide.singleton";
-import { TreeSitter } from "../typings/TreeSitter";
+import type { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
@@ -60,12 +61,21 @@ export class LanguageDefinition {
    * undefined if the given scope type / language id combination is still using
    * legacy pathways
    */
-  getScopeHandler(scopeType: ScopeType) {
+  getScopeHandler(scopeType: ScopeType): ScopeHandler | undefined {
     if (!this.query.captureNames.includes(scopeType.type)) {
       return undefined;
     }
 
-    return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
+    const scopeHandler = new TreeSitterScopeHandler(
+      this.query,
+      scopeType as SimpleScopeType,
+    );
+
+    if (scopeType.type === "comment") {
+      return new ContiguousScopeHandler(scopeHandler);
+    }
+
+    return scopeHandler;
   }
 
   getTextFragmentScopeHandler(): ScopeHandler | undefined {

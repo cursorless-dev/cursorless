@@ -130,7 +130,6 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     next: "next",
     forward: "forward",
     backward: "backward",
-    contiguousScope: "fat",
   },
 
   customRegex: {},

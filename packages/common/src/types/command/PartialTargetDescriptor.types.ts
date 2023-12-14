@@ -205,17 +205,11 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
-export interface ContiguousScopeType {
-  type: "contiguous";
-  scopeType: ScopeType;
-}
-
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
-  | OneOfScopeType
-  | ContiguousScopeType;
+  | OneOfScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {

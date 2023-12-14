@@ -1,5 +1,4 @@
 import {
-  ContiguousScopeType,
   Direction,
   Position,
   Range,
@@ -7,7 +6,6 @@ import {
   TextEditor,
   next,
 } from "@cursorless/common";
-import { ScopeHandlerFactory } from ".";
 import { Target } from "../../../typings/target.types";
 import { constructScopeRangeTarget } from "../constructScopeRangeTarget";
 import { BaseScopeHandler } from "./BaseScopeHandler";
@@ -20,21 +18,13 @@ import type {
 
 export class ContiguousScopeHandler extends BaseScopeHandler {
   protected readonly isHierarchical = false;
-  private readonly scopeHandler: ScopeHandler;
 
-  constructor(
-    private scopeHandlerFactory: ScopeHandlerFactory,
-    public scopeType: ContiguousScopeType,
-    languageId: string,
-  ) {
+  constructor(private scopeHandler: ScopeHandler) {
     super();
-    const handler = scopeHandlerFactory.create(scopeType.scopeType, languageId);
-    if (handler == null) {
-      throw new Error(
-        `No available scope handler for '${scopeType.scopeType.type}'`,
-      );
-    }
-    this.scopeHandler = handler;
+  }
+
+  get scopeType(): ScopeType | undefined {
+    return this.scopeHandler.scopeType;
   }
 
   get iterationScopeType(): ScopeType | CustomScopeType {

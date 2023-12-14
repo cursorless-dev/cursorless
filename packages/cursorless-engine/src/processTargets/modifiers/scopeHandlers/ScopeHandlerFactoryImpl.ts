@@ -75,8 +75,6 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new CustomRegexScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
-      case "contiguous":
-        return new ContiguousScopeHandler(this, scopeType, languageId);
       case "instance":
         // Handle instance pseudoscope with its own special modifier
         throw Error("Unexpected scope type 'instance'");

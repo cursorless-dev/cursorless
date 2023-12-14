@@ -1,5 +1,3 @@
-from typing import Any
-
 from talon import Module
 
 mod = Module()
@@ -14,45 +12,42 @@ mod.list(
     "cursorless_custom_regex_scope_type_plural",
     desc="Supported plural custom regular expression scope types",
 )
-mod.list(
-    "cursorless_contiguous_scope_type",
-    desc="Cursorless contiguous scope type",
-)
 
 
 @mod.capture(
-    rule="[{user.cursorless_contiguous_scope_type}] ({user.cursorless_scope_type} | {user.cursorless_custom_regex_scope_type})"
+    rule="{user.cursorless_scope_type} | <user.cursorless_glyph_scope_type> | {user.cursorless_custom_regex_scope_type}"
 )
-def cursorless_scope_type(m) -> dict[str, Any]:
+def cursorless_scope_type(m) -> dict[str, str]:
     """Cursorless scope type singular"""
     try:
-        scope_type = {"type": m.cursorless_scope_type}
+        return {"type": m.cursorless_scope_type}
     except AttributeError:
-        scope_type = {
-            "type": "customRegex",
-            "regex": m.cursorless_custom_regex_scope_type,
-        }
+        pass
 
     try:
-        return {"type": m.cursorless_contiguous_scope_type, "scopeType": scope_type}
+        return m.cursorless_glyph_scope_type
     except AttributeError:
-        return scope_type
+        pass
+
+    return {"type": "customRegex", "regex": m.cursorless_custom_regex_scope_type}
 
 
 @mod.capture(
-    rule="[{user.cursorless_contiguous_scope_type}] ({user.cursorless_scope_type_plural} | {user.cursorless_custom_regex_scope_type_plural})"
+    rule="{user.cursorless_scope_type_plural} | <user.cursorless_glyph_scope_type_plural> | {user.cursorless_custom_regex_scope_type_plural}"
 )
-def cursorless_scope_type_plural(m) -> dict[str, Any]:
+def cursorless_scope_type_plural(m) -> dict[str, str]:
     """Cursorless scope type plural"""
     try:
-        scope_type = {"type": m.cursorless_scope_type_plural}
+        return {"type": m.cursorless_scope_type_plural}
     except AttributeError:
-        scope_type = {
-            "type": "customRegex",
-            "regex": m.cursorless_custom_regex_scope_type_plural,
-        }
+        pass
 
     try:
-        return {"type": m.cursorless_contiguous_scope_type, "scopeType": scope_type}
+        return m.cursorless_glyph_scope_type_plural
     except AttributeError:
-        return scope_type
+        pass
+
+    return {
+        "type": "customRegex",
+        "regex": m.cursorless_custom_regex_scope_type_plural,
+    }

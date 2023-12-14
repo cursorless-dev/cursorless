@@ -81,7 +81,6 @@
       "visible": "visible"
     },
     "simple_scope_modifier": { "every": "every" },
-    "contiguous_scope_type": { "fat": "contiguous" },
     "interior_modifier": {
       "inside": "interiorOnly"
     },

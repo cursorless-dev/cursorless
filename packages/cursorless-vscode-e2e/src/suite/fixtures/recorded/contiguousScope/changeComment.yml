@@ -1,25 +1,25 @@
-languageId: plaintext
+languageId: javascript
 command:
   version: 6
-  spokenForm: change fat identifier
+  spokenForm: change comment
   action:
     name: clearAndSetSelection
     target:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType:
-            type: contiguous
-            scopeType: {type: identifier}
+          scopeType: {type: comment}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: aaa bbb | ccc
+  documentContents: |-
+    // hello
+    // world
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: " | ccc"
+  documentContents: ""
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
