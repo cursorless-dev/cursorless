@@ -17,7 +17,7 @@ class TestScopeHandler extends BaseScopeHandler {
 
   constructor(
     private scopes: TargetScope[],
-    protected isHierarchical: boolean,
+    public isHierarchical: boolean,
   ) {
     super();
   }

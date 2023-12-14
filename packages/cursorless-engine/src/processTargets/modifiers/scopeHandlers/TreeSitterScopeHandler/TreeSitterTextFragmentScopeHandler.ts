@@ -12,7 +12,7 @@ import { findCaptureByName } from "./captureUtils";
 /** Scope handler to be used for extracting text fragments from the perspective
  * of surrounding pairs */
 export class TreeSitterTextFragmentScopeHandler extends BaseTreeSitterScopeHandler {
-  protected isHierarchical = true;
+  public isHierarchical = true;
 
   // Doesn't correspond to any scope type
   public scopeType = undefined;

@@ -10,7 +10,7 @@ import { getRelatedCapture, getRelatedRange } from "./captureUtils";
 
 /** Scope handler to be used for iteration scopes of tree-sitter scope types */
 export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler {
-  protected isHierarchical = true;
+  public isHierarchical = true;
 
   // Doesn't correspond to any scope type
   public scopeType = undefined;

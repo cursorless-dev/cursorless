@@ -7,7 +7,7 @@ import { ScopeIteratorRequirements } from "./scopeHandler.types";
 export class SurroundingPairScopeHandler extends BaseScopeHandler {
   public readonly iterationScopeType;
 
-  protected isHierarchical = true;
+  public isHierarchical = true;
 
   constructor(
     public readonly scopeType: SurroundingPairScopeType,

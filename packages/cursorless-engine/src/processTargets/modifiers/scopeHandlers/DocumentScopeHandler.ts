@@ -7,7 +7,7 @@ import { TargetScope } from "./scope.types";
 export class DocumentScopeHandler extends BaseScopeHandler {
   public readonly scopeType = { type: "document" } as const;
   public readonly iterationScopeType = { type: "document" } as const;
-  protected readonly isHierarchical = false;
+  public readonly isHierarchical = false;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
     super();

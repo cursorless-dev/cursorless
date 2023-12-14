@@ -23,14 +23,9 @@ const DEFAULT_REQUIREMENTS: Omit<ScopeIteratorRequirements, "distalPosition"> =
 export abstract class BaseScopeHandler implements ScopeHandler {
   public abstract readonly scopeType: ScopeType | undefined;
   public abstract readonly iterationScopeType: ScopeType | CustomScopeType;
+  public abstract readonly isHierarchical: boolean;
 
   public readonly includeAdjacentInEvery: boolean = false;
-
-  /**
-   * Indicates whether scopes are allowed to contain one another.  If `false`, we
-   * can optimise the algorithm by making certain assumptions.
-   */
-  protected abstract readonly isHierarchical: boolean;
 
   /**
    * Returns an iterable that yields scopes.

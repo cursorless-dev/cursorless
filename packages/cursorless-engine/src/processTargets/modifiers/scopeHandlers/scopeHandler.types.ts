@@ -87,6 +87,12 @@ export interface ScopeHandler {
    * range is at the beginning or end of the line.
    */
   readonly includeAdjacentInEvery: boolean;
+
+  /**
+   * Indicates whether scopes are allowed to contain one another.  If `false`, we
+   * can optimise the algorithm by making certain assumptions.
+   */
+  readonly isHierarchical: boolean;
 }
 
 export type ContainmentPolicy =

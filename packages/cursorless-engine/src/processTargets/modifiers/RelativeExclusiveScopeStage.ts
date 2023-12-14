@@ -64,7 +64,7 @@ function getTargetsForIterationScope(
   scopeHandler: ScopeHandler,
   target: Target,
   modifier: RelativeScopeModifier,
-) {
+): Target[] | undefined {
   const { contentRange } = target;
   const isForward = modifier.direction === "forward";
   const initialPosition = isForward ? contentRange.end : contentRange.start;

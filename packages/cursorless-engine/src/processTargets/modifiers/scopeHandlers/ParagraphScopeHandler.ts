@@ -14,7 +14,7 @@ import { TargetScope } from "./scope.types";
 export class ParagraphScopeHandler extends BaseScopeHandler {
   public readonly scopeType: ScopeType = { type: "paragraph" };
   public readonly iterationScopeType: ScopeType = { type: "document" };
-  protected readonly isHierarchical = false;
+  public readonly isHierarchical = false;
 
   constructor(_scopeType: ScopeType, _languageId: string) {
     super();

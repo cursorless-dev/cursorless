@@ -14,7 +14,7 @@ import { findCaptureByName, getRelatedRange } from "./captureUtils";
  * Handles scopes that are implemented using tree-sitter.
  */
 export class TreeSitterScopeHandler extends BaseTreeSitterScopeHandler {
-  protected isHierarchical = true;
+  public isHierarchical = true;
 
   constructor(
     query: TreeSitterQuery,

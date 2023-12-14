@@ -23,7 +23,7 @@ import type {
  */
 export abstract class NestedScopeHandler extends BaseScopeHandler {
   public abstract readonly iterationScopeType: ScopeType;
-  protected readonly isHierarchical = false;
+  public readonly isHierarchical = false;
 
   /**
    * We expand to this scope type before looking for instances of the scope type

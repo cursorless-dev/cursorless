@@ -16,7 +16,7 @@ import {
 } from "./scopeHandler.types";
 
 export class OneOfScopeHandler extends BaseScopeHandler {
-  protected isHierarchical = true;
+  public isHierarchical = true;
 
   static create(
     scopeHandlerFactory: ScopeHandlerFactory,
