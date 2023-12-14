@@ -681,6 +681,13 @@
   (#not-parent-type? @statement export_statement)
 )
 
+(program) @statement.iteration
+
+(statement_block
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+
 ;;!! foo(name: string) {}
 ;;!      ^^^^^^^^^^^^
 (

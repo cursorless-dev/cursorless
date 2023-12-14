@@ -1,0 +1,36 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change next state
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: statement}
+          offset: 1
+          length: 1
+          direction: forward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    if (true) {
+        console.log(1)
+        
+        console.log(2)
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    if (true) {
+        console.log(1)
+        
+        
+    }
+  selections:
+    - anchor: {line: 3, character: 4}
+      active: {line: 3, character: 4}
