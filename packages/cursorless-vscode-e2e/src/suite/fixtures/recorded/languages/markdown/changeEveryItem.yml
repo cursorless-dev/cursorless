@@ -1,0 +1,47 @@
+languageId: markdown
+command:
+  version: 6
+  spokenForm: change every item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    ddd eee:
+
+    - aaa
+    - bbb
+    - ccc
+
+    fff ggg:
+
+    - hhh
+    - iii
+  selections:
+    - anchor: {line: 4, character: 5}
+      active: {line: 4, character: 5}
+  marks: {}
+finalState:
+  documentContents: |-
+    ddd eee:
+
+    - 
+    - 
+    - 
+
+    fff ggg:
+
+    - hhh
+    - iii
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}
+    - anchor: {line: 4, character: 2}
+      active: {line: 4, character: 2}
