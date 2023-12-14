@@ -389,8 +389,7 @@
 (for_in_statement
   left: (_) @name
   right: (_) @value
-  ")" @_.domain.end.endOf
-) @_.domain.start.startOf
+) @_.domain
 
 [
   (program)
@@ -709,7 +708,14 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
-[
-  (formal_parameters)
-  (arguments)
-] @argumentOrParameter.iteration
+(_
+  (formal_parameters
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(arguments
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
