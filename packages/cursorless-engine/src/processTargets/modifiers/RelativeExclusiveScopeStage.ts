@@ -47,11 +47,9 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       this.modifier,
     );
 
-    if (targets != null) {
-      return targets;
+    if (targets == null) {
+      targets = getTargetsForPosition(scopeHandler, target, this.modifier);
     }
-
-    targets = getTargetsForPosition(scopeHandler, target, this.modifier);
 
     if (targets != null) {
       return targets;
@@ -108,13 +106,11 @@ function getTargetsForIterationScope(
     );
   })();
 
-  if (index === -1) {
+  if (index < 0) {
     return undefined;
   }
 
-  if (index !== 0) {
-    scopes = scopes.slice(index);
-  }
+  scopes = scopes.slice(index);
 
   return scopesToTargets(scopes, target, modifier);
 }
