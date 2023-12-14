@@ -22,7 +22,6 @@ const scopeSupportFacets = [
   "namedFunction",
   "namedFunction.method",
   "anonymousFunction",
-  "anonymousFunction.lambda",
   "functionName",
 
   "functionCall",

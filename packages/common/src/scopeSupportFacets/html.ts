@@ -17,7 +17,6 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "value.attribute": supported,
   "comment.block": supported,
 
-  "anonymousFunction.lambda": notApplicable,
   "argument.actual": notApplicable,
   "argument.actual.iteration": notApplicable,
   "argument.formal": notApplicable,

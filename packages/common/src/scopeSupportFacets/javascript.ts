@@ -22,7 +22,6 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   "namedFunction.method": supported,
   anonymousFunction: supported,
-  "anonymousFunction.lambda": supported,
   functionName: supported,
 
   functionCall: supported,
