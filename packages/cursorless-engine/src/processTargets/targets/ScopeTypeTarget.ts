@@ -16,7 +16,8 @@ import {
 
 export interface ScopeTypeTargetParameters extends CommonTargetParameters {
   readonly scopeTypeType: SimpleScopeTypeType;
-  readonly delimiter?: string;
+  readonly insertionDelimiter?: string;
+  readonly prefixRange?: Range;
   readonly removalRange?: Range;
   readonly interiorRange?: Range;
   readonly leadingDelimiterRange?: Range;
@@ -31,7 +32,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   private leadingDelimiterRange_?: Range;
   private trailingDelimiterRange_?: Range;
   private hasDelimiterRange_: boolean;
-  insertionDelimiter: string;
+  public readonly prefixRange?: Range;
+  readonly insertionDelimiter: string;
 
   constructor(parameters: ScopeTypeTargetParameters) {
     super(parameters);
@@ -40,8 +42,10 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     this.interiorRange_ = parameters.interiorRange;
     this.leadingDelimiterRange_ = parameters.leadingDelimiterRange;
     this.trailingDelimiterRange_ = parameters.trailingDelimiterRange;
+    this.prefixRange = parameters.prefixRange;
     this.insertionDelimiter =
-      parameters.delimiter ?? getDelimiter(parameters.scopeTypeType);
+      parameters.insertionDelimiter ??
+      getInsertionDelimiter(parameters.scopeTypeType);
     this.hasDelimiterRange_ =
       !!this.leadingDelimiterRange_ || !!this.trailingDelimiterRange_;
   }
@@ -126,18 +130,18 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
   protected getCloneParameters() {
     return {
       ...this.state,
-      delimiter: this.insertionDelimiter,
+      insertionDelimiter: this.insertionDelimiter,
+      prefixRange: this.prefixRange,
       removalRange: undefined,
       interiorRange: undefined,
       scopeTypeType: this.scopeTypeType_,
-      contentRemovalRange: this.removalRange_,
       leadingDelimiterRange: this.leadingDelimiterRange_,
       trailingDelimiterRange: this.trailingDelimiterRange_,
     };
   }
 }
 
-function getDelimiter(scopeType: SimpleScopeTypeType): string {
+function getInsertionDelimiter(scopeType: SimpleScopeTypeType): string {
   switch (scopeType) {
     case "class":
     case "namedFunction":

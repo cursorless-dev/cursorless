@@ -19,8 +19,8 @@
 ;;!! <aaa id="me">
 ;;!       ^^ ^^^^
 (Attribute
-  (Name) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
-  (AttValue) @value @collectionKey.trailing.end.startOf @value.leading.end.startOf
+  (Name) @collectionKey @value.leading.endOf
+  (AttValue) @value @collectionKey.trailing.startOf
 ) @_.domain
 
 ;;!! <aaa>
