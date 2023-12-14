@@ -13,13 +13,17 @@ command:
 initialState:
   documentContents: |-
     // hello
-      // world
+
+    // world
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
   marks: {}
 finalState:
-  documentContents: ""
+  documentContents: |-
+
+
+    // world
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
