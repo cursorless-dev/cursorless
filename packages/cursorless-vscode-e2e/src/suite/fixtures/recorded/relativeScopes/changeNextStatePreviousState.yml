@@ -1,0 +1,38 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: change next state previous state
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: statement}
+          offset: 1
+          length: 1
+          direction: forward
+        - type: relativeScope
+          scopeType: {type: statement}
+          offset: 1
+          length: 1
+          direction: backward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    def aaa():
+        bbb = 0
+
+    ddd = 0
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
+  marks: {}
+finalState:
+  documentContents: |+
+    def aaa():
+        bbb = 0
+
+  selections:
+    - anchor: {line: 3, character: 0}
+      active: {line: 3, character: 0}
