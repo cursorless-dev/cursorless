@@ -67,6 +67,10 @@ function getTargetsForIterationScope(
   target: Target,
   modifier: RelativeScopeModifier,
 ) {
+  const { contentRange } = target;
+  const isForward = modifier.direction === "forward";
+  const initialPosition = isForward ? contentRange.end : contentRange.start;
+
   let scopes = getDefaultIterationRange(
     scopeHandler,
     scopeHandlerFactory,
@@ -79,70 +83,40 @@ function getTargetsForIterationScope(
     return undefined;
   }
 
-  if (modifier.direction === "backward") {
+  if (!isForward) {
     scopes = scopes.reverse();
   }
 
-  return scopesToTargets(scopes, target, modifier);
-}
-
-function scopesToTargets(
-  scopes: TargetScope[],
-  target: Target,
-  modifier: RelativeScopeModifier,
-): Target[] | undefined {
-  const { isReversed, contentRange } = target;
-  const { length: desiredScopeCount, direction, offset } = modifier;
-  const isForward = direction === "forward";
-  const initialPosition = isForward ? contentRange.end : contentRange.start;
-
-  let scopeCount = 0;
-  let proximalScope: TargetScope | undefined;
-
-  for (const scope of scopes) {
+  const index = (() => {
     if (contentRange.isEmpty) {
       if (isForward) {
-        if (scope.domain.start.isBeforeOrEqual(initialPosition)) {
-          continue;
-        }
-      } else if (scope.domain.end.isAfterOrEqual(initialPosition)) {
-        continue;
+        return scopes.findIndex((scope) =>
+          scope.domain.start.isAfter(initialPosition),
+        );
       }
-    } else {
-      if (isForward) {
-        if (scope.domain.start.isBefore(initialPosition)) {
-          continue;
-        }
-      } else if (scope.domain.end.isAfter(initialPosition)) {
-        continue;
-      }
+      return scopes.findIndex((scope) =>
+        scope.domain.end.isBefore(initialPosition),
+      );
     }
-
-    scopeCount += 1;
-
-    if (scopeCount < offset) {
-      // Skip until we hit `offset`
-      continue;
+    if (isForward) {
+      return scopes.findIndex((scope) =>
+        scope.domain.start.isAfterOrEqual(initialPosition),
+      );
     }
+    return scopes.findIndex((scope) =>
+      scope.domain.end.isBeforeOrEqual(initialPosition),
+    );
+  })();
 
-    if (scopeCount === offset) {
-      // When we hit offset, that becomes proximal scope
-      if (desiredScopeCount === 1) {
-        // Just yield it if we only want 1 scope
-        return scope.getTargets(isReversed);
-      }
-
-      proximalScope = scope;
-      continue;
-    }
-
-    if (scopeCount === offset + desiredScopeCount - 1) {
-      // Then make a range when we get the desired number of scopes
-      return constructScopeRangeTarget(isReversed, proximalScope!, scope);
-    }
+  if (index === -1) {
+    return undefined;
   }
 
-  return undefined;
+  if (index !== 0) {
+    scopes = scopes.slice(index);
+  }
+
+  return scopesToTargets(scopes, target, modifier);
 }
 
 function getTargetsForPosition(
@@ -150,8 +124,8 @@ function getTargetsForPosition(
   target: Target,
   modifier: RelativeScopeModifier,
 ): Target[] | undefined {
-  const { isReversed, editor, contentRange } = target;
-  const { length: desiredScopeCount, direction, offset } = modifier;
+  const { editor, contentRange } = target;
+  const { direction } = modifier;
 
   const initialPosition =
     direction === "forward" ? contentRange.end : contentRange.start;
@@ -172,6 +146,17 @@ function getTargetsForPosition(
       skipAncestorScopes: true,
     },
   );
+
+  return scopesToTargets(scopes, target, modifier);
+}
+
+function scopesToTargets(
+  scopes: Iterable<TargetScope>,
+  target: Target,
+  modifier: RelativeScopeModifier,
+): Target[] | undefined {
+  const { isReversed } = target;
+  const { length: desiredScopeCount, offset } = modifier;
 
   let scopeCount = 0;
   let proximalScope: TargetScope | undefined;
