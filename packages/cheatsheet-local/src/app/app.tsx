@@ -1,4 +1,4 @@
-import { CheatsheetInfo } from "@cursorless/common";
+import { CheatsheetInfo, FeatureUsageStats } from "@cursorless/common";
 import { CheatsheetPage } from "@cursorless/cheatsheet";
 import "../styles.css";
 
@@ -12,11 +12,22 @@ declare global {
      * {@link document}.
      */
     cheatsheetInfo: CheatsheetInfo;
+
+    /**
+     * The data describing the cheatsheet feature usage stats.
+     * Injected in the same way as {@link cheatsheetInfo}.
+     */
+    cheatsheetFeatureUsageStats: FeatureUsageStats;
   }
 }
 
 export function App() {
-  return <CheatsheetPage cheatsheetInfo={document.cheatsheetInfo} />;
+  return (
+    <CheatsheetPage
+      cheatsheetInfo={document.cheatsheetInfo}
+      cheatsheetFeatureUsageStats={document.cheatsheetFeatureUsageStats}
+    />
+  );
 }
 
 export default App;

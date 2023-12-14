@@ -6,14 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons/faCircleQuestion";
 import CheatsheetNotesComponent from "./components/CheatsheetNotesComponent";
 import SmartLink from "./components/SmartLink";
-import { CheatsheetInfo } from "@cursorless/common";
+import { CheatsheetInfo, FeatureUsageStats } from "@cursorless/common";
 
 type CheatsheetPageProps = {
   cheatsheetInfo: CheatsheetInfo;
+  cheatsheetFeatureUsageStats?: FeatureUsageStats;
 };
 
 export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
   cheatsheetInfo,
+  cheatsheetFeatureUsageStats,
 }) => {
   return (
     <main className="dark:text-stone-100">
@@ -32,22 +34,32 @@ export const CheatsheetPage: React.FC<CheatsheetPageProps> = ({
           to learn more.
         </small>
       </h1>
-      <Cheatsheet cheatsheetInfo={cheatsheetInfo} />
+      <Cheatsheet
+        cheatsheetInfo={cheatsheetInfo}
+        cheatsheetFeatureUsageStats={cheatsheetFeatureUsageStats}
+      />
     </main>
   );
 };
 
 type CheatsheetProps = {
   cheatsheetInfo: CheatsheetInfo;
+  cheatsheetFeatureUsageStats?: FeatureUsageStats;
 };
 
-const Cheatsheet: React.FC<CheatsheetProps> = ({ cheatsheetInfo }) => (
+const Cheatsheet: React.FC<CheatsheetProps> = ({
+  cheatsheetInfo,
+  cheatsheetFeatureUsageStats,
+}) => (
   <div className="p-2 gap-2 md:p-3 md:gap-3 xl:p-4 xl:gap-4 columns-1 md:columns-2 xl:columns-3 xl:max-w-[1600px] xl:mx-auto">
     {cheatsheetInfo.sections
       .filter((section) => section.items.length > 0)
       .map((section) => (
         <CheatsheetSection key={section.id}>
-          <CheatsheetListComponent section={section} />
+          <CheatsheetListComponent
+            section={section}
+            featureUsageStats={cheatsheetFeatureUsageStats}
+          />
         </CheatsheetSection>
       ))}
     <CheatsheetSection>

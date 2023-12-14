@@ -16,7 +16,9 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--profile=cursorlessDevelopment"
       ],
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "Build extension only",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -36,7 +38,9 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
       ],
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -57,7 +61,9 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
       ],
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "Prepare test subset",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -73,7 +79,9 @@
         "CURSORLESS_TEST": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -90,7 +98,9 @@
         "CURSORLESS_RUN_TEST_SUBSET": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -106,7 +116,9 @@
         "CURSORLESS_TEST": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -127,7 +139,9 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
       ],
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -149,7 +163,9 @@
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTests.cjs"
       ],
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -166,7 +182,9 @@
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/**/out/**/*.js"
+      ],
       "preLaunchTask": "${defaultBuildTask}",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
@@ -182,7 +200,9 @@
       },
       "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["start"],
+      "runtimeArgs": [
+        "start"
+      ],
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
@@ -197,11 +217,23 @@
       },
       "cwd": "${workspaceFolder}/packages/cursorless-org-docs",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["build"],
+      "runtimeArgs": [
+        "build"
+      ],
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
+    },
+    {
+      "name": "Cheatsheet",
+      "type": "chrome",
+      "request": "launch",
+      "url": "file://${workspaceFolder}/packages/cheatsheet-local/dist/index.html",
+      "env": {
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "preLaunchTask": "Build cheatsheet with local data",
     },
     {
       "name": "cursorless.org client-side",

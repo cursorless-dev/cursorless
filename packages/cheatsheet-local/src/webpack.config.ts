@@ -3,7 +3,10 @@
 
 import {
   cheatsheetBodyClasses,
+  fakeCheatsheetInfo,
+  fakeFeatureUsageStats,
   defaultCheatsheetInfo,
+  defaultFeatureUsageStats,
 } from "@cursorless/cheatsheet";
 import HtmlWebpackInlineSourcePlugin from "@effortlessmotion/html-webpack-inline-source-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
@@ -23,7 +26,8 @@ const config: Configuration = {
       template: "src/index.html",
       templateParameters: {
         bodyClasses: cheatsheetBodyClasses,
-        fakeCheatsheetInfo: JSON.stringify(defaultCheatsheetInfo),
+        cheatsheetInfo: isProduction ? JSON.stringify(fakeCheatsheetInfo) : JSON.stringify(defaultCheatsheetInfo, null, 2),
+        cheatsheetUsageStats: isProduction ? JSON.stringify(fakeFeatureUsageStats) : JSON.stringify(defaultFeatureUsageStats, null, 2)
       },
       inlineSource: ".(js|css)$", // embed all javascript and css inline
     }),

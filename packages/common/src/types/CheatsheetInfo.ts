@@ -17,3 +17,14 @@ export interface CheatsheetSection {
 export interface CheatsheetInfo {
   sections: CheatsheetSection[];
 }
+
+export interface FeatureUsageStats {
+  // Example: 'action', 'target', 'scope'
+  // - Redundant with section name
+  // featureType: string
+
+  featureUsageCount: {
+    // featureId - should match id in the section.items[*].id
+    [id: string]: number;
+  }
+}

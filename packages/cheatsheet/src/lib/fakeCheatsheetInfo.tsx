@@ -1,3 +1,8 @@
+import { FeatureUsageStats } from "@cursorless/common";
+
+// Should we just use the sampleData thats more realistic
+// This will avoid the need to have this file and more ways to build the cheatsheet
+
 export const fakeCheatsheetInfo = {
   sections: [
     {
@@ -17,4 +22,10 @@ export const fakeCheatsheetInfo = {
       ],
     },
   ],
+};
+
+export const fakeFeatureUsageStats: FeatureUsageStats = {
+  featureUsageCount: {
+    bar: 1000,
+  },
 };

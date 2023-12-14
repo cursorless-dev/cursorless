@@ -22,6 +22,5 @@
     "src/**/*.json",
     "src/**/*.tsx",
     "../../typings/**/*.d.ts",
-    "../common/src/types/CheatsheetInfo.ts"
   ]
 }

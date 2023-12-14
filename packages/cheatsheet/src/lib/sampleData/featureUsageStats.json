@@ -1,0 +1,32 @@
+{
+	"featureUsageCount": {
+		"setSelection": 84,
+		"scrollToCenter": 1,
+		"containingScope": 32,
+		"namedFunction": 2,
+		"name": 2,
+		"everyScope": 26,
+		"instance": 9,
+		"relativeScope": 33,
+		"line": 20,
+		"collectionKey": 23,
+		"token": 7,
+		"value": 8,
+		"list": 2,
+		"moveToTarget": 2,
+		"collectionItem": 3,
+		"showHover": 1,
+		"setSelectionAfter": 9,
+		"extendThroughEndOf": 6,
+		"extendThroughStartOf": 4,
+		"setSelectionBefore": 4,
+		"statement": 12,
+		"experimental.setInstanceReference": 3,
+		"document": 3,
+		"interiorOnly": 3,
+		"toRawSelection": 3,
+		"ordinalScope": 1,
+		"part": 1,
+		"wrapWithSnippet": 3
+	}
+}

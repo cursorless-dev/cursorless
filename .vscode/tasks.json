@@ -18,7 +18,10 @@
     },
     {
       "label": "Build extension only",
-      "dependsOn": ["Populate dist", "ESBuild"],
+      "dependsOn": [
+        "Populate dist",
+        "ESBuild"
+      ],
       "group": "build"
     },
     {
@@ -26,7 +29,9 @@
       "type": "npm",
       "script": "esbuild",
       "path": "packages/cursorless-vscode",
-      "dependsOn": ["Generate grammar"],
+      "dependsOn": [
+        "Generate grammar"
+      ],
       "presentation": {
         "reveal": "silent"
       },
@@ -95,13 +100,19 @@
     },
     {
       "label": "Prepare test subset",
-      "dependsOn": ["Ensure test subset file exists", "Build"],
+      "dependsOn": [
+        "Ensure test subset file exists",
+        "Build"
+      ],
       "dependsOrder": "sequence",
       "group": "test"
     },
     {
       "label": "watch",
-      "dependsOn": ["Watch esbuild", "Watch typescript"],
+      "dependsOn": [
+        "Watch esbuild",
+        "Watch typescript"
+      ],
       "group": "build"
     },
     {
@@ -148,6 +159,17 @@
       "type": "shell",
       "command": "pre-commit run",
       "presentation": {}
+    },
+    {
+      "label": "Build cheatsheet with local data",
+      "options": {
+        "cwd": "packages/cheatsheet-local",
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+        }
+      },
+      "type": "shell",
+      "command": "pnpm build:dev",
     }
   ]
 }
