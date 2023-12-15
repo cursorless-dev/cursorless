@@ -160,8 +160,7 @@
 (for_statement
   left: (_) @name
   right: (_) @value
-  ":" @_.domain.end
-) @_.domain.start.startOf
+) @_.domain
 
 (
   (comment) @comment @textFragment
@@ -345,14 +344,6 @@
     (_) @condition
   ) @_.removal
   (#not-parent-type? @_.removal case_clause)
-) @_.domain
-
-;;!! for name in value:
-;;!      ^^^^    ^^^^^
-;;!  ------------------
-(for_statement
-  left: (_) @name
-  right: (_) @value
 ) @_.domain
 
 ;;!! if True: pass
