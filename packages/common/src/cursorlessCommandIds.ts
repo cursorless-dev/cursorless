@@ -88,7 +88,7 @@ export const cursorlessCommandDescriptions: Record<
     "Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
   ),
   ["cursorless.private.logQuickActions"]: new HiddenCommand(
-    "Show the quick actions available at the current cursor position",
+    "Log the quick actions available at the current cursor position",
   ),
   ["cursorless.takeSnapshot"]: new HiddenCommand(
     "Take a snapshot of the current editor state",

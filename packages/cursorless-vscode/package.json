@@ -146,7 +146,7 @@
       },
       {
         "command": "cursorless.private.logQuickActions",
-        "title": "Cursorless: Show the quick actions available at the current cursor position",
+        "title": "Cursorless: Log the quick actions available at the current cursor position",
         "enablement": "false"
       },
       {
