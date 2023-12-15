@@ -43,10 +43,6 @@ export const scopeSupportFacetInfos: Record<
     description: "A map/dictionary",
     scopeType: "map",
   },
-  statement: {
-    description: "A statement, eg assignment, for loop, etc",
-    scopeType: "statement",
-  },
   ifStatement: {
     description: "An if statement",
     scopeType: "ifStatement",
@@ -62,6 +58,17 @@ export const scopeSupportFacetInfos: Record<
   fieldAccess: {
     description: "A field access",
     scopeType: "private.fieldAccess",
+  },
+
+  statement: {
+    description: "A statement, eg assignment, for loop, etc",
+    scopeType: "statement",
+  },
+  "statement.iteration": {
+    description:
+      "Iteration scope for statements. eg the entire document or statement blocks(body of functions/if statements/for loops/etc)",
+    scopeType: "statement",
+    isIteration: true,
   },
 
   class: {

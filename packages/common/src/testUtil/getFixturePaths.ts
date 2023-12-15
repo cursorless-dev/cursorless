@@ -32,10 +32,8 @@ export function getRecordedTestPaths() {
   return walkFilesSync(directory)
     .filter((p) => p.endsWith(".yml") || p.endsWith(".yaml"))
     .map((p) => ({
-      name: path
-        .relative(relativeDir, p.substring(0, p.lastIndexOf(".")))
-        .replaceAll("\\", "/"),
       path: p,
+      name: pathToName(relativeDir, p),
     }));
 }
 
@@ -47,8 +45,14 @@ export function getScopeTestPaths() {
     .filter((p) => p.endsWith(".scope"))
     .map((p) => ({
       path: p,
-      name: path.relative(relativeDir, p.substring(0, p.lastIndexOf("."))),
+      name: pathToName(relativeDir, p),
       languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
       facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1],
     }));
+}
+
+function pathToName(relativeDir: string, filePath: string) {
+  return path
+    .relative(relativeDir, filePath.substring(0, filePath.lastIndexOf(".")))
+    .replaceAll("\\", "/");
 }

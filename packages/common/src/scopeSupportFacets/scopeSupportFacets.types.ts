@@ -11,11 +11,13 @@ const scopeSupportFacets = [
 
   "list",
   "map",
-  "statement",
   "ifStatement",
   "regularExpression",
   "switchStatementSubject",
   "fieldAccess",
+
+  "statement",
+  "statement.iteration",
 
   "class",
   "className",
