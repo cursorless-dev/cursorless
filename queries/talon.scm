@@ -174,4 +174,7 @@ arguments: (_) @argumentOrParameter.iteration
 
 ;;!! # foo
 ;;!  ^^^^^
-(comment) @comment
+(
+  (comment) @comment
+  (#contiguous! @comment)
+)

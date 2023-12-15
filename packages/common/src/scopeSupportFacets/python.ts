@@ -16,6 +16,9 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal": supportedLegacy,
   "argument.formal.iteration": supportedLegacy,
 
+  "comment.line": supported,
+  "comment.block": supported,
+
   element: notApplicable,
   tags: notApplicable,
   attribute: notApplicable,

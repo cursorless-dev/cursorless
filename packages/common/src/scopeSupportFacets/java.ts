@@ -12,6 +12,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.foreach": supported,
   "type.foreach": supported,
 
+  "comment.line": supported,
+  "comment.block": supported,
+
   element: notApplicable,
   tags: notApplicable,
   attribute: notApplicable,

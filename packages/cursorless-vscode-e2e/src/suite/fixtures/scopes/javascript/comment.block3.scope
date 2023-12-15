@@ -1,0 +1,13 @@
+// Hello
+// World
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:8
+0| // Hello
+  >--------
+1| // World
+   --------<
+
+[Insertion delimiter] = "\n"
