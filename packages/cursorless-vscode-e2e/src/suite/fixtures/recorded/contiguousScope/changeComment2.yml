@@ -12,8 +12,8 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    // hello
-    // world
+    // Hello
+    // World
   selections:
     - anchor: {line: 1, character: 8}
       active: {line: 1, character: 8}

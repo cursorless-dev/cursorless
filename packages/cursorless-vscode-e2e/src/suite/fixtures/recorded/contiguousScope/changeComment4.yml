@@ -12,9 +12,9 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    // hello
+    // Hello
 
-    // world
+    // World
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
@@ -23,7 +23,7 @@ finalState:
   documentContents: |-
 
 
-    // world
+    // World
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}

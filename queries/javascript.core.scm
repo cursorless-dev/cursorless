@@ -434,7 +434,10 @@
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^
-(comment) @comment
+(
+  (comment) @comment
+  (#contiguous! @comment "^//")
+)
 
 ;;!! /\w+/
 ;;!  ^^^^^

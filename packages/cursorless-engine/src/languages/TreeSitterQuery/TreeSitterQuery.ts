@@ -82,6 +82,7 @@ export class TreeSitterQuery {
             range: getNodeRange(node),
             insertionDelimiter: undefined,
             allowMultiple: false,
+            contiguous: false,
           })),
         }),
       )
@@ -114,6 +115,7 @@ export class TreeSitterQuery {
               .map(({ range }) => range)
               .reduce((accumulator, range) => range.union(accumulator)),
             allowMultiple: captures.some((capture) => capture.allowMultiple),
+            contiguous: captures.some((capture) => capture.contiguous),
             insertionDelimiter: captures.find(
               (capture) => capture.insertionDelimiter != null,
             )?.insertionDelimiter,

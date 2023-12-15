@@ -38,7 +38,7 @@ export class TreeSitterTextFragmentScopeHandler extends BaseTreeSitterScopeHandl
       return undefined;
     }
 
-    const { range: contentRange, allowMultiple } = capture;
+    const { range: contentRange, allowMultiple, contiguous } = capture;
 
     if (allowMultiple) {
       throw Error(
@@ -50,6 +50,7 @@ export class TreeSitterTextFragmentScopeHandler extends BaseTreeSitterScopeHandl
       editor,
       domain: contentRange,
       allowMultiple,
+      contiguous,
       getTargets: (isReversed) => [
         new PlainTarget({
           editor,

@@ -116,6 +116,10 @@ function* generateTargetRangesInDirection(
 }
 
 function isAdjacent(scope1: TargetScope, scope2: TargetScope): boolean {
+  if (!scope1.contiguous || !scope2.contiguous) {
+    return false;
+  }
+
   if (scope1.domain.isRangeEqual(scope2.domain)) {
     return true;
   }

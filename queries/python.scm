@@ -163,7 +163,10 @@
   ":" @_.domain.end
 ) @_.domain.start.startOf
 
-(comment) @comment @textFragment
+(
+  (comment) @comment @textFragment
+  (#contiguous! @comment)
+)
 
 (string
   _ @textFragment.start.endOf

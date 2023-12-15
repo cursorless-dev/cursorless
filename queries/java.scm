@@ -66,10 +66,14 @@
 
 ;;!! // comment
 ;;!  ^^^^^^^^^^
-[
-  (line_comment)
-  (block_comment)
-] @comment @textFragment
+(
+  (line_comment) @comment @textFragment
+  (#contiguous! @comment)
+)
+
+;;!! /* comment */
+;;!  ^^^^^^^^^^^^^
+(block_comment) @comment @textFragment
 
 ;;!! int[] values = {1, 2, 3};
 ;;!                 ^^^^^^^^^

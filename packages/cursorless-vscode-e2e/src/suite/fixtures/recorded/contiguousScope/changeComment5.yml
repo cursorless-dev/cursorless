@@ -1,4 +1,4 @@
-languageId: javascript
+languageId: python
 command:
   version: 6
   spokenForm: change comment
@@ -12,8 +12,8 @@ command:
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
-    // Hello
-    // World
+    # Hello
+    # World
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
