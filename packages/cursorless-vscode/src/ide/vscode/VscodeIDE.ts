@@ -116,6 +116,12 @@ export class VscodeIDE implements IDE {
     return editor as EditableTextEditor;
   }
 
+  public async findInDocument(query: string): Promise<void> {
+    await vscode.commands.executeCommand("editor.actions.findWithArgs", {
+      searchString: query,
+    });
+  }
+
   public async findInWorkspace(query: string): Promise<void> {
     await vscode.commands.executeCommand("workbench.action.findInFiles", {
       query,

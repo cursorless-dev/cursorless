@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: scout for air
+  action:
+    name: getText
+    options: {ensureSingleTarget: true}
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+  usePrePhraseSnapshot: true
+spokenFormError: Action 'getText'
+initialState:
+  documentContents: aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.a:
+      start: {line: 0, character: 0}
+      end: {line: 0, character: 3}
+finalState:
+  documentContents: aaa
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 3}
+      isReversed: false
+      hasExplicitRange: false
+returnValue: [aaa]

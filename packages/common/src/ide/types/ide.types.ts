@@ -95,6 +95,12 @@ export interface IDE {
   ): Disposable;
 
   /**
+   * Find occurrences of query string in the active document.
+   * @param query The string query to search for
+   */
+  findInDocument(query: string): Promise<void>;
+
+  /**
    * Find occurrences of query string in all files in the workspace
    * @param query The string query to search for
    */
