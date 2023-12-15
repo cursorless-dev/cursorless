@@ -49,7 +49,7 @@
     "onView:cursorless.scopes",
     "onCommand:cursorless.command",
     "onCommand:cursorless.internal.updateCheatsheetDefaults",
-    "onCommand:cursorless.internal.showQuickActions",
+    "onCommand:cursorless.private.logQuickActions",
     "onCommand:cursorless.keyboard.escape",
     "onCommand:cursorless.keyboard.modal.modeOff",
     "onCommand:cursorless.keyboard.modal.modeOn",
@@ -145,7 +145,7 @@
         "enablement": "false"
       },
       {
-        "command": "cursorless.internal.showQuickActions",
+        "command": "cursorless.private.logQuickActions",
         "title": "Cursorless: Show the quick actions available at the current cursor position",
         "enablement": "false"
       },

@@ -15,7 +15,7 @@ import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { showQuickActions } from "./showQuickActions";
+import { logQuickActions } from "./logQuickActions";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
@@ -57,7 +57,7 @@ export function registerCommands(
     ["cursorless.showQuickPick"]: showQuickPick,
     ["cursorless.showDocumentation"]: showDocumentation,
 
-    ["cursorless.internal.showQuickActions"]: showQuickActions,
+    ["cursorless.private.logQuickActions"]: logQuickActions,
 
     // Hats
     ["cursorless.toggleDecorations"]: hats.toggle,
