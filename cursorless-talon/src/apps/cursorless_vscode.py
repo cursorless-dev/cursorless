@@ -1,7 +1,4 @@
-from talon import Context, actions, app
-
-from ..actions.get_text import cursorless_get_text_action
-from ..targets.target_types import CursorlessTarget
+from talon import Context, actions
 
 ctx = Context()
 
