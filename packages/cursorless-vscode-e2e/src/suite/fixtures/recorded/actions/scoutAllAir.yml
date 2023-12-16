@@ -1,9 +1,9 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: scout air
+  spokenForm: scout all air
   action:
-    name: findInDocument
+    name: findInWorkspace
     target:
       type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}
