@@ -82,7 +82,11 @@ export function validateQueryCaptures(queryPath: string, rawQuery: string) {
 
   const message = errors.join("\n");
 
-  console.error(message);
+  if (ide().runMode === "test") {
+    throw new Error(message);
+  } else {
+    console.error(message);
 
-  showError(ide().messages, "TreeSitterQuery.validateCaptures", message);
+    showError(ide().messages, "TreeSitterQuery.validateCaptures", message);
+  }
 }
