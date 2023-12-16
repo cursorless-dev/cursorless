@@ -16,7 +16,8 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   fieldAccess: supported,
 
   statement: supported,
-  "statement.iteration": supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.block": supported,
 
   class: supported,
   className: supported,

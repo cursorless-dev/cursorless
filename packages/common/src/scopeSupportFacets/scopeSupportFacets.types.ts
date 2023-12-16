@@ -17,7 +17,8 @@ const scopeSupportFacets = [
   "fieldAccess",
 
   "statement",
-  "statement.iteration",
+  "statement.iteration.document",
+  "statement.iteration.block",
 
   "class",
   "className",

@@ -64,9 +64,14 @@ export const scopeSupportFacetInfos: Record<
     description: "A statement, eg assignment, for loop, etc",
     scopeType: "statement",
   },
-  "statement.iteration": {
+  "statement.iteration.document": {
+    description: "Iteration scope for statements. The entire document.",
+    scopeType: "statement",
+    isIteration: true,
+  },
+  "statement.iteration.block": {
     description:
-      "Iteration scope for statements. eg the entire document or statement blocks(body of functions/if statements/for loops/etc)",
+      "Iteration scope for statements. Statement blocks(body of functions/if statements/for loops/etc).",
     scopeType: "statement",
     isIteration: true,
   },
