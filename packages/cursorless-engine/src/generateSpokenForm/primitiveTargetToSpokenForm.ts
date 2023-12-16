@@ -59,7 +59,7 @@ export class PrimitiveTargetSpokenFormGenerator {
           ];
         }
         throw new NoSpokenFormError(
-          `Modifier '${modifier.type}' with ancestor index > 0`,
+          `Modifier '${modifier.type}' with ancestor index ${modifier.ancestorIndex}`,
         );
 
       case "everyScope":
