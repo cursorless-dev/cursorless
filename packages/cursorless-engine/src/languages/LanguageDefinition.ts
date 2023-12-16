@@ -1,6 +1,11 @@
-import { ScopeType, SimpleScopeType, showError } from "@cursorless/common";
+import {
+  ScopeType,
+  SimpleScopeType,
+  showError,
+  simpleScopeTypeTypes,
+} from "@cursorless/common";
 import { existsSync, readFileSync } from "fs";
-import { dirname, join } from "path";
+import { dirname, join, basename } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
@@ -49,6 +54,7 @@ export class LanguageDefinition {
     const rawQuery = treeSitter
       .getLanguage(languageId)!
       .query(rawLanguageQueryString);
+
     const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
 
     return new LanguageDefinition(query);
@@ -104,6 +110,9 @@ function readQueryFileAndImports(languageQueryPath: string) {
       }
 
       const rawQuery = readFileSync(queryPath, "utf8");
+
+      validateCaptures(queryPath, rawQuery);
+
       rawQueryStrings[queryPath] = rawQuery;
       matchAll(
         rawQuery,
@@ -140,4 +149,57 @@ function readQueryFileAndImports(languageQueryPath: string) {
   }
 
   return Object.values(rawQueryStrings).join("\n");
+}
+
+const specialCaptures = ["_", "textFragment", "dummy"];
+const captureNames = [...simpleScopeTypeTypes, ...specialCaptures].join("|");
+
+const captureRelationships = ["domain", "removal", "prefix", "interior"];
+
+const captureLeadingTrailingRelationships = [
+  "leading",
+  "trailing",
+  "leading.startOf",
+  "leading.endOf",
+  "trailing.startOf",
+  "trailing.endOf",
+];
+
+const capturePositions = [
+  "start",
+  "end",
+  "start.startOf",
+  "start.endOf",
+  "end.startOf",
+  "end.endOf",
+];
+
+const allowedCaptures: string[] = [];
+
+for (const captureName of captureNames) {
+  allowedCaptures.push(captureName);
+  allowedCaptures.push(`${captureName}.iteration`);
+  allowedCaptures.push(`${captureName}.iteration.domain`);
+
+  for (const relationship of captureLeadingTrailingRelationships) {
+    allowedCaptures.push(`${captureName}.${relationship}`);
+  }
+
+  for (const relationship of captureRelationships) {
+    allowedCaptures.push(`${captureName}.${relationship}`);
+
+    for (const position of capturePositions) {
+      allowedCaptures.push(`${captureName}.${relationship}.${position}`);
+    }
+  }
+}
+
+const pattern = new RegExp(`@(?!${captureNames})\\w*`, "g");
+
+function validateCaptures(queryPath: string, rawQuery: string) {
+  const match = rawQuery.match(pattern);
+  if (match != null) {
+    console.log(basename(queryPath));
+    console.log(match);
+  }
 }
