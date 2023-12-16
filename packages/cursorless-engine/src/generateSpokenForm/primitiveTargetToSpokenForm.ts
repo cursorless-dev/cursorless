@@ -54,7 +54,7 @@ export class PrimitiveTargetSpokenFormGenerator {
         }
         if (modifier.ancestorIndex === 1) {
           return [
-            this.spokenFormMap.modifierExtra.grandScope,
+            this.spokenFormMap.modifierExtra.ancestor,
             this.handleScopeType(modifier.scopeType),
           ];
         }

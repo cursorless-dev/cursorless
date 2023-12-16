@@ -133,7 +133,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     next: "next",
     forward: "forward",
     backward: "backward",
-    grandScope: "grand",
+    ancestor: "grand",
   },
 
   customRegex: {},

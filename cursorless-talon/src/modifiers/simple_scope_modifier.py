@@ -24,7 +24,7 @@ def cursorless_simple_scope_modifier(m) -> dict[str, Any]:
                 "scopeType": m.cursorless_scope_type,
             }
 
-        if modifier == "grand":
+        if modifier == "ancestor":
             return {
                 "type": "containingScope",
                 "scopeType": m.cursorless_scope_type,
