@@ -14,6 +14,12 @@
 ;;!  ^^^^^^^^
 (string) @string
 
+;;!! // aaa
+;;!  ^^^^^^
+;;!! /* aaa */
+;;!  ^^^^^^^^^
+(comment) @comment @textFragment
+
 ;;!! {"value": 0}
 ;;!   ^^^^^^^  ^
 ;;!   ----------

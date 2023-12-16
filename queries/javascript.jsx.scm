@@ -90,6 +90,7 @@
 ;;!       ^^^
 (jsx_attribute
   (property_identifier) @collectionKey
+  (_)? @_.trailing.startOf
 ) @_.domain
 
 ;;!! <aaa bbb="ccc" />
