@@ -24,6 +24,7 @@ import {
   defaultShapeAdjustments,
 } from "./shapeAdjustments";
 import { performPr1868ShapeUpdateInit } from "./performPr1868ShapeUpdateInit";
+import { TextDecoder } from 'util';
 
 const CURSORLESS_HAT_SHAPES_SUFFIX = ".svg";
 
@@ -64,7 +65,8 @@ export default class VscodeHatRenderer {
   private notifier: Notifier<[]> = new Notifier();
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
   private hatsDirWatcherDisposable?: vscode.Disposable;
-  private hatShapeOverrides: Record<string, string> = {};
+  private hatShapeOverrides: Record<string, vscode.Uri> = {};
+  private decoder: TextDecoder;
 
   constructor(
     private vscodeApi: VscodeApi,
@@ -75,6 +77,7 @@ export default class VscodeHatRenderer {
   ) {
     extensionContext.subscriptions.push(this);
 
+    this.decoder = new TextDecoder('utf-8');
     this.recomputeDecorations = this.recomputeDecorations.bind(this);
 
     this.disposables.push(
@@ -149,7 +152,10 @@ export default class VscodeHatRenderer {
 
     for (const file of files) {
       const name = path.basename(file, CURSORLESS_HAT_SHAPES_SUFFIX);
-      this.hatShapeOverrides[name] = file;
+      this.hatShapeOverrides[name] = vscode.Uri.from({
+        scheme: 'file',
+        path: file
+      });
     }
 
     await this.recomputeDecorations();
@@ -337,13 +343,10 @@ export default class VscodeHatRenderer {
   ): Promise<SvgInfo | null> {
     const iconPath =
       this.hatShapeOverrides[shape] ??
-      path.join(
-        this.extensionContext.extensionPath,
-        "images",
-        "hats",
-        `${shape}.svg`,
+      vscode.Uri.joinPath(this.extensionContext.extensionUri,
+        "images", "hats", `${shape}.svg`,
       );
-    const rawSvg = await fs.readFile(iconPath, "utf8");
+    const rawSvg = this.decoder.decode(await vscode.workspace.fs.readFile(iconPath));
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;
 
     if (!this.checkSvg(shape, rawSvg)) {
