@@ -1,6 +1,5 @@
 import { showError, simpleScopeTypeTypes } from "@cursorless/common";
 import { escapeRegExp } from "lodash";
-import { basename } from "node:path";
 import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
@@ -34,22 +33,28 @@ for (const suffix of rangeSuffixes) {
 }
 
 for (const captureName of captureNames) {
+  // Wildcard is not allowed by itself without a relationship
   if (captureName !== wildcard) {
+    // eg: statement
     allowedCaptures.push(captureName);
   }
 
   for (const relationship of positionRelationships) {
+    // eg: statement.leading
     allowedCaptures.push(`${captureName}.${relationship}`);
 
     for (const suffix of positionSuffixes) {
+      // eg: statement.leading.endOf
       allowedCaptures.push(`${captureName}.${relationship}.${suffix}`);
     }
   }
 
   for (const relationship of rangeRelationships) {
+    // eg: statement.domain
     allowedCaptures.push(`${captureName}.${relationship}`);
 
     for (const suffix of rangeSuffixes) {
+      // eg: statement.domain.start | statement.domain.start.endOf
       allowedCaptures.push(`${captureName}.${relationship}.${suffix}`);
     }
   }
@@ -64,14 +69,12 @@ const pattern = new RegExp(
   "gm",
 );
 
-export function validateQueryCaptures(queryPath: string, rawQuery: string) {
+export function validateQueryCaptures(file: string, rawQuery: string) {
   const matches = [...rawQuery.matchAll(pattern)];
 
   if (matches.length === 0) {
     return;
   }
-
-  const file = basename(queryPath);
 
   const errors = matches.map((match) => {
     const text = match.input!.slice(0, match.index!);
@@ -82,11 +85,13 @@ export function validateQueryCaptures(queryPath: string, rawQuery: string) {
 
   const message = errors.join("\n");
 
+  showError(
+    ide().messages,
+    "validateQueryCaptures.invalidCaptureName",
+    message,
+  );
+
   if (ide().runMode === "test") {
     throw new Error(message);
-  } else {
-    console.error(message);
-
-    showError(ide().messages, "TreeSitterQuery.validateCaptures", message);
   }
 }

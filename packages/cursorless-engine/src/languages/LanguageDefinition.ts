@@ -1,6 +1,6 @@
 import { ScopeType, SimpleScopeType, showError } from "@cursorless/common";
 import { existsSync, readFileSync } from "fs";
-import { dirname, join } from "path";
+import { basename, dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
@@ -95,6 +95,8 @@ function readQueryFileAndImports(languageQueryPath: string) {
     [languageQueryPath]: null,
   };
 
+  const doValidation = ide().runMode !== "production";
+
   // Keep reading imports until we've read all the imports. Every time we
   // encounter an import in a query file, we add it to the map with a value
   // of null, so that it will be read on the next iteration
@@ -104,9 +106,13 @@ function readQueryFileAndImports(languageQueryPath: string) {
         continue;
       }
 
+      const fileName = basename(queryPath);
+
       const rawQuery = readFileSync(queryPath, "utf8");
 
-      validateQueryCaptures(queryPath, rawQuery);
+      if (doValidation) {
+        validateQueryCaptures(fileName, rawQuery);
+      }
 
       rawQueryStrings[queryPath] = rawQuery;
       matchAll(
@@ -121,18 +127,9 @@ function readQueryFileAndImports(languageQueryPath: string) {
         /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/.]+)['"]?[^\S\r\n]*$/gm,
         (match) => {
           const relativeImportPath = match[1];
-          const canonicalSyntax = `;; import ${relativeImportPath}`;
 
-          if (match[0] !== canonicalSyntax) {
-            showError(
-              ide().messages,
-              "LanguageDefinition.readQueryFileAndImports.malformedImport",
-              `Malformed import statement in ${queryPath}: "${match[0]}". Import statements must be of the form "${canonicalSyntax}"`,
-            );
-
-            if (ide().runMode === "test") {
-              throw new Error("Invalid import statement");
-            }
+          if (doValidation) {
+            validateImportSyntax(fileName, relativeImportPath, match[0]);
           }
 
           const importQueryPath = join(dirname(queryPath), relativeImportPath);
@@ -144,4 +141,24 @@ function readQueryFileAndImports(languageQueryPath: string) {
   }
 
   return Object.values(rawQueryStrings).join("\n");
+}
+
+function validateImportSyntax(
+  file: string,
+  relativeImportPath: string,
+  actual: string,
+) {
+  const canonicalSyntax = `;; import ${relativeImportPath}`;
+
+  if (actual !== canonicalSyntax) {
+    showError(
+      ide().messages,
+      "LanguageDefinition.readQueryFileAndImports.malformedImport",
+      `Malformed import statement in ${file}: "${actual}". Import statements must be of the form "${canonicalSyntax}"`,
+    );
+
+    if (ide().runMode === "test") {
+      throw new Error("Invalid import statement");
+    }
+  }
 }
