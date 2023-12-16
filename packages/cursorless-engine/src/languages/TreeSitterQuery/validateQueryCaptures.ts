@@ -57,7 +57,7 @@ for (const captureName of captureNames) {
 
 const allowedCapturesString = allowedCaptures.map(escapeRegExp).join("|");
 
-// Not a comment. ie line it's not starting with `;;`
+// Not a comment. ie line is not starting with `;;`
 // Group starts with `@` and  followed by a string that's not in allowed captures
 const pattern = new RegExp(
   `^(?!;;).*(@(?!${allowedCapturesString})[.\\w]*)`,
