@@ -50,7 +50,6 @@ export class LanguageDefinition {
     const rawQuery = treeSitter
       .getLanguage(languageId)!
       .query(rawLanguageQueryString);
-
     const query = TreeSitterQuery.create(languageId, treeSitter, rawQuery);
 
     return new LanguageDefinition(query);
