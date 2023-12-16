@@ -17,11 +17,20 @@ import { endToEndTestSetup } from "../endToEndTestSetup";
  * and needs to be manually updated on every command migration.
  */
 
-suite("commandHistory", async function () {
+suite("commandHistory", function () {
   endToEndTestSetup(this);
 
-  const tmpdir = (await getCursorlessApi()).testHelpers!
-    .cursorlessCommandHistoryDirPath;
+  let tmpdir = "";
+
+  suiteSetup(async () => {
+    tmpdir = (await getCursorlessApi()).testHelpers!
+      .cursorlessCommandHistoryDirPath;
+  });
+
+  this.afterEach(async () => {
+    await rm(tmpdir, { recursive: true, force: true });
+    sinon.restore();
+  });
 
   test("commandHistory: active", () => testActive(tmpdir));
   test("commandHistory: inactive", () => testInactive(tmpdir));
@@ -33,14 +42,10 @@ async function testActive(tmpdir: string) {
   await initalizeEditor();
   await takeCommand("h");
 
-  try {
-    assert.ok(existsSync(tmpdir));
-    const paths = await readdir(tmpdir);
-    assert.lengthOf(paths, 1);
-    assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
-  } finally {
-    await afterEach(tmpdir);
-  }
+  assert.ok(existsSync(tmpdir));
+  const paths = await readdir(tmpdir);
+  assert.lengthOf(paths, 1);
+  assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
 }
 
 async function testInactive(tmpdir: string) {
@@ -48,11 +53,7 @@ async function testInactive(tmpdir: string) {
   await initalizeEditor();
   await takeCommand("h");
 
-  try {
-    assert.notOk(existsSync(tmpdir));
-  } finally {
-    await afterEach(tmpdir);
-  }
+  assert.notOk(existsSync(tmpdir));
 }
 
 async function testError(tmpdir: string) {
@@ -65,21 +66,12 @@ async function testError(tmpdir: string) {
     // Do nothing
   }
 
-  try {
-    assert.ok(existsSync(tmpdir));
-    const paths = await readdir(tmpdir);
-    assert.lengthOf(paths, 1);
-    assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
-    const content = await readFile(path.join(tmpdir, paths[0]), "utf8");
-    assert.ok(content.includes('"thrownError":'));
-  } finally {
-    await afterEach(tmpdir);
-  }
-}
-
-async function afterEach(tmpdir: string) {
-  await rm(tmpdir, { recursive: true, force: true });
-  sinon.restore();
+  assert.ok(existsSync(tmpdir));
+  const paths = await readdir(tmpdir);
+  assert.lengthOf(paths, 1);
+  assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
+  const content = await readFile(path.join(tmpdir, paths[0]), "utf8");
+  assert.ok(content.includes('"thrownError":'));
 }
 
 async function injectFakeIsActive(isActive: boolean): Promise<void> {
