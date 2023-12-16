@@ -38,7 +38,6 @@ for (const captureName of captureNames) {
   }
 
   for (const relationship of positionRelationships) {
-    1;
     allowedCaptures.push(`${captureName}.${relationship}`);
 
     for (const suffix of positionSuffixes) {
