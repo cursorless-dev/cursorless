@@ -5,6 +5,7 @@ import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
 const textFragment = "textFragment";
+const dummy = "dummy";
 const captureNames = [wildcard, ...simpleScopeTypeTypes];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
@@ -26,7 +27,7 @@ const rangeSuffixes = [
   "end.endOf",
 ];
 
-const allowedCaptures: string[] = ["dummy", textFragment];
+const allowedCaptures: string[] = [dummy, textFragment];
 
 for (const suffix of rangeSuffixes) {
   allowedCaptures.push(`${textFragment}.${suffix}`);
