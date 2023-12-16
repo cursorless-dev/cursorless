@@ -116,7 +116,13 @@ export class VscodeIDE implements IDE {
     return editor as EditableTextEditor;
   }
 
-  public async findInDocument(query: string): Promise<void> {
+  public async findInDocument(
+    query: string,
+    editor?: TextEditor,
+  ): Promise<void> {
+    if (editor != null && !editor.isActive) {
+      await this.getEditableTextEditor(editor).focus();
+    }
     await vscode.commands.executeCommand("editor.actions.findWithArgs", {
       searchString: query,
     });

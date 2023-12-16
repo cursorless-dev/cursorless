@@ -3,7 +3,7 @@ import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { ensureSingleTarget } from "../util/targetUtils";
 import { Actions } from "./Actions";
-import { SimpleAction, ActionReturnValue } from "./actions.types";
+import { ActionReturnValue, SimpleAction } from "./actions.types";
 
 abstract class Find implements SimpleAction {
   constructor(private actions: Actions) {
