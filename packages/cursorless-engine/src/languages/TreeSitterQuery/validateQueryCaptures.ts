@@ -40,7 +40,7 @@ for (const captureName of captureNames) {
     // eg: statement
     allowedCaptures.add(captureName);
 
-    // eg: statement.start
+    // eg: statement.start | statement.start.endOf
     for (const suffix of rangeSuffixes) {
       allowedCaptures.add(`${captureName}.${suffix}`);
     }
