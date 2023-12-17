@@ -69,7 +69,7 @@ const pattern = new RegExp(
   "gm",
 );
 
-export function validateQueryCaptures(file: string, rawQuery: string) {
+export function validateQueryCaptures(file: string, rawQuery: string): void {
   const matches = [...rawQuery.matchAll(pattern)];
 
   if (matches.length === 0) {
