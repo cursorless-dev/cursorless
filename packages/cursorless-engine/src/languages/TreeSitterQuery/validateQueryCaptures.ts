@@ -39,11 +39,11 @@ for (const captureName of captureNames) {
   if (captureName !== wildcard) {
     // eg: statement
     allowedCaptures.add(captureName);
-  }
 
-  // eg: statement.start
-  for (const suffix of rangeSuffixes) {
-    allowedCaptures.add(`${captureName}.${suffix}`);
+    // eg: statement.start
+    for (const suffix of rangeSuffixes) {
+      allowedCaptures.add(`${captureName}.${suffix}`);
+    }
   }
 
   for (const relationship of positionRelationships) {
