@@ -1,4 +1,6 @@
+import { FakeIDE } from "@cursorless/common";
 import assert from "assert";
+import { injectIde } from "../../singletons/ide.singleton";
 import { validateQueryCaptures } from "./validateQueryCaptures";
 
 const testCases: { name: string; isOk: boolean; content: string }[] = [
@@ -65,21 +67,28 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     content: "(if_statement) @statement.leading.start",
   },
   {
-    name: "Text fragment start",
+    name: "Text fragment",
     isOk: false,
-    content: "(comment) @textFragment.start",
+    content: "(comment) @textFragment.removal",
   },
 ];
 
-suite("validateQueryCaptures", () => {
+suite("validateQueryCaptures", function () {
+  suiteSetup(() => {
+    injectIde(new FakeIDE());
+  });
+
   for (const testCase of testCases) {
     const name = [testCase.isOk ? "OK" : "Error", testCase.name].join(": ");
+
     test(name, () => {
-      try {
+      const runTest = () =>
         validateQueryCaptures(testCase.name, testCase.content);
-        assert.ok(testCase.isOk, "Expected no error");
-      } catch (error) {
-        assert.ok(!testCase.isOk, "Expected error");
+
+      if (testCase.isOk) {
+        assert.doesNotThrow(runTest);
+      } else {
+        assert.throws(runTest);
       }
     });
   }
