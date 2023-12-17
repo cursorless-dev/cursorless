@@ -32,16 +32,19 @@ class Month {
     return [
       `[${this.month}]`,
       `Total commands: ${this.count}`,
-      `Actions:\n${this.serializeMap(this.actions)}`,
-      `Modifiers:\n${this.serializeMap(this.modifiers)}`,
-      `Scope types:\n${this.serializeMap(this.scopeTypes)}`,
+      this.serializeMap("Actions", this.actions),
+      this.serializeMap("Modifiers", this.modifiers),
+      this.serializeMap("Scope types", this.scopeTypes),
     ].join("\n\n");
   }
 
-  private serializeMap(map: Record<string, number>) {
+  private serializeMap(name: string, map: Record<string, number>) {
     const entries = Object.entries(map);
     entries.sort((a, b) => b[1] - a[1]);
-    return entries.map(([key, value]) => `  ${key}: ${value}`).join("\n");
+    const entriesSerialized = entries
+      .map(([key, value]) => `  ${key}: ${value}`)
+      .join("\n");
+    return `${name} (${entries.length}):\n${entriesSerialized}`;
   }
 
   append(entry: CommandHistoryEntry) {
