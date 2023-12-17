@@ -57,6 +57,11 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     content: "(if_statement) @statement.unknown",
   },
   {
+    name: "Single @",
+    isOk: false,
+    content: "(if_statement) @",
+  },
+  {
     name: "Single wildcard",
     isOk: false,
     content: "(if_statement) @_",
