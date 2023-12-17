@@ -62,6 +62,11 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     content: "(if_statement) @_",
   },
   {
+    name: "Wildcard start",
+    isOk: false,
+    content: "(if_statement) @_.start",
+  },
+  {
     name: "Leading start",
     isOk: false,
     content: "(if_statement) @statement.leading.start",
