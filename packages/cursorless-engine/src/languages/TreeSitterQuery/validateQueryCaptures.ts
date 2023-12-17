@@ -79,8 +79,7 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
   for (const match of matches) {
     const captureName = match[1];
     if (!allowedCaptures.has(captureName)) {
-      const text = match.input!.slice(0, match.index!);
-      const lineNumber = text.split("\n").length;
+      const lineNumber = match.input!.slice(0, match.index!).split("\n").length;
       errors.push(`${file}(${lineNumber}) invalid capture '@${captureName}'.`);
     }
   }
