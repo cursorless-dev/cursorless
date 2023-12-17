@@ -29,7 +29,13 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
   {
     name: "Dummy capture",
     isOk: true,
-    content: "(if_statement) @dummy",
+    content: "(if_statement) @dummy @_foo",
+  },
+  {
+    name: "No range dummy relationships",
+    isOk: false,
+    content:
+      "(if_statement) @dummy.start @_foo.start @dummy.startOf @_foo.startOf",
   },
   {
     name: "Text fragment",
