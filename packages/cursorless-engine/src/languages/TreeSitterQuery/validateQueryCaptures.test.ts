@@ -18,13 +18,13 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Position captures",
     isOk: true,
     content:
-      "(if_statement) @statement.leading.startOf @statement.trailing.endOf",
+      "(if_statement) @statement.startOf @statement.leading.startOf @statement.trailing.endOf",
   },
   {
     name: "Range captures",
     isOk: true,
     content:
-      "(if_statement) @statement.removal.start @statement.interior.start.endOf",
+      "(if_statement) @statement.start @statement.start.endOf @statement.removal.start @statement.interior.start.endOf",
   },
   {
     name: "Dummy capture",
@@ -70,11 +70,6 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Wildcard start",
     isOk: false,
     content: "(if_statement) @_.start",
-  },
-  {
-    name: "Leading start",
-    isOk: false,
-    content: "(if_statement) @statement.leading.start",
   },
   {
     name: "Text fragment removal",
