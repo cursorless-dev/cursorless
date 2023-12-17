@@ -14,12 +14,18 @@
 ;;!  ^^^^^^^^
 (string) @string
 
+;;!! // aaa
+;;!  ^^^^^^
+;;!! /* aaa */
+;;!  ^^^^^^^^^
+(comment) @comment @textFragment
+
 ;;!! {"value": 0}
 ;;!   ^^^^^^^  ^
 ;;!   ----------
 (pair
-  key: (_) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
-  value: (_) @value @collectionKey.trailing.end.startOf @value.leading.end.startOf
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
 ;;!! {"bbb": 0, "ccc": 0}

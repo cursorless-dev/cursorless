@@ -35,8 +35,9 @@
   ;;!! foo = ...;
   ;;!  ^^^-------
   (field_definition
-    property: (_) @name
-  ) @name.domain.start
+    property: (_) @name @value.leading.endOf
+    value: (_)? @value @name.trailing.startOf
+  ) @_.domain.start
   .
-  ";"? @name.domain.end
+  ";"? @_.domain.end
 )

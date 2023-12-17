@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
@@ -6,14 +8,83 @@ import {
 const { supported, notApplicable } = ScopeSupportFacetLevel;
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
-  namedFunction: supported,
-  ["name.assignment"]: supported,
-  ["key.mapPair"]: supported,
-  ["key.mapPair.iteration"]: supported,
-  ["value.mapPair"]: supported,
-  ["value.mapPair.iteration"]: supported,
-  ["value.assignment"]: supported,
+  list: supported,
+  map: supported,
+  statement: supported,
+  ifStatement: supported,
+  regularExpression: supported,
+  switchStatementSubject: supported,
+  fieldAccess: supported,
 
-  ["key.attribute"]: notApplicable,
-  ["tags"]: notApplicable,
+  class: supported,
+  className: supported,
+
+  namedFunction: supported,
+  "namedFunction.method": supported,
+  anonymousFunction: supported,
+  functionName: supported,
+
+  functionCall: supported,
+  "functionCall.constructor": supported,
+  functionCallee: supported,
+  "functionCallee.constructor": supported,
+
+  "argument.actual": supported,
+  "argument.actual.iteration": supported,
+  "argument.formal": supported,
+  "argument.formal.iteration": supported,
+
+  "comment.line": supported,
+  "comment.block": supported,
+
+  "string.singleLine": supported,
+  "string.multiLine": supported,
+
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "branch.try": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+
+  "condition.if": supported,
+  "condition.while": supported,
+  "condition.doWhile": supported,
+  "condition.for": supported,
+  "condition.ternary": supported,
+  "condition.switchCase": supported,
+
+  "name.foreach": supported,
+  "name.assignment": supported,
+  "name.assignment.pattern": supported,
+  "name.function": supported,
+  "name.class": supported,
+  "name.field": supported,
+
+  "key.mapPair": supported,
+  "key.mapPair.iteration": supported,
+
+  "value.mapPair": supported,
+  "value.mapPair.iteration": supported,
+  "value.assignment": supported,
+  "value.foreach": supported,
+  "value.return": supported,
+  "value.return.lambda": supported,
+  "value.field": supported,
+
+  element: supported,
+  tags: supported,
+  startTag: supported,
+  endTag: supported,
+  attribute: supported,
+  "key.attribute": supported,
+  "value.attribute": supported,
+
+  "type.assignment": notApplicable,
+  "type.formalParameter": notApplicable,
+  "type.return": notApplicable,
+  "type.field": notApplicable,
+  "type.foreach": notApplicable,
+  "type.interface": notApplicable,
+  command: notApplicable,
 };

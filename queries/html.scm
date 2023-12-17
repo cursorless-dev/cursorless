@@ -19,11 +19,11 @@
 ;;!! <aaa id="me">
 ;;!       ^^
 (attribute
-  (attribute_name) @collectionKey @collectionKey.trailing.start.endOf
+  (attribute_name) @collectionKey
   [
     (quoted_attribute_value)
     (attribute_value)
-  ] ? @collectionKey.trailing.end.startOf
+  ] ? @collectionKey.trailing.startOf
 ) @_.domain
 
 ;;!! <aaa value=2>
@@ -31,11 +31,11 @@
 ;;!! <aaa id="me">
 ;;!          ^^^^
 (attribute
-  (attribute_name) @value.leading.start.endOf
+  (attribute_name) @value.leading.endOf
   [
     (quoted_attribute_value)
     (attribute_value)
-  ] @value @value.leading.end.startOf
+  ] @value
 ) @value.domain
 
 ;;!! <aaa id="me">

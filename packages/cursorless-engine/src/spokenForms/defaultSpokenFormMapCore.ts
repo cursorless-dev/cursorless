@@ -100,6 +100,9 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     string: isPrivate("parse tree string"),
     ["private.switchStatementSubject"]: isPrivate("subject"),
   },
+  complexScopeTypeType: {
+    glyph: "glyph",
+  },
 
   surroundingPairForceDirection: {
     left: "left",

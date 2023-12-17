@@ -1,61 +1,107 @@
 import { SimpleScopeTypeType } from "../types/command/PartialTargetDescriptor.types";
 
 const scopeSupportFacets = [
-  //   "list",
-  //   "list.interior",
-  //   "map",
-  //   "map.interior",
-  //   "collectionKey",
+  "command",
+
+  "element",
+  "tags",
+  "startTag",
+  "endTag",
+  "attribute",
+
+  "list",
+  "map",
+  "statement",
+  "ifStatement",
+  "regularExpression",
+  "switchStatementSubject",
+  "fieldAccess",
+
+  "class",
+  "className",
   "namedFunction",
-  //   "namedFunction.interior",
-  //   "functionName",
-  //   "anonymousFunction",
-  //   "anonymousFunction.interior",
+  "namedFunction.method",
+  "anonymousFunction",
+  "functionName",
+
+  "functionCall",
+  "functionCall.constructor",
+  "functionCallee",
+  "functionCallee.constructor",
+
+  "argument.actual",
+  "argument.actual.iteration",
+  "argument.formal",
+  "argument.formal.iteration",
+
+  "comment.line",
+  "comment.block",
+
+  "string.singleLine",
+  "string.multiLine",
+
+  "branch.if",
+  "branch.if.iteration",
+  "branch.try",
+  "branch.switchCase",
+  "branch.switchCase.iteration",
+  "branch.ternary",
+
+  "condition.if",
+  "condition.while",
+  "condition.doWhile",
+  "condition.for",
+  "condition.ternary",
+  "condition.switchCase",
+
   "name.assignment",
+  "name.assignment.pattern",
+  "name.foreach",
+  "name.function",
+  "name.class",
+  "name.field",
+
   "key.attribute",
   "key.mapPair",
   "key.mapPair.iteration",
+
   "value.assignment",
   "value.mapPair",
   "value.mapPair.iteration",
-  //   "value.assignment.removal",
-  //   "value.return",
-  //   "value.return.removal",
-  //   "value.collectionItem",
-  //   "value.collectionItem.removal",
-  //   "statement",
-  //   "ifStatement",
-  //   "condition.if",
-  //   "condition.while",
-  //   "condition.doWhile",
-  //   "condition.for",
-  //   "condition.ternary",
-  //   "branch",
-  //   "comment.line",
-  //   "comment.block",
-  //   "string.singleLine",
-  //   "string.multiLine",
-  //   "textFragment",
-  //   "functionCall",
-  //   "functionCallee",
-  //   "argumentOrParameter.argument",
-  //   "argumentOrParameter.argument.removal",
-  //   "argumentOrParameter.parameter",
-  //   "argumentOrParameter.parameter.removal",
-  //   "class",
-  //   "class.interior",
-  //   "className",
-  //   "type",
-  "tags",
+  "value.attribute",
+  "value.foreach",
+  "value.return",
+  "value.return.lambda",
+  "value.field",
+
+  "type.assignment",
+  "type.formalParameter",
+  "type.return",
+  "type.field",
+  "type.foreach",
+  "type.interface",
+
+  // FIXME: Still in legacy
+  // section
+  // selector
+  // unit
+  // collectionItem
+  // textFragment
 ] as const;
 
 const textualScopeSupportFacets = [
   "character",
   "word",
   "token",
+  "identifier",
   "line",
+  "sentence",
   "paragraph",
   "document",
+  "nonWhitespaceSequence",
+  // FIXME: Still in legacy
+  // "boundedNonWhitespaceSequence",
+  "url",
 ] as const;
 
 export interface ScopeSupportFacetInfo {
@@ -66,6 +112,7 @@ export interface ScopeSupportFacetInfo {
 
 export enum ScopeSupportFacetLevel {
   supported,
+  supportedLegacy,
   unsupported,
   notApplicable,
 }
