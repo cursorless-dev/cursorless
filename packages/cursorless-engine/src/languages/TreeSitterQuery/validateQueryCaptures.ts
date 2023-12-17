@@ -68,7 +68,7 @@ for (const captureName of captureNames) {
 }
 
 // Not a comment. ie line is not starting with `;;`
-// Group starts with `@` and is followed by words and/or dots
+// Capture starts with `@` and is followed by words and/or dots
 const capturePattern = new RegExp(`^(?!;;).*@([\\w.]*)`, "gm");
 
 export function validateQueryCaptures(file: string, rawQuery: string): void {
