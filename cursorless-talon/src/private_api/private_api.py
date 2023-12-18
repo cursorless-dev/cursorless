@@ -7,7 +7,6 @@ from ..targets.target_types import (
     ListTarget,
     PrimitiveTarget,
     RangeTarget,
-    RangeTargetType,
 )
 from .extract_decorated_marks import extract_decorated_marks
 
