@@ -204,7 +204,7 @@ class Actions:
         name: str, destination: CursorlessDestination
     ):
         """Cursorless: Insert community snippet <name>"""
-        snippet: CommunityInsertionSnippet = actions.user.get_wrapper_snippet(name)
+        snippet: CommunityInsertionSnippet = actions.user.get_insertion_snippet(name)
         actions.user.cursorless_insert_snippet(
             snippet.body, destination, snippet.scopes
         )
