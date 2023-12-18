@@ -98,14 +98,12 @@ const parseTreeAction: ActionDescriptor = {
 };
 const getTextAction: ActionDescriptor = {
   name: "getText",
-  options: {
-    ensureSingleTarget: true,
-  },
+  options: { ensureSingleTarget: true, showDecorations: true },
   target: decoratedPrimitiveTarget("a"),
 };
 const getTextListAction: ActionDescriptor = {
   name: "getText",
-  options: {},
+  options: { ensureSingleTarget: false, showDecorations: true },
   target: decoratedPrimitiveTarget("a"),
 };
 
