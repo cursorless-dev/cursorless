@@ -8,7 +8,7 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"cursorless cheatsheet"` commands within VSCode.
+Once you understand the concepts, you can pull up a cheatsheet for reference by saying either `"cursorless reference"` or `"cursorless cheatsheet"` with VSCode focused.
 
 You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` within VSCode.
 
@@ -217,17 +217,17 @@ For example, the command `take every key [blue] air` will select every key in th
 
 ##### Sub-token modifiers
 
-###### `"word"`
+###### `"sub"`
 
-If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"word"` modifier. For example,
+If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"sub"` modifier. For example,
 
-- `"second word air"`
-- `"second past fourth word air"`
-- `"last word air"`
+- `"second sub air"`
+- `"second past fourth sub air"`
+- `"last sub air"`
 
 For example, the following command:
 
-    "take second past fourth word blue air"
+    "take second past fourth sub blue air"
 
 Selects the second, third and fourth word in the token containing letter 'a' with a blue hat.
 
@@ -705,6 +705,27 @@ eg:
 `extract call air`
 
 Extracts the function call containing the decorated 'a' into its own variable.
+
+### Join
+
+Join multiple lines together.
+
+- `"join <TARGET>"`
+
+eg:
+
+- `join air`: Join the line with the token containing the letter 'a' with its next line.
+- `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
+
+### Break
+
+Break line in two.
+
+- `"break <TARGET>"`
+
+eg:
+
+- `break air`: Break the line with the token containing the letter 'a'. 'a' is now the first token on the new line.
 
 ## Paired delimiters
 

@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change word
+  spokenForm: change sub
   version: 3
   targets:
     - type: primitive

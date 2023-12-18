@@ -8,6 +8,7 @@ import { DestinationDescriptor } from "./DestinationDescriptor.types";
  * A simple action takes only a single target and no other arguments.
  */
 const simpleActionNames = [
+  "breakLine",
   "clearAndSetSelection",
   "copyToClipboard",
   "cutToClipboard",
@@ -25,6 +26,7 @@ const simpleActionNames = [
   "insertEmptyLineAfter",
   "insertEmptyLineBefore",
   "insertEmptyLinesAround",
+  "joinLines",
   "outdentLine",
   "randomizeTargets",
   "remove",

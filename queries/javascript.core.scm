@@ -99,8 +99,8 @@
       (variable_declarator)
       .
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf
-        value: (_)? @name.trailing.end.startOf
+        name: (_) @name
+        value: (_)? @name.trailing.startOf
       )
     )
 
@@ -120,8 +120,8 @@
       (variable_declarator)
       .
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf
-        value: (_)? @name.trailing.end.startOf
+        name: (_) @name
+        value: (_)? @name.trailing.startOf
       )
     )
   ] @_.domain
@@ -147,8 +147,8 @@
       ;;!                                xxxx
       ;;!  -----------------------------------
       (variable_declarator
-        name: (_) @name @name.trailing.start.endOf
-        value: (_)? @name.trailing.end.startOf
+        name: (_) @name
+        value: (_)? @name.trailing.startOf
       )
     )
   ) @_.domain
@@ -187,8 +187,8 @@
   (variable_declarator)
   .
   (variable_declarator
-    name: (_) @name @name.trailing.start.endOf
-    value: (_)? @name.trailing.end.startOf
+    name: (_) @name
+    value: (_)? @name.trailing.startOf
   ) @_.domain
 )
 
@@ -203,9 +203,9 @@
     ;;!  ---------------------------
     (lexical_declaration
       (variable_declarator
-        (_) @value.leading.start.endOf
+        (_) @value.leading.endOf
         .
-        value: (_)? @value @value.leading.end.startOf
+        value: (_)? @value
       )
     )
 
@@ -217,9 +217,9 @@
     ;; of https://github.com/tree-sitter/tree-sitter/issues/1442#issuecomment-1584628651
     (variable_declaration
       (variable_declarator
-        (_) @value.leading.start.endOf
+        (_) @value.leading.endOf
         .
-        value: (_)? @value @value.leading.end.startOf
+        value: (_)? @value
       )
     )
   ] @_.domain
@@ -239,9 +239,9 @@
       ;;!                                     xxxx
       ;;!  ----------------------------------------
       (variable_declarator
-        (_) @value.leading.start.endOf
+        (_) @value.leading.endOf
         .
-        value: (_)? @value @value.leading.end.startOf
+        value: (_)? @value
       )
     )
   ) @_.domain
@@ -262,9 +262,9 @@
 (
   (_
     (variable_declarator
-      (_) @value.leading.start.endOf
+      (_) @value.leading.endOf
       .
-      value: (_)? @value @value.leading.end.startOf
+      value: (_)? @value
     ) @_.domain
   ) @dummy
   (#has-multiple-children-of-type? @dummy variable_declarator)
@@ -283,8 +283,8 @@
     ;;!     xxxx
     ;;!  --------
     (assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
 
     ;; name:
@@ -298,8 +298,8 @@
     ;;!     xxxxx
     ;;!  ---------
     (augmented_assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
   ]
 ) @_.domain
@@ -323,8 +323,8 @@
     ;;!2             xxxx
     ;;!2          -------
     (assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
 
     ;; name:
@@ -344,8 +344,8 @@
     ;;!2              xxxxx
     ;;!2           --------
     (augmented_assignment_expression
-      left: (_) @name @value.leading.start.endOf @name.trailing.start.endOf
-      right: (_) @value @name.trailing.end.startOf @value.leading.end.startOf
+      left: (_) @name @value.leading.endOf
+      right: (_) @value @name.trailing.startOf
     )
   ] @_.domain
 
@@ -370,6 +370,14 @@
   (_) @value
 ) @_.domain
 
+;;!! str => str.length > 0
+;;!         ^^^^^^^^^^^^^^
+;;!  ---------------------
+(arrow_function
+  body: (_) @value
+  (#not-type? @value statement_block)
+) @_.domain
+
 ;; name:
 ;;!! for (const aaa of bbb) {}
 ;;!             ^^^
@@ -381,8 +389,7 @@
 (for_in_statement
   left: (_) @name
   right: (_) @value
-  ")" @_.domain.end.endOf
-) @_.domain.start.startOf
+) @_.domain
 
 [
   (program)
@@ -407,6 +414,14 @@
   "{" @collectionKey.iteration.start.endOf @value.iteration.start.endOf
   "}" @collectionKey.iteration.end.startOf @value.iteration.end.startOf
 )
+
+;;!! const { aaa: bbb } = ccc;
+;;!               ^^^
+;;!          --------
+(pair_pattern
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
+) @_.domain
 
 ;;!! "string"
 ;;!! `string`
@@ -624,8 +639,8 @@
 ;;!         xxx
 ;;!    --------
 (pair
-  key: (_) @collectionKey @collectionKey.trailing.start.endOf @value.leading.start.endOf
-  value: (_) @value @collectionKey.trailing.end.startOf @value.leading.end.startOf
+  key: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
 
 ;; Statements that are not a child of an export statement
@@ -664,3 +679,43 @@
   ] @statement
   (#not-parent-type? @statement export_statement)
 )
+
+;;!! foo(name: string) {}
+;;!      ^^^^^^^^^^^^
+(
+  (formal_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+)
+
+;;!! foo("bar")
+;;!      ^^^^^
+(
+  (arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+)
+
+(_
+  (formal_parameters
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(arguments
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain

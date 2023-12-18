@@ -49,6 +49,7 @@
     "onView:cursorless.scopes",
     "onCommand:cursorless.command",
     "onCommand:cursorless.internal.updateCheatsheetDefaults",
+    "onCommand:cursorless.private.logQuickActions",
     "onCommand:cursorless.keyboard.escape",
     "onCommand:cursorless.keyboard.modal.modeOff",
     "onCommand:cursorless.keyboard.modal.modeOn",
@@ -141,6 +142,11 @@
       {
         "command": "cursorless.internal.updateCheatsheetDefaults",
         "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.private.logQuickActions",
+        "title": "Cursorless: Log the quick actions available at the current cursor position",
         "enablement": "false"
       },
       {
@@ -848,7 +854,7 @@
           "description": "Directory containing snippets for use in Cursorless",
           "type": "string"
         },
-        "cursorless.experimental.keyboard.modal.keybindings.actions": {
+        "cursorless.experimental.keyboard.modal.keybindings.action": {
           "description": "Define modal keybindings for actions",
           "type": "object",
           "additionalProperties": {
@@ -909,7 +915,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.vscodeCommands": {
+        "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
           "description": "Define modal keybindings for running vscode commands",
           "type": "object",
           "additionalProperties": {
@@ -944,7 +950,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.colors": {
+        "cursorless.experimental.keyboard.modal.keybindings.color": {
           "description": "Define modal keybindings for colors",
           "type": "object",
           "additionalProperties": {
@@ -961,7 +967,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.shapes": {
+        "cursorless.experimental.keyboard.modal.keybindings.shape": {
           "description": "Define modal keybindings for shapes",
           "type": "object",
           "additionalProperties": {
@@ -980,7 +986,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.scopes": {
+        "cursorless.experimental.keyboard.modal.keybindings.scope": {
           "description": "Define modal keybindings for scopes",
           "type": "object",
           "additionalProperties": {
@@ -1091,7 +1097,7 @@
   "funding": "https://github.com/sponsors/pokey",
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm run populate-dist",
-    "build:dev": "pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
+    "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
     "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=dist/extension.cjs --external:vscode --format=cjs --platform=node",
     "install-local": "bash ./scripts/install-local.sh",
     "install-from-pr": "bash ./scripts/install-from-pr.sh",
@@ -1104,6 +1110,11 @@
     "preprocess-svg-hats": "my-ts-node src/scripts/preprocessSvgHats.ts",
     "hat-adjustment-add": "my-ts-node src/scripts/hatAdjustments/add.ts",
     "hat-adjustment-average": "my-ts-node src/scripts/hatAdjustments/average.ts",
+    "generate-grammar:base": "nearleyc src/keyboard/grammar/grammar.ne",
+    "ensure-grammar-up-to-date": "pnpm -s generate-grammar:base | diff -u src/keyboard/grammar/generated/grammar.ts -",
+    "generate-grammar": "pnpm generate-grammar:base -o src/keyboard/grammar/generated/grammar.ts",
+    "generate-railroad": "nearley-railroad src/keyboard/grammar/grammar.ne -o out/railroad.html",
+    "test": "pnpm ensure-grammar-up-to-date",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
@@ -1115,6 +1126,7 @@
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
     "@types/mocha": "^10.0.3",
+    "@types/nearley": "2.11.5",
     "@types/node": "^18.18.2",
     "@types/semver": "^7.3.9",
     "@types/sinon": "^10.0.2",
@@ -1135,8 +1147,10 @@
     "@cursorless/vscode-common": "workspace:*",
     "itertools": "^2.1.1",
     "lodash": "^4.17.21",
+    "nearley": "2.20.1",
     "semver": "^7.5.2",
     "tinycolor2": "1.6.0",
+    "trie-search": "2.0.0",
     "uuid": "^9.0.0",
     "vscode-uri": "^3.0.6"
   },

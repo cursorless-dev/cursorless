@@ -1,0 +1,10 @@
+{ value: 123 }
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:14
+0| { value: 123 }
+  >--------------<
+
+[Insertion delimiter] = " "

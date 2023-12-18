@@ -1,4 +1,5 @@
 **/vendor
+**/generated
 
 # We use our own format for our recorded yaml tests to keep them compact
 /packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/**/*.yml

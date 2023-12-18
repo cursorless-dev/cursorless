@@ -205,11 +205,17 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
+export interface GlyphScopeType {
+  type: "glyph";
+  character: string;
+}
+
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
-  | OneOfScopeType;
+  | OneOfScopeType
+  | GlyphScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -230,6 +236,10 @@ export interface InteriorOnlyModifier {
 
 export interface ExcludeInteriorModifier {
   type: "excludeInterior";
+}
+
+export interface VisibleModifier {
+  type: "visible";
 }
 
 export interface ContainingScopeModifier {
@@ -375,6 +385,7 @@ export type Modifier =
   | EndOfModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
+  | VisibleModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier

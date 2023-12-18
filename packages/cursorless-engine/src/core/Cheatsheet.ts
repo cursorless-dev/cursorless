@@ -4,6 +4,7 @@ import produce from "immer";
 import { sortBy } from "lodash";
 import { ide } from "../singletons/ide.singleton";
 import path from "path";
+import { getCursorlessRepoRoot } from "@cursorless/common";
 
 /**
  * The argument expected by the cheatsheet command.
@@ -56,27 +57,9 @@ export async function showCheatsheet({
  * @param spokenFormInfo The new value to use for default spoken forms.
  */
 export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
-  const { runMode, assetsRoot, workspaceFolders } = ide();
-
-  const workspacePath =
-    runMode === "development"
-      ? assetsRoot
-      : workspaceFolders?.[0].uri.path ?? null;
-
-  if (workspacePath == null) {
-    throw new Error(
-      "Please update defaults from Cursorless workspace or running in debug",
-    );
-  }
-
   const defaultsPath = path.join(
-    workspacePath,
-    "packages",
-    "cheatsheet",
-    "src",
-    "lib",
-    "sampleSpokenFormInfos",
-    "defaults.json",
+    getCursorlessRepoRoot(),
+    "packages/cheatsheet/src/lib/sampleSpokenFormInfos/defaults.json",
   );
 
   const outputObject = produce(spokenFormInfo, (draft) => {
@@ -86,7 +69,7 @@ export async function updateDefaults(spokenFormInfo: CheatsheetInfo) {
     });
   });
 
-  await writeFile(defaultsPath, JSON.stringify(outputObject, null, "\t"));
+  await writeFile(defaultsPath, JSON.stringify(outputObject, null, 2) + "\n");
 }
 
 // FIXME: Stop duplicating these types once we have #945

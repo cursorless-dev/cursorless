@@ -1,10 +1,8 @@
 import { Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
-import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
-import { isSameType } from "../../util/typeUtils";
-import { createContinuousRange } from "../targetUtil/createContinuousRange";
-import { getDelimitedSequenceRemovalRange } from "../targetUtil/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
+import { tryConstructPlainTarget } from "./PlainTarget";
+import { createContinuousRange } from "./util/createContinuousRange";
+import { getDelimitedSequenceRemovalRange } from "./util/insertionRemovalBehaviors/DelimitedSequenceInsertionRemovalBehavior";
 
 export interface SubTokenTargetParameters extends CommonTargetParameters {
   readonly insertionDelimiter: string;
@@ -47,32 +45,16 @@ export class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
     return getDelimitedSequenceRemovalRange(this);
   }
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (isSameType(this, endTarget)) {
-      return new SubTokenWordTarget({
-        ...this.getCloneParameters(),
-        isReversed,
-        contentRange: createContinuousRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-        trailingDelimiterRange: endTarget.trailingDelimiterRange_,
-      });
-    }
-
-    return super.createContinuousRangeTarget(
+    endTarget: SubTokenWordTarget,
+  ): SubTokenWordTarget {
+    return new SubTokenWordTarget({
+      ...this.getCloneParameters(),
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousRange(this, endTarget, true, true),
+      trailingDelimiterRange: endTarget.trailingDelimiterRange_,
+    });
   }
 
   protected getCloneParameters() {

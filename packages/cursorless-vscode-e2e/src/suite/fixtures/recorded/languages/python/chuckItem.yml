@@ -1,0 +1,23 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: chuck item
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: import foo, baz
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: import baz
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}

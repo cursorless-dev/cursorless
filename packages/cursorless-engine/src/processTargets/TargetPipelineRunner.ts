@@ -4,6 +4,7 @@ import {
   Modifier,
   Range,
   ScopeType,
+  uniqWithHash,
 } from "@cursorless/common";
 import { zip } from "lodash";
 import {
@@ -15,10 +16,10 @@ import { Target } from "../typings/target.types";
 import { MarkStageFactory } from "./MarkStageFactory";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { MarkStage, ModifierStage } from "./PipelineStages.types";
+import { createContinuousRangeTarget } from "./createContinuousRangeTarget";
 import { ImplicitStage } from "./marks/ImplicitStage";
 import { ContainingTokenIfUntypedEmptyStage } from "./modifiers/ConditionalModifierStages";
 import { PlainTarget } from "./targets";
-import { uniqWithHash } from "../util/uniqWithHash";
 
 export class TargetPipelineRunner {
   constructor(
@@ -315,8 +316,9 @@ export function targetsToContinuousTarget(
   const excludeStart = isReversed ? excludeActive : excludeAnchor;
   const excludeEnd = isReversed ? excludeAnchor : excludeActive;
 
-  return startTarget.createContinuousRangeTarget(
+  return createContinuousRangeTarget(
     isReversed,
+    startTarget,
     endTarget,
     !excludeStart,
     !excludeEnd,

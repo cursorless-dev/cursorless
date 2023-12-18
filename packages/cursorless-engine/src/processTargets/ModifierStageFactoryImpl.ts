@@ -4,7 +4,7 @@ import {
   Modifier,
   SurroundingPairModifier,
 } from "@cursorless/common";
-import { StoredTargetMap } from "..";
+import { StoredTargetMap } from "../core/StoredTargets";
 import { LanguageDefinitions } from "../languages/LanguageDefinitions";
 import { ModifierStageFactory } from "./ModifierStageFactory";
 import { ModifierStage } from "./PipelineStages.types";
@@ -30,6 +30,7 @@ import { RangeModifierStage } from "./modifiers/RangeModifierStage";
 import { RawSelectionStage } from "./modifiers/RawSelectionStage";
 import { RelativeScopeStage } from "./modifiers/RelativeScopeStage";
 import { SurroundingPairStage } from "./modifiers/SurroundingPairStage";
+import { VisibleStage } from "./modifiers/VisibleStage";
 import { ScopeHandlerFactory } from "./modifiers/scopeHandlers/ScopeHandlerFactory";
 import { BoundedNonWhitespaceSequenceStage } from "./modifiers/scopeTypeStages/BoundedNonWhitespaceStage";
 import {
@@ -68,6 +69,8 @@ export class ModifierStageFactoryImpl implements ModifierStageFactory {
         return new LeadingStage(this, modifier);
       case "trailing":
         return new TrailingStage(this, modifier);
+      case "visible":
+        return new VisibleStage(modifier);
       case "containingScope":
         return new ContainingScopeStage(
           this,

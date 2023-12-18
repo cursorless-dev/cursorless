@@ -1,5 +1,10 @@
-import type { CharacterRange, GeneralizedRange, LineRange } from "..";
-import { FlashStyle, isLineRange } from "..";
+import type {
+  CharacterRange,
+  GeneralizedRange,
+  LineRange,
+} from "../types/GeneralizedRange";
+import { isLineRange } from "../types/GeneralizedRange";
+import { FlashStyle } from "../ide/types/FlashDescriptor";
 import { Token } from "../types/Token";
 import { Selection } from "../types/Selection";
 

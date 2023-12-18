@@ -10,6 +10,8 @@ NODE_OPTIONS="--max-old-space-size=6144" \
   --filter 'cursorless-org-*' \
   build
 
+pnpm -F cursorless-vscode generate-railroad
+
 # Merge the root site and the documentation site, placing the documentation site
 # under docs/
 
@@ -21,3 +23,4 @@ mkdir -p "$docs_dir"
 
 cp -r packages/cursorless-org/out/* "$root_dir"
 cp -r packages/cursorless-org-docs/build/* "$docs_dir"
+cp packages/cursorless-vscode/out/railroad.html "$root_dir/keyboard-modal-railroad.html"

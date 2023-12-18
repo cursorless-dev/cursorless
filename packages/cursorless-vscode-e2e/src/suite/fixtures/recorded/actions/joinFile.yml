@@ -1,0 +1,35 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: join file
+  action:
+    name: joinLines
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: document}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    aaa
+
+    bbb
+
+
+  selections:
+    - anchor: {line: 5, character: 0}
+      active: {line: 5, character: 0}
+  marks: {}
+finalState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 0}
+        end: {line: 0, character: 7}
+      isReversed: false
+      hasExplicitRange: true

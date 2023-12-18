@@ -5,6 +5,7 @@ import { ActionType } from "@cursorless/common";
  * if the action has no spoken form.
  */
 export const actions = {
+  breakLine: "break",
   scrollToBottom: "bottom",
   toggleLineBreakpoint: "break point",
   cutToClipboard: "carve",
@@ -53,6 +54,7 @@ export const actions = {
   rewrapWithPairedDelimiter: "repack",
   insertSnippet: "snippet",
   pasteFromClipboard: "paste",
+  joinLines: "join",
 
   ["private.showParseTree"]: "parse tree",
   ["experimental.setInstanceReference"]: "from",
