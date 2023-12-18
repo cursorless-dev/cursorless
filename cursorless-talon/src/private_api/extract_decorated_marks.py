@@ -13,7 +13,7 @@ from ..targets.target_types import (
 )
 
 
-def extract_decorated_marks(capture: Any) -> list[dict]:
+def extract_decorated_marks(capture: Any) -> list[Any]:
     match capture:
         case PrimitiveTarget(mark=mark):
             if mark is None or mark["type"] != "decoratedSymbol":
