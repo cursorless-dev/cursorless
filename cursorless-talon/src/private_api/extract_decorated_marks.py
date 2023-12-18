@@ -25,9 +25,7 @@ def extract_decorated_marks(capture: Any) -> list[Any]:
             return extract_decorated_marks(anchor) + extract_decorated_marks(active)
         case ListTarget(elements=elements):
             return [
-                mark
-                for target in elements
-                for mark in extract_decorated_marks(target)
+                mark for target in elements for mark in extract_decorated_marks(target)
             ]
         case PrimitiveDestination(target=target):
             return extract_decorated_marks(target)
@@ -40,7 +38,9 @@ def extract_decorated_marks(capture: Any) -> list[Any]:
                 for mark in extract_decorated_marks(destination)
             ]
         case BringMoveTargets(source=source, destination=destination):
-            return extract_decorated_marks(source) + extract_decorated_marks(destination)
+            return extract_decorated_marks(source) + extract_decorated_marks(
+                destination
+            )
         case SwapTargets(target1=target1, target2=target2):
             return extract_decorated_marks(target1) + extract_decorated_marks(target2)
         case _:
