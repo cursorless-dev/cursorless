@@ -15,9 +15,3 @@ class Actions:
 
     def private_cursorless_show_sidebar():
         """Show Cursorless-specific settings in ide"""
-
-    def private_cursorless_analyze_command_history():
-        """Analyze collected command history"""
-        actions.user.private_cursorless_run_rpc_command_no_wait(
-            "cursorless.analyzeCommandHistory"
-        )

@@ -45,4 +45,4 @@ bar {user.cursorless_homophone}:
     user.private_cursorless_show_sidebar()
 
 {user.cursorless_homophone} analyze history:
-    user.private_cursorless_analyze_command_history()
+    user.private_cursorless_run_rpc_command_no_wait("cursorless.analyzeCommandHistory")
