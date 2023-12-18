@@ -1,4 +1,4 @@
-import { LATEST_VERSION } from "@cursorless/common";
+import { CommandComplete, LATEST_VERSION } from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -32,26 +32,32 @@ suite("commandHistory", function () {
     sinon.restore();
   });
 
-  test("commandHistory: active", () => testActive(tmpdir));
-  test("commandHistory: inactive", () => testInactive(tmpdir));
-  test("commandHistory: error", () => testError(tmpdir));
+  test("active", () => testActive(tmpdir));
+  test("inactive", () => testInactive(tmpdir));
+  test("error", () => testError(tmpdir));
 });
 
 async function testActive(tmpdir: string) {
   await injectFakeIsActive(true);
   await initalizeEditor();
-  await takeCommand("h");
+  const command = takeCommand("h");
+  await runCursorlessCommand(command);
 
   assert.ok(existsSync(tmpdir));
   const paths = await readdir(tmpdir);
   assert.lengthOf(paths, 1);
   assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
+  const content = JSON.parse(
+    await readFile(path.join(tmpdir, paths[0]), "utf8"),
+  );
+  delete command.spokenForm;
+  assert.deepEqual(content.command, command);
 }
 
 async function testInactive(tmpdir: string) {
   await injectFakeIsActive(false);
   await initalizeEditor();
-  await takeCommand("h");
+  await runCursorlessCommand(takeCommand("h"));
 
   assert.notOk(existsSync(tmpdir));
 }
@@ -59,9 +65,10 @@ async function testInactive(tmpdir: string) {
 async function testError(tmpdir: string) {
   await injectFakeIsActive(true);
   await initalizeEditor();
+  const command = takeCommand("a");
 
   try {
-    await takeCommand("a");
+    await runCursorlessCommand(command);
   } catch (error) {
     // Do nothing
   }
@@ -70,8 +77,12 @@ async function testError(tmpdir: string) {
   const paths = await readdir(tmpdir);
   assert.lengthOf(paths, 1);
   assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
-  const content = await readFile(path.join(tmpdir, paths[0]), "utf8");
-  assert.ok(content.includes('"thrownError":'));
+  const content = JSON.parse(
+    await readFile(path.join(tmpdir, paths[0]), "utf8"),
+  );
+  assert.containsAllKeys(content, ["error"]);
+  delete command.spokenForm;
+  assert.deepEqual(content.command, command);
 }
 
 async function injectFakeIsActive(isActive: boolean): Promise<void> {
@@ -110,8 +121,8 @@ async function initalizeEditor() {
   await hatTokenMap.allocateHats();
 }
 
-async function takeCommand(character: string) {
-  await runCursorlessCommand({
+function takeCommand(character: string): CommandComplete {
+  return {
     version: LATEST_VERSION,
     spokenForm: `take <${character}>`,
     usePrePhraseSnapshot: false,
@@ -126,5 +137,5 @@ async function takeCommand(character: string) {
         },
       },
     },
-  });
+  };
 }
