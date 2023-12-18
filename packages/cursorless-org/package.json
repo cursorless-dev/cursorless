@@ -10,27 +10,32 @@
     "lint": "next lint",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
-    "eslint": "^8.38.0",
-    "eslint-config-next": "13.5.4",
+    "@mdx-js/loader": "3.0.0",
+    "@mdx-js/react": "3.0.0",
+    "@next/mdx": "13.4.10",
     "next": "13.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-player": "2.12.0",
-    "typescript": "^5.1.6"
+    "react-player": "2.12.0"
   },
   "devDependencies": {
     "@svgr/webpack": "6.5.1",
-    "@types/node": "^16.11.3",
+    "@types/mdx": "2.0.5",
+    "@types/mdx-js__react": "1.5.5",
+    "@types/node": "^18.18.2",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "autoprefixer": "10.4.13",
+    "eslint": "^8.53.0",
+    "eslint-config-next": "13.5.4",
     "http-server": "14.1.1",
     "postcss": "8.4.31",
-    "tailwindcss": "3.2.7"
+    "tailwindcss": "3.3.5",
+    "typescript": "^5.2.2"
   },
   "license": "MIT",
   "main": "./out/index.js",
@@ -40,5 +45,12 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
-  }
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
+  "type": "module"
 }

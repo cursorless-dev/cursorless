@@ -26,7 +26,7 @@ finalState:
   documentContents: |-
     if (true) {
       const whatever = "hello";
-    }  else {
+    } else {
       const whatever = "hello";
     }
   selections:

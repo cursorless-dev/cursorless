@@ -80,7 +80,7 @@ const nodeMatchers: Partial<
     "function_definition[declarator][declarator][namespace]", // void ClassName::method() {}
   ],
   ifStatement: "if_statement",
-  switchStatementSubject: "switch_statement[condition][value]",
+  ["private.switchStatementSubject"]: "switch_statement[condition][value]",
   string: "string_literal",
   comment: "comment",
   anonymousFunction: "lambda_expression",

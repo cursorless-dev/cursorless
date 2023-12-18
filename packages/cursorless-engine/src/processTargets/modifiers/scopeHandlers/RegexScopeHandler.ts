@@ -1,6 +1,13 @@
-import { CustomRegexScopeType, Direction, ScopeType } from "@cursorless/common";
+import {
+  CustomRegexScopeType,
+  Direction,
+  GlyphScopeType,
+  ScopeType,
+} from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler, ScopeHandlerFactory } from ".";
+import { escapeRegExp } from "lodash";
+import { NestedScopeHandler } from "./NestedScopeHandler";
+import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import { generateMatchesInRange } from "../../../util/getMatchesInRange";
 import { TokenTarget } from "../../targets";
 import { TargetScope } from "./scope.types";
@@ -56,6 +63,20 @@ export class CustomRegexScopeHandler extends RegexStageBase {
   constructor(
     scopeHandlerFactory: ScopeHandlerFactory,
     readonly scopeType: CustomRegexScopeType,
+    languageId: string,
+  ) {
+    super(scopeHandlerFactory, scopeType, languageId);
+  }
+}
+
+export class GlyphScopeHandler extends RegexStageBase {
+  get regex() {
+    return new RegExp(escapeRegExp(this.scopeType.character), "gui");
+  }
+
+  constructor(
+    scopeHandlerFactory: ScopeHandlerFactory,
+    readonly scopeType: GlyphScopeType,
     languageId: string,
   ) {
     super(scopeHandlerFactory, scopeType, languageId);

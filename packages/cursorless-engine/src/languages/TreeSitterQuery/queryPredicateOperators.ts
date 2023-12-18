@@ -1,4 +1,4 @@
-import { Range } from "@cursorless/common";
+import { Range, adjustPosition } from "@cursorless/common";
 import { z } from "zod";
 import { makeRangeFromPositions } from "../../util/nodeSelectors";
 import { MutableQueryCapture } from "./QueryCapture";
@@ -16,17 +16,6 @@ class NotType extends QueryPredicateOperator<NotType> {
   schema = z.tuple([q.node, q.string]).rest(q.string);
   run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
-  }
-}
-
-/**
- * A predicate operator that returns true if the nodes range is not empty.
- */
-class NotEmpty extends QueryPredicateOperator<NotEmpty> {
-  name = "not-empty?" as const;
-  schema = z.tuple([q.node]);
-  run({ range }: MutableQueryCapture) {
-    return !range.isEmpty;
   }
 }
 
@@ -151,6 +140,26 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
 }
 
 /**
+ * A predicate operator that modifies the range of the match by trimming trailing whitespace,
+ * similar to the javascript trimEnd function.
+ */
+class TrimEnd extends QueryPredicateOperator<TrimEnd> {
+  name = "trim-end!" as const;
+  schema = z.tuple([q.node]);
+
+  run(nodeInfo: MutableQueryCapture) {
+    const { document, range } = nodeInfo;
+    const text = document.getText(range);
+    const whitespaceLength = text.length - text.trimEnd().length;
+    nodeInfo.range = new Range(
+      range.start,
+      adjustPosition(document, range.end, -whitespaceLength),
+    );
+    return true;
+  }
+}
+
+/**
  * Indicates that it is ok for multiple captures to have the same domain but
  * different targets.  For example, if we have the query `(#allow-multiple!
  * @foo)`, then if we define the query so that `@foo` appears multiple times
@@ -205,15 +214,47 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   }
 }
 
+/**
+ * A predicate operator that sets the insertion delimiter of {@link nodeInfo} to
+ * either {@link insertionDelimiterConsequence} or
+ * {@link insertionDelimiterAlternative} depending on whether
+ * {@link conditionNodeInfo} is single or multiline, respectively. For example,
+ *
+ * ```scm
+ * (#single-or-multi-line-delimiter! @foo @bar ", " ",\n")
+ * ```
+ *
+ * will set the insertion delimiter of the `@foo` capture to `", "` if the
+ * `@bar` capture is a single line and `",\n"` otherwise.
+ */
+class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilineDelimiter> {
+  name = "single-or-multi-line-delimiter!" as const;
+  schema = z.tuple([q.node, q.node, q.string, q.string]);
+
+  run(
+    nodeInfo: MutableQueryCapture,
+    conditionNodeInfo: MutableQueryCapture,
+    insertionDelimiterConsequence: string,
+    insertionDelimiterAlternative: string,
+  ) {
+    nodeInfo.insertionDelimiter = conditionNodeInfo.range.isSingleLine
+      ? insertionDelimiterConsequence
+      : insertionDelimiterAlternative;
+
+    return true;
+  }
+}
+
 export const queryPredicateOperators = [
   new Log(),
   new NotType(),
-  new NotEmpty(),
+  new TrimEnd(),
   new NotParentType(),
   new IsNthChild(),
   new ChildRange(),
   new ShrinkToMatch(),
   new AllowMultiple(),
   new InsertionDelimiter(),
+  new SingleOrMultilineDelimiter(),
   new HasMultipleChildrenOfType(),
 ];

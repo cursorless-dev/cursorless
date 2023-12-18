@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: change second word air
+  spokenForm: change second sub air
   version: 2
   targets:
     - type: primitive

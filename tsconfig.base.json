@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "nodenext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "moduleDetection": "force",
     "target": "es6",
     "lib": ["es2022"],
-    "sourceMap": true,
+    "emitDeclarationOnly": true,
     "declarationMap": true,
     "resolveJsonModule": true,
     "composite": true,

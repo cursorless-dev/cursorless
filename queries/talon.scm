@@ -25,19 +25,11 @@
   (parrot_declaration)
 ] @statement
 
-(
-  [
-    (matches)
-    (declarations)
-    (block)
-  ] @statement.iteration
-
-  ;; The Talon Tree sitter can contain an empty matches node if there is no
-  ;; header. When this happens and the user has an empty cursor at the start of
-  ;; the document we get an empty range for the iteration scope for
-  ;; key/value/name/statement.
-  (#not-empty? @statement.iteration)
-)
+[
+  (matches)
+  (declarations)
+  (block)
+] @statement.iteration
 
 ;;!! not mode: command
 ;;!  ----^^^^---------
@@ -107,15 +99,13 @@
 ;;!   -------------
 ;;!!  foo: key(a)
 ;;!   -----------]
-(
-  (source_file
-    (matches) @condition @_.trailing
-  ) @_.domain
-  (#not-empty? @condition)
-  (#not-empty? @_.trailing)
-  (#shrink-to-match! @condition "^(?<keep>.*)(\s|\n|\r)+-$")
-  (#shrink-to-match! @_.trailing "^.*(?<keep>(\s|\n|\r)+-)$")
-)
+(source_file
+  (matches
+    (_) @condition.end.endOf
+    .
+    "-" @_.trailing
+  ) @condition.start.startOf
+) @_.domain
 
 ;;!! slap: key(enter)
 ;;!  ^^^^^^^^^^^^^^^^
@@ -169,11 +159,11 @@
 ;;!        ^^^^^^^  ^^^^^^^
 (action
   arguments: (_
-    (_)? @_.leading.start.endOf
+    (_)? @_.leading.endOf
     .
-    (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+    (_) @argumentOrParameter
     .
-    (_)? @_.trailing.end.startOf
+    (_)? @_.trailing.startOf
   )
   (#insertion-delimiter! @argumentOrParameter ", ")
 )

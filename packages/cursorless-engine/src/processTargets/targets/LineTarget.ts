@@ -1,11 +1,11 @@
 import { Position, Range, TextEditor } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
-import { Target } from "../../typings/target.types";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import { expandToFullLine } from "../../util/rangeUtils";
-import { tryConstructPlainTarget } from "../../util/tryConstructTarget";
-import { createContinuousLineRange } from "../targetUtil/createContinuousRange";
+import { tryConstructPlainTarget } from "./PlainTarget";
+import { createContinuousLineRange } from "./util/createContinuousRange";
+import { tryConstructTarget } from "../../util/tryConstructTarget";
 
-export default class LineTarget extends BaseTarget<CommonTargetParameters> {
+export class LineTarget extends BaseTarget<CommonTargetParameters> {
   type = "LineTarget";
   insertionDelimiter = "\n";
   isLine = true;
@@ -42,31 +42,15 @@ export default class LineTarget extends BaseTarget<CommonTargetParameters> {
 
   getRemovalHighlightRange = () => this.fullLineContentRange;
 
-  createContinuousRangeTarget(
+  maybeCreateRichRangeTarget(
     isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    if (endTarget.isLine) {
-      return new LineTarget({
-        editor: this.editor,
-        isReversed,
-        contentRange: createContinuousLineRange(
-          this,
-          endTarget,
-          includeStart,
-          includeEnd,
-        ),
-      });
-    }
-
-    return super.createContinuousRangeTarget(
+    endTarget: LineTarget,
+  ): LineTarget {
+    return new LineTarget({
+      editor: this.editor,
       isReversed,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+      contentRange: createContinuousLineRange(this, endTarget, true, true),
+    });
   }
 
   protected getCloneParameters() {
@@ -86,4 +70,22 @@ function getTrailingDelimiterRange(editor: TextEditor, range: Range) {
   return end.line + 1 < editor.document.lineCount
     ? new Range(range.end, new Position(end.line + 1, 0))
     : undefined;
+}
+
+/**
+ * Constructs a {@link LineTarget} from the given range, or returns undefined
+ * if the range is undefined
+ * @param editor The editor containing the range
+ * @param range The range to convert into a target
+ * @param isReversed Whether the rain should be backward
+ * @returns A new {@link LineTarget} constructed from the given range, or null
+ * if the range is undefined
+ */
+
+export function constructLineTarget(
+  editor: TextEditor,
+  range: Range | undefined,
+  isReversed: boolean,
+): LineTarget | undefined {
+  return tryConstructTarget(LineTarget, editor, range, isReversed);
 }

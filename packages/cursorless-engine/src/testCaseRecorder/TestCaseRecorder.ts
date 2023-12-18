@@ -124,9 +124,8 @@ export class TestCaseRecorder {
       const keys = targetedMarks.map(({ character, symbolColor }) =>
         getKey(symbolColor, character),
       );
-      const readableHatMap = await this.hatTokenMap.getReadableMap(
-        usePrePhraseSnapshot,
-      );
+      const readableHatMap =
+        await this.hatTokenMap.getReadableMap(usePrePhraseSnapshot);
       marks = marksToPlainObject(extractTargetedMarks(keys, readableHatMap));
     } else {
       marks = undefined;
@@ -460,6 +459,9 @@ export class TestCaseRecorder {
     readableHatMap: ReadOnlyHatMap,
     runner: CommandRunner,
   ): CommandRunner {
+    if (!this.isActive()) {
+      return runner;
+    }
     return {
       run: async (commandComplete: CommandComplete) => {
         try {

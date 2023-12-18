@@ -2,7 +2,7 @@ import type { RelativeScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import RelativeExclusiveScopeStage from "./RelativeExclusiveScopeStage";
+import { RelativeExclusiveScopeStage } from "./RelativeExclusiveScopeStage";
 import { RelativeInclusiveScopeStage } from "./RelativeInclusiveScopeStage";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 
@@ -13,7 +13,7 @@ import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
  * delegating to {@link RelativeInclusiveScopeStage} if so, or
  * {@link RelativeExclusiveScopeStage} if not.
  */
-export default class RelativeScopeStage implements ModifierStage {
+export class RelativeScopeStage implements ModifierStage {
   private modiferStage: ModifierStage;
   constructor(
     modifierStageFactory: ModifierStageFactory,

@@ -7,11 +7,11 @@
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "webpack": "pnpm compile && webpack --config ./src/webpack.config.ts",
+    "webpack": "pnpm -w compile && env NODE_OPTIONS=--loader=ts-node/esm webpack --config ./src/webpack.config.ts",
     "build": "pnpm build:prod",
     "build:dev": "pnpm webpack --mode=development",
     "build:prod": "pnpm webpack --mode=production --node-env=production",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +32,7 @@
     "@effortlessmotion/html-webpack-inline-source-plugin": "1.0.3",
     "@testing-library/react": "14.0.0",
     "@types/jest": "29.4.0",
-    "@types/node": "^16.11.3",
+    "@types/node": "^18.18.2",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@types/webpack": "5.28.0",
@@ -40,16 +40,23 @@
     "autoprefixer": "10.4.13",
     "css-loader": "6.7.3",
     "html-webpack-plugin": "5.5.0",
-    "jest": "29.5.0",
+    "jest": "29.7.0",
     "postcss": "8.4.31",
     "postcss-loader": "7.0.2",
     "style-loader": "3.3.1",
-    "tailwindcss": "3.2.7",
+    "tailwindcss": "3.3.5",
     "ts-loader": "9.4.2",
     "ts-node": "10.9.1",
-    "typescript": "^5.1.6",
-    "webpack": "5.88.2",
+    "typescript": "^5.2.2",
+    "webpack": "5.89.0",
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.11.1"
-  }
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
+  "type": "module"
 }

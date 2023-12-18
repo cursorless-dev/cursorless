@@ -10,11 +10,12 @@ import {
   updateDefaults,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
+import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import { logQuickActions } from "./logQuickActions";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
@@ -56,6 +57,8 @@ export function registerCommands(
     ["cursorless.showQuickPick"]: showQuickPick,
     ["cursorless.showDocumentation"]: showDocumentation,
 
+    ["cursorless.private.logQuickActions"]: logQuickActions,
+
     // Hats
     ["cursorless.toggleDecorations"]: hats.toggle,
     ["cursorless.recomputeDecorationStyles"]: hats.recomputeDecorationStyles,
@@ -73,7 +76,7 @@ export function registerCommands(
       keyboardCommands.targeted.targetDecoratedMark,
 
     ["cursorless.keyboard.targeted.targetScope"]:
-      keyboardCommands.targeted.targetScopeType,
+      keyboardCommands.targeted.modifyTargetContainingScope,
 
     ["cursorless.keyboard.targeted.targetSelection"]:
       keyboardCommands.targeted.targetSelection,

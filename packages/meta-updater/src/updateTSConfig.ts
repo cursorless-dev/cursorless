@@ -2,10 +2,11 @@ import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
 import path from "path";
 import exists from "path-exists";
-import { TsConfigJson } from "type-fest";
+import { PackageJson, TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
 import { Context } from "./Context";
 import { uniq } from "lodash";
+import { readFile } from "fs/promises";
 
 /**
  * Given a tsconfig.json, update it to match our conventions.  This function is
@@ -70,7 +71,18 @@ export async function updateTSConfig(
     }
     const relativePath = spec.slice(5);
     if (!(await exists(path.join(packageDir, relativePath, "tsconfig.json")))) {
-      throw new Error(`No tsconfig found for ${relativePath} in ${packageDir}`);
+      throw new Error(`No tsconfig found for ${relativePath}`);
+    }
+    if (
+      (
+        JSON.parse(
+          await readFile(path.join(packageDir, relativePath, "package.json"), {
+            encoding: "utf-8",
+          }),
+        ) as PackageJson
+      ).private
+    ) {
+      throw new Error(`Dependency ${relativePath} is private`);
     }
     references.push({ path: relativePath });
   }

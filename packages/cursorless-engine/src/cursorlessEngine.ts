@@ -6,8 +6,12 @@ import {
   IDE,
   ScopeProvider,
 } from "@cursorless/common";
-import { StoredTargetMap, TestCaseRecorder, TreeSitter } from ".";
-import { CursorlessEngine } from "./api/CursorlessEngineApi";
+import { StoredTargetMap } from "./core/StoredTargets";
+import { TreeSitter } from "./typings/TreeSitter";
+import {
+  CommandRunnerDecorator,
+  CursorlessEngine,
+} from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
@@ -53,8 +57,6 @@ export function createCursorlessEngine(
 
   const storedTargets = new StoredTargetMap();
 
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
-
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
 
   const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
@@ -65,6 +67,8 @@ export function createCursorlessEngine(
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
+  const commandRunnerDecorators: CommandRunnerDecorator[] = [];
+
   return {
     commandApi: {
       runCommand(command: Command) {
@@ -72,11 +76,11 @@ export function createCursorlessEngine(
           treeSitter,
           debug,
           hatTokenMap,
-          testCaseRecorder,
           snippets,
           storedTargets,
           languageDefinitions,
           rangeUpdater,
+          commandRunnerDecorators,
           command,
         );
       },
@@ -86,11 +90,11 @@ export function createCursorlessEngine(
           treeSitter,
           debug,
           hatTokenMap,
-          testCaseRecorder,
           snippets,
           storedTargets,
           languageDefinitions,
           rangeUpdater,
+          commandRunnerDecorators,
           ensureCommandShape(args),
         );
       },
@@ -101,13 +105,15 @@ export function createCursorlessEngine(
       customSpokenFormGenerator,
     ),
     customSpokenFormGenerator,
-    testCaseRecorder,
     storedTargets,
     hatTokenMap,
     snippets,
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),
+    addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
+      commandRunnerDecorators.push(decorator);
+    },
   };
 }
 

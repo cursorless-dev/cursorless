@@ -1,20 +1,21 @@
 import type { ScopeType } from "@cursorless/common";
-import {
-  CharacterScopeHandler,
-  CustomRegexScopeHandler,
-  DocumentScopeHandler,
-  IdentifierScopeHandler,
-  LineScopeHandler,
-  NonWhitespaceSequenceScopeHandler,
-  OneOfScopeHandler,
-  ParagraphScopeHandler,
-  ScopeHandlerFactory,
-  SentenceScopeHandler,
-  TokenScopeHandler,
-  UrlScopeHandler,
-  WordScopeHandler,
-} from ".";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
+import { CharacterScopeHandler } from "./CharacterScopeHandler";
+import { DocumentScopeHandler } from "./DocumentScopeHandler";
+import { IdentifierScopeHandler } from "./IdentifierScopeHandler";
+import { LineScopeHandler } from "./LineScopeHandler";
+import { OneOfScopeHandler } from "./OneOfScopeHandler";
+import { ParagraphScopeHandler } from "./ParagraphScopeHandler";
+import {
+  CustomRegexScopeHandler,
+  GlyphScopeHandler,
+  NonWhitespaceSequenceScopeHandler,
+  UrlScopeHandler,
+} from "./RegexScopeHandler";
+import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
+import { SentenceScopeHandler } from "./SentenceScopeHandler/SentenceScopeHandler";
+import { TokenScopeHandler } from "./TokenScopeHandler";
+import { WordScopeHandler } from "./WordScopeHandler/WordScopeHandler";
 import type { CustomScopeType, ScopeHandler } from "./scopeHandler.types";
 
 /**
@@ -72,6 +73,8 @@ export class ScopeHandlerFactoryImpl implements ScopeHandlerFactory {
         return new UrlScopeHandler(this, scopeType, languageId);
       case "customRegex":
         return new CustomRegexScopeHandler(this, scopeType, languageId);
+      case "glyph":
+        return new GlyphScopeHandler(this, scopeType, languageId);
       case "custom":
         return scopeType.scopeHandler;
       case "instance":

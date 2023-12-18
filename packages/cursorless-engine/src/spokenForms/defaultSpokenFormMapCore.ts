@@ -84,7 +84,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     command: "command",
     // Text-based scope types
     character: "char",
-    word: "word",
+    word: "sub",
     token: "token",
     identifier: "identifier",
     line: "line",
@@ -98,7 +98,10 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
 
     ["private.fieldAccess"]: isPrivate("access"),
     string: isPrivate("parse tree string"),
-    switchStatementSubject: isPrivate("subject"),
+    ["private.switchStatementSubject"]: isPrivate("subject"),
+  },
+  complexScopeTypeType: {
+    glyph: "glyph",
   },
 
   surroundingPairForceDirection: {
@@ -117,6 +120,7 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     startOf: "start of",
     endOf: "end of",
     interiorOnly: "inside",
+    visible: "visible",
     extendThroughStartOf: "head",
     extendThroughEndOf: "tail",
     everyScope: "every",

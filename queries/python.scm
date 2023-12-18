@@ -35,9 +35,9 @@
 ;;!   xxxxx
 ;;!  ------
 (assignment
-  (_) @_.leading.start.endOf
+  (_) @_.leading.endOf
   .
-  right: (_) @value @_.leading.end.startOf
+  right: (_) @value
 ) @_.domain
 
 ;; value:
@@ -51,8 +51,8 @@
 ;;!  xxxxx
 ;;!  -------
 (augmented_assignment
-  left: (_) @name @name.trailing.start.endOf @value.leading.start.endOf
-  right: (_) @value @value.leading.end.startOf @name.trailing.end.startOf
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
 ;;!! a = 25
@@ -64,8 +64,8 @@
 ;;!  xxxxxxxxx
 ;;!  -----------
 (assignment
-  left: (_) @name @name.trailing.start.endOf
-  right: (_)? @name.trailing.end.startOf
+  left: (_) @name
+  right: (_)? @_.trailing.startOf
 ) @_.domain
 
 (_
@@ -93,9 +93,9 @@
 ;;!  -----------------
 ;;!     xxxxx
 (_
-  (_) @_.leading.start.endOf
+  (_) @_.leading.endOf
   .
-  type: (_) @type @_.leading.end.startOf
+  type: (_) @type
 ) @_.domain
 
 ;;!!  def aaa() -> str:
@@ -105,9 +105,9 @@
 ;;!!      pass
 ;;!   --------]
 (function_definition
-  (_) @_.leading.start.endOf
+  (_) @_.leading.endOf
   .
-  return_type: (_) @type @_.leading.end.startOf
+  return_type: (_) @type
 ) @_.domain
 
 ;;!! d = {"a": 1234}
@@ -124,9 +124,9 @@
 ;;!           ---------------
 (
   (_
-    (_) @_.leading.start.endOf
+    (_) @_.leading.endOf
     .
-    value: (_) @value @_.leading.end.startOf
+    value: (_) @value
   ) @_.domain
   (#not-type? @_.domain subscript)
 )
@@ -142,6 +142,13 @@
   (_) @value
 ) @_.domain
 
+;;!! lambda str: len(str) > 0
+;;!              ^^^^^^^^^^^^
+;;!  ------------------------
+(lambda
+  body: (_) @value
+) @_.domain
+
 ;; value:
 ;;!! for aaa in bbb:
 ;;!             ^^^
@@ -153,8 +160,7 @@
 (for_statement
   left: (_) @name
   right: (_) @value
-  ":" @_.domain.end
-) @_.domain.start.startOf
+) @_.domain
 
 (comment) @comment @textFragment
 
@@ -230,3 +236,161 @@
   "(" @value.iteration.start.endOf @name.iteration.start.endOf @type.iteration.start.endOf
   ")" @value.iteration.end.startOf @name.iteration.end.startOf @type.iteration.end.startOf
 )
+
+;;!! if true: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement) @ifStatement
+
+;;!! foo()
+;;!  ^^^^^
+(call) @functionCall
+
+;;!! foo()
+;;!  ^^^^^
+(call
+  function: (_) @functionCallee
+) @_.domain
+
+;;!! lambda _: pass
+;;!  ^^^^^^^^^^^^^^
+(lambda) @anonymousFunction
+
+;;!! match value:
+;;!        ^^^^^
+(match_statement
+  subject: (_) @private.switchStatementSubject
+) @_.domain
+
+;;!! { "value": 0 }
+;;!    ^^^^^^^
+;;!    xxxxxxxxx
+(pair
+  key: (_) @collectionKey
+  value: (_) @_.trailing.startOf
+) @_.domain
+
+;;!! if True:
+;;!     ^^^^
+;;!! elif True:
+;;!       ^^^^
+;;!! while True:
+;;!        ^^^^
+(_
+  condition: (_) @condition
+) @_.domain
+
+;;!! match value:
+;;!        ^^^^^
+(case_clause
+  pattern: (_) @condition.start
+  guard: (_)? @condition.end
+) @_.domain
+
+;;!! case 0: pass
+;;!  ^^^^^^^^^^^^
+(case_clause) @branch
+
+(match_statement) @branch.iteration @condition.iteration
+
+;;!! 1 if True else 0
+;;!       ^^^^
+;;!  ----------------
+(
+  (conditional_expression
+    "if"
+    .
+    (_) @condition
+  ) @_.domain
+)
+
+;;!! 1 if True else 0
+;;!  ^
+(
+  (conditional_expression
+    (_) @branch
+    .
+    "if"
+  )
+)
+
+;;!! 1 if True else 0
+;;!                 ^
+(
+  (conditional_expression
+    "else"
+    .
+    (_) @branch
+  )
+)
+
+(conditional_expression) @branch.iteration
+
+;;!! [aaa for aaa in bbb if ccc]
+;;!! (aaa for aaa in bbb if ccc)
+;;!! {aaa for aaa in bbb if ccc}
+;;!                         ^^^
+;;!                      xxxxxx
+;;!  ---------------------------
+;;!! {aaa: aaa for aaa in bbb if ccc}
+;;!                              ^^^
+;;!                           xxxxxx
+;;!  --------------------------------
+(_
+  (if_clause
+    "if"
+    (_) @condition
+  ) @_.removal
+  (#not-parent-type? @_.removal case_clause)
+) @_.domain
+
+;;!! if True: pass
+;;!  ^^^^^^^^^^^^^
+(if_statement
+  "if" @branch.start
+  consequence: (_) @branch.end
+)
+
+;;!! elif True: pass
+;;!  ^^^^^^^^^^^^^^^
+(elif_clause) @branch
+
+;;!! else: pass
+;;!  ^^^^^^^^^^
+(else_clause) @branch
+
+(if_statement) @branch.iteration
+
+;;!! try: pass
+;;!  ^^^^^^^^^
+(try_statement
+  "try" @branch.start
+  body: (_) @branch.end
+)
+
+;;!! except: pass
+;;!  ^^^^^^^^^^^^
+(except_clause) @branch
+
+;;!! finally: pass
+;;!  ^^^^^^^^^^^^^
+(finally_clause) @branch
+
+(try_statement) @branch.iteration
+
+;;!! while True: pass
+;;!  ^^^^^^^^^^^^^^^^
+(while_statement
+  "while" @branch.start
+  body: (_) @branch.end
+)
+
+(while_statement) @branch.iteration
+
+;;!! for aaa in bbb: pass
+;;!  ^^^^^^^^^^^^^^^^^^^^
+(for_statement
+  "for" @branch.start
+  body: (_) @branch.end
+)
+
+(for_statement) @branch.iteration

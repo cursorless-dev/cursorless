@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: take every line
+  spokenForm: take every line file
   version: 2
   action: {name: setSelection}
   targets:
@@ -8,6 +8,8 @@ command:
       modifiers:
         - type: everyScope
           scopeType: {type: line}
+        - type: containingScope
+          scopeType: {type: document}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
