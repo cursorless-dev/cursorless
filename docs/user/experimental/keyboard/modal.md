@@ -42,7 +42,7 @@ The above allows you to press `ctrl-c` to switch to Cursorless mode, `escape` to
 To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your [VSCode `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson) (or edit these settings in the VSCode settings gui by saying `"cursorless settings"`):
 
 ```json
-  "cursorless.experimental.keyboard.modal.keybindings.scopes": {
+  "cursorless.experimental.keyboard.modal.keybindings.scope": {
     "i": "line",
     "p": "paragraph",
     ";": "statement",
@@ -60,7 +60,7 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "sa": "argumentOrParameter",
     "sl": "url",
   },
-  "cursorless.experimental.keyboard.modal.keybindings.actions": {
+  "cursorless.experimental.keyboard.modal.keybindings.action": {
     "t": "setSelection",
     "h": "setSelectionBefore",
     "l": "setSelectionAfter",
@@ -81,13 +81,13 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "ap": "pasteFromClipboard",
     "ad": "followLink"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.colors": {
+  "cursorless.experimental.keyboard.modal.keybindings.color": {
     "d": "default",
     "b": "blue",
     "g": "yellow",
     "r": "red"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.shapes": {
+  "cursorless.experimental.keyboard.modal.keybindings.shape": {
     "x": "ex",
     "f": "fox",
     "q": "frame",
@@ -97,6 +97,24 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "z": "bolt",
     "w": "crosshairs"
   },
+  "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
+    // For simple commands, just use the command name
+    // "aa": "workbench.action.editor.changeLanguageMode",
+
+    // For commands with args, use the following format
+    // "am": {
+    //   "commandId": "some.command.id",
+    //   "args": ["foo", 0]
+    // }
+
+    // If you'd like to run the command on the active target, use the following format
+    "am": {
+      "commandId": "editor.action.joinLines",
+      "executeAtTarget": true,
+      // "keepChangedSelection": true,
+      // "exitCursorlessMode": true,
+    }
+  }
 ```
 
 Any supported scopes, actions, or colors can be added to these sections, using the same identifiers that appear in the second column of your customisation csvs. Feel free to add / tweak / remove the keyboard shortcuts above as you see fit.

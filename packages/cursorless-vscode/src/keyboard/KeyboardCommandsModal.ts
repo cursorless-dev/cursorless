@@ -1,22 +1,18 @@
-import { keys, merge, toPairs } from "lodash";
+import { pick, toPairs } from "lodash";
+import { Grammar, Parser } from "nearley";
 import * as vscode from "vscode";
-import {
-  DEFAULT_ACTION_KEYMAP,
-  DEFAULT_COLOR_KEYMAP,
-  Keymap,
-  DEFAULT_SCOPE_KEYMAP,
-  DEFAULT_SHAPE_KEYMAP,
-} from "./defaultKeymaps";
+import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import { KeyDescriptor } from "./TokenTypeHelpers";
+import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
 import KeyboardHandler from "./KeyboardHandler";
-
-type SectionName = "actions" | "scopes" | "colors" | "shapes";
-
-interface KeyHandler<T> {
-  sectionName: SectionName;
-  value: T;
-  handleValue(): Promise<unknown>;
-}
+import grammar from "./grammar/generated/grammar";
+import { getAcceptableTokenTypes } from "./grammar/getAcceptableTokenTypes";
+import { KeyboardCommandHandler } from "./KeyboardCommandHandler";
+import { getTokenTypeKeyMaps } from "./getTokenTypeKeyMaps";
+import { VscodeApi } from "@cursorless/vscode-common";
+import { KeyboardConfig } from "./KeyboardConfig";
+import { CompositeKeyMap } from "@cursorless/common";
 
 /**
  * Defines a mode to use with a modal version of Cursorless keyboard.
@@ -33,18 +29,29 @@ export default class KeyboardCommandsModal {
    * Merged map from all the different sections of the key map (eg actions,
    * colors, etc).
    */
-  private mergedKeymap!: Record<string, KeyHandler<any>>;
+  private currentLayer!: KeyboardCommandsModalLayer<KeyDescriptor>;
+  private layerCache = new CompositeKeyMap<
+    string[],
+    KeyboardCommandsModalLayer<KeyDescriptor>
+  >((keys) => keys);
+  private parser!: Parser;
+  private sections!: TokenTypeKeyMapMap;
+  private keyboardCommandHandler: KeyboardCommandHandler;
+  private compiledGrammar = Grammar.fromCompiled(grammar);
+  private keyboardConfig: KeyboardConfig;
 
   constructor(
     private extensionContext: vscode.ExtensionContext,
     private targeted: KeyboardCommandsTargeted,
     private keyboardHandler: KeyboardHandler,
+    vscodeApi: VscodeApi,
   ) {
     this.modeOn = this.modeOn.bind(this);
     this.modeOff = this.modeOff.bind(this);
     this.handleInput = this.handleInput.bind(this);
 
-    this.constructMergedKeymap();
+    this.keyboardConfig = new KeyboardConfig(vscodeApi);
+    this.keyboardCommandHandler = new KeyboardCommandHandler(targeted);
   }
 
   init() {
@@ -55,79 +62,59 @@ export default class KeyboardCommandsModal {
             "cursorless.experimental.keyboard.modal.keybindings",
           )
         ) {
-          this.constructMergedKeymap();
+          if (this.isModeOn()) {
+            this.modeOff();
+            this.modeOn();
+          }
+          this.layerCache.clear();
+          this.processKeyMap();
         }
       }),
     );
   }
 
-  private constructMergedKeymap() {
-    this.mergedKeymap = {};
+  private processKeyMap() {
+    this.sections = getTokenTypeKeyMaps(this.keyboardConfig);
+    this.resetParser();
+  }
 
-    this.handleSection("actions", DEFAULT_ACTION_KEYMAP, (value) =>
-      this.targeted.performActionOnTarget(value),
-    );
-    this.handleSection("scopes", DEFAULT_SCOPE_KEYMAP, (value) =>
-      this.targeted.targetScopeType({
-        scopeType: value,
-      }),
-    );
-    this.handleSection("colors", DEFAULT_COLOR_KEYMAP, (value) =>
-      this.targeted.targetDecoratedMark({
-        color: value,
-      }),
-    );
-    this.handleSection("shapes", DEFAULT_SHAPE_KEYMAP, (value) =>
-      this.targeted.targetDecoratedMark({
-        shape: value,
-      }),
-    );
+  private resetParser() {
+    this.parser = new Parser(this.compiledGrammar);
+    this.computeLayer();
   }
 
   /**
-   * Adds a section (eg actions, scopes, etc) to the merged keymap.
-   *
-   * @param sectionName The name of the section (eg `"actions"`, `"scopes"`, etc)
-   * @param defaultKeyMap The default values for this keymap
-   * @param handleValue The function to call when the user presses the given key
+   * Given the current state of the parser, computes a keyboard layer containing
+   * only the keys that are currently valid.
    */
-  private handleSection<T>(
-    sectionName: SectionName,
-    defaultKeyMap: Keymap<T>,
-    handleValue: (value: T) => Promise<unknown>,
-  ) {
-    const userOverrides: Keymap<T> =
-      vscode.workspace
-        .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
-        .get<Keymap<T>>(sectionName) ?? {};
-    const keyMap = merge({}, defaultKeyMap, userOverrides);
-
-    for (const [key, value] of toPairs(keyMap)) {
-      const conflictingEntry = this.getConflictingKeyMapEntry(key);
-      if (conflictingEntry != null) {
-        const { sectionName: conflictingSection, value: conflictingValue } =
-          conflictingEntry;
-
-        vscode.window.showErrorMessage(
-          `Conflicting keybindings: \`${sectionName}.${value}\` and \`${conflictingSection}.${conflictingValue}\` both want key '${key}'`,
-        );
-
-        continue;
-      }
-
-      const entry: KeyHandler<T> = {
-        sectionName,
-        value,
-        handleValue: () => handleValue(value),
-      };
-
-      this.mergedKeymap[key] = entry;
+  private computeLayer() {
+    const acceptableTokenTypeInfos = getAcceptableTokenTypes(this.parser);
+    // FIXME: Here's where we'd update sidebar
+    const acceptableTokenTypes = acceptableTokenTypeInfos
+      .map(({ type }) => type)
+      .sort();
+    let layer = this.layerCache.get(acceptableTokenTypes);
+    if (layer == null) {
+      layer = new KeyboardCommandsModalLayer(
+        this.keyboardHandler,
+        Object.values(pick(this.sections, acceptableTokenTypes)).flatMap(
+          toPairs<KeyDescriptor>,
+        ),
+      );
+      this.layerCache.set(acceptableTokenTypes, layer);
     }
+    this.currentLayer = layer;
   }
 
   modeOn = async () => {
     if (this.isModeOn()) {
       return;
+    }
+
+    if (this.currentLayer == null) {
+      // Construct keymap lazily for ease of mocking and to save performance
+      // when the mode is never used
+      this.processKeyMap();
     }
 
     this.inputDisposable = this.keyboardHandler.pushListener({
@@ -143,6 +130,71 @@ export default class KeyboardCommandsModal {
     // Set target to current selection when we enter the mode
     await this.targeted.targetSelection();
   };
+
+  async handleInput(text: string) {
+    try {
+      /**
+       * The text to feed to the layer. This will be a single character
+       * initially, when we're called by {@link KeyboardHandler}. We pass it to
+       * the layer, which will ask for more characters if necessary to complete
+       * the key sequence for a single parser token.
+       *
+       * If the parser wants more tokens, we set this to "" so that the layer
+       * can ask for characters for the next token from scratch.
+       */
+      let currentText = text;
+      let previousKeys = "";
+      while (true) {
+        const layerOutput = await this.currentLayer.handleInput(currentText, {
+          previousKeys,
+        });
+        if (layerOutput == null) {
+          throw new KeySequenceCancelledError();
+        }
+
+        this.parser.feed([layerOutput.value]);
+
+        if (this.parser.results.length > 0) {
+          // We've found a valid parse
+          break;
+        }
+
+        currentText = "";
+        previousKeys += layerOutput.keysPressed;
+        this.computeLayer();
+      }
+
+      if (this.parser.results.length > 1) {
+        console.error("Ambiguous parse:");
+        console.error(JSON.stringify(this.parser.results, null, 2));
+        throw new Error("Ambiguous parse; see console output");
+      }
+
+      const nextTokenTypes = getAcceptableTokenTypes(this.parser);
+      if (nextTokenTypes.length > 0) {
+        // Because we stop as soon as a valid parse is found, there shouldn't
+        // be any way to continue
+        console.error(
+          "Ambiguous whether parsing is complete. Possible following tokens:",
+        );
+        console.error(JSON.stringify(nextTokenTypes, null, 2));
+        throw new Error("Ambiguous parse; see console output");
+      }
+
+      const [{ type, arg }] = this.parser.results;
+
+      // Run the command
+      this.keyboardCommandHandler[type as keyof KeyboardCommandHandler](arg);
+    } catch (err) {
+      if (!(err instanceof KeySequenceCancelledError)) {
+        vscode.window.showErrorMessage((err as Error).message);
+        throw err;
+      }
+    } finally {
+      // Always reset the parser when we're done
+      this.resetParser();
+    }
+  }
 
   modeOff = async () => {
     if (!this.isModeOn()) {
@@ -167,54 +219,10 @@ export default class KeyboardCommandsModal {
   private isModeOn() {
     return this.inputDisposable != null;
   }
+}
 
-  async handleInput(text: string) {
-    let sequence = text;
-    let keyHandler: KeyHandler<any> | undefined = this.mergedKeymap[sequence];
-
-    // We handle multi-key sequences by repeatedly awaiting a single keypress
-    // until they've pressed something in the map.
-    while (keyHandler == null) {
-      if (!this.isPrefixOfKey(sequence)) {
-        const errorMessage = `Unknown key sequence "${sequence}"`;
-        vscode.window.showErrorMessage(errorMessage);
-        throw Error(errorMessage);
-      }
-
-      const nextKey = await this.keyboardHandler.awaitSingleKeypress({
-        cursorStyle: vscode.TextEditorCursorStyle.Underline,
-        whenClauseContext: "cursorless.keyboard.targeted.awaitingKeys",
-        statusBarText: "Finish sequence...",
-      });
-
-      if (nextKey == null) {
-        return;
-      }
-
-      sequence += nextKey;
-      keyHandler = this.mergedKeymap[sequence];
-    }
-
-    keyHandler.handleValue();
-  }
-
-  isPrefixOfKey(text: string): boolean {
-    return keys(this.mergedKeymap).some((key) => key.startsWith(text));
-  }
-
-  /**
-   * This function can be used to deterct if a proposed map entry conflicts with
-   * one in the map.  Used to detect if the user tries to use two map entries,
-   * one of which is a prefix of the other.
-   * @param text The proposed new map entry
-   * @returns The first map entry that conflicts with {@link text}, if one
-   * exists
-   */
-  getConflictingKeyMapEntry(text: string): KeyHandler<any> | undefined {
-    const conflictingPair = toPairs(this.mergedKeymap).find(
-      ([key]) => text.startsWith(key) || key.startsWith(text),
-    );
-
-    return conflictingPair == null ? undefined : conflictingPair[1];
+class KeySequenceCancelledError extends Error {
+  constructor() {
+    super("Key sequence cancelled");
   }
 }

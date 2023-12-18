@@ -8,6 +8,7 @@ import { DestinationDescriptor } from "./DestinationDescriptor.types";
  * A simple action takes only a single target and no other arguments.
  */
 const simpleActionNames = [
+  "breakLine",
   "clearAndSetSelection",
   "copyToClipboard",
   "cutToClipboard",
@@ -25,6 +26,7 @@ const simpleActionNames = [
   "insertEmptyLineAfter",
   "insertEmptyLineBefore",
   "insertEmptyLinesAround",
+  "joinLines",
   "outdentLine",
   "randomizeTargets",
   "remove",
@@ -46,6 +48,7 @@ const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
+  "private.showParseTree",
   "private.getTargets",
 ] as const;
 
@@ -135,7 +138,7 @@ interface NamedInsertSnippetArg {
 interface CustomInsertSnippetArg {
   type: "custom";
   body: string;
-  scopeType?: ScopeType;
+  scopeTypes?: ScopeType[];
   substitutions?: Record<string, string>;
 }
 export type InsertSnippetArg = NamedInsertSnippetArg | CustomInsertSnippetArg;

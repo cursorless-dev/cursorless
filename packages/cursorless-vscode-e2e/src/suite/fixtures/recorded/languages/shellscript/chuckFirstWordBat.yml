@@ -1,6 +1,6 @@
 languageId: shellscript
 command:
-  spokenForm: chuck first word bat
+  spokenForm: chuck first sub bat
   version: 2
   targets:
     - type: primitive

@@ -8,7 +8,7 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"cursorless cheatsheet"` commands within VSCode.
+Once you understand the concepts, you can pull up a cheatsheet for reference by saying either `"cursorless reference"` or `"cursorless cheatsheet"` with VSCode focused.
 
 You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` within VSCode.
 
@@ -82,16 +82,16 @@ The following shapes are supported. Note that to target the default (dot) shape 
 | Spoken form | Shape                                           | Internal ID  | Enabled by default? |
 | ----------- | ----------------------------------------------- | ------------ | ------------------- |
 | N/A         | ![Default](../../images/hats/default.svg)       | `default`    | ✅                  |
-| `"ex"`      | ![Ex](../../images/hats/ex.svg)                 | `ex`         | ❌                  |
+| `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
+| `"curve"`   | ![Curve](../../images/hats/curve.svg)           | `curve`      | ❌                  |
 | `"fox"`     | ![Fox](../../images/hats/fox.svg)               | `fox`        | ❌                  |
+| `"frame"`   | ![Frame](../../images/hats/frame.svg)           | `frame`      | ❌                  |
+| `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
 | `"wing"`    | ![Wing](../../images/hats/wing.svg)             | `wing`       | ❌                  |
 | `"hole"`    | ![Hole](../../images/hats/hole.svg)             | `hole`       | ❌                  |
-| `"frame"`   | ![Frame](../../images/hats/frame.svg)           | `frame`      | ❌                  |
-| `"curve"`   | ![Curve](../../images/hats/curve.svg)           | `curve`      | ❌                  |
-| `"eye"`     | ![Eye](../../images/hats/eye.svg)               | `eye`        | ❌                  |
-| `"play"`    | ![Play](../../images/hats/play.svg)             | `play`       | ❌                  |
+| `"ex"`      | ![Ex](../../images/hats/ex.svg)                 | `ex`         | ❌                  |
 | `"cross"`   | ![Crosshairs](../../images/hats/crosshairs.svg) | `crosshairs` | ❌                  |
-| `"bolt"`    | ![Bolt](../../images/hats/bolt.svg)             | `bolt`       | ❌                  |
+| `"eye"`     | ![Eye](../../images/hats/eye.svg)               | `eye`        | ❌                  |
 
 You can enable or disable shapes in your VSCode settings, by searching for `cursorless.hatEnablement.shapes` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
@@ -217,17 +217,17 @@ For example, the command `take every key [blue] air` will select every key in th
 
 ##### Sub-token modifiers
 
-###### `"word"`
+###### `"sub"`
 
-If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"word"` modifier. For example,
+If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"sub"` modifier. For example,
 
-- `"second word air"`
-- `"second past fourth word air"`
-- `"last word air"`
+- `"second sub air"`
+- `"second past fourth sub air"`
+- `"last sub air"`
 
 For example, the following command:
 
-    "take second past fourth word blue air"
+    "take second past fourth sub blue air"
 
 Selects the second, third and fourth word in the token containing letter 'a' with a blue hat.
 
@@ -351,6 +351,15 @@ If your cursor is touching a token, you can say `"take every instance"` to selec
 
 Pro tip: if you say eg `"take five instances air"`, and it turns out you need more, you can say eg `"take that and next two instances that"` to select the next two instances after the last instance you selected.
 
+###### Experimental: `"from"`
+
+We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
+
+- `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
+- `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
+
+Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
+
 ##### `"just"`
 
 The `"just"` modifier strips the target of any semantic information, treating it as just a raw range, with the following effects:
@@ -367,7 +376,7 @@ The `"just"` modifier strips the target of any semantic information, treating it
 
   - `"chuck just line"` will delete only the content of the current line, without removing the line ending, resulting in a blank line, unlike the default behaviour of `"chuck line"` that removes the line entirely, leaving no blank line.
 
-- A raw range does not have its own insertion delimitiers.
+- A raw range does not have its own insertion delimiters.
   - For example, `"paste after just air"` will paste directly after the air token, without inserting a space, as opposed to the way `"paste after air"` would insert a space before the pasted content.
   - If you use `"just"` on the destination of a `"bring"` command, it will inherit its insertion delimiters from the source of the `"bring"` action. For example, in the command `"bring arg air and bat after just paren"`, the `"air"` and `"bat"` arguments will be joined by commas. In contrast, `"bring arg air and bat after token paren"` would join the arguments with spaces.
 - In the case of [`"instance"`](#instance), by default `"every instance air"` will only consider instances of the air token that are themselves full tokens, but `"every instance just air"` doesn't have such a restriction, because we've stripped air of its semantic "token-ness".
@@ -377,15 +386,6 @@ Some examples:
 - `"chuck just air"`: deletes just the air token, leaving spaces undisturbed.
 - `"chuck just line"`: deletes just the content of the line, leaving a blank line.
 - `"bring bat after just air"`: results in something like `aaabbb` where the bat token was copied after the air token with no delimeter between them.
-
-###### Experimental: `"from"`
-
-We have experimental support for prefixing a command with `"from <target>"` to narrow the range within which `"every instance"` searches, or to set the start point from which `"next instance"` searches. For example:
-
-- `"from funk take every instance air"`: selects all instances of the token with a hat over the letter `a` in the current function
-- `"from air take next instance bat"`: selects the next instance of the token with a hat over the letter `b` starting from the token with a hat over the letter `a`
-
-Note that the `"from"` modifier is not enabled by default; you must remove the `-` at the start of the line starting with `-from` in your `experimental/experimental_actions.csv` [settings csv](./customization.md). Note also that this feature is considered experimental and may change in the future.
 
 ##### Surrounding pair
 
@@ -679,6 +679,8 @@ Each of these commands performs a vscode action of the same or a similar name on
 - `"reference <TARGET>"` search the workspace for all references to the target
 - `"hover <TARGET>"` displays the tooltip that would appear if you hovered the mouse over the target
 - `"quick fix <TARGET>"` displays quick fixes and refactors suggested by the vscode
+- `"scout <TARGET>"` search the document for the target
+- `"scout all <TARGET>"` search the workspace for the target
 
 eg:
 `define blue air`
@@ -703,6 +705,27 @@ eg:
 `extract call air`
 
 Extracts the function call containing the decorated 'a' into its own variable.
+
+### Join
+
+Join multiple lines together.
+
+- `"join <TARGET>"`
+
+eg:
+
+- `join air`: Join the line with the token containing the letter 'a' with its next line.
+- `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
+
+### Break
+
+Break line in two.
+
+- `"break <TARGET>"`
+
+eg:
+
+- `break air`: Break the line with the token containing the letter 'a'. 'a' is now the first token on the new line.
 
 ## Paired delimiters
 

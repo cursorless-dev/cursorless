@@ -1,3 +1,5 @@
+mode: command
+mode: user.cursorless_spoken_form_test
 tag: user.cursorless
 -
 
@@ -28,3 +30,6 @@ tag: user.cursorless
 
 test snippet make <user.cursorless_target>:
     user.private_cursorless_make_snippet_test(cursorless_target)
+
+parse tree <user.cursorless_target>:
+    user.cursorless_command("private.showParseTree", cursorless_target)

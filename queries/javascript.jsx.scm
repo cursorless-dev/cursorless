@@ -81,3 +81,41 @@
   "<" @_.domain.start
   ">" @name.startOf @_.domain.end
 )
+
+;;!! <aaa bbb="ccc" />
+;;!       ^^^^^^^^^
+(jsx_attribute) @attribute
+
+;;!! <aaa bbb="ccc" />
+;;!       ^^^
+(jsx_attribute
+  (property_identifier) @collectionKey
+  (_)? @_.trailing.startOf
+) @_.domain
+
+;;!! <aaa bbb="ccc" />
+;;!           ^^^^^
+;;!          xxxxxx
+;;!       ---------
+(jsx_attribute
+  (_) @_.leading.endOf
+  (_) @value
+) @_.domain
+
+;;!! <aaa />
+;;!   ^^^^
+(jsx_self_closing_element
+  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  "/" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! <aaa></aaa>
+;;!   ^^^
+(jsx_opening_element
+  "<" @attribute.iteration.start.endOf @collectionKey.iteration.start.endOf @value.iteration.start.endOf
+  ">" @attribute.iteration.end.startOf @collectionKey.iteration.end.startOf @value.iteration.end.startOf
+)
+
+;;!! <div>text</div>
+;;!       ^^^^
+(jsx_text) @textFragment

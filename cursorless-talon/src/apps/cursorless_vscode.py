@@ -28,7 +28,13 @@ class Actions:
     def private_cursorless_show_settings_in_ide():
         """Show Cursorless-specific settings in ide"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
-            "workbench.action.openGlobalSettings"
+            "workbench.action.openSettings", "@ext:pokey.cursorless "
         )
         actions.sleep("250ms")
-        actions.insert("cursorless")
+        actions.key("right")
+
+    def private_cursorless_show_sidebar():
+        """Show Cursorless sidebar"""
+        actions.user.private_cursorless_run_rpc_command_and_wait(
+            "workbench.view.extension.cursorless"
+        )

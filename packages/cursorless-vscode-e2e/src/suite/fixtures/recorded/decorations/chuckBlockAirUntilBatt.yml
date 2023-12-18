@@ -39,6 +39,7 @@ initialState:
       end: {line: 5, character: 1}
 finalState:
   documentContents: |
+
     b   c
     d   e
     f   g
@@ -48,4 +49,4 @@ finalState:
 ide:
   flashes:
     - style: pendingDelete
-      range: {type: line, start: 0, end: 4}
+      range: {type: line, start: 1, end: 4}

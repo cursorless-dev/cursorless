@@ -7,9 +7,11 @@ command:
     - type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: switchStatementSubject}
+          scopeType: {type: private.switchStatementSubject}
   usePrePhraseSnapshot: false
-spokenFormError: Scope type 'switchStatementSubject'
+spokenFormError: >-
+  simple scope type type with id private.switchStatementSubject; this is a
+  private spoken form currently only for internal experimentation
 initialState:
   documentContents: |
     int main() {

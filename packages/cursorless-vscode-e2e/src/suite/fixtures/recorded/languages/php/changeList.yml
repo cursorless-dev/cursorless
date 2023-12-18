@@ -1,0 +1,32 @@
+languageId: php
+command:
+  version: 6
+  spokenForm: change list
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    <?php
+
+    $list = [
+        'hello',
+        'world'
+    ];
+  selections:
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    <?php
+
+    $list = ;
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}

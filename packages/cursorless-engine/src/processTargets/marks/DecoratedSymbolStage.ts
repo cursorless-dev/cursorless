@@ -3,7 +3,7 @@ import { Target } from "../../typings/target.types";
 import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 
-export default class implements MarkStage {
+export class DecoratedSymbolStage implements MarkStage {
   constructor(
     private readableHatMap: ReadOnlyHatMap,
     private mark: DecoratedSymbolMark,

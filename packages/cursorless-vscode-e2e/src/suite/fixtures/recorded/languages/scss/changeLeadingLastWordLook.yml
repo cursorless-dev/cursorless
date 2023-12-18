@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  spokenForm: change leading last word look
+  spokenForm: change leading last sub look
   version: 2
   targets:
     - type: primitive

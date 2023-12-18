@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take string harp past each
+  spokenForm: take parse tree string harp past each
   action: setSelection
   targets:
     - type: range
@@ -14,7 +14,9 @@ command:
         mark: {type: decoratedSymbol, symbolColor: default, character: e}
       excludeStart: false
       excludeEnd: false
-spokenFormError: Scope type 'string'
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
 initialState:
   documentContents: |
 

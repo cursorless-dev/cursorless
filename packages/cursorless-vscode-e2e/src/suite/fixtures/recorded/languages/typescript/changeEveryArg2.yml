@@ -1,0 +1,35 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: change every arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    funk(
+      "foo", // Comment1
+      // Comment2
+      2
+    );
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+  marks: {}
+finalState:
+  documentContents: |-
+    funk(
+      , // Comment1
+      // Comment2
+      
+    );
+  selections:
+    - anchor: {line: 1, character: 2}
+      active: {line: 1, character: 2}
+    - anchor: {line: 3, character: 2}
+      active: {line: 3, character: 2}

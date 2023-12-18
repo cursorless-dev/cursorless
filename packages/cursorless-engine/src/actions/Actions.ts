@@ -1,6 +1,8 @@
 import { Snippets } from "../core/Snippets";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { ModifierStageFactory } from "../processTargets/ModifierStageFactory";
+import { TreeSitter } from "../typings/TreeSitter";
+import { BreakLine } from "./BreakLine";
 import { Bring, Move, Swap } from "./BringMoveSwap";
 import Call from "./Call";
 import Clear from "./Clear";
@@ -25,6 +27,7 @@ import {
   InsertEmptyLinesAround,
 } from "./InsertEmptyLines";
 import InsertSnippet from "./InsertSnippet";
+import JoinLines from "./JoinLines";
 import { PasteFromClipboard } from "./PasteFromClipboard";
 import Remove from "./Remove";
 import Replace from "./Replace";
@@ -36,6 +39,7 @@ import {
   SetSelectionAfter,
   SetSelectionBefore,
 } from "./SetSelection";
+import ShowParseTree from "./ShowParseTree";
 import {
   CopyToClipboard,
   ExtractVariable,
@@ -63,6 +67,7 @@ import { ActionRecord } from "./actions.types";
  */
 export class Actions implements ActionRecord {
   constructor(
+    private treeSitter: TreeSitter,
     private snippets: Snippets,
     private rangeUpdater: RangeUpdater,
     private modifierStageFactory: ModifierStageFactory,
@@ -108,6 +113,8 @@ export class Actions implements ActionRecord {
     this,
     this.modifierStageFactory,
   );
+  joinLines = new JoinLines(this.rangeUpdater);
+  breakLine = new BreakLine(this.rangeUpdater);
   moveToTarget = new Move(this.rangeUpdater);
   outdentLine = new OutdentLine(this.rangeUpdater);
   pasteFromClipboard = new PasteFromClipboard(this.rangeUpdater, this);
@@ -145,5 +152,6 @@ export class Actions implements ActionRecord {
     this.snippets,
     this.modifierStageFactory,
   );
+  ["private.showParseTree"] = new ShowParseTree(this.treeSitter);
   ["private.getTargets"] = new GetTargets();
 }

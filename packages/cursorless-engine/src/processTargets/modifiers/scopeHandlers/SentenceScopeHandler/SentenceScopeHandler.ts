@@ -1,12 +1,12 @@
 import { Direction, Range } from "@cursorless/common";
 import { imap } from "itertools";
-import { NestedScopeHandler } from "..";
+import { NestedScopeHandler } from "../NestedScopeHandler";
 import { TokenTarget } from "../../../targets";
 import type { TargetScope } from "../scope.types";
-import SentenceSegmenter from "./SentenceSegmenter";
+import { SentenceSegmenter } from "./SentenceSegmenter";
 import { MatchedText } from "../../../../util/regex";
 
-export default class SentenceScopeHandler extends NestedScopeHandler {
+export class SentenceScopeHandler extends NestedScopeHandler {
   public readonly scopeType = { type: "sentence" } as const;
   public readonly iterationScopeType = { type: "paragraph" } as const;
   private segmenter = new SentenceSegmenter();

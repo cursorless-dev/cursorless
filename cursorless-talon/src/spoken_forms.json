@@ -3,6 +3,7 @@
   "actions.csv": {
     "simple_action": {
       "bottom": "scrollToBottom",
+      "break": "breakLine",
       "break point": "toggleLineBreakpoint",
       "carve": "cutToClipboard",
       "center": "scrollToCenter",
@@ -26,6 +27,7 @@
       "hover": "showHover",
       "indent": "indentLine",
       "inspect": "showDebugHover",
+      "join": "joinLines",
       "post": "setSelectionAfter",
       "pour": "editNewLineAfter",
       "pre": "setSelectionBefore",
@@ -43,7 +45,6 @@
       "unfold": "unfoldRegion"
     },
     "callback_action": {
-      "call": "callAsFunction",
       "scout": "findInDocument",
       "phones": "nextHomophone"
     },
@@ -55,7 +56,8 @@
     "swap_action": { "swap": "swapTargets" },
     "wrap_action": { "wrap": "wrapWithPairedDelimiter", "repack": "rewrap" },
     "insert_snippet_action": { "snippet": "insertSnippet" },
-    "reformat_action": { "format": "applyFormatter" }
+    "reformat_action": { "format": "applyFormatter" },
+    "call_action": { "call": "callAsFunction" }
   },
   "target_connectives.csv": {
     "range_connective": {
@@ -76,7 +78,8 @@
       "trailing": "trailing",
       "content": "keepContentFilter",
       "empty": "keepEmptyFilter",
-      "its": "inferPreviousMark"
+      "its": "inferPreviousMark",
+      "visible": "visible"
     },
     "simple_scope_modifier": { "every": "every" },
     "interior_modifier": {
@@ -154,7 +157,7 @@
       "environment": "environment",
       "command": "command",
       "char": "character",
-      "word": "word",
+      "sub": "word",
       "token": "token",
       "identifier": "identifier",
       "line": "line",
@@ -168,6 +171,9 @@
     },
     "surrounding_pair_scope_type": {
       "string": "string"
+    },
+    "glyph_scope_type": {
+      "glyph": "glyph"
     }
   },
   "paired_delimiters.csv": {

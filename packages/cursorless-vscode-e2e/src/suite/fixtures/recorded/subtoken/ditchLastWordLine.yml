@@ -1,6 +1,6 @@
 languageId: plaintext
 command:
-  spokenForm: chuck last word line
+  spokenForm: chuck last sub line
   version: 3
   targets:
     - type: primitive

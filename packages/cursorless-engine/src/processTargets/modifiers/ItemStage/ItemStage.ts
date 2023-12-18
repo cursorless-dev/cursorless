@@ -8,7 +8,6 @@ import {
 } from "@cursorless/common";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
-import { getInsertionDelimiter } from "../../../util/nodeSelectors";
 import { getRangeLength } from "../../../util/rangeUtils";
 import { ModifierStage } from "../../PipelineStages.types";
 import { ScopeTypeTarget } from "../../targets";
@@ -19,7 +18,7 @@ import {
 import { getIterationScope } from "./getIterationScope";
 import { tokenizeRange } from "./tokenizeRange";
 
-export default class ItemStage implements ModifierStage {
+export class ItemStage implements ModifierStage {
   constructor(
     private languageDefinitions: LanguageDefinitions,
     private modifier: ContainingScopeModifier | EveryScopeModifier,
@@ -109,23 +108,32 @@ export default class ItemStage implements ModifierStage {
     itemInfo: ItemInfo,
     removalRange?: Range,
   ) {
-    const delimiter = getInsertionDelimiter(
-      target.editor,
+    const insertionDelimiter = getInsertionDelimiter(
       itemInfo.leadingDelimiterRange,
       itemInfo.trailingDelimiterRange,
-      ", ",
     );
     return new ScopeTypeTarget({
       scopeTypeType: this.modifier.scopeType.type as SimpleScopeTypeType,
       editor: target.editor,
       isReversed: target.isReversed,
       contentRange: itemInfo.contentRange,
-      delimiter,
+      insertionDelimiter,
       leadingDelimiterRange: itemInfo.leadingDelimiterRange,
       trailingDelimiterRange: itemInfo.trailingDelimiterRange,
       removalRange,
     });
   }
+}
+
+function getInsertionDelimiter(
+  leadingDelimiterRange?: Range,
+  trailingDelimiterRange?: Range,
+): string {
+  return (leadingDelimiterRange != null &&
+    !leadingDelimiterRange.isSingleLine) ||
+    (trailingDelimiterRange != null && !trailingDelimiterRange.isSingleLine)
+    ? ",\n"
+    : ", ";
 }
 
 /** Filter item infos by content range and domain intersection */

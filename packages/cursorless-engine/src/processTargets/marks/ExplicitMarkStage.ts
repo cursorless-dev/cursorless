@@ -4,7 +4,7 @@ import { MarkStage } from "../PipelineStages.types";
 import { UntypedTarget } from "../targets";
 import { ide } from "../../singletons/ide.singleton";
 
-export default class implements MarkStage {
+export class ExplicitMarkStage implements MarkStage {
   constructor(private mark: ExplicitMark) {}
 
   run(): Target[] {

@@ -18,7 +18,7 @@ import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages"
 import { OutOfRangeError } from "./targetSequenceUtils";
 import { StoredTargetMap } from "../..";
 
-export default class InstanceStage implements ModifierStage {
+export class InstanceStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private storedTargets: StoredTargetMap,
@@ -46,10 +46,8 @@ export default class InstanceStage implements ModifierStage {
   }
 
   private handleEveryScope(target: Target): Target[] {
-    const { editor } = target;
-
     return Array.from(
-      flatmap(this.getEveryRanges(editor), (searchRange) =>
+      flatmap(this.getEveryRanges(target), ([editor, searchRange]) =>
         this.getTargetIterable(target, editor, searchRange, "forward"),
       ),
     );
@@ -59,9 +57,7 @@ export default class InstanceStage implements ModifierStage {
     target: Target,
     { start, length }: OrdinalScopeModifier,
   ): Target[] {
-    const { editor } = target;
-
-    return this.getEveryRanges(editor).flatMap((searchRange) =>
+    return this.getEveryRanges(target).flatMap(([editor, searchRange]) =>
       takeFromOffset(
         this.getTargetIterable(
           target,
@@ -79,13 +75,12 @@ export default class InstanceStage implements ModifierStage {
     target: Target,
     { direction, offset, length }: RelativeScopeModifier,
   ): Target[] {
-    const { editor } = target;
-
     const referenceTargets = this.storedTargets.get("instanceReference") ?? [
       target,
     ];
 
     return referenceTargets.flatMap((referenceTarget) => {
+      const { editor } = referenceTarget;
       const iterationRange =
         direction === "forward"
           ? new Range(
@@ -109,11 +104,14 @@ export default class InstanceStage implements ModifierStage {
     });
   }
 
-  private getEveryRanges(editor: TextEditor): Range[] {
+  private getEveryRanges({
+    editor: targetEditor,
+  }: Target): readonly (readonly [TextEditor, Range])[] {
     return (
       this.storedTargets
         .get("instanceReference")
-        ?.map(({ contentRange }) => contentRange) ?? [editor.document.range]
+        ?.map(({ editor, contentRange }) => [editor, contentRange] as const) ??
+      ([[targetEditor, targetEditor.document.range]] as const)
     );
   }
 

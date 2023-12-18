@@ -57,16 +57,14 @@ export function elseIfExtractor(): SelectionExtractor {
     }
 
     // If we get here, we are part of a bigger `if` statement; extend our
-    // removal range past our leading `else` keyword.
+    // content range past our leading `else` keyword.
     const { selection } = contentRange;
     return {
-      selection,
-      context: {
-        removalRange: new Selection(
-          positionFromPoint(parent.child(0)!.startPosition),
-          selection.end,
-        ),
-      },
+      selection: new Selection(
+        positionFromPoint(parent.child(0)!.startPosition),
+        selection.end,
+      ),
+      context: {},
     };
   };
 }

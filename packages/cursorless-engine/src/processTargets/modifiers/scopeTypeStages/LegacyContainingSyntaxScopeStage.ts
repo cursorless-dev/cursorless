@@ -82,7 +82,7 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
         contentRange: contentSelection,
         removalRange: removalRange,
         interiorRange: interiorRange,
-        delimiter: containingListDelimiter,
+        insertionDelimiter: containingListDelimiter,
         leadingDelimiterRange,
         trailingDelimiterRange,
       });
