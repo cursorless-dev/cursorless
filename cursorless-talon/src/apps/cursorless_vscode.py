@@ -1,5 +1,6 @@
 from talon import Context, actions, app
 
+from ..actions.get_text import cursorless_get_text_action
 from ..targets.target_types import CursorlessTarget
 
 ctx = Context()
@@ -15,7 +16,8 @@ ctx.tags = ["user.cursorless"]
 class Actions:
     def private_cursorless_find(target: CursorlessTarget):
         """Find text of target in editor"""
-        search_text = actions.user.cursorless_get_text(target)
+        texts = cursorless_get_text_action(target, ensure_single_target=True)
+        search_text = texts[0]
         if len(search_text) > 200:
             search_text = search_text[:200]
             app.notify("Search text is longer than 200 characters; truncating")

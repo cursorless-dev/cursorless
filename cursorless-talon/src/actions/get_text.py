@@ -11,23 +11,23 @@ mod = Module()
 class Actions:
     def cursorless_get_text(
         target: CursorlessTarget,
-        no_decorations: Optional[bool] = None,
+        silent: bool = False,
     ) -> str:
-        """Get target text"""
+        """Get target text. If silent, don't show decorations"""
         return cursorless_get_text(
             target,
-            no_decorations=no_decorations,
+            show_decorations=not silent,
             ensure_single_target=True,
         )[0]
 
     def cursorless_get_text_list(
         target: CursorlessTarget,
-        no_decorations: Optional[bool] = None,
+        silent: bool = False,
     ) -> list[str]:
-        """Get texts for multiple targets"""
+        """Get texts for multiple targets. If silent, don't show decorations"""
         return cursorless_get_text(
             target,
-            no_decorations=no_decorations,
+            show_decorations=not silent,
             ensure_single_target=False,
         )
 
@@ -35,14 +35,14 @@ class Actions:
 def cursorless_get_text(
     target: CursorlessTarget,
     *,
-    no_decorations: Optional[bool] = None,
+    show_decorations: Optional[bool] = None,
     ensure_single_target: Optional[bool] = None,
 ) -> list[str]:
     """Get target texts"""
     options: dict[str, bool] = {}
 
-    if no_decorations is not None:
-        options["showDecorations"] = not no_decorations
+    if show_decorations is not None:
+        options["showDecorations"] = show_decorations
     if ensure_single_target is not None:
         options["ensureSingleTarget"] = ensure_single_target
 
