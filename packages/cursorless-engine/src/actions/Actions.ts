@@ -11,7 +11,7 @@ import Deselect from "./Deselect";
 import { EditNew } from "./EditNew";
 import { EditNewAfter, EditNewBefore } from "./EditNewLineAction";
 import ExecuteCommand from "./ExecuteCommand";
-import { FindInWorkspace } from "./Find";
+import { FindInDocument, FindInWorkspace } from "./Find";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
 import GetTargets from "./GetTargets";
@@ -89,6 +89,7 @@ export class Actions implements ActionRecord {
   );
   executeCommand = new ExecuteCommand(this.rangeUpdater);
   extractVariable = new ExtractVariable(this.rangeUpdater);
+  findInDocument = new FindInDocument(this);
   findInWorkspace = new FindInWorkspace(this);
   foldRegion = new Fold(this.rangeUpdater);
   followLink = new FollowLink(this);
