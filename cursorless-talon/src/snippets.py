@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Optional
 
 from talon import Module, actions
 
@@ -79,7 +79,7 @@ def insert_snippet(snippet_description: dict, destination: CursorlessDestination
 def insert_named_snippet(
     name: str,
     destination: CursorlessDestination,
-    substitutions: dict | None = None,
+    substitutions: Optional[dict] = None,
 ):
     snippet = {
         "type": "named",
@@ -150,8 +150,8 @@ class Actions:
     def cursorless_wrap_with_snippet(
         body: str,
         target: CursorlessTarget,
-        variable_name: str | None = None,
-        scope: str | None = None,
+        variable_name: Optional[str] = None,
+        scope: Optional[str] = None,
     ):
         """Cursorless: Wrap target with custom snippet <body>"""
         snippet_arg: dict[str, Any] = {

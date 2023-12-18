@@ -1,3 +1,5 @@
+from typing import Union
+
 from talon import Module
 
 from .target_types import ListTarget, PrimitiveTarget, RangeTarget
@@ -14,7 +16,7 @@ mod.list(
 @mod.capture(
     rule=("<user.cursorless_range_target> | <user.cursorless_primitive_target>")
 )
-def cursorless_primitive_or_range_target(m) -> RangeTarget | PrimitiveTarget:
+def cursorless_primitive_or_range_target(m) -> Union[RangeTarget, PrimitiveTarget]:
     return m[0]
 
 
@@ -24,7 +26,7 @@ def cursorless_primitive_or_range_target(m) -> RangeTarget | PrimitiveTarget:
         "({user.cursorless_list_connective} <user.cursorless_primitive_or_range_target>)*"
     )
 )
-def cursorless_target(m) -> ListTarget | RangeTarget | PrimitiveTarget:
+def cursorless_target(m) -> Union[ListTarget, RangeTarget, PrimitiveTarget]:
     targets = m.cursorless_primitive_or_range_target_list
 
     if len(targets) == 1:

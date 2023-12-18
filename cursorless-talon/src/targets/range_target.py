@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from talon import Module
 
@@ -21,7 +22,7 @@ class RangeConnective:
 @dataclass
 class RangeConnectiveWithType:
     connective: RangeConnective
-    type: RangeTargetType | None
+    type: Optional[RangeTargetType]
 
 
 @mod.capture(rule="{user.cursorless_range_connective}")

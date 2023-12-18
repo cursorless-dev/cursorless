@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal, Union
+from typing import Literal, Optional, Union
 
 RangeTargetType = Literal["vertical"]
 
@@ -7,8 +7,8 @@ RangeTargetType = Literal["vertical"]
 @dataclass
 class PrimitiveTarget:
     type = "primitive"
-    mark: dict | None
-    modifiers: list[dict] | None
+    mark: Optional[dict]
+    modifiers: Optional[list[dict]]
 
 
 @dataclass
@@ -19,17 +19,17 @@ class ImplicitTarget:
 @dataclass
 class RangeTarget:
     type = "range"
-    anchor: PrimitiveTarget | ImplicitTarget
+    anchor: Union[PrimitiveTarget, ImplicitTarget]
     active: PrimitiveTarget
     excludeAnchor: bool
     excludeActive: bool
-    rangeType: RangeTargetType | None
+    rangeType: Optional[RangeTargetType]
 
 
 @dataclass
 class ListTarget:
     type = "list"
-    elements: list[PrimitiveTarget | RangeTarget]
+    elements: list[Union[PrimitiveTarget, RangeTarget]]
 
 
 CursorlessTarget = Union[
@@ -44,7 +44,7 @@ CursorlessTarget = Union[
 class PrimitiveDestination:
     type = "primitive"
     insertionMode: Literal["to", "before", "after"]
-    target: ListTarget | RangeTarget | PrimitiveTarget
+    target: Union[ListTarget, RangeTarget, PrimitiveTarget]
 
 
 @dataclass
