@@ -1,4 +1,4 @@
-from typing import Callable, Union
+from typing import Callable
 
 from talon import Module, actions
 
@@ -120,9 +120,7 @@ class Actions:
         """Perform ide command on cursorless target"""
         return cursorless_execute_command_action(command_id, target)
 
-    def cursorless_insert(
-        destination: CursorlessDestination, text: Union[str, list[str]]
-    ):
+    def cursorless_insert(destination: CursorlessDestination, text: str | list[str]):
         """Perform text insertion on Cursorless destination"""
         if isinstance(text, str):
             text = [text]

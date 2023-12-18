@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Literal, Optional, Union
+from typing import Any, Literal, Union
 
 from ..marks.mark_types import Mark
 
@@ -9,8 +9,8 @@ RangeTargetType = Literal["vertical"]
 @dataclass
 class PrimitiveTarget:
     type = "primitive"
-    mark: Optional[Mark]
-    modifiers: Optional[list[dict[str, Any]]]
+    mark: Mark | None
+    modifiers: list[dict[str, Any]] | None
 
 
 @dataclass
@@ -21,17 +21,17 @@ class ImplicitTarget:
 @dataclass
 class RangeTarget:
     type = "range"
-    anchor: Union[PrimitiveTarget, ImplicitTarget]
+    anchor: PrimitiveTarget | ImplicitTarget
     active: PrimitiveTarget
     excludeAnchor: bool
     excludeActive: bool
-    rangeType: Optional[RangeTargetType]
+    rangeType: RangeTargetType | None
 
 
 @dataclass
 class ListTarget:
     type = "list"
-    elements: list[Union[PrimitiveTarget, RangeTarget]]
+    elements: list[PrimitiveTarget | RangeTarget]
 
 
 CursorlessTarget = Union[
@@ -46,7 +46,7 @@ CursorlessTarget = Union[
 class PrimitiveDestination:
     type = "primitive"
     insertionMode: Literal["to", "before", "after"]
-    target: Union[ListTarget, RangeTarget, PrimitiveTarget]
+    target: ListTarget | RangeTarget | PrimitiveTarget
 
 
 @dataclass

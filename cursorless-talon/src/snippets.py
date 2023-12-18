@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Optional, Union
+from typing import Any
 
 from talon import Module, actions
 
@@ -79,7 +79,7 @@ def insert_snippet(snippet_description: dict, destination: CursorlessDestination
 def insert_named_snippet(
     name: str,
     destination: CursorlessDestination,
-    substitutions: Optional[dict] = None,
+    substitutions: dict | None = None,
 ):
     snippet = {
         "type": "named",
@@ -93,7 +93,7 @@ def insert_named_snippet(
 def insert_custom_snippet(
     body: str,
     destination: CursorlessDestination,
-    scope_types: Optional[list[dict]] = None,
+    scope_types: list[dict] | None = None,
 ):
     snippet = {
         "type": "custom",
@@ -135,8 +135,8 @@ class Actions:
 
     def cursorless_insert_snippet(
         body: str,
-        destination: Optional[CursorlessDestination] = ImplicitDestination(),
-        scope_type: Optional[Union[str, list[str]]] = None,
+        destination: CursorlessDestination | None = ImplicitDestination(),
+        scope_type: str | list[str] | None = None,
     ):
         """Cursorless: Insert custom snippet <body>"""
         if isinstance(scope_type, str):
@@ -165,8 +165,8 @@ class Actions:
     def cursorless_wrap_with_snippet(
         body: str,
         target: CursorlessTarget,
-        variable_name: Optional[str] = None,
-        scope: Optional[str] = None,
+        variable_name: str | None = None,
+        scope: str | None = None,
     ):
         """Cursorless: Wrap target with custom snippet <body>"""
         snippet_arg: dict[str, Any] = {

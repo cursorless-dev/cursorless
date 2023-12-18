@@ -1,5 +1,3 @@
-from typing import Optional
-
 from talon import actions, app
 
 from ..targets.target_types import CursorlessTarget, PrimitiveDestination
@@ -20,7 +18,7 @@ def cursorless_homophones_action(target: CursorlessTarget):
 
 
 def get_next_homophone(word: str) -> str:
-    homophones: Optional[list[str]] = actions.user.homophones_get(word)
+    homophones: list[str] | None = actions.user.homophones_get(word)
     if not homophones:
         raise LookupError(f"Found no homophones for '{word}'")
     index = (homophones.index(word.lower()) + 1) % len(homophones)

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from talon import actions
 
 from ..targets.target_types import CursorlessTarget
@@ -8,8 +6,8 @@ from ..targets.target_types import CursorlessTarget
 def cursorless_get_text_action(
     target: CursorlessTarget,
     *,
-    show_decorations: Optional[bool] = None,
-    ensure_single_target: Optional[bool] = None,
+    show_decorations: bool | None = None,
+    ensure_single_target: bool | None = None,
 ) -> list[str]:
     """Get target texts"""
     options: dict[str, bool] = {}

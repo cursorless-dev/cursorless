@@ -4,7 +4,7 @@ from collections.abc import Container
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Iterable, Optional, TypedDict
+from typing import Callable, Iterable, TypedDict
 
 from talon import Context, Module, actions, app, fs
 
@@ -51,15 +51,15 @@ class SpokenFormEntry:
 def init_csv_and_watch_changes(
     filename: str,
     default_values: ListToSpokenForms,
-    handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]] = None,
+    handle_new_values: Callable[[list[SpokenFormEntry]], None] | None = None,
     *,
-    extra_ignored_values: Optional[list[str]] = None,
-    extra_allowed_values: Optional[list[str]] = None,
+    extra_ignored_values: list[str] | None = None,
+    extra_allowed_values: list[str] | None = None,
     allow_unknown_values: bool = False,
-    default_list_name: Optional[str] = None,
+    default_list_name: str | None = None,
     headers: list[str] = [SPOKEN_FORM_HEADER, CURSORLESS_IDENTIFIER_HEADER],
     no_update_file: bool = False,
-    pluralize_lists: Optional[list[str]] = None,
+    pluralize_lists: list[str] | None = None,
 ):
     """
     Initialize a cursorless settings csv, creating it if necessary, and watch
@@ -220,9 +220,9 @@ def update_dicts(
     extra_ignored_values: list[str],
     extra_allowed_values: list[str],
     allow_unknown_values: bool,
-    default_list_name: Optional[str],
+    default_list_name: str | None,
     pluralize_lists: list[str],
-    handle_new_values: Optional[Callable[[list[SpokenFormEntry]], None]],
+    handle_new_values: Callable[[list[SpokenFormEntry]], None] | None,
 ):
     # Create map with all default values
     results_map: dict[str, ResultsListEntry] = {}
