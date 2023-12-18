@@ -25,7 +25,7 @@ class CommunityInsertionSnippet:
 @dataclass
 class CommunityWrapperSnippet:
     body: str
-    variableName: str
+    variable_name: str
     scope: str = None
 
 
@@ -215,5 +215,5 @@ class Actions:
         """Cursorless: Wrap target with community snippet <name>"""
         snippet: CommunityWrapperSnippet = actions.user.get_wrapper_snippet(name)
         actions.user.cursorless_wrap_with_snippet(
-            snippet.body, target, snippet.variableName, snippet.scope
+            snippet.body, target, snippet.variable_name, snippet.scope
         )
