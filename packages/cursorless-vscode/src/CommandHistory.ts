@@ -20,7 +20,8 @@ const settingSection = "cursorless";
 const settingName = "commandHistory";
 
 /**
- * When user opts in, this class sanitizes and appends each Cursorless command to a local log file in `.cursorless` dir.
+ * When user opts in, this class sanitizes and appends each Cursorless command
+ * to a local log file in `.cursorless/commandHistory` dir.
  */
 export class CommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
@@ -36,7 +37,7 @@ export class CommandHistory implements CommandRunnerDecorator {
   }
 
   wrapCommandRunner(
-    readableHatMap: ReadOnlyHatMap,
+    _readableHatMap: ReadOnlyHatMap,
     runner: CommandRunner,
   ): CommandRunner {
     if (!this.isActive()) {
@@ -70,8 +71,8 @@ export class CommandHistory implements CommandRunnerDecorator {
     const historyItem: CommandHistoryEntry = {
       date: getDayDate(date),
       cursorlessVersion: this.cursorlessVersion,
-      thrownError: thrownError?.name,
-      command: produce(command, (draft) => sanitizeCommandInPlace(draft)),
+      error: thrownError?.name,
+      command: produce(command, sanitizeCommandInPlace),
     };
     const data = JSON.stringify(historyItem) + "\n";
 
@@ -102,23 +103,22 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
       break;
 
     // Remove substitutions and custom body
-    case "insertSnippet": {
-      const { snippetDescription } = action;
-      delete snippetDescription.substitutions;
-      if (snippetDescription.type === "custom") {
-        snippetDescription.body = "";
+    case "insertSnippet":
+      delete action.snippetDescription.substitutions;
+      if (action.snippetDescription.type === "custom") {
+        action.snippetDescription.body = "";
       }
       break;
-    }
 
-    // Remove custom body
-    case "wrapWithSnippet": {
-      const { snippetDescription } = action;
-      if (snippetDescription.type === "custom") {
-        snippetDescription.body = "";
+    case "wrapWithSnippet":
+      if (action.snippetDescription.type === "custom") {
+        action.snippetDescription.body = "";
       }
       break;
-    }
+
+    case "executeCommand":
+      delete action.options?.commandArgs;
+      break;
 
     case "breakLine":
     case "clearAndSetSelection":
@@ -164,7 +164,6 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "private.getTargets":
     case "callAsFunction":
     case "editNew":
-    case "executeCommand":
     case "generateSnippet":
     case "getText":
     case "highlight":

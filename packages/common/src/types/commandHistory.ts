@@ -11,7 +11,7 @@ export interface CommandHistoryEntry {
   cursorlessVersion: string;
 
   // Name of thrown error. eg: "NoContainingScopeError"
-  thrownError?: string;
+  error?: string;
 
   command: CommandComplete;
 }
