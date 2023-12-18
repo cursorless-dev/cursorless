@@ -294,7 +294,7 @@
           "type": "boolean",
           "default": false,
           "order": 2,
-          "description": "Whether to log (sanitized) Cursorless commands to disk. Can be used for generating user statistics and improving Cursorless. Only stored locally and files are never sent to the internet."
+          "description": "Keep a local, sanitized command history. This history is never sent to our servers, and any commands that may contain text will be sanitized. These statistics can be used in the future for doing local analyses to determine ways you can improve your Cursorless efficiency. We may also support a way for you to send your statistics to us for analysis in the future, but this will be opt-in only."
         },
         "cursorless.tokenHatSplittingMode.preserveCase": {
           "type": "boolean",
