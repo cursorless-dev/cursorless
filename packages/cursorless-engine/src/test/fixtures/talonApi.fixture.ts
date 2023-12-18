@@ -96,6 +96,44 @@ const parseTreeAction: ActionDescriptor = {
   name: "private.showParseTree",
   target: decoratedPrimitiveTarget("a"),
 };
+const alternateHighlightAirAndBatAction: ActionDescriptor = {
+  name: "highlight",
+  target: {
+    type: "list",
+    elements: [
+      {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "a",
+        },
+        modifiers: [],
+      },
+      {
+        type: "primitive",
+        mark: {
+          type: "decoratedSymbol",
+          symbolColor: "default",
+          character: "b",
+        },
+        modifiers: [],
+      },
+    ],
+  },
+  highlightId: "highlight1",
+};
+const alternateHighlightNothingAction: ActionDescriptor = {
+  name: "highlight",
+  target: {
+    type: "primitive",
+    mark: {
+      type: "nothing",
+    },
+    modifiers: [],
+  },
+  highlightId: "highlight1",
+};
 
 /**
  * These test our Talon api using dummy spoken forms defined in
@@ -120,7 +158,14 @@ export const talonApiFixture = [
     "test api wrap with snippet by name this",
     wrapWithSnippetByNameAction,
   ),
-  spokenFormTest("parse tree air", parseTreeAction),
+  spokenFormTest(
+    "test api extract decorated marks air past bat",
+    alternateHighlightAirAndBatAction,
+  ),
+  spokenFormTest(
+    "test api alternate highlight nothing",
+    alternateHighlightNothingAction,
+  ),
 ];
 
 function decoratedPrimitiveTarget(

@@ -21,3 +21,7 @@ test api wrap with snippet <user.cursorless_target>:
     user.cursorless_wrap_with_snippet("Hello, $foo!  My name is $bar!", cursorless_target, "foo", "statement")
 test api wrap with snippet by name <user.cursorless_target>:
     user.cursorless_wrap_with_snippet_by_name("functionDeclaration", "body", cursorless_target)
+test api extract decorated marks <user.cursorless_target>:
+    user.private_cursorless_test_extract_decorated_marks(cursorless_target)
+test api alternate highlight nothing:
+    user.private_cursorless_test_alternate_highlight_nothing()

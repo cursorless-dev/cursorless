@@ -31,16 +31,6 @@ class TargetBuilderActions:
         """Cursorless private api low-level target builder: Create a primitive target"""
         return PrimitiveTarget(mark, modifiers)
 
-    def cursorless_private_build_range_target(
-        anchor: PrimitiveTarget,
-        active: PrimitiveTarget,
-        excludeAnchor: bool = False,
-        excludeActive: bool = False,
-        rangeType: Optional[RangeTargetType] = None,
-    ) -> RangeTarget:
-        """Cursorless private api low-level target builder: Create a range target"""
-        return RangeTarget(anchor, active, excludeAnchor, excludeActive, rangeType)
-
     def cursorless_private_build_list_target(
         elements: list[Union[PrimitiveTarget, RangeTarget]]
     ) -> Union[PrimitiveTarget, ListTarget]:
