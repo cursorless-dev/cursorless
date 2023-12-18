@@ -14,7 +14,7 @@ class Actions:
         silent: bool = False,
     ) -> str:
         """Get target text. If silent, don't show decorations"""
-        return cursorless_get_text(
+        return cursorless_get_text_action(
             target,
             show_decorations=not silent,
             ensure_single_target=True,
@@ -25,7 +25,7 @@ class Actions:
         silent: bool = False,
     ) -> list[str]:
         """Get texts for multiple targets. If silent, don't show decorations"""
-        return cursorless_get_text(
+        return cursorless_get_text_action(
             target,
             show_decorations=not silent,
             ensure_single_target=False,
