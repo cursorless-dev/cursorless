@@ -32,7 +32,7 @@ class Actions:
         )
 
 
-def cursorless_get_text(
+def cursorless_get_text_action(
     target: CursorlessTarget,
     *,
     show_decorations: Optional[bool] = None,
@@ -43,6 +43,7 @@ def cursorless_get_text(
 
     if show_decorations is not None:
         options["showDecorations"] = show_decorations
+
     if ensure_single_target is not None:
         options["ensureSingleTarget"] = ensure_single_target
 
