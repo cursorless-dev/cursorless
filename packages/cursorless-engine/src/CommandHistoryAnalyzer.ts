@@ -4,33 +4,32 @@ import {
   PartialPrimitiveTargetDescriptor,
   ScopeType,
 } from "@cursorless/common";
-import {
-  getPartialPrimitiveTargets,
-  getPartialTargetDescriptors,
-  getScopeType,
-} from "@cursorless/cursorless-engine";
 import globRaw from "glob";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
-import * as vscode from "vscode";
+import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { ide } from "./singletons/ide.singleton";
+import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";
+import { getPartialPrimitiveTargets } from "./util/getPrimitiveTargets";
+import { getScopeType } from "./util/getScopeType";
 
 const glob = promisify(globRaw);
 
-class Month {
-  readonly month: string;
+class Period {
+  readonly period: string;
   readonly actions: Record<string, number> = {};
   readonly modifiers: Record<string, number> = {};
   readonly scopeTypes: Record<string, number> = {};
   count: number = 0;
 
-  constructor(month: string) {
-    this.month = month;
+  constructor(period: string) {
+    this.period = period;
   }
 
   toString(): string {
     return [
-      `[${this.month}]`,
+      `[${this.period}]`,
       `Total commands: ${this.count}`,
       this.serializeMap("Actions", this.actions),
       this.serializeMap("Modifiers", this.modifiers),
@@ -49,9 +48,10 @@ class Month {
 
   append(entry: CommandHistoryEntry) {
     this.count++;
-    this.incrementAction(entry.command.action.name);
+    const command = canonicalizeAndValidateCommand(entry.command);
+    this.incrementAction(command.action.name);
 
-    const partialTargets = getPartialTargetDescriptors(entry.command.action);
+    const partialTargets = getPartialTargetDescriptors(command.action);
     const partialPrimitiveTargets = getPartialPrimitiveTargets(partialTargets);
     this.parsePrimitiveTargets(partialPrimitiveTargets);
   }
@@ -88,29 +88,29 @@ class Month {
   }
 }
 
-class Months {
-  readonly months: Record<string, Month> = {};
+class Periods {
+  readonly periods: Record<string, Period> = {};
 
   getMonth(entry: CommandHistoryEntry) {
-    const monthDate = entry.date.slice(0, 7);
+    const date = entry.date.slice(0, 7);
 
-    if (!this.months[monthDate]) {
-      this.months[monthDate] = new Month(monthDate);
+    if (!this.periods[date]) {
+      this.periods[date] = new Period(date);
     }
 
-    return this.months[monthDate];
+    return this.periods[date];
   }
 
-  getMonths() {
-    const months = Object.values(this.months);
-    months.sort((a, b) => a.month.localeCompare(b.month));
-    return months;
+  getPeriods() {
+    const periods = Object.values(this.periods);
+    periods.sort((a, b) => a.period.localeCompare(b.period));
+    return periods;
   }
 }
 
-async function analyzeFilesAndReturnMonths(dir: string): Promise<Month[]> {
+async function analyzeFilesAndReturnMonths(dir: string): Promise<Period[]> {
   const files = await glob("*.jsonl", { cwd: dir });
-  const months = new Months();
+  const periods = new Periods();
 
   for (const file of files) {
     const filePath = path.join(dir, file);
@@ -123,12 +123,12 @@ async function analyzeFilesAndReturnMonths(dir: string): Promise<Month[]> {
       }
 
       const entry = JSON.parse(line) as CommandHistoryEntry;
-      const month = months.getMonth(entry);
+      const month = periods.getMonth(entry);
       month.append(entry);
     }
   }
 
-  return months.getMonths();
+  return periods.getPeriods();
 }
 
 export async function analyzeCommandHistory(dir: string) {
@@ -136,6 +136,5 @@ export async function analyzeCommandHistory(dir: string) {
   const monthTexts = months.map((month) => month.toString());
   const text = monthTexts.join("\n\n") + "\n";
 
-  const document = await vscode.workspace.openTextDocument({ content: text });
-  await vscode.window.showTextDocument(document);
+  await ide().openUntitledTextDocument({ content: text });
 }

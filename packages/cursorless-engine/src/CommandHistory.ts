@@ -2,22 +2,21 @@ import {
   ActionDescriptor,
   CommandComplete,
   CommandHistoryEntry,
+  CommandServerApi,
   FileSystem,
+  IDE,
   ReadOnlyHatMap,
 } from "@cursorless/common";
 import type {
   CommandRunner,
   CommandRunnerDecorator,
 } from "@cursorless/cursorless-engine";
-import { VscodeApi } from "@cursorless/vscode-common";
 import produce from "immer";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import * as vscode from "vscode";
+import { v4 as uuid } from "uuid";
 
 const filePrefix = "cursorlessCommandHistory";
-const settingSection = "cursorless";
-const settingName = "commandHistory";
 
 /**
  * When user opts in, this class sanitizes and appends each Cursorless command
@@ -25,14 +24,14 @@ const settingName = "commandHistory";
  */
 export class CommandHistory implements CommandRunnerDecorator {
   private readonly dirPath: string;
-  private readonly cursorlessVersion: string;
+  private currentPhraseSignal = "";
+  private currentPhraseId = "";
 
   constructor(
-    extensionContext: vscode.ExtensionContext,
-    private vscodeApi: VscodeApi,
+    private ide: IDE,
+    private commandServerApi: CommandServerApi | null,
     fileSystem: FileSystem,
   ) {
-    this.cursorlessVersion = extensionContext.extension.packageJSON.version;
     this.dirPath = fileSystem.cursorlessCommandHistoryDirPath;
   }
 
@@ -70,8 +69,9 @@ export class CommandHistory implements CommandRunnerDecorator {
 
     const historyItem: CommandHistoryEntry = {
       date: getDayDate(date),
-      cursorlessVersion: this.cursorlessVersion,
+      cursorlessVersion: this.ide.cursorlessVersion,
       error: thrownError?.name,
+      phraseId: await this.getPhraseId(),
       command: produce(command, sanitizeCommandInPlace),
     };
     const data = JSON.stringify(historyItem) + "\n";
@@ -80,10 +80,29 @@ export class CommandHistory implements CommandRunnerDecorator {
     await fs.appendFile(file, data, "utf8");
   }
 
+  private async getPhraseId(): Promise<string | undefined> {
+    const phraseStartSignal = this.commandServerApi?.signals?.prePhrase;
+
+    if (phraseStartSignal == null) {
+      return undefined;
+    }
+
+    const newSignal = await phraseStartSignal.getVersion();
+
+    if (newSignal == null) {
+      return undefined;
+    }
+
+    if (newSignal !== this.currentPhraseSignal) {
+      this.currentPhraseSignal = newSignal;
+      this.currentPhraseId = uuid();
+    }
+
+    return this.currentPhraseId;
+  }
+
   private isActive(): boolean {
-    return this.vscodeApi.workspace
-      .getConfiguration(settingSection)
-      .get<boolean>(settingName, false);
+    return this.ide.configuration.getOwnConfiguration("commandHistory");
   }
 }
 

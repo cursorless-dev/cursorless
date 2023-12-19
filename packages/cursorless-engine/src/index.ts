@@ -7,6 +7,5 @@ export * from "./typings/TreeSitter";
 export * from "./cursorlessEngine";
 export * from "./api/CursorlessEngineApi";
 export * from "./CommandRunner";
-export * from "./util/getPartialTargetDescriptors";
-export * from "./util/getPrimitiveTargets";
-export * from "./util/getScopeType";
+export * from "./CommandHistory";
+export * from "./CommandHistoryAnalyzer";

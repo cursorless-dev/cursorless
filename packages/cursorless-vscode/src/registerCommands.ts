@@ -7,6 +7,7 @@ import {
 import {
   CommandApi,
   TestCaseRecorder,
+  analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
 } from "@cursorless/cursorless-engine";
@@ -17,7 +18,6 @@ import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 import { logQuickActions } from "./logQuickActions";
-import { analyzeCommandHistory } from "./CommandHistoryAnalyzer";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,

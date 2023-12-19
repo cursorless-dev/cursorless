@@ -42,6 +42,11 @@ export interface IDE {
   disposeOnExit(...disposables: Disposable[]): () => void;
 
   /**
+   * The version of the cursorless extension
+   */
+  readonly cursorlessVersion: string;
+
+  /**
    * The root directory of this shipped code.  Can be used to access bundled
    * assets.
    */

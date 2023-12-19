@@ -11,6 +11,7 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
+  CommandHistory,
   createCursorlessEngine,
   TestCaseRecorder,
   TreeSitter,
@@ -27,7 +28,6 @@ import { mkdir } from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
-import { CommandHistory } from "./CommandHistory";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
@@ -100,7 +100,9 @@ export async function activate(
     fileSystem,
   );
 
-  addCommandRunnerDecorator(new CommandHistory(context, vscodeApi, fileSystem));
+  addCommandRunnerDecorator(
+    new CommandHistory(vscodeIDE, commandServerApi, fileSystem),
+  );
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
   addCommandRunnerDecorator(testCaseRecorder);
