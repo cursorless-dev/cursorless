@@ -238,9 +238,6 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
-      '@cursorless/vscode-common':
-        specifier: workspace:*
-        version: link:../vscode-common
       immer:
         specifier: ^9.0.15
         version: 9.0.19
