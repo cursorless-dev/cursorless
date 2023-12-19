@@ -24,10 +24,11 @@ export interface SpokenFormTest {
 export function spokenFormTest(
   spokenForm: string,
   action: ActionDescriptor,
+  mockedGetValue?: unknown,
 ): SpokenFormTest {
   return {
     spokenForm,
-    mockedGetValue: undefined,
+    mockedGetValue,
     commands: [command(spokenForm, action)],
   };
 }
