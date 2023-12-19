@@ -8,7 +8,6 @@ import { assert } from "chai";
 import { existsSync } from "node:fs";
 import { readFile, readdir, rm } from "node:fs/promises";
 import path from "node:path";
-import sinon from "sinon";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 
@@ -29,7 +28,6 @@ suite("commandHistory", function () {
 
   this.afterEach(async () => {
     await rm(tmpdir, { recursive: true, force: true });
-    sinon.restore();
   });
 
   test("active", () => testActive(tmpdir));
@@ -86,28 +84,9 @@ async function testError(tmpdir: string) {
 }
 
 async function injectFakeIsActive(isActive: boolean): Promise<void> {
-  const { vscodeApi } = (await getCursorlessApi()).testHelpers!;
-
-  const getConfigurationValue = sinon.fake((sectionName) => {
-    if (sectionName === "commandHistory") {
-      return isActive;
-    }
-
-    return vscode.workspace.getConfiguration("cursorless").get(sectionName);
-  });
-
-  sinon.replace(
-    vscodeApi.workspace,
-    "getConfiguration",
-    sinon.fake((section) => {
-      if (section === "cursorless") {
-        return {
-          get: getConfigurationValue,
-        } as unknown as vscode.WorkspaceConfiguration;
-      }
-
-      return vscode.workspace.getConfiguration(section);
-    }),
+  (await getCursorlessApi()).testHelpers!.ide.configuration.mockConfiguration(
+    "commandHistory",
+    isActive,
   );
 }
 

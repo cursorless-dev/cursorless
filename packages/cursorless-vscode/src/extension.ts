@@ -101,7 +101,7 @@ export async function activate(
   );
 
   addCommandRunnerDecorator(
-    new CommandHistory(vscodeIDE, commandServerApi, fileSystem),
+    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
   );
 
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
