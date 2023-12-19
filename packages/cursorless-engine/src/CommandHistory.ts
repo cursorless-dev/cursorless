@@ -192,6 +192,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "rewrapWithPairedDelimiter":
     case "swapTargets":
     case "wrapWithPairedDelimiter":
+    case "findInDocument":
       break;
 
     default: {
