@@ -12,9 +12,9 @@ test api get text <user.cursorless_target>:
 test api get text list on <user.cursorless_target>:
     user.cursorless_get_text_list(cursorless_target)
 test api get text hide decorations <user.cursorless_target>:
-    user.cursorless_get_text(cursorless_target, 1)
+    user.cursorless_get_text(cursorless_target, true)
 test api get text hide decorations list on <user.cursorless_target>:
-    user.cursorless_get_text_list(cursorless_target, 1)
+    user.cursorless_get_text_list(cursorless_target, true)
 
 test api insert <user.word> <user.cursorless_destination>:
     user.cursorless_insert(cursorless_destination, word)

@@ -3,7 +3,7 @@ import {
   GetTextActionOptions,
   PartialPrimitiveTargetDescriptor,
 } from "@cursorless/common";
-import { multiActionSpokenFormTest, spokenFormTest } from "./spokenFormTest";
+import { spokenFormTest } from "./spokenFormTest";
 
 // See cursorless-talon-dev/src/cursorless_test.talon
 const setSelectionAction: ActionDescriptor = {
@@ -130,24 +130,24 @@ export const talonApiFixture = [
     wrapWithSnippetByNameAction,
   ),
   spokenFormTest("parse tree air", parseTreeAction),
-  multiActionSpokenFormTest(
+  spokenFormTest(
     "test api get text air",
-    [getTextAction({ showDecorations: true, ensureSingleTarget: true })],
+    getTextAction({ showDecorations: true, ensureSingleTarget: true }),
     ["apple"],
   ),
-  multiActionSpokenFormTest(
+  spokenFormTest(
     "test api get text list on air",
-    [getTextAction({ showDecorations: true, ensureSingleTarget: false })],
+    getTextAction({ showDecorations: true, ensureSingleTarget: false }),
     ["apple"],
   ),
-  multiActionSpokenFormTest(
+  spokenFormTest(
     "test api get text hide decorations air",
-    [getTextAction({ showDecorations: false, ensureSingleTarget: true })],
+    getTextAction({ showDecorations: false, ensureSingleTarget: true }),
     ["apple"],
   ),
-  multiActionSpokenFormTest(
+  spokenFormTest(
     "test api get text hide decorations list on air",
-    [getTextAction({ showDecorations: false, ensureSingleTarget: false })],
+    getTextAction({ showDecorations: false, ensureSingleTarget: false }),
     ["apple"],
   ),
 ];
