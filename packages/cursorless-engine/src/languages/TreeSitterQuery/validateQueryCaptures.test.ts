@@ -77,6 +77,11 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     content: "(if_statement) @statement.leading.start",
   },
   {
+    name: "Dummy start",
+    isOk: false,
+    content: "(if_statement) @dummy.start",
+  },
+  {
     name: "Text fragment removal",
     isOk: false,
     content: "(comment) @textFragment.removal",
