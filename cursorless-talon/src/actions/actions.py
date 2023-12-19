@@ -49,7 +49,6 @@ ACTION_LIST_NAMES = [
 ]
 
 callback_actions: dict[str, Callable[[CursorlessTarget], None]] = {
-    "findInDocument": actions.user.private_cursorless_find,
     "nextHomophone": cursorless_homophones_action,
 }
 

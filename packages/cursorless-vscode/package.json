@@ -870,6 +870,7 @@
               "editNewLineBefore",
               "executeCommand",
               "extractVariable",
+              "findInDocument",
               "findInWorkspace",
               "foldRegion",
               "followLink",
