@@ -1,8 +1,9 @@
 import {
   ActionDescriptor,
+  GetTextActionOptions,
   PartialPrimitiveTargetDescriptor,
 } from "@cursorless/common";
-import { spokenFormTest } from "./spokenFormTest";
+import { multiActionSpokenFormTest, spokenFormTest } from "./spokenFormTest";
 
 // See cursorless-talon-dev/src/cursorless_test.talon
 const setSelectionAction: ActionDescriptor = {
@@ -96,16 +97,14 @@ const parseTreeAction: ActionDescriptor = {
   name: "private.showParseTree",
   target: decoratedPrimitiveTarget("a"),
 };
-const getTextAction: ActionDescriptor = {
-  name: "getText",
-  options: { ensureSingleTarget: true, showDecorations: true },
-  target: decoratedPrimitiveTarget("a"),
-};
-const getTextListAction: ActionDescriptor = {
-  name: "getText",
-  options: { ensureSingleTarget: false, showDecorations: true },
-  target: decoratedPrimitiveTarget("a"),
-};
+
+function getTextAction(options: GetTextActionOptions): ActionDescriptor {
+  return {
+    name: "getText",
+    options,
+    target: decoratedPrimitiveTarget("a"),
+  };
+}
 
 /**
  * These test our Talon api using dummy spoken forms defined in
@@ -131,8 +130,26 @@ export const talonApiFixture = [
     wrapWithSnippetByNameAction,
   ),
   spokenFormTest("parse tree air", parseTreeAction),
-  spokenFormTest("test api get text air", getTextAction),
-  spokenFormTest("test api get text list air", getTextListAction),
+  multiActionSpokenFormTest(
+    "test api get text air",
+    [getTextAction({ showDecorations: true, ensureSingleTarget: true })],
+    ["apple"],
+  ),
+  multiActionSpokenFormTest(
+    "test api get text list on air",
+    [getTextAction({ showDecorations: true, ensureSingleTarget: false })],
+    ["apple"],
+  ),
+  multiActionSpokenFormTest(
+    "test api get text hide decorations air",
+    [getTextAction({ showDecorations: false, ensureSingleTarget: true })],
+    ["apple"],
+  ),
+  multiActionSpokenFormTest(
+    "test api get text hide decorations list on air",
+    [getTextAction({ showDecorations: false, ensureSingleTarget: false })],
+    ["apple"],
+  ),
 ];
 
 function decoratedPrimitiveTarget(
