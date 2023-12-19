@@ -1,8 +1,35 @@
 from typing import Optional
 
-from talon import actions
+from talon import Module, actions
 
 from ..targets.target_types import CursorlessTarget
+
+mod = Module()
+
+
+@mod.action_class
+class Actions:
+    def cursorless_get_text(
+        target: CursorlessTarget,
+        hide_decorations: bool = False,
+    ) -> str:
+        """Get target text. If hide_decorations is True, don't show decorations"""
+        return cursorless_get_text_action(
+            target,
+            show_decorations=not hide_decorations,
+            ensure_single_target=True,
+        )[0]
+
+    def cursorless_get_text_list(
+        target: CursorlessTarget,
+        hide_decorations: bool = False,
+    ) -> list[str]:
+        """Get texts for multiple targets. If hide_decorations is True, don't show decorations"""
+        return cursorless_get_text_action(
+            target,
+            show_decorations=not hide_decorations,
+            ensure_single_target=False,
+        )
 
 
 def cursorless_get_text_action(
