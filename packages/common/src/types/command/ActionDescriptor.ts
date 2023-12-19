@@ -17,6 +17,7 @@ const simpleActionNames = [
   "editNewLineBefore",
   "experimental.setInstanceReference",
   "extractVariable",
+  "findInDocument",
   "findInWorkspace",
   "foldRegion",
   "followLink",

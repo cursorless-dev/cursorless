@@ -86,6 +86,10 @@ export default class FakeIDE implements IDE {
     throw Error("Not implemented");
   }
 
+  public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
+    throw Error("Not implemented");
+  }
+
   public findInWorkspace(_query: string): Promise<void> {
     throw Error("Not implemented");
   }

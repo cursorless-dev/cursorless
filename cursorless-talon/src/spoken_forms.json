@@ -36,6 +36,7 @@
       "reference": "showReferences",
       "rename": "rename",
       "reverse": "reverseTargets",
+      "scout": "findInDocument",
       "scout all": "findInWorkspace",
       "shuffle": "randomizeTargets",
       "snippet make": "generateSnippet",
@@ -45,7 +46,6 @@
       "unfold": "unfoldRegion"
     },
     "callback_action": {
-      "scout": "findInDocument",
       "phones": "nextHomophone"
     },
     "paste_action": { "paste": "pasteFromClipboard" },
@@ -81,7 +81,7 @@
       "its": "inferPreviousMark",
       "visible": "visible"
     },
-    "simple_scope_modifier": { "every": "every" },
+    "simple_scope_modifier": { "every": "every", "grand": "ancestor" },
     "interior_modifier": {
       "inside": "interiorOnly"
     },

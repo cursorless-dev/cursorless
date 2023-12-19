@@ -215,6 +215,15 @@ The command `"every"` can be used to select a syntactic element and all of its m
 
 For example, the command `take every key [blue] air` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
 
+##### `"grand"`
+
+The command `"grand"` can be used to select the grand parent of the containing syntactic element.
+
+- `"take grand statement air"`
+- `"take grand funk air"`
+
+For example, the command `take grand statement [blue] air` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
+
 ##### Sub-token modifiers
 
 ###### `"sub"`

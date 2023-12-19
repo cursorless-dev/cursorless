@@ -139,6 +139,10 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.workspaceFolders;
   }
 
+  public findInDocument(query: string, editor?: TextEditor): Promise<void> {
+    return this.original.findInDocument(query, editor);
+  }
+
   public findInWorkspace(query: string): Promise<void> {
     return this.original.findInWorkspace(query);
   }
