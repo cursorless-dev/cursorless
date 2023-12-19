@@ -167,7 +167,6 @@ export const talonApiFixture = [
     "test api wrap with snippet by name this",
     wrapWithSnippetByNameAction,
   ),
-  spokenFormTest("parse tree air", parseTreeAction),
   spokenFormTest(
     "test api get text air",
     getTextAction({ showDecorations: true, ensureSingleTarget: true }),
