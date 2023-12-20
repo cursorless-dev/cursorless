@@ -46,6 +46,7 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
+  "cursorless.tutorial.create",
 ] as const satisfies readonly `cursorless.${string}`[];
 
 export type CursorlessCommandId = (typeof cursorlessCommandIds)[number];
@@ -115,5 +116,8 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
+  ),
+  ["cursorless.tutorial.create"]: new VisibleCommand(
+    "Create the tutorial based on Talon HUD",
   ),
 };

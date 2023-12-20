@@ -4,6 +4,7 @@ import { StoredTargetMap } from "../core/StoredTargets";
 import { ScopeProvider } from "@cursorless/common";
 import { CommandRunner } from "../CommandRunner";
 import { ReadOnlyHatMap } from "@cursorless/common";
+import { Tutorial } from "../core/Tutorial";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
@@ -12,6 +13,7 @@ export interface CursorlessEngine {
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
   snippets: Snippets;
+  tutorial: Tutorial;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
   addCommandRunnerDecorator: (

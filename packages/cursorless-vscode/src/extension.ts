@@ -91,6 +91,7 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
+    tutorial,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde,
@@ -130,6 +131,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
+    tutorial,
   );
 
   new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();

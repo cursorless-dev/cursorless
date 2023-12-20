@@ -30,6 +30,7 @@ import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
+import { Tutorial } from "./core/Tutorial";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -64,6 +65,9 @@ export function createCursorlessEngine(
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
     talonSpokenForms,
   );
+
+  //debugger;
+  const tutorial = new Tutorial(hatTokenMap, customSpokenFormGenerator);
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
@@ -114,6 +118,7 @@ export function createCursorlessEngine(
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
     },
+    tutorial,
   };
 }
 
