@@ -50,6 +50,7 @@ const simpleActionNames = [
   "toggleLineComment",
   "unfoldRegion",
   "private.setImplicitTarget",
+  "private.setKeyboardTarget",
   "private.showParseTree",
   "private.getTargets",
 ] as const;
