@@ -13,6 +13,7 @@ import { usingSetting } from "./usingSetting";
 const targetColorMap: Partial<Record<StoredTargetKey, ScopeRangeType>> = {
   implicit: "content",
   instanceReference: "domain",
+  keyboard: "content",
 };
 
 /**
