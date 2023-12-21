@@ -389,8 +389,7 @@
 (for_in_statement
   left: (_) @name
   right: (_) @value
-  ")" @_.domain.end.endOf
-) @_.domain.start.startOf
+) @_.domain
 
 [
   (program)
@@ -681,6 +680,13 @@
   (#not-parent-type? @statement export_statement)
 )
 
+(program) @statement.iteration
+
+(statement_block
+  "{" @statement.iteration.start.endOf
+  "}" @statement.iteration.end.startOf
+)
+
 ;;!! foo(name: string) {}
 ;;!      ^^^^^^^^^^^^
 (
@@ -709,7 +715,14 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
-[
-  (formal_parameters)
-  (arguments)
-] @argumentOrParameter.iteration
+(_
+  (formal_parameters
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(arguments
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain

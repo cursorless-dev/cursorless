@@ -39,3 +39,5 @@
   (#trim-end! @_.domain)
   (#insertion-delimiter! @collectionItem "\n")
 )
+
+(list) @collectionItem.iteration

@@ -1,0 +1,23 @@
+do {
+
+} while (true);
+---
+
+[Content] =
+[Removal] = 2:9-2:13
+0| do {
+
+1|
+
+2| } while (true);
+           >----<
+
+[Domain] = 0:0-2:15
+0| do {
+  >----
+1|
+
+2| } while (true);
+   ---------------<
+
+[Insertion delimiter] = " "

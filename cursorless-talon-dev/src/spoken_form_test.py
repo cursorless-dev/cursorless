@@ -97,6 +97,25 @@ class Actions:
         except Exception as e:
             print(f"{e.__class__.__name__}: {e}")
 
+    def private_cursorless_test_extract_decorated_marks(target: Any):
+        """Run test for Cursorless private extract decorated marks api"""
+        marks = actions.user.cursorless_private_extract_decorated_marks(target)
+        all_decorated_marks_target = actions.user.cursorless_private_build_list_target(
+            [
+                actions.user.cursorless_private_build_primitive_target([], mark)
+                for mark in marks
+            ]
+        )
+        actions.user.cursorless_private_action_highlight(
+            all_decorated_marks_target, "highlight1"
+        )
+
+    def private_cursorless_test_alternate_highlight_nothing():
+        """Run test for Cursorless private highlight nothing api"""
+        actions.user.cursorless_private_action_highlight(
+            actions.user.cursorless_private_target_nothing(), "highlight1"
+        )
+
 
 def enable_modes():
     for mode in saved_modes:
