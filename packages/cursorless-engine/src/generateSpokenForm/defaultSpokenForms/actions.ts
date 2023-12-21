@@ -58,6 +58,7 @@ export const actions = {
   joinLines: "join",
 
   ["private.showParseTree"]: "parse tree",
+  ["private.setImplicitTarget"]: "implicit",
   ["experimental.setInstanceReference"]: "from",
 
   editNew: null,

@@ -7,12 +7,12 @@ import {
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
+  StoredTargetKey,
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
 import {
-  StoredTargetKey,
   StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,

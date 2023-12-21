@@ -1,0 +1,35 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: implicit this
+  action:
+    name: private.setImplicitTarget
+    target:
+      type: primitive
+      mark: {type: cursor}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 7}
+        end: {line: 0, character: 7}
+      isReversed: false
+      hasExplicitRange: false
+  implicitMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 7}
+        end: {line: 0, character: 7}
+      isReversed: false
+      hasExplicitRange: false

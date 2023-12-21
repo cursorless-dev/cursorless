@@ -75,9 +75,7 @@ export class InstanceStage implements ModifierStage {
     target: Target,
     { direction, offset, length }: RelativeScopeModifier,
   ): Target[] {
-    const referenceTargets = this.storedTargets.get("instanceReference") ?? [
-      target,
-    ];
+    const referenceTargets = this.getStoredTargets() ?? [target];
 
     return referenceTargets.flatMap((referenceTarget) => {
       const { editor } = referenceTarget;
@@ -104,14 +102,20 @@ export class InstanceStage implements ModifierStage {
     });
   }
 
+  private getStoredTargets() {
+    return (
+      this.storedTargets.get("instanceReference") ??
+      this.storedTargets.get("implicit")
+    );
+  }
+
   private getEveryRanges({
     editor: targetEditor,
   }: Target): readonly (readonly [TextEditor, Range])[] {
     return (
-      this.storedTargets
-        .get("instanceReference")
-        ?.map(({ editor, contentRange }) => [editor, contentRange] as const) ??
-      ([[targetEditor, targetEditor.document.range]] as const)
+      this.getStoredTargets()?.map(
+        ({ editor, contentRange }) => [editor, contentRange] as const,
+      ) ?? ([[targetEditor, targetEditor.document.range]] as const)
     );
   }
 

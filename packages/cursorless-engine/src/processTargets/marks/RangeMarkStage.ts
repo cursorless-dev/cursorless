@@ -1,18 +1,25 @@
 import { RangeMark } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
-import { MarkStageFactory } from "../MarkStageFactory";
+import { MarkStageFactory, MarkStageFactoryOpts } from "../MarkStageFactory";
 import { MarkStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../TargetPipelineRunner";
 
 export class RangeMarkStage implements MarkStage {
   constructor(
     private markStageFactory: MarkStageFactory,
+    private opts: MarkStageFactoryOpts,
     private mark: RangeMark,
   ) {}
 
   run(): Target[] {
-    const anchorStage = this.markStageFactory.create(this.mark.anchor);
-    const activeStage = this.markStageFactory.create(this.mark.active);
+    const anchorStage = this.markStageFactory.create(
+      this.mark.anchor,
+      this.opts,
+    );
+    const activeStage = this.markStageFactory.create(
+      this.mark.active,
+      this.opts,
+    );
     const anchorTargets = anchorStage.run();
     const activeTargets = activeStage.run();
 
