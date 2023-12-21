@@ -98,3 +98,4 @@ export * from "./scopeSupportFacets/scopeSupportFacets.types";
 export * from "./scopeSupportFacets/scopeSupportFacetInfos";
 export * from "./scopeSupportFacets/textualScopeSupportFacetInfos";
 export * from "./scopeSupportFacets/getLanguageScopeSupport";
+export * from "./StoredTargetKey";
