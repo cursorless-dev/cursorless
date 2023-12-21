@@ -1,0 +1,40 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: change previous char
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: relativeScope
+          scopeType: {type: character}
+          offset: 1
+          length: 1
+          direction: backward
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: aaa bbb
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+  implicitMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 7}
+        end: {line: 0, character: 7}
+      isReversed: false
+      hasExplicitRange: false
+finalState:
+  documentContents: aaa bb
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start: {line: 0, character: 5}
+        end: {line: 0, character: 5}
+      isReversed: false
+      hasExplicitRange: true

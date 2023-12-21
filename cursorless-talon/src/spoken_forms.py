@@ -115,7 +115,11 @@ def update():
     )
 
     disposables = [
-        handle_csv("actions.csv"),
+        handle_csv(
+            "actions.csv",
+            extra_allowed_values=["private.setImplicitTarget"],
+            default_list_name="simple_action",
+        ),
         handle_csv("target_connectives.csv"),
         handle_csv("modifiers.csv"),
         handle_csv("positions.csv"),
