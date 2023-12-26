@@ -136,7 +136,7 @@ export default class VscodeHatRenderer {
       await this.updateShapeOverrides(hatsDir);
 
       try {
-        fs.access(hatsDir);
+        await fs.access(hatsDir);
         this.hatsDirWatcherDisposable = watchDir(hatsDir, () =>
           this.updateShapeOverrides(hatsDir),
         );
