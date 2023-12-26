@@ -135,11 +135,14 @@ export default class VscodeHatRenderer {
     if (hatsDir) {
       await this.updateShapeOverrides(hatsDir);
 
-      fs.access(hatsDir).then(() =>
+      try {
+        fs.access(hatsDir);
         this.hatsDirWatcherDisposable = watchDir(hatsDir, () =>
           this.updateShapeOverrides(hatsDir),
-        ))
-        .catch(() => console.error("cannot watch hatsDir " + hatsDir));
+        );
+      } catch (e) {
+        console.error("cannot watch hatsDir " + hatsDir);
+      }
     } else {
       this.hatShapeOverrides = {};
       await this.recomputeDecorations();
