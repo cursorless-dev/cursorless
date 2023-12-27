@@ -10,7 +10,6 @@
 )
 [
   (if_statement)
-  (command)
   (function_definition)
   (declaration_command)
 ] @statement
@@ -138,11 +137,7 @@
 ;;!  -
 (function_definition
   body: (_
-    "{"
-    .
     (_)? @_.interior
-    .
-    "}"
   )
 ) @namedFunction @_.domain
 
