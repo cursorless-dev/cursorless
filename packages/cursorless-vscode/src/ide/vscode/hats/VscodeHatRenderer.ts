@@ -67,7 +67,7 @@ export default class VscodeHatRenderer {
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
   private hatsDirWatcherDisposable?: vscode.Disposable;
   private hatShapeOverrides: Record<string, vscode.Uri> = {};
-  private decoder: TextDecoder = new TextDecoder("utf-8");;
+  private decoder: TextDecoder = new TextDecoder("utf-8");
 
   constructor(
     private vscodeApi: VscodeApi,
