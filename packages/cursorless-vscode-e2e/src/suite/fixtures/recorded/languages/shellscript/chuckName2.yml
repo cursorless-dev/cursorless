@@ -1,0 +1,27 @@
+languageId: shellscript
+command:
+  version: 6
+  spokenForm: chuck name
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: name}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |+
+    local local_var="Local Variable"
+
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: |+
+    "Local Variable"
+
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}
