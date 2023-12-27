@@ -140,7 +140,7 @@ export default class VscodeHatRenderer {
           this.updateShapeOverrides(hatsDir),
         );
       } catch (e) {
-        console.error("cannot watch hatsDir " + hatsDir);
+        console.error("cannot watch hatsDir", hatsDir, e);
       }
     } else {
       this.hatShapeOverrides = {};
