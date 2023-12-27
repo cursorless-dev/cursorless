@@ -25,31 +25,102 @@
 ;; Conditionals
 ;;
 
-;;!!
-(if_statement
-  (_)*
-  "then"
-  (_)*
-  "fi"
-) @ifStatement @branch
+(if_statement) @ifStatement @branch.iteration
 
+;; Branch
+(
+  (if_statement
+    "if" @branch.start.startOf @branch.domain.start.startOf
+    (_)
+    "then"
+    (_) @branch.interior @dummy
+    "fi" @branch.end.startOf @branch.domain.end.startOf
+  )
+  (#not-type? @dummy elif_clause else_clause)
+)
+
+;; Conditional
+
+;;!! if [ $value -le 0 ]; then
+;;!! fi
 (if_statement
-  "if" @branch.start.startOf
-  (_)
-  "then"
-  (_)* @branch.interior
+  "if" @condition.domain.start.startOf
+  (_) @condition
+  "then" @condition.domain.end.endOf
   .
-  [
-    (elif_clause)
-    (else_clause)
-  ] @branch.end.startOf
-) @ifStatement @branch.iteration @_.domain
+  "fi"
+)
+
+;;!! if [ $value -le 0 ]; then
+;;!! else
+(if_statement
+  "if" @condition.domain.start.startOf
+  (_) @condition
+  "then" @condition.domain.end.endOf
+  .
+  (else_clause)
+)
+
+;;!! if [ $value -le 0 ]; then
+;;!! elif
+(if_statement
+  "if" @condition.domain.start.startOf
+  (_) @condition
+  "then" @condition.domain.end.endOf
+  .
+  (elif_clause)
+)
+
+;;!! if [ $value -le 0 ]; then
+;;!!     echo foo
+;;!! fi
+(
+  (if_statement
+    "if" @condition.domain.start.startOf
+    (_) @condition
+    "then"
+    (_) @dummy
+    .
+    "fi" @condition.domain.end.startOf
+  )
+  (#not-type? @dummy else_clause elif_clause)
+)
+
+;;!! if [ $value -le 0 ]; then
+;;!!     echo foo
+;;!! elif [ $value -le 0 ]; then
+;;!! fi
+(
+  (if_statement
+    "if" @condition.domain.start.startOf
+    (_) @condition
+    "then"
+    (_)
+    (elif_clause) @condition.domain.end.startOf
+  )
+)
+
+;;!! if [ $value -le 0 ]; then
+;;!!     echo foo
+;;!! else [ $value -le 0 ]; then
+;;!! fi
+(
+  (if_statement
+    "if" @condition.domain.start.startOf
+    (_) @condition
+    "then"
+    (_) @dummy
+    .
+    (else_clause) @condition.domain.end.startOf
+  )
+  (#not-type? @dummy elif_clause)
+)
 
 (elif_clause
-  (_)* @condition
+  (_) @condition
   "then"
-  (_)* @branch.interior
-) @branch
+  (_) @branch.interior
+) @branch @_.domain
 
 (else_clause
   "else" @branch.interior.start.endOf
@@ -58,9 +129,8 @@
 
 (_
   condition: (_) @condition
-) @_.domain
+)
 
-;;
 ;; Lists and maps
 ;;
 
