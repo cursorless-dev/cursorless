@@ -67,7 +67,7 @@ export default class VscodeHatRenderer {
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
   private hatsDirWatcherDisposable?: vscode.Disposable;
   private hatShapeOverrides: Record<string, vscode.Uri> = {};
-  private decoder: TextDecoder;
+  private decoder: TextDecoder = new TextDecoder("utf-8");;
 
   constructor(
     private vscodeApi: VscodeApi,
@@ -78,7 +78,6 @@ export default class VscodeHatRenderer {
   ) {
     extensionContext.subscriptions.push(this);
 
-    this.decoder = new TextDecoder("utf-8");
     this.recomputeDecorations = this.recomputeDecorations.bind(this);
 
     this.disposables.push(
