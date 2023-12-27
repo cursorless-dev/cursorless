@@ -27,26 +27,14 @@
 
 (if_statement) @ifStatement @branch.iteration
 
-;; Branch
-(
-  (if_statement
-    "if" @branch.start.startOf @branch.domain.start.startOf
-    (_)
-    "then"
-    (_) @branch.interior @dummy
-    "fi" @branch.end.startOf @branch.domain.end.startOf
-  )
-  (#not-type? @dummy elif_clause else_clause)
-)
-
 ;; Conditional
 
 ;;!! if [ $value -le 0 ]; then
 ;;!! fi
 (if_statement
-  "if" @condition.domain.start.startOf
+  "if" @condition.domain.start.startOf @branch.start.startOf
   (_) @condition
-  "then" @condition.domain.end.endOf
+  "then" @condition.domain.end.endOf @branch.end.endOf
   .
   "fi"
 )
@@ -54,9 +42,9 @@
 ;;!! if [ $value -le 0 ]; then
 ;;!! else
 (if_statement
-  "if" @condition.domain.start.startOf
+  "if" @condition.domain.start.startOf @branch.start.startOf
   (_) @condition
-  "then" @condition.domain.end.endOf
+  "then" @condition.domain.end.endOf @branch.end.endOf
   .
   (else_clause)
 )
@@ -64,9 +52,9 @@
 ;;!! if [ $value -le 0 ]; then
 ;;!! elif
 (if_statement
-  "if" @condition.domain.start.startOf
+  "if" @condition.domain.start.startOf @branch.start.startOf
   (_) @condition
-  "then" @condition.domain.end.endOf
+  "then" @condition.domain.end.endOf @branch.end.endOf
   .
   (elif_clause)
 )
@@ -76,12 +64,12 @@
 ;;!! fi
 (
   (if_statement
-    "if" @condition.domain.start.startOf
+    "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
     "then"
-    (_) @dummy
+    (_) @dummy @branch.interior
     .
-    "fi" @condition.domain.end.startOf
+    "fi" @condition.domain.end.startOf @branch.end.startOf
   )
   (#not-type? @dummy else_clause elif_clause)
 )
@@ -92,11 +80,11 @@
 ;;!! fi
 (
   (if_statement
-    "if" @condition.domain.start.startOf
+    "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
     "then"
-    (_)
-    (elif_clause) @condition.domain.end.startOf
+    (_) @branch.interior
+    (elif_clause) @condition.domain.end.startOf @branch.end.startOf
   )
 )
 
@@ -106,22 +94,44 @@
 ;;!! fi
 (
   (if_statement
-    "if" @condition.domain.start.startOf
+    "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
     "then"
-    (_) @dummy
+    (_) @dummy @branch.interior
     .
-    (else_clause) @condition.domain.end.startOf
+    (else_clause) @condition.domain.end.startOf @branch.end.startOf
   )
   (#not-type? @dummy elif_clause)
 )
 
+;;!! elif [ $value -le 0 ]; then
+;;!! else
+(elif_clause
+  (_) @condition
+  "then"
+  .
+) @branch @_.domain
+
+;;!! elif [ $value -le 0 ]; then
+;;!!    echo "foo1"
+;;!!    echo "foo1"
 (elif_clause
   (_) @condition
   "then"
   (_) @branch.interior
 ) @branch @_.domain
 
+;;!! else
+;;!! fi
+(else_clause
+  "else"
+  .
+) @branch
+
+;;!! else
+;;!!     echo "foo1"
+;;!!     echo "foo1"
+;;!! fi
 (else_clause
   "else" @branch.interior.start.endOf
   (_) @branch.interior.end.endOf
