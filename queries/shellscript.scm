@@ -2,15 +2,25 @@
 ;; Statements
 ;;
 
-(program
+(
+  (program
     (_) @statement
+  )
+  (#not-type? @statement comment)
 )
 [
-    (if_statement)
-    (command)
-    (function_definition)
-    (variable_assignment)
+  (if_statement)
+  (command)
+  (function_definition)
+  (declaration_command)
 ] @statement
+
+(
+  (_
+    (variable_assignment) @statement
+    (#not-parent-type? @statement declaration_command)
+  )
+)
 
 ;;
 ;; Conditionals
@@ -18,37 +28,37 @@
 
 ;;!!
 (if_statement
-    (_)*
-    "then"
-    (_)*
-    "fi"
+  (_)*
+  "then"
+  (_)*
+  "fi"
 ) @ifStatement @branch
 
 (if_statement
-    "if" @branch.start.startOf
-    (_)
-    "then"
-    (_)* @branch.interior
-    .
-    [
-        (elif_clause)
-        (else_clause)
-    ] @branch.end.startOf
+  "if" @branch.start.startOf
+  (_)
+  "then"
+  (_)* @branch.interior
+  .
+  [
+    (elif_clause)
+    (else_clause)
+  ] @branch.end.startOf
 ) @ifStatement @branch.iteration @_.domain
 
 (elif_clause
-    (_)* @condition
-    "then"
-    (_)* @branch.interior
+  (_)* @condition
+  "then"
+  (_)* @branch.interior
 ) @branch
 
 (else_clause
-    "else" @branch.interior.start.endOf
-    (_) @branch.interior.end.endOf
+  "else" @branch.interior.start.endOf
+  (_) @branch.interior.end.endOf
 ) @branch
 
 (_
-    condition: (_) @condition
+  condition: (_) @condition
 ) @_.domain
 
 ;;
@@ -59,10 +69,10 @@
 ;;!        ^^^^^^^^^^^^^
 ;;!        -------------
 (array
-    "(" @_.interior.start.endOf
-    (_)? @collectionItem
-    ")" @_.interior.end.startOf
-) @list
+  "(" @_.interior.start.endOf
+  (_)? @collectionItem
+  ")" @_.interior.end.startOf
+) @list @collectionItem.iteration
 
 ;;
 ;; Strings
@@ -74,15 +84,15 @@
 
 ;;!! var="foo"
 ;;!      ^^^^^
-(string) @string @textFragment @argumentOrParameter.iteration
+(string) @string @textFragment
 
 ;;!! var="foo ${bar}"
 ;;!           ^^^^^^
 (string
-    [
-        (expansion)
-        (simple_expansion)
-    ] @argumentOrParameter
+  [
+    (expansion)
+    (simple_expansion)
+  ] @argumentOrParameter
 )
 
 ;;
@@ -92,8 +102,8 @@
 ;;!! echo "foo"
 ;;!       ^^^^^
 (_
-    argument: (_) @argumentOrParameter
-) @_.iterator
+  argument: (_) @argumentOrParameter
+) @_.iteration
 
 ;; call:
 ;;!! echo "foo"
@@ -103,8 +113,8 @@
 ;;!  ^^^^
 ;;!  ----------
 (command
-    name: (_) @functionCallee
-) @_.domain @functionCall
+  name: (_) @functionCallee
+) @_.domain @functionCall @command
 
 ;;!! function foo() {
 ;;!           ^^^
@@ -114,7 +124,7 @@
 ;;!! }
 ;;!  -
 (function_definition
-    name: (_) @functionName
+  name: (_) @functionName
 ) @_.domain
 
 ;; FIXME: Need to support redirections
@@ -127,13 +137,13 @@
 ;;!! }
 ;;!  -
 (function_definition
-    body: (_
-        "{"
-        .
-        (_)? @_.interior
-        .
-        "}"
-    )
+  body: (_
+    "{"
+    .
+    (_)? @_.interior
+    .
+    "}"
+  )
 ) @namedFunction @_.domain
 
 ;;
@@ -144,18 +154,34 @@
 ;;!  ^^^
 ;;!  xxxx
 ;;!  ---------
-(variable_assignment
+(
+  (variable_assignment
     name: (_) @name @_.trailing.start.startOf
     .
     "=" @_.trailing.end.endOf
-) @_.domain
+  ) @dummy @_.domain
+  (#not-parent-type? @dummy declaration_command)
+)
+
+;;!! local foo="bar"
+;;!        ^^^
+;;!  xxxxxxxxxx
+;;!  ---------------
+(declaration_command
+  "local" @_.domain.start.startOf @_.trailing.start.startOf
+  (variable_assignment
+    name: (_) @name
+    .
+    "=" @_.trailing.end.endOf
+  ) @_.domain.end.endOf
+)
 
 ;;!! foo="bar"
 ;;!      ^^^^^
 ;;!     xxxxxx
 ;;!  ---------
 (variable_assignment
-    "=" @value.leading.start.startOf
-    .
-    value: (_) @value @value.leading.end.endOf
+  "=" @value.leading.start.startOf
+  .
+  value: (_) @value @value.leading.end.endOf
 ) @_.domain
