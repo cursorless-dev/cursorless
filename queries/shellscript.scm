@@ -180,8 +180,20 @@
 ;;!      ^^^^^
 ;;!     xxxxxx
 ;;!  ---------
-(variable_assignment
-  "=" @value.leading.start.startOf
-  .
-  value: (_) @value @value.leading.end.endOf
-) @_.domain
+(
+  (variable_assignment
+    "=" @value.leading.start.startOf
+    .
+    value: (_) @value @value.leading.end.endOf
+  ) @dummy @_.domain
+  (#not-parent-type? @dummy declaration_command)
+)
+
+(declaration_command
+  "local" @_.domain.start.startOf
+  (variable_assignment
+    "=" @value.leading.start.startOf
+    .
+    value: (_) @value @value.leading.end.endOf
+  ) @_.domain.end.endOf
+)
