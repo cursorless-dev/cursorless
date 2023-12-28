@@ -25,9 +25,7 @@
 ;; Conditionals
 ;;
 
-(if_statement) @ifStatement @branch.iteration
-
-;; Conditional
+(if_statement) @ifStatement @branch.iteration @condition.iteration
 
 ;;!! if [ $value -le 0 ]; then
 ;;!! fi
@@ -140,6 +138,13 @@
 (_
   condition: (_) @condition
 )
+
+(case_statement) @branch.iteration @condition.iteration
+(case_item
+  value: (_) @condition @branch.interior.start.startOf
+  ;; FIXME: See how to escape this..
+  ";;" @branch.interior.end.endOf
+) @branch @_.domain
 
 ;; Lists and maps
 ;;
