@@ -141,9 +141,12 @@
 
 (case_statement) @branch.iteration @condition.iteration
 (case_item
-  value: (_) @condition @branch.interior.start.startOf
-  ;; FIXME: See how to escape this..
-  ;;";;" @branch.interior.end.endOf
+  value: (_) @condition
+  .
+  ")" @branch.interior.start.endOf
+  (_) @branch.interior.end.endOf
+  .
+  ";;"
 ) @branch @_.domain
 
 ;; Lists and maps
