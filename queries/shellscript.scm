@@ -173,13 +173,27 @@
 ;;!      ^^^^^
 (string) @string @textFragment
 
+;; TODO: These two cases are broken as they are a single (expression), and the " " isn't recognized
+;; echo "Foo ${BAR} ${BAZ}"
+;; echo "Foo $BAR $BAZ"
 ;;!! var="foo ${bar}"
 ;;!           ^^^^^^
+;;!           xxxxxx
 (string
-  [
-    (expansion)
-    (simple_expansion)
-  ] @argumentOrParameter
+  (expansion
+    "${" @argumentOrParameter.start.startOf
+    .
+    (_)
+    .
+    "}" @argumentOrParameter.end.endOf
+  )
+)
+(string
+  (simple_expansion
+    "$" @argumentOrParameter.start.startOf
+    .
+    (_) @argumentOrParameter.end.endOf
+  )
 )
 
 ;;
