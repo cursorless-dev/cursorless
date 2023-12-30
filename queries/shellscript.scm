@@ -64,10 +64,10 @@
   (if_statement
     "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
-    "then"
-    (_) @dummy @branch.interior
+    "then" @branch.interior.start.endOf
+    (_) @dummy
     .
-    "fi" @condition.domain.end.startOf @branch.end.startOf
+    "fi" @condition.domain.end.startOf @branch.end.startOf @branch.interior.end.startOf
   )
   (#not-type? @dummy else_clause elif_clause)
 )
@@ -80,9 +80,9 @@
   (if_statement
     "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
-    "then"
-    (_) @branch.interior
-    (elif_clause) @condition.domain.end.startOf @branch.end.startOf
+    "then" @branch.interior.start.endOf
+    (_)
+    (elif_clause) @condition.domain.end.startOf @branch.end.startOf @branch.interior.end.startOf
   )
 )
 
@@ -94,10 +94,10 @@
   (if_statement
     "if" @condition.domain.start.startOf @branch.start.startOf
     (_) @condition
-    "then"
-    (_) @dummy @branch.interior
+    "then" @branch.interior.start.endOf
+    (_) @dummy
     .
-    (else_clause) @condition.domain.end.startOf @branch.end.startOf
+    (else_clause) @condition.domain.end.startOf @branch.end.startOf @branch.interior.end.startOf
   )
   (#not-type? @dummy elif_clause)
 )
@@ -115,9 +115,9 @@
 ;;!!    echo "foo1"
 (elif_clause
   (_) @condition
-  "then"
-  (_) @branch.interior
-) @branch @_.domain
+  "then" @branch.interior.start.endOf
+  (_)
+) @branch @_.domain @branch.interior.end.endOf
 
 ;;!! else
 ;;!! fi
@@ -132,8 +132,8 @@
 ;;!! fi
 (else_clause
   "else" @branch.interior.start.endOf
-  (_) @branch.interior.end.endOf
-) @branch
+  (_)
+) @branch @branch.interior.end.endOf
 
 (_
   condition: (_) @condition
@@ -143,7 +143,7 @@
 (case_item
   value: (_) @condition @branch.interior.start.startOf
   ;; FIXME: See how to escape this..
-  ";;" @branch.interior.end.endOf
+  ;;";;" @branch.interior.end.endOf
 ) @branch @_.domain
 
 ;; Lists and maps
