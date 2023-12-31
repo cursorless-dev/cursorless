@@ -32,6 +32,20 @@ const testCases: TestCase[] = [
     keySequence: "da;x;st;c",
     finalContent: "b b",
   },
+  {
+    name: "three",
+    initialContent: "a b c d e\n",
+    // change three tokens bat
+    keySequence: "db;3;st;c",
+    finalContent: "a  e",
+  },
+  {
+    name: "three backwards",
+    initialContent: "a b c d e\n",
+    // change three tokens backwards drum
+    keySequence: "dd;-3;st;c",
+    finalContent: "a  e",
+  },
 ];
 
 suite("Basic keyboard test", async function () {
