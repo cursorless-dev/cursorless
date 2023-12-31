@@ -21,8 +21,16 @@ const testCases: TestCase[] = [
   {
     name: "and",
     initialContent: "x T y\n",
+    // change plex and yank
     keySequence: "dx;fa;dy;c",
     finalContent: "T",
+  },
+  {
+    name: "every",
+    initialContent: "a a\nb b\n",
+    // change every token air
+    keySequence: "da;x;st;c",
+    finalContent: "b b",
   },
 ];
 
@@ -99,7 +107,7 @@ async function sequence(t: TestCase) {
   await hatTokenMap.allocateHats();
   editor.selection = new vscode.Selection(1, 0, 1, 0);
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
-  await typeText(t.keySequence.replace(/;/, ""));
+  await typeText(t.keySequence.replaceAll(";", ""));
   assert.equal(editor.document.getText().trim(), t.finalContent);
 }
 
