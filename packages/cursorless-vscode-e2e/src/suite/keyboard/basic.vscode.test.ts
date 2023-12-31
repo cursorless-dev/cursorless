@@ -46,6 +46,20 @@ const testCases: TestCase[] = [
     keySequence: "dd;-3;st;c",
     finalContent: "a  e",
   },
+  {
+    name: "pair parens",
+    initialContent: "a + (b + c) + d",
+    // change parens bat
+    keySequence: "db;wp;c",
+    finalContent: "a +  + d",
+  },
+  {
+    name: "pair string",
+    initialContent: 'a + "w" + b',
+    // change parens bat
+    keySequence: "dw;wj;c",
+    finalContent: "a +  + b",
+  },
 ];
 
 suite("Basic keyboard test", async function () {

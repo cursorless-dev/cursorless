@@ -79,5 +79,21 @@
       "keepChangedSelection": true,
       "exitCursorlessMode": true
     }
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.pairedDelimiter": {
+    "wl": "angleBrackets",
+    "wt": "backtickQuotes",
+    "wb": "curlyBrackets",
+    "wd": "doubleQuotes",
+    "wwd": "escapedDoubleQuotes",
+    "wwp": "escapedParentheses",
+    "wws": "escapedSquareBrackets",
+    "wwq": "escapedSingleQuotes",
+    "wp": "parentheses",
+    "wq": "singleQuotes",
+    "ws": "squareBrackets",
+    "wg": "string",
+    "wj": "any",
+    "wk": "collectionBoundary"
   }
 }
