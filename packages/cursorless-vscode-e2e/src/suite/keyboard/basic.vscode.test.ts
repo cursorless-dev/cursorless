@@ -7,6 +7,25 @@ import path from "path";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import { readFile } from "node:fs/promises";
 
+interface TestCase {
+  name: string;
+  initialContent: string;
+  // keySequence is the sequence of keypresses that will be sent.
+  // It can include phantom ";"s for readability.
+  // They will be not be sent.
+  keySequence: string;
+  finalContent: string;
+}
+
+const testCases: TestCase[] = [
+  {
+    name: "and",
+    initialContent: "x T y\n",
+    keySequence: "dx;fa;dy;c",
+    finalContent: "T",
+  },
+];
+
 suite("Basic keyboard test", async function () {
   endToEndTestSetup(this);
 
@@ -21,6 +40,9 @@ suite("Basic keyboard test", async function () {
   test("Don't take keyboard control on startup", () => checkKeyboardStartup());
   test("Basic keyboard test", () => basic());
   test("Run vscode command", () => vscodeCommand());
+  for (const t of testCases) {
+    test("Sequence " + t.name, () => sequence(t));
+  }
   test("Check that entering and leaving mode is no-op", () =>
     enterAndLeaveIsNoOp());
 });
@@ -63,6 +85,22 @@ async function basic() {
   await typeText("a");
 
   assert.equal(editor.document.getText().trim(), "a");
+}
+
+/**
+ * sequence runs a test keyboard sequences.
+ */
+async function sequence(t: TestCase) {
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+
+  const editor = await openNewEditor(t.initialContent, {
+    languageId: "typescript",
+  });
+  await hatTokenMap.allocateHats();
+  editor.selection = new vscode.Selection(1, 0, 1, 0);
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
+  await typeText(t.keySequence.replace(/;/, ""));
+  assert.equal(editor.document.getText().trim(), t.finalContent);
 }
 
 async function vscodeCommand() {
