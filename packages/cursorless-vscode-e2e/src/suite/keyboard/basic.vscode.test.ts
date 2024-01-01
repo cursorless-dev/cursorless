@@ -60,6 +60,13 @@ const testCases: TestCase[] = [
     keySequence: "dw;wj;c",
     finalContent: "a +  + b",
   },
+  {
+    name: "wrap",
+    initialContent: "a",
+    // round wrap air
+    keySequence: "da;aw;wp",
+    finalContent: "(a)",
+  },
 ];
 
 suite("Basic keyboard test", async function () {

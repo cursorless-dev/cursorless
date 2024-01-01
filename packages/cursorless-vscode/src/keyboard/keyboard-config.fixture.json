@@ -61,7 +61,8 @@
     "fx": "combineColorAndShape",
     "fk": "makeRange",
     "fa": "makeList",
-    "-": "backward"
+    "-": "backward",
+    "aw": "wrap"
   },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
     "n": "nextPrev",
