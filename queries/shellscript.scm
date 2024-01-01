@@ -10,13 +10,18 @@
 )
 [
   (if_statement)
+  (while_statement)
+  (for_statement)
   (function_definition)
   (declaration_command)
 ] @statement
 
 (
   (_
-    (variable_assignment) @statement
+    [
+      (variable_assignment)
+      (command)
+    ] @statement
     (#not-parent-type? @statement declaration_command)
   )
 )
@@ -294,3 +299,5 @@
     value: (_) @value @value.leading.end.endOf
   ) @_.domain.end.endOf
 )
+
+(regex) @regularExpression @textFragment
