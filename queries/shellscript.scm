@@ -14,15 +14,20 @@
   (for_statement)
   (function_definition)
   (declaration_command)
+  (case_statement)
+  (subshell)
+  (list)
+  (redirected_statement)
 ] @statement
 
+;;FIXME: Make the #not-parent-type? thing a list of nodes
 (
   (_
     [
       (variable_assignment)
       (command)
     ] @statement
-    (#not-parent-type? @statement declaration_command)
+    (#not-parent-type? @statement declaration_command c_style_for_statement list redirected_statement)
   )
 )
 
