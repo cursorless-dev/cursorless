@@ -29,7 +29,11 @@ interface TargetDecoratedMarkArgument {
 
 interface ModifyTargetContainingScopeArgument {
   scopeType: ScopeType;
-  type?: "containingScope" | "everyScope";
+  type?:
+    | "containingScope"
+    | "everyScope"
+    | "extendThroughStartOf"
+    | "extendThroughEndOf";
 }
 
 /**

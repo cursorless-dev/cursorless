@@ -47,6 +47,10 @@ main -> %wrap %pairedDelimiter {%
   command("performWrapActionOnTarget", [_, "delimiter"])
 %}
 
+# "tail funk"
+main -> %tail scopeType {% command("targetTailScopeType", [_, "scopeType"]) %}
+main -> %head scopeType {% command("targetHeadScopeType", [_, "scopeType"]) %}
+
 # Custom vscode command
 main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 

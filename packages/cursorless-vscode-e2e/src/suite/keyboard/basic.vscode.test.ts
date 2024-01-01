@@ -67,6 +67,27 @@ const testCases: TestCase[] = [
     keySequence: "da;aw;wp",
     finalContent: "(a)",
   },
+  {
+    name: "tail line",
+    initialContent: "a b c",
+    // change tail bat
+    keySequence: "db;tt;i;c",
+    finalContent: "a",
+  },
+  {
+    name: "head line",
+    initialContent: "a b c",
+    // change head bat
+    keySequence: "db;th;i;c",
+    finalContent: "c",
+  },
+  {
+    name: "tail funk",
+    initialContent: "func x() {\nconst a = 1; const b = 3;\n}",
+    // change tail funk air
+    keySequence: "da;tt;sf;c",
+    finalContent: "func x() {\nconst \n}",
+  },
 ];
 
 suite("Basic keyboard test", async function () {

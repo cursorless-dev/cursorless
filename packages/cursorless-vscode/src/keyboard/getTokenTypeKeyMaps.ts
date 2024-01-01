@@ -62,6 +62,8 @@ export function getTokenTypeKeyMaps(
     // modifier config section
     every: config.getTokenKeyMap("every", "modifier", ["every"]),
     nextPrev: config.getTokenKeyMap("nextPrev", "modifier", ["nextPrev"]),
+    tail: config.getTokenKeyMap("tail", "modifier", ["tail"]),
+    head: config.getTokenKeyMap("head", "modifier", ["head"]),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

@@ -10,6 +10,8 @@ declare var nextPrev: any;
 declare var simpleAction: any;
 declare var wrap: any;
 declare var pairedDelimiter: any;
+declare var tail: any;
+declare var head: any;
 declare var vscodeCommand: any;
 declare var simpleScopeTypeType: any;
 declare var color: any;
@@ -77,6 +79,8 @@ const grammar: Grammar = {
     {"name": "main", "symbols": [(keyboardLexer.has("wrap") ? {type: "wrap"} : wrap), (keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
         command("performWrapActionOnTarget", [_, "delimiter"])
         },
+    {"name": "main", "symbols": [(keyboardLexer.has("tail") ? {type: "tail"} : tail), "scopeType"], "postprocess": command("targetTailScopeType", [_, "scopeType"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("head") ? {type: "head"} : head), "scopeType"], "postprocess": command("targetHeadScopeType", [_, "scopeType"])},
     {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "scopeType", "symbols": [(keyboardLexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
     {"name": "scopeType", "symbols": [(keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 

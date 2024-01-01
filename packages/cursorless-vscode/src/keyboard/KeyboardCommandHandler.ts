@@ -103,6 +103,20 @@ export class KeyboardCommandHandler {
     this.targeted.modifyTargetContainingScope({ ...arg, type: "everyScope" });
   }
 
+  targetHeadScopeType(arg: { scopeType: ScopeType }) {
+    this.targeted.modifyTargetContainingScope({
+      ...arg,
+      type: "extendThroughStartOf",
+    });
+  }
+
+  targetTailScopeType(arg: { scopeType: ScopeType }) {
+    this.targeted.modifyTargetContainingScope({
+      ...arg,
+      type: "extendThroughEndOf",
+    });
+  }
+
   targetRelativeExclusiveScope({
     offset,
     length,
