@@ -270,6 +270,17 @@
   (#not-parent-type? @dummy declaration_command)
 )
 
+;;!! for ((i = 1; i <= 5; i++)); do
+;;!        ^
+;;!        xxxx
+;;!        -----
+(variable_assignment
+  !name
+  (variable_name) @name @_.trailing.start.startOf
+  "="
+  (_) @_.trailing.end.startOf
+) @_.domain
+
 ;;!! local foo="bar"
 ;;!        ^^^
 ;;!  xxxxxxxxxx
@@ -294,6 +305,21 @@
     value: (_) @value @value.leading.end.endOf
   ) @dummy @_.domain
   (#not-parent-type? @dummy declaration_command)
+)
+
+;;!! for ((i = 1; i <= 5; i++)); do
+;;!            ^
+;;!         xxxx
+;;!        -----
+(
+  (variable_assignment
+    !name
+    !value
+    (_) @_.leading.start.endOf
+    "="
+    .
+    (_) @value @_.leading.end.endOf
+  ) @_.domain
 )
 
 (declaration_command
