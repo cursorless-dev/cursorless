@@ -4,6 +4,9 @@ import type { Command } from "./command/command.types";
  * Represents a single line in a command history jsonl file.
  */
 export interface CommandHistoryEntry {
+  // UUID of the log entry.
+  id: string;
+
   // Date of the log entry. eg: "2023-09-05"
   date: string;
 

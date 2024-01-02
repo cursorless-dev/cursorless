@@ -68,6 +68,7 @@ export class CommandHistory implements CommandRunnerDecorator {
     const file = path.join(this.dirPath, fileName);
 
     const historyItem: CommandHistoryEntry = {
+      id: uuid(),
       date: getDayDate(date),
       cursorlessVersion: this.ide.cursorlessVersion,
       error: thrownError?.name,
