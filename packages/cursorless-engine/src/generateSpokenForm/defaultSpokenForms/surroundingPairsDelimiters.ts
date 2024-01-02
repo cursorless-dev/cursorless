@@ -1,8 +1,8 @@
 import { SpeakableSurroundingPairName } from "../../spokenForms/SpokenFormType";
 
-
 export const surroundingPairsDelimiters: Record<
-  SpeakableSurroundingPairName, [string, string] | null
+  SpeakableSurroundingPairName,
+  [string, string] | null
 > = {
   curlyBrackets: ["{", "}"],
   angleBrackets: ["<", ">"],
