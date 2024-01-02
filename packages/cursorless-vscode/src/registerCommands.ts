@@ -95,7 +95,8 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
 
     // Tutorial commands
-    ["cursorless.tutorial.create"]: tutorial.create,
+    ["cursorless.tutorial.getContent"]: tutorial.getContent,
+    ["cursorless.tutorial.setupStep"]: tutorial.setupStep,
   };
 
   extensionContext.subscriptions.push(

@@ -47,7 +47,8 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
-  "cursorless.tutorial.create",
+  "cursorless.tutorial.getContent",
+  "cursorless.tutorial.setupStep",
 ] as const satisfies readonly `cursorless.${string}`[];
 
 export type CursorlessCommandId = (typeof cursorlessCommandIds)[number];
@@ -76,6 +77,12 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
     "Hide the scope visualizer",
+  ),
+  ["cursorless.tutorial.getContent"]: new VisibleCommand(
+    "Get the tutorial content based on Talon HUD",
+  ),
+  ["cursorless.tutorial.setupStep"]: new VisibleCommand(
+    "Setup the current step for the tutorial based on Talon HUD",
   ),
 
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
@@ -120,8 +127,5 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
-  ),
-  ["cursorless.tutorial.create"]: new VisibleCommand(
-    "Create the tutorial based on Talon HUD",
   ),
 };

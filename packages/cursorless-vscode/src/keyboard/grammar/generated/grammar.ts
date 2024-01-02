@@ -23,11 +23,11 @@ interface NearleyToken {
 };
 
 interface NearleyLexer {
-  reset: (chunk: string, info: any) => void;
+  reset: (chunk: any, info: any) => void;
   next: () => NearleyToken | undefined;
   save: () => any;
-  formatError: (token: never) => string;
-  has: (tokenType: string) => boolean;
+  formatError: (token: any, message: string) => string;
+  has: (tokenType: any) => boolean;
 };
 
 interface NearleyRule {

@@ -70,7 +70,9 @@
     "onCommand:cursorless.takeSnapshot",
     "onCommand:cursorless.toggleDecorations",
     "onCommand:cursorless.showScopeVisualizer",
-    "onCommand:cursorless.hideScopeVisualizer"
+    "onCommand:cursorless.hideScopeVisualizer",
+    "onCommand:cursorless.tutorial.getContent",
+    "onCommand:cursorless.tutorial.setupStep"
   ],
   "main": "./extension.cjs",
   "capabilities": {
@@ -198,6 +200,14 @@
         "command": "cursorless.keyboard.modal.modeToggle",
         "title": "Cursorless: Toggle the cursorless modal mode",
         "enablement": "false"
+      },
+      {
+        "command": "cursorless.tutorial.getContent",
+        "title": "Cursorless: Get the tutorial content based on Talon HUD"
+      },
+      {
+        "command": "cursorless.tutorial.setupStep",
+        "title": "Cursorless: Setup the current step for the tutorial based on Talon HUD"
       }
     ],
     "colors": [

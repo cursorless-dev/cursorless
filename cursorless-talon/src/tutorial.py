@@ -3,92 +3,90 @@ import re
 from pathlib import Path
 from typing import Callable
 
-import yaml
 from talon import actions, app
 
 from .get_action_spoken_form import lookup_action
 
-regex = re.compile(r"\{(\w+):([^}]+)\}")
-tutorial_dir = Path(
-    r"C:\work\tools\voicecoding\cursorless_fork\packages\cursorless-vscode-e2e\src\suite\fixtures\recorded\tutorial\unit-2-basic-coding"
-)
-
-
+# {literalStep:...}
+# "To see all available scopes, use the command {literalStep:cursorless help}, and look at the Scopes section."
 def process_literal_step(argument: str):
     return f"<cmd@{argument}/>"
 
-
+# {action:...}
+# "Say {action:setSelectionAfter} to place the cursor after a target: {step:postLook.yml}",
+# "Say {action:clearAndSetSelection} to delete a word and move your cursor to where it used to be: {step:clearTrap.yml}",
+# The {action:editNewLineAfter} action"  => "The "pour" action"
 def process_action(argument: str):
     _, spoken_form = lookup_action(argument)
     return f'<*"{spoken_form}"/>'
 
-
+# {scopeType:...}
+# "We can also use {scopeType:line} to refer to the line containing our cursor: {step:takeLine.yml}"
+# "Cursorless tries its best to keep your commands short. In the following command, we just say {scopeType:string} once, but cursorless infers that both targets are strings: {step:swapStringAirWithWhale.yml}"
 def process_scope_type(argument: str):
-    # TODO not sure what we are trying to achieve here
-    _, spoken_form = lookup_scope_type(argument)
-    return f'<*"{spoken_form}"/>'
+    #_, spoken_form = lookup_scope_type(argument)
+    #return f'<*"{spoken_form}"/>'
+    return f'<*"SCOPETYPE_{argument}"/>'
 
-
-def process_cursorless_command_step(argument: str):
-    print(f"{argument=}")
-    step_fixture = yaml.safe_load((tutorial_dir / argument).read_text())
-    print(f"{step_fixture['command']=}")
-    result = actions.user.private_cursorless_run_rpc_command_get(
-        "cursorless.tutorial.create",
-        {
-            "version": 0,
-            "stepFixture": step_fixture,
-            "yamlFilename": argument,
-        },
-    )
-    print(f"{result=}")
-    return f"<cmd@{cursorless_command_to_spoken_form(step_fixture['command'])}/>"
-    # return f"<cmd@{result}/>"
-
-
-# TODO get this information from the extension
-def cursorless_command_to_spoken_form(command: dict[str, str]):
-    return command["spokenForm"]
-
-
+# "When editing code, we often think in terms of statements, functions, etc. Let's clone a statement: {step:cloneStateInk.yml}",
+# 
+# this builds a dictionary which has keys and values (each one is a spoken form)
+# each value is built by calling the function with the argument being passed
+# eg interpolation_processor_map["step"]()
 interpolation_processor_map: dict[str, Callable[[str], str]] = {
+    # this will exist extension side
+    # nothing needed as  not a Cursorless command
     "literalStep": process_literal_step,
+    # import https://github.com/cursorless-dev/cursorless/blob/7341d0f707b1d0a0950a19894be3aebbb33582c8/packages/cursorless-engine/src/generateSpokenForm/defaultSpokenForms/actions.ts#L7C1-L7C1
+    # hardcoded list of default spoken form for an action (not yet the customized one)
     "action": process_action,
+    # scopeTypeType == "line", etc.
+# generator.processScopeType({type: scopeTypeType})
     "scopeType": process_scope_type,
-    "step": process_cursorless_command_step,
 }
 
+# TODO all the above will be deleted
 
-def process_tutorial_step(raw: str):
-    print(f"{raw=}")
-    current_index = 0
-    content = ""
-    for match in regex.finditer(raw):
-        content += raw[current_index : match.start()]
-        content += interpolation_processor_map[match.group(1)](match.group(2))
-        current_index = match.end()
-    content += raw[current_index : len(raw)]
-    print(f"{content=}")
+def step_callback(x):
+    print(f"step_callback8: {x}")
+    yamlFilename = tutorial_content['yamlFilenames'][x]
+    if yamlFilename:
+        response = actions.user.private_cursorless_run_rpc_command_get(
+                "cursorless.tutorial.setupStep",
+                {
+                    "version": 0,
+                    "tutorialName": "unit-2-basic-coding",
+                    "yamlFilename": yamlFilename
+                },
+            )
 
-    return {
-        "content": content,
-        "restore_callback": print,
-        "modes": ["command"],
-        "app": "Code",
-        "context_hint": "Please open VSCode and enter command mode",
-    }
+tutorial_content = None
+def get_basic_coding_walkthrough(): 
+    global tutorial_content
+    print("get_basic_coding_walkthrough start")
+    tutorial_content = actions.user.private_cursorless_run_rpc_command_get(
+        "cursorless.tutorial.getContent",
+        {
+            "version": 0,
+            "tutorialName": "unit-2-basic-coding"
+        },
+    )
+    print(f"{tutorial_content=}")
+    walkthrough_steps = []
+    for content in tutorial_content['content']:
+        walkthrough_steps.append(actions.user.hud_create_walkthrough_step(
+            content=content,
+            restore_callback=step_callback,
+            modes=["command"],
+            app="Visual Studio Code", # Windows
+            # app="Code", # OS X?
+            context_hint="Please open VSCode and enter command mode"
+        ))
+    print("get_basic_coding_walkthrough end")
+    return walkthrough_steps
 
-
-def get_basic_coding_walkthrough():
-    with open(tutorial_dir / "script.json") as f:
-        script = json.load(f)
-
-    return [
-        actions.user.hud_create_walkthrough_step(**process_tutorial_step(step))
-        for step in script
-    ]
-
-
+# this is adding the menu to the hud
+# by adding a list of HudWalkThroughStep
 def on_ready():
     actions.user.hud_add_lazy_walkthrough(
         "Cursorless basic coding", get_basic_coding_walkthrough
