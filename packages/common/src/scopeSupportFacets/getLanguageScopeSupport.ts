@@ -6,6 +6,7 @@ import { pythonScopeSupport } from "./python";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { talonScopeSupport } from "./talon";
 import { typescriptScopeSupport } from "./typescript";
+import { shellscriptScopeSupport } from "./shellscript";
 
 export function getLanguageScopeSupport(
   languageId: string,
@@ -25,6 +26,8 @@ export function getLanguageScopeSupport(
       return talonScopeSupport;
     case "typescript":
       return typescriptScopeSupport;
+    case "shellscript":
+      return shellscriptScopeSupport;
   }
   throw Error(`Unsupported language: '${languageId}'`);
 }
