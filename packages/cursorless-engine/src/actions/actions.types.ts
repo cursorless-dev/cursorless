@@ -57,6 +57,11 @@ export interface ActionReturnValue {
    * A list of targets that become the start of the pipeline when the mark is ommitted.
    */
   implicitTargets?: Target[];
+
+  /**
+   * A list of targets that become the active keybaord targets
+   */
+  keyboardTargets?: Target[];
 }
 
 export interface SimpleAction {

@@ -47,7 +47,6 @@ export default class KeyboardCommandsTargeted {
       this.performVscodeCommandOnTarget.bind(this);
     this.modifyTargetContainingScope =
       this.modifyTargetContainingScope.bind(this);
-    this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
   }
 
@@ -123,7 +122,7 @@ export default class KeyboardCommandsTargeted {
     }
 
     return await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target,
     });
   };
@@ -138,7 +137,7 @@ export default class KeyboardCommandsTargeted {
     type = "containingScope",
   }: ModifyTargetContainingScopeArgument) =>
     await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target: {
         type: "primitive",
         modifiers: [
@@ -147,9 +146,6 @@ export default class KeyboardCommandsTargeted {
             scopeType,
           },
         ],
-        mark: {
-          type: "that",
-        },
       },
     });
 
@@ -160,13 +156,10 @@ export default class KeyboardCommandsTargeted {
    */
   targetModifier = async (modifier: Modifier) =>
     await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target: {
         type: "primitive",
         modifiers: [modifier],
-        mark: {
-          type: "that",
-        },
       },
     });
 
@@ -242,9 +235,6 @@ export default class KeyboardCommandsTargeted {
   ) => {
     const action = constructActionPayload({
       type: "primitive",
-      mark: {
-        type: "that",
-      },
     });
     const returnValue = await executeCursorlessCommand(action);
 
@@ -276,9 +266,6 @@ export default class KeyboardCommandsTargeted {
   ) => {
     const target: PartialPrimitiveTargetDescriptor = {
       type: "primitive",
-      mark: {
-        type: "that",
-      },
     };
 
     const returnValue = await executeCursorlessCommand({
@@ -302,32 +289,18 @@ export default class KeyboardCommandsTargeted {
   };
 
   /**
-   * Sets the current target to the current selection
-   * @returns A promise that resolves to the result of the cursorless command
-   */
-  targetSelection = () =>
-    executeCursorlessCommand({
-      name: "highlight",
-      target: {
-        type: "primitive",
-        mark: {
-          type: "cursor",
-        },
-        modifiers: [{ type: "toRawSelection" }],
-      },
-    });
-
-  /**
    * Unsets the current target, causing any highlights to disappear
+   * FIXME: This is a hack relying on the fact that running any command
+   * will clobber all special targets
    * @returns A promise that resolves to the result of the cursorless command
    */
   clearTarget = () =>
     executeCursorlessCommand({
-      name: "highlight",
+      name: "setSelection",
       target: {
         type: "primitive",
         mark: {
-          type: "nothing",
+          type: "cursor",
         },
       },
     });

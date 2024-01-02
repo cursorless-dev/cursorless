@@ -55,6 +55,7 @@ export class CommandRunnerImpl implements CommandRunner {
       sourceTargets: newSourceTargets,
       instanceReferenceTargets: newInstanceReferenceTargets,
       implicitTargets: newImplicitTargets,
+      keyboardTargets: newKeyboardTargets,
     } = await this.runAction(action);
 
     this.storedTargets.set(
@@ -67,6 +68,7 @@ export class CommandRunnerImpl implements CommandRunner {
     );
     this.storedTargets.set("instanceReference", newInstanceReferenceTargets);
     this.storedTargets.set("implicit", newImplicitTargets);
+    this.storedTargets.set("keyboard", newKeyboardTargets);
 
     return returnValue;
   }

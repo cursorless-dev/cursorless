@@ -126,9 +126,6 @@ export default class KeyboardCommandsModal {
       },
       handleCancelled: this.modeOff,
     });
-
-    // Set target to current selection when we enter the mode
-    await this.targeted.targetSelection();
   };
 
   async handleInput(text: string) {

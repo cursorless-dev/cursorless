@@ -22,6 +22,10 @@ export class ImplicitMarkStage implements MarkStage {
       return this.cursorMarkStage.run();
     }
 
-    return this.storedTargets.get("implicit") ?? this.cursorMarkStage.run();
+    return (
+      this.storedTargets.get("keyboard") ??
+      this.storedTargets.get("implicit") ??
+      this.cursorMarkStage.run()
+    );
   }
 }
