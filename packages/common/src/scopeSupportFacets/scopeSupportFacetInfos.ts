@@ -289,6 +289,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a field in a class / interface",
     scopeType: "value",
   },
+  "value.resourceManagement": {
+    description: "Value of a 'with' / 'use' / 'using' statement",
+    scopeType: "value",
+  },
 
   "type.assignment": {
     description: "Type of variable in an assignment",

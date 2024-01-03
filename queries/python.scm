@@ -142,6 +142,17 @@
   (_) @value
 ) @_.domain
 
+;;!! with aaa:
+;;!       ^^^
+;;!  --------
+(with_statement
+  (with_clause
+    (with_item
+      value: (_) @value
+    )
+  )
+) @_.domain
+
 ;;!! lambda str: len(str) > 0
 ;;!              ^^^^^^^^^^^^
 ;;!  ------------------------
