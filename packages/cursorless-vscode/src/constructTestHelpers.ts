@@ -22,6 +22,7 @@ import * as vscode from "vscode";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 
 export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
@@ -29,7 +30,7 @@ export function constructTestHelpers(
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
-  cursorlessTalonStateJsonPath: string,
+  fileSystem: VscodeFileSystem,
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
@@ -65,7 +66,8 @@ export function constructTestHelpers(
       );
     },
 
-    cursorlessTalonStateJsonPath,
+    cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
+    cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
     setStoredTarget(
       editor: vscode.TextEditor,

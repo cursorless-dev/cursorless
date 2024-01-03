@@ -285,6 +285,12 @@
           "default": true,
           "description": "Whether to show decorations on vscode start."
         },
+        "cursorless.commandHistory": {
+          "type": "boolean",
+          "default": false,
+          "order": 2,
+          "description": "Keep a local, sanitized command history. This history is never sent to our servers, and any commands that may contain text will be sanitized. These statistics can be used in the future for doing local analyses to determine ways you can improve your Cursorless efficiency. We may also support a way for you to send your statistics to us for analysis in the future, but this will be opt-in only."
+        },
         "cursorless.tokenHatSplittingMode.preserveCase": {
           "type": "boolean",
           "default": false,
@@ -1146,6 +1152,7 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
+    "immer": "^9.0.15",
     "itertools": "^2.1.1",
     "lodash": "^4.17.21",
     "nearley": "2.20.1",
