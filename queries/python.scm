@@ -145,13 +145,84 @@
 ;;!! with aaa:
 ;;!       ^^^
 ;;!  --------
-(with_statement
-  (with_clause
-    (with_item
-      value: (_) @value
+(
+  (with_statement
+    (with_clause
+      (with_item)? @_.leading.endOf
+      .
+      (with_item
+        value: (_) @value
+      )
+      .
+      (with_item)? @_.trailing.startOf
     )
+  ) @_.domain
+  (#not-type? @value "as_pattern")
+  (#allow-multiple! @value)
+)
+
+;;!! with aaa:
+;;!       ^^^
+;;!  --------
+(
+  (with_statement
+    (with_clause
+      (with_item)? @_.leading.endOf
+      .
+      (with_item
+        value: (_) @value
+      )
+      .
+      (with_item)? @_.trailing.startOf
+    ) @_with_clause
   )
-) @_.domain
+  (#not-type? @value "as_pattern")
+  (#has-multiple-children-of-type? @_with_clause "with_item")
+  (#allow-multiple! @value)
+)
+
+;;!! with aaa as bbb:
+;;!       ^^^        <~~ value
+;;!              ^^^ <~~ name
+;;!  ----------------
+(
+  (with_statement
+    (with_clause
+      (with_item
+        value: (as_pattern
+          (_) @value @name.leading.endOf
+          alias: (_) @name @value.trailing.startOf
+        )
+      )
+    )
+  ) @_.domain
+  (#allow-multiple! @value)
+  (#allow-multiple! @name)
+)
+
+;;!! with aaa, bbb:
+;;!       ^^^  ^^^
+;;!       ---  ---
+(
+  (with_statement
+    (with_clause
+      (with_item
+        value: (as_pattern
+          (_) @value @name.leading.endOf
+          alias: (_) @name @value.trailing.startOf
+        )
+      ) @_.domain
+    ) @_with_clause
+  )
+  (#has-multiple-children-of-type? @_with_clause "with_item")
+  (#allow-multiple! @value)
+)
+
+(
+  (with_statement
+    (with_clause) @value.iteration @name.iteration
+  ) @value.iteration.domain @name.iteration.domain
+)
 
 ;;!! lambda str: len(str) > 0
 ;;!              ^^^^^^^^^^^^
@@ -220,7 +291,16 @@
 ) @class @className.domain
 
 (module) @className.iteration @class.iteration
-(module) @statement.iteration @value.iteration @name.iteration
+(module) @statement.iteration
+
+;; This is a hack to handle the case where the entire document is a `with` statement
+(
+  (module
+    (_) @_statement
+  ) @value.iteration @name.iteration
+  (#not-type? @_statement "with_statement")
+)
+
 (module) @namedFunction.iteration @functionName.iteration
 (class_definition) @namedFunction.iteration @functionName.iteration
 

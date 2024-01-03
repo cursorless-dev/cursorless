@@ -1,0 +1,56 @@
+with aaa, bbb as ccc:
+    pass
+---
+
+[#1 Content] = 0:17-0:20
+0| with aaa, bbb as ccc:
+                   >---<
+1|     pass
+
+
+[#1 Removal] = 0:13-0:20
+0| with aaa, bbb as ccc:
+               >-------<
+1|     pass
+
+
+[#1 Leading delimiter] = 0:13-0:17
+0| with aaa, bbb as ccc:
+               >----<
+1|     pass
+
+
+[#1 Domain] = 0:0-1:8
+0| with aaa, bbb as ccc:
+  >---------------------
+1|     pass
+   --------<
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:17-0:20
+0| with aaa, bbb as ccc:
+                   >---<
+1|     pass
+
+
+[#2 Removal] = 0:13-0:20
+0| with aaa, bbb as ccc:
+               >-------<
+1|     pass
+
+
+[#2 Leading delimiter] = 0:13-0:17
+0| with aaa, bbb as ccc:
+               >----<
+1|     pass
+
+
+[#2 Domain] = 0:10-0:20
+0| with aaa, bbb as ccc:
+            >----------<
+1|     pass
+
+
+[#2 Insertion delimiter] = " "
