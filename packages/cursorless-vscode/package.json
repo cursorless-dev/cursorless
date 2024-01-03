@@ -70,8 +70,7 @@
     "onCommand:cursorless.takeSnapshot",
     "onCommand:cursorless.toggleDecorations",
     "onCommand:cursorless.showScopeVisualizer",
-    "onCommand:cursorless.hideScopeVisualizer",
-    "onCommand:cursorless.analyzeCommandHistory"
+    "onCommand:cursorless.hideScopeVisualizer"
   ],
   "main": "./extension.cjs",
   "capabilities": {
@@ -124,10 +123,6 @@
       {
         "command": "cursorless.hideScopeVisualizer",
         "title": "Cursorless: Hide the scope visualizer"
-      },
-      {
-        "command": "cursorless.analyzeCommandHistory",
-        "title": "Cursorless: Analyze collected command history"
       },
       {
         "command": "cursorless.command",

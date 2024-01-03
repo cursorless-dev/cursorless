@@ -47,7 +47,6 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
-  "cursorless.analyzeCommandHistory",
 ] as const satisfies readonly `cursorless.${string}`[];
 
 export type CursorlessCommandId = (typeof cursorlessCommandIds)[number];
@@ -76,9 +75,6 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
     "Hide the scope visualizer",
-  ),
-  ["cursorless.analyzeCommandHistory"]: new VisibleCommand(
-    "Analyze collected command history",
   ),
 
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),

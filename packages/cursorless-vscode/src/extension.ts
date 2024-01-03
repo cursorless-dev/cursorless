@@ -131,7 +131,6 @@ export async function activate(
     context,
     vscodeIDE,
     commandApi,
-    fileSystem,
     testCaseRecorder,
     scopeVisualizer,
     keyboardCommands,
