@@ -530,6 +530,9 @@ importers:
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
+      immer:
+        specifier: ^9.0.15
+        version: 9.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21

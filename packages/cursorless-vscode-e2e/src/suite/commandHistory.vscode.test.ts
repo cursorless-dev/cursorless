@@ -1,4 +1,9 @@
-import { CommandComplete, LATEST_VERSION } from "@cursorless/common";
+import {
+  CommandComplete,
+  CommandHistoryEntry,
+  LATEST_VERSION,
+  ReplaceActionDescriptor,
+} from "@cursorless/common";
 import {
   getCursorlessApi,
   openNewEditor,
@@ -10,6 +15,7 @@ import { readFile, readdir, rm } from "node:fs/promises";
 import path from "node:path";
 import * as vscode from "vscode";
 import { endToEndTestSetup } from "../endToEndTestSetup";
+import produce from "immer";
 
 /*
  * All tests in this file are running against the latest version of the command
@@ -31,6 +37,7 @@ suite("commandHistory", function () {
   });
 
   test("active", () => testActive(tmpdir));
+  test("sanitization", () => testSanitization(tmpdir));
   test("inactive", () => testInactive(tmpdir));
   test("error", () => testError(tmpdir));
 });
@@ -41,15 +48,24 @@ async function testActive(tmpdir: string) {
   const command = takeCommand("h");
   await runCursorlessCommand(command);
 
-  assert.ok(existsSync(tmpdir));
-  const paths = await readdir(tmpdir);
-  assert.lengthOf(paths, 1);
-  assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
-  const content = JSON.parse(
-    await readFile(path.join(tmpdir, paths[0]), "utf8"),
-  );
+  const content = await getLogEntry(tmpdir);
   delete command.spokenForm;
   assert.deepEqual(content.command, command);
+}
+
+async function testSanitization(tmpdir: string) {
+  await injectFakeIsActive(true);
+  await initalizeEditor();
+  const command = replaceWithTextCommand();
+  await runCursorlessCommand(command);
+
+  const content = await getLogEntry(tmpdir);
+  assert.deepEqual(
+    content.command,
+    produce(command, (draft) => {
+      (draft.action as ReplaceActionDescriptor).replaceWith = [];
+    }),
+  );
 }
 
 async function testInactive(tmpdir: string) {
@@ -71,16 +87,21 @@ async function testError(tmpdir: string) {
     // Do nothing
   }
 
+  const content = await getLogEntry(tmpdir);
+  assert.containsAllKeys(content, ["error"]);
+  delete command.spokenForm;
+  assert.deepEqual(content.command, command);
+}
+
+async function getLogEntry(tmpdir: string) {
   assert.ok(existsSync(tmpdir));
   const paths = await readdir(tmpdir);
   assert.lengthOf(paths, 1);
   assert.ok(/cursorlessCommandHistory_.*\.jsonl/.test(paths[0]));
-  const content = JSON.parse(
+
+  return JSON.parse(
     await readFile(path.join(tmpdir, paths[0]), "utf8"),
-  );
-  assert.containsAllKeys(content, ["error"]);
-  delete command.spokenForm;
-  assert.deepEqual(content.command, command);
+  ) as CommandHistoryEntry;
 }
 
 async function injectFakeIsActive(isActive: boolean): Promise<void> {
@@ -115,6 +136,20 @@ function takeCommand(character: string): CommandComplete {
           character,
         },
       },
+    },
+  };
+}
+
+function replaceWithTextCommand(): CommandComplete {
+  return {
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot: false,
+    action: {
+      name: "replace",
+      destination: {
+        type: "implicit",
+      },
+      replaceWith: ["hello world"],
     },
   };
 }
