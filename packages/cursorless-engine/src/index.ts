@@ -8,3 +8,4 @@ export * from "./cursorlessEngine";
 export * from "./api/CursorlessEngineApi";
 export * from "./CommandRunner";
 export * from "./CommandHistory";
+export * from "./CommandHistoryAnalyzer";
