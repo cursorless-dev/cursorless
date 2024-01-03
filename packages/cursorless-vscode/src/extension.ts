@@ -11,7 +11,9 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
+  CommandHistory,
   createCursorlessEngine,
+  TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -22,6 +24,7 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
+import { mkdir } from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
@@ -47,8 +50,6 @@ import {
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
-import { mkdir } from "fs/promises";
-import { TestCaseRecorder } from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -99,6 +100,10 @@ export async function activate(
     fileSystem,
   );
 
+  addCommandRunnerDecorator(
+    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+  );
+
   const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
   addCommandRunnerDecorator(testCaseRecorder);
 
@@ -142,7 +147,7 @@ export async function activate(
           hatTokenMap,
           vscodeIDE,
           normalizedIde as NormalizedIDE,
-          fileSystem.cursorlessTalonStateJsonPath,
+          fileSystem,
           scopeProvider,
           injectIde,
           runIntegrationTests,
