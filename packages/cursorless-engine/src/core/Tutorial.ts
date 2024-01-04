@@ -9,11 +9,17 @@ import path from "path";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
 
-import { SpokenFormSuccess, TestCaseFixture } from "@cursorless/common";
+import {
+  ScopeType,
+  SimpleScopeType,
+  SpokenFormSuccess,
+  TestCaseFixture,
+} from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { HatTokenMapImpl } from "./HatTokenMapImpl";
 import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { canonicalizeAndValidateCommand } from "./commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 
 const fs = require("node:fs");
 
@@ -70,8 +76,6 @@ interface TutorialSetupStepArg {
 
 export class Tutorial {
   private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl;
-  private tutorialName: string;
-  private yamlFilename: string;
 
   constructor(
     hatTokenMap: HatTokenMapImpl,
@@ -81,23 +85,21 @@ export class Tutorial {
     this.setupStep = this.setupStep.bind(this);
 
     this.customSpokenFormGenerator = customSpokenFormGenerator;
-    this.tutorialName = "";
-    this.yamlFilename = "";
   }
 
-  async processStep(content: string, arg: string) {
-    const tutorialDir = path.join(tutorialRootDir, this.tutorialName);
+  async processStep(arg: string, tutorialName: string) {
+    const tutorialDir = path.join(tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
-      throw new Error(`Invalid tutorial name: ${this.tutorialName}`);
+      throw new Error(`Invalid tutorial name: ${tutorialName}`);
     }
 
     const yamlFile = path.join(tutorialDir, arg);
     if (!fs.existsSync(yamlFile)) {
       throw new Error(
-        `Can't file yaml file: ${yamlFile} in tutorial name: ${this.tutorialName}`,
+        `Can't file yaml file: ${yamlFile} in tutorial name: ${tutorialName}`,
       );
     }
-    this.yamlFilename = arg;
+    const yamlFilename = arg;
 
     const buffer = await fsp.readFile(yamlFile);
     const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
@@ -107,7 +109,34 @@ export class Tutorial {
       canonicalizeAndValidateCommand(fixture.command),
     ) as SpokenFormSuccess;
     console.log("\t", spokenForm.spokenForms[0]);
+    return [spokenForm.spokenForms[0], yamlFilename];
+  }
+
+  async processScopeType(arg: any) {
+    const scopeType = yaml.load(arg.toString()) as ScopeType;
+    const spokenForm_ =
+      this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType);
+    const spokenForm = spokenForm_ as SpokenFormSuccess;
+    console.log("\t", spokenForm.spokenForms[0]);
     return spokenForm.spokenForms[0];
+  }
+
+  async loadTutorialScript(tutorialName: string) {
+    const tutorialDir = path.join(tutorialRootDir, tutorialName);
+    if (!fs.existsSync(tutorialDir)) {
+      throw new Error(`Invalid tutorial name: ${tutorialName}`);
+    }
+
+    const scriptFile = path.join(tutorialDir, "script.json");
+    if (!fs.existsSync(scriptFile)) {
+      throw new Error(
+        `Can't file script file: ${scriptFile} in tutorial name: ${tutorialName}`,
+      );
+    }
+    const buffer = await fsp.readFile(scriptFile);
+    const contentList = JSON.parse(buffer.toString());
+    console.log(contentList);
+    return contentList;
   }
 
   async getContent({ version, tutorialName }: TutorialGetContentArg) {
@@ -119,24 +148,10 @@ export class Tutorial {
       throw new Error(`Unsupported tutorial api version: ${version}`);
     }
 
-    const tutorialDir = path.join(tutorialRootDir, tutorialName);
-    if (!fs.existsSync(tutorialDir)) {
-      throw new Error(`Invalid tutorial name: ${tutorialName}`);
-    }
-    this.tutorialName = tutorialName;
+    const contentList = await this.loadTutorialScript(tutorialName);
 
-    const scriptFile = path.join(tutorialDir, "script.json");
-    if (!fs.existsSync(scriptFile)) {
-      throw new Error(
-        `Can't file script file: ${scriptFile} in tutorial name: ${tutorialName}`,
-      );
-    }
-    const buffer = await fsp.readFile(scriptFile);
-    const contentList = JSON.parse(buffer.toString());
-    console.log(contentList);
-
-    // this is trying to catch occurrences of things like "{step:cloneStateInk.yml}"
-    const re = /\{(\w+):([^}]+)\}/g;
+    // this is trying to catch occurrences of things like "%%step:cloneStateInk.yml%%"
+    const re = /%%(\w+):([^%]+)%%/;
 
     let m;
     let spokenForm;
@@ -147,33 +162,39 @@ export class Tutorial {
     };
     // we need to replace the {...} with the right content
     for (let content of contentList) {
-      this.yamlFilename = "";
-      do {
-        m = re.exec(content);
-        if (m) {
-          const name = m[1];
-          const arg = m[2];
-          console.log(name, arg);
-          switch (name) {
-            case "step":
-              spokenForm = await this.processStep(content, arg);
-              content = content.replace(m[0], `<cmd@${spokenForm}/>`);
-              break;
-            case "literalStep":
-              content = content.replace(m[0], `<cmd@${arg}/>`);
-              break;
-            case "action":
-              // TODO
-              break;
-            case "scopeType":
-              // TODO
-              break;
-            default:
-              throw new Error(`Unknown name: ${name}`);
-          }
+      let yamlFilename = "";
+      m = re.exec(content);
+      while (m) {
+        const name = m[1];
+        const arg = m[2];
+        console.log(name, arg);
+        switch (name) {
+          case "step":
+            [spokenForm, yamlFilename] = await this.processStep(
+              arg,
+              tutorialName,
+            );
+            content = content.replace(m[0], `<cmd@${spokenForm}/>`);
+            break;
+          case "literalStep":
+            content = content.replace(m[0], `<cmd@${arg}/>`);
+            break;
+          case "action":
+            // hardcoded list of default spoken form for an action (not yet the user customized one)
+            spokenForm = actions[arg as keyof typeof actions];
+            console.log("\t", spokenForm);
+            content = content.replace(m[0], `<*"${spokenForm}"/>`);
+            break;
+          case "scopeType":
+            spokenForm = await this.processScopeType(arg);
+            content = content.replace(m[0], `<*"${spokenForm}"/>`);
+            break;
+          default:
+            throw new Error(`Unknown name: ${name}`);
         }
-      } while (m);
-      response.yamlFilenames.push(this.yamlFilename);
+        m = re.exec(content);
+      }
+      response.yamlFilenames.push(yamlFilename);
       response.content.push(content);
     }
 
