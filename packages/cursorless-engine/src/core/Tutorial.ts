@@ -11,7 +11,6 @@ import { promises as fsp } from "node:fs";
 
 import {
   ScopeType,
-  SimpleScopeType,
   SpokenFormSuccess,
   TestCaseFixture,
 } from "@cursorless/common";

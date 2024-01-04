@@ -1,9 +1,4 @@
-from typing import Callable
-
 from talon import actions, app
-
-from .get_action_spoken_form import lookup_action
-
 
 tutorial_content = None
 
