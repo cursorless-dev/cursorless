@@ -19,6 +19,13 @@ interface TestCase {
 
 const testCases: TestCase[] = [
   {
+    name: "past",
+    initialContent: "a b c d e\n",
+    // change bat past drum
+    keySequence: "db;fk;dd;c",
+    finalContent: "a  e",
+  },
+  {
     name: "and",
     initialContent: "x T y\n",
     // change plex and yank
