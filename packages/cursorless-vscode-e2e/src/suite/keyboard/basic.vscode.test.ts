@@ -29,7 +29,7 @@ const testCases: TestCase[] = [
     name: "and",
     initialContent: "x T y\n",
     // change plex and yank
-    keySequence: "dx;fa;dy;c",
+    keySequence: "dx;,;dy;c",
     finalContent: "T",
   },
   {

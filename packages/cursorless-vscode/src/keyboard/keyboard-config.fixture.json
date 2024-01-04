@@ -4,7 +4,7 @@
     "i": "line",
     "sb": "paragraph",
     ";": "statement",
-    ",": "collectionItem",
+    "si": "collectionItem",
     ".": "functionCall",
     "'": "string",
     "sf": "namedFunction",
@@ -60,7 +60,7 @@
   "cursorless.experimental.keyboard.modal.keybindings.misc": {
     "fx": "combineColorAndShape",
     "fk": "makeRange",
-    "fa": "makeList",
+    ",": "makeList",
     "-": "backward",
     "aw": "wrap"
   },
