@@ -50,7 +50,7 @@ interpolation_processor_map: dict[str, Callable[[str], str]] = {
 
 
 def step_callback(x):
-    print(f"step_callback8: {x}")
+    print(f"step_callback1: {x}")
     yamlFilename = tutorial_content["yamlFilenames"][x]
     if yamlFilename:
         actions.user.private_cursorless_run_rpc_command_get(
