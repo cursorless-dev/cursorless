@@ -4,7 +4,7 @@ tutorial_content = None
 
 
 def step_callback(x):
-    print(f"step_callback1: {x}")
+    print(f"step_callback5: {x}")
     yamlFilename = tutorial_content["yamlFilenames"][x]
     if yamlFilename:
         actions.user.private_cursorless_run_rpc_command_get(
@@ -15,6 +15,21 @@ def step_callback(x):
                 "yamlFilename": yamlFilename,
             },
         )
+        # the below seems not needed
+        # while True:
+        #     # this is a hack to make sure vscode window was correctly reloaded
+        #     # for instance if the user focused another window like the browser
+        #     # when saying "help cursorless"
+        #     ret = actions.user.private_cursorless_run_rpc_command_get(
+        #         "cursorless.tutorial.setupStep",
+        #         {
+        #             "version": 1,
+        #             "tutorialName": "unit-1-basic-coding",
+        #             "yamlFilename": yamlFilename,
+        #         },
+        #     )
+        #     if ret:
+        #         break
 
 
 def get_basic_coding_walkthrough():

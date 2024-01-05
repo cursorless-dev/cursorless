@@ -1,4 +1,4 @@
-import { Position, Range } from "..";
+import { Position, Range, SelectionPlainObject, createPosition } from "..";
 
 export class Selection extends Range {
   /**
@@ -84,4 +84,10 @@ export class Selection extends Range {
   public toString(): string {
     return this.concise();
   }
+}
+
+export function createSelection(selection: SelectionPlainObject): Selection {
+  const active = createPosition(selection.active);
+  const anchor = createPosition(selection.anchor);
+  return new Selection(anchor, active);
 }

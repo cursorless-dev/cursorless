@@ -66,7 +66,6 @@ export function createCursorlessEngine(
     talonSpokenForms,
   );
 
-  //debugger;
   const tutorial = new Tutorial(hatTokenMap, customSpokenFormGenerator);
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);

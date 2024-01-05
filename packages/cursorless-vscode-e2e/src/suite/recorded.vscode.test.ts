@@ -4,10 +4,10 @@ import {
   ExcludableSnapshotField,
   extractTargetedMarks,
   getRecordedTestPaths,
+  getTokenHats,
   HatStability,
   marksToPlainObject,
   omitByDeep,
-  plainObjectToRange,
   PositionPlainObject,
   rangeToPlainObject,
   ReadOnlyHatMap,
@@ -19,8 +19,6 @@ import {
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
   TestCaseFixtureLegacy,
-  TextEditor,
-  TokenHat,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -242,36 +240,5 @@ function checkMarks(
     const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-  });
-}
-
-function getTokenHats(
-  marks: SerializedMarks | undefined,
-  editor: TextEditor,
-): TokenHat[] {
-  if (marks == null) {
-    return [];
-  }
-
-  return Object.entries(marks).map(([key, token]) => {
-    const { hatStyle, character } = splitKey(key);
-    const range = plainObjectToRange(token);
-
-    return {
-      hatStyle,
-      grapheme: character,
-      token: {
-        editor,
-        range,
-        offsets: {
-          start: editor.document.offsetAt(range.start),
-          end: editor.document.offsetAt(range.end),
-        },
-        text: editor.document.getText(range),
-      },
-
-      // NB: We don't care about the hat range for this test
-      hatRange: range,
-    };
   });
 }

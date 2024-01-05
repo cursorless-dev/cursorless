@@ -3,9 +3,17 @@ import * as yaml from "js-yaml";
 import fs, { promises as fsp } from "node:fs";
 
 import {
+  Position,
   ScopeType,
+  Selection,
+  SerializedMarks,
   SpokenFormSuccess,
   TestCaseFixture,
+  TextEditor,
+  Token,
+  TokenHat,
+  createSelection,
+  getTokenHats,
 } from "@cursorless/common";
 import { ide } from "../singletons/ide.singleton";
 import { HatTokenMapImpl } from "./HatTokenMapImpl";
@@ -60,6 +68,7 @@ interface TutorialSetupStepArg {
 }
 
 export class Tutorial {
+  private hatTokenMap: HatTokenMapImpl;
   private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl;
   private tutorialRootDir: string;
 
@@ -70,7 +79,9 @@ export class Tutorial {
     this.getContent = this.getContent.bind(this);
     this.setupStep = this.setupStep.bind(this);
 
+    this.hatTokenMap = hatTokenMap;
     this.customSpokenFormGenerator = customSpokenFormGenerator;
+
     const extensionPath = ide().assetsRoot;
     this.tutorialRootDir = path.join(extensionPath, "tutorial");
   }
@@ -204,6 +215,7 @@ export class Tutorial {
 
   /**
    * Handle the "cursorless.tutorial.setupStep" command
+   * @see packages/cursorless-vscode-e2e/src/suite/recorded.vscode.test.ts
    */
   async setupStep({
     version,
@@ -230,12 +242,29 @@ export class Tutorial {
     const buffer = await fsp.readFile(yamlFile);
     const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
 
-    const editor = ide().openUntitledTextDocument({
+    const editor = await ide().openUntitledTextDocument({
       content: fixture.initialState.documentContents,
       language: fixture.languageId,
     });
+    const editableEditor = ide().getEditableTextEditor(editor);
 
-    // TODO set up the right hats
+    // Ensure that the expected cursor/selections are present
+    editableEditor.selections =
+      fixture.initialState.selections.map(createSelection);
+    // in case we don't want to use the createSelection helper function
+    // editableEditor.selections = fixture.initialState.selections.map(
+    //   (selections) => {
+    //     return new Selection(
+    //       new Position(selections.anchor.line, selections.anchor.character),
+    //       new Position(selections.active.line, selections.active.character),
+    //     );
+    //   },
+    // );
+
+    // Ensure that the expected hats are present
+    await this.hatTokenMap.allocateHats(
+      getTokenHats(fixture.initialState.marks, editor),
+    );
 
     // return to the talon side
     return true;
