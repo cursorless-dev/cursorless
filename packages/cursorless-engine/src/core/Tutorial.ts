@@ -1,13 +1,6 @@
-// import { readFile, writeFile } from "fs/promises";
-// import { parse } from "node-html-parser";
-// import produce from "immer";
-// import { sortBy } from "lodash";
-// import { ide } from "../singletons/ide.singleton";
 import path from "path";
-// import { getCursorlessRepoRoot } from "@cursorless/common";
-
 import * as yaml from "js-yaml";
-import { promises as fsp } from "node:fs";
+import fs, { promises as fsp } from "node:fs";
 
 import {
   ScopeType,
@@ -19,13 +12,6 @@ import { HatTokenMapImpl } from "./HatTokenMapImpl";
 import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { canonicalizeAndValidateCommand } from "./commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
-
-const fs = require("node:fs");
-
-// TODO use a relative path but I'm not sure where these source files are at running time
-// and CWD is C:\Users\User\AppData\Local\Programs\Microsoft VS Code\
-const tutorialRootDir =
-  "C:\\work\\tools\\voicecoding\\cursorless_fork\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\tutorial\\";
 
 interface TutorialGetContentArg {
   /**
@@ -75,6 +61,7 @@ interface TutorialSetupStepArg {
 
 export class Tutorial {
   private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl;
+  private tutorialRootDir: string;
 
   constructor(
     hatTokenMap: HatTokenMapImpl,
@@ -84,10 +71,15 @@ export class Tutorial {
     this.setupStep = this.setupStep.bind(this);
 
     this.customSpokenFormGenerator = customSpokenFormGenerator;
+    const extensionPath = ide().assetsRoot;
+    this.tutorialRootDir = path.join(extensionPath, "tutorial");
   }
 
+  /**
+   * Handle the argument of a "%%step:cloneStateInk.yml%%""
+   */
   async processStep(arg: string, tutorialName: string) {
-    const tutorialDir = path.join(tutorialRootDir, tutorialName);
+    const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
       throw new Error(`Invalid tutorial name: ${tutorialName}`);
     }
@@ -111,6 +103,9 @@ export class Tutorial {
     return [spokenForm.spokenForms[0], yamlFilename];
   }
 
+  /**
+   * Handle the argument of a "%%scopeType:{type: statement}%%"
+   */
   async processScopeType(arg: any) {
     const scopeType = yaml.load(arg.toString()) as ScopeType;
     const spokenForm_ =
@@ -120,8 +115,11 @@ export class Tutorial {
     return spokenForm.spokenForms[0];
   }
 
+  /**
+   * Load the "script.json" script for the current tutorial
+   */
   async loadTutorialScript(tutorialName: string) {
-    const tutorialDir = path.join(tutorialRootDir, tutorialName);
+    const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
       throw new Error(`Invalid tutorial name: ${tutorialName}`);
     }
@@ -138,6 +136,9 @@ export class Tutorial {
     return contentList;
   }
 
+  /**
+   * Handle the "cursorless.tutorial.getContent" command
+   */
   async getContent({ version, tutorialName }: TutorialGetContentArg) {
     console.log(
       "getContent(){ version, tutorialName, yamlFilename }: TutorialSetupStepArg",
@@ -201,6 +202,9 @@ export class Tutorial {
     return response;
   }
 
+  /**
+   * Handle the "cursorless.tutorial.setupStep" command
+   */
   async setupStep({
     version,
     tutorialName,
@@ -211,7 +215,7 @@ export class Tutorial {
       throw new Error(`Unsupported tutorial api version: ${version}`);
     }
 
-    const tutorialDir = path.join(tutorialRootDir, tutorialName);
+    const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
       throw new Error(`Invalid tutorial name: ${tutorialName}`);
     }
