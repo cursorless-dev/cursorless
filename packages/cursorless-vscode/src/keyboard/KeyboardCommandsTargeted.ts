@@ -13,6 +13,8 @@ import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
+import { KeyboardActionDescriptor } from "./KeyboardActionType";
+import { isString } from "./KeyboardCommandHandler";
 
 type TargetingMode = "replace" | "extend" | "append";
 
@@ -175,59 +177,80 @@ export default class KeyboardCommandsTargeted {
    * @param name The action to run
    * @returns A promise that resolves to the result of the cursorless command
    */
-  performSimpleActionOnTarget = async (name: ActionType) => {
-    return this.performActionOnTarget((target) => {
-      switch (name) {
-        case "wrapWithPairedDelimiter":
-        case "rewrapWithPairedDelimiter":
-        case "insertSnippet":
-        case "wrapWithSnippet":
-        case "executeCommand":
-        case "replace":
-        case "editNew":
-        case "getText":
-          throw Error(`Unsupported keyboard action: ${name}`);
-        case "replaceWithTarget":
-        case "moveToTarget":
-          return {
-            name,
-            source: target,
-            destination: { type: "implicit" },
-          };
-        case "swapTargets":
-          return {
-            name,
-            target1: target,
-            target2: { type: "implicit" },
-          };
-        case "callAsFunction":
-          return {
-            name,
-            callee: target,
-            argument: { type: "implicit" },
-          };
-        case "pasteFromClipboard":
-          return {
-            name,
-            destination: {
-              type: "primitive",
-              insertionMode: "to",
+  performSimpleActionOnTarget = async (
+    actionDescription: KeyboardActionDescriptor,
+  ) => {
+    let name = "";
+    let exitCursorlessMode = false;
+    if (isString(actionDescription)) {
+      name = actionDescription;
+    } else {
+      name = actionDescription.actionId;
+      exitCursorlessMode = actionDescription.exitCursorlessMode ?? false;
+    }
+
+    return this.performActionOnTarget(
+      (target: PartialPrimitiveTargetDescriptor) => {
+        let action: ActionDescriptor;
+        switch (name) {
+          case "wrapWithPairedDelimiter":
+          case "rewrapWithPairedDelimiter":
+          case "insertSnippet":
+          case "wrapWithSnippet":
+          case "executeCommand":
+          case "replace":
+          case "editNew":
+          case "getText":
+            throw Error(`Unsupported keyboard action: ${name}`);
+          case "replaceWithTarget":
+          case "moveToTarget":
+            action = {
+              name,
+              source: target,
+              destination: { type: "implicit" },
+            };
+            break;
+          case "swapTargets":
+            action = {
+              name,
+              target1: target,
+              target2: { type: "implicit" },
+            };
+            break;
+          case "callAsFunction":
+            action = {
+              name,
+              callee: target,
+              argument: { type: "implicit" },
+            };
+            break;
+          case "pasteFromClipboard":
+            action = {
+              name,
+              destination: {
+                type: "primitive",
+                insertionMode: "to",
+                target,
+              },
+            };
+            break;
+          case "generateSnippet":
+          case "highlight":
+            action = {
+              name,
               target,
-            },
-          };
-        case "generateSnippet":
-        case "highlight":
-          return {
-            name,
-            target,
-          };
-        default:
-          return {
-            name,
-            target,
-          };
-      }
-    });
+            };
+            break;
+          default:
+            action = {
+              name: name as any,
+              target,
+            };
+            break;
+        }
+        return { action, exitCursorlessMode };
+      },
+    );
   };
 
   /**
@@ -236,11 +259,12 @@ export default class KeyboardCommandsTargeted {
    * @returns A promise that resolves to the result of the cursorless command
    */
   performActionOnTarget = async (
-    constructActionPayload: (
-      target: PartialPrimitiveTargetDescriptor,
-    ) => ActionDescriptor,
+    constructActionPayload: (target: PartialPrimitiveTargetDescriptor) => {
+      action: ActionDescriptor;
+      exitCursorlessMode: boolean;
+    },
   ) => {
-    const action = constructActionPayload({
+    const { action, exitCursorlessMode } = constructActionPayload({
       type: "primitive",
       mark: {
         type: "keyboard",
@@ -248,7 +272,7 @@ export default class KeyboardCommandsTargeted {
     });
     const returnValue = await executeCursorlessCommand(action);
 
-    if (EXIT_CURSORLESS_MODE_ACTIONS.includes(action.name)) {
+    if (exitCursorlessMode) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
       await this.modal.modeOff();
@@ -353,11 +377,3 @@ function executeCursorlessCommand(action: ActionDescriptor) {
     usePrePhraseSnapshot: false,
   });
 }
-
-const EXIT_CURSORLESS_MODE_ACTIONS: ActionType[] = [
-  "setSelectionBefore",
-  "setSelectionAfter",
-  "editNewLineBefore",
-  "editNewLineAfter",
-  "clearAndSetSelection",
-];

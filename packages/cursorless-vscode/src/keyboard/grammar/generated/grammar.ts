@@ -63,7 +63,7 @@ const grammar: Grammar = {
         command("targetDecoratedMark", { decoratedMark: $1, mode: "append" })
         },
     {"name": "main", "symbols": ["modifier"], "postprocess": command("modifyTarget", { modifier: $0 })},
-    {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionDescriptor"])},
     {"name": "main", "symbols": [(keyboardLexer.has("wrap") ? {type: "wrap"} : wrap), (keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
         command("performWrapActionOnTarget", [_, "delimiter"])
         },

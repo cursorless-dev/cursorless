@@ -51,13 +51,13 @@ export class KeyboardConfig {
   /**
    * Returns a keymap mapping from key sequences to tokens for use in our key
    * sequence parser. If `sectionName` is omitted, it defaults to `type`. If
-   * `only` is provided, we filter to include only entries with these values.
+   * `filter` is provided, it's used to determine whether to include each entry.
    *
    * Example:
    *
    * ```ts
    * assert.equal(
-   *   getTokenKeyMap("direction", "misc", ["forward", "backward"]),
+   *   getTokenKeyMap("direction", "misc", (value) => value === "forward" || value === "backward"),
    *   {
    *     "f": { type: "direction", value: "forward" },
    *     "b": { type: "direction", value: "backward" },
@@ -67,8 +67,8 @@ export class KeyboardConfig {
    *
    * @param tokenType The type of the token
    * @param sectionName The name of the config section
-   * @param only If provided, only entries with these values will be returned
-   * @returns A keymap with entries only for the given value
+   * @param filter If provided, a function that specifies whether to include each entry
+   * @returns A keymap with entries that match the filter condition
    */
   getTokenKeyMap<T extends keyof SectionTypes & TokenType>(
     tokenType: T,
@@ -82,7 +82,11 @@ export class KeyboardConfig {
     K extends keyof SectionTypes,
     V extends SectionTypes[K] & TokenTypeValueMap[T] = SectionTypes[K] &
       TokenTypeValueMap[T],
-  >(tokenType: T, sectionName: K, only: V[]): KeyMap<{ type: T; value: V }>;
+  >(
+    tokenType: T,
+    sectionName: K,
+    filter?: (value: V) => boolean,
+  ): KeyMap<{ type: T; value: V }>;
   getTokenKeyMap<
     T extends TokenType,
     K extends keyof SectionTypes,
@@ -91,11 +95,11 @@ export class KeyboardConfig {
   >(
     tokenType: T,
     sectionName: K = tokenType as unknown as K,
-    only?: V[],
+    filter?: (value: V) => boolean,
   ): KeyMap<{ type: T; value: V }> {
     const section = this.getSectionKeyMapRaw(sectionName);
 
-    if (only == null) {
+    if (!filter) {
       return mapValues(section, (value) => ({
         type: tokenType,
         value: value as V,
@@ -103,11 +107,31 @@ export class KeyboardConfig {
     }
 
     return mapValues(
-      pickBy(section, (v): v is V => only.includes(v as V)),
+      pickBy(section, (v): v is V => filter(v as V)),
       (value) => ({
         type: tokenType,
         value,
       }),
     );
   }
+}
+
+/**
+ * Creates a filter function that reports whether a value is one of the provided arguments.
+ *
+ * @param values Values to include
+ * @returns A filter function suitable for use with getTokenKeyMap
+ */
+export function only<T>(...values: T[]): (value: T) => boolean {
+  return (value: T) => values.includes(value);
+}
+
+/**
+ * Creates a filter function that reports whether a value is not one of the provided arguments.
+ *
+ * @param values Values to exclude
+ * @returns A filter function suitable for use with getTokenKeyMap
+ */
+export function exclude<T>(...values: T[]): (value: T) => boolean {
+  return (value: T) => !values.includes(value);
 }

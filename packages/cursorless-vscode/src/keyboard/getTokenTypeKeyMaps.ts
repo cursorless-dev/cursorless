@@ -1,7 +1,6 @@
 import { range } from "lodash";
 import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
-import { simpleKeyboardActionNames } from "./KeyboardActionType";
-import { KeyboardConfig } from "./KeyboardConfig";
+import { KeyboardConfig, exclude, only } from "./KeyboardConfig";
 
 /**
  * Returns a map from token type names to a keymap for that token type. Something like:
@@ -42,26 +41,27 @@ export function getTokenTypeKeyMaps(
     simpleAction: config.getTokenKeyMap(
       "simpleAction",
       "action",
-      simpleKeyboardActionNames,
+      exclude("wrap"),
     ),
-    wrap: config.getTokenKeyMap("wrap", "action", ["wrap"]),
+    wrap: config.getTokenKeyMap("wrap", "action", only("wrap")),
 
     // misc config section
-    makeRange: config.getTokenKeyMap("makeRange", "misc", ["makeRange"]),
-    makeList: config.getTokenKeyMap("makeList", "misc", ["makeList"]),
+    makeRange: config.getTokenKeyMap("makeRange", "misc", only("makeRange")),
+    makeList: config.getTokenKeyMap("makeList", "misc", only("makeList")),
     combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",
       "misc",
-      ["combineColorAndShape"],
+      only("combineColorAndShape"),
     ),
-    direction: config.getTokenKeyMap("direction", "misc", [
-      "forward",
-      "backward",
-    ]),
+    direction: config.getTokenKeyMap(
+      "direction",
+      "misc",
+      only("forward", "backward"),
+    ),
 
     // modifier config section
-    every: config.getTokenKeyMap("every", "modifier", ["every"]),
-    nextPrev: config.getTokenKeyMap("nextPrev", "modifier", ["nextPrev"]),
+    every: config.getTokenKeyMap("every", "modifier", only("every")),
+    nextPrev: config.getTokenKeyMap("nextPrev", "modifier", only("nextPrev")),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

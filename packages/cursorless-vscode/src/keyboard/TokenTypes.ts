@@ -1,16 +1,13 @@
 import { SimpleScopeTypeType, SurroundingPairName } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import {
-  KeyboardActionType,
-  SimpleKeyboardActionType,
-} from "./KeyboardActionType";
+import { KeyboardActionDescriptor } from "./KeyboardActionType";
 
 /**
  * Maps from modal keyboard config section name to the type of entry expected in
  * that section.
  */
 export interface SectionTypes {
-  action: KeyboardActionType;
+  action: KeyboardActionDescriptor;
   color: HatColor;
   misc: MiscValue;
   scope: SimpleScopeTypeType;
@@ -52,7 +49,7 @@ export interface TokenTypeValueMap {
   pairedDelimiter: SurroundingPairName;
 
   // action config section
-  simpleAction: SimpleKeyboardActionType;
+  simpleAction: KeyboardActionDescriptor;
   wrap: "wrap";
 
   // misc config section
