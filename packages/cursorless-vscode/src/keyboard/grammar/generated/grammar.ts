@@ -75,7 +75,7 @@ const grammar: Grammar = {
     {"name": "main", "symbols": ["offset", "scopeType"], "postprocess": 
         command("targetRelativeInclusiveScope", ["offset", "scopeType"])
         },
-    {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionDescriptor"])},
     {"name": "main", "symbols": [(keyboardLexer.has("wrap") ? {type: "wrap"} : wrap), (keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
         command("performWrapActionOnTarget", [_, "delimiter"])
         },

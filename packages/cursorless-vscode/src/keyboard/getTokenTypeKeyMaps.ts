@@ -39,11 +39,7 @@ export function getTokenTypeKeyMaps(
     pairedDelimiter: config.getTokenKeyMap("pairedDelimiter"),
 
     // action config section
-    simpleAction: config.getTokenKeyMap(
-      "simpleAction",
-      "action",
-      simpleKeyboardActionNames,
-    ),
+    simpleAction: config.getTokenKeyMap("simpleAction", "action"),
     wrap: config.getTokenKeyMap("wrap", "misc", ["wrap"]),
 
     // misc config section

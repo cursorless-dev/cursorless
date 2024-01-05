@@ -40,7 +40,7 @@ main -> offset scopeType {%
 %}
 
 # "chuck"
-main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionName"]) %}
+main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionDescriptor"]) %}
 
 # "round wrap"
 main -> %wrap %pairedDelimiter {%

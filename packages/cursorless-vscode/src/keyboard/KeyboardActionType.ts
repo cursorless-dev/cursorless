@@ -17,14 +17,22 @@ type ExtraKeyboardActionType = (typeof extraKeyboardActionNames)[number];
 type ExcludedKeyboardActionType = (typeof excludedKeyboardActionNames)[number];
 type ComplexKeyboardActionType = (typeof complexKeyboardActionTypes)[number];
 export type SimpleKeyboardActionType = Exclude<
-  KeyboardActionType,
+  KeyboardActionDescriptor,
   ComplexKeyboardActionType
 >;
+
+export type KeyboardActionDescriptor =
+  | KeyboardActionType
+  | {
+      actionId: KeyboardActionType;
+      exitCursorlessMode?: boolean;
+    };
+
 export type KeyboardActionType =
   | Exclude<ActionType, ExcludedKeyboardActionType>
   | ExtraKeyboardActionType;
 
-const keyboardActionNames: KeyboardActionType[] = [
+const keyboardActionNames: KeyboardActionDescriptor[] = [
   ...actionNames.filter(
     (
       actionName,
