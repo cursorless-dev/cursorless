@@ -1,15 +1,15 @@
 #!/bin/bash
 
+
 # Variable declaration
 var="Hello, World"
-number=42
 array=("apple" "banana" "cherry")
 
 # Output variables
 echo "String variable: $var"
 echo "Number variable: $number"
 echo "Array variable: ${array[*]}"
-
+echo A B C
 # If statement
 if [ "$number" -eq 42 ]; then
   echo "The number is 42"
@@ -35,6 +35,9 @@ my_function() {
   echo "Function argument: $1"
   echo "$local_var from function"
 }
+
+sub_function() (foo)
+sub_function() ((foo++))
 
 my_function "Function Argument"
 
@@ -163,3 +166,7 @@ echo "Incremented value: $value"
 numbers=(1 2 3 4 5)
 sliced_numbers=("${numbers[@]:1:3}")
 echo "Sliced array: ${sliced_numbers[*]}"
+
+declare -A arr
+arr["key1"]=val1
+arr+=(["key2"]=val2 ["key3"]=val3)

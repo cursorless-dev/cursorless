@@ -171,6 +171,23 @@
   ")" @_.interior.end.startOf
 ) @list @collectionItem.iteration
 
+;;!! FIXME: I will file an issue in tree-sitter-bash as I think the grammar is
+;;!! bad. But the below does work for now
+;;!! arr+=(["key2"]=val2 ["key3"]=val3)
+(array
+  (
+    (concatenation
+      ;; This matches the [ which is (word) for some reason
+      (_) @collectionKey.leading.start
+      (_) @collectionKey
+      ;; This matches the ] which is also (word) for some reason
+      (_) @collectionKey.trailing.end
+      (_) @value
+    ) @collectionItem
+    (#shrink-to-match! @value "\=(?<keep>.*)")
+  )
+)
+
 ;;
 ;; Strings
 ;;
@@ -183,27 +200,20 @@
 ;;!      ^^^^^
 (string) @string @textFragment
 
-;; TODO: These two cases are broken as they are a single (expression), and the " " isn't recognized
-;; echo "Foo ${BAR} ${BAZ}"
-;; echo "Foo $BAR $BAZ"
 ;;!! var="foo ${bar}"
 ;;!           ^^^^^^
 ;;!           xxxxxx
 (string
-  (expansion
-    "${" @argumentOrParameter.start.startOf
-    .
-    (_)
-    .
-    "}" @argumentOrParameter.end.endOf
+  (
+    (expansion) @argumentOrParameter
+    ;; FIXME: This is due to a tree-sitter-bash bug (imo) where given: "Foo ${BAR} ${BAZ}"
+    ;; ${BAZ} incorrectly includes preceding space
+    (#shrink-to-match! @argumentOrParameter "\\s*(?<keep>.*)")
   )
 )
 (string
-  (simple_expansion
-    "$" @argumentOrParameter.start.startOf
-    .
-    (_) @argumentOrParameter.end.endOf
-  )
+  (simple_expansion) @argumentOrParameter
+  (#shrink-to-match! @argumentOrParameter "\\s*(?<keep>.*)")
 )
 
 ;;
@@ -307,6 +317,19 @@
   (#not-parent-type? @dummy declaration_command)
 )
 
+;;!! local foo="bar"
+;;!            ^^^^^
+;;!           xxxxxx
+;;!  ---------------
+(declaration_command
+  "local" @_.domain.start.startOf
+  (variable_assignment
+    "=" @value.leading.start.startOf
+    .
+    value: (_) @value @value.leading.end.endOf
+  ) @_.domain.end.endOf
+)
+
 ;;!! for ((i = 1; i <= 5; i++)); do
 ;;!            ^
 ;;!         xxxx
@@ -320,15 +343,6 @@
     .
     (_) @value @_.leading.end.endOf
   ) @_.domain
-)
-
-(declaration_command
-  "local" @_.domain.start.startOf
-  (variable_assignment
-    "=" @value.leading.start.startOf
-    .
-    value: (_) @value @value.leading.end.endOf
-  ) @_.domain.end.endOf
 )
 
 (regex) @regularExpression @textFragment
