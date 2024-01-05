@@ -3,15 +3,9 @@ import * as yaml from "js-yaml";
 import fs, { promises as fsp } from "node:fs";
 
 import {
-  Position,
   ScopeType,
-  Selection,
-  SerializedMarks,
   SpokenFormSuccess,
   TestCaseFixture,
-  TextEditor,
-  Token,
-  TokenHat,
   createSelection,
   getTokenHats,
 } from "@cursorless/common";
