@@ -1,6 +1,5 @@
 import { range } from "lodash";
 import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
-import { simpleKeyboardActionNames } from "./KeyboardActionType";
 import { KeyboardConfig } from "./KeyboardConfig";
 
 /**

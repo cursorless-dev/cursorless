@@ -1,10 +1,7 @@
 import { ScopeType, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import {
-  KeyboardActionDescriptor,
-  SimpleKeyboardActionType,
-} from "./KeyboardActionType";
+import { KeyboardActionDescriptor } from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";

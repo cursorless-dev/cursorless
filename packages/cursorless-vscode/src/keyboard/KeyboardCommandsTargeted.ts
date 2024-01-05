@@ -1,6 +1,5 @@
 import {
   ActionDescriptor,
-  ActionType,
   LATEST_VERSION,
   Modifier,
   PartialPrimitiveTargetDescriptor,
