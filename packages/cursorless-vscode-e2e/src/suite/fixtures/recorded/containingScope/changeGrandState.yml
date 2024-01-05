@@ -1,7 +1,7 @@
 languageId: javascript
 command:
   version: 6
-  spokenForm: change state
+  spokenForm: change grand state
   action:
     name: clearAndSetSelection
     target:
