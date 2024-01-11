@@ -50,6 +50,7 @@ import {
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
 import { vscodeApi } from "./vscodeApi";
+import { storedTargetHighlighter } from "./storedTargetHighlighter";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -126,6 +127,8 @@ export async function activate(
     customSpokenFormGenerator,
     commandServerApi != null,
   );
+
+  context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
   registerCommands(
     context,
