@@ -214,7 +214,9 @@ class TargetPipeline {
       markStage = new ImplicitStage();
       targetModifierStages = [];
     } else {
-      markStage = this.markStageFactory.create(targetDescriptor.mark);
+      markStage = this.markStageFactory.create(targetDescriptor.mark, {
+        isForInstance: targetDescriptor.modifiers.some(isInstanceModifier),
+      });
       targetModifierStages = getModifierStagesFromTargetModifiers(
         this.modifierStageFactory,
         targetDescriptor.modifiers,
@@ -379,5 +381,16 @@ function targetsToVerticalTarget(
     if (i === activeLine) {
       return results;
     }
+  }
+}
+
+function isInstanceModifier(modifier: Modifier): boolean {
+  switch (modifier.type) {
+    case "everyScope":
+    case "ordinalScope":
+    case "relativeScope":
+      return modifier.scopeType.type === "instance";
+    default:
+      return false;
   }
 }

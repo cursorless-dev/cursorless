@@ -104,7 +104,7 @@ function inferPrimitiveTarget(
     (shouldInferPreviousMark(target)
       ? getPreviousMark(previousTargets)
       : null) ?? {
-      type: "cursor",
+      type: "implicit",
     };
 
   const modifiers =

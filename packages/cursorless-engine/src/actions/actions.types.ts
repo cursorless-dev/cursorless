@@ -52,6 +52,11 @@ export interface ActionReturnValue {
    * to determine either the range for "every", or the start point for "next"
    */
   instanceReferenceTargets?: Target[];
+
+  /**
+   * A list of targets that become the start of the pipeline when the mark is ommitted.
+   */
+  implicitTargets?: Target[];
 }
 
 export interface SimpleAction {

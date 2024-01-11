@@ -2,7 +2,7 @@ import { ReadOnlyHatMap } from "@cursorless/common";
 import { TargetPipelineRunner } from ".";
 import { StoredTargetMap } from "..";
 import { Mark } from "../typings/TargetDescriptor";
-import { MarkStageFactory } from "./MarkStageFactory";
+import { MarkStageFactory, MarkStageFactoryOpts } from "./MarkStageFactory";
 import { MarkStage } from "./PipelineStages.types";
 import { CursorStage } from "./marks/CursorStage";
 import { DecoratedSymbolStage } from "./marks/DecoratedSymbolStage";
@@ -12,6 +12,7 @@ import { NothingStage } from "./marks/NothingStage";
 import { RangeMarkStage } from "./marks/RangeMarkStage";
 import { StoredTargetStage } from "./marks/StoredTargetStage";
 import { TargetMarkStage } from "./marks/TargetMarkStage";
+import { ImplicitMarkStage } from "./marks/ImplicitMarkStage";
 
 export class MarkStageFactoryImpl implements MarkStageFactory {
   private targetPipelineRunner!: TargetPipelineRunner;
@@ -27,10 +28,12 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
     this.create = this.create.bind(this);
   }
 
-  create(mark: Mark): MarkStage {
+  create(mark: Mark, opts: MarkStageFactoryOpts): MarkStage {
     switch (mark.type) {
       case "cursor":
         return new CursorStage(mark);
+      case "implicit":
+        return new ImplicitMarkStage(this, opts, this.storedTargets);
       case "that":
       case "source":
         return new StoredTargetStage(this.storedTargets, mark.type);
@@ -39,7 +42,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
       case "lineNumber":
         return new LineNumberStage(mark);
       case "range":
-        return new RangeMarkStage(this, mark);
+        return new RangeMarkStage(this, opts, mark);
       case "nothing":
         return new NothingStage(mark);
       case "target":

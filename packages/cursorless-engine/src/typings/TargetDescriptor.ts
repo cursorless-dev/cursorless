@@ -6,7 +6,11 @@ import {
   ScopeType,
 } from "@cursorless/common";
 
-export type Mark = PartialMark | TargetMark;
+export interface ImplicitMark {
+  type: "implicit";
+}
+
+export type Mark = PartialMark | TargetMark | ImplicitMark;
 
 export interface PrimitiveTargetDescriptor {
   type: "primitive";
