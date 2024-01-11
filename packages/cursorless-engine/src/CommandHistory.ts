@@ -194,6 +194,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "swapTargets":
     case "wrapWithPairedDelimiter":
     case "findInDocument":
+    case "private.setKeyboardTarget":
       break;
 
     default: {

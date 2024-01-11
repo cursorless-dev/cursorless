@@ -75,7 +75,7 @@ export class KeyboardCommandHandler {
   }: {
     actionName: SimpleKeyboardActionType;
   }) {
-    this.targeted.performActionOnTarget(actionName);
+    this.targeted.performSimpleActionOnTarget(actionName);
   }
 
   modifyTargetContainingScope(arg: { scopeType: ScopeType }) {

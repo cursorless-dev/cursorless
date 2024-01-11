@@ -134,6 +134,7 @@ export class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
+  ["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
   ["experimental.setInstanceReference"] = new SetSpecialTarget(
     "instanceReference",
   );
