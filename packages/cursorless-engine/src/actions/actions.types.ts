@@ -62,6 +62,13 @@ export interface SimpleAction {
    * @param args Extra args to command
    */
   getFinalStages?(): ModifierStage[];
+
+  /**
+   * If `true`, don't perform automatic token expansion for "<action> this" with
+   * empty cursor. Used for actions like `setImplicitTarget` that are just
+   * loading up the pipeline.
+   */
+  noAutomaticTokenExpansion?: boolean;
 }
 
 /**
