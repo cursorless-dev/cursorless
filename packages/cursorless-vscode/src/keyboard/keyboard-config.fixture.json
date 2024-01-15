@@ -37,7 +37,8 @@
     "ac": "copyToClipboard",
     "ax": "cutToClipboard",
     "ap": "pasteFromClipboard",
-    "ad": "followLink"
+    "ad": "followLink",
+    "aw": "wrap"
   },
   "cursorless.experimental.keyboard.modal.keybindings.color": {
     "d": "default",
@@ -61,8 +62,7 @@
     "fx": "combineColorAndShape",
     "fk": "makeRange",
     "fa": "makeList",
-    "-": "backward",
-    "aw": "wrap"
+    "-": "backward"
   },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
     "n": "nextPrev",

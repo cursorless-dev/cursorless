@@ -25,8 +25,7 @@ type MiscValue =
   | "makeRange"
   | "makeList"
   | "forward"
-  | "backward"
-  | "wrap"; // TODO: move wrap somewhere out of misc
+  | "backward";
 
 /**
  * Maps from token type used in parser to the type of values that the token type
