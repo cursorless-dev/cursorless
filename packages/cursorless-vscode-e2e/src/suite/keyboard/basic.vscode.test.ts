@@ -10,10 +10,12 @@ import { readFile } from "node:fs/promises";
 interface TestCase {
   name: string;
   initialContent: string;
-  // keySequence is the sequence of keypresses that will be sent.
-  // It can include phantom ";"s for readability.
-  // They will be not be sent.
-  keySequence: string;
+  /**
+   * The sequence of keypresses that will be sent. The list of strings will simply
+   * be concatenated before sending. We could just represent this as a single string
+   * but it is more readable if each "token" is a separate string.
+   */
+  keySequence: string[];
   finalContent: string;
 }
 
@@ -22,49 +24,49 @@ const testCases: TestCase[] = [
     name: "and",
     initialContent: "x T y\n",
     // change plex and yank
-    keySequence: "dx;fa;dy;c",
-    finalContent: "T",
+    keySequence: ["dx", "fa", "dy", "c"],
+    finalContent: " T \n",
   },
   {
     name: "every",
     initialContent: "a a\nb b\n",
     // change every token air
-    keySequence: "da;x;st;c",
-    finalContent: "b b",
+    keySequence: ["da", "x", "st", "c"],
+    finalContent: " \nb b\n",
   },
   {
     name: "three",
     initialContent: "a b c d e\n",
     // change three tokens bat
-    keySequence: "db;3;st;c",
-    finalContent: "a  e",
+    keySequence: ["db", "3", "st", "c"],
+    finalContent: "a  e\n",
   },
   {
     name: "three backwards",
     initialContent: "a b c d e\n",
     // change three tokens backwards drum
-    keySequence: "dd;-3;st;c",
-    finalContent: "a  e",
+    keySequence: ["dd", "-3", "st", "c"],
+    finalContent: "a  e\n",
   },
   {
     name: "pair parens",
     initialContent: "a + (b + c) + d",
     // change parens bat
-    keySequence: "db;wp;c",
+    keySequence: ["db", "wp", "c"],
     finalContent: "a +  + d",
   },
   {
     name: "pair string",
     initialContent: 'a + "w" + b',
     // change parens bat
-    keySequence: "dw;wj;c",
+    keySequence: ["dw", "wj", "c"],
     finalContent: "a +  + b",
   },
   {
     name: "wrap",
     initialContent: "a",
     // round wrap air
-    keySequence: "da;aw;wp",
+    keySequence: ["da", "aw", "wp"],
     finalContent: "(a)",
   },
 ];
@@ -159,8 +161,8 @@ async function sequence(t: TestCase) {
   await hatTokenMap.allocateHats();
   editor.selection = new vscode.Selection(1, 0, 1, 0);
   await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
-  await typeText(t.keySequence.replaceAll(";", ""));
-  assert.equal(editor.document.getText().trim(), t.finalContent);
+  await typeText(t.keySequence.join(""));
+  assert.equal(editor.document.getText(), t.finalContent);
 }
 
 async function vscodeCommand() {
