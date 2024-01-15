@@ -3,9 +3,7 @@ import { isEqual } from "lodash";
 import { CommandRulePostProcessor } from "./CommandRulePostProcessor";
 import { UniqueWorkQueue } from "./UniqueWorkQueue";
 import { uniqWithHash } from "@cursorless/common";
-import { UNUSED } from "./grammarHelpers";
 import { KeyboardCommandHandler } from "../KeyboardCommandHandler";
-import { KeyboardCommandArgTypes } from "../KeyboardCommandTypeHelpers";
 
 /**
  * Given a parser, returns a list of acceptable token types at the current state
@@ -76,19 +74,8 @@ function getRootStates(state: nearley.State) {
  * @returns A partial argument for the command that the state represents
  */
 function computePartialArg<T extends keyof KeyboardCommandHandler>(
-  state: nearley.State,
-) {
-  const { argNames } = getMetadata<T>(state);
-  let currentState = state;
-  const partialArg: Partial<Record<keyof KeyboardCommandArgTypes[T], any>> = {};
-
-  while (currentState.dot > 0) {
-    const argName = argNames[currentState.dot - 1]!;
-    if (argName !== UNUSED) {
-      partialArg[argName] = currentState.right?.data;
-    }
-    currentState = currentState.left!;
-  }
-
-  return partialArg;
+  _state: nearley.State,
+): Partial<Record<T, any>> {
+  // FIXME: Fill this out
+  return {};
 }

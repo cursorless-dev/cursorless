@@ -1,4 +1,4 @@
-import { ScopeType, SurroundingPairName } from "@cursorless/common";
+import { Modifier, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { SimpleKeyboardActionType } from "./KeyboardActionType";
@@ -28,22 +28,8 @@ import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 export class KeyboardCommandHandler {
   constructor(private targeted: KeyboardCommandsTargeted) {}
 
-  targetDecoratedMarkReplace({ decoratedMark }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark(decoratedMark);
-  }
-
-  targetDecoratedMarkExtend({ decoratedMark }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark({
-      ...decoratedMark,
-      mode: "extend",
-    });
-  }
-
-  targetDecoratedMarkAppend({ decoratedMark }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark({
-      ...decoratedMark,
-      mode: "append",
-    });
+  targetDecoratedMark({ decoratedMark, mode }: DecoratedMarkArg) {
+    this.targeted.targetDecoratedMark({ ...decoratedMark, mode });
   }
 
   async vscodeCommand({
@@ -86,9 +72,6 @@ export class KeyboardCommandHandler {
     this.targeted.performSimpleActionOnTarget(actionName);
   }
 
-  modifyTargetContainingScope(arg: { scopeType: ScopeType }) {
-    this.targeted.modifyTargetContainingScope(arg);
-  }
   performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
     const [left, right] = surroundingPairsDelimiters[delimiter]!;
     this.targeted.performActionOnTarget((target) => ({
@@ -99,35 +82,8 @@ export class KeyboardCommandHandler {
     }));
   }
 
-  targetEveryScopeType(arg: { scopeType: ScopeType }) {
-    this.targeted.modifyTargetContainingScope({ ...arg, type: "everyScope" });
-  }
-
-  targetRelativeExclusiveScope({
-    offset,
-    length,
-    scopeType,
-  }: TargetRelativeExclusiveScopeArg) {
-    this.targeted.targetModifier({
-      type: "relativeScope",
-      offset: offset?.number ?? 1,
-      direction: offset?.direction ?? "forward",
-      length: length ?? 1,
-      scopeType,
-    });
-  }
-
-  targetRelativeInclusiveScope({
-    offset,
-    scopeType,
-  }: TargetRelativeInclusiveScopeArg) {
-    this.targeted.targetModifier({
-      type: "relativeScope",
-      offset: 0,
-      direction: offset?.direction ?? "forward",
-      length: offset?.number ?? 1,
-      scopeType,
-    });
+  modifyTarget({ modifier }: { modifier: Modifier }) {
+    this.targeted.targetModifier(modifier);
   }
 }
 
@@ -136,20 +92,7 @@ interface DecoratedMarkArg {
     color?: HatColor;
     shape?: HatShape;
   };
-}
-interface TargetRelativeExclusiveScopeArg {
-  offset: Offset;
-  length: number | null;
-  scopeType: ScopeType;
-}
-interface TargetRelativeInclusiveScopeArg {
-  offset: Offset;
-  scopeType: ScopeType;
-}
-
-interface Offset {
-  direction: "forward" | "backward" | null;
-  number: number | null;
+  mode: "replace" | "extend" | "append";
 }
 
 function isString(input: any): input is string {
