@@ -20,6 +20,7 @@ suite("Basic keyboard test", async function () {
 
   test("Don't take keyboard control on startup", () => checkKeyboardStartup());
   test("Basic keyboard test", () => basic());
+  test("No automatic token expansion", () => noAutomaticTokenExpansion());
   test("Run vscode command", () => vscodeCommand());
   test("Check that entering and leaving mode is no-op", () =>
     enterAndLeaveIsNoOp());
@@ -63,6 +64,22 @@ async function basic() {
   await typeText("a");
 
   assert.equal(editor.document.getText().trim(), "a");
+}
+
+async function noAutomaticTokenExpansion() {
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+
+  const editor = await openNewEditor("aaa");
+  await hatTokenMap.allocateHats();
+
+  editor.selection = new vscode.Selection(0, 3, 0, 3);
+
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
+
+  // "pour"
+  await typeText("ao");
+
+  assert.isTrue(editor.selection.isEqual(new vscode.Selection(1, 0, 1, 0)));
 }
 
 async function vscodeCommand() {
