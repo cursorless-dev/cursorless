@@ -58,6 +58,9 @@ const MAX_VISITS = 3;
 /** Indicates that the given symbol hasn't been typed yet */
 export const MISSING = Symbol("missing");
 
+/** The next token to be consumed */
+export const NEXT = Symbol("next");
+
 /**
  * Given a state, returns all root states that are reachable from it, including
  * partially filled out arguments to the given rule. We use this to find out
@@ -73,7 +76,7 @@ export const MISSING = Symbol("missing");
  */
 function computeRootStatePartialArgs(
   state: nearley.State,
-  lastSymbol: any = MISSING,
+  lastSymbol: any = NEXT,
   visitCounts = new DefaultMap<State, number>(() => 0),
   roots: { state: State; partialArg: any }[] = [],
 ) {

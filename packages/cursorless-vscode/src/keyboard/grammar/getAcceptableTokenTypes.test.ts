@@ -5,9 +5,12 @@ import grammar from "./generated/grammar";
 import {
   AcceptableTokenType,
   MISSING,
+  NEXT,
   getAcceptableTokenTypes,
 } from "./getAcceptableTokenTypes";
-import { isEqual } from "lodash";
+import { forEach, isEqual } from "lodash";
+import produce from "immer";
+import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {
   tokens: KeyDescriptor[];
@@ -23,7 +26,7 @@ const testCases: TestCase[] = [
         command: "targetDecoratedMark",
         partialArg: {
           decoratedMark: {
-            shape: MISSING,
+            shape: NEXT,
           },
           mode: "replace",
         },
@@ -93,7 +96,7 @@ const testCases: TestCase[] = [
             offset: 0,
             direction: "forward",
             scopeType: {
-              type: MISSING,
+              type: NEXT,
             },
           },
         },
@@ -138,21 +141,22 @@ suite("keyboard.getAcceptableTokenTypes", () => {
         };
         assert(
           candidates.some((result) => isEqual(result, fullValue)),
-          JSON.stringify(candidates, null, 2),
+          JSON.stringify(produce(candidates, replaceSymbols), null, 2),
         );
       }
     });
   });
 });
 
-function stringifyTokens(tokens: any[]) {
-  return tokens
-    .map((token) => {
-      let ret = token.type;
-      if (token.value != null) {
-        ret += `:${JSON.stringify(token.value)}`;
-      }
-      return ret;
-    })
-    .join(" ");
+/**
+ * Deep search and replaces the given property value "prevVal" with "newVal"
+ */
+function replaceSymbols(object: any) {
+  forEach(object, (val, key) => {
+    if (typeof val === "symbol") {
+      object[key] = val.toString();
+    } else if (typeof val === "object") {
+      replaceSymbols(val);
+    }
+  });
 }
