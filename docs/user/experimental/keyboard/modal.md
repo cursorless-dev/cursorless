@@ -42,7 +42,7 @@ Any keybindings that use modifier keys should go in `keybindings.json` as well, 
 
 The above allows you to press `ctrl-c` to switch to Cursorless mode, `escape` to exit Cursorless mode, and `backspace` to issue the delete action while in Cursorless mode.
 
-If you're alread in Cursorless mode, pressing `ctrl-c` again will target the current selection, which is useful if you move the cursor using your mouse while in Cursorless mode.
+If you're alread in Cursorless mode, pressing `ctrl-c` again will target the current selection, which is useful if you have moved the cursor using your mouse while in Cursorless mode, and want to target your new cursor position.
 
 ### `settings.json`
 
