@@ -21,6 +21,11 @@ Paste the following into your [VSCode `keybindings.json`](https://code.visualstu
         "when": "editorTextFocus"
     },
     {
+        "key": "ctrl+c",
+        "command": "cursorless.keyboard.targeted.targetSelection",
+        "when": "cursorless.keyboard.modal.mode && editorTextFocus"
+    },
+    {
         "key": "escape",
         "command": "cursorless.keyboard.escape",
         "when": "cursorless.keyboard.listening && editorTextFocus && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"

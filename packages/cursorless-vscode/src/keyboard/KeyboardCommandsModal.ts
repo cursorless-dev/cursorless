@@ -108,8 +108,6 @@ export default class KeyboardCommandsModal {
 
   modeOn = async () => {
     if (this.isModeOn()) {
-      // Set target to current selection if we re-run mode on
-      await this.targeted.targetSelection();
       return;
     }
 

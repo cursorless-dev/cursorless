@@ -34,9 +34,6 @@ export const argPositions: Record<string, ArgPosition> = {
   $0: new ArgPosition(0),
   $1: new ArgPosition(1),
   $2: new ArgPosition(2),
-  $3: new ArgPosition(3),
-  $4: new ArgPosition(4),
-  $5: new ArgPosition(5),
 };
 
 type KeyboardArgExtractor<T> = {
