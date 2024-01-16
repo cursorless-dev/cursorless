@@ -42,6 +42,8 @@ Any keybindings that use modifier keys should go in `keybindings.json` as well, 
 
 The above allows you to press `ctrl-c` to switch to Cursorless mode, `escape` to exit Cursorless mode, and `backspace` to issue the delete action while in Cursorless mode.
 
+If you're alread in Cursorless mode, pressing `ctrl-c` again will target the current selection, which is useful if you move the cursor using your mouse while in Cursorless mode.
+
 ### `settings.json`
 
 To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your [VSCode `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson) (or edit these settings in the VSCode settings gui by saying `"cursorless settings"`):
