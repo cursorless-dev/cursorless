@@ -4,9 +4,13 @@
 // @ts-ignore
 function id(d: any[]): any { return d[0]; }
 declare var makeRange: any;
-declare var nextPrev: any;
+declare var makeList: any;
 declare var simpleAction: any;
+declare var wrap: any;
+declare var pairedDelimiter: any;
 declare var vscodeCommand: any;
+declare var every: any;
+declare var nextPrev: any;
 declare var simpleScopeTypeType: any;
 declare var color: any;
 declare var shape: any;
@@ -14,8 +18,10 @@ declare var combineColorAndShape: any;
 declare var direction: any;
 declare var digit: any;
 
-import { capture, command, UNUSED as _ } from "../grammarHelpers"
+import { capture, command, UNUSED as _, argPositions } from "../grammarHelpers"
 import { keyboardLexer } from "../keyboardLexer";
+
+const { $0, $1, $2 } = argPositions;
 
 interface NearleyToken {
   value: any;
@@ -47,24 +53,49 @@ interface Grammar {
 const grammar: Grammar = {
   Lexer: keyboardLexer,
   ParserRules: [
-    {"name": "main", "symbols": ["decoratedMark"], "postprocess": command("targetDecoratedMarkReplace", ["decoratedMark"])},
+    {"name": "main", "symbols": ["decoratedMark"], "postprocess": 
+        command("targetDecoratedMark", { decoratedMark: $0, mode: "replace" })
+        },
     {"name": "main", "symbols": [(keyboardLexer.has("makeRange") ? {type: "makeRange"} : makeRange), "decoratedMark"], "postprocess": 
-        command("targetDecoratedMarkExtend", [_, "decoratedMark"])
+        command("targetDecoratedMark", { decoratedMark: $1, mode: "extend" })
         },
-    {"name": "main", "symbols": ["scopeType"], "postprocess": command("modifyTargetContainingScope", ["scopeType"])},
-    {"name": "main$ebnf$1", "symbols": ["offset"], "postprocess": id},
-    {"name": "main$ebnf$1", "symbols": [], "postprocess": () => null},
-    {"name": "main$ebnf$2", "symbols": ["number"], "postprocess": id},
-    {"name": "main$ebnf$2", "symbols": [], "postprocess": () => null},
-    {"name": "main", "symbols": ["main$ebnf$1", (keyboardLexer.has("nextPrev") ? {type: "nextPrev"} : nextPrev), "main$ebnf$2", "scopeType"], "postprocess": 
-        command(
-          "targetRelativeExclusiveScope",
-          ["offset", _, "length", "scopeType"],
-        )
+    {"name": "main", "symbols": [(keyboardLexer.has("makeList") ? {type: "makeList"} : makeList), "decoratedMark"], "postprocess": 
+        command("targetDecoratedMark", { decoratedMark: $1, mode: "append" })
         },
+    {"name": "main", "symbols": ["modifier"], "postprocess": command("modifyTarget", { modifier: $0 })},
     {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionName"])},
+    {"name": "main", "symbols": [(keyboardLexer.has("wrap") ? {type: "wrap"} : wrap), (keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
+        command("performWrapActionOnTarget", [_, "delimiter"])
+        },
     {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
+    {"name": "modifier", "symbols": ["scopeType"], "postprocess": capture({ type: "containingScope", scopeType: $0 })},
+    {"name": "modifier", "symbols": [(keyboardLexer.has("every") ? {type: "every"} : every), "scopeType"], "postprocess": capture({ type: "everyScope", scopeType: $1 })},
+    {"name": "modifier$ebnf$1", "symbols": ["offset"], "postprocess": id},
+    {"name": "modifier$ebnf$1", "symbols": [], "postprocess": () => null},
+    {"name": "modifier$ebnf$2", "symbols": ["number"], "postprocess": id},
+    {"name": "modifier$ebnf$2", "symbols": [], "postprocess": () => null},
+    {"name": "modifier", "symbols": ["modifier$ebnf$1", (keyboardLexer.has("nextPrev") ? {type: "nextPrev"} : nextPrev), "modifier$ebnf$2", "scopeType"], "postprocess": 
+        ([offset, _, length, scopeType]) => ({
+          type: "relativeScope",
+          offset: offset?.number ?? 1,
+          direction: offset?.direction ?? "forward",
+          length: length ?? 1,
+          scopeType,
+        })
+        },
+    {"name": "modifier", "symbols": ["offset", "scopeType"], "postprocess": 
+        ([offset, scopeType]) => ({
+          type: "relativeScope",
+          offset: 0,
+          direction: offset?.direction ?? "forward",
+          length: offset?.number ?? 1,
+          scopeType,
+        })
+        },
     {"name": "scopeType", "symbols": [(keyboardLexer.has("simpleScopeTypeType") ? {type: "simpleScopeTypeType"} : simpleScopeTypeType)], "postprocess": capture("type")},
+    {"name": "scopeType", "symbols": [(keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
+        ([delimiter]) => ({ type: "surroundingPair", delimiter })
+        },
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("color") ? {type: "color"} : color)], "postprocess": capture("color")},
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture("shape")},
     {"name": "decoratedMark", "symbols": [(keyboardLexer.has("combineColorAndShape") ? {type: "combineColorAndShape"} : combineColorAndShape), (keyboardLexer.has("color") ? {type: "color"} : color), (keyboardLexer.has("shape") ? {type: "shape"} : shape)], "postprocess": capture(_, "color", "shape")},

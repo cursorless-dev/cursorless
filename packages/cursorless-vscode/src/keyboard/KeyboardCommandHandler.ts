@@ -1,9 +1,10 @@
-import { ScopeType } from "@cursorless/common";
+import { Modifier, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { SimpleKeyboardActionType } from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -27,15 +28,8 @@ import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 export class KeyboardCommandHandler {
   constructor(private targeted: KeyboardCommandsTargeted) {}
 
-  targetDecoratedMarkReplace({ decoratedMark }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark(decoratedMark);
-  }
-
-  targetDecoratedMarkExtend({ decoratedMark }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark({
-      ...decoratedMark,
-      mode: "extend",
-    });
+  targetDecoratedMark({ decoratedMark, mode }: DecoratedMarkArg) {
+    this.targeted.targetDecoratedMark({ ...decoratedMark, mode });
   }
 
   async vscodeCommand({
@@ -78,22 +72,18 @@ export class KeyboardCommandHandler {
     this.targeted.performSimpleActionOnTarget(actionName);
   }
 
-  modifyTargetContainingScope(arg: { scopeType: ScopeType }) {
-    this.targeted.modifyTargetContainingScope(arg);
+  performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
+    const [left, right] = surroundingPairsDelimiters[delimiter]!;
+    this.targeted.performActionOnTarget((target) => ({
+      name: "wrapWithPairedDelimiter",
+      target,
+      left,
+      right,
+    }));
   }
 
-  targetRelativeExclusiveScope({
-    offset,
-    length,
-    scopeType,
-  }: TargetRelativeExclusiveScopeArg) {
-    this.targeted.targetModifier({
-      type: "relativeScope",
-      offset: offset?.number ?? 1,
-      direction: offset?.direction ?? "forward",
-      length: length ?? 1,
-      scopeType,
-    });
+  modifyTarget({ modifier }: { modifier: Modifier }) {
+    this.targeted.targetModifier(modifier);
   }
 }
 
@@ -102,16 +92,7 @@ interface DecoratedMarkArg {
     color?: HatColor;
     shape?: HatShape;
   };
-}
-interface TargetRelativeExclusiveScopeArg {
-  offset: Offset;
-  length: number | null;
-  scopeType: ScopeType;
-}
-
-interface Offset {
-  direction: "forward" | "backward" | null;
-  number: number | null;
+  mode: "replace" | "extend" | "append";
 }
 
 function isString(input: any): input is string {

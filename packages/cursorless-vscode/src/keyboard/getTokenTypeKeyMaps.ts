@@ -36,6 +36,7 @@ export function getTokenTypeKeyMaps(
     color: config.getTokenKeyMap("color"),
     shape: config.getTokenKeyMap("shape"),
     vscodeCommand: config.getTokenKeyMap("vscodeCommand"),
+    pairedDelimiter: config.getTokenKeyMap("pairedDelimiter"),
 
     // action config section
     simpleAction: config.getTokenKeyMap(
@@ -43,9 +44,11 @@ export function getTokenTypeKeyMaps(
       "action",
       simpleKeyboardActionNames,
     ),
+    wrap: config.getTokenKeyMap("wrap", "action", ["wrap"]),
 
     // misc config section
     makeRange: config.getTokenKeyMap("makeRange", "misc", ["makeRange"]),
+    makeList: config.getTokenKeyMap("makeList", "misc", ["makeList"]),
     combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",
       "misc",
@@ -57,6 +60,7 @@ export function getTokenTypeKeyMaps(
     ]),
 
     // modifier config section
+    every: config.getTokenKeyMap("every", "modifier", ["every"]),
     nextPrev: config.getTokenKeyMap("nextPrev", "modifier", ["nextPrev"]),
 
     digit: Object.fromEntries(

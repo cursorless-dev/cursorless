@@ -37,7 +37,8 @@
     "ac": "copyToClipboard",
     "ax": "cutToClipboard",
     "ap": "pasteFromClipboard",
-    "ad": "followLink"
+    "ad": "followLink",
+    "aw": "wrap"
   },
   "cursorless.experimental.keyboard.modal.keybindings.color": {
     "d": "default",
@@ -60,10 +61,12 @@
   "cursorless.experimental.keyboard.modal.keybindings.misc": {
     "fx": "combineColorAndShape",
     "fk": "makeRange",
+    "fa": "makeList",
     "-": "backward"
   },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
-    "n": "nextPrev"
+    "n": "nextPrev",
+    "x": "every"
   },
   "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
     "va": "editor.action.addCommentLine",
@@ -77,5 +80,21 @@
       "keepChangedSelection": true,
       "exitCursorlessMode": true
     }
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.pairedDelimiter": {
+    "wl": "angleBrackets",
+    "wt": "backtickQuotes",
+    "wb": "curlyBrackets",
+    "wd": "doubleQuotes",
+    "wwd": "escapedDoubleQuotes",
+    "wwp": "escapedParentheses",
+    "wws": "escapedSquareBrackets",
+    "wwq": "escapedSingleQuotes",
+    "wp": "parentheses",
+    "wq": "singleQuotes",
+    "ws": "squareBrackets",
+    "wg": "string",
+    "wj": "any",
+    "wk": "collectionBoundary"
   }
 }
