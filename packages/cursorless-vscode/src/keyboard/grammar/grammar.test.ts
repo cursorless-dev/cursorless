@@ -18,8 +18,9 @@ const testCases: TestCase[] = [
         decoratedMark: {
           shape: "fox",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -29,8 +30,9 @@ const testCases: TestCase[] = [
         decoratedMark: {
           color: "green",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -45,8 +47,9 @@ const testCases: TestCase[] = [
           color: "green",
           shape: "fox",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -61,8 +64,9 @@ const testCases: TestCase[] = [
           color: "green",
           shape: "fox",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -75,8 +79,9 @@ const testCases: TestCase[] = [
         decoratedMark: {
           color: "green",
         },
+        mode: "extend",
       },
-      type: "targetDecoratedMarkExtend",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -88,16 +93,17 @@ const testCases: TestCase[] = [
     ],
     expected: {
       arg: {
-        length: null,
-        offset: {
-          number: 12,
-          direction: null,
-        },
-        scopeType: {
-          type: "namedFunction",
+        modifier: {
+          type: "relativeScope",
+          length: 1,
+          offset: 12,
+          direction: "forward",
+          scopeType: {
+            type: "namedFunction",
+          },
         },
       },
-      type: "targetRelativeExclusiveScope",
+      type: "modifyTarget",
     },
   },
   {
@@ -108,16 +114,17 @@ const testCases: TestCase[] = [
     ],
     expected: {
       arg: {
-        length: null,
-        offset: {
-          number: null,
+        modifier: {
+          type: "relativeScope",
+          length: 1,
+          offset: 1,
           direction: "backward",
-        },
-        scopeType: {
-          type: "namedFunction",
+          scopeType: {
+            type: "namedFunction",
+          },
         },
       },
-      type: "targetRelativeExclusiveScope",
+      type: "modifyTarget",
     },
   },
   {
