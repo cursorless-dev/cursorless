@@ -50,8 +50,6 @@ interface SvgInfo {
   svg: string;
   svgHeightPx: number;
   svgWidthPx: number;
-  originalViewBoxWidth: number;
-  originalViewBoxHeight: number;
   strokeWidth: number;
 }
 
@@ -346,6 +344,7 @@ export default class VscodeHatRenderer {
     const pathRegex = /<path[^>]*d="([^"]+)"[^>]*\/>/;
     const pathMatch = pathRegex.exec(svg);
     if (!pathMatch) {
+      console.error(`Could not find path in svg: ${svg}`);
       return svg;
     }
     const pathData = pathMatch[1];
@@ -447,8 +446,6 @@ export default class VscodeHatRenderer {
       svg,
       svgHeightPx,
       svgWidthPx,
-      originalViewBoxHeight,
-      originalViewBoxWidth,
       strokeWidth,
     };
   }
