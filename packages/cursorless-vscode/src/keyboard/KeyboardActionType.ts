@@ -1,4 +1,4 @@
-import { ActionType, actionNames } from "@cursorless/common";
+import { ActionType } from "@cursorless/common";
 
 // This file contains types defining the allowable identifiers for actions in
 // user keyboard config settings. It is a modified version of the default action
