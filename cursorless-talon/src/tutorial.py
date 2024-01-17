@@ -48,7 +48,8 @@ def get_basic_coding_walkthrough():
                 restore_callback=step_callback,
                 modes=["command"],
                 app="Visual Studio Code",  # Windows
-                # app="Code", # OS X?
+                # app="Code",  # OS X?
+                # TODO: Fix this; should just be "vscode". Prob need fix to talon_hud itself
                 context_hint="Please open VSCode and enter command mode",
             )
         )
