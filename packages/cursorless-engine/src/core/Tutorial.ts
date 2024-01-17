@@ -1,19 +1,19 @@
-import path from "path";
 import * as yaml from "js-yaml";
 import fs, { promises as fsp } from "node:fs";
+import path from "path";
 
 import {
   ScopeType,
   SpokenFormSuccess,
   TestCaseFixture,
-  createSelection,
-  getTokenHats,
+  serializedMarksToTokenHats,
+  plainObjectToSelection,
 } from "@cursorless/common";
+import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
+import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 import { ide } from "../singletons/ide.singleton";
 import { HatTokenMapImpl } from "./HatTokenMapImpl";
-import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { canonicalizeAndValidateCommand } from "./commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 
 interface TutorialGetContentArg {
   /**
@@ -243,8 +243,9 @@ export class Tutorial {
     const editableEditor = ide().getEditableTextEditor(editor);
 
     // Ensure that the expected cursor/selections are present
-    editableEditor.selections =
-      fixture.initialState.selections.map(createSelection);
+    editableEditor.selections = fixture.initialState.selections.map(
+      plainObjectToSelection,
+    );
     // in case we don't want to use the createSelection helper function
     // editableEditor.selections = fixture.initialState.selections.map(
     //   (selections) => {
@@ -257,7 +258,7 @@ export class Tutorial {
 
     // Ensure that the expected hats are present
     await this.hatTokenMap.allocateHats(
-      getTokenHats(fixture.initialState.marks, editor),
+      serializedMarksToTokenHats(fixture.initialState.marks, editor),
     );
 
     // return to the talon side

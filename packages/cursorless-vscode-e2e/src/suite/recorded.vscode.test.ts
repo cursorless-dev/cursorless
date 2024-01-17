@@ -4,7 +4,7 @@ import {
   ExcludableSnapshotField,
   extractTargetedMarks,
   getRecordedTestPaths,
-  getTokenHats,
+  serializedMarksToTokenHats,
   HatStability,
   marksToPlainObject,
   omitByDeep,
@@ -105,7 +105,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+    serializedMarksToTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
   );
 
   const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);

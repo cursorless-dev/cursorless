@@ -48,6 +48,7 @@ export * from "./types/HatTokenMap";
 export * from "./types/ScopeProvider";
 export * from "./types/SpokenForm";
 export * from "./util/textFormatters";
+export * from "./util/serializedMarksToTokenHats";
 export * from "./types/snippet.types";
 export * from "./testUtil/fromPlainObject";
 export * from "./testUtil/spyToPlainObject";

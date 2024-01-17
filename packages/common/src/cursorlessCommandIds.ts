@@ -78,11 +78,11 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
     "Hide the scope visualizer",
   ),
-  ["cursorless.tutorial.getContent"]: new VisibleCommand(
-    "Get the tutorial content based on Talon HUD",
+  ["cursorless.tutorial.getContent"]: new HiddenCommand(
+    "Get tutorial content; used by the Talon HUD during tutorial initialization",
   ),
-  ["cursorless.tutorial.setupStep"]: new VisibleCommand(
-    "Setup the current step for the tutorial based on Talon HUD",
+  ["cursorless.tutorial.setupStep"]: new HiddenCommand(
+    "Setup the current tutorial step; used by the Talon HUD before each tutorial step",
   ),
 
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),

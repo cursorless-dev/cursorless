@@ -1,4 +1,4 @@
-import { PositionPlainObject, Range, TextDocument } from "..";
+import { Range, TextDocument } from "..";
 
 export class Position {
   /**
@@ -166,8 +166,4 @@ export function adjustPosition(
   by: number,
 ): Position {
   return doc.positionAt(doc.offsetAt(pos) + by);
-}
-
-export function createPosition(position: PositionPlainObject) {
-  return new Position(position.line, position.character);
 }
