@@ -59,13 +59,14 @@ def start_cursorless_walkthrough(tutorial_name: str):
         "cursorless.tutorial.getContent",
         {"version": 0, "tutorialName": tutorial_name},
     )
-    current_tutorial = Tutorial(tutorial_name, tutorial_content["content"])
+    steps = tutorial_content["steps"]
+    current_tutorial = Tutorial(tutorial_name, steps)
     print(f"{tutorial_content=}")
     walkthrough_steps = []
-    for content in tutorial_content["content"]:
+    for step in steps:
         walkthrough_steps.append(
             actions.user.hud_create_walkthrough_step(
-                content=content,
+                content=step["content"],
                 restore_callback=step_callback,
                 modes=["command"],
                 app="Visual Studio Code",  # Windows

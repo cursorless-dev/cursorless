@@ -64,7 +64,7 @@ export class TutorialImpl implements Tutorial {
    * Handle the argument of a "%%scopeType:{type: statement}%%"
    */
   private async processScopeType(arg: string) {
-    const scopeType = JSON.parse(arg);
+    const scopeType = yaml.load(arg);
     const spokenForm_ =
       this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType);
     const spokenForm = spokenForm_ as SpokenFormSuccess;
