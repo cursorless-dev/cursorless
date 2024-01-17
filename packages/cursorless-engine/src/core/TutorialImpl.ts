@@ -22,22 +22,16 @@ import { HatTokenMapImpl } from "./HatTokenMapImpl";
 import { canonicalizeAndValidateCommand } from "./commandVersionUpgrades/canonicalizeAndValidateCommand";
 
 export class TutorialImpl implements Tutorial {
-  private hatTokenMap: HatTokenMapImpl;
-  private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl;
   private tutorialRootDir: string;
 
   constructor(
-    hatTokenMap: HatTokenMapImpl,
-    customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
+    private hatTokenMap: HatTokenMapImpl,
+    private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
   ) {
     this.getContent = this.getContent.bind(this);
     this.setupStep = this.setupStep.bind(this);
 
-    this.hatTokenMap = hatTokenMap;
-    this.customSpokenFormGenerator = customSpokenFormGenerator;
-
-    const extensionPath = ide().assetsRoot;
-    this.tutorialRootDir = path.join(extensionPath, "tutorial");
+    this.tutorialRootDir = path.join(ide().assetsRoot, "tutorial");
   }
 
   /**
