@@ -37,21 +37,20 @@ export class TutorialImpl implements Tutorial {
   /**
    * Handle the argument of a "%%step:cloneStateInk.yml%%""
    */
-  private async processStep(arg: string, tutorialName: string) {
+  private async processStep(yamlFilename: string, tutorialName: string) {
     const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
       throw new Error(`Invalid tutorial name: ${tutorialName}`);
     }
 
-    const yamlFile = path.join(tutorialDir, arg);
-    if (!fs.existsSync(yamlFile)) {
+    const yamlPath = path.join(tutorialDir, yamlFilename);
+    if (!fs.existsSync(yamlPath)) {
       throw new Error(
-        `Can't file yaml file: ${yamlFile} in tutorial name: ${tutorialName}`,
+        `Can't file yaml file: ${yamlPath} in tutorial name: ${tutorialName}`,
       );
     }
-    const yamlFilename = arg;
 
-    const buffer = await readFile(yamlFile);
+    const buffer = await readFile(yamlPath);
     const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
 
     // command to be said for moving to the next step
