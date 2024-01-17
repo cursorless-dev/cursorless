@@ -1,7 +1,3 @@
-import * as yaml from "js-yaml";
-import fs, { promises as fsp } from "node:fs";
-import path from "path";
-
 import {
   ScopeType,
   SpokenFormSuccess,
@@ -9,6 +5,10 @@ import {
   plainObjectToSelection,
   serializedMarksToTokenHats,
 } from "@cursorless/common";
+import * as yaml from "js-yaml";
+import fs from "node:fs";
+import { readFile } from "node:fs/promises";
+import path from "path";
 import {
   Tutorial,
   TutorialGetContentArg,
@@ -51,7 +51,7 @@ export class TutorialImpl implements Tutorial {
     }
     const yamlFilename = arg;
 
-    const buffer = await fsp.readFile(yamlFile);
+    const buffer = await readFile(yamlFile);
     const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
 
     // command to be said for moving to the next step
@@ -89,7 +89,7 @@ export class TutorialImpl implements Tutorial {
         `Can't file script file: ${scriptFile} in tutorial name: ${tutorialName}`,
       );
     }
-    const buffer = await fsp.readFile(scriptFile);
+    const buffer = await readFile(scriptFile);
     const contentList = JSON.parse(buffer.toString());
     console.log(contentList);
     return contentList;
@@ -187,7 +187,7 @@ export class TutorialImpl implements Tutorial {
         `Can't file yaml file: ${yamlFile} in tutorial name: ${tutorialName}`,
       );
     }
-    const buffer = await fsp.readFile(yamlFile);
+    const buffer = await readFile(yamlFile);
     const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
 
     const editor = await ide().openUntitledTextDocument({
