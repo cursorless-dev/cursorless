@@ -195,15 +195,6 @@ export class TutorialImpl implements Tutorial {
     editableEditor.selections = fixture.initialState.selections.map(
       plainObjectToSelection,
     );
-    // in case we don't want to use the createSelection helper function
-    // editableEditor.selections = fixture.initialState.selections.map(
-    //   (selections) => {
-    //     return new Selection(
-    //       new Position(selections.anchor.line, selections.anchor.character),
-    //       new Position(selections.active.line, selections.active.character),
-    //     );
-    //   },
-    // );
 
     // Ensure that the expected hats are present
     await this.hatTokenMap.allocateHats(
