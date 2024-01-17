@@ -49,7 +49,7 @@
 (haskell
   (class
     (class_head
-      class: (class_name 
+      class: (class_name
         (type) @className
       )
     )
@@ -191,7 +191,7 @@
 (haskell
   (class
     (class_head
-      class: (class_name 
+      class: (class_name
         (type) @name
       )
     )
@@ -201,7 +201,7 @@
 (haskell
   (instance
     (instance_head
-      (class_name 
+      (class_name
         (type) @name
       )
     )
@@ -214,7 +214,7 @@
 (haskell
   (instance
     (instance_head
-      (class_name 
+      (class_name
         (type) @name
       )
     )
