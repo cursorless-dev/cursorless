@@ -1,7 +1,5 @@
 ; argumentOrParameter
 ; "arg" function parameter or function call argument
-;;!! sum xs = foldr (+) 0 xs
-;;!      ^^
 (haskell
   (function
     patterns: (patterns
@@ -46,15 +44,25 @@
 
 ; className
 ; "class name" the name in a class declaration
-(haskell
-  (class
-    (class_head
-      class: (class_name
-        (type) @className
-      )
-    )
-  )
-)
+; (haskell
+;   (class
+;     (class_head
+;       class: (class_name 
+;         (type) @className
+;       )
+;     )
+;   )
+; )
+; instance name
+; (haskell
+;   (instance
+;     (instance_head
+;       (class_name 
+;         (type) @name
+;       )
+;     )
+;   )
+; )
 
 ; class
 ; "class" class definition
@@ -68,33 +76,33 @@
 ; functionName
 ; "funk name" the name in a function declaration
 ; function name
-(haskell
-  (function
-    name: (_) @functionName
-  )
-)
+; (haskell
+;   (function
+;     name: (_) @functionName
+;   )
+; )
 ; foreign import name
-(haskell
-  (foreign_import
-    (signature
-      (_) @name
-    )
-  )
-)
+; (haskell
+;   (foreign_import
+;     (signature
+;       (_) @name
+;     )
+;   )
+; )
 ; foreign export name
-(haskell
-  (foreign_export
-    (signature
-      (_) @name
-    )
-  )
-)
+; (haskell
+;   (foreign_export
+;     (signature
+;       (_) @name
+;     )
+;   )
+; )
 
 ; namedFunction
 ; "funk" name function declaration
-(haskell
-  (function) @namedFunction
-)
+(function
+  rhs: (_) @namedFunction.interior
+) @namedFunction
 
 ; ifStatement
 ; "if state" if statement
@@ -120,112 +128,97 @@
 ; collectionItem
 ; "item" an entry in a map / object / list
 ; record item
-(exp_field
-  field: (_)
-  (_) @collectionItem
-)
+; (exp_field
+;   field: (_)
+;   (_) @collectionItem
+; )
 
 ; collectionKey
 ; "key" key in a map / object
 ; record key
-(exp_field
-  field: (_) @collectionKey
-  ; TODO: handle subfields
-)
-(exp_projection_selector
-  (_) @collectionKey
-  ; TODO: handle subfields
-)
+; (exp_field
+;   field: (_) @collectionKey
+;   ; TODO: handle subfields
+; )
+; (exp_projection_selector
+;   (_) @collectionKey
+;   ; TODO: handle subfields
+; )
 
 ; name
 ; "name" the name in a declaration (eg function name)
 ; function name
-(haskell
-  (function
-    name: (_) @name
-  )
-)
+; (haskell
+;   (function
+;     name: (_) @name
+;   )
+; )
 ; foreign function import
-(haskell
-  (foreign_import
-    (signature
-      (_) @name
-    )
-  )
-)
+; (haskell
+;   (foreign_import
+;     (signature
+;       (_) @name
+;     )
+;   )
+; )
 ; foreign function export
-(haskell
-  (foreign_export
-    (signature
-      (_) @name
-    )
-  )
-)
+; (haskell
+;   (foreign_export
+;     (signature
+;       (_) @name
+;     )
+;   )
+; )
 ; data type name
-(haskell
-  (adt
-    (type) @name
-  )
-)
+; (haskell
+;   (adt
+;     (type) @name
+;   )
+; )
 ; new type name
-(haskell
-  (newtype
-    (type) @name
-  )
-)
+; (haskell
+;   (newtype
+;     (type) @name
+;   )
+; )
 ; type alias name
-(haskell
-  (type_alias
-    (type) @name
-  )
-)
+; (haskell
+;   (type_alias
+;     (type) @name
+;   )
+; )
 ; type family name
-(haskell
-  (type_family
-    (head
-      (type) @name
-    )
-  )
-)
+; (haskell
+;   (type_family
+;     (head
+;       (type) @name
+;     )
+;   )
+; )
 ; class name
-(haskell
-  (class
-    (class_head
-      class: (class_name
-        (type) @name
-      )
-    )
-  )
-)
+; (haskell
+;   (class
+;     (class_head
+;       class: (class_name 
+;         (type) @name
+;       )
+;     )
+;   )
+; )
 ; instance name
-(haskell
-  (instance
-    (instance_head
-      (class_name
-        (type) @name
-      )
-    )
-  )
-)
-
-; instance
-; <no spoken form>
-; instance name
-(haskell
-  (instance
-    (instance_head
-      (class_name
-        (type) @name
-      )
-    )
-  )
-)
+; (haskell
+;   (instance
+;     (instance_head
+;       (class_name 
+;         (type) @name
+;       )
+;     )
+;   )
+; )
 
 ; statement
 ; "state" a statement, eg let foo
-(exp_do
-  (stmt) @statement
-)
+(stmt) @statement
 ; TODO: let clause?
 ; TODO: where clause?
 
@@ -235,6 +228,11 @@
 
 ; type
 ; "type" a type annotation or declaration
+(haskell
+  (type_alias
+    (_) @type.interior .
+  ) @type
+)
 
 ; value
 ; "value" a value eg in a map / object, return statement, etc
