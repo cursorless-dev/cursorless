@@ -76,7 +76,7 @@ export class TutorialImpl implements Tutorial {
   /**
    * Load the "script.json" script for the current tutorial
    */
-  private async loadTutorialScript(tutorialName: string) {
+  private async loadTutorialScript(tutorialName: string): Promise<string[]> {
     const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
       throw new Error(`Invalid tutorial name: ${tutorialName}`);
@@ -111,49 +111,48 @@ export class TutorialImpl implements Tutorial {
     // this is trying to catch occurrences of things like "%%step:cloneStateInk.yml%%"
     const re = /%%(\w+):([^%]+)%%/;
 
-    let m;
     let spokenForm;
     const response: TutorialGetContentResponse = {
       version: 0,
-      content: [],
-      yamlFilenames: [],
+      steps: [],
     };
     // we need to replace the {...} with the right content
     for (let content of contentList) {
-      let yamlFilename = "";
-      m = re.exec(content);
+      let fixturePath: string | undefined = undefined;
+      let m = re.exec(content);
       while (m) {
-        const name = m[1];
-        const arg = m[2];
-        console.log(name, arg);
-        switch (name) {
+        const [fullMatch, type, arg] = m;
+        console.log(type, arg);
+        switch (type) {
           case "step":
-            [spokenForm, yamlFilename] = await this.processStep(
+            [spokenForm, fixturePath] = await this.processStep(
               arg,
               tutorialName,
             );
-            content = content.replace(m[0], `<cmd@${spokenForm}/>`);
+            content = content.replace(fullMatch, `<cmd@${spokenForm}/>`);
             break;
           case "literalStep":
-            content = content.replace(m[0], `<cmd@${arg}/>`);
+            content = content.replace(fullMatch, `<cmd@${arg}/>`);
             break;
           case "action":
-            // hardcoded list of default spoken form for an action (not yet the user customized one)
+            // TODO: don't use hardcoded list of default spoken form for an action (not yet the user customized one)
             spokenForm = actions[arg as keyof typeof actions];
             console.log("\t", spokenForm);
-            content = content.replace(m[0], `<*"${spokenForm}"/>`);
+            content = content.replace(fullMatch, `<*"${spokenForm}"/>`);
             break;
           case "scopeType":
             spokenForm = await this.processScopeType(arg);
-            content = content.replace(m[0], `<*"${spokenForm}"/>`);
+            content = content.replace(fullMatch, `<*"${spokenForm}"/>`);
             break;
           default:
-            throw new Error(`Unknown name: ${name}`);
+            throw new Error(`Unknown name: ${type}`);
         }
         m = re.exec(content);
       }
-      response.yamlFilenames.push(yamlFilename);
-      response.content.push(content);
+      response.steps.push({
+        content,
+        fixturePath,
+      });
     }
 
     // return to the talon side
@@ -167,7 +166,7 @@ export class TutorialImpl implements Tutorial {
   async setupStep({
     version,
     tutorialName,
-    yamlFilename,
+    fixturePath: yamlFilename,
   }: TutorialSetupStepArg) {
     console.log("setupStep()", tutorialName, yamlFilename);
     if (version !== 0) {

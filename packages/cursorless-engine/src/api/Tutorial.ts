@@ -17,14 +17,22 @@ export interface TutorialGetContentResponse {
   version: 0;
 
   /**
-   * The text content of the different steps of the current tutorial
+   * The steps of the current tutorial
    */
-  content: Array<string>;
+  steps: Array<TutorialStep>;
+}
+
+export interface TutorialStep {
+  /**
+   * The text content of the current step
+   */
+  content: string;
 
   /**
-   * The yaml files of the different steps of the current tutorial (if any)
+   * The path to the yaml file that should be used to setup the current step (if
+   * any). The path is relative to the tutorial directory for the given tutorial.
    */
-  yamlFilenames: Array<string>;
+  fixturePath?: string;
 }
 
 export interface TutorialSetupStepArg {
@@ -41,7 +49,7 @@ export interface TutorialSetupStepArg {
   /**
    * The yaml file for the current step
    */
-  yamlFilename: string;
+  fixturePath: string;
 }
 
 export interface Tutorial {

@@ -1,18 +1,38 @@
+from dataclasses import dataclass
+from typing import NotRequired, TypedDict
+
 from talon import actions, app
 
-tutorial_content = None
+
+# TypedDict of tutorial step
+class Step(TypedDict):
+    content: str
+    fixturePath: NotRequired[str]
 
 
-def step_callback(x):
+@dataclass
+class Tutorial:
+    tutorial_name: str
+    steps: list[Step]
+
+
+current_tutorial: Tutorial | None = None
+
+
+def step_callback(x: int):
     print(f"step_callback5: {x}")
-    yamlFilename = tutorial_content["yamlFilenames"][x]
-    if yamlFilename:
+    if current_tutorial is None:
+        raise Exception("current_tutorial is None")
+
+    fixture_path = current_tutorial.steps[x].get("fixturePath", None)
+
+    if fixture_path:
         actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.tutorial.setupStep",
             {
                 "version": 0,
-                "tutorialName": "unit-2-basic-coding",
-                "yamlFilename": yamlFilename,
+                "tutorialName": current_tutorial.tutorial_name,
+                "fixturePath": fixture_path,
             },
         )
         # the below seems not needed
@@ -32,13 +52,14 @@ def step_callback(x):
         #         break
 
 
-def get_basic_coding_walkthrough():
-    global tutorial_content
+def start_cursorless_walkthrough(tutorial_name: str):
+    global current_tutorial
     print("get_basic_coding_walkthrough start")
     tutorial_content = actions.user.private_cursorless_run_rpc_command_get(
         "cursorless.tutorial.getContent",
-        {"version": 0, "tutorialName": "unit-2-basic-coding"},
+        {"version": 0, "tutorialName": tutorial_name},
     )
+    current_tutorial = Tutorial(tutorial_name, tutorial_content["content"])
     print(f"{tutorial_content=}")
     walkthrough_steps = []
     for content in tutorial_content["content"]:
@@ -61,7 +82,8 @@ def get_basic_coding_walkthrough():
 # by adding a list of HudWalkThroughStep
 def on_ready():
     actions.user.hud_add_lazy_walkthrough(
-        "Cursorless basic coding", get_basic_coding_walkthrough
+        "Cursorless basic coding",
+        lambda: start_cursorless_walkthrough("unit-2-basic-coding"),
     )
 
 
