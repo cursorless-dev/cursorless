@@ -7,7 +7,7 @@ def step_callback(x):
     print(f"step_callback5: {x}")
     yamlFilename = tutorial_content["yamlFilenames"][x]
     if yamlFilename:
-        actions.user.private_cursorless_run_rpc_command_get(
+        actions.user.private_cursorless_run_rpc_command_and_wait(
             "cursorless.tutorial.setupStep",
             {
                 "version": 0,
