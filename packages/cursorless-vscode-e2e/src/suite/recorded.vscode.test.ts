@@ -105,7 +105,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    serializedMarksToTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+    serializedMarksToTokenHats(
+      fixture.initialState.marks,
+      spyIde.activeTextEditor!,
+    ),
   );
 
   const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
