@@ -1,4 +1,5 @@
 import {
+  ScopeType,
   SpokenFormSuccess,
   TestCaseFixture,
   plainObjectToSelection,
@@ -64,7 +65,7 @@ export class TutorialImpl implements Tutorial {
    * Handle the argument of a "%%scopeType:{type: statement}%%"
    */
   private async processScopeType(arg: string) {
-    const scopeType = yaml.load(arg);
+    const scopeType = yaml.load(arg) as ScopeType;
     const spokenForm_ =
       this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType);
     const spokenForm = spokenForm_ as SpokenFormSuccess;
