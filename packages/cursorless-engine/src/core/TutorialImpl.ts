@@ -6,62 +6,22 @@ import {
   ScopeType,
   SpokenFormSuccess,
   TestCaseFixture,
-  serializedMarksToTokenHats,
   plainObjectToSelection,
+  serializedMarksToTokenHats,
 } from "@cursorless/common";
+import {
+  Tutorial,
+  TutorialGetContentArg,
+  TutorialGetContentResponse,
+  TutorialSetupStepArg,
+} from "../api/Tutorial";
 import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { actions } from "../generateSpokenForm/defaultSpokenForms/actions";
 import { ide } from "../singletons/ide.singleton";
 import { HatTokenMapImpl } from "./HatTokenMapImpl";
 import { canonicalizeAndValidateCommand } from "./commandVersionUpgrades/canonicalizeAndValidateCommand";
 
-interface TutorialGetContentArg {
-  /**
-   * The version of the tutorial command.
-   */
-  version: 0;
-
-  /**
-   * The name of the current tutorial
-   */
-  tutorialName: string;
-}
-
-interface TutorialGetContentResponse {
-  /**
-   * The version of the tutorial command.
-   */
-  version: 0;
-
-  /**
-   * The text content of the different steps of the current tutorial
-   */
-  content: Array<string>;
-
-  /**
-   * The yaml files of the different steps of the current tutorial (if any)
-   */
-  yamlFilenames: Array<string>;
-}
-
-interface TutorialSetupStepArg {
-  /**
-   * The version of the tutorial command.
-   */
-  version: 0;
-
-  /**
-   * The name of the current tutorial
-   */
-  tutorialName: string;
-
-  /**
-   * The yaml file for the current step
-   */
-  yamlFilename: string;
-}
-
-export class Tutorial {
+export class TutorialImpl implements Tutorial {
   private hatTokenMap: HatTokenMapImpl;
   private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl;
   private tutorialRootDir: string;
@@ -83,7 +43,7 @@ export class Tutorial {
   /**
    * Handle the argument of a "%%step:cloneStateInk.yml%%""
    */
-  async processStep(arg: string, tutorialName: string) {
+  private async processStep(arg: string, tutorialName: string) {
     const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
       throw new Error(`Invalid tutorial name: ${tutorialName}`);
@@ -111,7 +71,7 @@ export class Tutorial {
   /**
    * Handle the argument of a "%%scopeType:{type: statement}%%"
    */
-  async processScopeType(arg: any) {
+  private async processScopeType(arg: any) {
     const scopeType = yaml.load(arg.toString()) as ScopeType;
     const spokenForm_ =
       this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType);
@@ -123,7 +83,7 @@ export class Tutorial {
   /**
    * Load the "script.json" script for the current tutorial
    */
-  async loadTutorialScript(tutorialName: string) {
+  private async loadTutorialScript(tutorialName: string) {
     const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
     if (!fs.existsSync(tutorialDir)) {
       throw new Error(`Invalid tutorial name: ${tutorialName}`);
@@ -260,8 +220,5 @@ export class Tutorial {
     await this.hatTokenMap.allocateHats(
       serializedMarksToTokenHats(fixture.initialState.marks, editor),
     );
-
-    // return to the talon side
-    return true;
   }
 }

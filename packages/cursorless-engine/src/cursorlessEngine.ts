@@ -30,7 +30,7 @@ import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
-import { Tutorial } from "./core/Tutorial";
+import { TutorialImpl } from "./core/TutorialImpl";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -66,7 +66,7 @@ export function createCursorlessEngine(
     talonSpokenForms,
   );
 
-  const tutorial = new Tutorial(hatTokenMap, customSpokenFormGenerator);
+  const tutorial = new TutorialImpl(hatTokenMap, customSpokenFormGenerator);
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 

@@ -4,7 +4,7 @@ import { StoredTargetMap } from "../core/StoredTargets";
 import { ScopeProvider } from "@cursorless/common";
 import { CommandRunner } from "../CommandRunner";
 import { ReadOnlyHatMap } from "@cursorless/common";
-import { Tutorial } from "../core/Tutorial";
+import { Tutorial } from "./Tutorial";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
