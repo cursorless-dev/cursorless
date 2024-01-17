@@ -1,5 +1,4 @@
 import {
-  ScopeType,
   SpokenFormSuccess,
   TestCaseFixture,
   plainObjectToSelection,
@@ -58,14 +57,14 @@ export class TutorialImpl implements Tutorial {
       canonicalizeAndValidateCommand(fixture.command),
     ) as SpokenFormSuccess;
     console.log("\t", spokenForm.spokenForms[0]);
-    return [spokenForm.spokenForms[0], yamlFilename];
+    return spokenForm.spokenForms[0];
   }
 
   /**
    * Handle the argument of a "%%scopeType:{type: statement}%%"
    */
-  private async processScopeType(arg: any) {
-    const scopeType = yaml.load(arg.toString()) as ScopeType;
+  private async processScopeType(arg: string) {
+    const scopeType = JSON.parse(arg);
     const spokenForm_ =
       this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType);
     const spokenForm = spokenForm_ as SpokenFormSuccess;
@@ -125,10 +124,8 @@ export class TutorialImpl implements Tutorial {
         console.log(type, arg);
         switch (type) {
           case "step":
-            [spokenForm, fixturePath] = await this.processStep(
-              arg,
-              tutorialName,
-            );
+            fixturePath = arg;
+            spokenForm = await this.processStep(arg, tutorialName);
             content = content.replace(fullMatch, `<cmd@${spokenForm}/>`);
             break;
           case "literalStep":
@@ -166,9 +163,9 @@ export class TutorialImpl implements Tutorial {
   async setupStep({
     version,
     tutorialName,
-    fixturePath: yamlFilename,
+    fixturePath,
   }: TutorialSetupStepArg) {
-    console.log("setupStep()", tutorialName, yamlFilename);
+    console.log("setupStep()", tutorialName, fixturePath);
     if (version !== 0) {
       throw new Error(`Unsupported tutorial api version: ${version}`);
     }
@@ -179,7 +176,7 @@ export class TutorialImpl implements Tutorial {
     }
 
     // TODO check for directory traversal?
-    const yamlFile = path.join(tutorialDir, yamlFilename);
+    const yamlFile = path.join(tutorialDir, fixturePath);
     if (!fs.existsSync(yamlFile)) {
       throw new Error(
         `Can't file yaml file: ${yamlFile} in tutorial name: ${tutorialName}`,
