@@ -12,7 +12,10 @@ import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
-import { KeyboardActionDescriptor } from "./KeyboardActionType";
+import {
+  KeyboardActionDescriptor,
+  KeyboardActionType,
+} from "./KeyboardActionType";
 import { isString } from "./KeyboardCommandHandler";
 
 type TargetingMode = "replace" | "extend" | "append";
@@ -31,6 +34,10 @@ interface TargetDecoratedMarkArgument {
 interface ModifyTargetContainingScopeArgument {
   scopeType: ScopeType;
   type?: "containingScope" | "everyScope";
+}
+
+interface PerformActionOpts {
+  exitCursorlessMode: boolean;
 }
 
 /**
@@ -179,7 +186,7 @@ export default class KeyboardCommandsTargeted {
   performSimpleActionOnTarget = async (
     actionDescription: KeyboardActionDescriptor,
   ) => {
-    let name = "";
+    let name: KeyboardActionType;
     let exitCursorlessMode = false;
     if (isString(actionDescription)) {
       name = actionDescription;
@@ -189,13 +196,11 @@ export default class KeyboardCommandsTargeted {
     }
 
     return this.performActionOnTarget(
-      (target: PartialPrimitiveTargetDescriptor) => {
-        let action: ActionDescriptor;
+      (target): ActionDescriptor => {
         switch (name) {
-          case "wrapWithPairedDelimiter":
+          case "wrap":
           case "rewrapWithPairedDelimiter":
           case "insertSnippet":
-          case "wrapWithSnippet":
           case "executeCommand":
           case "replace":
           case "editNew":
@@ -203,28 +208,25 @@ export default class KeyboardCommandsTargeted {
             throw Error(`Unsupported keyboard action: ${name}`);
           case "replaceWithTarget":
           case "moveToTarget":
-            action = {
+            return {
               name,
               source: target,
               destination: { type: "implicit" },
             };
-            break;
           case "swapTargets":
-            action = {
+            return {
               name,
               target1: target,
               target2: { type: "implicit" },
             };
-            break;
           case "callAsFunction":
-            action = {
+            return {
               name,
               callee: target,
               argument: { type: "implicit" },
             };
-            break;
           case "pasteFromClipboard":
-            action = {
+            return {
               name,
               destination: {
                 type: "primitive",
@@ -232,23 +234,20 @@ export default class KeyboardCommandsTargeted {
                 target,
               },
             };
-            break;
           case "generateSnippet":
           case "highlight":
-            action = {
+            return {
               name,
               target,
             };
-            break;
           default:
-            action = {
-              name: name as any,
+            return {
+              name,
               target,
             };
-            break;
         }
-        return { action, exitCursorlessMode };
       },
+      { exitCursorlessMode },
     );
   };
 
@@ -258,12 +257,12 @@ export default class KeyboardCommandsTargeted {
    * @returns A promise that resolves to the result of the cursorless command
    */
   performActionOnTarget = async (
-    constructActionPayload: (target: PartialPrimitiveTargetDescriptor) => {
-      action: ActionDescriptor;
-      exitCursorlessMode: boolean;
-    },
+    constructActionPayload: (
+      target: PartialPrimitiveTargetDescriptor,
+    ) => ActionDescriptor,
+    { exitCursorlessMode }: PerformActionOpts,
   ) => {
-    const { action, exitCursorlessMode } = constructActionPayload({
+    const action = constructActionPayload({
       type: "primitive",
       mark: {
         type: "keyboard",
