@@ -919,8 +919,7 @@
                   "toggleLineBreakpoint",
                   "toggleLineComment",
                   "unfoldRegion",
-                  "wrapWithPairedDelimiter",
-                  "wrapWithSnippet"
+                  "wrap"
                 ]
               },
               {
@@ -980,8 +979,7 @@
                       "toggleLineBreakpoint",
                       "toggleLineComment",
                       "unfoldRegion",
-                      "wrapWithPairedDelimiter",
-                      "wrapWithSnippet"
+                      "wrap"
                     ],
                     "description": "The cursorless command to run"
                   },
