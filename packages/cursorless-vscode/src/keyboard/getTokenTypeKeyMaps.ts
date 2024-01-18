@@ -1,6 +1,13 @@
-import { range } from "lodash";
+import { isString, range } from "lodash";
+import {
+  SimpleKeyboardActionDescriptor,
+  SimpleKeyboardActionType,
+  simpleKeyboardActionNames,
+  PolymorphicKeyboardActionDescriptor,
+  SpecificKeyboardActionDescriptor,
+} from "./KeyboardActionType";
+import { KeyboardConfig, only } from "./KeyboardConfig";
 import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
-import { KeyboardConfig, exclude, only } from "./KeyboardConfig";
 
 /**
  * Returns a map from token type names to a keymap for that token type. Something like:
@@ -41,9 +48,38 @@ export function getTokenTypeKeyMaps(
     simpleAction: config.getTokenKeyMap(
       "simpleAction",
       "action",
-      exclude("wrap"),
+      (value: PolymorphicKeyboardActionDescriptor) => {
+        if (isString(value)) {
+          return simpleKeyboardActionNames.includes(
+            value as SimpleKeyboardActionType,
+          )
+            ? {
+                actionId: value as SimpleKeyboardActionType,
+                exitCursorlessMode: false,
+              }
+            : undefined;
+        }
+        return simpleKeyboardActionNames.includes(
+          value.actionId as SimpleKeyboardActionType,
+        )
+          ? (value as SimpleKeyboardActionDescriptor)
+          : undefined;
+      },
     ),
-    wrap: config.getTokenKeyMap("wrap", "action", only("wrap")),
+    wrap: config.getTokenKeyMap(
+      "wrap",
+      "action",
+      (value: PolymorphicKeyboardActionDescriptor) => {
+        if (isString(value)) {
+          return value === "wrap"
+            ? { actionId: value as "wrap", exitCursorlessMode: false }
+            : undefined;
+        }
+        return value.actionId === "wrap"
+          ? (value as SpecificKeyboardActionDescriptor<"wrap">)
+          : undefined;
+      },
+    ),
 
     // misc config section
     makeRange: config.getTokenKeyMap("makeRange", "misc", only("makeRange")),

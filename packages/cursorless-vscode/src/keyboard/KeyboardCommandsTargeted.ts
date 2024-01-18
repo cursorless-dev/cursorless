@@ -12,11 +12,7 @@ import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
-import {
-  KeyboardActionDescriptor,
-  KeyboardActionType,
-} from "./KeyboardActionType";
-import { isString } from "./isString";
+import { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 
 type TargetingMode = "replace" | "extend" | "append";
 
@@ -183,22 +179,13 @@ export default class KeyboardCommandsTargeted {
    * @param name The action to run
    * @returns A promise that resolves to the result of the cursorless command
    */
-  performSimpleActionOnTarget = async (
-    actionDescription: KeyboardActionDescriptor,
-  ) => {
-    let name: KeyboardActionType;
-    let exitCursorlessMode = false;
-    if (isString(actionDescription)) {
-      name = actionDescription;
-    } else {
-      name = actionDescription.actionId;
-      exitCursorlessMode = actionDescription.exitCursorlessMode ?? false;
-    }
-
+  performSimpleActionOnTarget = async ({
+    actionId: name,
+    exitCursorlessMode,
+  }: SimpleKeyboardActionDescriptor) => {
     return this.performActionOnTarget(
-      (target): ActionDescriptor => {
+      (target) => {
         switch (name) {
-          case "wrap":
           case "rewrapWithPairedDelimiter":
           case "insertSnippet":
           case "executeCommand":

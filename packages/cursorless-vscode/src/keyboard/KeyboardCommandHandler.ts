@@ -1,7 +1,10 @@
 import { Modifier, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import { KeyboardActionDescriptor } from "./KeyboardActionType";
+import {
+  SimpleKeyboardActionDescriptor,
+  SpecificKeyboardActionDescriptor,
+} from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
@@ -68,12 +71,18 @@ export class KeyboardCommandHandler {
   performSimpleActionOnTarget({
     actionDescriptor,
   }: {
-    actionDescriptor: KeyboardActionDescriptor;
+    actionDescriptor: SimpleKeyboardActionDescriptor;
   }) {
     this.targeted.performSimpleActionOnTarget(actionDescriptor);
   }
 
-  performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
+  performWrapActionOnTarget({
+    actionDescriptor,
+    delimiter,
+  }: {
+    actionDescriptor: SpecificKeyboardActionDescriptor<"wrap">;
+    delimiter: SurroundingPairName;
+  }) {
     const [left, right] = surroundingPairsDelimiters[delimiter]!;
     this.targeted.performActionOnTarget(
       (target) => ({
@@ -82,7 +91,7 @@ export class KeyboardCommandHandler {
         left,
         right,
       }),
-      { exitCursorlessMode: false },
+      { exitCursorlessMode: actionDescriptor.exitCursorlessMode },
     );
   }
 

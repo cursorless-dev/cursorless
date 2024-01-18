@@ -1,13 +1,17 @@
 import { SimpleScopeTypeType, SurroundingPairName } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import { KeyboardActionDescriptor } from "./KeyboardActionType";
+import {
+  PolymorphicKeyboardActionDescriptor,
+  SimpleKeyboardActionDescriptor,
+  SpecificKeyboardActionDescriptor,
+} from "./KeyboardActionType";
 
 /**
  * Maps from modal keyboard config section name to the type of entry expected in
  * that section.
  */
 export interface SectionTypes {
-  action: KeyboardActionDescriptor;
+  action: PolymorphicKeyboardActionDescriptor;
   color: HatColor;
   misc: MiscValue;
   scope: SimpleScopeTypeType;
@@ -17,7 +21,7 @@ export interface SectionTypes {
   modifier: ModifierType;
 }
 type ModifierType = "nextPrev" | "every";
-type MiscValue =
+export type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
   | "makeList"
@@ -49,8 +53,8 @@ export interface TokenTypeValueMap {
   pairedDelimiter: SurroundingPairName;
 
   // action config section
-  simpleAction: KeyboardActionDescriptor;
-  wrap: "wrap";
+  simpleAction: SimpleKeyboardActionDescriptor;
+  wrap: SpecificKeyboardActionDescriptor<"wrap">;
 
   // misc config section
   makeRange: "makeRange";

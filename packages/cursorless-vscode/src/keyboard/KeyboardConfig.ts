@@ -80,38 +80,51 @@ export class KeyboardConfig {
   getTokenKeyMap<
     T extends TokenType,
     K extends keyof SectionTypes,
-    V extends SectionTypes[K] & TokenTypeValueMap[T] = SectionTypes[K] &
-      TokenTypeValueMap[T],
+    V extends TokenTypeValueMap[T] = TokenTypeValueMap[T],
   >(
     tokenType: T,
     sectionName: K,
-    filter?: (value: V) => boolean,
+    transform: (value: SectionTypes[K]) => V | undefined,
   ): KeyMap<{ type: T; value: V }>;
   getTokenKeyMap<
     T extends TokenType,
     K extends keyof SectionTypes,
-    V extends SectionTypes[K] & TokenTypeValueMap[T] = SectionTypes[K] &
-      TokenTypeValueMap[T],
+    V extends TokenTypeValueMap[T] = TokenTypeValueMap[T],
   >(
     tokenType: T,
     sectionName: K = tokenType as unknown as K,
-    filter?: (value: V) => boolean,
-  ): KeyMap<{ type: T; value: V }> {
+    transform?: (value: SectionTypes[K]) => V | undefined,
+  ): KeyMap<{ type: T; value: V | SectionTypes[K] }> {
     const section = this.getSectionKeyMapRaw(sectionName);
 
-    if (!filter) {
-      return mapValues(section, (value) => ({
+    if (transform == null) {
+      return mapValues<
+        KeyMap<SectionTypes[K]>,
+        {
+          type: T;
+          value: SectionTypes[K];
+        }
+      >(section, (value) => ({
         type: tokenType,
-        value: value as V,
+        value: value,
       }));
     }
 
-    return mapValues(
-      pickBy(section, (v): v is V => filter(v as V)),
-      (value) => ({
+    return pickBy<
+      {
+        type: T;
+        value: V | undefined;
+      },
+      {
+        type: T;
+        value: V;
+      }
+    >(
+      mapValues(section, (value) => ({
         type: tokenType,
-        value,
-      }),
+        value: transform(value),
+      })),
+      (value): value is { type: T; value: V } => value.value != null,
     );
   }
 }
@@ -122,8 +135,10 @@ export class KeyboardConfig {
  * @param values Values to include
  * @returns A filter function suitable for use with getTokenKeyMap
  */
-export function only<T>(...values: T[]): (value: T) => boolean {
-  return (value: T) => values.includes(value);
+export function only<T, V extends T>(
+  ...values: V[]
+): (value: T) => V | undefined {
+  return (value: T) => (values.includes(value as V) ? (value as V) : undefined);
 }
 
 /**

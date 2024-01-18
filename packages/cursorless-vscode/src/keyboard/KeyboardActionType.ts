@@ -1,4 +1,4 @@
-import { ActionType } from "@cursorless/common";
+import { ActionType, actionNames } from "@cursorless/common";
 
 // This file contains types defining the allowable identifiers for actions in
 // user keyboard config settings. It is a modified version of the default action
@@ -17,17 +17,39 @@ type ExtraKeyboardActionType = (typeof extraKeyboardActionNames)[number];
 type ExcludedKeyboardActionType = (typeof excludedKeyboardActionNames)[number];
 type ComplexKeyboardActionType = (typeof complexKeyboardActionTypes)[number];
 export type SimpleKeyboardActionType = Exclude<
-  KeyboardActionDescriptor,
+  KeyboardActionType,
   ComplexKeyboardActionType
 >;
 
-export type KeyboardActionDescriptor =
+export type SpecificKeyboardActionDescriptor<T extends KeyboardActionType> = {
+  actionId: T;
+  exitCursorlessMode: boolean;
+};
+
+export type PolymorphicKeyboardActionDescriptor =
   | KeyboardActionType
-  | {
-      actionId: KeyboardActionType;
-      exitCursorlessMode?: boolean;
-    };
+  | SpecificKeyboardActionDescriptor<KeyboardActionType>;
+
+export type SimpleKeyboardActionDescriptor =
+  SpecificKeyboardActionDescriptor<SimpleKeyboardActionType>;
 
 export type KeyboardActionType =
   | Exclude<ActionType, ExcludedKeyboardActionType>
   | ExtraKeyboardActionType;
+
+const keyboardActionNames: KeyboardActionType[] = [
+  ...actionNames.filter(
+    (
+      actionName,
+    ): actionName is Exclude<KeyboardActionType, ExtraKeyboardActionType> =>
+      !excludedKeyboardActionNames.includes(actionName as any),
+  ),
+  ...extraKeyboardActionNames,
+];
+
+export const simpleKeyboardActionNames = keyboardActionNames.filter(
+  (actionName): actionName is SimpleKeyboardActionType =>
+    !complexKeyboardActionTypes.includes(
+      actionName as ComplexKeyboardActionType,
+    ),
+);
