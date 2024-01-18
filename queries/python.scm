@@ -200,9 +200,9 @@
   (#allow-multiple! @name)
 )
 
-;;!! with aaa, bbb:
-;;!       ^^^  ^^^
-;;!       ---  ---
+;;!! with aaa as ccc, bbb:
+;;!       ^^^         ^^^
+;;!       ----------  ---
 (
   (with_statement
     (with_clause
