@@ -74,14 +74,15 @@ export class KeyboardCommandHandler {
 
   performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
     const [left, right] = surroundingPairsDelimiters[delimiter]!;
-    this.targeted.performActionOnTarget((target) => (
-      action: {
+    this.targeted.performActionOnTarget(
+      (target) => ({
         name: "wrapWithPairedDelimiter",
         target,
         left,
         right,
-      },
-    ), {exitCursorlessMode: false});
+      }),
+      { exitCursorlessMode: false },
+    );
   }
 
   modifyTarget({ modifier }: { modifier: Modifier }) {
