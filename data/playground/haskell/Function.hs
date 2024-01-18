@@ -19,7 +19,7 @@ wot False = crash
 zot = undefined
 
 pot :: a
-pot = 
+pot =
     let kettle = undefined
     in kettle
 
