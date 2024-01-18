@@ -1,27 +1,38 @@
+;; import haskell.function.scm
+
+;; branch
+(function) @branch
+
 ; argumentOrParameter
 ; "arg" function parameter or function call argument
-(function
-  .
-  (variable) @functionName
-  .
-  (patterns
-    (
-      (_) @argumentOrParameter
-    ) @_.iteration
-  )?
-  .
-  [
-    (
-      (_) @namedFunction.interior
-    )
-    (
-      (_) @namedFunction.interior
-      .
-      (where)
-    )
-  ]
-  .
-) @namedFunction
+; (
+;   (
+;     (signature
+;       (variable)
+;     )?
+;     .
+;     (function
+;       .
+;       (variable) @functionName
+;       .
+;       (patterns
+;         (_) @argumentOrParameter
+;       )?
+;       .
+;       [
+;         (
+;           (_) @namedFunction.interior
+;         )
+;         (
+;           (_) @namedFunction.interior
+;           .
+;           (where)
+;         )
+;       ]
+;       .
+;     )+
+;   ) @namedFunction @functionName.domain @argumentOrParameter.iteration
+; )
 
 ; anonymousFunction
 ; "lambda" anonymous lambda function

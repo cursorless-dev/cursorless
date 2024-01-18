@@ -14,6 +14,15 @@ fst tup@(x, y) = x
 --  ^^^            <- 2️⃣ only the name of the whole argument, if given
 --  ^^^  ^  ^      <- 3️⃣ all names in the pattern
 
+-- RFC: What should "branch" match?
+foo = bar
+  where
+    bar = 1
+--   1️⃣ `foo = bar` and `bar = 1`
+--   2️⃣ `foo = bar where bar = 1`
+--   3️⃣ `foo = bar where bar = 1` and `bar = 1`
+
+
 uncurry :: (a -> b -> c) -> (a, b) -> c
 uncurry f = \(x, y) -> f x y
 --          ^^^^^^^^^^^^^^^^ <- "lambda"
@@ -25,6 +34,7 @@ fromEither f g = \case
   Left x -> f x
   Right y -> g y
 
+foo :: Integer
 foo = bar
   where
     bar = 1
