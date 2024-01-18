@@ -9,6 +9,7 @@
 
 ;; functions
 (function
+  rhs: (_) @value
 ) @branch
 
 ;; guards
