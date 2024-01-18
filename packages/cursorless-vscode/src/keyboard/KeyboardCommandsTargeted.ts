@@ -16,7 +16,7 @@ import {
   KeyboardActionDescriptor,
   KeyboardActionType,
 } from "./KeyboardActionType";
-import { isString } from "./KeyboardCommandHandler";
+import { isString } from "./isString";
 
 type TargetingMode = "replace" | "extend" | "append";
 

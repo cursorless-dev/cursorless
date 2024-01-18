@@ -5,6 +5,7 @@ import { KeyboardActionDescriptor } from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
+import { isString } from "./isString";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -96,8 +97,4 @@ interface DecoratedMarkArg {
     shape?: HatShape;
   };
   mode: "replace" | "extend" | "append";
-}
-
-export function isString(input: any): input is string {
-  return typeof input === "string" || input instanceof String;
 }
