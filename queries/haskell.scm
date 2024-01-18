@@ -1,279 +1,323 @@
-;; import haskell.function.scm
+;; import haskell.namedFunction.scm
+
+;; argumentOrParameter
+(patterns
+  (_) @argumentOrParameter
+)
 
 ;; branch
-(function) @branch
 
-; argumentOrParameter
-; "arg" function parameter or function call argument
-; (
-;   (
-;     (signature
-;       (variable)
-;     )?
-;     .
-;     (function
-;       .
-;       (variable) @functionName
-;       .
-;       (patterns
-;         (_) @argumentOrParameter
-;       )?
-;       .
-;       [
-;         (
-;           (_) @namedFunction.interior
-;         )
-;         (
-;           (_) @namedFunction.interior
-;           .
-;           (where)
-;         )
-;       ]
-;       .
-;     )+
-;   ) @namedFunction @functionName.domain @argumentOrParameter.iteration
-; )
+;; functions
+(function
+) @branch
 
-; anonymousFunction
-; "lambda" anonymous lambda function
-; (exp_lambda
-;   (_) @anonymousFunction.interior .
-; ) @anonymousFunction
-; (exp_lambda_case
-;   (alts
-;     (alt
-;       (_) @anonymousFunction.interior .
-;     )
-;   )
-; ) @anonymousFunction
+;; guards
+(guard_equation
+  [
+    ;; ... with a SINGLE guard
+    (guards
+      .
+      (guard) @branch.start @condition @condition.domain.start
+      .
+    )
+    ;; ... with MULTIPLE guards
+    (guards
+      .
+      (guard) @branch.start @condition.start @condition.domain.start
+      (guard) @branch.start @condition.end @condition.domain.start
+      .
+    )
+  ]
+  .
+  (_) @branch.end @condition.domain.end @value
+) @branch.removal
 
-; branch
-; "branch" branch of a switch or if statement
-; function declaration with multiple patterns
-; TODO: capture the lhs? capture the rhs?
-; (haskell
-;   ; TODO: only if no guard equations?
-;   (function) @branch
-; )
-; ; guards
-; (haskell
-;   (function
-;     (guard_equation) @branch
-;   )
-; )
-; ; alternatives
-; (exp_lambda_case
-;   (alts
-;     (alt) @branch
-;   )
-; )
+;; case expressions
+(exp_case
+  (_) @condition
+  .
+  (alts
+    (alt
+      .
+      (_) @argumentOrParameter
+      (_) @value
+      .
+    ) @branch
+  )
+  .
+)
 
-; ; functionCall
-; ; "call" function call, eg foo(1, 2)
 
-; ; functionCallee
-; ; "callee" the function being called in a function call
+;; "arg" function parameter or function call argument
+;; (
+;;   (
+;;     (signature
+;;       (variable)
+;;     )?
+;;     .
+;;     (function
+;;       .
+;;       (variable) @functionName
+;;       .
+;;       (patterns
+;;         (_) @argumentOrParameter
+;;       )?
+;;       .
+;;       [
+;;         (
+;;           (_) @namedFunction.interior
+;;         )
+;;         (
+;;           (_) @namedFunction.interior
+;;           .
+;;           (where)
+;;         )
+;;       ]
+;;       .
+;;     )+
+;;   ) @namedFunction @functionName.domain @argumentOrParameter.iteration
+;; )
 
-; ; className
-; ; "class name" the name in a class declaration
-; ; (haskell
-; ;   (class
-; ;     (class_head
-; ;       class: (class_name
-; ;         (type) @className
-; ;       )
-; ;     )
-; ;   )
-; ; )
-; ; instance name
-; ; (haskell
-; ;   (instance
-; ;     (instance_head
-; ;       (class_name
-; ;         (type) @name
-; ;       )
-; ;     )
-; ;   )
-; ; )
+;; anonymousFunction
+;; "lambda" anonymous lambda function
+;; (exp_lambda
+;;   (_) @anonymousFunction.interior .
+;; ) @anonymousFunction
+;; (exp_lambda_case
+;;   (alts
+;;     (alt
+;;       (_) @anonymousFunction.interior .
+;;     )
+;;   )
+;; ) @anonymousFunction
 
-; ; class
-; ; "class" class definition
+;; branch
+;; "branch" branch of a switch or if statement
+;; function declaration with multiple patterns
+;; TODO: capture the lhs? capture the rhs?
+;; (haskell
+;;   ; TODO: only if no guard equations?
+;;   (function) @branch
+;; )
+;; ; guards
+;; (haskell
+;;   (function
+;;     (guard_equation) @branch
+;;   )
+;; )
+;; ; alternatives
+;; (exp_lambda_case
+;;   (alts
+;;     (alt) @branch
+;;   )
+;; )
 
-; ; comment
-; ; "comment" comment
+;; ; functionCall
+;; ; "call" function call, eg foo(1, 2)
 
-; ; condition
-; ; "condition" condition, eg in an if statement, while loop etc
+;; ; functionCallee
+;; ; "callee" the function being called in a function call
 
-; ; functionName
-; ; "funk name" the name in a function declaration
-; ; function name
-; ; (haskell
-; ;   (function
-; ;     name: (_) @functionName
-; ;   )
-; ; )
-; ; foreign import name
-; ; (haskell
-; ;   (foreign_import
-; ;     (signature
-; ;       (_) @name
-; ;     )
-; ;   )
-; ; )
-; ; foreign export name
-; ; (haskell
-; ;   (foreign_export
-; ;     (signature
-; ;       (_) @name
-; ;     )
-; ;   )
-; ; )
+;; ; className
+;; ; "class name" the name in a class declaration
+;; ; (haskell
+;; ;   (class
+;; ;     (class_head
+;; ;       class: (class_name
+;; ;         (type) @className
+;; ;       )
+;; ;     )
+;; ;   )
+;; ; )
+;; ; instance name
+;; ; (haskell
+;; ;   (instance
+;; ;     (instance_head
+;; ;       (class_name
+;; ;         (type) @name
+;; ;       )
+;; ;     )
+;; ;   )
+;; ; )
 
-; ; namedFunction
-; ; "funk" name function declaration
-; (function
-;   rhs: (_) @namedFunction.interior
-; ) @namedFunction
+;; ; class
+;; ; "class" class definition
 
-; ; ifStatement
-; ; "if state" if statement
+;; ; comment
+;; ; "comment" comment
 
-; ; list
-; ; "list" list / array
-; (exp_arithmetic_sequence) @list
-; (exp_list) @list
-; (exp_list_comprehension) @list
-; ; TODO: include tuple?
-; ; (type_tuple) @list
-; ; (type_unboxed_tuple) @list
-; ; TODO: include list patterns?
-; ; (pat_list) @list
-; ; TODO: include tuple patterns?
-; ; (pat_tuple) @list
-; ; (pat_unboxed_tuple) @list
+;; ; condition
+;; ; "condition" condition, eg in an if statement, while loop etc
 
-; ; map
-; ; "map" map / object
-; (exp_record) @map
+;; ; functionName
+;; ; "funk name" the name in a function declaration
+;; ; function name
+;; ; (haskell
+;; ;   (function
+;; ;     name: (_) @functionName
+;; ;   )
+;; ; )
+;; ; foreign import name
+;; ; (haskell
+;; ;   (foreign_import
+;; ;     (signature
+;; ;       (_) @name
+;; ;     )
+;; ;   )
+;; ; )
+;; ; foreign export name
+;; ; (haskell
+;; ;   (foreign_export
+;; ;     (signature
+;; ;       (_) @name
+;; ;     )
+;; ;   )
+;; ; )
 
-; ; collectionItem
-; ; "item" an entry in a map / object / list
-; ; record item
-; ; (exp_field
-; ;   field: (_)
-; ;   (_) @collectionItem
-; ; )
+;; ; namedFunction
+;; ; "funk" name function declaration
+;; (function
+;;   rhs: (_) @namedFunction.interior
+;; ) @namedFunction
 
-; ; collectionKey
-; ; "key" key in a map / object
-; ; record key
-; ; (exp_field
-; ;   field: (_) @collectionKey
-; ;   ; TODO: handle subfields
-; ; )
-; ; (exp_projection_selector
-; ;   (_) @collectionKey
-; ;   ; TODO: handle subfields
-; ; )
+;; ; ifStatement
+;; ; "if state" if statement
 
-; ; name
-; ; "name" the name in a declaration (eg function name)
-; ; function name
-; ; (haskell
-; ;   (function
-; ;     name: (_) @name
-; ;   )
-; ; )
-; ; foreign function import
-; ; (haskell
-; ;   (foreign_import
-; ;     (signature
-; ;       (_) @name
-; ;     )
-; ;   )
-; ; )
-; ; foreign function export
-; ; (haskell
-; ;   (foreign_export
-; ;     (signature
-; ;       (_) @name
-; ;     )
-; ;   )
-; ; )
-; ; data type name
-; ; (haskell
-; ;   (adt
-; ;     (type) @name
-; ;   )
-; ; )
-; ; new type name
-; ; (haskell
-; ;   (newtype
-; ;     (type) @name
-; ;   )
-; ; )
-; ; type alias name
-; ; (haskell
-; ;   (type_alias
-; ;     (type) @name
-; ;   )
-; ; )
-; ; type family name
-; ; (haskell
-; ;   (type_family
-; ;     (head
-; ;       (type) @name
-; ;     )
-; ;   )
-; ; )
-; ; class name
-; ; (haskell
-; ;   (class
-; ;     (class_head
-; ;       class: (class_name
-; ;         (type) @name
-; ;       )
-; ;     )
-; ;   )
-; ; )
-; ; instance name
-; ; (haskell
-; ;   (instance
-; ;     (instance_head
-; ;       (class_name
-; ;         (type) @name
-; ;       )
-; ;     )
-; ;   )
-; ; )
+;; ; list
+;; ; "list" list / array
+;; (exp_arithmetic_sequence) @list
+;; (exp_list) @list
+;; (exp_list_comprehension) @list
+;; ; TODO: include tuple?
+;; ; (type_tuple) @list
+;; ; (type_unboxed_tuple) @list
+;; ; TODO: include list patterns?
+;; ; (pat_list) @list
+;; ; TODO: include tuple patterns?
+;; ; (pat_tuple) @list
+;; ; (pat_unboxed_tuple) @list
 
-; ; statement
-; ; "state" a statement, eg let foo
-; (stmt) @statement
-; ; TODO: let clause?
-; ; TODO: where clause?
+;; ; map
+;; ; "map" map / object
+;; (exp_record) @map
 
-; ; string
-; ; "string" string
-; (string) @string
+;; ; collectionItem
+;; ; "item" an entry in a map / object / list
+;; ; record item
+;; ; (exp_field
+;; ;   field: (_)
+;; ;   (_) @collectionItem
+;; ; )
 
-; ; type
-; ; "type" a type annotation or declaration
-; ;; declaration: type alias
-; (haskell
-;   (type_alias
-;     (type_variable) @argumentOrParameter
-;     (_) @type.interior .
-;   ) @type
-; )
-; ;; declaration: data type
-; (haskell
-;   (adt
-;     (type_variable) @argumentOrParameter
-;     (_) @type.interior .
-;   ) @type
-; )
+;; ; collectionKey
+;; ; "key" key in a map / object
+;; ; record key
+;; ; (exp_field
+;; ;   field: (_) @collectionKey
+;; ;   ; TODO: handle subfields
+;; ; )
+;; ; (exp_projection_selector
+;; ;   (_) @collectionKey
+;; ;   ; TODO: handle subfields
+;; ; )
 
-; ; value
-; ; "value" a value eg in a map / object, return statement, etc
+;; ; name
+;; ; "name" the name in a declaration (eg function name)
+;; ; function name
+;; ; (haskell
+;; ;   (function
+;; ;     name: (_) @name
+;; ;   )
+;; ; )
+;; ; foreign function import
+;; ; (haskell
+;; ;   (foreign_import
+;; ;     (signature
+;; ;       (_) @name
+;; ;     )
+;; ;   )
+;; ; )
+;; ; foreign function export
+;; ; (haskell
+;; ;   (foreign_export
+;; ;     (signature
+;; ;       (_) @name
+;; ;     )
+;; ;   )
+;; ; )
+;; ; data type name
+;; ; (haskell
+;; ;   (adt
+;; ;     (type) @name
+;; ;   )
+;; ; )
+;; ; new type name
+;; ; (haskell
+;; ;   (newtype
+;; ;     (type) @name
+;; ;   )
+;; ; )
+;; ; type alias name
+;; ; (haskell
+;; ;   (type_alias
+;; ;     (type) @name
+;; ;   )
+;; ; )
+;; ; type family name
+;; ; (haskell
+;; ;   (type_family
+;; ;     (head
+;; ;       (type) @name
+;; ;     )
+;; ;   )
+;; ; )
+;; ; class name
+;; ; (haskell
+;; ;   (class
+;; ;     (class_head
+;; ;       class: (class_name
+;; ;         (type) @name
+;; ;       )
+;; ;     )
+;; ;   )
+;; ; )
+;; ; instance name
+;; ; (haskell
+;; ;   (instance
+;; ;     (instance_head
+;; ;       (class_name
+;; ;         (type) @name
+;; ;       )
+;; ;     )
+;; ;   )
+;; ; )
+
+;; ; statement
+;; ; "state" a statement, eg let foo
+;; (stmt) @statement
+;; ; TODO: let clause?
+;; ; TODO: where clause?
+
+;; ; string
+;; ; "string" string
+;; (string) @string
+
+;; ; type
+;; ; "type" a type annotation or declaration
+;; ;; declaration: type alias
+;; (haskell
+;;   (type_alias
+;;     (type_variable) @argumentOrParameter
+;;     (_) @type.interior .
+;;   ) @type
+;; )
+;; ;; declaration: data type
+;; (haskell
+;;   (adt
+;;     (type_variable) @argumentOrParameter
+;;     (_) @type.interior .
+;;   ) @type
+;; )
+
+;; ; value
+;; ; "value" a value eg in a map / object, return statement, etc

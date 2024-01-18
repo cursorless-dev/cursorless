@@ -166,30 +166,68 @@
   ]
   .
   ;; function declaration
-  (
-    [
-      (
-        (signature
-              name: (variable) @functionName @name
-        ) @namedFunction.start @functionName.domain.start @name.domain.start
-        (#not-eq? @_previous @name)
-      )
-      (
-        (function
+  [
+    (
+      (signature
             name: (variable) @functionName @name
-        ) @namedFunction.start @functionName.domain.start @name.domain.start
-        (#not-eq? @_previous @name)
-      )
-    ]
-    .
-    (function)*
-    .
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
+    )
     (
       (function
-          name: (variable) @_end_name
-      ) @namedFunction.end @functionName.domain.end @name.domain.end
-      (#eq? @name @_end_name)
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
     )
+  ]
+  .
+  (function)*
+  .
+  (
+    (function
+        name: (variable) @_end_name
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
+  )
+  .
+)
+(haskell
+  ;; previous declaration
+  [
+    (
+      (_) @_previous
+      (#not-type? @_previous "function" "signature")
+    )
+    (
+      (function
+        name: (variable) @_previous
+      )
+    )
+  ]
+  .
+  ;; function declaration
+  [
+    (
+      (signature
+            name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
+    )
+    (
+      (function
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
+    )
+  ]
+  .
+  (function)*
+  .
+  (
+    (function
+        name: (variable) @_end_name
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
   )
   .
 )
@@ -198,14 +236,9 @@
 (haskell
   .
   ;; function declaration
-  (
-    (function
-        name: (variable) @functionName @name @_end_name
-        ;; The annotation `@_end_name` is REQUIRED because assertions are
-        ;; hoisted, which means that the assertion `(#eq? @name @_end_name)`
-        ;; is ALWAYS evaluated, so if we don't set `@_end_name`, it fails.
-    ) @namedFunction @functionName.domain @name.domain
-  )
+  (function
+      name: (variable) @functionName @name
+  ) @namedFunction @functionName.domain @name.domain
   .
 )
 ;; ... as the ONLY in the file
@@ -213,28 +246,26 @@
 (haskell
   .
   ;; function declaration
-  (
-    [
-      (
-        (signature
-              name: (variable) @functionName @name
-        ) @namedFunction.start @functionName.domain.start @name.domain.start
-      )
-      (
-        (function
+  [
+    (
+      (signature
             name: (variable) @functionName @name
-        ) @namedFunction.start @functionName.domain.start @name.domain.start
-      )
-    ]
-    .
-    (function)*
-    .
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+    )
     (
       (function
-          name: (variable) @_end_name
-      ) @namedFunction.end @functionName.domain.end @name.domain.end
-      (#eq? @name @_end_name)
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
     )
+  ]
+  .
+  (function)*
+  .
+  (
+    (function
+        name: (variable) @_end_name
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
   )
   .
 )
@@ -384,28 +415,26 @@
 (decls
   .
   ;; function declaration
-  (
-    [
-      (
-        (signature
-              name: (variable) @functionName @name
-        ) @namedFunction.start @functionName.domain.start @name.domain.start
-      )
-      (
-        (function
+  [
+    (
+      (signature
             name: (variable) @functionName @name
-        ) @namedFunction.start @functionName.domain.start @name.domain.start
-      )
-    ]
-    .
-    (function)*
-    .
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+    )
     (
       (function
-          name: (variable) @_end_name
-      ) @namedFunction.end @functionName.domain.end @name.domain.end
-      (#eq? @name @_end_name)
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
     )
+  ]
+  .
+  (function)*
+  .
+  (
+    (function
+        name: (variable) @_end_name
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
   )
   .
 )
