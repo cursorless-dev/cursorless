@@ -1,5 +1,5 @@
 diff --git a/lib/theme/SearchBar/index.js b/lib/theme/SearchBar/index.js
-index 013ea405ee59fae6f2cf464e6b984eb162321e7b..0dcaaafbcb7e7506cd33c3d61dec14aa8b497138 100644
+index 4df023cb619433b59c64b31e3fd832f833aba7c7..c63d1a23f53d7dbccd0f7667a5740e76bbe7bf73 100644
 --- a/lib/theme/SearchBar/index.js
 +++ b/lib/theme/SearchBar/index.js
 @@ -4,6 +4,7 @@
@@ -8,9 +8,9 @@ index 013ea405ee59fae6f2cf464e6b984eb162321e7b..0dcaaafbcb7e7506cd33c3d61dec14aa
   */
 +import useIsBrowser from '@docusaurus/useIsBrowser';
  import React, {useCallback, useMemo, useRef, useState} from 'react';
+ import {createPortal} from 'react-dom';
  import {DocSearchButton, useDocSearchKeyboardEvents} from '@docsearch/react';
- import Head from '@docusaurus/Head';
-@@ -49,10 +50,28 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
+@@ -51,10 +52,28 @@ function DocSearch({contextualSearch, externalUrlRegex, ...props}) {
        mergeFacetFilters(contextualSearchFacetFilters, configFacetFilters)
      : // ... or use config facetFilters
        configFacetFilters;
