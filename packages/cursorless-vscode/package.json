@@ -866,9 +866,7 @@
           "additionalProperties": {
             "anyOf": [
               {
-                "type": [
-                  "string"
-                ],
+                "type": "string",
                 "enum": [
                   "callAsFunction",
                   "clearAndSetSelection",
@@ -926,9 +924,7 @@
                 ]
               },
               {
-                "type": [
-                  "object"
-                ],
+                "type": "object",
                 "properties": {
                   "actionId": {
                     "type": "string",
