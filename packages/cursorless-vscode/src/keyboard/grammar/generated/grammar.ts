@@ -65,7 +65,7 @@ const grammar: Grammar = {
     {"name": "main", "symbols": ["modifier"], "postprocess": command("modifyTarget", { modifier: $0 })},
     {"name": "main", "symbols": [(keyboardLexer.has("simpleAction") ? {type: "simpleAction"} : simpleAction)], "postprocess": command("performSimpleActionOnTarget", ["actionDescriptor"])},
     {"name": "main", "symbols": [(keyboardLexer.has("wrap") ? {type: "wrap"} : wrap), (keyboardLexer.has("pairedDelimiter") ? {type: "pairedDelimiter"} : pairedDelimiter)], "postprocess": 
-        command("performWrapActionOnTarget", [_, "delimiter"])
+        command("performWrapActionOnTarget", ["actionDescriptor", "delimiter"])
         },
     {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "modifier", "symbols": ["scopeType"], "postprocess": capture({ type: "containingScope", scopeType: $0 })},
