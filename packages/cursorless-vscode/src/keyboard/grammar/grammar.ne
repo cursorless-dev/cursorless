@@ -36,7 +36,7 @@ main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionDescript
 
 # "round wrap"
 main -> %wrap %pairedDelimiter {%
-  command("performWrapActionOnTarget", [_, "delimiter"])
+  command("performWrapActionOnTarget", ["actionDescriptor", "delimiter"])
 %}
 
 # Custom vscode command
