@@ -27,7 +27,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 10}
       active: {line: 0, character: 10}
-ide:
-  messages:
-    - {type: error, id: TreeSitterQuery.checkCaptures.mixRegularStartEnd}
-    - {type: error, id: TreeSitterQuery.checkCaptures.mixRegularStartEnd}
