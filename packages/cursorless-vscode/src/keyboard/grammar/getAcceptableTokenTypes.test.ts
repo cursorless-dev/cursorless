@@ -8,12 +8,20 @@ import {
   NEXT,
   getAcceptableTokenTypes,
 } from "./getAcceptableTokenTypes";
-import { forEach, isEqual } from "lodash";
-import produce from "immer";
+import { isEqual } from "lodash";
 import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {
+  /**
+   * The tokens to feed to the parser before checking for acceptable token types
+   */
   tokens: KeyDescriptor[];
+
+  /**
+   * Expect these token types to be acceptable; note that this list doesn't need
+   * to include all acceptable token types, just the ones that we want to test
+   * for.
+   */
   expected: AcceptableTokenType[];
 }
 
@@ -125,7 +133,7 @@ suite("keyboard.getAcceptableTokenTypes", () => {
   });
 
   testCases.forEach(({ tokens, expected }) => {
-    test(`should parse \`${stringifyTokens(tokens)}\``, () => {
+    test(`after \`${stringifyTokens(tokens)}\``, () => {
       parser.feed(tokens);
       for (const value of expected) {
         const candidates = getAcceptableTokenTypes(parser).filter(
@@ -141,22 +149,10 @@ suite("keyboard.getAcceptableTokenTypes", () => {
         };
         assert(
           candidates.some((result) => isEqual(result, fullValue)),
-          JSON.stringify(produce(candidates, replaceSymbols), null, 2),
+          "Relevant candidates (note that symbols will be missing):\n" +
+            JSON.stringify(candidates, null, 2),
         );
       }
     });
   });
 });
-
-/**
- * Deep search and replaces the given property value "prevVal" with "newVal"
- */
-function replaceSymbols(object: any) {
-  forEach(object, (val, key) => {
-    if (typeof val === "symbol") {
-      object[key] = val.toString();
-    } else if (typeof val === "object") {
-      replaceSymbols(val);
-    }
-  });
-}

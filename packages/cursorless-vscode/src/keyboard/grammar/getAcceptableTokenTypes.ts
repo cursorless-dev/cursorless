@@ -3,10 +3,24 @@ import { isEqual, times } from "lodash";
 import { CommandRulePostProcessor } from "./CommandRulePostProcessor";
 import { DefaultMap, uniqWithHash } from "@cursorless/common";
 import { KeyboardCommandHandler } from "../KeyboardCommandHandler";
+import { TokenType } from "../TokenTypeHelpers";
 
 export interface AcceptableTokenType {
-  type: any;
+  /**
+   * The token type, eg "color".
+   */
+  type: TokenType;
+
+  /**
+   * The command that wants the token type
+   */
   command: keyof KeyboardCommandHandler;
+
+  /**
+   * A partial argument for the command that wants the token type, where
+   * {@link NEXT} indicates where the next token would go and {@link MISSING}
+   * indicates arguments that haven't been typed yet.
+   */
   partialArg: any;
 }
 
