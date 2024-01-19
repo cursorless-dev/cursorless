@@ -267,82 +267,45 @@
 ;; Names, values, and types
 ;;
 
-;;!! foo="bar"
-;;!  ^^^
-;;!  xxxx
-;;!  ---------
-(
-  (variable_assignment
-    name: (_) @name @_.trailing.start.startOf
-    .
-    "=" @_.trailing.end.endOf
-  ) @dummy @_.domain
-  (#not-parent-type? @dummy declaration_command)
-)
-
 ;;!! for ((i = 1; i <= 5; i++)); do
 ;;!        ^
 ;;!        xxxx
 ;;!        -----
-(variable_assignment
-  !name
-  (variable_name) @name @_.trailing.start.startOf
-  "="
-  (_) @_.trailing.end.startOf
-) @_.domain
+(
+  (variable_assignment
+    name: (_) @name @value.leading.endOf
+    value: (_) @value @name.trailing.startOf
+  ) @dummy @_.domain
+  (#not-parent-type? @dummy declaration_command)
+)
 
 ;;!! local foo="bar"
 ;;!        ^^^
 ;;!  xxxxxxxxxx
 ;;!  ---------------
 (declaration_command
-  "local" @_.domain.start.startOf @_.trailing.start.startOf
   (variable_assignment
     name: (_) @name
-    .
-    "=" @_.trailing.end.endOf
-  ) @_.domain.end.endOf
-)
-
-;;!! foo="bar"
-;;!      ^^^^^
-;;!     xxxxxx
-;;!  ---------
-(
-  (variable_assignment
-    "=" @value.leading.start.startOf
-    .
-    value: (_) @value @value.leading.end.endOf
-  ) @dummy @_.domain
-  (#not-parent-type? @dummy declaration_command)
-)
+    value: (_) @_.removal.end.startOf
+  )
+) @_.domain @_.removal.start.startOf
 
 ;;!! local foo="bar"
-;;!            ^^^^^
-;;!           xxxxxx
+;;!        ^^^
+;;!  xxxxxxxxxx
 ;;!  ---------------
 (declaration_command
-  "local" @_.domain.start.startOf
   (variable_assignment
-    "=" @value.leading.start.startOf
-    .
-    value: (_) @value @value.leading.end.endOf
-  ) @_.domain.end.endOf
-)
+    name: (_) @_.leading.endOf
+    value: (_) @value
+  )
+) @_.domain
 
-;;!! for ((i = 1; i <= 5; i++)); do
-;;!            ^
-;;!         xxxx
-;;!        -----
-(
-  (variable_assignment
-    !name
-    !value
-    (_) @_.leading.start.endOf
-    "="
-    .
-    (_) @value @_.leading.end.endOf
-  ) @_.domain
-)
+;;!! local foo
+;;!        ^^^
+;;!  ---------
+(declaration_command
+  (variable_name) @name
+) @_.domain
 
 (regex) @regularExpression @textFragment
