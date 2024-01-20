@@ -8,7 +8,7 @@ import {
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
-import { isString } from "./isString";
+import { isString } from "lodash";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
