@@ -1,10 +1,14 @@
 import { Modifier, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import { SimpleKeyboardActionType } from "./KeyboardActionType";
+import {
+  SimpleKeyboardActionDescriptor,
+  SpecificKeyboardActionDescriptor,
+} from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
+import { isString } from "lodash";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -65,21 +69,24 @@ export class KeyboardCommandHandler {
   }
 
   performSimpleActionOnTarget({
-    actionName,
+    actionDescriptor,
   }: {
-    actionName: SimpleKeyboardActionType;
+    actionDescriptor: SimpleKeyboardActionDescriptor;
   }) {
-    this.targeted.performSimpleActionOnTarget(actionName);
+    this.targeted.performSimpleActionOnTarget(actionDescriptor);
   }
 
-  performWrapActionOnTarget({ delimiter }: { delimiter: SurroundingPairName }) {
+  performWrapActionOnTarget({ actionDescriptor, delimiter }: WrapActionArg) {
     const [left, right] = surroundingPairsDelimiters[delimiter]!;
-    this.targeted.performActionOnTarget((target) => ({
-      name: "wrapWithPairedDelimiter",
-      target,
-      left,
-      right,
-    }));
+    this.targeted.performActionOnTarget(
+      (target) => ({
+        name: "wrapWithPairedDelimiter",
+        target,
+        left,
+        right,
+      }),
+      actionDescriptor,
+    );
   }
 
   modifyTarget({ modifier }: { modifier: Modifier }) {
@@ -95,6 +102,7 @@ interface DecoratedMarkArg {
   mode: "replace" | "extend" | "append";
 }
 
-function isString(input: any): input is string {
-  return typeof input === "string" || input instanceof String;
+interface WrapActionArg {
+  actionDescriptor: SpecificKeyboardActionDescriptor<"wrap">;
+  delimiter: SurroundingPairName;
 }
