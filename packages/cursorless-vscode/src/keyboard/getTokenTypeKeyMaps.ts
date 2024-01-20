@@ -82,8 +82,12 @@ export function getTokenTypeKeyMaps(
 }
 
 /**
- * Given an action config entry, returns a fully specified action descriptor, or
- * undefined if the action name is not included in {@link actionNames}.
+ * Given an action config entry, returns a fully specified action descriptor, using default behavior.
+ * It also filters: it returns undefined if the action name is not included in {@link actionNames}.
+ *
+ * For example, it transforms "clearAndSetSelection" to { actionId: "clearAndSetSelection", exitCursorlessMode: false }
+ * and leaves { actionId: "clearAndSetSelection", exitCursorlessMode: true } unchanged.
+ * (Assuming that "clearAndSetSelection" is included in {@link actionNames}. If not, it returns undefined.)
  *
  * @param value The action descriptor to transform, or reject
  * @param actionNames The names of the actions to accept

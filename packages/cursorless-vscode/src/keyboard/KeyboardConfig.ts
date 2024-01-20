@@ -70,7 +70,7 @@ export class KeyboardConfig {
    * @param sectionName The name of the config section
    * @param transform If provided, a function that transforms each entry,
    * returning `undefined` for entries to be dropped
-   * @returns A keymap with trsansformed entries for the given config section,
+   * @returns A keymap with transformed entries for the given config section,
    * without entries for which {@link transform} returns `undefined`
    */
   getTokenKeyMap<T extends keyof SectionTypes & TokenType>(
