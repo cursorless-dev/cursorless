@@ -32,11 +32,11 @@ main -> modifier {% command("modifyTarget", { modifier: $0 }) %}
 # --------------------------- Actions --------------------------
 
 # "chuck"
-main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionName"]) %}
+main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionDescriptor"]) %}
 
 # "round wrap"
 main -> %wrap %pairedDelimiter {%
-  command("performWrapActionOnTarget", [_, "delimiter"])
+  command("performWrapActionOnTarget", ["actionDescriptor", "delimiter"])
 %}
 
 # Custom vscode command
