@@ -4,6 +4,7 @@ import assert from "assert";
 import { KeyDescriptor } from "../TokenTypeHelpers";
 import { KeyboardCommandHandler } from "../KeyboardCommandHandler";
 import { KeyboardCommand } from "../KeyboardCommandTypeHelpers";
+import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {
   tokens: KeyDescriptor[];
@@ -158,15 +159,3 @@ suite("keyboard grammar", () => {
     });
   });
 });
-
-function stringifyTokens(tokens: any[]) {
-  return tokens
-    .map((token) => {
-      let ret = token.type;
-      if (token.value != null) {
-        ret += `:${JSON.stringify(token.value)}`;
-      }
-      return ret;
-    })
-    .join(" ");
-}
