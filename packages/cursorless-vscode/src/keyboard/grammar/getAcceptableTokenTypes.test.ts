@@ -136,6 +136,7 @@ suite("keyboard.getAcceptableTokenTypes", () => {
     test(`after \`${stringifyTokens(tokens)}\``, () => {
       parser.feed(tokens);
       for (const value of expected) {
+        // filter by type first for shorter error messages
         const candidates = getAcceptableTokenTypes(parser).filter(
           ({ type }) => type === value.type,
         );

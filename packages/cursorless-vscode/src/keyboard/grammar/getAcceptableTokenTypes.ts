@@ -66,10 +66,13 @@ function getMetadata<T extends keyof KeyboardCommandHandler>(
     .metadata;
 }
 
-// Prevent infinite recursion
+// Prevent infinite recursion by limiting the number of times we visit a state
+// to 3. Note that this is a pretty arbitrary number, and in theory we could
+// need to visit the same state more than 3 times. However, in practice, we
+// don't expect to need to visit the same state more than 3 times.
 const MAX_VISITS = 3;
 
-/** Indicates that the given symbol hasn't been typed yet */
+/** Indicates that the given token hasn't been typed yet */
 export const MISSING = Symbol("missing");
 
 /** The next token to be consumed */
@@ -108,6 +111,9 @@ function computeRootStatePartialArgs(
     );
     partialArg = state.rule.postprocess?.(argList) ?? argList;
   } catch (err) {
+    // If we can't construct the partial argument because the rule's postprocess
+    // wasn't designed to handle partial arguments, then we just replace it with
+    // MISSING
     partialArg = MISSING;
   }
 
