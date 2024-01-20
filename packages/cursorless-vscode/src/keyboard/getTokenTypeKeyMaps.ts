@@ -1,10 +1,9 @@
 import { isString, range } from "lodash";
 import {
-  SimpleKeyboardActionDescriptor,
-  SimpleKeyboardActionType,
-  simpleKeyboardActionNames,
+  KeyboardActionType,
   PolymorphicKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
+  simpleKeyboardActionNames,
 } from "./KeyboardActionType";
 import { KeyboardConfig, only } from "./KeyboardConfig";
 import { TokenTypeKeyMapMap } from "./TokenTypeHelpers";
@@ -45,40 +44,11 @@ export function getTokenTypeKeyMaps(
     pairedDelimiter: config.getTokenKeyMap("pairedDelimiter"),
 
     // action config section
-    simpleAction: config.getTokenKeyMap(
-      "simpleAction",
-      "action",
-      (value: PolymorphicKeyboardActionDescriptor) => {
-        if (isString(value)) {
-          return simpleKeyboardActionNames.includes(
-            value as SimpleKeyboardActionType,
-          )
-            ? {
-                actionId: value as SimpleKeyboardActionType,
-                exitCursorlessMode: false,
-              }
-            : undefined;
-        }
-        return simpleKeyboardActionNames.includes(
-          value.actionId as SimpleKeyboardActionType,
-        )
-          ? (value as SimpleKeyboardActionDescriptor)
-          : undefined;
-      },
+    simpleAction: config.getTokenKeyMap("simpleAction", "action", (value) =>
+      transformActionDescriptor(value, simpleKeyboardActionNames),
     ),
-    wrap: config.getTokenKeyMap(
-      "wrap",
-      "action",
-      (value: PolymorphicKeyboardActionDescriptor) => {
-        if (isString(value)) {
-          return value === "wrap"
-            ? { actionId: value as "wrap", exitCursorlessMode: false }
-            : undefined;
-        }
-        return value.actionId === "wrap"
-          ? (value as SpecificKeyboardActionDescriptor<"wrap">)
-          : undefined;
-      },
+    wrap: config.getTokenKeyMap("wrap", "action", (value) =>
+      transformActionDescriptor(value, ["wrap"]),
     ),
 
     // misc config section
@@ -109,4 +79,35 @@ export function getTokenTypeKeyMaps(
       ]),
     ),
   };
+}
+
+/**
+ * Given an action config entry, returns a fully specified action descriptor, or
+ * undefined if the action name is not included in {@link actionNames}.
+ *
+ * @param value The action descriptor to transform, or reject
+ * @param actionNames The names of the actions to accept
+ * @returns A fully specified action descriptor, or undefined if the action name
+ * is not included in {@link actionNames}
+ */
+function transformActionDescriptor<T extends KeyboardActionType>(
+  value: PolymorphicKeyboardActionDescriptor,
+  actionNames: T[],
+): SpecificKeyboardActionDescriptor<T> | undefined {
+  if (isString(value)) {
+    return isIncluded(value, actionNames)
+      ? {
+          actionId: value,
+          exitCursorlessMode: false,
+        }
+      : undefined;
+  }
+
+  return isIncluded(value.actionId, actionNames)
+    ? (value as SpecificKeyboardActionDescriptor<T>)
+    : undefined;
+}
+
+function isIncluded<T extends string>(value: string, values: T[]): value is T {
+  return values.includes(value as T);
 }

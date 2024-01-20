@@ -76,13 +76,7 @@ export class KeyboardCommandHandler {
     this.targeted.performSimpleActionOnTarget(actionDescriptor);
   }
 
-  performWrapActionOnTarget({
-    actionDescriptor,
-    delimiter,
-  }: {
-    actionDescriptor: SpecificKeyboardActionDescriptor<"wrap">;
-    delimiter: SurroundingPairName;
-  }) {
+  performWrapActionOnTarget({ actionDescriptor, delimiter }: WrapActionArg) {
     const [left, right] = surroundingPairsDelimiters[delimiter]!;
     this.targeted.performActionOnTarget(
       (target) => ({
@@ -91,7 +85,7 @@ export class KeyboardCommandHandler {
         left,
         right,
       }),
-      { exitCursorlessMode: actionDescriptor.exitCursorlessMode },
+      actionDescriptor,
     );
   }
 
@@ -106,4 +100,9 @@ interface DecoratedMarkArg {
     shape?: HatShape;
   };
   mode: "replace" | "extend" | "append";
+}
+
+interface WrapActionArg {
+  actionDescriptor: SpecificKeyboardActionDescriptor<"wrap">;
+  delimiter: SurroundingPairName;
 }
