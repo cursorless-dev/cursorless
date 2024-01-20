@@ -9,4 +9,6 @@ const { supported } = ScopeSupportFacetLevel;
 
 export const shellscriptScopeSupport: LanguageScopeSupportFacetMap = {
   command: supported,
+  "name.assignment": supported,
+  "value.assignment": supported,
 };
