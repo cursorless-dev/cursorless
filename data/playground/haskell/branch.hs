@@ -25,3 +25,10 @@ fromEither f g x = case x of
     Right r -> g r
 
 someFunction x (y1 : y2 : ys) (a, b, (c, [d])) = undefined
+
+compose :: (a -> b) -> (b -> c) -> (a -> c)
+compose f g x = g (f x)
+
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith f [] [] = []
+zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
