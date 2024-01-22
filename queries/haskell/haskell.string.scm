@@ -1,0 +1,2 @@
+;; string: string
+(string) @string
