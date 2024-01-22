@@ -8,7 +8,7 @@ if (argv.length !== 3) {
 }
 
 const scopeType = argv[2];
-const scopeTypes = ["namedFunction", "functionName"];
+const scopeTypes = ["name.function", "namedFunction", "functionName"];
 
 if (!scopeTypes.includes(scopeType)) {
   throw new Error(
