@@ -24,6 +24,12 @@ tag: user.cursorless
 <user.cursorless_wrapper_paired_delimiter> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.private_cursorless_wrap_with_paired_delimiter(cursorless_wrap_action, cursorless_target, cursorless_wrapper_paired_delimiter)
 
+empty <user.cursorless_wrapper_paired_delimiter>: cursorless_wrapper_paired_delimiter
+
+<user.cursorless_wrapper_paired_delimiter>:
+    insert(cursorless_wrapper_paired_delimiter)
+    key(left)
+
 {user.cursorless_insert_snippet_action} <user.cursorless_insertion_snippet>:
     user.private_cursorless_insert_snippet(cursorless_insertion_snippet)
 
