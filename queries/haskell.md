@@ -1,5 +1,80 @@
 # Haskell Support
 
+## Roadmap
+
+- [ ] `argumentOrParameter`:
+  - [x] `argument.actual`
+  - [ ] `argument.actual.iteration`
+  - [x] `argument.formal`
+  - [x] `argument.formal.iteration`
+- [ ] `anonymousFunction`
+- [ ] `branch`
+  - [x] `branch.match`
+  - [x] `branch.match.iteration`
+  - [ ] `branch.if`
+  - [ ] `branch.if.iteration`
+  - [ ] `branch.ternary`
+- [ ] `class`
+- [ ] `className`
+- [ ] `collectionItem`
+- [ ] `collectionKey`
+  - [ ] `key.mapPair`
+  - [ ] `key.mapPair.iteration`
+- [ ] `comment`
+  - [ ] `comment.line`
+  - [ ] `comment.block`
+- [ ] `functionCall`
+  - [x] `functionCall`
+  - [ ] `functionCall.constructor`
+- [ ] `functionCallee`
+  - [x] `functionCallee`
+  - [ ] `functionCallee.constructor`
+- [x] `functionName`
+- [ ] `ifStatement`
+- [ ] `list`
+- [ ] `map`
+- [ ] `name`
+  - [ ] `name.assignment`
+  - [ ] `name.assignment.pattern`
+  - [ ] `name.function`
+  - [ ] `name.class`
+  - [ ] `name.field`
+- [ ] `namedFunction`
+  - [x] `namedFunction`
+  - [ ] `namedFunction.method`
+- [ ] `statement`
+  - [ ] `statement`
+  - [ ] `statement.iteration.document`
+  - [ ] `statement.iteration.block`
+- [ ] `string`
+- [ ] `type`
+  - [ ] `type.adt`
+  - [ ] `type.alias`
+  - [ ] `type.annotation`
+  - [ ] `type.class`
+  - [ ] `type.classInstance`
+  - [ ] `type.constraint`
+  - [ ] `type.dataFamily`
+  - [ ] `type.dataInstance`
+  - [ ] `type.field`
+  - [ ] `type.foreignExport`
+  - [ ] `type.foreignImport`
+  - [ ] `type.function`
+  - [ ] `type.gadt`
+  - [ ] `type.newtype`
+  - [ ] `type.typeFamily`
+  - [ ] `type.typeInstance`
+- [ ] `value`
+  - [ ] `value.assignment`
+  - [ ] `value.field`
+  - [ ] `value.mapPair`
+  - [ ] `value.mapPair.iteration`
+  - [ ] `value.return`
+- [ ] `condition`
+  - [ ] `condition.if`
+  - [ ] `condition.ternary`
+  - [ ] `condition.match`
+
 ## Node Types
 
 - `adt`
