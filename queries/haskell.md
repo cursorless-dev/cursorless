@@ -10,7 +10,7 @@ Adds support for the Haskell programming language.
     - #2195
   - [x] `argument.formal`
   - [x] `argument.formal.iteration`
-- [ ] `anonymousFunction`
+- [x] `anonymousFunction`
 - [ ] `branch`
   - [x] `branch.match`
   - [x] `branch.match.iteration`
