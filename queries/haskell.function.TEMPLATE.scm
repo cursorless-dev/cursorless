@@ -31,13 +31,13 @@
         (
           (signature
                 name: (variable) @_start_name
-          )
+          ) @namedFunction.start
           (#not-eq? @_previous @_start_name)
         )
         (
           (function
               name: (variable) @_start_name
-          )
+          ) @namedFunction.start
           (#not-eq? @_previous @_start_name)
         )
       ]
@@ -47,7 +47,7 @@
       (
         (function
             name: (variable) @_end_name
-        )
+        ) @namedFunction.end
         (#eq? @_start_name @_end_name)
       )
     )
@@ -87,12 +87,12 @@
         (
           (signature
                 name: (variable) @_start_name
-          )
+          ) @namedFunction.start
         )
         (
           (function
               name: (variable) @_start_name
-          )
+          ) @namedFunction.start
         )
       ]
       .
@@ -101,7 +101,7 @@
       (
         (function
             name: (variable) @_end_name
-        )
+        ) @namedFunction.end
         (#eq? @_start_name @_end_name)
       )
     )
@@ -170,13 +170,13 @@
     (
       (signature
             name: (variable) @_start_name
-      )
+      ) @namedFunction.start
       (#not-eq? @_previous @_start_name)
     )
     (
       (function
           name: (variable) @_start_name
-      )
+      ) @namedFunction.start
       (#not-eq? @_previous @_start_name)
     )
   ]
@@ -186,7 +186,7 @@
   (
     (function
         name: (variable) @_end_name
-    )
+    ) @namedFunction.end
     (#eq? @_start_name @_end_name)
   )
   .
@@ -210,13 +210,13 @@
     (
       (signature
             name: (variable) @_start_name
-      )
+      ) @namedFunction.start
       (#not-eq? @_previous @_start_name)
     )
     (
       (function
           name: (variable) @_start_name
-      )
+      ) @namedFunction.start
       (#not-eq? @_previous @_start_name)
     )
   ]
@@ -226,7 +226,7 @@
   (
     (function
         name: (variable) @_end_name
-    )
+    ) @namedFunction.end
     (#eq? @_start_name @_end_name)
   )
   .
@@ -250,12 +250,12 @@
     (
       (signature
             name: (variable) @_start_name
-      )
+      ) @namedFunction.start
     )
     (
       (function
           name: (variable) @_start_name
-      )
+      ) @namedFunction.start
     )
   ]
   .
@@ -264,7 +264,7 @@
   (
     (function
         name: (variable) @_end_name
-    )
+    ) @namedFunction.end
     (#eq? @_start_name @_end_name)
   )
   .
@@ -289,12 +289,12 @@
         (
           (signature
                 name: (variable) @_start_name
-          )
+          ) @namedFunction.start
         )
         (
           (function
               name: (variable) @_start_name
-          )
+          ) @namedFunction.start
         )
       ]
       .
@@ -303,7 +303,7 @@
       (
         (function
             name: (variable) @_end_name
-        )
+        ) @namedFunction.end
         (#eq? @_start_name @_end_name)
       )
     )
@@ -373,13 +373,13 @@
       (
         (signature
               name: (variable) @_start_name
-        )
+        ) @namedFunction.start
         (#not-eq? @_previous @_start_name)
       )
       (
         (function
             name: (variable) @_start_name
-        )
+        ) @namedFunction.start
         (#not-eq? @_previous @_start_name)
       )
     ]
@@ -389,7 +389,7 @@
     (
       (function
           name: (variable) @_end_name
-      )
+      ) @namedFunction.end
       (#eq? @_start_name @_end_name)
     )
   )
@@ -419,12 +419,12 @@
     (
       (signature
             name: (variable) @_start_name
-      )
+      ) @namedFunction.start
     )
     (
       (function
           name: (variable) @_start_name
-      )
+      ) @namedFunction.start
     )
   ]
   .
@@ -433,7 +433,7 @@
   (
     (function
         name: (variable) @_end_name
-    )
+    ) @namedFunction.end
     (#eq? @_start_name @_end_name)
   )
   .
