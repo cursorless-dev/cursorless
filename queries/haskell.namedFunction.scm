@@ -1,4 +1,4 @@
-;; function declaration
+;; namedFunction: function
 (
   ;; previous declaration
   [

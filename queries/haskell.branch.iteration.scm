@@ -1,4 +1,4 @@
-;; function declaration
+;; branch.iteration: function
 (
   ;; previous declaration
   [
