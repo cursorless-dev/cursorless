@@ -36,7 +36,7 @@
 - [ ] `name`
   - [ ] `name.assignment`
   - [ ] `name.assignment.pattern`
-  - [ ] `name.function`
+  - [x] `name.function`
   - [ ] `name.class`
   - [ ] `name.field`
 - [ ] `namedFunction`
