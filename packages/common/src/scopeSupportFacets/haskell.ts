@@ -50,6 +50,8 @@ export const haskellScopeSupport: LanguageScopeSupportFacetMap = {
   "string.singleLine": unsupported,
   "string.multiLine": notApplicable,
 
+  "branch.match": supported,
+  "branch.match.iteration": supported,
   "branch.if": unsupported,
   "branch.if.iteration": unsupported,
   "branch.try": notApplicable,
