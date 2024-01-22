@@ -39,8 +39,8 @@ export const haskellScopeSupport: LanguageScopeSupportFacetMap = {
   functionCallee: unsupported,
   "functionCallee.constructor": unsupported,
 
-  "argument.actual": unsupported,
-  "argument.actual.iteration": unsupported,
+  "argument.actual": supported,
+  "argument.actual.iteration": supported,
   "argument.formal": unsupported,
   "argument.formal.iteration": unsupported,
 
