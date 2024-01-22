@@ -160,11 +160,20 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "string",
   },
 
+  "branch.match": {
+    description: "A pattern match branch",
+    scopeType: "branch",
+  },
+  "branch.match.iteration": {
+    description:
+      "Iteration scope for pattern match branches; should be the entire branch",
+    scopeType: "branch",
+    isIteration: true,
+  },
   "branch.if": {
     description: "An if/elif/else branch",
     scopeType: "branch",
   },
-
   "branch.if.iteration": {
     description:
       "Iteration scope for if/elif/else branch; should be the entire if-else statement",

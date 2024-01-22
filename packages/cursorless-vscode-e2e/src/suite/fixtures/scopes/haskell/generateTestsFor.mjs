@@ -8,7 +8,12 @@ if (argv.length !== 3) {
 }
 
 const scopeType = argv[2];
-const scopeTypes = ["name.function", "namedFunction", "functionName"];
+const scopeTypes = [
+  "branch.match.iteration",
+  "name.function",
+  "namedFunction",
+  "functionName",
+];
 
 if (!scopeTypes.includes(scopeType)) {
   throw new Error(
