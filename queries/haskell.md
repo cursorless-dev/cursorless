@@ -34,7 +34,7 @@ Adds support for the Haskell programming language.
   - [ ] `functionCallee.constructor`
 - [x] `functionName`
 - [ ] `ifStatement`
-- [ ] `list`
+- [x] `list`
 - [ ] `map`
 - [ ] `name`
   - [ ] `name.assignment`
@@ -49,7 +49,7 @@ Adds support for the Haskell programming language.
   - [ ] `statement`
   - [ ] `statement.iteration.document`
   - [ ] `statement.iteration.block`
-- [ ] `string`
+- [x] `string`
 - [ ] `type`
   - [ ] `class`
   - [ ] `class.instance`
