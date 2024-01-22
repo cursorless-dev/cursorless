@@ -15,6 +15,6 @@ foo = bar
 
 -- RFC 3: What should "condition" match?
 bap :: Int -> Int
-bap | 1 == 1, 2 == 2 = x
+bap | 1 == 1, 2 == 2 = undefined
 --   🎉 `1 == 1` and `2 == 2`
 --   👀 `1 == 1, 2 == 2`
