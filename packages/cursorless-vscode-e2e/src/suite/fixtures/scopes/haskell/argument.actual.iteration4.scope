@@ -1,0 +1,69 @@
+compare :: Int -> Int -> Ordering
+compare x y
+    | x <  y = LT
+    | x == y = EQ
+    | x  > y = GT
+
+---
+
+[#1 Range] =
+[#1 Domain] = 1:0-4:17
+0| compare :: Int -> Int -> Ordering
+
+1| compare x y
+  >-----------
+2|     | x <  y = LT
+   -----------------
+3|     | x == y = EQ
+   -----------------
+4|     | x  > y = GT
+   -----------------<
+5|
+
+
+
+[#2 Range] =
+[#2 Domain] = 2:6-2:17
+0| compare :: Int -> Int -> Ordering
+
+1| compare x y
+
+2|     | x <  y = LT
+        >-----------<
+3|     | x == y = EQ
+
+4|     | x  > y = GT
+
+5|
+
+
+
+[#3 Range] =
+[#3 Domain] = 3:6-3:17
+0| compare :: Int -> Int -> Ordering
+
+1| compare x y
+
+2|     | x <  y = LT
+
+3|     | x == y = EQ
+        >-----------<
+4|     | x  > y = GT
+
+5|
+
+
+
+[#4 Range] =
+[#4 Domain] = 4:6-4:17
+0| compare :: Int -> Int -> Ordering
+
+1| compare x y
+
+2|     | x <  y = LT
+
+3|     | x == y = EQ
+
+4|     | x  > y = GT
+        >-----------<
+5|

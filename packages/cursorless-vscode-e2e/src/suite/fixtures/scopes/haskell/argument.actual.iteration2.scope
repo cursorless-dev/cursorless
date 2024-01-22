@@ -1,0 +1,46 @@
+abs :: Int -> Int
+abs x
+    | x >= 0    =  x
+    | otherwise = -x
+
+---
+
+[#1 Range] =
+[#1 Domain] = 1:0-3:20
+0| abs :: Int -> Int
+
+1| abs x
+  >-----
+2|     | x >= 0    =  x
+   --------------------
+3|     | otherwise = -x
+   --------------------<
+4|
+
+
+
+[#2 Range] =
+[#2 Domain] = 2:6-2:20
+0| abs :: Int -> Int
+
+1| abs x
+
+2|     | x >= 0    =  x
+        >--------------<
+3|     | otherwise = -x
+
+4|
+
+
+
+[#3 Range] =
+[#3 Domain] = 3:6-3:20
+0| abs :: Int -> Int
+
+1| abs x
+
+2|     | x >= 0    =  x
+
+3|     | otherwise = -x
+        >--------------<
+4|

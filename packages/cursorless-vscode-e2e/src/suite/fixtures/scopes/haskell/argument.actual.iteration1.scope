@@ -5,8 +5,7 @@ fib n = fib (n-1) + fib (n-2)
 
 ---
 
-[#1 Content] =
-[#1 Removal] =
+[#1 Range] =
 [#1 Domain] = 1:0-1:9
 0| fib :: Integer -> Integer
 
@@ -19,11 +18,8 @@ fib n = fib (n-1) + fib (n-2)
 4|
 
 
-[#1 Insertion delimiter] = "\n"
 
-
-[#2 Content] =
-[#2 Removal] =
+[#2 Range] =
 [#2 Domain] = 2:0-2:9
 0| fib :: Integer -> Integer
 
@@ -36,11 +32,8 @@ fib n = fib (n-1) + fib (n-2)
 4|
 
 
-[#2 Insertion delimiter] = "\n"
 
-
-[#3 Content] =
-[#3 Removal] =
+[#3 Range] =
 [#3 Domain] = 3:0-3:29
 0| fib :: Integer -> Integer
 
@@ -51,6 +44,3 @@ fib n = fib (n-1) + fib (n-2)
 3| fib n = fib (n-1) + fib (n-2)
   >-----------------------------<
 4|
-
-
-[#3 Insertion delimiter] = "\n"
