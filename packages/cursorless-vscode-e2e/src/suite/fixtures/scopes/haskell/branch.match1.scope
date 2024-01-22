@@ -1,0 +1,56 @@
+fib :: Integer -> Integer
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 1:0-1:9
+0| fib :: Integer -> Integer
+
+1| fib 0 = 0
+  >---------<
+2| fib 1 = 1
+
+3| fib n = fib (n-1) + fib (n-2)
+
+4|
+
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 2:0-2:9
+0| fib :: Integer -> Integer
+
+1| fib 0 = 0
+
+2| fib 1 = 1
+  >---------<
+3| fib n = fib (n-1) + fib (n-2)
+
+4|
+
+
+[#2 Insertion delimiter] = "\n"
+
+
+[#3 Content] =
+[#3 Removal] =
+[#3 Domain] = 3:0-3:29
+0| fib :: Integer -> Integer
+
+1| fib 0 = 0
+
+2| fib 1 = 1
+
+3| fib n = fib (n-1) + fib (n-2)
+  >-----------------------------<
+4|
+
+
+[#3 Insertion delimiter] = "\n"
