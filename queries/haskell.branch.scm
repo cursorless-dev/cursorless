@@ -1,7 +1,7 @@
-;; function definitions
+;; branch: function
 (function) @branch
 
-;; guard equations
+;; branch: guard_equation
 (guard_equation
   [
     ;; ... with a SINGLE guard
@@ -22,7 +22,7 @@
   (_) @branch.end
 ) @branch.removal
 
-;; case expressions
+;; branch: exp_case
 (exp_case
   (alts
     (alt) @branch

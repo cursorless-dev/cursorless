@@ -1,4 +1,4 @@
-;; function declaration
+;; functionName: function
 (
   ;; previous declaration
   [
