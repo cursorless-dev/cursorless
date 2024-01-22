@@ -23,3 +23,5 @@ fromEither :: (a -> c) -> (b -> c) -> Either a b -> c
 fromEither f g x = case x of
     Left  l -> f l
     Right r -> g r
+
+someFunction x (y1 : y2 : ys) (a, b, (c, [d])) = undefined
