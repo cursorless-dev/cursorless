@@ -18,27 +18,27 @@
     ;; ... without SIGNATURE and with SINGLE declaration
     (
       (function
-          name: (variable) @_start_name @_end_name
+          name: (variable) @functionName @name @_end_name
           ;; The annotation `@_end_name` is REQUIRED because assertions are
-          ;; hoisted, which means that the assertion `(#eq? @_start_name @_end_name)`
+          ;; hoisted, which means that the assertion `(#eq? @name @_end_name)`
           ;; is ALWAYS evaluated, so if we don't set `@_end_name`, it fails.
-      ) @namedFunction
-      (#not-eq? @_previous @_start_name)
+      ) @namedFunction @functionName.domain @name.domain
+      (#not-eq? @_previous @name)
     )
     ;; ... with SIGNATURE and/or MULTIPLE declarations
     (
       [
         (
           (signature
-                name: (variable) @_start_name
-          )
-          (#not-eq? @_previous @_start_name)
+                name: (variable) @functionName @name
+          ) @namedFunction.start @functionName.domain.start @name.domain.start
+          (#not-eq? @_previous @name)
         )
         (
           (function
-              name: (variable) @_start_name
-          )
-          (#not-eq? @_previous @_start_name)
+              name: (variable) @functionName @name
+          ) @namedFunction.start @functionName.domain.start @name.domain.start
+          (#not-eq? @_previous @name)
         )
       ]
       .
@@ -47,8 +47,8 @@
       (
         (function
             name: (variable) @_end_name
-        )
-        (#eq? @_start_name @_end_name)
+        ) @namedFunction.end @functionName.domain.end @name.domain.end
+        (#eq? @name @_end_name)
       )
     )
   ]
@@ -63,7 +63,7 @@
       (function
         name: (variable) @_next
       )
-      (#not-eq? @_next @_start_name)
+      (#not-eq? @_next @name)
     )
   ]
 )
@@ -75,24 +75,24 @@
     ;; ... without SIGNATURE and with SINGLE declaration
     (
       (function
-          name: (variable) @_start_name @_end_name
+          name: (variable) @functionName @name @_end_name
           ;; The annotation `@_end_name` is REQUIRED because assertions are
-          ;; hoisted, which means that the assertion `(#eq? @_start_name @_end_name)`
+          ;; hoisted, which means that the assertion `(#eq? @name @_end_name)`
           ;; is ALWAYS evaluated, so if we don't set `@_end_name`, it fails.
-      ) @namedFunction
+      ) @namedFunction @functionName.domain @name.domain
     )
     ;; ... with SIGNATURE and/or MULTIPLE declarations
     (
       [
         (
           (signature
-                name: (variable) @_start_name
-          )
+                name: (variable) @functionName @name
+          ) @namedFunction.start @functionName.domain.start @name.domain.start
         )
         (
           (function
-              name: (variable) @_start_name
-          )
+              name: (variable) @functionName @name
+          ) @namedFunction.start @functionName.domain.start @name.domain.start
         )
       ]
       .
@@ -101,8 +101,8 @@
       (
         (function
             name: (variable) @_end_name
-        )
-        (#eq? @_start_name @_end_name)
+        ) @namedFunction.end @functionName.domain.end @name.domain.end
+        (#eq? @name @_end_name)
       )
     )
   ]
@@ -117,7 +117,7 @@
       (function
         name: (variable) @_next
       )
-      (#not-eq? @_next @_start_name)
+      (#not-eq? @_next @name)
     )
   ]
 )
@@ -140,12 +140,12 @@
   ;; function declaration
   (
     (function
-        name: (variable) @_start_name @_end_name
+        name: (variable) @functionName @name @_end_name
         ;; The annotation `@_end_name` is REQUIRED because assertions are
-        ;; hoisted, which means that the assertion `(#eq? @_start_name @_end_name)`
+        ;; hoisted, which means that the assertion `(#eq? @name @_end_name)`
         ;; is ALWAYS evaluated, so if we don't set `@_end_name`, it fails.
-    ) @namedFunction
-    (#not-eq? @_previous @_start_name)
+    ) @namedFunction @functionName.domain @name.domain
+    (#not-eq? @_previous @name)
   )
   .
 )
@@ -169,15 +169,15 @@
   [
     (
       (signature
-            name: (variable) @_start_name
-      )
-      (#not-eq? @_previous @_start_name)
+            name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
     )
     (
       (function
-          name: (variable) @_start_name
-      )
-      (#not-eq? @_previous @_start_name)
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
     )
   ]
   .
@@ -186,8 +186,8 @@
   (
     (function
         name: (variable) @_end_name
-    )
-    (#eq? @_start_name @_end_name)
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
   )
   .
 )
@@ -209,15 +209,15 @@
   [
     (
       (signature
-            name: (variable) @_start_name
-      )
-      (#not-eq? @_previous @_start_name)
+            name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
     )
     (
       (function
-          name: (variable) @_start_name
-      )
-      (#not-eq? @_previous @_start_name)
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
+      (#not-eq? @_previous @name)
     )
   ]
   .
@@ -226,8 +226,8 @@
   (
     (function
         name: (variable) @_end_name
-    )
-    (#eq? @_start_name @_end_name)
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
   )
   .
 )
@@ -237,8 +237,8 @@
   .
   ;; function declaration
   (function
-      name: (variable) @_start_name
-  ) @namedFunction
+      name: (variable) @functionName @name
+  ) @namedFunction @functionName.domain @name.domain
   .
 )
 ;; ... as the ONLY in the file
@@ -249,13 +249,13 @@
   [
     (
       (signature
-            name: (variable) @_start_name
-      )
+            name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
     )
     (
       (function
-          name: (variable) @_start_name
-      )
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
     )
   ]
   .
@@ -264,8 +264,8 @@
   (
     (function
         name: (variable) @_end_name
-    )
-    (#eq? @_start_name @_end_name)
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
   )
   .
 )
@@ -277,24 +277,24 @@
     ;; ... without SIGNATURE and with SINGLE declaration
     (
       (function
-          name: (variable) @_start_name @_end_name
+          name: (variable) @functionName @name @_end_name
           ;; The annotation `@_end_name` is REQUIRED because assertions are
-          ;; hoisted, which means that the assertion `(#eq? @_start_name @_end_name)`
+          ;; hoisted, which means that the assertion `(#eq? @name @_end_name)`
           ;; is ALWAYS evaluated, so if we don't set `@_end_name`, it fails.
-      ) @namedFunction
+      ) @namedFunction @functionName.domain @name.domain
     )
     ;; ... with SIGNATURE and/or MULTIPLE declarations
     (
       [
         (
           (signature
-                name: (variable) @_start_name
-          )
+                name: (variable) @functionName @name
+          ) @namedFunction.start @functionName.domain.start @name.domain.start
         )
         (
           (function
-              name: (variable) @_start_name
-          )
+              name: (variable) @functionName @name
+          ) @namedFunction.start @functionName.domain.start @name.domain.start
         )
       ]
       .
@@ -303,8 +303,8 @@
       (
         (function
             name: (variable) @_end_name
-        )
-        (#eq? @_start_name @_end_name)
+        ) @namedFunction.end @functionName.domain.end @name.domain.end
+        (#eq? @name @_end_name)
       )
     )
   ]
@@ -319,7 +319,7 @@
       (function
         name: (variable) @_next
       )
-      (#not-eq? @_next @_start_name)
+      (#not-eq? @_next @name)
     )
   ]
 )
@@ -342,12 +342,12 @@
   ;; function declaration
   (
     (function
-        name: (variable) @_start_name @_end_name
+        name: (variable) @functionName @name @_end_name
         ;; The annotation `@_end_name` is REQUIRED because assertions are
-        ;; hoisted, which means that the assertion `(#eq? @_start_name @_end_name)`
+        ;; hoisted, which means that the assertion `(#eq? @name @_end_name)`
         ;; is ALWAYS evaluated, so if we don't set `@_end_name`, it fails.
-    ) @namedFunction
-    (#not-eq? @_previous @_start_name)
+    ) @namedFunction @functionName.domain @name.domain
+    (#not-eq? @_previous @name)
   )
   .
 )
@@ -372,15 +372,15 @@
     [
       (
         (signature
-              name: (variable) @_start_name
-        )
-        (#not-eq? @_previous @_start_name)
+              name: (variable) @functionName @name
+        ) @namedFunction.start @functionName.domain.start @name.domain.start
+        (#not-eq? @_previous @name)
       )
       (
         (function
-            name: (variable) @_start_name
-        )
-        (#not-eq? @_previous @_start_name)
+            name: (variable) @functionName @name
+        ) @namedFunction.start @functionName.domain.start @name.domain.start
+        (#not-eq? @_previous @name)
       )
     ]
     .
@@ -389,8 +389,8 @@
     (
       (function
           name: (variable) @_end_name
-      )
-      (#eq? @_start_name @_end_name)
+      ) @namedFunction.end @functionName.domain.end @name.domain.end
+      (#eq? @name @_end_name)
     )
   )
   .
@@ -402,11 +402,11 @@
   ;; function declaration
   (
     (function
-        name: (variable) @_start_name @_end_name
+        name: (variable) @functionName @name @_end_name
         ;; The annotation `@_end_name` is REQUIRED because assertions are
-        ;; hoisted, which means that the assertion `(#eq? @_start_name @_end_name)`
+        ;; hoisted, which means that the assertion `(#eq? @name @_end_name)`
         ;; is ALWAYS evaluated, so if we don't set `@_end_name`, it fails.
-    ) @namedFunction
+    ) @namedFunction @functionName.domain @name.domain
   )
   .
 )
@@ -418,13 +418,13 @@
   [
     (
       (signature
-            name: (variable) @_start_name
-      )
+            name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
     )
     (
       (function
-          name: (variable) @_start_name
-      )
+          name: (variable) @functionName @name
+      ) @namedFunction.start @functionName.domain.start @name.domain.start
     )
   ]
   .
@@ -433,8 +433,8 @@
   (
     (function
         name: (variable) @_end_name
-    )
-    (#eq? @_start_name @_end_name)
+    ) @namedFunction.end @functionName.domain.end @name.domain.end
+    (#eq? @name @_end_name)
   )
   .
 )
