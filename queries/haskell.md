@@ -1,10 +1,13 @@
-# Haskell Support
+Adds support for the Haskell programming language.
 
-## Roadmap
+### Roadmap
 
 - [ ] `argumentOrParameter`:
   - [x] `argument.actual`
   - [ ] `argument.actual.iteration`
+        Blocked on one of:
+    - #2177
+    - #2195
   - [x] `argument.formal`
   - [x] `argument.formal.iteration`
 - [ ] `anonymousFunction`
@@ -13,9 +16,9 @@
   - [x] `branch.match.iteration`
   - [ ] `branch.if`
   - [ ] `branch.if.iteration`
+  - [ ] `branch.guard`
+  - [ ] `branch.guard.iteration`
   - [ ] `branch.ternary`
-- [ ] `class`
-- [ ] `className`
 - [ ] `collectionItem`
 - [ ] `collectionKey`
   - [ ] `key.mapPair`
@@ -48,11 +51,12 @@
   - [ ] `statement.iteration.block`
 - [ ] `string`
 - [ ] `type`
+  - [ ] `class`
+  - [ ] `class.instance`
+  - [ ] `className`
   - [ ] `type.adt`
   - [ ] `type.alias`
   - [ ] `type.annotation`
-  - [ ] `type.class`
-  - [ ] `type.classInstance`
   - [ ] `type.constraint`
   - [ ] `type.dataFamily`
   - [ ] `type.dataInstance`
@@ -75,7 +79,24 @@
   - [ ] `condition.ternary`
   - [ ] `condition.match`
 
-## Node Types
+---
+
+### Warning
+
+This is work in progress. In the early stages, I'll be messy.
+
+- The commits will be uninformative.
+- The branch may receive **force pushes** at any point!
+
+---
+
+### Discussion and RFCs
+
+See #2186.
+
+---
+
+### Haskell Node Types
 
 - `adt`
 - `all_names`
@@ -260,36 +281,3 @@
 - `via`
 - `where`
 - `wildcard`
-
-## Simple Scope Types
-
-```js
-export const simpleScopeTypeTypes = [
-  "argumentOrParameter",
-  "anonymousFunction",
-  "attribute",
-  "branch",
-  "class",
-  "className",
-  "collectionItem",
-  "collectionKey",
-  "comment",
-  "functionCall",
-  "functionCallee",
-  "functionName",
-  "ifStatement",
-  "instance",
-  "list",
-  "map",
-  "name",
-  "namedFunction",
-  "regularExpression",
-  "statement",
-  "string",
-  "type",
-  "value",
-  "condition",
-  "selector",
-  "unit",
-] as const;
-```
