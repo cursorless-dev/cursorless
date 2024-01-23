@@ -1,0 +1,45 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: break comment sit
+  action:
+    name: breakLine
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: i}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: comment}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    [
+      0,
+      1, // interesting
+      2
+    ]
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.i:
+      start: {line: 2, character: 8}
+      end: {line: 2, character: 19}
+finalState:
+  documentContents: |-
+    [
+      0,
+      1,
+      // interesting
+      2
+    ]
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 3, character: 2}
+        end: {line: 3, character: 16}
+      isReversed: false
+      hasExplicitRange: true

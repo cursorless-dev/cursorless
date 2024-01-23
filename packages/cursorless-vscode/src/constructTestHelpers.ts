@@ -5,13 +5,14 @@ import {
   HatTokenMap,
   IDE,
   NormalizedIDE,
+  ScopeProvider,
   SerializedMarks,
+  StoredTargetKey,
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
 import {
-  StoredTargetKey,
   StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
@@ -21,6 +22,7 @@ import * as vscode from "vscode";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 
 export function constructTestHelpers(
   commandServerApi: CommandServerApi | null,
@@ -28,6 +30,8 @@ export function constructTestHelpers(
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
+  fileSystem: VscodeFileSystem,
+  scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
@@ -35,6 +39,7 @@ export function constructTestHelpers(
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,
+    scopeProvider,
 
     toVscodeEditor,
 
@@ -60,6 +65,9 @@ export function constructTestHelpers(
         forceRealClipboard ? vscodeIDE.clipboard : undefined,
       );
     },
+
+    cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
+    cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
     setStoredTarget(
       editor: vscode.TextEditor,

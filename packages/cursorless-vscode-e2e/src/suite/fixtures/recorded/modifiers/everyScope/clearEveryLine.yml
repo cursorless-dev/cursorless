@@ -1,12 +1,14 @@
 languageId: plaintext
 command:
-  spokenForm: change every line
+  spokenForm: change every line file
   version: 3
   targets:
     - type: primitive
       modifiers:
         - type: everyScope
           scopeType: {type: line}
+        - type: containingScope
+          scopeType: {type: document}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
 initialState:

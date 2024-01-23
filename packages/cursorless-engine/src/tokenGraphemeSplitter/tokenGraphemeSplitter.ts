@@ -8,7 +8,7 @@ import {
 import { matchAll } from "../util/regex";
 
 /**
- * A list of all symbols that are speakable by default in knausj.
+ * A list of all symbols that are speakable by default in community.
  */
 const KNOWN_SYMBOLS = [
   "!",

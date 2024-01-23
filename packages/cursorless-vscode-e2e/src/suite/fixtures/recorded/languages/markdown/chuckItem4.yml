@@ -1,0 +1,28 @@
+languageId: markdown
+command:
+  version: 6
+  spokenForm: chuck item
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    - values
+        - 0
+        - 2
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    - values
+        - 0
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}

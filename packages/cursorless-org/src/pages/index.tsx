@@ -2,7 +2,7 @@ import { EmbeddedVideo } from "../components/embedded-video";
 import Head from "next/head";
 import Button from "../components/Button";
 import { TITLE, YOUTUBE_SLUG } from "../components/constants";
-import Social from "../components/Social";
+import IndexSocial from "../components/IndexSocial";
 import Logo from "./logo.svg";
 
 // See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
@@ -19,9 +19,9 @@ export default function LandingPage() {
     <>
       <Head>
         <title>{TITLE}</title>
-        <Social />
+        <IndexSocial />
       </Head>
-      <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 font-mono font-bold tracking-[0.18em] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex ">
+      <main className="items-center justify-center text-salmon-900 dark:text-salmon-100 font-monoWide font-bold tracking-[0.18em] overflow-auto fixed top-0 bottom-0 left-0 right-0 p-2 sm:p-0 sm:flex ">
         {/*
         Note that the font scale gets applied to this element so that all nested elements can use
         `em` units and will automatically be scaled.

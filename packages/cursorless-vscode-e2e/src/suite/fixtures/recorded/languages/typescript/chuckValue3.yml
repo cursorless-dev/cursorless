@@ -1,0 +1,43 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: chuck value
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    const ddd: number = 0, eee: number = 0;
+    let fff: number = 0, ggg: number = 0;
+    export const mmm: number = 0, nnn: number = 0;
+    export let ooo: number = 0, ppp: number = 0;
+  selections:
+    - anchor: {line: 0, character: 38}
+      active: {line: 0, character: 38}
+    - anchor: {line: 1, character: 36}
+      active: {line: 1, character: 36}
+    - anchor: {line: 2, character: 45}
+      active: {line: 2, character: 45}
+    - anchor: {line: 3, character: 43}
+      active: {line: 3, character: 43}
+  marks: {}
+finalState:
+  documentContents: |-
+    const ddd: number = 0, eee: number;
+    let fff: number = 0, ggg: number;
+    export const mmm: number = 0, nnn: number;
+    export let ooo: number = 0, ppp: number;
+  selections:
+    - anchor: {line: 0, character: 34}
+      active: {line: 0, character: 34}
+    - anchor: {line: 1, character: 32}
+      active: {line: 1, character: 32}
+    - anchor: {line: 2, character: 41}
+      active: {line: 2, character: 41}
+    - anchor: {line: 3, character: 39}
+      active: {line: 3, character: 39}

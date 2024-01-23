@@ -1,3 +1,10 @@
+import mdx from "@next/mdx";
+const withMDX = mdx({
+  options: {
+    providerImportSource: "@mdx-js/react",
+  },
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack(config) {
@@ -9,7 +16,10 @@ const nextConfig = {
 
     return config;
   },
+  experimental: {
+    mdxRs: true,
+  },
   reactStrictMode: true,
 };
 
-module.exports = nextConfig;
+export default withMDX(nextConfig);

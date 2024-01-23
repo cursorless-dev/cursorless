@@ -5,6 +5,7 @@ import { ActionType } from "@cursorless/common";
  * if the action has no spoken form.
  */
 export const actions = {
+  breakLine: "break",
   scrollToBottom: "bottom",
   toggleLineBreakpoint: "break point",
   cutToClipboard: "carve",
@@ -37,6 +38,7 @@ export const actions = {
   showReferences: "reference",
   rename: "rename",
   reverseTargets: "reverse",
+  findInDocument: "scout",
   findInWorkspace: "scout all",
   randomizeTargets: "shuffle",
   generateSnippet: "snippet make",
@@ -53,7 +55,9 @@ export const actions = {
   rewrapWithPairedDelimiter: "repack",
   insertSnippet: "snippet",
   pasteFromClipboard: "paste",
+  joinLines: "join",
 
+  ["private.showParseTree"]: "parse tree",
   ["experimental.setInstanceReference"]: "from",
 
   editNew: null,
@@ -61,10 +65,10 @@ export const actions = {
   getText: null,
   replace: null,
   ["private.getTargets"]: null,
+  ["private.setKeyboardTarget"]: null,
 
   // These actions are implemented talon-side, usually using `getText` followed
   // by some other action.
   // applyFormatter: "format",
-  // findInDocument: "scout",
   // nextHomophone: "phones",
 } as const satisfies Record<ActionType, string | null>;

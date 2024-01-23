@@ -15,12 +15,26 @@
           ]
         },
         {
+          "id": "breakLine",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "break <target>",
+              "description": "Break line"
+            }
+          ]
+        },
+        {
           "id": "callAsFunction",
           "type": "action",
           "variations": [
             {
               "spokenForm": "call <target>",
               "description": "Call <target> on selection"
+            },
+            {
+              "spokenForm": "call <target 1> on <target 2>",
+              "description": "Call <target 1> on <target 2>"
             }
           ]
         },
@@ -221,6 +235,16 @@
             {
               "spokenForm": "snippet <target>",
               "description": "Insert snippet"
+            }
+          ]
+        },
+        {
+          "id": "joinLines",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "join <target>",
+              "description": "Join lines"
             }
           ]
         },
@@ -901,6 +925,16 @@
               "description": "Trailing delimiter range"
             }
           ]
+        },
+        {
+          "id": "visible",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "visible",
+              "description": "Visible"
+            }
+          ]
         }
       ]
     },
@@ -1055,6 +1089,16 @@
           ]
         },
         {
+          "id": "show_scope_sidebar",
+          "type": "command",
+          "variations": [
+            {
+              "spokenForm": "bar cursorless",
+              "description": "Show cursorless sidebar"
+            }
+          ]
+        },
+        {
           "id": "show_scope_visualizer",
           "type": "command",
           "variations": [
@@ -1189,6 +1233,16 @@
           ]
         },
         {
+          "id": "command",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "command",
+              "description": "Command"
+            }
+          ]
+        },
+        {
           "id": "comment",
           "type": "scopeType",
           "variations": [
@@ -1255,6 +1309,16 @@
             {
               "spokenForm": "funk name",
               "description": "Function name"
+            }
+          ]
+        },
+        {
+          "id": "glyph",
+          "type": "scopeType",
+          "variations": [
+            {
+              "spokenForm": "glyph <character>",
+              "description": "Instance of single character <character>"
             }
           ]
         },
@@ -1523,7 +1587,7 @@
           "type": "scopeType",
           "variations": [
             {
-              "spokenForm": "word",
+              "spokenForm": "sub",
               "description": "Word"
             }
           ]

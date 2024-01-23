@@ -18,6 +18,9 @@ tag: user.cursorless
 {user.cursorless_reformat_action} <user.formatters> at <user.cursorless_target>:
     user.private_cursorless_reformat(cursorless_target, formatters)
 
+{user.cursorless_call_action} <user.cursorless_target> on <user.cursorless_target>:
+    user.private_cursorless_call(cursorless_target_1, cursorless_target_2)
+
 <user.cursorless_wrapper_paired_delimiter> {user.cursorless_wrap_action} <user.cursorless_target>:
     user.private_cursorless_wrap_with_paired_delimiter(cursorless_wrap_action, cursorless_target, cursorless_wrapper_paired_delimiter)
 
@@ -37,3 +40,6 @@ tag: user.cursorless
 
 {user.cursorless_homophone} settings:
     user.private_cursorless_show_settings_in_ide()
+
+bar {user.cursorless_homophone}:
+    user.private_cursorless_show_sidebar()

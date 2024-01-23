@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: change first word vest
+  spokenForm: change first sub vest
   action: clearAndSetSelection
   targets:
     - type: primitive

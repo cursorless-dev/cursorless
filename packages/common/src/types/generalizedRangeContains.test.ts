@@ -1,4 +1,4 @@
-import assert = require("assert");
+import assert from "assert";
 import { generalizedRangeContains, Position } from "..";
 
 suite("generalizedRangeContains", () => {

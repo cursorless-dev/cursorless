@@ -5,7 +5,7 @@ import {
   asyncSafety,
   getRecordedTestPaths,
 } from "@cursorless/common";
-import * as assert from "assert";
+import assert from "assert";
 import * as yaml from "js-yaml";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";

@@ -1,6 +1,6 @@
 languageId: shellscript
 command:
-  spokenForm: change third word dash
+  spokenForm: change third sub dash
   version: 2
   targets:
     - type: primitive

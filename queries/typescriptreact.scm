@@ -1,2 +1,2 @@
 ;; import javascript.jsx.scm
-;; import typescript.scm
+;; import typescript.core.scm

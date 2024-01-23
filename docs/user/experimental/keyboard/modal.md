@@ -21,6 +21,11 @@ Paste the following into your [VSCode `keybindings.json`](https://code.visualstu
         "when": "editorTextFocus"
     },
     {
+        "key": "ctrl+c",
+        "command": "cursorless.keyboard.targeted.targetSelection",
+        "when": "cursorless.keyboard.modal.mode && editorTextFocus"
+    },
+    {
         "key": "escape",
         "command": "cursorless.keyboard.escape",
         "when": "cursorless.keyboard.listening && editorTextFocus && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
@@ -37,12 +42,14 @@ Any keybindings that use modifier keys should go in `keybindings.json` as well, 
 
 The above allows you to press `ctrl-c` to switch to Cursorless mode, `escape` to exit Cursorless mode, and `backspace` to issue the delete action while in Cursorless mode.
 
+If you're already in Cursorless mode, pressing `ctrl-c` again will target the current selection, which is useful if you have moved the cursor using your mouse while in Cursorless mode, and want to target your new cursor position.
+
 ### `settings.json`
 
 To bind keys that do not have modifiers (eg just pressing `a`), add entries like the following to your [VSCode `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson) (or edit these settings in the VSCode settings gui by saying `"cursorless settings"`):
 
 ```json
-  "cursorless.experimental.keyboard.modal.keybindings.scopes": {
+  "cursorless.experimental.keyboard.modal.keybindings.scope": {
     "i": "line",
     "p": "paragraph",
     ";": "statement",
@@ -60,7 +67,7 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "sa": "argumentOrParameter",
     "sl": "url",
   },
-  "cursorless.experimental.keyboard.modal.keybindings.actions": {
+  "cursorless.experimental.keyboard.modal.keybindings.action": {
     "t": "setSelection",
     "h": "setSelectionBefore",
     "l": "setSelectionAfter",
@@ -81,13 +88,13 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "ap": "pasteFromClipboard",
     "ad": "followLink"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.colors": {
+  "cursorless.experimental.keyboard.modal.keybindings.color": {
     "d": "default",
     "b": "blue",
     "g": "yellow",
     "r": "red"
   },
-  "cursorless.experimental.keyboard.modal.keybindings.shapes": {
+  "cursorless.experimental.keyboard.modal.keybindings.shape": {
     "x": "ex",
     "f": "fox",
     "q": "frame",
@@ -97,6 +104,24 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "z": "bolt",
     "w": "crosshairs"
   },
+  "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
+    // For simple commands, just use the command name
+    // "aa": "workbench.action.editor.changeLanguageMode",
+
+    // For commands with args, use the following format
+    // "am": {
+    //   "commandId": "some.command.id",
+    //   "args": ["foo", 0]
+    // }
+
+    // If you'd like to run the command on the active target, use the following format
+    "am": {
+      "commandId": "editor.action.joinLines",
+      "executeAtTarget": true,
+      // "keepChangedSelection": true,
+      // "exitCursorlessMode": true,
+    }
+  }
 ```
 
 Any supported scopes, actions, or colors can be added to these sections, using the same identifiers that appear in the second column of your customisation csvs. Feel free to add / tweak / remove the keyboard shortcuts above as you see fit.

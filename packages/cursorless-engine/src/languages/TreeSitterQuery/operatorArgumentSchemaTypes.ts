@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import { assertTypesEqual } from "./assertTypesEqual";
 import { PredicateOperand } from "web-tree-sitter";
 
