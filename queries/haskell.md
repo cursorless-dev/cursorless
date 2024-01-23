@@ -14,10 +14,8 @@ Adds support for the Haskell programming language.
 - [ ] `branch`
   - [x] `branch.match`
   - [x] `branch.match.iteration`
-  - [ ] `branch.if`
-  - [ ] `branch.if.iteration`
-  - [ ] `branch.guard`
-  - [ ] `branch.guard.iteration`
+  - [x] `branch.if`
+  - [x] `branch.if.iteration`
   - [ ] `branch.ternary`
 - [ ] `collectionItem`
 - [ ] `collectionKey`

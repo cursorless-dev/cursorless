@@ -1,0 +1,6 @@
+bap :: Int -> Int
+bap x
+    | x > 0, x == 0 =  x
+    | otherwise = -x
+
+---

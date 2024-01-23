@@ -8,14 +8,6 @@ import {
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const haskellScopeSupport: LanguageScopeSupportFacetMap = {
-  command: notApplicable,
-
-  element: notApplicable,
-  tags: notApplicable,
-  startTag: notApplicable,
-  endTag: notApplicable,
-  attribute: notApplicable,
-
   list: unsupported,
   map: unsupported,
   ifStatement: unsupported,

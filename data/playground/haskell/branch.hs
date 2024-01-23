@@ -1,3 +1,15 @@
+data a :*: b = a :*: b
+type a :+: b = Either a b
+
+fst :: a :*: b -> a
+fst (a :*: b) = a
+
+pair a b = a :*: b
+
+fromLeft :: a :+: b -> a
+fromLeft (Left a) = a
+fromLeft _ = undefined
+
 fib :: Integer -> Integer
 fib 0 = 0
 fib 1 = 1
