@@ -72,6 +72,6 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
  * @returns {error is NodeJS.ErrnoException} - Returns `true` if the error is a
  * {@link NodeJS.ErrnoException}, otherwise `false`.
  */
-export function isErrnoException(error: any): error is NodeJS.ErrnoException {
+function isErrnoException(error: any): error is NodeJS.ErrnoException {
   return error instanceof Error && "code" in error;
 }
