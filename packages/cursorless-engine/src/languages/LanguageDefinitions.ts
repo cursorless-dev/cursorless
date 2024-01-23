@@ -48,7 +48,7 @@ export class LanguageDefinitions {
     private treeSitter: TreeSitter,
   ) {
     ide().onDidOpenTextDocument((document) => {
-      this.openLanguage(document.languageId);
+      this.loadLanguage(document.languageId);
       this.openDocuments.add(document);
     });
     ide().onDidCloseTextDocument((document) => {
@@ -74,7 +74,7 @@ export class LanguageDefinitions {
     }
   }
 
-  async openLanguage(languageId: string): Promise<void> {
+  public async loadLanguage(languageId: string): Promise<void> {
     const definition =
       (await LanguageDefinition.create(
         this.treeSitter,
@@ -92,7 +92,7 @@ export class LanguageDefinitions {
     for (const document of this.openDocuments) {
       if (!openLanguages.has(document.languageId)) {
         openLanguages.add(document.languageId);
-        await this.openLanguage(document.languageId);
+        await this.loadLanguage(document.languageId);
       }
     }
     this.notifier.notifyListeners();
