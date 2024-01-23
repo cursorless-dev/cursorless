@@ -42,6 +42,13 @@ export class VscodeFileSystem implements FileSystem {
     return path.substring(0, path.lastIndexOf("/"));
   }
 
+  /**
+   * Reads a file under the extensionUri of the extensionContext passed to
+   * the constructor.
+   *
+   * @param path path to read
+   * @returns the contents of path, decoded as UTF-8
+   */
   public async readFileUtf8FromRoot(path: string): Promise<string> {
     return this.decoder.decode(
       await vscode.workspace.fs.readFile(
