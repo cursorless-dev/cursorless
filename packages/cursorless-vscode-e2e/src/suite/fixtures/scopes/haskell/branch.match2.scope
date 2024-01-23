@@ -6,16 +6,39 @@ abs x
 ---
 
 [#1 Content] =
-[#1 Removal] =
-[#1 Domain] = 1:0-3:20
+[#1 Domain] = 0:4-2:20
 0| abs :: Int -> Int
-
+      >-------------
 1| abs x
-  >-----
+   -----
 2|     | x >= 0    =  x
-   --------------------
-3|     | otherwise = -x
    --------------------<
+3|     | otherwise = -x
+
+4|
+
+
+[#1 Removal] = 0:3-2:20
+0| abs :: Int -> Int
+     >--------------
+1| abs x
+   -----
+2|     | x >= 0    =  x
+   --------------------<
+3|     | otherwise = -x
+
+4|
+
+
+[#1 Leading delimiter] = 0:3-0:4
+0| abs :: Int -> Int
+     >-<
+1| abs x
+
+2|     | x >= 0    =  x
+
+3|     | otherwise = -x
+
 4|
 
 
@@ -75,7 +98,7 @@ abs x
 4|
 
 
-[#3 Removal] = 3:4-3:20
+[#3 Removal] = 3:5-3:20
 0| abs :: Int -> Int
 
 1| abs x
@@ -83,7 +106,7 @@ abs x
 2|     | x >= 0    =  x
 
 3|     | otherwise = -x
-      >----------------<
+       >---------------<
 4|
 
 
