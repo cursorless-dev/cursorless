@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as url from "url";
 
 const functionsWithSingleCase = [
   ["id :: a -> a", "id x = x"],
