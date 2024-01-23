@@ -24,7 +24,6 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
-import { mkdir } from "fs/promises";
 import * as os from "os";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
@@ -181,10 +180,14 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   // function do the actual initialization.
   const cursorlessDirPath = isTesting() ? os.tmpdir() : os.homedir();
   const cursorlessDirName = isTesting()
-    ? crypto.randomBytes(16).toString("hex") : ".cursorless";
+    ? crypto.randomBytes(16).toString("hex")
+    : ".cursorless";
 
-  const fileSystem = new VscodeFileSystem(context, cursorlessDirPath,
-    cursorlessDirName);
+  const fileSystem = new VscodeFileSystem(
+    context,
+    cursorlessDirPath,
+    cursorlessDirName,
+  );
   await fileSystem.initialize();
 
   return { vscodeIDE, hats, fileSystem };

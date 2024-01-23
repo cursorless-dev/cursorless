@@ -7,7 +7,7 @@ import {
   SpokenFormEntry,
   TalonSpokenForms,
 } from "../scopeProviders/TalonSpokenForms";
-import {isErrnoException} from "../util/isErrnoException";
+import { isErrnoException } from "../util/isErrnoException";
 
 interface TalonSpokenFormsPayload {
   version: number;
@@ -64,4 +64,3 @@ export class TalonSpokenFormsJsonReader implements TalonSpokenForms {
     this.disposable.dispose();
   }
 }
-

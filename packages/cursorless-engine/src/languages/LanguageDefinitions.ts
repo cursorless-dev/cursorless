@@ -41,7 +41,7 @@ export class LanguageDefinitions {
   > = new Map();
   private queryDir: string;
   private disposables: Disposable[] = [];
-  private openDocuments = new Set<{languageId: string}>();
+  private openDocuments = new Set<{ languageId: string }>();
 
   constructor(
     private fileSystem: FileSystem,
@@ -75,18 +75,22 @@ export class LanguageDefinitions {
   }
 
   async openLanguage(languageId: string): Promise<void> {
-    let definition =
-    await LanguageDefinition.create(this.treeSitter, this.fileSystem, "queries", languageId) ??
-    LANGUAGE_UNDEFINED;
+    const definition =
+      (await LanguageDefinition.create(
+        this.treeSitter,
+        this.fileSystem,
+        "queries",
+        languageId,
+      )) ?? LANGUAGE_UNDEFINED;
 
     this.languageDefinitions.set(languageId, definition);
   }
 
   async reloadLanguageDefinitions(): Promise<void> {
     this.languageDefinitions.clear();
-    const openLanguages = new Set<string>;
-    for (let document of this.openDocuments) {
-      if (!openLanguages.has(document.languageId)){
+    const openLanguages = new Set<string>();
+    for (const document of this.openDocuments) {
+      if (!openLanguages.has(document.languageId)) {
         openLanguages.add(document.languageId);
         await this.openLanguage(document.languageId);
       }
@@ -103,12 +107,13 @@ export class LanguageDefinitions {
    * the given language id doesn't have a new-style query definition
    */
   get(languageId: string): LanguageDefinition | undefined {
-    let definition = this.languageDefinitions.get(languageId);
+    const definition = this.languageDefinitions.get(languageId);
 
     if (definition == null) {
       throw new Error(
         "Expected language definition entry missing for languageId " +
-        languageId);
+          languageId,
+      );
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;

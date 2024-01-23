@@ -1,4 +1,9 @@
-import { FileSystem, ScopeType, SimpleScopeType, showError } from "@cursorless/common";
+import {
+  FileSystem,
+  ScopeType,
+  SimpleScopeType,
+  showError,
+} from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
@@ -7,7 +12,6 @@ import { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
-import {isErrnoException} from "../util/isErrnoException";
 
 /**
  * Represents a language definition for a single language, including the
@@ -43,12 +47,12 @@ export class LanguageDefinition {
     let rawLanguageQueryString;
     try {
       rawLanguageQueryString = await readQueryFileAndImports(
-      fileSystem,
-      languageQueryPath);
-    }
-    catch (err) {
+        fileSystem,
+        languageQueryPath,
+      );
+    } catch (err) {
       //if (isErrnoException(err) && err.code === "ENOENT") {
-        return undefined;
+      return undefined;
       //}
       //throw err;
     }
@@ -95,7 +99,10 @@ export class LanguageDefinition {
  * @param languageQueryPath The path to the query file to read
  * @returns The text of the query file, with all imports inlined
  */
-async function readQueryFileAndImports(fileSystem: FileSystem, languageQueryPath: string) {
+async function readQueryFileAndImports(
+  fileSystem: FileSystem,
+  languageQueryPath: string,
+) {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
     [languageQueryPath]: null,
@@ -138,7 +145,10 @@ async function readQueryFileAndImports(fileSystem: FileSystem, languageQueryPath
             }
           }
 
-          const importQueryPath = fileSystem.join(fileSystem.dirname(queryPath), relativeImportPath);
+          const importQueryPath = fileSystem.join(
+            fileSystem.dirname(queryPath),
+            relativeImportPath,
+          );
           rawQueryStrings[importQueryPath] =
             rawQueryStrings[importQueryPath] ?? null;
         },

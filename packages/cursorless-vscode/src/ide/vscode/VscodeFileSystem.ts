@@ -9,8 +9,11 @@ export class VscodeFileSystem implements FileSystem {
 
   private decoder: TextDecoder = new TextDecoder("utf-8");
 
-  constructor(private readonly extensionContext: vscode.ExtensionContext,
-              cursorlessDirPath: string, cursorlessDirName: string) {
+  constructor(
+    private readonly extensionContext: vscode.ExtensionContext,
+    cursorlessDirPath: string,
+    cursorlessDirName: string,
+  ) {
     this.cursorlessDir = this.join(cursorlessDirPath, cursorlessDirName);
     this.cursorlessTalonStateJsonPath = this.join(
       this.cursorlessDir,
@@ -23,8 +26,9 @@ export class VscodeFileSystem implements FileSystem {
   }
 
   public async initialize(): Promise<void> {
-    await vscode.workspace.fs.createDirectory(vscode.Uri.file(
-      this.cursorlessDir));
+    await vscode.workspace.fs.createDirectory(
+      vscode.Uri.file(this.cursorlessDir),
+    );
   }
 
   public join(path1: string, path2: string): string {
@@ -35,18 +39,18 @@ export class VscodeFileSystem implements FileSystem {
   }
 
   public dirname(path: string): string {
-    return path.substring(0, path.lastIndexOf('/'));
+    return path.substring(0, path.lastIndexOf("/"));
   }
 
   public async readFileUtf8FromRoot(path: string): Promise<string> {
     return this.decoder.decode(
       await vscode.workspace.fs.readFile(
-    vscode.Uri.joinPath(
-      this.extensionContext.extensionUri,
-      path)));
+        vscode.Uri.joinPath(this.extensionContext.extensionUri, path),
+      ),
+    );
   }
 
- public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
+  public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
     // return { dispose: () => {} };
     // FIXME: Support globs?
     const watcher = vscode.workspace.createFileSystemWatcher(
