@@ -51,10 +51,7 @@ export class LanguageDefinition {
         languageQueryPath,
       );
     } catch (err) {
-      //if (isErrnoException(err) && err.code === "ENOENT") {
       return undefined;
-      //}
-      //throw err;
     }
 
     const rawQuery = treeSitter
