@@ -1,6 +1,3 @@
-;; branch: function
-(function) @branch
-
 ;; branch: guard_equation
 (guard_equation
   [

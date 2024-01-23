@@ -1,0 +1,7 @@
+compare :: Int -> Int -> Ordering
+compare x y
+    | x <  y = LT
+    | x == y = EQ
+    | x  > y = GT
+
+---
