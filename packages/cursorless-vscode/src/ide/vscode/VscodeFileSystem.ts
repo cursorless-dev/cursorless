@@ -32,7 +32,7 @@ export class VscodeFileSystem implements FileSystem {
   }
 
   public join(path1: string, path2: string): string {
-    // TODO: Look into whether we can use joinPath(...).path. The
+    // FIXME: Look into whether we can use joinPath(...).path. The
     // question is whether Uri will correctly remove the Uri.base's path
     // from the returned path.
     return `${path1}/${path2}`;
