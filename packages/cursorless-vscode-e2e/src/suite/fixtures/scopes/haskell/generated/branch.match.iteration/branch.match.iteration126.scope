@@ -1,0 +1,8 @@
+type Point = (Double, Double)
+
+id :: a -> a
+id x = x
+
+data Maybe a = Nothing | Just a
+
+---
