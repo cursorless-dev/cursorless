@@ -1,0 +1,8 @@
+id :: a -> a
+id x = x
+
+const x y = x
+
+fst (x, y) = x
+
+---

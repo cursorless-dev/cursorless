@@ -1,0 +1,8 @@
+id x = x
+
+const :: a -> b -> a
+const x y = x
+
+type Point = (Double, Double)
+
+---

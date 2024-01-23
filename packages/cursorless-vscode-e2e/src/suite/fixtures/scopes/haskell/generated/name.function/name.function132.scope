@@ -1,0 +1,7 @@
+type Point = (Double, Double)
+
+id x = x
+
+data Maybe a = Nothing | Just a
+
+---

@@ -1,0 +1,5 @@
+type Point = (Double, Double)
+
+id x = x
+
+---

@@ -1,4 +1,9 @@
-;; branch: guard_equation
+;; TODO
+;; - @branch.tenary : if expressions
+;; - @branch.if     : multi-way if expressions
+;; -
+
+;; @branch.if: guard
 (guard_equation
   [
     ;; ... with a SINGLE guard
@@ -19,9 +24,16 @@
   (_) @branch.end
 ) @branch.removal
 
-;; branch: exp_case
+;; @branch.match: case
 (exp_case
   (alts
     (alt) @branch
   )
 )
+
+;; @condition.if: guard
+(guard_equation
+  (guards
+    (guard) @condition
+  )
+) @condition.domain
