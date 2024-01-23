@@ -41,11 +41,20 @@ export class LanguageDefinitions {
   > = new Map();
   private queryDir: string;
   private disposables: Disposable[] = [];
+  private openDocuments = new Set<{languageId: string}>();
 
   constructor(
-    fileSystem: FileSystem,
+    private fileSystem: FileSystem,
     private treeSitter: TreeSitter,
   ) {
+    ide().onDidOpenTextDocument((document) => {
+      this.openLanguage(document.languageId);
+      this.openDocuments.add(document);
+    });
+    ide().onDidCloseTextDocument((document) => {
+      this.openDocuments.delete(document);
+    });
+
     // Use the repo root as the root for development mode, so that we can
     // we can make hot-reloading work for the queries
     this.queryDir = join(
@@ -65,6 +74,26 @@ export class LanguageDefinitions {
     }
   }
 
+  async openLanguage(languageId: string): Promise<void> {
+    let definition =
+    await LanguageDefinition.create(this.treeSitter, this.fileSystem, "queries", languageId) ??
+    LANGUAGE_UNDEFINED;
+
+    this.languageDefinitions.set(languageId, definition);
+  }
+
+  async reloadLanguageDefinitions(): Promise<void> {
+    this.languageDefinitions.clear();
+    const openLanguages = new Set<string>;
+    for (let document of this.openDocuments) {
+      if (!openLanguages.has(document.languageId)){
+        openLanguages.add(document.languageId);
+        await this.openLanguage(document.languageId);
+      }
+    }
+    this.notifier.notifyListeners();
+  }
+
   /**
    * Get a language definition for the given language id, if the language
    * has a new-style query definition, or return undefined if the language doesn't
@@ -77,11 +106,9 @@ export class LanguageDefinitions {
     let definition = this.languageDefinitions.get(languageId);
 
     if (definition == null) {
-      definition =
-        LanguageDefinition.create(this.treeSitter, this.queryDir, languageId) ??
-        LANGUAGE_UNDEFINED;
-
-      this.languageDefinitions.set(languageId, definition);
+      throw new Error(
+        "Expected language definition entry missing for languageId " +
+        languageId);
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;

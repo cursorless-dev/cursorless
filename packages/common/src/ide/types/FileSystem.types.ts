@@ -4,6 +4,31 @@ export type PathChangeListener = () => void;
 
 export interface FileSystem {
   /**
+   * Joins two path components.
+   *
+   * @param path1 a path component
+   * @param path2 another path component
+   * @returns The path components joined with the filesystem's directory
+   *   separator.
+   */
+  join(path1: string, path2: string): string;
+
+  /**
+   * Removes the final component from a path.
+   *
+   * @param path A path.
+   */
+  dirname(path: string): string;
+
+  /**
+   * Reads a file from a path under a pre-configured root location.
+   *
+   * @param path The path of the file to read.
+   * @returns The contents of the file as as string, decoded as UTF-8.
+   */
+  readFileUtf8FromRoot(path: string): Promise<string>;
+
+  /**
    * Recursively watch a directory for changes.
    * @param path The path of the directory to watch
    * @param onDidChange A function to call on changes

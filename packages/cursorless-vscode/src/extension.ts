@@ -26,7 +26,6 @@ import {
 import * as crypto from "crypto";
 import { mkdir } from "fs/promises";
 import * as os from "os";
-import * as path from "path";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
@@ -180,12 +179,15 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   // extension initialization, probably by returning a function from extension
   // init that has parameters consisting of test configuration, and have that
   // function do the actual initialization.
-  const cursorlessDir = isTesting()
-    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
-    : path.join(os.homedir(), ".cursorless");
-  await mkdir(cursorlessDir, { recursive: true });
+  const cursorlessDirPath = isTesting() ? os.tmpdir() : os.homedir();
+  const cursorlessDirName = isTesting()
+    ? crypto.randomBytes(16).toString("hex") : ".cursorless";
 
-  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem(cursorlessDir) };
+  const fileSystem = new VscodeFileSystem(context, cursorlessDirPath,
+    cursorlessDirName);
+  await fileSystem.initialize();
+
+  return { vscodeIDE, hats, fileSystem };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

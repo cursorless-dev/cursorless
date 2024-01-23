@@ -1,6 +1,4 @@
-import { ScopeType, SimpleScopeType, showError } from "@cursorless/common";
-import { existsSync, readFileSync } from "fs";
-import { dirname, join } from "path";
+import { FileSystem, ScopeType, SimpleScopeType, showError } from "@cursorless/common";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
 import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
@@ -9,6 +7,7 @@ import { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
+import {isErrnoException} from "../util/isErrnoException";
 
 /**
  * Represents a language definition for a single language, including the
@@ -33,18 +32,26 @@ export class LanguageDefinition {
    * @returns A language definition for the given language id, or undefined if the given language
    * id doesn't have a new-style query definition
    */
-  static create(
+  static async create(
     treeSitter: TreeSitter,
+    fileSystem: FileSystem,
     queryDir: string,
     languageId: string,
-  ): LanguageDefinition | undefined {
-    const languageQueryPath = join(queryDir, `${languageId}.scm`);
+  ): Promise<LanguageDefinition | undefined> {
+    const languageQueryPath = fileSystem.join(queryDir, `${languageId}.scm`);
 
-    if (!existsSync(languageQueryPath)) {
-      return undefined;
+    let rawLanguageQueryString;
+    try {
+      rawLanguageQueryString = await readQueryFileAndImports(
+      fileSystem,
+      languageQueryPath);
     }
-
-    const rawLanguageQueryString = readQueryFileAndImports(languageQueryPath);
+    catch (err) {
+      //if (isErrnoException(err) && err.code === "ENOENT") {
+        return undefined;
+      //}
+      //throw err;
+    }
 
     const rawQuery = treeSitter
       .getLanguage(languageId)!
@@ -88,7 +95,7 @@ export class LanguageDefinition {
  * @param languageQueryPath The path to the query file to read
  * @returns The text of the query file, with all imports inlined
  */
-function readQueryFileAndImports(languageQueryPath: string) {
+async function readQueryFileAndImports(fileSystem: FileSystem, languageQueryPath: string) {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
     [languageQueryPath]: null,
@@ -103,7 +110,7 @@ function readQueryFileAndImports(languageQueryPath: string) {
         continue;
       }
 
-      const rawQuery = readFileSync(queryPath, "utf8");
+      const rawQuery = await fileSystem.readFileUtf8FromRoot(queryPath);
       rawQueryStrings[queryPath] = rawQuery;
       matchAll(
         rawQuery,
@@ -131,7 +138,7 @@ function readQueryFileAndImports(languageQueryPath: string) {
             }
           }
 
-          const importQueryPath = join(dirname(queryPath), relativeImportPath);
+          const importQueryPath = fileSystem.join(fileSystem.dirname(queryPath), relativeImportPath);
           rawQueryStrings[importQueryPath] =
             rawQueryStrings[importQueryPath] ?? null;
         },
