@@ -5,41 +5,41 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:8-1:9
+[#1 Domain] = 0:11-0:24
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+             >-------------<
 1| zipWith f [] [] = []
-          >-<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
 
 
-[#1 Removal] = 1:8-1:10
+[#1 Removal] = 0:11-0:25
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+             >--------------<
 1| zipWith f [] [] = []
-          >--<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
 
 
-[#1 Leading delimiter] = 1:7-1:8
+[#1 Leading delimiter] = 0:10-0:11
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+            >-<
 1| zipWith f [] [] = []
-         >-<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
 
 
-[#1 Trailing delimiter] = 1:9-1:10
+[#1 Trailing delimiter] = 0:24-0:25
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+                          >-<
 1| zipWith f [] [] = []
-           >-<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
@@ -49,41 +49,31 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 
 [#2 Content] =
-[#2 Domain] = 1:10-1:12
+[#2 Domain] = 0:12-0:13
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
-1| zipWith f [] [] = []
-            >--<
-2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
-
-3|
-
-
-[#2 Removal] = 1:10-1:13
-0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
-1| zipWith f [] [] = []
-            >---<
-2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
-
-3|
-
-
-[#2 Leading delimiter] = 1:9-1:10
-0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
-1| zipWith f [] [] = []
-           >-<
-2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
-
-3|
-
-
-[#2 Trailing delimiter] = 1:12-1:13
-0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
-1| zipWith f [] [] = []
               >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#2 Removal] = 0:12-0:14
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+              >--<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#2 Trailing delimiter] = 0:13-0:14
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+               >-<
+1| zipWith f [] [] = []
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
@@ -93,41 +83,41 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 
 [#3 Content] =
-[#3 Domain] = 1:13-1:15
+[#3 Domain] = 0:17-0:18
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+                   >-<
 1| zipWith f [] [] = []
-               >--<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
 
 
-[#3 Removal] = 1:13-1:16
+[#3 Removal] = 0:17-0:19
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+                   >--<
 1| zipWith f [] [] = []
-               >---<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
 
 
-[#3 Leading delimiter] = 1:12-1:13
+[#3 Leading delimiter] = 0:16-0:17
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+                  >-<
 1| zipWith f [] [] = []
-              >-<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
 
 
-[#3 Trailing delimiter] = 1:15-1:16
+[#3 Trailing delimiter] = 0:18-0:19
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+                    >-<
 1| zipWith f [] [] = []
-                 >-<
+
 2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 3|
@@ -137,7 +127,397 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 
 [#4 Content] =
-[#4 Domain] = 2:8-2:9
+[#4 Domain] = 0:17-0:23
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                   >------<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#4 Removal] = 0:16-0:23
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                  >-------<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#4 Leading delimiter] = 0:16-0:17
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                  >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] =
+[#5 Domain] = 0:22-0:23
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                        >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#5 Removal] = 0:21-0:23
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                       >--<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#5 Leading delimiter] = 0:21-0:22
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                       >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#5 Insertion delimiter] = " "
+
+
+[#6 Content] =
+[#6 Domain] = 0:28-0:31
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                              >---<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#6 Removal] = 0:28-0:32
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                              >----<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#6 Leading delimiter] = 0:27-0:28
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                             >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#6 Trailing delimiter] = 0:31-0:32
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                 >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#6 Insertion delimiter] = " "
+
+
+[#7 Content] =
+[#7 Domain] = 0:28-0:45
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                              >-----------------<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#7 Removal] = 0:27-0:45
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                             >------------------<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#7 Leading delimiter] = 0:27-0:28
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                             >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#7 Insertion delimiter] = " "
+
+
+[#8 Content] =
+[#8 Domain] = 0:35-0:38
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                     >---<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#8 Removal] = 0:35-0:39
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                     >----<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#8 Leading delimiter] = 0:34-0:35
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                    >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#8 Trailing delimiter] = 0:38-0:39
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                        >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#8 Insertion delimiter] = " "
+
+
+[#9 Content] =
+[#9 Domain] = 0:35-0:45
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                     >----------<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#9 Removal] = 0:34-0:45
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                    >-----------<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#9 Leading delimiter] = 0:34-0:35
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                    >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#9 Insertion delimiter] = " "
+
+
+[#10 Content] =
+[#10 Domain] = 0:42-0:45
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                            >---<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#10 Removal] = 0:41-0:45
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                           >----<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#10 Leading delimiter] = 0:41-0:42
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+                                           >-<
+1| zipWith f [] [] = []
+
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#10 Insertion delimiter] = " "
+
+
+[#11 Content] =
+[#11 Domain] = 1:8-1:9
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+          >-<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#11 Removal] = 1:8-1:10
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+          >--<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#11 Leading delimiter] = 1:7-1:8
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+         >-<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#11 Trailing delimiter] = 1:9-1:10
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+           >-<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#11 Insertion delimiter] = " "
+
+
+[#12 Content] =
+[#12 Domain] = 1:10-1:12
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+            >--<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#12 Removal] = 1:10-1:13
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+            >---<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#12 Leading delimiter] = 1:9-1:10
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+           >-<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#12 Trailing delimiter] = 1:12-1:13
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+              >-<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#12 Insertion delimiter] = " "
+
+
+[#13 Content] =
+[#13 Domain] = 1:13-1:15
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+               >--<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#13 Removal] = 1:13-1:16
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+               >---<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#13 Leading delimiter] = 1:12-1:13
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+              >-<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#13 Trailing delimiter] = 1:15-1:16
+0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+1| zipWith f [] [] = []
+                 >-<
+2| zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
+
+3|
+
+
+[#13 Insertion delimiter] = " "
+
+
+[#14 Content] =
+[#14 Domain] = 2:8-2:9
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -147,7 +527,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#4 Removal] = 2:8-2:10
+[#14 Removal] = 2:8-2:10
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -157,7 +537,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#4 Leading delimiter] = 2:7-2:8
+[#14 Leading delimiter] = 2:7-2:8
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -167,7 +547,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#4 Trailing delimiter] = 2:9-2:10
+[#14 Trailing delimiter] = 2:9-2:10
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -177,11 +557,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#4 Insertion delimiter] = " "
+[#14 Insertion delimiter] = " "
 
 
-[#5 Content] =
-[#5 Domain] = 2:10-2:18
+[#15 Content] =
+[#15 Domain] = 2:10-2:18
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -191,7 +571,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#5 Removal] = 2:10-2:19
+[#15 Removal] = 2:10-2:19
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -201,7 +581,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#5 Leading delimiter] = 2:9-2:10
+[#15 Leading delimiter] = 2:9-2:10
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -211,7 +591,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#5 Trailing delimiter] = 2:18-2:19
+[#15 Trailing delimiter] = 2:18-2:19
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -221,11 +601,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#5 Insertion delimiter] = " "
+[#15 Insertion delimiter] = " "
 
 
-[#6 Content] =
-[#6 Domain] = 2:11-2:12
+[#16 Content] =
+[#16 Domain] = 2:11-2:12
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -235,7 +615,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#6 Removal] = 2:11-2:13
+[#16 Removal] = 2:11-2:13
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -245,7 +625,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#6 Trailing delimiter] = 2:12-2:13
+[#16 Trailing delimiter] = 2:12-2:13
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -255,12 +635,12 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#6 Insertion delimiter] = " "
+[#16 Insertion delimiter] = " "
 
 
-[#7 Content] =
-[#7 Removal] =
-[#7 Domain] = 2:11-2:17
+[#17 Content] =
+[#17 Removal] =
+[#17 Domain] = 2:11-2:17
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -270,11 +650,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#7 Insertion delimiter] = " "
+[#17 Insertion delimiter] = " "
 
 
-[#8 Content] =
-[#8 Domain] = 2:15-2:17
+[#18 Content] =
+[#18 Domain] = 2:15-2:17
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -284,7 +664,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#8 Removal] = 2:14-2:17
+[#18 Removal] = 2:14-2:17
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -294,7 +674,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#8 Leading delimiter] = 2:14-2:15
+[#18 Leading delimiter] = 2:14-2:15
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -304,11 +684,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#8 Insertion delimiter] = " "
+[#18 Insertion delimiter] = " "
 
 
-[#9 Content] =
-[#9 Domain] = 2:19-2:27
+[#19 Content] =
+[#19 Domain] = 2:19-2:27
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -318,7 +698,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#9 Removal] = 2:19-2:28
+[#19 Removal] = 2:19-2:28
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -328,7 +708,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#9 Leading delimiter] = 2:18-2:19
+[#19 Leading delimiter] = 2:18-2:19
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -338,7 +718,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#9 Trailing delimiter] = 2:27-2:28
+[#19 Trailing delimiter] = 2:27-2:28
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -348,11 +728,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#9 Insertion delimiter] = " "
+[#19 Insertion delimiter] = " "
 
 
-[#10 Content] =
-[#10 Domain] = 2:20-2:21
+[#20 Content] =
+[#20 Domain] = 2:20-2:21
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -362,7 +742,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#10 Removal] = 2:20-2:22
+[#20 Removal] = 2:20-2:22
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -372,7 +752,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#10 Trailing delimiter] = 2:21-2:22
+[#20 Trailing delimiter] = 2:21-2:22
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -382,12 +762,12 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#10 Insertion delimiter] = " "
+[#20 Insertion delimiter] = " "
 
 
-[#11 Content] =
-[#11 Removal] =
-[#11 Domain] = 2:20-2:26
+[#21 Content] =
+[#21 Removal] =
+[#21 Domain] = 2:20-2:26
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -397,11 +777,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#11 Insertion delimiter] = " "
+[#21 Insertion delimiter] = " "
 
 
-[#12 Content] =
-[#12 Domain] = 2:24-2:26
+[#22 Content] =
+[#22 Domain] = 2:24-2:26
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -411,7 +791,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#12 Removal] = 2:23-2:26
+[#22 Removal] = 2:23-2:26
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -421,7 +801,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#12 Leading delimiter] = 2:23-2:24
+[#22 Leading delimiter] = 2:23-2:24
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -431,11 +811,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#12 Insertion delimiter] = " "
+[#22 Insertion delimiter] = " "
 
 
-[#13 Content] =
-[#13 Domain] = 2:32-2:33
+[#23 Content] =
+[#23 Domain] = 2:32-2:33
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -445,7 +825,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#13 Removal] = 2:32-2:34
+[#23 Removal] = 2:32-2:34
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -455,7 +835,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#13 Leading delimiter] = 2:31-2:32
+[#23 Leading delimiter] = 2:31-2:32
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -465,7 +845,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#13 Trailing delimiter] = 2:33-2:34
+[#23 Trailing delimiter] = 2:33-2:34
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -475,11 +855,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#13 Insertion delimiter] = " "
+[#23 Insertion delimiter] = " "
 
 
-[#14 Content] =
-[#14 Domain] = 2:34-2:35
+[#24 Content] =
+[#24 Domain] = 2:34-2:35
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -489,7 +869,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#14 Removal] = 2:34-2:36
+[#24 Removal] = 2:34-2:36
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -499,7 +879,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#14 Leading delimiter] = 2:33-2:34
+[#24 Leading delimiter] = 2:33-2:34
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -509,7 +889,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#14 Trailing delimiter] = 2:35-2:36
+[#24 Trailing delimiter] = 2:35-2:36
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -519,11 +899,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#14 Insertion delimiter] = " "
+[#24 Insertion delimiter] = " "
 
 
-[#15 Content] =
-[#15 Domain] = 2:46-2:47
+[#25 Content] =
+[#25 Domain] = 2:46-2:47
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -533,7 +913,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#15 Removal] = 2:46-2:48
+[#25 Removal] = 2:46-2:48
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -543,7 +923,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#15 Leading delimiter] = 2:45-2:46
+[#25 Leading delimiter] = 2:45-2:46
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -553,7 +933,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#15 Trailing delimiter] = 2:47-2:48
+[#25 Trailing delimiter] = 2:47-2:48
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -563,11 +943,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#15 Insertion delimiter] = " "
+[#25 Insertion delimiter] = " "
 
 
-[#16 Content] =
-[#16 Domain] = 2:48-2:50
+[#26 Content] =
+[#26 Domain] = 2:48-2:50
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -577,7 +957,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#16 Removal] = 2:48-2:51
+[#26 Removal] = 2:48-2:51
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -587,7 +967,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#16 Leading delimiter] = 2:47-2:48
+[#26 Leading delimiter] = 2:47-2:48
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -597,7 +977,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#16 Trailing delimiter] = 2:50-2:51
+[#26 Trailing delimiter] = 2:50-2:51
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -607,11 +987,11 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#16 Insertion delimiter] = " "
+[#26 Insertion delimiter] = " "
 
 
-[#17 Content] =
-[#17 Domain] = 2:51-2:53
+[#27 Content] =
+[#27 Domain] = 2:51-2:53
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -621,7 +1001,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#17 Removal] = 2:50-2:53
+[#27 Removal] = 2:50-2:53
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -631,7 +1011,7 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#17 Leading delimiter] = 2:50-2:51
+[#27 Leading delimiter] = 2:50-2:51
 0| zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 
 1| zipWith f [] [] = []
@@ -641,4 +1021,4 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 3|
 
 
-[#17 Insertion delimiter] = " "
+[#27 Insertion delimiter] = " "

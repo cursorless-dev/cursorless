@@ -8,17 +8,17 @@ compare x y
 
 [#1 Content] =
 [#1 Removal] =
-[#1 Domain] = 1:0-4:17
+[#1 Domain] = 1:0-2:17
 0| compare :: Int -> Int -> Ordering
 
 1| compare x y
   >-----------
 2|     | x <  y = LT
-   -----------------
-3|     | x == y = EQ
-   -----------------
-4|     | x  > y = GT
    -----------------<
+3|     | x == y = EQ
+
+4|     | x  > y = GT
+
 5|
 
 
@@ -86,7 +86,7 @@ compare x y
 5|
 
 
-[#3 Removal] = 3:4-3:17
+[#3 Removal] = 3:5-3:17
 0| compare :: Int -> Int -> Ordering
 
 1| compare x y
@@ -94,7 +94,7 @@ compare x y
 2|     | x <  y = LT
 
 3|     | x == y = EQ
-      >-------------<
+       >------------<
 4|     | x  > y = GT
 
 5|
@@ -132,7 +132,7 @@ compare x y
 5|
 
 
-[#4 Removal] = 4:4-4:17
+[#4 Removal] = 4:5-4:17
 0| compare :: Int -> Int -> Ordering
 
 1| compare x y
@@ -142,7 +142,7 @@ compare x y
 3|     | x == y = EQ
 
 4|     | x  > y = GT
-      >-------------<
+       >------------<
 5|
 
 

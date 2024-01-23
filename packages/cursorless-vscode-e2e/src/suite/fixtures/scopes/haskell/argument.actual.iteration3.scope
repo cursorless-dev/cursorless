@@ -5,8 +5,8 @@ bap x
 
 ---
 
-[#1 Range] =
-[#1 Domain] = 1:0-3:20
+[Range] =
+[Domain] = 1:0-3:20
 0| bap :: Int -> Int
 
 1| bap x
@@ -15,32 +15,4 @@ bap x
    ------------------------
 3|     | otherwise = -x
    --------------------<
-4|
-
-
-
-[#2 Range] =
-[#2 Domain] = 2:6-2:24
-0| bap :: Int -> Int
-
-1| bap x
-
-2|     | x > 0, x == 0 =  x
-        >------------------<
-3|     | otherwise = -x
-
-4|
-
-
-
-[#3 Range] =
-[#3 Domain] = 3:6-3:20
-0| bap :: Int -> Int
-
-1| bap x
-
-2|     | x > 0, x == 0 =  x
-
-3|     | otherwise = -x
-        >--------------<
 4|

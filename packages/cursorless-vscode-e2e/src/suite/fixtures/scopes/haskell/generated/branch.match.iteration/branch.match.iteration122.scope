@@ -7,3 +7,41 @@ const :: a -> b -> a
 const x y = x
 
 ---
+
+[#1 Range] =
+[#1 Domain] = 3:3-3:8
+0| type Point = (Double, Double)
+
+1|
+
+2| id :: a -> a
+
+3| id x = x
+     >-----<
+4|
+
+5| const :: a -> b -> a
+
+6| const x y = x
+
+7|
+
+
+
+[#2 Range] =
+[#2 Domain] = 5:0-6:13
+0| type Point = (Double, Double)
+
+1|
+
+2| id :: a -> a
+
+3| id x = x
+
+4|
+
+5| const :: a -> b -> a
+  >--------------------
+6| const x y = x
+   -------------<
+7|
