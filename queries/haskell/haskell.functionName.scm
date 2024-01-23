@@ -1,3 +1,6 @@
+;; NOTE: This file is tightly coupled to haskell.name.function.scm.
+;;       Any changes you make here should probably be made there as well.
+
 ;; functionName: function
 (
   ;; previous declaration

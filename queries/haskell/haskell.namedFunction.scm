@@ -1,3 +1,6 @@
+;; NOTE: This file is tightly coupled to haskell.branch.iteration.scm.
+;;       Any changes you make here should probably be made there as well.
+
 ;; namedFunction: function
 (
   ;; previous declaration

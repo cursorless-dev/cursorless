@@ -6,7 +6,7 @@
 ;; import haskell/haskell.name.function.scm
 ;; import haskell/haskell.namedFunction.scm
 
-;; All short declarations are below.
+;; Short declarations are below.
 
 ;; anonymousFunction
 (exp_lambda) @anonymousFunction
@@ -41,3 +41,4 @@
 
 ;; string
 (string) @string
+(char) @string
