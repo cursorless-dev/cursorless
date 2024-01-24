@@ -82,7 +82,7 @@ export class LanguageDefinitions {
     this.languageDefinitions.set(languageId, definition);
   }
 
-  async reloadLanguageDefinitions(): Promise<void> {
+  private async reloadLanguageDefinitions(): Promise<void> {
     this.languageDefinitions.clear();
     await Promise.all(
       Array.from(this.languageDefinitions.keys()).map((languageId) =>
