@@ -22,8 +22,11 @@ export interface FileSystem {
 
   /**
    * Reads a file that comes bundled with Cursorless, with the utf-8 encoding.
-   * Note that in development mode, it is possible to supply an absolute path to
-   * a file on the local filesystem, for things like hot-reloading.
+   * {@link path} is expected to be relative to the root of the extension
+   * bundle.
+   *
+   * Note that in development mode, it is possible to supply an absolute
+   * path to a file on the local filesystem, for things like hot-reloading.
    *
    * @param path The path of the file to read
    * @returns The contents of path, decoded as UTF-8
