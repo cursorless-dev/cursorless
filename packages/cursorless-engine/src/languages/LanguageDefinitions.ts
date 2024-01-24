@@ -6,7 +6,6 @@ import {
   TextDocument,
   getCursorlessRepoRoot,
 } from "@cursorless/common";
-import { join } from "path";
 import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
@@ -63,7 +62,8 @@ export class LanguageDefinitions {
 
     // Use the repo root as the root for development mode, so that we can
     // we can make hot-reloading work for the queries
-    this.queryDir = ide().runMode === "development"
+    this.queryDir =
+      ide().runMode === "development"
         ? fileSystem.join(getCursorlessRepoRoot(), "queries")
         : "queries";
 
