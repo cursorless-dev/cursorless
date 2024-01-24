@@ -41,18 +41,15 @@ export class LanguageDefinitions {
   > = new Map();
   private queryDir: string;
   private disposables: Disposable[] = [];
-  private openDocuments = new Set<{ languageId: string }>();
 
   constructor(
     private fileSystem: FileSystem,
     private treeSitter: TreeSitter,
   ) {
     ide().onDidOpenTextDocument((document) => {
-      this.loadLanguage(document.languageId);
-      this.openDocuments.add(document);
-    });
-    ide().onDidCloseTextDocument((document) => {
-      this.openDocuments.delete(document);
+      if (this.languageDefinitions.get(document.languageId) == null) {
+        this.loadLanguage(document.languageId);
+      }
     });
 
     // Use the repo root as the root for development mode, so that we can
@@ -67,8 +64,7 @@ export class LanguageDefinitions {
     if (ide().runMode === "development") {
       this.disposables.push(
         fileSystem.watchDir(this.queryDir, () => {
-          this.languageDefinitions.clear();
-          this.notifier.notifyListeners();
+          this.reloadLanguageDefinitions();
         }),
       );
     }
@@ -88,15 +84,11 @@ export class LanguageDefinitions {
 
   async reloadLanguageDefinitions(): Promise<void> {
     this.languageDefinitions.clear();
-    const openLanguages = new Set<string>();
-    const promises: Array<Promise<void>> = [];
-    for (const document of this.openDocuments) {
-      if (!openLanguages.has(document.languageId)) {
-        openLanguages.add(document.languageId);
-        promises.push(this.loadLanguage(document.languageId));
-      }
-    }
-    await Promise.all(promises);
+    await Promise.all(
+      Array.from(this.languageDefinitions.keys()).map((languageId) =>
+        this.loadLanguage(languageId),
+      ),
+    );
     this.notifier.notifyListeners();
   }
 
