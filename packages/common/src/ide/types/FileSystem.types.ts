@@ -4,14 +4,13 @@ export type PathChangeListener = () => void;
 
 export interface FileSystem {
   /**
-   * Joins two path components.
+   * Joins path components.
    *
-   * @param path1 a path component
-   * @param path2 another path component
+   * @param paths zero or more path components to join
    * @returns The path components joined with the filesystem's directory
    *   separator.
    */
-  join(path1: string, path2: string): string;
+  join(...paths: string[]): string;
 
   /**
    * Removes the final component from a path.
