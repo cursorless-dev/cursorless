@@ -1,4 +1,10 @@
-import { Disposable, FileSystem, PathChangeListener } from "@cursorless/common";
+import {
+  Disposable,
+  FileSystem,
+  PathChangeListener,
+  RunMode,
+} from "@cursorless/common";
+import { isAbsolute } from "path";
 import { TextDecoder } from "util";
 import * as vscode from "vscode";
 
@@ -11,6 +17,7 @@ export class VscodeFileSystem implements FileSystem {
 
   constructor(
     private readonly extensionContext: vscode.ExtensionContext,
+    private readonly runMode: RunMode,
     cursorlessDirPath: string,
     cursorlessDirName: string,
   ) {
@@ -43,22 +50,31 @@ export class VscodeFileSystem implements FileSystem {
   }
 
   /**
-   * Reads a file from a path.
+   * Reads a file that comes bundled with Cursorless, with the utf-8 encoding.
+   * Note that in development mode, it is possible to supply an absolute path to
+   * a file on the local filesystem, for things like hot-reloading.
    *
-   * @param path The path of the file to read.  If path is relative, it is
-   *    read from under the extensionUri of the extensionContext passed to
-   *    the constructor.  If it is absolute, it is read from that location
-   *    in the local filesystem.
-   * @returns the contents of path, decoded as UTF-8
+   * @param path The path of the file to read
+   * @returns The contents of path, decoded as UTF-8
    */
-  public async readFileUtf8FromRoot(path: string): Promise<string> {
+  public async readBundledFile(path: string): Promise<string> {
     return this.decoder.decode(
-      await vscode.workspace.fs.readFile(
-        path.startsWith("/")
-          ? vscode.Uri.file(path)
-          : vscode.Uri.joinPath(this.extensionContext.extensionUri, path),
-      ),
+      await vscode.workspace.fs.readFile(this.resolveBundledPath(path)),
     );
+  }
+
+  private resolveBundledPath(path: string) {
+    if (isAbsolute(path)) {
+      if (this.runMode !== "development") {
+        throw new Error(
+          "Absolute paths are not supported outside of development mode",
+        );
+      }
+
+      return vscode.Uri.file(path);
+    }
+
+    return vscode.Uri.joinPath(this.extensionContext.extensionUri, path);
   }
 
   public watchDir(path: string, onDidChange: PathChangeListener): Disposable {

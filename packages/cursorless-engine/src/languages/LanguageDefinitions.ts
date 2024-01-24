@@ -10,7 +10,6 @@ import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
-import { uniq } from "lodash";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -47,18 +46,15 @@ export class LanguageDefinitions {
     private treeSitter: TreeSitter,
   ) {
     ide().onDidOpenTextDocument((document) => {
-      if (!this.languageDefinitions.has(document.languageId)) {
-        this.loadLanguage(document.languageId);
-      }
+      this.loadLanguage(document.languageId);
+    });
+    ide().onDidChangeVisibleTextEditors((editors) => {
+      editors.forEach(({ document }) => this.loadLanguage(document.languageId));
     });
 
-    uniq(
-      ide().visibleTextEditors.map(
-        ({ document: { languageId } }) => languageId,
-      ),
-    ).forEach((languageId) => {
-      this.loadLanguage(languageId);
-    });
+    ide().visibleTextEditors.forEach(({ document }) =>
+      this.loadLanguage(document.languageId),
+    );
 
     // Use the repo root as the root for development mode, so that we can
     // we can make hot-reloading work for the queries
@@ -77,6 +73,10 @@ export class LanguageDefinitions {
   }
 
   public async loadLanguage(languageId: string): Promise<void> {
+    if (this.languageDefinitions.has(languageId)) {
+      return;
+    }
+
     const definition =
       (await LanguageDefinition.create(
         this.treeSitter,

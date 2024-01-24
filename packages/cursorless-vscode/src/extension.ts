@@ -185,6 +185,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
 
   const fileSystem = new VscodeFileSystem(
     context,
+    vscodeIDE.runMode,
     cursorlessDirPath,
     cursorlessDirName,
   );

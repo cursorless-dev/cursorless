@@ -21,14 +21,14 @@ export interface FileSystem {
   dirname(path: string): string;
 
   /**
-   * Reads a file from a path.
+   * Reads a file that comes bundled with Cursorless, with the utf-8 encoding.
+   * Note that in development mode, it is possible to supply an absolute path to
+   * a file on the local filesystem, for things like hot-reloading.
    *
-   * @param path The path of the file to read.  If path is relative, it is
-   *    read from under a pre-configured root location.  If it is absolute,
-   *    it is read from that location.
-   * @returns The contents of the file as as string, decoded as UTF-8.
+   * @param path The path of the file to read
+   * @returns The contents of path, decoded as UTF-8
    */
-  readFileUtf8FromRoot(path: string): Promise<string>;
+  readBundledFile(path: string): Promise<string>;
 
   /**
    * Recursively watch a directory for changes.

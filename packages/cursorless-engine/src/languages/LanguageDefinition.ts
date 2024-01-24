@@ -114,7 +114,7 @@ async function readQueryFileAndImports(
         continue;
       }
 
-      const rawQuery = await fileSystem.readFileUtf8FromRoot(queryPath);
+      const rawQuery = await fileSystem.readBundledFile(queryPath);
       rawQueryStrings[queryPath] = rawQuery;
       matchAll(
         rawQuery,
