@@ -63,12 +63,9 @@ export class LanguageDefinitions {
 
     // Use the repo root as the root for development mode, so that we can
     // we can make hot-reloading work for the queries
-    this.queryDir = join(
-      ide().runMode === "development"
-        ? getCursorlessRepoRoot()
-        : ide().assetsRoot,
-      "queries",
-    );
+    this.queryDir = ide().runMode === "development"
+        ? fileSystem.join(getCursorlessRepoRoot(), "queries")
+        : "queries";
 
     if (ide().runMode === "development") {
       this.disposables.push(
@@ -84,7 +81,7 @@ export class LanguageDefinitions {
       (await LanguageDefinition.create(
         this.treeSitter,
         this.fileSystem,
-        "queries",
+        this.queryDir,
         languageId,
       )) ?? LANGUAGE_UNDEFINED;
 

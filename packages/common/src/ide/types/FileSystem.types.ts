@@ -21,9 +21,11 @@ export interface FileSystem {
   dirname(path: string): string;
 
   /**
-   * Reads a file from a path under a pre-configured root location.
+   * Reads a file from a path.
    *
-   * @param path The path of the file to read.
+   * @param path The path of the file to read.  If path is relative, it is
+   *    read from under a pre-configured root location.  If it is absolute,
+   *    it is read from that location.
    * @returns The contents of the file as as string, decoded as UTF-8.
    */
   readFileUtf8FromRoot(path: string): Promise<string>;
