@@ -11,6 +11,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { uniq } from "lodash";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -47,9 +48,17 @@ export class LanguageDefinitions {
     private treeSitter: TreeSitter,
   ) {
     ide().onDidOpenTextDocument((document) => {
-      if (this.languageDefinitions.get(document.languageId) == null) {
+      if (!this.languageDefinitions.has(document.languageId)) {
         this.loadLanguage(document.languageId);
       }
+    });
+
+    uniq(
+      ide().visibleTextEditors.map(
+        ({ document: { languageId } }) => languageId,
+      ),
+    ).forEach((languageId) => {
+      this.loadLanguage(languageId);
     });
 
     // Use the repo root as the root for development mode, so that we can
@@ -83,11 +92,10 @@ export class LanguageDefinitions {
   }
 
   private async reloadLanguageDefinitions(): Promise<void> {
+    const languageIds = Array.from(this.languageDefinitions.keys());
     this.languageDefinitions.clear();
     await Promise.all(
-      Array.from(this.languageDefinitions.keys()).map((languageId) =>
-        this.loadLanguage(languageId),
-      ),
+      languageIds.map((languageId) => this.loadLanguage(languageId)),
     );
     this.notifier.notifyListeners();
   }
