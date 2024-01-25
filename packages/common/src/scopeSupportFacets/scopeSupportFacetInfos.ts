@@ -239,11 +239,11 @@ export const scopeSupportFacetInfos: Record<
     description: "Name (LHS) of a field in a class / interface",
     scopeType: "name",
   },
-  "name.resourceManagement": {
+  "name.resource": {
     description: "Name in a 'with' / 'use' / 'using' statement",
     scopeType: "name",
   },
-  "name.resourceManagement.iteration": {
+  "name.resource.iteration": {
     description:
       "Iteration scope for names in a 'with' / 'use' / 'using' statement",
     scopeType: "name",
@@ -299,11 +299,11 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a field in a class / interface",
     scopeType: "value",
   },
-  "value.resourceManagement": {
+  "value.resource": {
     description: "Value of a 'with' / 'use' / 'using' statement",
     scopeType: "value",
   },
-  "value.resourceManagement.iteration": {
+  "value.resource.iteration": {
     description:
       "Iteration scope for values in a 'with' / 'use' / 'using' statement",
     scopeType: "value",
