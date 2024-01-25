@@ -36,28 +36,32 @@ export function serializeTargetRange(
   const lines: string[] = [];
 
   codeLines.forEach((codeLine, lineNumber) => {
-    // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
-    lines.push(
-      codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
-    );
-
+    let annotationLine: string | undefined;
     if (lineNumber === start.line) {
       const prefix = fill(" ", start.character + 2) + ">";
       if (start.line === end.line) {
-        lines.push(prefix + fill("-", end.character - start.character) + "<");
+        annotationLine =
+          prefix + fill("-", end.character - start.character) + "<";
       } else {
-        lines.push(prefix + fill("-", codeLine.length - start.character));
+        annotationLine = prefix + fill("-", codeLine.length - start.character);
       }
     } else if (lineNumber > start.line && lineNumber < end.line) {
       if (codeLine.length > 0) {
-        lines.push("   " + fill("-", codeLine.length));
+        annotationLine = "   " + fill("-", codeLine.length);
       } else {
-        lines.push("");
+        annotationLine = "";
       }
     } else if (lineNumber === end.line) {
-      lines.push("   " + fill("-", end.character) + "<");
-    } else {
-      lines.push("");
+      annotationLine = "   " + fill("-", end.character) + "<";
+    }
+
+    if (annotationLine != null) {
+      // Only output anything if there is an annotation line
+      lines.push(
+        // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
+        codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
+        annotationLine,
+      );
     }
   });
 
