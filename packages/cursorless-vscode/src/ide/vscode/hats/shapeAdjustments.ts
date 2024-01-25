@@ -2,6 +2,7 @@ import { HatShape } from "../hatStyles.types";
 
 export interface HatAdjustments {
   sizeAdjustment?: number;
+  strokeFactor?: number;
   verticalOffset?: number;
 }
 
@@ -23,7 +24,9 @@ export const defaultShapeAdjustments: IndividualHatAdjustmentMap = {
   wing: {
     sizeAdjustment: -2.5,
   },
-  hole: {},
+  hole: {
+    strokeFactor: 0.7,
+  },
   frame: {
     sizeAdjustment: -20,
   },

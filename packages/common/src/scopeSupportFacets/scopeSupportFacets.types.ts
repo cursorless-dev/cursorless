@@ -87,6 +87,7 @@ const scopeSupportFacets = [
   "type.field",
   "type.foreach",
   "type.interface",
+  "type.alias",
 
   // FIXME: Still in legacy
   // section

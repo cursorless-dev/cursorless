@@ -7,6 +7,70 @@ import path from "path";
 import { getCursorlessRepoRoot } from "@cursorless/common";
 import { readFile } from "node:fs/promises";
 
+interface TestCase {
+  name: string;
+  initialContent: string;
+  /**
+   * The sequence of keypresses that will be sent. The list of strings will simply
+   * be concatenated before sending. We could just represent this as a single string
+   * but it is more readable if each "token" is a separate string.
+   */
+  keySequence: string[];
+  finalContent: string;
+}
+
+const testCases: TestCase[] = [
+  {
+    name: "and",
+    initialContent: "x T y\n",
+    // change plex and yank
+    keySequence: ["dx", "fa", "dy", "c"],
+    finalContent: " T \n",
+  },
+  {
+    name: "every",
+    initialContent: "a a\nb b\n",
+    // change every token air
+    keySequence: ["da", "x", "st", "c"],
+    finalContent: " \nb b\n",
+  },
+  {
+    name: "three",
+    initialContent: "a b c d e\n",
+    // change three tokens bat
+    keySequence: ["db", "3", "st", "c"],
+    finalContent: "a  e\n",
+  },
+  {
+    name: "three backwards",
+    initialContent: "a b c d e\n",
+    // change three tokens backwards drum
+    keySequence: ["dd", "-3", "st", "c"],
+    finalContent: "a  e\n",
+  },
+  {
+    name: "pair parens",
+    initialContent: "a + (b + c) + d",
+    // change parens bat
+    keySequence: ["db", "wp", "c"],
+    finalContent: "a +  + d",
+  },
+  {
+    name: "pair string",
+    initialContent: 'a + "w" + b',
+    // change parens bat
+    keySequence: ["dw", "wj", "c"],
+    finalContent: "a +  + b",
+  },
+  {
+    name: "wrap",
+    initialContent: "a",
+    // round wrap air
+    keySequence: ["da", "aw", "wp"],
+    finalContent: "(a)",
+  },
+];
+
 suite("Basic keyboard test", async function () {
   endToEndTestSetup(this);
 
@@ -20,7 +84,11 @@ suite("Basic keyboard test", async function () {
 
   test("Don't take keyboard control on startup", () => checkKeyboardStartup());
   test("Basic keyboard test", () => basic());
+  test("No automatic token expansion", () => noAutomaticTokenExpansion());
   test("Run vscode command", () => vscodeCommand());
+  for (const t of testCases) {
+    test("Sequence " + t.name, () => sequence(t));
+  }
   test("Check that entering and leaving mode is no-op", () =>
     enterAndLeaveIsNoOp());
 });
@@ -63,6 +131,38 @@ async function basic() {
   await typeText("a");
 
   assert.equal(editor.document.getText().trim(), "a");
+}
+
+async function noAutomaticTokenExpansion() {
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+
+  const editor = await openNewEditor("aaa");
+  await hatTokenMap.allocateHats();
+
+  editor.selection = new vscode.Selection(0, 3, 0, 3);
+
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
+
+  // "pour"
+  await typeText("ao");
+
+  assert.isTrue(editor.selection.isEqual(new vscode.Selection(1, 0, 1, 0)));
+}
+
+/**
+ * sequence runs a test keyboard sequences.
+ */
+async function sequence(t: TestCase) {
+  const { hatTokenMap } = (await getCursorlessApi()).testHelpers!;
+
+  const editor = await openNewEditor(t.initialContent, {
+    languageId: "typescript",
+  });
+  await hatTokenMap.allocateHats();
+  editor.selection = new vscode.Selection(1, 0, 1, 0);
+  await vscode.commands.executeCommand("cursorless.keyboard.modal.modeOn");
+  await typeText(t.keySequence.join(""));
+  assert.equal(editor.document.getText(), t.finalContent);
 }
 
 async function vscodeCommand() {
