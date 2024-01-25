@@ -170,7 +170,7 @@
       (with_item)? @_.leading.endOf
       .
       (with_item
-        value: (_) @value
+        value: (_) @value @name
       )
       .
       (with_item)? @_.trailing.startOf
@@ -179,6 +179,7 @@
   (#not-type? @value "as_pattern")
   (#has-multiple-children-of-type? @_with_clause "with_item")
   (#allow-multiple! @value)
+  (#allow-multiple! @name)
 )
 
 ;;!! with aaa as bbb:
@@ -216,6 +217,7 @@
   )
   (#has-multiple-children-of-type? @_with_clause "with_item")
   (#allow-multiple! @value)
+  (#allow-multiple! @name)
 )
 
 (
