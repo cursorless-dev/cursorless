@@ -6,15 +6,15 @@ export interface FileSystem {
   /**
    * Reads a file that comes bundled with Cursorless, with the utf-8 encoding.
    * {@link path} is expected to be relative to the root of the extension
-   * bundle.
+   * bundle. If the file doesn't exist, returns `undefined`.
    *
-   * Note that in development mode, it is possible to supply an absolute
-   * path to a file on the local filesystem, for things like hot-reloading.
+   * Note that in development mode, it is possible to supply an absolute path to
+   * a file on the local filesystem, for things like hot-reloading.
    *
    * @param path The path of the file to read
    * @returns The contents of path, decoded as UTF-8
    */
-  readBundledFile(path: string): Promise<string>;
+  readBundledFile(path: string): Promise<string | undefined>;
 
   /**
    * Recursively watch a directory for changes.

@@ -45,21 +45,13 @@ export class LanguageDefinition {
   ): Promise<LanguageDefinition | undefined> {
     const languageQueryPath = join(queryDir, `${languageId}.scm`);
 
-    let rawLanguageQueryString;
-    try {
-      rawLanguageQueryString = await readQueryFileAndImports(
-        fileSystem,
-        languageQueryPath,
-      );
-    } catch (err) {
-      if (
-        err instanceof Error &&
-        "code" in err &&
-        err.code === "FileNotFound"
-      ) {
-        return undefined;
-      }
-      throw err;
+    const rawLanguageQueryString = await readQueryFileAndImports(
+      fileSystem,
+      languageQueryPath,
+    );
+
+    if (rawLanguageQueryString == null) {
+      return undefined;
     }
 
     const rawQuery = treeSitter
@@ -122,7 +114,29 @@ async function readQueryFileAndImports(
         continue;
       }
 
-      const rawQuery = await fileSystem.readBundledFile(queryPath);
+      let rawQuery = await fileSystem.readBundledFile(queryPath);
+
+      if (rawQuery == null) {
+        if (queryPath === languageQueryPath) {
+          // If this is the main query file, then we know that this language
+          // just isn't defined using new-style queries
+          return undefined;
+        }
+
+        showError(
+          ide().messages,
+          "LanguageDefinition.readQueryFileAndImports.queryNotFound",
+          `Could not find imported query file ${queryPath}`,
+        );
+
+        if (ide().runMode === "test") {
+          throw new Error("Invalid import statement");
+        }
+
+        // If we're not in test mode, we just ignore the import and continue
+        rawQuery = "";
+      }
+
       rawQueryStrings[queryPath] = rawQuery;
       matchAll(
         rawQuery,
