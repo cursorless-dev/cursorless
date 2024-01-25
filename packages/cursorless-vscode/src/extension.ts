@@ -48,8 +48,8 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
-import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { storedTargetHighlighter } from "./storedTargetHighlighter";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.

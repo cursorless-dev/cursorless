@@ -6,11 +6,11 @@ import {
   TextDocument,
   getCursorlessRepoRoot,
 } from "@cursorless/common";
+import { join } from "path";
 import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
-import { join } from "path";
 
 /**
  * Sentinel value to indicate that a language doesn't have
