@@ -4,7 +4,7 @@ import {
   PathChangeListener,
   RunMode,
 } from "@cursorless/common";
-import { isAbsolute, dirname, join } from "path";
+import { isAbsolute, join } from "path";
 import * as vscode from "vscode";
 
 export class VscodeFileSystem implements FileSystem {
@@ -21,10 +21,7 @@ export class VscodeFileSystem implements FileSystem {
     cursorlessDirName: string,
   ) {
     this.cursorlessDir = join(cursorlessDirPath, cursorlessDirName);
-    this.cursorlessTalonStateJsonPath = join(
-      this.cursorlessDir,
-      "state.json",
-    );
+    this.cursorlessTalonStateJsonPath = join(this.cursorlessDir, "state.json");
     this.cursorlessCommandHistoryDirPath = join(
       this.cursorlessDir,
       "commandHistory",

@@ -143,10 +143,7 @@ async function readQueryFileAndImports(
             }
           }
 
-          const importQueryPath = join(
-            dirname(queryPath),
-            relativeImportPath,
-          );
+          const importQueryPath = join(dirname(queryPath), relativeImportPath);
           rawQueryStrings[importQueryPath] =
             rawQueryStrings[importQueryPath] ?? null;
         },
