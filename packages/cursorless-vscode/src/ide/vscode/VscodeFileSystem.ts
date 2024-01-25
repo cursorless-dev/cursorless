@@ -5,7 +5,6 @@ import {
   RunMode,
 } from "@cursorless/common";
 import { isAbsolute } from "path";
-import { TextDecoder } from "util";
 import * as vscode from "vscode";
 
 export class VscodeFileSystem implements FileSystem {
@@ -13,7 +12,7 @@ export class VscodeFileSystem implements FileSystem {
   public readonly cursorlessCommandHistoryDirPath: string;
   public readonly cursorlessDir: string;
 
-  private decoder: TextDecoder = new TextDecoder("utf-8");
+  private decoder = new TextDecoder("utf-8");
 
   constructor(
     private readonly extensionContext: vscode.ExtensionContext,
