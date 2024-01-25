@@ -12,6 +12,7 @@ import { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
 import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
+import { dirname, join } from "path";
 
 /**
  * Represents a language definition for a single language, including the
@@ -42,7 +43,7 @@ export class LanguageDefinition {
     queryDir: string,
     languageId: string,
   ): Promise<LanguageDefinition | undefined> {
-    const languageQueryPath = fileSystem.join(queryDir, `${languageId}.scm`);
+    const languageQueryPath = join(queryDir, `${languageId}.scm`);
 
     let rawLanguageQueryString;
     try {
@@ -142,8 +143,8 @@ async function readQueryFileAndImports(
             }
           }
 
-          const importQueryPath = fileSystem.join(
-            fileSystem.dirname(queryPath),
+          const importQueryPath = join(
+            dirname(queryPath),
             relativeImportPath,
           );
           rawQueryStrings[importQueryPath] =

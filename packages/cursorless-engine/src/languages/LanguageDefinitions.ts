@@ -10,6 +10,7 @@ import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { join } from "path";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -60,7 +61,7 @@ export class LanguageDefinitions {
     // we can make hot-reloading work for the queries
     this.queryDir =
       ide().runMode === "development"
-        ? fileSystem.join(getCursorlessRepoRoot(), "queries")
+        ? join(getCursorlessRepoRoot(), "queries")
         : "queries";
 
     if (ide().runMode === "development") {

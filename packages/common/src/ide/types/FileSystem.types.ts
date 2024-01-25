@@ -4,22 +4,6 @@ export type PathChangeListener = () => void;
 
 export interface FileSystem {
   /**
-   * Joins path components.
-   *
-   * @param paths zero or more path components to join
-   * @returns The path components joined with the filesystem's directory
-   *   separator.
-   */
-  join(...paths: string[]): string;
-
-  /**
-   * Removes the final component from a path.
-   *
-   * @param path A path.
-   */
-  dirname(path: string): string;
-
-  /**
    * Reads a file that comes bundled with Cursorless, with the utf-8 encoding.
    * {@link path} is expected to be relative to the root of the extension
    * bundle.
