@@ -26,9 +26,13 @@ export class VscodeFileSystem implements FileSystem {
   }
 
   public async initialize(): Promise<void> {
-    await vscode.workspace.fs.createDirectory(
-      vscode.Uri.file(this.cursorlessDir),
-    );
+    try {
+      await vscode.workspace.fs.createDirectory(
+        vscode.Uri.file(this.cursorlessDir));
+    } catch (err) {
+      console.log("Cannot create cursorlessDir", this.cursorlessDir,
+                  err);
+    }
   }
 
   /**
