@@ -53,16 +53,16 @@ export class LanguageDefinitions {
       editors.forEach(({ document }) => this.loadLanguage(document.languageId));
     });
 
-    ide().visibleTextEditors.forEach(({ document }) =>
-      this.loadLanguage(document.languageId),
-    );
-
     // Use the repo root as the root for development mode, so that we can
     // we can make hot-reloading work for the queries
     this.queryDir =
       ide().runMode === "development"
         ? join(getCursorlessRepoRoot(), "queries")
         : "queries";
+
+    ide().visibleTextEditors.forEach(({ document }) =>
+      this.loadLanguage(document.languageId),
+    );
 
     if (ide().runMode === "development") {
       this.disposables.push(
