@@ -18,18 +18,6 @@ finally {
 
 2| }
    -<
-3| catch(error) {
-
-4|
-
-5| }
-
-6| finally {
-
-7|
-
-8| }
-
 
 [#1 Insertion delimiter] = "\n"
 
@@ -37,24 +25,12 @@ finally {
 [#2 Content] =
 [#2 Removal] =
 [#2 Domain] = 3:0-5:1
-0| try {
-
-1|
-
-2| }
-
 3| catch(error) {
   >--------------
 4|
 
 5| }
    -<
-6| finally {
-
-7|
-
-8| }
-
 
 [#2 Insertion delimiter] = "\n"
 
@@ -62,18 +38,6 @@ finally {
 [#3 Content] =
 [#3 Removal] =
 [#3 Domain] = 6:0-8:1
-0| try {
-
-1|
-
-2| }
-
-3| catch(error) {
-
-4|
-
-5| }
-
 6| finally {
   >---------
 7|

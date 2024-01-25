@@ -4,35 +4,19 @@ class MyClass {
 ---
 
 [Content] = 1:10-1:11
-0| class MyClass {
-
 1|   value = 0;
             >-<
-2| }
-
 
 [Removal] = 1:7-1:11
-0| class MyClass {
-
 1|   value = 0;
          >----<
-2| }
-
 
 [Leading delimiter] = 1:7-1:10
-0| class MyClass {
-
 1|   value = 0;
          >---<
-2| }
-
 
 [Domain] = 1:2-1:12
-0| class MyClass {
-
 1|   value = 0;
     >----------<
-2| }
-
 
 [Insertion delimiter] = " "
