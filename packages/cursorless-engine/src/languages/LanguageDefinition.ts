@@ -52,7 +52,10 @@ export class LanguageDefinition {
         languageQueryPath,
       );
     } catch (err) {
-      return undefined;
+      if (err instanceof Error && "code" in err && err.code == "FileNotFound") {
+        return undefined;
+      }
+      throw err;
     }
 
     const rawQuery = treeSitter
