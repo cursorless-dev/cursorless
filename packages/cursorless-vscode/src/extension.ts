@@ -24,6 +24,7 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
+import path from "node:path";
 import * as os from "os";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
@@ -47,8 +48,8 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
-import { vscodeApi } from "./vscodeApi";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
+import { vscodeApi } from "./vscodeApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -178,16 +179,14 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   // extension initialization, probably by returning a function from extension
   // init that has parameters consisting of test configuration, and have that
   // function do the actual initialization.
-  const cursorlessDirPath = isTesting() ? os.tmpdir() : os.homedir();
-  const cursorlessDirName = isTesting()
-    ? crypto.randomBytes(16).toString("hex")
-    : ".cursorless";
+  const cursorlessDir = isTesting()
+    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+    : path.join(os.homedir(), ".cursorless");
 
   const fileSystem = new VscodeFileSystem(
     context,
     vscodeIDE.runMode,
-    cursorlessDirPath,
-    cursorlessDirName,
+    cursorlessDir,
   );
   await fileSystem.initialize();
 

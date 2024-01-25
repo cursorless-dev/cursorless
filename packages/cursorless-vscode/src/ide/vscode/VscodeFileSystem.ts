@@ -10,17 +10,14 @@ import * as vscode from "vscode";
 export class VscodeFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;
   public readonly cursorlessCommandHistoryDirPath: string;
-  public readonly cursorlessDir: string;
 
   private decoder = new TextDecoder("utf-8");
 
   constructor(
     private readonly extensionContext: vscode.ExtensionContext,
     private readonly runMode: RunMode,
-    cursorlessDirPath: string,
-    cursorlessDirName: string,
+    public readonly cursorlessDir: string,
   ) {
-    this.cursorlessDir = join(cursorlessDirPath, cursorlessDirName);
     this.cursorlessTalonStateJsonPath = join(this.cursorlessDir, "state.json");
     this.cursorlessCommandHistoryDirPath = join(
       this.cursorlessDir,

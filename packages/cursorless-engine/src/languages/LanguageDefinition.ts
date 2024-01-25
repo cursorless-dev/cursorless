@@ -52,7 +52,11 @@ export class LanguageDefinition {
         languageQueryPath,
       );
     } catch (err) {
-      if (err instanceof Error && "code" in err && err.code == "FileNotFound") {
+      if (
+        err instanceof Error &&
+        "code" in err &&
+        err.code === "FileNotFound"
+      ) {
         return undefined;
       }
       throw err;
