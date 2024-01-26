@@ -4,15 +4,15 @@ defmodule Calls do
   c do
     1
   end
-  d.() do
+  d() do
   end
-  e.() do
+  e() do
     1
   end
   a x do
     x
   end
-  f.(0) do
+  f(0) do
     1
   end
   Alias.g()
