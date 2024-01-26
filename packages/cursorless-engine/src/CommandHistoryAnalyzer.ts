@@ -5,16 +5,15 @@ import {
   ScopeType,
 } from "@cursorless/common";
 import globRaw from "glob";
+import { groupBy, map } from "lodash";
 import { promisify } from "node:util";
+import { asyncIteratorToList } from "./asyncIteratorToList";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { generateCommandHistoryEntries } from "./generateCommandHistoryEntries";
 import { ide } from "./singletons/ide.singleton";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "./util/getPrimitiveTargets";
 import { getScopeType } from "./util/getScopeType";
-import { generateCommandHistoryEntries } from "./generateCommandHistoryEntries";
-import groupby from "./groupby";
-import { mapAsync } from "./mapAsync";
-import { asyncIteratorToList } from "./asyncIteratorToList";
 
 export const glob = promisify(globRaw);
 
@@ -97,15 +96,16 @@ function getMonth(entry: CommandHistoryEntry): string {
   return entry.date.slice(0, 7);
 }
 
-function generatePeriods(dir: string): AsyncIterable<string> {
-  return mapAsync(
-    groupby(generateCommandHistoryEntries(dir), getMonth),
-    ([key, entries]) => new Period(key, entries).toString(),
+async function generatePeriods(dir: string): Promise<string[]> {
+  const entries = await asyncIteratorToList(generateCommandHistoryEntries(dir));
+
+  return map(Object.entries(groupBy(entries, getMonth)), ([key, entries]) =>
+    new Period(key, entries).toString(),
   );
 }
 
 export async function analyzeCommandHistory(dir: string) {
-  const text = (await asyncIteratorToList(generatePeriods(dir))).join("\n\n");
+  const text = (await generatePeriods(dir)).join("\n\n");
 
   await ide().openUntitledTextDocument({ content: text });
 }
