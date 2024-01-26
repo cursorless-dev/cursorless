@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  spokenForm: chuck last word
+  spokenForm: chuck last sub
   version: 3
   targets:
     - type: primitive

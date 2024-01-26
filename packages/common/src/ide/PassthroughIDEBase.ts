@@ -123,6 +123,10 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.visibleTextEditors;
   }
 
+  public get cursorlessVersion(): string {
+    return this.original.cursorlessVersion;
+  }
+
   public get assetsRoot(): string {
     return this.original.assetsRoot;
   }
@@ -133,6 +137,10 @@ export default class PassthroughIDEBase implements IDE {
 
   public get workspaceFolders(): readonly WorkspaceFolder[] | undefined {
     return this.original.workspaceFolders;
+  }
+
+  public findInDocument(query: string, editor?: TextEditor): Promise<void> {
+    return this.original.findInDocument(query, editor);
   }
 
   public findInWorkspace(query: string): Promise<void> {

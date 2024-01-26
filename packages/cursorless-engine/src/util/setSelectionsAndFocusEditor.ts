@@ -1,6 +1,8 @@
-import { EditableTextEditor, Selection } from "@cursorless/common";
-
-import { uniqWithHash } from "./uniqWithHash";
+import {
+  EditableTextEditor,
+  Selection,
+  uniqWithHash,
+} from "@cursorless/common";
 
 export async function setSelectionsAndFocusEditor(
   editor: EditableTextEditor,

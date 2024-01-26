@@ -19,6 +19,7 @@ export interface TalonSpokenForms {
  */
 export const SUPPORTED_ENTRY_TYPES = [
   "simpleScopeTypeType",
+  "complexScopeTypeType",
   "customRegex",
   "pairedDelimiter",
 ] as const;

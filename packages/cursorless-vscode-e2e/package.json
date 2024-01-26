@@ -21,6 +21,7 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
+    "immer": "^9.0.15",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

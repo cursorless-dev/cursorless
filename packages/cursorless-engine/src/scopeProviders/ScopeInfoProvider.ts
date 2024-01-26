@@ -144,7 +144,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "sectionLevelFive":
     case "sectionLevelSix":
     case "selector":
-    case "switchStatementSubject":
+    case "private.switchStatementSubject":
     case "unit":
     case "xmlBothTags":
     case "xmlElement":
@@ -173,6 +173,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "notebookCell":
     case "surroundingPair":
     case "customRegex":
+    case "glyph":
       return false;
 
     case "oneOf":

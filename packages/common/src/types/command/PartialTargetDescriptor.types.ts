@@ -6,6 +6,10 @@ export interface ThatMark {
   type: "that";
 }
 
+export interface KeyboardMark {
+  type: "keyboard";
+}
+
 export interface SourceMark {
   type: "source";
 }
@@ -69,6 +73,7 @@ export type PartialMark =
   | CursorMark
   | ThatMark
   | SourceMark
+  | KeyboardMark
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
@@ -139,7 +144,7 @@ export const simpleScopeTypeTypes = [
   "sectionLevelFive",
   "sectionLevelSix",
   "selector",
-  "switchStatementSubject",
+  "private.switchStatementSubject",
   "unit",
   "xmlBothTags",
   "xmlElement",
@@ -205,11 +210,17 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
+export interface GlyphScopeType {
+  type: "glyph";
+  character: string;
+}
+
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
-  | OneOfScopeType;
+  | OneOfScopeType
+  | GlyphScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -230,6 +241,10 @@ export interface InteriorOnlyModifier {
 
 export interface ExcludeInteriorModifier {
   type: "excludeInterior";
+}
+
+export interface VisibleModifier {
+  type: "visible";
 }
 
 export interface ContainingScopeModifier {
@@ -375,6 +390,7 @@ export type Modifier =
   | EndOfModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
+  | VisibleModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier

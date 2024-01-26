@@ -21,6 +21,10 @@ export function getRecordedTestsDirPath() {
   return path.join(getFixturesPath(), "recorded");
 }
 
+export function getScopeTestsDirPath() {
+  return path.join(getFixturesPath(), "scopes");
+}
+
 export function getRecordedTestPaths() {
   const directory = getRecordedTestsDirPath();
   const relativeDir = path.dirname(directory);
@@ -28,7 +32,27 @@ export function getRecordedTestPaths() {
   return walkFilesSync(directory)
     .filter((p) => p.endsWith(".yml") || p.endsWith(".yaml"))
     .map((p) => ({
-      name: path.relative(relativeDir, p.substring(0, p.lastIndexOf("."))),
       path: p,
+      name: pathToName(relativeDir, p),
     }));
+}
+
+export function getScopeTestPaths() {
+  const directory = getScopeTestsDirPath();
+  const relativeDir = path.dirname(directory);
+
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith(".scope"))
+    .map((p) => ({
+      path: p,
+      name: pathToName(relativeDir, p),
+      languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
+      facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1],
+    }));
+}
+
+function pathToName(relativeDir: string, filePath: string) {
+  return path
+    .relative(relativeDir, filePath.substring(0, filePath.lastIndexOf(".")))
+    .replaceAll("\\", "/");
 }

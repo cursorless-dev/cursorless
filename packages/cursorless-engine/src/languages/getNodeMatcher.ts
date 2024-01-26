@@ -13,9 +13,7 @@ import { LegacyLanguageId } from "./LegacyLanguageId";
 import cpp from "./cpp";
 import csharp from "./csharp";
 import go from "./go";
-import { patternMatchers as html } from "./html";
 import java from "./java";
-import { patternMatchers as json } from "./json";
 import latex from "./latex";
 import markdown from "./markdown";
 import php from "./php";
@@ -24,7 +22,6 @@ import { patternMatchers as ruby } from "./ruby";
 import rust from "./rust";
 import scala from "./scala";
 import { patternMatchers as scss } from "./scss";
-import { patternMatchers as typescript } from "./typescript";
 
 export function getNodeMatcher(
   languageId: string,
@@ -60,12 +57,7 @@ export const languageMatchers: Record<
   csharp,
   clojure,
   go,
-  html,
   java,
-  javascript: typescript,
-  javascriptreact: typescript,
-  json,
-  jsonc: json,
   latex,
   markdown,
   php,
@@ -74,9 +66,6 @@ export const languageMatchers: Record<
   scala,
   scss,
   rust,
-  typescript,
-  typescriptreact: typescript,
-  xml: html,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {

@@ -6,7 +6,7 @@ import {
 
 export function scopeTypeToString(scopeType: ScopeType): string {
   if (isSimpleScopeType(scopeType)) {
-    return camelCaseToAllDown(scopeType.type);
+    return camelCaseToAllDown(scopeType.type).replace(".", " ");
   }
 
   if (scopeType.type === "surroundingPair") {

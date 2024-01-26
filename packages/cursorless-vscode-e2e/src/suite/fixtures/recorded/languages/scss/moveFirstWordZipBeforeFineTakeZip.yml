@@ -1,6 +1,6 @@
 languageId: scss
 command:
-  spokenForm: move first word zip before fine take zip
+  spokenForm: move first sub zip before fine take zip
   version: 2
   targets:
     - type: primitive

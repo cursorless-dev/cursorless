@@ -241,7 +241,7 @@ const nodeMatchers: Partial<
     matcher(patternFinder("else_clause"), elseExtractor("if_expression")),
     matcher(patternFinder("if_expression"), elseIfExtractor()),
   ),
-  switchStatementSubject: "match_expression[value]",
+  ["private.switchStatementSubject"]: "match_expression[value]",
 };
 
 export default createPatternMatchers(nodeMatchers);

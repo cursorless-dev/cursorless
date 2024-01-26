@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 3
-  spokenForm: take first past second word harp
+  spokenForm: take first past second sub harp
   action: {name: setSelection}
   targets:
     - type: primitive

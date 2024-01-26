@@ -26,6 +26,7 @@
       "type": "npm",
       "script": "esbuild",
       "path": "packages/cursorless-vscode",
+      "dependsOn": ["Generate grammar"],
       "presentation": {
         "reveal": "silent"
       },
@@ -55,6 +56,16 @@
       "label": "Populate dist",
       "type": "npm",
       "script": "populate-dist",
+      "path": "packages/cursorless-vscode",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Generate grammar",
+      "type": "npm",
+      "script": "generate-grammar",
       "path": "packages/cursorless-vscode",
       "presentation": {
         "reveal": "silent"
