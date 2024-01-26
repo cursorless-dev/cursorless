@@ -1,5 +1,5 @@
 export async function asyncIteratorToList<T>(
-  iterator: AsyncIterable<T>
+  iterator: AsyncIterable<T>,
 ): Promise<T[]> {
   const list: T[] = [];
   for await (const item of iterator) {
