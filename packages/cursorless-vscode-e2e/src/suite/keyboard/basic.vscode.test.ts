@@ -70,7 +70,7 @@ const testCases: TestCase[] = [
     finalContent: "(a)",
   },
   {
-    name: "reset keyboard target",
+    name: "preserve keyboard target",
     initialContent: "a\n",
     // round wrap air; round wrap <keyboard target>
     keySequence: ["da", "aw", "wp", "aw", "wp"],
