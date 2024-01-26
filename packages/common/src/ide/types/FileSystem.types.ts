@@ -25,12 +25,6 @@ export interface FileSystem {
   watchDir(path: string, onDidChange: PathChangeListener): Disposable;
 
   /**
-   * The path to the directory that Cursorless talon uses to share its state
-   * with the Cursorless engine.
-   */
-  readonly cursorlessDir: string;
-
-  /**
    * The path to the Cursorless talon state JSON file.
    */
   readonly cursorlessTalonStateJsonPath: string;

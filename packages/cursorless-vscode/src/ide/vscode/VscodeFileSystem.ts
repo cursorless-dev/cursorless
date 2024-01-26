@@ -16,7 +16,7 @@ export class VscodeFileSystem implements FileSystem {
   constructor(
     private readonly extensionContext: vscode.ExtensionContext,
     private readonly runMode: RunMode,
-    public readonly cursorlessDir: string,
+    private readonly cursorlessDir: string,
   ) {
     this.cursorlessTalonStateJsonPath = join(this.cursorlessDir, "state.json");
     this.cursorlessCommandHistoryDirPath = join(
