@@ -17,6 +17,9 @@ import { getScopeType } from "./util/getScopeType";
 
 export const glob = promisify(globRaw);
 
+/**
+ * Analyzes the command history for a given time period, and outputs a report
+ */
 class Period {
   private readonly period: string;
   private readonly actions: Record<string, number> = {};
@@ -96,16 +99,13 @@ function getMonth(entry: CommandHistoryEntry): string {
   return entry.date.slice(0, 7);
 }
 
-async function generatePeriods(dir: string): Promise<string[]> {
+export async function analyzeCommandHistory(dir: string) {
   const entries = await asyncIteratorToList(generateCommandHistoryEntries(dir));
 
-  return map(Object.entries(groupBy(entries, getMonth)), ([key, entries]) =>
-    new Period(key, entries).toString(),
-  );
-}
+  const content = map(
+    Object.entries(groupBy(entries, getMonth)),
+    ([key, entries]) => new Period(key, entries).toString(),
+  ).join("\n\n");
 
-export async function analyzeCommandHistory(dir: string) {
-  const text = (await generatePeriods(dir)).join("\n\n");
-
-  await ide().openUntitledTextDocument({ content: text });
+  await ide().openUntitledTextDocument({ content });
 }
