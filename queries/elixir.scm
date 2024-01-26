@@ -7,13 +7,15 @@
 
 ;; Map
 ;; %{:a => "lorem", "b" => "ipsum", 3 => "dolor"}
-(map_content
-  (_)? @_.leading.start.endOf
-  .
-  (binary_operator) @collectionItem @_.leading.end.startOf @_.trailing.start.endOf
-  .
-  (_)? @_.trailing.end.startOf
-  (#insertion-delimiter! @collectionItem ", ")
+(
+  (map_content
+    (_)? @_.leading.endOf
+    .
+    (binary_operator) @collectionItem
+    .
+    (_)? @_.trailing.startOf
+  ) @dummy
+  (#single-or-multi-line-delimiter! @collectionItem @dummy ", " ",\n")
 )
 (map_content
   (binary_operator
@@ -24,16 +26,21 @@
 
 ;; Shorthand map syntax
 ;; %{a: "lorem", b: "ipsum"}
-(map_content
-  (keywords
-    (_)? @_.leading.start.endOf
-    .
-    (pair) @collectionItem @_.leading.end.startOf @_.trailing.start.endOf
-    .
-    (_)? @_.trailing.end.startOf
-  )
-  (#insertion-delimiter! @collectionItem ", ")
+(
+  (map_content
+    (keywords
+      (_)? @_.leading.endOf
+      .
+      (pair) @collectionItem
+      .
+      (_)? @_.trailing.startOf
+    )
+    (#single-or-multi-line-delimiter! @collectionItem @dummy ", " ",\n")
+  ) @dummy
 )
+
+(map_content) @collectionItem.iteration @collectionKey.iteration @value.iteration
+
 (map_content
   (keywords
     (pair

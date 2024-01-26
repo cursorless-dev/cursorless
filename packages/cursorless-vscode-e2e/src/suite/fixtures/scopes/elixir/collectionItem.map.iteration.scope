@@ -1,0 +1,13 @@
+defmodule DataStructures do
+  %{a: 1, b: 2}
+end
+---
+
+[Range] =
+[Domain] = 1:4-1:14
+0| defmodule DataStructures do
+
+1|   %{a: 1, b: 2}
+      >----------<
+2| end
+

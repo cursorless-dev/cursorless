@@ -16,6 +16,11 @@ defmodule DataStructures do
   %ThirdStruct{"a" => 1, b: 2, c: 3}
   %User{user | name: "Jane", email: "jane@example.com"}
   %User{user | "name" => "Jane"}
+  %{
+    :a => 1,
+    "b" => 2,
+    c => 3
+  }
   %_{}
   %name{}
   %^name{}
