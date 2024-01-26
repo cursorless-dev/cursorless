@@ -314,4 +314,8 @@ export const scopeSupportFacetInfos: Record<
     description: "An interface declaration",
     scopeType: "type",
   },
+  "type.alias": {
+    description: "A type alias declaration",
+    scopeType: "type",
+  },
 };

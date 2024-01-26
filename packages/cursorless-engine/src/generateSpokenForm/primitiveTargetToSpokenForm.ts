@@ -302,6 +302,7 @@ export class PrimitiveTargetSpokenFormGenerator {
         throw Error(`Mark '${mark.type}' is not fully implemented`);
       }
       case "explicit":
+      case "keyboard":
         throw new NoSpokenFormError(`Mark '${mark.type}'`);
 
       default:
