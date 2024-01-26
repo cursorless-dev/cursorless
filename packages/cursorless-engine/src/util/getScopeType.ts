@@ -21,11 +21,13 @@ export function getScopeType(modifier: Modifier): ScopeType | undefined {
     case "endOf":
     case "extendThroughStartOf":
     case "extendThroughEndOf":
-      return undefined;
-
     case "cascading":
     case "range":
     case "modifyIfUntyped":
-      throw Error(`Unexpected modifier type: ${modifier.type}`);
+      return undefined;
+
+    default: {
+      const _exhaustiveCheck: never = modifier;
+    }
   }
 }

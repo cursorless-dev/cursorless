@@ -5,26 +5,31 @@ import {
   ScopeType,
 } from "@cursorless/common";
 import globRaw from "glob";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { promisify } from "node:util";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { ide } from "./singletons/ide.singleton";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "./util/getPrimitiveTargets";
 import { getScopeType } from "./util/getScopeType";
+import { generateCommandHistoryEntries } from "./generateCommandHistoryEntries";
+import groupby from "./groupby";
+import { mapAsync } from "./mapAsync";
+import { asyncIteratorToList } from "./asyncIteratorToList";
 
-const glob = promisify(globRaw);
+export const glob = promisify(globRaw);
 
 class Period {
-  readonly period: string;
-  readonly actions: Record<string, number> = {};
-  readonly modifiers: Record<string, number> = {};
-  readonly scopeTypes: Record<string, number> = {};
-  count: number = 0;
+  private readonly period: string;
+  private readonly actions: Record<string, number> = {};
+  private readonly modifiers: Record<string, number> = {};
+  private readonly scopeTypes: Record<string, number> = {};
+  private count: number = 0;
 
-  constructor(period: string) {
+  constructor(period: string, entries: CommandHistoryEntry[]) {
     this.period = period;
+    for (const entry of entries) {
+      this.append(entry);
+    }
   }
 
   toString(): string {
@@ -46,14 +51,14 @@ class Period {
     return `${name} (${entries.length}):\n${entriesSerialized}`;
   }
 
-  append(entry: CommandHistoryEntry) {
+  private append(entry: CommandHistoryEntry) {
     this.count++;
     const command = canonicalizeAndValidateCommand(entry.command);
     this.incrementAction(command.action.name);
 
-    const partialTargets = getPartialTargetDescriptors(command.action);
-    const partialPrimitiveTargets = getPartialPrimitiveTargets(partialTargets);
-    this.parsePrimitiveTargets(partialPrimitiveTargets);
+    this.parsePrimitiveTargets(
+      getPartialPrimitiveTargets(getPartialTargetDescriptors(command.action)),
+    );
   }
 
   private parsePrimitiveTargets(
@@ -88,53 +93,19 @@ class Period {
   }
 }
 
-class Periods {
-  readonly periods: Record<string, Period> = {};
-
-  getMonth(entry: CommandHistoryEntry) {
-    const date = entry.date.slice(0, 7);
-
-    if (!this.periods[date]) {
-      this.periods[date] = new Period(date);
-    }
-
-    return this.periods[date];
-  }
-
-  getPeriods() {
-    const periods = Object.values(this.periods);
-    periods.sort((a, b) => a.period.localeCompare(b.period));
-    return periods;
-  }
+function getMonth(entry: CommandHistoryEntry): string {
+  return entry.date.slice(0, 7);
 }
 
-async function analyzeFilesAndReturnMonths(dir: string): Promise<Period[]> {
-  const files = await glob("*.jsonl", { cwd: dir });
-  const periods = new Periods();
-
-  for (const file of files) {
-    const filePath = path.join(dir, file);
-    const content = await readFile(filePath, "utf8");
-    const lines = content.split("\n");
-
-    for (const line of lines) {
-      if (line.length === 0) {
-        continue;
-      }
-
-      const entry = JSON.parse(line) as CommandHistoryEntry;
-      const month = periods.getMonth(entry);
-      month.append(entry);
-    }
-  }
-
-  return periods.getPeriods();
+function generatePeriods(dir: string): AsyncIterable<string> {
+  return mapAsync(
+    groupby(generateCommandHistoryEntries(dir), getMonth),
+    ([key, entries]) => new Period(key, entries).toString(),
+  );
 }
 
 export async function analyzeCommandHistory(dir: string) {
-  const months = await analyzeFilesAndReturnMonths(dir);
-  const monthTexts = months.map((month) => month.toString());
-  const text = monthTexts.join("\n\n") + "\n";
+  const text = (await asyncIteratorToList(generatePeriods(dir))).join("\n\n");
 
   await ide().openUntitledTextDocument({ content: text });
 }
