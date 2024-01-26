@@ -24,7 +24,6 @@ import {
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
-import { mkdir } from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
@@ -183,9 +182,15 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   const cursorlessDir = isTesting()
     ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
     : path.join(os.homedir(), ".cursorless");
-  await mkdir(cursorlessDir, { recursive: true });
 
-  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem(cursorlessDir) };
+  const fileSystem = new VscodeFileSystem(
+    context,
+    vscodeIDE.runMode,
+    cursorlessDir,
+  );
+  await fileSystem.initialize();
+
+  return { vscodeIDE, hats, fileSystem };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
