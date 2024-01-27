@@ -69,6 +69,13 @@ const testCases: TestCase[] = [
     keySequence: ["da", "aw", "wp"],
     finalContent: "(a)",
   },
+  {
+    name: "preserve keyboard target",
+    initialContent: "a\n",
+    // round wrap air; round wrap <keyboard target>
+    keySequence: ["da", "aw", "wp", "aw", "wp"],
+    finalContent: "((a))\n",
+  },
 ];
 
 suite("Basic keyboard test", async function () {
