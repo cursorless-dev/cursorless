@@ -31,7 +31,7 @@ const testCases: TestCase[] = [
     name: "every",
     initialContent: "a a\nb b\n",
     // change every token air
-    keySequence: ["da", "x", "st", "c"],
+    keySequence: ["da", "*", "st", "c"],
     finalContent: " \nb b\n",
   },
   {
