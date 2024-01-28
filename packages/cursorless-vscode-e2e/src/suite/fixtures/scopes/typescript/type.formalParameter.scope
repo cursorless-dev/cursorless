@@ -6,33 +6,17 @@ function myFunk(value: number) {
 [Content] = 0:23-0:29
 0| function myFunk(value: number) {
                          >------<
-1|
-
-2| }
-
 
 [Removal] = 0:21-0:29
 0| function myFunk(value: number) {
                        >--------<
-1|
-
-2| }
-
 
 [Leading delimiter] = 0:21-0:23
 0| function myFunk(value: number) {
                        >--<
-1|
-
-2| }
-
 
 [Domain] = 0:16-0:29
 0| function myFunk(value: number) {
                   >-------------<
-1|
-
-2| }
-
 
 [Insertion delimiter] = " "
