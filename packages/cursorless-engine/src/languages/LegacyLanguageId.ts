@@ -8,6 +8,7 @@ export const legacyLanguageIds = [
   "cpp",
   "css",
   "csharp",
+  "elm",
   "go",
   "html",
   "java",

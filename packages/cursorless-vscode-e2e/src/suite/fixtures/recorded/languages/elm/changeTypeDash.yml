@@ -1,0 +1,38 @@
+languageId: elm
+command:
+  spokenForm: change type dash
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '-'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: "f : Int -> Result String Int"
+  selections:
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
+  marks:
+    default.-:
+      start: {line: 0, character: 8}
+      end: {line: 0, character: 10}
+finalState:
+  documentContents: "f : "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 4
+          line: 0
+        end:
+          character: 4
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '-'}, modifiers: [{type: containingScope, scopeType: {type: type}}]}]

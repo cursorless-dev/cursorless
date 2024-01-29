@@ -1,0 +1,38 @@
+languageId: elm
+command:
+  spokenForm: change callee
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |+
+    f = g x
+
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks: {}
+finalState:
+  documentContents: |+
+    f =  x
+
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 4
+          line: 0
+        end:
+          character: 4
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: functionCallee}}]}]

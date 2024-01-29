@@ -1,0 +1,38 @@
+languageId: elm
+command:
+  spokenForm: change lambda plex
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: x}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: _ = \x -> x
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.x:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 6}
+finalState:
+  documentContents: "_ = "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 4
+          line: 0
+        end:
+          character: 4
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: x}, modifiers: [{type: containingScope, scopeType: {type: anonymousFunction}}]}]

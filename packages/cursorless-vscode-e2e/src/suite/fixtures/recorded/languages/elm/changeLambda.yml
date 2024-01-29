@@ -1,0 +1,34 @@
+languageId: elm
+command:
+  spokenForm: change lambda
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: _ = \x -> x
+  selections:
+    - anchor: {line: 0, character: 9}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: "_ = "
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 4
+          line: 0
+        end:
+          character: 4
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: anonymousFunction}}]}]

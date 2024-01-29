@@ -1,0 +1,38 @@
+languageId: elm
+command:
+  spokenForm: change condition
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |+
+    f = if x then y else z
+
+  selections:
+    - anchor: {line: 0, character: 20}
+      active: {line: 0, character: 20}
+  marks: {}
+finalState:
+  documentContents: |+
+    f = if  then y else z
+
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 7
+          line: 0
+        end:
+          character: 7
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: condition}}]}]

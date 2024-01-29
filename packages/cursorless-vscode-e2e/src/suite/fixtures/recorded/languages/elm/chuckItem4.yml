@@ -1,0 +1,36 @@
+languageId: elm
+command:
+  spokenForm: chuck item
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: false
+  action: {name: remove}
+initialState:
+  documentContents: |
+    f = {x = 1}
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: |
+    f = {}
+  selections:
+    - anchor: {line: 0, character: 5}
+      active: {line: 0, character: 5}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 5
+          line: 0
+        end:
+          character: 5
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionItem}}]}]

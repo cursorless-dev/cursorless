@@ -1,0 +1,48 @@
+languageId: elm
+command:
+  spokenForm: change every item
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    import List exposing (head, tail)
+  selections:
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}
+  marks: {}
+finalState:
+  documentContents: |
+    import List exposing (, )
+  selections:
+    - anchor: {line: 0, character: 22}
+      active: {line: 0, character: 22}
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 22
+          line: 0
+        end:
+          character: 22
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 24
+          line: 0
+        end:
+          character: 24
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]

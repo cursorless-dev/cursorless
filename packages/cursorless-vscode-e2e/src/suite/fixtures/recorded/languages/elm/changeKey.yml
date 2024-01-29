@@ -1,0 +1,38 @@
+languageId: elm
+command:
+  spokenForm: change key
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionKey}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    f : { x : Int }
+    f = { x = 0 }
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
+  marks: {}
+finalState:
+  documentContents: |
+    f : {  : Int }
+    f = { x = 0 }
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 6
+          line: 0
+        end:
+          character: 6
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionKey}}]}]

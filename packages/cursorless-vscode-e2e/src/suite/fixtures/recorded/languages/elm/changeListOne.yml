@@ -1,0 +1,40 @@
+languageId: elm
+command:
+  spokenForm: change list one
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '1'}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: list}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: |
+    _ = [1, 2, 3]
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.1:
+      start: {line: 0, character: 5}
+      end: {line: 0, character: 6}
+finalState:
+  documentContents: |
+    _ = 
+  selections:
+    - anchor: {line: 0, character: 4}
+      active: {line: 0, character: 4}
+  thatMark:
+    - type: RawSelectionTarget
+      contentRange:
+        start:
+          character: 4
+          line: 0
+        end:
+          character: 4
+          line: 0  
+      hasExplicitRange: true
+      isReversed: false
+fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '1'}, modifiers: [{type: containingScope, scopeType: {type: list}}]}]
