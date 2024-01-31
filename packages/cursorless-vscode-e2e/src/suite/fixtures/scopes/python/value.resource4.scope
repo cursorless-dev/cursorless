@@ -5,40 +5,28 @@ with aaa, bbb as ccc:
 [#1.1 Content] = 0:5-0:8
 0| with aaa, bbb as ccc:
        >---<
-1|     pass
-
 
 [#1.1 Removal] = 0:5-0:10
 0| with aaa, bbb as ccc:
        >-----<
-1|     pass
-
 
 [#1.1 Trailing delimiter] = 0:8-0:10
 0| with aaa, bbb as ccc:
           >--<
-1|     pass
-
 
 [#1.1 Insertion delimiter] = " "
 
 [#1.2 Content] = 0:10-0:13
 0| with aaa, bbb as ccc:
             >---<
-1|     pass
-
 
 [#1.2 Removal] = 0:10-0:17
 0| with aaa, bbb as ccc:
             >-------<
-1|     pass
-
 
 [#1.2 Trailing delimiter] = 0:13-0:17
 0| with aaa, bbb as ccc:
                >----<
-1|     pass
-
 
 [#1.2 Insertion delimiter] = " "
 
@@ -53,20 +41,14 @@ with aaa, bbb as ccc:
 [#2 Domain] = 0:5-0:8
 0| with aaa, bbb as ccc:
        >---<
-1|     pass
-
 
 [#2 Removal] = 0:5-0:10
 0| with aaa, bbb as ccc:
        >-----<
-1|     pass
-
 
 [#2 Trailing delimiter] = 0:8-0:10
 0| with aaa, bbb as ccc:
           >--<
-1|     pass
-
 
 [#2 Insertion delimiter] = " "
 
@@ -74,25 +56,17 @@ with aaa, bbb as ccc:
 [#3 Content] = 0:10-0:13
 0| with aaa, bbb as ccc:
             >---<
-1|     pass
-
 
 [#3 Removal] = 0:10-0:17
 0| with aaa, bbb as ccc:
             >-------<
-1|     pass
-
 
 [#3 Trailing delimiter] = 0:13-0:17
 0| with aaa, bbb as ccc:
                >----<
-1|     pass
-
 
 [#3 Domain] = 0:10-0:20
 0| with aaa, bbb as ccc:
             >----------<
-1|     pass
-
 
 [#3 Insertion delimiter] = " "
