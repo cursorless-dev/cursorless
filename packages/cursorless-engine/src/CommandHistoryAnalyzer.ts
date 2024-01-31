@@ -3,6 +3,7 @@ import {
   Modifier,
   PartialPrimitiveTargetDescriptor,
   ScopeType,
+  showWarning,
 } from "@cursorless/common";
 import { groupBy, map, sum } from "lodash";
 import { asyncIteratorToList } from "./asyncIteratorToList";
@@ -98,6 +99,26 @@ function getMonth(entry: CommandHistoryEntry): string {
 
 export async function analyzeCommandHistory(dir: string) {
   const entries = await asyncIteratorToList(generateCommandHistoryEntries(dir));
+
+  if (entries.length === 0) {
+    const TAKE_ME_THERE = "Show me";
+    const result = await showWarning(
+      ide().messages,
+      "noHistory",
+      "No command history entries found. Please enable the command history in the settings.",
+      TAKE_ME_THERE,
+    );
+
+    if (result === TAKE_ME_THERE) {
+      // FIXME: This is VSCode-specific
+      await ide().executeCommand(
+        "workbench.action.openSettings",
+        "cursorless.commandHistory",
+      );
+    }
+
+    return;
+  }
 
   const content = [
     new Period("Totals", entries).toString(),
