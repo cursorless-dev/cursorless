@@ -239,6 +239,16 @@ export const scopeSupportFacetInfos: Record<
     description: "Name (LHS) of a field in a class / interface",
     scopeType: "name",
   },
+  "name.resource": {
+    description: "Name in a 'with' / 'use' / 'using' statement",
+    scopeType: "name",
+  },
+  "name.resource.iteration": {
+    description:
+      "Iteration scope for names in a 'with' / 'use' / 'using' statement",
+    scopeType: "name",
+    isIteration: true,
+  },
 
   "key.attribute": {
     description: "Key (LHS) of an attribute eg in an xml element",
@@ -288,6 +298,16 @@ export const scopeSupportFacetInfos: Record<
   "value.field": {
     description: "Value (RHS) of a field in a class / interface",
     scopeType: "value",
+  },
+  "value.resource": {
+    description: "Value of a 'with' / 'use' / 'using' statement",
+    scopeType: "value",
+  },
+  "value.resource.iteration": {
+    description:
+      "Iteration scope for values in a 'with' / 'use' / 'using' statement",
+    scopeType: "value",
+    isIteration: true,
   },
 
   "type.assignment": {

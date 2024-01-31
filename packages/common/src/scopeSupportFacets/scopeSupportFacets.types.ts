@@ -63,6 +63,8 @@ const scopeSupportFacets = [
   "name.function",
   "name.class",
   "name.field",
+  "name.resource",
+  "name.resource.iteration",
 
   "key.attribute",
   "key.mapPair",
@@ -76,6 +78,8 @@ const scopeSupportFacets = [
   "value.return",
   "value.return.lambda",
   "value.field",
+  "value.resource",
+  "value.resource.iteration",
 
   "type.assignment",
   "type.formalParameter",
