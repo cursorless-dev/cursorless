@@ -4,9 +4,7 @@ import {
   PartialPrimitiveTargetDescriptor,
   ScopeType,
 } from "@cursorless/common";
-import globRaw from "glob";
-import { groupBy, map } from "lodash";
-import { promisify } from "node:util";
+import { groupBy, map, sum } from "lodash";
 import { asyncIteratorToList } from "./asyncIteratorToList";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { generateCommandHistoryEntries } from "./generateCommandHistoryEntries";
@@ -14,8 +12,6 @@ import { ide } from "./singletons/ide.singleton";
 import { getPartialTargetDescriptors } from "./util/getPartialTargetDescriptors";
 import { getPartialPrimitiveTargets } from "./util/getPrimitiveTargets";
 import { getScopeType } from "./util/getScopeType";
-
-export const glob = promisify(globRaw);
 
 /**
  * Analyzes the command history for a given time period, and outputs a report
@@ -36,8 +32,8 @@ class Period {
 
   toString(): string {
     return [
-      `[${this.period}]`,
-      `Total commands: ${this.count}`,
+      `# ${this.period}`,
+      `Total command count: ${this.count}`,
       this.serializeMap("Actions", this.actions),
       this.serializeMap("Modifiers", this.modifiers),
       this.serializeMap("Scope types", this.scopeTypes),
@@ -45,12 +41,13 @@ class Period {
   }
 
   private serializeMap(name: string, map: Record<string, number>) {
+    const total = sum(Object.values(map));
     const entries = Object.entries(map);
     entries.sort((a, b) => b[1] - a[1]);
     const entriesSerialized = entries
-      .map(([key, value]) => `  ${key}: ${value}`)
+      .map(([key, value]) => `  ${key}: ${value} (${toPercent(value / total)})`)
       .join("\n");
-    return `${name} (${entries.length}):\n${entriesSerialized}`;
+    return `${name}:\n${entriesSerialized}`;
   }
 
   private append(entry: CommandHistoryEntry) {
@@ -102,10 +99,21 @@ function getMonth(entry: CommandHistoryEntry): string {
 export async function analyzeCommandHistory(dir: string) {
   const entries = await asyncIteratorToList(generateCommandHistoryEntries(dir));
 
-  const content = map(
-    Object.entries(groupBy(entries, getMonth)),
-    ([key, entries]) => new Period(key, entries).toString(),
-  ).join("\n\n");
+  const content = [
+    new Period("Totals", entries).toString(),
+
+    ...map(Object.entries(groupBy(entries, getMonth)), ([key, entries]) =>
+      new Period(key, entries).toString(),
+    ),
+  ].join("\n\n\n");
 
   await ide().openUntitledTextDocument({ content });
+}
+
+function toPercent(value: number) {
+  return Intl.NumberFormat(undefined, {
+    style: "percent",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 1,
+  }).format(value);
 }

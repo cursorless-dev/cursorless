@@ -1,7 +1,8 @@
 import { CommandHistoryEntry } from "@cursorless/common";
+import globRaw from "glob";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { glob } from "./CommandHistoryAnalyzer";
+import { promisify } from "node:util";
 
 export async function* generateCommandHistoryEntries(dir: string) {
   const files = await glob("*.jsonl", { cwd: dir });
@@ -20,3 +21,5 @@ export async function* generateCommandHistoryEntries(dir: string) {
     }
   }
 }
+
+const glob = promisify(globRaw);
