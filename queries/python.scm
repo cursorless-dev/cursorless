@@ -151,7 +151,7 @@
       (with_item)? @_.leading.endOf
       .
       (with_item
-        value: (_) @value
+        value: (_) @value @name
       )
       .
       (with_item)? @_.trailing.startOf
@@ -159,6 +159,7 @@
   ) @_.domain
   (#not-type? @value "as_pattern")
   (#allow-multiple! @value)
+  (#allow-multiple! @name)
 )
 
 ;;!! with aaa:
