@@ -8,9 +8,5 @@ function myFunk(value) {
 [Domain] = 0:16-0:21
 0| function myFunk(value) {
                   >-----<
-1|
-
-2| }
-
 
 [Insertion delimiter] = ", "

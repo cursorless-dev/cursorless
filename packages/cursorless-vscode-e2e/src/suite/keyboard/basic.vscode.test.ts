@@ -31,7 +31,7 @@ const testCases: TestCase[] = [
     name: "every",
     initialContent: "a a\nb b\n",
     // change every token air
-    keySequence: ["da", "x", "st", "c"],
+    keySequence: ["da", "*", "st", "c"],
     finalContent: " \nb b\n",
   },
   {
@@ -68,6 +68,13 @@ const testCases: TestCase[] = [
     // round wrap air
     keySequence: ["da", "aw", "wp"],
     finalContent: "(a)",
+  },
+  {
+    name: "preserve keyboard target",
+    initialContent: "a\n",
+    // round wrap air; round wrap <keyboard target>
+    keySequence: ["da", "aw", "wp", "aw", "wp"],
+    finalContent: "((a))\n",
   },
 ];
 

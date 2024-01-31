@@ -7,7 +7,7 @@ import {
 } from "@cursorless/common";
 import { VscodeApi } from "@cursorless/vscode-common";
 import { cloneDeep, isEqual } from "lodash";
-import * as fs from "node:fs";
+import * as fs from "fs/promises";
 import * as path from "node:path";
 import * as vscode from "vscode";
 import { vscodeGetConfigurationString } from "../VscodeConfiguration";
@@ -65,7 +65,8 @@ export default class VscodeHatRenderer {
   private notifier: Notifier<[]> = new Notifier();
   private lastSeenEnabledHatStyles: ExtendedHatStyleMap = {};
   private hatsDirWatcherDisposable?: vscode.Disposable;
-  private hatShapeOverrides: Record<string, string> = {};
+  private hatShapeOverrides: Record<string, vscode.Uri> = {};
+  private decoder = new TextDecoder("utf-8");
 
   constructor(
     private vscodeApi: VscodeApi,
@@ -133,10 +134,13 @@ export default class VscodeHatRenderer {
     if (hatsDir) {
       await this.updateShapeOverrides(hatsDir);
 
-      if (fs.existsSync(hatsDir)) {
+      try {
+        await fs.access(hatsDir);
         this.hatsDirWatcherDisposable = watchDir(hatsDir, () =>
           this.updateShapeOverrides(hatsDir),
         );
+      } catch (e) {
+        console.error("cannot watch hatsDir", hatsDir, e);
       }
     } else {
       this.hatShapeOverrides = {};
@@ -150,7 +154,10 @@ export default class VscodeHatRenderer {
 
     for (const file of files) {
       const name = path.basename(file, CURSORLESS_HAT_SHAPES_SUFFIX);
-      this.hatShapeOverrides[name] = file;
+      this.hatShapeOverrides[name] = vscode.Uri.from({
+        scheme: "file",
+        path: file,
+      });
     }
 
     await this.recomputeDecorations();
@@ -207,35 +214,41 @@ export default class VscodeHatRenderer {
     );
 
     const hatSvgMap = Object.fromEntries(
-      HAT_SHAPES.map((shape) => {
-        const { sizeAdjustment = 0, verticalOffset = 0 } =
-          defaultShapeAdjustments[shape];
+      await Promise.all(
+        HAT_SHAPES.map(async (shape) => {
+          const { sizeAdjustment = 0, verticalOffset = 0 } =
+            defaultShapeAdjustments[shape];
 
-        const {
-          sizeAdjustment: userIndividualSizeAdjustment = 0,
-          verticalOffset: userIndividualVerticalOffset = 0,
-        } = userIndividualAdjustments[shape] ?? {};
+          const {
+            sizeAdjustment: userIndividualSizeAdjustment = 0,
+            verticalOffset: userIndividualVerticalOffset = 0,
+          } = userIndividualAdjustments[shape] ?? {};
 
-        const scaleFactor =
-          1 +
-          (sizeAdjustment + userSizeAdjustment + userIndividualSizeAdjustment) /
+          const scaleFactor =
+            1 +
+            (sizeAdjustment +
+              userSizeAdjustment +
+              userIndividualSizeAdjustment) /
+              100;
+
+          const finalVerticalOffsetEm =
+            (verticalOffset +
+              userVerticalOffset +
+              userIndividualVerticalOffset) /
             100;
 
-        const finalVerticalOffsetEm =
-          (verticalOffset + userVerticalOffset + userIndividualVerticalOffset) /
-          100;
-
-        return [
-          shape,
-          this.processSvg(
-            this.fontMeasurements,
+          return [
             shape,
-            scaleFactor,
-            defaultShapeAdjustments[shape].strokeFactor ?? 1,
-            finalVerticalOffsetEm,
-          ),
-        ];
-      }),
+            await this.processSvg(
+              this.fontMeasurements,
+              shape,
+              scaleFactor,
+              defaultShapeAdjustments[shape].strokeFactor ?? 1,
+              finalVerticalOffsetEm,
+            ),
+          ];
+        }),
+      ),
     );
 
     this.decorationMap = Object.fromEntries(
@@ -373,22 +386,24 @@ export default class VscodeHatRenderer {
    * @param hatVerticalOffsetEm How far off top of characters should hats be
    * @returns An object with the new SVG and its measurements
    */
-  private processSvg(
+  private async processSvg(
     fontMeasurements: FontMeasurements,
     shape: HatShape,
     scaleFactor: number,
     strokeFactor: number,
     hatVerticalOffsetEm: number,
-  ): SvgInfo | null {
+  ): Promise<SvgInfo | null> {
     const iconPath =
       this.hatShapeOverrides[shape] ??
-      path.join(
-        this.extensionContext.extensionPath,
+      vscode.Uri.joinPath(
+        this.extensionContext.extensionUri,
         "images",
         "hats",
         `${shape}.svg`,
       );
-    const rawSvg = fs.readFileSync(iconPath, "utf8");
+    const rawSvg = this.decoder.decode(
+      await vscode.workspace.fs.readFile(iconPath),
+    );
     const { characterWidth, characterHeight, fontSize } = fontMeasurements;
 
     if (!this.checkSvg(shape, rawSvg)) {

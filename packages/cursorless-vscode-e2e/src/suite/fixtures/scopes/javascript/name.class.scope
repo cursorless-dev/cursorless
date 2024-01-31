@@ -6,34 +6,18 @@ class MyClass {
 [Content] = 0:6-0:13
 0| class MyClass {
         >-------<
-1|
-
-2| }
-
 
 [Removal] = 0:6-0:14
 0| class MyClass {
         >--------<
-1|
-
-2| }
-
 
 [Leading delimiter] = 0:5-0:6
 0| class MyClass {
        >-<
-1|
-
-2| }
-
 
 [Trailing delimiter] = 0:13-0:14
 0| class MyClass {
                >-<
-1|
-
-2| }
-
 
 [Domain] = 0:0-2:1
 0| class MyClass {

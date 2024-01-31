@@ -5,10 +5,6 @@ do {
 
 [Content] =
 [Removal] = 2:9-2:13
-0| do {
-
-1|
-
 2| } while (true);
            >----<
 

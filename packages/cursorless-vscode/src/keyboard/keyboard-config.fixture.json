@@ -20,24 +20,25 @@
   },
   "cursorless.experimental.keyboard.modal.keybindings.action": {
     "at": "setSelection",
-    "ah": { "actionId": "setSelectionBefore", "exitCursorlessMode": true },
-    "al": { "actionId": "setSelectionAfter", "exitCursorlessMode": true },
-    "aO": { "actionId": "editNewLineBefore", "exitCursorlessMode": true },
+    "ah": "setSelectionBefore",
+    "al": "setSelectionAfter",
+    "ai": { "actionId": "editNewLineBefore", "exitCursorlessMode": true },
     "ao": { "actionId": "editNewLineAfter", "exitCursorlessMode": true },
-    "k": "insertCopyBefore",
-    "j": "insertCopyAfter",
+    "ak": "insertCopyBefore",
+    "aj": "insertCopyAfter",
     "au": "replaceWithTarget",
     "am": "moveToTarget",
     "c": { "actionId": "clearAndSetSelection", "exitCursorlessMode": true },
     "as": "swapTargets",
     "af": "foldRegion",
-    "ak": "insertEmptyLineBefore",
-    "aj": "insertEmptyLineAfter",
-    "ai": "insertEmptyLinesAround",
+    "aI": "insertEmptyLineBefore",
+    "aO": "insertEmptyLineAfter",
+    "aU": "insertEmptyLinesAround",
     "ac": "copyToClipboard",
     "ax": "cutToClipboard",
     "ap": "pasteFromClipboard",
     "ad": "followLink",
+    "x": "remove",
     "aw": "wrap"
   },
   "cursorless.experimental.keyboard.modal.keybindings.color": {
@@ -66,7 +67,7 @@
   },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
     "n": "nextPrev",
-    "x": "every"
+    "*": "every"
   },
   "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
     "va": "editor.action.addCommentLine",
