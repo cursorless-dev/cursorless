@@ -6,7 +6,7 @@ This section contains some how-to guides for common tasks.
 
 To replace a target with the contents of the clipboard, say `"paste to <target>"`. For example, `"paste to air"`.
 
-:::tip
+:::info
 
 `"to <target>"` is an example of a Destination. See [Destinations](reference/destinations.md) for more information.
 
