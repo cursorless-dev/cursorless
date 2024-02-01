@@ -20,7 +20,7 @@ export function getTargetRanges(target: Target): TargetRanges {
 
   const boundary = (() => {
     try {
-      target.getBoundaryStrict().map(getTargetRanges);
+      return target.getBoundaryStrict().map(getTargetRanges);
     } catch (error) {
       if (error instanceof NoContainingScopeError) {
         return undefined;
