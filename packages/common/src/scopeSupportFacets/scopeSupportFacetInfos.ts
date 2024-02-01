@@ -299,6 +299,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a field in a class / interface",
     scopeType: "value",
   },
+  "value.yield": {
+    description: "Value of a yield statement",
+    scopeType: "value",
+  },
   "value.resource": {
     description: "Value of a 'with' / 'use' / 'using' statement",
     scopeType: "value",

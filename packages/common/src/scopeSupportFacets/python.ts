@@ -12,6 +12,7 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.resource": supported,
   "name.resource.iteration": supported,
   "value.foreach": supported,
+  "value.yield": supported,
   "value.resource": supported,
   "value.resource.iteration": supported,
 

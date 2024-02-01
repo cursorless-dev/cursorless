@@ -78,6 +78,7 @@ const scopeSupportFacets = [
   "value.return",
   "value.return.lambda",
   "value.field",
+  "value.yield",
   "value.resource",
   "value.resource.iteration",
 

@@ -142,6 +142,18 @@
   (_) @value
 ) @_.domain
 
+;;!! yield 1
+;;!        ^
+;;!       xx
+;;!  -------
+;;
+;; NOTE: in tree-sitter, both "yield" and the "1" are children of `yield` but
+;; "yield" is anonymous whereas "1" is named node, so no need to exclude
+;; explicitly
+(yield
+  (_) @value
+) @_.domain
+
 ;;!! with aaa:
 ;;!       ^^^
 ;;!  --------
