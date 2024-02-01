@@ -1,0 +1,23 @@
+languageId: elm
+command:
+  version: 6
+  spokenForm: change type
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: type}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "f : { x : Int }"
+  selections:
+    - anchor: {line: 0, character: 7}
+      active: {line: 0, character: 7}
+  marks: {}
+finalState:
+  documentContents: "f : { x :  }"
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

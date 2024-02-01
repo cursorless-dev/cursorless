@@ -28,6 +28,7 @@ const nodeMatchers: Partial<
   condition: "if_else_expr[0]",
   type: [
     "type_ref",
+    "field_type[typeExpression]",
     "type_expression",
     "type_declaration",
     "type_annotation[typeExpression]!",
