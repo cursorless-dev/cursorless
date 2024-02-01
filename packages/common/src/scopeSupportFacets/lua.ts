@@ -16,4 +16,5 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.variable": supported,
   functionCallee: supported,
   map: supported,
+  "branch.if": supported,
 };
