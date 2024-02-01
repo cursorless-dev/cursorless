@@ -1,0 +1,24 @@
+foo = { bar = "a", baz = "b" }
+---
+
+[Content] =
+[Domain] = 0:6-0:30
+0| foo = { bar = "a", baz = "b" }
+        >------------------------<
+
+[Removal] = 0:5-0:30
+0| foo = { bar = "a", baz = "b" }
+       >-------------------------<
+
+[Leading delimiter] = 0:5-0:6
+0| foo = { bar = "a", baz = "b" }
+       >-<
+
+[Interior: Content] = 0:8-0:28
+0| foo = { bar = "a", baz = "b" }
+          >--------------------<
+[Interior: Removal] = 0:7-0:29
+0| foo = { bar = "a", baz = "b" }
+         >----------------------<
+
+[Insertion delimiter] = " "

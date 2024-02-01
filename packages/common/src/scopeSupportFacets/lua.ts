@@ -15,4 +15,5 @@ export const luaScopeSupport: LanguageScopeSupportFacetMap = {
   "value.assignment": supported,
   "value.variable": supported,
   functionCallee: supported,
+  map: supported,
 };

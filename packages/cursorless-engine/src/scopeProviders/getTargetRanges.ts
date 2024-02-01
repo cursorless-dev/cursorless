@@ -1,4 +1,5 @@
 import {
+  NoContainingScopeError,
   TargetRanges,
   toCharacterRange,
   toLineRange,
@@ -8,9 +9,12 @@ import { Target } from "../typings/target.types";
 export function getTargetRanges(target: Target): TargetRanges {
   const interior = (() => {
     try {
-      target.getInteriorStrict().map(getTargetRanges);
+      return target.getInteriorStrict().map(getTargetRanges);
     } catch (error) {
-      return undefined;
+      if (error instanceof NoContainingScopeError) {
+        return undefined;
+      }
+      throw error;
     }
   })();
 
@@ -18,7 +22,10 @@ export function getTargetRanges(target: Target): TargetRanges {
     try {
       target.getBoundaryStrict().map(getTargetRanges);
     } catch (error) {
-      return undefined;
+      if (error instanceof NoContainingScopeError) {
+        return undefined;
+      }
+      throw error;
     }
   })();
 
