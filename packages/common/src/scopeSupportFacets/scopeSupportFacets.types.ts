@@ -85,7 +85,7 @@ const scopeSupportFacets = [
   "value.resource",
   "value.resource.iteration",
 
-  "type.assignment",
+  "type.variable",
   "type.formalParameter",
   "type.return",
   "type.field",

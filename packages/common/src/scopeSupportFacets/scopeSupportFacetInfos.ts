@@ -280,7 +280,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.variable": {
     description: "Value (RHS) of a variable declaration",
-    scopeType: "name",
+    scopeType: "value",
   },
   "value.mapPair": {
     description: "Value (RHS) of a key-value pair in a map",
@@ -327,8 +327,8 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
-  "type.assignment": {
-    description: "Type of variable in an assignment",
+  "type.variable": {
+    description: "Type of variable in a variable declaration",
     scopeType: "type",
   },
   "type.formalParameter": {

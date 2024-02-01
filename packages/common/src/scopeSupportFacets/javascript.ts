@@ -83,7 +83,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "key.attribute": supported,
   "value.attribute": supported,
 
-  "type.assignment": notApplicable,
+  "type.variable": notApplicable,
   "type.formalParameter": notApplicable,
   "type.return": notApplicable,
   "type.field": notApplicable,
