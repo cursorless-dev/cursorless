@@ -147,12 +147,14 @@
 ;;!!local sum = add(5, 7)
 ;;!                 ^---
 ;;!                 xxx-
-(arguments
-  (_)? @_.leading.endOf
-  .
-  (_) @argumentOrParameter
-  .
-  (_)? @_.trailing.startOf
+(
+  (arguments
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
@@ -166,12 +168,14 @@
 ;;!!function add(5, 7)
 ;;!              ^---
 ;;!              xxx-
-(parameters
-  (_)? @_.leading.endOf
-  .
-  (_) @argumentOrParameter
-  .
-  (_)? @_.trailing.startOf
+(
+  (parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @dummy
   (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
 
