@@ -105,7 +105,7 @@
 ;;!          xx
 (list_expression
   element: (_) @collectionItem
-)
+) @_.iteration @_.domain
 
 ;;!! foo = [ a b c ];
 ;;!        ^^^^^^^^^
