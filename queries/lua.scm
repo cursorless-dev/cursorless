@@ -31,7 +31,7 @@
 [
   (block)
   (chunk)
-] @ifStatement.iteration @value.iteration
+] @ifStatement.iteration @value.iteration @name.iteration
 
 ;; Capture assignment only if without variable prefix
 ;;!! count = count + 1
