@@ -280,7 +280,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.variable": {
     description: "Value (RHS) of a variable declaration",
-    scopeType: "name",
+    scopeType: "value",
   },
   "value.mapPair": {
     description: "Value (RHS) of a key-value pair in a map",
