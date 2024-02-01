@@ -19,4 +19,16 @@ ccc
 4| ccc
    ---<
 
+[Interior] = 0:0-4:3
+0| aaa
+  >---
+1|
+
+2| bbb
+   ---
+3|
+
+4| ccc
+   ---<
+
 [Insertion delimiter] = "\n"
