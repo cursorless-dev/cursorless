@@ -16,8 +16,4 @@ initialState:
     - anchor: {line: 0, character: 18}
       active: {line: 0, character: 18}
   marks: {}
-finalState:
-  documentContents: "local table = "
-  selections:
-    - anchor: {line: 0, character: 14}
-      active: {line: 0, character: 14}
+thrownError: {name: NoContainingScopeError}

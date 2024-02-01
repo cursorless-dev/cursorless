@@ -1,15 +1,15 @@
 a, b = 1, 2
 ---
 
-[Content] = 0:7-0:11
+[Content] = 0:0-0:4
 0| a, b = 1, 2
-         >----<
+  >----<
 
-[Removal] = 0:4-0:11
+[Removal] = 0:0-0:7
 0| a, b = 1, 2
-      >-------<
+  >-------<
 
-[Leading delimiter] = 0:4-0:7
+[Trailing delimiter] = 0:4-0:7
 0| a, b = 1, 2
       >---<
 
