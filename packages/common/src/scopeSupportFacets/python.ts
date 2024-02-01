@@ -10,6 +10,7 @@ const { supported, supportedLegacy, notApplicable } = ScopeSupportFacetLevel;
 export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "value.foreach": supported,
+  "value.yield": supported,
 
   "argument.actual": supportedLegacy,
   "argument.actual.iteration": supportedLegacy,

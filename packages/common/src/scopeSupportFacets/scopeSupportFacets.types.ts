@@ -76,6 +76,7 @@ const scopeSupportFacets = [
   "value.return",
   "value.return.lambda",
   "value.field",
+  "value.yield",
 
   "type.assignment",
   "type.formalParameter",
