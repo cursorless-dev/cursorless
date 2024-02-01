@@ -97,26 +97,23 @@
 
 ;; Lists and maps
 (table_constructor
-  "{" @_.interior.start.endOf @value.iteration.start.endOf
+  "{" @_.interior.start.endOf @value.iteration.start.endOf @collectionKey.iteration.start.endOf
   (field
     name: (_)
   )
-  "}" @_.interior.end.startOf @value.iteration.end.startOf
-) @map @collectionKey.iteration
+  "}" @_.interior.end.startOf @value.iteration.end.startOf @collectionKey.iteration.end.startOf
+) @map
 ;;!! a = { foo = "bar" }
 ;;!        ^^^--------
 ;;!        xxxxxx-----
-(field
-  name: (_) @collectionKey @_.trailing.start.endOf
-  value: (_) @_.trailing.end.startOf
-) @_.domain
 ;;!! a = { foo = "bar" }
 ;;!        ------^^^^^
 ;;!        ---xxxxxxxx
 (field
-  name: (_) @_.leading.start.endOf
-  value: (_) @value @_.leading.end.startOf
+  name: (_) @collectionKey @value.leading.endOf
+  value: (_) @value @collectionKey.trailing.startOf
 ) @_.domain
+
 ;; In lua everything is a map, but a map that omits keys for entries
 ;; is similar enough to a list to warrant having that scope.
 ;;!! a = { "1", "2", "3" }
@@ -151,27 +148,38 @@
 ;;!                 ^---
 ;;!                 xxx-
 (arguments
-  "(" @_.iteration.start.endOf
-  (_)? @_.leading.start.endOf
+  (_)? @_.leading.endOf
   .
-  (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+  (_) @argumentOrParameter
   .
-  (_)? @_.trailing.end.startOf
-  ")" @_.iteration.end.startOf
-  (#insertion-delimiter! @argumentOrParameter ", ")
+  (_)? @_.trailing.startOf
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
 )
+
+;;!!local sum = add(5, 7)
+;;!                 ****
+(arguments
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+)
+
 ;;!!function add(5, 7)
 ;;!              ^---
 ;;!              xxx-
 (parameters
-  "(" @_.iteration.start.endOf
-  (_)? @_.leading.start.endOf
+  (_)? @_.leading.endOf
   .
-  (_) @argumentOrParameter @_.leading.end.startOf @_.trailing.start.endOf
+  (_) @argumentOrParameter
   .
-  (_)? @_.trailing.end.startOf
-  ")" @_.iteration.end.startOf
-  (#insertion-delimiter! @argumentOrParameter ", ")
+  (_)? @_.trailing.startOf
+  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+)
+
+;;!!function add(5, 7)
+;;!              ****
+(parameters
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
 )
 
 ;; funk name:
@@ -185,8 +193,8 @@
 ;;!  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_declaration
   name: (_) @functionName
-  body: (_)? @namedFunction.interior @ifStatement.iteration @item.iteration
-) @_.domain @namedFunction
+  body: (_)? @namedFunction.interior
+) @functionName.domain @namedFunction
 
 ;; inside lambda:
 ;;!! __add = function(a, b) return a + b end
@@ -196,8 +204,8 @@
 ;;!          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (function_definition
   !name
-  body: (_)? @anonymousFunction.interior @ifStatement.iteration
-) @_.domain @anonymousFunction
+  body: (_)? @_.interior
+) @anonymousFunction
 
 ;; Names and values
 
