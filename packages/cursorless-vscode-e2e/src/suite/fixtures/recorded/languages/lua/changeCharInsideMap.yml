@@ -1,0 +1,33 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change char inside map
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: character}
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    foo = {
+        bar = "a",
+        baz = "b"
+    }
+  selections:
+    - anchor: {line: 2, character: 9}
+      active: {line: 2, character: 9}
+  marks: {}
+finalState:
+  documentContents: |-
+    foo = {
+        
+    }
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}

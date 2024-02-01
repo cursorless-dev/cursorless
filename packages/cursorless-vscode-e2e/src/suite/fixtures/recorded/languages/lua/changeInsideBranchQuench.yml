@@ -1,0 +1,42 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change inside branch quench
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: q}
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    if x < y then
+        print("x is less than y")
+    elseif x > y then
+        print("x is greater than y")
+    else
+        print("x is equal to y")
+    end
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks:
+    default.q:
+      start: {line: 5, character: 16}
+      end: {line: 5, character: 21}
+finalState:
+  documentContents: |-
+    if x < y then
+        print("x is less than y")
+    elseif x > y then
+        print("x is greater than y")
+    else
+        
+    end
+  selections:
+    - anchor: {line: 5, character: 4}
+      active: {line: 5, character: 4}

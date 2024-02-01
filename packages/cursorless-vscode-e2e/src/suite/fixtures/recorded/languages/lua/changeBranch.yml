@@ -1,0 +1,36 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change branch
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: branch}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    if a > 10 then
+        print("a is greater than 10")
+    elseif a < 10 then
+        print("a is less than 10")
+    else
+        print("a is equal to 10")
+    end
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    if a > 10 then
+        print("a is greater than 10")
+
+    else
+        print("a is equal to 10")
+    end
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

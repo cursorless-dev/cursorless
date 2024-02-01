@@ -1,0 +1,23 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change map
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: map}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: local table = {1, 2, 3}
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: "local table = "
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
