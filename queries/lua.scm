@@ -208,43 +208,29 @@
 (
   (assignment_statement
     (variable_list) @name
-    (#allow-multiple! @name)
-    .
-    "="
-    .
-    (_) @_.leading.end.startOf
-  ) @dummy @_.leading.start.startOf @_.domain
+    (_) @_.trailing.startOf
+  ) @dummy @_.domain
   (#not-parent-type? @dummy variable_declaration)
 )
 ;; Handle variable declarations
 ;;!! local a = 42
 ;;!  ------^-----
 ;;!  xxxxxxxxxx--
-(_
-  local_declaration: (variable_declaration
-    "local" @_.leading.start.startOf
-    .
-    (assignment_statement
-      (variable_list) @name
-      (#allow-multiple! @name)
-      .
-      "="
-      (_) @_.leading.end.startOf
-    )
-  ) @_.domain
-)
+local_declaration: (variable_declaration
+  (assignment_statement
+    (variable_list) @name
+    (_) @_.removal.end.startOf
+  )
+) @_.domain @_.removal.start.startOf
 
 ;; Handle assignment values
 ;;!! a = 42
-;;!  ----------^^
-;;!  -------xxxxx
+;;!  ----^^
+;;!  -xxxxx
 (
   (assignment_statement
-    (_) @_.leading.start.endOf
-    .
-    (expression_list
-      value: (_)
-    ) @value @_.leading.end.startOf
+    (_) @_.leading.endOf
+    (expression_list) @value
   ) @dummy @_.domain
   (#not-parent-type? @dummy variable_declaration)
 )
@@ -253,17 +239,12 @@
 ;;!! local a = 42
 ;;!  ----------^^
 ;;!  -------xxxxx
-(_
-  local_declaration: (variable_declaration
-    (assignment_statement
-      (_) @_.leading.start.endOf
-      .
-      (expression_list
-        value: (_)
-      ) @value @_.leading.end.startOf
-    )
-  ) @_.domain
-)
+local_declaration: (variable_declaration
+  (assignment_statement
+    (_) @_.leading.endOf
+    (expression_list) @value
+  )
+) @_.domain
 
 ;;!! return a + b
 ;;!  -------^^^^^
