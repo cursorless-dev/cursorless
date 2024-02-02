@@ -27,22 +27,13 @@ finalState:
   thatMark:
     - type: RawSelectionTarget
       contentRange:
-        start:
-          character: 22
-          line: 0
-        end:
-          character: 22
-          line: 0  
+        start: {character: 22, line: 0}
+        end: {character: 22, line: 0}
       hasExplicitRange: true
       isReversed: false
     - type: RawSelectionTarget
       contentRange:
-        start:
-          character: 24
-          line: 0
-        end:
-          character: 24
-          line: 0  
+        start: {character: 24, line: 0}
+        end: {character: 24, line: 0}
       hasExplicitRange: true
       isReversed: false
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: everyScope, scopeType: {type: collectionItem}}]}]

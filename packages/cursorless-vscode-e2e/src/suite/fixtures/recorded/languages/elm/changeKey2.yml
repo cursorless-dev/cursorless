@@ -27,12 +27,7 @@ finalState:
   thatMark:
     - type: RawSelectionTarget
       contentRange:
-        start:
-          character: 6
-          line: 1
-        end:
-          character: 6
-          line: 1  
+        start: {character: 6, line: 1}
+        end: {character: 6, line: 1}
       hasExplicitRange: true
       isReversed: false
-fullTargets: [{type: primitive, mark: {type: cursor}, modifiers: [{type: containingScope, scopeType: {type: collectionKey}}]}]
