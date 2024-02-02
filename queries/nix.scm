@@ -255,76 +255,16 @@
 ;;!  ^^^^^^
 ;;!  xxxxxxx
 ;;!  ----------------
-(apply_expression
-  [
-    (apply_expression
-      function: (variable_expression
-        name: (identifier) @functionCallee
-      )
-    )
-    (apply_expression
-      [
-        (apply_expression
-          function: (variable_expression
-            name: (identifier) @functionCallee
-          )
-        )
-        (apply_expression
-          [
-            (apply_expression
-              function: (variable_expression
-                name: (identifier) @functionCallee
-              )
-            )
-            (apply_expression
-              (apply_expression
-                function: (variable_expression
-                  name: (identifier) @functionCallee
-                )
-              )
-            )
-          ]
-        )
-      ]
-    )
-  ]
-) @functionCall @_.domain
+(
+  (apply_expression
+    function: (_) @functionCallee
+  ) @functionCallee.domain @functionCall
+  (#not-type? @functionCallee apply_expression)
+)
 
-;; Similar to above, but sometimes the function calls are in select_expression
 (apply_expression
-  [
-    (select_expression
-      expression: (variable_expression
-        name: (identifier)
-      )
-    ) @functionCallee
-    (apply_expression
-      [
-        (select_expression
-          expression: (variable_expression
-            name: (identifier)
-          )
-        ) @functionCallee
-        (apply_expression
-          [
-            (select_expression
-              expression: (variable_expression
-                name: (identifier)
-              )
-            ) @functionCallee
-            (apply_expression
-              (select_expression
-                expression: (variable_expression
-                  name: (identifier)
-                )
-              ) @functionCallee
-            )
-          ]
-        )
-      ]
-    )
-  ]
-) @functionCall @_.domain
+  function: (apply_expression) @functionCallee.domain.input @functionCall.input
+) @functionCallee.domain.output @functionCall.output
 
 ;; Args:
 ;;!! mkHost a
@@ -337,14 +277,12 @@
 ;;!  xxxxxx
 ;;!  --------
 (apply_expression
-  function: (variable_expression
-    name: (identifier) @functionCallee
-  )
   argument: (_) @argumentOrParameter
-) @functionCall @_.domain
+)
 
-(apply_expression
-  argument: (_) @argumentOrParameter
+(
+  (apply_expression) @argumentOrParameter.iteration
+  (#not-parent-type? @argumentOrParameter.iteration apply_expression)
 )
 
 ;;
