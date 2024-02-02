@@ -65,9 +65,9 @@
 ;;!  xxxxx
 ;;!  ---------------
 (field_definition
-  name: (identifier) @collectionKey @collectionKey.trailing.start.endOf
+  name: (identifier) @collectionKey
   .
-  (_) @collectionKey.trailing.end.startOf
+  (_) @_.trailing.startOf
 ) @_.domain
 
 ;;!! aaa: (bbb) @ccc

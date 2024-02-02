@@ -43,3 +43,6 @@ tag: user.cursorless
 
 bar {user.cursorless_homophone}:
     user.private_cursorless_show_sidebar()
+
+{user.cursorless_homophone} stats:
+    user.private_cursorless_show_command_statistics()

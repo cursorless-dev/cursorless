@@ -104,6 +104,7 @@ export class SpokenFormGenerator {
       case "replace":
       case "executeCommand":
       case "private.getTargets":
+      case "private.setKeyboardTarget":
         throw new NoSpokenFormError(`Action '${action.name}'`);
 
       case "replaceWithTarget":

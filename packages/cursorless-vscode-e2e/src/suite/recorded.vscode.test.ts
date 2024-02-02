@@ -18,6 +18,7 @@ import {
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  storedTargetKeys,
   TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
@@ -89,20 +90,9 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   editor.selections = fixture.initialState.selections.map(createSelection);
 
-  if (fixture.initialState.thatMark) {
-    setStoredTarget(editor, "that", fixture.initialState.thatMark);
-  }
-
-  if (fixture.initialState.sourceMark) {
-    setStoredTarget(editor, "source", fixture.initialState.sourceMark);
-  }
-
-  if (fixture.initialState.instanceReferenceMark) {
-    setStoredTarget(
-      editor,
-      "instanceReference",
-      fixture.initialState.instanceReferenceMark,
-    );
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
   }
 
   if (fixture.initialState.clipboard) {
@@ -159,7 +149,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ? undefined
       : marksToPlainObject(
           extractTargetedMarks(
-            Object.keys(fixture.finalState.marks) as string[],
+            Object.keys(fixture.finalState.marks),
             readableHatMap,
           ),
         );
@@ -168,16 +158,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
     excludeFields.push("clipboard");
   }
 
-  if (fixture.finalState?.thatMark == null) {
-    excludeFields.push("thatMark");
-  }
-
-  if (fixture.finalState?.sourceMark == null) {
-    excludeFields.push("sourceMark");
-  }
-
-  if (fixture.finalState?.instanceReferenceMark == null) {
-    excludeFields.push("instanceReferenceMark");
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    if (fixture.finalState?.[key] == null) {
+      excludeFields.push(key);
+    }
   }
 
   // FIXME Visible ranges are not asserted, see:

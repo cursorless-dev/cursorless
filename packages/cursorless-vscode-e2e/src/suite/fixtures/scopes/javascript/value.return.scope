@@ -1,0 +1,22 @@
+function myFunk() {
+  return 0;
+}
+---
+
+[Content] = 1:9-1:10
+1|   return 0;
+           >-<
+
+[Removal] = 1:8-1:10
+1|   return 0;
+          >--<
+
+[Leading delimiter] = 1:8-1:9
+1|   return 0;
+          >-<
+
+[Domain] = 1:2-1:11
+1|   return 0;
+    >---------<
+
+[Insertion delimiter] = " "

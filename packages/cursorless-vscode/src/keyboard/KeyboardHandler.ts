@@ -145,7 +145,15 @@ export default class KeyboardHandler {
         }
 
         isDisposed = true;
-        pull(this.listeners, listenerEntry);
+        const index = this.listeners.indexOf(listenerEntry);
+        // Call handleCancelled on all listeners that were pushed after this
+        // one. Eg if you're in the middle of typing a command and we turn off
+        // the modal mode, we want to cancel the command
+        this.listeners
+          .slice(index + 1)
+          .reverse()
+          .forEach(({ listener }) => listener.handleCancelled());
+        this.listeners.splice(index);
         this.ensureState();
       },
     };

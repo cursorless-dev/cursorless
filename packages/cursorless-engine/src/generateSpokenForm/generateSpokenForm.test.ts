@@ -5,7 +5,7 @@ import {
   shouldUpdateFixtures,
 } from "@cursorless/common";
 import * as yaml from "js-yaml";
-import * as assert from "node:assert";
+import assert from "node:assert";
 import { promises as fsp } from "node:fs";
 import { canonicalizeAndValidateCommand } from "../core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { getHatMapCommand } from "./getHatMapCommand";

@@ -86,6 +86,10 @@ export class VscodeIDE implements IDE {
     return this.extensionContext.extensionPath;
   }
 
+  get cursorlessVersion(): string {
+    return this.extensionContext.extension.packageJSON.version;
+  }
+
   get runMode(): RunMode {
     return vscodeRunMode(this.extensionContext);
   }
@@ -114,6 +118,18 @@ export class VscodeIDE implements IDE {
 
   public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
     return editor as EditableTextEditor;
+  }
+
+  public async findInDocument(
+    query: string,
+    editor?: TextEditor,
+  ): Promise<void> {
+    if (editor != null && !editor.isActive) {
+      await this.getEditableTextEditor(editor).focus();
+    }
+    await vscode.commands.executeCommand("editor.actions.findWithArgs", {
+      searchString: query,
+    });
   }
 
   public async findInWorkspace(query: string): Promise<void> {

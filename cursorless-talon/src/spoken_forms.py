@@ -68,6 +68,7 @@ LIST_TO_TYPE_MAP = {
     "wrapper_only_paired_delimiter": "pairedDelimiter",
     "surrounding_pair_scope_type": "pairedDelimiter",
     "scope_type": "simpleScopeTypeType",
+    "glyph_scope_type": "complexScopeTypeType",
     "custom_regex_scope_type": "customRegex",
 }
 
@@ -125,8 +126,11 @@ def update():
         handle_csv("experimental/miscellaneous.csv"),
         handle_csv(
             "modifier_scope_types.csv",
-            pluralize_lists=["scope_type"],
-            extra_allowed_values=["private.fieldAccess"],
+            pluralize_lists=["scope_type", "glyph_scope_type"],
+            extra_allowed_values=[
+                "private.fieldAccess",
+                "private.switchStatementSubject",
+            ],
             default_list_name="scope_type",
         ),
         handle_csv(

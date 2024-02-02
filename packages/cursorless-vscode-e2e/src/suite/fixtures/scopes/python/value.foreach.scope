@@ -1,0 +1,23 @@
+for item in items:
+    pass
+---
+
+[Content] = 0:12-0:17
+0| for item in items:
+              >-----<
+
+[Removal] = 0:11-0:17
+0| for item in items:
+             >------<
+
+[Leading delimiter] = 0:11-0:12
+0| for item in items:
+             >-<
+
+[Domain] = 0:0-1:8
+0| for item in items:
+  >------------------
+1|     pass
+   --------<
+
+[Insertion delimiter] = " "

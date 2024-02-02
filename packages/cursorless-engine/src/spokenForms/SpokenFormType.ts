@@ -14,6 +14,7 @@ import {
 export interface SpokenFormMapKeyTypes {
   pairedDelimiter: SpeakableSurroundingPairName;
   simpleScopeTypeType: SimpleScopeTypeType;
+  complexScopeTypeType: "glyph";
   surroundingPairForceDirection: "left" | "right";
 
   /**
@@ -59,6 +60,7 @@ type ModifierExtra =
   | "previous"
   | "next"
   | "forward"
-  | "backward";
+  | "backward"
+  | "ancestor";
 
 export type SpokenFormType = keyof SpokenFormMapKeyTypes;

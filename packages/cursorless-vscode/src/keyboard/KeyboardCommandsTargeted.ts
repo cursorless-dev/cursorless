@@ -1,10 +1,10 @@
 import {
   ActionDescriptor,
-  ActionType,
   LATEST_VERSION,
+  Modifier,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
-  SimpleScopeTypeType,
+  ScopeType,
 } from "@cursorless/common";
 import { runCursorlessCommand } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
@@ -12,6 +12,7 @@ import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
+import { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 
 type TargetingMode = "replace" | "extend" | "append";
 
@@ -26,9 +27,13 @@ interface TargetDecoratedMarkArgument {
   mode?: TargetingMode;
 }
 
-interface TargetScopeTypeArgument {
-  scopeType: SimpleScopeTypeType;
+interface ModifyTargetContainingScopeArgument {
+  scopeType: ScopeType;
   type?: "containingScope" | "everyScope";
+}
+
+interface PerformActionOpts {
+  exitCursorlessMode: boolean;
 }
 
 /**
@@ -42,7 +47,10 @@ export default class KeyboardCommandsTargeted {
   constructor(private keyboardHandler: KeyboardHandler) {
     this.targetDecoratedMark = this.targetDecoratedMark.bind(this);
     this.performActionOnTarget = this.performActionOnTarget.bind(this);
-    this.targetScopeType = this.targetScopeType.bind(this);
+    this.performVscodeCommandOnTarget =
+      this.performVscodeCommandOnTarget.bind(this);
+    this.modifyTargetContainingScope =
+      this.modifyTargetContainingScope.bind(this);
     this.targetSelection = this.targetSelection.bind(this);
     this.clearTarget = this.clearTarget.bind(this);
   }
@@ -119,7 +127,7 @@ export default class KeyboardCommandsTargeted {
     }
 
     return await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target,
     });
   };
@@ -129,35 +137,39 @@ export default class KeyboardCommandsTargeted {
    * @param param0 Describes the desired scope type
    * @returns A promise that resolves to the result of the cursorless command
    */
-  targetScopeType = async ({
+  modifyTargetContainingScope = async ({
     scopeType,
     type = "containingScope",
-  }: TargetScopeTypeArgument) =>
+  }: ModifyTargetContainingScopeArgument) =>
     await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target: {
         type: "primitive",
         modifiers: [
           {
             type,
-            scopeType: {
-              type: scopeType,
-            },
+            scopeType,
           },
         ],
         mark: {
-          type: "that",
+          type: "keyboard",
         },
       },
     });
 
-  private highlightTarget = () =>
-    executeCursorlessCommand({
-      name: "highlight",
+  /**
+   * Applies {@link modifier} to the current target
+   * @param param0 Describes the desired modifier
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  targetModifier = async (modifier: Modifier) =>
+    await executeCursorlessCommand({
+      name: "private.setKeyboardTarget",
       target: {
         type: "primitive",
+        modifiers: [modifier],
         mark: {
-          type: "that",
+          type: "keyboard",
         },
       },
     });
@@ -167,75 +179,141 @@ export default class KeyboardCommandsTargeted {
    * @param name The action to run
    * @returns A promise that resolves to the result of the cursorless command
    */
-  performActionOnTarget = async (name: ActionType) => {
+  performSimpleActionOnTarget = async ({
+    actionId: name,
+    exitCursorlessMode,
+  }: SimpleKeyboardActionDescriptor) => {
+    return this.performActionOnTarget(
+      (target) => {
+        switch (name) {
+          case "rewrapWithPairedDelimiter":
+          case "insertSnippet":
+          case "executeCommand":
+          case "replace":
+          case "editNew":
+          case "getText":
+            throw Error(`Unsupported keyboard action: ${name}`);
+          case "replaceWithTarget":
+          case "moveToTarget":
+            return {
+              name,
+              source: target,
+              destination: { type: "implicit" },
+            };
+          case "swapTargets":
+            return {
+              name,
+              target1: target,
+              target2: { type: "implicit" },
+            };
+          case "callAsFunction":
+            return {
+              name,
+              callee: target,
+              argument: { type: "implicit" },
+            };
+          case "pasteFromClipboard":
+            return {
+              name,
+              destination: {
+                type: "primitive",
+                insertionMode: "to",
+                target,
+              },
+            };
+          case "generateSnippet":
+          case "highlight":
+            return {
+              name,
+              target,
+            };
+          default:
+            return {
+              name,
+              target,
+            };
+        }
+      },
+      { exitCursorlessMode },
+    );
+  };
+
+  /**
+   * Performs action {@link name} on the current target
+   * @param name The action to run
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  performActionOnTarget = async (
+    constructActionPayload: (
+      target: PartialPrimitiveTargetDescriptor,
+    ) => ActionDescriptor,
+    { exitCursorlessMode }: PerformActionOpts,
+  ) => {
+    const action = constructActionPayload({
+      type: "primitive",
+      mark: {
+        type: "keyboard",
+      },
+    });
+    const returnValue = await executeCursorlessCommand(action);
+
+    if (exitCursorlessMode) {
+      // For some Cursorless actions, it is more convenient if we automatically
+      // exit modal mode
+      await this.modal.modeOff();
+    } else {
+      // If we're not exiting cursorless mode, preserve the keyboard mark
+      // FIXME: Better to just not clobber the keyboard mark on each action?
+      await executeCursorlessCommand({
+        name: "private.setKeyboardTarget",
+        target: {
+          type: "primitive",
+          mark: {
+            type: "that",
+          },
+        },
+      });
+    }
+
+    return returnValue;
+  };
+
+  /**
+   * Performs the given VSCode command on the current target. If
+   * {@link keepChangedSelection} is true, then the selection will not be
+   * restored after the command is run.
+   *
+   * @param commandId The command to run
+   * @param options Additional options
+   * @returns A promise that resolves to the result of the VSCode command
+   */
+  performVscodeCommandOnTarget = async (
+    commandId: string,
+    {
+      args,
+      keepChangedSelection,
+      exitCursorlessMode,
+    }: VscodeCommandOnTargetOptions = {},
+  ) => {
     const target: PartialPrimitiveTargetDescriptor = {
       type: "primitive",
       mark: {
-        type: "that",
+        type: "keyboard",
       },
     };
 
-    let returnValue: unknown;
+    const returnValue = await executeCursorlessCommand({
+      name: "executeCommand",
+      target,
+      commandId,
+      options: {
+        restoreSelection: !keepChangedSelection,
+        showDecorations: true,
+        commandArgs: args,
+      },
+    });
 
-    switch (name) {
-      case "wrapWithPairedDelimiter":
-      case "rewrapWithPairedDelimiter":
-      case "insertSnippet":
-      case "wrapWithSnippet":
-      case "executeCommand":
-      case "replace":
-      case "editNew":
-      case "getText":
-        throw Error(`Unsupported keyboard action: ${name}`);
-      case "replaceWithTarget":
-      case "moveToTarget":
-        returnValue = await executeCursorlessCommand({
-          name,
-          source: target,
-          destination: { type: "implicit" },
-        });
-        break;
-      case "swapTargets":
-        returnValue = await executeCursorlessCommand({
-          name,
-          target1: target,
-          target2: { type: "implicit" },
-        });
-        break;
-      case "callAsFunction":
-        returnValue = await executeCursorlessCommand({
-          name,
-          callee: target,
-          argument: { type: "implicit" },
-        });
-        break;
-      case "pasteFromClipboard":
-        returnValue = await executeCursorlessCommand({
-          name,
-          destination: {
-            type: "primitive",
-            insertionMode: "to",
-            target,
-          },
-        });
-        break;
-      case "generateSnippet":
-      case "highlight":
-        returnValue = await executeCursorlessCommand({
-          name,
-          target,
-        });
-        break;
-      default:
-        returnValue = await executeCursorlessCommand({
-          name,
-          target,
-        });
-    }
-
-    await this.highlightTarget();
-
-    if (EXIT_CURSORLESS_MODE_ACTIONS.includes(name)) {
+    if (exitCursorlessMode) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
       await this.modal.modeOff();
@@ -250,7 +328,24 @@ export default class KeyboardCommandsTargeted {
    */
   targetSelection = () =>
     executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "cursor",
+        },
+      },
+    });
+
+  /**
+   * Unsets the current target, causing any highlights to disappear
+   * FIXME: This is a hack relying on the fact that running any command
+   * will clobber all special targets
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  clearTarget = () =>
+    executeCursorlessCommand({
+      name: "setSelection",
       target: {
         type: "primitive",
         mark: {
@@ -259,21 +354,17 @@ export default class KeyboardCommandsTargeted {
         modifiers: [{ type: "toRawSelection" }],
       },
     });
+}
 
-  /**
-   * Unsets the current target, causing any highlights to disappear
-   * @returns A promise that resolves to the result of the cursorless command
-   */
-  clearTarget = () =>
-    executeCursorlessCommand({
-      name: "highlight",
-      target: {
-        type: "primitive",
-        mark: {
-          type: "nothing",
-        },
-      },
-    });
+interface VscodeCommandOnTargetOptions {
+  /** The arguments to pass to the command */
+  args?: unknown[];
+
+  /** If `true`, the selection will not be restored after the command is run */
+  keepChangedSelection?: boolean;
+
+  /** If `true`, exit Cursorless mode after running command */
+  exitCursorlessMode?: boolean;
 }
 
 function executeCursorlessCommand(action: ActionDescriptor) {
@@ -283,11 +374,3 @@ function executeCursorlessCommand(action: ActionDescriptor) {
     usePrePhraseSnapshot: false,
   });
 }
-
-const EXIT_CURSORLESS_MODE_ACTIONS: ActionType[] = [
-  "setSelectionBefore",
-  "setSelectionAfter",
-  "editNewLineBefore",
-  "editNewLineAfter",
-  "clearAndSetSelection",
-];

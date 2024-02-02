@@ -1,0 +1,26 @@
+for (const item of items) {
+
+}
+---
+
+[Content] = 0:19-0:24
+0| for (const item of items) {
+                     >-----<
+
+[Removal] = 0:18-0:24
+0| for (const item of items) {
+                    >------<
+
+[Leading delimiter] = 0:18-0:19
+0| for (const item of items) {
+                    >-<
+
+[Domain] = 0:0-2:1
+0| for (const item of items) {
+  >---------------------------
+1|
+
+2| }
+   -<
+
+[Insertion delimiter] = " "

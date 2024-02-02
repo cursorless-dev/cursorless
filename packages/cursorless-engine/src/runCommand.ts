@@ -6,12 +6,13 @@ import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
-import { StoredTargetMap, TestCaseRecorder, TreeSitter } from "./index";
+import { StoredTargetMap, TreeSitter } from "./index";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
 import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
+import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 /**
  * Entry point for Cursorless commands. We proceed as follows:
@@ -29,11 +30,11 @@ export async function runCommand(
   treeSitter: TreeSitter,
   debug: Debug,
   hatTokenMap: HatTokenMap,
-  testCaseRecorder: TestCaseRecorder,
   snippets: Snippets,
   storedTargets: StoredTargetMap,
   languageDefinitions: LanguageDefinitions,
   rangeUpdater: RangeUpdater,
+  commandRunnerDecorators: CommandRunnerDecorator[],
   command: Command,
 ): Promise<unknown> {
   if (debug.active) {
@@ -57,11 +58,8 @@ export async function runCommand(
     rangeUpdater,
   );
 
-  if (testCaseRecorder.isActive()) {
-    commandRunner = testCaseRecorder.wrapCommandRunner(
-      readableHatMap,
-      commandRunner,
-    );
+  for (const decorator of commandRunnerDecorators) {
+    commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 
   return await commandRunner.run(commandComplete);

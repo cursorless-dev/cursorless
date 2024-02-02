@@ -49,7 +49,18 @@ export class PrimitiveTargetSpokenFormGenerator {
         throw new NoSpokenFormError(`Modifier '${modifier.type}'`);
 
       case "containingScope":
-        return [this.handleScopeType(modifier.scopeType)];
+        if (modifier.ancestorIndex == null || modifier.ancestorIndex === 0) {
+          return this.handleScopeType(modifier.scopeType);
+        }
+        if (modifier.ancestorIndex === 1) {
+          return [
+            this.spokenFormMap.modifierExtra.ancestor,
+            this.handleScopeType(modifier.scopeType),
+          ];
+        }
+        throw new NoSpokenFormError(
+          `Modifier '${modifier.type}' with ancestor index ${modifier.ancestorIndex}`,
+        );
 
       case "everyScope":
         return [
@@ -208,6 +219,11 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (scopeType.type) {
       case "oneOf":
         throw new NoSpokenFormError(`Scope type '${scopeType.type}'`);
+      case "glyph":
+        return [
+          this.spokenFormMap.complexScopeTypeType.glyph,
+          characterToSpokenForm(scopeType.character),
+        ];
       case "surroundingPair": {
         const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
         if (scopeType.forceDirection != null) {
@@ -286,6 +302,7 @@ export class PrimitiveTargetSpokenFormGenerator {
         throw Error(`Mark '${mark.type}' is not fully implemented`);
       }
       case "explicit":
+      case "keyboard":
         throw new NoSpokenFormError(`Mark '${mark.type}'`);
 
       default:

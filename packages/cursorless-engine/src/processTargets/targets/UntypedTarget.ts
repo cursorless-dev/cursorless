@@ -1,12 +1,11 @@
 import { Range } from "@cursorless/common";
-import { BaseTarget, CommonTargetParameters } from ".";
+import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 import type { Target } from "../../typings/target.types";
-import { createContinuousRangeUntypedTarget } from "../targetUtil/createContinuousRange";
 import {
   getTokenLeadingDelimiterTarget,
   getTokenRemovalRange,
   getTokenTrailingDelimiterTarget,
-} from "../targetUtil/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
+} from "./util/insertionRemovalBehaviors/TokenInsertionRemovalBehavior";
 
 interface UntypedTargetParameters extends CommonTargetParameters {
   readonly hasExplicitRange: boolean;
@@ -18,7 +17,7 @@ interface UntypedTargetParameters extends CommonTargetParameters {
  * - Use token delimiters (space) for removal and insertion
  * - Expand to nearest containing pair when asked for boundary or interior
  */
-export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
+export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   type = "UntypedTarget";
   insertionDelimiter = " ";
   hasExplicitScopeType = false;
@@ -42,19 +41,11 @@ export default class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
       : getTokenRemovalRange(this);
   }
 
-  createContinuousRangeTarget(
-    isReversed: boolean,
-    endTarget: Target,
-    includeStart: boolean,
-    includeEnd: boolean,
-  ): Target {
-    return createContinuousRangeUntypedTarget(
-      isReversed,
-      this,
-      endTarget,
-      includeStart,
-      includeEnd,
-    );
+  maybeCreateRichRangeTarget(): null {
+    // It never makes sense to create a rich range target from an untyped
+    // target. We let {@link createContinuousRangeTarget} handle constructing an
+    // untyped range.
+    return null;
   }
 
   protected getCloneParameters() {

@@ -1,6 +1,6 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-const { join } = require("path");
-const { readFileSync } = require("fs");
+import { fontFamily as _fontFamily } from "tailwindcss/defaultTheme";
+import { join } from "path";
+import { readFileSync } from "fs";
 
 const CONTENT_RATIO = 1000 / 814;
 
@@ -48,55 +48,55 @@ const references = JSON.parse(
 ).references.map((ref) => ref.path);
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [".", ...references].map(
-    (package) => `${package}/src/**/*.{js,ts,jsx,tsx}`,
-  ),
-  theme: {
-    extend: {
-      screens: {
-        stretched: { raw: "(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)" },
+export const content = [".", ...references].map(
+  (pkg) => `${pkg}/src/**/*.{js,ts,jsx,tsx}`,
+);
+export const theme = {
+  extend: {
+    screens: {
+      stretched: { raw: "(min-aspect-ratio: 2/1), (max-aspect-ratio: 1/1)" },
+    },
+    fontFamily: {
+      mono: ["Inconsolata", ..._fontFamily.mono],
+      monoWide: ["Inconsolata-SemiExpanded", ..._fontFamily.mono],
+    },
+    width: {
+      smBase: smallWidth,
+      stretchedBase: stretchedWidth,
+    },
+    height: {
+      smBase: smallHeight,
+      stretchedBase: stretchedHeight,
+    },
+    fontSize: {
+      smBase: smallFontSize,
+      stretchedBase: stretchedFontSize,
+      xs: "1.2em",
+      lg: "1.8em",
+      "2xl": "2.4em",
+      "3xl": "3.6em",
+    },
+    colors: {
+      salmon: {
+        100: "#FFFAF8",
+        300: "#F8C9BA",
+        400: "#FF9273",
+        700: "#372e2a",
+        800: "#161110",
+        900: "#0A0707",
       },
-      fontFamily: {
-        mono: ["Inconsolata", ...defaultTheme.fontFamily.mono],
-        monoWide: ["Inconsolata-SemiExpanded", ...defaultTheme.fontFamily.mono],
-      },
-      width: {
-        smBase: smallWidth,
-        stretchedBase: stretchedWidth,
-      },
-      height: {
-        smBase: smallHeight,
-        stretchedBase: stretchedHeight,
-      },
-      fontSize: {
-        smBase: smallFontSize,
-        stretchedBase: stretchedFontSize,
-        xs: "1.2em",
-        lg: "1.8em",
-        "2xl": "2.4em",
-        "3xl": "3.6em",
-      },
-      colors: {
-        salmon: {
-          100: "#FFFAF8",
-          300: "#F8C9BA",
-          400: "#FF9273",
-          700: "#372e2a",
-          800: "#161110",
-          900: "#0A0707",
-        },
-        teal: {
-          100: "#F9FFFE",
-          200: "#CDFFF9",
-          300: "#99FFF3",
-          400: "#00907F",
-          700: "#005349",
-          800: "#00443C",
-          900: "#00110F",
-        },
+      teal: {
+        100: "#F9FFFE",
+        200: "#CDFFF9",
+        300: "#99FFF3",
+        400: "#00907F",
+        500: "#47D4C3",
+        600: "#0F776B",
+        700: "#005349",
+        800: "#00443C",
+        900: "#00110F",
       },
     },
   },
-  plugins: [],
 };
+export const plugins = [];
