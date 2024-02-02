@@ -10,4 +10,8 @@ press {user.key}:
 1|     key(key)
    ------------<
 
+[Interior] = 1:4-1:12
+1|     key(key)
+      >--------<
+
 [Insertion delimiter] = "\n"
