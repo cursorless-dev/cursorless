@@ -16,7 +16,6 @@ const nodeMatchers: Partial<
     "if_else_expr",
   ],
   string: "string_constant_expr",
-  collectionItem: ["exposed_value"],
   collectionKey: ["field_type[name]", "record_expr.field![name]"],
   ifStatement: "if_else_expr",
   anonymousFunction: "anonymous_function_expr",
