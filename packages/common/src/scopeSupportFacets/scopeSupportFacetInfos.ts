@@ -223,6 +223,15 @@ export const scopeSupportFacetInfos: Record<
     description: "LHS of an assignment with pattern destructuring",
     scopeType: "name",
   },
+  "name.variable": {
+    description: "Name (LHS) of a variable declaration",
+    scopeType: "name",
+  },
+  "name.variable.pattern": {
+    description:
+      "Name (LHS) of a variable declaration with pattern destructuring",
+    scopeType: "name",
+  },
   "name.foreach": {
     description: "Iteration variable name in a for each loop",
     scopeType: "name",
@@ -267,6 +276,10 @@ export const scopeSupportFacetInfos: Record<
 
   "value.assignment": {
     description: "Value (RHS) of an assignment",
+    scopeType: "value",
+  },
+  "value.variable": {
+    description: "Value (RHS) of a variable declaration",
     scopeType: "value",
   },
   "value.mapPair": {
@@ -314,8 +327,8 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
-  "type.assignment": {
-    description: "Type of variable in an assignment",
+  "type.variable": {
+    description: "Type of variable in a variable declaration",
     scopeType: "type",
   },
   "type.formalParameter": {
