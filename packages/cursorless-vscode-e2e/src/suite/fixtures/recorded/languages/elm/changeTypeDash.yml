@@ -27,12 +27,7 @@ finalState:
   thatMark:
     - type: RawSelectionTarget
       contentRange:
-        start:
-          character: 4
-          line: 0
-        end:
-          character: 4
-          line: 0  
+        start: {character: 4, line: 0}
+        end: {character: 4, line: 0}
       hasExplicitRange: true
       isReversed: false
-fullTargets: [{type: primitive, mark: {type: decoratedSymbol, symbolColor: default, character: '-'}, modifiers: [{type: containingScope, scopeType: {type: type}}]}]
