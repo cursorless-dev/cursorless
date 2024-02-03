@@ -65,7 +65,7 @@
 
 ;;!! x = \a -> f a
 ;;!      ^^^^^^^^^
-(anonymous_function_expr param: (pattern)* @argumentOrParameter expr: (_) @_.domain) @anonymousFunction
+(anonymous_function_expr param: (pattern)* @argumentOrParameter expr: (_) @anonymousFunction.interior) @anonymousFunction @_.domain
 
 ;; functionCall
 
@@ -83,7 +83,7 @@
   (_) @argumentOrParameter
   (operator) @functionCallee
   (_) @argumentOrParameter
-) @functionCall
+) @functionCall @_.domain
 
 ;;!! type alias MyType = TypeWithParams a b
 ;;!                      ^^^^^^^^^^^^^^^^^^
