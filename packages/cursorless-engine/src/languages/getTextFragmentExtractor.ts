@@ -125,7 +125,6 @@ const textFragmentExtractors: Record<
     "css",
     scssStringTextFragmentExtractor,
   ),
-  elm: constructDefaultTextFragmentExtractor("elm"),
   latex: fullDocumentTextFragmentExtractor,
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
