@@ -95,10 +95,33 @@
 ;;!! f x y = x
 ;;!  ^^^^^^^^^
 (value_declaration 
-  (function_declaration_left
+  functionDeclarationLeft: (function_declaration_left
     (lower_case_identifier) @functionName 
     pattern: (_)* @argumentOrParameter)
     body: (_) @namedFunction.interior
 ) @namedFunction @functionName.domain
 
+;; branch
 
+;;!! x = if a then b else c
+;;!!     ^^^^^^^^^^^^^^^^^^
+(if_else_expr 
+  .
+  (_)
+  (_) @branch
+  (_) @branch
+) @ifStatement
+
+;;!! case a of
+;;!!   Nothing -> []
+;;!    ^^^^^^^^^^^^^
+;;!!   Just a  -> [a]
+;;!    ^^^^^^^^^^^^^^
+(case_of_branch) @branch
+
+;; Types
+
+;;!! type alias X = Int
+;;!  ^^^^^^^^^^^^^^^^^^
+(type_alias_declaration) @type
+(type_declaration) @type
