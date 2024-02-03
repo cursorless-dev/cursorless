@@ -18,7 +18,7 @@
 
 ;;!! type alias X = { x : Int, y : Bool }
 ;;!                   ^^^^^^^  ^^^^^^^^
-(field_type name: (_) @collectionKey typeExpression: (_) @value) @_.domain
+(field_type name: (_) @collectionKey typeExpression: (_) @value @type) @_.domain
 
 ;; string
 
