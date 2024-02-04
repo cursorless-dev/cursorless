@@ -96,10 +96,23 @@
 ;;!  ^^^^^^^^^
 (value_declaration 
   functionDeclarationLeft: (function_declaration_left
-    (lower_case_identifier) @functionName 
-    pattern: (_)* @argumentOrParameter)
-    body: (_) @namedFunction.interior
+    (lower_case_identifier) @functionName @name
+  )
+  body: (_) @namedFunction.interior
 ) @namedFunction @functionName.domain
+
+(anything_pattern) @argumentOrParameter
+(function_declaration_left pattern: (char_constant_expr) @argumentOrParameter)
+(cons_pattern) @argumentOrParameter
+(list_pattern) @argumentOrParameter
+(lower_pattern) @argumentOrParameter
+(function_declaration_left pattern: (number_constant_expr) @argumentOrParameter)
+(pattern) @argumentOrParameter
+(record_pattern) @argumentOrParameter
+(function_declaration_left pattern: (string_constant_expr) @argumentOrParameter)
+(tuple_pattern) @argumentOrParameter
+(union_pattern) @argumentOrParameter
+(function_declaration_left pattern: (unit_expr) @argumentOrParameter)
 
 ;; branch
 
@@ -123,5 +136,6 @@
 
 ;;!! type alias X = Int
 ;;!  ^^^^^^^^^^^^^^^^^^
-(type_alias_declaration) @type
+(type_alias_declaration name: (_) @name) @type
 (type_declaration) @type
+
