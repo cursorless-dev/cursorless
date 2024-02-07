@@ -67,7 +67,9 @@
   },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
     "n": "nextPrev",
-    "*": "every"
+    "*": "every",
+    "th": "head",
+    "tt": "tail"
   },
   "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
     "va": "editor.action.addCommentLine",

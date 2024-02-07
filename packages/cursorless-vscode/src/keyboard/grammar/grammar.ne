@@ -49,6 +49,10 @@ main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 # "funk"
 modifier -> scopeType {% capture({ type: "containingScope", scopeType: $0 }) %}
 
+# "head"/"tail" (simple)
+modifier -> %head {% capture({ type: "extendThroughStartOf" }) %}
+modifier -> %tail {% capture({ type: "extendThroughEndOf" }) %}
+
 # "every funk"
 modifier -> %every scopeType {% capture({ type: "everyScope", scopeType: $1 }) %}
 
