@@ -26,10 +26,11 @@ export const assets: Asset[] = [
   { source: "../../images/hats", destination: "images/hats" },
   { source: "./images/logo.png", destination: "images/logo.png" },
   { source: "../../images/logo.svg", destination: "images/logo.svg" },
-  {
-    source: "../../resources/font_measurements.js",
-    destination: "resources/font_measurements.js",
-  },
+  // TODO: fix this
+  //{
+  //  source: "../../resources/font_measurements.js",
+  //  destination: "resources/font_measurements.js",
+  //},
   { source: "../../schemas", destination: "schemas" },
   {
     source: "../../third-party-licenses.csv",

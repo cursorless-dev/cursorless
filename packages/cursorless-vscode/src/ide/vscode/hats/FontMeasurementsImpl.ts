@@ -34,7 +34,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
     }>("fontRatios");
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
-      const fontRatios = await getFontRatios();
+      const fontRatios = await getFontRatios(this.extensionContext);
       this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
@@ -57,7 +57,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
  *
  * @returns The width and height ratios of the font
  */
-function getFontRatios() {
+function getFontRatios(extensionContext: vscode.ExtensionContext) {
   const panel = vscode.window.createWebviewPanel(
     "cursorless.loading",
     "Cursorless",
@@ -71,9 +71,9 @@ function getFontRatios() {
   );
 
   const font_measurement_js = panel.webview.asWebviewUri(
-    vscode.Uri.joinPath(context.extensionUri, 'resources', 'font_measurements.js')
+    vscode.Uri.joinPath(extensionContext.extensionUri, 'resources', 'font_measurements.js')
   );
-  panel.webview.html = getWebviewContent(font_measurement_js);
+  panel.webview.html = getWebviewContent(panel.webview, font_measurement_js);
 
   interface FontRatios {
     /**
@@ -106,7 +106,7 @@ function getFontFamily() {
   return config.get<string>("fontFamily")!;
 }
 
-function getWebviewContent(font_measurement_js: vscode.Uri) {
+function getWebviewContent(webview: vscode.Webview, font_measurement_js: vscode.Uri) {
   // baseline adjustment based on https://stackoverflow.com/a/27295528
   return `<!DOCTYPE html>
   <html lang="en">
