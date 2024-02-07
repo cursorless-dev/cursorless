@@ -70,7 +70,10 @@ function getFontRatios() {
     },
   );
 
-  panel.webview.html = getWebviewContent();
+  const font_measurement_js = panel.webview.asWebviewUri(
+    vscode.Uri.joinPath(context.extensionUri, 'resources', 'font_measurements.js')
+  );
+  panel.webview.html = getWebviewContent(font_measurement_js);
 
   interface FontRatios {
     /**
@@ -103,25 +106,18 @@ function getFontFamily() {
   return config.get<string>("fontFamily")!;
 }
 
-function getWebviewContent() {
+function getWebviewContent(font_measurement_js: vscode.Uri) {
   // baseline adjustment based on https://stackoverflow.com/a/27295528
   return `<!DOCTYPE html>
   <html lang="en">
+  <meta http-equiv="Content-Security-Policy" content="script-src ${webview.cspSource};" />
+
   <body>
-      <h1>Loading Cursorless...</h1>
+      <h1>Computing font measurements for Cursorless...</h1>
       <div id="container">
       <span id="letter" style="line-height: 0; visibility:hidden; font-size: 1000px; font-family: var(--vscode-editor-font-family);  font-weight: var(--vscode-editor-font-weight);">A</span>
       </div>
-      <script>
-        const letter    = document.querySelector('#letter');
-        const container  = document.querySelector('#container');
-        const baselineHeight = letter.offsetTop + letter.offsetHeight - container.offsetHeight - container.offsetTop;
-        const vscode    = acquireVsCodeApi();
-        vscode.postMessage({
-          widthRatio: letter.offsetWidth / 1000,
-          heightRatio: (letter.offsetHeight - baselineHeight) / 1000
-        });
-      </script>
+      <script src="${font_measurement_js}"></script>
   </body>
   </html>`;
 }
