@@ -110,7 +110,9 @@ function getWebviewContent(webview: vscode.Webview, font_measurement_js: vscode.
   // baseline adjustment based on https://stackoverflow.com/a/27295528
   return `<!DOCTYPE html>
   <html lang="en">
+  <head>
   <meta http-equiv="Content-Security-Policy" content="script-src ${webview.cspSource};" />
+  </head>
 
   <body>
       <h1>Computing font measurements for Cursorless...</h1>
