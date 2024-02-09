@@ -1,5 +1,3 @@
-from typing import Mapping
-
 from ..get_list import get_raw_list, get_spoken_form_from_list
 
 FORMATTERS = {
