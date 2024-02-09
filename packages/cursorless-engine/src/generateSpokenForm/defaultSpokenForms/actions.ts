@@ -38,6 +38,7 @@ export const actions = {
   showReferences: "reference",
   rename: "rename",
   reverseTargets: "reverse",
+  findInDocument: "scout",
   findInWorkspace: "scout all",
   randomizeTargets: "shuffle",
   generateSnippet: "snippet make",
@@ -64,10 +65,10 @@ export const actions = {
   getText: null,
   replace: null,
   ["private.getTargets"]: null,
+  ["private.setKeyboardTarget"]: null,
 
   // These actions are implemented talon-side, usually using `getText` followed
   // by some other action.
   // applyFormatter: "format",
-  // findInDocument: "scout",
   // nextHomophone: "phones",
 } as const satisfies Record<ActionType, string | null>;

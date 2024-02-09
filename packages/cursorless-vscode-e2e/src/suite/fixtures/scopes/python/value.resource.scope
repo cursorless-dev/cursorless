@@ -1,0 +1,23 @@
+with aaa:
+    pass
+---
+
+[Content] = 0:5-0:8
+0| with aaa:
+       >---<
+
+[Removal] = 0:4-0:8
+0| with aaa:
+      >----<
+
+[Leading delimiter] = 0:4-0:5
+0| with aaa:
+      >-<
+
+[Domain] = 0:0-1:8
+0| with aaa:
+  >---------
+1|     pass
+   --------<
+
+[Insertion delimiter] = " "

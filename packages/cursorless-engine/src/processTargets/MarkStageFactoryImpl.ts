@@ -33,6 +33,7 @@ export class MarkStageFactoryImpl implements MarkStageFactory {
         return new CursorStage(mark);
       case "that":
       case "source":
+      case "keyboard":
         return new StoredTargetStage(this.storedTargets, mark.type);
       case "decoratedSymbol":
         return new DecoratedSymbolStage(this.readableHatMap, mark);

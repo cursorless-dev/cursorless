@@ -10,11 +10,14 @@ const { supported, notApplicable } = ScopeSupportFacetLevel;
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
-  statement: supported,
   ifStatement: supported,
   regularExpression: supported,
   switchStatementSubject: supported,
   fieldAccess: supported,
+
+  statement: supported,
+  "statement.iteration.document": supported,
+  "statement.iteration.block": supported,
 
   class: supported,
   className: supported,
@@ -57,6 +60,8 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "name.assignment": supported,
   "name.assignment.pattern": supported,
+  "name.variable": supported,
+  "name.variable.pattern": supported,
   "name.function": supported,
   "name.class": supported,
   "name.field": supported,
@@ -67,6 +72,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
   "value.assignment": supported,
+  "value.variable": supported,
   "value.foreach": supported,
   "value.return": supported,
   "value.return.lambda": supported,
@@ -80,7 +86,7 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "key.attribute": supported,
   "value.attribute": supported,
 
-  "type.assignment": notApplicable,
+  "type.variable": notApplicable,
   "type.formalParameter": notApplicable,
   "type.return": notApplicable,
   "type.field": notApplicable,

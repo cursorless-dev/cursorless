@@ -17,6 +17,7 @@ const simpleActionNames = [
   "editNewLineBefore",
   "experimental.setInstanceReference",
   "extractVariable",
+  "findInDocument",
   "findInWorkspace",
   "foldRegion",
   "followLink",
@@ -48,6 +49,7 @@ const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
+  "private.setKeyboardTarget",
   "private.showParseTree",
   "private.getTargets",
 ] as const;

@@ -11,7 +11,7 @@ import Deselect from "./Deselect";
 import { EditNew } from "./EditNew";
 import { EditNewAfter, EditNewBefore } from "./EditNewLineAction";
 import ExecuteCommand from "./ExecuteCommand";
-import { FindInWorkspace } from "./Find";
+import { FindInDocument, FindInWorkspace } from "./Find";
 import FollowLink from "./FollowLink";
 import GenerateSnippet from "./GenerateSnippet";
 import GetTargets from "./GetTargets";
@@ -33,7 +33,7 @@ import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
-import { SetInstanceReference } from "./SetInstanceReference";
+import { SetSpecialTarget } from "./SetSpecialTarget";
 import {
   SetSelection,
   SetSelectionAfter,
@@ -89,6 +89,7 @@ export class Actions implements ActionRecord {
   );
   executeCommand = new ExecuteCommand(this.rangeUpdater);
   extractVariable = new ExtractVariable(this.rangeUpdater);
+  findInDocument = new FindInDocument(this);
   findInWorkspace = new FindInWorkspace(this);
   foldRegion = new Fold(this.rangeUpdater);
   followLink = new FollowLink(this);
@@ -133,7 +134,10 @@ export class Actions implements ActionRecord {
   scrollToBottom = new ScrollToBottom();
   scrollToCenter = new ScrollToCenter();
   scrollToTop = new ScrollToTop();
-  ["experimental.setInstanceReference"] = new SetInstanceReference();
+  ["private.setKeyboardTarget"] = new SetSpecialTarget("keyboard");
+  ["experimental.setInstanceReference"] = new SetSpecialTarget(
+    "instanceReference",
+  );
   setSelection = new SetSelection();
   setSelectionAfter = new SetSelectionAfter();
   setSelectionBefore = new SetSelectionBefore();

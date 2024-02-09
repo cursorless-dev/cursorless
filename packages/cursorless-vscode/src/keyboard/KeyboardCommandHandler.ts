@@ -1,9 +1,14 @@
-import { ScopeType } from "@cursorless/common";
+import { Modifier, SurroundingPairName } from "@cursorless/common";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
-import { SimpleKeyboardActionType } from "./KeyboardActionType";
+import {
+  SimpleKeyboardActionDescriptor,
+  SpecificKeyboardActionDescriptor,
+} from "./KeyboardActionType";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
+import { isString } from "lodash";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -27,15 +32,8 @@ import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 export class KeyboardCommandHandler {
   constructor(private targeted: KeyboardCommandsTargeted) {}
 
-  targetDecoratedMarkReplace({ decoratedMark }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark(decoratedMark);
-  }
-
-  targetDecoratedMarkExtend({ decoratedMark }: DecoratedMarkArg) {
-    this.targeted.targetDecoratedMark({
-      ...decoratedMark,
-      mode: "extend",
-    });
+  targetDecoratedMark({ decoratedMark, mode }: DecoratedMarkArg) {
+    this.targeted.targetDecoratedMark({ ...decoratedMark, mode });
   }
 
   async vscodeCommand({
@@ -71,29 +69,28 @@ export class KeyboardCommandHandler {
   }
 
   performSimpleActionOnTarget({
-    actionName,
+    actionDescriptor,
   }: {
-    actionName: SimpleKeyboardActionType;
+    actionDescriptor: SimpleKeyboardActionDescriptor;
   }) {
-    this.targeted.performActionOnTarget(actionName);
+    this.targeted.performSimpleActionOnTarget(actionDescriptor);
   }
 
-  modifyTargetContainingScope(arg: { scopeType: ScopeType }) {
-    this.targeted.modifyTargetContainingScope(arg);
+  performWrapActionOnTarget({ actionDescriptor, delimiter }: WrapActionArg) {
+    const [left, right] = surroundingPairsDelimiters[delimiter]!;
+    this.targeted.performActionOnTarget(
+      (target) => ({
+        name: "wrapWithPairedDelimiter",
+        target,
+        left,
+        right,
+      }),
+      actionDescriptor,
+    );
   }
 
-  targetRelativeExclusiveScope({
-    offset,
-    length,
-    scopeType,
-  }: TargetRelativeExclusiveScopeArg) {
-    this.targeted.targetModifier({
-      type: "relativeScope",
-      offset: offset?.number ?? 1,
-      direction: offset?.direction ?? "forward",
-      length: length ?? 1,
-      scopeType,
-    });
+  modifyTarget({ modifier }: { modifier: Modifier }) {
+    this.targeted.targetModifier(modifier);
   }
 }
 
@@ -102,18 +99,10 @@ interface DecoratedMarkArg {
     color?: HatColor;
     shape?: HatShape;
   };
-}
-interface TargetRelativeExclusiveScopeArg {
-  offset: Offset;
-  length: number | null;
-  scopeType: ScopeType;
+  mode: "replace" | "extend" | "append";
 }
 
-interface Offset {
-  direction: "forward" | "backward" | null;
-  number: number | null;
-}
-
-function isString(input: any): input is string {
-  return typeof input === "string" || input instanceof String;
+interface WrapActionArg {
+  actionDescriptor: SpecificKeyboardActionDescriptor<"wrap">;
+  delimiter: SurroundingPairName;
 }

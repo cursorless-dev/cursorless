@@ -3,7 +3,7 @@ command:
   version: 6
   action:
     name: getText
-    options: {showDecorations: false, ensureSingleTarget: null}
+    options: {showDecorations: false}
     target:
       type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: a}

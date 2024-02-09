@@ -1,6 +1,5 @@
 import {
   ActionDescriptor,
-  ActionType,
   LATEST_VERSION,
   Modifier,
   PartialPrimitiveTargetDescriptor,
@@ -13,6 +12,7 @@ import type { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import { getStyleName } from "../ide/vscode/hats/getStyleName";
 import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
+import { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 
 type TargetingMode = "replace" | "extend" | "append";
 
@@ -30,6 +30,10 @@ interface TargetDecoratedMarkArgument {
 interface ModifyTargetContainingScopeArgument {
   scopeType: ScopeType;
   type?: "containingScope" | "everyScope";
+}
+
+interface PerformActionOpts {
+  exitCursorlessMode: boolean;
 }
 
 /**
@@ -123,7 +127,7 @@ export default class KeyboardCommandsTargeted {
     }
 
     return await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target,
     });
   };
@@ -138,7 +142,7 @@ export default class KeyboardCommandsTargeted {
     type = "containingScope",
   }: ModifyTargetContainingScopeArgument) =>
     await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target: {
         type: "primitive",
         modifiers: [
@@ -148,7 +152,7 @@ export default class KeyboardCommandsTargeted {
           },
         ],
         mark: {
-          type: "that",
+          type: "keyboard",
         },
       },
     });
@@ -160,23 +164,12 @@ export default class KeyboardCommandsTargeted {
    */
   targetModifier = async (modifier: Modifier) =>
     await executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
       target: {
         type: "primitive",
         modifiers: [modifier],
         mark: {
-          type: "that",
-        },
-      },
-    });
-
-  private highlightTarget = () =>
-    executeCursorlessCommand({
-      name: "highlight",
-      target: {
-        type: "primitive",
-        mark: {
-          type: "that",
+          type: "keyboard",
         },
       },
     });
@@ -186,78 +179,100 @@ export default class KeyboardCommandsTargeted {
    * @param name The action to run
    * @returns A promise that resolves to the result of the cursorless command
    */
-  performActionOnTarget = async (name: ActionType) => {
-    const target: PartialPrimitiveTargetDescriptor = {
+  performSimpleActionOnTarget = async ({
+    actionId: name,
+    exitCursorlessMode,
+  }: SimpleKeyboardActionDescriptor) => {
+    return this.performActionOnTarget(
+      (target) => {
+        switch (name) {
+          case "rewrapWithPairedDelimiter":
+          case "insertSnippet":
+          case "executeCommand":
+          case "replace":
+          case "editNew":
+          case "getText":
+            throw Error(`Unsupported keyboard action: ${name}`);
+          case "replaceWithTarget":
+          case "moveToTarget":
+            return {
+              name,
+              source: target,
+              destination: { type: "implicit" },
+            };
+          case "swapTargets":
+            return {
+              name,
+              target1: target,
+              target2: { type: "implicit" },
+            };
+          case "callAsFunction":
+            return {
+              name,
+              callee: target,
+              argument: { type: "implicit" },
+            };
+          case "pasteFromClipboard":
+            return {
+              name,
+              destination: {
+                type: "primitive",
+                insertionMode: "to",
+                target,
+              },
+            };
+          case "generateSnippet":
+          case "highlight":
+            return {
+              name,
+              target,
+            };
+          default:
+            return {
+              name,
+              target,
+            };
+        }
+      },
+      { exitCursorlessMode },
+    );
+  };
+
+  /**
+   * Performs action {@link name} on the current target
+   * @param name The action to run
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  performActionOnTarget = async (
+    constructActionPayload: (
+      target: PartialPrimitiveTargetDescriptor,
+    ) => ActionDescriptor,
+    { exitCursorlessMode }: PerformActionOpts,
+  ) => {
+    const action = constructActionPayload({
       type: "primitive",
       mark: {
-        type: "that",
+        type: "keyboard",
       },
-    };
+    });
+    const returnValue = await executeCursorlessCommand(action);
 
-    let returnValue: unknown;
-
-    switch (name) {
-      case "wrapWithPairedDelimiter":
-      case "rewrapWithPairedDelimiter":
-      case "insertSnippet":
-      case "wrapWithSnippet":
-      case "executeCommand":
-      case "replace":
-      case "editNew":
-      case "getText":
-        throw Error(`Unsupported keyboard action: ${name}`);
-      case "replaceWithTarget":
-      case "moveToTarget":
-        returnValue = await executeCursorlessCommand({
-          name,
-          source: target,
-          destination: { type: "implicit" },
-        });
-        break;
-      case "swapTargets":
-        returnValue = await executeCursorlessCommand({
-          name,
-          target1: target,
-          target2: { type: "implicit" },
-        });
-        break;
-      case "callAsFunction":
-        returnValue = await executeCursorlessCommand({
-          name,
-          callee: target,
-          argument: { type: "implicit" },
-        });
-        break;
-      case "pasteFromClipboard":
-        returnValue = await executeCursorlessCommand({
-          name,
-          destination: {
-            type: "primitive",
-            insertionMode: "to",
-            target,
-          },
-        });
-        break;
-      case "generateSnippet":
-      case "highlight":
-        returnValue = await executeCursorlessCommand({
-          name,
-          target,
-        });
-        break;
-      default:
-        returnValue = await executeCursorlessCommand({
-          name,
-          target,
-        });
-    }
-
-    await this.highlightTarget();
-
-    if (EXIT_CURSORLESS_MODE_ACTIONS.includes(name)) {
+    if (exitCursorlessMode) {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
       await this.modal.modeOff();
+    } else {
+      // If we're not exiting cursorless mode, preserve the keyboard mark
+      // FIXME: Better to just not clobber the keyboard mark on each action?
+      await executeCursorlessCommand({
+        name: "private.setKeyboardTarget",
+        target: {
+          type: "primitive",
+          mark: {
+            type: "that",
+          },
+        },
+      });
     }
 
     return returnValue;
@@ -283,7 +298,7 @@ export default class KeyboardCommandsTargeted {
     const target: PartialPrimitiveTargetDescriptor = {
       type: "primitive",
       mark: {
-        type: "that",
+        type: "keyboard",
       },
     };
 
@@ -297,8 +312,6 @@ export default class KeyboardCommandsTargeted {
         commandArgs: args,
       },
     });
-
-    await this.highlightTarget();
 
     if (exitCursorlessMode) {
       // For some Cursorless actions, it is more convenient if we automatically
@@ -315,28 +328,30 @@ export default class KeyboardCommandsTargeted {
    */
   targetSelection = () =>
     executeCursorlessCommand({
-      name: "highlight",
+      name: "private.setKeyboardTarget",
+      target: {
+        type: "primitive",
+        mark: {
+          type: "cursor",
+        },
+      },
+    });
+
+  /**
+   * Unsets the current target, causing any highlights to disappear
+   * FIXME: This is a hack relying on the fact that running any command
+   * will clobber all special targets
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  clearTarget = () =>
+    executeCursorlessCommand({
+      name: "setSelection",
       target: {
         type: "primitive",
         mark: {
           type: "cursor",
         },
         modifiers: [{ type: "toRawSelection" }],
-      },
-    });
-
-  /**
-   * Unsets the current target, causing any highlights to disappear
-   * @returns A promise that resolves to the result of the cursorless command
-   */
-  clearTarget = () =>
-    executeCursorlessCommand({
-      name: "highlight",
-      target: {
-        type: "primitive",
-        mark: {
-          type: "nothing",
-        },
       },
     });
 }
@@ -359,11 +374,3 @@ function executeCursorlessCommand(action: ActionDescriptor) {
     usePrePhraseSnapshot: false,
   });
 }
-
-const EXIT_CURSORLESS_MODE_ACTIONS: ActionType[] = [
-  "setSelectionBefore",
-  "setSelectionAfter",
-  "editNewLineBefore",
-  "editNewLineAfter",
-  "clearAndSetSelection",
-];

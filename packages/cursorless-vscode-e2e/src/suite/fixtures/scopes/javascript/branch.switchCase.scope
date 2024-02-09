@@ -5,27 +5,15 @@ switch (value) {
 
 [Content] =
 [Domain] = 1:2-1:13
-0| switch (value) {
-
 1|   case 0: { }
     >-----------<
-2| }
-
 
 [Removal] = 1:0-1:13
-0| switch (value) {
-
 1|   case 0: { }
   >-------------<
-2| }
-
 
 [Leading delimiter] = 1:0-1:2
-0| switch (value) {
-
 1|   case 0: { }
   >--<
-2| }
-
 
 [Insertion delimiter] = "\n"

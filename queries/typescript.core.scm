@@ -221,8 +221,8 @@
   [
     (type_alias_declaration)
     (interface_declaration)
-  ] @type
-) @_.domain
+  ]
+) @type
 
 ;;!! aaa as Bbb
 ;;!         ^^^

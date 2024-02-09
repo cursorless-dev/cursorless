@@ -7,4 +7,8 @@
 0| <div id="root"></div>
   >---------------------<
 
+[Interior] = 0:15-0:15
+0| <div id="root"></div>
+                 ><
+
 [Insertion delimiter] = "\n"

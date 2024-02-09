@@ -5,20 +5,14 @@ for item in items:
 [Content] = 0:12-0:17
 0| for item in items:
               >-----<
-1|     pass
-
 
 [Removal] = 0:11-0:17
 0| for item in items:
              >------<
-1|     pass
-
 
 [Leading delimiter] = 0:11-0:12
 0| for item in items:
              >-<
-1|     pass
-
 
 [Domain] = 0:0-1:8
 0| for item in items:

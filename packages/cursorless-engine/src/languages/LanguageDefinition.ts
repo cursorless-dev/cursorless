@@ -1,5 +1,9 @@
-import { ScopeType, SimpleScopeType, showError } from "@cursorless/common";
-import { existsSync, readFileSync } from "fs";
+import {
+  FileSystem,
+  ScopeType,
+  SimpleScopeType,
+  showError,
+} from "@cursorless/common";
 import { basename, dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
 import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
@@ -34,18 +38,22 @@ export class LanguageDefinition {
    * @returns A language definition for the given language id, or undefined if the given language
    * id doesn't have a new-style query definition
    */
-  static create(
+  static async create(
     treeSitter: TreeSitter,
+    fileSystem: FileSystem,
     queryDir: string,
     languageId: string,
-  ): LanguageDefinition | undefined {
+  ): Promise<LanguageDefinition | undefined> {
     const languageQueryPath = join(queryDir, `${languageId}.scm`);
 
-    if (!existsSync(languageQueryPath)) {
+    const rawLanguageQueryString = await readQueryFileAndImports(
+      fileSystem,
+      languageQueryPath,
+    );
+
+    if (rawLanguageQueryString == null) {
       return undefined;
     }
-
-    const rawLanguageQueryString = readQueryFileAndImports(languageQueryPath);
 
     const rawQuery = treeSitter
       .getLanguage(languageId)!
@@ -89,7 +97,10 @@ export class LanguageDefinition {
  * @param languageQueryPath The path to the query file to read
  * @returns The text of the query file, with all imports inlined
  */
-function readQueryFileAndImports(languageQueryPath: string) {
+async function readQueryFileAndImports(
+  fileSystem: FileSystem,
+  languageQueryPath: string,
+) {
   // Seed the map with the query file itself
   const rawQueryStrings: Record<string, string | null> = {
     [languageQueryPath]: null,
@@ -108,7 +119,28 @@ function readQueryFileAndImports(languageQueryPath: string) {
 
       const fileName = basename(queryPath);
 
-      const rawQuery = readFileSync(queryPath, "utf8");
+      let rawQuery = await fileSystem.readBundledFile(queryPath);
+
+      if (rawQuery == null) {
+        if (queryPath === languageQueryPath) {
+          // If this is the main query file, then we know that this language
+          // just isn't defined using new-style queries
+          return undefined;
+        }
+
+        showError(
+          ide().messages,
+          "LanguageDefinition.readQueryFileAndImports.queryNotFound",
+          `Could not find imported query file ${queryPath}`,
+        );
+
+        if (ide().runMode === "test") {
+          throw new Error("Invalid import statement");
+        }
+
+        // If we're not in test mode, we just ignore the import and continue
+        rawQuery = "";
+      }
 
       if (doValidation) {
         validateQueryCaptures(fileName, rawQuery);
