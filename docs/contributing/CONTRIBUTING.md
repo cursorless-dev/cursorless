@@ -54,7 +54,7 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 In order to test out your local version of the extension or to run unit tests
 locally, you need to run the extension in debug mode.
 
-To run the extension, say `"debug stench"` ("stench" is short for "extension" 😊). The run the tests, say `"debug test"`.
+To run the extension, say `"debug extension"` ("stench" is short for "extension" 😊). The run the tests, say `"debug test"`.
 
 If you don't have the cursorless-talon-dev files in your Talon user directory, then you instead need to run the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run Extension" or "Extension Tests".
 
