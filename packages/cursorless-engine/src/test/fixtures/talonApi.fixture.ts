@@ -93,10 +93,6 @@ const wrapWithSnippetByNameAction: ActionDescriptor = {
     variableName: "body",
   },
 };
-const parseTreeAction: ActionDescriptor = {
-  name: "private.showParseTree",
-  target: decoratedPrimitiveTarget("a"),
-};
 const alternateHighlightAirAndBatAction: ActionDescriptor = {
   name: "highlight",
   target: {
