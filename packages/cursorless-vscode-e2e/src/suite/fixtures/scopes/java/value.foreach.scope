@@ -1,0 +1,26 @@
+for (final Item item : items) {
+
+}
+---
+
+[Content] = 0:23-0:28
+0| for (final Item item : items) {
+                         >-----<
+
+[Removal] = 0:22-0:28
+0| for (final Item item : items) {
+                        >------<
+
+[Leading delimiter] = 0:22-0:23
+0| for (final Item item : items) {
+                        >-<
+
+[Domain] = 0:0-2:1
+0| for (final Item item : items) {
+  >-------------------------------
+1|
+
+2| }
+   -<
+
+[Insertion delimiter] = " "

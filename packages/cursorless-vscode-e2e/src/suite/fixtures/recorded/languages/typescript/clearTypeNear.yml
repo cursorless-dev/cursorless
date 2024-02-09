@@ -17,7 +17,7 @@ initialState:
       start: {line: 0, character: 28}
       end: {line: 0, character: 34}
 finalState:
-  documentContents: "const foo: string = new (foo);"
+  documentContents: "const foo: string = new Bar<>(foo);"
   selections:
-    - anchor: {line: 0, character: 24}
-      active: {line: 0, character: 24}
+    - anchor: {line: 0, character: 28}
+      active: {line: 0, character: 28}

@@ -15,7 +15,23 @@ mod.list(
 )
 def cursorless_simple_scope_modifier(m) -> dict[str, Any]:
     """Containing scope, every scope, etc"""
+    if hasattr(m, "cursorless_simple_scope_modifier"):
+        modifier = m.cursorless_simple_scope_modifier
+
+        if modifier == "every":
+            return {
+                "type": "everyScope",
+                "scopeType": m.cursorless_scope_type,
+            }
+
+        if modifier == "ancestor":
+            return {
+                "type": "containingScope",
+                "scopeType": m.cursorless_scope_type,
+                "ancestorIndex": 1,
+            }
+
     return {
-        "type": "everyScope" if m[0] == "every" else "containingScope",
+        "type": "containingScope",
         "scopeType": m.cursorless_scope_type,
     }

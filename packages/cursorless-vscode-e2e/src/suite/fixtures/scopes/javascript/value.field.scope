@@ -1,0 +1,22 @@
+class MyClass {
+  value = 0;
+}
+---
+
+[Content] = 1:10-1:11
+1|   value = 0;
+            >-<
+
+[Removal] = 1:7-1:11
+1|   value = 0;
+         >----<
+
+[Leading delimiter] = 1:7-1:10
+1|   value = 0;
+         >---<
+
+[Domain] = 1:2-1:12
+1|   value = 0;
+    >----------<
+
+[Insertion delimiter] = " "

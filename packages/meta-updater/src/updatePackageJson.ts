@@ -1,10 +1,16 @@
-import * as yaml from "js-yaml";
+import { omitByDeep } from "@cursorless/common";
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
+import { readFile } from "fs/promises";
+import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
+import { join } from "path";
 import { PackageJson } from "type-fest";
 import { Context } from "./Context";
 import { getCursorlessVscodeFields } from "./getCursorlessVscodeFields";
-import { readFile } from "fs/promises";
-import { join } from "path";
+
+const LIB_ENTRY_POINT = "./src/index.ts";
+const LIB_JS_OUTPUT = "./out/index.js";
+const LIB_TS_DECL_OUTPUT = "./out/index.d.ts";
 
 /**
  * Given a package.json, update it to match our conventions.  This function is
@@ -38,26 +44,27 @@ export async function updatePackageJson(
       ? input.name
       : `@cursorless/${input.name}`;
 
-  const exportFields: Partial<PackageJson> =
-    isRoot || input.name === "@cursorless/cursorless-vscode"
-      ? {}
-      : {
-          main: "./out/index.js",
-          types: "./out/index.d.ts",
-          exports: {
-            ["."]: {
-              // We add a custom condition called `cursorless:bundler` for use with esbuild to
-              // ensure that it uses source .ts files when importing from another
-              // package in our monorepo.  We use this both for esbuild and for tsx.
-              // See
-              // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
-              // and
-              // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
-              ["cursorless:bundler"]: "./src/index.ts",
-              default: "./out/index.js",
-            },
+  const isLib = !isRoot && !input.private;
+
+  const exportFields: Partial<PackageJson> = !isLib
+    ? {}
+    : {
+        main: LIB_JS_OUTPUT,
+        types: LIB_TS_DECL_OUTPUT,
+        exports: {
+          ["."]: {
+            // We add a custom condition called `cursorless:bundler` for use with esbuild to
+            // ensure that it uses source .ts files when importing from another
+            // package in our monorepo.  We use this both for esbuild and for tsx.
+            // See
+            // https://github.com/evanw/esbuild/issues/1250#issuecomment-1463826174
+            // and
+            // https://github.com/esbuild-kit/tsx/issues/96#issuecomment-1463825643
+            ["cursorless:bundler"]: LIB_ENTRY_POINT,
+            default: LIB_JS_OUTPUT,
           },
-        };
+        },
+      };
 
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
 
@@ -65,19 +72,17 @@ export async function updatePackageJson(
     ? getCursorlessVscodeFields(input)
     : {};
 
-  return {
+  const output = {
     ...input,
     name,
     license: "MIT",
-    scripts: await getScripts(
-      input.scripts,
-      packageDir,
-      isRoot,
-      isCursorlessVscode,
-    ),
+    type: name === "@cursorless/cursorless-org-docs" ? undefined : "module",
+    scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
     ...exportFields,
     ...extraFields,
-  } as PackageJson;
+  };
+
+  return omitByDeep(output, isUndefined) as PackageJson;
 }
 
 interface PreCommitConfig {
@@ -92,33 +97,44 @@ interface PreCommitConfig {
 
 async function getScripts(
   inputScripts: PackageJson.Scripts | undefined,
+  name: string | undefined,
   packageDir: string,
   isRoot: boolean,
-  isCursorlessVscode: boolean,
+  isLib: boolean,
 ) {
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
-    compile: "tsc --build",
-    watch: "tsc --build --watch",
+    ...(isLib
+      ? {
+          ["compile:tsc"]: "tsc --build",
+          ["compile:esbuild"]: `esbuild ${LIB_ENTRY_POINT} --sourcemap --format=esm --bundle --packages=external --outfile=${LIB_JS_OUTPUT}`,
+          compile: "pnpm compile:tsc && pnpm compile:esbuild",
+          ["watch:tsc"]: "pnpm compile:tsc --watch",
+          ["watch:esbuild"]: "pnpm compile:esbuild --watch",
+          watch: `pnpm run --filter ${name} --parallel '/^watch:.*/'`,
+        }
+      : {}),
   };
 
   if (isRoot) {
     // Ensure that `pnpm transform-recorded-tests` mirrors what is in pre-commit
     // config
-    scripts["transform-recorded-tests"] = await getTransformRecordedTestsScript(
-      packageDir,
-    );
+    scripts["transform-recorded-tests"] =
+      await getTransformRecordedTestsScript(packageDir);
 
     return scripts;
   }
 
-  const cleanDirs = ["./out", "tsconfig.tsbuildinfo"];
+  const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
 
-  if (isCursorlessVscode) {
-    cleanDirs.push("./dist");
-  }
+  const clean = `rm -rf ${cleanDirs.join(" ")}`;
 
-  scripts.clean = `rm -rf ${cleanDirs.join(" ")}`;
+  const cleanScripts =
+    name === "@cursorless/cursorless-org-docs"
+      ? ["pnpm clear", clean]
+      : [clean];
+
+  scripts.clean = cleanScripts.join(" && ");
 
   return scripts;
 }

@@ -1,0 +1,35 @@
+languageId: java
+command:
+  version: 1
+  spokenForm: change type trap
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: t}
+initialState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            Map<String, String> map = new HashMap<String, String>();
+            List<String> list = new ArrayList<String>();
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 27}
+  marks:
+    default.t:
+      start: {line: 2, character: 20}
+      end: {line: 2, character: 26}
+finalState:
+  documentContents: |-
+    public class MyClass {
+        private MyClass () {
+            Map<String, > map = new HashMap<String, String>();
+            List<String> list = new ArrayList<String>();
+        }
+    }
+  selections:
+    - anchor: {line: 2, character: 20}
+      active: {line: 2, character: 20}

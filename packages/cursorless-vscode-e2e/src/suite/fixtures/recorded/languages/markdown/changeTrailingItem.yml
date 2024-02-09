@@ -1,0 +1,31 @@
+languageId: markdown
+command:
+  version: 6
+  spokenForm: change trailing item
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: trailing}
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    - values
+        - 0
+        - 1
+        - 2
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    - values
+        - 0
+        - 1- 2
+  selections:
+    - anchor: {line: 2, character: 7}
+      active: {line: 2, character: 7}

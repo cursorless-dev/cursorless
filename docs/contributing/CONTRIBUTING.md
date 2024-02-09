@@ -9,7 +9,7 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
-- [pnpm](https://pnpm.io/installation)
+- [Corepack](https://nodejs.org/api/corepack.html) or [pnpm](https://pnpm.io/installation)
 - [VSCode](https://code.visualstudio.com/); minimum version for local development is 1.72.0 in order to support settings profiles for sandboxed development. Please file an issue if that is a problem.
 
 ### Steps
@@ -43,7 +43,9 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
    code --profile=cursorlessDevelopment --install-extension some.extension
    ```
 
-   where `some.extension` is the id of the extension you'd like to install into the sandbox
+   where `some.extension` is the id of the extension you'd like to install into the sandbox.
+
+   Note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VSCode, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vscode) for more details.
 
 6. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
 

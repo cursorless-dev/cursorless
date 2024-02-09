@@ -58,7 +58,7 @@ function indexNodeFinder(
     const nodeIndex = valueNodes.findIndex(({ id }) => id === node.id);
 
     if (nodeIndex === -1) {
-      // TODO: In the future we might conceivably try to handle saying "take
+      // FIXME: In the future we might conceivably try to handle saying "take
       // item" when the selection is inside a comment between the key and value
       return null;
     }
@@ -154,7 +154,7 @@ const nodeMatchers: Partial<
   ),
   value: matcher(mapParityNodeFinder(1)),
 
-  // TODO: Handle formal parameters
+  // FIXME: Handle formal parameters
   argumentOrParameter: matcher(
     indexNodeFinder(patternFinder(functionCallPattern), (nodeIndex: number) =>
       nodeIndex !== 0 ? nodeIndex : -1,
@@ -176,7 +176,7 @@ const nodeMatchers: Partial<
 
   functionName: functionNameMatcher,
 
-  // TODO: Handle `let` declarations, defs, etc
+  // FIXME: Handle `let` declarations, defs, etc
   name: functionNameMatcher,
 
   anonymousFunction: cascadingMatcher(

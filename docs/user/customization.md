@@ -30,13 +30,12 @@ The directory location can be customized using the `user.cursorless_settings_dir
 Note that these csv's:
 
 - support empty lines,
-- supports multiple spoken forms for a single action
+- support multiple spoken forms for a single identifier using `|` as a separator, eg `ditch|chuck, remove`,
 - support comment lines beginning with `#`, and
-- ignore any leading / trailing whitespace on spoken forms and cursorless
-  identifiers
+- ignore leading / trailing whitespace on identifiers and spoken forms
 
 If the spoken form begins with a `-`, it will be disabled. Please do not remove
-these lines, because that will trigger cursorless to add them back on next
+any lines, because that will trigger cursorless to add them back on next
 reload, as cursorless uses these lines to track disabled spoken forms.
 
 ### Changing a spoken form
@@ -118,14 +117,21 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `user.cursorless_ide_command(command_id: str, target: cursorless_target)`:
   Performs a built-in IDE command on the given target
   eg: `user.cursorless_ide_command("editor.action.addCommentLine", cursorless_target)`
+- `user.cursorless_get_text(target: CursorlessTarget, hide_decorations: bool = False) -> str`
+  Get text from target. If `hide_decorations` is `true`, will not show decorations.
+- `user.cursorless_get_text_list(target: CursorlessTarget, hide_decorations: bool = False) -> list[str]`
+  Get texts from multiple targets. If `hide_decorations` is `true`, will not show decorations.
+- `user.cursorless_insert(destination: CursorlessDestination, text: Union[str, List[str]])`:
+  Insert text at destination.
+  eg: `user.cursorless_insert(cursorless_destination, "hello")`
 
 #### Snippet actions
 
 See [snippets](./experimental/snippets.md) for more information about Cursorless snippets.
 
 - `user.cursorless_insert_snippet_by_name(name: str)`: Insert a snippet with the given name, eg `functionDeclaration`
-- `user.cursorless_insert_snippet(body: str)`: Insert a snippet with the given body defined using our snippet body syntax (see the [snippet format docs](./experimental/snippet-format.md)). The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation.
-- `user.cursorless_wrap_with_snippet_by_name(name: str, variable_name: str, target: dict)`: Wrap the given target with a snippet with the given name, eg `functionDeclaration`. Note that `variable_name` should be one of the variables defined in the named snippet. Eg, if the named snippet has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet.
+- `user.cursorless_insert_snippet(body: str, destination: Optional[CursorlessDestination], scope_type: Optional[Union[str, list[str]]])`: Insert a snippet with the given body defined using our snippet body syntax (see the [snippet format docs](./experimental/snippet-format.md)). The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Destination is where the snippet will be inserted. If omitted will default to current selection. An optional scope type can be provided for the target to expand to. `"snip if after air"` for example could be desired to go after the statement containing `air` instead of the token.
+- `user.cursorless_wrap_with_snippet_by_name(name: str, variable_name: str, target: CursorlessTarget)`: Wrap the given target with a snippet with the given name, eg `functionDeclaration`. Note that `variable_name` should be one of the variables defined in the named snippet. Eg, if the named snippet has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet.
 - `user.cursorless_wrap_with_snippet(body, target, variable_name, scope)`: Wrap the given target with a snippet with the given body defined using our snippet body syntax (see the [snippet format docs](./experimental/snippet-format.md)). The body should be a single string, which could contain newline `\n` characters, rather than a list of strings as is expected in our snippet json representation. Note that `variable_name` should be one of the variables defined in `body`. Eg, if `body` has a variable `$foo`, you can pass in `"foo"` for `variable_name`, and `target` will be inserted into the position of `$foo` in the given named snippet. The `scope` variable can be used to automatically expand the target to the given scope type, eg `"line"`.
 
 ### Example of combining capture and action

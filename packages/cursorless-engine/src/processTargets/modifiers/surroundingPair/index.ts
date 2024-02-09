@@ -5,9 +5,7 @@ import {
 } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import getTextFragmentExtractor, {
-  TextFragmentExtractor,
-} from "../../../languages/getTextFragmentExtractor";
+import getTextFragmentExtractor from "../../../languages/getTextFragmentExtractor";
 import { Target } from "../../../typings/target.types";
 import { SurroundingPairTarget } from "../../targets";
 import { getContainingScopeTarget } from "../getContainingScopeTarget";
@@ -73,40 +71,6 @@ function processSurroundingPairCore(
   ] ?? [scopeType.delimiter];
 
   let node: SyntaxNode | null;
-  let textFragmentExtractor: TextFragmentExtractor;
-
-  const textFragmentScopeHandler =
-    languageDefinition?.getTextFragmentScopeHandler();
-
-  if (textFragmentScopeHandler != null) {
-    const containingScope = getContainingScopeTarget(
-      target,
-      textFragmentScopeHandler,
-      0,
-    );
-
-    if (containingScope != null) {
-      const surroundingRange = findSurroundingPairTextBased(
-        editor,
-        range,
-        containingScope[0].contentRange,
-        delimiters,
-        scopeType,
-      );
-      if (surroundingRange != null) {
-        // Found the pair within this text fragment or comment, e.g. "(abc)"
-        return surroundingRange;
-      }
-      // Search in the rest of the file, to find e.g. ("abc")
-      return findSurroundingPairTextBased(
-        editor,
-        range,
-        null,
-        delimiters,
-        scopeType,
-      );
-    }
-  }
 
   try {
     node = languageDefinitions.getNodeAtLocation(document, range);
@@ -122,8 +86,6 @@ function processSurroundingPairCore(
         scopeType,
       );
     }
-
-    textFragmentExtractor = getTextFragmentExtractor(document.languageId);
   } catch (err) {
     if ((err as Error).name === "UnsupportedLanguageError") {
       // If we're in a language where we don't have a parse tree we use the text
@@ -140,14 +102,41 @@ function processSurroundingPairCore(
     }
   }
 
-  // If we have a parse tree but we are in a string node or in a comment node,
-  // then we use the text-based algorithm
-  const selectionWithEditor = {
-    editor,
-    selection: new Selection(range.start, range.end),
-  };
-  const textFragmentRange = textFragmentExtractor(node, selectionWithEditor);
+  const textFragmentRange = (() => {
+    // First try to use the text fragment scope handler if it exists
+    const textFragmentScopeHandler =
+      languageDefinition?.getTextFragmentScopeHandler();
+
+    if (textFragmentScopeHandler != null) {
+      const containingScope = getContainingScopeTarget(
+        target,
+        textFragmentScopeHandler,
+        0,
+      );
+
+      return containingScope?.[0].contentRange;
+    }
+
+    // Then try to use the legacy text fragment extractor if it exists
+    const textFragmentExtractor = getTextFragmentExtractor(document.languageId);
+
+    if (textFragmentExtractor == null) {
+      // If the text fragment extractor doesn't exist, or if it explicitly is
+      // set to `null`, then we just use text-based algorithm on entire document
+      return document.range;
+    }
+
+    const selectionWithEditor = {
+      editor,
+      selection: new Selection(range.start, range.end),
+    };
+
+    return textFragmentExtractor(node, selectionWithEditor);
+  })();
+
   if (textFragmentRange != null) {
+    // If we have a parse tree but we are in a string node or in a comment node,
+    // then we use the text-based algorithm
     const surroundingRange = findSurroundingPairTextBased(
       editor,
       range,

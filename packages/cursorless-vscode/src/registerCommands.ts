@@ -1,27 +1,31 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
+  FileSystem,
   isTesting,
 } from "@cursorless/common";
 import {
   CommandApi,
   TestCaseRecorder,
+  analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
+import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
 import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { ScopeVisualizerCommandApi } from "./ScopeVisualizerCommandApi";
+import { logQuickActions } from "./logQuickActions";
 
 export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
+  fileSystem: FileSystem,
   testCaseRecorder: TestCaseRecorder,
-  scopeVisualizer: ScopeVisualizerCommandApi,
+  scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {
@@ -56,6 +60,8 @@ export function registerCommands(
     ["cursorless.showQuickPick"]: showQuickPick,
     ["cursorless.showDocumentation"]: showDocumentation,
 
+    ["cursorless.private.logQuickActions"]: logQuickActions,
+
     // Hats
     ["cursorless.toggleDecorations"]: hats.toggle,
     ["cursorless.recomputeDecorationStyles"]: hats.recomputeDecorationStyles,
@@ -63,6 +69,10 @@ export function registerCommands(
     // Scope visualizer
     ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
     ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
+
+    // Command history
+    ["cursorless.analyzeCommandHistory"]: () =>
+      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:
@@ -73,7 +83,7 @@ export function registerCommands(
       keyboardCommands.targeted.targetDecoratedMark,
 
     ["cursorless.keyboard.targeted.targetScope"]:
-      keyboardCommands.targeted.targetScopeType,
+      keyboardCommands.targeted.modifyTargetContainingScope,
 
     ["cursorless.keyboard.targeted.targetSelection"]:
       keyboardCommands.targeted.targetSelection,

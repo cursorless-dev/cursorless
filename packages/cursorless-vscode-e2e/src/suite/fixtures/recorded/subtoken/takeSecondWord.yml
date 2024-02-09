@@ -1,7 +1,7 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take second word
+  spokenForm: take second sub
   action: setSelection
   targets:
     - type: primitive

@@ -1,7 +1,7 @@
 import type { Direction, ScopeType } from "@cursorless/common";
 import { Position, TextEditor } from "@cursorless/common";
 import { flatmap } from "itertools";
-import BaseScopeHandler from "./BaseScopeHandler";
+import { BaseScopeHandler } from "./BaseScopeHandler";
 import { ScopeHandlerFactory } from "./ScopeHandlerFactory";
 import type { TargetScope } from "./scope.types";
 import type {
@@ -21,7 +21,7 @@ import type {
  * the future we may define a nested scope handler that supports hierarchical
  * scope types.
  */
-export default abstract class NestedScopeHandler extends BaseScopeHandler {
+export abstract class NestedScopeHandler extends BaseScopeHandler {
   public abstract readonly iterationScopeType: ScopeType;
   protected readonly isHierarchical = false;
 

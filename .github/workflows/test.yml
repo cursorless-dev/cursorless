@@ -31,7 +31,7 @@ jobs:
       - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: package.json
           cache: pnpm
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
@@ -72,3 +72,5 @@ jobs:
           name: dumps
           path: ${{ env.VSCODE_CRASH_DIR }}
         if: failure()
+      - name: Forbid TODOs
+        run: ./scripts/forbid-todo.sh

@@ -2,6 +2,7 @@
 This file allows us to use a custom `number_small` capture.  See #1021 for more
 info.
 """
+
 from talon import Context, Module
 
 mod = Module()

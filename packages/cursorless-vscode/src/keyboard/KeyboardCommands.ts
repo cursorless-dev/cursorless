@@ -3,6 +3,7 @@ import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
 import KeyboardHandler from "./KeyboardHandler";
 import { StatusBarItem } from "../StatusBarItem";
+import { VscodeApi } from "@cursorless/vscode-common";
 
 export class KeyboardCommands {
   targeted: KeyboardCommandsTargeted;
@@ -10,7 +11,8 @@ export class KeyboardCommands {
   keyboardHandler: KeyboardHandler;
 
   private constructor(
-    private context: ExtensionContext,
+    context: ExtensionContext,
+    vscodeApi: VscodeApi,
     statusBarItem: StatusBarItem,
   ) {
     this.keyboardHandler = new KeyboardHandler(context, statusBarItem);
@@ -19,11 +21,20 @@ export class KeyboardCommands {
       context,
       this.targeted,
       this.keyboardHandler,
+      vscodeApi,
     );
   }
 
-  static create(context: ExtensionContext, statusBarItem: StatusBarItem) {
-    const keyboardCommands = new KeyboardCommands(context, statusBarItem);
+  static create(
+    context: ExtensionContext,
+    vscodeApi: VscodeApi,
+    statusBarItem: StatusBarItem,
+  ) {
+    const keyboardCommands = new KeyboardCommands(
+      context,
+      vscodeApi,
+      statusBarItem,
+    );
     keyboardCommands.init();
     return keyboardCommands;
   }

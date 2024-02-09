@@ -2,51 +2,92 @@ import {
   Disposable,
   FileSystem,
   PathChangeListener,
-  walkFiles,
+  RunMode,
 } from "@cursorless/common";
-import { stat } from "fs/promises";
-import { max } from "lodash";
+import { isAbsolute, join } from "path";
+import * as vscode from "vscode";
 
 export class VscodeFileSystem implements FileSystem {
-  watchDir(path: string, onDidChange: PathChangeListener): Disposable {
-    // Just poll for now; we can take advantage of VSCode's sophisticated
-    // watcher later. Note that we would need to do a version check, as VSCode
-    // file watcher is only available in more recent versions of VSCode.
-    return new PollingFileSystemWatcher(path, onDidChange);
-  }
-}
+  public readonly cursorlessTalonStateJsonPath: string;
+  public readonly cursorlessCommandHistoryDirPath: string;
 
-const CHECK_INTERVAL_MS = 1000;
-
-class PollingFileSystemWatcher implements Disposable {
-  private maxMtimeMs: number = -1;
-  private timer: NodeJS.Timer;
+  private decoder = new TextDecoder("utf-8");
 
   constructor(
-    private readonly path: string,
-    private readonly onDidChange: PathChangeListener,
+    private readonly extensionContext: vscode.ExtensionContext,
+    private readonly runMode: RunMode,
+    private readonly cursorlessDir: string,
   ) {
-    this.checkForChanges = this.checkForChanges.bind(this);
-    this.timer = setInterval(this.checkForChanges, CHECK_INTERVAL_MS);
+    this.cursorlessTalonStateJsonPath = join(this.cursorlessDir, "state.json");
+    this.cursorlessCommandHistoryDirPath = join(
+      this.cursorlessDir,
+      "commandHistory",
+    );
   }
 
-  private async checkForChanges() {
-    const paths = await walkFiles(this.path);
-
-    const maxMtime =
-      max(
-        (await Promise.all(paths.map((file) => stat(file)))).map(
-          (stat) => stat.mtimeMs,
-        ),
-      ) ?? 0;
-
-    if (maxMtime > this.maxMtimeMs) {
-      this.maxMtimeMs = maxMtime;
-      this.onDidChange();
+  public async initialize(): Promise<void> {
+    try {
+      await vscode.workspace.fs.createDirectory(
+        vscode.Uri.file(this.cursorlessDir),
+      );
+    } catch (err) {
+      console.log("Cannot create cursorlessDir", this.cursorlessDir, err);
     }
   }
 
-  dispose() {
-    clearInterval(this.timer);
+  /**
+   * Reads a file that comes bundled with Cursorless, with the utf-8 encoding.
+   * {@link path} is expected to be relative to the root of the extension
+   * bundle. If the file doesn't exist, returns `undefined`.
+   *
+   * Note that in development mode, it is possible to supply an absolute path to
+   * a file on the local filesystem, for things like hot-reloading.
+   *
+   * @param path The path of the file to read
+   * @returns The contents of path, decoded as UTF-8
+   */
+  public async readBundledFile(path: string): Promise<string | undefined> {
+    try {
+      return this.decoder.decode(
+        await vscode.workspace.fs.readFile(this.resolveBundledPath(path)),
+      );
+    } catch (err) {
+      if (
+        err instanceof Error &&
+        "code" in err &&
+        err.code === "FileNotFound"
+      ) {
+        return undefined;
+      }
+      throw err;
+    }
+  }
+
+  private resolveBundledPath(path: string) {
+    if (isAbsolute(path)) {
+      if (this.runMode !== "development") {
+        throw new Error(
+          "Absolute paths are not supported outside of development mode",
+        );
+      }
+
+      return vscode.Uri.file(path);
+    }
+
+    return vscode.Uri.joinPath(this.extensionContext.extensionUri, path);
+  }
+
+  public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
+    // return { dispose: () => {} };
+    // FIXME: Support globs?
+    const watcher = vscode.workspace.createFileSystemWatcher(
+      new vscode.RelativePattern(path, "**"),
+    );
+
+    watcher.onDidChange(onDidChange);
+    watcher.onDidCreate(onDidChange);
+    watcher.onDidDelete(onDidChange);
+
+    return watcher;
   }
 }

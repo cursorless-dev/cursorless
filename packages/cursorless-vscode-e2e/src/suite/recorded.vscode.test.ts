@@ -18,6 +18,7 @@ import {
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  storedTargetKeys,
   TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
@@ -68,7 +69,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
-  // TODO The snapshot gets messed up with timing issues when running the recorded tests
+  // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
 
@@ -89,20 +90,9 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   editor.selections = fixture.initialState.selections.map(createSelection);
 
-  if (fixture.initialState.thatMark) {
-    setStoredTarget(editor, "that", fixture.initialState.thatMark);
-  }
-
-  if (fixture.initialState.sourceMark) {
-    setStoredTarget(editor, "source", fixture.initialState.sourceMark);
-  }
-
-  if (fixture.initialState.instanceReferenceMark) {
-    setStoredTarget(
-      editor,
-      "instanceReference",
-      fixture.initialState.instanceReferenceMark,
-    );
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
   }
 
   if (fixture.initialState.clipboard) {
@@ -159,7 +149,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ? undefined
       : marksToPlainObject(
           extractTargetedMarks(
-            Object.keys(fixture.finalState.marks) as string[],
+            Object.keys(fixture.finalState.marks),
             readableHatMap,
           ),
         );
@@ -168,19 +158,14 @@ async function runTest(file: string, spyIde: SpyIDE) {
     excludeFields.push("clipboard");
   }
 
-  if (fixture.finalState?.thatMark == null) {
-    excludeFields.push("thatMark");
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    if (fixture.finalState?.[key] == null) {
+      excludeFields.push(key);
+    }
   }
 
-  if (fixture.finalState?.sourceMark == null) {
-    excludeFields.push("sourceMark");
-  }
-
-  if (fixture.finalState?.instanceReferenceMark == null) {
-    excludeFields.push("instanceReferenceMark");
-  }
-
-  // TODO Visible ranges are not asserted, see:
+  // FIXME Visible ranges are not asserted, see:
   // https://github.com/cursorless-dev/cursorless/issues/160
   const { visibleRanges, ...resultState } = await takeSnapshot(
     excludeFields,

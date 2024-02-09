@@ -1,4 +1,4 @@
-import { Range } from "..";
+import { Range, TextDocument } from "..";
 
 export class Position {
   /**
@@ -138,4 +138,32 @@ export class Position {
   public toEmptyRange(): Range {
     return new Range(this, this);
   }
+
+  /**
+   * Return a concise string representation of the position.
+   * @returns concise representation
+   **/
+  public concise(): string {
+    return `${this.line}:${this.character}`;
+  }
+
+  public toString(): string {
+    return this.concise();
+  }
+}
+
+/**
+ * adjustPosition returns a new position that is offset by the given amount.
+ * It corrects line and character positions to remain valid in doc.
+ * @param doc The document
+ * @param pos The position to adjust
+ * @param by The amount to adjust by
+ * @returns The adjusted position
+ */
+export function adjustPosition(
+  doc: TextDocument,
+  pos: Position,
+  by: number,
+): Position {
+  return doc.positionAt(doc.offsetAt(pos) + by);
 }

@@ -1,12 +1,14 @@
 languageId: typescript
 command:
   version: 1
-  spokenForm: take string
+  spokenForm: take parse tree string
   action: setSelection
   targets:
     - type: primitive
       modifier: {type: containingScope, scopeType: string}
-spokenFormError: Scope type 'string'
+spokenFormError: >-
+  simple scope type type with id string; this is a private spoken form currently
+  only for internal experimentation
 initialState:
   documentContents: |
 

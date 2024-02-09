@@ -222,3 +222,55 @@
     .
   )
 ) @anonymousFunction @namedFunction
+
+;; switch-based branch
+
+(
+  [
+    (default_case)
+    (expression_case)
+    (type_case)
+  ] @branch
+  (#trim-end! @branch)
+  (#insertion-delimiter! @branch "\n")
+)
+
+[
+  (type_switch_statement)
+  (expression_switch_statement)
+] @branch.iteration
+
+;; if-else-based branch
+
+;; first if in an if-else chain
+(
+  (if_statement
+    consequence: (block) @branch.end.endOf
+  ) @_if @branch.start.startOf
+  (#not-parent-type? @_if if_statement)
+  (#insertion-delimiter! @branch.start.startOf " ")
+)
+
+;; internal if in an if-else chain
+(if_statement
+  "else" @branch.start
+  alternative: (if_statement
+    consequence: (block) @branch.end
+  )
+  (#insertion-delimiter! @branch.start " ")
+)
+
+;; final else branch in an if-else chain
+(
+  (if_statement
+    "else" @branch.start.startOf
+    alternative: (block)
+  ) @branch.end.endOf
+  (#insertion-delimiter! @branch.start.startOf " ")
+)
+
+;; iteration scope is always the outermost if statement
+(
+  (if_statement) @_if @branch.iteration
+  (#not-parent-type? @_if if_statement)
+)

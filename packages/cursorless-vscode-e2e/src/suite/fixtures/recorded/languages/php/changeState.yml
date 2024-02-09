@@ -1,0 +1,29 @@
+languageId: php
+command:
+  version: 6
+  spokenForm: change state
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    <?php
+
+    $myVar = 'Hello world';
+  selections:
+    - anchor: {line: 2, character: 3}
+      active: {line: 2, character: 3}
+  marks: {}
+finalState:
+  documentContents: |+
+    <?php
+
+
+  selections:
+    - anchor: {line: 2, character: 0}
+      active: {line: 2, character: 0}

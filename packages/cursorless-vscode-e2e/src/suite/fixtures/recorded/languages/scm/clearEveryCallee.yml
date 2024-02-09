@@ -1,0 +1,34 @@
+languageId: scm
+command:
+  version: 5
+  spokenForm: change every callee
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: everyScope
+          scopeType: {type: functionCallee}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    (
+        (aaa)
+        (#bbb! @aaa)
+        (#ccc! @aaa)
+    )
+  selections:
+    - anchor: {line: 1, character: 4}
+      active: {line: 1, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    (
+        (aaa)
+        (# @aaa)
+        (# @aaa)
+    )
+  selections:
+    - anchor: {line: 2, character: 6}
+      active: {line: 2, character: 6}
+    - anchor: {line: 3, character: 6}
+      active: {line: 3, character: 6}

@@ -4,7 +4,7 @@ import type { MarkStage } from "../PipelineStages.types";
 import { ImplicitTarget } from "../targets";
 import { getActiveSelections } from "./getActiveSelections";
 
-export default class ImplicitStage implements MarkStage {
+export class ImplicitStage implements MarkStage {
   run(): Target[] {
     return getActiveSelections(ide()).map(
       (selection) =>

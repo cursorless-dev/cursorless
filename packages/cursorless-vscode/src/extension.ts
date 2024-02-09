@@ -1,16 +1,19 @@
 import {
+  Disposable,
   FakeIDE,
   getFakeCommandServerApi,
   IDE,
   isTesting,
   NormalizedIDE,
   Range,
+  ScopeProvider,
   ScopeType,
   TextDocument,
 } from "@cursorless/common";
 import {
+  CommandHistory,
   createCursorlessEngine,
-  ScopeProvider,
+  TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -20,24 +23,33 @@ import {
   ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
+import * as crypto from "crypto";
+import * as os from "os";
+import * as path from "path";
 import * as vscode from "vscode";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { registerCommands } from "./registerCommands";
-import { StatusBarItem } from "./StatusBarItem";
 import {
   createVscodeScopeVisualizer,
   VscodeScopeVisualizer,
 } from "./ide/vscode/VSCodeScopeVisualizer";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import { registerCommands } from "./registerCommands";
+import { ReleaseNotes } from "./ReleaseNotes";
+import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
+import { ScopeTreeProvider } from "./ScopeTreeProvider";
 import {
-  ScopeVisualizerCommandApi,
+  ScopeVisualizer,
+  ScopeVisualizerListener,
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
-import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import { StatusBarItem } from "./StatusBarItem";
+import { vscodeApi } from "./vscodeApi";
+import { storedTargetHighlighter } from "./storedTargetHighlighter";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -56,7 +68,7 @@ export async function activate(
 
   const normalizedIde =
     vscodeIDE.runMode === "production"
-      ? undefined
+      ? vscodeIDE
       : new NormalizedIDE(
           vscodeIDE,
           new FakeIDE(),
@@ -72,33 +84,63 @@ export async function activate(
 
   const {
     commandApi,
-    testCaseRecorder,
     storedTargets,
     hatTokenMap,
     scopeProvider,
     snippets,
     injectIde,
     runIntegrationTests,
+    addCommandRunnerDecorator,
+    customSpokenFormGenerator,
   } = createCursorlessEngine(
     treeSitter,
-    normalizedIde ?? vscodeIDE,
+    normalizedIde,
     hats,
     commandServerApi,
     fileSystem,
   );
 
+  addCommandRunnerDecorator(
+    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+  );
+
+  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  addCommandRunnerDecorator(testCaseRecorder);
+
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
-  const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
+  const keyboardCommands = KeyboardCommands.create(
+    context,
+    vscodeApi,
+    statusBarItem,
+  );
+  const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
+  context.subscriptions.push(
+    revisualizeOnCustomRegexChange(scopeVisualizer, scopeProvider),
+  );
+
+  new ScopeTreeProvider(
+    vscodeApi,
+    context,
+    scopeProvider,
+    scopeVisualizer,
+    customSpokenFormGenerator,
+    commandServerApi != null,
+  );
+
+  context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
   registerCommands(
     context,
     vscodeIDE,
     commandApi,
+    fileSystem,
     testCaseRecorder,
-    createScopeVisualizerCommandApi(normalizedIde ?? vscodeIDE, scopeProvider),
+    scopeVisualizer,
     keyboardCommands,
     hats,
   );
+
+  new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
 
   return {
     testHelpers: isTesting()
@@ -107,7 +149,9 @@ export async function activate(
           storedTargets,
           hatTokenMap,
           vscodeIDE,
-          normalizedIde!,
+          normalizedIde as NormalizedIDE,
+          fileSystem,
+          scopeProvider,
           injectIde,
           runIntegrationTests,
         )
@@ -124,6 +168,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
 
   const hats = new VscodeHats(
     vscodeIDE,
+    vscodeApi,
     context,
     vscodeIDE.runMode === "test"
       ? new FakeFontMeasurements()
@@ -131,7 +176,22 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   );
   await hats.init();
 
-  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem() };
+  // FIXME: Inject this from test harness. Would need to arrange to delay
+  // extension initialization, probably by returning a function from extension
+  // init that has parameters consisting of test configuration, and have that
+  // function do the actual initialization.
+  const cursorlessDir = isTesting()
+    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+    : path.join(os.homedir(), ".cursorless");
+
+  const fileSystem = new VscodeFileSystem(
+    context,
+    vscodeIDE.runMode,
+    cursorlessDir,
+  );
+  await fileSystem.initialize();
+
+  return { vscodeIDE, hats, fileSystem };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
@@ -151,11 +211,14 @@ function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {
   };
 }
 
-function createScopeVisualizerCommandApi(
+function createScopeVisualizer(
   ide: IDE,
   scopeProvider: ScopeProvider,
-): ScopeVisualizerCommandApi {
+): ScopeVisualizer {
   let scopeVisualizer: VscodeScopeVisualizer | undefined;
+  let currentScopeType: ScopeType | undefined;
+
+  const listeners: ScopeVisualizerListener[] = [];
 
   return {
     start(scopeType: ScopeType, visualizationType: VisualizationType) {
@@ -167,11 +230,29 @@ function createScopeVisualizerCommandApi(
         visualizationType,
       );
       scopeVisualizer.start();
+      currentScopeType = scopeType;
+      listeners.forEach((listener) => listener(scopeType, visualizationType));
     },
 
     stop() {
       scopeVisualizer?.dispose();
       scopeVisualizer = undefined;
+      currentScopeType = undefined;
+      listeners.forEach((listener) => listener(undefined, undefined));
+    },
+
+    get scopeType() {
+      return currentScopeType;
+    },
+
+    onDidChangeScopeType(listener: ScopeVisualizerListener): Disposable {
+      listeners.push(listener);
+
+      return {
+        dispose() {
+          listeners.splice(listeners.indexOf(listener), 1);
+        },
+      };
     },
   };
 }

@@ -9,7 +9,9 @@ command:
           scopeType: {type: customRegex, regex: '[\w/_.]+'}
   usePrePhraseSnapshot: true
   action: {name: clearAndSetSelection}
-spokenFormError: Scope type 'customRegex'
+spokenFormError: >-
+  custom regex with id [\w/_.]+; please see
+  https://www.cursorless.org/docs/user/customization/ for more information
 initialState:
   documentContents: aa.bb/cc_dd123 aa.bb/cc_dd123(  )
   selections:

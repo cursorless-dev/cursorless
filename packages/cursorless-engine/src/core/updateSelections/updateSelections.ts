@@ -330,7 +330,7 @@ async function performEditsAndUpdateInternal(
   return selectionInfosToSelections(selectionInfoMatrix);
 }
 
-// TODO: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
+// FIXME: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
 export async function performEditsAndUpdateSelectionInfos(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
@@ -363,7 +363,7 @@ export async function performEditsAndUpdateFullSelectionInfos(
   originalSelectionInfos: FullSelectionInfo[][],
 ): Promise<Selection[][]> {
   // NB: We do everything using VSCode listeners.  We can associate changes
-  // with our changes just by looking at their offets / text in order to
+  // with our changes just by looking at their offsets / text in order to
   // recover isReplace.  We need to do this because VSCode does some fancy
   // stuff, and returns the changes in a nice order
   // Note that some additional weird edits like whitespace things can be

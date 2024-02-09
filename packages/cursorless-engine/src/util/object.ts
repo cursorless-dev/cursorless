@@ -20,3 +20,27 @@ export function mergeStrict<Value>(
 
   return returnValue;
 }
+
+/**
+ * `Object.keys` but returns an array of the keys TypeScript knows about.
+ *
+ * Note that this is technically unsound, as TypeScript is a structural type system.
+ * Consider the following example (from ts-reset's docs):
+ * ```
+ * type Func = () => { id: string };
+ *
+ * const func: Func = () => {
+ *   return {
+ *     id: "123",
+ *     // No error on an excess property!
+ *     name: "Hello!",
+ *   }
+ * };
+ * ```
+ *
+ * Consider only using this on objects frozen at construction time
+ * or locals that don't escape the calling scope.
+ */
+export function unsafeKeys<T extends object>(o: T): (keyof T)[] {
+  return Object.keys(o) as (keyof T)[];
+}
