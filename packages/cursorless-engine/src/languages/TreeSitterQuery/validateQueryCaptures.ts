@@ -3,7 +3,6 @@ import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
 const textFragment = "textFragment";
-const dummy = "dummy";
 const captureNames = [wildcard, ...simpleScopeTypeTypes];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
@@ -27,7 +26,6 @@ const rangeSuffixes = [
 
 const allowedCaptures = new Set<string>();
 
-allowedCaptures.add(dummy);
 allowedCaptures.add(textFragment);
 
 for (const suffix of rangeSuffixes) {
@@ -78,6 +76,15 @@ export function validateQueryCaptures(file: string, rawQuery: string): void {
 
   for (const match of matches) {
     const captureName = match[1];
+
+    if (
+      captureName.length > 1 &&
+      !captureName.includes(".") &&
+      captureName.startsWith("_")
+    ) {
+      // Allow @_foo dummy captures to use for referring to in query predicates
+      continue;
+    }
 
     if (!allowedCaptures.has(captureName)) {
       const lineNumber = match.input!.slice(0, match.index!).split("\n").length;

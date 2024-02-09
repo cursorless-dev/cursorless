@@ -24,12 +24,17 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Range captures",
     isOk: true,
     content:
-      "(if_statement) @statement.start @statement.removal.start @statement.interior.start.endOf",
+      "(if_statement) @statement.start @statement.start.endOf @statement.removal.start @statement.interior.start.endOf",
   },
   {
     name: "Dummy capture",
     isOk: true,
-    content: "(if_statement) @dummy",
+    content: "(if_statement) @_foo",
+  },
+  {
+    name: "No range dummy relationships",
+    isOk: false,
+    content: "(if_statement) @_foo.start @_foo.startOf",
   },
   {
     name: "Text fragment",
@@ -75,11 +80,6 @@ const testCases: { name: string; isOk: boolean; content: string }[] = [
     name: "Leading start",
     isOk: false,
     content: "(if_statement) @statement.leading.start",
-  },
-  {
-    name: "Dummy start",
-    isOk: false,
-    content: "(if_statement) @dummy.start",
   },
   {
     name: "Text fragment removal",
