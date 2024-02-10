@@ -55,14 +55,6 @@ export async function runCommand(
   const useFallback = command.version >= 6; // TODO: change to 7
   const commandComplete = canonicalizeAndValidateCommand(command);
 
-  if (useFallback) {
-    const fallback = getCommandFallback(commandServerApi, commandComplete);
-
-    if (fallback != null) {
-      return { fallback };
-    }
-  }
-
   const readableHatMap = await hatTokenMap.getReadableMap(
     commandComplete.usePrePhraseSnapshot,
   );
@@ -79,6 +71,18 @@ export async function runCommand(
 
   for (const decorator of commandRunnerDecorators) {
     commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
+  }
+
+  if (useFallback) {
+    const fallback = await getCommandFallback(
+      commandServerApi,
+      commandRunner,
+      commandComplete,
+    );
+
+    if (fallback != null) {
+      return { fallback };
+    }
   }
 
   const returnValue = await commandRunner.run(commandComplete);

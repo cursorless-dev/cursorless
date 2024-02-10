@@ -2,15 +2,18 @@ import {
   CommandComplete,
   CommandServerApi,
   DestinationDescriptor,
+  LATEST_VERSION,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 
+import { CommandRunner } from "..";
 import { Fallback } from "../api/CursorlessEngineApi";
 
-export function getCommandFallback(
+export async function getCommandFallback(
   commandServerApi: CommandServerApi | null,
+  commandRunner: CommandRunner,
   command: CommandComplete,
-): Fallback | null {
+): Promise<Fallback | null> {
   if (commandServerApi == null) {
     return null;
   }
@@ -35,17 +38,32 @@ export function getCommandFallback(
         : null;
 
     case "replaceWithTarget":
-    case "moveToTarget":
-      // if (action.destination.type === "implicit") {
-      // }
+      if (destinationIsSelection(action.destination)) {
+        return {
+          action: "insert",
+          scope: getScopeFromDestination(action.destination),
+          text: await getText(
+            commandRunner,
+            command.usePrePhraseSnapshot,
+            action.source,
+          ),
+        };
+      }
       return null;
 
     case "callAsFunction":
+      if (targetIsSelection(action.argument)) {
+        return {
+          action: action.name,
+          scope: getScopeFromTarget(action.argument),
+          callee: await getText(
+            commandRunner,
+            command.usePrePhraseSnapshot,
+            action.callee,
+          ),
+        };
+      }
       return null;
-    // return action.argument.type === "implicit" &&
-    //   targetIsSelection(action.callee)
-    //   ? { action: action.name }
-    //   : null;
 
     case "wrapWithPairedDelimiter":
     case "rewrapWithPairedDelimiter":
@@ -66,6 +84,7 @@ export function getCommandFallback(
           }
         : null;
 
+    case "moveToTarget":
     case "swapTargets":
     case "editNew":
     case "insertSnippet":
@@ -139,86 +158,19 @@ function getScopeFromTarget(target: PartialTargetDescriptor): string | null {
   return null;
 }
 
-// function targetIsSelection(target: PartialTargetDescriptor|DestinationDescriptor): boolean {
-
-// }
-
-// function getTarget(action: ActionDescriptor): PartialTargetDescriptor|DestinationDescriptor {
-//   switch (action.name) {
-//     // case "editNew":
-//     // case "getText":
-//     // case "replace":
-//     // case "executeCommand":
-//     // case "private.getTargets":
-//     // case "private.setKeyboardTarget":
-
-//     case "replaceWithTarget":
-//     case "moveToTarget":
-//       return   action.destination
-
-//     case "swapTargets":
-//       return [
-//         actions[action.name],
-//         this.handleTarget(action.target1),
-//         connectives.swapConnective,
-//         this.handleTarget(action.target2),
-//       ];
-
-//     case "callAsFunction":
-//       if (action.argument.type === "implicit") {
-//         return [actions[action.name], this.handleTarget(action.callee)];
-//       }
-//       return [
-//         actions[action.name],
-//         this.handleTarget(action.callee),
-//         "on",
-//         this.handleTarget(action.argument),
-//       ];
-
-//     case "wrapWithPairedDelimiter":
-//     case "rewrapWithPairedDelimiter":
-//       return [
-//         surroundingPairDelimitersToSpokenForm(
-//           this.spokenFormMap,
-//           action.left,
-//           action.right,
-//         ),
-//         actions[action.name],
-//         this.handleTarget(action.target),
-//       ];
-
-//     case "pasteFromClipboard":
-//       return [actions[action.name], this.handleDestination(action.destination)];
-
-//     case "insertSnippet":
-//       return [
-//         actions[action.name],
-//         insertionSnippetToSpokenForm(action.snippetDescription),
-//         this.handleDestination(action.destination),
-//       ];
-
-//     case "generateSnippet":
-//       if (action.snippetName != null) {
-//         throw new NoSpokenFormError(`${action.name}.snippetName`);
-//       }
-//       return [actions[action.name], this.handleTarget(action.target)];
-
-//     case "wrapWithSnippet":
-//       return [
-//         wrapperSnippetToSpokenForm(action.snippetDescription),
-//         actions[action.name],
-//         this.handleTarget(action.target),
-//       ];
-
-//     case "highlight": {
-//       if (action.highlightId != null) {
-//         throw new NoSpokenFormError(`${action.name}.highlightId`);
-//       }
-//       return [actions[action.name], this.handleTarget(action.target)];
-//     }
-
-//     default: {
-//       return [actions[action.name], this.handleTarget(action.target)];
-//     }
-//   }
-// }
+async function getText(
+  commandRunner: CommandRunner,
+  usePrePhraseSnapshot: boolean,
+  target: PartialTargetDescriptor,
+): Promise<string> {
+  const returnValue = await commandRunner.run({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot,
+    action: {
+      name: "getText",
+      target,
+    },
+  });
+  const replaceWith = returnValue as string[];
+  return replaceWith.join("\n");
+}

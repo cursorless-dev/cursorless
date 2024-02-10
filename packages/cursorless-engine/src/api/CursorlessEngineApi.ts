@@ -48,6 +48,7 @@ export type CommandResponse = { returnValue: unknown } | { fallback: Fallback };
 export type Fallback =
   | { action: string; scope: string | null }
   | { action: "insert"; scope: string | null; text: string }
+  | { action: "callAsFunction"; scope: string | null; callee: string }
   | {
       action: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
       scope: string | null;

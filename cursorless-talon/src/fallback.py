@@ -27,8 +27,14 @@ scope_callbacks = {
 }
 
 
+def callAsFunction(callee: str):
+    actions.insert(f"{callee}()")
+    actions.edit.left()
+
+
 def perform_fallback(fallback: dict):
     try:
+        print(fallback)
         scope_callback = get_scope_callback(fallback)
         action_callback = get_action_callback(fallback)
         scope_callback()
@@ -46,6 +52,9 @@ def get_action_callback(fallback: dict):
     if action == "insert":
         return lambda: actions.insert(fallback["text"])
 
+    if action == "callAsFunction":
+        return lambda: callAsFunction(fallback["callee"])
+
     if action == "wrapWithPairedDelimiter":
         return lambda: actions.user.delimiters_pair_wrap_selection_with(
             fallback["left"], fallback["right"]
@@ -59,6 +68,9 @@ def get_scope_callback(fallback: dict):
         return actions.skip
 
     scope = fallback["scope"]
+
+    if scope is None:
+        return actions.skip
 
     if scope in scope_callbacks:
         return scope_callbacks[scope]
