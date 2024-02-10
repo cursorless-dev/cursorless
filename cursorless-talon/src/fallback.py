@@ -33,7 +33,6 @@ def callAsFunction(callee: str):
 
 def perform_fallback(fallback: dict):
     try:
-        print(fallback)
         scope_callback = get_scope_callback(fallback)
         action_callback = get_action_callback(fallback)
         scope_callback()
