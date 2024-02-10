@@ -52,7 +52,7 @@ export async function runCommand(
     debug.log(JSON.stringify(command, null, 2));
   }
 
-  const useFallback = command.version >= 6; // TODO: change to 7
+  const useFallback = command.version >= 7;
   const commandComplete = canonicalizeAndValidateCommand(command);
 
   const readableHatMap = await hatTokenMap.getReadableMap(

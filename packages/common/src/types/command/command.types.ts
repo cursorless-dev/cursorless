@@ -1,4 +1,5 @@
-import { CommandV6 } from "./CommandV6.types";
+import type { CommandV6 } from "./CommandV6.types";
+import type { CommandV7 } from "./CommandV7.types";
 import type { CommandV0, CommandV1 } from "./legacy/CommandV0V1.types";
 import type { CommandV2 } from "./legacy/CommandV2.types";
 import type { CommandV3 } from "./legacy/CommandV3.types";
@@ -7,7 +8,7 @@ import type { CommandV5 } from "./legacy/CommandV5.types";
 
 export type CommandComplete = Required<Omit<CommandLatest, "spokenForm">> &
   Pick<CommandLatest, "spokenForm">;
-export const LATEST_VERSION = 6 as const;
+export const LATEST_VERSION = 7 as const;
 
 export type CommandLatest = Command & {
   version: typeof LATEST_VERSION;
@@ -20,4 +21,5 @@ export type Command =
   | CommandV3
   | CommandV4
   | CommandV5
-  | CommandV6;
+  | CommandV6
+  | CommandV7;

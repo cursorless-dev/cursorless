@@ -8,7 +8,7 @@ from .fallback import perform_fallback
 
 @dataclasses.dataclass
 class CursorlessCommand:
-    version = 6
+    version = 7
     spokenForm: str
     usePrePhraseSnapshot: bool
     action: dict
@@ -36,7 +36,7 @@ class Actions:
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
-        if type(response) is dict and "fallback" in response:
+        if "fallback" in response:
             perform_fallback(response["fallback"])
 
     def private_cursorless_command_no_wait(action: dict):
@@ -52,12 +52,11 @@ class Actions:
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
-        if type(response) is dict:
-            if "fallback" in response:
-                return perform_fallback(response["fallback"])
-            if "returnValue" in response:
-                return response["returnValue"]
-        return response
+        if "fallback" in response:
+            return perform_fallback(response["fallback"])
+        if "returnValue" in response:
+            return response["returnValue"]
+        return None
 
 
 def construct_cursorless_command(action: dict) -> dict:
