@@ -51,6 +51,26 @@ export async function getCommandFallback(
       }
       return null;
 
+    case "moveToTarget":
+      if (destinationIsSelection(action.destination)) {
+        const text = await getText(
+          commandRunner,
+          command.usePrePhraseSnapshot,
+          action.source,
+        );
+        await remove(
+          commandRunner,
+          command.usePrePhraseSnapshot,
+          action.source,
+        );
+        return {
+          action: "insert",
+          scope: getScopeFromDestination(action.destination),
+          text,
+        };
+      }
+      return null;
+
     case "callAsFunction":
       if (targetIsSelection(action.argument)) {
         return {
@@ -84,7 +104,6 @@ export async function getCommandFallback(
           }
         : null;
 
-    case "moveToTarget":
     case "swapTargets":
     case "editNew":
     case "insertSnippet":
@@ -173,4 +192,19 @@ async function getText(
   });
   const replaceWith = returnValue as string[];
   return replaceWith.join("\n");
+}
+
+function remove(
+  commandRunner: CommandRunner,
+  usePrePhraseSnapshot: boolean,
+  target: PartialTargetDescriptor,
+): Promise<unknown> {
+  return commandRunner.run({
+    version: LATEST_VERSION,
+    usePrePhraseSnapshot,
+    action: {
+      name: "remove",
+      target,
+    },
+  });
 }
