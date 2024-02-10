@@ -3,6 +3,8 @@ from typing import Any
 
 from talon import Module, actions, speech_system
 
+from .fallback import perform_fallback
+
 
 @dataclasses.dataclass
 class CursorlessCommand:
@@ -30,10 +32,12 @@ speech_system.register("pre:phrase", on_phrase)
 class Actions:
     def private_cursorless_command_and_wait(action: dict):
         """Execute cursorless command and wait for it to finish"""
-        actions.user.private_cursorless_run_rpc_command_and_wait(
+        response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
+        if type(response) is dict and "fallback" in response:
+            perform_fallback(response["fallback"])
 
     def private_cursorless_command_no_wait(action: dict):
         """Execute cursorless command without waiting"""
@@ -44,10 +48,16 @@ class Actions:
 
     def private_cursorless_command_get(action: dict):
         """Execute cursorless command and return result"""
-        return actions.user.private_cursorless_run_rpc_command_get(
+        response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
+        if type(response) is dict:
+            if "fallback" in response:
+                return perform_fallback(response["fallback"])
+            if "returnValue" in response:
+                return response["returnValue"]
+        return response
 
 
 def construct_cursorless_command(action: dict) -> dict:

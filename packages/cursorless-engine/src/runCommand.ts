@@ -1,10 +1,20 @@
-import { Command, HatTokenMap, ReadOnlyHatMap } from "@cursorless/common";
+import {
+  Command,
+  CommandServerApi,
+  HatTokenMap,
+  ReadOnlyHatMap,
+} from "@cursorless/common";
 import { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
+import {
+  CommandResponse,
+  CommandRunnerDecorator,
+} from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
+import { getCommandFallback } from "./core/getCommandFallback";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { StoredTargetMap, TreeSitter } from "./index";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
@@ -12,7 +22,6 @@ import { TargetPipelineRunner } from "./processTargets";
 import { MarkStageFactoryImpl } from "./processTargets/MarkStageFactoryImpl";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
-import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 /**
  * Entry point for Cursorless commands. We proceed as follows:
@@ -28,6 +37,7 @@ import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
  */
 export async function runCommand(
   treeSitter: TreeSitter,
+  commandServerApi: CommandServerApi | null,
   debug: Debug,
   hatTokenMap: HatTokenMap,
   snippets: Snippets,
@@ -36,13 +46,22 @@ export async function runCommand(
   rangeUpdater: RangeUpdater,
   commandRunnerDecorators: CommandRunnerDecorator[],
   command: Command,
-): Promise<unknown> {
+): Promise<CommandResponse | unknown> {
   if (debug.active) {
     debug.log(`command:`);
     debug.log(JSON.stringify(command, null, 2));
   }
 
+  const useFallback = command.version >= 6; // TODO: change to 7
   const commandComplete = canonicalizeAndValidateCommand(command);
+
+  if (useFallback) {
+    const fallback = getCommandFallback(commandServerApi, commandComplete);
+
+    if (fallback != null) {
+      return { fallback };
+    }
+  }
 
   const readableHatMap = await hatTokenMap.getReadableMap(
     commandComplete.usePrePhraseSnapshot,
@@ -62,7 +81,9 @@ export async function runCommand(
     commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 
-  return await commandRunner.run(commandComplete);
+  const returnValue = await commandRunner.run(commandComplete);
+
+  return useFallback ? { returnValue } : returnValue;
 }
 
 function createCommandRunner(

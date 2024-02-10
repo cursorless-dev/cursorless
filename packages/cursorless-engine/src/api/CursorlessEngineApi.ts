@@ -1,4 +1,4 @@
-import { Command, HatTokenMap, IDE } from "@cursorless/common";
+import { Command, HatTokenMap, IDE, ReplaceWith } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { ScopeProvider } from "@cursorless/common";
@@ -34,14 +34,26 @@ export interface CommandApi {
    * Runs a command.  This is the core of the Cursorless engine.
    * @param command The command to run
    */
-  runCommand(command: Command): Promise<unknown>;
+  runCommand(command: Command): Promise<CommandResponse | unknown>;
 
   /**
    * Designed to run commands that come directly from the user.  Ensures that
    * the command args are of the correct shape.
    */
-  runCommandSafe(...args: unknown[]): Promise<unknown>;
+  runCommandSafe(...args: unknown[]): Promise<CommandResponse | unknown>;
 }
+
+export type CommandResponse = { returnValue: unknown } | { fallback: Fallback };
+
+export type Fallback =
+  | { action: string; scope: string | null }
+  | { action: "insert"; scope: string | null; text: string }
+  | {
+      action: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
+      scope: string | null;
+      left: string;
+      right: string;
+    };
 
 export interface CommandRunnerDecorator {
   /**
