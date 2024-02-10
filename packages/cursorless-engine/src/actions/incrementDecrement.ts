@@ -17,6 +17,21 @@ class IncrementDecrement {
     this.run = this.run.bind(this);
   }
 
+  async run(targets: Target[]): Promise<ActionReturnValue> {
+    const thatSelections: SelectionWithEditor[] = [];
+
+    await runForEachEditor(
+      targets,
+      (target) => target.editor,
+      async (editor, targets) => {
+        const selections = await this.runForEachEditor(editor, targets);
+        thatSelections.push(...selections);
+      },
+    );
+
+    return { thatSelections };
+  }
+
   private async runForEachEditor(
     editor: TextEditor,
     targets: Target[],
@@ -42,21 +57,6 @@ class IncrementDecrement {
     );
 
     return thatSelections!;
-  }
-
-  async run(targets: Target[]): Promise<ActionReturnValue> {
-    const thatSelections: SelectionWithEditor[] = [];
-
-    await runForEachEditor(
-      targets,
-      (target) => target.editor,
-      async (editor, targets) => {
-        const selections = await this.runForEachEditor(editor, targets);
-        thatSelections.push(...selections);
-      },
-    );
-
-    return { thatSelections };
   }
 }
 
