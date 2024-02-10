@@ -34,7 +34,7 @@ import { promises as fsp } from "node:fs";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
-import { isUndefined } from "lodash";
+import { isUndefined, isPlainObject } from "lodash";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -118,6 +118,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ...fixture.command,
       usePrePhraseSnapshot,
     });
+    if (isPlainObject(returnValue)) {
+      const returnValueObj = returnValue as Record<string, unknown>;
+      if ("returnValue" in returnValueObj) {
+        returnValue = returnValueObj.returnValue;
+      }
+    }
   } catch (err) {
     const error = err as Error;
 
