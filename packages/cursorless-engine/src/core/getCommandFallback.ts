@@ -119,19 +119,21 @@ function getScopeFromTarget(target: PartialTargetDescriptor): string | null {
 
       switch (modifier.type) {
         case "containingScope":
-          return `containing_${modifier.scopeType.type}`;
+          return `containing.${modifier.scopeType.type}`;
         case "extendThroughStartOf":
         case "extendThroughEndOf":
-          return modifier.type;
-      }
-
-      if (target.mark?.type === "cursor") {
-        return target.mark.type;
+          if (modifier.modifiers == null) {
+            return `${modifier.type}.line`;
+          }
       }
 
       throw Error(
         `Unknown Cursorless fallback modifier type: ${modifier.type}`,
       );
+    }
+
+    if (target.mark?.type === "cursor") {
+      return target.mark.type;
     }
   }
   return null;
