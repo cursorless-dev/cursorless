@@ -1,6 +1,5 @@
 from talon import actions
 
-
 action_callbacks = {
     "getText": lambda: [actions.edit.selected_text()],
     "setSelection": actions.skip,

@@ -1,4 +1,4 @@
-import { Command, HatTokenMap, IDE, ReplaceWith } from "@cursorless/common";
+import { Command, HatTokenMap, IDE } from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { ScopeProvider } from "@cursorless/common";
