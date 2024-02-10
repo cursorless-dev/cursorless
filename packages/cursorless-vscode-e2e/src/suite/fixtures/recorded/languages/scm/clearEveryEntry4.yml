@@ -13,7 +13,7 @@ initialState:
   documentContents: |-
     (
       (_
-        (_) @dummy
+        (_) @_dummy
         (capture) @name @_.domain.end
       ) @_.domain.start
     )
