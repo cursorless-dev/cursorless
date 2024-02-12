@@ -60,13 +60,25 @@
 
 (
   ;;!! (public | private | protected) foo = ...;
-  ;;!  -------------------------------^^^-------
+  ;;!  -----------------------------------------
   (public_field_definition
-    name: (_) @name
+    name: (_) @name @value.leading.endOf
+    !type
+    value: (_)? @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
+
+(
+  ;;!! (public | private | protected) foo: Bar = ...;
+  ;;!  ----------------------------------------------
+  (public_field_definition
+    name: (_) @name @type.leading.endOf
     type: (_
       ":"
       (_) @type
-    )?
+    ) @value.leading.endOf
     value: (_)? @value
   ) @_.domain.start
   .
