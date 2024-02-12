@@ -1,4 +1,5 @@
 from typing import Callable
+
 from talon import actions
 
 action_callbacks = {
