@@ -36,32 +36,27 @@ export function serializeTargetRange(
   const lines: string[] = [];
 
   codeLines.forEach((codeLine, lineNumber) => {
-    let annotationLine: string | undefined;
+    // Add start of range above the first code line
     if (lineNumber === start.line) {
       const prefix = fill(" ", start.character + 2) + ">";
-      if (start.line === end.line) {
-        annotationLine =
-          prefix + fill("-", end.character - start.character) + "<";
+      if (range.isSingleLine) {
+        lines.push(prefix + fill("-", end.character - start.character) + "<");
       } else {
-        annotationLine = prefix + fill("-", codeLine.length - start.character);
+        lines.push(prefix + fill("-", codeLine.length - start.character));
       }
-    } else if (lineNumber > start.line && lineNumber < end.line) {
-      if (codeLine.length > 0) {
-        annotationLine = "   " + fill("-", codeLine.length);
-      } else {
-        annotationLine = "";
-      }
-    } else if (lineNumber === end.line) {
-      annotationLine = "   " + fill("-", end.character) + "<";
     }
 
-    if (annotationLine != null) {
-      // Only output anything if there is an annotation line
+    // Output code lines inside range
+    if (lineNumber >= start.line && lineNumber <= end.line) {
+      // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
       lines.push(
-        // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
         codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
-        annotationLine,
       );
+    }
+
+    // Add end of range below the last code line (if this was a multiline range)
+    if (lineNumber === end.line && !range.isSingleLine) {
+      lines.push("   " + fill("-", end.character) + "<");
     }
   });
 
