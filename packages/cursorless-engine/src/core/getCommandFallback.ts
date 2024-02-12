@@ -2,25 +2,20 @@ import {
   CommandComplete,
   CommandServerApi,
   DestinationDescriptor,
-  LATEST_VERSION,
   PartialTargetDescriptor,
 } from "@cursorless/common";
-
-import { CommandRunner } from "..";
-import { Fallback } from "../api/CursorlessEngineApi";
+import { Fallback, FallbackModifier } from "../api/CursorlessEngineApi";
+import { CommandRunner } from "../CommandRunner";
 
 export async function getCommandFallback(
   commandServerApi: CommandServerApi | null,
   commandRunner: CommandRunner,
   command: CommandComplete,
 ): Promise<Fallback | null> {
-  if (commandServerApi == null) {
-    return null;
-  }
-
-  const focusedElement = commandServerApi?.getFocusedElementType();
-
-  if (focusedElement === "textEditor") {
+  if (
+    commandServerApi == null ||
+    commandServerApi.getFocusedElementType() === "textEditor"
+  ) {
     return null;
   }
 
@@ -32,7 +27,7 @@ export async function getCommandFallback(
         Array.isArray(action.replaceWith)
         ? {
             action: "insert",
-            scope: getScopeFromDestination(action.destination),
+            modifiers: getModifiersFromDestination(action.destination),
             text: action.replaceWith.join("\n"),
           }
         : null;
@@ -41,7 +36,7 @@ export async function getCommandFallback(
       if (destinationIsSelection(action.destination)) {
         return {
           action: "insert",
-          scope: getScopeFromDestination(action.destination),
+          modifiers: getModifiersFromDestination(action.destination),
           text: await getText(
             commandRunner,
             command.usePrePhraseSnapshot,
@@ -65,7 +60,7 @@ export async function getCommandFallback(
         );
         return {
           action: "insert",
-          scope: getScopeFromDestination(action.destination),
+          modifiers: getModifiersFromDestination(action.destination),
           text,
         };
       }
@@ -75,7 +70,7 @@ export async function getCommandFallback(
       if (targetIsSelection(action.argument)) {
         return {
           action: action.name,
-          scope: getScopeFromTarget(action.argument),
+          modifiers: getModifiersFromTarget(action.argument),
           callee: await getText(
             commandRunner,
             command.usePrePhraseSnapshot,
@@ -90,7 +85,7 @@ export async function getCommandFallback(
       return targetIsSelection(action.target)
         ? {
             action: action.name,
-            scope: getScopeFromTarget(action.target),
+            modifiers: getModifiersFromTarget(action.target),
             left: action.left,
             right: action.right,
           }
@@ -100,7 +95,7 @@ export async function getCommandFallback(
       return destinationIsSelection(action.destination)
         ? {
             action: action.name,
-            scope: getScopeFromDestination(action.destination),
+            modifiers: getModifiersFromDestination(action.destination),
           }
         : null;
 
@@ -113,7 +108,10 @@ export async function getCommandFallback(
 
     default:
       return targetIsSelection(action.target)
-        ? { action: action.name, scope: getScopeFromTarget(action.target) }
+        ? {
+            action: action.name,
+            modifiers: getModifiersFromTarget(action.target),
+          }
         : null;
   }
 }
@@ -141,40 +139,28 @@ function targetIsSelection(target: PartialTargetDescriptor): boolean {
   return false;
 }
 
-function getScopeFromDestination(
+function getModifiersFromDestination(
   destination: DestinationDescriptor,
-): string | null {
+): FallbackModifier[] {
   if (destination.type === "primitive") {
-    return getScopeFromTarget(destination.target);
+    return getModifiersFromTarget(destination.target);
   }
-  return null;
+  return [];
 }
 
-function getScopeFromTarget(target: PartialTargetDescriptor): string | null {
+function getModifiersFromTarget(
+  target: PartialTargetDescriptor,
+): FallbackModifier[] {
   if (target.type === "primitive") {
     if (target.modifiers != null && target.modifiers.length > 0) {
-      const modifier = target.modifiers[0];
-
-      switch (modifier.type) {
-        case "containingScope":
-          return `containing.${modifier.scopeType.type}`;
-        case "extendThroughStartOf":
-        case "extendThroughEndOf":
-          if (modifier.modifiers == null) {
-            return `${modifier.type}.line`;
-          }
-      }
-
-      throw Error(
-        `Unknown Cursorless fallback modifier type: ${modifier.type}`,
-      );
+      return target.modifiers;
     }
 
     if (target.mark?.type === "cursor") {
-      return target.mark.type;
+      return [{ type: "containingTokenIfEmpty" }];
     }
   }
-  return null;
+  return [];
 }
 
 async function getText(
@@ -183,15 +169,15 @@ async function getText(
   target: PartialTargetDescriptor,
 ): Promise<string> {
   const returnValue = await commandRunner.run({
-    version: LATEST_VERSION,
+    version: 7,
     usePrePhraseSnapshot,
     action: {
       name: "getText",
       target,
     },
   });
-  const replaceWith = returnValue as string[];
-  return replaceWith.join("\n");
+  const texts = returnValue as string[];
+  return texts.join("\n");
 }
 
 function remove(
@@ -200,7 +186,7 @@ function remove(
   target: PartialTargetDescriptor,
 ): Promise<unknown> {
   return commandRunner.run({
-    version: LATEST_VERSION,
+    version: 7,
     usePrePhraseSnapshot,
     action: {
       name: "remove",

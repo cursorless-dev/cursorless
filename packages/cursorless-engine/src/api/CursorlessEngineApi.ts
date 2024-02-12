@@ -1,4 +1,10 @@
-import { Command, HatTokenMap, IDE } from "@cursorless/common";
+import {
+  ActionDescriptor,
+  Command,
+  HatTokenMap,
+  IDE,
+  Modifier,
+} from "@cursorless/common";
 import { Snippets } from "../core/Snippets";
 import { StoredTargetMap } from "../core/StoredTargets";
 import { ScopeProvider } from "@cursorless/common";
@@ -45,13 +51,15 @@ export interface CommandApi {
 
 export type CommandResponse = { returnValue: unknown } | { fallback: Fallback };
 
+export type FallbackModifier = Modifier | { type: "containingTokenIfEmpty" };
+
 export type Fallback =
-  | { action: string; scope: string | null }
-  | { action: "insert"; scope: string | null; text: string }
-  | { action: "callAsFunction"; scope: string | null; callee: string }
+  | { action: ActionDescriptor["name"]; modifiers: FallbackModifier[] }
+  | { action: "insert"; modifiers: FallbackModifier[]; text: string }
+  | { action: "callAsFunction"; modifiers: FallbackModifier[]; callee: string }
   | {
       action: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
-      scope: string | null;
+      modifiers: FallbackModifier[];
       left: string;
       right: string;
     };
