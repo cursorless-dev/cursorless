@@ -35,7 +35,9 @@ export function serializeTargetRange(
   const { start, end } = range;
   const lines: string[] = [];
 
-  codeLines.forEach((codeLine, lineNumber) => {
+  for (let lineNumber = start.line; lineNumber <= end.line; ++lineNumber) {
+    const codeLine = codeLines[lineNumber]!;
+
     // Add start of range above the first code line
     if (lineNumber === start.line) {
       const prefix = fill(" ", start.character + 2) + ">";
@@ -46,19 +48,16 @@ export function serializeTargetRange(
       }
     }
 
-    // Output code lines inside range
-    if (lineNumber >= start.line && lineNumber <= end.line) {
-      // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
-      lines.push(
-        codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
-      );
-    }
+    // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
+    lines.push(
+      codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
+    );
 
     // Add end of range below the last code line (if this was a multiline range)
     if (lineNumber === end.line && !range.isSingleLine) {
       lines.push("   " + fill("-", end.character) + "<");
     }
-  });
+  }
 
   return lines.join("\n");
 }
