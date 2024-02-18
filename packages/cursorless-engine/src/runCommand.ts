@@ -14,7 +14,6 @@ import { Debug } from "./core/Debug";
 import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";
 import { canonicalizeAndValidateCommand } from "./core/commandVersionUpgrades/canonicalizeAndValidateCommand";
-import { getCommandFallback } from "./core/getCommandFallback";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { StoredTargetMap, TreeSitter } from "./index";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
@@ -52,7 +51,6 @@ export async function runCommand(
     debug.log(JSON.stringify(command, null, 2));
   }
 
-  const useFallback = command.version >= 7;
   const commandComplete = canonicalizeAndValidateCommand(command);
 
   const readableHatMap = await hatTokenMap.getReadableMap(
@@ -61,6 +59,7 @@ export async function runCommand(
 
   let commandRunner = createCommandRunner(
     treeSitter,
+    commandServerApi,
     languageDefinitions,
     debug,
     storedTargets,
@@ -73,25 +72,12 @@ export async function runCommand(
     commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 
-  if (useFallback) {
-    const fallback = await getCommandFallback(
-      commandServerApi,
-      commandRunner,
-      commandComplete,
-    );
-
-    if (fallback != null) {
-      return { fallback };
-    }
-  }
-
-  const returnValue = await commandRunner.run(commandComplete);
-
-  return useFallback ? { returnValue } : returnValue;
+  return await commandRunner.run(commandComplete);
 }
 
 function createCommandRunner(
   treeSitter: TreeSitter,
+  commandServerApi: CommandServerApi | null,
   languageDefinitions: LanguageDefinitions,
   debug: Debug,
   storedTargets: StoredTargetMap,
@@ -115,6 +101,7 @@ function createCommandRunner(
   );
   markStageFactory.setPipelineRunner(targetPipelineRunner);
   return new CommandRunnerImpl(
+    commandServerApi,
     debug,
     storedTargets,
     targetPipelineRunner,

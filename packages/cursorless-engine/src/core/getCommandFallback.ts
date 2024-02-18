@@ -1,15 +1,16 @@
 import {
+  ActionDescriptor,
   CommandComplete,
   CommandServerApi,
   DestinationDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
+import { ActionReturnValue } from "../actions/actions.types";
 import { Fallback, FallbackModifier } from "../api/CursorlessEngineApi";
-import { CommandRunner } from "../CommandRunner";
 
 export async function getCommandFallback(
   commandServerApi: CommandServerApi | null,
-  commandRunner: CommandRunner,
+  runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   command: CommandComplete,
 ): Promise<Fallback | null> {
   if (
@@ -37,27 +38,15 @@ export async function getCommandFallback(
         return {
           action: "insert",
           modifiers: getModifiersFromDestination(action.destination),
-          text: await getText(
-            commandRunner,
-            command.usePrePhraseSnapshot,
-            action.source,
-          ),
+          text: await getText(runAction, action.source),
         };
       }
       return null;
 
     case "moveToTarget":
       if (destinationIsSelection(action.destination)) {
-        const text = await getText(
-          commandRunner,
-          command.usePrePhraseSnapshot,
-          action.source,
-        );
-        await remove(
-          commandRunner,
-          command.usePrePhraseSnapshot,
-          action.source,
-        );
+        const text = await getText(runAction, action.source);
+        await remove(runAction, action.source);
         return {
           action: "insert",
           modifiers: getModifiersFromDestination(action.destination),
@@ -71,11 +60,7 @@ export async function getCommandFallback(
         return {
           action: action.name,
           modifiers: getModifiersFromTarget(action.argument),
-          callee: await getText(
-            commandRunner,
-            command.usePrePhraseSnapshot,
-            action.callee,
-          ),
+          callee: await getText(runAction, action.callee),
         };
       }
       return null;
@@ -164,33 +149,17 @@ function getModifiersFromTarget(
 }
 
 async function getText(
-  commandRunner: CommandRunner,
-  usePrePhraseSnapshot: boolean,
+  runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   target: PartialTargetDescriptor,
 ): Promise<string> {
-  const returnValue = await commandRunner.run({
-    version: 7,
-    usePrePhraseSnapshot,
-    action: {
-      name: "getText",
-      target,
-    },
-  });
+  const returnValue = await runAction({ name: "getText", target });
   const texts = returnValue as string[];
   return texts.join("\n");
 }
 
-function remove(
-  commandRunner: CommandRunner,
-  usePrePhraseSnapshot: boolean,
+async function remove(
+  runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   target: PartialTargetDescriptor,
-): Promise<unknown> {
-  return commandRunner.run({
-    version: 7,
-    usePrePhraseSnapshot,
-    action: {
-      name: "remove",
-      target,
-    },
-  });
+): Promise<void> {
+  await runAction({ name: "remove", target });
 }
