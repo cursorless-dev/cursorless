@@ -128,12 +128,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
     });
     if (useFallback(fixture.command)) {
       const commandResponse = returnValue as CommandResponse;
-      if ("returnValue" in commandResponse) {
-        returnValue = commandResponse.returnValue;
-      }
-      if ("fallback" in commandResponse) {
-        fallback = commandResponse.fallback;
-      }
+      returnValue =
+        "returnValue" in commandResponse
+          ? commandResponse.returnValue
+          : undefined;
+      fallback =
+        "fallback" in commandResponse ? commandResponse.fallback : undefined;
     }
   } catch (err) {
     const error = err as Error;
