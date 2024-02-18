@@ -4,6 +4,7 @@ import {
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   extractTargetedMarks,
+  Fallback,
   getRecordedTestPaths,
   HatStability,
   marksToPlainObject,
@@ -118,18 +119,21 @@ async function runTest(file: string, spyIde: SpyIDE) {
   checkMarks(fixture.initialState.marks, readableHatMap);
 
   let returnValue: unknown;
+  let fallback: Fallback | undefined;
 
   try {
-    returnValue = await runCursorlessCommand({
+    const commandReturnValue = await runCursorlessCommand({
       ...fixture.command,
       usePrePhraseSnapshot,
     });
     if (useFallback(fixture.command)) {
-      const returnValueObj = returnValue as CommandResponse;
-      returnValue =
-        "returnValue" in returnValueObj
-          ? returnValueObj.returnValue
-          : undefined;
+      const commandResponse = commandReturnValue as CommandResponse;
+      if ("returnValue" in commandResponse) {
+        returnValue = commandResponse.returnValue;
+      }
+      if ("fallback" in commandResponse) {
+        fallback = commandResponse.fallback;
+      }
     }
   } catch (err) {
     const error = err as Error;
@@ -201,6 +205,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ...fixture,
       finalState: resultState,
       returnValue,
+      fallback,
       ide: actualSpyIdeValues,
       thrownError: undefined,
     };
@@ -223,6 +228,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
       returnValue,
       fixture.returnValue,
       "Unexpected return value",
+    );
+
+    assert.deepStrictEqual(
+      fallback,
+      fixture.fallback,
+      "Unexpected fallback value",
     );
 
     assert.deepStrictEqual(
