@@ -1,0 +1,28 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: take token
+  action:
+    name: setSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: foo
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: foo
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+fallback:
+  action: setSelection
+  modifiers:
+    - type: containingScope
+      scopeType: {type: token}

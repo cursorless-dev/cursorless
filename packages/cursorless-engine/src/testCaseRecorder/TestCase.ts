@@ -1,9 +1,11 @@
 import {
   ActionType,
   CommandLatest,
+  CommandResponse,
   EnforceUndefined,
   extractTargetedMarks,
   ExtraSnapshotField,
+  Fallback,
   marksToPlainObject,
   PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
@@ -18,7 +20,7 @@ import {
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
-import { CommandResponse, Fallback, StoredTargetMap } from "..";
+import { StoredTargetMap } from "..";
 import { ide } from "../singletons/ide.singleton";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
@@ -144,6 +146,7 @@ export class TestCase {
       initialState: this.initialState,
       finalState: this.finalState,
       returnValue: this.returnValue,
+      fallback: this.fallback,
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
     };

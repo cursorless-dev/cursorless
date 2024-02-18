@@ -1,15 +1,14 @@
-import {
-  ActionDescriptor,
+import type {
   Command,
+  CommandResponse,
   HatTokenMap,
   IDE,
-  Modifier,
+  ReadOnlyHatMap,
+  ScopeProvider,
 } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { StoredTargetMap } from "../core/StoredTargets";
-import { ScopeProvider } from "@cursorless/common";
-import { CommandRunner } from "../CommandRunner";
-import { ReadOnlyHatMap } from "@cursorless/common";
+import type { CommandRunner } from "../CommandRunner";
+import type { Snippets } from "../core/Snippets";
+import type { StoredTargetMap } from "../core/StoredTargets";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
@@ -48,21 +47,6 @@ export interface CommandApi {
    */
   runCommandSafe(...args: unknown[]): Promise<CommandResponse | unknown>;
 }
-
-export type CommandResponse = { returnValue: unknown } | { fallback: Fallback };
-
-export type FallbackModifier = Modifier | { type: "containingTokenIfEmpty" };
-
-export type Fallback =
-  | { action: ActionDescriptor["name"]; modifiers: FallbackModifier[] }
-  | { action: "insert"; modifiers: FallbackModifier[]; text: string }
-  | { action: "callAsFunction"; modifiers: FallbackModifier[]; callee: string }
-  | {
-      action: "wrapWithPairedDelimiter" | "rewrapWithPairedDelimiter";
-      modifiers: FallbackModifier[];
-      left: string;
-      right: string;
-    };
 
 export interface CommandRunnerDecorator {
   /**

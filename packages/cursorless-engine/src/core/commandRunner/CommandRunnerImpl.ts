@@ -1,13 +1,14 @@
 import {
   ActionDescriptor,
   CommandComplete,
+  CommandResponse,
   CommandServerApi,
   DestinationDescriptor,
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
 import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
-import { CommandResponse, StoredTargetMap } from "../../index";
+import { StoredTargetMap } from "../../index";
 import { TargetPipelineRunner } from "../../processTargets";
 import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { SelectionWithEditor } from "../../typings/Types";

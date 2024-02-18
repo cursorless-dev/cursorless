@@ -4,10 +4,11 @@ import {
   CommandComplete,
   CommandServerApi,
   DestinationDescriptor,
+  Fallback,
+  FallbackModifier,
   PartialTargetDescriptor,
 } from "@cursorless/common";
-import { ActionReturnValue } from "../actions/actions.types";
-import { Fallback, FallbackModifier } from "../api/CursorlessEngineApi";
+import type { ActionReturnValue } from "../actions/actions.types";
 
 export function useFallback(command: Command): boolean {
   return command.version >= 7;

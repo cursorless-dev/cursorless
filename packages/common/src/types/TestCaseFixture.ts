@@ -1,6 +1,6 @@
-import { Command, CommandLatest } from "..";
-import { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
-import { PlainSpyIDERecordedValues } from "../testUtil/spyToPlainObject";
+import type { Command, CommandLatest, Fallback } from "..";
+import type { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
+import type { PlainSpyIDERecordedValues } from "../testUtil/spyToPlainObject";
 
 export type ThrownError = {
   name: string;
@@ -30,6 +30,11 @@ interface TestCaseFixtureBase {
    * error test case.
    */
   returnValue?: unknown;
+
+  /**
+   * The fallback of the command. Will be undefined if the command was executed by the extension.
+   */
+  fallback?: Fallback;
 }
 
 export interface TestCaseFixture extends TestCaseFixtureBase {

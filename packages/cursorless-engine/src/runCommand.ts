@@ -1,15 +1,13 @@
 import {
   Command,
+  CommandResponse,
   CommandServerApi,
   HatTokenMap,
   ReadOnlyHatMap,
 } from "@cursorless/common";
 import { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
-import {
-  CommandResponse,
-  CommandRunnerDecorator,
-} from "./api/CursorlessEngineApi";
+import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { Snippets } from "./core/Snippets";
 import { CommandRunnerImpl } from "./core/commandRunner/CommandRunnerImpl";

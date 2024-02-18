@@ -15,6 +15,7 @@ function reorderFields(
     initialState: fixture.initialState,
     finalState: fixture.finalState,
     returnValue: fixture.returnValue,
+    fallback: fixture.fallback,
     thrownError: fixture.thrownError,
     ide: fixture.ide,
   };

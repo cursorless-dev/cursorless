@@ -1,6 +1,7 @@
 import {
   CommandComplete,
   CommandLatest,
+  CommandResponse,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
@@ -26,15 +27,14 @@ import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
-import { ide, injectIde } from "../singletons/ide.singleton";
-import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { TestCase } from "./TestCase";
-import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
-import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import { StoredTargetMap } from "../core/StoredTargets";
 import { SpokenFormGenerator } from "../generateSpokenForm";
+import { ide, injectIde } from "../singletons/ide.singleton";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
-import { CommandResponse } from "../api/CursorlessEngineApi";
+import { takeSnapshot } from "../testUtil/takeSnapshot";
+import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import { TestCase } from "./TestCase";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 

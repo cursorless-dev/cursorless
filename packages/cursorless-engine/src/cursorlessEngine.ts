@@ -1,25 +1,26 @@
 import {
   Command,
+  CommandResponse,
   CommandServerApi,
   FileSystem,
   Hats,
   IDE,
   ScopeProvider,
 } from "@cursorless/common";
-import { StoredTargetMap } from "./core/StoredTargets";
-import { TreeSitter } from "./typings/TreeSitter";
 import {
-  CommandResponse,
   CommandRunnerDecorator,
   CursorlessEngine,
 } from "./api/CursorlessEngineApi";
 import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
+import { StoredTargetMap } from "./core/StoredTargets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
+import { useFallback } from "./core/getCommandFallback";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
+import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { ModifierStageFactoryImpl } from "./processTargets/ModifierStageFactoryImpl";
 import { ScopeHandlerFactoryImpl } from "./processTargets/modifiers/scopeHandlers";
 import { runCommand } from "./runCommand";
@@ -29,9 +30,8 @@ import { ScopeRangeProvider } from "./scopeProviders/ScopeRangeProvider";
 import { ScopeRangeWatcher } from "./scopeProviders/ScopeRangeWatcher";
 import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
-import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
-import { useFallback } from "./core/getCommandFallback";
+import { TreeSitter } from "./typings/TreeSitter";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
