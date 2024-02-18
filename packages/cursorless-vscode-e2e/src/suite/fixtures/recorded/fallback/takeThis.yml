@@ -1,14 +1,12 @@
 languageId: plaintext
 command:
   version: 7
-  spokenForm: take token
+  spokenForm: take this
   action:
     name: setSelection
     target:
       type: primitive
-      modifiers:
-        - type: containingScope
-          scopeType: {type: token}
+      mark: {type: cursor}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo
@@ -24,5 +22,4 @@ finalState:
 fallback:
   action: setSelection
   modifiers:
-    - type: containingScope
-      scopeType: {type: token}
+    - {type: containingTokenIfEmpty}

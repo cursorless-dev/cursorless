@@ -31,6 +31,7 @@ export class CommandRunnerImpl implements CommandRunner {
     private pipelineRunner: TargetPipelineRunner,
     private actions: ActionRecord,
   ) {
+    this.runAction = this.runAction.bind(this);
     this.inferenceContext = new InferenceContext(this.debug);
   }
 
