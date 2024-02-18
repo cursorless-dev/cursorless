@@ -40,7 +40,7 @@ export interface CommandApi {
    * Runs a command.  This is the core of the Cursorless engine.
    * @param command The command to run
    */
-  runCommand(command: Command): Promise<CommandResponse | unknown>;
+  runCommand(command: Command): Promise<CommandResponse>;
 
   /**
    * Designed to run commands that come directly from the user.  Ensures that

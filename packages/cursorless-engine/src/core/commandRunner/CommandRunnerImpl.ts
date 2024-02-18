@@ -13,7 +13,7 @@ import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { SelectionWithEditor } from "../../typings/Types";
 import { Destination, Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
-import { getCommandFallback } from "../getCommandFallback";
+import { getCommandFallback, useFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
@@ -49,10 +49,8 @@ export class CommandRunnerImpl implements CommandRunner {
    *    action, and returns the desired return value indicated by the action, if
    *    it has one.
    */
-  async run(command: CommandComplete): Promise<CommandResponse | unknown> {
-    const useFallback = command.version >= 7;
-
-    if (useFallback) {
+  async run(command: CommandComplete): Promise<CommandResponse> {
+    if (useFallback(command)) {
       const fallback = await getCommandFallback(
         this.commandServerApi,
         this.runAction,
@@ -85,7 +83,7 @@ export class CommandRunnerImpl implements CommandRunner {
     this.storedTargets.set("instanceReference", newInstanceReferenceTargets);
     this.storedTargets.set("keyboard", newKeyboardTargets);
 
-    return useFallback ? { returnValue } : returnValue;
+    return { returnValue };
   }
 
   private runAction(

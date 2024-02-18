@@ -9,6 +9,7 @@ import {
 import { StoredTargetMap } from "./core/StoredTargets";
 import { TreeSitter } from "./typings/TreeSitter";
 import {
+  CommandResponse,
   CommandRunnerDecorator,
   CursorlessEngine,
 } from "./api/CursorlessEngineApi";
@@ -30,6 +31,7 @@ import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
+import { useFallback } from "./core/getCommandFallback";
 
 export function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -86,8 +88,9 @@ export function createCursorlessEngine(
         );
       },
 
-      runCommandSafe(...args: unknown[]) {
-        return runCommand(
+      async runCommandSafe(...args: unknown[]) {
+        const command = ensureCommandShape(args);
+        const response = await runCommand(
           treeSitter,
           commandServerApi,
           debug,
@@ -97,8 +100,9 @@ export function createCursorlessEngine(
           languageDefinitions,
           rangeUpdater,
           commandRunnerDecorators,
-          ensureCommandShape(args),
+          command,
         );
+        return unwrapCommandResponse(command, response);
       },
     },
     scopeProvider: createScopeProvider(
@@ -117,6 +121,19 @@ export function createCursorlessEngine(
       commandRunnerDecorators.push(decorator);
     },
   };
+}
+
+async function unwrapCommandResponse(
+  command: Command,
+  response: CommandResponse,
+): Promise<CommandResponse | unknown> {
+  if (useFallback(command)) {
+    return response;
+  }
+  if ("returnValue" in response) {
+    return response.returnValue;
+  }
+  return undefined;
 }
 
 function createScopeProvider(

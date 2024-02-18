@@ -45,7 +45,7 @@ export async function runCommand(
   rangeUpdater: RangeUpdater,
   commandRunnerDecorators: CommandRunnerDecorator[],
   command: Command,
-): Promise<CommandResponse | unknown> {
+): Promise<CommandResponse> {
   if (debug.active) {
     debug.log(`command:`);
     debug.log(JSON.stringify(command, null, 2));

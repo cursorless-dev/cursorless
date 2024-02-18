@@ -34,6 +34,7 @@ import { CommandRunner } from "../CommandRunner";
 import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
 import { SpokenFormGenerator } from "../generateSpokenForm";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
+import { CommandResponse } from "../api/CursorlessEngineApi";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -321,7 +322,7 @@ export class TestCaseRecorder {
     }
   }
 
-  async postCommandHook(returnValue: any) {
+  async postCommandHook(returnValue: CommandResponse) {
     if (this.testCase == null) {
       // If test case is null then this means that this was just a follow up
       // command for a navigation map test

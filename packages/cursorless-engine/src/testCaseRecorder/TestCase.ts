@@ -18,7 +18,7 @@ import {
   Token,
 } from "@cursorless/common";
 import { pick } from "lodash";
-import { StoredTargetMap } from "..";
+import { CommandResponse, Fallback, StoredTargetMap } from "..";
 import { ide } from "../singletons/ide.singleton";
 import { extractTargetKeys } from "../testUtil/extractTargetKeys";
 import { takeSnapshot } from "../testUtil/takeSnapshot";
@@ -32,6 +32,7 @@ export class TestCase {
   private finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
   private returnValue?: unknown;
+  private fallback?: Fallback;
   private targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   private marksToCheck?: string[];
@@ -162,9 +163,16 @@ export class TestCase {
     );
   }
 
-  async recordFinalState(returnValue: unknown) {
+  async recordFinalState(returnValue: CommandResponse) {
     const excludeFields = this.getExcludedFields(false);
-    this.returnValue = returnValue;
+
+    if ("returnValue" in returnValue) {
+      this.returnValue = returnValue.returnValue;
+    }
+    if ("fallback" in returnValue) {
+      this.fallback = returnValue.fallback;
+    }
+
     this.finalState = await takeSnapshot(
       this.storedTargets,
       excludeFields,

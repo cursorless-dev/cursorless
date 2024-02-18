@@ -1,5 +1,6 @@
 import {
   ActionDescriptor,
+  Command,
   CommandComplete,
   CommandServerApi,
   DestinationDescriptor,
@@ -7,6 +8,10 @@ import {
 } from "@cursorless/common";
 import { ActionReturnValue } from "../actions/actions.types";
 import { Fallback, FallbackModifier } from "../api/CursorlessEngineApi";
+
+export function useFallback(command: Command): boolean {
+  return command.version >= 7;
+}
 
 export async function getCommandFallback(
   commandServerApi: CommandServerApi | null,
@@ -152,8 +157,8 @@ async function getText(
   runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   target: PartialTargetDescriptor,
 ): Promise<string> {
-  const returnValue = await runAction({ name: "getText", target });
-  const texts = returnValue as string[];
+  const response = await runAction({ name: "getText", target });
+  const texts = response.returnValue as string[];
   return texts.join("\n");
 }
 
