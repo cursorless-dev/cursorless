@@ -1,6 +1,5 @@
 import {
   ActionDescriptor,
-  Command,
   CommandComplete,
   CommandServerApi,
   DestinationDescriptor,
@@ -9,10 +8,6 @@ import {
   PartialTargetDescriptor,
 } from "@cursorless/common";
 import type { ActionReturnValue } from "../actions/actions.types";
-
-export function useFallback(command: Command): boolean {
-  return command.version >= 7;
-}
 
 export async function getCommandFallback(
   commandServerApi: CommandServerApi | null,

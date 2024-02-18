@@ -6,6 +6,7 @@ import {
   Hats,
   IDE,
   ScopeProvider,
+  useFallback,
 } from "@cursorless/common";
 import {
   CommandRunnerDecorator,
@@ -16,7 +17,6 @@ import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
-import { useFallback } from "./core/getCommandFallback";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";

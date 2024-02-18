@@ -1,5 +1,6 @@
 import {
   asyncSafety,
+  CommandResponse,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   extractTargetedMarks,
@@ -22,6 +23,7 @@ import {
   TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
+  useFallback,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -30,11 +32,11 @@ import {
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
-import { isUndefined, isPlainObject } from "lodash";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -74,7 +76,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { hatTokenMap, takeSnapshot, setStoredTarget } =
+  const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
@@ -101,6 +103,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
     // spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
+  commandServerApi.setFocusedElementType(
+    fixture.fallback == null ? "textEditor" : undefined,
+  );
+
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
     getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
@@ -118,11 +124,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ...fixture.command,
       usePrePhraseSnapshot,
     });
-    if (isPlainObject(returnValue)) {
-      const returnValueObj = returnValue as Record<string, unknown>;
-      if ("returnValue" in returnValueObj) {
-        returnValue = returnValueObj.returnValue;
-      }
+    if (useFallback(fixture.command)) {
+      const returnValueObj = returnValue as CommandResponse;
+      returnValue =
+        "returnValue" in returnValueObj
+          ? returnValueObj.returnValue
+          : undefined;
     }
   } catch (err) {
     const error = err as Error;

@@ -5,6 +5,7 @@ import {
   CommandServerApi,
   DestinationDescriptor,
   PartialTargetDescriptor,
+  useFallback,
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
 import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
@@ -14,7 +15,7 @@ import { ModifierStage } from "../../processTargets/PipelineStages.types";
 import { SelectionWithEditor } from "../../typings/Types";
 import { Destination, Target } from "../../typings/target.types";
 import { Debug } from "../Debug";
-import { getCommandFallback, useFallback } from "../getCommandFallback";
+import { getCommandFallback } from "../getCommandFallback";
 import { inferFullTargetDescriptor } from "../inferFullTargetDescriptor";
 import { selectionToStoredTarget } from "./selectionToStoredTarget";
 
