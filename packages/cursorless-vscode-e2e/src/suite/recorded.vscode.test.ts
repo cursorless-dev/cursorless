@@ -122,12 +122,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
   let fallback: Fallback | undefined;
 
   try {
-    const commandReturnValue = await runCursorlessCommand({
+    returnValue = await runCursorlessCommand({
       ...fixture.command,
       usePrePhraseSnapshot,
     });
     if (useFallback(fixture.command)) {
-      const commandResponse = commandReturnValue as CommandResponse;
+      const commandResponse = returnValue as CommandResponse;
       if ("returnValue" in commandResponse) {
         returnValue = commandResponse.returnValue;
       }
