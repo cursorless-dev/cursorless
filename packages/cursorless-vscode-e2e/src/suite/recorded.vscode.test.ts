@@ -24,7 +24,7 @@ import {
   TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
-  useFallback,
+  clientSupportsFallback,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -126,7 +126,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ...fixture.command,
       usePrePhraseSnapshot,
     });
-    if (useFallback(fixture.command)) {
+    if (clientSupportsFallback(fixture.command)) {
       const commandResponse = returnValue as CommandResponse;
       returnValue =
         "returnValue" in commandResponse

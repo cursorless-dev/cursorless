@@ -5,7 +5,7 @@ import {
   CommandServerApi,
   DestinationDescriptor,
   PartialTargetDescriptor,
-  useFallback,
+  clientSupportsFallback,
 } from "@cursorless/common";
 import { CommandRunner } from "../../CommandRunner";
 import { ActionRecord, ActionReturnValue } from "../../actions/actions.types";
@@ -53,7 +53,7 @@ export class CommandRunnerImpl implements CommandRunner {
    *    it has one.
    */
   async run(command: CommandComplete): Promise<CommandResponse> {
-    if (useFallback(command)) {
+    if (clientSupportsFallback(command)) {
       const fallback = await getCommandFallback(
         this.commandServerApi,
         this.runAction,

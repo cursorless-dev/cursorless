@@ -4,6 +4,7 @@ import {
   CommandServerApi,
   HatTokenMap,
   ReadOnlyHatMap,
+  clientSupportsFallback,
 } from "@cursorless/common";
 import { CommandRunner } from "./CommandRunner";
 import { Actions } from "./actions/Actions";
@@ -43,7 +44,7 @@ export async function runCommand(
   rangeUpdater: RangeUpdater,
   commandRunnerDecorators: CommandRunnerDecorator[],
   command: Command,
-): Promise<CommandResponse> {
+): Promise<CommandResponse | unknown> {
   if (debug.active) {
     debug.log(`command:`);
     debug.log(JSON.stringify(command, null, 2));
@@ -70,7 +71,22 @@ export async function runCommand(
     commandRunner = decorator.wrapCommandRunner(readableHatMap, commandRunner);
   }
 
-  return await commandRunner.run(commandComplete);
+  const response = await commandRunner.run(commandComplete);
+
+  return await unwrapCommandResponse(command, response);
+}
+
+async function unwrapCommandResponse(
+  command: Command,
+  response: CommandResponse,
+): Promise<CommandResponse | unknown> {
+  if (clientSupportsFallback(command)) {
+    return response;
+  }
+  if ("returnValue" in response) {
+    return response.returnValue;
+  }
+  return undefined;
 }
 
 function createCommandRunner(
