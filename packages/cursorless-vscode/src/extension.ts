@@ -104,7 +104,11 @@ export async function activate(
     new CommandHistory(normalizedIde, commandServerApi, fileSystem),
   );
 
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  const testCaseRecorder = new TestCaseRecorder(
+    commandServerApi,
+    hatTokenMap,
+    storedTargets,
+  );
   addCommandRunnerDecorator(testCaseRecorder);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");

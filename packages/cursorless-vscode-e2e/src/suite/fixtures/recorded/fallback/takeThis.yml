@@ -1,4 +1,5 @@
 languageId: plaintext
+focusedElementType: other
 command:
   version: 7
   spokenForm: take this

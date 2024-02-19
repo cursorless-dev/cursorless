@@ -1,4 +1,4 @@
-import type { Command, CommandLatest, Fallback } from "..";
+import type { Command, CommandLatest, Fallback, FocusedElementType } from "..";
 import type { TestCaseSnapshot } from "../testUtil/TestCaseSnapshot";
 import type { PlainSpyIDERecordedValues } from "../testUtil/spyToPlainObject";
 
@@ -11,6 +11,11 @@ interface TestCaseFixtureBase {
   postEditorOpenSleepTimeMs?: number;
   postCommandSleepTimeMs?: number;
   spokenFormError?: string;
+
+  /**
+   * The type of element that is focused before the command is executed. If undefined default to text editor.
+   */
+  focusedElementType?: FocusedElementType | "other";
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined

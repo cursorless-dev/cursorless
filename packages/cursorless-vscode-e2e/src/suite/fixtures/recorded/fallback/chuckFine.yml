@@ -1,20 +1,19 @@
 languageId: plaintext
-focusedElementType: other
+focusedElementType: terminal
 command:
   version: 7
-  spokenForm: move fine
+  spokenForm: chuck fine
   action:
-    name: moveToTarget
-    source:
+    name: remove
+    target:
       type: primitive
       mark: {type: decoratedSymbol, symbolColor: default, character: f}
-    destination: {type: implicit}
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
   marks:
     default.f:
       start: {line: 0, character: 0}
@@ -24,7 +23,3 @@ finalState:
   selections:
     - anchor: {line: 0, character: 0}
       active: {line: 0, character: 0}
-fallback:
-  action: insert
-  modifiers: []
-  text: foo

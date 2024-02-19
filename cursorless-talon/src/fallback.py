@@ -2,6 +2,11 @@ from typing import Callable
 
 from talon import actions
 
+from .command import COMMAND_VERSION
+
+# This ensures that we remember to update fallback if the response payload changes
+assert COMMAND_VERSION == 7
+
 action_callbacks = {
     "getText": lambda: [actions.edit.selected_text()],
     "setSelection": actions.skip,

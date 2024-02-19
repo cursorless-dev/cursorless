@@ -28,7 +28,7 @@ export async function transformPackageJson(
     json.version = `${major}.${minor}.${commitCount}`;
   } else {
     const gitSha = (await runCommand("git rev-parse --short HEAD")).trim();
-    json.version = `${json.version}-${gitSha}`;
+    // json.version = `${json.version}-${gitSha}`;
   }
 
   return json;

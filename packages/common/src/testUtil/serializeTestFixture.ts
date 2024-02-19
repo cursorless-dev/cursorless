@@ -7,6 +7,7 @@ function reorderFields(
 ): EnforceUndefined<TestCaseFixtureLegacy> {
   return {
     languageId: fixture.languageId,
+    focusedElementType: fixture.focusedElementType,
     postEditorOpenSleepTimeMs: fixture.postEditorOpenSleepTimeMs,
     postCommandSleepTimeMs: fixture.postCommandSleepTimeMs,
     command: fixture.command,

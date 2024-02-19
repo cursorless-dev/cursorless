@@ -2,6 +2,7 @@ import {
   CommandComplete,
   CommandLatest,
   CommandResponse,
+  CommandServerApi,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
@@ -64,6 +65,7 @@ export class TestCaseRecorder {
   private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
 
   constructor(
+    private commandServerApi: CommandServerApi | null,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
   ) {
@@ -293,6 +295,7 @@ export class TestCaseRecorder {
               ? spokenForm.spokenForms[0]
               : command.spokenForm,
         },
+        this.commandServerApi?.getFocusedElementType(),
         hatTokenMap,
         this.storedTargets,
         this.spyIde,

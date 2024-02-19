@@ -5,10 +5,12 @@ from talon import Module, actions, speech_system
 
 from .fallback import perform_fallback
 
+COMMAND_VERSION = 7
+
 
 @dataclasses.dataclass
 class CursorlessCommand:
-    version = 7
+    version = COMMAND_VERSION
     spokenForm: str
     usePrePhraseSnapshot: bool
     action: dict

@@ -6,6 +6,7 @@ import {
   extractTargetedMarks,
   ExtraSnapshotField,
   Fallback,
+  FocusedElementType,
   marksToPlainObject,
   PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
@@ -43,6 +44,7 @@ export class TestCase {
 
   constructor(
     command: CommandLatest,
+    private focusedElementType: FocusedElementType | undefined,
     private hatTokenMap: ReadOnlyHatMap,
     private storedTargets: StoredTargetMap,
     private spyIde: SpyIDE,
@@ -138,6 +140,10 @@ export class TestCase {
     }
     const fixture: EnforceUndefined<TestCaseFixture> = {
       languageId: this.languageId,
+      focusedElementType:
+        this.focusedElementType !== "textEditor"
+          ? this.focusedElementType ?? "other"
+          : undefined,
       postEditorOpenSleepTimeMs: undefined,
       postCommandSleepTimeMs: undefined,
       command: this.command,

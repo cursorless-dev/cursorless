@@ -105,7 +105,9 @@ async function runTest(file: string, spyIde: SpyIDE) {
   }
 
   commandServerApi.setFocusedElementType(
-    fixture.fallback == null ? "textEditor" : undefined,
+    fixture.focusedElementType === "other"
+      ? undefined
+      : fixture.focusedElementType ?? "textEditor",
   );
 
   // Ensure that the expected hats are present
