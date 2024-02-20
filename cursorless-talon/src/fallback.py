@@ -77,13 +77,7 @@ def get_action_callback(fallback: dict) -> Callable:
 
 
 def get_modifier_callbacks(fallback: dict) -> list[Callable]:
-    modifiers = fallback["modifiers"]
-    callbacks = []
-
-    for modifier in modifiers:
-        callbacks.append(get_modifier_callback(modifier))
-
-    return callbacks
+    return [get_modifier_callback(modifier) for modifier in fallback["modifiers"]]
 
 
 def get_modifier_callback(modifier: dict) -> Callable:
