@@ -24,7 +24,7 @@ class IncrementDecrement {
       targets,
       (target) => target.editor,
       async (editor, targets) => {
-        const selections = await this.runForEachEditor(editor, targets);
+        const selections = await this.runForOneEditor(editor, targets);
         thatSelections.push(...selections);
       },
     );
@@ -32,7 +32,7 @@ class IncrementDecrement {
     return { thatSelections };
   }
 
-  private async runForEachEditor(
+  private async runForOneEditor(
     editor: TextEditor,
     targets: Target[],
   ): Promise<SelectionWithEditor[]> {
