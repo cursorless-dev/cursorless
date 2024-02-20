@@ -100,6 +100,7 @@ def get_modifier_callback(modifier: dict) -> Callable:
 
 
 def get_simple_modifier_callback(key: str) -> Callable:
-    if key in modifier_callbacks:
+    try:
         return modifier_callbacks[key]
-    raise ValueError(f"Unknown Cursorless fallback modifier: {key}")
+    except KeyError:
+        raise ValueError(f"Unknown Cursorless fallback modifier: {key}")
