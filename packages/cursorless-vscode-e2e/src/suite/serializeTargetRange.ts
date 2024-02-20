@@ -35,28 +35,30 @@ export function serializeTargetRange(
   const { start, end } = range;
   const lines: string[] = [];
 
+  // Add start of range marker above the first code line
+  const prefix = fill(" ", start.character + 2) + ">";
+  if (range.isSingleLine) {
+    lines.push(prefix + fill("-", end.character - start.character) + "<");
+  } else {
+    lines.push(
+      prefix + fill("-", codeLines[start.line].length - start.character),
+    );
+  }
+
+  // Output the range with each line prefixed by `n| `, eg:
+  // `3| const foo = // "bar"`
   for (let lineNumber = start.line; lineNumber <= end.line; ++lineNumber) {
     const codeLine = codeLines[lineNumber]!;
 
-    // Add start of range above the first code line
-    if (lineNumber === start.line) {
-      const prefix = fill(" ", start.character + 2) + ">";
-      if (range.isSingleLine) {
-        lines.push(prefix + fill("-", end.character - start.character) + "<");
-      } else {
-        lines.push(prefix + fill("-", codeLine.length - start.character));
-      }
-    }
-
-    // Output the line itself, prefixed by `n| `, eg `3| const foo = "bar"`
     lines.push(
       codeLine.length > 0 ? `${lineNumber}| ${codeLine}` : `${lineNumber}|`,
     );
+  }
 
-    // Add end of range below the last code line (if this was a multiline range)
-    if (lineNumber === end.line && !range.isSingleLine) {
-      lines.push("   " + fill("-", end.character) + "<");
-    }
+  // Add end of range marker below the last code line (if this was a multiline
+  // range)
+  if (!range.isSingleLine) {
+    lines.push("   " + fill("-", end.character) + "<");
   }
 
   return lines.join("\n");
