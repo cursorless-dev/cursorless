@@ -4,8 +4,7 @@ from typing import Any
 from talon import Module, actions, speech_system
 
 from .fallback import perform_fallback
-
-COMMAND_VERSION = 7
+from .versions import COMMAND_VERSION
 
 
 @dataclasses.dataclass
