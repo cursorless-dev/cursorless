@@ -164,8 +164,8 @@
         (_) @type
       ) @type.removal
     ) @_.domain
-  ) @dummy
-  (#has-multiple-children-of-type? @dummy variable_declarator)
+  ) @_dummy
+  (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
 ;;!! function ccc(aaa: string, bbb?: string) {}
@@ -206,8 +206,8 @@
 ;;!                  ^^^^^^  ^^^^^^
 (type_arguments
   (_) @type
-  (#not-parent-type? @dummy type_assertion)
-) @dummy
+  (#not-parent-type? @_dummy type_assertion)
+) @_dummy
 
 ;;!! function foo<A>() {}
 ;;!               ^
