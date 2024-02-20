@@ -31,8 +31,7 @@ modifier_callbacks = {
 
 
 def call_as_function(callee: str):
-    actions.insert(f"{callee}()")
-    actions.edit.left()
+    wrap_with_paired_delimiter(f"{callee}(", ")")
 
 
 def wrap_with_paired_delimiter(left: str, right: str):
