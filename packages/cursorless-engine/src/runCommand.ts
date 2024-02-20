@@ -73,10 +73,10 @@ export async function runCommand(
 
   const response = await commandRunner.run(commandComplete);
 
-  return await unwrapCommandResponse(command, response);
+  return await unwrapLegacyCommandResponse(command, response);
 }
 
-async function unwrapCommandResponse(
+async function unwrapLegacyCommandResponse(
   command: Command,
   response: CommandResponse,
 ): Promise<CommandResponse | unknown> {
