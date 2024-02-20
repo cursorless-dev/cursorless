@@ -12,7 +12,7 @@ const REGEX = /-?\d+(\.\d+)?/g;
 class IncrementDecrement {
   constructor(
     private actions: Actions,
-    private increment: boolean,
+    private isIncrement: boolean,
   ) {
     this.run = this.run.bind(this);
   }
@@ -47,7 +47,7 @@ class IncrementDecrement {
 
       for (const match of matches) {
         destinations.push(createDestination(editor, offset, match));
-        replaceWith.push(updateNumber(this.increment, match.text));
+        replaceWith.push(updateNumber(this.isIncrement, match.text));
       }
     }
 
@@ -88,23 +88,23 @@ function createDestination(
   return target.toDestination("to");
 }
 
-function updateNumber(increment: boolean, text: string): string {
+function updateNumber(isIncrement: boolean, text: string): string {
   return text.includes(".")
-    ? updateFloat(increment, text).toString()
-    : updateInteger(increment, text).toString();
+    ? updateFloat(isIncrement, text).toString()
+    : updateInteger(isIncrement, text).toString();
 }
 
-function updateInteger(increment: boolean, text: string): number {
+function updateInteger(isIncrement: boolean, text: string): number {
   const original = parseInt(text);
   const diff = 1;
-  return original + (increment ? diff : -diff);
+  return original + (isIncrement ? diff : -diff);
 }
 
-function updateFloat(increment: boolean, text: string): number {
+function updateFloat(isIncrement: boolean, text: string): number {
   const original = parseFloat(text);
   const isPercentage = Math.abs(original) <= 1.0;
   const diff = isPercentage ? 0.1 : 1;
-  const updated = original + (increment ? diff : -diff);
+  const updated = original + (isIncrement ? diff : -diff);
   // Remove precision problems that would add a lot of extra digits
   return parseFloat(updated.toPrecision(15)) / 1;
 }
