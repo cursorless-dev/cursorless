@@ -584,6 +584,11 @@ For example:
 - `"indent air"`
 - `"dedent funk bat"`
 
+### Increment / decrement
+
+- `"increment <TARGET>"`: increment number target. eg change `1` to `2`.
+- `"decrement <TARGET>"`: decrement number target. eg change `2` to `1`.
+
 ### Insert empty lines
 
 - `"drink <TARGET>"`: Inserts a new line above the target line, and moves the cursor to the newly created line

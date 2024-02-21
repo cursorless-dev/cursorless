@@ -28,6 +28,8 @@ export const actions = {
   deselect: "give",
   highlight: "highlight",
   showHover: "hover",
+  increment: "increment",
+  decrement: "decrement",
   indentLine: "indent",
   showDebugHover: "inspect",
   setSelectionAfter: "post",
