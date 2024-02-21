@@ -6,10 +6,9 @@ function() {
 [Content] =
 [Removal] =
 [Domain] = 0:0-2:1
-0| function() {
   >------------
+0| function() {
 1|
-
 2| }
    -<
 
