@@ -17,7 +17,6 @@ action_callbacks = {
     "remove": actions.edit.delete,
     "editNewLineBefore": actions.edit.line_insert_up,
     "editNewLineAfter": actions.edit.line_insert_down,
-    "nextHomophone": actions.user.homophones_cycle_selected,
 }
 
 modifier_callbacks = {
