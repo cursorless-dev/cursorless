@@ -4,22 +4,21 @@ for (let i = 0; i < 10; ++i) {
 ---
 
 [Content] = 0:16-0:22
-0| for (let i = 0; i < 10; ++i) {
                   >------<
+0| for (let i = 0; i < 10; ++i) {
 
 [Removal] = 0:15-0:22
-0| for (let i = 0; i < 10; ++i) {
                  >-------<
+0| for (let i = 0; i < 10; ++i) {
 
 [Leading delimiter] = 0:15-0:16
-0| for (let i = 0; i < 10; ++i) {
                  >-<
+0| for (let i = 0; i < 10; ++i) {
 
 [Domain] = 0:0-2:1
-0| for (let i = 0; i < 10; ++i) {
   >------------------------------
+0| for (let i = 0; i < 10; ++i) {
 1|
-
 2| }
    -<
 

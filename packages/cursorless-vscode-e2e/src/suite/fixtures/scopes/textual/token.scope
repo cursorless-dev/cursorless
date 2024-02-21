@@ -3,19 +3,19 @@
 
 [Content] =
 [Domain] = 0:2-0:5
-0|   aaa  
     >---<
+0|   aaa  
 
 [Removal] = 0:0-0:7
-0|   aaa  
   >-------<
+0|   aaa  
 
 [Leading delimiter] = 0:0-0:2
-0|   aaa  
   >--<
+0|   aaa  
 
 [Trailing delimiter] = 0:5-0:7
-0|   aaa  
        >--<
+0|   aaa  
 
 [Insertion delimiter] = " "

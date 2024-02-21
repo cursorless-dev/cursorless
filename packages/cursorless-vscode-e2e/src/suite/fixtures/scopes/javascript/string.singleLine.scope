@@ -4,7 +4,7 @@
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:13
-0| "Hello world"
   >-------------<
+0| "Hello world"
 
 [Insertion delimiter] = " "

@@ -100,7 +100,7 @@ To define your own snippets, proceed as follows:
 
 ### Define snippets in vscode
 
-1. In your VSCode Cursorless settings (say `"cursorless settings"`), set the `cursorless.experimental.snippetsDir` setting to a directory in which you'd like to create your snippets.
+1. In your VSCode Cursorless settings (say `"cursorless settings"`), set the `cursorless.experimental.snippetsDir` setting to a directory in which you'd like to create your snippets. You can use the `${userHome}` vairable to refer to your user home directory.
 2. Add snippets to the directory in files ending in `.cursorless-snippets`. See the [documentation](snippet-format.md) for the cursorless snippet format.
 
 ### 2. Add snippet to spoken forms csvs
