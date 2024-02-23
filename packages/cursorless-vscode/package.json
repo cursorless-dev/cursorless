@@ -128,6 +128,10 @@
         "title": "Cursorless: Hide the scope visualizer"
       },
       {
+        "command": "cursorless.analyzeCommandHistory",
+        "title": "Cursorless: Analyze collected command history"
+      },
+      {
         "command": "cursorless.tutorial.getContent",
         "title": "Cursorless: Get tutorial content; used by the Talon HUD during tutorial initialization",
         "enablement": "false"
@@ -136,10 +140,6 @@
         "command": "cursorless.tutorial.setupStep",
         "title": "Cursorless: Setup the current tutorial step; used by the Talon HUD before each tutorial step",
         "enablement": "false"
-      },
-      {
-        "command": "cursorless.analyzeCommandHistory",
-        "title": "Cursorless: Analyze collected command history"
       },
       {
         "command": "cursorless.command",
