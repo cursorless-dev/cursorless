@@ -574,6 +574,8 @@ importers:
         specifier: ^11.1.1
         version: 11.1.2
 
+  packages/cursorless-vscode-tutorial: {}
+
   packages/meta-updater:
     dependencies:
       '@cursorless/common':

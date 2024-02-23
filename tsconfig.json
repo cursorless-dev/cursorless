@@ -27,6 +27,9 @@
       "path": "./packages/cursorless-vscode-e2e"
     },
     {
+      "path": "./packages/cursorless-vscode-tutorial"
+    },
+    {
       "path": "./packages/meta-updater"
     },
     {
