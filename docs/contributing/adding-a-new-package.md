@@ -7,7 +7,7 @@ Replace `foo` with your new package name in the instructions below.
 3. `pnpm init`
 4. `code package.json` and update the `description` field
 5. `pnpm install`
-6. `pnpm -w meta-updater`
+6. `pnpm -w fix:meta`
 
 For any packages that you need to depend on, you can run
 
