@@ -22,22 +22,24 @@
     "at": "setSelection",
     "ah": "setSelectionBefore",
     "al": "setSelectionAfter",
-    "aO": "editNewLineBefore",
-    "ao": "editNewLineAfter",
-    "k": "insertCopyBefore",
-    "j": "insertCopyAfter",
+    "ai": { "actionId": "editNewLineBefore", "exitCursorlessMode": true },
+    "ao": { "actionId": "editNewLineAfter", "exitCursorlessMode": true },
+    "ak": "insertCopyBefore",
+    "aj": "insertCopyAfter",
     "au": "replaceWithTarget",
     "am": "moveToTarget",
-    "c": "clearAndSetSelection",
+    "c": { "actionId": "clearAndSetSelection", "exitCursorlessMode": true },
     "as": "swapTargets",
     "af": "foldRegion",
-    "ak": "insertEmptyLineBefore",
-    "aj": "insertEmptyLineAfter",
-    "ai": "insertEmptyLinesAround",
+    "aI": "insertEmptyLineBefore",
+    "aO": "insertEmptyLineAfter",
+    "aU": "insertEmptyLinesAround",
     "ac": "copyToClipboard",
     "ax": "cutToClipboard",
     "ap": "pasteFromClipboard",
-    "ad": "followLink"
+    "ad": "followLink",
+    "x": "remove",
+    "aw": "wrap"
   },
   "cursorless.experimental.keyboard.modal.keybindings.color": {
     "d": "default",
@@ -60,10 +62,12 @@
   "cursorless.experimental.keyboard.modal.keybindings.misc": {
     "fx": "combineColorAndShape",
     "fk": "makeRange",
+    "fa": "makeList",
     "-": "backward"
   },
   "cursorless.experimental.keyboard.modal.keybindings.modifier": {
-    "n": "nextPrev"
+    "n": "nextPrev",
+    "*": "every"
   },
   "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
     "va": "editor.action.addCommentLine",
@@ -77,5 +81,21 @@
       "keepChangedSelection": true,
       "exitCursorlessMode": true
     }
+  },
+  "cursorless.experimental.keyboard.modal.keybindings.pairedDelimiter": {
+    "wl": "angleBrackets",
+    "wt": "backtickQuotes",
+    "wb": "curlyBrackets",
+    "wd": "doubleQuotes",
+    "wwd": "escapedDoubleQuotes",
+    "wwp": "escapedParentheses",
+    "wws": "escapedSquareBrackets",
+    "wwq": "escapedSingleQuotes",
+    "wp": "parentheses",
+    "wq": "singleQuotes",
+    "ws": "squareBrackets",
+    "wg": "string",
+    "wj": "any",
+    "wk": "collectionBoundary"
   }
 }

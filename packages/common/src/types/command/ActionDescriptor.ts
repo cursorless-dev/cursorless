@@ -12,6 +12,7 @@ const simpleActionNames = [
   "clearAndSetSelection",
   "copyToClipboard",
   "cutToClipboard",
+  "decrement",
   "deselect",
   "editNewLineAfter",
   "editNewLineBefore",
@@ -21,6 +22,7 @@ const simpleActionNames = [
   "findInWorkspace",
   "foldRegion",
   "followLink",
+  "increment",
   "indentLine",
   "insertCopyAfter",
   "insertCopyBefore",
@@ -49,6 +51,7 @@ const simpleActionNames = [
   "toggleLineBreakpoint",
   "toggleLineComment",
   "unfoldRegion",
+  "private.setKeyboardTarget",
   "private.showParseTree",
   "private.getTargets",
 ] as const;

@@ -223,6 +223,15 @@ export const scopeSupportFacetInfos: Record<
     description: "LHS of an assignment with pattern destructuring",
     scopeType: "name",
   },
+  "name.variable": {
+    description: "Name (LHS) of a variable declaration",
+    scopeType: "name",
+  },
+  "name.variable.pattern": {
+    description:
+      "Name (LHS) of a variable declaration with pattern destructuring",
+    scopeType: "name",
+  },
   "name.foreach": {
     description: "Iteration variable name in a for each loop",
     scopeType: "name",
@@ -238,6 +247,16 @@ export const scopeSupportFacetInfos: Record<
   "name.field": {
     description: "Name (LHS) of a field in a class / interface",
     scopeType: "name",
+  },
+  "name.resource": {
+    description: "Name in a 'with' / 'use' / 'using' statement",
+    scopeType: "name",
+  },
+  "name.resource.iteration": {
+    description:
+      "Iteration scope for names in a 'with' / 'use' / 'using' statement",
+    scopeType: "name",
+    isIteration: true,
   },
 
   "key.attribute": {
@@ -257,6 +276,10 @@ export const scopeSupportFacetInfos: Record<
 
   "value.assignment": {
     description: "Value (RHS) of an assignment",
+    scopeType: "value",
+  },
+  "value.variable": {
+    description: "Value (RHS) of a variable declaration",
     scopeType: "value",
   },
   "value.mapPair": {
@@ -289,9 +312,23 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a field in a class / interface",
     scopeType: "value",
   },
+  "value.yield": {
+    description: "Value of a yield statement",
+    scopeType: "value",
+  },
+  "value.resource": {
+    description: "Value of a 'with' / 'use' / 'using' statement",
+    scopeType: "value",
+  },
+  "value.resource.iteration": {
+    description:
+      "Iteration scope for values in a 'with' / 'use' / 'using' statement",
+    scopeType: "value",
+    isIteration: true,
+  },
 
-  "type.assignment": {
-    description: "Type of variable in an assignment",
+  "type.variable": {
+    description: "Type of variable in a variable declaration",
     scopeType: "type",
   },
   "type.formalParameter": {
@@ -312,6 +349,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "type.interface": {
     description: "An interface declaration",
+    scopeType: "type",
+  },
+  "type.alias": {
+    description: "A type alias declaration",
     scopeType: "type",
   },
 };

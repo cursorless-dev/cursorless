@@ -49,6 +49,7 @@ export const cursorlessCommandIds = [
   "cursorless.hideScopeVisualizer",
   "cursorless.tutorial.getContent",
   "cursorless.tutorial.setupStep",
+  "cursorless.analyzeCommandHistory",
 ] as const satisfies readonly `cursorless.${string}`[];
 
 export type CursorlessCommandId = (typeof cursorlessCommandIds)[number];
@@ -78,13 +79,16 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.hideScopeVisualizer"]: new VisibleCommand(
     "Hide the scope visualizer",
   ),
+  ["cursorless.analyzeCommandHistory"]: new VisibleCommand(
+    "Analyze collected command history",
+  ),
+
   ["cursorless.tutorial.getContent"]: new HiddenCommand(
     "Get tutorial content; used by the Talon HUD during tutorial initialization",
   ),
   ["cursorless.tutorial.setupStep"]: new HiddenCommand(
     "Setup the current tutorial step; used by the Talon HUD before each tutorial step",
   ),
-
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
   ["cursorless.showQuickPick"]: new HiddenCommand(
     "Pop up a quick pick of all cursorless commands",

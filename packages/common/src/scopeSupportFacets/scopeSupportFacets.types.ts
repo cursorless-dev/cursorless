@@ -59,16 +59,21 @@ const scopeSupportFacets = [
 
   "name.assignment",
   "name.assignment.pattern",
+  "name.variable",
+  "name.variable.pattern",
   "name.foreach",
   "name.function",
   "name.class",
   "name.field",
+  "name.resource",
+  "name.resource.iteration",
 
   "key.attribute",
   "key.mapPair",
   "key.mapPair.iteration",
 
   "value.assignment",
+  "value.variable",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",
@@ -76,13 +81,17 @@ const scopeSupportFacets = [
   "value.return",
   "value.return.lambda",
   "value.field",
+  "value.yield",
+  "value.resource",
+  "value.resource.iteration",
 
-  "type.assignment",
+  "type.variable",
   "type.formalParameter",
   "type.return",
   "type.field",
   "type.foreach",
   "type.interface",
+  "type.alias",
 
   // FIXME: Still in legacy
   // section

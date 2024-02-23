@@ -1,11 +1,13 @@
 import {
   CURSORLESS_COMMAND_ID,
   CursorlessCommandId,
+  FileSystem,
   isTesting,
 } from "@cursorless/common";
 import {
   CommandApi,
   TestCaseRecorder,
+  analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
   Tutorial,
@@ -22,6 +24,7 @@ export function registerCommands(
   extensionContext: vscode.ExtensionContext,
   vscodeIde: VscodeIDE,
   commandApi: CommandApi,
+  fileSystem: FileSystem,
   testCaseRecorder: TestCaseRecorder,
   scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
@@ -68,6 +71,10 @@ export function registerCommands(
     // Scope visualizer
     ["cursorless.showScopeVisualizer"]: scopeVisualizer.start,
     ["cursorless.hideScopeVisualizer"]: scopeVisualizer.stop,
+
+    // Command history
+    ["cursorless.analyzeCommandHistory"]: () =>
+      analyzeCommandHistory(fileSystem.cursorlessCommandHistoryDirPath),
 
     // General keyboard commands
     ["cursorless.keyboard.escape"]:

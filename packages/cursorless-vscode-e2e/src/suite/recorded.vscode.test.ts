@@ -18,6 +18,7 @@ import {
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  storedTargetKeys,
   TestCaseFixtureLegacy,
 } from "@cursorless/common";
 import {
@@ -87,15 +88,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   editor.selections = fixture.initialState.selections.map(createSelection);
 
-  setStoredTarget(editor, "that", fixture.initialState.thatMark);
-
-  setStoredTarget(editor, "source", fixture.initialState.sourceMark);
-
-  setStoredTarget(
-    editor,
-    "instanceReference",
-    fixture.initialState.instanceReferenceMark,
-  );
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
+  }
 
   if (fixture.initialState.clipboard) {
     vscode.env.clipboard.writeText(fixture.initialState.clipboard);
@@ -163,16 +159,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
     excludeFields.push("clipboard");
   }
 
-  if (fixture.finalState?.thatMark == null) {
-    excludeFields.push("thatMark");
-  }
-
-  if (fixture.finalState?.sourceMark == null) {
-    excludeFields.push("sourceMark");
-  }
-
-  if (fixture.finalState?.instanceReferenceMark == null) {
-    excludeFields.push("instanceReferenceMark");
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    if (fixture.finalState?.[key] == null) {
+      excludeFields.push(key);
+    }
   }
 
   // FIXME Visible ranges are not asserted, see:
