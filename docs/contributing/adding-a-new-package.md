@@ -15,4 +15,4 @@ For any packages that you need to depend on, you can run
 pnpm add some-package
 ```
 
-from the `packages/foo` directory. Note that `some-package` could be a local package, eg `@cursorless/common`. In that case, you need to re-run `pnpm -w meta-updater` after adding the dependency, so that the Typescript references can be updated.
+from the `packages/foo` directory. Note that `some-package` could be a local package, eg `@cursorless/common`. In that case, you need to re-run `pnpm -w fix:meta` after adding the dependency, so that the Typescript references can be updated.
