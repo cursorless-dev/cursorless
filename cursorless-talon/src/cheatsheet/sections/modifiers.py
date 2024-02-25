@@ -22,6 +22,7 @@ def get_modifiers():
         "extendThroughStartOf",
         "extendThroughEndOf",
         "every",
+        "grand",
         "ancestor",
         "first",
         "last",
@@ -99,6 +100,16 @@ def get_modifiers():
                 {
                     "spokenForm": f"{complex_modifiers['every']} <scope>",
                     "description": "Every instance of <scope>",
+                },
+            ],
+        },
+        {
+            "id": "grand",
+            "type": "modifier",
+            "variations": [
+                {
+                    "spokenForm": f"{complex_modifiers['grand']} <scope>",
+                    "description": "parent scope of the containing <scope>",
                 },
             ],
         },
