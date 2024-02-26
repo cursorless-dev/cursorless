@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable, Iterable, Optional, TypedDict
 
-from talon import Context, Module, actions, app, fs
+from talon import Context, Module, actions, app, fs, settings
 
 from .conventions import get_cursorless_list_name
 from .vendor.inflection import pluralize
@@ -20,7 +20,7 @@ mod.tag(
     "cursorless_default_vocabulary",
     desc="Use default cursorless vocabulary instead of user custom",
 )
-cursorless_settings_directory = mod.setting(
+mod.setting(
     "cursorless_settings_directory",
     type=str,
     default="cursorless-settings",
@@ -453,7 +453,7 @@ def get_full_path(filename: str):
         filename = f"{filename}.csv"
 
     user_dir: Path = actions.path.talon_user()
-    settings_directory = Path(cursorless_settings_directory.get())
+    settings_directory = Path(settings.get("user.cursorless_settings_directory"))
 
     if not settings_directory.is_absolute():
         settings_directory = user_dir / settings_directory

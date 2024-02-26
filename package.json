@@ -45,7 +45,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@docusaurus/theme-search-algolia@3.0.1": "patches/@docusaurus__theme-search-algolia@2.3.1.patch",
+      "@docusaurus/theme-search-algolia@3.1.0": "patches/@docusaurus__theme-search-algolia@3.1.0.patch",
       "@types/nearley@2.11.5": "patches/@types__nearley@2.11.5.patch",
       "nearley@2.20.1": "patches/nearley@2.20.1.patch"
     },
@@ -62,6 +62,6 @@
   "engines": {
     "node": ">=18.18.2"
   },
-  "packageManager": "pnpm@8.12.0",
+  "packageManager": "pnpm@8.15.3",
   "type": "module"
 }
