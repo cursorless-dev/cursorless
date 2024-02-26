@@ -297,6 +297,12 @@ importers:
         specifier: ^11.1.1
         version: 11.1.2
 
+  packages/cursorless-neovim:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+
   packages/cursorless-org:
     dependencies:
       '@cursorless/cheatsheet':
