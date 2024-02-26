@@ -5,18 +5,13 @@ while (true) {
 
 [Content] =
 [Removal] = 0:7-0:11
-0| while (true) {
          >----<
-1|
-
-2| }
-
+0| while (true) {
 
 [Domain] = 0:0-2:1
-0| while (true) {
   >--------------
+0| while (true) {
 1|
-
 2| }
    -<
 

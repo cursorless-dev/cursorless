@@ -18,6 +18,7 @@ import { selectionToStoredTarget } from "./selectionToStoredTarget";
 export class CommandRunnerImpl implements CommandRunner {
   private inferenceContext: InferenceContext;
   private finalStages: ModifierStage[] = [];
+  private noAutomaticTokenExpansion: boolean | undefined;
 
   constructor(
     private debug: Debug,
@@ -53,6 +54,7 @@ export class CommandRunnerImpl implements CommandRunner {
       sourceSelections: newSourceSelections,
       sourceTargets: newSourceTargets,
       instanceReferenceTargets: newInstanceReferenceTargets,
+      keyboardTargets: newKeyboardTargets,
     } = await this.runAction(action);
 
     this.storedTargets.set(
@@ -64,6 +66,7 @@ export class CommandRunnerImpl implements CommandRunner {
       constructStoredTarget(newSourceTargets, newSourceSelections),
     );
     this.storedTargets.set("instanceReference", newInstanceReferenceTargets);
+    this.storedTargets.set("keyboard", newKeyboardTargets);
 
     return returnValue;
   }
@@ -179,6 +182,8 @@ export class CommandRunnerImpl implements CommandRunner {
       default: {
         const action = this.actions[actionDescriptor.name];
         this.finalStages = action.getFinalStages?.() ?? [];
+        this.noAutomaticTokenExpansion =
+          action.noAutomaticTokenExpansion ?? false;
         return action.run(this.getTargets(actionDescriptor.target));
       }
     }
@@ -191,7 +196,10 @@ export class CommandRunnerImpl implements CommandRunner {
       partialTargetsDescriptor,
     );
 
-    return this.pipelineRunner.run(targetDescriptor, this.finalStages);
+    return this.pipelineRunner.run(targetDescriptor, {
+      actionFinalStages: this.finalStages,
+      noAutomaticTokenExpansion: this.noAutomaticTokenExpansion,
+    });
   }
 
   private getDestinations(

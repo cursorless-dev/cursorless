@@ -42,6 +42,11 @@ export interface IDE {
   disposeOnExit(...disposables: Disposable[]): () => void;
 
   /**
+   * The version of the cursorless extension
+   */
+  readonly cursorlessVersion: string;
+
+  /**
    * The root directory of this shipped code.  Can be used to access bundled
    * assets.
    */
@@ -93,6 +98,13 @@ export interface IDE {
   onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable;
+
+  /**
+   * Find occurrences of query string in the active document.
+   * @param query The string query to search for
+   * @param editor The editor to search in. If not provided, uses the active editor.
+   */
+  findInDocument(query: string, editor?: TextEditor): Promise<void>;
 
   /**
    * Find occurrences of query string in all files in the workspace

@@ -1,4 +1,4 @@
-import { pick, toPairs } from "lodash";
+import { pick, sortedUniq, toPairs } from "lodash";
 import { Grammar, Parser } from "nearley";
 import * as vscode from "vscode";
 import { KeyboardCommandsModalLayer } from "./KeyboardCommandsModalLayer";
@@ -90,9 +90,9 @@ export default class KeyboardCommandsModal {
   private computeLayer() {
     const acceptableTokenTypeInfos = getAcceptableTokenTypes(this.parser);
     // FIXME: Here's where we'd update sidebar
-    const acceptableTokenTypes = acceptableTokenTypeInfos
-      .map(({ type }) => type)
-      .sort();
+    const acceptableTokenTypes = sortedUniq(
+      acceptableTokenTypeInfos.map(({ type }) => type).sort(),
+    );
     let layer = this.layerCache.get(acceptableTokenTypes);
     if (layer == null) {
       layer = new KeyboardCommandsModalLayer(
