@@ -11,7 +11,10 @@ import {
   ScopeRangeType,
   ScopeVisualizerColorConfig,
 } from "@cursorless/vscode-common";
-import { vscodeApi } from "../../../vscodeApi";
+import {
+  getConfiguration,
+  onDidChangeConfiguration,
+} from "../../../usingConfiguration";
 import { VscodeScopeRenderer } from "./VscodeScopeRenderer";
 import { getColorsFromConfig } from "./getColorsFromConfig";
 
@@ -34,9 +37,8 @@ export abstract class VscodeScopeVisualizer {
     protected scopeType: ScopeType,
   ) {
     this.disposables.push(
-      vscodeApi.workspace.onDidChangeConfiguration(
-        "cursorless.scopeVisualizer.colors",
-        () => this.initialize(),
+      onDidChangeConfiguration("cursorless.scopeVisualizer.colors", () =>
+        this.initialize(),
       ),
     );
   }
@@ -73,10 +75,9 @@ export abstract class VscodeScopeVisualizer {
 
   /** This function is called initially, as well as whenever color config changes */
   private initialize() {
-    const colorConfig =
-      vscodeApi.workspace.getConfiguration<ScopeVisualizerColorConfig>(
-        "cursorless.scopeVisualizer.colors",
-      )!;
+    const colorConfig = getConfiguration<ScopeVisualizerColorConfig>(
+      "cursorless.scopeVisualizer.colors",
+    )!;
 
     this.renderer?.dispose();
     this.renderer = new VscodeScopeRenderer(
