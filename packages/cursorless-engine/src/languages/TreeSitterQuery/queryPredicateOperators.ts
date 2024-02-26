@@ -185,18 +185,13 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
   }
 }
 
-/** Indicates that it's okay for this scope to extend contiguously it through its siblings. */
+/** Indicates that it's okay for this scope to extend contiguously through its siblings of same type. */
 class Contiguous extends QueryPredicateOperator<Contiguous> {
   name = "contiguous!" as const;
-  schema = z.union([z.tuple([q.node]), z.tuple([q.node, q.string])]);
+  schema = z.tuple([q.node]);
 
-  run(nodeInfo: MutableQueryCapture, pattern?: string) {
-    if (pattern != null) {
-      const text = nodeInfo.document.getText(nodeInfo.range);
-      nodeInfo.contiguous = new RegExp(pattern, "s").test(text);
-    } else {
-      nodeInfo.contiguous = true;
-    }
+  run(nodeInfo: MutableQueryCapture) {
+    nodeInfo.contiguous = true;
 
     return true;
   }
