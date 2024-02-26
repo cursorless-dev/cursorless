@@ -12,7 +12,6 @@ export const vscodeApi: VscodeApi = {
   workspace,
   window,
   env,
-
   editor: {
     setDecorations(editor, ...args) {
       return editor.setDecorations(...args);
