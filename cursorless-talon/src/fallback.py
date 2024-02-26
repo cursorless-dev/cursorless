@@ -10,6 +10,8 @@ assert COMMAND_VERSION == 7
 action_callbacks = {
     "getText": lambda: [actions.edit.selected_text()],
     "setSelection": actions.skip,
+    "setSelectionBefore": actions.edit.left,
+    "setSelectionAfter": actions.edit.right,
     "copyToClipboard": actions.edit.copy,
     "cutToClipboard": actions.edit.cut,
     "pasteFromClipboard": actions.edit.paste,
