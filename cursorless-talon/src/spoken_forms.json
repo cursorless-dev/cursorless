@@ -84,6 +84,9 @@
       "visible": "visible"
     },
     "simple_scope_modifier": { "every": "every", "grand": "ancestor" },
+    "spread_scope_modifier": {
+      "spread": "spread"
+    },
     "interior_modifier": {
       "inside": "interiorOnly"
     },

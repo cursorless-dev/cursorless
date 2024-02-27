@@ -5,7 +5,10 @@ import {
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
+import {
+  constructScopeRangeTarget,
+  constructTargetsFromScopes,
+} from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
@@ -72,6 +75,10 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
 
     if (scopes.length < desiredScopeCount) {
       throw new OutOfRangeError();
+    }
+
+    if (this.modifier.spread) {
+      return constructTargetsFromScopes(isReversed, scopes);
     }
 
     return constructScopeRangeTarget(

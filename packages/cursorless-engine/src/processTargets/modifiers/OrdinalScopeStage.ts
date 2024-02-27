@@ -4,6 +4,7 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
 import {
   createRangeTargetFromIndices,
+  sliceTargetsByIndices,
   getEveryScopeTargets,
 } from "./targetSequenceUtils";
 
@@ -23,6 +24,10 @@ export class OrdinalScopeStage implements ModifierStage {
     const startIndex =
       this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
     const endIndex = startIndex + this.modifier.length - 1;
+
+    if (this.modifier.spread) {
+      return sliceTargetsByIndices(targets, startIndex, endIndex);
+    }
 
     return [
       createRangeTargetFromIndices(

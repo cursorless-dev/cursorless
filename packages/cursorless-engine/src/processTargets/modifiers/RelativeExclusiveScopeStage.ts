@@ -2,11 +2,17 @@ import type { RelativeScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
+import {
+  constructScopeRangeTarget,
+  constructTargetsFromScopes,
+} from "./constructScopeRangeTarget";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
-import type { ContainmentPolicy } from "./scopeHandlers/scopeHandler.types";
+import type {
+  ContainmentPolicy,
+  ScopeHandler,
+} from "./scopeHandlers/scopeHandler.types";
 import { OutOfRangeError } from "./targetSequenceUtils";
 
 /**
@@ -32,7 +38,26 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
-    const { isReversed, editor, contentRange: inputRange } = target;
+    const scopes = this.getsScopes(scopeHandler, target);
+    const { isReversed } = target;
+
+    if (this.modifier.spread) {
+      return constructTargetsFromScopes(isReversed, scopes);
+    }
+
+    // Then make a range when we get the desired number of scopes
+    return constructScopeRangeTarget(
+      isReversed,
+      scopes[0],
+      scopes[scopes.length - 1],
+    );
+  }
+
+  private getsScopes(
+    scopeHandler: ScopeHandler,
+    target: Target,
+  ): TargetScope[] {
+    const { editor, contentRange: inputRange } = target;
     const { length: desiredScopeCount, direction, offset } = this.modifier;
 
     const initialPosition =
@@ -45,8 +70,8 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       ? "disallowed"
       : "disallowedIfStrict";
 
+    const scopes: TargetScope[] = [];
     let scopeCount = 0;
-    let proximalScope: TargetScope | undefined;
     for (const scope of scopeHandler.generateScopes(
       editor,
       initialPosition,
@@ -63,17 +88,20 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       if (scopeCount === offset) {
         // When we hit offset, that becomes proximal scope
         if (desiredScopeCount === 1) {
-          // Just yield it if we only want 1 scope
-          return scope.getTargets(isReversed);
+          // Just return it if we only want 1 scope
+          return [scope];
         }
 
-        proximalScope = scope;
+        scopes.push(scope);
+
         continue;
       }
 
       if (scopeCount === offset + desiredScopeCount - 1) {
+        scopes.push(scope);
+
         // Then make a range when we get the desired number of scopes
-        return constructScopeRangeTarget(isReversed, proximalScope!, scope);
+        return scopes;
       }
     }
 

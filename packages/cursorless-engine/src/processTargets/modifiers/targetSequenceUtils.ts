@@ -10,6 +10,16 @@ export class OutOfRangeError extends Error {
   }
 }
 
+function assertIndices(
+  targets: Target[],
+  startIndex: number,
+  endIndex: number,
+): void {
+  if (startIndex < 0 || endIndex >= targets.length) {
+    throw new OutOfRangeError();
+  }
+}
+
 /**
  * Construct a single range target between two targets in a list of targets,
  * inclusive
@@ -25,9 +35,7 @@ export function createRangeTargetFromIndices(
   startIndex: number,
   endIndex: number,
 ): Target {
-  if (startIndex < 0 || endIndex >= targets.length) {
-    throw new OutOfRangeError();
-  }
+  assertIndices(targets, startIndex, endIndex);
 
   if (startIndex === endIndex) {
     return targets[startIndex];
@@ -40,6 +48,17 @@ export function createRangeTargetFromIndices(
     true,
     true,
   );
+}
+
+/** Slice list of targets by given indices */
+export function sliceTargetsByIndices(
+  targets: Target[],
+  startIndex: number,
+  endIndex: number,
+): Target[] {
+  assertIndices(targets, startIndex, endIndex);
+
+  return targets.slice(startIndex, endIndex + 1);
 }
 
 export function getEveryScopeTargets(
