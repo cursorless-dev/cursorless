@@ -8,6 +8,7 @@ Replace `foo` with your new package name in the instructions below.
 4. `code package.json` and update the `description` field
 5. `pnpm install`
 6. `pnpm -w fix:meta`
+7. If your package is not a library (ie it's an entrypoint), add a `"private": true,` line to your `package.json`, then run another `pnpm -w fix:meta` for good measure.
 
 For any packages that you need to depend on, you can run
 
