@@ -49,7 +49,6 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
 def cursorless_first_last(m) -> dict[str, Any]:
     """First/last `n` scopes; eg "first three funks"""
     spread = hasattr(m, "cursorless_spread_scope_modifier")
-    print(m)
     if hasattr(m, "cursorless_first_modifier"):
         return create_ordinal_scope_modifier(
             m.cursorless_scope_type_plural,
