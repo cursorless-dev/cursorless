@@ -76,10 +76,12 @@ def create_ordinal_scope_modifier(
     length: int = 1,
     spread: bool = False,
 ):
-    return {
+    res = {
         "type": "ordinalScope",
         "scopeType": scope_type,
         "start": start,
         "length": length,
-        "spread": spread,
     }
+    if spread:
+        res["spread"] = True
+    return res

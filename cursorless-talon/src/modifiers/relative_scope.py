@@ -87,13 +87,19 @@ def cursorless_relative_scope(m) -> dict[str, Any]:
 
 
 def create_relative_scope_modifier(
-    scope_type: dict, offset: int, length: int, direction: str, spread: bool
+    scope_type: dict,
+    offset: int,
+    length: int,
+    direction: str,
+    spread: bool,
 ) -> dict[str, Any]:
-    return {
+    res = {
         "type": "relativeScope",
         "scopeType": scope_type,
         "offset": offset,
         "length": length,
         "direction": direction,
-        "spread": spread,
     }
+    if spread:
+        res["spread"] = True
+    return res
