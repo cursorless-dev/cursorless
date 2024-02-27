@@ -25,6 +25,7 @@
     }
   },
   "dependencies": {
-    "@cursorless/common": "workspace:*"
+    "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*"
   }
 }
