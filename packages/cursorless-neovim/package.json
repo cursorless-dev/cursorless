@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "cursorless in neovim",
   "main": "./out/index.cjs",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.cjs --format=cjs",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.cjs --platform=node",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
@@ -16,7 +17,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "type": "module",
   "types": "./out/index.d.ts",
   "exports": {
     ".": {
