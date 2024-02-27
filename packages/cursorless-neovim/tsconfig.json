@@ -7,6 +7,9 @@
   "references": [
     {
       "path": "../common"
+    },
+    {
+      "path": "../cursorless-engine"
     }
   ],
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
