@@ -27,6 +27,9 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
-    "lodash": "4.17.21"
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "4.14.181"
   }
 }

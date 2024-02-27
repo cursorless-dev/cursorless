@@ -308,6 +308,10 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
+    devDependencies:
+      '@types/lodash':
+        specifier: 4.14.181
+        version: 4.14.181
 
   packages/cursorless-org:
     dependencies:
