@@ -205,13 +205,6 @@ And here is a table of the spoken forms:
 | `"previous [number] [scope]s"` | previous `[number]` instances of `[scope]`                          | `"take previous three funks"` |
 | `"previous [scope]"`           | Previous instance of `[scope]`                                      | `"take previous funk"`        |
 
-##### `spread`
-
-The modifier `spread` can be used to get multiple selections from the above numbered scopes instead of one contiguous range.
-
-- `"take spread two tokens"` selects two tokens as separate selections
-- `"take spread first two tokens"` selects two tokens as separate selections
-
 ##### `"every"`
 
 The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
@@ -221,6 +214,11 @@ The modifier `"every"` can be used to select a syntactic element and all of its 
 - `"take every key"` (if cursor is currently within a key)
 
 For example, the command `"take every key [blue] air"` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+
+The modifier `every` can also be used to get multiple selections from the ordinal and relative numbered scopes instead of one contiguous range.
+
+- `"take every two tokens"` selects two tokens as separate selections
+- `"take every first two tokens"` selects two tokens as separate selections
 
 ##### `"grand"`
 

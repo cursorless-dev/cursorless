@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: change spread two tokens backward
+  spokenForm: change every two tokens backward
   action:
     name: clearAndSetSelection
     target:
@@ -12,7 +12,7 @@ command:
           offset: 0
           length: 2
           direction: backward
-          spread: true
+          isEvery: true
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo bar baz

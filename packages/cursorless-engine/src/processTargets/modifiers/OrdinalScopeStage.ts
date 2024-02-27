@@ -25,7 +25,7 @@ export class OrdinalScopeStage implements ModifierStage {
       this.modifier.start + (this.modifier.start < 0 ? targets.length : 0);
     const endIndex = startIndex + this.modifier.length - 1;
 
-    if (this.modifier.spread) {
+    if (this.modifier.isEvery) {
       return sliceTargetsByIndices(targets, startIndex, endIndex);
     }
 

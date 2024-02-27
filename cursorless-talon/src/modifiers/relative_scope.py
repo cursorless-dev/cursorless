@@ -8,7 +8,6 @@ mod.list("cursorless_previous_next_modifier", desc="Cursorless previous/next mod
 mod.list(
     "cursorless_forward_backward_modifier", desc="Cursorless forward/backward modifiers"
 )
-mod.list("cursorless_spread_scope_modifier", desc="Cursorless spread modifiers")
 
 
 @mod.capture(rule="{user.cursorless_previous_next_modifier}")
@@ -32,7 +31,7 @@ def cursorless_relative_scope_singular(m) -> dict[str, Any]:
 
 
 @mod.capture(
-    rule="[{user.cursorless_spread_scope_modifier}] <user.cursorless_relative_direction> <user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
+    rule="[{user.cursorless_every_scope_modifier}] <user.cursorless_relative_direction> <user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
 )
 def cursorless_relative_scope_plural(m) -> dict[str, Any]:
     """Relative previous/next plural scope. `next three funks`"""
@@ -41,12 +40,12 @@ def cursorless_relative_scope_plural(m) -> dict[str, Any]:
         1,
         m.private_cursorless_number_small,
         m.cursorless_relative_direction,
-        hasattr(m, "cursorless_spread_scope_modifier"),
+        hasattr(m, "cursorless_every_scope_modifier"),
     )
 
 
 @mod.capture(
-    rule="[{user.cursorless_spread_scope_modifier}] <user.private_cursorless_number_small> <user.cursorless_scope_type_plural> [{user.cursorless_forward_backward_modifier}]"
+    rule="[{user.cursorless_every_scope_modifier}] <user.private_cursorless_number_small> <user.cursorless_scope_type_plural> [{user.cursorless_forward_backward_modifier}]"
 )
 def cursorless_relative_scope_count(m) -> dict[str, Any]:
     """Relative count scope. `three funks`"""
@@ -55,7 +54,7 @@ def cursorless_relative_scope_count(m) -> dict[str, Any]:
         0,
         m.private_cursorless_number_small,
         getattr(m, "cursorless_forward_backward_modifier", "forward"),
-        hasattr(m, "cursorless_spread_scope_modifier"),
+        hasattr(m, "cursorless_every_scope_modifier"),
     )
 
 
@@ -91,7 +90,7 @@ def create_relative_scope_modifier(
     offset: int,
     length: int,
     direction: str,
-    spread: bool,
+    is_every: bool,
 ) -> dict[str, Any]:
     res = {
         "type": "relativeScope",
@@ -100,6 +99,6 @@ def create_relative_scope_modifier(
         "length": length,
         "direction": direction,
     }
-    if spread:
-        res["spread"] = True
+    if is_every:
+        res["isEvery"] = True
     return res

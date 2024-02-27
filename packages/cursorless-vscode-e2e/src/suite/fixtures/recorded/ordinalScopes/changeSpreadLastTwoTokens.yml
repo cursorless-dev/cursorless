@@ -1,7 +1,7 @@
 languageId: plaintext
 command:
   version: 6
-  spokenForm: change spread last two tokens
+  spokenForm: change every last two tokens
   action:
     name: clearAndSetSelection
     target:
@@ -11,7 +11,7 @@ command:
           scopeType: {type: token}
           start: -2
           length: 2
-          spread: true
+          isEvery: true
   usePrePhraseSnapshot: true
 initialState:
   documentContents: foo bar baz

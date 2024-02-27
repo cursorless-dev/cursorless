@@ -41,7 +41,7 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
     const scopes = this.getsScopes(scopeHandler, target);
     const { isReversed } = target;
 
-    if (this.modifier.spread) {
+    if (this.modifier.isEvery) {
       return constructTargetsFromScopes(isReversed, scopes);
     }
 

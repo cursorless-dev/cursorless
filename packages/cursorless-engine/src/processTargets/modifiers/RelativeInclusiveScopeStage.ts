@@ -77,7 +77,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
       throw new OutOfRangeError();
     }
 
-    if (this.modifier.spread) {
+    if (this.modifier.isEvery) {
       return constructTargetsFromScopes(isReversed, scopes);
     }
 

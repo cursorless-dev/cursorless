@@ -83,33 +83,33 @@ export class PrimitiveTargetSpokenFormGenerator {
 
       case "ordinalScope": {
         const scope = this.handleScopeType(modifier.scopeType);
-        const spread = modifier.spread
-          ? this.spokenFormMap.modifierExtra.spread
+        const isEvery = modifier.isEvery
+          ? this.spokenFormMap.simpleModifier.everyScope
           : [];
 
         if (modifier.length === 1) {
           if (modifier.start === -1) {
-            return [spread, this.spokenFormMap.modifierExtra.last, scope];
+            return [isEvery, this.spokenFormMap.modifierExtra.last, scope];
           }
           if (modifier.start === 0) {
-            return [spread, this.spokenFormMap.modifierExtra.first, scope];
+            return [isEvery, this.spokenFormMap.modifierExtra.first, scope];
           }
           if (modifier.start < 0) {
             return [
-              spread,
+              isEvery,
               ordinalToSpokenForm(Math.abs(modifier.start)),
               this.spokenFormMap.modifierExtra.last,
               scope,
             ];
           }
-          return [spread, ordinalToSpokenForm(modifier.start + 1), scope];
+          return [isEvery, ordinalToSpokenForm(modifier.start + 1), scope];
         }
 
         const number = numberToSpokenForm(modifier.length);
 
         if (modifier.start === 0) {
           return [
-            spread,
+            isEvery,
             this.spokenFormMap.modifierExtra.first,
             number,
             pluralize(scope),
@@ -117,7 +117,7 @@ export class PrimitiveTargetSpokenFormGenerator {
         }
         if (modifier.start === -modifier.length) {
           return [
-            spread,
+            isEvery,
             this.spokenFormMap.modifierExtra.last,
             number,
             pluralize(scope),
@@ -163,8 +163,8 @@ export class PrimitiveTargetSpokenFormGenerator {
     modifier: RelativeScopeModifier,
   ): SpokenFormComponent {
     const scope = this.handleScopeType(modifier.scopeType);
-    const spread = modifier.spread
-      ? this.spokenFormMap.modifierExtra.spread
+    const isEvery = modifier.isEvery
+      ? this.spokenFormMap.simpleModifier.everyScope
       : [];
 
     if (modifier.length === 1) {
@@ -174,7 +174,7 @@ export class PrimitiveTargetSpokenFormGenerator {
           : connectives.backward;
 
       // token forward/backward
-      return [spread, scope, direction];
+      return [isEvery, scope, direction];
     }
 
     const length = numberToSpokenForm(modifier.length);
@@ -183,11 +183,11 @@ export class PrimitiveTargetSpokenFormGenerator {
     // two tokens
     // This could also have been "two tokens forward"; there is no way to disambiguate.
     if (modifier.direction === "forward") {
-      return [spread, length, scopePlural];
+      return [isEvery, length, scopePlural];
     }
 
     // two tokens backward
-    return [spread, length, scopePlural, connectives.backward];
+    return [isEvery, length, scopePlural, connectives.backward];
   }
 
   private handleRelativeScopeExclusive(
@@ -198,8 +198,8 @@ export class PrimitiveTargetSpokenFormGenerator {
       modifier.direction === "forward"
         ? connectives.next
         : connectives.previous;
-    const spread = modifier.spread
-      ? this.spokenFormMap.modifierExtra.spread
+    const isEvery = modifier.isEvery
+      ? this.spokenFormMap.simpleModifier.everyScope
       : [];
 
     if (modifier.offset === 1) {
@@ -207,19 +207,19 @@ export class PrimitiveTargetSpokenFormGenerator {
 
       if (modifier.length === 1) {
         // next/previous token
-        return [spread, direction, scope];
+        return [isEvery, direction, scope];
       }
 
       const scopePlural = pluralize(scope);
 
       // next/previous two tokens
-      return [spread, direction, number, scopePlural];
+      return [isEvery, direction, number, scopePlural];
     }
 
     if (modifier.length === 1) {
       const ordinal = ordinalToSpokenForm(modifier.offset);
       // second next/previous token
-      return [spread, ordinal, direction, scope];
+      return [isEvery, ordinal, direction, scope];
     }
 
     throw new NoSpokenFormError(
