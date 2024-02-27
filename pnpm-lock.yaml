@@ -305,6 +305,9 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
 
   packages/cursorless-org:
     dependencies:

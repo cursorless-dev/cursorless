@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-engine": "workspace:*"
+    "@cursorless/cursorless-engine": "workspace:*",
+    "lodash": "4.17.21"
   }
 }
