@@ -205,6 +205,13 @@ And here is a table of the spoken forms:
 | `"previous [number] [scope]s"` | previous `[number]` instances of `[scope]`                          | `"take previous three funks"` |
 | `"previous [scope]"`           | Previous instance of `[scope]`                                      | `"take previous funk"`        |
 
+##### `spread`
+
+The modifier `spread` can be used to get multiple selections from the above numbered scopes instead of one contiguous range.
+
+- `"take spread two tokens"` selects two tokens as separate selections
+- `"take spread first two tokens"` selects two tokens as separate selections
+
 ##### `"every"`
 
 The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
