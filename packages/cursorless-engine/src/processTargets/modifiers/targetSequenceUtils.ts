@@ -10,16 +10,6 @@ export class OutOfRangeError extends Error {
   }
 }
 
-function assertIndices(
-  targets: Target[],
-  startIndex: number,
-  endIndex: number,
-): void {
-  if (startIndex < 0 || endIndex >= targets.length) {
-    throw new OutOfRangeError();
-  }
-}
-
 /**
  * Construct a single range target between two targets in a list of targets,
  * inclusive
@@ -71,4 +61,14 @@ export function getEveryScopeTargets(
     scopeType,
   });
   return containingStage.run(target);
+}
+
+function assertIndices(
+  targets: Target[],
+  startIndex: number,
+  endIndex: number,
+): void {
+  if (startIndex < 0 || endIndex >= targets.length) {
+    throw new OutOfRangeError();
+  }
 }
