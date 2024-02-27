@@ -1,5 +1,6 @@
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { TreeSitter } from "@cursorless/cursorless-engine";
+import NeovimIDE from "./ide/NeovimIDE";
 
 export function initializeCursorlessEngine() {
   debugger;
@@ -8,7 +9,7 @@ export function initializeCursorlessEngine() {
   const hats = {} as any;
   const commandServerApi = {} as any;
   const fileSystem = {} as any;
-  const normalizedIde = {} as any;
+  const normalizedIde = new NeovimIDE();
 
   const {
     commandApi,
