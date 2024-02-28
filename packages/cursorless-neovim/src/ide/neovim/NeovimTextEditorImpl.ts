@@ -5,7 +5,6 @@ import {
   Range,
   RevealLineAt,
   Selection,
-  sleep,
   TextDocument,
   TextEditor,
   TextEditorEdit,

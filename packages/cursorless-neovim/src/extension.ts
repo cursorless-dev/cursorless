@@ -1,19 +1,13 @@
 import {
-  Disposable,
   FakeIDE,
   getFakeCommandServerApi,
-  IDE,
   isTesting,
   NormalizedIDE,
   Range,
-  ScopeProvider,
-  ScopeType,
   TextDocument,
 } from "@cursorless/common";
 import {
-  CommandHistory,
   createCursorlessEngine,
-  TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 // import {
