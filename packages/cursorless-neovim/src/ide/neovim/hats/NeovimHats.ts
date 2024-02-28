@@ -2,11 +2,8 @@ import {
   HatRange,
   Hats,
   HatStyleMap,
-  HatStyleName,
   Listener,
   Notifier,
-  Range,
-  TextEditor,
 } from "@cursorless/common";
 // import { toVscodeRange, VscodeApi } from "@cursorless/vscode-common";
 // import * as vscode from "vscode";

@@ -2,7 +2,6 @@ import {
   EndOfLine,
   Position,
   Range,
-  Selection,
   TextDocument,
   TextLine,
 } from "@cursorless/common";
