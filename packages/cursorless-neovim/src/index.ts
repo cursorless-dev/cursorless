@@ -5,7 +5,7 @@
 
 import { cursorlessCommandIds } from "@cursorless/common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
-import { initializeCursorlessEngine } from "./lib/initCursorless";
+import { activate } from "./extension";
 
 export default function entry(plugin: any) {
   // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
@@ -34,7 +34,7 @@ export default function entry(plugin: any) {
       console.warn("A");
       console.warn(currentDateStr);
       plugin.nvim.setLine(currentDateStr);
-      initializeCursorlessEngine();
+      activate();
     },
     { sync: false },
   );

@@ -18,13 +18,13 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { NeovimCapabilities } from "./NeovimCapabilities";
-import NeovimClipboard from "./NeovimClipboard";
-import NeovimConfiguration from "./NeovimConfiguration";
-import NeovimGlobalState from "./NeovimGlobalState";
-import NeovimMessages from "./NeovimMessages";
+import { NeovimCapabilities } from "../NeovimCapabilities";
+import NeovimClipboard from "../NeovimClipboard";
+import NeovimConfiguration from "../NeovimConfiguration";
+import NeovimGlobalState from "../NeovimGlobalState";
+import NeovimMessages from "../NeovimMessages";
 
-export default class NeovimIDE implements IDE {
+export class NeovimIDE implements IDE {
   configuration: NeovimConfiguration = new NeovimConfiguration();
   messages: NeovimMessages = new NeovimMessages();
   globalState: NeovimGlobalState = new NeovimGlobalState();
@@ -80,7 +80,7 @@ export default class NeovimIDE implements IDE {
   }
 
   get visibleTextEditors(): TextEditor[] {
-    throw Error("environment Not implemented");
+    throw Error("visibleTextEditors Not implemented");
   }
 
   public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
@@ -127,7 +127,9 @@ export default class NeovimIDE implements IDE {
   public onDidChangeTextDocument(
     _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    throw Error("onDidChangeTextDocument Not implemented");
+    console.warn("onDidChangeTextDocument Not implemented");
+    // throw Error("onDidChangeTextDocument Not implemented");
+    return dummyEvent();
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

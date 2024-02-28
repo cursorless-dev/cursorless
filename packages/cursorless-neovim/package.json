@@ -30,6 +30,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.181"
+    "@types/lodash": "4.14.181",
+    "@types/vscode": "1.66.0"
   }
 }
