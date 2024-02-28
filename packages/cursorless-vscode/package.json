@@ -88,6 +88,13 @@
           "id": "cursorless.scopes",
           "name": "Scopes"
         }
+      ],
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "cursorless.tutorial",
+          "name": "Calico Colors"
+        }
       ]
     },
     "commands": [

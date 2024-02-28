@@ -48,8 +48,9 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
-import { vscodeApi } from "./vscodeApi";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
+import { vscodeApi } from "./vscodeApi";
+import { VscodeTutorial } from "./VscodeTutorial";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -129,6 +130,8 @@ export async function activate(
   );
 
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
+
+  new VscodeTutorial(context, vscodeApi, tutorial);
 
   registerCommands(
     context,
