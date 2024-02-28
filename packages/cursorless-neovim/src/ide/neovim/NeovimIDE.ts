@@ -18,11 +18,11 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "@cursorless/common";
-import { NeovimCapabilities } from "../NeovimCapabilities";
-import NeovimClipboard from "../NeovimClipboard";
-import NeovimConfiguration from "../NeovimConfiguration";
-import NeovimGlobalState from "../NeovimGlobalState";
-import NeovimMessages from "../NeovimMessages";
+import { NeovimCapabilities } from "./NeovimCapabilities";
+import NeovimClipboard from "./NeovimClipboard";
+import NeovimConfiguration from "./NeovimConfiguration";
+import NeovimGlobalState from "./NeovimGlobalState";
+import NeovimMessages from "./NeovimMessages";
 
 export class NeovimIDE implements IDE {
   configuration: NeovimConfiguration = new NeovimConfiguration();
