@@ -50,11 +50,13 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 // import { vscodeApi } from "./vscodeApi";
 // import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
+import { NvimPlugin } from "neovim";
 
 // TODO: move to extension.ts? and pass a neovimPlugin object?
-export async function activate() {
+export async function activate(plugin: NvimPlugin) {
   debugger;
 
+  const client = plugin.nvim; // NeovimClient
   // const parseTreeApi = await getParseTreeApi();
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde();
