@@ -308,6 +308,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      vscode-uri:
+        specifier: 3.0.6
+        version: 3.0.6
     devDependencies:
       '@types/lodash':
         specifier: 4.14.181
@@ -16180,6 +16183,10 @@ packages:
       cloneable-readable: 1.1.3
       remove-trailing-separator: 1.1.0
       replace-ext: 1.0.1
+
+  /vscode-uri@3.0.6:
+    resolution: {integrity: sha512-fmL7V1eiDBFRRnu+gfRWTzyPpNIHJTc4mWnFkwBUmO9U3KPgJAmTx7oxi2bl/Rh6HLdU7+4C9wlj0k2E4AdKFQ==}
+    dev: false
 
   /vscode-uri@3.0.7:
     resolution: {integrity: sha512-eOpPHogvorZRobNqJGhapa0JdwaxpjVvyBp0QIUMRMSf8ZAlqOdEquKuRmw9Qwu0qXtJIWqFtMkmvJjUZmMjVA==}

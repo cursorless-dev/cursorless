@@ -23,13 +23,14 @@ import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
+import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 
 export class NeovimIDE implements IDE {
-  configuration: NeovimConfiguration = new NeovimConfiguration();
-  messages: NeovimMessages = new NeovimMessages();
-  globalState: NeovimGlobalState = new NeovimGlobalState();
-  clipboard: NeovimClipboard = new NeovimClipboard();
-  capabilities: NeovimCapabilities = new NeovimCapabilities();
+  readonly configuration: NeovimConfiguration;
+  readonly globalState: NeovimGlobalState;
+  readonly messages: NeovimMessages;
+  readonly clipboard: NeovimClipboard;
+  readonly capabilities: NeovimCapabilities;
 
   runMode: RunMode = "test";
   cursorlessVersion: string = "0.0.0";
@@ -37,6 +38,14 @@ export class NeovimIDE implements IDE {
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
+
+  constructor() {
+    this.configuration = new NeovimConfiguration();
+    this.globalState = new NeovimGlobalState();
+    this.messages = new NeovimMessages();
+    this.clipboard = new NeovimClipboard();
+    this.capabilities = new NeovimCapabilities();
+  }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
     // empty
@@ -79,7 +88,7 @@ export class NeovimIDE implements IDE {
     throw Error("activeEditableTextEditor Not implemented");
   }
 
-  get visibleTextEditors(): TextEditor[] {
+  get visibleTextEditors(): NeovimTextEditorImpl[] {
     throw Error("visibleTextEditors Not implemented");
   }
 
@@ -127,9 +136,9 @@ export class NeovimIDE implements IDE {
   public onDidChangeTextDocument(
     _listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    console.warn("onDidChangeTextDocument Not implemented");
-    // throw Error("onDidChangeTextDocument Not implemented");
-    return dummyEvent();
+    // console.warn("onDidChangeTextDocument Not implemented");
+    throw Error("onDidChangeTextDocument Not implemented");
+    // return dummyEvent();
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
