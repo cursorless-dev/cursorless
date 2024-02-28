@@ -184,7 +184,9 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-![Relative ordinal diagram](images/relative_ordinal.png)
+<div class="dark-mode-invert">
+  ![Relative ordinal diagram](images/relative_ordinal.png)
+</div>
 
 ([Image source](https://github.com/cursorless-dev/cursorless/blob/main/docs/user/images/relative_ordinal.tex))
 
