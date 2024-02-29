@@ -53,8 +53,9 @@ export async function activate(plugin: NvimPlugin) {
   debugger;
 
   // TODO: any access to "client" crashes neovim after a short time
+  // https://github.com/neovim/neovim/issues/23781
 
-  // const client = plugin.nvim as NeovimClient; // NeovimClient
+  const client = (await plugin.nvim) as NeovimClient; // NeovimClient
   const extensionContext = new NeovimExtensionContext(plugin);
   // const parseTreeApi = await getParseTreeApi();
 
@@ -62,7 +63,7 @@ export async function activate(plugin: NvimPlugin) {
   // const message = await client.request("nvim_buf_attach", [0, true, {}]);
   // const buf = await client.buffer;
   // const ret = client.isApiReady;
-  // console.log("isApiReady ", ret);
+  // console.log("isApiReady ", ret); // true
   // const ret = await client.request("nvim_set_current_line", ["hello world"]);
   // console.log("request ", ret);
   // const type = await client.request("nvim_buf_get_option", [
@@ -73,6 +74,10 @@ export async function activate(plugin: NvimPlugin) {
   // } catch (error) {
   //   console.warn("request failed", error);
   // }
+  const ret = await client.window;
+  console.log("window ", ret);
+  const lines = (await client.buffer).lines;
+  console.log("lines ", lines);
 
   const { neovimIDE, hats, fileSystem } =
     await createNeovimIde(extensionContext);
