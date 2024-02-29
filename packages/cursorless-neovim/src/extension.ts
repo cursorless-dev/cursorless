@@ -20,6 +20,8 @@ import {
 import * as crypto from "crypto";
 import * as os from "os";
 import * as path from "path";
+import { ExtensionContext } from "./types/ExtensionContext";
+import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
 // import { constructTestHelpers } from "./constructTestHelpers";
 // import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
 // import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
@@ -51,9 +53,11 @@ export async function activate(plugin: NvimPlugin) {
   debugger;
 
   const client = plugin.nvim; // NeovimClient
+  const extensionContext = new NeovimExtensionContext(plugin);
   // const parseTreeApi = await getParseTreeApi();
 
-  const { neovimIDE, hats, fileSystem } = await createNeovimIde();
+  const { neovimIDE, hats, fileSystem } =
+    await createNeovimIde(extensionContext);
 
   const normalizedIde =
     neovimIDE.runMode === "production"
@@ -92,10 +96,10 @@ export async function activate(plugin: NvimPlugin) {
   debugger;
 }
 
-async function createNeovimIde() {
-  const neovimIDE = new NeovimIDE();
+async function createNeovimIde(context: ExtensionContext) {
+  const neovimIDE = new NeovimIDE(context);
 
-  const hats = new NeovimHats(neovimIDE);
+  const hats = new NeovimHats(neovimIDE, context);
   await hats.init();
 
   // FIXME: Inject this from test harness. Would need to arrange to delay
@@ -106,7 +110,11 @@ async function createNeovimIde() {
     ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
     : path.join(os.homedir(), ".cursorless");
 
-  const fileSystem = new NeovimFileSystem(neovimIDE.runMode, cursorlessDir);
+  const fileSystem = new NeovimFileSystem(
+    context,
+    neovimIDE.runMode,
+    cursorlessDir,
+  );
   await fileSystem.initialize();
 
   return { neovimIDE, hats, fileSystem };

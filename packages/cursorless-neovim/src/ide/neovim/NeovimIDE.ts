@@ -18,6 +18,7 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "@cursorless/common";
+import { ExtensionContext } from "../../types/ExtensionContext";
 import { NeovimCapabilities } from "./NeovimCapabilities";
 import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
@@ -39,7 +40,7 @@ export class NeovimIDE implements IDE {
   private assetsRoot_: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
 
-  constructor() {
+  constructor(private extensionContext: ExtensionContext) {
     this.configuration = new NeovimConfiguration();
     this.globalState = new NeovimGlobalState();
     this.messages = new NeovimMessages();

@@ -6,12 +6,14 @@ import {
 } from "@cursorless/common";
 import { /* isAbsolute, */ join } from "path";
 // import * as vscode from "vscode";
+import { ExtensionContext } from "../../types/ExtensionContext";
 
 export class NeovimFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;
   public readonly cursorlessCommandHistoryDirPath: string;
 
   constructor(
+    private readonly extensionContext: ExtensionContext,
     private readonly runMode: RunMode,
     private readonly cursorlessDir: string,
   ) {
