@@ -46,15 +46,33 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 // import { vscodeApi } from "./vscodeApi";
 // import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { NvimPlugin } from "neovim";
+import { NeovimClient, NvimPlugin } from "neovim";
 
 // TODO: move to extension.ts? and pass a neovimPlugin object?
 export async function activate(plugin: NvimPlugin) {
   debugger;
 
-  const client = plugin.nvim; // NeovimClient
+  // TODO: any access to "client" crashes neovim after a short time
+
+  // const client = plugin.nvim as NeovimClient; // NeovimClient
   const extensionContext = new NeovimExtensionContext(plugin);
   // const parseTreeApi = await getParseTreeApi();
+
+  // try {
+  // const message = await client.request("nvim_buf_attach", [0, true, {}]);
+  // const buf = await client.buffer;
+  // const ret = client.isApiReady;
+  // console.log("isApiReady ", ret);
+  // const ret = await client.request("nvim_set_current_line", ["hello world"]);
+  // console.log("request ", ret);
+  // const type = await client.request("nvim_buf_get_option", [
+  //   buf.id,
+  //   "filetype",
+  // ]);
+  //   console.log("request success", type); // "python" if test.py is open
+  // } catch (error) {
+  //   console.warn("request failed", error);
+  // }
 
   const { neovimIDE, hats, fileSystem } =
     await createNeovimIde(extensionContext);
