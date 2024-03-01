@@ -1,6 +1,6 @@
 # Visual Accessibility
 
-Cursorless has multiple settings that can be customized to improve accessibility for users with color blindness or other vision impairments. You can read or configure a list of all [IDE-side settings](./customization.md/#ide-side-settings) related to visual display by saying `cursorless settings` while your IDE is focused.
+Cursorless has multiple settings that can be customized to improve accessibility for users with color blindness or other vision impairments. All IDE settings, including those relevant to visual accessibility, can be found by saying `cursorless settings` while your IDE is focused.
 
 If you are a user with color blindness, it may be helpful to disable a subset or all colors and enable more shapes instead. If you are a user that prefers larger hats, you can also increase their baseline size and vertical offset, beyond what will be automatically scale based on your IDE zoom percentage.
 
