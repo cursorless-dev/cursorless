@@ -30,7 +30,7 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
         exclude_types: [svg]
-        exclude: patches/.*\.patch
+        exclude: ^patches/.*\.patch$|\.scope$
       - id: fix-byte-order-marker
       - id: forbid-submodules
       - id: mixed-line-ending
@@ -81,6 +81,6 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 23.12.1
+    rev: 24.1.1
     hooks:
       - id: black

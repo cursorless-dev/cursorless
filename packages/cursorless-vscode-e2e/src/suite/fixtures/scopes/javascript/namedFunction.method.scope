@@ -7,39 +7,23 @@ class MyClass {
 
 [Content] =
 [Domain] = 1:2-3:3
-0| class MyClass {
-
 1|   myFunk() {
     >----------
 2|
 
 3|   }
    ---<
-4| }
-
 
 [Removal] = 1:0-3:3
-0| class MyClass {
-
 1|   myFunk() {
   >------------
 2|
 
 3|   }
    ---<
-4| }
-
 
 [Leading delimiter] = 1:0-1:2
-0| class MyClass {
-
 1|   myFunk() {
   >--<
-2|
-
-3|   }
-
-4| }
-
 
 [Insertion delimiter] = "\n\n"

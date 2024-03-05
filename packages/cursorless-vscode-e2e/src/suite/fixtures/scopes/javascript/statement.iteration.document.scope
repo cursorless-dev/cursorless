@@ -21,10 +21,6 @@ function foo() {
 
 [#2 Range] =
 [#2 Domain] = 2:16-4:0
-0| // Start
-
-1|
-
 2| function foo() {
                   >
 3|

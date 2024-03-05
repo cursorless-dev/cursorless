@@ -29,18 +29,12 @@ Paste the following into your [VSCode `keybindings.json`](https://code.visualstu
         "key": "escape",
         "command": "cursorless.keyboard.escape",
         "when": "cursorless.keyboard.listening && editorTextFocus && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
-    },
-    {
-        "key": "backspace",
-        "command": "cursorless.keyboard.targeted.runActionOnTarget",
-        "args": "remove",
-        "when": "cursorless.keyboard.modal.mode && editorTextFocus"
     }
 ```
 
 Any keybindings that use modifier keys should go in `keybindings.json` as well, with a `"when": "cursorless.keyboard.modal.mode` clause.
 
-The above allows you to press `ctrl-c` to switch to Cursorless mode, `escape` to exit Cursorless mode, and `backspace` to issue the delete action while in Cursorless mode.
+The above allows you to press `ctrl-c` to switch to Cursorless mode and `escape` to exit Cursorless mode.
 
 If you're already in Cursorless mode, pressing `ctrl-c` again will target the current selection, which is useful if you have moved the cursor using your mouse while in Cursorless mode, and want to target your new cursor position.
 
@@ -86,7 +80,8 @@ To bind keys that do not have modifiers (eg just pressing `a`), add entries like
     "ac": "copyToClipboard",
     "ax": "cutToClipboard",
     "ap": "pasteFromClipboard",
-    "ad": "followLink"
+    "ad": "followLink",
+    "aw": "remove",
   },
   "cursorless.experimental.keyboard.modal.keybindings.color": {
     "d": "default",

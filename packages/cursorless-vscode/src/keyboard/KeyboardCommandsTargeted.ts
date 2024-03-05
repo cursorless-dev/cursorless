@@ -261,6 +261,18 @@ export default class KeyboardCommandsTargeted {
       // For some Cursorless actions, it is more convenient if we automatically
       // exit modal mode
       await this.modal.modeOff();
+    } else {
+      // If we're not exiting cursorless mode, preserve the keyboard mark
+      // FIXME: Better to just not clobber the keyboard mark on each action?
+      await executeCursorlessCommand({
+        name: "private.setKeyboardTarget",
+        target: {
+          type: "primitive",
+          mark: {
+            type: "that",
+          },
+        },
+      });
     }
 
     return returnValue;
