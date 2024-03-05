@@ -144,6 +144,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "clearAndSetSelection":
     case "copyToClipboard":
     case "cutToClipboard":
+    case "decrement":
     case "deselect":
     case "editNewLineAfter":
     case "editNewLineBefore":
@@ -152,6 +153,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "findInWorkspace":
     case "foldRegion":
     case "followLink":
+    case "increment":
     case "indentLine":
     case "insertCopyAfter":
     case "insertCopyBefore":

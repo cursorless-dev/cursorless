@@ -4,19 +4,19 @@ switch (value) {
 ---
 
 [Content] = 1:7-1:8
-1|   case 0: { }
          >-<
+1|   case 0: { }
 
 [Removal] = 1:6-1:8
-1|   case 0: { }
         >--<
+1|   case 0: { }
 
 [Leading delimiter] = 1:6-1:7
-1|   case 0: { }
         >-<
+1|   case 0: { }
 
 [Domain] = 1:2-1:13
-1|   case 0: { }
     >-----------<
+1|   case 0: { }
 
 [Insertion delimiter] = " "

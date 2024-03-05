@@ -184,7 +184,9 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-![Relative ordinal diagram](images/relative_ordinal.png)
+<div class="dark-mode-invert">
+  ![Relative ordinal diagram](images/relative_ordinal.png)
+</div>
 
 ([Image source](https://github.com/cursorless-dev/cursorless/blob/main/docs/user/images/relative_ordinal.tex))
 
@@ -207,22 +209,22 @@ And here is a table of the spoken forms:
 
 ##### `"every"`
 
-The command `"every"` can be used to select a syntactic element and all of its matching siblings.
+The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
 
 - `"take every key air"`
 - `"take every funk air"`
 - `"take every key"` (if cursor is currently within a key)
 
-For example, the command `take every key [blue] air` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+For example, the command `"take every key [blue] air"` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
 
 ##### `"grand"`
 
-The command `"grand"` can be used to select the grand parent of the containing syntactic element.
+The modifier `"grand"` can be used to select the parent of the containing syntactic element.
 
 - `"take grand statement air"`
 - `"take grand funk air"`
 
-For example, the command `take grand statement [blue] air` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
+For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
 ##### Sub-token modifiers
 
@@ -563,10 +565,11 @@ Copies the token containing letter 'a' with a blue hat.
 
 ### Swap
 
-Swaps two targets. If the first target is omitted, it will target the current selection. If the targets are list targets they will be zipped together.
+Swaps two targets. If the first target is omitted, it will target the current selection. If `<Target 1>` and `<Target 2>` each consist of multiple targets, they will be zipped together.
 
 - `"swap <TARGET 1> with <TARGET 2>"`
 - `"swap with <TARGET>"`
+- `"swap air and bat with cap and drum"` is equivalent to `"swap air with cap"` and `"swap bat with drum"`
 
 eg:
 `swap blue air with green bat`
@@ -582,6 +585,11 @@ For example:
 
 - `"indent air"`
 - `"dedent funk bat"`
+
+### Increment / decrement
+
+- `"increment <TARGET>"`: increment number target. eg change `1` to `2`.
+- `"decrement <TARGET>"`: decrement number target. eg change `2` to `1`.
 
 ### Insert empty lines
 

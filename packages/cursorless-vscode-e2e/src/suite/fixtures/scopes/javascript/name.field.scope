@@ -4,26 +4,25 @@ class MyClass {
 ---
 
 [#1 Content] = 0:6-0:13
-0| class MyClass {
         >-------<
+0| class MyClass {
 
 [#1 Removal] = 0:6-0:14
-0| class MyClass {
         >--------<
+0| class MyClass {
 
 [#1 Leading delimiter] = 0:5-0:6
-0| class MyClass {
        >-<
+0| class MyClass {
 
 [#1 Trailing delimiter] = 0:13-0:14
-0| class MyClass {
                >-<
+0| class MyClass {
 
 [#1 Domain] = 0:0-2:1
-0| class MyClass {
   >---------------
+0| class MyClass {
 1|   value = 0;
-   ------------
 2| }
    -<
 
@@ -31,19 +30,19 @@ class MyClass {
 
 
 [#2 Content] = 1:2-1:7
-1|   value = 0;
     >-----<
+1|   value = 0;
 
 [#2 Removal] = 1:2-1:10
-1|   value = 0;
     >--------<
+1|   value = 0;
 
 [#2 Trailing delimiter] = 1:7-1:10
-1|   value = 0;
          >---<
+1|   value = 0;
 
 [#2 Domain] = 1:2-1:12
-1|   value = 0;
     >----------<
+1|   value = 0;
 
 [#2 Insertion delimiter] = " "
