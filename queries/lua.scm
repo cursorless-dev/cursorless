@@ -27,7 +27,7 @@
   (chunk)
 ] @statement.iteration @namedFunction.iteration @functionCall.iteration
 
-;; Duplicate with above, due to 3 label node limit
+;; Duplicate above due to 3 label node limit
 [
   (block)
   (chunk)
@@ -94,6 +94,22 @@
     body: (_) @branch.interior
   )
 ] @branch @_.domain
+
+;;!! while i <= 5 do
+;;!        ^^^^^^
+;;!        xxxxxx
+(while_statement
+  condition: (_) @condition
+) @_.domain
+
+;;!! repeat
+;;!! ...
+;;!! until i > 5
+;;!        ^^^^^
+;;!        xxxxx
+(repeat_statement
+  condition: (_) @condition
+) @_.domain
 
 ;; Lists and maps
 (table_constructor
@@ -264,6 +280,18 @@ local_declaration: (variable_declaration
 (return_statement
   (_) @value
 ) @_.domain
+
+;; match a ternary condition
+;;!! local max = x > y and x or y
+;;!              ^^^^^
+;;!              xxxxx
+(binary_expression
+  left: (binary_expression
+    left: (binary_expression) @condition
+    .
+    "and"
+  )
+)
 
 ;; Structures and object access
 
