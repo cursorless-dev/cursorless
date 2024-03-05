@@ -60,24 +60,24 @@ export async function activate(plugin: NvimPlugin) {
   // const parseTreeApi = await getParseTreeApi();
 
   // try {
-  // const message = await client.request("nvim_buf_attach", [0, true, {}]);
-  // const buf = await client.buffer;
-  // const ret = client.isApiReady;
-  // console.log("isApiReady ", ret); // true
+  const message = await client.request("nvim_buf_attach", [0, true, {}]);
+  const buf = await client.buffer;
+  const ret = client.isApiReady;
+  console.warn("isApiReady ", ret); // true
   // const ret = await client.request("nvim_set_current_line", ["hello world"]);
-  // console.log("request ", ret);
+  // console.warn("request ", ret);
   // const type = await client.request("nvim_buf_get_option", [
   //   buf.id,
   //   "filetype",
   // ]);
-  //   console.log("request success", type); // "python" if test.py is open
+  //   console.warn("request success", type); // "python" if test.py is open
   // } catch (error) {
   //   console.warn("request failed", error);
   // }
-  const ret = await client.window;
-  console.log("window ", ret);
+  const window = await client.window;
+  console.warn("window ", window);
   const lines = (await client.buffer).lines;
-  console.log("lines ", lines);
+  console.warn("lines ", lines);
 
   const { neovimIDE, hats, fileSystem } =
     await createNeovimIde(extensionContext);
