@@ -12,62 +12,79 @@ import {
 //   toVscodeRange,
 // } from "@cursorless/vscode-common";
 // import * as vscode from "vscode";
-import type { URI } from "vscode-uri";
+import { URI } from "vscode-uri";
 // import {
 //   fromVscodePosition,
 //   toVscodePosition,
 //   toVscodeRange,
 // } from "../../vscodeUtil";
 import NeovimTextLineImpl from "./NeovimTextLineImpl";
+import { bufferManager } from "../../singletons/bufmgr.singleton";
+import { neovimContext } from "../../singletons/context.singleton";
+import { Buffer } from "neovim";
 
 export class NeovimTextDocumentImpl implements TextDocument {
+  private buffer: Buffer;
+  private _uri: URI;
+  private _languageId: string;
+  private _version: number;
+  private _lineCount: number;
+
   get uri(): URI {
-    return this.document.uri;
+    return this._uri;
   }
 
   get languageId(): string {
-    return this.document.languageId;
+    return this._languageId;
   }
 
   get version(): number {
-    return this.document.version;
+    return this._version;
   }
 
   get lineCount(): number {
-    return this.document.lineCount;
+    return this._lineCount;
   }
 
   get range(): Range {
-    const { end } = this.document.lineAt(this.document.lineCount - 1).range;
+    const { end } = this.lineAt(this.lineCount - 1).range;
     return new Range(0, 0, end.line, end.character);
   }
 
   get eol(): EndOfLine {
-    return "LF";
-    // return fromVscodeEndOfLine(this.document.eol);
+    return "LF"; // TODO: update
   }
 
-  constructor(private document: TextDocument) {}
+  constructor(buffer: Buffer) {
+    this.buffer = buffer;
+    this._uri = URI.parse(`neovim://${buffer.id}`);
+    this._languageId = "plaintext"; // TODO: update
+    this._version = 1;
+    this._lineCount = this.buffer.length as unknown as number; // TODO: update
+  }
 
   public lineAt(lineOrPosition: number | Position): TextLine {
     return new NeovimTextLineImpl(
-      this.document.lineAt(
-        typeof lineOrPosition === "number"
-          ? lineOrPosition
-          : lineOrPosition.line,
-      ),
-    );
+      this.buffer,
+      typeof lineOrPosition === "number" ? lineOrPosition : lineOrPosition.line,
+    ); // TODO: update
   }
 
   public offsetAt(position: Position): number {
-    return this.document.offsetAt(position);
+    return 0; // TODO: update
+    // return this.document.offsetAt(position);
   }
 
   public positionAt(offset: number): Position {
-    return this.document.positionAt(offset);
+    return new Position(0, 0); // TODO: update
+    // return this.document.positionAt(offset);
   }
 
   public getText(range?: Range): string {
-    return this.document.getText(range != null ? range : undefined);
+    const lines = this.buffer.lines as unknown as string[]; // TODO: update
+    if (range != null) {
+      return lines.slice(range.start.line, range.end.line + 1).join("\n"); // TODO: update
+    }
+    return lines.join("\n"); // TODO: update
   }
 }

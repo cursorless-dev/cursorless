@@ -47,6 +47,9 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 // import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
 import { BufferManager } from "./types/BufferManager";
+import { injectBufferManager } from "./singletons/bufmgr.singleton";
+import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
+// import { EventEmitter } from "node:events";
 // import { NeovimClient, NvimPlugin } from "neovim";
 
 export async function activate(context: NeovimExtensionContext) {
@@ -55,6 +58,7 @@ export async function activate(context: NeovimExtensionContext) {
   const client = context.client;
 
   const bufferManager = new BufferManager(context);
+  injectBufferManager(bufferManager);
 
   /**
    * "attach" to Nvim buffers to subscribe to buffer update events.
@@ -64,9 +68,33 @@ export async function activate(context: NeovimExtensionContext) {
    */
   const buffers = await client.buffers;
   buffers.forEach((buf) => {
+    console.warn("creating document for buffer: ", buf.id);
+    // const uri = bufferManager.buildExternalBufferUri("changeme", buf.id);
+    const document = new NeovimTextDocumentImpl(buf);
+    bufferManager.externalTextDocuments.add(document);
     console.warn("listening for changes in buffer: ", buf.id);
     buf.listen("lines", bufferManager.receivedBufferEvent);
   });
+
+  // const myEmitter = new EventEmitter();
+
+  // // First listener
+  // myEmitter.on("event", function firstListener() {
+  //   console.warn("Helloooo! first listener");
+  // });
+  // // Second listener
+  // myEmitter.on("event", function secondListener(arg1, arg2) {
+  //   console.warn(`event with parameters ${arg1}, ${arg2} in second listener`);
+  // });
+  // // Third listener
+  // myEmitter.on("event", function thirdListener(...args) {
+  //   const parameters = args.join(", ");
+  //   console.warn(`event with parameters ${parameters} in third listener`);
+  // });
+
+  // console.warn(myEmitter.listeners("event"));
+
+  // myEmitter.emit("event", 1, 2, 3, 4, 5);
 
   // const parseTreeApi = await getParseTreeApi();
 
@@ -108,23 +136,23 @@ export async function activate(context: NeovimExtensionContext) {
 
   const treeSitter: TreeSitter = createTreeSitter(/* parseTreeApi */);
 
-  // const {
-  //   commandApi,
-  //   storedTargets,
-  //   hatTokenMap,
-  //   scopeProvider,
-  //   snippets,
-  //   injectIde,
-  //   runIntegrationTests,
-  //   addCommandRunnerDecorator,
-  //   customSpokenFormGenerator,
-  // } = createCursorlessEngine(
-  //   treeSitter,
-  //   normalizedIde,
-  //   hats,
-  //   commandServerApi,
-  //   fileSystem,
-  // );
+  const {
+    commandApi,
+    storedTargets,
+    hatTokenMap,
+    scopeProvider,
+    snippets,
+    injectIde,
+    runIntegrationTests,
+    addCommandRunnerDecorator,
+    customSpokenFormGenerator,
+  } = createCursorlessEngine(
+    treeSitter,
+    normalizedIde,
+    hats,
+    commandServerApi,
+    fileSystem,
+  );
   debugger;
 }
 

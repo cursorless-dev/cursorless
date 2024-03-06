@@ -38,7 +38,9 @@ export class Debug {
 
   log(...args: any[]) {
     if (this.active) {
-      console.log(...args);
+      // TODO: this is likely to crash neovim for now so disabling
+      // console.log(...args);
+      console.warn(...args);
     }
   }
 

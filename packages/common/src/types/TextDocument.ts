@@ -8,34 +8,34 @@ export interface TextDocument {
    * *Note* that most documents use the `file`-scheme, which means they are files on disk. However, **not** all documents are
    * saved on disk and therefore the `scheme` must be checked before trying to access the underlying file or siblings on disk.
    */
-  readonly uri: URI;
+  uri: URI;
 
   /**
    * The identifier of the language associated with this document.
    */
-  readonly languageId: string;
+  languageId: string;
 
   /**
    * The version number of this document (it will strictly increase after each
    * change, including undo/redo).
    */
-  readonly version: number;
+  version: number;
 
   /**
    * The number of lines in this document.
    */
-  readonly lineCount: number;
+  lineCount: number;
 
   /**
    * The range of the text document.
    */
-  readonly range: Range;
+  range: Range;
 
   /**
    * The {@link EndOfLine end of line} sequence that is predominately
    * used in this document.
    */
-  readonly eol: EndOfLine;
+  eol: EndOfLine;
 
   /**
    * Returns a text line denoted by the line number. Note

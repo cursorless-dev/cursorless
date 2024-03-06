@@ -8,6 +8,7 @@ import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
 import { NeovimClient, NvimPlugin } from "neovim";
 import { activate } from "./extension";
+import { injectContext } from "./singletons/context.singleton";
 
 export default function entry(plugin: any) {
   // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
@@ -41,6 +42,7 @@ export default function entry(plugin: any) {
       plugin.nvim.setLine(currentDateStr);
 
       const extensionContext = new NeovimExtensionContext(plugin);
+      injectContext(extensionContext);
       activate(extensionContext);
     },
     { sync: false },

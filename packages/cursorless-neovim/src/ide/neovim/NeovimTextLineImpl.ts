@@ -1,37 +1,47 @@
 import { Range, TextLine } from "@cursorless/common";
 // import { fromVscodeRange } from "../../vscodeUtil";
 // import * as vscode from "vscode";
+import { Buffer } from "neovim";
 
 export default class NeovimTextLineImpl implements TextLine {
-  constructor(private line: TextLine) {}
+  private buffer: Buffer;
+  private _lineNumber: number;
+
+  constructor(buffer: Buffer, lineNumber: number) {
+    this.buffer = buffer;
+    this._lineNumber = lineNumber;
+  }
 
   get lineNumber(): number {
-    return this.line.lineNumber;
+    return this._lineNumber;
   }
 
   get text(): string {
-    return this.line.text;
+    const lines = this.buffer.getLines({
+      start: this.lineNumber,
+      end: this.lineNumber + 1,
+      strictIndexing: true,
+    }) as unknown as string[]; // TODO: update
+    return lines[0];
   }
 
   get range(): Range {
-    // return fromVscodeRange(this.line.range);
-    return this.line.range;
+    return new Range(this.lineNumber, 0, this.lineNumber, this.text.length); // TODO: update
   }
 
   get rangeIncludingLineBreak(): Range {
-    // return fromVscodeRange(this.line.rangeIncludingLineBreak);
-    return this.line.rangeIncludingLineBreak;
+    return new Range(this.lineNumber, 0, this.lineNumber, this.text.length + 1); // TODO: update
   }
 
   get firstNonWhitespaceCharacterIndex(): number {
-    return this.line.firstNonWhitespaceCharacterIndex;
+    return this.text.trimStart().length;
   }
 
   get lastNonWhitespaceCharacterIndex(): number {
-    return this.line.text.trimEnd().length;
+    return this.text.trimEnd().length; //TODO: update
   }
 
   get isEmptyOrWhitespace(): boolean {
-    return this.line.isEmptyOrWhitespace;
+    return this.firstNonWhitespaceCharacterIndex === this.text.length;
   }
 }

@@ -30,6 +30,7 @@ import { NeovimIDE } from "./NeovimIDE";
 // import vscodeOpenLink from "./VscodeOpenLink";
 // import { vscodeRevealLine } from "./VscodeRevealLine";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
+import { Buffer } from "neovim";
 
 // import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
 
@@ -40,8 +41,9 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     public readonly id: string,
     private ide: NeovimIDE,
     private editor: TextEditor,
+    private buffer: Buffer,
   ) {
-    this.document = new NeovimTextDocumentImpl(editor.document);
+    this.document = new NeovimTextDocumentImpl(this.buffer);
   }
 
   get vscodeEditor(): TextEditor {

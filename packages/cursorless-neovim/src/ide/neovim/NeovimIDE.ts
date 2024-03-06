@@ -25,6 +25,8 @@ import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
+import { eventEmitter } from "../../events";
+import { neovimOnDidChangeTextDocument } from "./NeovimEvents";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -33,6 +35,8 @@ export class NeovimIDE implements IDE {
   readonly clipboard: NeovimClipboard;
   readonly capabilities: NeovimCapabilities;
 
+  // runMode: RunMode = "production";
+  // runMode: RunMode = "development";
   runMode: RunMode = "test";
   cursorlessVersion: string = "0.0.0";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
@@ -135,11 +139,11 @@ export class NeovimIDE implements IDE {
   }
 
   public onDidChangeTextDocument(
-    _listener: (event: TextDocumentChangeEvent) => void,
+    listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     // console.warn("onDidChangeTextDocument Not implemented");
-    throw Error("onDidChangeTextDocument Not implemented");
-    // return dummyEvent();
+    // throw Error("onDidChangeTextDocument Not implemented");
+    return neovimOnDidChangeTextDocument(listener);
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
