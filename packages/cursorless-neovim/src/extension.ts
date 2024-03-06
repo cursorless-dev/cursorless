@@ -46,17 +46,15 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 // import { vscodeApi } from "./vscodeApi";
 // import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { NeovimClient, NvimPlugin } from "neovim";
+// import { NeovimClient, NvimPlugin } from "neovim";
 
-// TODO: move to extension.ts? and pass a neovimPlugin object?
-export async function activate(plugin: NvimPlugin) {
+export async function activate(context: NeovimExtensionContext) {
   debugger;
 
   // TODO: any access to "client" crashes neovim after a short time
   // https://github.com/neovim/neovim/issues/23781
 
-  const client = (await plugin.nvim) as NeovimClient; // NeovimClient
-  const extensionContext = new NeovimExtensionContext(plugin);
+  const client = context.client; // NeovimClient
   // const parseTreeApi = await getParseTreeApi();
 
   // try {
@@ -79,8 +77,7 @@ export async function activate(plugin: NvimPlugin) {
   const lines = (await client.buffer).lines;
   console.warn("lines ", lines);
 
-  const { neovimIDE, hats, fileSystem } =
-    await createNeovimIde(extensionContext);
+  const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
 
   const normalizedIde =
     neovimIDE.runMode === "production"

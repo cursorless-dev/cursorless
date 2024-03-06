@@ -2,7 +2,7 @@ import { NeovimClient, NvimPlugin } from "neovim";
 import { ExtensionContext } from "../../types/ExtensionContext";
 
 export class NeovimExtensionContext extends ExtensionContext {
-  private client: NeovimClient;
+  readonly client: NeovimClient;
 
   // get extensionMode(): ExtensionMode {
   //   return this.context.extensionMode;

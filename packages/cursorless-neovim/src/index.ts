@@ -5,6 +5,8 @@
 
 import { cursorlessCommandIds } from "@cursorless/common";
 import { createCursorlessEngine } from "@cursorless/cursorless-engine";
+import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
+import { NeovimClient, NvimPlugin } from "neovim";
 import { activate } from "./extension";
 
 export default function entry(plugin: any) {
@@ -37,7 +39,9 @@ export default function entry(plugin: any) {
 
       console.warn("A(): " + currentDateStr);
       plugin.nvim.setLine(currentDateStr);
-      activate(plugin);
+
+      const extensionContext = new NeovimExtensionContext(plugin);
+      activate(extensionContext);
     },
     { sync: false },
   );
