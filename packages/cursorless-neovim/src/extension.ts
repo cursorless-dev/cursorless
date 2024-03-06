@@ -58,8 +58,17 @@ export async function activate(context: NeovimExtensionContext) {
   // const parseTreeApi = await getParseTreeApi();
 
   // try {
-  const message = await client.request("nvim_buf_attach", [0, true, {}]);
+  // const message = await client.request("nvim_buf_attach", [
+  //   0,
+  //   true,
+  //   {
+  //     on_lines: () => {
+  //       console.warn("on_lines");
+  //     },
+  //   },
+  // ]);
   const buf = await client.buffer;
+  buf.listen("lines", receivedBufferEvent);
   const ret = client.isApiReady;
   console.warn("isApiReady ", ret); // true
   // const ret = await client.request("nvim_set_current_line", ["hello world"]);
@@ -72,10 +81,10 @@ export async function activate(context: NeovimExtensionContext) {
   // } catch (error) {
   //   console.warn("request failed", error);
   // }
-  const window = await client.window;
-  console.warn("window ", window);
-  const lines = (await client.buffer).lines;
-  console.warn("lines ", lines);
+  // const window = await client.window;
+  // console.warn("window ", window);
+  // const lines = (await client.buffer).lines;
+  // console.warn("lines ", lines);
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
 
@@ -96,24 +105,39 @@ export async function activate(context: NeovimExtensionContext) {
 
   const treeSitter: TreeSitter = createTreeSitter(/* parseTreeApi */);
 
-  const {
-    commandApi,
-    storedTargets,
-    hatTokenMap,
-    scopeProvider,
-    snippets,
-    injectIde,
-    runIntegrationTests,
-    addCommandRunnerDecorator,
-    customSpokenFormGenerator,
-  } = createCursorlessEngine(
-    treeSitter,
-    normalizedIde,
-    hats,
-    commandServerApi,
-    fileSystem,
-  );
+  // const {
+  //   commandApi,
+  //   storedTargets,
+  //   hatTokenMap,
+  //   scopeProvider,
+  //   snippets,
+  //   injectIde,
+  //   runIntegrationTests,
+  //   addCommandRunnerDecorator,
+  //   customSpokenFormGenerator,
+  // } = createCursorlessEngine(
+  //   treeSitter,
+  //   normalizedIde,
+  //   hats,
+  //   commandServerApi,
+  //   fileSystem,
+  // );
   debugger;
+}
+
+function receivedBufferEvent(
+  buffer: Buffer,
+  tick: number,
+  firstLine: number,
+  lastLine: number,
+  linedata: string[],
+  more: boolean,
+): void {
+  console.warn(
+    `receivedBufferEvent(): buffer=${buffer}, tick=${tick}, firstLine=${firstLine}, lastLine-1=${
+      lastLine - 1
+    }, linedata=${linedata}, more=${more}`,
+  );
 }
 
 async function createNeovimIde(context: ExtensionContext) {
