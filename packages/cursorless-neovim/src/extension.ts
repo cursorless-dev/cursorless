@@ -46,31 +46,34 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 // import { vscodeApi } from "./vscodeApi";
 // import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
+import { BufferManager } from "./types/BufferManager";
 // import { NeovimClient, NvimPlugin } from "neovim";
 
 export async function activate(context: NeovimExtensionContext) {
   debugger;
 
-  // TODO: any access to "client" crashes neovim after a short time
-  // https://github.com/neovim/neovim/issues/23781
+  const client = context.client;
 
-  const client = context.client; // NeovimClient
+  const bufferManager = new BufferManager(context);
+
+  /**
+   * "attach" to Nvim buffers to subscribe to buffer update events.
+   * This is similar to TextChanged but more powerful and granular.
+   *
+   * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
+   */
+  const buffers = await client.buffers;
+  buffers.forEach((buf) => {
+    console.warn("listening for changes in buffer: ", buf.id);
+    buf.listen("lines", bufferManager.receivedBufferEvent);
+  });
+
   // const parseTreeApi = await getParseTreeApi();
 
   // try {
-  // const message = await client.request("nvim_buf_attach", [
-  //   0,
-  //   true,
-  //   {
-  //     on_lines: () => {
-  //       console.warn("on_lines");
-  //     },
-  //   },
-  // ]);
-  const buf = await client.buffer;
-  buf.listen("lines", receivedBufferEvent);
-  const ret = client.isApiReady;
-  console.warn("isApiReady ", ret); // true
+  // const buf = await client.buffer;
+  // const ret = client.isApiReady;
+  // console.warn("isApiReady ", ret); // true
   // const ret = await client.request("nvim_set_current_line", ["hello world"]);
   // console.warn("request ", ret);
   // const type = await client.request("nvim_buf_get_option", [
@@ -123,21 +126,6 @@ export async function activate(context: NeovimExtensionContext) {
   //   fileSystem,
   // );
   debugger;
-}
-
-function receivedBufferEvent(
-  buffer: Buffer,
-  tick: number,
-  firstLine: number,
-  lastLine: number,
-  linedata: string[],
-  more: boolean,
-): void {
-  console.warn(
-    `receivedBufferEvent(): buffer=${buffer}, tick=${tick}, firstLine=${firstLine}, lastLine-1=${
-      lastLine - 1
-    }, linedata=${linedata}, more=${more}`,
-  );
 }
 
 async function createNeovimIde(context: ExtensionContext) {
