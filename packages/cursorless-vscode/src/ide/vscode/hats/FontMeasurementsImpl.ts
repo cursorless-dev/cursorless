@@ -115,7 +115,7 @@ function getWebviewContent(
   </head>
 
   <body>
-      <h1>Computing font measurements for Cursorless...</h1>
+      <h1>Loading Cursorless...</h1>
       <div id="container">
       <span id="letter" style="line-height: 0; visibility:hidden; font-size: 1000px; font-family: var(--vscode-editor-font-family);  font-weight: var(--vscode-editor-font-weight);">A</span>
       </div>
