@@ -46,7 +46,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     this._document = undefined as unknown as TextDocument; // TODO: update
   }
 
-  public async initialize() {
+  public async initialize(): Promise<void> {
     this._document = new NeovimTextDocumentImpl(await this.editor.buffer);
   }
 

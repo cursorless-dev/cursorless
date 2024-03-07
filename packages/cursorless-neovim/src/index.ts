@@ -1,6 +1,6 @@
 // import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
-import { NeovimClient, NvimPlugin } from "neovim";
+import { NvimPlugin } from "neovim";
 import { activate } from "./extension";
 import { injectContext } from "./singletons/context.singleton";
 

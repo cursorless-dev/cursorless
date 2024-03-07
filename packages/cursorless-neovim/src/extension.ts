@@ -10,103 +10,52 @@ import {
   createCursorlessEngine,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
-// import {
-//   CursorlessApi,
-//   getCommandServerApi,
-//   getParseTreeApi,
-//   ParseTreeApi,
-//   toVscodeRange,
-// } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
 import * as os from "os";
 import * as path from "path";
 import { ExtensionContext } from "./types/ExtensionContext";
 import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
-// import { constructTestHelpers } from "./constructTestHelpers";
-// import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
-// import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
 import { NeovimHats } from "./ide/neovim/hats/NeovimHats";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-// import {
-//   createVscodeScopeVisualizer,
-//   VscodeScopeVisualizer,
-// } from "./ide/vscode/VSCodeScopeVisualizer";
-// import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-// import { registerCommands } from "./registerCommands";
-// import { ReleaseNotes } from "./ReleaseNotes";
-// import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
-// import { ScopeTreeProvider } from "./ScopeTreeProvider";
-// import {
-//   ScopeVisualizer,
-//   ScopeVisualizerListener,
-//   VisualizationType,
-// } from "./ScopeVisualizerCommandApi";
-// import { StatusBarItem } from "./StatusBarItem";
-// import { vscodeApi } from "./vscodeApi";
-// import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
 import { BufferManager } from "./types/BufferManager";
-import { injectBufferManager } from "./singletons/bufmgr.singleton";
+import {
+  bufferManager,
+  injectBufferManager,
+} from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
-// import { EventEmitter } from "node:events";
-// import { NeovimClient, NvimPlugin } from "neovim";
 
+/**
+ * Simulates the extension entrypoint to match cursorless-vscode
+ */
 export async function activate(context: NeovimExtensionContext) {
-  debugger;
+  debugger; // NOTE: helps debugging
 
   const client = context.client;
 
-  const bufferManager = new BufferManager(context);
-  injectBufferManager(bufferManager);
+  const bufmgr = new BufferManager(context);
+  injectBufferManager(bufmgr);
 
-  // const myEmitter = new EventEmitter();
-
-  // // First listener
-  // myEmitter.on("event", function firstListener() {
-  //   console.warn("Helloooo! first listener");
-  // });
-  // // Second listener
-  // myEmitter.on("event", function secondListener(arg1, arg2) {
-  //   console.warn(`event with parameters ${arg1}, ${arg2} in second listener`);
-  // });
-  // // Third listener
-  // myEmitter.on("event", function thirdListener(...args) {
-  //   const parameters = args.join(", ");
-  //   console.warn(`event with parameters ${parameters} in third listener`);
-  // });
-
-  // console.warn(myEmitter.listeners("event"));
-
-  // myEmitter.emit("event", 1, 2, 3, 4, 5);
-
+  // TODO: we should be able to get the parsetree api directly from neovim
   // const parseTreeApi = await getParseTreeApi();
-
-  // try {
-  // const buf = await client.buffer;
-  // const ret = client.isApiReady;
-  // console.warn("isApiReady ", ret); // true
-  // const ret = await client.request("nvim_set_current_line", ["hello world"]);
-  // console.warn("request ", ret);
-  // const type = await client.request("nvim_buf_get_option", [
-  //   buf.id,
-  //   "filetype",
-  // ]);
-  //   console.warn("request success", type); // "python" if test.py is open
-  // } catch (error) {
-  //   console.warn("request failed", error);
-  // }
-  // const window = await client.window;
-  // console.warn("window ", window);
-  // const lines = (await client.buffer).lines;
-  // console.warn("lines ", lines);
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
 
-  // start of test
+  // Hack for now
+  // We only initialize one editor(current window) with existing documents(open files i.e. buffers)
+  // TODO: we need to support updating editors and documents on the fly
 
-  // initialize the text editor
+  // initialize the editor
   neovimIDE.fromNeovimEditor(await client.window);
+
+  // initialize the documents
+  const buffers = await client.buffers;
+  buffers.forEach((buf) => {
+    console.warn("creating document for buffer: ", buf.id);
+    const document = new NeovimTextDocumentImpl(buf);
+    bufmgr.textDocumentToBufferId.set(document, buf.id);
+  });
 
   /**
    * "attach" to Nvim buffers to subscribe to buffer update events.
@@ -114,17 +63,10 @@ export async function activate(context: NeovimExtensionContext) {
    *
    * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
    */
-  const buffers = await client.buffers;
   buffers.forEach((buf) => {
-    console.warn("creating document for buffer: ", buf.id);
-    // const uri = bufferManager.buildExternalBufferUri("changeme", buf.id);
-    const document = new NeovimTextDocumentImpl(buf);
-    bufferManager.textDocumentToBufferId.set(document, buf.id);
     console.warn("listening for changes in buffer: ", buf.id);
-    buf.listen("lines", bufferManager.receivedBufferEvent);
+    buf.listen("lines", bufferManager().receivedBufferEvent);
   });
-
-  // end of test
 
   const normalizedIde =
     neovimIDE.runMode === "production"
@@ -190,18 +132,18 @@ async function createNeovimIde(context: ExtensionContext) {
 function createTreeSitter(/* parseTreeApi: ParseTreeApi */): TreeSitter {
   return {
     getNodeAtLocation(document: TextDocument, range: Range) {
-      return null as unknown as SyntaxNode;
+      return null as unknown as SyntaxNode; // TODO: update
     },
 
     getTree(document: TextDocument) {
-      return null as unknown as Tree;
+      return null as unknown as Tree; // TODO: update
     },
 
     loadLanguage(languageId: string) {
-      return Promise.resolve(false);
+      return Promise.resolve(false); // TODO: update
     },
     getLanguage(languageId: string): Language | undefined {
-      return undefined;
+      return undefined; // TODO: update
     },
   };
 }
