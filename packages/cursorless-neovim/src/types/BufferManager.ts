@@ -12,6 +12,7 @@ import { NeovimExtensionContext } from "../ide/neovim/NeovimExtensionContext";
 import { eventEmitter } from "../events";
 import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { fromNeovimContentChange } from "../ide/neovim/NeovimEvents";
+import { bufferManager } from "../singletons/bufmgr.singleton";
 
 const BUFFER_SCHEME = "neovim";
 
@@ -87,52 +88,6 @@ export class BufferManager /* implements Disposable */ {
     return this.winIdToEditor.get(winId);
   }
 
-  /**
-   * @see https://neovim.io/doc/user/api.html#api-buffer-updates
-   */
-  // TODO: wrap all the arguments into a neovim.TextDocumentContentChangeEvent?
-  /* async */ public receivedBufferEvent = (
-    buffer: Buffer,
-    tick: number,
-    firstLine: number,
-    lastLine: number,
-    linedata: string[],
-    more: boolean,
-  ): /* Promise< */ void /* > */ => {
-    // this.onBufferEvent?.(buffer.id, tick, firstLine, lastLine, linedata, more);
-    // // Ensure the receivedBufferEvent callback finishes before we fire
-    // // the event notifying the doc provider of any changes
-    // (async () => {
-    //     const uri = this.buildExternalBufferUri(await buffer.name, buffer.id);
-    //     logger.log(uri, LogLevel.debug, `received buffer event for ${uri}`);
-    //     this.bufferProvider.documentDidChange.fire(uri);
-    //     return uri;
-    // })().then(undefined, (e) => {
-    //     logger.log(undefined, LogLevel.error, `failed to notify document change: ${e}`);
-    // });
-    console.warn(
-      `BufferManager.receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
-    );
-
-    const document = this.getTextDocumentForBufferId(
-      buffer.id,
-    ) as NeovimTextDocumentImpl;
-    // const contents = await document.getText();
-    // console.warn(
-    //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
-    // );
-    eventEmitter.emit("onDidChangeTextDocument", {
-      document: document,
-      contentChanges: fromNeovimContentChange(
-        buffer,
-        firstLine,
-        lastLine,
-        linedata,
-      ),
-      //   reason: fromNeovimReason(...),
-    });
-  };
-
   //   public async onDidChangeTextDocument(
   //     event: TextDocumentChangeEvent,
   //   ): Promise<Disposable> {
@@ -161,6 +116,52 @@ export class BufferManager /* implements Disposable */ {
   //     authority: id.toString(),
   //   });
   // }
+}
+
+/**
+ * @see https://neovim.io/doc/user/api.html#api-buffer-updates
+ */
+// TODO: wrap all the arguments into a neovim.TextDocumentContentChangeEvent?
+export async function receivedBufferEvent(
+  buffer: Buffer,
+  tick: number,
+  firstLine: number,
+  lastLine: number,
+  linedata: string[],
+  more: boolean,
+): Promise<void> {
+  // this.onBufferEvent?.(buffer.id, tick, firstLine, lastLine, linedata, more);
+  // // Ensure the receivedBufferEvent callback finishes before we fire
+  // // the event notifying the doc provider of any changes
+  // (async () => {
+  //     const uri = this.buildExternalBufferUri(await buffer.name, buffer.id);
+  //     logger.log(uri, LogLevel.debug, `received buffer event for ${uri}`);
+  //     this.bufferProvider.documentDidChange.fire(uri);
+  //     return uri;
+  // })().then(undefined, (e) => {
+  //     logger.log(undefined, LogLevel.error, `failed to notify document change: ${e}`);
+  // });
+  console.warn(
+    `BufferManager.receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
+  );
+
+  const document = bufferManager().getTextDocumentForBufferId(
+    buffer.id,
+  ) as NeovimTextDocumentImpl;
+  // const contents = await document.getText();
+  // console.warn(
+  //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
+  // );
+  eventEmitter.emit("onDidChangeTextDocument", {
+    document: document,
+    contentChanges: fromNeovimContentChange(
+      buffer,
+      firstLine,
+      lastLine,
+      linedata,
+    ),
+    //   reason: fromNeovimReason(...),
+  });
 }
 
 function dummyEvent() {

@@ -19,7 +19,7 @@ import { NeovimHats } from "./ide/neovim/hats/NeovimHats";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { BufferManager } from "./types/BufferManager";
+import { BufferManager, receivedBufferEvent } from "./types/BufferManager";
 import {
   bufferManager,
   injectBufferManager,
@@ -67,7 +67,7 @@ export async function activate(context: NeovimExtensionContext) {
   buffers.forEach(
     /* async */ (buf) => {
       console.warn("listening for changes in buffer: ", buf.id);
-      buf.listen("lines", bufferManager().receivedBufferEvent);
+      buf.listen("lines", receivedBufferEvent);
       // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
       // await buf[ATTACH](true);
     },

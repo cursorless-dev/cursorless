@@ -80,8 +80,8 @@ export class NeovimTextDocumentImpl implements TextDocument {
     // return this.document.positionAt(offset);
   }
 
-  public getText(range?: Range): string {
-    const lines = this.buffer.lines as unknown as string[]; // TODO: update
+  public /* async */ getText(range?: Range): /* Promise< */ string /* > */ {
+    const lines = /* await */ this.buffer.lines as unknown as string[]; // TODO: update
     if (range != null) {
       return lines.slice(range.start.line, range.end.line + 1).join("\n"); // TODO: update
     }

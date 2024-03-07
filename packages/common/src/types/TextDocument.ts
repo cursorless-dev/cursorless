@@ -88,5 +88,5 @@ export interface TextDocument {
    * @param range Include only the text included by the range.
    * @return The text inside the provided range or the entire text.
    */
-  getText(range?: Range): string;
+  getText(range?: Range): /* Promise< */ string /* > */;
 }
