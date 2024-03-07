@@ -1,36 +1,29 @@
-// import {
-//   cursorlessCommandIds,
-// } from "./common";
-// import { temp } from "./lib/temp";
-
-import { cursorlessCommandIds } from "@cursorless/common";
-import { createCursorlessEngine } from "@cursorless/cursorless-engine";
+// import { createCursorlessEngine } from "@cursorless/cursorless-engine";
 import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
 import { NeovimClient, NvimPlugin } from "neovim";
 import { activate } from "./extension";
 import { injectContext } from "./singletons/context.singleton";
 
-export default function entry(plugin: any) {
+function loadNode(plugin: NvimPlugin) {
+  const currentDate: Date = new Date();
+  const currentDateStr: string = currentDate.toLocaleString();
+
+  console.warn("loadNode(): " + currentDateStr);
+  // plugin.nvim.setLine(createCursorlessEngine.toString().split("\n")[0]);
+}
+
+/**
+ * Extension entrypoint called by node-client on Cursorless startup.
+ * - Register the functions that are exposed to neovim.
+ */
+export default function entry(plugin: NvimPlugin) {
   // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
   // plugin.setOptions({ dev: false });
   plugin.setOptions({ dev: true });
 
-  plugin.registerFunction(
-    "TALON",
-    () => {
-      const currentDate: Date = new Date();
-      const currentDateStr: string = currentDate.toLocaleString();
-
-      console.warn(
-        "TALON(): " + cursorlessCommandIds[1] + " " + currentDateStr,
-      );
-      // plugin.nvim.setLine(cursorlessCommandIds[2]);
-      plugin.nvim.setLine(createCursorlessEngine.toString().split("\n")[0]);
-      // return plugin.nvim.setLine("TALON");
-      // return plugin.nvim.setLine(temp[2]);
-    },
-    { sync: false },
-  );
+  plugin.registerFunction("CursorlessLoadNode", () => loadNode(plugin), {
+    sync: false,
+  });
 
   plugin.registerFunction(
     "A",
