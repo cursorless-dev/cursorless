@@ -4,17 +4,10 @@ import { NeovimClient, NvimPlugin } from "neovim";
 import { activate } from "./extension";
 import { injectContext } from "./singletons/context.singleton";
 
-function loadNode(plugin: NvimPlugin) {
-  const currentDate: Date = new Date();
-  const currentDateStr: string = currentDate.toLocaleString();
-
-  console.warn("loadNode(): " + currentDateStr);
-  // plugin.nvim.setLine(createCursorlessEngine.toString().split("\n")[0]);
-}
-
 /**
  * Extension entrypoint called by node-client on Cursorless startup.
  * - Register the functions that are exposed to neovim.
+ *   Note that this function need to start with the capital letter to be callable from neovim.
  */
 export default function entry(plugin: NvimPlugin) {
   // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
@@ -26,68 +19,35 @@ export default function entry(plugin: NvimPlugin) {
   });
 
   plugin.registerFunction(
-    "A",
-    () => {
-      const currentDate: Date = new Date();
-      const currentDateStr: string = currentDate.toLocaleString();
-
-      console.warn("A(): " + currentDateStr);
-      plugin.nvim.setLine(currentDateStr);
-
-      const extensionContext = new NeovimExtensionContext(plugin);
-      injectContext(extensionContext);
-      activate(extensionContext);
-    },
+    "CursorlessLoadExtension",
+    () => loadExtension(plugin),
     { sync: false },
   );
+}
 
-  plugin.registerFunction(
-    "B",
-    (args: any) => {
-      const currentDate: Date = new Date();
-      const currentDateStr: string = currentDate.toLocaleString();
+/**
+ * Load node.exe inside nvim.exe.
+ * This is useful for debugging purpose so we can attach to node.
+ */
+function loadNode(plugin: NvimPlugin) {
+  const currentDate: Date = new Date();
+  const currentDateStr: string = currentDate.toLocaleString();
 
-      console.warn("B(): " + currentDateStr);
-      console.warn("B(): " + args); // B(): lines,1,18,9,9,10,0
-      // console.warn("B(): " + args[0]); // B(): lines,1,18,9,9,10,0
-      // console.warn("B(): " + args[0][0]); // "lines"
-      // console.warn("B(): " + typeof args); // object
-      // console.warn("B(): " + typeof args[0]); // object
-      // console.warn("B(): " + typeof args[0][0]); // string
+  console.warn("loadNode(): " + currentDateStr);
+  // plugin.nvim.setLine(createCursorlessEngine.toString().split("\n")[0]);
+}
 
-      // https://neovim.io/doc/user/api.html#nvim_buf_attach()
-      // https://neovim.io/doc/user/api.html#api-buffer-updates
-      // https://vi.stackexchange.com/questions/26971/most-efficient-way-to-call-a-vim-script-function-with-lua-neovim
-      const [
-        headerStr,
-        bufferHandle,
-        changedTick,
-        firstLineChanged,
-        lastLineChanged,
-        lastLineInUpdatedRange,
-        byteCountPreviousContents,
-        // ] = args[0]; // assumes vim.api.nvim_call_function("B", {...})
-      ] = args; // assumes  vim.fn.B(...)
-      console.warn(
-        `B(): headerStr=${headerStr}, bufferHandle=${bufferHandle}, changedTick=${changedTick}, firstLineChanged=${firstLineChanged}, lastLineChanged-1=${
-          lastLineChanged - 1
-        }, lastLineInUpdatedRange=${lastLineInUpdatedRange}, byteCountPreviousContents=${byteCountPreviousContents}`,
-      );
+/**
+ * Load the cursorless engine.
+ */
+function loadExtension(plugin: NvimPlugin) {
+  const currentDate: Date = new Date();
+  const currentDateStr: string = currentDate.toLocaleString();
 
-      // activate();
-    },
-    { sync: false },
-  );
+  console.warn("loadExtension(): " + currentDateStr);
+  // plugin.nvim.setLine(currentDateStr);
 
-  plugin.registerFunction(
-    "C",
-    (args: any) => {
-      const currentDate: Date = new Date();
-      const currentDateStr: string = currentDate.toLocaleString();
-
-      console.warn("C(): " + currentDateStr);
-      console.warn("C(): " + args);
-    },
-    { sync: false },
-  );
+  const extensionContext = new NeovimExtensionContext(plugin);
+  injectContext(extensionContext);
+  activate(extensionContext);
 }
