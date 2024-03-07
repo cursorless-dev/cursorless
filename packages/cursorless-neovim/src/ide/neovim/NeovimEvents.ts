@@ -35,7 +35,8 @@ export function fromNeovimContentChange(
   linedata: string[],
 ): TextDocumentContentChangeEvent[] {
   const result = [];
-  for (let i = 0; i < lastLine - firstLine; ++i) {
+  // we can't just subtract lastLine - firstLine
+  for (let i = 0; i < linedata.length; ++i) {
     const line = firstLine + i;
     const text = linedata[i];
     console.warn(`fromNeovimContentChange(): line=${line}, text=${text}`);
