@@ -25,6 +25,7 @@ import {
   injectBufferManager,
 } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
+import { ATTACH } from "neovim/lib/api/Buffer";
 
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
@@ -63,10 +64,14 @@ export async function activate(context: NeovimExtensionContext) {
    *
    * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
    */
-  buffers.forEach((buf) => {
-    console.warn("listening for changes in buffer: ", buf.id);
-    buf.listen("lines", bufferManager().receivedBufferEvent);
-  });
+  buffers.forEach(
+    /* async */ (buf) => {
+      console.warn("listening for changes in buffer: ", buf.id);
+      buf.listen("lines", bufferManager().receivedBufferEvent);
+      // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
+      // await buf[ATTACH](true);
+    },
+  );
 
   const normalizedIde =
     neovimIDE.runMode === "production"

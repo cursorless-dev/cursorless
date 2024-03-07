@@ -91,14 +91,14 @@ export class BufferManager /* implements Disposable */ {
    * @see https://neovim.io/doc/user/api.html#api-buffer-updates
    */
   // TODO: wrap all the arguments into a neovim.TextDocumentContentChangeEvent?
-  public receivedBufferEvent = (
+  /* async */ public receivedBufferEvent = (
     buffer: Buffer,
     tick: number,
     firstLine: number,
     lastLine: number,
     linedata: string[],
     more: boolean,
-  ): void => {
+  ): /* Promise< */ void /* > */ => {
     // this.onBufferEvent?.(buffer.id, tick, firstLine, lastLine, linedata, more);
     // // Ensure the receivedBufferEvent callback finishes before we fire
     // // the event notifying the doc provider of any changes
@@ -117,6 +117,10 @@ export class BufferManager /* implements Disposable */ {
     const document = this.getTextDocumentForBufferId(
       buffer.id,
     ) as NeovimTextDocumentImpl;
+    // const contents = await document.getText();
+    // console.warn(
+    //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
+    // );
     eventEmitter.emit("onDidChangeTextDocument", {
       document: document,
       contentChanges: fromNeovimContentChange(
