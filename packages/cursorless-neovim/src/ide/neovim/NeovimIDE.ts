@@ -27,7 +27,6 @@ import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
-import { eventEmitter } from "../../events";
 import { neovimOnDidChangeTextDocument } from "./NeovimEvents";
 import { Window } from "neovim";
 

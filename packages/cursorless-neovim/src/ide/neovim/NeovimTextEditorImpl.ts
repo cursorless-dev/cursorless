@@ -30,7 +30,7 @@ import { NeovimIDE } from "./NeovimIDE";
 // import vscodeOpenLink from "./VscodeOpenLink";
 // import { vscodeRevealLine } from "./VscodeRevealLine";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
-import { Buffer, Window } from "neovim";
+import { Window } from "neovim";
 
 // import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
 

@@ -19,8 +19,6 @@ import { URI } from "vscode-uri";
 //   toVscodeRange,
 // } from "../../vscodeUtil";
 import NeovimTextLineImpl from "./NeovimTextLineImpl";
-import { bufferManager } from "../../singletons/bufmgr.singleton";
-import { neovimContext } from "../../singletons/context.singleton";
 import { Buffer } from "neovim";
 
 export class NeovimTextDocumentImpl implements TextDocument {

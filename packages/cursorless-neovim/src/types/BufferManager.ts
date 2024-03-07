@@ -1,12 +1,7 @@
 //adapted from vscode-neovim\src\buffer_manager.ts
 
-import {
-  TextDocument,
-  TextDocumentChangeEvent,
-  TextEditor,
-} from "@cursorless/common";
-import { Buffer, NeovimClient } from "neovim";
-import { ATTACH } from "neovim/lib/api/Buffer";
+import { TextDocument, TextEditor } from "@cursorless/common";
+import { Buffer } from "neovim";
 import { NeovimExtensionContext } from "../ide/neovim/NeovimExtensionContext";
 // import { Disposable, Uri } from "vscode";
 import { eventEmitter } from "../events";

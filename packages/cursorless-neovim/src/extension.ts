@@ -20,12 +20,8 @@ import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
 import { BufferManager, receivedBufferEvent } from "./types/BufferManager";
-import {
-  bufferManager,
-  injectBufferManager,
-} from "./singletons/bufmgr.singleton";
+import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
-import { ATTACH } from "neovim/lib/api/Buffer";
 
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
