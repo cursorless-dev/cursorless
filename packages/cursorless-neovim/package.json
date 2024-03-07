@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.181",
+    "@types/uuid": "8.3.4",
     "@types/vscode": "1.66.0"
   }
 }

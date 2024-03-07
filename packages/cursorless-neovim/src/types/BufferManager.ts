@@ -32,12 +32,12 @@ export class BufferManager /* implements Disposable */ {
   /**
    * Text documents originated externally, as consequence of neovim command, like :help or :PlugStatus
    */
-  public externalTextDocuments: WeakSet<TextDocument> = new Set();
+  // public externalTextDocuments: WeakSet<TextDocument> = new Set();
   /**
    * TODO: change it to mapping of neovim buffer id -> Cursorless document
    * Mapping of Cursorless document -> neovim buffer id
    */
-  private textDocumentToBufferId: Map<TextDocument, number> = new Map();
+  public textDocumentToBufferId: Map<TextDocument, number> = new Map();
   /**
    * Mapping of neovim window id -> Cursorless editor
    */

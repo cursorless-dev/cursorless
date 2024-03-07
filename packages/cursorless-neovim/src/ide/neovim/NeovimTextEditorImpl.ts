@@ -30,28 +30,38 @@ import { NeovimIDE } from "./NeovimIDE";
 // import vscodeOpenLink from "./VscodeOpenLink";
 // import { vscodeRevealLine } from "./VscodeRevealLine";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
-import { Buffer } from "neovim";
+import { Buffer, Window } from "neovim";
 
 // import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
 
 export class NeovimTextEditorImpl implements EditableTextEditor {
-  readonly document: TextDocument;
+  // readonly document: TextDocument;
+  private _document: TextDocument;
 
   constructor(
     public readonly id: string,
     private ide: NeovimIDE,
-    private editor: TextEditor,
-    private buffer: Buffer,
+    private editor: Window,
   ) {
-    this.document = new NeovimTextDocumentImpl(this.buffer);
+    this._document = undefined as unknown as TextDocument; // TODO: update
   }
 
-  get vscodeEditor(): TextEditor {
+  public async initialize() {
+    this._document = new NeovimTextDocumentImpl(await this.editor.buffer);
+  }
+
+  get document(): TextDocument {
+    return this._document;
+  }
+
+  // neovim terminology for editor is window
+  get neovimEditor(): Window {
     return this.editor;
   }
 
   get selections(): Selection[] {
-    return this.editor.selections;
+    return []; // TODO: update
+    // return this.editor.selections;
   }
 
   set selections(selections: Selection[]) {
@@ -59,11 +69,13 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   get visibleRanges(): Range[] {
-    return this.editor.visibleRanges;
+    return []; // TODO: update
+    // return this.editor.visibleRanges;
   }
 
   get options(): TextEditorOptions {
-    return this.editor.options;
+    return {}; // TODO: update
+    // return this.editor.options;
   }
 
   set options(options: TextEditorOptions) {

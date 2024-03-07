@@ -318,6 +318,9 @@ importers:
       '@types/lodash':
         specifier: 4.14.181
         version: 4.14.181
+      '@types/uuid':
+        specifier: 8.3.4
+        version: 8.3.4
       '@types/vscode':
         specifier: 1.66.0
         version: 1.66.0

@@ -60,22 +60,6 @@ export async function activate(context: NeovimExtensionContext) {
   const bufferManager = new BufferManager(context);
   injectBufferManager(bufferManager);
 
-  /**
-   * "attach" to Nvim buffers to subscribe to buffer update events.
-   * This is similar to TextChanged but more powerful and granular.
-   *
-   * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
-   */
-  const buffers = await client.buffers;
-  buffers.forEach((buf) => {
-    console.warn("creating document for buffer: ", buf.id);
-    // const uri = bufferManager.buildExternalBufferUri("changeme", buf.id);
-    const document = new NeovimTextDocumentImpl(buf);
-    bufferManager.externalTextDocuments.add(document);
-    console.warn("listening for changes in buffer: ", buf.id);
-    buf.listen("lines", bufferManager.receivedBufferEvent);
-  });
-
   // const myEmitter = new EventEmitter();
 
   // // First listener
@@ -118,6 +102,29 @@ export async function activate(context: NeovimExtensionContext) {
   // console.warn("lines ", lines);
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
+
+  // start of test
+
+  // initialize the text editor
+  neovimIDE.fromNeovimEditor(await client.window);
+
+  /**
+   * "attach" to Nvim buffers to subscribe to buffer update events.
+   * This is similar to TextChanged but more powerful and granular.
+   *
+   * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
+   */
+  const buffers = await client.buffers;
+  buffers.forEach((buf) => {
+    console.warn("creating document for buffer: ", buf.id);
+    // const uri = bufferManager.buildExternalBufferUri("changeme", buf.id);
+    const document = new NeovimTextDocumentImpl(buf);
+    bufferManager.textDocumentToBufferId.set(document, buf.id);
+    console.warn("listening for changes in buffer: ", buf.id);
+    buf.listen("lines", bufferManager.receivedBufferEvent);
+  });
+
+  // end of test
 
   const normalizedIde =
     neovimIDE.runMode === "production"

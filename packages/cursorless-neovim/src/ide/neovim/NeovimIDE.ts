@@ -1,5 +1,5 @@
 // adapted from packages\common\src\ide\fake\FakeIDE.ts
-import { pull } from "lodash";
+// and packages\cursorless-vscode\src\ide\vscode\VscodeIDE.ts
 import type { EditableTextEditor, TextEditor } from "@cursorless/common";
 import { GeneralizedRange } from "@cursorless/common";
 import { TextDocument } from "@cursorless/common";
@@ -18,6 +18,8 @@ import type {
   RunMode,
   WorkspaceFolder,
 } from "@cursorless/common";
+import { pull } from "lodash";
+import { v4 as uuid } from "uuid";
 import { ExtensionContext } from "../../types/ExtensionContext";
 import { NeovimCapabilities } from "./NeovimCapabilities";
 import NeovimClipboard from "./NeovimClipboard";
@@ -27,6 +29,7 @@ import NeovimMessages from "./NeovimMessages";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 import { eventEmitter } from "../../events";
 import { neovimOnDidChangeTextDocument } from "./NeovimEvents";
+import { Window } from "neovim";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -34,6 +37,7 @@ export class NeovimIDE implements IDE {
   readonly messages: NeovimMessages;
   readonly clipboard: NeovimClipboard;
   readonly capabilities: NeovimCapabilities;
+  public editorMap; // TODO: move to private?
 
   // runMode: RunMode = "production";
   // runMode: RunMode = "development";
@@ -50,6 +54,7 @@ export class NeovimIDE implements IDE {
     this.messages = new NeovimMessages();
     this.clipboard = new NeovimClipboard();
     this.capabilities = new NeovimCapabilities();
+    this.editorMap = new Map<Window, NeovimTextEditorImpl>();
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
@@ -86,19 +91,27 @@ export class NeovimIDE implements IDE {
   }
 
   get activeTextEditor(): TextEditor | undefined {
-    throw Error("activeTextEditor Not implemented");
+    // throw Error("activeTextEditor Not implemented");
+    return this.getActiveTextEditor();
   }
 
   get activeEditableTextEditor(): EditableTextEditor | undefined {
-    throw Error("activeEditableTextEditor Not implemented");
+    // throw Error("activeEditableTextEditor Not implemented");
+    return this.getActiveTextEditor();
+  }
+
+  private getActiveTextEditor() {
+    return this.fromNeovimEditor(this.editorMap.keys().next().value); // TODO: update
   }
 
   get visibleTextEditors(): NeovimTextEditorImpl[] {
-    throw Error("visibleTextEditors Not implemented");
+    return Array.from(this.editorMap.values());
+    // throw Error("visibleTextEditors Not implemented");
   }
 
-  public getEditableTextEditor(_editor: TextEditor): EditableTextEditor {
-    throw Error("getEditableTextEditor Not implemented");
+  public getEditableTextEditor(editor: TextEditor): EditableTextEditor {
+    return editor as EditableTextEditor;
+    // throw Error("getEditableTextEditor Not implemented");
   }
 
   public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
@@ -144,6 +157,15 @@ export class NeovimIDE implements IDE {
     // console.warn("onDidChangeTextDocument Not implemented");
     // throw Error("onDidChangeTextDocument Not implemented");
     return neovimOnDidChangeTextDocument(listener);
+  }
+
+  public fromNeovimEditor(editor: Window): NeovimTextEditorImpl {
+    if (!this.editorMap.has(editor)) {
+      const impl = new NeovimTextEditorImpl(uuid(), this, editor);
+      impl.initialize();
+      this.editorMap.set(editor, impl);
+    }
+    return this.editorMap.get(editor)!;
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
