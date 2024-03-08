@@ -1,9 +1,4 @@
-import {
-  CURSORLESS_COMMAND_ID,
-  CursorlessCommandId,
-  FileSystem,
-  isTesting,
-} from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
 // import {
 //   CommandApi,

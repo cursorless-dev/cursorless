@@ -22,7 +22,6 @@ import { Language, SyntaxNode, Tree } from "web-tree-sitter";
 import { BufferManager, receivedBufferEvent } from "./types/BufferManager";
 import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
-import { ATTACH } from "neovim/lib/api/Buffer";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 
 /**
