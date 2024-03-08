@@ -26,12 +26,13 @@ import {
 } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
 import { ATTACH } from "neovim/lib/api/Buffer";
+import { injectCommandApi } from "./singletons/cmdapi.singleton";
 
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
  */
 export async function activate(context: NeovimExtensionContext) {
-  debugger; // NOTE: helps debugging
+  // debugger; // NOTE: helps debugging
 
   const client = context.client;
 
@@ -107,7 +108,9 @@ export async function activate(context: NeovimExtensionContext) {
     commandServerApi,
     fileSystem,
   );
-  debugger;
+  injectCommandApi(commandApi);
+  // debugger; // NOTE: helps debugging
+  console.warn("activate(): Cursorless extension loaded");
 }
 
 async function createNeovimIde(context: ExtensionContext) {

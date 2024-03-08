@@ -40,8 +40,8 @@ export class NeovimIDE implements IDE {
   public editorMap; // TODO: move to private?
 
   // runMode: RunMode = "production";
-  // runMode: RunMode = "development";
-  runMode: RunMode = "test";
+  runMode: RunMode = "development"; // enable debug logs
+  // runMode: RunMode = "test";
   cursorlessVersion: string = "0.0.0";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];

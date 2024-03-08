@@ -3,6 +3,7 @@ import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
 import { NvimPlugin } from "neovim";
 import { activate } from "./extension";
 import { injectContext } from "./singletons/context.singleton";
+import { handleCommandInternal } from "./registerCommands";
 
 /**
  * Extension entrypoint called by node-client on Cursorless startup.
@@ -50,4 +51,11 @@ function loadExtension(plugin: NvimPlugin) {
   const extensionContext = new NeovimExtensionContext(plugin);
   injectContext(extensionContext);
   activate(extensionContext);
+}
+
+// TODO: support return value
+// export function handleCommand<T = unknown>(command: string, ...rest: any[]): Promise<T> {
+export function handleCommand(...args: any): void {
+  console.warn(`handleCommand(): args=${args}`);
+  handleCommandInternal(...args);
 }
