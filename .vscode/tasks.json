@@ -33,6 +33,16 @@
       "group": "build"
     },
     {
+      "label": "Build tutorial webview",
+      "type": "npm",
+      "script": "compile:esbuild",
+      "path": "packages/cursorless-vscode-tutorial-webview",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
       "label": "Build test harness",
       "type": "npm",
       "script": "build",
@@ -57,6 +67,7 @@
       "type": "npm",
       "script": "populate-dist",
       "path": "packages/cursorless-vscode",
+      "dependsOn": ["Build tutorial webview"],
       "presentation": {
         "reveal": "silent"
       },
