@@ -17,18 +17,20 @@ export const App: FunctionComponent<Props> = ({ initialState, vscode }) => {
 
   useEffect(() => {
     // Handle messages sent from the extension to the webview
-    window.addEventListener("message", (event: { data: TutorialMessage }) => {
-      const message: TutorialMessage = event.data; // The json data that the extension sent
-      switch (message.type) {
-        case "startTutorial":
-          setState({
-            type: "doingTutorial",
-            tutorialId: message.tutorialId,
-            stepNumber: 0,
-          });
-          break;
-      }
-    });
+    window.addEventListener(
+      "message",
+      ({ data: message }: { data: TutorialMessage }) => {
+        switch (message.type) {
+          case "startTutorial":
+            setState({
+              type: "doingTutorial",
+              tutorialId: message.tutorialId,
+              stepNumber: 0,
+            });
+            break;
+        }
+      },
+    );
   }, []);
 
   return state.type === "pickingTutorial" ? (
