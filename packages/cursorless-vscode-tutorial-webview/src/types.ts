@@ -1,4 +1,4 @@
-import { TutorialId } from "@cursorless/common";
+import type { TutorialId } from "@cursorless/common";
 
 interface PickingTutorialState {
   type: "pickingTutorial";

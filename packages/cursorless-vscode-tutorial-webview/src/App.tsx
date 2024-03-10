@@ -1,5 +1,5 @@
-import { TutorialMessage } from "@cursorless/common";
-import React, { useEffect, useState } from "react";
+import type { TutorialMessage } from "@cursorless/common";
+import { useEffect, useState, type FunctionComponent } from "react";
 import { WebviewApi } from "vscode-webview";
 import type { State } from "./types";
 
@@ -8,10 +8,7 @@ interface Props {
   vscode: WebviewApi<State>;
 }
 
-export const App: React.FunctionComponent<Props> = ({
-  initialState,
-  vscode,
-}) => {
+export const App: FunctionComponent<Props> = ({ initialState, vscode }) => {
   const [state, setState] = useState<State>(initialState);
 
   useEffect(() => {
