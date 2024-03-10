@@ -1,3 +1,4 @@
+import { TutorialId, TutorialMessage } from "@cursorless/common";
 import { Tutorial } from "@cursorless/cursorless-engine";
 import { VscodeApi } from "@cursorless/vscode-common";
 import {
@@ -58,16 +59,14 @@ export class VscodeTutorial implements WebviewViewProvider {
     });
   }
 
-  public addColor() {
+  public startTutorial(tutorialId: TutorialId) {
     if (this._view) {
-      this._view.show?.(true); // `show` is not implemented in 1.49 but is for 1.50 insiders
-      this._view.webview.postMessage({ type: "addColor" });
-    }
-  }
-
-  public clearColors() {
-    if (this._view) {
-      this._view.webview.postMessage({ type: "clearColors" });
+      this._view.show(true);
+      const message: TutorialMessage = {
+        type: "startTutorial",
+        tutorialId,
+      };
+      this._view.webview.postMessage(message);
     }
   }
 
@@ -112,10 +111,7 @@ export class VscodeTutorial implements WebviewViewProvider {
 				<title>Cat Colors</title>
 			</head>
 			<body>
-				<ul class="color-list">
-				</ul>
-
-				<button class="add-color-button">Add Color</button>
+        <div id="root"></div>
 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>

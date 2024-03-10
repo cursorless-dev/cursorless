@@ -4,6 +4,10 @@
     "rootDir": "src",
     "outDir": "out"
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../common"
+    }
+  ],
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
 }

@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.js",
+    "compile:esbuild": "esbuild ./src/index.tsx --sourcemap --format=cjs --bundle --outfile=./out/index.js",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
@@ -19,6 +19,13 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
     "@types/vscode-webview": "1.57.5"
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
