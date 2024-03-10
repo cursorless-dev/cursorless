@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import type { State } from "./types";
 import { TutorialMessage } from "@cursorless/common";
+import React, { useEffect, useState } from "react";
+import { WebviewApi } from "vscode-webview";
+import type { State } from "./types";
 
 interface Props {
   initialState: State;
-  vscode: WebviewApi;
+  vscode: WebviewApi<State>;
 }
 
 export const App: React.FunctionComponent<Props> = ({
@@ -19,7 +20,7 @@ export const App: React.FunctionComponent<Props> = ({
 
   useEffect(() => {
     // Handle messages sent from the extension to the webview
-    window.addEventListener("message", (event) => {
+    window.addEventListener("message", (event: { data: TutorialMessage }) => {
       const message: TutorialMessage = event.data; // The json data that the extension sent
       switch (message.type) {
         case "startTutorial":

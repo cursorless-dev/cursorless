@@ -2,12 +2,19 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "out"
+    "outDir": "out",
+    "jsx": "react-jsx",
+    "lib": ["es2022", "dom"]
   },
   "references": [
     {
       "path": "../common"
     }
   ],
-  "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.json",
+    "../../typings/**/*.d.ts"
+  ]
 }
