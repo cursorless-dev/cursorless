@@ -124,7 +124,7 @@ export interface Target {
   readonly isNotebookCell: boolean;
 
   /** The text contained in the content range */
-  readonly contentText: string;
+  readonly contentText: Promise<string>;
 
   /** The content range and is reversed turned into a selection */
   readonly contentSelection: Selection;
@@ -138,7 +138,7 @@ export interface Target {
   getLeadingDelimiterTarget(): Target | undefined;
   /** The range of the delimiter after the content selection */
   getTrailingDelimiterTarget(): Target | undefined;
-  getRemovalRange(): Range;
+  getRemovalRange(): Promise<Range>;
 
   /**
    * The range that should be highlighted when the target is removed. Note that
@@ -152,7 +152,7 @@ export interface Target {
    * we want to highlight the line that they were on when they said `"chuck
    * line"`, as that is logically the line they've deleted.
    */
-  getRemovalHighlightRange(): Range;
+  getRemovalHighlightRange(): Promise<Range>;
   withThatTarget(thatTarget: Target): Target;
   withContentRange(contentRange: Range): Target;
 
@@ -183,13 +183,13 @@ export interface Target {
   ): (ThisType<this> & Target) | null;
 
   /** Constructs removal edit */
-  constructRemovalEdit(): EditWithRangeUpdater;
+  constructRemovalEdit(): Promise<EditWithRangeUpdater>;
   isEqual(target: Target): boolean;
   /**
    * Construct a destination  with the given insertion mode.
    * @param position The insertion modes to use, eg `before`, `after`, `to`
    */
-  toDestination(insertionMode: InsertionMode): Destination;
+  toDestination(insertionMode: InsertionMode): Promise<Destination>;
   /**
    * Constructs an object suitable for serialization by json. This is used to
    * capture targets for testing and recording test cases.
@@ -213,7 +213,7 @@ export interface Destination {
   readonly contentSelection: Selection;
   readonly isRaw: boolean;
   readonly insertionDelimiter: string;
-  withTarget(target: Target): Destination;
+  withTarget(target: Target): Promise<Destination>;
   getEditNewActionType(): EditNewActionType;
   /** Constructs change/insertion edit. Adds delimiter before/after if needed */
   constructChangeEdit(text: string): EditWithRangeUpdater;

@@ -33,7 +33,7 @@ export class ContainingScopeStage implements ModifierStage {
     private modifier: ContainingScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const { scopeType, ancestorIndex = 0 } = this.modifier;
 
     const scopeHandler = this.scopeHandlerFactory.create(

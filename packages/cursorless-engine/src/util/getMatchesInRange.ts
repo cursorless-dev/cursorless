@@ -3,13 +3,13 @@ import { imap } from "itertools";
 import { matchAll } from "./regex";
 import type { Direction } from "@cursorless/common";
 
-export function getMatchesInRange(
+export async function getMatchesInRange(
   regex: RegExp,
   editor: TextEditor,
   range: Range,
-): Range[] {
+): Promise<Range[]> {
   const offset = editor.document.offsetAt(range.start);
-  const text = editor.document.getText(range);
+  const text = await editor.document.getText(range);
 
   return matchAll(
     text,
@@ -22,14 +22,14 @@ export function getMatchesInRange(
   );
 }
 
-export function generateMatchesInRange(
+export async function generateMatchesInRange(
   regex: RegExp,
   editor: TextEditor,
   range: Range,
   direction: Direction,
-): Iterable<Range> {
+): Promise<Iterable<Range>> {
   const offset = editor.document.offsetAt(range.start);
-  const text = editor.document.getText(range);
+  const text = await editor.document.getText(range);
 
   const matchToRange = (match: RegExpMatchArray): Range =>
     new Range(

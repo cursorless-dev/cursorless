@@ -41,7 +41,7 @@ export class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
     );
   }
 
-  getRemovalRange(): Range {
+  async getRemovalRange(): Promise<Range> {
     return getDelimitedSequenceRemovalRange(this);
   }
 

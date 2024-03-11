@@ -116,11 +116,13 @@ export default class InsertSnippet {
 
     await this.actions.editNew.run(destinations);
 
-    const targetSelectionInfos = editor.selections.map((selection) =>
-      getSelectionInfo(
-        editor.document,
-        selection,
-        RangeExpansionBehavior.openOpen,
+    const targetSelectionInfos = await Promise.all(
+      editor.selections.map((selection) =>
+        getSelectionInfo(
+          editor.document,
+          selection,
+          RangeExpansionBehavior.openOpen,
+        ),
       ),
     );
     const { body, formatSubstitutions } = this.getSnippetInfo(

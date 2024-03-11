@@ -6,7 +6,7 @@ import { RawSelectionTarget } from "../targets";
 export class RawSelectionStage implements ModifierStage {
   constructor(private modifier: RawSelectionModifier) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     return [
       new RawSelectionTarget({
         editor: target.editor,

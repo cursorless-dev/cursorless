@@ -27,7 +27,7 @@ export class SurroundingPairStage implements ModifierStage {
     private modifier: SurroundingPairModifier,
   ) {}
 
-  run(target: Target): SurroundingPairTarget[] {
+  async run(target: Target): Promise<SurroundingPairTarget[]> {
     if (this.modifier.type === "everyScope") {
       throw Error(`Unsupported every scope ${this.modifier.scopeType.type}`);
     }

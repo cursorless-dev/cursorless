@@ -75,7 +75,7 @@ export abstract class BaseTarget<
       : this;
   }
 
-  get contentText(): string {
+  get contentText(): Promise<string> {
     return this.editor.document.getText(this.contentRange);
   }
 
@@ -87,16 +87,16 @@ export abstract class BaseTarget<
     return this.state.contentRange;
   }
 
-  constructRemovalEdit(): EditWithRangeUpdater {
+  async constructRemovalEdit(): Promise<EditWithRangeUpdater> {
     return {
-      range: this.getRemovalRange(),
+      range: await this.getRemovalRange(),
       text: "",
       updateRange: (range) => range,
     };
   }
 
-  getRemovalHighlightRange(): Range {
-    return this.getRemovalRange();
+  async getRemovalHighlightRange(): Promise<Range> {
+    return await this.getRemovalRange();
   }
 
   withThatTarget(thatTarget: Target): Target {
@@ -166,8 +166,10 @@ export abstract class BaseTarget<
     };
   }
 
-  toDestination(insertionMode: InsertionMode): Destination {
-    return new DestinationImpl(this, insertionMode);
+  async toDestination(insertionMode: InsertionMode): Promise<Destination> {
+    const impl = new DestinationImpl(this, insertionMode);
+    await impl.initialize();
+    return impl;
   }
 
   /**
@@ -192,5 +194,5 @@ export abstract class BaseTarget<
   abstract get insertionDelimiter(): string;
   abstract getLeadingDelimiterTarget(): Target | undefined;
   abstract getTrailingDelimiterTarget(): Target | undefined;
-  abstract getRemovalRange(): Range;
+  abstract getRemovalRange(): Promise<Range>;
 }

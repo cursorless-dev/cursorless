@@ -6,7 +6,7 @@ import {
 } from "@cursorless/common";
 import { Target } from "../typings/target.types";
 
-export function getTargetRanges(target: Target): TargetRanges {
+export async function getTargetRanges(target: Target): Promise<TargetRanges> {
   const interior = (() => {
     try {
       return target.getInteriorStrict().map(getTargetRanges);
@@ -31,7 +31,7 @@ export function getTargetRanges(target: Target): TargetRanges {
 
   return {
     contentRange: target.contentRange,
-    removalRange: target.getRemovalRange(),
+    removalRange: await target.getRemovalRange(),
     removalHighlightRange: target.isLine
       ? toLineRange(target.getRemovalHighlightRange())
       : toCharacterRange(target.getRemovalHighlightRange()),

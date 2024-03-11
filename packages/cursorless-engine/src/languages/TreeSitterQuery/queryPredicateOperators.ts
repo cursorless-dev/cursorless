@@ -14,7 +14,7 @@ import { q } from "./operatorArgumentSchemaTypes";
 class NotType extends QueryPredicateOperator<NotType> {
   name = "not-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  run({ node }: MutableQueryCapture, ...types: string[]) {
+  async run({ node }: MutableQueryCapture, ...types: string[]) {
     return !types.includes(node.type);
   }
 }
@@ -28,7 +28,7 @@ class NotType extends QueryPredicateOperator<NotType> {
 class NotParentType extends QueryPredicateOperator<NotParentType> {
   name = "not-parent-type?" as const;
   schema = z.tuple([q.node, q.string]).rest(q.string);
-  run({ node }: MutableQueryCapture, ...types: string[]) {
+  async run({ node }: MutableQueryCapture, ...types: string[]) {
     return node.parent == null || !types.includes(node.parent.type);
   }
 }
@@ -41,7 +41,7 @@ class NotParentType extends QueryPredicateOperator<NotParentType> {
 class IsNthChild extends QueryPredicateOperator<IsNthChild> {
   name = "is-nth-child?" as const;
   schema = z.tuple([q.node, q.integer]);
-  run({ node }: MutableQueryCapture, n: number) {
+  async run({ node }: MutableQueryCapture, n: number) {
     return node.parent?.children.findIndex((n) => n.id === node.id) === n;
   }
 }
@@ -56,7 +56,7 @@ class HasMultipleChildrenOfType extends QueryPredicateOperator<HasMultipleChildr
   name = "has-multiple-children-of-type?" as const;
   schema = z.tuple([q.node, q.string]);
 
-  run({ node }: MutableQueryCapture, type: string) {
+  async run({ node }: MutableQueryCapture, type: string) {
     const count = node.children.filter((n) => n.type === type).length;
     return count > 1;
   }
@@ -71,7 +71,7 @@ class ChildRange extends QueryPredicateOperator<ChildRange> {
     z.tuple([q.node, q.integer, q.integer, q.boolean, q.boolean]),
   ]);
 
-  run(
+  async run(
     nodeInfo: MutableQueryCapture,
     startIndex: number,
     endIndex?: number,
@@ -116,9 +116,9 @@ class ShrinkToMatch extends QueryPredicateOperator<ShrinkToMatch> {
   name = "shrink-to-match!" as const;
   schema = z.tuple([q.node, q.string]);
 
-  run(nodeInfo: MutableQueryCapture, pattern: string) {
+  async run(nodeInfo: MutableQueryCapture, pattern: string) {
     const { document, range } = nodeInfo;
-    const text = document.getText(range);
+    const text = await document.getText(range);
     const match = text.match(new RegExp(pattern, "ds"));
 
     if (match?.index == null) {
@@ -147,9 +147,9 @@ class TrimEnd extends QueryPredicateOperator<TrimEnd> {
   name = "trim-end!" as const;
   schema = z.tuple([q.node]);
 
-  run(nodeInfo: MutableQueryCapture) {
+  async run(nodeInfo: MutableQueryCapture) {
     const { document, range } = nodeInfo;
-    const text = document.getText(range);
+    const text = await document.getText(range);
     const whitespaceLength = text.length - text.trimEnd().length;
     nodeInfo.range = new Range(
       range.start,
@@ -178,7 +178,7 @@ class AllowMultiple extends QueryPredicateOperator<AllowMultiple> {
     return true;
   }
 
-  run(nodeInfo: MutableQueryCapture) {
+  async run(nodeInfo: MutableQueryCapture) {
     nodeInfo.allowMultiple = true;
 
     return true;
@@ -192,7 +192,7 @@ class Log extends QueryPredicateOperator<Log> {
   name = "log!" as const;
   schema = z.tuple([q.node]);
 
-  run(nodeInfo: MutableQueryCapture) {
+  async run(nodeInfo: MutableQueryCapture) {
     console.log(`#log!: ${nodeInfo.name}@${nodeInfo.range}`);
     return true;
   }
@@ -207,7 +207,7 @@ class InsertionDelimiter extends QueryPredicateOperator<InsertionDelimiter> {
   name = "insertion-delimiter!" as const;
   schema = z.tuple([q.node, q.string]);
 
-  run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
+  async run(nodeInfo: MutableQueryCapture, insertionDelimiter: string) {
     nodeInfo.insertionDelimiter = insertionDelimiter;
 
     return true;
@@ -231,7 +231,7 @@ class SingleOrMultilineDelimiter extends QueryPredicateOperator<SingleOrMultilin
   name = "single-or-multi-line-delimiter!" as const;
   schema = z.tuple([q.node, q.node, q.string, q.string]);
 
-  run(
+  async run(
     nodeInfo: MutableQueryCapture,
     conditionNodeInfo: MutableQueryCapture,
     insertionDelimiterConsequence: string,

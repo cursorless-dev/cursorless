@@ -2,9 +2,12 @@ import { Range, TextEditor } from "@cursorless/common";
 import { tokenize } from "../../tokenizer";
 import { Token } from "@cursorless/common";
 
-export function getTokensInRange(editor: TextEditor, range: Range): Token[] {
+export async function getTokensInRange(
+  editor: TextEditor,
+  range: Range,
+): Promise<Token[]> {
   const languageId = editor.document.languageId;
-  const text = editor.document.getText(range);
+  const text = await editor.document.getText(range);
   const rangeOffset = editor.document.offsetAt(range.start);
 
   return tokenize(text, languageId, (match) => {

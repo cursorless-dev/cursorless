@@ -24,7 +24,7 @@ export class ItemStage implements ModifierStage {
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     // First try the language specific implementation of item
     try {
       return new LegacyContainingSyntaxScopeStage(

@@ -45,7 +45,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
    */
   protected abstract run(
     ...args: AcceptFunctionArgs<z.infer<InferSchemaType<T>>>
-  ): boolean;
+  ): Promise<boolean>;
 
   /**
    * Whether it is ok for a node argument to be missing.  If true, then the
@@ -77,10 +77,10 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
     return result.success
       ? {
           success: true,
-          predicate: (match: MutableQueryMatch) => {
+          predicate: async (match: MutableQueryMatch) => {
             try {
               const acceptArgs = this.constructAcceptArgs(result.data, match);
-              return this.run(...acceptArgs);
+              return await this.run(...acceptArgs);
             } catch (err) {
               if (
                 err instanceof CaptureNotFoundError &&
@@ -130,7 +130,7 @@ export abstract class QueryPredicateOperator<T extends HasSchema> {
 
 interface SuccessfulPredicateResult {
   success: true;
-  predicate: (match: MutableQueryMatch) => boolean;
+  predicate: (match: MutableQueryMatch) => Promise<boolean>;
 }
 
 interface FailedPredicateResult {

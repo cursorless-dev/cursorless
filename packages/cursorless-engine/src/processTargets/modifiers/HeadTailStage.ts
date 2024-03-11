@@ -20,7 +20,7 @@ abstract class HeadTailStage implements ModifierStage {
     private modifiers?: Modifier[],
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const modifiers = this.modifiers ?? [
       {
         type: "containingScope",

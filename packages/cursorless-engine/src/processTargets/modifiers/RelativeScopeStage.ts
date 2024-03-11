@@ -34,7 +34,7 @@ export class RelativeScopeStage implements ModifierStage {
           );
   }
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     return this.modiferStage.run(target);
   }
 }

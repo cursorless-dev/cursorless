@@ -22,7 +22,7 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
     private modifier: ContainingScopeModifier | EveryScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const paintStage = this.modifierStageFactory.create({
       type: this.modifier.type,
       scopeType: { type: "nonWhitespaceSequence" },

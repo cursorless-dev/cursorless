@@ -11,16 +11,16 @@ export class WordScopeHandler extends NestedScopeHandler {
 
   private wordTokenizer = new WordTokenizer(this.languageId);
 
-  private getScopesInSearchScope({
+  private async getScopesInSearchScope({
     editor,
     domain,
-  }: TargetScope): TargetScope[] {
+  }: TargetScope): Promise<TargetScope[]> {
     const { document } = editor;
     // FIXME: Switch to using getMatchesInRange once we are able to properly
     // mock away vscode for the unit tests in subtoken.test.ts
     const offset = document.offsetAt(domain.start);
     const matches = this.wordTokenizer.splitIdentifier(
-      document.getText(domain),
+      await document.getText(domain),
     );
     const contentRanges = matches.map(
       (match) =>
@@ -51,21 +51,21 @@ export class WordScopeHandler extends NestedScopeHandler {
     }));
   }
 
-  protected generateScopesInSearchScope(
+  protected async generateScopesInSearchScope(
     direction: Direction,
     searchScope: TargetScope,
-  ): Iterable<TargetScope> {
-    const scopes = this.getScopesInSearchScope(searchScope);
+  ): Promise<Iterable<TargetScope>> {
+    const scopes = await this.getScopesInSearchScope(searchScope);
 
     if (direction === "backward") {
       scopes.reverse();
     }
 
-    return scopes;
+    return new Promise((resolve, reject) => resolve(scopes));
   }
 }
 
-function constructTarget(
+async function constructTarget(
   isReversed: boolean,
   editor: TextEditor,
   previousContentRange: Range | null,
@@ -86,7 +86,7 @@ function constructTarget(
   const isInDelimitedList =
     leadingDelimiterRange != null || trailingDelimiterRange != null;
   const insertionDelimiter = isInDelimitedList
-    ? editor.document.getText(
+    ? await editor.document.getText(
         (leadingDelimiterRange ?? trailingDelimiterRange)!,
       )
     : "";

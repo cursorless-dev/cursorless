@@ -25,7 +25,7 @@ export class CascadingStage implements ModifierStage {
     return this.nestedStages_;
   }
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     for (const nestedStage of this.nestedStages) {
       try {
         return nestedStage.run(target);

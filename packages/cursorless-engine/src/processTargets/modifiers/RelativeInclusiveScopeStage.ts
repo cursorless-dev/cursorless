@@ -32,7 +32,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     private modifier: RelativeScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const scopeHandler = this.scopeHandlerFactory.create(
       this.modifier.scopeType,
       target.editor.document.languageId,

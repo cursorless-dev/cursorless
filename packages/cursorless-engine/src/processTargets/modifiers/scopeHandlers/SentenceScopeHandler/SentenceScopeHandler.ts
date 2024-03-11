@@ -11,12 +11,12 @@ export class SentenceScopeHandler extends NestedScopeHandler {
   public readonly iterationScopeType = { type: "paragraph" } as const;
   private segmenter = new SentenceSegmenter();
 
-  protected generateScopesInSearchScope(
+  protected async generateScopesInSearchScope(
     direction: Direction,
     { editor, domain }: TargetScope,
-  ): Iterable<TargetScope> {
+  ): Promise<Iterable<TargetScope>> {
     const offset = editor.document.offsetAt(domain.start);
-    const text = editor.document.getText(domain);
+    const text = await editor.document.getText(domain);
 
     const sentenceToScope = (sentence: MatchedText): TargetScope => {
       const contentRange = new Range(

@@ -4,6 +4,6 @@ import type { Target } from "../../../../typings/target.types";
 export interface InsertionRemovalBehavior {
   getLeadingDelimiterTarget(): Target | undefined;
   getTrailingDelimiterTarget(): Target | undefined;
-  getRemovalRange(): Range;
+  getRemovalRange(): Promise<Range>;
   insertionDelimiter: string | undefined;
 }

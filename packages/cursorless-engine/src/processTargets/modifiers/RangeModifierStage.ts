@@ -10,11 +10,11 @@ export class RangeModifierStage implements ModifierStage {
     private modifier: RangeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const anchorStage = this.modifierStageFactory.create(this.modifier.anchor);
     const activeStage = this.modifierStageFactory.create(this.modifier.active);
-    const anchorTargets = anchorStage.run(target);
-    const activeTargets = activeStage.run(target);
+    const anchorTargets = await anchorStage.run(target);
+    const activeTargets = await activeStage.run(target);
 
     if (anchorTargets.length !== 1 || activeTargets.length !== 1) {
       throw new Error("Expected single anchor and active target");

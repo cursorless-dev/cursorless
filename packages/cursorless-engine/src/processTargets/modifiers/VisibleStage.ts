@@ -6,7 +6,7 @@ import { PlainTarget } from "../targets";
 export class VisibleStage implements ModifierStage {
   constructor(private modifier: VisibleModifier) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     return target.editor.visibleRanges.map(
       (range) =>
         new PlainTarget({

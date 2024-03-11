@@ -64,7 +64,7 @@ const SCAN_EXPANSION_FACTOR = 3;
  * @param delimiters The acceptable surrounding pair names
  * @returns The newly expanded selection, including editor info
  */
-export function findSurroundingPairTextBased(
+export async function findSurroundingPairTextBased(
   editor: TextEditor,
   range: Range,
   allowableRange: Range | null,
@@ -153,7 +153,7 @@ export function findSurroundingPairTextBased(
 
     const pairOffsets = getDelimiterPairOffsets(
       context,
-      document.getText(currentRange),
+      await document.getText(currentRange),
       adjustedSelectionOffsets,
       currentRangeOffsets.start === fullRangeOffsets.start,
       currentRangeOffsets.end === fullRangeOffsets.end,

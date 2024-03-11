@@ -26,7 +26,7 @@ export async function takeSnapshot(
   clipboard?: Clipboard,
 ) {
   const snapshot: TestCaseSnapshot = {
-    documentContents: editor.document.getText(),
+    documentContents: await editor.document.getText(),
     selections: editor.selections.map(selectionToPlainObject),
   };
 

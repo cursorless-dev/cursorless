@@ -35,7 +35,7 @@ export class EveryScopeStage implements ModifierStage {
     private modifier: EveryScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const { scopeType } = this.modifier;
     const { editor, isReversed } = target;
 

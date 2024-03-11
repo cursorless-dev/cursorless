@@ -18,7 +18,7 @@ export class DocumentTarget extends BaseTarget<CommonTargetParameters> {
   getTrailingDelimiterTarget() {
     return undefined;
   }
-  getRemovalRange(): Range {
+  async getRemovalRange(): Promise<Range> {
     return this.contentRange;
   }
 

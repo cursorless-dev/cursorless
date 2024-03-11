@@ -51,8 +51,8 @@ export default class Wrap {
           },
         ]);
 
-        const delimiterSelectionInfos: FullSelectionInfo[] = boundaries.flatMap(
-          ({ start, end }) => {
+        const delimiterSelectionInfos: FullSelectionInfo[] = await Promise.all(
+          boundaries.flatMap(({ start, end }) => {
             return [
               getSelectionInfo(
                 document,
@@ -65,30 +65,36 @@ export default class Wrap {
                 RangeExpansionBehavior.closedOpen,
               ),
             ];
-          },
+          }),
         );
 
-        const cursorSelectionInfos = editor.selections.map((selection) =>
-          getSelectionInfo(
-            document,
-            selection,
-            RangeExpansionBehavior.closedClosed,
+        const cursorSelectionInfos = await Promise.all(
+          editor.selections.map((selection) =>
+            getSelectionInfo(
+              document,
+              selection,
+              RangeExpansionBehavior.closedClosed,
+            ),
           ),
         );
 
-        const sourceMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            RangeExpansionBehavior.closedClosed,
+        const sourceMarkSelectionInfos = await Promise.all(
+          targets.map((target) =>
+            getSelectionInfo(
+              document,
+              target.contentSelection,
+              RangeExpansionBehavior.closedClosed,
+            ),
           ),
         );
 
-        const thatMarkSelectionInfos = targets.map((target) =>
-          getSelectionInfo(
-            document,
-            target.contentSelection,
-            RangeExpansionBehavior.openOpen,
+        const thatMarkSelectionInfos = await Promise.all(
+          targets.map((target) =>
+            getSelectionInfo(
+              document,
+              target.contentSelection,
+              RangeExpansionBehavior.openOpen,
+            ),
           ),
         );
 

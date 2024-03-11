@@ -307,7 +307,7 @@ export class TestCaseRecorder {
 
       const editor = ide().activeTextEditor!;
 
-      if (editor.document.getText().includes("\r\n")) {
+      if ((await editor.document.getText()).includes("\r\n")) {
         throw Error(
           "Refusing to record a test when the document contains CRLF line endings.  Please convert line endings to LF.",
         );

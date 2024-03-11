@@ -15,20 +15,24 @@ export class IdentifierScopeHandler extends NestedScopeHandler {
   protected generateScopesInSearchScope(
     direction: Direction,
     { editor, domain }: TargetScope,
-  ): Iterable<TargetScope> {
-    return imap(
-      generateMatchesInRange(this.regex, editor, domain, direction),
-      (range) => ({
-        editor,
-        domain: range,
-        getTargets: (isReversed) => [
-          new TokenTarget({
+  ): Promise<Iterable<TargetScope>> {
+    return new Promise((resolve, reject) =>
+      resolve(
+        imap(
+          generateMatchesInRange(this.regex, editor, domain, direction),
+          (range) => ({
             editor,
-            contentRange: range,
-            isReversed,
+            domain: range,
+            getTargets: (isReversed) => [
+              new TokenTarget({
+                editor,
+                contentRange: range,
+                isReversed,
+              }),
+            ],
           }),
-        ],
-      }),
+        ),
+      ),
     );
   }
 }

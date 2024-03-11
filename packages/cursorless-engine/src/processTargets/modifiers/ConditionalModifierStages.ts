@@ -12,13 +12,13 @@ abstract class ConditionalModifierBaseStage implements ModifierStage {
     private nestedModifier: Modifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     if (this.shouldModify(target)) {
       // Modify this target
       try {
-        return this.nestedStage
-          .run(target)
-          .map((newTarget) => newTarget.withThatTarget(target));
+        return (await this.nestedStage.run(target)).map((newTarget) =>
+          newTarget.withThatTarget(target),
+        );
       } catch (ex) {
         // suppressErrors === true => Allow this target to be returned unmodified
         if (!this.suppressErrors) {

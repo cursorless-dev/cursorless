@@ -25,7 +25,7 @@ export class InstanceStage implements ModifierStage {
     private modifier: Modifier,
   ) {}
 
-  run(inputTarget: Target): Target[] {
+  async run(inputTarget: Target): Promise<Target[]> {
     // If the target is untyped and empty, we want to target the containing
     // token. This handles the case where they just say "instance" with an empty
     // selection, eg "take every instance".
@@ -115,15 +115,15 @@ export class InstanceStage implements ModifierStage {
     );
   }
 
-  private getTargetIterable(
+  private async getTargetIterable(
     target: Target,
     editor: TextEditor,
     searchRange: Range,
     direction: Direction,
-  ): Iterable<Target> {
+  ): Promise<Iterable<Target>> {
     const iterable = imap(
-      generateMatchesInRange(
-        new RegExp(escapeRegExp(target.contentText), "g"),
+      await generateMatchesInRange(
+        new RegExp(escapeRegExp(await target.contentText), "g"),
         editor,
         searchRange,
         direction,

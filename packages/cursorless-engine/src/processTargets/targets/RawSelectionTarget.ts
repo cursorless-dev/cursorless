@@ -13,7 +13,7 @@ export class RawSelectionTarget extends BaseTarget<CommonTargetParameters> {
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
-  getRemovalRange = () => this.contentRange;
+  getRemovalRange = async () => this.contentRange;
 
   protected getCloneParameters = () => this.state;
 }

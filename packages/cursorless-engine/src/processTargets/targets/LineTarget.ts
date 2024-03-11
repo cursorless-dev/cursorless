@@ -30,7 +30,7 @@ export class LineTarget extends BaseTarget<CommonTargetParameters> {
     );
   }
 
-  getRemovalRange() {
+  async getRemovalRange() {
     const contentRemovalRange = this.fullLineContentRange;
     const delimiterTarget =
       this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();

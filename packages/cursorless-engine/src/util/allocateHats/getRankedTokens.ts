@@ -19,7 +19,7 @@ export function getRankedTokens(
     visibleTextEditors,
   );
 
-  return editors.flatMap((editor) => {
+  return editors.flatMap(async (editor) => {
     /**
      * The reference position that will be used to judge how likely a given
      * token is to be used.  Tokens closer to this position will be considered
@@ -29,8 +29,8 @@ export function getRankedTokens(
     const referencePosition = editor.selections[0].active;
     const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
     const tokens = flatten(
-      editor.visibleRanges.map((range) =>
-        getTokensInRange(editor, range).map((partialToken) => ({
+      await editor.visibleRanges.map(async (range) =>
+        (await getTokensInRange(editor, range)).map((partialToken) => ({
           ...partialToken,
           displayLine: displayLineMap.get(partialToken.range.start.line)!,
         })),

@@ -36,9 +36,12 @@ function selectionFromPositions(
  * @param range The range to shrink down
  * @returns A new range equal or smaller to {@link range}
  */
-export function shrinkRangeToFitContent(editor: TextEditor, range: Range) {
+export async function shrinkRangeToFitContent(
+  editor: TextEditor,
+  range: Range,
+) {
   const { document } = editor;
-  const text = document.getText(range);
+  const text = await document.getText(range);
   const startDelta = text.length - text.trimStart().length;
   const endDelta = text.length - text.trimEnd().length;
   const startOffset = document.offsetAt(range.start) + startDelta;

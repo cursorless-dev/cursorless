@@ -17,7 +17,7 @@ export class TokenTarget extends BaseTarget<CommonTargetParameters> {
   getTrailingDelimiterTarget(): Target | undefined {
     return getTokenTrailingDelimiterTarget(this);
   }
-  getRemovalRange(): Range {
+  async getRemovalRange(): Promise<Range> {
     return getTokenRemovalRange(this);
   }
 

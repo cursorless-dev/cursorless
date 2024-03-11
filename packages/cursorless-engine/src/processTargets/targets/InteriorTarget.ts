@@ -25,7 +25,7 @@ export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
 
   getLeadingDelimiterTarget = () => undefined;
   getTrailingDelimiterTarget = () => undefined;
-  getRemovalRange = () => this.fullInteriorRange;
+  getRemovalRange = async () => this.fullInteriorRange;
 
   protected getCloneParameters() {
     return {

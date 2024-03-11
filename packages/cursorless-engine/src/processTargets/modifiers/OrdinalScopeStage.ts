@@ -13,7 +13,7 @@ export class OrdinalScopeStage implements ModifierStage {
     private modifier: OrdinalScopeModifier,
   ) {}
 
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const targets = getEveryScopeTargets(
       this.modifierStageFactory,
       target,

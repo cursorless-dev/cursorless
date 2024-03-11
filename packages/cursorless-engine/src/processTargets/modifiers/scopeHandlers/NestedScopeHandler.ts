@@ -46,7 +46,7 @@ export abstract class NestedScopeHandler extends BaseScopeHandler {
   protected abstract generateScopesInSearchScope(
     direction: Direction,
     searchScope: TargetScope,
-  ): Iterable<TargetScope>;
+  ): Promise<Iterable<TargetScope>>;
 
   private _searchScopeHandler: ScopeHandler | undefined;
 

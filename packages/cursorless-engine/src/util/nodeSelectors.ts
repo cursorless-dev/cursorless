@@ -427,7 +427,7 @@ export function xmlElementExtractor(
   return selection;
 }
 
-export function getInsertionDelimiter(
+export async function getInsertionDelimiter(
   editor: TextEditor,
   leadingDelimiterRange: Range | undefined,
   trailingDelimiterRange: Range | undefined,
@@ -436,10 +436,10 @@ export function getInsertionDelimiter(
   const { document } = editor;
   const delimiters = [
     trailingDelimiterRange != null
-      ? document.getText(trailingDelimiterRange)
+      ? await document.getText(trailingDelimiterRange)
       : defaultDelimiterInsertion,
     leadingDelimiterRange != null
-      ? document.getText(leadingDelimiterRange)
+      ? await document.getText(leadingDelimiterRange)
       : defaultDelimiterInsertion,
   ];
 

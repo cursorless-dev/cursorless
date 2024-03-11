@@ -61,7 +61,7 @@ export class VscodeTextDocumentImpl implements TextDocument {
     return fromVscodePosition(this.document.positionAt(offset));
   }
 
-  public getText(range?: Range): string {
+  public async getText(range?: Range): Promise<string> {
     return this.document.getText(
       range != null ? toVscodeRange(range) : undefined,
     );

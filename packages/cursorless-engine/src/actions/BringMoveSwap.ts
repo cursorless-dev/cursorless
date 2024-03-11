@@ -63,16 +63,16 @@ abstract class BringMoveSwap {
     ]);
   }
 
-  protected getEditsBringMove(
+  protected async getEditsBringMove(
     sources: Target[],
     destinations: Destination[],
-  ): ExtendedEdit[] {
+  ): Promise<ExtendedEdit[]> {
     const usedSources: Target[] = [];
     const results: ExtendedEdit[] = [];
     const shouldJoinSources =
       sources.length !== destinations.length && destinations.length === 1;
 
-    sources.forEach((source, i) => {
+    sources.forEach(async (source, i) => {
       let destination = destinations[i];
       if ((source == null || destination == null) && !shouldJoinSources) {
         throw new Error("Targets must have same number of args");
@@ -91,7 +91,7 @@ abstract class BringMoveSwap {
             })
             .join("");
         } else {
-          text = source.contentText;
+          text = await source.contentText;
         }
         // Add destination edit
         results.push({
@@ -110,9 +110,9 @@ abstract class BringMoveSwap {
         usedSources.push(source);
         if (this.type === "bring") {
           results.push({
-            edit: source
-              .toDestination("to")
-              .constructChangeEdit(destination.target.contentText),
+            edit: (await source.toDestination("to")).constructChangeEdit(
+              await destination.target.contentText,
+            ),
             editor: source.editor,
             originalTarget: source,
             isSource: true,
@@ -161,31 +161,35 @@ abstract class BringMoveSwap {
 
           // Sources should be closedClosed, because they should be logically
           // the same as the original source.
-          const sourceEditSelectionInfos = sourceEdits.map(
-            ({ edit: { range }, originalTarget }) =>
+          const sourceEditSelectionInfos = await Promise.all(
+            sourceEdits.map(async ({ edit: { range }, originalTarget }) =>
               getSelectionInfo(
                 editor.document,
                 range.toSelection(originalTarget.isReversed),
                 RangeExpansionBehavior.closedClosed,
               ),
+            ),
           );
 
           // Destinations should be openOpen, because they should grow to contain
           // the new text.
-          const destinationEditSelectionInfos = destinationEdits.map(
-            ({ edit: { range }, originalTarget }) =>
+          const destinationEditSelectionInfos = await Promise.all(
+            destinationEdits.map(({ edit: { range }, originalTarget }) =>
               getSelectionInfo(
                 editor.document,
                 range.toSelection(originalTarget.isReversed),
                 RangeExpansionBehavior.openOpen,
               ),
+            ),
           );
 
-          const cursorSelectionInfos = editor.selections.map((selection) =>
-            getSelectionInfo(
-              editor.document,
-              selection,
-              RangeExpansionBehavior.closedClosed,
+          const cursorSelectionInfos = await Promise.all(
+            editor.selections.map((selection) =>
+              getSelectionInfo(
+                editor.document,
+                selection,
+                RangeExpansionBehavior.closedClosed,
+              ),
             ),
           );
 
@@ -310,7 +314,7 @@ export class Bring extends BringMoveSwap {
       destinations.map((d) => d.target),
     );
 
-    const edits = this.getEditsBringMove(sources, destinations);
+    const edits = await this.getEditsBringMove(sources, destinations);
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
@@ -345,7 +349,7 @@ export class Move extends BringMoveSwap {
       destinations.map((d) => d.target),
     );
 
-    const edits = this.getEditsBringMove(sources, destinations);
+    const edits = await this.getEditsBringMove(sources, destinations);
 
     const markEntries = await this.performEditsAndComputeThatMark(edits);
 
@@ -387,7 +391,7 @@ export class Swap extends BringMoveSwap {
   private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
     const results: ExtendedEdit[] = [];
 
-    targets1.forEach((target1, i) => {
+    targets1.forEach(async (target1, i) => {
       const target2 = targets2[i];
       if (target1 == null || target2 == null) {
         throw new Error("Targets must have same number of args");
@@ -395,9 +399,9 @@ export class Swap extends BringMoveSwap {
 
       // Add destination edit
       results.push({
-        edit: target2
-          .toDestination("to")
-          .constructChangeEdit(target1.contentText),
+        edit: (await target2.toDestination("to")).constructChangeEdit(
+          await target1.contentText,
+        ),
         editor: target2.editor,
         originalTarget: target2,
         isSource: false,
@@ -405,9 +409,9 @@ export class Swap extends BringMoveSwap {
 
       // Add source edit
       results.push({
-        edit: target1
-          .toDestination("to")
-          .constructChangeEdit(target2.contentText),
+        edit: (await target1.toDestination("to")).constructChangeEdit(
+          await target2.contentText,
+        ),
         editor: target1.editor,
         originalTarget: target1,
         isSource: true,
@@ -418,6 +422,6 @@ export class Swap extends BringMoveSwap {
   }
 }
 
-function getRemovalHighlightRange(target: Target) {
-  return target.getRemovalHighlightRange();
+async function getRemovalHighlightRange(target: Target) {
+  return await target.getRemovalHighlightRange();
 }

@@ -91,7 +91,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     ];
   }
 
-  getRemovalRange(): Range {
+  async getRemovalRange(): Promise<Range> {
     return this.removalRange_ != null
       ? this.removalRange_
       : this.hasDelimiterRange_

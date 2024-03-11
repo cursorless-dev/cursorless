@@ -79,7 +79,7 @@ export function getTokenTrailingDelimiterTarget(
  * @param target The target to get the token removal range for
  * @returns The removal range for the given target
  */
-export function getTokenRemovalRange(target: Target): Range {
+export async function getTokenRemovalRange(target: Target): Promise<Range> {
   const { editor } = target;
   const contentRange = union(target.contentRange, target.prefixRange);
   const { start, end } = contentRange;
@@ -108,7 +108,9 @@ export function getTokenRemovalRange(target: Target): Range {
     if (
       !leadingWhitespaceRange.isEmpty ||
       contentRange.start.isEqual(fullLineRange.start) ||
-      leadingDelimiters.includes(getLeadingCharacter(editor, contentRange))
+      leadingDelimiters.includes(
+        await getLeadingCharacter(editor, contentRange),
+      )
     ) {
       return contentRange.union(trailingWhitespaceRange);
     }
@@ -119,7 +121,9 @@ export function getTokenRemovalRange(target: Target): Range {
   if (!leadingWhitespaceRange.isEmpty) {
     if (
       contentRange.end.isEqual(fullLineRange.end) ||
-      trailingDelimiters.includes(getTrailingCharacter(editor, contentRange))
+      trailingDelimiters.includes(
+        await getTrailingCharacter(editor, contentRange),
+      )
     ) {
       return contentRange.union(leadingWhitespaceRange);
     }
@@ -129,18 +133,26 @@ export function getTokenRemovalRange(target: Target): Range {
   return contentRange;
 }
 
-function getLeadingCharacter(editor: TextEditor, contentRange: Range): string {
+async function getLeadingCharacter(
+  editor: TextEditor,
+  contentRange: Range,
+): Promise<string> {
   const { start } = contentRange;
   const line = editor.document.lineAt(start);
   return start.isAfter(line.range.start)
-    ? editor.document.getText(new Range(start.translate(undefined, -1), start))
+    ? await editor.document.getText(
+        new Range(start.translate(undefined, -1), start),
+      )
     : "";
 }
 
-function getTrailingCharacter(editor: TextEditor, contentRange: Range): string {
+async function getTrailingCharacter(
+  editor: TextEditor,
+  contentRange: Range,
+): Promise<string> {
   const { end } = contentRange;
   const line = editor.document.lineAt(end);
   return end.isBefore(line.range.end)
-    ? editor.document.getText(new Range(end.translate(undefined, 1), end))
+    ? await editor.document.getText(new Range(end.translate(undefined, 1), end))
     : "";
 }

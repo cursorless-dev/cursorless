@@ -21,17 +21,18 @@ export class LeadingStage implements ModifierStage {
     private modifier: LeadingModifier,
   ) {}
 
-  run(target: Target): Target[] {
-    return this.modifierStageFactory
-      .create(containingTokenIfUntypedModifier)
-      .run(target)
-      .map((target) => {
-        const leading = target.getLeadingDelimiterTarget();
-        if (leading == null) {
-          throw new NoDelimiterError("leading");
-        }
-        return leading;
-      });
+  async run(target: Target): Promise<Target[]> {
+    return (
+      await this.modifierStageFactory
+        .create(containingTokenIfUntypedModifier)
+        .run(target)
+    ).map((target) => {
+      const leading = target.getLeadingDelimiterTarget();
+      if (leading == null) {
+        throw new NoDelimiterError("leading");
+      }
+      return leading;
+    });
   }
 }
 
@@ -41,16 +42,17 @@ export class TrailingStage implements ModifierStage {
     private modifier: TrailingModifier,
   ) {}
 
-  run(target: Target): Target[] {
-    return this.modifierStageFactory
-      .create(containingTokenIfUntypedModifier)
-      .run(target)
-      .map((target) => {
-        const trailing = target.getTrailingDelimiterTarget();
-        if (trailing == null) {
-          throw new NoDelimiterError("trailing");
-        }
-        return trailing;
-      });
+  async run(target: Target): Promise<Target[]> {
+    return (
+      await this.modifierStageFactory
+        .create(containingTokenIfUntypedModifier)
+        .run(target)
+    ).map((target) => {
+      const trailing = target.getTrailingDelimiterTarget();
+      if (trailing == null) {
+        throw new NoDelimiterError("trailing");
+      }
+      return trailing;
+    });
   }
 }

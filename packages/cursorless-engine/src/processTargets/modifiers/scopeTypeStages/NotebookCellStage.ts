@@ -9,7 +9,7 @@ import { NotebookCellTarget } from "../../targets";
 export class NotebookCellStage implements ModifierStage {
   constructor(private modifier: ContainingScopeModifier | EveryScopeModifier) {}
 
-  run(target: Target): NotebookCellTarget[] {
+  async run(target: Target): Promise<NotebookCellTarget[]> {
     if (this.modifier.type === "everyScope") {
       throw new Error(`Every ${this.modifier.type} not yet implemented`);
     }

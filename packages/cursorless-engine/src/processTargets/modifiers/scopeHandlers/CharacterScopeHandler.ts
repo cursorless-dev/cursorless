@@ -28,21 +28,25 @@ export class CharacterScopeHandler extends NestedScopeHandler {
   protected generateScopesInSearchScope(
     direction: Direction,
     { editor, domain }: TargetScope,
-  ): Iterable<TargetScope> {
-    return imap(
-      generateMatchesInRange(SPLIT_REGEX, editor, domain, direction),
-      (range) => ({
-        editor,
-        domain: range,
-        getTargets: (isReversed) => [
-          new PlainTarget({
+  ): Promise<Iterable<TargetScope>> {
+    return new Promise((resolve, reject) =>
+      resolve(
+        imap(
+          generateMatchesInRange(SPLIT_REGEX, editor, domain, direction),
+          (range) => ({
             editor,
-            contentRange: range,
-            isReversed,
-            isToken: false,
+            domain: range,
+            getTargets: (isReversed) => [
+              new PlainTarget({
+                editor,
+                contentRange: range,
+                isReversed,
+                isToken: false,
+              }),
+            ],
           }),
-        ],
-      }),
+        ),
+      ),
     );
   }
 

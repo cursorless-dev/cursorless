@@ -107,14 +107,14 @@ export default class GenerateSnippet {
      * to pass this to {@link constructSnippetBody} so that it knows the
      * baseline indentation of the snippet
      */
-    const linePrefix = editor.document.getText(
+    const linePrefix = await editor.document.getText(
       new Range(
         target.contentRange.start.with(undefined, 0),
         target.contentRange.start,
       ),
     );
 
-    const originalText = editor.document.getText(target.contentRange);
+    const originalText = await editor.document.getText(target.contentRange);
 
     /**
      * The text of the snippet, with placeholders inserted for variables and

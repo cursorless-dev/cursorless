@@ -26,13 +26,13 @@ import { Range, TextEditor } from "@cursorless/common";
  * @param boundary Optional boundaries for collections. [], {}
  * @returns List of tokens
  */
-export function tokenizeRange(
+export async function tokenizeRange(
   editor: TextEditor,
   interior: Range,
   boundary?: [Range, Range],
-): Token[] {
+): Promise<Token[]> {
   const { document } = editor;
-  const text = document.getText(interior);
+  const text = await document.getText(interior);
   /**
    * The interior range tokenized into delimited regions, including the delimiters themselves.  For example:
    * `"foo(hello), bar, whatever"` =>

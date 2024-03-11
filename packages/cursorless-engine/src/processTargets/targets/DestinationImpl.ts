@@ -17,7 +17,8 @@ export class DestinationImpl implements Destination {
   private readonly isLineDelimiter: boolean;
   private readonly isBefore: boolean;
   private readonly indentationString: string;
-  private readonly insertionPrefix?: string;
+  // private readonly insertionPrefix?: string;
+  private _insertionPrefix?: string;
 
   constructor(
     public readonly target: Target,
@@ -31,10 +32,19 @@ export class DestinationImpl implements Destination {
       indentationString ?? this.isLineDelimiter
         ? getIndentationString(target.editor, target.contentRange)
         : "";
-    this.insertionPrefix =
-      target.prefixRange != null
-        ? target.editor.document.getText(target.prefixRange)
+  }
+
+  // we can't have "async" in a constructor so we initialize elsewhere
+  async initialize() {
+    this._insertionPrefix =
+      this.target.prefixRange != null
+        ? await this.target.editor.document.getText(this.target.prefixRange)
         : undefined;
+  }
+
+  // TODO: make this optional?
+  get insertionPrefix(): string | undefined {
+    return this._insertionPrefix;
   }
 
   get contentSelection(): Selection {
@@ -60,12 +70,14 @@ export class DestinationImpl implements Destination {
    * multiple edits are performed in the same document, but we want to insert
    * the original indentation.
    */
-  withTarget(target: Target): Destination {
-    return new DestinationImpl(
+  async withTarget(target: Target): Promise<Destination> {
+    const impl = new DestinationImpl(
       target,
       this.insertionMode,
       this.indentationString,
     );
+    await impl.initialize();
+    return impl;
   }
 
   getEditNewActionType(): EditNewActionType {

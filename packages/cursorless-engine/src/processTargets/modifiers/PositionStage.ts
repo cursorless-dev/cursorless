@@ -8,7 +8,7 @@ import {
 } from "../targets";
 
 abstract class PositionStage implements ModifierStage {
-  run(target: Target): Target[] {
+  async run(target: Target): Promise<Target[]> {
     const parameters: CommonTargetParameters = {
       editor: target.editor,
       isReversed: target.isReversed,

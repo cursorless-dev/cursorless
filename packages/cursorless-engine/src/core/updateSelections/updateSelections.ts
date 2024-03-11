@@ -28,11 +28,11 @@ interface SelectionsWithBehavior {
  * @param rangeBehavior How selection should behave with respect to insertions on either end
  * @returns An object that can be used for selection tracking
  */
-export function getSelectionInfo(
+export async function getSelectionInfo(
   document: TextDocument,
   selection: Selection,
   rangeBehavior: RangeExpansionBehavior,
-): FullSelectionInfo {
+): Promise<FullSelectionInfo> {
   return getSelectionInfoInternal(
     document,
     selection,
@@ -41,12 +41,12 @@ export function getSelectionInfo(
   );
 }
 
-function getSelectionInfoInternal(
+async function getSelectionInfoInternal(
   document: TextDocument,
   range: Range,
   isForward: boolean,
   rangeBehavior: RangeExpansionBehavior,
-): FullSelectionInfo {
+): Promise<FullSelectionInfo> {
   return {
     range,
     isForward,
@@ -70,7 +70,7 @@ function getSelectionInfoInternal(
       start: document.offsetAt(range.start),
       end: document.offsetAt(range.end),
     },
-    text: document.getText(range),
+    text: await document.getText(range),
   };
 }
 
@@ -106,19 +106,19 @@ function rangesToSelectionInfos(
   );
 }
 
-function fillOutSelectionInfos(
+async function fillOutSelectionInfos(
   document: TextDocument,
   selectionInfoMatrix: SelectionInfo[][],
-): selectionInfoMatrix is FullSelectionInfo[][] {
+): Promise<boolean> {
   selectionInfoMatrix.forEach((selectionInfos) =>
-    selectionInfos.map((selectionInfo) => {
+    selectionInfos.map(async (selectionInfo) => {
       const { range } = selectionInfo;
       Object.assign(selectionInfo, {
         offsets: {
           start: document.offsetAt(range.start),
           end: document.offsetAt(range.end),
         },
-        text: document.getText(range),
+        text: await document.getText(range),
       });
     }),
   );
@@ -215,7 +215,7 @@ export async function callFunctionAndUpdateSelectionInfos(
  * @param originalSelections The selections to update
  * @returns The updated selections
  */
-export function callFunctionAndUpdateSelectionsWithBehavior(
+export async function callFunctionAndUpdateSelectionsWithBehavior(
   rangeUpdater: RangeUpdater,
   func: () => Promise<void>,
   document: TextDocument,
@@ -225,14 +225,19 @@ export function callFunctionAndUpdateSelectionsWithBehavior(
     rangeUpdater,
     func,
     document,
-    originalSelections.map((selectionsWithBehavior) =>
-      selectionsWithBehavior.selections.map((selection) =>
-        getSelectionInfo(
-          document,
-          selection,
-          selectionsWithBehavior.rangeBehavior ??
-            RangeExpansionBehavior.closedClosed,
-        ),
+    await Promise.all(
+      originalSelections.map(
+        async (selectionsWithBehavior) =>
+          await Promise.all(
+            selectionsWithBehavior.selections.map((selection) =>
+              getSelectionInfo(
+                document,
+                selection,
+                selectionsWithBehavior.rangeBehavior ??
+                  RangeExpansionBehavior.closedClosed,
+              ),
+            ),
+          ),
       ),
     ),
   );

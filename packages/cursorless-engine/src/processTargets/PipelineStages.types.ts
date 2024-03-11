@@ -5,5 +5,5 @@ export interface MarkStage {
 }
 
 export interface ModifierStage {
-  run(target: Target): Target[];
+  run(target: Target): Promise<Target[]>;
 }

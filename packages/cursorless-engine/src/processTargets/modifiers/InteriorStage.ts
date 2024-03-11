@@ -13,11 +13,12 @@ export class InteriorOnlyStage implements ModifierStage {
     private modifier: InteriorOnlyModifier,
   ) {}
 
-  run(target: Target): Target[] {
-    return this.modifierStageFactory
-      .create(containingSurroundingPairIfUntypedModifier)
-      .run(target)
-      .flatMap((target) => target.getInteriorStrict());
+  async run(target: Target): Promise<Target[]> {
+    return (
+      await this.modifierStageFactory
+        .create(containingSurroundingPairIfUntypedModifier)
+        .run(target)
+    ).flatMap((target) => target.getInteriorStrict());
   }
 }
 
@@ -27,10 +28,11 @@ export class ExcludeInteriorStage implements ModifierStage {
     private modifier: ExcludeInteriorModifier,
   ) {}
 
-  run(target: Target): Target[] {
-    return this.modifierStageFactory
-      .create(containingSurroundingPairIfUntypedModifier)
-      .run(target)
-      .flatMap((target) => target.getBoundaryStrict());
+  async run(target: Target): Promise<Target[]> {
+    return (
+      await this.modifierStageFactory
+        .create(containingSurroundingPairIfUntypedModifier)
+        .run(target)
+    ).flatMap((target) => target.getBoundaryStrict());
   }
 }

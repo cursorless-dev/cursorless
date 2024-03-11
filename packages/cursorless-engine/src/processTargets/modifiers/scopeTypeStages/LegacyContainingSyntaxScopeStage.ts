@@ -31,7 +31,7 @@ export class LegacyContainingSyntaxScopeStage implements ModifierStage {
     private modifier: SimpleContainingScopeModifier | SimpleEveryScopeModifier,
   ) {}
 
-  run(target: Target): ScopeTypeTarget[] {
+  async run(target: Target): Promise<ScopeTypeTarget[]> {
     const nodeMatcher = getNodeMatcher(
       target.editor.document.languageId,
       this.modifier.scopeType.type,
