@@ -87,16 +87,46 @@ import { Buffer } from "neovim";
 
 // ----------
 
-import { callbackify } from "node:util";
-import deasync from "deasync";
+// import { callbackify } from "node:util";
+// import deasync from "deasync";
 
-function myAwaitSync<T>(promise: Promise<T>): T {
-  return deasync(callbackify(() => promise))();
-}
+// function myAwaitSync<T>(promise: Promise<T>): T {
+//   return deasync(callbackify(() => promise))();
+// }
 
-function getLinesSync(buffer: Buffer): string[] {
-  return deasync(callbackify(() => buffer.lines))();
-}
+// function getLinesSync(buffer: Buffer): string[] {
+//   return deasync(callbackify(() => buffer.lines))();
+// }
+
+// ----------
+
+// // https://github.com/jakwuh/deasync-promise/blob/master/index.js
+// import { runLoopOnce } from "deasync";
+
+// function MyDeasync(promise: Promise<any>) {
+//   let result,
+//     error,
+//     done = false;
+//   promise
+//     .then(
+//       function (res) {
+//         result = res;
+//       },
+//       function (err) {
+//         error = err;
+//       },
+//     )
+//     .then(function () {
+//       done = true;
+//     });
+//   while (!done) {
+//     runLoopOnce();
+//   }
+//   if (error) {
+//     throw error;
+//   }
+//   return result;
+// }
 
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
@@ -153,8 +183,14 @@ export async function activate(context: NeovimExtensionContext) {
   // // const lines10 = syncFn3(buffer); // hangs/never returns
   // ----------
 
+  // ----------
   // const lines11 = getLinesSync(buffer); // hangs/never returns
   // const lines12 = myAwaitSync(buffer.lines); // hangs/never returns
+  // ----------
+
+  // ----------
+  // const lines13 = MyDeasync(buffer.lines); // hangs/never returns
+  // ----------
 
   // TODO: we should be able to get the parsetree api directly from neovim
   // const parseTreeApi = await getParseTreeApi();
