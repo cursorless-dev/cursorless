@@ -24,6 +24,28 @@ import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 
+// import { callbackify } from "node:util";
+// import * as deasync from "deasync";
+
+// function awaitSync<T>(promise: Promise<T>): T {
+//   return deasync(callbackify(() => promise))();
+// }
+
+// function asyncFn(
+//   p: string,
+//   cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
+// ) {
+//   const res = "hello " + p;
+//   const err = null;
+//   return cb && cb(err, res);
+// }
+// import { deasync } from "@kaciras/deasync";
+import { deasync } from "@kaciras/deasync";
+
+const sleep = deasync((timeout: number, callback: any) => {
+  setTimeout(() => callback(null, "wake up!"), timeout);
+});
+
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
  */
@@ -34,6 +56,24 @@ export async function activate(context: NeovimExtensionContext) {
 
   const bufmgr = new BufferManager(context);
   injectBufferManager(bufmgr);
+
+  const lines1 = await client.buffer.lines;
+  const lines2 = client.buffer.lines;
+  // const lines = awaitSync(client.buffer.lines);
+  // const lines3 = deasync(callbackify(() => client.buffer.lines);
+  console.warn("Timestamp before: " + performance.now());
+  console.warn(sleep(1000));
+  console.warn("Timestamp after: " + performance.now());
+
+  // /** Use as async */
+  // asyncFn("async world", (err: any, res: any) => {
+  //   console.warn("asyncFn callback:", res);
+  // });
+
+  // /** Use as sync! */
+  // const syncFn = deasync(asyncFn);
+  // const result = syncFn("sync world");
+  // console.log("syncFn result:", result);
 
   // TODO: we should be able to get the parsetree api directly from neovim
   // const parseTreeApi = await getParseTreeApi();

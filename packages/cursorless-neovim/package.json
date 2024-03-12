@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.cjs --platform=node",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.cjs --external:@kaciras/deasync --platform=node",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
@@ -27,6 +27,7 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
+    "@kaciras/deasync": "1.0.3",
     "lodash": "^4.17.21",
     "neovim": "5.0.1",
     "vscode-uri": "3.0.6"
