@@ -2,13 +2,7 @@ import { ScopeType } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
-
-export class OutOfRangeError extends Error {
-  constructor() {
-    super("Scope index out of range");
-    this.name = "OutOfRangeError";
-  }
-}
+import { assertIndices } from "./listUtils";
 
 /**
  * Construct a single range target between two targets in a list of targets,
@@ -40,17 +34,6 @@ export function createRangeTargetFromIndices(
   );
 }
 
-/** Slice list of targets by given indices */
-export function sliceTargetsByIndices(
-  targets: Target[],
-  startIndex: number,
-  endIndex: number,
-): Target[] {
-  assertIndices(targets, startIndex, endIndex);
-
-  return targets.slice(startIndex, endIndex + 1);
-}
-
 export function getEveryScopeTargets(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
@@ -61,14 +44,4 @@ export function getEveryScopeTargets(
     scopeType,
   });
   return containingStage.run(target);
-}
-
-function assertIndices(
-  targets: Target[],
-  startIndex: number,
-  endIndex: number,
-): void {
-  if (startIndex < 0 || endIndex >= targets.length) {
-    throw new OutOfRangeError();
-  }
 }

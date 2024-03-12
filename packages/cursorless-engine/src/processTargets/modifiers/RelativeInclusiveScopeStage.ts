@@ -13,7 +13,8 @@ import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPo
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { itake } from "itertools";
-import { OutOfRangeError } from "./targetSequenceUtils";
+import { OutOfRangeError } from "./listUtils";
+
 /**
  * Handles relative modifiers that include targets intersecting with the input,
  * eg `"two funks"`, `"token backward"`, etc.  Proceeds as follows:

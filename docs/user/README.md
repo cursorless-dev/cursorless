@@ -205,6 +205,8 @@ And here is a table of the spoken forms:
 | `"previous [number] [scope]s"` | previous `[number]` instances of `[scope]`                          | `"take previous three funks"` |
 | `"previous [scope]"`           | Previous instance of `[scope]`                                      | `"take previous funk"`        |
 
+You can prefix the modifier with `"every"` to yield multiple targets rather than a range. For example, `"take every two tokens"` selects two tokens as separate selections.
+
 ##### `"every"`
 
 The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
@@ -215,10 +217,12 @@ The modifier `"every"` can be used to select a syntactic element and all of its 
 
 For example, the command `"take every key [blue] air"` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
 
-The modifier `every` can also be used to get multiple selections from the ordinal and relative numbered scopes instead of one contiguous range.
+###### Use with relative / ordinal modifiers
+
+The modifier `every` can also be used to cause [relative / ordinal modifiers](#previous--next--ordinal--number) to yield multiple targets rather than a range:
 
 - `"take every two tokens"` selects two tokens as separate selections
-- `"take every first two tokens"` selects two tokens as separate selections
+- `"pre every first two lines"` puts a cursor before each of first two lines in block (results in multiple cursors)
 
 ##### `"grand"`
 

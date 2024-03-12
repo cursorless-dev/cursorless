@@ -13,7 +13,7 @@ import type {
   ContainmentPolicy,
   ScopeHandler,
 } from "./scopeHandlers/scopeHandler.types";
-import { OutOfRangeError } from "./targetSequenceUtils";
+import { OutOfRangeError } from "./listUtils";
 
 /**
  * Handles relative modifiers that don't include targets intersecting with the

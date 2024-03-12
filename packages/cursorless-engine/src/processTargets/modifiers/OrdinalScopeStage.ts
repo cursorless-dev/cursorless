@@ -4,9 +4,9 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
 import {
   createRangeTargetFromIndices,
-  sliceTargetsByIndices,
   getEveryScopeTargets,
 } from "./targetSequenceUtils";
+import { sliceStrict } from "./listUtils";
 
 export class OrdinalScopeStage implements ModifierStage {
   constructor(
@@ -26,7 +26,7 @@ export class OrdinalScopeStage implements ModifierStage {
     const endIndex = startIndex + this.modifier.length - 1;
 
     if (this.modifier.isEvery) {
-      return sliceTargetsByIndices(targets, startIndex, endIndex);
+      return sliceStrict(targets, startIndex, endIndex);
     }
 
     return [
