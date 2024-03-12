@@ -26,39 +26,36 @@ import { injectCommandApi } from "./singletons/cmdapi.singleton";
 
 import { Buffer } from "neovim";
 
-// import { callbackify } from "node:util";
-import deasync from "deasync";
+// ----------
 
-// function awaitSync<T>(promise: Promise<T>): T {
-//   return deasync(callbackify(() => promise))();
+// import deasync from "deasync";
+
+// function asyncFn(
+//   p: string,
+//   cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
+// ) {
+//   const res = "hello " + p;
+//   const err = null;
+//   return cb && cb(err, res);
 // }
 
-function asyncFn(
-  p: string,
-  cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
-) {
-  const res = "hello " + p;
-  const err = null;
-  return cb && cb(err, res);
-}
+// function asyncFn2(
+//   buffer: Buffer,
+//   cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
+// ) {
+//   const res = buffer.lines;
+//   const err = null;
+//   return cb && cb(err, res);
+// }
 
-function asyncFn2(
-  buffer: Buffer,
-  cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
-) {
-  const res = buffer.lines;
-  const err = null;
-  return cb && cb(err, res);
-}
-
-async function asyncFn3(
-  buffer: Buffer,
-  cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
-) {
-  const res = await buffer.lines;
-  const err = null;
-  return cb && cb(err, res);
-}
+// async function asyncFn3(
+//   buffer: Buffer,
+//   cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
+// ) {
+//   const res = await buffer.lines;
+//   const err = null;
+//   return cb && cb(err, res);
+// }
 
 // ----------
 
@@ -90,6 +87,17 @@ async function asyncFn3(
 
 // ----------
 
+import { callbackify } from "node:util";
+import deasync from "deasync";
+
+function myAwaitSync<T>(promise: Promise<T>): T {
+  return deasync(callbackify(() => promise))();
+}
+
+function getLinesSync(buffer: Buffer): string[] {
+  return deasync(callbackify(() => buffer.lines))();
+}
+
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
  */
@@ -115,36 +123,38 @@ export async function activate(context: NeovimExtensionContext) {
   // // const lines6 = awaitSync(buffer.lines); // hangs / never returns
   // ----------
 
-  // const lines = awaitSync(buffer.lines); // hangs
-  // const lines3 = deasync(callbackify(() => client.buffer.lines);
+  // ----------
+  // /** Use as async */
+  // asyncFn("async world", (err: any, res: any) => {
+  //   console.warn("asyncFn callback:", res);
+  // }); // "asyncFn callback: hello async world"
 
-  /** Use as async */
-  asyncFn("async world", (err: any, res: any) => {
-    console.warn("asyncFn callback:", res);
-  }); // "asyncFn callback: hello async world"
+  // /** Use as sync! */
+  // const syncFn = deasync(asyncFn);
+  // const result = syncFn("sync world"); // "hello sync world"
+  // console.warn("syncFn result:", result); // "syncFn result: hello sync world"
 
-  /** Use as sync! */
-  const syncFn = deasync(asyncFn);
-  const result = syncFn("sync world"); // "hello sync world"
-  console.warn("syncFn result:", result); // "syncFn result: hello sync world"
+  // /** Use as async */
+  // const lines7 = asyncFn2(buffer, (err: any, res: any) => {
+  //   return res;
+  // }); // returns a promise (pending)
 
-  /** Use as async */
-  const lines7 = asyncFn2(buffer, (err: any, res: any) => {
-    return res;
-  }); // returns a promise (pending)
+  // /** Use as sync! */
+  // const syncFn2 = deasync(asyncFn2);
+  // const lines8 = syncFn2(buffer); // returns a promise (pending)
 
-  /** Use as sync! */
-  const syncFn2 = deasync(asyncFn2);
-  const lines8 = syncFn2(buffer); // returns a promise (pending)
+  // /** Use as async */
+  // const lines9 = asyncFn3(buffer, (err: any, res: any) => {
+  //   return res;
+  // }); // returns a promise (pending)
 
-  /** Use as async */
-  const lines9 = asyncFn3(buffer, (err: any, res: any) => {
-    return res;
-  }); // returns a promise (pending)
+  // /** Use as sync! */
+  // const syncFn3 = deasync(asyncFn3);
+  // // const lines10 = syncFn3(buffer); // hangs/never returns
+  // ----------
 
-  /** Use as sync! */
-  const syncFn3 = deasync(asyncFn3);
-  // const lines10 = syncFn3(buffer); // hangs/never returns
+  // const lines11 = getLinesSync(buffer); // hangs/never returns
+  // const lines12 = myAwaitSync(buffer.lines); // hangs/never returns
 
   // TODO: we should be able to get the parsetree api directly from neovim
   // const parseTreeApi = await getParseTreeApi();
