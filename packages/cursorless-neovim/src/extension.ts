@@ -26,12 +26,12 @@ import { injectCommandApi } from "./singletons/cmdapi.singleton";
 
 import { Buffer } from "neovim";
 
-import { callbackify } from "node:util";
+// import { callbackify } from "node:util";
 // import * as deasync from "deasync";
 
-function awaitSync<T>(promise: Promise<T>): T {
-  return deasync(callbackify(() => promise))();
-}
+// function awaitSync<T>(promise: Promise<T>): T {
+//   return deasync(callbackify(() => promise))();
+// }
 
 // function asyncFn(
 //   p: string,
@@ -44,31 +44,31 @@ function awaitSync<T>(promise: Promise<T>): T {
 
 // ----------
 
-// import { deasync } from "@kaciras/deasync";
+import { awaitSync, deasync } from "@kaciras/deasync";
 
-// const sleep = deasync((timeout: number, callback: any) => {
-//   setTimeout(() => callback(null, "wake up!"), timeout);
-// });
+const sleep = deasync((timeout: number, callback: any) => {
+  setTimeout(() => callback(null, "wake up!"), timeout);
+});
 
-// async function sleep3(timeout: number, callback: any) {
-//   setTimeout(() => callback(null, "wake up!"), timeout);
-// }
-// const sleep2 = deasync(sleep3);
+async function sleep3(timeout: number, callback: any) {
+  setTimeout(() => callback(null, "wake up!"), timeout);
+}
+const sleep2 = deasync(sleep3);
 
-// async function get_fake_lines(buffer: Buffer, callback: any) {
-//   callback(null, ["hello"]);
-// }
-// const get_fake_lines2 = deasync(get_fake_lines);
+async function get_fake_lines(buffer: Buffer, callback: any) {
+  callback(null, ["hello"]);
+}
+const get_fake_lines2 = deasync(get_fake_lines);
 
-// async function get_lines(buffer: Buffer, callback: any) {
-//   callback(null, await buffer.lines);
-// }
-// const get_lines2 = deasync(get_lines);
+async function get_lines(buffer: Buffer, callback: any) {
+  callback(null, await buffer.lines);
+}
+const get_lines2 = deasync(get_lines);
 
-// async function get_lines3(buffer: Buffer, callback: any) {
-//   callback(null, buffer.lines);
-// }
-// const get_lines4 = deasync(get_lines3);
+async function get_lines3(buffer: Buffer, callback: any) {
+  callback(null, buffer.lines);
+}
+const get_lines4 = deasync(get_lines3);
 
 // ----------
 
@@ -86,14 +86,15 @@ export async function activate(context: NeovimExtensionContext) {
 
   // ----------
   // @kaciras/deasync
-  // console.warn("Timestamp before: " + performance.now()); // Timestamp before: 8993.982
-  // console.warn(sleep(1000));
-  // console.warn("Timestamp after: " + performance.now()); // Timestamp after: 10008.3358
-  // const lines1 = await buffer.lines; // returned an array
-  // const lines2 = buffer.lines; // return a promise
-  // const lines3 = get_fake_lines2(buffer); // returns an array
-  // // const lines4 = get_lines2(buffer); // hangs / never returns
-  // const lines5 = get_lines4(buffer); // return a promise
+  console.warn("Timestamp before: " + performance.now()); // Timestamp before: 8993.982
+  console.warn(sleep(1000));
+  console.warn("Timestamp after: " + performance.now()); // Timestamp after: 10008.3358
+  const lines1 = await buffer.lines; // returned an array
+  const lines2 = buffer.lines; // return a promise
+  const lines3 = get_fake_lines2(buffer); // returns an array
+  // const lines4 = get_lines2(buffer); // hangs / never returns
+  const lines5 = get_lines4(buffer); // return a promise
+  // const lines6 = awaitSync(buffer.lines); // hangs / never returns
   // ----------
 
   // const lines = awaitSync(buffer.lines); // hangs
