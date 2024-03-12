@@ -15,7 +15,10 @@ mod.list(
 
 
 @mod.capture(
-    rule="{user.cursorless_every_scope_modifier} <user.cursorless_scope_type> | [{user.cursorless_ancestor_scope_modifier}] <user.cursorless_scope_type>"
+    rule=(
+        "[{user.cursorless_every_scope_modifier} | {user.cursorless_ancestor_scope_modifier}] "
+        "<user.cursorless_scope_type>"
+    ),
 )
 def cursorless_simple_scope_modifier(m) -> dict[str, Any]:
     """Containing scope, every scope, etc"""
