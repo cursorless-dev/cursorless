@@ -25,7 +25,7 @@ import { commandApi } from "./singletons/cmdapi.singleton";
 // keyboardCommands: KeyboardCommands,
 // hats: VscodeHats,
 // ): void {
-export function handleCommandInternal(...allArguments: any[]): void {
+export function handleCommandInternal(...allArguments: any[]): Promise<any> {
   console.warn(`handleCommandInternal(): allArguments =${allArguments}`);
   const [command, ...rest] = allArguments as [string, ...unknown[]];
 
@@ -33,7 +33,9 @@ export function handleCommandInternal(...allArguments: any[]): void {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       // try {
-      return await commandApi().runCommandSafe(...args);
+      const result = await commandApi().runCommandSafe(...args);
+      // const result = ["hello world"]; // simulate the result of "bring <target>"
+      return result;
       // } catch (e) {
       //   // if (!isTesting()) {
       //   //   const err = e as Error;
@@ -82,10 +84,10 @@ export function handleCommandInternal(...allArguments: any[]): void {
     console.warn(
       `handleCommandInternal(): command=${command} is not supported`,
     );
-    return;
+    return new Promise((resolve) => []);
   }
 
-  commands["cursorless.command"](...rest);
+  return commands["cursorless.command"](...rest);
   // TODO: make the below notation work
   // const HandlerFunction = (command: string) => {
   //   commands[command](...rest);

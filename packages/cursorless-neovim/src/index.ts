@@ -8,7 +8,7 @@ import { handleCommandInternal } from "./registerCommands";
 /**
  * Extension entrypoint called by node-client on Cursorless startup.
  * - Register the functions that are exposed to neovim.
- *   Note that this function need to start with the capital letter to be callable from neovim.
+ *   Note that these function need to start with a capital letter to be callable from neovim.
  */
 export default function entry(plugin: NvimPlugin) {
   // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
@@ -53,9 +53,7 @@ function loadExtension(plugin: NvimPlugin) {
   activate(extensionContext);
 }
 
-// TODO: support return value
-// export function handleCommand<T = unknown>(command: string, ...rest: any[]): Promise<T> {
-export function handleCommand(...args: any): void {
+export function handleCommand(...args: any): Promise<any> {
   console.warn(`handleCommand(): args=${args}`);
-  handleCommandInternal(...args);
+  return handleCommandInternal(...args);
 }
