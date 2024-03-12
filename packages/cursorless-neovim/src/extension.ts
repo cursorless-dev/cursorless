@@ -42,6 +42,24 @@ function asyncFn(
   return cb && cb(err, res);
 }
 
+function asyncFn2(
+  buffer: Buffer,
+  cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
+) {
+  const res = buffer.lines;
+  const err = null;
+  return cb && cb(err, res);
+}
+
+async function asyncFn3(
+  buffer: Buffer,
+  cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
+) {
+  const res = await buffer.lines;
+  const err = null;
+  return cb && cb(err, res);
+}
+
 // ----------
 
 // import { awaitSync, deasync } from "@kaciras/deasync";
@@ -109,6 +127,24 @@ export async function activate(context: NeovimExtensionContext) {
   const syncFn = deasync(asyncFn);
   const result = syncFn("sync world"); // "hello sync world"
   console.warn("syncFn result:", result); // "syncFn result: hello sync world"
+
+  /** Use as async */
+  const lines7 = asyncFn2(buffer, (err: any, res: any) => {
+    return res;
+  }); // returns a promise (pending)
+
+  /** Use as sync! */
+  const syncFn2 = deasync(asyncFn2);
+  const lines8 = syncFn2(buffer); // returns a promise (pending)
+
+  /** Use as async */
+  const lines9 = asyncFn3(buffer, (err: any, res: any) => {
+    return res;
+  }); // returns a promise (pending)
+
+  /** Use as sync! */
+  const syncFn3 = deasync(asyncFn3);
+  // const lines10 = syncFn3(buffer); // hangs/never returns
 
   // TODO: we should be able to get the parsetree api directly from neovim
   // const parseTreeApi = await getParseTreeApi();
