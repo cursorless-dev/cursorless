@@ -69,7 +69,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   get visibleRanges(): Range[] {
-    return []; // TODO: update
+    return [new Range(0, 0, 10, 0)]; // TODO: update
     // return this.editor.visibleRanges;
   }
 
