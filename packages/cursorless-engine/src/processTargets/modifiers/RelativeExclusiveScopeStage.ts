@@ -2,10 +2,7 @@ import type { RelativeScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import {
-  constructScopeRangeTarget,
-  constructTargetsFromScopes,
-} from "./constructScopeRangeTarget";
+import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { TargetScope } from "./scopeHandlers/scope.types";
@@ -38,11 +35,11 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
-    const scopes = this.getsScopes(scopeHandler, target);
+    const scopes = this.getScopes(scopeHandler, target);
     const { isReversed } = target;
 
     if (this.modifier.isEvery) {
-      return constructTargetsFromScopes(isReversed, scopes);
+      return scopes.flatMap((scope) => scope.getTargets(isReversed));
     }
 
     // Then make a range when we get the desired number of scopes
@@ -53,10 +50,7 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
     );
   }
 
-  private getsScopes(
-    scopeHandler: ScopeHandler,
-    target: Target,
-  ): TargetScope[] {
+  private getScopes(scopeHandler: ScopeHandler, target: Target): TargetScope[] {
     const { editor, contentRange: inputRange } = target;
     const { length: desiredScopeCount, direction, offset } = this.modifier;
 

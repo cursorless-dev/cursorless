@@ -273,7 +273,7 @@ export interface OrdinalScopeModifier {
   /** The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
   length: number;
 
-  /** If true use individual targets instead of combined range */
+  /** If true, yields individual targets instead of contiguous range. Defaults to `false` */
   isEvery?: boolean;
 }
 

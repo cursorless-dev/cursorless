@@ -5,10 +5,7 @@ import {
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import {
-  constructScopeRangeTarget,
-  constructTargetsFromScopes,
-} from "./constructScopeRangeTarget";
+import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
@@ -79,7 +76,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
     }
 
     if (this.modifier.isEvery) {
-      return constructTargetsFromScopes(isReversed, scopes);
+      return scopes.flatMap((scope) => scope.getTargets(isReversed));
     }
 
     return constructScopeRangeTarget(

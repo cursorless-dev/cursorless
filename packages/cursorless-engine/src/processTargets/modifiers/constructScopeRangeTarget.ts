@@ -26,8 +26,9 @@ export function constructScopeRangeTarget(
   const targets1 = scope1.getTargets(isReversed);
   const targets2 = scope2.getTargets(isReversed);
 
-  assertTargetLength(targets2);
-  assertTargetLength(targets1);
+  if (targets1.length !== 1 || targets2.length !== 1) {
+    throw Error("Scope range targets must be single-target");
+  }
 
   const [target1] = targets1;
   const [target2] = targets2;
@@ -43,22 +44,4 @@ export function constructScopeRangeTarget(
   return [
     createContinuousRangeTarget(isReversed, startTarget, endTarget, true, true),
   ];
-}
-
-/** Construct list of targets based upon the input list of scopes. */
-export function constructTargetsFromScopes(
-  isReversed: boolean,
-  scopes: TargetScope[],
-): Target[] {
-  return scopes.flatMap((scope) => {
-    const targets = scope.getTargets(isReversed);
-    assertTargetLength(targets);
-    return targets;
-  });
-}
-
-function assertTargetLength(targets: Target[]) {
-  if (targets.length !== 1) {
-    throw Error("Scope range targets must be single-target");
-  }
 }
