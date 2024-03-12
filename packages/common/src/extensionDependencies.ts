@@ -6,6 +6,7 @@ export const extensionDependencies = [
   "scala-lang.scala", // scala
   "mrob95.vscode-talonscript", // talon
   "jrieken.vscode-tree-sitter-query", // scm
+  "sumneko.lua", // lua
 
   // Necessary for the `drink cell` and `pour cell` tests
   "ms-toolsai.jupyter",
