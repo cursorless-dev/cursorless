@@ -27,48 +27,48 @@ import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { Buffer } from "neovim";
 
 // import { callbackify } from "node:util";
-// import * as deasync from "deasync";
+import deasync from "deasync";
 
 // function awaitSync<T>(promise: Promise<T>): T {
 //   return deasync(callbackify(() => promise))();
 // }
 
-// function asyncFn(
-//   p: string,
-//   cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
-// ) {
-//   const res = "hello " + p;
-//   const err = null;
-//   return cb && cb(err, res);
-// }
+function asyncFn(
+  p: string,
+  cb: { (err: any, res: any): void; (arg0: null, arg1: string): any },
+) {
+  const res = "hello " + p;
+  const err = null;
+  return cb && cb(err, res);
+}
 
 // ----------
 
-import { awaitSync, deasync } from "@kaciras/deasync";
+// import { awaitSync, deasync } from "@kaciras/deasync";
 
-const sleep = deasync((timeout: number, callback: any) => {
-  setTimeout(() => callback(null, "wake up!"), timeout);
-});
+// const sleep = deasync((timeout: number, callback: any) => {
+//   setTimeout(() => callback(null, "wake up!"), timeout);
+// });
 
-async function sleep3(timeout: number, callback: any) {
-  setTimeout(() => callback(null, "wake up!"), timeout);
-}
-const sleep2 = deasync(sleep3);
+// async function sleep3(timeout: number, callback: any) {
+//   setTimeout(() => callback(null, "wake up!"), timeout);
+// }
+// const sleep2 = deasync(sleep3);
 
-async function get_fake_lines(buffer: Buffer, callback: any) {
-  callback(null, ["hello"]);
-}
-const get_fake_lines2 = deasync(get_fake_lines);
+// async function get_fake_lines(buffer: Buffer, callback: any) {
+//   callback(null, ["hello"]);
+// }
+// const get_fake_lines2 = deasync(get_fake_lines);
 
-async function get_lines(buffer: Buffer, callback: any) {
-  callback(null, await buffer.lines);
-}
-const get_lines2 = deasync(get_lines);
+// async function get_lines(buffer: Buffer, callback: any) {
+//   callback(null, await buffer.lines);
+// }
+// const get_lines2 = deasync(get_lines);
 
-async function get_lines3(buffer: Buffer, callback: any) {
-  callback(null, buffer.lines);
-}
-const get_lines4 = deasync(get_lines3);
+// async function get_lines3(buffer: Buffer, callback: any) {
+//   callback(null, buffer.lines);
+// }
+// const get_lines4 = deasync(get_lines3);
 
 // ----------
 
@@ -86,29 +86,29 @@ export async function activate(context: NeovimExtensionContext) {
 
   // ----------
   // @kaciras/deasync
-  console.warn("Timestamp before: " + performance.now()); // Timestamp before: 8993.982
-  console.warn(sleep(1000));
-  console.warn("Timestamp after: " + performance.now()); // Timestamp after: 10008.3358
-  const lines1 = await buffer.lines; // returned an array
-  const lines2 = buffer.lines; // return a promise
-  const lines3 = get_fake_lines2(buffer); // returns an array
-  // const lines4 = get_lines2(buffer); // hangs / never returns
-  const lines5 = get_lines4(buffer); // return a promise
-  // const lines6 = awaitSync(buffer.lines); // hangs / never returns
+  // console.warn("Timestamp before: " + performance.now()); // Timestamp before: 8993.982
+  // console.warn(sleep(1000));
+  // console.warn("Timestamp after: " + performance.now()); // Timestamp after: 10008.3358
+  // const lines1 = await buffer.lines; // returned an array
+  // const lines2 = buffer.lines; // return a promise
+  // const lines3 = get_fake_lines2(buffer); // returns an array
+  // // const lines4 = get_lines2(buffer); // hangs / never returns
+  // const lines5 = get_lines4(buffer); // return a promise
+  // // const lines6 = awaitSync(buffer.lines); // hangs / never returns
   // ----------
 
   // const lines = awaitSync(buffer.lines); // hangs
   // const lines3 = deasync(callbackify(() => client.buffer.lines);
 
-  // /** Use as async */
-  // asyncFn("async world", (err: any, res: any) => {
-  //   console.warn("asyncFn callback:", res);
-  // });
+  /** Use as async */
+  asyncFn("async world", (err: any, res: any) => {
+    console.warn("asyncFn callback:", res);
+  }); // "asyncFn callback: hello async world"
 
-  // /** Use as sync! */
-  // const syncFn = deasync(asyncFn);
-  // const result = syncFn("sync world");
-  // console.log("syncFn result:", result);
+  /** Use as sync! */
+  const syncFn = deasync(asyncFn);
+  const result = syncFn("sync world"); // "hello sync world"
+  console.warn("syncFn result:", result); // "syncFn result: hello sync world"
 
   // TODO: we should be able to get the parsetree api directly from neovim
   // const parseTreeApi = await getParseTreeApi();
