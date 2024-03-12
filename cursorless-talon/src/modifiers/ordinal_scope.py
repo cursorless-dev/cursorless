@@ -44,7 +44,11 @@ def cursorless_ordinal_range(m) -> dict[str, Any]:
 
 
 @mod.capture(
-    rule="[{user.cursorless_every_scope_modifier}] ({user.cursorless_first_modifier} | {user.cursorless_last_modifier}) <user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
+    rule=(
+        "[{user.cursorless_every_scope_modifier}] "
+        "({user.cursorless_first_modifier} | {user.cursorless_last_modifier}) "
+        "<user.private_cursorless_number_small> <user.cursorless_scope_type_plural>"
+    ),
 )
 def cursorless_first_last(m) -> dict[str, Any]:
     """First/last `n` scopes; eg "first three funks"""
