@@ -24,12 +24,14 @@ import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 
-// import { callbackify } from "node:util";
+import { Buffer } from "neovim";
+
+import { callbackify } from "node:util";
 // import * as deasync from "deasync";
 
-// function awaitSync<T>(promise: Promise<T>): T {
-//   return deasync(callbackify(() => promise))();
-// }
+function awaitSync<T>(promise: Promise<T>): T {
+  return deasync(callbackify(() => promise))();
+}
 
 // function asyncFn(
 //   p: string,
@@ -39,12 +41,36 @@ import { injectCommandApi } from "./singletons/cmdapi.singleton";
 //   const err = null;
 //   return cb && cb(err, res);
 // }
-// import { deasync } from "@kaciras/deasync";
-import { deasync } from "@kaciras/deasync";
 
-const sleep = deasync((timeout: number, callback: any) => {
-  setTimeout(() => callback(null, "wake up!"), timeout);
-});
+// ----------
+
+// import { deasync } from "@kaciras/deasync";
+
+// const sleep = deasync((timeout: number, callback: any) => {
+//   setTimeout(() => callback(null, "wake up!"), timeout);
+// });
+
+// async function sleep3(timeout: number, callback: any) {
+//   setTimeout(() => callback(null, "wake up!"), timeout);
+// }
+// const sleep2 = deasync(sleep3);
+
+// async function get_fake_lines(buffer: Buffer, callback: any) {
+//   callback(null, ["hello"]);
+// }
+// const get_fake_lines2 = deasync(get_fake_lines);
+
+// async function get_lines(buffer: Buffer, callback: any) {
+//   callback(null, await buffer.lines);
+// }
+// const get_lines2 = deasync(get_lines);
+
+// async function get_lines3(buffer: Buffer, callback: any) {
+//   callback(null, buffer.lines);
+// }
+// const get_lines4 = deasync(get_lines3);
+
+// ----------
 
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
@@ -53,17 +79,25 @@ export async function activate(context: NeovimExtensionContext) {
   // debugger; // NOTE: helps debugging
 
   const client = context.client;
+  const buffer = await client.buffer;
 
   const bufmgr = new BufferManager(context);
   injectBufferManager(bufmgr);
 
-  const lines1 = await client.buffer.lines;
-  const lines2 = client.buffer.lines;
-  // const lines = awaitSync(client.buffer.lines);
+  // ----------
+  // @kaciras/deasync
+  // console.warn("Timestamp before: " + performance.now()); // Timestamp before: 8993.982
+  // console.warn(sleep(1000));
+  // console.warn("Timestamp after: " + performance.now()); // Timestamp after: 10008.3358
+  // const lines1 = await buffer.lines; // returned an array
+  // const lines2 = buffer.lines; // return a promise
+  // const lines3 = get_fake_lines2(buffer); // returns an array
+  // // const lines4 = get_lines2(buffer); // hangs / never returns
+  // const lines5 = get_lines4(buffer); // return a promise
+  // ----------
+
+  // const lines = awaitSync(buffer.lines); // hangs
   // const lines3 = deasync(callbackify(() => client.buffer.lines);
-  console.warn("Timestamp before: " + performance.now());
-  console.warn(sleep(1000));
-  console.warn("Timestamp after: " + performance.now());
 
   // /** Use as async */
   // asyncFn("async world", (err: any, res: any) => {
@@ -145,7 +179,7 @@ export async function activate(context: NeovimExtensionContext) {
     fileSystem,
   );
   injectCommandApi(commandApi);
-  // debugger; // NOTE: helps debugging
+  debugger; // NOTE: helps debugging
   console.warn("activate(): Cursorless extension loaded");
 }
 
