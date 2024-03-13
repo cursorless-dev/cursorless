@@ -20,7 +20,6 @@ import {
   getContentRange,
   runForEachEditor,
 } from "../util/targetUtils";
-import { unifyRemovalTargets } from "../util/unifyRanges";
 import { ActionReturnValue } from "./actions.types";
 
 type ActionType = "bring" | "move" | "swap";
