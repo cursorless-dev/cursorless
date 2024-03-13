@@ -7,9 +7,12 @@ import {
 import { Target } from "../typings/target.types";
 
 export async function getTargetRanges(target: Target): Promise<TargetRanges> {
-  const interior = (() => {
+  const interior = await (async () => {
     try {
-      return target.getInteriorStrict().map(getTargetRanges);
+      const targets = await Promise.all(
+        (await target.getInteriorStrict()).map(getTargetRanges),
+      );
+      return targets;
     } catch (error) {
       if (error instanceof NoContainingScopeError) {
         return undefined;
@@ -18,9 +21,12 @@ export async function getTargetRanges(target: Target): Promise<TargetRanges> {
     }
   })();
 
-  const boundary = (() => {
+  const boundary = await (async () => {
     try {
-      return target.getBoundaryStrict().map(getTargetRanges);
+      const targets = await Promise.all(
+        target.getBoundaryStrict().map(getTargetRanges),
+      );
+      return targets;
     } catch (error) {
       if (error instanceof NoContainingScopeError) {
         return undefined;
@@ -33,10 +39,14 @@ export async function getTargetRanges(target: Target): Promise<TargetRanges> {
     contentRange: target.contentRange,
     removalRange: await target.getRemovalRange(),
     removalHighlightRange: target.isLine
-      ? toLineRange(target.getRemovalHighlightRange())
-      : toCharacterRange(target.getRemovalHighlightRange()),
-    leadingDelimiter: getOptionalTarget(target.getLeadingDelimiterTarget()),
-    trailingDelimiter: getOptionalTarget(target.getTrailingDelimiterTarget()),
+      ? toLineRange(await target.getRemovalHighlightRange())
+      : toCharacterRange(await target.getRemovalHighlightRange()),
+    leadingDelimiter: await getOptionalTarget(
+      target.getLeadingDelimiterTarget(),
+    ),
+    trailingDelimiter: await getOptionalTarget(
+      target.getTrailingDelimiterTarget(),
+    ),
     interior,
     boundary,
     insertionDelimiter: target.insertionDelimiter,

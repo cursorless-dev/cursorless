@@ -122,6 +122,8 @@ async function fillOutSelectionInfos(
       });
     }),
   );
+  // TODO: do we need to reflect that it used to return:
+  // selectionInfoMatrix is FullSelectionInfo[][]?
   return true;
 }
 

@@ -78,7 +78,7 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     return undefined;
   }
 
-  getInteriorStrict() {
+  async getInteriorStrict() {
     if (this.interiorRange_ == null) {
       return super.getInteriorStrict();
     }

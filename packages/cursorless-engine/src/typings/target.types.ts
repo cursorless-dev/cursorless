@@ -132,7 +132,7 @@ export interface Target {
   /** Internal target that should be used for the that mark */
   readonly thatTarget: Target;
 
-  getInteriorStrict(): Target[];
+  getInteriorStrict(): Promise<Target[]>;
   getBoundaryStrict(): Target[];
   /** The range of the delimiter before the content selection */
   getLeadingDelimiterTarget(): Target | undefined;

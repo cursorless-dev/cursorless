@@ -55,13 +55,13 @@ export class WordScopeHandler extends NestedScopeHandler {
     direction: Direction,
     searchScope: TargetScope,
   ): Promise<Iterable<TargetScope>> {
-    const scopes = await this.getScopesInSearchScope(searchScope);
+    const scopes = this.getScopesInSearchScope(searchScope);
 
     if (direction === "backward") {
-      scopes.reverse();
+      (await scopes).reverse();
     }
 
-    return new Promise((resolve, reject) => resolve(scopes));
+    return scopes;
   }
 }
 

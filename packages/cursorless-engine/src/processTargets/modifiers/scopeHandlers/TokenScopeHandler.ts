@@ -15,27 +15,23 @@ export class TokenScopeHandler extends NestedScopeHandler {
 
   private regex: RegExp = getMatcher(this.languageId).tokenMatcher;
 
-  protected generateScopesInSearchScope(
+  protected async generateScopesInSearchScope(
     direction: Direction,
     { editor, domain }: TargetScope,
   ): Promise<Iterable<TargetScope>> {
-    return new Promise((resolve, reject) =>
-      resolve(
-        imap(
-          generateMatchesInRange(this.regex, editor, domain, direction),
-          (range) => ({
+    return imap(
+      await generateMatchesInRange(this.regex, editor, domain, direction),
+      (range) => ({
+        editor,
+        domain: range,
+        getTargets: (isReversed) => [
+          new TokenTarget({
             editor,
-            domain: range,
-            getTargets: (isReversed) => [
-              new TokenTarget({
-                editor,
-                contentRange: range,
-                isReversed,
-              }),
-            ],
+            contentRange: range,
+            isReversed,
           }),
-        ),
-      ),
+        ],
+      }),
     );
   }
 

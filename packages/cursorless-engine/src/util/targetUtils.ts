@@ -89,7 +89,7 @@ function groupForEachEditor<T>(
   });
 }
 
-export function getContentRange(target: Target) {
+export async function getContentRange(target: Target) {
   return target.contentRange;
 }
 
@@ -122,7 +122,7 @@ export function flashTargets(
   ide: IDE,
   targets: Target[],
   style: FlashStyle,
-  getRange: (target: Target) => Range | undefined = getContentRange,
+  getRange: (target: Target) => Promise<Range | undefined> = getContentRange,
 ) {
   return ide.flashRanges(
     targets

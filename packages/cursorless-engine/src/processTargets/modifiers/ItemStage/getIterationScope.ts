@@ -12,10 +12,10 @@ import { processSurroundingPair } from "../surroundingPair";
  * @param target The stage target
  * @returns The stage iteration scope and optional surrounding pair boundaries
  */
-export function getIterationScope(
+export async function getIterationScope(
   languageDefinitions: LanguageDefinitions,
   target: Target,
-): { range: Range; boundary?: [Range, Range] } {
+): Promise<{ range: Range; boundary?: [Range, Range] }> {
   let surroundingTarget = getSurroundingPair(languageDefinitions, target);
 
   // Iteration is necessary in case of in valid surrounding targets (nested strings, content range adjacent to delimiter)
@@ -28,7 +28,7 @@ export function getIterationScope(
       )
     ) {
       return {
-        range: surroundingTarget.getInteriorStrict()[0].contentRange,
+        range: (await surroundingTarget.getInteriorStrict())[0].contentRange,
         boundary: getBoundary(surroundingTarget),
       };
     }

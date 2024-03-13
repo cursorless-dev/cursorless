@@ -89,6 +89,11 @@ export abstract class NestedScopeHandler extends BaseScopeHandler {
       },
     );
 
+    /* 
+    TODO: Property '[Symbol.iterator]' is missing in type 'Promise<Iterable<TargetScope>>' but required in type 'Iterable<TargetScope>'.ts(2741)
+    lib.es2015.iterable.d.ts(49, 5): '[Symbol.iterator]' is declared here.
+    index.d.mts(452, 63): The expected type comes from the return type of this signature. 
+    */
     return flatmap(generator, (searchScope) =>
       this.generateScopesInSearchScope(direction, searchScope),
     );

@@ -28,7 +28,7 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
       scopeType: { type: "nonWhitespaceSequence" },
     });
 
-    const paintTargets = paintStage.run(target);
+    const paintTargets = await paintStage.run(target);
 
     const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
       type: "surroundingPair",
@@ -40,9 +40,9 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
       return paintTargets;
     }
 
-    const targets = paintTargets.flatMap((paintTarget) => {
+    const targets = paintTargets.flatMap(async (paintTarget) => {
       const contentRange = paintTarget.contentRange.intersection(
-        pairInfo.getInteriorStrict()[0].contentRange,
+        (await pairInfo.getInteriorStrict())[0].contentRange,
       );
 
       if (contentRange == null || contentRange.isEmpty) {
@@ -62,6 +62,12 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
+    /* TODO: 
+    Type 'TokenTarget[]' is not assignable to type 'Target[]'.
+    Type 'TokenTarget' is not assignable to type 'Target'.
+    The types returned by 'getInteriorStrict()' are incompatible between these types.
+    Type 'Target[]' is missing the following properties from type 'Promise<Target[]>': then, catch, finally, [Symbol.toStringTag]ts(2322) 
+    */
     return targets;
   }
 }

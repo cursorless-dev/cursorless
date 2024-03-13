@@ -47,7 +47,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
     return getTokenRemovalRange(this);
   }
 
-  getInteriorStrict() {
+  async getInteriorStrict() {
     return [
       new InteriorTarget({
         editor: this.editor,

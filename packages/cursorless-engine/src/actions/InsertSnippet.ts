@@ -129,6 +129,13 @@ export default class InsertSnippet {
       snippetDescription,
       // Use new selection locations instead of original targets because
       // that's where we'll be doing the snippet insertion
+      /* 
+      TODO: 
+      Argument of type 'UntypedTarget[]' is not assignable to parameter of type 'Target[]'.
+      Type 'UntypedTarget' is not assignable to type 'Target'.
+      The types returned by 'getRemovalRange()' are incompatible between these types.
+      Type 'Range' is missing the following properties from type 'Promise<Range>': then, catch, finally, [Symbol.toStringTag]ts(2345) 
+      */
       editor.selections.map(
         (selection) =>
           new UntypedTarget({

@@ -43,7 +43,7 @@ abstract class BringMoveSwap {
   protected abstract decoration: {
     sourceStyle: FlashStyle;
     destinationStyle: FlashStyle;
-    getSourceRangeCallback: (target: Target) => Range;
+    getSourceRangeCallback: (target: Target) => Promise<Range>;
   };
 
   constructor(
@@ -72,7 +72,8 @@ abstract class BringMoveSwap {
     const shouldJoinSources =
       sources.length !== destinations.length && destinations.length === 1;
 
-    sources.forEach(async (source, i) => {
+    for (let i = 0; i < sources.length; i++) {
+      const source = sources[i];
       let destination = destinations[i];
       if ((source == null || destination == null) && !shouldJoinSources) {
         throw new Error("Targets must have same number of args");
@@ -119,7 +120,7 @@ abstract class BringMoveSwap {
           });
         }
       }
-    });
+    }
 
     if (this.type === "move") {
       // Unify overlapping targets.
@@ -254,7 +255,7 @@ abstract class BringMoveSwap {
   }
 
   protected async decorateThatMark(thatMark: MarkEntry[]) {
-    const getRange = (target: Target) =>
+    const getRange = async (target: Target) =>
       thatMark.find((t) => t.target === target)!.selection;
     return Promise.all([
       flashTargets(
@@ -381,17 +382,21 @@ export class Swap extends BringMoveSwap {
 
     const edits = this.getEditsSwap(targets1, targets2);
 
-    const markEntries = await this.performEditsAndComputeThatMark(edits);
+    const markEntries = await this.performEditsAndComputeThatMark(await edits);
 
     await this.decorateThatMark(markEntries);
 
     return { thatSelections: markEntries, sourceSelections: [] };
   }
 
-  private getEditsSwap(targets1: Target[], targets2: Target[]): ExtendedEdit[] {
+  private async getEditsSwap(
+    targets1: Target[],
+    targets2: Target[],
+  ): Promise<ExtendedEdit[]> {
     const results: ExtendedEdit[] = [];
 
-    targets1.forEach(async (target1, i) => {
+    for (let i = 0; i < targets1.length; ++i) {
+      const target1 = targets1[i];
       const target2 = targets2[i];
       if (target1 == null || target2 == null) {
         throw new Error("Targets must have same number of args");
@@ -416,7 +421,7 @@ export class Swap extends BringMoveSwap {
         originalTarget: target1,
         isSource: true,
       });
-    });
+    }
 
     return results;
   }

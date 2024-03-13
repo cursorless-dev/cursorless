@@ -14,11 +14,13 @@ export class InteriorOnlyStage implements ModifierStage {
   ) {}
 
   async run(target: Target): Promise<Target[]> {
-    return (
-      await this.modifierStageFactory
-        .create(containingSurroundingPairIfUntypedModifier)
-        .run(target)
-    ).flatMap((target) => target.getInteriorStrict());
+    const targets = await this.modifierStageFactory
+      .create(containingSurroundingPairIfUntypedModifier)
+      .run(target);
+    const targets2 = await (
+      await Promise.all(targets.map((target) => target.getInteriorStrict()))
+    ).flat();
+    return targets2;
   }
 }
 

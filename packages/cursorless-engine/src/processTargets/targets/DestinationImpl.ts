@@ -17,6 +17,7 @@ export class DestinationImpl implements Destination {
   private readonly isLineDelimiter: boolean;
   private readonly isBefore: boolean;
   private readonly indentationString: string;
+  // TODO: we can't initialize "insertionPrefix" into the initialize() function because it is readonly?
   // private readonly insertionPrefix?: string;
   private _insertionPrefix?: string;
 
@@ -34,7 +35,7 @@ export class DestinationImpl implements Destination {
         : "";
   }
 
-  // we can't have "async" in a constructor so we initialize elsewhere
+  // TODO: we can't have "async/await" in a constructor so we initialize elsewhere
   async initialize() {
     this._insertionPrefix =
       this.target.prefixRange != null

@@ -107,7 +107,7 @@ export abstract class BaseTarget<
     return this.cloneWith({ contentRange });
   }
 
-  getInteriorStrict(): Target[] {
+  async getInteriorStrict(): Promise<Target[]> {
     throw new NoContainingScopeError("interior");
   }
   getBoundaryStrict(): Target[] {
