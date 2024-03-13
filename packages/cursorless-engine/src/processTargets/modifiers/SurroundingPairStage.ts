@@ -40,12 +40,12 @@ export class SurroundingPairStage implements ModifierStage {
   }
 }
 
-function processedSurroundingPairTarget(
+async function processedSurroundingPairTarget(
   languageDefinitions: LanguageDefinitions,
   modifier: ContainingSurroundingPairModifier,
   target: Target,
-): SurroundingPairTarget[] {
-  const outputTarget = processSurroundingPair(
+): Promise<SurroundingPairTarget[]> {
+  const outputTarget = await processSurroundingPair(
     languageDefinitions,
     target,
     modifier.scopeType,

@@ -80,10 +80,10 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
 
   async getInteriorStrict() {
     if (this.interiorRange_ == null) {
-      return super.getInteriorStrict();
+      return await super.getInteriorStrict();
     }
     return [
-      new InteriorTarget({
+      await InteriorTarget.create({
         editor: this.editor,
         isReversed: this.isReversed,
         fullInteriorRange: this.interiorRange_,
@@ -99,10 +99,10 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
       : getTokenRemovalRange(this);
   }
 
-  maybeCreateRichRangeTarget(
+  async maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: ScopeTypeTarget,
-  ): ScopeTypeTarget | null {
+  ): Promise<ScopeTypeTarget | null> {
     if (this.scopeTypeType_ !== endTarget.scopeTypeType_) {
       return null;
     }

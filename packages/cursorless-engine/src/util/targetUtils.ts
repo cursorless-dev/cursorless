@@ -118,27 +118,29 @@ export function toGeneralizedRange(target: Target): GeneralizedRange {
   return target.isLine ? toLineRange(range) : toCharacterRange(range);
 }
 
-export function flashTargets(
+export async function flashTargets(
   ide: IDE,
   targets: Target[],
   style: FlashStyle,
   getRange: (target: Target) => Promise<Range | undefined> = getContentRange,
 ) {
-  return ide.flashRanges(
-    targets
-      .map((target) => {
-        const range = getRange(target);
+  const flashDescriptors_ = await Promise.all(
+    targets.map(async (target) => {
+      const range = await getRange(target);
 
-        if (range == null) {
-          return null;
-        }
+      if (range == null) {
+        return null;
+      }
 
-        return {
-          editor: target.editor,
-          range: target.isLine ? toLineRange(range) : toCharacterRange(range),
-          style,
-        };
-      })
-      .filter((flash): flash is FlashDescriptor => flash != null),
+      return {
+        editor: target.editor,
+        range: target.isLine ? toLineRange(range) : toCharacterRange(range),
+        style,
+      } as FlashDescriptor;
+    }),
   );
+  const flashDescriptors = flashDescriptors_.filter(
+    (flash): flash is FlashDescriptor => flash != null,
+  );
+  return ide.flashRanges(flashDescriptors);
 }

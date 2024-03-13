@@ -9,7 +9,7 @@ export class StoredTargetStage implements MarkStage {
     private key: StoredTargetKey,
   ) {}
 
-  run(): Target[] {
+  async run(): Promise<Target[]> {
     const targets = this.storedTargets.get(this.key);
 
     if (targets == null || targets.length === 0) {

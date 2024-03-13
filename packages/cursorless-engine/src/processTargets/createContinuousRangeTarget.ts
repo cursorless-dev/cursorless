@@ -26,15 +26,15 @@ import { LineTarget, UntypedTarget } from "./targets";
  * @returns A target consisting of a range between {@link startTarget} and
  * {@link endTarget}
  */
-export function createContinuousRangeTarget(
+export async function createContinuousRangeTarget(
   isReversed: boolean,
   startTarget: Target,
   endTarget: Target,
   includeStart: boolean,
   includeEnd: boolean,
-): Target {
+): Promise<Target> {
   if (includeStart && includeEnd && isSameType(startTarget, endTarget)) {
-    const richTarget = startTarget.maybeCreateRichRangeTarget(
+    const richTarget = await startTarget.maybeCreateRichRangeTarget(
       isReversed,
       endTarget,
     );

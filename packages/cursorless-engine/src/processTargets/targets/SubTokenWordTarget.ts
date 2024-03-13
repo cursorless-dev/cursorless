@@ -45,10 +45,10 @@ export class SubTokenWordTarget extends BaseTarget<SubTokenTargetParameters> {
     return getDelimitedSequenceRemovalRange(this);
   }
 
-  maybeCreateRichRangeTarget(
+  async maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: SubTokenWordTarget,
-  ): SubTokenWordTarget {
+  ): Promise<SubTokenWordTarget> {
     return new SubTokenWordTarget({
       ...this.getCloneParameters(),
       isReversed,

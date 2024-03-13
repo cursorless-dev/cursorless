@@ -29,7 +29,9 @@ export default class Delete implements SimpleAction {
 
     const thatTargets = flatten(
       await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const edits = targets.map((target) => target.constructRemovalEdit());
+        const edits = await Promise.all(
+          targets.map(async (target) => await target.constructRemovalEdit()),
+        );
         const ranges = edits.map((edit) => edit.range);
 
         const [updatedRanges] = await performEditsAndUpdateRanges(

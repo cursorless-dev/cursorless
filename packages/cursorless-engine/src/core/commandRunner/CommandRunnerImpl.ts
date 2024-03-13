@@ -71,7 +71,7 @@ export class CommandRunnerImpl implements CommandRunner {
     return returnValue;
   }
 
-  private runAction(
+  private async runAction(
     actionDescriptor: ActionDescriptor,
   ): Promise<ActionReturnValue> {
     // Prepare to run the action by resetting the inference context and
@@ -83,13 +83,13 @@ export class CommandRunnerImpl implements CommandRunner {
       case "replaceWithTarget":
         return this.actions.replaceWithTarget.run(
           this.getTargets(actionDescriptor.source),
-          this.getDestinations(actionDescriptor.destination),
+          await this.getDestinations(actionDescriptor.destination),
         );
 
       case "moveToTarget":
         return this.actions.moveToTarget.run(
           this.getTargets(actionDescriptor.source),
-          this.getDestinations(actionDescriptor.destination),
+          await this.getDestinations(actionDescriptor.destination),
         );
 
       case "swapTargets":
@@ -122,7 +122,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "pasteFromClipboard":
         return this.actions.pasteFromClipboard.run(
-          this.getDestinations(actionDescriptor.destination),
+          await this.getDestinations(actionDescriptor.destination),
         );
 
       case "executeCommand":
@@ -134,7 +134,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "replace":
         return this.actions.replace.run(
-          this.getDestinations(actionDescriptor.destination),
+          await this.getDestinations(actionDescriptor.destination),
           actionDescriptor.replaceWith,
         );
 
@@ -155,7 +155,7 @@ export class CommandRunnerImpl implements CommandRunner {
           actionDescriptor.snippetDescription,
         );
         return this.actions.insertSnippet.run(
-          this.getDestinations(actionDescriptor.destination),
+          await this.getDestinations(actionDescriptor.destination),
           actionDescriptor.snippetDescription,
         );
 
@@ -170,7 +170,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "editNew":
         return this.actions.editNew.run(
-          this.getDestinations(actionDescriptor.destination),
+          await this.getDestinations(actionDescriptor.destination),
         );
 
       case "getText":
@@ -202,21 +202,29 @@ export class CommandRunnerImpl implements CommandRunner {
     });
   }
 
-  private getDestinations(
+  private async getDestinations(
     destinationDescriptor: DestinationDescriptor,
-  ): Destination[] {
+  ): Promise<Destination[]> {
+    let destinations;
     switch (destinationDescriptor.type) {
       case "list":
-        return destinationDescriptor.destinations.flatMap((destination) =>
-          this.getDestinations(destination),
+        destinations = await Promise.all(
+          destinationDescriptor.destinations.map(
+            async (destination) => await this.getDestinations(destination),
+          ),
         );
+        return destinations.flat();
       case "primitive":
-        return this.getTargets(destinationDescriptor.target).map((target) =>
-          target.toDestination(destinationDescriptor.insertionMode),
+        return await Promise.all(
+          this.getTargets(destinationDescriptor.target).map((target) =>
+            target.toDestination(destinationDescriptor.insertionMode),
+          ),
         );
       case "implicit":
-        return this.getTargets({ type: "implicit" }).map((target) =>
-          target.toDestination("to"),
+        return await Promise.all(
+          this.getTargets({ type: "implicit" }).map((target) =>
+            target.toDestination("to"),
+          ),
         );
     }
   }

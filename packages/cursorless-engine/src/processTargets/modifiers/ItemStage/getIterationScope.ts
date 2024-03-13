@@ -16,7 +16,7 @@ export async function getIterationScope(
   languageDefinitions: LanguageDefinitions,
   target: Target,
 ): Promise<{ range: Range; boundary?: [Range, Range] }> {
-  let surroundingTarget = getSurroundingPair(languageDefinitions, target);
+  let surroundingTarget = await getSurroundingPair(languageDefinitions, target);
 
   // Iteration is necessary in case of in valid surrounding targets (nested strings, content range adjacent to delimiter)
   while (surroundingTarget != null) {
@@ -33,7 +33,7 @@ export async function getIterationScope(
       };
     }
 
-    surroundingTarget = getParentSurroundingPair(
+    surroundingTarget = await getParentSurroundingPair(
       languageDefinitions,
       target.editor,
       surroundingTarget,

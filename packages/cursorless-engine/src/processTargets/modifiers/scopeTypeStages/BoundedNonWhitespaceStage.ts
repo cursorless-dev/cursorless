@@ -30,44 +30,45 @@ export class BoundedNonWhitespaceSequenceStage implements ModifierStage {
 
     const paintTargets = await paintStage.run(target);
 
-    const pairInfo = processSurroundingPair(this.languageDefinitions, target, {
-      type: "surroundingPair",
-      delimiter: "any",
-      requireStrongContainment: true,
-    });
+    const pairInfo = await processSurroundingPair(
+      this.languageDefinitions,
+      target,
+      {
+        type: "surroundingPair",
+        delimiter: "any",
+        requireStrongContainment: true,
+      },
+    );
 
     if (pairInfo == null) {
       return paintTargets;
     }
 
-    const targets = paintTargets.flatMap(async (paintTarget) => {
-      const contentRange = paintTarget.contentRange.intersection(
-        (await pairInfo.getInteriorStrict())[0].contentRange,
-      );
+    const targets_ = await Promise.all(
+      paintTargets.map(async (paintTarget) => {
+        const contentRange = paintTarget.contentRange.intersection(
+          (await pairInfo.getInteriorStrict())[0].contentRange,
+        );
 
-      if (contentRange == null || contentRange.isEmpty) {
-        return [];
-      }
+        if (contentRange == null || contentRange.isEmpty) {
+          return [];
+        }
 
-      return [
-        new TokenTarget({
-          editor: target.editor,
-          isReversed: target.isReversed,
-          contentRange,
-        }),
-      ];
-    });
+        return [
+          new TokenTarget({
+            editor: target.editor,
+            isReversed: target.isReversed,
+            contentRange,
+          }),
+        ];
+      }),
+    );
+    const targets = targets_.flat();
 
     if (targets.length === 0) {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    /* TODO: 
-    Type 'TokenTarget[]' is not assignable to type 'Target[]'.
-    Type 'TokenTarget' is not assignable to type 'Target'.
-    The types returned by 'getInteriorStrict()' are incompatible between these types.
-    Type 'Target[]' is missing the following properties from type 'Promise<Target[]>': then, catch, finally, [Symbol.toStringTag]ts(2322) 
-    */
     return targets;
   }
 }

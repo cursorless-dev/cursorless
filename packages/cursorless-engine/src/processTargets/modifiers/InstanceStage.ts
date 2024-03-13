@@ -29,9 +29,11 @@ export class InstanceStage implements ModifierStage {
     // If the target is untyped and empty, we want to target the containing
     // token. This handles the case where they just say "instance" with an empty
     // selection, eg "take every instance".
-    const target = new ContainingTokenIfUntypedEmptyStage(
-      this.modifierStageFactory,
-    ).run(inputTarget)[0];
+    const target = (
+      await new ContainingTokenIfUntypedEmptyStage(
+        this.modifierStageFactory,
+      ).run(inputTarget)
+    )[0];
 
     switch (this.modifier.type) {
       case "everyScope":
@@ -45,6 +47,7 @@ export class InstanceStage implements ModifierStage {
     }
   }
 
+  // TODO: async I don't know how to deal with that
   private handleEveryScope(target: Target): Target[] {
     return Array.from(
       flatmap(this.getEveryRanges(target), ([editor, searchRange]) =>

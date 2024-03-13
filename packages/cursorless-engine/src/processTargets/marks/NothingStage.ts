@@ -5,7 +5,7 @@ import { MarkStage } from "../PipelineStages.types";
 export class NothingStage implements MarkStage {
   constructor(private mark: NothingMark) {}
 
-  run(): Target[] {
+  async run(): Promise<Target[]> {
     return [];
   }
 }

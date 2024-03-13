@@ -15,11 +15,11 @@ interface ContainingIndices {
   end: number;
 }
 
-export function runLegacy(
+export async function runLegacy(
   modifierStageFactory: ModifierStageFactory,
   modifier: RelativeScopeModifier,
   target: Target,
-): Target[] {
+): Promise<Target[]> {
   /**
    * A list of targets in the iteration scope for the input {@link target}.
    * Note that we convert {@link target} to have no explicit range so that we
@@ -29,7 +29,7 @@ export function runLegacy(
    * FIXME: In the future we should probably use a better abstraction for this, but
    * that will rely on #629
    */
-  const targets = getEveryScopeTargets(
+  const targets = await getEveryScopeTargets(
     modifierStageFactory,
     createTargetWithoutExplicitRange(target),
     modifier.scopeType,
@@ -37,7 +37,7 @@ export function runLegacy(
 
   const containingIndices = getContainingIndices(target.contentRange, targets);
 
-  return calculateIndicesAndCreateTarget(
+  return await calculateIndicesAndCreateTarget(
     modifier,
     target,
     targets,
@@ -45,12 +45,12 @@ export function runLegacy(
   );
 }
 
-function calculateIndicesAndCreateTarget(
+async function calculateIndicesAndCreateTarget(
   modifier: RelativeScopeModifier,
   target: Target,
   targets: Target[],
   containingIndices: ContainingIndices | undefined,
-): Target[] {
+): Promise<Target[]> {
   const isForward = modifier.direction === "forward";
 
   /** Proximal index. This is the index closest to the target content range. */
@@ -71,7 +71,7 @@ function calculateIndicesAndCreateTarget(
   const endIndex = Math.max(proximalIndex, distalIndex);
 
   return [
-    createRangeTargetFromIndices(
+    await createRangeTargetFromIndices(
       target.isReversed,
       targets,
       startIndex,

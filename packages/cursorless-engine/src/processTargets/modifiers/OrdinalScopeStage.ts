@@ -14,7 +14,7 @@ export class OrdinalScopeStage implements ModifierStage {
   ) {}
 
   async run(target: Target): Promise<Target[]> {
-    const targets = getEveryScopeTargets(
+    const targets = await getEveryScopeTargets(
       this.modifierStageFactory,
       target,
       this.modifier.scopeType,
@@ -25,7 +25,7 @@ export class OrdinalScopeStage implements ModifierStage {
     const endIndex = startIndex + this.modifier.length - 1;
 
     return [
-      createRangeTargetFromIndices(
+      await createRangeTargetFromIndices(
         target.isReversed,
         targets,
         startIndex,

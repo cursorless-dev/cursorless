@@ -1,5 +1,9 @@
 import { Range } from "@cursorless/common";
-import { BaseTarget, MinimumTargetParameters } from "./BaseTarget";
+import {
+  BaseTarget,
+  CommonTargetParameters,
+  MinimumTargetParameters,
+} from "./BaseTarget";
 import { shrinkRangeToFitContent } from "../../util/selectionUtils";
 import { createContinuousRangeFromRanges } from "./util/createContinuousRange";
 
@@ -12,15 +16,23 @@ export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
   insertionDelimiter = " ";
   private readonly fullInteriorRange: Range;
 
-  constructor(parameters: InteriorTargetParameters) {
-    super({
+  // TODO: don't use the constructor, instead we need to create the object with create()
+  // Are we happy about that?
+  constructor(parameters: InteriorTargetParameters & CommonTargetParameters) {
+    super(parameters);
+    this.fullInteriorRange = parameters.fullInteriorRange;
+  }
+
+  public static async create(
+    parameters: InteriorTargetParameters,
+  ): Promise<InteriorTarget> {
+    return new InteriorTarget({
       ...parameters,
-      contentRange: shrinkRangeToFitContent(
+      contentRange: await shrinkRangeToFitContent(
         parameters.editor,
         parameters.fullInteriorRange,
       ),
     });
-    this.fullInteriorRange = parameters.fullInteriorRange;
   }
 
   getLeadingDelimiterTarget = () => undefined;
@@ -34,11 +46,11 @@ export class InteriorTarget extends BaseTarget<InteriorTargetParameters> {
     };
   }
 
-  maybeCreateRichRangeTarget(
+  async maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: InteriorTarget,
-  ): InteriorTarget {
-    return new InteriorTarget({
+  ): Promise<InteriorTarget> {
+    return await InteriorTarget.create({
       ...this.getCloneParameters(),
       isReversed,
       fullInteriorRange: createContinuousRangeFromRanges(

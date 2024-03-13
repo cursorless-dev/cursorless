@@ -13,11 +13,11 @@ import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPo
  * @param ancestorIndex How many ancestors to go up. 0 means the immediate containing scope
  * @returns A target representing the containing scope, or undefined if no containing scope found
  */
-export function getContainingScopeTarget(
+export async function getContainingScopeTarget(
   target: Target,
   scopeHandler: ScopeHandler,
   ancestorIndex: number = 0,
-): Target[] | undefined {
+): Promise<Target[] | undefined> {
   const {
     isReversed,
     editor,
@@ -78,7 +78,7 @@ export function getContainingScopeTarget(
     return undefined;
   }
 
-  return constructScopeRangeTarget(isReversed, startScope, endScope);
+  return await constructScopeRangeTarget(isReversed, startScope, endScope);
 }
 
 function expandFromPosition(

@@ -73,7 +73,11 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
 
       if (scopeCount === offset + desiredScopeCount - 1) {
         // Then make a range when we get the desired number of scopes
-        return constructScopeRangeTarget(isReversed, proximalScope!, scope);
+        return await constructScopeRangeTarget(
+          isReversed,
+          proximalScope!,
+          scope,
+        );
       }
     }
 

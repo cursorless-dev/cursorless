@@ -74,10 +74,12 @@ export class EveryScopeStage implements ModifierStage {
       // If target had no explicit range, or was contained by a single target
       // instance, expand to iteration scope before overlapping
       try {
-        scopes = this.getDefaultIterationRange(
-          scopeHandler,
-          this.scopeHandlerFactory,
-          target,
+        scopes = (
+          await this.getDefaultIterationRange(
+            scopeHandler,
+            this.scopeHandlerFactory,
+            target,
+          )
         ).flatMap((iterationRange) =>
           getScopesOverlappingRange(scopeHandler, editor, iterationRange),
         );
@@ -103,11 +105,11 @@ export class EveryScopeStage implements ModifierStage {
     return scopes.flatMap((scope) => scope.getTargets(isReversed));
   }
 
-  getDefaultIterationRange(
+  async getDefaultIterationRange(
     scopeHandler: ScopeHandler,
     scopeHandlerFactory: ScopeHandlerFactory,
     target: Target,
-  ): Range[] {
+  ): Promise<Range[]> {
     const iterationScopeHandler = scopeHandlerFactory.create(
       scopeHandler.iterationScopeType,
       target.editor.document.languageId,
@@ -117,7 +119,7 @@ export class EveryScopeStage implements ModifierStage {
       throw Error("Could not find iteration scope handler");
     }
 
-    const iterationScopeTarget = getContainingScopeTarget(
+    const iterationScopeTarget = await getContainingScopeTarget(
       target,
       iterationScopeHandler,
     );

@@ -8,7 +8,7 @@ import { LineTarget } from "../targets";
 export class LineNumberStage implements MarkStage {
   constructor(private mark: LineNumberMark) {}
 
-  run(): LineTarget[] {
+  async run(): Promise<LineTarget[]> {
     const editor = ide().activeTextEditor;
     if (editor == null) {
       return [];

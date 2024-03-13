@@ -28,12 +28,12 @@ import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
  * @returns The new selection expanded to the containing surrounding pair or
  * `null` if none was found
  */
-export function processSurroundingPair(
+export async function processSurroundingPair(
   languageDefinitions: LanguageDefinitions,
   target: Target,
   scopeType: SurroundingPairScopeType,
-): SurroundingPairTarget | null {
-  const pairInfo = processSurroundingPairCore(
+): Promise<SurroundingPairTarget | null> {
+  const pairInfo = await processSurroundingPairCore(
     languageDefinitions,
     target,
     scopeType,
@@ -55,11 +55,11 @@ export function processSurroundingPair(
  * converts output from a {@link SurroundingPairInfo} to a
  * {@link SurroundingPairTarget}.
  */
-function processSurroundingPairCore(
+async function processSurroundingPairCore(
   languageDefinitions: LanguageDefinitions,
   target: Target,
   scopeType: SurroundingPairScopeType,
-): SurroundingPairInfo | null {
+): Promise<SurroundingPairInfo | null> {
   const { editor, contentRange: range } = target;
   const languageDefinition = languageDefinitions.get(
     target.editor.document.languageId,
@@ -78,7 +78,7 @@ function processSurroundingPairCore(
     // Error nodes are unreliable and should be ignored. Fall back to text based
     // algorithm.
     if (nodeHasError(node)) {
-      return findSurroundingPairTextBased(
+      return await findSurroundingPairTextBased(
         editor,
         range,
         null,
@@ -90,7 +90,7 @@ function processSurroundingPairCore(
     if ((err as Error).name === "UnsupportedLanguageError") {
       // If we're in a language where we don't have a parse tree we use the text
       // based algorithm
-      return findSurroundingPairTextBased(
+      return await findSurroundingPairTextBased(
         editor,
         range,
         null,
@@ -102,13 +102,13 @@ function processSurroundingPairCore(
     }
   }
 
-  const textFragmentRange = (() => {
+  const textFragmentRange = (async () => {
     // First try to use the text fragment scope handler if it exists
     const textFragmentScopeHandler =
       languageDefinition?.getTextFragmentScopeHandler();
 
     if (textFragmentScopeHandler != null) {
-      const containingScope = getContainingScopeTarget(
+      const containingScope = await getContainingScopeTarget(
         target,
         textFragmentScopeHandler,
         0,

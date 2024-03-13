@@ -9,7 +9,7 @@ export class TargetMarkStage implements MarkStage {
     private mark: TargetMark,
   ) {}
 
-  run(): Target[] {
-    return this.targetPipelineRunner.run(this.mark.target);
+  async run(): Promise<Target[]> {
+    return await this.targetPipelineRunner.run(this.mark.target);
   }
 }

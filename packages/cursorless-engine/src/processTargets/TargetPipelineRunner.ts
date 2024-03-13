@@ -45,14 +45,14 @@ export class TargetPipelineRunner {
    * document containing it, and potentially rich context information such as
    * how to remove the target
    */
-  run(
+  async run(
     target: TargetDescriptor,
     {
       actionFinalStages = [],
       noAutomaticTokenExpansion = false,
     }: TargetPipelineRunnerOpts = {},
-  ): Target[] {
-    return new TargetPipeline(
+  ): Promise<Target[]> {
+    return await new TargetPipeline(
       this.modifierStageFactory,
       this.markStageFactory,
       target,
@@ -83,30 +83,35 @@ class TargetPipeline {
    * containing it, and potentially rich context information such as how to remove
    * the target
    */
-  run(): Target[] {
-    return uniqTargets(this.processTarget(this.target));
+  async run(): Promise<Target[]> {
+    return uniqTargets(await this.processTarget(this.target));
   }
 
-  processTarget(target: TargetDescriptor): Target[] {
+  async processTarget(target: TargetDescriptor): Promise<Target[]> {
     switch (target.type) {
       case "list":
-        return target.elements.flatMap((element) =>
-          this.processTarget(element),
-        );
+        return (
+          await Promise.all(
+            target.elements.map((element) => this.processTarget(element)),
+          )
+        ).flat();
       case "range":
-        return this.processRangeTarget(target);
+        return await this.processRangeTarget(target);
       case "primitive":
       case "implicit":
-        return this.processPrimitiveTarget(target);
+        return await this.processPrimitiveTarget(target);
     }
   }
 
-  processRangeTarget(targetDesc: RangeTargetDescriptor): Target[] {
-    const anchorTargets = this.processPrimitiveTarget(targetDesc.anchor);
-    const activeTargets = this.processPrimitiveTarget(targetDesc.active);
+  async processRangeTarget(
+    targetDesc: RangeTargetDescriptor,
+  ): Promise<Target[]> {
+    const anchorTargets = await this.processPrimitiveTarget(targetDesc.anchor);
+    const activeTargets = await this.processPrimitiveTarget(targetDesc.active);
 
-    return zip(anchorTargets, activeTargets).flatMap(
-      ([anchorTarget, activeTarget]) => {
+    const group = zip(anchorTargets, activeTargets);
+    const targets_ = await Promise.all(
+      group.map(async ([anchorTarget, activeTarget]) => {
         if (anchorTarget == null || activeTarget == null) {
           throw new Error(
             "AnchorTargets and activeTargets lengths don't match",
@@ -115,7 +120,7 @@ class TargetPipeline {
 
         switch (targetDesc.rangeType) {
           case "continuous":
-            return this.processContinuousRangeTarget(
+            return await this.processContinuousRangeTarget(
               anchorTarget,
               activeTarget,
               targetDesc,
@@ -128,18 +133,19 @@ class TargetPipeline {
               targetDesc.excludeActive,
             );
         }
-      },
+      }),
     );
+    return targets_.flat();
   }
 
-  processContinuousRangeTarget(
+  async processContinuousRangeTarget(
     anchorTarget: Target,
     activeTarget: Target,
     { excludeAnchor, excludeActive, exclusionScopeType }: RangeTargetDescriptor,
-  ): Target[] {
+  ): Promise<Target[]> {
     if (exclusionScopeType == null) {
       return [
-        targetsToContinuousTarget(
+        await targetsToContinuousTarget(
           anchorTarget,
           activeTarget,
           excludeAnchor,
@@ -162,7 +168,7 @@ class TargetPipeline {
     // again. So instead, we use the equivalent of "previous funk name" to find
     // our endpoint and then just use an inclusive range ending with that target.
     return [
-      targetsToContinuousTarget(
+      await targetsToContinuousTarget(
         excludeAnchor
           ? getExcludedScope(
               this.modifierStageFactory,
@@ -204,9 +210,9 @@ class TargetPipeline {
    * and zero or more modifiers
    * @returns The output of running the modifier pipeline on the output from the mark
    */
-  processPrimitiveTarget(
+  async processPrimitiveTarget(
     targetDescriptor: PrimitiveTargetDescriptor | ImplicitTargetDescriptor,
-  ): Target[] {
+  ): Promise<Target[]> {
     let markStage: MarkStage;
     let targetModifierStages: ModifierStage[];
 
@@ -222,7 +228,7 @@ class TargetPipeline {
     }
 
     // First, get the targets output by the mark
-    const markOutputTargets = markStage.run();
+    const markOutputTargets = await markStage.run();
 
     /**
      * The modifier pipeline that will be applied to construct our final targets
@@ -315,12 +321,12 @@ function ensureSingleEditor(anchorTarget: Target, activeTarget: Target) {
   }
 }
 
-export function targetsToContinuousTarget(
+export async function targetsToContinuousTarget(
   anchorTarget: Target,
   activeTarget: Target,
   excludeAnchor: boolean = false,
   excludeActive: boolean = false,
-): Target {
+): Promise<Target> {
   ensureSingleEditor(anchorTarget, activeTarget);
 
   const isReversed = calcIsReversed(anchorTarget, activeTarget);
@@ -329,7 +335,7 @@ export function targetsToContinuousTarget(
   const excludeStart = isReversed ? excludeActive : excludeAnchor;
   const excludeEnd = isReversed ? excludeAnchor : excludeActive;
 
-  return createContinuousRangeTarget(
+  return await createContinuousRangeTarget(
     isReversed,
     startTarget,
     endTarget,

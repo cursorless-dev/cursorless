@@ -5,7 +5,7 @@ import { ImplicitTarget } from "../targets";
 import { getActiveSelections } from "./getActiveSelections";
 
 export class ImplicitStage implements MarkStage {
-  run(): Target[] {
+  async run(): Promise<Target[]> {
     return getActiveSelections(ide()).map(
       (selection) =>
         new ImplicitTarget({

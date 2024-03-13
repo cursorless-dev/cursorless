@@ -59,9 +59,11 @@ export async function runInsertLineAfterTargets(
   });
 
   return {
-    destinations: state.destinations.map((destination, index) =>
-      destination.withTarget(
-        destination.target.withContentRange(updatedTargetRanges[index]),
+    destinations: await Promise.all(
+      state.destinations.map((destination, index) =>
+        destination.withTarget(
+          destination.target.withContentRange(updatedTargetRanges[index]),
+        ),
       ),
     ),
     thatRanges: updatedThatRanges,

@@ -25,7 +25,9 @@ export default class GetText {
     }
 
     return {
-      returnValue: targets.map((target) => target.contentText),
+      returnValue: await Promise.all(
+        targets.map(async (target) => await target.contentText),
+      ),
       thatTargets: targets,
     };
   }

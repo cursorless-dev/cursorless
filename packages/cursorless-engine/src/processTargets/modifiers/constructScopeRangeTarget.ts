@@ -14,11 +14,11 @@ import { TargetScope } from "./scopeHandlers/scope.types";
  * @returns A target consisting of a range between {@link scope1} and
  * {@link scope2}
  */
-export function constructScopeRangeTarget(
+export async function constructScopeRangeTarget(
   isReversed: boolean,
   scope1: TargetScope,
   scope2: TargetScope,
-): Target[] {
+): Promise<Target[]> {
   if (scope1 === scope2) {
     return scope1.getTargets(isReversed);
   }
@@ -42,6 +42,12 @@ export function constructScopeRangeTarget(
     : [target2, target1];
 
   return [
-    createContinuousRangeTarget(isReversed, startTarget, endTarget, true, true),
+    await createContinuousRangeTarget(
+      isReversed,
+      startTarget,
+      endTarget,
+      true,
+      true,
+    ),
   ];
 }

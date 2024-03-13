@@ -42,11 +42,11 @@ class IncrementDecrement {
 
     for (const target of targets) {
       const offset = document.offsetAt(target.contentRange.start);
-      const text = target.contentText;
+      const text = await target.contentText;
       const matches = matchText(text, REGEX);
 
       for (const match of matches) {
-        destinations.push(createDestination(editor, offset, match));
+        destinations.push(await createDestination(editor, offset, match));
         replaceWith.push(updateNumber(this.isIncrement, match.text));
       }
     }
@@ -72,11 +72,11 @@ export class Decrement extends IncrementDecrement {
   }
 }
 
-function createDestination(
+async function createDestination(
   editor: TextEditor,
   offset: number,
   match: MatchedText,
-): Destination {
+): Promise<Destination> {
   const target = new PlainTarget({
     editor,
     isReversed: false,
@@ -85,7 +85,7 @@ function createDestination(
       editor.document.positionAt(offset + match.index + match.text.length),
     ),
   });
-  return target.toDestination("to");
+  return await target.toDestination("to");
 }
 
 function updateNumber(isIncrement: boolean, text: string): string {

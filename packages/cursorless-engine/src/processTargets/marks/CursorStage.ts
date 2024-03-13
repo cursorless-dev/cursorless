@@ -8,7 +8,7 @@ import { getActiveSelections } from "./getActiveSelections";
 export class CursorStage implements MarkStage {
   constructor(private mark: CursorMark) {}
 
-  run(): Target[] {
+  async run(): Promise<Target[]> {
     return getActiveSelections(ide()).map(
       (selection) =>
         new UntypedTarget({

@@ -36,7 +36,9 @@ abstract class SortBase implements SimpleAction {
     const sortedTexts = this.sortTexts(unsortedTexts);
 
     const { thatSelections } = await this.actions.replace.run(
-      sortedTargets.map((target) => target.toDestination("to")),
+      await Promise.all(
+        sortedTargets.map((target) => target.toDestination("to")),
+      ),
       sortedTexts,
     );
 

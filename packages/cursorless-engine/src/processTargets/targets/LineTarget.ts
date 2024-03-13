@@ -40,12 +40,12 @@ export class LineTarget extends BaseTarget<CommonTargetParameters> {
       : contentRemovalRange.union(delimiterTarget.contentRange);
   }
 
-  getRemovalHighlightRange = () => this.fullLineContentRange;
+  getRemovalHighlightRange = async () => this.fullLineContentRange;
 
-  maybeCreateRichRangeTarget(
+  async maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: LineTarget,
-  ): LineTarget {
+  ): Promise<LineTarget> {
     return new LineTarget({
       editor: this.editor,
       isReversed,

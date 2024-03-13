@@ -47,7 +47,7 @@ export class ContainingScopeStage implements ModifierStage {
         .run(target);
     }
 
-    const containingScope = getContainingScopeTarget(
+    const containingScope = await getContainingScopeTarget(
       target,
       scopeHandler,
       ancestorIndex,

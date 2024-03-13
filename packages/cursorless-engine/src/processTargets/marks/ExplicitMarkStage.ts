@@ -7,7 +7,7 @@ import { ide } from "../../singletons/ide.singleton";
 export class ExplicitMarkStage implements MarkStage {
   constructor(private mark: ExplicitMark) {}
 
-  run(): Target[] {
+  async run(): Promise<Target[]> {
     const {
       editorId,
       range: { start, end },

@@ -83,8 +83,8 @@ abstract class BringMoveSwap {
         let text: string;
         if (shouldJoinSources) {
           text = sources
-            .map((source, i) => {
-              const text = source.contentText;
+            .map(async (source, i) => {
+              const text = await source.contentText;
               const delimiter =
                 (destination.isRaw ? null : destination.insertionDelimiter) ??
                 (source.isRaw ? null : source.insertionDelimiter);
@@ -124,14 +124,15 @@ abstract class BringMoveSwap {
 
     if (this.type === "move") {
       // Unify overlapping targets.
-      unifyRemovalTargets(usedSources).forEach((source) => {
+      for (let i = 0; i < usedSources.length; ++i) {
+        const source = usedSources[i];
         results.push({
-          edit: source.constructRemovalEdit(),
+          edit: await source.constructRemovalEdit(),
           editor: source.editor,
           originalTarget: source,
           isSource: true,
         });
-      });
+      }
     }
 
     return results;

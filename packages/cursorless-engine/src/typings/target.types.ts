@@ -180,7 +180,7 @@ export interface Target {
   maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: ThisType<this> & Target,
-  ): (ThisType<this> & Target) | null;
+  ): Promise<(ThisType<this> & Target) | null>;
 
   /** Constructs removal edit */
   constructRemovalEdit(): Promise<EditWithRangeUpdater>;

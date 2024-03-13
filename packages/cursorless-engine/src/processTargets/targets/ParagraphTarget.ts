@@ -63,7 +63,7 @@ export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
     return expandToFullLine(this.editor, this.contentRange);
   }
 
-  getRemovalHighlightRange() {
+  async getRemovalHighlightRange() {
     const delimiterTarget =
       this.getTrailingDelimiterTarget() ?? this.getLeadingDelimiterTarget();
 
@@ -72,10 +72,10 @@ export class ParagraphTarget extends BaseTarget<CommonTargetParameters> {
       : this.fullLineContentRange;
   }
 
-  maybeCreateRichRangeTarget(
+  async maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: ParagraphTarget,
-  ): ParagraphTarget {
+  ): Promise<ParagraphTarget> {
     return new ParagraphTarget({
       ...this.getCloneParameters(),
       isReversed,

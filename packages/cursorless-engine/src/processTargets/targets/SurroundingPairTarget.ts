@@ -49,7 +49,7 @@ export class SurroundingPairTarget extends BaseTarget<SurroundingPairTargetParam
 
   async getInteriorStrict() {
     return [
-      new InteriorTarget({
+      await InteriorTarget.create({
         editor: this.editor,
         isReversed: this.isReversed,
         fullInteriorRange: this.interiorRange_,

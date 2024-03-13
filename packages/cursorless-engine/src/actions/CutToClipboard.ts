@@ -16,10 +16,10 @@ export class CutToClipboard implements SimpleAction {
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
-    await ide().flashRanges(
-      targets.flatMap((target) => {
+    const flashDescriptors_ = await Promise.all(
+      targets.map(async (target) => {
         const { editor, contentRange } = target;
-        const removalHighlightRange = target.getRemovalHighlightRange();
+        const removalHighlightRange = await target.getRemovalHighlightRange();
 
         if (target.isLine) {
           return [
@@ -52,6 +52,8 @@ export class CutToClipboard implements SimpleAction {
         ];
       }),
     );
+    const flashDescriptors = flashDescriptors_.flat();
+    await ide().flashRanges(flashDescriptors);
 
     const options = { showDecorations: false };
 

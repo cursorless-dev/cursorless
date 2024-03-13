@@ -19,12 +19,12 @@ export class OutOfRangeError extends Error {
  * @param endIndex The index of the target in {@link targets} that will form the
  * end of the range
  */
-export function createRangeTargetFromIndices(
+export async function createRangeTargetFromIndices(
   isReversed: boolean,
   targets: Target[],
   startIndex: number,
   endIndex: number,
-): Target {
+): Promise<Target> {
   if (startIndex < 0 || endIndex >= targets.length) {
     throw new OutOfRangeError();
   }
@@ -33,7 +33,7 @@ export function createRangeTargetFromIndices(
     return targets[startIndex];
   }
 
-  return createContinuousRangeTarget(
+  return await createContinuousRangeTarget(
     isReversed,
     targets[startIndex],
     targets[endIndex],
@@ -42,14 +42,14 @@ export function createRangeTargetFromIndices(
   );
 }
 
-export function getEveryScopeTargets(
+export async function getEveryScopeTargets(
   modifierStageFactory: ModifierStageFactory,
   target: Target,
   scopeType: ScopeType,
-): Target[] {
+): Promise<Target[]> {
   const containingStage = modifierStageFactory.create({
     type: "everyScope",
     scopeType,
   });
-  return containingStage.run(target);
+  return await containingStage.run(target);
 }

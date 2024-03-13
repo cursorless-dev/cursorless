@@ -34,14 +34,15 @@ export class UntypedTarget extends BaseTarget<UntypedTargetParameters> {
   getTrailingDelimiterTarget(): Target | undefined {
     return getTokenTrailingDelimiterTarget(this);
   }
-  getRemovalRange(): Range {
+  async getRemovalRange(): Promise<Range> {
     // If this range is in the middle of a whitespace sequence we don't want to remove leading or trailing whitespaces.
-    return this.editor.document.getText(this.contentRange).trim().length === 0
+    return (await this.editor.document.getText(this.contentRange)).trim()
+      .length === 0
       ? this.contentRange
       : getTokenRemovalRange(this);
   }
 
-  maybeCreateRichRangeTarget(): null {
+  async maybeCreateRichRangeTarget(): Promise<null> {
     // It never makes sense to create a rich range target from an untyped
     // target. We let {@link createContinuousRangeTarget} handle constructing an
     // untyped range.

@@ -9,7 +9,7 @@ export class DecoratedSymbolStage implements MarkStage {
     private mark: DecoratedSymbolMark,
   ) {}
 
-  run(): Target[] {
+  async run(): Promise<Target[]> {
     const token = this.readableHatMap.getToken(
       this.mark.symbolColor,
       this.mark.character,

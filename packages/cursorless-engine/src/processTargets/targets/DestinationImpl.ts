@@ -43,7 +43,7 @@ export class DestinationImpl implements Destination {
         : undefined;
   }
 
-  // TODO: make this optional?
+  // TODO: make this field optional?
   get insertionPrefix(): string | undefined {
     return this._insertionPrefix;
   }

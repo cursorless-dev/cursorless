@@ -17,7 +17,7 @@ export class InteriorOnlyStage implements ModifierStage {
     const targets = await this.modifierStageFactory
       .create(containingSurroundingPairIfUntypedModifier)
       .run(target);
-    const targets2 = await (
+    const targets2 = (
       await Promise.all(targets.map((target) => target.getInteriorStrict()))
     ).flat();
     return targets2;

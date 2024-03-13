@@ -74,7 +74,7 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
       throw new OutOfRangeError();
     }
 
-    return constructScopeRangeTarget(
+    return await constructScopeRangeTarget(
       isReversed,
       scopes[0],
       scopes[scopes.length - 1],

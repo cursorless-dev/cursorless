@@ -34,7 +34,9 @@ export class NotebookCellDestination implements Destination {
     return this.target.isRaw;
   }
 
-  withTarget(target: NotebookCellTarget): NotebookCellDestination {
+  async withTarget(
+    target: NotebookCellTarget,
+  ): Promise<NotebookCellDestination> {
     return new NotebookCellDestination(target, this.insertionMode);
   }
 

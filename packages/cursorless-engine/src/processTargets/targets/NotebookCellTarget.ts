@@ -20,7 +20,7 @@ export class NotebookCellTarget extends BaseTarget<CommonTargetParameters> {
     return this.state;
   }
 
-  toDestination(insertionMode: InsertionMode): Destination {
+  async toDestination(insertionMode: InsertionMode): Promise<Destination> {
     return new NotebookCellDestination(this, insertionMode);
   }
 }

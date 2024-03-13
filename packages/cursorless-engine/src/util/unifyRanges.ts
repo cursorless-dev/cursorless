@@ -24,37 +24,42 @@ export function unifyRemovalTargets(targets: Target[]): Target[] {
   });
 }
 
-function unifyTargetsOnePass(targets: Target[]): [Target[], boolean] {
+async function unifyTargetsOnePass(
+  targets: Target[],
+): Promise<[Target[], boolean]> {
   if (targets.length < 2) {
     return [targets, false];
   }
   const results: Target[] = [];
   let currentGroup: Target[] = [];
-  targets.forEach((target) => {
+  for (let i = 0; i < targets.length; ++i) {
+    const target = targets[i];
     // No intersection. Mark start of new group
     if (
       currentGroup.length &&
       !intersects(currentGroup[currentGroup.length - 1], target)
     ) {
-      results.push(mergeTargets(currentGroup));
+      results.push(await mergeTargets(currentGroup));
       currentGroup = [target];
     } else {
       currentGroup.push(target);
     }
-  });
-  results.push(mergeTargets(currentGroup));
+  }
+  results.push(await mergeTargets(currentGroup));
   return [results, results.length !== targets.length];
 }
 
-function mergeTargets(targets: Target[]): Target {
+async function mergeTargets(targets: Target[]): Promise<Target> {
   if (targets.length === 1) {
     return targets[0];
   }
   const first = targets[0];
   const last = targets[targets.length - 1];
-  return targetsToContinuousTarget(first, last);
+  return await targetsToContinuousTarget(first, last);
 }
 
-function intersects(targetA: Target, targetB: Target) {
-  return !!targetA.getRemovalRange().intersection(targetB.getRemovalRange());
+async function intersects(targetA: Target, targetB: Target) {
+  return !!(await targetA.getRemovalRange()).intersection(
+    await targetB.getRemovalRange(),
+  );
 }

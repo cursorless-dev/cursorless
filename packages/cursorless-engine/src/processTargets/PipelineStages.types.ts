@@ -1,7 +1,7 @@
 import { Target } from "../typings/target.types";
 
 export interface MarkStage {
-  run(): Target[];
+  run(): Promise<Target[]>;
 }
 
 export interface ModifierStage {

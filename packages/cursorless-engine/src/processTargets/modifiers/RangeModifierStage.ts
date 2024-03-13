@@ -21,7 +21,7 @@ export class RangeModifierStage implements ModifierStage {
     }
 
     return [
-      targetsToContinuousTarget(
+      await targetsToContinuousTarget(
         anchorTargets[0],
         activeTargets[0],
         this.modifier.excludeAnchor,

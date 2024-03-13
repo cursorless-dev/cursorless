@@ -54,9 +54,14 @@ class InsertCopy implements SimpleAction {
   private async runForEditor(editor: TextEditor, targets: Target[]) {
     // isBefore is inverted because we want the selections to stay with what is to the user the "copy"
     const position = this.isBefore ? "after" : "before";
-    const edits = targets.flatMap((target) =>
-      target.toDestination(position).constructChangeEdit(target.contentText),
+    const edits_ = await Promise.all(
+      targets.map(async (target) =>
+        (await target.toDestination(position)).constructChangeEdit(
+          await target.contentText,
+        ),
+      ),
     );
+    const edits = edits_.flat();
 
     const cursorSelections = { selections: editor.selections };
     const contentSelections = {

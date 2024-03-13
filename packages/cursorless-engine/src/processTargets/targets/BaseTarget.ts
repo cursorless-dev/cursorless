@@ -125,10 +125,10 @@ export abstract class BaseTarget<
 
   protected abstract getCloneParameters(): EnforceUndefined<TParameters>;
 
-  maybeCreateRichRangeTarget(
+  async maybeCreateRichRangeTarget(
     isReversed: boolean,
     endTarget: ThisType<this> & Target,
-  ): (ThisType<this> & Target) | null {
+  ): Promise<(ThisType<this> & Target) | null> {
     const { constructor } = Object.getPrototypeOf(this);
 
     return new constructor({

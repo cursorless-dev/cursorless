@@ -18,9 +18,13 @@ abstract class EditNewLineAction implements SimpleAction {
     this.run = this.run.bind(this);
   }
 
-  run(targets: Target[]): Promise<ActionReturnValue> {
+  async run(targets: Target[]): Promise<ActionReturnValue> {
     return this.actions.editNew.run(
-      targets.map((target) => target.toDestination(this.insertionMode)),
+      await Promise.all(
+        targets.map(
+          async (target) => await target.toDestination(this.insertionMode),
+        ),
+      ),
     );
   }
 }

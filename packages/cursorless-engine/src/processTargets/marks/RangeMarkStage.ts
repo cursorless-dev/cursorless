@@ -10,18 +10,18 @@ export class RangeMarkStage implements MarkStage {
     private mark: RangeMark,
   ) {}
 
-  run(): Target[] {
+  async run(): Promise<Target[]> {
     const anchorStage = this.markStageFactory.create(this.mark.anchor);
     const activeStage = this.markStageFactory.create(this.mark.active);
-    const anchorTargets = anchorStage.run();
-    const activeTargets = activeStage.run();
+    const anchorTargets = await anchorStage.run();
+    const activeTargets = await activeStage.run();
 
     if (anchorTargets.length !== 1 || activeTargets.length !== 1) {
       throw new Error("Expected single anchor and active target");
     }
 
     return [
-      targetsToContinuousTarget(
+      await targetsToContinuousTarget(
         anchorTargets[0],
         activeTargets[0],
         this.mark.excludeAnchor,
