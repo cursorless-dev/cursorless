@@ -12,23 +12,29 @@ export class VscodeIterationScopeVisualizer extends VscodeScopeVisualizer {
     return this.scopeProvider.getIterationScopeSupport(editor, this.scopeType);
   }
 
-  protected registerListener(): Disposable {
-    return this.scopeProvider.onDidChangeIterationScopeRanges(
-      (editor, iterationScopeRanges) => {
-        this.renderer.setScopes(
-          editor as VscodeTextEditorImpl,
-          iterationScopeRanges.map(({ domain, ranges }) => ({
-            domain: toCharacterRange(domain),
-            nestedRanges: ranges.map(({ range }) => toCharacterRange(range)),
-          })),
-        );
-      },
-      {
-        scopeType: this.scopeType,
-        visibleOnly: true,
-        includeNestedTargets: false,
-      },
-    );
+  protected registerListener(): Promise<Disposable> {
+    return new Promise<Disposable>((resolve) => {
+      resolve(
+        this.scopeProvider.onDidChangeIterationScopeRanges(
+          (editor, iterationScopeRanges) => {
+            this.renderer.setScopes(
+              editor as VscodeTextEditorImpl,
+              iterationScopeRanges.map(({ domain, ranges }) => ({
+                domain: toCharacterRange(domain),
+                nestedRanges: ranges.map(({ range }) =>
+                  toCharacterRange(range),
+                ),
+              })),
+            );
+          },
+          {
+            scopeType: this.scopeType,
+            visibleOnly: true,
+            includeNestedTargets: false,
+          },
+        ),
+      );
+    });
   }
 
   protected getNestedScopeRangeType() {

@@ -16,34 +16,42 @@ import { getTargetRanges } from "./getTargetRanges";
  * iteration scope ranges
  * @returns A list of iteration scope ranges for the given editor
  */
-export function getIterationScopeRanges(
+export async function getIterationScopeRanges(
   editor: TextEditor,
   iterationScopeHandler: ScopeHandler,
   everyStage: ModifierStage,
   iterationRange: Range,
   includeIterationNestedTargets: boolean,
-): IterationScopeRanges[] {
-  return map(
-    iterationScopeHandler.generateScopes(
-      editor,
-      iterationRange.start,
-      "forward",
-      {
-        includeDescendantScopes: true,
-        distalPosition: iterationRange.end,
+): Promise<IterationScopeRanges[]> {
+  return await Promise.all(
+    map(
+      iterationScopeHandler.generateScopes(
+        editor,
+        iterationRange.start,
+        "forward",
+        {
+          includeDescendantScopes: true,
+          distalPosition: iterationRange.end,
+        },
+      ),
+      async (scope) => {
+        return {
+          domain: scope.domain,
+          ranges: await Promise.all(
+            scope.getTargets(false).map(async (target) => ({
+              range: target.contentRange,
+              targets: includeIterationNestedTargets
+                ? await Promise.all(
+                    (await getEveryScopeLenient(everyStage, target)).map(
+                      getTargetRanges,
+                    ),
+                  )
+                : undefined,
+            })),
+          ),
+        };
       },
     ),
-    (scope) => {
-      return {
-        domain: scope.domain,
-        ranges: scope.getTargets(false).map((target) => ({
-          range: target.contentRange,
-          targets: includeIterationNestedTargets
-            ? getEveryScopeLenient(everyStage, target).map(getTargetRanges)
-            : undefined,
-        })),
-      };
-    },
   );
 }
 

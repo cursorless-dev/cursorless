@@ -47,6 +47,7 @@ export class VscodeHats implements Hats {
       this.handleHatDecorationMapUpdated.bind(this);
     this.recomputeDecorationStyles = this.recomputeDecorationStyles.bind(this);
 
+    // TODO: async need to do that outside of the constructor
     this.hatRenderer.registerListener(this.handleHatDecorationMapUpdated);
 
     this.isEnabled = vscode.workspace
@@ -126,11 +127,17 @@ export class VscodeHats implements Hats {
     return this.enabledHatStyleManager.hatStyleMap;
   }
 
-  onDidChangeEnabledHatStyles(listener: Listener<[HatStyleMap]>): Disposable {
-    return this.enabledHatStyleManager.registerListener(listener);
+  // TODO: async
+  async onDidChangeEnabledHatStyles(
+    listener: Listener<[HatStyleMap]>,
+  ): Promise<Disposable> {
+    return await this.enabledHatStyleManager.registerListener(listener);
   }
 
-  onDidChangeIsEnabled(listener: Listener<[boolean]>): Disposable {
-    return this.isEnabledNotifier.registerListener(listener);
+  // TODO: async
+  async onDidChangeIsEnabled(
+    listener: Listener<[boolean]>,
+  ): Promise<Disposable> {
+    return await this.isEnabledNotifier.registerListener(listener);
   }
 }

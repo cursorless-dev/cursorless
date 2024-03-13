@@ -12,19 +12,23 @@ import { getTargetRanges } from "./getTargetRanges";
  * @param iterationRange The range to iterate over
  * @returns A list of scope ranges for the given editor
  */
-export function getScopeRanges(
+export async function getScopeRanges(
   editor: TextEditor,
   scopeHandler: ScopeHandler,
   iterationRange: Range,
-): ScopeRanges[] {
-  return map(
-    scopeHandler.generateScopes(editor, iterationRange.start, "forward", {
-      includeDescendantScopes: true,
-      distalPosition: iterationRange.end,
-    }),
-    (scope) => ({
-      domain: scope.domain,
-      targets: scope.getTargets(false).map(getTargetRanges),
-    }),
+): Promise<ScopeRanges[]> {
+  return await Promise.all(
+    map(
+      scopeHandler.generateScopes(editor, iterationRange.start, "forward", {
+        includeDescendantScopes: true,
+        distalPosition: iterationRange.end,
+      }),
+      async (scope) => ({
+        domain: scope.domain,
+        targets: await Promise.all(
+          scope.getTargets(false).map(getTargetRanges),
+        ),
+      }),
+    ),
   );
 }

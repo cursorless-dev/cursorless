@@ -39,14 +39,14 @@ export class ItemStage implements ModifierStage {
     if (this.modifier.type === "everyScope") {
       return this.getEveryTarget(this.languageDefinitions, target);
     }
-    return [this.getSingleTarget(this.languageDefinitions, target)];
+    return [await this.getSingleTarget(this.languageDefinitions, target)];
   }
 
-  private getEveryTarget(
+  private async getEveryTarget(
     languageDefinitions: LanguageDefinitions,
     target: Target,
   ) {
-    const itemInfos = getItemInfosForIterationScope(
+    const itemInfos = await getItemInfosForIterationScope(
       languageDefinitions,
       target,
     );
@@ -65,11 +65,11 @@ export class ItemStage implements ModifierStage {
     );
   }
 
-  private getSingleTarget(
+  private async getSingleTarget(
     languageDefinitions: LanguageDefinitions,
     target: Target,
   ) {
-    const itemInfos = getItemInfosForIterationScope(
+    const itemInfos = await getItemInfosForIterationScope(
       languageDefinitions,
       target,
     );
@@ -143,20 +143,23 @@ function filterItemInfos(target: Target, itemInfos: ItemInfo[]): ItemInfo[] {
   );
 }
 
-function getItemInfosForIterationScope(
+async function getItemInfosForIterationScope(
   languageDefinitions: LanguageDefinitions,
   target: Target,
 ) {
-  const { range, boundary } = getIterationScope(languageDefinitions, target);
+  const { range, boundary } = await getIterationScope(
+    languageDefinitions,
+    target,
+  );
   return getItemsInRange(target.editor, range, boundary);
 }
 
-function getItemsInRange(
+async function getItemsInRange(
   editor: TextEditor,
   interior: Range,
   boundary?: [Range, Range],
-): ItemInfo[] {
-  const tokens = tokenizeRange(editor, interior, boundary);
+): Promise<ItemInfo[]> {
+  const tokens = await tokenizeRange(editor, interior, boundary);
   const itemInfos: ItemInfo[] = [];
 
   tokens.forEach((token, i) => {

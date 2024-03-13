@@ -103,7 +103,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+    await getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
   );
 
   const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
@@ -236,33 +236,35 @@ function checkMarks(
   });
 }
 
-function getTokenHats(
+async function getTokenHats(
   marks: SerializedMarks | undefined,
   editor: TextEditor,
-): TokenHat[] {
+): Promise<TokenHat[]> {
   if (marks == null) {
     return [];
   }
 
-  return Object.entries(marks).map(([key, token]) => {
-    const { hatStyle, character } = splitKey(key);
-    const range = plainObjectToRange(token);
+  return await Promise.all(
+    Object.entries(marks).map(async ([key, token]) => {
+      const { hatStyle, character } = splitKey(key);
+      const range = plainObjectToRange(token);
 
-    return {
-      hatStyle,
-      grapheme: character,
-      token: {
-        editor,
-        range,
-        offsets: {
-          start: editor.document.offsetAt(range.start),
-          end: editor.document.offsetAt(range.end),
+      return {
+        hatStyle,
+        grapheme: character,
+        token: {
+          editor,
+          range,
+          offsets: {
+            start: editor.document.offsetAt(range.start),
+            end: editor.document.offsetAt(range.end),
+          },
+          text: await editor.document.getText(range),
         },
-        text: editor.document.getText(range),
-      },
 
-      // NB: We don't care about the hat range for this test
-      hatRange: range,
-    };
-  });
+        // NB: We don't care about the hat range for this test
+        hatRange: range,
+      };
+    }),
+  );
 }

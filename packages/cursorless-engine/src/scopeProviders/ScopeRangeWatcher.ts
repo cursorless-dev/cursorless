@@ -57,15 +57,17 @@ export class ScopeRangeWatcher {
    * @param config The configuration for the scope ranges
    * @returns A {@link Disposable} which will stop the callback from running
    */
-  onDidChangeScopeRanges(
+  async onDidChangeScopeRanges(
     callback: ScopeChangeEventCallback,
     config: ScopeRangeConfig,
-  ): Disposable {
-    const fn = () => {
-      ide().visibleTextEditors.forEach((editor) => {
+  ): Promise<Disposable> {
+    const fn = async () => {
+      const editors = ide().visibleTextEditors;
+      for (let i = 0; i < editors.length; ++i) {
+        const editor = editors[i];
         let scopeRanges: ScopeRanges[];
         try {
-          scopeRanges = this.scopeRangeProvider.provideScopeRanges(
+          scopeRanges = await this.scopeRangeProvider.provideScopeRanges(
             editor,
             config,
           );
@@ -88,12 +90,12 @@ export class ScopeRangeWatcher {
         }
 
         callback(editor, scopeRanges);
-      });
+      }
     };
 
     this.listeners.push(fn);
 
-    fn();
+    await fn();
 
     return {
       dispose: () => {

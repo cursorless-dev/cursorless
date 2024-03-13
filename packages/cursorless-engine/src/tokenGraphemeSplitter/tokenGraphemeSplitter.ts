@@ -87,6 +87,7 @@ export class TokenGraphemeSplitter {
 
     this.updateTokenHatSplittingMode();
 
+    // TODO: async need to do that outside of the constructor
     this.disposables.push(
       // Notify listeners in case the user changed their token hat splitting
       // setting.

@@ -46,7 +46,7 @@ export interface Configuration {
     scope?: ConfigurationScope,
   ): GetFieldType<CursorlessConfiguration, Path>;
 
-  onDidChangeConfiguration(listener: Listener): Disposable;
+  onDidChangeConfiguration(listener: Listener): Promise<Disposable>;
 }
 
 export interface TokenHatSplittingMode {

@@ -61,6 +61,7 @@ export class Snippets {
     );
 
     ide().disposeOnExit(
+      // TODO: async need to do that outside of the constructor
       ide().configuration.onDidChangeConfiguration(() => {
         if (this.updateUserSnippetsPath()) {
           this.updateUserSnippets();

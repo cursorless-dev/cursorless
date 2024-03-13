@@ -17,7 +17,7 @@ export interface ScopeProvider {
   provideScopeRanges: (
     editor: TextEditor,
     config: ScopeRangeConfig,
-  ) => ScopeRanges[];
+  ) => Promise<ScopeRanges[]>;
 
   /**
    * Get the iteration scope ranges for the given editor.
@@ -41,7 +41,7 @@ export interface ScopeProvider {
   onDidChangeScopeRanges: (
     callback: ScopeChangeEventCallback,
     config: ScopeRangeConfig,
-  ) => Disposable;
+  ) => Promise<Disposable>;
 
   /**
    * Registers a callback to be run when the iteration scope ranges change for

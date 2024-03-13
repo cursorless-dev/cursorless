@@ -102,7 +102,7 @@ async function processSurroundingPairCore(
     }
   }
 
-  const textFragmentRange = (async () => {
+  const textFragmentRange = await (async () => {
     // First try to use the text fragment scope handler if it exists
     const textFragmentScopeHandler =
       languageDefinition?.getTextFragmentScopeHandler();
@@ -137,7 +137,7 @@ async function processSurroundingPairCore(
   if (textFragmentRange != null) {
     // If we have a parse tree but we are in a string node or in a comment node,
     // then we use the text-based algorithm
-    const surroundingRange = findSurroundingPairTextBased(
+    const surroundingRange = await findSurroundingPairTextBased(
       editor,
       range,
       textFragmentRange,

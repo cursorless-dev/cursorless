@@ -30,6 +30,7 @@ export class Debug {
       // Production mode. Enable based on user setting.
       case "production":
         this.evaluateSetting();
+        // TODO: async need to do that outside of the constructor
         this.disposableConfiguration =
           ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
         break;

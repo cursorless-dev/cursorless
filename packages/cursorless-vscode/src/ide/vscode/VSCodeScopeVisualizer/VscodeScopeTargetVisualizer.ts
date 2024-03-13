@@ -18,8 +18,8 @@ abstract class VscodeScopeTargetVisualizer extends VscodeScopeVisualizer {
     return this.scopeProvider.getScopeSupport(editor, this.scopeType);
   }
 
-  protected registerListener(): Disposable {
-    return this.scopeProvider.onDidChangeScopeRanges(
+  protected async registerListener(): Promise<Disposable> {
+    return await this.scopeProvider.onDidChangeScopeRanges(
       (editor, scopeRanges) => {
         this.renderer.setScopes(
           editor as VscodeTextEditorImpl,

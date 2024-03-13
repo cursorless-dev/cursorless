@@ -25,10 +25,10 @@ export class ScopeRangeProvider {
       this.provideIterationScopeRanges.bind(this);
   }
 
-  provideScopeRanges(
+  async provideScopeRanges(
     editor: TextEditor,
     { scopeType, visibleOnly }: ScopeRangeConfig,
-  ): ScopeRanges[] {
+  ): Promise<ScopeRanges[]> {
     const scopeHandler = this.scopeHandlerFactory.create(
       scopeType,
       editor.document.languageId,
@@ -38,7 +38,7 @@ export class ScopeRangeProvider {
       return [];
     }
 
-    return getScopeRanges(
+    return await getScopeRanges(
       editor,
       scopeHandler,
       getIterationRange(editor, scopeHandler, visibleOnly),

@@ -24,7 +24,7 @@ export abstract class VscodeScopeVisualizer {
   private scopeListenerDisposable!: Disposable;
   private disposables: Disposable[] = [];
 
-  protected abstract registerListener(): Disposable;
+  protected abstract registerListener(): Promise<Disposable>;
   protected abstract getNestedScopeRangeType(): ScopeRangeType;
   protected abstract getScopeSupport(editor: TextEditor): ScopeSupport;
 
@@ -75,7 +75,7 @@ export abstract class VscodeScopeVisualizer {
   }
 
   /** This function is called initially, as well as whenever color config changes */
-  private initialize() {
+  private async initialize() {
     const colorConfig = vscodeApi.workspace
       .getConfiguration("cursorless.scopeVisualizer")
       .get<ScopeVisualizerColorConfig>("colors")!;
@@ -90,7 +90,7 @@ export abstract class VscodeScopeVisualizer {
     // so that the provider will call us again with the current scope ranges
     // so that we can re-render them with the new colors.
     this.scopeListenerDisposable?.dispose();
-    this.scopeListenerDisposable = this.registerListener();
+    this.scopeListenerDisposable = await this.registerListener();
   }
 
   dispose() {

@@ -109,7 +109,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const editor = ide.activeTextEditor!;
 
-  const outputFixture = ((): string => {
+  const outputFixture = (async (): Promise<string> => {
     const config = {
       visibleOnly: false,
       scopeType,
@@ -126,7 +126,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
       return serializeIterationScopeFixture(code, iterationScopes);
     }
 
-    const scopes = scopeProvider.provideScopeRanges(editor, config);
+    const scopes = await scopeProvider.provideScopeRanges(editor, config);
 
     return serializeScopeFixture(code, scopes);
   })();
