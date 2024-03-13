@@ -43,12 +43,14 @@ export interface Hats {
    * So a hat style might be "green-curve".
    */
   readonly enabledHatStyles: HatStyleMap;
-  onDidChangeEnabledHatStyles(listener: Listener<[HatStyleMap]>): Disposable;
+  onDidChangeEnabledHatStyles(
+    listener: Listener<[HatStyleMap]>,
+  ): Promise<Disposable>;
 
   /**
    * Whether hats are enabled.  This can be determined by a setting, a toggle
    * command, or both.
    */
   readonly isEnabled: boolean;
-  onDidChangeIsEnabled(listener: Listener<[boolean]>): Disposable;
+  onDidChangeIsEnabled(listener: Listener<[boolean]>): Promise<Disposable>;
 }

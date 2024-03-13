@@ -10,42 +10,50 @@ import { getTokensInRange } from "./getTokensInRange";
  * by their rank along with their ranks
  * @returns A list of tokens along with their ranks, sorted by decreasing rank
  */
-export function getRankedTokens(
+// TODO: async
+export async function getRankedTokens(
   activeTextEditor: TextEditor | undefined,
   visibleTextEditors: readonly TextEditor[],
-): RankedToken[] {
+): Promise<RankedToken[]> {
   const editors: readonly TextEditor[] = getRankedEditors(
     activeTextEditor,
     visibleTextEditors,
   );
 
-  return editors.flatMap(async (editor) => {
-    /**
-     * The reference position that will be used to judge how likely a given
-     * token is to be used.  Tokens closer to this position will be considered
-     * more likely to be used, and will get better hats.  We use the first
-     * selection's {@link Selection.active active}.
-     */
-    const referencePosition = editor.selections[0].active;
-    const displayLineMap = getDisplayLineMap(editor, [referencePosition.line]);
-    const tokens = flatten(
-      await editor.visibleRanges.map(async (range) =>
-        (await getTokensInRange(editor, range)).map((partialToken) => ({
-          ...partialToken,
-          displayLine: displayLineMap.get(partialToken.range.start.line)!,
-        })),
-      ),
-    );
+  const rankedTokens = await Promise.all(
+    editors.map(async (editor) => {
+      /**
+       * The reference position that will be used to judge how likely a given
+       * token is to be used.  Tokens closer to this position will be considered
+       * more likely to be used, and will get better hats.  We use the first
+       * selection's {@link Selection.active active}.
+       */
+      const referencePosition = editor.selections[0].active;
+      const displayLineMap = getDisplayLineMap(editor, [
+        referencePosition.line,
+      ]);
+      const tokens = flatten(
+        await Promise.all(
+          editor.visibleRanges.map(async (range) =>
+            (await getTokensInRange(editor, range)).map((partialToken) => ({
+              ...partialToken,
+              displayLine: displayLineMap.get(partialToken.range.start.line)!,
+            })),
+          ),
+        ),
+      );
 
-    tokens.sort(
-      getTokenComparator(
-        displayLineMap.get(referencePosition.line)!,
-        referencePosition.character,
-      ),
-    );
+      tokens.sort(
+        getTokenComparator(
+          displayLineMap.get(referencePosition.line)!,
+          referencePosition.character,
+        ),
+      );
 
-    return tokens.map((token, index) => ({ token, rank: -index }));
-  });
+      return tokens.map((token, index) => ({ token, rank: -index }));
+    }),
+  );
+  return rankedTokens.flat();
 }
 
 function getRankedEditors(

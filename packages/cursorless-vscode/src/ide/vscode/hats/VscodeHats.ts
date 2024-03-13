@@ -127,14 +127,12 @@ export class VscodeHats implements Hats {
     return this.enabledHatStyleManager.hatStyleMap;
   }
 
-  // TODO: async
   async onDidChangeEnabledHatStyles(
     listener: Listener<[HatStyleMap]>,
   ): Promise<Disposable> {
     return await this.enabledHatStyleManager.registerListener(listener);
   }
 
-  // TODO: async
   async onDidChangeIsEnabled(
     listener: Listener<[boolean]>,
   ): Promise<Disposable> {

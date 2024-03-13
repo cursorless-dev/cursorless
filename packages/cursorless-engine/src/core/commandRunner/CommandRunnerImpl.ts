@@ -82,31 +82,31 @@ export class CommandRunnerImpl implements CommandRunner {
     switch (actionDescriptor.name) {
       case "replaceWithTarget":
         return this.actions.replaceWithTarget.run(
-          this.getTargets(actionDescriptor.source),
+          await this.getTargets(actionDescriptor.source),
           await this.getDestinations(actionDescriptor.destination),
         );
 
       case "moveToTarget":
         return this.actions.moveToTarget.run(
-          this.getTargets(actionDescriptor.source),
+          await this.getTargets(actionDescriptor.source),
           await this.getDestinations(actionDescriptor.destination),
         );
 
       case "swapTargets":
         return this.actions.swapTargets.run(
-          this.getTargets(actionDescriptor.target1),
-          this.getTargets(actionDescriptor.target2),
+          await this.getTargets(actionDescriptor.target1),
+          await this.getTargets(actionDescriptor.target2),
         );
 
       case "callAsFunction":
         return this.actions.callAsFunction.run(
-          this.getTargets(actionDescriptor.callee),
-          this.getTargets(actionDescriptor.argument),
+          await this.getTargets(actionDescriptor.callee),
+          await this.getTargets(actionDescriptor.argument),
         );
 
       case "wrapWithPairedDelimiter":
         return this.actions.wrapWithPairedDelimiter.run(
-          this.getTargets(actionDescriptor.target),
+          await this.getTargets(actionDescriptor.target),
           actionDescriptor.left,
           actionDescriptor.right,
         );
@@ -115,7 +115,7 @@ export class CommandRunnerImpl implements CommandRunner {
         this.finalStages =
           this.actions.rewrapWithPairedDelimiter.getFinalStages();
         return this.actions.rewrapWithPairedDelimiter.run(
-          this.getTargets(actionDescriptor.target),
+          await this.getTargets(actionDescriptor.target),
           actionDescriptor.left,
           actionDescriptor.right,
         );
@@ -127,7 +127,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "executeCommand":
         return this.actions.executeCommand.run(
-          this.getTargets(actionDescriptor.target),
+          await this.getTargets(actionDescriptor.target),
           actionDescriptor.commandId,
           actionDescriptor.options,
         );
@@ -140,13 +140,13 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "highlight":
         return this.actions.highlight.run(
-          this.getTargets(actionDescriptor.target),
+          await this.getTargets(actionDescriptor.target),
           actionDescriptor.highlightId,
         );
 
       case "generateSnippet":
         return this.actions.generateSnippet.run(
-          this.getTargets(actionDescriptor.target),
+          await this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetName,
         );
 
@@ -164,7 +164,7 @@ export class CommandRunnerImpl implements CommandRunner {
           actionDescriptor.snippetDescription,
         );
         return this.actions.wrapWithSnippet.run(
-          this.getTargets(actionDescriptor.target),
+          await this.getTargets(actionDescriptor.target),
           actionDescriptor.snippetDescription,
         );
 
@@ -175,7 +175,7 @@ export class CommandRunnerImpl implements CommandRunner {
 
       case "getText":
         return this.actions.getText.run(
-          this.getTargets(actionDescriptor.target),
+          await this.getTargets(actionDescriptor.target),
           actionDescriptor.options,
         );
 
@@ -184,19 +184,19 @@ export class CommandRunnerImpl implements CommandRunner {
         this.finalStages = action.getFinalStages?.() ?? [];
         this.noAutomaticTokenExpansion =
           action.noAutomaticTokenExpansion ?? false;
-        return action.run(this.getTargets(actionDescriptor.target));
+        return action.run(await this.getTargets(actionDescriptor.target));
       }
     }
   }
 
-  private getTargets(
+  private async getTargets(
     partialTargetsDescriptor: PartialTargetDescriptor,
-  ): Target[] {
+  ): Promise<Target[]> {
     const targetDescriptor = this.inferenceContext.run(
       partialTargetsDescriptor,
     );
 
-    return this.pipelineRunner.run(targetDescriptor, {
+    return await this.pipelineRunner.run(targetDescriptor, {
       actionFinalStages: this.finalStages,
       noAutomaticTokenExpansion: this.noAutomaticTokenExpansion,
     });
@@ -216,13 +216,13 @@ export class CommandRunnerImpl implements CommandRunner {
         return destinations.flat();
       case "primitive":
         return await Promise.all(
-          this.getTargets(destinationDescriptor.target).map((target) =>
+          (await this.getTargets(destinationDescriptor.target)).map((target) =>
             target.toDestination(destinationDescriptor.insertionMode),
           ),
         );
       case "implicit":
         return await Promise.all(
-          this.getTargets({ type: "implicit" }).map((target) =>
+          (await this.getTargets({ type: "implicit" })).map((target) =>
             target.toDestination("to"),
           ),
         );

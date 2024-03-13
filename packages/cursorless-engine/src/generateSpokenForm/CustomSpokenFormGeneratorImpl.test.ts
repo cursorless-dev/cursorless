@@ -16,7 +16,7 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
             },
           ];
         },
-        onDidChange: () => ({ dispose() {} }),
+        onDidChange: async () => ({ dispose() {} }),
       });
 
       await generator.customSpokenFormsInitialized;

@@ -23,6 +23,7 @@ export class ScopeInfoProvider {
   constructor(
     private customSpokenFormGenerator: CustomSpokenFormGeneratorImpl,
   ) {
+    // TODO: async need to do that outside of the constructor
     this.disposable = customSpokenFormGenerator.onDidChangeCustomSpokenForms(
       () => this.onChange(),
     );

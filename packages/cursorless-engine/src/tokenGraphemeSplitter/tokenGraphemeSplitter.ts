@@ -78,23 +78,27 @@ export class TokenGraphemeSplitter {
   private algorithmChangeNotifier = new Notifier();
   private tokenHatSplittingMode!: TokenHatSplittingMode;
 
-  constructor() {
-    ide().disposeOnExit(this);
+  constructor() {}
 
-    this.updateTokenHatSplittingMode =
-      this.updateTokenHatSplittingMode.bind(this);
-    this.getTokenGraphemes = this.getTokenGraphemes.bind(this);
+  public static async create() {
+    const obj = new TokenGraphemeSplitter();
 
-    this.updateTokenHatSplittingMode();
+    ide().disposeOnExit(obj);
 
-    // TODO: async need to do that outside of the constructor
-    this.disposables.push(
+    obj.updateTokenHatSplittingMode = obj.updateTokenHatSplittingMode.bind(obj);
+    obj.getTokenGraphemes = obj.getTokenGraphemes.bind(obj);
+
+    obj.updateTokenHatSplittingMode();
+
+    obj.disposables.push(
       // Notify listeners in case the user changed their token hat splitting
       // setting.
-      ide().configuration.onDidChangeConfiguration(
-        this.updateTokenHatSplittingMode,
+      await ide().configuration.onDidChangeConfiguration(
+        obj.updateTokenHatSplittingMode,
       ),
     );
+
+    return obj;
   }
 
   private updateTokenHatSplittingMode() {

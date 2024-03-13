@@ -16,35 +16,42 @@ export class HatAllocator {
   constructor(
     private hats: Hats,
     private context: Context,
-  ) {
-    ide().disposeOnExit(this);
+  ) {}
 
-    this.disposables.push(
-      this.hats.onDidChangeEnabledHatStyles(this.debouncer.run),
-      this.hats.onDidChangeIsEnabled(this.debouncer.run),
+  public static async create(
+    hats: Hats,
+    context: Context,
+  ): Promise<HatAllocator> {
+    const obj = new HatAllocator(hats, context);
+    ide().disposeOnExit(obj);
+
+    obj.disposables.push(
+      await obj.hats.onDidChangeEnabledHatStyles(obj.debouncer.run),
+      await obj.hats.onDidChangeIsEnabled(obj.debouncer.run),
 
       // An event that fires when a text document opens
-      ide().onDidOpenTextDocument(this.debouncer.run),
+      ide().onDidOpenTextDocument(obj.debouncer.run),
       // An event that fires when a text document closes
-      ide().onDidCloseTextDocument(this.debouncer.run),
+      ide().onDidCloseTextDocument(obj.debouncer.run),
       // An Event which fires when the active editor has changed. Note that the event also fires when the active editor changes to undefined.
-      ide().onDidChangeActiveTextEditor(this.debouncer.run),
+      ide().onDidChangeActiveTextEditor(obj.debouncer.run),
       // An Event which fires when the array of visible editors has changed.
-      ide().onDidChangeVisibleTextEditors(this.debouncer.run),
+      ide().onDidChangeVisibleTextEditors(obj.debouncer.run),
       // An event that is emitted when a text document is changed. This usually happens when the contents changes but also when other things like the dirty-state changes.
-      ide().onDidChangeTextDocument(this.debouncer.run),
+      ide().onDidChangeTextDocument(obj.debouncer.run),
       // An Event which fires when the selection in an editor has changed.
-      ide().onDidChangeTextEditorSelection(this.debouncer.run),
+      ide().onDidChangeTextEditorSelection(obj.debouncer.run),
       // An Event which fires when the visible ranges of an editor has changed.
-      ide().onDidChangeTextEditorVisibleRanges(this.debouncer.run),
+      ide().onDidChangeTextEditorVisibleRanges(obj.debouncer.run),
       // Re-draw hats on grapheme splitting algorithm change in case they
       // changed their token hat splitting setting.
-      tokenGraphemeSplitter().registerAlgorithmChangeListener(
-        this.debouncer.run,
+      await tokenGraphemeSplitter().registerAlgorithmChangeListener(
+        obj.debouncer.run,
       ),
 
-      this.debouncer,
+      obj.debouncer,
     );
+    return obj;
   }
 
   /**

@@ -48,23 +48,25 @@ export class Snippets {
   private directoryErrorMessage: DirectoryErrorMessage | null | undefined =
     null;
 
-  constructor() {
-    this.updateUserSnippetsPath();
+  constructor() {}
 
-    this.updateUserSnippets = this.updateUserSnippets.bind(this);
-    this.registerThirdPartySnippets =
-      this.registerThirdPartySnippets.bind(this);
+  public static async create() {
+    const obj = new Snippets();
+
+    obj.updateUserSnippetsPath();
+
+    obj.updateUserSnippets = obj.updateUserSnippets.bind(obj);
+    obj.registerThirdPartySnippets = obj.registerThirdPartySnippets.bind(obj);
 
     const timer = setInterval(
-      this.updateUserSnippets,
+      obj.updateUserSnippets,
       SNIPPET_DIR_REFRESH_INTERVAL_MS,
     );
 
     ide().disposeOnExit(
-      // TODO: async need to do that outside of the constructor
-      ide().configuration.onDidChangeConfiguration(() => {
-        if (this.updateUserSnippetsPath()) {
-          this.updateUserSnippets();
+      await ide().configuration.onDidChangeConfiguration(() => {
+        if (obj.updateUserSnippetsPath()) {
+          obj.updateUserSnippets();
         }
       }),
       {
@@ -73,20 +75,20 @@ export class Snippets {
         },
       },
     );
-  }
 
-  async init() {
     const extensionPath = ide().assetsRoot;
     const snippetsDir = join(extensionPath, "cursorless-snippets");
     const snippetFiles = await getSnippetPaths(snippetsDir);
-    this.coreSnippets = mergeStrict(
+    obj.coreSnippets = mergeStrict(
       ...(await Promise.all(
         snippetFiles.map(async (path) =>
           JSON.parse(await readFile(path, "utf8")),
         ),
       )),
     );
-    await this.updateUserSnippets();
+    await obj.updateUserSnippets();
+
+    return obj;
   }
 
   /**

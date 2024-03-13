@@ -19,7 +19,7 @@ export default class Delete implements SimpleAction {
     { showDecorations = true } = {},
   ): Promise<ActionReturnValue> {
     // Unify overlapping targets because of overlapping leading and trailing delimiters.
-    targets = unifyRemovalTargets(targets);
+    targets = await unifyRemovalTargets(targets);
 
     if (showDecorations) {
       await flashTargets(ide(), targets, FlashStyle.pendingDelete, (target) =>

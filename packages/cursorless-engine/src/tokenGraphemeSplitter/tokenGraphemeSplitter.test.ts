@@ -301,10 +301,10 @@ tests.forEach(({ tokenHatSplittingMode, extraTestCases }) => {
 
       const displayOutput = expectedOutput.map(({ text }) => text).join(", ");
 
-      test(`${input} -> ${displayOutput}`, () => {
-        const actualOutput = new TokenGraphemeSplitter().getTokenGraphemes(
-          input,
-        );
+      test(`${input} -> ${displayOutput}`, async () => {
+        const actualOutput = (
+          await TokenGraphemeSplitter.create()
+        ).getTokenGraphemes(input);
         assert.deepStrictEqual(actualOutput, expectedOutput);
       });
     });

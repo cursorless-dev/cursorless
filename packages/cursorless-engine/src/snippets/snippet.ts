@@ -138,7 +138,7 @@ function findMatchingSnippetDefinitionForSingleTarget(
   // We want to find the first definition that matches the given context.
   // Note that we just use the first match we find because the definitions are
   // guaranteed to come sorted in precedence order.
-  return definitions.findIndex(({ scope }) => {
+  return definitions.findIndex(async ({ scope }) => {
     if (scope == null) {
       return true;
     }
@@ -157,24 +157,28 @@ function findMatchingSnippetDefinitionForSingleTarget(
       let matchingScopeType: SimpleScopeTypeType | undefined = undefined;
       for (const scopeTypeType of allScopeTypes) {
         try {
-          let containingTarget = modifierStageFactory
-            .create({
-              type: "containingScope",
-              scopeType: { type: scopeTypeType },
-            })
-            .run(target)[0];
+          let containingTarget = (
+            await modifierStageFactory
+              .create({
+                type: "containingScope",
+                scopeType: { type: scopeTypeType },
+              })
+              .run(target)
+          )[0];
 
           if (target.contentRange.isRangeEqual(containingTarget.contentRange)) {
             // Skip this scope if the target is exactly the same as the
             // containing scope, otherwise wrapping won't work, because we're
             // really outside the containing scope when we're wrapping
-            containingTarget = modifierStageFactory
-              .create({
-                type: "containingScope",
-                scopeType: { type: scopeTypeType },
-                ancestorIndex: 1,
-              })
-              .run(target)[0];
+            containingTarget = (
+              await modifierStageFactory
+                .create({
+                  type: "containingScope",
+                  scopeType: { type: scopeTypeType },
+                  ancestorIndex: 1,
+                })
+                .run(target)
+            )[0];
           }
 
           if (

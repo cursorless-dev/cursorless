@@ -283,7 +283,7 @@ export async function performEditsAndUpdateSelections(
  * @param rangeBehavior How selections should behave with respect to insertions on either end
  * @returns The updated selections
  */
-export function performEditsAndUpdateSelectionsWithBehavior(
+export async function performEditsAndUpdateSelectionsWithBehavior(
   rangeUpdater: RangeUpdater,
   editor: EditableTextEditor,
   edits: Edit[],
@@ -293,14 +293,20 @@ export function performEditsAndUpdateSelectionsWithBehavior(
     rangeUpdater,
     editor,
     edits,
-    originalSelections.map((selectionsWithBehavior) =>
-      selectionsWithBehavior.selections.map((selection) =>
-        getSelectionInfo(
-          editor.document,
-          selection,
-          selectionsWithBehavior.rangeBehavior ??
-            RangeExpansionBehavior.closedClosed,
-        ),
+    await Promise.all(
+      originalSelections.map(
+        async (selectionsWithBehavior) =>
+          await Promise.all(
+            selectionsWithBehavior.selections.map(
+              async (selection) =>
+                await getSelectionInfo(
+                  editor.document,
+                  selection,
+                  selectionsWithBehavior.rangeBehavior ??
+                    RangeExpansionBehavior.closedClosed,
+                ),
+            ),
+          ),
       ),
     ),
   );

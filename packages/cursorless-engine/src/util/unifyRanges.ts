@@ -3,25 +3,30 @@ import { Target } from "../typings/target.types";
 import { groupTargetsForEachEditor } from "./targetUtils";
 
 /** Unifies overlapping/intersecting targets */
-export function unifyRemovalTargets(targets: Target[]): Target[] {
+export async function unifyRemovalTargets(
+  targets: Target[],
+): Promise<Target[]> {
   if (targets.length < 2) {
     return targets;
   }
-  return groupTargetsForEachEditor(targets).flatMap(([_editor, targets]) => {
-    if (targets.length < 2) {
-      return targets;
-    }
-    let results = [...targets];
-    results.sort((a, b) =>
-      a.contentRange.start.compareTo(b.contentRange.start),
-    );
-    let run = true;
-    // Merge targets until there are no overlaps/intersections
-    while (run) {
-      [results, run] = unifyTargetsOnePass(results);
-    }
-    return results;
-  });
+  const results = await Promise.all(
+    groupTargetsForEachEditor(targets).map(async ([_editor, targets]) => {
+      if (targets.length < 2) {
+        return targets;
+      }
+      let results = [...targets];
+      results.sort((a, b) =>
+        a.contentRange.start.compareTo(b.contentRange.start),
+      );
+      let run = true;
+      // Merge targets until there are no overlaps/intersections
+      while (run) {
+        [results, run] = await unifyTargetsOnePass(results);
+      }
+      return results;
+    }),
+  );
+  return results.flat();
 }
 
 async function unifyTargetsOnePass(

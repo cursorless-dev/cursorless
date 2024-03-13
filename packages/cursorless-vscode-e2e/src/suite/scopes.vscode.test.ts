@@ -109,7 +109,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
 
   const editor = ide.activeTextEditor!;
 
-  const outputFixture = (async (): Promise<string> => {
+  const outputFixture = await (async (): Promise<string> => {
     const config = {
       visibleOnly: false,
       scopeType,

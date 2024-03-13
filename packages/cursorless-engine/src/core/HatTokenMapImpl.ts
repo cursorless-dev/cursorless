@@ -45,15 +45,37 @@ export class HatTokenMapImpl implements HatTokenMap {
     hats: Hats,
     private commandServerApi: CommandServerApi | null,
   ) {
-    ide().disposeOnExit(this);
+    // TODO: this is not ideal for now
+    // it will be overwritten by create() but it makes the compiler happy
     this.activeMap = new IndividualHatMap(rangeUpdater);
-
-    this.getActiveMap = this.getActiveMap.bind(this);
-    this.allocateHats = this.allocateHats.bind(this);
-
     this.hatAllocator = new HatAllocator(hats, {
       getActiveMap: this.getActiveMap,
     });
+  }
+
+  public static async create(
+    rangeUpdater: RangeUpdater,
+    debug: Debug,
+    hats: Hats,
+    commandServerApi: CommandServerApi | null,
+  ): Promise<HatTokenMapImpl> {
+    const obj = new HatTokenMapImpl(
+      rangeUpdater,
+      debug,
+      hats,
+      commandServerApi,
+    );
+
+    ide().disposeOnExit(obj);
+    obj.activeMap = new IndividualHatMap(rangeUpdater);
+
+    obj.getActiveMap = obj.getActiveMap.bind(obj);
+    obj.allocateHats = obj.allocateHats.bind(obj);
+
+    obj.hatAllocator = await HatAllocator.create(hats, {
+      getActiveMap: obj.getActiveMap,
+    });
+    return obj;
   }
 
   /**

@@ -42,6 +42,7 @@ export class ScopeSupportWatcher {
       // happens when the contents changes but also when other things like the
       // dirty-state changes.
       ide().onDidChangeTextDocument(this.debouncer.run),
+      // TODO: async need to do that outside of the constructor
       languageDefinitions.onDidChangeDefinition(this.debouncer.run),
       this.scopeInfoProvider.onDidChangeScopeInfo(this.onChange),
       this.debouncer,

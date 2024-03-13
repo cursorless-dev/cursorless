@@ -12,29 +12,38 @@ export class Debug {
   active: boolean;
 
   constructor(private treeSitter: TreeSitter) {
-    ide().disposeOnExit(this);
+    this.active = false;
+  }
 
-    this.evaluateSetting = this.evaluateSetting.bind(this);
-    this.logBranchTypes = this.logBranchTypes.bind(this);
-    this.active = true;
+  public static async create(treeSitter: TreeSitter): Promise<Debug> {
+    const obj = new Debug(treeSitter);
+
+    ide().disposeOnExit(obj);
+
+    obj.evaluateSetting = obj.evaluateSetting.bind(obj);
+    obj.logBranchTypes = obj.logBranchTypes.bind(obj);
+    obj.active = true;
 
     switch (ide().runMode) {
       // Development mode. Always enable.
       case "development":
-        this.enableDebugLog();
+        obj.enableDebugLog();
         break;
       // Test mode. Always disable.
       case "test":
-        this.disableDebugLog();
+        obj.disableDebugLog();
         break;
       // Production mode. Enable based on user setting.
       case "production":
-        this.evaluateSetting();
-        // TODO: async need to do that outside of the constructor
-        this.disposableConfiguration =
-          ide().configuration.onDidChangeConfiguration(this.evaluateSetting);
+        obj.evaluateSetting();
+        obj.disposableConfiguration =
+          await ide().configuration.onDidChangeConfiguration(
+            obj.evaluateSetting,
+          );
         break;
     }
+
+    return obj;
   }
 
   log(...args: any[]) {

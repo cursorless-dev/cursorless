@@ -31,23 +31,22 @@ import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { TalonSpokenFormsJsonReader } from "./nodeCommon/TalonSpokenFormsJsonReader";
 import { injectIde } from "./singletons/ide.singleton";
 
-export function createCursorlessEngine(
+export async function createCursorlessEngine(
   treeSitter: TreeSitter,
   ide: IDE,
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
-): CursorlessEngine {
+): Promise<CursorlessEngine> {
   injectIde(ide);
 
-  const debug = new Debug(treeSitter);
+  const debug = await Debug.create(treeSitter);
 
   const rangeUpdater = new RangeUpdater();
 
-  const snippets = new Snippets();
-  snippets.init();
+  const snippets = await Snippets.create();
 
-  const hatTokenMap = new HatTokenMapImpl(
+  const hatTokenMap = await HatTokenMapImpl.create(
     rangeUpdater,
     debug,
     hats,
