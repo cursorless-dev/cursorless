@@ -1,6 +1,6 @@
 # Visual Accessibility
 
-Cursorless has multiple settings that can be customized to improve accessibility for users with color blindness or other vision impairments. This guide has a few techniques to help you customize Cursorless to fit your needs. The primary visual elements of Cursorless are the [hats](./README.md#decorated-symbol), so this guide will focus on customizing the hats.
+Cursorless has multiple settings that can be customized to improve accessibility for users with color blindness or other vision impairments. The primary visual elements of Cursorless are the [hats](./README.md#decorated-symbol), so this guide will focus on customizing the hats.
 
 ## Make the hats bigger
 
@@ -25,4 +25,4 @@ There are several user-created color schemes available [on the Cursorless wiki](
 1. Change your `blue` color to `#ffffff`
 1. Change your `green` color to `#333333`
 1. Disable the other colors using the `cursorless.hatEnablement.colors` setting
-1. Change spoken forms within your Cursorless settings folder located at `cursorless-settings/hat_styles.csv` so that you have `bright, blue` and `dark, green`. This is within your Talon configuration, not the IDE settings. This will change the spoken forms to match the new colors so that you can say eg `"take bright air"` to select the word "air" with a bright hat.
+1. Change spoken forms within your Cursorless settings folder located at `cursorless-settings/hat_styles.csv` so that you have `bright, blue` and `dark, green`. This is within your Talon configuration, not the IDE settings. This will change the spoken forms to match the new colors so that you can say eg `"take bright air"` to select the word "air" with a bright hat. See [Customization](./customization.md) for more information on how to change spoken forms.
