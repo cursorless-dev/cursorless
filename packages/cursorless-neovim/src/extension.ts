@@ -24,6 +24,8 @@ import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 
+// import { Buffer } from "neovim";
+
 // ----------
 
 // import deasync from "deasync";
