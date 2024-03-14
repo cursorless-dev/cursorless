@@ -23,6 +23,8 @@ import { BufferManager, receivedBufferEvent } from "./types/BufferManager";
 import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
+import { injectIde as injectIde2 } from "./singletons/ide.singleton";
+import { updateTextEditor } from "./registerCommands";
 
 /**
  * Simulates the extension entrypoint to match cursorless-vscode
@@ -40,21 +42,10 @@ export async function activate(context: NeovimExtensionContext) {
   // const parseTreeApi = await getParseTreeApi();
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
+  injectIde2(neovimIDE); // TODO: this is duplicating what Cursorless engine does but for NeovimIDE
 
-  // Hack for now
-  // We only initialize one editor(current window) with existing documents(open files i.e. buffers)
-  // TODO: we need to support updating editors and documents on the fly
-
-  // initialize the editor
-  neovimIDE.fromNeovimEditor(await client.window);
-
-  // initialize the documents
-  const buffers = await client.buffers;
-  buffers.forEach((buf) => {
-    console.warn("creating document for buffer: ", buf.id);
-    const document = new NeovimTextDocumentImpl(buf);
-    bufmgr.textDocumentToBufferId.set(document, buf.id);
-  });
+  // initialize the editor since it is needed before we can attach?
+  // updateTextEditor();
 
   /**
    * "attach" to Nvim buffers to subscribe to buffer update events.
@@ -62,14 +53,15 @@ export async function activate(context: NeovimExtensionContext) {
    *
    * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
    */
-  buffers.forEach(
-    /* async */ (buf) => {
-      console.warn("listening for changes in buffer: ", buf.id);
-      buf.listen("lines", receivedBufferEvent);
-      // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
-      // await buf[ATTACH](true);
-    },
-  );
+  // const buffers = await client.buffers;
+  // buffers.forEach(
+  //   /* async */ (buf) => {
+  //     console.warn("listening for changes in buffer: ", buf.id);
+  //     buf.listen("lines", receivedBufferEvent);
+  //     // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
+  //     // await buf[ATTACH](true);
+  //   },
+  // );
 
   const normalizedIde =
     neovimIDE.runMode === "production"

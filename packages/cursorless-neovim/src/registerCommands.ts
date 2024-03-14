@@ -1,5 +1,11 @@
 import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
+import { neovimContext } from "./singletons/context.singleton";
+import { ide } from "./singletons/ide.singleton";
+import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
+import { bufferManager } from "./singletons/bufmgr.singleton";
+import { InMemoryTextDocument } from "./types/text_document";
+import { URI } from "vscode-uri";
 // import {
 //   CommandApi,
 //   TestCaseRecorder,
@@ -14,6 +20,24 @@ import { commandApi } from "./singletons/cmdapi.singleton";
 // import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
 // import { KeyboardCommands } from "./keyboard/KeyboardCommands";
 // import { logQuickActions } from "./logQuickActions";
+
+/**
+ * Initialize the current editor (and current document).
+ * We always overwrite the current editor from scratch for now
+ * because we reinitialize it for every command we receive
+ *
+ * TODO: We only initialize one editor(current window) with one document(current buffer)
+ *       we need to support updating editors and documents on the fly
+ */
+export async function updateTextEditor() {
+  const client = neovimContext().client;
+  const window = await client.window;
+  const buffer = await window.buffer;
+  console.warn(
+    `creating editor/document for window:${window.id} buffer:${buffer.id}`,
+  );
+  ide().toNeovimEditor(window, buffer.id, await buffer.lines);
+}
 
 // export function registerCommands(
 // extensionContext: vscode.ExtensionContext,
@@ -33,6 +57,7 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       // try {
+      updateTextEditor();
       const result = await commandApi().runCommandSafe(...args);
       // const result = ["hello world"]; // simulate the result of "bring <target>"
       return result;

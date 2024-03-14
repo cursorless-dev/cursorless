@@ -15,7 +15,7 @@ const BUFFER_SCHEME = "neovim";
 // Integration notes:
 // 1. Each Cursorless "TextDocument" corresponds to a neovim "Buffer"
 // 2. Each Cursorless "TextEditor" corresponds to a neovim "Window"
-// 3. Generally, an "TextEditor" corresponds to a "TextDocument",
+// 3. Generally, a "TextEditor" corresponds to a "TextDocument",
 //    so the "Buffer" and "Window" in neovim have a one-to-one relationship
 // 4. When visibleTextEditors change => create a "Buffer" and "Window" in neovim
 // 5. When activeTextEditor changes => set the current "Window" in neovim
