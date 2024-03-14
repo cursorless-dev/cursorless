@@ -10,33 +10,10 @@ import {
   TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
-// import {
-//   fromVscodeRange,
-//   fromVscodeSelection,
-//   toVscodePositionOrRange,
-//   toVscodeRange,
-//   toVscodeSelection,
-// } from "@cursorless/vscode-common";
-// import * as vscode from "vscode";
-// import vscodeEdit from "./VscodeEdit";
-// import vscodeFocusEditor from "./VscodeFocusEditor";
-// import { vscodeFold, vscodeUnfold } from "./VscodeFold";
 import { NeovimIDE } from "./NeovimIDE";
-// import { vscodeInsertSnippet } from "./VscodeInsertSnippets";
-// import {
-//   vscodeEditNewNotebookCellAbove,
-//   vscodeEditNewNotebookCellBelow,
-// } from "./VscodeNotebooks";
-// import vscodeOpenLink from "./VscodeOpenLink";
-// import { vscodeRevealLine } from "./VscodeRevealLine";
-import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 import { Window } from "neovim";
 import { InMemoryTextDocumentImpl } from "./InMemoryTextDocumentImpl";
 import { URI } from "vscode-uri";
-
-// import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
-
-// XXX continue here
 
 export class InMemoryTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
@@ -64,32 +41,27 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
   }
 
   get selections(): Selection[] {
-    return []; // TODO: update
-    // return this.editor.selections;
+    throw Error("get selections Not implemented");
   }
 
   set selections(selections: Selection[]) {
-    // this.editor.selections = selections.map(toVscodeSelection);
+    throw Error("set selections Not implemented");
   }
 
   get visibleRanges(): Range[] {
-    // TODO: the Window has visible range
-    return [new Range(0, 0, 10, 0)]; // TODO: update
-    // return this.editor.visibleRanges;
+    throw Error("visibleRanges Not implemented");
   }
 
   get options(): TextEditorOptions {
-    return {}; // TODO: update
-    // return this.editor.options;
+    throw Error("get options Not implemented");
   }
 
   set options(options: TextEditorOptions) {
-    // this.editor.options = options;
+    throw Error("set options Not implemented");
   }
 
   get isActive(): boolean {
-    return true;
-    // return this.editor === vscode.window.activeTextEditor;
+    throw Error("isActive Not implemented");
   }
 
   public isEqual(other: TextEditor): boolean {
@@ -97,158 +69,107 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
   }
 
   public async revealRange(range: Range): Promise<void> {
-    return Promise.resolve();
-    // this.editor.revealRange(toVscodeRange(range));
+    throw Error("revealRange Not implemented");
   }
 
   public revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
-    return Promise.resolve();
-    // return vscodeRevealLine(this, lineNumber, at);
+    throw Error("revealLine Not implemented");
   }
 
   public edit(
     callback: (editBuilder: TextEditorEdit) => void,
     options?: { undoStopBefore: boolean; undoStopAfter: boolean },
   ): Promise<boolean> {
-    return Promise.resolve(false);
-    // return vscodeEdit(this.editor, callback, options);
+    throw Error("edit Not implemented");
   }
 
   public focus(): Promise<void> {
-    return Promise.resolve();
-    // return vscodeFocusEditor(this.ide, this);
+    throw Error("focus Not implemented");
   }
 
   public editNewNotebookCellAbove(): Promise<
     (selection: Selection) => Selection
   > {
-    return Promise.resolve((selection) => selection);
-    // return vscodeEditNewNotebookCellAbove(this);
+    throw Error("editNewNotebookCellAbove Not implemented");
   }
 
   public editNewNotebookCellBelow(): Promise<void> {
-    return Promise.resolve();
-    // return vscodeEditNewNotebookCellBelow(this);
+    throw Error("editNewNotebookCellBelow Not implemented");
   }
 
   public openLink(location?: Position | Range): Promise<boolean> {
-    return Promise.resolve(false);
-    // return vscodeOpenLink(
-    //   this,
-    //   location != null ? toVscodePositionOrRange(location) : undefined,
-    // );
+    throw Error("openLink Not implemented");
   }
 
   public fold(ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // return vscodeFold(this.ide, this, ranges);
+    throw Error("fold Not implemented");
   }
 
   public unfold(ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // return vscodeUnfold(this.ide, this, ranges);
+    throw Error("unfold Not implemented");
   }
 
   public toggleBreakpoint(descriptors?: BreakpointDescriptor[]): Promise<void> {
-    return Promise.resolve();
-    // return vscodeToggleBreakpoint(this, descriptors);
+    throw Error("toggleBreakpoint Not implemented");
   }
 
   public async toggleLineComment(_ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.commentLine");
+    throw Error("toggleLineComment Not implemented");
   }
 
   public async clipboardCopy(_ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.clipboardCopyAction");
+    throw Error("clipboardCopy Not implemented");
   }
 
   public async clipboardPaste(_ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // We add these sleeps here to workaround a bug in VSCode. See #1521
-    // await sleep(100);
-    // await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
-    // await sleep(100);
+    throw Error("clipboardPaste Not implemented");
   }
 
   public async indentLine(_ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.indentLines");
+    throw Error("indentLine Not implemented");
   }
 
   public async outdentLine(_ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.outdentLines");
+    throw Error("outdentLine Not implemented");
   }
 
   public async insertLineAfter(ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // if (ranges != null) {
-    //   this.selections = ranges.map((range) => range.toSelection(false));
-    // }
-    // await this.focus();
-    // await vscode.commands.executeCommand("editor.action.insertLineAfter");
+    throw Error("insertLineAfter Not implemented");
   }
 
   public insertSnippet(snippet: string, ranges?: Range[]): Promise<void> {
-    return Promise.resolve();
-    // return vscodeInsertSnippet(this, snippet, ranges);
+    throw Error("insertSnippet Not implemented");
   }
 
   public async rename(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.rename");
+    throw Error("rename Not implemented");
   }
 
   public async showReferences(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("references-view.find");
+    throw Error("showReferences Not implemented");
   }
 
   public async quickFix(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.quickFix");
-    // await sleep(100);
+    throw Error("quickFix Not implemented");
   }
 
   public async revealDefinition(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.revealDefinition");
+    throw Error("revealDefinition Not implemented");
   }
 
   public async revealTypeDefinition(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.goToTypeDefinition");
+    throw Error("revealTypeDefinition Not implemented");
   }
 
   public async showHover(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.action.showHover");
+    throw Error("showHover Not implemented");
   }
 
   public async showDebugHover(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // await vscode.commands.executeCommand("editor.debug.action.showDebugHover");
+    throw Error("showDebugHover Not implemented");
   }
 
   public async extractVariable(_range?: Range): Promise<void> {
-    return Promise.resolve();
-    // if (this.document.languageId === "python") {
-    //   // Workaround for https://github.com/microsoft/vscode-python/issues/20455
-    //   await vscode.commands.executeCommand("editor.action.codeAction", {
-    //     kind: "refactor.extract",
-    //   });
-    //   await sleep(250);
-    //   await vscode.commands.executeCommand("selectNextCodeAction");
-    //   await vscode.commands.executeCommand("acceptSelectedCodeAction");
-    // } else {
-    //   await vscode.commands.executeCommand("editor.action.codeAction", {
-    //     kind: "refactor.extract.constant",
-    //     preferred: true,
-    //   });
-    // }
-
-    // await sleep(250);
+    throw Error("extractVariable Not implemented");
   }
 }

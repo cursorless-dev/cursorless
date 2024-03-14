@@ -64,7 +64,7 @@ export class NeovimIDE implements IDE {
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    return this.quickPickReturnValue;
+    throw Error("XXX Not implemented");
   }
 
   async setHighlightRanges(
@@ -72,11 +72,11 @@ export class NeovimIDE implements IDE {
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
   ): Promise<void> {
-    // empty
+    throw Error("XXX Not implemented");
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    // empty
+    throw Error("XXX Not implemented");
   }
 
   get assetsRoot(): string {
@@ -103,7 +103,6 @@ export class NeovimIDE implements IDE {
       : undefined;
   }
 
-  // get visibleTextEditors(): NeovimTextEditorImpl[] {
   get visibleTextEditors(): InMemoryTextEditorImpl[] {
     return Array.from(this.editorMap.values());
     // throw Error("visibleTextEditors Not implemented");
@@ -188,6 +187,7 @@ export class NeovimIDE implements IDE {
   }
 
   toNeovimEditor(editor: Window, bufferId: number, lines: string[]): void {
+    this.activeWindow = editor;
     const impl = new InMemoryTextEditorImpl(
       uuid(),
       this,

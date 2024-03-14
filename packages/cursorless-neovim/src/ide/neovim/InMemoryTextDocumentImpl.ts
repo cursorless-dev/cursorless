@@ -5,19 +5,7 @@ import {
   TextDocument,
   TextLine,
 } from "@cursorless/common";
-// import {
-//   fromVscodeEndOfLine,
-//   fromVscodePosition,
-//   toVscodePosition,
-//   toVscodeRange,
-// } from "@cursorless/vscode-common";
-// import * as vscode from "vscode";
 import { URI } from "vscode-uri";
-// import {
-//   fromVscodePosition,
-//   toVscodePosition,
-//   toVscodeRange,
-// } from "../../vscodeUtil";
 import InMemoryTextLineImpl from "./InMemoryTextLineImpl";
 
 export class InMemoryTextDocumentImpl implements TextDocument {
@@ -64,16 +52,16 @@ export class InMemoryTextDocumentImpl implements TextDocument {
   }
 
   constructor(
-    uri: URI, // URI.parse(`neovim://${id}`);
-    languageId: string, // "plaintext"; // TODO: update
-    version: number, // 1
-    eol: string, // "\n"; // TODO: update
+    uri: URI,
+    languageId: string,
+    version: number,
+    eol: string,
     lines: string[],
   ) {
     this._uri = uri;
     this._languageId = languageId;
     this._version = version;
-    this._lineCount = lines.length; // TODO: update
+    this._lineCount = lines.length;
     this._eol = eol;
     this._lines = lines;
 
