@@ -43,11 +43,6 @@ export async function updateTextEditor() {
   console.warn(
     `creating editor/document for window:${window.id} buffer:${buffer.id}`,
   );
-  // const result = await client.call("WindowGetVisibleLines", []);
-  const luaCode = `
-  local ret = {vim.fn.line('w0'), vim.fn.line('w$')}
-  return ret
-`;
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
   ide().toNeovimEditor(window, buffer.id, lines, visibleRanges);
 }
@@ -63,16 +58,13 @@ async function windowGetVisibleRanges(
   lines: string[],
 ): Promise<Range[]> {
   // Get the first and last visible lines of the current window
-  // w0/w$ are indexed from 1, similarly to what is shown in neovim
-  const luaCode = `
-  local ret = {vim.fn.line('w0'), vim.fn.line('w$')}
-  return ret
-`;
+  // Note they are indexed from 1, similarly to what is shown in neovim
+  const luaCode = "return WindowGetVisibleLines()";
   const [firstLine, lastLine] = (await client.executeLua(
     luaCode,
     [],
   )) as Array<number>;
-  // we need to subtract 1 to get the correct 0-based line numbers
+  // subtract 1 with the lines to get the correct 0-based line numbers
   return [
     new Range(
       new Position(firstLine - 1, 0),
