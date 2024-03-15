@@ -18,7 +18,6 @@
           f {
             pkgs = import nixpkgs {
               inherit overlays system;
-              config.allowUnfree = true;
             };
           });
       pythonVersion = builtins.replaceStrings
