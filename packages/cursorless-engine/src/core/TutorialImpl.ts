@@ -36,14 +36,7 @@ export class TutorialImpl implements Tutorial {
    * Handle the argument of a "%%step:cloneStateInk.yml%%""
    */
   private async processStep(tutorialName: string, yamlFilename: string) {
-    const yamlPath = path.join(
-      this.tutorialRootDir,
-      tutorialName,
-      yamlFilename,
-    );
-
-    const buffer = await readFile(yamlPath);
-    const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
+    const fixture = await this.loadFixture(tutorialName, yamlFilename);
 
     // command to be said for moving to the next step
     const spokenForm = this.customSpokenFormGenerator.commandToSpokenForm(
@@ -57,6 +50,20 @@ export class TutorialImpl implements Tutorial {
     }
 
     return spokenForm.spokenForms[0];
+  }
+
+  private async loadFixture(
+    tutorialName: string,
+    yamlFilename: string,
+  ): Promise<TestCaseFixture> {
+    const yamlPath = path.join(
+      this.tutorialRootDir,
+      tutorialName,
+      yamlFilename,
+    );
+
+    const buffer = await readFile(yamlPath);
+    return yaml.load(buffer.toString()) as TestCaseFixture;
   }
 
   /**
@@ -115,7 +122,6 @@ export class TutorialImpl implements Tutorial {
       let m = re.exec(content);
       while (m) {
         const [fullMatch, type, arg] = m;
-        console.log(type, arg);
         switch (type) {
           case "step":
             fixturePath = arg;
@@ -128,7 +134,6 @@ export class TutorialImpl implements Tutorial {
           case "action":
             // TODO: don't use hardcoded list of default spoken form for an action (not yet the user customized one)
             spokenForm = actions[arg as keyof typeof actions];
-            console.log("\t", spokenForm);
             content = content.replace(fullMatch, `<*"${spokenForm}"/>`);
             break;
           case "scopeType":
@@ -164,10 +169,7 @@ export class TutorialImpl implements Tutorial {
     }
 
     // TODO check for directory traversal?
-    const yamlFile = path.join(this.tutorialRootDir, tutorialName, fixturePath);
-
-    const buffer = await readFile(yamlFile);
-    const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
+    const fixture = await this.loadFixture(tutorialName, fixturePath);
 
     const editor = await ide().openUntitledTextDocument({
       content: fixture.initialState.documentContents,
