@@ -8,9 +8,6 @@ import {
 import { commandApi } from "./singletons/cmdapi.singleton";
 import { neovimContext } from "./singletons/context.singleton";
 import { ide } from "./singletons/ide.singleton";
-import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
-import { bufferManager } from "./singletons/bufmgr.singleton";
-import { URI } from "vscode-uri";
 import { NeovimClient } from "neovim/lib/api/client";
 import { Window } from "neovim/lib/api/Window";
 import { bufferGetSelections, windowGetVisibleRanges } from "./neovimUtil";
