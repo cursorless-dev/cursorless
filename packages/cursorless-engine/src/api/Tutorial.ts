@@ -1,3 +1,5 @@
+import { TutorialId } from "@cursorless/common";
+
 export interface TutorialGetContentArg {
   /**
    * The version of the tutorial command.
@@ -53,6 +55,6 @@ export interface TutorialSetupStepArg {
 }
 
 export interface Tutorial {
-  getContent(arg: TutorialGetContentArg): Promise<TutorialGetContentResponse>;
+  getContent(id: TutorialId): Promise<TutorialGetContentResponse>;
   setupStep(arg: TutorialSetupStepArg): Promise<void>;
 }

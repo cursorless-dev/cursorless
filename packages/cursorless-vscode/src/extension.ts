@@ -131,7 +131,7 @@ export async function activate(
 
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
-  new VscodeTutorial(context, vscodeApi, tutorial);
+  const vscodeTutorial = new VscodeTutorial(context, vscodeApi, tutorial);
 
   registerCommands(
     context,
@@ -142,7 +142,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
-    tutorial,
+    vscodeTutorial,
   );
 
   new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();

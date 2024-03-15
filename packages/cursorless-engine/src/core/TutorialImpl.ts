@@ -1,6 +1,7 @@
 import {
   ScopeType,
   TestCaseFixture,
+  TutorialId,
   plainObjectToSelection,
   serializedMarksToTokenHats,
 } from "@cursorless/common";
@@ -9,7 +10,6 @@ import { readFile } from "node:fs/promises";
 import path from "path";
 import {
   Tutorial,
-  TutorialGetContentArg,
   TutorialGetContentResponse,
   TutorialSetupStepArg,
 } from "../api/Tutorial";
@@ -101,11 +101,7 @@ export class TutorialImpl implements Tutorial {
   /**
    * Handle the "cursorless.tutorial.getContent" command
    */
-  async getContent({ version, tutorialName }: TutorialGetContentArg) {
-    if (version !== 0) {
-      throw new Error(`Unsupported tutorial api version: ${version}`);
-    }
-
+  async getContent(tutorialName: TutorialId) {
     const contentList = await this.loadTutorialScript(tutorialName);
 
     // this is trying to catch occurrences of things like "%%step:cloneStateInk.yml%%"

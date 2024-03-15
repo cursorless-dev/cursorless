@@ -71,8 +71,7 @@
     "onCommand:cursorless.toggleDecorations",
     "onCommand:cursorless.showScopeVisualizer",
     "onCommand:cursorless.hideScopeVisualizer",
-    "onCommand:cursorless.tutorial.getContent",
-    "onCommand:cursorless.tutorial.setupStep",
+    "onCommand:cursorless.tutorial.start",
     "onCommand:cursorless.analyzeCommandHistory"
   ],
   "main": "./extension.cjs",
@@ -137,13 +136,8 @@
         "title": "Cursorless: Analyze collected command history"
       },
       {
-        "command": "cursorless.tutorial.getContent",
-        "title": "Cursorless: Get tutorial content; used by the Talon HUD during tutorial initialization",
-        "enablement": "false"
-      },
-      {
-        "command": "cursorless.tutorial.setupStep",
-        "title": "Cursorless: Setup the current tutorial step; used by the Talon HUD before each tutorial step",
+        "command": "cursorless.tutorial.start",
+        "title": "Cursorless: Start a tutorial",
         "enablement": "false"
       },
       {

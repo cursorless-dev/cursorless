@@ -28,6 +28,6 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
   return state.type === "pickingTutorial" ? (
     <span>Say "cursorless tutorial"</span>
   ) : (
-    <span>{state.tutorialId}</span>
+    <span>{state.stepContent}</span>
   );
 };

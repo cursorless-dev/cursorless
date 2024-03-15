@@ -1,5 +1,8 @@
 import { TutorialId, TutorialState } from "@cursorless/common";
-import { Tutorial } from "@cursorless/cursorless-engine";
+import {
+  Tutorial,
+  TutorialGetContentResponse,
+} from "@cursorless/cursorless-engine";
 import { VscodeApi } from "@cursorless/vscode-common";
 import {
   CancellationToken,
@@ -9,15 +12,19 @@ import {
   WebviewView,
   WebviewViewProvider,
   WebviewViewResolveContext,
+  commands,
 } from "vscode";
 
 const VSCODE_TUTORIAL_WEBVIEW_ID = "cursorless.tutorial";
 
 export class VscodeTutorial implements WebviewViewProvider {
+  private state: TutorialState = { type: "pickingTutorial" };
+  private currentTutorial?: TutorialGetContentResponse;
+
   constructor(
     private context: ExtensionContext,
     vscodeApi: VscodeApi,
-    tutorial: Tutorial,
+    private tutorial: Tutorial,
   ) {
     context.subscriptions.push(
       vscodeApi.window.registerWebviewViewProvider(
@@ -25,6 +32,7 @@ export class VscodeTutorial implements WebviewViewProvider {
         this,
       ),
     );
+    this.start = this.start.bind(this);
   }
 
   private _view?: WebviewView;
@@ -47,25 +55,44 @@ export class VscodeTutorial implements WebviewViewProvider {
 
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
-        case "getInitialState": {
-          const state: TutorialState = { type: "pickingTutorial" };
-          this._view!.webview.postMessage(state);
+        case "getInitialState":
+          this._view!.webview.postMessage(this.state);
           break;
-        }
       }
     });
   }
 
-  public startTutorial(tutorialId: TutorialId) {
-    if (this._view) {
+  public async start(tutorialId: TutorialId) {
+    this.currentTutorial = await this.tutorial.getContent(tutorialId);
+
+    this.setState({
+      type: "doingTutorial",
+      tutorialId,
+      stepNumber: 0,
+      stepContent: this.currentTutorial.steps[0].content,
+    });
+
+    if (this._view == null) {
+      await commands.executeCommand("cursorless.tutorial.focus");
+    } else {
       this._view.show(true);
-      const state: TutorialState = {
-        type: "doingTutorial",
-        tutorialId,
-        stepNumber: 0,
-      };
-      this._view.webview.postMessage(state);
     }
+
+    await this.tutorial.setupStep({
+      version: 0,
+      fixturePath: this.currentTutorial.steps[0].fixturePath!,
+      tutorialName: tutorialId,
+    });
+  }
+
+  private setState(state: TutorialState) {
+    this.state = state;
+
+    if (!this._view) {
+      return;
+    }
+
+    this._view.webview.postMessage(state);
   }
 
   private _getHtmlForWebview(webview: Webview) {

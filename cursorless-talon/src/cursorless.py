@@ -21,3 +21,9 @@ class Actions:
         actions.user.private_cursorless_run_rpc_command_no_wait(
             "cursorless.analyzeCommandHistory"
         )
+
+    def private_cursorless_start_tutorial():
+        """Start Cursorless tutorial"""
+        actions.user.private_cursorless_run_rpc_command_no_wait(
+            "cursorless.tutorial.start", "unit-2-basic-coding"
+        )

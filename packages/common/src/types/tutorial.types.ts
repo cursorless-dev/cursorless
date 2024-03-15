@@ -8,6 +8,7 @@ interface ActiveTutorialState {
   type: "doingTutorial";
   tutorialId: TutorialId;
   stepNumber: number;
+  stepContent: string;
 }
 
 export type TutorialState = PickingTutorialState | ActiveTutorialState;
