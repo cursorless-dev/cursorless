@@ -34,6 +34,10 @@ export const assets: Asset[] = [
   },
   { source: "./images/logo.png", destination: "images/logo.png" },
   { source: "../../images/logo.svg", destination: "images/logo.svg" },
+  {
+    source: "resources/font_measurements.js",
+    destination: "resources/font_measurements.js",
+  },
   { source: "../../schemas", destination: "schemas" },
   {
     source: "../../third-party-licenses.csv",
