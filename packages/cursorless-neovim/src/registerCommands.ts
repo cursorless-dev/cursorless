@@ -1,11 +1,17 @@
-import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
+import {
+  CURSORLESS_COMMAND_ID,
+  CursorlessCommandId,
+  Position,
+  Range,
+} from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
 import { neovimContext } from "./singletons/context.singleton";
 import { ide } from "./singletons/ide.singleton";
 import { NeovimTextDocumentImpl } from "./ide/neovim/NeovimTextDocumentImpl";
 import { bufferManager } from "./singletons/bufmgr.singleton";
-import { InMemoryTextDocument } from "./types/text_document";
 import { URI } from "vscode-uri";
+import { NeovimClient } from "neovim/lib/api/client";
+import { Window } from "neovim/lib/api/Window";
 // import {
 //   CommandApi,
 //   TestCaseRecorder,
@@ -33,10 +39,47 @@ export async function updateTextEditor() {
   const client = neovimContext().client;
   const window = await client.window;
   const buffer = await window.buffer;
+  const lines = await buffer.lines;
   console.warn(
     `creating editor/document for window:${window.id} buffer:${buffer.id}`,
   );
-  ide().toNeovimEditor(window, buffer.id, await buffer.lines);
+  // const result = await client.call("WindowGetVisibleLines", []);
+  const luaCode = `
+  local ret = {vim.fn.line('w0'), vim.fn.line('w$')}
+  return ret
+`;
+  const visibleRanges = await windowGetVisibleRanges(window, client, lines);
+  ide().toNeovimEditor(window, buffer.id, lines, visibleRanges);
+}
+
+/**
+ * Get the current visible ranges in the window(editor) (vertically).
+ * This accounts only for vertical scrolling, and not for horizontal scrolling.
+ * TODO: support any window as atm only supports the current window
+ */
+async function windowGetVisibleRanges(
+  window: Window,
+  client: NeovimClient,
+  lines: string[],
+): Promise<Range[]> {
+  // Get the first and last visible lines of the current window
+  // w0/w$ are indexed from 1, similarly to what is shown in neovim
+  const luaCode = `
+  local ret = {vim.fn.line('w0'), vim.fn.line('w$')}
+  return ret
+`;
+  const [firstLine, lastLine] = (await client.executeLua(
+    luaCode,
+    [],
+  )) as Array<number>;
+  // we need to subtract 1 to get the correct 0-based line numbers
+  return [
+    new Range(
+      new Position(firstLine - 1, 0),
+      // subtract -1 to the line length to get the correct 0-based column number
+      new Position(lastLine - 1, lines[lastLine].length - 1),
+    ),
+  ];
 }
 
 // export function registerCommands(

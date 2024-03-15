@@ -24,6 +24,7 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
     private editor: Window,
     bufferId: number,
     lines: string[],
+    public visibleRanges: Range[],
   ) {
     // TODO: don't hardcode arguments
     this.document = new InMemoryTextDocumentImpl(
@@ -46,10 +47,6 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
 
   set selections(selections: Selection[]) {
     throw Error("set selections Not implemented");
-  }
-
-  get visibleRanges(): Range[] {
-    throw Error("visibleRanges Not implemented");
   }
 
   get options(): TextEditorOptions {

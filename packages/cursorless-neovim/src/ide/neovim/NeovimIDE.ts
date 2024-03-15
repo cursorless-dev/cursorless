@@ -1,6 +1,6 @@
 // adapted from packages\common\src\ide\fake\FakeIDE.ts
 // and packages\cursorless-vscode\src\ide\vscode\VscodeIDE.ts
-import type { EditableTextEditor, TextEditor } from "@cursorless/common";
+import type { EditableTextEditor, Range, TextEditor } from "@cursorless/common";
 import { GeneralizedRange } from "@cursorless/common";
 import { TextDocument } from "@cursorless/common";
 import type { TextDocumentChangeEvent } from "@cursorless/common";
@@ -64,7 +64,7 @@ export class NeovimIDE implements IDE {
     _items: readonly string[],
     _options?: QuickPickOptions,
   ): Promise<string | undefined> {
-    throw Error("XXX Not implemented");
+    throw Error("showQuickPick Not implemented");
   }
 
   async setHighlightRanges(
@@ -72,11 +72,26 @@ export class NeovimIDE implements IDE {
     _editor: TextEditor,
     _ranges: GeneralizedRange[],
   ): Promise<void> {
-    throw Error("XXX Not implemented");
+    throw Error("setHighlightRanges Not implemented");
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    throw Error("XXX Not implemented");
+    // TODO: find how to flash the target ranges (similar to vscode)
+    // we know we can do that with a "yank" vim operation but we want to do it for any cursorless operation
+    /* e.g. "bring row one" gives:
+      at NeovimIDE.<anonymous> (cursorless-neovim\out\index.cjs:44601:13)
+      at Generator.next (<anonymous>)
+      at cursorless-neovim\out\index.cjs:63:61
+      at new Promise (<anonymous>)
+      at __async (cursorless-neovim\out\index.cjs:47:10)
+      at NeovimIDE.flashRanges (cursorless-neovim\out\index.cjs:44600:12)
+      at NormalizedIDE.flashRanges (cursorless-neovim\out\index.cjs:22910:26)
+      at NormalizedIDE.flashRanges (cursorless-neovim\out\index.cjs:23611:79)
+      at flashTargets (cursorless-neovim\out\index.cjs:38187:15)
+      at Bring.decorateTargets (cursorless-neovim\out\index.cjs:38318:7)
+    */
+    // it is not mandatory to implement for now so we can just log a warning
+    console.warn("flashRanges Not implemented");
   }
 
   get assetsRoot(): string {
@@ -179,14 +194,20 @@ export class NeovimIDE implements IDE {
     editor: Window,
     bufferId: number,
     lines: string[],
+    visibleRanges: Range[],
   ): InMemoryTextEditorImpl {
     if (!this.editorMap.has(editor)) {
-      this.toNeovimEditor(editor, bufferId, lines);
+      this.toNeovimEditor(editor, bufferId, lines, visibleRanges);
     }
     return this.editorMap.get(editor)!;
   }
 
-  toNeovimEditor(editor: Window, bufferId: number, lines: string[]): void {
+  toNeovimEditor(
+    editor: Window,
+    bufferId: number,
+    lines: string[],
+    visibleRanges: Range[],
+  ): void {
     this.activeWindow = editor;
     const impl = new InMemoryTextEditorImpl(
       uuid(),
@@ -194,6 +215,7 @@ export class NeovimIDE implements IDE {
       editor,
       bufferId,
       lines,
+      visibleRanges,
     );
     this.editorMap.set(editor, impl);
   }
