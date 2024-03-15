@@ -1,16 +1,14 @@
-import { TutorialId, TutorialMessage } from "@cursorless/common";
+import { TutorialId, TutorialState } from "@cursorless/common";
 import { Tutorial } from "@cursorless/cursorless-engine";
 import { VscodeApi } from "@cursorless/vscode-common";
 import {
   CancellationToken,
   ExtensionContext,
-  SnippetString,
   Uri,
   Webview,
   WebviewView,
   WebviewViewProvider,
   WebviewViewResolveContext,
-  window,
 } from "vscode";
 
 const VSCODE_TUTORIAL_WEBVIEW_ID = "cursorless.tutorial";
@@ -49,10 +47,9 @@ export class VscodeTutorial implements WebviewViewProvider {
 
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
-        case "colorSelected": {
-          window.activeTextEditor?.insertSnippet(
-            new SnippetString(`#${data.value}`),
-          );
+        case "getInitialState": {
+          const state: TutorialState = { type: "pickingTutorial" };
+          this._view!.webview.postMessage(state);
           break;
         }
       }
@@ -62,11 +59,12 @@ export class VscodeTutorial implements WebviewViewProvider {
   public startTutorial(tutorialId: TutorialId) {
     if (this._view) {
       this._view.show(true);
-      const message: TutorialMessage = {
-        type: "startTutorial",
+      const state: TutorialState = {
+        type: "doingTutorial",
         tutorialId,
+        stepNumber: 0,
       };
-      this._view.webview.postMessage(message);
+      this._view.webview.postMessage(state);
     }
   }
 

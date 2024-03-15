@@ -1,37 +1,29 @@
-import type { TutorialMessage } from "@cursorless/common";
+import { TutorialState } from "@cursorless/common";
 import { useEffect, useState, type FunctionComponent } from "react";
 import { WebviewApi } from "vscode-webview";
-import type { State } from "./types";
 
 interface Props {
-  initialState: State;
-  vscode: WebviewApi<State>;
+  vscode: WebviewApi<undefined>;
 }
 
-export const App: FunctionComponent<Props> = ({ initialState, vscode }) => {
-  const [state, setState] = useState<State>(initialState);
-
-  useEffect(() => {
-    vscode.setState(state);
-  }, [state]);
+export const App: FunctionComponent<Props> = ({ vscode }) => {
+  const [state, setState] = useState<TutorialState>();
 
   useEffect(() => {
     // Handle messages sent from the extension to the webview
     window.addEventListener(
       "message",
-      ({ data: message }: { data: TutorialMessage }) => {
-        switch (message.type) {
-          case "startTutorial":
-            setState({
-              type: "doingTutorial",
-              tutorialId: message.tutorialId,
-              stepNumber: 0,
-            });
-            break;
-        }
+      ({ data: newState }: { data: TutorialState }) => {
+        setState(newState);
       },
     );
+
+    vscode.postMessage({ type: "getInitialState" });
   }, []);
+
+  if (state == null) {
+    return <></>;
+  }
 
   return state.type === "pickingTutorial" ? (
     <span>Say "cursorless tutorial"</span>

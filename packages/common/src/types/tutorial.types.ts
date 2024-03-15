@@ -1,8 +1,13 @@
 export type TutorialId = "introduction";
 
-interface StartTutorialMessage {
-  type: "startTutorial";
-  tutorialId: TutorialId;
+interface PickingTutorialState {
+  type: "pickingTutorial";
 }
 
-export type TutorialMessage = StartTutorialMessage;
+interface ActiveTutorialState {
+  type: "doingTutorial";
+  tutorialId: TutorialId;
+  stepNumber: number;
+}
+
+export type TutorialState = PickingTutorialState | ActiveTutorialState;
