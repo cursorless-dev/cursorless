@@ -26,8 +26,6 @@ import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
-import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
-import { neovimOnDidChangeTextDocument } from "./NeovimEvents";
 import { Window } from "neovim";
 import { InMemoryTextEditorImpl } from "./InMemoryTextEditorImpl";
 
