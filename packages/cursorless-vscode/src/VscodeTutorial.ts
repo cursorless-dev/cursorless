@@ -73,18 +73,12 @@ export class VscodeTutorial implements WebviewViewProvider {
   private _getHtmlForWebview(webview: Webview) {
     // Get the local path to main script run in the webview, then convert it to a uri we can use in the webview.
     const scriptUri = webview.asWebviewUri(
-      Uri.joinPath(this.context.extensionUri, "tutorialWebview.js"),
+      Uri.joinPath(this.context.extensionUri, "media", "tutorialWebview.js"),
     );
 
     // Do the same for the stylesheet.
-    const styleResetUri = webview.asWebviewUri(
-      Uri.joinPath(this.context.extensionUri, "media", "reset.css"),
-    );
-    const styleVSCodeUri = webview.asWebviewUri(
-      Uri.joinPath(this.context.extensionUri, "media", "css"),
-    );
     const styleMainUri = webview.asWebviewUri(
-      Uri.joinPath(this.context.extensionUri, "media", "main.css"),
+      Uri.joinPath(this.context.extensionUri, "media", "tutorialWebview.css"),
     );
 
     // Use a nonce to only allow a specific script to be run.
@@ -104,9 +98,7 @@ export class VscodeTutorial implements WebviewViewProvider {
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-				<!-- <link href="${styleResetUri}" rel="stylesheet"> -->
-				<!-- <link href="${styleVSCodeUri}" rel="stylesheet"> -->
-				<!-- <link href="${styleMainUri}" rel="stylesheet"> -->
+				<link href="${styleMainUri}" rel="stylesheet">
 
 				<title>Cat Colors</title>
 			</head>

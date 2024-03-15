@@ -8,9 +8,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.tsx --sourcemap --format=cjs --bundle --outfile=./out/index.js",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "compile:tailwind": "tailwindcss -i ./src/index.css -o ./out/index.css",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild --minify && pnpm compile:tailwind --minify",
+    "compile:dev": "pnpm compile:esbuild && pnpm compile:tailwind",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch:tailwind": "pnpm compile:tailwind --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-vscode-tutorial-webview --parallel '/^watch:.*/'",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
@@ -21,7 +24,8 @@
   "devDependencies": {
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
-    "@types/vscode-webview": "1.57.5"
+    "@types/vscode-webview": "1.57.5",
+    "tailwindcss": "3.3.5"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",

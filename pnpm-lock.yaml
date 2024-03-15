@@ -595,6 +595,9 @@ importers:
       '@types/vscode-webview':
         specifier: 1.57.5
         version: 1.57.5
+      tailwindcss:
+        specifier: 3.3.5
+        version: 3.3.5(ts-node@10.9.1)
 
   packages/meta-updater:
     dependencies:

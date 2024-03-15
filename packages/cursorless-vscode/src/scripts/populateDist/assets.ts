@@ -30,7 +30,11 @@ export const assets: Asset[] = [
   },
   {
     source: "../cursorless-vscode-tutorial-webview/out/index.js",
-    destination: "tutorialWebview.js",
+    destination: "media/tutorialWebview.js",
+  },
+  {
+    source: "../cursorless-vscode-tutorial-webview/out/index.css",
+    destination: "media/tutorialWebview.css",
   },
   { source: "./images/logo.png", destination: "images/logo.png" },
   { source: "../../images/logo.svg", destination: "images/logo.svg" },

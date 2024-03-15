@@ -35,7 +35,7 @@
     {
       "label": "Build tutorial webview",
       "type": "npm",
-      "script": "compile:esbuild",
+      "script": "compile:dev",
       "path": "packages/cursorless-vscode-tutorial-webview",
       "presentation": {
         "reveal": "silent"
