@@ -3,6 +3,7 @@ import {
   CursorlessCommandId,
   Position,
   Range,
+  Selection,
 } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
 import { neovimContext } from "./singletons/context.singleton";
@@ -12,6 +13,7 @@ import { bufferManager } from "./singletons/bufmgr.singleton";
 import { URI } from "vscode-uri";
 import { NeovimClient } from "neovim/lib/api/client";
 import { Window } from "neovim/lib/api/Window";
+import { bufferGetSelections, windowGetVisibleRanges } from "./neovimUtil";
 // import {
 //   CommandApi,
 //   TestCaseRecorder,
@@ -43,35 +45,9 @@ export async function updateTextEditor() {
   console.warn(
     `creating editor/document for window:${window.id} buffer:${buffer.id}`,
   );
+  const selections = await bufferGetSelections(window, client);
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
-  ide().toNeovimEditor(window, buffer.id, lines, visibleRanges);
-}
-
-/**
- * Get the current visible ranges in the window(editor) (vertically).
- * This accounts only for vertical scrolling, and not for horizontal scrolling.
- * TODO: support any window as atm only supports the current window
- */
-async function windowGetVisibleRanges(
-  window: Window,
-  client: NeovimClient,
-  lines: string[],
-): Promise<Range[]> {
-  // Get the first and last visible lines of the current window
-  // Note they are indexed from 1, similarly to what is shown in neovim
-  const luaCode = "return WindowGetVisibleLines()";
-  const [firstLine, lastLine] = (await client.executeLua(
-    luaCode,
-    [],
-  )) as Array<number>;
-  // subtract 1 with the lines to get the correct 0-based line numbers
-  return [
-    new Range(
-      new Position(firstLine - 1, 0),
-      // subtract -1 to the line.length to get the correct 0-based column number
-      new Position(lastLine - 1, lines[lastLine - 1].length - 1),
-    ),
-  ];
+  ide().toNeovimEditor(window, buffer.id, lines, visibleRanges, selections);
 }
 
 // export function registerCommands(

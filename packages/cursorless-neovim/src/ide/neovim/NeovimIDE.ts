@@ -1,6 +1,11 @@
 // adapted from packages\common\src\ide\fake\FakeIDE.ts
 // and packages\cursorless-vscode\src\ide\vscode\VscodeIDE.ts
-import type { EditableTextEditor, Range, TextEditor } from "@cursorless/common";
+import type {
+  EditableTextEditor,
+  Range,
+  Selection,
+  TextEditor,
+} from "@cursorless/common";
 import { GeneralizedRange } from "@cursorless/common";
 import { TextDocument } from "@cursorless/common";
 import type { TextDocumentChangeEvent } from "@cursorless/common";
@@ -200,9 +205,10 @@ export class NeovimIDE implements IDE {
     bufferId: number,
     lines: string[],
     visibleRanges: Range[],
+    selections: Selection[],
   ): InMemoryTextEditorImpl {
     if (!this.editorMap.has(editor)) {
-      this.toNeovimEditor(editor, bufferId, lines, visibleRanges);
+      this.toNeovimEditor(editor, bufferId, lines, visibleRanges, selections);
     }
     return this.editorMap.get(editor)!;
   }
@@ -212,6 +218,7 @@ export class NeovimIDE implements IDE {
     bufferId: number,
     lines: string[],
     visibleRanges: Range[],
+    selections: Selection[],
   ): void {
     this.activeWindow = editor;
     const impl = new InMemoryTextEditorImpl(
@@ -221,6 +228,7 @@ export class NeovimIDE implements IDE {
       bufferId,
       lines,
       visibleRanges,
+      selections,
     );
     this.editorMap.set(editor, impl);
   }

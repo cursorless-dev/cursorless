@@ -17,6 +17,7 @@ import { URI } from "vscode-uri";
 
 export class InMemoryTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
+  private _selections: Selection[];
 
   constructor(
     public readonly id: string,
@@ -25,6 +26,7 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
     bufferId: number,
     lines: string[],
     public visibleRanges: Range[],
+    selections: Selection[],
   ) {
     // TODO: don't hardcode arguments
     this.document = new InMemoryTextDocumentImpl(
@@ -34,6 +36,7 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
       "\n",
       lines,
     );
+    this._selections = selections;
   }
 
   // neovim terminology for editor is window
@@ -42,10 +45,13 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
   }
 
   get selections(): Selection[] {
-    throw Error("get selections Not implemented");
+    return this._selections; // TODO: this should work, but needs testing
+    // throw Error("get selections Not implemented");
   }
 
   set selections(selections: Selection[]) {
+    // TODO: need to reflect on the neovim side
+    // this._selections = selections;
     throw Error("set selections Not implemented");
   }
 
