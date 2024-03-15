@@ -113,9 +113,14 @@ export class NeovimIDE implements IDE {
   }
 
   private getActiveTextEditor() {
-    return this.activeWindow && this.editorMap.has(this.activeWindow)
-      ? this.editorMap.get(this.activeWindow)
-      : undefined;
+    const editor =
+      this.activeWindow && this.editorMap.has(this.activeWindow)
+        ? this.editorMap.get(this.activeWindow)
+        : undefined;
+    if (editor === undefined) {
+      console.warn("getActiveTextEditor: editor is undefined");
+    }
+    return editor;
   }
 
   get visibleTextEditors(): InMemoryTextEditorImpl[] {

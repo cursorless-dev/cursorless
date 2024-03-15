@@ -76,8 +76,8 @@ async function windowGetVisibleRanges(
   return [
     new Range(
       new Position(firstLine - 1, 0),
-      // subtract -1 to the line length to get the correct 0-based column number
-      new Position(lastLine - 1, lines[lastLine].length - 1),
+      // subtract -1 to the line.length to get the correct 0-based column number
+      new Position(lastLine - 1, lines[lastLine - 1].length - 1),
     ),
   ];
 }

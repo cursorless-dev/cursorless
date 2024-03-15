@@ -98,7 +98,7 @@ export async function activate(context: NeovimExtensionContext) {
     fileSystem,
   );
   injectCommandApi(commandApi);
-  debugger; // NOTE: helps debugging
+  // debugger; // NOTE: helps debugging
   console.warn("activate(): Cursorless extension loaded");
 }
 
