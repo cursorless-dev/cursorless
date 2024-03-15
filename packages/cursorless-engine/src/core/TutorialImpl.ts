@@ -1,12 +1,10 @@
 import {
   ScopeType,
-  SpokenFormSuccess,
   TestCaseFixture,
   plainObjectToSelection,
   serializedMarksToTokenHats,
 } from "@cursorless/common";
 import * as yaml from "js-yaml";
-import fs from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "path";
 import {
@@ -37,18 +35,12 @@ export class TutorialImpl implements Tutorial {
   /**
    * Handle the argument of a "%%step:cloneStateInk.yml%%""
    */
-  private async processStep(yamlFilename: string, tutorialName: string) {
-    const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
-    if (!fs.existsSync(tutorialDir)) {
-      throw new Error(`Invalid tutorial name: ${tutorialName}`);
-    }
-
-    const yamlPath = path.join(tutorialDir, yamlFilename);
-    if (!fs.existsSync(yamlPath)) {
-      throw new Error(
-        `Can't file yaml file: ${yamlPath} in tutorial name: ${tutorialName}`,
-      );
-    }
+  private async processStep(tutorialName: string, yamlFilename: string) {
+    const yamlPath = path.join(
+      this.tutorialRootDir,
+      tutorialName,
+      yamlFilename,
+    );
 
     const buffer = await readFile(yamlPath);
     const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
@@ -56,8 +48,14 @@ export class TutorialImpl implements Tutorial {
     // command to be said for moving to the next step
     const spokenForm = this.customSpokenFormGenerator.commandToSpokenForm(
       canonicalizeAndValidateCommand(fixture.command),
-    ) as SpokenFormSuccess;
-    console.log("\t", spokenForm.spokenForms[0]);
+    );
+
+    if (spokenForm.type === "error") {
+      throw new Error(
+        `Error while processing spoken form for command ${fixture.command}: ${spokenForm.reason}`,
+      );
+    }
+
     return spokenForm.spokenForms[0];
   }
 
@@ -66,10 +64,15 @@ export class TutorialImpl implements Tutorial {
    */
   private async processScopeType(arg: string) {
     const scopeType = yaml.load(arg) as ScopeType;
-    const spokenForm_ =
+    const spokenForm =
       this.customSpokenFormGenerator.scopeTypeToSpokenForm(scopeType);
-    const spokenForm = spokenForm_ as SpokenFormSuccess;
-    console.log("\t", spokenForm.spokenForms[0]);
+
+    if (spokenForm.type === "error") {
+      throw new Error(
+        `Error while processing spoken form for command ${arg}: ${spokenForm.reason}`,
+      );
+    }
+
     return spokenForm.spokenForms[0];
   }
 
@@ -77,20 +80,14 @@ export class TutorialImpl implements Tutorial {
    * Load the "script.json" script for the current tutorial
    */
   private async loadTutorialScript(tutorialName: string): Promise<string[]> {
-    const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
-    if (!fs.existsSync(tutorialDir)) {
-      throw new Error(`Invalid tutorial name: ${tutorialName}`);
-    }
+    const scriptFile = path.join(
+      this.tutorialRootDir,
+      tutorialName,
+      "script.json",
+    );
 
-    const scriptFile = path.join(tutorialDir, "script.json");
-    if (!fs.existsSync(scriptFile)) {
-      throw new Error(
-        `Can't file script file: ${scriptFile} in tutorial name: ${tutorialName}`,
-      );
-    }
     const buffer = await readFile(scriptFile);
     const contentList = JSON.parse(buffer.toString());
-    console.log(contentList);
     return contentList;
   }
 
@@ -98,10 +95,6 @@ export class TutorialImpl implements Tutorial {
    * Handle the "cursorless.tutorial.getContent" command
    */
   async getContent({ version, tutorialName }: TutorialGetContentArg) {
-    console.log(
-      "getContent(){ version, tutorialName, yamlFilename }: TutorialSetupStepArg",
-      tutorialName,
-    );
     if (version !== 0) {
       throw new Error(`Unsupported tutorial api version: ${version}`);
     }
@@ -126,7 +119,7 @@ export class TutorialImpl implements Tutorial {
         switch (type) {
           case "step":
             fixturePath = arg;
-            spokenForm = await this.processStep(arg, tutorialName);
+            spokenForm = await this.processStep(tutorialName, arg);
             content = content.replace(fullMatch, `<cmd@${spokenForm}/>`);
             break;
           case "literalStep":
@@ -166,23 +159,13 @@ export class TutorialImpl implements Tutorial {
     tutorialName,
     fixturePath,
   }: TutorialSetupStepArg) {
-    console.log("setupStep()", tutorialName, fixturePath);
     if (version !== 0) {
       throw new Error(`Unsupported tutorial api version: ${version}`);
     }
 
-    const tutorialDir = path.join(this.tutorialRootDir, tutorialName);
-    if (!fs.existsSync(tutorialDir)) {
-      throw new Error(`Invalid tutorial name: ${tutorialName}`);
-    }
-
     // TODO check for directory traversal?
-    const yamlFile = path.join(tutorialDir, fixturePath);
-    if (!fs.existsSync(yamlFile)) {
-      throw new Error(
-        `Can't file yaml file: ${yamlFile} in tutorial name: ${tutorialName}`,
-      );
-    }
+    const yamlFile = path.join(this.tutorialRootDir, tutorialName, fixturePath);
+
     const buffer = await readFile(yamlFile);
     const fixture = yaml.load(buffer.toString()) as TestCaseFixture;
 
