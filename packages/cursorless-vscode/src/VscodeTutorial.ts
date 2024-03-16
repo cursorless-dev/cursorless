@@ -20,6 +20,7 @@ const VSCODE_TUTORIAL_WEBVIEW_ID = "cursorless.tutorial";
 export class VscodeTutorial implements WebviewViewProvider {
   private state: TutorialState = { type: "pickingTutorial" };
   private currentTutorial?: TutorialGetContentResponse;
+  private view?: WebviewView;
 
   constructor(
     private context: ExtensionContext,
@@ -35,14 +36,12 @@ export class VscodeTutorial implements WebviewViewProvider {
     this.start = this.start.bind(this);
   }
 
-  private _view?: WebviewView;
-
   public resolveWebviewView(
     webviewView: WebviewView,
     _context: WebviewViewResolveContext,
     _token: CancellationToken,
   ) {
-    this._view = webviewView;
+    this.view = webviewView;
 
     webviewView.webview.options = {
       // Allow scripts in the webview
@@ -51,12 +50,12 @@ export class VscodeTutorial implements WebviewViewProvider {
       localResourceRoots: [this.context.extensionUri],
     };
 
-    webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+    webviewView.webview.html = this.getHtmlForWebview(webviewView.webview);
 
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
         case "getInitialState":
-          this._view!.webview.postMessage(this.state);
+          this.view!.webview.postMessage(this.state);
           break;
       }
     });
@@ -72,10 +71,10 @@ export class VscodeTutorial implements WebviewViewProvider {
       stepContent: this.currentTutorial.steps[0].content,
     });
 
-    if (this._view == null) {
-      await commands.executeCommand("cursorless.tutorial.focus");
+    if (this.view != null) {
+      this.view.show(true);
     } else {
-      this._view.show(true);
+      await commands.executeCommand("cursorless.tutorial.focus");
     }
 
     await this.tutorial.setupStep({
@@ -88,14 +87,12 @@ export class VscodeTutorial implements WebviewViewProvider {
   private setState(state: TutorialState) {
     this.state = state;
 
-    if (!this._view) {
-      return;
+    if (this.view != null) {
+      this.view.webview.postMessage(state);
     }
-
-    this._view.webview.postMessage(state);
   }
 
-  private _getHtmlForWebview(webview: Webview) {
+  private getHtmlForWebview(webview: Webview) {
     // Get the local path to main script run in the webview, then convert it to a uri we can use in the webview.
     const scriptUri = webview.asWebviewUri(
       Uri.joinPath(this.context.extensionUri, "media", "tutorialWebview.js"),
