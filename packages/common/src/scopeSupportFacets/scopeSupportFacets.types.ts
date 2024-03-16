@@ -37,6 +37,9 @@ const scopeSupportFacets = [
   "argument.formal",
   "argument.formal.iteration",
 
+  "collectionItem.map",
+  "collectionItem.map.iteration",
+
   "comment.line",
   "comment.block",
 

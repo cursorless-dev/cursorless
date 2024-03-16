@@ -141,6 +141,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
+  "collectionItem.map": {
+    description: "An entry in a map/dictionary",
+    scopeType: "collectionItem",
+  },
+  "collectionItem.map.iteration": {
+    description:
+      "Iteration scope for entries in a map/dictionary; should be between the braces",
+    scopeType: "collectionItem",
+    isIteration: true,
+  },
 
   "comment.line": {
     description: "A line comment",

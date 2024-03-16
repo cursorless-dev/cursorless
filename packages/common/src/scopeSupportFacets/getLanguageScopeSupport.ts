@@ -1,3 +1,4 @@
+import { elixirScopeSupport } from "./elixir";
 import { htmlScopeSupport } from "./html";
 import { javaScopeSupport } from "./java";
 import { javascriptScopeSupport } from "./javascript";
@@ -25,6 +26,8 @@ export function getLanguageScopeSupport(
       return talonScopeSupport;
     case "typescript":
       return typescriptScopeSupport;
+    case "elixir":
+      return elixirScopeSupport;
   }
   throw Error(`Unsupported language: '${languageId}'`);
 }

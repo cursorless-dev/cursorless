@@ -3,9 +3,10 @@ export const extensionDependencies = [
   "pokey.parse-tree",
 
   // Register necessary language-IDs for tests
-  "scala-lang.scala", // scala
-  "mrob95.vscode-talonscript", // talon
+  "jakebecker.elixir-ls", // elixir
   "jrieken.vscode-tree-sitter-query", // scm
+  "mrob95.vscode-talonscript", // talon
+  "scala-lang.scala", // scala
 
   // Necessary for the `drink cell` and `pour cell` tests
   "ms-toolsai.jupyter",
