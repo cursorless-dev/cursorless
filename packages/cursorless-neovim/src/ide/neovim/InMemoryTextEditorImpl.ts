@@ -14,6 +14,8 @@ import { NeovimIDE } from "./NeovimIDE";
 import { Window } from "neovim";
 import { InMemoryTextDocumentImpl } from "./InMemoryTextDocumentImpl";
 import { URI } from "vscode-uri";
+import { bufferSetSelections } from "../../neovimUtil";
+import { neovimContext } from "../../singletons/context.singleton";
 
 export class InMemoryTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
@@ -50,9 +52,17 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
   }
 
   set selections(selections: Selection[]) {
-    // TODO: need to reflect on the neovim side
-    // this._selections = selections;
+    this.setSelections(selections);
     throw Error("set selections Not implemented");
+  }
+
+  async setSelections(selections: Selection[]): Promise<void> {
+    // We assume setting it on the neovim never fails
+    // as we cache the selections in the editor too
+    this._selections = selections;
+    await bufferSetSelections(neovimContext().client, selections);
+    console.warn(`setSelections() done`);
+    // throw Error("set selections Not implemented");
   }
 
   get options(): TextEditorOptions {

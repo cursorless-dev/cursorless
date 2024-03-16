@@ -42,6 +42,26 @@ export async function bufferGetSelections(
   ];
 }
 
+export async function bufferSetSelections(
+  // window: Window,
+  client: NeovimClient,
+  selections: Selection[],
+) {
+  if (selections.length !== 1) {
+    throw new Error("bufferSetSelections() only supports one selection");
+  }
+
+  // cursorless has 0-based lines/columns, but neovim has 1-based lines/columns
+  // const luaCode = `return require("talon.cursorless").select_range(${
+  const luaCode = `return require("talon.cursorless").select_range(${
+    selections[0].start.line + 1
+  }, ${selections[0].start.character + 1}, ${selections[0].end.line + 1}, ${
+    selections[0].end.character + 1
+  })`;
+  await client.executeLua(luaCode, []);
+  console.warn(`bufferSetSelections() done`);
+}
+
 /**
  * Get the current "visible" ranges in the window(editor) (vertically).
  * This accounts only for vertical scrolling, and not for horizontal scrolling.

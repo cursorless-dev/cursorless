@@ -20,13 +20,15 @@ export async function setSelectionsAndFocusEditor(
   await editor.focus();
 }
 
-export function setSelectionsWithoutFocusingEditor(
+export async function setSelectionsWithoutFocusingEditor(
   editor: EditableTextEditor,
   selections: Selection[],
 ) {
-  editor.selections = uniqWithHash(
-    selections,
-    (a, b) => a.isEqual(b),
-    (s) => s.concise(),
+  await editor.setSelections(
+    uniqWithHash(
+      selections,
+      (a, b) => a.isEqual(b),
+      (s) => s.concise(),
+    ),
   );
 }

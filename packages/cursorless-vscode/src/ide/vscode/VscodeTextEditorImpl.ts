@@ -72,6 +72,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor === vscode.window.activeTextEditor;
   }
 
+  async setSelections(selections: Selection[]): Promise<void> {
+    // TODO: we need to fix vscode to work the same way as neovim
+    throw Error("set selections Not implemented");
+  }
+
   public isEqual(other: TextEditor): boolean {
     return this.id === other.id;
   }
