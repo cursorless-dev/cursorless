@@ -12,17 +12,14 @@ export async function bufferGetSelections(
   window: Window,
   client: NeovimClient,
 ): Promise<Selection[]> {
-  const luaCode = "return BufferGetSelection()";
+  const luaCode = `return require("talon.cursorless").buffer_get_selection()`;
   // Note lines are indexed from 1, similarly to what is shown in neovim
   // and columns are also indexed from 1
-  // const [startLine, startCol, endLine, endCol, reverse] = (await client.executeLua(
-  //   luaCode,
-  //   [],
-  // )) as Array<number>;
   const result = (await client.executeLua(luaCode, [])) as Array<
     number | boolean
   >;
   // console.warn(`bufferGetSelection(): result=${result}`);
+  // TODO: there must be a more beautiful way to get the returned values with the right types
   const startLine = result[0] as number,
     startCol = result[1] as number,
     endLine = result[2] as number,
@@ -56,8 +53,8 @@ export async function windowGetVisibleRanges(
   lines: string[],
 ): Promise<Range[]> {
   // Get the first and last visible lines of the current window
-  // Note they are indexed from 1, similarly to what is shown in neovim
-  const luaCode = "return WindowGetVisibleLines()";
+  // Note they are indexed from 1, similarly to what is shown in neovim*
+  const luaCode = `return require("talon.cursorless").window_get_visible_lines()`;
   const [firstLine, lastLine] = (await client.executeLua(
     luaCode,
     [],
