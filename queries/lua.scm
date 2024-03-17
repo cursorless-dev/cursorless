@@ -170,8 +170,8 @@
     (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  ) @dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!!local sum = add(5, 7)
@@ -191,8 +191,8 @@
     (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  ) @dummy
-  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+  ) @_dummy
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!!function add(5, 7)
@@ -237,8 +237,8 @@
   (assignment_statement
     (variable_list) @name
     (_) @_.trailing.startOf
-  ) @dummy @_.domain
-  (#not-parent-type? @dummy variable_declaration)
+  ) @_dummy @_.domain
+  (#not-parent-type? @_dummy variable_declaration)
 )
 ;; Handle variable declarations
 ;;!! local a = 42
@@ -259,8 +259,8 @@ local_declaration: (variable_declaration
   (assignment_statement
     (_) @_.leading.endOf
     (expression_list) @value
-  ) @dummy @_.domain
-  (#not-parent-type? @dummy variable_declaration)
+  ) @_dummy @_.domain
+  (#not-parent-type? @_dummy variable_declaration)
 )
 
 ;; Handle variable declaration values
