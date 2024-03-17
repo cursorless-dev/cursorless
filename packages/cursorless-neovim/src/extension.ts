@@ -44,7 +44,7 @@ export async function activate(context: NeovimExtensionContext) {
   injectIde2(neovimIDE); // TODO: this is duplicating what Cursorless engine does but for NeovimIDE
 
   // initialize the editor since it is needed before we can attach?
-  updateTextEditor();
+  await updateTextEditor();
 
   /**
    * "attach" to Nvim buffers to subscribe to buffer update events.

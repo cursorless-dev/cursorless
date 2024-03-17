@@ -39,6 +39,7 @@ export async function updateTextEditor() {
   const window = await client.window;
   const buffer = await window.buffer;
   const lines = await buffer.lines;
+  // console.warn(`updateTextEditor(): lines=${lines}`);
   console.warn(
     `creating editor/document for window:${window.id} buffer:${buffer.id}`,
   );
@@ -58,14 +59,13 @@ export async function updateTextEditor() {
 // hats: VscodeHats,
 // ): void {
 export function handleCommandInternal(...allArguments: any[]): Promise<any> {
-  console.warn(`handleCommandInternal(): allArguments =${allArguments}`);
   const [command, ...rest] = allArguments as [string, ...unknown[]];
 
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       // try {
-      updateTextEditor();
+      await updateTextEditor();
       const result = await commandApi().runCommandSafe(...args);
       // const result = ["hello world"]; // simulate the result of "bring <target>"
       return result;

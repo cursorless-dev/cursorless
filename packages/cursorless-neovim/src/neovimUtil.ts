@@ -51,13 +51,16 @@ export async function bufferSetSelections(
     throw new Error("bufferSetSelections() only supports one selection");
   }
 
-  // cursorless has 0-based lines/columns, but neovim has 1-based lines/columns
+  // cursorless has 0-based lines/columns, but neovim has 1-based lines and 0-based columns
+  // also, experience shows we need to subtract 1 from the end character to stop on it in visual mode (instead of after it)
+  // https://neovim.io/doc/user/api.html#nvim_win_set_cursor()
   // const luaCode = `return require("talon.cursorless").select_range(${
-  const luaCode = `return require("talon.cursorless").select_range(${
-    selections[0].start.line + 1
-  }, ${selections[0].start.character + 1}, ${selections[0].end.line + 1}, ${
-    selections[0].end.character + 1
-  })`;
+  const luaCode = `select_range(${selections[0].start.line + 1}, ${
+    selections[0].start.character
+  }, ${selections[0].end.line + 1}, ${selections[0].end.character - 1})`;
+  console.warn(
+    `bufferSetSelections() selections=${selections[0].start.line},${selections[0].start.character},${selections[0].end.line},${selections[0].end.character} luaCode=${luaCode}`,
+  );
   await client.executeLua(luaCode, []);
   console.warn(`bufferSetSelections() done`);
 }

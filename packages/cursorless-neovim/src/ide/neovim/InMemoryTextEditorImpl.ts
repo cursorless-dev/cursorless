@@ -35,9 +35,11 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
       URI.parse(`neovim://${bufferId}`), // URI.parse(`file://${bufferId}`),
       "plaintext",
       1,
-      "\n",
+      //"\n",
+      "\r\n",
       lines,
     );
+    // console.warn(`InMemoryTextEditorImpl(): lines=${lines}`);
     this._selections = selections;
   }
 
@@ -61,7 +63,7 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
     // as we cache the selections in the editor too
     this._selections = selections;
     await bufferSetSelections(neovimContext().client, selections);
-    console.warn(`setSelections() done`);
+    // console.warn(`setSelections() done`);
     // throw Error("set selections Not implemented");
   }
 
@@ -82,6 +84,7 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
   }
 
   public async revealRange(range: Range): Promise<void> {
+    // TODO: implement it to support multiple editors
     throw Error("revealRange Not implemented");
   }
 
@@ -97,6 +100,8 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
   }
 
   public focus(): Promise<void> {
+    // TODO: implement it to support multiple editors
+    // return Promise.resolve();
     throw Error("focus Not implemented");
   }
 

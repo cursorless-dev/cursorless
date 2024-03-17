@@ -76,6 +76,7 @@ export class InMemoryTextDocumentImpl implements TextDocument {
     } else if (typeof lineOrPosition === "number") {
       line = lineOrPosition;
     }
+    // console.warn(`lineAt() line=${line}`);
 
     if (
       typeof line !== "number" ||
@@ -94,14 +95,23 @@ export class InMemoryTextDocumentImpl implements TextDocument {
   }
 
   public offsetAt(position: Position): number {
+    // console.warn(
+    //   `offsetAt() position=(${position.line},${position.character})`,
+    // );
     position = this._validatePosition(position);
     this._ensureLineStarts();
+    // console.warn(
+    //   `offsetAt() returning ${
+    //     this._lineStarts!.getPrefixSum(position.line - 1) + position.character
+    //   }`,
+    // );
     return (
       this._lineStarts!.getPrefixSum(position.line - 1) + position.character
     );
   }
 
   public positionAt(offset: number): Position {
+    // console.warn(`positionAt() offset=${offset}`);
     offset = Math.floor(offset);
     offset = Math.max(0, offset);
 
@@ -116,19 +126,31 @@ export class InMemoryTextDocumentImpl implements TextDocument {
 
   public getText(range?: Range): string {
     if (range === undefined) {
+      // console.warn(`getText() range=undefined`);
       if (this._cachedTextValue == null) {
         this._cachedTextValue = this._lines.join(this._eol);
       }
+      // console.warn(`getText() returning cached value=${this._cachedTextValue}`);
       return this._cachedTextValue;
+    } else {
+      // console.warn(
+      //   `getText() range=(${range?.start.line},${range?.start.character}),(${range?.end.line},${range?.end.character})`,
+      // );
     }
 
     range = this._validateRange(range);
 
     if (range.isEmpty) {
+      // console.warn(`getText() returning empty`);
       return "";
     }
 
     if (range.isSingleLine) {
+      // console.warn(
+      //   `getText() returning single line ${this._lines[
+      //     range.start.line
+      //   ].substring(range.start.character, range.end.character)}`,
+      // );
       return this._lines[range.start.line].substring(
         range.start.character,
         range.end.character,
@@ -150,6 +172,9 @@ export class InMemoryTextDocumentImpl implements TextDocument {
       this._lines[endLineIndex].substring(0, range.end.character),
     );
 
+    // console.warn(
+    //   `getText() returning multiple lines ${resultLines.join(lineEnding)}`,
+    // );
     return resultLines.join(lineEnding);
   }
 

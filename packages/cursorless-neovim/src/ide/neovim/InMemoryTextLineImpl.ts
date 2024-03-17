@@ -6,6 +6,9 @@ export default class InMemoryTextLineImpl implements TextLine {
   private readonly _isLastLine: boolean;
 
   constructor(lineNumber: number, text: string, isLastLine: boolean) {
+    // console.warn(
+    //   `InMemoryTextLineImpl(): lineNumber=${lineNumber}, text='${text}', isLastLine=${isLastLine}, eol='${eol}'`,
+    // );
     this._lineNumber = lineNumber;
     this._text = text;
     this._isLastLine = isLastLine;
@@ -16,28 +19,47 @@ export default class InMemoryTextLineImpl implements TextLine {
   }
 
   get text(): string {
+    // console.warn(`InMemoryTextLineImpl.text()='${this._text}'`);
     return this._text;
   }
 
   get range(): Range {
+    // console.warn(
+    //   `InMemoryTextLineImpl.range(): range=(${this._lineNumber}, 0), (${this._lineNumber}, ${this._text.length})`,
+    // );
     return new Range(this._lineNumber, 0, this._lineNumber, this._text.length);
   }
 
   get rangeIncludingLineBreak(): Range {
     if (this._isLastLine) {
+      // console.warn(
+      //   `InMemoryTextLineImpl.rangeIncludingLineBreak(): last line=(${this.range.start.line}, ${this.range.start.character}), (${this.range.end.line}, ${this.range.end.character})`,
+      // );
       return this.range;
     }
+    // console.warn(
+    //   `InMemoryTextLineImpl.rangeIncludingLineBreak(): range=(${
+    //     this._lineNumber
+    //   }, 0), ${this._lineNumber + 1}, 0})`,
+    // );
     return new Range(this._lineNumber, 0, this._lineNumber + 1, 0);
   }
 
   get firstNonWhitespaceCharacterIndex(): number {
     //TODO@api, rename to 'leadingWhitespaceLength'
-    return /^(\s*)/.exec(this._text)![1].length;
+    const index = /^(\s*)/.exec(this._text)![1].length;
+    // console.warn(
+    //   `InMemoryTextLineImpl.firstNonWhitespaceCharacterIndex=${index}`,
+    // );
+    return index;
   }
 
   get lastNonWhitespaceCharacterIndex(): number {
-    const all = this.text.match(/\S/g);
-    return all ? this.text.lastIndexOf(all[all.length - 1]) : 0;
+    const index = this.text.trimEnd().length;
+    // console.warn(
+    //   `InMemoryTextLineImpl.lastNonWhitespaceCharacterIndex index=${index}`,
+    // );
+    return index;
   }
 
   get isEmptyOrWhitespace(): boolean {
