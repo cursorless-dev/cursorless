@@ -6,15 +6,17 @@ import { injectContext } from "./singletons/context.singleton";
 import { handleCommandInternal } from "./registerCommands";
 
 /**
- * Extension entrypoint called by node-client on Cursorless startup.
- * - Register the functions that are exposed to neovim.
- *   Note that these function need to start with a capital letter to be callable from neovim.
+ * Extension entrypoint called by node-client on Neovim startup.
+ * - Register the functions that are exposed to Neovim.
+ *   Note that these function need to start with a capital letter to be callable from Neovim.
  */
 export default function entry(plugin: NvimPlugin) {
   // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
+  // TODO: it is not that useful in practice? Can we really call CursorlessLoadExtension() again without restarting Neovim?
   // plugin.setOptions({ dev: false });
   plugin.setOptions({ dev: true });
 
+  // TODO: remove this function
   plugin.registerFunction("CursorlessLoadNode", () => loadNode(plugin), {
     sync: false,
   });
@@ -26,6 +28,7 @@ export default function entry(plugin: NvimPlugin) {
   );
 }
 
+// TODO: remove this function
 /**
  * Load node.exe inside nvim.exe.
  * This is useful for debugging purpose so we can attach to node.
@@ -53,6 +56,12 @@ function loadExtension(plugin: NvimPlugin) {
   activate(extensionContext);
 }
 
+/**
+ * Handle the command received from the command-server Neovim extension
+ * NOTE: this is why we export it from the main file
+ * @param args something like XXX
+ * @returns
+ */
 export function handleCommand(...args: any): Promise<any> {
   return handleCommandInternal(...args);
 }

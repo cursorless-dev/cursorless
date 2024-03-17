@@ -14,7 +14,7 @@ import { NeovimIDE } from "./NeovimIDE";
 import { Window } from "neovim";
 import { InMemoryTextDocumentImpl } from "./InMemoryTextDocumentImpl";
 import { URI } from "vscode-uri";
-import { bufferSetSelections } from "../../neovimUtil";
+import { bufferSetSelections } from "../../neovimApi";
 import { neovimContext } from "../../singletons/context.singleton";
 
 export class InMemoryTextEditorImpl implements EditableTextEditor {

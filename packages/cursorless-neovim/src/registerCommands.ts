@@ -1,30 +1,8 @@
-import {
-  CURSORLESS_COMMAND_ID,
-  CursorlessCommandId,
-  Position,
-  Range,
-  Selection,
-} from "@cursorless/common";
+import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
 import { neovimContext } from "./singletons/context.singleton";
 import { ide } from "./singletons/ide.singleton";
-import { NeovimClient } from "neovim/lib/api/client";
-import { Window } from "neovim/lib/api/Window";
-import { bufferGetSelections, windowGetVisibleRanges } from "./neovimUtil";
-// import {
-//   CommandApi,
-//   TestCaseRecorder,
-//   analyzeCommandHistory,
-//   showCheatsheet,
-//   updateDefaults,
-// } from "@cursorless/cursorless-engine";
-// import * as vscode from "vscode";
-// import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
-// import { showDocumentation, showQuickPick } from "./commands";
-// import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-// import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-// import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-// import { logQuickActions } from "./logQuickActions";
+import { bufferGetSelections, windowGetVisibleRanges } from "./neovimApi";
 
 /**
  * Initialize the current editor (and current document).
@@ -48,16 +26,15 @@ export async function updateTextEditor() {
   ide().toNeovimEditor(window, buffer.id, lines, visibleRanges, selections);
 }
 
-// export function registerCommands(
-// extensionContext: vscode.ExtensionContext,
-// vscodeIde: VscodeIDE,
-// commandApi: CommandApi,
-// fileSystem: FileSystem,
-// testCaseRecorder: TestCaseRecorder,
-// scopeVisualizer: ScopeVisualizer,
-// keyboardCommands: KeyboardCommands,
-// hats: VscodeHats,
-// ): void {
+/**
+ * Handle the command received from the command-server Neovim extension
+ *
+ * Note how this file is named registerCommands.ts but it does not register any command.
+ * Instead it implements the command handler directly.
+ * This is to match the cursorless-vscode's registerCommands.ts file structure.
+ * @param allArguments something like XXX
+ * @returns
+ */
 export function handleCommandInternal(...allArguments: any[]): Promise<any> {
   const [command, ...rest] = allArguments as [string, ...unknown[]];
 

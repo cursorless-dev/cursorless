@@ -19,14 +19,45 @@ import { NeovimHats } from "./ide/neovim/hats/NeovimHats";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { BufferManager } from "./types/BufferManager";
+import { BufferManager, receivedBufferEvent } from "./types/BufferManager";
 import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { injectIde as injectIde2 } from "./singletons/ide.singleton";
+import { neovimContext } from "./singletons/context.singleton";
 import { updateTextEditor } from "./registerCommands";
 
 /**
+ * Subscribe to buffer updates, e.g. when the text changes.
+ * TODO: keeping this code as it was previously tested and it works but need to see when it
+ * will be useful (to update hats?)
+ */
+export async function subscribeBufferUpdates() {
+  const client = neovimContext().client;
+
+  // initialize the editor since it is needed before we can attach?
+  await updateTextEditor();
+
+  /**
+   * "attach" to Nvim buffers to subscribe to buffer update events.
+   * This is similar to TextChanged but more powerful and granular.
+   *
+   * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
+   */
+  const buffers = await client.buffers;
+  buffers.forEach(
+    /* async */ (buf) => {
+      console.warn("listening for changes in buffer: ", buf.id);
+      buf.listen("lines", receivedBufferEvent);
+      // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
+      // await buf[ATTACH](true);
+    },
+  );
+}
+
+/**
  * Simulates the extension entrypoint to match cursorless-vscode
+ * NOTE: this is not the real cursorless-neovim extension entrypoint (which is called at Neovim startup)
+ * Instead, this function is called from talon.nvim to initialize the Cursorless engine.
  */
 export async function activate(context: NeovimExtensionContext) {
   // debugger; // NOTE: helps debugging
@@ -43,24 +74,7 @@ export async function activate(context: NeovimExtensionContext) {
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
   injectIde2(neovimIDE); // TODO: this is duplicating what Cursorless engine does but for NeovimIDE
 
-  // initialize the editor since it is needed before we can attach?
-  await updateTextEditor();
-
-  /**
-   * "attach" to Nvim buffers to subscribe to buffer update events.
-   * This is similar to TextChanged but more powerful and granular.
-   *
-   * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
-   */
-  // const buffers = await client.buffers;
-  // buffers.forEach(
-  //   /* async */ (buf) => {
-  //     console.warn("listening for changes in buffer: ", buf.id);
-  //     buf.listen("lines", receivedBufferEvent);
-  //     // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
-  //     // await buf[ATTACH](true);
-  //   },
-  // );
+  //await subscribeBufferUpdates();
 
   const normalizedIde =
     neovimIDE.runMode === "production"

@@ -1,3 +1,4 @@
+// Helper directly calling into Neovim apis, generally exported by talon.nvim
 import { Position, Range, Selection } from "@cursorless/common";
 import { NeovimClient } from "neovim/lib/api/client";
 import { Window } from "neovim/lib/api/Window";
