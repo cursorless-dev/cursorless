@@ -9,3 +9,7 @@
 - fix neovim terminology
   - extension => plugin
   - editor => window (any place remaining?)
+
+# merge
+
+- separate PR for setSelections() right now?
