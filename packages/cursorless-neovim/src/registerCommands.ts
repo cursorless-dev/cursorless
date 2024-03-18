@@ -1,30 +1,6 @@
 import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
-import { neovimContext } from "./singletons/context.singleton";
-import { ide } from "./singletons/ide.singleton";
-import { bufferGetSelections, windowGetVisibleRanges } from "./neovimApi";
-
-/**
- * Initialize the current editor (and current document).
- * We always overwrite the current editor from scratch for now
- * because we reinitialize it for every command we receive
- *
- * TODO: We only initialize one editor(current window) with one document(current buffer)
- *       we need to support updating editors and documents on the fly
- */
-export async function updateTextEditor() {
-  const client = neovimContext().client;
-  const window = await client.window;
-  const buffer = await window.buffer;
-  const lines = await buffer.lines;
-  // console.warn(`updateTextEditor(): lines=${lines}`);
-  console.warn(
-    `creating editor/document for window:${window.id} buffer:${buffer.id}`,
-  );
-  const selections = await bufferGetSelections(window, client);
-  const visibleRanges = await windowGetVisibleRanges(window, client, lines);
-  ide().toNeovimEditor(window, buffer.id, lines, visibleRanges, selections);
-}
+import { updateTextEditor } from "./neovimHelpers";
 
 /**
  * Handle the command received from the command-server Neovim extension

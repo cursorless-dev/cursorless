@@ -16,29 +16,11 @@ export default function entry(plugin: NvimPlugin) {
   // plugin.setOptions({ dev: false });
   plugin.setOptions({ dev: true });
 
-  // TODO: remove this function
-  plugin.registerFunction("CursorlessLoadNode", () => loadNode(plugin), {
-    sync: false,
-  });
-
   plugin.registerFunction(
     "CursorlessLoadExtension",
     () => loadExtension(plugin),
     { sync: false },
   );
-}
-
-// TODO: remove this function
-/**
- * Load node.exe inside nvim.exe.
- * This is useful for debugging purpose so we can attach to node.
- */
-function loadNode(plugin: NvimPlugin) {
-  const currentDate: Date = new Date();
-  const currentDateStr: string = currentDate.toLocaleString();
-
-  console.warn("loadNode(): " + currentDateStr);
-  // plugin.nvim.setLine(createCursorlessEngine.toString().split("\n")[0]);
 }
 
 /**

@@ -5,9 +5,9 @@ import { Buffer } from "neovim";
 import { NeovimExtensionContext } from "../ide/neovim/NeovimExtensionContext";
 // import { Disposable, Uri } from "vscode";
 import { eventEmitter } from "../events";
-import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { fromNeovimContentChange } from "../ide/neovim/NeovimEvents";
 import { bufferManager } from "../singletons/bufmgr.singleton";
+import { InMemoryTextDocumentImpl } from "../ide/neovim/InMemoryTextDocumentImpl";
 
 const BUFFER_SCHEME = "neovim";
 
@@ -142,7 +142,7 @@ export async function receivedBufferEvent(
 
   const document = bufferManager().getTextDocumentForBufferId(
     buffer.id,
-  ) as NeovimTextDocumentImpl;
+  ) as InMemoryTextDocumentImpl;
   // const contents = await document.getText();
   // console.warn(
   //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
