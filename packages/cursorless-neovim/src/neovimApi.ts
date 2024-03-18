@@ -60,11 +60,11 @@ export async function bufferSetSelections(
   }, ${selections[0].start.character}, ${selections[0].end.line + 1}, ${
     selections[0].end.character - 1
   })`;
-  console.warn(
-    `bufferSetSelections() selections=${selections[0].start.line},${selections[0].start.character},${selections[0].end.line},${selections[0].end.character} luaCode=${luaCode}`,
-  );
+  // console.warn(
+  //   `bufferSetSelections() selections=${selections[0].start.line},${selections[0].start.character},${selections[0].end.line},${selections[0].end.character} luaCode=${luaCode}`,
+  // );
   await client.executeLua(luaCode, []);
-  console.warn(`bufferSetSelections() done`);
+  // console.warn(`bufferSetSelections() done`);
 }
 
 /**
