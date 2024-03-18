@@ -85,7 +85,9 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
 
   public async revealRange(range: Range): Promise<void> {
     // TODO: implement it to support multiple editors
-    throw Error("revealRange Not implemented");
+    // Commenting for now to avoid exceptions being triggered
+    // when issuing "take" commands even if not fatal
+    // throw Error("revealRange Not implemented");
   }
 
   public revealLine(lineNumber: number, at: RevealLineAt): Promise<void> {
@@ -101,8 +103,10 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
 
   public focus(): Promise<void> {
     // TODO: implement it to support multiple editors
-    // return Promise.resolve();
-    throw Error("focus Not implemented");
+    // Commenting for now to avoid exceptions being triggered
+    // when issuing "take" commands even if not fatal
+    return Promise.resolve();
+    // throw Error("focus Not implemented");
   }
 
   public editNewNotebookCellAbove(): Promise<
