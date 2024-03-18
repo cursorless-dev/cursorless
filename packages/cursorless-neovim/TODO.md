@@ -5,7 +5,7 @@
   - local tests before integrating to CI?
   * see testCaseRecorder.vscode.test.ts
 
-* prePhrase support in command server
+* prePhrase support in command server?
 
 # cleanup
 
@@ -16,7 +16,7 @@
 # bugs
 
 - `take file` doesn't work, and just moves the cursor to the beginning of the file
-- I can't chain two cursorless commands without waiting a little bit, command client: Exception: Timed out waiting for response
+- need to be in normal mode to execute the `take` command, as otherwise: Exception: Timed out waiting for response
 
 # merge
 
