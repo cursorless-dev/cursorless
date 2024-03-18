@@ -53,11 +53,6 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
     // throw Error("get selections Not implemented");
   }
 
-  set selections(selections: Selection[]) {
-    this.setSelections(selections);
-    throw Error("set selections Not implemented");
-  }
-
   async setSelections(selections: Selection[]): Promise<void> {
     // We assume setting it on the neovim never fails
     // as we cache the selections in the editor too

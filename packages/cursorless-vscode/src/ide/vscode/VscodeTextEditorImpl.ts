@@ -52,13 +52,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor.selections.map(fromVscodeSelection);
   }
 
-  set selections(selections: Selection[]) {
-    this.editor.selections = selections.map(toVscodeSelection);
-  }
-
   async setSelections(selections: Selection[]): Promise<void> {
-    // TODO: we need to fix vscode to work the same way as neovim
-    throw Error("set selections Not implemented");
+    this.editor.selections = selections.map(toVscodeSelection);
   }
 
   get visibleRanges(): Range[] {
@@ -154,7 +149,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public async insertLineAfter(ranges?: Range[]): Promise<void> {
     if (ranges != null) {
-      this.selections = ranges.map((range) => range.toSelection(false));
+      this.setSelections(ranges.map((range) => range.toSelection(false)));
     }
     await this.focus();
     await vscode.commands.executeCommand("editor.action.insertLineAfter");

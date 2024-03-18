@@ -8,7 +8,7 @@ export async function vscodeInsertSnippet(
   ranges: Range[] | undefined,
 ): Promise<void> {
   if (ranges != null) {
-    editor.selections = ranges.map((range) => range.toSelection(false));
+    editor.setSelections(ranges.map((range) => range.toSelection(false)));
   }
 
   await editor.focus();

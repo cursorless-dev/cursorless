@@ -64,8 +64,8 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     // return this.editor.selections;
   }
 
-  set selections(selections: Selection[]) {
-    // this.editor.selections = selections.map(toVscodeSelection);
+  async setSelections(selections: Selection[]): Promise<void> {
+    throw Error("set selections Not implemented");
   }
 
   get visibleRanges(): Range[] {
@@ -85,10 +85,6 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   get isActive(): boolean {
     return false;
     // return this.editor === vscode.window.activeTextEditor;
-  }
-
-  async setSelections(selections: Selection[]): Promise<void> {
-    throw Error("set selections Not implemented");
   }
 
   public isEqual(other: TextEditor): boolean {

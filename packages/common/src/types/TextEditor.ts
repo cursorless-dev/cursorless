@@ -32,7 +32,7 @@ export interface TextEditor {
   /**
    * The selections in this text editor.
    */
-  readonly selections: Selection[];
+  get selections(): Selection[];
 
   /**
    * Text editor options.
@@ -54,7 +54,7 @@ export interface TextEditor {
 }
 
 export interface EditableTextEditor extends TextEditor {
-  selections: Selection[];
+  // selections: Selection[];
   setSelections(selections: Selection[]): Promise<void>;
 
   options: TextEditorOptions;
