@@ -1,13 +1,13 @@
 import { Range, TextLine } from "@cursorless/common";
 
-export default class InMemoryTextLineImpl implements TextLine {
+export default class NeovimTextLineImpl implements TextLine {
   private readonly _lineNumber: number;
   private readonly _text: string;
   private readonly _isLastLine: boolean;
 
   constructor(lineNumber: number, text: string, isLastLine: boolean) {
     // console.warn(
-    //   `InMemoryTextLineImpl(): lineNumber=${lineNumber}, text='${text}', isLastLine=${isLastLine}, eol='${eol}'`,
+    //   `NeovimTextLineImpl(): lineNumber=${lineNumber}, text='${text}', isLastLine=${isLastLine}, eol='${eol}'`,
     // );
     this._lineNumber = lineNumber;
     this._text = text;
@@ -19,13 +19,13 @@ export default class InMemoryTextLineImpl implements TextLine {
   }
 
   get text(): string {
-    // console.warn(`InMemoryTextLineImpl.text()='${this._text}'`);
+    // console.warn(`NeovimTextLineImpl.text()='${this._text}'`);
     return this._text;
   }
 
   get range(): Range {
     // console.warn(
-    //   `InMemoryTextLineImpl.range(): range=(${this._lineNumber}, 0), (${this._lineNumber}, ${this._text.length})`,
+    //   `NeovimTextLineImpl.range(): range=(${this._lineNumber}, 0), (${this._lineNumber}, ${this._text.length})`,
     // );
     return new Range(this._lineNumber, 0, this._lineNumber, this._text.length);
   }
@@ -33,12 +33,12 @@ export default class InMemoryTextLineImpl implements TextLine {
   get rangeIncludingLineBreak(): Range {
     if (this._isLastLine) {
       // console.warn(
-      //   `InMemoryTextLineImpl.rangeIncludingLineBreak(): last line=(${this.range.start.line}, ${this.range.start.character}), (${this.range.end.line}, ${this.range.end.character})`,
+      //   `NeovimTextLineImpl.rangeIncludingLineBreak(): last line=(${this.range.start.line}, ${this.range.start.character}), (${this.range.end.line}, ${this.range.end.character})`,
       // );
       return this.range;
     }
     // console.warn(
-    //   `InMemoryTextLineImpl.rangeIncludingLineBreak(): range=(${
+    //   `NeovimTextLineImpl.rangeIncludingLineBreak(): range=(${
     //     this._lineNumber
     //   }, 0), ${this._lineNumber + 1}, 0})`,
     // );
@@ -49,7 +49,7 @@ export default class InMemoryTextLineImpl implements TextLine {
     //TODO@api, rename to 'leadingWhitespaceLength'
     const index = /^(\s*)/.exec(this._text)![1].length;
     // console.warn(
-    //   `InMemoryTextLineImpl.firstNonWhitespaceCharacterIndex=${index}`,
+    //   `NeovimTextLineImpl.firstNonWhitespaceCharacterIndex=${index}`,
     // );
     return index;
   }
@@ -57,7 +57,7 @@ export default class InMemoryTextLineImpl implements TextLine {
   get lastNonWhitespaceCharacterIndex(): number {
     const index = this.text.trimEnd().length;
     // console.warn(
-    //   `InMemoryTextLineImpl.lastNonWhitespaceCharacterIndex index=${index}`,
+    //   `NeovimTextLineImpl.lastNonWhitespaceCharacterIndex index=${index}`,
     // );
     return index;
   }

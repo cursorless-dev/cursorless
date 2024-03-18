@@ -12,12 +12,12 @@ import {
 } from "@cursorless/common";
 import { NeovimIDE } from "./NeovimIDE";
 import { Window } from "neovim";
-import { InMemoryTextDocumentImpl } from "./InMemoryTextDocumentImpl";
+import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 import { URI } from "vscode-uri";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimContext } from "../../singletons/context.singleton";
 
-export class InMemoryTextEditorImpl implements EditableTextEditor {
+export class NeovimTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
   private _selections: Selection[];
 
@@ -31,7 +31,7 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
     selections: Selection[],
   ) {
     // TODO: don't hardcode arguments
-    this.document = new InMemoryTextDocumentImpl(
+    this.document = new NeovimTextDocumentImpl(
       URI.parse(`neovim://${bufferId}`), // URI.parse(`file://${bufferId}`),
       "plaintext",
       1,
@@ -39,7 +39,7 @@ export class InMemoryTextEditorImpl implements EditableTextEditor {
       "\r\n",
       lines,
     );
-    // console.warn(`InMemoryTextEditorImpl(): lines=${lines}`);
+    // console.warn(`NeovimTextEditorImpl(): lines=${lines}`);
     this._selections = selections;
   }
 

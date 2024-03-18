@@ -6,9 +6,9 @@ import {
   TextLine,
 } from "@cursorless/common";
 import { URI } from "vscode-uri";
-import InMemoryTextLineImpl from "./InMemoryTextLineImpl";
+import NeovimTextLineImpl from "./NeovimTextLineImpl";
 
-export class InMemoryTextDocumentImpl implements TextDocument {
+export class NeovimTextDocumentImpl implements TextDocument {
   private _uri: URI;
   private _languageId: string;
   private _version: number;
@@ -87,7 +87,7 @@ export class InMemoryTextDocumentImpl implements TextDocument {
       throw new Error("Illegal value for `line`");
     }
 
-    return new InMemoryTextLineImpl(
+    return new NeovimTextLineImpl(
       line,
       this._lines[line],
       line === this._lines.length - 1,

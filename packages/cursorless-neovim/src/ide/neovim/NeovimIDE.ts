@@ -32,7 +32,7 @@ import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
 import { Window } from "neovim";
-import { InMemoryTextEditorImpl } from "./InMemoryTextEditorImpl";
+import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -59,7 +59,7 @@ export class NeovimIDE implements IDE {
     this.clipboard = new NeovimClipboard();
     this.capabilities = new NeovimCapabilities();
     // this.editorMap = new Map<Window, NeovimTextEditorImpl>();
-    this.editorMap = new Map<Window, InMemoryTextEditorImpl>();
+    this.editorMap = new Map<Window, NeovimTextEditorImpl>();
     this.activeWindow = undefined;
   }
 
@@ -126,7 +126,7 @@ export class NeovimIDE implements IDE {
     return editor;
   }
 
-  get visibleTextEditors(): InMemoryTextEditorImpl[] {
+  get visibleTextEditors(): NeovimTextEditorImpl[] {
     return Array.from(this.editorMap.values());
     // throw Error("visibleTextEditors Not implemented");
   }
@@ -204,7 +204,7 @@ export class NeovimIDE implements IDE {
     lines: string[],
     visibleRanges: Range[],
     selections: Selection[],
-  ): InMemoryTextEditorImpl {
+  ): NeovimTextEditorImpl {
     if (!this.editorMap.has(editor)) {
       this.toNeovimEditor(editor, bufferId, lines, visibleRanges, selections);
     }
@@ -219,7 +219,7 @@ export class NeovimIDE implements IDE {
     selections: Selection[],
   ): void {
     this.activeWindow = editor;
-    const impl = new InMemoryTextEditorImpl(
+    const impl = new NeovimTextEditorImpl(
       uuid(),
       this,
       editor,
