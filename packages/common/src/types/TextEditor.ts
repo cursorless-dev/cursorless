@@ -54,7 +54,6 @@ export interface TextEditor {
 }
 
 export interface EditableTextEditor extends TextEditor {
-  // selections: Selection[];
   setSelections(selections: Selection[]): Promise<void>;
 
   options: TextEditorOptions;
