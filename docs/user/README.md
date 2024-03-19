@@ -66,7 +66,7 @@ The following colors are supported. Note that to target the default (gray) hat y
 
 You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
-You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes.
+You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
@@ -184,7 +184,9 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-![Relative ordinal diagram](images/relative_ordinal.png)
+<div class="dark-mode-invert">
+  ![Relative ordinal diagram](images/relative_ordinal.png)
+</div>
 
 ([Image source](https://github.com/cursorless-dev/cursorless/blob/main/docs/user/images/relative_ordinal.tex))
 
@@ -207,22 +209,22 @@ And here is a table of the spoken forms:
 
 ##### `"every"`
 
-The command `"every"` can be used to select a syntactic element and all of its matching siblings.
+The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
 
 - `"take every key air"`
 - `"take every funk air"`
 - `"take every key"` (if cursor is currently within a key)
 
-For example, the command `take every key [blue] air` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+For example, the command `"take every key [blue] air"` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
 
 ##### `"grand"`
 
-The command `"grand"` can be used to select the grand parent of the containing syntactic element.
+The modifier `"grand"` can be used to select the parent of the containing syntactic element.
 
 - `"take grand statement air"`
 - `"take grand funk air"`
 
-For example, the command `take grand statement [blue] air` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
+For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
 ##### Sub-token modifiers
 
