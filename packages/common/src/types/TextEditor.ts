@@ -32,7 +32,7 @@ export interface TextEditor {
   /**
    * The selections in this text editor.
    */
-  get selections(): Selection[];
+  readonly selections: Selection[];
 
   /**
    * Text editor options.
