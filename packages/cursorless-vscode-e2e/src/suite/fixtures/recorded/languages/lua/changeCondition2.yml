@@ -1,0 +1,33 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    local i = 1
+    while i <= 5 do
+        print("While loop iteration: " .. i)
+        i = i + 1
+    end
+  selections:
+    - anchor: {line: 1, character: 7}
+      active: {line: 1, character: 7}
+  marks: {}
+finalState:
+  documentContents: |-
+    local i = 1
+    while  do
+        print("While loop iteration: " .. i)
+        i = i + 1
+    end
+  selections:
+    - anchor: {line: 1, character: 6}
+      active: {line: 1, character: 6}
