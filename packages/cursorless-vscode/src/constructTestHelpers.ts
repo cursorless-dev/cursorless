@@ -1,7 +1,7 @@
 import {
-  CommandServerApi,
   ExcludableSnapshotField,
   ExtraSnapshotField,
+  FakeCommandServerApi,
   HatTokenMap,
   IDE,
   NormalizedIDE,
@@ -19,13 +19,13 @@ import {
 } from "@cursorless/cursorless-engine";
 import { TestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
-import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 
 export function constructTestHelpers(
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: FakeCommandServerApi,
   storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
