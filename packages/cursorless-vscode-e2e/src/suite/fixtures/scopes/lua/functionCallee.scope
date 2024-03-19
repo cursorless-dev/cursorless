@@ -3,11 +3,11 @@ print("a is greater than 10")
 
 [Content] =
 [Removal] = 0:0-0:5
-0| print("a is greater than 10")
   >-----<
+0| print("a is greater than 10")
 
 [Domain] = 0:0-0:29
-0| print("a is greater than 10")
   >-----------------------------<
+0| print("a is greater than 10")
 
 [Insertion delimiter] = " "
