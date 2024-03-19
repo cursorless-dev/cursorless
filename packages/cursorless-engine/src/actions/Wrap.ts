@@ -111,7 +111,10 @@ export default class Wrap {
           ],
         );
 
-        setSelectionsWithoutFocusingEditor(editableEditor, cursorSelections);
+        await setSelectionsWithoutFocusingEditor(
+          editableEditor,
+          cursorSelections,
+        );
 
         await ide().flashRanges(
           delimiterSelections.map((selection) => ({

@@ -52,7 +52,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor.selections.map(fromVscodeSelection);
   }
 
-  set selections(selections: Selection[]) {
+  async setSelections(selections: Selection[]): Promise<void> {
     this.editor.selections = selections.map(toVscodeSelection);
   }
 

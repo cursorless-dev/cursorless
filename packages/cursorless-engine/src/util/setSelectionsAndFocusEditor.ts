@@ -9,7 +9,7 @@ export async function setSelectionsAndFocusEditor(
   selections: Selection[],
   revealRange: boolean = true,
 ) {
-  setSelectionsWithoutFocusingEditor(editor, selections);
+  await setSelectionsWithoutFocusingEditor(editor, selections);
 
   if (revealRange) {
     await editor.revealRange(editor.selections[0]);
@@ -20,13 +20,15 @@ export async function setSelectionsAndFocusEditor(
   await editor.focus();
 }
 
-export function setSelectionsWithoutFocusingEditor(
+export async function setSelectionsWithoutFocusingEditor(
   editor: EditableTextEditor,
   selections: Selection[],
 ) {
-  editor.selections = uniqWithHash(
-    selections,
-    (a, b) => a.isEqual(b),
-    (s) => s.concise(),
+  await editor.setSelections(
+    uniqWithHash(
+      selections,
+      (a, b) => a.isEqual(b),
+      (s) => s.concise(),
+    ),
   );
 }
