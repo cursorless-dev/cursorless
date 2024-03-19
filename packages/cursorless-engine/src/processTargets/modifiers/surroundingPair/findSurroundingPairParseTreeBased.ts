@@ -66,7 +66,10 @@ export function findSurroundingPairParseTreeBased(
 ) {
   const document: TextDocument = editor.document;
 
-  const individualDelimiters = getIndividualDelimiters(delimiters);
+  const individualDelimiters = getIndividualDelimiters(
+    document.languageId,
+    delimiters,
+  );
 
   const delimiterTextToDelimiterInfoMap = Object.fromEntries(
     individualDelimiters.map((individualDelimiter) => [
