@@ -1,6 +1,5 @@
 // Helper wrappers, generally around neovimApi.ts
 
-import { Range } from "@cursorless/common";
 import {
   bufferGetSelections,
   putToClipboard,
