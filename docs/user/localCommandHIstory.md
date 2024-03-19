@@ -11,3 +11,5 @@ To enable local, sanitized command logging, enable the `cursorless.commandHistor
 ```
 
 The logged commands can be found in your user directory, under `.cursorless/commandHistory`. You can delete this directory at any time to clear your history. Please don't delete the parent `.cursorless` directory, as this contains other files for use by Cursorless.
+
+We currently offer very basic command statistics via the `"cursorless stats"` voice command. Expect more in the future!

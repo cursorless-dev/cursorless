@@ -12,10 +12,10 @@
 (
   (member_expression
     object: (call_expression
-      function: (_) @dummy
+      function: (_) @_dummy
     ) @private.fieldAccess
   )
-  (#not-type? @dummy member_expression)
+  (#not-type? @_dummy member_expression)
 )
 
 ;;!! foo[0].bar
@@ -23,10 +23,10 @@
 (
   (member_expression
     object: (subscript_expression
-      object: (_) @dummy
+      object: (_) @_dummy
     ) @private.fieldAccess
   )
-  (#not-type? @dummy member_expression)
+  (#not-type? @_dummy member_expression)
 )
 
 ;;!! foo.bar
@@ -38,8 +38,8 @@
       (optional_chain)
     ] @private.fieldAccess.start
     property: (_) @private.fieldAccess.end
-  ) @dummy
-  (#not-parent-type? @dummy call_expression subscript_expression)
+  ) @_dummy
+  (#not-parent-type? @_dummy call_expression subscript_expression)
 )
 
 ;;!! foo.bar()

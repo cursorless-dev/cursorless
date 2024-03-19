@@ -312,6 +312,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Value (RHS) of a field in a class / interface",
     scopeType: "value",
   },
+  "value.yield": {
+    description: "Value of a yield statement",
+    scopeType: "value",
+  },
   "value.resource": {
     description: "Value of a 'with' / 'use' / 'using' statement",
     scopeType: "value",
@@ -323,8 +327,8 @@ export const scopeSupportFacetInfos: Record<
     isIteration: true,
   },
 
-  "type.assignment": {
-    description: "Type of variable in an assignment",
+  "type.variable": {
+    description: "Type of variable in a variable declaration",
     scopeType: "type",
   },
   "type.formalParameter": {

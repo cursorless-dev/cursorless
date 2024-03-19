@@ -33,12 +33,12 @@ import Remove from "./Remove";
 import Replace from "./Replace";
 import Rewrap from "./Rewrap";
 import { ScrollToBottom, ScrollToCenter, ScrollToTop } from "./Scroll";
-import { SetSpecialTarget } from "./SetSpecialTarget";
 import {
   SetSelection,
   SetSelectionAfter,
   SetSelectionBefore,
 } from "./SetSelection";
+import { SetSpecialTarget } from "./SetSpecialTarget";
 import ShowParseTree from "./ShowParseTree";
 import {
   CopyToClipboard,
@@ -61,6 +61,7 @@ import ToggleBreakpoint from "./ToggleBreakpoint";
 import Wrap from "./Wrap";
 import WrapWithSnippet from "./WrapWithSnippet";
 import { ActionRecord } from "./actions.types";
+import { Decrement, Increment } from "./incrementDecrement";
 
 /**
  * Keeps a map from action names to objects that implement the given action
@@ -77,6 +78,7 @@ export class Actions implements ActionRecord {
   clearAndSetSelection = new Clear(this);
   copyToClipboard = new CopyToClipboard(this.rangeUpdater);
   cutToClipboard = new CutToClipboard(this);
+  decrement = new Decrement(this);
   deselect = new Deselect();
   editNew = new EditNew(this.rangeUpdater, this);
   editNewLineAfter: EditNewAfter = new EditNewAfter(
@@ -96,6 +98,7 @@ export class Actions implements ActionRecord {
   generateSnippet = new GenerateSnippet();
   getText = new GetText();
   highlight = new Highlight();
+  increment = new Increment(this);
   indentLine = new IndentLine(this.rangeUpdater);
   insertCopyAfter = new InsertCopyAfter(
     this.rangeUpdater,

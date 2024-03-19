@@ -81,10 +81,11 @@ const scopeSupportFacets = [
   "value.return",
   "value.return.lambda",
   "value.field",
+  "value.yield",
   "value.resource",
   "value.resource.iteration",
 
-  "type.assignment",
+  "type.variable",
   "type.formalParameter",
   "type.return",
   "type.field",
