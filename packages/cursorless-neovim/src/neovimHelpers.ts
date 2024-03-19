@@ -1,9 +1,15 @@
 // Helper wrappers, generally around neovimApi.ts
 
-import { bufferGetSelections, windowGetVisibleRanges } from "./neovimApi";
+import { Range } from "@cursorless/common";
+import {
+  bufferGetSelections,
+  putToClipboard,
+  windowGetVisibleRanges,
+} from "./neovimApi";
 import { neovimContext } from "./singletons/context.singleton";
 import { ide } from "./singletons/ide.singleton";
 import { receivedBufferEvent } from "./types/BufferManager";
+import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 
 /**
  * Initialize the current editor (and current document).
@@ -53,4 +59,13 @@ export async function subscribeBufferUpdates() {
       // await buf[ATTACH](true);
     },
   );
+}
+
+export async function neovimClipboardCopy(): Promise<void> {
+  const editor = ide().activeTextEditor as NeovimTextEditorImpl;
+  const client = neovimContext().client;
+  const window = await client.window;
+  const selections = await bufferGetSelections(window, client);
+  const data = editor.document.getText(selections[0]);
+  await putToClipboard(data, client);
 }

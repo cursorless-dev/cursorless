@@ -2,7 +2,7 @@ import { Capabilities } from "@cursorless/common";
 
 export class NeovimCapabilities implements Capabilities {
   commands = {
-    clipboardCopy: undefined,
+    clipboardCopy: { acceptsLocation: false },
     toggleLineComment: undefined,
     indentLine: undefined,
     outdentLine: undefined,

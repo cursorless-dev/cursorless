@@ -55,14 +55,25 @@ export async function bufferSetSelections(
   // cursorless has 0-based lines/columns, but neovim has 1-based lines and 0-based columns
   // also, experience shows we need to subtract 1 from the end character to stop on it in visual mode (instead of after it)
   // https://neovim.io/doc/user/api.html#nvim_win_set_cursor()
+
+  // TODO: this works fine for the "take" command
+  // let endIndex = selections[0].end.character - 1;
+  // TODO: this is mostly to avoid an out of bound when calling the lua function: nvim_win_set_cursor()
+  // if (endIndex === -1) {
+  //   endIndex = 0;
+  // }
+
+  // TODO: this works fine for the "copy" command, and for resetting the selection
+  const endIndex = selections[0].end.character;
+
   const luaCode = `return require("talon.cursorless").select_range(${
     selections[0].start.line + 1
-  }, ${selections[0].start.character}, ${selections[0].end.line + 1}, ${
-    selections[0].end.character - 1
-  })`;
-  // console.warn(
-  //   `bufferSetSelections() selections=${selections[0].start.line},${selections[0].start.character},${selections[0].end.line},${selections[0].end.character} luaCode=${luaCode}`,
-  // );
+  }, ${selections[0].start.character}, ${
+    selections[0].end.line + 1
+  }, ${endIndex})`;
+  console.warn(
+    `bufferSetSelections() selections=(${selections[0].start.line},${selections[0].start.character}),(${selections[0].end.line},${selections[0].end.character}) luaCode="${luaCode}"`,
+  );
   await client.executeLua(luaCode, []);
   // console.warn(`bufferSetSelections() done`);
 }
@@ -92,4 +103,16 @@ export async function windowGetVisibleRanges(
       new Position(lastLine - 1, lines[lastLine - 1].length - 1),
     ),
   ];
+}
+
+export async function putToClipboard(data: string, client: NeovimClient) {
+  const luaCode = `return require("talon.cursorless").put_to_clipboard("${data}")`;
+  await client.executeLua(luaCode, []);
+}
+
+// TODO: this hasn't been tested yet
+export async function getFromClipboard(client: NeovimClient): Promise<string> {
+  const luaCode = `return require("talon.cursorless").get_from_clipboard()`;
+  const data = await client.executeLua(luaCode, []);
+  return data as unknown as string;
 }

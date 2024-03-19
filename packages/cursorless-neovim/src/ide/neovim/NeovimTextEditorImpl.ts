@@ -16,6 +16,7 @@ import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 import { URI } from "vscode-uri";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimContext } from "../../singletons/context.singleton";
+import { neovimClipboardCopy } from "../../neovimHelpers";
 
 export class NeovimTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
@@ -71,7 +72,11 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   get isActive(): boolean {
-    throw Error("isActive Not implemented");
+    // TODO: implement it to support multiple editors
+    // Commenting for now to avoid exceptions being triggered
+    // when issuing "copy" commands even if not fatal
+    // throw Error("isActive Not implemented");
+    return true;
   }
 
   public isEqual(other: TextEditor): boolean {
@@ -135,7 +140,8 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   public async clipboardCopy(_ranges?: Range[]): Promise<void> {
-    throw Error("clipboardCopy Not implemented");
+    await neovimClipboardCopy();
+    // throw Error("clipboardCopy Not implemented");
   }
 
   public async clipboardPaste(_ranges?: Range[]): Promise<void> {
