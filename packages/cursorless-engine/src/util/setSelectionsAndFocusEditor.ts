@@ -9,7 +9,7 @@ export async function setSelectionsAndFocusEditor(
   selections: Selection[],
   revealRange: boolean = true,
 ) {
-  setSelectionsWithoutFocusingEditor(editor, selections);
+  await setSelectionsWithoutFocusingEditor(editor, selections);
 
   if (revealRange) {
     await editor.revealRange(editor.selections[0]);
