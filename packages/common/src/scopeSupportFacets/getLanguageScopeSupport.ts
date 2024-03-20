@@ -7,6 +7,7 @@ import { luaScopeSupport } from "./lua";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { talonScopeSupport } from "./talon";
 import { typescriptScopeSupport } from "./typescript";
+import { shellscriptScopeSupport } from "./shellscript";
 
 export function getLanguageScopeSupport(
   languageId: string,
@@ -20,14 +21,16 @@ export function getLanguageScopeSupport(
       return javascriptScopeSupport;
     case "json":
       return jsonScopeSupport;
+    case "lua":
+      return luaScopeSupport;
     case "python":
       return pythonScopeSupport;
+    case "shellscript":
+      return shellscriptScopeSupport;
     case "talon":
       return talonScopeSupport;
     case "typescript":
       return typescriptScopeSupport;
-    case "lua":
-      return luaScopeSupport;
   }
   throw Error(`Unsupported language: '${languageId}'`);
 }
