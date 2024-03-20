@@ -1,7 +1,8 @@
+import { VscodeApi } from "@cursorless/vscode-common";
 import { mapValues, pickBy } from "lodash";
+import { getConfiguration } from "../usingConfiguration";
 import { KeyMap, SectionName, TokenType } from "./TokenTypeHelpers";
 import { SectionTypes, TokenTypeValueMap } from "./TokenTypes";
-import { VscodeApi } from "@cursorless/vscode-common";
 
 const LEGACY_PLURAL_SECTION_NAMES: Record<string, string> = {
   action: "actions",
@@ -26,9 +27,9 @@ export class KeyboardConfig {
     const getSection = (
       sectionName: string,
     ): KeyMap<SectionTypes[S]> | undefined =>
-      this.vscodeApi.workspace
-        .getConfiguration("cursorless.experimental.keyboard.modal.keybindings")
-        .get<KeyMap<SectionTypes[S]>>(sectionName);
+      getConfiguration<KeyMap<SectionTypes[S]>>(
+        `cursorless.experimental.keyboard.modal.keybindings.${sectionName}`,
+      );
 
     let section = getSection(sectionName);
 
