@@ -33,6 +33,8 @@ commands_run = []
 
 mockedGetValue = ""
 
+community_snippets_tag_name = "user.cursorless_use_community_snippets"
+
 
 @ctx.action_class("user")
 class UserActions:
@@ -81,6 +83,20 @@ class Actions:
             actions.app.notify(
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
+
+    def private_cursorless_use_community_snippets(enable: bool):
+        """Enable/disable cursorless community snippets in test mode"""
+        if enable:
+            tags = set(ctx.tags)
+            tags.add(community_snippets_tag_name)
+            ctx.tags = list(tags)
+        else:
+            tags = set(ctx.tags)
+            tags.remove(community_snippets_tag_name)
+            ctx.tags = list(tags)
+        # Note: Test harness hangs if we don't print anything because it's
+        # waiting for stdout
+        print(f"Set community snippet enablement to {enable}")
 
     def private_cursorless_spoken_form_test(
         phrase: str, mockedGetValue_: Optional[str]
