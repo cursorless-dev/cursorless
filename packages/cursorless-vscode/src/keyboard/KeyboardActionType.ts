@@ -20,6 +20,19 @@ export type SimpleKeyboardActionType = Exclude<
   KeyboardActionType,
   ComplexKeyboardActionType
 >;
+
+export type SpecificKeyboardActionDescriptor<T extends KeyboardActionType> = {
+  actionId: T;
+  exitCursorlessMode: boolean;
+};
+
+export type PolymorphicKeyboardActionDescriptor =
+  | KeyboardActionType
+  | SpecificKeyboardActionDescriptor<KeyboardActionType>;
+
+export type SimpleKeyboardActionDescriptor =
+  SpecificKeyboardActionDescriptor<SimpleKeyboardActionType>;
+
 export type KeyboardActionType =
   | Exclude<ActionType, ExcludedKeyboardActionType>
   | ExtraKeyboardActionType;

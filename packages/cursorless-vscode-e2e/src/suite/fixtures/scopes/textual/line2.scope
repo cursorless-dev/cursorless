@@ -5,62 +5,44 @@ aaa
 
 [#1 Content] =
 [#1 Domain] = 0:0-0:0
-0|
   ><
-1| aaa
-
-2|
-
+0|
 
 [#1 Removal] = 0:0-1:0
-0|
   >
+0|
 1| aaa
    <
-2|
-
 
 [#1 Trailing delimiter] = 0:0-1:0
-0|
   >
+0|
 1| aaa
    <
-2|
-
 
 [#1 Insertion delimiter] = "\n"
 
 
 [#2 Content] =
 [#2 Domain] = 1:0-1:3
-0|
-
-1| aaa
   >---<
-2|
-
+1| aaa
 
 [#2 Removal] = 1:0-2:0
-0|
-
-1| aaa
   >---
+1| aaa
 2|
    <
 
 [#2 Leading delimiter] = 0:0-1:0
-0|
   >
+0|
 1| aaa
    <
-2|
-
 
 [#2 Trailing delimiter] = 1:3-2:0
-0|
-
-1| aaa
      >
+1| aaa
 2|
    <
 
@@ -69,26 +51,18 @@ aaa
 
 [#3 Content] =
 [#3 Domain] = 2:0-2:0
-0|
-
-1| aaa
-
-2|
   ><
+2|
 
 [#3 Removal] = 1:3-2:0
-0|
-
-1| aaa
      >
+1| aaa
 2|
    <
 
 [#3 Leading delimiter] = 1:3-2:0
-0|
-
-1| aaa
      >
+1| aaa
 2|
    <
 

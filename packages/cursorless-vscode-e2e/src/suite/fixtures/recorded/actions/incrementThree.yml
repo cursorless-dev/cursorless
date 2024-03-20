@@ -1,0 +1,31 @@
+languageId: typescript
+command:
+  version: 6
+  spokenForm: increment three
+  action:
+    name: increment
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: '3'}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: 1.37.2
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  marks:
+    default.3:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 4}
+finalState:
+  documentContents: 1.38.2
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 2}
+        end: {line: 0, character: 4}
+      isReversed: false
+      hasExplicitRange: true

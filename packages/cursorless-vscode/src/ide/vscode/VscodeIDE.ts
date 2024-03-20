@@ -86,6 +86,10 @@ export class VscodeIDE implements IDE {
     return this.extensionContext.extensionPath;
   }
 
+  get cursorlessVersion(): string {
+    return this.extensionContext.extension.packageJSON.version;
+  }
+
   get runMode(): RunMode {
     return vscodeRunMode(this.extensionContext);
   }

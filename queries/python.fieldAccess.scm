@@ -12,10 +12,10 @@
 (
   (attribute
     object: (call
-      function: (_) @dummy
+      function: (_) @_dummy
     ) @private.fieldAccess
   )
-  (#not-type? @dummy attribute)
+  (#not-type? @_dummy attribute)
 )
 
 ;;!! foo[0].bar
@@ -23,10 +23,10 @@
 (
   (attribute
     object: (subscript
-      value: (_) @dummy
+      value: (_) @_dummy
     ) @private.fieldAccess
   )
-  (#not-type? @dummy attribute)
+  (#not-type? @_dummy attribute)
 )
 
 ;;!! foo.bar
@@ -35,8 +35,8 @@
   (attribute
     "." @private.fieldAccess.start
     attribute: (_) @private.fieldAccess.end
-  ) @dummy
-  (#not-parent-type? @dummy call subscript)
+  ) @_dummy
+  (#not-parent-type? @_dummy call subscript)
 )
 
 ;;!! foo.bar()

@@ -51,13 +51,14 @@ export class KeyboardConfig {
   /**
    * Returns a keymap mapping from key sequences to tokens for use in our key
    * sequence parser. If `sectionName` is omitted, it defaults to `type`. If
-   * `only` is provided, we filter to include only entries with these values.
+   * {@link transform} is provided, it's used to transform each entry, dropping
+   * the ones for which {@link transform} returns `undefined`.
    *
    * Example:
    *
    * ```ts
    * assert.equal(
-   *   getTokenKeyMap("direction", "misc", ["forward", "backward"]),
+   *   getTokenKeyMap("direction", "misc", only("forward", "backward")),
    *   {
    *     "f": { type: "direction", value: "forward" },
    *     "b": { type: "direction", value: "backward" },
@@ -67,8 +68,10 @@ export class KeyboardConfig {
    *
    * @param tokenType The type of the token
    * @param sectionName The name of the config section
-   * @param only If provided, only entries with these values will be returned
-   * @returns A keymap with entries only for the given value
+   * @param transform If provided, a function that transforms each entry,
+   * returning `undefined` for entries to be dropped
+   * @returns A keymap with transformed entries for the given config section,
+   * without entries for which {@link transform} returns `undefined`
    */
   getTokenKeyMap<T extends keyof SectionTypes & TokenType>(
     tokenType: T,
@@ -80,34 +83,64 @@ export class KeyboardConfig {
   getTokenKeyMap<
     T extends TokenType,
     K extends keyof SectionTypes,
-    V extends SectionTypes[K] & TokenTypeValueMap[T] = SectionTypes[K] &
-      TokenTypeValueMap[T],
-  >(tokenType: T, sectionName: K, only: V[]): KeyMap<{ type: T; value: V }>;
+    V extends TokenTypeValueMap[T] = TokenTypeValueMap[T],
+  >(
+    tokenType: T,
+    sectionName: K,
+    transform: (value: SectionTypes[K]) => V | undefined,
+  ): KeyMap<{ type: T; value: V }>;
   getTokenKeyMap<
     T extends TokenType,
     K extends keyof SectionTypes,
-    V extends SectionTypes[K] & TokenTypeValueMap[T] = SectionTypes[K] &
-      TokenTypeValueMap[T],
+    V extends TokenTypeValueMap[T] = TokenTypeValueMap[T],
   >(
     tokenType: T,
     sectionName: K = tokenType as unknown as K,
-    only?: V[],
-  ): KeyMap<{ type: T; value: V }> {
+    transform?: (value: SectionTypes[K]) => V | undefined,
+  ): KeyMap<{ type: T; value: V | SectionTypes[K] }> {
     const section = this.getSectionKeyMapRaw(sectionName);
 
-    if (only == null) {
-      return mapValues(section, (value) => ({
+    if (transform == null) {
+      return mapValues<
+        KeyMap<SectionTypes[K]>,
+        {
+          type: T;
+          value: SectionTypes[K];
+        }
+      >(section, (value) => ({
         type: tokenType,
-        value: value as V,
+        value: value,
       }));
     }
 
-    return mapValues(
-      pickBy(section, (v): v is V => only.includes(v as V)),
-      (value) => ({
+    return pickBy<
+      {
+        type: T;
+        value: V | undefined;
+      },
+      {
+        type: T;
+        value: V;
+      }
+    >(
+      mapValues(section, (value) => ({
         type: tokenType,
-        value,
-      }),
+        value: transform(value),
+      })),
+      (value): value is { type: T; value: V } => value.value != null,
     );
   }
+}
+
+/**
+ * Creates a transform function that leaves only the values that are included in
+ * {@link values}.
+ *
+ * @param values Values to include
+ * @returns A filter function suitable for use with getTokenKeyMap
+ */
+export function only<T, V extends T>(
+  ...values: V[]
+): (value: T) => V | undefined {
+  return (value: T) => (values.includes(value as V) ? (value as V) : undefined);
 }

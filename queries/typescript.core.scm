@@ -60,13 +60,25 @@
 
 (
   ;;!! (public | private | protected) foo = ...;
-  ;;!  -------------------------------^^^-------
+  ;;!  -----------------------------------------
   (public_field_definition
-    name: (_) @name
+    name: (_) @name @value.leading.endOf
+    !type
+    value: (_)? @value
+  ) @_.domain.start
+  .
+  ";"? @_.domain.end
+)
+
+(
+  ;;!! (public | private | protected) foo: Bar = ...;
+  ;;!  ----------------------------------------------
+  (public_field_definition
+    name: (_) @name @type.leading.endOf
     type: (_
       ":"
       (_) @type
-    )?
+    ) @value.leading.endOf
     value: (_)? @value
   ) @_.domain.start
   .
@@ -152,8 +164,8 @@
         (_) @type
       ) @type.removal
     ) @_.domain
-  ) @dummy
-  (#has-multiple-children-of-type? @dummy variable_declarator)
+  ) @_dummy
+  (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
 ;;!! function ccc(aaa: string, bbb?: string) {}
@@ -194,8 +206,8 @@
 ;;!                  ^^^^^^  ^^^^^^
 (type_arguments
   (_) @type
-  (#not-parent-type? @dummy type_assertion)
-) @dummy
+  (#not-parent-type? @_dummy type_assertion)
+) @_dummy
 
 ;;!! function foo<A>() {}
 ;;!               ^
@@ -221,8 +233,8 @@
   [
     (type_alias_declaration)
     (interface_declaration)
-  ] @type
-) @_.domain
+  ]
+) @type
 
 ;;!! aaa as Bbb
 ;;!         ^^^

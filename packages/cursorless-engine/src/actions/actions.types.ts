@@ -52,6 +52,11 @@ export interface ActionReturnValue {
    * to determine either the range for "every", or the start point for "next"
    */
   instanceReferenceTargets?: Target[];
+
+  /**
+   * A list of targets that become the active keybaord targets
+   */
+  keyboardTargets?: Target[];
 }
 
 export interface SimpleAction {
@@ -62,6 +67,13 @@ export interface SimpleAction {
    * @param args Extra args to command
    */
   getFinalStages?(): ModifierStage[];
+
+  /**
+   * If `true`, don't perform automatic token expansion for "<action> this" with
+   * empty cursor. Used for actions like `setImplicitTarget` that are just
+   * loading up the pipeline.
+   */
+  noAutomaticTokenExpansion?: boolean;
 }
 
 /**

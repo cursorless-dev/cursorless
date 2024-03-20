@@ -1,7 +1,7 @@
 import type {
-  CommandServerApi,
   ExcludableSnapshotField,
   ExtraSnapshotField,
+  FakeCommandServerApi,
   HatTokenMap,
   IDE,
   NormalizedIDE,
@@ -22,7 +22,7 @@ export interface TestHelpers {
 
   hatTokenMap: HatTokenMap;
 
-  commandServerApi: CommandServerApi;
+  commandServerApi: FakeCommandServerApi;
 
   toVscodeEditor(editor: TextEditor): vscode.TextEditor;
 
@@ -46,6 +46,7 @@ export interface TestHelpers {
   runIntegrationTests(): Promise<void>;
 
   cursorlessTalonStateJsonPath: string;
+  cursorlessCommandHistoryDirPath: string;
 
   /**
    * A thin wrapper around the VSCode API that allows us to mock it for testing.

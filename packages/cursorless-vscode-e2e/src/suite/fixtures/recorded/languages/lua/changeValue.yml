@@ -1,0 +1,23 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change value
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: value}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: local a = 42
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks: {}
+finalState:
+  documentContents: "local a = "
+  selections:
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}

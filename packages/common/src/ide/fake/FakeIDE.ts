@@ -31,6 +31,7 @@ export default class FakeIDE implements IDE {
   capabilities: FakeCapabilities = new FakeCapabilities();
 
   runMode: RunMode = "test";
+  cursorlessVersion: string = "0.0.0";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;

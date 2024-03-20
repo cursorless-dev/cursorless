@@ -1,0 +1,25 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change string
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: string}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    local string = "Lua is awesome!"
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: |
+    local string = 
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}

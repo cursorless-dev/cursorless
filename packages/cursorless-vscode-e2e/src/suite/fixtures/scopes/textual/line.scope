@@ -4,7 +4,7 @@ aaa
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:3
-0| aaa
   >---<
+0| aaa
 
 [Insertion delimiter] = "\n"

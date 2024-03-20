@@ -1,40 +1,87 @@
 @preprocessor typescript
 @{%
-import { capture, command, UNUSED as _ } from "../grammarHelpers"
+import { capture, command, UNUSED as _, argPositions } from "../grammarHelpers"
 import { keyboardLexer } from "../keyboardLexer";
+
+const { $0, $1, $2 } = argPositions;
 %}
 @lexer keyboardLexer
 
 # ===================== Top-level commands ===================
+
+# --------------------------- Marks --------------------------
 # "air"
-main -> decoratedMark {% command("targetDecoratedMarkReplace", ["decoratedMark"]) %}
+main -> decoratedMark {%
+  command("targetDecoratedMark", { decoratedMark: $0, mode: "replace" })
+%}
 
 # "past air"
 main -> %makeRange decoratedMark {%
-  command("targetDecoratedMarkExtend", [_, "decoratedMark"])
+  command("targetDecoratedMark", { decoratedMark: $1, mode: "extend" })
 %}
 
-# "funk"
-main -> scopeType {% command("modifyTargetContainingScope", ["scopeType"]) %}
-
-# "[third] next [two] funks"
-# "[third] previous [two] funks"
-main -> offset:? %nextPrev number:? scopeType {%
-  command(
-    "targetRelativeExclusiveScope",
-    ["offset", _, "length", "scopeType"],
-  )
+# "and air"
+main -> %makeList decoratedMark {%
+  command("targetDecoratedMark", { decoratedMark: $1, mode: "append" })
 %}
+
+# --------------------------- Modifier --------------------------
+
+main -> modifier {% command("modifyTarget", { modifier: $0 }) %}
+
+# --------------------------- Actions --------------------------
 
 # "chuck"
-main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionName"]) %}
+main -> %simpleAction {% command("performSimpleActionOnTarget", ["actionDescriptor"]) %}
+
+# "round wrap"
+main -> %wrap %pairedDelimiter {%
+  command("performWrapActionOnTarget", ["actionDescriptor", "delimiter"])
+%}
 
 # Custom vscode command
 main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 
-# ========================== Captures =========================
-scopeType -> %simpleScopeTypeType {% capture("type") %}
+# ========================== Captures =============================
 
+# --------------------------- Modifiers ---------------------------
+
+# "funk"
+modifier -> scopeType {% capture({ type: "containingScope", scopeType: $0 }) %}
+
+# "every funk"
+modifier -> %every scopeType {% capture({ type: "everyScope", scopeType: $1 }) %}
+
+# "[third] next [two] funks"
+# "[third] previous [two] funks"
+modifier -> offset:? %nextPrev number:? scopeType {%
+  ([offset, _, length, scopeType]) => ({
+    type: "relativeScope",
+    offset: offset?.number ?? 1,
+    direction: offset?.direction ?? "forward",
+    length: length ?? 1,
+    scopeType,
+  })
+%}
+
+# "three funks [backward]"
+modifier -> offset scopeType {%
+  ([offset, scopeType]) => ({
+    type: "relativeScope",
+    offset: 0,
+    direction: offset?.direction ?? "forward",
+    length: offset?.number ?? 1,
+    scopeType,
+  })
+%}
+
+# --------------------------- Scope types ---------------------------
+scopeType -> %simpleScopeTypeType {% capture("type") %}
+scopeType -> %pairedDelimiter {%
+  ([delimiter]) => ({ type: "surroundingPair", delimiter })
+%}
+
+# --------------------------- Other ---------------------------
 decoratedMark ->
     %color {% capture("color") %}
   | %shape {% capture("shape") %}

@@ -28,6 +28,8 @@ export const actions = {
   deselect: "give",
   highlight: "highlight",
   showHover: "hover",
+  increment: "increment",
+  decrement: "decrement",
   indentLine: "indent",
   showDebugHover: "inspect",
   setSelectionAfter: "post",
@@ -65,6 +67,7 @@ export const actions = {
   getText: null,
   replace: null,
   ["private.getTargets"]: null,
+  ["private.setKeyboardTarget"]: null,
 
   // These actions are implemented talon-side, usually using `getText` followed
   // by some other action.

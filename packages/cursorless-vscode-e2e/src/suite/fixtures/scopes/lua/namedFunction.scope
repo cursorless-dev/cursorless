@@ -1,0 +1,32 @@
+function makeCounter()
+    local count = 0
+    return function()
+        count = count + 1
+        return count
+    end
+end
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-6:3
+  >----------------------
+0| function makeCounter()
+1|     local count = 0
+2|     return function()
+3|         count = count + 1
+4|         return count
+5|     end
+6| end
+   ---<
+
+[Interior] = 1:4-5:7
+      >---------------
+1|     local count = 0
+2|     return function()
+3|         count = count + 1
+4|         return count
+5|     end
+   -------<
+
+[Insertion delimiter] = "\n\n"

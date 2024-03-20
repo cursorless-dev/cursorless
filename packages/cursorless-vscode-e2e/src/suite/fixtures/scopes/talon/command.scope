@@ -5,9 +5,13 @@ press {user.key}:
 [Content] =
 [Removal] =
 [Domain] = 0:0-1:12
-0| press {user.key}:
   >-----------------
+0| press {user.key}:
 1|     key(key)
    ------------<
+
+[Interior] = 1:4-1:12
+      >--------<
+1|     key(key)
 
 [Insertion delimiter] = "\n"

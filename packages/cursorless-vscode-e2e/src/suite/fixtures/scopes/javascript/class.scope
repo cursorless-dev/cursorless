@@ -6,10 +6,9 @@ class MyClass {
 [Content] =
 [Removal] =
 [Domain] = 0:0-2:1
-0| class MyClass {
   >---------------
+0| class MyClass {
 1|
-
 2| }
    -<
 

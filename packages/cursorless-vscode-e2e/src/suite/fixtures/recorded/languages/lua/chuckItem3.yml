@@ -1,0 +1,23 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: chuck item
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hobbies = {"reading"}
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: hobbies = {}
+  selections:
+    - anchor: {line: 0, character: 11}
+      active: {line: 0, character: 11}

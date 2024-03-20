@@ -4,7 +4,7 @@
 [Content] =
 [Removal] =
 [Domain] = 0:0-0:8
-0| /^\w+$/g
   >--------<
+0| /^\w+$/g
 
 [Insertion delimiter] = " "

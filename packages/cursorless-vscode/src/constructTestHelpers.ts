@@ -1,35 +1,36 @@
 import {
-  CommandServerApi,
   ExcludableSnapshotField,
   ExtraSnapshotField,
+  FakeCommandServerApi,
   HatTokenMap,
   IDE,
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
+  StoredTargetKey,
   TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
 import {
-  StoredTargetKey,
   StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
 import { TestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { toVscodeEditor } from "./ide/vscode/toVscodeEditor";
 import { vscodeApi } from "./vscodeApi";
 
 export function constructTestHelpers(
-  commandServerApi: CommandServerApi | null,
+  commandServerApi: FakeCommandServerApi,
   storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
   vscodeIDE: VscodeIDE,
   normalizedIde: NormalizedIDE,
-  cursorlessTalonStateJsonPath: string,
+  fileSystem: VscodeFileSystem,
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
@@ -65,7 +66,8 @@ export function constructTestHelpers(
       );
     },
 
-    cursorlessTalonStateJsonPath,
+    cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
+    cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
     setStoredTarget(
       editor: vscode.TextEditor,

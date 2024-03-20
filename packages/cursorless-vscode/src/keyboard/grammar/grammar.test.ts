@@ -4,6 +4,7 @@ import assert from "assert";
 import { KeyDescriptor } from "../TokenTypeHelpers";
 import { KeyboardCommandHandler } from "../KeyboardCommandHandler";
 import { KeyboardCommand } from "../KeyboardCommandTypeHelpers";
+import { stringifyTokens } from "./stringifyTokens";
 
 interface TestCase {
   tokens: KeyDescriptor[];
@@ -18,8 +19,9 @@ const testCases: TestCase[] = [
         decoratedMark: {
           shape: "fox",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -29,8 +31,9 @@ const testCases: TestCase[] = [
         decoratedMark: {
           color: "green",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -45,8 +48,9 @@ const testCases: TestCase[] = [
           color: "green",
           shape: "fox",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -61,8 +65,9 @@ const testCases: TestCase[] = [
           color: "green",
           shape: "fox",
         },
+        mode: "replace",
       },
-      type: "targetDecoratedMarkReplace",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -75,8 +80,9 @@ const testCases: TestCase[] = [
         decoratedMark: {
           color: "green",
         },
+        mode: "extend",
       },
-      type: "targetDecoratedMarkExtend",
+      type: "targetDecoratedMark",
     },
   },
   {
@@ -88,16 +94,17 @@ const testCases: TestCase[] = [
     ],
     expected: {
       arg: {
-        length: null,
-        offset: {
-          number: 12,
-          direction: null,
-        },
-        scopeType: {
-          type: "namedFunction",
+        modifier: {
+          type: "relativeScope",
+          length: 1,
+          offset: 12,
+          direction: "forward",
+          scopeType: {
+            type: "namedFunction",
+          },
         },
       },
-      type: "targetRelativeExclusiveScope",
+      type: "modifyTarget",
     },
   },
   {
@@ -108,16 +115,17 @@ const testCases: TestCase[] = [
     ],
     expected: {
       arg: {
-        length: null,
-        offset: {
-          number: null,
+        modifier: {
+          type: "relativeScope",
+          length: 1,
+          offset: 1,
           direction: "backward",
-        },
-        scopeType: {
-          type: "namedFunction",
+          scopeType: {
+            type: "namedFunction",
+          },
         },
       },
-      type: "targetRelativeExclusiveScope",
+      type: "modifyTarget",
     },
   },
   {
@@ -151,15 +159,3 @@ suite("keyboard grammar", () => {
     });
   });
 });
-
-function stringifyTokens(tokens: any[]) {
-  return tokens
-    .map((token) => {
-      let ret = token.type;
-      if (token.value != null) {
-        ret += `:${JSON.stringify(token.value)}`;
-      }
-      return ret;
-    })
-    .join(" ");
-}

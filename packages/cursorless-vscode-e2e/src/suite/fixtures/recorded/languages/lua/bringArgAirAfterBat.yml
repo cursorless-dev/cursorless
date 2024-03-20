@@ -1,0 +1,50 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: bring arg air after bat
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: a}
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+    destination:
+      type: primitive
+      insertionMode: after
+      target:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function makeCounter(a, b)
+        local count = 0
+        return function()
+            count = count + 1
+            return count
+        end
+    end
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}
+  marks:
+    default.a:
+      start: {line: 0, character: 21}
+      end: {line: 0, character: 22}
+    default.b:
+      start: {line: 0, character: 24}
+      end: {line: 0, character: 25}
+finalState:
+  documentContents: |-
+    function makeCounter(a, b, a)
+        local count = 0
+        return function()
+            count = count + 1
+            return count
+        end
+    end
+  selections:
+    - anchor: {line: 0, character: 21}
+      active: {line: 0, character: 21}

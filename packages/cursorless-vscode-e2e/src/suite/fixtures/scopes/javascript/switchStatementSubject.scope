@@ -5,18 +5,13 @@ switch (value) {
 
 [Content] =
 [Removal] = 0:8-0:13
-0| switch (value) {
           >-----<
-1|
-
-2| }
-
+0| switch (value) {
 
 [Domain] = 0:0-2:1
-0| switch (value) {
   >----------------
+0| switch (value) {
 1|
-
 2| }
    -<
 

@@ -6,6 +6,10 @@ export interface ThatMark {
   type: "that";
 }
 
+export interface KeyboardMark {
+  type: "keyboard";
+}
+
 export interface SourceMark {
   type: "source";
 }
@@ -69,6 +73,7 @@ export type PartialMark =
   | CursorMark
   | ThatMark
   | SourceMark
+  | KeyboardMark
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark

@@ -1,0 +1,25 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change round
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |
+    local string = "Lua is (awesome)!"
+  selections:
+    - anchor: {line: 0, character: 30}
+      active: {line: 0, character: 30}
+  marks: {}
+finalState:
+  documentContents: |
+    local string = "Lua is !"
+  selections:
+    - anchor: {line: 0, character: 23}
+      active: {line: 0, character: 23}

@@ -1,8 +1,10 @@
 import {
   asyncSafety,
+  CommandResponse,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
   extractTargetedMarks,
+  Fallback,
   getRecordedTestPaths,
   HatStability,
   marksToPlainObject,
@@ -18,9 +20,11 @@ import {
   splitKey,
   SpyIDE,
   spyIDERecordedValuesToPlainObject,
+  storedTargetKeys,
   TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
+  clientSupportsFallback,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -29,11 +33,11 @@ import {
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
-import { isUndefined } from "lodash";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -73,7 +77,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { hatTokenMap, takeSnapshot, setStoredTarget } =
+  const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
@@ -89,21 +93,22 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   editor.selections = fixture.initialState.selections.map(createSelection);
 
-  setStoredTarget(editor, "that", fixture.initialState.thatMark);
-
-  setStoredTarget(editor, "source", fixture.initialState.sourceMark);
-
-  setStoredTarget(
-    editor,
-    "instanceReference",
-    fixture.initialState.instanceReferenceMark,
-  );
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
+  }
 
   if (fixture.initialState.clipboard) {
     vscode.env.clipboard.writeText(fixture.initialState.clipboard);
     // FIXME https://github.com/cursorless-dev/cursorless/issues/559
     // spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
+
+  commandServerApi.setFocusedElementType(
+    fixture.focusedElementType === "other"
+      ? undefined
+      : fixture.focusedElementType ?? "textEditor",
+  );
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
@@ -116,12 +121,22 @@ async function runTest(file: string, spyIde: SpyIDE) {
   checkMarks(fixture.initialState.marks, readableHatMap);
 
   let returnValue: unknown;
+  let fallback: Fallback | undefined;
 
   try {
     returnValue = await runCursorlessCommand({
       ...fixture.command,
       usePrePhraseSnapshot,
     });
+    if (clientSupportsFallback(fixture.command)) {
+      const commandResponse = returnValue as CommandResponse;
+      returnValue =
+        "returnValue" in commandResponse
+          ? commandResponse.returnValue
+          : undefined;
+      fallback =
+        "fallback" in commandResponse ? commandResponse.fallback : undefined;
+    }
   } catch (err) {
     const error = err as Error;
 
@@ -162,16 +177,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
     excludeFields.push("clipboard");
   }
 
-  if (fixture.finalState?.thatMark == null) {
-    excludeFields.push("thatMark");
-  }
-
-  if (fixture.finalState?.sourceMark == null) {
-    excludeFields.push("sourceMark");
-  }
-
-  if (fixture.finalState?.instanceReferenceMark == null) {
-    excludeFields.push("instanceReferenceMark");
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    if (fixture.finalState?.[key] == null) {
+      excludeFields.push(key);
+    }
   }
 
   // FIXME Visible ranges are not asserted, see:
@@ -197,6 +207,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ...fixture,
       finalState: resultState,
       returnValue,
+      fallback,
       ide: actualSpyIdeValues,
       thrownError: undefined,
     };
@@ -219,6 +230,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
       returnValue,
       fixture.returnValue,
       "Unexpected return value",
+    );
+
+    assert.deepStrictEqual(
+      fallback,
+      fixture.fallback,
+      "Unexpected fallback value",
     );
 
     assert.deepStrictEqual(

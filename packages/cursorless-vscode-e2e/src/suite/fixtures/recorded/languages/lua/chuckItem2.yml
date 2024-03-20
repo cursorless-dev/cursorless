@@ -1,0 +1,37 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: chuck item
+  action:
+    name: remove
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: collectionItem}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    local person = {
+        name = "John",
+        age = 30,
+        hobbies = {"reading", "gaming", "programming"},
+        address = {
+            street = "123 Main St",
+            city = "Example City"
+        }
+    }
+  selections:
+    - anchor: {line: 4, character: 6}
+      active: {line: 4, character: 6}
+  marks: {}
+finalState:
+  documentContents: |-
+    local person = {
+        name = "John",
+        age = 30,
+        hobbies = {"reading", "gaming", "programming"}
+    }
+  selections:
+    - anchor: {line: 3, character: 50}
+      active: {line: 3, character: 50}

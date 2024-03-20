@@ -1,8 +1,9 @@
-import { SimpleScopeTypeType } from "@cursorless/common";
+import { SimpleScopeTypeType, SurroundingPairName } from "@cursorless/common";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import {
-  KeyboardActionType,
-  SimpleKeyboardActionType,
+  PolymorphicKeyboardActionDescriptor,
+  SimpleKeyboardActionDescriptor,
+  SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
 
 /**
@@ -10,16 +11,17 @@ import {
  * that section.
  */
 export interface SectionTypes {
-  action: KeyboardActionType;
+  action: PolymorphicKeyboardActionDescriptor;
   color: HatColor;
   misc: MiscValue;
   scope: SimpleScopeTypeType;
+  pairedDelimiter: SurroundingPairName;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
   modifier: ModifierType;
 }
-type ModifierType = "nextPrev";
-type MiscValue =
+type ModifierType = "nextPrev" | "every";
+export type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
   | "makeList"
@@ -48,17 +50,21 @@ export interface TokenTypeValueMap {
   color: HatColor;
   shape: HatShape;
   vscodeCommand: ModalVscodeCommandDescriptor;
+  pairedDelimiter: SurroundingPairName;
 
   // action config section
-  simpleAction: SimpleKeyboardActionType;
+  simpleAction: SimpleKeyboardActionDescriptor;
+  wrap: SpecificKeyboardActionDescriptor<"wrap">;
 
   // misc config section
   makeRange: "makeRange";
+  makeList: "makeList";
   combineColorAndShape: "combineColorAndShape";
   direction: "forward" | "backward";
 
   // modifier config section
   nextPrev: "nextPrev";
+  every: "every";
 
   digit: number;
 }

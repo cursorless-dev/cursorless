@@ -2,7 +2,6 @@ import {
   KeyboardCommand,
   KeyboardCommandArgTypes,
 } from "../KeyboardCommandTypeHelpers";
-import { Unused } from "./grammarHelpers";
 
 /**
  * Represents a post-processing function for a top-level rule of our grammar.
@@ -19,7 +18,5 @@ export interface CommandRulePostProcessor<
   metadata: {
     /** The command type */
     type: T;
-    /** The names of the arguments to the command's argument payload */
-    argNames: (keyof KeyboardCommandArgTypes[T] | Unused)[];
   };
 }

@@ -123,6 +123,10 @@ export default class PassthroughIDEBase implements IDE {
     return this.original.visibleTextEditors;
   }
 
+  public get cursorlessVersion(): string {
+    return this.original.cursorlessVersion;
+  }
+
   public get assetsRoot(): string {
     return this.original.assetsRoot;
   }

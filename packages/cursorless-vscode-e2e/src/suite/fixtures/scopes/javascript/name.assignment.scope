@@ -1,24 +1,20 @@
-const name = "Hello world";
+aaa = bbb;
 ---
 
-[Content] = 0:6-0:10
-0| const name = "Hello world";
-        >----<
+[Content] = 0:0-0:3
+  >---<
+0| aaa = bbb;
 
-[Removal] = 0:0-0:13
-0| const name = "Hello world";
-  >-------------<
+[Removal] = 0:0-0:6
+  >------<
+0| aaa = bbb;
 
-[Leading delimiter] = 0:5-0:6
-0| const name = "Hello world";
-       >-<
+[Trailing delimiter] = 0:3-0:6
+     >---<
+0| aaa = bbb;
 
-[Trailing delimiter] = 0:10-0:11
-0| const name = "Hello world";
-            >-<
-
-[Domain] = 0:0-0:27
-0| const name = "Hello world";
-  >---------------------------<
+[Domain] = 0:0-0:10
+  >----------<
+0| aaa = bbb;
 
 [Insertion delimiter] = " "
