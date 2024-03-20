@@ -20,7 +20,7 @@ export function getLanguageScopeSupport(
     case "javascript":
       return javascriptScopeSupport;
     case "json":
-      return jsonScopeSupport
+      return jsonScopeSupport;
     case "lua":
       return luaScopeSupport;
     case "python":
@@ -31,7 +31,6 @@ export function getLanguageScopeSupport(
       return talonScopeSupport;
     case "typescript":
       return typescriptScopeSupport;
-
   }
   throw Error(`Unsupported language: '${languageId}'`);
 }
