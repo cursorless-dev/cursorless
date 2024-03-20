@@ -36,6 +36,9 @@ export interface QueryCapture {
    * content ranges. */
   readonly allowMultiple: boolean;
 
+  /** Whether this scope should expand contiguously to its siblings. */
+  readonly contiguous: boolean;
+
   /** The insertion delimiter to use if any */
   readonly insertionDelimiter: string | undefined;
 }
@@ -63,6 +66,7 @@ export interface MutableQueryCapture extends QueryCapture {
   readonly document: TextDocument;
   range: Range;
   allowMultiple: boolean;
+  contiguous: boolean;
   insertionDelimiter: string | undefined;
 }
 

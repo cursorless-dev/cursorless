@@ -42,7 +42,7 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
       return undefined;
     }
 
-    const { range: contentRange, allowMultiple } = capture;
+    const { range: contentRange, allowMultiple, contiguous } = capture;
 
     const domain =
       getRelatedRange(match, scopeTypeType, "iteration.domain", false) ??
@@ -52,6 +52,7 @@ export class TreeSitterIterationScopeHandler extends BaseTreeSitterScopeHandler 
       editor,
       domain,
       allowMultiple,
+      contiguous,
       getTargets: (isReversed) => [
         new PlainTarget({
           editor,

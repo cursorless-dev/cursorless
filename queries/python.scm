@@ -259,7 +259,10 @@
   right: (_) @value
 ) @_.domain
 
-(comment) @comment @textFragment
+(
+  (comment) @comment @textFragment
+  (#contiguous! @comment)
+)
 
 (string
   _ @textFragment.start.endOf

@@ -32,6 +32,9 @@ export interface TargetScope {
    */
   readonly domain: Range;
 
+  /** Whether this scope could expand contiguously to its siblings. */
+  readonly contiguous?: boolean;
+
   /**
    * The targets corresponding to this scope.  Note that there will almost
    * always be exactly one target, but there are some exceptions, eg "tags" in
