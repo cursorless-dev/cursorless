@@ -1,6 +1,6 @@
 import {
+  FakeCommandServerApi,
   FakeIDE,
-  getFakeCommandServerApi,
   isTesting,
   NormalizedIDE,
   Range,
@@ -53,11 +53,11 @@ export async function activate(context: NeovimExtensionContext) {
           neovimIDE.runMode === "test",
         );
 
-  // const commandServerApi =
-  // vscodeIDE.runMode === "test"
-  //   ? getFakeCommandServerApi()
+  const fakeCommandServerApi = new FakeCommandServerApi();
+  // const commandServerApi = isTesting()
+  //   ? fakeCommandServerApi
   //   : await getCommandServerApi();
-  const commandServerApi = getFakeCommandServerApi();
+  const commandServerApi = fakeCommandServerApi;
 
   const treeSitter: TreeSitter = createTreeSitter(/* parseTreeApi */);
 
