@@ -24,11 +24,14 @@ export async function updateTextEditor() {
   const window = await client.window;
   const buffer = await window.buffer;
   const lines = await buffer.lines;
-  // console.warn(`updateTextEditor(): lines=${lines}`);
+  console.warn(`updateTextEditor(): lines=${lines}`);
   console.warn(
     `creating editor/document for window:${window.id} buffer:${buffer.id}`,
   );
   const selections = await bufferGetSelections(window, client);
+  console.warn(
+    `updateTextEditor(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character})`,
+  );
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
   ide().toNeovimEditor(window, buffer.id, lines, visibleRanges, selections);
 }

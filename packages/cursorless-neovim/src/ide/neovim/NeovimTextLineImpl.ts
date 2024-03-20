@@ -6,9 +6,9 @@ export default class NeovimTextLineImpl implements TextLine {
   private readonly _isLastLine: boolean;
 
   constructor(lineNumber: number, text: string, isLastLine: boolean) {
-    // console.warn(
-    //   `NeovimTextLineImpl(): lineNumber=${lineNumber}, text='${text}', isLastLine=${isLastLine}, eol='${eol}'`,
-    // );
+    console.warn(
+      `NeovimTextLineImpl(): lineNumber=${lineNumber}, text='${text}', isLastLine=${isLastLine}`,
+    );
     this._lineNumber = lineNumber;
     this._text = text;
     this._isLastLine = isLastLine;

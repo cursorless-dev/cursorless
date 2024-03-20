@@ -106,8 +106,7 @@ export async function windowGetVisibleRanges(
 }
 
 export async function putToClipboard(data: string, client: NeovimClient) {
-  const luaCode = `return require("talon.cursorless").put_to_clipboard("${data}")`;
-  await client.executeLua(luaCode, []);
+  await client.callFunction("setreg", ["*", data]);
 }
 
 // TODO: this hasn't been tested yet

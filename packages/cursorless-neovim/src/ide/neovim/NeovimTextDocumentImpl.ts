@@ -32,19 +32,17 @@ export class NeovimTextDocumentImpl implements TextDocument {
   }
 
   get lineCount(): number {
+    console.warn(`lineCount(): ${this._lineCount}`);
     return this._lineCount;
   }
 
   get range(): Range {
-    // TODO: use vscode implementation or josh's?
-    // const { end } = this.lineAt(this.lineCount - 1).range;
-    // return new Range(0, 0, end.line, end.character);
-    return new Range(
-      0,
-      0,
-      this._lines.length,
-      this._lines[this._lines.length - 1].length,
+    const { end } = this.lineAt(this.lineCount - 1).range;
+    const range = new Range(0, 0, end.line, end.character);
+    console.warn(
+      `range(): (${range.start.line},${range.start.character}),(${range.end.line},${range.end.character})`,
     );
+    return range;
   }
 
   get eol(): EndOfLine {
@@ -126,31 +124,31 @@ export class NeovimTextDocumentImpl implements TextDocument {
 
   public getText(range?: Range): string {
     if (range === undefined) {
-      // console.warn(`getText() range=undefined`);
+      console.warn(`getText() range=undefined`);
       if (this._cachedTextValue == null) {
         this._cachedTextValue = this._lines.join(this._eol);
       }
-      // console.warn(`getText() returning cached value=${this._cachedTextValue}`);
+      console.warn(`getText() returning cached value=${this._cachedTextValue}`);
       return this._cachedTextValue;
     } else {
-      // console.warn(
-      //   `getText() range=(${range?.start.line},${range?.start.character}),(${range?.end.line},${range?.end.character})`,
-      // );
+      console.warn(
+        `getText() range=(${range?.start.line},${range?.start.character}),(${range?.end.line},${range?.end.character})`,
+      );
     }
 
     range = this._validateRange(range);
 
     if (range.isEmpty) {
-      // console.warn(`getText() returning empty`);
+      console.warn(`getText() returning empty`);
       return "";
     }
 
     if (range.isSingleLine) {
-      // console.warn(
-      //   `getText() returning single line ${this._lines[
-      //     range.start.line
-      //   ].substring(range.start.character, range.end.character)}`,
-      // );
+      console.warn(
+        `getText() returning single line ${this._lines[
+          range.start.line
+        ].substring(range.start.character, range.end.character)}`,
+      );
       return this._lines[range.start.line].substring(
         range.start.character,
         range.end.character,
@@ -172,9 +170,9 @@ export class NeovimTextDocumentImpl implements TextDocument {
       this._lines[endLineIndex].substring(0, range.end.character),
     );
 
-    // console.warn(
-    //   `getText() returning multiple lines ${resultLines.join(lineEnding)}`,
-    // );
+    console.warn(
+      `getText() returning multiple lines ${resultLines.join(lineEnding)}`,
+    );
     return resultLines.join(lineEnding);
   }
 
