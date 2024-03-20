@@ -9,6 +9,8 @@ declare var simpleAction: any;
 declare var wrap: any;
 declare var pairedDelimiter: any;
 declare var vscodeCommand: any;
+declare var head: any;
+declare var tail: any;
 declare var every: any;
 declare var nextPrev: any;
 declare var simpleScopeTypeType: any;
@@ -69,6 +71,8 @@ const grammar: Grammar = {
         },
     {"name": "main", "symbols": [(keyboardLexer.has("vscodeCommand") ? {type: "vscodeCommand"} : vscodeCommand)], "postprocess": command("vscodeCommand", ["command"])},
     {"name": "modifier", "symbols": ["scopeType"], "postprocess": capture({ type: "containingScope", scopeType: $0 })},
+    {"name": "modifier", "symbols": [(keyboardLexer.has("head") ? {type: "head"} : head)], "postprocess": capture({ type: "extendThroughStartOf" })},
+    {"name": "modifier", "symbols": [(keyboardLexer.has("tail") ? {type: "tail"} : tail)], "postprocess": capture({ type: "extendThroughEndOf" })},
     {"name": "modifier", "symbols": [(keyboardLexer.has("every") ? {type: "every"} : every), "scopeType"], "postprocess": capture({ type: "everyScope", scopeType: $1 })},
     {"name": "modifier$ebnf$1", "symbols": ["offset"], "postprocess": id},
     {"name": "modifier$ebnf$1", "symbols": [], "postprocess": () => null},
