@@ -1,20 +1,21 @@
+# questions
+
+- merge talon-vscode-command-client and cursorless-talon?
+
 # features
 
-- bring command
+- "paste to row one" from the clipboard
+- prePhrase support in command server? https://www.cursorless.org/docs/contributing/architecture/hat-snapshots/
+- only one command to build, run neovim, and attach to it? (see my build program, run program, debug program)
+  - find a way to load neovim from script so we know when it is loaded so we can then attach to it for debugging?
+- avoid importing cursorless from command server?
+- test if we can reload the extensions after a modification without reloading neovim
 
-* "paste to row one" command require the text editor edit() function to be implemented
-* prePhrase support in command server? https://www.cursorless.org/docs/contributing/architecture/hat-snapshots/
-* only one command to build, run neovim, and attach to it? (see my build program, run program, debug program)
-* separate PR for text editor setSelections(). Fix getter vs property
-* have the command server allow executing any lua function? probably not because we already have neovim rpc.
-* avoid importing cursorless from command server
+# to do later
 
-# bugs
-
-- we lose the initial selection if we were in visual mode before issuing a `copy` command. it does go back to the right line though.
-- `take file` doesn't work, and just moves the cursor at the beginning of the file
-
-# discussion
+- separate PR for text editor setSelections()
+- separate PR for the text editor edit()
+- have the command server allow executing any lua function? probably not because we already have neovim rpc.
 
 # fidgeting
 
@@ -22,3 +23,5 @@
 - fix neovim terminology
   - extension => plugin
   - editor => window (any place remaining?)
+    have readme with the corresponding terms between vscode and neovim
+- git repo to mention issues, for instance the can't reenter normal mode from terminal mode?
