@@ -23,6 +23,7 @@ import { BufferManager } from "./types/BufferManager";
 import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { injectIde as injectIde2 } from "./singletons/ide.singleton";
+import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -54,10 +55,10 @@ export async function activate(context: NeovimExtensionContext) {
         );
 
   const fakeCommandServerApi = new FakeCommandServerApi();
-  // const commandServerApi = isTesting()
-  //   ? fakeCommandServerApi
-  //   : await getCommandServerApi();
-  const commandServerApi = fakeCommandServerApi;
+  const neovimCommandServerApi = new NeovimCommandServerApi(client);
+  const commandServerApi = isTesting()
+    ? fakeCommandServerApi
+    : neovimCommandServerApi;
 
   const treeSitter: TreeSitter = createTreeSitter(/* parseTreeApi */);
 
