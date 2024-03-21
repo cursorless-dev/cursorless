@@ -103,14 +103,40 @@ async function neovimDelete(range: Range): Promise<void> {
   });
 }
 
-function neovimInsert(position: Position, text: string) {
+async function neovimInsert(position: Position, text: string) {
   // Uniform newlines so we can easily split
-  const newlines = text.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
-  throw Error("neovimEdit(): Insert not implemented");
+  const newLines = text.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
+
+  const client = neovimContext().client;
+  const buffer = await client.window.buffer;
+
+  // are we inserting at the beginning of a line?
+  if (position.character === 0) {
+    await buffer.insert(newLines, position.line);
+    return;
+  }
+
+  // we are inserting from the middle of a line
+  const firstLine = (
+    await buffer.getLines({
+      start: position.line,
+      end: position.line + 1,
+      strictIndexing: true,
+    })
+  )[0];
+  const newFirstLine =
+    firstLine.slice(0, position.character) +
+    newLines[0] +
+    firstLine.slice(position.character);
+
+  await buffer.setLines([newFirstLine, ...newLines.slice(1)], {
+    start: position.line,
+    end: position.line + 1,
+    strictIndexing: true,
+  });
 }
 
-function neovimReplace(range: Range, text: string) {
-  // Uniform newlines so we can easily split
-  const newlines = text.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
-  throw Error("neovimEdit(): Replace not implemented");
+async function neovimReplace(range: Range, text: string) {
+  await neovimDelete(range);
+  await neovimInsert(range.start, text);
 }
