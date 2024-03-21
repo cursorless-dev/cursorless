@@ -11,15 +11,6 @@ import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 
 const BUFFER_SCHEME = "neovim";
 
-// TODO: wip comment taken from vscode-neovim so needs review
-// Integration notes:
-// 1. Each Cursorless "TextDocument" corresponds to a neovim "Buffer"
-// 2. Each Cursorless "TextEditor" corresponds to a neovim "Window"
-// 3. Generally, a "TextEditor" corresponds to a "TextDocument",
-//    so the "Buffer" and "Window" in neovim have a one-to-one relationship
-// 4. When visibleTextEditors change => create a "Buffer" and "Window" in neovim
-// 5. When activeTextEditor changes => set the current "Window" in neovim
-
 /**
  * Manages neovim windows & buffers and maps them to Cursorless editors & documents
  */
