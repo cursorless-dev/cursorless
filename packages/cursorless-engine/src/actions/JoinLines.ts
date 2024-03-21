@@ -1,13 +1,12 @@
-import { FlashStyle, Range, TextEditor } from "@cursorless/common";
+import { Edit, FlashStyle, Range, TextEditor } from "@cursorless/common";
+import { range as iterRange, map, pairwise } from "itertools";
 import { flatten, zip } from "lodash";
 import type { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Edit } from "../typings/Types";
 import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import type { ActionReturnValue } from "./actions.types";
-import { range as iterRange, map, pairwise } from "itertools";
 
 export default class JoinLines {
   constructor(private rangeUpdater: RangeUpdater) {

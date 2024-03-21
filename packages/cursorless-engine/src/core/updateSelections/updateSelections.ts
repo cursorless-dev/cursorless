@@ -1,12 +1,12 @@
 import {
-  RangeExpansionBehavior,
+  Edit,
   EditableTextEditor,
   Range,
+  RangeExpansionBehavior,
   Selection,
   TextDocument,
 } from "@cursorless/common";
 import { flatten } from "lodash";
-import { Edit } from "../../typings/Types";
 import {
   FullSelectionInfo,
   SelectionInfo,
