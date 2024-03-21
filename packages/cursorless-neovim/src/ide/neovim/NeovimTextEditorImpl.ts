@@ -1,5 +1,6 @@
 import {
   BreakpointDescriptor,
+  Edit,
   EditableTextEditor,
   Position,
   Range,
@@ -7,16 +8,16 @@ import {
   Selection,
   TextDocument,
   TextEditor,
-  TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
-import { NeovimIDE } from "./NeovimIDE";
 import { Window } from "neovim";
-import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 import { URI } from "vscode-uri";
 import { bufferSetSelections } from "../../neovimApi";
-import { neovimContext } from "../../singletons/context.singleton";
 import { neovimClipboardCopy } from "../../neovimHelpers";
+import { neovimContext } from "../../singletons/context.singleton";
+import neovimEdit from "./NeovimEdit";
+import { NeovimIDE } from "./NeovimIDE";
+import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 
 export class NeovimTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
@@ -94,11 +95,9 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     throw Error("revealLine Not implemented");
   }
 
-  public edit(
-    callback: (editBuilder: TextEditorEdit) => void,
-    options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Promise<boolean> {
-    throw Error("edit Not implemented");
+  public async edit(edits: Edit[]): Promise<boolean> {
+    //throw Error("edit Not implemented");
+    return await neovimEdit(this.editor, edits);
   }
 
   public focus(): Promise<void> {
