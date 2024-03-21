@@ -146,7 +146,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public async insertLineAfter(ranges?: Range[]): Promise<void> {
     if (ranges != null) {
-      this.setSelections(ranges.map((range) => range.toSelection(false)));
+      await this.setSelections(ranges.map((range) => range.toSelection(false)));
     }
     await this.focus();
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
