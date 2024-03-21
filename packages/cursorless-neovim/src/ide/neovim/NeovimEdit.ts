@@ -7,8 +7,6 @@ export default async function neovimEdit(
   editor: Window,
   edits: Edit[],
 ): Promise<boolean> {
-  // TODO: bring row three after four (test it)
-
   // We start applying the edits from the end of the document
   // to make sure the edit ranges for the remaining one are stable
   edits.reverse();
@@ -49,7 +47,7 @@ async function neovimDelete(range: Range): Promise<void> {
   )[0];
   const endOfLastLine = lastLine.slice(range.end.character);
 
-  // are we only modifying one line?
+  // are we only modifying one existing line?
   if (range.start.line === range.end.line) {
     // only keep the beginning and end of the line
     const singleLine = lastLine.slice(0, range.start.character) + endOfLastLine;
@@ -104,36 +102,46 @@ async function neovimDelete(range: Range): Promise<void> {
 }
 
 async function neovimInsert(position: Position, text: string) {
-  // Uniform newlines so we can easily split
+  // standardise newlines so we can easily split the lines
   const newLines = text.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
   const client = neovimContext().client;
   const buffer = await client.window.buffer;
 
-  // are we inserting at the beginning of a line?
-  if (position.character === 0) {
-    await buffer.insert(newLines, position.line);
-    return;
-  }
-
-  // we are inserting from the middle of a line
-  const firstLine = (
+  const lineWhereInsertion = (
     await buffer.getLines({
       start: position.line,
       end: position.line + 1,
       strictIndexing: true,
     })
   )[0];
-  const newFirstLine =
-    firstLine.slice(0, position.character) +
-    newLines[0] +
-    firstLine.slice(position.character);
+  const startOfFirstLine = lineWhereInsertion.slice(0, position.character);
+  const endOfLastLine = lineWhereInsertion.slice(position.character);
 
-  await buffer.setLines([newFirstLine, ...newLines.slice(1)], {
-    start: position.line,
-    end: position.line + 1,
-    strictIndexing: true,
-  });
+  // are we only inserting into one existing line?
+  if (newLines.length == 1) {
+    const singleLine = startOfFirstLine + newLines[0] + endOfLastLine;
+    // update that single line
+    await buffer.setLines(singleLine, {
+      start: position.line,
+      end: position.line + 1,
+      strictIndexing: true,
+    });
+    return;
+  }
+
+  // we are inserting multiple lines
+
+  const firstLine = startOfFirstLine + newLines[0];
+  const lastLine = newLines[newLines.length - 1] + endOfLastLine;
+  await buffer.setLines(
+    [firstLine, ...newLines.slice(1, newLines.length - 1), lastLine],
+    {
+      start: position.line,
+      end: position.line + 1,
+      strictIndexing: true,
+    },
+  );
 }
 
 async function neovimReplace(range: Range, text: string) {
