@@ -10,6 +10,7 @@ import type {
   ContainmentPolicy,
   ScopeHandler,
 } from "./scopeHandlers/scopeHandler.types";
+import { islice } from "itertools";
 import { OutOfRangeError } from "./listUtils";
 
 /**
@@ -64,41 +65,21 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       ? "disallowed"
       : "disallowedIfStrict";
 
-    const scopes: TargetScope[] = [];
-    let scopeCount = 0;
-    for (const scope of scopeHandler.generateScopes(
-      editor,
-      initialPosition,
-      direction,
-      { containment, skipAncestorScopes: true },
-    )) {
-      scopeCount += 1;
+    const scopes = Array.from(
+      islice(
+        scopeHandler.generateScopes(editor, initialPosition, direction, {
+          containment,
+          skipAncestorScopes: true,
+        }),
+        offset - 1,
+        offset + desiredScopeCount - 1,
+      ),
+    );
 
-      if (scopeCount < offset) {
-        // Skip until we hit `offset`
-        continue;
-      }
-
-      if (scopeCount === offset) {
-        // When we hit offset, that becomes proximal scope
-        if (desiredScopeCount === 1) {
-          // Just return it if we only want 1 scope
-          return [scope];
-        }
-
-        scopes.push(scope);
-
-        continue;
-      }
-
-      if (scopeCount === offset + desiredScopeCount - 1) {
-        scopes.push(scope);
-
-        // Then make a range when we get the desired number of scopes
-        return scopes;
-      }
+    if (scopes.length < desiredScopeCount) {
+      throw new OutOfRangeError();
     }
 
-    throw new OutOfRangeError();
+    return scopes;
   }
 }
