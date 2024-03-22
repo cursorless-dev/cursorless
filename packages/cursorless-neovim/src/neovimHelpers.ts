@@ -9,6 +9,7 @@ import { neovimContext } from "./singletons/context.singleton";
 import { ide } from "./singletons/ide.singleton";
 import { receivedBufferEvent } from "./types/BufferManager";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
+import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 
 /**
  * Initialize the current editor (and current document).
@@ -32,7 +33,8 @@ export async function updateTextEditor() {
     `updateTextEditor(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character})`,
   );
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
-  ide().toNeovimEditor(window, buffer.id, lines, visibleRanges, selections);
+  const neovimIDE = ide() as NeovimIDE;
+  neovimIDE.toNeovimEditor(window, buffer.id, lines, visibleRanges, selections);
 }
 
 /**

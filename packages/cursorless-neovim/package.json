@@ -34,7 +34,9 @@
     "vscode-uri": "3.0.6"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.3",
     "@types/deasync": "0.1.5",
+    "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
     "@types/uuid": "8.3.4",
     "@types/vscode": "1.66.0"

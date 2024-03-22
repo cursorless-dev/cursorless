@@ -24,6 +24,8 @@ import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { injectIde as injectIde2 } from "./singletons/ide.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
+import { constructTestHelpers } from "./constructTestHelpers";
+import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -81,6 +83,28 @@ export async function activate(context: NeovimExtensionContext) {
   );
   injectCommandApi(commandApi);
   // debugger; // NOTE: helps debugging
+
+  const cursorlessApi = {
+    testHelpers: isTesting()
+      ? constructTestHelpers(
+          fakeCommandServerApi,
+          storedTargets,
+          hatTokenMap,
+          neovimIDE,
+          normalizedIde as NormalizedIDE,
+          fileSystem,
+          scopeProvider,
+          injectIde,
+          runIntegrationTests,
+        )
+      : undefined,
+
+    experimental: {
+      registerThirdPartySnippets: snippets.registerThirdPartySnippets,
+    },
+  };
+  injectCursorlessApi(cursorlessApi);
+
   console.warn("activate(): Cursorless extension loaded");
 }
 

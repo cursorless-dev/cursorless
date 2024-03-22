@@ -1,11 +1,12 @@
 // TODO: should we access the one from cursorless-engine instead?
 // or pass it as an argument where it is needed?
-import { NeovimIDE } from "../ide/neovim/NeovimIDE";
+import { IDE } from "@cursorless/common";
+// import { NeovimIDE } from "../ide/neovim/NeovimIDE";
 
 /**
  * This is the `ide` singleton
  */
-let ide_: NeovimIDE | undefined;
+let ide_: IDE | undefined;
 
 /**
  * Injects an {@link IDE} object that can be used to interact with the IDE.
@@ -13,7 +14,7 @@ let ide_: NeovimIDE | undefined;
  * activation or when mocking a test.
  * @param ide The ide to inject
  */
-export function injectIde(ide: NeovimIDE | undefined) {
+export function injectIde(ide: IDE | undefined) {
   ide_ = ide;
 }
 
@@ -23,7 +24,7 @@ export function injectIde(ide: NeovimIDE | undefined) {
  * constructing your objects lazily
  * @returns The IDE object
  */
-export function ide(): NeovimIDE {
+export function ide(): IDE {
   if (ide_ == null) {
     throw Error("Tried to access ide before it was injected");
   }
