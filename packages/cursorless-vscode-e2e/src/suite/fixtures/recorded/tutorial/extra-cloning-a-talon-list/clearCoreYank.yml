@@ -1,0 +1,58 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: change inside pair yank
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: any}
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'y'}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="My tutorial list")
+    ctx.list['user.emoji'] = {
+        "spoken form": "whatever",
+    }
+  selections:
+    - anchor: {line: 10, character: 15}
+      active: {line: 10, character: 15}
+    - anchor: {line: 11, character: 20}
+      active: {line: 11, character: 20}
+  marks:
+    default.y:
+      start: {line: 10, character: 24}
+      end: {line: 10, character: 26}
+finalState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="")
+    ctx.list['user.emoji'] = {
+        "spoken form": "whatever",
+    }
+  selections:
+    - anchor: {line: 10, character: 24}
+      active: {line: 10, character: 24}

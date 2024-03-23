@@ -1,0 +1,44 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: post look
+  action:
+    name: setSelectionAfter
+    target:
+      type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: l}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 7, character: 12}
+      active: {line: 7, character: 12}
+  marks:
+    default.l:
+      start: {line: 7, character: 20}
+      end: {line: 7, character: 27}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========                              ==========
+    ==========  so we can navigate ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 7, character: 27}
+      active: {line: 7, character: 27}
