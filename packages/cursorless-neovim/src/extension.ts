@@ -76,7 +76,7 @@ export async function activate(context: NeovimExtensionContext) {
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = createCursorlessEngine(
+  } = await createCursorlessEngine(
     treeSitter,
     normalizedIde,
     hats,

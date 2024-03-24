@@ -31,13 +31,13 @@ import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
 
-export function createCursorlessEngine(
+export async function createCursorlessEngine(
   treeSitter: TreeSitter,
   ide: IDE,
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
-): CursorlessEngine {
+): Promise<CursorlessEngine> {
   injectIde(ide);
 
   const debug = new Debug(treeSitter);
@@ -45,7 +45,7 @@ export function createCursorlessEngine(
   const rangeUpdater = new RangeUpdater();
 
   const snippets = new Snippets();
-  snippets.init();
+  await snippets.init();
 
   const hatTokenMap = new HatTokenMapImpl(
     rangeUpdater,
@@ -53,7 +53,7 @@ export function createCursorlessEngine(
     hats,
     commandServerApi,
   );
-  hatTokenMap.allocateHats();
+  await hatTokenMap.allocateHats();
 
   const storedTargets = new StoredTargetMap();
 
