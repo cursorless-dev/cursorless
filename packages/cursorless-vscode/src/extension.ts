@@ -92,7 +92,7 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = createCursorlessEngine(
+  } = await createCursorlessEngine(
     treeSitter,
     normalizedIde,
     hats,
