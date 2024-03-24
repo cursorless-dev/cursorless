@@ -4,6 +4,7 @@
 
 # features
 
+- insert to be paste() to have working bring into terminal
 - "paste to row one" from the clipboard
 - prePhrase support in command server? https://www.cursorless.org/docs/contributing/architecture/hat-snapshots/
 - only one command to build, run neovim, and attach to it? (see my build program, run program, debug program)
