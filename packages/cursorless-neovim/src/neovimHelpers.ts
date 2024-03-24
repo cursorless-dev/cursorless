@@ -10,6 +10,7 @@ import { ide } from "./singletons/ide.singleton";
 import { receivedBufferEvent } from "./types/BufferManager";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
+import { SpyIDE } from "@cursorless/common";
 
 /**
  * Initialize the current editor (and current document).
@@ -19,7 +20,7 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
  * TODO: We only initialize one editor(current window) with one document(current buffer)
  *       we need to support updating editors and documents on the fly
  */
-export async function updateTextEditor() {
+export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   const client = neovimContext().client;
   const window = await client.window;
   const buffer = await window.buffer;
@@ -33,8 +34,22 @@ export async function updateTextEditor() {
     `updateTextEditor(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character})`,
   );
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
-  const neovimIDE = ide() as NeovimIDE;
-  neovimIDE.toNeovimEditor(window, buffer.id, lines, visibleRanges, selections);
+  const ide_ = ide();
+  let neovimIDE: NeovimIDE;
+  if (ide_ instanceof NeovimIDE) {
+    neovimIDE = ide_;
+  } else if (ide_ instanceof SpyIDE) {
+    neovimIDE = ide_.original as NeovimIDE;
+  } else {
+    throw Error("updateTextEditor(): ide() is not NeovimIDE");
+  }
+  return neovimIDE.toNeovimEditor(
+    window,
+    buffer.id,
+    lines,
+    visibleRanges,
+    selections,
+  );
 }
 
 /**
