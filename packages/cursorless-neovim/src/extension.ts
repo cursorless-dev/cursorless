@@ -26,6 +26,7 @@ import { injectIde as injectIde2 } from "./singletons/ide.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
+import { runRecordedTestCases } from "./suite/recorded.vscode.test";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -33,6 +34,7 @@ import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
  * We named it activate() in order to have the same structure as the extension entrypoint to match cursorless-vscode
  */
 export async function activate(context: NeovimExtensionContext) {
+  debugger;
   const client = context.client;
   const buffer = await client.buffer;
 
