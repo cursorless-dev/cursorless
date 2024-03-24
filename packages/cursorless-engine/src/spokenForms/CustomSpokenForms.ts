@@ -95,7 +95,9 @@ export class CustomSpokenForms {
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
       this.notifier.notifyListeners();
 
+      // TODO: I don't think I can comment this without any side effect, can I?
       throw err;
+      //return;
     }
 
     for (const entryType of SUPPORTED_ENTRY_TYPES) {

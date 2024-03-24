@@ -84,6 +84,7 @@ export async function activate(context: NeovimExtensionContext) {
   injectCommandApi(commandApi);
   // debugger; // NOTE: helps debugging
 
+  // set CURSORLESS_TEST = 1 for testing
   const cursorlessApi = {
     testHelpers: isTesting()
       ? constructTestHelpers(
@@ -106,6 +107,10 @@ export async function activate(context: NeovimExtensionContext) {
   injectCursorlessApi(cursorlessApi);
 
   console.warn("activate(): Cursorless extension loaded");
+
+  console.warn("activate(): running the recorded test cases...");
+  await runRecordedTestCases();
+  console.warn("activate(): recorded test cases done");
 }
 
 async function createNeovimIde(context: ExtensionContext) {

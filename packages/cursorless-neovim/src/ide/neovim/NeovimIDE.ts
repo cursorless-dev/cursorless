@@ -217,7 +217,7 @@ export class NeovimIDE implements IDE {
     lines: string[],
     visibleRanges: Range[],
     selections: Selection[],
-  ): void {
+  ): NeovimTextEditorImpl {
     this.activeWindow = editor;
     const impl = new NeovimTextEditorImpl(
       uuid(),
@@ -229,6 +229,7 @@ export class NeovimIDE implements IDE {
       selections,
     );
     this.editorMap.set(editor, impl);
+    return impl;
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

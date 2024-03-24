@@ -4,6 +4,7 @@ import { NvimPlugin } from "neovim";
 import { activate } from "./extension";
 import { injectContext } from "./singletons/context.singleton";
 import { handleCommandInternal } from "./registerCommands";
+import { runRecordedTestCases } from "./suite/recorded.vscode.test";
 
 /**
  * Extension entrypoint called by node-client on Neovim startup.
@@ -19,6 +20,12 @@ export default function entry(plugin: NvimPlugin) {
   plugin.registerFunction(
     "CursorlessLoadExtension",
     () => loadExtension(plugin),
+    { sync: false },
+  );
+
+  plugin.registerFunction(
+    "CursorlessRunRecordedTestCases",
+    async () => await runRecordedTestCases(),
     { sync: false },
   );
 }

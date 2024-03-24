@@ -79,12 +79,20 @@ export async function runRecordedTestCases() {
   const spyIde = new SpyIDE(ide);
   injectIde(spyIde!);
 
-  getRecordedTestPaths().forEach(({ name, path }) =>
-    // test(
-    //   name,
-    //   asyncSafety(() => runTest(path, getSpy()!)),
-    // ),
-    runTest(path, spyIde!),
+  // TODO: re-enable code below and skip if:
+  // - multiple selections (we don't support multiple cursors atm)
+  // - marks is non {} (we don't not support decorated symbol marks atm)
+  // - others?
+  // getRecordedTestPaths().forEach(({ name, path }) =>
+  //   // test(
+  //   //   name,
+  //   //   asyncSafety(() => runTest(path, getSpy()!)),
+  //   // ),
+  //   runTest(path, spyIde!),
+  // );
+  runTest(
+    "C:\\cursorless\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\marks\\takeRowFour.yml",
+    spyIde!,
   );
 }
 

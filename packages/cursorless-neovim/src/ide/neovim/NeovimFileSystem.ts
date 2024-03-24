@@ -7,6 +7,7 @@ import {
 import { /* isAbsolute, */ join } from "path";
 // import * as vscode from "vscode";
 import { ExtensionContext } from "../../types/ExtensionContext";
+import * as fs from "fs";
 
 export class NeovimFileSystem implements FileSystem {
   public readonly cursorlessTalonStateJsonPath: string;
@@ -25,13 +26,14 @@ export class NeovimFileSystem implements FileSystem {
   }
 
   public async initialize(): Promise<void> {
-    // try {
-    //   await vscode.workspace.fs.createDirectory(
-    //     vscode.Uri.file(this.cursorlessDir),
-    //   );
-    // } catch (err) {
-    //   console.log("Cannot create cursorlessDir", this.cursorlessDir, err);
-    // }
+    try {
+      // await vscode.workspace.fs.createDirectory(
+      //   vscode.Uri.file(this.cursorlessDir),
+      // );
+      await fs.mkdirSync(this.cursorlessDir);
+    } catch (err) {
+      console.log("Cannot create cursorlessDir", this.cursorlessDir, err);
+    }
   }
 
   /**
@@ -46,7 +48,9 @@ export class NeovimFileSystem implements FileSystem {
    * @returns The contents of path, decoded as UTF-8
    */
   public async readBundledFile(path: string): Promise<string | undefined> {
-    return undefined;
+    throw Error("readBundledFile() Not implemented");
+    // TODO: we need to implement this
+    // return undefined;
     // try {
     //   return this.decoder.decode(
     //     await vscode.workspace.fs.readFile(this.resolveBundledPath(path)),
@@ -64,6 +68,8 @@ export class NeovimFileSystem implements FileSystem {
   }
 
   private resolveBundledPath(path: string) {
+    throw Error("resolveBundledPath() Not implemented");
+    // TODO: we need to implement this
     // if (isAbsolute(path)) {
     //   if (this.runMode !== "development") {
     //     throw new Error(
@@ -78,6 +84,8 @@ export class NeovimFileSystem implements FileSystem {
   }
 
   public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
+    // throw Error("watchDir() Not implemented");
+    // TODO: we need to implement this
     return dummyEvent();
     // // return { dispose: () => {} };
     // // FIXME: Support globs?

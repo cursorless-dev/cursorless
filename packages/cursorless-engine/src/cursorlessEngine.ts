@@ -111,8 +111,8 @@ export function createCursorlessEngine(
     hatTokenMap,
     snippets,
     injectIde,
-    runIntegrationTests: () =>
-      runIntegrationTests(treeSitter, languageDefinitions),
+    runIntegrationTests: async () =>
+      await runIntegrationTests(treeSitter, languageDefinitions),
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
     },

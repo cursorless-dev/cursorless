@@ -3,6 +3,8 @@
 
 import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { NeovimTextEditorImpl } from "../ide/neovim/NeovimTextEditorImpl";
+import { updateTextEditor } from "../neovimHelpers";
+import { neovimContext } from "../singletons/context.singleton";
 
 interface NewEditorOptions {
   languageId?: string;
@@ -13,10 +15,29 @@ export async function openNewEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
 ): Promise<NeovimTextEditorImpl> {
-  throw new Error("openNewEditor() Not implemented");
+  // throw new Error("openNewEditor() Not implemented");
   // if (!openBeside) {
   //   await vscode.commands.executeCommand("workbench.action.closeAllEditors");
   // }
+
+  // standardise newlines so we can easily split the lines
+  const newLines = content.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
+
+  const client = neovimContext().client;
+  const window = await client.window;
+  const buffer = await window.buffer;
+
+  // Replace old content with new content
+  const oldLines = await buffer.lines;
+  await buffer.setLines(newLines, {
+    start: 0,
+    end: oldLines.length,
+    strictIndexing: false,
+  });
+
+  // update our view of the document
+  const editor = await updateTextEditor();
+
   // const document = await vscode.workspace.openTextDocument({
   //   language: languageId,
   //   content,
@@ -32,7 +53,7 @@ export async function openNewEditor(
   // if (eol !== editor.document.eol) {
   //   await editor.edit((editBuilder) => editBuilder.setEndOfLine(eol));
   // }
-  // return editor;
+  return editor;
 }
 
 export async function reuseEditor(
