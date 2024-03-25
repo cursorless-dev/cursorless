@@ -35,6 +35,7 @@ export * from "./types/RangeExpansionBehavior";
 export * from "./types/InputBoxOptions";
 export * from "./types/Position";
 export * from "./types/Range";
+export * from "./types/Edit";
 export * from "./types/RevealLineAt";
 export * from "./types/Selection";
 export * from "./types/TextDocument";
