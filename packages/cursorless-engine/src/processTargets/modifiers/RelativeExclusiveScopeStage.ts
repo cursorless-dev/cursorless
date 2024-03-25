@@ -2,16 +2,11 @@ import type { RelativeScopeModifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
-import { TargetScope } from "./scopeHandlers/scope.types";
-import type {
-  ContainmentPolicy,
-  ScopeHandler,
-} from "./scopeHandlers/scopeHandler.types";
+import type { ContainmentPolicy } from "./scopeHandlers/scopeHandler.types";
 import { islice } from "itertools";
-import { OutOfRangeError } from "./listUtils";
+import { scopesToTargets } from "./scopesToTargets";
 
 /**
  * Handles relative modifiers that don't include targets intersecting with the
@@ -36,22 +31,6 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       return runLegacy(this.modifierStageFactory, this.modifier, target);
     }
 
-    const scopes = this.getScopes(scopeHandler, target);
-    const { isReversed } = target;
-
-    if (this.modifier.isEvery) {
-      return scopes.flatMap((scope) => scope.getTargets(isReversed));
-    }
-
-    // Then make a range when we get the desired number of scopes
-    return constructScopeRangeTarget(
-      isReversed,
-      scopes[0],
-      scopes[scopes.length - 1],
-    );
-  }
-
-  private getScopes(scopeHandler: ScopeHandler, target: Target): TargetScope[] {
     const { editor, contentRange: inputRange } = target;
     const { length: desiredScopeCount, direction, offset } = this.modifier;
 
@@ -65,21 +44,20 @@ export class RelativeExclusiveScopeStage implements ModifierStage {
       ? "disallowed"
       : "disallowedIfStrict";
 
-    const scopes = Array.from(
-      islice(
-        scopeHandler.generateScopes(editor, initialPosition, direction, {
-          containment,
-          skipAncestorScopes: true,
-        }),
-        offset - 1,
-        offset + desiredScopeCount - 1,
-      ),
+    const iter = islice(
+      scopeHandler.generateScopes(editor, initialPosition, direction, {
+        containment,
+        skipAncestorScopes: true,
+      }),
+      offset - 1,
+      offset + desiredScopeCount - 1,
     );
 
-    if (scopes.length < desiredScopeCount) {
-      throw new OutOfRangeError();
-    }
-
-    return scopes;
+    return scopesToTargets(
+      iter,
+      this.modifier.length,
+      this.modifier.isEvery ?? false,
+      target.isReversed,
+    );
   }
 }

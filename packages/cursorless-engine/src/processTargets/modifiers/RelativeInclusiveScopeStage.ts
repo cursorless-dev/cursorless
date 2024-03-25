@@ -5,12 +5,11 @@ import {
 import type { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
-import { constructScopeRangeTarget } from "./constructScopeRangeTarget";
 import { getPreferredScopeTouchingPosition } from "./getPreferredScopeTouchingPosition";
 import { runLegacy } from "./relativeScopeLegacy";
 import { ScopeHandlerFactory } from "./scopeHandlers/ScopeHandlerFactory";
 import { itake } from "itertools";
-import { OutOfRangeError } from "./listUtils";
+import { scopesToTargets } from "./scopesToTargets";
 
 /**
  * Handles relative modifiers that include targets intersecting with the input,
@@ -57,32 +56,23 @@ export class RelativeInclusiveScopeStage implements ModifierStage {
       throw new NoContainingScopeError(this.modifier.scopeType.type);
     }
 
-    const scopes = Array.from(
-      itake(
-        desiredScopeCount,
-        scopeHandler.generateScopes(
-          editor,
-          direction === "forward" ? initialRange.start : initialRange.end,
-          direction,
-          {
-            skipAncestorScopes: true,
-          },
-        ),
+    const iter = itake(
+      desiredScopeCount,
+      scopeHandler.generateScopes(
+        editor,
+        direction === "forward" ? initialRange.start : initialRange.end,
+        direction,
+        {
+          skipAncestorScopes: true,
+        },
       ),
     );
 
-    if (scopes.length < desiredScopeCount) {
-      throw new OutOfRangeError();
-    }
-
-    if (this.modifier.isEvery) {
-      return scopes.flatMap((scope) => scope.getTargets(isReversed));
-    }
-
-    return constructScopeRangeTarget(
+    return scopesToTargets(
+      iter,
+      desiredScopeCount,
+      this.modifier.isEvery ?? false,
       isReversed,
-      scopes[0],
-      scopes[scopes.length - 1],
     );
   }
 }
