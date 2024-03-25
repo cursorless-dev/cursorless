@@ -61,7 +61,7 @@ class InsertEmptyLines implements SimpleAction {
             ],
           );
 
-        setSelectionsWithoutFocusingEditor(
+        await setSelectionsWithoutFocusingEditor(
           editableEditor,
           updatedCursorSelections,
         );
