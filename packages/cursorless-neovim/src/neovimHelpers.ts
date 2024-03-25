@@ -10,7 +10,7 @@ import { ide } from "@cursorless/cursorless-engine";
 // import { receivedBufferEvent } from "./types/BufferManager";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-import { SpyIDE } from "@cursorless/common";
+import { NormalizedIDE, SpyIDE } from "@cursorless/common";
 
 /**
  * Initialize the current editor (and current document).
@@ -35,9 +35,12 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   );
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
   const ide_ = ide();
+  // TODO: It there a clean way to do it?
   let neovimIDE: NeovimIDE;
   if (ide_ instanceof NeovimIDE) {
     neovimIDE = ide_;
+  } else if (ide_ instanceof NormalizedIDE) {
+    neovimIDE = ide_.original as NeovimIDE;
   } else if (ide_ instanceof SpyIDE) {
     neovimIDE = ide_.original as NeovimIDE;
   } else {
