@@ -1,5 +1,3 @@
-// adapted from packages\common\src\ide\fake\FakeIDE.ts
-// and packages\cursorless-vscode\src\ide\vscode\VscodeIDE.ts
 import type {
   EditableTextEditor,
   Range,
@@ -44,8 +42,8 @@ export class NeovimIDE implements IDE {
   private activeWindow: Window | undefined;
 
   cursorlessVersion: string = "0.0.0";
-  // runMode: RunMode = "production";
-  runMode: RunMode = "development"; // enable debug logs
+  runMode: RunMode = "production";
+  // runMode: RunMode = "development"; // enable debug logs
   // runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
@@ -58,9 +56,9 @@ export class NeovimIDE implements IDE {
     this.messages = new NeovimMessages();
     this.clipboard = new NeovimClipboard();
     this.capabilities = new NeovimCapabilities();
-    // this.editorMap = new Map<Window, NeovimTextEditorImpl>();
     this.editorMap = new Map<Window, NeovimTextEditorImpl>();
     this.activeWindow = undefined;
+    //this.assetsRoot_ = "C:\\"; // TODO: fix but not needed for now as used by snippets and cheatsheet only?
   }
 
   async showQuickPick(
@@ -93,7 +91,7 @@ export class NeovimIDE implements IDE {
       at flashTargets (cursorless-neovim\out\index.cjs:38187:15)
       at Bring.decorateTargets (cursorless-neovim\out\index.cjs:38318:7)
     */
-    // it is not mandatory to implement for now so we can just log a warning
+    // TODO: it is not mandatory to implement for now so we can just log a warning
     console.warn("flashRanges Not implemented");
   }
 
@@ -181,23 +179,6 @@ export class NeovimIDE implements IDE {
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
 
-  // public mockAssetsRoot(_assetsRoot: string) {
-  //   this.assetsRoot_ = _assetsRoot;
-  // }
-
-  // public setQuickPickReturnValue(value: string | undefined) {
-  //   this.quickPickReturnValue = value;
-  // }
-
-  // public fromNeovimEditor(editor: Window): NeovimTextEditorImpl {
-  //   if (!this.editorMap.has(editor)) {
-  //     const impl = new NeovimTextEditorImpl(uuid(), this, editor);
-  //     impl.initialize();
-  //     this.editorMap.set(editor, impl);
-  //   }
-  //   return this.editorMap.get(editor)!;
-  // }
-
   fromNeovimEditor(
     editor: Window,
     bufferId: number,
@@ -237,10 +218,6 @@ export class NeovimIDE implements IDE {
 
     return () => pull(this.disposables, ...disposables);
   }
-
-  // exit(): void {
-  //   this.disposables.forEach((disposable) => disposable.dispose());
-  // }
 }
 
 function dummyEvent() {

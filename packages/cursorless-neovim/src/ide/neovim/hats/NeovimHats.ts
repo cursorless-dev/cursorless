@@ -5,16 +5,9 @@ import {
   Listener,
   Notifier,
 } from "@cursorless/common";
-// import { toVscodeRange, VscodeApi } from "@cursorless/vscode-common";
-// import * as vscode from "vscode";
 import { ExtensionContext } from "../../../types/ExtensionContext";
 import { Disposable } from "vscode";
-// import { VscodeHatStyleName } from "../hatStyles.types";
-// import VscodeEnabledHatStyleManager from "../VscodeEnabledHatStyleManager";
 import type { NeovimIDE } from "../NeovimIDE";
-// import { VscodeTextEditorImpl } from "../VscodeTextEditorImpl";
-// import { FontMeasurements } from "./FontMeasurements";
-// import VscodeHatRenderer from "./VscodeHatRenderer";
 
 export class NeovimHats implements Hats {
   enabledHatStyles: HatStyleMap;

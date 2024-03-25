@@ -19,14 +19,11 @@ import { NeovimHats } from "./ide/neovim/hats/NeovimHats";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { Language, SyntaxNode, Tree } from "web-tree-sitter";
-import { BufferManager } from "./types/BufferManager";
-import { injectBufferManager } from "./singletons/bufmgr.singleton";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
-import { injectIde as injectIde2 } from "./singletons/ide.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
-import { runRecordedTestCases } from "./suite/recorded.vscode.test";
+// import { runRecordedTestCases } from "./suite/recorded.vscode.test";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -38,14 +35,10 @@ export async function activate(context: NeovimExtensionContext) {
   const client = context.client;
   const buffer = await client.buffer;
 
-  const bufmgr = new BufferManager(context);
-  injectBufferManager(bufmgr);
-
   // TODO: we should be able to get the parsetree api directly from neovim
   // const parseTreeApi = await getParseTreeApi();
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
-  injectIde2(neovimIDE); // TODO: this is duplicating what Cursorless engine does but for NeovimIDE
 
   //await subscribeBufferUpdates();
 
@@ -110,9 +103,9 @@ export async function activate(context: NeovimExtensionContext) {
 
   console.warn("activate(): Cursorless extension loaded");
 
-  console.warn("activate(): running the recorded test cases...");
-  await runRecordedTestCases();
-  console.warn("activate(): recorded test cases done");
+  // console.warn("activate(): running the recorded test cases...");
+  // await runRecordedTestCases();
+  // console.warn("activate(): recorded test cases done");
 }
 
 async function createNeovimIde(context: ExtensionContext) {
@@ -120,6 +113,8 @@ async function createNeovimIde(context: ExtensionContext) {
 
   const hats = new NeovimHats(neovimIDE, context);
   await hats.init();
+
+  // TODO: is the comment below problematic for neovim?
 
   // FIXME: Inject this from test harness. Would need to arrange to delay
   // extension initialization, probably by returning a function from extension

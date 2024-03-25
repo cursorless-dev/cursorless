@@ -2,6 +2,7 @@ import * as path from "path";
 import { walkFilesSync } from "../util/walkSync";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
+// TODO: the fixtures should probably be moved to @cursorless/common
 export function getFixturesPath() {
   return path.join(
     getCursorlessRepoRoot(),
