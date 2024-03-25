@@ -42,7 +42,8 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   } else if (ide_ instanceof NormalizedIDE) {
     neovimIDE = ide_.original as NeovimIDE;
   } else if (ide_ instanceof SpyIDE) {
-    neovimIDE = ide_.original as NeovimIDE;
+    const normalizedIDE = ide_.original as NormalizedIDE;
+    neovimIDE = normalizedIDE.original as NeovimIDE;
   } else {
     throw Error("updateTextEditor(): ide() is not NeovimIDE");
   }
