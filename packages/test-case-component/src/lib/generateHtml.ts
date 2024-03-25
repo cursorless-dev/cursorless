@@ -177,7 +177,14 @@ class SelectionParser {
   }
 
   parse(selection: CursorlessFixtureSelection) {
-    const { anchor: start, active: end } = selection;
+    let start, end;
+    if (selection.type === 'UntypedTarget') {
+      start = selection.contentRange.start.line;
+      end = selection.contentRange.end.line;
+    } else {
+      start = selection.anchor.line;
+      end = selection.active.line;
+    }
     for (let l = end.line; l <= start.line; l += 1) {
       if (l !== end.line && l !== start.line) {
         this.handleInsideLine(l);
