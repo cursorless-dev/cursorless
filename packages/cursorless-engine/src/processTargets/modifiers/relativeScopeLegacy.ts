@@ -6,9 +6,9 @@ import { UntypedTarget } from "../targets";
 import {
   createRangeTargetFromIndices,
   getEveryScopeTargets,
-  OutOfRangeError,
 } from "./targetSequenceUtils";
 import { TooFewScopesError } from "./TooFewScopesError";
+import { OutOfRangeError } from "./listUtils";
 
 interface ContainingIndices {
   start: number;
