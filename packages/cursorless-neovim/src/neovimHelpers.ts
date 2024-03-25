@@ -6,8 +6,8 @@ import {
   windowGetVisibleRanges,
 } from "./neovimApi";
 import { neovimContext } from "./singletons/context.singleton";
-import { ide } from "./singletons/ide.singleton";
-import { receivedBufferEvent } from "./types/BufferManager";
+import { ide } from "@cursorless/cursorless-engine";
+// import { receivedBufferEvent } from "./types/BufferManager";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { SpyIDE } from "@cursorless/common";
@@ -73,7 +73,8 @@ export async function subscribeBufferUpdates() {
   buffers.forEach(
     /* async */ (buf) => {
       console.warn("listening for changes in buffer: ", buf.id);
-      buf.listen("lines", receivedBufferEvent);
+      // buf.listen("lines", receivedBufferEvent);
+      // TODO: import code from BufferManager.ts into neovimIDE and uncomment the line above
       // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
       // await buf[ATTACH](true);
     },

@@ -10,3 +10,4 @@ export * from "./api/CursorlessEngineApi";
 export * from "./CommandRunner";
 export * from "./CommandHistory";
 export * from "./CommandHistoryAnalyzer";
+export * from "./singletons/ide.singleton";

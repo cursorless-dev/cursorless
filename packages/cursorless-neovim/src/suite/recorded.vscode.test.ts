@@ -44,7 +44,7 @@ import { promises as fsp } from "node:fs";
 import {
   /* endToEndTestSetup, */ sleepWithBackoff,
 } from "../endToEndTestSetup";
-import { /* ide, */ injectIde } from "../singletons/ide.singleton";
+import { injectIde } from "@cursorless/cursorless-engine";
 // import { commandApi } from "../singletons/cmdapi.singleton";
 // import { takeSnapshot } from "@cursorless/cursorless-engine";
 import { getCursorlessApi } from "../singletons/cursorlessapi.singleton";
