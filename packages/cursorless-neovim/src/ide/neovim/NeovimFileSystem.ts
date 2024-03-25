@@ -32,7 +32,7 @@ export class NeovimFileSystem implements FileSystem {
       // );
       await fs.mkdirSync(this.cursorlessDir);
     } catch (err) {
-      console.log("Cannot create cursorlessDir", this.cursorlessDir, err);
+      console.warn("Cannot create cursorlessDir", this.cursorlessDir, err);
     }
   }
 
