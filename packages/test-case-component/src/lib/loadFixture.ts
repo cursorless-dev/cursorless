@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs-extra';
 import * as yaml from 'yaml';
 
-import { buildSpokenForm } from './buildSpokenForm';
 import { generateHtml, SelectionAnchor } from './generateHtml';
 
 const fixturesDir = path.join(
@@ -71,7 +70,7 @@ export async function loadFixture(folder: string, name: string) {
     );
     return {
       language: data.languageId,
-      command: buildSpokenForm(data.command),
+      command: data.command.spokenForm,
       originalCommand: data.command.spokenForm,
       during,
       before,
