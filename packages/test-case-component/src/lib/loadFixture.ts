@@ -6,8 +6,9 @@ import { buildSpokenForm } from './buildSpokenForm';
 import { generateHtml, SelectionAnchor } from './generateHtml';
 
 const fixturesDir = path.join(
-  '../../../packages',
+  '../',
   'cursorless-vscode-e2e',
+  'src',
   'suite',
   'fixtures',
   'recorded'
