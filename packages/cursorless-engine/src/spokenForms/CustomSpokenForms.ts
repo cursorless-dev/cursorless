@@ -57,9 +57,11 @@ export class CustomSpokenForms {
 
   constructor(private talonSpokenForms: TalonSpokenForms) {
     this.disposable = talonSpokenForms.onDidChange(() =>
+      // TODO: do we need an await here?
       this.updateSpokenFormMaps(),
     );
 
+    // TODO: do we need an await here?
     this.customSpokenFormsInitialized = this.updateSpokenFormMaps();
   }
 

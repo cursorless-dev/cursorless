@@ -11,6 +11,7 @@
   - find a way to load neovim from script so we know when it is loaded so we can then attach to it for debugging?
 - avoid importing cursorless from command server?
 - test if we can reload the extensions after a modification without reloading neovim
+- removed deasync dependencies
 
 # to do later
 
