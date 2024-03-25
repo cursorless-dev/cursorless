@@ -27,7 +27,7 @@ export class RelativeScopeStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private scopeHandlerFactory: ScopeHandlerFactory,
-    protected modifier: RelativeScopeModifier,
+    private modifier: RelativeScopeModifier,
   ) {}
 
   run(target: Target): Target[] {
