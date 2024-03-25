@@ -71,7 +71,7 @@ export async function loadFixture(folder: string, name: string) {
     return {
       language: data.languageId,
       command: data.command.spokenForm,
-      originalCommand: data.command.spokenForm,
+      originalData: data,
       during,
       before,
       after,
