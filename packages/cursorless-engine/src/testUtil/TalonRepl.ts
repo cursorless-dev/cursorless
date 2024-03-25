@@ -76,7 +76,7 @@ export class TalonRepl {
         break;
       }
 
-      console.log(output);
+      console.warn(output);
 
       if (tryCount++ > MAX_OUTPUT_TO_EAT) {
         throw Error("Too much output to eat");

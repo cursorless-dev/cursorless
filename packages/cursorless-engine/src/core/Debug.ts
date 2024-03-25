@@ -119,7 +119,7 @@ export class Debug {
       text += `"${cursor.nodeType}"`;
     }
 
-    console.log(text);
+    console.warn(text);
 
     if (
       !nodeIsLast &&
@@ -129,7 +129,7 @@ export class Debug {
     }
 
     if (nodeIsNamed && !nodeIsLast) {
-      console.log(`${indent})`);
+      console.warn(`${indent})`);
     }
   }
 
