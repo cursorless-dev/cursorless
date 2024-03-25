@@ -2,6 +2,7 @@
   "name": "@cursorless/generate-examples",
   "version": "0.0.1",
   "type": "module",
+  "description": "Temp home for SimeonC's cursorless examples generator",
   "scripts": {
     "build": "tsx src/lib/buildDictionary",
     "test": "jest",
