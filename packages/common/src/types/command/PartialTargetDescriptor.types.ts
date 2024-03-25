@@ -272,6 +272,9 @@ export interface OrdinalScopeModifier {
 
   /** The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
   length: number;
+
+  /** If true, yields individual targets instead of contiguous range. Defaults to `false` */
+  isEvery?: boolean;
 }
 
 export type Direction = "forward" | "backward";
@@ -297,6 +300,9 @@ export interface RelativeScopeModifier {
   /** Indicates which direction both {@link offset} and {@link length} go
    * relative to input target  */
   direction: Direction;
+
+  /** If true use individual targets instead of combined range */
+  isEvery?: boolean;
 }
 
 /**

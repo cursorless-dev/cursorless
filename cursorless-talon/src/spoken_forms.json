@@ -83,7 +83,8 @@
       "its": "inferPreviousMark",
       "visible": "visible"
     },
-    "simple_scope_modifier": { "every": "every", "grand": "ancestor" },
+    "every_scope_modifier": { "every": "every" },
+    "ancestor_scope_modifier": { "grand": "ancestor" },
     "interior_modifier": {
       "inside": "interiorOnly"
     },
