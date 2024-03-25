@@ -53,7 +53,7 @@ export class LanguageDefinitions {
       editors.forEach(({ document }) => this.loadLanguage(document.languageId));
     });
 
-    // Use the repo root as the root for development mode, so that we can
+    // Use the repo root as the root for development mode, so that
     // we can make hot-reloading work for the queries
     this.queryDir =
       ide().runMode === "development"
