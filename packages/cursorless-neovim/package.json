@@ -27,15 +27,12 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
-    "@kaciras/deasync": "1.0.3",
-    "deasync": "0.1.29",
     "lodash": "^4.17.21",
-    "neovim": "5.0.1",
+    "neovim": "5.1.0",
     "vscode-uri": "3.0.6"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
-    "@types/deasync": "0.1.5",
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
     "@types/uuid": "8.3.4",
