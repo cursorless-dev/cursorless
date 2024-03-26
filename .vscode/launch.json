@@ -6,6 +6,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Run neovim extension",
+      "request": "attach",
+      "processName": "node.exe",
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "Build neovim extension only",
+      "type": "node"
+    },
+    {
       "name": "Run extension",
       "type": "extensionHost",
       "request": "launch",

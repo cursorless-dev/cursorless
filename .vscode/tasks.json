@@ -17,6 +17,42 @@
       }
     },
     {
+      "label": "Build neovim extension only",
+      "dependsOn": ["ESBuild-cursorless-neovim"],
+      "group": "build"
+    },
+    {
+      "label": "ESBuild-common",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/common",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "ESBuild-cursorless-engine",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/cursorless-engine",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "ESBuild-cursorless-neovim",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/cursorless-neovim",
+      "dependsOn": ["ESBuild-common", "ESBuild-cursorless-engine"],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
       "label": "Build extension only",
       "dependsOn": ["Populate dist", "ESBuild"],
       "group": "build"
