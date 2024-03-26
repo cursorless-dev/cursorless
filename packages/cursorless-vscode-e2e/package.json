@@ -30,7 +30,7 @@
     "@types/lodash": "4.17.0",
     "@types/mocha": "^10.0.6",
     "@types/sinon": "^17.0.3",
-    "@types/vscode": "~1.87.0",
+    "@types/vscode": "1.75.1",
     "chai": "^5.1.0",
     "js-yaml": "^4.1.0",
     "mocha": "^10.3.0",

@@ -507,8 +507,8 @@ importers:
         specifier: ^9.0.8
         version: 9.0.8
       '@types/vscode':
-        specifier: 1.75.0
-        version: 1.75.0
+        specifier: 1.75.1
+        version: 1.75.1
       chai:
         specifier: ^5.1.0
         version: 5.1.0
@@ -562,8 +562,8 @@ importers:
         specifier: ^17.0.3
         version: 17.0.3
       '@types/vscode':
-        specifier: ~1.87.0
-        version: 1.87.0
+        specifier: 1.75.1
+        version: 1.75.1
       chai:
         specifier: ^5.1.0
         version: 5.1.0
@@ -649,8 +649,8 @@ importers:
         version: link:../common
     devDependencies:
       '@types/vscode':
-        specifier: ~1.87.0
-        version: 1.87.0
+        specifier: 1.75.1
+        version: 1.75.1
 
 packages:
 
@@ -5265,12 +5265,8 @@ packages:
       '@types/expect': 1.20.4
       '@types/node': 20.11.30
 
-  /@types/vscode@1.75.0:
-    resolution: {integrity: sha512-SAr0PoOhJS6FUq5LjNr8C/StBKALZwDVm3+U4pjF/3iYkt3GioJOPV/oB1Sf1l7lROe4TgrMyL5N1yaEgTWycw==}
-    dev: true
-
-  /@types/vscode@1.87.0:
-    resolution: {integrity: sha512-y3yYJV2esWr8LNjp3VNbSMWG7Y43jC8pCldG8YwiHGAQbsymkkMMt0aDT1xZIOFM2eFcNiUc+dJMx1+Z0UT8fg==}
+  /@types/vscode@1.75.1:
+    resolution: {integrity: sha512-emg7wdsTFzdi+elvoyoA+Q8keEautdQHyY5LNmHVM4PTpY8JgOTVADrGVyXGepJ6dVW2OS5/xnLUWh+nZxvdiA==}
     dev: true
 
   /@types/webpack@5.28.5(esbuild@0.20.2)(webpack-cli@5.1.4):
