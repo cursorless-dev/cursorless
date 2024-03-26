@@ -42,11 +42,8 @@ export async function showCheatsheet({
 
   const root = parse(cheatsheetContent);
 
-  root.getElementById(
-    "cheatsheet-data",
-  )!.textContent = `document.cheatsheetInfo = ${JSON.stringify(
-    spokenFormInfo,
-  )};`;
+  root.getElementById("cheatsheet-data")!.textContent =
+    `document.cheatsheetInfo = ${JSON.stringify(spokenFormInfo)};`;
 
   await writeFile(outputPath, root.toString());
 }

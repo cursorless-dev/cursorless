@@ -121,8 +121,8 @@ function getExtends(
     inputExtends == null
       ? []
       : Array.isArray(inputExtends)
-      ? [...inputExtends]
-      : [inputExtends];
+        ? [...inputExtends]
+        : [inputExtends];
 
   extendsList.push(
     toPosixPath(path.join(pathFromPackageToRoot, "tsconfig.base.json")),
