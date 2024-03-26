@@ -18,7 +18,7 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@algolia/client-search": "4.23.0",
+    "@algolia/client-search": "4.22.1",
     "@docsearch/react": "3.6.0",
     "@docusaurus/core": "3.1.1",
     "@docusaurus/preset-classic": "3.1.1",
