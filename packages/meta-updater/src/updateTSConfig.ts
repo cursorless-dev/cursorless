@@ -1,7 +1,7 @@
 import type { FormatPluginFnOptions } from "@pnpm/meta-updater";
 import normalizePath from "normalize-path";
 import path from "path";
-import exists from "path-exists";
+import { pathExists } from "path-exists";
 import { PackageJson, TsConfigJson } from "type-fest";
 import { toPosixPath } from "./toPosixPath";
 import { Context } from "./Context";
@@ -70,7 +70,9 @@ export async function updateTSConfig(
       continue;
     }
     const relativePath = spec.slice(5);
-    if (!(await exists(path.join(packageDir, relativePath, "tsconfig.json")))) {
+    if (
+      !(await pathExists(path.join(packageDir, relativePath, "tsconfig.json")))
+    ) {
       throw new Error(`No tsconfig found for ${relativePath}`);
     }
     if (
@@ -102,7 +104,7 @@ export async function updateTSConfig(
 
       ...(input.compilerOptions?.jsx == null ? [] : ["src/**/*.tsx"]),
 
-      ...((await exists(path.join(packageDir, "next.config.js")))
+      ...((await pathExists(path.join(packageDir, "next.config.js")))
         ? ["next-env.d.ts"]
         : []),
 

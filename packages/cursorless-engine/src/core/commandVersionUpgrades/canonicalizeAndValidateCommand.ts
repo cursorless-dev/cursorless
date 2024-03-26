@@ -19,8 +19,8 @@ import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
 import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
 import { upgradeV5ToV6 } from "./upgradeV5ToV6";
-import produce from "immer";
 import { upgradeV6ToV7 } from "./upgradeV6ToV7";
+import { produce } from "immer";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it

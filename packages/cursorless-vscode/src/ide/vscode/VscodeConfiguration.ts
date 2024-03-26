@@ -1,6 +1,5 @@
 import * as os from "node:os";
 import { HatStability } from "@cursorless/common";
-import { get } from "lodash";
 import * as vscode from "vscode";
 import {
   Configuration,
@@ -10,6 +9,7 @@ import {
 import { GetFieldType, Paths } from "@cursorless/common";
 import { Notifier } from "@cursorless/common";
 import type { VscodeIDE } from "./VscodeIDE";
+import { get } from "lodash";
 
 const translators = {
   experimental: {
@@ -41,7 +41,7 @@ export default class VscodeConfiguration implements Configuration {
       .getConfiguration("cursorless", scope)
       .get<GetFieldType<CursorlessConfiguration, Path>>(path)!;
 
-    return get(translators, path)?.(rawValue) ?? rawValue;
+    return (get(translators, path) as (_: any) => any)?.(rawValue) ?? rawValue;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;

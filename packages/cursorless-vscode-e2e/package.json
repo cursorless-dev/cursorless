@@ -21,20 +21,20 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
-    "immer": "^9.0.15",
+    "immer": "^10.0.4",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.3",
-    "@types/js-yaml": "^4.0.2",
-    "@types/lodash": "4.14.181",
-    "@types/mocha": "^10.0.3",
-    "@types/sinon": "^10.0.2",
-    "@types/vscode": "~1.66.0",
-    "chai": "^4.3.6",
+    "@types/chai": "^4.3.14",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "4.17.0",
+    "@types/mocha": "^10.0.6",
+    "@types/sinon": "^17.0.3",
+    "@types/vscode": "~1.87.0",
+    "chai": "^5.1.0",
     "js-yaml": "^4.1.0",
-    "mocha": "^10.2.0",
-    "sinon": "^11.1.1"
+    "mocha": "^10.3.0",
+    "sinon": "^17.0.1"
   },
   "types": "./out/index.d.ts",
   "type": "module"
