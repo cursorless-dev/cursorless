@@ -48,6 +48,12 @@ class Actions:
             }
         )
 
+    def private_cursorless_insert_paired_delimiter(
+        paired_delimiter: list[str]
+    ):
+        """Insert paired delimiters by name"""
+        actions.insert(paired_delimiter[0])
+        actions.insert(paired_delimiter[1])
 
 def parse_snippet_location(snippet_location: str) -> tuple[str, str]:
     [snippet_name, variable_name] = snippet_location.split(".")
