@@ -32,7 +32,7 @@
     "@effortlessmotion/html-webpack-inline-source-plugin": "1.0.3",
     "@testing-library/react": "14.2.2",
     "@types/jest": "29.5.12",
-    "@types/node": "^20.11.30",
+    "@types/node": "18.18.2",
     "@types/react": "18.2.71",
     "@types/react-dom": "18.2.22",
     "@types/webpack": "5.28.5",

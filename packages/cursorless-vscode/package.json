@@ -1212,7 +1212,7 @@
     "@types/lodash": "4.17.0",
     "@types/mocha": "^10.0.6",
     "@types/nearley": "2.11.5",
-    "@types/node": "^20.11.30",
+    "@types/node": "18.18.2",
     "@types/semver": "^7.5.8",
     "@types/sinon": "^17.0.3",
     "@types/tinycolor2": "1.4.6",
