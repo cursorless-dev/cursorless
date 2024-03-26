@@ -69,6 +69,7 @@ export class VscodeTutorial implements WebviewViewProvider {
       tutorialId,
       stepNumber: 0,
       stepContent: this.currentTutorial.steps[0].content,
+      stepCount: this.currentTutorial.steps.length,
     });
 
     if (this.view != null) {

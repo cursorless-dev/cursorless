@@ -84,13 +84,13 @@
     "views": {
       "cursorless": [
         {
-          "id": "cursorless.scopes",
-          "name": "Scopes"
-        },
-        {
           "type": "webview",
           "id": "cursorless.tutorial",
           "name": "Tutorial"
+        },
+        {
+          "id": "cursorless.scopes",
+          "name": "Scopes"
         }
       ]
     },

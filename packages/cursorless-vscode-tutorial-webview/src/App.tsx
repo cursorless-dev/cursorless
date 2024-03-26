@@ -22,6 +22,7 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
   }, []);
 
   if (state == null) {
+    // Just show nothing while we're waiting for initial state
     return <></>;
   }
 
