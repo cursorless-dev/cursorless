@@ -6,7 +6,7 @@ export function getFixturesPath() {
   return path.join(
     getCursorlessRepoRoot(),
     "packages",
-    "cursorless-vscode-e2e",
+    "common",
     "src",
     "suite",
     "fixtures",
