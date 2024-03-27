@@ -1,9 +1,12 @@
 import {
   ActionType,
   CommandLatest,
+  CommandResponse,
   EnforceUndefined,
   extractTargetedMarks,
   ExtraSnapshotField,
+  Fallback,
+  FocusedElementType,
   marksToPlainObject,
   PartialTargetDescriptor,
   PlainSpyIDERecordedValues,
@@ -32,6 +35,7 @@ export class TestCase {
   private finalState?: TestCaseSnapshot;
   thrownError?: ThrownError;
   private returnValue?: unknown;
+  private fallback?: Fallback;
   private targetKeys: string[];
   private _awaitingFinalMarkInfo: boolean;
   private marksToCheck?: string[];
@@ -40,6 +44,7 @@ export class TestCase {
 
   constructor(
     command: CommandLatest,
+    private focusedElementType: FocusedElementType | undefined,
     private hatTokenMap: ReadOnlyHatMap,
     private storedTargets: StoredTargetMap,
     private spyIde: SpyIDE,
@@ -135,6 +140,10 @@ export class TestCase {
     }
     const fixture: EnforceUndefined<TestCaseFixture> = {
       languageId: this.languageId,
+      focusedElementType:
+        this.focusedElementType !== "textEditor"
+          ? this.focusedElementType ?? "other"
+          : undefined,
       postEditorOpenSleepTimeMs: undefined,
       postCommandSleepTimeMs: undefined,
       command: this.command,
@@ -143,6 +152,7 @@ export class TestCase {
       initialState: this.initialState,
       finalState: this.finalState,
       returnValue: this.returnValue,
+      fallback: this.fallback,
       thrownError: this.thrownError,
       ide: this.spyIdeValues,
     };
@@ -162,9 +172,16 @@ export class TestCase {
     );
   }
 
-  async recordFinalState(returnValue: unknown) {
+  async recordFinalState(returnValue: CommandResponse) {
     const excludeFields = this.getExcludedFields(false);
-    this.returnValue = returnValue;
+
+    if ("returnValue" in returnValue) {
+      this.returnValue = returnValue.returnValue;
+    }
+    if ("fallback" in returnValue) {
+      this.fallback = returnValue.fallback;
+    }
+
     this.finalState = await takeSnapshot(
       this.storedTargets,
       excludeFields,

@@ -1,25 +1,28 @@
 import {
-  asyncSafety,
+  CommandResponse,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
-  extractTargetedMarks,
-  getRecordedTestPaths,
-  serializedMarksToTokenHats,
+  Fallback,
   HatStability,
-  marksToPlainObject,
-  omitByDeep,
   PositionPlainObject,
-  rangeToPlainObject,
   ReadOnlyHatMap,
   SelectionPlainObject,
   SerializedMarks,
+  SpyIDE,
+  TestCaseFixtureLegacy,
+  asyncSafety,
+  clientSupportsFallback,
+  extractTargetedMarks,
+  getRecordedTestPaths,
+  marksToPlainObject,
+  omitByDeep,
+  rangeToPlainObject,
   serializeTestFixture,
+  serializedMarksToTokenHats,
   shouldUpdateFixtures,
   splitKey,
-  SpyIDE,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
-  TestCaseFixtureLegacy,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -28,11 +31,11 @@ import {
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
-import { isUndefined } from "lodash";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -72,7 +75,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const { hatTokenMap, takeSnapshot, setStoredTarget } =
+  const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
@@ -99,6 +102,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
     // spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
+  commandServerApi.setFocusedElementType(
+    fixture.focusedElementType === "other"
+      ? undefined
+      : fixture.focusedElementType ?? "textEditor",
+  );
+
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
     serializedMarksToTokenHats(
@@ -113,12 +122,22 @@ async function runTest(file: string, spyIde: SpyIDE) {
   checkMarks(fixture.initialState.marks, readableHatMap);
 
   let returnValue: unknown;
+  let fallback: Fallback | undefined;
 
   try {
     returnValue = await runCursorlessCommand({
       ...fixture.command,
       usePrePhraseSnapshot,
     });
+    if (clientSupportsFallback(fixture.command)) {
+      const commandResponse = returnValue as CommandResponse;
+      returnValue =
+        "returnValue" in commandResponse
+          ? commandResponse.returnValue
+          : undefined;
+      fallback =
+        "fallback" in commandResponse ? commandResponse.fallback : undefined;
+    }
   } catch (err) {
     const error = err as Error;
 
@@ -189,6 +208,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
       ...fixture,
       finalState: resultState,
       returnValue,
+      fallback,
       ide: actualSpyIdeValues,
       thrownError: undefined,
     };
@@ -211,6 +231,12 @@ async function runTest(file: string, spyIde: SpyIDE) {
       returnValue,
       fixture.returnValue,
       "Unexpected return value",
+    );
+
+    assert.deepStrictEqual(
+      fallback,
+      fixture.fallback,
+      "Unexpected fallback value",
     );
 
     assert.deepStrictEqual(

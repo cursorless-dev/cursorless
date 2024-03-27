@@ -1,4 +1,5 @@
 import {
+  Edit,
   FlashStyle,
   RangeExpansionBehavior,
   Selection,
@@ -10,7 +11,6 @@ import {
   performEditsAndUpdateFullSelectionInfos,
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
-import { Edit } from "../typings/Types";
 import { Target } from "../typings/target.types";
 import { FullSelectionInfo } from "../typings/updateSelections";
 import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";

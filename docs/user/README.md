@@ -66,7 +66,7 @@ The following colors are supported. Note that to target the default (gray) hat y
 
 You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
-You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes.
+You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
@@ -207,6 +207,8 @@ And here is a table of the spoken forms:
 | `"previous [number] [scope]s"` | previous `[number]` instances of `[scope]`                          | `"take previous three funks"` |
 | `"previous [scope]"`           | Previous instance of `[scope]`                                      | `"take previous funk"`        |
 
+You can prefix the modifier with `"every"` to yield multiple targets rather than a range. For example, `"take every two tokens"` selects two tokens as separate selections.
+
 ##### `"every"`
 
 The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
@@ -216,6 +218,13 @@ The modifier `"every"` can be used to select a syntactic element and all of its 
 - `"take every key"` (if cursor is currently within a key)
 
 For example, the command `"take every key [blue] air"` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+
+###### Use with relative / ordinal modifiers
+
+The modifier `every` can also be used to cause [relative / ordinal modifiers](#previous--next--ordinal--number) to yield multiple targets rather than a range:
+
+- `"take every two tokens"` selects two tokens as separate selections
+- `"pre every first two lines"` puts a cursor before each of first two lines in block (results in multiple cursors)
 
 ##### `"grand"`
 
