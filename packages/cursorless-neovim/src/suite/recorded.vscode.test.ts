@@ -126,7 +126,9 @@ async function runTest(file: string, spyIde: SpyIDE) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
-  editor.setSelections(fixture.initialState.selections.map(createSelection));
+  await editor.setSelections(
+    fixture.initialState.selections.map(createSelection),
+  );
 
   // for (const storedTargetKey of storedTargetKeys) {
   //   const key = `${storedTargetKey}Mark` as const;
