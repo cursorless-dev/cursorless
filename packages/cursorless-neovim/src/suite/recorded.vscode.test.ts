@@ -83,25 +83,23 @@ export async function runRecordedTestCases() {
   // - multiple selections (we don't support multiple cursors atm)
   // - marks is non {} (we don't not support decorated symbol marks atm)
   // - others?
-  // getRecordedTestPaths().forEach(({ name, path }) =>
-  //   // test(
-  //   //   name,
-  //   //   asyncSafety(() => runTest(path, getSpy()!)),
-  //   // ),
-  //   runTest(path, spyIde!),
-  // );
+  for (const { name, path } of getRecordedTestPaths()) {
+    await runTest(name, path, spyIde!);
+  }
   // TODO: use the assetRoot instead of hardcoding the path
-  await runTest(
-    "C:\\cursorless\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\marks\\clearRowTwoPastFour.yml",
-    spyIde!,
-  );
 }
 
-async function runTest(file: string, spyIde: SpyIDE) {
-  console.warn(`runTest(${file})`);
+async function runTest(name: string, file: string, spyIde: SpyIDE) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
+  // We don't support decorated symbol marks yet
+  // We don't support parse-tree yet (which requires a code languageId)
+  if (fixture.initialState.marks || fixture.languageId !== "plaintext") {
+    console.warn(`runTest(${name}) => skipped`);
+    return;
+  }
+  console.warn(`runTest(${name})...`);
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"

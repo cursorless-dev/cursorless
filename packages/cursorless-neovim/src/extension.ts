@@ -32,7 +32,7 @@ import { runRecordedTestCases } from "./suite/recorded.vscode.test";
  */
 // TODO: what to do with NeovimExtensionContext vs ExtensionContext vs not using it at all?
 export async function activate(context: NeovimExtensionContext) {
-  debugger;
+  // debugger;
   const client = context.client;
   const buffer = await client.buffer;
 
