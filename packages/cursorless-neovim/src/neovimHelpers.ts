@@ -11,6 +11,7 @@ import { ide } from "@cursorless/cursorless-engine";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { NormalizedIDE, SpyIDE } from "@cursorless/common";
+import { receivedBufferEvent } from "./ide/neovim/NeovimEvents";
 
 /**
  * Initialize the current editor (and current document).
@@ -56,16 +57,9 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
 
 /**
  * Subscribe to buffer updates, e.g. when the text changes.
- *
- *
- * NOTE: keeping this code as it was previously tested and it works but need to see when it
- * will be useful (to update hats?)
  */
 export async function subscribeBufferUpdates() {
   const client = neovimContext().client;
-
-  // update the document since it is needed before we can attach?
-  await updateTextEditor();
 
   /**
    * "attach" to Nvim buffers to subscribe to buffer update events.
@@ -73,12 +67,12 @@ export async function subscribeBufferUpdates() {
    *
    * @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
    */
-  const buffers = await client.buffers;
+  // const buffers = await client.buffers;
+  const buffers = [await client.buffer];
   buffers.forEach(
     /* async */ (buf) => {
-      console.warn("listening for changes in buffer: ", buf.id);
-      // buf.listen("lines", receivedBufferEvent);
-      // NOTE: import code from BufferManager.ts into neovimIDE and uncomment the line above
+      console.warn(`listening for changes in buffer: ${buf.id}`);
+      buf.listen("lines", receivedBufferEvent);
     },
   );
 }

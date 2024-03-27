@@ -131,15 +131,17 @@ export class NeovimTextDocumentImpl implements TextDocument {
 
   public getText(range?: Range): string {
     if (range === undefined) {
-      console.warn(`getText() range=undefined`);
+      console.warn(`getText(all)`);
       if (this._cachedTextValue == null) {
         this._cachedTextValue = this._lines.join(this._eol);
       }
-      console.warn(`getText() returning cached value=${this._cachedTextValue}`);
+      console.warn(
+        `getText(all) returning cached value=${this._cachedTextValue}`,
+      );
       return this._cachedTextValue;
     } else {
       console.warn(
-        `getText() range=(${range?.start.line},${range?.start.character}),(${range?.end.line},${range?.end.character})`,
+        `getText(range=(${range?.start.line},${range?.start.character}),(${range?.end.line},${range?.end.character}))`,
       );
     }
 
@@ -178,7 +180,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
     );
 
     console.warn(
-      `getText() returning multiple lines ${resultLines.join(lineEnding)}`,
+      `getText() returning multiple lines: ${resultLines.join(lineEnding)}`,
     );
     return resultLines.join(lineEnding);
   }

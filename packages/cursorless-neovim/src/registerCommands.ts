@@ -1,6 +1,6 @@
 import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
-import { updateTextEditor } from "./neovimHelpers";
+import { subscribeBufferUpdates, updateTextEditor } from "./neovimHelpers";
 
 /**
  * Handle the command received from the command-server Neovim extension
@@ -19,6 +19,7 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       // try {
       await updateTextEditor();
+      await subscribeBufferUpdates();
       const result = await commandApi().runCommandSafe(...args);
       // const result = ["hello world"]; // simulate the result of "bring <target>"
       return result;

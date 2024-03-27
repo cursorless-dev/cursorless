@@ -23,7 +23,7 @@ import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
-// import { runRecordedTestCases } from "./suite/recorded.vscode.test";
+import { runRecordedTestCases } from "./suite/recorded.vscode.test";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -37,8 +37,6 @@ export async function activate(context: NeovimExtensionContext) {
   const buffer = await client.buffer;
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
-
-  //await subscribeBufferUpdates();
 
   const normalizedIde =
     neovimIDE.runMode === "production"
@@ -101,9 +99,9 @@ export async function activate(context: NeovimExtensionContext) {
 
   console.warn("activate(): Cursorless extension loaded");
 
-  // console.warn("activate(): running the recorded test cases...");
-  // await runRecordedTestCases();
-  // console.warn("activate(): recorded test cases done");
+  console.warn("activate(): running the recorded test cases...");
+  await runRecordedTestCases();
+  console.warn("activate(): recorded test cases done");
 }
 
 async function createNeovimIde(context: ExtensionContext) {

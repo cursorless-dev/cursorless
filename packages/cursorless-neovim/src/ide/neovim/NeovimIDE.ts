@@ -34,6 +34,7 @@ import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 import { NeovimExtensionContext } from "./NeovimExtensionContext";
 import { getTalonNvimPath } from "../../neovimApi";
 import path from "path";
+import { neovimOnDidChangeTextDocument } from "./NeovimEvents";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -185,15 +186,14 @@ export class NeovimIDE implements IDE {
     throw new Error("executeCommand Method not implemented.");
   }
 
-  onDidChangeTextDocument: Event<TextDocumentChangeEvent> = dummyEvent;
-  // TODO: code below was tested successfully so can be reenabled when needed
-  // public onDidChangeTextDocument(
-  //   listener: (event: TextDocumentChangeEvent) => void,
-  // ): Disposable {
-  //   // console.warn("onDidChangeTextDocument Not implemented");
-  //   // throw Error("onDidChangeTextDocument Not implemented");
-  //   return neovimOnDidChangeTextDocument(listener);
-  // }
+  // onDidChangeTextDocument: Event<TextDocumentChangeEvent> = dummyEvent;
+  public onDidChangeTextDocument(
+    listener: (event: TextDocumentChangeEvent) => void,
+  ): Disposable {
+    // console.warn("onDidChangeTextDocument Not implemented");
+    // throw Error("onDidChangeTextDocument Not implemented");
+    return neovimOnDidChangeTextDocument(listener);
+  }
 
   onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
