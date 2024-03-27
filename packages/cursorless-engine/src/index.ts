@@ -10,4 +10,5 @@ export * from "./api/CursorlessEngineApi";
 export * from "./CommandRunner";
 export * from "./CommandHistory";
 export * from "./CommandHistoryAnalyzer";
+// TODO: do not export it
 export * from "./singletons/ide.singleton";
