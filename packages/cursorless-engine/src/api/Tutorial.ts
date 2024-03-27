@@ -1,27 +1,27 @@
 import { TutorialId } from "@cursorless/common";
 
-export interface TutorialGetContentArg {
+export interface TutorialContent {
   /**
-   * The version of the tutorial command.
+   * The title of the tutorial
    */
-  version: 0;
-
-  /**
-   * The name of the current tutorial
-   */
-  tutorialName: string;
-}
-
-export interface TutorialGetContentResponse {
-  /**
-   * The version of the tutorial command.
-   */
-  version: 0;
+  title: string;
 
   /**
    * The steps of the current tutorial
    */
   steps: Array<TutorialStep>;
+}
+
+export interface RawTutorialContent {
+  /**
+   * The title of the tutorial
+   */
+  title: string;
+
+  /**
+   * The steps of the current tutorial
+   */
+  steps: string[];
 }
 
 export interface TutorialStep {
@@ -39,14 +39,9 @@ export interface TutorialStep {
 
 export interface TutorialSetupStepArg {
   /**
-   * The version of the tutorial command.
+   * The id of the current tutorial
    */
-  version: 0;
-
-  /**
-   * The name of the current tutorial
-   */
-  tutorialName: string;
+  tutorialId: string;
 
   /**
    * The yaml file for the current step
@@ -55,6 +50,6 @@ export interface TutorialSetupStepArg {
 }
 
 export interface Tutorial {
-  getContent(id: TutorialId): Promise<TutorialGetContentResponse>;
+  getContent(id: TutorialId): Promise<TutorialContent>;
   setupStep(arg: TutorialSetupStepArg): Promise<void>;
 }

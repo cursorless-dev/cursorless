@@ -1,6 +1,7 @@
 import { TutorialState } from "@cursorless/common";
 import { useEffect, useState, type FunctionComponent } from "react";
 import { WebviewApi } from "vscode-webview";
+import { TutorialStep } from "./TutorialStep";
 
 interface Props {
   vscode: WebviewApi<undefined>;
@@ -29,6 +30,6 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
   return state.type === "pickingTutorial" ? (
     <span>Say "cursorless tutorial"</span>
   ) : (
-    <span>{state.stepContent}</span>
+    <TutorialStep state={state} />
   );
 };

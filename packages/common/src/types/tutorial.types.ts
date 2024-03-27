@@ -4,8 +4,9 @@ interface PickingTutorialState {
   type: "pickingTutorial";
 }
 
-interface ActiveTutorialState {
+export interface ActiveTutorialState {
   type: "doingTutorial";
+  title: string;
   tutorialId: TutorialId;
   stepNumber: number;
   stepContent: string;

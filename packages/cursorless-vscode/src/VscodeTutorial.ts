@@ -1,8 +1,5 @@
 import { TutorialId, TutorialState } from "@cursorless/common";
-import {
-  Tutorial,
-  TutorialGetContentResponse,
-} from "@cursorless/cursorless-engine";
+import { Tutorial, TutorialContent } from "@cursorless/cursorless-engine";
 import { VscodeApi } from "@cursorless/vscode-common";
 import {
   CancellationToken,
@@ -19,7 +16,7 @@ const VSCODE_TUTORIAL_WEBVIEW_ID = "cursorless.tutorial";
 
 export class VscodeTutorial implements WebviewViewProvider {
   private state: TutorialState = { type: "pickingTutorial" };
-  private currentTutorial?: TutorialGetContentResponse;
+  private currentTutorial?: TutorialContent;
   private view?: WebviewView;
 
   constructor(
@@ -70,6 +67,7 @@ export class VscodeTutorial implements WebviewViewProvider {
       stepNumber: 0,
       stepContent: this.currentTutorial.steps[0].content,
       stepCount: this.currentTutorial.steps.length,
+      title: this.currentTutorial.title,
     });
 
     if (this.view != null) {
@@ -79,9 +77,8 @@ export class VscodeTutorial implements WebviewViewProvider {
     }
 
     await this.tutorial.setupStep({
-      version: 0,
       fixturePath: this.currentTutorial.steps[0].fixturePath!,
-      tutorialName: tutorialId,
+      tutorialId: tutorialId,
     });
   }
 

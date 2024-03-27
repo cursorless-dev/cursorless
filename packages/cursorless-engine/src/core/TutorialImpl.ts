@@ -1,6 +1,7 @@
 import {
   ScopeType,
   TestCaseFixture,
+  TextEditor,
   TutorialId,
   plainObjectToSelection,
   serializedMarksToTokenHats,
@@ -9,8 +10,9 @@ import * as yaml from "js-yaml";
 import { readFile } from "node:fs/promises";
 import path from "path";
 import {
+  RawTutorialContent,
   Tutorial,
-  TutorialGetContentResponse,
+  TutorialContent,
   TutorialSetupStepArg,
 } from "../api/Tutorial";
 import { CustomSpokenFormGeneratorImpl } from "../generateSpokenForm/CustomSpokenFormGeneratorImpl";
@@ -21,6 +23,7 @@ import { canonicalizeAndValidateCommand } from "./commandVersionUpgrades/canonic
 
 export class TutorialImpl implements Tutorial {
   private tutorialRootDir: string;
+  private editor?: TextEditor;
 
   constructor(
     private hatTokenMap: HatTokenMapImpl,
@@ -86,7 +89,9 @@ export class TutorialImpl implements Tutorial {
   /**
    * Load the "script.json" script for the current tutorial
    */
-  private async loadTutorialScript(tutorialName: string): Promise<string[]> {
+  private async loadTutorialScript(
+    tutorialName: string,
+  ): Promise<RawTutorialContent> {
     const scriptFile = path.join(
       this.tutorialRootDir,
       tutorialName,
@@ -94,26 +99,25 @@ export class TutorialImpl implements Tutorial {
     );
 
     const buffer = await readFile(scriptFile);
-    const contentList = JSON.parse(buffer.toString());
-    return contentList;
+    return JSON.parse(buffer.toString());
   }
 
   /**
    * Handle the "cursorless.tutorial.getContent" command
    */
-  async getContent(tutorialName: TutorialId) {
-    const contentList = await this.loadTutorialScript(tutorialName);
+  async getContent(tutorialId: TutorialId) {
+    const rawContent = await this.loadTutorialScript(tutorialId);
 
     // this is trying to catch occurrences of things like "%%step:cloneStateInk.yml%%"
     const re = /%%(\w+):([^%]+)%%/;
 
     let spokenForm;
-    const response: TutorialGetContentResponse = {
-      version: 0,
+    const response: TutorialContent = {
+      title: rawContent.title,
       steps: [],
     };
     // we need to replace the {...} with the right content
-    for (let content of contentList) {
+    for (let content of rawContent.steps) {
       let fixturePath: string | undefined = undefined;
       let m = re.exec(content);
       while (m) {
@@ -121,7 +125,7 @@ export class TutorialImpl implements Tutorial {
         switch (type) {
           case "step":
             fixturePath = arg;
-            spokenForm = await this.processStep(tutorialName, arg);
+            spokenForm = await this.processStep(tutorialId, arg);
             content = content.replace(fullMatch, `<cmd@${spokenForm}/>`);
             break;
           case "literalStep":
@@ -155,23 +159,24 @@ export class TutorialImpl implements Tutorial {
    * Handle the "cursorless.tutorial.setupStep" command
    * @see packages/cursorless-vscode-e2e/src/suite/recorded.vscode.test.ts
    */
-  async setupStep({
-    version,
-    tutorialName,
-    fixturePath,
-  }: TutorialSetupStepArg) {
-    if (version !== 0) {
-      throw new Error(`Unsupported tutorial api version: ${version}`);
+  async setupStep({ tutorialId, fixturePath }: TutorialSetupStepArg) {
+    const fixture = await this.loadFixture(tutorialId, fixturePath);
+
+    if (this.editor == null) {
+      this.editor = await ide().openUntitledTextDocument({
+        content: fixture.initialState.documentContents,
+        language: fixture.languageId,
+      });
     }
 
-    // TODO check for directory traversal?
-    const fixture = await this.loadFixture(tutorialName, fixturePath);
+    const editableEditor = ide().getEditableTextEditor(this.editor);
 
-    const editor = await ide().openUntitledTextDocument({
-      content: fixture.initialState.documentContents,
-      language: fixture.languageId,
+    await editableEditor.edit((editBuilder) => {
+      editBuilder.replace(
+        editableEditor.document.range,
+        fixture.initialState.documentContents,
+      );
     });
-    const editableEditor = ide().getEditableTextEditor(editor);
 
     // Ensure that the expected cursor/selections are present
     editableEditor.selections = fixture.initialState.selections.map(
@@ -180,7 +185,9 @@ export class TutorialImpl implements Tutorial {
 
     // Ensure that the expected hats are present
     await this.hatTokenMap.allocateHats(
-      serializedMarksToTokenHats(fixture.initialState.marks, editor),
+      serializedMarksToTokenHats(fixture.initialState.marks, this.editor),
     );
+
+    await editableEditor.focus();
   }
 }
