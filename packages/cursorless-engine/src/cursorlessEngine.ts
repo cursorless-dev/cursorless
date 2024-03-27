@@ -14,6 +14,7 @@ import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
+import { TutorialImpl } from "./core/TutorialImpl";
 import { ensureCommandShape } from "./core/commandVersionUpgrades/ensureCommandShape";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
@@ -64,6 +65,8 @@ export function createCursorlessEngine(
   const customSpokenFormGenerator = new CustomSpokenFormGeneratorImpl(
     talonSpokenForms,
   );
+
+  const tutorial = new TutorialImpl(hatTokenMap, customSpokenFormGenerator);
 
   ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
 
@@ -116,6 +119,7 @@ export function createCursorlessEngine(
     addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
       commandRunnerDecorators.push(decorator);
     },
+    tutorial,
   };
 }
 

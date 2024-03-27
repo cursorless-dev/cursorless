@@ -1,0 +1,52 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: clone line
+  action:
+    name: insertCopyAfter
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: line}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="Emojis")
+    ctx.list['user.emoji'] = {
+        "smile": ":-)",
+    }
+  selections:
+    - anchor: {line: 12, character: 5}
+      active: {line: 12, character: 10}
+  marks: {}
+finalState:
+  documentContents: |-
+    from talon import Context, Module
+
+    mod = Module()
+    ctx = Context()
+
+    mod.list("cursorless_walkthrough_list", desc="My tutorial list")
+    ctx.list['user.cursorless_walkthrough_list'] = {
+        "spoken form": "whatever",
+    }
+
+    mod.list("emoji", desc="Emojis")
+    ctx.list['user.emoji'] = {
+        "smile": ":-)",
+        "smile": ":-)",
+    }
+  selections:
+    - anchor: {line: 13, character: 5}
+      active: {line: 13, character: 10}

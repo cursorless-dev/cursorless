@@ -47,6 +47,7 @@ export const cursorlessCommandIds = [
   "cursorless.toggleDecorations",
   "cursorless.showScopeVisualizer",
   "cursorless.hideScopeVisualizer",
+  "cursorless.tutorial.start",
   "cursorless.analyzeCommandHistory",
 ] as const satisfies readonly `cursorless.${string}`[];
 
@@ -81,6 +82,7 @@ export const cursorlessCommandDescriptions: Record<
     "Analyze collected command history",
   ),
 
+  ["cursorless.tutorial.start"]: new HiddenCommand("Start a tutorial"),
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
   ["cursorless.showQuickPick"]: new HiddenCommand(
     "Pop up a quick pick of all cursorless commands",

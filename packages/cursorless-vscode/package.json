@@ -71,6 +71,7 @@
     "onCommand:cursorless.toggleDecorations",
     "onCommand:cursorless.showScopeVisualizer",
     "onCommand:cursorless.hideScopeVisualizer",
+    "onCommand:cursorless.tutorial.start",
     "onCommand:cursorless.analyzeCommandHistory"
   ],
   "main": "./extension.cjs",
@@ -82,6 +83,11 @@
   "contributes": {
     "views": {
       "cursorless": [
+        {
+          "type": "webview",
+          "id": "cursorless.tutorial",
+          "name": "Tutorial"
+        },
         {
           "id": "cursorless.scopes",
           "name": "Scopes"
@@ -128,6 +134,11 @@
       {
         "command": "cursorless.analyzeCommandHistory",
         "title": "Cursorless: Analyze collected command history"
+      },
+      {
+        "command": "cursorless.tutorial.start",
+        "title": "Cursorless: Start a tutorial",
+        "enablement": "false"
       },
       {
         "command": "cursorless.command",
@@ -1181,8 +1192,8 @@
   },
   "funding": "https://github.com/sponsors/pokey",
   "scripts": {
-    "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm run populate-dist",
-    "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
+    "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm -F cursorless-vscode-tutorial-webview build:prod && pnpm run populate-dist",
+    "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm -F cursorless-vscode-tutorial-webview build && pnpm run populate-dist",
     "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=dist/extension.cjs --external:vscode --format=cjs --platform=node",
     "install-local": "bash ./scripts/install-local.sh",
     "install-from-pr": "bash ./scripts/install-from-pr.sh",

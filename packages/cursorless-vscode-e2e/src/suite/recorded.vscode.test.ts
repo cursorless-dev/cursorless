@@ -1,30 +1,28 @@
 import {
-  asyncSafety,
   CommandResponse,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
-  extractTargetedMarks,
   Fallback,
-  getRecordedTestPaths,
   HatStability,
-  marksToPlainObject,
-  omitByDeep,
-  plainObjectToRange,
   PositionPlainObject,
-  rangeToPlainObject,
   ReadOnlyHatMap,
   SelectionPlainObject,
   SerializedMarks,
+  SpyIDE,
+  TestCaseFixtureLegacy,
+  asyncSafety,
+  clientSupportsFallback,
+  extractTargetedMarks,
+  getRecordedTestPaths,
+  marksToPlainObject,
+  omitByDeep,
+  rangeToPlainObject,
   serializeTestFixture,
+  serializedMarksToTokenHats,
   shouldUpdateFixtures,
   splitKey,
-  SpyIDE,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
-  TestCaseFixtureLegacy,
-  TextEditor,
-  TokenHat,
-  clientSupportsFallback,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -112,7 +110,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+    serializedMarksToTokenHats(
+      fixture.initialState.marks,
+      spyIde.activeTextEditor!,
+    ),
   );
 
   const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
@@ -259,36 +260,5 @@ function checkMarks(
     const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-  });
-}
-
-function getTokenHats(
-  marks: SerializedMarks | undefined,
-  editor: TextEditor,
-): TokenHat[] {
-  if (marks == null) {
-    return [];
-  }
-
-  return Object.entries(marks).map(([key, token]) => {
-    const { hatStyle, character } = splitKey(key);
-    const range = plainObjectToRange(token);
-
-    return {
-      hatStyle,
-      grapheme: character,
-      token: {
-        editor,
-        range,
-        offsets: {
-          start: editor.document.offsetAt(range.start),
-          end: editor.document.offsetAt(range.end),
-        },
-        text: editor.document.getText(range),
-      },
-
-      // NB: We don't care about the hat range for this test
-      hatRange: range,
-    };
   });
 }

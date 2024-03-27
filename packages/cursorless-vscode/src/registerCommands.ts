@@ -13,6 +13,7 @@ import {
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
+import { VscodeTutorial } from "./VscodeTutorial";
 import { showDocumentation, showQuickPick } from "./commands";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
 import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
@@ -28,6 +29,7 @@ export function registerCommands(
   scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
+  tutorial: VscodeTutorial,
 ): void {
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
@@ -98,6 +100,9 @@ export function registerCommands(
     ["cursorless.keyboard.modal.modeOn"]: keyboardCommands.modal.modeOn,
     ["cursorless.keyboard.modal.modeOff"]: keyboardCommands.modal.modeOff,
     ["cursorless.keyboard.modal.modeToggle"]: keyboardCommands.modal.modeToggle,
+
+    // Tutorial commands
+    ["cursorless.tutorial.start"]: tutorial.start,
   };
 
   extensionContext.subscriptions.push(

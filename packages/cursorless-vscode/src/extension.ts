@@ -50,6 +50,7 @@ import {
 import { StatusBarItem } from "./StatusBarItem";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
+import { VscodeTutorial } from "./VscodeTutorial";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -92,6 +93,7 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
+    tutorial,
   } = createCursorlessEngine(
     treeSitter,
     normalizedIde,
@@ -133,6 +135,8 @@ export async function activate(
 
   context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
 
+  const vscodeTutorial = new VscodeTutorial(context, vscodeApi, tutorial);
+
   registerCommands(
     context,
     vscodeIDE,
@@ -142,6 +146,7 @@ export async function activate(
     scopeVisualizer,
     keyboardCommands,
     hats,
+    vscodeTutorial,
   );
 
   new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();

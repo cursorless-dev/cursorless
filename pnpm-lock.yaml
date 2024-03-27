@@ -577,6 +577,31 @@ importers:
         specifier: ^11.1.1
         version: 11.1.2
 
+  packages/cursorless-vscode-tutorial-webview:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@types/react':
+        specifier: 18.0.28
+        version: 18.0.28
+      '@types/react-dom':
+        specifier: 18.0.11
+        version: 18.0.11
+      '@types/vscode-webview':
+        specifier: 1.57.5
+        version: 1.57.5
+      tailwindcss:
+        specifier: 3.3.5
+        version: 3.3.5(ts-node@10.9.1)
+
   packages/meta-updater:
     dependencies:
       '@cursorless/common':
@@ -5210,6 +5235,10 @@ packages:
     dependencies:
       '@types/expect': 1.20.4
       '@types/node': 18.18.9
+
+  /@types/vscode-webview@1.57.5:
+    resolution: {integrity: sha512-iBAUYNYkz+uk1kdsq05fEcoh8gJmwT3lqqFPN7MGyjQ3HVloViMdo7ZJ8DFIP8WOK74PjOEilosqAyxV2iUFUw==}
+    dev: true
 
   /@types/vscode@1.66.0:
     resolution: {integrity: sha512-ZfJck4M7nrGasfs4A4YbUoxis3Vu24cETw3DERsNYtDZmYSYtk6ljKexKFKhImO/ZmY6ZMsmegu2FPkXoUFImA==}

@@ -46,3 +46,6 @@ bar {user.cursorless_homophone}:
 
 {user.cursorless_homophone} stats:
     user.private_cursorless_show_command_statistics()
+
+{user.cursorless_homophone} tutorial:
+    user.private_cursorless_start_tutorial()
