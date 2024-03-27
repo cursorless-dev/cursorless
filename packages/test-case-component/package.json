@@ -8,5 +8,12 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "11.1.0",
+    "prettier": "2.8.4",
+    "shiki": "0.14.3",
+    "tsx": "3.12.7",
+    "yaml": "2.2.1"
+  }
 }
