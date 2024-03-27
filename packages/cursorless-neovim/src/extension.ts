@@ -108,6 +108,7 @@ export async function activate(context: NeovimExtensionContext) {
 
 async function createNeovimIde(context: ExtensionContext) {
   const neovimIDE = new NeovimIDE(context);
+  await neovimIDE.init();
 
   const hats = new NeovimHats(neovimIDE, context);
   await hats.init();

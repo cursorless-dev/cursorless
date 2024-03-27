@@ -95,11 +95,18 @@ export async function windowGetVisibleRanges(
   ];
 }
 
+export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
+  const luaCode = `return require("talon.utils").talon_nvim_path()`;
+  const data = await client.executeLua(luaCode, []);
+  // TODO: is there a better way to cast that?
+  return data as unknown as string;
+}
+
 export async function putToClipboard(data: string, client: NeovimClient) {
   await client.callFunction("setreg", ["*", data]);
 }
 
-// TODO: this hasn't been tested yet
+// TODO: this hasn't been tested yet and will be once we test "paste to row one" commands
 export async function getFromClipboard(client: NeovimClient): Promise<string> {
   const luaCode = `return require("talon.cursorless").get_from_clipboard()`;
   const data = await client.executeLua(luaCode, []);

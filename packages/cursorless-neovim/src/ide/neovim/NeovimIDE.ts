@@ -31,6 +31,9 @@ import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
 import { Window } from "neovim";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
+import { NeovimExtensionContext } from "./NeovimExtensionContext";
+import { getTalonNvimPath } from "../../neovimApi";
+import path from "path";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -50,6 +53,7 @@ export class NeovimIDE implements IDE {
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
+  private cursorlessNeovimPath: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
 
   constructor(private extensionContext: ExtensionContext) {
@@ -60,7 +64,26 @@ export class NeovimIDE implements IDE {
     this.capabilities = new NeovimCapabilities();
     this.editorMap = new Map<Window, NeovimTextEditorImpl>();
     this.activeWindow = undefined;
-    //this.assetsRoot_ = "C:\\"; // TODO: fix but not needed for now as used by snippets and cheatsheet only?
+  }
+
+  async init() {
+    const client = (this.extensionContext as NeovimExtensionContext).client;
+    const talonNvimPath = await getTalonNvimPath(client);
+    // talon-nvim path: C:\Users\User\AppData\Local\nvim-data\lazy\talon.nvim
+    // we store the assets into a subfolder of talon.nvim
+    this.assetsRoot_ = path.join(talonNvimPath, "assets");
+    // development cursorless-neovim path: C:\Users\User\AppData\Local\nvim\rplugin\node\cursorless-neovim
+    // TODO: we will need to change this once all the files are in talon.nvim/
+    this.cursorlessNeovimPath = path.join(
+      talonNvimPath,
+      "..",
+      "..",
+      "..",
+      "nvim",
+      "rplugin",
+      "node",
+      "cursorless-neovim",
+    );
   }
 
   async showQuickPick(
