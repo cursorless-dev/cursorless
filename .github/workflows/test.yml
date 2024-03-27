@@ -74,3 +74,9 @@ jobs:
         if: failure()
       - name: Forbid TODOs
         run: ./scripts/forbid-todo.sh
+
+      - name: Pyright
+        uses: jakebailey/pyright-action@v2
+        with:
+          version: 1.1.311 # Optional (change me!)
+          python-version: 3.11

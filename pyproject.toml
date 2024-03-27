@@ -14,4 +14,14 @@ target-version = "py311"
 extend-exclude = ["vendor", "data/playground/**/*.py"]
 
 [tool.pyright]
+# Talon classes don't use self so ignore the associated errors
 reportSelfClsParameterName = false
+
+# Ignore the type of parameter X must be a supertype of its class
+# reportGeneralTypeIssues = false
+
+# Imgui functions return an object that can't be statically resolved
+reportFunctionMemberAccess = false
+# Talon can't be installed in CI so ignore source errors
+reportMissingModuleSource = false
+reportMissingImports = false
