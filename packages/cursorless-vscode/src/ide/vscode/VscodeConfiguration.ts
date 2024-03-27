@@ -9,16 +9,19 @@ import {
 import { GetFieldType, Paths } from "@cursorless/common";
 import { Notifier } from "@cursorless/common";
 import type { VscodeIDE } from "./VscodeIDE";
-import { get } from "lodash";
 
-const translators = {
-  experimental: {
-    hatStability(value: string) {
-      return HatStability[value as keyof typeof HatStability];
-    },
-    snippetsDir: (value?: string) => {
-      return value != null ? evaluateStringVariables(value) : undefined;
-    },
+type TranslatorMap = {
+  [K in Paths<CursorlessConfiguration>]?: (
+    arg: any,
+  ) => GetFieldType<CursorlessConfiguration, K>;
+};
+
+const translators: TranslatorMap = {
+  ["experimental.hatStability"]: (value: string) => {
+    return HatStability[value as keyof typeof HatStability];
+  },
+  ["experimental.snippetsDir"]: (value?: string) => {
+    return value != null ? evaluateStringVariables(value) : undefined;
   },
 };
 
@@ -41,7 +44,7 @@ export default class VscodeConfiguration implements Configuration {
       .getConfiguration("cursorless", scope)
       .get<GetFieldType<CursorlessConfiguration, Path>>(path)!;
 
-    return (get(translators, path) as (_: any) => any)?.(rawValue) ?? rawValue;
+    return translators[path]?.(rawValue) ?? rawValue;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;
