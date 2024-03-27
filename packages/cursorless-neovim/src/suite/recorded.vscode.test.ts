@@ -90,6 +90,7 @@ export async function runRecordedTestCases() {
   //   // ),
   //   runTest(path, spyIde!),
   // );
+  // TODO: use the assetRoot instead of hardcoding the path
   runTest(
     "C:\\cursorless\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\marks\\takeRowFour.yml",
     spyIde!,

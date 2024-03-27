@@ -26,6 +26,7 @@ export class NeovimFileSystem implements FileSystem {
   }
 
   public async initialize(): Promise<void> {
+    // TODO: atm it always fails in development mode and shows this warning, is that expected?
     try {
       // await vscode.workspace.fs.createDirectory(
       //   vscode.Uri.file(this.cursorlessDir),
@@ -49,55 +50,16 @@ export class NeovimFileSystem implements FileSystem {
    */
   public async readBundledFile(path: string): Promise<string | undefined> {
     throw Error("readBundledFile() Not implemented");
-    // TODO: we need to implement this
-    // return undefined;
-    // try {
-    //   return this.decoder.decode(
-    //     await vscode.workspace.fs.readFile(this.resolveBundledPath(path)),
-    //   );
-    // } catch (err) {
-    //   if (
-    //     err instanceof Error &&
-    //     "code" in err &&
-    //     err.code === "FileNotFound"
-    //   ) {
-    //     return undefined;
-    //   }
-    //   throw err;
-    // }
   }
 
   private resolveBundledPath(path: string) {
     throw Error("resolveBundledPath() Not implemented");
-    // TODO: we need to implement this
-    // if (isAbsolute(path)) {
-    //   if (this.runMode !== "development") {
-    //     throw new Error(
-    //       "Absolute paths are not supported outside of development mode",
-    //     );
-    //   }
-    //
-    //   return vscode.Uri.file(path);
-    // }
-    //
-    // return vscode.Uri.joinPath(this.extensionContext.extensionUri, path);
   }
 
   public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
     // throw Error("watchDir() Not implemented");
-    // TODO: we need to implement this
+    // TODO: we need to implement this?
     return dummyEvent();
-    // // return { dispose: () => {} };
-    // // FIXME: Support globs?
-    // const watcher = vscode.workspace.createFileSystemWatcher(
-    //   new vscode.RelativePattern(path, "**"),
-    // );
-    //
-    // watcher.onDidChange(onDidChange);
-    // watcher.onDidCreate(onDidChange);
-    // watcher.onDidDelete(onDidChange);
-    //
-    // return watcher;
   }
 }
 

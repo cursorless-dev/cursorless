@@ -74,7 +74,7 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
   }
 
   return commands["cursorless.command"](...rest);
-  // TODO: make the below notation work
+  // NOTE: making the below notation work is not needed anymore as we will use pure dependency injection
   // const HandlerFunction = (command: string) => {
   //   commands[command](...rest);
   // };

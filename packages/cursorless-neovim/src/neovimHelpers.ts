@@ -17,8 +17,7 @@ import { NormalizedIDE, SpyIDE } from "@cursorless/common";
  * We always overwrite the current editor from scratch for now
  * because we reinitialize it for every command we receive
  *
- * TODO: We only initialize one editor(current window) with one document(current buffer)
- *       we need to support updating editors and documents on the fly
+ * Atm, we only initialize one editor(current window) with one document(current buffer)
  */
 export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   const client = neovimContext().client;
@@ -35,7 +34,8 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   );
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
   const ide_ = ide();
-  // TODO: It there a clean way to do it?
+  // TODO: It there a clean way to do it? Yes once we support pure dependency injection
+  // also we can make this function a method of NeovimIDE class
   let neovimIDE: NeovimIDE;
   if (ide_ instanceof NeovimIDE) {
     neovimIDE = ide_;
@@ -58,7 +58,9 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
 
 /**
  * Subscribe to buffer updates, e.g. when the text changes.
- * TODO: keeping this code as it was previously tested and it works but need to see when it
+ *
+ *
+ * NOTE: keeping this code as it was previously tested and it works but need to see when it
  * will be useful (to update hats?)
  */
 export async function subscribeBufferUpdates() {
@@ -78,9 +80,7 @@ export async function subscribeBufferUpdates() {
     /* async */ (buf) => {
       console.warn("listening for changes in buffer: ", buf.id);
       // buf.listen("lines", receivedBufferEvent);
-      // TODO: import code from BufferManager.ts into neovimIDE and uncomment the line above
-      // TODO: Exception has occurred: TypeError: buf[import_Buffer.ATTACH] is not a function
-      // await buf[ATTACH](true);
+      // NOTE: import code from BufferManager.ts into neovimIDE and uncomment the line above
     },
   );
 }

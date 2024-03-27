@@ -28,7 +28,7 @@ export default class PassthroughIDEBase implements IDE {
   messages: Messages;
   capabilities: Capabilities;
 
-  // TODO: we probably want to revert "original" to be private?
+  // TODO: revert "original" to be "private". we can do that after using pure dependency injection
   constructor(public original: IDE) {
     this.configuration = original.configuration;
     this.globalState = original.globalState;

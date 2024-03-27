@@ -30,13 +30,11 @@ import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
  * NOTE: this is not the cursorless-neovim extension entrypoint (which is called at Neovim startup)
  * We named it activate() in order to have the same structure as the extension entrypoint to match cursorless-vscode
  */
+// TODO: what to do with NeovimExtensionContext vs ExtensionContext vs not using it at all?
 export async function activate(context: NeovimExtensionContext) {
   debugger;
   const client = context.client;
   const buffer = await client.buffer;
-
-  // TODO: we should be able to get the parsetree api directly from neovim
-  // const parseTreeApi = await getParseTreeApi();
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
 
@@ -57,7 +55,7 @@ export async function activate(context: NeovimExtensionContext) {
     ? fakeCommandServerApi
     : neovimCommandServerApi;
 
-  const treeSitter: TreeSitter = createTreeSitter(/* parseTreeApi */);
+  const treeSitter: TreeSitter = createTreeSitter();
 
   const {
     commandApi,
@@ -134,21 +132,22 @@ async function createNeovimIde(context: ExtensionContext) {
   return { neovimIDE, hats, fileSystem };
 }
 
-function createTreeSitter(/* parseTreeApi: ParseTreeApi */): TreeSitter {
+// We don't need a parse tree for now, so just building a fake/empty one
+function createTreeSitter(): TreeSitter {
   return {
     getNodeAtLocation(document: TextDocument, range: Range) {
-      return null as unknown as SyntaxNode; // TODO: update
+      return null as unknown as SyntaxNode;
     },
 
     getTree(document: TextDocument) {
-      return null as unknown as Tree; // TODO: update
+      return null as unknown as Tree;
     },
 
     loadLanguage(languageId: string) {
-      return Promise.resolve(false); // TODO: update
+      return Promise.resolve(false);
     },
     getLanguage(languageId: string): Language | undefined {
-      return undefined; // TODO: update
+      return undefined;
     },
   };
 }

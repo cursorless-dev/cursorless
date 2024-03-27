@@ -38,14 +38,15 @@ export class NeovimIDE implements IDE {
   readonly messages: NeovimMessages;
   readonly clipboard: NeovimClipboard;
   readonly capabilities: NeovimCapabilities;
-  public editorMap; // TODO: move to private?
+  public editorMap; // TODO: move to private? Should be possible right away?
   private activeWindow: Window | undefined;
 
   cursorlessVersion: string = "0.0.0";
-  // TODO: support changing the runMode dynamically
+  // TODO: how can we support changing the runMode dynamically?
+  // See https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
   // runMode: RunMode = "production"; // use for end user
   runMode: RunMode = "development"; // use to enable debug logs or for fixture tests
-  // runMode: RunMode = "test";
+  // runMode: RunMode = "test"; // what is it used for?
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;

@@ -13,8 +13,7 @@ import { runRecordedTestCases } from "./suite/recorded.vscode.test";
  */
 export default function entry(plugin: NvimPlugin) {
   // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
-  // TODO: it is not that useful in practice? Can we really call CursorlessLoadExtension() again without restarting Neovim?
-  // plugin.setOptions({ dev: false });
+  // though it does not seem useful in practice for neovim as we can't really call CursorlessLoadExtension() again without restarting Neovim?
   plugin.setOptions({ dev: true });
 
   plugin.registerFunction(
