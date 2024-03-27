@@ -30,6 +30,9 @@
       "path": "./packages/meta-updater"
     },
     {
+      "path": "./packages/test-case-component"
+    },
+    {
       "path": "./packages/test-harness"
     },
     {
