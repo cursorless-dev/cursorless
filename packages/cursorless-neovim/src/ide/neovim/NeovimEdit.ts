@@ -29,6 +29,7 @@ export default async function neovimEdit(
     }
   }
 
+  // update our view of the document
   await updateTextEditor();
   return true;
 }

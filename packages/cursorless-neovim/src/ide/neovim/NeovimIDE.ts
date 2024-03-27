@@ -224,6 +224,20 @@ export class NeovimIDE implements IDE {
     visibleRanges: Range[],
     selections: Selection[],
   ): NeovimTextEditorImpl {
+    if (
+      this.activeWindow &&
+      this.editorMap.has(this.activeWindow) &&
+      this.activeWindow.id === editor.id
+    ) {
+      console.warn(
+        "toNeovimEditor(): editor already exists, updating its document",
+      );
+      const activeEditor = this.activeTextEditor as NeovimTextEditorImpl;
+      activeEditor.initDocument(bufferId, lines, visibleRanges, selections);
+      return activeEditor;
+    }
+
+    console.warn("toNeovimEditor(): creating new editor/document");
     this.activeWindow = editor;
     const impl = new NeovimTextEditorImpl(
       uuid(),

@@ -67,6 +67,13 @@ export class NeovimTextDocumentImpl implements TextDocument {
     this._cachedTextValue = null;
   }
 
+  public update(lines: string[]) {
+    this._lines = lines;
+
+    this._lineStarts = null;
+    this._cachedTextValue = null;
+  }
+
   public lineAt(lineOrPosition: number | Position): TextLine {
     let line: number | undefined;
     if (lineOrPosition instanceof Position) {

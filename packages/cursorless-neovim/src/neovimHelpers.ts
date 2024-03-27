@@ -14,8 +14,10 @@ import { NormalizedIDE, SpyIDE } from "@cursorless/common";
 
 /**
  * Initialize the current editor (and current document).
- * We always overwrite the current editor from scratch for now
- * because we reinitialize it for every command we receive
+ * If the current editor already exists, it will only update the current document of that editor.
+ *
+ * when we receive our first cursorless command, we will initialize an editor an document for it.
+ * for the following commands, we will only update the document.
  *
  * Atm, we only initialize one editor(current window) with one document(current buffer)
  */
@@ -24,14 +26,10 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   const window = await client.window;
   const buffer = await window.buffer;
   const lines = await buffer.lines;
-  console.warn(`updateTextEditor(): lines=${lines}`);
   console.warn(
-    `creating editor/document for window:${window.id} buffer:${buffer.id}`,
+    `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${lines}`,
   );
   const selections = await bufferGetSelections(window, client);
-  console.warn(
-    `updateTextEditor(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character})`,
-  );
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
   const ide_ = ide();
   // TODO: It there a clean way to do it? Yes once we support pure dependency injection
@@ -66,7 +64,7 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
 export async function subscribeBufferUpdates() {
   const client = neovimContext().client;
 
-  // initialize the editor since it is needed before we can attach?
+  // update the document since it is needed before we can attach?
   await updateTextEditor();
 
   /**

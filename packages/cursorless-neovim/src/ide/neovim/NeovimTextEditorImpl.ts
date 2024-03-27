@@ -20,8 +20,8 @@ import { NeovimIDE } from "./NeovimIDE";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 
 export class NeovimTextEditorImpl implements EditableTextEditor {
-  readonly document: TextDocument;
-  private _selections: Selection[];
+  private _document: TextDocument | undefined;
+  private _selections: Selection[] | undefined;
 
   constructor(
     public readonly id: string,
@@ -32,17 +32,39 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     public visibleRanges: Range[],
     selections: Selection[],
   ) {
-    // TODO: don't hardcode arguments
-    this.document = new NeovimTextDocumentImpl(
-      URI.parse(`neovim://${bufferId}`), // URI.parse(`file://${bufferId}`),
-      "plaintext",
-      1,
-      //"\n",
-      "\r\n",
-      lines,
-    );
+    this.initDocument(bufferId, lines, visibleRanges, selections);
+  }
+
+  get document(): TextDocument {
+    return this._document as TextDocument;
+  }
+
+  public initDocument(
+    bufferId: number,
+    lines: string[],
+    visibleRanges: Range[],
+    selections: Selection[],
+  ): NeovimTextDocumentImpl {
+    if (this._document) {
+      console.warn(
+        "initDocument(): document already exists, updating its content",
+      );
+      (this._document as NeovimTextDocumentImpl).update(lines);
+    } else {
+      // TODO: don't hardcode arguments
+      console.warn("initDocument(): creating new document");
+      this._document = new NeovimTextDocumentImpl(
+        URI.parse(`neovim://${bufferId}`), // URI.parse(`file://${bufferId}`),
+        "plaintext",
+        1,
+        "\n",
+        // "\r\n",
+        lines,
+      );
+    }
     // console.warn(`NeovimTextEditorImpl(): lines=${lines}`);
     this._selections = selections;
+    return this._document as NeovimTextDocumentImpl;
   }
 
   // neovim terminology for editor is window
@@ -51,7 +73,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   get selections(): Selection[] {
-    return this._selections; // TODO: this should work, but needs testing
+    return this._selections as Selection[];
     // throw Error("get selections Not implemented");
   }
 
