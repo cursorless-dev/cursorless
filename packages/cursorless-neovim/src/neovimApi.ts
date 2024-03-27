@@ -27,20 +27,27 @@ export async function bufferGetSelections(
     endCol = result[3] as number,
     reverse = result[4] as boolean;
   // subtract 1 to the lines/columns to get the correct 0-based line/column numbers
+  let selections: Selection[];
   if (reverse === true) {
-    return [
+    selections = [
       new Selection(
         new Position(endLine - 1, endCol - 1),
         new Position(startLine - 1, startCol - 1),
       ),
     ];
+  } else {
+    selections = [
+      new Selection(
+        new Position(startLine - 1, startCol - 1),
+        new Position(endLine - 1, endCol - 1),
+      ),
+    ];
   }
-  return [
-    new Selection(
-      new Position(startLine - 1, startCol - 1),
-      new Position(endLine - 1, endCol - 1),
-    ),
-  ];
+
+  console.warn(
+    `bufferGetSelections(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character})`,
+  );
+  return selections;
 }
 
 export async function bufferSetSelections(
