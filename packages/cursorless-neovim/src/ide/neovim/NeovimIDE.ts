@@ -42,8 +42,9 @@ export class NeovimIDE implements IDE {
   private activeWindow: Window | undefined;
 
   cursorlessVersion: string = "0.0.0";
-  runMode: RunMode = "production";
-  // runMode: RunMode = "development"; // enable debug logs
+  // TODO: support changing the runMode dynamically
+  // runMode: RunMode = "production"; // use for end user
+  runMode: RunMode = "development"; // use to enable debug logs or for fixture tests
   // runMode: RunMode = "test";
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
