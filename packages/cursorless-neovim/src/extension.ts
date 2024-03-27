@@ -99,9 +99,11 @@ export async function activate(context: NeovimExtensionContext) {
 
   console.warn("activate(): Cursorless extension loaded");
 
+  // COMMENT ME IF YOU DON'T WANT TO RUN TESTS
   console.warn("activate(): running the recorded test cases...");
   await runRecordedTestCases();
   console.warn("activate(): recorded test cases done");
+  // COMMENT ME END
 }
 
 async function createNeovimIde(context: ExtensionContext) {
