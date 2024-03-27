@@ -69,6 +69,9 @@
       "path": "./packages/test-case-recorder"
     },
     {
+      "path": "./packages/test-case-component"
+    },
+    {
       "path": "./packages/test-harness"
     },
     {

@@ -3,20 +3,34 @@
   "version": "0.0.1",
   "type": "module",
   "description": "Component for displaying results of test cases in cursorless-vscode-e2e",
-  "main": "index.js",
+  "main": "./out/index.js",
   "scripts": {
     "build": "tsx src/lib/buildDictionary",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/test-case-component --parallel '/^watch:.*/'",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "fs-extra": "11.1.0",
     "prettier": "2.8.4",
     "shiki": "0.14.3",
     "tsx": "3.12.7",
     "yaml": "2.2.1"
+  },
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
   }
 }
