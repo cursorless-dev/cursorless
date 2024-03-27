@@ -1,6 +1,7 @@
 {
   "name": "@cursorless/test-case-component",
   "version": "0.0.1",
+  "type": "module",
   "description": "Component for displaying results of test cases in cursorless-vscode-e2e",
   "main": "index.js",
   "scripts": {
