@@ -1,3 +1,3 @@
 export function generateExamples(): string {
-  return 'generate-examples';
+  return "generate-examples";
 }

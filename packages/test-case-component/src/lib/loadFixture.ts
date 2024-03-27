@@ -1,16 +1,16 @@
-import path from 'path';
-import fs from 'fs-extra';
-import * as yaml from 'yaml';
+import path from "path";
+import fs from "fs-extra";
+import * as yaml from "yaml";
 
-import { generateHtml, SelectionAnchor } from './generateHtml';
+import { generateHtml, SelectionAnchor } from "./generateHtml";
 
 const fixturesDir = path.join(
-  '../',
-  'cursorless-vscode-e2e',
-  'src',
-  'suite',
-  'fixtures',
-  'recorded'
+  "../",
+  "cursorless-vscode-e2e",
+  "src",
+  "suite",
+  "fixtures",
+  "recorded",
 );
 
 async function safeGenerateHtml(
@@ -20,7 +20,7 @@ async function safeGenerateHtml(
   try {
     return await generateHtml(state, languageId);
   } catch (e) {
-    console.log('error in state', stateName, e);
+    console.log("error in state", stateName, e);
     console.log(JSON.stringify(state, null, 2));
     throw e;
   }
@@ -28,12 +28,14 @@ async function safeGenerateHtml(
 
 export async function loadFixture(folder: string, name: string) {
   const filepath = path.join(fixturesDir, folder, `${name}.yml`);
-  const data = yaml.parse(await fs.readFile(filepath, 'utf-8'));
-  if (data.command.version !== 2) return;
+  const data = yaml.parse(await fs.readFile(filepath, "utf-8"));
+  if (data.command.version !== 2) {
+    return;
+  }
   try {
     const during = data.decorations
       ? await safeGenerateHtml(
-          'decorations',
+          "decorations",
           {
             ...data.initialState,
             decorations: data.decorations.map(
@@ -52,21 +54,21 @@ export async function loadFixture(folder: string, name: string) {
                 type,
                 anchor: start,
                 active: end,
-              })
+              }),
             ),
           },
-          data.languageId
+          data.languageId,
         )
       : undefined;
     const before = await safeGenerateHtml(
-      'initialState',
+      "initialState",
       data.initialState,
-      data.languageId
+      data.languageId,
     );
     const after = await safeGenerateHtml(
-      'finalState',
+      "finalState",
       data.finalState,
-      data.languageId
+      data.languageId,
     );
     return {
       language: data.languageId,
@@ -77,7 +79,7 @@ export async function loadFixture(folder: string, name: string) {
       after,
     };
   } catch (e) {
-    console.log('error', filepath, e);
+    console.log("error", filepath, e);
     console.log(JSON.stringify(data, null, 2));
     throw e;
   }

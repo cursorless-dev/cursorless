@@ -1,31 +1,31 @@
-import prettier from 'prettier';
-import { generateHtml as unformettedFunc } from './generateHtml';
+import prettier from "prettier";
+import { generateHtml as unformettedFunc } from "./generateHtml";
 
 async function generateHtml(...args: Parameters<typeof unformettedFunc>) {
   return prettier.format(await unformettedFunc(...args), {
     singleAttributePerLine: true,
-    htmlWhitespaceSensitivity: 'ignore',
-    parser: 'babel',
+    htmlWhitespaceSensitivity: "ignore",
+    parser: "babel",
   });
 }
 
-describe('generateHtml', () => {
-  it('should select whole line', async () => {
+describe("generateHtml", () => {
+  it("should select whole line", async () => {
     expect(
       await generateHtml(
         {
-          documentContents: '  const oneLine = 1;\nconst line2 = 2;',
+          documentContents: "  const oneLine = 1;\nconst line2 = 2;",
           selections: [
             {
-              type: 'line',
+              type: "line",
               anchor: { line: 1, character: 0 },
               active: { line: 1, character: 22 },
             },
           ],
         },
 
-        'typescript'
-      )
+        "typescript",
+      ),
     ).toMatchInlineSnapshot(`
       "<pre
         class=\\"shiki\\"
@@ -58,22 +58,22 @@ describe('generateHtml', () => {
       "
     `);
   });
-  it('should select single token', async () => {
+  it("should select single token", async () => {
     expect(
       await generateHtml(
         {
-          documentContents: '  const oneLine = 1;\nconst line2 = 2;',
+          documentContents: "  const oneLine = 1;\nconst line2 = 2;",
           selections: [
             {
-              type: 'selection',
+              type: "selection",
               anchor: { line: 0, character: 8 },
               active: { line: 0, character: 15 },
             },
           ],
         },
 
-        'typescript'
-      )
+        "typescript",
+      ),
     ).toMatchInlineSnapshot(`
       "<pre
         class=\\"shiki\\"
@@ -112,22 +112,22 @@ describe('generateHtml', () => {
     `);
   });
 
-  it('should select multiple tokens', async () => {
+  it("should select multiple tokens", async () => {
     expect(
       await generateHtml(
         {
-          documentContents: 'const oneLine = 1;',
+          documentContents: "const oneLine = 1;",
           selections: [
             {
-              type: 'selection',
+              type: "selection",
               anchor: { line: 0, character: 6 },
               active: { line: 0, character: 17 },
             },
           ],
         },
 
-        'typescript'
-      )
+        "typescript",
+      ),
     ).toMatchInlineSnapshot(`
       "<pre
         class=\\"shiki\\"
@@ -155,22 +155,22 @@ describe('generateHtml', () => {
     `);
   });
 
-  it('should select inside tokens', async () => {
+  it("should select inside tokens", async () => {
     expect(
       await generateHtml(
         {
           documentContents: 'const oneLine = "line";',
           selections: [
             {
-              type: 'selection',
+              type: "selection",
               anchor: { line: 0, character: 9 },
               active: { line: 0, character: 19 },
             },
           ],
         },
 
-        'typescript'
-      )
+        "typescript",
+      ),
     ).toMatchInlineSnapshot(`
       "<pre
         class=\\"shiki\\"
@@ -202,22 +202,22 @@ describe('generateHtml', () => {
     `);
   });
 
-  it('should select inside single token', async () => {
+  it("should select inside single token", async () => {
     expect(
       await generateHtml(
         {
-          documentContents: 'const oneLine = 1;',
+          documentContents: "const oneLine = 1;",
           selections: [
             {
-              type: 'selection',
+              type: "selection",
               anchor: { line: 0, character: 9 },
               active: { line: 0, character: 11 },
             },
           ],
         },
 
-        'typescript'
-      )
+        "typescript",
+      ),
     ).toMatchInlineSnapshot(`
       "<pre
         class=\\"shiki\\"
@@ -246,29 +246,29 @@ describe('generateHtml', () => {
       "
     `);
   });
-  it('should select superset ranges', async () => {
+  it("should select superset ranges", async () => {
     expect(
       await generateHtml(
         {
-          documentContents: 'const oneLine = 1;',
+          documentContents: "const oneLine = 1;",
           selections: [
             {
-              type: 'selection',
+              type: "selection",
               anchor: { line: 0, character: 9 },
               active: { line: 0, character: 11 },
             },
           ],
           thatMark: [
             {
-              type: 'selection',
+              type: "selection",
               anchor: { line: 0, character: 6 },
               active: { line: 0, character: 13 },
             },
           ],
         },
 
-        'typescript'
-      )
+        "typescript",
+      ),
     ).toMatchInlineSnapshot(`
       "<pre
         class=\\"shiki\\"

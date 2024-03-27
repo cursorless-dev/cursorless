@@ -1,5 +1,5 @@
-import { getHighlighter, Lang } from 'shiki';
-import { renderToHtml, HatType, SelectionType, Token } from './renderToHtml';
+import { getHighlighter, Lang } from "shiki";
+import { renderToHtml, HatType, SelectionType, Token } from "./renderToHtml";
 
 export interface SelectionAnchor {
   line: number;
@@ -7,7 +7,7 @@ export interface SelectionAnchor {
 }
 
 interface CursorlessFixtureSelection {
-  type: 'line' | 'selection';
+  type: "line" | "selection";
   name?: string;
   anchor: SelectionAnchor;
   active: SelectionAnchor;
@@ -28,7 +28,7 @@ export async function generateHtml(state: CursorlessFixtureState, lang: Lang) {
   return new HTMLGenerator(state, lang).generate();
 }
 
-const highlighter = getHighlighter({ theme: 'css-variables' });
+const highlighter = getHighlighter({ theme: "css-variables" });
 
 class HTMLGenerator {
   private state: CursorlessFixtureState;
@@ -48,8 +48,8 @@ class HTMLGenerator {
     this.applyMarks();
     this.applyAllSelections();
     return renderToHtml(this.tokens, {
-      bg: 'var(--shiki-color-background)',
-      fg: 'var(--shiki-color-text)',
+      bg: "var(--shiki-color-background)",
+      fg: "var(--shiki-color-text)",
       lineOptions: this.lineOptions,
     });
   }
@@ -62,31 +62,33 @@ class HTMLGenerator {
           (token) =>
             ({
               ...token,
-              type: 'token',
-            } as Token)
-        )
+              type: "token",
+            }) as Token,
+        ),
       );
   }
 
   applyMarks() {
     Object.entries(this.state.marks || {}).forEach(([key, mark]) => {
-      const [type, letterArg] = key.split('.') as [HatType, string];
-      const letter = !letterArg || letterArg === '' ? '.' : letterArg;
+      const [type, letterArg] = key.split(".") as [HatType, string];
+      const letter = !letterArg || letterArg === "" ? "." : letterArg;
       const line = this.tokens[mark.start.line];
-      if (!line) return;
+      if (!line) {
+        return;
+      }
       this.insertHat(
-        line as Extract<Token, { type: 'token' | 'hat' }>[],
+        line as Extract<Token, { type: "token" | "hat" }>[],
         type,
         letter,
-        mark.start.character
+        mark.start.character,
       );
     });
   }
   insertHat(
-    line: Extract<Token, { type: 'token' | 'hat' }>[],
+    line: Extract<Token, { type: "token" | "hat" }>[],
     hatType: HatType,
     markCharacter: string,
-    wordStart: number
+    wordStart: number,
   ) {
     let rawIndex = 0;
     for (let t = 0; t < line.length; t += 1) {
@@ -103,11 +105,11 @@ class HTMLGenerator {
             1,
             { ...token, content: token.content.substring(0, i) },
             {
-              type: 'hat',
+              type: "hat",
               hatType,
               content: token.content.substring(i, i + 1),
             },
-            { ...token, content: token.content.substring(i + 1) }
+            { ...token, content: token.content.substring(i + 1) },
           );
           return;
         }
@@ -117,24 +119,26 @@ class HTMLGenerator {
   }
 
   applyAllSelections() {
-    if (!this.applySelectionsFromState('decorations')) {
-      this.applySelectionsFromState('selections');
+    if (!this.applySelectionsFromState("decorations")) {
+      this.applySelectionsFromState("selections");
     }
-    this.applySelectionsFromState('thatMark');
-    this.applySelectionsFromState('sourceMark');
+    this.applySelectionsFromState("thatMark");
+    this.applySelectionsFromState("sourceMark");
   }
 
   applySelectionsFromState(
-    key: 'decorations' | 'selections' | 'thatMark' | 'sourceMark'
+    key: "decorations" | "selections" | "thatMark" | "sourceMark",
   ): boolean {
     const selections = this.state[key];
-    if (!selections?.length) return false;
+    if (!selections?.length) {
+      return false;
+    }
     const selectionParser = new SelectionParser(
       this.tokens,
-      key.replace(/s$/gi, '') as SelectionType
+      key.replace(/s$/gi, "") as SelectionType,
     );
     selections.forEach((selection) => {
-      if (selection.type === 'line') {
+      if (selection.type === "line") {
         return this.applyLineSelection(key, selection);
       }
       selectionParser.parse(selection);
@@ -144,9 +148,9 @@ class HTMLGenerator {
 
   getSelectionClasses(
     selectionType: keyof typeof this.state,
-    selection: CursorlessFixtureSelection
+    selection: CursorlessFixtureSelection,
   ) {
-    const classes = [selectionType.replace(/s$/g, '')];
+    const classes = [selectionType.replace(/s$/g, "")];
     if (selection.name) {
       classes.push(selection.name);
     }
@@ -155,15 +159,16 @@ class HTMLGenerator {
 
   applyLineSelection(
     selectionType: keyof typeof this.state,
-    selection: CursorlessFixtureSelection
+    selection: CursorlessFixtureSelection,
   ) {
     const classes = this.getSelectionClasses(selectionType, selection);
     const { anchor: start, active: end } = selection;
-    for (let i = start.line + 1; i <= end.line + 1; i += 1)
+    for (let i = start.line + 1; i <= end.line + 1; i += 1) {
       this.lineOptions.push({
         line: i,
         classes,
       });
+    }
   }
 }
 
@@ -178,7 +183,7 @@ class SelectionParser {
 
   parse(selection: CursorlessFixtureSelection) {
     let start, end;
-    if (selection.type === 'UntypedTarget') {
+    if (selection.type === "UntypedTarget") {
       start = selection.contentRange.start.line;
       end = selection.contentRange.end.line;
     } else {
@@ -197,18 +202,21 @@ class SelectionParser {
   parseLine(l: number, start: SelectionAnchor, end: SelectionAnchor) {
     const lineParser = new SelectionLineParser(
       this.selectionType,
-      this.lines[l]
+      this.lines[l],
     );
-    if (end.line === start.line)
+    if (end.line === start.line) {
       return lineParser.parse(start.character, end.character);
-    if (l === end.line) return lineParser.parse(0, end.character);
+    }
+    if (l === end.line) {
+      return lineParser.parse(0, end.character);
+    }
     return lineParser.parse(start.character, Infinity);
   }
 
   handleInsideLine(currentLine: number) {
     this.lines[currentLine] = [
       {
-        type: 'selection',
+        type: "selection",
         selection: this.lines[currentLine],
         className: this.selectionType,
       },
@@ -216,8 +224,8 @@ class SelectionParser {
   }
 }
 
-type BaseToken = Exclude<Token, { type: 'selection' }>;
-type SelectionToken = Extract<Token, { type: 'selection' }>;
+type BaseToken = Exclude<Token, { type: "selection" }>;
+type SelectionToken = Extract<Token, { type: "selection" }>;
 
 class SelectionLineParser {
   selectionType: SelectionType;
@@ -242,20 +250,27 @@ class SelectionLineParser {
   }
 
   getTokenState(tokenStart: number, tokenEnd: number) {
-    if (tokenEnd <= this.startIndex || this.endIndex <= tokenStart)
-      return 'outside';
-    if (tokenStart === this.startIndex && tokenEnd === this.endIndex)
-      return 'entire';
-    if (!this.getCurrentSelectionToken() && tokenEnd >= this.endIndex)
-      return 'inner';
-    if (!this.getCurrentSelectionToken()) return 'start';
-    if (tokenEnd >= this.endIndex) return 'end';
-    return 'continue';
+    if (tokenEnd <= this.startIndex || this.endIndex <= tokenStart) {
+      return "outside";
+    }
+    if (tokenStart === this.startIndex && tokenEnd === this.endIndex) {
+      return "entire";
+    }
+    if (!this.getCurrentSelectionToken() && tokenEnd >= this.endIndex) {
+      return "inner";
+    }
+    if (!this.getCurrentSelectionToken()) {
+      return "start";
+    }
+    if (tokenEnd >= this.endIndex) {
+      return "end";
+    }
+    return "continue";
   }
 
   getCurrentSelectionToken() {
     const lastResult = this.result[this.result.length - 1];
-    return lastResult?.type === 'selection' ? lastResult : undefined;
+    return lastResult?.type === "selection" ? lastResult : undefined;
   }
 
   parse(startIndex: number, endIndex: number) {
@@ -269,34 +284,38 @@ class SelectionLineParser {
   }
 
   parseToken(token: Token | undefined) {
-    if (!token) return;
-    if (token.type === 'selection') return this.parseSelection(token);
+    if (!token) {
+      return;
+    }
+    if (token.type === "selection") {
+      return this.parseSelection(token);
+    }
     const tokenStart = this.rawIndex;
     this.incrementRawIndex(token);
     const tokenEnd = this.rawIndex;
     const state = this.getTokenState(tokenStart, tokenEnd);
     switch (state) {
-      case 'outside': {
+      case "outside": {
         this.result.push(token);
         return;
       }
-      case 'entire': {
+      case "entire": {
         this.createSelection(token);
         return;
       }
-      case 'start': {
+      case "start": {
         this.startSelection(token);
         return;
       }
-      case 'continue': {
+      case "continue": {
         this.getCurrentSelectionToken()?.selection.push(token);
         return;
       }
-      case 'end': {
+      case "end": {
         this.endSelection(token);
         return;
       }
-      case 'inner': {
+      case "inner": {
         this.innerSelection(token);
         return;
       }
@@ -306,8 +325,8 @@ class SelectionLineParser {
   parseSelection(token: SelectionToken) {
     this.activeSelectionTypes.push(token.className);
     this.result.push({
-      type: 'selection',
-      className: this.activeSelectionTypes.join(' '),
+      type: "selection",
+      className: this.activeSelectionTypes.join(" "),
       selection: [],
     });
     for (const subToken of token.selection) {
@@ -315,8 +334,8 @@ class SelectionLineParser {
     }
     this.activeSelectionTypes.pop();
     this.result.push({
-      type: 'selection',
-      className: this.activeSelectionTypes.join(' '),
+      type: "selection",
+      className: this.activeSelectionTypes.join(" "),
       selection: [],
     });
   }
@@ -331,11 +350,12 @@ class SelectionLineParser {
 
   createSelection(token: Token) {
     this.activeSelectionTypes.push(
-      (token as SelectionToken).className || this.getCurrentSelectionClassName()
+      (token as SelectionToken).className ||
+        this.getCurrentSelectionClassName(),
     );
     this.result.push({
-      type: 'selection',
-      className: this.activeSelectionTypes.join(' '),
+      type: "selection",
+      className: this.activeSelectionTypes.join(" "),
       selection: [token],
     });
   }
@@ -364,11 +384,12 @@ class SelectionLineParser {
       content: selectionContent,
     });
     this.activeSelectionTypes.pop();
-    if (postSelectionContent.length)
+    if (postSelectionContent.length) {
       this.result.push({
         ...token,
         content: postSelectionContent,
       });
+    }
   }
 
   innerSelection(token: BaseToken) {
@@ -378,19 +399,21 @@ class SelectionLineParser {
     const preSelectionContent = token.content.substring(0, stringStart);
     const selectionContent = token.content.substring(stringStart, stringEnd);
     const postSelectionContent = token.content.substring(stringEnd);
-    if (preSelectionContent.length)
+    if (preSelectionContent.length) {
       this.result.push({
         ...token,
         content: preSelectionContent,
       });
+    }
     this.createSelection({
       ...token,
       content: selectionContent,
     });
-    if (postSelectionContent.length)
+    if (postSelectionContent.length) {
       this.result.push({
         ...token,
         content: postSelectionContent,
       });
+    }
   }
 }
