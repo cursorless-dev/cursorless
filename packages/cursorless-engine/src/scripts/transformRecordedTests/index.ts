@@ -37,8 +37,8 @@ async function main(args: string[]) {
       await transformFile(transformation, path);
     } catch (err) {
       failureCount++;
-      console.log(`Error with file ${path}`);
-      console.log((err as Error).message);
+      console.warn(`Error with file ${path}`);
+      console.warn((err as Error).message);
     }
   }
 

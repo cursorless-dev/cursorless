@@ -258,7 +258,7 @@ export async function performEditsAndUpdateSelections(
     document,
     originalSelections,
   );
-  return performEditsAndUpdateInternal(
+  return await performEditsAndUpdateInternal(
     rangeUpdater,
     editor,
     edits,
@@ -307,7 +307,7 @@ export async function performEditsAndUpdateRanges(
 ): Promise<Range[][]> {
   const document = editor.document;
   const selectionInfoMatrix = rangesToSelectionInfos(document, originalRanges);
-  return performEditsAndUpdateInternal(
+  return await performEditsAndUpdateInternal(
     rangeUpdater,
     editor,
     edits,
@@ -321,6 +321,8 @@ async function performEditsAndUpdateInternal(
   edits: Edit[],
   selectionInfoMatrix: FullSelectionInfo[][],
 ) {
+  // TODO: can't we just return the return value from performEditsAndUpdateFullSelectionInfos()
+  // It is the same as what will return below with selectionInfosToSelections()?
   await performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     editor,

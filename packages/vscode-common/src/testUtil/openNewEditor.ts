@@ -9,7 +9,7 @@ interface NewEditorOptions {
 export async function openNewEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
-) {
+): Promise<vscode.TextEditor> {
   if (!openBeside) {
     await vscode.commands.executeCommand("workbench.action.closeAllEditors");
   }

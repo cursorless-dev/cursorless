@@ -60,7 +60,7 @@ export class PasteFromClipboard {
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
     // editor, not the one where the edits took place
-    setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
+    await setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
 
     // If necessary focus back original editor
     if (originalEditor != null && !originalEditor.isActive) {

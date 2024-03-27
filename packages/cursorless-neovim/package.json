@@ -1,0 +1,41 @@
+{
+  "name": "@cursorless/cursorless-neovim",
+  "version": "1.0.0",
+  "description": "cursorless in neovim",
+  "main": "./out/index.cjs",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.cjs --platform=node",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "types": "./out/index.d.ts",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.cjs"
+    }
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*",
+    "lodash": "^4.17.21",
+    "neovim": "5.1.0",
+    "vscode-uri": "3.0.6"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.3",
+    "@types/js-yaml": "^4.0.2",
+    "@types/lodash": "4.14.181",
+    "@types/uuid": "8.3.4",
+    "@types/vscode": "1.66.0"
+  }
+}

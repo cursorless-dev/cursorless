@@ -116,7 +116,7 @@ export class CallbackAction {
       // very end. This code can run on multiple editors in the course of
       // one command, so we want to avoid focusing the editor multiple
       // times.
-      setSelectionsWithoutFocusingEditor(
+      await setSelectionsWithoutFocusingEditor(
         editableEditor,
         updatedOriginalSelections,
       );

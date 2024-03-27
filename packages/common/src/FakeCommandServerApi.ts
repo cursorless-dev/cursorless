@@ -13,7 +13,7 @@ export class FakeCommandServerApi implements CommandServerApi {
     this.focusedElementType = "textEditor";
   }
 
-  getFocusedElementType(): FocusedElementType | undefined {
+  async getFocusedElementType(): Promise<FocusedElementType | undefined> {
     return this.focusedElementType;
   }
 

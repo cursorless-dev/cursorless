@@ -56,7 +56,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       },
     );
 
-    console.log("finished installing dependency extensions");
+    console.warn("finished installing dependency extensions");
 
     // Run the integration test
     const code = await runTests({
@@ -73,7 +73,7 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
           : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     });
 
-    console.log(`Returned from "runTests" with value: ${code}`);
+    console.warn(`Returned from "runTests" with value: ${code}`);
   } catch (err) {
     console.error("Test run threw exception:");
     console.error(err);

@@ -30,7 +30,7 @@ export async function logQuickActions(kind?: string) {
   }));
 
   availableCodeActions.forEach((availableCodeAction) => {
-    console.log(`${JSON.stringify(availableCodeAction, null, 2)}`);
+    console.warn(`${JSON.stringify(availableCodeAction, null, 2)}`);
   });
 
   window.showInformationMessage(

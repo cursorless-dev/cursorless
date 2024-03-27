@@ -24,7 +24,7 @@ export default class Deselect implements SimpleAction {
         throw new SelectionRequiredError();
       }
 
-      setSelectionsWithoutFocusingEditor(
+      await setSelectionsWithoutFocusingEditor(
         ide().getEditableTextEditor(editor),
         newSelections,
       );

@@ -95,7 +95,12 @@ export class CustomSpokenForms {
       this.spokenFormMap_ = { ...defaultSpokenFormMap };
       this.notifier.notifyListeners();
 
-      throw err;
+      // TODO: commenting for now until https://github.com/cursorless-dev/cursorless/issues/2261 is fixed
+      // Indeed, this is a bit annoying when debugging, because this function is async, but there
+      // is no await so this error triggers later when we're debugging when we read a file or other async event
+      // throw err;
+      console.warn("Error loading custom spoken forms", err);
+      return;
     }
 
     for (const entryType of SUPPORTED_ENTRY_TYPES) {

@@ -295,7 +295,7 @@ export class TestCaseRecorder {
               ? spokenForm.spokenForms[0]
               : command.spokenForm,
         },
-        this.commandServerApi?.getFocusedElementType(),
+        await this.commandServerApi?.getFocusedElementType(),
         hatTokenMap,
         this.storedTargets,
         this.spyIde,
@@ -366,9 +366,9 @@ export class TestCaseRecorder {
           if (action === "Delete") {
             await fs.unlink(outPath, (err) => {
               if (err) {
-                console.log(`failed to delete ${outPath}: ${err}`);
+                console.warn(`failed to delete ${outPath}: ${err}`);
               } else {
-                console.log(`deleted ${outPath}`);
+                console.warn(`deleted ${outPath}`);
               }
             });
           }
