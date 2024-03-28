@@ -24,8 +24,6 @@ export async function bufferGetSelections(
       number,
       boolean,
     ];
-  // console.warn(`bufferGetSelection(): result=${result}`);
-  // TODO: there must be a better way to get the returned values with the right types?
   // subtract 1 to the lines/columns to get the correct 0-based line/column numbers
   let selections: Selection[];
   if (reverse === true) {
@@ -91,7 +89,7 @@ export async function windowGetVisibleRanges(
   const [firstLine, lastLine] = (await client.executeLua(
     luaCode,
     [],
-  )) as Array<number>;
+  )) as [number, number];
   // subtract 1 to the lines to get the correct 0-based line numbers
   return [
     new Range(
@@ -105,7 +103,7 @@ export async function windowGetVisibleRanges(
 export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
   const luaCode = `return require("talon.utils").talon_nvim_path()`;
   //TODO:  could actually have a wrapper around execute lua in order to avoid this
-  const data = await client.executeLua(luaCode, []);
+  const data = await client.executeLua(luaCode, []) as unknown as string;
   // TODO: is there a better way to cast that? no here
   return data as unknown as string;
 }

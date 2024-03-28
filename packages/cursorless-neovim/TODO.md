@@ -2,7 +2,7 @@
 
 - Pokey: merge talon-vscode-command-client and cursorless-talon?
 - Pokey: exception in CustomSpokenForms.updateSpokenFormMaps: https://github.com/cursorless-dev/cursorless/issues/2261 (pokey will fix it)
-- Pokey: go over the "TODO:" in the code
+- Pokey: go over the remaining "TODO:" in the code
 - Pokey: pure dependency injection: rearchitecture code to reduce use of singletons, have neovimIDE available where I want (no need to detect spyIDE vs normalizedIDE, etc.), no need to export ide() singleton from cursorless
 - NPM as package manager message (see screenshot)
 - Pokey: understand better the rangeUpdater object (e.g. "paste to first paint row one")
