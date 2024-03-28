@@ -91,13 +91,16 @@ export async function windowGetVisibleRanges(
     [],
   )) as [number, number];
   // subtract 1 to the lines to get the correct 0-based line numbers
-  return [
-    new Range(
-      new Position(firstLine - 1, 0),
-      // subtract -1 to the line.length to get the correct 0-based column number
-      new Position(lastLine - 1, lines[lastLine - 1].length - 1),
-    ),
-  ];
+  const range = 
+  new Range(
+    new Position(firstLine - 1, 0),
+    // subtract -1 to the line.length to get the correct 0-based column number
+    new Position(lastLine - 1, lines[lastLine - 1].length - 1),
+  );
+  console.warn(
+    `windowGetVisibleRanges(): range=(${range.start.line}, ${range.start.character}), (${range.end.line}, ${range.end.character})`,
+  );
+  return [range];
 }
 
 export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
