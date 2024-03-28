@@ -41,8 +41,8 @@ export function getIndividualDelimiters(
           isLeft && !isRight
             ? "left"
             : isRight && !isLeft
-            ? "right"
-            : "unknown",
+              ? "right"
+              : "unknown",
         delimiter,
       };
     });

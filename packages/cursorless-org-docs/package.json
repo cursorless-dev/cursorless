@@ -18,17 +18,17 @@
     "clean": "pnpm clear && rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
-    "@algolia/client-search": "4.15.0",
-    "@docsearch/react": "3.3.3",
-    "@docusaurus/core": "3.1.0",
-    "@docusaurus/preset-classic": "3.1.0",
-    "@docusaurus/theme-classic": "3.1.0",
-    "@docusaurus/theme-common": "3.1.0",
-    "@docusaurus/theme-search-algolia": "3.1.0",
-    "@mdx-js/react": "3.0.0",
-    "clsx": "^1.2.1",
-    "mdast-util-find-and-replace": "^2.2.2",
-    "prism-react-renderer": "^2.1.0",
+    "@algolia/client-search": "4.22.1",
+    "@docsearch/react": "3.6.0",
+    "@docusaurus/core": "3.1.1",
+    "@docusaurus/preset-classic": "3.1.1",
+    "@docusaurus/theme-classic": "3.1.1",
+    "@docusaurus/theme-common": "3.1.1",
+    "@docusaurus/theme-search-algolia": "3.1.1",
+    "@mdx-js/react": "3.0.1",
+    "clsx": "^2.1.0",
+    "mdast-util-find-and-replace": "^3.0.1",
+    "prism-react-renderer": "^2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "unist-util-visit": "^5.0.0"
@@ -46,11 +46,11 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.1.0",
-    "@docusaurus/types": "3.1.0",
+    "@docusaurus/module-type-aliases": "3.1.1",
+    "@docusaurus/types": "3.1.1",
     "@tsconfig/docusaurus": "2.0.2",
     "@types/mdast": "4.0.3",
-    "typescript": "^5.2.2",
+    "typescript": "^5.4.3",
     "unified": "11.0.4"
   },
   "license": "MIT",
