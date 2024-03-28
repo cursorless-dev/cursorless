@@ -60,7 +60,7 @@ const components: MDXComponents = {
     <div className="mt-8 flex flex-col gap-5">{children}</div>
   ),
   Testimonial: ({ children, src, name, title, company }) => (
-    <div className="flex flex-col items-center rounded-sm border border-teal-400 bg-teal-100 p-3 text-teal-700 dark:bg-teal-900 dark:text-teal-300 sm:p-6">
+    <div className="flex flex-col items-center rounded-sm border border-teal-400 bg-teal-100 p-3 text-teal-700 sm:p-6 dark:bg-teal-900 dark:text-teal-300">
       <blockquote className="mb-5 flex flex-col gap-4 sm:mb-6">
         {children}
       </blockquote>
@@ -118,7 +118,7 @@ export function Layout({ title, description, relativeUrl, children }: Props) {
         />
       </Head>
       <MDXProvider components={components}>
-        <main className="text-salmon-900 dark:text-salmon-100 px-4 pb-8 pt-8 font-mono font-normal leading-6 tracking-[0.08em] sm:pt-16 sm:dark:font-light lg:pt-20">
+        <main className="text-salmon-900 dark:text-salmon-100 px-4 pb-8 pt-8 font-mono font-normal leading-6 tracking-[0.08em] sm:pt-16 lg:pt-20 sm:dark:font-light">
           <div className="mx-auto max-w-prose">
             <Link href="/">
               <Logo

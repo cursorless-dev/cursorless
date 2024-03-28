@@ -20,6 +20,7 @@ const nextConfig = {
     mdxRs: true,
   },
   reactStrictMode: true,
+  output: "export",
 };
 
 export default withMDX(nextConfig);

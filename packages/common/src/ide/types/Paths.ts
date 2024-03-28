@@ -12,8 +12,8 @@ type Join<
     ? `${L}.${R}`
     : L
   : R extends string | number
-  ? R
-  : undefined;
+    ? R
+    : undefined;
 
 type Union<
   L extends unknown | undefined,
@@ -23,8 +23,8 @@ type Union<
     ? undefined
     : R
   : R extends undefined
-  ? L
-  : L | R;
+    ? L
+    : L | R;
 
 /**
  * Get all the possible paths of an object
@@ -55,8 +55,8 @@ export type GetFieldType<
   [K in Path]: K extends keyof T
     ? T[K]
     : K extends `${infer P}.${infer S}`
-    ? T[P] extends GenericObject
-      ? GetFieldType<T[P], S>
-      : never
-    : never;
+      ? T[P] extends GenericObject
+        ? GetFieldType<T[P], S>
+        : never
+      : never;
 }[Path];
