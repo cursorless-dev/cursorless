@@ -23,15 +23,13 @@ import type {
 } from "@cursorless/common";
 import { pull } from "lodash";
 import { v4 as uuid } from "uuid";
-import { ExtensionContext } from "../../types/ExtensionContext";
 import { NeovimCapabilities } from "./NeovimCapabilities";
 import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
-import { Window } from "neovim";
+import { NeovimClient, Window } from "neovim";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
-import { NeovimExtensionContext } from "./NeovimExtensionContext";
 import { getTalonNvimPath } from "../../neovimApi";
 import path from "path";
 import { neovimOnDidChangeTextDocument } from "./NeovimEvents";
@@ -57,7 +55,7 @@ export class NeovimIDE implements IDE {
   private cursorlessNeovimPath: string | undefined;
   private quickPickReturnValue: string | undefined = undefined;
 
-  constructor(private extensionContext: ExtensionContext) {
+  constructor(private client: NeovimClient) {
     this.configuration = new NeovimConfiguration();
     this.globalState = new NeovimGlobalState();
     this.messages = new NeovimMessages();
@@ -68,8 +66,7 @@ export class NeovimIDE implements IDE {
   }
 
   async init() {
-    const client = (this.extensionContext as NeovimExtensionContext).client;
-    const talonNvimPath = await getTalonNvimPath(client);
+    const talonNvimPath = await getTalonNvimPath(this.client);
     // talon-nvim path: C:\Users\User\AppData\Local\nvim-data\lazy\talon.nvim
     // we store the assets into a subfolder of talon.nvim
     this.assetsRoot_ = path.join(talonNvimPath, "assets");

@@ -4,9 +4,7 @@ import {
   PathChangeListener,
   RunMode,
 } from "@cursorless/common";
-import { /* isAbsolute, */ join } from "path";
-// import * as vscode from "vscode";
-import { ExtensionContext } from "../../types/ExtensionContext";
+import {  join } from "path";
 import * as fs from "fs";
 
 export class NeovimFileSystem implements FileSystem {
@@ -14,7 +12,6 @@ export class NeovimFileSystem implements FileSystem {
   public readonly cursorlessCommandHistoryDirPath: string;
 
   constructor(
-    private readonly extensionContext: ExtensionContext,
     private readonly runMode: RunMode,
     private readonly cursorlessDir: string,
   ) {

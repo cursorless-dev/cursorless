@@ -1,8 +1,5 @@
-// import { createCursorlessEngine } from "@cursorless/cursorless-engine";
-import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
 import { NvimPlugin } from "neovim";
 import { activate } from "./extension";
-import { injectContext } from "./singletons/context.singleton";
 import { handleCommandInternal } from "./registerCommands";
 import { runRecordedTestCases } from "./suite/recorded.vscode.test";
 
@@ -39,9 +36,7 @@ function loadExtension(plugin: NvimPlugin) {
   console.warn("loadExtension(cursorless-neovim): " + currentDateStr);
   // plugin.nvim.setLine(currentDateStr);
 
-  const extensionContext = new NeovimExtensionContext(plugin);
-  injectContext(extensionContext);
-  activate(extensionContext);
+  activate(plugin);
 }
 
 /**

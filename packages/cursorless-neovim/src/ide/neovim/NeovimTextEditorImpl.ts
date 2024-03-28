@@ -14,7 +14,7 @@ import { Window } from "neovim";
 import { URI } from "vscode-uri";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
-import { neovimContext } from "../../singletons/context.singleton";
+import { neovimClient } from "../../singletons/client.singleton";
 import neovimEdit from "./NeovimEdit";
 import { NeovimIDE } from "./NeovimIDE";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
@@ -81,7 +81,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     // We assume setting it on the neovim never fails
     // as we cache the selections in the editor too
     this._selections = selections;
-    await bufferSetSelections(neovimContext().client, selections);
+    await bufferSetSelections(neovimClient(), selections);
     // console.warn(`setSelections() done`);
     // throw Error("set selections Not implemented");
   }

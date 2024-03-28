@@ -4,7 +4,7 @@
 import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { NeovimTextEditorImpl } from "../ide/neovim/NeovimTextEditorImpl";
 import { updateTextEditor } from "../neovimHelpers";
-import { neovimContext } from "../singletons/context.singleton";
+import { neovimClient } from "../singletons/client.singleton";
 
 interface NewEditorOptions {
   languageId?: string;
@@ -23,7 +23,7 @@ export async function openNewEditor(
   // standardise newlines so we can easily split the lines
   const newLines = content.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
-  const client = neovimContext().client;
+  const client = neovimClient();
   const window = await client.window;
   const buffer = await window.buffer;
 

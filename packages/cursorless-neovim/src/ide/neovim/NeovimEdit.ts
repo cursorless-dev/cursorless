@@ -1,7 +1,7 @@
 import { Edit, Position, Range } from "@cursorless/common";
 import { Window } from "neovim";
 import { updateTextEditor } from "../../neovimHelpers";
-import { neovimContext } from "../../singletons/context.singleton";
+import { neovimClient } from "../../singletons/client.singleton";
 
 export default async function neovimEdit(
   editor: Window,
@@ -35,7 +35,7 @@ export default async function neovimEdit(
 }
 
 async function neovimDelete(range: Range): Promise<void> {
-  const client = neovimContext().client;
+  const client = neovimClient();
   const buffer = await client.window.buffer;
 
   // only keep the end of the last line
@@ -106,7 +106,7 @@ async function neovimInsert(position: Position, text: string) {
   // standardise newlines so we can easily split the lines
   const newLines = text.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
-  const client = neovimContext().client;
+  const client = neovimClient();
   const buffer = await client.window.buffer;
 
   const lineWhereInsertion = (

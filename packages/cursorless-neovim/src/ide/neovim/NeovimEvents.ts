@@ -1,15 +1,3 @@
-// // import { fromVscodeRange } from "@cursorless/vscode-common";
-// // import * as vscode from "vscode";
-// import type {
-//   TextDocumentChangeEvent,
-//   TextDocumentChangeReason,
-//   TextDocumentContentChangeEvent,
-// } from "@cursorless/common";
-// import { Event } from "@cursorless/common";
-// import type { Disposable } from "@cursorless/common";
-// import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
-// import { neovimContext } from "../../singletons/context.singleton";
-// import { bufferManager } from "../../singletons/bufmgr.singleton";
 import {
   Disposable,
   NormalizedIDE,

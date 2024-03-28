@@ -6,7 +6,7 @@ import {
   putToClipboard,
   windowGetVisibleRanges,
 } from "./neovimApi";
-import { neovimContext } from "./singletons/context.singleton";
+import { neovimClient } from "./singletons/client.singleton";
 import { ide } from "@cursorless/cursorless-engine";
 // import { receivedBufferEvent } from "./types/BufferManager";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
@@ -24,7 +24,7 @@ import { receivedBufferEvent } from "./ide/neovim/NeovimEvents";
  * Atm, we only initialize one editor(current window) with one document(current buffer)
  */
 export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
-  const client = neovimContext().client;
+  const client = neovimClient();
   const window = await client.window;
   const buffer = await window.buffer;
   const lines = await buffer.lines;
@@ -60,7 +60,7 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
  * Subscribe to buffer updates, e.g. when the text changes.
  */
 export async function subscribeBufferUpdates() {
-  const client = neovimContext().client;
+  const client = neovimClient();
 
   /**
    * "attach" to Nvim buffers to subscribe to buffer update events.
@@ -80,7 +80,7 @@ export async function subscribeBufferUpdates() {
 
 export async function neovimClipboardCopy(): Promise<void> {
   const editor = ide().activeTextEditor as NeovimTextEditorImpl;
-  const client = neovimContext().client;
+  const client = neovimClient();
   const window = await client.window;
   const selections = await bufferGetSelections(window, client);
   const data = editor.document.getText(selections[0]);
@@ -89,7 +89,7 @@ export async function neovimClipboardCopy(): Promise<void> {
 
 export async function neovimClipboardPaste(): Promise<void> {
   const editor = ide().activeTextEditor as NeovimTextEditorImpl;
-  const client = neovimContext().client;
+  const client = neovimClient();
   const window = await client.window;
   const data = await getFromClipboard(client);
   // TODO: get the current selection indexes,

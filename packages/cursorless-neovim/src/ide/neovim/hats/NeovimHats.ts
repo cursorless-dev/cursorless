@@ -5,7 +5,6 @@ import {
   Listener,
   Notifier,
 } from "@cursorless/common";
-import { ExtensionContext } from "../../../types/ExtensionContext";
 import { Disposable } from "vscode";
 import type { NeovimIDE } from "../NeovimIDE";
 
@@ -17,7 +16,6 @@ export class NeovimHats implements Hats {
 
   constructor(
     private ide: NeovimIDE,
-    ExtensionContext: ExtensionContext,
   ) {
     this.enabledHatStyles = {};
     // TODO: we don't support hats yet

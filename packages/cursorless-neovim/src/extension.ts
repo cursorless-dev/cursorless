@@ -13,8 +13,6 @@ import {
 import * as crypto from "crypto";
 import * as os from "os";
 import * as path from "path";
-import { ExtensionContext } from "./types/ExtensionContext";
-import { NeovimExtensionContext } from "./ide/neovim/NeovimExtensionContext";
 import { NeovimHats } from "./ide/neovim/hats/NeovimHats";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
@@ -24,19 +22,22 @@ import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
 import { runRecordedTestCases } from "./suite/recorded.vscode.test";
+import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
+import { NeovimClient } from "neovim/lib/api/client";
+import { injectClient } from "./singletons/client.singleton";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
  * NOTE: this is not the cursorless-neovim extension entrypoint (which is called at Neovim startup)
  * We named it activate() in order to have the same structure as the extension entrypoint to match cursorless-vscode
  */
-// TODO: what to do with NeovimExtensionContext vs ExtensionContext vs not using it at all?  we don't need it so delete it entirely
-export async function activate(context: NeovimExtensionContext) {
+export async function activate(plugin: NvimPlugin) {
   // debugger;
-  const client = context.client;
+  const client = plugin.nvim as NeovimClient;
+  injectClient(client);
   const buffer = await client.buffer;
 
-  const { neovimIDE, hats, fileSystem } = await createNeovimIde(context);
+  const { neovimIDE, hats, fileSystem } = await createNeovimIde(client);
 
   const normalizedIde =
     neovimIDE.runMode === "production"
@@ -106,11 +107,11 @@ export async function activate(context: NeovimExtensionContext) {
   // COMMENT ME END
 }
 
-async function createNeovimIde(context: ExtensionContext) {
-  const neovimIDE = new NeovimIDE(context);
+async function createNeovimIde(client: NeovimClient) {
+  const neovimIDE = new NeovimIDE(client);
   await neovimIDE.init();
 
-  const hats = new NeovimHats(neovimIDE, context);
+  const hats = new NeovimHats(neovimIDE);
   await hats.init();
 
   // FIXME: Inject this from test harness. Would need to arrange to delay
@@ -122,7 +123,6 @@ async function createNeovimIde(context: ExtensionContext) {
     : path.join(os.homedir(), ".cursorless");
 
   const fileSystem = new NeovimFileSystem(
-    context,
     neovimIDE.runMode,
     cursorlessDir,
   );
