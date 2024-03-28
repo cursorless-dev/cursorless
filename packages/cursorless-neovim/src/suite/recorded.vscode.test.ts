@@ -79,20 +79,23 @@ export async function runRecordedTestCases() {
   const spyIde = new SpyIDE(ide);
   injectIde(spyIde!);
 
-  // TODO: re-enable code below and skip if:
-  // - multiple selections (we don't support multiple cursors atm)
-  // - marks is non {} (we don't not support decorated symbol marks atm)
-  // - others?
-  for (const { name, path } of getRecordedTestPaths()) {
-    await runTest(name, path, spyIde!);
-  }
-  // TODO: use the assetRoot instead of hardcoding the path
+  // Run all tests
+  // for (const { name, path } of getRecordedTestPaths()) {
+  //   await runTest(name, path, spyIde!);
+  // }
+  // Run a single test
+  await runTest(
+    "recorded/selectionTypes/clearRowTwoPastFour",
+    "C:\\cursorless\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\selectionTypes\\clearRowTwoPastFour.yml",
+    spyIde!,
+  );
 }
 
 async function runTest(name: string, file: string, spyIde: SpyIDE) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
+  // TODO: skip if multiple selections (we don't support multiple cursors atm)
   // We don't support decorated symbol marks yet
   // We don't support parse-tree yet (which requires a code languageId)
   if (fixture.initialState.marks || fixture.languageId !== "plaintext") {
@@ -119,7 +122,6 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
     takeSnapshot /* , setStoredTarget */,
     commandServerApi,
   } = cursorlessApi.testHelpers!;
-  //const commandServerApi = commandApi();
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
     languageId: fixture.languageId,
@@ -153,17 +155,9 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
       : fixture.focusedElementType ?? "textEditor",
   );
 
-  // TODO: we don't support hats so we need to bail out and skip this testcase for now
-
+  // NOT NEEDED FROM VSCODE:
   // Ensure that the expected hats are present
-  // await hatTokenMap.allocateHats(
-  //   getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
-  // );
-
-  // const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
-
-  // // Assert that recorded decorations are present
-  // checkMarks(fixture.initialState.marks, readableHatMap);
+  // Assert that recorded decorations are present
 
   let returnValue: unknown;
   let fallback: Fallback | undefined;
@@ -208,15 +202,6 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
-  // const marks =
-  //   fixture.finalState?.marks == null
-  //     ? undefined
-  //     : marksToPlainObject(
-  //         extractTargetedMarks(
-  //           Object.keys(fixture.finalState.marks),
-  //           readableHatMap,
-  //         ),
-  //       );
   const marks = undefined;
 
   if (fixture.finalState?.clipboard == null) {
@@ -291,50 +276,3 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
     );
   }
 }
-
-// function checkMarks(
-//   marks: SerializedMarks | undefined,
-//   hatTokenMap: ReadOnlyHatMap,
-// ) {
-//   if (marks == null) {
-//     return;
-//   }
-
-//   Object.entries(marks).forEach(([key, token]) => {
-//     const { hatStyle, character } = splitKey(key);
-//     const currentToken = hatTokenMap.getToken(hatStyle, character);
-//     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
-//     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-//   });
-// }
-
-// function getTokenHats(
-//   marks: SerializedMarks | undefined,
-//   editor: TextEditor,
-// ): TokenHat[] {
-//   if (marks == null) {
-//     return [];
-//   }
-
-//   return Object.entries(marks).map(([key, token]) => {
-//     const { hatStyle, character } = splitKey(key);
-//     const range = plainObjectToRange(token);
-
-//     return {
-//       hatStyle,
-//       grapheme: character,
-//       token: {
-//         editor,
-//         range,
-//         offsets: {
-//           start: editor.document.offsetAt(range.start),
-//           end: editor.document.offsetAt(range.end),
-//         },
-//         text: editor.document.getText(range),
-//       },
-
-//       // NB: We don't care about the hat range for this test
-//       hatRange: range,
-//     };
-//   });
-//}

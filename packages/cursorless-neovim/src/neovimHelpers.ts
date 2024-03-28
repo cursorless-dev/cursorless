@@ -34,7 +34,7 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   const selections = await bufferGetSelections(window, client);
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
   const ide_ = ide();
-  // TODO: It there a clean way to do it? Yes once we support pure dependency injection
+  // DEP-INJ: It there a clean way to do it? Yes once we support pure dependency injection
   // also we can make this function a method of NeovimIDE class
   let neovimIDE: NeovimIDE;
   if (ide_ instanceof NeovimIDE) {

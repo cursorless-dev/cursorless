@@ -40,7 +40,7 @@ export class NeovimIDE implements IDE {
   readonly messages: NeovimMessages;
   readonly clipboard: NeovimClipboard;
   readonly capabilities: NeovimCapabilities;
-  public editorMap; // TODO: move to private? Should be possible right away?
+  private editorMap;
   private activeWindow: Window | undefined;
 
   cursorlessVersion: string = "0.0.0";
@@ -100,21 +100,7 @@ export class NeovimIDE implements IDE {
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    // TODO: find how to flash the target ranges (similar to vscode)
-    // we know we can do that with a "yank" vim operation but we want to do it for any cursorless operation
-    /* e.g. "bring row one" gives:
-      at NeovimIDE.<anonymous> (cursorless-neovim\out\index.cjs:44601:13)
-      at Generator.next (<anonymous>)
-      at cursorless-neovim\out\index.cjs:63:61
-      at new Promise (<anonymous>)
-      at __async (cursorless-neovim\out\index.cjs:47:10)
-      at NeovimIDE.flashRanges (cursorless-neovim\out\index.cjs:44600:12)
-      at NormalizedIDE.flashRanges (cursorless-neovim\out\index.cjs:22910:26)
-      at NormalizedIDE.flashRanges (cursorless-neovim\out\index.cjs:23611:79)
-      at flashTargets (cursorless-neovim\out\index.cjs:38187:15)
-      at Bring.decorateTargets (cursorless-neovim\out\index.cjs:38318:7)
-    */
-    // TODO: it is not mandatory to implement for now so we can just log a warning
+    // TODO: find out how to flash the target ranges (similar to vscode)
     console.warn("flashRanges Not implemented");
   }
 

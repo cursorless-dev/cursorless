@@ -18,7 +18,7 @@ export class NeovimHats implements Hats {
     private ide: NeovimIDE,
   ) {
     this.enabledHatStyles = {};
-    // TODO: we don't support hats yet
+    // We don't support hats yet
     this.isEnabled = false;
   }
 

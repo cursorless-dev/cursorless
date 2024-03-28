@@ -39,7 +39,7 @@ export async function receivedBufferEvent(
   );
 
   const ide_ = ide();
-  // TODO: It there a clean way to do it? Yes once we support pure dependency injection
+  // DEP-INJ: It there a clean way to do it? Yes once we support pure dependency injection
   // also we can make this function a method of NeovimIDE class
   let neovimIDE: NeovimIDE;
   if (ide_ instanceof NeovimIDE) {
@@ -87,7 +87,6 @@ export function fromNeovimContentChange(
   console.warn(
     `fromNeovimContentChange(): document.getText(): ${document.getText()}`,
   );
-  // TODO: support when firstLine === lastLine
   const range = new Range(
     new Position(firstLine, 0),
     new Position(lastLine - 1, document.lineAt(lastLine - 1).text.length),
