@@ -32,7 +32,9 @@ export default function entry(plugin: NvimPlugin) {
 function loadExtension(plugin: NvimPlugin) {
   const currentDate: Date = new Date();
   const currentDateStr: string = currentDate.toLocaleString();
-  console.warn("===============================================================================================");
+  console.warn(
+    "===============================================================================================",
+  );
   console.warn("loadExtension(cursorless-neovim): " + currentDateStr);
   // plugin.nvim.setLine(currentDateStr);
 

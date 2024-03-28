@@ -4,7 +4,7 @@ import {
   PathChangeListener,
   RunMode,
 } from "@cursorless/common";
-import {  join } from "path";
+import { join } from "path";
 import * as fs from "fs";
 
 export class NeovimFileSystem implements FileSystem {

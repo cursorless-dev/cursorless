@@ -10,10 +10,7 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import {
-  StoredTargetMap,
-  takeSnapshot,
-} from "@cursorless/cursorless-engine";
+import { StoredTargetMap, takeSnapshot } from "@cursorless/cursorless-engine";
 import { TestHelpers } from "./TestHelpers";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";

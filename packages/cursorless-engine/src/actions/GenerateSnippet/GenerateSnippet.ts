@@ -1,4 +1,4 @@
-import { FlashStyle, isTesting, Range } from "@cursorless/common";
+import { FlashStyle, Range } from "@cursorless/common";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";

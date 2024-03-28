@@ -180,7 +180,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
     );
 
     console.warn(
-      `getText() returning multiple lines: ${resultLines.slice(0,10).join(lineEnding)} \n[stripped...]}`,
+      `getText() returning multiple lines: ${resultLines.slice(0, 10).join(lineEnding)} \n[stripped...]}`,
     );
     return resultLines.join(lineEnding);
   }

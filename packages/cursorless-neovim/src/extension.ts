@@ -1,7 +1,6 @@
 import {
   FakeCommandServerApi,
   FakeIDE,
-  isTesting,
   NormalizedIDE,
   Range,
   TextDocument,
@@ -54,9 +53,10 @@ export async function activate(plugin: NvimPlugin) {
   const neovimCommandServerApi = new NeovimCommandServerApi(client);
   // TODO: there are currently two ways to test if we are running tests, through neovimIDE.runMode and with isTesting()
   // We need to get rid of isTesting() entirely and use neovimIDE.runMode == "test" instead
-  const commandServerApi = neovimIDE.runMode === "test"
-    ? fakeCommandServerApi
-    : neovimCommandServerApi;
+  const commandServerApi =
+    neovimIDE.runMode === "test"
+      ? fakeCommandServerApi
+      : neovimCommandServerApi;
 
   const treeSitter: TreeSitter = createTreeSitter();
 
@@ -82,19 +82,20 @@ export async function activate(plugin: NvimPlugin) {
 
   // set CURSORLESS_TEST = 1 for testing
   const cursorlessApi = {
-    testHelpers: neovimIDE.runMode === "test"
-      ? constructTestHelpers(
-          fakeCommandServerApi,
-          storedTargets,
-          hatTokenMap,
-          neovimIDE,
-          normalizedIde as NormalizedIDE,
-          fileSystem,
-          scopeProvider,
-          injectIde,
-          runIntegrationTests,
-        )
-      : undefined,
+    testHelpers:
+      neovimIDE.runMode === "test"
+        ? constructTestHelpers(
+            fakeCommandServerApi,
+            storedTargets,
+            hatTokenMap,
+            neovimIDE,
+            normalizedIde as NormalizedIDE,
+            fileSystem,
+            scopeProvider,
+            injectIde,
+            runIntegrationTests,
+          )
+        : undefined,
 
     experimental: {
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
@@ -125,14 +126,12 @@ async function createNeovimIde(client: NeovimClient) {
   // extension initialization, probably by returning a function from extension
   // init that has parameters consisting of test configuration, and have that
   // function do the actual initialization.
-  const cursorlessDir = neovimIDE.runMode === "test"
-    ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
-    : path.join(os.homedir(), ".cursorless");
+  const cursorlessDir =
+    neovimIDE.runMode === "test"
+      ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
+      : path.join(os.homedir(), ".cursorless");
 
-  const fileSystem = new NeovimFileSystem(
-    neovimIDE.runMode,
-    cursorlessDir,
-  );
+  const fileSystem = new NeovimFileSystem(neovimIDE.runMode, cursorlessDir);
   await fileSystem.initialize();
 
   return { neovimIDE, hats, fileSystem };

@@ -129,9 +129,9 @@ export class NeovimIDE implements IDE {
   }
 
   private getActiveTextEditor() {
-    const editor =
-      this.activeWindow ? this.getTextEditor(this.activeWindow)
-        : undefined;
+    const editor = this.activeWindow
+      ? this.getTextEditor(this.activeWindow)
+      : undefined;
     if (editor === undefined) {
       console.warn("getActiveTextEditor: editor is undefined");
     }
@@ -144,7 +144,7 @@ export class NeovimIDE implements IDE {
         return textEditor;
       }
     }
-    return undefined
+    return undefined;
   }
 
   private getTextDocument(b: Buffer) {
@@ -153,7 +153,7 @@ export class NeovimIDE implements IDE {
         return textDocument;
       }
     }
-    return undefined
+    return undefined;
   }
 
   get visibleTextEditors(): NeovimTextEditorImpl[] {
@@ -220,7 +220,9 @@ export class NeovimIDE implements IDE {
     let document = this.getTextDocument(buffer);
     let editor = this.getTextEditor(window);
     if (!document) {
-      console.warn(`toNeovimEditor(): creating new document: buffer=${buffer.id}`);
+      console.warn(
+        `toNeovimEditor(): creating new document: buffer=${buffer.id}`,
+      );
       document = new NeovimTextDocumentImpl(
         URI.parse(`neovim://${buffer.id}`), // URI.parse(`file://${buffer.id}`),
         "plaintext",
@@ -235,7 +237,9 @@ export class NeovimIDE implements IDE {
       document.update(lines);
     }
     if (!editor) {
-      console.warn(`toNeovimEditor(): creating new editor: window=${window.id}`);
+      console.warn(
+        `toNeovimEditor(): creating new editor: window=${window.id}`,
+      );
       editor = new NeovimTextEditorImpl(
         uuid(),
         this,
@@ -247,11 +251,11 @@ export class NeovimIDE implements IDE {
       this.editorMap.set(window, editor);
     } else {
       console.warn(`toNeovimEditor(): updating editor: window=${window.id}`);
-      editor.updateDocument(visibleRanges, selections, document); 
+      editor.updateDocument(visibleRanges, selections, document);
     }
     this.activeBuffer = buffer;
     this.activeWindow = window;
-    
+
     return this.activeTextEditor as NeovimTextEditorImpl;
   }
 
