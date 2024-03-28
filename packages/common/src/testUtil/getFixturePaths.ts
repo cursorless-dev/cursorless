@@ -3,11 +3,7 @@ import { walkFilesSync } from "../util/walkSync";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 export function getFixturesPath() {
-  return path.join(
-    getCursorlessRepoRoot(),
-    "data",
-    "fixtures",
-  );
+  return path.join(getCursorlessRepoRoot(), "data", "fixtures");
 }
 
 export function getFixturePath(fixturePath: string) {
