@@ -2,6 +2,7 @@
 
 import {
   bufferGetSelections,
+  getFromClipboard,
   putToClipboard,
   windowGetVisibleRanges,
 } from "./neovimApi";
@@ -84,4 +85,14 @@ export async function neovimClipboardCopy(): Promise<void> {
   const selections = await bufferGetSelections(window, client);
   const data = editor.document.getText(selections[0]);
   await putToClipboard(data, client);
+}
+
+export async function neovimClipboardPaste(): Promise<void> {
+  const editor = ide().activeTextEditor as NeovimTextEditorImpl;
+  const client = neovimContext().client;
+  const window = await client.window;
+  const data = await getFromClipboard(client);
+  // TODO: get the current selection indexes,
+  // retrieve the corresponding lines from the Buffer,
+  // and replace the lines with the pasted data
 }

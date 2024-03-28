@@ -13,7 +13,7 @@ import {
 import { Window } from "neovim";
 import { URI } from "vscode-uri";
 import { bufferSetSelections } from "../../neovimApi";
-import { neovimClipboardCopy } from "../../neovimHelpers";
+import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
 import { neovimContext } from "../../singletons/context.singleton";
 import neovimEdit from "./NeovimEdit";
 import { NeovimIDE } from "./NeovimIDE";
@@ -166,6 +166,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   public async clipboardPaste(_ranges?: Range[]): Promise<void> {
+    await neovimClipboardPaste();
     throw Error("clipboardPaste Not implemented");
   }
 

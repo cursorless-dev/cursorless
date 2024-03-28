@@ -110,13 +110,20 @@ export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
   return data as unknown as string;
 }
 
+/**
+ * Save the data string into the operating system clipboard
+ * https://vimdoc.sourceforge.net/htmldoc/eval.html#setreg()
+ * https://stackoverflow.com/questions/11489428/how-can-i-make-vim-paste-from-and-copy-to-the-systems-clipboard?page=1&tab=scoredesc#tab-top
+ * https://stackoverflow.com/questions/30691466/what-is-difference-between-vims-clipboard-unnamed-and-unnamedplus-settings
+ */
 export async function putToClipboard(data: string, client: NeovimClient) {
   await client.callFunction("setreg", ["*", data]);
 }
 
-// TODO: this hasn't been tested yet and will be once we test "paste to row one" commands
+/**
+ * Return the string from the operating system clipboard
+ * https://vimdoc.sourceforge.net/htmldoc/eval.html#getreg()
+ */
 export async function getFromClipboard(client: NeovimClient): Promise<string> {
-  const luaCode = `return require("talon.cursorless").get_from_clipboard()`;
-  const data = await client.executeLua(luaCode, []);
-  return data as unknown as string;
+  return await client.callFunction("getreg", ["*"]);
 }
