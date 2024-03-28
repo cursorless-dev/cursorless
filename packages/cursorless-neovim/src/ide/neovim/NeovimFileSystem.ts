@@ -27,6 +27,7 @@ export class NeovimFileSystem implements FileSystem {
 
   public async initialize(): Promise<void> {
     // TODO: atm it always fails in development mode and shows this warning, is that expected?
+    // make it forgiving that is to say if it exists don't show the print, pass the option object
     try {
       // await vscode.workspace.fs.createDirectory(
       //   vscode.Uri.file(this.cursorlessDir),

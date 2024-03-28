@@ -30,7 +30,7 @@ import { runRecordedTestCases } from "./suite/recorded.vscode.test";
  * NOTE: this is not the cursorless-neovim extension entrypoint (which is called at Neovim startup)
  * We named it activate() in order to have the same structure as the extension entrypoint to match cursorless-vscode
  */
-// TODO: what to do with NeovimExtensionContext vs ExtensionContext vs not using it at all?
+// TODO: what to do with NeovimExtensionContext vs ExtensionContext vs not using it at all?  we don't need it so delete it entirely
 export async function activate(context: NeovimExtensionContext) {
   // debugger;
   const client = context.client;
@@ -100,9 +100,9 @@ export async function activate(context: NeovimExtensionContext) {
   console.warn("activate(): Cursorless extension loaded");
 
   // COMMENT ME IF YOU DON'T WANT TO RUN TESTS
-  console.warn("activate(): running the recorded test cases...");
-  await runRecordedTestCases();
-  console.warn("activate(): recorded test cases done");
+  // console.warn("activate(): running the recorded test cases...");
+  // await runRecordedTestCases();
+  // console.warn("activate(): recorded test cases done");
   // COMMENT ME END
 }
 
@@ -112,8 +112,6 @@ async function createNeovimIde(context: ExtensionContext) {
 
   const hats = new NeovimHats(neovimIDE, context);
   await hats.init();
-
-  // TODO: is the comment below problematic for neovim?
 
   // FIXME: Inject this from test harness. Would need to arrange to delay
   // extension initialization, probably by returning a function from extension

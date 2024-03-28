@@ -4,6 +4,7 @@
  * The ExtensionMode is provided on the `ExtensionContext` and indicates the
  * mode the specific extension is running in.
  */
+// TODO: support for neovim or delete entirely?
 export enum ExtensionMode {
   /**
    * The extension is installed normally (for example, from the marketplace
@@ -31,6 +32,7 @@ export enum ExtensionMode {
  * An instance of an `ExtensionContext` is provided as the first
  * parameter to the `activate`-call of an extension.
  */
+// TODO: support for neovim or delete entirely?
 export class ExtensionContext {
   /**
    * An array to which disposables can be added. When this

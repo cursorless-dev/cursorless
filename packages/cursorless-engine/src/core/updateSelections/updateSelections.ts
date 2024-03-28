@@ -321,8 +321,6 @@ async function performEditsAndUpdateInternal(
   edits: Edit[],
   selectionInfoMatrix: FullSelectionInfo[][],
 ) {
-  // TODO: can't we just return the return value from performEditsAndUpdateFullSelectionInfos()
-  // It is the same as what will return below with selectionInfosToSelections()?
   await performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     editor,
