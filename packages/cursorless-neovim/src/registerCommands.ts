@@ -23,6 +23,7 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
       const result = await commandApi().runCommandSafe(...args);
       // const result = ["hello world"]; // simulate the result of "bring <target>"
       return result;
+      // TODO: use neovimIDE.runMode === "test" instead of isTesting()
       // } catch (e) {
       //   // if (!isTesting()) {
       //   //   const err = e as Error;

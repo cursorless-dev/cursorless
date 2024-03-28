@@ -220,7 +220,7 @@ export default class GenerateSnippet {
 
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    if (isTesting()) {
+    if (ide().runMode === "test") {
       // If we're testing, we just overwrite the current document
       await editableEditor.setSelections([
         editor.document.range.toSelection(false),

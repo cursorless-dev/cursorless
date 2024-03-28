@@ -48,9 +48,13 @@ export async function activate(plugin: NvimPlugin) {
           neovimIDE.runMode === "test",
         );
 
+  // TODO: atm if we are using testing, the focused element will always be the texteditor
+  // even if we the current window is a terminal. We need to fix this.
   const fakeCommandServerApi = new FakeCommandServerApi();
   const neovimCommandServerApi = new NeovimCommandServerApi(client);
-  const commandServerApi = isTesting()
+  // TODO: there are currently two ways to test if we are running tests, through neovimIDE.runMode and with isTesting()
+  // We need to get rid of isTesting() entirely and use neovimIDE.runMode == "test" instead
+  const commandServerApi = neovimIDE.runMode === "test"
     ? fakeCommandServerApi
     : neovimCommandServerApi;
 
@@ -78,7 +82,7 @@ export async function activate(plugin: NvimPlugin) {
 
   // set CURSORLESS_TEST = 1 for testing
   const cursorlessApi = {
-    testHelpers: isTesting()
+    testHelpers: neovimIDE.runMode === "test"
       ? constructTestHelpers(
           fakeCommandServerApi,
           storedTargets,
@@ -101,10 +105,13 @@ export async function activate(plugin: NvimPlugin) {
   console.warn("activate(): Cursorless extension loaded");
 
   // COMMENT ME IF YOU DON'T WANT TO RUN TESTS
+  // WHEN USING TESTS, CHANGE neovimIDE.runMode = "test" in NeovimIDE.ts
   // console.warn("activate(): running the recorded test cases...");
   // await runRecordedTestCases();
   // console.warn("activate(): recorded test cases done");
   // COMMENT ME END
+
+  // WHEN NOT USING TESTS, CHANGE neovimIDE.runMode = "development" in NeovimIDE.ts
 }
 
 async function createNeovimIde(client: NeovimClient) {
@@ -118,7 +125,7 @@ async function createNeovimIde(client: NeovimClient) {
   // extension initialization, probably by returning a function from extension
   // init that has parameters consisting of test configuration, and have that
   // function do the actual initialization.
-  const cursorlessDir = isTesting()
+  const cursorlessDir = neovimIDE.runMode === "test"
     ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
     : path.join(os.homedir(), ".cursorless");
 
