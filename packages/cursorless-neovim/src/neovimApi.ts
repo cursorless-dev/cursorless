@@ -104,8 +104,9 @@ export async function windowGetVisibleRanges(
 
 export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
   const luaCode = `return require("talon.utils").talon_nvim_path()`;
+  //TODO:  could actually have a wrapper around execute lua in order to avoid this
   const data = await client.executeLua(luaCode, []);
-  // TODO: is there a better way to cast that?
+  // TODO: is there a better way to cast that? no here
   return data as unknown as string;
 }
 
