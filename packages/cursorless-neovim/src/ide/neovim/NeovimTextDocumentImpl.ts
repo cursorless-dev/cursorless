@@ -136,7 +136,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
         this._cachedTextValue = this._lines.join(this._eol);
       }
       console.warn(
-        `getText(all) returning cached value=${this._cachedTextValue}`,
+        `getText(all) returning cached value=${this._lines.slice(0, 10).join(this._eol)} \n[stripped...]`,
       );
       return this._cachedTextValue;
     } else {
@@ -180,7 +180,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
     );
 
     console.warn(
-      `getText() returning multiple lines: ${resultLines.join(lineEnding)}`,
+      `getText() returning multiple lines: ${resultLines.slice(0,10).join(lineEnding)} \n[stripped...]}`,
     );
     return resultLines.join(lineEnding);
   }
