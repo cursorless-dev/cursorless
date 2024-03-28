@@ -4,7 +4,7 @@ import { updateTextEditor } from "../../neovimHelpers";
 import { neovimClient } from "../../singletons/client.singleton";
 
 export default async function neovimEdit(
-  editor: Window,
+  window: Window,
   edits: Edit[],
 ): Promise<boolean> {
   // We start applying the edits from the end of the document

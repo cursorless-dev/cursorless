@@ -7,22 +7,16 @@ import {
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
-  // StoredTargetKey,
-  // TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
 import {
   StoredTargetMap,
-  // plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
 import { TestHelpers } from "./TestHelpers";
-//import * as vscode from "vscode";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-//import { toVscodeEditor } from "./ide/vscode/toNeovimEditor";
-//import { vscodeApi } from "./vscodeApi";
 
 export function constructTestHelpers(
   commandServerApi: FakeCommandServerApi,

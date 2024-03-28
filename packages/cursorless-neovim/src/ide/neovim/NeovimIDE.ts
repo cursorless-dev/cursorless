@@ -28,11 +28,13 @@ import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
-import { NeovimClient, Window } from "neovim";
+import { NeovimClient, Window, Buffer } from "neovim";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 import { getTalonNvimPath } from "../../neovimApi";
 import path from "path";
 import { neovimOnDidChangeTextDocument } from "./NeovimEvents";
+import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
+import { URI } from "vscode-uri";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -41,7 +43,9 @@ export class NeovimIDE implements IDE {
   readonly clipboard: NeovimClipboard;
   readonly capabilities: NeovimCapabilities;
   private editorMap;
+  private documentMap;
   private activeWindow: Window | undefined;
+  private activeBuffer: Buffer | undefined;
 
   cursorlessVersion: string = "0.0.0";
   // TODO: how can we support changing the runMode dynamically?
@@ -62,7 +66,9 @@ export class NeovimIDE implements IDE {
     this.clipboard = new NeovimClipboard();
     this.capabilities = new NeovimCapabilities();
     this.editorMap = new Map<Window, NeovimTextEditorImpl>();
+    this.documentMap = new Map<Buffer, NeovimTextDocumentImpl>();
     this.activeWindow = undefined;
+    this.activeBuffer = undefined;
   }
 
   async init() {
@@ -124,13 +130,30 @@ export class NeovimIDE implements IDE {
 
   private getActiveTextEditor() {
     const editor =
-      this.activeWindow && this.editorMap.has(this.activeWindow)
-        ? this.editorMap.get(this.activeWindow)
+      this.activeWindow ? this.getTextEditor(this.activeWindow)
         : undefined;
     if (editor === undefined) {
       console.warn("getActiveTextEditor: editor is undefined");
     }
     return editor;
+  }
+
+  private getTextEditor(w: Window) {
+    for (const [window, textEditor] of this.editorMap) {
+      if (window.id === w.id) {
+        return textEditor;
+      }
+    }
+    return undefined
+  }
+
+  private getTextDocument(b: Buffer) {
+    for (const [buffer, textDocument] of this.documentMap) {
+      if (buffer.id === b.id) {
+        return textDocument;
+      }
+    }
+    return undefined
   }
 
   get visibleTextEditors(): NeovimTextEditorImpl[] {
@@ -187,52 +210,49 @@ export class NeovimIDE implements IDE {
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
 
-  fromNeovimEditor(
-    editor: Window,
-    bufferId: number,
-    lines: string[],
-    visibleRanges: Range[],
-    selections: Selection[],
-  ): NeovimTextEditorImpl {
-    if (!this.editorMap.has(editor)) {
-      this.toNeovimEditor(editor, bufferId, lines, visibleRanges, selections);
-    }
-    return this.editorMap.get(editor)!;
-  }
-
   toNeovimEditor(
-    editor: Window,
-    bufferId: number,
+    window: Window,
+    buffer: Buffer,
     lines: string[],
     visibleRanges: Range[],
     selections: Selection[],
   ): NeovimTextEditorImpl {
-    if (
-      this.activeWindow &&
-      this.editorMap.has(this.activeWindow) &&
-      this.activeWindow.id === editor.id
-    ) {
-      console.warn(
-        "toNeovimEditor(): editor already exists, updating its document",
+    let document = this.getTextDocument(buffer);
+    let editor = this.getTextEditor(window);
+    if (!document) {
+      console.warn(`toNeovimEditor(): creating new document: buffer=${buffer.id}`);
+      document = new NeovimTextDocumentImpl(
+        URI.parse(`neovim://${buffer.id}`), // URI.parse(`file://${buffer.id}`),
+        "plaintext",
+        1,
+        "\n",
+        // "\r\n",
+        lines,
       );
-      const activeEditor = this.activeTextEditor as NeovimTextEditorImpl;
-      activeEditor.initDocument(bufferId, lines, visibleRanges, selections);
-      return activeEditor;
+      this.documentMap.set(buffer, document);
+    } else {
+      console.warn(`toNeovimEditor(): updating document: buffer=${buffer.id}`);
+      document.update(lines);
     }
-
-    console.warn("toNeovimEditor(): creating new editor/document");
-    this.activeWindow = editor;
-    const impl = new NeovimTextEditorImpl(
-      uuid(),
-      this,
-      editor,
-      bufferId,
-      lines,
-      visibleRanges,
-      selections,
-    );
-    this.editorMap.set(editor, impl);
-    return impl;
+    if (!editor) {
+      console.warn(`toNeovimEditor(): creating new editor: window=${window.id}`);
+      editor = new NeovimTextEditorImpl(
+        uuid(),
+        this,
+        window,
+        document,
+        visibleRanges,
+        selections,
+      );
+      this.editorMap.set(window, editor);
+    } else {
+      console.warn(`toNeovimEditor(): updating editor: window=${window.id}`);
+      editor.updateDocument(visibleRanges, selections, document); 
+    }
+    this.activeBuffer = buffer;
+    this.activeWindow = window;
+    
+    return this.activeTextEditor as NeovimTextEditorImpl;
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {

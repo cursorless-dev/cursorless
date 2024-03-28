@@ -6,12 +6,10 @@ import {
   Range,
   RevealLineAt,
   Selection,
-  TextDocument,
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
 import { Window } from "neovim";
-import { URI } from "vscode-uri";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
 import { neovimClient } from "../../singletons/client.singleton";
@@ -20,56 +18,47 @@ import { NeovimIDE } from "./NeovimIDE";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 
 export class NeovimTextEditorImpl implements EditableTextEditor {
-  private _document: TextDocument | undefined;
-  private _selections: Selection[] | undefined;
+  private _document: NeovimTextDocumentImpl;
+  private _selections: Selection[];
+  private _visibleRanges: Range[];
 
   constructor(
     public readonly id: string,
     private ide: NeovimIDE,
-    private editor: Window,
-    bufferId: number,
-    lines: string[],
-    public visibleRanges: Range[],
-    selections: Selection[],
-  ) {
-    this.initDocument(bufferId, lines, visibleRanges, selections);
-  }
-
-  get document(): TextDocument {
-    return this._document as TextDocument;
-  }
-
-  public initDocument(
-    bufferId: number,
-    lines: string[],
+    private window: Window,
+    doc: NeovimTextDocumentImpl,
     visibleRanges: Range[],
     selections: Selection[],
-  ): NeovimTextDocumentImpl {
-    if (this._document) {
-      console.warn(
-        "initDocument(): document already exists, updating its content",
-      );
-      (this._document as NeovimTextDocumentImpl).update(lines);
-    } else {
-      // TODO: don't hardcode arguments
-      console.warn("initDocument(): creating new document");
-      this._document = new NeovimTextDocumentImpl(
-        URI.parse(`neovim://${bufferId}`), // URI.parse(`file://${bufferId}`),
-        "plaintext",
-        1,
-        "\n",
-        // "\r\n",
-        lines,
-      );
-    }
-    // console.warn(`NeovimTextEditorImpl(): lines=${lines}`);
+  ) {
+    this._document = doc;
     this._selections = selections;
-    return this._document as NeovimTextDocumentImpl;
+    this._visibleRanges = visibleRanges;
   }
 
-  // neovim terminology for editor is window
-  get neovimEditor(): Window {
-    return this.editor;
+  get document(): NeovimTextDocumentImpl {
+    return this._document;
+  }
+
+  get visibleRanges(): Range[] {
+    return this._visibleRanges;
+  }
+
+  public updateDocument(
+    visibleRanges: Range[],
+    selections: Selection[],
+    doc?: NeovimTextDocumentImpl,
+    lines?: string[],
+  ): NeovimTextDocumentImpl {
+    if (doc) {
+      this._document = doc;
+    } else if (lines) {
+      this._document.update(lines);
+    } else {
+      throw Error("updateDocument(): invalid arguments");
+    }
+    this._selections = selections;
+    this._visibleRanges = visibleRanges;
+    return this._document;
   }
 
   get selections(): Selection[] {
@@ -119,7 +108,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
 
   public async edit(edits: Edit[]): Promise<boolean> {
     //throw Error("edit Not implemented");
-    return await neovimEdit(this.editor, edits);
+    return await neovimEdit(this.window, edits);
   }
 
   public focus(): Promise<void> {

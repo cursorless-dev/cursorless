@@ -49,7 +49,7 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   }
   return neovimIDE.toNeovimEditor(
     window,
-    buffer.id,
+    buffer,
     lines,
     visibleRanges,
     selections,
