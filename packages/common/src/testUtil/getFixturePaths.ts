@@ -5,10 +5,7 @@ import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 export function getFixturesPath() {
   return path.join(
     getCursorlessRepoRoot(),
-    "packages",
-    "cursorless-vscode-e2e",
-    "src",
-    "suite",
+    "data",
     "fixtures",
   );
 }
