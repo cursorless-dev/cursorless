@@ -1,6 +1,8 @@
-import { UnsupportedLanguageError } from "@cursorless/common";
+import {
+  SimpleScopeTypeType,
+  UnsupportedLanguageError,
+} from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import { SimpleScopeTypeType } from "@cursorless/common";
 import {
   NodeMatcher,
   NodeMatcherValue,
@@ -8,8 +10,8 @@ import {
 } from "../typings/Types";
 import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
-import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
+import clojure from "./clojure";
 import cpp from "./cpp";
 import csharp from "./csharp";
 import go from "./go";
