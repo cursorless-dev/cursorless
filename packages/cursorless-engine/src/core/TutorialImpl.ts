@@ -171,12 +171,11 @@ export class TutorialImpl implements Tutorial {
 
     const editableEditor = ide().getEditableTextEditor(this.editor);
 
-    await editableEditor.edit((editBuilder) => {
-      editBuilder.replace(
-        editableEditor.document.range,
-        fixture.initialState.documentContents,
-      );
-    });
+    await editableEditor.edit([{
+        range: editableEditor.document.range,
+        text: fixture.initialState.documentContents,
+        isReplace: true,
+    }]);
 
     // Ensure that the expected cursor/selections are present
     editableEditor.selections = fixture.initialState.selections.map(
@@ -188,6 +187,7 @@ export class TutorialImpl implements Tutorial {
       serializedMarksToTokenHats(fixture.initialState.marks, this.editor),
     );
 
+    // TODO: Handle case where editor is in a background tab
     await editableEditor.focus();
   }
 }
