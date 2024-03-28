@@ -16,16 +16,16 @@ export async function bufferGetSelections(
   const luaCode = `return require("talon.cursorless").buffer_get_selection()`;
   // Note lines are indexed from 1, similarly to what is shown in neovim
   // and columns are also indexed from 1
-  const result = (await client.executeLua(luaCode, [])) as Array<
-    number | boolean
-  >;
+  const [startLine, startCol, endLine, endCol, reverse] =
+    (await client.executeLua(luaCode, [])) as [
+      number,
+      number,
+      number,
+      number,
+      boolean,
+    ];
   // console.warn(`bufferGetSelection(): result=${result}`);
   // TODO: there must be a better way to get the returned values with the right types?
-  const startLine = result[0] as number,
-    startCol = result[1] as number,
-    endLine = result[2] as number,
-    endCol = result[3] as number,
-    reverse = result[4] as boolean;
   // subtract 1 to the lines/columns to get the correct 0-based line/column numbers
   let selections: Selection[];
   if (reverse === true) {
