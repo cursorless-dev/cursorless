@@ -10,8 +10,10 @@ export const TutorialStep: FunctionComponent<TutorialStepProps> = ({
 }) => {
   return (
     <div>
-      <h1 className="text-[color:var(--vscode-walkthrough-stepTitle\.foreground)]">{state.title}</h1>
-      <progress value={state.stepNumber+1} max={state.stepCount} />
+      <h1 className="text-[color:var(--vscode-walkthrough-stepTitle\.foreground)]">
+        {state.title}
+      </h1>
+      <progress value={state.stepNumber + 1} max={state.stepCount} />
       {state.stepContent}
     </div>
   );

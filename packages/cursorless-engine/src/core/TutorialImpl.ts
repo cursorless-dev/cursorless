@@ -171,11 +171,13 @@ export class TutorialImpl implements Tutorial {
 
     const editableEditor = ide().getEditableTextEditor(this.editor);
 
-    await editableEditor.edit([{
+    await editableEditor.edit([
+      {
         range: editableEditor.document.range,
         text: fixture.initialState.documentContents,
         isReplace: true,
-    }]);
+      },
+    ]);
 
     // Ensure that the expected cursor/selections are present
     editableEditor.selections = fixture.initialState.selections.map(
