@@ -3,14 +3,7 @@ import { walkFilesSync } from "../util/walkSync";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
 
 export function getFixturesPath() {
-  return path.join(
-    getCursorlessRepoRoot(),
-    "packages",
-    "cursorless-vscode-e2e",
-    "src",
-    "suite",
-    "fixtures",
-  );
+  return path.join(getCursorlessRepoRoot(), "data", "fixtures");
 }
 
 export function getFixturePath(fixturePath: string) {
