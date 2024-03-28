@@ -95,8 +95,8 @@ export class ScopeTypeTarget extends BaseTarget<ScopeTypeTargetParameters> {
     return this.removalRange_ != null
       ? this.removalRange_
       : this.hasDelimiterRange_
-      ? getDelimitedSequenceRemovalRange(this)
-      : getTokenRemovalRange(this);
+        ? getDelimitedSequenceRemovalRange(this)
+        : getTokenRemovalRange(this);
   }
 
   maybeCreateRichRangeTarget(
