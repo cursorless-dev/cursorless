@@ -1,0 +1,15 @@
+fn(a,b) { c }
+
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:13
+  >-------------<
+0| fn(a,b) { c }
+
+[Interior] = 0:10-0:11
+            >-<
+0| fn(a,b) { c }
+
+[Insertion delimiter] = "\n"

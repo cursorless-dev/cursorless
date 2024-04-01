@@ -4,6 +4,7 @@ import { javascriptScopeSupport } from "./javascript";
 import { jsonScopeSupport } from "./json";
 import { pythonScopeSupport } from "./python";
 import { luaScopeSupport } from "./lua";
+import { gleamScopeSupport } from "./gleam";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { talonScopeSupport } from "./talon";
 import { typescriptScopeSupport } from "./typescript";
@@ -28,6 +29,8 @@ export function getLanguageScopeSupport(
       return typescriptScopeSupport;
     case "lua":
       return luaScopeSupport;
+    case "gleam":
+      return gleamScopeSupport;
   }
   throw Error(`Unsupported language: '${languageId}'`);
 }
