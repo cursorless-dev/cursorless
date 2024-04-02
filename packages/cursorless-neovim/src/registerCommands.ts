@@ -19,7 +19,7 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
       // try {
       await updateTextEditor();
-      await subscribeBufferUpdates();
+      // await subscribeBufferUpdates();
       const result = await commandApi().runCommandSafe(...args);
       // const result = ["hello world"]; // simulate the result of "bring <target>"
       return result;

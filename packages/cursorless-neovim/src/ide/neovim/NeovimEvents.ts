@@ -14,6 +14,7 @@ import { Buffer } from "neovim";
 import { eventEmitter } from "../../events";
 import { NeovimIDE } from "./NeovimIDE";
 import { ide } from "@cursorless/cursorless-engine";
+import { getNeovimIDE } from "../../neovimHelpers";
 
 export function neovimOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,
@@ -35,28 +36,15 @@ export async function receivedBufferEvent(
   more: boolean,
 ): Promise<void> {
   console.warn(
-    `BufferManager.receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
+    `receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
   );
 
-  const ide_ = ide();
-  // DEP-INJ: It there a clean way to do it? Yes once we support pure dependency injection
-  // also we can make this function a method of NeovimIDE class
-  let neovimIDE: NeovimIDE;
-  if (ide_ instanceof NeovimIDE) {
-    neovimIDE = ide_;
-  } else if (ide_ instanceof NormalizedIDE) {
-    neovimIDE = ide_.original as NeovimIDE;
-  } else if (ide_ instanceof SpyIDE) {
-    const normalizedIDE = ide_.original as NormalizedIDE;
-    neovimIDE = normalizedIDE.original as NeovimIDE;
-  } else {
-    throw Error("receivedBufferEvent(): ide() is not NeovimIDE");
-  }
+  const neovimIDE = getNeovimIDE();
   // We will need to get the document according to the buffer id
   // once we want to support several windows
-  //const document = getTextDocumentForBufferId(buffer.id);
+  const document = neovimIDE.getTextDocument(buffer) as TextDocument;
   // But for now we get the current document
-  const document = (neovimIDE.activeTextEditor as TextEditor).document;
+  // const document = (neovimIDE.activeTextEditor as TextEditor).document;
 
   // const contents = await document.getText();
   // console.warn(
@@ -75,6 +63,7 @@ export async function receivedBufferEvent(
   });
 }
 
+// let count = 1;
 export function fromNeovimContentChange(
   document: TextDocument,
   buffer: Buffer,
@@ -85,7 +74,7 @@ export function fromNeovimContentChange(
   const result = [];
   const text = linedata.join("\n");
   console.warn(
-    `fromNeovimContentChange(): document.getText(): ${document.getText()}`,
+    `fromNeovimContentChange(): document.getText(): '${document.getText()}'`,
   );
   const range = new Range(
     new Position(firstLine, 0),
@@ -99,6 +88,30 @@ export function fromNeovimContentChange(
     rangeLength: rangeLength,
     text: text,
   });
+  // TODO: simulate recorded/actions/breakJustThis on vscode for now but does not work anyway
+  // /*   if (count === 0) {
+  //   result = [];
+  // } else  */ if (count === 1) {
+  //   const range = new Range(new Position(0, 0), new Position(0, 3));
+  //   result.push({
+  //     range: range,
+  //     rangeOffset: 0,
+  //     rangeLength: 3,
+  //     text: "ab ",
+  //   });
+  // } else if (count === 2) {
+  //   const range = new Range(new Position(0, 1), new Position(0, 1));
+  //   result.push({
+  //     range: range,
+  //     rangeOffset: 1,
+  //     rangeLength: 0,
+  //     text: "\n",
+  //   });
+  // } else {
+  //   throw new Error(`fromNeovimContentChange(): unexpected count=${count}`);
+  // }
+  // count++;
+  console.warn(`fromNeovimContentChange(): changes=${JSON.stringify(result)}`);
   return result;
 }
 

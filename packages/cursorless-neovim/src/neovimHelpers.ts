@@ -14,28 +14,9 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { NormalizedIDE, SpyIDE } from "@cursorless/common";
 import { receivedBufferEvent } from "./ide/neovim/NeovimEvents";
 
-/**
- * Initialize the current editor (and current document).
- * If the current editor already exists, it will only update the current document of that editor.
- *
- * when we receive our first cursorless command, we will initialize an editor an document for it.
- * for the following commands, we will only update the document.
- *
- * Atm, we only initialize one editor(current window) with one document(current buffer)
- */
-export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
-  const client = neovimClient();
-  const window = await client.window;
-  const buffer = await window.buffer;
-  const lines = await buffer.lines;
-  console.warn(
-    `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${lines}`,
-  );
-  const selections = await bufferGetSelections(window, client);
-  const visibleRanges = await windowGetVisibleRanges(window, client, lines);
+// DEP-INJ: Delete this function. Is there a clean way to do it? Yes once we support pure dependency injection
+export function getNeovimIDE(): NeovimIDE {
   const ide_ = ide();
-  // DEP-INJ: It there a clean way to do it? Yes once we support pure dependency injection
-  // also we can make this function a method of NeovimIDE class
   let neovimIDE: NeovimIDE;
   if (ide_ instanceof NeovimIDE) {
     neovimIDE = ide_;
@@ -47,20 +28,50 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   } else {
     throw Error("updateTextEditor(): ide() is not NeovimIDE");
   }
-  return neovimIDE.toNeovimEditor(
+  return neovimIDE;
+}
+
+/**
+ * Initialize the current editor (and current document).
+ * If the current editor already exists, it will only update the current document of that editor.
+ *
+ * when we receive our first cursorless command, we will initialize an editor an document for it.
+ * for the following commands, we will only update the document.
+ *
+ * Atm, we only initialize one editor(current window) with one document(current buffer)
+ */
+// TODO: we can make this function a method of NeovimIDE class
+export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
+  const client = neovimClient();
+  const window = await client.window;
+  const buffer = await window.buffer;
+  const lines = await buffer.lines;
+  console.warn(
+    `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${JSON.stringify(lines)}`,
+  );
+  const selections = await bufferGetSelections(window, client);
+  const visibleRanges = await windowGetVisibleRanges(window, client, lines);
+  const neovimIDE = getNeovimIDE();
+  const impl = neovimIDE.toNeovimEditor(
     window,
     buffer,
     lines,
     visibleRanges,
     selections,
   );
+  // await subscribeBufferUpdates();
+  return impl;
 }
 
 /**
  * Subscribe to buffer updates, e.g. when the text changes.
  */
+// TODO: we can make this function a method of NeovimIDE class
+// TODO: delete this function as done as part of toNeovimEditor() now
 export async function subscribeBufferUpdates() {
   const client = neovimClient();
+
+  const neovimIDE = getNeovimIDE();
 
   /**
    * "attach" to Nvim buffers to subscribe to buffer update events.
@@ -70,12 +81,14 @@ export async function subscribeBufferUpdates() {
    */
   // const buffers = await client.buffers;
   const buffers = [await client.buffer];
-  buffers.forEach(
-    /* async */ (buf) => {
-      console.warn(`listening for changes in buffer: ${buf.id}`);
-      buf.listen("lines", receivedBufferEvent);
-    },
-  );
+  buffers.forEach((buf) => {
+    if (neovimIDE.getTextDocument(buf) !== undefined) {
+      console.warn(`already listening for changes in buffer: ${buf.id}`);
+      return;
+    }
+    console.warn(`listening for changes in buffer: ${buf.id}`);
+    buf.listen("lines", receivedBufferEvent);
+  });
 }
 
 export async function neovimClipboardCopy(): Promise<void> {

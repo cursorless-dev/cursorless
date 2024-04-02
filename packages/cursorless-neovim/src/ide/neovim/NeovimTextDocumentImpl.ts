@@ -135,9 +135,15 @@ export class NeovimTextDocumentImpl implements TextDocument {
       if (this._cachedTextValue == null) {
         this._cachedTextValue = this._lines.join(this._eol);
       }
-      console.warn(
-        `getText(all) returning cached value=${this._lines.slice(0, 10).join(this._eol)} \n[stripped...]`,
-      );
+      if (this._lines.length > 10) {
+        console.warn(
+          `getText() returning multiple lines: '${this._lines.slice(0, 10).join(this._eol)}' \n[stripped...]}`,
+        );
+      } else {
+        console.warn(
+          `getText() returning multiple lines: '${this._cachedTextValue}'`,
+        );
+      }
       return this._cachedTextValue;
     } else {
       console.warn(
@@ -178,10 +184,15 @@ export class NeovimTextDocumentImpl implements TextDocument {
     resultLines.push(
       this._lines[endLineIndex].substring(0, range.end.character),
     );
-
-    console.warn(
-      `getText() returning multiple lines: ${resultLines.slice(0,10).join(lineEnding)} \n[stripped...]}`,
-    );
+    if (resultLines.length > 10) {
+      console.warn(
+        `getText() returning multiple lines: '${resultLines.slice(0, 10).join(lineEnding)}' \n[stripped...]}`,
+      );
+    } else {
+      console.warn(
+        `getText() returning multiple lines: '${resultLines.join(lineEnding)}'`,
+      );
+    }
     return resultLines.join(lineEnding);
   }
 
