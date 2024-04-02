@@ -18,6 +18,7 @@ const retryCount = 5;
  */
 //let previousTestTitle = "";
 
+// TODO: remove this function as we don't call it?
 export function endToEndTestSetup(/* suite: Mocha.Suite */) {
   // suite.timeout("100s");
   // suite.retries(5);
@@ -47,6 +48,7 @@ export function endToEndTestSetup(/* suite: Mocha.Suite */) {
   };
 }
 
+// TODO: remove this function? or we need it for neovim too?
 /**
  * Sleep function for use in tests that will be retried. Doubles the amount of
  * time it sleeps each time a test is run, starting from {@link ms} / 4.
