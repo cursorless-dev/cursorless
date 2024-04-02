@@ -160,9 +160,9 @@ export class NeovimTextDocumentImpl implements TextDocument {
 
     if (range.isSingleLine) {
       console.warn(
-        `getText() returning single line ${this._lines[
+        `getText() returning single line '${this._lines[
           range.start.line
-        ].substring(range.start.character, range.end.character)}`,
+        ].substring(range.start.character, range.end.character)}'`,
       );
       return this._lines[range.start.line].substring(
         range.start.character,
