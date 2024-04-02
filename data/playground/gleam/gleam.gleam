@@ -30,4 +30,4 @@ fn foo() {
   use foo <- 3
 }
 
-type Food = Int 
+type Food = Int
