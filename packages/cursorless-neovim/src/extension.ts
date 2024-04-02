@@ -81,7 +81,6 @@ export async function activate(plugin: NvimPlugin) {
   injectCommandApi(commandApi);
   // debugger; // NOTE: helps debugging
 
-  // set CURSORLESS_TEST = 1 for testing
   const cursorlessApi = {
     testHelpers:
       neovimIDE.runMode === "test"
