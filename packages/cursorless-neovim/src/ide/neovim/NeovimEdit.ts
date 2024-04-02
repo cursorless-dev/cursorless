@@ -1,7 +1,14 @@
-import { Edit, Position, Range } from "@cursorless/common";
+import {
+  Edit,
+  Position,
+  Range,
+  TextDocument,
+  TextDocumentContentChangeEvent,
+} from "@cursorless/common";
 import { Window } from "neovim";
-import { updateTextEditor } from "../../neovimHelpers";
+import { getNeovimIDE, updateTextEditor } from "../../neovimHelpers";
 import { neovimClient } from "../../singletons/client.singleton";
+import { eventEmitter } from "../../events";
 
 export default async function neovimEdit(
   window: Window,
@@ -15,6 +22,26 @@ export default async function neovimEdit(
       return b.range.start.character - a.range.start.character;
     }
     return b.range.start.line - a.range.start.line;
+  });
+
+  // TODO: notify here bulking all changes?
+  const client = neovimClient();
+  const document = getNeovimIDE().getTextDocument(
+    await client.window.buffer,
+  ) as TextDocument;
+  const changes: TextDocumentContentChangeEvent[] = [];
+  for (const edit of edits) {
+    changes.push({
+      range: edit.range,
+      rangeOffset: document.offsetAt(edit.range.start),
+      rangeLength:
+        document.offsetAt(edit.range.end) - document.offsetAt(edit.range.start),
+      text: edit.text,
+    });
+  }
+  eventEmitter.emit("onDidChangeTextDocument", {
+    document: document,
+    contentChanges: changes,
   });
 
   for (const edit of edits) {
@@ -35,6 +62,7 @@ export default async function neovimEdit(
 }
 
 async function neovimDelete(range: Range): Promise<void> {
+  console.warn(`neovimDelete(): range=${JSON.stringify(range)}`);
   const client = neovimClient();
   const buffer = await client.window.buffer;
 
@@ -103,6 +131,9 @@ async function neovimDelete(range: Range): Promise<void> {
 }
 
 async function neovimInsert(position: Position, text: string) {
+  console.warn(
+    `neovimInsert(): position=${JSON.stringify(position)}, text='${text}'`,
+  );
   // standardise newlines so we can easily split the lines
   const newLines = text.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
@@ -146,6 +177,9 @@ async function neovimInsert(position: Position, text: string) {
 }
 
 async function neovimReplace(range: Range, text: string) {
+  console.warn(
+    `neovimReplace(): range=${JSON.stringify(range)}, text='${text}'`,
+  );
   await neovimDelete(range);
   await neovimInsert(range.start, text);
 }
