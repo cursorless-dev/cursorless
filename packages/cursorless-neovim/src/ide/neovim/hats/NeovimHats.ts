@@ -14,9 +14,7 @@ export class NeovimHats implements Hats {
   private enabledHatStyleNotifier: Notifier<[HatStyleMap]> = new Notifier();
   private isEnabledNotifier: Notifier<[boolean]> = new Notifier();
 
-  constructor(
-    private ide: NeovimIDE,
-  ) {
+  constructor(private ide: NeovimIDE) {
     this.enabledHatStyles = {};
     // We don't support hats yet
     this.isEnabled = false;

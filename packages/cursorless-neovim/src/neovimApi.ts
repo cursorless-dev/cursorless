@@ -86,13 +86,12 @@ export async function windowGetVisibleRanges(
   // Get the first and last visible lines of the current window
   // Note they are indexed from 1, similarly to what is shown in neovim*
   const luaCode = `return require("talon.cursorless").window_get_visible_lines()`;
-  const [firstLine, lastLine] = (await client.executeLua(
-    luaCode,
-    [],
-  )) as [number, number];
+  const [firstLine, lastLine] = (await client.executeLua(luaCode, [])) as [
+    number,
+    number,
+  ];
   // subtract 1 to the lines to get the correct 0-based line numbers
-  const range = 
-  new Range(
+  const range = new Range(
     new Position(firstLine - 1, 0),
     // subtract -1 to the line.length to get the correct 0-based column number
     new Position(lastLine - 1, lines[lastLine - 1].length - 1),
@@ -105,7 +104,7 @@ export async function windowGetVisibleRanges(
 
 export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
   const luaCode = `return require("talon.utils").talon_nvim_path()`;
-  const data = await client.executeLua(luaCode, []) as unknown as string;
+  const data = (await client.executeLua(luaCode, [])) as unknown as string;
   return data as unknown as string;
 }
 

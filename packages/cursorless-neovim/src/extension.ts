@@ -1,7 +1,6 @@
 import {
   FakeCommandServerApi,
   FakeIDE,
-  isTesting,
   NormalizedIDE,
   Range,
   TextDocument,

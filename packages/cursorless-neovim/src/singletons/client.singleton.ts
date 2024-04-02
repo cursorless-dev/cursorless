@@ -1,6 +1,5 @@
 import { NeovimClient } from "neovim/lib/api/client";
 
-
 /**
  * This is the `client` singleton
  */

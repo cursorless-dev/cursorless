@@ -5,7 +5,6 @@ import {
   ExcludableSnapshotField,
   // extractTargetedMarks,
   Fallback,
-  getRecordedTestPaths,
   // HatStability,
   // marksToPlainObject,
   omitByDeep,
@@ -98,7 +97,9 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
   // TODO: skip if multiple selections (we don't support multiple cursors atm)
   // We don't support decorated symbol marks yet
   // We don't support parse-tree yet (which requires a code languageId)
-  const hasMarks = fixture.initialState.marks != null && Object.keys(fixture.initialState.marks).length > 0;
+  const hasMarks =
+    fixture.initialState.marks != null &&
+    Object.keys(fixture.initialState.marks).length > 0;
   if (hasMarks || fixture.languageId !== "plaintext") {
     //console.warn(`runTest(${name}) => skipped`);
     return;
@@ -111,7 +112,9 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
     console.warn(`runTest(${name}) => skipped as needs fixing`);
     return;
   }
-  console.warn("------------------------------------------------------------------------------");
+  console.warn(
+    "------------------------------------------------------------------------------",
+  );
   console.warn(`runTest(${name})...`);
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
