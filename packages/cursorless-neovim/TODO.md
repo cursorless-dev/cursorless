@@ -1,21 +1,22 @@
 # questions
 
 - Pokey: merge talon-vscode-command-client and cursorless-talon?
+- git repo to mention problems/issues? for instance the can't reenter normal mode from terminal mode? okay if we use the cursorless repo with a neovim tag?
+- separate PRs to be accepted: textEditor.setSelections(), fixtures-data
 - Pokey: exception in CustomSpokenForms.updateSpokenFormMaps: https://github.com/cursorless-dev/cursorless/issues/2261 (pokey will fix it)
-- Pokey: go over the remaining "TODO:" in the code
+- utf8 is not supported well - probably neovim pb (translate to utf8) - no utf8 thing in cursorless (strings that under the hood are utf16) - need to decode it before giving it to cursorless
 - Pokey: pure dependency injection: rearchitecture code to reduce use of singletons, have neovimIDE available where I want (no need to detect spyIDE vs normalizedIDE, etc.), no need to export ide() singleton from cursorless to remove all the DEP-INJ:
+- Pokey: go over the remaining "TODO:" in the code
 - NPM as package manager message (see screenshot)
 - Pokey: understand better the rangeUpdater object (e.g. "paste to first paint row one")
-- git repo to mention problems/issues? for instance the can't reenter normal mode from terminal mode? okay if we use the cursorless repo with a neovim tag?
-- separate PRs to be accepted: textEditor.setSelections(), fixtures-data, unnecessary performEditsAndUpdateInternal()
+- "paste to row one" from the clipboard, see getFromClipboard()
 
 # to do
 
-- "paste to row one" from the clipboard, see getFromClipboard()
+- scout text command in any mode
 - find a way to load nvim.exe in the background as part of launch.json/tasks.json to load neovim so we can attach to it with debugger
 - hack and redirect console.log/console.info to console.warning in cursorless repo so we don't have to change all the instances? And restore all console.warn to be console.log
 - understand why no node plugin logging in vscode anymore with latest node-client?
-- utf8 is not supported well
 
 # to do later
 
