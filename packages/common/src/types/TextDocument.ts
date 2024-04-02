@@ -8,34 +8,34 @@ export interface TextDocument {
    * *Note* that most documents use the `file`-scheme, which means they are files on disk. However, **not** all documents are
    * saved on disk and therefore the `scheme` must be checked before trying to access the underlying file or siblings on disk.
    */
-  uri: URI;
+  readonly uri: URI;
 
   /**
    * The identifier of the language associated with this document.
    */
-  languageId: string;
+  readonly languageId: string;
 
   /**
    * The version number of this document (it will strictly increase after each
    * change, including undo/redo).
    */
-  version: number;
+  readonly version: number;
 
   /**
    * The number of lines in this document.
    */
-  lineCount: number;
+  readonly lineCount: number;
 
   /**
    * The range of the text document.
    */
-  range: Range;
+  readonly range: Range;
 
   /**
    * The {@link EndOfLine end of line} sequence that is predominately
    * used in this document.
    */
-  eol: EndOfLine;
+  readonly eol: EndOfLine;
 
   /**
    * Returns a text line denoted by the line number. Note
@@ -88,5 +88,5 @@ export interface TextDocument {
    * @param range Include only the text included by the range.
    * @return The text inside the provided range or the entire text.
    */
-  getText(range?: Range): /* Promise< */ string /* > */;
+  getText(range?: Range): string;
 }
