@@ -20,6 +20,12 @@ export async function openNewEditor(
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
   await client.command(":enew");
 
+  if (!openBeside) {
+    // close all the other buffers
+    // @see: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
+    await client.command(":BufOnly!");
+  }
+
   // standardise newlines so we can easily split the lines
   const newLines = content.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
@@ -27,12 +33,6 @@ export async function openNewEditor(
   const window = await client.window;
   const buffer = await window.buffer;
   await buffer.setLines(newLines, { start: 0, end: -1, strictIndexing: false });
-
-  if (!openBeside) {
-    // close all the other buffers
-    // @see: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
-    await client.command(":BufOnly!");
-  }
 
   // update our view of the document
   const editor = await updateTextEditor();
