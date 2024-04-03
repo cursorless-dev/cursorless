@@ -8,28 +8,31 @@ interface NewEditorOptions {
   openBeside?: boolean;
 }
 
+// NOTE: When the nvim-data/swap folder gets too big, neovim will start
+// displaying a "press enter or type command to continue" message for every ":enew" command
+// so the workaround is to delete that folder.
 export async function openNewEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
 ): Promise<NeovimTextEditorImpl> {
+  const client = neovimClient();
+  // open a new buffer
+  // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
+  await client.command(":enew");
+
   // standardise newlines so we can easily split the lines
   const newLines = content.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
-  const client = neovimClient();
-  await client.command(":enew");
-
+  // set the buffer contents
   const window = await client.window;
-
-  // Replace old content with new content
   const buffer = await window.buffer;
-  const oldLines = await buffer.lines;
-  await buffer.setLines(newLines, {
-    start: 0,
-    end: oldLines.length,
-    strictIndexing: false,
-  });
-  // const buffer = await window.buffer;
-  // await buffer.setLines(newLines, { start: 0, end: 1, strictIndexing: false });
+  await buffer.setLines(newLines, { start: 0, end: -1, strictIndexing: false });
+
+  if (!openBeside) {
+    // close all the other buffers
+    // @see: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
+    await client.command(":BufOnly!");
+  }
 
   // update our view of the document
   const editor = await updateTextEditor();
