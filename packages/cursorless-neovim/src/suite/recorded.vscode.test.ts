@@ -51,6 +51,7 @@ import { injectIde } from "@cursorless/cursorless-engine";
 import { getCursorlessApi } from "../singletons/cursorlessapi.singleton";
 import { openNewEditor } from "../testUtil/openNewEditor";
 import { runCursorlessCommand } from "../runCommand";
+import { neovimClient } from "../singletons/client.singleton";
 // import { setupFake } from "./setupFake";
 
 function createPosition(position: PositionPlainObject) {
@@ -91,6 +92,8 @@ export async function runRecordedTestCases() {
   // );
 }
 async function runTest(name: string, file: string, spyIde: SpyIDE) {
+  const client = neovimClient();
+
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
@@ -165,11 +168,9 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
   //   setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
   // }
 
-  // if (fixture.initialState.clipboard) {
-  //   vscode.env.clipboard.writeText(fixture.initialState.clipboard);
-  //   // FIXME https://github.com/cursorless-dev/cursorless/issues/559
-  //   // spyIde.clipboard.writeText(fixture.initialState.clipboard);
-  // }
+  if (fixture.initialState.clipboard) {
+    spyIde.clipboard.writeText(fixture.initialState.clipboard);
+  }
 
   commandServerApi.setFocusedElementType(
     fixture.focusedElementType === "other"
