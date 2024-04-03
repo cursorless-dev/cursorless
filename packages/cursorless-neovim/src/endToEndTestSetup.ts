@@ -1,8 +1,5 @@
 import { IDE, shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
 import { getCursorlessApi } from "./singletons/cursorlessapi.singleton";
-// import { getCursorlessApi } from "@cursorless/vscode-common";
-// import { Context } from "mocha";
-//import * as sinon from "sinon";
 
 /**
  * The number of times the current test has been retried. Will be 0 the first
@@ -18,28 +15,10 @@ const retryCount = 5;
  */
 //let previousTestTitle = "";
 
-// TODO: remove this function as we don't call it?
-export function endToEndTestSetup(/* suite: Mocha.Suite */) {
-  // suite.timeout("100s");
-  // suite.retries(5);
-
-  let ide: IDE;
-  let injectIde: (ide: IDE) => void;
-  let spy: SpyIDE | undefined;
-
-  setup(async function (/* this: Context */) {
-    const title = "TODOTitle"; //this.test!.fullTitle();
-    // retryCount = title === previousTestTitle ? retryCount + 1 : 0;
-    // previousTestTitle = title;
-    ({ ide, injectIde } = (await getCursorlessApi()).testHelpers!);
-    spy = new SpyIDE(ide);
-    injectIde(spy);
-  });
-
-  teardown(() => {
-    //sinon.restore();
-    injectIde(ide);
-  });
+export async function endToEndTestSetup() {
+  const { ide, injectIde } = (await getCursorlessApi()).testHelpers!;
+  const spy = new SpyIDE(ide);
+  injectIde(spy);
 
   return {
     getSpy() {

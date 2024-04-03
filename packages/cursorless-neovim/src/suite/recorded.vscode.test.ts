@@ -42,6 +42,7 @@ import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
 // import * as vscode from "vscode";
 import {
+  endToEndTestSetup,
   /* endToEndTestSetup, */ sleepWithBackoff,
 } from "../endToEndTestSetup";
 import { injectIde } from "@cursorless/cursorless-engine";
@@ -64,39 +65,29 @@ function createSelection(selection: SelectionPlainObject): Selection {
 
 const failedTests: string[] = [];
 const passedTests: string[] = [];
-// suite("recorded test cases", async function () {
+
 export async function runRecordedTestCases() {
-  // const { getSpy } = endToEndTestSetup(this);
-
-  // suiteSetup(async () => {
-  //   // Necessary because opening a notebook opens the panel for some reason
-  //   await vscode.commands.executeCommand("workbench.action.closePanel");
-  //   const { ide } = (await getCursorlessApi()).testHelpers!;
-  //   setupFake(ide, HatStability.stable);
-  // });
-
-  //const originalIde = ide();
-  // const spyIde = new SpyIDE(originalIde);
-  const { ide } = (await getCursorlessApi()).testHelpers!;
-  const spyIde = new SpyIDE(ide);
-  injectIde(spyIde!);
+  const { getSpy } = await endToEndTestSetup();
 
   // Run all tests
   for (const { name, path } of getRecordedTestPaths()) {
-    await runTest(name, path, spyIde!);
+    await runTest(name, path, getSpy()!);
   }
-  console.warn(`Passed tests: ${passedTests.length}: ${passedTests}`);
-  console.warn(`Failed tests: ${failedTests.length}: ${failedTests}`);
+  console.warn(`Passed tests: ${passedTests}`);
+  console.warn(`Failed tests: ${failedTests.slice(0, 20)}...`);
+  console.warn(
+    `Passed tests: ${passedTests.length} / Failed tests: ${failedTests.length}`,
+  );
   // Run a single test
   // await runTest(
   //   "recorded/selectionTypes/clearRowTwoPastFour",
   //   "C:\\cursorless_fork\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\selectionTypes\\clearRowTwoPastFour.yml",
-  //   spyIde!,
+  //   getSpy()!,
   // );
   // await runTest(
   //   "recorded/selectionTypes/clearWord2",
   //   "C:\\cursorless_fork\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\selectionTypes\\clearWord2.yml",
-  //   spyIde!,
+  //   getSpy()!,
   // );
 }
 async function runTest(name: string, file: string, spyIde: SpyIDE) {
