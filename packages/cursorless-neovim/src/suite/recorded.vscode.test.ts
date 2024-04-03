@@ -52,6 +52,7 @@ import { getCursorlessApi } from "../singletons/cursorlessapi.singleton";
 import { openNewEditor } from "../testUtil/openNewEditor";
 import { runCursorlessCommand } from "../runCommand";
 import { neovimClient } from "../singletons/client.singleton";
+import { AssertionError } from "node:assert";
 // import { setupFake } from "./setupFake";
 
 function createPosition(position: PositionPlainObject) {
@@ -67,6 +68,11 @@ function createSelection(selection: SelectionPlainObject): Selection {
 const failedTests: string[] = [];
 const passedTests: string[] = [];
 
+type errorType = {
+  [key: string]: AssertionError;
+};
+const failures: errorType = {};
+
 export async function runRecordedTestCases() {
   const { getSpy } = await endToEndTestSetup();
 
@@ -76,9 +82,18 @@ export async function runRecordedTestCases() {
   }
   console.warn(`Passed tests: ${passedTests}`);
   console.warn(`Failed tests: ${failedTests.slice(0, 20)}...`);
+  for (const [name, error] of Object.entries(failures)) {
+    console.warn("+".repeat(80));
+    console.warn(`Failed test: ${name}`);
+    const expected = JSON.stringify(error.expected, null, 2);
+    const actual = JSON.stringify(error.actual, null, 2);
+    console.warn(`Expected: ${expected}`);
+    console.warn(`Actual: ${actual}`);
+  }
   console.warn(
     `Passed tests: ${passedTests.length} / Failed tests: ${failedTests.length}`,
   );
+
   // Run a single test
   // await runTest(
   //   "recorded/selectionTypes/clearRowTwoPastFour",
@@ -313,8 +328,14 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
       //   "Unexpected ide captured values",
       // );
     } catch (err) {
-      console.warn(`runTest(${name}) => failed`);
+      const error = err as AssertionError;
+      console.warn(`Failed test: ${name}`);
+      const expected = JSON.stringify(error.expected, null, 2);
+      const actual = JSON.stringify(error.actual, null, 2);
+      console.warn(`Expected: ${expected}`);
+      console.warn(`Actual: ${actual}`);
       failedTests.push(name);
+      failures[name] = error;
       // throw err;
       return;
     }
