@@ -94,19 +94,25 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
-  // TODO: skip if multiple selections (we don't support multiple cursors atm)
-  // We don't support decorated symbol marks yet
-  // We don't support parse-tree yet (which requires a code languageId)
+
+  // We don't support decorated symbol marks (hats) yet
   const hasMarks =
     fixture.initialState.marks != null &&
     Object.keys(fixture.initialState.marks).length > 0;
+
+  // we don't support multiple selections in neovim (we don't support multiple cursors atm)
   const hasMultipleSelections =
     fixture.initialState.selections.length > 1 ||
     (fixture.finalState && fixture.finalState.selections.length > 1);
-  if (hasMarks || hasMultipleSelections || fixture.languageId !== "plaintext") {
-    //console.warn(`runTest(${name}) => skipped`);
+
+  // We don't support Tree sitter yet (which requires a code languageId)
+  const needTreeSitter = fixture.languageId !== "plaintext";
+
+  if (hasMarks || hasMultipleSelections || needTreeSitter) {
     return;
   }
+
+  // Uncomment below for debugging
   // if (name === "recorded/selectionTypes/clearRowTwoPastFour") {
   //   console.warn(`runTest(${name}) => let's analyze it`);
   // }
@@ -122,6 +128,7 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
   //   console.warn(`runTest(${name}) => skipped as needs fixing`);
   //   return;
   // }
+
   console.warn(
     "------------------------------------------------------------------------------",
   );
