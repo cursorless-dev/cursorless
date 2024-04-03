@@ -16,6 +16,7 @@ export async function openNewEditor(
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
 ): Promise<NeovimTextEditorImpl> {
   const client = neovimClient();
+
   // open a new buffer
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
   await client.command(":enew");
@@ -33,6 +34,15 @@ export async function openNewEditor(
   const window = await client.window;
   const buffer = await window.buffer;
   await buffer.setLines(newLines, { start: 0, end: -1, strictIndexing: false });
+
+  // Not sure it matters but we try to set the right end of line type
+  const eol = content.includes("\r\n") ? "CRLF" : "LF";
+  // https://stackoverflow.com/questions/82726/convert-dos-windows-line-endings-to-linux-line-endings-in-vim
+  if (eol === "CRLF") {
+    await client.command(":set ff=dos");
+  } else {
+    await client.command(":set ff=unix");
+  }
 
   // update our view of the document
   const editor = await updateTextEditor();
