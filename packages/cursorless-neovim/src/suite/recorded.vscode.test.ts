@@ -123,7 +123,7 @@ export async function runRecordedTestCases() {
   for (const { name, path } of tests) {
     let executed = true;
     try {
-      executed = await runTest(name, path, getSpy()!);
+      executed = await runTest(name, path, await getSpy()!);
     } catch (err) {
       const error = err as AssertionError;
       showFailedTest(name, error);
@@ -347,20 +347,11 @@ async function runTest(
       "Unexpected fallback value",
     );
 
-    // TODO: uncomment that to fix the tests
-    // I commented for now as "recorded/selectionTypes/clearRowTwoPastFour"
-    // succeeds if executed alone but fails when executed with all tests
-    // which does not make sense yet
-    // try {
-    //   assert.deepStrictEqual(
-    //     omitByDeep(actualSpyIdeValues, isUndefined),
-    //     fixture.ide,
-    //     "Unexpected ide captured values",
-    //   );
-    // } catch (error) {
-    //   console.warn("Unexpected ide captured values");
-    //   throw error;
-    // }
+    assert.deepStrictEqual(
+      omitByDeep(actualSpyIdeValues, isUndefined),
+      fixture.ide,
+      "Unexpected ide captured values",
+    );
   }
   return true;
 }

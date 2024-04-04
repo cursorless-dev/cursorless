@@ -16,12 +16,16 @@ const retryCount = 5;
 //let previousTestTitle = "";
 
 export async function endToEndTestSetup() {
-  const { ide, injectIde } = (await getCursorlessApi()).testHelpers!;
-  const spy = new SpyIDE(ide);
-  injectIde(spy);
+  async function setup() {
+    const { ide, injectIde } = (await getCursorlessApi()).testHelpers!;
+    const spy = new SpyIDE(ide);
+    injectIde(spy);
+    return spy;
+  }
 
   return {
-    getSpy() {
+    async getSpy() {
+      const spy = await setup();
       return spy;
     },
   };
