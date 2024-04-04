@@ -23,6 +23,15 @@ export function neovimOnDidChangeTextDocument(
   return dummyEvent();
 }
 
+export function neovimOnDidOpenTextDocument(
+  listener: (event: TextDocument) => any,
+  thisArgs?: any,
+  disposables?: Disposable[] | undefined,
+): Disposable {
+  eventEmitter.on("onDidOpenTextDocument", listener);
+  return dummyEvent();
+}
+
 /**
  * @see https://neovim.io/doc/user/api.html#api-buffer-updates
  */

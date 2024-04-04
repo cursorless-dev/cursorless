@@ -34,6 +34,7 @@ import { getTalonNvimPath } from "../../neovimApi";
 import path from "path";
 import {
   neovimOnDidChangeTextDocument,
+  neovimOnDidOpenTextDocument,
   receivedBufferEvent,
 } from "./NeovimEvents";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
@@ -201,12 +202,18 @@ export class NeovimIDE implements IDE {
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
-    // console.warn("onDidChangeTextDocument Not implemented");
-    // throw Error("onDidChangeTextDocument Not implemented");
     return neovimOnDidChangeTextDocument(listener);
   }
 
-  onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
+  // onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
+  public onDidOpenTextDocument(
+    listener: (event: TextDocument) => any,
+    thisArgs?: any,
+    disposables?: Disposable[] | undefined,
+  ): Disposable {
+    return neovimOnDidOpenTextDocument(listener, thisArgs, disposables);
+  }
+
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
   onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;
   onDidChangeVisibleTextEditors: Event<TextEditor[]> = dummyEvent;

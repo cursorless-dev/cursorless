@@ -13,6 +13,7 @@ import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { NormalizedIDE, SpyIDE } from "@cursorless/common";
 import { receivedBufferEvent } from "./ide/neovim/NeovimEvents";
+import { eventEmitter } from "./events";
 
 // DEP-INJ: Delete this function. Is there a clean way to do it? Yes once we support pure dependency injection
 export function getNeovimIDE(): NeovimIDE {
@@ -52,7 +53,7 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   const selections = await bufferGetSelections(window, client);
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
   const neovimIDE = getNeovimIDE();
-  const impl = neovimIDE.toNeovimEditor(
+  const editor = neovimIDE.toNeovimEditor(
     window,
     buffer,
     lines,
@@ -60,7 +61,12 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
     selections,
   );
   // await subscribeBufferUpdates();
-  return impl;
+
+  // TODO: simulate that the document is open for now from here.
+  // we would need to ideally do it from neovim itself
+  eventEmitter.emit("onDidOpenTextDocument", editor.document);
+
+  return editor;
 }
 
 /**
@@ -108,4 +114,5 @@ export async function neovimClipboardPaste(): Promise<void> {
   // TODO: get the current selection indexes,
   // retrieve the corresponding lines from the Buffer,
   // and replace the lines with the pasted data
+  // NO: just issue an insert (CTRL+V) in lua
 }

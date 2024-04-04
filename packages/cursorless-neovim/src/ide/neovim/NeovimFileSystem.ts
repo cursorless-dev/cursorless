@@ -44,7 +44,9 @@ export class NeovimFileSystem implements FileSystem {
    * @returns The contents of path, decoded as UTF-8
    */
   public async readBundledFile(path: string): Promise<string | undefined> {
-    throw Error("readBundledFile() Not implemented");
+    // throw Error("readBundledFile() Not implemented");
+    console.warn("readBundledFile() Not implemented");
+    return undefined;
   }
 
   private resolveBundledPath(path: string) {

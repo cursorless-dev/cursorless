@@ -80,6 +80,8 @@ function showFailedTest(name: string, error: AssertionError) {
     const actual = JSON.stringify(error.actual, null, 2);
     console.warn(`Expected: ${expected}`);
     console.warn(`Actual: ${actual}`);
+  } else {
+    console.warn(`Stack: ${error.stack}`);
   }
 }
 
@@ -168,6 +170,9 @@ async function runTest(
 
   // Uncomment below for debugging
   // if (name === "recorded/selectionTypes/clearRowTwoPastFour") {
+  //   console.warn(`runTest(${name}) => let's analyze it`);
+  // }
+  // if (name === "recorded/surroundingPair/changeInside") {
   //   console.warn(`runTest(${name}) => let's analyze it`);
   // }
   // Below are tests that should pass but fail for now
