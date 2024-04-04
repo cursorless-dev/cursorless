@@ -75,7 +75,7 @@ const failures: errorType = {};
 function showFailedTest(name: string, error: AssertionError) {
   console.warn(`Failed test: ${name}`);
   console.warn(`Thrown error: ${error.message}`);
-  if (error.expected !== undefined) {
+  if (error.expected !== undefined || error.actual !== undefined) {
     const expected = JSON.stringify(error.expected, null, 2);
     const actual = JSON.stringify(error.actual, null, 2);
     console.warn(`Expected: ${expected}`);
@@ -104,7 +104,23 @@ export async function runRecordedTestCases() {
   const { getSpy } = await endToEndTestSetup();
 
   // Run all tests
-  for (const { name, path } of getRecordedTestPaths()) {
+  const tests = getRecordedTestPaths();
+
+  // Run some tests
+  // const fixturePath =
+  //   "C:\\cursorless_fork\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\";
+  // const tests = [
+  //   {
+  //     name: "recorded/selectionTypes/clearRowTwoPastFour",
+  //     path: `${fixturePath}recorded\\selectionTypes\\clearRowTwoPastFour.yml`,
+  //   },
+  //   {
+  //     name: "recorded/selectionTypes/clearWord2",
+  //     path: `${fixturePath}recorded\\selectionTypes\\clearWord2.yml`,
+  //   },
+  // ];
+
+  for (const { name, path } of tests) {
     let executed = true;
     try {
       executed = await runTest(name, path, getSpy()!);
@@ -121,18 +137,6 @@ export async function runRecordedTestCases() {
     successes.push(name);
   }
   showSummaryTests();
-
-  // Run a single test
-  // await runTest(
-  //   "recorded/selectionTypes/clearRowTwoPastFour",
-  //   "C:\\cursorless_fork\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\selectionTypes\\clearRowTwoPastFour.yml",
-  //   getSpy()!,
-  // );
-  // await runTest(
-  //   "recorded/selectionTypes/clearWord2",
-  //   "C:\\cursorless_fork\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\recorded\\selectionTypes\\clearWord2.yml",
-  //   getSpy()!,
-  // );
 }
 async function runTest(
   name: string,
@@ -347,11 +351,16 @@ async function runTest(
     // I commented for now as "recorded/selectionTypes/clearRowTwoPastFour"
     // succeeds if executed alone but fails when executed with all tests
     // which does not make sense yet
-    // assert.deepStrictEqual(
-    //   omitByDeep(actualSpyIdeValues, isUndefined),
-    //   fixture.ide,
-    //   "Unexpected ide captured values",
-    // );
+    // try {
+    //   assert.deepStrictEqual(
+    //     omitByDeep(actualSpyIdeValues, isUndefined),
+    //     fixture.ide,
+    //     "Unexpected ide captured values",
+    //   );
+    // } catch (error) {
+    //   console.warn("Unexpected ide captured values");
+    //   throw error;
+    // }
   }
   return true;
 }
