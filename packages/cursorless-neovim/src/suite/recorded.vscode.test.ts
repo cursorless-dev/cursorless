@@ -55,6 +55,10 @@ import { neovimClient } from "../singletons/client.singleton";
 import { AssertionError } from "node:assert";
 // import { setupFake } from "./setupFake";
 
+type errorType = {
+  [key: string]: AssertionError;
+};
+
 function createPosition(position: PositionPlainObject) {
   return new Position(position.line, position.character);
 }
@@ -65,34 +69,58 @@ function createSelection(selection: SelectionPlainObject): Selection {
   return new Selection(anchor, active);
 }
 
-const failedTests: string[] = [];
-const passedTests: string[] = [];
-
-type errorType = {
-  [key: string]: AssertionError;
-};
+const successes: string[] = [];
 const failures: errorType = {};
+
+function showFailedTest(name: string, error: AssertionError) {
+  console.warn(`Failed test: ${name}`);
+  console.warn(`Thrown error: ${error.message}`);
+  if (error.expected !== undefined) {
+    const expected = JSON.stringify(error.expected, null, 2);
+    const actual = JSON.stringify(error.actual, null, 2);
+    console.warn(`Expected: ${expected}`);
+    console.warn(`Actual: ${actual}`);
+  }
+}
+
+function showSucceededTest(name: string) {
+  console.warn(`Passed test: ${name} \\o/`);
+}
+
+function showSummaryTests() {
+  console.warn(`Passed tests: ${successes}`);
+  for (const [name, error] of Object.entries(failures)) {
+    console.warn("+".repeat(80));
+    showFailedTest(name, error);
+  }
+  const failed = Object.entries(failures).length;
+  const total = successes.length + failed;
+  console.warn(
+    `Passed tests: ${successes.length} / ${total} (failed: ${failed})`,
+  );
+}
 
 export async function runRecordedTestCases() {
   const { getSpy } = await endToEndTestSetup();
 
   // Run all tests
   for (const { name, path } of getRecordedTestPaths()) {
-    await runTest(name, path, getSpy()!);
+    let executed = true;
+    try {
+      executed = await runTest(name, path, getSpy()!);
+    } catch (err) {
+      const error = err as AssertionError;
+      showFailedTest(name, error);
+      failures[name] = error;
+      continue;
+    }
+    if (!executed) {
+      continue;
+    }
+    showSucceededTest(name);
+    successes.push(name);
   }
-  console.warn(`Passed tests: ${passedTests}`);
-  console.warn(`Failed tests: ${failedTests.slice(0, 20)}...`);
-  for (const [name, error] of Object.entries(failures)) {
-    console.warn("+".repeat(80));
-    console.warn(`Failed test: ${name}`);
-    const expected = JSON.stringify(error.expected, null, 2);
-    const actual = JSON.stringify(error.actual, null, 2);
-    console.warn(`Expected: ${expected}`);
-    console.warn(`Actual: ${actual}`);
-  }
-  console.warn(
-    `Passed tests: ${passedTests.length} / Failed tests: ${failedTests.length}`,
-  );
+  showSummaryTests();
 
   // Run a single test
   // await runTest(
@@ -106,7 +134,11 @@ export async function runRecordedTestCases() {
   //   getSpy()!,
   // );
 }
-async function runTest(name: string, file: string, spyIde: SpyIDE) {
+async function runTest(
+  name: string,
+  file: string,
+  spyIde: SpyIDE,
+): Promise<boolean> {
   const client = neovimClient();
 
   const buffer = await fsp.readFile(file);
@@ -127,7 +159,7 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
   const needTreeSitter = fixture.languageId !== "plaintext";
 
   if (hasMarks || hasMultipleSelections || needTreeSitter) {
-    return;
+    return false;
   }
 
   // Uncomment below for debugging
@@ -144,7 +176,7 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
   //   // name === "recorded/surroundingPair/textual/clearBoundsRound"
   // ) {
   //   console.warn(`runTest(${name}) => skipped as needs fixing`);
-  //   return;
+  //   return false;
   // }
 
   console.warn(
@@ -193,7 +225,7 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
       : fixture.focusedElementType ?? "textEditor",
   );
 
-  // NOT NEEDED FROM VSCODE:
+  // NOT NEEDED FOR NOW
   // Ensure that the expected hats are present
   // Assert that recorded decorations are present
 
@@ -228,28 +260,23 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
 
       await fsp.writeFile(file, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
-      try {
-        assert.strictEqual(error.name, fixture.thrownError.name);
-      } catch (err) {
-        console.warn(`runTest(${name}) => wrong thrown error`);
-        failedTests.push(name);
-        return;
-      }
+      assert.strictEqual(
+        error.name,
+        fixture.thrownError.name,
+        "Unexpected thrown error",
+      );
     } else {
-      // throw error;
-      console.warn(`runTest(${name}) => error: ${error.name}`);
-      failedTests.push(name);
-      // throw err;
-      return;
+      throw error;
     }
 
-    return;
+    return true;
   }
 
   if (fixture.postCommandSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
+  // We don't support decorated symbol marks (hats) yet
   const marks = undefined;
 
   if (fixture.finalState?.clipboard == null) {
@@ -271,8 +298,7 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
     spyIde.activeTextEditor!,
     spyIde,
     marks,
-    // FIXME: Stop overriding the clipboard once we have #559
-    true,
+    false,
   );
 
   const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
@@ -299,47 +325,33 @@ async function runTest(name: string, file: string, spyIde: SpyIDE) {
       );
     }
 
-    try {
-      assert.deepStrictEqual(
-        resultState,
-        fixture.finalState,
-        "Unexpected final state",
-      );
+    assert.deepStrictEqual(
+      resultState,
+      fixture.finalState,
+      "Unexpected final state",
+    );
 
-      assert.deepStrictEqual(
-        returnValue,
-        fixture.returnValue,
-        "Unexpected return value",
-      );
+    assert.deepStrictEqual(
+      returnValue,
+      fixture.returnValue,
+      "Unexpected return value",
+    );
 
-      assert.deepStrictEqual(
-        fallback,
-        fixture.fallback,
-        "Unexpected fallback value",
-      );
+    assert.deepStrictEqual(
+      fallback,
+      fixture.fallback,
+      "Unexpected fallback value",
+    );
 
-      // TODO: uncomment that to fix the tests
-      // I commented for now as "recorded/selectionTypes/clearRowTwoPastFour"
-      // succeeds if executed alone but fails when executed with all tests
-      // which does not make sense yet
-      // assert.deepStrictEqual(
-      //   omitByDeep(actualSpyIdeValues, isUndefined),
-      //   fixture.ide,
-      //   "Unexpected ide captured values",
-      // );
-    } catch (err) {
-      const error = err as AssertionError;
-      console.warn(`Failed test: ${name}`);
-      const expected = JSON.stringify(error.expected, null, 2);
-      const actual = JSON.stringify(error.actual, null, 2);
-      console.warn(`Expected: ${expected}`);
-      console.warn(`Actual: ${actual}`);
-      failedTests.push(name);
-      failures[name] = error;
-      // throw err;
-      return;
-    }
-    console.warn(`runTest(${name}) => passed`);
-    passedTests.push(name);
+    // TODO: uncomment that to fix the tests
+    // I commented for now as "recorded/selectionTypes/clearRowTwoPastFour"
+    // succeeds if executed alone but fails when executed with all tests
+    // which does not make sense yet
+    // assert.deepStrictEqual(
+    //   omitByDeep(actualSpyIdeValues, isUndefined),
+    //   fixture.ide,
+    //   "Unexpected ide captured values",
+    // );
   }
+  return true;
 }

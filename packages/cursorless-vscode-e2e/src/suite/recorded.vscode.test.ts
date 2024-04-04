@@ -151,7 +151,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
       await fsp.writeFile(file, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
-      assert.strictEqual(error.name, fixture.thrownError.name);
+      assert.strictEqual(
+        error.name,
+        fixture.thrownError.name,
+        "Unexpected thrown error",
+      );
     } else {
       throw error;
     }
