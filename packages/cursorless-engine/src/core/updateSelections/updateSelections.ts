@@ -258,7 +258,7 @@ export async function performEditsAndUpdateSelections(
     document,
     originalSelections,
   );
-  return await performEditsAndUpdateInternal(
+  return performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     editor,
     edits,
@@ -307,27 +307,12 @@ export async function performEditsAndUpdateRanges(
 ): Promise<Range[][]> {
   const document = editor.document;
   const selectionInfoMatrix = rangesToSelectionInfos(document, originalRanges);
-  return await performEditsAndUpdateInternal(
+  return performEditsAndUpdateFullSelectionInfos(
     rangeUpdater,
     editor,
     edits,
     selectionInfoMatrix,
   );
-}
-
-async function performEditsAndUpdateInternal(
-  rangeUpdater: RangeUpdater,
-  editor: EditableTextEditor,
-  edits: Edit[],
-  selectionInfoMatrix: FullSelectionInfo[][],
-) {
-  await performEditsAndUpdateFullSelectionInfos(
-    rangeUpdater,
-    editor,
-    edits,
-    selectionInfoMatrix,
-  );
-  return selectionInfosToSelections(selectionInfoMatrix);
 }
 
 // FIXME: Remove this function if we don't end up using it for the next couple use cases, eg `that` mark and cursor history
