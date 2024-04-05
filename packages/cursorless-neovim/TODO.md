@@ -10,6 +10,7 @@
 
 # to do
 
+- chuck first paint row two and third paint row two
 - scout text command in any mode
 - find a way to load nvim.exe in the background as part of launch.json/tasks.json to load neovim so we can attach to it with debugger
 - hack and redirect console.log/console.info to console.warning in cursorless repo so we don't have to change all the instances? And restore all console.warn to be console.log
