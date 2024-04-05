@@ -1,12 +1,7 @@
-import {
-  FlashStyle,
-  RangeExpansionBehavior,
-  Selection,
-  TextEditor,
-} from "@cursorless/common";
+import { FlashStyle, Selection, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateSelectionsWithBehavior } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { RawSelectionTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
@@ -44,18 +39,14 @@ export default class Delete implements SimpleAction {
   private async runForEditor(editor: TextEditor, targets: Target[]) {
     const edits = targets.map((target) => target.constructRemovalEdit());
 
-    const cursorSelections = { selections: editor.selections };
-    const editSelections = {
-      selections: edits.map(
-        ({ range }) => new Selection(range.start, range.end),
-      ),
-      rangeBehavior: RangeExpansionBehavior.closedClosed,
-    };
-
+    const cursorSelections = editor.selections;
+    const editSelections = edits.map(
+      ({ range }) => new Selection(range.start, range.end),
+    );
     const editableEditor = ide().getEditableTextEditor(editor);
 
     const [updatedEditorSelections, updatedEditSelections]: Selection[][] =
-      await performEditsAndUpdateSelectionsWithBehavior(
+      await performEditsAndUpdateSelections(
         this.rangeUpdater,
         editableEditor,
         edits,
