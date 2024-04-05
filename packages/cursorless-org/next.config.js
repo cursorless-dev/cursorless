@@ -33,6 +33,10 @@ const nextConfig = {
       use: ["@svgr/webpack"],
     });
 
+    // Set our custom condition for the bundler so that we directly use
+    // typescript from packages in our monorepo, which makes hot-reloading
+    // smoother. Based on
+    // https://github.com/vercel/next.js/discussions/33813#discussioncomment-7457277
     config.plugins.push({
       apply(compiler) {
         compiler.hooks.afterEnvironment.tap("NextEntryPlugin", () => {
