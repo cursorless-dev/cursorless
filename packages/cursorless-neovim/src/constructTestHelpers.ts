@@ -7,10 +7,16 @@ import {
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
+  StoredTargetKey,
+  TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import { StoredTargetMap, takeSnapshot } from "@cursorless/cursorless-engine";
+import {
+  StoredTargetMap,
+  plainObjectToTarget,
+  takeSnapshot,
+} from "@cursorless/cursorless-engine";
 import { TestHelpers } from "./TestHelpers";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
@@ -60,18 +66,16 @@ export function constructTestHelpers(
     cursorlessTalonStateJsonPath: fileSystem.cursorlessTalonStateJsonPath,
     cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
-    //   setStoredTarget(
-    //     editor: vscode.TextEditor,
-    //     key: StoredTargetKey,
-    //     targets: TargetPlainObject[] | undefined,
-    //   ): void {
-    //     storedTargets.set(
-    //       key,
-    //       targets?.map((target) =>
-    //         plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
-    //       ),
-    //     );
-    //   },
+    setStoredTarget(
+      editor: TextEditor,
+      key: StoredTargetKey,
+      targets: TargetPlainObject[] | undefined,
+    ): void {
+      storedTargets.set(
+        key,
+        targets?.map((target) => plainObjectToTarget(editor, target)),
+      );
+    },
     hatTokenMap,
     runIntegrationTests,
     //vscodeApi,

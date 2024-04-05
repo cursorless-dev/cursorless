@@ -41,11 +41,7 @@ import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
 // import * as vscode from "vscode";
-import {
-  endToEndTestSetup,
-  /* endToEndTestSetup, */ sleepWithBackoff,
-} from "../endToEndTestSetup";
-import { injectIde } from "@cursorless/cursorless-engine";
+import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 // import { commandApi } from "../singletons/cmdapi.singleton";
 // import { takeSnapshot } from "@cursorless/cursorless-engine";
 import { getCursorlessApi } from "../singletons/cursorlessapi.singleton";
@@ -90,7 +86,7 @@ function showSucceededTest(name: string) {
 }
 
 function showSummaryTests() {
-  console.warn(`Passed tests: ${successes}`);
+  console.warn(`Passed tests:\n${successes.join("\n")}`);
   for (const [name, error] of Object.entries(failures)) {
     console.warn("+".repeat(80));
     showFailedTest(name, error);
@@ -169,23 +165,8 @@ async function runTest(
   }
 
   // Uncomment below for debugging
-  // if (name === "recorded/selectionTypes/clearRowTwoPastFour") {
+  // if (name === "recorded/implicitExpansion/chuckBoundingThat") {
   //   console.warn(`runTest(${name}) => let's analyze it`);
-  // }
-  // if (name === "recorded/surroundingPair/changeInside") {
-  //   console.warn(`runTest(${name}) => let's analyze it`);
-  // }
-  // Below are tests that should pass but fail for now
-  // if (
-  //   // name === "recorded/actions/breakJustThis" ||
-  //   name === "recorded/actions/breakJustThis2" ||
-  //   name === "recorded/actions/changeNextInstanceChar" ||
-  //   name === "recorded/actions/cloneToken"
-  //   // name === "recorded/ordinalScopes/changeSecondTwoTokens" ||
-  //   // name === "recorded/surroundingPair/textual/clearBoundsRound"
-  // ) {
-  //   console.warn(`runTest(${name}) => skipped as needs fixing`);
-  //   return false;
   // }
 
   console.warn(
@@ -198,11 +179,8 @@ async function runTest(
   const usePrePhraseSnapshot = false;
 
   const cursorlessApi = await getCursorlessApi();
-  const {
-    hatTokenMap,
-    takeSnapshot /* , setStoredTarget */,
-    commandServerApi,
-  } = cursorlessApi.testHelpers!;
+  const { takeSnapshot, setStoredTarget, commandServerApi } =
+    cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(fixture.initialState.documentContents, {
     languageId: fixture.languageId,
@@ -219,10 +197,10 @@ async function runTest(
     fixture.initialState.selections.map(createSelection),
   );
 
-  // for (const storedTargetKey of storedTargetKeys) {
-  //   const key = `${storedTargetKey}Mark` as const;
-  //   setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
-  // }
+  for (const storedTargetKey of storedTargetKeys) {
+    const key = `${storedTargetKey}Mark` as const;
+    setStoredTarget(editor, storedTargetKey, fixture.initialState[key]);
+  }
 
   if (fixture.initialState.clipboard) {
     spyIde.clipboard.writeText(fixture.initialState.clipboard);

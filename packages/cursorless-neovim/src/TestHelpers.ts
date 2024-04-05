@@ -7,7 +7,7 @@ import type {
   NormalizedIDE,
   ScopeProvider,
   SerializedMarks,
-  // TargetPlainObject,
+  TargetPlainObject,
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
@@ -26,11 +26,11 @@ export interface TestHelpers {
 
   //toVscodeEditor(editor: TextEditor): vscode.TextEditor;
 
-  // setStoredTarget(
-  //   editor: vscode.TextEditor,
-  //   key: string,
-  //   targets: TargetPlainObject[] | undefined,
-  // ): void;
+  setStoredTarget(
+    editor: TextEditor,
+    key: string,
+    targets: TargetPlainObject[] | undefined,
+  ): void;
 
   // FIXME: Remove this once we have a better way to get this function
   // accessible from our tests
