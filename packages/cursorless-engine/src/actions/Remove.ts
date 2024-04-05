@@ -40,12 +40,10 @@ export default class Delete implements SimpleAction {
     const edits = targets.map((target) => target.constructRemovalEdit());
 
     const cursorSelections = editor.selections;
-    const editSelections = edits.map(
-      ({ range }) => new Selection(range.start, range.end),
-    );
+    const editSelections = edits.map(({ range }) => range.toSelection(false));
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    const [updatedEditorSelections, updatedEditSelections]: Selection[][] =
+    const [updatedCursorSelections, updatedEditSelections]: Selection[][] =
       await performEditsAndUpdateSelections(
         this.rangeUpdater,
         editableEditor,
@@ -55,7 +53,7 @@ export default class Delete implements SimpleAction {
 
     await setSelectionsWithoutFocusingEditor(
       editableEditor,
-      updatedEditorSelections,
+      updatedCursorSelections,
     );
 
     return zip(targets, updatedEditSelections).map(
