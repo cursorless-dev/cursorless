@@ -52,6 +52,8 @@ export default class Delete implements SimpleAction {
       [ranges],
     );
 
+    // range: 0:5-0:5?
+    // [the "that" range empty position where text was removed]
     return zip(targets, updatedRanges).map(
       ([target, range]) =>
         new RawSelectionTarget({
