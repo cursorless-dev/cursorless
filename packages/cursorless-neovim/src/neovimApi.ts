@@ -43,7 +43,7 @@ export async function bufferGetSelections(
   }
 
   console.warn(
-    `bufferGetSelections(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character})`,
+    `bufferGetSelections(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character}) neovim=(${startLine},${startCol}),(${endLine},${endCol}),reverse=${reverse}`,
   );
   return selections;
 }
