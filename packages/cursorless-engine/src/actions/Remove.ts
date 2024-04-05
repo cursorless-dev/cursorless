@@ -36,9 +36,15 @@ export default class Delete implements SimpleAction {
   }
 
   private async runForEditor(editor: TextEditor, targets: Target[]) {
+    // range: 0:5-0:7, text: "", updateRange: updateRange
+    // [what range to remove]
     const edits = targets.map((target) => target.constructRemovalEdit());
+    // range: 0:5-0:7
+    // [what range to remove]
     const ranges = edits.map((edit) => edit.range);
 
+    // range: 0:5-0:5
+    // [location of the range that was removed]
     const [updatedRanges] = await performEditsAndUpdateRanges(
       this.rangeUpdater,
       ide().getEditableTextEditor(editor),
