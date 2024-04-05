@@ -113,8 +113,8 @@ async function neovimDelete(range: Range): Promise<void> {
   const startOfFirstLine = firstLine.slice(0, range.start.character);
 
   // are we not including the newline at the end of the first line?
-  if (range.start.character === firstLine.length) {
-    // if we are deleting from the end of the first line, we need to append the last line to the first line
+  if (range.start.character <= firstLine.length) {
+    // if we are deleting from before the end of the first line, we need to append the last line to the first line
     await buffer.setLines(startOfFirstLine + endOfLastLine, {
       start: range.start.line,
       end: range.end.line + 1,
