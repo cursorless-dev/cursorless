@@ -1,19 +1,14 @@
 import {
   Disposable,
-  NormalizedIDE,
   Position,
   Range,
-  SpyIDE,
   TextDocument,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
-  TextEditor,
 } from "@cursorless/common";
 
 import { Buffer } from "neovim";
 import { eventEmitter } from "../../events";
-import { NeovimIDE } from "./NeovimIDE";
-import { ide } from "@cursorless/cursorless-engine";
 import { getNeovimIDE } from "../../neovimHelpers";
 
 export function neovimOnDidChangeTextDocument(

@@ -1,4 +1,4 @@
-import { IDE, shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
+import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
 import { getCursorlessApi } from "./singletons/cursorlessapi.singleton";
 
 /**

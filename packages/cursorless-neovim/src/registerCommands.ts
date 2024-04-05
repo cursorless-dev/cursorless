@@ -1,6 +1,6 @@
 import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
-import { subscribeBufferUpdates, updateTextEditor } from "./neovimHelpers";
+import { updateTextEditor } from "./neovimHelpers";
 
 /**
  * Handle the command received from the command-server Neovim extension

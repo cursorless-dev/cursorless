@@ -15,7 +15,7 @@ import * as path from "path";
 import { NeovimHats } from "./ide/neovim/hats/NeovimHats";
 import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-import { Language, SyntaxNode, Tree } from "web-tree-sitter";
+import { Language, Tree } from "web-tree-sitter";
 import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
