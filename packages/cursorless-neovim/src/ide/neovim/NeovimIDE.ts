@@ -35,11 +35,9 @@ import path from "path";
 import {
   neovimOnDidChangeTextDocument,
   neovimOnDidOpenTextDocument,
-  receivedBufferEvent,
 } from "./NeovimEvents";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
 import { URI } from "vscode-uri";
-import { eventEmitter } from "../../events";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
