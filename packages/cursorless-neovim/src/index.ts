@@ -1,7 +1,7 @@
 import { NvimPlugin } from "neovim";
 import { activate } from "./extension";
 import { handleCommandInternal } from "./registerCommands";
-import { runRecordedTestCases } from "./suite/recorded.vscode.test";
+import { runRecordedTestCases } from "./suite/recorded.neovim.test";
 
 /**
  * Extension entrypoint called by node-client on Neovim startup.

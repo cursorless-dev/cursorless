@@ -20,7 +20,7 @@ import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
-import { runRecordedTestCases } from "./suite/recorded.vscode.test";
+import { runRecordedTestCases } from "./suite/recorded.neovim.test";
 import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { NeovimClient } from "neovim/lib/api/client";
 import { injectClient } from "./singletons/client.singleton";
@@ -142,7 +142,7 @@ async function createNeovimIde(client: NeovimClient) {
 function createTreeSitter(): TreeSitter {
   return {
     getNodeAtLocation(document: TextDocument, range: Range) {
-      return null as unknown as SyntaxNode;
+      throw new UnsupportedLanguageError(document.languageId);
     },
 
     getTree(document: TextDocument) {
@@ -156,4 +156,14 @@ function createTreeSitter(): TreeSitter {
       return undefined;
     },
   };
+}
+
+// https://github.com/cursorless-dev/vscode-parse-tree/blob/c0f1d024acca9ceace73bc0a0cd6106515303475/src/errors.ts#L1
+export class UnsupportedLanguageError extends Error {
+  constructor(language: string) {
+    super(
+      `Language '${language}' not supported by parse tree extension.  See https://github.com/pokey/vscode-parse-tree#adding-a-new-language`,
+    );
+    this.name = "UnsupportedLanguageError";
+  }
 }

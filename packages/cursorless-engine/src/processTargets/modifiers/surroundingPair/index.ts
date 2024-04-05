@@ -178,5 +178,5 @@ function nodeHasError(node: SyntaxNode, includeChildren = false): boolean {
 }
 
 function nodeIsError(node: SyntaxNode): boolean {
-  return node === null || node.type === "ERROR";
+  return node.type === "ERROR";
 }
