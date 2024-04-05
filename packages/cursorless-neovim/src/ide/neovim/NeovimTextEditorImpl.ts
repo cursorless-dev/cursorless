@@ -67,12 +67,10 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   async setSelections(selections: Selection[]): Promise<void> {
-    // We assume setting it on the neovim never fails
-    // as we cache the selections in the editor too
+    // We assume setting it on the neovim buffer never fails
+    // as we cache the selections in the editor beforehand
     this._selections = selections;
     await bufferSetSelections(neovimClient(), selections);
-    // console.warn(`setSelections() done`);
-    // throw Error("set selections Not implemented");
   }
 
   get options(): TextEditorOptions {
