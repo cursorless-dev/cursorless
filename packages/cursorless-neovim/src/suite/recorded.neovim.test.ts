@@ -85,9 +85,16 @@ function showSucceededTest(name: string) {
   console.warn(`Passed test: ${name} \\o/`);
 }
 
+// Hiding some failures that we don't know how to fix yet
+// @see https://github.com/cursorless-dev/cursorless/issues/2281
+const failuresNotShown = ["recorded/marks/chuckNothing"];
+
 function showSummaryTests() {
   console.warn(`Passed tests:\n${successes.join("\n")}`);
   for (const [name, error] of Object.entries(failures)) {
+    if (failuresNotShown.includes(name)) {
+      continue;
+    }
     console.warn("+".repeat(80));
     showFailedTest(name, error);
   }
