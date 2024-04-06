@@ -14,17 +14,42 @@ export default async function neovimEdit(
   window: Window,
   edits: Edit[],
 ): Promise<boolean> {
-  // We start applying the edits from the end of the document
-  // to make sure the edit ranges for the remaining one are stable
-  edits.reverse();
+  console.warn("neovimEdit() [unsorted]:");
+  for (const edit of edits) {
+    console.warn(
+      `\trange=${JSON.stringify(edit.range)}, text='${edit.text}', isReplace=${edit.isReplace}`,
+    );
+  }
+
   edits.sort((a, b) => {
+    // console.warn(
+    //   `a=${JSON.stringify(a.range)}, text='${a.text}', isReplace=${a.isReplace}`,
+    // );
+    // console.warn(
+    //   `b=${JSON.stringify(b.range)}, text='${b.text}', isReplace=${b.isReplace}`,
+    // );
+    // We apply the insert/replace edits from the start of the document
+    // as a later one assume the previous ones have already been applied
+    if ((isInsert(a) || isReplace(a)) && (isInsert(b) || isReplace(b))) {
+      // console.warn("a is insert/replace and b is insert/replace");
+      return 1;
+    }
+    // We apply the delete edits from the end of the document
+    // to make sure the edit ranges for the remaining ones are stable
     if (a.range.start.line === b.range.start.line) {
+      // console.warn("a and b are on the same line");
       return b.range.start.character - a.range.start.character;
     }
+    // console.warn("a and b are on different lines");
     return b.range.start.line - a.range.start.line;
   });
 
-  // TODO: notify here bulking all changes?
+  console.warn("neovimEdit() [sorted]:");
+  for (const edit of edits) {
+    console.warn(
+      `\trange=${JSON.stringify(edit.range)}, text='${edit.text}', isReplace=${edit.isReplace}`,
+    );
+  }
   const client = neovimClient();
   const document = getNeovimIDE().getTextDocument(
     await client.window.buffer,
@@ -182,4 +207,18 @@ async function neovimReplace(range: Range, text: string) {
   );
   await neovimDelete(range);
   await neovimInsert(range.start, text);
+}
+
+function isDelete(edit: Edit): boolean {
+  return edit.text === "";
+}
+
+function isInsert(edit: Edit): boolean {
+  return edit.range.isEmpty && !edit.isReplace;
+}
+
+function isReplace(edit: Edit): boolean {
+  return (
+    edit.text !== "" && (!edit.range.isEmpty || edit.isReplace ? true : false)
+  );
 }
