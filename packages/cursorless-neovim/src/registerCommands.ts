@@ -1,6 +1,14 @@
-import { CURSORLESS_COMMAND_ID, CursorlessCommandId } from "@cursorless/common";
+import {
+  CURSORLESS_COMMAND_ID,
+  CommandLatest,
+  CursorlessCommandId,
+} from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
 import { updateTextEditor } from "./neovimHelpers";
+import { neovimClient } from "./singletons/client.singleton";
+import { modeSwitchNormalTerminal, modeSwitchTerminal } from "./neovimApi";
+import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
+import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
 
 /**
  * Handle the command received from the command-server Neovim extension
@@ -17,12 +25,32 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
+      const client = await neovimClient();
+      const originalMode = await client.mode;
+      if (originalMode.mode === "t") {
+        // Switch to "nt" so we can easily call lua functions without any problems
+        modeSwitchNormalTerminal(client);
+      }
+
       // try {
+
       await updateTextEditor();
-      // await subscribeBufferUpdates();
       const result = await commandApi().runCommandSafe(...args);
-      // const result = ["hello world"]; // simulate the result of "bring <target>"
+
+      const command = ensureCommandShape(args) as CommandLatest;
+      const cmdSrvApi = commandServerApi();
+      const focusedElementType = await cmdSrvApi.getFocusedElementType();
+      if (
+        focusedElementType === "terminal" &&
+        command.action.name === "replaceWithTarget"
+      ) {
+        // if user runs a terminal, and a "bring" command was requested, switch back to "t" mode
+        // so the fallback can do its magic
+        modeSwitchTerminal(client);
+      }
+
       return result;
+
       // TODO: use neovimIDE.runMode === "test" instead of isTesting()
       // } catch (e) {
       //   // if (!isTesting()) {

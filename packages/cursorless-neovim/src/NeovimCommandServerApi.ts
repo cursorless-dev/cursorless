@@ -13,8 +13,8 @@ export class NeovimCommandServerApi implements CommandServerApi {
   }
 
   async getFocusedElementType(): Promise<FocusedElementType | undefined> {
-    const current_mode = await this.client.mode;
-    if (current_mode.mode === "t" || current_mode.mode === "nt") {
+    const currentMode = await this.client.mode;
+    if (currentMode.mode === "t" || currentMode.mode === "nt") {
       return "terminal";
     } else {
       return "textEditor";

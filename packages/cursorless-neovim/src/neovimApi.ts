@@ -125,3 +125,23 @@ export async function putToClipboard(data: string, client: NeovimClient) {
 export async function getFromClipboard(client: NeovimClient): Promise<string> {
   return await client.callFunction("getreg", ["*"]);
 }
+
+/**
+ * Switch from terminal (t) mode to normal terminal (nt) mode
+ * @param client
+ */
+export async function modeSwitchNormalTerminal(
+  client: NeovimClient,
+): Promise<void> {
+  const luaCode = `return require("talon.utils").mode_switch_nt()`;
+  await client.executeLua(luaCode, []);
+}
+
+/**
+ * Switch from normal terminal (nt) mode to terminal (t) mode
+ * @param client
+ */
+export async function modeSwitchTerminal(client: NeovimClient): Promise<void> {
+  const luaCode = `return require("talon.utils").mode_switch_t()`;
+  await client.executeLua(luaCode, []);
+}

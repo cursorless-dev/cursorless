@@ -25,6 +25,7 @@ import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { NeovimClient } from "neovim/lib/api/client";
 import { injectClient } from "./singletons/client.singleton";
 import { updateTextEditor } from "./neovimHelpers";
+import { injectCommandServerApi } from "./singletons/cmdsrvapi.singleton";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -58,6 +59,7 @@ export async function activate(plugin: NvimPlugin) {
     neovimIDE.runMode === "test"
       ? fakeCommandServerApi
       : neovimCommandServerApi;
+  injectCommandServerApi(commandServerApi);
 
   const treeSitter: TreeSitter = createTreeSitter();
 
