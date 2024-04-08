@@ -108,8 +108,8 @@ export async function activate(plugin: NvimPlugin) {
 
   // COMMENT ME IF YOU DON'T WANT TO RUN TESTS
   // WHEN USING TESTS, CHANGE neovimIDE.runMode = "test" in NeovimIDE.ts
-  console.warn("activate(): running the recorded test cases...");
-  await runRecordedTestCases();
+  // console.warn("activate(): running the recorded test cases...");
+  // await runRecordedTestCases();
   // console.warn("activate(): recorded test cases done");
   // COMMENT ME END
 
