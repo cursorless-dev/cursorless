@@ -54,8 +54,8 @@ export class NeovimIDE implements IDE {
   // TODO: how can we support changing the runMode dynamically?
   // See https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
   // runMode: RunMode = "production"; // use for end user
-  // runMode: RunMode = "development"; // use to enable debug logs
-  runMode: RunMode = "test"; // used for fixture tests
+  runMode: RunMode = "development"; // use to enable debug logs
+  // runMode: RunMode = "test"; // used for fixture tests
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
