@@ -7,7 +7,7 @@ import { commandApi } from "./singletons/cmdapi.singleton";
 import { updateTextEditor } from "./neovimHelpers";
 import { neovimClient } from "./singletons/client.singleton";
 import { modeSwitchNormalTerminal, modeSwitchTerminal } from "./neovimApi";
-import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
+import { ensureCommandShape } from "@cursorless/cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
 
 /**

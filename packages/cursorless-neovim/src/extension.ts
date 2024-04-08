@@ -20,7 +20,6 @@ import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
-import { runRecordedTestCases } from "./suite/recorded.neovim.test";
 import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { NeovimClient } from "neovim/lib/api/client";
 import { injectClient } from "./singletons/client.singleton";
