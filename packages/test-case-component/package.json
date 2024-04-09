@@ -5,7 +5,7 @@
   "description": "Component for displaying results of test cases in cursorless-vscode-e2e",
   "main": "./out/index.js",
   "scripts": {
-    "build": "tsx src/buildDictionary",
+    "build": "my-ts-node src/buildDictionary.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "compile:tsc": "tsc --build",
