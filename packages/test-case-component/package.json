@@ -20,8 +20,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "11.1.0",
-    "prettier": "2.8.4",
+    "fs-extra": "11.2.0",
+    "js-yaml": "^4.1.0",
+    "prettier": "3.2.5",
     "react": "^18.2.0",
     "shiki": "0.14.3",
     "tsx": "3.12.7",
@@ -36,6 +37,6 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/react": "18.0.28"
+    "@types/react": "18.2.71"
   }
 }
