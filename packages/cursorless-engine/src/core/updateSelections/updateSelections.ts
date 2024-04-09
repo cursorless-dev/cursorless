@@ -382,12 +382,10 @@ export async function performEditsAndUpdateFullSelectionInfos(
     }
   };
 
-  await callFunctionAndUpdateSelectionInfos(
+  return await callFunctionAndUpdateSelectionInfos(
     rangeUpdater,
     func,
     editor.document,
     originalSelectionInfos,
   );
-
-  return selectionInfosToSelections(originalSelectionInfos);
 }
