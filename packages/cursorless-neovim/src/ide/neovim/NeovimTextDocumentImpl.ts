@@ -59,10 +59,10 @@ export class NeovimTextDocumentImpl implements TextDocument {
     this._uri = uri;
     this._languageId = languageId;
     this._version = version;
-    this._lineCount = lines.length;
     this._eol = eol;
     this._lines = lines;
 
+    this._lineCount = lines.length;
     this._lineStarts = null;
     this._cachedTextValue = null;
   }
@@ -70,6 +70,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
   public update(lines: string[]) {
     this._lines = lines;
 
+    this._lineCount = lines.length;
     this._lineStarts = null;
     this._cachedTextValue = null;
   }
