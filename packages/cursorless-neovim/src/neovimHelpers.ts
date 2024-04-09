@@ -47,8 +47,12 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   const window = await client.window;
   const buffer = await window.buffer;
   const lines = await buffer.lines;
+  let linesShown = lines;
+  if (lines.length >= 30) {
+    linesShown = lines.slice(0, 15).concat(["..."]).concat(lines.slice(-15));
+  }
   console.warn(
-    `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${JSON.stringify(lines)}`,
+    `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${JSON.stringify(linesShown)}`,
   );
   const selections = await bufferGetSelections(window, client);
   const visibleRanges = await windowGetVisibleRanges(window, client, lines);
