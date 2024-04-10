@@ -15,7 +15,7 @@ export default function entry(plugin: NvimPlugin) {
 
   plugin.registerFunction(
     "CursorlessLoadExtension",
-    () => loadExtension(plugin),
+    async () => await loadExtension(plugin),
     { sync: false },
   );
 
@@ -29,16 +29,13 @@ export default function entry(plugin: NvimPlugin) {
 /**
  * Load the cursorless engine.
  */
-function loadExtension(plugin: NvimPlugin) {
-  const currentDate: Date = new Date();
-  const currentDateStr: string = currentDate.toLocaleString();
+async function loadExtension(plugin: NvimPlugin) {
   console.warn(
     "===============================================================================================",
   );
-  console.warn("loadExtension(cursorless-neovim): " + currentDateStr);
-  // plugin.nvim.setLine(currentDateStr);
-
-  activate(plugin);
+  console.warn("loadExtension(cursorless-neovim): start");
+  await activate(plugin);
+  console.warn("loadExtension(cursorless-neovim): done");
 }
 
 /**
