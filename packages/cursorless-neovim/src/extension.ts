@@ -25,7 +25,7 @@ import { NeovimClient } from "neovim/lib/api/client";
 import { injectClient } from "./singletons/client.singleton";
 import { updateTextEditor } from "./neovimHelpers";
 import { injectCommandServerApi } from "./singletons/cmdsrvapi.singleton";
-import { runRecordedTestCases } from "./suite/recorded.neovim.test";
+import { runRecordedTestCases } from "./suite/recorded_neovim_test";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
