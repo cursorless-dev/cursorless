@@ -22,6 +22,17 @@
       "group": "build"
     },
     {
+      "label": "ESBuild-cursorless-neovim",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/cursorless-neovim",
+      "dependsOn": ["ESBuild-common", "ESBuild-cursorless-engine"],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
       "label": "ESBuild-common",
       "type": "npm",
       "script": "compile",
@@ -42,32 +53,25 @@
       "group": "build"
     },
     {
-      "label": "ESBuild-cursorless-neovim",
-      "type": "npm",
-      "script": "compile",
-      "path": "packages/cursorless-neovim",
-      "dependsOn": ["ESBuild-common", "ESBuild-cursorless-engine"],
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
       "label": "neovim logs",
       "type": "shell",
-      "windows": { "command": "powershell" },
-      "args": [
-        "(New-Object -ComObject WScript.Shell).Run(\"\"\"powershell Get-Content '${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log' -wait -tail 30\"\"\", 1, $false)"
-      ],
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"powershell Get-Content '${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log' -wait -tail 30\"\"\", 1, $false)"
+        ]
+      },
       "group": "build"
     },
     {
       "label": "neovim start",
       "type": "shell",
-      "windows": { "command": "powershell" },
-      "args": [
-        "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
-      ],
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+        ]
+      },
       "group": "build",
       "options": {
         "env": {
