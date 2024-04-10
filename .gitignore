@@ -44,3 +44,4 @@ next-env.d.ts
 packages/test-harness/testSubsetGrep.properties
 
 old
+packages/cursorless-neovim/test
