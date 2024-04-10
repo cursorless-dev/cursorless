@@ -30,6 +30,7 @@ import {
   Selection,
   Position,
   getRecordedTestPaths,
+  getFixturesPath,
 } from "@cursorless/common";
 // import {
 //   getCursorlessApi,
@@ -112,16 +113,11 @@ export async function runRecordedTestCases() {
   const tests = getRecordedTestPaths();
 
   // Run some tests
-  // const fixturePath =
-  //   "C:\\cursorless_fork\\packages\\cursorless-vscode-e2e\\src\\suite\\fixtures\\";
+  // const fixturePath = getFixturesPath();
   // const tests = [
   //   {
-  //     name: "recorded/selectionTypes/clearRowTwoPastFour",
-  //     path: `${fixturePath}recorded\\selectionTypes\\clearRowTwoPastFour.yml`,
-  //   },
-  //   {
-  //     name: "recorded/selectionTypes/clearWord2",
-  //     path: `${fixturePath}recorded\\selectionTypes\\clearWord2.yml`,
+  //     name: "recorded/actions/insertEmptyLines/puffThis",
+  //     path: `${fixturePath}/recorded/actions/insertEmptyLines/puffThis.yml`,
   //   },
   // ];
 
