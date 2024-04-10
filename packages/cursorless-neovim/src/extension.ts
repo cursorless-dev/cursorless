@@ -25,6 +25,7 @@ import { NeovimClient } from "neovim/lib/api/client";
 import { injectClient } from "./singletons/client.singleton";
 import { updateTextEditor } from "./neovimHelpers";
 import { injectCommandServerApi } from "./singletons/cmdsrvapi.singleton";
+import { runRecordedTestCases } from "./suite/recorded.neovim.test";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -107,14 +108,11 @@ export async function activate(plugin: NvimPlugin) {
   await updateTextEditor();
   console.warn("activate(): Cursorless extension loaded");
 
-  // COMMENT ME IF YOU DON'T WANT TO RUN TESTS
-  // WHEN USING TESTS, CHANGE neovimIDE.runMode = "test" in NeovimIDE.ts
-  // console.warn("activate(): running the recorded test cases...");
-  // await runRecordedTestCases();
-  // console.warn("activate(): recorded test cases done");
-  // COMMENT ME END
-
-  // WHEN NOT USING TESTS, CHANGE neovimIDE.runMode = "development" in NeovimIDE.ts
+  if (neovimIDE.runMode === "test") {
+    console.warn("activate(): running the recorded test cases...");
+    await runRecordedTestCases();
+    console.warn("activate(): recorded test cases done");
+  }
 }
 
 async function createNeovimIde(client: NeovimClient) {
