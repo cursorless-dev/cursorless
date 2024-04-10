@@ -18,7 +18,7 @@
     },
     {
       "label": "Build neovim extension only",
-      "dependsOn": ["ESBuild-cursorless-neovim"],
+      "dependsOn": ["neovim start", "ESBuild-cursorless-neovim"],
       "group": "build"
     },
     {
@@ -51,6 +51,25 @@
         "reveal": "silent"
       },
       "group": "build"
+    },
+    {
+      "label": "neovim start",
+      "type": "shell",
+      "command": "\"C:\\Program Files\\Neovim\\bin\\nvim.exe\"",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build",
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
+          "NVIM_NODE_HOST_DEBUG": "1",
+          "NVIM_NODE_LOG_FILE": "C:\\work\\tools\\voicecoding\\neovim\\logs\\nvim_node.log",
+          "NVIM_NODE_LOG_LEVEL": "info",
+          "CURSORLESS_MODE": "development"
+        }
+      }
     },
     {
       "label": "Build extension only",
