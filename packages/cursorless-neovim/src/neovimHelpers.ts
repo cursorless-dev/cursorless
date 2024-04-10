@@ -11,7 +11,7 @@ import { ide } from "@cursorless/cursorless-engine";
 // import { receivedBufferEvent } from "./types/BufferManager";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-import { NormalizedIDE, SpyIDE } from "@cursorless/common";
+import { NormalizedIDE, Range, Selection, SpyIDE } from "@cursorless/common";
 import { receivedBufferEvent } from "./ide/neovim/NeovimEvents";
 import { eventEmitter } from "./events";
 
@@ -42,7 +42,9 @@ export function getNeovimIDE(): NeovimIDE {
  * Atm, we only initialize one editor(current window) with one document(current buffer)
  */
 // TODO: we can make this function a method of NeovimIDE class
-export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
+export async function updateTextEditor(
+  minimal: boolean = false,
+): Promise<NeovimTextEditorImpl> {
   const client = neovimClient();
   const window = await client.window;
   const buffer = await window.buffer;
@@ -54,8 +56,15 @@ export async function updateTextEditor(): Promise<NeovimTextEditorImpl> {
   console.warn(
     `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${JSON.stringify(linesShown)}`,
   );
-  const selections = await bufferGetSelections(window, client);
-  const visibleRanges = await windowGetVisibleRanges(window, client, lines);
+  let selections: Selection[];
+  let visibleRanges: Range[];
+  if (!minimal) {
+    selections = await bufferGetSelections(window, client);
+    visibleRanges = await windowGetVisibleRanges(window, client, lines);
+  } else {
+    selections = [];
+    visibleRanges = [];
+  }
   const neovimIDE = getNeovimIDE();
   const editor = neovimIDE.toNeovimEditor(
     window,
