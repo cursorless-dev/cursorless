@@ -18,7 +18,7 @@
     },
     {
       "label": "Build neovim extension only",
-      "dependsOn": ["neovim start", "ESBuild-cursorless-neovim"],
+      "dependsOn": ["neovim start", "neovim logs", "ESBuild-cursorless-neovim"],
       "group": "build"
     },
     {
@@ -50,6 +50,15 @@
       "presentation": {
         "reveal": "silent"
       },
+      "group": "build"
+    },
+    {
+      "label": "neovim logs",
+      "type": "shell",
+      "windows": { "command": "powershell" },
+      "args": [
+        "(New-Object -ComObject WScript.Shell).Run(\"\"\"powershell Get-Content '${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log' -wait -tail 30\"\"\", 1, $false)"
+      ],
       "group": "build"
     },
     {
