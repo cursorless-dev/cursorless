@@ -51,11 +51,6 @@ export class NeovimIDE implements IDE {
   private activeBuffer: Buffer | undefined;
 
   cursorlessVersion: string = "0.0.0";
-  // TODO: how can we support changing the runMode dynamically?
-  // See https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
-  // runMode: RunMode = "production"; // use for end user
-  // runMode: RunMode = "development"; // use to enable debug logs       CURSORLESS_MODE=development
-  // runMode: RunMode = "test"; // used for fixture tests             CURSORLESS_MODE=test
   workspaceFolders: readonly WorkspaceFolder[] | undefined = undefined;
   private disposables: Disposable[] = [];
   private assetsRoot_: string | undefined;
@@ -93,6 +88,7 @@ export class NeovimIDE implements IDE {
     );
   }
 
+  // See https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
   get runMode(): RunMode {
     const runMode = process.env.CURSORLESS_MODE;
     const ret =
