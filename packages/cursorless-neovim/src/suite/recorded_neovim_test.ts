@@ -30,7 +30,6 @@ import {
   Selection,
   Position,
   getRecordedTestPaths,
-  getFixturesPath,
 } from "@cursorless/common";
 // import {
 //   getCursorlessApi,

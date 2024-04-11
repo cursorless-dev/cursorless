@@ -23,7 +23,6 @@ import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
 import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { NeovimClient } from "neovim/lib/api/client";
 import { injectClient } from "./singletons/client.singleton";
-import { updateTextEditor } from "./neovimHelpers";
 import { injectCommandServerApi } from "./singletons/cmdsrvapi.singleton";
 import { runRecordedTestCases } from "./suite/recorded_neovim_test";
 
