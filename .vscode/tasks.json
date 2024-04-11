@@ -90,7 +90,7 @@
     },
     {
       "label": "neovim test start",
-      "type": "shell",
+      "type": "process",
       "windows": {
         "command": "powershell",
         "args": [
