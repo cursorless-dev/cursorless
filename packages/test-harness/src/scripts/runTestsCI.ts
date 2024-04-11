@@ -11,7 +11,7 @@ import { launchVscodeAndRunTests } from "../launchVscodeAndRunTests";
   // unit tests could be run separately.
   const extensionTestsPath = path.resolve(
     getCursorlessRepoRoot(),
-    "packages/test-harness/dist/extensionTests.cjs",
+    "packages/test-harness/dist/extensionTestsVscode.cjs",
   );
 
   await launchVscodeAndRunTests(extensionTestsPath);
