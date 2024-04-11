@@ -42,7 +42,10 @@ import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
 // import * as vscode from "vscode";
-import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
+import {
+  endToEndTestSetupOld,
+  sleepWithBackoffOld,
+} from "../endToEndTestSetupOld";
 // import { commandApi } from "../singletons/cmdapi.singleton";
 // import { takeSnapshot } from "@cursorless/cursorless-engine";
 import { getCursorlessApi } from "../singletons/cursorlessapi.singleton";
@@ -107,7 +110,7 @@ function showSummaryTests() {
 }
 
 export async function runRecordedTestCases() {
-  const { getSpy } = await endToEndTestSetup();
+  const { getSpy } = await endToEndTestSetupOld();
 
   // Run all tests
   const tests = getRecordedTestPaths();
@@ -193,7 +196,7 @@ async function runTest(
   //editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
-    await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
+    await sleepWithBackoffOld(fixture.postEditorOpenSleepTimeMs);
   }
 
   await editor.setSelections(
@@ -263,7 +266,7 @@ async function runTest(
   }
 
   if (fixture.postCommandSleepTimeMs != null) {
-    await sleepWithBackoff(fixture.postCommandSleepTimeMs);
+    await sleepWithBackoffOld(fixture.postCommandSleepTimeMs);
   }
 
   // We don't support decorated symbol marks (hats) yet

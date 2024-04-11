@@ -15,7 +15,7 @@ const retryCount = 5;
  */
 //let previousTestTitle = "";
 
-export async function endToEndTestSetup() {
+export async function endToEndTestSetupOld() {
   async function setup() {
     const { ide, injectIde } = (await getCursorlessApi()).testHelpers!;
     const spy = new SpyIDE(ide);
@@ -42,7 +42,7 @@ export async function endToEndTestSetup() {
  * @param ms The baseline number of milliseconds to sleep.
  * @returns A promise that will resolve when the sleep is over
  */
-export function sleepWithBackoff(ms: number) {
+export function sleepWithBackoffOld(ms: number) {
   const timeToSleep = shouldUpdateFixtures()
     ? ms * 2
     : ms * Math.pow(2, retryCount - 2);
