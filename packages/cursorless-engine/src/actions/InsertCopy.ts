@@ -86,7 +86,10 @@ class InsertCopy implements SimpleAction {
       ([edit, selection]) => edit!.updateRange(selection!),
     );
 
-    setSelectionsWithoutFocusingEditor(editableEditor, updatedCursorSelections);
+    await setSelectionsWithoutFocusingEditor(
+      editableEditor,
+      updatedCursorSelections,
+    );
     const primarySelection = editor.selections[0];
 
     if (
