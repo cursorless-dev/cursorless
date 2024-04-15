@@ -43,7 +43,7 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.method": notApplicable,
   "string.multiLine": notApplicable,
   "string.singleLine": notApplicable,
-  "type.assignment": notApplicable,
+  "type.variable": notApplicable,
   "type.field": notApplicable,
   "type.foreach": notApplicable,
   "type.formalParameter": notApplicable,

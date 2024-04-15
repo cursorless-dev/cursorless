@@ -19,7 +19,8 @@ import { upgradeV2ToV3 } from "./upgradeV2ToV3";
 import { upgradeV3ToV4 } from "./upgradeV3ToV4";
 import { upgradeV4ToV5 } from "./upgradeV4ToV5/upgradeV4ToV5";
 import { upgradeV5ToV6 } from "./upgradeV5ToV6";
-import produce from "immer";
+import { upgradeV6ToV7 } from "./upgradeV6ToV7";
+import { produce } from "immer";
 
 /**
  * Given a command argument which comes from the client, normalize it so that it
@@ -72,6 +73,9 @@ function upgradeCommand(command: Command): CommandLatest {
       case 5:
         command = upgradeV5ToV6(command);
         break;
+      case 6:
+        command = upgradeV6ToV7(command);
+        break;
       default:
         throw new Error(
           `Can't upgrade from unknown version ${command.version}`,
@@ -104,12 +108,11 @@ function usesScopeType(
   scopeTypeType: SimpleScopeTypeType,
   partialTargets: PartialTargetDescriptor[],
 ) {
-  return getPartialPrimitiveTargets(partialTargets).some(
-    (partialTarget) =>
-      partialTarget.modifiers?.find(
-        (mod: Modifier) =>
-          (mod.type === "containingScope" || mod.type === "everyScope") &&
-          mod.scopeType.type === scopeTypeType,
-      ),
+  return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
+    partialTarget.modifiers?.find(
+      (mod: Modifier) =>
+        (mod.type === "containingScope" || mod.type === "everyScope") &&
+        mod.scopeType.type === scopeTypeType,
+    ),
   );
 }

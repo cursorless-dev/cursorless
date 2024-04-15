@@ -18,7 +18,7 @@ export async function vscodeRevealLine(
       at === RevealLineAt.top
         ? "top"
         : at === RevealLineAt.bottom
-        ? "bottom"
-        : "center",
+          ? "bottom"
+          : "center",
   });
 }
