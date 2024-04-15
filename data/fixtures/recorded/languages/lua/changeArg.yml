@@ -1,0 +1,29 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change arg
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: argumentOrParameter}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function add(x, b)
+        return x + y
+    end
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}
+  marks: {}
+finalState:
+  documentContents: |-
+    function add(, b)
+        return x + y
+    end
+  selections:
+    - anchor: {line: 0, character: 13}
+      active: {line: 0, character: 13}

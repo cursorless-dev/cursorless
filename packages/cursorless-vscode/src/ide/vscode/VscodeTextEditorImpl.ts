@@ -1,5 +1,6 @@
 import {
   BreakpointDescriptor,
+  Edit,
   EditableTextEditor,
   Position,
   Range,
@@ -8,7 +9,6 @@ import {
   sleep,
   TextDocument,
   TextEditor,
-  TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
 import {
@@ -84,11 +84,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeRevealLine(this, lineNumber, at);
   }
 
-  public edit(
-    callback: (editBuilder: TextEditorEdit) => void,
-    options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Promise<boolean> {
-    return vscodeEdit(this.editor, callback, options);
+  public edit(edits: Edit[]): Promise<boolean> {
+    return vscodeEdit(this.editor, edits);
   }
 
   public focus(): Promise<void> {

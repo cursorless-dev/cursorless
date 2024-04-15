@@ -1,12 +1,12 @@
 import type {
   Disposable,
+  Edit,
   TextDocument,
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
 import { pull } from "lodash";
 import { ide } from "../../singletons/ide.singleton";
-import type { Edit } from "../../typings/Types";
 import {
   ExtendedTextDocumentChangeEvent,
   FullRangeInfo,

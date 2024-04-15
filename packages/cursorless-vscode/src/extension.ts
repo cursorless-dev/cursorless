@@ -1,7 +1,7 @@
 import {
   Disposable,
+  FakeCommandServerApi,
   FakeIDE,
-  getFakeCommandServerApi,
   IDE,
   isTesting,
   NormalizedIDE,
@@ -48,8 +48,8 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
-import { vscodeApi } from "./vscodeApi";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
+import { vscodeApi } from "./vscodeApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -75,10 +75,10 @@ export async function activate(
           vscodeIDE.runMode === "test",
         );
 
-  const commandServerApi =
-    vscodeIDE.runMode === "test"
-      ? getFakeCommandServerApi()
-      : await getCommandServerApi();
+  const fakeCommandServerApi = new FakeCommandServerApi();
+  const commandServerApi = isTesting()
+    ? fakeCommandServerApi
+    : await getCommandServerApi();
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
@@ -104,7 +104,11 @@ export async function activate(
     new CommandHistory(normalizedIde, commandServerApi, fileSystem),
   );
 
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  const testCaseRecorder = new TestCaseRecorder(
+    commandServerApi,
+    hatTokenMap,
+    storedTargets,
+  );
   addCommandRunnerDecorator(testCaseRecorder);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
@@ -145,7 +149,7 @@ export async function activate(
   return {
     testHelpers: isTesting()
       ? constructTestHelpers(
-          commandServerApi,
+          fakeCommandServerApi,
           storedTargets,
           hatTokenMap,
           vscodeIDE,

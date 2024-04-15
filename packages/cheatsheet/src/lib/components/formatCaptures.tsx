@@ -15,7 +15,7 @@ export function formatCaptures(input: string) {
     return (
       <span
         key={i}
-        className="inline-block p-[2px] rounded-md text-[#000000E3] dark:text-[#FFFFFFE3] bg-[#8686864C] dark:bg-[#FFFFFF33]"
+        className="inline-block rounded-md bg-[#8686864C] p-[2px] text-[#000000E3] dark:bg-[#FFFFFF33] dark:text-[#FFFFFFE3]"
       >
         <SmartLink to="#legend" noFormatting={true}>
           {"["}
