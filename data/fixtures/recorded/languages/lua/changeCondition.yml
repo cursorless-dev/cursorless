@@ -1,0 +1,23 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change condition
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: local max = x > y and x or y
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}
+  marks: {}
+finalState:
+  documentContents: local max =  and x or y
+  selections:
+    - anchor: {line: 0, character: 12}
+      active: {line: 0, character: 12}

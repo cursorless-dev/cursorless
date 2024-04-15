@@ -59,6 +59,8 @@ const scopeSupportFacets = [
 
   "name.assignment",
   "name.assignment.pattern",
+  "name.variable",
+  "name.variable.pattern",
   "name.foreach",
   "name.function",
   "name.class",
@@ -71,6 +73,7 @@ const scopeSupportFacets = [
   "key.mapPair.iteration",
 
   "value.assignment",
+  "value.variable",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",
@@ -82,7 +85,7 @@ const scopeSupportFacets = [
   "value.resource",
   "value.resource.iteration",
 
-  "type.assignment",
+  "type.variable",
   "type.formalParameter",
   "type.return",
   "type.field",

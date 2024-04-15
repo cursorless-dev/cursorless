@@ -11,7 +11,7 @@ import type {
   CommandRunner,
   CommandRunnerDecorator,
 } from "@cursorless/cursorless-engine";
-import produce from "immer";
+import { produce } from "immer";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { v4 as uuid } from "uuid";
@@ -144,6 +144,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "clearAndSetSelection":
     case "copyToClipboard":
     case "cutToClipboard":
+    case "decrement":
     case "deselect":
     case "editNewLineAfter":
     case "editNewLineBefore":
@@ -152,6 +153,7 @@ function sanitizeActionInPlace(action: ActionDescriptor): void {
     case "findInWorkspace":
     case "foldRegion":
     case "followLink":
+    case "increment":
     case "indentLine":
     case "insertCopyAfter":
     case "insertCopyBefore":

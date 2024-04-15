@@ -1,10 +1,10 @@
 import { readFile, writeFile } from "fs/promises";
 import { parse } from "node-html-parser";
-import produce from "immer";
 import { sortBy } from "lodash";
 import { ide } from "../singletons/ide.singleton";
 import path from "path";
 import { getCursorlessRepoRoot } from "@cursorless/common";
+import { produce } from "immer";
 
 /**
  * The argument expected by the cheatsheet command.
@@ -42,11 +42,8 @@ export async function showCheatsheet({
 
   const root = parse(cheatsheetContent);
 
-  root.getElementById(
-    "cheatsheet-data",
-  ).textContent = `document.cheatsheetInfo = ${JSON.stringify(
-    spokenFormInfo,
-  )};`;
+  root.getElementById("cheatsheet-data")!.textContent =
+    `document.cheatsheetInfo = ${JSON.stringify(spokenFormInfo)};`;
 
   await writeFile(outputPath, root.toString());
 }

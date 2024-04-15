@@ -39,8 +39,8 @@ repos:
         # with a line that has trailing white space. Many of our recorded
         # tests use strings with trailing white space to represent the final
         # document contents. For example
-        # packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/ruby/changeCondition.yml
-        exclude: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^patches/
+        # data/fixtures/recorded/languages/ruby/changeCondition.yml
+        exclude: ^data/fixtures/recorded/.*/[^/]*\.yml$|\.scope$|/generated/|^patches/
   - repo: local
     hooks:
       - id: eslint
@@ -61,14 +61,14 @@ repos:
     hooks:
       - id: format-recorded-tests
         name: format-recorded-tests
-        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^data/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts
   - repo: local
     hooks:
       - id: check-recorded-test-marks
         name: check-recorded-test-marks
-        files: ^packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/.*/[^/]*\.yml$
+        files: ^data/fixtures/recorded/.*/[^/]*\.yml$
         language: system
         entry: pnpm exec ./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts --check-marks
   - repo: https://github.com/ikamensh/flynt
@@ -81,6 +81,6 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 23.12.1
+    rev: 24.1.1
     hooks:
       - id: black

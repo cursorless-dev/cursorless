@@ -1,9 +1,14 @@
-import { Command, HatTokenMap, IDE } from "@cursorless/common";
-import { Snippets } from "../core/Snippets";
-import { StoredTargetMap } from "../core/StoredTargets";
-import { ScopeProvider } from "@cursorless/common";
-import { CommandRunner } from "../CommandRunner";
-import { ReadOnlyHatMap } from "@cursorless/common";
+import type {
+  Command,
+  CommandResponse,
+  HatTokenMap,
+  IDE,
+  ReadOnlyHatMap,
+  ScopeProvider,
+} from "@cursorless/common";
+import type { CommandRunner } from "../CommandRunner";
+import type { Snippets } from "../core/Snippets";
+import type { StoredTargetMap } from "../core/StoredTargets";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
@@ -34,13 +39,13 @@ export interface CommandApi {
    * Runs a command.  This is the core of the Cursorless engine.
    * @param command The command to run
    */
-  runCommand(command: Command): Promise<unknown>;
+  runCommand(command: Command): Promise<CommandResponse | unknown>;
 
   /**
    * Designed to run commands that come directly from the user.  Ensures that
    * the command args are of the correct shape.
    */
-  runCommandSafe(...args: unknown[]): Promise<unknown>;
+  runCommandSafe(...args: unknown[]): Promise<CommandResponse | unknown>;
 }
 
 export interface CommandRunnerDecorator {
