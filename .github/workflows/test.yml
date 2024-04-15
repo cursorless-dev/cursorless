@@ -31,8 +31,8 @@ jobs:
       - run: corepack enable
       - uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
-          cache: "pnpm"
+          node-version-file: package.json
+          cache: pnpm
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
       - run: pnpm --color install
