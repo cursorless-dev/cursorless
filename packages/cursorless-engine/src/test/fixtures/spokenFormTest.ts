@@ -1,4 +1,8 @@
-import { ActionDescriptor, CommandV6 } from "@cursorless/common";
+import {
+  ActionDescriptor,
+  CommandResponse,
+  CommandV6,
+} from "@cursorless/common";
 
 export interface SpokenFormTest {
   /**
@@ -12,7 +16,7 @@ export interface SpokenFormTest {
    * `user.private_cursorless_run_rpc_command_get` action to return the given
    * value.
    */
-  mockedGetValue: unknown | undefined;
+  mockedGetValue: CommandResponse | undefined;
 
   /**
    * The sequence of Cursorless commands that should be executed when
@@ -28,7 +32,7 @@ export function spokenFormTest(
 ): SpokenFormTest {
   return {
     spokenForm,
-    mockedGetValue,
+    mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: [command(spokenForm, action)],
   };
 }
@@ -40,9 +44,15 @@ export function multiActionSpokenFormTest(
 ): SpokenFormTest {
   return {
     spokenForm,
-    mockedGetValue,
+    mockedGetValue: wrapMockedGetValue(mockedGetValue),
     commands: actions.map((action) => command(spokenForm, action)),
   };
+}
+
+function wrapMockedGetValue(
+  mockedGetValue: unknown,
+): CommandResponse | undefined {
+  return mockedGetValue == null ? undefined : { returnValue: mockedGetValue };
 }
 
 function command(spokenForm: string, action: ActionDescriptor): CommandV6 {
