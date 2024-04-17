@@ -72,7 +72,7 @@ class InsertCopy implements SimpleAction {
     const editableEditor = ide().getEditableTextEditor(editor);
 
     const [
-      updatedEditorSelections,
+      updatedCursorSelections,
       updatedContentSelections,
       updatedEditSelections,
     ]: Selection[][] = await performEditsAndUpdateSelectionsWithBehavior(
@@ -88,7 +88,7 @@ class InsertCopy implements SimpleAction {
 
     await setSelectionsWithoutFocusingEditor(
       editableEditor,
-      updatedEditorSelections,
+      updatedCursorSelections,
     );
     const primarySelection = editor.selections[0];
 
