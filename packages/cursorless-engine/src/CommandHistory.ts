@@ -7,14 +7,13 @@ import {
   IDE,
   ReadOnlyHatMap,
 } from "@cursorless/common";
-import type {
-  CommandRunner,
-  CommandRunnerDecorator,
-} from "@cursorless/cursorless-engine";
+
 import { produce } from "immer";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { v4 as uuid } from "uuid";
+import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
+import { CommandRunner } from "./CommandRunner";
 
 const filePrefix = "cursorlessCommandHistory";
 
