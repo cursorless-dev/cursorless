@@ -8,7 +8,7 @@ import { updateTextEditor } from "./neovimHelpers";
 import { modeSwitchNormalTerminal, modeSwitchTerminal } from "./neovimApi";
 // TODO - we need to fix that import as we should not be allowed to import it afaict?
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
-import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
+import { ensureCommandShape } from "@cursorless/cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { NeovimClient } from "neovim";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { CommandApi } from "@cursorless/cursorless-engine";
