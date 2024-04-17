@@ -9,9 +9,10 @@ import { runRecordedTestCases } from "./suite/recorded_neovim_test";
  *   Note that these function need to start with a capital letter to be callable from Neovim.
  */
 export default function entry(plugin: NvimPlugin) {
-  // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
-  // though it does not seem useful in practice for neovim as we can't really call CursorlessLoadExtension() again without restarting Neovim?
-  plugin.setOptions({ dev: true });
+  // We make sure the cursorless-neovim extension is only loaded once,
+  // as otherwise we will run our first copy when loading the extension
+  // and a different copy for running the testcases
+  plugin.setOptions({ dev: false });
 
   plugin.registerFunction(
     "CursorlessLoadExtension",
