@@ -107,12 +107,6 @@ export async function activate(plugin: NvimPlugin) {
 
   // await updateTextEditor(client, neovimIDE, true);
   console.warn("activate(): Cursorless extension loaded");
-
-  if (neovimIDE.runMode === "test") {
-    console.warn("activate(): running the recorded test cases...");
-    await runRecordedTestCases();
-    console.warn("activate(): recorded test cases done");
-  }
 }
 
 async function createNeovimIde(client: NeovimClient) {
