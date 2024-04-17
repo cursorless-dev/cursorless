@@ -18,7 +18,9 @@ import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
 export default function entry(plugin: NvimPlugin) {
   // We make sure the cursorless-neovim extension is only loaded once,
   // as otherwise we will run our first copy when loading the extension
-  // and a different copy for running the testcases
+  // and a different new copy for running the testcases
+  // NOTE: this is the case because all the files are rolled up into a single index.cjs file
+  // and node-client would reload that index.cjs file if "dev" was set to "true"
   plugin.setOptions({ dev: false });
 
   plugin.registerFunction(
