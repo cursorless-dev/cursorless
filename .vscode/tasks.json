@@ -70,7 +70,7 @@
     },
     {
       "label": "neovim start",
-      "type": "shell",
+      "type": "process",
       "windows": {
         "command": "powershell",
         "args": [
