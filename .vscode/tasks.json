@@ -18,7 +18,7 @@
     },
     {
       "label": "Build neovim extension only",
-      "dependsOn": ["neovim start", "neovim logs", "ESBuild-cursorless-neovim"],
+      "dependsOn": ["neovim start", "ESBuild-cursorless-neovim"],
       "group": "build"
     },
     {
