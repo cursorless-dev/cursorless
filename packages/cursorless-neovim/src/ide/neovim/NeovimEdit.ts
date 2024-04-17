@@ -82,7 +82,8 @@ export default async function neovimEdit(
   }
 
   // update our view of the document
-  await updateTextEditor();
+  const neovimIDE = getNeovimIDE();
+  await updateTextEditor(client, neovimIDE);
   return true;
 }
 

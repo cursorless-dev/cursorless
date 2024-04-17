@@ -1,7 +1,8 @@
+import { NeovimClient } from "neovim";
 import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { NeovimTextEditorImpl } from "../ide/neovim/NeovimTextEditorImpl";
 import { updateTextEditor } from "../neovimHelpers";
-import { neovimClient } from "../singletons/client.singleton";
+import { NeovimIDE } from "../ide/neovim/NeovimIDE";
 
 interface NewEditorOptions {
   languageId?: string;
@@ -12,11 +13,11 @@ interface NewEditorOptions {
 // displaying a "press enter or type command to continue" message for every ":enew" command
 // so the workaround is to delete that folder.
 export async function openNewEditor(
+  client: NeovimClient,
+  neovimIDE: NeovimIDE,
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
 ): Promise<NeovimTextEditorImpl> {
-  const client = neovimClient();
-
   // open a new buffer
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
   await client.command(":enew");
@@ -45,7 +46,7 @@ export async function openNewEditor(
   }
 
   // update our view of the document
-  const editor = await updateTextEditor();
+  const editor = await updateTextEditor(client, neovimIDE);
 
   return editor;
 }

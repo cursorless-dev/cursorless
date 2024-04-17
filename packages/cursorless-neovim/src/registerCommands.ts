@@ -4,11 +4,16 @@ import {
   CursorlessCommandId,
 } from "@cursorless/common";
 import { commandApi } from "./singletons/cmdapi.singleton";
-import { updateTextEditor } from "./neovimHelpers";
+import { getNeovimIDE, updateTextEditor } from "./neovimHelpers";
 import { neovimClient } from "./singletons/client.singleton";
 import { modeSwitchNormalTerminal, modeSwitchTerminal } from "./neovimApi";
-import { ensureCommandShape } from "@cursorless/cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
+// TODO - we need to fix that import as we should not be allowed to import it afaict?
+//import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
+import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
+import { NeovimClient } from "neovim";
+import { NeovimIDE } from "./ide/neovim/NeovimIDE";
+import { CommandApi } from "@cursorless/cursorless-engine";
 
 /**
  * Handle the command received from the command-server Neovim extension
@@ -20,12 +25,17 @@ import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
  * @returns
  */
 export function handleCommandInternal(...allArguments: any[]): Promise<any> {
-  const [command, ...rest] = allArguments as [string, ...unknown[]];
+  const [client, neovimIDE, commandApi, command, ...rest] = allArguments as [
+    NeovimClient,
+    NeovimIDE,
+    CommandApi,
+    string,
+    ...unknown[],
+  ];
 
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
-      const client = await neovimClient();
       const originalMode = await client.mode;
       if (originalMode.mode === "t") {
         // Switch to "nt" so we can easily call lua functions without any problems
@@ -34,8 +44,8 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
 
       // try {
 
-      await updateTextEditor();
-      const result = await commandApi().runCommandSafe(...args);
+      await updateTextEditor(client, neovimIDE);
+      const result = await commandApi.runCommandSafe(...args);
 
       const command = ensureCommandShape(args) as CommandLatest;
       const cmdSrvApi = commandServerApi();

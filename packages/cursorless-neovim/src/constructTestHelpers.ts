@@ -13,6 +13,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
+  CommandApi,
   StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
@@ -22,10 +23,11 @@ import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 
 export function constructTestHelpers(
+  commandApi: CommandApi,
   commandServerApi: FakeCommandServerApi,
   storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
-  vscodeIDE: NeovimIDE,
+  neovimIDE: NeovimIDE,
   normalizedIde: NormalizedIDE,
   fileSystem: NeovimFileSystem,
   scopeProvider: ScopeProvider,
@@ -33,6 +35,7 @@ export function constructTestHelpers(
   runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
   return {
+    commandApi: commandApi!,
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,
@@ -59,7 +62,7 @@ export function constructTestHelpers(
         marks,
         undefined,
         undefined,
-        forceRealClipboard ? vscodeIDE.clipboard : undefined,
+        forceRealClipboard ? neovimIDE.clipboard : undefined,
       );
     },
 

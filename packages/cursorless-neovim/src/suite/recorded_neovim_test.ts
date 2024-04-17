@@ -52,6 +52,8 @@ import { openNewEditor } from "../testUtil/openNewEditor";
 import { runCursorlessCommand } from "../runCommand";
 import { neovimClient } from "../singletons/client.singleton";
 import { AssertionError } from "node:assert";
+import { getNeovimIDE } from "../neovimHelpers";
+import { commandApi } from "../singletons/cmdapi.singleton";
 // import { setupFake } from "./setupFake";
 
 type errorType = {
@@ -147,6 +149,8 @@ async function runTest(
   spyIde: SpyIDE,
 ): Promise<boolean> {
   const client = neovimClient();
+  const neovimIDE = getNeovimIDE();
+  const cmdApi = commandApi();
 
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
@@ -187,9 +191,14 @@ async function runTest(
   const { takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
-  const editor = await openNewEditor(fixture.initialState.documentContents, {
-    languageId: fixture.languageId,
-  });
+  const editor = await openNewEditor(
+    client,
+    neovimIDE,
+    fixture.initialState.documentContents,
+    {
+      languageId: fixture.languageId,
+    },
+  );
 
   // Override any user settings and make sure tests run with default tabs.
   //editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
@@ -225,7 +234,7 @@ async function runTest(
   let fallback: Fallback | undefined;
 
   try {
-    returnValue = await runCursorlessCommand({
+    returnValue = await runCursorlessCommand(client, neovimIDE, cmdApi, {
       ...fixture.command,
       usePrePhraseSnapshot,
     });

@@ -86,6 +86,7 @@ export async function activate(plugin: NvimPlugin) {
     testHelpers:
       neovimIDE.runMode === "test"
         ? constructTestHelpers(
+            commandApi,
             fakeCommandServerApi,
             storedTargets,
             hatTokenMap,
@@ -104,7 +105,7 @@ export async function activate(plugin: NvimPlugin) {
   };
   injectCursorlessApi(cursorlessApi);
 
-  // await updateTextEditor(true);
+  // await updateTextEditor(client, neovimIDE, true);
   console.warn("activate(): Cursorless extension loaded");
 
   if (neovimIDE.runMode === "test") {

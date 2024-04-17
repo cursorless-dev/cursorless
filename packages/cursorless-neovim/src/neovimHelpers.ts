@@ -14,6 +14,7 @@ import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { NormalizedIDE, Range, Selection, SpyIDE } from "@cursorless/common";
 import { receivedBufferEvent } from "./ide/neovim/NeovimEvents";
 import { eventEmitter } from "./events";
+import { NeovimClient } from "neovim";
 
 // DEP-INJ: Delete this function. Is there a clean way to do it? Yes once we support pure dependency injection
 export function getNeovimIDE(): NeovimIDE {
@@ -27,7 +28,7 @@ export function getNeovimIDE(): NeovimIDE {
     const normalizedIDE = ide_.original as NormalizedIDE;
     neovimIDE = normalizedIDE.original as NeovimIDE;
   } else {
-    throw Error("updateTextEditor(): ide() is not NeovimIDE");
+    throw Error("getNeovimIDE(): ide() is not NeovimIDE");
   }
   return neovimIDE;
 }
@@ -43,9 +44,10 @@ export function getNeovimIDE(): NeovimIDE {
  */
 // TODO: we can make this function a method of NeovimIDE class
 export async function updateTextEditor(
+  client: NeovimClient,
+  neovimIDE: NeovimIDE,
   minimal: boolean = false,
 ): Promise<NeovimTextEditorImpl> {
-  const client = neovimClient();
   const window = await client.window;
   const buffer = await window.buffer;
   const lines = await buffer.lines;
@@ -65,7 +67,6 @@ export async function updateTextEditor(
     selections = [];
     visibleRanges = [];
   }
-  const neovimIDE = getNeovimIDE();
   const editor = neovimIDE.toNeovimEditor(
     window,
     buffer,
