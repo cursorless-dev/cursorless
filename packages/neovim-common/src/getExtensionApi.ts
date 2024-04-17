@@ -20,26 +20,28 @@ export interface CursorlessApi {
 //   getLanguage(languageId: string): Language | undefined;
 // }
 
-// export async function getExtensionApi<T>(extensionId: string) {
-//   const extension = vscode.extensions.getExtension(extensionId);
+export async function getExtensionApi<T>(extensionId: string) {
+  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  const api = registry.getExtensionApi(extensionId);
+  return api == null ? null : (api as T);
+}
 
-//   return extension == null ? null : ((await extension.activate()) as T);
-// }
+export async function getExtensionApiStrict<T>(extensionId: string) {
+  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  const api = registry.getExtensionApi(extensionId);
 
-// export async function getExtensionApiStrict<T>(extensionId: string) {
-//   const extension = vscode.extensions.getExtension(extensionId);
+  if (api == null) {
+    throw new Error(`Could not get ${extensionId} extension`);
+  }
 
-//   if (extension == null) {
-//     throw new Error(`Could not get ${extensionId} extension`);
-//   }
+  return api as T;
+}
 
-//   return (await extension.activate()) as T;
-// }
-
-// see packages\cursorless-neovim\src\singletons\cursorlessapi.singleton.ts for implementation
-// export const EXTENSION_ID = "pokey.cursorless";
-// export const getCursorlessApi = () =>
-//   getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
+// see packages\cursorless-neovim\src\singletons\cursorlessapi.singleton.ts
+// for old implementation
+export const EXTENSION_ID = "pokey.cursorless";
+export const getCursorlessApi = () =>
+  getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
 
 // export const getParseTreeApi = () =>
 //   getExtensionApiStrict<ParseTreeApi>("pokey.parse-tree");

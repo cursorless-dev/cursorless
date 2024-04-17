@@ -18,7 +18,11 @@
     },
     {
       "label": "Build neovim extension only",
-      "dependsOn": ["neovim start", "ESBuild-cursorless-neovim"],
+      "dependsOn": [
+        "neovim start",
+        "ESBuild-neovim-registry",
+        "ESBuild-cursorless-neovim"
+      ],
       "group": "build"
     },
     {
@@ -31,11 +35,26 @@
       "group": "build"
     },
     {
+      "label": "ESBuild-neovim-registry",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/neovim-registry",
+      "dependsOn": [],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
       "label": "ESBuild-cursorless-neovim",
       "type": "npm",
       "script": "compile",
       "path": "packages/cursorless-neovim",
-      "dependsOn": ["ESBuild-common", "ESBuild-cursorless-engine"],
+      "dependsOn": [
+        "ESBuild-common",
+        "ESBuild-cursorless-engine",
+        "ESBuild-neovim-common"
+      ],
       "presentation": {
         "reveal": "silent"
       },
@@ -56,6 +75,16 @@
       "type": "npm",
       "script": "compile",
       "path": "packages/cursorless-engine",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "ESBuild-neovim-common",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/neovim-common",
       "presentation": {
         "reveal": "silent"
       },

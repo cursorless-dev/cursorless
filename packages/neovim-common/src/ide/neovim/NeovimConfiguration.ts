@@ -32,12 +32,15 @@ export default class NeovimConfiguration implements Configuration {
     if (scope != null) {
       for (const { scope: candidateScope, values } of this.scopes) {
         if (scopeMatches(candidateScope, scope)) {
-          return get(values, path) ?? get(this.mocks, path);
+          return (get(values, path) ?? get(this.mocks, path)) as GetFieldType<
+            CursorlessConfiguration,
+            Path
+          >;
         }
       }
     }
 
-    return get(this.mocks, path);
+    return get(this.mocks, path) as GetFieldType<CursorlessConfiguration, Path>;
   }
 
   onDidChangeConfiguration = this.notifier.registerListener;

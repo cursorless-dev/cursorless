@@ -1,8 +1,8 @@
 import { NeovimClient } from "neovim";
+import { NeovimIDE } from "../ide/neovim/NeovimIDE";
 import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { NeovimTextEditorImpl } from "../ide/neovim/NeovimTextEditorImpl";
-import { updateTextEditor } from "../neovimHelpers";
-import { NeovimIDE } from "../ide/neovim/NeovimIDE";
+import { updateTextEditor } from "../updateTextEditor";
 
 interface NewEditorOptions {
   languageId?: string;

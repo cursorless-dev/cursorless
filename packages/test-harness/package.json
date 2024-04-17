@@ -6,7 +6,7 @@
   "main": "./out/index.cjs",
   "scripts": {
     "test": "env CURSORLESS_TEST=true my-ts-node src/scripts/runTestsCI.ts",
-    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:@cursorless/cursorless-neovim --format=cjs --platform=node",
+    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:@cursorless/neovim-common --format=cjs --platform=node",
     "build": "pnpm run build:runner && pnpm run build:main && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
     "build:runner": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
     "build:main": "pnpm run build:base ./src/index.ts --outfile=out/index.cjs",
@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@cursorless/cursorless-neovim": "workspace:*",
+    "@cursorless/neovim-common": "workspace:*",
     "glob": "^10.3.10",
     "neovim": "5.1.0"
   },

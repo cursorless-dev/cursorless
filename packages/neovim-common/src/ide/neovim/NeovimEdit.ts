@@ -6,9 +6,8 @@ import {
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
 import { NeovimClient, Window } from "neovim";
-import { updateTextEditor } from "../../neovimHelpers";
-import { neovimClient } from "../../singletons/client.singleton";
-import { eventEmitter } from "../../events";
+// import { eventEmitter } from "../../events";
+import { updateTextEditor } from "../../updateTextEditor";
 import { NeovimIDE } from "./NeovimIDE";
 
 export default async function neovimEdit(
@@ -66,7 +65,12 @@ export default async function neovimEdit(
       text: edit.text,
     });
   }
-  eventEmitter.emit("onDidChangeTextDocument", {
+  // eventEmitter.emit("onDidChangeTextDocument", {
+  //   document: document,
+  //   contentChanges: changes,
+  // });
+  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  registry.emitEvent("onDidChangeTextDocument", {
     document: document,
     contentChanges: changes,
   });
@@ -75,11 +79,11 @@ export default async function neovimEdit(
     const { range, text, isReplace } = edit;
 
     if (text === "") {
-      await neovimDelete(range);
+      await neovimDelete(client, range);
     } else if (range.isEmpty && !isReplace) {
-      await neovimInsert(range.start, text);
+      await neovimInsert(client, range.start, text);
     } else {
-      await neovimReplace(range, text);
+      await neovimReplace(client, range, text);
     }
   }
 
@@ -88,9 +92,8 @@ export default async function neovimEdit(
   return true;
 }
 
-async function neovimDelete(range: Range): Promise<void> {
+async function neovimDelete(client: NeovimClient, range: Range): Promise<void> {
   console.warn(`neovimDelete(): range=${JSON.stringify(range)}`);
-  const client = neovimClient();
   const buffer = await client.window.buffer;
 
   // only keep the end of the last line
@@ -157,14 +160,17 @@ async function neovimDelete(range: Range): Promise<void> {
   });
 }
 
-async function neovimInsert(position: Position, text: string) {
+async function neovimInsert(
+  client: NeovimClient,
+  position: Position,
+  text: string,
+) {
   console.warn(
     `neovimInsert(): position=${JSON.stringify(position)}, text='${text}'`,
   );
   // standardise newlines so we can easily split the lines
   const newLines = text.replace(/(?:\r\n|\r|\n)/g, "\n").split("\n");
 
-  const client = neovimClient();
   const buffer = await client.window.buffer;
 
   const lineWhereInsertion = (
@@ -203,12 +209,12 @@ async function neovimInsert(position: Position, text: string) {
   );
 }
 
-async function neovimReplace(range: Range, text: string) {
+async function neovimReplace(client: NeovimClient, range: Range, text: string) {
   console.warn(
     `neovimReplace(): range=${JSON.stringify(range)}, text='${text}'`,
   );
-  await neovimDelete(range);
-  await neovimInsert(range.start, text);
+  await neovimDelete(client, range);
+  await neovimInsert(client, range.start, text);
 }
 
 function isDelete(edit: Edit): boolean {

@@ -11,7 +11,7 @@ import type {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import { CommandApi } from "@cursorless/cursorless-engine";
+// import { CommandApi } from "@cursorless/cursorless-engine";
 //import * as vscode from "vscode";
 //import { VscodeApi } from "./VscodeApi";
 
@@ -25,7 +25,7 @@ export interface TestHelpers {
 
   commandServerApi: FakeCommandServerApi;
 
-  commandApi: CommandApi;
+  // commandApi: CommandApi;
 
   //toVscodeEditor(editor: TextEditor): vscode.TextEditor;
 

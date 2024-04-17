@@ -1,59 +1,34 @@
 import {
-  // asyncSafety,
   CommandResponse,
-  // DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
-  // extractTargetedMarks,
   Fallback,
-  // HatStability,
-  // marksToPlainObject,
-  omitByDeep,
-  // plainObjectToRange,
+  NormalizedIDE,
+  Position,
   PositionPlainObject,
-  // rangeToPlainObject,
-  // ReadOnlyHatMap,
+  Selection,
   SelectionPlainObject,
-  // SerializedMarks,
+  SpyIDE,
+  TestCaseFixtureLegacy,
+  asyncSafety,
+  clientSupportsFallback,
+  getRecordedTestPaths,
+  omitByDeep,
   serializeTestFixture,
   shouldUpdateFixtures,
-  // splitKey,
-  SpyIDE,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
-  TestCaseFixtureLegacy,
-  // TextEditor,
-  // TokenHat,
-  clientSupportsFallback,
-  // TestCaseSnapshot,
-  // ExtraSnapshotField,
-  // IDE,
-  Selection,
-  Position,
-  getRecordedTestPaths,
-  asyncSafety,
-  NormalizedIDE,
-  getFixturesPath,
 } from "@cursorless/common";
-// import {
-//   getCursorlessApi,
-//   openNewEditor,
-//   runCursorlessCommand,
-// } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
-// import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
-// import { commandApi } from "../singletons/cmdapi.singleton";
-// import { takeSnapshot } from "@cursorless/cursorless-engine";
-// import { getCursorlessApi } from "../singletons/cursorlessapi.sLevelingleton";
-
-import { openNewEditor } from "../testUtil/openNewEditor";
-import { runCursorlessCommand } from "../runCommand";
-import { NeovimIDE } from "../ide/neovim/NeovimIDE";
-// import { neovimClient } from "../singletons/client.singleton";
-// import { setupFake } from "./setupFake";
+import {
+  NeovimIDE,
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/neovim-common";
 
 function createPosition(position: PositionPlainObject) {
   return new Position(position.line, position.character);
@@ -71,9 +46,6 @@ suite("recorded test cases", async function () {
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
     // await vscode.commands.executeCommand("workbench.action.closePanel");
-    const getCursorlessApi = await require("@cursorless/cursorless-neovim")
-      .getCursorlessApiExternal;
-    // debugger;
     const { ide } = (await getCursorlessApi()).testHelpers!;
     // setupFake(ide, HatStability.stable);
   });
@@ -154,12 +126,9 @@ async function runTest(file: string, spyIde: SpyIDE) {
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
 
-  const getCursorlessApi = await require("@cursorless/cursorless-neovim")
-    .getCursorlessApiExternal;
-  // debugger;
-  const cursorlessApi = await getCursorlessApi();
-  const { takeSnapshot, setStoredTarget, commandServerApi, commandApi } =
-    cursorlessApi.testHelpers!;
+  const { takeSnapshot, setStoredTarget, commandServerApi, commandApi } = (
+    await getCursorlessApi()
+  ).testHelpers!;
 
   const editor = await openNewEditor(
     client,
@@ -205,10 +174,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   try {
     returnValue = await runCursorlessCommand(
-      client,
-      neovimIDE,
-      commandApi,
-      commandServerApi,
+      // client,
+      // neovimIDE,
+      // commandApi,
+      // commandServerApi,
       {
         ...fixture.command,
         usePrePhraseSnapshot,

@@ -18,9 +18,11 @@ import {
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
-import { TestHelpers } from "./TestHelpers";
-import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
-import { NeovimIDE } from "./ide/neovim/NeovimIDE";
+import {
+  NeovimFileSystem,
+  NeovimIDE,
+  TestHelpers,
+} from "@cursorless/neovim-common";
 
 export function constructTestHelpers(
   commandApi: CommandApi,
@@ -35,7 +37,7 @@ export function constructTestHelpers(
   runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
   return {
-    commandApi: commandApi!,
+    // commandApi: commandApi!,
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     injectIde,

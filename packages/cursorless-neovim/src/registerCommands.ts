@@ -4,14 +4,18 @@ import {
   CommandServerApi,
   CursorlessCommandId,
 } from "@cursorless/common";
-import { updateTextEditor } from "./neovimHelpers";
-import { modeSwitchNormalTerminal, modeSwitchTerminal } from "./neovimApi";
+
+import { CommandApi } from "@cursorless/cursorless-engine";
+import {
+  NeovimIDE,
+  modeSwitchNormalTerminal,
+  modeSwitchTerminal,
+  updateTextEditor,
+} from "@cursorless/neovim-common";
+import { NeovimClient } from "neovim";
 // TODO - we need to fix that import as we should not be allowed to import it afaict?
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
-import { NeovimClient } from "neovim";
-import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-import { CommandApi } from "@cursorless/cursorless-engine";
 
 /**
  * Handle the command received from the command-server Neovim extension
@@ -22,17 +26,22 @@ import { CommandApi } from "@cursorless/cursorless-engine";
  * @param allArguments something like XXX
  * @returns
  */
-export function handleCommandInternal(...allArguments: any[]): Promise<any> {
-  const [client, neovimIDE, commandApi, cmdSrvApi, command, ...rest] =
-    allArguments as [
-      NeovimClient,
-      NeovimIDE,
-      CommandApi,
-      CommandServerApi,
-      string,
-      ...unknown[],
-    ];
-
+// export function handleCommandInternal(...allArguments: any[]): Promise<any> {
+//   const [client, neovimIDE, commandApi, commandServerApi, command, ...rest] =
+//     allArguments as [
+//       NeovimClient,
+//       NeovimIDE,
+//       CommandApi,
+//       CommandServerApi,
+//       string,
+//       ...unknown[],
+//     ];
+export async function registerCommands(
+  client: NeovimClient,
+  neovimIDE: NeovimIDE,
+  commandApi: CommandApi,
+  commandServerApi: CommandServerApi,
+): Promise<void> {
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
@@ -48,7 +57,7 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
       const result = await commandApi.runCommandSafe(...args);
 
       const command = ensureCommandShape(args) as CommandLatest;
-      const focusedElementType = await cmdSrvApi.getFocusedElementType();
+      const focusedElementType = await commandServerApi.getFocusedElementType();
       if (
         focusedElementType === "terminal" &&
         command.action.name === "replaceWithTarget"
@@ -105,14 +114,14 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
     ["cursorless.keyboard.modal.modeToggle"]: dummyCommandHandler,
   };
 
-  if (command !== "cursorless.command") {
-    console.warn(
-      `handleCommandInternal(): command=${command} is not supported`,
-    );
-    return new Promise((resolve) => []);
-  }
+  // if (command !== "cursorless.command") {
+  //   console.warn(
+  //     `handleCommandInternal(): command=${command} is not supported`,
+  //   );
+  //   return new Promise((resolve) => []);
+  // }
 
-  return commands["cursorless.command"](...rest);
+  // return commands["cursorless.command"](...rest);
   // NOTE: making the below notation work is not needed anymore as we will use pure dependency injection
   // const HandlerFunction = (command: string) => {
   //   commands[command](...rest);
@@ -124,6 +133,10 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
   //     vscode.commands.registerCommand(commandId, callback),
   //   ),
   // );
+  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  Object.entries(commands).map(([commandId, callback]) =>
+    registry.registerCommand(commandId, callback),
+  );
 }
 
 export async function dummyCommandHandler(...args: any[]) {

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Registry to share apis and commands between packages for neovim",
   "main": "./out/index.js",
-  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
@@ -24,5 +23,8 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
+  },
+  "dependencies": {
+    "neovim": "5.1.0"
   }
 }

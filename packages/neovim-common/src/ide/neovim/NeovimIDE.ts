@@ -30,7 +30,7 @@ import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
 import { NeovimClient, Window, Buffer } from "neovim";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
-import { getTalonNvimPath } from "../../neovimApi";
+import { getTalonNvimPath } from "../../../../neovim-common/src/neovimApi";
 import path from "path";
 import {
   neovimOnDidChangeTextDocument,
@@ -61,7 +61,7 @@ export class NeovimIDE implements IDE {
     this.configuration = new NeovimConfiguration();
     this.globalState = new NeovimGlobalState();
     this.messages = new NeovimMessages();
-    this.clipboard = new NeovimClipboard();
+    this.clipboard = new NeovimClipboard(this.client);
     this.capabilities = new NeovimCapabilities();
     this.editorMap = new Map<Window, NeovimTextEditorImpl>();
     this.documentMap = new Map<Buffer, NeovimTextDocumentImpl>();

@@ -10,6 +10,12 @@
     },
     {
       "path": "../cursorless-engine"
+    },
+    {
+      "path": "../neovim-common"
+    },
+    {
+      "path": "../neovim-registry"
     }
   ],
   "include": ["src/**/*.ts", "src/**/*.json", "../../typings/**/*.d.ts"]

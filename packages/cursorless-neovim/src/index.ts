@@ -1,14 +1,16 @@
+import {
+  // CursorlessApi,
+  NeovimIDE,
+  // getCursorlessApi,
+} from "@cursorless/neovim-common";
 import { NeovimClient, NvimPlugin } from "neovim";
 import { activate } from "./extension";
-import { handleCommandInternal } from "./registerCommands";
-import { runRecordedTestCases } from "./suite/recorded_neovim_test";
-import { CursorlessApi } from "./getExtensionApi";
-import { getCursorlessApi } from "./singletons/cursorlessapi.singleton";
-import { neovimClient } from "./singletons/client.singleton";
 import { getNeovimIDE } from "./neovimHelpers";
-import { NeovimIDE } from "./ide/neovim/NeovimIDE";
+// import { handleCommandInternal } from "./registerCommands";
+import { neovimClient } from "./singletons/client.singleton";
 import { commandApi } from "./singletons/cmdapi.singleton";
 import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
+import { runRecordedTestCases } from "./suite/recorded_neovim_test";
 
 /**
  * Extension entrypoint called by node-client on Neovim startup.
@@ -54,17 +56,13 @@ async function loadExtension(plugin: NvimPlugin) {
  * @param args something like XXX
  * @returns
  */
-export async function handleCommand(...args: any): Promise<any> {
-  const client = await neovimClient();
-  const neovimIDE = getNeovimIDE();
-  const cmdApi = commandApi();
-  const cmdSrvApi = commandServerApi();
-  return handleCommandInternal(client, neovimIDE, cmdApi, cmdSrvApi, ...args);
-}
-
-export function getCursorlessApiExternal(): Promise<CursorlessApi> {
-  return getCursorlessApi();
-}
+// export async function handleCommand(...args: any): Promise<any> {
+//   const client = await neovimClient();
+//   const neovimIDE = getNeovimIDE();
+//   const cmdApi = commandApi();
+//   const cmdSrvApi = commandServerApi();
+//   return handleCommandInternal(client, neovimIDE, cmdApi, cmdSrvApi, ...args);
+// }
 
 export function neovimClientExternal(): NeovimClient {
   return neovimClient();

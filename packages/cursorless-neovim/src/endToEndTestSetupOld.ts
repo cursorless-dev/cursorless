@@ -1,5 +1,5 @@
 import { shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
-import { getCursorlessApi } from "./singletons/cursorlessapi.singleton";
+import { getCursorlessApi } from "@cursorless/neovim-common";
 
 /**
  * The number of times the current test has been retried. Will be 0 the first

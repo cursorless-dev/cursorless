@@ -308,6 +308,15 @@ importers:
       '@cursorless/cursorless-engine':
         specifier: workspace:*
         version: link:../cursorless-engine
+      '@cursorless/neovim-common':
+        specifier: workspace:*
+        version: link:../neovim-common
+      '@cursorless/neovim-registry':
+        specifier: workspace:*
+        version: link:../neovim-registry
+      '@types/chai':
+        specifier: 4.3.14
+        version: 4.3.14
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -318,35 +327,36 @@ importers:
         specifier: 3.0.6
         version: 3.0.6
     devDependencies:
-      '@types/chai':
-        specifier: ^4.3.3
-        version: 4.3.14
       '@types/js-yaml':
         specifier: ^4.0.2
         version: 4.0.9
       '@types/lodash':
         specifier: 4.14.181
         version: 4.14.181
-      '@types/mocha':
-        specifier: ^10.0.6
-        version: 10.0.6
-      '@types/sinon':
-        specifier: ^17.0.3
-        version: 17.0.3
       '@types/uuid':
         specifier: 8.3.4
         version: 8.3.4
-      '@types/vscode':
-        specifier: 1.66.0
-        version: 1.66.0
-      mocha:
-        specifier: ^10.3.0
-        version: 10.3.0
-      sinon:
-        specifier: ^17.0.1
-        version: 17.0.1
 
-  packages/cursorless-neovim-e2e: {}
+  packages/cursorless-neovim-e2e:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/neovim-common':
+        specifier: workspace:*
+        version: link:../neovim-common
+      '@types/chai':
+        specifier: 4.3.14
+        version: 4.3.14
+      '@types/js-yaml':
+        specifier: 4.0.9
+        version: 4.0.9
+      '@types/lodash':
+        specifier: 4.17.0
+        version: 4.17.0
+      '@types/sinon':
+        specifier: ^17.0.3
+        version: 17.0.3
 
   packages/cursorless-org:
     dependencies:
@@ -581,9 +591,6 @@ importers:
 
   packages/cursorless-vscode-e2e:
     dependencies:
-      '@cursorless/common':
-        specifier: workspace:*
-        version: link:../common
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
@@ -668,18 +675,47 @@ importers:
         specifier: ^0.20.2
         version: 0.20.2
 
-  packages/neovim-common: {}
+  packages/neovim-common:
+    dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
+      '@cursorless/neovim-registry':
+        specifier: workspace:*
+        version: link:../neovim-registry
+      '@types/lodash':
+        specifier: 4.17.0
+        version: 4.17.0
+      '@types/uuid':
+        specifier: 9.0.8
+        version: 9.0.8
+      '@types/vscode':
+        specifier: 1.88.0
+        version: 1.88.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      neovim:
+        specifier: 5.1.0
+        version: 5.1.0
+      vscode-uri:
+        specifier: 3.0.8
+        version: 3.0.8
 
-  packages/neovim-registry: {}
+  packages/neovim-registry:
+    dependencies:
+      neovim:
+        specifier: 5.1.0
+        version: 5.1.0
 
   packages/test-harness:
     dependencies:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
-      '@cursorless/cursorless-neovim':
+      '@cursorless/neovim-common':
         specifier: workspace:*
-        version: link:../cursorless-neovim
+        version: link:../neovim-common
       glob:
         specifier: ^10.3.10
         version: 10.3.10
@@ -4954,7 +4990,6 @@ packages:
 
   /@types/chai@4.3.14:
     resolution: {integrity: sha512-Wj71sXE4Q4AkGdG9Tvq1u/fquNz9EdG4LIJMwVVII7ashjD/8cf8fyIfJAjRr6YcsXnSE8cOGQPq1gqeR8z+3w==}
-    dev: true
 
   /@types/connect-history-api-fallback@1.5.4:
     resolution: {integrity: sha512-n6Cr2xS1h4uAulPRdlw6Jl6s1oG8KrVilPN2yUITEs+K48EzMJJ3W1xy8K5eWuFvjp3R74AOIGSmp2UfBJ8HFw==}
@@ -5084,7 +5119,6 @@ packages:
 
   /@types/js-yaml@4.0.9:
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
-    dev: true
 
   /@types/jsdom@20.0.1:
     resolution: {integrity: sha512-d0r18sZPmMQr1eG35u12FZfhIXNrnsPU/g5wvRKCUf/tOGilKKwYMYGqh33BNR6ba+2gkHw1EUiHoN3mn7E5IQ==}
@@ -5113,7 +5147,6 @@ packages:
 
   /@types/lodash@4.17.0:
     resolution: {integrity: sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==}
-    dev: true
 
   /@types/mdast@4.0.3:
     resolution: {integrity: sha512-LsjtqsyF+d2/yFOYaN22dHZI1Cpwkrj+g06G8+qtUKlhovPW89YhqSnfKtMbkgmEtYpH2gydRNULd6y8mciAFg==}
@@ -5282,11 +5315,9 @@ packages:
     resolution: {integrity: sha512-j3uovdn8ewky9kRBG19bOwaZbexJu/XjtkHyjvUgt4xfPFz18dcORIMqnYh66Fx3Powhcr85NT5+er3+oViapw==}
     dependencies:
       '@types/sinonjs__fake-timers': 8.1.5
-    dev: true
 
   /@types/sinonjs__fake-timers@8.1.5:
     resolution: {integrity: sha512-mQkU2jY8jJEF7YHjHvsQO8+3ughTL1mcnn96igfhONmR+fUPSKIkefQYpSe8bsly2Ep7oQbn/6VG5/9/0qcArQ==}
-    dev: true
 
   /@types/sockjs@0.3.36:
     resolution: {integrity: sha512-MK9V6NzAS1+Ud7JV9lJLFqW85VbC9dq3LmwZCuBe4wBDgKC0Kj/jd8Xl+nSviU+Qc3+m7umHHyHg//2KSa0a0Q==}
@@ -5327,7 +5358,6 @@ packages:
 
   /@types/uuid@9.0.8:
     resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
-    dev: true
 
   /@types/vinyl@2.0.11:
     resolution: {integrity: sha512-vPXzCLmRp74e9LsP8oltnWKTH+jBwt86WgRUb4Pc9Lf3pkMVGyvIo2gm9bODeGfCay2DBB/hAWDuvf07JcK4rw==}
@@ -5335,13 +5365,13 @@ packages:
       '@types/expect': 1.20.4
       '@types/node': 18.18.2
 
-  /@types/vscode@1.66.0:
-    resolution: {integrity: sha512-ZfJck4M7nrGasfs4A4YbUoxis3Vu24cETw3DERsNYtDZmYSYtk6ljKexKFKhImO/ZmY6ZMsmegu2FPkXoUFImA==}
-    dev: true
-
   /@types/vscode@1.75.1:
     resolution: {integrity: sha512-emg7wdsTFzdi+elvoyoA+Q8keEautdQHyY5LNmHVM4PTpY8JgOTVADrGVyXGepJ6dVW2OS5/xnLUWh+nZxvdiA==}
     dev: true
+
+  /@types/vscode@1.88.0:
+    resolution: {integrity: sha512-rWY+Bs6j/f1lvr8jqZTyp5arRMfovdxolcqGi+//+cPDOh8SBvzXH90e7BiSXct5HJ9HGW6jATchbRTpTJpEkw==}
+    dev: false
 
   /@types/webpack@5.28.5(esbuild@0.20.2)(webpack-cli@5.1.4):
     resolution: {integrity: sha512-wR87cgvxj3p6D0Crt1r5avwqffqPXUkNlnQ1mjU93G7gCuFjufZR4I6j8cz5g1F1tTYpfOOFvly+cmIQwL9wvw==}

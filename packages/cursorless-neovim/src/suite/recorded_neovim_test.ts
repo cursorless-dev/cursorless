@@ -1,41 +1,26 @@
 import {
-  // asyncSafety,
   CommandResponse,
-  // DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
-  // extractTargetedMarks,
   Fallback,
-  // HatStability,
-  // marksToPlainObject,
-  omitByDeep,
-  // plainObjectToRange,
+  Position,
   PositionPlainObject,
-  // rangeToPlainObject,
-  // ReadOnlyHatMap,
+  Selection,
   SelectionPlainObject,
-  // SerializedMarks,
+  SpyIDE,
+  TestCaseFixtureLegacy,
+  clientSupportsFallback,
+  getRecordedTestPaths,
+  omitByDeep,
   serializeTestFixture,
   shouldUpdateFixtures,
-  // splitKey,
-  SpyIDE,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
-  TestCaseFixtureLegacy,
-  // TextEditor,
-  // TokenHat,
-  clientSupportsFallback,
-  // TestCaseSnapshot,
-  // ExtraSnapshotField,
-  // IDE,
-  Selection,
-  Position,
-  getRecordedTestPaths,
 } from "@cursorless/common";
-// import {
-//   getCursorlessApi,
-//   openNewEditor,
-//   runCursorlessCommand,
-// } from "@cursorless/vscode-common";
+import {
+  getCursorlessApi,
+  openNewEditor,
+  runCursorlessCommand,
+} from "@cursorless/neovim-common";
 import { assert } from "chai";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
@@ -47,12 +32,9 @@ import {
 } from "../endToEndTestSetupOld";
 // import { commandApi } from "../singletons/cmdapi.singleton";
 // import { takeSnapshot } from "@cursorless/cursorless-engine";
-import { getCursorlessApi } from "../singletons/cursorlessapi.singleton";
-import { openNewEditor } from "../testUtil/openNewEditor";
-import { runCursorlessCommand } from "../runCommand";
-import { neovimClient } from "../singletons/client.singleton";
 import { AssertionError } from "node:assert";
 import { getNeovimIDE } from "../neovimHelpers";
+import { neovimClient } from "../singletons/client.singleton";
 import { commandApi } from "../singletons/cmdapi.singleton";
 // import { setupFake } from "./setupFake";
 
@@ -187,9 +169,9 @@ async function runTest(
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
 
-  const cursorlessApi = await getCursorlessApi();
-  const { takeSnapshot, setStoredTarget, commandServerApi } =
-    cursorlessApi.testHelpers!;
+  const { takeSnapshot, setStoredTarget, commandServerApi } = (
+    await getCursorlessApi()
+  ).testHelpers!;
 
   const editor = await openNewEditor(
     client,
@@ -235,10 +217,10 @@ async function runTest(
 
   try {
     returnValue = await runCursorlessCommand(
-      client,
-      neovimIDE,
-      cmdApi,
-      commandServerApi,
+      // client,
+      // neovimIDE,
+      // cmdApi,
+      // commandServerApi,
       {
         ...fixture.command,
         usePrePhraseSnapshot,

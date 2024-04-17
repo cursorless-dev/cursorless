@@ -1,4 +1,5 @@
 import { IDE, shouldUpdateFixtures, sleep, SpyIDE } from "@cursorless/common";
+import { getCursorlessApi } from "@cursorless/neovim-common";
 // import { getCursorlessApi } from "./singletons/cursorlessapi.singleton";
 import { Context } from "mocha";
 import * as sinon from "sinon";
@@ -28,9 +29,6 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
-    const getCursorlessApi = await require("@cursorless/cursorless-neovim")
-      .getCursorlessApiExternal;
-    // debugger;
     ({ ide, injectIde } = (await getCursorlessApi()).testHelpers!);
     spy = new SpyIDE(ide);
     injectIde(spy);

@@ -12,7 +12,6 @@ import {
 import { NeovimClient, Window } from "neovim";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
-import { neovimClient } from "../../singletons/client.singleton";
 import neovimEdit from "./NeovimEdit";
 import { NeovimIDE } from "./NeovimIDE";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
@@ -71,7 +70,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     // We assume setting it on the neovim buffer never fails
     // as we cache the selections in the editor beforehand
     this._selections = selections;
-    await bufferSetSelections(neovimClient(), selections);
+    await bufferSetSelections(this.client, selections);
   }
 
   get options(): TextEditorOptions {
@@ -149,12 +148,12 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   public async clipboardCopy(_ranges?: Range[]): Promise<void> {
-    await neovimClipboardCopy();
+    await neovimClipboardCopy(this.client, this.neovimIDE);
     // throw Error("clipboardCopy Not implemented");
   }
 
   public async clipboardPaste(_ranges?: Range[]): Promise<void> {
-    await neovimClipboardPaste();
+    await neovimClipboardPaste(this.client, this.neovimIDE);
     throw Error("clipboardPaste Not implemented");
   }
 

@@ -1,15 +1,15 @@
 import type { Clipboard } from "@cursorless/common";
-import { neovimClient } from "../../singletons/client.singleton";
 import { getFromClipboard, putToClipboard } from "../../neovimApi";
+import { NeovimClient } from "neovim";
 
 export default class NeovimClipboard implements Clipboard {
+  constructor(private client: NeovimClient) {}
+
   async readText(): Promise<string> {
-    const client = await neovimClient();
-    return await getFromClipboard(client);
+    return await getFromClipboard(this.client);
   }
 
   async writeText(value: string): Promise<void> {
-    const client = await neovimClient();
-    await putToClipboard(value, client);
+    await putToClipboard(value, this.client);
   }
 }

@@ -19,7 +19,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@cursorless/common": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
     "immer": "^10.0.4",
     "lodash": "^4.17.21"

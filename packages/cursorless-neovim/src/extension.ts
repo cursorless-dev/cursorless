@@ -6,25 +6,28 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
-  createCursorlessEngine,
   TreeSitter,
+  createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
+import {
+  NeovimFileSystem,
+  NeovimHats,
+  NeovimIDE,
+} from "@cursorless/neovim-common";
 import * as crypto from "crypto";
 import * as os from "os";
 import * as path from "path";
-import { NeovimHats } from "./ide/neovim/hats/NeovimHats";
-import { NeovimFileSystem } from "./ide/neovim/NeovimFileSystem";
-import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { Language, Tree } from "web-tree-sitter";
-import { injectCommandApi } from "./singletons/cmdapi.singleton";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
-import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
-import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
+import { injectCommandApi } from "./singletons/cmdapi.singleton";
+// import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
+import { EXTENSION_ID } from "@cursorless/neovim-common";
 import { NeovimClient } from "neovim/lib/api/client";
+import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { injectClient } from "./singletons/client.singleton";
 import { injectCommandServerApi } from "./singletons/cmdsrvapi.singleton";
-import { runRecordedTestCases } from "./suite/recorded_neovim_test";
+import { registerCommands } from "./registerCommands";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -82,6 +85,8 @@ export async function activate(plugin: NvimPlugin) {
   injectCommandApi(commandApi);
   // debugger; // NOTE: helps debugging
 
+  await registerCommands(client, neovimIDE, commandApi, commandServerApi);
+
   const cursorlessApi = {
     testHelpers:
       neovimIDE.runMode === "test"
@@ -103,7 +108,9 @@ export async function activate(plugin: NvimPlugin) {
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
   };
-  injectCursorlessApi(cursorlessApi);
+  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  registry.registerExtensionApi(EXTENSION_ID, cursorlessApi);
+  // injectCursorlessApi(cursorlessApi);
 
   // await updateTextEditor(client, neovimIDE, true);
   console.warn("activate(): Cursorless extension loaded");

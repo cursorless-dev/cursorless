@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.cjs --platform=node",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.cjs --external:@cursorless/neovim-registry --platform=node",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
@@ -27,19 +27,16 @@
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
+    "@cursorless/neovim-common": "workspace:*",
+    "@cursorless/neovim-registry": "workspace:*",
+    "@types/chai": "4.3.14",
     "lodash": "^4.17.21",
     "neovim": "5.1.0",
     "vscode-uri": "3.0.6"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.3",
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
-    "@types/mocha": "^10.0.6",
-    "@types/sinon": "^17.0.3",
-    "@types/uuid": "8.3.4",
-    "@types/vscode": "1.66.0",
-    "mocha": "^10.3.0",
-    "sinon": "^17.0.1"
+    "@types/uuid": "8.3.4"
   }
 }

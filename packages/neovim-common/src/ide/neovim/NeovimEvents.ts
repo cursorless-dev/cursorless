@@ -8,13 +8,15 @@ import {
 } from "@cursorless/common";
 
 import { Buffer } from "neovim";
-import { eventEmitter } from "../../events";
-import { getNeovimIDE } from "../../neovimHelpers";
+// import { eventEmitter } from "../../events";
+// import { getNeovimIDE } from "../../../../neovim-common/src/neovimHelpers";
 
 export function neovimOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,
 ): Disposable {
-  eventEmitter.on("onDidChangeTextDocument", listener);
+  // eventEmitter.on("onDidChangeTextDocument", listener);
+  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  registry.emitEvent("onDidChangeTextDocument", listener);
   return dummyEvent();
 }
 
@@ -23,7 +25,9 @@ export function neovimOnDidOpenTextDocument(
   thisArgs?: any,
   disposables?: Disposable[] | undefined,
 ): Disposable {
-  eventEmitter.on("onDidOpenTextDocument", listener);
+  // eventEmitter.on("onDidOpenTextDocument", listener);
+  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  registry.emitEvent("onDidOpenTextDocument", listener);
   return dummyEvent();
 }
 
@@ -31,41 +35,41 @@ export function neovimOnDidOpenTextDocument(
  * @see https://neovim.io/doc/user/api.html#api-buffer-updates
  */
 // TODO: wrap all the arguments into a neovim.TextDocumentContentChangeEvent?
-export async function receivedBufferEvent(
-  buffer: Buffer,
-  tick: number,
-  firstLine: number,
-  lastLine: number,
-  linedata: string[],
-  more: boolean,
-): Promise<void> {
-  console.warn(
-    `receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
-  );
+// export async function receivedBufferEvent(
+//   buffer: Buffer,
+//   tick: number,
+//   firstLine: number,
+//   lastLine: number,
+//   linedata: string[],
+//   more: boolean,
+// ): Promise<void> {
+//   console.warn(
+//     `receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
+//   );
 
-  const neovimIDE = getNeovimIDE();
-  // We will need to get the document according to the buffer id
-  // once we want to support several windows
-  const document = neovimIDE.getTextDocument(buffer) as TextDocument;
-  // But for now we get the current document
-  // const document = (neovimIDE.activeTextEditor as TextEditor).document;
+//   const neovimIDE = getNeovimIDE();
+//   // We will need to get the document according to the buffer id
+//   // once we want to support several windows
+//   const document = neovimIDE.getTextDocument(buffer) as TextDocument;
+//   // But for now we get the current document
+//   // const document = (neovimIDE.activeTextEditor as TextEditor).document;
 
-  // const contents = await document.getText();
-  // console.warn(
-  //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
-  // );
-  eventEmitter.emit("onDidChangeTextDocument", {
-    document: document,
-    contentChanges: fromNeovimContentChange(
-      document,
-      buffer,
-      firstLine,
-      lastLine,
-      linedata,
-    ),
-    //   reason: fromNeovimReason(...),
-  });
-}
+//   // const contents = await document.getText();
+//   // console.warn(
+//   //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
+//   // );
+//   eventEmitter.emit("onDidChangeTextDocument", {
+//     document: document,
+//     contentChanges: fromNeovimContentChange(
+//       document,
+//       buffer,
+//       firstLine,
+//       lastLine,
+//       linedata,
+//     ),
+//     //   reason: fromNeovimReason(...),
+//   });
+// }
 
 // let count = 1;
 export function fromNeovimContentChange(
