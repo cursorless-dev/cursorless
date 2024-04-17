@@ -346,6 +346,8 @@ importers:
         specifier: ^17.0.1
         version: 17.0.1
 
+  packages/cursorless-neovim-e2e: {}
+
   packages/cursorless-org:
     dependencies:
       '@cursorless/cheatsheet':
@@ -665,6 +667,10 @@ importers:
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
+
+  packages/neovim-common: {}
+
+  packages/neovim-registry: {}
 
   packages/test-harness:
     dependencies:
