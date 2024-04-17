@@ -1,10 +1,23 @@
 # questions
 
-- setStoredTarget support in the recorded tests?
+- unit tests for lineCount similar to C:\work\tools\voicecoding\cursorless_fork\packages\common\src\types\range.test.ts or selection.test.ts
+- logs in vscode would be better
+- test-harness outside of cursorless-neovim
+- see cursorless_original\packages\test-harness\dist
+- functions are called in parallel. Is that okay?
+  vim.api.nvim_call_function('CursorlessLoadExtension', {})
+  vim.api.nvim_call_function('CommandServerLoadExtension', {})
+
+- test-harness\dist\cursorless-vscode-e2e\src\suite\editNewCell.vscode.test.cjs
+  var EXTENSION_ID = "pokey.cursorless";
+  var getCursorlessApi = () => getExtensionApiStrict(EXTENSION_ID);
+  var getParseTreeApi = () => getExtensionApiStrict("pokey.parse-tree");
+  // lazy import of cursorless-engine from test-harness
+
+- unit tests for testing the lua functions for ranges, selections etc.
 - utf8 is not supported well - probably neovim pb (translate to utf8) - no utf8 thing in cursorless (strings that under the hood are utf16) - need to decode it before giving it to cursorless
 - Pokey: pure dependency injection: rearchitecture code to reduce use of singletons, have neovimIDE available where I want (no need to detect spyIDE vs normalizedIDE, etc.), no need to export ide() singleton from cursorless to remove all the DEP-INJ:
 - Pokey: go over the remaining "TODO:" in the code
-- NPM as package manager message (see screenshot)
 - Pokey: understand better the rangeUpdater object (e.g. "paste to first paint row one")
 - "paste to row one" from the clipboard, see getFromClipboard()
 
