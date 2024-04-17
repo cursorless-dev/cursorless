@@ -105,9 +105,10 @@ suite("recorded test cases", async function () {
 });
 
 async function runTest(file: string, spyIde: SpyIDE) {
-  const neovimClient = await require("@cursorless/cursorless-neovim")
-    .neovimClientExternal;
-  const client = neovimClient();
+  // const neovimClient = await require("@cursorless/cursorless-neovim")
+  //   .neovimClientExternal;
+  // const client = neovimClient();
+  const client = (global as any).additionalParameters.client;
   // TODO: not sure why but ide() returns an SpyIDE but then the
   // test against instanceof SpyIDE fails...
   // const getNeovimIDE = await require("@cursorless/cursorless-neovim")

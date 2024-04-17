@@ -1,6 +1,6 @@
 import { TestType, runAllTests } from "./runAllTests";
 
-import { NvimPlugin } from "neovim";
+import { NeovimClient, NvimPlugin } from "neovim";
 
 /**
  * Runs all extension tests.  This function should only be called after attaching to the
@@ -11,7 +11,12 @@ import { NvimPlugin } from "neovim";
  */
 // FIXME: this is neovim specific atm so in the future we can support other apps here
 // with an environment variable
-export function run(): Promise<void> {
+export function run(plugin: NvimPlugin): Promise<void> {
+  // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
+  // https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
+  (global as any).additionalParameters = {
+    client: plugin.nvim as NeovimClient,
+  };
   // return runAllTests(TestType.neovim, TestType.unit); //TODO: use this line at the end
   return runAllTests(TestType.neovim); //TODO: this allows running our test only for now
 }
@@ -28,7 +33,7 @@ export default function entry(plugin: NvimPlugin) {
   plugin.setOptions({ dev: false });
   // plugin.setOptions({ dev: false, alwaysInit: false });
 
-  plugin.registerFunction("TestHarnessRun", async () => await run(), {
+  plugin.registerFunction("TestHarnessRun", async () => await run(plugin), {
     sync: false,
   });
 }
