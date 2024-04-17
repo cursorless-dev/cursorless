@@ -5,12 +5,15 @@ import {
   TextDocument,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
-import { Window } from "neovim";
-import { getNeovimIDE, updateTextEditor } from "../../neovimHelpers";
+import { NeovimClient, Window } from "neovim";
+import { updateTextEditor } from "../../neovimHelpers";
 import { neovimClient } from "../../singletons/client.singleton";
 import { eventEmitter } from "../../events";
+import { NeovimIDE } from "./NeovimIDE";
 
 export default async function neovimEdit(
+  client: NeovimClient,
+  neovimIDE: NeovimIDE,
   window: Window,
   edits: Edit[],
 ): Promise<boolean> {
@@ -50,8 +53,7 @@ export default async function neovimEdit(
       `\trange=${JSON.stringify(edit.range)}, text='${edit.text}', isReplace=${edit.isReplace}`,
     );
   }
-  const client = neovimClient();
-  const document = getNeovimIDE().getTextDocument(
+  const document = neovimIDE.getTextDocument(
     await client.window.buffer,
   ) as TextDocument;
   const changes: TextDocumentContentChangeEvent[] = [];
@@ -82,7 +84,6 @@ export default async function neovimEdit(
   }
 
   // update our view of the document
-  const neovimIDE = getNeovimIDE();
   await updateTextEditor(client, neovimIDE);
   return true;
 }

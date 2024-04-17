@@ -8,6 +8,7 @@ import { neovimClient } from "./singletons/client.singleton";
 import { getNeovimIDE } from "./neovimHelpers";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { commandApi } from "./singletons/cmdapi.singleton";
+import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
 
 /**
  * Extension entrypoint called by node-client on Neovim startup.
@@ -55,7 +56,8 @@ export async function handleCommand(...args: any): Promise<any> {
   const client = await neovimClient();
   const neovimIDE = getNeovimIDE();
   const cmdApi = commandApi();
-  return handleCommandInternal(client, neovimIDE, cmdApi, ...args);
+  const cmdSrvApi = commandServerApi();
+  return handleCommandInternal(client, neovimIDE, cmdApi, cmdSrvApi, ...args);
 }
 
 export function getCursorlessApiExternal(): Promise<CursorlessApi> {

@@ -1,4 +1,8 @@
-import { Command, CURSORLESS_COMMAND_ID } from "@cursorless/common";
+import {
+  Command,
+  CommandServerApi,
+  CURSORLESS_COMMAND_ID,
+} from "@cursorless/common";
 import { handleCommandInternal } from "./registerCommands";
 import { NeovimClient } from "neovim";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
@@ -9,6 +13,7 @@ export function runCursorlessCommand(
   client: NeovimClient,
   neovimIDE: NeovimIDE,
   commandApi: CommandApi,
+  cmdSrvApi: CommandServerApi,
   command: Command,
 ) {
   //return vscode.commands.executeCommand(CURSORLESS_COMMAND_ID, command);
@@ -16,6 +21,7 @@ export function runCursorlessCommand(
     client,
     neovimIDE,
     commandApi,
+    cmdSrvApi,
     CURSORLESS_COMMAND_ID,
     command,
   );

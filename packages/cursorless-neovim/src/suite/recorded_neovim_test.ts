@@ -120,8 +120,8 @@ export async function runRecordedTestCases() {
   // const fixturePath = getFixturesPath();
   // const tests = [
   //   {
-  //     name: "recorded/actions/insertEmptyLines/puffThis",
-  //     path: `${fixturePath}/recorded/actions/insertEmptyLines/puffThis.yml`,
+  //     name: "recorded/actions/insertEmptyLines/dropThis",
+  //     path: `${fixturePath}/recorded/actions/insertEmptyLines/dropThis.yml`,
   //   },
   // ];
 
@@ -234,10 +234,16 @@ async function runTest(
   let fallback: Fallback | undefined;
 
   try {
-    returnValue = await runCursorlessCommand(client, neovimIDE, cmdApi, {
-      ...fixture.command,
-      usePrePhraseSnapshot,
-    });
+    returnValue = await runCursorlessCommand(
+      client,
+      neovimIDE,
+      cmdApi,
+      commandServerApi,
+      {
+        ...fixture.command,
+        usePrePhraseSnapshot,
+      },
+    );
     if (clientSupportsFallback(fixture.command)) {
       const commandResponse = returnValue as CommandResponse;
       returnValue =

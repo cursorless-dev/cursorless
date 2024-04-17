@@ -9,7 +9,7 @@ import {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
-import { Window } from "neovim";
+import { NeovimClient, Window } from "neovim";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
 import { neovimClient } from "../../singletons/client.singleton";
@@ -24,7 +24,8 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
 
   constructor(
     public readonly id: string,
-    private ide: NeovimIDE,
+    private client: NeovimClient,
+    private neovimIDE: NeovimIDE,
     private window: Window,
     doc: NeovimTextDocumentImpl,
     visibleRanges: Range[],
@@ -106,7 +107,7 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
 
   public async edit(edits: Edit[]): Promise<boolean> {
     //throw Error("edit Not implemented");
-    return await neovimEdit(this.window, edits);
+    return await neovimEdit(this.client, this.neovimIDE, this.window, edits);
   }
 
   public focus(): Promise<void> {

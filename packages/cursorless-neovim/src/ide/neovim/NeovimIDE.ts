@@ -281,6 +281,7 @@ export class NeovimIDE implements IDE {
       );
       editor = new NeovimTextEditorImpl(
         uuid(),
+        this.client,
         this,
         window,
         document,

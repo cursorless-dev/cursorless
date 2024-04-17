@@ -1,13 +1,11 @@
 import {
   CURSORLESS_COMMAND_ID,
   CommandLatest,
+  CommandServerApi,
   CursorlessCommandId,
 } from "@cursorless/common";
-import { commandApi } from "./singletons/cmdapi.singleton";
-import { getNeovimIDE, updateTextEditor } from "./neovimHelpers";
-import { neovimClient } from "./singletons/client.singleton";
+import { updateTextEditor } from "./neovimHelpers";
 import { modeSwitchNormalTerminal, modeSwitchTerminal } from "./neovimApi";
-import { commandServerApi } from "./singletons/cmdsrvapi.singleton";
 // TODO - we need to fix that import as we should not be allowed to import it afaict?
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
@@ -25,13 +23,15 @@ import { CommandApi } from "@cursorless/cursorless-engine";
  * @returns
  */
 export function handleCommandInternal(...allArguments: any[]): Promise<any> {
-  const [client, neovimIDE, commandApi, command, ...rest] = allArguments as [
-    NeovimClient,
-    NeovimIDE,
-    CommandApi,
-    string,
-    ...unknown[],
-  ];
+  const [client, neovimIDE, commandApi, cmdSrvApi, command, ...rest] =
+    allArguments as [
+      NeovimClient,
+      NeovimIDE,
+      CommandApi,
+      CommandServerApi,
+      string,
+      ...unknown[],
+    ];
 
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
@@ -48,7 +48,6 @@ export function handleCommandInternal(...allArguments: any[]): Promise<any> {
       const result = await commandApi.runCommandSafe(...args);
 
       const command = ensureCommandShape(args) as CommandLatest;
-      const cmdSrvApi = commandServerApi();
       const focusedElementType = await cmdSrvApi.getFocusedElementType();
       if (
         focusedElementType === "terminal" &&
