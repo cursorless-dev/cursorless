@@ -61,11 +61,12 @@
       "label": "neovim logs",
       "type": "shell",
       "windows": {
-        "command": "powershell",
-        "args": [
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"powershell Get-Content '${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log' -wait -tail 30\"\"\", 1, $false)"
-        ]
+        "command": "tail -f '${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log'"
       },
+      "presentation": {
+        "reveal": "always"
+      },
+      "isBackground": true,
       "group": "build"
     },
     {
