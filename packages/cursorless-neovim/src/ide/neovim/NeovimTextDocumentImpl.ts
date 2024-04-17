@@ -200,6 +200,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
   // ---- range math
 
   private _validateRange(range: Range): Range {
+    // TODO: this instanceof test fails with mocha
     if (!(range instanceof Range)) {
       throw new Error("Invalid argument");
     }
@@ -214,6 +215,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
   }
 
   private _validatePosition(position: Position): Position {
+    // TODO: this instanceof test fails with mocha
     if (!(position instanceof Position)) {
       throw new Error("Invalid argument");
     }

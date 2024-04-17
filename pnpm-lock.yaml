@@ -327,12 +327,24 @@ importers:
       '@types/lodash':
         specifier: 4.14.181
         version: 4.14.181
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
+      '@types/sinon':
+        specifier: ^17.0.3
+        version: 17.0.3
       '@types/uuid':
         specifier: 8.3.4
         version: 8.3.4
       '@types/vscode':
         specifier: 1.66.0
         version: 1.66.0
+      mocha:
+        specifier: ^10.3.0
+        version: 10.3.0
+      sinon:
+        specifier: ^17.0.1
+        version: 17.0.1
 
   packages/cursorless-org:
     dependencies:
@@ -659,9 +671,15 @@ importers:
       '@cursorless/common':
         specifier: workspace:*
         version: link:../common
+      '@cursorless/cursorless-neovim':
+        specifier: workspace:*
+        version: link:../cursorless-neovim
       glob:
         specifier: ^10.3.10
         version: 10.3.10
+      neovim:
+        specifier: 5.1.0
+        version: 5.1.0
     devDependencies:
       '@types/glob':
         specifier: ^8.1.0

@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "description": "Contains scripts and runners for testing Cursorless",
   "private": true,
-  "main": "./out/index.js",
+  "main": "./out/index.cjs",
   "scripts": {
     "test": "env CURSORLESS_TEST=true my-ts-node src/scripts/runTestsCI.ts",
-    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
+    "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --external:@cursorless/cursorless-neovim --format=cjs --platform=node",
     "build": "pnpm run build:runner && pnpm run build:main && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
     "build:runner": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
+    "build:main": "pnpm run build:base ./src/index.ts --outfile=out/index.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
     "build:talon": "pnpm run build:base ./src/scripts/runTalonTests.ts --outfile=dist/runTalonTests.cjs",
     "build:tests": "bash ./scripts/build-tests.sh",
@@ -23,7 +24,9 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "glob": "^10.3.10"
+    "@cursorless/cursorless-neovim": "workspace:*",
+    "glob": "^10.3.10",
+    "neovim": "5.1.0"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",

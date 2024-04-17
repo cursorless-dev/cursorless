@@ -35,7 +35,11 @@
     "@types/chai": "^4.3.3",
     "@types/js-yaml": "^4.0.2",
     "@types/lodash": "4.14.181",
+    "@types/mocha": "^10.0.6",
+    "@types/sinon": "^17.0.3",
     "@types/uuid": "8.3.4",
-    "@types/vscode": "1.66.0"
+    "@types/vscode": "1.66.0",
+    "mocha": "^10.3.0",
+    "sinon": "^17.0.1"
   }
 }
