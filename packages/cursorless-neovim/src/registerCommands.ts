@@ -13,10 +13,10 @@ import {
   updateTextEditor,
 } from "@cursorless/neovim-common";
 import { NeovimClient } from "neovim";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 // TODO - we need to fix that import as we should not be allowed to import it afaict?
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
-import { neovimRegistry } from "@cursorless/neovim-registry";
 
 /**
  * Handle the command received from the command-server Neovim extension
