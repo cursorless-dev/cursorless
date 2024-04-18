@@ -42,7 +42,7 @@ export async function bufferGetSelections(
     ];
   }
 
-  console.warn(
+  console.log(
     `bufferGetSelections(): selections=(${selections[0].start.line}, ${selections[0].start.character}), (${selections[0].end.line}, ${selections[0].end.character}) neovim=(${startLine},${startCol}),(${endLine},${endCol}),reverse=${reverse}`,
   );
   return selections;
@@ -65,11 +65,11 @@ export async function bufferSetSelections(
   }, ${selections[0].start.character}, ${selections[0].end.line + 1}, ${
     selections[0].end.character
   })`;
-  console.warn(
+  console.log(
     `bufferSetSelections() selections=(${selections[0].start.line},${selections[0].start.character}),(${selections[0].end.line},${selections[0].end.character}) luaCode="${luaCode}"`,
   );
   await client.executeLua(luaCode, []);
-  // console.warn(`bufferSetSelections() done`);
+  // console.log(`bufferSetSelections() done`);
 }
 
 /**
@@ -96,7 +96,7 @@ export async function windowGetVisibleRanges(
     // subtract -1 to the line.length to get the correct 0-based column number
     new Position(lastLine - 1, lines[lastLine - 1].length - 1),
   );
-  console.warn(
+  console.log(
     `windowGetVisibleRanges(): range=(${range.start.line}, ${range.start.character}), (${range.end.line}, ${range.end.character})`,
   );
   return [range];

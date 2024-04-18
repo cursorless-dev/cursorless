@@ -32,7 +32,7 @@ function run() {
   }
 
   if (!exists && process.argv.includes("--fail-if-not-exists")) {
-    console.warn(`Please edit ${testSubsetGrepPath} and re-run.`);
+    console.log(`Please edit ${testSubsetGrepPath} and re-run.`);
     process.exit(1);
   }
 }

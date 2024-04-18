@@ -31,7 +31,7 @@ export async function updateTextEditor(
   if (lines.length >= 30) {
     linesShown = lines.slice(0, 15).concat(["..."]).concat(lines.slice(-15));
   }
-  console.warn(
+  console.log(
     `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${JSON.stringify(linesShown)}`,
   );
   let selections: Selection[];

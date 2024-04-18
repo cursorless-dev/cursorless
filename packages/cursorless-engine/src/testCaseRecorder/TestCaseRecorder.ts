@@ -366,9 +366,9 @@ export class TestCaseRecorder {
           if (action === "Delete") {
             await fs.unlink(outPath, (err) => {
               if (err) {
-                console.warn(`failed to delete ${outPath}: ${err}`);
+                console.log(`failed to delete ${outPath}: ${err}`);
               } else {
-                console.warn(`deleted ${outPath}`);
+                console.log(`deleted ${outPath}`);
               }
             });
           }

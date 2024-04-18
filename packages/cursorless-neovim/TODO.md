@@ -5,7 +5,10 @@
 - what about the eventEmitter? see NeovimEvents.ts
 - what about handleCommandInternal? see runCommand.ts
 
-- open PR: async-getFocusedElementType (Cursorless and command server)
+- open PR:
+  - async getFocusedElementType (Cursorless and command server)
+  - test-harness vscode specifics
+  - some missing await
 
 # mocha tests
 

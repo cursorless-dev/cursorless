@@ -30,7 +30,7 @@ export function EmbeddedVideo({ youtubeSlug }: Props) {
           height="100%"
           controls={true}
           onError={(e) => {
-            console.warn(`Error loading YouTube video: ${e}`);
+            console.log(`Error loading YouTube video: ${e}`);
             setIsError(true);
           }}
         />

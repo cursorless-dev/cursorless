@@ -193,7 +193,7 @@ class Log extends QueryPredicateOperator<Log> {
   schema = z.tuple([q.node]);
 
   run(nodeInfo: MutableQueryCapture) {
-    console.warn(`#log!: ${nodeInfo.name}@${nodeInfo.range}`);
+    console.log(`#log!: ${nodeInfo.name}@${nodeInfo.range}`);
     return true;
   }
 }

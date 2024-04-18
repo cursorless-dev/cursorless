@@ -116,7 +116,7 @@ export async function registerCommands(
   };
 
   // if (command !== "cursorless.command") {
-  //   console.warn(
+  //   console.log(
   //     `handleCommandInternal(): command=${command} is not supported`,
   //   );
   //   return new Promise((resolve) => []);
@@ -142,5 +142,5 @@ export async function registerCommands(
 }
 
 export async function dummyCommandHandler(...args: any[]) {
-  console.warn(`dummyCommandHandler(): args=${args}`);
+  console.log(`dummyCommandHandler(): args=${args}`);
 }

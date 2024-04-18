@@ -40,7 +40,7 @@ export function neovimOnDidOpenTextDocument(
 //   linedata: string[],
 //   more: boolean,
 // ): Promise<void> {
-//   console.warn(
+//   console.log(
 //     `receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
 //   );
 
@@ -52,7 +52,7 @@ export function neovimOnDidOpenTextDocument(
 //   // const document = (neovimIDE.activeTextEditor as TextEditor).document;
 
 //   // const contents = await document.getText();
-//   // console.warn(
+//   // console.log(
 //   //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
 //   // );
 //   eventEmitter.emit("onDidChangeTextDocument", {
@@ -78,7 +78,7 @@ export function fromNeovimContentChange(
 ): TextDocumentContentChangeEvent[] {
   const result = [];
   const text = linedata.join("\n");
-  console.warn(
+  console.log(
     `fromNeovimContentChange(): document.getText(): '${document.getText()}'`,
   );
   const range = new Range(
@@ -116,7 +116,7 @@ export function fromNeovimContentChange(
   //   throw new Error(`fromNeovimContentChange(): unexpected count=${count}`);
   // }
   // count++;
-  console.warn(`fromNeovimContentChange(): changes=${JSON.stringify(result)}`);
+  console.log(`fromNeovimContentChange(): changes=${JSON.stringify(result)}`);
   return result;
 }
 

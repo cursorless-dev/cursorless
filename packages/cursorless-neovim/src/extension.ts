@@ -113,7 +113,7 @@ export async function activate(plugin: NvimPlugin) {
   // injectCursorlessApi(cursorlessApi);
 
   // await updateTextEditor(client, neovimIDE, true);
-  console.warn("activate(): Cursorless extension loaded");
+  console.log("activate(): Cursorless extension loaded");
 }
 
 async function createNeovimIde(client: NeovimClient) {

@@ -103,13 +103,13 @@ async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
 
   // Uncomment below for debugging
   // if (name === "recorded/implicitExpansion/chuckBoundingThat") {
-  //   console.warn(`runTest(${name}) => let's analyze it`);
+  //   console.log(`runTest(${name}) => let's analyze it`);
   // }
 
-  console.warn(
+  console.log(
     "------------------------------------------------------------------------------",
   );
-  console.warn(`runTest(${file})...`);
+  console.log(`runTest(${file})...`);
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"

@@ -33,12 +33,12 @@ export default function entry(plugin: NvimPlugin) {
  * Load the cursorless engine.
  */
 async function loadExtension(plugin: NvimPlugin) {
-  console.warn(
+  console.log(
     "===============================================================================================",
   );
-  console.warn("loadExtension(cursorless-neovim): start");
+  console.log("loadExtension(cursorless-neovim): start");
   await activate(plugin);
-  console.warn("loadExtension(cursorless-neovim): done");
+  console.log("loadExtension(cursorless-neovim): done");
 }
 
 export function neovimClientExternal(): NeovimClient {

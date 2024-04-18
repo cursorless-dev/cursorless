@@ -55,20 +55,20 @@ const successes: string[] = [];
 const failures: errorType = {};
 
 function showFailedTest(name: string, error: AssertionError) {
-  console.warn(`Failed test: ${name}`);
-  console.warn(`Thrown error: ${error.message}`);
+  console.log(`Failed test: ${name}`);
+  console.log(`Thrown error: ${error.message}`);
   if (error.expected !== undefined || error.actual !== undefined) {
     const expected = JSON.stringify(error.expected, null, 2);
     const actual = JSON.stringify(error.actual, null, 2);
-    console.warn(`Expected: ${expected}`);
-    console.warn(`Actual: ${actual}`);
+    console.log(`Expected: ${expected}`);
+    console.log(`Actual: ${actual}`);
   } else {
-    console.warn(`Stack: ${error.stack}`);
+    console.log(`Stack: ${error.stack}`);
   }
 }
 
 function showSucceededTest(name: string) {
-  console.warn(`Passed test: ${name} \\o/`);
+  console.log(`Passed test: ${name} \\o/`);
 }
 
 // Hiding some failures that we don't know how to fix yet
@@ -76,17 +76,17 @@ function showSucceededTest(name: string) {
 const failuresNotShown = ["recorded/marks/chuckNothing"];
 
 function showSummaryTests() {
-  console.warn(`Passed tests:\n${successes.join("\n")}`);
+  console.log(`Passed tests:\n${successes.join("\n")}`);
   for (const [name, error] of Object.entries(failures)) {
     if (failuresNotShown.includes(name)) {
       continue;
     }
-    console.warn("+".repeat(80));
+    console.log("+".repeat(80));
     showFailedTest(name, error);
   }
   const failed = Object.entries(failures).length;
   const total = successes.length + failed;
-  console.warn(
+  console.log(
     `Passed tests: ${successes.length} / ${total} (failed: ${failed})`,
   );
 }
@@ -156,13 +156,13 @@ async function runTest(
 
   // Uncomment below for debugging
   // if (name === "recorded/implicitExpansion/chuckBoundingThat") {
-  //   console.warn(`runTest(${name}) => let's analyze it`);
+  //   console.log(`runTest(${name}) => let's analyze it`);
   // }
 
-  console.warn(
+  console.log(
     "------------------------------------------------------------------------------",
   );
-  console.warn(`runTest(${name})...`);
+  console.log(`runTest(${name})...`);
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
