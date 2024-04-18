@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Registry to share apis and commands between packages for neovim",
   "main": "./out/index.cjs",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",

@@ -52,6 +52,11 @@ async function runTestsInDir(
     ui: "tdd",
     color: true,
     grep: runTestSubset() ? testSubsetGrepString() : undefined, // Only run a subset of tests
+    // rootHooks: {
+    //   beforeAll(){
+    //     this.neovimClient = ...
+    //   }
+    // }
   });
 
   const files = filterFiles(await glob("**/**.test.cjs", { cwd: testRoot }));

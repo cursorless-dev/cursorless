@@ -30,7 +30,8 @@
       "dependsOn": [
         "neovim test start",
         "ESBuild-neovim-registry",
-        "ESBuild-cursorless-neovim"
+        "ESBuild-cursorless-neovim",
+        "Build test harness"
       ],
       "group": "build"
     },

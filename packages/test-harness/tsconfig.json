@@ -11,6 +11,9 @@
     },
     {
       "path": "../neovim-common"
+    },
+    {
+      "path": "../neovim-registry"
     }
   ]
 }

@@ -722,6 +722,9 @@ importers:
       '@cursorless/neovim-common':
         specifier: workspace:*
         version: link:../neovim-common
+      '@cursorless/neovim-registry':
+        specifier: workspace:*
+        version: link:../neovim-registry
       glob:
         specifier: ^10.3.10
         version: 10.3.10
