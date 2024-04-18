@@ -345,6 +345,9 @@ importers:
       '@cursorless/neovim-common':
         specifier: workspace:*
         version: link:../neovim-common
+      '@cursorless/neovim-registry':
+        specifier: workspace:*
+        version: link:../neovim-registry
       '@types/chai':
         specifier: 4.3.14
         version: 4.3.14
@@ -591,6 +594,9 @@ importers:
 
   packages/cursorless-vscode-e2e:
     dependencies:
+      '@cursorless/common':
+        specifier: workspace:*
+        version: link:../common
       '@cursorless/vscode-common':
         specifier: workspace:*
         version: link:../vscode-common
