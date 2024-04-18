@@ -3,6 +3,7 @@ import {
   // CommandServerApi,
   CURSORLESS_COMMAND_ID,
 } from "@cursorless/common";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 // import { CommandApi } from "@cursorless/cursorless-engine";
 // import { NeovimClient } from "neovim";
 // import { handleCommandInternal } from "../../cursorless-neovim/src/registerCommands";
@@ -17,8 +18,7 @@ export async function runCursorlessCommand(
   command: Command,
 ) {
   //return vscode.commands.executeCommand(CURSORLESS_COMMAND_ID, command);
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  return await registry.executeCommand(CURSORLESS_COMMAND_ID, command);
+  return await neovimRegistry.executeCommand(CURSORLESS_COMMAND_ID, command);
   // return handleCommandInternal(
   //   client,
   //   neovimIDE,

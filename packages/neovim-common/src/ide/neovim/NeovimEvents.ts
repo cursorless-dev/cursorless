@@ -6,6 +6,7 @@ import {
   TextDocumentChangeEvent,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 
 import { Buffer } from "neovim";
 // import { eventEmitter } from "../../events";
@@ -15,8 +16,7 @@ export function neovimOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,
 ): Disposable {
   // eventEmitter.on("onDidChangeTextDocument", listener);
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  registry.onEvent("onDidChangeTextDocument", listener);
+  neovimRegistry.onEvent("onDidChangeTextDocument", listener);
   return dummyEvent();
 }
 
@@ -26,8 +26,7 @@ export function neovimOnDidOpenTextDocument(
   disposables?: Disposable[] | undefined,
 ): Disposable {
   // eventEmitter.on("onDidOpenTextDocument", listener);
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  registry.onEvent("onDidOpenTextDocument", listener);
+  neovimRegistry.onEvent("onDidOpenTextDocument", listener);
   return dummyEvent();
 }
 

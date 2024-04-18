@@ -16,6 +16,7 @@ import { NeovimClient } from "neovim";
 // TODO - we need to fix that import as we should not be allowed to import it afaict?
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 
 /**
  * Handle the command received from the command-server Neovim extension
@@ -133,9 +134,10 @@ export async function registerCommands(
   //     vscode.commands.registerCommand(commandId, callback),
   //   ),
   // );
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
+  // TODO: import from the top of the file and do not need a require since it will be external
+  // undo it everywhere else and also in the commandr server
   Object.entries(commands).map(([commandId, callback]) =>
-    registry.registerCommand(commandId, callback),
+    neovimRegistry.registerCommand(commandId, callback),
   );
 }
 

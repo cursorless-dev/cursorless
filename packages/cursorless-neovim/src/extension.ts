@@ -28,6 +28,7 @@ import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { injectClient } from "./singletons/client.singleton";
 import { injectCommandServerApi } from "./singletons/cmdsrvapi.singleton";
 import { registerCommands } from "./registerCommands";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -108,8 +109,7 @@ export async function activate(plugin: NvimPlugin) {
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
   };
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  registry.registerExtensionApi(EXTENSION_ID, cursorlessApi);
+  neovimRegistry.registerExtensionApi(EXTENSION_ID, cursorlessApi);
   // injectCursorlessApi(cursorlessApi);
 
   // await updateTextEditor(client, neovimIDE, true);

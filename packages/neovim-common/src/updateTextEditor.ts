@@ -7,6 +7,7 @@ import { NeovimClient } from "neovim";
 // import { eventEmitter } from "./events";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 
 /**
  * Initialize the current editor (and current document).
@@ -54,8 +55,7 @@ export async function updateTextEditor(
   // TODO: simulate that the document is open for now from here.
   // we would need to ideally do it from neovim itself
   // eventEmitter.emit("onDidOpenTextDocument", editor.document);
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  registry.emitEvent("onDidOpenTextDocument", editor.document);
+  neovimRegistry.emitEvent("onDidOpenTextDocument", editor.document);
 
   return editor;
 }

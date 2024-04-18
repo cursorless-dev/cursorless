@@ -1,6 +1,7 @@
 import type { SnippetMap } from "@cursorless/common";
 //import * as vscode from "vscode";
 import { TestHelpers } from "./TestHelpers";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 
 export interface CursorlessApi {
   testHelpers: TestHelpers | undefined;
@@ -21,14 +22,12 @@ export interface CursorlessApi {
 // }
 
 export async function getExtensionApi<T>(extensionId: string) {
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  const api = registry.getExtensionApi(extensionId);
+  const api = neovimRegistry.getExtensionApi(extensionId);
   return api == null ? null : (api as T);
 }
 
 export async function getExtensionApiStrict<T>(extensionId: string) {
-  const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  const api = registry.getExtensionApi(extensionId);
+  const api = neovimRegistry.getExtensionApi(extensionId);
 
   if (api == null) {
     throw new Error(`Could not get ${extensionId} extension`);
