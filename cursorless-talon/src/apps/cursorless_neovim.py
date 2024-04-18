@@ -1,4 +1,4 @@
-from talon import Context, actions
+from talon import Context
 
 ctx = Context()
 
