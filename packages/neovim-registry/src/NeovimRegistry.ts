@@ -23,8 +23,8 @@ export class NeovimRegistry {
     this.commands.set(commandId, callback);
   }
 
-  public executeCommand(commandId: string, ...rest: any[]): any {
-    return this.commands.get(commandId)(...rest);
+  public async executeCommand(commandId: string, ...rest: any[]): Promise<any> {
+    return await this.commands.get(commandId)(...rest);
   }
 
   public onEvent(

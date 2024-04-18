@@ -16,7 +16,7 @@ export function neovimOnDidChangeTextDocument(
 ): Disposable {
   // eventEmitter.on("onDidChangeTextDocument", listener);
   const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  registry.emitEvent("onDidChangeTextDocument", listener);
+  registry.onEvent("onDidChangeTextDocument", listener);
   return dummyEvent();
 }
 
@@ -27,7 +27,7 @@ export function neovimOnDidOpenTextDocument(
 ): Disposable {
   // eventEmitter.on("onDidOpenTextDocument", listener);
   const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  registry.emitEvent("onDidOpenTextDocument", listener);
+  registry.onEvent("onDidOpenTextDocument", listener);
   return dummyEvent();
 }
 

@@ -27,11 +27,7 @@
     },
     {
       "label": "Build neovim extension tests only",
-      "dependsOn": [
-        "neovim test start",
-        "ESBuild-cursorless-neovim",
-        "Build test harness"
-      ],
+      "dependsOn": ["neovim test start", "ESBuild-cursorless-neovim"],
       "group": "build"
     },
     {

@@ -18,7 +18,7 @@ export async function runCursorlessCommand(
 ) {
   //return vscode.commands.executeCommand(CURSORLESS_COMMAND_ID, command);
   const registry = require("@cursorless/neovim-registry").getNeovimRegistry();
-  registry.executeCommand(CURSORLESS_COMMAND_ID, command);
+  return await registry.executeCommand(CURSORLESS_COMMAND_ID, command);
   // return handleCommandInternal(
   //   client,
   //   neovimIDE,
