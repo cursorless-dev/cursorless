@@ -5,6 +5,8 @@
 - what about the eventEmitter? see NeovimEvents.ts
 - what about handleCommandInternal? see runCommand.ts
 
+- open PR: async-getFocusedElementType (Cursorless and command server)
+
 # mocha tests
 
 - pass the neovim client via dependency injection (do not import it between projects, since each extension has its own)(but for now it's fine to have the singleton)
