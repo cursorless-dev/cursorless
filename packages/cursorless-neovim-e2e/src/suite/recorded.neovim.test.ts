@@ -2,7 +2,6 @@ import {
   CommandResponse,
   ExcludableSnapshotField,
   Fallback,
-  NormalizedIDE,
   Position,
   PositionPlainObject,
   Selection,
@@ -18,17 +17,17 @@ import {
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
 } from "@cursorless/common";
-import { assert } from "chai";
-import * as yaml from "js-yaml";
-import { isUndefined } from "lodash";
-import { promises as fsp } from "node:fs";
-import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import {
   NeovimIDE,
   getCursorlessApi,
   openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/neovim-common";
+import { assert } from "chai";
+import * as yaml from "js-yaml";
+import { isUndefined } from "lodash";
+import { promises as fsp } from "node:fs";
+import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 
 function createPosition(position: PositionPlainObject) {
   return new Position(position.line, position.character);
@@ -41,7 +40,7 @@ function createSelection(selection: SelectionPlainObject): Selection {
 }
 
 suite("recorded test cases", async function () {
-  const { getSpy } = endToEndTestSetup(this);
+  const { getSpy, getNeovimIDE } = endToEndTestSetup(this);
 
   suiteSetup(async () => {
     // Necessary because opening a notebook opens the panel for some reason
@@ -65,29 +64,19 @@ suite("recorded test cases", async function () {
   for (const { name, path } of tests) {
     test(
       name,
-      asyncSafety(() => runTest(path, getSpy()!)),
+      asyncSafety(() => runTest(path, getSpy()!, getNeovimIDE()!)),
     );
   }
   // getRecordedTestPaths().forEach(({ name, path }) =>
   //   test(
   //     name,
-  //     asyncSafety(() => runTest(path, getSpy()!)),
+  //     asyncSafety(() => runTest(path, getSpy()!, getNeovimIDE()!)),
   //   ),
   // );
 });
 
-async function runTest(file: string, spyIde: SpyIDE) {
-  // const neovimClient = await require("@cursorless/cursorless-neovim")
-  //   .neovimClientExternal;
-  // const client = neovimClient();
+async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
   const client = (global as any).additionalParameters.client;
-  // TODO: not sure why but ide() returns an SpyIDE but then the
-  // test against instanceof SpyIDE fails...
-  // const getNeovimIDE = await require("@cursorless/cursorless-neovim")
-  //   .getNeovimIDEExternal;
-  // const neovimIDE = await getNeovimIDE();
-  const normalizedIDE = spyIde.original as NormalizedIDE;
-  const neovimIDE = normalizedIDE.original as NeovimIDE;
 
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
@@ -126,7 +115,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
 
-  const { takeSnapshot, setStoredTarget, commandServerApi, commandApi } = (
+  const { takeSnapshot, setStoredTarget, commandServerApi } = (
     await getCursorlessApi()
   ).testHelpers!;
 

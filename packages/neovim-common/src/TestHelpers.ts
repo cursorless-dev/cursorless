@@ -11,12 +11,14 @@ import type {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
+import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 // import { CommandApi } from "@cursorless/cursorless-engine";
 //import * as vscode from "vscode";
 //import { VscodeApi } from "./VscodeApi";
 
 export interface TestHelpers {
   ide: NormalizedIDE;
+  neovimIDE: NeovimIDE;
   injectIde: (ide: IDE) => void;
 
   scopeProvider: ScopeProvider;

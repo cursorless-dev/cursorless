@@ -9,8 +9,6 @@ import {
 import { neovimRegistry } from "@cursorless/neovim-registry";
 
 import { Buffer } from "neovim";
-// import { eventEmitter } from "../../events";
-// import { getNeovimIDE } from "../../../../neovim-common/src/neovimHelpers";
 
 export function neovimOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,

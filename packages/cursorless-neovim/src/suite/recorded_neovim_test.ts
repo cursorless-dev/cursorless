@@ -17,6 +17,7 @@ import {
   storedTargetKeys,
 } from "@cursorless/common";
 import {
+  NeovimIDE,
   getCursorlessApi,
   openNewEditor,
   runCursorlessCommand,
@@ -33,9 +34,7 @@ import {
 // import { commandApi } from "../singletons/cmdapi.singleton";
 // import { takeSnapshot } from "@cursorless/cursorless-engine";
 import { AssertionError } from "node:assert";
-import { getNeovimIDE } from "../neovimHelpers";
 import { neovimClient } from "../singletons/client.singleton";
-import { commandApi } from "../singletons/cmdapi.singleton";
 // import { setupFake } from "./setupFake";
 
 type errorType = {
@@ -93,7 +92,7 @@ function showSummaryTests() {
 }
 
 export async function runRecordedTestCases() {
-  const { getSpy } = await endToEndTestSetupOld();
+  const { getSpyAndNeovimIDE } = await endToEndTestSetupOld();
 
   // Run all tests
   const tests = getRecordedTestPaths();
@@ -110,7 +109,8 @@ export async function runRecordedTestCases() {
   for (const { name, path } of tests) {
     let executed = true;
     try {
-      executed = await runTest(name, path, await getSpy()!);
+      const { spy, neovimIDE } = await getSpyAndNeovimIDE();
+      executed = await runTest(name, path, spy!, neovimIDE!);
     } catch (err) {
       const error = err as AssertionError;
       showFailedTest(name, error);
@@ -129,10 +129,9 @@ async function runTest(
   name: string,
   file: string,
   spyIde: SpyIDE,
+  neovimIDE: NeovimIDE,
 ): Promise<boolean> {
   const client = neovimClient();
-  const neovimIDE = getNeovimIDE();
-  const cmdApi = commandApi();
 
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
@@ -216,16 +215,10 @@ async function runTest(
   let fallback: Fallback | undefined;
 
   try {
-    returnValue = await runCursorlessCommand(
-      // client,
-      // neovimIDE,
-      // cmdApi,
-      // commandServerApi,
-      {
-        ...fixture.command,
-        usePrePhraseSnapshot,
-      },
-    );
+    returnValue = await runCursorlessCommand({
+      ...fixture.command,
+      usePrePhraseSnapshot,
+    });
     if (clientSupportsFallback(fixture.command)) {
       const commandResponse = returnValue as CommandResponse;
       returnValue =

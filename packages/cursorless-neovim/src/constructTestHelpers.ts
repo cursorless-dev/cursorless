@@ -40,6 +40,7 @@ export function constructTestHelpers(
     // commandApi: commandApi!,
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
+    neovimIDE,
     injectIde,
     scopeProvider,
 
