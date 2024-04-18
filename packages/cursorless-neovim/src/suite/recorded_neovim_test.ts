@@ -25,17 +25,13 @@ import {
 import { assert } from "chai";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
+import { NeovimClient } from "neovim";
+import { AssertionError } from "node:assert";
 import { promises as fsp } from "node:fs";
-// import * as vscode from "vscode";
 import {
   endToEndTestSetupOld,
   sleepWithBackoffOld,
 } from "../endToEndTestSetupOld";
-// import { commandApi } from "../singletons/cmdapi.singleton";
-// import { takeSnapshot } from "@cursorless/cursorless-engine";
-import { AssertionError } from "node:assert";
-import { neovimClient } from "../singletons/client.singleton";
-// import { setupFake } from "./setupFake";
 
 type errorType = {
   [key: string]: AssertionError;
@@ -92,7 +88,7 @@ function showSummaryTests() {
 }
 
 export async function runRecordedTestCases() {
-  const { getSpyAndNeovimIDE } = await endToEndTestSetupOld();
+  const { getContext } = await endToEndTestSetupOld();
 
   // Run all tests
   const tests = getRecordedTestPaths();
@@ -109,8 +105,8 @@ export async function runRecordedTestCases() {
   for (const { name, path } of tests) {
     let executed = true;
     try {
-      const { spy, neovimIDE } = await getSpyAndNeovimIDE();
-      executed = await runTest(name, path, spy!, neovimIDE!);
+      const { spy, neovimIDE, client } = await getContext();
+      executed = await runTest(name, path, spy!, neovimIDE!, client);
     } catch (err) {
       const error = err as AssertionError;
       showFailedTest(name, error);
@@ -130,9 +126,8 @@ async function runTest(
   file: string,
   spyIde: SpyIDE,
   neovimIDE: NeovimIDE,
+  client: NeovimClient,
 ): Promise<boolean> {
-  const client = neovimClient();
-
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];

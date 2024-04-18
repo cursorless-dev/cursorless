@@ -1,6 +1,5 @@
-import { NeovimClient, NvimPlugin } from "neovim";
+import { NvimPlugin } from "neovim";
 import { activate } from "./extension";
-import { neovimClient } from "./singletons/client.singleton";
 import { runRecordedTestCases } from "./suite/recorded_neovim_test";
 
 /**
@@ -39,8 +38,4 @@ async function loadExtension(plugin: NvimPlugin) {
   console.log("loadExtension(cursorless-neovim): start");
   await activate(plugin);
   console.log("loadExtension(cursorless-neovim): done");
-}
-
-export function neovimClientExternal(): NeovimClient {
-  return neovimClient();
 }

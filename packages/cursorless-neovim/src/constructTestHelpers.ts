@@ -23,8 +23,10 @@ import {
   NeovimIDE,
   TestHelpers,
 } from "@cursorless/neovim-common";
+import { NeovimClient } from "neovim";
 
 export function constructTestHelpers(
+  client: NeovimClient,
   commandApi: CommandApi,
   commandServerApi: FakeCommandServerApi,
   storedTargets: StoredTargetMap,
@@ -37,6 +39,7 @@ export function constructTestHelpers(
   runIntegrationTests: () => Promise<void>,
 ): TestHelpers | undefined {
   return {
+    client,
     // commandApi: commandApi!,
     commandServerApi: commandServerApi!,
     ide: normalizedIde,

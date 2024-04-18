@@ -20,15 +20,11 @@ import * as path from "path";
 import { Language, Tree } from "web-tree-sitter";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
-import { injectCommandApi } from "./singletons/cmdapi.singleton";
-// import { injectCursorlessApi } from "./singletons/cursorlessapi.singleton";
 import { EXTENSION_ID } from "@cursorless/neovim-common";
+import { neovimRegistry } from "@cursorless/neovim-registry";
 import { NeovimClient } from "neovim/lib/api/client";
 import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
-import { injectClient } from "./singletons/client.singleton";
-import { injectCommandServerApi } from "./singletons/cmdsrvapi.singleton";
 import { registerCommands } from "./registerCommands";
-import { neovimRegistry } from "@cursorless/neovim-registry";
 
 /**
  * This function is called from talon.nvim to initialize the Cursorless engine.
@@ -36,9 +32,7 @@ import { neovimRegistry } from "@cursorless/neovim-registry";
  * We named it activate() in order to have the same structure as the extension entrypoint to match cursorless-vscode
  */
 export async function activate(plugin: NvimPlugin) {
-  // debugger;
   const client = plugin.nvim as NeovimClient;
-  injectClient(client);
   const buffer = await client.buffer;
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(client);
@@ -62,7 +56,6 @@ export async function activate(plugin: NvimPlugin) {
     neovimIDE.runMode === "test"
       ? fakeCommandServerApi
       : neovimCommandServerApi;
-  injectCommandServerApi(commandServerApi);
 
   const treeSitter: TreeSitter = createTreeSitter();
 
@@ -83,8 +76,6 @@ export async function activate(plugin: NvimPlugin) {
     commandServerApi,
     fileSystem,
   );
-  injectCommandApi(commandApi);
-  // debugger; // NOTE: helps debugging
 
   await registerCommands(client, neovimIDE, commandApi, commandServerApi);
 
@@ -92,6 +83,7 @@ export async function activate(plugin: NvimPlugin) {
     testHelpers:
       neovimIDE.runMode === "test"
         ? constructTestHelpers(
+            client,
             commandApi,
             fakeCommandServerApi,
             storedTargets,
@@ -110,7 +102,6 @@ export async function activate(plugin: NvimPlugin) {
     },
   };
   neovimRegistry.registerExtensionApi(EXTENSION_ID, cursorlessApi);
-  // injectCursorlessApi(cursorlessApi);
 
   // await updateTextEditor(client, neovimIDE, true);
   console.log("activate(): Cursorless extension loaded");

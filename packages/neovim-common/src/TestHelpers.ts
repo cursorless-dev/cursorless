@@ -12,11 +12,13 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
+import { NeovimClient } from "neovim";
 // import { CommandApi } from "@cursorless/cursorless-engine";
 //import * as vscode from "vscode";
 //import { VscodeApi } from "./VscodeApi";
 
 export interface TestHelpers {
+  client: NeovimClient;
   ide: NormalizedIDE;
   neovimIDE: NeovimIDE;
   injectIde: (ide: IDE) => void;

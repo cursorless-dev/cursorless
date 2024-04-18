@@ -17,15 +17,15 @@ const retryCount = 5;
 
 export async function endToEndTestSetupOld() {
   async function setup() {
-    const { ide, injectIde, neovimIDE } = (await getCursorlessApi())
+    const { ide, injectIde, neovimIDE, client } = (await getCursorlessApi())
       .testHelpers!;
     const spy = new SpyIDE(ide);
     injectIde(spy);
-    return { spy, neovimIDE };
+    return { spy, neovimIDE, client };
   }
 
   return {
-    async getSpyAndNeovimIDE() {
+    async getContext() {
       return await setup();
     },
   };
