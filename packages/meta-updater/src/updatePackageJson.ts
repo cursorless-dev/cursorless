@@ -44,7 +44,8 @@ export async function updatePackageJson(
       ? input.name
       : `@cursorless/${input.name}`;
 
-  const isLib = !isRoot && !input.private;
+  const isLib =
+    !isRoot && !input.private && input.name !== "@cursorless/neovim-registry";
 
   const exportFields: Partial<PackageJson> = !isLib
     ? {}
