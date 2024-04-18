@@ -35,7 +35,7 @@ export function registerCommands(
       try {
         return await commandApi.runCommandSafe(...args);
       } catch (e) {
-        if (!isTesting()) {
+        if (!isTesting(vscodeIde)) {
           const err = e as Error;
           console.error(err.stack);
           vscodeIde.handleCommandError(err);

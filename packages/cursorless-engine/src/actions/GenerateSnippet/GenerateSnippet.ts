@@ -1,4 +1,4 @@
-import { FlashStyle, isTesting, Range } from "@cursorless/common";
+import { FlashStyle, Range, isTesting } from "@cursorless/common";
 import { Offsets } from "../../processTargets/modifiers/surroundingPair/types";
 import { ide } from "../../singletons/ide.singleton";
 import { Target } from "../../typings/target.types";
@@ -220,7 +220,7 @@ export default class GenerateSnippet {
 
     const editableEditor = ide().getEditableTextEditor(editor);
 
-    if (isTesting()) {
+    if (isTesting(ide())) {
       // If we're testing, we just overwrite the current document
       await editableEditor.setSelections([
         editor.document.range.toSelection(false),

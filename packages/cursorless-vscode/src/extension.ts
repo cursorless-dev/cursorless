@@ -3,44 +3,32 @@ import {
   FakeCommandServerApi,
   FakeIDE,
   IDE,
-  isTesting,
   NormalizedIDE,
   Range,
   ScopeProvider,
   ScopeType,
   TextDocument,
+  isProduction,
+  isTesting,
 } from "@cursorless/common";
 import {
   CommandHistory,
-  createCursorlessEngine,
   TestCaseRecorder,
   TreeSitter,
+  createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
 import {
   CursorlessApi,
+  ParseTreeApi,
   getCommandServerApi,
   getParseTreeApi,
-  ParseTreeApi,
   toVscodeRange,
 } from "@cursorless/vscode-common";
 import * as crypto from "crypto";
 import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
-import { constructTestHelpers } from "./constructTestHelpers";
-import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
-import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
-import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
-import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
-import { VscodeIDE } from "./ide/vscode/VscodeIDE";
-import {
-  createVscodeScopeVisualizer,
-  VscodeScopeVisualizer,
-} from "./ide/vscode/VSCodeScopeVisualizer";
-import { KeyboardCommands } from "./keyboard/KeyboardCommands";
-import { registerCommands } from "./registerCommands";
 import { ReleaseNotes } from "./ReleaseNotes";
-import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
 import { ScopeTreeProvider } from "./ScopeTreeProvider";
 import {
   ScopeVisualizer,
@@ -48,6 +36,19 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
+import { constructTestHelpers } from "./constructTestHelpers";
+import {
+  VscodeScopeVisualizer,
+  createVscodeScopeVisualizer,
+} from "./ide/vscode/VSCodeScopeVisualizer";
+import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
+import { VscodeIDE } from "./ide/vscode/VscodeIDE";
+import { FakeFontMeasurements } from "./ide/vscode/hats/FakeFontMeasurements";
+import { FontMeasurementsImpl } from "./ide/vscode/hats/FontMeasurementsImpl";
+import { VscodeHats } from "./ide/vscode/hats/VscodeHats";
+import { KeyboardCommands } from "./keyboard/KeyboardCommands";
+import { registerCommands } from "./registerCommands";
+import { revisualizeOnCustomRegexChange } from "./revisualizeOnCustomRegexChange";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
 
@@ -66,17 +67,12 @@ export async function activate(
 
   const { vscodeIDE, hats, fileSystem } = await createVscodeIde(context);
 
-  const normalizedIde =
-    vscodeIDE.runMode === "production"
-      ? vscodeIDE
-      : new NormalizedIDE(
-          vscodeIDE,
-          new FakeIDE(),
-          vscodeIDE.runMode === "test",
-        );
+  const normalizedIde = isProduction(vscodeIDE)
+    ? vscodeIDE
+    : new NormalizedIDE(vscodeIDE, new FakeIDE(), isTesting(vscodeIDE));
 
   const fakeCommandServerApi = new FakeCommandServerApi();
-  const commandServerApi = isTesting()
+  const commandServerApi = isTesting(vscodeIDE)
     ? fakeCommandServerApi
     : await getCommandServerApi();
 
@@ -147,7 +143,7 @@ export async function activate(
   new ReleaseNotes(vscodeApi, context, normalizedIde.messages).maybeShow();
 
   return {
-    testHelpers: isTesting()
+    testHelpers: isTesting(vscodeIDE)
       ? constructTestHelpers(
           fakeCommandServerApi,
           storedTargets,
@@ -174,7 +170,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
     vscodeIDE,
     vscodeApi,
     context,
-    vscodeIDE.runMode === "test"
+    isTesting(vscodeIDE)
       ? new FakeFontMeasurements()
       : new FontMeasurementsImpl(context),
   );
@@ -184,7 +180,7 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   // extension initialization, probably by returning a function from extension
   // init that has parameters consisting of test configuration, and have that
   // function do the actual initialization.
-  const cursorlessDir = isTesting()
+  const cursorlessDir = isTesting(vscodeIDE)
     ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
     : path.join(os.homedir(), ".cursorless");
 

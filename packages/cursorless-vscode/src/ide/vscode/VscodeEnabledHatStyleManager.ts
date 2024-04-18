@@ -1,13 +1,17 @@
-import { isTesting } from "@cursorless/common";
+import {
+  HatStyleInfo,
+  HatStyleMap,
+  Listener,
+  Notifier,
+  isTesting,
+} from "@cursorless/common";
 import { pickBy } from "lodash";
 import * as vscode from "vscode";
-import { HatStyleInfo, HatStyleMap } from "@cursorless/common";
-import { Listener, Notifier } from "@cursorless/common";
 import {
-  HatColor,
-  HatShape,
   HAT_COLORS,
   HAT_NON_DEFAULT_SHAPES,
+  HatColor,
+  HatShape,
   VscodeHatStyleName,
 } from "./hatStyles.types";
 
