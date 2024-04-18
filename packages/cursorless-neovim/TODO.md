@@ -1,3 +1,31 @@
+# questions for Pokey
+
+- get rid of the neovim client singleton
+- should the neovim IDE, neovim text editor and neovim text document, etc be in neovim-common? see NeovimIDE being used in recorded.neovim.test.ts
+- what about the eventEmitter? see NeovimEvents.ts
+- what about handleCommandInternal? see runCommand.ts
+
+# mocha tests
+
+- pass the neovim client via dependency injection (do not import it between projects, since each extension has its own)(but for now it's fine to have the singleton)
+  - We directly import vscode in various places in cursorless vscode. We’re trying to stop, but not the end of the world if it merges that way
+  - the neovim e2e extension can have its own client
+  - we can pass the neovim client to mocha tests using a global. there’s a way to give mocha an object that tests can access https://mochajs.org/api/mocha#run not ideal, but maybe try a global variable for now https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196 take the neovim client you get when the test-harness is activated, set it on the global variable, and then get it from within the recorded.neovim.test. I just have the feeling that if things in the test runner extension need neovim client that comes in during extension activation, they should use the one that they get when the test runner extension is activated. there’s probably better ways to do it, but for now I think that’s better than different extensions relying on each others’ neovim clients.
+- thinking on it, in theory we could use `global` for the other stuff in test-harness. not the prettiest thing, but it does pretty accurately capture what’s going on here. worth seeing whether there’s one single global object that any code within the same node process can access / modify
+- create the new neovim registry package
+- the neovim registry package would basically be 2 dictionaries, one to hold commands and another one to hold apis
+- mocha environment shouldn’t be calling functions from cursorless-neovim. I have crossed that boundary lol
+  - basically mocha tests need to talk to cursorless-neovim, and they need to talk to neovim
+  - for the former (talking to cursorless-neovim) they should do so via the neovim-registry package we discussed
+  - for talking to neovim, they should do it via the neovim client that gets passed in when the e2e extension activates
+  - `openNewEditor` should go into some kind of `neovim-common` or something so both can access it. that’s how it works for vscode. we have `@cursorless/vscode`, `vscode-common`, and `@cursorless/vscode-e2e`. `@cursorless/vscode` and `@cursorless/vscode-e2e` both import from `vscode-common`
+  - oh is `openNewEditor` only needed by the test harness? in that case i’d still make the client be an arg to `openNewEditor`, but it can just exist in `@cursorless/neovim-e2e`
+  - tbh ideally `test-harness` shouldn’t have access to `ide` at all. fwiw in vscode we just pass pointers to the functions we need through cursorlessApi rather than passing the whole ide. otherwise you end up needing the test harness to import cursorless-neovim in order to get the types it wants. notice how the type signature of the helpers lives in a the `vscode-common` shared dependency https://github.com/cursorless-dev/cursorless/blob/main/packages/vscode-common/src/TestHelpers.ts
+- So I need to add 3 packages: `cursorless-neovim-e2e` (for `recorded.neovim.test.ts`) and `neovim-common` (with helpers to talk to neovim through neovimClient) and `neovim-registry` (to register stuff and access them from anywhere) and `test-harness` (for the mocha machinery)
+  - fwiw in neovim-common, I think it should only ever get the client passed in as an arg and not store it. neovim-common should be stateless, ie no globals / singletons, that way we don’t care how / where it gets bundled up
+  - tbh as much of our code as possible should be stateless ie no globals / singletons
+- but before we get too far it’s worth verifying that you can get the `neovim client` from the mocha `test-harness` to the test case itself
+
 # questions
 
 - unit tests for lineCount similar to C:\work\tools\voicecoding\cursorless_fork\packages\common\src\types\range.test.ts or selection.test.ts
@@ -44,8 +72,5 @@
 
 # fidgeting
 
+- how do you paste in terminal mode?
 - vim plugins in my init.lua?
-- fix neovim terminology
-  - extension => plugin
-  - editor => window (any place remaining?)
-    have readme with the corresponding terms between vscode and neovim
