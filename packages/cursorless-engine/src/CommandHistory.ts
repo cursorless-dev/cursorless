@@ -7,13 +7,12 @@ import {
   IDE,
   ReadOnlyHatMap,
 } from "@cursorless/common";
-
 import { produce } from "immer";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { v4 as uuid } from "uuid";
-import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 import { CommandRunner } from "./CommandRunner";
+import { CommandRunnerDecorator } from "./api/CursorlessEngineApi";
 
 const filePrefix = "cursorlessCommandHistory";
 

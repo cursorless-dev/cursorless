@@ -10,5 +10,3 @@ export * from "./api/CursorlessEngineApi";
 export * from "./CommandRunner";
 export * from "./CommandHistory";
 export * from "./CommandHistoryAnalyzer";
-// DEP-INJ: do not export it. we can do that after using pure dependency injection
-export * from "./singletons/ide.singleton";
