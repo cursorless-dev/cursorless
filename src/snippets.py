@@ -16,6 +16,19 @@ class InsertionSnippet:
     destination: CursorlessDestination
 
 
+@dataclass
+class CommunityInsertionSnippet:
+    body: str
+    scopes: list[str] = None
+
+
+@dataclass
+class CommunityWrapperSnippet:
+    body: str
+    variable_name: str
+    scope: str = None
+
+
 mod = Module()
 
 mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet action")
@@ -25,6 +38,11 @@ mod.list("cursorless_insert_snippet_action", desc="Cursorless insert snippet act
 mod.tag(
     "cursorless_experimental_snippets",
     desc="tag for enabling experimental snippet support",
+)
+
+mod.tag(
+    "cursorless_use_community_snippets",
+    "If active use community snippets instead of Cursorless snippets",
 )
 
 mod.list("cursorless_wrapper_snippet", desc="Cursorless wrapper snippet")
@@ -180,4 +198,22 @@ class Actions:
         wrap_with_snippet(
             snippet_arg,
             target,
+        )
+
+    def private_cursorless_insert_community_snippet(
+        name: str, destination: CursorlessDestination
+    ):
+        """Cursorless: Insert community snippet <name>"""
+        snippet: CommunityInsertionSnippet = actions.user.get_insertion_snippet(name)
+        actions.user.cursorless_insert_snippet(
+            snippet.body, destination, snippet.scopes
+        )
+
+    def private_cursorless_wrap_with_community_snippet(
+        name: str, target: CursorlessTarget
+    ):
+        """Cursorless: Wrap target with community snippet <name>"""
+        snippet: CommunityWrapperSnippet = actions.user.get_wrapper_snippet(name)
+        actions.user.cursorless_wrap_with_snippet(
+            snippet.body, target, snippet.variable_name, snippet.scope
         )
