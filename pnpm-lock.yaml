@@ -256,6 +256,12 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      moo:
+        specifier: 0.5.2
+        version: 0.5.2
+      nearley:
+        specifier: 2.20.1
+        version: 2.20.1(patch_hash=mg2fc7wgvzub3myuz6m74hllma)
       node-html-parser:
         specifier: ^6.1.12
         version: 6.1.12
@@ -281,6 +287,12 @@ importers:
       '@types/mocha':
         specifier: ^10.0.6
         version: 10.0.6
+      '@types/moo':
+        specifier: 0.5.9
+        version: 0.5.9
+      '@types/nearley':
+        specifier: 2.11.5
+        version: 2.11.5(patch_hash=5bomp3nnmdzdyzcgrxyr5kymae)
       '@types/sbd':
         specifier: ^1.0.5
         version: 1.0.5
@@ -5068,6 +5080,10 @@ packages:
 
   /@types/mocha@10.0.6:
     resolution: {integrity: sha512-dJvrYWxP/UcXm36Qn36fxhUKu8A/xMRXVT2cliFF1Z7UA9liG5Psj3ezNSZw+5puH2czDXRLcXQxf8JbJt0ejg==}
+    dev: true
+
+  /@types/moo@0.5.9:
+    resolution: {integrity: sha512-ZsFVecFi66jGQ6L41TonEaBhsIVeVftTz6iQKWTctzacHhzYHWvv9S0IyAJi4BhN7vb9qCQ3+kpStP2vbZqmDg==}
     dev: true
 
   /@types/ms@0.7.34:

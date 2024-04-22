@@ -1,6 +1,7 @@
 @preprocessor typescript
 @{%
-import { capture, command, UNUSED as _, argPositions } from "../grammarHelpers"
+import { capture, UNUSED as _, argPositions } from "@cursorless/cursorless-engine"
+import { command } from "../command"
 import { keyboardLexer } from "../keyboardLexer";
 
 const { $0, $1, $2 } = argPositions;
