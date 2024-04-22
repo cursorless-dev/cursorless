@@ -1,7 +1,7 @@
 // Helper directly calling into Neovim apis, generally lua, exported by talon.nvim
 import { Position, Range, Selection } from "@cursorless/common";
-import { NeovimClient } from "neovim/lib/api/client";
-import { Window } from "neovim/lib/api/Window";
+import type { NeovimClient } from "neovim/lib/api/client";
+import type { Window } from "neovim/lib/api/Window";
 
 /**
  * Get the current "selections" in the window(editor)

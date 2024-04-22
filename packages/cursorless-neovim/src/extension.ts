@@ -22,8 +22,8 @@ import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { EXTENSION_ID } from "@cursorless/neovim-common";
 import { neovimRegistry } from "@cursorless/neovim-registry";
-import { NeovimClient } from "neovim/lib/api/client";
-import { NvimPlugin } from "neovim/lib/host/NvimPlugin";
+import type { NeovimClient } from "neovim/lib/api/client";
+import type { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { registerCommands } from "./registerCommands";
 
 /**

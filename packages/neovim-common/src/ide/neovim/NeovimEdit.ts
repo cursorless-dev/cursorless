@@ -5,7 +5,7 @@ import {
   TextDocument,
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
-import { NeovimClient, Window } from "neovim";
+import type { NeovimClient, Window } from "neovim";
 // import { eventEmitter } from "../../events";
 import { updateTextEditor } from "../../updateTextEditor";
 import { NeovimIDE } from "./NeovimIDE";

@@ -3,7 +3,7 @@ import {
   FocusedElementType,
   InboundSignal,
 } from "@cursorless/common";
-import { NeovimClient } from "neovim/lib/api/client";
+import type { NeovimClient } from "neovim/lib/api/client";
 
 export class NeovimCommandServerApi implements CommandServerApi {
   signals: { prePhrase: InboundSignal };

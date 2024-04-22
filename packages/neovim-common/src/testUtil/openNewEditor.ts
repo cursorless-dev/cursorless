@@ -1,4 +1,4 @@
-import { NeovimClient } from "neovim";
+import type { NeovimClient } from "neovim";
 import { NeovimIDE } from "../ide/neovim/NeovimIDE";
 import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { NeovimTextEditorImpl } from "../ide/neovim/NeovimTextEditorImpl";

@@ -5,7 +5,7 @@ import {
 } from "@cursorless/common";
 import { neovimRegistry } from "@cursorless/neovim-registry";
 // import { CommandApi } from "@cursorless/cursorless-engine";
-// import { NeovimClient } from "neovim";
+// import type { NeovimClient } from "neovim";
 // import { handleCommandInternal } from "../../cursorless-neovim/src/registerCommands";
 // import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 //import * as vscode from "vscode";

@@ -23,7 +23,7 @@ import {
   NeovimIDE,
   TestHelpers,
 } from "@cursorless/neovim-common";
-import { NeovimClient } from "neovim";
+import type { NeovimClient } from "neovim";
 
 export function constructTestHelpers(
   client: NeovimClient,

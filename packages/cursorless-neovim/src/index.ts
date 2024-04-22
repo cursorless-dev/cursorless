@@ -1,4 +1,4 @@
-import { NvimPlugin } from "neovim";
+import type { NvimPlugin } from "neovim";
 import { activate } from "./extension";
 import { runRecordedTestCases } from "./suite/recorded_neovim_test";
 

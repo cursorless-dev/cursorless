@@ -9,7 +9,7 @@ import {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
-import { NeovimClient, Window } from "neovim";
+import type { NeovimClient, Window } from "neovim";
 import { bufferSetSelections } from "../../neovimApi";
 import { neovimClipboardCopy, neovimClipboardPaste } from "../../neovimHelpers";
 import neovimEdit from "./NeovimEdit";

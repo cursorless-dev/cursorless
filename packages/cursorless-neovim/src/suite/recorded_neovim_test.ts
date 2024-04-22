@@ -25,7 +25,7 @@ import {
 import { assert } from "chai";
 import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
-import { NeovimClient } from "neovim";
+import type { NeovimClient } from "neovim";
 import { AssertionError } from "node:assert";
 import { promises as fsp } from "node:fs";
 import {

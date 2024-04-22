@@ -8,7 +8,7 @@ import {
 } from "@cursorless/common";
 import { neovimRegistry } from "@cursorless/neovim-registry";
 
-import { Buffer } from "neovim";
+import type { Buffer } from "neovim";
 
 export function neovimOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,

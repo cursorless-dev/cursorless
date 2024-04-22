@@ -12,7 +12,7 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-import { NeovimClient } from "neovim";
+import type { NeovimClient } from "neovim";
 // import { CommandApi } from "@cursorless/cursorless-engine";
 //import * as vscode from "vscode";
 //import { VscodeApi } from "./VscodeApi";

@@ -28,7 +28,7 @@ import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
-import { NeovimClient, Window, Buffer } from "neovim";
+import type { NeovimClient, Window, Buffer } from "neovim";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 import { getTalonNvimPath } from "../../../../neovim-common/src/neovimApi";
 import path from "path";

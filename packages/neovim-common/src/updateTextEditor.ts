@@ -3,7 +3,7 @@ import {
   windowGetVisibleRanges,
 } from "../../neovim-common/src/neovimApi";
 import { Range, Selection } from "@cursorless/common";
-import { NeovimClient } from "neovim";
+import type { NeovimClient } from "neovim";
 // import { eventEmitter } from "./events";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
