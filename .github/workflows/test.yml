@@ -27,11 +27,11 @@ jobs:
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - uses: actions/setup-node@v4
         with:
-          node-version-file: package.json
+          node-version-file: .nvmrc
           cache: pnpm
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
@@ -55,19 +55,19 @@ jobs:
       - run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
         if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
       - name: Upload vsix
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
         with:
           name: vsix
           path: cursorless-development.vsix
       - name: Archive logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: logs
           path: ${{ env.VSCODE_LOGS_DIR }}
         if: failure()
       - name: Archive dumps
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dumps
           path: ${{ env.VSCODE_CRASH_DIR }}

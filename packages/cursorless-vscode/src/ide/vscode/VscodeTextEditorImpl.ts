@@ -52,7 +52,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor.selections.map(fromVscodeSelection);
   }
 
-  set selections(selections: Selection[]) {
+  async setSelections(selections: Selection[]): Promise<void> {
     this.editor.selections = selections.map(toVscodeSelection);
   }
 
@@ -146,7 +146,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public async insertLineAfter(ranges?: Range[]): Promise<void> {
     if (ranges != null) {
-      this.selections = ranges.map((range) => range.toSelection(false));
+      await this.setSelections(ranges.map((range) => range.toSelection(false)));
     }
     await this.focus();
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
