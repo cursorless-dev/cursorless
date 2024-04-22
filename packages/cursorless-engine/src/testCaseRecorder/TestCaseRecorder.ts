@@ -295,7 +295,7 @@ export class TestCaseRecorder {
               ? spokenForm.spokenForms[0]
               : command.spokenForm,
         },
-        this.commandServerApi?.getFocusedElementType(),
+        await this.commandServerApi?.getFocusedElementType(),
         hatTokenMap,
         this.storedTargets,
         this.spyIde,
