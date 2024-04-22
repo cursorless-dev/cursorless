@@ -2,13 +2,26 @@
 
 - get rid of the neovim client singleton
 - should the neovim IDE, neovim text editor and neovim text document, etc be in neovim-common? see NeovimIDE being used in recorded.neovim.test.ts
-- what about the eventEmitter? see NeovimEvents.ts
-- what about handleCommandInternal? see runCommand.ts
+- npm install --omit=dev
+- consider rolling up command-server (based on registry)
+- try to move all dependencies to dev dependencies (including neovim)
+- consider including node_modules into final repo
+- enforce importing type e.g. "import type { NeovimClient } from "neovim";" so it disappears at runtime
+- try to see to avoid "npm install" in cursorless-neovim and it will continue working
+  (will be needed in command-server until we roll it up)
+- get rid of --packages=external in all of them
+- see " "esbuild:prod": "pnpm run esbuild:base --minify"," from package.json cursorless-vscode to not include maps (!= "esbuild": "pnpm run esbuild:base --sourcemap",)
+- think about node/ repo from talon.nvim in != repo because 100MB...
 
 - open PR:
+
   - async getFocusedElementType (Cursorless and command server)
   - test-harness vscode specifics
   - some missing await
+  - enable the "user.command_client" tag for "neovim" app (community)
+  - enable user.cursorless tag for "neovim" app (cursorless)
+
+- terminal: `bring second paint row one` works but `take second paint row one` followed by `bring this` does not. It is because it tries to bring it to the current cursor instead of using the fallback method: `Exception: nvim_buf_set_lines: Buffer is not 'modifiable'`
 
 # mocha tests
 
