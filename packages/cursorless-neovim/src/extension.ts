@@ -69,7 +69,7 @@ export async function activate(plugin: NvimPlugin) {
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = await createCursorlessEngine(
+  } = createCursorlessEngine(
     treeSitter,
     normalizedIde,
     hats,

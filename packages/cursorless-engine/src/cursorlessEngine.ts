@@ -31,21 +31,24 @@ import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
 
-export async function createCursorlessEngine(
+export function createCursorlessEngine(
   treeSitter: TreeSitter,
   ide: IDE,
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
-): Promise<CursorlessEngine> {
+): CursorlessEngine {
   injectIde(ide);
 
   const debug = new Debug(treeSitter);
 
   const rangeUpdater = new RangeUpdater();
 
+  // NOTE: do not await on snippet loading and hats initialization because we don't want to
+  // block extension activation
+
   const snippets = new Snippets();
-  await snippets.init();
+  snippets.init();
 
   const hatTokenMap = new HatTokenMapImpl(
     rangeUpdater,
@@ -53,7 +56,7 @@ export async function createCursorlessEngine(
     hats,
     commandServerApi,
   );
-  await hatTokenMap.allocateHats();
+  hatTokenMap.allocateHats();
 
   const storedTargets = new StoredTargetMap();
 
