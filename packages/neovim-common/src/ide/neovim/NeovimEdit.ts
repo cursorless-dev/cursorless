@@ -9,7 +9,7 @@ import type { NeovimClient, Window } from "neovim";
 // import { eventEmitter } from "../../events";
 import { updateTextEditor } from "../../updateTextEditor";
 import { NeovimIDE } from "./NeovimIDE";
-import { neovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 export default async function neovimEdit(
   client: NeovimClient,
@@ -70,7 +70,7 @@ export default async function neovimEdit(
   //   document: document,
   //   contentChanges: changes,
   // });
-  neovimRegistry.emitEvent("onDidChangeTextDocument", {
+  getNeovimRegistry().emitEvent("onDidChangeTextDocument", {
     document: document,
     contentChanges: changes,
   });

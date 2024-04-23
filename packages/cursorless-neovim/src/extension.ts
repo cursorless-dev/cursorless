@@ -21,7 +21,7 @@ import { Language, Tree } from "web-tree-sitter";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
 import { EXTENSION_ID } from "@cursorless/neovim-common";
-import { neovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import type { NeovimClient } from "neovim/lib/api/client";
 import type { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { registerCommands } from "./registerCommands";
@@ -101,7 +101,7 @@ export async function activate(plugin: NvimPlugin) {
       registerThirdPartySnippets: snippets.registerThirdPartySnippets,
     },
   };
-  neovimRegistry.registerExtensionApi(EXTENSION_ID, cursorlessApi);
+  getNeovimRegistry().registerExtensionApi(EXTENSION_ID, cursorlessApi);
 
   // await updateTextEditor(client, neovimIDE, true);
   console.log("activate(): Cursorless extension loaded");

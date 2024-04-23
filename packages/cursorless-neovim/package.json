@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.cjs --external:@cursorless/neovim-registry --platform=node",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",

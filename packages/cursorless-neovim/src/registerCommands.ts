@@ -13,7 +13,7 @@ import {
   updateTextEditor,
 } from "@cursorless/neovim-common";
 import type { NeovimClient } from "neovim";
-import { neovimRegistry } from "@cursorless/neovim-registry";
+import { getNeovimRegistry } from "@cursorless/neovim-registry";
 // TODO - we need to fix that import as we should not be allowed to import it afaict?
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
@@ -137,7 +137,7 @@ export async function registerCommands(
   // TODO: import from the top of the file and do not need a require since it will be external
   // undo it everywhere else and also in the commandr server
   Object.entries(commands).map(([commandId, callback]) =>
-    neovimRegistry.registerCommand(commandId, callback),
+    getNeovimRegistry().registerCommand(commandId, callback),
   );
 }
 
