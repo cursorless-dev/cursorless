@@ -709,7 +709,7 @@ importers:
         version: 3.0.8
 
   packages/neovim-registry:
-    dependencies:
+    devDependencies:
       neovim:
         specifier: 5.1.0
         version: 5.1.0
