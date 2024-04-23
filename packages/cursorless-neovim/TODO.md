@@ -1,5 +1,9 @@
 # questions for Pokey
 
+- move lua files and all cursorless files to cursorless mono repo
+- .js into its own cursorless.nvim (only used for deployment similar to cursorless-talon)
+- duplicate the .lua and .vim files if needed but for now nothing needs to be duplicated so is fine! later we can deal with duplications if needed, don't overthink for now!
+
 - get rid of the neovim client singleton
 - should the neovim IDE, neovim text editor and neovim text document, etc be in neovim-common? see NeovimIDE being used in recorded.neovim.test.ts
 - npm install --omit=dev
