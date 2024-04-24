@@ -1,17 +1,12 @@
-import * as semver from "semver";
+import { getCellIndex } from "@cursorless/vscode-common";
 import {
   commands,
   NotebookDocument,
   TextEditor,
-  version,
   ViewColumn,
   window,
 } from "vscode";
-import { getCellIndex } from "@cursorless/vscode-common";
 import { getNotebookFromCellDocument } from "./notebook/notebook";
-import { focusNotebookCellLegacy } from "./notebook/notebookLegacy";
-import { isVscodeLegacyNotebookVersion } from "./notebook/notebook";
-import type { VscodeIDE } from "./VscodeIDE";
 import { VscodeTextEditorImpl } from "./VscodeTextEditorImpl";
 
 const columnFocusCommands = {
@@ -28,10 +23,7 @@ const columnFocusCommands = {
   [ViewColumn.Beside]: "",
 };
 
-export default async function vscodeFocusEditor(
-  ide: VscodeIDE,
-  editor: VscodeTextEditorImpl,
-) {
+export default async function vscodeFocusEditor(editor: VscodeTextEditorImpl) {
   // Focusing the search editor brings focus back to the input field.
   // FIXME: This is a hack. There is no way to focus the search editor. If we
   // could figure out if the editor was not focused, we could issue
@@ -48,10 +40,6 @@ export default async function vscodeFocusEditor(
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
 
-    if (isVscodeLegacyNotebookVersion()) {
-      return await focusNotebookCellLegacy(ide, editor);
-    }
-
     await focusNotebookCell(editor);
   }
 }
@@ -60,14 +48,12 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   if (editor.viewColumn != null) {
     return editor.viewColumn;
   }
-  // FIXME: tabGroups is not available on older versions of vscode we still support.
-  // Remove any cast as soon as version is updated.
-  if (semver.lt(version, "1.67.0")) {
-    return undefined;
-  }
   const uri = editor.document.uri.toString();
-  const tabGroup = (window as any)?.tabGroups?.all?.find((tabGroup: any) =>
-    tabGroup?.tabs.find((tab: any) => tab?.input?.modified?.toString() === uri),
+  const tabGroup = window.tabGroups.all.find((tabGroup) =>
+    tabGroup.tabs.find(
+      (tab: any) =>
+        (tab?.input?.uri ?? tab?.input?.modified)?.toString() === uri,
+    ),
   );
   return tabGroup?.viewColumn;
 }

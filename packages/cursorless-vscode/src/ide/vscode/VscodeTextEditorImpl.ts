@@ -89,7 +89,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   public focus(): Promise<void> {
-    return vscodeFocusEditor(this.ide, this);
+    return vscodeFocusEditor(this);
   }
 
   public editNewNotebookCellAbove(): Promise<
