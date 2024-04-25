@@ -42,17 +42,23 @@ class UserActions:
         return True
 
     def private_cursorless_run_rpc_command_and_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_no_wait(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ):
         commands_run.append(arg1)
 
     def private_cursorless_run_rpc_command_get(
-        command_id: str, arg1: Any, arg2: Any = None
+        command_id: str,  # pyright: ignore [reportGeneralTypeIssues]
+        arg1: Any,
+        arg2: Any = None,
     ) -> Any:
         commands_run.append(arg1)
         return mockedGetValue
@@ -60,7 +66,9 @@ class UserActions:
 
 @mod.action_class
 class Actions:
-    def private_cursorless_spoken_form_test_mode(enable: bool):
+    def private_cursorless_spoken_form_test_mode(
+        enable: bool,  # pyright: ignore [reportGeneralTypeIssues]
+    ):
         """Enable/disable Cursorless spoken form test mode"""
         global saved_modes, saved_microphone
 
@@ -84,7 +92,9 @@ class Actions:
                 "Cursorless spoken form tests are done. Talon microphone is re-enabled."
             )
 
-    def private_cursorless_use_community_snippets(enable: bool):
+    def private_cursorless_use_community_snippets(
+        enable: bool,  # pyright: ignore [reportGeneralTypeIssues]
+    ):
         """Enable/disable cursorless community snippets in test mode"""
         if enable:
             tags = set(ctx.tags)
@@ -99,7 +109,8 @@ class Actions:
         print(f"Set community snippet enablement to {enable}")
 
     def private_cursorless_spoken_form_test(
-        phrase: str, mockedGetValue_: Optional[str]
+        phrase: str,  # pyright: ignore [reportGeneralTypeIssues]
+        mockedGetValue_: Optional[str],
     ):
         """Run Cursorless spoken form test"""
         global commands_run, mockedGetValue

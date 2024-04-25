@@ -12,7 +12,7 @@ mod.list(
     "Various alternative pronunciations of 'cursorless' to improve accuracy",
 )
 
-ctx.lists["user.cursorless_homophone"] = [
+ctx.lists["user.cursorless_homophone"] = [  # pyright: ignore [reportArgumentType]
     "cursorless",
     "cursor less",
     "cursor list",

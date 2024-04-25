@@ -15,3 +15,5 @@ extend-exclude = ["vendor", "data/playground/**/*.py"]
 
 [tool.pyright]
 reportSelfClsParameterName = false
+reportMissingModuleSource = false
+exclude = ["**/node_modules", "**/__pycache__", "**/.*", "**/vendor", "data/playground"]

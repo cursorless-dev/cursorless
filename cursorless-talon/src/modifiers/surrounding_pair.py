@@ -11,7 +11,7 @@ mod.list(
     "cursorless_delimiter_force_direction",
     desc="Can be used to force an ambiguous delimiter to extend in one direction",
 )
-ctx.lists["user.cursorless_delimiter_force_direction"] = [
+ctx.lists["user.cursorless_delimiter_force_direction"] = [  # pyright: ignore [reportArgumentType]
     "left",
     "right",
 ]
