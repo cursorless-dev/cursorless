@@ -13,7 +13,7 @@ export async function bufferGetSelections(
   window: Window,
   client: NeovimClient,
 ): Promise<Selection[]> {
-  const luaCode = `return require("talon.cursorless").buffer_get_selection()`;
+  const luaCode = `return require("cursorless.cursorless").buffer_get_selection()`;
   // Note lines are indexed from 1, similarly to what is shown in neovim
   // and columns are also indexed from 1
   const [startLine, startCol, endLine, endCol, reverse] =
@@ -60,7 +60,7 @@ export async function bufferSetSelections(
   // cursorless has 0-based lines/columns, but neovim has 1-based lines and 0-based columns
   // also, experience shows we need to subtract 1 from the end character to stop on it in visual mode (instead of after it)
   // https://neovim.io/doc/user/api.html#nvim_win_set_cursor()
-  const luaCode = `return require("talon.cursorless").select_range(${
+  const luaCode = `return require("cursorless.cursorless").select_range(${
     selections[0].start.line + 1
   }, ${selections[0].start.character}, ${selections[0].end.line + 1}, ${
     selections[0].end.character
@@ -85,7 +85,7 @@ export async function windowGetVisibleRanges(
 ): Promise<Range[]> {
   // Get the first and last visible lines of the current window
   // Note they are indexed from 1, similarly to what is shown in neovim*
-  const luaCode = `return require("talon.cursorless").window_get_visible_lines()`;
+  const luaCode = `return require("cursorless.cursorless").window_get_visible_lines()`;
   const [firstLine, lastLine] = (await client.executeLua(luaCode, [])) as [
     number,
     number,
@@ -103,7 +103,7 @@ export async function windowGetVisibleRanges(
 }
 
 export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
-  const luaCode = `return require("talon.utils").talon_nvim_path()`;
+  const luaCode = `return require("cursorless.utils").talon_nvim_path()`;
   const data = (await client.executeLua(luaCode, [])) as unknown as string;
   return data as unknown as string;
 }
@@ -133,7 +133,7 @@ export async function getFromClipboard(client: NeovimClient): Promise<string> {
 export async function modeSwitchNormalTerminal(
   client: NeovimClient,
 ): Promise<void> {
-  const luaCode = `return require("talon.utils").mode_switch_nt()`;
+  const luaCode = `return require("cursorless.utils").mode_switch_nt()`;
   await client.executeLua(luaCode, []);
 }
 
@@ -142,6 +142,6 @@ export async function modeSwitchNormalTerminal(
  * @param client
  */
 export async function modeSwitchTerminal(client: NeovimClient): Promise<void> {
-  const luaCode = `return require("talon.utils").mode_switch_t()`;
+  const luaCode = `return require("cursorless.utils").mode_switch_t()`;
   await client.executeLua(luaCode, []);
 }
