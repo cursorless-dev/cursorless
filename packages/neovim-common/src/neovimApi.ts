@@ -103,7 +103,7 @@ export async function windowGetVisibleRanges(
 }
 
 export async function getTalonNvimPath(client: NeovimClient): Promise<string> {
-  const luaCode = `return require("cursorless.utils").talon_nvim_path()`;
+  const luaCode = `return require("cursorless.utils").cursorless_nvim_path()`;
   const data = (await client.executeLua(luaCode, [])) as unknown as string;
   return data as unknown as string;
 }
