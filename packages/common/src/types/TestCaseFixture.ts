@@ -15,7 +15,7 @@ interface TestCaseFixtureBase {
   /**
    * The type of element that is focused before the command is executed. If undefined default to text editor.
    */
-  focusedElementType?: FocusedElementType | "other";
+  focusedElementType?: FocusedElementType;
 
   /**
    * A list of marks to check in the case of navigation map test otherwise undefined
