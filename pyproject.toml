@@ -8,10 +8,12 @@ force-exclude = '''
 '''
 
 [tool.ruff]
-select = ["E", "F", "C4", "I001", "UP", "SIM"]
-ignore = ["E501", "SIM105", "UP007", "UP035"]
 target-version = "py311"
 extend-exclude = ["vendor", "data/playground/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "C4", "I001", "UP", "SIM"]
+ignore = ["E501", "SIM105", "UP007", "UP035"]
 
 [tool.pyright]
 reportSelfClsParameterName = false
