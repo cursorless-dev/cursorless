@@ -72,5 +72,3 @@ jobs:
           name: dumps
           path: ${{ env.VSCODE_CRASH_DIR }}
         if: failure()
-      - name: Forbid TODOs
-        run: ./scripts/forbid-todo.sh

@@ -31,7 +31,7 @@ class TargetBuilderActions:
         return PrimitiveTarget(mark, modifiers)
 
     def cursorless_private_build_list_target(
-        elements: list[Union[PrimitiveTarget, RangeTarget]]
+        elements: list[Union[PrimitiveTarget, RangeTarget]],
     ) -> Union[PrimitiveTarget, ListTarget]:
         """Cursorless private api low-level target builder: Create a list target"""
         if len(elements) == 1:

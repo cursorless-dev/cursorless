@@ -23,7 +23,7 @@ def cursorless_grapheme(m) -> str:
     except AttributeError:
         # NB: This represents unknown char in Unicode.  It will be translated
         # to "[unk]" by Cursorless extension.
-        return "\uFFFD"
+        return "\ufffd"
 
 
 @mod.capture(
