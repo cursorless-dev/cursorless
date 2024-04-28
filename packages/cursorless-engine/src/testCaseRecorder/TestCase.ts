@@ -141,9 +141,9 @@ export class TestCase {
     const fixture: EnforceUndefined<TestCaseFixture> = {
       languageId: this.languageId,
       focusedElementType:
-        this.focusedElementType !== "textEditor"
-          ? this.focusedElementType ?? "other"
-          : undefined,
+        this.focusedElementType === "textEditor"
+          ? undefined
+          : this.focusedElementType,
       postEditorOpenSleepTimeMs: undefined,
       postCommandSleepTimeMs: undefined,
       command: this.command,

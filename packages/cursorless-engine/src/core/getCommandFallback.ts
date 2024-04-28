@@ -14,10 +14,9 @@ export async function getCommandFallback(
   runAction: (actionDescriptor: ActionDescriptor) => Promise<ActionReturnValue>,
   command: CommandComplete,
 ): Promise<Fallback | null> {
-  if (
-    commandServerApi == null ||
-    (await commandServerApi.getFocusedElementType()) === "textEditor"
-  ) {
+  const focusedElementType = await commandServerApi?.getFocusedElementType();
+
+  if (focusedElementType == null || focusedElementType === "textEditor") {
     return null;
   }
 

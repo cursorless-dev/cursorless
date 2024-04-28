@@ -10,7 +10,6 @@ export class FakeCommandServerApi implements CommandServerApi {
 
   constructor() {
     this.signals = { prePhrase: { getVersion: async () => null } };
-    this.focusedElementType = "textEditor";
   }
 
   async getFocusedElementType(): Promise<FocusedElementType | undefined> {
