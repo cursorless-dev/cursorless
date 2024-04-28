@@ -16,6 +16,6 @@ jobs:
       - run: corepack enable
       - uses: actions/setup-node@v4
         with:
-          node-version-file: package.json
+          node-version-file: .nvmrc
           cache: pnpm
       - run: bash -x scripts/build-and-assemble-website.sh

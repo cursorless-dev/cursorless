@@ -2,7 +2,7 @@
  * API object for interacting with the command server
  */
 export interface CommandServerApi {
-  getFocusedElementType(): Promise<FocusedElementType | undefined>;
+  getFocusedElementType: () => Promise<FocusedElementType | undefined>;
 
   signals: {
     prePhrase: InboundSignal;

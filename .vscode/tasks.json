@@ -192,7 +192,6 @@
       "label": "Generate grammar",
       "type": "npm",
       "script": "generate-grammar",
-      "path": "packages/cursorless-vscode",
       "presentation": {
         "reveal": "silent"
       },

@@ -88,6 +88,16 @@ Note that each snippet can use `insertionScopeTypes` to indicate that it will au
 | `"snippet funk"`    | Function; phrase becomes name           | Function                     | ✅                       |
 | `"snippet link"`    | Markdown link; phrase becomes link text |                              | ✅                       |
 
+## Using community snippets
+
+The community Talon files now support their own snippet format. If you'd like to use these snippets for wrapping / cursorless insertion instead of snippets defined in Cursorless, add following line to your `settings.talon` file:
+
+```talon
+tag(): user.cursorless_use_community_snippets
+```
+
+Note that this line will also disable any Cursorless snippets defined in your Cursorless customization CSVs. You will need to migrate your Cursorless snippets to the new community snippet format [described in community](https://github.com/talonhub/community/blob/main/core/snippets/README.md). If you'd be interested in a tool to help with this migration, please leave a comment on [cursorless-dev/cursorless#2149](https://github.com/cursorless-dev/cursorless/issues/2149), ideally with a link to your custom snippets for us to look at.
+
 ## Customizing spoken forms
 
 As usual, the spoken forms for these snippets can be [customized by csv](../customization.md). The csvs are in the files in `cursorless-settings/experimental` with `snippet` in their name.

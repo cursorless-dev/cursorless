@@ -18,6 +18,7 @@
     "preinstall": "npx only-allow pnpm",
     "test-compile": "tsc --build",
     "test": "pnpm compile && pnpm lint && pnpm -F '!test-harness' test && pnpm -F test-harness test",
+    "generate-grammar": "pnpm -r generate-grammar",
     "transform-recorded-tests": "./packages/common/scripts/my-ts-node.js packages/cursorless-engine/src/scripts/transformRecordedTests/index.ts",
     "watch": "pnpm run -w --parallel '/^watch:.*/'",
     "watch:esbuild": "pnpm run -r --parallel --if-present watch:esbuild",
