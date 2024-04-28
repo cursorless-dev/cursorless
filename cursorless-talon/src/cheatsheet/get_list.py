@@ -1,4 +1,5 @@
 import re
+import typing
 from collections.abc import Mapping, Sequence
 from typing import Optional, TypedDict
 
@@ -37,7 +38,7 @@ def get_lists(
 
 def get_raw_list(name: str) -> Mapping[str, str]:
     cursorless_list_name = get_cursorless_list_name(name)
-    return registry.lists[cursorless_list_name][0].copy()
+    return typing.cast(dict[str, str], registry.lists[cursorless_list_name][0]).copy()
 
 
 def get_spoken_form_from_list(list_name: str, value: str) -> str:
