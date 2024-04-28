@@ -33,7 +33,9 @@ for ten in tens:
 number_small_map = {n: i for i, n in enumerate(number_small_list)}
 
 mod.list("private_cursorless_number_small", desc="List of small numbers")
-ctx.lists["self.private_cursorless_number_small"] = number_small_map.keys()
+# FIXME: Remove type ignore once Talon supports list types
+# See https://github.com/talonvoice/talon/issues/654
+ctx.lists["self.private_cursorless_number_small"] = number_small_map.keys()  # pyright: ignore [reportArgumentType]
 
 
 @ctx.capture(
