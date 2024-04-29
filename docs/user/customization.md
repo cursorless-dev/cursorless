@@ -70,6 +70,25 @@ push down, editor.action.moveLinesDownAction
 
 Now when you say eg "push down air and bat", cursorless will first select the two tokens with a gray hat over the `a` and `b`, then issue the VSCode command `editor.action.moveLinesDownAction`, and then restore your original selection.
 
+## \[Experimental\] Cursorless custom regex scopes
+
+You can define custom scopes in `user/cursorless-settings/experimental/regex_scope_types.csv`
+
+> [!TIP]
+> Use `visualize [scope]` to see a live preview of the regex scope (must save `regex_scope_types.csv` to see changes)
+
+---
+Command `visualize dotted` with the following scope type `dotted,"[\w.]+"`
+
+![image](https://github.com/cursorless-dev/cursorless/assets/13824365/b54263a3-74b7-40d5-a1aa-cd7bbe86430b)
+
+You can then use commands such as
+* `take dotted sun` to select "user.text" (line 10)
+* `take dotted urge` to select "user.chrome_mod" (line 11)
+
+> [!NOTE]
+> Examples are at https://github.com/cursorless-dev/cursorless/wiki/Custom-regex-scopes
+
 ## Toggling "hat" display
 
 It is possible to show / hide the hats with a command. Keep in mind that many users, often after less than a week using Cursorless, find that their brain starts to tune out the hat display. Some start to miss them when they're gone 🥲
