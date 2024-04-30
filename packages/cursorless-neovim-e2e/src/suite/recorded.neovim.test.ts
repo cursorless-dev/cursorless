@@ -82,22 +82,9 @@ async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
-  // We don't support decorated symbol marks (hats) yet
-  const hasMarks =
-    fixture.initialState.marks != null &&
-    Object.keys(fixture.initialState.marks).length > 0;
-
-  // we don't support multiple selections in neovim (we don't support multiple cursors atm)
-  const hasMultipleSelections =
-    fixture.initialState.selections.length > 1 ||
-    (fixture.finalState && fixture.finalState.selections.length > 1);
-
-  // We don't support Tree sitter yet (which requires a code languageId)
-  const needTreeSitter = fixture.languageId !== "plaintext";
-
   // TODO: find a way to distinguish between a skipped test and
   // a failed test
-  if (hasMarks || hasMultipleSelections || needTreeSitter) {
+  if (unsupportedFixture(fixture)) {
     return;
   }
 
@@ -115,9 +102,9 @@ async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
 
-  const { takeSnapshot, setStoredTarget, commandServerApi } = (
-    await getCursorlessApi()
-  ).testHelpers!;
+  const cursorlessApi = await getCursorlessApi();
+  const { takeSnapshot, setStoredTarget, commandServerApi } =
+    cursorlessApi.testHelpers!;
 
   const editor = await openNewEditor(
     client,
@@ -162,16 +149,10 @@ async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
   let fallback: Fallback | undefined;
 
   try {
-    returnValue = await runCursorlessCommand(
-      // client,
-      // neovimIDE,
-      // commandApi,
-      // commandServerApi,
-      {
-        ...fixture.command,
-        usePrePhraseSnapshot,
-      },
-    );
+    returnValue = await runCursorlessCommand({
+      ...fixture.command,
+      usePrePhraseSnapshot,
+    });
     if (clientSupportsFallback(fixture.command)) {
       const commandResponse = returnValue as CommandResponse;
       returnValue =
@@ -284,5 +265,24 @@ async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
       "Unexpected ide captured values",
     );
   }
-  return;
+}
+
+function unsupportedFixture(fixture: TestCaseFixtureLegacy) {
+  // We don't support decorated symbol marks (hats) yet
+  const hasMarks =
+    fixture.initialState.marks != null &&
+    Object.keys(fixture.initialState.marks).length > 0;
+
+  // we don't support multiple selections in neovim (we don't support multiple cursors atm)
+  const hasMultipleSelections =
+    fixture.initialState.selections.length > 1 ||
+    (fixture.finalState && fixture.finalState.selections.length > 1);
+
+  // We don't support Tree sitter yet (which requires a code languageId)
+  const needTreeSitter = fixture.languageId !== "plaintext";
+
+  if (hasMarks || hasMultipleSelections || needTreeSitter) {
+    return true;
+  }
+  return false;
 }

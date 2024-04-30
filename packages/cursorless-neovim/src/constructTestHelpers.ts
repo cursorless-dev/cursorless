@@ -13,7 +13,6 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import {
-  CommandApi,
   StoredTargetMap,
   plainObjectToTarget,
   takeSnapshot,
@@ -27,7 +26,6 @@ import type { NeovimClient } from "neovim";
 
 export function constructTestHelpers(
   client: NeovimClient,
-  commandApi: CommandApi,
   commandServerApi: FakeCommandServerApi,
   storedTargets: StoredTargetMap,
   hatTokenMap: HatTokenMap,
@@ -40,14 +38,11 @@ export function constructTestHelpers(
 ): TestHelpers | undefined {
   return {
     client,
-    // commandApi: commandApi!,
     commandServerApi: commandServerApi!,
     ide: normalizedIde,
     neovimIDE,
     injectIde,
     scopeProvider,
-
-    //toVscodeEditor,
 
     // FIXME: Remove this once we have a better way to get this function
     // accessible from our tests
@@ -87,6 +82,5 @@ export function constructTestHelpers(
     },
     hatTokenMap,
     runIntegrationTests,
-    //vscodeApi,
   };
 }

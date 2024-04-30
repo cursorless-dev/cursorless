@@ -84,7 +84,6 @@ export async function activate(plugin: NvimPlugin) {
       neovimIDE.runMode === "test"
         ? constructTestHelpers(
             client,
-            commandApi,
             fakeCommandServerApi,
             storedTargets,
             hatTokenMap,
