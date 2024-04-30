@@ -1,12 +1,25 @@
+# todo list to review for Pokey
+
+- [ ] launch config for osx and Linux (currently relies on node.exe)
+- [ ] task to run neovim in the background for osx and Linux (currently relies on powershell)
+- [ ] remove the console.log and have them on a different development branch
+- [ ] packages\cursorless-neovim-e2e\src\suite\recorded.neovim.test.ts versus packages\cursorless-vscode-e2e\src\suite\recorded.vscode.test.ts
+- [ ] packages\cursorless-neovim-e2e\src\endToEndTestSetup.ts versus packages\cursorless-vscode-e2e\src\endToEndTestSetup.ts
+- [ ] packages\cursorless-neovim\src\constructTestHelpers.ts versus packages\cursorless-vscode\src\constructTestHelpers.ts
+- [ ] packages\cursorless-neovim\src\extension.ts versus packages\cursorless-vscode\src\extension.ts
+
 # questions for Pokey
 
+- move getFocusedElementType() into the command server? see `NeovimCommandServerApi.ts`
 - move lua files and all cursorless files to cursorless mono repo
+- think about command-server.nvim into its own repo
+  - need to register the node functions in that report? see `RegisterFunctions` in `cursorless.nvim`
+  - need to load the extension calling `CommandServerLoadExtension`? see `extension` in `init.lua`
+  - need to configure the shortcuts? see `configure_command_server_shortcut` in `init.lua`
+  - need the `cursorless_nvim_path` helper from `utils.lua`
 - .js into its own cursorless.nvim (only used for deployment similar to cursorless-talon)
-- duplicate the .lua and .vim files if needed but for now nothing needs to be duplicated so is fine! later we can deal with duplications if needed, don't overthink for now!
 
 - see " "esbuild:prod": "pnpm run esbuild:base --minify"," from package.json cursorless-vscode to not include maps (!= "esbuild": "pnpm run esbuild:base --sourcemap",)
-- think about command-server.nvim into its own repo
-
 - terminal: `bring second paint row one` works but `take second paint row one` followed by `bring this` does not. It is because it tries to bring it to the current cursor instead of using the fallback method: `Exception: nvim_buf_set_lines: Buffer is not 'modifiable'`
 
 # mocha tests
