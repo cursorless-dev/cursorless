@@ -72,7 +72,7 @@ Now when you say eg "push down air and bat", cursorless will first select the tw
 
 ## \[Experimental\] Cursorless custom regex scopes
 
-You can define custom scopes in `user/cursorless-settings/experimental/regex_scope_types.csv`
+You can define custom scopes using regexes in `user/cursorless-settings/experimental/regex_scope_types.csv`
 
 > [!TIP]
 > Use `"visualize <scope>"` to see a live preview of the regex scope in [the scope visualizer](./scope-visualizer.md). It updates in real time every time you save `regex_scope_types.csv`.
