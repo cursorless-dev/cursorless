@@ -74,8 +74,10 @@ Now when you say eg "push down air and bat", cursorless will first select the tw
 
 You can define custom scopes using regexes in `user/cursorless-settings/experimental/regex_scope_types.csv`
 
-> [!TIP]
-> Use `"visualize <scope>"` to see a live preview of the regex scope in [the scope visualizer](./scope-visualizer.md). It updates in real time every time you save `regex_scope_types.csv`.
+:::tip
+
+Use `"visualize <scope>"` to see a live preview of the regex scope in [the scope visualizer](./scope-visualizer.md). It updates in real time every time you save `regex_scope_types.csv`.
+:::
 
 ---
 
@@ -85,11 +87,27 @@ For example, here's what `"visualize dotted"` would show with the scope type `do
 
 You can then use commands such as
 
-- `take dotted sun` to select "user.text" (line 10)
-- `take dotted urge` to select "user.chrome_mod" (line 11)
+* `"take dotted sun"` to select `user.text` (line 10)
+* `"copy dotted urge"` to copy `user.chrome_mod` (line 11)
+* `"take every dotted urge"` to select `user.chrome_mod`, `shift`, and `a`
 
-> [!NOTE]
+:::warning
+
+Regex matches cannot cross line boundaries (so multiline matches are not supported). The regexes also have the unicode flag set.
+
+:::
+
+:::info
+
+For the curious, check out the [implementation of CustomRegexScopeHandler](/packages/cursorless-engine/src/processTargets/modifiers/scopeHandlers/RegexScopeHandler.ts)
+
+:::
+
+:::tip
+
 > Check out [our wiki page](https://github.com/cursorless-dev/cursorless/wiki/Custom-regex-scopes) for a recipe book of user-created regex scopes!
+
+:::
 
 ## Toggling "hat" display
 
