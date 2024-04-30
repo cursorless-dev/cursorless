@@ -18,25 +18,6 @@ import { getNeovimRegistry } from "@cursorless/neovim-registry";
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 
-/**
- * Handle the command received from the command-server Neovim extension
- *
- * Note how this file is named registerCommands.ts but it does not register any command.
- * Instead it implements the command handler directly.
- * This is to match the cursorless-vscode's registerCommands.ts file structure.
- * @param allArguments something like XXX
- * @returns
- */
-// export function handleCommandInternal(...allArguments: any[]): Promise<any> {
-//   const [client, neovimIDE, commandApi, commandServerApi, command, ...rest] =
-//     allArguments as [
-//       NeovimClient,
-//       NeovimIDE,
-//       CommandApi,
-//       CommandServerApi,
-//       string,
-//       ...unknown[],
-//     ];
 export async function registerCommands(
   client: NeovimClient,
   neovimIDE: NeovimIDE,

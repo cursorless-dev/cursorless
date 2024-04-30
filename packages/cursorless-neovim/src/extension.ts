@@ -10,30 +10,29 @@ import {
   createCursorlessEngine,
 } from "@cursorless/cursorless-engine";
 import {
+  EXTENSION_ID,
   NeovimFileSystem,
   NeovimHats,
   NeovimIDE,
 } from "@cursorless/neovim-common";
+import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import * as crypto from "crypto";
+import type { NeovimClient } from "neovim/lib/api/client";
+import type { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import * as os from "os";
 import * as path from "path";
 import { Language, Tree } from "web-tree-sitter";
 import { NeovimCommandServerApi } from "./NeovimCommandServerApi";
 import { constructTestHelpers } from "./constructTestHelpers";
-import { EXTENSION_ID } from "@cursorless/neovim-common";
-import { getNeovimRegistry } from "@cursorless/neovim-registry";
-import type { NeovimClient } from "neovim/lib/api/client";
-import type { NvimPlugin } from "neovim/lib/host/NvimPlugin";
 import { registerCommands } from "./registerCommands";
 
 /**
- * This function is called from talon.nvim to initialize the Cursorless engine.
+ * This function is called from cursorless.nvim to initialize the Cursorless engine.
  * NOTE: this is not the cursorless-neovim extension entrypoint (which is called at Neovim startup)
  * We named it activate() in order to have the same structure as the extension entrypoint to match cursorless-vscode
  */
 export async function activate(plugin: NvimPlugin) {
   const client = plugin.nvim as NeovimClient;
-  const buffer = await client.buffer;
 
   const { neovimIDE, hats, fileSystem } = await createNeovimIde(client);
 
@@ -101,7 +100,6 @@ export async function activate(plugin: NvimPlugin) {
   };
   getNeovimRegistry().registerExtensionApi(EXTENSION_ID, cursorlessApi);
 
-  // await updateTextEditor(client, neovimIDE, true);
   console.log("activate(): Cursorless extension loaded");
 }
 
