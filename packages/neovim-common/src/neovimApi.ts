@@ -1,4 +1,4 @@
-// Helper directly calling into Neovim apis, generally lua, exported by talon.nvim
+// Helper directly calling into Neovim apis, generally lua, exported by cursorless.nvim
 import { Position, Range, Selection } from "@cursorless/common";
 import type { NeovimClient } from "neovim/lib/api/client";
 import type { Window } from "neovim/lib/api/Window";
@@ -143,5 +143,19 @@ export async function modeSwitchNormalTerminal(
  */
 export async function modeSwitchTerminal(client: NeovimClient): Promise<void> {
   const luaCode = `return require("cursorless.utils").mode_switch_t()`;
+  await client.executeLua(luaCode, []);
+}
+
+/**
+ * Show an error message to the user
+ * @param client
+ * @param message
+ * @see https://neovim.io/doc/user/lua.html#vim.notify()
+ */
+export async function showErrorMessage(
+  client: NeovimClient,
+  message: string,
+): Promise<void> {
+  const luaCode = `vim.notify("${message}")`;
   await client.executeLua(luaCode, []);
 }

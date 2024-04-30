@@ -12,8 +12,8 @@ import {
   modeSwitchTerminal,
   updateTextEditor,
 } from "@cursorless/neovim-common";
-import type { NeovimClient } from "neovim";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
+import type { NeovimClient } from "neovim";
 // TODO - we need to fix that import as we should not be allowed to import it afaict?
 //import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
@@ -33,33 +33,31 @@ export async function registerCommands(
         modeSwitchNormalTerminal(client);
       }
 
-      // try {
+      try {
+        await updateTextEditor(client, neovimIDE);
+        const result = await commandApi.runCommandSafe(...args);
 
-      await updateTextEditor(client, neovimIDE);
-      const result = await commandApi.runCommandSafe(...args);
+        const command = ensureCommandShape(args) as CommandLatest;
+        const focusedElementType =
+          await commandServerApi.getFocusedElementType();
+        if (
+          focusedElementType === "terminal" &&
+          command.action.name === "replaceWithTarget"
+        ) {
+          // if user runs a terminal, and a "bring" command was requested, switch back to "t" mode
+          // so the fallback can do its magic
+          modeSwitchTerminal(client);
+        }
 
-      const command = ensureCommandShape(args) as CommandLatest;
-      const focusedElementType = await commandServerApi.getFocusedElementType();
-      if (
-        focusedElementType === "terminal" &&
-        command.action.name === "replaceWithTarget"
-      ) {
-        // if user runs a terminal, and a "bring" command was requested, switch back to "t" mode
-        // so the fallback can do its magic
-        modeSwitchTerminal(client);
+        return result;
+      } catch (e) {
+        if (neovimIDE.runMode !== "test") {
+          const err = e as Error;
+          console.error(err.stack);
+          neovimIDE.handleCommandError(err);
+        }
+        throw e;
       }
-
-      return result;
-
-      // TODO: use neovimIDE.runMode === "test" instead of isTesting()
-      // } catch (e) {
-      //   // if (!isTesting()) {
-      //   //   const err = e as Error;
-      //   //   console.error(err.stack);
-      //   //   vscodeIde.handleCommandError(err);
-      //   // }
-      //   throw e;
-      // }
     },
     // Cheatsheet commands
     ["cursorless.showCheatsheet"]: dummyCommandHandler,

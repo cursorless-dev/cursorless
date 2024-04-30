@@ -30,7 +30,11 @@ import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
 import type { NeovimClient, Window, Buffer } from "neovim";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
-import { getTalonNvimPath } from "../../../../neovim-common/src/neovimApi";
+// TODO: fix this import to avoid all the ../../....
+import {
+  getTalonNvimPath,
+  showErrorMessage,
+} from "../../../../neovim-common/src/neovimApi";
 import path from "path";
 import {
   neovimOnDidChangeTextDocument,
@@ -295,6 +299,14 @@ export class NeovimIDE implements IDE {
     this.activeWindow = window;
 
     return this.activeTextEditor as NeovimTextEditorImpl;
+  }
+
+  handleCommandError(err: Error) {
+    // if (err instanceof OutdatedExtensionError) {
+    //   this.showUpdateExtensionErrorMessage(err);
+    // } else {
+    showErrorMessage(this.client, err.message);
+    // }
   }
 
   disposeOnExit(...disposables: Disposable[]): () => void {
