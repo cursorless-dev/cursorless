@@ -89,7 +89,7 @@ You can then use commands such as
 - `take dotted urge` to select "user.chrome_mod" (line 11)
 
 > [!NOTE]
-> Examples are at https://github.com/cursorless-dev/cursorless/wiki/Custom-regex-scopes
+> Check out [our wiki page](https://github.com/cursorless-dev/cursorless/wiki/Custom-regex-scopes) for a recipe book of user-created regex scopes!
 
 ## Toggling "hat" display
 
