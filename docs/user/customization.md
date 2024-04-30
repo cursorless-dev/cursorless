@@ -99,7 +99,7 @@ Regex matches cannot cross line boundaries (so multiline matches are not support
 
 :::info
 
-For the curious, check out the [implementation of CustomRegexScopeHandler](packages/cursorless-engine/src/processTargets/modifiers/scopeHandlers/RegexScopeHandler.ts)
+For the curious, check out the [implementation of CustomRegexScopeHandler](../../packages/cursorless-engine/src/processTargets/modifiers/scopeHandlers/RegexScopeHandler.ts)
 
 :::
 
