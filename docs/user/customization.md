@@ -79,7 +79,7 @@ You can define custom scopes in `user/cursorless-settings/experimental/regex_sco
 
 ---
 
-Command `visualize dotted` with the following scope type `dotted,"[\w.]+"`
+For example, here's what `"visualize dotted"` would show with the scope type `dotted,"[\w.]+"`
 
 ![image](https://github.com/cursorless-dev/cursorless/assets/13824365/b54263a3-74b7-40d5-a1aa-cd7bbe86430b)
 
