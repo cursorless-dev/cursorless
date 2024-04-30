@@ -78,13 +78,15 @@ You can define custom scopes in `user/cursorless-settings/experimental/regex_sco
 > Use `visualize [scope]` to see a live preview of the regex scope (must save `regex_scope_types.csv` to see changes)
 
 ---
+
 Command `visualize dotted` with the following scope type `dotted,"[\w.]+"`
 
 ![image](https://github.com/cursorless-dev/cursorless/assets/13824365/b54263a3-74b7-40d5-a1aa-cd7bbe86430b)
 
 You can then use commands such as
-* `take dotted sun` to select "user.text" (line 10)
-* `take dotted urge` to select "user.chrome_mod" (line 11)
+
+- `take dotted sun` to select "user.text" (line 10)
+- `take dotted urge` to select "user.chrome_mod" (line 11)
 
 > [!NOTE]
 > Examples are at https://github.com/cursorless-dev/cursorless/wiki/Custom-regex-scopes
