@@ -12,13 +12,8 @@ import type {
   TextEditor,
 } from "@cursorless/common";
 import { NeovimIDE } from "./ide/neovim/NeovimIDE";
-import type { NeovimClient } from "neovim";
-// import { CommandApi } from "@cursorless/cursorless-engine";
-//import * as vscode from "vscode";
-//import { VscodeApi } from "./VscodeApi";
 
 export interface TestHelpers {
-  client: NeovimClient;
   ide: NormalizedIDE;
   neovimIDE: NeovimIDE;
   injectIde: (ide: IDE) => void;
@@ -28,10 +23,6 @@ export interface TestHelpers {
   hatTokenMap: HatTokenMap;
 
   commandServerApi: FakeCommandServerApi;
-
-  // commandApi: CommandApi;
-
-  //toVscodeEditor(editor: TextEditor): vscode.TextEditor;
 
   setStoredTarget(
     editor: TextEditor,
@@ -54,9 +45,4 @@ export interface TestHelpers {
 
   cursorlessTalonStateJsonPath: string;
   cursorlessCommandHistoryDirPath: string;
-
-  /**
-   * A thin wrapper around the VSCode API that allows us to mock it for testing.
-   */
-  //vscodeApi: VscodeApi;
 }
