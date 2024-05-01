@@ -77,29 +77,24 @@ You can define custom scopes using regexes in `user/cursorless-settings/experime
 :::tip
 
 Use `"visualize <scope>"` to see a live preview of the regex scope in [the scope visualizer](./scope-visualizer.md). It updates in real time every time you save `regex_scope_types.csv`.
-:::
 
----
+:::
 
 For example, here's what `"visualize dotted"` would show with the scope type `dotted,"[\w.]+"`
 
-![image](https://github.com/cursorless-dev/cursorless/assets/13824365/b54263a3-74b7-40d5-a1aa-cd7bbe86430b)
+<div class="light-mode-invert">
+  ![visualization of a custom regex scope](./images/custom-regex-scopes.png)
+</div>
 
 You can then use commands such as
 
-* `"take dotted sun"` to select `user.text` (line 10)
-* `"copy dotted urge"` to copy `user.chrome_mod` (line 11)
-* `"take every dotted urge"` to select `user.chrome_mod`, `shift`, and `a`
+- `"take dotted sun"` to select `user.text` (line 10)
+- `"copy dotted urge"` to copy `user.chrome_mod` (line 11)
+- `"take every dotted urge"` to select `user.chrome_mod`, `shift`, and `a`
 
 :::warning
 
 Regex matches cannot cross line boundaries (so multiline matches are not supported). The regexes also have the unicode flag set.
-
-:::
-
-:::info
-
-For the curious, check out the [implementation of CustomRegexScopeHandler](../../packages/cursorless-engine/src/processTargets/modifiers/scopeHandlers/RegexScopeHandler.ts)
 
 :::
 
