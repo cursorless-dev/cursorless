@@ -20,3 +20,7 @@
 [data-theme="dark"] .dark-mode-invert {
   filter: invert(90%) hue-rotate(180deg);
 }
+
+[data-theme="light"] .light-mode-invert {
+  filter: invert(90%) hue-rotate(180deg);
+}
