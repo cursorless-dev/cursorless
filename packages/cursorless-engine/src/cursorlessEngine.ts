@@ -31,13 +31,13 @@ import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
 
-export function createCursorlessEngine(
+export async function createCursorlessEngine(
   treeSitter: TreeSitter,
   ide: IDE,
   hats: Hats,
   commandServerApi: CommandServerApi | null,
   fileSystem: FileSystem,
-): CursorlessEngine {
+): Promise<CursorlessEngine> {
   injectIde(ide);
 
   const debug = new Debug(treeSitter);
@@ -58,6 +58,7 @@ export function createCursorlessEngine(
   const storedTargets = new StoredTargetMap();
 
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
+  await languageDefinitions.init();
 
   const talonSpokenForms = new TalonSpokenFormsJsonReader(fileSystem);
 

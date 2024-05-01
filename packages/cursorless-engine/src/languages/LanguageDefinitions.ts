@@ -60,10 +60,6 @@ export class LanguageDefinitions {
         ? join(getCursorlessRepoRoot(), "queries")
         : "queries";
 
-    ide().visibleTextEditors.forEach(({ document }) =>
-      this.loadLanguage(document.languageId),
-    );
-
     if (ide().runMode === "development") {
       this.disposables.push(
         fileSystem.watchDir(this.queryDir, () => {
@@ -71,6 +67,20 @@ export class LanguageDefinitions {
         }),
       );
     }
+  }
+
+  public async init(): Promise<void> {
+    await this.loadAllLanguages();
+  }
+
+  private async loadAllLanguages(): Promise<void> {
+    const languageIds = ide().visibleTextEditors.map(
+      ({ document }) => document.languageId,
+    );
+
+    await Promise.all(
+      languageIds.map((languageId) => this.loadLanguage(languageId)),
+    );
   }
 
   public async loadLanguage(languageId: string): Promise<void> {
