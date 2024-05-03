@@ -26,7 +26,6 @@ export function neovimOnDidOpenTextDocument(
   return dummyEvent();
 }
 
-// let count = 1;
 export function fromNeovimContentChange(
   document: TextDocument,
   buffer: Buffer,
@@ -51,29 +50,6 @@ export function fromNeovimContentChange(
     rangeLength: rangeLength,
     text: text,
   });
-  // TODO: simulate recorded/actions/breakJustThis on vscode for now but does not work anyway
-  // /*   if (count === 0) {
-  //   result = [];
-  // } else  */ if (count === 1) {
-  //   const range = new Range(new Position(0, 0), new Position(0, 3));
-  //   result.push({
-  //     range: range,
-  //     rangeOffset: 0,
-  //     rangeLength: 3,
-  //     text: "ab ",
-  //   });
-  // } else if (count === 2) {
-  //   const range = new Range(new Position(0, 1), new Position(0, 1));
-  //   result.push({
-  //     range: range,
-  //     rangeOffset: 1,
-  //     rangeLength: 0,
-  //     text: "\n",
-  //   });
-  // } else {
-  //   throw new Error(`fromNeovimContentChange(): unexpected count=${count}`);
-  // }
-  // count++;
   console.debug(`fromNeovimContentChange(): changes=${JSON.stringify(result)}`);
   return result;
 }
