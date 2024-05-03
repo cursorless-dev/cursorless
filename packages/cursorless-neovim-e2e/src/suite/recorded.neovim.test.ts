@@ -289,58 +289,6 @@ const failingFixtures = [
   // fixture.command.action.name == "decrement" / "increment" are not supported atm
   "recorded/actions/decrementFile",
   "recorded/actions/incrementFile",
-  // fixture.command.action.name == "insertEmptyLineBefore" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  "recorded/actions/insertEmptyLines/dropThis",
-  "recorded/actions/insertEmptyLines/dropThis2",
-  "recorded/actions/insertEmptyLines/dropThis3",
-  "recorded/actions/insertEmptyLines/dropThis4",
-  "recorded/actions/insertEmptyLines/dropThis5",
-  "recorded/actions/insertEmptyLines/dropThis6",
-  "recorded/actions/insertEmptyLines/dropThis7",
-  "recorded/actions/insertEmptyLines/dropThis8",
-  "recorded/actions/insertEmptyLines/dropThis9",
-  "recorded/actions/insertEmptyLines/dropThis10",
-  "recorded/actions/insertEmptyLines/dropThis11",
-  "recorded/actions/insertEmptyLines/dropThis12",
-  // fixture.command.action.name == "insertEmptyLineAfter" ->    Error: nvim_buf_get_lines: Index out of bounds
-  //                                                -> or actual finalState.selections.anchor is -1 compared to expected
-  //                                                      actual finalState.thatMark.contentRange.start is -1 compared to expected
-  "recorded/actions/insertEmptyLines/floatThis",
-  "recorded/actions/insertEmptyLines/floatThis2",
-  "recorded/actions/insertEmptyLines/floatThis3",
-  "recorded/actions/insertEmptyLines/floatThis4",
-  "recorded/actions/insertEmptyLines/floatThis5",
-  "recorded/actions/insertEmptyLines/floatThis6",
-  "recorded/actions/insertEmptyLines/floatThis7",
-  "recorded/actions/insertEmptyLines/floatThis8",
-  "recorded/actions/insertEmptyLines/floatThis9",
-  "recorded/actions/insertEmptyLines/floatThis10",
-  "recorded/actions/insertEmptyLines/floatThis11",
-  "recorded/actions/insertEmptyLines/floatThis12",
-  "recorded/actions/insertEmptyLines/floatThis13",
-  // fixture.command.action.name == "insertEmptyLinesAround" ->  wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  "recorded/actions/insertEmptyLines/puffThis",
-  "recorded/actions/insertEmptyLines/puffThis2",
-  "recorded/actions/insertEmptyLines/puffThis3",
-  "recorded/actions/insertEmptyLines/puffThis4",
-  "recorded/actions/insertEmptyLines/puffThis5",
-  "recorded/actions/insertEmptyLines/puffThis6",
-  "recorded/actions/insertEmptyLines/puffThis7",
-  "recorded/actions/insertEmptyLines/puffThis8",
-  "recorded/actions/insertEmptyLines/puffThis9",
-  "recorded/actions/insertEmptyLines/puffThis10",
-  "recorded/actions/insertEmptyLines/puffThis11",
-  "recorded/actions/insertEmptyLines/puffThis12",
-  "recorded/actions/insertEmptyLines/puffThis13",
-  "recorded/actions/insertEmptyLines/puffThis14",
-  "recorded/actions/insertEmptyLines/puffThis15",
-  "recorded/actions/insertEmptyLines/puffThis16",
-  "recorded/actions/insertEmptyLines/puffThis17",
-  "recorded/actions/insertEmptyLines/puffThis18",
-  "recorded/actions/insertEmptyLines/puffThis19",
-  "recorded/actions/insertEmptyLines/puffThis20",
-  "recorded/actions/insertEmptyLines/puffThis21",
-  "recorded/actions/insertEmptyLines/puffThis22",
   // fixture.command.action.name == "joinLines" ->  wrong fixture.finalState.selections and fixture.thatMark.contentRange
   //      NOTE: "recorded/actions/joinLineThis" is the only fixture.command.action.name == "joinLines" that succeeds atm
   "recorded/actions/joinBlock",
@@ -382,6 +330,29 @@ const failingFixtures = [
 ];
 
 function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
+  const action =
+    typeof fixture.command.action === "object"
+      ? fixture.command.action.name
+      : fixture.command.action;
+
+  // "recorded/actions/insertEmptyLines/puffThis*" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  if (action === "insertEmptyLinesAround") {
+    return true;
+  }
+
+  // "recorded/actions/insertEmptyLines/floatThis*" ->    Error: nvim_buf_get_lines: Index out of bounds
+  //                                                -> or actual finalState.selections.anchor is -1 compared to expected
+  //                                                      actual finalState.thatMark.contentRange.start is -1 compared to expected
+  if (action === "insertEmptyLineAfter") {
+    return true;
+  }
+
+  // "recorded/actions/insertEmptyLines/dropThis*"  -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  if (action === "insertEmptyLineBefore") {
+    return true;
+  }
+
+  // blacklist
   if (failingFixtures.includes(name)) {
     return true;
   }
