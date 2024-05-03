@@ -64,7 +64,7 @@ suite("recorded test cases", async function () {
   for (const { name, path } of tests) {
     test(
       name,
-      asyncSafety(() => runTest(path, getSpy()!, getNeovimIDE()!)),
+      asyncSafety(() => runTest(this, path, getSpy()!, getNeovimIDE()!)),
     );
   }
   // getRecordedTestPaths().forEach(({ name, path }) =>
@@ -75,17 +75,20 @@ suite("recorded test cases", async function () {
   // );
 });
 
-async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
+async function runTest(
+  suite: Mocha.Suite,
+  file: string,
+  spyIde: SpyIDE,
+  neovimIDE: NeovimIDE,
+) {
   const client = (global as any).additionalParameters.client;
 
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
-  // TODO: find a way to distinguish between a skipped test and
-  // a failed test
   if (unsupportedFixture(fixture)) {
-    return;
+    return suite.ctx.skip();
   }
 
   // Uncomment below for debugging
@@ -268,6 +271,9 @@ async function runTest(file: string, spyIde: SpyIDE, neovimIDE: NeovimIDE) {
 }
 
 function unsupportedFixture(fixture: TestCaseFixtureLegacy) {
+  // TODO: skip tests based on common patterns
+  // black list if only a few tests don't have a common pattern
+
   // We don't support decorated symbol marks (hats) yet
   const hasMarks =
     fixture.initialState.marks != null &&
