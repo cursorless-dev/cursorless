@@ -26,12 +26,6 @@ export function run(plugin: NvimPlugin): Promise<void> {
  *   Note that these function need to start with a capital letter to be callable from Neovim.
  */
 export default function entry(plugin: NvimPlugin) {
-  // Set your plugin to dev mode, which will cause the module to be reloaded on each invocation
-  // though it does not seem useful in practice for neovim as we can't really call CursorlessLoadExtension() again without restarting Neovim?
-  // plugin.setOptions({ dev: true });
-  plugin.setOptions({ dev: false });
-  // plugin.setOptions({ dev: false, alwaysInit: false });
-
   plugin.registerFunction("TestHarnessRun", async () => await run(plugin), {
     sync: false,
   });
