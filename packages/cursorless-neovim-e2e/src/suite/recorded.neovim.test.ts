@@ -272,38 +272,9 @@ async function runTest(
 }
 
 const failingFixtures = [
-  // fixture.command.action.name == "breakLine" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  "recorded/actions/breakJustThis",
-  "recorded/actions/breakJustThis2",
-  // fixture.command.action.name == "insertCopyAfter" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  "recorded/actions/cloneToken",
-  "recorded/actions/cloneToken2",
-  "recorded/actions/cloneToken3",
-  "recorded/actions/cloneToken4",
-  "recorded/actions/cloneToken5",
-  // fixture.command.action.name == "insertCopyAfter" -> wrong fixture.finalState.selections (no test on fixture.thatMark.contentRange)
-  "recorded/itemTextual/cloneTwoItems",
   // actual finalState.selections.anchor is -1 compared to expected (other fixture.command.action.name == "insertCopyBefore" tests pass fine)
   "recorded/actions/cloneToken4",
   "recorded/actions/cloneUpToken4",
-  // fixture.command.action.name == "decrement" / "increment" are not supported atm
-  "recorded/actions/decrementFile",
-  "recorded/actions/incrementFile",
-  // fixture.command.action.name == "joinLines" ->  wrong fixture.finalState.selections and fixture.thatMark.contentRange
-  //      NOTE: "recorded/actions/joinLineThis" is the only fixture.command.action.name == "joinLines" that succeeds atm
-  "recorded/actions/joinBlock",
-  "recorded/actions/joinFile",
-  "recorded/actions/joinTwoLines",
-  // fixture.command.action.name == "insertSnippet" is not supported atm
-  "recorded/actions/snippets/customInsert",
-  "recorded/actions/snippets/customInsertHelloWorld",
-  "recorded/actions/snippets/snipDuplicatedDuplicatedHelloWorld",
-  "recorded/actions/snippets/snipSpaghetti",
-  "recorded/actions/snippets/snipSpaghettiGraceHopper",
-  // fixture.command.action.name == "wrapWithSnippet" is not supported atm
-  "recorded/actions/snippets/customWrapLine",
-  "recorded/actions/snippets/customWrapLine2",
-  "recorded/actions/snippets/duplicatedDuplicatedWrapThis",
   // -> Error: nvim_execute_lua: Cursor position outside buffer
   "recorded/compoundTargets/chuckStartOfBlockPastStartOfFile",
   // actual finalState.selections.anchor is -1 compared to expected
@@ -314,19 +285,6 @@ const failingFixtures = [
   "recorded/implicitExpansion/cloneThat2",
   "recorded/implicitExpansion/cloneThis",
   "recorded/implicitExpansion/cloneThis2",
-  // fixture.command.action.name == "editNewLineAfter" is not supported atm
-  "recorded/implicitExpansion/pourThat",
-  "recorded/implicitExpansion/pourThat2",
-  "recorded/implicitExpansion/pourThis",
-  "recorded/implicitExpansion/pourThis2",
-  // fixture.finalState.documentContents contains \n instead of \r\n
-  "recorded/lineEndings/clearCoreFileCRLF",
-  "recorded/lineEndings/pourBlockCRLF",
-  "recorded/lineEndings/pourItemCRLF",
-  // fixture.command.action.name == "randomizeTargets" is not supported atm
-  "recorded/actions/shuffleThis",
-  // fixture.command.action.name == "pasteFromClipboard" -> wrong fixture.finalState.documentContents/selections/thatMark
-  "recorded/actions/pasteBeforeToken",
 ];
 
 function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
@@ -351,8 +309,47 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
   if (action === "insertEmptyLineBefore") {
     return true;
   }
+  // "recorded/actions/cloneToken*" and "recorded/itemTextual/cloneTwoItems" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  if (action === "insertCopyAfter") {
+    return true;
+  }
 
-  // blacklist
+  // "recorded/implicitExpansion/pour*" -> not supported for now
+  if (action === "editNewLineAfter") {
+    return true;
+  }
+
+  // "recorded/actions/{decrement,increment}File" -> are not supported atm
+  if (action === "decrement" || action === "increment") {
+    return true;
+  }
+
+  // ""recorded/actions/snippets/*" -> not supported for now
+  if (action === "insertSnippet" || action === "wrapWithSnippet") {
+    return true;
+  }
+
+  // "recorded/actions/{join,breakJustThis}*"" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  if (action === "breakLine" || action === "joinLines") {
+    return true;
+  }
+
+  // "recorded/actions/shuffleThis" is not supported atm
+  if (action === "randomizeTargets") {
+    return true;
+  }
+
+  // "recorded/actions/pasteBeforeToken" -> wrong fixture.finalState.documentContents/selections/thatMark
+  if (action === "pasteFromClipboard") {
+    return true;
+  }
+
+  // "recorded/lineEndings/*" -> fixture.finalState.documentContents contains \n instead of \r\n
+  if (name.includes("/lineEndings/")) {
+    return true;
+  }
+
+  // We blacklist remaining unsorted failing tests
   if (failingFixtures.includes(name)) {
     return true;
   }
