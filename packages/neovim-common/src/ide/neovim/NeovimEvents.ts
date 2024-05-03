@@ -13,7 +13,6 @@ import type { Buffer } from "neovim";
 export function neovimOnDidChangeTextDocument(
   listener: (event: TextDocumentChangeEvent) => void,
 ): Disposable {
-  // eventEmitter.on("onDidChangeTextDocument", listener);
   getNeovimRegistry().onEvent("onDidChangeTextDocument", listener);
   return dummyEvent();
 }
@@ -23,7 +22,6 @@ export function neovimOnDidOpenTextDocument(
   thisArgs?: any,
   disposables?: Disposable[] | undefined,
 ): Disposable {
-  // eventEmitter.on("onDidOpenTextDocument", listener);
   getNeovimRegistry().onEvent("onDidOpenTextDocument", listener);
   return dummyEvent();
 }

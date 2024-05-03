@@ -50,11 +50,7 @@ export async function updateTextEditor(
     visibleRanges,
     selections,
   );
-  // await subscribeBufferUpdates();
 
-  // TODO: simulate that the document is open for now from here.
-  // we would need to ideally do it from neovim itself
-  // eventEmitter.emit("onDidOpenTextDocument", editor.document);
   getNeovimRegistry().emitEvent("onDidOpenTextDocument", editor.document);
 
   return editor;

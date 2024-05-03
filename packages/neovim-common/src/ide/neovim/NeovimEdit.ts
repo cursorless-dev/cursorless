@@ -66,10 +66,7 @@ export default async function neovimEdit(
       text: edit.text,
     });
   }
-  // eventEmitter.emit("onDidChangeTextDocument", {
-  //   document: document,
-  //   contentChanges: changes,
-  // });
+
   getNeovimRegistry().emitEvent("onDidChangeTextDocument", {
     document: document,
     contentChanges: changes,
