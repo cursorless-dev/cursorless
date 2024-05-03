@@ -1,5 +1,7 @@
-import { ActionType, Command, PartialTargetV0V1 } from "@cursorless/common";
-import { isString } from "../../util/type";
+import { ActionType } from "../types/command/ActionDescriptor";
+import { Command } from "../types/command/command.types";
+import { PartialTargetV0V1 } from "../types/command/legacy/CommandV0V1.types";
+import { isString } from "./type";
 
 /**
  * Given a list of arguments, ensure that it has the right shape.
