@@ -12,7 +12,6 @@ import {
   NeovimIDE,
   modeSwitchNormalTerminal,
   modeSwitchTerminal,
-  updateTextEditor,
 } from "@cursorless/neovim-common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import type { NeovimClient } from "neovim";
@@ -33,7 +32,7 @@ export async function registerCommands(
       }
 
       try {
-        await updateTextEditor(client, neovimIDE);
+        await neovimIDE.updateTextEditor();
         const result = await commandApi.runCommandSafe(...args);
 
         const command = ensureCommandShape(args);

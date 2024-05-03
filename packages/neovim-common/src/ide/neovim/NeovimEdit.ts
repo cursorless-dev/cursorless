@@ -6,8 +6,6 @@ import {
   TextDocumentContentChangeEvent,
 } from "@cursorless/common";
 import type { NeovimClient, Window } from "neovim";
-// import { eventEmitter } from "../../events";
-import { updateTextEditor } from "../../updateTextEditor";
 import { NeovimIDE } from "./NeovimIDE";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
@@ -84,8 +82,7 @@ export default async function neovimEdit(
     }
   }
 
-  // update our view of the document
-  await updateTextEditor(client, neovimIDE);
+  await neovimIDE.updateTextEditor();
   return true;
 }
 

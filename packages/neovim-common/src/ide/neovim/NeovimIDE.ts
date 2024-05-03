@@ -31,12 +31,18 @@ import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
 import path from "path";
 import { URI } from "vscode-uri";
 
-import { getTalonNvimPath, showErrorMessage } from "../../neovimApi";
+import {
+  bufferGetSelections,
+  getTalonNvimPath,
+  showErrorMessage,
+  windowGetVisibleRanges,
+} from "../../neovimApi";
 import {
   neovimOnDidChangeTextDocument,
   neovimOnDidOpenTextDocument,
 } from "./NeovimEvents";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
+import { getNeovimRegistry } from "@cursorless/neovim-registry";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;
@@ -230,6 +236,50 @@ export class NeovimIDE implements IDE {
     dummyEvent;
   onDidChangeTextEditorVisibleRanges: Event<TextEditorVisibleRangesChangeEvent> =
     dummyEvent;
+
+  /**
+   * Initialize the current editor (and current document).
+   * If the current editor already exists, it will only update the current document of that editor.
+   *
+   * when we receive our first cursorless command, we will initialize an editor an document for it.
+   * for the following commands, we will only update the document.
+   *
+   * Atm, we only initialize one editor(current window) with one document(current buffer)
+   */
+  async updateTextEditor(
+    minimal: boolean = false,
+  ): Promise<NeovimTextEditorImpl> {
+    const window = await this.client.window;
+    const buffer = await window.buffer;
+    const lines = await buffer.lines;
+    let linesShown = lines;
+    if (lines.length >= 30) {
+      linesShown = lines.slice(0, 15).concat(["..."]).concat(lines.slice(-15));
+    }
+    console.debug(
+      `updateTextEditor(): window:${window.id}, buffer:${buffer.id}, lines=${JSON.stringify(linesShown)}`,
+    );
+    let selections: Selection[];
+    let visibleRanges: Range[];
+    if (!minimal) {
+      selections = await bufferGetSelections(window, this.client);
+      visibleRanges = await windowGetVisibleRanges(window, this.client, lines);
+    } else {
+      selections = [];
+      visibleRanges = [];
+    }
+    const editor = this.toNeovimEditor(
+      window,
+      buffer,
+      lines,
+      visibleRanges,
+      selections,
+    );
+
+    getNeovimRegistry().emitEvent("onDidOpenTextDocument", editor.document);
+
+    return editor;
+  }
 
   toNeovimEditor(
     window: Window,

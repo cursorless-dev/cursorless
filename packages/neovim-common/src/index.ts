@@ -1,7 +1,6 @@
 export * from "./getExtensionApi";
 export * from "./TestHelpers";
 export * from "./testUtil/openNewEditor";
-export * from "./updateTextEditor";
 export * from "./runCommand";
 export * from "./neovimApi";
 export * from "./ide/neovim/NeovimCapabilities";

@@ -2,7 +2,6 @@ import type { NeovimClient } from "neovim";
 import { NeovimIDE } from "../ide/neovim/NeovimIDE";
 import { NeovimTextDocumentImpl } from "../ide/neovim/NeovimTextDocumentImpl";
 import { NeovimTextEditorImpl } from "../ide/neovim/NeovimTextEditorImpl";
-import { updateTextEditor } from "../updateTextEditor";
 
 interface NewEditorOptions {
   languageId?: string;
@@ -45,8 +44,7 @@ export async function openNewEditor(
     await client.command(":set ff=unix");
   }
 
-  // update our view of the document
-  const editor = await updateTextEditor(client, neovimIDE);
+  const editor = await neovimIDE.updateTextEditor();
 
   return editor;
 }
