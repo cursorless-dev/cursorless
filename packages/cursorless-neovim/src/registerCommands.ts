@@ -1,10 +1,10 @@
 import {
   CURSORLESS_COMMAND_ID,
-  CommandLatest,
   CommandResponse,
   CommandServerApi,
   CursorlessCommandId,
   clientSupportsFallback,
+  ensureCommandShape,
 } from "@cursorless/common";
 
 import { CommandApi } from "@cursorless/cursorless-engine";
@@ -16,10 +16,6 @@ import {
 } from "@cursorless/neovim-common";
 import { getNeovimRegistry } from "@cursorless/neovim-registry";
 import type { NeovimClient } from "neovim";
-// TODO - we need to fix that import as we should not be allowed to import it afaict?
-//import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
-// TODO: move this to common
-import { ensureCommandShape } from "../../cursorless-engine/src/core/commandVersionUpgrades/ensureCommandShape";
 
 export async function registerCommands(
   client: NeovimClient,
