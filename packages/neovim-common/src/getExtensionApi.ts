@@ -14,6 +14,7 @@ export interface CursorlessApi {
   };
 }
 
+// See packages\cursorless-neovim\src\extension.ts:createTreeSitter() for neovim
 // export interface ParseTreeApi {
 //   getNodeAtLocation(location: vscode.Location): SyntaxNode;
 //   getTreeForUri(uri: vscode.Uri): Tree;
@@ -36,7 +37,6 @@ export async function getExtensionApiStrict<T>(extensionId: string) {
   return api as T;
 }
 
-// for old implementation
 export const EXTENSION_ID = "pokey.cursorless";
 export const getCursorlessApi = () =>
   getExtensionApiStrict<CursorlessApi>(EXTENSION_ID);
