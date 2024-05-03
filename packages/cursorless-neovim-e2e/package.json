@@ -4,6 +4,12 @@
   "description": "Our neovim end-to-end tests",
   "private": true,
   "main": "./out/index.js",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
   "scripts": {
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
@@ -12,14 +18,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "type": "module",
-  "types": "./out/index.d.ts",
-  "exports": {
-    ".": {
-      "cursorless:bundler": "./src/index.ts",
-      "default": "./out/index.js"
-    }
-  },
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
@@ -28,5 +26,7 @@
     "@types/js-yaml": "4.0.9",
     "@types/lodash": "4.17.0",
     "@types/sinon": "^17.0.3"
-  }
+  },
+  "types": "./out/index.d.ts",
+  "type": "module"
 }
