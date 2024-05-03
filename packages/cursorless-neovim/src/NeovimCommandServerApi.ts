@@ -13,8 +13,8 @@ export class NeovimCommandServerApi implements CommandServerApi {
   }
 
   // for vscode, it is actually stored into the command-server
+  // but for neovim, it is stored in cursorless
   // https://github.com/pokey/command-server/blob/main/src/extension.ts#L32
-  // I am not sure why it is stored into the command-server and not in the Cursorless extension
   async getFocusedElementType(): Promise<FocusedElementType | undefined> {
     const currentMode = await this.client.mode;
     if (currentMode.mode === "t" || currentMode.mode === "nt") {
