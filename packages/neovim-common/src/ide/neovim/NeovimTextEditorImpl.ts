@@ -82,10 +82,6 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   get isActive(): boolean {
-    // TODO: implement it to support multiple editors
-    // Commenting for now to avoid exceptions being triggered
-    // when issuing "copy" commands even if not fatal
-    // throw Error("isActive Not implemented");
     return true;
   }
 
@@ -94,9 +90,6 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   public async revealRange(range: Range): Promise<void> {
-    // TODO: implement it to support multiple editors
-    // Commenting for now to avoid exceptions being triggered
-    // when issuing "take" commands even if not fatal
     // throw Error("revealRange Not implemented");
   }
 
@@ -110,9 +103,6 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
   }
 
   public focus(): Promise<void> {
-    // TODO: implement it to support multiple editors
-    // Commenting for now to avoid exceptions being triggered
-    // when issuing "take" commands even if not fatal
     return Promise.resolve();
     // throw Error("focus Not implemented");
   }

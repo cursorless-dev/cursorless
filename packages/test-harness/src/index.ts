@@ -17,8 +17,7 @@ export function run(plugin: NvimPlugin): Promise<void> {
   (global as any).additionalParameters = {
     client: plugin.nvim as NeovimClient,
   };
-  // return runAllTests(TestType.neovim, TestType.unit); //TODO: use this line at the end
-  return runAllTests(TestType.neovim); //TODO: this allows running our test only for now
+  return runAllTests(TestType.neovim, TestType.unit);
 }
 
 /**

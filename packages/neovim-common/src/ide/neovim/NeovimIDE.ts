@@ -33,7 +33,7 @@ import { URI } from "vscode-uri";
 
 import {
   bufferGetSelections,
-  getTalonNvimPath,
+  getCursorlessNvimPath,
   showErrorMessage,
   windowGetVisibleRanges,
 } from "../../neovimApi";
@@ -75,19 +75,11 @@ export class NeovimIDE implements IDE {
   }
 
   async init() {
-    const talonNvimPath = await getTalonNvimPath(this.client);
-    // talon-nvim path: C:\Users\User\AppData\Local\nvim-data\lazy\talon.nvim
-    // we store the assets into a subfolder of talon.nvim
-    this.assetsRoot_ = path.join(talonNvimPath, "assets");
-    // development cursorless-neovim path: C:\Users\User\AppData\Local\nvim\rplugin\node\cursorless-neovim
-    // TODO: we will need to change this once all the files are in talon.nvim/
+    const rootPath = await getCursorlessNvimPath(this.client);
+    // we store the assets into a subfolder of cursorless.nvim
+    this.assetsRoot_ = path.join(rootPath, "assets");
     this.cursorlessNeovimPath = path.join(
-      talonNvimPath,
-      "..",
-      "..",
-      "..",
-      "nvim",
-      "rplugin",
+      rootPath,
       "node",
       "cursorless-neovim",
     );
@@ -126,7 +118,6 @@ export class NeovimIDE implements IDE {
   }
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
-    // TODO: find out how to flash the target ranges (similar to vscode)
     console.debug("flashRanges Not implemented");
   }
 
@@ -167,7 +158,6 @@ export class NeovimIDE implements IDE {
     return undefined;
   }
 
-  // TODO: change to private once not needed anymore outside
   public getTextDocument(b: Buffer) {
     for (const [buffer, textDocument] of this.documentMap) {
       if (buffer.id === b.id) {
