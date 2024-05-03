@@ -9,6 +9,8 @@ import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
 import type { NeovimClient } from "neovim";
 import { IDE } from "@cursorless/common";
 
+//TODO:  file a github issue to get notified about changes in buffer and drop code
+
 /**
  * Subscribe to buffer updates, e.g. when the text changes.
  */

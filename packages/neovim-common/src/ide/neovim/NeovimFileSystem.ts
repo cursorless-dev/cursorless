@@ -53,6 +53,7 @@ export class NeovimFileSystem implements FileSystem {
     throw Error("resolveBundledPath() Not implemented");
   }
 
+  // TODO: track on github to implement watchDir and remove TODO
   public watchDir(path: string, onDidChange: PathChangeListener): Disposable {
     // throw Error("watchDir() Not implemented");
     // TODO: we need to implement this?

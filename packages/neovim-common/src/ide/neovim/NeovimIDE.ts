@@ -1,47 +1,42 @@
 import type {
+  Disposable,
   EditableTextEditor,
+  IDE,
+  OpenUntitledTextDocumentOptions,
   Range,
+  RunMode,
   Selection,
+  TextDocumentChangeEvent,
   TextEditor,
+  WorkspaceFolder,
 } from "@cursorless/common";
-import { GeneralizedRange } from "@cursorless/common";
-import { TextDocument } from "@cursorless/common";
-import type { TextDocumentChangeEvent } from "@cursorless/common";
-import { FlashDescriptor } from "@cursorless/common";
-import { QuickPickOptions } from "@cursorless/common";
 import {
   Event,
+  FlashDescriptor,
+  GeneralizedRange,
+  QuickPickOptions,
+  TextDocument,
   TextEditorSelectionChangeEvent,
   TextEditorVisibleRangesChangeEvent,
 } from "@cursorless/common";
-import type {
-  Disposable,
-  IDE,
-  OpenUntitledTextDocumentOptions,
-  RunMode,
-  WorkspaceFolder,
-} from "@cursorless/common";
 import { pull } from "lodash";
+import type { Buffer, NeovimClient, Window } from "neovim";
 import { v4 as uuid } from "uuid";
 import { NeovimCapabilities } from "./NeovimCapabilities";
 import NeovimClipboard from "./NeovimClipboard";
 import NeovimConfiguration from "./NeovimConfiguration";
 import NeovimGlobalState from "./NeovimGlobalState";
 import NeovimMessages from "./NeovimMessages";
-import type { NeovimClient, Window, Buffer } from "neovim";
 import { NeovimTextEditorImpl } from "./NeovimTextEditorImpl";
-// TODO: fix this import to avoid all the ../../....
-import {
-  getTalonNvimPath,
-  showErrorMessage,
-} from "../../../../neovim-common/src/neovimApi";
 import path from "path";
+import { URI } from "vscode-uri";
+
+import { getTalonNvimPath, showErrorMessage } from "../../neovimApi";
 import {
   neovimOnDidChangeTextDocument,
   neovimOnDidOpenTextDocument,
 } from "./NeovimEvents";
 import { NeovimTextDocumentImpl } from "./NeovimTextDocumentImpl";
-import { URI } from "vscode-uri";
 
 export class NeovimIDE implements IDE {
   readonly configuration: NeovimConfiguration;

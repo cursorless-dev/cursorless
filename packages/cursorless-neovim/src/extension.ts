@@ -45,12 +45,8 @@ export async function activate(plugin: NvimPlugin) {
           neovimIDE.runMode === "test",
         );
 
-  // TODO: atm if we are using testing, the focused element will always be the texteditor
-  // even if we the current window is a terminal. We need to fix this.
   const fakeCommandServerApi = new FakeCommandServerApi();
   const neovimCommandServerApi = new NeovimCommandServerApi(client);
-  // TODO: there are currently two ways to test if we are running tests, through neovimIDE.runMode and with isTesting()
-  // We need to get rid of isTesting() entirely and use neovimIDE.runMode == "test" instead
   const commandServerApi =
     neovimIDE.runMode === "test"
       ? fakeCommandServerApi
