@@ -39,10 +39,6 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     return this._document;
   }
 
-  get visibleRanges(): Range[] {
-    return this._visibleRanges;
-  }
-
   public updateDocument(
     visibleRanges: Range[],
     selections: Selection[],
@@ -71,6 +67,10 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
     // as we cache the selections in the editor beforehand
     this._selections = selections;
     await bufferSetSelections(this.client, selections);
+  }
+
+  get visibleRanges(): Range[] {
+    return this._visibleRanges;
   }
 
   get options(): TextEditorOptions {

@@ -84,7 +84,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeRevealLine(this, lineNumber, at);
   }
 
-  public edit(edits: Edit[]): Promise<boolean> {
+  public async edit(edits: Edit[]): Promise<boolean> {
     return vscodeEdit(this.editor, edits);
   }
 
