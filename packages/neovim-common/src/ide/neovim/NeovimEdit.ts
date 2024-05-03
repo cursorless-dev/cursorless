@@ -17,39 +17,39 @@ export default async function neovimEdit(
   window: Window,
   edits: Edit[],
 ): Promise<boolean> {
-  console.log("neovimEdit() [unsorted]:");
+  console.debug("neovimEdit() [unsorted]:");
   for (const edit of edits) {
-    console.log(
+    console.debug(
       `\trange=${JSON.stringify(edit.range)}, text='${edit.text}', isReplace=${edit.isReplace}`,
     );
   }
 
   edits.sort((a, b) => {
-    // console.log(
+    // console.debug(
     //   `a=${JSON.stringify(a.range)}, text='${a.text}', isReplace=${a.isReplace}`,
     // );
-    // console.log(
+    // console.debug(
     //   `b=${JSON.stringify(b.range)}, text='${b.text}', isReplace=${b.isReplace}`,
     // );
     // We apply the insert/replace edits from the start of the document
     // as a later one assume the previous ones have already been applied
     if ((isInsert(a) || isReplace(a)) && (isInsert(b) || isReplace(b))) {
-      // console.log("a is insert/replace and b is insert/replace");
+      // console.debug("a is insert/replace and b is insert/replace");
       return 1;
     }
     // We apply the delete edits from the end of the document
     // to make sure the edit ranges for the remaining ones are stable
     if (a.range.start.line === b.range.start.line) {
-      // console.log("a and b are on the same line");
+      // console.debug("a and b are on the same line");
       return b.range.start.character - a.range.start.character;
     }
-    // console.log("a and b are on different lines");
+    // console.debug("a and b are on different lines");
     return b.range.start.line - a.range.start.line;
   });
 
-  console.log("neovimEdit() [sorted]:");
+  console.debug("neovimEdit() [sorted]:");
   for (const edit of edits) {
-    console.log(
+    console.debug(
       `\trange=${JSON.stringify(edit.range)}, text='${edit.text}', isReplace=${edit.isReplace}`,
     );
   }
@@ -93,7 +93,7 @@ export default async function neovimEdit(
 }
 
 async function neovimDelete(client: NeovimClient, range: Range): Promise<void> {
-  console.log(`neovimDelete(): range=${JSON.stringify(range)}`);
+  console.debug(`neovimDelete(): range=${JSON.stringify(range)}`);
   const buffer = await client.window.buffer;
 
   // only keep the end of the last line
@@ -165,7 +165,7 @@ async function neovimInsert(
   position: Position,
   text: string,
 ) {
-  console.log(
+  console.debug(
     `neovimInsert(): position=${JSON.stringify(position)}, text='${text}'`,
   );
   // standardise newlines so we can easily split the lines
@@ -210,7 +210,7 @@ async function neovimInsert(
 }
 
 async function neovimReplace(client: NeovimClient, range: Range, text: string) {
-  console.log(
+  console.debug(
     `neovimReplace(): range=${JSON.stringify(range)}, text='${text}'`,
   );
   await neovimDelete(client, range);

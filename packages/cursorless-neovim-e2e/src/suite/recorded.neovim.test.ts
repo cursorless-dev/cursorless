@@ -93,13 +93,13 @@ async function runTest(
 
   // Uncomment below for debugging
   // if (name === "recorded/implicitExpansion/chuckBoundingThat") {
-  //   console.log(`runTest(${name}) => let's analyze it`);
+  //   console.debug(`runTest(${name}) => let's analyze it`);
   // }
 
-  console.log(
+  console.debug(
     "------------------------------------------------------------------------------",
   );
-  console.log(`runTest(${file})...`);
+  console.debug(`runTest(${file})...`);
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
@@ -270,10 +270,7 @@ async function runTest(
   }
 }
 
-function unsupportedFixture(fixture: TestCaseFixtureLegacy) {
-  // TODO: skip tests based on common patterns
-  // black list if only a few tests don't have a common pattern
-
+// Fixtures that are known to fail in neovim but succeed in vscode
   // We don't support decorated symbol marks (hats) yet
   const hasMarks =
     fixture.initialState.marks != null &&

@@ -27,7 +27,7 @@ export class NeovimFileSystem implements FileSystem {
       try {
         fs.mkdirSync(this.cursorlessDir);
       } catch (err) {
-        console.log("Cannot create cursorlessDir", this.cursorlessDir, err);
+        console.debug("Cannot create cursorlessDir", this.cursorlessDir, err);
       }
     }
   }
@@ -45,7 +45,7 @@ export class NeovimFileSystem implements FileSystem {
    */
   public async readBundledFile(path: string): Promise<string | undefined> {
     // throw Error("readBundledFile() Not implemented");
-    console.log("readBundledFile() Not implemented");
+    console.debug("readBundledFile() Not implemented");
     return undefined;
   }
 

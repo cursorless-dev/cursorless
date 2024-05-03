@@ -121,7 +121,7 @@ export class NeovimIDE implements IDE {
 
   async flashRanges(_flashDescriptors: FlashDescriptor[]): Promise<void> {
     // TODO: find out how to flash the target ranges (similar to vscode)
-    console.log("flashRanges Not implemented");
+    console.debug("flashRanges Not implemented");
   }
 
   get assetsRoot(): string {
@@ -147,7 +147,7 @@ export class NeovimIDE implements IDE {
       ? this.getTextEditor(this.activeWindow)
       : undefined;
     if (editor === undefined) {
-      console.log("getActiveTextEditor: editor is undefined");
+      console.debug("getActiveTextEditor: editor is undefined");
     }
     return editor;
   }
@@ -241,7 +241,7 @@ export class NeovimIDE implements IDE {
     let document = this.getTextDocument(buffer);
     let editor = this.getTextEditor(window);
     if (!document) {
-      console.log(
+      console.debug(
         `toNeovimEditor(): creating new document: buffer=${buffer.id}`,
       );
       document = new NeovimTextDocumentImpl(
@@ -258,7 +258,7 @@ export class NeovimIDE implements IDE {
       // "attach" to Nvim buffers to subscribe to buffer update events.
       // This is similar to TextChanged but more powerful and granular.
       // @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
-      // console.log(
+      // console.debug(
       //   `toNeovimEditor(): listening for changes in buffer: ${buffer.id}`,
       // );
       // buffer.listen("lines", async () => await receivedBufferEvent);
@@ -271,11 +271,13 @@ export class NeovimIDE implements IDE {
       // });
       // buffer.listen("lines", receivedBufferEvent);
     } else {
-      console.log(`toNeovimEditor(): updating document: buffer=${buffer.id}`);
+      console.debug(`toNeovimEditor(): updating document: buffer=${buffer.id}`);
       document.update(lines);
     }
     if (!editor) {
-      console.log(`toNeovimEditor(): creating new editor: window=${window.id}`);
+      console.debug(
+        `toNeovimEditor(): creating new editor: window=${window.id}`,
+      );
       editor = new NeovimTextEditorImpl(
         uuid(),
         this.client,
@@ -287,7 +289,7 @@ export class NeovimIDE implements IDE {
       );
       this.editorMap.set(window, editor);
     } else {
-      console.log(`toNeovimEditor(): updating editor: window=${window.id}`);
+      console.debug(`toNeovimEditor(): updating editor: window=${window.id}`);
       editor.updateDocument(visibleRanges, selections, document);
     }
     this.activeBuffer = buffer;

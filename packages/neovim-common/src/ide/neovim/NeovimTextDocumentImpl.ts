@@ -32,14 +32,14 @@ export class NeovimTextDocumentImpl implements TextDocument {
   }
 
   get lineCount(): number {
-    // console.log(`lineCount(): ${this._lineCount}`);
+    // console.debug(`lineCount(): ${this._lineCount}`);
     return this._lineCount;
   }
 
   get range(): Range {
     const { end } = this.lineAt(this.lineCount - 1).range;
     const range = new Range(0, 0, end.line, end.character);
-    // console.log(
+    // console.debug(
     //   `range(): (${range.start.line},${range.start.character}),(${range.end.line},${range.end.character})`,
     // );
     return range;
@@ -82,7 +82,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
     } else if (typeof lineOrPosition === "number") {
       line = lineOrPosition;
     }
-    // console.log(`lineAt() line=${line}`);
+    // console.debug(`lineAt() line=${line}`);
 
     if (
       typeof line !== "number" ||
@@ -101,12 +101,12 @@ export class NeovimTextDocumentImpl implements TextDocument {
   }
 
   public offsetAt(position: Position): number {
-    // console.log(
+    // console.debug(
     //   `offsetAt() position=(${position.line},${position.character})`,
     // );
     position = this._validatePosition(position);
     this._ensureLineStarts();
-    // console.log(
+    // console.debug(
     //   `offsetAt() returning ${
     //     this._lineStarts!.getPrefixSum(position.line - 1) + position.character
     //   }`,
@@ -117,7 +117,7 @@ export class NeovimTextDocumentImpl implements TextDocument {
   }
 
   public positionAt(offset: number): Position {
-    // console.log(`positionAt() offset=${offset}`);
+    // console.debug(`positionAt() offset=${offset}`);
     offset = Math.floor(offset);
     offset = Math.max(0, offset);
 
@@ -132,22 +132,22 @@ export class NeovimTextDocumentImpl implements TextDocument {
 
   public getText(range?: Range): string {
     if (range === undefined) {
-      // console.log(`getText(all)`);
+      // console.debug(`getText(all)`);
       if (this._cachedTextValue == null) {
         this._cachedTextValue = this._lines.join(this._eol);
       }
       // if (this._lines.length > 10) {
-      //   console.log(
+      //   console.debug(
       //     `getText() returning multiple lines: '${this._lines.slice(0, 10).join(this._eol)}' \n[stripped...]}`,
       //   );
       // } else {
-      //   console.log(
+      //   console.debug(
       //     `getText() returning multiple lines: '${this._cachedTextValue}'`,
       //   );
       // }
       return this._cachedTextValue;
     } else {
-      // console.log(
+      // console.debug(
       //   `getText(range=(${range?.start.line},${range?.start.character}),(${range?.end.line},${range?.end.character}))`,
       // );
     }
@@ -155,12 +155,12 @@ export class NeovimTextDocumentImpl implements TextDocument {
     range = this._validateRange(range);
 
     if (range.isEmpty) {
-      // console.log(`getText() returning empty`);
+      // console.debug(`getText() returning empty`);
       return "";
     }
 
     if (range.isSingleLine) {
-      // console.log(
+      // console.debug(
       //   `getText() returning single line '${this._lines[
       //     range.start.line
       //   ].substring(range.start.character, range.end.character)}'`,
@@ -186,11 +186,11 @@ export class NeovimTextDocumentImpl implements TextDocument {
       this._lines[endLineIndex].substring(0, range.end.character),
     );
     // if (resultLines.length > 10) {
-    //   console.log(
+    //   console.debug(
     //     `getText() returning multiple lines: '${resultLines.slice(0, 10).join(lineEnding)}' \n[stripped...]}`,
     //   );
     // } else {
-    //   console.log(
+    //   console.debug(
     //     `getText() returning multiple lines: '${resultLines.join(lineEnding)}'`,
     //   );
     // }

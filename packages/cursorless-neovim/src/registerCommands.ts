@@ -118,5 +118,5 @@ export async function registerCommands(
 }
 
 export async function dummyCommandHandler(...args: any[]) {
-  console.log(`dummyCommandHandler(): args=${args}`);
+  console.debug(`dummyCommandHandler(): args=${args}`);
 }

@@ -97,7 +97,7 @@ export class RangeUpdater {
     this.disposable = ide().onDidChangeTextDocument(
       (event: TextDocumentChangeEvent) => {
         const changes = event.contentChanges;
-        console.log(
+        console.debug(
           `RangeUpdater.listenForDocumentChanges(): changes=${JSON.stringify(changes)}`,
         );
         const documentReplaceEditLists = this.getDocumentReplaceEditLists(

@@ -32,10 +32,10 @@ import { IDE } from "@cursorless/common";
 //   const buffers = [await client.buffer];
 //   buffers.forEach((buf) => {
 //     if (neovimIDE.getTextDocument(buf) !== undefined) {
-//       console.log(`already listening for changes in buffer: ${buf.id}`);
+//       console.debug(`already listening for changes in buffer: ${buf.id}`);
 //       return;
 //     }
-//     console.log(`listening for changes in buffer: ${buf.id}`);
+//     console.debug(`listening for changes in buffer: ${buf.id}`);
 //     buf.listen("lines", receivedBufferEvent);
 //   });
 // }
