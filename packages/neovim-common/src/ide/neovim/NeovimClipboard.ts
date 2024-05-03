@@ -10,6 +10,6 @@ export default class NeovimClipboard implements Clipboard {
   }
 
   async writeText(value: string): Promise<void> {
-    await putToClipboard(value, this.client);
+    return await putToClipboard(value, this.client);
   }
 }

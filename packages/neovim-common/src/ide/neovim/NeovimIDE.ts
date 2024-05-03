@@ -85,23 +85,6 @@ export class NeovimIDE implements IDE {
     );
   }
 
-  // See https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
-  get runMode(): RunMode {
-    const runMode = process.env.CURSORLESS_MODE;
-    const ret =
-      runMode == null
-        ? "production"
-        : runMode === "test"
-          ? "test"
-          : runMode == "development"
-            ? "development"
-            : "unknown";
-    if (ret === "unknown") {
-      throw Error("Invalid runMode");
-    }
-    return ret;
-  }
-
   async showQuickPick(
     _items: readonly string[],
     _options?: QuickPickOptions,
@@ -127,6 +110,23 @@ export class NeovimIDE implements IDE {
     }
 
     return this.assetsRoot_;
+  }
+
+  // See https://code.visualstudio.com/api/references/vscode-api#ExtensionMode
+  get runMode(): RunMode {
+    const runMode = process.env.CURSORLESS_MODE;
+    const ret =
+      runMode == null
+        ? "production"
+        : runMode === "test"
+          ? "test"
+          : runMode == "development"
+            ? "development"
+            : "unknown";
+    if (ret === "unknown") {
+      throw Error("Invalid runMode");
+    }
+    return ret;
   }
 
   get activeTextEditor(): TextEditor | undefined {
@@ -177,40 +177,44 @@ export class NeovimIDE implements IDE {
     // throw Error("getEditableTextEditor Not implemented");
   }
 
-  public findInDocument(_query: string, _editor: TextEditor): Promise<void> {
+  public async findInDocument(
+    _query: string,
+    _editor: TextEditor,
+  ): Promise<void> {
     throw Error("findInDocument Not implemented");
   }
 
-  public findInWorkspace(_query: string): Promise<void> {
+  public async findInWorkspace(_query: string): Promise<void> {
     throw Error("findInWorkspace Not implemented");
   }
 
-  public openTextDocument(_path: string): Promise<TextEditor> {
+  public async openTextDocument(_path: string): Promise<TextEditor> {
     throw Error("openTextDocument Not implemented");
   }
 
-  public openUntitledTextDocument(
+  public async openUntitledTextDocument(
     _options: OpenUntitledTextDocumentOptions,
   ): Promise<TextEditor> {
     throw Error("openUntitledTextDocument Not implemented");
   }
 
-  public showInputBox(_options?: any): Promise<string | undefined> {
+  public async showInputBox(_options?: any): Promise<string | undefined> {
     throw Error("TextDocumentChangeEvent Not implemented");
   }
 
-  executeCommand<T>(_command: string, ..._args: any[]): Promise<T | undefined> {
+  public async executeCommand<T>(
+    _command: string,
+    ..._args: any[]
+  ): Promise<T | undefined> {
     throw new Error("executeCommand Method not implemented.");
   }
 
-  // onDidChangeTextDocument: Event<TextDocumentChangeEvent> = dummyEvent;
   public onDidChangeTextDocument(
     listener: (event: TextDocumentChangeEvent) => void,
   ): Disposable {
     return neovimOnDidChangeTextDocument(listener);
   }
 
-  // onDidOpenTextDocument: Event<TextDocument> = dummyEvent;
   public onDidOpenTextDocument(
     listener: (event: TextDocument) => any,
     thisArgs?: any,
@@ -218,7 +222,6 @@ export class NeovimIDE implements IDE {
   ): Disposable {
     return neovimOnDidOpenTextDocument(listener, thisArgs, disposables);
   }
-
   onDidCloseTextDocument: Event<TextDocument> = dummyEvent;
   onDidChangeActiveTextEditor: Event<TextEditor | undefined> = dummyEvent;
   onDidChangeVisibleTextEditors: Event<TextEditor[]> = dummyEvent;
