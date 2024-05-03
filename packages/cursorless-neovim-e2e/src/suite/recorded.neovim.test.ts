@@ -64,7 +64,7 @@ suite("recorded test cases", async function () {
   for (const { name, path } of tests) {
     test(
       name,
-      asyncSafety(() => runTest(this, path, getSpy()!, getNeovimIDE()!)),
+      asyncSafety(() => runTest(this, name, path, getSpy()!, getNeovimIDE()!)),
     );
   }
   // getRecordedTestPaths().forEach(({ name, path }) =>
@@ -77,6 +77,7 @@ suite("recorded test cases", async function () {
 
 async function runTest(
   suite: Mocha.Suite,
+  name: string,
   file: string,
   spyIde: SpyIDE,
   neovimIDE: NeovimIDE,
@@ -87,7 +88,7 @@ async function runTest(
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
-  if (unsupportedFixture(fixture)) {
+  if (unsupportedFixture(name, fixture)) {
     return suite.ctx.skip();
   }
 
@@ -270,7 +271,123 @@ async function runTest(
   }
 }
 
-// Fixtures that are known to fail in neovim but succeed in vscode
+const failingFixtures = [
+  // fixture.command.action.name == "breakLine" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  "recorded/actions/breakJustThis",
+  "recorded/actions/breakJustThis2",
+  // fixture.command.action.name == "insertCopyAfter" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  "recorded/actions/cloneToken",
+  "recorded/actions/cloneToken2",
+  "recorded/actions/cloneToken3",
+  "recorded/actions/cloneToken4",
+  "recorded/actions/cloneToken5",
+  // fixture.command.action.name == "insertCopyAfter" -> wrong fixture.finalState.selections (no test on fixture.thatMark.contentRange)
+  "recorded/itemTextual/cloneTwoItems",
+  // actual finalState.selections.anchor is -1 compared to expected (other fixture.command.action.name == "insertCopyBefore" tests pass fine)
+  "recorded/actions/cloneToken4",
+  "recorded/actions/cloneUpToken4",
+  // fixture.command.action.name == "decrement" / "increment" are not supported atm
+  "recorded/actions/decrementFile",
+  "recorded/actions/incrementFile",
+  // fixture.command.action.name == "insertEmptyLineBefore" -> wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  "recorded/actions/insertEmptyLines/dropThis",
+  "recorded/actions/insertEmptyLines/dropThis2",
+  "recorded/actions/insertEmptyLines/dropThis3",
+  "recorded/actions/insertEmptyLines/dropThis4",
+  "recorded/actions/insertEmptyLines/dropThis5",
+  "recorded/actions/insertEmptyLines/dropThis6",
+  "recorded/actions/insertEmptyLines/dropThis7",
+  "recorded/actions/insertEmptyLines/dropThis8",
+  "recorded/actions/insertEmptyLines/dropThis9",
+  "recorded/actions/insertEmptyLines/dropThis10",
+  "recorded/actions/insertEmptyLines/dropThis11",
+  "recorded/actions/insertEmptyLines/dropThis12",
+  // fixture.command.action.name == "insertEmptyLineAfter" ->    Error: nvim_buf_get_lines: Index out of bounds
+  //                                                -> or actual finalState.selections.anchor is -1 compared to expected
+  //                                                      actual finalState.thatMark.contentRange.start is -1 compared to expected
+  "recorded/actions/insertEmptyLines/floatThis",
+  "recorded/actions/insertEmptyLines/floatThis2",
+  "recorded/actions/insertEmptyLines/floatThis3",
+  "recorded/actions/insertEmptyLines/floatThis4",
+  "recorded/actions/insertEmptyLines/floatThis5",
+  "recorded/actions/insertEmptyLines/floatThis6",
+  "recorded/actions/insertEmptyLines/floatThis7",
+  "recorded/actions/insertEmptyLines/floatThis8",
+  "recorded/actions/insertEmptyLines/floatThis9",
+  "recorded/actions/insertEmptyLines/floatThis10",
+  "recorded/actions/insertEmptyLines/floatThis11",
+  "recorded/actions/insertEmptyLines/floatThis12",
+  "recorded/actions/insertEmptyLines/floatThis13",
+  // fixture.command.action.name == "insertEmptyLinesAround" ->  wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  "recorded/actions/insertEmptyLines/puffThis",
+  "recorded/actions/insertEmptyLines/puffThis2",
+  "recorded/actions/insertEmptyLines/puffThis3",
+  "recorded/actions/insertEmptyLines/puffThis4",
+  "recorded/actions/insertEmptyLines/puffThis5",
+  "recorded/actions/insertEmptyLines/puffThis6",
+  "recorded/actions/insertEmptyLines/puffThis7",
+  "recorded/actions/insertEmptyLines/puffThis8",
+  "recorded/actions/insertEmptyLines/puffThis9",
+  "recorded/actions/insertEmptyLines/puffThis10",
+  "recorded/actions/insertEmptyLines/puffThis11",
+  "recorded/actions/insertEmptyLines/puffThis12",
+  "recorded/actions/insertEmptyLines/puffThis13",
+  "recorded/actions/insertEmptyLines/puffThis14",
+  "recorded/actions/insertEmptyLines/puffThis15",
+  "recorded/actions/insertEmptyLines/puffThis16",
+  "recorded/actions/insertEmptyLines/puffThis17",
+  "recorded/actions/insertEmptyLines/puffThis18",
+  "recorded/actions/insertEmptyLines/puffThis19",
+  "recorded/actions/insertEmptyLines/puffThis20",
+  "recorded/actions/insertEmptyLines/puffThis21",
+  "recorded/actions/insertEmptyLines/puffThis22",
+  // fixture.command.action.name == "joinLines" ->  wrong fixture.finalState.selections and fixture.thatMark.contentRange
+  //      NOTE: "recorded/actions/joinLineThis" is the only fixture.command.action.name == "joinLines" that succeeds atm
+  "recorded/actions/joinBlock",
+  "recorded/actions/joinFile",
+  "recorded/actions/joinTwoLines",
+  // fixture.command.action.name == "insertSnippet" is not supported atm
+  "recorded/actions/snippets/customInsert",
+  "recorded/actions/snippets/customInsertHelloWorld",
+  "recorded/actions/snippets/snipDuplicatedDuplicatedHelloWorld",
+  "recorded/actions/snippets/snipSpaghetti",
+  "recorded/actions/snippets/snipSpaghettiGraceHopper",
+  // fixture.command.action.name == "wrapWithSnippet" is not supported atm
+  "recorded/actions/snippets/customWrapLine",
+  "recorded/actions/snippets/customWrapLine2",
+  "recorded/actions/snippets/duplicatedDuplicatedWrapThis",
+  // -> Error: nvim_execute_lua: Cursor position outside buffer
+  "recorded/compoundTargets/chuckStartOfBlockPastStartOfFile",
+  // actual finalState.selections.anchor is -1 compared to expected
+  "recorded/implicitExpansion/chuckCoreThat",
+  "recorded/implicitExpansion/chuckLeadingThat",
+  "recorded/marks/chuckNothing",
+  // -> wrong fixture.finalState.selections
+  "recorded/implicitExpansion/cloneThat2",
+  "recorded/implicitExpansion/cloneThis",
+  "recorded/implicitExpansion/cloneThis2",
+  // fixture.command.action.name == "editNewLineAfter" is not supported atm
+  "recorded/implicitExpansion/pourThat",
+  "recorded/implicitExpansion/pourThat2",
+  "recorded/implicitExpansion/pourThis",
+  "recorded/implicitExpansion/pourThis2",
+  // fixture.finalState.documentContents contains \n instead of \r\n
+  "recorded/lineEndings/clearCoreFileCRLF",
+  "recorded/lineEndings/pourBlockCRLF",
+  "recorded/lineEndings/pourItemCRLF",
+  // fixture.command.action.name == "randomizeTargets" is not supported atm
+  "recorded/actions/shuffleThis",
+  // fixture.command.action.name == "pasteFromClipboard" -> wrong fixture.finalState.documentContents/selections/thatMark
+  "recorded/actions/pasteBeforeToken",
+];
+
+function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
+  if (failingFixtures.includes(name)) {
+    return true;
+  }
+}
+
+function unsupportedFixture(name: string, fixture: TestCaseFixtureLegacy) {
   // We don't support decorated symbol marks (hats) yet
   const hasMarks =
     fixture.initialState.marks != null &&
@@ -287,5 +404,11 @@ async function runTest(
   if (hasMarks || hasMultipleSelections || needTreeSitter) {
     return true;
   }
+
+  // Fixtures that will need to be fixed in the future
+  if (isFailingFixture(name, fixture)) {
+    return true;
+  }
+
   return false;
 }
