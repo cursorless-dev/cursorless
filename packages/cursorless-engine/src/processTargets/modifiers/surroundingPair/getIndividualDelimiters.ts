@@ -1,8 +1,7 @@
-import { SimpleSurroundingPairName } from "@cursorless/common";
+import { SimpleSurroundingPairName, isString } from "@cursorless/common";
 import { IndividualDelimiter } from "./types";
 import { delimiterToText } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
-import { isString } from "../../../util/type";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to
