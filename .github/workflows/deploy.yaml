@@ -40,6 +40,54 @@ jobs:
           registryUrl: https://marketplace.visualstudio.com
           extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
 
+  push-cursorless-nvim:
+    name: Push compiled files to talon.nvim plugin
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      deployments: write
+      contents: write
+      statuses: write
+      actions: write
+      checks: read
+    steps:
+      - uses: fidgetingbits/get-github-app-pat@v1
+        id: githubAppAuth
+        with:
+          app-id: ${{ vars.BOT_ID }}
+          app-installation-id: ${{ vars.BOT_INSTALLATION_ID }}
+          app-private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+      - uses: actions/checkout@v3
+        with:
+          repository: hands-free-vim/cursorless.nvim
+          fetch-depth: 0
+          # persist-credentials: false
+          # token: ${{ steps.githubAppAuth.outputs.access-token }}
+      - run: pnpm --color install
+      - run: pnpm --color compile
+      - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        env:
+          CURSORLESS_DEPLOY: true
+      - name: Configure GPG Key
+        run: |
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.BOT_GPG_SIGNING_KEY }}
+
+      - name: git config
+        run: |
+          git config user.name hands-free-vim-bot
+          git config user.email 165344898+hands-free-vim-bot@users.noreply.github.com
+          git config user.signingkey D13230A2E34373A0
+          git config commit.gpgsign true
+      - run: bash -x scripts/deploy-cursorless-nvim.sh
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          #github_token: ${{ steps.githubAppAuth.outputs.access-token }}
+          repository: hands-free-vim/github-app-test-1
+          # force_with_lease: true
+
   push-cursorless-talon:
     name: Push cursorless-talon subrepo
     runs-on: ubuntu-latest
