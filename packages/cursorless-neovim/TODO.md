@@ -8,8 +8,16 @@
 - [ ] packages\cursorless-neovim\src\constructTestHelpers.ts versus packages\cursorless-vscode\src\constructTestHelpers.ts
 - [ ] packages\cursorless-neovim\src\extension.ts versus packages\cursorless-vscode\src\extension.ts
 
+- create issue about being able to reload new built cursorless without restarting neovim
+
+2024-05-03 16:24:22 INF 4139 passing (28s)
+2024-05-03 16:24:22 INF 2885 pending
+
 # questions for Pokey
 
+- file one issue for problem in neovim
+
+- command-server PR #996? to have changes from Aaron working? so they work in our own command-server.nvim too?
 - move getFocusedElementType() into the command server? see `NeovimCommandServerApi.ts`
 - move lua files and all cursorless files to cursorless mono repo
 - think about command-server.nvim into its own repo
@@ -86,8 +94,3 @@
 - prePhrase support in command server? https://www.cursorless.org/docs/contributing/architecture/hat-snapshots/ only useful to chain multiple commands to avoid hats being changed in the middle so not useful for now
 - merge talon-vscode-command-client into community once we know for sure we use the command-server (and not neovim python rpc)
 - merge cursorless-talon into the Cursorless repo
-
-# fidgeting
-
-- how do you paste in terminal mode?
-- vim plugins in my init.lua?
