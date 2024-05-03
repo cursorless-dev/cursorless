@@ -253,23 +253,6 @@ export class NeovimIDE implements IDE {
         lines,
       );
       this.documentMap.set(buffer, document);
-
-      // Subscribe to buffer updates, e.g. when the text changes.
-      // "attach" to Nvim buffers to subscribe to buffer update events.
-      // This is similar to TextChanged but more powerful and granular.
-      // @see https://neovim.io/doc/user/api.html#nvim_buf_attach()
-      // console.debug(
-      //   `toNeovimEditor(): listening for changes in buffer: ${buffer.id}`,
-      // );
-      // buffer.listen("lines", async () => await receivedBufferEvent);
-      // TODO: attempt to enforce that the rangeUpdater has the initial document state but not fixing fixture breakJustThis problem
-      // receivedBufferEvent(buffer, 0, 0, lines.length, lines, false);
-      // TODO: attempt to enforce that the rangeUpdater has an empty initial document but not fixing fixture breakJustThis problem
-      // eventEmitter.emit("onDidChangeTextDocument", {
-      //   document: document,
-      //   contentChanges: [],
-      // });
-      // buffer.listen("lines", receivedBufferEvent);
     } else {
       console.debug(`toNeovimEditor(): updating document: buffer=${buffer.id}`);
       document.update(lines);

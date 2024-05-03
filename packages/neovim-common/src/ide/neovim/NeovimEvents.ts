@@ -28,46 +28,6 @@ export function neovimOnDidOpenTextDocument(
   return dummyEvent();
 }
 
-/**
- * @see https://neovim.io/doc/user/api.html#api-buffer-updates
- */
-// TODO: wrap all the arguments into a neovim.TextDocumentContentChangeEvent?
-// export async function receivedBufferEvent(
-//   buffer: Buffer,
-//   tick: number,
-//   firstLine: number,
-//   lastLine: number,
-//   linedata: string[],
-//   more: boolean,
-// ): Promise<void> {
-//   console.debug(
-//     `receivedBufferEvent(): buffer.id=${buffer.id}, tick=${tick}, firstLine=${firstLine}, lastLine=${lastLine}, linedata=${linedata}, more=${more}`,
-//   );
-
-//   const neovimIDE = getNeovimIDE();
-//   // We will need to get the document according to the buffer id
-//   // once we want to support several windows
-//   const document = neovimIDE.getTextDocument(buffer) as TextDocument;
-//   // But for now we get the current document
-//   // const document = (neovimIDE.activeTextEditor as TextEditor).document;
-
-//   // const contents = await document.getText();
-//   // console.debug(
-//   //   `BufferManager.receivedBufferEvent(): document.uri=${document.uri}, contents (before):\n${contents}\n`,
-//   // );
-//   eventEmitter.emit("onDidChangeTextDocument", {
-//     document: document,
-//     contentChanges: fromNeovimContentChange(
-//       document,
-//       buffer,
-//       firstLine,
-//       lastLine,
-//       linedata,
-//     ),
-//     //   reason: fromNeovimReason(...),
-//   });
-// }
-
 // let count = 1;
 export function fromNeovimContentChange(
   document: TextDocument,
