@@ -127,6 +127,14 @@ export async function getFromClipboard(client: NeovimClient): Promise<string> {
 }
 
 /**
+ * Paste at current position from the operating system clipboard
+ */
+export async function pasteFromClipboard(client: NeovimClient) {
+  const luaCode = `return require("cursorless.utils").paste()`;
+  await client.executeLua(luaCode, []);
+}
+
+/**
  * Switch from terminal (t) mode to normal terminal (nt) mode
  * @param client
  */

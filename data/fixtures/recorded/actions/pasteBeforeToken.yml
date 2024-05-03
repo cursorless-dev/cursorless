@@ -1,0 +1,34 @@
+languageId: plaintext
+command:
+  version: 7
+  spokenForm: paste before token
+  action:
+    name: pasteFromClipboard
+    destination:
+      type: primitive
+      insertionMode: before
+      target:
+        type: primitive
+        modifiers:
+          - type: containingScope
+            scopeType: {type: token}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: hello world
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}
+  marks: {}
+  clipboard: "value"
+finalState:
+  documentContents: hello value world
+  selections:
+    - anchor: {line: 0, character: 14}
+      active: {line: 0, character: 14}
+  thatMark:
+    - type: UntypedTarget
+      contentRange:
+        start: {line: 0, character: 6}
+        end: {line: 0, character: 11}
+      isReversed: false
+      hasExplicitRange: true

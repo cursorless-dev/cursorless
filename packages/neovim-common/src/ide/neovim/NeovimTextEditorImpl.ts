@@ -149,12 +149,10 @@ export class NeovimTextEditorImpl implements EditableTextEditor {
 
   public async clipboardCopy(_ranges?: Range[]): Promise<void> {
     await neovimClipboardCopy(this.client, this.neovimIDE);
-    // throw Error("clipboardCopy Not implemented");
   }
 
   public async clipboardPaste(_ranges?: Range[]): Promise<void> {
     await neovimClipboardPaste(this.client, this.neovimIDE);
-    throw Error("clipboardPaste Not implemented");
   }
 
   public async indentLine(_ranges?: Range[]): Promise<void> {

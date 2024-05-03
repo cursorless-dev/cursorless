@@ -3,6 +3,7 @@
 import {
   bufferGetSelections,
   getFromClipboard,
+  pasteFromClipboard,
   putToClipboard,
 } from "@cursorless/neovim-common";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
@@ -54,11 +55,5 @@ export async function neovimClipboardPaste(
   client: NeovimClient,
   ide: IDE,
 ): Promise<void> {
-  const editor = ide.activeTextEditor as NeovimTextEditorImpl;
-  const window = await client.window;
-  const data = await getFromClipboard(client);
-  // TODO: get the current selection indexes,
-  // retrieve the corresponding lines from the Buffer,
-  // and replace the lines with the pasted data
-  // NO: just issue an insert (CTRL+V) in lua
+  await pasteFromClipboard(client);
 }
