@@ -85,7 +85,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           #github_token: ${{ steps.githubAppAuth.outputs.access-token }}
-          repository: hands-free-vim/github-app-test-1
+          repository: hands-free-vim/cursorless.nvim
           # force_with_lease: true
 
   push-cursorless-talon:
