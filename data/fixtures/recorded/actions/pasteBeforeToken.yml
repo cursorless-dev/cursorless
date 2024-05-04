@@ -19,7 +19,7 @@ initialState:
     - anchor: {line: 0, character: 8}
       active: {line: 0, character: 8}
   marks: {}
-  clipboard: "value"
+  clipboard: value
 finalState:
   documentContents: hello value world
   selections:

@@ -6,7 +6,7 @@ import {
   putToClipboard,
 } from "@cursorless/neovim-common";
 import { NeovimTextEditorImpl } from "./ide/neovim/NeovimTextEditorImpl";
-import type { Neovim, NeovimClient } from "neovim";
+import type { NeovimClient } from "neovim";
 import { IDE } from "@cursorless/common";
 
 export async function neovimClipboardCopy(
