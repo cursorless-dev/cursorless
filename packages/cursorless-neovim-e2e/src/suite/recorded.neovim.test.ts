@@ -349,6 +349,11 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
     return true;
   }
 
+  // "recorded/fallback/take*" -> wrong fixture.finalState.selections
+  if (name.includes("/fallback/take")) {
+    return true;
+  }
+
   // We blacklist remaining unsorted failing tests
   if (failingFixtures.includes(name)) {
     return true;

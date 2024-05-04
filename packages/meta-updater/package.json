@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "@pnpm/lockfile-file": "8.1.8",
+    "@pnpm/lockfile-file": "9.0.2",
     "@pnpm/logger": "^5.0.0",
-    "@pnpm/types": "9.4.2",
+    "@pnpm/types": "10.0.0",
     "@types/normalize-path": "^3.0.2",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",

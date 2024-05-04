@@ -104,11 +104,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
     // spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
-  commandServerApi.setFocusedElementType(
-    fixture.focusedElementType === "other"
-      ? undefined
-      : fixture.focusedElementType ?? "textEditor",
-  );
+  commandServerApi.setFocusedElementType(fixture.focusedElementType);
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(

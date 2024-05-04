@@ -76,7 +76,7 @@ def cheatsheet_dir_linux() -> Path:
     """Get cheatsheet directory for Linux"""
     try:
         # 1. Get users actual document directory
-        import platformdirs
+        import platformdirs  # pyright: ignore [reportMissingImports]
 
         return Path(platformdirs.user_documents_dir())
     except Exception:

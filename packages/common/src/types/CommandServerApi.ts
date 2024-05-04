@@ -9,7 +9,7 @@ export interface CommandServerApi {
   };
 }
 
-export type FocusedElementType = "textEditor" | "terminal";
+export type FocusedElementType = "textEditor" | "terminal" | "other";
 
 export interface InboundSignal {
   getVersion(): Promise<string | null>;
