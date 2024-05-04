@@ -46,7 +46,6 @@ export default class NeovimTextLineImpl implements TextLine {
   }
 
   get firstNonWhitespaceCharacterIndex(): number {
-    //TODO@api, rename to 'leadingWhitespaceLength'
     const index = /^(\s*)/.exec(this._text)![1].length;
     // console.debug(
     //   `NeovimTextLineImpl.firstNonWhitespaceCharacterIndex=${index}`,

@@ -1,6 +1,6 @@
 -- local Config = require('cursorless.config')
 
--- TODO: we can't use that yet as then when we use load_extensions() we get an error.
+-- We can't use that yet as then when we use load_extensions() we get an error.
 -- So instead atm we rely on registering the functions from vim script
 -- local function register_functions1()
 --   local path = require('cursorless.utils').cursorless_nvim_path()

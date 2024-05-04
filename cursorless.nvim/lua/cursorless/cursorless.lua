@@ -129,7 +129,7 @@ end
 -- :lua select_range(5, 12, 5, 30)
 -- for example it will highlight the last function name (nvim_win_set_cursor).
 -- another example is :tmap <c-b> <Cmd>lua require("talon.cursorless").select_range(4, 0, 4, 38)<Cr>
--- TODO: works for any mode (n,i,v,nt) except in t mode
+-- NOTE: works for any mode (n,i,v,nt) except in t mode
 function M.select_range(start_x, start_y, end_x, end_y)
   vim.cmd([[normal! :noh]])
   vim.api.nvim_win_set_cursor(0, { start_x, start_y })
@@ -139,7 +139,7 @@ end
 
 -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/lua/nvim-treesitter/ts_utils.lua#L278
 -- another example is :map <c-a> <Cmd>lua require("talon.cursorless").select_range2(4, 0, 4, 38)<Cr>
--- TODO: works for any mode (n,i,v,nt) except in t mode
+-- NOTE: works for any mode (n,i,v,nt) except in t mode
 function M.select_range2(start_row, start_col, end_row, end_col, selection_mode)
   local v_table = { charwise = 'v', linewise = 'V', blockwise = '<C-v>' }
   selection_mode = selection_mode or 'charwise'
@@ -166,7 +166,7 @@ function M.select_range2(start_row, start_col, end_row, end_col, selection_mode)
 end
 
 -- another example is :map <c-a> <Cmd>lua require("talon.cursorless").select_range3(4, 0, 4, 38)<Cr>
--- TODO: works for any mode (n,i,v,nt) except in t mode
+-- NOTE: works for any mode (n,i,v,nt) except in t mode
 function M.select_range3(start_x, start_y, end_x, end_y)
   -- print('select_range()')
   -- print(('start_x=%d, start_y=%d, end_x=%d, end_y=%d'):format(start_x, start_y, end_x, end_y))
