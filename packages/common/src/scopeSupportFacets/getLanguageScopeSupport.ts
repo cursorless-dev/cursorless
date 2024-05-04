@@ -1,3 +1,4 @@
+import { haskellScopeSupport } from "./haskell";
 import { htmlScopeSupport } from "./html";
 import { javaScopeSupport } from "./java";
 import { javascriptScopeSupport } from "./javascript";
@@ -12,6 +13,8 @@ export function getLanguageScopeSupport(
   languageId: string,
 ): LanguageScopeSupportFacetMap {
   switch (languageId) {
+    case "haskell":
+      return haskellScopeSupport;
     case "html":
       return htmlScopeSupport;
     case "java":

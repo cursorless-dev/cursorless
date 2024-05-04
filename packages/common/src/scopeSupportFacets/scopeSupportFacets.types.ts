@@ -43,6 +43,8 @@ const scopeSupportFacets = [
   "string.singleLine",
   "string.multiLine",
 
+  "branch.match",
+  "branch.match.iteration",
   "branch.if",
   "branch.if.iteration",
   "branch.try",
