@@ -60,7 +60,7 @@ export function App({data} : { data:any }) {
   return (
     <>
       <Head>
-        <title>Cursorless cheatsheet</title>
+        <title>Cursorless Test Case Component Page</title>
       </Head>
       <TestCaseComponentPage data={data} />
     </>
