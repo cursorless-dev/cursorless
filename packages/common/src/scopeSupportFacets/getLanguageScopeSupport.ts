@@ -3,6 +3,7 @@ import { javaScopeSupport } from "./java";
 import { javascriptScopeSupport } from "./javascript";
 import { jsonScopeSupport } from "./json";
 import { pythonScopeSupport } from "./python";
+import { csharpScopeSupport } from "./csharp";
 import { luaScopeSupport } from "./lua";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { talonScopeSupport } from "./talon";
@@ -12,6 +13,8 @@ export function getLanguageScopeSupport(
   languageId: string,
 ): LanguageScopeSupportFacetMap {
   switch (languageId) {
+    case "csharp":
+      return csharpScopeSupport;
     case "html":
       return htmlScopeSupport;
     case "java":
