@@ -14,7 +14,7 @@ export const TestCaseComponentPage: React.FC<{ data: any }> = ({ data }) => {
           to learn more.
         </small>
       </h1>
-      { data.map( (item:any) => <ShikiComponent data={item} /> ) }
+      { data.map( (item:any) => <ShikiComponent data={item} key={item.command.spokenForm} /> ) }
       <p className="mb-1 mt-2 text-center text-base xl:mt-4">This is just to get the page working with an initial render before adding any more functionality</p>
     </main>
   );
