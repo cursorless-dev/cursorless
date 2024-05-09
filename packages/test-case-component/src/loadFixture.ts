@@ -1,17 +1,4 @@
-import path from "path";
-import fs from "fs-extra";
-import * as yaml from "yaml";
-
 import { generateHtml, SelectionAnchor } from "./generateHtml";
-
-const fixturesDir = path.join(
-  "../",
-  "cursorless-vscode-e2e",
-  "src",
-  "suite",
-  "fixtures",
-  "recorded",
-);
 
 async function safeGenerateHtml(
   ...args: [stateName: string, ...rest: Parameters<typeof generateHtml>]
@@ -26,12 +13,10 @@ async function safeGenerateHtml(
   }
 }
 
-export async function loadFixture(folder: string, name: string) {
-  const filepath = path.join(fixturesDir, folder, `${name}.yml`);
-  const data = yaml.parse(await fs.readFile(filepath, "utf-8"));
-  if (data.command.version !== 2) {
-    return;
-  }
+export async function loadFixture(
+  data: any
+) {
+  console.log("loadFixture", data)
   try {
     const during = data.decorations
       ? await safeGenerateHtml(
@@ -59,7 +44,7 @@ export async function loadFixture(folder: string, name: string) {
           },
           data.languageId,
         )
-      : undefined;
+      : null;
     const before = await safeGenerateHtml(
       "initialState",
       data.initialState,
@@ -73,7 +58,6 @@ export async function loadFixture(folder: string, name: string) {
     return {
       language: data.languageId,
       command: data.command.spokenForm,
-      originalData: data,
       during,
       before,
       after,
