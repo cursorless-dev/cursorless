@@ -1,68 +1,81 @@
 import {
-  TestCaseComponentPage
+  TestCaseComponentPage,
+  loadFixture,
 } from "@cursorless/test-case-component";
 
-import {
-  cheatsheetBodyClasses,
-} from "@cursorless/cheatsheet";
+import { cheatsheetBodyClasses } from "@cursorless/cheatsheet";
 
 import * as yaml from "js-yaml";
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
 import Head from "next/head";
 
-const fixturesDir = path.join(
-  "../",
-  "../",
-  "data",
-  "fixtures",
-  "recorded",
-);
+const fixturesDir = path.join("../", "../", "data", "fixtures", "recorded");
 
 async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
-
   const directoryPath = path.join(process.cwd(), dir);
   const files = fs.readdirSync(directoryPath);
   const data: any[] = [];
 
-  files.forEach(file => {
-    if(path.extname(file) === '.yml' && (!selectedFiles || selectedFiles.includes(file))) {
+  files.forEach((file) => {
+    if (
+      path.extname(file) === ".yml" &&
+      (!selectedFiles || selectedFiles.includes(file))
+    ) {
       const filePath = path.join(directoryPath, file);
-      const fileContents = fs.readFileSync(filePath, 'utf8');
+      const fileContents = fs.readFileSync(filePath, "utf8");
       const yamlData: any = yaml.load(fileContents);
       data.push(yamlData);
     }
   });
-
-  console.log(dir, "files:", files)
-  console.log("data:", data);
 
   return data;
 }
 
 // See https://github.com/vercel/next.js/discussions/12325#discussioncomment-1116108
 export async function getStaticProps() {
-  const itemsDir = (path.join(fixturesDir, 'actions'))
+  const itemsDirActions = path.join(fixturesDir, "actions");
+  const itemsDirDecorations = path.join(fixturesDir, "decorations");
   const testSelectedFiles = [
-    "bringArgMadeAfterLook.yml", 
-    "chuckBlockAirUntilBatt.yml", 
-    "cutFine.yml", 
-    "chuckLineFine.yml", 
-    "bringAirAndBatAndCapToAfterItemEach.yml"
-  ]
-  const data = await loadYamlFiles(itemsDir, testSelectedFiles);
-
-  return { props: { data: data, bodyClasses: cheatsheetBodyClasses } };
+    "bringArgMadeAfterLook.yml",
+    "chuckBlockAirUntilBatt.yml",
+    "cutFine.yml",
+    "chuckLineFine.yml",
+    "bringAirAndBatAndCapToAfterItemEach.yml",
+    "carveLineHarp.yml",
+    "chuckBlockAir.yml",
+    "chuckBlockAirUntilBatt.yml",
+    "chuckBlockBatt.yml",
+    "chuckBlockBatt2.yml",
+    "chuckBlockBattUntilAir.yml",
+    "chuckFine.yml",
+    "chuckLineFine.yml",
+    "chuckLineFineBetweenRisk.yml",
+    "clearBlockFine.yml",
+    "clearFine.yml",
+    "clearLineFine.ym",
+  ];
+  const dataActions = await loadYamlFiles(itemsDirActions, testSelectedFiles);
+  const dataDecorations = await loadYamlFiles(
+    itemsDirDecorations,
+    testSelectedFiles,
+  );
+  const data = [...dataActions, ...dataDecorations];
+  const loaded = (
+    await Promise.all(data.map((val) => loadFixture(val)))
+  ).filter((val) => val !== undefined);
+  
+  return { props: { data, loaded, bodyClasses: cheatsheetBodyClasses } };
 }
 
-export function App({data} : { data:any }) {
+export function App({ data, loaded }: { data: any; loaded: any }) {
   return (
     <>
       <Head>
         <title>Cursorless Test Case Component Page</title>
       </Head>
-      <TestCaseComponentPage data={data} />
+      <TestCaseComponentPage data={data} loaded={loaded} />
     </>
   );
 }
