@@ -1,6 +1,6 @@
-// forked from https://github.com/SimeonC/shiki/blob/main/packages/shiki/src/renderer.ts
+  // forked from https://github.com/SimeonC/shiki/blob/main/packages/shiki/src/renderer.ts
 
-import { IThemedToken } from "shiki";
+import { ThemedToken } from "shiki";
 
 // MIT License
 const FontStyle = {
@@ -68,7 +68,7 @@ export type SelectionType =
 export type Token =
   | ({
       type: "token";
-    } & IThemedToken)
+    } & ThemedToken)
   | {
       type: "selection";
       className: string;
@@ -144,8 +144,10 @@ export function renderToHtml(
     );
   }
 
-  return h("pre", { className: "shiki", style: `background-color: ${bg}` }, [
-    options.langId ? `<div class="language-id">${options.langId}</div>` : "",
+  return h(
+    "pre",
+    { className: "shiki", style: `background-color: ${bg}` },
+    [ options.langId ? `<div class="language-id">${options.langId}</div>` : "",
     h(
       "code",
       {},
@@ -164,7 +166,8 @@ export function renderToHtml(
         );
       }),
     ),
-  ]);
+  ]
+);
 }
 
 const htmlEscapes = {
