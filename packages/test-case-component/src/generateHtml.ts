@@ -1,4 +1,5 @@
-import { getHighlighter, Lang } from "shiki";
+import { getHighlighter, createCssVariablesTheme } from "shiki"
+
 import { renderToHtml, HatType, SelectionType, Token } from "./renderToHtml";
 
 export interface SelectionAnchor {
@@ -24,11 +25,21 @@ interface CursorlessFixtureState {
   sourceMark?: [CursorlessFixtureSelection];
 }
 
+const myTheme = createCssVariablesTheme({ 
+  name: 'css-variables',
+  variablePrefix: '--shiki-',
+  variableDefaults: {},
+  fontStyle: true
+})
+
 export async function generateHtml(state: CursorlessFixtureState, lang: Lang) {
   return new HTMLGenerator(state, lang).generate();
 }
 
-const highlighter = getHighlighter({ theme: "css-variables" });
+const highlighter = getHighlighter({
+  themes: [myTheme],
+  langs: ['javascript', 'typescript'],
+});
 
 class HTMLGenerator {
   private state: CursorlessFixtureState;
@@ -48,15 +59,19 @@ class HTMLGenerator {
     this.applyMarks();
     this.applyAllSelections();
     return renderToHtml(this.tokens, {
-      bg: "var(--shiki-color-background)",
-      fg: "var(--shiki-color-text)",
+      bg: "var(--shiki-background)",
+      fg: "var(--shiki-foreground)",
       lineOptions: this.lineOptions,
     });
   }
 
   async getTokens() {
+    const options = {
+      theme: 'css-variables',
+      lang: this.lang,
+    }
     this.tokens = (await highlighter)
-      .codeToThemedTokens(this.state.documentContents, this.lang)
+      .codeToTokens(this.state.documentContents, options).tokens
       .map((line) =>
         line.map(
           (token) =>
