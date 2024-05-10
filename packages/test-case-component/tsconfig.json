@@ -14,5 +14,5 @@
     "src/**/*.tsx",
     "src/**/*.json",
     "../../typings/**/*.d.ts"
-    ]
+  ]
 }

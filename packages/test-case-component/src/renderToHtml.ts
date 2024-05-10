@@ -1,4 +1,4 @@
-  // forked from https://github.com/SimeonC/shiki/blob/main/packages/shiki/src/renderer.ts
+// forked from https://github.com/SimeonC/shiki/blob/main/packages/shiki/src/renderer.ts
 
 import { ThemedToken } from "shiki";
 
@@ -144,10 +144,8 @@ export function renderToHtml(
     );
   }
 
-  return h(
-    "pre",
-    { className: "shiki", style: `background-color: ${bg}` },
-    [ options.langId ? `<div class="language-id">${options.langId}</div>` : "",
+  return h("pre", { className: "shiki", style: `background-color: ${bg}` }, [
+    options.langId ? `<div class="language-id">${options.langId}</div>` : "",
     h(
       "code",
       {},
@@ -166,8 +164,7 @@ export function renderToHtml(
         );
       }),
     ),
-  ]
-);
+  ]);
 }
 
 const htmlEscapes = {

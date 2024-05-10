@@ -65,7 +65,7 @@ export async function getStaticProps() {
   const loaded = (
     await Promise.all(data.map((val) => loadFixture(val)))
   ).filter((val) => val !== undefined);
-  
+
   return { props: { data, loaded, bodyClasses: cheatsheetBodyClasses } };
 }
 
