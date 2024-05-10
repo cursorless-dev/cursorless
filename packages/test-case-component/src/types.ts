@@ -1,4 +1,4 @@
-type Lang =
+export type Lang =
   | "abap"
   | "actionscript-3"
   | "ada"
