@@ -10,11 +10,14 @@ body {
   place-items: flex-start;
   justify-items: stretch;
   padding: 42px;
-  font-family: firacode, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-family: firacode, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+    monospace;
   /* background-image: radial-gradient(at 30% 89%, hsla(220,76%,68%,1) 0px, transparent 50%), radial-gradient(at 35% 0%, hsla(242,68%,61%,1) 0px, transparent 50%), radial-gradient(at 93% 46%, hsla(129,87%,73%,1) 0px, transparent 50%), radial-gradient(at 23% 49%, hsla(50,77%,67%,1) 0px, transparent 50%), radial-gradient(at 17% 27%, hsla(331,64%,60%,1) 0px, transparent 50%), radial-gradient(at 79% 30%, hsla(151,61%,77%,1) 0px, transparent 50%), radial-gradient(at 26% 40%, hsla(36,65%,63%,1) 0px, transparent 50%); */
 }
 
-body, pre.shiki, pre.shiki span {
+body,
+pre.shiki,
+pre.shiki span {
   line-height: var(--line-height);
   min-height: var(--line-height);
   font-size: 14px;
@@ -26,61 +29,72 @@ body, pre.shiki, pre.shiki span {
   gap: 16px;
   padding: 16px;
   border: 1px solid var(--color-border);
-  box-shadow: 0px 0px 6px #000A;
+  box-shadow: 0px 0px 6px #000a;
   border-radius: 8px;
   background: #ccc9;
-  & > div{
+  & > div {
     background: #fff;
     border: 1px solid var(--color-border);
-    border-radius: 8px};
+    border-radius: 8px;
+  }
 }
-    
-  
+
 pre.shiki {
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
   .line {
-    display: block}
+    display: block;
+  }
 }
 
 .command {
   border-top: 1px solid var(--color-border);
   padding: 8px;
   font-weight: bold;
-  text-align: center}
+  text-align: center;
+}
 
 @keyframes blink {
-  0%, 60%{
-    border-color: #667F}
-  61%, 100%{
-    border-color: #6670}}
+  0%,
+  60% {
+    border-color: #667f;
+  }
+  61%,
+  100% {
+    border-color: #6670;
+  }
+}
 
 .selection {
   display: inline-block;
-  border-right: 2px solid #00B;
+  border-right: 2px solid #00b;
   animation: blink 1400ms infinite;
   padding: 0px 0.5px 0px 0;
   margin: 0 0px 0 -1px;
-  height: var(--line-height)}
-  
-.selection:not(:empty){
-  background: #55F2;
-  padding-left: 0.5px}
-.decoration{
+  height: var(--line-height);
+}
+
+.selection:not(:empty) {
+  background: #55f2;
+  padding-left: 0.5px;
+}
+.decoration {
   display: inline-block;
   padding: 0px 0.5px 0px 0.5px;
   margin: 0 0px 0 -1px;
   height: var(--line-height);
-  background: green}
-.decoration.pendingDeleteBackground{
-  background: #ffaeae}
-  
-.hat{
+  background: green;
+}
+.decoration.pendingDeleteBackground {
+  background: #ffaeae;
+}
+
+.hat {
   position: relative;
   display: inline-block;
   &::after {
-    content: '';
+    content: "";
     display: inline;
     top: 0px;
     left: 50%;
@@ -89,12 +103,15 @@ pre.shiki {
     background-color: grey;
     mask-repeat: no-repeat;
     width: 10px;
-    height: 10px}
+    height: 10px;
   }
-.hat.default::after{
-    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 308.34 254.24"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><ellipse class="cls-1" cx="154.17" cy="127.12" rx="154.17" ry="127.12"/></g></g></svg>');
-    top: -0.4px;
-    width: 6px;
-    height: 6px}
-.hat.wing::after{
-  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 371.81 234.76" ><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M371.81,234.42h0s-153.27-57.29-185.9-54.08h0C154.36,177.24,0,234.76,0,234.76H0L158.55,101.69c.6-.49-.39,1.87-.23,1.12L186.24,0h0l26.84,101.37"/></g></g></svg>')};
+}
+.hat.default::after {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 308.34 254.24"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><ellipse class="cls-1" cx="154.17" cy="127.12" rx="154.17" ry="127.12"/></g></g></svg>');
+  top: -0.4px;
+  width: 6px;
+  height: 6px;
+}
+.hat.wing::after {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 371.81 234.76" ><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M371.81,234.42h0s-153.27-57.29-185.9-54.08h0C154.36,177.24,0,234.76,0,234.76H0L158.55,101.69c.6-.49-.39,1.87-.23,1.12L186.24,0h0l26.84,101.37"/></g></g></svg>');
+}

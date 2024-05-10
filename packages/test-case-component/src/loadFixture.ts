@@ -13,9 +13,7 @@ async function safeGenerateHtml(
   }
 }
 
-export async function loadFixture(
-  data: any
-) {
+export async function loadFixture(data: any) {
   // console.log("loadFixture", data)
   try {
     const during = data.decorations
