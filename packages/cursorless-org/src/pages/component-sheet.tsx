@@ -26,6 +26,7 @@ async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
       const filePath = path.join(directoryPath, file);
       const fileContents = fs.readFileSync(filePath, "utf8");
       const yamlData: any = yaml.load(fileContents);
+      yamlData.filename = file
       data.push(yamlData);
     }
   });

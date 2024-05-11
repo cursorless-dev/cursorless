@@ -59,6 +59,7 @@ export async function loadFixture(data: any) {
       during,
       before,
       after,
+      filename: data.filename
     };
   } catch (e) {
     console.log("error", e);

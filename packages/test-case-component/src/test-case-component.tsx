@@ -20,7 +20,7 @@ export const TestCaseComponentPage: React.FC<{ data: any; loaded: any }> = ({
       </h1>
 
       {loaded.map((item: any) => (
-        <ShikiComponent data={item} key={item.command} />
+        <ShikiComponent data={item} key={item.filename} />
       ))}
     </main>
   );
