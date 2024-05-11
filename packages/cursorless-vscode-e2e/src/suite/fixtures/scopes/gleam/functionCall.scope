@@ -1,0 +1,11 @@
+aaa(bbb)
+
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-0:8
+  >--------<
+0| aaa(bbb)
+
+[Insertion delimiter] = " "

@@ -1,0 +1,21 @@
+let a = 3
+
+---
+
+[Content] = 0:8-0:9
+          >-<
+0| let a = 3
+
+[Removal] = 0:7-0:9
+         >--<
+0| let a = 3
+
+[Leading delimiter] = 0:7-0:8
+         >-<
+0| let a = 3
+
+[Domain] = 0:0-0:9
+  >---------<
+0| let a = 3
+
+[Insertion delimiter] = " "
