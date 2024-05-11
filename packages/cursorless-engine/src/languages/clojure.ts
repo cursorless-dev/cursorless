@@ -163,8 +163,6 @@ const nodeMatchers: Partial<
   // A list is either a vector literal or a quoted list literal
   list: ["vec_lit", "quoting_lit.list_lit"],
 
-  string: "str_lit",
-
   functionCall: functionCallPattern,
   functionCallee: chainedMatcher([
     functionCallFinder,
