@@ -1,0 +1,17 @@
+def my_funk():
+    pass
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-1:8
+  >--------------
+0| def my_funk():
+1|     pass
+   --------<
+
+[Interior] = 1:4-1:8
+      >----<
+1|     pass
+
+[Insertion delimiter] = "\n\n"
