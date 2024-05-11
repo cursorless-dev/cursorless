@@ -133,7 +133,6 @@ const ifStatementMatcher = matcher(ifStatementFinder);
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  comment: "comment",
   map: "map_lit",
 
   collectionKey: matcher(mapParityNodeFinder(0)),
