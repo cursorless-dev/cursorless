@@ -62,21 +62,22 @@ export async function getStaticProps() {
     itemsDirDecorations,
     testSelectedFiles,
   );
-  const data = [...dataActions, ...dataDecorations];
-  const loaded = (
-    await Promise.all(data.map((val) => loadFixture(val)))
+
+  const data = (
+    await Promise.all([...dataActions, ...dataDecorations].map((val) => loadFixture(val)))
   ).filter((val) => val !== undefined);
 
-  return { props: { data, loaded, bodyClasses: cheatsheetBodyClasses } };
+  return { props: { data,
+    bodyClasses: cheatsheetBodyClasses } };
 }
 
-export function App({ data, loaded }: { data: any; loaded: any }) {
+export function App({ data }: { data: any; loaded: any }) {
   return (
     <>
       <Head>
         <title>Cursorless Test Case Component Page</title>
       </Head>
-      <TestCaseComponentPage data={data} loaded={loaded} />
+      <TestCaseComponentPage data={data} />
     </>
   );
 }
