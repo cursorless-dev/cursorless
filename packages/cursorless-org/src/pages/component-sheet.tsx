@@ -1,15 +1,15 @@
+import * as yaml from "js-yaml";
+import fs from "fs";
+import path from "path";
+import Head from "next/head";
+
 import {
   TestCaseComponentPage,
   loadFixture,
 } from "@cursorless/test-case-component";
 
+
 import { cheatsheetBodyClasses } from "@cursorless/cheatsheet";
-
-import * as yaml from "js-yaml";
-import fs from "fs";
-import path from "path";
-
-import Head from "next/head";
 
 const fixturesDir = path.join("../", "../", "data", "fixtures", "recorded");
 
