@@ -26,7 +26,7 @@ async function loadYamlFiles(dir: string, selectedFiles?: string[]) {
       const filePath = path.join(directoryPath, file);
       const fileContents = fs.readFileSync(filePath, "utf8");
       const yamlData: any = yaml.load(fileContents);
-      yamlData.filename = file
+      yamlData.filename = file;
       data.push(yamlData);
     }
   });
@@ -63,11 +63,12 @@ export async function getStaticProps() {
   );
 
   const data = (
-    await Promise.all([...dataActions, ...dataDecorations].map((val) => loadFixture(val)))
+    await Promise.all(
+      [...dataActions, ...dataDecorations].map((val) => loadFixture(val)),
+    )
   ).filter((val) => val !== undefined);
 
-  return { props: { data,
-    bodyClasses: cheatsheetBodyClasses } };
+  return { props: { data, bodyClasses: cheatsheetBodyClasses } };
 }
 
 export function App({ data }: { data: any; loaded: any }) {
