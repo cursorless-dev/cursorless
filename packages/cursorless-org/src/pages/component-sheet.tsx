@@ -51,7 +51,6 @@ export async function getStaticProps() {
     "chuckBlockBatt2.yml",
     "chuckBlockBattUntilAir.yml",
     "chuckFine.yml",
-    "chuckLineFine.yml",
     "chuckLineFineBetweenRisk.yml",
     "clearBlockFine.yml",
     "clearFine.yml",
