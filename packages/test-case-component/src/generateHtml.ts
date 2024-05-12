@@ -1,4 +1,8 @@
-import { getHighlighter, createCssVariablesTheme, BundledLanguage } from "shiki";
+import {
+  getHighlighter,
+  createCssVariablesTheme,
+  BundledLanguage,
+} from "shiki";
 
 import { renderToHtml, HatType, SelectionType, Token } from "./renderToHtml";
 
