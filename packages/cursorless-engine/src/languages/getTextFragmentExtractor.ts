@@ -115,10 +115,6 @@ const textFragmentExtractors: Record<
   TextFragmentExtractor | FullDocumentTextFragmentExtractor
 > = {
   c: constructDefaultTextFragmentExtractor("c"),
-  clojure: constructDefaultTextFragmentExtractor(
-    "clojure",
-    constructHackedStringTextFragmentExtractor("clojure"),
-  ),
   cpp: constructDefaultTextFragmentExtractor("cpp"),
   csharp: constructDefaultTextFragmentExtractor("csharp"),
   css: constructDefaultTextFragmentExtractor(
