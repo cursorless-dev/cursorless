@@ -1,6 +1,8 @@
-import { getHighlighter, createCssVariablesTheme } from "shiki";
+import { getHighlighter, createCssVariablesTheme, BundledLanguage } from "shiki";
 
 import { renderToHtml, HatType, SelectionType, Token } from "./renderToHtml";
+
+type Lang = BundledLanguage;
 
 export interface SelectionAnchor {
   line: number;
