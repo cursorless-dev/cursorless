@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
+    "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/test-case-component": "workspace:*",
     "@mdx-js/loader": "3.0.1",
     "@mdx-js/react": "3.0.1",
