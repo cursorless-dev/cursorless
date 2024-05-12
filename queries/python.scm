@@ -359,7 +359,9 @@
 
 ;;!! lambda _: pass
 ;;!  ^^^^^^^^^^^^^^
-(lambda) @anonymousFunction
+(lambda
+  body: (_) @anonymousFunction.interior
+) @anonymousFunction
 
 ;;!! match value:
 ;;!        ^^^^^

@@ -1,0 +1,19 @@
+@foo
+def bar(value: string) -> str:
+    return value
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-2:16
+  >----
+0| @foo
+1| def bar(value: string) -> str:
+2|     return value
+   ----------------<
+
+[Interior] = 2:4-2:16
+      >------------<
+2|     return value
+
+[Insertion delimiter] = "\n\n"
