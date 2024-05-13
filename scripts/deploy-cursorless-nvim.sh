@@ -13,9 +13,9 @@ cd "$out_dir"
 git rm -r lua/ vim/ assets/ node/
 cd -
 
-# 
+#
 # Merge the build .js and the static files
-# 
+#
 
 # no snippets at the moment
 mkdir -p "$out_dir/assets/cursorless-snippets"
