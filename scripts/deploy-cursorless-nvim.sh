@@ -1,32 +1,39 @@
-# This script is used to push the cursorless.nvim
-# see https://github.com/orgs/community/discussions/26615
-# see https://github.com/cursorless-dev/cursorless/blob/main/.github/workflows/deploy.yaml
-# see https://github.com/hands-free-vim/github-app-test-1/blob/main/.github/workflows/deploy.yaml
-# see https://github.com/cursorless-dev/cursorless/blob/main/scripts/build-and-assemble-website.sh
-
+# This script is used to push to the cursorless.nvim github production repo
 set -euo pipefail
 
-root_dir=dist/cursorless.nvim
-mkdir -p "$root_dir"
+# Clone current cursorless.nvim main
+mkdir -p dist && cd dist
+git clone 'https://github.com/hands-free-vim/cursorless.nvim.git'
+cd -
 
+out_dir=dist/cursorless.nvim
+
+# Delete the old files
+cd "$out_dir"
+git rm -r lua/ vim/ assets/ node/
+cd -
+
+# 
 # Merge the build .js and the static files
-mkdir workdir
-cd workdir
+# 
 
-mkdir -p "$root_dir/assets/cursorless-snippets"
+# no snippets at the moment
+mkdir -p "$out_dir/assets/cursorless-snippets"
+touch "$out_dir/assets/cursorless-snippets/.gitkeep"
 
 # copy .lua and .vim dependencies as well as other static files
-cp -r cursorless.nvim/* "$root_dir"
+cp -r cursorless.nvim/* "$out_dir"
 
 # copy the built .js file
-mkdir -p "$root_dir/node/cursorless-neovim/out"
-cp packages/cursorless-neovim/package.json "$root_dir/node/cursorless-neovim/"
-cp packages/cursorless-neovim/out/index.cjs "$root_dir/node/cursorless-neovim/out/"
+mkdir -p "$out_dir/node/cursorless-neovim/out"
+cp packages/cursorless-neovim/package.json "$out_dir/node/cursorless-neovim/"
+cp packages/cursorless-neovim/out/index.cjs "$out_dir/node/cursorless-neovim/out/"
 
 # command-server if done from cursorless mono repo?
-# cp -r command-server.nvim "$root_dir/node/"
+# cp -r command-server.nvim "$out_dir/node/"
 
-cd "$root_dir"
+# Push to cursorless.nvim
+cd "$out_dir"
 git add *
 git commit -m "Deploy cursorless.nvim"
 git push
