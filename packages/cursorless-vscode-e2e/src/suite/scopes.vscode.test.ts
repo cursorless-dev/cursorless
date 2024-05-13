@@ -98,7 +98,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
     .replaceAll("\r\n", "\n");
   const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-  assert.isNotNull(
+  assert.isDefined(
     delimiterIndex,
     "Can't find delimiter '---' in scope fixture",
   );

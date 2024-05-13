@@ -15,6 +15,8 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.yield": supported,
   "value.resource": supported,
   "value.resource.iteration": supported,
+  namedFunction: supported,
+  anonymousFunction: supported,
 
   "argument.actual": supportedLegacy,
   "argument.actual.iteration": supportedLegacy,
