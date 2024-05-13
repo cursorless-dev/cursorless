@@ -22,8 +22,8 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
-    "@types/chai": "4.3.14",
-    "@types/js-yaml": "4.0.9",
+    "@types/chai": "^4.3.14",
+    "@types/js-yaml": "^4.0.9",
     "@types/lodash": "4.17.0",
     "@types/sinon": "^17.0.3"
   },

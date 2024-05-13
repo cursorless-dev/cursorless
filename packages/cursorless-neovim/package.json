@@ -31,12 +31,12 @@
     "@cursorless/neovim-registry": "workspace:*"
   },
   "devDependencies": {
-    "@types/chai": "4.3.14",
-    "@types/js-yaml": "^4.0.2",
-    "@types/lodash": "4.14.181",
-    "@types/uuid": "8.3.4",
+    "@types/chai": "^4.3.14",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "4.17.0",
+    "@types/uuid": "^9.0.8",
     "lodash": "^4.17.21",
     "neovim": "5.1.0",
-    "vscode-uri": "3.0.6"
+    "vscode-uri": "^3.0.8"
   }
 }

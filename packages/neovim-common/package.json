@@ -27,11 +27,11 @@
     "@cursorless/common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "@types/lodash": "4.17.0",
-    "@types/uuid": "9.0.8",
-    "@types/vscode": "1.88.0",
+    "@types/uuid": "^9.0.8",
+    "@types/vscode": "1.75.1",
     "lodash": "^4.17.21",
     "neovim": "5.1.0",
-    "vscode-uri": "3.0.8"
+    "vscode-uri": "^3.0.8"
   },
   "type": "module"
 }
