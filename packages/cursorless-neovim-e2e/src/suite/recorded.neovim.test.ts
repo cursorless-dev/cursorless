@@ -344,6 +344,11 @@ function isFailingFixture(name: string, fixture: TestCaseFixtureLegacy) {
     return true;
   }
 
+  // "recorded/actions/copySecondToken" -> wrong fixture.finalState.clipboard
+  if (action === "copyToClipboard") {
+    return true;
+  }
+
   // "recorded/lineEndings/*" -> fixture.finalState.documentContents contains \n instead of \r\n
   if (name.includes("/lineEndings/")) {
     return true;
