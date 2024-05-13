@@ -17,7 +17,6 @@ initialState:
   selections:
     - anchor: {line: 1, character: 0}
       active: {line: 1, character: 0}
-  clipboard: value
   marks: {}
 finalState:
   documentContents: |
