@@ -2,10 +2,10 @@ import * as React from "react";
 import { ShikiComponent } from "./components/component-shiki";
 import "./shiki.css";
 import "./styles.css";
+import { TestCaseFixture } from "@cursorless/common";
 
-export const TestCaseComponentPage: React.FC<{ data: any; loaded: any }> = ({
+export const TestCaseComponentPage: React.FC<{ data: TestCaseFixture[];}> = ({
   data,
-  loaded,
 }) => {
   return (
     <main className="dark:text-stone-100">
@@ -19,7 +19,7 @@ export const TestCaseComponentPage: React.FC<{ data: any; loaded: any }> = ({
         </small>
       </h1>
 
-      {loaded.map((item: any) => (
+      {data.map((item: any) => (
         <ShikiComponent data={item} key={item.filename} />
       ))}
     </main>
