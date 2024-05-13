@@ -10,7 +10,7 @@ out_dir=dist/cursorless.nvim
 
 # Delete the old files
 cd "$out_dir"
-git rm -r lua/ vim/ assets/ node/
+git rm -r README.md assets/ lua/ vim/ node/
 cd -
 
 # 
@@ -21,16 +21,18 @@ cd -
 mkdir -p "$out_dir/assets/cursorless-snippets"
 touch "$out_dir/assets/cursorless-snippets/.gitkeep"
 
-# copy .lua and .vim dependencies as well as other static files
-cp -r cursorless.nvim/* "$out_dir"
+# copy .lua and .vim Dependencies as well as other static files
+cp -r cursorless.nvim/README.md "$out_dir/"
+cp -r cursorless.nvim/assets "$out_dir/"
+cp -r cursorless.nvim/lua "$out_dir/"
+cp -r cursorless.nvim/vim "$out_dir/"
+# command-server
+cp -r cursorless.nvim/node "$out_dir/"
 
 # copy the built .js file
 mkdir -p "$out_dir/node/cursorless-neovim/out"
 cp packages/cursorless-neovim/package.json "$out_dir/node/cursorless-neovim/"
 cp packages/cursorless-neovim/out/index.cjs "$out_dir/node/cursorless-neovim/out/"
-
-# command-server if done from cursorless mono repo?
-# cp -r command-server.nvim "$out_dir/node/"
 
 # Push to cursorless.nvim
 cd "$out_dir"
