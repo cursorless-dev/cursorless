@@ -61,31 +61,31 @@ local function configure_command_server_shortcut()
   -- https://www.reddit.com/r/neovim/comments/pt92qn/mapping_cd_in_terminal_mode/
   vim.api.nvim_set_keymap(
     'i',
-    '<c-q>',
+    '<C-S-F12>',
     '<cmd>lua vim.fn.CommandServerRunCommand()<CR>',
     { noremap = true }
   )
   vim.api.nvim_set_keymap(
     'n',
-    '<c-q>',
+    '<C-S-F12>',
     '<cmd>lua vim.fn.CommandServerRunCommand()<CR>',
     { noremap = true }
   )
   vim.api.nvim_set_keymap(
     'c',
-    '<c-q>',
+    '<C-S-F12>',
     '<cmd>lua vim.fn.CommandServerRunCommand()<CR>',
     { noremap = true }
   )
   vim.api.nvim_set_keymap(
     'v',
-    '<c-q>',
+    '<C-S-F12>',
     '<cmd>lua vim.fn.CommandServerRunCommand()<CR>',
     { noremap = true }
   )
   vim.api.nvim_set_keymap(
     't',
-    '<c-q>',
+    '<C-S-F12>',
     '<cmd>lua vim.fn.CommandServerRunCommand()<CR>',
     { noremap = true }
   )
@@ -94,7 +94,7 @@ local function configure_command_server_shortcut()
   -- like calling select_range() as otherwise it would fail for now
   -- vim.api.nvim_set_keymap(
   --   't',
-  --   '<c-q>',
+  --   '<C-S-F12>',
   --   [[<c-\><c-n><cmd>lua vim.fn.CommandServerRunCommand()<CR>]],
   --   { noremap = true }
   -- )
@@ -102,16 +102,16 @@ local function configure_command_server_shortcut()
   -- https://stackoverflow.com/questions/4416512/why-use-esc-in-vim
   -- https://vim.fandom.com/wiki/Use_Ctrl-O_instead_of_Esc_in_insert_mode_mappings
   -- vim.cmd([[
-  --   inoremap <c-q> <c-o>:call CommandServerRunCommand("i")<CR>
+  --   inoremap <C-S-F12> <c-o>:call CommandServerRunCommand("i")<CR>
   -- ]])
   -- vim.cmd([[
-  -- nnoremap <c-q> :call CommandServerRunCommand("n")<CR>
-  -- cnoremap <c-q> :call CommandServerRunCommand("c")<CR>
-  -- vnoremap <c-q> :call CommandServerRunCommand("v")<CR>
+  -- nnoremap <C-S-F12> :call CommandServerRunCommand("n")<CR>
+  -- cnoremap <C-S-F12> :call CommandServerRunCommand("c")<CR>
+  -- vnoremap <C-S-F12> :call CommandServerRunCommand("v")<CR>
   -- ]])
   -- -- https://vi.stackexchange.com/questions/4919/exit-from-terminal-mode-in-neovim-vim-8
   -- vim.cmd([[
-  --   tnoremap <c-q> <c-\><c-n>:call CommandServerRunCommand("t")<CR><CR>
+  --   tnoremap <C-S-F12> <c-\><c-n>:call CommandServerRunCommand("t")<CR><CR>
   -- ]])
 end
 
