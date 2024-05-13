@@ -93,4 +93,4 @@ Some Linux package managers ship with a version of `nvim` too old for Lazy. If t
 
 ### nvim does not find the `neovim` globally installed package?
 
-Some Linux snap package of `nvim` might not be able to access the globally installed neovim npm package. If this is the case, [install nvim](https://github.com/neovim/neovim/blob/master/INSTALL.md) via another method.
+If you are on Linux, avoid using the snap package for `npm` as it may not be able to globally expose the neovim npm package due to sandboxing. If this is the case, install node via another method (nvm, brew, etc).
