@@ -5,7 +5,6 @@
   "main": "./out/index.cjs",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
