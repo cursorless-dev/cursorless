@@ -10,4 +10,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
+  class: supported,
 };
