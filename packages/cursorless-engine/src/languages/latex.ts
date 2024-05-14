@@ -201,8 +201,6 @@ const nodeMatchers: Partial<
 
   collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
 
-  comment: ["block_comment", "line_comment"],
-
   part: "part",
   chapter: "chapter",
   section: "section",

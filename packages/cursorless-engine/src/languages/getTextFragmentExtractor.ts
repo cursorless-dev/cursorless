@@ -103,24 +103,15 @@ export default function getTextFragmentExtractor(
   return textFragmentExtractors[languageId as LegacyLanguageId];
 }
 
-// NB: For now when we want use the entire file as a text fragment we just
-// return null so that the extractor uses it. In the future we should probably
-// make a fragment extractor which just pulls out the whole document itself
-type FullDocumentTextFragmentExtractor = null;
-const fullDocumentTextFragmentExtractor = null;
-
-const textFragmentExtractors: Record<
-  LegacyLanguageId,
-  TextFragmentExtractor | FullDocumentTextFragmentExtractor
-> = {
-  latex: fullDocumentTextFragmentExtractor,
-  ruby: constructDefaultTextFragmentExtractor(
-    "ruby",
-    rubyStringTextFragmentExtractor,
-  ),
-  scala: constructDefaultTextFragmentExtractor(
-    "scala",
-    constructHackedStringTextFragmentExtractor("scala"),
-  ),
-  rust: constructDefaultTextFragmentExtractor("rust"),
-};
+const textFragmentExtractors: Record<LegacyLanguageId, TextFragmentExtractor> =
+  {
+    ruby: constructDefaultTextFragmentExtractor(
+      "ruby",
+      rubyStringTextFragmentExtractor,
+    ),
+    scala: constructDefaultTextFragmentExtractor(
+      "scala",
+      constructHackedStringTextFragmentExtractor("scala"),
+    ),
+    rust: constructDefaultTextFragmentExtractor("rust"),
+  };

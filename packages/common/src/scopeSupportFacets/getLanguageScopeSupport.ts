@@ -37,6 +37,8 @@ export function getLanguageScopeSupport(
       return htmlScopeSupport;
     case "java":
       return javaScopeSupport;
+    case "latex":
+      return latexScopeSupport;
     case "javascript":
       return javascriptScopeSupport;
     case "javascriptreact":

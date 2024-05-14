@@ -52,10 +52,10 @@ export const languageMatchers: Record<
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
   c: cpp,
-  cpp,
-  css: scss,
-  csharp,
   clojure,
+  cpp,
+  csharp,
+  css: scss,
   go,
   java,
   latex,
@@ -63,9 +63,9 @@ export const languageMatchers: Record<
   php,
   python,
   ruby,
+  rust,
   scala,
   scss,
-  rust,
 };
 
 function matcherIncludeSiblings(matcher: NodeMatcher): NodeMatcher {
