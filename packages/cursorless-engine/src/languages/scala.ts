@@ -21,8 +21,6 @@ const nodeMatchers: Partial<
     "trait_definition[name]",
   ],
 
-  ifStatement: "if_expression",
-
   string: ["interpolated_string_expression", "string"],
   comment: "comment",
 
