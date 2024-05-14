@@ -52,11 +52,7 @@
       "type": "npm",
       "script": "compile",
       "path": "packages/cursorless-neovim",
-      "dependsOn": [
-        "ESBuild-common",
-        "ESBuild-cursorless-engine",
-        "ESBuild-neovim-common"
-      ],
+      "dependsOn": ["ESBuild-neovim-common"],
       "presentation": {
         "reveal": "silent"
       },
