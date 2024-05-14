@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { cScopeSupport } from "./c";
+// import { cScopeSupport } from "./c";
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
@@ -10,5 +10,5 @@ import {
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
-  ...cScopeSupport,
+  // ...cScopeSupport,
 };

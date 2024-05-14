@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { javascriptScopeSupport } from "./javascript";
+// import { javascriptScopeSupport } from "./javascript";
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
@@ -9,7 +9,7 @@ import {
 const { supported } = ScopeSupportFacetLevel;
 
 export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
-  ...javascriptScopeSupport,
+  // ...javascriptScopeSupport,
   "type.variable": supported,
   "type.formalParameter": supported,
   "type.return": supported,
