@@ -11,4 +11,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   // ...cScopeSupport,
+  ifStatement: supported,
 };
