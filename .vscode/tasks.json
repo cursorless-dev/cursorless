@@ -17,7 +17,7 @@
       }
     },
     {
-      "label": "Build neovim extension only",
+      "label": "Build neovim extension",
       "dependsOn": [
         "neovim start",
         "ESBuild-neovim-registry",
@@ -26,7 +26,7 @@
       "group": "build"
     },
     {
-      "label": "Build neovim extension tests only",
+      "label": "Build neovim extension tests",
       "dependsOn": [
         "neovim test start",
         "ESBuild-neovim-registry",

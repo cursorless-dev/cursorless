@@ -10,7 +10,7 @@
       "request": "attach",
       "processName": "node.exe",
       "skipFiles": ["<node_internals>/**"],
-      "preLaunchTask": "Build neovim extension only",
+      "preLaunchTask": "Build neovim extension",
       "type": "node"
     },
     {
@@ -18,7 +18,7 @@
       "request": "attach",
       "processName": "node.exe",
       "skipFiles": ["<node_internals>/**"],
-      "preLaunchTask": "Build neovim extension tests only",
+      "preLaunchTask": "Build neovim extension tests",
       "type": "node"
     },
     {
