@@ -1,5 +1,3 @@
--- local Config = require('cursorless.config')
-
 local function register_functions()
   local path = require('cursorless.utils').cursorless_nvim_path()
   -- revert to using forward slashes as works when passed to remote#host#RegisterPlugin()
