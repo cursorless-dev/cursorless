@@ -8,12 +8,14 @@ import { htmlScopeSupport } from "./html";
 import { javaScopeSupport } from "./java";
 import { javascriptScopeSupport } from "./javascript";
 import { jsonScopeSupport } from "./json";
+import { jsoncScopeSupport } from "./jsonc";
 import { luaScopeSupport } from "./lua";
 import { pythonScopeSupport } from "./python";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
 import { typescriptScopeSupport } from "./typescript";
+import { typescriptreactScopeSupport } from "./typescriptreact";
 
 export function getLanguageScopeSupport(
   languageId: string,
@@ -37,8 +39,12 @@ export function getLanguageScopeSupport(
       return javaScopeSupport;
     case "javascript":
       return javascriptScopeSupport;
+    case "javascriptreact":
+      return javascriptScopeSupport;
     case "json":
       return jsonScopeSupport;
+    case "jsonc":
+      return jsoncScopeSupport;
     case "lua":
       return luaScopeSupport;
     case "python":
@@ -49,6 +55,8 @@ export function getLanguageScopeSupport(
       return scssScopeSupport;
     case "typescript":
       return typescriptScopeSupport;
+    case "typescriptreact":
+      return typescriptreactScopeSupport;
   }
   throw Error(`Unsupported language: '${languageId}'`);
 }
