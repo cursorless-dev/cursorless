@@ -61,30 +61,6 @@ local function configure_command_server_shortcut()
     '<cmd>lua vim.fn.CommandServerRunCommand()<CR>',
     { noremap = true }
   )
-  -- we do change the mode when in terminal mode before running anything though.
-  -- This is to ease doing stuff
-  -- like calling select_range() as otherwise it would fail for now
-  -- vim.api.nvim_set_keymap(
-  --   't',
-  --   '<C-S-F12>',
-  --   [[<c-\><c-n><cmd>lua vim.fn.CommandServerRunCommand()<CR>]],
-  --   { noremap = true }
-  -- )
-  -- from insert mode, go into normal mode before executing the command
-  -- https://stackoverflow.com/questions/4416512/why-use-esc-in-vim
-  -- https://vim.fandom.com/wiki/Use_Ctrl-O_instead_of_Esc_in_insert_mode_mappings
-  -- vim.cmd([[
-  --   inoremap <C-S-F12> <c-o>:call CommandServerRunCommand("i")<CR>
-  -- ]])
-  -- vim.cmd([[
-  -- nnoremap <C-S-F12> :call CommandServerRunCommand("n")<CR>
-  -- cnoremap <C-S-F12> :call CommandServerRunCommand("c")<CR>
-  -- vnoremap <C-S-F12> :call CommandServerRunCommand("v")<CR>
-  -- ]])
-  -- -- https://vi.stackexchange.com/questions/4919/exit-from-terminal-mode-in-neovim-vim-8
-  -- vim.cmd([[
-  --   tnoremap <C-S-F12> <c-\><c-n>:call CommandServerRunCommand("t")<CR><CR>
-  -- ]])
 end
 
 local function setup()
