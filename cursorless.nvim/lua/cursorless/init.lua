@@ -1,31 +1,5 @@
 -- local Config = require('cursorless.config')
 
--- We can't use that yet as then when we use load_extensions() we get an error.
--- So instead atm we rely on registering the functions from vim script
--- local function register_functions1()
---   local path = require('cursorless.utils').cursorless_nvim_path()
---   vim.api.nvim_call_function('remote#host#RegisterPlugin', {
---     'node',
---     path .. '/rplugin/node/command-server',
---     {
---       { sync = false, name = 'CommandServerLoadExtension', type = 'function', opts = {} },
---       { sync = false, name = 'CommandServerRunCommand', type = 'function', opts = {} },
---     },
---   })
---   vim.api.nvim_call_function('remote#host#RegisterPlugin', {
---     'node',
---     path .. '/rplugin/node/cursorless-neovim',
---     {
---       { sync = false, name = 'CursorlessLoadExtension', type = 'function', opts = {} },
---     },
---   })
---   vim.api.nvim_call_function('remote#host#RegisterPlugin', {
---     'node',
---     path .. '/rplugin/node/neovim-registry',
---     {},
---   })
--- end
-
 local function register_functions()
   local path = require('cursorless.utils').cursorless_nvim_path()
   -- revert to using forward slashes as works when passed to remote#host#RegisterPlugin()
@@ -115,9 +89,7 @@ local function configure_command_server_shortcut()
   -- ]])
 end
 
-local function setup() -- setup(user_config)
-  -- local config = Config.merge_config(user_config)
-
+local function setup()
   vim.cmd('source ' .. require('cursorless.utils').cursorless_nvim_path() .. '/vim/cursorless.vim')
   register_functions()
   load_extensions()
