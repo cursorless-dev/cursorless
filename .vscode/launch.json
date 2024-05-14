@@ -14,7 +14,7 @@
       "type": "node"
     },
     {
-      "name": "Run neovim extension tests",
+      "name": "Neovim extension tests",
       "request": "attach",
       "processName": "node.exe",
       "skipFiles": ["<node_internals>/**"],
