@@ -9,8 +9,10 @@ import { javaScopeSupport } from "./java";
 import { javascriptScopeSupport } from "./javascript";
 import { jsonScopeSupport } from "./json";
 import { jsoncScopeSupport } from "./jsonc";
+import { latexScopeSupport } from "./latex";
 import { luaScopeSupport } from "./lua";
 import { pythonScopeSupport } from "./python";
+import { rubyScopeSupport } from "./ruby";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
@@ -51,6 +53,8 @@ export function getLanguageScopeSupport(
       return luaScopeSupport;
     case "python":
       return pythonScopeSupport;
+    case "ruby":
+      return rubyScopeSupport;
     case "talon":
       return talonScopeSupport;
     case "scss":
