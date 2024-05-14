@@ -1,4 +1,6 @@
+import { cScopeSupport } from "./c";
 import { clojureScopeSupport } from "./clojure";
+import { cppScopeSupport } from "./cpp";
 import { csharpScopeSupport } from "./csharp";
 import { goScopeSupport } from "./go";
 import { htmlScopeSupport } from "./html";
@@ -15,6 +17,10 @@ export function getLanguageScopeSupport(
   languageId: string,
 ): LanguageScopeSupportFacetMap {
   switch (languageId) {
+    case "c":
+      return cScopeSupport;
+    case "cpp":
+      return cppScopeSupport;
     case "clojure":
       return clojureScopeSupport;
     case "csharp":
