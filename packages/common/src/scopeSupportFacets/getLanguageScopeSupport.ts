@@ -11,6 +11,7 @@ import { jsonScopeSupport } from "./json";
 import { jsoncScopeSupport } from "./jsonc";
 import { latexScopeSupport } from "./latex";
 import { luaScopeSupport } from "./lua";
+import { markdownScopeSupport } from "./markdown";
 import { pythonScopeSupport } from "./python";
 import { rubyScopeSupport } from "./ruby";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
@@ -41,6 +42,8 @@ export function getLanguageScopeSupport(
       return javaScopeSupport;
     case "latex":
       return latexScopeSupport;
+    case "markdown":
+      return markdownScopeSupport;
     case "javascript":
       return javascriptScopeSupport;
     case "javascriptreact":
