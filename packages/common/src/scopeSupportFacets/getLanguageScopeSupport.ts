@@ -14,6 +14,7 @@ import { luaScopeSupport } from "./lua";
 import { markdownScopeSupport } from "./markdown";
 import { pythonScopeSupport } from "./python";
 import { rubyScopeSupport } from "./ruby";
+import { rustScopeSupport } from "./rust";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
 import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
@@ -58,6 +59,8 @@ export function getLanguageScopeSupport(
       return pythonScopeSupport;
     case "ruby":
       return rubyScopeSupport;
+    case "rust":
+      return rustScopeSupport;
     case "talon":
       return talonScopeSupport;
     case "scss":
