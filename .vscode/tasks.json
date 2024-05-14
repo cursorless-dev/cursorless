@@ -31,6 +31,7 @@
         "neovim test start",
         "ESBuild-neovim-registry",
         "ESBuild-cursorless-neovim",
+        "TSBuild",
         "Build test harness"
       ],
       "group": "build"
