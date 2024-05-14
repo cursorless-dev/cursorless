@@ -2,6 +2,7 @@ import { cScopeSupport } from "./c";
 import { clojureScopeSupport } from "./clojure";
 import { cppScopeSupport } from "./cpp";
 import { csharpScopeSupport } from "./csharp";
+import { cssScopeSupport } from "./css";
 import { goScopeSupport } from "./go";
 import { htmlScopeSupport } from "./html";
 import { javaScopeSupport } from "./java";
@@ -10,6 +11,7 @@ import { jsonScopeSupport } from "./json";
 import { luaScopeSupport } from "./lua";
 import { pythonScopeSupport } from "./python";
 import { LanguageScopeSupportFacetMap } from "./scopeSupportFacets.types";
+import { scssScopeSupport } from "./scss";
 import { talonScopeSupport } from "./talon";
 import { typescriptScopeSupport } from "./typescript";
 
@@ -19,12 +21,14 @@ export function getLanguageScopeSupport(
   switch (languageId) {
     case "c":
       return cScopeSupport;
-    case "cpp":
-      return cppScopeSupport;
     case "clojure":
       return clojureScopeSupport;
+    case "cpp":
+      return cppScopeSupport;
     case "csharp":
       return csharpScopeSupport;
+    case "css":
+      return cssScopeSupport;
     case "go":
       return goScopeSupport;
     case "html":
@@ -41,6 +45,8 @@ export function getLanguageScopeSupport(
       return pythonScopeSupport;
     case "talon":
       return talonScopeSupport;
+    case "scss":
+      return scssScopeSupport;
     case "typescript":
       return typescriptScopeSupport;
   }
