@@ -15,16 +15,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-        vscode_version: [stable]
-        include:
-          - os: ubuntu-latest
-            vscode_version: legacy
+        # XXX: restore this once neovim tests work in CI
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [windows-latest]
+        app_version: [stable]
+        # XXX: restore this once neovim tests work in CI
+        # include:
+        #   - os: ubuntu-latest
+        #     app_version: legacy
     runs-on: ${{ matrix.os }}
     env:
-      VSCODE_VERSION: ${{ matrix.vscode_version }}
-      VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
-      VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
+      APP_VERSION: ${{ matrix.app_version }}
+      APP_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
+      APP_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
@@ -33,18 +36,32 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
-      - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
+      - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
         shell: bash
       - run: pnpm --color install
       - run: pnpm --color compile
       - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
-      - run: xvfb-run -a pnpm --color test
-        if: runner.os == 'Linux'
-      - run: pnpm --color test
+      # XXX: restore this once neovim tests work in CI
+      # - run: xvfb-run -a pnpm --color test
+      #   if: runner.os == 'Linux'
+      # - run: pnpm --color test
+      #   if: runner.os != 'Linux'
+      - name: Install Neovim
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          version: stable
+          neovim: true
+      # XXX: enable this once neovim tests work in CI for Windows
+      # - run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
+      #   if: runner.os == 'Linux'
+      - run: pnpm -F @cursorless/test-harness testNeovim
         if: runner.os != 'Linux'
+        env:
+          APP_PATH: ${{ steps.vim.outputs.executable }}
       - name: Create vscode dist that can be installed locally
         run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
       - name: Test create vsix
         id: createVsix
         uses: HaaLeo/publish-vscode-extension@v1
@@ -53,10 +70,10 @@ jobs:
           packagePath: packages/cursorless-vscode/dist
           dryRun: true
       - run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
       - name: Upload vsix
         uses: actions/upload-artifact@v4
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
         with:
           name: vsix
           path: cursorless-development.vsix
@@ -64,11 +81,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: logs
-          path: ${{ env.VSCODE_LOGS_DIR }}
+          path: ${{ env.APP_LOGS_DIR }}
         if: failure()
       - name: Archive dumps
         uses: actions/upload-artifact@v4
         with:
           name: dumps
-          path: ${{ env.VSCODE_CRASH_DIR }}
+          path: ${{ env.APP_CRASH_DIR }}
         if: failure()

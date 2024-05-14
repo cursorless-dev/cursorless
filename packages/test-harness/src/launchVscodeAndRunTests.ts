@@ -27,10 +27,10 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       "packages/cursorless-vscode/dist",
     );
 
-    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
-    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
+    const crashDir = getEnvironmentVariableStrict("APP_CRASH_DIR");
+    const logsDir = getEnvironmentVariableStrict("APP_LOGS_DIR");
     const useLegacyVscode =
-      getEnvironmentVariableStrict("VSCODE_VERSION") === "legacy";
+      getEnvironmentVariableStrict("APP_VERSION") === "legacy";
 
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
