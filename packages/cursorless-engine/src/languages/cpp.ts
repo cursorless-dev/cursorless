@@ -80,8 +80,6 @@ const nodeMatchers: Partial<
     "function_definition[declarator][declarator][namespace]", // void ClassName::method() {}
   ],
   ["private.switchStatementSubject"]: "switch_statement[condition][value]",
-  string: "string_literal",
-  comment: "comment",
   anonymousFunction: "lambda_expression",
   list: "initializer_list",
   functionCall: ["call_expression", "declaration.init_declarator!"],

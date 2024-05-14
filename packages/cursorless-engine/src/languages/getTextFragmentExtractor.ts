@@ -6,7 +6,6 @@ import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
-import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 
 export type TextFragmentExtractor = (
   node: SyntaxNode,
@@ -114,13 +113,6 @@ const textFragmentExtractors: Record<
   LegacyLanguageId,
   TextFragmentExtractor | FullDocumentTextFragmentExtractor
 > = {
-  c: constructDefaultTextFragmentExtractor("c"),
-  cpp: constructDefaultTextFragmentExtractor("cpp"),
-  csharp: constructDefaultTextFragmentExtractor("csharp"),
-  css: constructDefaultTextFragmentExtractor(
-    "css",
-    scssStringTextFragmentExtractor,
-  ),
   latex: fullDocumentTextFragmentExtractor,
   ruby: constructDefaultTextFragmentExtractor(
     "ruby",
@@ -129,10 +121,6 @@ const textFragmentExtractors: Record<
   scala: constructDefaultTextFragmentExtractor(
     "scala",
     constructHackedStringTextFragmentExtractor("scala"),
-  ),
-  scss: constructDefaultTextFragmentExtractor(
-    "scss",
-    scssStringTextFragmentExtractor,
   ),
   rust: constructDefaultTextFragmentExtractor("rust"),
 };

@@ -121,7 +121,7 @@ export class LanguageDefinitions {
 
     if (definition == null) {
       throw new Error(
-        "Expected language definition entry missing for languageId " +
+        "Expected language definition entry is missing for languageId " +
           languageId,
       );
     }
