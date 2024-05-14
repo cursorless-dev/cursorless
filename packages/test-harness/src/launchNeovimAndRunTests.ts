@@ -39,7 +39,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     // const [cli, ...args] =
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
-    const cli = getEnvironmentVariableStrict("APP_PATH");
+    let cli = getEnvironmentVariableStrict("APP_PATH");
+    cli = cli.replace("nvim.exe", "nvim-qt.exe");
 
     // Install extension dependencies
     // const extensionInstallArgs = [
