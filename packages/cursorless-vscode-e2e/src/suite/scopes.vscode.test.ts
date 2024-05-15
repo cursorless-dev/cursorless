@@ -1,6 +1,7 @@
 import {
   asyncSafety,
   getLanguageScopeSupport,
+  getScopeTestConfigPaths,
   getScopeTestPaths,
   ScopeSupportFacet,
   scopeSupportFacetInfos,
@@ -20,11 +21,23 @@ import {
   serializeScopeFixture,
 } from "./serializeScopeFixture";
 
+interface Config {
+  import: string[];
+}
+
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
   const testPaths = getScopeTestPaths();
   const languages = groupBy(testPaths, (test) => test.languageId);
+  const configPaths = getScopeTestConfigPaths();
+  const configs = await readConfigFiles(configPaths);
+
+  for (const [languageId, config] of Object.entries(configs)) {
+    for (const langImport of config.import) {
+      console.log(languageId, langImport);
+    }
+  }
 
   if (!shouldUpdateFixtures()) {
     Object.entries(languages).forEach(([languageId, testPaths]) =>
@@ -47,6 +60,17 @@ suite("Scope test cases", async function () {
     ),
   );
 });
+
+async function readConfigFiles(
+  configPaths: { languageId: string; path: string }[],
+) {
+  const result: Record<string, Config> = {};
+  for (const p of configPaths) {
+    const content = await fsp.readFile(p.path, "utf8");
+    result[p.languageId] = JSON.parse(content) as Config;
+  }
+  return result;
+}
 
 /**
  * Ensures that all supported facets for a language are tested, and that all

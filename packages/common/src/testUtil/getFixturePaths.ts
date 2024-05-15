@@ -44,6 +44,17 @@ export function getScopeTestPaths() {
     }));
 }
 
+export function getScopeTestConfigPaths() {
+  const directory = getScopeTestsDirPath();
+
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith("index.json"))
+    .map((p) => ({
+      path: p,
+      languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
+    }));
+}
+
 function pathToName(relativeDir: string, filePath: string) {
   return path
     .relative(relativeDir, filePath.substring(0, filePath.lastIndexOf(".")))
