@@ -10,6 +10,6 @@ function RegisterFunctions(cursorless_nvim_path)
           \ {'sync': v:false, 'name': 'CursorlessLoadExtension', 'type': 'function', 'opts': {}},
           \ ])
      call remote#host#RegisterPlugin('node', a:cursorless_nvim_path . 'node/test-harness', [
-          \ {'sync': v:false, 'name': 'TestHarnessRun', 'type': 'function', 'opts': {}},
+          \ {'sync': v:true, 'name': 'TestHarnessRun', 'type': 'function', 'opts': {}},
           \ ])
 endfunction

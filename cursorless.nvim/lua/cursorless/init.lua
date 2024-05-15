@@ -14,12 +14,12 @@ local function load_extensions()
   vim.api.nvim_call_function('CursorlessLoadExtension', {})
   vim.api.nvim_call_function('CommandServerLoadExtension', {})
 
-  if os.getenv('CURSORLESS_MODE') == 'test' then
-    -- make sure cursorless is loaded before starting the tests
-    -- see https://neovim.io/doc/user/various.html#%3Asleep
-    vim.cmd([[sleep 1]])
-    vim.api.nvim_call_function('TestHarnessRun', {})
-  end
+  -- if os.getenv('CURSORLESS_MODE') == 'test' then
+  --   -- make sure cursorless is loaded before starting the tests
+  --   -- see https://neovim.io/doc/user/various.html#%3Asleep
+  --   vim.cmd([[sleep 1]])
+  --   vim.api.nvim_call_function('TestHarnessRun', {})
+  -- end
 end
 
 -- Cursorless command-server shortcut: CTRL+q
@@ -68,6 +68,14 @@ local function setup()
   register_functions()
   load_extensions()
   configure_command_server_shortcut()
+
+  -- if os.getenv('CURSORLESS_MODE') == 'test' then
+  --   -- make sure cursorless is loaded before starting the tests
+  --   -- see https://neovim.io/doc/user/various.html#%3Asleep
+  --   vim.cmd([[sleep 1]])
+  --   vim.api.nvim_call_function('TestHarnessRun', {})
+  -- end
+  -- print("TestHarnessRun() done")
 end
 
 local M = {

@@ -39,6 +39,6 @@ export async function run(plugin: NvimPlugin): Promise<void> {
  */
 export default function entry(plugin: NvimPlugin) {
   plugin.registerFunction("TestHarnessRun", async () => await run(plugin), {
-    sync: false,
+    sync: true,
   });
 }
