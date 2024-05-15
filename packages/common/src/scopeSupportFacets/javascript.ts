@@ -5,7 +5,8 @@ import {
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,

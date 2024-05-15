@@ -6,7 +6,6 @@ import { getNodeInternalRange, getNodeRange } from "../util/nodeSelectors";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import { getNodeMatcher } from "./getNodeMatcher";
 import { stringTextFragmentExtractor as rubyStringTextFragmentExtractor } from "./ruby";
-import { stringTextFragmentExtractor as scssStringTextFragmentExtractor } from "./scss";
 
 export type TextFragmentExtractor = (
   node: SyntaxNode,
@@ -104,39 +103,15 @@ export default function getTextFragmentExtractor(
   return textFragmentExtractors[languageId as LegacyLanguageId];
 }
 
-// NB: For now when we want use the entire file as a text fragment we just
-// return null so that the extractor uses it. In the future we should probably
-// make a fragment extractor which just pulls out the whole document itself
-type FullDocumentTextFragmentExtractor = null;
-const fullDocumentTextFragmentExtractor = null;
-
-const textFragmentExtractors: Record<
-  LegacyLanguageId,
-  TextFragmentExtractor | FullDocumentTextFragmentExtractor
-> = {
-  c: constructDefaultTextFragmentExtractor("c"),
-  clojure: constructDefaultTextFragmentExtractor(
-    "clojure",
-    constructHackedStringTextFragmentExtractor("clojure"),
-  ),
-  cpp: constructDefaultTextFragmentExtractor("cpp"),
-  csharp: constructDefaultTextFragmentExtractor("csharp"),
-  css: constructDefaultTextFragmentExtractor(
-    "css",
-    scssStringTextFragmentExtractor,
-  ),
-  latex: fullDocumentTextFragmentExtractor,
-  ruby: constructDefaultTextFragmentExtractor(
-    "ruby",
-    rubyStringTextFragmentExtractor,
-  ),
-  scala: constructDefaultTextFragmentExtractor(
-    "scala",
-    constructHackedStringTextFragmentExtractor("scala"),
-  ),
-  scss: constructDefaultTextFragmentExtractor(
-    "scss",
-    scssStringTextFragmentExtractor,
-  ),
-  rust: constructDefaultTextFragmentExtractor("rust"),
-};
+const textFragmentExtractors: Record<LegacyLanguageId, TextFragmentExtractor> =
+  {
+    ruby: constructDefaultTextFragmentExtractor(
+      "ruby",
+      rubyStringTextFragmentExtractor,
+    ),
+    scala: constructDefaultTextFragmentExtractor(
+      "scala",
+      constructHackedStringTextFragmentExtractor("scala"),
+    ),
+    rust: constructDefaultTextFragmentExtractor("rust"),
+  };
