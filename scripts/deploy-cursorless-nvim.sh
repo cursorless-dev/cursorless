@@ -17,11 +17,7 @@ cd -
 # Merge the build .js and the static files
 #
 
-# no snippets at the moment
-mkdir -p "$out_dir/assets/cursorless-snippets"
-touch "$out_dir/assets/cursorless-snippets/.gitkeep"
-
-# copy .lua and .vim Dependencies as well as other static files
+# copy .lua and .vim dependencies as well as other static files
 cp -r cursorless.nvim/README.md "$out_dir/"
 cp -r cursorless.nvim/assets "$out_dir/"
 cp -r cursorless.nvim/lua "$out_dir/"

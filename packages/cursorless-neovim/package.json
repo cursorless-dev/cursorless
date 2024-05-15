@@ -7,11 +7,12 @@
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild && pnpm populate-cursorless-nvim",
+    "populate-cursorless-nvim": "bash ./scripts/populate-cursorless-nvim.sh",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build ../../dist"
   },
   "keywords": [],
   "author": "",
