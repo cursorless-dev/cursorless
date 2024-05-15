@@ -11,8 +11,8 @@ function s:suite.my_test_2()
 endfunction
 
 function s:suite.cursorless_test()
-    let s:result = call TestHarnessRun()
-    call s:assert.equals(result, 0)
+    let s:result = TestHarnessRun()
+    call s:assert.equals(s:result, 0)
 endfunction
 
 "function s:suite.my_fail_test()
