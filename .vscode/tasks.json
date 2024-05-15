@@ -123,7 +123,7 @@
           "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
           "NVIM_NODE_HOST_DEBUG": "1",
           "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
-          "NVIM_NODE_LOG_LEVEL": "info",
+          "NVIM_NODE_LOG_LEVEL": "debug",
           "CURSORLESS_MODE": "test"
         }
       }
