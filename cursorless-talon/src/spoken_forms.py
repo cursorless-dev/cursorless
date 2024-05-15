@@ -4,6 +4,7 @@ from typing import Callable, Concatenate, ParamSpec, TypeVar
 
 from talon import app, fs
 
+from .actions.actions import ACTION_LIST_NAMES
 from .csv_overrides import (
     SPOKEN_FORM_HEADER,
     ListToSpokenForms,
@@ -70,6 +71,12 @@ LIST_TO_TYPE_MAP = {
     "scope_type": "simpleScopeTypeType",
     "glyph_scope_type": "complexScopeTypeType",
     "custom_regex_scope_type": "customRegex",
+    **{
+        action_list_name: "action"
+        for action_list_name in ACTION_LIST_NAMES
+        if action_list_name != "custom_action"
+    },
+    "custom_action": "customAction",
 }
 
 

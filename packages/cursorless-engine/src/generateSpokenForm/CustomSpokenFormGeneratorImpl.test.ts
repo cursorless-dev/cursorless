@@ -1,10 +1,10 @@
 import assert from "node:assert";
 import { CustomSpokenFormGeneratorImpl } from "./CustomSpokenFormGeneratorImpl";
-import { asyncSafety } from "@cursorless/common";
+import { LATEST_VERSION, asyncSafety } from "@cursorless/common";
 
 suite("CustomSpokenFormGeneratorImpl", async function () {
   test(
-    "glyph",
+    "basic",
     asyncSafety(async () => {
       const generator = new CustomSpokenFormGeneratorImpl({
         async getSpokenFormEntries() {
@@ -14,6 +14,11 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
               id: "glyph",
               spokenForms: ["foo"],
             },
+            {
+              type: "action",
+              id: "setSelection",
+              spokenForms: ["bar"],
+            },
           ];
         },
         onDidChange: () => ({ dispose() {} }),
@@ -21,15 +26,35 @@ suite("CustomSpokenFormGeneratorImpl", async function () {
 
       await generator.customSpokenFormsInitialized;
 
-      const spokenForm = generator.scopeTypeToSpokenForm({
-        type: "glyph",
-        character: "a",
-      });
-
-      assert.deepStrictEqual(spokenForm, {
-        type: "success",
-        spokenForms: ["foo air"],
-      });
+      assert.deepStrictEqual(
+        generator.scopeTypeToSpokenForm({
+          type: "glyph",
+          character: "a",
+        }),
+        {
+          type: "success",
+          spokenForms: ["foo air"],
+        },
+      );
+      assert.deepStrictEqual(
+        generator.commandToSpokenForm({
+          version: LATEST_VERSION,
+          action: {
+            name: "setSelection",
+            target: {
+              type: "primitive",
+              mark: {
+                type: "cursor",
+              },
+            },
+          },
+          usePrePhraseSnapshot: false,
+        }),
+        {
+          type: "success",
+          spokenForms: ["bar this"],
+        },
+      );
     }),
   );
 });
