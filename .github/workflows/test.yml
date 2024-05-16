@@ -108,9 +108,11 @@ jobs:
         uses: rhysd/action-setup-vim@v1
         id: vim
         with:
-          version: stable
+          version: ${{ matrix.app_version }}
           neovim: true
-      - run: dir C:\Users\runneradmin\nvim-stable\bin\
+      - run: dir C:\Users\runneradmin\
+      # - run: dir C:\Users\runneradmin\nvim-stable\bin\
+      - run: dir C:\Users\runneradmin\nvim-${{ matrix.app_version }}\bin\
       # XXX: delete this because it doesn't work
       # - name: Run neovim unit tests using themis.vim
       #   env:
