@@ -1,4 +1,4 @@
-// import * as cp from "child_process";
+import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
 // import {
@@ -11,6 +11,11 @@
 //   getCursorlessRepoRoot,
 // } from "@cursorless/common";
 import { getEnvironmentVariableStrict } from "@cursorless/common";
+
+// https://stackoverflow.com/questions/37764665/how-to-implement-sleep-function-in-typescript
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 /**
  * Launches neovim, instructing it to run the test runner
@@ -59,6 +64,21 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //   encoding: "utf-8",
     //   stdio: "inherit",
     // });
+
+    const nvim_process = cp.spawn(cli, [], {
+      // encoding: "utf-8",
+      // stdio: "inherit",
+    });
+
+    // do not wait for nvim to exit to avoid any blocking
+    nvim_process.unref();
+
+    console.log(`pid: ${nvim_process.pid}`);
+
+    await delay(3000);
+
+    nvim_process.kill("SIGTERM");
+    console.log(`killed: ${nvim_process.killed}`);
 
     // console.log("status: ", status);
     // console.log("signal: ", signal);

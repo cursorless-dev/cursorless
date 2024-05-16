@@ -1,3 +1,5 @@
+" delete this file because it's not needed anymore
+
 let s:suite = themis#suite('Test for my plugin')
 let s:assert = themis#helper('assert')
 
