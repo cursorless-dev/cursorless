@@ -85,9 +85,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // console.log(`signal: ${signal}`);
     // console.log(`error: ${error}`);
 
-    // C:\Users\user\AppData\Local\nvim\init.lua
-    // C:\Users\user\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
-    // C:\Users\user\AppData\Local\nvim-data\log
+    // C:\Users\runneradmin\AppData\Local\nvim\init.lua
+    // C:\Users\runneradmin\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
+    // C:\Users\runneradmin\AppData\Local\nvim-data\log
     copyFile(
       `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
       "C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
@@ -140,10 +140,13 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       }
     */
 
-    const tail = new Tail("C:\\Users\\user\\AppData\\Local\\nvim-data\\log", {
-      // separator: "\n",
-      fromBeginning: true,
-    });
+    const tail = new Tail(
+      "C:\\Users\\runneradmin\\AppData\\Local\\nvim-data\\log",
+      {
+        // separator: "\n",
+        fromBeginning: true,
+      },
+    );
     tail.on("line", function (data: string) {
       console.log(data);
     });
