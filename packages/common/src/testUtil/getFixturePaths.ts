@@ -30,7 +30,14 @@ export function getRecordedTestPaths() {
     }));
 }
 
-export function getScopeTestPaths() {
+export interface ScopeTestPath {
+  path: string;
+  name: string;
+  languageId: string;
+  facet: string;
+}
+
+export function getScopeTestPaths(): ScopeTestPath[] {
   const directory = getScopeTestsDirPath();
   const relativeDir = path.dirname(directory);
 
