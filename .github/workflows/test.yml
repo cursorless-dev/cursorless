@@ -46,11 +46,14 @@ jobs:
       #   if: runner.os == 'Linux'
       # - run: pnpm --color test
       #   if: runner.os != 'Linux'
-      - name: Checkout themis.vim
-        uses: actions/checkout@v4
-        with:
-          repository: thinca/vim-themis
-          path: vim-themis
+      # XXX: delete this because it doesn't work
+      # - name: Checkout themis.vim
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: thinca/vim-themis
+      #     path: vim-themis
+      # testing
+      - run: pwd
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim

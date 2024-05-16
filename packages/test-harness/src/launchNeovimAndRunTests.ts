@@ -24,6 +24,7 @@ function delay(ms: number) {
  * `--extensionTestsPath`
  */
 export async function launchNeovimAndRunTests(extensionTestsPath: string) {
+  let code = 1; // failure
   try {
     // The folder containing the Extension Manifest package.json
     // Passed to `--extensionDevelopmentPath`
@@ -45,6 +46,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // const [cli, ...args] =
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
     let cli = getEnvironmentVariableStrict("APP_PATH");
+    // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
     cli = cli.replace("nvim.exe", "nvim-qt.exe");
 
     // Install extension dependencies
@@ -68,7 +70,20 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     const nvim_process = cp.spawn(cli, [], {
       // encoding: "utf-8",
       // stdio: "inherit",
+      env: {
+        ...process.env,
+        CURSORLESS_REPO_ROOT: "${workspaceFolder}",
+        // "NVIM_NODE_HOST_DEBUG": "1",
+        NVIM_NODE_LOG_FILE:
+          "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+        NVIM_NODE_LOG_LEVEL: "debug",
+        CURSORLESS_MODE: "test",
+      },
     });
+
+    // C:\Users\user\AppData\Local\nvim\init.lua
+    // C:\Users\user\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
+    // C:\Users\user\AppData\Local\nvim-data\log
 
     // do not wait for nvim to exit to avoid any blocking
     nvim_process.unref();
@@ -100,12 +115,11 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //       ? undefined
     //       : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     // });
-    const code = 0;
-
-    console.log(`Returned from "runTests" with value: ${code}`);
+    code = 0; // success
   } catch (err) {
     console.error("Test run threw exception:");
     console.error(err);
-    process.exit(1);
   }
+  console.log(`Returned code: ${code}`);
+  process.exit(code);
 }
