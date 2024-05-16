@@ -29,3 +29,10 @@
     name: (_) @className
   ) @_.domain
 ) @_.iteration
+
+(string) @string
+
+[
+  (string_content)
+  (heredoc_content)
+] @textFragment

@@ -21,9 +21,6 @@ const nodeMatchers: Partial<
     "trait_definition[name]",
   ],
 
-  string: ["interpolated_string_expression", "string"],
-  comment: "comment",
-
   // list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
   functionCall: "call_expression",
   namedFunction: "function_definition",
