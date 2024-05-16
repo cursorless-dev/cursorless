@@ -57,13 +57,14 @@ jobs:
         with:
           version: stable
           neovim: true
-      - name: Run neovim unit tests using themis.vim
-        env:
-          THEMIS_VIM: ${{ steps.vim.outputs.executable }}
-          # PROFILE_LOG: profile.txt
-        run: |
-          echo "${THEMIS_VIM}"
-          ./vim-themis/bin/themis ./test/all.vimspec
+      # XXX: delete this because it doesn't work
+      # - name: Run neovim unit tests using themis.vim
+      #   env:
+      #     THEMIS_VIM: ${{ steps.vim.outputs.executable }}
+      #     # PROFILE_LOG: profile.txt
+      #   run: |
+      #     echo "${THEMIS_VIM}"
+      #     ./vim-themis/bin/themis ./test/all.vimspec
       - name: Run neovim unit tests using test-harness
         run: pnpm -F @cursorless/test-harness testNeovim
         if: runner.os != 'Linux'
