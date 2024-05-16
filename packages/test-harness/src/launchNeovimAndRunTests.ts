@@ -68,6 +68,36 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //   stdio: "inherit",
     // });
 
+    console.log(`Starting nvim for creating config directories...`);
+    const { status, signal, error } = cp.spawnSync(
+      cli,
+      [
+        "-l",
+        `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\empty.lua`,
+      ],
+      {
+        encoding: "utf-8",
+        stdio: "inherit",
+      },
+    );
+    console.log(`status: ${status}`);
+    console.log(`signal: ${signal}`);
+    console.log(`error: ${error}`);
+
+    // C:\Users\user\AppData\Local\nvim\init.lua
+    // C:\Users\user\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
+    // C:\Users\user\AppData\Local\nvim-data\log
+    copyFile(
+      `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
+      "C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
+      (err) => {
+        if (err) {
+          console.error(err);
+        }
+      },
+    );
+
+    console.log(`Starting nvim for tests...`);
     const nvim_process = cp.spawn(cli, [], {
       // encoding: "utf-8",
       // stdio: "inherit",
@@ -84,19 +114,6 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     nvim_process.unref();
 
     console.log(`pid: ${nvim_process.pid}`);
-
-    // C:\Users\user\AppData\Local\nvim\init.lua
-    // C:\Users\user\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
-    // C:\Users\user\AppData\Local\nvim-data\log
-    copyFile(
-      `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
-      "C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
-      (err) => {
-        if (err) {
-          console.error(err);
-        }
-      },
-    );
 
     await delay(5000);
 

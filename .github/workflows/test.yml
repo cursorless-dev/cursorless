@@ -52,14 +52,19 @@ jobs:
       #   with:
       #     repository: thinca/vim-themis
       #     path: vim-themis
-      # testing - D:\a\cursorless\cursorless
+      # testing - D:\a\cursorless\cursorless (to remove)
       - run: pwd
+      - run: dir C:\Users\runneradmin\AppData\Local
+      - run: dir C:\Users\runneradmin\AppData\Local\nvim
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim
         with:
           version: stable
           neovim: true
+      # testing (to remove)
+      - run: dir C:\Users\runneradmin\AppData\Local
+      - run: dir C:\Users\runneradmin\AppData\Local\nvim
       # XXX: delete this because it doesn't work
       # - name: Run neovim unit tests using themis.vim
       #   env:
