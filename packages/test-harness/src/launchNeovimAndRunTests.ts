@@ -46,9 +46,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     // const [cli, ...args] =
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
-    let cli = getEnvironmentVariableStrict("APP_PATH");
+    const cli = getEnvironmentVariableStrict("APP_PATH");
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
-    cli = cli.replace("nvim.exe", "nvim-qt.exe");
+    // cli = cli.replace("nvim.exe", "nvim-qt.exe");
 
     // Install extension dependencies
     // const extensionInstallArgs = [
@@ -96,19 +96,21 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         }
       },
     );
+    console.log("init.lua copying done");
 
-    console.log(`Starting nvim for tests...`);
-    const nvim_process = cp.spawn(cli, [], {
-      // encoding: "utf-8",
-      // stdio: "inherit",
-      env: {
-        ...process.env,
-        // "NVIM_NODE_HOST_DEBUG": "1",
-        NVIM_NODE_LOG_FILE: `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`,
-        NVIM_NODE_LOG_LEVEL: "debug",
-        CURSORLESS_MODE: "test",
-      },
-    });
+    const nvim_process = cp.spawn(cli);
+    // const nvim_process = cp.spawn(cli, [], {
+    //   // encoding: "utf-8",
+    //   // stdio: "inherit",
+    //   env: {
+    //     ...process.env,
+    //     // "NVIM_NODE_HOST_DEBUG": "1",
+    //     NVIM_NODE_LOG_FILE: `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`,
+    //     NVIM_NODE_LOG_LEVEL: "debug",
+    //     CURSORLESS_MODE: "test",
+    //   },
+    // });
+    console.log("nvim started done");
 
     // do not wait for nvim to exit to avoid any blocking
     nvim_process.unref();
