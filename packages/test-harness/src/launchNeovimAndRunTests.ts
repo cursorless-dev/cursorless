@@ -2,7 +2,7 @@ import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
 import { copyFile, exists, unlinkSync } from "fs";
-//import { Tail } from "tail";
+import { Tail } from "tail";
 // import {
 //   downloadAndUnzipVSCode,
 //   resolveCliArgsFromVSCodeExecutablePath,
@@ -152,42 +152,39 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     await delay(10000);
 
-    // XXX - reenable logging
-    // for now we disable in order to be able to get a screenshot
-
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
-    // const tail = new Tail(logName, {
-    //   // separator: "\n",
-    //   fromBeginning: true,
-    // });
-    // /*
-    //   Test run threw exception:
-    //   Error: ENOENT: no such file or directory, access 'D:\a\cursorless\cursorless\packages\cursorless-neovim\out\nvim_node.log'
-    //       at Object.accessSync (node:fs:254:11)
-    //       at Tail2 (D:\a\cursorless\cursorless\node_modules\.pnpm\tail@2.2.6\node_modules\tail\lib\tail.js:33:16)
-    //   Returned code: 1
-    //       at launchNeovimAndRunTests (D:\a\cursorless\cursorless\packages\test-harness\src\launchNeovimAndRunTests.ts:124:18)
-    //       at <anonymous> (D:\a\cursorless\cursorless\packages\test-harness\src\scripts\runNeovimTestsCI.ts:18:3) {
-    //     errno: -4058,
-    //     code: 'ENOENT',
-    //     syscall: 'access',
-    //     path: 'D:\\a\\cursorless\\cursorless\\packages\\cursorless-neovim\\out\\nvim_node.log'
-    //   }
-    // */
+    const tail = new Tail(logName, {
+      // separator: "\n",
+      fromBeginning: true,
+    });
+    /*
+      Test run threw exception:
+      Error: ENOENT: no such file or directory, access 'D:\a\cursorless\cursorless\packages\cursorless-neovim\out\nvim_node.log'
+          at Object.accessSync (node:fs:254:11)
+          at Tail2 (D:\a\cursorless\cursorless\node_modules\.pnpm\tail@2.2.6\node_modules\tail\lib\tail.js:33:16)
+      Returned code: 1
+          at launchNeovimAndRunTests (D:\a\cursorless\cursorless\packages\test-harness\src\launchNeovimAndRunTests.ts:124:18)
+          at <anonymous> (D:\a\cursorless\cursorless\packages\test-harness\src\scripts\runNeovimTestsCI.ts:18:3) {
+        errno: -4058,
+        code: 'ENOENT',
+        syscall: 'access',
+        path: 'D:\\a\\cursorless\\cursorless\\packages\\cursorless-neovim\\out\\nvim_node.log'
+      }
+    */
 
-    // tail.on("line", function (data: string) {
-    //   console.log(data);
-    // });
-    // tail.on("error", function (error) {
-    //   console.log("ERROR: ", error);
-    // });
-    // console.log("tail started done");
+    tail.on("line", function (data: string) {
+      console.log(data);
+    });
+    tail.on("error", function (error) {
+      console.log("ERROR: ", error);
+    });
+    console.log("tail started done");
 
-    // await delay(20000);
+    await delay(20000);
 
-    // nvim_process.kill("SIGTERM");
-    // console.log(`killed: ${nvim_process.killed}`);
+    nvim_process.kill("SIGTERM");
+    console.log(`killed: ${nvim_process.killed}`);
 
     // console.log("status: ", status);
     // console.log("signal: ", signal);
