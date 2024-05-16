@@ -76,17 +76,22 @@ jobs:
         run: npm install -g neovim@5.1.0
       - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
       - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
-      - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
-      - run: dir C:\Users\runneradmin\AppData\Local\nvim
+      # - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
+      # C:\Users\runneradmin\nvim-stable\bin\nvim.exe: D:\a\_temp\2658188c-43d2-4fce-9de9-299408299ebb.ps1:2
+      # Line |
+      #    2 |  C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l D:\a\cursorless\curs …
+      #      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      #      | The term 'C:\Users\runneradmin\nvim-stable\bin\nvim.exe' is not recognized as a name of a cmdlet, function,
+      #      | script file, or executable program. Check the spelling of the name, or if a path was included, verify that the
+      #      | path is correct and try again.
+      # Error: Process completed with exit code 1.
+      - run: mkdir C:\Users\runneradmin\AppData\Local\nvim
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim
         with:
           version: stable
           neovim: true
-      # testing (to remove)
-      - run: dir C:\Users\runneradmin\AppData\Local
-      - run: dir C:\Users\runneradmin\AppData\Local\nvim
       # XXX: delete this because it doesn't work
       # - name: Run neovim unit tests using themis.vim
       #   env:
