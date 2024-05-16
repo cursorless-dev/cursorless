@@ -98,18 +98,18 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     );
     console.log("init.lua copying done");
 
-    const nvim_process = cp.spawn(cli);
-    // const nvim_process = cp.spawn(cli, [], {
-    //   // encoding: "utf-8",
-    //   // stdio: "inherit",
-    //   env: {
-    //     ...process.env,
-    //     // "NVIM_NODE_HOST_DEBUG": "1",
-    //     NVIM_NODE_LOG_FILE: `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`,
-    //     NVIM_NODE_LOG_LEVEL: "debug",
-    //     CURSORLESS_MODE: "test",
-    //   },
-    // });
+    // const nvim_process = cp.spawn(cli); // this works
+    const nvim_process = cp.spawn(cli, [], {
+      // encoding: "utf-8",
+      // stdio: "inherit",
+      env: {
+        ...process.env,
+        // "NVIM_NODE_HOST_DEBUG": "1",
+        NVIM_NODE_LOG_FILE: `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`,
+        NVIM_NODE_LOG_LEVEL: "debug",
+        CURSORLESS_MODE: "test",
+      },
+    });
     console.log("nvim started done");
 
     // do not wait for nvim to exit to avoid any blocking
