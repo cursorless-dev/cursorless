@@ -74,16 +74,12 @@ class Aaa {
       >---<
 3|     ddd = undefined;
 
-[#4 Removal] = 3:4-3:8
-      >----<
+[#4 Removal] = 3:4-3:10
+      >------<
 3|     ddd = undefined;
 
-[#4 Leading delimiter] = 3:0-3:4
-  >----<
-3|     ddd = undefined;
-
-[#4 Trailing delimiter] = 3:7-3:8
-         >-<
+[#4 Trailing delimiter] = 3:7-3:10
+         >---<
 3|     ddd = undefined;
 
 [#4 Domain] = 3:4-3:20
