@@ -34846,10 +34846,10 @@ var nodeMatchers12 = {
   /* infix_expression, key on left, item on right, operator = "->"
     // collectionItem: "???"
     // collectionKey: "???",
-
+  
     /* "foo".r <-, value of type field_expression, value of type string, field of type identifier = "r",
     // regularExpression: "???",
-
+  
     /*
       none of this stuff is defined well in the tree sitter (it's all just infix expressions etc),
       and native XML/HTML is deprecated in Scala 3

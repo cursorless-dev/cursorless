@@ -38,6 +38,16 @@ jobs:
           cache: pnpm
       - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
         shell: bash
+      # NB: we can't comment this for speeding up testing as we get this error when running test harness:
+      # > @cursorless/test-harness@0.1.0 testNeovim D:\a\cursorless\cursorless\packages\test-harness
+      # > env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts
+
+      # env: 'my-ts-node': No such file or directory
+      # D:\a\cursorless\cursorless\packages\test-harness:
+      #  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @cursorless/test-harness@0.1.0 testNeovim: `env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts`
+      # spawn ENOENT
+      #  WARN   Local package.json exists, but node_modules missing, did you mean to install?
+      # Error: Process completed with exit code 1.
       - run: pnpm --color install
       # XXX: commenting for now because we added already built cursorless.nvim in this branch to speed things up in CI
       # - run: pnpm --color compile
