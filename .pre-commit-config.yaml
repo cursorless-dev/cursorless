@@ -81,3 +81,8 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
+  - repo: https://github.com/rwxcorp/pre-commit-lua.git
+    rev: v1.0.0
+    hooks:
+      - id: stylua
+      - id: luacheck
