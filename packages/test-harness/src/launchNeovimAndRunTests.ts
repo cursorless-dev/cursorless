@@ -2,6 +2,7 @@ import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
 import { copyFile } from "fs";
+import { Tail } from "tail";
 // import {
 //   downloadAndUnzipVSCode,
 //   resolveCliArgsFromVSCodeExecutablePath,
@@ -98,6 +99,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     );
     console.log("init.lua copying done");
 
+    const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
     // const nvim_process = cp.spawn(cli); // this works
     const nvim_process = cp.spawn(cli, [], {
       // encoding: "utf-8",
@@ -105,7 +107,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
-        NVIM_NODE_LOG_FILE: `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`,
+        NVIM_NODE_LOG_FILE: logName,
         NVIM_NODE_LOG_LEVEL: "debug",
         CURSORLESS_MODE: "test",
       },
@@ -117,7 +119,20 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`pid: ${nvim_process.pid}`);
 
-    await delay(5000);
+    await delay(10000);
+
+    const tail = new Tail(logName, {
+      // separator: "\n",
+      fromBeginning: true,
+    });
+    tail.on("line", function (data: string) {
+      console.log(data);
+    });
+    tail.on("error", function (error) {
+      console.log("ERROR: ", error);
+    });
+
+    await delay(20000);
 
     nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);

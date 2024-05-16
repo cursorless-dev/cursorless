@@ -29,11 +29,13 @@
     "@cursorless/neovim-common": "workspace:*",
     "@cursorless/neovim-registry": "workspace:*",
     "glob": "^10.3.10",
-    "neovim": "5.1.0"
+    "neovim": "5.1.0",
+    "tail": "2.2.6"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.6",
+    "@types/tail": "2.2.3",
     "@vscode/test-electron": "^2.3.9",
     "mocha": "^10.3.0"
   },
