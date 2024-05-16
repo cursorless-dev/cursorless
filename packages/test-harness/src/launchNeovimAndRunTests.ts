@@ -50,6 +50,26 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     let cli = getEnvironmentVariableStrict("APP_PATH");
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
     cli = cli.replace("nvim.exe", "nvim-qt.exe");
+    /*
+      node:events:496
+            throw er; // Unhandled 'error' event
+            ^
+      Error: spawn C:\Users\runneradmin\nvim-stable\bin\nvim-qt.exe ENOENT
+          at ChildProcess._handle.onexit (node:internal/child_process:286:19)
+          at onErrorNT (node:internal/child_process:484:16)
+          at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+      Emitted 'error' event on ChildProcess instance at:
+          at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+          at onErrorNT (node:internal/child_process:484:16)
+          at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+        errno: -4058,
+        code: 'ENOENT',
+        syscall: 'spawn C:\\Users\\runneradmin\\nvim-stable\\bin\\nvim-qt.exe',
+        path: 'C:\\Users\\runneradmin\\nvim-stable\\bin\\nvim-qt.exe',
+        spawnargs: []
+      }
+      Node.js v20.12.1
+    */
 
     // Install extension dependencies
     // const extensionInstallArgs = [

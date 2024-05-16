@@ -106,6 +106,7 @@ jobs:
         with:
           version: stable
           neovim: true
+      - run: dir C:\Users\runneradmin\nvim-stable\bin\
       # XXX: delete this because it doesn't work
       # - name: Run neovim unit tests using themis.vim
       #   env:
