@@ -36,6 +36,10 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
+      # XXX testing only
+      - run: dir ${{ github.workspace }}
+      - run: dir ${{ github.workspace }}/packages
+      - run: dir ${{ github.workspace }}/packages/test-harness
       - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
         shell: bash
       # NB: we can't comment this for speeding up testing as we get this error when running test harness:
