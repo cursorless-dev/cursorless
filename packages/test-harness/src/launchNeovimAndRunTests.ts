@@ -1,7 +1,7 @@
 import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
-import { copyFile } from "fs";
+import { copyFile, exists, unlinkSync } from "fs";
 import { Tail } from "tail";
 // import {
 //   downloadAndUnzipVSCode,
@@ -47,9 +47,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     // const [cli, ...args] =
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
-    const cli = getEnvironmentVariableStrict("APP_PATH");
+    let cli = getEnvironmentVariableStrict("APP_PATH");
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
-    // cli = cli.replace("nvim.exe", "nvim-qt.exe");
+    cli = cli.replace("nvim.exe", "nvim-qt.exe");
 
     // Install extension dependencies
     // const extensionInstallArgs = [
@@ -100,6 +100,17 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     console.log("init.lua copying done");
 
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
+
+    // temporary, to delete old log when testing
+    exists(logName, function (exists) {
+      if (exists) {
+        console.log("nvim_node.log exists. Deleting now ...");
+        unlinkSync(logName);
+      } else {
+        console.log("nvim_node.log not found, so not deleting.");
+      }
+    });
+
     // const nvim_process = cp.spawn(cli); // this works
     const nvim_process = cp.spawn(cli, [], {
       // encoding: "utf-8",
