@@ -108,7 +108,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
         NVIM_NODE_LOG_FILE: logName,
-        NVIM_NODE_LOG_LEVEL: "debug",
+        NVIM_NODE_LOG_LEVEL: "info",
         CURSORLESS_MODE: "test",
       },
     });
@@ -121,10 +121,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     await delay(10000);
 
-    // const tail = new Tail(logName, {
-    //   // separator: "\n",
-    //   fromBeginning: true,
-    // });
+    const tail = new Tail(logName, {
+      // separator: "\n",
+      fromBeginning: true,
+    });
     /*
       Test run threw exception:
       Error: ENOENT: no such file or directory, access 'D:\a\cursorless\cursorless\packages\cursorless-neovim\out\nvim_node.log'
@@ -140,13 +140,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       }
     */
 
-    const tail = new Tail(
-      "C:\\Users\\runneradmin\\AppData\\Local\\nvim-data\\log",
-      {
-        // separator: "\n",
-        fromBeginning: true,
-      },
-    );
+    // const tail = new Tail("C:\\Users\\runneradmin\\AppData\\Local\\nvim-data\\log", {
+    //   // separator: "\n",
+    //   fromBeginning: true,
+    // });
     tail.on("line", function (data: string) {
       console.log(data);
     });
