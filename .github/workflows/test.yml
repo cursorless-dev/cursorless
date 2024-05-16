@@ -38,8 +38,8 @@ jobs:
           cache: pnpm
       - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
         shell: bash
+      - run: pnpm --color install
       # XXX: commenting for now because we added already built cursorless.nvim in this branch to speed things up in CI
-      # - run: pnpm --color install
       # - run: pnpm --color compile
       # XXX: restore this once neovim tests work in CI
       # - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
