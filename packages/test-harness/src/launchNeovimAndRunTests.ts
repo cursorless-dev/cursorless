@@ -153,6 +153,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     tail.on("error", function (error) {
       console.log("ERROR: ", error);
     });
+    console.log("tail started done");
 
     await delay(20000);
 
