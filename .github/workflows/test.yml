@@ -38,8 +38,9 @@ jobs:
           cache: pnpm
       - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
         shell: bash
-      - run: pnpm --color install
-      - run: pnpm --color compile
+      # XXX: commenting for now because we added already built cursorless.nvim in this branch to speed things up in CI
+      # - run: pnpm --color install
+      # - run: pnpm --color compile
       # XXX: restore this once neovim tests work in CI
       # - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
       # - run: xvfb-run -a pnpm --color test
@@ -55,6 +56,27 @@ jobs:
       # testing - D:\a\cursorless\cursorless (to remove)
       - run: pwd
       - run: dir C:\Users\runneradmin\AppData\Local
+      #     Directory: C:\Users\runneradmin\AppData\Local
+      # Mode                 LastWriteTime         Length Name
+      # ----                 -------------         ------ ----
+      # d----           5/15/2024 11:25 PM                .IdentityService
+      # d----           5/15/2024 11:24 PM                AzureFunctionsTools
+      # d----           5/16/2024 11:19 AM                GitHub
+      # d----           5/15/2024 11:13 PM                Google
+      # d----           5/16/2024 11:13 AM                Microsoft
+      # d----           5/15/2024 11:17 PM                Microsoft SDKs
+      # d----           5/16/2024 11:14 AM                Mozilla
+      # d----           5/16/2024 11:20 AM                node
+      # d----           5/15/2024 11:13 PM                Packages
+      # d----           5/15/2024 11:14 PM                PeerDistRepub
+      # d----           5/16/2024 11:20 AM                pnpm
+      # d----           5/15/2024 11:17 PM                ServiceHub
+      # d----           5/16/2024 11:21 AM                Temp
+      - name: Install cursorless.nvim dependencies
+        run: npm install -g neovim@5.1.0
+      - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
+      - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
+      - run: C:\Users\runneradmin\nvim-stable\bin\nvim-qt.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
       - run: dir C:\Users\runneradmin\AppData\Local\nvim
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
