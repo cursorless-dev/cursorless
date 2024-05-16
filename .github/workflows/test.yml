@@ -76,7 +76,7 @@ jobs:
         run: npm install -g neovim@5.1.0
       - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
       - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
-      - run: C:\Users\runneradmin\nvim-stable\bin\nvim-qt.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
+      - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
       - run: dir C:\Users\runneradmin\AppData\Local\nvim
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
