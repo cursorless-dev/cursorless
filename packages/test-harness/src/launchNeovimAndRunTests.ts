@@ -47,9 +47,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     // const [cli, ...args] =
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
-    let cli = getEnvironmentVariableStrict("APP_PATH");
+    const cli = getEnvironmentVariableStrict("APP_PATH");
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
-    cli = cli.replace("nvim.exe", "nvim-qt.exe");
+    //cli = cli.replace("nvim.exe", "nvim-qt.exe");
     /*
       node:events:496
             throw er; // Unhandled 'error' event
