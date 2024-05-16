@@ -147,7 +147,6 @@ const nodeMatchers: Partial<
     1,
   ),
   string: ["raw_string_literal", "string_literal"],
-  ifStatement: ["if_expression", "if_let_expression"],
   condition: cascadingMatcher(
     patternMatcher("while_expression[condition]", "if_expression[condition]"),
     matcher(

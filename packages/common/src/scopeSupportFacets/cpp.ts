@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+// import { cScopeSupport } from "./c";
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
@@ -8,7 +9,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
-export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
+export const cppScopeSupport: LanguageScopeSupportFacetMap = {
+  // ...cScopeSupport,
   ifStatement: supported,
-  class: supported,
 };

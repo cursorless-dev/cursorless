@@ -8,6 +8,7 @@
     "esbenp.prettier-vscode",
     "jrieken.vscode-tree-sitter-query",
     "wenkokke.talonfmt-vscode",
+    "usernamehw.commands",
     "sumneko.lua",
     "JohnnyMorganz.stylua"
   ]

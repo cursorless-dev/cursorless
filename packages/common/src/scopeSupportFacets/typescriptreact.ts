@@ -4,11 +4,11 @@ import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
+import { typescriptScopeSupport } from "./typescript";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
-export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
-  ifStatement: supported,
-  class: supported,
+export const typescriptreactScopeSupport: LanguageScopeSupportFacetMap = {
+  ...typescriptScopeSupport,
 };

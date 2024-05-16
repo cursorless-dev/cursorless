@@ -1,0 +1,19 @@
+void funk() {
+    if constexpr (true) {}
+}
+---
+
+[Content] =
+[Domain] = 1:4-1:26
+      >----------------------<
+1|     if constexpr (true) {}
+
+[Removal] = 1:0-1:26
+  >--------------------------<
+1|     if constexpr (true) {}
+
+[Leading delimiter] = 1:0-1:4
+  >----<
+1|     if constexpr (true) {}
+
+[Insertion delimiter] = "\n"

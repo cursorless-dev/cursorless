@@ -79,10 +79,7 @@ const nodeMatchers: Partial<
     "union_specifier[name]",
     "function_definition[declarator][declarator][namespace]", // void ClassName::method() {}
   ],
-  ifStatement: "if_statement",
   ["private.switchStatementSubject"]: "switch_statement[condition][value]",
-  string: "string_literal",
-  comment: "comment",
   anonymousFunction: "lambda_expression",
   list: "initializer_list",
   functionCall: ["call_expression", "declaration.init_declarator!"],
