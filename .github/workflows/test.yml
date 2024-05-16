@@ -52,7 +52,7 @@ jobs:
       #   with:
       #     repository: thinca/vim-themis
       #     path: vim-themis
-      # testing
+      # testing - D:\a\cursorless\cursorless
       - run: pwd
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1

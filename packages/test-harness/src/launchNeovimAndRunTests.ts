@@ -1,15 +1,16 @@
 import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
+import { copyFile } from "fs";
 // import {
 //   downloadAndUnzipVSCode,
 //   resolveCliArgsFromVSCodeExecutablePath,
 //   runTests,
 // } from "@vscode/test-electron";
-// import {
-//   extensionDependencies,
-//   getCursorlessRepoRoot,
-// } from "@cursorless/common";
+import {
+  //   extensionDependencies,
+  getCursorlessRepoRoot,
+} from "@cursorless/common";
 import { getEnvironmentVariableStrict } from "@cursorless/common";
 
 // https://stackoverflow.com/questions/37764665/how-to-implement-sleep-function-in-typescript
@@ -72,25 +73,32 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       // stdio: "inherit",
       env: {
         ...process.env,
-        CURSORLESS_REPO_ROOT: "${workspaceFolder}",
         // "NVIM_NODE_HOST_DEBUG": "1",
-        NVIM_NODE_LOG_FILE:
-          "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+        NVIM_NODE_LOG_FILE: `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`,
         NVIM_NODE_LOG_LEVEL: "debug",
         CURSORLESS_MODE: "test",
       },
     });
-
-    // C:\Users\user\AppData\Local\nvim\init.lua
-    // C:\Users\user\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
-    // C:\Users\user\AppData\Local\nvim-data\log
 
     // do not wait for nvim to exit to avoid any blocking
     nvim_process.unref();
 
     console.log(`pid: ${nvim_process.pid}`);
 
-    await delay(3000);
+    // C:\Users\user\AppData\Local\nvim\init.lua
+    // C:\Users\user\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
+    // C:\Users\user\AppData\Local\nvim-data\log
+    copyFile(
+      `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
+      "C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
+      (err) => {
+        if (err) {
+          console.error(err);
+        }
+      },
+    );
+
+    await delay(5000);
 
     nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
