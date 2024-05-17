@@ -131,8 +131,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       }
     });
 
-    // const nvim_process = cp.spawn(cli); // this works
-    const nvim_process = cp.spawn(cli, [`-V9${logName}`], {
+    // const nvim_process = cp.spawn(cli, [], {
+    //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
+    const vimlogPath = `${getCursorlessRepoRoot()}\\vim.log`;
+    const nvim_process = cp.spawn(cli, [`-V9vim.log`], {
       // encoding: "utf-8",
       // stdio: "inherit",
       env: {
@@ -154,7 +156,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
-    const tail = new Tail(logName, {
+    // const tail = new Tail(logName, {
+    const tail = new Tail(vimlogPath, {
       // separator: "\n",
       fromBeginning: true,
     });
