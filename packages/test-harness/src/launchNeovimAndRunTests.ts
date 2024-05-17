@@ -132,7 +132,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       }
     });
 
-    const nvim_process2 = cp.spawnSync(cli, [`-V9`], {
+    const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       stdio: ["inherit", "pipe", "pipe"],
       env: {
         ...process.env,
@@ -142,19 +142,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         CURSORLESS_MODE: "test",
       },
     });
-    console.log(`pid: ${nvim_process2.pid}`);
-
-    const output: string[] = [];
-
-    nvim_process2.stdout.on("data", (d) => {
-      console.log(d.toString());
-      output.push(d.toString());
-    });
-
-    nvim_process2.stdout.on("end", () => {
-      console.log("Finished");
-      console.log({ output });
-    });
+    console.log(`status: ${status}`);
+    console.log(`signal: ${signal}`);
+    console.log(`error: ${error}`);
 
     console.log(`Exiting early`);
     process.exit(0);
