@@ -26,14 +26,6 @@ const TYPE_TYPES = [
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  name: [
-    "*[declarator][declarator][name]",
-    "*[declarator][name]",
-    "*[declarator][declarator]",
-    "*[declarator]",
-    "assignment_expression[left]",
-    "*[name]",
-  ],
   type: trailingMatcher(TYPE_TYPES.concat(["*[type]"])),
   value: leadingMatcher(
     [

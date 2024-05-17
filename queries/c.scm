@@ -121,3 +121,39 @@
     value: (_) @private.switchStatementSubject
   )
 ) @_.domain
+
+(_
+  declarator: (_
+    declarator: (_
+      name: (_) @name
+    )
+  )
+) @_.domain
+
+(_
+  declarator: (_
+    name: (_) @name
+  )
+) @_.domain
+
+(_
+  declarator: (_
+    declarator: (_
+      !name
+    ) @name
+  )
+) @_.domain
+
+(parameter_list
+  (_
+    declarator: (_) @name
+  )
+) @_.domain
+
+(assignment_expression
+  left: (_) @name
+) @_.domain
+
+(_
+  name: (_) @name
+) @_.domain
