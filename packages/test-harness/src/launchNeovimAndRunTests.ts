@@ -74,7 +74,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`cli: ${cli}`);
 
-    mkdirSync('~/.config/nvim/lua', { recursive: true });
+    mkdirSync('/home/runner/.config/nvim/lua', { recursive: true });
     
     //~/.config/nvim/init.lua?
     // C:\Users\runneradmin\AppData\Local\nvim\init.lua
@@ -85,7 +85,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       //`${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
       //"C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
-      "~/.config/nvim/lua/init.lua",
+      "/home/runner/.config/nvim/lua/init.lua",
       (err: any) => {
         if (err) {
           console.error(err);
@@ -96,7 +96,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     
     copyFile(
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.vim`,
-      "~/.config/nvim/init.vim",
+      "/home/runner/.config/nvim/init.vim",
       (err: any) => {
         if (err) {
           console.error(err);
@@ -108,12 +108,12 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     readdirSync("/home/runner/.config/nvim/").forEach((file) => {
       console.log(file);
     });
-    console.log("listing ~/.config/nvim/ dir done");
+    console.log("listing /home/runner/.config/nvim/ dir done");
     
     readdirSync("/home/runner/.config/nvim/lua/").forEach((file) => {
       console.log(file);
     });
-    console.log("listing ~/.config/nvim/lua/ dir done");
+    console.log("listing /home/runner/.config/nvim/lua/ dir done");
 
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
 
