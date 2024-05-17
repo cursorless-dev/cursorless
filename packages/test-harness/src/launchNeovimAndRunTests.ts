@@ -1,7 +1,7 @@
 import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
-import { copyFile, exists, readdirSync, unlinkSync } from "fs";
+import { exists, readdirSync, unlinkSync } from "fs";
 import { Tail } from "tail";
 // import {
 //   downloadAndUnzipVSCode,
