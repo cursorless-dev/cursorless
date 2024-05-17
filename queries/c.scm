@@ -64,14 +64,14 @@
 
 (function_definition) @namedFunction
 
-;; void funcName();
+;;!! void funcName();
 (declaration
   (function_declarator
     declarator: (_) @functionName
   )
 ) @namedFunction @functionName.domain
 
-;; void C::funcName() {}
+;;!! void C::funcName() {}
 (function_definition
   declarator: (_
     declarator: (_
@@ -80,7 +80,7 @@
   )
 ) @_.domain
 
-;; void funcName() {}
+;;!! void funcName() {}
 (function_definition
   declarator: (_
     declarator: (_
@@ -89,7 +89,7 @@
   )
 ) @_.domain
 
-;;  void ClassName::method() {}
+;;!! void ClassName::method() {}
 (function_definition
   declarator: (_
     declarator: (_
@@ -151,9 +151,76 @@
 ) @_.domain
 
 (assignment_expression
-  left: (_) @name
+  left: (_) @name @value.leading.endOf
+  right: (_) @value @name.trailing.startOf
 ) @_.domain
 
 (_
   name: (_) @name
 ) @_.domain
+
+;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
+[
+  (auto)
+  (class_specifier)
+  (decltype)
+  (dependent_type)
+  (enum_specifier)
+  (primitive_type)
+  (scoped_type_identifier)
+  (sized_type_specifier)
+  (struct_specifier)
+  (template_type)
+  (type_identifier)
+  (union_specifier)
+] @type
+
+(_
+  type: (_) @type
+) @_.domain
+
+(_
+  declarator: (_
+    value: (_) @value
+  )
+) @_.domain
+
+(_
+  value: (_) @value
+) @_.domain
+
+(optional_parameter_declaration
+  default_value: (_) @value
+) @_.domain
+
+;;!! void foo(int value) {}
+;;!      ^^^^^^^^^
+(parameter_list
+  (_)? @_.leading.endOf
+  .
+  (_) @argumentOrParameter
+  .
+  (_)? @_.trailing.startOf
+)
+
+;;!! foo(5 + 6)
+;;!      ^^^^^
+(argument_list
+  (_)? @_.leading.endOf
+  .
+  (_) @argumentOrParameter
+  .
+  (_)? @_.trailing.startOf
+)
+
+(_
+  (parameter_list
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(argument_list
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain
