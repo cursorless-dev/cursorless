@@ -132,7 +132,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       }
     });
 
-    const nvim_process2 = cp.spawn(cli, [`-V9`], {
+    const nvim_process2 = cp.spawnSync(cli, [`-V9`], {
       stdio: ["inherit", "pipe", "pipe"],
       env: {
         ...process.env,
