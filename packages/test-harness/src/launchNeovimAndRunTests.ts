@@ -105,12 +105,12 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     );
     console.log("init.vim copying done");
 
-    readdirSync("~/.config/nvim/").forEach((file) => {
+    readdirSync("/home/runner/.config/nvim/").forEach((file) => {
       console.log(file);
     });
     console.log("listing ~/.config/nvim/ dir done");
     
-    readdirSync("~/.config/nvim/lua/").forEach((file) => {
+    readdirSync("/home/runner/.config/nvim/lua/").forEach((file) => {
       console.log(file);
     });
     console.log("listing ~/.config/nvim/lua/ dir done");
