@@ -106,7 +106,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // console.log(`signal: ${signal}`);
     // console.log(`error: ${error}`);
 
-    fs.mkdirSync('~/.config/nvim/', { recursive: true });
+    mkdirSync('~/.config/nvim/', { recursive: true });
     
     //~/.config/nvim/init.lua?
     // C:\Users\runneradmin\AppData\Local\nvim\init.lua
