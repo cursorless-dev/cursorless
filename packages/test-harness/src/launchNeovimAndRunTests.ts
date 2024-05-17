@@ -72,39 +72,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       Node.js v20.12.1
     */
 
-    // Install extension dependencies
-    // const extensionInstallArgs = [
-    //   ...args,
-    //   ...extensionDependencies.flatMap((dependency) => [
-    //     "--install-extension",
-    //     dependency,
-    //   ]),
-    // ];
-
-    // console.log("starting to install dependency extensions");
     console.log(`cli: ${cli}`);
-    // console.log(JSON.stringify(extensionInstallArgs, null, 2));
-
-    // const { status, signal, error } = cp.spawnSync(cli, extensionInstallArgs, {
-    //   encoding: "utf-8",
-    //   stdio: "inherit",
-    // });
-
-    // console.log(`Starting nvim for creating config directories...`);
-    // const { status, signal, error } = cp.spawnSync(
-    //   cli,
-    //   [
-    //     "-l",
-    //     `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\empty.lua`,
-    //   ],
-    //   {
-    //     encoding: "utf-8",
-    //     stdio: "inherit",
-    //   },
-    // );
-    // console.log(`status: ${status}`);
-    // console.log(`signal: ${signal}`);
-    // console.log(`error: ${error}`);
 
     mkdirSync('~/.config/nvim/', { recursive: true });
     
@@ -137,9 +105,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         console.log("nvim_node.log not found, so not deleting.");
       }
     });
-/*
+
+    // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
-    const { status, signal, error } = cp.spawnSync(cli, [`-V25`], {
+    const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       encoding: "utf-8",
       stdio: "inherit",
     });
@@ -149,7 +118,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`Exiting early`);
     process.exit(0);
-*/
+
     
     const nvim_process = cp.spawn(cli, [], {
       env: {
