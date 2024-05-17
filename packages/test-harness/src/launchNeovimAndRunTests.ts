@@ -1,7 +1,7 @@
 import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
-import { copyFile, exists, unlinkSync } from "fs";
+import { copyFile, exists, readdirSync, unlinkSync } from "fs";
 import { Tail } from "tail";
 // import {
 //   downloadAndUnzipVSCode,
@@ -47,9 +47,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     // const [cli, ...args] =
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
-    let cli = getEnvironmentVariableStrict("APP_PATH");
+    const cli = getEnvironmentVariableStrict("APP_PATH");
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
-    cli = cli.replace("nvim.exe", "nvim-qt.exe");
+    // nvim-qt.exe does not allow logging into file using -V9
+    //cli = cli.replace("nvim.exe", "nvim-qt.exe");
     /*
       node:events:496
             throw er; // Unhandled 'error' event
@@ -154,6 +155,11 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     await delay(10000);
 
+    readdirSync(getCursorlessRepoRoot()).forEach((file) => {
+      console.log(file);
+    });
+    console.log("listing root dir done");
+
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
     // const tail = new Tail(logName, {
@@ -188,6 +194,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
+
+    await delay(20000);
 
     // console.log("status: ", status);
     // console.log("signal: ", signal);
