@@ -3,10 +3,13 @@
   (if_let_expression)
 ] @ifStatement
 
-[
-  (raw_string_literal)
-  (string_literal)
-] @string @textFragment
+(
+  [
+    (raw_string_literal)
+    (string_literal)
+  ] @string @textFragment
+  (#child-range! @textFragment 0 -1 true true)
+)
 
 [
   (line_comment)
