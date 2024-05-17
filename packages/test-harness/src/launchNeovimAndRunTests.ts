@@ -1,7 +1,7 @@
 import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
-import { exists, readdirSync, unlinkSync } from "fs";
+import { exists, readdirSync, unlinkSync, copyFile } from "fs";
 import { Tail } from "tail";
 // import {
 //   downloadAndUnzipVSCode,
@@ -116,7 +116,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
       //"C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
       "~/.config/nvim/init.lua",
-      (err) => {
+      (err: ErrnoException | null) => {
         if (err) {
           console.error(err);
         }
