@@ -75,8 +75,10 @@ jobs:
       #   with:
       #     repository: thinca/vim-themis
       #     path: vim-themis
-      # testing - D:\a\cursorless\cursorless (to remove)
+      # Windows: D:\a\cursorless\cursorless
+      # Linux: /home/runner/work/cursorless/cursorless
       - run: pwd
+      - run: dir
       #- run: dir C:\Users\runneradmin\AppData\Local
       #     Directory: C:\Users\runneradmin\AppData\Local
       # Mode                 LastWriteTime         Length Name
