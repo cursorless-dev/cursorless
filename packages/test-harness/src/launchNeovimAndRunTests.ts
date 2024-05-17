@@ -109,7 +109,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // C:\Users\runneradmin\AppData\Local\nvim\init.lua
     // C:\Users\runneradmin\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
     // C:\Users\runneradmin\AppData\Local\nvim-data\log
-    copyFile(
+    //xxx commenting for now to avoid loading any config since nvim hangs anyway atm
+    /*copyFile(
       `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
       "C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
       (err) => {
@@ -119,7 +120,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       },
     );
     console.log("init.lua copying done");
-
+*/
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
 
     // temporary, to delete old log when testing
@@ -135,13 +136,14 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       encoding: "utf-8",
       stdio: "inherit",
-      env: {
+      /*env: {
         //...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
         NVIM_NODE_LOG_FILE: logName,
         NVIM_NODE_LOG_LEVEL: "info",
         CURSORLESS_MODE: "test",
       },
+      */
     });
     console.log(`status: ${status}`);
     console.log(`signal: ${signal}`);
