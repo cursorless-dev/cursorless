@@ -142,6 +142,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         CURSORLESS_MODE: "test",
       },
     });
+    console.log(`pid: ${nvim_process2.pid}`);
 
     const output: string[] = [];
 
