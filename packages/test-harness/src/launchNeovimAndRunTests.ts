@@ -85,14 +85,14 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       //`${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
       //"C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
-      "~/.config/nvim/init.lua",
+      "~/.config/nvim/init.vim",
       (err: any) => {
         if (err) {
           console.error(err);
         }
       },
     );
-    console.log("init.lua copying done");
+    console.log("init.vim copying done");
 
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
 
