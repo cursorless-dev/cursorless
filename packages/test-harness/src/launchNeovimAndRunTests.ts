@@ -74,7 +74,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`cli: ${cli}`);
 
-    mkdirSync('~/.config/nvim/', { recursive: true });
+    mkdirSync('~/.config/nvim/lua', { recursive: true });
     
     //~/.config/nvim/init.lua?
     // C:\Users\runneradmin\AppData\Local\nvim\init.lua
@@ -85,6 +85,17 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       //`${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
       //"C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
+      "~/.config/nvim/lua/init.lua",
+      (err: any) => {
+        if (err) {
+          console.error(err);
+        }
+      },
+    );
+    console.log("init.lua copying done");
+    
+    copyFile(
+      `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.vim`,
       "~/.config/nvim/init.vim",
       (err: any) => {
         if (err) {
