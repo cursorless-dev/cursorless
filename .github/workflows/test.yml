@@ -60,6 +60,7 @@ jobs:
       # XXX: commenting for now because we added already built cursorless.nvim in this branch to speed things up in CI
       # XXX - if we don't run this, we might have to create packages\cursorless-neovim\out folder so the logs can be written
       - run: pnpm --color compile
+      - run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\
       # XXX: restore this once neovim tests work in CI
       # - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
       # - run: xvfb-run -a pnpm --color test
