@@ -30,7 +30,14 @@ export function getRecordedTestPaths() {
     }));
 }
 
-export function getScopeTestPaths() {
+export interface ScopeTestPath {
+  path: string;
+  name: string;
+  languageId: string;
+  facet: string;
+}
+
+export function getScopeTestPaths(): ScopeTestPath[] {
   const directory = getScopeTestsDirPath();
   const relativeDir = path.dirname(directory);
 
@@ -41,6 +48,17 @@ export function getScopeTestPaths() {
       name: pathToName(relativeDir, p),
       languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
       facet: path.basename(p).match(/([a-zA-Z.]+)\d*\.scope/)![1],
+    }));
+}
+
+export function getScopeTestConfigPaths() {
+  const directory = getScopeTestsDirPath();
+
+  return walkFilesSync(directory)
+    .filter((p) => p.endsWith("index.json"))
+    .map((p) => ({
+      path: p,
+      languageId: path.dirname(path.relative(directory, p)).split(path.sep)[0],
     }));
 }
 
