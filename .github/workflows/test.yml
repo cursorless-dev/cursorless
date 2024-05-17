@@ -17,7 +17,8 @@ jobs:
       matrix:
         # XXX: restore this once neovim tests work in CI
         # os: [macos-latest, ubuntu-latest, windows-latest]
-        os: [windows-latest]
+        #os: [windows-latest]
+        os: [ubuntu-latest]
         # XXX - stable is 0.10.0 and only has nvim.exe (no nvim-qt.exe). Also locally it hangs on unskipped test
         # and on CI, it fails on trying to tail the log and I don't know what is happening since didnt get a snapshot of CI yet
         # to understand the error in nvim.exe (though probably need the nvim-qt.exe since nvim.exe won't show anything)
@@ -60,8 +61,8 @@ jobs:
       # XXX: commenting for now because we added already built cursorless.nvim in this branch to speed things up in CI
       # XXX - if we don't run this, we might have to create packages\cursorless-neovim\out folder so the logs can be written
       - run: pnpm --color compile
-      - run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\
-      - run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\out\
+      #- run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\
+      #- run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\out\
       # XXX: restore this once neovim tests work in CI
       # - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
       # - run: xvfb-run -a pnpm --color test
@@ -76,7 +77,7 @@ jobs:
       #     path: vim-themis
       # testing - D:\a\cursorless\cursorless (to remove)
       - run: pwd
-      - run: dir C:\Users\runneradmin\AppData\Local
+      #- run: dir C:\Users\runneradmin\AppData\Local
       #     Directory: C:\Users\runneradmin\AppData\Local
       # Mode                 LastWriteTime         Length Name
       # ----                 -------------         ------ ----
@@ -95,8 +96,8 @@ jobs:
       # d----           5/16/2024 11:21 AM                Temp
       - name: Install cursorless.nvim dependencies
         run: npm install -g neovim@5.1.0
-      - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
-      - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
+      #- run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
+      #- run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
       # - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
       # C:\Users\runneradmin\nvim-stable\bin\nvim.exe: D:\a\_temp\2658188c-43d2-4fce-9de9-299408299ebb.ps1:2
       # Line |
@@ -106,15 +107,15 @@ jobs:
       #      | script file, or executable program. Check the spelling of the name, or if a path was included, verify that the
       #      | path is correct and try again.
       # Error: Process completed with exit code 1.
-      - run: mkdir C:\Users\runneradmin\AppData\Local\nvim
+      #- run: mkdir C:\Users\runneradmin\AppData\Local\nvim
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim
         with:
           version: ${{ matrix.app_version }}
           neovim: true
-      - run: dir C:\Users\runneradmin\
-      - run: dir C:\Users\runneradmin\nvim-${{ matrix.app_version }}\bin\
+      #- run: dir C:\Users\runneradmin\
+      #- run: dir C:\Users\runneradmin\nvim-${{ matrix.app_version }}\bin\
       # Run dir C:\Users\runneradmin\nvim-v0.9.5\bin\
       #     Directory: C:\Users\runneradmin\nvim-v0.9.5\bin
       # Mode                 LastWriteTime         Length Name
@@ -146,29 +147,16 @@ jobs:
       # -a---          12/30/2023  1:20 PM        8662160 Qt5Widgets.dll
       # -a---          12/30/2023  1:20 PM         131072 tee.exe
       # -a---          12/30/2023  1:20 PM        1137152 win32yank.exe
-      # -a---          12/30/2023  1:20 PM         151040 xxd.exe
-      # XXX: delete this because it doesn't work
-      # - name: Run neovim unit tests using themis.vim
-      #   env:
-      #     THEMIS_VIM: ${{ steps.vim.outputs.executable }}
-      #     # PROFILE_LOG: profile.txt
-      #   run: |
-      #     echo "${THEMIS_VIM}"
-      #     ./vim-themis/bin/themis ./test/all.vimspec
+      # -a---          12/30/2023  1:20 PM         151040 
       - name: Run neovim unit tests using test-harness
         run: pnpm -F @cursorless/test-harness testNeovim
         if: runner.os != 'Linux'
         env:
           APP_PATH: ${{ steps.vim.outputs.executable }}
-      - name: Save snapshots
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          save-only: true
-          path: .artifacts/visual-snapshots
-      # XXX: enable this once neovim tests work in CI for Windows
-      # - run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
-      #   if: runner.os == 'Linux'
+      - run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
+        if: runner.os == 'Linux'
+        env:
+          APP_PATH: ${{ steps.vim.outputs.executable }}
       - name: Create vscode dist that can be installed locally
         run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
