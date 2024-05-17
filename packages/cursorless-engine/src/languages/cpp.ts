@@ -26,14 +26,6 @@ const TYPE_TYPES = [
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  ["private.switchStatementSubject"]: "switch_statement[condition][value]",
-  anonymousFunction: "lambda_expression",
-  list: "initializer_list",
-  functionCall: ["call_expression", "declaration.init_declarator!"],
-  functionCallee: [
-    "call_expression[function]",
-    "declaration.init_declarator[declarator]!",
-  ],
   name: [
     "*[declarator][declarator][name]",
     "*[declarator][name]",
@@ -42,13 +34,7 @@ const nodeMatchers: Partial<
     "assignment_expression[left]",
     "*[name]",
   ],
-  namedFunction: ["function_definition", "declaration.function_declarator"],
   type: trailingMatcher(TYPE_TYPES.concat(["*[type]"])),
-  functionName: [
-    "function_definition[declarator][declarator][name]", // void C::funcName() {}
-    "function_definition[declarator][declarator]", // void funcName() {}
-    "declaration.function_declarator![declarator]", // void funcName();
-  ],
   value: leadingMatcher(
     [
       "*[declarator][value]",
@@ -59,7 +45,6 @@ const nodeMatchers: Partial<
     [":", "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<=", ">>="],
   ),
   argumentOrParameter: argumentMatcher("parameter_list", "argument_list"),
-  attribute: "attribute",
 };
 
 export default createPatternMatchers(nodeMatchers);

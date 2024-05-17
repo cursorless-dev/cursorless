@@ -13,12 +13,3 @@
   ) @_.domain.start
   ";"? @_.domain.end
 )
-
-;;  void ClassName::method() {}
-(function_definition
-  declarator: (_
-    declarator: (_
-      namespace: (_) @className
-    )
-  )
-) @_.domain

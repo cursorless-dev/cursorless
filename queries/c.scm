@@ -61,3 +61,63 @@
   ) @_.domain.start
   ";"? @_.domain.end
 )
+
+(function_definition) @namedFunction
+
+;; void funcName();
+(declaration
+  (function_declarator
+    declarator: (_) @functionName
+  )
+) @namedFunction @functionName.domain
+
+;; void C::funcName() {}
+(function_definition
+  declarator: (_
+    declarator: (_
+      name: (_) @functionName
+    )
+  )
+) @_.domain
+
+;; void funcName() {}
+(function_definition
+  declarator: (_
+    declarator: (_
+      !name
+    ) @functionName
+  )
+) @_.domain
+
+;;  void ClassName::method() {}
+(function_definition
+  declarator: (_
+    declarator: (_
+      namespace: (_) @className
+    )
+  )
+) @_.domain
+
+(lambda_expression) @anonymousFunction
+(initializer_list) @list
+(attribute) @attribute
+
+(call_expression) @functionCall
+(declaration
+  (init_declarator) @functionCall
+) @_.domain
+
+(call_expression
+  function: (_) @functionCallee
+) @_.domain
+(declaration
+  (init_declarator
+    declarator: (_) @functionCallee
+  )
+) @_.domain
+
+(switch_statement
+  condition: (_
+    value: (_) @private.switchStatementSubject
+  )
+) @_.domain
