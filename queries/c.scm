@@ -149,10 +149,14 @@
   )
 ) @_.domain
 
-(assignment_expression
-  left: (_) @name @value.leading.endOf
-  right: (_) @value @name.trailing.startOf
-) @_.domain
+;;!! aaa = 0;
+(
+  (assignment_expression
+    left: (_) @name @value.leading.endOf
+    right: (_) @value @name.trailing.startOf
+  ) @_.domain.start
+  ";"? @_.domain.end
+)
 
 (_
   (_
