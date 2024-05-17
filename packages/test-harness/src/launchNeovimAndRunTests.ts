@@ -132,7 +132,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
 
     // const nvim_process = cp.spawn(cli); // this works
-    const nvim_process = cp.spawn(cli, [], {
+    const nvim_process = cp.spawn(cli, [`-V9${logName}`], {
       // encoding: "utf-8",
       // stdio: "inherit",
       env: {
