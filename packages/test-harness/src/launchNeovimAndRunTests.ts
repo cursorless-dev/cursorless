@@ -133,9 +133,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
 
     const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
-      stdio: ["inherit", "pipe", "pipe"],
+      encoding: "utf-8",
+      stdio: "inherit",
       env: {
-        ...process.env,
+        //...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
         NVIM_NODE_LOG_FILE: logName,
         NVIM_NODE_LOG_LEVEL: "info",
