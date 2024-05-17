@@ -132,6 +132,32 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       }
     });
 
+    const nvim_process2 = cp.spawn(cli, [`-V9`], {
+      stdio: ["inherit", "pipe", "pipe"],
+      env: {
+        ...process.env,
+        // "NVIM_NODE_HOST_DEBUG": "1",
+        NVIM_NODE_LOG_FILE: logName,
+        NVIM_NODE_LOG_LEVEL: "info",
+        CURSORLESS_MODE: "test",
+      },
+    });
+
+    const output: string[] = [];
+
+    nvim_process2.stdout.on("data", (d) => {
+      console.log(d.toString());
+      output.push(d.toString());
+    });
+
+    nvim_process2.stdout.on("end", () => {
+      console.log("Finished");
+      console.log({ output });
+    });
+
+    console.log(`Exiting early`);
+    process.exit(0);
+
     // const nvim_process = cp.spawn(cli, [], {
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
     const vimlogPath = `${getCursorlessRepoRoot()}\\vim.log`;
