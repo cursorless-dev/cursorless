@@ -1,7 +1,7 @@
 import * as cp from "child_process";
 // import * as path from "path";
 // import * as os from "os";
-import { exists, readdirSync, unlinkSync, copyFile } from "fs";
+import { exists, readdirSync, mkdirSync, unlinkSync, copyFile } from "fs";
 import { Tail } from "tail";
 // import {
 //   downloadAndUnzipVSCode,
@@ -106,6 +106,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // console.log(`signal: ${signal}`);
     // console.log(`error: ${error}`);
 
+    fs.mkdirSync('~/.config/nvim/', { recursive: true });
+    
     //~/.config/nvim/init.lua?
     // C:\Users\runneradmin\AppData\Local\nvim\init.lua
     // C:\Users\runneradmin\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
