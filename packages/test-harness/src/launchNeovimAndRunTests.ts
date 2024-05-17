@@ -129,6 +129,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
+    /*
     const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       encoding: "utf-8",
       stdio: "inherit",
@@ -139,7 +140,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`Exiting early`);
     process.exit(0);
-
+*/
     
     const nvim_process = cp.spawn(cli, [], {
       env: {
@@ -159,10 +160,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     await delay(10000);
 
-    readdirSync(getCursorlessRepoRoot()).forEach((file) => {
+    readdirSync(`${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/`).forEach((file) => {
       console.log(file);
     });
-    console.log("listing root dir done");
+    console.log("listing out/ dir done");
 
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
