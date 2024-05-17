@@ -1,4 +1,4 @@
-(comment) @comment
+(comment) @comment @textFragment
 (hash) @map
 (regex) @regularExpression
 (call) @functionCall
