@@ -106,13 +106,16 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // console.log(`signal: ${signal}`);
     // console.log(`error: ${error}`);
 
+    //~/.config/nvim/init.lua?
     // C:\Users\runneradmin\AppData\Local\nvim\init.lua
     // C:\Users\runneradmin\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
     // C:\Users\runneradmin\AppData\Local\nvim-data\log
     //xxx commenting for now to avoid loading any config since nvim hangs anyway atm
-    /*copyFile(
-      `${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
-      "C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
+    copyFile(
+      //`${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
+      `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
+      //"C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
+      "~/.config/nvim/init.lua",
       (err) => {
         if (err) {
           console.error(err);
@@ -120,7 +123,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       },
     );
     console.log("init.lua copying done");
-*/
+
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
 
     // temporary, to delete old log when testing
@@ -132,18 +135,11 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         console.log("nvim_node.log not found, so not deleting.");
       }
     });
-
+/*
+    //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
     const { status, signal, error } = cp.spawnSync(cli, [`-V25`], {
       encoding: "utf-8",
       stdio: "inherit",
-      /*env: {
-        //...process.env,
-        // "NVIM_NODE_HOST_DEBUG": "1",
-        NVIM_NODE_LOG_FILE: logName,
-        NVIM_NODE_LOG_LEVEL: "info",
-        CURSORLESS_MODE: "test",
-      },
-      */
     });
     console.log(`status: ${status}`);
     console.log(`signal: ${signal}`);
@@ -151,13 +147,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`Exiting early`);
     process.exit(0);
-
-    // const nvim_process = cp.spawn(cli, [], {
-    //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
-    const vimlogPath = `${getCursorlessRepoRoot()}\\vim.log`;
-    const nvim_process = cp.spawn(cli, [`-V9vim.log`], {
-      // encoding: "utf-8",
-      // stdio: "inherit",
+*/
+    
+    const nvim_process = cp.spawn(cli, [], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
@@ -182,8 +174,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
-    // const tail = new Tail(logName, {
-    const tail = new Tail(vimlogPath, {
+    const tail = new Tail(logName, 
       // separator: "\n",
       fromBeginning: true,
     });
@@ -215,11 +206,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
 
-    await delay(20000);
-
-    // console.log("status: ", status);
-    // console.log("signal: ", signal);
-    // console.log("error: ", error);
+    await delay(10000);
 
     // console.log("finished installing dependency extensions");
 
