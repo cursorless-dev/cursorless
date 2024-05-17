@@ -133,7 +133,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       }
     });
 
-    const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
+    const { status, signal, error } = cp.spawnSync(cli, [`-V25`], {
       encoding: "utf-8",
       stdio: "inherit",
       /*env: {
