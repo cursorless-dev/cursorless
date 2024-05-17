@@ -355,4 +355,8 @@ export const scopeSupportFacetInfos: Record<
     description: "A type alias declaration",
     scopeType: "type",
   },
+  "type.cast": {
+    description: "A type cast",
+    scopeType: "type",
+  },
 };
