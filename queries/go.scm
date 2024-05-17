@@ -360,8 +360,3 @@
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
-
-[
-  (parameter_declaration)
-  (argument_declaration)
-] @argumentOrParameter
