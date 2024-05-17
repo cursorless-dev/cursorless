@@ -116,7 +116,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
       //"C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
       "~/.config/nvim/init.lua",
-      (err: ErrnoException | null) => {
+      (err: any) => {
         if (err) {
           console.error(err);
         }
