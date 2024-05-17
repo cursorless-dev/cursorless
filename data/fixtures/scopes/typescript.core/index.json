@@ -1,3 +1,4 @@
 {
-  "imports": ["javascript.core"]
+  "imports": ["javascript.core"],
+  "skip": true
 }

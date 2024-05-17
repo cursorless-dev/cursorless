@@ -27,10 +27,10 @@ interface Config {
   skip?: boolean;
 }
 
-const testPaths = getTestPaths();
-
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
+
+  const testPaths = getTestPaths();
 
   if (!shouldUpdateFixtures()) {
     const languages = groupBy(testPaths, (test) => test.languageId);
