@@ -105,6 +105,16 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     );
     console.log("init.vim copying done");
 
+    readdirSync("~/.config/nvim/").forEach((file) => {
+      console.log(file);
+    });
+    console.log("listing ~/.config/nvim/ dir done");
+    
+    readdirSync("~/.config/nvim/lua/").forEach((file) => {
+      console.log(file);
+    });
+    console.log("listing ~/.config/nvim/lua/ dir done");
+
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
 
     // temporary, to delete old log when testing
