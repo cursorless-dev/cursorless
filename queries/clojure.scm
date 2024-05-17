@@ -5,7 +5,7 @@
 (map_lit) @map
 
 ;; A list is either a vector literal or a quoted list literal
-[
-  (vec_lit)
-  (quoting_lit)
-] @list
+(vec_lit) @list
+(quoting_lit
+  (list_lit)
+) @list
