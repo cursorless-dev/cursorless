@@ -19,4 +19,5 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   "type.alias": supported,
   "name.field": supported,
   "value.field": supported,
+  "type.cast": supported,
 };
