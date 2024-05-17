@@ -1,0 +1,20 @@
+void aaa(int bbb = 0) {}
+---
+
+[Content] = 0:19-0:20
+                     >-<
+0| void aaa(int bbb = 0) {}
+
+[Removal] = 0:18-0:20
+                    >--<
+0| void aaa(int bbb = 0) {}
+
+[Leading delimiter] = 0:18-0:19
+                    >-<
+0| void aaa(int bbb = 0) {}
+
+[Domain] = 0:9-0:20
+           >-----------<
+0| void aaa(int bbb = 0) {}
+
+[Insertion delimiter] = " "

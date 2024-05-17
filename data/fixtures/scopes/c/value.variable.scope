@@ -1,0 +1,39 @@
+int aaa = 0;
+---
+
+[#1 Content] = 0:10-0:11
+            >-<
+0| int aaa = 0;
+
+[#1 Removal] = 0:9-0:11
+           >--<
+0| int aaa = 0;
+
+[#1 Leading delimiter] = 0:9-0:10
+           >-<
+0| int aaa = 0;
+
+[#1 Domain] = 0:0-0:12
+  >------------<
+0| int aaa = 0;
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:10-0:11
+            >-<
+0| int aaa = 0;
+
+[#2 Removal] = 0:9-0:11
+           >--<
+0| int aaa = 0;
+
+[#2 Leading delimiter] = 0:9-0:10
+           >-<
+0| int aaa = 0;
+
+[#2 Domain] = 0:4-0:11
+      >-------<
+0| int aaa = 0;
+
+[#2 Insertion delimiter] = " "

@@ -258,7 +258,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
     isIteration: true,
   },
-
+  "name.argument.formal": {
+    description: "The name of a parameter in a function declaration",
+    scopeType: "name",
+  },
+  "name.argument.formal.iteration": {
+    description:
+      "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "name",
+    isIteration: true,
+  },
   "key.attribute": {
     description: "Key (LHS) of an attribute eg in an xml element",
     scopeType: "collectionKey",
@@ -323,6 +332,16 @@ export const scopeSupportFacetInfos: Record<
   "value.resource.iteration": {
     description:
       "Iteration scope for values in a 'with' / 'use' / 'using' statement",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.argument.formal": {
+    description: "The value of a parameter in a function declaration",
+    scopeType: "value",
+  },
+  "value.argument.formal.iteration": {
+    description:
+      "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
     scopeType: "value",
     isIteration: true,
   },

@@ -1,0 +1,20 @@
+aaa += 0;
+---
+
+[Content] = 0:7-0:8
+         >-<
+0| aaa += 0;
+
+[Removal] = 0:3-0:8
+     >-----<
+0| aaa += 0;
+
+[Leading delimiter] = 0:3-0:7
+     >----<
+0| aaa += 0;
+
+[Domain] = 0:0-0:8
+  >--------<
+0| aaa += 0;
+
+[Insertion delimiter] = " "

@@ -64,11 +64,21 @@
 ;;!! void funcName();
 (declaration
   (function_declarator
-    declarator: (_) @functionName
+    declarator: (_
+      !name
+    ) @functionName
   )
 ) @namedFunction @functionName.domain
 
 ;;!! void C::funcName() {}
+(declaration
+  (function_declarator
+    declarator: (_
+      name: (_) @functionName
+    )
+  )
+) @namedFunction @functionName.domain
+
 (function_definition
   declarator: (_
     declarator: (_
@@ -117,10 +127,13 @@
 ) @_.domain
 
 (_
-  declarator: (_
-    name: (_) @name
-  )
-) @_.domain
+  (_
+    declarator: (_
+      name: (_) @name
+    )
+  ) @_.domain
+  !declarator
+)
 
 (_
   declarator: (_
@@ -142,8 +155,11 @@
 ) @_.domain
 
 (_
-  name: (_) @name
-) @_.domain
+  (_
+    name: (_) @name
+  ) @_.domain
+  !declarator
+)
 
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
 [
