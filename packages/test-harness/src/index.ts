@@ -12,6 +12,7 @@ import type { NeovimClient, NvimPlugin } from "neovim";
 // FIXME: this is neovim specific atm so in the future we can support other apps here
 // with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
+  console.log("run()");
   // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
   // https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
   (global as any).additionalParameters = {
