@@ -2,6 +2,11 @@ import { TestType, runAllTests } from "./runAllTests";
 
 import type { NeovimClient, NvimPlugin } from "neovim";
 
+// https://stackoverflow.com/questions/37764665/how-to-implement-sleep-function-in-typescript
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 /**
  * Runs all extension tests.  This function should only be called after attaching to the
  * "node" process, such as when testing cursorless in neovim.
@@ -13,6 +18,9 @@ import type { NeovimClient, NvimPlugin } from "neovim";
 // with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
   console.log("run()");
+  delay(10000);
+  console.log("run() after sleep");
+  
   // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
   // https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
   (global as any).additionalParameters = {
