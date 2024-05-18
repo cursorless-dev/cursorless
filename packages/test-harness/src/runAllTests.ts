@@ -22,6 +22,7 @@ export enum TestType {
 }
 
 export function runAllTests(...types: TestType[]) {
+  console.log("runAllTests()");
   return runTestsInDir(
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
@@ -47,6 +48,7 @@ async function runTestsInDir(
   testRoot: string,
   filterFiles: (files: string[]) => string[],
 ): Promise<void> {
+  console.log("runTestsInDir()");
   // Create the mocha test
   const mocha = new Mocha({
     ui: "tdd",
