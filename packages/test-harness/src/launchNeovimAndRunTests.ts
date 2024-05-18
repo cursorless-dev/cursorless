@@ -129,7 +129,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
-    
+    /*
     const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       encoding: "utf-8",
       stdio: "inherit",
@@ -147,9 +147,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`Exiting early`);
     process.exit(0);
-
+*/
     
-    const nvim_process = cp.spawn(cli, [], {
+    const nvim_process = cp.spawn(cli, [ "-V9vim.log" ], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
@@ -165,6 +165,18 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`pid: ${nvim_process.pid}`);
 
+    const tail2 = new Tail("vim.log", {
+      // separator: "\n",
+      fromBeginning: true,
+    });
+    tail2.on("line", function (data: string) {
+      console.log(data);
+    });
+    tail2.on("error", function (error) {
+      console.log("ERROR: ", error);
+    });
+    console.log("tail2 started done");
+    
     await delay(10000);
 
     readdirSync(`${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/`).forEach((file) => {
