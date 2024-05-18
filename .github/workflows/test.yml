@@ -78,6 +78,7 @@ jobs:
       # Windows: D:\a\cursorless\cursorless
       # Linux: /home/runner/work/cursorless/cursorless
       - run: pwd
+      - run: tree /home/runner/work/cursorless/cursorless/dist
       - run: dir
       #- run: dir C:\Users\runneradmin\AppData\Local
       #     Directory: C:\Users\runneradmin\AppData\Local
