@@ -64,9 +64,9 @@ jobs:
       #- run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\
       #- run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\out\
       # XXX: restore this once neovim tests work in CI
-      # - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
-      # - run: xvfb-run -a pnpm --color test
-      #   if: runner.os == 'Linux'
+      - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+      #- run: xvfb-run -a pnpm --color test
+      #  if: runner.os == 'Linux'
       # - run: pnpm --color test
       #   if: runner.os != 'Linux'
       # XXX: delete this because it doesn't work
