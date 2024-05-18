@@ -83,15 +83,6 @@ const SECTIONING = [
   "part",
 ];
 
-const ENVIRONMENTS = [
-  "generic_environment",
-  "comment_environment",
-  "verbatim_environment",
-  "listing_environment",
-  "minted_environment",
-  "pycode_environment",
-];
-
 const sectioningText = SECTIONING.map((s) => `${s}[text]`);
 const sectioningCommand = SECTIONING.map((s) => `${s}[command]`);
 
@@ -197,20 +188,9 @@ const nodeMatchers: Partial<
     matcher(patternFinder(...sectioningText), unwrapGroupParens),
     patternMatcher("begin[name][text]", "end[name][text]"),
   ),
-  functionCallee: "command_name",
 
   collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
 
-  part: "part",
-  chapter: "chapter",
-  section: "section",
-  subSection: "subsection",
-  subSubSection: "subsubsection",
-  namedParagraph: "paragraph",
-  subParagraph: "subparagraph",
-
-  environment: ENVIRONMENTS,
-  xmlElement: ENVIRONMENTS,
   xmlBothTags: getTags,
   xmlStartTag: getStartTag,
   xmlEndTag: getEndTag,
