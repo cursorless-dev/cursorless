@@ -154,7 +154,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     console.log("nvim started done");
 
     // do not wait for nvim to exit to avoid any blocking
-    nvim_process.unref();
+    //nvim_process.unref();
 
     console.log(`pid: ${nvim_process.pid}`);
 
@@ -194,12 +194,12 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
     console.log("tail started done");
 
-    await delay(2000000);
+    //await delay(2000000);
 
-    nvim_process.kill("SIGTERM");
+    //nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
 
-    await delay(10000);
+    //await delay(10000);
 
     // console.log("finished installing dependency extensions");
 
@@ -223,5 +223,5 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     console.error(err);
   }
   console.log(`Returned code: ${code}`);
-  process.exit(code);
+  //process.exit(code);
 }
