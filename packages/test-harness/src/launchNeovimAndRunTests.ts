@@ -194,7 +194,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
     console.log("tail started done");
 
-    await delay(200000);
+    await delay(2000000);
 
     nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
