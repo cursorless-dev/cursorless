@@ -17,7 +17,7 @@ local function load_extensions()
   if os.getenv('CURSORLESS_MODE') == 'test' then
     -- make sure cursorless is loaded before starting the tests
     -- see https://neovim.io/doc/user/various.html#%3Asleep
-    vim.cmd([[sleep 1]])
+    vim.cmd([[sleep 5]])
     vim.api.nvim_call_function('TestHarnessRun', {})
   end
 end
