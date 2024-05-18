@@ -129,10 +129,17 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
-    /*
+    
     const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       encoding: "utf-8",
       stdio: "inherit",
+      env: {
+        ...process.env,
+        // "NVIM_NODE_HOST_DEBUG": "1",
+        NVIM_NODE_LOG_FILE: logName,
+        NVIM_NODE_LOG_LEVEL: "debug",
+        CURSORLESS_MODE: "test",
+      },
     });
     console.log(`status: ${status}`);
     console.log(`signal: ${signal}`);
@@ -140,7 +147,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`Exiting early`);
     process.exit(0);
-*/
+
     
     const nvim_process = cp.spawn(cli, [], {
       env: {
