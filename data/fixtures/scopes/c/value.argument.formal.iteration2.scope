@@ -1,3 +1,0 @@
-void aaa(int bbb = 0, int ccc = 0) {}
----
-

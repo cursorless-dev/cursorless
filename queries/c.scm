@@ -166,7 +166,7 @@
 (parameter_list
   (_)? @_.leading.endOf
   .
-  (_) @argumentOrParameter
+  (parameter_declaration) @argumentOrParameter
   .
   (_)? @_.trailing.startOf
 )
@@ -184,13 +184,13 @@
 (_
   (function_declarator
     (parameter_list
-      "(" @argumentOrParameter.iteration.start.endOf
-      ")" @argumentOrParameter.iteration.end.startOf
+      "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+      ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
     )
   )
 ) @argumentOrParameter.iteration.domain
 
 (argument_list
-  "(" @argumentOrParameter.iteration.start.endOf
-  ")" @argumentOrParameter.iteration.end.startOf
+  "(" @argumentOrParameter.iteration.start.endOf @name.iteration.start.endOf @value.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf @name.iteration.end.startOf @value.iteration.end.startOf
 ) @argumentOrParameter.iteration.domain
