@@ -15,3 +15,42 @@
   (line_comment)
   (block_comment)
 ] @comment @textFragment
+
+[
+  (struct_item
+    name: (_) @className
+  )
+  (enum_item
+    name: (_) @className
+  )
+  (struct_expression)
+] @_.domain @class
+
+(trait_item
+  name: (_) @className
+) @_.domain
+
+(function_item
+  name: (_) @functionName
+) @_.domain @namedFunction
+
+[
+  (call_expression)
+  (macro_invocation)
+  (struct_expression)
+] @functionCall
+
+(call_expression
+  function: (_) @functionCallee
+) @_.domain
+
+(closure_expression) @anonymousFunction
+
+[
+  (array_expression)
+  (tuple_expression)
+] @list
+
+(match_expression
+  value: (_) @private.switchStatementSubject
+) @_.domain
