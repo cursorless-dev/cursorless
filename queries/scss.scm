@@ -5,8 +5,16 @@
 (if_statement) @ifStatement
 
 (mixin_statement
-  (name) @functionName
-) @namedFunction @functionName.domain
+  (name) @functionName @name
+) @namedFunction @_.domain
+
 (function_statement
-  (name) @functionName
-) @namedFunction @functionName.domain
+  (name) @functionName @name
+) @namedFunction @_.domain
+
+(declaration
+  (variable_name) @name
+) @_.domain
+(parameter
+  (variable_name) @name
+) @_.domain

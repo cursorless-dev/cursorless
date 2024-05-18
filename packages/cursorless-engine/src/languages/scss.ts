@@ -127,14 +127,6 @@ const nodeMatchers: Partial<
       ),
     ),
   ),
-  name: [
-    "function_statement.name!",
-    "declaration.property_name!",
-    "declaration.variable_name!",
-    "mixin_statement.name!",
-    "attribute_selector.attribute_name!",
-    "parameter.variable_name!",
-  ],
   collectionKey: trailingMatcher(["declaration.property_name!"], [":"]),
   value: cascadingMatcher(
     matcher(
