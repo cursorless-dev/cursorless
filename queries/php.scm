@@ -84,3 +84,16 @@
   (function_call_expression)
   (object_creation_expression)
 ] @functionCall
+
+(assignment_expression
+  left: (_) @name
+) @_.domain
+(class_declaration
+  name: (_) @name
+) @_.domain
+(function_definition
+  name: (_) @name
+) @_.domain
+(method_declaration
+  name: (_) @name
+) @_.domain
