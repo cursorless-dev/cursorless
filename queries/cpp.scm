@@ -47,6 +47,10 @@
   (template_type)
 ] @type
 
+;;!! void foo(int value = 0) {}
+;;!               ^^^^^
+;;!                       ^
 (optional_parameter_declaration
+  declarator: (_) @name @value.leading.endOf
   default_value: (_) @value
 ) @_.domain

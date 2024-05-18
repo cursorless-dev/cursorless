@@ -29,8 +29,8 @@ void aaa(int bbb);
               >-<
 0| void aaa(int bbb);
 
-[#2 Domain] = 0:8-0:17
-          >---------<
+[#2 Domain] = 0:9-0:16
+           >-------<
 0| void aaa(int bbb);
 
 [#2 Insertion delimiter] = " "

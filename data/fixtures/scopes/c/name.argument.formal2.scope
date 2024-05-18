@@ -1,40 +1,36 @@
-void aaa(int bbb = 0) {}
+void aaa(int bbb) {}
 ---
 
 [#1 Content] =
 [#1 Removal] = 0:5-0:8
        >---<
-0| void aaa(int bbb = 0) {}
+0| void aaa(int bbb) {}
 
 [#1 Leading delimiter] = 0:4-0:5
       >-<
-0| void aaa(int bbb = 0) {}
+0| void aaa(int bbb) {}
 
-[#1 Domain] = 0:0-0:24
-  >------------------------<
-0| void aaa(int bbb = 0) {}
+[#1 Domain] = 0:0-0:20
+  >--------------------<
+0| void aaa(int bbb) {}
 
 [#1 Insertion delimiter] = " "
 
 
 [#2 Content] = 0:13-0:16
                >---<
-0| void aaa(int bbb = 0) {}
+0| void aaa(int bbb) {}
 
-[#2 Removal] = 0:13-0:17
-               >----<
-0| void aaa(int bbb = 0) {}
+[#2 Removal] = 0:12-0:16
+              >----<
+0| void aaa(int bbb) {}
 
 [#2 Leading delimiter] = 0:12-0:13
               >-<
-0| void aaa(int bbb = 0) {}
+0| void aaa(int bbb) {}
 
-[#2 Trailing delimiter] = 0:16-0:17
-                  >-<
-0| void aaa(int bbb = 0) {}
-
-[#2 Domain] = 0:8-0:21
-          >-------------<
-0| void aaa(int bbb = 0) {}
+[#2 Domain] = 0:9-0:16
+           >-------<
+0| void aaa(int bbb) {}
 
 [#2 Insertion delimiter] = " "

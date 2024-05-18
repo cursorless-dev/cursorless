@@ -32,6 +32,7 @@
   (string_literal) @string @textFragment
   (#child-range! @textFragment 0 -1 true true)
 )
+
 (comment) @comment @textFragment
 
 [
@@ -59,42 +60,40 @@
   ";"? @_.domain.end
 )
 
-(function_definition) @namedFunction
-
 ;;!! void funcName();
 (declaration
   (function_declarator
     declarator: (_
       !name
-    ) @functionName
+    ) @functionName @name
   )
-) @namedFunction @functionName.domain
+) @namedFunction @_.domain
 
 ;;!! void C::funcName() {}
 (declaration
   (function_declarator
     declarator: (_
-      name: (_) @functionName
+      name: (_) @functionName @name
     )
   )
-) @namedFunction @functionName.domain
+) @namedFunction @_.domain
 
 (function_definition
   declarator: (_
     declarator: (_
-      name: (_) @functionName
+      name: (_) @functionName @name
     )
   )
-) @_.domain
+) @namedFunction @_.domain
 
 ;;!! void funcName() {}
 (function_definition
   declarator: (_
     declarator: (_
       !name
-    ) @functionName
+    ) @functionName @name
   )
-) @_.domain
+) @namedFunction @_.domain
 
 (initializer_list) @list
 
@@ -118,35 +117,19 @@
   )
 ) @_.domain
 
-(_
+;;!! int aaa = 0;
+(declaration
   declarator: (_
-    declarator: (_
-      name: (_) @name
-    )
+    declarator: (_) @name @value.leading.endOf
+    value: (_) @value
   )
 ) @_.domain
 
-(_
-  (_
-    declarator: (_
-      name: (_) @name
-    )
-  ) @_.domain
-  !declarator
-)
-
-(_
+;;!! int aaa;
+(declaration
   declarator: (_
-    declarator: (_
-      !name
-    ) @name
-  )
-) @_.domain
-
-(parameter_list
-  (_
-    declarator: (_) @name
-  )
+    !declarator
+  ) @name
 ) @_.domain
 
 ;;!! aaa = 0;
@@ -156,13 +139,6 @@
     right: (_) @value @name.trailing.startOf
   ) @_.domain.start
   ";"? @_.domain.end
-)
-
-(_
-  (_
-    name: (_) @name
-  ) @_.domain
-  !declarator
 )
 
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
@@ -179,18 +155,14 @@
   type: (_) @type
 ) @_.domain
 
-(_
-  declarator: (_
-    value: (_) @value
-  )
-) @_.domain
-
-(_
-  value: (_) @value
+;;!! void foo(int value) {}
+;;!               ^^^^^
+(parameter_declaration
+  declarator: (_) @name
 ) @_.domain
 
 ;;!! void foo(int value) {}
-;;!      ^^^^^^^^^
+;;!           ^^^^^^^^^
 (parameter_list
   (_)? @_.leading.endOf
   .
