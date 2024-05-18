@@ -20,7 +20,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
   console.log("run()");
   await delay(10000);
   console.log("run() after sleep");
-  
+
   // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
   // https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
   (global as any).additionalParameters = {

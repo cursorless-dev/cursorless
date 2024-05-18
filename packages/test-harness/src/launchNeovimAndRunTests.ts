@@ -74,8 +74,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`cli: ${cli}`);
 
-    mkdirSync('/home/runner/.config/nvim/lua', { recursive: true });
-    
+    mkdirSync("/home/runner/.config/nvim/lua", { recursive: true });
+
     //~/.config/nvim/init.lua?
     // C:\Users\runneradmin\AppData\Local\nvim\init.lua
     // C:\Users\runneradmin\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
@@ -93,7 +93,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       },
     );
     console.log("init.lua copying done");
-    
+
     copyFile(
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.vim`,
       "/home/runner/.config/nvim/init.vim",
@@ -109,7 +109,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       console.log(file);
     });
     console.log("listing /home/runner/.config/nvim/ dir done");
-    
+
     readdirSync("/home/runner/.config/nvim/lua/").forEach((file) => {
       console.log(file);
     });
@@ -148,8 +148,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     console.log(`Exiting early`);
     process.exit(0);
 */
-    
-    const nvim_process = cp.spawn(cli, [ "-V9vim.log" ], {
+
+    const nvim_process = cp.spawn(cli, ["-V9vim.log"], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
@@ -177,10 +177,12 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       console.log("ERROR: ", error);
     });
     console.log("tail2 started done");
-    
+
     await delay(10000);
 
-    readdirSync(`${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/`).forEach((file) => {
+    readdirSync(
+      `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/`,
+    ).forEach((file) => {
       console.log(file);
     });
     console.log("listing out/ dir done");
