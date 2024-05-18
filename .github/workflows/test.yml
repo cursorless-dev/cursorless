@@ -40,7 +40,9 @@ jobs:
       - run: corepack enable
       - uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          # XXX - v20.12.1 taken from .nvmrc file?
+          # node-version-file: .nvmrc
+          node-version: v21.7.1
           cache: pnpm
       # XXX testing only
       - run: dir ${{ github.workspace }}
@@ -162,7 +164,7 @@ jobs:
       # -a---          12/30/2023  1:20 PM        8662160 Qt5Widgets.dll
       # -a---          12/30/2023  1:20 PM         131072 tee.exe
       # -a---          12/30/2023  1:20 PM        1137152 win32yank.exe
-      # -a---          12/30/2023  1:20 PM         151040 
+      # -a---          12/30/2023  1:20 PM         151040
       - name: Run neovim unit tests using test-harness
         run: pnpm -F @cursorless/test-harness testNeovim
         if: runner.os != 'Linux'
