@@ -165,6 +165,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     console.log(`pid: ${nvim_process.pid}`);
 
+    await delay(5000);
     const tail2 = new Tail("vim.log", {
       // separator: "\n",
       fromBeginning: true,
