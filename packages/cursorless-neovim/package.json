@@ -7,7 +7,8 @@
   "scripts": {
     "compile:tsc": "tsc --build",
     "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --conditions=cursorless:bundler --bundle --outfile=./out/index.cjs --platform=node",
-    "compile": "pnpm compile:tsc && pnpm compile:esbuild && pnpm populate-cursorless-nvim",
+    "build": "pnpm populate-cursorless-nvim",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "populate-cursorless-nvim": "bash ./scripts/populate-cursorless-nvim.sh",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",
