@@ -11,6 +11,7 @@ end
 -- in the cursorless-neovim, command-server and neovim-registry extensions
 -- in order to initialize them
 local function load_extensions()
+  print('load_extensions()')
   vim.api.nvim_call_function('CursorlessLoadExtension', {})
   vim.api.nvim_call_function('CommandServerLoadExtension', {})
 
@@ -18,7 +19,9 @@ local function load_extensions()
     -- make sure cursorless is loaded before starting the tests
     -- see https://neovim.io/doc/user/various.html#%3Asleep
     vim.cmd([[sleep 5]])
+    print('load_extensions() - before TestHarnessRun()')
     vim.api.nvim_call_function('TestHarnessRun', {})
+    print('load_extensions() - after TestHarnessRun()')
   end
 end
 
