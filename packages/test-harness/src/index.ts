@@ -21,13 +21,13 @@ export async function run(plugin: NvimPlugin): Promise<void> {
   try {
     await runAllTests(TestType.neovim, TestType.unit);
   } catch (error) {
-    console.error("runAllTests failed");
+    console.error("runAllTests failed (1)");
     console.error(error);
     // https://stackoverflow.com/questions/11828270/how-do-i-exit-vim
     // XXX: kill neovim with -1 code ":cq!" command?
     return;
   }
-  console.log("runAllTests succeeded");
+  console.log("runAllTests succeeded (1)");
   // XXX: kill neovim with 0 code ":q!" command?
 
   // XXX: launchNeovimAndRunTests.ts will catch that error code
