@@ -18,7 +18,7 @@ function delay(ms: number) {
 // with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
   console.log("run()");
-  delay(10000);
+  await delay(10000);
   console.log("run() after sleep");
   
   // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
