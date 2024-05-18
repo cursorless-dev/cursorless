@@ -8,10 +8,10 @@
 (part) @part
 (chapter) @chapter
 (section) @section
-(subSection) @subsection
-(subSubSection) @subsubsection
-(namedParagraph) @paragraph
-(subParagraph) @subparagraph
+(subsection) @subSection
+(subsubsection) @subSubSection
+(paragraph) @namedParagraph
+(subparagraph) @subParagraph
 
 [
   (generic_environment)
