@@ -67,7 +67,7 @@
       !name
     ) @functionName @name
   )
-) @namedFunction @_.domain
+) @namedFunction @functionName.domain @name.domain
 
 ;;!! void C::funcName() {}
 (declaration
@@ -76,7 +76,7 @@
       name: (_) @functionName @name
     )
   )
-) @namedFunction @_.domain
+) @namedFunction @functionName.domain @name.domain
 
 (function_definition
   declarator: (_
@@ -84,7 +84,7 @@
       name: (_) @functionName @name
     )
   )
-) @namedFunction @_.domain
+) @namedFunction @functionName.domain @name.domain
 
 ;;!! void funcName() {}
 (function_definition
@@ -93,7 +93,7 @@
       !name
     ) @functionName @name
   )
-) @namedFunction @_.domain
+) @namedFunction @name.domain
 
 (initializer_list) @list
 
