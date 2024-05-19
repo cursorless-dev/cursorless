@@ -18,7 +18,7 @@
   (trait_definition
     name: (_) @className
   )
-] @_.domain @class
+] @class @className.domain
 
 ;; list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
 (call_expression) @functionCall
@@ -27,7 +27,7 @@
 
 (function_definition
   name: (_) @functionName
-) @_.domain @namedFunction
+) @namedFunction @functionName.domain
 
 (match_expression
   value: (_) @private.switchStatementSubject
