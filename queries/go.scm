@@ -335,21 +335,29 @@
 )
 
 ;;!! func add(x int, y int) int {}
-(parameter_list
-  (_)? @_.leading.endOf
-  .
-  (_) @argumentOrParameter
-  .
-  (_)? @_.trailing.startOf
+(
+  (parameter_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!! add(1, 2)
-(argument_list
-  (_)? @_.leading.endOf
-  .
-  (_) @argumentOrParameter
-  .
-  (_)? @_.trailing.startOf
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (parameter_list
