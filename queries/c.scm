@@ -163,22 +163,30 @@
 
 ;;!! void foo(int value) {}
 ;;!           ^^^^^^^^^
-(parameter_list
-  (_)? @_.leading.endOf
-  .
-  (parameter_declaration) @argumentOrParameter
-  .
-  (_)? @_.trailing.startOf
+(
+  (parameter_list
+    (_)? @_.leading.endOf
+    .
+    (parameter_declaration) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!! foo(5 + 6)
 ;;!      ^^^^^
-(argument_list
-  (_)? @_.leading.endOf
-  .
-  (_) @argumentOrParameter
-  .
-  (_)? @_.trailing.startOf
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @dummy
+  (#not-type? @argumentOrParameter "comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (_
