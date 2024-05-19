@@ -6,11 +6,11 @@
 
 (mixin_statement
   (name) @functionName @name
-) @namedFunction @_.domain
+) @namedFunction @functionName.domain @name.domain
 
 (function_statement
   (name) @functionName @name
-) @namedFunction @_.domain
+) @namedFunction @functionName.domain @name.domain
 
 (declaration
   (variable_name) @name

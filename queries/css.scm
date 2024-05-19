@@ -6,7 +6,7 @@
 
 (call_expression
   (function_name) @functionCallee
-) @_.domain @functionCall
+) @functionCall @functionCallee.domain
 
 (rule_set
   (selectors) @selector
