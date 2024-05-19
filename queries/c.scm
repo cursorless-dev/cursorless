@@ -170,7 +170,7 @@
     (parameter_declaration) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  ) @dummy
+  ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
@@ -184,7 +184,7 @@
     (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  ) @dummy
+  ) @_dummy
   (#not-type? @argumentOrParameter "comment")
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
