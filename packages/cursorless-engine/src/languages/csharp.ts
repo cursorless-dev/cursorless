@@ -139,7 +139,6 @@ const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
   ...getMapMatchers,
-  className: "class_declaration[name]",
   condition: cascadingMatcher(
     conditionMatcher("*[condition]"),
     patternMatcher("while_statement[0]"),
