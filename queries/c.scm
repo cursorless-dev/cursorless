@@ -93,7 +93,7 @@
       !name
     ) @functionName @name
   )
-) @namedFunction @name.domain
+) @namedFunction @functionName.domain @name.domain
 
 (initializer_list) @list
 
