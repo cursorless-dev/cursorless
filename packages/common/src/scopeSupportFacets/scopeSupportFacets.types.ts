@@ -46,6 +46,7 @@ const scopeSupportFacets = [
   "branch.if",
   "branch.if.iteration",
   "branch.try",
+  "branch.try.iteration",
   "branch.switchCase",
   "branch.switchCase.iteration",
   "branch.ternary",

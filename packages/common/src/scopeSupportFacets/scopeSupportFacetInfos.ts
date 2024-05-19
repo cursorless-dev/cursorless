@@ -175,6 +175,12 @@ export const scopeSupportFacetInfos: Record<
     description: "A try/catch/finally branch",
     scopeType: "branch",
   },
+  "branch.try.iteration": {
+    description:
+      "Iteration scope for try/catch/finally branch; should be the entire try-catch statement",
+    scopeType: "branch",
+    isIteration: true,
+  },
   "branch.switchCase": {
     description: "A case/default branch in a switch/match statement",
     scopeType: "branch",
