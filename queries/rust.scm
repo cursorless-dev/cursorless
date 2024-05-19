@@ -24,7 +24,7 @@
     name: (_) @className
   )
   (struct_expression)
-] @_.domain @class
+] @class @className.domain
 
 (trait_item
   name: (_) @className
@@ -32,7 +32,7 @@
 
 (function_item
   name: (_) @functionName
-) @_.domain @namedFunction
+) @namedFunction @functionName.domain
 
 [
   (call_expression)
