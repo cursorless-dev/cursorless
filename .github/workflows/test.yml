@@ -41,6 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: corepack enable
+      # XXX - run over different node versions: https://nodejs.org/en/about/previous-releases
       - uses: actions/setup-node@v4
         with:
           # XXX - v20.12.1 taken from .nvmrc file?
