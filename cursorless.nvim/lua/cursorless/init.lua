@@ -11,20 +11,20 @@ end
 -- in the cursorless-neovim, command-server and neovim-registry extensions
 -- in order to initialize them
 local function load_extensions()
-  print('load_extensions() - before CursorlessLoadExtension')
+  -- print('load_extensions() - before CursorlessLoadExtension')
   vim.api.nvim_call_function('CursorlessLoadExtension', {})
-  print('load_extensions() - before CommandServerLoadExtension')
+  -- print('load_extensions() - before CommandServerLoadExtension')
   vim.api.nvim_call_function('CommandServerLoadExtension', {})
-  print('load_extensions() - after loading extensions')
+  -- print('load_extensions() - after loading extensions')
 
   if os.getenv('CURSORLESS_MODE') == 'test' then
-    print('load_extensions() - before sleep')
+    -- print('load_extensions() - before sleep')
     -- make sure cursorless is loaded before starting the tests
     -- see https://neovim.io/doc/user/various.html#%3Asleep
     vim.cmd([[sleep 5]])
-    print('load_extensions() - before TestHarnessRun()')
+    -- print('load_extensions() - before TestHarnessRun()')
     vim.api.nvim_call_function('TestHarnessRun', {})
-    print('load_extensions() - after TestHarnessRun()')
+    -- print('load_extensions() - after TestHarnessRun()')
   end
 end
 
@@ -70,16 +70,16 @@ local function configure_command_server_shortcut()
 end
 
 local function setup()
-  print('setup() - start')
-  print('setup() - sourcing utils.lua')
+  -- print('setup() - start')
+  -- print('setup() - sourcing utils.lua')
   vim.cmd('source ' .. require('cursorless.utils').cursorless_nvim_path() .. '/vim/cursorless.vim')
-  print('setup() - calling register_functions')
+  -- print('setup() - calling register_functions')
   register_functions()
-  print('setup() - calling load_extensions')
+  -- print('setup() - calling load_extensions')
   load_extensions()
-  print('setup() - calling configure_command_server_shortcut')
+  -- print('setup() - calling configure_command_server_shortcut')
   configure_command_server_shortcut()
-  print('setup() - end')
+  -- print('setup() - end')
 end
 
 local M = {
