@@ -17,18 +17,20 @@ jobs:
       matrix:
         # XXX: restore this once neovim tests work in CI
         # os: [macos-latest, ubuntu-latest, windows-latest]
-        #os: [windows-latest]
-        os: [ubuntu-latest]
+        os: [windows-latest]
+        # os: [ubuntu-latest]
+        # os: [ubuntu-latest, windows-latest]
         # XXX - stable is 0.10.0 and only has nvim.exe (no nvim-qt.exe). Also locally it hangs on unskipped test
         # and on CI, it fails on trying to tail the log and I don't know what is happening since didnt get a snapshot of CI yet
         # to understand the error in nvim.exe (though probably need the nvim-qt.exe since nvim.exe won't show anything)
-        app_version: [stable]
-        # with 0.9.5, it hangs on first function call back into lua from node
+        # Linux: with 0.9.5 or stable, it hangs on first function call back into lua from node
+        # app_version: [stable]
         #app_version: [v0.9.5]
+        app_version: [stable, v0.9.5]
         # XXX: restore this once neovim tests work in CI
-        # include:
-        #   - os: ubuntu-latest
-        #     app_version: legacy
+        include:
+          - os: ubuntu-latest
+            app_version: legacy
     runs-on: ${{ matrix.os }}
     env:
       APP_VERSION: ${{ matrix.app_version }}
@@ -45,9 +47,9 @@ jobs:
           node-version: v21.7.1
           cache: pnpm
       # XXX testing only
-      - run: dir ${{ github.workspace }}
-      - run: dir ${{ github.workspace }}/packages
-      - run: dir ${{ github.workspace }}/packages/test-harness
+      # - run: dir ${{ github.workspace }}
+      # - run: dir ${{ github.workspace }}/packages
+      # - run: dir ${{ github.workspace }}/packages/test-harness
       - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
         shell: bash
       # NB: we can't comment this for speeding up testing as we get this error when running test harness:
@@ -61,28 +63,23 @@ jobs:
       #  WARN   Local package.json exists, but node_modules missing, did you mean to install?
       # Error: Process completed with exit code 1.
       - run: pnpm --color install
-      # XXX: commenting for now because we added already built cursorless.nvim in this branch to speed things up in CI
-      # XXX - if we don't run this, we might have to create packages\cursorless-neovim\out folder so the logs can be written
       - run: pnpm --color compile
-      #- run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\
       #- run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\out\
-      # XXX: restore this once neovim tests work in CI
+      # We need to run "build" in order to prepare the dist/cursorless.nvim folder
       - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
       #- run: xvfb-run -a pnpm --color test
       #  if: runner.os == 'Linux'
       # - run: pnpm --color test
       #   if: runner.os != 'Linux'
-      # XXX: delete this because it doesn't work
-      # - name: Checkout themis.vim
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: thinca/vim-themis
-      #     path: vim-themis
-      # Windows: D:\a\cursorless\cursorless
-      # Linux: /home/runner/work/cursorless/cursorless
-      - run: pwd
+      # Current working directory:
+      # - Windows: D:\a\cursorless\cursorless
+      # - Linux: /home/runner/work/cursorless/cursorless
+      # - run: pwd
       - run: tree /home/runner/work/cursorless/cursorless/dist
-      - run: dir
+        if: runner.os == 'Linux'
+      - run: tree D:\a\cursorless\cursorless\dist
+        if: runner.os == 'Windows'
+      # - run: dir
       #- run: dir C:\Users\runneradmin\AppData\Local
       #     Directory: C:\Users\runneradmin\AppData\Local
       # Mode                 LastWriteTime         Length Name
@@ -102,10 +99,14 @@ jobs:
       # d----           5/16/2024 11:21 AM                Temp
       - name: Install cursorless.nvim dependencies
         run: npm install -g neovim@5.1.0
-      #- run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
-      #- run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
+      - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
+        if: runner.os == 'Windows'
+      - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
+        if: runner.os == 'Windows'
       - run: git clone https://github.com/vim-scripts/BufOnly.vim /home/runner/BufOnly.vim
+        if: runner.os == 'Linux'
       - run: git clone https://github.com/hands-free-vim/talon.nvim /home/runner/talon.nvim
+        if: runner.os == 'Linux'
       # - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
       # C:\Users\runneradmin\nvim-stable\bin\nvim.exe: D:\a\_temp\2658188c-43d2-4fce-9de9-299408299ebb.ps1:2
       # Line |
@@ -122,15 +123,15 @@ jobs:
         with:
           version: ${{ matrix.app_version }}
           neovim: true
-      - run: dir /home/runner/.local/share/ || true
-      - run: dir /home/runner/.local/share/nvim/ || true
-      - run: dir /home/runner/.config/ || true
-      - run: dir /home/runner/.config/nvim/ || true
-      - run: ${{ steps.vim.outputs.executable }} -l ${{ github.workspace }}/packages/test-harness/src/config/empty.lua
-      - run: dir /home/runner/.local/share/ || true
-      - run: dir /home/runner/.local/share/nvim/ || true
-      - run: dir /home/runner/.config/ || true
-      - run: dir /home/runner/.config/nvim/ || true
+      # - run: dir /home/runner/.local/share/ || true
+      # - run: dir /home/runner/.local/share/nvim/ || true
+      # - run: dir /home/runner/.config/ || true
+      # - run: dir /home/runner/.config/nvim/ || true
+      # - run: ${{ steps.vim.outputs.executable }} -l ${{ github.workspace }}/packages/test-harness/src/config/empty.lua
+      # - run: dir /home/runner/.local/share/ || true
+      # - run: dir /home/runner/.local/share/nvim/ || true
+      # - run: dir /home/runner/.config/ || true
+      # - run: dir /home/runner/.config/nvim/ || true
       #- run: dir C:\Users\runneradmin\
       #- run: dir C:\Users\runneradmin\nvim-${{ matrix.app_version }}\bin\
       # Run dir C:\Users\runneradmin\nvim-v0.9.5\bin\

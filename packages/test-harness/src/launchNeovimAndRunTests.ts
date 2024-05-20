@@ -1,4 +1,5 @@
 import * as cp from "child_process";
+import process from "node:process";
 // import * as path from "path";
 // import * as os from "os";
 import { exists, readdirSync, mkdirSync, unlinkSync, copyFile } from "fs";
@@ -51,41 +52,30 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
     // nvim-qt.exe does not allow logging into file using -V9
     //cli = cli.replace("nvim.exe", "nvim-qt.exe");
-    /*
-      node:events:496
-            throw er; // Unhandled 'error' event
-            ^
-      Error: spawn C:\Users\runneradmin\nvim-stable\bin\nvim-qt.exe ENOENT
-          at ChildProcess._handle.onexit (node:internal/child_process:286:19)
-          at onErrorNT (node:internal/child_process:484:16)
-          at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-      Emitted 'error' event on ChildProcess instance at:
-          at ChildProcess._handle.onexit (node:internal/child_process:292:12)
-          at onErrorNT (node:internal/child_process:484:16)
-          at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
-        errno: -4058,
-        code: 'ENOENT',
-        syscall: 'spawn C:\\Users\\runneradmin\\nvim-stable\\bin\\nvim-qt.exe',
-        path: 'C:\\Users\\runneradmin\\nvim-stable\\bin\\nvim-qt.exe',
-        spawnargs: []
-      }
-      Node.js v20.12.1
-    */
+
+    let nvimFolder = "";
+    let initLuaFile = "";
+    if (process.platform === "win32") {
+      nvimFolder = "C:/Users/runneradmin/AppData/Local/nvim\\";
+      initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_win.lua`;
+    } else {
+      //XXX: ~/.config/nvim/ does not work?
+      nvimFolder = "/home/runner/.config/nvim/";
+      initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_linux.lua`;
+    }
 
     console.log(`cli: ${cli}`);
 
-    mkdirSync("/home/runner/.config/nvim/lua", { recursive: true });
+    mkdirSync(`${nvimFolder}/lua`, { recursive: true });
 
-    //~/.config/nvim/init.lua?
-    // C:\Users\runneradmin\AppData\Local\nvim\init.lua
-    // C:\Users\runneradmin\AppData\Local\nvim-data\lazy\{cursorless.nvim,lazy.nvim,talon.nvim}
-    // C:\Users\runneradmin\AppData\Local\nvim-data\log
-    //xxx commenting for now to avoid loading any config since nvim hangs anyway atm
+    //xxx On Windows: commenting for now to avoid loading any config since nvim hangs anyway atm
     copyFile(
       //`${getCursorlessRepoRoot()}\\packages\\test-harness\\src\\config\\init.lua`,
-      `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
+      // `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`,
+      initLuaFile,
       //"C:\\Users\\runneradmin\\AppData\\Local\\nvim\\init.lua",
-      "/home/runner/.config/nvim/lua/init.lua",
+      // "/home/runner/.config/nvim/lua/init.lua",
+      `${nvimFolder}/lua/init.lua`,
       (err: any) => {
         if (err) {
           console.error(err);
@@ -96,7 +86,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     copyFile(
       `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.vim`,
-      "/home/runner/.config/nvim/init.vim",
+      `${nvimFolder}/init.vim`,
       (err: any) => {
         if (err) {
           console.error(err);
@@ -105,17 +95,18 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     );
     console.log("init.vim copying done");
 
-    readdirSync("/home/runner/.config/nvim/").forEach((file) => {
+    readdirSync(nvimFolder).forEach((file) => {
       console.log(file);
     });
-    console.log("listing /home/runner/.config/nvim/ dir done");
+    console.log("listing nvim/ dir done");
 
-    readdirSync("/home/runner/.config/nvim/lua/").forEach((file) => {
+    readdirSync(`${nvimFolder}/lua/`).forEach((file) => {
       console.log(file);
     });
-    console.log("listing /home/runner/.config/nvim/lua/ dir done");
+    console.log("listing nvim/lua/ dir done");
 
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
+    const vimLogName = `vim.log`;
 
     // temporary, to delete old log when testing
     exists(logName, function (exists) {
@@ -149,7 +140,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     process.exit(0);
 */
 
-    const nvim_process = cp.spawn(cli, ["-V9vim.log"], {
+    const nvim_process = cp.spawn(cli, [`-V9${vimLogName}`], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
@@ -166,19 +157,6 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     console.log(`pid: ${nvim_process.pid}`);
 
     await delay(5000);
-    const tail2 = new Tail("vim.log", {
-      // separator: "\n",
-      fromBeginning: true,
-    });
-    tail2.on("line", function (data: string) {
-      console.log(data);
-    });
-    tail2.on("error", function (error) {
-      console.log("ERROR: ", error);
-    });
-    console.log("tail2 started done");
-
-    await delay(10000);
 
     readdirSync(
       `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/`,
@@ -187,34 +165,33 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
     console.log("listing out/ dir done");
 
-    // read log file live and print to console
-    // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
-    const tail = new Tail(logName, {
+    const tailVim = new Tail(vimLogName, {
       // separator: "\n",
       fromBeginning: true,
     });
-    /*
-      Test run threw exception:
-      Error: ENOENT: no such file or directory, access 'D:\a\cursorless\cursorless\packages\cursorless-neovim\out\nvim_node.log'
-          at Object.accessSync (node:fs:254:11)
-          at Tail2 (D:\a\cursorless\cursorless\node_modules\.pnpm\tail@2.2.6\node_modules\tail\lib\tail.js:33:16)
-      Returned code: 1
-          at launchNeovimAndRunTests (D:\a\cursorless\cursorless\packages\test-harness\src\launchNeovimAndRunTests.ts:124:18)
-          at <anonymous> (D:\a\cursorless\cursorless\packages\test-harness\src\scripts\runNeovimTestsCI.ts:18:3) {
-        errno: -4058,
-        code: 'ENOENT',
-        syscall: 'access',
-        path: 'D:\\a\\cursorless\\cursorless\\packages\\cursorless-neovim\\out\\nvim_node.log'
-      }
-    */
+    tailVim.on("line", function (data: string) {
+      console.log(`vim startup: ${data}`);
+    });
+    tailVim.on("error", function (error) {
+      console.log("vim startup: ERROR: ", error);
+    });
+    console.log("tail vim startup started");
 
-    tail.on("line", function (data: string) {
-      console.log(data);
+    // await delay(10000);
+
+    // read log file live and print to console
+    // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
+    const tailTest = new Tail(logName, {
+      // separator: "\n",
+      fromBeginning: true,
     });
-    tail.on("error", function (error) {
-      console.log("ERROR: ", error);
+    tailTest.on("line", function (data: string) {
+      console.log(`neovim test: ${data}`);
     });
-    console.log("tail started done");
+    tailTest.on("error", function (error) {
+      console.log("neovim test: ERROR: ", error);
+    });
+    console.log("tail neovim test started");
 
     //await delay(2000000);
 
