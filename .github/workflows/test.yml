@@ -28,7 +28,8 @@ jobs:
         #app_version: [v0.9.5]
         # NB: Nightly is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
         app_version: [v0.9.5, v0.10.0, stable, nightly]
-        # node_version: ["20.12.1", "21.7.1"]
+        node_version:
+          [v16.20.2, v17.9.1, v18.20.2, v19.9.0, v20.13.1, v21.7.3, v22.2.0]
         # XXX: restore this once neovim tests work in CI
         # include:
         #   - os: ubuntu-latest
@@ -47,9 +48,8 @@ jobs:
         with:
           # XXX - v20.12.1 taken from .nvmrc file?
           # node-version-file: .nvmrc
-          # XXX error "Unable to find Node version '$v21.7.1' for platform linux/win32/darwin and architecture x64."
-          # node-version: $${{ matrix.node_version }}
-          node-version: v21.7.1
+          node-version: ${{ matrix.node_version }}
+          # node-version: v21.7.1
           cache: pnpm
       # XXX testing only
       # - run: dir ${{ github.workspace }}

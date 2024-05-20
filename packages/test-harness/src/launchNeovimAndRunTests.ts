@@ -50,7 +50,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
     const cli = getEnvironmentVariableStrict("APP_PATH");
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
-    // nvim-qt.exe does not allow logging into file using -V9
+    // nvim-qt.exe does not allow logging into file using -V
     //cli = cli.replace("nvim.exe", "nvim-qt.exe");
 
     let nvimFolder = "";
@@ -146,7 +146,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     process.exit(0);
 */
 
-    const nvim_process = cp.spawn(cli, [`-V9${vimLogName}`], {
+    const nvim_process = cp.spawn(cli, [`-V25${vimLogName}`], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
@@ -183,7 +183,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
     console.log("tail vim startup started");
 
-    // await delay(10000);
+    await delay(10000);
 
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line

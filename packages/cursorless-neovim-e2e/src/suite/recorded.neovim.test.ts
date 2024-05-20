@@ -10,7 +10,8 @@ import {
   TestCaseFixtureLegacy,
   asyncSafety,
   clientSupportsFallback,
-  getRecordedTestPaths,
+  getFixturesPath,
+  // getRecordedTestPaths,
   omitByDeep,
   serializeTestFixture,
   shouldUpdateFixtures,
@@ -50,16 +51,16 @@ suite("recorded test cases", async function () {
   });
 
   // Run all tests
-  const tests = getRecordedTestPaths();
+  //const tests = getRecordedTestPaths();
 
   // Run some tests
-  // const fixturePath = getFixturesPath();
-  // const tests = [
-  //   {
-  //     name: "recorded/actions/insertEmptyLines/dropThis",
-  //     path: `${fixturePath}/recorded/actions/insertEmptyLines/dropThis.yml`,
-  //   },
-  // ];
+  const fixturePath = getFixturesPath();
+  const tests = [
+    {
+      name: "recorded/actions/changeNextInstanceChar",
+      path: `${fixturePath}/recorded/actions/changeNextInstanceChar.yml`,
+    },
+  ];
 
   for (const { name, path } of tests) {
     test(
@@ -94,9 +95,9 @@ async function runTest(
   // }
 
   // XXX - temp to avoid things to hang on CI
-  if (name !== "recorded/actions/changeNextInstanceChar") {
-    return;
-  }
+  // if (name !== "recorded/actions/changeNextInstanceChar") {
+  //   return suite.ctx.skip();
+  // }
 
   // Uncomment below for debugging
   // if (name === "recorded/implicitExpansion/chuckBoundingThat") {
