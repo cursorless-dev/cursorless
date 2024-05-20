@@ -17,20 +17,21 @@ jobs:
       matrix:
         # XXX: restore this once neovim tests work in CI
         # os: [macos-latest, ubuntu-latest, windows-latest]
-        os: [windows-latest]
+        #os: [windows-latest]
         # os: [ubuntu-latest]
-        # os: [ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
         # XXX - stable is 0.10.0 and only has nvim.exe (no nvim-qt.exe). Also locally it hangs on unskipped test
         # and on CI, it fails on trying to tail the log and I don't know what is happening since didnt get a snapshot of CI yet
         # to understand the error in nvim.exe (though probably need the nvim-qt.exe since nvim.exe won't show anything)
         # Linux: with 0.9.5 or stable, it hangs on first function call back into lua from node
         # app_version: [stable]
         #app_version: [v0.9.5]
-        app_version: [stable, v0.9.5]
+        # NB: Nightly is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
+        app_version: [v0.9.5, v0.10.0, stable, nightly]
         # XXX: restore this once neovim tests work in CI
-        include:
-          - os: ubuntu-latest
-            app_version: legacy
+        # include:
+        #   - os: ubuntu-latest
+        #     app_version: legacy
     runs-on: ${{ matrix.os }}
     env:
       APP_VERSION: ${{ matrix.app_version }}
@@ -74,10 +75,10 @@ jobs:
       # Current working directory:
       # - Windows: D:\a\cursorless\cursorless
       # - Linux: /home/runner/work/cursorless/cursorless
-      # - run: pwd
+      - run: pwd
       - run: tree /home/runner/work/cursorless/cursorless/dist
         if: runner.os == 'Linux'
-      - run: tree D:\a\cursorless\cursorless\dist
+      - run: tree /f D:\a\cursorless\cursorless\dist
         if: runner.os == 'Windows'
       # - run: dir
       #- run: dir C:\Users\runneradmin\AppData\Local
@@ -117,6 +118,8 @@ jobs:
       #      | path is correct and try again.
       # Error: Process completed with exit code 1.
       #- run: mkdir C:\Users\runneradmin\AppData\Local\nvim
+      # Run rhysd/action-setup-vim@v1 fails with "app_version: legacy"
+      # Error: 'version' input 'legacy' is not a format of Git tags in neovim/neovim repository. It should match to regex //^v\d+\.\d+\.\d+$//. NOTE: It requires 'v' prefix
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim

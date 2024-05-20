@@ -95,15 +95,15 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     );
     console.log("init.vim copying done");
 
+    console.log("listing nvim/:");
     readdirSync(nvimFolder).forEach((file) => {
-      console.log(file);
+      console.log(`\t${file}`);
     });
-    console.log("listing nvim/ dir done");
 
+    console.log("listing nvim/lua:");
     readdirSync(`${nvimFolder}/lua/`).forEach((file) => {
-      console.log(file);
+      console.log(`\t${file}`);
     });
-    console.log("listing nvim/lua/ dir done");
 
     const logName = `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/nvim_node.log`;
     const vimLogName = `vim.log`;
@@ -158,12 +158,12 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     await delay(5000);
 
+    console.log("listing cursorless-neovim/out/:");
     readdirSync(
       `${getCursorlessRepoRoot()}/packages/cursorless-neovim/out/`,
     ).forEach((file) => {
-      console.log(file);
+      console.log(`\t${file}`);
     });
-    console.log("listing out/ dir done");
 
     const tailVim = new Tail(vimLogName, {
       // separator: "\n",
