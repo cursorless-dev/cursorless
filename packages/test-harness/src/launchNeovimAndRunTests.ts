@@ -157,7 +157,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
         NVIM_NODE_LOG_FILE: logName,
-        NVIM_NODE_LOG_LEVEL: "debug",
+        // NVIM_NODE_LOG_LEVEL: "debug",
+        NVIM_NODE_LOG_LEVEL: "error",
         CURSORLESS_MODE: "test",
       },
     });
