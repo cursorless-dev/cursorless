@@ -17,9 +17,9 @@ function delay(ms: number) {
 // FIXME: this is neovim specific atm so in the future we can support other apps here
 // with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
-  console.log("run()");
+  console.log("CED: run()");
   await delay(10000);
-  console.log("run() after sleep");
+  console.log("CED: run() after sleep");
 
   // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
   // https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
@@ -30,13 +30,13 @@ export async function run(plugin: NvimPlugin): Promise<void> {
     //await runAllTests(TestType.neovim, TestType.unit);
     await runAllTests(TestType.neovim);
   } catch (error) {
-    console.error("runAllTests failed (1)");
+    console.error("CED: runAllTests failed (1)");
     console.error(error);
     // https://stackoverflow.com/questions/11828270/how-do-i-exit-vim
     // XXX: kill neovim with -1 code ":cq!" command?
     return;
   }
-  console.log("runAllTests succeeded (1)");
+  console.log("CED: runAllTests succeeded (1)");
   // XXX: kill neovim with 0 code ":q!" command?
 
   // XXX: launchNeovimAndRunTests.ts will catch that error code
@@ -48,7 +48,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
  *   Note that these function need to start with a capital letter to be callable from Neovim.
  */
 export default function entry(plugin: NvimPlugin) {
-  plugin.registerFunction("TestHarnessRun", async () => await run(plugin), {
+  plugin.registerFunction("TestHarnessRun", () => run(plugin), {
     sync: false,
   });
 }

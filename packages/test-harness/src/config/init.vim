@@ -1,2 +1,2 @@
-echo "loading init.lua"
+echo "CED: loading init.lua"
 lua require("init")

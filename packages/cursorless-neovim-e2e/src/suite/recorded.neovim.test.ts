@@ -117,6 +117,7 @@ async function runTest(
   const { takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
+  console.debug(`CED: before openNewEditor()`);
   const editor = await openNewEditor(
     client,
     neovimIDE,
@@ -125,6 +126,7 @@ async function runTest(
       languageId: fixture.languageId,
     },
   );
+  console.debug(`CED: after openNewEditor()`);
 
   // Override any user settings and make sure tests run with default tabs.
   //editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
@@ -133,9 +135,11 @@ async function runTest(
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
+  console.debug(`CED: before setSelections()`);
   await editor.setSelections(
     fixture.initialState.selections.map(createSelection),
   );
+  console.debug(`CED: after setSelections()`);
 
   for (const storedTargetKey of storedTargetKeys) {
     const key = `${storedTargetKey}Mark` as const;
@@ -146,11 +150,13 @@ async function runTest(
     spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
+  console.debug(`CED: before setFocusedElementType()`);
   commandServerApi.setFocusedElementType(
     fixture.focusedElementType === "other"
       ? undefined
       : fixture.focusedElementType ?? "textEditor",
   );
+  console.debug(`CED: after setFocusedElementType()`);
 
   // NOT NEEDED FOR NOW
   // Ensure that the expected hats are present
@@ -160,10 +166,12 @@ async function runTest(
   let fallback: Fallback | undefined;
 
   try {
+    console.debug(`CED: before runCursorlessCommand()`);
     returnValue = await runCursorlessCommand({
       ...fixture.command,
       usePrePhraseSnapshot,
     });
+    console.debug(`CED: after runCursorlessCommand()`);
     if (clientSupportsFallback(fixture.command)) {
       const commandResponse = returnValue as CommandResponse;
       returnValue =
