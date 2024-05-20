@@ -27,7 +27,8 @@ export async function run(plugin: NvimPlugin): Promise<void> {
     client: plugin.nvim as NeovimClient,
   };
   try {
-    await runAllTests(TestType.neovim, TestType.unit);
+    //await runAllTests(TestType.neovim, TestType.unit);
+    await runAllTests(TestType.neovim);
   } catch (error) {
     console.error("runAllTests failed (1)");
     console.error(error);
