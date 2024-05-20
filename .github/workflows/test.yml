@@ -28,10 +28,10 @@ jobs:
         #app_version: [v0.9.5]
         # NB: Nightly is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
         # app_version: [v0.9.5, v0.10.0, stable, nightly]
-        app_version: v0.10.0
+        app_version: [v0.10.0]
         # XXX error while downloading v16.20.2, v17.9.1 on macos/ubuntu at least
         # node_version: [v18.20.2, v19.9.0, v20.13.1, v21.7.3, v22.2.0]
-        node_version: v18.20.2
+        node_version: [v18.20.2]
         # XXX: restore this once neovim tests work in CI
         # include:
         #   - os: ubuntu-latest
