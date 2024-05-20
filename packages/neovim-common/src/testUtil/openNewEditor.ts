@@ -19,12 +19,16 @@ export async function openNewEditor(
 ): Promise<NeovimTextEditorImpl> {
   // open a new buffer
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
+  console.debug(`CED: before :enew`);
   await client.command(":enew");
+  console.debug(`CED: after :enew`);
 
   if (!openBeside) {
     // close all the other buffers
     // @see: https://stackoverflow.com/questions/4545275/vim-close-all-buffers-but-this-one
+    console.debug(`CED: before :BufOnly!`);
     await client.command(":BufOnly!");
+    console.debug(`CED: after :BufOnly!`);
   }
 
   // standardise newlines so we can easily split the lines

@@ -1,5 +1,6 @@
 import * as cp from "child_process";
 import process from "node:process";
+import { userInfo } from "os";
 // import * as path from "path";
 // import * as os from "os";
 import { exists, readdirSync, mkdirSync, unlinkSync, copyFile } from "fs";
@@ -56,8 +57,13 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     let nvimFolder = "";
     let initLuaFile = "";
     if (process.platform === "win32") {
-      nvimFolder = "C:/Users/runneradmin/AppData/Local/nvim\\";
-      initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_win.lua`;
+      if (userInfo().username === "Cedric") {
+        nvimFolder = "C:/Users/Cedric/AppData/Local/nvim/";
+        initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_ced.lua`;
+      } else {
+        nvimFolder = "C:/Users/runneradmin/AppData/Local/nvim/";
+        initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_win.lua`;
+      }
     } else if (process.platform === "linux") {
       //XXX: ~/.config/nvim/ does not work?
       nvimFolder = "/home/runner/.config/nvim/";

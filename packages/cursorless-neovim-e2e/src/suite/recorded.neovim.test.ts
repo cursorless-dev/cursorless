@@ -84,6 +84,8 @@ async function runTest(
   neovimIDE: NeovimIDE,
 ) {
   const client = (global as any).additionalParameters.client;
+  console.log("CED: runTest(): client:");
+  console.log(client);
 
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
