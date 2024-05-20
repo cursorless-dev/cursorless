@@ -28,7 +28,7 @@ jobs:
         #app_version: [v0.9.5]
         # NB: Nightly is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
         app_version: [v0.9.5, v0.10.0, stable, nightly]
-        node_version: [v20.12.1, v21.7.1]
+        node_version: ["20.12.1", "21.7.1"]
         # XXX: restore this once neovim tests work in CI
         # include:
         #   - os: ubuntu-latest
