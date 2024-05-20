@@ -28,6 +28,7 @@ jobs:
         #app_version: [v0.9.5]
         # NB: Nightly is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
         app_version: [v0.9.5, v0.10.0, stable, nightly]
+        node_version: [v20.12.1, v21.7.1]
         # XXX: restore this once neovim tests work in CI
         # include:
         #   - os: ubuntu-latest
@@ -46,7 +47,7 @@ jobs:
         with:
           # XXX - v20.12.1 taken from .nvmrc file?
           # node-version-file: .nvmrc
-          node-version: v21.7.1
+          node-version: $${{ matrix.node_version }}
           cache: pnpm
       # XXX testing only
       # - run: dir ${{ github.workspace }}
@@ -76,7 +77,10 @@ jobs:
       # Current working directory:
       # - Windows: D:\a\cursorless\cursorless
       # - Linux: /home/runner/work/cursorless/cursorless
+      # - OS X: /Users/runner/work/cursorless/cursorless
       - run: pwd
+      - run: tree /Users/runner/work/cursorless/cursorless/dist
+        if: runner.os == 'macOS'
       - run: tree /home/runner/work/cursorless/cursorless/dist
         if: runner.os == 'Linux'
       - run: tree /f D:\a\cursorless\cursorless\dist
@@ -108,6 +112,10 @@ jobs:
       - run: git clone https://github.com/vim-scripts/BufOnly.vim /home/runner/BufOnly.vim
         if: runner.os == 'Linux'
       - run: git clone https://github.com/hands-free-vim/talon.nvim /home/runner/talon.nvim
+        if: runner.os == 'Linux'
+      - run: git clone https://github.com/vim-scripts/BufOnly.vim /Users/runner//BufOnly.vim
+        if: runner.os == 'Linux'
+      - run: git clone https://github.com/hands-free-vim/talon.nvim /Users/runner//talon.nvim
         if: runner.os == 'Linux'
       # - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
       # C:\Users\runneradmin\nvim-stable\bin\nvim.exe: D:\a\_temp\2658188c-43d2-4fce-9de9-299408299ebb.ps1:2

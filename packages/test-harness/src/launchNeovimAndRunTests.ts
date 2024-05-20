@@ -58,10 +58,16 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     if (process.platform === "win32") {
       nvimFolder = "C:/Users/runneradmin/AppData/Local/nvim\\";
       initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_win.lua`;
-    } else {
+    } else if (process.platform === "linux") {
       //XXX: ~/.config/nvim/ does not work?
       nvimFolder = "/home/runner/.config/nvim/";
       initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_linux.lua`;
+    } else if (process.platform === "darwin") {
+      nvimFolder = "/Users/runner/.config/nvim/";
+      initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_mac.lua`;
+    } else {
+      console.error(`Unsupported platform: ${process.platform}`);
+      process.exit(1);
     }
 
     console.log(`cli: ${cli}`);
