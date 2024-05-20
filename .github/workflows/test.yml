@@ -81,12 +81,12 @@ jobs:
       # - Linux: /home/runner/work/cursorless/cursorless
       # - OS X: /Users/runner/work/cursorless/cursorless
       - run: pwd
-      - run: tree /Users/runner/work/cursorless/cursorless/dist
-        if: runner.os == 'macOS'
       - run: tree /home/runner/work/cursorless/cursorless/dist
         if: runner.os == 'Linux'
       - run: tree /f D:\a\cursorless\cursorless\dist
         if: runner.os == 'Windows'
+      - run: find /Users/runner/work/cursorless/cursorless/dist
+        if: runner.os == 'macOS'
       # - run: dir
       #- run: dir C:\Users\runneradmin\AppData\Local
       #     Directory: C:\Users\runneradmin\AppData\Local
@@ -107,18 +107,18 @@ jobs:
       # d----           5/16/2024 11:21 AM                Temp
       - name: Install cursorless.nvim dependencies
         run: npm install -g neovim@5.1.0
-      - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
-        if: runner.os == 'Windows'
-      - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
-        if: runner.os == 'Windows'
       - run: git clone https://github.com/vim-scripts/BufOnly.vim /home/runner/BufOnly.vim
         if: runner.os == 'Linux'
       - run: git clone https://github.com/hands-free-vim/talon.nvim /home/runner/talon.nvim
         if: runner.os == 'Linux'
+      - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
+        if: runner.os == 'Windows'
+      - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
+        if: runner.os == 'Windows'
       - run: git clone https://github.com/vim-scripts/BufOnly.vim /Users/runner//BufOnly.vim
-        if: runner.os == 'Linux'
+        if: runner.os == 'macOS'
       - run: git clone https://github.com/hands-free-vim/talon.nvim /Users/runner//talon.nvim
-        if: runner.os == 'Linux'
+        if: runner.os == 'macOS'
       # - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
       # C:\Users\runneradmin\nvim-stable\bin\nvim.exe: D:\a\_temp\2658188c-43d2-4fce-9de9-299408299ebb.ps1:2
       # Line |
