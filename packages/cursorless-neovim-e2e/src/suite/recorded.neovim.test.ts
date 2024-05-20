@@ -89,9 +89,9 @@ async function runTest(
   const excludeFields: ExcludableSnapshotField[] = [];
 
   // XXX - restore this
-  if (unsupportedFixture(name, fixture)) {
-    return suite.ctx.skip();
-  }
+  // if (unsupportedFixture(name, fixture)) {
+  //   return suite.ctx.skip();
+  // }
 
   // XXX - temp to avoid things to hang on CI
   if (name !== "recorded/actions/changeNextInstanceChar") {
