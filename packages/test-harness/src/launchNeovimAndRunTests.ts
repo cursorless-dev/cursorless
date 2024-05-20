@@ -160,8 +160,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
         NVIM_NODE_LOG_FILE: logName,
-        // NVIM_NODE_LOG_LEVEL: "debug",
-        NVIM_NODE_LOG_LEVEL: "error",
+        //NVIM_NODE_LOG_LEVEL: "debug", // print lots
+        NVIM_NODE_LOG_LEVEL: "info", // print lots
+        //NVIM_NODE_LOG_LEVEL: "error", // print less hoping it won't hang but not working yet
         CURSORLESS_MODE: "test",
       },
     });
