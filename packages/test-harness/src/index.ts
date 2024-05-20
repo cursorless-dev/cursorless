@@ -17,6 +17,9 @@ function delay(ms: number) {
 // FIXME: this is neovim specific atm so in the future we can support other apps here
 // with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
+  console.error(
+    "CED: run() (error to simulate always logging even if logging level is set to error)",
+  );
   console.log("CED: run()");
   // await delay(10000);
   // console.log("CED: run() after sleep");
@@ -39,6 +42,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
     return;
   }
   console.log("CED: runAllTests succeeded (1)");
+  // console.error("CED: random error message to make sure stuff is logged");
   // XXX: kill neovim with 0 code ":q!" command?
 
   // XXX: launchNeovimAndRunTests.ts will catch that error code

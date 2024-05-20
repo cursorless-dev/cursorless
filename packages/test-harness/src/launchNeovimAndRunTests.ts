@@ -28,6 +28,9 @@ function delay(ms: number) {
  * `--extensionTestsPath`
  */
 export async function launchNeovimAndRunTests(extensionTestsPath: string) {
+  console.error(
+    "CED: launchNeovimAndRunTests() (error to simulate always logging even if logging level is set to error)",
+  );
   let code = 1; // failure
   try {
     // The folder containing the Extension Manifest package.json
