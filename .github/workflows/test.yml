@@ -29,10 +29,10 @@ jobs:
       VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
+      HOME_ROOT: ${{ github.workspace }}/../../../
     steps:
       - uses: actions/checkout@v4
       - run: corepack enable
-      # XXX - run over different node versions: https://nodejs.org/en/about/previous-releases
       - uses: actions/setup-node@v4
         with:
           # node-version-file: .nvmrc
