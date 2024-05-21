@@ -130,25 +130,26 @@ export async function launchNeovimAndRunTests() {
 
     // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
-    /*
-    const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
-      encoding: "utf-8",
-      stdio: "inherit",
-      env: {
-        ...process.env,
-        // "NVIM_NODE_HOST_DEBUG": "1",
-        NVIM_NODE_LOG_FILE: logName,
-        NVIM_NODE_LOG_LEVEL: "debug",
-        CURSORLESS_MODE: "test",
-      },
-    });
-    console.log(`status: ${status}`);
-    console.log(`signal: ${signal}`);
-    console.log(`error: ${error}`);
 
-    console.log(`Exiting early`);
-    process.exit(0);
-*/
+    if (process.platform === "darwin" || process.platform === "win32") {
+      const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
+        encoding: "utf-8",
+        stdio: "inherit",
+        env: {
+          ...process.env,
+          // "NVIM_NODE_HOST_DEBUG": "1",
+          NVIM_NODE_LOG_FILE: logName,
+          NVIM_NODE_LOG_LEVEL: "debug",
+          CURSORLESS_MODE: "test",
+        },
+      });
+      console.log(`status: ${status}`);
+      console.log(`signal: ${signal}`);
+      console.log(`error: ${error}`);
+
+      console.log(`Exiting early`);
+      process.exit(0);
+    }
 
     const waitLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/wait.lua`;
     // const subprocess = cp.spawn(cli, [`-V25${vimLogName}`], {
