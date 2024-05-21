@@ -217,13 +217,19 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
     tailTest.on("line", function (data: string) {
       console.log(`neovim test: ${data}`);
+      if (data.includes("CED: runAllTests")) {
+        console.log("found runAllTests in log");
+      }
     });
     tailTest.on("error", function (error) {
       console.log("neovim test: ERROR: ", error);
+      if (error.includes("CED: runAllTests")) {
+        console.log("found runAllTests in log error");
+      }
     });
     console.log("tail neovim test started");
 
-    await delay(60000);
+    await delay(600000);
 
     nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
