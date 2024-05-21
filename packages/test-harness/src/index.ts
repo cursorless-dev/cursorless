@@ -29,8 +29,8 @@ export async function run(plugin: NvimPlugin): Promise<void> {
   (global as any).additionalParameters = {
     client: plugin.nvim as NeovimClient,
   };
-  console.log("CED: run(): client:");
-  console.log(plugin.nvim as NeovimClient);
+  // console.log("CED: run(): client:");
+  // console.log(plugin.nvim as NeovimClient);
   try {
     //await runAllTests(TestType.neovim, TestType.unit);
     await runAllTests(TestType.neovim);
