@@ -26,6 +26,11 @@ function delay(ms: number) {
  * specified in {@link extensionTestsPath}.
  * @param extensionTestsPath The path to test runner, passed to
  * `--extensionTestsPath`
+ *
+ * Current working directory:
+ *  - Windows: D:\a\cursorless\cursorless
+ *  - Linux: /home/runner/work/cursorless/cursorless
+ *  - OS X: /Users/runner/work/cursorless/cursorless
  */
 export async function launchNeovimAndRunTests(extensionTestsPath: string) {
   console.error(

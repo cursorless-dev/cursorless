@@ -15,24 +15,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # XXX: restore this once neovim tests work in CI
+        # XXX: target all platforms?
         # os: [macos-latest, ubuntu-latest, windows-latest]
-        #os: [windows-latest]
         os: [ubuntu-latest]
-        # os: [macos-latest, ubuntu-latest, windows-latest]
-        # XXX - stable is 0.10.0 and only has nvim.exe (no nvim-qt.exe). Also locally it hangs on unskipped test
-        # and on CI, it fails on trying to tail the log and I don't know what is happening since didnt get a snapshot of CI yet
-        # to understand the error in nvim.exe (though probably need the nvim-qt.exe since nvim.exe won't show anything)
-        # Linux: with 0.9.5 or stable, it hangs on first function call back into lua from node
-        # app_version: [stable]
-        #app_version: [v0.9.5]
-        # NB: Nightly is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
+        # XXX: target all app versions?
+        # NB: stable: is 0.10.0 and only has nvim.exe (no nvim-qt.exe)
+        # NB: nightly: is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
         # app_version: [v0.9.5, v0.10.0, stable, nightly]
         app_version: [v0.10.0]
-        # XXX error while downloading v16.20.2, v17.9.1 on macos/ubuntu at least
+        # XXX: target all node versions?
+        # NB: error while downloading v16.20.2, v17.9.1 on macos/ubuntu at least
         # node_version: [v18.20.2, v19.9.0, v20.13.1, v21.7.3, v22.2.0]
         node_version: [v18.20.2]
-        # XXX: restore this once neovim tests work in CI
+        # XXX: there is no concept of "legacy" in neovim but maybe "v0.9.5" would fit the bill?
         # include:
         #   - os: ubuntu-latest
         #     app_version: legacy
@@ -48,65 +43,29 @@ jobs:
       # XXX - run over different node versions: https://nodejs.org/en/about/previous-releases
       - uses: actions/setup-node@v4
         with:
-          # XXX - v20.12.1 taken from .nvmrc file?
+          # XXX - use same v20.12.1 taken from .nvmrc file?
           # node-version-file: .nvmrc
-          node-version: ${{ matrix.node_version }}
           # node-version: v21.7.1
+          node-version: ${{ matrix.node_version }}
           cache: pnpm
-      # XXX testing only
-      # - run: dir ${{ github.workspace }}
-      # - run: dir ${{ github.workspace }}/packages
-      # - run: dir ${{ github.workspace }}/packages/test-harness
       - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
         shell: bash
-      # NB: we can't comment this for speeding up testing as we get this error when running test harness:
-      # > @cursorless/test-harness@0.1.0 testNeovim D:\a\cursorless\cursorless\packages\test-harness
-      # > env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts
-
-      # env: 'my-ts-node': No such file or directory
-      # D:\a\cursorless\cursorless\packages\test-harness:
-      #  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @cursorless/test-harness@0.1.0 testNeovim: `env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts`
-      # spawn ENOENT
-      #  WARN   Local package.json exists, but node_modules missing, did you mean to install?
-      # Error: Process completed with exit code 1.
       - run: pnpm --color install
       - run: pnpm --color compile
-      #- run: dir D:\a\cursorless\cursorless\packages\cursorless-neovim\out\
-      # We need to run "build" in order to prepare the dist/cursorless.nvim folder
       - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+      # XXX - restore this once neovim tests work in CI
       #- run: xvfb-run -a pnpm --color test
       #  if: runner.os == 'Linux'
       # - run: pnpm --color test
       #   if: runner.os != 'Linux'
-      # Current working directory:
-      # - Windows: D:\a\cursorless\cursorless
-      # - Linux: /home/runner/work/cursorless/cursorless
-      # - OS X: /Users/runner/work/cursorless/cursorless
-      - run: pwd
+      # XXX - debugging only, remove once tests work on all platforms
       - run: tree /home/runner/work/cursorless/cursorless/dist
         if: runner.os == 'Linux'
       - run: tree /f D:\a\cursorless\cursorless\dist
         if: runner.os == 'Windows'
       - run: find /Users/runner/work/cursorless/cursorless/dist
         if: runner.os == 'macOS'
-      # - run: dir
-      #- run: dir C:\Users\runneradmin\AppData\Local
-      #     Directory: C:\Users\runneradmin\AppData\Local
-      # Mode                 LastWriteTime         Length Name
-      # ----                 -------------         ------ ----
-      # d----           5/15/2024 11:25 PM                .IdentityService
-      # d----           5/15/2024 11:24 PM                AzureFunctionsTools
-      # d----           5/16/2024 11:19 AM                GitHub
-      # d----           5/15/2024 11:13 PM                Google
-      # d----           5/16/2024 11:13 AM                Microsoft
-      # d----           5/15/2024 11:17 PM                Microsoft SDKs
-      # d----           5/16/2024 11:14 AM                Mozilla
-      # d----           5/16/2024 11:20 AM                node
-      # d----           5/15/2024 11:13 PM                Packages
-      # d----           5/15/2024 11:14 PM                PeerDistRepub
-      # d----           5/16/2024 11:20 AM                pnpm
-      # d----           5/15/2024 11:17 PM                ServiceHub
-      # d----           5/16/2024 11:21 AM                Temp
+      # XXX - is there a better way to execute all these commands?
       - name: Install cursorless.nvim dependencies
         run: npm install -g neovim@5.1.0
       - run: git clone https://github.com/vim-scripts/BufOnly.vim /home/runner/BufOnly.vim
