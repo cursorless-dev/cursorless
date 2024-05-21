@@ -157,21 +157,17 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     const waitLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/wait.lua`;
     // const nvim_process = cp.spawn(cli, [`-V25${vimLogName}`], {
-    const nvim_process = cp.spawn(
-      cli,
-      [`-S ${waitLuaFile} ${initLuaFile} -V25${vimLogName}`],
-      {
-        env: {
-          ...process.env,
-          // "NVIM_NODE_HOST_DEBUG": "1",
-          NVIM_NODE_LOG_FILE: logName,
-          NVIM_NODE_LOG_LEVEL: "debug", // print max
-          // NVIM_NODE_LOG_LEVEL: "info", // print average
-          //NVIM_NODE_LOG_LEVEL: "error", // print less hoping it won't hang but not working yet
-          CURSORLESS_MODE: "test",
-        },
+    const nvim_process = cp.spawn(cli, [`--headless -V25${vimLogName}`], {
+      env: {
+        ...process.env,
+        // "NVIM_NODE_HOST_DEBUG": "1",
+        NVIM_NODE_LOG_FILE: logName,
+        NVIM_NODE_LOG_LEVEL: "debug", // print max
+        // NVIM_NODE_LOG_LEVEL: "info", // print average
+        //NVIM_NODE_LOG_LEVEL: "error", // print less hoping it won't hang but not working yet
+        CURSORLESS_MODE: "test",
       },
-    );
+    });
     console.log("nvim started done");
 
     // do not wait for nvim to exit to avoid any blocking
