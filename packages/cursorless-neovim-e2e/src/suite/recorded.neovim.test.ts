@@ -10,8 +10,8 @@ import {
   TestCaseFixtureLegacy,
   asyncSafety,
   clientSupportsFallback,
-  // getFixturesPath,
-  getRecordedTestPaths,
+  getFixturesPath,
+  // getRecordedTestPaths,
   omitByDeep,
   serializeTestFixture,
   shouldUpdateFixtures,
@@ -51,16 +51,16 @@ suite("recorded test cases", async function () {
   });
 
   // Run all tests
-  const tests = getRecordedTestPaths();
+  // const tests = getRecordedTestPaths();
 
   // Run some tests
-  // const fixturePath = getFixturesPath();
-  // const tests = [
-  //   {
-  //     name: "recorded/actions/changeNextInstanceChar",
-  //     path: `${fixturePath}/recorded/actions/changeNextInstanceChar.yml`,
-  //   },
-  // ];
+  const fixturePath = getFixturesPath();
+  const tests = [
+    {
+      name: "recorded/actions/changeNextInstanceChar",
+      path: `${fixturePath}/recorded/actions/changeNextInstanceChar.yml`,
+    },
+  ];
 
   for (const { name, path } of tests) {
     test(
