@@ -10,8 +10,8 @@ import {
   TestCaseFixtureLegacy,
   asyncSafety,
   clientSupportsFallback,
-  getFixturesPath,
-  // getRecordedTestPaths,
+  // getFixturesPath,
+  getRecordedTestPaths,
   omitByDeep,
   serializeTestFixture,
   shouldUpdateFixtures,
@@ -51,16 +51,16 @@ suite("recorded test cases", async function () {
   });
 
   // Run all tests
-  //const tests = getRecordedTestPaths();
+  const tests = getRecordedTestPaths();
 
   // Run some tests
-  const fixturePath = getFixturesPath();
-  const tests = [
-    {
-      name: "recorded/actions/changeNextInstanceChar",
-      path: `${fixturePath}/recorded/actions/changeNextInstanceChar.yml`,
-    },
-  ];
+  // const fixturePath = getFixturesPath();
+  // const tests = [
+  //   {
+  //     name: "recorded/actions/changeNextInstanceChar",
+  //     path: `${fixturePath}/recorded/actions/changeNextInstanceChar.yml`,
+  //   },
+  // ];
 
   for (const { name, path } of tests) {
     test(
@@ -84,22 +84,15 @@ async function runTest(
   neovimIDE: NeovimIDE,
 ) {
   const client = (global as any).additionalParameters.client;
-  // console.log("CED: runTest(): client:");
-  // console.log(client);
 
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
   // XXX - restore this
-  // if (unsupportedFixture(name, fixture)) {
-  //   return suite.ctx.skip();
-  // }
-
-  // XXX - temp to avoid things to hang on CI
-  // if (name !== "recorded/actions/changeNextInstanceChar") {
-  //   return suite.ctx.skip();
-  // }
+  if (unsupportedFixture(name, fixture)) {
+    return suite.ctx.skip();
+  }
 
   // Uncomment below for debugging
   // if (name === "recorded/implicitExpansion/chuckBoundingThat") {
@@ -137,11 +130,9 @@ async function runTest(
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
-  console.debug(`CED: before setSelections()`);
   await editor.setSelections(
     fixture.initialState.selections.map(createSelection),
   );
-  console.debug(`CED: after setSelections()`);
 
   for (const storedTargetKey of storedTargetKeys) {
     const key = `${storedTargetKey}Mark` as const;
@@ -152,13 +143,11 @@ async function runTest(
     spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
-  console.debug(`CED: before setFocusedElementType()`);
   commandServerApi.setFocusedElementType(
     fixture.focusedElementType === "other"
       ? undefined
       : fixture.focusedElementType ?? "textEditor",
   );
-  console.debug(`CED: after setFocusedElementType()`);
 
   // NOT NEEDED FOR NOW
   // Ensure that the expected hats are present
@@ -168,12 +157,10 @@ async function runTest(
   let fallback: Fallback | undefined;
 
   try {
-    console.debug(`CED: before runCursorlessCommand()`);
     returnValue = await runCursorlessCommand({
       ...fixture.command,
       usePrePhraseSnapshot,
     });
-    console.debug(`CED: after runCursorlessCommand()`);
     if (clientSupportsFallback(fixture.command)) {
       const commandResponse = returnValue as CommandResponse;
       returnValue =
