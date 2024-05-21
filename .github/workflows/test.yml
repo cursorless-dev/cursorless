@@ -15,27 +15,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # XXX: target all platforms?
         # os: [macos-latest, ubuntu-latest, windows-latest]
         os: [ubuntu-latest]
-        # XXX: target all app versions?
-        # NB: stable: is 0.10.0 and only has nvim.exe (no nvim-qt.exe)
-        # NB: nightly: is NVIM v0.11.0-dev-25+g0e187fe03 in May 2024
-        # app_version: [v0.9.5, v0.10.0, stable, nightly]
+        # app_version: [stable]
         app_version: [v0.10.0]
-        # XXX: target all node versions?
-        # NB: error while downloading v16.20.2, v17.9.1 on macos/ubuntu at least
-        # node_version: [v18.20.2, v19.9.0, v20.13.1, v21.7.3, v22.2.0]
-        node_version: [v18.20.2]
-        # XXX: there is no concept of "legacy" in neovim but maybe "v0.9.5" would fit the bill?
         # include:
         #   - os: ubuntu-latest
+        #     # app_version: v0.9.5
         #     app_version: legacy
     runs-on: ${{ matrix.os }}
     env:
       APP_VERSION: ${{ matrix.app_version }}
-      APP_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
-      APP_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
+      VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
+      VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
@@ -43,12 +35,10 @@ jobs:
       # XXX - run over different node versions: https://nodejs.org/en/about/previous-releases
       - uses: actions/setup-node@v4
         with:
-          # XXX - use same v20.12.1 taken from .nvmrc file?
           # node-version-file: .nvmrc
-          # node-version: v21.7.1
-          node-version: ${{ matrix.node_version }}
+          node-version: v18.20.2
           cache: pnpm
-      - run: mkdir -p "${{ env.APP_CRASH_DIR }}" "${{ env.APP_LOGS_DIR }}"
+      - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
       - run: pnpm --color install
       - run: pnpm --color compile
@@ -65,25 +55,23 @@ jobs:
         if: runner.os == 'Windows'
       - run: find /Users/runner/work/cursorless/cursorless/dist
         if: runner.os == 'macOS'
-      # XXX - is there a better way to execute all these commands?
       - name: Install cursorless.nvim dependencies
         run: npm install -g neovim@5.1.0
-      - run: git clone https://github.com/vim-scripts/BufOnly.vim /home/runner/BufOnly.vim
-        if: runner.os == 'Linux'
-      - run: git clone https://github.com/hands-free-vim/talon.nvim /home/runner/talon.nvim
-        if: runner.os == 'Linux'
-      - run: git clone https://github.com/MunifTanjim/nui.nvim /home/runner/nui.nvim
-        if: runner.os == 'Linux'
-      - run: git clone https://github.com/folke/noice.nvim /home/runner/noice.nvim
-        if: runner.os == 'Linux'
-      - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
-        if: runner.os == 'Windows'
-      - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
-        if: runner.os == 'Windows'
-      - run: git clone https://github.com/vim-scripts/BufOnly.vim /Users/runner//BufOnly.vim
-        if: runner.os == 'macOS'
-      - run: git clone https://github.com/hands-free-vim/talon.nvim /Users/runner//talon.nvim
-        if: runner.os == 'macOS'
+      - run: bash -x scripts/install-neovim-dependencies.sh
+      # XXX - is there a better way to execute all these commands?
+      # put them into a install-neovim-dependencies.sh script and rely on the HOME env variable
+      # - run: git clone https://github.com/vim-scripts/BufOnly.vim /home/runner/BufOnly.vim
+      #   if: runner.os == 'Linux'
+      # - run: git clone https://github.com/hands-free-vim/talon.nvim /home/runner/talon.nvim
+      #   if: runner.os == 'Linux'
+      # - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
+      #   if: runner.os == 'Windows'
+      # - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
+      #   if: runner.os == 'Windows'
+      # - run: git clone https://github.com/vim-scripts/BufOnly.vim /Users/runner/BufOnly.vim
+      #   if: runner.os == 'macOS'
+      # - run: git clone https://github.com/hands-free-vim/talon.nvim /Users/runner/talon.nvim
+      #   if: runner.os == 'macOS'
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim
@@ -122,11 +110,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: logs
-          path: ${{ env.APP_LOGS_DIR }}
+          path: ${{ env.VSCODE_LOGS_DIR }}
         if: failure()
       - name: Archive dumps
         uses: actions/upload-artifact@v4
         with:
           name: dumps
-          path: ${{ env.APP_CRASH_DIR }}
+          path: ${{ env.VSCODE_CRASH_DIR }}
         if: failure()

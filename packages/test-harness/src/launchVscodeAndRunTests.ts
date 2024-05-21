@@ -27,8 +27,8 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
       "packages/cursorless-vscode/dist",
     );
 
-    const crashDir = getEnvironmentVariableStrict("APP_CRASH_DIR");
-    const logsDir = getEnvironmentVariableStrict("APP_LOGS_DIR");
+    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
+    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
     const useLegacyVscode =
       getEnvironmentVariableStrict("APP_VERSION") === "legacy";
 

@@ -32,7 +32,7 @@ function delay(ms: number) {
  *  - Linux: /home/runner/work/cursorless/cursorless
  *  - OS X: /Users/runner/work/cursorless/cursorless
  */
-export async function launchNeovimAndRunTests(extensionTestsPath: string) {
+export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
   console.error(
     "CED: launchNeovimAndRunTests() (error to simulate always logging even if logging level is set to error)",
   );
@@ -45,8 +45,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //   "packages/cursorless-vscode/dist",
     // );
 
-    const crashDir = getEnvironmentVariableStrict("APP_CRASH_DIR");
-    const logsDir = getEnvironmentVariableStrict("APP_LOGS_DIR");
+    const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
+    const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
     const useLegacyVscode =
       getEnvironmentVariableStrict("APP_VERSION") === "legacy";
 
