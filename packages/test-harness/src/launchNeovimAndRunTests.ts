@@ -137,7 +137,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
 
     //const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
-    const { status, signal, error } = cp.spawnSync(cli, [`--headless -V9`], {
+    const { status, signal, error } = cp.spawnSync(cli, [`--headless`], {
       encoding: "utf-8",
       stdio: "inherit",
       env: {
