@@ -53,7 +53,7 @@ export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
-    // const vscodeVersion = useLegacyVscode ? "1.75.1" : "stable";
+    //const neovimVersion = useLegacyVscode ? "v0.9.5" : "stable";
     // const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     // const [cli, ...args] =
     //   resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
@@ -161,16 +161,16 @@ export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
 */
 
     const waitLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/wait.lua`;
-    // const nvim_process = cp.spawn(cli, [`-V25${vimLogName}`], {
+    // const subprocess = cp.spawn(cli, [`-V25${vimLogName}`], {
     // https://neovim.io/doc/user/starting.html#--headless
     // XXX - this works and avoids hanging on CI but we can't see the nvim logs
-    const nvim_process = cp.spawn(cli, [`--headless`], {
+    const subprocess = cp.spawn(cli, [`--headless`], {
       // xxx on CI, this does not work and does not show any of the vim logs
       // stdio: "inherit",
       // shell: true,
       // XXX = testing -Es locally seems to exit nvim after running the script and it exits too fast so won't work on CI either
       // "C:\Program Files\Neovim\bin\nvim.exe" -Es -u C:\path\to\cursorless\packages\test-harness\src\config\init_ced.lua
-      // const nvim_process = cp.spawn(cli, [`-Es`], {
+      // const subprocess = cp.spawn(cli, [`-Es`], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
@@ -184,9 +184,9 @@ export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
     console.log("nvim started done");
 
     // do not wait for nvim to exit to avoid any blocking
-    nvim_process.unref();
+    // subprocess.unref();
 
-    console.log(`pid: ${nvim_process.pid}`);
+    console.log(`pid: ${subprocess.pid}`);
 
     await delay(5000);
 
@@ -243,25 +243,41 @@ export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
     });
     console.log("tail neovim test started");
 
-    let count = 0;
-    const stepSeconds = 10;
-    while (true) {
-      count += stepSeconds;
-      await delay(stepSeconds * 1000);
-      if (done) {
-        console.log("done here, exiting loop");
-        break;
-      }
-      // exit if tests take more than 5 minutes
-      if (count > 5 * 60) {
-        console.log("timeout, exiting loop");
-        break;
-      }
-    }
+    // let count = 0;
+    // const stepSeconds = 10;
+    // while (true) {
+    //   count += stepSeconds;
+    //   await delay(stepSeconds * 1000);
+    //   if (done) {
+    //     console.log("done here, exiting loop");
+    //     break;
+    //   }
+    //   // exit if tests take more than 5 minutes
+    //   if (count > 5 * 60) {
+    //     console.log("timeout, exiting loop");
+    //     break;
+    //   }
+    // }
     // await delay(600000);
 
-    nvim_process.kill("SIGTERM");
-    console.log(`killed: ${nvim_process.killed}`);
+    console.log("waiting for tests to finish ...");
+    await new Promise<void>((resolve, reject) => {
+      subprocess.on("error", reject);
+      subprocess.on("exit", (code) => {
+        console.log(`exit: Process returned code ${code}`);
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`Process returned code ${code}`));
+        }
+      });
+    });
+    console.log("tests finished");
+
+    // subprocess.kill("SIGTERM");
+    console.log(`killed: ${subprocess.killed}`);
+
+    // steal code from packages\cursorless-vscode\src\scripts\initLaunchSandbox.ts
 
     tailTest.unwatch();
 
