@@ -14,7 +14,7 @@ require('talon').setup()
 require('cursorless').setup()
 
 -- attempt to avoid the "Press ENTER or type command to continue" prompt
--- local key = vim.api.nvim_replace_termcodes('\\<CR>', true, false, true)
--- vim.api.nvim_feedkeys(key, 'n', false)
-local enter = vim.api.nvim_replace_termcodes('<CR>', true, true, true)
-vim.fn.feedkeys(enter)
+local key = vim.api.nvim_replace_termcodes('\\<CR>', true, false, true)
+vim.api.nvim_feedkeys(key, 'n', false)
+-- local enter = vim.api.nvim_replace_termcodes('<CR>', true, true, true)
+-- vim.fn.feedkeys(enter)
