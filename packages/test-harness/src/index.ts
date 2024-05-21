@@ -22,28 +22,21 @@ export async function run(plugin: NvimPlugin): Promise<void> {
   try {
     //await runAllTests(TestType.neovim, TestType.unit);
     await runAllTests(TestType.neovim);
-    code = 0;
     console.log(`==== TESTS FINISHED: code: ${code}`);
-    console.log(`index.ts: killing neovim with q!`);
-    await client.command(":q!");
+    // console.log(`index.ts: killing neovim with q!`);
+    // await client.command(":q!");
   } catch (error) {
     console.log(`==== TESTS ERROR:`);
     console.error(error);
     code = 1;
     console.log(`==== TESTS FINISHED: code: ${code}`);
-    console.log(`index.ts: killing neovim with q!`);
     // https://stackoverflow.com/questions/11828270/how-do-i-exit-vim
-    await client.command(":cq!");
+    // console.log(`index.ts: killing neovim with cq!`);
+    // await client.command(":cq!");
   }
-  // XXX: kill neovim with -1 code ":cq!" command?
-  // console.error("CED: random error message to make sure stuff is logged");
-  // XXX: kill neovim with 0 code ":q!" command?
+  // XXX: launchNeovimAndRunTests.ts will catch neovim exit code on CI
 
-  // XXX: launchNeovimAndRunTests.ts will catch that error code
-
-  // kill nvim for both CI and local tests
   // console.log(`index.ts: killing neovim with code ${code}`);
-  // process.exit(code);
 }
 
 /**
