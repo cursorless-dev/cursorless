@@ -137,7 +137,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
 
     //const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
-    const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
+    const { status, signal, error } = cp.spawnSync(cli, [`--headless -V9`], {
       encoding: "utf-8",
       stdio: "inherit",
       env: {
@@ -162,6 +162,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     const nvim_process = cp.spawn(cli, [`--headless`], {
       // xxx on CI, this does not work and does not show any of the vim logs
       // stdio: "inherit",
+      // shell: true,
       // XXX = testing -Es locally seems to exit nvim after running the script and it exits too fast so won't work on CI either
       // "C:\Program Files\Neovim\bin\nvim.exe" -Es -u C:\path\to\cursorless\packages\test-harness\src\config\init_ced.lua
       // const nvim_process = cp.spawn(cli, [`-Es`], {
