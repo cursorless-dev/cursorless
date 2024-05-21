@@ -221,9 +221,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       if (data.includes("==== TESTS FINISHED:")) {
         done = true;
         console.log(`done: ${done}`);
-        const re = new RegExp("==== TESTS FINISHED: code: (d+)");
-        console.log(`re: ${re}`);
-        const found = data.match(re);
+        const found = data.match(/.*==== TESTS FINISHED: code: (\d+).*/);
         console.log(`found: ${found}`);
         if (found !== null) {
           code = parseInt(found[0]);
