@@ -20,7 +20,7 @@ export async function openNewEditor(
   // open a new buffer
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
   console.debug(`CED: before :enew`);
-  await client.command(":enew");
+  //await client.command(":enew");
   console.debug(`CED: after :enew`);
 
   if (!openBeside) {
