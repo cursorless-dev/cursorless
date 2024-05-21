@@ -2,11 +2,6 @@ import { TestType, runAllTests } from "./runAllTests";
 
 import type { NeovimClient, NvimPlugin } from "neovim";
 
-// https://stackoverflow.com/questions/37764665/how-to-implement-sleep-function-in-typescript
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 /**
  * Runs all extension tests.  This function should only be called after attaching to the
  * "node" process, such as when testing cursorless in neovim.
@@ -17,31 +12,23 @@ function delay(ms: number) {
 // FIXME: this is neovim specific atm so in the future we can support other apps here
 // with an environment variable
 export async function run(plugin: NvimPlugin): Promise<void> {
-  console.error(
-    "CED: run() (error to simulate always logging even if logging level is set to error)",
-  );
-  console.log("CED: run()");
-  // await delay(10000);
-  // console.log("CED: run() after sleep");
-
   // https://github.com/mochajs/mocha/issues/3780#issuecomment-583064196
   // https://stackoverflow.com/questions/69427050/how-to-extend-globalthis-global-type
   (global as any).additionalParameters = {
     client: plugin.nvim as NeovimClient,
   };
-  // console.log("CED: run(): client:");
-  // console.log(plugin.nvim as NeovimClient);
+  let code = 0;
   try {
     //await runAllTests(TestType.neovim, TestType.unit);
     await runAllTests(TestType.neovim);
   } catch (error) {
-    console.error("CED: runAllTests failed (1)");
+    console.log(`==== TESTS ERROR:`);
     console.error(error);
-    // https://stackoverflow.com/questions/11828270/how-do-i-exit-vim
-    // XXX: kill neovim with -1 code ":cq!" command?
-    return;
+    code = 1;
   }
-  console.log("CED: runAllTests succeeded (1)");
+  console.log(`==== TESTS FINISHED: code: ${code}`);
+  // https://stackoverflow.com/questions/11828270/how-do-i-exit-vim
+  // XXX: kill neovim with -1 code ":cq!" command?
   // console.error("CED: random error message to make sure stuff is logged");
   // XXX: kill neovim with 0 code ":q!" command?
 

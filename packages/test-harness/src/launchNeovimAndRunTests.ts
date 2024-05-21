@@ -179,7 +179,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     console.log("nvim started done");
 
     // do not wait for nvim to exit to avoid any blocking
-    //nvim_process.unref();
+    nvim_process.unref();
 
     console.log(`pid: ${nvim_process.pid}`);
 
@@ -218,29 +218,39 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
     tailTest.on("line", function (data: string) {
       console.log(`neovim test: ${data}`);
-      if (data.includes("CED: runAllTests")) {
-        console.log("found runAllTests in log");
+      if (data.includes("==== TESTS FINISHED:")) {
         done = true;
+        console.log(`done: ${done}`);
+        const re = new RegExp("==== TESTS FINISHED: code: (d+)");
+        console.log(`re: ${re}`);
+        const found = data.match(re);
+        console.log(`found: ${found}`);
+        if (found !== null) {
+          code = parseInt(found[0]);
+          console.log(`code: ${code}`);
+        }
       }
     });
     tailTest.on("error", function (error) {
       console.log("neovim test: ERROR: ", error);
-      if (error.includes("CED: runAllTests")) {
-        console.log("found runAllTests in log error");
+      if (error.includes("==== TESTS FINISHED:")) {
         done = true;
+        console.log(`done: ${done}`);
       }
     });
     console.log("tail neovim test started");
 
     let count = 0;
+    const stepSeconds = 10;
     while (true) {
-      count += 1;
-      await delay(10000);
+      count += stepSeconds;
+      await delay(stepSeconds * 1000);
       if (done) {
         console.log("done here, exiting loop");
         break;
       }
-      if (count > 2) {
+      // exit if tests take more than 5 minutes
+      if (count > 5 * 60) {
         console.log("timeout, exiting loop");
         break;
       }
@@ -268,10 +278,11 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     //       ? undefined
     //       : [`--crash-reporter-directory=${crashDir}`, `--logsPath=${logsDir}`],
     // });
-    code = 0; // success
+    //code = 0; // success
   } catch (err) {
     console.error("Test run threw exception:");
     console.error(err);
+    code = 2;
   }
   console.log(`Returned code: ${code}`);
   process.exit(code);
