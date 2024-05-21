@@ -166,6 +166,7 @@ export async function showErrorMessage(
   client: NeovimClient,
   message: string,
 ): Promise<void> {
-  const luaCode = `vim.notify("${message}")`;
-  await client.executeLua(luaCode, []);
+  // XXX - commenting to test if this avoids hanging problem in CI?
+  // const luaCode = `vim.notify("${message}")`;
+  // await client.executeLua(luaCode, []);
 }
