@@ -15,7 +15,7 @@ vim.o.runtimepath = vim.o.runtimepath
 -- print('CED: loading talon.vim')
 require('talon').setup()
 
-print('CED: loading cursorless.vim')
+-- print('CED: loading cursorless.vim')
 require('cursorless').setup()
 
 -- require('noice').setup({
