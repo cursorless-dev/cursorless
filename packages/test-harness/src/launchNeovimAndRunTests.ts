@@ -210,9 +210,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     });
     console.log("tail neovim test started");
 
-    //await delay(2000000);
+    await delay(60000);
 
-    //nvim_process.kill("SIGTERM");
+    nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
 
     //await delay(10000);
@@ -239,5 +239,5 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     console.error(err);
   }
   console.log(`Returned code: ${code}`);
-  //process.exit(code);
+  process.exit(code);
 }
