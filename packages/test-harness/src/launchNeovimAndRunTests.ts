@@ -32,19 +32,9 @@ function delay(ms: number) {
  *  - Linux: /home/runner/work/cursorless/cursorless
  *  - OS X: /Users/runner/work/cursorless/cursorless
  */
-export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
-  console.error(
-    "CED: launchNeovimAndRunTests() (error to simulate always logging even if logging level is set to error)",
-  );
+export async function launchNeovimAndRunTests() {
   let code = 1; // failure
   try {
-    // The folder containing the Extension Manifest package.json
-    // Passed to `--extensionDevelopmentPath`
-    // const extensionDevelopmentPath = path.resolve(
-    //   getCursorlessRepoRoot(),
-    //   "packages/cursorless-vscode/dist",
-    // );
-
     const crashDir = getEnvironmentVariableStrict("VSCODE_CRASH_DIR");
     const logsDir = getEnvironmentVariableStrict("VSCODE_LOGS_DIR");
     const useLegacyVscode =
@@ -260,6 +250,7 @@ export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
       }
     }
 
+    // XXX - code to replace above code, needs more testing
     // code from packages\cursorless-vscode\src\scripts\initLaunchSandbox.ts
     // await new Promise<void>((resolve, reject) => {
     //   subprocess.on("error", reject);

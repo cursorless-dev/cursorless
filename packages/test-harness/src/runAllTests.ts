@@ -22,7 +22,6 @@ export enum TestType {
 }
 
 export function runAllTests(...types: TestType[]) {
-  console.log("CED: runAllTests()");
   return runTestsInDir(
     path.join(getCursorlessRepoRoot(), "packages"),
     (files) =>
