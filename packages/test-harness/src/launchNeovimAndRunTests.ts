@@ -161,8 +161,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     // XXX - this works and avoids hanging on CI but we can't see the nvim logs
     const nvim_process = cp.spawn(cli, [`--headless`], {
       // xxx on CI, this does not work and does not show any of the vim logs
-      stdio: "inherit",
-      shell: true,
+      // stdio: "inherit",
+      // shell: true,
       // XXX = testing -Es locally seems to exit nvim after running the script and it exits too fast so won't work on CI either
       // "C:\Program Files\Neovim\bin\nvim.exe" -Es -u C:\path\to\cursorless\packages\test-harness\src\config\init_ced.lua
       // const nvim_process = cp.spawn(cli, [`-Es`], {
