@@ -157,7 +157,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     const waitLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/wait.lua`;
     // const nvim_process = cp.spawn(cli, [`-V25${vimLogName}`], {
-    const nvim_process = cp.spawn(cli, [`--headless -V25${vimLogName}`], {
+    const nvim_process = cp.spawn(cli, [`--headless`], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
@@ -184,6 +184,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       console.log(`\t${file}`);
     });
 
+    /*
+    // XXX - we can't use that if we use --headless above
     const tailVim = new Tail(vimLogName, {
       // separator: "\n",
       fromBeginning: true,
@@ -195,6 +197,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       console.log("vim startup: ERROR: ", error);
     });
     console.log("tail vim startup started");
+    */
 
     await delay(10000);
 
