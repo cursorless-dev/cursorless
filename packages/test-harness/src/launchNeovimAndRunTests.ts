@@ -211,6 +211,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     // read log file live and print to console
     // https://stackoverflow.com/questions/26788504/using-node-js-to-read-a-live-file-line-by-line
+    let done = false;
     const tailTest = new Tail(logName, {
       // separator: "\n",
       fromBeginning: true,
@@ -219,18 +220,30 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
       console.log(`neovim test: ${data}`);
       if (data.includes("CED: runAllTests")) {
         console.log("found runAllTests in log");
+        done = true;
       }
     });
     tailTest.on("error", function (error) {
       console.log("neovim test: ERROR: ", error);
       if (error.includes("CED: runAllTests")) {
         console.log("found runAllTests in log error");
+        done = true;
       }
     });
     console.log("tail neovim test started");
 
+    let count = 0;
     while (true) {
+      count += 1;
       await delay(10000);
+      if (done) {
+        console.log("done here, exiting loop");
+        break;
+      }
+      if (count > 2) {
+        console.log("timeout, exiting loop");
+        break;
+      }
     }
     // await delay(600000);
 
