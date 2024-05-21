@@ -14,7 +14,8 @@ local function load_extensions()
   -- print('load_extensions() - before CursorlessLoadExtension')
   vim.api.nvim_call_function('CursorlessLoadExtension', {})
   -- print('load_extensions() - before CommandServerLoadExtension')
-  vim.api.nvim_call_function('CommandServerLoadExtension', {})
+  -- XXX attempt to disable command-server since not needed in CI and may cause issues when loading?
+  -- vim.api.nvim_call_function('CommandServerLoadExtension', {})
   -- print('load_extensions() - after loading extensions')
 
   if os.getenv('CURSORLESS_MODE') == 'test' then
