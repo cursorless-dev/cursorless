@@ -167,6 +167,7 @@ export async function showErrorMessage(
   message: string,
 ): Promise<void> {
   // XXX - commenting to test if this avoids hanging problem in CI?
+  // but does not seem to change anything and it still hangs after the ":enew" command
   // const luaCode = `vim.notify("${message}")`;
   // await client.executeLua(luaCode, []);
 }

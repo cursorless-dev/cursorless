@@ -12,3 +12,7 @@ require('talon').setup()
 
 print('CED: loading cursorless.vim')
 require('cursorless').setup()
+
+-- attempt to avoid the "Press ENTER or type command to continue" prompt
+local key = vim.api.nvim_replace_termcodes('<cr>', true, false, true)
+vim.api.nvim_feedkeys(key, 'n', false)
