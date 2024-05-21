@@ -44,6 +44,7 @@
 (_
   (struct_specifier
     name: (_) @className
+    body: (_)
   ) @_.domain.start
   ";"? @_.domain.end
 )
@@ -147,7 +148,6 @@
   (primitive_type)
   (sized_type_specifier)
   (struct_specifier)
-  (type_identifier)
   (union_specifier)
 ] @type
 
