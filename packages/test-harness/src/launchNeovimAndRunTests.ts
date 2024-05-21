@@ -263,6 +263,8 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     nvim_process.kill("SIGTERM");
     console.log(`killed: ${nvim_process.killed}`);
 
+    tailTest.unwatch();
+
     //await delay(10000);
 
     // console.log("finished installing dependency extensions");

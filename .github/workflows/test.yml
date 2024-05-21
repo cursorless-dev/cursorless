@@ -84,67 +84,12 @@ jobs:
         if: runner.os == 'macOS'
       - run: git clone https://github.com/hands-free-vim/talon.nvim /Users/runner//talon.nvim
         if: runner.os == 'macOS'
-      # - run: C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l ${{ github.workspace }}\packages\test-harness\src\config\empty.lua
-      # C:\Users\runneradmin\nvim-stable\bin\nvim.exe: D:\a\_temp\2658188c-43d2-4fce-9de9-299408299ebb.ps1:2
-      # Line |
-      #    2 |  C:\Users\runneradmin\nvim-stable\bin\nvim.exe -l D:\a\cursorless\curs …
-      #      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      #      | The term 'C:\Users\runneradmin\nvim-stable\bin\nvim.exe' is not recognized as a name of a cmdlet, function,
-      #      | script file, or executable program. Check the spelling of the name, or if a path was included, verify that the
-      #      | path is correct and try again.
-      # Error: Process completed with exit code 1.
-      #- run: mkdir C:\Users\runneradmin\AppData\Local\nvim
-      # Run rhysd/action-setup-vim@v1 fails with "app_version: legacy"
-      # Error: 'version' input 'legacy' is not a format of Git tags in neovim/neovim repository. It should match to regex //^v\d+\.\d+\.\d+$//. NOTE: It requires 'v' prefix
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim
         with:
           version: ${{ matrix.app_version }}
           neovim: true
-      # - run: dir /home/runner/.local/share/ || true
-      # - run: dir /home/runner/.local/share/nvim/ || true
-      # - run: dir /home/runner/.config/ || true
-      # - run: dir /home/runner/.config/nvim/ || true
-      # - run: ${{ steps.vim.outputs.executable }} -l ${{ github.workspace }}/packages/test-harness/src/config/empty.lua
-      # - run: dir /home/runner/.local/share/ || true
-      # - run: dir /home/runner/.local/share/nvim/ || true
-      # - run: dir /home/runner/.config/ || true
-      # - run: dir /home/runner/.config/nvim/ || true
-      #- run: dir C:\Users\runneradmin\
-      #- run: dir C:\Users\runneradmin\nvim-${{ matrix.app_version }}\bin\
-      # Run dir C:\Users\runneradmin\nvim-v0.9.5\bin\
-      #     Directory: C:\Users\runneradmin\nvim-v0.9.5\bin
-      # Mode                 LastWriteTime         Length Name
-      # ----                 -------------         ------ ----
-      # d----          12/30/2023  1:22 PM                bearer
-      # d----          12/30/2023  1:22 PM                iconengines
-      # d----          12/30/2023  1:22 PM                imageformats
-      # d----          12/30/2023  1:22 PM                platforms
-      # d----          12/30/2023  1:22 PM                styles
-      # d----          12/30/2023  1:22 PM                translations
-      # -a---          12/30/2023  1:20 PM          16384 cat.exe
-      # -a---          12/30/2023  1:20 PM        4173928 D3Dcompiler_47.dll
-      # -a---          12/30/2023  1:22 PM        1199296 dbghelp.dll
-      # -a---          12/30/2023  1:20 PM          68096 diff.exe
-      # -a---          12/30/2023  1:20 PM          69088 libEGL.dll
-      # -a---          12/30/2023  1:20 PM          76288 libgcc_s_seh-1.dll
-      # -a---          12/30/2023  1:20 PM        6298808 libGLESv2.dll
-      # -a---          12/30/2023  1:20 PM        1417216 libstdc++-6.dll
-      # -a---          12/30/2023  1:20 PM          52224 libwinpthread-1.dll
-      # -a---          12/30/2023  1:22 PM         539648 lua51.dll
-      # -a---          12/30/2023  1:20 PM        3757746 nvim-qt.exe
-      # -a---          12/30/2023  1:22 PM        5214720 nvim.exe
-      # -a---          12/30/2023  1:22 PM       13242368 nvim.pdb
-      # -a---          12/30/2023  1:20 PM       20923392 opengl32sw.dll
-      # -a---          12/30/2023  1:20 PM        8185968 Qt5Core.dll
-      # -a---          12/30/2023  1:20 PM        9663232 Qt5Gui.dll
-      # -a---          12/30/2023  1:20 PM        2699096 Qt5Network.dll
-      # -a---          12/30/2023  1:20 PM         580088 Qt5Svg.dll
-      # -a---          12/30/2023  1:20 PM        8662160 Qt5Widgets.dll
-      # -a---          12/30/2023  1:20 PM         131072 tee.exe
-      # -a---          12/30/2023  1:20 PM        1137152 win32yank.exe
-      # -a---          12/30/2023  1:20 PM         151040
       - name: Run neovim unit tests using test-harness
         run: pnpm -F @cursorless/test-harness testNeovim
         if: runner.os != 'Linux'
@@ -154,10 +99,10 @@ jobs:
         if: runner.os == 'Linux'
         env:
           APP_PATH: ${{ steps.vim.outputs.executable }}
-      #- name: Create vscode dist that can be installed locally
+      # XXX: restore this once neovim tests work in CI
+      # - name: Create vscode dist that can be installed locally
       #  run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
       #  if: runner.os == 'Linux' && matrix.app_version == 'stable'
-      # XXX: restore this once neovim tests work in CI
       # - name: Test create vsix
       #   id: createVsix
       #   uses: HaaLeo/publish-vscode-extension@v1
