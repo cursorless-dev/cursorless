@@ -224,7 +224,7 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
         const found = data.match(/.*==== TESTS FINISHED: code: (\d+).*/);
         console.log(`found: ${found}`);
         if (found !== null) {
-          code = parseInt(found[0]);
+          code = parseInt(found[1]);
           console.log(`code: ${code}`);
         }
       }
