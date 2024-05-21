@@ -157,7 +157,9 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
 
     const waitLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/wait.lua`;
     // const nvim_process = cp.spawn(cli, [`-V25${vimLogName}`], {
-    const nvim_process = cp.spawn(cli, [`--headless`], {
+    // XXX - this works and avoids hanging on CI but we can't see the nvim logs
+    // const nvim_process = cp.spawn(cli, [`--headless`], {
+    const nvim_process = cp.spawn(cli, [`-es`], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
