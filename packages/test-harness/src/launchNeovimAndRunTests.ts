@@ -158,8 +158,10 @@ export async function launchNeovimAndRunTests(extensionTestsPath: string) {
     const waitLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/wait.lua`;
     // const nvim_process = cp.spawn(cli, [`-V25${vimLogName}`], {
     // XXX - this works and avoids hanging on CI but we can't see the nvim logs
-    // const nvim_process = cp.spawn(cli, [`--headless`], {
-    const nvim_process = cp.spawn(cli, [`-es`], {
+    const nvim_process = cp.spawn(cli, [`--headless`], {
+      // XXX = testing -Es locally seems to exit nvim after running the script and it exits too fast so won't work on CI either
+      // "C:\Program Files\Neovim\bin\nvim.exe" -Es -u C:\path\to\cursorless\packages\test-harness\src\config\init_ced.lua
+      // const nvim_process = cp.spawn(cli, [`-Es`], {
       env: {
         ...process.env,
         // "NVIM_NODE_HOST_DEBUG": "1",
