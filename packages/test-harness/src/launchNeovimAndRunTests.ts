@@ -184,7 +184,7 @@ export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
     console.log("nvim started done");
 
     // do not wait for nvim to exit to avoid any blocking
-    // subprocess.unref();
+    subprocess.unref();
 
     console.log(`pid: ${subprocess.pid}`);
 
@@ -243,41 +243,39 @@ export async function launchNeovimAndRunTests(/*extensionTestsPath: string*/) {
     });
     console.log("tail neovim test started");
 
-    // let count = 0;
-    // const stepSeconds = 10;
-    // while (true) {
-    //   count += stepSeconds;
-    //   await delay(stepSeconds * 1000);
-    //   if (done) {
-    //     console.log("done here, exiting loop");
-    //     break;
-    //   }
-    //   // exit if tests take more than 5 minutes
-    //   if (count > 5 * 60) {
-    //     console.log("timeout, exiting loop");
-    //     break;
-    //   }
-    // }
-    // await delay(600000);
-
     console.log("waiting for tests to finish ...");
-    await new Promise<void>((resolve, reject) => {
-      subprocess.on("error", reject);
-      subprocess.on("exit", (code) => {
-        console.log(`exit: Process returned code ${code}`);
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`Process returned code ${code}`));
-        }
-      });
-    });
+    let count = 0;
+    const stepSeconds = 10;
+    while (true) {
+      count += stepSeconds;
+      await delay(stepSeconds * 1000);
+      if (done) {
+        console.log("done here, exiting loop");
+        break;
+      }
+      // exit if tests take more than 5 minutes
+      if (count > 5 * 60) {
+        console.log("timeout, exiting loop");
+        break;
+      }
+    }
+
+    // code from packages\cursorless-vscode\src\scripts\initLaunchSandbox.ts
+    // await new Promise<void>((resolve, reject) => {
+    //   subprocess.on("error", reject);
+    //   subprocess.on("exit", (code) => {
+    //     console.log(`exit: Process returned code ${code}`);
+    //     if (code === 0) {
+    //       resolve();
+    //     } else {
+    //       reject(new Error(`Process returned code ${code}`));
+    //     }
+    //   });
+    // });
     console.log("tests finished");
 
-    // subprocess.kill("SIGTERM");
+    subprocess.kill("SIGTERM");
     console.log(`killed: ${subprocess.killed}`);
-
-    // steal code from packages\cursorless-vscode\src\scripts\initLaunchSandbox.ts
 
     tailTest.unwatch();
 
