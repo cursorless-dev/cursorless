@@ -37,7 +37,7 @@ export function getNodeMatcher(
   const matcher = matchers[scopeTypeType];
 
   if (matcher == null) {
-    return notSupported;
+    return notSupported(scopeTypeType);
   }
 
   if (includeSiblings) {

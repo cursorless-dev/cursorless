@@ -1,11 +1,9 @@
 import {
   ComplexSurroundingPairName,
-  Selection,
   SurroundingPairScopeType,
 } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
 import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
-import getTextFragmentExtractor from "../../../languages/getTextFragmentExtractor";
 import { Target } from "../../../typings/target.types";
 import { SurroundingPairTarget } from "../../targets";
 import { getContainingScopeTarget } from "../getContainingScopeTarget";
@@ -117,21 +115,7 @@ function processSurroundingPairCore(
       return containingScope?.[0].contentRange;
     }
 
-    // Then try to use the legacy text fragment extractor if it exists
-    const textFragmentExtractor = getTextFragmentExtractor(document.languageId);
-
-    if (textFragmentExtractor == null) {
-      // If the text fragment extractor doesn't exist, or if it explicitly is
-      // set to `null`, then we just use text-based algorithm on entire document
-      return document.range;
-    }
-
-    const selectionWithEditor = {
-      editor,
-      selection: new Selection(range.start, range.end),
-    };
-
-    return textFragmentExtractor(node, selectionWithEditor);
+    return document.range;
   })();
 
   if (textFragmentRange != null) {

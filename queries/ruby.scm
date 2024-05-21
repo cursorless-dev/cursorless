@@ -1,4 +1,4 @@
-(comment) @comment
+(comment) @comment @textFragment
 (hash) @map
 (regex) @regularExpression
 (call) @functionCall
@@ -29,3 +29,10 @@
     name: (_) @className
   ) @_.domain
 ) @_.iteration
+
+(string) @string
+
+[
+  (string_content)
+  (heredoc_content)
+] @textFragment

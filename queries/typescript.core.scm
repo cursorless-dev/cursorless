@@ -64,7 +64,7 @@
   (public_field_definition
     name: (_) @name @value.leading.endOf
     !type
-    value: (_)? @value
+    value: (_)? @value @name.trailing.startOf
   ) @_.domain.start
   .
   ";"? @_.domain.end
