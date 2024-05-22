@@ -1,8 +1,7 @@
 public class BankAccount {}
 ---
 
-[Content] =
-[Domain] = 0:13-0:24
+[Content] = 0:13-0:24
                >-----------<
 0| public class BankAccount {}
 
@@ -16,6 +15,10 @@ public class BankAccount {}
 
 [Trailing delimiter] = 0:24-0:25
                           >-<
+0| public class BankAccount {}
+
+[Domain] = 0:0-0:27
+  >---------------------------<
 0| public class BankAccount {}
 
 [Insertion delimiter] = " "
