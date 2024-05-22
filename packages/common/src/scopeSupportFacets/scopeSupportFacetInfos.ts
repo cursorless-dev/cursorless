@@ -80,9 +80,31 @@ export const scopeSupportFacetInfos: Record<
     description: "A class in an object-oriented language",
     scopeType: "class",
   },
+  "class.iteration.document": {
+    description: "Iteration scope for classes. The entire document.",
+    scopeType: "class",
+    isIteration: true,
+  },
+  "class.iteration.block": {
+    description:
+      "Iteration scope for classes. Statement blocks(body of functions/if classes/for loops/etc).",
+    scopeType: "class",
+    isIteration: true,
+  },
   className: {
     description: "The name of a class",
     scopeType: "className",
+  },
+  "className.iteration.document": {
+    description: "Iteration scope for class names. The entire document.",
+    scopeType: "className",
+    isIteration: true,
+  },
+  "className.iteration.block": {
+    description:
+      "Iteration scope for class names. Statement blocks(body of functions/if classes/for loops/etc).",
+    scopeType: "className",
+    isIteration: true,
   },
 
   namedFunction: {
