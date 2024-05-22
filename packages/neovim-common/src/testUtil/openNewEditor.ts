@@ -19,8 +19,6 @@ export async function openNewEditor(
 ): Promise<NeovimTextEditorImpl> {
   // open a new buffer
   // @see: https://vi.stackexchange.com/questions/8345/a-built-in-way-to-make-vim-open-a-new-buffer-with-file
-  // XXX - this is where it hangs atm after the first command back into lua
-  // NOTE: if I comment this, it hangs at the ":BufOnly!" command below
   await client.command(":enew");
 
   if (!openBeside) {

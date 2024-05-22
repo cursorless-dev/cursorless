@@ -1,6 +1,5 @@
 import * as cp from "child_process";
 import process from "node:process";
-import { userInfo } from "os";
 // import * as path from "path";
 // import * as os from "os";
 import { exists, readdirSync, mkdirSync, unlinkSync, copyFile } from "fs";
@@ -50,25 +49,17 @@ export async function launchNeovimAndRunTests() {
     const cli = getEnvironmentVariableStrict("APP_PATH");
     // Installed executable: C:\Users\runneradmin\nvim-stable\bin\nvim.exe
     // nvim-qt.exe does not allow logging into file using -V
+    // XXX - try using nvim-qt.exe on Windows but --headless may not work then?
     //cli = cli.replace("nvim.exe", "nvim-qt.exe");
 
     let nvimFolder = "";
-    let initLuaFile = "";
+    const initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init.lua`;
     if (process.platform === "win32") {
-      if (userInfo().username === "Cedric") {
-        nvimFolder = "C:/Users/Cedric/AppData/Local/nvim/";
-        initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_ced.lua`;
-      } else {
-        nvimFolder = "C:/Users/runneradmin/AppData/Local/nvim/";
-        initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_win.lua`;
-      }
+      nvimFolder = "C:/Users/runneradmin/AppData/Local/nvim/";
     } else if (process.platform === "linux") {
-      //XXX: ~/.config/nvim/ does not work?
       nvimFolder = "/home/runner/.config/nvim/";
-      initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_linux.lua`;
     } else if (process.platform === "darwin") {
       nvimFolder = "/Users/runner/.config/nvim/";
-      initLuaFile = `${getCursorlessRepoRoot()}/packages/test-harness/src/config/init_mac.lua`;
     } else {
       console.error(`Unsupported platform: ${process.platform}`);
       process.exit(1);
