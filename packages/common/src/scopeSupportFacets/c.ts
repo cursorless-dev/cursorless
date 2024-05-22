@@ -19,6 +19,7 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   namedFunction: supported,
   "name.function": supported,
   "name.class": supported,
+  "name.field": supported,
   functionName: supported,
 
   "name.argument.formal": supported,
@@ -28,7 +29,10 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   "name.assignment": supported,
   "value.assignment": supported,
 
+  "statement.class": supported,
+
   "type.class": supported,
+  "type.field": supported,
 
   "value.argument.formal": notApplicable,
   "value.argument.formal.iteration": notApplicable,
