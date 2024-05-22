@@ -17,13 +17,11 @@ let retryCount = -1;
 let previousTestTitle = "";
 
 export function endToEndTestSetup(suite: Mocha.Suite) {
-  // XXX - disable that for now to avoid it to hang for 10 minutes on CI
+  // Disable multiple attempts for now to avoid it to hang for 10 minutes on CI
   // suite.timeout("100s");
   // suite.retries(5);
   suite.timeout("10s");
   suite.retries(0);
-  // suite.timeout("500s");
-  // suite.retries(0);
 
   let ide: IDE;
   let injectIde: (ide: IDE) => void;

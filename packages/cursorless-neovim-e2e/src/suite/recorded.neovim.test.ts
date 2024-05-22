@@ -10,7 +10,6 @@ import {
   TestCaseFixtureLegacy,
   asyncSafety,
   clientSupportsFallback,
-  // getFixturesPath,
   getRecordedTestPaths,
   omitByDeep,
   serializeTestFixture,
@@ -89,7 +88,6 @@ async function runTest(
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
 
-  // XXX - restore this
   if (unsupportedFixture(name, fixture)) {
     return suite.ctx.skip();
   }
@@ -112,7 +110,6 @@ async function runTest(
   const { takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
-  console.debug(`CED: before openNewEditor()`);
   const editor = await openNewEditor(
     client,
     neovimIDE,
@@ -121,7 +118,6 @@ async function runTest(
       languageId: fixture.languageId,
     },
   );
-  console.debug(`CED: after openNewEditor()`);
 
   // Override any user settings and make sure tests run with default tabs.
   //editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;

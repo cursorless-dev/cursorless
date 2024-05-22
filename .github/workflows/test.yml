@@ -50,7 +50,7 @@ jobs:
           version: ${{ matrix.app_version }}
           neovim: true
       - name: Run neovim unit tests using test-harness
-      - run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
+        run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
         env:
           APP_PATH: ${{ steps.vim.outputs.executable }}
