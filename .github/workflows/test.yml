@@ -37,7 +37,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          # node-version: v18.20.2
           cache: pnpm
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
@@ -57,8 +56,7 @@ jobs:
       - run: find /Users/runner/work/cursorless/cursorless/dist
         if: runner.os == 'macOS'
       - run: bash -x scripts/install-neovim-dependencies.sh
-      - name: Install Neovim
-        uses: rhysd/action-setup-vim@v1
+      - uses: rhysd/action-setup-vim@v1
         id: vim
         with:
           version: ${{ matrix.app_version }}
