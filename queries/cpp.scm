@@ -14,15 +14,21 @@
   (try_statement)
 ] @statement
 
-[
-  (class_specifier)
-] @class
-
 (_
   (class_specifier
-    name: (_) @className
-  ) @_.domain.start
-  ";"? @_.domain.end
+    name: (_) @className @name
+    body: (_)
+  ) @_.domain.start @class.start @type.start
+  .
+  ";"? @_.domain.end @class.end @type.end
+)
+(_
+  (class_specifier
+    name: (_)
+    body: (_)
+  ) @statement.start
+  .
+  ";"? @statement.end
 )
 
 ;;!! void ClassName::method() {}
@@ -40,7 +46,6 @@
 ;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
 [
   (auto)
-  (class_specifier)
   (decltype)
   (dependent_type)
   (scoped_type_identifier)

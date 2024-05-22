@@ -35,31 +35,74 @@
 
 (comment) @comment @textFragment
 
-[
-  (struct_specifier)
-  (enum_specifier)
-  (union_specifier)
-] @class
-
 (_
   (struct_specifier
-    name: (_) @className
+    name: (_) @className @name
     body: (_)
-  ) @_.domain.start
-  ";"? @_.domain.end
+  ) @_.domain.start @class.start @type.start
+  .
+  ";"? @_.domain.end @class.end @type.end
 )
 (_
   (enum_specifier
-    name: (_) @className
-  ) @_.domain.start
-  ";"? @_.domain.end
+    name: (_) @className @name
+    body: (_)
+  ) @_.domain.start @class.start @type.start
+  .
+  ";"? @_.domain.end @class.end @type.end
 )
 (_
   (union_specifier
-    name: (_) @className
-  ) @_.domain.start
-  ";"? @_.domain.end
+    name: (_) @className @name
+    body: (_)
+  ) @_.domain.start @class.start @type.start
+  .
+  ";"? @_.domain.end @class.end @type.end
 )
+
+(_
+  (struct_specifier
+    name: (_)
+    body: (_)
+  ) @statement.start
+  .
+  ";"? @statement.end
+)
+(_
+  (enum_specifier
+    name: (_)
+    body: (_)
+  ) @statement.start
+  .
+  ";"? @statement.end
+)
+(_
+  (union_specifier
+    name: (_)
+    body: (_)
+  ) @statement.start
+  .
+  ";"? @statement.end
+)
+
+(type_definition
+  type: (struct_specifier
+    body: (_)
+  )
+  declarator: (type_identifier) @className @name
+) @_.domain @class @type
+(type_definition
+  type: (enum_specifier
+    body: (_)
+  )
+  declarator: (type_identifier) @className @name
+) @_.domain @class @type
+(type_definition
+  type: (union_specifier
+    body: (_)
+  )
+  declarator: (type_identifier) @className @name
+) @_.domain @class @type
 
 ;;!! void funcName();
 (declaration
@@ -95,6 +138,17 @@
     ) @functionName @name
   )
 ) @namedFunction @functionName.domain @name.domain
+
+(field_declaration
+  declarator: (_
+    !declarator
+  ) @name
+) @name.domain
+(field_declaration
+  declarator: (_
+    declarator: (_) @name
+  )
+) @name.domain
 
 (initializer_list) @list
 
@@ -142,18 +196,12 @@
   ";"? @_.domain.end
 )
 
-;; >  curl https://raw.githubusercontent.com/tree-sitter/tree-sitter-cpp/master/src/node-types.json | jq '[.[] | select(.type == "_type_specifier") | .subtypes[].type]'
-[
-  (enum_specifier)
-  (primitive_type)
-  (sized_type_specifier)
-  (struct_specifier)
-  (union_specifier)
-] @type
-
-(_
-  type: (_) @type
-) @_.domain
+(
+  (_
+    type: (_) @type
+  ) @_.domain
+  (#not-type? @_.domain "type_definition")
+)
 
 ;;!! void foo(int value) {}
 ;;!               ^^^^^

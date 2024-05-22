@@ -64,6 +64,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A statement, eg assignment, for loop, etc",
     scopeType: "statement",
   },
+  "statement.class": {
+    description: "An class declaration",
+    scopeType: "statement",
+  },
   "statement.iteration.document": {
     description: "Iteration scope for statements. The entire document.",
     scopeType: "statement",
@@ -368,6 +372,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "type.interface": {
     description: "An interface declaration",
+    scopeType: "type",
+  },
+  "type.class": {
+    description: "An class declaration",
     scopeType: "type",
   },
   "type.alias": {

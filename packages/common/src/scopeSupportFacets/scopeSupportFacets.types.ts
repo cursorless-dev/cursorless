@@ -17,6 +17,7 @@ const scopeSupportFacets = [
   "fieldAccess",
 
   "statement",
+  "statement.class",
   "statement.iteration.document",
   "statement.iteration.block",
 
@@ -97,6 +98,7 @@ const scopeSupportFacets = [
   "type.interface",
   "type.alias",
   "type.cast",
+  "type.class",
 
   // FIXME: Still in legacy
   // section
