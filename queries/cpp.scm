@@ -59,3 +59,10 @@
   declarator: (_) @name @value.leading.endOf
   default_value: (_) @value
 ) @_.domain
+
+(declaration
+  type: (_) @functionCallee @functionCall.start @_.domain.start
+  declarator: (init_declarator
+    value: (argument_list)
+  ) @functionCall.end @_.domain.end
+)

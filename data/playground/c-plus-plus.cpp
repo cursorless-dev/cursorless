@@ -39,6 +39,9 @@ typedef enum { jjj, kkk } lll;
 class aaa { int bbb; };
 enum class ccc { ddd, eee };
 
+Aaa bbb(ccc);
+Ddd *eee = new Fff(ggg);
+
 int main() {
   struct myStructure s1;
   return 0;
