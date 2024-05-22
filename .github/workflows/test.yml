@@ -45,6 +45,7 @@ jobs:
       #   if: runner.os != 'Linux'
       - run: bash -x scripts/install-neovim-dependencies.sh
       - uses: rhysd/action-setup-vim@v1
+        if: matrix.app_version != 'legacy'
         id: vim
         with:
           version: ${{ matrix.app_version }}
