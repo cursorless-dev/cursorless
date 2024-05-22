@@ -17,7 +17,8 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         # os: [ubuntu-latest]
-        app_version: [stable]
+        # app_version: [stable]
+        app_version: [v0.9.5]
         # app_version: [v0.10.0]
         # include:
         #   - os: ubuntu-latest
@@ -55,8 +56,6 @@ jobs:
         if: runner.os == 'Windows'
       - run: find /Users/runner/work/cursorless/cursorless/dist
         if: runner.os == 'macOS'
-      - name: Install cursorless.nvim dependencies
-        run: npm install -g neovim@5.1.0
       - run: bash -x scripts/install-neovim-dependencies.sh
       # XXX - is there a better way to execute all these commands?
       # put them into a install-neovim-dependencies.sh script and rely on the HOME env variable
