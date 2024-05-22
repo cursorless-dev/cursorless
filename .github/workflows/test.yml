@@ -18,8 +18,8 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
         # os: [ubuntu-latest]
         # app_version: [stable]
-        app_version: [v0.9.5]
-        # app_version: [v0.10.0]
+        # app_version: [v0.9.5]
+        app_version: [v0.10.0]
         # include:
         #   - os: ubuntu-latest
         #     # app_version: v0.9.5
