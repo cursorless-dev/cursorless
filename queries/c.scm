@@ -153,17 +153,9 @@
 (initializer_list) @list
 
 (call_expression) @functionCall
-(declaration
-  (init_declarator) @functionCall
-) @_.domain
 
 (call_expression
   function: (_) @functionCallee
-) @_.domain
-(declaration
-  (init_declarator
-    declarator: (_) @functionCallee
-  )
 ) @_.domain
 
 (switch_statement
@@ -193,6 +185,7 @@
     left: (_) @name @value.leading.endOf
     right: (_) @value @name.trailing.startOf
   ) @_.domain.start
+  .
   ";"? @_.domain.end
 )
 
