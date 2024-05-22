@@ -20,8 +20,7 @@ export async function run(plugin: NvimPlugin): Promise<void> {
   };
   let code = 0;
   try {
-    //await runAllTests(TestType.neovim, TestType.unit);
-    await runAllTests(TestType.neovim);
+    await runAllTests(TestType.neovim, TestType.unit);
     console.log(`==== TESTS FINISHED: code: ${code}`);
     // console.log(`index.ts: killing neovim with q!`);
     // await client.command(":q!");
