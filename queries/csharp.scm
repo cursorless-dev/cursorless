@@ -21,3 +21,5 @@
   (#child-range! @textFragment 0 -1 true true)
 )
 (comment) @comment @textFragment
+
+(lambda_expression) @anonymousFunction

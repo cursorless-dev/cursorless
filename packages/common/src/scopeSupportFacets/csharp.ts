@@ -12,4 +12,5 @@ export const csharpScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   class: supported,
   className: supported,
+  anonymousFunction: supported,
 };
