@@ -57,20 +57,6 @@ jobs:
       - run: find /Users/runner/work/cursorless/cursorless/dist
         if: runner.os == 'macOS'
       - run: bash -x scripts/install-neovim-dependencies.sh
-      # XXX - is there a better way to execute all these commands?
-      # put them into a install-neovim-dependencies.sh script and rely on the HOME env variable
-      # - run: git clone https://github.com/vim-scripts/BufOnly.vim /home/runner/BufOnly.vim
-      #   if: runner.os == 'Linux'
-      # - run: git clone https://github.com/hands-free-vim/talon.nvim /home/runner/talon.nvim
-      #   if: runner.os == 'Linux'
-      # - run: git clone https://github.com/vim-scripts/BufOnly.vim C:\Users\runneradmin\BufOnly.vim
-      #   if: runner.os == 'Windows'
-      # - run: git clone https://github.com/hands-free-vim/talon.nvim C:\Users\runneradmin\talon.nvim
-      #   if: runner.os == 'Windows'
-      # - run: git clone https://github.com/vim-scripts/BufOnly.vim /Users/runner/BufOnly.vim
-      #   if: runner.os == 'macOS'
-      # - run: git clone https://github.com/hands-free-vim/talon.nvim /Users/runner/talon.nvim
-      #   if: runner.os == 'macOS'
       - name: Install Neovim
         uses: rhysd/action-setup-vim@v1
         id: vim
