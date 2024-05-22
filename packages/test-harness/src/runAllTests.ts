@@ -47,7 +47,6 @@ async function runTestsInDir(
   testRoot: string,
   filterFiles: (files: string[]) => string[],
 ): Promise<void> {
-  console.log("runTestsInDir()");
   // Create the mocha test
   const mocha = new Mocha({
     ui: "tdd",
@@ -56,8 +55,6 @@ async function runTestsInDir(
   });
 
   const files = filterFiles(await glob("**/**.test.cjs", { cwd: testRoot }));
-  //console.log("test files:");
-  //console.log(files); // temp
 
   // Add files to the test suite
   files.forEach((f) => mocha.addFile(path.resolve(testRoot, f)));
