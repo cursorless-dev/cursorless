@@ -131,8 +131,8 @@ export async function launchNeovimAndRunTests() {
     // testing normal nvim startup
     //https://stackoverflow.com/questions/3025615/is-there-a-vim-runtime-log
 
-    if (process.platform === "darwin" || process.platform === "win32") {
-      // if (process.platform === "win32") {
+    // if (process.platform === "darwin" || process.platform === "win32") {
+    if (process.platform === "win32") {
       // const { status, signal, error } = cp.spawnSync(cli, [`-V9`], {
       const { status, signal, error } = cp.spawnSync(cli, [`-V25`], {
         encoding: "utf-8",
