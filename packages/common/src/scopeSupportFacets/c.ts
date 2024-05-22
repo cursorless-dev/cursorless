@@ -12,4 +12,28 @@ export const cScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
   "comment.line": supported,
   "string.singleLine": supported,
+
+  class: supported,
+  className: supported,
+
+  namedFunction: supported,
+  "name.function": supported,
+  "name.class": supported,
+  "name.field": supported,
+  functionName: supported,
+
+  "name.argument.formal": supported,
+  "name.argument.formal.iteration": supported,
+  "name.variable": supported,
+  "value.variable": supported,
+  "name.assignment": supported,
+  "value.assignment": supported,
+
+  "statement.class": supported,
+
+  "type.class": supported,
+  "type.field": supported,
+
+  "value.argument.formal": notApplicable,
+  "value.argument.formal.iteration": notApplicable,
 };

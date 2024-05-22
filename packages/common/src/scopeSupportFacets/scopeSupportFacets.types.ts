@@ -17,6 +17,7 @@ const scopeSupportFacets = [
   "fieldAccess",
 
   "statement",
+  "statement.class",
   "statement.iteration.document",
   "statement.iteration.block",
 
@@ -67,6 +68,8 @@ const scopeSupportFacets = [
   "name.field",
   "name.resource",
   "name.resource.iteration",
+  "name.argument.formal",
+  "name.argument.formal.iteration",
 
   "key.attribute",
   "key.mapPair",
@@ -84,6 +87,8 @@ const scopeSupportFacets = [
   "value.yield",
   "value.resource",
   "value.resource.iteration",
+  "value.argument.formal",
+  "value.argument.formal.iteration",
 
   "type.variable",
   "type.formalParameter",
@@ -93,6 +98,7 @@ const scopeSupportFacets = [
   "type.interface",
   "type.alias",
   "type.cast",
+  "type.class",
 
   // FIXME: Still in legacy
   // section

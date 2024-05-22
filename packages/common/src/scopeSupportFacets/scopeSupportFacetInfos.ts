@@ -64,6 +64,10 @@ export const scopeSupportFacetInfos: Record<
     description: "A statement, eg assignment, for loop, etc",
     scopeType: "statement",
   },
+  "statement.class": {
+    description: "An class declaration",
+    scopeType: "statement",
+  },
   "statement.iteration.document": {
     description: "Iteration scope for statements. The entire document.",
     scopeType: "statement",
@@ -258,7 +262,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "name",
     isIteration: true,
   },
-
+  "name.argument.formal": {
+    description: "The name of a parameter in a function declaration",
+    scopeType: "name",
+  },
+  "name.argument.formal.iteration": {
+    description:
+      "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "name",
+    isIteration: true,
+  },
   "key.attribute": {
     description: "Key (LHS) of an attribute eg in an xml element",
     scopeType: "collectionKey",
@@ -326,6 +339,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
     isIteration: true,
   },
+  "value.argument.formal": {
+    description: "The value of a parameter in a function declaration",
+    scopeType: "value",
+  },
+  "value.argument.formal.iteration": {
+    description:
+      "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "value",
+    isIteration: true,
+  },
 
   "type.variable": {
     description: "Type of variable in a variable declaration",
@@ -349,6 +372,10 @@ export const scopeSupportFacetInfos: Record<
   },
   "type.interface": {
     description: "An interface declaration",
+    scopeType: "type",
+  },
+  "type.class": {
+    description: "An class declaration",
     scopeType: "type",
   },
   "type.alias": {
