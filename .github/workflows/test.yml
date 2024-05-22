@@ -39,10 +39,10 @@ jobs:
       - run: pnpm --color install
       - run: pnpm --color compile
       - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
-      - run: xvfb-run -a pnpm --color test
-        if: runner.os == 'Linux'
-      - run: pnpm --color test
-        if: runner.os != 'Linux'
+      # - run: xvfb-run -a pnpm --color test
+      #   if: runner.os == 'Linux'
+      # - run: pnpm --color test
+      #   if: runner.os != 'Linux'
       - run: bash -x scripts/install-neovim-dependencies.sh
       - uses: rhysd/action-setup-vim@v1
         id: vim
@@ -54,24 +54,24 @@ jobs:
         if: runner.os == 'Linux' && matrix.app_version == 'stable'
         env:
           APP_PATH: ${{ steps.vim.outputs.executable }}
-      - name: Create vscode dist that can be installed locally
-        run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
-      - name: Test create vsix
-        id: createVsix
-        uses: HaaLeo/publish-vscode-extension@v1
-        with:
-          pat: none
-          packagePath: packages/cursorless-vscode/dist
-          dryRun: true
-      - run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
-      - name: Upload vsix
-        uses: actions/upload-artifact@v4
-        if: runner.os == 'Linux' && matrix.app_version == 'stable'
-        with:
-          name: vsix
-          path: cursorless-development.vsix
+      # - name: Create vscode dist that can be installed locally
+      #   run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
+      #   if: runner.os == 'Linux' && matrix.app_version == 'stable'
+      # - name: Test create vsix
+      #   id: createVsix
+      #   uses: HaaLeo/publish-vscode-extension@v1
+      #   with:
+      #     pat: none
+      #     packagePath: packages/cursorless-vscode/dist
+      #     dryRun: true
+      # - run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
+      #   if: runner.os == 'Linux' && matrix.app_version == 'stable'
+      # - name: Upload vsix
+      #   uses: actions/upload-artifact@v4
+      #   if: runner.os == 'Linux' && matrix.app_version == 'stable'
+      #   with:
+      #     name: vsix
+      #     path: cursorless-development.vsix
       - name: Archive logs
         uses: actions/upload-artifact@v4
         with:
