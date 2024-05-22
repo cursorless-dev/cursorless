@@ -36,8 +36,8 @@ jobs:
       - run: corepack enable
       - uses: actions/setup-node@v4
         with:
-          # node-version-file: .nvmrc
-          node-version: v18.20.2
+          node-version-file: .nvmrc
+          # node-version: v18.20.2
           cache: pnpm
       - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
         shell: bash
