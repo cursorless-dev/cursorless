@@ -13,11 +13,16 @@
 (paragraph) @namedParagraph
 (subparagraph) @subParagraph
 
-[
-  (generic_environment)
-  (comment_environment)
-  (verbatim_environment)
-  (listing_environment)
-  (minted_environment)
-  (pycode_environment)
-] @environment @xmlElement
+(_
+  (begin) @xmlStartTag @environment.interior.start.endOf @xmlElement.interior.start.endOf
+  (end) @xmlEndTag @environment.interior.end.startOf @xmlElement.interior.end.startOf
+) @environment @xmlElement @_.domain
+
+(_
+  (begin) @xmlBothTags
+  (#allow-multiple! @xmlBothTags)
+) @_.domain
+(_
+  (end) @xmlBothTags
+  (#allow-multiple! @xmlBothTags)
+) @_.domain
