@@ -35,6 +35,11 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "attribute",
   },
 
+  environment: {
+    description: "An environment, eg in LaTeX",
+    scopeType: "environment",
+  },
+
   list: {
     description: "A list/array",
     scopeType: "list",

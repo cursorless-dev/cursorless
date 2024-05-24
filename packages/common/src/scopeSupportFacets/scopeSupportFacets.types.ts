@@ -9,6 +9,8 @@ const scopeSupportFacets = [
   "endTag",
   "attribute",
 
+  "environment",
+
   "list",
   "map",
   "ifStatement",
