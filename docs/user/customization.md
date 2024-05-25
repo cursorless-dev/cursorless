@@ -183,6 +183,16 @@ push <user.cursorless_target> down:
     user.cursorless_ide_command("editor.action.moveLinesDownAction", cursorless_target)
 ```
 
+### Example of custom formatter command
+
+The below command will allow you to say `camel form blue air`.  
+_You can disable the default Cursorless reformat command by prefixing the spoken form in the `actions.csv` with a dash. `-format, applyFormatter`_
+
+```talon
+<user.formatters> form <user.cursorless_target>:
+    user.cursorless_reformat(cursorless_target, formatters)
+```
+
 ### Disable legacy destination grammar
 
 The grammar currently supports `paste to before air`. This grammar is considered deprecated/legacy and replaced by `paste before air`. You can today disable this legacy grammar by enabling the tag `user.cursorless_disable_legacy_destination`
