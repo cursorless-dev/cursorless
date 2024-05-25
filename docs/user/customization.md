@@ -158,6 +158,9 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `user.cursorless_insert(destination: CursorlessDestination, text: Union[str, List[str]])`:
   Insert text at destination.
   eg: `user.cursorless_insert(cursorless_destination, "hello")`
+- `user.cursorless_reformat(target: CursorlessTarget, formatters: str)`
+  Reformat target with specified formatters.
+  eg: `user.cursorless_reformat(cursorless_target, "ALL_CAPS")`
 
 #### Snippet actions
 
@@ -178,6 +181,16 @@ add dock string <user.cursorless_target>:
 
 push <user.cursorless_target> down:
     user.cursorless_ide_command("editor.action.moveLinesDownAction", cursorless_target)
+```
+
+### Example of custom formatter command
+
+The below command will allow you to say `camel form blue air`.
+_You can disable the default Cursorless reformat command by prefixing the spoken form in `actions.csv` with a dash. `-format, applyFormatter`_
+
+```talon
+<user.formatters> form <user.cursorless_target>:
+    user.cursorless_reformat(cursorless_target, formatters)
 ```
 
 ### Disable legacy destination grammar
