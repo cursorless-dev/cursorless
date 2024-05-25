@@ -185,7 +185,7 @@ push <user.cursorless_target> down:
 
 ### Example of custom formatter command
 
-The below command will allow you to say `camel form blue air`.  
+The below command will allow you to say `camel form blue air`.
 _You can disable the default Cursorless reformat command by prefixing the spoken form in `actions.csv` with a dash. `-format, applyFormatter`_
 
 ```talon
