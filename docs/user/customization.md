@@ -158,6 +158,9 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `user.cursorless_insert(destination: CursorlessDestination, text: Union[str, List[str]])`:
   Insert text at destination.
   eg: `user.cursorless_insert(cursorless_destination, "hello")`
+- `user.cursorless_reformat(target: CursorlessTarget, formatters: str)`
+  Reformat target with specified formatters.
+  eg: `user.cursorless_reformat(cursorless_target, "ALL_CAPS")`
 
 #### Snippet actions
 
