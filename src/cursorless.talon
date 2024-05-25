@@ -16,7 +16,7 @@ tag: user.cursorless
     user.private_cursorless_paste(cursorless_destination)
 
 {user.cursorless_reformat_action} <user.formatters> at <user.cursorless_target>:
-    user.private_cursorless_reformat(cursorless_target, formatters)
+    user.cursorless_reformat(cursorless_target, formatters)
 
 {user.cursorless_call_action} <user.cursorless_target> on <user.cursorless_target>:
     user.private_cursorless_call(cursorless_target_1, cursorless_target_2)

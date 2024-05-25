@@ -14,7 +14,7 @@ mod.list("cursorless_reformat_action", desc="Cursorless reformat action")
 
 @mod.action_class
 class Actions:
-    def private_cursorless_reformat(
+    def cursorless_reformat(
         target: CursorlessExplicitTarget,  # pyright: ignore [reportGeneralTypeIssues]
         formatters: str,
     ):
