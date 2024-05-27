@@ -95,6 +95,7 @@ const scopeSupportFacets = [
   "value.resource.iteration",
   "value.argument.formal",
   "value.argument.formal.iteration",
+  "value.typeAlias",
 
   "type.variable",
   "type.formalParameter",
