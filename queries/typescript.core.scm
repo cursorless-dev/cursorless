@@ -85,6 +85,18 @@
   ";"? @_.domain.end
 )
 
+(
+  (type_alias_declaration
+    value: (_) @value
+  ) @_.domain
+  (#not-parent-type? @_.domain export_statement)
+)
+(export_statement
+  (type_alias_declaration
+    value: (_) @value
+  )
+) @_.domain
+
 [
   (interface_declaration)
   (object_type)

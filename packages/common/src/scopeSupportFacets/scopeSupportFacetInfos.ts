@@ -376,6 +376,10 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "value",
     isIteration: true,
   },
+  "value.typeAlias": {
+    description: "Value of a type alias declaration",
+    scopeType: "value",
+  },
 
   "type.variable": {
     description: "Type of variable in a variable declaration",
