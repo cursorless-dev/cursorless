@@ -20,7 +20,6 @@ import {
   numberToSpokenForm,
   ordinalToSpokenForm,
 } from "./defaultSpokenForms/numbers";
-import { characterToSpokenForm } from "./defaultSpokenForms/characters";
 import { SpokenFormComponentMap } from "./getSpokenFormComponentMap";
 import { SpokenFormComponent } from "./SpokenFormComponent";
 
@@ -234,7 +233,7 @@ export class PrimitiveTargetSpokenFormGenerator {
       case "glyph":
         return [
           this.spokenFormMap.complexScopeTypeType.glyph,
-          characterToSpokenForm(scopeType.character),
+          this.spokenFormMap.grapheme[scopeType.character],
         ];
       case "surroundingPair": {
         const pair = this.spokenFormMap.pairedDelimiter[scopeType.delimiter];
@@ -274,14 +273,14 @@ export class PrimitiveTargetSpokenFormGenerator {
     switch (mark.type) {
       case "decoratedSymbol": {
         const [color, shape] = mark.symbolColor.split("-");
-        const components: string[] = [];
+        const components: SpokenFormComponent[] = [];
         if (color !== "default") {
           components.push(hatColorToSpokenForm(color));
         }
         if (shape != null) {
           components.push(hatShapeToSpokenForm(shape));
         }
-        components.push(characterToSpokenForm(mark.character));
+        components.push(this.spokenFormMap.grapheme[mark.character]);
         return components;
       }
 

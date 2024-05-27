@@ -42,6 +42,11 @@ export interface SpokenFormMapKeyTypes {
    * custom actions corresponding to id's of VSCode commands.
    */
   customAction: string;
+
+  /**
+   * Individual characters / graphemes, eg `a` or `/`.
+   */
+  grapheme: string;
 }
 
 /**
