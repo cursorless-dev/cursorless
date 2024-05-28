@@ -12,7 +12,6 @@ import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
 import csharp from "./csharp";
 import go from "./go";
-import java from "./java";
 import latex from "./latex";
 import markdown from "./markdown";
 import php from "./php";
@@ -54,7 +53,6 @@ export const languageMatchers: Record<
   csharp,
   css: scss,
   go,
-  java,
   latex,
   markdown,
   php,
