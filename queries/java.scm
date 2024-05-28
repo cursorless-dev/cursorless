@@ -345,7 +345,9 @@
 
 ;;!! public Map<int, int> foo;
 ;;!             ^^^  ^^^
-(integral_type) @type
+(type_arguments
+  (_) @type
+)
 
 ;;!! public Map<int, int> foo;
 ;;!             ^^^^^^^^
