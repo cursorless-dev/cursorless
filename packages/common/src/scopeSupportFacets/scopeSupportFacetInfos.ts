@@ -397,6 +397,12 @@ export const scopeSupportFacetInfos: Record<
     description: "Type of field in a class / interface",
     scopeType: "type",
   },
+  "type.field.iteration": {
+    description:
+      "Iteration scope for type of field in a class / interface; should be entire class / interface body",
+    scopeType: "type",
+    isIteration: true,
+  },
   "type.foreach": {
     description: "Type of variable in a for each loop",
     scopeType: "type",
@@ -416,5 +422,15 @@ export const scopeSupportFacetInfos: Record<
   "type.cast": {
     description: "A type cast",
     scopeType: "type",
+  },
+  "type.typeArgument": {
+    description: "Type argument to a collection type",
+    scopeType: "type",
+  },
+  "type.typeArgument.iteration": {
+    description:
+      "Iteration scope for type argument to a collection type; Should be the list of type arguments",
+    scopeType: "type",
+    isIteration: true,
   },
 };
