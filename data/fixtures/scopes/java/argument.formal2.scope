@@ -1,35 +1,46 @@
-class MyClass {
-    MyClass(int value, String name) { }
+public class MyClass {
+    public void myFunk(
+        int value,
+        String name
+    ) { }
 }
 ---
 
 [#1 Content] =
-[#1 Domain] = 1:12-1:21
-              >---------<
-1|     MyClass(int value, String name) { }
+[#1 Domain] = 2:8-2:17
+          >---------<
+2|         int value,
 
-[#1 Removal] = 1:12-1:23
-              >-----------<
-1|     MyClass(int value, String name) { }
+[#1 Removal] = 2:8-3:8
+          >----------
+2|         int value,
+3|         String name
+   --------<
 
-[#1 Trailing delimiter] = 1:21-1:23
-                       >--<
-1|     MyClass(int value, String name) { }
+[#1 Trailing delimiter] = 2:17-3:8
+                   >-
+2|         int value,
+3|         String name
+   --------<
 
-[#1 Insertion delimiter] = ", "
+[#1 Insertion delimiter] = ",\n"
 
 
 [#2 Content] =
-[#2 Domain] = 1:23-1:34
-                         >-----------<
-1|     MyClass(int value, String name) { }
+[#2 Domain] = 3:8-3:19
+          >-----------<
+3|         String name
 
-[#2 Removal] = 1:21-1:34
-                       >-------------<
-1|     MyClass(int value, String name) { }
+[#2 Removal] = 2:17-3:19
+                   >-
+2|         int value,
+3|         String name
+   -------------------<
 
-[#2 Leading delimiter] = 1:21-1:23
-                       >--<
-1|     MyClass(int value, String name) { }
+[#2 Leading delimiter] = 2:17-3:8
+                   >-
+2|         int value,
+3|         String name
+   --------<
 
-[#2 Insertion delimiter] = ", "
+[#2 Insertion delimiter] = ",\n"
