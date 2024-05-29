@@ -357,3 +357,42 @@
   ">" @type.iteration.end.startOf
   .
 )
+;;!! foo(name: string) {}
+;;!      ^^^^^^^^^^^^
+(
+  (formal_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "block_comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo("bar")
+;;!      ^^^^^
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "block_comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+(_
+  (formal_parameters
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(argument_list
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain

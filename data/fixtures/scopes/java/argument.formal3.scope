@@ -1,0 +1,35 @@
+class MyClass {
+    MyClass(int value, String name) { }
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:12-1:21
+              >---------<
+1|     MyClass(int value, String name) { }
+
+[#1 Removal] = 1:12-1:23
+              >-----------<
+1|     MyClass(int value, String name) { }
+
+[#1 Trailing delimiter] = 1:21-1:23
+                       >--<
+1|     MyClass(int value, String name) { }
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:23-1:34
+                         >-----------<
+1|     MyClass(int value, String name) { }
+
+[#2 Removal] = 1:21-1:34
+                       >-------------<
+1|     MyClass(int value, String name) { }
+
+[#2 Leading delimiter] = 1:21-1:23
+                       >--<
+1|     MyClass(int value, String name) { }
+
+[#2 Insertion delimiter] = ", "

@@ -1,0 +1,12 @@
+public class MyClass {
+    public void myFunk(int value, String name) { }
+}
+---
+
+[Range] = 1:23-1:45
+                         >----------------------<
+1|     public void myFunk(int value, String name) { }
+
+[Domain] = 1:4-1:50
+      >----------------------------------------------<
+1|     public void myFunk(int value, String name) { }
