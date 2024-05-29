@@ -11,6 +11,10 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   "name.foreach": supported,
   "value.foreach": supported,
   "type.foreach": supported,
+  "argument.formal": supported,
+  "argument.formal.iteration": supported,
+  "argument.actual": supported,
+  "argument.actual.iteration": supported,
 
   element: notApplicable,
   tags: notApplicable,

@@ -168,7 +168,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "argument.formal.iteration": {
     description:
-      "Iteration scope of the formal parameters of a function declaration; should be the whole parameter list",
+      "Iteration scope of the formal parameters of a function declaration; should be the whole parameter list. The domain should be the entire function.",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
