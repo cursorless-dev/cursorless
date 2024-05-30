@@ -89,7 +89,7 @@ async function runRecordedTest(
   file: string,
   spyIde: SpyIDE,
   shouldRunTest: (fixture: TestCaseFixtureLegacy) => boolean,
-  openNewTestEditor: (content: string, languageId: string) => TextEditor,
+  openNewTestEditor: (content: string, languageId: string) => Promise<TextEditor>,
 ) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
