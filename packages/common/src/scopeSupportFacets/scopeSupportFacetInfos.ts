@@ -429,7 +429,7 @@ export const scopeSupportFacetInfos: Record<
   },
   "type.typeArgument.iteration": {
     description:
-      "Iteration scope for type argument to a collection type; Should be the list of type arguments",
+      "Iteration scope for type argument to a generic type; Should be the list of type arguments",
     scopeType: "type",
     isIteration: true,
   },
