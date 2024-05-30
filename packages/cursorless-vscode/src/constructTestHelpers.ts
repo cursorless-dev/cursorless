@@ -71,14 +71,14 @@ export function constructTestHelpers(
     cursorlessCommandHistoryDirPath: fileSystem.cursorlessCommandHistoryDirPath,
 
     setStoredTarget(
-      editor: vscode.TextEditor,
+      editor: TextEditor,
       key: StoredTargetKey,
       targets: TargetPlainObject[] | undefined,
     ): void {
       storedTargets.set(
         key,
         targets?.map((target) =>
-          plainObjectToTarget(vscodeIDE.fromVscodeEditor(editor), target),
+          plainObjectToTarget(editor, target),
         ),
       );
     },
