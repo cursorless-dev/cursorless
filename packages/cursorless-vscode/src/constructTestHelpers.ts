@@ -51,7 +51,6 @@ export function constructTestHelpers(
       editor: TextEditor,
       ide: IDE,
       marks: SerializedMarks | undefined,
-      forceRealClipboard: boolean,
     ): Promise<TestCaseSnapshot> {
       return takeSnapshot(
         storedTargets,
@@ -62,7 +61,6 @@ export function constructTestHelpers(
         marks,
         undefined,
         undefined,
-        forceRealClipboard ? vscodeIDE.clipboard : undefined,
       );
     },
 
