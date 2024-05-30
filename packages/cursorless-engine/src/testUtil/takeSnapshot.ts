@@ -1,5 +1,4 @@
 import {
-  Clipboard,
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
