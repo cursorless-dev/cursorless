@@ -110,10 +110,10 @@ async function runRecordedTest(
   const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
-  const editor = await openNewTestEditor(
+  const editor = (await openNewTestEditor(
     fixture.initialState.documentContents,
     fixture.languageId,
-  ) as EditableTextEditor;
+  )) as EditableTextEditor;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
