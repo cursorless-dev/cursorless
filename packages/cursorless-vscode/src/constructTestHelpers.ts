@@ -77,9 +77,7 @@ export function constructTestHelpers(
     ): void {
       storedTargets.set(
         key,
-        targets?.map((target) =>
-          plainObjectToTarget(editor, target),
-        ),
+        targets?.map((target) => plainObjectToTarget(editor, target)),
       );
     },
     hatTokenMap,
