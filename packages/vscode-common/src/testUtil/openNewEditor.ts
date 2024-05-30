@@ -46,7 +46,6 @@ export async function openNewTestEditor(
   const editor = await openNewEditor(content, { languageId, openBeside });
 
   // Override any user settings and make sure tests run with default tabs.
-  // XXX move into openNewEditor()
   editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
 
   return fromVscodeEditor(editor);
