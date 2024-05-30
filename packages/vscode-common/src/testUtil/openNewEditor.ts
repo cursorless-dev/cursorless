@@ -1,4 +1,7 @@
-import { DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST } from "@cursorless/common";
+import {
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
+  TextEditor,
+} from "@cursorless/common";
 import * as vscode from "vscode";
 import { getCursorlessApi, getParseTreeApi } from "../getExtensionApi";
 
@@ -10,7 +13,7 @@ interface NewEditorOptions {
 export async function openNewEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
-) {
+): Promise<vscode.TextEditor> {
   if (!openBeside) {
     await vscode.commands.executeCommand("workbench.action.closeAllEditors");
   }
@@ -40,7 +43,7 @@ export async function openNewEditor(
 export async function openNewTestEditor(
   content: string,
   { languageId = "plaintext", openBeside = false }: NewEditorOptions = {},
-) {
+): Promise<TextEditor> {
   const { fromVscodeEditor } = (await getCursorlessApi()).testHelpers!;
 
   const editor = await openNewEditor(content, { languageId, openBeside });
