@@ -34,9 +34,14 @@ suite("Scope test cases", async function () {
 
   if (!shouldUpdateFixtures()) {
     const languages = groupBy(testPaths, (test) => test.languageId);
+
+    // This handles the case where a language has no tests, but is still listed
+    // in the config. In that case, just using the language ids from the tests
+    // would miss the language entirely even though it appears in the config.
     for (const language of Object.keys(languageScopeSupport)) {
       languages[language] ??= [];
     }
+
     Object.entries(languages).forEach(([languageId, testPaths]) =>
       test(
         `${languageId} facet coverage`,
