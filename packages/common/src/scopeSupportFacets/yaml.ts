@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { cssScopeSupport } from "./css";
 import {
   LanguageScopeSupportFacetMap,
   ScopeSupportFacetLevel,
@@ -9,7 +8,6 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
-export const scssScopeSupport: LanguageScopeSupportFacetMap = {
-  ...cssScopeSupport,
+export const yamlScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
 };

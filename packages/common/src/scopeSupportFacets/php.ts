@@ -5,10 +5,10 @@ import {
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported } = ScopeSupportFacetLevel;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
-export const jsonScopeSupport: LanguageScopeSupportFacetMap = {
+export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
   "comment.block": supported,
-  map: supported,
 };

@@ -1,8 +1,8 @@
 import {
   asyncSafety,
-  getLanguageScopeSupport,
   getScopeTestConfigPaths,
   getScopeTestPaths,
+  languageScopeSupport,
   ScopeSupportFacet,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
@@ -15,7 +15,7 @@ import {
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
 import { groupBy, uniq, type Dictionary } from "lodash";
-import { readFileSync, promises as fsp } from "node:fs";
+import { promises as fsp, readFileSync } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import {
   serializeIterationScopeFixture,
@@ -34,6 +34,14 @@ suite("Scope test cases", async function () {
 
   if (!shouldUpdateFixtures()) {
     const languages = groupBy(testPaths, (test) => test.languageId);
+
+    // This handles the case where a language has no tests, but is still listed
+    // in the config. In that case, just using the language ids from the tests
+    // would miss the language entirely even though it appears in the config.
+    for (const language of Object.keys(languageScopeSupport)) {
+      languages[language] ??= [];
+    }
+
     Object.entries(languages).forEach(([languageId, testPaths]) =>
       test(
         `${languageId} facet coverage`,
@@ -67,7 +75,7 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
       return Object.keys(textualScopeSupportFacetInfos);
     }
 
-    const scopeSupport = getLanguageScopeSupport(languageId);
+    const scopeSupport = languageScopeSupport[languageId];
 
     return Object.keys(scopeSupport).filter(
       (facet) =>
