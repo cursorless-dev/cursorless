@@ -8,7 +8,6 @@ import {
   camelCaseToAllDown,
 } from "@cursorless/common";
 import { NoSpokenFormError } from "./NoSpokenFormError";
-import { actions } from "./defaultSpokenForms/actions";
 import { connectives } from "./defaultSpokenForms/connectives";
 import { surroundingPairDelimitersToSpokenForm } from "./defaultSpokenForms/modifiers";
 import {
@@ -110,14 +109,14 @@ export class SpokenFormGenerator {
       case "replaceWithTarget":
       case "moveToTarget":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.source),
           this.handleDestination(action.destination),
         ];
 
       case "swapTargets":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.target1),
           connectives.swapConnective,
           this.handleTarget(action.target2),
@@ -125,10 +124,13 @@ export class SpokenFormGenerator {
 
       case "callAsFunction":
         if (action.argument.type === "implicit") {
-          return [actions[action.name], this.handleTarget(action.callee)];
+          return [
+            this.spokenFormMap.action[action.name],
+            this.handleTarget(action.callee),
+          ];
         }
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.callee),
           "on",
           this.handleTarget(action.argument),
@@ -142,19 +144,19 @@ export class SpokenFormGenerator {
             action.left,
             action.right,
           ),
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.target),
         ];
 
       case "pasteFromClipboard":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleDestination(action.destination),
         ];
 
       case "insertSnippet":
         return [
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           insertionSnippetToSpokenForm(action.snippetDescription),
           this.handleDestination(action.destination),
         ];
@@ -163,12 +165,15 @@ export class SpokenFormGenerator {
         if (action.snippetName != null) {
           throw new NoSpokenFormError(`${action.name}.snippetName`);
         }
-        return [actions[action.name], this.handleTarget(action.target)];
+        return [
+          this.spokenFormMap.action[action.name],
+          this.handleTarget(action.target),
+        ];
 
       case "wrapWithSnippet":
         return [
           wrapperSnippetToSpokenForm(action.snippetDescription),
-          actions[action.name],
+          this.spokenFormMap.action[action.name],
           this.handleTarget(action.target),
         ];
 
@@ -176,11 +181,17 @@ export class SpokenFormGenerator {
         if (action.highlightId != null) {
           throw new NoSpokenFormError(`${action.name}.highlightId`);
         }
-        return [actions[action.name], this.handleTarget(action.target)];
+        return [
+          this.spokenFormMap.action[action.name],
+          this.handleTarget(action.target),
+        ];
       }
 
       default: {
-        return [actions[action.name], this.handleTarget(action.target)];
+        return [
+          this.spokenFormMap.action[action.name],
+          this.handleTarget(action.target),
+        ];
       }
     }
   }

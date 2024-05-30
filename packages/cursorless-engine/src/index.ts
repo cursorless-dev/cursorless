@@ -1,5 +1,6 @@
 export * from "./testUtil/plainObjectToTarget";
 export * from "./core/Cheatsheet";
+export * from "./api/Tutorial";
 export * from "./testUtil/takeSnapshot";
 export * from "./testCaseRecorder/TestCaseRecorder";
 export * from "./core/StoredTargets";

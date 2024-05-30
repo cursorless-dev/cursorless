@@ -8,7 +8,7 @@ SPOKEN_FORMS_OUTPUT_PATH = Path.home() / ".cursorless" / "state.json"
 STATE_JSON_VERSION_NUMBER = 0
 
 
-class SpokenFormEntry(TypedDict):
+class SpokenFormOutputEntry(TypedDict):
     type: str
     id: str
     spokenForms: list[str]
@@ -29,7 +29,7 @@ class SpokenFormsOutput:
             print(error_message)
             app.notify(error_message)
 
-    def write(self, spoken_forms: list[SpokenFormEntry]):
+    def write(self, spoken_forms: list[SpokenFormOutputEntry]):
         with open(SPOKEN_FORMS_OUTPUT_PATH, "w", encoding="UTF-8") as out:
             try:
                 out.write(

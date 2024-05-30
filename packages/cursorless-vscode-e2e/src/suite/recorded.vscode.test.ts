@@ -1,30 +1,26 @@
 import {
-  asyncSafety,
   CommandResponse,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
-  ExcludableSnapshotField,
-  extractTargetedMarks,
   Fallback,
-  getRecordedTestPaths,
   HatStability,
-  marksToPlainObject,
-  omitByDeep,
-  plainObjectToRange,
   PositionPlainObject,
-  rangeToPlainObject,
   ReadOnlyHatMap,
   SelectionPlainObject,
   SerializedMarks,
+  SpyIDE,
+  TestCaseFixtureLegacy,
+  asyncSafety,
+  clientSupportsFallback,
+  getRecordedTestPaths,
+  loadFixture,
+  omitByDeep,
+  rangeToPlainObject,
   serializeTestFixture,
+  serializedMarksToTokenHats,
   shouldUpdateFixtures,
   splitKey,
-  SpyIDE,
   spyIDERecordedValuesToPlainObject,
   storedTargetKeys,
-  TestCaseFixtureLegacy,
-  TextEditor,
-  TokenHat,
-  clientSupportsFallback,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
@@ -32,12 +28,12 @@ import {
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import * as yaml from "js-yaml";
 import { isUndefined } from "lodash";
 import { promises as fsp } from "node:fs";
 import * as vscode from "vscode";
 import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
+import { getResultStateForComparison } from "./getResultStateForComparison";
 
 function createPosition(position: PositionPlainObject) {
   return new vscode.Position(position.line, position.character);
@@ -68,9 +64,7 @@ suite("recorded test cases", async function () {
 });
 
 async function runTest(file: string, spyIde: SpyIDE) {
-  const buffer = await fsp.readFile(file);
-  const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
-  const excludeFields: ExcludableSnapshotField[] = [];
+  const fixture = await loadFixture(file);
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
@@ -108,7 +102,10 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
   // Ensure that the expected hats are present
   await hatTokenMap.allocateHats(
-    getTokenHats(fixture.initialState.marks, spyIde.activeTextEditor!),
+    serializedMarksToTokenHats(
+      fixture.initialState.marks,
+      spyIde.activeTextEditor!,
+    ),
   );
 
   const readableHatMap = await hatTokenMap.getReadableMap(usePrePhraseSnapshot);
@@ -159,37 +156,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
     await sleepWithBackoff(fixture.postCommandSleepTimeMs);
   }
 
-  const marks =
-    fixture.finalState?.marks == null
-      ? undefined
-      : marksToPlainObject(
-          extractTargetedMarks(
-            Object.keys(fixture.finalState.marks),
-            readableHatMap,
-          ),
-        );
-
-  if (fixture.finalState?.clipboard == null) {
-    excludeFields.push("clipboard");
-  }
-
-  for (const storedTargetKey of storedTargetKeys) {
-    const key = `${storedTargetKey}Mark` as const;
-    if (fixture.finalState?.[key] == null) {
-      excludeFields.push(key);
-    }
-  }
-
-  // FIXME Visible ranges are not asserted, see:
-  // https://github.com/cursorless-dev/cursorless/issues/160
-  const { visibleRanges, ...resultState } = await takeSnapshot(
-    excludeFields,
-    [],
-    spyIde.activeTextEditor!,
+  const resultState = await getResultStateForComparison(
+    fixture.finalState,
+    readableHatMap,
     spyIde,
-    marks,
-    // FIXME: Stop overriding the clipboard once we have #559
-    true,
+    takeSnapshot,
   );
 
   const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);
@@ -255,36 +226,5 @@ function checkMarks(
     const currentToken = hatTokenMap.getToken(hatStyle, character);
     assert(currentToken != null, `Mark "${hatStyle} ${character}" not found`);
     assert.deepStrictEqual(rangeToPlainObject(currentToken.range), token);
-  });
-}
-
-function getTokenHats(
-  marks: SerializedMarks | undefined,
-  editor: TextEditor,
-): TokenHat[] {
-  if (marks == null) {
-    return [];
-  }
-
-  return Object.entries(marks).map(([key, token]) => {
-    const { hatStyle, character } = splitKey(key);
-    const range = plainObjectToRange(token);
-
-    return {
-      hatStyle,
-      grapheme: character,
-      token: {
-        editor,
-        range,
-        offsets: {
-          start: editor.document.offsetAt(range.start),
-          end: editor.document.offsetAt(range.end),
-        },
-        text: editor.document.getText(range),
-      },
-
-      // NB: We don't care about the hat range for this test
-      hatRange: range,
-    };
   });
 }
