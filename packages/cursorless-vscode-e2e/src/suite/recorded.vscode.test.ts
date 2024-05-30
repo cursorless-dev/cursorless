@@ -1,5 +1,6 @@
 import {
   CommandResponse,
+  EditableTextEditor,
   ExcludableSnapshotField,
   Fallback,
   HatStability,

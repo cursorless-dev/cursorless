@@ -28,7 +28,7 @@ export interface TestHelpers {
   fromVscodeEditor(editor: vscode.TextEditor): TextEditor;
 
   setStoredTarget(
-    editor: vscode.TextEditor,
+    editor: TextEditor,
     key: string,
     targets: TargetPlainObject[] | undefined,
   ): void;
