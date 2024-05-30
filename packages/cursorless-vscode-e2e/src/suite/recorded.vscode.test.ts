@@ -1,34 +1,35 @@
 import {
-  asyncSafety,
   CommandResponse,
-  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   ExcludableSnapshotField,
-  extractTargetedMarks,
   Fallback,
-  getRecordedTestPaths,
   HatStability,
-  marksToPlainObject,
-  omitByDeep,
-  plainObjectToRange,
+  Position,
   PositionPlainObject,
-  rangeToPlainObject,
   ReadOnlyHatMap,
+  Selection,
   SelectionPlainObject,
   SerializedMarks,
-  serializeTestFixture,
-  shouldUpdateFixtures,
-  splitKey,
   SpyIDE,
-  spyIDERecordedValuesToPlainObject,
-  storedTargetKeys,
   TestCaseFixtureLegacy,
   TextEditor,
   TokenHat,
+  asyncSafety,
   clientSupportsFallback,
+  extractTargetedMarks,
+  getRecordedTestPaths,
+  marksToPlainObject,
+  omitByDeep,
+  plainObjectToRange,
+  rangeToPlainObject,
+  serializeTestFixture,
+  shouldUpdateFixtures,
+  splitKey,
+  spyIDERecordedValuesToPlainObject,
+  storedTargetKeys,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
-  openNewEditor,
+  openNewTestEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import { assert } from "chai";
@@ -40,13 +41,13 @@ import { endToEndTestSetup, sleepWithBackoff } from "../endToEndTestSetup";
 import { setupFake } from "./setupFake";
 
 function createPosition(position: PositionPlainObject) {
-  return new vscode.Position(position.line, position.character);
+  return new Position(position.line, position.character);
 }
 
-function createSelection(selection: SelectionPlainObject): vscode.Selection {
+function createSelection(selection: SelectionPlainObject): Selection {
   const active = createPosition(selection.active);
   const anchor = createPosition(selection.anchor);
-  return new vscode.Selection(anchor, active);
+  return new Selection(anchor, active);
 }
 
 suite("recorded test cases", async function () {
@@ -62,15 +63,41 @@ suite("recorded test cases", async function () {
   getRecordedTestPaths().forEach(({ name, path }) =>
     test(
       name,
-      asyncSafety(() => runTest(path, getSpy()!)),
+      asyncSafety(() => runTest(this, path, getSpy()!)),
     ),
   );
 });
 
-async function runTest(file: string, spyIde: SpyIDE) {
+async function runTest(suite: Mocha.Suite, file: string, spyIde: SpyIDE) {
+  await runRecordedTest(
+    suite,
+    file,
+    spyIde,
+    () => {
+      return true;
+    },
+    (content: string, languageId: string) => {
+      return openNewTestEditor(content, {
+        languageId,
+      });
+    },
+  );
+}
+
+async function runRecordedTest(
+  suite: Mocha.Suite,
+  file: string,
+  spyIde: SpyIDE,
+  shouldRunTest: any,
+  openNewTestEditor: any,
+) {
   const buffer = await fsp.readFile(file);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
+
+  if (!shouldRunTest(fixture)) {
+    return suite.ctx.skip();
+  }
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
@@ -80,18 +107,18 @@ async function runTest(file: string, spyIde: SpyIDE) {
   const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     cursorlessApi.testHelpers!;
 
-  const editor = await openNewEditor(fixture.initialState.documentContents, {
-    languageId: fixture.languageId,
-  });
-
-  // Override any user settings and make sure tests run with default tabs.
-  editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
+  const editor = await openNewTestEditor(
+    fixture.initialState.documentContents,
+    fixture.languageId,
+  );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
   }
 
-  editor.selections = fixture.initialState.selections.map(createSelection);
+  await editor.setSelections(
+    fixture.initialState.selections.map(createSelection),
+  );
 
   for (const storedTargetKey of storedTargetKeys) {
     const key = `${storedTargetKey}Mark` as const;
@@ -145,7 +172,11 @@ async function runTest(file: string, spyIde: SpyIDE) {
 
       await fsp.writeFile(file, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
-      assert.strictEqual(error.name, fixture.thrownError.name);
+      assert.strictEqual(
+        error.name,
+        fixture.thrownError.name,
+        "Unexpected thrown error",
+      );
     } else {
       throw error;
     }

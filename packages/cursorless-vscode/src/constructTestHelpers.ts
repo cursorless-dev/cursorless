@@ -42,6 +42,9 @@ export function constructTestHelpers(
     scopeProvider,
 
     toVscodeEditor,
+    fromVscodeEditor(editor: vscode.TextEditor): TextEditor {
+      return vscodeIDE.fromVscodeEditor(editor);
+    },
 
     // FIXME: Remove this once we have a better way to get this function
     // accessible from our tests

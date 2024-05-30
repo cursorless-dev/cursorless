@@ -25,6 +25,7 @@ export interface TestHelpers {
   commandServerApi: FakeCommandServerApi;
 
   toVscodeEditor(editor: TextEditor): vscode.TextEditor;
+  fromVscodeEditor(editor: vscode.TextEditor): TextEditor;
 
   setStoredTarget(
     editor: vscode.TextEditor,
