@@ -113,7 +113,7 @@ async function runRecordedTest(
   const editor = await openNewTestEditor(
     fixture.initialState.documentContents,
     fixture.languageId,
-  );
+  ) as EditableTextEditor;
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
