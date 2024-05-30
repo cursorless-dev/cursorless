@@ -11,4 +11,6 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const jsoncScopeSupport: LanguageScopeSupportFacetMap = {
   ...jsonScopeSupport,
+  "comment.line": supported,
+  "comment.block": supported,
 };
