@@ -12,4 +12,6 @@ export const cssScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
   "comment.block": supported,
   "string.singleLine": supported,
+  "name.iteration.block": supported,
+  "name.iteration.document": supported,
 };

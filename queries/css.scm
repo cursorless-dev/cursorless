@@ -18,3 +18,11 @@
 (attribute_selector
   (attribute_name) @name
 ) @_.domain
+
+(stylesheet) @name.iteration
+(block
+  .
+  "{" @name.iteration.start.endOf
+  "}" @name.iteration.end.startOf
+  .
+)

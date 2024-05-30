@@ -18,3 +18,11 @@
 (parameter
   (variable_name) @name
 ) @_.domain
+
+(stylesheet) @namedFunction.iteration @functionName.iteration
+(block
+  .
+  "{" @namedFunction.iteration.start.endOf @functionName.iteration.start.endOf
+  "}" @namedFunction.iteration.end.startOf @functionName.iteration.end.startOf
+  .
+)

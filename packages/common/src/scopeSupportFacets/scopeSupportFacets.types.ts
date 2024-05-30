@@ -31,8 +31,14 @@ const scopeSupportFacets = [
   "className.iteration.block",
   "namedFunction",
   "namedFunction.method",
+  "namedFunction.iteration",
+  "namedFunction.iteration.document",
+  "namedFunction.iteration.class",
   "anonymousFunction",
   "functionName",
+  "functionName.iteration",
+  "functionName.iteration.document",
+  "functionName.iteration.class",
 
   "functionCall",
   "functionCall.constructor",
@@ -76,6 +82,8 @@ const scopeSupportFacets = [
   "name.resource.iteration",
   "name.argument.formal",
   "name.argument.formal.iteration",
+  "name.iteration.block",
+  "name.iteration.document",
 
   "key.attribute",
   "key.mapPair",
