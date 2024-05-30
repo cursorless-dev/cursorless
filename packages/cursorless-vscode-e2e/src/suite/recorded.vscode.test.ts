@@ -76,8 +76,8 @@ async function runTest(suite: Mocha.Suite, file: string, spyIde: SpyIDE) {
     () => {
       return true;
     },
-    (content: string, languageId: string) => {
-      return openNewTestEditor(content, {
+    async (content: string, languageId: string) => {
+      return await openNewTestEditor(content, {
         languageId,
       });
     },
