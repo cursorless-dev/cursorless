@@ -124,13 +124,13 @@ export const scopeSupportFacetInfos: Record<
     description: "A named method declaration in a class",
     scopeType: "namedFunction",
   },
-  "namedFunction.iteration": {
-    description: "Iteration scope for named functions",
+  "namedFunction.method.iteration.class": {
+    description: "Iteration scope for named functions: class methods",
     scopeType: "namedFunction",
     isIteration: true,
   },
-  "namedFunction.iteration.class": {
-    description: "Iteration scope for named functions: class methods",
+  "namedFunction.iteration": {
+    description: "Iteration scope for named functions",
     scopeType: "namedFunction",
     isIteration: true,
   },
@@ -148,13 +148,17 @@ export const scopeSupportFacetInfos: Record<
     description: "The name of a function",
     scopeType: "functionName",
   },
-  "functionName.iteration": {
-    description: "Iteration scope for function names",
+  "functionName.method": {
+    description: "The name of a method in a class",
+    scopeType: "functionName",
+  },
+  "functionName.method.iteration.class": {
+    description: "Iteration scope for function names: class methods",
     scopeType: "functionName",
     isIteration: true,
   },
-  "functionName.iteration.class": {
-    description: "Iteration scope for function names: class methods",
+  "functionName.iteration": {
+    description: "Iteration scope for function names",
     scopeType: "functionName",
     isIteration: true,
   },
