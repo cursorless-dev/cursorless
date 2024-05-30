@@ -327,6 +327,36 @@
   (#not-type? @value block)
 ) @_.domain
 
+;;!! public Map<int, int> foo;
+;;!         ^^^^^^^^^^^^^
+;;!  -------------------------
+(field_declaration
+  type: (_) @type
+) @_.domain
+
+;;!! class MyClass { }
+;;!                 ^
+(class_body
+  .
+  "{" @type.iteration.start.endOf
+  "}" @type.iteration.end.startOf
+  .
+)
+
+;;!! public Map<int, int> foo;
+;;!             ^^^  ^^^
+(type_arguments
+  (_) @type
+)
+
+;;!! public Map<int, int> foo;
+;;!             ^^^^^^^^
+(type_arguments
+  .
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+  .
+)
 ;;!! foo(name: string) {}
 ;;!      ^^^^^^^^^^^^
 (

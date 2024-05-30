@@ -110,11 +110,14 @@ const scopeSupportFacets = [
   "type.formalParameter",
   "type.return",
   "type.field",
+  "type.field.iteration",
   "type.foreach",
   "type.interface",
   "type.alias",
   "type.cast",
   "type.class",
+  "type.typeArgument",
+  "type.typeArgument.iteration",
 
   // FIXME: Still in legacy
   // section

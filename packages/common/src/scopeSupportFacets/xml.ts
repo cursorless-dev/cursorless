@@ -8,11 +8,6 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
-export const cssScopeSupport: LanguageScopeSupportFacetMap = {
+export const xmlScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.block": supported,
-  "string.singleLine": supported,
-  "name.iteration.block": supported,
-  "name.iteration.document": supported,
-
-  "comment.line": unsupported,
 };

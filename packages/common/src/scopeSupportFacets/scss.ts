@@ -16,4 +16,5 @@ export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   "namedFunction.iteration.document": supported,
   "functionName.iteration": supported,
   "functionName.iteration.document": supported,
+  "comment.line": supported,
 };
