@@ -6,3 +6,4 @@ export * from "./vscodeUtil";
 export * from "./runCommand";
 export * from "./VscodeApi";
 export * from "./ScopeVisualizerColorConfig";
+export * from "./SpyWebViewEvent";
