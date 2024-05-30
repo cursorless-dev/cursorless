@@ -99,9 +99,7 @@ async function runTest(file: string, spyIde: SpyIDE) {
   }
 
   if (fixture.initialState.clipboard) {
-    vscode.env.clipboard.writeText(fixture.initialState.clipboard);
-    // FIXME https://github.com/cursorless-dev/cursorless/issues/559
-    // spyIde.clipboard.writeText(fixture.initialState.clipboard);
+    spyIde.clipboard.writeText(fixture.initialState.clipboard);
   }
 
   commandServerApi.setFocusedElementType(fixture.focusedElementType);
@@ -188,8 +186,6 @@ async function runTest(file: string, spyIde: SpyIDE) {
     spyIde.activeTextEditor!,
     spyIde,
     marks,
-    // FIXME: Stop overriding the clipboard once we have #559
-    true,
   );
 
   const rawSpyIdeValues = spyIde.getSpyValues(fixture.ide?.flashes != null);

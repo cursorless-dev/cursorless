@@ -1,0 +1,17 @@
+Func<int, int> product = (arg1, arg2) => arg1 * arg2;
+---
+
+[Content] =
+[Domain] = 0:25-0:52
+                           >---------------------------<
+0| Func<int, int> product = (arg1, arg2) => arg1 * arg2;
+
+[Removal] = 0:24-0:52
+                          >----------------------------<
+0| Func<int, int> product = (arg1, arg2) => arg1 * arg2;
+
+[Leading delimiter] = 0:24-0:25
+                          >-<
+0| Func<int, int> product = (arg1, arg2) => arg1 * arg2;
+
+[Insertion delimiter] = "\n"

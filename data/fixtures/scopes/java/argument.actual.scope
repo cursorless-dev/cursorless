@@ -1,0 +1,33 @@
+myFunk(5, "hello");
+---
+
+[#1 Content] =
+[#1 Domain] = 0:7-0:8
+         >-<
+0| myFunk(5, "hello");
+
+[#1 Removal] = 0:7-0:10
+         >---<
+0| myFunk(5, "hello");
+
+[#1 Trailing delimiter] = 0:8-0:10
+          >--<
+0| myFunk(5, "hello");
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 0:10-0:17
+            >-------<
+0| myFunk(5, "hello");
+
+[#2 Removal] = 0:8-0:17
+          >---------<
+0| myFunk(5, "hello");
+
+[#2 Leading delimiter] = 0:8-0:10
+          >--<
+0| myFunk(5, "hello");
+
+[#2 Insertion delimiter] = ", "

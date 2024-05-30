@@ -567,6 +567,8 @@
   value: (_) @condition
 ) @branch @condition.domain
 
+(switch_default) @branch
+
 ;;!! switch () {}
 ;;!  ^^^^^^^^^^^^
 (switch_statement) @branch.iteration @condition.iteration
