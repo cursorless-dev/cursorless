@@ -11,4 +11,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const scssScopeSupport: LanguageScopeSupportFacetMap = {
   ...cssScopeSupport,
+  "comment.line": supported,
 };
