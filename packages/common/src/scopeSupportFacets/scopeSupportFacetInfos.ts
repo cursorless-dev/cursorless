@@ -424,7 +424,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
   },
   "type.typeArgument": {
-    description: "Type argument to a generic type",
+    description: "Type argument to a generic / parametrized type",
     scopeType: "type",
   },
   "type.typeArgument.iteration": {
