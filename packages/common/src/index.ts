@@ -63,6 +63,7 @@ export * from "./testUtil/isTesting";
 export * from "./testUtil/testConstants";
 export * from "./testUtil/getFixturePaths";
 export * from "./testUtil/getCursorlessRepoRoot";
+export * from "./testUtil/runRecordedTest";
 export * from "./testUtil/serialize";
 export * from "./testUtil/shouldUpdateFixtures";
 export * from "./testUtil/TestCaseSnapshot";
