@@ -125,7 +125,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "namedFunction",
   },
   "namedFunction.method.iteration.class": {
-    description: "Iteration scope for named functions: class methods",
+    description: "Iteration scope for named functions: class bodies",
     scopeType: "namedFunction",
     isIteration: true,
   },
@@ -153,7 +153,7 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "functionName",
   },
   "functionName.method.iteration.class": {
-    description: "Iteration scope for function names: class methods",
+    description: "Iteration scope for function names: class bodies",
     scopeType: "functionName",
     isIteration: true,
   },
