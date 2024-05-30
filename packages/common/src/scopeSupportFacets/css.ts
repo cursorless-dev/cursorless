@@ -9,7 +9,8 @@ import {
 const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cssScopeSupport: LanguageScopeSupportFacetMap = {
-  "comment.line": supported,
   "comment.block": supported,
   "string.singleLine": supported,
+
+  "comment.line": unsupported,
 };
