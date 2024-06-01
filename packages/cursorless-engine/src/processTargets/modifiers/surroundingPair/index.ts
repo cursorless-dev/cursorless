@@ -102,8 +102,9 @@ function processSurroundingPairCore(
 
   const textFragmentRange = (() => {
     // First try to use the text fragment scope handler if it exists
-    const textFragmentScopeHandler =
-      languageDefinition?.getTextFragmentScopeHandler();
+    const textFragmentScopeHandler = languageDefinition?.getScopeHandler({
+      type: "textFragment",
+    });
 
     if (textFragmentScopeHandler != null) {
       const containingScope = getContainingScopeTarget(
