@@ -33,7 +33,6 @@ const scopeSupportFacets = [
   "namedFunction.method",
   "namedFunction.method.iteration.class",
   "namedFunction.constructor",
-  "namedFunction.constructor.iteration.class",
   "namedFunction.iteration",
   "namedFunction.iteration.document",
   "anonymousFunction",
@@ -41,7 +40,6 @@ const scopeSupportFacets = [
   "functionName.method",
   "functionName.method.iteration.class",
   "functionName.constructor",
-  "functionName.constructor.iteration.class",
   "functionName.iteration",
   "functionName.iteration.document",
 
@@ -120,10 +118,19 @@ const scopeSupportFacets = [
   "value.resource.iteration",
   "value.argument.formal",
   "value.argument.formal.iteration",
+  "value.argument.method.formal",
+  "value.argument.method.formal.iteration",
+  "value.argument.constructor.formal",
+  "value.argument.constructor.formal.iteration",
   "value.typeAlias",
 
   "type.variable",
   "type.formalParameter",
+  "type.formalParameter.iteration",
+  "type.formalParameter.method",
+  "type.formalParameter.method.iteration",
+  "type.formalParameter.constructor",
+  "type.formalParameter.constructor.iteration",
   "type.return",
   "type.field",
   "type.field.iteration",
@@ -134,10 +141,6 @@ const scopeSupportFacets = [
   "type.class",
   "type.typeArgument",
   "type.typeArgument.iteration",
-  "type.typeArgument.method",
-  "type.typeArgument.method.iteration",
-  "type.typeArgument.constructor",
-  "type.typeArgument.constructor.iteration",
 
   // FIXME: Still in legacy
   // section
