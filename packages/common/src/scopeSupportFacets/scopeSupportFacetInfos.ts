@@ -225,6 +225,23 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "string",
   },
 
+  "textFragment.comment.line": {
+    description: "A line comment",
+    scopeType: "comment",
+  },
+  "textFragment.comment.block": {
+    description: "A block comment",
+    scopeType: "comment",
+  },
+  "textFragment.string.singleLine": {
+    description: "A single-line string",
+    scopeType: "string",
+  },
+  "textFragment.string.multiLine": {
+    description: "A multi-line string",
+    scopeType: "string",
+  },
+
   "branch.if": {
     description: "An if/elif/else branch",
     scopeType: "branch",

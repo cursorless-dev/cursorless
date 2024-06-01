@@ -116,6 +116,7 @@ function processSurroundingPairCore(
       return containingScope?.[0].contentRange;
     }
 
+    // If we don't find a text fragment we fall back to the full document range
     return document.range;
   })();
 

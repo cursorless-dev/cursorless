@@ -1,0 +1,17 @@
+/*
+  the
+  comment
+*/
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:0-3:2
+  >---
+0| /*
+1|   the
+2|   comment
+3| */
+   --<
+
+[Insertion delimiter] = "\n"
