@@ -14,4 +14,4 @@
 3| */
    --<
 
-[Insertion delimiter] = "\n"
+[Insertion delimiter] = " "

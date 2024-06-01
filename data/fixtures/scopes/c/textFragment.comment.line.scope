@@ -14,4 +14,4 @@ int a; // the comment
         >-<
 0| int a; // the comment
 
-[Insertion delimiter] = "\n"
+[Insertion delimiter] = " "
