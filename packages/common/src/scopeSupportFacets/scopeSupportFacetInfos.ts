@@ -226,20 +226,20 @@ export const scopeSupportFacetInfos: Record<
   },
 
   "textFragment.comment.line": {
-    description: "A line comment",
-    scopeType: "comment",
+    description: "Text fragment consisting of a line comment",
+    scopeType: "textFragment",
   },
   "textFragment.comment.block": {
-    description: "A block comment",
-    scopeType: "comment",
+    description: "Text fragment consisting of a block comment",
+    scopeType: "textFragment",
   },
   "textFragment.string.singleLine": {
-    description: "A single-line string",
-    scopeType: "string",
+    description: "Text fragment consisting of a single-line string",
+    scopeType: "textFragment",
   },
   "textFragment.string.multiLine": {
-    description: "A multi-line string",
-    scopeType: "string",
+    description: "Text fragment consisting of a multi-line string",
+    scopeType: "textFragment",
   },
 
   "branch.if": {
