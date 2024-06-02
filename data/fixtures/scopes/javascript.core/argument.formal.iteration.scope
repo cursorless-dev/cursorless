@@ -1,15 +1,10 @@
-function myFunk(arg1, arg2) {
-
-}
+function myFunk(key, value) { }
 ---
 
 [Range] = 0:16-0:26
                   >----------<
-0| function myFunk(arg1, arg2) {
+0| function myFunk(key, value) { }
 
-[Domain] = 0:0-2:1
-  >-----------------------------
-0| function myFunk(arg1, arg2) {
-1|
-2| }
-   -<
+[Domain] = 0:0-0:31
+  >-------------------------------<
+0| function myFunk(key, value) { }

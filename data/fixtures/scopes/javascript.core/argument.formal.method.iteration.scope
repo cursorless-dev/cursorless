@@ -1,0 +1,12 @@
+class MyClass {
+  myFunk(key, value) { }
+}
+---
+
+[Range] = 1:9-1:19
+           >----------<
+1|   myFunk(key, value) { }
+
+[Domain] = 1:2-1:24
+    >----------------------<
+1|   myFunk(key, value) { }

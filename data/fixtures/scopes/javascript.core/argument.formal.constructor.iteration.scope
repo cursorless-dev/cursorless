@@ -1,0 +1,12 @@
+class MyClass {
+  constructor(key, value) { }
+}
+---
+
+[Range] = 1:14-1:24
+                >----------<
+1|   constructor(key, value) { }
+
+[Domain] = 1:2-1:29
+    >---------------------------<
+1|   constructor(key, value) { }
