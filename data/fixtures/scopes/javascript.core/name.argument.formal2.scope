@@ -1,0 +1,36 @@
+function myFunk(value = 2) { }
+---
+
+[#1 Content] =
+[#1 Removal] = 0:9-0:15
+           >------<
+0| function myFunk(value = 2) { }
+
+[#1 Leading delimiter] = 0:8-0:9
+          >-<
+0| function myFunk(value = 2) { }
+
+[#1 Domain] = 0:0-0:30
+  >------------------------------<
+0| function myFunk(value = 2) { }
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:16-0:21
+                  >-----<
+0| function myFunk(value = 2) { }
+
+[#2 Removal] = 0:16-0:22
+                  >------<
+0| function myFunk(value = 2) { }
+
+[#2 Trailing delimiter] = 0:21-0:22
+                       >-<
+0| function myFunk(value = 2) { }
+
+[#2 Domain] = 0:16-0:25
+                  >---------<
+0| function myFunk(value = 2) { }
+
+[#2 Insertion delimiter] = " "

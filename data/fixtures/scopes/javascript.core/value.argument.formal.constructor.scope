@@ -1,0 +1,22 @@
+class MyClass {
+  constructor(value = 2) { }
+}
+---
+
+[Content] = 1:22-1:23
+                        >-<
+1|   constructor(value = 2) { }
+
+[Removal] = 1:19-1:23
+                     >----<
+1|   constructor(value = 2) { }
+
+[Leading delimiter] = 1:19-1:22
+                     >---<
+1|   constructor(value = 2) { }
+
+[Domain] = 1:14-1:23
+                >---------<
+1|   constructor(value = 2) { }
+
+[Insertion delimiter] = " "

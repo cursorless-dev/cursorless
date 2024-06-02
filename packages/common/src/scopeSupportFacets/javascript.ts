@@ -91,6 +91,12 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   "key.mapPair": supported,
   "key.mapPair.iteration": supported,
 
+  "value.argument.formal": supported,
+  "value.argument.formal.iteration": supported,
+  "value.argument.formal.method": supported,
+  "value.argument.formal.method.iteration": supported,
+  "value.argument.formal.constructor": supported,
+  "value.argument.formal.constructor.iteration": supported,
   "value.mapPair": supported,
   "value.mapPair.iteration": supported,
   "value.assignment": supported,
