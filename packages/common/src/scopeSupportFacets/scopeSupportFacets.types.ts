@@ -26,22 +26,26 @@ const scopeSupportFacets = [
   "class",
   "class.iteration.document",
   "class.iteration.block",
+
   "className",
   "className.iteration.document",
   "className.iteration.block",
+
+  "anonymousFunction",
+
   "namedFunction",
+  "namedFunction.iteration",
+  "namedFunction.iteration.document",
   "namedFunction.method",
   "namedFunction.method.iteration.class",
   "namedFunction.constructor",
-  "namedFunction.iteration",
-  "namedFunction.iteration.document",
-  "anonymousFunction",
+
   "functionName",
+  "functionName.iteration",
+  "functionName.iteration.document",
   "functionName.method",
   "functionName.method.iteration.class",
   "functionName.constructor",
-  "functionName.iteration",
-  "functionName.iteration.document",
 
   "functionCall",
   "functionCall.constructor",
