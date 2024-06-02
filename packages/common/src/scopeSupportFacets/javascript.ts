@@ -96,6 +96,11 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
 
   "type.variable": notApplicable,
   "type.argument.formal": notApplicable,
+  "type.argument.formal.iteration": notApplicable,
+  "type.argument.formal.method": notApplicable,
+  "type.argument.formal.method.iteration": notApplicable,
+  "type.argument.formal.constructor": notApplicable,
+  "type.argument.formal.constructor.iteration": notApplicable,
   "type.return": notApplicable,
   "type.field": notApplicable,
   "type.foreach": notApplicable,
