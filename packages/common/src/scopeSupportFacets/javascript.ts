@@ -25,8 +25,12 @@ export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
 
   namedFunction: supported,
   "namedFunction.method": supported,
+  "namedFunction.constructor": supported,
   anonymousFunction: supported,
   functionName: supported,
+  "functionName.method": supported,
+  "functionName.method.iteration.class": supported,
+  "functionName.constructor": supported,
 
   functionCall: supported,
   "functionCall.constructor": supported,
