@@ -29,7 +29,7 @@ import { yamlScopeSupport } from "./yaml";
 
 export const languageScopeSupport: Record<
   string,
-  LanguageScopeSupportFacetMap
+  LanguageScopeSupportFacetMap | undefined
 > = {
   c: cScopeSupport,
   clojure: clojureScopeSupport,

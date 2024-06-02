@@ -68,6 +68,7 @@ export * from "./testUtil/shouldUpdateFixtures";
 export * from "./testUtil/TestCaseSnapshot";
 export * from "./testUtil/serializeTestFixture";
 export * from "./testUtil/asyncSafety";
+export * from "./testUtil/getScopeTestPathsRecursively";
 export * from "./util/typeUtils";
 export * from "./ide/types/hatStyles.types";
 export * from "./errors";

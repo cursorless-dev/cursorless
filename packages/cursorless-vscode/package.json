@@ -88,6 +88,10 @@
         "title": "Cursorless: Resume test case recording"
       },
       {
+        "command": "cursorless.recordScopeTests",
+        "title": "Cursorless: Record scope tests"
+      },
+      {
         "command": "cursorless.showDocumentation",
         "title": "Cursorless: Show documentation"
       },

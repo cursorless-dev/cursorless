@@ -40,6 +40,7 @@ export const cursorlessCommandIds = [
   "cursorless.recordTestCase",
   "cursorless.recordOneTestCaseThenPause",
   "cursorless.resumeRecording",
+  "cursorless.recordScopeTests",
   "cursorless.showCheatsheet",
   "cursorless.showDocumentation",
   "cursorless.showQuickPick",
@@ -70,6 +71,7 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.resumeRecording"]: new VisibleCommand(
     "Resume test case recording",
   ),
+  ["cursorless.recordScopeTests"]: new VisibleCommand("Record scope tests"),
   ["cursorless.showDocumentation"]: new VisibleCommand("Show documentation"),
   ["cursorless.showScopeVisualizer"]: new VisibleCommand(
     "Show the scope visualizer",
