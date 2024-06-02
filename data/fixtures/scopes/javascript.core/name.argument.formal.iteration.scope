@@ -1,0 +1,19 @@
+function myFunk(key, value) { }
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-0:31
+  >-------------------------------<
+0| function myFunk(key, value) { }
+
+
+[#2 Range] =
+[#2 Domain] = 0:15-0:27
+                 >------------<
+0| function myFunk(key, value) { }
+
+
+[#3 Range] =
+[#3 Domain] = 0:29-0:30
+                               >-<
+0| function myFunk(key, value) { }

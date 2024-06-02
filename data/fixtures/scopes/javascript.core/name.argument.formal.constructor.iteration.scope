@@ -1,0 +1,33 @@
+class MyClass {
+  constructor(key, value) { }
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|   constructor(key, value) { }
+2| }
+   -<
+
+
+[#2 Range] =
+[#2 Domain] = 0:15-2:0
+                 >
+0| class MyClass {
+1|   constructor(key, value) { }
+2| }
+   <
+
+
+[#3 Range] =
+[#3 Domain] = 1:13-1:25
+               >------------<
+1|   constructor(key, value) { }
+
+
+[#4 Range] =
+[#4 Domain] = 1:27-1:28
+                             >-<
+1|   constructor(key, value) { }

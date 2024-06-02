@@ -41,3 +41,9 @@
   .
   ";"? @_.domain.end
 )
+
+;;!! foo(name) {}
+;;!      ^^^^
+(formal_parameters
+  (identifier) @name
+)
