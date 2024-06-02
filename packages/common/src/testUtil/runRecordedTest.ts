@@ -1,7 +1,6 @@
 import {
   Command,
   CommandResponse,
-  EditableTextEditor,
   ExcludableSnapshotField,
   ExtraSnapshotField,
   FakeCommandServerApi,
@@ -135,10 +134,12 @@ export async function runRecordedTest({
   const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
     testHelpers;
 
-  const editor = (await openNewTestEditor(
-    fixture.initialState.documentContents,
-    fixture.languageId,
-  )) as EditableTextEditor;
+  const editor = spyIde.getEditableTextEditor(
+    await openNewTestEditor(
+      fixture.initialState.documentContents,
+      fixture.languageId,
+    ),
+  );
 
   if (fixture.postEditorOpenSleepTimeMs != null) {
     await sleepWithBackoff(fixture.postEditorOpenSleepTimeMs);
