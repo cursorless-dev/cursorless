@@ -1,7 +1,6 @@
 import * as path from "path";
 import { walkFilesSync } from "../util/walkSync";
 import { getCursorlessRepoRoot } from "./getCursorlessRepoRoot";
-import type { ScopeSupportFacet } from "../scopeSupportFacets/scopeSupportFacets.types";
 
 export function getFixturesPath() {
   return path.join(getCursorlessRepoRoot(), "data", "fixtures");
@@ -35,7 +34,7 @@ export interface ScopeTestPath {
   path: string;
   name: string;
   languageId: string;
-  facet: ScopeSupportFacet;
+  facet: string;
 }
 
 export function getScopeTestPaths(): ScopeTestPath[] {
