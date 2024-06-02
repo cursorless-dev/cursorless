@@ -129,6 +129,10 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "namedFunction",
     isIteration: true,
   },
+  "namedFunction.constructor": {
+    description: "A constructor declaration in a class",
+    scopeType: "namedFunction",
+  },
   "namedFunction.iteration": {
     description: "Iteration scope for named functions",
     scopeType: "namedFunction",
@@ -156,6 +160,10 @@ export const scopeSupportFacetInfos: Record<
     description: "Iteration scope for function names: class bodies",
     scopeType: "functionName",
     isIteration: true,
+  },
+  "functionName.constructor": {
+    description: "The name of a constructor in a class",
+    scopeType: "functionName",
   },
   "functionName.iteration": {
     description: "Iteration scope for function names",
@@ -196,6 +204,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
+  "argument.actual.constructor": {
+    description: "An argument/parameter in a constructor call",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.actual.constructor.iteration": {
+    description:
+      "Iteration scope of arguments in a constructor call, should be inside the parens of the argument list",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
+  },
   "argument.formal": {
     description: "A parameter in a function declaration",
     scopeType: "argumentOrParameter",
@@ -203,6 +221,26 @@ export const scopeSupportFacetInfos: Record<
   "argument.formal.iteration": {
     description:
       "Iteration scope of the formal parameters of a function declaration; should be the whole parameter list. The domain should be the entire function.",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
+  },
+  "argument.formal.method": {
+    description: "A parameter in a class method declaration",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.formal.method.iteration": {
+    description:
+      "Iteration scope of the formal parameters of a class method declaration; should be the whole parameter list. The domain should be the entire function.",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
+  },
+  "argument.formal.constructor": {
+    description: "A parameter in a constructor declaration",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.formal.constructor.iteration": {
+    description:
+      "Iteration scope of the formal parameters of a constructor declaration; should be the whole parameter list. The domain should be the entire function.",
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
@@ -305,6 +343,14 @@ export const scopeSupportFacetInfos: Record<
     description: "Name of a function",
     scopeType: "name",
   },
+  "name.method": {
+    description: "Name of a class method",
+    scopeType: "name",
+  },
+  "name.constructor": {
+    description: "Name of a constructor",
+    scopeType: "name",
+  },
   "name.class": {
     description: "Name of a class",
     scopeType: "name",
@@ -330,6 +376,26 @@ export const scopeSupportFacetInfos: Record<
   "name.argument.formal.iteration": {
     description:
       "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.argument.formal.method": {
+    description: "The name of a parameter in a class method declaration",
+    scopeType: "name",
+  },
+  "name.argument.formal.method.iteration": {
+    description:
+      "Iteration scope of the names of the formal parameters of a class method declaration; should be the whole parameter list",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.argument.formal.constructor": {
+    description: "The name of a parameter in a constructor declaration",
+    scopeType: "name",
+  },
+  "name.argument.formal.constructor.iteration": {
+    description:
+      "Iteration scope of the names of the formal parameters of a constructor declaration; should be the whole parameter list",
     scopeType: "name",
     isIteration: true,
   },
@@ -417,7 +483,27 @@ export const scopeSupportFacetInfos: Record<
   },
   "value.argument.formal.iteration": {
     description:
-      "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
+      "Iteration scope of the values of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.argument.formal.method": {
+    description: "The value of a parameter in a class method declaration",
+    scopeType: "value",
+  },
+  "value.argument.formal.method.iteration": {
+    description:
+      "Iteration scope of the values of the formal parameters of a class method declaration; should be the whole parameter list",
+    scopeType: "value",
+    isIteration: true,
+  },
+  "value.argument.formal.constructor": {
+    description: "The value of a parameter in a constructor declaration",
+    scopeType: "value",
+  },
+  "value.argument.formal.constructor.iteration": {
+    description:
+      "Iteration scope of the values of the formal parameters of a constructor declaration; should be the whole parameter list",
     scopeType: "value",
     isIteration: true,
   },
@@ -430,9 +516,35 @@ export const scopeSupportFacetInfos: Record<
     description: "Type of variable in a variable declaration",
     scopeType: "type",
   },
-  "type.formalParameter": {
+  "type.argument.formal": {
     description: "Type of formal parameter in a function declaration",
     scopeType: "type",
+  },
+  "type.argument.formal.iteration": {
+    description:
+      "Iteration scope of the types of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.argument.formal.method": {
+    description: "Type of formal parameter in a class method declaration",
+    scopeType: "type",
+  },
+  "type.argument.formal.method.iteration": {
+    description:
+      "Iteration scope of the types of the formal parameters of a class method declaration; should be the whole parameter list",
+    scopeType: "type",
+    isIteration: true,
+  },
+  "type.argument.formal.constructor": {
+    description: "Type of formal parameter in a constructor declaration",
+    scopeType: "type",
+  },
+  "type.argument.formal.constructor.iteration": {
+    description:
+      "Iteration scope of the types of the formal parameters of a constructor declaration; should be the whole parameter list",
+    scopeType: "type",
+    isIteration: true,
   },
   "type.return": {
     description: "Type of return value in a function declaration",

@@ -12,7 +12,7 @@ export const typescriptScopeSupport: LanguageScopeSupportFacetMap = {
   ...javascriptCoreScopeSupport,
 
   "type.variable": supported,
-  "type.formalParameter": supported,
+  "type.argument.formal": supported,
   "type.return": supported,
   "type.field": supported,
   "type.interface": supported,
