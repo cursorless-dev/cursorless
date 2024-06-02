@@ -1,11 +1,17 @@
 import {
   ScopeSupportFacetLevel,
   getScopeTestPathsRecursively,
+  getScopeTestsDirPath,
   groupBy,
   languageScopeSupport,
+  showInfo,
   type IDE,
   type ScopeSupportFacet,
 } from "@cursorless/common";
+import * as fs from "node:fs";
+import * as fsPromises from "node:fs/promises";
+import * as path from "node:path";
+import { ide } from "./singletons/ide.singleton";
 
 export class ScopeTestRecorder {
   constructor(private ide: IDE) {
@@ -38,7 +44,7 @@ export class ScopeTestRecorder {
     });
   }
 
-  finalize() {
+  async finalize() {
     const text = this.ide.activeTextEditor?.document.getText() ?? "";
     const matchLanguageId = text.match(/^\[\[(\w+)\]\]\n/);
 
@@ -72,7 +78,27 @@ export class ScopeTestRecorder {
       facetsToAdd.push({ facet, content });
     }
 
-    console.log(facetsToAdd);
+    const langDirectory = path.join(getScopeTestsDirPath(), languageId);
+
+    await fsPromises.mkdir(langDirectory, { recursive: true });
+
+    for (const { facet, content } of facetsToAdd) {
+      const fullContent = `${content}---\n`;
+      let filePath = path.join(langDirectory, `${facet}.scope`);
+      let i = 2;
+
+      while (fs.existsSync(filePath)) {
+        filePath = path.join(langDirectory, `${facet}${i++}.scope`);
+      }
+
+      await fsPromises.writeFile(filePath, fullContent, "utf-8");
+    }
+
+    void showInfo(
+      this.ide.messages,
+      "scopeTestsSaved",
+      `${facetsToAdd.length} scope tests saved for language '${languageId}`,
+    );
   }
 }
 
