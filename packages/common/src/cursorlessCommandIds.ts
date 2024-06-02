@@ -40,8 +40,8 @@ export const cursorlessCommandIds = [
   "cursorless.recordTestCase",
   "cursorless.recordOneTestCaseThenPause",
   "cursorless.resumeRecording",
-  "cursorless.recordScopeTestsStart",
-  "cursorless.recordScopeTestsFinalize",
+  "cursorless.recordScopeTests.showUnsupportedFacets",
+  "cursorless.recordScopeTests.saveActiveDocument",
   "cursorless.showCheatsheet",
   "cursorless.showDocumentation",
   "cursorless.showQuickPick",
@@ -72,11 +72,11 @@ export const cursorlessCommandDescriptions: Record<
   ["cursorless.resumeRecording"]: new VisibleCommand(
     "Resume test case recording",
   ),
-  ["cursorless.recordScopeTestsStart"]: new VisibleCommand(
-    "Start recording scope tests",
+  ["cursorless.recordScopeTests.showUnsupportedFacets"]: new VisibleCommand(
+    "Bulk record unsupported scope facets",
   ),
-  ["cursorless.recordScopeTestsFinalize"]: new VisibleCommand(
-    "Finalize recording scope tests",
+  ["cursorless.recordScopeTests.saveActiveDocument"]: new VisibleCommand(
+    "Bulk save scope tests for the active document",
   ),
   ["cursorless.showDocumentation"]: new VisibleCommand("Show documentation"),
   ["cursorless.showScopeVisualizer"]: new VisibleCommand(

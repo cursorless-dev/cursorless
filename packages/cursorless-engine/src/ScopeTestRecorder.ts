@@ -11,19 +11,18 @@ import {
 import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import * as path from "node:path";
-import { ide } from "./singletons/ide.singleton";
 
 export class ScopeTestRecorder {
   constructor(private ide: IDE) {
-    this.start = this.start.bind(this);
-    this.finalize = this.finalize.bind(this);
+    this.showUnsupportedFacets = this.showUnsupportedFacets.bind(this);
+    this.saveActiveDocument = this.saveActiveDocument.bind(this);
   }
 
-  async start() {
-    const languageId = this.ide.activeTextEditor?.document.languageId;
+  async showUnsupportedFacets() {
+    const languageId = await this.languageSelection();
 
     if (languageId == null) {
-      throw Error(`Missing language id from active text editor`);
+      return;
     }
 
     const supportedScopeFacets = getSupportedScopeFacets(languageId);
@@ -44,7 +43,7 @@ export class ScopeTestRecorder {
     });
   }
 
-  async finalize() {
+  async saveActiveDocument() {
     const text = this.ide.activeTextEditor?.document.getText() ?? "";
     const matchLanguageId = text.match(/^\[\[(\w+)\]\]\n/);
 
@@ -99,6 +98,14 @@ export class ScopeTestRecorder {
       "scopeTestsSaved",
       `${facetsToAdd.length} scope tests saved for language '${languageId}`,
     );
+  }
+
+  private languageSelection() {
+    const languageIds = Object.keys(languageScopeSupport);
+    languageIds.sort();
+    return this.ide.showQuickPick(languageIds, {
+      title: "Select language to record scope tests for",
+    });
   }
 }
 

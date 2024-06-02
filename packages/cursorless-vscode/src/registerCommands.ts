@@ -59,8 +59,10 @@ export function registerCommands(
     ["cursorless.takeSnapshot"]: testCaseRecorder.takeSnapshot,
 
     // Scope test recorder commands
-    ["cursorless.recordScopeTestsStart"]: scopeTestRecorder.start,
-    ["cursorless.recordScopeTestsFinalize"]: scopeTestRecorder.finalize,
+    ["cursorless.recordScopeTests.showUnsupportedFacets"]:
+      scopeTestRecorder.showUnsupportedFacets,
+    ["cursorless.recordScopeTests.saveActiveDocument"]:
+      scopeTestRecorder.saveActiveDocument,
 
     // Other commands
     ["cursorless.showQuickPick"]: showQuickPick,
