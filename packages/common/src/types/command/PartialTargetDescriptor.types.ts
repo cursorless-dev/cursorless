@@ -173,7 +173,7 @@ export const simpleScopeTypeTypes = [
   "notebookCell",
   // Talon
   "command",
-  // Secret scope types
+  // Private scope types
   "textFragment",
 ] as const;
 
