@@ -1,14 +1,14 @@
 import {
-  Command,
+  DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   HatStability,
-  SpyIDE,
+  TextEditor,
   asyncSafety,
   getRecordedTestPaths,
   runRecordedTest,
 } from "@cursorless/common";
 import {
   getCursorlessApi,
-  openNewTestEditor,
+  openNewEditor,
   runCursorlessCommand,
 } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
@@ -28,26 +28,36 @@ suite("recorded test cases", async function () {
   getRecordedTestPaths().forEach(({ name, path }) =>
     test(
       name,
-      asyncSafety(() => runTest(this, path, getSpy()!)),
+      asyncSafety(
+        async () =>
+          await runRecordedTest({
+            path,
+            spyIde: getSpy()!,
+
+            openNewTestEditor,
+
+            sleepWithBackoff,
+            testHelpers: (await getCursorlessApi()).testHelpers!,
+            runCursorlessCommand,
+          }),
+      ),
     ),
   );
 });
 
-async function runTest(suite: Mocha.Suite, file: string, spyIde: SpyIDE) {
-  await runRecordedTest(
-    suite,
-    file,
-    spyIde,
-    () => {
-      return true;
-    },
-    async (content: string, languageId: string) => {
-      return await openNewTestEditor(content, {
-        languageId,
-      });
-    },
-    sleepWithBackoff,
-    getCursorlessApi,
-    runCursorlessCommand as (command: Command) => Promise<any>,
-  );
+async function openNewTestEditor(
+  content: string,
+  languageId: string,
+): Promise<TextEditor> {
+  const { fromVscodeEditor } = (await getCursorlessApi()).testHelpers!;
+
+  const editor = await openNewEditor(content, {
+    languageId,
+    openBeside: false,
+  });
+
+  // Override any user settings and make sure tests run with default tabs.
+  editor.options = DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST;
+
+  return fromVscodeEditor(editor);
 }

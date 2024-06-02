@@ -17,7 +17,7 @@ import {
   plainObjectToTarget,
   takeSnapshot,
 } from "@cursorless/cursorless-engine";
-import { TestHelpers } from "@cursorless/vscode-common";
+import { VscodeTestHelpers } from "@cursorless/vscode-common";
 import * as vscode from "vscode";
 import { VscodeFileSystem } from "./ide/vscode/VscodeFileSystem";
 import { VscodeIDE } from "./ide/vscode/VscodeIDE";
@@ -34,7 +34,7 @@ export function constructTestHelpers(
   scopeProvider: ScopeProvider,
   injectIde: (ide: IDE) => void,
   runIntegrationTests: () => Promise<void>,
-): TestHelpers | undefined {
+): VscodeTestHelpers | undefined {
   return {
     commandServerApi: commandServerApi!,
     ide: normalizedIde,

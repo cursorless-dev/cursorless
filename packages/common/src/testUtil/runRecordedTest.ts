@@ -3,7 +3,11 @@ import {
   CommandResponse,
   EditableTextEditor,
   ExcludableSnapshotField,
+  ExtraSnapshotField,
+  FakeCommandServerApi,
   Fallback,
+  HatTokenMap,
+  IDE,
   Position,
   PositionPlainObject,
   ReadOnlyHatMap,
@@ -11,7 +15,9 @@ import {
   SelectionPlainObject,
   SerializedMarks,
   SpyIDE,
+  TargetPlainObject,
   TestCaseFixtureLegacy,
+  TestCaseSnapshot,
   TextEditor,
   TokenHat,
   clientSupportsFallback,
@@ -41,34 +47,93 @@ function createSelection(selection: SelectionPlainObject): Selection {
   return new Selection(anchor, active);
 }
 
-export async function runRecordedTest(
-  suite: Mocha.Suite,
-  file: string,
-  spyIde: SpyIDE,
-  shouldRunTest: (fixture: TestCaseFixtureLegacy) => boolean,
+export interface TestHelpers {
+  hatTokenMap: HatTokenMap;
+
+  // FIXME: Remove this once we have a better way to get this function
+  // accessible from our tests
+  takeSnapshot(
+    excludeFields: ExcludableSnapshotField[],
+    extraFields: ExtraSnapshotField[],
+    editor: TextEditor,
+    ide: IDE,
+    marks: SerializedMarks | undefined,
+  ): Promise<TestCaseSnapshot>;
+
+  setStoredTarget(
+    editor: TextEditor,
+    key: string,
+    targets: TargetPlainObject[] | undefined,
+  ): void;
+
+  commandServerApi: FakeCommandServerApi;
+}
+
+interface RunRecordedTestOpts {
+  /**
+   * The path to the test fixture
+   */
+  path: string;
+
+  /**
+   * The spy IDE
+   */
+  spyIde: SpyIDE;
+
+  /**
+   * Open a new editor to use for running a recorded test
+   *
+   * @param content The content of the new editor
+   * @param languageId The language id of the new editor
+   * @returns A text editor
+   */
   openNewTestEditor: (
     content: string,
     languageId: string,
-  ) => Promise<TextEditor>,
-  sleepWithBackoff: (ms: number) => void,
-  getCursorlessApi: () => Promise<any>, //Promise<CursorlessApi>,
-  runCursorlessCommand: (command: Command) => Promise<any>,
-) {
-  const buffer = await fsp.readFile(file);
+  ) => Promise<TextEditor>;
+
+  /**
+   * Sleep for a certain number of milliseconds, exponentially
+   * increasing the sleep time each time we re-run the test
+   *
+   * @param ms The base sleep time
+   * @returns A promise that resolves after sleeping
+   */
+  sleepWithBackoff: (ms: number) => Promise<void>;
+
+  /**
+   * Test helper functions returned by the Cursorless extension
+   */
+  testHelpers: TestHelpers;
+
+  /**
+   * Run a cursorless command using the ide's command mechanism
+   * @param command The Cursorless command to run
+   * @returns The result of the command
+   */
+  runCursorlessCommand: (
+    command: Command,
+  ) => Promise<CommandResponse | unknown>;
+}
+
+export async function runRecordedTest({
+  path,
+  spyIde,
+  openNewTestEditor,
+  sleepWithBackoff,
+  testHelpers,
+  runCursorlessCommand,
+}: RunRecordedTestOpts) {
+  const buffer = await fsp.readFile(path);
   const fixture = yaml.load(buffer.toString()) as TestCaseFixtureLegacy;
   const excludeFields: ExcludableSnapshotField[] = [];
-
-  if (!shouldRunTest(fixture)) {
-    return suite.ctx.skip();
-  }
 
   // FIXME The snapshot gets messed up with timing issues when running the recorded tests
   // "Couldn't find token default.a"
   const usePrePhraseSnapshot = false;
 
-  const cursorlessApi = await getCursorlessApi();
   const { hatTokenMap, takeSnapshot, setStoredTarget, commandServerApi } =
-    cursorlessApi.testHelpers!;
+    testHelpers;
 
   const editor = (await openNewTestEditor(
     fixture.initialState.documentContents,
@@ -133,7 +198,7 @@ export async function runRecordedTest(
         thrownError: { name: error.name },
       };
 
-      await fsp.writeFile(file, serializeTestFixture(outputFixture));
+      await fsp.writeFile(path, serializeTestFixture(outputFixture));
     } else if (fixture.thrownError != null) {
       assert.strictEqual(
         error.name,
@@ -198,7 +263,7 @@ export async function runRecordedTest(
       thrownError: undefined,
     };
 
-    await fsp.writeFile(file, serializeTestFixture(outputFixture));
+    await fsp.writeFile(path, serializeTestFixture(outputFixture));
   } else {
     if (fixture.thrownError != null) {
       throw Error(
