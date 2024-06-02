@@ -38,7 +38,7 @@
 ] @textFragment
 
 (class
-  name: (_) @className @name
+  name: (_) @name
 ) @_.domain
 
 (method
