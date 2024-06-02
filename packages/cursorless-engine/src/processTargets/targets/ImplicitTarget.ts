@@ -1,4 +1,3 @@
-import { EnforceUndefined } from "@cursorless/common";
 import { BaseTarget, CommonTargetParameters } from "./BaseTarget";
 
 /**
@@ -19,6 +18,5 @@ export class ImplicitTarget extends BaseTarget<CommonTargetParameters> {
   getTrailingDelimiterTarget = () => undefined;
   getRemovalRange = () => this.contentRange;
 
-  protected getCloneParameters: () => EnforceUndefined<CommonTargetParameters> =
-    () => this.state;
+  protected getCloneParameters = () => this.state;
 }
