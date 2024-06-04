@@ -4,6 +4,7 @@ import {
   getScopeTestsDirPath,
   groupBy,
   languageScopeSupport,
+  scopeSupportFacetInfos,
   showInfo,
   type IDE,
   type ScopeSupportFacet,
@@ -33,7 +34,8 @@ export class ScopeTestRecorder {
     );
 
     const missingScopeFacetRows = missingScopeFacets.map(
-      (facet) => `[${facet}]\n\n---\n`,
+      (facet) =>
+        `[${facet}] - ${scopeSupportFacetInfos[facet].description}\n\n---\n`,
     );
     const header = `[[${languageId}]]\n\n`;
     const documentContent = `${header}${missingScopeFacetRows.join("\n")}`;
@@ -62,7 +64,7 @@ export class ScopeTestRecorder {
     const facetsToAdd: { facet: string; content: string }[] = [];
 
     for (const part of parts) {
-      const match = part.match(/^\[(\w+)\]\n(.*)$/s);
+      const match = part.match(/^\[(\w+)\].*\n([\s\S]*)$/);
       const facet = match?.[1];
       const content = match?.[2] ?? "";
 
