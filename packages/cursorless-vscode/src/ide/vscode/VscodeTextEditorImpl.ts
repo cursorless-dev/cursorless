@@ -74,8 +74,13 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   /** Returns true if this is the original/left hand side of a git diff editor */
-  get isGitDiffOriginal(): boolean {
+  get isGitDiffEditorOriginal(): boolean {
     return this.document.uri.scheme === "git";
+  }
+
+  /** Returns true if this is a search editor */
+  get isSearchEditor(): boolean {
+    return this.document.uri.scheme === "search-editor";
   }
 
   public isEqual(other: TextEditor): boolean {
@@ -98,10 +103,12 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     selections: Selection[],
     revealRange: boolean = true,
   ) {
-    if (this.isGitDiffOriginal) {
+    if (this.isGitDiffEditorOriginal || this.isSearchEditor) {
       // NB: With a git diff editor we focus the editor BEFORE setting the
       // selections because otherwise the selections will be clobbered when we
-      // issue the command to switch sides in the diff editor
+      // issue the command to switch sides in the diff editor.
+      // The search editor has the same problem where focus is moved to the
+      // input field and the selection is clobbered.
       await vscodeFocusEditor(this);
       await setSelectionsWithoutFocusingEditorAndRevealRange(
         this,

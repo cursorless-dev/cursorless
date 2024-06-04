@@ -29,21 +29,20 @@ const columnFocusCommands = {
 export default async function vscodeFocusEditor(
   editor: VscodeTextEditorImpl,
 ): Promise<void> {
-  // Focusing the search editor brings focus back to the input field.
-  // FIXME: This is a hack. There is no way to focus the search editor. If we
-  // could figure out if the editor was not focused, we could issue
-  // `search.action.focusNextSearchResult`.
-  // Issue: https://github.com/cursorless-dev/cursorless/issues/1722
-  if (editor.document.uri.scheme === "search-editor") {
-    return;
-  }
-
   const viewColumn = getViewColumn(editor.vscodeEditor);
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
 
-    if (editor.isGitDiffOriginal && !editor.isActive) {
+    if (editor.isGitDiffEditorOriginal && !editor.isActive) {
+      // There is no way of directly focusing the left hand side of a diff
+      // editor. Switch side if needed.
+
       await commands.executeCommand("diffEditor.switchSide");
+    } else if (editor.isSearchEditor) {
+      // Focusing the search editor brings focus back to the input field. This
+      // command moves selection into the actual editor text.
+
+      await commands.executeCommand("search.action.focusNextSearchResult");
     }
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
