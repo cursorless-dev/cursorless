@@ -4,6 +4,18 @@ import {
   uniqWithHash,
 } from "@cursorless/common";
 
+export async function setSelectionsWithoutFocusingEditorAndRevealRange(
+  editor: EditableTextEditor,
+  selections: Selection[],
+  revealRange: boolean,
+): Promise<void> {
+  await setSelectionsWithoutFocusingEditor(editor, selections);
+
+  if (revealRange) {
+    await editor.revealRange(editor.selections[0]);
+  }
+}
+
 export async function setSelectionsWithoutFocusingEditor(
   editor: EditableTextEditor,
   selections: Selection[],
@@ -15,16 +27,4 @@ export async function setSelectionsWithoutFocusingEditor(
       (s) => s.concise(),
     ),
   );
-}
-
-export async function setSelectionsWithoutFocusingEditorAndRevealRange(
-  editor: EditableTextEditor,
-  selections: Selection[],
-  revealRange: boolean,
-): Promise<void> {
-  await setSelectionsWithoutFocusingEditor(editor, selections);
-
-  if (revealRange) {
-    await editor.revealRange(editor.selections[0]);
-  }
 }
