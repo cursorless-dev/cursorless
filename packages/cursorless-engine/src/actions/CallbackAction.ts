@@ -5,10 +5,7 @@ import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { callFunctionAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import {
-  setSelectionsAndFocusEditor,
-  setSelectionsWithoutFocusingEditor,
-} from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsWithoutFocusingEditor";
 import {
   ensureSingleEditor,
   ensureSingleTarget,
@@ -95,11 +92,7 @@ export class CallbackAction {
 
     // For this callback/command to the work we have to have the correct editor focused
     if (options.setSelection) {
-      await setSelectionsAndFocusEditor(
-        editableEditor,
-        targetSelections,
-        false,
-      );
+      await editableEditor.setSelectionsAndFocus(targetSelections, false);
     }
 
     const [updatedOriginalSelections, updatedTargetSelections] =

@@ -13,7 +13,7 @@ import {
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { FullSelectionInfo } from "../typings/updateSelections";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsWithoutFocusingEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 

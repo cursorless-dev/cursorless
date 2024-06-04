@@ -4,7 +4,7 @@ import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
 import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsWithoutFocusingEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
 

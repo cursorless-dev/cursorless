@@ -79,6 +79,17 @@ export interface EditableTextEditor extends TextEditor {
   focus(): Promise<void>;
 
   /**
+   * Set selections and focus the editor.
+   *
+   * @param selections The selections to set.
+   * @param revealRange If `true`, reveal the range of the first selection.
+   */
+  setSelectionsAndFocus(
+    selections: Selection[],
+    revealRange?: boolean,
+  ): Promise<void>;
+
+  /**
    * Perform an edit on the document associated with this text editor.
    *
    * @param edits the list of edits that need to be applied to the document

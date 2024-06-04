@@ -14,7 +14,7 @@ import {
 import { ide } from "../singletons/ide.singleton";
 import { EditWithRangeUpdater } from "../typings/Types";
 import { Destination, Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsWithoutFocusingEditor";
 import {
   flashTargets,
   getContentRange,

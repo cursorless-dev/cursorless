@@ -10,7 +10,7 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Destination } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
+import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsWithoutFocusingEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
 import { ActionReturnValue } from "./actions.types";

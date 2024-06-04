@@ -11,6 +11,7 @@ import {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
+import { setSelectionsWithoutFocusingEditor } from "@cursorless/cursorless-engine";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -88,8 +89,28 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeEdit(this.editor, edits);
   }
 
-  public focus(): Promise<void> {
-    return vscodeFocusEditor(this);
+  public async setSelectionsAndFocus(
+    selections: Selection[],
+    revealRange: boolean = true,
+  ) {
+    await setSelectionsWithoutFocusingEditor(this, selections);
+
+    if (revealRange) {
+      await this.revealRange(this.selections[0]);
+    }
+
+    // NB: We focus the editor after setting the selection because otherwise you see
+    // an intermediate state where the old selection persists
+    const setSelectionAgain = await vscodeFocusEditor(this);
+
+    // This is a hack. The command we use to switch over to the left hand side of the diff editor changes selection
+    if (setSelectionAgain) {
+      await setSelectionsWithoutFocusingEditor(this, selections);
+    }
+  }
+
+  public async focus(): Promise<void> {
+    await vscodeFocusEditor(this);
   }
 
   public editNewNotebookCellAbove(): Promise<
