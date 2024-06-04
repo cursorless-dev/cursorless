@@ -48,6 +48,7 @@ export default async function vscodeFocusEditor(
   } else {
     // If the view column is null we see if it's a notebook and try to see if we
     // can just move around in the notebook to focus the correct editor
+
     await focusNotebookCell(editor);
   }
 }
