@@ -16,3 +16,15 @@ export async function setSelectionsWithoutFocusingEditor(
     ),
   );
 }
+
+export async function setSelectionsWithoutFocusingEditorAndRevealRange(
+  editor: EditableTextEditor,
+  selections: Selection[],
+  revealRange: boolean,
+): Promise<void> {
+  await setSelectionsWithoutFocusingEditor(editor, selections);
+
+  if (revealRange) {
+    await editor.revealRange(editor.selections[0]);
+  }
+}

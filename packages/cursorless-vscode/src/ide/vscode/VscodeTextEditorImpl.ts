@@ -11,7 +11,7 @@ import {
   TextEditor,
   TextEditorOptions,
 } from "@cursorless/common";
-import { setSelectionsWithoutFocusingEditor } from "@cursorless/cursorless-engine";
+import { setSelectionsWithoutFocusingEditorAndRevealRange } from "@cursorless/cursorless-engine";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -73,6 +73,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor === vscode.window.activeTextEditor;
   }
 
+  /** Returns true if this is the original/left hand side of a git diff editor */
+  get isGitDiffOriginal(): boolean {
+    return this.document.uri.scheme === "git";
+  }
+
   public isEqual(other: TextEditor): boolean {
     return this.id === other.id;
   }
@@ -93,20 +98,28 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     selections: Selection[],
     revealRange: boolean = true,
   ) {
-    await setSelectionsWithoutFocusingEditor(this, selections);
-
-    if (revealRange) {
-      await this.revealRange(this.selections[0]);
+    if (this.isGitDiffOriginal) {
+      // NB: With a git diff editor we focus the editor BEFORE setting the
+      // selections because otherwise the selections will be clobbered when we
+      // issue the command to switch sides in the diff editor
+      await vscodeFocusEditor(this);
+      await setSelectionsWithoutFocusingEditorAndRevealRange(
+        this,
+        selections,
+        revealRange,
+      );
     }
-
-    // NB: We focus the editor after setting the selection because otherwise you see
-    // an intermediate state where the old selection persists
-    const setSelectionsAgain = await vscodeFocusEditor(this);
-
-    // This is a hack. The command we use to switch over to the left hand side
-    // of the diff editor changes selection
-    if (setSelectionsAgain) {
-      await setSelectionsWithoutFocusingEditor(this, selections);
+    // Normal text editor
+    else {
+      // NB: With a normal text editor we focus the editor AFTER setting the
+      // selections because otherwise you see an intermediate state where the
+      // old selection persists
+      await setSelectionsWithoutFocusingEditorAndRevealRange(
+        this,
+        selections,
+        revealRange,
+      );
+      await vscodeFocusEditor(this);
     }
   }
 
