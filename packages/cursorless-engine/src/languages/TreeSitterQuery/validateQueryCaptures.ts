@@ -2,7 +2,6 @@ import { showError, simpleScopeTypeTypes } from "@cursorless/common";
 import { ide } from "../../singletons/ide.singleton";
 
 const wildcard = "_";
-const textFragment = "textFragment";
 const captureNames = [wildcard, ...simpleScopeTypeTypes];
 
 const positionRelationships = ["prefix", "leading", "trailing"];
@@ -25,12 +24,6 @@ const rangeSuffixes = [
 ];
 
 const allowedCaptures = new Set<string>();
-
-allowedCaptures.add(textFragment);
-
-for (const suffix of rangeSuffixes) {
-  allowedCaptures.add(`${textFragment}.${suffix}`);
-}
 
 for (const captureName of captureNames) {
   // Wildcard is not allowed by itself without a relationship

@@ -31,8 +31,15 @@ const scopeSupportFacets = [
   "className.iteration.block",
   "namedFunction",
   "namedFunction.method",
+  "namedFunction.method.iteration.class",
+  "namedFunction.iteration",
+  "namedFunction.iteration.document",
   "anonymousFunction",
   "functionName",
+  "functionName.method",
+  "functionName.method.iteration.class",
+  "functionName.iteration",
+  "functionName.iteration.document",
 
   "functionCall",
   "functionCall.constructor",
@@ -49,6 +56,11 @@ const scopeSupportFacets = [
 
   "string.singleLine",
   "string.multiLine",
+
+  "textFragment.comment.line",
+  "textFragment.comment.block",
+  "textFragment.string.singleLine",
+  "textFragment.string.multiLine",
 
   "branch.if",
   "branch.if.iteration",
@@ -76,6 +88,8 @@ const scopeSupportFacets = [
   "name.resource.iteration",
   "name.argument.formal",
   "name.argument.formal.iteration",
+  "name.iteration.block",
+  "name.iteration.document",
 
   "key.attribute",
   "key.mapPair",
@@ -115,7 +129,6 @@ const scopeSupportFacets = [
   // selector
   // unit
   // collectionItem
-  // textFragment
 ] as const;
 
 const textualScopeSupportFacets = [

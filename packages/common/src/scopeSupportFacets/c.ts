@@ -10,8 +10,13 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cScopeSupport: LanguageScopeSupportFacetMap = {
   ifStatement: supported,
+
   "comment.line": supported,
+  "comment.block": supported,
   "string.singleLine": supported,
+  "textFragment.comment.line": supported,
+  "textFragment.comment.block": supported,
+  "textFragment.string.singleLine": supported,
 
   class: supported,
   className: supported,

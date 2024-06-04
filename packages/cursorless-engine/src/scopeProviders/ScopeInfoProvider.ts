@@ -157,6 +157,7 @@ function isLanguageSpecific(scopeType: ScopeType): boolean {
     case "namedParagraph":
     case "subParagraph":
     case "environment":
+    case "textFragment":
       return true;
 
     case "character":

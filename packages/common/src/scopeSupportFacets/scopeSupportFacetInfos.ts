@@ -124,6 +124,21 @@ export const scopeSupportFacetInfos: Record<
     description: "A named method declaration in a class",
     scopeType: "namedFunction",
   },
+  "namedFunction.method.iteration.class": {
+    description: "Iteration scope for named functions: class bodies",
+    scopeType: "namedFunction",
+    isIteration: true,
+  },
+  "namedFunction.iteration": {
+    description: "Iteration scope for named functions",
+    scopeType: "namedFunction",
+    isIteration: true,
+  },
+  "namedFunction.iteration.document": {
+    description: "Iteration scope for named functions: the entire document",
+    scopeType: "namedFunction",
+    isIteration: true,
+  },
   anonymousFunction: {
     description:
       "An anonymous function, eg a lambda function, an arrow function, etc",
@@ -132,6 +147,25 @@ export const scopeSupportFacetInfos: Record<
   functionName: {
     description: "The name of a function",
     scopeType: "functionName",
+  },
+  "functionName.method": {
+    description: "The name of a method in a class",
+    scopeType: "functionName",
+  },
+  "functionName.method.iteration.class": {
+    description: "Iteration scope for function names: class bodies",
+    scopeType: "functionName",
+    isIteration: true,
+  },
+  "functionName.iteration": {
+    description: "Iteration scope for function names",
+    scopeType: "functionName",
+    isIteration: true,
+  },
+  "functionName.iteration.document": {
+    description: "Iteration scope for function names: the entire document",
+    scopeType: "functionName",
+    isIteration: true,
   },
 
   functionCall: {
@@ -189,6 +223,23 @@ export const scopeSupportFacetInfos: Record<
   "string.multiLine": {
     description: "A multi-line string",
     scopeType: "string",
+  },
+
+  "textFragment.comment.line": {
+    description: "Text fragment consisting of a line comment",
+    scopeType: "textFragment",
+  },
+  "textFragment.comment.block": {
+    description: "Text fragment consisting of a block comment",
+    scopeType: "textFragment",
+  },
+  "textFragment.string.singleLine": {
+    description: "Text fragment consisting of a single-line string",
+    scopeType: "textFragment",
+  },
+  "textFragment.string.multiLine": {
+    description: "Text fragment consisting of a multi-line string",
+    scopeType: "textFragment",
   },
 
   "branch.if": {
@@ -296,6 +347,17 @@ export const scopeSupportFacetInfos: Record<
   "name.argument.formal.iteration": {
     description:
       "Iteration scope of the names of the formal parameters of a function declaration; should be the whole parameter list",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.block": {
+    description:
+      "Iteration scope for names: statement blocks (body of functions/if classes/for loops/etc).",
+    scopeType: "name",
+    isIteration: true,
+  },
+  "name.iteration.document": {
+    description: "Iteration scope for names: the entire document",
     scopeType: "name",
     isIteration: true,
   },
