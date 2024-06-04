@@ -14,11 +14,11 @@ import * as path from "node:path";
 
 export class ScopeTestRecorder {
   constructor(private ide: IDE) {
-    this.showUnsupportedFacets = this.showUnsupportedFacets.bind(this);
+    this.showUnimplementedFacets = this.showUnimplementedFacets.bind(this);
     this.saveActiveDocument = this.saveActiveDocument.bind(this);
   }
 
-  async showUnsupportedFacets() {
+  async showUnimplementedFacets() {
     const languageId = await this.languageSelection();
 
     if (languageId == null) {
