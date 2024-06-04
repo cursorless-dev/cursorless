@@ -101,10 +101,11 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
     // NB: We focus the editor after setting the selection because otherwise you see
     // an intermediate state where the old selection persists
-    const setSelectionAgain = await vscodeFocusEditor(this);
+    const setSelectionsAgain = await vscodeFocusEditor(this);
 
-    // This is a hack. The command we use to switch over to the left hand side of the diff editor changes selection
-    if (setSelectionAgain) {
+    // This is a hack. The command we use to switch over to the left hand side
+    // of the diff editor changes selection
+    if (setSelectionsAgain) {
       await setSelectionsWithoutFocusingEditor(this, selections);
     }
   }
