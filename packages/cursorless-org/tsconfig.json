@@ -25,6 +25,9 @@
   "references": [
     {
       "path": "../cheatsheet"
+    },
+    {
+      "path": "../test-case-component"
     }
   ],
   "exclude": ["node_modules"]
