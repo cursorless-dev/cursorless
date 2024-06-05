@@ -99,7 +99,7 @@ export class ScopeTestRecorder {
       await fsPromises.writeFile(filePath, fullContent, "utf-8");
     }
 
-    void showInfo(
+    await showInfo(
       this.ide.messages,
       "scopeTestsSaved",
       `${facetsToAdd.length} scope tests saved for language '${languageId}`,
