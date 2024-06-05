@@ -33,16 +33,20 @@ export class ScopeTestRecorder {
       (facet) => !existingScopeTestFacets.has(facet),
     );
 
+    let currentSnippetPlaceholder = 1;
     const missingScopeFacetRows = missingScopeFacets.map(
       (facet) =>
-        `[${facet}] - ${scopeSupportFacetInfos[facet].description}\n\n---\n`,
+        `[${facet}] - ${scopeSupportFacetInfos[facet].description}\n$${currentSnippetPlaceholder++}\n---\n`,
     );
     const header = `[[${languageId}]]\n\n`;
-    const documentContent = `${header}${missingScopeFacetRows.join("\n")}`;
+    const snippetText = `${header}${missingScopeFacetRows.join("\n")}`;
 
-    await this.ide.openUntitledTextDocument({
-      content: documentContent,
+    const editor = await this.ide.openUntitledTextDocument({
+      language: "markdown",
     });
+
+    const editableEditor = this.ide.getEditableTextEditor(editor);
+    await editableEditor.insertSnippet(snippetText);
   }
 
   async saveActiveDocument() {
@@ -64,7 +68,7 @@ export class ScopeTestRecorder {
     const facetsToAdd: { facet: string; content: string }[] = [];
 
     for (const part of parts) {
-      const match = part.match(/^\[(\w+)\].*\n([\s\S]*)$/);
+      const match = part.match(/^\[([\w.]+)\].*\n([\s\S]*)$/);
       const facet = match?.[1];
       const content = match?.[2] ?? "";
 
