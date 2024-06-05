@@ -229,6 +229,11 @@ export const scopeSupportFacetInfos: Record<
     description: "An if/elif/else branch",
     scopeType: "branch",
   },
+  "branch.loop": {
+    description:
+      "A for / while loop branch. For most languages there will just be one branch for the entire loop, but eg in Python you can have an else branch for a loop.",
+    scopeType: "branch",
+  },
 
   "branch.if.iteration": {
     description:
