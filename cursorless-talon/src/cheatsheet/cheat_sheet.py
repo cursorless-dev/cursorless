@@ -37,6 +37,7 @@ class Actions:
 
     def private_cursorless_open_instructions():
         """Open web page with cursorless instructions"""
+        actions.user.private_cursorless_notify_docs_opened()
         webbrowser.open(instructions_url)
 
 

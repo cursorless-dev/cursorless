@@ -15,6 +15,7 @@ import { Debug } from "./core/Debug";
 import { HatTokenMapImpl } from "./core/HatTokenMapImpl";
 import { Snippets } from "./core/Snippets";
 import { StoredTargetMap } from "./core/StoredTargets";
+import { TutorialImpl } from "./core/TutorialImpl";
 import { RangeUpdater } from "./core/updateSelections/RangeUpdater";
 import { CustomSpokenFormGeneratorImpl } from "./generateSpokenForm/CustomSpokenFormGeneratorImpl";
 import { LanguageDefinitions } from "./languages/LanguageDefinitions";
@@ -66,9 +67,22 @@ export async function createCursorlessEngine(
     talonSpokenForms,
   );
 
-  ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
-
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
+
+  const addCommandRunnerDecorator = (decorator: CommandRunnerDecorator) => {
+    commandRunnerDecorators.push(decorator);
+  };
+
+  const tutorial = new TutorialImpl(hatTokenMap, customSpokenFormGenerator);
+  addCommandRunnerDecorator(tutorial);
+
+  ide.disposeOnExit(
+    rangeUpdater,
+    languageDefinitions,
+    hatTokenMap,
+    debug,
+    tutorial,
+  );
 
   return {
     commandApi: {
@@ -114,9 +128,8 @@ export async function createCursorlessEngine(
     injectIde,
     runIntegrationTests: () =>
       runIntegrationTests(treeSitter, languageDefinitions),
-    addCommandRunnerDecorator: (decorator: CommandRunnerDecorator) => {
-      commandRunnerDecorators.push(decorator);
-    },
+    addCommandRunnerDecorator,
+    tutorial,
   };
 }
 

@@ -1,0 +1,60 @@
+languageId: python
+command:
+  version: 6
+  spokenForm: bring state urge
+  action:
+    name: replaceWithTarget
+    source:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: statement}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+    destination: {type: implicit}
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 4}
+      active: {line: 12, character: 4}
+  marks:
+    default.u:
+      start: {line: 11, character: 8}
+      end: {line: 11, character: 14}
+finalState:
+  documentContents: |
+    def print_color(color, invert=False):
+        if invert:
+            print(invert_color(color))
+        else:
+            print(color)
+
+
+    def invert_color(color):
+        if color == "black":
+            return "white"
+        if color == "white":
+            return "black"
+        return "black"
+
+
+    print_color("black")
+  selections:
+    - anchor: {line: 12, character: 18}
+      active: {line: 12, character: 18}

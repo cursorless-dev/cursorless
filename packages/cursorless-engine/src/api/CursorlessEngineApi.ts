@@ -9,6 +9,7 @@ import type {
 import type { CommandRunner } from "../CommandRunner";
 import type { Snippets } from "../core/Snippets";
 import type { StoredTargetMap } from "../core/StoredTargets";
+import { Tutorial } from "./Tutorial";
 
 export interface CursorlessEngine {
   commandApi: CommandApi;
@@ -17,6 +18,7 @@ export interface CursorlessEngine {
   storedTargets: StoredTargetMap;
   hatTokenMap: HatTokenMap;
   snippets: Snippets;
+  tutorial: Tutorial;
   injectIde: (ide: IDE | undefined) => void;
   runIntegrationTests: () => Promise<void>;
   addCommandRunnerDecorator: (

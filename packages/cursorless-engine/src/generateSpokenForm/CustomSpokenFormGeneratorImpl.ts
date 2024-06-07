@@ -59,6 +59,10 @@ export class CustomSpokenFormGeneratorImpl
     return this.customSpokenForms.spokenFormMap.action[actionId];
   }
 
+  graphemeToSpokenForm(grapheme: string) {
+    return this.customSpokenForms.spokenFormMap.grapheme[grapheme];
+  }
+
   getCustomRegexScopeTypes() {
     return this.customSpokenForms.getCustomRegexScopeTypes();
   }

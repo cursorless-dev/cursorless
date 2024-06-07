@@ -1,0 +1,56 @@
+languageId: plaintext
+command:
+  version: 6
+  spokenForm: take each past crunch
+  action:
+    name: setSelection
+    target:
+      type: range
+      anchor:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: e}
+      active:
+        type: primitive
+        mark: {type: decoratedSymbol, symbolColor: default, character: k}
+      excludeAnchor: false
+      excludeActive: false
+  usePrePhraseSnapshot: false
+initialState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 6, character: 12}
+      active: {line: 6, character: 14}
+  marks:
+    default.e:
+      start: {line: 4, character: 13}
+      end: {line: 4, character: 16}
+    default.k:
+      start: {line: 4, character: 31}
+      end: {line: 4, character: 36}
+finalState:
+  documentContents: |-
+    ==================================================
+    ==========                              ==========
+    ==========    Welcome to Cursorless!    ==========
+    ==========                              ==========
+    ==========   Let's start using marks    ==========
+    ==========                              ==========
+    ==========  so we can navigate around   ==========
+    ==========                              ==========
+    ==========  without lifting a finger!   ==========
+    ==========                              ==========
+    ==================================================
+  selections:
+    - anchor: {line: 4, character: 13}
+      active: {line: 4, character: 36}
