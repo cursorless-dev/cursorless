@@ -1,3 +1,4 @@
+import type { StringRecord } from "../types/StringRecord";
 import { cScopeSupport } from "./c";
 import { clojureScopeSupport } from "./clojure";
 import { cppScopeSupport } from "./cpp";
@@ -27,36 +28,34 @@ import { typescriptreactScopeSupport } from "./typescriptreact";
 import { xmlScopeSupport } from "./xml";
 import { yamlScopeSupport } from "./yaml";
 
-export const languageScopeSupport: Record<
-  string,
-  LanguageScopeSupportFacetMap
-> = {
-  c: cScopeSupport,
-  clojure: clojureScopeSupport,
-  cpp: cppScopeSupport,
-  csharp: csharpScopeSupport,
-  css: cssScopeSupport,
-  go: goScopeSupport,
-  html: htmlScopeSupport,
-  java: javaScopeSupport,
-  javascript: javascriptScopeSupport,
-  javascriptreact: javascriptScopeSupport,
-  json: jsonScopeSupport,
-  jsonc: jsoncScopeSupport,
-  jsonl: jsonlScopeSupport,
-  latex: latexScopeSupport,
-  lua: luaScopeSupport,
-  markdown: markdownScopeSupport,
-  php: phpScopeSupport,
-  python: pythonScopeSupport,
-  ruby: rubyScopeSupport,
-  rust: rustScopeSupport,
-  scala: scalaScopeSupport,
-  scm: scmScopeSupport,
-  scss: scssScopeSupport,
-  talon: talonScopeSupport,
-  typescript: typescriptScopeSupport,
-  typescriptreact: typescriptreactScopeSupport,
-  xml: xmlScopeSupport,
-  yaml: yamlScopeSupport,
-};
+export const languageScopeSupport: StringRecord<LanguageScopeSupportFacetMap> =
+  {
+    c: cScopeSupport,
+    clojure: clojureScopeSupport,
+    cpp: cppScopeSupport,
+    csharp: csharpScopeSupport,
+    css: cssScopeSupport,
+    go: goScopeSupport,
+    html: htmlScopeSupport,
+    java: javaScopeSupport,
+    javascript: javascriptScopeSupport,
+    javascriptreact: javascriptScopeSupport,
+    json: jsonScopeSupport,
+    jsonc: jsoncScopeSupport,
+    jsonl: jsonlScopeSupport,
+    latex: latexScopeSupport,
+    lua: luaScopeSupport,
+    markdown: markdownScopeSupport,
+    php: phpScopeSupport,
+    python: pythonScopeSupport,
+    ruby: rubyScopeSupport,
+    rust: rustScopeSupport,
+    scala: scalaScopeSupport,
+    scm: scmScopeSupport,
+    scss: scssScopeSupport,
+    talon: talonScopeSupport,
+    typescript: typescriptScopeSupport,
+    typescriptreact: typescriptreactScopeSupport,
+    xml: xmlScopeSupport,
+    yaml: yamlScopeSupport,
+  };
