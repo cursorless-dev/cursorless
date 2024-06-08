@@ -11,10 +11,15 @@ export const TutorialStep: FunctionComponent<TutorialStepProps> = ({
 }) => {
   return (
     <div>
-      <h1 className="text-[color:var(--vscode-walkthrough-stepTitle\.foreground)]">
-        {state.title}
-      </h1>
-      <progress value={state.stepNumber + 1} max={state.stepCount} />
+      <div className="mb-1 mt-2 flex items-center gap-2">
+        <progress
+          className="[&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[var(--vscode-welcomePage-progress\.background)] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[var(--vscode-welcomePage-progress\.foreground)]"
+          value={state.stepNumber + 1}
+          max={state.stepCount}
+        />
+        <i className="codicon codicon-clock"></i>
+        <span className="text-xs">❌</span>
+      </div>
       {state.preConditionsMet ? (
         state.stepContent.map((fragment, i) => (
           <span key={i}>
