@@ -10,8 +10,13 @@ import { Actions } from "./Actions";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
 
 export default class FollowLink implements SimpleAction {
-  constructor(private actions: Actions) {
+  openInSplit = false;
+  constructor(
+    private actions: Actions,
+    { openInSplit }: { openInSplit: boolean },
+  ) {
     this.run = this.run.bind(this);
+    this.openInSplit = openInSplit;
   }
 
   async run(targets: Target[]): Promise<ActionReturnValue> {
@@ -24,11 +29,12 @@ export default class FollowLink implements SimpleAction {
       .openLink(target.contentRange);
 
     if (!openedLink) {
-      await this.actions.executeCommand.run(
-        targets,
-        "editor.action.revealDefinition",
-        { restoreSelection: false },
-      );
+      let commandId = this.openInSplit
+        ? "editor.action.revealDefinitionAside"
+        : "editor.action.revealDefinition";
+      await this.actions.executeCommand.run(targets, commandId, {
+        restoreSelection: false,
+      });
     }
 
     return {

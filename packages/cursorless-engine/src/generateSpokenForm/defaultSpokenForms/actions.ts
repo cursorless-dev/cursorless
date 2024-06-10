@@ -25,6 +25,7 @@ export const actions = {
   insertEmptyLineAfter: "float",
   foldRegion: "fold",
   followLink: "follow",
+  followLinkAside: "follow split",
   deselect: "give",
   highlight: "highlight",
   showHover: "hover",

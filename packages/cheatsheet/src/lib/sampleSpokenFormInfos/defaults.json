@@ -159,6 +159,16 @@
           ]
         },
         {
+          "id": "followLinkAside",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "follow aside <target>",
+              "description": "Follow link in a split"
+            }
+          ]
+        },
+        {
           "id": "generateSnippet",
           "type": "action",
           "variations": [
