@@ -105,6 +105,9 @@ export class VscodeTutorial implements WebviewViewProvider {
         case "start":
           this.start(data.tutorialId);
           break;
+        case "list":
+          this.list();
+          break;
       }
     });
   }

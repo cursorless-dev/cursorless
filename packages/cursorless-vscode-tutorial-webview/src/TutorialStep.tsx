@@ -1,24 +1,37 @@
 import { ActiveTutorialNoErrorsState } from "@cursorless/common";
 import { type FunctionComponent } from "react";
 import { Command } from "./Command";
+import { WebviewApi } from "vscode-webview";
+import { CloseIcon } from "./CloseIcon";
+import { ProgressBar } from "./ProgressBar";
 
 interface TutorialStepProps {
   state: ActiveTutorialNoErrorsState;
+  vscode: WebviewApi<undefined>;
 }
 
 export const TutorialStep: FunctionComponent<TutorialStepProps> = ({
   state,
+  vscode,
 }) => {
   return (
     <div>
-      <div className="mb-1 mt-2 flex items-center gap-2">
-        <progress
-          className="[&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-bar]:bg-[var(--vscode-welcomePage-progress\.background)] [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-value]:bg-[var(--vscode-welcomePage-progress\.foreground)]"
-          value={state.stepNumber + 1}
-          max={state.stepCount}
+      <div className="mb-2 mt-2 flex items-center gap-[0.2em]">
+        <ProgressBar
+          currentStep={state.stepNumber}
+          stepCount={state.stepCount}
         />
-        <i className="codicon codicon-clock"></i>
-        <span className="text-xs">❌</span>
+        <button
+          onClick={() =>
+            vscode.postMessage({
+              type: "list",
+            })
+          }
+        >
+          <span className="text-red-600">
+            <CloseIcon />
+          </span>
+        </button>
       </div>
       {state.preConditionsMet ? (
         state.stepContent.map((fragment, i) => (

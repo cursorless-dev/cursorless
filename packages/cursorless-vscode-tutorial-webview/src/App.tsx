@@ -82,7 +82,7 @@ export const App: FunctionComponent<Props> = ({ vscode }) => {
           </p>
         </div>
       ) : (
-        <TutorialStep state={state} />
+        <TutorialStep state={state} vscode={vscode} />
       );
   }
 };
