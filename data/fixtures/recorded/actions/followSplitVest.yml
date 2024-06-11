@@ -1,4 +1,4 @@
-languageId: typescript
+languageId: javascript
 command:
   version: 7
   spokenForm: follow split vest
@@ -9,29 +9,29 @@ command:
       mark: {type: decoratedSymbol, symbolColor: default, character: v}
   usePrePhraseSnapshot: true
 initialState:
-  documentContents: |-
-    const value = "value";
+  documentContents: |2-
+        const value = "value";
 
-    console.log(value);
+        console.log(value);
   selections:
-    - anchor: {line: 2, character: 19}
-      active: {line: 2, character: 19}
+    - anchor: {line: 2, character: 16}
+      active: {line: 2, character: 21}
   marks:
     default.v:
-      start: {line: 2, character: 12}
-      end: {line: 2, character: 17}
+      start: {line: 2, character: 16}
+      end: {line: 2, character: 21}
 finalState:
-  documentContents: |-
-    const value = "value";
+  documentContents: |2-
+        const value = "value";
 
-    console.log(value);
+        console.log(value);
   selections:
-    - anchor: {line: 0, character: 6}
-      active: {line: 0, character: 6}
+    - anchor: {line: 0, character: 10}
+      active: {line: 0, character: 10}
   thatMark:
     - type: UntypedTarget
       contentRange:
-        start: {line: 2, character: 12}
-        end: {line: 2, character: 17}
+        start: {line: 2, character: 16}
+        end: {line: 2, character: 21}
       isReversed: false
       hasExplicitRange: true

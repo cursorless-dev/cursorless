@@ -33,7 +33,7 @@ export default class FollowLink implements SimpleAction {
         ? "editor.action.revealDefinitionAside"
         : "editor.action.revealDefinition";
       await this.actions.executeCommand.run(targets, commandId, {
-        restoreSelection: false,
+        restoreSelection: !this.openInSplit,
       });
     }
 
