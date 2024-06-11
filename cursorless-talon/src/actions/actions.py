@@ -7,6 +7,10 @@ from ..targets.target_types import (
     CursorlessExplicitTarget,
     CursorlessTarget,
     ImplicitDestination,
+    ListTarget,
+    PrimitiveDestination,
+    PrimitiveTarget,
+    RangeTarget,
 )
 from .bring_move import BringMoveTargets
 from .execute_command import cursorless_execute_command_action
@@ -128,6 +132,13 @@ class Actions:
         if isinstance(text, str):
             text = [text]
         cursorless_replace_action(destination, text)
+
+    def cursorless_replace(
+        target: ListTarget | RangeTarget | PrimitiveTarget,  # pyright: ignore [reportGeneralTypeIssues]
+        text: Union[str, list[str]],
+    ):
+        """Replace cursorless target with text"""
+        actions.user.cursorless_insert(PrimitiveDestination("to", target), text)
 
     def private_cursorless_action_or_ide_command(
         instruction: dict[str, str],  # pyright: ignore [reportGeneralTypeIssues]
