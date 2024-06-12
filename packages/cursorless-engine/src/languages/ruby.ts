@@ -92,15 +92,21 @@ const EXPRESSION_TYPES = [
 ];
 
 const EXPRESSION_STATEMENT_PARENT_TYPES = [
+  "begin_block",
   "begin",
+  "block_body",
   "block",
-  "do",
+  "body_statement",
   "do_block",
+  "do",
   "else",
+  "end_block",
   "ensure",
   "heredoc_beginning",
+  "interpolation",
   "lambda",
   "method",
+  "parenthesized_statements",
   "program",
   "singleton_class",
   "singleton_method",
