@@ -35,6 +35,7 @@ export const marks = {
   source: "source",
   nothing: "nothing",
 
+  keyboard: null,
   explicit: null,
   decoratedSymbol: null,
   lineNumber: null,

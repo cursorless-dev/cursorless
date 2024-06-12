@@ -3,17 +3,20 @@ from typing import Any
 
 from talon import Module, actions, speech_system
 
+from .fallback import perform_fallback
+from .versions import COMMAND_VERSION
+
 
 @dataclasses.dataclass
 class CursorlessCommand:
-    version = 6
+    version = COMMAND_VERSION
     spokenForm: str
     usePrePhraseSnapshot: bool
     action: dict
 
 
 CURSORLESS_COMMAND_ID = "cursorless.command"
-last_phrase = None
+last_phrase: dict = {}
 
 mod = Module()
 
@@ -28,26 +31,33 @@ speech_system.register("pre:phrase", on_phrase)
 
 @mod.action_class
 class Actions:
-    def private_cursorless_command_and_wait(action: dict):
+    def private_cursorless_command_and_wait(action: dict):  # pyright: ignore [reportGeneralTypeIssues]
         """Execute cursorless command and wait for it to finish"""
-        actions.user.private_cursorless_run_rpc_command_and_wait(
+        response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
+        if "fallback" in response:
+            perform_fallback(response["fallback"])
 
-    def private_cursorless_command_no_wait(action: dict):
+    def private_cursorless_command_no_wait(action: dict):  # pyright: ignore [reportGeneralTypeIssues]
         """Execute cursorless command without waiting"""
         actions.user.private_cursorless_run_rpc_command_no_wait(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
 
-    def private_cursorless_command_get(action: dict):
+    def private_cursorless_command_get(action: dict):  # pyright: ignore [reportGeneralTypeIssues]
         """Execute cursorless command and return result"""
-        return actions.user.private_cursorless_run_rpc_command_get(
+        response = actions.user.private_cursorless_run_rpc_command_get(
             CURSORLESS_COMMAND_ID,
             construct_cursorless_command(action),
         )
+        if "fallback" in response:
+            return perform_fallback(response["fallback"])
+        if "returnValue" in response:
+            return response["returnValue"]
+        return None
 
 
 def construct_cursorless_command(action: dict) -> dict:

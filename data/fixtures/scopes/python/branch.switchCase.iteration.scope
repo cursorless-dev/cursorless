@@ -1,0 +1,16 @@
+match 0:
+    case [0]:
+        pass
+    case [1]:
+        pass
+---
+
+[Range] =
+[Domain] = 0:0-4:12
+  >--------
+0| match 0:
+1|     case [0]:
+2|         pass
+3|     case [1]:
+4|         pass
+   ------------<

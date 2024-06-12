@@ -1,0 +1,36 @@
+languageId: scss
+command:
+  spokenForm: chuck last sub cap
+  version: 2
+  targets:
+    - type: primitive
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+      modifiers:
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: -1
+          active: -1
+          excludeAnchor: false
+          excludeActive: false
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |2-
+     .child-selector {
+       height: 10px;
+     }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}
+  marks:
+    default.c:
+      start: {line: 0, character: 2}
+      end: {line: 0, character: 16}
+finalState:
+  documentContents: |2-
+     .child {
+       height: 10px;
+     }
+  selections:
+    - anchor: {line: 2, character: 2}
+      active: {line: 2, character: 2}

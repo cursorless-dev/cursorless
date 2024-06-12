@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: change type near
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: 'n'}
+initialState:
+  documentContents: "const foo: string = bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.n:
+      start: {line: 0, character: 24}
+      end: {line: 0, character: 30}
+finalState:
+  documentContents: "const foo: string = bar<>(foo);"
+  selections:
+    - anchor: {line: 0, character: 24}
+      active: {line: 0, character: 24}

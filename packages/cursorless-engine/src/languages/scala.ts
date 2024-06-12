@@ -21,11 +21,6 @@ const nodeMatchers: Partial<
     "trait_definition[name]",
   ],
 
-  ifStatement: "if_expression",
-
-  string: ["interpolated_string_expression", "string"],
-  comment: "comment",
-
   // list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
   functionCall: "call_expression",
   namedFunction: "function_definition",
@@ -44,7 +39,7 @@ const nodeMatchers: Partial<
     }),
   ),
 
-  switchStatementSubject: "match_expression[value]",
+  ["private.switchStatementSubject"]: "match_expression[value]",
   name: ["*[name]", "*[pattern]"],
   functionName: "function_definition[name]",
 

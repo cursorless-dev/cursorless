@@ -1,0 +1,22 @@
+languageId: plaintext
+command:
+  spokenForm: change sub
+  version: 3
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: word}
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: .aaaBbb
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: .Bbb
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}

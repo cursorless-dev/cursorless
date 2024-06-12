@@ -3,7 +3,7 @@
   "displayName": "Cursorless",
   "description": "Structural voice coding at the speed of thought",
   "private": true,
-  "icon": "images/icon.png",
+  "icon": "images/logo.png",
   "galleryBanner": {
     "color": "#00001A",
     "theme": "dark"
@@ -29,7 +29,7 @@
   },
   "homepage": "https://www.cursorless.org/",
   "engines": {
-    "vscode": "^1.66.0"
+    "vscode": "^1.75.1"
   },
   "extensionKind": [
     "ui",
@@ -45,33 +45,9 @@
     "pokey.parse-tree"
   ],
   "activationEvents": [
-    "onLanguage",
-    "onView:cursorless.scopes",
-    "onCommand:cursorless.command",
-    "onCommand:cursorless.internal.updateCheatsheetDefaults",
-    "onCommand:cursorless.keyboard.escape",
-    "onCommand:cursorless.keyboard.modal.modeOff",
-    "onCommand:cursorless.keyboard.modal.modeOn",
-    "onCommand:cursorless.keyboard.modal.modeToggle",
-    "onCommand:cursorless.keyboard.targeted.clearTarget",
-    "onCommand:cursorless.keyboard.targeted.runActionOnTarget",
-    "onCommand:cursorless.keyboard.targeted.targetHat",
-    "onCommand:cursorless.keyboard.targeted.targetScope",
-    "onCommand:cursorless.keyboard.targeted.targetSelection",
-    "onCommand:cursorless.pauseRecording",
-    "onCommand:cursorless.recomputeDecorationStyles",
-    "onCommand:cursorless.recordTestCase",
-    "onCommand:cursorless.recordOneTestCaseThenPause",
-    "onCommand:cursorless.resumeRecording",
-    "onCommand:cursorless.showCheatsheet",
-    "onCommand:cursorless.showDocumentation",
-    "onCommand:cursorless.showQuickPick",
-    "onCommand:cursorless.takeSnapshot",
-    "onCommand:cursorless.toggleDecorations",
-    "onCommand:cursorless.showScopeVisualizer",
-    "onCommand:cursorless.hideScopeVisualizer"
+    "onLanguage"
   ],
-  "main": "./extension.js",
+  "main": "./extension.cjs",
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": true
@@ -112,6 +88,14 @@
         "title": "Cursorless: Resume test case recording"
       },
       {
+        "command": "cursorless.recordScopeTests.showUnimplementedFacets",
+        "title": "Cursorless: Bulk record unimplemented scope facets"
+      },
+      {
+        "command": "cursorless.recordScopeTests.saveActiveDocument",
+        "title": "Cursorless: Bulk save scope tests for the active document"
+      },
+      {
         "command": "cursorless.showDocumentation",
         "title": "Cursorless: Show documentation"
       },
@@ -122,6 +106,10 @@
       {
         "command": "cursorless.hideScopeVisualizer",
         "title": "Cursorless: Hide the scope visualizer"
+      },
+      {
+        "command": "cursorless.analyzeCommandHistory",
+        "title": "Cursorless: Analyze collected command history"
       },
       {
         "command": "cursorless.command",
@@ -141,6 +129,11 @@
       {
         "command": "cursorless.internal.updateCheatsheetDefaults",
         "title": "Cursorless: Update the default values of the cheatsheet payload used on the website and for local development. Be sure to run this on stock community and cursorless.",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.private.logQuickActions",
+        "title": "Cursorless: Log the quick actions available at the current cursor position",
         "enablement": "false"
       },
       {
@@ -278,6 +271,12 @@
           "type": "boolean",
           "default": true,
           "description": "Whether to show decorations on vscode start."
+        },
+        "cursorless.commandHistory": {
+          "type": "boolean",
+          "default": false,
+          "order": 2,
+          "description": "Keep a local, sanitized command history. This history is never sent to our servers, and any commands that may contain text will be sanitized. These statistics can be used in the future for doing local analyses to determine ways you can improve your Cursorless efficiency. We may also support a way for you to send your statistics to us for analysis in the future, but this will be opt-in only."
         },
         "cursorless.tokenHatSplittingMode.preserveCase": {
           "type": "boolean",
@@ -848,68 +847,177 @@
           "description": "Directory containing snippets for use in Cursorless",
           "type": "string"
         },
-        "cursorless.experimental.keyboard.modal.keybindings.actions": {
+        "cursorless.experimental.keyboard.modal.keybindings.action": {
           "description": "Define modal keybindings for actions",
           "type": "object",
           "additionalProperties": {
-            "type": "string",
-            "enum": [
-              "callAsFunction",
-              "clearAndSetSelection",
-              "copyToClipboard",
-              "cutToClipboard",
-              "deselect",
-              "editNew",
-              "editNewLineAfter",
-              "editNewLineBefore",
-              "executeCommand",
-              "extractVariable",
-              "findInWorkspace",
-              "foldRegion",
-              "followLink",
-              "generateSnippet",
-              "getText",
-              "highlight",
-              "indentLine",
-              "insertCopyAfter",
-              "insertCopyBefore",
-              "insertEmptyLineAfter",
-              "insertEmptyLineBefore",
-              "insertEmptyLinesAround",
-              "insertSnippet",
-              "moveToTarget",
-              "outdentLine",
-              "pasteFromClipboard",
-              "randomizeTargets",
-              "remove",
-              "rename",
-              "replace",
-              "replaceWithTarget",
-              "revealDefinition",
-              "revealTypeDefinition",
-              "reverseTargets",
-              "rewrapWithPairedDelimiter",
-              "scrollToBottom",
-              "scrollToCenter",
-              "scrollToTop",
-              "setSelection",
-              "setSelectionAfter",
-              "setSelectionBefore",
-              "showDebugHover",
-              "showHover",
-              "showQuickFix",
-              "showReferences",
-              "sortTargets",
-              "swapTargets",
-              "toggleLineBreakpoint",
-              "toggleLineComment",
-              "unfoldRegion",
-              "wrapWithPairedDelimiter",
-              "wrapWithSnippet"
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "callAsFunction",
+                  "clearAndSetSelection",
+                  "copyToClipboard",
+                  "cutToClipboard",
+                  "deselect",
+                  "editNew",
+                  "editNewLineAfter",
+                  "editNewLineBefore",
+                  "executeCommand",
+                  "extractVariable",
+                  "findInDocument",
+                  "findInWorkspace",
+                  "foldRegion",
+                  "followLink",
+                  "generateSnippet",
+                  "getText",
+                  "highlight",
+                  "indentLine",
+                  "insertCopyAfter",
+                  "insertCopyBefore",
+                  "insertEmptyLineAfter",
+                  "insertEmptyLineBefore",
+                  "insertEmptyLinesAround",
+                  "insertSnippet",
+                  "moveToTarget",
+                  "outdentLine",
+                  "pasteFromClipboard",
+                  "randomizeTargets",
+                  "remove",
+                  "rename",
+                  "replace",
+                  "replaceWithTarget",
+                  "revealDefinition",
+                  "revealTypeDefinition",
+                  "reverseTargets",
+                  "rewrapWithPairedDelimiter",
+                  "scrollToBottom",
+                  "scrollToCenter",
+                  "scrollToTop",
+                  "setSelection",
+                  "setSelectionAfter",
+                  "setSelectionBefore",
+                  "showDebugHover",
+                  "showHover",
+                  "showQuickFix",
+                  "showReferences",
+                  "sortTargets",
+                  "swapTargets",
+                  "toggleLineBreakpoint",
+                  "toggleLineComment",
+                  "unfoldRegion",
+                  "wrap"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "actionId": {
+                    "type": "string",
+                    "enum": [
+                      "callAsFunction",
+                      "clearAndSetSelection",
+                      "copyToClipboard",
+                      "cutToClipboard",
+                      "deselect",
+                      "editNew",
+                      "editNewLineAfter",
+                      "editNewLineBefore",
+                      "executeCommand",
+                      "extractVariable",
+                      "findInDocument",
+                      "findInWorkspace",
+                      "foldRegion",
+                      "followLink",
+                      "generateSnippet",
+                      "getText",
+                      "highlight",
+                      "indentLine",
+                      "insertCopyAfter",
+                      "insertCopyBefore",
+                      "insertEmptyLineAfter",
+                      "insertEmptyLineBefore",
+                      "insertEmptyLinesAround",
+                      "insertSnippet",
+                      "moveToTarget",
+                      "outdentLine",
+                      "pasteFromClipboard",
+                      "randomizeTargets",
+                      "remove",
+                      "rename",
+                      "replace",
+                      "replaceWithTarget",
+                      "revealDefinition",
+                      "revealTypeDefinition",
+                      "reverseTargets",
+                      "rewrapWithPairedDelimiter",
+                      "scrollToBottom",
+                      "scrollToCenter",
+                      "scrollToTop",
+                      "setSelection",
+                      "setSelectionAfter",
+                      "setSelectionBefore",
+                      "showDebugHover",
+                      "showHover",
+                      "showQuickFix",
+                      "showReferences",
+                      "sortTargets",
+                      "swapTargets",
+                      "toggleLineBreakpoint",
+                      "toggleLineComment",
+                      "unfoldRegion",
+                      "wrap"
+                    ],
+                    "description": "The cursorless command to run"
+                  },
+                  "exitCursorlessMode": {
+                    "type": "boolean",
+                    "description": "Indicates whether the command should exit cursorless mode after it is run, defaults false."
+                  }
+                },
+                "required": [
+                  "actionId"
+                ]
+              }
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.colors": {
+        "cursorless.experimental.keyboard.modal.keybindings.vscodeCommand": {
+          "description": "Define modal keybindings for running vscode commands",
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "object"
+            ],
+            "properties": {
+              "commandId": {
+                "type": "string",
+                "description": "The vscode command to run"
+              },
+              "args": {
+                "type": "array",
+                "description": "The arguments to pass to the command"
+              },
+              "executeAtTarget": {
+                "type": "boolean",
+                "description": "If `true`, indicates that the command should be executed at the target by moving the cursor there first, running the command, and then moving the cursor back to the original position"
+              },
+              "keepChangedSelection": {
+                "type": "boolean",
+                "description": "If `true`, the selection will be retained after the command is run, rather than being restored to its original position. This setting only applies when `executeAtTarget` is `true`."
+              },
+              "exitCursorlessMode": {
+                "type": "boolean",
+                "description": "If `true`, indicates that the command should exit cursorless mode after it is run."
+              }
+            },
+            "required": [
+              "commandId"
+            ]
+          }
+        },
+        "cursorless.experimental.keyboard.modal.keybindings.color": {
           "description": "Define modal keybindings for colors",
           "type": "object",
           "additionalProperties": {
@@ -926,7 +1034,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.shapes": {
+        "cursorless.experimental.keyboard.modal.keybindings.shape": {
           "description": "Define modal keybindings for shapes",
           "type": "object",
           "additionalProperties": {
@@ -945,7 +1053,7 @@
             ]
           }
         },
-        "cursorless.experimental.keyboard.modal.keybindings.scopes": {
+        "cursorless.experimental.keyboard.modal.keybindings.scope": {
           "description": "Define modal keybindings for scopes",
           "type": "object",
           "additionalProperties": {
@@ -1056,53 +1164,63 @@
   "funding": "https://github.com/sponsors/pokey",
   "scripts": {
     "build": "pnpm run esbuild:prod && pnpm -F cheatsheet-local build:prod && pnpm run populate-dist",
-    "build:dev": "pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
-    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "build:dev": "pnpm generate-grammar && pnpm run esbuild && pnpm -F cheatsheet-local build && pnpm run populate-dist",
+    "esbuild:base": "esbuild ./src/extension.ts --conditions=cursorless:bundler --bundle --outfile=dist/extension.cjs --external:vscode --format=cjs --platform=node",
     "install-local": "bash ./scripts/install-local.sh",
     "install-from-pr": "bash ./scripts/install-from-pr.sh",
     "uninstall-local": "bash ./scripts/uninstall-local.sh",
     "esbuild": "pnpm run esbuild:base --sourcemap",
     "esbuild:watch": "pnpm run esbuild:base --sourcemap --watch",
     "esbuild:prod": "pnpm run esbuild:base --minify",
-    "populate-dist": "tsx --conditions=cursorless:bundler ./src/scripts/populateDist/index.ts",
-    "init-launch-sandbox": "tsx --conditions=cursorless:bundler src/scripts/initLaunchSandbox.ts",
-    "preprocess-svg-hats": "tsx --conditions=cursorless:bundler src/scripts/preprocessSvgHats.ts",
-    "hat-adjustment-add": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/add.ts",
-    "hat-adjustment-average": "tsx --conditions=cursorless:bundler src/scripts/hatAdjustments/average.ts",
+    "populate-dist": "my-ts-node ./src/scripts/populateDist/index.ts",
+    "init-launch-sandbox": "my-ts-node src/scripts/initLaunchSandbox.ts",
+    "preprocess-svg-hats": "my-ts-node src/scripts/preprocessSvgHats.ts",
+    "hat-adjustment-add": "my-ts-node src/scripts/hatAdjustments/add.ts",
+    "hat-adjustment-average": "my-ts-node src/scripts/hatAdjustments/average.ts",
+    "generate-grammar:base": "nearleyc src/keyboard/grammar/grammar.ne",
+    "ensure-grammar-up-to-date": "pnpm -s generate-grammar:base | diff -u src/keyboard/grammar/generated/grammar.ts -",
+    "generate-grammar": "pnpm generate-grammar:base -o src/keyboard/grammar/generated/grammar.ts",
+    "generate-railroad": "nearley-railroad src/keyboard/grammar/grammar.ne -o out/railroad.html",
+    "test": "pnpm ensure-grammar-up-to-date",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.3",
-    "@types/fs-extra": "11.0.1",
-    "@types/glob": "^7.1.3",
-    "@types/js-yaml": "^4.0.2",
-    "@types/lodash": "4.14.181",
-    "@types/mocha": "^8.0.4",
-    "@types/node": "^16.11.3",
-    "@types/semver": "^7.3.9",
-    "@types/sinon": "^10.0.2",
-    "@types/tinycolor2": "1.4.3",
-    "@types/uuid": "^8.3.4",
-    "@types/vscode": "~1.66.0",
-    "chai": "^4.3.6",
-    "esbuild": "^0.17.11",
-    "fast-xml-parser": "^4.2.5",
-    "fs-extra": "11.1.0",
-    "glob": "^7.1.7",
-    "mocha": "^10.2.0",
-    "sinon": "^11.1.1"
+    "@types/chai": "^4.3.14",
+    "@types/fs-extra": "11.0.4",
+    "@types/glob": "^8.1.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "4.17.0",
+    "@types/mocha": "^10.0.6",
+    "@types/nearley": "2.11.5",
+    "@types/node": "18.18.2",
+    "@types/semver": "^7.5.8",
+    "@types/sinon": "^17.0.3",
+    "@types/tinycolor2": "1.4.6",
+    "@types/uuid": "^9.0.8",
+    "@types/vscode": "1.75.1",
+    "chai": "^5.1.0",
+    "esbuild": "^0.20.2",
+    "fast-xml-parser": "^4.3.6",
+    "fs-extra": "11.2.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.3.0",
+    "sinon": "^17.0.1"
   },
   "dependencies": {
     "@cursorless/common": "workspace:*",
     "@cursorless/cursorless-engine": "workspace:*",
     "@cursorless/vscode-common": "workspace:*",
-    "itertools": "^2.1.1",
+    "immer": "^10.0.4",
+    "itertools": "^2.2.5",
     "lodash": "^4.17.21",
-    "semver": "^7.5.2",
+    "nearley": "2.20.1",
+    "semver": "^7.6.0",
     "tinycolor2": "1.6.0",
-    "uuid": "^9.0.0",
-    "vscode-uri": "^3.0.6"
-  }
+    "trie-search": "2.0.0",
+    "uuid": "^9.0.1",
+    "vscode-uri": "^3.0.8"
+  },
+  "type": "module"
 }

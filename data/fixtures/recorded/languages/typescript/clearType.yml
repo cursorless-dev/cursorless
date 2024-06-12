@@ -1,0 +1,19 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: change type
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+initialState:
+  documentContents: "function whatever<T>(): string {}"
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}
+  marks: {}
+finalState:
+  documentContents: "function whatever<>(): string {}"
+  selections:
+    - anchor: {line: 0, character: 18}
+      active: {line: 0, character: 18}

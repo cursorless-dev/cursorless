@@ -34,7 +34,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -55,7 +55,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "Prepare test subset",
@@ -68,7 +68,7 @@
       "name": "Talon tests",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runTalonTests",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
@@ -84,7 +84,7 @@
       "name": "Talon tests subset",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runTalonTests",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_RUN_TEST_SUBSET": "true",
@@ -101,7 +101,7 @@
       "name": "Unit tests only",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
@@ -125,7 +125,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -147,7 +147,7 @@
       "args": [
         "--profile=cursorlessDevelopment",
         "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/out/runners/extensionTests"
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
       "preLaunchTask": "${defaultBuildTask}",
@@ -160,7 +160,7 @@
       "name": "Update fixtures, unit tests only",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/packages/test-harness/out/scripts/runUnitTestsOnly",
+      "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
       "env": {
         "CURSORLESS_TEST": "true",
         "CURSORLESS_TEST_UPDATE_FIXTURES": "true",

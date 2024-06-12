@@ -4,7 +4,7 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import { ModifierStage } from "../PipelineStages.types";
 import { targetsToContinuousTarget } from "../TargetPipelineRunner";
 
-export default class RangeModifierStage implements ModifierStage {
+export class RangeModifierStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private modifier: RangeModifier,

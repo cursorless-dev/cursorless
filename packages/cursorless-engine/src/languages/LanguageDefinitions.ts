@@ -5,12 +5,15 @@ import {
   Range,
   TextDocument,
   getCursorlessRepoRoot,
+  isTesting,
+  showError,
 } from "@cursorless/common";
 import { join } from "path";
 import { SyntaxNode } from "web-tree-sitter";
-import { TreeSitter } from "..";
+import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { toString } from "lodash";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -43,26 +46,77 @@ export class LanguageDefinitions {
   private disposables: Disposable[] = [];
 
   constructor(
-    fileSystem: FileSystem,
+    private fileSystem: FileSystem,
     private treeSitter: TreeSitter,
   ) {
+    ide().onDidOpenTextDocument((document) => {
+      this.loadLanguage(document.languageId);
+    });
+    ide().onDidChangeVisibleTextEditors((editors) => {
+      editors.forEach(({ document }) => this.loadLanguage(document.languageId));
+    });
+
     // Use the repo root as the root for development mode, so that we can
     // we can make hot-reloading work for the queries
-    this.queryDir = join(
+    this.queryDir =
       ide().runMode === "development"
-        ? getCursorlessRepoRoot()
-        : ide().assetsRoot,
-      "queries",
-    );
+        ? join(getCursorlessRepoRoot(), "queries")
+        : "queries";
 
     if (ide().runMode === "development") {
       this.disposables.push(
         fileSystem.watchDir(this.queryDir, () => {
-          this.languageDefinitions.clear();
-          this.notifier.notifyListeners();
+          this.reloadLanguageDefinitions();
         }),
       );
     }
+  }
+
+  public async init(): Promise<void> {
+    await this.loadAllLanguages();
+  }
+
+  private async loadAllLanguages(): Promise<void> {
+    const languageIds = ide().visibleTextEditors.map(
+      ({ document }) => document.languageId,
+    );
+
+    try {
+      await Promise.all(
+        languageIds.map((languageId) => this.loadLanguage(languageId)),
+      );
+    } catch (err) {
+      showError(
+        ide().messages,
+        "Failed to load language definitions",
+        toString(err),
+      );
+      if (isTesting()) {
+        throw err;
+      }
+    }
+  }
+
+  public async loadLanguage(languageId: string): Promise<void> {
+    if (this.languageDefinitions.has(languageId)) {
+      return;
+    }
+
+    const definition =
+      (await LanguageDefinition.create(
+        this.treeSitter,
+        this.fileSystem,
+        this.queryDir,
+        languageId,
+      )) ?? LANGUAGE_UNDEFINED;
+
+    this.languageDefinitions.set(languageId, definition);
+  }
+
+  private async reloadLanguageDefinitions(): Promise<void> {
+    this.languageDefinitions.clear();
+    await this.loadAllLanguages();
+    this.notifier.notifyListeners();
   }
 
   /**
@@ -74,14 +128,13 @@ export class LanguageDefinitions {
    * the given language id doesn't have a new-style query definition
    */
   get(languageId: string): LanguageDefinition | undefined {
-    let definition = this.languageDefinitions.get(languageId);
+    const definition = this.languageDefinitions.get(languageId);
 
     if (definition == null) {
-      definition =
-        LanguageDefinition.create(this.treeSitter, this.queryDir, languageId) ??
-        LANGUAGE_UNDEFINED;
-
-      this.languageDefinitions.set(languageId, definition);
+      throw new Error(
+        "Expected language definition entry is missing for languageId " +
+          languageId,
+      );
     }
 
     return definition === LANGUAGE_UNDEFINED ? undefined : definition;

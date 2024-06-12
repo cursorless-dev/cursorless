@@ -1,0 +1,40 @@
+
+aaa
+bbb
+
+---
+
+[Content] =
+[Domain] = 1:0-2:3
+  >---
+1| aaa
+2| bbb
+   ---<
+
+[Removal] = 0:0-3:0
+  >
+0|
+1| aaa
+2| bbb
+3|
+   <
+
+[Leading delimiter: Content] = 0:0-0:0
+  ><
+0|
+[Leading delimiter: Removal] = 0:0-1:0
+  >
+0|
+1| aaa
+   <
+
+[Trailing delimiter: Content] = 3:0-3:0
+  ><
+3|
+[Trailing delimiter: Removal] = 2:3-3:0
+     >
+2| bbb
+3|
+   <
+
+[Insertion delimiter] = "\n\n"

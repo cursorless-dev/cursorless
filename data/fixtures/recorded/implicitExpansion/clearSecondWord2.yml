@@ -1,0 +1,26 @@
+languageId: plaintext
+command:
+  spokenForm: change second sub
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 1
+          active: 1
+          excludeAnchor: false
+          excludeActive: false
+  usePrePhraseSnapshot: true
+  action: {name: clearAndSetSelection}
+initialState:
+  documentContents: aaaBbbCccDdd
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 9}
+  marks: {}
+finalState:
+  documentContents: aaaBbbDdd
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 6}

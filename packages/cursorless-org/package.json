@@ -5,37 +5,37 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "http-server out -a 127.0.0.1 -p 8080",
     "lint": "next lint",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "dependencies": {
     "@cursorless/cheatsheet": "workspace:*",
-    "@mdx-js/loader": "2.3.0",
-    "@mdx-js/react": "2.3.0",
-    "@next/mdx": "13.4.10",
-    "next": "13.5.4",
+    "@mdx-js/loader": "3.0.1",
+    "@mdx-js/react": "3.0.1",
+    "@next/mdx": "14.1.4",
+    "next": "14.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-player": "2.12.0"
+    "react-player": "2.15.1"
   },
   "devDependencies": {
-    "@svgr/webpack": "6.5.1",
-    "@types/mdx": "2.0.5",
-    "@types/mdx-js__react": "1.5.5",
-    "@types/node": "^16.11.3",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
-    "autoprefixer": "10.4.13",
-    "eslint": "^8.38.0",
-    "eslint-config-next": "13.5.4",
+    "@svgr/webpack": "8.1.0",
+    "@types/mdx": "2.0.12",
+    "@types/mdx-js__react": "1.5.8",
+    "@types/node": "18.18.2",
+    "@types/react": "18.2.71",
+    "@types/react-dom": "18.2.22",
+    "autoprefixer": "10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.1.4",
     "http-server": "14.1.1",
-    "postcss": "8.4.31",
-    "tailwindcss": "3.2.7",
-    "typescript": "^5.1.6"
+    "postcss": "8.4.38",
+    "tailwindcss": "3.4.1",
+    "typescript": "^5.4.3"
   },
   "license": "MIT",
   "main": "./out/index.js",
@@ -45,5 +45,12 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
-  }
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
+  "type": "module"
 }

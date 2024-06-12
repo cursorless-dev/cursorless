@@ -5,7 +5,12 @@
   "tasks": [
     {
       "label": "Build",
-      "dependsOn": ["Populate dist", "ESBuild", "TSBuild"],
+      "dependsOn": [
+        "Populate dist",
+        "ESBuild",
+        "TSBuild",
+        "Build test harness"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -21,8 +26,19 @@
       "type": "npm",
       "script": "esbuild",
       "path": "packages/cursorless-vscode",
+      "dependsOn": ["Generate grammar"],
       "presentation": {
-        "reveal": "never"
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Build test harness",
+      "type": "npm",
+      "script": "build",
+      "path": "packages/test-harness",
+      "presentation": {
+        "reveal": "silent"
       },
       "group": "build"
     },
@@ -32,7 +48,7 @@
       "script": "compile",
       "problemMatcher": "$tsc",
       "presentation": {
-        "reveal": "never"
+        "reveal": "silent"
       },
       "group": "build"
     },
@@ -42,7 +58,16 @@
       "script": "populate-dist",
       "path": "packages/cursorless-vscode",
       "presentation": {
-        "reveal": "never"
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Generate grammar",
+      "type": "npm",
+      "script": "generate-grammar",
+      "presentation": {
+        "reveal": "silent"
       },
       "group": "build"
     },
@@ -74,8 +99,24 @@
       "group": "test"
     },
     {
+      "label": "watch",
+      "dependsOn": ["Watch esbuild", "Watch typescript"],
+      "group": "build"
+    },
+    {
       "type": "npm",
-      "script": "watch",
+      "script": "watch:esbuild",
+      "label": "Watch esbuild",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "watch:tsc",
+      "label": "Watch typescript",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
       "presentation": {

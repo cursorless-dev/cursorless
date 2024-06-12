@@ -3,6 +3,7 @@
   "actions.csv": {
     "simple_action": {
       "bottom": "scrollToBottom",
+      "break": "breakLine",
       "break point": "toggleLineBreakpoint",
       "carve": "cutToClipboard",
       "center": "scrollToCenter",
@@ -13,6 +14,7 @@
       "comment": "toggleLineComment",
       "copy": "copyToClipboard",
       "crown": "scrollToTop",
+      "decrement": "decrement",
       "dedent": "outdentLine",
       "define": "revealDefinition",
       "drink": "editNewLineBefore",
@@ -24,8 +26,10 @@
       "give": "deselect",
       "highlight": "highlight",
       "hover": "showHover",
+      "increment": "increment",
       "indent": "indentLine",
       "inspect": "showDebugHover",
+      "join": "joinLines",
       "post": "setSelectionAfter",
       "pour": "editNewLineAfter",
       "pre": "setSelectionBefore",
@@ -34,6 +38,7 @@
       "reference": "showReferences",
       "rename": "rename",
       "reverse": "reverseTargets",
+      "scout": "findInDocument",
       "scout all": "findInWorkspace",
       "shuffle": "randomizeTargets",
       "snippet make": "generateSnippet",
@@ -43,7 +48,6 @@
       "unfold": "unfoldRegion"
     },
     "callback_action": {
-      "scout": "findInDocument",
       "phones": "nextHomophone"
     },
     "paste_action": { "paste": "pasteFromClipboard" },
@@ -76,9 +80,11 @@
       "trailing": "trailing",
       "content": "keepContentFilter",
       "empty": "keepEmptyFilter",
-      "its": "inferPreviousMark"
+      "its": "inferPreviousMark",
+      "visible": "visible"
     },
-    "simple_scope_modifier": { "every": "every" },
+    "every_scope_modifier": { "every": "every" },
+    "ancestor_scope_modifier": { "grand": "ancestor" },
     "interior_modifier": {
       "inside": "interiorOnly"
     },
@@ -154,7 +160,7 @@
       "environment": "environment",
       "command": "command",
       "char": "character",
-      "word": "word",
+      "sub": "word",
       "token": "token",
       "identifier": "identifier",
       "line": "line",
@@ -168,6 +174,9 @@
     },
     "surrounding_pair_scope_type": {
       "string": "string"
+    },
+    "glyph_scope_type": {
+      "glyph": "glyph"
     }
   },
   "paired_delimiters.csv": {

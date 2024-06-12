@@ -8,7 +8,7 @@ Welcome to Cursorless! You may find it helpful to start with the [tutorial video
 
 This guide assumes you've already [installed Cursorless](installation.md).
 
-Once you understand the concepts, you can pull up a cheatsheet for reference using either `"cursorless reference"` or `"cursorless cheatsheet"` commands within VSCode.
+Once you understand the concepts, you can pull up a cheatsheet for reference by saying either `"cursorless reference"` or `"cursorless cheatsheet"` with VSCode focused.
 
 You can get back to these docs by saying `"cursorless docs"`, `"cursorless help"` within VSCode.
 
@@ -66,7 +66,7 @@ The following colors are supported. Note that to target the default (gray) hat y
 
 You can enable or disable colors in your VSCode settings, by searching for `cursorless.hatEnablement.colors` and checking the box next to the internal ID for the given shape as listed above. To navigate to your VSCode settings, either say "show settings", or go to File --> Preferences --> Settings.
 
-You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes.
+You can also tweak the visible colors for any of these colors in your VSCode settings, by searching for `cursorless.colors` and changing the hex color code next to the internal ID for the given shape as listed above. Note that you can configure different colors for dark and light themes. See our [visual accessibility guide](visualAccessibility.md) for more on visual accessibility.
 
 If you find these color names unintuitive / tough to remember, their
 spoken forms can be [customized](customization.md) like any other spoken form
@@ -184,7 +184,9 @@ We support several modifiers that allow you to refer to scopes relative to the i
 
 Here is a diagram of the possible relative / ordinal modifiers using the `funk` scope as an example:
 
-![Relative ordinal diagram](images/relative_ordinal.png)
+<div class="dark-mode-invert">
+  ![Relative ordinal diagram](images/relative_ordinal.png)
+</div>
 
 ([Image source](https://github.com/cursorless-dev/cursorless/blob/main/docs/user/images/relative_ordinal.tex))
 
@@ -205,29 +207,47 @@ And here is a table of the spoken forms:
 | `"previous [number] [scope]s"` | previous `[number]` instances of `[scope]`                          | `"take previous three funks"` |
 | `"previous [scope]"`           | Previous instance of `[scope]`                                      | `"take previous funk"`        |
 
+You can prefix the modifier with `"every"` to yield multiple targets rather than a range. For example, `"take every two tokens"` selects two tokens as separate selections.
+
 ##### `"every"`
 
-The command `"every"` can be used to select a syntactic element and all of its matching siblings.
+The modifier `"every"` can be used to select a syntactic element and all of its matching siblings.
 
 - `"take every key air"`
 - `"take every funk air"`
 - `"take every key"` (if cursor is currently within a key)
 
-For example, the command `take every key [blue] air` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+For example, the command `"take every key [blue] air"` will select every key in the map/object/dict including the token with a blue hat over the letter 'a'.
+
+###### Use with relative / ordinal modifiers
+
+The modifier `every` can also be used to cause [relative / ordinal modifiers](#previous--next--ordinal--number) to yield multiple targets rather than a range:
+
+- `"take every two tokens"` selects two tokens as separate selections
+- `"pre every first two lines"` puts a cursor before each of first two lines in block (results in multiple cursors)
+
+##### `"grand"`
+
+The modifier `"grand"` can be used to select the parent of the containing syntactic element.
+
+- `"take grand statement air"`
+- `"take grand funk air"`
+
+For example, the command `"take grand statement [blue] air"` will select that parent statement of the statement containing the token with a blue hat over the letter 'a'.
 
 ##### Sub-token modifiers
 
-###### `"word"`
+###### `"sub"`
 
-If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"word"` modifier. For example,
+If you need to refer to the individual words within a `camelCase`/`snake_case` token, you can use the `"sub"` modifier. For example,
 
-- `"second word air"`
-- `"second past fourth word air"`
-- `"last word air"`
+- `"second sub air"`
+- `"second past fourth sub air"`
+- `"last sub air"`
 
 For example, the following command:
 
-    "take second past fourth word blue air"
+    "take second past fourth sub blue air"
 
 Selects the second, third and fourth word in the token containing letter 'a' with a blue hat.
 
@@ -554,10 +574,11 @@ Copies the token containing letter 'a' with a blue hat.
 
 ### Swap
 
-Swaps two targets. If the first target is omitted, it will target the current selection. If the targets are list targets they will be zipped together.
+Swaps two targets. If the first target is omitted, it will target the current selection. If `<Target 1>` and `<Target 2>` each consist of multiple targets, they will be zipped together.
 
 - `"swap <TARGET 1> with <TARGET 2>"`
 - `"swap with <TARGET>"`
+- `"swap air and bat with cap and drum"` is equivalent to `"swap air with cap"` and `"swap bat with drum"`
 
 eg:
 `swap blue air with green bat`
@@ -573,6 +594,11 @@ For example:
 
 - `"indent air"`
 - `"dedent funk bat"`
+
+### Increment / decrement
+
+- `"increment <TARGET>"`: increment number target. eg change `1` to `2`.
+- `"decrement <TARGET>"`: decrement number target. eg change `2` to `1`.
 
 ### Insert empty lines
 
@@ -705,6 +731,27 @@ eg:
 `extract call air`
 
 Extracts the function call containing the decorated 'a' into its own variable.
+
+### Join
+
+Join multiple lines together.
+
+- `"join <TARGET>"`
+
+eg:
+
+- `join air`: Join the line with the token containing the letter 'a' with its next line.
+- `join block air`: Joines all lines in the paragraph with the token containing the letter 'a' together into a single line.
+
+### Break
+
+Break line in two.
+
+- `"break <TARGET>"`
+
+eg:
+
+- `break air`: Break the line with the token containing the letter 'a'. 'a' is now the first token on the new line.
 
 ## Paired delimiters
 

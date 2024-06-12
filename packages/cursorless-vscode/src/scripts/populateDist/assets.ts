@@ -24,8 +24,12 @@ export const assets: Asset[] = [
     destination: "fonts/cursorless.woff",
   },
   { source: "../../images/hats", destination: "images/hats" },
-  { source: "../../images/icon.png", destination: "images/icon.png" },
+  { source: "./images/logo.png", destination: "images/logo.png" },
   { source: "../../images/logo.svg", destination: "images/logo.svg" },
+  {
+    source: "resources/font_measurements.js",
+    destination: "resources/font_measurements.js",
+  },
   { source: "../../schemas", destination: "schemas" },
   {
     source: "../../third-party-licenses.csv",

@@ -1,6 +1,8 @@
 import {
   CommandComplete,
   CommandLatest,
+  CommandResponse,
+  CommandServerApi,
   DecoratedSymbolMark,
   DEFAULT_TEXT_EDITOR_OPTIONS_FOR_TEST,
   extractTargetedMarks,
@@ -26,14 +28,14 @@ import { access, readFile } from "fs/promises";
 import { invariant } from "immutability-helper";
 import { merge } from "lodash";
 import * as path from "path";
-import { ide, injectIde } from "../singletons/ide.singleton";
-import { takeSnapshot } from "../testUtil/takeSnapshot";
-import { TestCase } from "./TestCase";
-import { StoredTargetMap } from "../core/StoredTargets";
 import { CommandRunner } from "../CommandRunner";
-import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import { StoredTargetMap } from "../core/StoredTargets";
 import { SpokenFormGenerator } from "../generateSpokenForm";
+import { ide, injectIde } from "../singletons/ide.singleton";
 import { defaultSpokenFormMap } from "../spokenForms/defaultSpokenFormMap";
+import { takeSnapshot } from "../testUtil/takeSnapshot";
+import { RecordTestCaseCommandOptions } from "./RecordTestCaseCommandOptions";
+import { TestCase } from "./TestCase";
 
 const CALIBRATION_DISPLAY_DURATION_MS = 50;
 
@@ -63,6 +65,7 @@ export class TestCaseRecorder {
   private spokenFormGenerator = new SpokenFormGenerator(defaultSpokenFormMap);
 
   constructor(
+    private commandServerApi: CommandServerApi | null,
     private hatTokenMap: HatTokenMap,
     private storedTargets: StoredTargetMap,
   ) {
@@ -292,6 +295,7 @@ export class TestCaseRecorder {
               ? spokenForm.spokenForms[0]
               : command.spokenForm,
         },
+        await this.commandServerApi?.getFocusedElementType(),
         hatTokenMap,
         this.storedTargets,
         this.spyIde,
@@ -321,7 +325,7 @@ export class TestCaseRecorder {
     }
   }
 
-  async postCommandHook(returnValue: any) {
+  async postCommandHook(returnValue: CommandResponse) {
     if (this.testCase == null) {
       // If test case is null then this means that this was just a follow up
       // command for a navigation map test

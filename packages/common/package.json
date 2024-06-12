@@ -4,25 +4,33 @@
   "description": "Common utilities for use anywhere in our codebase",
   "main": "./out/index.js",
   "scripts": {
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/common --parallel '/^watch:.*/'"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.21",
-    "vscode-uri": "^3.0.6"
+    "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.2",
-    "@types/lodash": "4.14.181",
-    "@types/mocha": "^8.0.4",
-    "@types/sinon": "^10.0.2",
+    "@types/chai": "^4.3.14",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "4.17.0",
+    "@types/mocha": "^10.0.6",
+    "@types/sinon": "^17.0.3",
+    "chai": "^5.1.0",
+    "cross-spawn": "7.0.3",
+    "fast-check": "3.17.0",
     "js-yaml": "^4.1.0",
-    "mocha": "^10.2.0",
-    "sinon": "^11.1.1"
+    "mocha": "^10.3.0",
+    "sinon": "^17.0.1"
   },
   "types": "./out/index.d.ts",
   "exports": {
@@ -30,5 +38,9 @@
       "cursorless:bundler": "./src/index.ts",
       "default": "./out/index.js"
     }
-  }
+  },
+  "bin": {
+    "my-ts-node": "./scripts/my-ts-node.js"
+  },
+  "type": "module"
 }

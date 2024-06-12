@@ -1,0 +1,19 @@
+languageId: cpp
+command:
+  version: 1
+  spokenForm: change call
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: functionCall, includeSiblings: false}
+initialState:
+  documentContents: Car carObj1("BMW", "X5", 1999);
+  selections:
+    - anchor: {line: 0, character: 19}
+      active: {line: 0, character: 19}
+  marks: {}
+finalState:
+  documentContents: ;
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}

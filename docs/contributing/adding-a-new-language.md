@@ -38,6 +38,6 @@ tree to get the scopes that the user expects. Fortunately, the tree-sitter query
 Test cases can be automatically recorded, which should speed things up a lot.
 See the [docs](test-case-recorder.md) for the test case recorder. It will also
 likely be helpful to look at the existing recorded test cases (eg
-[java](../../packages/cursorless-vscode-e2e/src/suite/fixtures/recorded/languages/java)) to see how
+[java](../../data/fixtures/recorded/languages/java)) to see how
 they
 should end up looking when they're recorded.

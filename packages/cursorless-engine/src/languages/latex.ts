@@ -5,11 +5,7 @@ import {
   TextEditor,
 } from "@cursorless/common";
 import type { SyntaxNode } from "web-tree-sitter";
-import {
-  NodeMatcherAlternative,
-  SelectionWithContext,
-  SelectionWithEditor,
-} from "../typings/Types";
+import { NodeMatcherAlternative, SelectionWithContext } from "../typings/Types";
 import { patternFinder } from "../util/nodeFinders";
 import {
   ancestorChainNodeMatcher,
@@ -81,15 +77,6 @@ const SECTIONING = [
   "section",
   "chapter",
   "part",
-];
-
-const ENVIRONMENTS = [
-  "generic_environment",
-  "comment_environment",
-  "verbatim_environment",
-  "listing_environment",
-  "minted_environment",
-  "pycode_environment",
 ];
 
 const sectioningText = SECTIONING.map((s) => `${s}[text]`);
@@ -164,15 +151,6 @@ function extractItemContent(
   };
 }
 
-const getStartTag = patternMatcher(`*.begin!`);
-const getEndTag = patternMatcher(`*.end!`);
-
-const getTags = (selection: SelectionWithEditor, node: SyntaxNode) => {
-  const startTag = getStartTag(selection, node);
-  const endTag = getEndTag(selection, node);
-  return startTag != null && endTag != null ? startTag.concat(endTag) : null;
-};
-
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
@@ -197,25 +175,8 @@ const nodeMatchers: Partial<
     matcher(patternFinder(...sectioningText), unwrapGroupParens),
     patternMatcher("begin[name][text]", "end[name][text]"),
   ),
-  functionCallee: "command_name",
 
   collectionItem: matcher(patternFinder("enum_item"), extractItemContent),
-
-  comment: ["block_comment", "line_comment"],
-
-  part: "part",
-  chapter: "chapter",
-  section: "section",
-  subSection: "subsection",
-  subSubSection: "subsubsection",
-  namedParagraph: "paragraph",
-  subParagraph: "subparagraph",
-
-  environment: ENVIRONMENTS,
-  xmlElement: ENVIRONMENTS,
-  xmlBothTags: getTags,
-  xmlStartTag: getStartTag,
-  xmlEndTag: getEndTag,
 };
 
 export default createPatternMatchers(nodeMatchers);

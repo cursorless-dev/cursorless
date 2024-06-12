@@ -1,0 +1,33 @@
+languageId: csharp
+command:
+  version: 3
+  spokenForm: change subject
+  action: {name: clearAndSetSelection}
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: private.switchStatementSubject}
+  usePrePhraseSnapshot: true
+spokenFormError: >-
+  simple scope type type with id private.switchStatementSubject; this is a
+  private spoken form currently only for internal experimentation
+initialState:
+  documentContents: |-
+    switch (aaa) {
+      default:
+        break;
+    }
+  selections:
+    - anchor: {line: 2, character: 4}
+      active: {line: 2, character: 4}
+  marks: {}
+finalState:
+  documentContents: |-
+    switch () {
+      default:
+        break;
+    }
+  selections:
+    - anchor: {line: 0, character: 8}
+      active: {line: 0, character: 8}

@@ -1,5 +1,4 @@
 import {
-  Clipboard,
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
@@ -11,7 +10,8 @@ import {
   TestCaseSnapshot,
   TextEditor,
 } from "@cursorless/common";
-import type { StoredTargetMap } from "../core/StoredTargets";
+import { type StoredTargetMap } from "../core/StoredTargets";
+import { storedTargetKeys } from "@cursorless/common";
 
 export async function takeSnapshot(
   storedTargets: StoredTargetMap | undefined,
@@ -22,7 +22,6 @@ export async function takeSnapshot(
   marks?: SerializedMarks,
   extraContext?: ExtraContext,
   metadata?: unknown,
-  clipboard?: Clipboard,
 ) {
   const snapshot: TestCaseSnapshot = {
     documentContents: editor.document.getText(),
@@ -38,33 +37,19 @@ export async function takeSnapshot(
   }
 
   if (!excludeFields.includes("clipboard")) {
-    snapshot.clipboard = await (clipboard ?? ide.clipboard).readText();
+    snapshot.clipboard = await ide.clipboard.readText();
   }
 
   if (!excludeFields.includes("visibleRanges")) {
     snapshot.visibleRanges = editor.visibleRanges.map(rangeToPlainObject);
   }
 
-  const thatMarkTargets = storedTargets?.get("that");
-  if (thatMarkTargets != null && !excludeFields.includes("thatMark")) {
-    snapshot.thatMark = thatMarkTargets.map((target) => target.toPlainObject());
-  }
-
-  const sourceMarkTargets = storedTargets?.get("source");
-  if (sourceMarkTargets != null && !excludeFields.includes("sourceMark")) {
-    snapshot.sourceMark = sourceMarkTargets.map((target) =>
-      target.toPlainObject(),
-    );
-  }
-
-  const instanceReferenceMarkTargets = storedTargets?.get("instanceReference");
-  if (
-    instanceReferenceMarkTargets != null &&
-    !excludeFields.includes("instanceReferenceMark")
-  ) {
-    snapshot.instanceReferenceMark = instanceReferenceMarkTargets.map(
-      (target) => target.toPlainObject(),
-    );
+  for (const storedTargetKey of storedTargetKeys) {
+    const targets = storedTargets?.get(storedTargetKey);
+    const key = `${storedTargetKey}Mark` as const;
+    if (targets != null && !excludeFields.includes(key)) {
+      snapshot[key] = targets.map((target) => target.toPlainObject());
+    }
   }
 
   if (extraFields.includes("timeOffsetSeconds")) {

@@ -40,6 +40,11 @@ CursorlessTarget = Union[
     PrimitiveTarget,
     ImplicitTarget,
 ]
+CursorlessExplicitTarget = Union[
+    ListTarget,
+    RangeTarget,
+    PrimitiveTarget,
+]
 
 
 @dataclass

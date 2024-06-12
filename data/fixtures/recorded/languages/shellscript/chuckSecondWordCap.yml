@@ -1,0 +1,32 @@
+languageId: shellscript
+command:
+  spokenForm: chuck second sub cap
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 1
+          active: 1
+          excludeAnchor: false
+          excludeActive: false
+      mark: {type: decoratedSymbol, symbolColor: default, character: c}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |2
+     npm version patch --force --commit-hooks false --git-tag-version false
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.c:
+      start: {line: 0, character: 27}
+      end: {line: 0, character: 41}
+finalState:
+  documentContents: |2
+     npm version patch --force --commit false --git-tag-version false
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}

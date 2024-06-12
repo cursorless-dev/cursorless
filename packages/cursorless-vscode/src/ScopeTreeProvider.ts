@@ -222,12 +222,13 @@ class ScopeSupportTreeItem extends TreeItem {
     isVisualized: boolean,
   ) {
     let label: string;
-    let tooltip: string | undefined;
+    let tooltip: string;
 
     if (scopeTypeInfo.spokenForm.type === "success") {
       label = scopeTypeInfo.spokenForm.spokenForms
         .map((spokenForm) => `"${spokenForm}"`)
         .join(" | ");
+      tooltip = label;
     } else {
       label = "-";
       tooltip = scopeTypeInfo.spokenForm.requiresTalonUpdate

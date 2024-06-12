@@ -8,7 +8,7 @@ export async function assertCalledWithScopeInfo<T extends ScopeTypeInfo>(
   fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
   ...expectedScopeInfos: T[]
 ) {
-  await sleepWithBackoff(25);
+  await sleepWithBackoff(100);
   sinon.assert.called(fake);
 
   for (const expectedScopeInfo of expectedScopeInfos) {
@@ -26,7 +26,7 @@ export async function assertCalledWithoutScopeInfo<T extends ScopeTypeInfo>(
   fake: sinon.SinonSpy<[scopeInfos: T[]], void>,
   ...scopeTypes: ScopeType[]
 ) {
-  await sleepWithBackoff(25);
+  await sleepWithBackoff(100);
   sinon.assert.called(fake);
 
   for (const scopeType of scopeTypes) {

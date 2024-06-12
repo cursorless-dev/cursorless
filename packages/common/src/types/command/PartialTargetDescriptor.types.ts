@@ -6,6 +6,10 @@ export interface ThatMark {
   type: "that";
 }
 
+export interface KeyboardMark {
+  type: "keyboard";
+}
+
 export interface SourceMark {
   type: "source";
 }
@@ -69,6 +73,7 @@ export type PartialMark =
   | CursorMark
   | ThatMark
   | SourceMark
+  | KeyboardMark
   | DecoratedSymbolMark
   | NothingMark
   | LineNumberMark
@@ -139,7 +144,7 @@ export const simpleScopeTypeTypes = [
   "sectionLevelFive",
   "sectionLevelSix",
   "selector",
-  "switchStatementSubject",
+  "private.switchStatementSubject",
   "unit",
   "xmlBothTags",
   "xmlElement",
@@ -168,6 +173,8 @@ export const simpleScopeTypeTypes = [
   "notebookCell",
   // Talon
   "command",
+  // Private scope types
+  "textFragment",
 ] as const;
 
 export function isSimpleScopeType(
@@ -205,11 +212,17 @@ export interface OneOfScopeType {
   scopeTypes: ScopeType[];
 }
 
+export interface GlyphScopeType {
+  type: "glyph";
+  character: string;
+}
+
 export type ScopeType =
   | SimpleScopeType
   | SurroundingPairScopeType
   | CustomRegexScopeType
-  | OneOfScopeType;
+  | OneOfScopeType
+  | GlyphScopeType;
 
 export interface ContainingSurroundingPairModifier
   extends ContainingScopeModifier {
@@ -230,6 +243,10 @@ export interface InteriorOnlyModifier {
 
 export interface ExcludeInteriorModifier {
   type: "excludeInterior";
+}
+
+export interface VisibleModifier {
+  type: "visible";
 }
 
 export interface ContainingScopeModifier {
@@ -257,6 +274,9 @@ export interface OrdinalScopeModifier {
 
   /** The number of scopes to include.  Will always be positive.  If greater than 1, will include scopes after {@link start} */
   length: number;
+
+  /** If true, yields individual targets instead of contiguous range. Defaults to `false` */
+  isEvery?: boolean;
 }
 
 export type Direction = "forward" | "backward";
@@ -282,6 +302,9 @@ export interface RelativeScopeModifier {
   /** Indicates which direction both {@link offset} and {@link length} go
    * relative to input target  */
   direction: Direction;
+
+  /** If true use individual targets instead of combined range */
+  isEvery?: boolean;
 }
 
 /**
@@ -375,6 +398,7 @@ export type Modifier =
   | EndOfModifier
   | InteriorOnlyModifier
   | ExcludeInteriorModifier
+  | VisibleModifier
   | ContainingScopeModifier
   | EveryScopeModifier
   | OrdinalScopeModifier

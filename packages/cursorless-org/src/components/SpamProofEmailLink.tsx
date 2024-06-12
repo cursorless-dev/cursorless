@@ -58,7 +58,7 @@ export function SpamProofEmailLink({
   return (
     <a
       href={href}
-      className="text-teal-600 hover:text-teal-500 dark:text-teal-500 hover:dark:text-teal-300 underline underline-offset-4"
+      className="text-teal-600 underline underline-offset-4 hover:text-teal-500 dark:text-teal-500 hover:dark:text-teal-300"
     >
       {children ?? (
         <span className="text-[18px]">

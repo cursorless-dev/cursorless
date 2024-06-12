@@ -5,9 +5,13 @@
   "main": "./out/index.js",
   "scripts": {
     "test": "jest",
-    "compile": "tsc --build",
-    "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "compile:tsc": "tsc --build",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
+    "compile": "pnpm compile:tsc && pnpm compile:esbuild",
+    "watch:tsc": "pnpm compile:tsc --watch",
+    "watch:esbuild": "pnpm compile:esbuild --watch",
+    "watch": "pnpm run --filter @cursorless/cheatsheet --parallel '/^watch:.*/'"
   },
   "keywords": [],
   "author": "",
@@ -23,23 +27,24 @@
     "*.css"
   ],
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "6.3.0",
-    "@fortawesome/free-solid-svg-icons": "6.3.0",
+    "@fortawesome/fontawesome-svg-core": "6.5.1",
+    "@fortawesome/free-solid-svg-icons": "6.5.1",
     "@fortawesome/react-fontawesome": "0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-string-replace": "1.1.0",
-    "react-use": "17.4.0"
+    "react-string-replace": "1.1.1",
+    "react-use": "17.5.0"
   },
   "devDependencies": {
-    "@testing-library/react": "14.0.0",
-    "@types/jest": "29.4.0",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
-    "@types/react-helmet": "6.1.6",
+    "@testing-library/react": "14.2.2",
+    "@types/jest": "29.5.12",
+    "@types/react": "18.2.71",
+    "@types/react-dom": "18.2.22",
+    "@types/react-helmet": "6.1.11",
     "jest": "29.7.0",
-    "jest-environment-jsdom": "29.6.2",
-    "ts-jest": "29.1.1",
-    "typescript": "^5.1.6"
-  }
+    "jest-environment-jsdom": "29.7.0",
+    "ts-jest": "29.1.2",
+    "typescript": "^5.4.3"
+  },
+  "type": "module"
 }

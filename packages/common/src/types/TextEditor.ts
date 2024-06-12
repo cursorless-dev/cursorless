@@ -1,10 +1,10 @@
 import type {
+  Edit,
   Position,
   Range,
   RevealLineAt,
   Selection,
   TextDocument,
-  TextEditorEdit,
   TextEditorOptions,
 } from "..";
 
@@ -54,7 +54,7 @@ export interface TextEditor {
 }
 
 export interface EditableTextEditor extends TextEditor {
-  selections: Selection[];
+  setSelections(selections: Selection[]): Promise<void>;
 
   options: TextEditorOptions;
 
@@ -81,18 +81,11 @@ export interface EditableTextEditor extends TextEditor {
   /**
    * Perform an edit on the document associated with this text editor.
    *
-   * The given callback-function is invoked with an {@link TextEditorEdit edit-builder} which must
-   * be used to make edits. Note that the edit-builder is only valid while the
-   * callback executes.
-   *
-   * @param callback A function which can create edits using an {@link TextEditorEdit edit-builder}.
-   * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
+   * @param edits the list of edits that need to be applied to the document
+   *        (note that the implementation might need to sort them in reverse order)
    * @return A promise that resolves with a value indicating if the edits could be applied.
    */
-  edit(
-    callback: (editBuilder: TextEditorEdit) => void,
-    options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Promise<boolean>;
+  edit(edits: Edit[]): Promise<boolean>;
 
   /**
    * Edit a new new notebook cell above.

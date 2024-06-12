@@ -1,0 +1,28 @@
+languageId: python
+command:
+  spokenForm: chuck condition
+  version: 3
+  targets:
+    - type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: condition}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |-
+    match 0:
+        case a if a > 1:
+            pass
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}
+  marks: {}
+finalState:
+  documentContents: |-
+    match 0:
+        case:
+            pass
+  selections:
+    - anchor: {line: 2, character: 8}
+      active: {line: 2, character: 8}

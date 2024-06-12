@@ -53,3 +53,15 @@ export function strictlyContains(
       : [rangeOrPosition.start, rangeOrPosition.end];
   return range1.start.isBefore(start) && range1.end.isAfter(end);
 }
+
+/**
+ * Make union between range and additional optional ranges
+ */
+export function union(range: Range, ...unionWith: (Range | undefined)[]) {
+  for (const r of unionWith) {
+    if (r != null) {
+      range = range.union(r);
+    }
+  }
+  return range;
+}

@@ -1,0 +1,23 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: change type urge
+  action: clearAndSetSelection
+  targets:
+    - type: primitive
+      modifier: {type: containingScope, scopeType: type, includeSiblings: false}
+      mark: {type: decoratedSymbol, symbolColor: default, character: u}
+initialState:
+  documentContents: "const foo: Bar<number> = new Bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 0}
+      active: {line: 0, character: 0}
+  marks:
+    default.u:
+      start: {line: 0, character: 15}
+      end: {line: 0, character: 21}
+finalState:
+  documentContents: "const foo: Bar<> = new Bar<number>(foo);"
+  selections:
+    - anchor: {line: 0, character: 15}
+      active: {line: 0, character: 15}

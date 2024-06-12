@@ -249,6 +249,6 @@ function inferDelimiterSide(delimiterNode: SyntaxNode) {
   return delimiterNode.parent?.firstChild?.equals(delimiterNode)
     ? "left"
     : delimiterNode.parent?.lastChild?.equals(delimiterNode)
-    ? "right"
-    : ("unknown" as const);
+      ? "right"
+      : ("unknown" as const);
 }

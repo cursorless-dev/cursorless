@@ -1,7 +1,7 @@
 import {
   Disposable,
+  FakeCommandServerApi,
   FakeIDE,
-  getFakeCommandServerApi,
   IDE,
   isTesting,
   NormalizedIDE,
@@ -11,7 +11,10 @@ import {
   TextDocument,
 } from "@cursorless/common";
 import {
+  CommandHistory,
   createCursorlessEngine,
+  ScopeTestRecorder,
+  TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
 import {
@@ -46,9 +49,8 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
+import { storedTargetHighlighter } from "./storedTargetHighlighter";
 import { vscodeApi } from "./vscodeApi";
-import { mkdir } from "fs/promises";
-import { TestCaseRecorder } from "@cursorless/cursorless-engine";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -74,10 +76,10 @@ export async function activate(
           vscodeIDE.runMode === "test",
         );
 
-  const commandServerApi =
-    vscodeIDE.runMode === "test"
-      ? getFakeCommandServerApi()
-      : await getCommandServerApi();
+  const fakeCommandServerApi = new FakeCommandServerApi();
+  const commandServerApi = isTesting()
+    ? fakeCommandServerApi
+    : await getCommandServerApi();
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
@@ -91,7 +93,7 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = createCursorlessEngine(
+  } = await createCursorlessEngine(
     treeSitter,
     normalizedIde,
     hats,
@@ -99,11 +101,25 @@ export async function activate(
     fileSystem,
   );
 
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  addCommandRunnerDecorator(
+    new CommandHistory(normalizedIde, commandServerApi, fileSystem),
+  );
+
+  const testCaseRecorder = new TestCaseRecorder(
+    commandServerApi,
+    hatTokenMap,
+    storedTargets,
+  );
   addCommandRunnerDecorator(testCaseRecorder);
 
+  const scopeTestRecorder = new ScopeTestRecorder(normalizedIde);
+
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
-  const keyboardCommands = KeyboardCommands.create(context, statusBarItem);
+  const keyboardCommands = KeyboardCommands.create(
+    context,
+    vscodeApi,
+    statusBarItem,
+  );
   const scopeVisualizer = createScopeVisualizer(normalizedIde, scopeProvider);
   context.subscriptions.push(
     revisualizeOnCustomRegexChange(scopeVisualizer, scopeProvider),
@@ -118,11 +134,15 @@ export async function activate(
     commandServerApi != null,
   );
 
+  context.subscriptions.push(storedTargetHighlighter(vscodeIDE, storedTargets));
+
   registerCommands(
     context,
     vscodeIDE,
     commandApi,
+    fileSystem,
     testCaseRecorder,
+    scopeTestRecorder,
     scopeVisualizer,
     keyboardCommands,
     hats,
@@ -133,12 +153,12 @@ export async function activate(
   return {
     testHelpers: isTesting()
       ? constructTestHelpers(
-          commandServerApi,
+          fakeCommandServerApi,
           storedTargets,
           hatTokenMap,
           vscodeIDE,
           normalizedIde as NormalizedIDE,
-          fileSystem.cursorlessTalonStateJsonPath,
+          fileSystem,
           scopeProvider,
           injectIde,
           runIntegrationTests,
@@ -171,9 +191,15 @@ async function createVscodeIde(context: vscode.ExtensionContext) {
   const cursorlessDir = isTesting()
     ? path.join(os.tmpdir(), crypto.randomBytes(16).toString("hex"))
     : path.join(os.homedir(), ".cursorless");
-  await mkdir(cursorlessDir, { recursive: true });
 
-  return { vscodeIDE, hats, fileSystem: new VscodeFileSystem(cursorlessDir) };
+  const fileSystem = new VscodeFileSystem(
+    context,
+    vscodeIDE.runMode,
+    cursorlessDir,
+  );
+  await fileSystem.initialize();
+
+  return { vscodeIDE, hats, fileSystem };
 }
 
 function createTreeSitter(parseTreeApi: ParseTreeApi): TreeSitter {

@@ -15,10 +15,10 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
 import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages";
-import { OutOfRangeError } from "./targetSequenceUtils";
 import { StoredTargetMap } from "../..";
+import { OutOfRangeError } from "./listUtils";
 
-export default class InstanceStage implements ModifierStage {
+export class InstanceStage implements ModifierStage {
   constructor(
     private modifierStageFactory: ModifierStageFactory,
     private storedTargets: StoredTargetMap,

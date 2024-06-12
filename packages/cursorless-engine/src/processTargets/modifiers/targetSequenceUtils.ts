@@ -1,13 +1,8 @@
 import { ScopeType } from "@cursorless/common";
 import { Target } from "../../typings/target.types";
 import { ModifierStageFactory } from "../ModifierStageFactory";
-
-export class OutOfRangeError extends Error {
-  constructor() {
-    super("Scope index out of range");
-    this.name = "OutOfRangeError";
-  }
-}
+import { createContinuousRangeTarget } from "../createContinuousRangeTarget";
+import { assertIndices } from "./listUtils";
 
 /**
  * Construct a single range target between two targets in a list of targets,
@@ -24,16 +19,15 @@ export function createRangeTargetFromIndices(
   startIndex: number,
   endIndex: number,
 ): Target {
-  if (startIndex < 0 || endIndex >= targets.length) {
-    throw new OutOfRangeError();
-  }
+  assertIndices(targets, startIndex, endIndex);
 
   if (startIndex === endIndex) {
     return targets[startIndex];
   }
 
-  return targets[startIndex].createContinuousRangeTarget(
+  return createContinuousRangeTarget(
     isReversed,
+    targets[startIndex],
     targets[endIndex],
     true,
     true,

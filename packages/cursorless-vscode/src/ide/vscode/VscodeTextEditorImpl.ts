@@ -1,5 +1,6 @@
 import {
   BreakpointDescriptor,
+  Edit,
   EditableTextEditor,
   Position,
   Range,
@@ -8,7 +9,6 @@ import {
   sleep,
   TextDocument,
   TextEditor,
-  TextEditorEdit,
   TextEditorOptions,
 } from "@cursorless/common";
 import {
@@ -52,7 +52,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor.selections.map(fromVscodeSelection);
   }
 
-  set selections(selections: Selection[]) {
+  async setSelections(selections: Selection[]): Promise<void> {
     this.editor.selections = selections.map(toVscodeSelection);
   }
 
@@ -84,15 +84,12 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeRevealLine(this, lineNumber, at);
   }
 
-  public edit(
-    callback: (editBuilder: TextEditorEdit) => void,
-    options?: { undoStopBefore: boolean; undoStopAfter: boolean },
-  ): Promise<boolean> {
-    return vscodeEdit(this.editor, callback, options);
+  public edit(edits: Edit[]): Promise<boolean> {
+    return vscodeEdit(this.editor, edits);
   }
 
   public focus(): Promise<void> {
-    return vscodeFocusEditor(this.ide, this);
+    return vscodeFocusEditor(this);
   }
 
   public editNewNotebookCellAbove(): Promise<
@@ -149,7 +146,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public async insertLineAfter(ranges?: Range[]): Promise<void> {
     if (ranges != null) {
-      this.selections = ranges.map((range) => range.toSelection(false));
+      await this.setSelections(ranges.map((range) => range.toSelection(false)));
     }
     await this.focus();
     await vscode.commands.executeCommand("editor.action.insertLineAfter");
@@ -190,13 +187,9 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public async extractVariable(_range?: Range): Promise<void> {
     if (this.document.languageId === "python") {
-      // Workaround for https://github.com/microsoft/vscode-python/issues/20455
       await vscode.commands.executeCommand("editor.action.codeAction", {
-        kind: "refactor.extract",
+        kind: "refactor.extract.variable",
       });
-      await sleep(250);
-      await vscode.commands.executeCommand("selectNextCodeAction");
-      await vscode.commands.executeCommand("acceptSelectedCodeAction");
     } else {
       await vscode.commands.executeCommand("editor.action.codeAction", {
         kind: "refactor.extract.constant",

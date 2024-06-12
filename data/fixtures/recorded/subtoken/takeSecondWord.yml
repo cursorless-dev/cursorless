@@ -1,0 +1,20 @@
+languageId: typescript
+command:
+  version: 1
+  spokenForm: take second sub
+  action: setSelection
+  targets:
+    - type: primitive
+      selectionType: token
+      modifier: {type: subpiece, pieceType: word, anchor: 1, active: 1}
+initialState:
+  documentContents: ;helloThere;
+  selections:
+    - anchor: {line: 0, character: 1}
+      active: {line: 0, character: 1}
+  marks: {}
+finalState:
+  documentContents: ;helloThere;
+  selections:
+    - anchor: {line: 0, character: 6}
+      active: {line: 0, character: 11}

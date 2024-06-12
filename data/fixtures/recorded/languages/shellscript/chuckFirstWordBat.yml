@@ -1,0 +1,32 @@
+languageId: shellscript
+command:
+  spokenForm: chuck first sub bat
+  version: 2
+  targets:
+    - type: primitive
+      modifiers:
+        - type: ordinalRange
+          scopeType: {type: word}
+          anchor: 0
+          active: 0
+          excludeAnchor: false
+          excludeActive: false
+      mark: {type: decoratedSymbol, symbolColor: default, character: b}
+  usePrePhraseSnapshot: true
+  action: {name: remove}
+initialState:
+  documentContents: |2
+     npm version patch --foo-bar --force --commit-hooks false --git-tag-version false
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
+  marks:
+    default.b:
+      start: {line: 0, character: 19}
+      end: {line: 0, character: 28}
+finalState:
+  documentContents: |2
+     npm version patch --bar --force --commit-hooks false --git-tag-version false
+  selections:
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
