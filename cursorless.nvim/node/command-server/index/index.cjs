@@ -8,19 +8,23 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
+  if ((from && typeof from === "object") || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
   }
   return to;
 };
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __toCommonJS = (mod) =>
+  __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  default: () => entry
+  default: () => entry,
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -35,7 +39,10 @@ var import_path = require("path");
 function getCommunicationDirPath() {
   const info = (0, import_os.userInfo)();
   const suffix = info.uid >= 0 ? `-${info.uid}` : "";
-  return (0, import_path.join)((0, import_os.tmpdir)(), `neovim-command-server${suffix}`);
+  return (0, import_path.join)(
+    (0, import_os.tmpdir)(),
+    `neovim-command-server${suffix}`,
+  );
 }
 function getSignalDirPath() {
   return (0, import_path.join)(getCommunicationDirPath(), "signals");
@@ -84,13 +91,20 @@ var NativeIo = class {
   async initialize() {
     const communicationDirPath = getCommunicationDirPath();
     console.log(`Creating communication dir ${communicationDirPath}`);
-    (0, import_fs.mkdirSync)(communicationDirPath, { recursive: true, mode: 504 });
+    (0, import_fs.mkdirSync)(communicationDirPath, {
+      recursive: true,
+      mode: 504,
+    });
     const stats = (0, import_fs.lstatSync)(communicationDirPath);
     const info = (0, import_os2.userInfo)();
-    if (!stats.isDirectory() || stats.isSymbolicLink() || stats.mode & import_constants.S_IWOTH || // On Windows, uid < 0, so we don't worry about it for simplicity
-    info.uid >= 0 && stats.uid !== info.uid) {
+    if (
+      !stats.isDirectory() ||
+      stats.isSymbolicLink() ||
+      stats.mode & import_constants.S_IWOTH || // On Windows, uid < 0, so we don't worry about it for simplicity
+      (info.uid >= 0 && stats.uid !== info.uid)
+    ) {
       throw new Error(
-        `Refusing to proceed because of invalid communication dir ${communicationDirPath}`
+        `Refusing to proceed because of invalid communication dir ${communicationDirPath}`,
       );
     }
   }
@@ -98,7 +112,10 @@ var NativeIo = class {
     if (this.responseFile) {
       throw new Error("response is already locked");
     }
-    this.responseFile = await (0, import_promises.open)(getResponsePath(), "wx");
+    this.responseFile = await (0, import_promises.open)(
+      getResponsePath(),
+      "wx",
+    );
   }
   async closeResponse() {
     if (!this.responseFile) {
@@ -115,10 +132,15 @@ var NativeIo = class {
   async readRequest() {
     const requestPath = getRequestPath();
     const stats = await (0, import_promises.stat)(requestPath);
-    const request = JSON.parse(await (0, import_promises.readFile)(requestPath, "utf-8"));
-    if (Math.abs(stats.mtimeMs - (/* @__PURE__ */ new Date()).getTime()) > NEOVIM_COMMAND_TIMEOUT_MS) {
+    const request = JSON.parse(
+      await (0, import_promises.readFile)(requestPath, "utf-8"),
+    );
+    if (
+      Math.abs(stats.mtimeMs - /* @__PURE__ */ new Date().getTime()) >
+      NEOVIM_COMMAND_TIMEOUT_MS
+    ) {
       throw new Error(
-        "Request file is older than timeout; refusing to execute command"
+        "Request file is older than timeout; refusing to execute command",
       );
     }
     return request;
@@ -186,8 +208,7 @@ var CommandRunner = class {
     this.runCommand = this.runCommand.bind(this);
     this.reloadConfiguration();
   }
-  reloadConfiguration() {
-  }
+  reloadConfiguration() {}
   /**
    * Reads a command from the request file and executes it.  Writes information
    * about command execution to the result of the command to the response file,
@@ -196,7 +217,9 @@ var CommandRunner = class {
    * types.
    */
   async runCommand() {
-    console.log("------------------------------------------------------------------------------");
+    console.log(
+      "------------------------------------------------------------------------------",
+    );
     await this.io.prepareResponse();
     let request;
     try {
@@ -205,7 +228,8 @@ var CommandRunner = class {
       await this.io.closeResponse();
       throw err;
     }
-    const { commandId, args, uuid, returnCommandOutput, waitForFinish } = request;
+    const { commandId, args, uuid, returnCommandOutput, waitForFinish } =
+      request;
     const warnings = [];
     try {
       if (!commandId.match(this.allowRegex)) {
@@ -214,7 +238,10 @@ var CommandRunner = class {
       if (this.denyRegex != null && commandId.match(this.denyRegex)) {
         throw new Error("Command in denyList");
       }
-      const commandPromise = getNeovimRegistry().executeCommand(commandId, ...args);
+      const commandPromise = getNeovimRegistry().executeCommand(
+        commandId,
+        ...args,
+      );
       let commandReturnValue = null;
       if (returnCommandOutput) {
         commandReturnValue = await commandPromise;
@@ -225,13 +252,13 @@ var CommandRunner = class {
         error: null,
         uuid,
         returnValue: commandReturnValue,
-        warnings
+        warnings,
       });
     } catch (err) {
       await this.io.writeResponse({
         error: err.message,
         uuid,
-        warnings
+        warnings,
       });
     }
     await this.io.closeResponse();
@@ -271,8 +298,8 @@ async function activate() {
        * This signal is emitted by the voice engine to indicate that a phrase has
        * just begun execution.
        */
-      prePhrase: io.getInboundSignal("prePhrase")
-    }
+      prePhrase: io.getInboundSignal("prePhrase"),
+    },
   };
 }
 
@@ -282,13 +309,11 @@ function entry(plugin) {
   plugin.registerFunction(
     "CommandServerLoadExtension",
     async () => await loadExtension(plugin),
-    { sync: false }
+    { sync: false },
   );
-  plugin.registerFunction(
-    "CommandServerRunCommand",
-    () => runCommand(),
-    { sync: false }
-  );
+  plugin.registerFunction("CommandServerRunCommand", () => runCommand(), {
+    sync: false,
+  });
 }
 async function loadExtension(plugin) {
   console.log("loadExtension(command-server): start");
