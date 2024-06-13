@@ -52,13 +52,15 @@ See the [Talon-side api docs](./customization.md#cursorless-public-api) for more
 1. Add the transformation to a Python file in your Talon user directory:
 
    ```python
-    from talon import Module, actions
+    from talon import Module
 
     mod = Module()
 
+
     @mod.action_class
     class Actions:
-        def hello(text: str):
+        def hello(text: str) -> str:
+            """Returns a greeting for the given text."""
             return f"Hello, {text}!"
    ```
 
