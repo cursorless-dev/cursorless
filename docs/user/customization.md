@@ -162,7 +162,7 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
   Insert text at destination.
   eg: `user.cursorless_insert(cursorless_destination, "hello")`
 - `user.cursorless_create_destination(target: CursorlessTarget, insertion_mode: Literal["to", "before", "after"] = "to")`:
-  Create a destination from a target. The insertion mode can be `to`, `before`, or `after`, and defaults to `to`, which will replace the target.
+  Create a destination from a target. The insertion mode can be `to`, `before`, or `after`, and defaults to `to`, which will replace the target. See [How do I run a custom Python transformation on a target?](./how-to.md#how-do-i-run-a-custom-python-transformation-on-a-target) for example usage.
 - `user.cursorless_reformat(target: CursorlessTarget, formatters: str)`
   Reformat target with specified formatters.
   eg: `user.cursorless_reformat(cursorless_target, "ALL_CAPS")`
