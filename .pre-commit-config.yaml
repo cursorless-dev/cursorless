@@ -81,3 +81,13 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
+  - repo: https://github.com/lunarmodules/luacheck
+    rev: v1.2.0
+    hooks:
+      - id: luacheck
+        exclude: ^data/playground/lua/.*\.lua$
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.20.0
+    hooks:
+      - id: stylua
+        exclude: ^data/playground/lua/.*\.lua$

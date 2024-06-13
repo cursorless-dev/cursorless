@@ -44,7 +44,8 @@ export async function updatePackageJson(
       ? input.name
       : `@cursorless/${input.name}`;
 
-  const isLib = !isRoot && !input.private;
+  const isLib =
+    !isRoot && !input.private && input.name !== "@cursorless/neovim-registry";
 
   const exportFields: Partial<PackageJson> = !isLib
     ? {}
@@ -68,6 +69,10 @@ export async function updatePackageJson(
 
   const isCursorlessVscode = input.name === "@cursorless/cursorless-vscode";
 
+  const useGlobalDist =
+    input.name === "@cursorless/cursorless-neovim" ||
+    input.name == "@cursorless/test-harness";
+
   const extraFields = isCursorlessVscode
     ? getCursorlessVscodeFields(input)
     : {};
@@ -76,8 +81,19 @@ export async function updatePackageJson(
     ...input,
     name,
     license: "MIT",
-    type: name === "@cursorless/cursorless-org-docs" ? undefined : "module",
-    scripts: await getScripts(input.scripts, name, packageDir, isRoot, isLib),
+    type:
+      name === "@cursorless/cursorless-org-docs" ||
+      name === "@cursorless/cursorless-neovim"
+        ? undefined
+        : "module",
+    scripts: await getScripts(
+      input.scripts,
+      name,
+      packageDir,
+      isRoot,
+      isLib,
+      useGlobalDist,
+    ),
     ...exportFields,
     ...extraFields,
   };
@@ -101,6 +117,7 @@ async function getScripts(
   packageDir: string,
   isRoot: boolean,
   isLib: boolean,
+  useGlobalDist: boolean,
 ) {
   const scripts: PackageJson.Scripts = {
     ...(inputScripts ?? {}),
@@ -125,7 +142,10 @@ async function getScripts(
     return scripts;
   }
 
-  const cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
+  let cleanDirs = ["./out", "tsconfig.tsbuildinfo", "./dist", "./build"];
+  if (useGlobalDist) {
+    cleanDirs = [...cleanDirs, "../../dist"];
+  }
 
   const clean = `rm -rf ${cleanDirs.join(" ")}`;
 

@@ -62,7 +62,7 @@ export class VscodeIDE implements IDE {
     return await vscodeShowQuickPick(items, options);
   }
 
-  setHighlightRanges(
+  async setHighlightRanges(
     highlightId: HighlightId | undefined,
     editor: TextEditor,
     ranges: GeneralizedRange[],
@@ -78,7 +78,7 @@ export class VscodeIDE implements IDE {
     );
   }
 
-  flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
+  async flashRanges(flashDescriptors: FlashDescriptor[]): Promise<void> {
     return this.flashHandler.flashRanges(flashDescriptors);
   }
 

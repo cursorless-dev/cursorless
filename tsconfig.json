@@ -15,6 +15,12 @@
       "path": "./packages/cursorless-engine"
     },
     {
+      "path": "./packages/cursorless-neovim"
+    },
+    {
+      "path": "./packages/cursorless-neovim-e2e"
+    },
+    {
       "path": "./packages/cursorless-org"
     },
     {
@@ -28,6 +34,12 @@
     },
     {
       "path": "./packages/meta-updater"
+    },
+    {
+      "path": "./packages/neovim-common"
+    },
+    {
+      "path": "./packages/neovim-registry"
     },
     {
       "path": "./packages/test-harness"

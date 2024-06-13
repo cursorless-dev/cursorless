@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # This script is used to push the cursorless-talon subtree to the cursorless
 # talon repo. We proceed by first performing a git subtree split and then
 # cherrypicking any new commits onto the cursorless-talon main branch

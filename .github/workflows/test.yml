@@ -16,16 +16,17 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        vscode_version: [stable]
+        app_version: [stable]
         include:
           - os: ubuntu-latest
-            vscode_version: legacy
+            app_version: legacy
     runs-on: ${{ matrix.os }}
     env:
-      VSCODE_VERSION: ${{ matrix.vscode_version }}
+      APP_VERSION: ${{ matrix.app_version }}
       VSCODE_CRASH_DIR: ${{ github.workspace }}/artifacts/dumps
       VSCODE_LOGS_DIR: ${{ github.workspace }}/artifacts/logs
       CURSORLESS_REPO_ROOT: ${{ github.workspace }}
+      TEMP_DIR: ${{ github.workspace }}/temp
     steps:
       - uses: actions/checkout@v4
       - run: corepack enable
@@ -33,7 +34,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: pnpm
-      - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}"
+      - run: mkdir -p "${{ env.VSCODE_CRASH_DIR }}" "${{ env.VSCODE_LOGS_DIR }}" "${{ env.TEMP_DIR }}"
         shell: bash
       - run: pnpm --color install
       - run: pnpm --color compile
@@ -42,9 +43,21 @@ jobs:
         if: runner.os == 'Linux'
       - run: pnpm --color test
         if: runner.os != 'Linux'
+      - run: bash -x scripts/install-neovim-dependencies.sh
+      - uses: rhysd/action-setup-vim@v1
+        if: matrix.app_version != 'legacy'
+        id: vim
+        with:
+          version: ${{ matrix.app_version }}
+          neovim: true
+      - name: Run neovim unit tests using test-harness
+        run: xvfb-run -a pnpm -F @cursorless/test-harness testNeovim
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
+        env:
+          NEOVIM_PATH: ${{ steps.vim.outputs.executable }}
       - name: Create vscode dist that can be installed locally
         run: pnpm -F @cursorless/cursorless-vscode populate-dist --local-install
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
       - name: Test create vsix
         id: createVsix
         uses: HaaLeo/publish-vscode-extension@v1
@@ -53,10 +66,10 @@ jobs:
           packagePath: packages/cursorless-vscode/dist
           dryRun: true
       - run: mv ${{ steps.createVsix.outputs.vsixPath }} cursorless-development.vsix
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
       - name: Upload vsix
         uses: actions/upload-artifact@v4
-        if: runner.os == 'Linux' && matrix.vscode_version == 'stable'
+        if: runner.os == 'Linux' && matrix.app_version == 'stable'
         with:
           name: vsix
           path: cursorless-development.vsix

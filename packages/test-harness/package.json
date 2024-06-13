@@ -3,18 +3,21 @@
   "version": "0.1.0",
   "description": "Contains scripts and runners for testing Cursorless",
   "private": true,
-  "main": "./out/index.js",
+  "main": "./out/index.cjs",
   "scripts": {
-    "test": "env CURSORLESS_TEST=true my-ts-node src/scripts/runTestsCI.ts",
+    "test": "env CURSORLESS_TEST=true my-ts-node src/scripts/runVscodeTestsCI.ts",
+    "testNeovim": "env CURSORLESS_MODE=test my-ts-node src/scripts/runNeovimTestsCI.ts",
     "build:base": "esbuild --sourcemap --conditions=cursorless:bundler --bundle --external:vscode --format=cjs --platform=node",
-    "build": "pnpm run build:runner && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon",
+    "build": "pnpm run build:runner && pnpm run build:main && pnpm run build:tests && pnpm run build:unit && pnpm run build:talon && pnpm run populate-cursorless-nvim",
     "build:runner": "pnpm run build:base ./src/runners/extensionTestsVscode.ts --outfile=dist/extensionTestsVscode.cjs",
+    "build:main": "pnpm run build:base ./src/index.ts --outfile=out/index.cjs",
     "build:unit": "pnpm run build:base ./src/scripts/runUnitTestsOnly.ts --outfile=dist/runUnitTestsOnly.cjs",
     "build:talon": "pnpm run build:base ./src/scripts/runTalonTests.ts --outfile=dist/runTalonTests.cjs",
     "build:tests": "bash ./scripts/build-tests.sh",
     "compile": "tsc --build",
+    "populate-cursorless-nvim": "bash ./scripts/populate-cursorless-nvim.sh",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build ../../dist",
     "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },
@@ -23,11 +26,16 @@
   "license": "MIT",
   "dependencies": {
     "@cursorless/common": "workspace:*",
-    "glob": "^10.3.10"
+    "@cursorless/neovim-common": "workspace:*",
+    "@cursorless/neovim-registry": "workspace:*",
+    "glob": "^10.3.10",
+    "neovim": "5.1.0",
+    "tail": "2.2.6"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.6",
+    "@types/tail": "2.2.3",
     "@vscode/test-electron": "^2.3.9",
     "mocha": "^10.3.0"
   },

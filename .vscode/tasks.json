@@ -17,6 +17,86 @@
       }
     },
     {
+      "label": "Build neovim extension",
+      "dependsOn": ["neovim start", "ESBuild-cursorless-neovim"],
+      "group": "build"
+    },
+    {
+      "label": "Build neovim extension tests",
+      "dependsOn": [
+        "neovim test start",
+        "ESBuild-cursorless-neovim",
+        "TSBuild",
+        "Build test harness"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "ESBuild-cursorless-neovim",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/cursorless-neovim",
+      "dependsOn": [],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "neovim start",
+      "type": "process",
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+        ]
+      },
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\""
+        ]
+      },
+      "group": "build",
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
+          "NVIM_NODE_HOST_DEBUG": "1",
+          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+          "NVIM_NODE_LOG_LEVEL": "info",
+          "CURSORLESS_MODE": "development"
+        }
+      }
+    },
+    {
+      "label": "neovim test start",
+      "type": "process",
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+        ]
+      },
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\""
+        ]
+      },
+      "group": "build",
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
+          "NVIM_NODE_HOST_DEBUG": "1",
+          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+          "NVIM_NODE_LOG_LEVEL": "info",
+          "CURSORLESS_MODE": "test"
+        }
+      }
+    },
+    {
       "label": "Build extension only",
       "dependsOn": ["Populate dist", "ESBuild"],
       "group": "build"

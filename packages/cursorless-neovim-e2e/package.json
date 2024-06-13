@@ -1,0 +1,35 @@
+{
+  "name": "@cursorless/cursorless-neovim-e2e",
+  "version": "1.0.0",
+  "description": "Our neovim end-to-end tests",
+  "private": true,
+  "main": "./out/index.js",
+  "exports": {
+    ".": {
+      "cursorless:bundler": "./src/index.ts",
+      "default": "./out/index.js"
+    }
+  },
+  "scripts": {
+    "compile": "tsc --build",
+    "watch": "tsc --build --watch",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.3.14",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "4.17.0",
+    "@types/sinon": "^17.0.3",
+    "neovim": "5.1.0"
+  },
+  "dependencies": {
+    "@cursorless/common": "workspace:*",
+    "@cursorless/neovim-common": "workspace:*",
+    "@cursorless/neovim-registry": "workspace:*"
+  },
+  "types": "./out/index.d.ts",
+  "type": "module"
+}

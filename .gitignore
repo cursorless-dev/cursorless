@@ -5,6 +5,7 @@ node_modules
 *.vsix
 /package-lock.json
 *.DS_Store
+.luacheckcache
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

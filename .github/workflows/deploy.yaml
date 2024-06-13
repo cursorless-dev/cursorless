@@ -40,6 +40,41 @@ jobs:
           registryUrl: https://marketplace.visualstudio.com
           extensionFile: ${{ steps.publishToOpenVSX.outputs.vsixPath }}
 
+  publish-neovim-extension:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment: production
+    env:
+      CURSORLESS_REPO_ROOT: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CURSORLESS_BOT_TOKEN }}
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm --color install
+      - run: pnpm --color compile
+      - run: pnpm --color --filter '!cursorless-org' --filter '!cursorless-org-*' build
+        env:
+          CURSORLESS_DEPLOY: true
+      - name: Configure GPG Key
+        run: |
+          echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.CURSORLESS_BOT_GPG_SIGNING_KEY }}
+      - name: git config
+        run: |
+          git config user.name cursorless-bot
+          git config user.email 98099035+cursorless-bot@users.noreply.github.com
+          git config user.signingkey A9387720AFC62221
+          git config commit.gpgsign true
+      - name: Push compiled files to cursorless.nvim plugin repo
+        run: bash -x scripts/deploy-cursorless-nvim.sh
+
   push-cursorless-talon:
     name: Push cursorless-talon subrepo
     runs-on: ubuntu-latest
