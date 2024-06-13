@@ -8,7 +8,7 @@
     "url": "https://github.com/hands-free-vim/command-server"
   },
   "version": "0.9.1",
-  "main": "./out/index.cjs",
+  "main": "./index/index.cjs",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
