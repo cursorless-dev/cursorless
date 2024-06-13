@@ -21,9 +21,6 @@ test api insert <user.word> <user.cursorless_destination>:
 test api insert <user.word> and <user.word> <user.cursorless_destination>:
     user.cursorless_insert(cursorless_destination, word_list)
 
-test api replace <user.cursorless_target>:
-    user.cursorless_replace(cursorless_target, "aaa")
-
 test api insert snippet:
     user.cursorless_insert_snippet("Hello, $foo!  My name is $bar!")
 test api insert snippet <user.cursorless_destination> :
