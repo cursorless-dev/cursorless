@@ -72,7 +72,7 @@ See the [Talon-side api docs](./customization.md#cursorless-public-api) for more
        user.cursorless_insert(destination, new)
    ```
 
-Now, for example if you have a target `aardvark` with a hat over the `a`, you can now say `"hello air"`  to replace it with `Hello, aardvark!`.
+Now, for example if you have a target `aardvark` with a hat over the `a`, you can say `"hello air"` to replace it with `Hello, aardvark!`.
 
 :::info
 
