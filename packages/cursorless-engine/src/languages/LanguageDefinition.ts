@@ -52,6 +52,10 @@ export class LanguageDefinition {
       return undefined;
     }
 
+    if (!(await treeSitter.loadLanguage(languageId))) {
+      return undefined;
+    }
+
     const rawQuery = treeSitter
       .getLanguage(languageId)!
       .query(rawLanguageQueryString);
