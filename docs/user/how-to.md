@@ -82,6 +82,6 @@ See the [Talon-side api docs](./customization.md#cursorless-public-api) for more
 
 :::info
 
-See how we use `cursorless_create_destination` to create a destination for the result of the transformation. The `cursorless_insert` action expects a destination, so that it knows whether to replace, insert before, or insert after the target. See [Destinations](reference/destinations.md) for more information.
+Notice how we use `cursorless_create_destination` to create a destination for the result of the transformation. The `cursorless_insert` action expects a destination, so that it knows whether to replace, insert before, or insert after the target. See [Destinations](reference/destinations.md) for more information.
 
 :::
