@@ -1,5 +1,5 @@
 ---
-tags: [enhancement]
+tags: [enhancement, talon]
 pullRequest: 2402
 ---
 
