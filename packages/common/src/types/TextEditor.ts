@@ -55,7 +55,6 @@ export interface TextEditor {
 
 export interface SetSelectionsOpts {
   focusEditor?: boolean;
-  revealRange?: boolean;
 }
 
 export interface EditableTextEditor extends TextEditor {

@@ -56,7 +56,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   async setSelections(
     rawSelections: Selection[],
-    { revealRange = false, focusEditor = false }: SetSelectionsOpts = {},
+    { focusEditor = false }: SetSelectionsOpts = {},
   ): Promise<void> {
     const selections = uniqWithHash(
       rawSelections,
@@ -64,30 +64,27 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
       (s) => s.concise(),
     ).map(toVscodeSelection);
 
-    if (focusEditor) {
-      if (this.isGitDiffEditorOriginal || this.isSearchEditor) {
-        // NB: With a git diff editor we focus the editor BEFORE setting the
-        // selections because otherwise the selections will be clobbered when we
-        // issue the command to switch sides in the diff editor.
-        // The search editor has the same problem where focus is moved to the
-        // input field and the selection is clobbered.
-        await vscodeFocusEditor(this);
-        this.editor.selections = selections;
-      }
-      // Normal text editor
-      else {
-        // NB: With a normal text editor we focus the editor AFTER setting the
-        // selections because otherwise you see an intermediate state where the
-        // old selection persists
-        this.editor.selections = selections;
-        await vscodeFocusEditor(this);
-      }
-    } else {
+    if (!focusEditor) {
       this.editor.selections = selections;
+      return;
     }
 
-    if (revealRange) {
-      await this.revealRange(rawSelections[0]);
+    if (this.isGitDiffEditorOriginal || this.isSearchEditor) {
+      // NB: With a git diff editor we focus the editor BEFORE setting the
+      // selections because otherwise the selections will be clobbered when we
+      // issue the command to switch sides in the diff editor.
+      // The search editor has the same problem where focus is moved to the
+      // input field and the selection is clobbered.
+      await vscodeFocusEditor(this);
+      this.editor.selections = selections;
+    }
+    // Normal text editor
+    else {
+      // NB: With a normal text editor we focus the editor AFTER setting the
+      // selections because otherwise you see an intermediate state where the
+      // old selection persists
+      this.editor.selections = selections;
+      await vscodeFocusEditor(this);
     }
   }
 
