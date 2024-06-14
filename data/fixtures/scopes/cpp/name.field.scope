@@ -1,0 +1,43 @@
+class aaa { int bbb; };
+---
+
+[#1 Content] = 0:6-0:9
+        >---<
+0| class aaa { int bbb; };
+
+[#1 Removal] = 0:6-0:10
+        >----<
+0| class aaa { int bbb; };
+
+[#1 Leading delimiter] = 0:5-0:6
+       >-<
+0| class aaa { int bbb; };
+
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| class aaa { int bbb; };
+
+[#1 Domain] = 0:0-0:23
+  >-----------------------<
+0| class aaa { int bbb; };
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:16-0:19
+                  >---<
+0| class aaa { int bbb; };
+
+[#2 Removal] = 0:15-0:19
+                 >----<
+0| class aaa { int bbb; };
+
+[#2 Leading delimiter] = 0:15-0:16
+                 >-<
+0| class aaa { int bbb; };
+
+[#2 Domain] = 0:12-0:20
+              >--------<
+0| class aaa { int bbb; };
+
+[#2 Insertion delimiter] = " "

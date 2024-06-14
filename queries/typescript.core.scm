@@ -44,7 +44,7 @@
     (public_field_definition
       name: (_) @functionName
       value: [
-        (function
+        (function_expression
           !name
         )
         (generator_function
@@ -84,6 +84,18 @@
   .
   ";"? @_.domain.end
 )
+
+(
+  (type_alias_declaration
+    value: (_) @value
+  ) @_.domain
+  (#not-parent-type? @_.domain export_statement)
+)
+(export_statement
+  (type_alias_declaration
+    value: (_) @value
+  )
+) @_.domain
 
 [
   (interface_declaration)
@@ -243,6 +255,15 @@
 (as_expression
   (_) @_.leading.endOf
   (_) @type
+) @_.domain
+
+;;!! aaa as const
+;;!         ^^^
+;;!     xxxxxxx
+;;!  ----------
+(as_expression
+  (_) @_.leading.endOf
+  "const" @type
 ) @_.domain
 
 ;;!! aaa satisfies Bbb

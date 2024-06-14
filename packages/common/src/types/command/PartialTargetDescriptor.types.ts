@@ -173,6 +173,8 @@ export const simpleScopeTypeTypes = [
   "notebookCell",
   // Talon
   "command",
+  // Private scope types
+  "textFragment",
 ] as const;
 
 export function isSimpleScopeType(

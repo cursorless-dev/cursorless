@@ -10,6 +10,7 @@ import {
   analyzeCommandHistory,
   showCheatsheet,
   updateDefaults,
+  type ScopeTestRecorder,
 } from "@cursorless/cursorless-engine";
 import * as vscode from "vscode";
 import { ScopeVisualizer } from "./ScopeVisualizerCommandApi";
@@ -25,6 +26,7 @@ export function registerCommands(
   commandApi: CommandApi,
   fileSystem: FileSystem,
   testCaseRecorder: TestCaseRecorder,
+  scopeTestRecorder: ScopeTestRecorder,
   scopeVisualizer: ScopeVisualizer,
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
@@ -55,6 +57,12 @@ export function registerCommands(
     ["cursorless.pauseRecording"]: testCaseRecorder.pause,
     ["cursorless.resumeRecording"]: testCaseRecorder.resume,
     ["cursorless.takeSnapshot"]: testCaseRecorder.takeSnapshot,
+
+    // Scope test recorder commands
+    ["cursorless.recordScopeTests.showUnimplementedFacets"]:
+      scopeTestRecorder.showUnimplementedFacets,
+    ["cursorless.recordScopeTests.saveActiveDocument"]:
+      scopeTestRecorder.saveActiveDocument,
 
     // Other commands
     ["cursorless.showQuickPick"]: showQuickPick,

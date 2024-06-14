@@ -13,7 +13,6 @@ import {
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
 import { FullSelectionInfo } from "../typings/updateSelections";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import { runOnTargetsForEachEditor } from "../util/targetUtils";
 import { ActionReturnValue } from "./actions.types";
 
@@ -111,10 +110,7 @@ export default class Wrap {
           ],
         );
 
-        await setSelectionsWithoutFocusingEditor(
-          editableEditor,
-          cursorSelections,
-        );
+        await editableEditor.setSelections(cursorSelections);
 
         await ide().flashRanges(
           delimiterSelections.map((selection) => ({

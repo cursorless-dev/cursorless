@@ -63,12 +63,6 @@ function castTypeExtractor(
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  name: [
-    "assignment_expression[left]",
-    "class_declaration[name]",
-    "function_definition[name]",
-    "method_declaration[name]",
-  ],
   type: cascadingMatcher(
     trailingMatcher(["~cast_expression[type]"]),
     matcher(patternFinder("cast_expression[type]"), castTypeExtractor),

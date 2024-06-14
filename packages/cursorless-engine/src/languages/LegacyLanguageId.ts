@@ -3,18 +3,10 @@
  * modifiers.
  */
 export const legacyLanguageIds = [
-  "c",
   "clojure",
-  "cpp",
   "csharp",
   "css",
   "go",
-  "html",
-  "java",
-  "javascript",
-  "javascriptreact",
-  "json",
-  "jsonc",
   "latex",
   "markdown",
   "php",
@@ -23,9 +15,6 @@ export const legacyLanguageIds = [
   "rust",
   "scala",
   "scss",
-  "typescript",
-  "typescriptreact",
-  "xml",
-];
+] as const;
 
 export type LegacyLanguageId = (typeof legacyLanguageIds)[number];
