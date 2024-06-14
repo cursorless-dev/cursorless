@@ -68,7 +68,7 @@ See the [Talon-side api docs](./customization.md#cursorless-public-api) for more
 
    ```talon
    hello <user.cursorless_target>:
-       old = user.cursorless_get_text(cursorless_target, 1)
+       old = user.cursorless_get_text(cursorless_target, true)
        new = user.hello(old)
        destination = user.cursorless_create_destination(cursorless_target)
        user.cursorless_insert(destination, new)
