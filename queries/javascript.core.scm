@@ -689,8 +689,8 @@
   "}" @statement.iteration.end.startOf
 )
 
-;;!! foo(name: string) {}
-;;!      ^^^^^^^^^^^^
+;;!! foo(name) {}
+;;!      ^^^^
 (
   (formal_parameters
     (_)? @_.leading.endOf

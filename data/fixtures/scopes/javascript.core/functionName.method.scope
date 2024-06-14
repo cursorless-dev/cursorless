@@ -1,0 +1,19 @@
+class MyClass {
+  myFunk() { }
+}
+---
+
+[Content] =
+[Removal] = 1:2-1:8
+    >------<
+1|   myFunk() { }
+
+[Leading delimiter] = 1:0-1:2
+  >--<
+1|   myFunk() { }
+
+[Domain] = 1:2-1:14
+    >------------<
+1|   myFunk() { }
+
+[Insertion delimiter] = " "

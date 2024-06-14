@@ -6,7 +6,6 @@ export const legacyLanguageIds = [
   "clojure",
   "csharp",
   "css",
-  "go",
   "latex",
   "markdown",
   "php",

@@ -1,21 +1,28 @@
-// From https://github.com/tree-sitter/tree-sitter/blob/2923c9cb62c964371ed7d6995ca1238356b00b45/lib/binding_web/tree-sitter-web.d.ts
-// License https://github.com/tree-sitter/tree-sitter/blob/2923c9cb62c964371ed7d6995ca1238356b00b45/LICENSE
+// From https://github.com/tree-sitter/tree-sitter/blob/604d38e6b327ed33877e1285680b505b9484a71c/lib/binding_web/tree-sitter-web.d.ts
+// License https://github.com/tree-sitter/tree-sitter/blob/604d38e6b327ed33877e1285680b505b9484a71c/LICENSE
 declare module "web-tree-sitter" {
   class Parser {
-    static init(): Promise<void>;
+    /**
+     *
+     * @param moduleOptions Optional emscripten module-object, see https://emscripten.org/docs/api_reference/module.html
+     */
+    static init(moduleOptions?: object): Promise<void>;
     delete(): void;
     parse(
       input: string | Parser.Input,
-      previousTree?: Parser.Tree,
+      oldTree?: Parser.Tree,
       options?: Parser.Options,
     ): Parser.Tree;
-    getLanguage(): any;
-    setLanguage(language: any): void;
+    getIncludedRanges(): Parser.Range[];
+    getTimeoutMicros(): number;
+    setTimeoutMicros(timeout: number): void;
+    reset(): void;
+    getLanguage(): Parser.Language;
+    setLanguage(language?: Parser.Language | null): void;
     getLogger(): Parser.Logger;
-    setLogger(logFunc: Parser.Logger): void;
+    setLogger(logFunc?: Parser.Logger | false | null): void;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Parser {
     export type Options = {
       includedRanges?: Range[];
@@ -27,10 +34,10 @@ declare module "web-tree-sitter" {
     };
 
     export type Range = {
-      startPosition: Point;
-      endPosition: Point;
       startIndex: number;
       endIndex: number;
+      startPosition: Point;
+      endPosition: Point;
     };
 
     export type Edit = {
@@ -48,17 +55,26 @@ declare module "web-tree-sitter" {
       type: "parse" | "lex",
     ) => void;
 
-    export type Input = (
-      startIndex: number,
-      startPoint?: Point,
-      endIndex?: number,
-    ) => string | null;
+    export interface Input {
+      (index: number, position?: Point): string | null;
+    }
 
     export interface SyntaxNode {
-      id: number;
       tree: Tree;
+      id: number;
+      typeId: number;
+      grammarId: number;
       type: string;
+      grammarType: string;
+      isNamed: boolean;
+      isMissing: boolean;
+      isExtra: boolean;
+      hasChanges: boolean;
+      hasError: boolean;
+      isError: boolean;
       text: string;
+      parseState: number;
+      nextParseState: number;
       startPosition: Point;
       endPosition: Point;
       startIndex: number;
@@ -76,25 +92,22 @@ declare module "web-tree-sitter" {
       nextNamedSibling: SyntaxNode | null;
       previousSibling: SyntaxNode | null;
       previousNamedSibling: SyntaxNode | null;
+      descendantCount: number;
 
-      hasChanges(): boolean;
-      hasError(): boolean;
       equals(other: SyntaxNode): boolean;
-      isMissing(): boolean;
-      isNamed(): boolean;
       toString(): string;
       child(index: number): SyntaxNode | null;
       namedChild(index: number): SyntaxNode | null;
-      childForFieldId(fieldId: number): SyntaxNode | null;
       childForFieldName(fieldName: string): SyntaxNode | null;
+      childForFieldId(fieldId: number): SyntaxNode | null;
+      fieldNameForChild(childIndex: number): string | null;
+      childrenForFieldName(fieldName: string): Array<SyntaxNode>;
+      childrenForFieldId(fieldId: number): Array<SyntaxNode>;
+      firstChildForIndex(index: number): SyntaxNode | null;
+      firstNamedChildForIndex(index: number): SyntaxNode | null;
 
       descendantForIndex(index: number): SyntaxNode;
       descendantForIndex(startIndex: number, endIndex: number): SyntaxNode;
-      descendantsOfType(
-        type: string | Array<string>,
-        startPosition?: Point,
-        endPosition?: Point,
-      ): Array<SyntaxNode>;
       namedDescendantForIndex(index: number): SyntaxNode;
       namedDescendantForIndex(startIndex: number, endIndex: number): SyntaxNode;
       descendantForPosition(position: Point): SyntaxNode;
@@ -107,68 +120,82 @@ declare module "web-tree-sitter" {
         startPosition: Point,
         endPosition: Point,
       ): SyntaxNode;
+      descendantsOfType(
+        types: string | Array<string>,
+        startPosition?: Point,
+        endPosition?: Point,
+      ): Array<SyntaxNode>;
 
       walk(): TreeCursor;
     }
 
     export interface TreeCursor {
       nodeType: string;
+      nodeTypeId: number;
+      nodeStateId: number;
       nodeText: string;
+      nodeId: number;
       nodeIsNamed: boolean;
+      nodeIsMissing: boolean;
       startPosition: Point;
       endPosition: Point;
       startIndex: number;
       endIndex: number;
+      readonly currentNode: SyntaxNode;
+      readonly currentFieldName: string;
+      readonly currentFieldId: number;
+      readonly currentDepth: number;
+      readonly currentDescendantIndex: number;
 
       reset(node: SyntaxNode): void;
+      resetTo(cursor: TreeCursor): void;
       delete(): void;
-      currentNode(): SyntaxNode;
-      currentFieldId(): number;
-      currentFieldName(): string;
       gotoParent(): boolean;
       gotoFirstChild(): boolean;
-      gotoFirstChildForIndex(index: number): boolean;
+      gotoLastChild(): boolean;
+      gotoFirstChildForIndex(goalIndex: number): boolean;
+      gotoFirstChildForPosition(goalPosition: Point): boolean;
       gotoNextSibling(): boolean;
+      gotoPreviousSibling(): boolean;
+      gotoDescendant(goalDescendantIndex: number): void;
     }
 
     export interface Tree {
       readonly rootNode: SyntaxNode;
 
+      rootNodeWithOffset(offsetBytes: number, offsetExtent: Point): SyntaxNode;
       copy(): Tree;
       delete(): void;
-      edit(delta: Edit): Tree;
+      edit(edit: Edit): Tree;
       walk(): TreeCursor;
       getChangedRanges(other: Tree): Range[];
+      getIncludedRanges(): Range[];
       getEditedRange(other: Tree): Range;
       getLanguage(): Language;
     }
 
-    class Language {
-      static load(input: string | Uint8Array): Promise<Language>;
-
-      readonly version: number;
-      readonly fieldCount: number;
-      readonly nodeTypeCount: number;
-
-      fieldNameForId(fieldId: number): string | null;
-      fieldIdForName(fieldName: string): number | null;
-      idForNodeType(type: string, named: boolean): number;
-      nodeTypeForId(typeId: number): string | null;
-      nodeTypeIsNamed(typeId: number): boolean;
-      nodeTypeIsVisible(typeId: number): boolean;
-      query(source: string): Query;
-    }
-
     export interface QueryCapture {
       name: string;
+      text?: string;
       node: SyntaxNode;
+      setProperties?: { [prop: string]: string | null };
+      assertedProperties?: { [prop: string]: string | null };
+      refutedProperties?: { [prop: string]: string | null };
     }
 
-    interface QueryMatch {
+    export interface QueryMatch {
       pattern: number;
       captures: QueryCapture[];
-      setProperties?: Record<string, string | null>;
     }
+
+    export type QueryOptions = {
+      startPosition?: Point;
+      endPosition?: Point;
+      startIndex?: number;
+      endIndex?: number;
+      matchLimit?: number;
+      maxStartDepth?: number;
+    };
 
     interface PredicateResult {
       operator: string;
@@ -187,22 +214,55 @@ declare module "web-tree-sitter" {
 
     type PredicateOperand = PredicateCaptureOperand | PredicateStringOperand;
 
-    class Query {
+    export class Query {
       captureNames: string[];
+      readonly predicates: PredicateResult[][];
+      readonly setProperties: any[];
+      readonly assertedProperties: any[];
+      readonly refutedProperties: any[];
+      readonly matchLimit: number;
 
       delete(): void;
-      matches(
-        node: SyntaxNode,
-        startPosition?: Point,
-        endPosition?: Point,
-      ): QueryMatch[];
-      captures(
-        node: SyntaxNode,
-        startPosition?: Point,
-        endPosition?: Point,
-      ): QueryCapture[];
+      captures(node: SyntaxNode, options?: QueryOptions): QueryCapture[];
+      matches(node: SyntaxNode, options?: QueryOptions): QueryMatch[];
       predicatesForPattern(patternIndex: number): PredicateResult[];
-      predicates: PredicateResult[][];
+      disableCapture(captureName: string): void;
+      disablePattern(patternIndex: number): void;
+      isPatternGuaranteedAtStep(byteOffset: number): boolean;
+      isPatternRooted(patternIndex: number): boolean;
+      isPatternNonLocal(patternIndex: number): boolean;
+      startIndexForPattern(patternIndex: number): number;
+      didExceedMatchLimit(): boolean;
+    }
+
+    class Language {
+      static load(input: string | Uint8Array): Promise<Language>;
+
+      readonly version: number;
+      readonly fieldCount: number;
+      readonly stateCount: number;
+      readonly nodeTypeCount: number;
+
+      fieldNameForId(fieldId: number): string | null;
+      fieldIdForName(fieldName: string): number | null;
+      idForNodeType(type: string, named: boolean): number;
+      nodeTypeForId(typeId: number): string | null;
+      nodeTypeIsNamed(typeId: number): boolean;
+      nodeTypeIsVisible(typeId: number): boolean;
+      nextState(stateId: number, typeId: number): number;
+      query(source: string): Query;
+      lookaheadIterator(stateId: number): LookaheadIterable | null;
+    }
+
+    export class LookaheadIterable {
+      readonly language: Language;
+      readonly currentTypeId: number;
+      readonly currentType: string;
+
+      delete(): void;
+      reset(language: Language, stateId: number): boolean;
+      resetState(stateId: number): boolean;
+      [Symbol.iterator](): Iterator<string>;
     }
   }
 

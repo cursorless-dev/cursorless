@@ -8,12 +8,15 @@
 ;;!               ^^^--------------
 (optional_parameter
   (identifier) @name
+  type: (_)? @value.leading.endOf
+  value: (_)? @value
 ) @_.domain
 
 ;;!! function aaa(bbb: Ccc = "ddd") {}
 ;;!               ^^^-------------
 (required_parameter
-  (identifier) @name
+  (identifier) @name @value.leading.endOf
+  value: (_)? @value
 ) @_.domain
 
 ;; Define these here because these node types don't exist in javascript.
@@ -44,7 +47,7 @@
     (public_field_definition
       name: (_) @functionName
       value: [
-        (function
+        (function_expression
           !name
         )
         (generator_function
@@ -180,11 +183,23 @@
   (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
-;;!! function ccc(aaa: string, bbb?: string) {}
-;;!                    ^^^^^^        ^^^^^^
+;;!! function ccc(aaa: string) {}
+;;!                    ^^^^^^
 (formal_parameters
-  (_
+  (required_parameter
     pattern: (_) @_.leading.endOf
+    type: (_
+      ":"
+      (_) @type
+    )
+  ) @_.domain
+)
+
+;;!! function ccc(aaa?: string) {}
+;;!                     ^^^^^^
+(formal_parameters
+  (optional_parameter
+    "?" @_.leading.endOf
     type: (_
       ":"
       (_) @type
@@ -255,6 +270,15 @@
 (as_expression
   (_) @_.leading.endOf
   (_) @type
+) @_.domain
+
+;;!! aaa as const
+;;!         ^^^
+;;!     xxxxxxx
+;;!  ----------
+(as_expression
+  (_) @_.leading.endOf
+  "const" @type
 ) @_.domain
 
 ;;!! aaa satisfies Bbb
