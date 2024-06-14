@@ -1,33 +1,33 @@
-foo.bar(aaa, bbb);
+aaa(bbb, ccc);
 ---
 
 [#1 Content] =
-[#1 Domain] = 0:8-0:11
-          >---<
-0| foo.bar(aaa, bbb);
+[#1 Domain] = 0:4-0:7
+      >---<
+0| aaa(bbb, ccc);
 
-[#1 Removal] = 0:8-0:13
-          >-----<
-0| foo.bar(aaa, bbb);
+[#1 Removal] = 0:4-0:9
+      >-----<
+0| aaa(bbb, ccc);
 
-[#1 Trailing delimiter] = 0:11-0:13
-             >--<
-0| foo.bar(aaa, bbb);
+[#1 Trailing delimiter] = 0:7-0:9
+         >--<
+0| aaa(bbb, ccc);
 
 [#1 Insertion delimiter] = ", "
 
 
 [#2 Content] =
-[#2 Domain] = 0:13-0:16
-               >---<
-0| foo.bar(aaa, bbb);
+[#2 Domain] = 0:9-0:12
+           >---<
+0| aaa(bbb, ccc);
 
-[#2 Removal] = 0:11-0:16
-             >-----<
-0| foo.bar(aaa, bbb);
+[#2 Removal] = 0:7-0:12
+         >-----<
+0| aaa(bbb, ccc);
 
-[#2 Leading delimiter] = 0:11-0:13
-             >--<
-0| foo.bar(aaa, bbb);
+[#2 Leading delimiter] = 0:7-0:9
+         >--<
+0| aaa(bbb, ccc);
 
 [#2 Insertion delimiter] = ", "
