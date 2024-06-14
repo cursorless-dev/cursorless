@@ -133,8 +133,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return vscodeEdit(this.editor, edits);
   }
 
-  public async focus(): Promise<void> {
-    await vscodeFocusEditor(this);
+  public focus(): Promise<void> {
+    return vscodeFocusEditor(this);
   }
 
   public editNewNotebookCellAbove(): Promise<
