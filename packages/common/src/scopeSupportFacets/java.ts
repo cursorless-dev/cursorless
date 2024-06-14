@@ -28,4 +28,9 @@ export const javaScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: notApplicable,
   "key.attribute": notApplicable,
   "value.attribute": notApplicable,
+
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "branch.try": supported,
+  "branch.try.iteration": supported,
 };
