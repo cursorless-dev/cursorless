@@ -14,7 +14,6 @@ import {
 import { ide } from "../singletons/ide.singleton";
 import { EditWithRangeUpdater } from "../typings/Types";
 import { Destination, Target } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsAndFocusEditor";
 import {
   flashTargets,
   getContentRange,
@@ -209,10 +208,7 @@ abstract class BringMoveSwap {
           // NB: We set the selections here because we don't trust vscode to
           // properly move the cursor on a bring. Sometimes it will smear an
           // empty selection
-          await setSelectionsWithoutFocusingEditor(
-            editableEditor,
-            cursorSelections,
-          );
+          await editableEditor.setSelections(cursorSelections);
 
           const marks = [
             ...this.getMarks(sourceEdits, updatedSourceEditSelections),

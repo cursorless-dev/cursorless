@@ -41,3 +41,18 @@
   .
   ";"? @_.domain.end
 )
+
+;;!! foo(name) {}
+;;!      ^^^^
+(formal_parameters
+  (identifier) @name
+)
+
+;;!! foo(value = 5) {}
+;;!      ^^^^^   ^
+(formal_parameters
+  (assignment_pattern
+    left: (_) @name @value.leading.endOf
+    right: (_) @value
+  ) @_.domain
+)
