@@ -146,8 +146,6 @@ const nodeMatchers: Partial<
     ],
     1,
   ),
-  string: ["raw_string_literal", "string_literal"],
-  ifStatement: ["if_expression", "if_let_expression"],
   condition: cascadingMatcher(
     patternMatcher("while_expression[condition]", "if_expression[condition]"),
     matcher(
@@ -160,7 +158,6 @@ const nodeMatchers: Partial<
   ),
   functionCall: ["call_expression", "macro_invocation", "struct_expression"],
   functionCallee: "call_expression[function]",
-  comment: ["line_comment", "block_comment"],
   list: ["array_expression", "tuple_expression"],
   collectionItem: argumentMatcher(
     "array_expression",

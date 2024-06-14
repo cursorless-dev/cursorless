@@ -330,3 +330,73 @@
   body: (_) @value
   (#not-type? @value block)
 ) @_.domain
+
+;;!! public Map<int, int> foo;
+;;!         ^^^^^^^^^^^^^
+;;!  -------------------------
+(field_declaration
+  type: (_) @type
+) @_.domain
+
+;;!! class MyClass { }
+;;!                 ^
+(class_body
+  .
+  "{" @type.iteration.start.endOf
+  "}" @type.iteration.end.startOf
+  .
+)
+
+;;!! public Map<int, int> foo;
+;;!             ^^^  ^^^
+(type_arguments
+  (_) @type
+)
+
+;;!! public Map<int, int> foo;
+;;!             ^^^^^^^^
+(type_arguments
+  .
+  "<" @type.iteration.start.endOf
+  ">" @type.iteration.end.startOf
+  .
+)
+;;!! foo(name: string) {}
+;;!      ^^^^^^^^^^^^
+(
+  (formal_parameters
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "block_comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+;;!! foo("bar")
+;;!      ^^^^^
+(
+  (argument_list
+    (_)? @_.leading.endOf
+    .
+    (_) @argumentOrParameter
+    .
+    (_)? @_.trailing.startOf
+  ) @_dummy
+  (#not-type? @argumentOrParameter "block_comment")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
+)
+
+(_
+  (formal_parameters
+    "(" @argumentOrParameter.iteration.start.endOf
+    ")" @argumentOrParameter.iteration.end.startOf
+  )
+) @argumentOrParameter.iteration.domain
+
+(argument_list
+  "(" @argumentOrParameter.iteration.start.endOf
+  ")" @argumentOrParameter.iteration.end.startOf
+) @argumentOrParameter.iteration.domain

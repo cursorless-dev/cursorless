@@ -5,12 +5,15 @@ import {
   Range,
   TextDocument,
   getCursorlessRepoRoot,
+  isTesting,
+  showError,
 } from "@cursorless/common";
 import { join } from "path";
 import { SyntaxNode } from "web-tree-sitter";
 import { TreeSitter } from "../typings/TreeSitter";
 import { ide } from "../singletons/ide.singleton";
 import { LanguageDefinition } from "./LanguageDefinition";
+import { toString } from "lodash";
 
 /**
  * Sentinel value to indicate that a language doesn't have
@@ -60,16 +63,37 @@ export class LanguageDefinitions {
         ? join(getCursorlessRepoRoot(), "queries")
         : "queries";
 
-    ide().visibleTextEditors.forEach(({ document }) =>
-      this.loadLanguage(document.languageId),
-    );
-
     if (ide().runMode === "development") {
       this.disposables.push(
         fileSystem.watchDir(this.queryDir, () => {
           this.reloadLanguageDefinitions();
         }),
       );
+    }
+  }
+
+  public async init(): Promise<void> {
+    await this.loadAllLanguages();
+  }
+
+  private async loadAllLanguages(): Promise<void> {
+    const languageIds = ide().visibleTextEditors.map(
+      ({ document }) => document.languageId,
+    );
+
+    try {
+      await Promise.all(
+        languageIds.map((languageId) => this.loadLanguage(languageId)),
+      );
+    } catch (err) {
+      showError(
+        ide().messages,
+        "Failed to load language definitions",
+        toString(err),
+      );
+      if (isTesting()) {
+        throw err;
+      }
     }
   }
 
@@ -90,11 +114,8 @@ export class LanguageDefinitions {
   }
 
   private async reloadLanguageDefinitions(): Promise<void> {
-    const languageIds = Array.from(this.languageDefinitions.keys());
     this.languageDefinitions.clear();
-    await Promise.all(
-      languageIds.map((languageId) => this.loadLanguage(languageId)),
-    );
+    await this.loadAllLanguages();
     this.notifier.notifyListeners();
   }
 
@@ -111,7 +132,7 @@ export class LanguageDefinitions {
 
     if (definition == null) {
       throw new Error(
-        "Expected language definition entry missing for languageId " +
+        "Expected language definition entry is missing for languageId " +
           languageId,
       );
     }

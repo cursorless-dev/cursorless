@@ -9,6 +9,8 @@ const scopeSupportFacets = [
   "endTag",
   "attribute",
 
+  "environment",
+
   "list",
   "map",
   "ifStatement",
@@ -17,15 +19,27 @@ const scopeSupportFacets = [
   "fieldAccess",
 
   "statement",
+  "statement.class",
   "statement.iteration.document",
   "statement.iteration.block",
 
   "class",
+  "class.iteration.document",
+  "class.iteration.block",
   "className",
+  "className.iteration.document",
+  "className.iteration.block",
   "namedFunction",
   "namedFunction.method",
+  "namedFunction.method.iteration.class",
+  "namedFunction.iteration",
+  "namedFunction.iteration.document",
   "anonymousFunction",
   "functionName",
+  "functionName.method",
+  "functionName.method.iteration.class",
+  "functionName.iteration",
+  "functionName.iteration.document",
 
   "functionCall",
   "functionCall.constructor",
@@ -43,12 +57,18 @@ const scopeSupportFacets = [
   "string.singleLine",
   "string.multiLine",
 
+  "textFragment.comment.line",
+  "textFragment.comment.block",
+  "textFragment.string.singleLine",
+  "textFragment.string.multiLine",
+
   "branch.if",
   "branch.if.iteration",
   "branch.try",
   "branch.switchCase",
   "branch.switchCase.iteration",
   "branch.ternary",
+  "branch.loop",
 
   "condition.if",
   "condition.while",
@@ -67,6 +87,10 @@ const scopeSupportFacets = [
   "name.field",
   "name.resource",
   "name.resource.iteration",
+  "name.argument.formal",
+  "name.argument.formal.iteration",
+  "name.iteration.block",
+  "name.iteration.document",
 
   "key.attribute",
   "key.mapPair",
@@ -84,21 +108,28 @@ const scopeSupportFacets = [
   "value.yield",
   "value.resource",
   "value.resource.iteration",
+  "value.argument.formal",
+  "value.argument.formal.iteration",
+  "value.typeAlias",
 
   "type.variable",
   "type.formalParameter",
   "type.return",
   "type.field",
+  "type.field.iteration",
   "type.foreach",
   "type.interface",
   "type.alias",
+  "type.cast",
+  "type.class",
+  "type.typeArgument",
+  "type.typeArgument.iteration",
 
   // FIXME: Still in legacy
   // section
   // selector
   // unit
   // collectionItem
-  // textFragment
 ] as const;
 
 const textualScopeSupportFacets = [

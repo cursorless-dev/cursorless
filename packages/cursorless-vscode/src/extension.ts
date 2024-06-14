@@ -1,7 +1,7 @@
 import {
   Disposable,
+  FakeCommandServerApi,
   FakeIDE,
-  getFakeCommandServerApi,
   IDE,
   isTesting,
   NormalizedIDE,
@@ -13,6 +13,7 @@ import {
 import {
   CommandHistory,
   createCursorlessEngine,
+  ScopeTestRecorder,
   TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
@@ -48,8 +49,8 @@ import {
   VisualizationType,
 } from "./ScopeVisualizerCommandApi";
 import { StatusBarItem } from "./StatusBarItem";
-import { vscodeApi } from "./vscodeApi";
 import { storedTargetHighlighter } from "./storedTargetHighlighter";
+import { vscodeApi } from "./vscodeApi";
 
 /**
  * Extension entrypoint called by VSCode on Cursorless startup.
@@ -75,10 +76,10 @@ export async function activate(
           vscodeIDE.runMode === "test",
         );
 
-  const commandServerApi =
-    vscodeIDE.runMode === "test"
-      ? getFakeCommandServerApi()
-      : await getCommandServerApi();
+  const fakeCommandServerApi = new FakeCommandServerApi();
+  const commandServerApi = isTesting()
+    ? fakeCommandServerApi
+    : await getCommandServerApi();
 
   const treeSitter: TreeSitter = createTreeSitter(parseTreeApi);
 
@@ -92,7 +93,7 @@ export async function activate(
     runIntegrationTests,
     addCommandRunnerDecorator,
     customSpokenFormGenerator,
-  } = createCursorlessEngine(
+  } = await createCursorlessEngine(
     treeSitter,
     normalizedIde,
     hats,
@@ -104,8 +105,14 @@ export async function activate(
     new CommandHistory(normalizedIde, commandServerApi, fileSystem),
   );
 
-  const testCaseRecorder = new TestCaseRecorder(hatTokenMap, storedTargets);
+  const testCaseRecorder = new TestCaseRecorder(
+    commandServerApi,
+    hatTokenMap,
+    storedTargets,
+  );
   addCommandRunnerDecorator(testCaseRecorder);
+
+  const scopeTestRecorder = new ScopeTestRecorder(normalizedIde);
 
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(
@@ -135,6 +142,7 @@ export async function activate(
     commandApi,
     fileSystem,
     testCaseRecorder,
+    scopeTestRecorder,
     scopeVisualizer,
     keyboardCommands,
     hats,
@@ -145,7 +153,7 @@ export async function activate(
   return {
     testHelpers: isTesting()
       ? constructTestHelpers(
-          commandServerApi,
+          fakeCommandServerApi,
           storedTargets,
           hatTokenMap,
           vscodeIDE,

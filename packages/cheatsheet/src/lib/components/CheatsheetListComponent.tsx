@@ -24,14 +24,14 @@ export default function CheatsheetListComponent({
   return (
     <div
       id={section.id}
-      className={`border ${borderClassName} rounded-lg bg-stone-100 dark:bg-stone-700 overflow-hidden`}
+      className={`border ${borderClassName} overflow-hidden rounded-lg bg-stone-100 dark:bg-stone-700`}
     >
-      <h2 className="text-xl text-center my-1">{section.name}</h2>
+      <h2 className="my-1 text-center text-xl">{section.name}</h2>
       <table className="w-full">
         <thead>
           <tr className="text bg-stone-300 dark:bg-stone-500">
-            <th className="px-1 font-normal w-1/2">Spoken form</th>
-            <th className="px-1 border-l border-stone-400 font-normal">
+            <th className="w-1/2 px-1 font-normal">Spoken form</th>
+            <th className="border-l border-stone-400 px-1 font-normal">
               Meaning
             </th>
           </tr>

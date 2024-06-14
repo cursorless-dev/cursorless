@@ -15,8 +15,8 @@ import { ModifierStageFactory } from "../ModifierStageFactory";
 import type { ModifierStage } from "../PipelineStages.types";
 import { PlainTarget } from "../targets";
 import { ContainingTokenIfUntypedEmptyStage } from "./ConditionalModifierStages";
-import { OutOfRangeError } from "./targetSequenceUtils";
 import { StoredTargetMap } from "../..";
+import { OutOfRangeError } from "./listUtils";
 
 export class InstanceStage implements ModifierStage {
   constructor(

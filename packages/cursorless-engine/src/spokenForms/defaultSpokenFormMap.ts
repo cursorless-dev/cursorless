@@ -1,4 +1,4 @@
-import { mapSpokenForms } from "./SpokenFormMap";
+import { SpokenFormMap, mapSpokenForms } from "./SpokenFormMap";
 import { defaultSpokenFormMapCore } from "./defaultSpokenFormMapCore";
 import { DefaultSpokenFormInfoMap } from "./defaultSpokenFormMap.types";
 
@@ -23,7 +23,7 @@ export const defaultSpokenFormInfoMap: DefaultSpokenFormInfoMap =
  * A spoken form map constructed from the default spoken forms. It is designed to
  * be used as a fallback when the Talon spoken form map is not available.
  */
-export const defaultSpokenFormMap = mapSpokenForms(
+export const defaultSpokenFormMap: SpokenFormMap = mapSpokenForms(
   defaultSpokenFormInfoMap,
   ({ defaultSpokenForms, isDisabledByDefault, isPrivate }) => ({
     spokenForms: isDisabledByDefault ? [] : defaultSpokenForms,

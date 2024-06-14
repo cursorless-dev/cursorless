@@ -5,9 +5,10 @@ import {
   ScopeSupportFacetLevel,
 } from "./scopeSupportFacets.types";
 
-const { supported, notApplicable } = ScopeSupportFacetLevel;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
-export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
+export const javascriptCoreScopeSupport: LanguageScopeSupportFacetMap = {
   list: supported,
   map: supported,
   ifStatement: supported,
@@ -77,7 +78,9 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   "value.return": supported,
   "value.return.lambda": supported,
   "value.field": supported,
+};
 
+export const javascriptJsxScopeSupport: LanguageScopeSupportFacetMap = {
   element: supported,
   tags: supported,
   startTag: supported,
@@ -85,6 +88,11 @@ export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
   attribute: supported,
   "key.attribute": supported,
   "value.attribute": supported,
+};
+
+export const javascriptScopeSupport: LanguageScopeSupportFacetMap = {
+  ...javascriptCoreScopeSupport,
+  ...javascriptJsxScopeSupport,
 
   "type.variable": notApplicable,
   "type.formalParameter": notApplicable,

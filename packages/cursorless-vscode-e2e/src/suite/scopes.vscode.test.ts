@@ -1,7 +1,7 @@
 import {
   asyncSafety,
-  getLanguageScopeSupport,
-  getScopeTestPaths,
+  getScopeTestPathsRecursively,
+  languageScopeSupport,
   ScopeSupportFacet,
   scopeSupportFacetInfos,
   ScopeSupportFacetLevel,
@@ -23,10 +23,18 @@ import {
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
-  const testPaths = getScopeTestPaths();
-  const languages = groupBy(testPaths, (test) => test.languageId);
+  const testPaths = getScopeTestPathsRecursively();
 
   if (!shouldUpdateFixtures()) {
+    const languages = groupBy(testPaths, (test) => test.languageId);
+
+    // This handles the case where a language has no tests, but is still listed
+    // in the config. In that case, just using the language ids from the tests
+    // would miss the language entirely even though it appears in the config.
+    for (const language of Object.keys(languageScopeSupport)) {
+      languages[language] ??= [];
+    }
+
     Object.entries(languages).forEach(([languageId, testPaths]) =>
       test(
         `${languageId} facet coverage`,
@@ -60,7 +68,11 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
       return Object.keys(textualScopeSupportFacetInfos);
     }
 
-    const scopeSupport = getLanguageScopeSupport(languageId);
+    const scopeSupport = languageScopeSupport[languageId];
+
+    if (scopeSupport == null) {
+      return [];
+    }
 
     return Object.keys(scopeSupport).filter(
       (facet) =>
@@ -98,7 +110,7 @@ async function runTest(file: string, languageId: string, facetId: string) {
     .replaceAll("\r\n", "\n");
   const delimiterIndex = fixture.match(/^---$/m)?.index;
 
-  assert.isNotNull(
+  assert.isDefined(
     delimiterIndex,
     "Can't find delimiter '---' in scope fixture",
   );

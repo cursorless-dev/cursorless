@@ -10,7 +10,9 @@ mod.list("cursorless_wrap_action", desc="Cursorless wrap action")
 @mod.action_class
 class Actions:
     def private_cursorless_wrap_with_paired_delimiter(
-        action_name: str, target: CursorlessTarget, paired_delimiter: list[str]
+        action_name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
+        paired_delimiter: list[str],
     ):
         """Execute Cursorless wrap/rewrap with paired delimiter action"""
         if action_name == "rewrap":
@@ -26,7 +28,9 @@ class Actions:
         )
 
     def private_cursorless_wrap_with_snippet(
-        action_name: str, target: CursorlessTarget, snippet_location: str
+        action_name: str,  # pyright: ignore [reportGeneralTypeIssues]
+        target: CursorlessTarget,
+        snippet_location: str,
     ):
         """Execute Cursorless wrap with snippet action"""
         if action_name == "wrapWithPairedDelimiter":

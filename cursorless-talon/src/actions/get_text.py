@@ -10,7 +10,7 @@ mod = Module()
 @mod.action_class
 class Actions:
     def cursorless_get_text(
-        target: CursorlessTarget,
+        target: CursorlessTarget,  # pyright: ignore [reportGeneralTypeIssues]
         hide_decorations: bool = False,
     ) -> str:
         """Get target text. If hide_decorations is True, don't show decorations"""
@@ -21,7 +21,7 @@ class Actions:
         )[0]
 
     def cursorless_get_text_list(
-        target: CursorlessTarget,
+        target: CursorlessTarget,  # pyright: ignore [reportGeneralTypeIssues]
         hide_decorations: bool = False,
     ) -> list[str]:
         """Get texts for multiple targets. If hide_decorations is True, don't show decorations"""

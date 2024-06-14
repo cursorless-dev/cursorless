@@ -1,0 +1,20 @@
+struct { int bbb; };
+---
+
+[Content] = 0:13-0:16
+               >---<
+0| struct { int bbb; };
+
+[Removal] = 0:12-0:16
+              >----<
+0| struct { int bbb; };
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| struct { int bbb; };
+
+[Domain] = 0:9-0:17
+           >--------<
+0| struct { int bbb; };
+
+[Insertion delimiter] = " "
