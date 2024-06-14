@@ -500,4 +500,9 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "type",
     isIteration: true,
   },
+
+  notebookCell: {
+    description: "A cell in a notebook or a markdown code block",
+    scopeType: "notebookCell",
+  },
 };
