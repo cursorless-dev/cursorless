@@ -33,9 +33,31 @@
 ] @statement
 
 [
-  (string)
   (shell_command_expression)
-] @string @textFragment
+  (string)
+  (encapsed_string)
+] @string
+
+(string
+  .
+  "'" @textFragment.start.endOf
+  "'" @textFragment.end.startOf
+  .
+)
+
+(encapsed_string
+  .
+  "\"" @textFragment.start.endOf
+  "\"" @textFragment.end.startOf
+  .
+)
+
+(shell_command_expression
+  .
+  "`" @textFragment.start.endOf
+  "`" @textFragment.end.startOf
+  .
+)
 
 (comment) @comment @textFragment
 
