@@ -92,15 +92,21 @@ const EXPRESSION_TYPES = [
 ];
 
 const EXPRESSION_STATEMENT_PARENT_TYPES = [
+  "begin_block",
   "begin",
+  "block_body",
   "block",
-  "do",
+  "body_statement",
   "do_block",
+  "do",
   "else",
+  "end_block",
   "ensure",
   "heredoc_beginning",
+  "interpolation",
   "lambda",
   "method",
+  "parenthesized_statements",
   "program",
   "singleton_class",
   "singleton_method",
@@ -160,7 +166,6 @@ const nodeMatchers: Partial<
       1,
     ),
   ),
-  functionName: ["method[name]", "singleton_method[name]"],
   anonymousFunction: cascadingMatcher(
     patternMatcher("lambda", "do_block"),
     matcher(blockFinder),
@@ -173,13 +178,6 @@ const nodeMatchers: Partial<
     "argument_list",
   ),
   collectionKey: trailingMatcher(["pair[key]"], [":"]),
-  name: [
-    "assignment[left]",
-    "operator_assignment[left]",
-    "class[name]",
-    "method[name]",
-    "singleton_method[name]",
-  ],
   value: leadingMatcher(
     [
       "pair[value]",

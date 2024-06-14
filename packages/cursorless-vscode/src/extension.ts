@@ -13,6 +13,7 @@ import {
 import {
   CommandHistory,
   createCursorlessEngine,
+  ScopeTestRecorder,
   TestCaseRecorder,
   TreeSitter,
 } from "@cursorless/cursorless-engine";
@@ -111,6 +112,8 @@ export async function activate(
   );
   addCommandRunnerDecorator(testCaseRecorder);
 
+  const scopeTestRecorder = new ScopeTestRecorder(normalizedIde);
+
   const statusBarItem = StatusBarItem.create("cursorless.showQuickPick");
   const keyboardCommands = KeyboardCommands.create(
     context,
@@ -139,6 +142,7 @@ export async function activate(
     commandApi,
     fileSystem,
     testCaseRecorder,
+    scopeTestRecorder,
     scopeVisualizer,
     keyboardCommands,
     hats,

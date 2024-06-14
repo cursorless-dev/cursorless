@@ -1,0 +1,26 @@
+while True:
+    pass
+else:
+    pass
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-1:8
+  >-----------
+0| while True:
+1|     pass
+   --------<
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 2:0-3:8
+  >-----
+2| else:
+3|     pass
+   --------<
+
+[#2 Insertion delimiter] = "\n"

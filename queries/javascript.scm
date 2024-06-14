@@ -18,7 +18,7 @@
   (field_definition
     property: (_) @functionName
     value: [
-      (function
+      (function_expression
         !name
       )
       (generator_function

@@ -1,7 +1,6 @@
 import {
   asyncSafety,
-  getScopeTestConfigPaths,
-  getScopeTestPaths,
+  getScopeTestPathsRecursively,
   languageScopeSupport,
   ScopeSupportFacet,
   scopeSupportFacetInfos,
@@ -10,27 +9,21 @@ import {
   shouldUpdateFixtures,
   TextualScopeSupportFacet,
   textualScopeSupportFacetInfos,
-  type ScopeTestPath,
 } from "@cursorless/common";
 import { getCursorlessApi, openNewEditor } from "@cursorless/vscode-common";
 import { assert } from "chai";
-import { groupBy, uniq, type Dictionary } from "lodash";
-import { promises as fsp, readFileSync } from "node:fs";
+import { groupBy, uniq } from "lodash";
+import { promises as fsp } from "node:fs";
 import { endToEndTestSetup } from "../endToEndTestSetup";
 import {
   serializeIterationScopeFixture,
   serializeScopeFixture,
 } from "./serializeScopeFixture";
 
-interface Config {
-  imports?: string[];
-  skip?: boolean;
-}
-
 suite("Scope test cases", async function () {
   endToEndTestSetup(this);
 
-  const testPaths = getTestPaths();
+  const testPaths = getScopeTestPathsRecursively();
 
   if (!shouldUpdateFixtures()) {
     const languages = groupBy(testPaths, (test) => test.languageId);
@@ -76,6 +69,10 @@ async function testLanguageSupport(languageId: string, testedFacets: string[]) {
     }
 
     const scopeSupport = languageScopeSupport[languageId];
+
+    if (scopeSupport == null) {
+      return [];
+    }
 
     return Object.keys(scopeSupport).filter(
       (facet) =>
@@ -175,93 +172,4 @@ function getScopeType(
     scopeType: { type: scopeType },
     isIteration: isIteration ?? false,
   };
-}
-
-function getTestPaths(): ScopeTestPath[] {
-  const configPaths = getScopeTestConfigPaths();
-  const configs = readConfigFiles(configPaths);
-  const testPathsRaw = getScopeTestPaths();
-  const languagesRaw = groupBy(testPathsRaw, (test) => test.languageId);
-  const result: ScopeTestPath[] = [];
-
-  // Languages without any tests still needs to be included in case they have an import
-  for (const languageId of Object.keys(configs)) {
-    if (!languagesRaw[languageId]) {
-      languagesRaw[languageId] = [];
-    }
-  }
-
-  for (const languageId of Object.keys(languagesRaw)) {
-    const config = configs[languageId];
-
-    // This 'language' only exists to be imported by other
-    if (config?.skip) {
-      continue;
-    }
-
-    const testPathsForLanguage: ScopeTestPath[] = [];
-    addTestPathsForLanguageRecursively(
-      languagesRaw,
-      configs,
-      testPathsForLanguage,
-      new Set(),
-      languageId,
-    );
-    for (const test of testPathsForLanguage) {
-      const name =
-        languageId === test.languageId
-          ? test.name
-          : `${test.name.replace(`/${test.languageId}/`, `/${languageId}/`)} (${test.languageId})`;
-      result.push({
-        ...test,
-        languageId,
-        name,
-      });
-    }
-  }
-
-  return result;
-}
-
-function addTestPathsForLanguageRecursively(
-  languages: Dictionary<ScopeTestPath[]>,
-  configs: Record<string, Config | undefined>,
-  result: ScopeTestPath[],
-  usedLanguageIds: Set<string>,
-  languageId: string,
-): void {
-  if (usedLanguageIds.has(languageId)) {
-    return;
-  }
-
-  if (!languages[languageId]) {
-    throw Error(`No test paths found for language ${languageId}`);
-  }
-
-  result.push(...languages[languageId]);
-  usedLanguageIds.add(languageId);
-
-  const config = configs[languageId];
-  const importLanguageIds = config?.imports ?? [];
-
-  for (const langImport of importLanguageIds) {
-    addTestPathsForLanguageRecursively(
-      languages,
-      configs,
-      result,
-      usedLanguageIds,
-      langImport,
-    );
-  }
-}
-
-function readConfigFiles(
-  configPaths: { languageId: string; path: string }[],
-): Record<string, Config> {
-  const result: Record<string, Config> = {};
-  for (const p of configPaths) {
-    const content = readFileSync(p.path, "utf8");
-    result[p.languageId] = JSON.parse(content) as Config;
-  }
-  return result;
 }

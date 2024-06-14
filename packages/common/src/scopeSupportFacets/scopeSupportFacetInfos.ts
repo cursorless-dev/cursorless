@@ -263,8 +263,30 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "string",
   },
 
+  "textFragment.comment.line": {
+    description: "Text fragment consisting of a line comment",
+    scopeType: "textFragment",
+  },
+  "textFragment.comment.block": {
+    description: "Text fragment consisting of a block comment",
+    scopeType: "textFragment",
+  },
+  "textFragment.string.singleLine": {
+    description: "Text fragment consisting of a single-line string",
+    scopeType: "textFragment",
+  },
+  "textFragment.string.multiLine": {
+    description: "Text fragment consisting of a multi-line string",
+    scopeType: "textFragment",
+  },
+
   "branch.if": {
     description: "An if/elif/else branch",
+    scopeType: "branch",
+  },
+  "branch.loop": {
+    description:
+      "A for / while loop branch. For most languages there will just be one branch for the entire loop, but eg in Python you can have an else branch for a loop.",
     scopeType: "branch",
   },
 

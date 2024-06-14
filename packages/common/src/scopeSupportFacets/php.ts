@@ -11,4 +11,5 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 export const phpScopeSupport: LanguageScopeSupportFacetMap = {
   "comment.line": supported,
   "comment.block": supported,
+  "textFragment.string.singleLine": supported,
 };

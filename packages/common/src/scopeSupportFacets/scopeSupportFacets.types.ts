@@ -69,12 +69,18 @@ const scopeSupportFacets = [
   "string.singleLine",
   "string.multiLine",
 
+  "textFragment.comment.line",
+  "textFragment.comment.block",
+  "textFragment.string.singleLine",
+  "textFragment.string.multiLine",
+
   "branch.if",
   "branch.if.iteration",
   "branch.try",
   "branch.switchCase",
   "branch.switchCase.iteration",
   "branch.ternary",
+  "branch.loop",
 
   "condition.if",
   "condition.while",
@@ -151,7 +157,6 @@ const scopeSupportFacets = [
   // selector
   // unit
   // collectionItem
-  // textFragment
 ] as const;
 
 const textualScopeSupportFacets = [

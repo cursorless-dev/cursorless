@@ -1,46 +1,21 @@
 import type {
-  ExcludableSnapshotField,
-  ExtraSnapshotField,
-  FakeCommandServerApi,
-  HatTokenMap,
   IDE,
   NormalizedIDE,
   ScopeProvider,
-  SerializedMarks,
-  TargetPlainObject,
-  TestCaseSnapshot,
+  TestHelpers,
   TextEditor,
 } from "@cursorless/common";
 import * as vscode from "vscode";
 import { VscodeApi } from "./VscodeApi";
 
-export interface TestHelpers {
+export interface VscodeTestHelpers extends TestHelpers {
   ide: NormalizedIDE;
   injectIde: (ide: IDE) => void;
 
   scopeProvider: ScopeProvider;
 
-  hatTokenMap: HatTokenMap;
-
-  commandServerApi: FakeCommandServerApi;
-
   toVscodeEditor(editor: TextEditor): vscode.TextEditor;
-
-  setStoredTarget(
-    editor: vscode.TextEditor,
-    key: string,
-    targets: TargetPlainObject[] | undefined,
-  ): void;
-
-  // FIXME: Remove this once we have a better way to get this function
-  // accessible from our tests
-  takeSnapshot(
-    excludeFields: ExcludableSnapshotField[],
-    extraFields: ExtraSnapshotField[],
-    editor: TextEditor,
-    ide: IDE,
-    marks: SerializedMarks | undefined,
-  ): Promise<TestCaseSnapshot>;
+  fromVscodeEditor(editor: vscode.TextEditor): TextEditor;
 
   runIntegrationTests(): Promise<void>;
 
