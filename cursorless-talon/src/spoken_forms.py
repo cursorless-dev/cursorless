@@ -130,6 +130,7 @@ def update():
             extra_allowed_values=[
                 "private.fieldAccess",
                 "private.switchStatementSubject",
+                "textFragment",
             ],
             default_list_name="scope_type",
         ),

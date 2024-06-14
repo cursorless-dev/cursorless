@@ -1,0 +1,35 @@
+class MyClass {
+  constructor(aaa, bbb) { }
+}
+---
+
+[#1 Content] =
+[#1 Domain] = 1:14-1:17
+                >---<
+1|   constructor(aaa, bbb) { }
+
+[#1 Removal] = 1:14-1:19
+                >-----<
+1|   constructor(aaa, bbb) { }
+
+[#1 Trailing delimiter] = 1:17-1:19
+                   >--<
+1|   constructor(aaa, bbb) { }
+
+[#1 Insertion delimiter] = ", "
+
+
+[#2 Content] =
+[#2 Domain] = 1:19-1:22
+                     >---<
+1|   constructor(aaa, bbb) { }
+
+[#2 Removal] = 1:17-1:22
+                   >-----<
+1|   constructor(aaa, bbb) { }
+
+[#2 Leading delimiter] = 1:17-1:19
+                   >--<
+1|   constructor(aaa, bbb) { }
+
+[#2 Insertion delimiter] = ", "

@@ -88,6 +88,14 @@
         "title": "Cursorless: Resume test case recording"
       },
       {
+        "command": "cursorless.recordScopeTests.showUnimplementedFacets",
+        "title": "Cursorless: Bulk record unimplemented scope facets"
+      },
+      {
+        "command": "cursorless.recordScopeTests.saveActiveDocument",
+        "title": "Cursorless: Bulk save scope tests for the active document"
+      },
+      {
         "command": "cursorless.showDocumentation",
         "title": "Cursorless: Show documentation"
       },

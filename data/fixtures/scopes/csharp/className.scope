@@ -1,0 +1,24 @@
+public class BankAccount {}
+---
+
+[Content] = 0:13-0:24
+               >-----------<
+0| public class BankAccount {}
+
+[Removal] = 0:13-0:25
+               >------------<
+0| public class BankAccount {}
+
+[Leading delimiter] = 0:12-0:13
+              >-<
+0| public class BankAccount {}
+
+[Trailing delimiter] = 0:24-0:25
+                          >-<
+0| public class BankAccount {}
+
+[Domain] = 0:0-0:27
+  >---------------------------<
+0| public class BankAccount {}
+
+[Insertion delimiter] = " "

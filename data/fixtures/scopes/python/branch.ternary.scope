@@ -1,0 +1,37 @@
+aaa = bbb if ccc else ddd
+---
+
+[#1 Content] =
+[#1 Domain] = 0:6-0:9
+        >---<
+0| aaa = bbb if ccc else ddd
+
+[#1 Removal] = 0:6-0:10
+        >----<
+0| aaa = bbb if ccc else ddd
+
+[#1 Leading delimiter] = 0:5-0:6
+       >-<
+0| aaa = bbb if ccc else ddd
+
+[#1 Trailing delimiter] = 0:9-0:10
+           >-<
+0| aaa = bbb if ccc else ddd
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 0:22-0:25
+                        >---<
+0| aaa = bbb if ccc else ddd
+
+[#2 Removal] = 0:21-0:25
+                       >----<
+0| aaa = bbb if ccc else ddd
+
+[#2 Leading delimiter] = 0:21-0:22
+                       >-<
+0| aaa = bbb if ccc else ddd
+
+[#2 Insertion delimiter] = "\n"

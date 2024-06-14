@@ -46,7 +46,7 @@ export const htmlScopeSupport: LanguageScopeSupportFacetMap = {
   "type.variable": notApplicable,
   "type.field": notApplicable,
   "type.foreach": notApplicable,
-  "type.formalParameter": notApplicable,
+  "type.argument.formal": notApplicable,
   "type.interface": notApplicable,
   "type.return": notApplicable,
   "value.assignment": notApplicable,

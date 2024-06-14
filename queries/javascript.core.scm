@@ -567,6 +567,8 @@
   value: (_) @condition
 ) @branch @condition.domain
 
+(switch_default) @branch
+
 ;;!! switch () {}
 ;;!  ^^^^^^^^^^^^
 (switch_statement) @branch.iteration @condition.iteration
@@ -687,8 +689,8 @@
   "}" @statement.iteration.end.startOf
 )
 
-;;!! foo(name: string) {}
-;;!      ^^^^^^^^^^^^
+;;!! foo(name) {}
+;;!      ^^^^
 (
   (formal_parameters
     (_)? @_.leading.endOf

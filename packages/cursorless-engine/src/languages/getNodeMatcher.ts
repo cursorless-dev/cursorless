@@ -10,9 +10,7 @@ import { notSupported } from "../util/nodeMatchers";
 import { selectionWithEditorFromRange } from "../util/selectionUtils";
 import clojure from "./clojure";
 import { LegacyLanguageId } from "./LegacyLanguageId";
-import cpp from "./cpp";
 import csharp from "./csharp";
-import java from "./java";
 import latex from "./latex";
 import markdown from "./markdown";
 import php from "./php";
@@ -50,12 +48,9 @@ export const languageMatchers: Record<
   LegacyLanguageId,
   Partial<Record<SimpleScopeTypeType, NodeMatcher>>
 > = {
-  c: cpp,
   clojure,
-  cpp,
   csharp,
   css: scss,
-  java,
   latex,
   markdown,
   php,

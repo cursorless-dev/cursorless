@@ -1,5 +1,4 @@
 import {
-  Clipboard,
   ExcludableSnapshotField,
   ExtraContext,
   ExtraSnapshotField,
@@ -23,7 +22,6 @@ export async function takeSnapshot(
   marks?: SerializedMarks,
   extraContext?: ExtraContext,
   metadata?: unknown,
-  clipboard?: Clipboard,
 ) {
   const snapshot: TestCaseSnapshot = {
     documentContents: editor.document.getText(),
@@ -39,7 +37,7 @@ export async function takeSnapshot(
   }
 
   if (!excludeFields.includes("clipboard")) {
-    snapshot.clipboard = await (clipboard ?? ide.clipboard).readText();
+    snapshot.clipboard = await ide.clipboard.readText();
   }
 
   if (!excludeFields.includes("visibleRanges")) {

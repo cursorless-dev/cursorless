@@ -1,0 +1,133 @@
+struct aaa { int bbb; };
+union bbb { int ccc; };
+enum ccc { ddd, eee };
+
+typedef struct { int fff; } ggg;
+typedef union { int hhh; } iii;
+typedef enum { jjj, kkk } lll;
+---
+
+[#1 Content] = 0:7-0:10
+         >---<
+0| struct aaa { int bbb; };
+
+[#1 Removal] = 0:7-0:11
+         >----<
+0| struct aaa { int bbb; };
+
+[#1 Leading delimiter] = 0:6-0:7
+        >-<
+0| struct aaa { int bbb; };
+
+[#1 Trailing delimiter] = 0:10-0:11
+            >-<
+0| struct aaa { int bbb; };
+
+[#1 Domain] = 0:0-0:24
+  >------------------------<
+0| struct aaa { int bbb; };
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:6-1:9
+        >---<
+1| union bbb { int ccc; };
+
+[#2 Removal] = 1:6-1:10
+        >----<
+1| union bbb { int ccc; };
+
+[#2 Leading delimiter] = 1:5-1:6
+       >-<
+1| union bbb { int ccc; };
+
+[#2 Trailing delimiter] = 1:9-1:10
+           >-<
+1| union bbb { int ccc; };
+
+[#2 Domain] = 1:0-1:23
+  >-----------------------<
+1| union bbb { int ccc; };
+
+[#2 Insertion delimiter] = " "
+
+
+[#3 Content] = 2:5-2:8
+       >---<
+2| enum ccc { ddd, eee };
+
+[#3 Removal] = 2:5-2:9
+       >----<
+2| enum ccc { ddd, eee };
+
+[#3 Leading delimiter] = 2:4-2:5
+      >-<
+2| enum ccc { ddd, eee };
+
+[#3 Trailing delimiter] = 2:8-2:9
+          >-<
+2| enum ccc { ddd, eee };
+
+[#3 Domain] = 2:0-2:22
+  >----------------------<
+2| enum ccc { ddd, eee };
+
+[#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 4:28-4:31
+                              >---<
+4| typedef struct { int fff; } ggg;
+
+[#4 Removal] = 4:27-4:31
+                             >----<
+4| typedef struct { int fff; } ggg;
+
+[#4 Leading delimiter] = 4:27-4:28
+                             >-<
+4| typedef struct { int fff; } ggg;
+
+[#4 Domain] = 4:0-4:32
+  >--------------------------------<
+4| typedef struct { int fff; } ggg;
+
+[#4 Insertion delimiter] = " "
+
+
+[#5 Content] = 5:27-5:30
+                             >---<
+5| typedef union { int hhh; } iii;
+
+[#5 Removal] = 5:26-5:30
+                            >----<
+5| typedef union { int hhh; } iii;
+
+[#5 Leading delimiter] = 5:26-5:27
+                            >-<
+5| typedef union { int hhh; } iii;
+
+[#5 Domain] = 5:0-5:31
+  >-------------------------------<
+5| typedef union { int hhh; } iii;
+
+[#5 Insertion delimiter] = " "
+
+
+[#6 Content] = 6:26-6:29
+                            >---<
+6| typedef enum { jjj, kkk } lll;
+
+[#6 Removal] = 6:25-6:29
+                           >----<
+6| typedef enum { jjj, kkk } lll;
+
+[#6 Leading delimiter] = 6:25-6:26
+                           >-<
+6| typedef enum { jjj, kkk } lll;
+
+[#6 Domain] = 6:0-6:30
+  >------------------------------<
+6| typedef enum { jjj, kkk } lll;
+
+[#6 Insertion delimiter] = " "

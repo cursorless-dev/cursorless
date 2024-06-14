@@ -11,4 +11,7 @@ const { supported, unsupported, notApplicable } = ScopeSupportFacetLevel;
 
 export const cppScopeSupport: LanguageScopeSupportFacetMap = {
   ...cScopeSupport,
+
+  "value.argument.formal": supported,
+  "value.argument.formal.iteration": supported,
 };

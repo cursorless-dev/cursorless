@@ -20,10 +20,12 @@
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.14",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "4.17.0",
     "@types/mocha": "^10.0.6",
     "@types/sinon": "^17.0.3",
+    "chai": "^5.1.0",
     "cross-spawn": "7.0.3",
     "fast-check": "3.17.0",
     "js-yaml": "^4.1.0",

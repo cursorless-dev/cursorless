@@ -1,0 +1,33 @@
+class MyClass {
+  constructor(aaa, bbb) { }
+}
+---
+
+[#1 Range] =
+[#1 Domain] = 0:0-2:1
+  >---------------
+0| class MyClass {
+1|   constructor(aaa, bbb) { }
+2| }
+   -<
+
+
+[#2 Range] =
+[#2 Domain] = 0:15-2:0
+                 >
+0| class MyClass {
+1|   constructor(aaa, bbb) { }
+2| }
+   <
+
+
+[#3 Range] =
+[#3 Domain] = 1:13-1:23
+               >----------<
+1|   constructor(aaa, bbb) { }
+
+
+[#4 Range] =
+[#4 Domain] = 1:25-1:26
+                           >-<
+1|   constructor(aaa, bbb) { }

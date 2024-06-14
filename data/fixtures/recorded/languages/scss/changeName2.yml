@@ -16,8 +16,8 @@ initialState:
       @return $result;
     }
   selections:
-    - anchor: {line: 1, character: 13}
-      active: {line: 1, character: 13}
+    - anchor: {line: 1, character: 0}
+      active: {line: 1, character: 0}
   marks: {}
 finalState:
   documentContents: |-

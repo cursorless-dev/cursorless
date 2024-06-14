@@ -116,6 +116,6 @@ function parseCursor(
 }
 
 function getFieldName(cursor: TreeCursor): string {
-  const field = cursor.currentFieldName();
+  const field = cursor.currentFieldName;
   return field != null ? `${field}: ` : "";
 }

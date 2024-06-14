@@ -23,6 +23,14 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "argument.formal": supportedLegacy,
   "argument.formal.iteration": supportedLegacy,
 
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.try": supported,
+  "branch.loop": supported,
+
   element: notApplicable,
   tags: notApplicable,
   attribute: notApplicable,
