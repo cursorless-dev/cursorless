@@ -360,11 +360,6 @@
   (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
-[
-  (parameter_declaration)
-  (argument_declaration)
-] @argumentOrParameter
-
 (parameter_list
   "(" @argumentOrParameter.iteration.start.endOf
   ")" @argumentOrParameter.iteration.end.startOf
