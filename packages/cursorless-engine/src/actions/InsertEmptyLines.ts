@@ -60,9 +60,7 @@ class InsertEmptyLines implements SimpleAction {
             ],
           );
 
-        await editableEditor.setSelections(
-          updatedCursorSelections,
-        );
+        await editableEditor.setSelections(updatedCursorSelections);
 
         return {
           thatMark: updatedThatSelections.map((selection) => ({

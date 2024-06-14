@@ -50,9 +50,7 @@ export default class Delete implements SimpleAction {
         [cursorSelections, editSelections],
       );
 
-    await editableEditor.setSelections(
-      updatedCursorSelections,
-    );
+    await editableEditor.setSelections(updatedCursorSelections);
 
     return zip(targets, updatedEditSelections).map(
       ([target, range]) =>

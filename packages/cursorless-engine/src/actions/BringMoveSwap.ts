@@ -208,9 +208,7 @@ abstract class BringMoveSwap {
           // NB: We set the selections here because we don't trust vscode to
           // properly move the cursor on a bring. Sometimes it will smear an
           // empty selection
-          await editableEditor.setSelections(
-            cursorSelections,
-          );
+          await editableEditor.setSelections(cursorSelections);
 
           const marks = [
             ...this.getMarks(sourceEdits, updatedSourceEditSelections),

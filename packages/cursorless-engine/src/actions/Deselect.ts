@@ -23,9 +23,7 @@ export default class Deselect implements SimpleAction {
         throw new SelectionRequiredError();
       }
 
-      await ide().getEditableTextEditor(editor).setSelections(
-        newSelections,
-      );
+      await ide().getEditableTextEditor(editor).setSelections(newSelections);
     });
 
     return {
