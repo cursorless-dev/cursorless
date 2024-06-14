@@ -48,6 +48,7 @@
       "windows": {
         "command": "powershell",
         "args": [
+          // TODO: Add -u here to use the custom config
           "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
         ]
       },
