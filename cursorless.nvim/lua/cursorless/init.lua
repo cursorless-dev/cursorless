@@ -102,6 +102,12 @@ local function configure_command_server_shortcut()
 end
 
 local function setup()
+  if vim.fn.has("nvim-0.10.0") == 0 then
+    vim.api.nvim_err_writeln(
+      "ERROR: Cursorless requires Neovim 0.10.0 or later"
+    )
+    return
+  end
   register_functions()
   load_extensions()
   configure_command_server_shortcut()

@@ -3,8 +3,17 @@
 - [cursorless.nvim](#cursorlessnvim)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+    - [1. Install Cursorless neovim plugin](#1-install-cursorless-neovim-plugin)
+      - [Option A: Lazy installation](#option-a-lazy-installation)
+      - [Option B: Manual installation](#option-b-manual-installation)
+    - [2. Tell neovim to run the plugin](#2-tell-neovim-to-run-the-plugin)
+    - [3. Activate Cursorless commands in Talon](#3-activate-cursorless-commands-in-talon)
   - [Configuration](#configuration)
+    - [Keyboard shortcut](#keyboard-shortcut)
+    - [Absolute row numbers](#absolute-row-numbers)
   - [Frequently asked questions](#frequently-asked-questions)
+    - [nvim does not support Lazy?](#nvim-does-not-support-lazy)
+    - [nvim does not find the `neovim` globally installed package?](#nvim-does-not-find-the-neovim-globally-installed-package)
   - [Contributors](#contributors)
 
 <!-- vim-markdown-toc -->
@@ -15,7 +24,7 @@ Neovim plugin to support Cursorless
 
 ## Prerequisites
 
-- [neovim](https://neovim.io/.) Tested with neovim version `v0.10.0` and above, but it may work with earlier versions.
+- [neovim](https://neovim.io/) (>= v0.10.0)
 - [Talon voice](https://talonvoice.com/)
 - [neovim-talon](https://github.com/hands-free-vim/neovim-talon)
 - [node/npm](https://nodejs.org/en)
