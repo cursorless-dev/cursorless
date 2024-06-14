@@ -23,8 +23,9 @@
   (enum_item
     name: (_) @className
   )
-  (struct_expression)
 ] @class @className.domain
+
+(struct_expression) @class
 
 (trait_item
   name: (_) @className
