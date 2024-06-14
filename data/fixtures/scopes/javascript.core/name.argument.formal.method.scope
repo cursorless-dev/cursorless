@@ -1,5 +1,5 @@
 class MyClass {
-  myFunk(value) { }
+  myFunk(aaa, bbb) { }
 }
 ---
 
@@ -22,7 +22,7 @@ class MyClass {
 [#1 Domain] = 0:0-2:1
   >---------------
 0| class MyClass {
-1|   myFunk(value) { }
+1|   myFunk(aaa, bbb) { }
 2| }
    -<
 
@@ -32,23 +32,39 @@ class MyClass {
 [#2 Content] =
 [#2 Removal] = 1:2-1:8
     >------<
-1|   myFunk(value) { }
+1|   myFunk(aaa, bbb) { }
 
 [#2 Leading delimiter] = 1:0-1:2
   >--<
-1|   myFunk(value) { }
+1|   myFunk(aaa, bbb) { }
 
-[#2 Domain] = 1:2-1:19
-    >-----------------<
-1|   myFunk(value) { }
+[#2 Domain] = 1:2-1:22
+    >--------------------<
+1|   myFunk(aaa, bbb) { }
 
 [#2 Insertion delimiter] = " "
 
 
 [#3 Content] =
 [#3 Removal] =
-[#3 Domain] = 1:9-1:14
-           >-----<
-1|   myFunk(value) { }
+[#3 Domain] = 1:9-1:12
+           >---<
+1|   myFunk(aaa, bbb) { }
 
 [#3 Insertion delimiter] = " "
+
+
+[#4 Content] =
+[#4 Domain] = 1:14-1:17
+                >---<
+1|   myFunk(aaa, bbb) { }
+
+[#4 Removal] = 1:13-1:17
+               >----<
+1|   myFunk(aaa, bbb) { }
+
+[#4 Leading delimiter] = 1:13-1:14
+               >-<
+1|   myFunk(aaa, bbb) { }
+
+[#4 Insertion delimiter] = " "

@@ -1,5 +1,5 @@
 class MyClass {
-  myFunk(key, value) { }
+  myFunk(aaa, bbb) { }
 }
 ---
 
@@ -7,7 +7,7 @@ class MyClass {
 [#1 Domain] = 0:0-2:1
   >---------------
 0| class MyClass {
-1|   myFunk(key, value) { }
+1|   myFunk(aaa, bbb) { }
 2| }
    -<
 
@@ -16,18 +16,18 @@ class MyClass {
 [#2 Domain] = 0:15-2:0
                  >
 0| class MyClass {
-1|   myFunk(key, value) { }
+1|   myFunk(aaa, bbb) { }
 2| }
    <
 
 
 [#3 Range] =
-[#3 Domain] = 1:8-1:20
-          >------------<
-1|   myFunk(key, value) { }
+[#3 Domain] = 1:8-1:18
+          >----------<
+1|   myFunk(aaa, bbb) { }
 
 
 [#4 Range] =
-[#4 Domain] = 1:22-1:23
-                        >-<
-1|   myFunk(key, value) { }
+[#4 Domain] = 1:20-1:21
+                      >-<
+1|   myFunk(aaa, bbb) { }
