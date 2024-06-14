@@ -155,6 +155,8 @@ const scopeSupportFacets = [
   "type.typeArgument",
   "type.typeArgument.iteration",
 
+  "notebookCell",
+
   // FIXME: Still in legacy
   // section
   // selector

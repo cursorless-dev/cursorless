@@ -5,13 +5,10 @@ import {
   CommandLatest,
   EnforceUndefined,
   LATEST_VERSION,
-  Modifier,
   OutdatedExtensionError,
   PartialTargetDescriptor,
-  SimpleScopeTypeType,
 } from "@cursorless/common";
 import { getPartialTargetDescriptors } from "../../util/getPartialTargetDescriptors";
-import { getPartialPrimitiveTargets } from "../../util/getPrimitiveTargets";
 import canonicalizeTargetsInPlace from "./canonicalizeTargetsInPlace";
 import { upgradeV0ToV1 } from "./upgradeV0ToV1";
 import { upgradeV1ToV2 } from "./upgradeV1ToV2";
@@ -90,29 +87,14 @@ function upgradeCommand(command: Command): CommandLatest {
   return command;
 }
 
+/**
+ * Validates the given action. Today, this function is a no-op, but in the
+ * future it may perform additional validation.
+ *
+ * @param _actionName The name of the action
+ * @param _partialTargets The partial targets of the action
+ */
 function validateCommand(
-  actionName: ActionType,
-  partialTargets: PartialTargetDescriptor[],
-): void {
-  if (
-    usesScopeType("notebookCell", partialTargets) &&
-    !["editNewLineBefore", "editNewLineAfter"].includes(actionName)
-  ) {
-    throw new Error(
-      "The notebookCell scope type is currently only supported with the actions editNewLineAbove and editNewLineBelow",
-    );
-  }
-}
-
-function usesScopeType(
-  scopeTypeType: SimpleScopeTypeType,
-  partialTargets: PartialTargetDescriptor[],
-) {
-  return getPartialPrimitiveTargets(partialTargets).some((partialTarget) =>
-    partialTarget.modifiers?.find(
-      (mod: Modifier) =>
-        (mod.type === "containingScope" || mod.type === "everyScope") &&
-        mod.scopeType.type === scopeTypeType,
-    ),
-  );
-}
+  _actionName: ActionType,
+  _partialTargets: PartialTargetDescriptor[],
+): void {}
