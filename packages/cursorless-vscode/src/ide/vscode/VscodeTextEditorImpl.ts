@@ -34,6 +34,7 @@ import vscodeOpenLink from "./VscodeOpenLink";
 import { vscodeRevealLine } from "./VscodeRevealLine";
 import { VscodeTextDocumentImpl } from "./VscodeTextDocumentImpl";
 import { vscodeToggleBreakpoint } from "./VscodeToggleBreakpoint";
+import { isDiffEditorOriginal } from "./isDiffEditorOriginal";
 
 export class VscodeTextEditorImpl implements EditableTextEditor {
   readonly document: TextDocument;
@@ -69,7 +70,7 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
       return;
     }
 
-    if (this.isGitDiffEditorOriginal || this.isSearchEditor) {
+    if (this.isDiffEditorOriginal || this.isSearchEditor) {
       // NB: With a git diff editor we focus the editor BEFORE setting the
       // selections because otherwise the selections will be clobbered when we
       // issue the command to switch sides in the diff editor.
@@ -105,8 +106,8 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
   }
 
   /** Returns true if this is the original/left hand side of a git diff editor */
-  get isGitDiffEditorOriginal(): boolean {
-    return this.document.uri.scheme === "git";
+  get isDiffEditorOriginal(): boolean {
+    return isDiffEditorOriginal(this.editor);
   }
 
   /** Returns true if this is a search editor */

@@ -33,7 +33,7 @@ export default async function vscodeFocusEditor(
   if (viewColumn != null) {
     await commands.executeCommand(columnFocusCommands[viewColumn]);
 
-    if (editor.isGitDiffEditorOriginal && !editor.isActive) {
+    if (editor.isDiffEditorOriginal && !editor.isActive) {
       // There is no way of directly focusing the left hand side of a diff
       // editor. Switch side if needed.
 
@@ -60,9 +60,9 @@ function getViewColumn(editor: TextEditor): ViewColumn | undefined {
   const tabGroup = window.tabGroups.all.find((tabGroup) =>
     tabGroup.tabs.find(
       (tab: any) =>
-        tab?.input?.uri?.toString() === uri ||
-        tab?.input?.original?.toString() === uri ||
-        tab?.input?.modified?.toString() === uri,
+        tab.input.uri?.toString() === uri ||
+        tab.input.original?.toString() === uri ||
+        tab.input.modified?.toString() === uri,
     ),
   );
   return tabGroup?.viewColumn;
