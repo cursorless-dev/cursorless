@@ -17,7 +17,9 @@ export class SetSelection implements SimpleAction {
     const editor = ensureSingleEditor(targets);
 
     const selections = targets.map(this.getSelection);
-    await ide().getEditableTextEditor(editor).setSelectionsAndFocus(selections);
+    await ide()
+      .getEditableTextEditor(editor)
+      .setSelections(selections, { focusEditor: true });
 
     return {
       thatTargets: targets,

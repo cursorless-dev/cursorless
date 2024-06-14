@@ -10,7 +10,6 @@ import {
 } from "../core/updateSelections/updateSelections";
 import { ide } from "../singletons/ide.singleton";
 import { Destination } from "../typings/target.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsWithoutFocusingEditor";
 import { ensureSingleEditor } from "../util/targetUtils";
 import { Actions } from "./Actions";
 import { ActionReturnValue } from "./actions.types";
@@ -60,7 +59,7 @@ export class PasteFromClipboard {
     // Reset cursors on the editor where the edits took place.
     // NB: We don't focus the editor here because we want to focus the original
     // editor, not the one where the edits took place
-    await setSelectionsWithoutFocusingEditor(editor, updatedCursorSelections);
+    await editor.setSelections( updatedCursorSelections);
 
     // If necessary focus back original editor
     if (originalEditor != null && !originalEditor.isActive) {

@@ -53,7 +53,7 @@ export class EditNew {
     const newSelections = state.destinations.map((destination, index) =>
       state.cursorRanges[index]!.toSelection(destination.target.isReversed),
     );
-    await editableEditor.setSelectionsAndFocus(newSelections);
+    await editableEditor.setSelections(newSelections, { focusEditor: true });
 
     return {
       thatSelections: createThatMark(

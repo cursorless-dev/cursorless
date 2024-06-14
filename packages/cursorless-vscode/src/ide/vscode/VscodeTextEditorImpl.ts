@@ -6,12 +6,13 @@ import {
   Range,
   RevealLineAt,
   Selection,
+  SetSelectionsOpts,
   sleep,
   TextDocument,
   TextEditor,
   TextEditorOptions,
+  uniqWithHash,
 } from "@cursorless/common";
-import { setSelectionsWithoutFocusingEditorAndRevealRange } from "@cursorless/cursorless-engine";
 import {
   fromVscodeRange,
   fromVscodeSelection,
@@ -53,8 +54,41 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
     return this.editor.selections.map(fromVscodeSelection);
   }
 
-  async setSelections(selections: Selection[]): Promise<void> {
-    this.editor.selections = selections.map(toVscodeSelection);
+  async setSelections(
+    rawSelections: Selection[],
+    { revealRange = false, focusEditor = false }: SetSelectionsOpts = {},
+  ): Promise<void> {
+    const selections = uniqWithHash(
+      rawSelections,
+      (a, b) => a.isEqual(b),
+      (s) => s.concise(),
+    ).map(toVscodeSelection);
+
+    if (focusEditor) {
+      if (this.isGitDiffEditorOriginal || this.isSearchEditor) {
+        // NB: With a git diff editor we focus the editor BEFORE setting the
+        // selections because otherwise the selections will be clobbered when we
+        // issue the command to switch sides in the diff editor.
+        // The search editor has the same problem where focus is moved to the
+        // input field and the selection is clobbered.
+        await vscodeFocusEditor(this);
+        this.editor.selections = selections;
+      }
+      // Normal text editor
+      else {
+        // NB: With a normal text editor we focus the editor AFTER setting the
+        // selections because otherwise you see an intermediate state where the
+        // old selection persists
+        this.editor.selections = selections;
+        await vscodeFocusEditor(this);
+      }
+    } else {
+      this.editor.selections = selections;
+    }
+
+    if (revealRange) {
+      await this.revealRange(rawSelections[0]);
+    }
   }
 
   get visibleRanges(): Range[] {
@@ -97,37 +131,6 @@ export class VscodeTextEditorImpl implements EditableTextEditor {
 
   public edit(edits: Edit[]): Promise<boolean> {
     return vscodeEdit(this.editor, edits);
-  }
-
-  public async setSelectionsAndFocus(
-    selections: Selection[],
-    revealRange: boolean = true,
-  ) {
-    if (this.isGitDiffEditorOriginal || this.isSearchEditor) {
-      // NB: With a git diff editor we focus the editor BEFORE setting the
-      // selections because otherwise the selections will be clobbered when we
-      // issue the command to switch sides in the diff editor.
-      // The search editor has the same problem where focus is moved to the
-      // input field and the selection is clobbered.
-      await vscodeFocusEditor(this);
-      await setSelectionsWithoutFocusingEditorAndRevealRange(
-        this,
-        selections,
-        revealRange,
-      );
-    }
-    // Normal text editor
-    else {
-      // NB: With a normal text editor we focus the editor AFTER setting the
-      // selections because otherwise you see an intermediate state where the
-      // old selection persists
-      await setSelectionsWithoutFocusingEditorAndRevealRange(
-        this,
-        selections,
-        revealRange,
-      );
-      await vscodeFocusEditor(this);
-    }
   }
 
   public async focus(): Promise<void> {

@@ -11,4 +11,3 @@ export * from "./CommandRunner";
 export * from "./CommandHistory";
 export * from "./CommandHistoryAnalyzer";
 export * from "./util/grammarHelpers";
-export * from "./util/setSelectionsWithoutFocusingEditor";

@@ -8,7 +8,6 @@ import { Target } from "../typings/target.types";
 import { flashTargets, runOnTargetsForEachEditor } from "../util/targetUtils";
 import { unifyRemovalTargets } from "../util/unifyRanges";
 import { SimpleAction, ActionReturnValue } from "./actions.types";
-import { setSelectionsWithoutFocusingEditor } from "../util/setSelectionsWithoutFocusingEditor";
 
 export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {
@@ -51,8 +50,7 @@ export default class Delete implements SimpleAction {
         [cursorSelections, editSelections],
       );
 
-    await setSelectionsWithoutFocusingEditor(
-      editableEditor,
+    await editableEditor.setSelections(
       updatedCursorSelections,
     );
 

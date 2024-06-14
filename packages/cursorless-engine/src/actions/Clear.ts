@@ -28,8 +28,9 @@ export default class Clear implements SimpleAction {
     if (thatTargets != null) {
       await ide()
         .getEditableTextEditor(editor)
-        .setSelectionsAndFocus(
+        .setSelections(
           thatTargets.map(({ contentSelection }) => contentSelection),
+          { focusEditor: true },
         );
     }
 
