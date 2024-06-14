@@ -204,6 +204,16 @@ export const scopeSupportFacetInfos: Record<
     scopeType: "argumentOrParameter",
     isIteration: true,
   },
+  "argument.actual.method": {
+    description: "An argument/parameter in a method call",
+    scopeType: "argumentOrParameter",
+  },
+  "argument.actual.method.iteration": {
+    description:
+      "Iteration scope of arguments in a method call, should be inside the parens of the argument list",
+    scopeType: "argumentOrParameter",
+    isIteration: true,
+  },
   "argument.actual.constructor": {
     description: "An argument/parameter in a constructor call",
     scopeType: "argumentOrParameter",

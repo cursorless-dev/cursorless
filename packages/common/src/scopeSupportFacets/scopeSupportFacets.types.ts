@@ -54,6 +54,8 @@ const scopeSupportFacets = [
 
   "argument.actual",
   "argument.actual.iteration",
+  "argument.actual.method",
+  "argument.actual.method.iteration",
   "argument.actual.constructor",
   "argument.actual.constructor.iteration",
   "argument.formal",
