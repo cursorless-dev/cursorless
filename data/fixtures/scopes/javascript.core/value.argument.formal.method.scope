@@ -1,22 +1,41 @@
 class MyClass {
-  myFunk(value = 2) { }
+  myFunk(aaa = 0, bbb = 1) { }
 }
 ---
 
-[Content] = 1:17-1:18
-                   >-<
-1|   myFunk(value = 2) { }
+[#1 Content] = 1:15-1:16
+                 >-<
+1|   myFunk(aaa = 0, bbb = 1) { }
 
-[Removal] = 1:14-1:18
-                >----<
-1|   myFunk(value = 2) { }
+[#1 Removal] = 1:12-1:16
+              >----<
+1|   myFunk(aaa = 0, bbb = 1) { }
 
-[Leading delimiter] = 1:14-1:17
-                >---<
-1|   myFunk(value = 2) { }
+[#1 Leading delimiter] = 1:12-1:15
+              >---<
+1|   myFunk(aaa = 0, bbb = 1) { }
 
-[Domain] = 1:9-1:18
-           >---------<
-1|   myFunk(value = 2) { }
+[#1 Domain] = 1:9-1:16
+           >-------<
+1|   myFunk(aaa = 0, bbb = 1) { }
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 1:24-1:25
+                          >-<
+1|   myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Removal] = 1:21-1:25
+                       >----<
+1|   myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Leading delimiter] = 1:21-1:24
+                       >---<
+1|   myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Domain] = 1:18-1:25
+                    >-------<
+1|   myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Insertion delimiter] = " "

@@ -1,5 +1,5 @@
 class MyClass {
-  constructor(value = 2) { }
+  constructor(aaa = 0, bbb = 1) { }
 }
 ---
 
@@ -22,7 +22,7 @@ class MyClass {
 [#1 Domain] = 0:0-2:1
   >---------------
 0| class MyClass {
-1|   constructor(value = 2) { }
+1|   constructor(aaa = 0, bbb = 1) { }
 2| }
    -<
 
@@ -32,33 +32,56 @@ class MyClass {
 [#2 Content] =
 [#2 Removal] = 1:2-1:13
     >-----------<
-1|   constructor(value = 2) { }
+1|   constructor(aaa = 0, bbb = 1) { }
 
 [#2 Leading delimiter] = 1:0-1:2
   >--<
-1|   constructor(value = 2) { }
+1|   constructor(aaa = 0, bbb = 1) { }
 
-[#2 Domain] = 1:2-1:28
-    >--------------------------<
-1|   constructor(value = 2) { }
+[#2 Domain] = 1:2-1:35
+    >---------------------------------<
+1|   constructor(aaa = 0, bbb = 1) { }
 
 [#2 Insertion delimiter] = " "
 
 
-[#3 Content] = 1:14-1:19
-                >-----<
-1|   constructor(value = 2) { }
+[#3 Content] = 1:14-1:17
+                >---<
+1|   constructor(aaa = 0, bbb = 1) { }
 
-[#3 Removal] = 1:14-1:20
-                >------<
-1|   constructor(value = 2) { }
+[#3 Removal] = 1:14-1:18
+                >----<
+1|   constructor(aaa = 0, bbb = 1) { }
 
-[#3 Trailing delimiter] = 1:19-1:20
-                     >-<
-1|   constructor(value = 2) { }
+[#3 Trailing delimiter] = 1:17-1:18
+                   >-<
+1|   constructor(aaa = 0, bbb = 1) { }
 
-[#3 Domain] = 1:14-1:23
-                >---------<
-1|   constructor(value = 2) { }
+[#3 Domain] = 1:14-1:21
+                >-------<
+1|   constructor(aaa = 0, bbb = 1) { }
 
 [#3 Insertion delimiter] = " "
+
+
+[#4 Content] = 1:23-1:26
+                         >---<
+1|   constructor(aaa = 0, bbb = 1) { }
+
+[#4 Removal] = 1:23-1:27
+                         >----<
+1|   constructor(aaa = 0, bbb = 1) { }
+
+[#4 Leading delimiter] = 1:22-1:23
+                        >-<
+1|   constructor(aaa = 0, bbb = 1) { }
+
+[#4 Trailing delimiter] = 1:26-1:27
+                            >-<
+1|   constructor(aaa = 0, bbb = 1) { }
+
+[#4 Domain] = 1:23-1:30
+                         >-------<
+1|   constructor(aaa = 0, bbb = 1) { }
+
+[#4 Insertion delimiter] = " "

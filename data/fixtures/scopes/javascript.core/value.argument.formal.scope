@@ -1,20 +1,39 @@
-function myFunk(value = 2) { }
+function myFunk(aaa = 0, bbb = 1) { }
 ---
 
-[Content] = 0:24-0:25
-                          >-<
-0| function myFunk(value = 2) { }
+[#1 Content] = 0:22-0:23
+                        >-<
+0| function myFunk(aaa = 0, bbb = 1) { }
 
-[Removal] = 0:21-0:25
-                       >----<
-0| function myFunk(value = 2) { }
+[#1 Removal] = 0:19-0:23
+                     >----<
+0| function myFunk(aaa = 0, bbb = 1) { }
 
-[Leading delimiter] = 0:21-0:24
-                       >---<
-0| function myFunk(value = 2) { }
+[#1 Leading delimiter] = 0:19-0:22
+                     >---<
+0| function myFunk(aaa = 0, bbb = 1) { }
 
-[Domain] = 0:16-0:25
-                  >---------<
-0| function myFunk(value = 2) { }
+[#1 Domain] = 0:16-0:23
+                  >-------<
+0| function myFunk(aaa = 0, bbb = 1) { }
 
-[Insertion delimiter] = " "
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] = 0:31-0:32
+                                 >-<
+0| function myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Removal] = 0:28-0:32
+                              >----<
+0| function myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Leading delimiter] = 0:28-0:31
+                              >---<
+0| function myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Domain] = 0:25-0:32
+                           >-------<
+0| function myFunk(aaa = 0, bbb = 1) { }
+
+[#2 Insertion delimiter] = " "
