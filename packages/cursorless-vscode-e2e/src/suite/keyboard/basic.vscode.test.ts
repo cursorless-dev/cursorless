@@ -76,6 +76,20 @@ const testCases: TestCase[] = [
     keySequence: ["da", "aw", "wp", "aw", "wp"],
     finalContent: "((a))\n",
   },
+  {
+    name: "modifier range",
+    initialContent: "aaa bbb ccc ddd",
+    // clear bat past its next token
+    keySequence: ["db", "fk", "n", "st", "c"],
+    finalContent: "aaa  ddd",
+  },
+  {
+    name: "modifier list",
+    initialContent: "aaa bbb ccc ddd",
+    // clear bat and its second next token
+    keySequence: ["db", "fa", "2", "n", "st", "c"],
+    finalContent: "aaa  ccc ",
+  },
 ];
 
 suite("Basic keyboard test", async function () {

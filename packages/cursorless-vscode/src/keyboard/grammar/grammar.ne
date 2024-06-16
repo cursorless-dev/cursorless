@@ -29,6 +29,8 @@ main -> %makeList decoratedMark {%
 # --------------------------- Modifier --------------------------
 
 main -> modifier {% command("modifyTarget", { modifier: $0 }) %}
+main -> %makeRange modifier {% command("modifyTarget", { modifier: $1, mode: "extend" }) %}
+main -> %makeList modifier {% command("modifyTarget", { modifier: $1, mode: "append" }) %}
 
 # --------------------------- Actions --------------------------
 
