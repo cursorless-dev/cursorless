@@ -5,24 +5,9 @@
 {
   "version": "0.2.0",
   "configurations": [
+    // VSCode launch configs
     {
-      "name": "Run neovim extension",
-      "request": "attach",
-      "continueOnAttach": true,
-      "skipFiles": ["<node_internals>/**"],
-      "preLaunchTask": "Build neovim extension",
-      "type": "node"
-    },
-    {
-      "name": "Neovim extension tests",
-      "request": "attach",
-      "continueOnAttach": true,
-      "skipFiles": ["<node_internals>/**"],
-      "preLaunchTask": "Build neovim extension tests",
-      "type": "node"
-    },
-    {
-      "name": "Run extension",
+      "name": "VSCode: Run",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -33,14 +18,14 @@
         "--profile=cursorlessDevelopment"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "Build extension only",
+      "preLaunchTask": "VSCode: Build extension",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Extension tests",
+      "name": "VSCode: Test",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -53,14 +38,14 @@
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "VSCode: Build extension and tests",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Extension tests subset",
+      "name": "VSCode: Test (subset)",
       "type": "extensionHost",
       "request": "launch",
       "env": {
@@ -74,14 +59,77 @@
         "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
       ],
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "Prepare test subset",
+      "preLaunchTask": "VSCode: Prepare test subset",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Talon tests",
+      "name": "VSCode: Update test fixtures",
+      "type": "extensionHost",
+      "request": "launch",
+      "env": {
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "args": [
+        "--profile=cursorlessDevelopment",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
+      ],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "VSCode: Build extension and tests",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "name": "VSCode: Update test fixtures (subset)",
+      "type": "extensionHost",
+      "request": "launch",
+      "env": {
+        "CURSORLESS_TEST": "true",
+        "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
+        "CURSORLESS_RUN_TEST_SUBSET": "true",
+        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+      },
+      "args": [
+        "--profile=cursorlessDevelopment",
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
+        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
+      ],
+      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
+      "preLaunchTask": "VSCode: Build extension and tests",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+
+    // Neovim launch configs
+    {
+      "name": "Neovim: Run",
+      "request": "attach",
+      "continueOnAttach": true,
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "Neovim: Build extension",
+      "type": "node"
+    },
+    {
+      "name": "Neovim: Test",
+      "request": "attach",
+      "continueOnAttach": true,
+      "skipFiles": ["<node_internals>/**"],
+      "preLaunchTask": "Neovim: Build extension and tests",
+      "type": "node"
+    },
+
+    // Talon launch configs
+    {
+      "name": "Talon: Test",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
@@ -90,14 +138,14 @@
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "VSCode: Build extension and tests",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Talon tests subset",
+      "name": "Talon: Test (subset)",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runTalonTests.cjs",
@@ -107,14 +155,16 @@
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "VSCode: Build extension and tests",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
+
+    // Unit tests launch configs
     {
-      "name": "Unit tests only",
+      "name": "Unit tests: Test",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
@@ -123,57 +173,14 @@
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "VSCode: Build extension and tests",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
     {
-      "name": "Update fixtures",
-      "type": "extensionHost",
-      "request": "launch",
-      "env": {
-        "CURSORLESS_TEST": "true",
-        "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "args": [
-        "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
-      ],
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Update fixtures subset",
-      "type": "extensionHost",
-      "request": "launch",
-      "env": {
-        "CURSORLESS_TEST": "true",
-        "CURSORLESS_TEST_UPDATE_FIXTURES": "true",
-        "CURSORLESS_RUN_TEST_SUBSET": "true",
-        "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-      },
-      "args": [
-        "--profile=cursorlessDevelopment",
-        "--extensionDevelopmentPath=${workspaceFolder}/packages/cursorless-vscode/dist",
-        "--extensionTestsPath=${workspaceFolder}/packages/test-harness/dist/extensionTestsVscode.cjs"
-      ],
-      "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ]
-    },
-    {
-      "name": "Update fixtures, unit tests only",
+      "name": "Unit tests: Update test fixtures",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/packages/test-harness/dist/runUnitTestsOnly.cjs",
@@ -183,14 +190,16 @@
         "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
       },
       "outFiles": ["${workspaceFolder}/**/out/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}",
+      "preLaunchTask": "VSCode: Build extension and tests",
       "resolveSourceMapLocations": [
         "${workspaceFolder}/**",
         "!**/node_modules/**"
       ]
     },
+
+    // Docusaurus launch configs
     {
-      "name": "Docusaurus start",
+      "name": "Docusaurus: Run",
       "type": "node",
       "request": "launch",
       "env": {
@@ -205,7 +214,7 @@
       ]
     },
     {
-      "name": "Docusaurus build",
+      "name": "Docusaurus: Build",
       "type": "node",
       "request": "launch",
       "env": {
@@ -219,8 +228,10 @@
         "!**/node_modules/**"
       ]
     },
+
+    // cursorless.org launch configs
     {
-      "name": "cursorless.org client-side",
+      "name": "cursorless.org: Run client-side",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000",

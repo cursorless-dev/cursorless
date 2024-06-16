@@ -3,111 +3,12 @@
 {
   "version": "2.0.0",
   "tasks": [
+    // Generic build tasks
     {
-      "label": "Build",
-      "dependsOn": [
-        "Populate dist",
-        "ESBuild",
-        "TSBuild",
-        "Build test harness"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Build neovim extension",
-      "dependsOn": ["neovim start", "ESBuild-cursorless-neovim"],
-      "group": "build"
-    },
-    {
-      "label": "Build neovim extension tests",
-      "dependsOn": [
-        "neovim test start",
-        "ESBuild-cursorless-neovim",
-        "TSBuild",
-        "Build test harness"
-      ],
-      "group": "build"
-    },
-    {
-      "label": "ESBuild-cursorless-neovim",
+      "label": "TSBuild",
       "type": "npm",
       "script": "compile",
-      "path": "packages/cursorless-neovim",
-      "dependsOn": [],
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "neovim start",
-      "type": "process",
-      "windows": {
-        "command": "powershell",
-        "args": [
-          // TODO: Add -u here to use the custom config
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
-        ]
-      },
-      "osx": {
-        "command": "osascript",
-        "args": [
-          "-e",
-          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\""
-        ]
-      },
-      "group": "build",
-      "options": {
-        "env": {
-          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
-          "NVIM_NODE_HOST_DEBUG": "1",
-          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
-          "NVIM_NODE_LOG_LEVEL": "info",
-          "CURSORLESS_MODE": "development"
-        }
-      }
-    },
-    {
-      "label": "neovim test start",
-      "type": "process",
-      "windows": {
-        "command": "powershell",
-        "args": [
-          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
-        ]
-      },
-      "osx": {
-        "command": "osascript",
-        "args": [
-          "-e",
-          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\""
-        ]
-      },
-      "group": "build",
-      "options": {
-        "env": {
-          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
-          "NVIM_NODE_HOST_DEBUG": "1",
-          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
-          "NVIM_NODE_LOG_LEVEL": "info",
-          "CURSORLESS_MODE": "test"
-        }
-      }
-    },
-    {
-      "label": "Build extension only",
-      "dependsOn": ["Populate dist", "ESBuild"],
-      "group": "build"
-    },
-    {
-      "label": "ESBuild",
-      "type": "npm",
-      "script": "esbuild",
-      "path": "packages/cursorless-vscode",
-      "dependsOn": ["Generate grammar"],
+      "problemMatcher": "$tsc",
       "presentation": {
         "reveal": "silent"
       },
@@ -124,26 +25,6 @@
       "group": "build"
     },
     {
-      "label": "TSBuild",
-      "type": "npm",
-      "script": "compile",
-      "problemMatcher": "$tsc",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
-      "label": "Populate dist",
-      "type": "npm",
-      "script": "populate-dist",
-      "path": "packages/cursorless-vscode",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "build"
-    },
-    {
       "label": "Generate grammar",
       "type": "npm",
       "script": "generate-grammar",
@@ -152,33 +33,8 @@
       },
       "group": "build"
     },
-    {
-      "label": "Ensure test subset file exists",
-      "type": "npm",
-      "script": "generate-test-subset-file-strict",
-      "path": "packages/test-harness",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "test"
-    },
-    {
-      "label": "Generate test subset file",
-      "type": "npm",
-      "script": "generate-test-subset-file",
-      "path": "packages/test-harness",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "group": "none",
-      "problemMatcher": []
-    },
-    {
-      "label": "Prepare test subset",
-      "dependsOn": ["Ensure test subset file exists", "Build"],
-      "dependsOrder": "sequence",
-      "group": "test"
-    },
+
+    // Generic watch tasks
     {
       "label": "watch",
       "dependsOn": ["Watch esbuild", "Watch typescript"],
@@ -205,6 +61,181 @@
       },
       "group": "build"
     },
+
+    // Generic test tasks
+    {
+      "label": "Ensure test subset file exists",
+      "type": "npm",
+      "script": "generate-test-subset-file-strict",
+      "path": "packages/test-harness",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Generate test subset file",
+      "type": "npm",
+      "script": "generate-test-subset-file",
+      "path": "packages/test-harness",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "none",
+      "problemMatcher": []
+    },
+
+    // VSCode tasks
+    {
+      "label": "VSCode: Build extension",
+      "dependsOn": ["VSCode: Populate dist", "ESBuild"],
+      "group": "build"
+    },
+    {
+      "label": "VSCode: Build extension and tests",
+      "dependsOn": [
+        "VSCode: Populate dist",
+        "VSCode: ESBuild",
+        "TSBuild",
+        "Build test harness"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "VSCode: ESBuild",
+      "type": "npm",
+      "script": "esbuild",
+      "path": "packages/cursorless-vscode",
+      "dependsOn": ["Generate grammar"],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "VSCode: Populate dist",
+      "type": "npm",
+      "script": "populate-dist",
+      "path": "packages/cursorless-vscode",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "VSCode: Prepare test subset",
+      "dependsOn": [
+        "Ensure test subset file exists",
+        "VSCode: Build extension and tests"
+      ],
+      "dependsOrder": "sequence",
+      "group": "test"
+    },
+
+    // Neovim tasks
+    {
+      "label": "Neovim: Build extension",
+      "dependsOn": ["Neovim: Launch neovim", "Neovim: ESBuild"],
+      "group": "build"
+    },
+    {
+      "label": "Neovim: Build extension and tests",
+      "dependsOn": [
+        "Neovim: Launch neovim (test)",
+        "Neovim: ESBuild",
+        "TSBuild",
+        "Build test harness"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Neovim: ESBuild",
+      "type": "npm",
+      "script": "compile",
+      "path": "packages/cursorless-neovim",
+      "dependsOn": ["Generate grammar"],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "Neovim: Populate dist",
+      "type": "npm",
+      "script": "populate-dist",
+      "path": "packages/cursorless-neovim",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Neovim: Launch neovim",
+      "type": "process",
+      "windows": {
+        "command": "powershell",
+        "args": [
+          // TODO: Add -u here to use the custom config
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+        ]
+      },
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\""
+        ]
+      },
+      // TODO: Add linux
+      "group": "build",
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
+          "NVIM_NODE_HOST_DEBUG": "1",
+          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+          "NVIM_NODE_LOG_LEVEL": "info",
+          "CURSORLESS_MODE": "development"
+        }
+      }
+    },
+    {
+      "label": "Neovim: Launch neovim (test)",
+      "type": "process",
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "(New-Object -ComObject WScript.Shell).Run(\"\"\"nvim\"\"\", 1, $false)"
+        ]
+      },
+      "osx": {
+        "command": "osascript",
+        "args": [
+          "-e",
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\""
+        ]
+      },
+      // TODO: Add linux
+      "group": "build",
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}",
+          "NVIM_NODE_HOST_DEBUG": "1",
+          "NVIM_NODE_LOG_FILE": "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log",
+          "NVIM_NODE_LOG_LEVEL": "info",
+          "CURSORLESS_MODE": "test"
+        }
+      }
+    },
+
+    // cursorless.org
     {
       "label": "Serve cursorless.org",
       "type": "shell",

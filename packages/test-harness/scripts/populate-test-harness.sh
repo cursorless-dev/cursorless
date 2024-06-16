@@ -2,15 +2,12 @@
 set -euo pipefail
 
 cursorless_nvim_dir="$CURSORLESS_REPO_ROOT/cursorless.nvim"
-node_in_dir="$CURSORLESS_REPO_ROOT/packages/cursorless-neovim"
+node_in_dir="$CURSORLESS_REPO_ROOT/packages/test-harness"
 
 if [[ "${CI:-x}" == "true" ]]; then
   # If running in CI, only copy the necessary files for testing
   out_dir="$CURSORLESS_REPO_ROOT/dist/cursorless.nvim"
-  node_out_dir="$out_dir/node/cursorless-neovim"
-
-  # copy static files such as .lua dependencies and command-server
-  cp -r "$cursorless_nvim_dir/*" "$out_dir"
+  node_out_dir="$out_dir/node/test-harness"
 
   mkdir -p "$node_out_dir/out"
 
@@ -27,6 +24,6 @@ else
   # https://github.com/orgs/community/discussions/23591
   # https://stackoverflow.com/questions/18641864/git-bash-shell-fails-to-create-symbolic-links/40914277#40914277
   if [[ "$(uname -s)" != MINGW* ]]; then
-    ln -sf "$node_in_dir" "$cursorless_nvim_dir/node/cursorless-neovim"
+    ln -sf "$node_in_dir" "$cursorless_nvim_dir/node/test-harness"
   fi
 fi

@@ -17,7 +17,7 @@ require("lazy").setup({
 })
 
 local repo_root = os.getenv("CURSORLESS_REPO_ROOT")
-vim.opt.runtimepath:append(repo_root .. "/dist/cursorless.nvim")
+vim.opt.runtimepath:append(repo_root .. "/cursorless.nvim")
 
 require("talon").setup()
 require("cursorless").setup()
