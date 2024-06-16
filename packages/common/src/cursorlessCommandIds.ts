@@ -24,6 +24,7 @@ class VisibleCommand extends Command implements CommandDescription {
 
 export const cursorlessCommandIds = [
   "cursorless.command",
+  "cursorless.repeatPreviousCommand",
   "cursorless.internal.updateCheatsheetDefaults",
   "cursorless.private.logQuickActions",
   "cursorless.keyboard.escape",
@@ -90,6 +91,9 @@ export const cursorlessCommandDescriptions: Record<
   ),
 
   ["cursorless.command"]: new HiddenCommand("The core cursorless command"),
+  ["cursorless.repeatPreviousCommand"]: new VisibleCommand(
+    "Repeat the previous Cursorless command",
+  ),
   ["cursorless.showQuickPick"]: new HiddenCommand(
     "Pop up a quick pick of all cursorless commands",
   ),
