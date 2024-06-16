@@ -88,17 +88,12 @@
     // VSCode tasks
     {
       "label": "VSCode: Build extension",
-      "dependsOn": ["VSCode: Populate dist", "ESBuild"],
+      "dependsOn": ["VSCode: Populate dist", "VSCode: ESBuild"],
       "group": "build"
     },
     {
       "label": "VSCode: Build extension and tests",
-      "dependsOn": [
-        "VSCode: Populate dist",
-        "VSCode: ESBuild",
-        "TSBuild",
-        "Build test harness"
-      ],
+      "dependsOn": ["VSCode: Build extension", "TSBuild", "Build test harness"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -138,7 +133,11 @@
     // Neovim tasks
     {
       "label": "Neovim: Build extension",
-      "dependsOn": ["Neovim: Launch neovim", "Neovim: ESBuild"],
+      "dependsOn": [
+        "Neovim: Launch neovim",
+        "Neovim: ESBuild",
+        "Neovim: Populate dist"
+      ],
       "group": "build"
     },
     {
@@ -146,6 +145,7 @@
       "dependsOn": [
         "Neovim: Launch neovim (test)",
         "Neovim: ESBuild",
+        "Neovim: Populate dist",
         "TSBuild",
         "Build test harness"
       ],
@@ -154,16 +154,11 @@
     {
       "label": "Neovim: ESBuild",
       "type": "npm",
-      "script": "compile",
+      "script": "esbuild",
       "path": "packages/cursorless-neovim",
       "dependsOn": ["Generate grammar"],
       "presentation": {
         "reveal": "silent"
-      },
-      "options": {
-        "env": {
-          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
-        }
       },
       "group": "build"
     },
@@ -174,6 +169,11 @@
       "path": "packages/cursorless-neovim",
       "presentation": {
         "reveal": "silent"
+      },
+      "options": {
+        "env": {
+          "CURSORLESS_REPO_ROOT": "${workspaceFolder}"
+        }
       },
       "group": "build"
     },
