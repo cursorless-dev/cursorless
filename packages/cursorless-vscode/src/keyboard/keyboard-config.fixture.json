@@ -83,7 +83,9 @@
       "keepChangedSelection": true,
       "exitCursorlessMode": true
     },
-    " ": "cursorless.repeatPreviousCommand"
+    " ": "cursorless.repeatPreviousCommand",
+    "vu": "cursorless.keyboard.undoTarget",
+    "vr": "cursorless.keyboard.redoTarget"
   },
   "cursorless.experimental.keyboard.modal.keybindings.pairedDelimiter": {
     "wl": "angleBrackets",

@@ -31,6 +31,8 @@ export const cursorlessCommandIds = [
   "cursorless.keyboard.modal.modeOff",
   "cursorless.keyboard.modal.modeOn",
   "cursorless.keyboard.modal.modeToggle",
+  "cursorless.keyboard.undoTarget",
+  "cursorless.keyboard.redoTarget",
   "cursorless.keyboard.targeted.clearTarget",
   "cursorless.keyboard.targeted.runActionOnTarget",
   "cursorless.keyboard.targeted.targetHat",
@@ -135,5 +137,11 @@ export const cursorlessCommandDescriptions: Record<
   ),
   ["cursorless.keyboard.modal.modeToggle"]: new HiddenCommand(
     "Toggle the cursorless modal mode",
+  ),
+  ["cursorless.keyboard.undoTarget"]: new HiddenCommand(
+    "Undo keyboard targeting changes",
+  ),
+  ["cursorless.keyboard.redoTarget"]: new HiddenCommand(
+    "Redo keyboard targeting changes",
   ),
 };
