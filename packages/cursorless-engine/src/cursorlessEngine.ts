@@ -30,6 +30,7 @@ import { ScopeSupportChecker } from "./scopeProviders/ScopeSupportChecker";
 import { ScopeSupportWatcher } from "./scopeProviders/ScopeSupportWatcher";
 import { injectIde } from "./singletons/ide.singleton";
 import { TreeSitter } from "./typings/TreeSitter";
+import { KeyboardTargetUpdater } from "./KeyboardTargetUpdater";
 
 export async function createCursorlessEngine(
   treeSitter: TreeSitter,
@@ -57,6 +58,8 @@ export async function createCursorlessEngine(
 
   const storedTargets = new StoredTargetMap();
 
+  const keyboardTargetUpdater = new KeyboardTargetUpdater(storedTargets);
+
   const languageDefinitions = new LanguageDefinitions(fileSystem, treeSitter);
   await languageDefinitions.init();
 
@@ -66,7 +69,13 @@ export async function createCursorlessEngine(
     talonSpokenForms,
   );
 
-  ide.disposeOnExit(rangeUpdater, languageDefinitions, hatTokenMap, debug);
+  ide.disposeOnExit(
+    rangeUpdater,
+    languageDefinitions,
+    hatTokenMap,
+    debug,
+    keyboardTargetUpdater,
+  );
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
 
