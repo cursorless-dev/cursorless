@@ -136,7 +136,8 @@
       "dependsOn": [
         "Neovim: Launch neovim",
         "Neovim: ESBuild",
-        "Neovim: Populate dist"
+        "Neovim: Populate dist",
+        "Neovim: Show logs"
       ],
       "group": "build"
     },
@@ -147,7 +148,8 @@
         "Neovim: ESBuild",
         "Neovim: Populate dist",
         "TSBuild",
-        "Build test harness"
+        "Build test harness",
+        "Neovim: Show logs"
       ],
       "group": "build"
     },
@@ -191,7 +193,7 @@
         "command": "osascript",
         "args": [
           "-e",
-          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\""
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} development\" activate"
         ]
       },
       // TODO: Add linux
@@ -219,7 +221,7 @@
         "command": "osascript",
         "args": [
           "-e",
-          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\""
+          "tell app \"Terminal\" to do script \"${workspaceFolder}/packages/cursorless-neovim/scripts/debug-neovim.sh ${workspaceFolder} test\" activate"
         ]
       },
       // TODO: Add linux
@@ -233,6 +235,15 @@
           "CURSORLESS_MODE": "test"
         }
       }
+    },
+    {
+      "label": "Neovim: Show logs",
+      "type": "process",
+      "command": "tail",
+      "args": [
+        "-f",
+        "${workspaceFolder}/packages/cursorless-neovim/out/nvim_node.log"
+      ]
     },
 
     // cursorless.org

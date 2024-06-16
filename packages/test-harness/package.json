@@ -16,7 +16,7 @@
     "build:tests": "bash ./scripts/build-tests.sh",
     "compile": "tsc --build",
     "watch": "tsc --build --watch",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build ../../dist",
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
     "generate-test-subset-file": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --always-open",
     "generate-test-subset-file-strict": "my-ts-node ./src/scripts/generateTestSubsetFile.ts --fail-if-not-exists"
   },

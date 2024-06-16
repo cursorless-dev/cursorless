@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build",
     "compile:tsc": "tsc --build",
-    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=cjs --bundle --outfile=./out/index.js --platform=node",
+    "compile:esbuild": "esbuild ./src/index.ts --sourcemap --format=esm --bundle --packages=external --outfile=./out/index.js",
     "compile": "pnpm compile:tsc && pnpm compile:esbuild",
     "watch:tsc": "pnpm compile:tsc --watch",
     "watch:esbuild": "pnpm compile:esbuild --watch",

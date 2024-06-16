@@ -15,7 +15,7 @@
     "watch:tsc": "pnpm compile --watch",
     "watch:esbuild": "pnpm esbuild --watch",
     "watch": "pnpm run --filter @cursorless/cursorless-neovim --parallel '/^watch:.*/'",
-    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build ../../dist"
+    "clean": "rm -rf ./out tsconfig.tsbuildinfo ./dist ./build"
   },
   "keywords": [],
   "author": "",

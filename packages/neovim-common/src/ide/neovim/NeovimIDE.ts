@@ -120,7 +120,7 @@ export class NeovimIDE implements IDE {
         ? "production"
         : runMode === "test"
           ? "test"
-          : runMode == "development"
+          : runMode === "development"
             ? "development"
             : "unknown";
     if (ret === "unknown") {
