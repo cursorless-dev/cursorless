@@ -46,6 +46,11 @@ export interface CommandApi {
    * the command args are of the correct shape.
    */
   runCommandSafe(...args: unknown[]): Promise<CommandResponse | unknown>;
+
+  /**
+   * Repeats the previous command.
+   */
+  repeatPreviousCommand(): Promise<CommandResponse | unknown>;
 }
 
 export interface CommandRunnerDecorator {

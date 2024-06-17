@@ -97,6 +97,15 @@ const testCases: TestCase[] = [
     keySequence: ["db", "fa", "2", "n", "st", "c"],
     finalContent: "aaa  ccc ",
   },
+  {
+    name: "repeat command",
+    initialContent: "aaa bbb ccc ddd",
+    // keyboard air
+    // keyboard next token twice
+    // clear keyboard
+    keySequence: ["da", "nst", " ", "c"],
+    finalContent: "aaa bbb  ddd",
+  },
 ];
 
 suite("Basic keyboard test", async function () {

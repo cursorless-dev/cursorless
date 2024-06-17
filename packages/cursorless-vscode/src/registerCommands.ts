@@ -31,19 +31,27 @@ export function registerCommands(
   keyboardCommands: KeyboardCommands,
   hats: VscodeHats,
 ): void {
+  const runCommandWrapper = async (run: () => Promise<unknown>) => {
+    try {
+      return await run();
+    } catch (e) {
+      if (!isTesting()) {
+        const err = e as Error;
+        console.error(err.stack);
+        vscodeIde.handleCommandError(err);
+      }
+      throw e;
+    }
+  };
+
   const commands: Record<CursorlessCommandId, (...args: any[]) => any> = {
     // The core Cursorless command
     [CURSORLESS_COMMAND_ID]: async (...args: unknown[]) => {
-      try {
-        return await commandApi.runCommandSafe(...args);
-      } catch (e) {
-        if (!isTesting()) {
-          const err = e as Error;
-          console.error(err.stack);
-          vscodeIde.handleCommandError(err);
-        }
-        throw e;
-      }
+      return runCommandWrapper(() => commandApi.runCommandSafe(...args));
+    },
+
+    ["cursorless.repeatPreviousCommand"]: async () => {
+      return runCommandWrapper(() => commandApi.repeatPreviousCommand());
     },
 
     // Cheatsheet commands

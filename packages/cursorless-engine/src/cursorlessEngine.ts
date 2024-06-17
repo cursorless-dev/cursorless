@@ -70,36 +70,40 @@ export async function createCursorlessEngine(
 
   const commandRunnerDecorators: CommandRunnerDecorator[] = [];
 
+  let previousCommand: Command | undefined = undefined;
+
+  const runCommandClosure = (command: Command) => {
+    previousCommand = command;
+    return runCommand(
+      treeSitter,
+      commandServerApi,
+      debug,
+      hatTokenMap,
+      snippets,
+      storedTargets,
+      languageDefinitions,
+      rangeUpdater,
+      commandRunnerDecorators,
+      command,
+    );
+  };
+
   return {
     commandApi: {
       runCommand(command: Command) {
-        return runCommand(
-          treeSitter,
-          commandServerApi,
-          debug,
-          hatTokenMap,
-          snippets,
-          storedTargets,
-          languageDefinitions,
-          rangeUpdater,
-          commandRunnerDecorators,
-          command,
-        );
+        return runCommandClosure(command);
       },
 
-      async runCommandSafe(...args: unknown[]) {
-        return runCommand(
-          treeSitter,
-          commandServerApi,
-          debug,
-          hatTokenMap,
-          snippets,
-          storedTargets,
-          languageDefinitions,
-          rangeUpdater,
-          commandRunnerDecorators,
-          ensureCommandShape(args),
-        );
+      runCommandSafe(...args: unknown[]) {
+        return runCommandClosure(ensureCommandShape(args));
+      },
+
+      repeatPreviousCommand() {
+        if (previousCommand == null) {
+          throw new Error("No previous command");
+        }
+
+        return runCommandClosure(previousCommand);
       },
     },
     scopeProvider: createScopeProvider(
