@@ -49,14 +49,9 @@ function M.buffer_get_selection()
 end
 
 -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/lua/nvim-treesitter/ts_utils.lua#L278
--- luacheck:ignore 631
--- https://github.com/nvim-treesitter/nvim-treesitter-textobjects/blob/master/lua/nvim-treesitter/textobjects/select.lua#L114
--- as an example if you put that in a vim buffer and do the following you can do a selection:
--- :w c:\work\tmp\test.lua
--- :so %
--- :lua select_range(5, 12, 5, 30)
--- for example it will highlight the last function name (nvim_win_set_cursor).
--- another example is :tmap <c-b> <Cmd>lua require("talon.cursorless").select_range(4, 0, 4, 38)<Cr>
+-- If you have a buffer with the line: "hello world"
+-- :lua require("cursorless.cursorless").select_range(1, 2, 1, 4)
+-- will highlight "llo"
 -- NOTE: works for any mode (n,i,v,nt) except in t mode
 function M.select_range(start_line, start_col, end_line, end_col)
   vim.cmd([[normal! :noh]])

@@ -12,7 +12,7 @@ Follow the steps in [CONTRIBUTING.md](./CONTRIBUTING.md#initial-setup).
 
 Follow the installation steps in [cursorless.nvim](https://github.com/hands-free-vim/cursorless.nvim/tree/main#prerequisites).
 
-Confirm that production cursorless.nvim is working in neovim, eg say `"take first paint"` in a nonempty document.
+Confirm that production cursorless.nvim is working in neovim, eg say `"take first paint"` in a non-empty document.
 
 ### 3. Add nvim executable path to your PATH
 
@@ -40,7 +40,13 @@ debug mode. To do so you need to run the `workbench.action.debug.selectandstart`
 
 The debug logs are written in `C:\path\to\cursorless\packages\cursorless-neovim\out\nvim_node.log`.
 
-NOTE: This will spawn a standalone nvim instance that is independent of VSCode. Consequently after you're done debugging, you need to close nvim.
+NOTE: This will spawn a standalone nvim instance that is independent of VSCode. Consequently after you're done
+debugging, you need to close nvim.
+
+### Running lua tests
+
+Their are separate cursorless and lua tests. You can run the lua tests by entering the `cursorless.nvim` folder and
+running: `busted --run unit`. These tests currently only work on Linux.
 
 ## Sending pull requests
 

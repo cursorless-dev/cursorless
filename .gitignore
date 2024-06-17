@@ -47,6 +47,7 @@ packages/test-harness/testSubsetGrep.properties
 # cursorless-neovim
 cursorless.nvim/node/cursorless-neovim
 cursorless.nvim/node/test-harness
+cursorless.nvim/test/xdg/
 
 # nix
 .direnv/
