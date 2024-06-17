@@ -8,19 +8,6 @@ import { Modifier } from "@cursorless/common";
 import type { Target } from "../../typings/target.types";
 
 /**
- * Expands the given target to the nearest containing surrounding pair if the
- * target has no explicit scope type, ie if {@link Target.hasExplicitScopeType}
- * is `false`.
- */
-export const containingSurroundingPairIfUntypedModifier: Modifier = {
-  type: "modifyIfUntyped",
-  modifier: {
-    type: "containingScope",
-    scopeType: { type: "surroundingPair", delimiter: "any" },
-  },
-};
-
-/**
  * Expands the given target to the nearest containing line if the target has no
  * explicit scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
  */

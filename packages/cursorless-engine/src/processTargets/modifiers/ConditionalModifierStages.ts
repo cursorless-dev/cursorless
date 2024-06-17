@@ -60,8 +60,7 @@ export class ModifyIfUntypedStage extends ConditionalModifierBaseStage {
 }
 
 /**
- * Runs {@link ModifyIfUntypedModifier.modifier} if the target has no explicit
- * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
+ * Runs {@link nestedModifier} if {@link modificationCondition} returns `true`.
  */
 export class ModifyIfConditionStage extends ConditionalModifierBaseStage {
   constructor(
