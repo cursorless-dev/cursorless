@@ -20,7 +20,7 @@ export interface SectionTypes {
   vscodeCommand: ModalVscodeCommandDescriptor;
   modifier: ModifierType;
 }
-type ModifierType = "nextPrev" | "every";
+type ModifierType = "nextPrev" | "every" | "interiorOnly" | "excludeInterior";
 export type MiscValue =
   | "combineColorAndShape"
   | "makeRange"
@@ -65,6 +65,7 @@ export interface TokenTypeValueMap {
   // modifier config section
   nextPrev: "nextPrev";
   every: "every";
+  simpleModifier: "interiorOnly" | "excludeInterior";
 
   digit: number;
 }

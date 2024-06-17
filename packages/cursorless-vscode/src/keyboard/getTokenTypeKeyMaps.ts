@@ -68,6 +68,11 @@ export function getTokenTypeKeyMaps(
     // modifier config section
     every: config.getTokenKeyMap("every", "modifier", only("every")),
     nextPrev: config.getTokenKeyMap("nextPrev", "modifier", only("nextPrev")),
+    simpleModifier: config.getTokenKeyMap(
+      "simpleModifier",
+      "modifier",
+      only("interiorOnly", "excludeInterior"),
+    ),
 
     digit: Object.fromEntries(
       range(10).map((value) => [

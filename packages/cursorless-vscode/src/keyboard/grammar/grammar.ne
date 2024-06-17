@@ -47,6 +47,9 @@ main -> %vscodeCommand {% command("vscodeCommand", ["command"]) %}
 
 # --------------------------- Modifiers ---------------------------
 
+# "inside", "bounds"
+modifier -> %simpleModifier {% capture({ type: $0 }) %}
+
 # "funk"
 modifier -> scopeType {% capture({ type: "containingScope", scopeType: $0 }) %}
 

@@ -63,6 +63,13 @@ const testCases: TestCase[] = [
     finalContent: "a +  + b",
   },
   {
+    name: "inside",
+    initialContent: "(aaa)",
+    // change inside air
+    keySequence: ["da", "mi", "c"],
+    finalContent: "()",
+  },
+  {
     name: "wrap",
     initialContent: "a",
     // round wrap air

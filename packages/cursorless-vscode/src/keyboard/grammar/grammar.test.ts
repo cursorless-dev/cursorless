@@ -129,6 +129,17 @@ const testCases: TestCase[] = [
     },
   },
   {
+    tokens: [{ type: "simpleModifier", value: "excludeInterior" }],
+    expected: {
+      arg: {
+        modifier: {
+          type: "excludeInterior",
+        },
+      },
+      type: "modifyTarget",
+    },
+  },
+  {
     tokens: [
       {
         type: "vscodeCommand",
