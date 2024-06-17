@@ -45,16 +45,20 @@ extension](#running--testing-extension-locally). You may also find the [VSCode A
 
    where `some.extension` is the id of the extension you'd like to install into the sandbox.
 
-   Note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VSCode, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vscode) for more details.
+   Note that the Cursorless extension should not be installed in the `cursorlessDevelopment` profile. Cursorless comes from the source code when you are developing.
+
+   Also note that if you are adding support for a new language that isn't in the default list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) supported by VSCode, you may need to add an extension dependency. See [Adding a new language](./adding-a-new-language.md#2-ensure-file-type-is-supported-by-vscode) for more details.
 
 6. Copy / symlink `cursorless-talon-dev` into your Talon user directory for some useful voice commands for developing Cursorless.
 
 ## Running / testing extension locally
 
 In order to test out your local version of the extension or to run unit tests
-locally, you need to run the extension in debug mode. To do so you need to run
-the `workbench.action.debug.selectandstart` command in VSCode and then select either "Run
-Extension" or "Extension Tests".
+locally, you need to run the extension in debug mode. To do so you need to:
+
+1. Open the Cursorless repository in VSCode (normally not with the cursorlessDevelopment profile)
+2. Run the `workbench.action.debug.selectandstart` command in VSCode
+3. Select either "Run Extension" or "Extension Tests".
 
 ### Running a subset of tests
 
