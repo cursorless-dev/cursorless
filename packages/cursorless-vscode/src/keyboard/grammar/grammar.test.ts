@@ -141,6 +141,25 @@ const testCases: TestCase[] = [
   },
   {
     tokens: [
+      { type: "headTail", value: "extendThroughStartOf" },
+      { type: "simpleModifier", value: "excludeInterior" },
+    ],
+    expected: {
+      arg: {
+        modifier: {
+          type: "extendThroughStartOf",
+          modifiers: [
+            {
+              type: "excludeInterior",
+            },
+          ],
+        },
+      },
+      type: "modifyTarget",
+    },
+  },
+  {
+    tokens: [
       {
         type: "vscodeCommand",
         value: "workbench.action.editor.changeLanguageMode",
