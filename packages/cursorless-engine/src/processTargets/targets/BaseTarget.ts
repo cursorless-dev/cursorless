@@ -4,7 +4,6 @@ import type {
   TargetPlainObject,
 } from "@cursorless/common";
 import {
-  NoContainingScopeError,
   Range,
   Selection,
   TextEditor,
@@ -107,11 +106,11 @@ export abstract class BaseTarget<
     return this.cloneWith({ contentRange });
   }
 
-  getInteriorStrict(): Target[] {
-    throw new NoContainingScopeError("interior");
+  getInterior(): Target[] | undefined {
+    return undefined;
   }
-  getBoundaryStrict(): Target[] {
-    throw new NoContainingScopeError("boundary");
+  getBoundary(): Target[] | undefined {
+    return undefined;
   }
 
   private cloneWith(parameters: CloneWithParameters) {

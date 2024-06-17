@@ -32,7 +32,11 @@ export default class Rewrap {
     right: string,
   ): Promise<ActionReturnValue> {
     const boundaryTargets = targets.flatMap((target) => {
-      const boundary = target.getBoundaryStrict();
+      const boundary = target.getBoundary();
+
+      if (boundary == null) {
+        throw Error("Target must have a boundary");
+      }
 
       if (boundary.length !== 2) {
         throw Error("Target must have an opening and closing delimiter");
