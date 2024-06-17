@@ -23,11 +23,11 @@
 (export_statement
   (_
     name: (_) @name
-  ) @dummy
+  ) @_dummy
 
   ;; We have a special case for this one.  Note we don't need to list the other
   ;; special cases from above because they can't be exported
-  (#not-type? @dummy variable_declarator)
+  (#not-type? @_dummy variable_declarator)
 ) @_.domain
 
 ;; Special cases for `(let | const | var) foo = ...;` because the full statement
@@ -266,8 +266,8 @@
       .
       value: (_)? @value
     ) @_.domain
-  ) @dummy
-  (#has-multiple-children-of-type? @dummy variable_declarator)
+  ) @_dummy
+  (#has-multiple-children-of-type? @_dummy variable_declarator)
 )
 
 (expression_statement
@@ -567,6 +567,8 @@
   value: (_) @condition
 ) @branch @condition.domain
 
+(switch_default) @branch
+
 ;;!! switch () {}
 ;;!  ^^^^^^^^^^^^
 (switch_statement) @branch.iteration @condition.iteration
@@ -687,8 +689,8 @@
   "}" @statement.iteration.end.startOf
 )
 
-;;!! foo(name: string) {}
-;;!      ^^^^^^^^^^^^
+;;!! foo(name) {}
+;;!      ^^^^
 (
   (formal_parameters
     (_)? @_.leading.endOf
@@ -696,9 +698,9 @@
     (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  ) @dummy
+  ) @_dummy
   (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 ;;!! foo("bar")
@@ -710,9 +712,9 @@
     (_) @argumentOrParameter
     .
     (_)? @_.trailing.startOf
-  ) @dummy
+  ) @_dummy
   (#not-type? @argumentOrParameter "comment")
-  (#single-or-multi-line-delimiter! @argumentOrParameter @dummy ", " ",\n")
+  (#single-or-multi-line-delimiter! @argumentOrParameter @_dummy ", " ",\n")
 )
 
 (_

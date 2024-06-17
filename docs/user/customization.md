@@ -70,6 +70,40 @@ push down, editor.action.moveLinesDownAction
 
 Now when you say eg "push down air and bat", cursorless will first select the two tokens with a gray hat over the `a` and `b`, then issue the VSCode command `editor.action.moveLinesDownAction`, and then restore your original selection.
 
+## \[Experimental\] Cursorless custom regex scopes
+
+You can define custom scopes using regexes in `user/cursorless-settings/experimental/regex_scope_types.csv`
+
+:::tip
+
+Use `"visualize <scope>"` to see a live preview of the regex scope in [the scope visualizer](./scope-visualizer.md). It updates in real time every time you save `regex_scope_types.csv`.
+
+:::
+
+For example, here's what `"visualize dotted"` would show with the scope type `dotted,"[\w.]+"`:
+
+<div class="light-mode-invert">
+  ![visualization of a custom regex scope](./images/custom-regex-scopes.png)
+</div>
+
+You can then use commands such as
+
+- `"take dotted sun"` to select `user.text` (line 10)
+- `"copy dotted urge"` to copy `user.chrome_mod` (line 11)
+- `"take every dotted urge"` to select `user.chrome_mod`, `shift`, and `a`
+
+:::tip
+
+> Check out [our wiki page](https://github.com/cursorless-dev/cursorless/wiki/Custom-regex-scopes) for a recipe book of user-created regex scopes!
+
+:::
+
+:::warning
+
+Regex matches cannot cross line boundaries (so multiline matches are not supported). The regexes also have the unicode flag set.
+
+:::
+
 ## Toggling "hat" display
 
 It is possible to show / hide the hats with a command. Keep in mind that many users, often after less than a week using Cursorless, find that their brain starts to tune out the hat display. Some start to miss them when they're gone 🥲
@@ -108,6 +142,9 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `<user.cursorless_target>`
   Represents a cursorless target, such as `"air"`, `"this"`, `"air past bat"`, `"air and bat"`, `"funk air past token bat and class cap"`, etc
 
+- `<user.cursorless_destination>`
+  Represents a cursorless destination, such as `"to air"`, `"before this"`, `"after air and bat"`, etc
+
 ### Public Talon actions
 
 - `user.cursorless_command(action_id: str, target: cursorless_target)`:
@@ -124,6 +161,11 @@ Cursorless exposes a couple talon actions and captures that you can use to defin
 - `user.cursorless_insert(destination: CursorlessDestination, text: Union[str, List[str]])`:
   Insert text at destination.
   eg: `user.cursorless_insert(cursorless_destination, "hello")`
+- `user.cursorless_create_destination(target: CursorlessTarget, insertion_mode: Literal["to", "before", "after"] = "to") -> CursorlessDestination`:
+  Create a destination from a target. The insertion mode can be `to`, `before`, or `after`, and defaults to `to`, which will replace the target. See [How do I run a custom Python transformation on a target?](./how-to.md#how-do-i-run-a-custom-python-transformation-on-a-target) for example usage.
+- `user.cursorless_reformat(target: CursorlessTarget, formatters: str)`
+  Reformat target with specified formatters.
+  eg: `user.cursorless_reformat(cursorless_target, "ALL_CAPS")`
 
 #### Snippet actions
 
@@ -144,6 +186,16 @@ add dock string <user.cursorless_target>:
 
 push <user.cursorless_target> down:
     user.cursorless_ide_command("editor.action.moveLinesDownAction", cursorless_target)
+```
+
+### Example of custom formatter command
+
+The below command will allow you to say `camel form blue air`.
+_You can disable the default Cursorless reformat command by prefixing the spoken form in `actions.csv` with a dash. `-format, applyFormatter`_
+
+```talon
+<user.formatters> form <user.cursorless_target>:
+    user.cursorless_reformat(cursorless_target, formatters)
 ```
 
 ### Disable legacy destination grammar

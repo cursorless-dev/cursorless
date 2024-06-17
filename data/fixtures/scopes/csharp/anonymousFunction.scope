@@ -1,0 +1,10 @@
+foo.bar(param => expression)
+---
+
+[Content] =
+[Removal] =
+[Domain] = 0:8-0:27
+          >-------------------<
+0| foo.bar(param => expression)
+
+[Insertion delimiter] = "\n"

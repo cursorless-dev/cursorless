@@ -1,0 +1,37 @@
+languageId: lua
+command:
+  version: 6
+  spokenForm: change inside lambda
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - {type: interiorOnly}
+        - type: containingScope
+          scopeType: {type: anonymousFunction}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: |-
+    function makeCounter()
+        local count = 0
+        return function()
+            count = count + 1
+            return count
+        end
+    end
+  selections:
+    - anchor: {line: 3, character: 19}
+      active: {line: 3, character: 19}
+  marks: {}
+finalState:
+  documentContents: |-
+    function makeCounter()
+        local count = 0
+        return function()
+            
+        end
+    end
+  selections:
+    - anchor: {line: 3, character: 8}
+      active: {line: 3, character: 8}

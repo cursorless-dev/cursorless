@@ -1,19 +1,20 @@
-import { SimpleSurroundingPairName } from "@cursorless/common";
+import { SimpleSurroundingPairName, isString } from "@cursorless/common";
 import { IndividualDelimiter } from "./types";
-import { getSimpleDelimiterMap } from "./getDelimiterMaps";
+import { getSimpleDelimiterMap } from "./delimiterMaps";
 import { concat, uniq } from "lodash";
-import { isString } from "../../../util/type";
 
 /**
  * Given a list of delimiters, returns a list where each element corresponds to
  * a single right or left delimiter.  Each item contains information such as a
  * reference to delimiter name, the text to expect, etc.
  *
+ * @param languageId The language id, or `undefined` if in a text fragment
  * @param delimiters The delimiter names
- * @returns A list of information about all possible left / right delimiter instances
+ * @returns A list of information about all possible left / right delimiter
+ * instances
  */
 export function getIndividualDelimiters(
-  languageId: string,
+  languageId: string | undefined,
   delimiters: SimpleSurroundingPairName[],
 ): IndividualDelimiter[] {
   const delimiterToText = getSimpleDelimiterMap(languageId);

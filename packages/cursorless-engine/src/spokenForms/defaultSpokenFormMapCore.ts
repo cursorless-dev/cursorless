@@ -96,8 +96,9 @@ export const defaultSpokenFormMapCore: DefaultSpokenFormMapDefinition = {
     url: "link",
     notebookCell: "cell",
 
-    ["private.fieldAccess"]: isPrivate("access"),
     string: isPrivate("parse tree string"),
+    textFragment: isPrivate("text fragment"),
+    ["private.fieldAccess"]: isPrivate("access"),
     ["private.switchStatementSubject"]: isPrivate("subject"),
   },
   complexScopeTypeType: {

@@ -1,7 +1,7 @@
-import { FlashStyle } from "@cursorless/common";
+import { FlashStyle, Selection, TextEditor } from "@cursorless/common";
 import { flatten, zip } from "lodash";
 import { RangeUpdater } from "../core/updateSelections/RangeUpdater";
-import { performEditsAndUpdateRanges } from "../core/updateSelections/updateSelections";
+import { performEditsAndUpdateSelections } from "../core/updateSelections/updateSelections";
 import { RawSelectionTarget } from "../processTargets/targets";
 import { ide } from "../singletons/ide.singleton";
 import { Target } from "../typings/target.types";
@@ -12,6 +12,7 @@ import { SimpleAction, ActionReturnValue } from "./actions.types";
 export default class Delete implements SimpleAction {
   constructor(private rangeUpdater: RangeUpdater) {
     this.run = this.run.bind(this);
+    this.runForEditor = this.runForEditor.bind(this);
   }
 
   async run(
@@ -28,28 +29,36 @@ export default class Delete implements SimpleAction {
     }
 
     const thatTargets = flatten(
-      await runOnTargetsForEachEditor(targets, async (editor, targets) => {
-        const edits = targets.map((target) => target.constructRemovalEdit());
-        const ranges = edits.map((edit) => edit.range);
-
-        const [updatedRanges] = await performEditsAndUpdateRanges(
-          this.rangeUpdater,
-          ide().getEditableTextEditor(editor),
-          edits,
-          [ranges],
-        );
-
-        return zip(targets, updatedRanges).map(
-          ([target, range]) =>
-            new RawSelectionTarget({
-              editor: target!.editor,
-              isReversed: target!.isReversed,
-              contentRange: range!,
-            }),
-        );
-      }),
+      await runOnTargetsForEachEditor(targets, this.runForEditor),
     );
 
     return { thatTargets };
+  }
+
+  private async runForEditor(editor: TextEditor, targets: Target[]) {
+    const edits = targets.map((target) => target.constructRemovalEdit());
+
+    const cursorSelections = editor.selections;
+    const editSelections = edits.map(({ range }) => range.toSelection(false));
+    const editableEditor = ide().getEditableTextEditor(editor);
+
+    const [updatedCursorSelections, updatedEditSelections]: Selection[][] =
+      await performEditsAndUpdateSelections(
+        this.rangeUpdater,
+        editableEditor,
+        edits,
+        [cursorSelections, editSelections],
+      );
+
+    await editableEditor.setSelections(updatedCursorSelections);
+
+    return zip(targets, updatedEditSelections).map(
+      ([target, range]) =>
+        new RawSelectionTarget({
+          editor: target!.editor,
+          isReversed: target!.isReversed,
+          contentRange: range!,
+        }),
+    );
   }
 }

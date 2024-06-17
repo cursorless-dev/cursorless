@@ -262,8 +262,8 @@
 (comment) @comment @textFragment
 
 (string
-  _ @textFragment.start.endOf
-  _ @textFragment.end.startOf
+  (string_start) @textFragment.start.endOf
+  (string_end) @textFragment.end.startOf
 ) @string
 
 [
@@ -359,7 +359,9 @@
 
 ;;!! lambda _: pass
 ;;!  ^^^^^^^^^^^^^^
-(lambda) @anonymousFunction
+(lambda
+  body: (_) @anonymousFunction.interior
+) @anonymousFunction
 
 ;;!! match value:
 ;;!        ^^^^^
@@ -385,10 +387,10 @@
   condition: (_) @condition
 ) @_.domain
 
-;;!! match value:
+;;!! case value:
 ;;!        ^^^^^
 (case_clause
-  pattern: (_) @condition.start
+  (case_pattern) @condition.start
   guard: (_)? @condition.end
 ) @_.domain
 
@@ -475,7 +477,10 @@
 
 ;;!! except: pass
 ;;!  ^^^^^^^^^^^^
-(except_clause) @branch
+[
+  (except_clause)
+  (except_group_clause)
+] @branch
 
 ;;!! finally: pass
 ;;!  ^^^^^^^^^^^^^

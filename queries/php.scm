@@ -33,9 +33,31 @@
 ] @statement
 
 [
-  (string)
   (shell_command_expression)
-] @string @textFragment
+  (string)
+  (encapsed_string)
+] @string
+
+(string
+  .
+  "'" @textFragment.start.endOf
+  "'" @textFragment.end.startOf
+  .
+)
+
+(encapsed_string
+  .
+  "\"" @textFragment.start.endOf
+  "\"" @textFragment.end.startOf
+  .
+)
+
+(shell_command_expression
+  .
+  "`" @textFragment.start.endOf
+  "`" @textFragment.end.startOf
+  .
+)
 
 (comment) @comment @textFragment
 
@@ -84,3 +106,16 @@
   (function_call_expression)
   (object_creation_expression)
 ] @functionCall
+
+(assignment_expression
+  left: (_) @name
+) @_.domain
+(class_declaration
+  name: (_) @name
+) @_.domain
+(function_definition
+  name: (_) @name
+) @_.domain
+(method_declaration
+  name: (_) @name
+) @_.domain

@@ -1,0 +1,23 @@
+languageId: ruby
+command:
+  version: 7
+  spokenForm: change round
+  action:
+    name: clearAndSetSelection
+    target:
+      type: primitive
+      modifiers:
+        - type: containingScope
+          scopeType: {type: surroundingPair, delimiter: parentheses}
+  usePrePhraseSnapshot: true
+initialState:
+  documentContents: "# (aaa)"
+  selections:
+    - anchor: {line: 0, character: 3}
+      active: {line: 0, character: 3}
+  marks: {}
+finalState:
+  documentContents: "# "
+  selections:
+    - anchor: {line: 0, character: 2}
+      active: {line: 0, character: 2}

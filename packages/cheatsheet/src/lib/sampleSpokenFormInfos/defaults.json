@@ -69,6 +69,16 @@
           ]
         },
         {
+          "id": "decrement",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "decrement <target>",
+              "description": "Decrement"
+            }
+          ]
+        },
+        {
           "id": "deselect",
           "type": "action",
           "variations": [
@@ -165,6 +175,16 @@
             {
               "spokenForm": "highlight <target>",
               "description": "Highlight"
+            }
+          ]
+        },
+        {
+          "id": "increment",
+          "type": "action",
+          "variations": [
+            {
+              "spokenForm": "increment <target>",
+              "description": "Increment"
             }
           ]
         },
@@ -711,6 +731,16 @@
       "id": "modifiers",
       "items": [
         {
+          "id": "ancestor",
+          "type": "modifier",
+          "variations": [
+            {
+              "spokenForm": "grand <scope>",
+              "description": "Grandparent containing instance of <scope>"
+            }
+          ]
+        },
+        {
           "id": "containingScope",
           "type": "modifier",
           "variations": [
@@ -842,11 +872,19 @@
             },
             {
               "spokenForm": "first <number> <scope>s",
-              "description": "First <number> instances of <scope> in iteration scope"
+              "description": "first <number> instances of <scope> in iteration scope, as contiguous range"
+            },
+            {
+              "spokenForm": "every first <number> <scope>s",
+              "description": "first <number> instances of <scope> in iteration scope, as individual targets"
             },
             {
               "spokenForm": "last <number> <scope>s",
-              "description": "Last <number> instances of <scope> in iteration scope"
+              "description": "last <number> instances of <scope> in iteration scope, as contiguous range"
+            },
+            {
+              "spokenForm": "every last <number> <scope>s",
+              "description": "last <number> instances of <scope> in iteration scope, as individual targets"
             }
           ]
         },
@@ -871,10 +909,6 @@
               "description": "<ordinal> instance of <scope> after target"
             },
             {
-              "spokenForm": "previous <number> <scope>s",
-              "description": "previous <number> instances of <scope>"
-            },
-            {
               "spokenForm": "<scope> backward",
               "description": "single instance of <scope> including target, going backwards"
             },
@@ -884,15 +918,35 @@
             },
             {
               "spokenForm": "<number> <scope>s backward",
-              "description": "<number> instances of <scope> including target, going backwards"
+              "description": "<number> instances of <scope> including target, going backwards, as contiguous range"
+            },
+            {
+              "spokenForm": "every <number> <scope>s backward",
+              "description": "<number> instances of <scope> including target, going backwards, as individual targets"
             },
             {
               "spokenForm": "<number> <scope>s",
-              "description": "<number> instances of <scope> including target, going forwards"
+              "description": "<number> instances of <scope> including target, going forwards, as contiguous range"
+            },
+            {
+              "spokenForm": "every <number> <scope>s",
+              "description": "<number> instances of <scope> including target, going forwards, as individual targets"
+            },
+            {
+              "spokenForm": "previous <number> <scope>s",
+              "description": "previous <number> instances of <scope>, as contiguous range"
+            },
+            {
+              "spokenForm": "every previous <number> <scope>s",
+              "description": "previous <number> instances of <scope>, as individual targets"
             },
             {
               "spokenForm": "next <number> <scope>s",
-              "description": "next <number> instances of <scope>"
+              "description": "next <number> instances of <scope>, as contiguous range"
+            },
+            {
+              "spokenForm": "every next <number> <scope>s",
+              "description": "next <number> instances of <scope>, as individual targets"
             }
           ]
         },

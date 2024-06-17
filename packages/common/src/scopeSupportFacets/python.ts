@@ -15,11 +15,21 @@ export const pythonScopeSupport: LanguageScopeSupportFacetMap = {
   "value.yield": supported,
   "value.resource": supported,
   "value.resource.iteration": supported,
+  namedFunction: supported,
+  anonymousFunction: supported,
 
   "argument.actual": supportedLegacy,
   "argument.actual.iteration": supportedLegacy,
   "argument.formal": supportedLegacy,
   "argument.formal.iteration": supportedLegacy,
+
+  "branch.if": supported,
+  "branch.if.iteration": supported,
+  "branch.switchCase": supported,
+  "branch.switchCase.iteration": supported,
+  "branch.ternary": supported,
+  "branch.try": supported,
+  "branch.loop": supported,
 
   element: notApplicable,
   tags: notApplicable,

@@ -34,7 +34,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
     }>("fontRatios");
 
     if (fontRatiosCache == null || fontRatiosCache.fontFamily !== fontFamily) {
-      const fontRatios = await getFontRatios();
+      const fontRatios = await getFontRatios(this.extensionContext);
       this.extensionContext.globalState.update("fontRatios", {
         ...fontRatios,
         fontFamily,
@@ -57,7 +57,7 @@ export class FontMeasurementsImpl implements FontMeasurements {
  *
  * @returns The width and height ratios of the font
  */
-function getFontRatios() {
+function getFontRatios(extensionContext: vscode.ExtensionContext) {
   const panel = vscode.window.createWebviewPanel(
     "cursorless.loading",
     "Cursorless",
@@ -70,7 +70,14 @@ function getFontRatios() {
     },
   );
 
-  panel.webview.html = getWebviewContent();
+  const fontMeasurementJs = panel.webview.asWebviewUri(
+    vscode.Uri.joinPath(
+      extensionContext.extensionUri,
+      "resources",
+      "font_measurements.js",
+    ),
+  );
+  panel.webview.html = getWebviewContent(panel.webview, fontMeasurementJs);
 
   interface FontRatios {
     /**
@@ -103,25 +110,23 @@ function getFontFamily() {
   return config.get<string>("fontFamily")!;
 }
 
-function getWebviewContent() {
+function getWebviewContent(
+  webview: vscode.Webview,
+  fontMeasurementJs: vscode.Uri,
+) {
   // baseline adjustment based on https://stackoverflow.com/a/27295528
   return `<!DOCTYPE html>
   <html lang="en">
+  <head>
+  <meta http-equiv="Content-Security-Policy" content="script-src ${webview.cspSource};" />
+  </head>
+
   <body>
       <h1>Loading Cursorless...</h1>
       <div id="container">
       <span id="letter" style="line-height: 0; visibility:hidden; font-size: 1000px; font-family: var(--vscode-editor-font-family);  font-weight: var(--vscode-editor-font-weight);">A</span>
       </div>
-      <script>
-        const letter    = document.querySelector('#letter');
-        const container  = document.querySelector('#container');
-        const baselineHeight = letter.offsetTop + letter.offsetHeight - container.offsetHeight - container.offsetTop;
-        const vscode    = acquireVsCodeApi();
-        vscode.postMessage({
-          widthRatio: letter.offsetWidth / 1000,
-          heightRatio: (letter.offsetHeight - baselineHeight) / 1000
-        });
-      </script>
+      <script src="${fontMeasurementJs}"></script>
   </body>
   </html>`;
 }

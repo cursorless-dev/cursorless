@@ -9,6 +9,8 @@ const scopeSupportFacets = [
   "endTag",
   "attribute",
 
+  "environment",
+
   "list",
   "map",
   "ifStatement",
@@ -17,15 +19,33 @@ const scopeSupportFacets = [
   "fieldAccess",
 
   "statement",
+  "statement.class",
   "statement.iteration.document",
   "statement.iteration.block",
 
   "class",
+  "class.iteration.document",
+  "class.iteration.block",
+
   "className",
-  "namedFunction",
-  "namedFunction.method",
+  "className.iteration.document",
+  "className.iteration.block",
+
   "anonymousFunction",
+
+  "namedFunction",
+  "namedFunction.iteration",
+  "namedFunction.iteration.document",
+  "namedFunction.method",
+  "namedFunction.method.iteration.class",
+  "namedFunction.constructor",
+
   "functionName",
+  "functionName.iteration",
+  "functionName.iteration.document",
+  "functionName.method",
+  "functionName.method.iteration.class",
+  "functionName.constructor",
 
   "functionCall",
   "functionCall.constructor",
@@ -34,8 +54,16 @@ const scopeSupportFacets = [
 
   "argument.actual",
   "argument.actual.iteration",
+  "argument.actual.method",
+  "argument.actual.method.iteration",
+  "argument.actual.constructor",
+  "argument.actual.constructor.iteration",
   "argument.formal",
   "argument.formal.iteration",
+  "argument.formal.method",
+  "argument.formal.method.iteration",
+  "argument.formal.constructor",
+  "argument.formal.constructor.iteration",
 
   "comment.line",
   "comment.block",
@@ -43,12 +71,19 @@ const scopeSupportFacets = [
   "string.singleLine",
   "string.multiLine",
 
+  "textFragment.comment.line",
+  "textFragment.comment.block",
+  "textFragment.string.singleLine",
+  "textFragment.string.multiLine",
+
   "branch.if",
   "branch.if.iteration",
   "branch.try",
+  "branch.try.iteration",
   "branch.switchCase",
   "branch.switchCase.iteration",
   "branch.ternary",
+  "branch.loop",
 
   "condition.if",
   "condition.while",
@@ -59,18 +94,31 @@ const scopeSupportFacets = [
 
   "name.assignment",
   "name.assignment.pattern",
+  "name.variable",
+  "name.variable.pattern",
   "name.foreach",
   "name.function",
+  "name.method",
+  "name.constructor",
   "name.class",
   "name.field",
   "name.resource",
   "name.resource.iteration",
+  "name.argument.formal",
+  "name.argument.formal.iteration",
+  "name.argument.formal.method",
+  "name.argument.formal.method.iteration",
+  "name.argument.formal.constructor",
+  "name.argument.formal.constructor.iteration",
+  "name.iteration.block",
+  "name.iteration.document",
 
   "key.attribute",
   "key.mapPair",
   "key.mapPair.iteration",
 
   "value.assignment",
+  "value.variable",
   "value.mapPair",
   "value.mapPair.iteration",
   "value.attribute",
@@ -81,21 +129,39 @@ const scopeSupportFacets = [
   "value.yield",
   "value.resource",
   "value.resource.iteration",
+  "value.argument.formal",
+  "value.argument.formal.iteration",
+  "value.argument.formal.method",
+  "value.argument.formal.method.iteration",
+  "value.argument.formal.constructor",
+  "value.argument.formal.constructor.iteration",
+  "value.typeAlias",
 
-  "type.assignment",
-  "type.formalParameter",
+  "type.variable",
+  "type.argument.formal",
+  "type.argument.formal.iteration",
+  "type.argument.formal.method",
+  "type.argument.formal.method.iteration",
+  "type.argument.formal.constructor",
+  "type.argument.formal.constructor.iteration",
   "type.return",
   "type.field",
+  "type.field.iteration",
   "type.foreach",
   "type.interface",
   "type.alias",
+  "type.cast",
+  "type.class",
+  "type.typeArgument",
+  "type.typeArgument.iteration",
+
+  "notebookCell",
 
   // FIXME: Still in legacy
   // section
   // selector
   // unit
   // collectionItem
-  // textFragment
 ] as const;
 
 const textualScopeSupportFacets = [

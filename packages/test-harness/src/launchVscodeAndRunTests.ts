@@ -35,26 +35,32 @@ export async function launchVscodeAndRunTests(extensionTestsPath: string) {
     // NB: We include the exact version here instead of in `test.yml` so that
     // we don't have to update the branch protection rules every time we bump
     // the legacy VSCode version.
-    const vscodeVersion = useLegacyVscode ? "1.66.0" : "stable";
+    const vscodeVersion = useLegacyVscode ? "1.79.2" : "stable";
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion);
     const [cli, ...args] =
       resolveCliArgsFromVSCodeExecutablePath(vscodeExecutablePath);
 
     // Install extension dependencies
-    cp.spawnSync(
-      cli,
-      [
-        ...args,
-        ...extensionDependencies.flatMap((dependency) => [
-          "--install-extension",
-          dependency,
-        ]),
-      ],
-      {
-        encoding: "utf-8",
-        stdio: "inherit",
-      },
-    );
+    const extensionInstallArgs = [
+      ...args,
+      ...extensionDependencies.flatMap((dependency) => [
+        "--install-extension",
+        dependency,
+      ]),
+    ];
+
+    console.log("starting to install dependency extensions");
+    console.log(`cli: ${cli}`);
+    console.log(JSON.stringify(extensionInstallArgs, null, 2));
+
+    const { status, signal, error } = cp.spawnSync(cli, extensionInstallArgs, {
+      encoding: "utf-8",
+      stdio: "inherit",
+    });
+
+    console.log("status: ", status);
+    console.log("signal: ", signal);
+    console.log("error: ", error);
 
     console.log("finished installing dependency extensions");
 

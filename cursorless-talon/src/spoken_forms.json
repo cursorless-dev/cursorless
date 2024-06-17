@@ -14,6 +14,7 @@
       "comment": "toggleLineComment",
       "copy": "copyToClipboard",
       "crown": "scrollToTop",
+      "decrement": "decrement",
       "dedent": "outdentLine",
       "define": "revealDefinition",
       "drink": "editNewLineBefore",
@@ -25,6 +26,7 @@
       "give": "deselect",
       "highlight": "highlight",
       "hover": "showHover",
+      "increment": "increment",
       "indent": "indentLine",
       "inspect": "showDebugHover",
       "join": "joinLines",
@@ -81,7 +83,8 @@
       "its": "inferPreviousMark",
       "visible": "visible"
     },
-    "simple_scope_modifier": { "every": "every", "grand": "ancestor" },
+    "every_scope_modifier": { "every": "every" },
+    "ancestor_scope_modifier": { "grand": "ancestor" },
     "interior_modifier": {
       "inside": "interiorOnly"
     },

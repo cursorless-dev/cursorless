@@ -13,24 +13,6 @@ import { childRangeSelector } from "../util/nodeSelectors";
 const nodeMatchers: Partial<
   Record<SimpleScopeTypeType, NodeMatcherAlternative>
 > = {
-  // treating classes = classlike
-  class: ["class_definition", "object_definition", "trait_definition"],
-  className: [
-    "class_definition[name]",
-    "object_definition[name]",
-    "trait_definition[name]",
-  ],
-
-  ifStatement: "if_expression",
-
-  string: ["interpolated_string_expression", "string"],
-  comment: "comment",
-
-  // list.size(), does not count foo.size (field_expression), or foo size (postfix_expression)
-  functionCall: "call_expression",
-  namedFunction: "function_definition",
-  anonymousFunction: "lambda_expression",
-
   argumentOrParameter: argumentMatcher(
     "arguments",
     "parameters",
@@ -43,10 +25,6 @@ const nodeMatchers: Partial<
       includeUnnamedChildren: true,
     }),
   ),
-
-  ["private.switchStatementSubject"]: "match_expression[value]",
-  name: ["*[name]", "*[pattern]"],
-  functionName: "function_definition[name]",
 
   // *[type] does not work here because while we want most of these we don't want "compound" types,
   // eg `generic_type[type]`, because that will grab just the inner generic (the String of List[String])

@@ -4,15 +4,13 @@ import {
   SimpleScopeType,
   showError,
 } from "@cursorless/common";
-import { dirname, join } from "path";
+import { basename, dirname, join } from "path";
 import { TreeSitterScopeHandler } from "../processTargets/modifiers/scopeHandlers";
-import { TreeSitterTextFragmentScopeHandler } from "../processTargets/modifiers/scopeHandlers/TreeSitterScopeHandler/TreeSitterTextFragmentScopeHandler";
-import { ScopeHandler } from "../processTargets/modifiers/scopeHandlers/scopeHandler.types";
 import { ide } from "../singletons/ide.singleton";
 import { TreeSitter } from "../typings/TreeSitter";
 import { matchAll } from "../util/regex";
 import { TreeSitterQuery } from "./TreeSitterQuery";
-import { TEXT_FRAGMENT_CAPTURE_NAME } from "./captureNames";
+import { validateQueryCaptures } from "./TreeSitterQuery/validateQueryCaptures";
 
 /**
  * Represents a language definition for a single language, including the
@@ -54,6 +52,10 @@ export class LanguageDefinition {
       return undefined;
     }
 
+    if (!(await treeSitter.loadLanguage(languageId))) {
+      return undefined;
+    }
+
     const rawQuery = treeSitter
       .getLanguage(languageId)!
       .query(rawLanguageQueryString);
@@ -74,14 +76,6 @@ export class LanguageDefinition {
     }
 
     return new TreeSitterScopeHandler(this.query, scopeType as SimpleScopeType);
-  }
-
-  getTextFragmentScopeHandler(): ScopeHandler | undefined {
-    if (!this.query.captureNames.includes(TEXT_FRAGMENT_CAPTURE_NAME)) {
-      return undefined;
-    }
-
-    return new TreeSitterTextFragmentScopeHandler(this.query);
   }
 }
 
@@ -105,6 +99,8 @@ async function readQueryFileAndImports(
     [languageQueryPath]: null,
   };
 
+  const doValidation = ide().runMode !== "production";
+
   // Keep reading imports until we've read all the imports. Every time we
   // encounter an import in a query file, we add it to the map with a value
   // of null, so that it will be read on the next iteration
@@ -113,6 +109,8 @@ async function readQueryFileAndImports(
       if (rawQueryString != null) {
         continue;
       }
+
+      const fileName = basename(queryPath);
 
       let rawQuery = await fileSystem.readBundledFile(queryPath);
 
@@ -137,6 +135,10 @@ async function readQueryFileAndImports(
         rawQuery = "";
       }
 
+      if (doValidation) {
+        validateQueryCaptures(fileName, rawQuery);
+      }
+
       rawQueryStrings[queryPath] = rawQuery;
       matchAll(
         rawQuery,
@@ -150,18 +152,9 @@ async function readQueryFileAndImports(
         /^[^\S\r\n]*;;?[^\S\r\n]*(?:import|include)[^\S\r\n]+['"]?([\w|/.]+)['"]?[^\S\r\n]*$/gm,
         (match) => {
           const relativeImportPath = match[1];
-          const canonicalSyntax = `;; import ${relativeImportPath}`;
 
-          if (match[0] !== canonicalSyntax) {
-            showError(
-              ide().messages,
-              "LanguageDefinition.readQueryFileAndImports.malformedImport",
-              `Malformed import statement in ${queryPath}: "${match[0]}". Import statements must be of the form "${canonicalSyntax}"`,
-            );
-
-            if (ide().runMode === "test") {
-              throw new Error("Invalid import statement");
-            }
+          if (doValidation) {
+            validateImportSyntax(fileName, relativeImportPath, match[0]);
           }
 
           const importQueryPath = join(dirname(queryPath), relativeImportPath);
@@ -173,4 +166,24 @@ async function readQueryFileAndImports(
   }
 
   return Object.values(rawQueryStrings).join("\n");
+}
+
+function validateImportSyntax(
+  file: string,
+  relativeImportPath: string,
+  actual: string,
+) {
+  const canonicalSyntax = `;; import ${relativeImportPath}`;
+
+  if (actual !== canonicalSyntax) {
+    showError(
+      ide().messages,
+      "LanguageDefinition.readQueryFileAndImports.malformedImport",
+      `Malformed import statement in ${file}: "${actual}". Import statements must be of the form "${canonicalSyntax}"`,
+    );
+
+    if (ide().runMode === "test") {
+      throw new Error("Invalid import statement");
+    }
+  }
 }

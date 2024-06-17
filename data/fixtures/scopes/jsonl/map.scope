@@ -1,0 +1,20 @@
+{"aaa": 0}
+{"bbb": 0}
+---
+
+[#1 Content] =
+[#1 Removal] =
+[#1 Domain] = 0:0-0:10
+  >----------<
+0| {"aaa": 0}
+
+[#1 Insertion delimiter] = " "
+
+
+[#2 Content] =
+[#2 Removal] =
+[#2 Domain] = 1:0-1:10
+  >----------<
+1| {"bbb": 0}
+
+[#2 Insertion delimiter] = " "

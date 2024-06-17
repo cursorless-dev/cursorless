@@ -1,0 +1,45 @@
+match 0:
+    case [0]:
+        pass
+    case [1]:
+        pass
+---
+
+[#1 Content] =
+[#1 Domain] = 1:4-2:12
+      >---------
+1|     case [0]:
+2|         pass
+   ------------<
+
+[#1 Removal] = 1:0-2:12
+  >-------------
+1|     case [0]:
+2|         pass
+   ------------<
+
+[#1 Leading delimiter] = 1:0-1:4
+  >----<
+1|     case [0]:
+
+[#1 Insertion delimiter] = "\n"
+
+
+[#2 Content] =
+[#2 Domain] = 3:4-4:12
+      >---------
+3|     case [1]:
+4|         pass
+   ------------<
+
+[#2 Removal] = 3:0-4:12
+  >-------------
+3|     case [1]:
+4|         pass
+   ------------<
+
+[#2 Leading delimiter] = 3:0-3:4
+  >----<
+3|     case [1]:
+
+[#2 Insertion delimiter] = "\n"

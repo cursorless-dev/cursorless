@@ -222,7 +222,9 @@ export default class GenerateSnippet {
 
     if (isTesting()) {
       // If we're testing, we just overwrite the current document
-      editableEditor.selections = [editor.document.range.toSelection(false)];
+      await editableEditor.setSelections([
+        editor.document.range.toSelection(false),
+      ]);
     } else {
       // Otherwise, we create and open a new document for the snippet in the
       // user snippets dir

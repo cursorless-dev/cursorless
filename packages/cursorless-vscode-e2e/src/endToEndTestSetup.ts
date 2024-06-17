@@ -28,7 +28,9 @@ export function endToEndTestSetup(suite: Mocha.Suite) {
     const title = this.test!.fullTitle();
     retryCount = title === previousTestTitle ? retryCount + 1 : 0;
     previousTestTitle = title;
-    ({ ide, injectIde } = (await getCursorlessApi()).testHelpers!);
+    const testHelpers = (await getCursorlessApi()).testHelpers!;
+    ({ ide, injectIde } = testHelpers);
+    testHelpers.commandServerApi.setFocusedElementType(undefined);
     spy = new SpyIDE(ide);
     injectIde(spy);
   });
