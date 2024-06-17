@@ -14,7 +14,7 @@ import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
 import { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 
-type TargetingMode = "replace" | "extend" | "append";
+export type TargetingMode = "replace" | "extend" | "append";
 
 interface TargetDecoratedMarkArgument {
   color?: HatColor;
@@ -84,53 +84,56 @@ export default class KeyboardCommandsTargeted {
       return;
     }
 
-    let target: PartialTargetDescriptor = {
-      type: "primitive",
-      mark: {
-        type: "decoratedSymbol",
-        symbolColor: getStyleName(color, shape),
-        character,
-      },
-    };
+    return await setKeyboardTarget(
+      this.applyTargetingMode(
+        {
+          type: "primitive",
+          mark: {
+            type: "decoratedSymbol",
+            symbolColor: getStyleName(color, shape),
+            character,
+          },
+        },
+        mode,
+      ),
+    );
+  };
 
+  private applyTargetingMode(
+    target: PartialPrimitiveTargetDescriptor,
+    mode: TargetingMode,
+  ): PartialTargetDescriptor {
     switch (mode) {
       case "extend":
-        target = {
+        return {
           type: "range",
-          anchor: {
-            type: "primitive",
-            mark: {
-              type: "that",
-            },
-          },
+          anchor: getKeyboardTarget(),
           active: target,
           excludeActive: false,
           excludeAnchor: false,
         };
-        break;
       case "append":
-        target = {
+        return {
           type: "list",
-          elements: [
-            {
-              type: "primitive",
-              mark: {
-                type: "that",
-              },
-            },
-            target,
-          ],
+          elements: [getKeyboardTarget(), target],
         };
-        break;
       case "replace":
-        break;
+        return target;
     }
+  }
 
-    return await executeCursorlessCommand({
-      name: "private.setKeyboardTarget",
-      target,
-    });
-  };
+  /**
+   * Applies {@link modifier} to the current target
+   * @param param0 Describes the desired modifier
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  targetModifier = async (
+    modifier: Modifier,
+    mode: TargetingMode = "replace",
+  ) =>
+    await setKeyboardTarget(
+      this.applyTargetingMode(getKeyboardTarget(modifier), mode),
+    );
 
   /**
    * Expands the current target to the containing {@link scopeType}
@@ -141,37 +144,9 @@ export default class KeyboardCommandsTargeted {
     scopeType,
     type = "containingScope",
   }: ModifyTargetContainingScopeArgument) =>
-    await executeCursorlessCommand({
-      name: "private.setKeyboardTarget",
-      target: {
-        type: "primitive",
-        modifiers: [
-          {
-            type,
-            scopeType,
-          },
-        ],
-        mark: {
-          type: "keyboard",
-        },
-      },
-    });
-
-  /**
-   * Applies {@link modifier} to the current target
-   * @param param0 Describes the desired modifier
-   * @returns A promise that resolves to the result of the cursorless command
-   */
-  targetModifier = async (modifier: Modifier) =>
-    await executeCursorlessCommand({
-      name: "private.setKeyboardTarget",
-      target: {
-        type: "primitive",
-        modifiers: [modifier],
-        mark: {
-          type: "keyboard",
-        },
-      },
+    await this.targetModifier({
+      type,
+      scopeType,
     });
 
   /**
@@ -249,12 +224,7 @@ export default class KeyboardCommandsTargeted {
     ) => ActionDescriptor,
     { exitCursorlessMode }: PerformActionOpts,
   ) => {
-    const action = constructActionPayload({
-      type: "primitive",
-      mark: {
-        type: "keyboard",
-      },
-    });
+    const action = constructActionPayload(getKeyboardTarget());
     const returnValue = await executeCursorlessCommand(action);
 
     if (exitCursorlessMode) {
@@ -264,13 +234,10 @@ export default class KeyboardCommandsTargeted {
     } else {
       // If we're not exiting cursorless mode, preserve the keyboard mark
       // FIXME: Better to just not clobber the keyboard mark on each action?
-      await executeCursorlessCommand({
-        name: "private.setKeyboardTarget",
-        target: {
-          type: "primitive",
-          mark: {
-            type: "that",
-          },
+      await setKeyboardTarget({
+        type: "primitive",
+        mark: {
+          type: "that",
         },
       });
     }
@@ -295,16 +262,9 @@ export default class KeyboardCommandsTargeted {
       exitCursorlessMode,
     }: VscodeCommandOnTargetOptions = {},
   ) => {
-    const target: PartialPrimitiveTargetDescriptor = {
-      type: "primitive",
-      mark: {
-        type: "keyboard",
-      },
-    };
-
     const returnValue = await executeCursorlessCommand({
       name: "executeCommand",
-      target,
+      target: getKeyboardTarget(),
       commandId,
       options: {
         restoreSelection: !keepChangedSelection,
@@ -327,13 +287,10 @@ export default class KeyboardCommandsTargeted {
    * @returns A promise that resolves to the result of the cursorless command
    */
   targetSelection = () =>
-    executeCursorlessCommand({
-      name: "private.setKeyboardTarget",
-      target: {
-        type: "primitive",
-        mark: {
-          type: "cursor",
-        },
+    setKeyboardTarget({
+      type: "primitive",
+      mark: {
+        type: "cursor",
       },
     });
 
@@ -365,6 +322,25 @@ interface VscodeCommandOnTargetOptions {
 
   /** If `true`, exit Cursorless mode after running command */
   exitCursorlessMode?: boolean;
+}
+
+function setKeyboardTarget(target: PartialTargetDescriptor) {
+  return executeCursorlessCommand({
+    name: "private.setKeyboardTarget",
+    target,
+  });
+}
+
+function getKeyboardTarget(
+  ...modifiers: Modifier[]
+): PartialPrimitiveTargetDescriptor {
+  return {
+    type: "primitive",
+    modifiers: modifiers.length > 0 ? modifiers : undefined,
+    mark: {
+      type: "keyboard",
+    },
+  };
 }
 
 function executeCursorlessCommand(action: ActionDescriptor) {

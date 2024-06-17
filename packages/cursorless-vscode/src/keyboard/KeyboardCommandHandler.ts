@@ -5,7 +5,9 @@ import {
   SimpleKeyboardActionDescriptor,
   SpecificKeyboardActionDescriptor,
 } from "./KeyboardActionType";
-import KeyboardCommandsTargeted from "./KeyboardCommandsTargeted";
+import KeyboardCommandsTargeted, {
+  TargetingMode,
+} from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
 import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
 import { isString } from "lodash";
@@ -89,8 +91,14 @@ export class KeyboardCommandHandler {
     );
   }
 
-  modifyTarget({ modifier }: { modifier: Modifier }) {
-    this.targeted.targetModifier(modifier);
+  modifyTarget({
+    modifier,
+    mode,
+  }: {
+    modifier: Modifier;
+    mode?: TargetingMode;
+  }) {
+    this.targeted.targetModifier(modifier, mode);
   }
 }
 
@@ -99,7 +107,7 @@ interface DecoratedMarkArg {
     color?: HatColor;
     shape?: HatShape;
   };
-  mode: "replace" | "extend" | "append";
+  mode: TargetingMode;
 }
 
 interface WrapActionArg {
