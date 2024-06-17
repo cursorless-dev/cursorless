@@ -84,7 +84,7 @@ export class CommandRunnerImpl implements CommandRunner {
       constructStoredTarget(newSourceTargets, newSourceSelections),
     );
     this.storedTargets.set("instanceReference", newInstanceReferenceTargets);
-    this.storedTargets.set("keyboard", newKeyboardTargets);
+    this.storedTargets.set("keyboard", newKeyboardTargets, { history: true });
 
     return { returnValue };
   }

@@ -106,6 +106,27 @@ const testCases: TestCase[] = [
     keySequence: ["da", "nst", " ", "c"],
     finalContent: "aaa bbb  ddd",
   },
+  {
+    name: "keyboard undo",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard bat
+    // undo keyboard
+    // clear
+    keySequence: ["da", "db", "vu", "c"],
+    finalContent: " bbb",
+  },
+  {
+    name: "keyboard redo",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard bat
+    // undo keyboard
+    // redo keyboard
+    // clear
+    keySequence: ["da", "db", "vu", "vr", "c"],
+    finalContent: "aaa ",
+  },
 ];
 
 suite("Basic keyboard test", async function () {

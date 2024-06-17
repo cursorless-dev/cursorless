@@ -189,6 +189,16 @@
         "command": "cursorless.keyboard.modal.modeToggle",
         "title": "Cursorless: Toggle the cursorless modal mode",
         "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.undoTarget",
+        "title": "Cursorless: Undo keyboard targeting changes",
+        "enablement": "false"
+      },
+      {
+        "command": "cursorless.keyboard.redoTarget",
+        "title": "Cursorless: Redo keyboard targeting changes",
+        "enablement": "false"
       }
     ],
     "colors": [
