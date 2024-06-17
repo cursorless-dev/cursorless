@@ -60,6 +60,24 @@ export class ModifyIfUntypedStage extends ConditionalModifierBaseStage {
 }
 
 /**
+ * Runs {@link ModifyIfUntypedModifier.modifier} if the target has no explicit
+ * scope type, ie if {@link Target.hasExplicitScopeType} is `false`.
+ */
+export class ModifyIfConditionStage extends ConditionalModifierBaseStage {
+  constructor(
+    modifierStageFactory: ModifierStageFactory,
+    nestedModifier: Modifier,
+    private modificationCondition: (target: Target) => boolean,
+  ) {
+    super(modifierStageFactory, nestedModifier);
+  }
+
+  protected shouldModify(target: Target): boolean {
+    return this.modificationCondition(target);
+  }
+}
+
+/**
  * Runs {@link nestedModifier} if
  * - the target has no explicit scope type, ie if
  *   {@link Target.hasExplicitScopeType} is `false`, and
