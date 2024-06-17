@@ -2,6 +2,7 @@ import {
   ActionDescriptor,
   LATEST_VERSION,
   Modifier,
+  PartialMark,
   PartialPrimitiveTargetDescriptor,
   PartialTargetDescriptor,
   ScopeType,
@@ -14,7 +15,7 @@ import KeyboardCommandsModal from "./KeyboardCommandsModal";
 import KeyboardHandler from "./KeyboardHandler";
 import { SimpleKeyboardActionDescriptor } from "./KeyboardActionType";
 
-export type TargetingMode = "replace" | "extend" | "append";
+export type TargetingMode = "replace" | "makeRange" | "makeList";
 
 interface TargetDecoratedMarkArgument {
   color?: HatColor;
@@ -104,7 +105,7 @@ export default class KeyboardCommandsTargeted {
     mode: TargetingMode,
   ): PartialTargetDescriptor {
     switch (mode) {
-      case "extend":
+      case "makeRange":
         return {
           type: "range",
           anchor: getKeyboardTarget(),
@@ -112,7 +113,7 @@ export default class KeyboardCommandsTargeted {
           excludeActive: false,
           excludeAnchor: false,
         };
-      case "append":
+      case "makeList":
         return {
           type: "list",
           elements: [getKeyboardTarget(), target],
@@ -121,6 +122,18 @@ export default class KeyboardCommandsTargeted {
         return target;
     }
   }
+
+  /**
+   * Sets the highlighted target to the given mark
+   *
+   * @param mark The desired mark
+   * @param mode The targeting mode
+   * @returns A promise that resolves to the result of the cursorless command
+   */
+  targetMark = async (mark: PartialMark, mode: TargetingMode = "replace") =>
+    await setKeyboardTarget(
+      this.applyTargetingMode({ type: "primitive", mark }, mode),
+    );
 
   /**
    * Applies {@link modifier} to the current target

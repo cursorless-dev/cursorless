@@ -10,27 +10,28 @@ const { $0, $1, $2 } = argPositions;
 
 # ===================== Top-level commands ===================
 
-# --------------------------- Marks --------------------------
+# --------------------------- Mark --------------------------
 # "air"
-main -> decoratedMark {%
-  command("targetDecoratedMark", { decoratedMark: $0, mode: "replace" })
+main -> %targetingMode:? decoratedMark {%
+  command(
+    "targetDecoratedMark",
+    ([targetingMode, decoratedMark]) => ({ decoratedMark, mode: targetingMode ?? "replace" })
+  )
 %}
 
-# "past air"
-main -> %makeRange decoratedMark {%
-  command("targetDecoratedMark", { decoratedMark: $1, mode: "extend" })
-%}
-
-# "and air"
-main -> %makeList decoratedMark {%
-  command("targetDecoratedMark", { decoratedMark: $1, mode: "append" })
+# Other marks
+main -> %targetingMode:? mark {%
+  command("targetMark", ([targetingMode, mark]) => ({ mark, mode: targetingMode ?? "replace" }))
 %}
 
 # --------------------------- Modifier --------------------------
 
-main -> modifier {% command("modifyTarget", { modifier: $0 }) %}
-main -> %makeRange modifier {% command("modifyTarget", { modifier: $1, mode: "extend" }) %}
-main -> %makeList modifier {% command("modifyTarget", { modifier: $1, mode: "append" }) %}
+main -> %targetingMode:? modifier {%
+  command(
+    "modifyTarget",
+    ([targetingMode, modifier]) => ({ modifier, mode: targetingMode ?? "replace" })
+  )
+%}
 
 # --------------------------- Actions --------------------------
 
@@ -86,6 +87,11 @@ scopeType -> %simpleScopeTypeType {% capture("type") %}
 scopeType -> %pairedDelimiter {%
   ([delimiter]) => ({ type: "surroundingPair", delimiter })
 %}
+
+# --------------------------- Marks ---------------------------
+
+# "this"
+mark -> %simpleSpecialMark {% capture({ type: $0 }) %}
 
 # --------------------------- Other ---------------------------
 decoratedMark ->

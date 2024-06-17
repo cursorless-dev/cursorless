@@ -84,6 +84,30 @@ const testCases: TestCase[] = [
     finalContent: "((a))\n",
   },
   {
+    name: "simple mark",
+    initialContent: "aaa bbb",
+    // keyboard air
+    // keyboard this
+    keySequence: ["da", "mc", "c"],
+    finalContent: "aaa ",
+  },
+  {
+    name: "simple mark range",
+    initialContent: "aaa bbb ccc",
+    // keyboard air
+    // keyboard past this
+    keySequence: ["db", "fk", "mc", "c"],
+    finalContent: "aaa ",
+  },
+  {
+    name: "simple mark list",
+    initialContent: "aaa bbb ccc",
+    // keyboard air
+    // keyboard and this
+    keySequence: ["db", "fa", "mc", "c"],
+    finalContent: "aaa  ",
+  },
+  {
     name: "modifier range",
     initialContent: "aaa bbb ccc ddd",
     // clear bat past its next token

@@ -1,4 +1,6 @@
-import { Modifier, SurroundingPairName } from "@cursorless/common";
+import { Modifier, PartialMark, SurroundingPairName } from "@cursorless/common";
+import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
+import { isString } from "lodash";
 import * as vscode from "vscode";
 import { HatColor, HatShape } from "../ide/vscode/hatStyles.types";
 import {
@@ -9,8 +11,6 @@ import KeyboardCommandsTargeted, {
   TargetingMode,
 } from "./KeyboardCommandsTargeted";
 import { ModalVscodeCommandDescriptor } from "./TokenTypes";
-import { surroundingPairsDelimiters } from "@cursorless/cursorless-engine";
-import { isString } from "lodash";
 
 /**
  * This class defines the keyboard commands available to our modal keyboard
@@ -99,6 +99,10 @@ export class KeyboardCommandHandler {
     mode?: TargetingMode;
   }) {
     this.targeted.targetModifier(modifier, mode);
+  }
+
+  targetMark({ mark, mode }: { mark: PartialMark; mode?: TargetingMode }) {
+    this.targeted.targetMark(mark, mode);
   }
 }
 

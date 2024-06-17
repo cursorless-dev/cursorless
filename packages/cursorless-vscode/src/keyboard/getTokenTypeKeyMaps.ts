@@ -52,8 +52,11 @@ export function getTokenTypeKeyMaps(
     ),
 
     // misc config section
-    makeRange: config.getTokenKeyMap("makeRange", "misc", only("makeRange")),
-    makeList: config.getTokenKeyMap("makeList", "misc", only("makeList")),
+    targetingMode: config.getTokenKeyMap(
+      "targetingMode",
+      "misc",
+      only("makeRange", "makeList"),
+    ),
     combineColorAndShape: config.getTokenKeyMap(
       "combineColorAndShape",
       "misc",
@@ -72,6 +75,12 @@ export function getTokenTypeKeyMaps(
       "simpleModifier",
       "modifier",
       only("interiorOnly", "excludeInterior"),
+    ),
+
+    // mark config section
+    simpleSpecialMark: config.getTokenKeyMap(
+      "simpleSpecialMark",
+      "specialMark",
     ),
 
     digit: Object.fromEntries(

@@ -14,6 +14,7 @@ export interface SectionTypes {
   action: PolymorphicKeyboardActionDescriptor;
   color: HatColor;
   misc: MiscValue;
+  specialMark: SpecialMark;
   scope: SimpleScopeTypeType;
   pairedDelimiter: SurroundingPairName;
   shape: HatShape;
@@ -27,6 +28,7 @@ export type MiscValue =
   | "makeList"
   | "forward"
   | "backward";
+export type SpecialMark = "cursor";
 
 /**
  * Maps from token type used in parser to the type of values that the token type
@@ -57,8 +59,7 @@ export interface TokenTypeValueMap {
   wrap: SpecificKeyboardActionDescriptor<"wrap">;
 
   // misc config section
-  makeRange: "makeRange";
-  makeList: "makeList";
+  targetingMode: "makeRange" | "makeList";
   combineColorAndShape: "combineColorAndShape";
   direction: "forward" | "backward";
 
@@ -66,6 +67,9 @@ export interface TokenTypeValueMap {
   nextPrev: "nextPrev";
   every: "every";
   simpleModifier: "interiorOnly" | "excludeInterior";
+
+  // mark config section
+  simpleSpecialMark: SpecialMark;
 
   digit: number;
 }
