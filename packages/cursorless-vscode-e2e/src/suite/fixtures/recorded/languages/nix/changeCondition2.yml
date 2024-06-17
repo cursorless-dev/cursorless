@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: { type: condition }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -16,8 +16,8 @@ initialState:
       key = assert a > b; "foo";
     }
   selections:
-    - anchor: {line: 1, character: 11}
-      active: {line: 1, character: 11}
+    - anchor: { line: 1, character: 11 }
+      active: { line: 1, character: 11 }
   marks: {}
 finalState:
   documentContents: |
@@ -25,5 +25,5 @@ finalState:
       key = assert ; "foo";
     }
   selections:
-    - anchor: {line: 1, character: 15}
-      active: {line: 1, character: 15}
+    - anchor: { line: 1, character: 15 }
+      active: { line: 1, character: 15 }

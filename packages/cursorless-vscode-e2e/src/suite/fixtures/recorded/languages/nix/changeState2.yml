@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: { type: statement }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -17,15 +17,15 @@ initialState:
         assert b -> c != null;
         {foo = a;}
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 9 }
   marks: {}
 finalState:
   documentContents: |-
     { a ? false, b ? false , c ? null }:
-        
+
         assert b -> c != null;
         {foo = a;}
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }

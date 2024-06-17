@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: statement}
+          scopeType: { type: statement }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -16,8 +16,8 @@ initialState:
     with lib;
     { foo = libthing; }
   selections:
-    - anchor: {line: 1, character: 4}
-      active: {line: 1, character: 4}
+    - anchor: { line: 1, character: 4 }
+      active: { line: 1, character: 4 }
   marks: {}
 finalState:
   documentContents: |
@@ -25,5 +25,5 @@ finalState:
 
     { foo = libthing; }
   selections:
-    - anchor: {line: 1, character: 0}
-      active: {line: 1, character: 0}
+    - anchor: { line: 1, character: 0 }
+      active: { line: 1, character: 0 }

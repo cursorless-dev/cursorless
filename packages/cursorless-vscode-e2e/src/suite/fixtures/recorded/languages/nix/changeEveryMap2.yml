@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: everyScope
-          scopeType: {type: map}
+          scopeType: { type: map }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -32,8 +32,8 @@ initialState:
         };
     }
   selections:
-    - anchor: {line: 10, character: 0}
-      active: {line: 10, character: 0}
+    - anchor: { line: 10, character: 0 }
+      active: { line: 10, character: 0 }
   marks: {}
 finalState:
   documentContents: |
@@ -56,7 +56,7 @@ finalState:
         };
     }
   selections:
-    - anchor: {line: 8, character: 12}
-      active: {line: 8, character: 12}
-    - anchor: {line: 10, character: 12}
-      active: {line: 10, character: 12}
+    - anchor: { line: 8, character: 12 }
+      active: { line: 8, character: 12 }
+    - anchor: { line: 10, character: 12 }
+      active: { line: 10, character: 12 }

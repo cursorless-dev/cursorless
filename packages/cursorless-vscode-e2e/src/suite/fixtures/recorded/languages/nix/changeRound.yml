@@ -8,22 +8,22 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: parentheses}
+          scopeType: { type: surroundingPair, delimiter: parentheses }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
     {
-      foo = 1; # Test (round) 
+      foo = 1; # Test (round)
     }
   selections:
-    - anchor: {line: 1, character: 23}
-      active: {line: 1, character: 23}
+    - anchor: { line: 1, character: 23 }
+      active: { line: 1, character: 23 }
   marks: {}
 finalState:
   documentContents: |
     {
-      foo = 1; # Test  
+      foo = 1; # Test
     }
   selections:
-    - anchor: {line: 1, character: 18}
-      active: {line: 1, character: 18}
+    - anchor: { line: 1, character: 18 }
+      active: { line: 1, character: 18 }

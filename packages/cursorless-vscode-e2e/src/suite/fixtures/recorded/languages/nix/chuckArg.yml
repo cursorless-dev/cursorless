@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -16,8 +16,8 @@ initialState:
       d = "Interpolated ${value1} string ${value2}";
     }
   selections:
-    - anchor: {line: 1, character: 26}
-      active: {line: 1, character: 26}
+    - anchor: { line: 1, character: 26 }
+      active: { line: 1, character: 26 }
   marks: {}
 finalState:
   documentContents: |
@@ -25,5 +25,5 @@ finalState:
       d = "Interpolated string ${value2}";
     }
   selections:
-    - anchor: {line: 1, character: 20}
-      active: {line: 1, character: 20}
+    - anchor: { line: 1, character: 20 }
+      active: { line: 1, character: 20 }

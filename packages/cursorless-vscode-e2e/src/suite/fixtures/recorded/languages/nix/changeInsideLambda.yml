@@ -7,9 +7,9 @@ command:
     target:
       type: primitive
       modifiers:
-        - {type: interiorOnly}
+        - { type: interiorOnly }
         - type: containingScope
-          scopeType: {type: anonymousFunction}
+          scopeType: { type: anonymousFunction }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -17,8 +17,8 @@ initialState:
       x = a: b: a + b;
     }
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 9 }
   marks: {}
 finalState:
   documentContents: |-
@@ -26,5 +26,5 @@ finalState:
       x = a: b: ;
     }
   selections:
-    - anchor: {line: 1, character: 12}
-      active: {line: 1, character: 12}
+    - anchor: { line: 1, character: 12 }
+      active: { line: 1, character: 12 }

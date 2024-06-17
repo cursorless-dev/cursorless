@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: value}
+          scopeType: { type: value }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -23,8 +23,8 @@ initialState:
 
     }
   selections:
-    - anchor: {line: 6, character: 13}
-      active: {line: 6, character: 13}
+    - anchor: { line: 6, character: 13 }
+      active: { line: 6, character: 13 }
   marks: {}
 finalState:
   documentContents: |
@@ -39,5 +39,5 @@ finalState:
 
     }
   selections:
-    - anchor: {line: 6, character: 15}
-      active: {line: 6, character: 15}
+    - anchor: { line: 6, character: 15 }
+      active: { line: 6, character: 15 }

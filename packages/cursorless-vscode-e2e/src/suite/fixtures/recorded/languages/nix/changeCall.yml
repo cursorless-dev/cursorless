@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionCall}
+          scopeType: { type: functionCall }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -16,8 +16,8 @@ initialState:
       x = map (x: y: x + x) [ 1 2 3 ];
     }
   selections:
-    - anchor: {line: 1, character: 28}
-      active: {line: 1, character: 28}
+    - anchor: { line: 1, character: 28 }
+      active: { line: 1, character: 28 }
   marks: {}
 finalState:
   documentContents: |
@@ -25,5 +25,5 @@ finalState:
       x = ;
     }
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: { line: 1, character: 6 }
+      active: { line: 1, character: 6 }

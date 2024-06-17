@@ -8,20 +8,20 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: argumentOrParameter}
+          scopeType: { type: argumentOrParameter }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
     { pkgs, ... }:
     { a = 1; }
   selections:
-    - anchor: {line: 0, character: 3}
-      active: {line: 0, character: 3}
+    - anchor: { line: 0, character: 3 }
+      active: { line: 0, character: 3 }
   marks: {}
 finalState:
   documentContents: |
     :
     { a = 1; }
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }

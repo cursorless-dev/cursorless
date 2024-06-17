@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: functionName}
+          scopeType: { type: functionName }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -16,8 +16,8 @@ initialState:
       x = a: b: a + b;
     }
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: { line: 1, character: 16 }
+      active: { line: 1, character: 16 }
   marks: {}
 finalState:
   documentContents: |
@@ -25,5 +25,5 @@ finalState:
        = a: b: a + b;
     }
   selections:
-    - anchor: {line: 1, character: 2}
-      active: {line: 1, character: 2}
+    - anchor: { line: 1, character: 2 }
+      active: { line: 1, character: 2 }

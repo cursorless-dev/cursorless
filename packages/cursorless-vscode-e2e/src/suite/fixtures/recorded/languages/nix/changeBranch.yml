@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: branch}
+          scopeType: { type: branch }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |-
@@ -16,8 +16,8 @@ initialState:
       foo = if a then b else c;
     }
   selections:
-    - anchor: {line: 1, character: 9}
-      active: {line: 1, character: 9}
+    - anchor: { line: 1, character: 9 }
+      active: { line: 1, character: 9 }
   marks: {}
 finalState:
   documentContents: |-
@@ -25,5 +25,5 @@ finalState:
       foo =  else c;
     }
   selections:
-    - anchor: {line: 1, character: 8}
-      active: {line: 1, character: 8}
+    - anchor: { line: 1, character: 8 }
+      active: { line: 1, character: 8 }

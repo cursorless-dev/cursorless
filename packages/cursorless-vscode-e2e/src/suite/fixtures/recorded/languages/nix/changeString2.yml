@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: surroundingPair, delimiter: string}
+          scopeType: { type: surroundingPair, delimiter: string }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -16,8 +16,8 @@ initialState:
       b = ''two single (quote) string'';
     }
   selections:
-    - anchor: {line: 1, character: 16}
-      active: {line: 1, character: 16}
+    - anchor: { line: 1, character: 16 }
+      active: { line: 1, character: 16 }
   marks: {}
 finalState:
   documentContents: |
@@ -25,5 +25,5 @@ finalState:
       b = ;
     }
   selections:
-    - anchor: {line: 1, character: 6}
-      active: {line: 1, character: 6}
+    - anchor: { line: 1, character: 6 }
+      active: { line: 1, character: 6 }

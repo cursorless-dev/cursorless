@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: comment}
+          scopeType: { type: comment }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -16,12 +16,12 @@ initialState:
      Multi-line comment
     */
   selections:
-    - anchor: {line: 2, character: 0}
-      active: {line: 2, character: 0}
+    - anchor: { line: 2, character: 0 }
+      active: { line: 2, character: 0 }
   marks: {}
 finalState:
   documentContents: |+
 
   selections:
-    - anchor: {line: 0, character: 0}
-      active: {line: 0, character: 0}
+    - anchor: { line: 0, character: 0 }
+      active: { line: 0, character: 0 }

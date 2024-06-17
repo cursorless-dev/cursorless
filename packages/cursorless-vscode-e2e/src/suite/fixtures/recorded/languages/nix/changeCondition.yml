@@ -8,7 +8,7 @@ command:
       type: primitive
       modifiers:
         - type: containingScope
-          scopeType: {type: condition}
+          scopeType: { type: condition }
   usePrePhraseSnapshot: true
 initialState:
   documentContents: |
@@ -19,17 +19,17 @@ initialState:
         else c;
     }
   selections:
-    - anchor: {line: 3, character: 9}
-      active: {line: 3, character: 9}
+    - anchor: { line: 3, character: 9 }
+      active: { line: 3, character: 9 }
   marks: {}
 finalState:
   documentContents: |
     {
       key =
-        if 
+        if
         then b
         else c;
     }
   selections:
-    - anchor: {line: 2, character: 7}
-      active: {line: 2, character: 7}
+    - anchor: { line: 2, character: 7 }
+      active: { line: 2, character: 7 }
