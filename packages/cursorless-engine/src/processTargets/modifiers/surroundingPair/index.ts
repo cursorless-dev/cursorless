@@ -7,7 +7,7 @@ import { LanguageDefinitions } from "../../../languages/LanguageDefinitions";
 import { Target } from "../../../typings/target.types";
 import { SurroundingPairTarget } from "../../targets";
 import { getContainingScopeTarget } from "../getContainingScopeTarget";
-import { complexDelimiterMap } from "./getDelimiterMaps";
+import { complexDelimiterMap } from "./delimiterMaps";
 import { SurroundingPairInfo } from "./extractSelectionFromSurroundingPairOffsets";
 import { findSurroundingPairParseTreeBased } from "./findSurroundingPairParseTreeBased";
 import { findSurroundingPairTextBased } from "./findSurroundingPairTextBased";
